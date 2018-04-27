@@ -2,6 +2,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 const { makeExecutableSchema } = require('graphql-tools')
+const PORT = 3000
+const HOST = '0.0.0.0'
 
 // Some fake data
 const books = [
@@ -42,6 +44,6 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }))
 
 // Start the server
-app.listen(3000, () => {
-  console.log('Go to http://localhost:3000/graphiql to run queries!')
+app.listen(PORT, HOST, () => {
+  console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`)
 })
