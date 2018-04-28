@@ -21,6 +21,14 @@ npm start
 
 ---
 
+## docker compose
+
+```bash
+docker-compose -f ./docker-compose.local.yml up --build
+```
+
+---
+
 ## Contribution
 
 Voir `contributing.md` (en anglais) pour plus d'infos.

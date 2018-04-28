@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+
+  api:
+    build: .
+    volumes:
+      - ./:/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: development
+    command: npx nodemon app/index.js
+
+  mongo:
+    image: mongo
+    volumes:
+      - ./data/db:/data/db

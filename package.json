@@ -2,15 +2,15 @@
   "name": "camino-api",
   "version": "0.1.0",
   "description": "Camino api",
-  "main": "server.js",
+  "main": "app/index.js",
   "babel": {
     "presets": [
       "@babel/preset-env"
     ]
   },
   "scripts": {
-    "dev": "nodemon ./server.js",
-    "start": "node ./server.js"
+    "dev": "nodemon ./app/index.js",
+    "start": "node ./app/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "apollo-server-express": "^1.3.6",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+    "create-ssl-certificate": "^2.0.4",
     "express": "^4.16.3",
     "graphql": "^0.13.2",
     "graphql-tools": "^3.0.0",

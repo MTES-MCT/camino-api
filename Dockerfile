@@ -7,10 +7,6 @@ LABEL maintainer=francois.romain@beta.gouv.fr
 # NodeJS / Docker - Best Practices
 # @see https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md
 
-# to install global npm dependencies
-# ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-# ENV PATH=$PATH:/home/node/.npm-global/bin
-
 # ENV NODE_ENV production
 ENV dir /api
 WORKDIR $dir
@@ -20,11 +16,9 @@ WORKDIR $dir
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
-COPY . $dir
-EXPOSE 3000
+COPY package*.json $dir/
+COPY app/ $dir/
 
-# !!! DO NOT RUN AS `ROOT` !!!
-USER node
 CMD ["npm", "start"]
 
 # build

@@ -3,10 +3,7 @@
     "checkJs": true,
     "target": "es2017",
     "baseUrl": ".",
-    "paths": {
-      "~/*": ["./src/*"]
-    },
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", "**/node_modules/*", "dist", "example/dist"]
+  "exclude": ["node_modules", "**/node_modules/*"]
 }
