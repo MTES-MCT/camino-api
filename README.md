@@ -1,36 +1,40 @@
-# apollo-tutorial-kit
+# Camino API
 
-Starting point for the Apollo GraphQL Server tutorial.
+Application en cours de développement, provisoirement accessible [ici](https://camino.site).
 
-Follow along with the tutorial in the blog post: [How to build a GraphQL server](https://medium.com/apollo-stack/tutorial-building-a-graphql-server-cddaa023c035#.wy5h1htxs). If you want to skip ahead to the solution, check out the [server-tutorial-solution](https://github.com/apollographql/apollo-tutorial-kit/tree/server-tutorial-solution) branch of this repo.
+Plus d'infos sur le projet [ici](http://camino.beta.gouv.fr/).
 
-Up-to-date documentation and explanations can be found in the [Apollo Server docs](https://www.apollographql.com/docs/apollo-server/)
+---
 
-## Getting started
+## Npm scripts
 
 ```bash
-git clone https://github.com/apollostack/apollo-starter-kit
-cd apollo-starter-kit
+# Install dependencies.
 npm install
+
+# Start server with nodemon
+npm run dev
+
+# Start server with node
 npm start
 ```
 
-Then open [http://localhost:3000/graphiql](http://localhost:3000/graphiql)
+---
 
-When you paste this on the left side of the page:
+## Contribution
 
-```graphql
-{
-  testString
-}
-```
+Voir `contributing.md` (en anglais) pour plus d'infos.
 
-and hit the play button (cmd-return), then you should get this on the right side:
+---
 
-```json
-{
-  "data": {
-    "testString": "It works!"
-  }
-}
-```
+## Credits
+
+#### Production
+
+* [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
+
+#### Équipe
+
+* Guillaume Levieux, intrapreneur
+* Joeffrey Arruyer, coach
+* [François Romain](http://francoisromain.com), dévelopeur
