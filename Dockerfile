@@ -11,8 +11,8 @@ LABEL maintainer=francois.romain@beta.gouv.fr
 # ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 # ENV PATH=$PATH:/home/node/.npm-global/bin
 
-ENV NODE_ENV production
-ENV dir /home/camino/api
+# ENV NODE_ENV production
+ENV dir /api
 WORKDIR $dir
 
 # cache node_modules if no changes to package.json
@@ -31,4 +31,4 @@ CMD ["npm", "start"]
 # docker build --no-cache -t camino-api .
 
 # run 
-# docker run -p 3000:3000 camino-api
+# docker run -p 3000:3000 -u node camino-api

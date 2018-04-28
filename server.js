@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express')
 const { makeExecutableSchema } = require('graphql-tools')
 const PORT = 3000
@@ -8,7 +9,7 @@ const HOST = '0.0.0.0'
 // Some fake data
 const books = [
   {
-    title: "Harry Potter and the Sorcerer's stone",
+    title: "Harry Pooter and the Sorcerer's stone",
     author: 'J.K. Rowling'
   },
   {
