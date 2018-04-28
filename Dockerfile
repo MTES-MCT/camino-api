@@ -28,7 +28,7 @@ USER node
 CMD ["npm", "start"]
 
 # build
-# docker build --no-cache -t fr/camino-api .
+# docker build --no-cache -t camino-api .
 
 # run 
-# docker run -p 3000:3000 fr/camino-api
+# docker run -p 3000:3000 camino-api
