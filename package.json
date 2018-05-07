@@ -9,8 +9,8 @@
     ]
   },
   "scripts": {
-    "dev": "nodemon ./app/index.js",
-    "start": "node ./app/index.js"
+    "dev": "nodemon ./index.js",
+    "start": "node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -23,24 +23,23 @@
   },
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
-    "apollo-server-express": "^1.3.6",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "create-ssl-certificate": "^2.0.4",
     "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
     "graphql": "^0.13.2",
-    "graphql-tools": "^3.0.0",
-    "mongoose": "^5.0.16"
+    "mongoose": "^5.0.17"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-config-standard": "^11.0.0",
+    "eslint-config-standard": "^12.0.0-alpha.0",
     "eslint-plugin-compat": "^2.2.0",
     "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.17.4"
   }
 }
