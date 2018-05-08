@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 const titleSchema = new mongoose.Schema(
   {
-    id: Number,
-    name: String
+    nom: String,
+    auteur: String
   },
-  { collection: 'titles' }
+  { collection: 'titres' }
 )
 
 module.exports = mongoose.model('Title', titleSchema)

@@ -3,17 +3,29 @@ const { buildSchema } = require('graphql')
 // The GraphQL schema in string form
 const schemas = buildSchema(`
   type Query {
-    titres: [Title]
-    titre(name: String!): Title
+
+    "Propriétés d'une liste de titres"
+    titres: [Titre]
+
+    "Propriétés d'un titre"
+    titre(nom: String!): Titre
   }
 
-  type Title {
-    name: String
-    author: String
+  "Titre minier"
+  type Titre {
+
+    "Nom du titre"
+    nom: String
+    
+    "Auteur du titre"
+    auteur: String
+
+    "ID du titre"
+    _id: ID
   }
 
   type Mutation {
-    setTitle(name: String!): String
+    titre_ajouter(nom: String!): Titre
   }
 `)
 
