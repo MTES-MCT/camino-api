@@ -1,25 +1,14 @@
-const express = require('express')
-// const bodyParser = require('body-parser')
-const graphqlHTTP = require('express-graphql')
+const { ApolloServer } = require('apollo-server')
 
-const { HOST, PORT, PATH, URL } = require('./config')
+const { port, host, virtualUrl } = require('./config')
 const databaseConnect = require('./database/connect')
-const schemas = require('./graphql/schemas')
+const typeDefs = require('./graphql/schemas')
 const resolvers = require('./graphql/resolvers')
-
-const app = express()
 
 databaseConnect()
 
-app.use(
-  `/${PATH}`,
-  graphqlHTTP({
-    schema: schemas,
-    rootValue: resolvers,
-    graphiql: true
-  })
-)
+const server = new ApolloServer({ typeDefs, resolvers })
 
-app.listen(PORT, HOST, () => {
-  console.log(`Go to ${URL} to run queries!`)
+server.listen({ port, host }).then(({ url }) => {
+  console.log(`🚀 Server ready at ${virtualUrl || url}`)
 })

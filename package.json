@@ -23,11 +23,7 @@
   },
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "cors": "^2.8.4",
-    "create-ssl-certificate": "^2.0.4",
-    "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
+    "apollo-server": "^2.0.0-beta.1",
     "graphql": "^0.13.2",
     "mongoose": "^5.0.17"
   },
