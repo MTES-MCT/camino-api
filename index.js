@@ -1,11 +1,8 @@
+require('./mongoose/index')
 const { ApolloServer } = require('apollo-server')
-
-const { port, host, virtualUrl } = require('./config')
-const databaseConnect = require('./database/connect')
+const { port, host, virtualUrl } = require('./conf/index')
 const typeDefs = require('./graphql/schemas')
 const resolvers = require('./graphql/resolvers')
-
-databaseConnect()
 
 const server = new ApolloServer({ typeDefs, resolvers })
 

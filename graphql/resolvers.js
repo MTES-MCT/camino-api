@@ -1,4 +1,4 @@
-const TitlesModel = require('../database/models/titles')
+const TitlesModel = require('../mongoose/models/titles')
 
 const resolvers = {
   Query: {
@@ -11,8 +11,9 @@ const resolvers = {
   },
 
   Mutation: {
-    titre_ajouter: ({ nom }) => {
-      const t = new TitlesModel({ nom })
+    titre_ajouter: (parent, { id }) => {
+      console.log('--------', parent)
+      const t = new TitlesModel({ _id: id })
       return new Promise((resolve, reject) => {
         t.save((err, t) => {
           if (err) reject(err)

@@ -22,7 +22,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    titre_ajouter(nom: String!): Titre
+    titre_ajouter(id: ID!): Titre
   }
 `
 
