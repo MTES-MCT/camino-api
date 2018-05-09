@@ -2,8 +2,11 @@ const TitlesModel = require('../mongoose/models/titles')
 
 const resolvers = {
   Query: {
-    titre({ nom }) {
-      return TitlesModel.find({ nom })
+    titre(parent, { id }) {
+      return TitlesModel.findById(id, (err, t) => {
+        if (err) throw err
+        return t
+      })
     },
     titres() {
       return TitlesModel.find({})
@@ -11,26 +14,21 @@ const resolvers = {
   },
 
   Mutation: {
-    titreAjouter: (parent, { id, nom }) =>
-      new Promise((resolve, reject) => {
-        const t = new TitlesModel({ id, nom })
-        t.save((err, t) => {
-          if (err) reject(err)
-          else resolve(t)
-        })
-      }),
-    titreModifier: (parent, { id, nom }) =>
-      new Promise((resolve, reject) => {
-        TitlesModel.findByIdAndUpdate(
-          id,
-          { $set: { nom } },
-          { new: true },
-          (err, t) => {
-            if (err) reject(err)
-            else resolve(t)
-          }
-        )
-      })
+    titreAjouter(parent, { id, nom }) {
+      const t = new TitlesModel({ id, nom })
+      return t.save().then(t => t, err => err)
+    },
+    titreModifier(parent, { id, nom }) {
+      return TitlesModel.findByIdAndUpdate(
+        id,
+        { $set: { nom } },
+        { new: true },
+        (err, t) => {
+          if (err) throw err
+          return t
+        }
+      )
+    }
   }
 }
 

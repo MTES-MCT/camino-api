@@ -38,7 +38,7 @@ const typeDefs = gql`
     titres: [Titre]
 
     "Propriétés d'un titre"
-    titre(nom: String!): Titre
+    titre(id: String!): Titre
   }
 
   type Mutation {
