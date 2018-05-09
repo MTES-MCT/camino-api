@@ -12,7 +12,6 @@ const resolvers = {
 
   Mutation: {
     titre_ajouter: (parent, { id }) => {
-      console.log('--------', parent)
       const t = new TitlesModel({ _id: id })
       return new Promise((resolve, reject) => {
         t.save((err, t) => {

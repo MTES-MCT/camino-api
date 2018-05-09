@@ -12,10 +12,10 @@ services:
     environment:
       NODE_ENV: development
       VIRTUAL_HOST: api.camino.local
-      VIRTUAL_PORT: 3000
+      VIRTUAL_PORT: 4000
       DB_HOST: mongo
     expose:
-      - 3000
+      - 4000
     command: npm run dev
 
   mongo:
