@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const url = 'mongodb://mongo:27017/camino'
+const { host } = require('../conf/mongo')
+const url = `mongodb://${host}:27017/camino`
 const db = mongoose.connection
 
 mongoose.connect(url)
