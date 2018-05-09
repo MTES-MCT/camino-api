@@ -14,14 +14,14 @@ const resolvers = {
   },
 
   Mutation: {
-    titreAjouter(parent, { id, nom }) {
-      const t = new TitlesModel({ id, nom })
+    titreAjouter(parent, { titre }) {
+      const t = new TitlesModel(titre)
       return t.save().then(t => t, err => err)
     },
-    titreModifier(parent, { id, nom }) {
+    titreModifier(parent, { titre }) {
       return TitlesModel.findByIdAndUpdate(
-        id,
-        { $set: { nom } },
+        titre.id,
+        { $set: { nom: titre.nom } },
         { new: true },
         (err, t) => {
           if (err) throw err

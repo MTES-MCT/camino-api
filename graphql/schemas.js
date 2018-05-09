@@ -33,6 +33,14 @@ const typeDefs = gql`
     nom: String!
   }
 
+  input TitreInput {
+    "ID du titre"
+    id: ID!
+
+    "Nom du titre"
+    nom: String!
+  }
+
   type Query {
     "Propriétés d'une liste de titres"
     titres: [Titre]
@@ -42,9 +50,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    titreAjouter(id: ID!, nom: String!): Titre
+    titreAjouter(titre: TitreInput!): Titre
 
-    titreModifier(id: ID!, nom: String!): Titre
+    titreModifier(titre: TitreInput!): Titre
   }
 `
 
