@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const { host } = require('../conf/mongo')
-const url = `mongodb://${host}:27017/camino`
+const { host, port, dbName } = require('../conf/mongo')
+const url = `mongodb://${host}:${port}/${dbName}`
 const db = mongoose.connection
 
 mongoose.connect(url)

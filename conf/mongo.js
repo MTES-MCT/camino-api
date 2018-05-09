@@ -1,5 +1,5 @@
-const host = process.env.DB_HOST || 'localhost'
-
 module.exports = {
-  host
+  host: process.env.DB_HOST || 'localhost',
+  port: 27017,
+  dbName: 'camino'
 }
