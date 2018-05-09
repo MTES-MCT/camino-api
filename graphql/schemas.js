@@ -3,14 +3,34 @@ const { gql } = require('apollo-server')
 const typeDefs = gql`
   "Titre minier"
   type Titre {
-    "Nom du titre"
-    nom: String
-
-    "Auteur du titre"
-    auteur: String
-
     "ID du titre"
-    _id: ID
+    id: ID!
+
+    "Nom du titre"
+    nom: String!
+
+    "Type de titre"
+    type: Type!
+
+    statut: Statut!
+
+    travaux: Travaux!
+  }
+
+  type Type {
+    id: ID!
+    nom: String!
+    code: String!
+  }
+
+  type Statut {
+    id: ID!
+    nom: String!
+  }
+
+  type Travaux {
+    id: ID!
+    nom: String!
   }
 
   type Query {
@@ -22,7 +42,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    titre_ajouter(id: ID!): Titre
+    titreAjouter(id: ID!, nom: String!): Titre
+
+    titreModifier(id: ID!, nom: String!): Titre
   }
 `
 

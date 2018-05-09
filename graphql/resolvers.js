@@ -11,15 +11,26 @@ const resolvers = {
   },
 
   Mutation: {
-    titre_ajouter: (parent, { id }) => {
-      const t = new TitlesModel({ _id: id })
-      return new Promise((resolve, reject) => {
+    titreAjouter: (parent, { id, nom }) =>
+      new Promise((resolve, reject) => {
+        const t = new TitlesModel({ id, nom })
         t.save((err, t) => {
           if (err) reject(err)
           else resolve(t)
         })
+      }),
+    titreModifier: (parent, { id, nom }) =>
+      new Promise((resolve, reject) => {
+        TitlesModel.findByIdAndUpdate(
+          id,
+          { $set: { nom } },
+          { new: true },
+          (err, t) => {
+            if (err) reject(err)
+            else resolve(t)
+          }
+        )
       })
-    }
   }
 }
 

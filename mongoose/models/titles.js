@@ -5,10 +5,17 @@ const titleSchema = new mongoose.Schema(
     _id: {
       type: String,
       lowercase: true,
+      required: true,
+      alias: 'id'
+    },
+    nom: {
+      type: String,
+      lowercase: true,
       required: true
     },
-    nom: String,
-    auteur: String
+    type: {
+      type: String
+    }
   },
   { collection: 'titres' }
 )
