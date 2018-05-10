@@ -1,26 +1,33 @@
 const { gql } = require('apollo-server')
 
 const typeDefs = gql`
-  "Titre minier"
-  type Titre {
-    "ID du titre"
-    id: ID!
+  type Query {
+    "Une liste de titres"
+    titres(type: [Type], domaine: [Domaine]): [Titre]
 
-    "Nom du titre"
-    nom: String!
-
-    "Type de titre"
-    type: Type!
-
-    statut: Statut!
-
-    travaux: Travaux!
+    "Un titre"
+    titre(id: String!): Titre
   }
 
-  type Type {
+  "Titre minier"
+  type Titre {
     id: ID!
     nom: String!
-    code: String!
+    type: Type!
+    domaine: Domaine!
+  }
+
+  enum Type {
+    aex
+    con
+    per
+  }
+
+  enum Domaine {
+    m
+    h
+    s
+    g
   }
 
   type Statut {
@@ -33,26 +40,29 @@ const typeDefs = gql`
     nom: String!
   }
 
-  input TitreInput {
-    "ID du titre"
-    id: ID!
-
-    "Nom du titre"
-    nom: String!
-  }
-
-  type Query {
-    "Propriétés d'une liste de titres"
-    titres: [Titre]
-
-    "Propriétés d'un titre"
-    titre(id: String!): Titre
-  }
-
   type Mutation {
     titreAjouter(titre: TitreInput!): Titre
 
+    titreSupprimer(id: ID!): Titre
+
     titreModifier(titre: TitreInput!): Titre
+  }
+
+  input TitreInput {
+    id: ID!
+    nom: String!
+    type: Type!
+    domaine: Domaine!
+  }
+
+  input StatutInput {
+    id: ID!
+    nom: String!
+  }
+
+  input TravauxInput {
+    id: ID!
+    nom: String!
   }
 `
 
