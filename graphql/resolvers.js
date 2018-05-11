@@ -10,7 +10,6 @@ const resolvers = {
     },
 
     titres(root, { type, domaine }) {
-      console.log('t', type)
       return TitlesModel.find({
         type: { $in: type },
         domaine: { $in: domaine }
@@ -34,7 +33,7 @@ const resolvers = {
     titreModifier(parent, { titre }) {
       return TitlesModel.findByIdAndUpdate(
         titre.id,
-        { $set: { nom: titre.nom } },
+        { $set: titre },
         { new: true },
         (err, t) => {
           if (err) throw err
