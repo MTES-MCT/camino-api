@@ -1,4 +1,5 @@
 const TitlesModel = require('../mongoose/models/titles')
+const { Statut, Travaux } = require('./types')
 
 const resolvers = {
   Query: {
@@ -41,7 +42,11 @@ const resolvers = {
         }
       )
     }
-  }
+  },
+
+  Statut,
+
+  Travaux
 }
 
 module.exports = resolvers

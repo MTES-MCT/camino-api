@@ -9,7 +9,6 @@ const titleSchema = new mongoose.Schema({
   },
   nom: {
     type: String,
-    lowercase: true,
     required: true
   },
   type: {
@@ -23,7 +22,19 @@ const titleSchema = new mongoose.Schema({
     enum: ['m', 'h', 's', 'g'],
     lowercase: true,
     required: true
+  },
+  statut: {
+    type: String,
+    enum: ['en instruction', 'valide', 'échu'],
+    lowercase: true,
+    required: true
   }
+  // travaux: {
+  //   type: String,
+  //   enum: ['en', 'enc', 'ech'],
+  //   lowercase: true,
+  //   required: true
+  // }
 })
 
 module.exports = mongoose.model('titre', titleSchema)
