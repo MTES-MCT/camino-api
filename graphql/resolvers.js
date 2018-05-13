@@ -1,5 +1,5 @@
 const TitlesModel = require('../mongoose/models/titles')
-const { Statut, Travaux } = require('./types')
+const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
 const resolvers = {
   Query: {
@@ -10,10 +10,11 @@ const resolvers = {
       })
     },
 
-    titres(root, { type, domaine }) {
+    titres(root, { typeId, domaineId, travauxId }) {
       return TitlesModel.find({
-        type: { $in: type },
-        domaine: { $in: domaine }
+        'type._id': { $in: typeId },
+        'domaine._id': { $in: domaineId },
+        'travaux._id': { $in: travauxId }
       })
     }
   },
@@ -44,9 +45,11 @@ const resolvers = {
     }
   },
 
-  Statut,
+  DomaineNom,
 
-  Travaux
+  TypeNom,
+
+  StatutNom
 }
 
 module.exports = resolvers

@@ -17,34 +17,50 @@ const makeCustomEnumScalar = (name, description, validValues) => {
   })
 }
 
-const statutDescription = `
+const TypeNom = makeCustomEnumScalar(
+  'TypeNom',
+  `
+- autorisation d'exploitation
+- concession
+- permis exclusif de recherches
+`,
+  ["autorisation d'exploitation", 'concession', 'permis exclusif de recherches']
+)
+
+const DomaineNom = makeCustomEnumScalar(
+  'DomaineNom',
+  `
+- minéraux et métaux
+- substances énergétiques
+- stockage
+- géothermie
+`,
+  ['minéraux et métaux', 'substances énergétiques', 'stockage', 'géothermie']
+)
+
+const StatutNom = makeCustomEnumScalar(
+  'StatutNom',
+  `
   - en instruction
   - valide 
   - échu
-`
+`,
+  ['en instruction', 'valide', 'échu']
+)
 
-const Statut = makeCustomEnumScalar('Statut', statutDescription, [
-  'en instruction',
-  'valide',
-  'échu'
-])
-
-const Travaux = new GraphQLEnumType({
-  name: 'Travaux',
-  values: {
-    ins: { value: 'en instruction' },
-    val: { value: 'valide' },
-    ech: { value: 'échu' }
-  }
-})
-
-// const Travaux = {
-//   ins: 'en instruction',
-//   val: 'valide',
-//   ech: 'échu'
-// }
+const TravauxNom = makeCustomEnumScalar(
+  'StatutNom',
+  `
+  - en instruction
+  - en cours 
+  - achevés
+`,
+  ['en instruction', 'en cours', 'achevés']
+)
 
 module.exports = {
-  Statut,
-  Travaux
+  TypeNom,
+  DomaineNom,
+  StatutNom,
+  TravauxNom
 }
