@@ -57,6 +57,22 @@ const statusSchema = new mongoose.Schema({
   }
 })
 
+const travauxSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    enum: ['ins', 'enc', 'ach'],
+    lowercase: true,
+    required: true,
+    alias: 'id'
+  },
+  nom: {
+    type: String,
+    enum: ['en instruction', 'en cours', 'achevés'],
+    lowercase: true,
+    required: true
+  }
+})
+
 const titleSchema = new mongoose.Schema({
   _id: {
     type: String,
@@ -71,12 +87,7 @@ const titleSchema = new mongoose.Schema({
   type: typeSchema,
   domaine: domainSchema,
   statut: statusSchema,
-  travaux: {
-    type: String,
-    enum: ['ins', 'val', 'ech'],
-    lowercase: true,
-    required: true
-  }
+  travaux: travauxSchema
 })
 
 module.exports = mongoose.model('Titre', titleSchema)

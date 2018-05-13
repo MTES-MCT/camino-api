@@ -10,10 +10,11 @@ const resolvers = {
       })
     },
 
-    titres(root, { typeId, domaineId, travauxId }) {
+    titres(root, { typeId, domaineId, statutId, travauxId }) {
       return TitlesModel.find({
         'type._id': { $in: typeId },
         'domaine._id': { $in: domaineId },
+        'statut._id': { $in: statutId },
         'travaux._id': { $in: travauxId }
       })
     }
