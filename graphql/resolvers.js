@@ -1,4 +1,7 @@
 const TitlesModel = require('../mongoose/models/titles')
+const SubstancesModel = require('../mongoose/models/substances')
+require('../mongoose/models/substances-legal')
+
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
 const resolvers = {
@@ -17,6 +20,10 @@ const resolvers = {
         'statut._id': { $in: statutId },
         'travaux._id': { $in: travauxId }
       })
+    },
+
+    substances(root, { typeId, domaineId, statutId, travauxId }) {
+      return SubstancesModel.find().populate('legal')
     }
   },
 

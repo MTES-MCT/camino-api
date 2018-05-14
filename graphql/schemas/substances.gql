@@ -1,0 +1,39 @@
+type Substance {
+  id: ID!
+  nom: String!
+  domaine: String!
+  type: String!
+  usage: String!
+  symbole: String
+  alias: [String]
+  gerep: Int
+  description: String
+  legal: Legal!
+}
+
+type Legal {
+  id: ID!
+  nom: String!
+  description: String!
+  lien: String!
+}
+
+input SubstanceInput {
+  id: ID!
+  nom: String!
+  domaine: String!
+  type: String!
+  usage: String!
+  symbole: String
+  alias: [String]
+  gerep: Int
+  description: String
+  legal: LegalInput!
+}
+
+input LegalInput {
+  id: ID!
+  nom: String!
+  description: String!
+  lien: String!
+}

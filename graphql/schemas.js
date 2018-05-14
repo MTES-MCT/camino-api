@@ -7,6 +7,11 @@ const titles = fs.readFileSync(
   'utf8'
 )
 
+const substances = fs.readFileSync(
+  path.join(__dirname, 'schemas/substances.gql'),
+  'utf8'
+)
+
 const typeDefs = gql`
   type Query {
     "Liste de titres"
@@ -19,6 +24,8 @@ const typeDefs = gql`
 
     "Un titre"
     titre(id: String!): Titre
+
+    substances: [Substance]
   }
 
   type Mutation {
@@ -30,6 +37,8 @@ const typeDefs = gql`
   }
 
   ${titles}
+
+  ${substances}
 `
 
 module.exports = typeDefs
