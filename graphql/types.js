@@ -1,4 +1,4 @@
-const { GraphQLScalarType, GraphQLEnumType } = require('graphql/type')
+const { GraphQLScalarType } = require('graphql/type')
 
 const makeCustomEnumScalar = (name, description, validValues) => {
   const checkValue = value => {

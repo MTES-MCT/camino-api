@@ -1,7 +1,7 @@
-require('../mongoose/index')
+require('../../mongoose/index')
 
 module.exports = name => {
-  const Model = require(`../mongoose/models/${name}`)
+  const Model = require(`../../mongoose/models/${name}`)
 
   const elements = require(`../sources/${name}.json`)
 

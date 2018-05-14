@@ -1,16 +1,8 @@
-const fs = require('fs')
-const path = require('path')
 const { gql } = require('apollo-server')
+const fileImport = require('../utils/file-import.js')
 
-const titles = fs.readFileSync(
-  path.join(__dirname, 'schemas/titles.gql'),
-  'utf8'
-)
-
-const substances = fs.readFileSync(
-  path.join(__dirname, 'schemas/substances.gql'),
-  'utf8'
-)
+const titleSchema = fileImport(__dirname, 'schemas/title.gql')
+const substanceSchema = fileImport(__dirname, 'schemas/substance.gql')
 
 const typeDefs = gql`
   type Query {
@@ -36,9 +28,9 @@ const typeDefs = gql`
     titreModifier(titre: InputTitre!): Titre
   }
 
-  ${titles}
+  ${titleSchema}
 
-  ${substances}
+  ${substanceSchema}
 `
 
 module.exports = typeDefs
