@@ -87,7 +87,16 @@ const titleSchema = new mongoose.Schema({
   type: typeSchema,
   domaine: domainSchema,
   statut: statusSchema,
-  travaux: travauxSchema
+  travaux: travauxSchema,
+  substances: {
+    principales: [
+      {
+        type: String,
+        required: true,
+        ref: 'Substance'
+      }
+    ]
+  }
 })
 
 module.exports = mongoose.model('Titre', titleSchema)

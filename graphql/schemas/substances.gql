@@ -18,7 +18,7 @@ type Legal {
   lien: String!
 }
 
-input SubstanceInput {
+input InputSubstance {
   id: ID!
   nom: String!
   domaine: String!
@@ -28,10 +28,14 @@ input SubstanceInput {
   alias: [String]
   gerep: Int
   description: String
-  legal: LegalInput!
+  legal: InputLegal!
 }
 
-input LegalInput {
+input InputSubstanceId {
+  id: ID!
+}
+
+input InputLegal {
   id: ID!
   nom: String!
   description: String!

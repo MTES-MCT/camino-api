@@ -13,6 +13,7 @@ type Titre {
   domaine: Domaine!
   statut: Statut!
   travaux: Travaux!
+  substances: Substances
 }
 
 type Type {
@@ -35,8 +36,13 @@ type Travaux {
   nom: TravauxNom!
 }
 
+type Substances {
+  principales: [Substance]
+  connexes: [Substance]
+}
+
 "tauuust"
-input TitreInput {
+input InputTitre {
   """
   L'__id__ du titre est constituée de la concaténation:
   - du type en 3 lettres.
@@ -46,30 +52,36 @@ input TitreInput {
   """
   id: ID!
   nom: String!
-  type: TypeInput!
-  domaine: DomaineInput!
-  statut: StatutInput!
-  travaux: TravauxInput!
+  type: InputType!
+  domaine: InputDomaine!
+  statut: InputStatut!
+  travaux: InputTravaux!
+  substances: InputSubstances
 }
 
-input TypeInput {
+input InputType {
   id: TypeId!
   nom: TypeNom!
 }
 
-input DomaineInput {
+input InputDomaine {
   id: DomaineId!
   nom: DomaineNom!
 }
 
-input StatutInput {
+input InputStatut {
   id: StatutId!
   nom: StatutNom!
 }
 
-input TravauxInput {
+input InputTravaux {
   id: TravauxId!
   nom: TravauxNom!
+}
+
+input InputSubstances {
+  principales: [ID!]
+  connexes: [ID!]
 }
 
 """

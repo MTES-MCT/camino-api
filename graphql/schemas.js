@@ -29,11 +29,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    titreAjouter(titre: TitreInput!): Titre
+    titreAjouter(titre: InputTitre!): Titre
 
     titreSupprimer(id: ID!): Titre
 
-    titreModifier(titre: TitreInput!): Titre
+    titreModifier(titre: InputTitre!): Titre
   }
 
   ${titles}

@@ -7,9 +7,9 @@ const { TypeNom, DomaineNom, StatutNom } = require('./types')
 const resolvers = {
   Query: {
     titre(root, { id }) {
-      return TitlesModel.findById(id, (err, t) => {
-        if (err) throw err
-        return t
+      return TitlesModel.findById(id).populate({
+        path: 'substances.principales',
+        populate: { path: 'legal' }
       })
     },
 
@@ -19,6 +19,9 @@ const resolvers = {
         'domaine._id': { $in: domaineId },
         'statut._id': { $in: statutId },
         'travaux._id': { $in: travauxId }
+      }).populate({
+        path: 'substances.principales',
+        populate: { path: 'legal' }
       })
     },
 
@@ -30,7 +33,14 @@ const resolvers = {
   Mutation: {
     titreAjouter(parent, { titre }) {
       const t = new TitlesModel(titre)
-      return t.save().then(t => t, err => err)
+      return t.save().then(t =>
+        t
+          .populate({
+            path: 'substances.principales',
+            populate: { path: 'legal' }
+          })
+          .execPopulate()
+      )
     },
 
     titreSupprimer(parent, { id }) {
