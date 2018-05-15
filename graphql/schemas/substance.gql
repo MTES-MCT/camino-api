@@ -31,10 +31,6 @@ input InputSubstance {
   legal: InputLegal!
 }
 
-input InputSubstanceId {
-  id: ID!
-}
-
 input InputLegal {
   id: ID!
   nom: String!
