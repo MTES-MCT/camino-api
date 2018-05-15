@@ -73,30 +73,42 @@ const travauxSchema = new mongoose.Schema({
   }
 })
 
-const titleSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    lowercase: true,
-    required: true,
-    alias: 'id'
-  },
-  nom: {
-    type: String,
-    required: true
-  },
-  type: typeSchema,
-  domaine: domainSchema,
-  statut: statusSchema,
-  travaux: travauxSchema,
-  substances: {
-    principales: [
+const titleSchema = new mongoose.Schema(
+  {
+    _id: {
+      type: String,
+      lowercase: true,
+      required: true,
+      alias: 'id'
+    },
+    nom: {
+      type: String,
+      required: true
+    },
+    type: typeSchema,
+    domaine: domainSchema,
+    statut: statusSchema,
+    travaux: travauxSchema,
+    substances: {
+      principales: [
+        {
+          type: String,
+          required: true,
+          ref: 'Substance'
+        }
+      ]
+    },
+    references: [
       {
         type: String,
-        required: true,
-        ref: 'Substance'
+        valeur: {
+          type: String,
+          required: true
+        }
       }
     ]
-  }
-})
+  },
+  { timestamps: true }
+)
 
 module.exports = mongoose.model('Titre', titleSchema)

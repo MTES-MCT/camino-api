@@ -14,6 +14,7 @@ type Titre {
   statut: Statut!
   travaux: Travaux!
   substances: Substances
+  references: [Reference]
 }
 
 type Type {
@@ -39,6 +40,11 @@ type Travaux {
 type Substances {
   principales: [Substance]
   connexes: [Substance]
+}
+
+type Reference {
+  type: String
+  valeur: String!
 }
 
 "tauuust"
