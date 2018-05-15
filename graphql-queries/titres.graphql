@@ -1,0 +1,50 @@
+query Titres {
+  titres(
+    typeId: [aex, con]
+    domaineId: [m, h, s, g]
+    statutId: [ins, val, ech]
+    travauxId: [ins, enc, ach]
+  ) {
+    id
+    nom
+    type {
+      id
+      nom
+    }
+    domaine {
+      id
+      nom
+    }
+    statut {
+      id
+      nom
+    }
+    travaux {
+      id
+      nom
+    }
+    substances {
+      principales {
+        ...sub
+      }
+    }
+  }
+}
+
+fragment sub on Substance {
+  id
+  nom
+  domaine
+  type
+  usage
+  symbole
+  alias
+  gerep
+  description
+  legal {
+    id
+    nom
+    description
+    lien
+  }
+}

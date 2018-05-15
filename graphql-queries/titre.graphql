@@ -1,0 +1,28 @@
+query Titre($id: String!) {
+  titre(id: $id) {
+    nom
+    id
+    type {
+      id
+      nom
+    }
+    domaine {
+      id
+      nom
+    }
+    statut {
+      id
+      nom
+    }
+    travaux {
+      id
+      nom
+    }
+    substances {
+      principales {
+        id
+        nom
+      }
+    }
+  }
+}

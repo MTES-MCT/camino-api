@@ -1,0 +1,19 @@
+query Substances {
+  substances {
+    id
+    nom
+    domaine
+    type
+    usage
+    symbole
+    alias
+    gerep
+    description
+    legal {
+      id
+      nom
+      description
+      lien
+    }
+  }
+}
