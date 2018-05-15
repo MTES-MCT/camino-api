@@ -44,7 +44,7 @@ type Substances {
 
 type Reference {
   type: String
-  valeur: String!
+  nom: String!
 }
 
 "tauuust"
@@ -63,6 +63,7 @@ input InputTitre {
   statut: InputStatut!
   travaux: InputTravaux!
   substances: InputSubstances
+  references: [InputReference]
 }
 
 input InputType {
@@ -88,6 +89,11 @@ input InputTravaux {
 input InputSubstances {
   principales: [ID!]
   connexes: [ID!]
+}
+
+input InputReference {
+  type: String
+  nom: String!
 }
 
 """

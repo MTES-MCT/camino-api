@@ -73,6 +73,14 @@ const travauxSchema = new mongoose.Schema({
   }
 })
 
+const referenceSchema = new mongoose.Schema({
+  type: String,
+  nom: {
+    type: String,
+    required: true
+  }
+})
+
 const titleSchema = new mongoose.Schema(
   {
     _id: {
@@ -96,17 +104,16 @@ const titleSchema = new mongoose.Schema(
           required: true,
           ref: 'Substance'
         }
+      ],
+      connexes: [
+        {
+          type: String,
+          required: true,
+          ref: 'Substance'
+        }
       ]
     },
-    references: [
-      {
-        type: String,
-        valeur: {
-          type: String,
-          required: true
-        }
-      }
-    ]
+    references: [referenceSchema]
   },
   { timestamps: true }
 )
