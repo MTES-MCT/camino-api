@@ -12,8 +12,7 @@ services:
       LETSENCRYPT_HOST: api.camino.site
       LETSENCRYPT_EMAIL: api.camino.site
     expose:
-      - "80"
-      - "443"
+      - "4000"
 
   mongo:
     image: mongo
