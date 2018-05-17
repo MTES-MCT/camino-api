@@ -19,7 +19,7 @@ services:
     command: npm run dev
 
   mongo:
-    image: mongo
+    image: mongo:3.6.4
     expose:
       - 27017
     volumes:

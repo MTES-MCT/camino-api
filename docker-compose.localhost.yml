@@ -3,18 +3,20 @@ version: "3"
 services:
 
   api:
-    build: .
+    image: node:alpine
     volumes:
       - ./:/api
+    working_dir: /api
     ports:
       - "4000:4000"
     depends_on:
       - mongo
     environment:
       NODE_ENV: development
-    command: npx nodemon app/index.js
+      DB_HOST: mongo
+    command: npm run dev
 
   mongo:
-    image: mongo
+    image: mongo:3.6.4
     volumes:
       - ./data/db:/data/db
