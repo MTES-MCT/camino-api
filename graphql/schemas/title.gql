@@ -15,6 +15,7 @@ type Titre {
   travaux: Travaux!
   substances: Substances
   references: [Reference]
+  phases: [Phase]
 }
 
 type Type {
@@ -47,6 +48,11 @@ type Reference {
   nom: String!
 }
 
+type Phase {
+  id: PhaseId!
+  nom: PhaseNom!
+}
+
 "tauuust"
 input InputTitre {
   """
@@ -64,6 +70,7 @@ input InputTitre {
   travaux: InputTravaux!
   substances: InputSubstances
   references: [InputReference]
+  phases: [InputPhases]
 }
 
 input InputType {
@@ -94,6 +101,11 @@ input InputSubstances {
 input InputReference {
   type: String
   nom: String!
+}
+
+input InputPhases {
+  id: PhaseId!
+  nom: PhaseNom!
 }
 
 """
@@ -149,3 +161,20 @@ enum TravauxId {
 }
 
 scalar TravauxNom
+
+"""
+- __oct__: Octroi
+- __pr1__: Prolongation 1
+- __pr2__: Prolongation 2
+- __prn__: Prolongation
+- __pre__: Prolongation exceptionnelle
+"""
+enum PhaseId {
+  oct
+  pr1
+  pr2
+  prn
+  pre
+}
+
+scalar PhaseNom

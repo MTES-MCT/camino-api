@@ -81,6 +81,28 @@ const referenceSchema = new mongoose.Schema({
   }
 })
 
+const phaseSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    enum: ['oct', 'pr1', 'pr2', 'prn', 'pre'],
+    lowercase: true,
+    required: true,
+    alias: 'id'
+  },
+  nom: {
+    type: String,
+    enum: [
+      'Octroi',
+      'Prolongation 1',
+      'Prolongation 2',
+      'Prolongation',
+      'Prolongation exceptionnelle'
+    ],
+    lowercase: true,
+    required: true
+  }
+})
+
 const titleSchema = new mongoose.Schema(
   {
     _id: {
@@ -113,7 +135,8 @@ const titleSchema = new mongoose.Schema(
         }
       ]
     },
-    references: [referenceSchema]
+    references: [referenceSchema],
+    phases: [phaseSchema]
   },
   { timestamps: true }
 )

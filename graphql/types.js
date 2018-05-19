@@ -49,7 +49,7 @@ const StatutNom = makeCustomEnumScalar(
 )
 
 const TravauxNom = makeCustomEnumScalar(
-  'StatutNom',
+  'TravauxNom',
   `
   - en instruction
   - en cours 
@@ -58,9 +58,28 @@ const TravauxNom = makeCustomEnumScalar(
   ['en instruction', 'en cours', 'achevés']
 )
 
+const PhaseNom = makeCustomEnumScalar(
+  'PhaseNom',
+  `
+  - Octroi
+  - Prolongation 1
+  - Prolongation 2
+  - Prolongation
+  - Prolongation exceptionnelle
+`,
+  [
+    'Octroi',
+    'Prolongation 1',
+    'Prolongation 2',
+    'Prolongation',
+    'Prolongation exceptionnelle'
+  ]
+)
+
 module.exports = {
   TypeNom,
   DomaineNom,
   StatutNom,
-  TravauxNom
+  TravauxNom,
+  PhaseNom
 }
