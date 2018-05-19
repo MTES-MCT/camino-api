@@ -1,0 +1,38 @@
+mutation {
+  titreAjouter(
+    titre: {
+      id: "qqqtttuuugdgsgvfsgddd"
+      nom: "ghff hfg"
+      type: { id: aex, nom: "concession" }
+      domaine: { id: m, nom: "minéraux et métaux" }
+      statut: { id: val, nom: "valide" }
+      travaux: { id: enc, nom: "en cours" }
+      substances: { principales: ["hydr"] }
+    }
+  ) {
+    nom
+    id
+    type {
+      id
+      nom
+    }
+    domaine {
+      id
+      nom
+    }
+    statut {
+      id
+      nom
+    }
+    travaux {
+      id
+      nom
+    }
+    substances {
+      principales {
+        id
+        nom
+      }
+    }
+  }
+}
