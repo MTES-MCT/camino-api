@@ -3,7 +3,7 @@ const chalk = require('chalk')
 
 module.exports = name => {
   const Model = require(`../../mongoose/models/${name}`)
-  const elements = require(`../imports-sources/${name}.json`)
+  const elements = require(`../imports/sources/${name}.json`)
   const log = (current, total, e, color) => {
     console.log(
       chalk.bold[color](current) + ' / ' + total + `. import ${e} in ${name}.`
