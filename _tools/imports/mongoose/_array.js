@@ -1,8 +1,8 @@
-require('../../mongoose/index')
+require('../../mongo/index')
 const chalk = require('chalk')
 
 module.exports = name => {
-  const Model = require(`../../../mongoose/models/${name}`)
+  const Model = require(`../../../mongo/models/${name}`)
   const elements = require(`../sources/${name}.json`)
   const log = (current, total, e, color) => {
     console.log(

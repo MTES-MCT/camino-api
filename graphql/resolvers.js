@@ -1,6 +1,6 @@
-const TitlesModel = require('../mongoose/models/titles')
-const SubstancesModel = require('../mongoose/models/substances')
-require('../mongoose/models/substances-legal')
+const TitlesModel = require('../mongo/models/titles')
+const SubstancesModel = require('../mongo/models/substances')
+require('../mongo/models/substances-legal')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 

@@ -1,4 +1,5 @@
-require('./mongoose/index')
+require('./mongo/index')
+// const db = require('./')
 const { ApolloServer } = require('apollo-server')
 const { port, host, virtualUrl } = require('./conf/index')
 const typeDefs = require('./graphql/schemas')
