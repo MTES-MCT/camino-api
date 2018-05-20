@@ -1,3 +1,3 @@
 const arrayImport = require('./_array')
 
-arrayImport('substance-legals')
+arrayImport('substance-legal')

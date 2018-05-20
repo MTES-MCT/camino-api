@@ -1,6 +1,6 @@
-const TitleModel = require('../mongo/models/titles')
-const SubstanceModel = require('../mongo/models/substances')
-require('../mongo/models/substance-legals')
+const TitleModel = require('../mongo/models/title')
+const SubstanceModel = require('../mongo/models/substance')
+require('../mongo/models/substance-legal')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
@@ -9,7 +9,7 @@ const resolvers = {
     titre(root, { id }) {
       return TitleModel.findById(id).populate({
         path: 'substances.principales',
-        populate: { path: 'legalId' }
+        populate: { path: 'legal_id' }
       })
     },
 
@@ -21,16 +21,16 @@ const resolvers = {
         'travaux._id': { $in: travauxId }
       }).populate({
         path: 'substances.principales',
-        populate: { path: 'legalId' }
+        populate: { path: 'legal_id' }
       })
     },
 
     substances(root) {
-      return SubstanceModel.find().populate('legalId')
+      return SubstanceModel.find().populate('legal_id')
     },
 
     substance(root, { id }) {
-      return SubstanceModel.findById(id).populate('legalId')
+      return SubstanceModel.findById(id).populate('legal_id')
     }
   },
 
@@ -41,7 +41,7 @@ const resolvers = {
         t
           .populate({
             path: 'substances.principales',
-            populate: { path: 'legalId' }
+            populate: { path: 'legal_id' }
           })
           .execPopulate()
       )

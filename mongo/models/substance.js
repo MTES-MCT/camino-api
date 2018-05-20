@@ -34,7 +34,7 @@ const substanceSchema = new mongoose.Schema({
   alias: [String],
   gerep: Number,
   description: String,
-  legalId: {
+  legal_id: {
     type: String,
     required: true,
     ref: 'SubstanceLegal',

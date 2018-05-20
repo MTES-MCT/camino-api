@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
       table.specificType('alias', 'text[]')
       table.integer('gerep')
       table.string('description', 2048)
-      table.string('legalId').references('substanceLegals.id')
+      table.string('legal_id').references('substanceLegals.id')
     }),
 
     knex.schema.createTable('substanceLegals', table => {
