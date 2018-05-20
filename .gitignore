@@ -1,5 +1,5 @@
 node_modules/
 .env
 
-/data-mongo/db/**
-/data-postgres/**
+/db/mongo/db/**
+/db/postgres/**

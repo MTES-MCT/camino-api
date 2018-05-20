@@ -1,5 +1,5 @@
 const { gql } = require('apollo-server')
-const fileImport = require('../utils/file-import.js')
+const fileImport = require('./_file-import.js')
 
 const titleSchema = fileImport(__dirname, 'schemas/title.gql')
 const substanceSchema = fileImport(__dirname, 'schemas/substance.gql')

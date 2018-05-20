@@ -23,7 +23,7 @@ services:
   mongo:
     image: mongo:jessie
     volumes:
-      - ./data-mongo/db:/data/db
+      - ./db/mongo/db:/data/db
     expose:
       - 27017
   
@@ -32,7 +32,7 @@ services:
     expose:
       - 5432
     volumes:
-      - ./data-postgres:/var/lib/postgresql/data
+      - ./db/postgres:/var/lib/postgresql/data
 
 networks:
   default:
