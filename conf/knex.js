@@ -9,9 +9,9 @@ module.exports = {
   },
   debug: true,
   migrations: {
-    directory: '../_tools/knex-migrations'
+    directory: '../_tools/knex/migrations'
   },
   seeds: {
-    directory: '../_tools/knex-seeds'
+    directory: '../_tools/knex/seeds'
   }
 }
