@@ -1,0 +1,58 @@
+[
+  {
+    "id": "apx",
+    "nom": "autorisation de prospections préalables"
+  },
+  {
+    "id": "arg",
+    "nom": "autorisation de recherches"
+  },
+  {
+    "id": "arc",
+    "nom": "autorisation de recherches",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "axm",
+    "nom": "autorisation d'exploitation",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "prx",
+    "nom": "permis exclusif de recherches",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "prh",
+    "nom": "permis exclusif de recherches",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "pxc",
+    "nom": "permis exclusif de carrières",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "pxg",
+    "nom": "permis d'exploitation",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "pxm",
+    "nom": "permis d'exploitation",
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "cxx",
+    "nom": "concession",
+    "renonciation": true,
+    "retrait": true
+  }
+]

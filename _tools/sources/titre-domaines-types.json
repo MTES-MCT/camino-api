@@ -1,0 +1,78 @@
+[
+  {
+    "domaine_id": "m",
+    "type_id": "apx"
+  },
+  {
+    "domaine_id": "m",
+    "type_id": "axm"
+  },
+  {
+    "domaine_id": "m",
+    "type_id": "prx"
+  },
+  {
+    "domaine_id": "m",
+    "type_id": "pxm"
+  },
+  {
+    "domaine_id": "m",
+    "type_id": "cxx"
+  },
+  {
+    "domaine_id": "h",
+    "type_id": "apx"
+  },
+  {
+    "domaine_id": "h",
+    "type_id": "prh"
+  },
+  {
+    "domaine_id": "h",
+    "type_id": "cxx"
+  },
+  {
+    "domaine_id": "c",
+    "type_id": "apx"
+  },
+  {
+    "domaine_id": "c",
+    "type_id": "arc"
+  },
+  {
+    "domaine_id": "c",
+    "type_id": "prx"
+  },
+  {
+    "domaine_id": "c",
+    "type_id": "pxc"
+  },
+  {
+    "domaine_id": "c",
+    "type_id": "cxx"
+  },
+  {
+    "domaine_id": "s",
+    "type_id": "prx"
+  },
+  {
+    "domaine_id": "s",
+    "type_id": "cxx"
+  },
+  {
+    "domaine_id": "g",
+    "type_id": "cxx"
+  },
+  {
+    "domaine_id": "g",
+    "type_id": "prx"
+  },
+  {
+    "domaine_id": "g",
+    "type_id": "pxg"
+  },
+  {
+    "domaine_id": "g",
+    "type_id": "cxx"
+  }
+]

@@ -1,0 +1,162 @@
+[
+  {
+    "id": "apx-oct",
+    "nom": "octroi",
+    "duree": 2,
+    "type_id": "apx",
+    "position": 1
+  },
+  {
+    "id": "arg-oct",
+    "nom": "octroi",
+    "duree": 3,
+    "type_id": "arg",
+    "position": 1
+  },
+  {
+    "id": "arc-oct",
+    "nom": "octroi",
+    "duree": 3,
+    "type_id": "arc",
+    "position": 1
+  },
+  {
+    "id": "arc-pro",
+    "nom": "prolongation",
+    "duree": 3,
+    "type_id": "arc",
+    "position": 2,
+    "renouvelable": true
+  },
+  {
+    "id": "axm-oct",
+    "nom": "octroi",
+    "durée": 4,
+    "type_id": "axm",
+    "position": 1
+  },
+  {
+    "id": "axm-pro",
+    "nom": "prolongation",
+    "durée": 4,
+    "type_id": "axm",
+    "position": 2,
+    "renouvelable": true
+  },
+  {
+    "id": "prx-oct",
+    "nom": "octroi",
+    "durée": 5,
+    "type_id": "prx",
+    "position": 1
+  },
+  {
+    "id": "prx-pro1",
+    "nom": "prolongation 1",
+    "durée": 5,
+    "type_id": "prx",
+    "position": 2
+  },
+  {
+    "id": "prx-pro2",
+    "nom": "prolongation 2",
+    "durée": 5,
+    "type_id": "prx",
+    "position": 3
+  },
+  {
+    "id": "prh-oct",
+    "nom": "octroi",
+    "durée": 5,
+    "type_id": "prh",
+    "position": 1
+  },
+  {
+    "id": "prh-pro1",
+    "nom": "prolongation 1",
+    "durée": 5,
+    "type_id": "prh",
+    "position": 2
+  },
+  {
+    "id": "prh-pro2",
+    "nom": "prolongation 2",
+    "durée": 5,
+    "type_id": "prh",
+    "position": 3
+  },
+  {
+    "id": "prh-proe",
+    "nom": "prolongation exceptionnelle",
+    "durée": 3,
+    "type_id": "prh",
+    "position": 4,
+    "exceptionnel": true
+  },
+  {
+    "id": "pxc-oct",
+    "nom": "octroi",
+    "durée": 10,
+    "type_id": "pxc",
+    "position": 1
+  },
+  {
+    "id": "pxc-pro",
+    "nom": "prolongation",
+    "durée": 10,
+    "type_id": "pxc",
+    "position": 2,
+    "renouvelable": true
+  },
+  {
+    "id": "pxg-oct",
+    "nom": "octroi",
+    "durée": 30,
+    "type_id": "pxg",
+    "position": 1
+  },
+  {
+    "id": "pxg-pro",
+    "nom": "prolongation",
+    "durée": 15,
+    "type_id": "pxg",
+    "position": 2,
+    "renouvelable": true
+  },
+  {
+    "id": "pxm-oct",
+    "nom": "octroi",
+    "durée": 5,
+    "type_id": "pxm",
+    "position": 1
+  },
+  {
+    "id": "pxm-pro1",
+    "nom": "prolongation 1",
+    "durée": 5,
+    "type_id": "pxm",
+    "position": 2
+  },
+  {
+    "id": "pxm-pro2",
+    "nom": "prolongation 2",
+    "durée": 5,
+    "type_id": "pxm",
+    "position": 3
+  },
+  {
+    "id": "cxx-pro2",
+    "nom": "octroi",
+    "durée": 50,
+    "type_id": "cxx",
+    "position": 1
+  },
+  {
+    "id": "cxx-pro2",
+    "nom": "prolongation",
+    "durée": 25,
+    "type_id": "cxx",
+    "position": 2,
+    "renouvelable": true
+  }
+]
