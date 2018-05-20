@@ -1,7 +1,7 @@
 [
   {
     "id": "apx",
-    "nom": "Autorisation de prospections préalables",
+    "nom": "autorisation de prospections préalables",
     "phases": [
       {
         "nom": "octroi",
@@ -11,7 +11,7 @@
   },
   {
     "id": "arg",
-    "nom": "Autorisation de recherches",
+    "nom": "autorisation de recherches",
     "phases": [
       {
         "nom": "octroi",
@@ -21,7 +21,7 @@
   },
   {
     "id": "arc",
-    "nom": "Autorisation de recherches",
+    "nom": "autorisation de recherches",
     "phases": [
       {
         "nom": "octroi",
@@ -37,7 +37,7 @@
   },
   {
     "id": "axm",
-    "nom": "Autorisation d'exploitation",
+    "nom": "autorisation d'exploitation",
     "phases": [
       {
         "nom": "octroi",
@@ -53,7 +53,7 @@
   },
   {
     "id": "prx",
-    "nom": "Permis exclusif de recherches",
+    "nom": "permis exclusif de recherches",
     "phases": [
       {
         "nom": "octroi",
@@ -73,7 +73,7 @@
   },
   {
     "id": "prh",
-    "nom": "Permis exclusif de recherches",
+    "nom": "permis exclusif de recherches",
     "phases": [
       {
         "nom": "octroi",
@@ -97,7 +97,7 @@
   },
   {
     "id": "pxc",
-    "nom": "Permis exclusif de carrières",
+    "nom": "permis exclusif de carrières",
     "phases": [
       {
         "nom": "octroi",
@@ -113,7 +113,7 @@
   },
   {
     "id": "pxg",
-    "nom": "Permis d'exploitation",
+    "nom": "permis d'exploitation",
     "phases": [
       {
         "nom": "octroi",
@@ -129,7 +129,7 @@
   },
   {
     "id": "pxm",
-    "nom": "Permis d'exploitation",
+    "nom": "permis d'exploitation",
     "phases": [
       {
         "nom": "octroi",
@@ -149,7 +149,7 @@
   },
   {
     "id": "cxx",
-    "nom": "Concession",
+    "nom": "concession",
     "phases": [
       {
         "nom": "octroi",

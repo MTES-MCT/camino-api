@@ -14,16 +14,19 @@ const substanceSchema = new mongoose.Schema({
   },
   domaine: {
     type: String,
+    enum: ['mines', 'carrières'],
     lowercase: true,
     required: true
   },
   type: {
     type: String,
+    enum: ['fossile', 'minérale'],
     lowercase: true,
     required: true
   },
   usage: {
     type: String,
+    enum: ['énergétique', 'non énergétique', 'énergie atomique'],
     lowercase: true,
     required: true
   },
