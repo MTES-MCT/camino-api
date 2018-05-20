@@ -1,6 +1,8 @@
 const TitleModel = require('../mongo/models/title')
-const SubstanceModel = require('../mongo/models/substance')
-require('../mongo/models/substance-legal')
+// const SubstanceModel = require('../mongo/models/substance')
+// require('../mongo/models/substance-legal')
+
+const SubstanceModel = require('../postgres/models/substance')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
@@ -25,8 +27,16 @@ const resolvers = {
       })
     },
 
-    substances(root) {
-      return SubstanceModel.find().populate('legal_id')
+    async substances(root) {
+      // return SubstanceModel.find().populate('legal_id')
+      // return SubstanceModel.query().eager('legal')
+      try {
+        let substances = await SubstanceModel.query().eager('legal')
+        console.log(substances)
+        return substances
+      } catch (error) {
+        console.log(error)
+      }
     },
 
     substance(root, { id }) {

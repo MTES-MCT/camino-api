@@ -31,7 +31,7 @@ class Substance extends Model {
 
   static get relationMappings() {
     return {
-      legal_id: {
+      legal: {
         relation: Model.BelongsToOneRelation,
         modelClass: SubstanceLegal,
         join: {
