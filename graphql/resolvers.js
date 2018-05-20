@@ -9,7 +9,7 @@ const resolvers = {
     titre(root, { id }) {
       return TitleModel.findById(id).populate({
         path: 'substances.principales',
-        populate: { path: 'legal' }
+        populate: { path: 'legalId' }
       })
     },
 
@@ -21,16 +21,16 @@ const resolvers = {
         'travaux._id': { $in: travauxId }
       }).populate({
         path: 'substances.principales',
-        populate: { path: 'legal' }
+        populate: { path: 'legalId' }
       })
     },
 
     substances(root) {
-      return SubstanceModel.find().populate('legal')
+      return SubstanceModel.find().populate('legalId')
     },
 
     substance(root, { id }) {
-      return SubstanceModel.findById(id).populate('legal')
+      return SubstanceModel.findById(id).populate('legalId')
     }
   },
 
@@ -41,7 +41,7 @@ const resolvers = {
         t
           .populate({
             path: 'substances.principales',
-            populate: { path: 'legal' }
+            populate: { path: 'legalId' }
           })
           .execPopulate()
       )
