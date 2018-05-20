@@ -1,6 +1,6 @@
 const TitleModel = require('../mongo/models/titles')
 const SubstanceModel = require('../mongo/models/substances')
-require('../mongo/models/substances-legal')
+require('../mongo/models/substance-legals')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
