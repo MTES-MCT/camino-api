@@ -29,6 +29,18 @@ docker-compose -f ./docker-compose.local.yml up --build
 
 ---
 
+## postgres
+
+```bash
+# create tables
+npx knex --knexfile=./conf/knex.js migrate:latest
+
+# import data
+npx knex --knexfile=./conf/knex.js seed:run
+```
+
+---
+
 ## Contribution
 
 Voir `contributing.md` (en anglais) pour plus d'infos.
