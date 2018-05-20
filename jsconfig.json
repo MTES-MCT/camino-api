@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "checkJs": true,
-    "target": "es2017",
-    "baseUrl": ".",
-    "allowSyntheticDefaultImports": true
+    "target": "es5"
   },
   "exclude": ["node_modules", "**/node_modules/*"]
 }

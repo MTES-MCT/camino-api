@@ -1,5 +1,5 @@
 require('dotenv').config()
-require('../../mongo/index')
+require('../../mongo')
 const chalk = require('chalk')
 
 module.exports = name => {

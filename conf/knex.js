@@ -1,12 +1,5 @@
 require('dotenv').config({ path: '../.env' })
 
-console.log(
-  'var',
-  process.env.POSTGRES_HOST,
-  process.env.POSTGRES_PORT,
-  process.env.POSTGRES_DB_NAME
-)
-
 module.exports = {
   client: 'pg',
   connection: {
