@@ -1,6 +1,6 @@
 require('dotenv').config()
 require('./mongo')
-// const db = require('./postgres')
+const db = require('./postgres')
 const { ApolloServer } = require('apollo-server')
 const { port, host, virtualUrl } = require('./conf/index')
 const typeDefs = require('./graphql/schemas')

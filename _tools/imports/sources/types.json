@@ -1,0 +1,166 @@
+[
+  {
+    "id": "apx",
+    "nom": "Autorisation de prospections préalables",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 2
+      }
+    ]
+  },
+  {
+    "id": "arg",
+    "nom": "Autorisation de recherches",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 3
+      }
+    ]
+  },
+  {
+    "id": "arc",
+    "nom": "Autorisation de recherches",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 3
+      },
+      {
+        "nom": "prolongation",
+        "durée": 3
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "axm",
+    "nom": "Autorisation d'exploitation",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 4
+      },
+      {
+        "nom": "prolongation",
+        "durée": 4
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "prx",
+    "nom": "Permis exclusif de recherches",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation 1",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation 2",
+        "durée": 5
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "prh",
+    "nom": "Permis exclusif de recherches",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation 1",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation 2",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation exceptionnelle",
+        "durée": 3
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "pxc",
+    "nom": "Permis exclusif de carrières",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 10
+      },
+      {
+        "nom": "prolongation",
+        "durée": 10
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "pxg",
+    "nom": "Permis d'exploitation",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 30
+      },
+      {
+        "nom": "prolongation",
+        "durée": 15
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "pxm",
+    "nom": "Permis d'exploitation",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation 1",
+        "durée": 5
+      },
+      {
+        "nom": "prolongation 2",
+        "durée": 5
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  },
+  {
+    "id": "cxx",
+    "nom": "Concession",
+    "phases": [
+      {
+        "nom": "octroi",
+        "durée": 50
+      },
+      {
+        "nom": "prolongation",
+        "durée": 25
+      }
+    ],
+    "renonciation": true,
+    "retrait": true
+  }
+]

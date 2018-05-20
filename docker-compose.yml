@@ -14,6 +14,9 @@ services:
       MONGO_HOST: mongo
       MONGO_PORT: 27017
       MONGO_DB_NAME: camino
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB_NAME: camino
     expose:
       - 4000
 

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "m",
+    "nom": "Minéraux et métaux",
+    "types": ["apx", "axm", "prx", "pxm", "cxx"]
+  },
+  {
+    "id": "h",
+    "nom": "hydrocarbures liquides ou gazeux",
+    "types": ["apx", "prh", "cxx"]
+  },
+  {
+    "id": "c",
+    "nom": "carrières et granulats marins",
+    "types": ["apx", "arc", "prx", "pxc", "cxx"]
+  },
+  {
+    "id": "s",
+    "nom": "stockages souterrains",
+    "types": ["prx", "cxx"]
+  },
+  {
+    "id": "g",
+    "nom": "géothermie",
+    "types": ["arg", "prx", "pxg", "cxx"]
+  }
+]
