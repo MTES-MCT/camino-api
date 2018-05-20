@@ -8,18 +8,20 @@ services:
       - ./:/api
     working_dir: /api
     ports:
-      - "4000:4000"
+      - 4000:4000
     depends_on:
       - mongo
     environment:
       NODE_ENV: development
-      DB_HOST: mongo
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      MONGO_DB_NAME: camino
     command: npm run dev
 
   mongo:
     image: mongo:jessie
     volumes:
-      - ./data/db:/data/db
+      - ./data-mongo/db:/data/db
 
   postgres: 
     image: postgres:alpine

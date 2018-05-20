@@ -1,5 +1,5 @@
 module.exports = {
-  host: process.env.DB_HOST || 'localhost',
-  port: 27017,
-  dbName: 'camino'
+  host: process.env.MONGO_HOST,
+  port: process.env.MONGO_PORT,
+  dbName: process.env.MONGO_DB_NAME
 }
