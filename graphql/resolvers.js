@@ -1,5 +1,5 @@
-const TitlesModel = require('../mongo/models/titles')
-const SubstancesModel = require('../mongo/models/substances')
+const TitleModel = require('../mongo/models/titles')
+const SubstanceModel = require('../mongo/models/substances')
 require('../mongo/models/substances-legal')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
@@ -7,14 +7,14 @@ const { TypeNom, DomaineNom, StatutNom } = require('./types')
 const resolvers = {
   Query: {
     titre(root, { id }) {
-      return TitlesModel.findById(id).populate({
+      return TitleModel.findById(id).populate({
         path: 'substances.principales',
         populate: { path: 'legal' }
       })
     },
 
     titres(root, { typeId, domaineId, statutId, travauxId }) {
-      return TitlesModel.find({
+      return TitleModel.find({
         'type._id': { $in: typeId },
         'domaine._id': { $in: domaineId },
         'statut._id': { $in: statutId },
@@ -25,14 +25,18 @@ const resolvers = {
       })
     },
 
-    substances(root, { typeId, domaineId, statutId, travauxId }) {
-      return SubstancesModel.find().populate('legal')
+    substances(root) {
+      return SubstanceModel.find().populate('legal')
+    },
+
+    substance(root, { id }) {
+      return SubstanceModel.findById(id).populate('legal')
     }
   },
 
   Mutation: {
     titreAjouter(parent, { titre }) {
-      const t = new TitlesModel(titre)
+      const t = new TitleModel(titre)
       return t.save().then(t =>
         t
           .populate({
@@ -44,14 +48,14 @@ const resolvers = {
     },
 
     titreSupprimer(parent, { id }) {
-      return TitlesModel.findByIdAndRemove(id, {}, (err, t) => {
+      return TitleModel.findByIdAndRemove(id, {}, (err, t) => {
         if (err) throw err
         return t
       })
     },
 
     titreModifier(parent, { titre }) {
-      return TitlesModel.findByIdAndUpdate(
+      return TitleModel.findByIdAndUpdate(
         titre.id,
         { $set: titre },
         { new: true },

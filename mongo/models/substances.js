@@ -26,7 +26,7 @@ const substanceSchema = new mongoose.Schema({
   },
   usage: {
     type: String,
-    enum: ['énergétique', 'non énergétique', 'énergie atomique'],
+    enum: ['énergétique', 'non énergétique', 'énergétique (nucléaire)'],
     lowercase: true,
     required: true
   },

@@ -18,6 +18,8 @@ const typeDefs = gql`
     titre(id: String!): Titre
 
     substances: [Substance]
+
+    substance(id: String!): Substance
   }
 
   type Mutation {
