@@ -1,7 +1,7 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
     knex.schema.createTable('substances', table => {
-      table.string('id').primary()
+      table.string('id', 4).primary()
       table.string('nom')
       table.enum('domaine', ['mines', 'carrières'])
       table.enum('type', ['fossile', 'minérale'])
