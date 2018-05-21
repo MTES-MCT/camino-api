@@ -17,6 +17,7 @@ exports.up = function(knex, Promise) {
     }),
 
     knex.schema.createTable('titres_types_phases', table => {
+      table.string('type_id', 3).references('titres_types.id')
       table.string('id', 8).primary()
       table.enum('nom', [
         'octroi',
@@ -25,7 +26,6 @@ exports.up = function(knex, Promise) {
         'prolongation 2',
         'prolongation exceptionnelle'
       ])
-      table.string('type_id', 3).references('titres_types.id')
       table.integer('duree')
       table.integer('position')
       table.boolean('renouvelable')
