@@ -2,7 +2,7 @@ const { Model } = require('objection')
 
 class SubstanceLegal extends Model {
   static get tableName() {
-    return 'titres_substances_legals'
+    return 'substances_legals'
   }
 
   static get jsonSchema() {

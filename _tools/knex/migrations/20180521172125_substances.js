@@ -1,6 +1,6 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTable('titres_substances', table => {
+    knex.schema.createTable('substances', table => {
       table.string('id').primary()
       table.string('nom')
       table.enum('domaine', ['mines', 'carrières'])
@@ -14,10 +14,10 @@ exports.up = (knex, Promise) => {
       table.specificType('alias', 'text[]')
       table.integer('gerep')
       table.string('description', 2048)
-      table.string('legal_id').references('titres_substances_legals.id')
+      table.string('legal_id').references('substances_legals.id')
     }),
 
-    knex.schema.createTable('titres_substances_legals', table => {
+    knex.schema.createTable('substances_legals', table => {
       table.string('id').primary()
       table.string('nom')
       table.string('description')
@@ -28,8 +28,6 @@ exports.up = (knex, Promise) => {
 
 exports.down = (knex, Promise) => {
   return Promise.all([
-    knex.schema
-      .dropTable('titres_substances')
-      .dropTable('titres_substances_legals')
+    knex.schema.dropTable('substances').dropTable('substances_legals')
   ])
 }

@@ -1,3 +1,3 @@
 const importArray = require('./_import-array')
 
-importArray('titres-substances-legals', 'substances-legal')
+importArray('substances-legals', 'substances-legal')

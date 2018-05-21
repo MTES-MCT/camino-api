@@ -3,7 +3,7 @@ const SubstanceLegal = require('./substances-legal')
 
 class Substance extends Model {
   static get tableName() {
-    return 'titres_substances'
+    return 'substances'
   }
 
   static get jsonSchema() {
@@ -35,8 +35,8 @@ class Substance extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: SubstanceLegal,
         join: {
-          from: 'titres_substances.legal_id',
-          to: 'titres_substances_legals.id'
+          from: 'substances.legal_id',
+          to: 'substances_legals.id'
         }
       }
     }
