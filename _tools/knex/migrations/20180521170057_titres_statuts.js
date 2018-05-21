@@ -1,6 +1,6 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTable('titres_travaux', table => {
+    knex.schema.createTable('titres_statuts', table => {
       table.string('id', 3).primary()
       table.string('nom')
     })
@@ -8,5 +8,5 @@ exports.up = (knex, Promise) => {
 }
 
 exports.down = (knex, Promise) => {
-  return Promise.all([knex.schema.dropTable('titres_travaux')])
+  return Promise.all([knex.schema.dropTable('titres_statuts')])
 }

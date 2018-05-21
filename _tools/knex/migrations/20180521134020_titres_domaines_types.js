@@ -1,4 +1,4 @@
-exports.up = function(knex, Promise) {
+exports.up = (knex, Promise) => {
   return Promise.all([
     knex.schema.createTable('titres_domaines', table => {
       table.string('id', 1).primary()
@@ -34,7 +34,7 @@ exports.up = function(knex, Promise) {
   ])
 }
 
-exports.down = function(knex, Promise) {
+exports.down = (knex, Promise) => {
   return Promise.all([
     knex.schema
       .dropTable('titres_domaines_types')

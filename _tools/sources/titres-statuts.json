@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ins",
+    "nom": "en instruction"
+  },
+  {
+    "id": "val",
+    "nom": "valide"
+  },
+  {
+    "id": "ech",
+    "nom": "échu"
+  }
+]
