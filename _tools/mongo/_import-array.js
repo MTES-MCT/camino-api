@@ -2,14 +2,17 @@ require('dotenv').config()
 require('../../mongo')
 const chalk = require('chalk')
 
-module.exports = name => {
-  const Model = require(`../../mongo/models/${name}`)
-  const elements = require(`../sources/${name}s.json`)
+module.exports = (source, model) => {
+  const Model = require(`../../mongo/models/${model}`)
+  const elements = require(`../sources/${source}.json`)
   const log = (current, total, e, color) => {
-    console.log(
-      chalk.bold[color](current) + ' / ' + total + `. import ${e} in ${name}.`
-    )
+    console.log(' ')
+    console.log(' ')
+    console.log(chalk.bold[color](current) + ' / ' + total)
+    console.log(' ')
+    console.log(e)
     if (current === total) {
+      console.log(' ')
       console.log(chalk.bold.green(`Processed ${total} elements.`))
     }
   }
