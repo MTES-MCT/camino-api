@@ -1,22 +1,22 @@
-const TitleModel = require('../mongo/models/title')
-// const SubstanceModel = require('../mongo/models/substance')
-// require('../mongo/models/substances-legal')
+const Titres = require('../mongo/models/titres')
+// const Substances = require('../mongo/models/substances')
+// require('../mongo/models/substances-legals')
 
-const SubstanceModel = require('../postgres/models/substances')
+const Substances = require('../postgres/models/substances')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
 const resolvers = {
   Query: {
     titre(root, { id }) {
-      return TitleModel.findById(id).populate({
+      return Titres.findById(id).populate({
         path: 'substances.principales',
         populate: { path: 'legalId' }
       })
     },
 
     titres(root, { typeId, domaineId, statutId, travauxId }) {
-      return TitleModel.find({
+      return Titres.find({
         'type._id': { $in: typeId },
         'domaine._id': { $in: domaineId },
         'statut._id': { $in: statutId },
@@ -28,10 +28,10 @@ const resolvers = {
     },
 
     async substances(root) {
-      // return SubstanceModel.find().populate('legalId')
-      // return SubstanceModel.query().eager('legal')
+      // return Substances.find().populate('legalId')
+      // return Substances.query().eager('legal')
       try {
-        let substances = await SubstanceModel.query().eager('legal')
+        let substances = await Substances.query().eager('legal')
         console.log(substances)
         return substances
       } catch (error) {
@@ -40,9 +40,9 @@ const resolvers = {
     },
 
     async substance(root, { id }) {
-      // return SubstanceModel.findById(id).populate('legalId')
+      // return Substances.findById(id).populate('legalId')
       try {
-        return await SubstanceModel.query()
+        return await Substances.query()
           .findById(id)
           .eager('legal')
       } catch (error) {
@@ -53,7 +53,7 @@ const resolvers = {
 
   Mutation: {
     titreAjouter(parent, { titre }) {
-      const t = new TitleModel(titre)
+      const t = new Titres(titre)
       return t.save().then(t =>
         t
           .populate({
@@ -65,14 +65,14 @@ const resolvers = {
     },
 
     titreSupprimer(parent, { id }) {
-      return TitleModel.findByIdAndRemove(id, {}, (err, t) => {
+      return Titres.findByIdAndRemove(id, {}, (err, t) => {
         if (err) throw err
         return t
       })
     },
 
     titreModifier(parent, { titre }) {
-      return TitleModel.findByIdAndUpdate(
+      return Titres.findByIdAndUpdate(
         titre.id,
         { $set: titre },
         { new: true },

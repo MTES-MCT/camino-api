@@ -8,7 +8,7 @@ class SubstanceLegals extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaine', 'type', 'usage', 'legal_id'],
+      required: ['id', 'nom', 'lien'],
 
       properties: {
         id: { type: 'string' },
