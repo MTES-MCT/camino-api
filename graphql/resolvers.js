@@ -3,11 +3,14 @@ const Substances = require('../postgres/models/substances')
 
 const resolvers = {
   Query: {
-    titre(root, { id }) {
-      return Titres.findById(id).populate({
-        path: 'substances.principales',
-        populate: { path: 'legalId' }
-      })
+    async titre(root, { id }) {
+      try {
+        return await Titres.query()
+          .findById(id)
+          .eager('[type, domaine, statut, travaux]')
+      } catch (e) {
+        console.log(e)
+      }
     },
 
     async titres(root, { typeId, domaineId, statutId, travauxId }) {
@@ -56,23 +59,27 @@ const resolvers = {
       }
     },
 
-    titreSupprimer(parent, { id }) {
-      return Titres.findByIdAndRemove(id, {}, (err, t) => {
-        if (err) throw err
-        return t
-      })
+    async titreSupprimer(parent, { id }) {
+      try {
+        return await Substances.query()
+          .findById(id)
+          .eager('legal')
+          .delete()
+      } catch (e) {
+        console.log(e)
+      }
     },
 
-    titreModifier(parent, { titre }) {
-      return Titres.findByIdAndUpdate(
-        titre.id,
-        { $set: titre },
-        { new: true },
-        (err, t) => {
-          if (err) throw err
-          return t
-        }
-      )
+    async titreModifier(parent, { titre }) {
+      try {
+        let t = await Titres.query()
+          .upsertGraph([titre], { relate: true })
+          .eager('[type, domaine, statut, travaux]')
+          .first()
+        return t
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
