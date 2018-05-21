@@ -11,7 +11,7 @@ const resolvers = {
     titre(root, { id }) {
       return TitleModel.findById(id).populate({
         path: 'substances.principales',
-        populate: { path: 'legal_id' }
+        populate: { path: 'legalId' }
       })
     },
 
@@ -23,12 +23,12 @@ const resolvers = {
         'travaux._id': { $in: travauxId }
       }).populate({
         path: 'substances.principales',
-        populate: { path: 'legal_id' }
+        populate: { path: 'legalId' }
       })
     },
 
     async substances(root) {
-      // return SubstanceModel.find().populate('legal_id')
+      // return SubstanceModel.find().populate('legalId')
       // return SubstanceModel.query().eager('legal')
       try {
         let substances = await SubstanceModel.query().eager('legal')
@@ -40,7 +40,7 @@ const resolvers = {
     },
 
     async substance(root, { id }) {
-      // return SubstanceModel.findById(id).populate('legal_id')
+      // return SubstanceModel.findById(id).populate('legalId')
       try {
         return await SubstanceModel.query()
           .findById(id)
@@ -58,7 +58,7 @@ const resolvers = {
         t
           .populate({
             path: 'substances.principales',
-            populate: { path: 'legal_id' }
+            populate: { path: 'legalId' }
           })
           .execPopulate()
       )

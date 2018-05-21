@@ -1,9 +1,8 @@
 const { Model } = require('objection')
-const Type = require('./titres-type')
 
 class Phases extends Model {
   static get tableName() {
-    return 'titres_types'
+    return 'titresTypesPhases'
   }
 
   static get jsonSchema() {

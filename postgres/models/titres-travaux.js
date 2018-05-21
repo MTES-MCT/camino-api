@@ -2,7 +2,7 @@ const { Model } = require('objection')
 
 class Travaux extends Model {
   static get tableName() {
-    return 'titres_travaux'
+    return 'titresTravaux'
   }
 
   static get jsonSchema() {

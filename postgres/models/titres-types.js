@@ -1,10 +1,10 @@
 const { Model } = require('objection')
-const Domaine = require('./titres-domaines')
+const Domaines = require('./titres-domaines')
 const Phases = require('./titres-types-phases')
 
 class Types extends Model {
   static get tableName() {
-    return 'titres_types'
+    return 'titresTypes'
   }
 
   static get jsonSchema() {
@@ -23,22 +23,22 @@ class Types extends Model {
     return {
       domaine: {
         relation: Model.ManyToManyRelation,
-        modelClass: Domaine,
+        modelClass: Domaines,
         join: {
-          from: 'titres_types.id',
+          from: 'titresTypes.id',
           through: {
-            from: 'titres_domaines_types.type_id',
-            to: 'titres_domaines_types.domaine_id'
+            from: 'titresDomainesTypes.typeId',
+            to: 'titresDomainesTypes.domaineId'
           },
-          to: 'titres_domaines.id'
+          to: 'titresDomaines.id'
         }
       },
       phases: {
         relation: Model.HasManyRelation,
         modelClass: Phases,
         join: {
-          from: 'titres_types.id',
-          to: 'titres_types_phases.type_id'
+          from: 'titresTypes.id',
+          to: 'titresTypesPhases.typeId'
         }
       }
     }

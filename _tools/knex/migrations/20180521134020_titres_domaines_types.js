@@ -1,23 +1,23 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTable('titres_domaines', table => {
+    knex.schema.createTable('titresDomaines', table => {
       table.string('id', 1).primary()
       table.string('nom')
     }),
 
-    knex.schema.createTable('titres_types', table => {
+    knex.schema.createTable('titresTypes', table => {
       table.string('id', 3).primary()
       table.string('nom')
     }),
 
-    knex.schema.createTable('titres_domaines_types', table => {
-      table.string('domaine_id', 1).references('titres_domaines.id')
-      table.string('type_id', 3).references('titres_types.id')
-      table.primary(['domaine_id', 'type_id'])
+    knex.schema.createTable('titresDomainesTypes', table => {
+      table.string('domaineId', 1).references('titresDomaines.id')
+      table.string('typeId', 3).references('titresTypes.id')
+      table.primary(['domaineId', 'typeId'])
     }),
 
-    knex.schema.createTable('titres_types_phases', table => {
-      table.string('type_id', 3).references('titres_types.id')
+    knex.schema.createTable('titresTypesPhases', table => {
+      table.string('typeId', 3).references('titresTypes.id')
       table.string('id', 8).primary()
       table.enum('nom', [
         'octroi',
@@ -37,9 +37,9 @@ exports.up = (knex, Promise) => {
 exports.down = (knex, Promise) => {
   return Promise.all([
     knex.schema
-      .dropTable('titres_domaines_types')
-      .dropTable('titres_types_phases')
-      .dropTable('titres_domaines')
-      .dropTable('titres_types')
+      .dropTable('titresDomainesTypes')
+      .dropTable('titresTypesPhases')
+      .dropTable('titresDomaines')
+      .dropTable('titresTypes')
   ])
 }

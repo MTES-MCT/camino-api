@@ -1,46 +1,67 @@
 const { Model } = require('objection')
-const SubstanceLegal = require('./substances-legal')
+const Domaines = require('./titres-domaines')
+const Types = require('./titres-types')
+const Statuts = require('./titres-statuts')
+const Travaux = require('./titres-travaux')
 
-class Substance extends Model {
+class Titres extends Model {
   static get tableName() {
-    return 'substances'
+    return 'titres'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaine', 'type', 'usage', 'legal_id'],
+      required: ['id', 'nom', 'domaineId', 'typeId', 'statutId', 'travauxId'],
 
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
-        domaine: { type: 'string' },
-        type: { type: 'string' },
-        usage: { type: 'string' },
-        symbole: { type: 'string' },
-        alias: {
-          type: 'array',
-          properties: { type: 'string' }
-        },
-        gerep: { type: ['integer', 'null'] },
-        description: { type: 'string', maxLength: 2048 },
-        legal_id: { type: 'string' }
+        domaineId: { type: 'string', maxLength: 1 },
+        typeId: { type: 'string', maxLength: 3 },
+        statutId: { type: 'string', maxLength: 3 },
+        travauxId: { type: 'string', maxLength: 3 }
       }
     }
   }
 
   static get relationMappings() {
     return {
-      legal: {
+      domaine: {
         relation: Model.BelongsToOneRelation,
-        modelClass: SubstanceLegal,
+        modelClass: Domaines,
         join: {
-          from: 'substances.legal_id',
-          to: 'substances_legals.id'
+          from: 'titres.domaineId',
+          to: 'titres_domaines.id'
         }
-      }
+      },
+      type: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Types,
+        join: {
+          from: 'titres.typeId',
+          to: 'titres_types.id'
+        }
+      },
+      statut: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Statuts,
+        join: {
+          from: 'titres.statutId',
+          to: 'titres_statuts.id'
+        }
+      },
+      travaux: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Travaux,
+        join: {
+          from: 'titres.travauxId',
+          to: 'titres_travaux.id'
+        }
+      },
+      substances
     }
   }
 }
 
-module.exports = Substance
+module.exports = Titres

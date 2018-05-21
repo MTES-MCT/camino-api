@@ -1,78 +1,78 @@
 [
   {
-    "domaine_id": "m",
-    "type_id": "apx"
+    "domaineId": "m",
+    "typeId": "apx"
   },
   {
-    "domaine_id": "m",
-    "type_id": "axm"
+    "domaineId": "m",
+    "typeId": "axm"
   },
   {
-    "domaine_id": "m",
-    "type_id": "prx"
+    "domaineId": "m",
+    "typeId": "prx"
   },
   {
-    "domaine_id": "m",
-    "type_id": "pxm"
+    "domaineId": "m",
+    "typeId": "pxm"
   },
   {
-    "domaine_id": "m",
-    "type_id": "cxx"
+    "domaineId": "m",
+    "typeId": "cxx"
   },
   {
-    "domaine_id": "h",
-    "type_id": "apx"
+    "domaineId": "h",
+    "typeId": "apx"
   },
   {
-    "domaine_id": "h",
-    "type_id": "prh"
+    "domaineId": "h",
+    "typeId": "prh"
   },
   {
-    "domaine_id": "h",
-    "type_id": "cxx"
+    "domaineId": "h",
+    "typeId": "cxx"
   },
   {
-    "domaine_id": "c",
-    "type_id": "apx"
+    "domaineId": "c",
+    "typeId": "apx"
   },
   {
-    "domaine_id": "c",
-    "type_id": "arc"
+    "domaineId": "c",
+    "typeId": "arc"
   },
   {
-    "domaine_id": "c",
-    "type_id": "prx"
+    "domaineId": "c",
+    "typeId": "prx"
   },
   {
-    "domaine_id": "c",
-    "type_id": "pxc"
+    "domaineId": "c",
+    "typeId": "pxc"
   },
   {
-    "domaine_id": "c",
-    "type_id": "cxx"
+    "domaineId": "c",
+    "typeId": "cxx"
   },
   {
-    "domaine_id": "s",
-    "type_id": "prx"
+    "domaineId": "s",
+    "typeId": "prx"
   },
   {
-    "domaine_id": "s",
-    "type_id": "cxx"
+    "domaineId": "s",
+    "typeId": "cxx"
   },
   {
-    "domaine_id": "g",
-    "type_id": "arg"
+    "domaineId": "g",
+    "typeId": "arg"
   },
   {
-    "domaine_id": "g",
-    "type_id": "prx"
+    "domaineId": "g",
+    "typeId": "prx"
   },
   {
-    "domaine_id": "g",
-    "type_id": "pxg"
+    "domaineId": "g",
+    "typeId": "pxg"
   },
   {
-    "domaine_id": "g",
-    "type_id": "cxx"
+    "domaineId": "g",
+    "typeId": "cxx"
   }
 ]

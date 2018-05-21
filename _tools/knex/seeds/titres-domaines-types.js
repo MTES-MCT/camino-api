@@ -5,21 +5,21 @@ const typesPhases = require('../../sources/titres-types-phases.json')
 
 exports.seed = (knex, Promise) => {
   return Promise.all([
-    knex('titres_domaines_types').del(),
-    knex('titres_domaines').del(),
-    knex('titres_types').del(),
-    knex('titres_types_phases').del()
+    knex('titresDomainesTypes').del(),
+    knex('titresDomaines').del(),
+    knex('titresTypes').del(),
+    knex('titresTypesPhases').del()
   ])
     .then(() => {
       return Promise.all([
-        knex('titres_domaines').insert(domaines),
-        knex('titres_types').insert(types)
+        knex('titresDomaines').insert(domaines),
+        knex('titresTypes').insert(types)
       ])
     })
     .then(() => {
       return Promise.all([
-        knex('titres_types_phases').insert(typesPhases),
-        knex('titres_domaines_types').insert(domainesTypes)
+        knex('titresTypesPhases').insert(typesPhases),
+        knex('titresDomainesTypes').insert(domainesTypes)
       ])
     })
 }
