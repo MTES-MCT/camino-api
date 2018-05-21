@@ -12,11 +12,12 @@ const resolvers = {
 
     async titres(root, { typeId, domaineId, statutId, travauxId }) {
       try {
-        let titres = await Titres.query().eager(
-          '[type, domaine, statut, travaux]'
-        )
-        console.log(titres)
-        return titres
+        return await Titres.query()
+          .whereIn('typeId', typeId)
+          .whereIn('domaineId', domaineId)
+          .whereIn('statutId', statutId)
+          .whereIn('travauxId', travauxId)
+          .eager('[type, domaine, statut, travaux]')
       } catch (e) {
         console.log(e)
       }
@@ -25,16 +26,13 @@ const resolvers = {
     async substances(root) {
       // return Substances.query().eager('legal')
       try {
-        let substances = await Substances.query().eager('legal')
-        console.log(substances)
-        return substances
+        return await Substances.query().eager('legal')
       } catch (e) {
         console.log(e)
       }
     },
 
     async substance(root, { id }) {
-      // return Substances.findById(id).populate('legalId')
       try {
         return await Substances.query()
           .findById(id)
@@ -52,7 +50,6 @@ const resolvers = {
           .insertGraph([titre], { relate: true })
           .eager('[type, domaine, statut, travaux]')
           .first()
-        console.log(t)
         return t
       } catch (e) {
         console.log(e)
