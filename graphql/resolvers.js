@@ -2,7 +2,7 @@ const TitleModel = require('../mongo/models/title')
 // const SubstanceModel = require('../mongo/models/substance')
 // require('../mongo/models/substances-legal')
 
-const SubstanceModel = require('../postgres/models/substance')
+const SubstanceModel = require('../postgres/models/substances')
 
 const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
