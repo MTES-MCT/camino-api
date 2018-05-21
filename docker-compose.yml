@@ -5,27 +5,17 @@ services:
   api:
     build: .
     depends_on:
-      - mongo
+      - postgres
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: api.camino.site
       LETSENCRYPT_HOST: api.camino.site
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
-      MONGO_HOST: mongo
-      MONGO_PORT: 27017
-      MONGO_DB_NAME: camino
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       POSTGRES_DB_NAME: camino
     expose:
       - 4000
-
-  mongo:
-    image: mongo:jessie
-    volumes:
-      - ./db/mongo/db:/data/db
-    expose:
-      - 27017
   
   postgres: 
     image: postgres:alpine
