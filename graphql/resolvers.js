@@ -39,8 +39,15 @@ const resolvers = {
       }
     },
 
-    substance(root, { id }) {
-      return SubstanceModel.findById(id).populate('legal_id')
+    async substance(root, { id }) {
+      // return SubstanceModel.findById(id).populate('legal_id')
+      try {
+        return await SubstanceModel.query()
+          .findById(id)
+          .eager('legal')
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
 
