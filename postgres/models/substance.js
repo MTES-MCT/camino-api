@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const SubstanceLegal = require('./substance-legal')
+const SubstanceLegal = require('./substances-legal')
 
 class Substance extends Model {
   static get tableName() {
@@ -36,7 +36,7 @@ class Substance extends Model {
         modelClass: SubstanceLegal,
         join: {
           from: 'substances.legal_id',
-          to: 'substance_legals.id'
+          to: 'substances_legals.id'
         }
       }
     }

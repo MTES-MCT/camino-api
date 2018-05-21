@@ -1,6 +1,6 @@
 const TitleModel = require('../mongo/models/title')
 // const SubstanceModel = require('../mongo/models/substance')
-// require('../mongo/models/substance-legal')
+// require('../mongo/models/substances-legal')
 
 const SubstanceModel = require('../postgres/models/substance')
 
