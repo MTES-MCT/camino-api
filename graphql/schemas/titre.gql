@@ -20,22 +20,22 @@ type Titre {
 
 type Type {
   id: TypeId!
-  nom: TypeNom!
+  nom: String!
 }
 
 type Domaine {
   id: DomaineId!
-  nom: DomaineNom!
+  nom: String!
 }
 
 type Statut {
   id: StatutId!
-  nom: StatutNom!
+  nom: String!
 }
 
 type Travaux {
   id: TravauxId!
-  nom: TravauxNom!
+  nom: String!
 }
 
 type Substances {
@@ -50,7 +50,7 @@ type Reference {
 
 type Phase {
   id: PhaseId!
-  nom: PhaseNom!
+  nom: String!
 }
 
 "tauuust"
@@ -75,22 +75,18 @@ input InputTitre {
 
 input InputType {
   id: TypeId!
-  nom: TypeNom!
 }
 
 input InputDomaine {
   id: DomaineId!
-  nom: DomaineNom!
 }
 
 input InputStatut {
   id: StatutId!
-  nom: StatutNom!
 }
 
 input InputTravaux {
   id: TravauxId!
-  nom: TravauxNom!
 }
 
 input InputSubstances {
@@ -100,26 +96,36 @@ input InputSubstances {
 
 input InputReference {
   type: String
-  nom: String!
 }
 
 input InputPhases {
   id: PhaseId!
-  nom: PhaseNom!
 }
 
 """
-- __aex__: Autorisation d'exploitation
-- __con__: Concession
-- __per__: Permis exclusif de recherches
+- __apx__: Autorisation de prospections préalables (M, H, C)
+- __arc__: Autorisation de recherches (C)
+- __arg__: Autorisation de recherches (G)
+- __axm__: Autorisation d'exploitation (M)
+- __prx__: Permis exclusif de recherches (M, G, S, C)
+- __prh__: Permis exclusif de recherches (H)
+- __pxc__: Permis exclusif de carrières (C)
+- __pxg__: Permis d'exploitation (G)
+- __pxm__: Permis d'exploitation (M)
+- __cxx__: Concession (M, H, G, S, C)
 """
 enum TypeId {
-  aex
-  con
-  per
+  apx
+  arc
+  arg
+  axm
+  prx
+  prh
+  pxc
+  pxg
+  pxm
+  cxx
 }
-
-scalar TypeNom
 
 """
 - __m__: Minéraux et métaux
@@ -134,8 +140,6 @@ enum DomaineId {
   g
 }
 
-scalar DomaineNom
-
 """
 - __ins__: En instruction
 - __val__: Valide
@@ -147,8 +151,6 @@ enum StatutId {
   ech
 }
 
-scalar StatutNom
-
 """
 - __ins__: En instruction
 - __enc__: En cours
@@ -159,8 +161,6 @@ enum TravauxId {
   enc
   ach
 }
-
-scalar TravauxNom
 
 """
 - __oct__: Octroi
@@ -176,5 +176,3 @@ enum PhaseId {
   prn
   pre
 }
-
-scalar PhaseNom

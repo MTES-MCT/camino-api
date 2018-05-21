@@ -3,6 +3,7 @@ const Domaines = require('./titres-domaines')
 const Types = require('./titres-types')
 const Statuts = require('./titres-statuts')
 const Travaux = require('./titres-travaux')
+const Substances = require('./substances')
 
 class Titres extends Model {
   static get tableName() {
@@ -32,7 +33,7 @@ class Titres extends Model {
         modelClass: Domaines,
         join: {
           from: 'titres.domaineId',
-          to: 'titres_domaines.id'
+          to: 'titresDomaines.id'
         }
       },
       type: {
@@ -40,7 +41,7 @@ class Titres extends Model {
         modelClass: Types,
         join: {
           from: 'titres.typeId',
-          to: 'titres_types.id'
+          to: 'titresTypes.id'
         }
       },
       statut: {
@@ -48,7 +49,7 @@ class Titres extends Model {
         modelClass: Statuts,
         join: {
           from: 'titres.statutId',
-          to: 'titres_statuts.id'
+          to: 'titresStatuts.id'
         }
       },
       travaux: {
@@ -56,10 +57,33 @@ class Titres extends Model {
         modelClass: Travaux,
         join: {
           from: 'titres.travauxId',
-          to: 'titres_travaux.id'
+          to: 'titresTravaux.id'
         }
       },
-      substances
+      substancesPrincipales: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Substances,
+        join: {
+          from: 'titres.id',
+          through: {
+            from: 'titresSubstancesPrincipales.titreId',
+            to: 'titresSubstancesPrincipales.substanceId'
+          },
+          to: 'substances.titreId'
+        }
+      },
+      substancesSecondaires: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Substances,
+        join: {
+          from: 'titres.id',
+          through: {
+            from: 'titresSubstancesSecondaires.titreId',
+            to: 'titresSubstancesSecondaires.substanceId'
+          },
+          to: 'substances.titreId'
+        }
+      }
     }
   }
 }

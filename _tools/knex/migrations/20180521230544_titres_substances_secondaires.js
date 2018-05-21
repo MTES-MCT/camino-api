@@ -1,10 +1,9 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
-    knex.schema.createTable('titresSubstances', table => {
+    knex.schema.createTable('titresSubstancesSecondaires', table => {
       table.string('titreId', 32).references('titres.id')
       table.string('substanceId', 4).references('substances.id')
       table.primary(['titreId', 'substanceId'])
-      table.boolean('connexe')
     })
   ])
 }

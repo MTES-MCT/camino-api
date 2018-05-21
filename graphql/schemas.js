@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server')
 const fileImport = require('./_file-import.js')
 
-const titleSchema = fileImport(__dirname, 'schemas/title.gql')
+const titreSchema = fileImport(__dirname, 'schemas/titre.gql')
 const substanceSchema = fileImport(__dirname, 'schemas/substance.gql')
 
 const typeDefs = gql`
@@ -30,7 +30,7 @@ const typeDefs = gql`
     titreModifier(titre: InputTitre!): Titre
   }
 
-  ${titleSchema}
+  ${titreSchema}
 
   ${substanceSchema}
 `

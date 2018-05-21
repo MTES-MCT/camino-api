@@ -1,10 +1,5 @@
-const Titres = require('../mongo/models/titres')
-// const Substances = require('../mongo/models/substances')
-// require('../mongo/models/substances-legals')
-
+const Titres = require('../postgres/models/titres')
 const Substances = require('../postgres/models/substances')
-
-const { TypeNom, DomaineNom, StatutNom } = require('./types')
 
 const resolvers = {
   Query: {
@@ -15,27 +10,26 @@ const resolvers = {
       })
     },
 
-    titres(root, { typeId, domaineId, statutId, travauxId }) {
-      return Titres.find({
-        'type._id': { $in: typeId },
-        'domaine._id': { $in: domaineId },
-        'statut._id': { $in: statutId },
-        'travaux._id': { $in: travauxId }
-      }).populate({
-        path: 'substances.principales',
-        populate: { path: 'legalId' }
-      })
+    async titres(root, { typeId, domaineId, statutId, travauxId }) {
+      try {
+        let titres = await Titres.query().eager(
+          '[type, domaine, statut, travaux]'
+        )
+        console.log(titres)
+        return titres
+      } catch (e) {
+        console.log(e)
+      }
     },
 
     async substances(root) {
-      // return Substances.find().populate('legalId')
       // return Substances.query().eager('legal')
       try {
         let substances = await Substances.query().eager('legal')
         console.log(substances)
         return substances
-      } catch (error) {
-        console.log(error)
+      } catch (e) {
+        console.log(e)
       }
     },
 
@@ -45,23 +39,24 @@ const resolvers = {
         return await Substances.query()
           .findById(id)
           .eager('legal')
-      } catch (error) {
-        console.log(error)
+      } catch (e) {
+        console.log(e)
       }
     }
   },
 
   Mutation: {
-    titreAjouter(parent, { titre }) {
-      const t = new Titres(titre)
-      return t.save().then(t =>
-        t
-          .populate({
-            path: 'substances.principales',
-            populate: { path: 'legalId' }
-          })
-          .execPopulate()
-      )
+    async titreAjouter(parent, { titre }) {
+      try {
+        let t = await Titres.query()
+          .insertGraph([titre], { relate: true })
+          .eager('[type, domaine, statut, travaux]')
+          .first()
+        console.log(t)
+        return t
+      } catch (e) {
+        console.log(e)
+      }
     },
 
     titreSupprimer(parent, { id }) {
@@ -82,13 +77,7 @@ const resolvers = {
         }
       )
     }
-  },
-
-  DomaineNom,
-
-  TypeNom,
-
-  StatutNom
+  }
 }
 
 module.exports = resolvers

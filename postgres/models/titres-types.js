@@ -1,5 +1,4 @@
 const { Model } = require('objection')
-const Domaines = require('./titres-domaines')
 const Phases = require('./titres-types-phases')
 
 class Types extends Model {
@@ -21,18 +20,6 @@ class Types extends Model {
 
   static get relationMappings() {
     return {
-      domaine: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Domaines,
-        join: {
-          from: 'titresTypes.id',
-          through: {
-            from: 'titresDomainesTypes.typeId',
-            to: 'titresDomainesTypes.domaineId'
-          },
-          to: 'titresDomaines.id'
-        }
-      },
       phases: {
         relation: Model.HasManyRelation,
         modelClass: Phases,
