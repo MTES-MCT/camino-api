@@ -31,14 +31,14 @@
   {
     "id": "axm-oct",
     "nom": "octroi",
-    "durée": 4,
+    "duree": 4,
     "type_id": "axm",
     "position": 1
   },
   {
     "id": "axm-pro",
     "nom": "prolongation",
-    "durée": 4,
+    "duree": 4,
     "type_id": "axm",
     "position": 2,
     "renouvelable": true
@@ -46,64 +46,64 @@
   {
     "id": "prx-oct",
     "nom": "octroi",
-    "durée": 5,
+    "duree": 5,
     "type_id": "prx",
     "position": 1
   },
   {
-    "id": "prx-pro1",
+    "id": "prx-pr1",
     "nom": "prolongation 1",
-    "durée": 5,
+    "duree": 5,
     "type_id": "prx",
     "position": 2
   },
   {
-    "id": "prx-pro2",
+    "id": "prx-pr2",
     "nom": "prolongation 2",
-    "durée": 5,
+    "duree": 5,
     "type_id": "prx",
     "position": 3
   },
   {
     "id": "prh-oct",
     "nom": "octroi",
-    "durée": 5,
+    "duree": 5,
     "type_id": "prh",
     "position": 1
   },
   {
-    "id": "prh-pro1",
+    "id": "prh-pr1",
     "nom": "prolongation 1",
-    "durée": 5,
+    "duree": 5,
     "type_id": "prh",
     "position": 2
   },
   {
-    "id": "prh-pro2",
+    "id": "prh-pr2",
     "nom": "prolongation 2",
-    "durée": 5,
+    "duree": 5,
     "type_id": "prh",
     "position": 3
   },
   {
-    "id": "prh-proe",
+    "id": "prh-pre",
     "nom": "prolongation exceptionnelle",
-    "durée": 3,
+    "duree": 3,
     "type_id": "prh",
     "position": 4,
-    "exceptionnel": true
+    "exception": true
   },
   {
     "id": "pxc-oct",
     "nom": "octroi",
-    "durée": 10,
+    "duree": 10,
     "type_id": "pxc",
     "position": 1
   },
   {
     "id": "pxc-pro",
     "nom": "prolongation",
-    "durée": 10,
+    "duree": 10,
     "type_id": "pxc",
     "position": 2,
     "renouvelable": true
@@ -111,14 +111,14 @@
   {
     "id": "pxg-oct",
     "nom": "octroi",
-    "durée": 30,
+    "duree": 30,
     "type_id": "pxg",
     "position": 1
   },
   {
     "id": "pxg-pro",
     "nom": "prolongation",
-    "durée": 15,
+    "duree": 15,
     "type_id": "pxg",
     "position": 2,
     "renouvelable": true
@@ -126,35 +126,35 @@
   {
     "id": "pxm-oct",
     "nom": "octroi",
-    "durée": 5,
+    "duree": 5,
     "type_id": "pxm",
     "position": 1
   },
   {
-    "id": "pxm-pro1",
+    "id": "pxm-pr1",
     "nom": "prolongation 1",
-    "durée": 5,
+    "duree": 5,
     "type_id": "pxm",
     "position": 2
   },
   {
-    "id": "pxm-pro2",
+    "id": "pxm-pr2",
     "nom": "prolongation 2",
-    "durée": 5,
+    "duree": 5,
     "type_id": "pxm",
     "position": 3
   },
   {
-    "id": "cxx-pro2",
+    "id": "cxx-oct",
     "nom": "octroi",
-    "durée": 50,
+    "duree": 50,
     "type_id": "cxx",
     "position": 1
   },
   {
-    "id": "cxx-pro2",
+    "id": "cxx-pr2",
     "nom": "prolongation",
-    "durée": 25,
+    "duree": 25,
     "type_id": "cxx",
     "position": 2,
     "renouvelable": true

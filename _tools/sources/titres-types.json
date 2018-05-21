@@ -1,0 +1,42 @@
+[
+  {
+    "id": "apx",
+    "nom": "autorisation de prospections préalables"
+  },
+  {
+    "id": "arg",
+    "nom": "autorisation de recherches"
+  },
+  {
+    "id": "arc",
+    "nom": "autorisation de recherches"
+  },
+  {
+    "id": "axm",
+    "nom": "autorisation d'exploitation"
+  },
+  {
+    "id": "prx",
+    "nom": "permis exclusif de recherches"
+  },
+  {
+    "id": "prh",
+    "nom": "permis exclusif de recherches"
+  },
+  {
+    "id": "pxc",
+    "nom": "permis exclusif de carrières"
+  },
+  {
+    "id": "pxg",
+    "nom": "permis d'exploitation"
+  },
+  {
+    "id": "pxm",
+    "nom": "permis d'exploitation"
+  },
+  {
+    "id": "cxx",
+    "nom": "concession"
+  }
+]
