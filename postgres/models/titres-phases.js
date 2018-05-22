@@ -32,7 +32,7 @@ class Phases extends Model {
         join: {
           from: 'titresPhases.id',
           through: {
-            from: 'titresPhasesEmprises.phasesId',
+            from: 'titresPhasesEmprises.phaseId',
             to: 'titresPhasesEmprises.empriseId'
           },
           to: 'titresEmprises.id'

@@ -12,7 +12,8 @@ const options = {
       'travaux',
       'substancesPrincipales',
       'substancesSecondaires',
-      'phases.type'
+      'phases.type',
+      'phases.emprise'
     ],
     unrelate: [
       'type',
@@ -21,8 +22,10 @@ const options = {
       'travaux',
       'substancesPrincipales',
       'substancesSecondaires',
-      'phases.type'
-    ]
+      'phases.type',
+      'phases.emprise'
+    ],
+    insertMissing: ['phases']
   }
 }
 

@@ -22,7 +22,7 @@ class Phases extends Model {
             'prolongation exceptionnelle'
           ]
         },
-        duree: {
+        dureeMax: {
           type: 'integer'
         },
         position: {

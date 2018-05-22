@@ -49,14 +49,20 @@ type Phase {
   type: PhaseType!
   duree: Int!
   date: String!
+  emprise: [Emprise]
 }
 
 type PhaseType {
   id: ID!
   nom: String!
-  duree: Int!
+  dureeMax: Int!
   renouvelable: Boolean
   exception: Boolean
+}
+
+type Emprise {
+  id: EmpriseId!
+  nom: String!
 }
 
 "tauuust"
@@ -109,10 +115,20 @@ input InputPhases {
   type: InputPhaseType!
   duree: Int!
   date: String!
+  emprise: [InputEmprise]
 }
 
 input InputPhaseType {
   id: ID!
+  nom: String
+  dureeMax: Int
+  renouvelable: Boolean
+  exception: Boolean
+}
+
+input InputEmprise {
+  id: EmpriseId!
+  nom: String
 }
 
 """
@@ -175,4 +191,13 @@ enum TravauxId {
   ins
   enc
   ach
+}
+
+"""
+- __ter__: À terre
+- __mer__: En mer
+"""
+enum EmpriseId {
+  ter
+  mer
 }
