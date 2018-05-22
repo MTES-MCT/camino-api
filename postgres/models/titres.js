@@ -4,6 +4,7 @@ const Types = require('./titres-types')
 const Statuts = require('./titres-statuts')
 const Travaux = require('./titres-travaux')
 const Substances = require('./substances')
+const TitresPhases = require('./titres-phases')
 
 class Titres extends Model {
   static get tableName() {
@@ -83,13 +84,21 @@ class Titres extends Model {
           },
           to: 'substances.id'
         }
+      },
+      phases: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresPhases,
+        join: {
+          from: 'titres.id',
+          to: 'titresPhases.titreId'
+        }
       }
     }
   }
 
-  $afterGet(queryContext) {
-    return console.log('after insert ----------------------', queryContext)
-  }
+  // $afterGet(queryContext) {
+  //   return console.log('after insert ----------------------', queryContext)
+  // }
 }
 
 module.exports = Titres

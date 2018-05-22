@@ -1,15 +1,38 @@
 const Titres = require('../postgres/models/titres')
 const Substances = require('../postgres/models/substances')
 
+const options = {
+  titresEager:
+    '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal, phases.type]',
+  titresUpdate: {
+    relate: [
+      'type',
+      'domaine',
+      'statut',
+      'travaux',
+      'substancesPrincipales',
+      'substancesSecondaires',
+      'phases.type'
+    ],
+    unrelate: [
+      'type',
+      'domaine',
+      'statut',
+      'travaux',
+      'substancesPrincipales',
+      'substancesSecondaires',
+      'phases.type'
+    ]
+  }
+}
+
 const resolvers = {
   Query: {
     async titre(root, { id }) {
       try {
         return await Titres.query()
           .findById(id)
-          .eager(
-            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
-          )
+          .eager(options.titresEager)
       } catch (e) {
         console.log(e)
       }
@@ -22,9 +45,7 @@ const resolvers = {
           .whereIn('domaineId', domaineId)
           .whereIn('statutId', statutId)
           .whereIn('travauxId', travauxId)
-          .eager(
-            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
-          )
+          .eager(options.titresEager)
       } catch (e) {
         console.log(e)
       }
@@ -54,10 +75,8 @@ const resolvers = {
     async titreAjouter(parent, { titre }) {
       try {
         let t = await Titres.query()
-          .insertGraph([titre], { relate: true })
-          .eager(
-            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
-          )
+          .insertGraph([titre], options.titresUpdate)
+          .eager(options.titresEager)
           .first()
         return t
       } catch (e) {
@@ -78,11 +97,10 @@ const resolvers = {
 
     async titreModifier(parent, { titre }) {
       try {
+        console.log('-----------------------', titre)
         let t = await Titres.query()
-          .upsertGraph([titre], { relate: true })
-          .eager(
-            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
-          )
+          .upsertGraph([titre], options.titresUpdate)
+          .eager(options.titresEager)
           .first()
         return t
       } catch (e) {

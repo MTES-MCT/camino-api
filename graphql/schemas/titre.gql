@@ -47,7 +47,6 @@ type Reference {
 type Phase {
   id: ID!
   type: PhaseType!
-  nom: String!
   duree: Int!
   date: String!
 }
@@ -108,7 +107,6 @@ input InputReference {
 input InputPhases {
   id: ID!
   type: InputPhaseType!
-  nom: String!
   duree: Int!
   date: String!
 }

@@ -8,7 +8,7 @@ class Phases extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom'],
+      required: ['id'],
 
       properties: {
         id: { type: 'string', maxLength: 8 },
