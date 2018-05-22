@@ -1,7 +1,13 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('titresSubstancesSecondaires', table => {
-    table.string('titreId', 32).references('titres.id')
-    table.string('substanceId', 4).references('substances.id')
+    table
+      .string('titreId', 32)
+      .references('titres.id')
+      .notNullable()
+    table
+      .string('substanceId', 4)
+      .references('substances.id')
+      .notNullable()
     table.primary(['titreId', 'substanceId'])
   })
 }
