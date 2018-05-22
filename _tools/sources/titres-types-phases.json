@@ -2,28 +2,28 @@
   {
     "id": "apx-oct",
     "nom": "octroi",
-    "duree": 2,
+    "dureeMax": 2,
     "typeId": "apx",
     "position": 1
   },
   {
     "id": "arg-oct",
     "nom": "octroi",
-    "duree": 3,
+    "dureeMax": 3,
     "typeId": "arg",
     "position": 1
   },
   {
     "id": "arc-oct",
     "nom": "octroi",
-    "duree": 3,
+    "dureeMax": 3,
     "typeId": "arc",
     "position": 1
   },
   {
     "id": "arc-pro",
     "nom": "prolongation",
-    "duree": 3,
+    "dureeMax": 3,
     "typeId": "arc",
     "position": 2,
     "renouvelable": true
@@ -31,14 +31,14 @@
   {
     "id": "axm-oct",
     "nom": "octroi",
-    "duree": 4,
+    "dureeMax": 4,
     "typeId": "axm",
     "position": 1
   },
   {
     "id": "axm-pro",
     "nom": "prolongation",
-    "duree": 4,
+    "dureeMax": 4,
     "typeId": "axm",
     "position": 2,
     "renouvelable": true
@@ -46,49 +46,49 @@
   {
     "id": "prx-oct",
     "nom": "octroi",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "prx",
     "position": 1
   },
   {
     "id": "prx-pr1",
     "nom": "prolongation 1",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "prx",
     "position": 2
   },
   {
     "id": "prx-pr2",
     "nom": "prolongation 2",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "prx",
     "position": 3
   },
   {
     "id": "prh-oct",
     "nom": "octroi",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "prh",
     "position": 1
   },
   {
     "id": "prh-pr1",
     "nom": "prolongation 1",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "prh",
     "position": 2
   },
   {
     "id": "prh-pr2",
     "nom": "prolongation 2",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "prh",
     "position": 3
   },
   {
     "id": "prh-pre",
     "nom": "prolongation exceptionnelle",
-    "duree": 3,
+    "dureeMax": 3,
     "typeId": "prh",
     "position": 4,
     "exception": true
@@ -96,14 +96,14 @@
   {
     "id": "pxc-oct",
     "nom": "octroi",
-    "duree": 10,
+    "dureeMax": 10,
     "typeId": "pxc",
     "position": 1
   },
   {
     "id": "pxc-pro",
     "nom": "prolongation",
-    "duree": 10,
+    "dureeMax": 10,
     "typeId": "pxc",
     "position": 2,
     "renouvelable": true
@@ -111,14 +111,14 @@
   {
     "id": "pxg-oct",
     "nom": "octroi",
-    "duree": 30,
+    "dureeMax": 30,
     "typeId": "pxg",
     "position": 1
   },
   {
     "id": "pxg-pro",
     "nom": "prolongation",
-    "duree": 15,
+    "dureeMax": 15,
     "typeId": "pxg",
     "position": 2,
     "renouvelable": true
@@ -126,35 +126,35 @@
   {
     "id": "pxm-oct",
     "nom": "octroi",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "pxm",
     "position": 1
   },
   {
     "id": "pxm-pr1",
     "nom": "prolongation 1",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "pxm",
     "position": 2
   },
   {
     "id": "pxm-pr2",
     "nom": "prolongation 2",
-    "duree": 5,
+    "dureeMax": 5,
     "typeId": "pxm",
     "position": 3
   },
   {
     "id": "cxx-oct",
     "nom": "octroi",
-    "duree": 50,
+    "dureeMax": 50,
     "typeId": "cxx",
     "position": 1
   },
   {
     "id": "cxx-pr2",
     "nom": "prolongation",
-    "duree": 25,
+    "dureeMax": 25,
     "typeId": "cxx",
     "position": 2,
     "renouvelable": true
