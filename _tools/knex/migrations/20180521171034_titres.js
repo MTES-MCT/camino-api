@@ -1,7 +1,7 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
     knex.schema.createTable('titres', table => {
-      table.string('id', 32).primary()
+      table.string('id', 128).primary()
       table.string('nom')
       table.string('typeId', 3)
       table.string('domaineId', 1)
