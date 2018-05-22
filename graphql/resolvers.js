@@ -7,7 +7,9 @@ const resolvers = {
       try {
         return await Titres.query()
           .findById(id)
-          .eager('[type, domaine, statut, travaux]')
+          .eager(
+            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
+          )
       } catch (e) {
         console.log(e)
       }
@@ -20,7 +22,9 @@ const resolvers = {
           .whereIn('domaineId', domaineId)
           .whereIn('statutId', statutId)
           .whereIn('travauxId', travauxId)
-          .eager('[type, domaine, statut, travaux]')
+          .eager(
+            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
+          )
       } catch (e) {
         console.log(e)
       }
@@ -51,7 +55,9 @@ const resolvers = {
       try {
         let t = await Titres.query()
           .insertGraph([titre], { relate: true })
-          .eager('[type, domaine, statut, travaux]')
+          .eager(
+            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
+          )
           .first()
         return t
       } catch (e) {
@@ -74,7 +80,9 @@ const resolvers = {
       try {
         let t = await Titres.query()
           .upsertGraph([titre], { relate: true })
-          .eager('[type, domaine, statut, travaux]')
+          .eager(
+            '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal]'
+          )
           .first()
         return t
       } catch (e) {

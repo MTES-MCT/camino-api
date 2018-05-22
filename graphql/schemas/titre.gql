@@ -13,7 +13,8 @@ type Titre {
   domaine: Domaine!
   statut: Statut!
   travaux: Travaux!
-  substances: Substances
+  substancesPrincipales: [Substance]
+  substancesSecondaires: [Substance]
   references: [Reference]
   phases: [Phase]
 }
@@ -38,19 +39,25 @@ type Travaux {
   nom: String!
 }
 
-type Substances {
-  principales: [Substance]
-  connexes: [Substance]
-}
-
 type Reference {
   type: String
   nom: String!
 }
 
 type Phase {
-  id: PhaseId!
+  id: ID!
+  type: PhaseType!
   nom: String!
+  duree: Int!
+  date: String!
+}
+
+type PhaseType {
+  id: ID!
+  nom: String!
+  duree: Int!
+  renouvelable: Boolean
+  exception: Boolean
 }
 
 "tauuust"
@@ -68,7 +75,8 @@ input InputTitre {
   domaine: InputDomaine!
   statut: InputStatut!
   travaux: InputTravaux!
-  substances: InputSubstances
+  substancesPrincipales: [InputSubstanceId!]
+  substancesSecondaires: [InputSubstanceId!]
   references: [InputReference]
   phases: [InputPhases]
 }
@@ -89,9 +97,8 @@ input InputTravaux {
   id: TravauxId!
 }
 
-input InputSubstances {
-  principales: [ID!]
-  connexes: [ID!]
+input InputSubstanceId {
+  id: ID!
 }
 
 input InputReference {
@@ -99,7 +106,15 @@ input InputReference {
 }
 
 input InputPhases {
-  id: PhaseId!
+  id: ID!
+  type: InputPhaseType!
+  nom: String!
+  duree: Int!
+  date: String!
+}
+
+input InputPhaseType {
+  id: ID!
 }
 
 """
@@ -132,12 +147,14 @@ enum TypeId {
 - __h__: Substances énergétiques
 - __s__: Stockage
 - __g__: Géothermie
+- __c__: Carrières et granulats marins
 """
 enum DomaineId {
   m
   h
   s
   g
+  c
 }
 
 """
@@ -160,19 +177,4 @@ enum TravauxId {
   ins
   enc
   ach
-}
-
-"""
-- __oct__: Octroi
-- __pr1__: Prolongation 1
-- __pr2__: Prolongation 2
-- __prn__: Prolongation
-- __pre__: Prolongation exceptionnelle
-"""
-enum PhaseId {
-  oct
-  pr1
-  pr2
-  prn
-  pre
 }

@@ -69,7 +69,7 @@ class Titres extends Model {
             from: 'titresSubstancesPrincipales.titreId',
             to: 'titresSubstancesPrincipales.substanceId'
           },
-          to: 'substances.titreId'
+          to: 'substances.id'
         }
       },
       substancesSecondaires: {
@@ -81,10 +81,14 @@ class Titres extends Model {
             from: 'titresSubstancesSecondaires.titreId',
             to: 'titresSubstancesSecondaires.substanceId'
           },
-          to: 'substances.titreId'
+          to: 'substances.id'
         }
       }
     }
+  }
+
+  $afterGet(queryContext) {
+    return console.log('after insert ----------------------', queryContext)
   }
 }
 
