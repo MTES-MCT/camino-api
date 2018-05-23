@@ -1,5 +1,6 @@
 const Titres = require('../postgres/models/titres')
 const Substances = require('../postgres/models/substances')
+const { json } = require('./types')
 
 const options = {
   titresEager:
@@ -110,7 +111,9 @@ const resolvers = {
         console.log(e)
       }
     }
-  }
+  },
+
+  json
 }
 
 module.exports = resolvers

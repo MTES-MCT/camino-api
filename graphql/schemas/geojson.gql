@@ -1,0 +1,59 @@
+type Geojson {
+  type: FeatureCollectionType!
+  features: [Feature]
+}
+
+type Feature {
+  type: FeatureType!
+  geometry: Geometry!
+}
+
+union Geometry = MultiPolygon | Points
+
+type MultiPolygon {
+  type: GeometryTypeMultipolygon!
+  coordinates: [[[Float]]]
+}
+
+type Points {
+  type: GeometryTypePoint!
+  coordinates: [Float]
+}
+
+input InputGeojson {
+  type: FeatureCollectionType!
+  feature: [InputFeature]
+}
+
+input InputFeature {
+  type: FeatureType!
+  geometry: InputGeometry!
+}
+
+input InputGeometry {
+  type: GeometryType
+  coordinates: json
+}
+
+enum FeatureCollectionType {
+  FeatureCollection
+}
+
+enum FeatureType {
+  Feature
+}
+
+enum GeometryType {
+  MultiPolygon
+  Point
+}
+
+enum GeometryTypeMultipolygon {
+  MultiPolygon
+}
+
+enum GeometryTypePoint {
+  Point
+}
+
+scalar json
