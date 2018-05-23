@@ -13,9 +13,10 @@ services:
       NODE_ENV: development
       VIRTUAL_HOST: api.camino.local
       VIRTUAL_PORT: 4000
-      POSTGRES_HOST: localhost
+      POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
-      POSTGRES_DB_NAME: camino
+      POSTGRES_DB: camino
+      POSTGRES_USER: postgres
     expose:
       - 4000
     command: npm run dev

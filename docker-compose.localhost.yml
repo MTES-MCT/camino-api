@@ -15,7 +15,7 @@ services:
       NODE_ENV: development
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
-      POSTGRES_DB_NAME: camino
+      POSTGRES_DB: camino
     command: npm run dev
 
   postgres: 

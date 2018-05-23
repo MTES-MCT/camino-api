@@ -5,7 +5,7 @@ module.exports = {
   connection: {
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
-    database: process.env.POSTGRES_DB_NAME
+    database: process.env.POSTGRES_DB
   },
   debug: true,
   migrations: {
