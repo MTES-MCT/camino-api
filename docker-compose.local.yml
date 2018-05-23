@@ -28,7 +28,10 @@ services:
     expose:
       - 5432
     volumes:
-      - ./db/postgres:/var/lib/postgresql/data
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data: {}
 
 networks:
   default:
