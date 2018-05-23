@@ -12,6 +12,7 @@ services:
     environment:
       NODE_ENV: production
       VIRTUAL_HOST: api.camino.pw
+      VIRTUAL_PORT: 4000
       LETSENCRYPT_HOST: api.camino.pw
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
       POSTGRES_HOST: localhost
