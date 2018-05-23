@@ -5,7 +5,7 @@
   "main": "app/index.js",
   "scripts": {
     "dev": "nodemon ./index.js",
-    "start": "node ./index.js"
+    "start": "npm install && node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -38,8 +38,6 @@
     "nodemon": "^1.17.4"
   },
   "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
+    "presets": ["@babel/preset-env"]
   }
 }
