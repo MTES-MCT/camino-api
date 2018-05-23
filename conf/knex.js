@@ -3,9 +3,10 @@ require('dotenv').config({ path: '../.env' })
 module.exports = {
   client: 'pg',
   connection: {
-    host: process.env.POSTGRES_HOST,
-    port: process.env.POSTGRES_PORT,
-    database: process.env.POSTGRES_DB
+    host: process.env.PGHOST,
+    port: process.env.PGPORT,
+    database: process.env.PGDATABASE,
+    user: process.env.PGUSER
   },
   debug: true,
   migrations: {

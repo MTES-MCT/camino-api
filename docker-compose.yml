@@ -15,10 +15,10 @@ services:
       VIRTUAL_PORT: 4000
       LETSENCRYPT_HOST: api.camino.pw
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
-      POSTGRES_HOST: postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: camino
-      POSTGRES_USER: postgres
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: camino
+      PGUSER: postgres
     expose:
       - 4000
     command: npm run start
