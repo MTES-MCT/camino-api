@@ -3,14 +3,10 @@ version: "3"
 services:
 
   api:
-    image: node:alpine
-    volumes:
-      - ./:/api
-    working_dir: /api
+    build: .
     depends_on:
       - postgres
     environment:
-      NODE_ENV: development
       VIRTUAL_HOST: api.camino.local
       VIRTUAL_PORT: 4000
       PGHOST: postgres
@@ -19,7 +15,6 @@ services:
       PGUSER: postgres
     expose:
       - 4000
-    command: npm run dev
   
   postgres: 
     image: postgres:alpine
