@@ -17,7 +17,7 @@ ADD package.json /tmp/package.json
 RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
 COPY package*.json $dir/
-COPY app/ $dir/
+COPY . $dir/
 
 CMD ["npm", "start"]
 

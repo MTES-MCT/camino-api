@@ -3,13 +3,15 @@ version: "3"
 services:
 
   api:
-    build: .
-    depends_on:
+    image: node:alpine
+    volumes:
+      - ./:/api
+    working_dir: /api
       - postgres
     environment:
       NODE_ENV: production
-      VIRTUAL_HOST: api.camino.site
-      LETSENCRYPT_HOST: api.camino.site
+      VIRTUAL_HOST: api.camino.pw
+      LETSENCRYPT_HOST: api.camino.pw
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
