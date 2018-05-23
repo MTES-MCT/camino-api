@@ -33,7 +33,7 @@ services:
       - data:/var/lib/postgresql/data
     command: createdb camino
 
-volumes
+volumes:
   data: {}
 
 networks:
