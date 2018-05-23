@@ -18,7 +18,7 @@ services:
       POSTGRES_DB_NAME: camino
     expose:
       - 4000
-    command: npm run start
+    command: npm install && npm run start
   
   postgres: 
     image: postgres:alpine
