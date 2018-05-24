@@ -1,13 +1,22 @@
 mutation {
   titreAjouter(
     titre: {
-      id: "qqqtttuuugdgsgvfsgddd"
+      id: "06"
       nom: "ghff hfg"
-      type: { id: aex, nom: "concession" }
-      domaine: { id: m, nom: "minéraux et métaux" }
-      statut: { id: val, nom: "valide" }
-      travaux: { id: enc, nom: "en cours" }
-      substances: { principales: ["hydr"] }
+      type: { id: apx }
+      domaine: { id: h }
+      statut: { id: ins }
+      travaux: { id: ach }
+      substancesPrincipales: [{ id: "acti" }, { id: "cadm" }]
+      substancesSecondaires: [{ id: "cesi" }]
+      phases: [
+        {
+          id: "06-apx-oct"
+          type: { id: "apx-oct" }
+          duree: 1
+          date: "1999-01-08 04:05:06"
+        }
+      ]
     }
   ) {
     nom
@@ -28,11 +37,9 @@ mutation {
       id
       nom
     }
-    substances {
-      principales {
-        id
-        nom
-      }
+    substancesPrincipales {
+      id
+      nom
     }
   }
 }

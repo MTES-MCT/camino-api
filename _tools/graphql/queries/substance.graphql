@@ -1,5 +1,5 @@
 query {
-  substances {
+  substance(id: "hydr") {
     id
     nom
     domaine

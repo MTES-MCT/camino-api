@@ -18,11 +18,9 @@ query Titre($id: String!) {
       id
       nom
     }
-    substances {
-      principales {
-        id
-        nom
-      }
+    substancesPrincipales {
+      id
+      nom
     }
   }
 }

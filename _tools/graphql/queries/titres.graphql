@@ -1,6 +1,6 @@
 query Titres {
   titres(
-    typeId: [aex, con]
+    typeId: [apx, arc]
     domaineId: [m, h, s, g]
     statutId: [ins, val, ech]
     travauxId: [ins, enc, ach]
@@ -23,10 +23,11 @@ query Titres {
       id
       nom
     }
-    substances {
-      principales {
-        ...sub
-      }
+    substancesPrincipales {
+      ...sub
+    }
+    substancesSecondaires {
+      ...sub
     }
   }
 }
