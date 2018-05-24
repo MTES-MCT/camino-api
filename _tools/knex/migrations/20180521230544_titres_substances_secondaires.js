@@ -3,6 +3,7 @@ exports.up = (knex, Promise) => {
     table
       .string('titreId', 32)
       .references('titres.id')
+      .onDelete('CASCADE')
       .notNullable()
     table
       .string('substanceId', 4)

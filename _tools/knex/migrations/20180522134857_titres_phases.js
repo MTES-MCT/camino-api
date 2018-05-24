@@ -2,7 +2,11 @@ exports.up = (knex, Promise) => {
   return knex.schema
     .createTable('titresPhases', table => {
       table.string('id', 128).primary()
-      table.string('titreId', 128).references('titres.id')
+      table
+        .string('titreId', 128)
+        .references('titres.id')
+        // .notNullable()
+        .onDelete('CASCADE')
       table.string('phaseId', 8).notNullable()
       table.date('date').notNullable()
       table.integer('duree').notNullable()
@@ -14,6 +18,7 @@ exports.up = (knex, Promise) => {
         .string('phaseId', 128)
         .notNullable()
         .references('titresPhases.id')
+        .onDelete('CASCADE')
       table
         .string('empriseId', 3)
         .notNullable()

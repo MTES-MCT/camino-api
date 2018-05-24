@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
       .string('titreId', 128)
       .notNullable()
       .references('titres.id')
-    table.specificType('coordinates', 'points').notNullable()
+    // table.specificType('coordinates', 'points').notNullable()
     table.string('polygone', 32).notNullable()
     table.string('name')
     table.string('reference')
