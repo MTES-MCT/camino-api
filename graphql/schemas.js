@@ -1,11 +1,11 @@
-const { gql } = require('apollo-server')
+var { buildSchema } = require('graphql')
 const fileImport = require('./_file-import.js')
 
 const titreSchema = fileImport(__dirname, 'schemas/titre.gql')
 const substanceSchema = fileImport(__dirname, 'schemas/substance.gql')
-const geojsonSchema = fileImport(__dirname, 'schemas/geojson.gql')
+// const geojsonSchema = fileImport(__dirname, 'schemas/geojson.gql')
 
-const typeDefs = gql`
+const schemas = buildSchema(`
   type Query {
     "Liste de titres"
     titres(
@@ -21,10 +21,6 @@ const typeDefs = gql`
     substances: [Substance]
 
     substance(id: String!): Substance
-
-    geojsons: [Geojson]
-
-    geojson(id: String!): Geojson
   }
 
   type Mutation {
@@ -38,8 +34,6 @@ const typeDefs = gql`
   ${titreSchema}
 
   ${substanceSchema}
+`)
 
-  ${geojsonSchema}
-`
-
-module.exports = typeDefs
+module.exports = schemas

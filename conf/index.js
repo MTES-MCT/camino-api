@@ -1,11 +1,18 @@
+// virtualHost est défini seuelement si
+// l'application tourne dans un container docker
+// cd DockerFile
+
 const virtualHost = process.env.VIRTUAL_HOST
-const virtualProtocol = virtualHost && 'https'
-const virtualPort = Number(process.env.VIRTUAL_PORT) && 443
+const protocol = virtualHost ? 'https' : 'http'
 const dir = ''
+const port = 4000
+const host = virtualHost ? '0.0.0.0' : 'localhost'
+const url = virtualHost
+  ? `${protocol}://${virtualHost}/${dir}`
+  : `${protocol}://${host}:${port}/${dir}`
 
 module.exports = {
-  port: 4000,
-  host: virtualHost && '0.0.0.0',
-  virtualUrl:
-    virtualHost && `${virtualProtocol}://${virtualHost}:${virtualPort}/${dir}`
+  port,
+  host,
+  url
 }

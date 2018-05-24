@@ -2,7 +2,7 @@ FROM node:alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /api
-ENV NODE_ENV development
+ENV NODE_ENV production
 WORKDIR $dir
 
 # cache node_modules if no changes to package.json
