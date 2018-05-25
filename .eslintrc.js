@@ -1,10 +1,6 @@
 module.exports = {
-  extends: [
-    'standard',
-    'prettier',
-    'prettier/standard'
-  ],
+  extends: ['standard', 'prettier', 'prettier/standard'],
   env: {
-    browser: true
+    node: true
   }
 }

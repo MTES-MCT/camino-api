@@ -96,6 +96,11 @@ class Titres extends Model {
     }
   }
 
+  // async $beforeDelete(opt, context) {
+  //   await super.$beforeDelete(opt, context)
+  //   return console.log('------------------------->', this)
+  // }
+
   // $afterGet(queryContext) {
   //   return console.log('after insert ----------------------', queryContext)
   // }
