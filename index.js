@@ -3,7 +3,7 @@ require('./postgres')
 const chalk = require('chalk')
 const express = require('express')
 var graphqlHTTP = require('express-graphql')
-const { port, host, url } = require('./conf')
+const { port, url } = require('./conf')
 const schema = require('./graphql/schemas')
 const resolvers = require('./graphql/resolvers')
 
@@ -18,6 +18,6 @@ app.use(
   })
 )
 
-app.listen(port, host, () => {
-  console.log(chalk.bgWhiteBright.black.bold('Server:' + url))
+app.listen(port, () => {
+  console.log(chalk.bgWhiteBright.black.bold('Server: ' + url))
 })
