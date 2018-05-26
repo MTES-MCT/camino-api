@@ -1,0 +1,24 @@
+type Query {
+  "Liste de titres"
+  titres(
+    typeId: [TypeId]
+    domaineId: [DomaineId]
+    statutId: [StatutId]
+    travauxId: [TravauxId]
+  ): [Titre]
+
+  "Un titre"
+  titre(id: String!): Titre
+
+  substances: [Substance]
+
+  substance(id: String!): Substance
+}
+
+type Mutation {
+  titreAjouter(titre: InputTitre!): Titre
+
+  titreSupprimer(id: ID!): Titre
+
+  titreModifier(titre: InputTitre!): Titre
+}

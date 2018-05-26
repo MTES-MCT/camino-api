@@ -1,39 +1,17 @@
 var { buildSchema } = require('graphql')
 const fileImport = require('./_file-import.js')
 
-const titreSchema = fileImport(__dirname, 'schemas/titre.gql')
-const substanceSchema = fileImport(__dirname, 'schemas/substance.gql')
+const index = fileImport(__dirname, 'schemas/index.gql')
+const titres = fileImport(__dirname, 'schemas/titres.gql')
+const substances = fileImport(__dirname, 'schemas/substances.gql')
 // const geojsonSchema = fileImport(__dirname, 'schemas/geojson.gql')
 
 const schemas = buildSchema(`
-  type Query {
-    "Liste de titres"
-    titres(
-      typeId: [TypeId]
-      domaineId: [DomaineId]
-      statutId: [StatutId]
-      travauxId: [TravauxId]
-    ): [Titre]
+  ${index}
 
-    "Un titre"
-    titre(id: String!): Titre
+  ${titres}
 
-    substances: [Substance]
-
-    substance(id: String!): Substance
-  }
-
-  type Mutation {
-    titreAjouter(titre: InputTitre!): Titre
-
-    titreSupprimer(id: ID!): Titre
-
-    titreModifier(titre: InputTitre!): Titre
-  }
-
-  ${titreSchema}
-
-  ${substanceSchema}
+  ${substances}
 `)
 
 module.exports = schemas

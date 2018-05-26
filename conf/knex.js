@@ -1,14 +1,16 @@
 require('dotenv').config({ path: '../.env' })
 
+const connection = {
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
+  database: process.env.PGDATABASE,
+  user: process.env.PGUSER
+}
+
 module.exports = {
   development: {
     client: 'pg',
-    connection: {
-      host: process.env.PGHOST,
-      port: process.env.PGPORT,
-      database: process.env.PGDATABASE,
-      user: process.env.PGUSER
-    },
+    connection,
     debug: true,
     migrations: {
       directory: '../_tools/knex/migrations'
@@ -19,11 +21,6 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: {
-      host: process.env.PGHOST,
-      port: process.env.PGPORT,
-      database: process.env.PGDATABASE,
-      user: process.env.PGUSER
-    }
+    connection
   }
 }
