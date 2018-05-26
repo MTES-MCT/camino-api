@@ -3,7 +3,6 @@ LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /api
 ENV NODE_ENV production
-ENV NODE_PORT 4000
 WORKDIR $dir
 
 # cache node_modules if no changes to package.json
@@ -13,6 +12,7 @@ RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
 COPY package*.json ./
 COPY index.js ./
+COPY auth auth/
 COPY conf conf/
 COPY graphql graphql/
 COPY postgres postgres/

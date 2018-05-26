@@ -1,13 +1,8 @@
 const { substance, substances } = require('../../postgres/queries/substances')
 
 const resolvers = {
-  async substances(_, context) {
-    return substances({}, context)
-  },
-
-  async substance({ id }, context) {
-    return substance(id, context)
-  }
+  substances: async (_, context) => substances({}, context.user),
+  substance: async ({ id }, context) => substance(id, context.user)
 }
 
 module.exports = resolvers

@@ -10,22 +10,22 @@ services:
     depends_on:
       - postgres
     environment:
-      NODE_ENV: development
-      NODE_PORT: 4000
+      NODE_ENV: ${NODE_ENV}
+      NODE_PORT: ${NODE_PORT}
       PGHOST: postgres
-      PGPORT: 5432
-      PGDATABASE: camino
-      PGUSER: postgres
+      PGPORT: ${PGPORT}
+      PGDATABASE: ${PGDATABASE}
+      PGUSER: ${PGUSER}
     ports:
-      - 4000:4000
+      - ${NODE_PORT}:${NODE_PORT}
     command: npm run dev
 
   postgres: 
     image: postgres:alpine
     environment:
-      PGUSER: postgres
+      PGUSER: ${PGUSER}
     expose:
-      - 5432
+      - ${PGPORT}
     volumes:
       - data:/var/lib/postgresql/data
 

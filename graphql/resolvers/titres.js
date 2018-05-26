@@ -7,28 +7,19 @@ const {
 } = require('../../postgres/queries/titres')
 
 const resolvers = {
-  async titre({ id }) {
-    return titre(id)
-  },
+  titre: async ({ id }, context, info) => titre(id),
 
-  async titres({ typeId, domaineId, statutId, travauxId }, context, info) {
-    // console.log('this -------->', this)
-    // console.log('context ----->', context)
-    // console.log('info -------->', info)
-    return titres({ typeId, domaineId, statutId, travauxId }, context)
-  },
+  titres: async ({ typeId, domaineId, statutId, travauxId }, context, info) =>
+    titres({ typeId, domaineId, statutId, travauxId }, context.user),
 
-  async titreAjouter({ titre }, context) {
-    return titreAjouter(titre, context)
-  },
+  titreAjouter: async ({ titre }, context, info) =>
+    titreAjouter(titre, context.user),
 
-  async titreSupprimer({ id }, context) {
-    return titreSupprimer(id, context)
-  },
+  titreSupprimer: async ({ id }, context, info) =>
+    titreSupprimer(id, context.user),
 
-  async titreModifier({ titre }, context) {
-    return titreModifier(titre, context)
-  }
+  titreModifier: async ({ titre }, context, info) =>
+    titreModifier(titre, context.user)
 }
 
 module.exports = resolvers
