@@ -6,6 +6,7 @@ exports.up = (knex, Promise) => {
     table.string('domaineId', 1).notNullable()
     table.string('statutId', 3).notNullable()
     table.boolean('police').notNullable()
+    table.json('references')
   })
 }
 

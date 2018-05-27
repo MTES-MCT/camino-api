@@ -10,12 +10,12 @@ exports.up = (knex, Promise) => {
       table.string('phaseId', 8).notNullable()
       table.date('date').notNullable()
       table.integer('duree').notNullable()
-      table.integer('surface')
+      table.float('surface')
       table.integer('position')
     })
     .createTable('titresPhasesEmprises', table => {
       table
-        .string('phaseId', 128)
+        .string('titrePhaseId', 128)
         .notNullable()
         .references('titresPhases.id')
         .onDelete('CASCADE')
@@ -23,7 +23,7 @@ exports.up = (knex, Promise) => {
         .string('empriseId', 3)
         .notNullable()
         .references('titresEmprises.id')
-      table.primary(['phaseId', 'empriseId'])
+      table.primary(['titrePhaseId', 'empriseId'])
     })
 }
 
