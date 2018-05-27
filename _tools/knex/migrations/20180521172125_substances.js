@@ -19,7 +19,7 @@ exports.up = (knex, Promise) => {
         ])
         .notNullable()
       table.string('symbole')
-      table.specificType('alias', 'text[]')
+      table.specificType('alias', 'character varying(255)[]')
       table.integer('gerep')
       table.string('description', 2048)
       table

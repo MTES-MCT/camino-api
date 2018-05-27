@@ -2,14 +2,16 @@ exports.up = (knex, Promise) => {
   return knex.schema.createTable('titresGeoPoints', table => {
     table.string('id').primary()
     table
-      .string('titreId', 128)
+      .string('titrePhaseId', 128)
       .notNullable()
-      .references('titres.id')
-    // table.specificType('coordinates', 'points').notNullable()
-    table.string('polygone', 32).notNullable()
-    table.string('name')
+      .references('titresPhases.id')
+      .onDelete('CASCADE')
+    table.specificType('coordinates', 'POINT').notNullable()
+    table.string('groupe', 32).notNullable()
+    table.integer('position').notNullable()
+    table.string('nom')
     table.string('reference')
-    table.string('referenceValeur')
+    table.specificType('referenceValeur', 'integer[]')
   })
 }
 
