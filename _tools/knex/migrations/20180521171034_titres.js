@@ -5,7 +5,7 @@ exports.up = (knex, Promise) => {
     table.string('typeId', 3).notNullable()
     table.string('domaineId', 1).notNullable()
     table.string('statutId', 3).notNullable()
-    table.string('travauxId', 3).notNullable()
+    table.boolean('police').notNullable()
   })
 }
 

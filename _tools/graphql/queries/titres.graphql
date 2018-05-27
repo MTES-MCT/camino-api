@@ -3,7 +3,7 @@ query Titres {
     typeId: [apx, arc]
     domaineId: [m, h, s, g]
     statutId: [ins, val, ech]
-    travauxId: [ins, enc, ach]
+    police: [true, false]
   ) {
     id
     nom
@@ -19,10 +19,7 @@ query Titres {
       id
       nom
     }
-    travaux {
-      id
-      nom
-    }
+    police
     substancesPrincipales {
       ...sub
     }

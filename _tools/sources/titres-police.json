@@ -1,0 +1,12 @@
+[
+  {
+    "id": "i",
+    "nom": "inactive",
+    "couleur": "neutral"
+  },
+  {
+    "id": "a",
+    "nom": "active",
+    "couleur": "success"
+  }
+]

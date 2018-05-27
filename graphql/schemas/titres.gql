@@ -12,7 +12,7 @@ type Titre {
   type: Type!
   domaine: Domaine!
   statut: Statut!
-  travaux: Travaux!
+  police: Boolean!
   substancesPrincipales: [Substance]
   substancesSecondaires: [Substance]
   references: [Reference]
@@ -31,11 +31,6 @@ type Domaine {
 
 type Statut {
   id: StatutId!
-  nom: String!
-}
-
-type Travaux {
-  id: TravauxId!
   nom: String!
 }
 
@@ -79,7 +74,7 @@ input InputTitre {
   type: InputType!
   domaine: InputDomaine!
   statut: InputStatut!
-  travaux: InputTravaux!
+  police: Boolean!
   substancesPrincipales: [InputSubstanceId!]
   substancesSecondaires: [InputSubstanceId!]
   references: [InputReference]
@@ -96,10 +91,6 @@ input InputDomaine {
 
 input InputStatut {
   id: StatutId!
-}
-
-input InputTravaux {
-  id: TravauxId!
 }
 
 input InputSubstanceId {
@@ -180,17 +171,6 @@ enum StatutId {
   ins
   val
   ech
-}
-
-"""
-- __ins__: En instruction
-- __enc__: En cours
-- __ach__: Achevés
-"""
-enum TravauxId {
-  ins
-  enc
-  ach
 }
 
 """

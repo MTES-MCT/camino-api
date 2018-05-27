@@ -6,7 +6,7 @@ mutation {
       type: { id: apx }
       domaine: { id: h }
       statut: { id: ins }
-      travaux: { id: ach }
+      police: true
       substancesPrincipales: [{ id: "hydr" }, { id: "cadm" }]
       substancesSecondaires: [{ id: "cesi" }]
       phases: [
@@ -33,10 +33,7 @@ mutation {
       id
       nom
     }
-    travaux {
-      id
-      nom
-    }
+    police
     substancesPrincipales {
       id
       nom

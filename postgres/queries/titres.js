@@ -3,13 +3,12 @@ const { hasPermission } = require('../../auth/tests')
 
 const options = {
   titresEager:
-    '[type, domaine, statut, travaux, substancesPrincipales.legal, substancesSecondaires.legal, phases.type]',
+    '[type, domaine, statut, substancesPrincipales.legal, substancesSecondaires.legal, phases.type]',
   titresUpdate: {
     relate: [
       'type',
       'domaine',
       'statut',
-      'travaux',
       'substancesPrincipales',
       'substancesSecondaires',
       'phases.type',
@@ -19,7 +18,6 @@ const options = {
       'type',
       'domaine',
       'statut',
-      'travaux',
       'substancesPrincipales',
       'substancesSecondaires',
       'phases.type',
@@ -35,12 +33,12 @@ const queries = {
       .findById(id)
       .eager(options.titresEager),
 
-  titres: async ({ typeId, domaineId, statutId, travauxId }, user) =>
+  titres: async ({ typeId, domaineId, statutId, police }, user) =>
     Titres.query()
       .whereIn('typeId', typeId)
       .whereIn('domaineId', domaineId)
       .whereIn('statutId', statutId)
-      .whereIn('travauxId', travauxId)
+      .whereIn('police', police)
       .eager(options.titresEager),
 
   titreAjouter: async (titre, user) =>

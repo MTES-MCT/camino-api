@@ -2,7 +2,6 @@ const { Model } = require('objection')
 const Domaines = require('./titres-domaines')
 const Types = require('./titres-types')
 const Statuts = require('./titres-statuts')
-const Travaux = require('./titres-travaux')
 const Substances = require('./substances')
 const TitresPhases = require('./titres-phases')
 
@@ -14,7 +13,7 @@ class Titres extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaineId', 'typeId', 'statutId', 'travauxId'],
+      required: ['id', 'nom', 'domaineId', 'typeId', 'statutId', 'police'],
 
       properties: {
         id: { type: 'string' },
@@ -22,7 +21,7 @@ class Titres extends Model {
         domaineId: { type: 'string', maxLength: 1 },
         typeId: { type: 'string', maxLength: 3 },
         statutId: { type: 'string', maxLength: 3 },
-        travauxId: { type: 'string', maxLength: 3 }
+        police: { type: 'boolean' }
       }
     }
   }
@@ -51,14 +50,6 @@ class Titres extends Model {
         join: {
           from: 'titres.statutId',
           to: 'titresStatuts.id'
-        }
-      },
-      travaux: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Travaux,
-        join: {
-          from: 'titres.travauxId',
-          to: 'titresTravaux.id'
         }
       },
       substancesPrincipales: {

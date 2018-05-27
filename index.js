@@ -7,8 +7,8 @@ const jwt = require('express-jwt')
 const { env, port, url, jwtSecret } = require('./conf')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
-// const token = require('./auth/token')
-// console.log(chalk.bgWhiteBright.black.bold('> Token: ' + token + ' '))
+const token = require('./auth/token')
+console.log(chalk.bgWhiteBright.black.bold('> Token: Bearer ' + token + ' '))
 
 const app = express()
 
@@ -23,12 +23,12 @@ app.use(
     rootValue,
     graphiql: true,
     pretty: true,
-    formatError: err => ({
-      message: err.message,
-      locations: err.locations,
-      stack: err.stack ? err.stack.split('\n') : [],
-      path: err.path
-    }),
+    // formatError: err => ({
+    //   message: err.message,
+    //   locations: err.locations,
+    //   stack: err.stack ? err.stack.split('\n') : [],
+    //   path: err.path
+    // }),
     context: {
       user: req.user
     }

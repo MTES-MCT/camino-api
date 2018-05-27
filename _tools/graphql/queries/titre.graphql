@@ -14,10 +14,7 @@ query Titre($id: String!) {
       id
       nom
     }
-    travaux {
-      id
-      nom
-    }
+    police
     substancesPrincipales {
       id
       nom
