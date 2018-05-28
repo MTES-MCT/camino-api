@@ -1,6 +1,7 @@
 const g = require('../../sources/titres/g-titres.json')
 const gPhases = require('../../sources/titres/g-titres-phases.json')
 const gPhasesEmprises = require('../../sources/titres/g-titres-phases-emprises.json')
+const gSubstancesPrincipales = require('../../sources/titres/g-titres-substances-principales.json')
 const gGeoPoints = require('../../sources/titres/g-titres-geo-points.json')
 
 const h = require('../../sources/titres/h-titres.json')
@@ -16,19 +17,34 @@ const mSubstancesPrincipales = require('../../sources/titres/m-titres-substances
 const mSubstancesSecondaires = require('../../sources/titres/m-titres-substances-secondaires.json')
 const mGeoPoints = require('../../sources/titres/m-titres-geo-points.json')
 
-const titres = [...g, ...h, ...m]
-const titresPhases = [...gPhases, ...hPhases, ...mPhases]
+const s = require('../../sources/titres/s-titres.json')
+const sPhases = require('../../sources/titres/s-titres-phases.json')
+const sPhasesEmprises = require('../../sources/titres/s-titres-phases-emprises.json')
+const sSubstancesPrincipales = require('../../sources/titres/s-titres-substances-principales.json')
+const sGeoPoints = require('../../sources/titres/s-titres-geo-points.json')
+
+const titres = [...g, ...h, ...m, ...s]
+const titresPhases = [...gPhases, ...hPhases, ...mPhases, ...sPhases]
 const titresPhasesEmprises = [
   ...gPhasesEmprises,
   ...hPhasesEmprises,
-  ...mPhasesEmprises
+  ...mPhasesEmprises,
+  ...sPhasesEmprises
 ]
 const titresSubstancesPrincipales = [
+  ...gSubstancesPrincipales,
   ...hSubstancesPrincipales,
-  ...mSubstancesPrincipales
+  ...mSubstancesPrincipales,
+  ...sSubstancesPrincipales
 ]
 const titresSubstancesSecondaires = [...mSubstancesSecondaires]
-const titresGeoPoints = [...gGeoPoints, ...hGeoPoints, ...mGeoPoints]
+
+const titresGeoPoints = [
+  ...gGeoPoints,
+  ...hGeoPoints,
+  ...mGeoPoints,
+  ...sGeoPoints
+]
 
 exports.seed = (knex, Promise) =>
   Promise.all([
