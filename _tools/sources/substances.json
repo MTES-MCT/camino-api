@@ -1,11 +1,23 @@
 [
   {
+    "id": "oooo",
+    "nom": "variées",
+    "domaine": "mines",
+    "type": "minérale",
+    "usage": "non énergétique",
+    "symbole": null,
+    "alias": null,
+    "gerep": null,
+    "description": null,
+    "legalId": "100-2"
+  },
+  {
     "id": "hydr",
     "nom": "hydrocarbures",
     "domaine": "mines",
     "type": "fossile",
     "usage": "énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": [
       "hydrocarbures",
       "hydrocarbures liquides ou gazeux",
@@ -14,7 +26,7 @@
       "gaz"
     ],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-1"
   },
   {
@@ -23,10 +35,10 @@
     "domaine": "mines",
     "type": "fossile",
     "usage": "énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["combustibles fossiles", "houille", "antracite", "charbon"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-1"
   },
   {
@@ -35,10 +47,10 @@
     "domaine": "mines",
     "type": "fossile",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["graphite"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-1"
   },
   {
@@ -47,10 +59,10 @@
     "domaine": "mines",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["diamant"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-1"
   },
   {
@@ -62,7 +74,7 @@
     "symbole": "Na",
     "alias": ["sels de sodium", "sel", "sels"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-2"
   },
   {
@@ -74,7 +86,7 @@
     "symbole": "K",
     "alias": ["sels de potassium", "sel", "sels"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-2"
   },
   {
@@ -83,10 +95,10 @@
     "domaine": "mines",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["alun de potassium", "disulfate d'aluminium et de potassium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-3"
   },
   {
@@ -95,10 +107,10 @@
     "domaine": "mines",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["sulfates autres que les sulfates alcalino-terreux"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-3"
   },
   {
@@ -110,7 +122,7 @@
     "symbole": "Al",
     "alias": ["bauxite"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-4"
   },
   {
@@ -122,7 +134,7 @@
     "symbole": "F",
     "alias": ["fluorine"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-4"
   },
   {
@@ -134,7 +146,7 @@
     "symbole": "Fe",
     "alias": ["fer"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -146,7 +158,7 @@
     "symbole": "Co",
     "alias": ["cobalt"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -158,7 +170,7 @@
     "symbole": "Ni",
     "alias": ["nickel"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -170,7 +182,7 @@
     "symbole": "Cr",
     "alias": ["chrome"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -182,7 +194,7 @@
     "symbole": "Mn",
     "alias": ["manganese"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -194,7 +206,7 @@
     "symbole": "V",
     "alias": ["vanadium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -206,7 +218,7 @@
     "symbole": "Ti",
     "alias": ["titane"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -218,7 +230,7 @@
     "symbole": "Zr",
     "alias": ["zirconium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -230,7 +242,7 @@
     "symbole": "Mo",
     "alias": ["molybdène"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -242,7 +254,7 @@
     "symbole": "W",
     "alias": ["tungstène"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -254,7 +266,7 @@
     "symbole": "Hf",
     "alias": ["hafnium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -266,7 +278,7 @@
     "symbole": "Re",
     "alias": ["rhenium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-5"
   },
   {
@@ -278,7 +290,7 @@
     "symbole": "Cu",
     "alias": ["cuivre"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -290,7 +302,7 @@
     "symbole": "Pb",
     "alias": ["plomb"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -302,7 +314,7 @@
     "symbole": "Zn",
     "alias": ["zinc"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -314,7 +326,7 @@
     "symbole": "Cd",
     "alias": ["cadmium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -326,7 +338,7 @@
     "symbole": "Ge",
     "alias": ["germanium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -338,7 +350,7 @@
     "symbole": "Sn",
     "alias": ["étain"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -350,7 +362,7 @@
     "symbole": "In",
     "alias": ["indium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-6"
   },
   {
@@ -362,7 +374,7 @@
     "symbole": "Sc",
     "alias": ["scandium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -374,7 +386,7 @@
     "symbole": "Y",
     "alias": ["yttrium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -386,7 +398,7 @@
     "symbole": "La",
     "alias": ["lanthane", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -398,7 +410,7 @@
     "symbole": "Ce",
     "alias": ["cérium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -410,7 +422,7 @@
     "symbole": "Pr",
     "alias": ["praséodyme", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -422,7 +434,7 @@
     "symbole": "Nd",
     "alias": ["néodyme", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -434,7 +446,7 @@
     "symbole": "Pm",
     "alias": ["prométhium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -446,7 +458,7 @@
     "symbole": "Sm",
     "alias": ["samarium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -458,7 +470,7 @@
     "symbole": "Eu",
     "alias": ["europium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -470,7 +482,7 @@
     "symbole": "Gd",
     "alias": ["gadolinium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -482,7 +494,7 @@
     "symbole": "Tb",
     "alias": ["terbium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -494,7 +506,7 @@
     "symbole": "Dy",
     "alias": ["dysprosium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -506,7 +518,7 @@
     "symbole": "Ho",
     "alias": ["holmium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -518,7 +530,7 @@
     "symbole": "Er",
     "alias": ["erbium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -530,7 +542,7 @@
     "symbole": "Tm",
     "alias": ["thulium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -542,7 +554,7 @@
     "symbole": "Yb",
     "alias": ["ytterbium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -554,7 +566,7 @@
     "symbole": "Lu",
     "alias": ["lutécium", "autres éléments des terres rares"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-7"
   },
   {
@@ -566,7 +578,7 @@
     "symbole": "Nb",
     "alias": ["niobium", "coltan"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-8"
   },
   {
@@ -578,7 +590,7 @@
     "symbole": "Ta",
     "alias": ["tantale", "coltan"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-8"
   },
   {
@@ -590,7 +602,7 @@
     "symbole": "Hg",
     "alias": ["mercure"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -602,7 +614,7 @@
     "symbole": "Ag",
     "alias": ["argent"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -614,7 +626,7 @@
     "symbole": "Au",
     "alias": ["or"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -626,7 +638,7 @@
     "symbole": "Pt",
     "alias": ["platine"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -638,7 +650,7 @@
     "symbole": "Pd",
     "alias": ["palladium", "métaux de la mine du platine", "platinoïdes"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -650,7 +662,7 @@
     "symbole": "Rh",
     "alias": ["rhodium", "métaux de la mine du platine", "platinoïdes"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -662,7 +674,7 @@
     "symbole": "Ir",
     "alias": ["iridium", "métaux de la mine du platine", "platinoïdes"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -674,7 +686,7 @@
     "symbole": "Ru",
     "alias": ["ruthénium", "métaux de la mine du platine", "platinoïdes"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -686,7 +698,7 @@
     "symbole": "Os",
     "alias": ["osmium", "métaux de la mine du platine", "platinoïdes"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-9"
   },
   {
@@ -698,7 +710,7 @@
     "symbole": "He",
     "alias": ["hélium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -710,7 +722,7 @@
     "symbole": "Li",
     "alias": ["lithium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -722,7 +734,7 @@
     "symbole": "Rb",
     "alias": ["rubidium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -734,7 +746,7 @@
     "symbole": "Cs",
     "alias": ["césium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -746,7 +758,7 @@
     "symbole": "Tc",
     "alias": ["technétium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -758,7 +770,7 @@
     "symbole": "Po",
     "alias": ["polonium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -770,7 +782,7 @@
     "symbole": "At",
     "alias": ["astate", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -782,7 +794,7 @@
     "symbole": "Rn",
     "alias": ["radon", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -794,7 +806,7 @@
     "symbole": "Ra",
     "alias": ["radium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -806,7 +818,7 @@
     "symbole": "Ac",
     "alias": ["actinium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -818,7 +830,7 @@
     "symbole": "Th",
     "alias": ["thorium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -830,7 +842,7 @@
     "symbole": "Pa",
     "alias": ["protactinium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -842,7 +854,7 @@
     "symbole": "U",
     "alias": ["uranium", "autres éléments radioactifs"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-10"
   },
   {
@@ -854,7 +866,7 @@
     "symbole": "S",
     "alias": ["soufre"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-11"
   },
   {
@@ -866,7 +878,7 @@
     "symbole": "Se",
     "alias": ["sélénium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-11"
   },
   {
@@ -878,7 +890,7 @@
     "symbole": "Te",
     "alias": ["tellure"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-11"
   },
   {
@@ -890,7 +902,7 @@
     "symbole": "As",
     "alias": ["arsenic"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-12"
   },
   {
@@ -902,7 +914,7 @@
     "symbole": "Sb",
     "alias": ["antimoine"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-12"
   },
   {
@@ -914,7 +926,7 @@
     "symbole": "Bi",
     "alias": ["bismuth"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-12"
   },
   {
@@ -926,7 +938,7 @@
     "symbole": "CO2",
     "alias": ["gaz carbonique"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-13"
   },
   {
@@ -938,7 +950,7 @@
     "symbole": "P",
     "alias": ["phosphates"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-14"
   },
   {
@@ -950,7 +962,7 @@
     "symbole": "Tl",
     "alias": ["thallium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-15"
   },
   {
@@ -962,7 +974,7 @@
     "symbole": "Ga",
     "alias": ["gallium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-15"
   },
   {
@@ -974,7 +986,7 @@
     "symbole": "Be",
     "alias": ["béryllium"],
     "gerep": null,
-    "description": "",
+    "description": null,
     "legalId": "0111-1-15"
   },
   {
@@ -983,7 +995,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["amphibolite"],
     "gerep": 1401,
     "description":
@@ -996,7 +1008,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["andalousite", "sillimanite", "kyanite", "cyanite", "disthène"],
     "gerep": 2002,
     "description":
@@ -1009,7 +1021,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["andésite"],
     "gerep": 1301,
     "description":
@@ -1022,7 +1034,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["anhydrite"],
     "gerep": 2003,
     "description":
@@ -1035,7 +1047,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["ardoises"],
     "gerep": 1402,
     "description":
@@ -1048,7 +1060,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["argiles communes", "argile à briques et tuiles"],
     "gerep": 1101,
     "description":
@@ -1061,7 +1073,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": [
       "argiles fibreuses",
       "attapulgites",
@@ -1079,7 +1091,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["argiles kaoliniques", "argile réfractaire"],
     "gerep": 1102,
     "description":
@@ -1092,7 +1104,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["argiles", "smectites", "bentonites"],
     "gerep": 1104,
     "description":
@@ -1105,7 +1117,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["barytine"],
     "gerep": 2004,
     "description":
@@ -1118,7 +1130,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["basalte"],
     "gerep": 1302,
     "description":
@@ -1131,7 +1143,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["calcaires", "calcaire cimentier", "pierres calcaires"],
     "gerep": 1105,
     "description":
@@ -1144,7 +1156,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["calcschiste"],
     "gerep": 1403,
     "description":
@@ -1157,7 +1169,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["cendres volcaniques riches en silice"],
     "gerep": 1303,
     "description":
@@ -1170,7 +1182,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["cornéenne"],
     "gerep": 1404,
     "description":
@@ -1183,7 +1195,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["craie"],
     "gerep": 1106,
     "description":
@@ -1196,7 +1208,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["dacite"],
     "gerep": 1304,
     "description":
@@ -1209,7 +1221,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["dépôt glaciaire"],
     "gerep": 1107,
     "description":
@@ -1222,7 +1234,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["diabase"],
     "gerep": 1405,
     "description":
@@ -1235,7 +1247,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["diatomites"],
     "gerep": 1108,
     "description":
@@ -1248,7 +1260,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["diorites"],
     "gerep": 1201,
     "description":
@@ -1261,7 +1273,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["dolérite"],
     "gerep": 1305,
     "description":
@@ -1274,7 +1286,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["dolomie", "pierres dolomitiques"],
     "gerep": 1109,
     "description":
@@ -1287,7 +1299,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["faluns"],
     "gerep": 1129,
     "description":
@@ -1300,7 +1312,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["feldspaths"],
     "gerep": 2007,
     "description":
@@ -1313,7 +1325,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["gabbro"],
     "gerep": 1202,
     "description":
@@ -1326,7 +1338,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["gneiss"],
     "gerep": 1406,
     "description":
@@ -1339,7 +1351,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["granite et granulite"],
     "gerep": 1203,
     "description":
@@ -1352,7 +1364,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["granodiorite"],
     "gerep": 1204,
     "description":
@@ -1365,7 +1377,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["grès", "grès industriel"],
     "gerep": 1110,
     "description":
@@ -1378,7 +1390,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["grès silico-ferrugineux", "grès industriel"],
     "gerep": 1111,
     "description":
@@ -1391,7 +1403,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["gypse"],
     "gerep": 2008,
     "description":
@@ -1404,7 +1416,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["kaolin"],
     "gerep": 2009,
     "description":
@@ -1417,7 +1429,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["leptynite"],
     "gerep": 1407,
     "description":
@@ -1430,7 +1442,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["marbres"],
     "gerep": 1408,
     "description":
@@ -1443,7 +1455,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["marnes"],
     "gerep": 1112,
     "description":
@@ -1456,7 +1468,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["micas"],
     "gerep": 2011,
     "description":
@@ -1469,7 +1481,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["micaschistes"],
     "gerep": 1409,
     "description":
@@ -1482,7 +1494,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["migmatite"],
     "gerep": 1410,
     "description":
@@ -1495,7 +1507,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["mylonites"],
     "gerep": 1501,
     "description":
@@ -1508,7 +1520,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["ocres"],
     "gerep": 1113,
     "description":
@@ -1521,7 +1533,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["ophite"],
     "gerep": 1205,
     "description":
@@ -1534,7 +1546,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["perlite"],
     "gerep": 1306,
     "description":
@@ -1547,7 +1559,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["phonolite"],
     "gerep": 1307,
     "description":
@@ -1560,7 +1572,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["porphyre (ou roche à texture porphyrite)"],
     "gerep": 1206,
     "description":
@@ -1573,7 +1585,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["pouzzolane"],
     "gerep": 1308,
     "description":
@@ -1586,7 +1598,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["quartz (galets ou filons)"],
     "gerep": 2012,
     "description":
@@ -1599,7 +1611,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["quartzites"],
     "gerep": 1411,
     "description":
@@ -1612,7 +1624,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["rhyolite"],
     "gerep": 1309,
     "description":
@@ -1625,7 +1637,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["roches ardoisières"],
     "gerep": 1412,
     "description":
@@ -1638,7 +1650,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["roches détritiques grossières"],
     "gerep": 1114,
     "description":
@@ -1651,7 +1663,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["sable extra siliceux (sup. à 97% de silice)", "silice", "sable"],
     "gerep": 1120,
     "description":
@@ -1664,7 +1676,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["sables a minéraux lourds", "sable"],
     "gerep": 1115,
     "description":
@@ -1677,7 +1689,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": [
       "sables et graviers alluvionnaires",
       "sables et graviers d'alluvions",
@@ -1694,7 +1706,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["sables et graviers marins", "sable"],
     "gerep": 1118,
     "description":
@@ -1707,7 +1719,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": [
       "sable siliceux ou silico-calcaire (correcteur pour béton)",
       "silice",
@@ -1724,7 +1736,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["schistes"],
     "gerep": 1413,
     "description":
@@ -1737,7 +1749,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["serpentinite"],
     "gerep": 1414,
     "description":
@@ -1750,7 +1762,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["silex / chert", "galets de silex"],
     "gerep": 1121,
     "description":
@@ -1763,7 +1775,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["sillimanite"],
     "gerep": 2014,
     "description":
@@ -1776,7 +1788,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["stérile d'exploitation"],
     "gerep": 1502,
     "description":
@@ -1789,7 +1801,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["syénite"],
     "gerep": 1207,
     "description":
@@ -1802,7 +1814,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["talc"],
     "gerep": 2015,
     "description":
@@ -1815,7 +1827,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["terre végétale"],
     "gerep": 1122,
     "description":
@@ -1828,7 +1840,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["tourbe"],
     "gerep": 1123,
     "description":
@@ -1841,7 +1853,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["trachyte"],
     "gerep": 1310,
     "description":
@@ -1854,7 +1866,7 @@
     "domaine": "carrières",
     "type": "minérale",
     "usage": "non énergétique",
-    "symbole": "",
+    "symbole": null,
     "alias": ["tuffeau"],
     "gerep": 1124,
     "description":
