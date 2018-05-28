@@ -4,11 +4,23 @@ const geothermiePhasesEmprises = require('../../sources/titres/geothermie-titres
 const geothermieSubstancesPrincipales = require('../../sources/titres/geothermie-titres-substances-principales.json')
 const geothermieGeoPoints = require('../../sources/titres/geothermie-titres-geo-points.json')
 
-const titres = [].concat(geothermie)
-const titresPhases = [].concat(geothermiePhases)
-const titresPhasesEmprises = [].concat(geothermiePhasesEmprises)
-const titresSubstancesPrincipales = [].concat(geothermieSubstancesPrincipales)
-const titresGeoPoints = [].concat(geothermieGeoPoints)
+const hydrocarbures = require('../../sources/titres/hydrocarbures-titres.json')
+const hydrocarburesPhases = require('../../sources/titres/hydrocarbures-titres-phases.json')
+const hydrocarburesPhasesEmprises = require('../../sources/titres/hydrocarbures-titres-phases-emprises.json')
+const hydrocarburesSubstancesPrincipales = require('../../sources/titres/hydrocarbures-titres-substances-principales.json')
+const hydrocarburesGeoPoints = require('../../sources/titres/hydrocarbures-titres-geo-points.json')
+
+const titres = [...geothermie, ...hydrocarbures]
+const titresPhases = [...geothermiePhases, ...hydrocarburesPhases]
+const titresPhasesEmprises = [
+  ...geothermiePhasesEmprises,
+  ...hydrocarburesPhasesEmprises
+]
+const titresSubstancesPrincipales = [
+  ...geothermieSubstancesPrincipales,
+  ...hydrocarburesSubstancesPrincipales
+]
+const titresGeoPoints = [...geothermieGeoPoints, ...hydrocarburesGeoPoints]
 
 exports.seed = (knex, Promise) =>
   Promise.all([

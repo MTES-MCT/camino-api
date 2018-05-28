@@ -1,7 +1,7 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('titresSubstancesPrincipales', table => {
     table
-      .string('titreId', 32)
+      .string('titreId', 64)
       .references('titres.id')
       .notNullable()
       .onDelete('CASCADE')
