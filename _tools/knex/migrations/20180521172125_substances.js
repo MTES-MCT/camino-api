@@ -9,13 +9,22 @@ exports.up = (knex, Promise) => {
     .createTable('substances', table => {
       table.string('id', 4).primary()
       table.string('nom').notNullable()
-      table.enum('domaine', ['mines', 'carrières']).notNullable()
-      table.enum('type', ['fossile', 'minérale']).notNullable()
+      table
+        .enum('domaine', [
+          'mines',
+          'carrières',
+          'stockages souterrains',
+          'granulats marins',
+          'gîtes géothermiques'
+        ])
+        .notNullable()
+      table.enum('type', ['fossile', 'minérale'])
       table
         .enum('usage', [
           'énergétique',
           'non énergétique',
-          'énergétique (nucléaire)'
+          'utile à l énergie atomique',
+          'stockage'
         ])
         .notNullable()
       table.string('symbole')
