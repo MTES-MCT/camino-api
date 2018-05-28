@@ -1,17 +1,5 @@
 [
   {
-    "id": "htmp",
-    "nom": "haute température",
-    "domaine": "mines",
-    "type": "fossile",
-    "usage": "énergétique",
-    "symbole": "",
-    "alias": [],
-    "gerep": null,
-    "description": "",
-    "legalId": "0111-1-1"
-  },
-  {
     "id": "hydr",
     "nom": "hydrocarbures",
     "domaine": "mines",

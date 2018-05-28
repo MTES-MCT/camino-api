@@ -1,15 +1,19 @@
 const { dedup, findup } = require('../../utils')
 
-const geothermieTitulaires = require('../../sources/titres/geothermie-titulaires.json')
-const geothermieTitresTitulaires = require('../../sources/titres/geothermie-titres-titulaires.json')
+const gTitulaires = require('../../sources/titres/g-titulaires.json')
+const gTitresTitulaires = require('../../sources/titres/g-titres-titulaires.json')
 
-const hydrocarburesTitulaires = require('../../sources/titres/hydrocarbures-titulaires.json')
-const hydrocarburesTitresTitulaires = require('../../sources/titres/hydrocarbures-titres-titulaires.json')
+const hTitulaires = require('../../sources/titres/h-titulaires.json')
+const hTitresTitulaires = require('../../sources/titres/h-titres-titulaires.json')
 
-const titulaires = dedup(geothermieTitulaires, hydrocarburesTitulaires)
+const mTitulaires = require('../../sources/titres/m-titulaires.json')
+const mTitresTitulaires = require('../../sources/titres/m-titres-titulaires.json')
+
+const titulaires = [...dedup(gTitulaires, hTitulaires), ...mTitulaires]
 const titresTitulaires = [
-  ...geothermieTitresTitulaires,
-  ...findup(hydrocarburesTitresTitulaires, 'titulaireId', 'titreId')
+  ...gTitresTitulaires,
+  ...findup(hTitresTitulaires, 'titulaireId', 'titreId'),
+  ...mTitresTitulaires
 ]
 
 exports.seed = (knex, Promise) =>

@@ -1,26 +1,32 @@
-const geothermie = require('../../sources/titres/geothermie-titres.json')
-const geothermiePhases = require('../../sources/titres/geothermie-titres-phases.json')
-const geothermiePhasesEmprises = require('../../sources/titres/geothermie-titres-phases-emprises.json')
-const geothermieSubstancesPrincipales = require('../../sources/titres/geothermie-titres-substances-principales.json')
-const geothermieGeoPoints = require('../../sources/titres/geothermie-titres-geo-points.json')
+const g = require('../../sources/titres/g-titres.json')
+const gPhases = require('../../sources/titres/g-titres-phases.json')
+const gPhasesEmprises = require('../../sources/titres/g-titres-phases-emprises.json')
+const gGeoPoints = require('../../sources/titres/g-titres-geo-points.json')
 
-const hydrocarbures = require('../../sources/titres/hydrocarbures-titres.json')
-const hydrocarburesPhases = require('../../sources/titres/hydrocarbures-titres-phases.json')
-const hydrocarburesPhasesEmprises = require('../../sources/titres/hydrocarbures-titres-phases-emprises.json')
-const hydrocarburesSubstancesPrincipales = require('../../sources/titres/hydrocarbures-titres-substances-principales.json')
-const hydrocarburesGeoPoints = require('../../sources/titres/hydrocarbures-titres-geo-points.json')
+const h = require('../../sources/titres/h-titres.json')
+const hPhases = require('../../sources/titres/h-titres-phases.json')
+const hPhasesEmprises = require('../../sources/titres/h-titres-phases-emprises.json')
+const hSubstancesPrincipales = require('../../sources/titres/h-titres-substances-principales.json')
+const hGeoPoints = require('../../sources/titres/h-titres-geo-points.json')
 
-const titres = [...geothermie, ...hydrocarbures]
-const titresPhases = [...geothermiePhases, ...hydrocarburesPhases]
+const m = require('../../sources/titres/m-titres.json')
+const mPhases = require('../../sources/titres/m-titres-phases.json')
+const mPhasesEmprises = require('../../sources/titres/m-titres-phases-emprises.json')
+const mSubstancesPrincipales = require('../../sources/titres/m-titres-substances-principales.json')
+const mGeoPoints = require('../../sources/titres/m-titres-geo-points.json')
+
+const titres = [...g, ...h, ...m]
+const titresPhases = [...gPhases, ...hPhases, ...mPhases]
 const titresPhasesEmprises = [
-  ...geothermiePhasesEmprises,
-  ...hydrocarburesPhasesEmprises
+  ...gPhasesEmprises,
+  ...hPhasesEmprises,
+  ...mPhasesEmprises
 ]
 const titresSubstancesPrincipales = [
-  ...geothermieSubstancesPrincipales,
-  ...hydrocarburesSubstancesPrincipales
+  ...hSubstancesPrincipales,
+  ...mSubstancesPrincipales
 ]
-const titresGeoPoints = [...geothermieGeoPoints, ...hydrocarburesGeoPoints]
+const titresGeoPoints = [...gGeoPoints, ...hGeoPoints, ...mGeoPoints]
 
 exports.seed = (knex, Promise) =>
   Promise.all([
