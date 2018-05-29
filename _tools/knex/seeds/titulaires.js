@@ -9,11 +9,26 @@ const hTitresTitulaires = require('../../sources/titres/h-titres-titulaires.json
 const mTitulaires = require('../../sources/titres/m-titulaires.json')
 const mTitresTitulaires = require('../../sources/titres/m-titres-titulaires.json')
 
-const titulaires = [...dedup(gTitulaires, hTitulaires), ...mTitulaires]
+const sTitulaires = require('../../sources/titres/s-titulaires.json')
+const sTitresTitulaires = require('../../sources/titres/s-titres-titulaires.json')
+
+const cTitulaires = require('../../sources/titres/c-titulaires.json')
+const cTitresTitulaires = require('../../sources/titres/c-titres-titulaires.json')
+
+const titulaires = dedup(
+  gTitulaires,
+  hTitulaires,
+  mTitulaires,
+  sTitulaires,
+  cTitulaires
+)
+
 const titresTitulaires = [
   ...gTitresTitulaires,
   ...findup(hTitresTitulaires, 'titulaireId', 'titreId'),
-  ...mTitresTitulaires
+  ...mTitresTitulaires,
+  ...sTitresTitulaires,
+  ...cTitresTitulaires
 ]
 
 exports.seed = (knex, Promise) =>

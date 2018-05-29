@@ -1,7 +1,8 @@
 exports.up = (knex, Promise) => {
   return knex.schema.createTable('titresStatuts', table => {
     table.string('id', 3).primary()
-    table.string('nom').notNullable()
+    table.string('nom', 32).notNullable()
+    table.string('couleur', 16).notNullable()
   })
 }
 

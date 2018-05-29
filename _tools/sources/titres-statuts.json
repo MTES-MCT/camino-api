@@ -1,14 +1,27 @@
 [
   {
-    "id": "ins",
-    "nom": "en instruction"
+    "id": "dmi",
+    "nom": "demande initiale",
+    "couleur": "warning"
+  },
+  {
+    "id": "dmc",
+    "nom": "demande classée",
+    "couleur": "neutral"
   },
   {
     "id": "val",
-    "nom": "valide"
+    "nom": "valide",
+    "couleur": "success"
+  },
+  {
+    "id": "mdi",
+    "nom": "modification en instance",
+    "couleur": "warning"
   },
   {
     "id": "ech",
-    "nom": "échu"
+    "nom": "échu",
+    "couleur": "neutral"
   }
 ]

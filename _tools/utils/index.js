@@ -1,7 +1,12 @@
-const dedup = (array1, array2) =>
-  array1.reduce(
-    (res, el) => (!res.find(e => el.id && e.id === el.id) ? [...res, el] : res),
-    array2
+const dedup = (...arguments) =>
+  arguments.reduce(
+    (result, array) =>
+      array.reduce(
+        (res, el) =>
+          !res.find(e => el.id && e.id === el.id) ? [...res, el] : res,
+        result
+      ),
+    []
   )
 
 const findup = (array, key1, key2) =>
