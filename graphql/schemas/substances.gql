@@ -2,7 +2,7 @@ type Substance {
   id: ID!
   nom: String!
   domaine: String!
-  type: String!
+  type: String
   usage: String!
   symbole: String
   alias: [String]
@@ -22,7 +22,7 @@ input InputSubstance {
   id: ID!
   nom: String!
   domaine: String!
-  type: String!
+  type: String
   usage: String!
   symbole: String
   alias: [String]
