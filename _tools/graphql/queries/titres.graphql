@@ -1,12 +1,13 @@
 query Titres {
   titres(
-    typeId: [apx, arc]
-    domaineId: [m, h, s, g]
-    statutId: [ins, val, ech]
+    typeId: [apx, arc, arg, axm, prx, prh, pxc, pxg, pxm, cxx]
+    domaineId: [m, h, s, g, c]
+    statutId: [dmi, dmc, val, mdi, ech]
     police: [true, false]
   ) {
     id
     nom
+    police
     type {
       id
       nom
@@ -19,7 +20,25 @@ query Titres {
       id
       nom
     }
-    police
+    phases {
+      geojsonPoints {
+        type
+        features {
+          type
+          geometry {
+            type
+            coordinates
+          }
+        }
+      }
+      geojsonMultiPolygon {
+        type
+        geometry {
+          type
+          coordinates
+        }
+      }
+    }
     substancesPrincipales {
       ...sub
     }

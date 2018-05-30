@@ -7,11 +7,12 @@ exports.up = (knex, Promise) => {
       .references('titresPhases.id')
       .onDelete('CASCADE')
     table.specificType('coordonees', 'POINT').notNullable()
-    table.string('groupe', 32).notNullable()
-    table.integer('position').notNullable()
+    table.integer('groupe').notNullable()
+    table.integer('contour').notNullable()
+    table.integer('point').notNullable()
     table.string('nom').notNullable()
     table.string('reference')
-    table.specificType('referenceValeur', 'integer[]')
+    table.specificType('referenceValeur', 'float[]')
   })
 }
 

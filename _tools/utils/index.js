@@ -1,5 +1,5 @@
-const dedup = (...arguments) =>
-  arguments.reduce(
+const dedup = (...arrays) =>
+  arrays.reduce(
     (result, array) =>
       array.reduce(
         (res, el) =>

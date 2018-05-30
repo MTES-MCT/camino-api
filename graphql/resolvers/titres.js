@@ -6,18 +6,40 @@ const {
   titreModifier
 } = require('../../postgres/queries/titres')
 
+const {
+  geojsonFeatureMultiPolygon,
+  geojsonFeatureCollectionPoints
+} = require('./_geojson-features')
+
 const resolvers = {
-  titre: async ({ id }, context, info) => titre(id),
+  titre: async ({ id }, context, info) => {
+    const t = await titre(id)
+
+    t.phases.forEach(p => {
+      p.geojsonMultiPolygon = geojsonFeatureMultiPolygon(p.points)
+      p.geojsonPoints = geojsonFeatureCollectionPoints(p.points)
+    })
+
+    return t
+  },
 
   titres: async ({ typeId, domaineId, statutId, police }, context, info) => {
-    console.log('context: ', context)
-    return titres({ typeId, domaineId, statutId, police }, context.user)
+    const ts = await titres(
+      { typeId, domaineId, statutId, police },
+      context.user
+    )
+    ts.forEach(t => {
+      t.phases.forEach(p => {
+        p.geojsonMultiPolygon = geojsonFeatureMultiPolygon(p.points)
+        p.geojsonPoints = geojsonFeatureCollectionPoints(p.points)
+      })
+    })
+
+    return ts
   },
 
-  titreAjouter: async ({ titre }, context, info) => {
-    console.log('context: ', context)
-    return titreAjouter(titre, context.user)
-  },
+  titreAjouter: async ({ titre }, context, info) =>
+    titreAjouter(titre, context.user),
 
   titreSupprimer: async ({ id }, context, info) =>
     titreSupprimer(id, context.user),

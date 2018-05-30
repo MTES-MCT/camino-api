@@ -45,6 +45,8 @@ type Phase {
   duree: Int!
   date: String!
   emprise: [Emprise]
+  geojsonMultiPolygon: GeojsonMultiPolygon
+  geojsonPoints: GeojsonPoints
 }
 
 type PhaseType {
@@ -168,8 +170,10 @@ enum DomaineId {
 - __ech__: Échu
 """
 enum StatutId {
-  ins
+  dmi
+  dmc
   val
+  mdi
   ech
 }
 

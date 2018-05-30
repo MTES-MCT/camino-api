@@ -9,13 +9,15 @@ const { substance, substances } = require('./resolvers/substances')
 const json = require('./types/json')
 
 const resolvers = {
+  //  queries
   titre,
   titres,
-  titreAjouter,
-  titreSupprimer,
-  titreModifier,
   substance,
   substances,
+  // mutations
+  titreAjouter,
+  titreModifier,
+  titreSupprimer,
   json
 }
 

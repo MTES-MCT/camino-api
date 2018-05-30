@@ -1,4 +1,6 @@
 type Query {
+  "Un titre"
+  titre(id: String!): Titre
   "Liste de titres"
   titres(
     typeId: [TypeId]
@@ -7,18 +9,23 @@ type Query {
     police: [Boolean]
   ): [Titre]
 
-  "Un titre"
-  titre(id: String!): Titre
+  substance(id: String!): Substance
 
   substances: [Substance]
 
-  substance(id: String!): Substance
+  geojsonMultiPolygon(id: String!): GeojsonMultiPolygon
+
+  geojsonMultiPolygons: [GeojsonMultiPolygon]
+
+  geojsonPoints(id: String!): GeojsonPoints
 }
 
 type Mutation {
   titreAjouter(titre: InputTitre!): Titre
 
-  titreSupprimer(id: ID!): Titre
-
   titreModifier(titre: InputTitre!): Titre
+
+  titreSupprimer(id: ID!): Titre
 }
+
+scalar json

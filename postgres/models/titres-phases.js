@@ -1,6 +1,7 @@
 const { Model } = require('objection')
 const Emprises = require('./titres-emprises')
 const titresTypesPhases = require('./titres-types-phases')
+const titresGeoPoints = require('./titres-geo-points')
 
 class Phases extends Model {
   static get tableName() {
@@ -45,9 +46,26 @@ class Phases extends Model {
           from: 'titresPhases.phaseId',
           to: 'titresTypesPhases.id'
         }
+      },
+      points: {
+        relation: Model.HasManyRelation,
+        modelClass: titresGeoPoints,
+        join: {
+          from: 'titresPhases.id',
+          to: 'titresGeoPoints.titrePhaseId'
+        }
       }
     }
   }
+
+  // $parseDatabaseJson(json) {
+  //   json = super.$parseDatabaseJson(json)
+  //   if (json) {
+  //     console.log('--------------->', json)
+  //   }
+  //   console.log('<---------------')
+  //   return json
+  // }
 }
 
 module.exports = Phases

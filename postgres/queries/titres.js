@@ -1,37 +1,12 @@
 const Titres = require('../models/titres')
-const { hasPermission } = require('../../auth/tests')
-
-const options = {
-  titresEager:
-    '[type, domaine, statut, substancesPrincipales.legal, substancesSecondaires.legal, phases.type]',
-  titresUpdate: {
-    relate: [
-      'type',
-      'domaine',
-      'statut',
-      'substancesPrincipales',
-      'substancesSecondaires',
-      'phases.type',
-      'phases.emprise'
-    ],
-    unrelate: [
-      'type',
-      'domaine',
-      'statut',
-      'substancesPrincipales',
-      'substancesSecondaires',
-      'phases.type',
-      'phases.emprise'
-    ],
-    insertMissing: ['phases']
-  }
-}
+const { hasPermission } = require('../../auth/permissions')
+const titresOptions = require('./_titres-options')
 
 const queries = {
   titre: async (id, user) =>
     Titres.query()
       .findById(id)
-      .eager(options.titresEager),
+      .eager(titresOptions.eager),
 
   titres: async ({ typeId, domaineId, statutId, police }, user) =>
     Titres.query()
@@ -39,14 +14,14 @@ const queries = {
       .whereIn('domaineId', domaineId)
       .whereIn('statutId', statutId)
       .whereIn('police', police)
-      .eager(options.titresEager),
+      .eager(titresOptions.eager),
 
   titreAjouter: async (titre, user) =>
     hasPermission('admin', user)
       ? Titres.query()
-          .insertGraph(titre, options.titresUpdate)
+          .insertGraph(titre, titresOptions.update)
           .first()
-          .eager(options.titresEager)
+          .eager(titresOptions.eager)
       : null,
 
   titreSupprimer: async (id, user) =>
@@ -54,15 +29,15 @@ const queries = {
       ? Titres.query()
           .deleteById(id)
           .first()
-          .eager(options.titresEager)
+          .eager(titresOptions.eager)
           .returning('*')
       : null,
 
   titreModifier: async (titre, user) =>
     hasPermission('admin', user)
       ? Titres.query()
-          .upsertGraph([titre], options.titresUpdate)
-          .eager(options.titresEager)
+          .upsertGraph([titre], titresOptions.update)
+          .eager(titresOptions.eager)
           .first()
       : null
 }

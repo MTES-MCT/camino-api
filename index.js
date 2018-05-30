@@ -8,6 +8,7 @@ const { env, port, url, jwtSecret } = require('./conf')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
 const token = require('./auth/token')
+const draft = require('./draft')
 console.log(chalk.bgWhiteBright.black.bold('> Token: Bearer ' + token + ' '))
 
 const app = express()
@@ -38,6 +39,7 @@ app.use(
 app.listen(port, () => {
   console.log(' ')
   console.log(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
-  console.log(chalk.bgWhiteBright.black.bold('> Env: ' + env + ' '))
+  console.log(chalk.bgWhiteBright.black.bold('> Env: ' + env.NODE_ENV + ' '))
   console.log(' ')
+  // draft({ id: 'c-cxx-astrolabe' }).then(r => console.log(r))
 })

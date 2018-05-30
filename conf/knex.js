@@ -6,8 +6,8 @@ const connection = {
   database: process.env.PGDATABASE,
   user: process.env.PGUSER
 }
-
-module.exports = {
+console.log('connection', connection)
+const knexConfig = {
   development: {
     client: 'pg',
     connection,
@@ -24,3 +24,5 @@ module.exports = {
     connection
   }
 }
+
+module.exports = knexConfig
