@@ -8,7 +8,6 @@ const { env, port, url, jwtSecret } = require('./conf')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
 const token = require('./auth/token')
-const draft = require('./draft')
 console.log(chalk.bgWhiteBright.black.bold('> Token: Bearer ' + token + ' '))
 
 const app = express()
