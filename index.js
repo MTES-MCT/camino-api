@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('./postgres')
+const cors = require('cors')
 const chalk = require('chalk')
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
@@ -11,6 +12,8 @@ const token = require('./auth/token')
 console.log(chalk.bgWhiteBright.black.bold('> Token: Bearer ' + token + ' '))
 
 const app = express()
+
+app.use(cors())
 
 app.use(
   '/',
