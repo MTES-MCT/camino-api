@@ -41,7 +41,7 @@ app.use(
 app.listen(port, () => {
   console.log(' ')
   console.log(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
-  console.log(chalk.bgWhiteBright.black.bold('> Env: ' + env.NODE_ENV + ' '))
+  console.log(chalk.bgWhiteBright.black.bold('> Env: ' + env + ' '))
   console.log(' ')
   // draft({ id: 'c-cxx-astrolabe' }).then(r => console.log(r))
 })

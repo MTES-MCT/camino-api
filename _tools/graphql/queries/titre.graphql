@@ -15,6 +15,26 @@ query Titre($id: String!) {
       nom
     }
     police
+    phases {
+      id
+      geojsonPoints {
+        type
+        features {
+          type
+          geometry {
+            type
+            coordinates
+          }
+        }
+      }
+      geojsonMultiPolygon {
+        type
+        geometry {
+          type
+          coordinates
+        }
+      }
+    }
     substancesPrincipales {
       id
       nom
