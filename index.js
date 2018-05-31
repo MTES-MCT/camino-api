@@ -16,6 +16,8 @@ const app = express()
 
 app.use(cors())
 
+app.use(compression())
+
 app.use(
   '/',
   jwt({
@@ -38,8 +40,6 @@ app.use(
     }
   }))
 )
-
-app.use(compression())
 
 app.listen(port, () => {
   console.log(' ')
