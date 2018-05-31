@@ -1,13 +1,13 @@
 const options = {
   eager:
-    '[type, domaine, statut, substancesPrincipales.legal, substancesSecondaires.legal, phases.type, phases.points]',
+    '[type, domaine, statut, substancesPrincipales.legal, substancesConnexes.legal, phases.type, phases.points]',
   update: {
     relate: [
       'type',
       'domaine',
       'statut',
       'substancesPrincipales',
-      'substancesSecondaires',
+      'substancesConnexes',
       'phases.type',
       'phases.emprise'
     ],
@@ -16,7 +16,7 @@ const options = {
       'domaine',
       'statut',
       'substancesPrincipales',
-      'substancesSecondaires',
+      'substancesConnexes',
       'phases.type',
       'phases.emprise'
     ],

@@ -8,7 +8,7 @@ mutation {
       statut: { id: ins }
       police: true
       substancesPrincipales: [{ id: "hydr" }, { id: "cadm" }]
-      substancesSecondaires: [{ id: "cesi" }]
+      substancesConnexes: [{ id: "cesi" }]
       phases: [
         {
           id: "06-apx-oct"

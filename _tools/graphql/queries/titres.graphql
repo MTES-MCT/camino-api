@@ -42,7 +42,7 @@ query Titres {
     substancesPrincipales {
       ...sub
     }
-    substancesSecondaires {
+    substancesConnexes {
       ...sub
     }
   }

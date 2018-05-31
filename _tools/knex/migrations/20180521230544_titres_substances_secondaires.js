@@ -1,5 +1,5 @@
 exports.up = (knex, Promise) => {
-  return knex.schema.createTable('titresSubstancesSecondaires', table => {
+  return knex.schema.createTable('titresSubstancesConnexes', table => {
     table
       .string('titreId', 64)
       .references('titres.id')

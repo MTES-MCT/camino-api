@@ -64,14 +64,14 @@ class Titres extends Model {
           to: 'substances.id'
         }
       },
-      substancesSecondaires: {
+      substancesConnexes: {
         relation: Model.ManyToManyRelation,
         modelClass: Substances,
         join: {
           from: 'titres.id',
           through: {
-            from: 'titresSubstancesSecondaires.titreId',
-            to: 'titresSubstancesSecondaires.substanceId'
+            from: 'titresSubstancesConnexes.titreId',
+            to: 'titresSubstancesConnexes.substanceId'
           },
           to: 'substances.id'
         }

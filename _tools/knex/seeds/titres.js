@@ -14,7 +14,7 @@ const m = require('../../sources/titres/m-titres.json')
 const mPhases = require('../../sources/titres/m-titres-phases.json')
 const mPhasesEmprises = require('../../sources/titres/m-titres-phases-emprises.json')
 const mSubstancesPrincipales = require('../../sources/titres/m-titres-substances-principales.json')
-const mSubstancesSecondaires = require('../../sources/titres/m-titres-substances-secondaires.json')
+const mSubstancesConnexes = require('../../sources/titres/m-titres-substances-connexes.json')
 const mGeoPoints = require('../../sources/titres/m-titres-geo-points.json')
 
 const s = require('../../sources/titres/s-titres.json')
@@ -29,20 +29,29 @@ const cPhasesEmprises = require('../../sources/titres/c-titres-phases-emprises.j
 const cSubstancesPrincipales = require('../../sources/titres/c-titres-substances-principales.json')
 const cGeoPoints = require('../../sources/titres/c-titres-geo-points.json')
 
-const titres = [...g, ...h, ...m, ...s, ...c]
+const m973 = require('../../sources/titres/m973-titres.json')
+const m973Phases = require('../../sources/titres/m973-titres-phases.json')
+const m973PhasesEmprises = require('../../sources/titres/m973-titres-phases-emprises.json')
+const m973SubstancesPrincipales = require('../../sources/titres/m973-titres-substances-principales.json')
+const m973SubstancesConnexes = require('../../sources/titres/m973-titres-substances-connexes.json')
+const m973GeoPoints = require('../../sources/titres/m973-titres-geo-points.json')
+
+const titres = [...g, ...h, ...m, ...s, ...c, ...m973]
 const titresPhases = [
   ...gPhases,
   ...hPhases,
   ...mPhases,
   ...sPhases,
-  ...cPhases
+  ...cPhases,
+  ...m973Phases
 ]
 const titresPhasesEmprises = [
   ...gPhasesEmprises,
   ...hPhasesEmprises,
   ...mPhasesEmprises,
   ...sPhasesEmprises,
-  ...cPhasesEmprises
+  ...cPhasesEmprises,
+  ...m973PhasesEmprises
 ]
 const titresSubstancesPrincipales = [
   ...gSubstancesPrincipales,
@@ -50,15 +59,20 @@ const titresSubstancesPrincipales = [
   ...mSubstancesPrincipales,
   ...sSubstancesPrincipales,
   ...cSubstancesPrincipales
+  // ...m973SubstancesPrincipales
 ]
-const titresSubstancesSecondaires = [...mSubstancesSecondaires]
+const titresSubstancesConnexes = [
+  ...mSubstancesConnexes,
+  ...m973SubstancesConnexes
+]
 
 const titresGeoPoints = [
   ...gGeoPoints,
   ...hGeoPoints,
   ...mGeoPoints,
   ...sGeoPoints,
-  ...cGeoPoints
+  ...cGeoPoints,
+  ...m973GeoPoints
 ]
 
 exports.seed = (knex, Promise) =>
@@ -67,7 +81,7 @@ exports.seed = (knex, Promise) =>
     knex('titresPhases').del(),
     knex('titresPhasesEmprises').del(),
     knex('titresSubstancesPrincipales').del(),
-    knex('titresSubstancesSecondaires').del(),
+    knex('titresSubstancesConnexes').del(),
     knex('titresGeoPoints').del()
   ])
     .then(() => knex('titres').insert(titres))
@@ -75,7 +89,7 @@ exports.seed = (knex, Promise) =>
       Promise.all([
         knex('titresPhases').insert(titresPhases),
         knex('titresSubstancesPrincipales').insert(titresSubstancesPrincipales),
-        knex('titresSubstancesSecondaires').insert(titresSubstancesSecondaires)
+        knex('titresSubstancesConnexes').insert(titresSubstancesConnexes)
       ])
     )
     .then(() =>
