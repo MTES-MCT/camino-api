@@ -1,8 +1,9 @@
 require('dotenv').config()
 require('./postgres')
-const cors = require('cors')
 const chalk = require('chalk')
 const express = require('express')
+const cors = require('cors')
+const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
 const jwt = require('express-jwt')
 const { env, port, url, jwtSecret } = require('./conf')
@@ -37,6 +38,8 @@ app.use(
     }
   }))
 )
+
+app.use(compression())
 
 app.listen(port, () => {
   console.log(' ')
