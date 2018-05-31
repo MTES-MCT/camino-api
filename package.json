@@ -1,6 +1,6 @@
 {
   "name": "camino-api",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Camino api",
   "main": "app/index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "graphql": "^0.13.2",
     "jsonwebtoken": "^8.2.2",
     "knex": "^0.14.6",
-    "objection": "^1.1.8",
+    "objection": "^1.1.10",
     "pg": "^7.4.3"
   },
   "devDependencies": {
