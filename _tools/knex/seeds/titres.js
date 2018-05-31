@@ -58,8 +58,8 @@ const titresSubstancesPrincipales = [
   ...hSubstancesPrincipales,
   ...mSubstancesPrincipales,
   ...sSubstancesPrincipales,
-  ...cSubstancesPrincipales
-  // ...m973SubstancesPrincipales
+  ...cSubstancesPrincipales,
+  ...m973SubstancesPrincipales
 ]
 const titresSubstancesConnexes = [
   ...mSubstancesConnexes,
