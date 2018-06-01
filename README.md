@@ -33,13 +33,13 @@ En cours de développement, provisoirement accessible [ici](https://camino.site)
 ## Npm scripts
 
 ```bash
-# Installe les dépendances
+# installe les dépendances
 npm install
 
-# Démarre le serveur avec nodemon
+# démarre le serveur avec nodemon
 npm run dev
 
-# Démarre le serveur avec node
+# démarre le serveur avec node
 npm start
 ```
 
@@ -50,9 +50,9 @@ npm start
 ### Dévelopement local
 
 ```bash
-# Démarre l'application et la base de donnée dans des conteneurs Docker
+# démarre l'application et la base de donnée dans des conteneurs Docker
 # en mode `development`
-# écoute sur http://localhost:NODE_PORT
+# accessible à http://localhost:NODE_PORT
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
@@ -66,9 +66,9 @@ Pré-requis:
 [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
-# Démarre l'application dans un container Docker
+# démarre l'application dans un container Docker
 # en mode `production`
-# écoute sur https://api.camino.local
+# accessible à https://api.camino.local
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
@@ -81,7 +81,7 @@ Pré-requis:
 [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
-# Démarre l'application dans un container Docker
+# démarre l'application dans un container Docker
 # en mode `production`
 # écoute sur http://api.camino.pw
 docker-compose up -d --build
@@ -92,10 +92,10 @@ docker-compose up -d --build
 ## postgres
 
 ```bash
-# create tables
+# créer les tables
 npx knex --knexfile=./conf/knex.js migrate:latest
 
-# import data
+# importe les données
 npx knex --knexfile=./conf/knex.js seed:run
 ```
 
