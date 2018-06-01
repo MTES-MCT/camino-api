@@ -1,0 +1,93 @@
+{
+  "typeIds": [
+    "apx",
+    "arc",
+    "arg",
+    "axm",
+    "prx",
+    "prh",
+    "pxc",
+    "pxg",
+    "pxm",
+    "cxx"
+  ],
+  "domaineIds": [
+    "m",
+    "h",
+    "s",
+    "g",
+    "c"
+  ],
+  "statutIds": [
+    "dmi",
+    "dmc",
+    "val",
+    "mdi",
+    "ech"
+  ],
+  "policeIds": [
+    true,
+    false
+  ]
+}
+
+query Geojson($typeIds: [TypeId!], $domaineIds: [DomaineId], $statutIds: [StatutId!], $policeIds: [Boolean!]) {
+  geojsonMultiPolygons(typeId: $typeIds, domaineId: $domaineIds, statutId: $statutIds, police: $policeIds) {
+    type
+    features {
+      type
+      properties {
+        nom
+        police
+        type {
+          id
+          nom
+        }
+        domaine {
+          id
+          nom
+        }
+        statut {
+          id
+          nom
+        }
+        phases {
+          id
+          type {
+            nom
+          }
+          emprise {
+            id
+            nom
+          }
+          date
+          duree
+        }
+        substancesPrincipales {
+          ...sub
+        }
+        substancesConnexes {
+          ...sub
+        }
+      }
+    }
+  }
+}
+
+fragment sub on Substance {
+  id
+  nom
+  domaine
+  type
+  usage
+  symbole
+  alias
+  gerep
+  description
+  legal {
+    id
+    nom
+    description
+    lien
+  }
+}

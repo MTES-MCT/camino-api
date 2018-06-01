@@ -11,7 +11,7 @@ En cours de développement, provisoirement accessible [ici](https://camino.site)
 * Node.js
 * Express.js
 * Express-GraphQl
-* PostgreSQl
+* PostgreSQL
 * Knex.js
 * Objection.js
 * Eslint
@@ -59,8 +59,7 @@ Pré-requis:
 
 * une installation locale active de https://github.com/jwilder/nginx-proxy
 * un certificat ssl auto-signé
-
-[instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
+* [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
 # démarre l'application et la base de données dans un container Docker
@@ -74,8 +73,7 @@ docker-compose -f ./docker-compose.local.yml up --build
 Pré-requis:
 
 * une installation active de https://github.com/jwilder/nginx-proxy
-
-[instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
+* [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
 # démarre l'application et la base de données dans un container Docker
