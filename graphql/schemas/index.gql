@@ -13,11 +13,12 @@ type Query {
 
   substances: [Substance]
 
-  geojsonMultiPolygon(id: String!): GeojsonMultiPolygon
-
-  geojsonMultiPolygons: [GeojsonMultiPolygon]
-
-  geojsonPoints(id: String!): GeojsonPoints
+  geojsonMultiPolygons(
+    typeId: [TypeId]
+    domaineId: [DomaineId]
+    statutId: [StatutId]
+    police: [Boolean]
+  ): GeojsonMultiPolygons
 }
 
 type Mutation {

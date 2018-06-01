@@ -9,7 +9,7 @@ const {
 const {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} = require('./_geojson-features')
+} = require('./_tools-geojson')
 
 const resolvers = {
   titre: async ({ id }, context, info) => {

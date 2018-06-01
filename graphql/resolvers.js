@@ -6,6 +6,7 @@ const {
   titreModifier
 } = require('./resolvers/titres')
 const { substance, substances } = require('./resolvers/substances')
+const { geojsonMultiPolygons } = require('./resolvers/geojsons')
 const json = require('./types/json')
 
 const resolvers = {
@@ -14,6 +15,8 @@ const resolvers = {
   titres,
   substance,
   substances,
+  geojsonMultiPolygons,
+
   // mutations
   titreAjouter,
   titreModifier,

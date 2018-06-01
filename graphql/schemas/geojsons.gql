@@ -1,5 +1,11 @@
+type GeojsonMultiPolygons {
+  type: FeatureCollectionType!
+  features: [GeojsonMultiPolygon]
+}
+
 type GeojsonMultiPolygon {
   type: FeatureType!
+  properties: Titre
   geometry: GeometryMultiPolygon!
 }
 
@@ -10,10 +16,10 @@ type GeometryMultiPolygon {
 
 type GeojsonPoints {
   type: FeatureCollectionType!
-  features: [FeaturePoints]
+  features: [FeaturePoint]
 }
 
-type FeaturePoints {
+type FeaturePoint {
   type: FeatureType!
   geometry: GeometryPoints!
 }
