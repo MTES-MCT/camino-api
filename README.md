@@ -1,8 +1,32 @@
 # Camino API
 
-Application en cours de développement, provisoirement accessible [ici](https://camino.site).
+> API GraphQl de [Camino](http://camino.beta.gouv.fr/).
 
-Plus d'infos sur le projet [ici](http://camino.beta.gouv.fr/).
+En cours de développement, provisoirement accessible [ici](https://camino.site).
+
+---
+
+## Technologies
+
+* Node.js
+* Express.js
+* Express-GraphQl
+* PostgresQl
+* Knex.js
+* Objection.js
+
+### Outils
+
+* Eslint
+* Prettier
+* Standardjs
+
+---
+
+## Configuration
+
+* Renommer le fichier `.env.example` en `.env`.
+* Compléter le fichier `env`.
 
 ---
 
@@ -23,20 +47,20 @@ npm start
 
 ## Docker
 
-### Pour du dévelopement local
+### Dévelopement local
 
 ```bash
 # Démarre l'application et la base de donnée dans des conteneurs Docker
 # en mode `development`
-# écoute sur http://localhost:4000
+# écoute sur http://localhost:NODE_PORT
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
-### Pour du tester l'application en local dans un environement de production
+### Tester l'application en local dans un environement de production
 
-requiert:
+Pré-requis:
 
-* une installation locale et active de https://github.com/jwilder/nginx-proxy
+* une installation locale active de https://github.com/jwilder/nginx-proxy
 * un certificat ssl auto-signé
 
 [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
@@ -49,6 +73,10 @@ docker-compose -f ./docker-compose.local.yml up --build
 ```
 
 ### Version de production
+
+Pré-requis:
+
+* une installation active de https://github.com/jwilder/nginx-proxy
 
 [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
@@ -89,4 +117,4 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 * Guillaume Levieux, intrapreneur
 * Joeffrey Arruyer, coach
-* [François Romain](http://francoisromain.com), dévelopeur
+* [François Romain](http://francoisromain.com), développeur
