@@ -11,12 +11,9 @@ En cours de développement, provisoirement accessible [ici](https://camino.site)
 * Node.js
 * Express.js
 * Express-GraphQl
-* PostgresQl
+* PostgreSQl
 * Knex.js
 * Objection.js
-
-### Outils
-
 * Eslint
 * Prettier
 * Standardjs
@@ -50,7 +47,7 @@ npm start
 ### Dévelopement local
 
 ```bash
-# démarre l'application et la base de donnée dans des conteneurs Docker
+# démarre l'application et la base de données dans des conteneurs Docker
 # en mode `development`
 # accessible à http://localhost:NODE_PORT
 docker-compose -f ./docker-compose.local.yml up --build
@@ -66,7 +63,7 @@ Pré-requis:
 [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
-# démarre l'application dans un container Docker
+# démarre l'application et la base de données dans un container Docker
 # en mode `production`
 # accessible à https://api.camino.local
 docker-compose -f ./docker-compose.local.yml up --build
@@ -81,7 +78,7 @@ Pré-requis:
 [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
-# démarre l'application dans un container Docker
+# démarre l'application et la base de données dans un container Docker
 # en mode `production`
 # écoute sur http://api.camino.pw
 docker-compose up -d --build
@@ -89,7 +86,7 @@ docker-compose up -d --build
 
 ---
 
-## postgres
+## PostgreSQL
 
 ```bash
 # créer les tables
@@ -107,13 +104,13 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 ---
 
-## Credits
+## Crédits
 
-#### Production
+### Production
 
 * [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
 
-#### Équipe
+### Équipe
 
 * Guillaume Levieux, intrapreneur
 * Joeffrey Arruyer, coach
