@@ -21,7 +21,7 @@
     "chalk": "^2.4.1",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
-    "dotenv": "^5.0.1",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
