@@ -2,11 +2,21 @@
   "typeIds": ["apx", "arc", "arg", "axm", "prx", "prh", "pxc", "pxg", "pxm", "cxx"],
   "domaineIds": ["m", "h", "s", "g", "c"],
   "statutIds": ["dmi", "dmc", "val", "mdi", "ech"],
-  "policeIds": [true, false]
+  "polices": [true, false]
 }
 
-query Titres($typeIds: [TypeId!], $domaineIds: [DomaineId], $statutIds: [StatutId!], $policeIds: [Boolean!]) {
-  titres(typeId: $typeIds, domaineId: $domaineIds, statutId: $statutIds, police: $policeIds) {
+query Titres(
+  $typeIds: [TypeId!]
+  $domaineIds: [DomaineId]
+  $statutIds: [StatutId!]
+  $polices: [Boolean!]
+) {
+  titres(
+    typeIds: $typeIds
+    domaineIds: $domaineIds
+    statutIds: $statutIds
+    polices: $polices
+  ) {
     id
     nom
     police

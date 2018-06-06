@@ -23,9 +23,13 @@ const resolvers = {
     return t
   },
 
-  titres: async ({ typeId, domaineId, statutId, police }, context, info) => {
+  titres: async (
+    { typeIds, domaineIds, statutIds, polices, substances },
+    context,
+    info
+  ) => {
     const ts = await titres(
-      { typeId, domaineId, statutId, police },
+      { typeIds, domaineIds, statutIds, polices, substances },
       context.user
     )
     ts.forEach(t => {

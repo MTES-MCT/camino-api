@@ -3,12 +3,12 @@ const { geojsonMultiPolygonCoordinates } = require('./_tools-geojson')
 
 const resolvers = {
   geojsonMultiPolygons: async (
-    { typeId, domaineId, statutId, police },
+    { typeIds, domaineIds, statutIds, polices, substances },
     context,
     info
   ) => {
     const ts = await titres(
-      { typeId, domaineId, statutId, police },
+      { typeIds, domaineIds, statutIds, polices, substances },
       context.user
     )
 

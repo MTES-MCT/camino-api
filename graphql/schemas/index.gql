@@ -3,10 +3,11 @@ type Query {
   titre(id: String!): Titre
   "Liste de titres"
   titres(
-    typeId: [TypeId]
-    domaineId: [DomaineId]
-    statutId: [StatutId]
-    police: [Boolean]
+    typeIds: [TypeId]
+    domaineIds: [DomaineId]
+    statutIds: [StatutId]
+    polices: [Boolean]
+    substances: [String]
   ): [Titre]
 
   substance(id: String!): Substance
@@ -14,10 +15,11 @@ type Query {
   substances: [Substance]
 
   geojsonMultiPolygons(
-    typeId: [TypeId]
-    domaineId: [DomaineId]
-    statutId: [StatutId]
-    police: [Boolean]
+    typeIds: [TypeId]
+    domaineIds: [DomaineId]
+    statutIds: [StatutId]
+    polices: [Boolean]
+    substances: [String]
   ): GeojsonMultiPolygons
 }
 
