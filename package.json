@@ -25,7 +25,7 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
-    "graphql": "^0.13.2",
+    "graphql": "^14.0.0-rc.1",
     "jsonwebtoken": "^8.2.2",
     "knex": "^0.14.6",
     "objection": "^1.1.10",
