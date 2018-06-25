@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ins",
+    "nom": "en instruction",
+    "couleur": "warning"
+  },
+  {
+    "id": "acc",
+    "nom": "acceptée",
+    "couleur": "success"
+  },
+  {
+    "id": "rej",
+    "nom": "rejetée",
+    "couleur": "neutral"
+  },
+  {
+    "id": "eco",
+    "nom": "en construction",
+    "couleur": "warning"
+  },
+  {
+    "id": "dep",
+    "nom": "déposée",
+    "couleur": "warning"
+  },
+  {
+    "id": "cls",
+    "nom": "classée sans suite",
+    "couleur": "neutral"
+  },
+  {
+    "id": "ret",
+    "nom": "retirée",
+    "couleur": "neutral"
+  }
+]

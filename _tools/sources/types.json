@@ -4,11 +4,11 @@
     "nom": "autorisation de prospections préalables"
   },
   {
-    "id": "arg",
+    "id": "arc",
     "nom": "autorisation de recherches"
   },
   {
-    "id": "arc",
+    "id": "arg",
     "nom": "autorisation de recherches"
   },
   {
@@ -16,11 +16,15 @@
     "nom": "autorisation d'exploitation"
   },
   {
-    "id": "prx",
-    "nom": "permis exclusif de recherches"
+    "id": "cxx",
+    "nom": "concession"
   },
   {
     "id": "prh",
+    "nom": "permis exclusif de recherches"
+  },
+  {
+    "id": "prx",
     "nom": "permis exclusif de recherches"
   },
   {
@@ -34,9 +38,5 @@
   {
     "id": "pxm",
     "nom": "permis d'exploitation"
-  },
-  {
-    "id": "cxx",
-    "nom": "concession"
   }
 ]

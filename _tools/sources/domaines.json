@@ -1,0 +1,26 @@
+[
+  {
+    "id": "c",
+    "nom": "carrières"
+  },
+  {
+    "id": "w",
+    "nom": "granulats marins"
+  },
+  {
+    "id": "g",
+    "nom": "géothermie"
+  },
+  {
+    "id": "h",
+    "nom": "hydrocarbures liquides ou gazeux"
+  },
+  {
+    "id": "m",
+    "nom": "minéraux et métaux"
+  },
+  {
+    "id": "s",
+    "nom": "stockages souterrains"
+  }
+]

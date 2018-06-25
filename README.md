@@ -8,22 +8,22 @@ En cours de développement, provisoirement accessible [ici](https://camino.site)
 
 ## Technologies
 
-* Node.js
-* Express.js
-* Express-GraphQl
-* PostgreSQL
-* Knex.js
-* Objection.js
-* Eslint
-* Prettier
-* Standardjs
+- Node.js
+- Express.js
+- Express-GraphQl
+- PostgreSQL
+- Knex.js
+- Objection.js
+- Eslint
+- Prettier
+- Standardjs
 
 ---
 
 ## Configuration
 
-* Renommer le fichier `.env.example` en `.env`.
-* Compléter le fichier `env`.
+- Renommer le fichier `.env.example` en `.env`.
+- Compléter le fichier `env`.
 
 ---
 
@@ -57,9 +57,9 @@ docker-compose -f ./docker-compose.local.yml up --build
 
 Pré-requis:
 
-* une installation locale active de https://github.com/jwilder/nginx-proxy
-* un certificat ssl auto-signé
-* [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
+- une installation locale active de https://github.com/jwilder/nginx-proxy
+- un certificat ssl auto-signé
+- [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
 # démarre l'application et la base de données dans un container Docker
@@ -72,8 +72,8 @@ docker-compose -f ./docker-compose.local.yml up --build
 
 Pré-requis:
 
-* une installation active de https://github.com/jwilder/nginx-proxy
-* [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
+- une installation active de https://github.com/jwilder/nginx-proxy
+- [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
 # démarre l'application et la base de données dans un container Docker
@@ -106,10 +106,10 @@ Voir `contributing.md` (en anglais) pour plus d'infos.
 
 ### Production
 
-* [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
+- [La Fabrique Numérique, Ministère de la transition écologique et solidaire](https://www.ecologique-solidaire.gouv.fr/inauguration-fabrique-numerique-lincubateur-des-ministeres-charges-lecologie-et-des-territoires)
 
 ### Équipe
 
-* Guillaume Levieux, intrapreneur
-* Joeffrey Arruyer, coach
-* [François Romain](http://francoisromain.com), développeur
+- Guillaume Levieux, intrapreneur
+- Joeffrey Arruyer, coach
+- [François Romain](http://francoisromain.com), développeur
