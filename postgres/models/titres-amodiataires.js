@@ -1,18 +1,18 @@
 const { Model } = require('objection')
-const Emprises = require('./emprises')
+const Entreprises = require('./entreprises')
 
-class TitresEmprises extends Model {
+class TitresAmodiataires extends Model {
   static get tableName() {
-    return 'titres_emprises'
+    return 'titres_amodiataires'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['emprises_id', 'titre_demarche_etape_id'],
+      required: ['entreprise_id', 'titre_demarche_etape_id'],
 
       properties: {
-        emprise_id: { type: 'string', maxLength: 3 },
+        entreprise_id: { type: 'string', maxLength: 64 },
         titre_demarche_etape_id: { type: 'string', maxLength: 128 }
       }
     }
@@ -22,14 +22,14 @@ class TitresEmprises extends Model {
     return {
       substance: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Emprises,
+        modelClass: Entreprises,
         join: {
-          from: 'titres_titulaires.emprise_id',
-          to: 'emprises.id'
+          from: 'titres_amodiataires.entreprise_id',
+          to: 'entreprises.id'
         }
       }
     }
   }
 }
 
-module.exports = TitresEmprises
+module.exports = TitresAmodiataires

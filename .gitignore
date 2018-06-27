@@ -3,4 +3,4 @@ node_modules/
 
 /_tools/db/**
 /_tools/fr/**
-/_tools/sources/titres/**
+/_tools/sources/**/*.json

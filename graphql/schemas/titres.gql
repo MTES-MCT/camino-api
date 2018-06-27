@@ -154,7 +154,8 @@ enum TypeId {
 - __h__: Substances énergétiques
 - __s__: Stockage
 - __g__: Géothermie
-- __c__: Carrières et granulats marins
+- __c__: Carrières
+- __w__: Granulats marins
 """
 enum DomaineId {
   m
@@ -162,6 +163,7 @@ enum DomaineId {
   s
   g
   c
+  w
 }
 
 """

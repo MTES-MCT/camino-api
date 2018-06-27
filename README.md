@@ -1,8 +1,6 @@
 # Camino API
 
-> API GraphQl de [Camino](http://camino.beta.gouv.fr/).
-
-En cours de développement, provisoirement accessible [ici](https://camino.site).
+> API GraphQl de [Camino](http://camino.beta.gouv.fr/)
 
 ---
 
@@ -20,10 +18,19 @@ En cours de développement, provisoirement accessible [ici](https://camino.site)
 
 ---
 
-## Configuration
+## Configuration et imports des données
 
-- Renommer le fichier `.env.example` en `.env`.
-- Compléter le fichier `env`.
+- Requiert une base de données PostgreSQL.
+- Renommer le fichier `.env.example` en `.env` et le compléter.
+- Le dossier `/_tools/sources` doit contenir les données au format json.
+
+```bash
+# créer les tables
+npx knex --knexfile=./conf/knex.js migrate:latest
+
+# importe les données
+npx knex --knexfile=./conf/knex.js seed:run
+```
 
 ---
 
@@ -44,7 +51,7 @@ npm start
 
 ## Docker
 
-### Dévelopement local
+### Développement local
 
 ```bash
 # démarre l'application et la base de données dans des conteneurs Docker
@@ -53,7 +60,7 @@ npm start
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
-### Tester l'application en local dans un environement de production
+### Tester l'application en local dans un environnement de production
 
 Pré-requis:
 
@@ -86,19 +93,13 @@ docker-compose up -d --build
 
 ## PostgreSQL
 
-```bash
-# créer les tables
-npx knex --knexfile=./conf/knex.js migrate:latest
-
-# importe les données
-npx knex --knexfile=./conf/knex.js seed:run
-```
+![camino database schema](_docs/camino-db.png)
 
 ---
 
 ## Contribution
 
-Voir `contributing.md` (en anglais) pour plus d'infos.
+Voir [contributing.md](contributing.md) (en anglais) pour plus d'infos.
 
 ---
 

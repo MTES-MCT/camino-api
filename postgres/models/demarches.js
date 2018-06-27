@@ -1,8 +1,8 @@
 const { Model } = require('objection')
 
-class Phases extends Model {
+class Demarches extends Model {
   static get tableName() {
-    return 'titresTypesPhases'
+    return 'demarches'
   }
 
   static get jsonSchema() {
@@ -22,10 +22,10 @@ class Phases extends Model {
             'prolongation exceptionnelle'
           ]
         },
-        dureeMax: {
+        duree_max: {
           type: 'integer'
         },
-        position: {
+        ordre: {
           type: 'integer'
         },
         renouvelable: {
@@ -39,4 +39,4 @@ class Phases extends Model {
   }
 }
 
-module.exports = Phases
+module.exports = Demarches

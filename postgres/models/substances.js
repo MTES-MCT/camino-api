@@ -1,5 +1,6 @@
 const { Model } = require('objection')
 const SubstanceLegals = require('./substances-legals')
+const Domaines = require('./domaines')
 
 class Substances extends Model {
   static get tableName() {
@@ -9,12 +10,19 @@ class Substances extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaine', 'type', 'usage', 'legalId'],
+      required: [
+        'id',
+        'nom',
+        'domaine_id',
+        'type',
+        'usage',
+        'substance_legal_id'
+      ],
 
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
-        domaine: { type: 'string' },
+        domaine_id: { type: 'string' },
         type: { type: 'string' },
         usage: { type: 'string' },
         symbole: { type: 'string' },
@@ -24,7 +32,7 @@ class Substances extends Model {
         },
         gerep: { type: ['integer', 'null'] },
         description: { type: 'string', maxLength: 2048 },
-        legalId: { type: 'string' }
+        substance_legal_id: { type: 'string' }
       }
     }
   }
@@ -35,8 +43,16 @@ class Substances extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: SubstanceLegals,
         join: {
-          from: 'substances.legalId',
-          to: 'substancesLegals.id'
+          from: 'substances.substance_legal_id',
+          to: 'substances_legals.id'
+        }
+      },
+      domaine: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Domaines,
+        join: {
+          from: 'substances.domaine_id',
+          to: 'domaines.id'
         }
       }
     }

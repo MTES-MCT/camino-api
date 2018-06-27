@@ -2,7 +2,10 @@ query {
   substances {
     id
     nom
-    domaine
+    domaine {
+      id
+      nom
+    }
     type
     usage
     symbole
