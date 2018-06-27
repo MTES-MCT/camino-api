@@ -1,8 +1,8 @@
 const { Model } = require('objection')
 
-class Statuts extends Model {
+class Utilisateurs extends Model {
   static get tableName() {
-    return 'titresStatuts'
+    return 'utilisateurs'
   }
 
   static get jsonSchema() {
@@ -11,11 +11,12 @@ class Statuts extends Model {
       required: ['id', 'nom'],
 
       properties: {
-        id: { type: 'string', maxLength: 3 },
-        nom: { type: 'string' }
+        id: { type: 'string', maxLength: 64 },
+        nom: { type: 'string' },
+        prenom: { type: 'string' }
       }
     }
   }
 }
 
-module.exports = Statuts
+module.exports = Utilisateurs

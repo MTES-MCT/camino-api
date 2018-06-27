@@ -32,7 +32,7 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
-    "eslint": "^5.0.0",
+    "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^12.0.0-alpha.0",
     "eslint-plugin-compat": "^2.4.0",

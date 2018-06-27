@@ -1,9 +1,9 @@
 const { Model } = require('objection')
-const Phases = require('./titres-types-phases')
+const Demarches = require('./demarches')
 
 class Types extends Model {
   static get tableName() {
-    return 'titresTypes'
+    return 'types'
   }
 
   static get jsonSchema() {
@@ -20,12 +20,12 @@ class Types extends Model {
 
   static get relationMappings() {
     return {
-      phases: {
+      demarches: {
         relation: Model.HasManyRelation,
-        modelClass: Phases,
+        modelClass: Demarches,
         join: {
-          from: 'titresTypes.id',
-          to: 'titresTypesPhases.typeId'
+          from: 'types.id',
+          to: 'demarche.type_id'
         }
       }
     }

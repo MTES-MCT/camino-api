@@ -1,9 +1,9 @@
 const { Model } = require('objection')
-const Types = require('./titres-types')
+const Types = require('./types')
 
 class Domaines extends Model {
   static get tableName() {
-    return 'titresDomaines'
+    return 'domaines'
   }
 
   static get jsonSchema() {
@@ -24,12 +24,12 @@ class Domaines extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Types,
         join: {
-          from: 'titresDomaines.id',
+          from: 'domaines.id',
           through: {
-            from: 'titresDomainesTypes.domaineId',
-            to: 'titresDomainesTypes.typeId'
+            from: '_domaines_types.domaine_id',
+            to: '_domaines_types.type_id'
           },
-          to: 'titresTypes.id'
+          to: 'types.id'
         }
       }
     }

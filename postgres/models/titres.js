@@ -1,9 +1,7 @@
 const { Model } = require('objection')
-const Domaines = require('./titres-domaines')
-const Types = require('./titres-types')
-const Statuts = require('./titres-statuts')
-const Substances = require('./substances')
-const TitresPhases = require('./titres-phases')
+const Domaines = require('./domaines')
+const Types = require('./types')
+const Demarches = require('./demarches')
 
 class Titres extends Model {
   static get tableName() {
@@ -13,15 +11,14 @@ class Titres extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaineId', 'typeId', 'statutId', 'police'],
+      required: ['id', 'nom', 'domaine_id', 'type_id', 'statut_id'],
 
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
-        domaineId: { type: 'string', maxLength: 1 },
-        typeId: { type: 'string', maxLength: 3 },
-        statutId: { type: 'string', maxLength: 3 },
-        police: { type: 'boolean' }
+        domaine_id: { type: 'string', maxLength: 1 },
+        type_id: { type: 'string', maxLength: 3 },
+        statut_id: { type: 'string', maxLength: 3 }
       }
     }
   }
@@ -32,56 +29,24 @@ class Titres extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Domaines,
         join: {
-          from: 'titres.domaineId',
-          to: 'titresDomaines.id'
+          from: 'titres.domaine_id',
+          to: 'domaines.id'
         }
       },
       type: {
         relation: Model.BelongsToOneRelation,
         modelClass: Types,
         join: {
-          from: 'titres.typeId',
-          to: 'titresTypes.id'
+          from: 'titres.type_id',
+          to: 'types.id'
         }
       },
-      statut: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Statuts,
-        join: {
-          from: 'titres.statutId',
-          to: 'titresStatuts.id'
-        }
-      },
-      substancesPrincipales: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Substances,
-        join: {
-          from: 'titres.id',
-          through: {
-            from: 'titresSubstancesPrincipales.titreId',
-            to: 'titresSubstancesPrincipales.substanceId'
-          },
-          to: 'substances.id'
-        }
-      },
-      substancesConnexes: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Substances,
-        join: {
-          from: 'titres.id',
-          through: {
-            from: 'titresSubstancesConnexes.titreId',
-            to: 'titresSubstancesConnexes.substanceId'
-          },
-          to: 'substances.id'
-        }
-      },
-      phases: {
+      demarches: {
         relation: Model.HasManyRelation,
-        modelClass: TitresPhases,
+        modelClass: Demarches,
         join: {
           from: 'titres.id',
-          to: 'titresPhases.titreId'
+          to: 'demarches.titre_id'
         }
       }
     }

@@ -1,7 +1,7 @@
 type Substance {
   id: ID!
   nom: String!
-  domaine: String!
+  domaine: Domaine
   type: String
   usage: String!
   symbole: String
