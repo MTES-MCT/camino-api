@@ -20,11 +20,11 @@ class TitresEmprises extends Model {
 
   static get relationMappings() {
     return {
-      substance: {
+      emprise: {
         relation: Model.BelongsToOneRelation,
         modelClass: Emprises,
         join: {
-          from: 'titres_titulaires.emprise_id',
+          from: 'titres_emprises.emprise_id',
           to: 'emprises.id'
         }
       }

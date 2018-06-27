@@ -1,7 +1,7 @@
 const Titres = require('../models/titres')
 const { hasPermission } = require('../../auth/permissions')
 const titresOptions = require('./_titres-options')
-const knex = require('../../conf/knex')
+// const knex = require('../../conf/knex')
 
 const queries = {
   titre: async (id, user) =>
@@ -9,10 +9,7 @@ const queries = {
       .findById(id)
       .eager(titresOptions.eager),
 
-  titres: async (
-    { typeIds, domaineIds, statutIds, polices, substances },
-    user
-  ) =>
+  titres: async ({ typeIds, domaineIds, statutIds, substances }, user) =>
     // Titres.raw(
     //   `SELECT t.* FROM titres t
     // WHERE t.typeId in (:typeIds)
@@ -35,10 +32,9 @@ const queries = {
     // ),
 
     Titres.query()
-      .whereIn('typeId', typeIds)
-      .whereIn('domaineId', domaineIds)
-      .whereIn('statutId', statutIds)
-      .whereIn('police', polices)
+      .whereIn('type_id', typeIds)
+      .whereIn('domaine_id', domaineIds)
+      .whereIn('statut_id', statutIds)
       // .whereIn('s.symbole', substances)
       .eager(titresOptions.eager),
 

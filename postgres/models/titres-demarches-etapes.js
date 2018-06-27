@@ -1,7 +1,7 @@
 const { Model } = require('objection')
 const Etapes = require('./etapes')
 const EtapesStatuts = require('./etapes-statuts')
-const titresSubstances = require('./titres-substances')
+const Substances = require('./substances')
 const titresPoints = require('./titres-points')
 const titresTitulaires = require('./titres-titulaires')
 const titresAmodiataires = require('./titres-amodiataires')
@@ -35,7 +35,7 @@ class Phases extends Model {
 
   static get relationMappings() {
     return {
-      etape: {
+      type: {
         relation: Model.BelongsToOneRelation,
         modelClass: Etapes,
         join: {
@@ -43,7 +43,7 @@ class Phases extends Model {
           to: 'etapes.id'
         }
       },
-      etape_statut: {
+      statut: {
         relation: Model.BelongsToOneRelation,
         modelClass: EtapesStatuts,
         join: {
@@ -52,11 +52,16 @@ class Phases extends Model {
         }
       },
       substances: {
-        relation: Model.HasManyRelation,
-        modelClass: titresSubstances,
+        relation: Model.ManyToManyRelation,
+        modelClass: Substances,
         join: {
           from: 'titres_demarches_etapes.id',
-          to: 'titres_substances.titre_demarche_etape_id'
+          through: {
+            from: 'titres_substances.titre_demarche_etape_id',
+            to: 'titres_substances.substance_id',
+            extra: ['ordre', 'connexe']
+          },
+          to: 'substances.id'
         }
       },
       points: {

@@ -8,10 +8,10 @@ type Substance {
   alias: [String]
   gerep: Int
   description: String
-  legal: Legal!
+  legal: SubstanceLegal!
 }
 
-type Legal {
+type SubstanceLegal {
   id: ID!
   nom: String!
   description: String!
@@ -28,10 +28,10 @@ input InputSubstance {
   alias: [String]
   gerep: Int
   description: String
-  legal: InputLegal!
+  legal: InputSubstanceLegal!
 }
 
-input InputLegal {
+input InputSubstanceLegal {
   id: ID!
   nom: String!
   description: String!

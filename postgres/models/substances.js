@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const SubstanceLegals = require('./substances-legals')
+const SubstancesLegals = require('./substances-legals')
 const Domaines = require('./domaines')
 
 class Substances extends Model {
@@ -41,7 +41,7 @@ class Substances extends Model {
     return {
       legal: {
         relation: Model.BelongsToOneRelation,
-        modelClass: SubstanceLegals,
+        modelClass: SubstancesLegals,
         join: {
           from: 'substances.substance_legal_id',
           to: 'substances_legals.id'

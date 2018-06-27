@@ -5,7 +5,7 @@ exports.up = knex => {
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('verifications', table => {
+    .createTable('titres_verifications', table => {
       table
         .string('titre_demarche_etape_id', 128)
         .primary()

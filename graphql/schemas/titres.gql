@@ -11,12 +11,10 @@ type Titre {
   nom: String!
   type: Type!
   domaine: Domaine!
-  statut: Statut!
-  police: Boolean!
-  substancesPrincipales: [Substance]
-  substancesConnexes: [Substance]
   references: [Reference]
-  phases: [Phase]
+  statut: Statut!
+  substances: [Substance]
+  demarches: [Demarche]
 }
 
 type Type {
@@ -39,27 +37,73 @@ type Reference {
   nom: String!
 }
 
-type Phase {
+type Demarche {
   id: ID!
-  type: PhaseType!
-  duree: Int!
-  date: String!
-  emprise: [Emprise]
-  geojsonMultiPolygon: GeojsonMultiPolygon
-  geojsonPoints: GeojsonPoints
+  type: DemarcheType!
+  ordre: Int!
+  statut: DemarcheStatut!
+  etapes: [Etape]
 }
 
-type PhaseType {
+type DemarcheType {
   id: ID!
   nom: String!
   dureeMax: Int!
   renouvelable: Boolean
   exception: Boolean
+  ordre: Int
+}
+
+type DemarcheStatut {
+  id: DemarcheStatutId!
+  nom: String!
+  couleur: String!
+}
+
+type Etape {
+  id: ID!
+  type: EtapeType!
+  statut: EtapeStatut!
+  ordre: Int!
+  date: String!
+  duree: Int!
+  surface: Float
+  emprise: Emprise
+  substances: [TitreSubstance]
+  geojsonMultiPolygon: GeojsonMultiPolygon
+  geojsonPoints: GeojsonPoints
+}
+
+type EtapeType {
+  id: ID!
+  nom: String!
+  acceptationAuto: Boolean
+}
+
+type EtapeStatut {
+  id: EtapeStatutId!
+  nom: String!
+  couleur: String!
 }
 
 type Emprise {
   id: EmpriseId!
   nom: String!
+}
+
+type TitreSubstance {
+  id: ID!
+  nom: String!
+  domaine: Domaine
+  type: String
+  usage: String!
+  symbole: String
+  alias: [String]
+  gerep: Int
+  description: String
+  legal: SubstanceLegal!
+  connexe: Boolean
+  ordre: Int
 }
 
 "tauuust"
@@ -75,12 +119,7 @@ input InputTitre {
   nom: String!
   type: InputType!
   domaine: InputDomaine!
-  statut: InputStatut!
-  police: Boolean!
-  substancesPrincipales: [InputSubstanceId!]
-  substancesConnexes: [InputSubstanceId!]
   references: [InputReference]
-  phases: [InputPhases]
 }
 
 input InputType {
@@ -91,37 +130,41 @@ input InputDomaine {
   id: DomaineId!
 }
 
-input InputStatut {
-  id: StatutId!
+input InputReference {
+  type: String
+}
+
+input InputDemarche {
+  titreId: String!
+  id: ID!
+  type: InputDemarcheTypeId!
+  ordre: Int
+}
+
+input InputDemarcheTypeId {
+  id: ID!
+}
+
+input InputEtape {
+  id: ID!
+  type: InputEtapeTypeId!
+  duree: Int!
+  date: String!
+  surface: Float
+  emprise: [InputEmpriseId]
+  substances: [InputSubstanceId!]
 }
 
 input InputSubstanceId {
   id: ID!
 }
 
-input InputReference {
-  type: String
-}
-
-input InputPhases {
+input InputEtapeTypeId {
   id: ID!
-  type: InputPhaseType!
-  duree: Int!
-  date: String!
-  emprise: [InputEmprise]
 }
 
-input InputPhaseType {
-  id: ID!
-  nom: String
-  dureeMax: Int
-  renouvelable: Boolean
-  exception: Boolean
-}
-
-input InputEmprise {
+input InputEmpriseId {
   id: EmpriseId!
-  nom: String
 }
 
 """
@@ -186,4 +229,34 @@ enum StatutId {
 enum EmpriseId {
   ter
   mer
+}
+
+"""
+- __ins__: En instruction
+- __acc__: Acceptée
+- __rej__: Rejetée
+- __eco__: En construction
+- __dep__: Déposée
+- __cls__: Classée sans suite
+- __ret__: Retirée
+"""
+enum DemarcheStatutId {
+  ins
+  acc
+  rej
+  eco
+  dep
+  cls
+  ret
+}
+
+"""
+- __afa__: Non fait
+- __eco__: En cours
+- __ter__: Terminé
+"""
+enum EtapeStatutId {
+  afa
+  eco
+  ter
 }
