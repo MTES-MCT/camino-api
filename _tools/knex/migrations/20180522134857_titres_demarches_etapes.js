@@ -11,6 +11,10 @@ exports.up = knex => {
         .string('demarche_id', 8)
         .notNullable()
         .references('demarches.id')
+      table
+        .string('demarche_statut_id', 3)
+        .notNullable()
+        .references('demarches_statuts.id')
       table.integer('ordre')
     })
     .createTable('titres_demarches_etapes', table => {

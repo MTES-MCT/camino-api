@@ -1,8 +1,9 @@
 const { Model } = require('objection')
 const Demarches = require('./demarches')
+const DemarchesStatuts = require('./demarches-statuts')
 const TitresDemarchesEtapes = require('./titres-demarches-etapes')
 
-class Phases extends Model {
+class TitresDemarches extends Model {
   static get tableName() {
     return 'titres_demarches'
   }
@@ -16,6 +17,7 @@ class Phases extends Model {
         id: { type: 'string', maxLength: 128 },
         titre_id: { type: 'string', maxLength: 128 },
         demarche_id: { type: 'string', maxLength: 8 },
+        statut_id: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' }
       }
     }
@@ -23,7 +25,7 @@ class Phases extends Model {
 
   static get relationMappings() {
     return {
-      demarche: {
+      type: {
         relation: Model.BelongsToOneRelation,
         modelClass: Demarches,
         join: {
@@ -37,6 +39,14 @@ class Phases extends Model {
         join: {
           from: 'titres_demarches.id',
           to: 'titres_demarches_etapes.titre_demarche_id'
+        }
+      },
+      statut: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: DemarchesStatuts,
+        join: {
+          from: 'titres_demarches.demarche_statut_id',
+          to: 'demarches_statuts.id'
         }
       }
     }
@@ -52,4 +62,4 @@ class Phases extends Model {
   // }
 }
 
-module.exports = Phases
+module.exports = TitresDemarches

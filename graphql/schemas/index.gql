@@ -6,7 +6,6 @@ type Query {
     typeIds: [TypeId]
     domaineIds: [DomaineId]
     statutIds: [StatutId]
-    polices: [Boolean]
     substances: [String]
   ): [Titre]
 
@@ -18,7 +17,6 @@ type Query {
     typeIds: [TypeId]
     domaineIds: [DomaineId]
     statutIds: [StatutId]
-    polices: [Boolean]
     substances: [String]
   ): GeojsonMultiPolygons
 }

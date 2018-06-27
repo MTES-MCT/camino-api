@@ -167,6 +167,7 @@
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <primaryKey>1</primaryKey>
             <autoIncrement><![CDATA[0]]></autoIncrement>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
             <notNull><![CDATA[0]]></notNull>
             <uid><![CDATA[DF4DAF70-025C-49EF-83FE-250F65EAD2D1]]></uid>
         </SQLField>
@@ -198,7 +199,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>120.00</height>
+            <height>140.00</height>
         </size>
         <zorder>12</zorder>
         <SQLField>
@@ -244,6 +245,19 @@
             <referencesTableUID><![CDATA[966F28ED-D764-4EB7-9564-478C7FE61014]]></referencesTableUID>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[C2CE09C3-E85B-4167-9623-862081EFA536]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[statut_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>statuts</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[statuts]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[EA9FF367-4F59-4FF2-ACF4-C42CD233EDFB]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[CF26D589-8A92-4D86-B5C0-810EF06CE850]]></referencesTableUID>
+            <uid><![CDATA[0C4A2BD4-BFC0-4F39-9901-4EE5BF8282EB]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[references]]></name>
@@ -439,7 +453,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1150.00</y>
+            <y>1200.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -695,7 +709,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>850.00</y>
+            <y>950.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1380,11 +1394,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>700.00</y>
+            <y>750.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>100.00</height>
+            <height>120.00</height>
         </size>
         <zorder>7</zorder>
         <SQLField>
@@ -1427,6 +1441,19 @@
             <referencesTableUID><![CDATA[B954C2C8-756B-48D2-8929-B49F397A30E7]]></referencesTableUID>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[3D347D9A-ECAD-4B97-9E4D-E0A50EE48C54]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[statut_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>demarches_statuts</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[demarches_statuts]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[DF4DAF70-025C-49EF-83FE-250F65EAD2D1]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[2F804401-7A00-4C87-B789-219E6D303D6D]]></referencesTableUID>
+            <uid><![CDATA[0CB3B173-1E9C-4BE4-930C-07E48E3122BE]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[ordre]]></name>
@@ -1723,6 +1750,7 @@
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <primaryKey>1</primaryKey>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
             <uid><![CDATA[EA9FF367-4F59-4FF2-ACF4-C42CD233EDFB]]></uid>
         </SQLField>
         <SQLField>
@@ -1959,7 +1987,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{218, 680}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{165, 381}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

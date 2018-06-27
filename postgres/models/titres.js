@@ -1,7 +1,8 @@
 const { Model } = require('objection')
 const Domaines = require('./domaines')
 const Types = require('./types')
-const Demarches = require('./demarches')
+const Statuts = require('./statuts')
+const TitresDemarches = require('./titres-demarches')
 
 class Titres extends Model {
   static get tableName() {
@@ -12,7 +13,6 @@ class Titres extends Model {
     return {
       type: 'object',
       required: ['id', 'nom', 'domaine_id', 'type_id', 'statut_id'],
-
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
@@ -41,12 +41,20 @@ class Titres extends Model {
           to: 'types.id'
         }
       },
+      statut: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Statuts,
+        join: {
+          from: 'titres.statut_id',
+          to: 'statuts.id'
+        }
+      },
       demarches: {
         relation: Model.HasManyRelation,
-        modelClass: Demarches,
+        modelClass: TitresDemarches,
         join: {
           from: 'titres.id',
-          to: 'demarches.titre_id'
+          to: 'titres_demarches.titre_id'
         }
       }
     }

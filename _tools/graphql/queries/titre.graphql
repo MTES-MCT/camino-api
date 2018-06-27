@@ -1,7 +1,7 @@
 query Titre($id: String!) {
   titre(id: $id) {
-    nom
     id
+    nom
     type {
       id
       nom
@@ -14,30 +14,70 @@ query Titre($id: String!) {
       id
       nom
     }
-    police
-    phases {
+    demarches {
       id
-      geojsonPoints {
-        type
-        features {
+      type {
+        id
+        nom
+      }
+      statut {
+        id
+        nom
+      }
+      etapes {
+        id
+        statut {
+          id
+          nom
+        }
+        emprise {
+          id
+          nom
+        }
+        geojsonPoints {
+          type
+          features {
+            type
+            geometry {
+              type
+              coordinates
+            }
+          }
+        }
+        geojsonMultiPolygon {
           type
           geometry {
             type
             coordinates
           }
         }
-      }
-      geojsonMultiPolygon {
-        type
-        geometry {
-          type
-          coordinates
+        substances {
+          ...sub
         }
       }
     }
-    substancesPrincipales {
-      id
-      nom
-    }
+  }
+}
+
+fragment sub on TitreSubstance {
+  id
+  nom
+  connexe
+  ordre
+  domaine {
+    id
+    nom
+  }
+  type
+  usage
+  symbole
+  alias
+  gerep
+  description
+  legal {
+    id
+    nom
+    description
+    lien
   }
 }

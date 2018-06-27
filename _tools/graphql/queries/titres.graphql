@@ -1,25 +1,13 @@
 {
   "typeIds": ["apx", "arc", "arg", "axm", "prx", "prh", "pxc", "pxg", "pxm", "cxx"],
   "domaineIds": ["m", "h", "s", "g", "c"],
-  "statutIds": ["dmi", "dmc", "val", "mdi", "ech"],
-  "polices": [true, false]
+  "statutIds": ["dmi", "dmc", "val", "mdi", "ech"]
 }
 
-query Titres(
-  $typeIds: [TypeId!]
-  $domaineIds: [DomaineId]
-  $statutIds: [StatutId!]
-  $polices: [Boolean!]
-) {
-  titres(
-    typeIds: $typeIds
-    domaineIds: $domaineIds
-    statutIds: $statutIds
-    polices: $polices
-  ) {
+query Titres($typeIds: [TypeId!], $domaineIds: [DomaineId], $statutIds: [StatutId!]) {
+  titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
     id
     nom
-    police
     type {
       id
       nom
@@ -32,38 +20,60 @@ query Titres(
       id
       nom
     }
-    phases {
-      geojsonPoints {
-        type
-        features {
+    demarches {
+      id
+      type {
+        id
+        nom
+      }
+      statut {
+        id
+        nom
+      }
+      etapes {
+        id
+        statut {
+          id
+          nom
+        }
+        emprise {
+          id
+          nom
+        }
+        geojsonPoints {
+          type
+          features {
+            type
+            geometry {
+              type
+              coordinates
+            }
+          }
+        }
+        geojsonMultiPolygon {
           type
           geometry {
             type
             coordinates
           }
         }
-      }
-      geojsonMultiPolygon {
-        type
-        geometry {
-          type
-          coordinates
+        substances {
+          ...sub
         }
       }
-    }
-    substancesPrincipales {
-      ...sub
-    }
-    substancesConnexes {
-      ...sub
     }
   }
 }
 
-fragment sub on Substance {
+fragment sub on TitreSubstance {
   id
   nom
-  domaine
+  connexe
+  ordre
+  domaine {
+    id
+    nom
+  }
   type
   usage
   symbole

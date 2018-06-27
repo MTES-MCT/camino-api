@@ -6,6 +6,21 @@ const {
   titreModifier
 } = require('../../postgres/queries/titres')
 
+const titreFormat = t => {
+  t.demarches &&
+    t.demarches.forEach(d => {
+      d.etapes &&
+        d.etapes.forEach(e => {
+          if (e.points) {
+            e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
+            e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
+          }
+        })
+    })
+
+  return t
+}
+
 const {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
@@ -14,32 +29,20 @@ const {
 const resolvers = {
   titre: async ({ id }, context, info) => {
     const t = await titre(id)
-
-    t.phases.forEach(p => {
-      p.geojsonMultiPolygon = geojsonFeatureMultiPolygon(p.points)
-      p.geojsonPoints = geojsonFeatureCollectionPoints(p.points)
-    })
-
-    return t
+    return titreFormat(t)
   },
 
   titres: async (
-    { typeIds, domaineIds, statutIds, polices, substances },
+    { typeIds, domaineIds, statutIds, substances },
     context,
     info
   ) => {
     const ts = await titres(
-      { typeIds, domaineIds, statutIds, polices, substances },
+      { typeIds, domaineIds, statutIds, substances },
       context.user
     )
-    ts.forEach(t => {
-      t.phases.forEach(p => {
-        p.geojsonMultiPolygon = geojsonFeatureMultiPolygon(p.points)
-        p.geojsonPoints = geojsonFeatureCollectionPoints(p.points)
-      })
-    })
 
-    return ts
+    return ts.map(t => titreFormat(t))
   },
 
   titreAjouter: async ({ titre }, context, info) =>
