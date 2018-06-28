@@ -20,15 +20,15 @@
 
 ## Configuration et imports des données
 
-- Requiert une base de données PostgreSQL.
-- Renommer le fichier `.env.example` en `.env` et le compléter.
+- Requiert Node.js, npm et une base de données PostgreSQL.
 - Le dossier `/_tools/sources` doit contenir les données au format json.
+- Renommer le fichier `.env.example` en `.env` et le compléter.
 
 ```bash
 # installe les dépendances
 npm install
 
-# crée les tables
+# crée les tables dans la base de données
 npx knex --knexfile=./conf/knex.js migrate:latest
 
 # importe les données
@@ -51,7 +51,9 @@ npm start
 
 ## Docker
 
-### Développement local
+### Environnement de développement
+
+Pour développer sans installer PostgreSQL localement.
 
 ```bash
 # démarre l'application et la base de données dans des conteneurs Docker
@@ -60,7 +62,9 @@ npm start
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
-### Tester l'application en local dans un environnement de production
+### Environnement de test
+
+Pour tester l'application en local dans un environnement de production
 
 Pré-requis:
 
@@ -75,7 +79,7 @@ Pré-requis:
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
-### Production
+### Environnement de production
 
 Pré-requis:
 
