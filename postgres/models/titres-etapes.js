@@ -12,7 +12,7 @@ const titresEmprises = require('./titres-emprises')
 
 class Phases extends Model {
   static get tableName() {
-    return 'titres_demarches_etapes'
+    return 'titres_etapes'
   }
 
   static get jsonSchema() {
@@ -39,7 +39,7 @@ class Phases extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Etapes,
         join: {
-          from: 'titres_demarches_etapes.etape_id',
+          from: 'titres_etapes.etape_id',
           to: 'etapes.id'
         }
       },
@@ -47,7 +47,7 @@ class Phases extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: EtapesStatuts,
         join: {
-          from: 'titres_demarches_etapes.etape_statut_id',
+          from: 'titres_etapes.etape_statut_id',
           to: 'etapes_statuts.id'
         }
       },
@@ -55,9 +55,9 @@ class Phases extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Substances,
         join: {
-          from: 'titres_demarches_etapes.id',
+          from: 'titres_etapes.id',
           through: {
-            from: 'titres_substances.titre_demarche_etape_id',
+            from: 'titres_substances.titre_etape_id',
             to: 'titres_substances.substance_id',
             extra: ['ordre', 'connexe']
           },
@@ -68,56 +68,56 @@ class Phases extends Model {
         relation: Model.HasManyRelation,
         modelClass: titresPoints,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_points.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_points.titre_etape_id'
         }
       },
       titulaires: {
         relation: Model.HasManyRelation,
         modelClass: titresTitulaires,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_titulaires.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_titulaires.titre_etape_id'
         }
       },
       amodiataires: {
         relation: Model.HasManyRelation,
         modelClass: titresAmodiataires,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_amodiataires.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_amodiataires.titre_etape_id'
         }
       },
       utilisateurs: {
         relation: Model.HasManyRelation,
         modelClass: titresUtilisateurs,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_utilisateurs.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_utilisateurs.titre_etape_id'
         }
       },
       administrations: {
         relation: Model.HasManyRelation,
         modelClass: titresAdministrations,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_administrations.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_administrations.titre_etape_id'
         }
       },
       documents: {
         relation: Model.HasManyRelation,
         modelClass: titresDocuments,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_documents.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_documents.titre_etape_id'
         }
       },
       emprises: {
         relation: Model.HasManyRelation,
         modelClass: titresEmprises,
         join: {
-          from: 'titres_demarches_etapes.id',
-          to: 'titres_emprises.titre_demarche_etape_id'
+          from: 'titres_etapes.id',
+          to: 'titres_emprises.titre_etape_id'
         }
       }
     }

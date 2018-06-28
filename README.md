@@ -8,7 +8,7 @@
 
 - Node.js
 - Express.js
-- Express-GraphQl
+- Express-GraphQL
 - PostgreSQL
 - Knex.js
 - Objection.js
@@ -25,7 +25,10 @@
 - Le dossier `/_tools/sources` doit contenir les données au format json.
 
 ```bash
-# créer les tables
+# installe les dépendances
+npm install
+
+# crée les tables
 npx knex --knexfile=./conf/knex.js migrate:latest
 
 # importe les données
@@ -34,12 +37,9 @@ npx knex --knexfile=./conf/knex.js seed:run
 
 ---
 
-## Npm scripts
+## Développement
 
 ```bash
-# installe les dépendances
-npm install
-
 # démarre le serveur avec nodemon
 npm run dev
 
@@ -75,7 +75,7 @@ Pré-requis:
 docker-compose -f ./docker-compose.local.yml up --build
 ```
 
-### Version de production
+### Production
 
 Pré-requis:
 

@@ -2,8 +2,8 @@ exports.up = (knex, Promise) => {
   return knex.schema
     .createTable('titres_substances', table => {
       table
-        .string('titre_demarche_etape_id', 128)
-        .references('titres_demarches_etapes.id')
+        .string('titre_etape_id', 128)
+        .references('titres_etapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
@@ -12,19 +12,19 @@ exports.up = (knex, Promise) => {
         .notNullable()
       table.boolean('connexe')
       table.integer('ordre')
-      table.primary(['titre_demarche_etape_id', 'substance_id'])
+      table.primary(['titre_etape_id', 'substance_id'])
     })
     .createTable('titres_emprises', table => {
       table
-        .string('titre_demarche_etape_id', 128)
+        .string('titre_etape_id', 128)
         .notNullable()
-        .references('titres_demarches_etapes.id')
+        .references('titres_etapes.id')
         .onDelete('CASCADE')
       table
         .string('emprise_id', 3)
         .notNullable()
         .references('emprises.id')
-      table.primary(['titre_demarche_etape_id', 'emprise_id'])
+      table.primary(['titre_etape_id', 'emprise_id'])
     })
 }
 

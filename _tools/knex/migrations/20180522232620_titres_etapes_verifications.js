@@ -7,9 +7,9 @@ exports.up = knex => {
     })
     .createTable('titres_verifications', table => {
       table
-        .string('titre_demarche_etape_id', 128)
+        .string('titre_etape_id', 128)
         .primary()
-        .references('titres_demarches_etapes.id')
+        .references('titres_etapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table.boolean('date')

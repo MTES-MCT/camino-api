@@ -1,7 +1,7 @@
 const { Model } = require('objection')
 const Demarches = require('./demarches')
 const DemarchesStatuts = require('./demarches-statuts')
-const TitresDemarchesEtapes = require('./titres-demarches-etapes')
+const TitresEtapes = require('./titres-etapes')
 
 class TitresDemarches extends Model {
   static get tableName() {
@@ -35,10 +35,10 @@ class TitresDemarches extends Model {
       },
       etapes: {
         relation: Model.HasManyRelation,
-        modelClass: TitresDemarchesEtapes,
+        modelClass: TitresEtapes,
         join: {
           from: 'titres_demarches.id',
-          to: 'titres_demarches_etapes.titre_demarche_id'
+          to: 'titres_etapes.titre_demarche_id'
         }
       },
       statut: {
