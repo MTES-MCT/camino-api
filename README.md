@@ -1,6 +1,6 @@
 # Camino API
 
-> API GraphQl de [Camino](http://camino.beta.gouv.fr/)
+> API GraphQL de [Camino](http://camino.beta.gouv.fr/)
 
 ---
 
@@ -42,9 +42,6 @@ npx knex --knexfile=./conf/knex.js seed:run
 ```bash
 # démarre le serveur avec nodemon
 npm run dev
-
-# démarre le serveur avec node
-npm start
 ```
 
 ---
