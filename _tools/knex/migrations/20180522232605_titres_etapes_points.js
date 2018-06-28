@@ -3,8 +3,8 @@ exports.up = knex => {
     .createTable('titres_points', table => {
       table.string('id').primary()
       table
-        .string('titre_demarche_etape_id', 128)
-        .references('titres_demarches_etapes.id')
+        .string('titre_etape_id', 128)
+        .references('titres_etapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table.specificType('coordonees', 'POINT').notNullable()

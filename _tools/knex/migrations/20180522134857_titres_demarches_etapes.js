@@ -17,7 +17,7 @@ exports.up = knex => {
         .references('demarches_statuts.id')
       table.integer('ordre')
     })
-    .createTable('titres_demarches_etapes', table => {
+    .createTable('titres_etapes', table => {
       table.string('id', 128).primary()
       table
         .string('titre_demarche_id', 128)
@@ -45,7 +45,5 @@ exports.up = knex => {
 }
 
 exports.down = knex => {
-  return knex.schema
-    .dropTable('titres_demarches')
-    .dropTable('titres_demarches_etapes')
+  return knex.schema.dropTable('titres_demarches').dropTable('titres_etapes')
 }

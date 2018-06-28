@@ -9,11 +9,11 @@ class TitresAdministrations extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['administration_id', 'titre_demarche_etape_id'],
+      required: ['administration_id', 'titre_etape_id'],
 
       properties: {
         administration_id: { type: 'string', maxLength: 64 },
-        titre_demarche_etape_id: { type: 'string', maxLength: 128 }
+        titre_etape_id: { type: 'string', maxLength: 128 }
       }
     }
   }

@@ -9,11 +9,11 @@ class TitresSubstances extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['substance_id', 'titre_demarche_etape_id'],
+      required: ['substance_id', 'titre_etape_id'],
 
       properties: {
         substance_id: { type: 'string', maxLength: 4 },
-        titre_demarche_etape_id: { type: 'string', maxLength: 128 },
+        titre_etape_id: { type: 'string', maxLength: 128 },
         connexe: { type: 'boolean' },
         ordre: { type: 'integer' }
       }

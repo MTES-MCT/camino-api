@@ -12,7 +12,7 @@ class TitresPoints extends Model {
       type: 'object',
       required: [
         'id',
-        'titre_demarche_etape_id',
+        'titre_etape_id',
         'coordonees',
         'groupe',
         'contour',
@@ -21,7 +21,7 @@ class TitresPoints extends Model {
 
       properties: {
         id: { type: 'string' },
-        titre_demarche_etape_id: { type: 'string', maxLength: 128 },
+        titre_etape_id: { type: 'string', maxLength: 128 },
         coordonees: {
           type: 'object',
           properties: {
