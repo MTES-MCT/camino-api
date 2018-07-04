@@ -27,11 +27,12 @@
     "express-jwt": "^5.3.1",
     "graphql": "^14.0.0-rc.1",
     "jsonwebtoken": "^8.3.0",
-    "knex": "^0.14.6",
+    "knex": "^0.15.0",
     "objection": "^1.1.10",
     "pg": "^7.4.3"
   },
   "devDependencies": {
+    "camelcase-keys": "^4.2.0",
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^12.0.0-alpha.0",
