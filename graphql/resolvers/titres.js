@@ -7,13 +7,23 @@ const {
 } = require('../../postgres/queries/titres')
 
 const titreFormat = t => {
+  t.perimetres = []
   t.demarches &&
     t.demarches.forEach(d => {
       d.etapes &&
         d.etapes.forEach(e => {
           if (e.points) {
-            e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
-            e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
+            const geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
+            const geojsonPoints = geojsonFeatureCollectionPoints(e.points)
+            e.geojsonMultiPolygon = geojsonMultiPolygon
+            e.geojsonPoints = geojsonPoints
+            // if (e.etapeId === 'dpu' && e.etapeStatutId === 'ter') {
+            //   t.perimetres.push({
+            //     date: e.date,
+            //     geojsonMultiPolygon: geojsonMultiPolygon,
+            //     geojsonPoints: geojsonPoints
+            //   })
+            // }
           }
         })
     })

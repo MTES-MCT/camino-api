@@ -1,4 +1,5 @@
 const { Model } = require('objection')
+const Utilisateurs = require('./utilisateurs')
 
 class Entreprises extends Model {
   static get tableName() {
@@ -13,7 +14,28 @@ class Entreprises extends Model {
       properties: {
         id: { type: 'string', maxLength: 64 },
         nom: { type: 'string' },
-        contact_id: { type: 'string' }
+        service: { type: 'string' },
+        site: { type: 'string' },
+        email: { type: 'string' },
+        telephone: { type: 'string' },
+        adresse_1: { type: 'string' },
+        adresse_2: { type: 'string' },
+        code_postal: { type: 'integer' },
+        ville: { type: 'string' },
+        cedex: { type: 'integer' }
+      }
+    }
+  }
+
+  static get relationMappings() {
+    return {
+      utilisateurs: {
+        relation: Model.HasManyRelation,
+        modelClass: Utilisateurs,
+        join: {
+          from: 'entreprises.id',
+          to: 'utilisateurs.entreprise_id'
+        }
       }
     }
   }

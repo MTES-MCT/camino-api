@@ -1,15 +1,19 @@
 const Titres = require('../models/titres')
 const { hasPermission } = require('../../auth/permissions')
 const titresOptions = require('./_titres-options')
+const camelCaseKeys = require('camelcase-keys')
 // const knex = require('../../conf/knex')
 
 const queries = {
-  titre: async (id, user) =>
-    Titres.query()
+  titre: async (id, user) => {
+    const t = await Titres.query()
       .findById(id)
-      .eager(titresOptions.eager),
+      .eager(titresOptions.eager)
 
-  titres: async ({ typeIds, domaineIds, statutIds, substances }, user) =>
+    return camelCaseKeys(t, { deep: true })
+  },
+
+  titres: async ({ typeIds, domaineIds, statutIds, substances }, user) => {
     // Titres.raw(
     //   `SELECT t.* FROM titres t
     // WHERE t.typeId in (:typeIds)
@@ -31,12 +35,15 @@ const queries = {
     //   }
     // ),
 
-    Titres.query()
+    const t = await Titres.query()
       .whereIn('type_id', typeIds)
       .whereIn('domaine_id', domaineIds)
       .whereIn('statut_id', statutIds)
       // .whereIn('s.symbole', substances)
-      .eager(titresOptions.eager),
+      .eager(titresOptions.eager)
+
+    return camelCaseKeys(t, { deep: true })
+  },
 
   titreAjouter: async (titre, user) =>
     hasPermission('admin', user)

@@ -20,7 +20,7 @@ class TitresTitulaires extends Model {
 
   static get relationMappings() {
     return {
-      substance: {
+      entreprise: {
         relation: Model.BelongsToOneRelation,
         modelClass: Entreprises,
         join: {

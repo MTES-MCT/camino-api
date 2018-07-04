@@ -30,6 +30,7 @@ type Domaine {
 type Statut {
   id: StatutId!
   nom: String!
+  couleur: Couleur!
 }
 
 type Reference {
@@ -57,7 +58,7 @@ type DemarcheType {
 type DemarcheStatut {
   id: DemarcheStatutId!
   nom: String!
-  couleur: String!
+  couleur: Couleur!
 }
 
 type Etape {
@@ -72,6 +73,9 @@ type Etape {
   substances: [TitreSubstance]
   geojsonMultiPolygon: GeojsonMultiPolygon
   geojsonPoints: GeojsonPoints
+  titulaires: [Entreprise]
+  amodiataires: [Entreprise]
+  utilisateurs: [Utilisateur]
 }
 
 type EtapeType {
@@ -83,7 +87,7 @@ type EtapeType {
 type EtapeStatut {
   id: EtapeStatutId!
   nom: String!
-  couleur: String!
+  couleur: Couleur!
 }
 
 type Emprise {
@@ -104,6 +108,31 @@ type TitreSubstance {
   legal: SubstanceLegal!
   connexe: Boolean
   ordre: Int
+}
+
+type Entreprise {
+  id: ID!
+  nom: String!
+  service: String
+  site: String
+  email: String
+  telephone: String
+  adresse1: String
+  adresse2: String
+  codePostal: Int
+  cedex: Int
+  ville: String
+}
+
+type Utilisateur {
+  id: ID!
+  nom: String!
+  prenom: String
+  email: String
+  telephoneMobile: String
+  telephoneFixe: String
+  administrationId: String
+  entrepriseId: String
 }
 
 "tauuust"
@@ -259,4 +288,11 @@ enum EtapeStatutId {
   afa
   eco
   ter
+}
+
+enum Couleur {
+  neutral
+  success
+  warning
+  error
 }

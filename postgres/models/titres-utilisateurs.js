@@ -20,7 +20,7 @@ class TitresUtilisateurs extends Model {
 
   static get relationMappings() {
     return {
-      substance: {
+      utilisateur: {
         relation: Model.BelongsToOneRelation,
         modelClass: Utilisateurs,
         join: {

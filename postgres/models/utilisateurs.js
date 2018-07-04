@@ -13,7 +13,10 @@ class Utilisateurs extends Model {
       properties: {
         id: { type: 'string', maxLength: 64 },
         nom: { type: 'string' },
-        prenom: { type: 'string' }
+        prenom: { type: 'string' },
+        email: { type: 'string' },
+        telephone_fixe: { type: 'string' },
+        telephone_mobile: { type: 'string' }
       }
     }
   }

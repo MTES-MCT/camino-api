@@ -1,4 +1,5 @@
 require('dotenv').config({ path: '../.env' })
+// const { knexSnakeCaseMappers } = require('objection')
 
 const connection = {
   host: process.env.PGHOST,

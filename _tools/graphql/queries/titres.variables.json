@@ -1,0 +1,16 @@
+{
+  "typeIds": [
+    "apx",
+    "arc",
+    "arg",
+    "axm",
+    "prx",
+    "prh",
+    "pxc",
+    "pxg",
+    "pxm",
+    "cxx"
+  ],
+  "domaineIds": ["m", "h", "s", "g", "c"],
+  "statutIds": ["dmi", "dmc", "val", "mdi", "ech"]
+}
