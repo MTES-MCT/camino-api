@@ -13,6 +13,7 @@ query Titre($id: String!) {
     statut {
       id
       nom
+      couleur
     }
     demarches {
       id
@@ -23,43 +24,94 @@ query Titre($id: String!) {
       statut {
         id
         nom
+        couleur
       }
       etapes {
         id
+        date
+        duree
+        surface
+        type {
+          id
+          nom
+        }
         statut {
           id
           nom
+          couleur
         }
         emprise {
           id
           nom
         }
+        titulaires {
+          ...entreprise
+        }
+        amodiataires {
+          ...entreprise
+        }
+        utilisateurs {
+          ...utilisateur
+        }
         geojsonPoints {
-          type
-          features {
-            type
-            geometry {
-              type
-              coordinates
-            }
-          }
+          ...geojsonPoints
         }
         geojsonMultiPolygon {
-          type
-          geometry {
-            type
-            coordinates
-          }
+          ...geojsonMultiPolygon
         }
         substances {
-          ...sub
+          ...substance
         }
       }
     }
   }
 }
 
-fragment sub on TitreSubstance {
+fragment utilisateur on Utilisateur {
+  id
+  nom
+  prenom
+  email
+  telephoneMobile
+  telephoneFixe
+  administrationId
+  entrepriseId
+}
+
+fragment entreprise on Entreprise {
+  id
+  nom
+  service
+  site
+  email
+  telephone
+  adresse1
+  adresse2
+  codePostal
+  ville
+  cedex
+}
+
+fragment geojsonMultiPolygon on GeojsonMultiPolygon {
+  type
+  geometry {
+    type
+    coordinates
+  }
+}
+
+fragment geojsonPoints on GeojsonPoints {
+  type
+  features {
+    type
+    geometry {
+      type
+      coordinates
+    }
+  }
+}
+
+fragment substance on TitreSubstance {
   id
   nom
   connexe

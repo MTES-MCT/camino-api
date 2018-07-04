@@ -1,10 +1,8 @@
-{
-  "typeIds": ["apx", "arc", "arg", "axm", "prx", "prh", "pxc", "pxg", "pxm", "cxx"],
-  "domaineIds": ["m", "h", "s", "g", "c"],
-  "statutIds": ["dmi", "dmc", "val", "mdi", "ech"]
-}
-
-query Titres($typeIds: [TypeId!], $domaineIds: [DomaineId], $statutIds: [StatutId!]) {
+query Titres(
+  $typeIds: [TypeId!]
+  $domaineIds: [DomaineId]
+  $statutIds: [StatutId!]
+) {
   titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
     id
     nom
@@ -19,6 +17,7 @@ query Titres($typeIds: [TypeId!], $domaineIds: [DomaineId], $statutIds: [StatutI
     statut {
       id
       nom
+      couleur
     }
     demarches {
       id
@@ -29,43 +28,93 @@ query Titres($typeIds: [TypeId!], $domaineIds: [DomaineId], $statutIds: [StatutI
       statut {
         id
         nom
+        couleur
       }
       etapes {
         id
+        date
+        duree
+        type {
+          id
+          nom
+        }
         statut {
           id
           nom
+          couleur
         }
         emprise {
           id
           nom
         }
+        titulaires {
+          ...entreprise
+        }
+        amodiataires {
+          ...entreprise
+        }
+        utilisateurs {
+          ...utilisateur
+        }
         geojsonPoints {
-          type
-          features {
-            type
-            geometry {
-              type
-              coordinates
-            }
-          }
+          ...geojsonPoints
         }
         geojsonMultiPolygon {
-          type
-          geometry {
-            type
-            coordinates
-          }
+          ...geojsonMultiPolygon
         }
         substances {
-          ...sub
+          ...substance
         }
       }
     }
   }
 }
 
-fragment sub on TitreSubstance {
+fragment utilisateur on Utilisateur {
+  id
+  nom
+  prenom
+  email
+  telephoneMobile
+  telephoneFixe
+  administrationId
+  entrepriseId
+}
+
+fragment entreprise on Entreprise {
+  id
+  nom
+  service
+  site
+  email
+  telephone
+  adresse1
+  adresse2
+  codePostal
+  ville
+  cedex
+}
+
+fragment geojsonMultiPolygon on GeojsonMultiPolygon {
+  type
+  geometry {
+    type
+    coordinates
+  }
+}
+
+fragment geojsonPoints on GeojsonPoints {
+  type
+  features {
+    type
+    geometry {
+      type
+      coordinates
+    }
+  }
+}
+
+fragment substance on TitreSubstance {
   id
   nom
   connexe

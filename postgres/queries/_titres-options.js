@@ -1,6 +1,6 @@
 const options = {
   eager:
-    '[type, domaine, statut, demarches.[type, statut, etapes.[points, emprises, type, statut, substances.[legal, domaine]]]]',
+    '[type, domaine, statut, demarches.[type, statut, etapes.[points, emprises, type, statut, titulaires, amodiataires, utilisateurs, substances.[legal, domaine]]]]',
   update: {
     relate: [
       'type',

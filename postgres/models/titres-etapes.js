@@ -2,15 +2,14 @@ const { Model } = require('objection')
 const Etapes = require('./etapes')
 const EtapesStatuts = require('./etapes-statuts')
 const Substances = require('./substances')
-const titresPoints = require('./titres-points')
-const titresTitulaires = require('./titres-titulaires')
-const titresAmodiataires = require('./titres-amodiataires')
-const titresUtilisateurs = require('./titres-utilisateurs')
+const TitresPoints = require('./titres-points')
+const Entreprises = require('./entreprises')
+const Utilisateurs = require('./utilisateurs')
 const titresAdministrations = require('./titres-administrations')
 const titresDocuments = require('./titres-documents')
 const titresEmprises = require('./titres-emprises')
 
-class Phases extends Model {
+class TitresEtapes extends Model {
   static get tableName() {
     return 'titres_etapes'
   }
@@ -66,34 +65,46 @@ class Phases extends Model {
       },
       points: {
         relation: Model.HasManyRelation,
-        modelClass: titresPoints,
+        modelClass: TitresPoints,
         join: {
           from: 'titres_etapes.id',
           to: 'titres_points.titre_etape_id'
         }
       },
       titulaires: {
-        relation: Model.HasManyRelation,
-        modelClass: titresTitulaires,
+        relation: Model.ManyToManyRelation,
+        modelClass: Entreprises,
         join: {
           from: 'titres_etapes.id',
-          to: 'titres_titulaires.titre_etape_id'
+          through: {
+            from: 'titres_titulaires.titre_etape_id',
+            to: 'titres_titulaires.entreprise_id'
+          },
+          to: 'entreprises.id'
         }
       },
       amodiataires: {
-        relation: Model.HasManyRelation,
-        modelClass: titresAmodiataires,
+        relation: Model.ManyToManyRelation,
+        modelClass: Entreprises,
         join: {
           from: 'titres_etapes.id',
-          to: 'titres_amodiataires.titre_etape_id'
+          through: {
+            from: 'titres_amodiataires.titre_etape_id',
+            to: 'titres_amodiataires.entreprise_id'
+          },
+          to: 'entreprises.id'
         }
       },
       utilisateurs: {
-        relation: Model.HasManyRelation,
-        modelClass: titresUtilisateurs,
+        relation: Model.ManyToManyRelation,
+        modelClass: Utilisateurs,
         join: {
           from: 'titres_etapes.id',
-          to: 'titres_utilisateurs.titre_etape_id'
+          through: {
+            from: 'titres_utilisateurs.titre_etape_id',
+            to: 'titres_utilisateurs.utilisateur_id'
+          },
+          to: 'utilisateurs.id'
         }
       },
       administrations: {
@@ -133,4 +144,4 @@ class Phases extends Model {
   // }
 }
 
-module.exports = Phases
+module.exports = TitresEtapes
