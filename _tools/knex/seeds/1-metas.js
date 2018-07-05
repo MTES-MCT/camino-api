@@ -11,25 +11,10 @@ const demarchesEtapes = require('../../sources/_demarches_etapes.json')
 
 exports.seed = (knex, Promise) =>
   Promise.all([
-    knex('_domaines_types').del(),
-    knex('domaines').del(),
-    knex('types').del(),
-    knex('statuts').del(),
-
-    knex('_demarches_etapes').del(),
-    knex('demarches').del(),
-    knex('demarches_statuts').del(),
-    knex('etapes').del(),
-    knex('etapes_statuts').del(),
-    knex('emprises').del()
+    knex('domaines').insert(domaines),
+    knex('types').insert(types),
+    knex('statuts').insert(statuts)
   ])
-    .then(() =>
-      Promise.all([
-        knex('domaines').insert(domaines),
-        knex('types').insert(types),
-        knex('statuts').insert(statuts)
-      ])
-    )
     .then(() =>
       Promise.all([
         knex('demarches').insert(demarches),
