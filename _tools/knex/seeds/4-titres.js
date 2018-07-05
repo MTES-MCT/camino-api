@@ -8,6 +8,16 @@ const mTitulaires = require('../../sources/titres/m/titres_titulaires.json')
 const mAmodiataires = require('../../sources/titres/m/titres_amodiataires.json')
 const mUtilisateurs = require('../../sources/titres/m/titres_utilisateurs.json')
 
+const m973 = require('../../sources/titres/m973/titres.json')
+const m973Demarches = require('../../sources/titres/m973/titres_demarches.json')
+const m973Etapes = require('../../sources/titres/m973/titres_etapes.json')
+const m973Emprises = require('../../sources/titres/m973/titres_emprises.json')
+const m973Points = require('../../sources/titres/m973/titres_points.json')
+const m973Substances = require('../../sources/titres/m973/titres_substances.json')
+const m973Titulaires = require('../../sources/titres/m973/titres_titulaires.json')
+const m973Amodiataires = require('../../sources/titres/m973/titres_amodiataires.json')
+const m973Utilisateurs = require('../../sources/titres/m973/titres_utilisateurs.json')
+
 const h = require('../../sources/titres/h/titres.json')
 const hDemarches = require('../../sources/titres/h/titres_demarches.json')
 const hEtapes = require('../../sources/titres/h/titres_etapes.json')
@@ -18,29 +28,27 @@ const hTitulaires = require('../../sources/titres/h/titres_titulaires.json')
 const hAmodiataires = require('../../sources/titres/h/titres_amodiataires.json')
 const hUtilisateurs = require('../../sources/titres/h/titres_utilisateurs.json')
 
-const titres = [...m, ...h]
-const titresDemarches = [...mDemarches, ...hDemarches]
-const titresEtapes = [...mEtapes, ...hEtapes]
-const titresSubstances = [...mSubstances, ...hSubstances]
-const titresPoints = [...mPoints, ...hPoints]
-const titresTitulaires = [...mTitulaires, ...hTitulaires]
-const titresAmodiataires = [...mAmodiataires, ...hAmodiataires]
-const titresUtilisateurs = [...mUtilisateurs, ...hUtilisateurs]
-const titresEmprises = [...mEmprises, ...hEmprises]
+const titres = [...m, ...m973, ...h]
+const titresDemarches = [...mDemarches, ...m973Demarches, ...hDemarches]
+const titresEtapes = [...mEtapes, ...m973Etapes, ...hEtapes]
+const titresSubstances = [...mSubstances, ...m973Substances, ...hSubstances]
+const titresPoints = [...mPoints, ...m973Points, ...hPoints]
+const titresTitulaires = [...mTitulaires, ...m973Titulaires, ...hTitulaires]
+const titresAmodiataires = [
+  ...mAmodiataires,
+  ...m973Amodiataires,
+  ...hAmodiataires
+]
+const titresUtilisateurs = [
+  ...mUtilisateurs,
+  ...m973Utilisateurs,
+  ...hUtilisateurs
+]
+const titresEmprises = [...mEmprises, ...m973Emprises, ...hEmprises]
 
 exports.seed = (knex, Promise) =>
-  Promise.all([
-    knex('titres').del(),
-    knex('titres_demarches').del(),
-    knex('titres_etapes').del(),
-    knex('titres_emprises').del(),
-    knex('titres_points').del(),
-    knex('titres_substances').del(),
-    knex('titres_utilisateurs').del(),
-    knex('titres_titulaires').del(),
-    knex('titres_amodiataires').del()
-  ])
-    .then(() => knex('titres').insert(titres))
+  knex('titres')
+    .insert(titres)
     .then(() => knex('titres_demarches').insert(titresDemarches))
     .then(() => knex('titres_etapes').insert(titresEtapes))
     .then(() =>
