@@ -17,48 +17,9 @@ type Titre {
   demarches: [Demarche]
 }
 
-type Type {
-  id: TypeId!
-  nom: String!
-}
-
-type Domaine {
-  id: DomaineId!
-  nom: String!
-}
-
-type Statut {
-  id: StatutId!
-  nom: String!
-  couleur: Couleur!
-}
-
 type Reference {
   type: String
   nom: String!
-}
-
-type Demarche {
-  id: ID!
-  type: DemarcheType!
-  ordre: Int!
-  statut: DemarcheStatut!
-  etapes: [Etape]
-}
-
-type DemarcheType {
-  id: ID!
-  nom: String!
-  dureeMax: Int!
-  renouvelable: Boolean
-  exception: Boolean
-  ordre: Int
-}
-
-type DemarcheStatut {
-  id: DemarcheStatutId!
-  nom: String!
-  couleur: Couleur!
 }
 
 type Etape {
@@ -76,23 +37,6 @@ type Etape {
   titulaires: [Entreprise]
   amodiataires: [Entreprise]
   utilisateurs: [Utilisateur]
-}
-
-type EtapeType {
-  id: ID!
-  nom: String!
-  acceptationAuto: Boolean
-}
-
-type EtapeStatut {
-  id: EtapeStatutId!
-  nom: String!
-  couleur: Couleur!
-}
-
-type Emprise {
-  id: EmpriseId!
-  nom: String!
 }
 
 type TitreSubstance {
@@ -194,105 +138,4 @@ input InputEtapeTypeId {
 
 input InputEmpriseId {
   id: EmpriseId!
-}
-
-"""
-- __apx__: Autorisation de prospections préalables (M, H, C)
-- __arc__: Autorisation de recherches (C)
-- __arg__: Autorisation de recherches (G)
-- __axm__: Autorisation d'exploitation (M)
-- __prx__: Permis exclusif de recherches (M, G, S, C)
-- __prh__: Permis exclusif de recherches (H)
-- __pxc__: Permis exclusif de carrières (C)
-- __pxg__: Permis d'exploitation (G)
-- __pxm__: Permis d'exploitation (M)
-- __cxx__: Concession (M, H, G, S, C)
-"""
-enum TypeId {
-  apx
-  arc
-  arg
-  axm
-  prx
-  prh
-  pxc
-  pxg
-  pxm
-  cxx
-}
-
-"""
-- __m__: Minéraux et métaux
-- __h__: Substances énergétiques
-- __s__: Stockage
-- __g__: Géothermie
-- __c__: Carrières
-- __w__: Granulats marins
-"""
-enum DomaineId {
-  m
-  h
-  s
-  g
-  c
-  w
-}
-
-"""
-- __ins__: En instruction
-- __val__: Valide
-- __ech__: Échu
-"""
-enum StatutId {
-  dmi
-  dmc
-  val
-  mdi
-  ech
-}
-
-"""
-- __ter__: À terre
-- __mer__: En mer
-"""
-enum EmpriseId {
-  ter
-  mer
-}
-
-"""
-- __ins__: En instruction
-- __acc__: Acceptée
-- __rej__: Rejetée
-- __eco__: En construction
-- __dep__: Déposée
-- __cls__: Classée sans suite
-- __ret__: Retirée
-"""
-enum DemarcheStatutId {
-  ins
-  acc
-  rej
-  eco
-  dep
-  cls
-  ret
-}
-
-"""
-- __afa__: Non fait
-- __eco__: En cours
-- __ter__: Terminé
-"""
-enum EtapeStatutId {
-  afa
-  eco
-  ter
-}
-
-enum Couleur {
-  neutral
-  success
-  warning
-  error
 }

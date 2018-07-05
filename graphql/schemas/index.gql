@@ -1,4 +1,6 @@
 type Query {
+  statuts: [Statut]
+
   "Un titre"
   titre(id: String!): Titre
   "Liste de titres"
