@@ -86,6 +86,7 @@ enum TypeId {
 - __g__: Géothermie
 - __c__: Carrières
 - __w__: Granulats marins
+- __a__: Industrie nucléaire
 """
 enum DomaineId {
   m
@@ -94,6 +95,7 @@ enum DomaineId {
   g
   c
   w
+  a
 }
 
 """

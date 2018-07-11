@@ -44,7 +44,6 @@ type TitreSubstance {
   nom: String!
   domaine: Domaine
   type: String
-  usage: String!
   symbole: String
   alias: [String]
   gerep: Int

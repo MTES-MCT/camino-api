@@ -58,14 +58,36 @@ const gTitulaires = require('../../sources/titres_g_titulaires.json')
 const gAmodiataires = require('../../sources/titres_g_amodiataires.json')
 const gUtilisateurs = require('../../sources/titres_g_utilisateurs.json')
 
-const titres = [...m, ...m973, ...h, ...s, ...c, ...g]
+const a = require('../../sources/titres_a.json')
+const aDemarches = require('../../sources/titres_a_demarches.json')
+const aEtapes = require('../../sources/titres_a_etapes.json')
+const aEmprises = require('../../sources/titres_a_emprises.json')
+const aPoints = require('../../sources/titres_a_points.json')
+const aSubstances = require('../../sources/titres_a_substances.json')
+const aTitulaires = require('../../sources/titres_a_titulaires.json')
+const aAmodiataires = require('../../sources/titres_a_amodiataires.json')
+const aUtilisateurs = require('../../sources/titres_a_utilisateurs.json')
+
+const w = require('../../sources/titres_w.json')
+const wDemarches = require('../../sources/titres_w_demarches.json')
+const wEtapes = require('../../sources/titres_w_etapes.json')
+const wEmprises = require('../../sources/titres_w_emprises.json')
+const wPoints = require('../../sources/titres_w_points.json')
+const wSubstances = require('../../sources/titres_w_substances.json')
+const wTitulaires = require('../../sources/titres_w_titulaires.json')
+const wAmodiataires = require('../../sources/titres_w_amodiataires.json')
+const wUtilisateurs = require('../../sources/titres_w_utilisateurs.json')
+
+const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...a, ...w]
 const titresDemarches = [
   ...mDemarches,
   ...m973Demarches,
   ...hDemarches,
   ...sDemarches,
   ...cDemarches,
-  ...gDemarches
+  ...gDemarches,
+  ...aDemarches,
+  ...wDemarches
 ]
 const titresEtapes = [
   ...mEtapes,
@@ -73,7 +95,9 @@ const titresEtapes = [
   ...hEtapes,
   ...sEtapes,
   ...cEtapes,
-  ...gEtapes
+  ...gEtapes,
+  ...aEtapes,
+  ...wEtapes
 ]
 const titresSubstances = [
   ...mSubstances,
@@ -81,7 +105,9 @@ const titresSubstances = [
   ...hSubstances,
   ...sSubstances,
   ...cSubstances,
-  ...gSubstances
+  ...gSubstances,
+  ...aSubstances,
+  ...wSubstances
 ]
 const titresPoints = [
   ...mPoints,
@@ -89,7 +115,9 @@ const titresPoints = [
   ...hPoints,
   ...sPoints,
   ...cPoints,
-  ...gPoints
+  ...gPoints,
+  ...aPoints,
+  ...wPoints
 ]
 const titresTitulaires = [
   ...mTitulaires,
@@ -97,7 +125,9 @@ const titresTitulaires = [
   ...hTitulaires,
   ...sTitulaires,
   ...cTitulaires,
-  ...gTitulaires
+  ...gTitulaires,
+  ...aTitulaires,
+  ...wTitulaires
 ]
 const titresAmodiataires = [
   ...mAmodiataires,
@@ -105,7 +135,9 @@ const titresAmodiataires = [
   ...hAmodiataires,
   ...sAmodiataires,
   ...cAmodiataires,
-  ...gAmodiataires
+  ...gAmodiataires,
+  ...aAmodiataires,
+  ...wAmodiataires
 ]
 const titresUtilisateurs = [
   ...mUtilisateurs,
@@ -113,7 +145,9 @@ const titresUtilisateurs = [
   ...hUtilisateurs,
   ...sUtilisateurs,
   ...cUtilisateurs,
-  ...gUtilisateurs
+  ...gUtilisateurs,
+  ...aUtilisateurs,
+  ...wUtilisateurs
 ]
 const titresEmprises = [
   ...mEmprises,
@@ -121,7 +155,9 @@ const titresEmprises = [
   ...hEmprises,
   ...sEmprises,
   ...cEmprises,
-  ...gEmprises
+  ...gEmprises,
+  ...aEmprises,
+  ...wEmprises
 ]
 
 exports.seed = (knex, Promise) =>

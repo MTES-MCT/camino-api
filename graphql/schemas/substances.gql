@@ -3,7 +3,6 @@ type Substance {
   nom: String!
   domaine: Domaine
   type: String
-  usage: String!
   symbole: String
   alias: [String]
   gerep: Int
@@ -23,7 +22,6 @@ input InputSubstance {
   nom: String!
   domaine: String!
   type: String
-  usage: String!
   symbole: String
   alias: [String]
   gerep: Int

@@ -6,6 +6,11 @@ const {
   titreModifier
 } = require('../../postgres/queries/titres')
 
+const {
+  geojsonFeatureMultiPolygon,
+  geojsonFeatureCollectionPoints
+} = require('./_tools-geojson')
+
 const titreFormat = t => {
   t.perimetres = []
   t.demarches &&
@@ -13,28 +18,14 @@ const titreFormat = t => {
       d.etapes &&
         d.etapes.forEach(e => {
           if (e.points) {
-            const geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
-            const geojsonPoints = geojsonFeatureCollectionPoints(e.points)
-            e.geojsonMultiPolygon = geojsonMultiPolygon
-            e.geojsonPoints = geojsonPoints
-            // if (e.etapeId === 'dpu' && e.etapeStatutId === 'ter') {
-            //   t.perimetres.push({
-            //     date: e.date,
-            //     geojsonMultiPolygon: geojsonMultiPolygon,
-            //     geojsonPoints: geojsonPoints
-            //   })
-            // }
+            e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
+            e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
           }
         })
     })
 
   return t
 }
-
-const {
-  geojsonFeatureMultiPolygon,
-  geojsonFeatureCollectionPoints
-} = require('./_tools-geojson')
 
 const resolvers = {
   titre: async ({ id }, context, info) => {

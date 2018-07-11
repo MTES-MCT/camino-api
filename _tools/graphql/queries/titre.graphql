@@ -121,7 +121,6 @@ fragment substance on TitreSubstance {
     nom
   }
   type
-  usage
   symbole
   alias
   gerep

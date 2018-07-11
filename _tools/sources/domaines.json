@@ -22,5 +22,9 @@
   {
     "id": "s",
     "nom": "stockages souterrains"
+  },
+  {
+    "id": "a",
+    "nom": "industrie nucléaire"
   }
 ]

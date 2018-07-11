@@ -14,7 +14,6 @@ exports.up = knex => {
         .notNullable()
         .references('domaines.id')
       table.enum('type', ['fossile', 'minérale'])
-      table.string('usage').notNullable()
       table.string('symbole')
       table.specificType('alias', 'character varying(255)[]')
       table.integer('gerep')
