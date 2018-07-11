@@ -11,22 +11,35 @@ const demarchesEtapes = require('../../sources/_demarches_etapes.json')
 
 exports.seed = (knex, Promise) =>
   Promise.all([
-    knex('domaines').insert(domaines),
-    knex('types').insert(types),
-    knex('statuts').insert(statuts)
+    knex('_domaines_types').del(),
+    knex('_demarches_etapes').del(),
+    knex('statuts').del(),
+    knex('emprises').del(),
+    knex('demarches').del(),
+    knex('demarches_statuts').del(),
+    knex('etapes').del(),
+    knex('etapes_statuts').del()
   ])
+    .then(() => Promise.all([knex('domaines').del(), knex('types').del()]))
     .then(() =>
       Promise.all([
-        knex('demarches').insert(demarches),
-        knex('demarches_statuts').insert(demarchesStatuts),
-        knex('etapes').insert(etapes),
-        knex('etapes_statuts').insert(etapesStatuts),
-        knex('emprises').insert(emprises)
+        knex('domaines').insert(domaines),
+        knex('types').insert(types),
+        knex('statuts').insert(statuts)
       ])
-    )
-    .then(() =>
-      Promise.all([
-        knex('_domaines_types').insert(domainesTypes),
-        knex('_demarches_etapes').insert(demarchesEtapes)
-      ])
+        .then(() =>
+          Promise.all([
+            knex('demarches').insert(demarches),
+            knex('demarches_statuts').insert(demarchesStatuts),
+            knex('etapes').insert(etapes),
+            knex('etapes_statuts').insert(etapesStatuts),
+            knex('emprises').insert(emprises)
+          ])
+        )
+        .then(() =>
+          Promise.all([
+            knex('_domaines_types').insert(domainesTypes),
+            knex('_demarches_etapes').insert(demarchesEtapes)
+          ])
+        )
     )

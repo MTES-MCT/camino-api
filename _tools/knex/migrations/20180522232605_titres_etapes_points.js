@@ -26,6 +26,6 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('titres_points')
     .dropTable('titres_points_references')
+    .dropTable('titres_points')
 }

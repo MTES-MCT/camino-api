@@ -21,18 +21,19 @@
 ## Configuration et imports des données
 
 - Requiert Node.js, npm et une base de données PostgreSQL.
-- Le dossier `/_tools/sources` doit contenir les données au format json.
 - Renommer le fichier `.env.example` en `.env` et le compléter.
 
 ```bash
 # installe les dépendances
 npm install
 
-# crée les tables dans la base de données
-npx knex --knexfile=./conf/knex.js migrate:latest
+# importe les données au format .json
+# depuis google spreadsheets vers './_tools/sources'
+npm run import
 
-# importe les données
-npx knex --knexfile=./conf/knex.js seed:run
+# crée les tables dans la base de données
+# et importe les données depuis './_tools/sources'
+npm run migrate
 ```
 
 ---
