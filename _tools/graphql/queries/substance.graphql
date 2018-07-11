@@ -7,7 +7,6 @@ query {
       nom
     }
     type
-    usage
     symbole
     alias
     gerep

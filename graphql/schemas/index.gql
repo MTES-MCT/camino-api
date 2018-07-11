@@ -14,13 +14,6 @@ type Query {
   substance(id: String!): Substance
 
   substances: [Substance]
-
-  geojsonMultiPolygons(
-    typeIds: [TypeId]
-    domaineIds: [DomaineId]
-    statutIds: [StatutId]
-    substances: [String]
-  ): GeojsonMultiPolygons
 }
 
 type Mutation {

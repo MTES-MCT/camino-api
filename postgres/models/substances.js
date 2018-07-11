@@ -10,21 +10,13 @@ class Substances extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [
-        'id',
-        'nom',
-        'domaine_id',
-        'type',
-        'usage',
-        'substance_legal_id'
-      ],
+      required: ['id', 'nom', 'domaine_id', 'type', 'substance_legal_id'],
 
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
         domaine_id: { type: 'string' },
         type: { type: 'string' },
-        usage: { type: 'string' },
         symbole: { type: 'string' },
         alias: {
           type: 'array',

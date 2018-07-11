@@ -12,5 +12,5 @@
     "cxx"
   ],
   "domaineIds": ["m", "h", "s", "g", "c"],
-  "statutIds": ["dmi", "dmc", "val", "mdi", "ech"]
+  "statutIds": ["dmi", "dmc", "val", "mod", "ech"]
 }

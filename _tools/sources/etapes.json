@@ -1,5 +1,15 @@
 [
   {
+    "id": "mfr",
+    "nom": "formalisation de la demande",
+    "acceptation_auto": true
+  },
+  {
+    "id": "mdp",
+    "nom": "dépôt de la demande",
+    "acceptation_auto": true
+  },
+  {
     "id": "men",
     "nom": "enregistrement de la demande",
     "acceptation_auto": true
@@ -114,6 +124,10 @@
   {
     "id": "dex",
     "nom": "décision expresse"
+  },
+  {
+    "id": "apu",
+    "nom": "publication de l'avis de décision implicite"
   },
   {
     "id": "rpu",
