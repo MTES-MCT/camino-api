@@ -25,5 +25,7 @@ exports.up = knex => {
 }
 
 exports.down = knex => {
-  return knex.schema.dropTable('titres_documents')
+  return knex.schema
+    .dropTable('titres_verifications')
+    .dropTable('verifications')
 }

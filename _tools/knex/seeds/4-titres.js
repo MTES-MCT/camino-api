@@ -79,6 +79,7 @@ const wAmodiataires = require('../../sources/titres_w_amodiataires.json')
 const wUtilisateurs = require('../../sources/titres_w_utilisateurs.json')
 
 const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...a, ...w]
+
 const titresDemarches = [
   ...mDemarches,
   ...m973Demarches,
@@ -89,6 +90,7 @@ const titresDemarches = [
   ...aDemarches,
   ...wDemarches
 ]
+
 const titresEtapes = [
   ...mEtapes,
   ...m973Etapes,
@@ -99,6 +101,7 @@ const titresEtapes = [
   ...aEtapes,
   ...wEtapes
 ]
+
 const titresSubstances = [
   ...mSubstances,
   ...m973Substances,
@@ -109,6 +112,7 @@ const titresSubstances = [
   ...aSubstances,
   ...wSubstances
 ]
+
 const titresPoints = [
   ...mPoints,
   ...m973Points,
@@ -119,6 +123,7 @@ const titresPoints = [
   ...aPoints,
   ...wPoints
 ]
+
 const titresTitulaires = [
   ...mTitulaires,
   ...m973Titulaires,
@@ -129,6 +134,7 @@ const titresTitulaires = [
   ...aTitulaires,
   ...wTitulaires
 ]
+
 const titresAmodiataires = [
   ...mAmodiataires,
   ...m973Amodiataires,
@@ -139,6 +145,7 @@ const titresAmodiataires = [
   ...aAmodiataires,
   ...wAmodiataires
 ]
+
 const titresUtilisateurs = [
   ...mUtilisateurs,
   ...m973Utilisateurs,
@@ -149,6 +156,7 @@ const titresUtilisateurs = [
   ...aUtilisateurs,
   ...wUtilisateurs
 ]
+
 const titresEmprises = [
   ...mEmprises,
   ...m973Emprises,
@@ -161,17 +169,30 @@ const titresEmprises = [
 ]
 
 exports.seed = (knex, Promise) =>
-  knex('titres')
-    .insert(titres)
-    .then(() => knex('titres_demarches').insert(titresDemarches))
-    .then(() => knex('titres_etapes').insert(titresEtapes))
+  Promise.all([
+    knex('titres_emprises').del(),
+    knex('titres_points').del(),
+    knex('titres_substances').del(),
+    knex('titres_utilisateurs').del(),
+    knex('titres_titulaires').del(),
+    knex('titres_amodiataires').del()
+  ])
+    .then(() => knex('titres_etapes').del())
+    .then(() => knex('titres_demarches').del())
+    .then(() => knex('titres').del())
     .then(() =>
-      Promise.all([
-        knex('titres_substances').insert(titresSubstances),
-        knex('titres_points').insert(titresPoints),
-        knex('titres_emprises').insert(titresEmprises),
-        knex('titres_titulaires').insert(titresTitulaires),
-        knex('titres_amodiataires').insert(titresAmodiataires)
-      ])
+      knex('titres')
+        .insert(titres)
+        .then(() => knex('titres_demarches').insert(titresDemarches))
+        .then(() => knex('titres_etapes').insert(titresEtapes))
+        .then(() =>
+          Promise.all([
+            knex('titres_substances').insert(titresSubstances),
+            knex('titres_points').insert(titresPoints),
+            knex('titres_emprises').insert(titresEmprises),
+            knex('titres_titulaires').insert(titresTitulaires),
+            knex('titres_amodiataires').insert(titresAmodiataires)
+          ])
+        )
+        .then(() => knex('titres_utilisateurs').insert(titresUtilisateurs))
     )
-    .then(() => knex('titres_utilisateurs').insert(titresUtilisateurs))

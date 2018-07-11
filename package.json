@@ -4,6 +4,8 @@
   "description": "Camino api",
   "main": "app/index.js",
   "scripts": {
+    "import": "node ./_tools/import/index.js",
+    "migrate": "npx knex --knexfile=./conf/knex.js migrate:rollback && npx knex --knexfile=./conf/knex.js migrate:latest && npx knex --knexfile=./conf/knex.js seed:run",
     "dev": "nodemon ./index.js",
     "start": "node ./index.js"
   },
@@ -25,6 +27,7 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
+    "google-spreadsheet-to-json": "^1.0.0",
     "graphql": "^14.0.0-rc.1",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.0",

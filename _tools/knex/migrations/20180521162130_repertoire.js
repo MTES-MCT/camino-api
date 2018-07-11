@@ -45,8 +45,7 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('contacts')
+    .dropTable('utilisateurs')
     .dropTable('entreprises')
     .dropTable('administrations')
-    .dropTable('utilisateurs')
 }
