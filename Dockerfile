@@ -1,7 +1,7 @@
 FROM node:alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
-ENV dir /
+ENV dir /api
 ENV NODE_ENV production
 WORKDIR $dir
 
