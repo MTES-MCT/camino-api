@@ -88,7 +88,7 @@ Pré-requis:
 # démarre l'application et la base de données dans un container Docker
 # en mode `production`
 # écoute sur http://api.camino.pw
-docker-compose up -d --build
+docker-compose -f ./docker-compose.ovh.yml up -d --build
 ```
 
 ---
