@@ -1,6 +1,6 @@
 {
   "name": "camino-api",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Camino api",
   "main": "app/index.js",
   "scripts": {
