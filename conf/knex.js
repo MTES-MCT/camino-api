@@ -22,7 +22,13 @@ const knexConfig = {
   },
   production: {
     client: 'pg',
-    connection
+    connection,
+    migrations: {
+      directory: '../_tools/knex/migrations'
+    },
+    seeds: {
+      directory: '../_tools/knex/seeds'
+    }
   }
 }
 
