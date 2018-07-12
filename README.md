@@ -71,7 +71,7 @@ Pré-requis:
 - [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
-# démarre l'application et la base de données dans un container Docker
+# démarre l'application et la base de données dans des containers Docker
 # en mode `production`
 # accessible à https://api.camino.local
 docker-compose -f ./docker-compose.local.yml up --build
@@ -85,9 +85,9 @@ Pré-requis:
 - [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
-# démarre l'application et la base de données dans un container Docker
+# démarre l'application et la base de données dans des containers Docker
 # en mode `production`
-# écoute sur http://api.camino.pw
+# accessible à http://api.camino.pw
 docker-compose -f ./docker-compose.ovh.yml up -d --build
 ```
 
