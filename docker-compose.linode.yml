@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+
+  api:
+    build: .
+    depends_on: 
+      - postgres
+    environment:
+      VIRTUAL_HOST: api.camino.site
+      VIRTUAL_PORT: ${NODE_PORT}
+      LETSENCRYPT_HOST: api.camino.site
+      LETSENCRYPT_EMAIL: francoisromain@gmail.com
+      NODE_PORT: ${NODE_PORT}
+      PGHOST: postgres
+      PGPORT: ${PGPORT}
+      PGDATABASE: ${PGDATABASE}
+      PGUSER: ${PGUSER}
+      JWT_SECRET: ${JWT_SECRET}
+    expose:
+      - ${NODE_PORT}
+  
+  postgres: 
+    image: postgres:alpine
+    environment:
+      PGUSER: ${PGUSER}
+    expose:
+      - ${PGPORT}
+    volumes:
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data: {}
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
