@@ -7,9 +7,9 @@ services:
     depends_on: 
       - postgres
     environment:
-      VIRTUAL_HOST: api.camino.site
+      VIRTUAL_HOST: api.camino.pw
       VIRTUAL_PORT: ${NODE_PORT}
-      LETSENCRYPT_HOST: api.camino.site
+      LETSENCRYPT_HOST: api.camino.pw
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
       NODE_PORT: ${NODE_PORT}
       PGHOST: postgres
