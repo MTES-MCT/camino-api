@@ -3,17 +3,17 @@ const Substances = require('./substances')
 
 class TitresSubstances extends Model {
   static get tableName() {
-    return 'titres_substances'
+    return 'titresSubstances'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['substance_id', 'titre_etape_id'],
+      required: ['substanceId', 'titreEtapeId'],
 
       properties: {
-        substance_id: { type: 'string', maxLength: 4 },
-        titre_etape_id: { type: 'string', maxLength: 128 },
+        substanceId: { type: 'string', maxLength: 4 },
+        titreEtapeId: { type: 'string', maxLength: 128 },
         connexe: { type: 'boolean' },
         ordre: { type: 'integer' }
       }
@@ -26,7 +26,7 @@ class TitresSubstances extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Substances,
         join: {
-          from: 'titres_substances.substance_id',
+          from: 'titresSubstances.substanceId',
           to: 'substances.id'
         }
       }

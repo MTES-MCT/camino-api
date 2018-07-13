@@ -4,7 +4,7 @@ const TitresPointsReferences = require('./titres-points-references')
 
 class TitresPoints extends Model {
   static get tableName() {
-    return 'titres_points'
+    return 'titresPoints'
   }
 
   static get jsonSchema() {
@@ -12,7 +12,7 @@ class TitresPoints extends Model {
       type: 'object',
       required: [
         'id',
-        'titre_etape_id',
+        'titreEtapeId',
         'coordonees',
         'groupe',
         'contour',
@@ -21,7 +21,7 @@ class TitresPoints extends Model {
 
       properties: {
         id: { type: 'string' },
-        titre_etape_id: { type: 'string', maxLength: 128 },
+        titreEtapeId: { type: 'string', maxLength: 128 },
         coordonees: {
           type: 'object',
           properties: {
@@ -45,8 +45,8 @@ class TitresPoints extends Model {
         relation: Model.HasManyRelation,
         modelClass: TitresPointsReferences,
         join: {
-          from: 'titres_points.id',
-          to: 'titres_points_references.titre_point_id'
+          from: 'titresPoints.id',
+          to: 'titresPointsReferences.titrePointId'
         }
       }
     }

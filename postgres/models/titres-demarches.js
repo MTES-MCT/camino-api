@@ -5,7 +5,7 @@ const TitresEtapes = require('./titres-etapes')
 
 class TitresDemarches extends Model {
   static get tableName() {
-    return 'titres_demarches'
+    return 'titresDemarches'
   }
 
   static get jsonSchema() {
@@ -15,9 +15,9 @@ class TitresDemarches extends Model {
 
       properties: {
         id: { type: 'string', maxLength: 128 },
-        titre_id: { type: 'string', maxLength: 128 },
-        demarche_id: { type: 'string', maxLength: 8 },
-        statut_id: { type: 'string', maxLength: 3 },
+        titreId: { type: 'string', maxLength: 128 },
+        demarcheId: { type: 'string', maxLength: 8 },
+        statutId: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' }
       }
     }
@@ -29,7 +29,7 @@ class TitresDemarches extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Demarches,
         join: {
-          from: 'titres_demarches.demarche_id',
+          from: 'titresDemarches.demarcheId',
           to: 'demarches.id'
         }
       },
@@ -37,16 +37,16 @@ class TitresDemarches extends Model {
         relation: Model.HasManyRelation,
         modelClass: TitresEtapes,
         join: {
-          from: 'titres_demarches.id',
-          to: 'titres_etapes.titre_demarche_id'
+          from: 'titresDemarches.id',
+          to: 'titresEtapes.titreDemarcheId'
         }
       },
       statut: {
         relation: Model.BelongsToOneRelation,
         modelClass: DemarchesStatuts,
         join: {
-          from: 'titres_demarches.demarche_statut_id',
-          to: 'demarches_statuts.id'
+          from: 'titresDemarches.demarcheStatutId',
+          to: 'demarchesStatuts.id'
         }
       }
     }

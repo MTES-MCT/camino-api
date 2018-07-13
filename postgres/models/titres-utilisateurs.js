@@ -3,17 +3,17 @@ const Utilisateurs = require('./utilisateurs')
 
 class TitresUtilisateurs extends Model {
   static get tableName() {
-    return 'titres_utilisateurs'
+    return 'titresUtilisateurs'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['utilisateur_id', 'titre_etape_id'],
+      required: ['utilisateurId', 'titre_etapeId'],
 
       properties: {
-        utilisateur_id: { type: 'string', maxLength: 64 },
-        titre_etape_id: { type: 'string', maxLength: 128 }
+        utilisateurId: { type: 'string', maxLength: 64 },
+        titre_etapeId: { type: 'string', maxLength: 128 }
       }
     }
   }
@@ -24,7 +24,7 @@ class TitresUtilisateurs extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Utilisateurs,
         join: {
-          from: 'titres_utilisateurs.utilisateur_id',
+          from: 'titresUtilisateurs.utilisateurId',
           to: 'utilisateurs.id'
         }
       }

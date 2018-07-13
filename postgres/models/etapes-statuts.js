@@ -2,7 +2,7 @@ const { Model } = require('objection')
 
 class EtapesStatuts extends Model {
   static get tableName() {
-    return 'etapes_statuts'
+    return 'etapesStatuts'
   }
 
   static get jsonSchema() {

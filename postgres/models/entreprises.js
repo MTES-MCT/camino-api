@@ -18,9 +18,9 @@ class Entreprises extends Model {
         site: { type: 'string' },
         email: { type: 'string' },
         telephone: { type: 'string' },
-        adresse_1: { type: 'string' },
-        adresse_2: { type: 'string' },
-        code_postal: { type: 'integer' },
+        adresse1: { type: 'string' },
+        adresse2: { type: 'string' },
+        codePostal: { type: 'integer' },
         ville: { type: 'string' },
         cedex: { type: 'integer' }
       }

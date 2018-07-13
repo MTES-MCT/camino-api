@@ -11,7 +11,7 @@ const titresEmprises = require('./titres-emprises')
 
 class TitresEtapes extends Model {
   static get tableName() {
-    return 'titres_etapes'
+    return 'titresEtapes'
   }
 
   static get jsonSchema() {
@@ -21,9 +21,9 @@ class TitresEtapes extends Model {
 
       properties: {
         id: { type: 'string', maxLength: 128 },
-        titre_demarche_id: { type: 'string', maxLength: 128 },
-        etape_id: { type: 'string', maxLength: 3 },
-        etape_statut_id: { type: 'string', maxLength: 3 },
+        titre_demarcheId: { type: 'string', maxLength: 128 },
+        etapeId: { type: 'string', maxLength: 3 },
+        etapeStatutId: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' },
         date: { type: 'date' },
         duree: { type: 'integer' },
@@ -38,7 +38,7 @@ class TitresEtapes extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Etapes,
         join: {
-          from: 'titres_etapes.etape_id',
+          from: 'titresEtapes.etapeId',
           to: 'etapes.id'
         }
       },
@@ -46,18 +46,18 @@ class TitresEtapes extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: EtapesStatuts,
         join: {
-          from: 'titres_etapes.etape_statut_id',
-          to: 'etapes_statuts.id'
+          from: 'titresEtapes.etapeStatutId',
+          to: 'etapesStatuts.id'
         }
       },
       substances: {
         relation: Model.ManyToManyRelation,
         modelClass: Substances,
         join: {
-          from: 'titres_etapes.id',
+          from: 'titresEtapes.id',
           through: {
-            from: 'titres_substances.titre_etape_id',
-            to: 'titres_substances.substance_id',
+            from: 'titresSubstances.titreEtapeId',
+            to: 'titresSubstances.substanceId',
             extra: ['ordre', 'connexe']
           },
           to: 'substances.id'
@@ -67,18 +67,18 @@ class TitresEtapes extends Model {
         relation: Model.HasManyRelation,
         modelClass: TitresPoints,
         join: {
-          from: 'titres_etapes.id',
-          to: 'titres_points.titre_etape_id'
+          from: 'titresEtapes.id',
+          to: 'titresPoints.titreEtapeId'
         }
       },
       titulaires: {
         relation: Model.ManyToManyRelation,
         modelClass: Entreprises,
         join: {
-          from: 'titres_etapes.id',
+          from: 'titresEtapes.id',
           through: {
-            from: 'titres_titulaires.titre_etape_id',
-            to: 'titres_titulaires.entreprise_id'
+            from: 'titresTitulaires.titreEtapeId',
+            to: 'titresTitulaires.entrepriseId'
           },
           to: 'entreprises.id'
         }
@@ -87,10 +87,10 @@ class TitresEtapes extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Entreprises,
         join: {
-          from: 'titres_etapes.id',
+          from: 'titresEtapes.id',
           through: {
-            from: 'titres_amodiataires.titre_etape_id',
-            to: 'titres_amodiataires.entreprise_id'
+            from: 'titresAmodiataires.titreEtapeId',
+            to: 'titresAmodiataires.entrepriseId'
           },
           to: 'entreprises.id'
         }
@@ -99,10 +99,10 @@ class TitresEtapes extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Utilisateurs,
         join: {
-          from: 'titres_etapes.id',
+          from: 'titresEtapes.id',
           through: {
-            from: 'titres_utilisateurs.titre_etape_id',
-            to: 'titres_utilisateurs.utilisateur_id'
+            from: 'titresUtilisateurs.titreEtapeId',
+            to: 'titresUtilisateurs.utilisateurId'
           },
           to: 'utilisateurs.id'
         }
@@ -111,24 +111,24 @@ class TitresEtapes extends Model {
         relation: Model.HasManyRelation,
         modelClass: titresAdministrations,
         join: {
-          from: 'titres_etapes.id',
-          to: 'titres_administrations.titre_etape_id'
+          from: 'titresEtapes.id',
+          to: 'titresAdministrations.titreEtapeId'
         }
       },
       documents: {
         relation: Model.HasManyRelation,
         modelClass: titresDocuments,
         join: {
-          from: 'titres_etapes.id',
-          to: 'titres_documents.titre_etape_id'
+          from: 'titresEtapes.id',
+          to: 'titresDocuments.titreEtapeId'
         }
       },
       emprises: {
         relation: Model.HasManyRelation,
         modelClass: titresEmprises,
         join: {
-          from: 'titres_etapes.id',
-          to: 'titres_emprises.titre_etape_id'
+          from: 'titresEtapes.id',
+          to: 'titresEmprises.titreEtapeId'
         }
       }
     }
