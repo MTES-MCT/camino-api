@@ -1,9 +1,9 @@
 exports.up = knex => {
-  return knex.schema.createTable('titres_documents', table => {
+  return knex.schema.createTable('titresDocuments', table => {
     table.string('id').primary()
     table
-      .string('titre_etape_id', 128)
-      .references('titres_etapes.id')
+      .string('titreEtapeId', 128)
+      .references('titresEtapes.id')
       .notNullable()
       .onDelete('CASCADE')
     table.string('nom').notNullable()
@@ -14,5 +14,5 @@ exports.up = knex => {
 }
 
 exports.down = knex => {
-  return knex.schema.dropTable('titres_documents')
+  return knex.schema.dropTable('titresDocuments')
 }

@@ -1,10 +1,10 @@
 exports.up = knex => {
   return knex.schema
-    .createTable('titres_points', table => {
+    .createTable('titresPoints', table => {
       table.string('id').primary()
       table
-        .string('titre_etape_id', 128)
-        .references('titres_etapes.id')
+        .string('titreEtapeId', 128)
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table.specificType('coordonees', 'POINT').notNullable()
@@ -13,11 +13,11 @@ exports.up = knex => {
       table.integer('point').notNullable()
       table.string('nom').notNullable()
     })
-    .createTable('titres_points_references', table => {
+    .createTable('titresPointsReferences', table => {
       table.string('id').primary()
       table
-        .string('titre_point_id')
-        .references('titres_points.id')
+        .string('titrePointId')
+        .references('titresPoints.id')
         .onDelete('CASCADE')
       table.string('systeme', 128).notNullable()
       table.specificType('coordonees', 'POINT').notNullable()
@@ -26,6 +26,6 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('titres_points_references')
-    .dropTable('titres_points')
+    .dropTable('titresPointsReferences')
+    .dropTable('titresPoints')
 }

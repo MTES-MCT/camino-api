@@ -3,11 +3,11 @@ exports.up = knex => {
     .createTable('demarches', table => {
       table.string('id', 8).primary()
       table
-        .string('type_id', 3)
+        .string('typeId', 3)
         .references('types.id')
         .notNullable()
       table.string('nom').notNullable()
-      table.integer('duree_max')
+      table.integer('dureeMax')
       table.integer('ordre')
       table.boolean('renouvelable')
       table.boolean('exception')
@@ -19,30 +19,30 @@ exports.up = knex => {
     .createTable('etapes', table => {
       table.string('id', 3).primary()
       table.string('nom', 128)
-      table.boolean('acceptation_auto')
-      table.date('date_debut')
-      table.date('date_fin')
+      table.boolean('acceptationAuto')
+      table.date('dateDebut')
+      table.date('dateFin')
     })
-    .createTable('_demarches_etapes', table => {
+    .createTable('DemarchesEtapes', table => {
       table
-        .string('demarche_id', 7)
+        .string('demarcheId', 7)
         .references('demarches.id')
         .notNullable()
       table
-        .string('etape_id', 3)
+        .string('etapeId', 3)
         .references('etapes.id')
         .notNullable()
       table.integer('ordre')
-      table.primary(['demarche_id', 'etape_id'])
+      table.primary(['demarcheId', 'etapeId'])
     })
-    .createTable('demarches_statuts', table => {
+    .createTable('demarchesStatuts', table => {
       table
         .enum('id', ['ins', 'acc', 'rej', 'eco', 'dep', 'cls', 'ret'])
         .primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('etapes_statuts', table => {
+    .createTable('etapesStatuts', table => {
       table.enum('id', ['eco', 'ter', 'afa']).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
@@ -51,9 +51,9 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('_demarches_etapes')
+    .dropTable('demarchesEtapes')
     .dropTable('demarches')
     .dropTable('etapes')
-    .dropTable('demarches_statuts')
-    .dropTable('etapes_statuts')
+    .dropTable('demarchesStatuts')
+    .dropTable('etapesStatuts')
 }

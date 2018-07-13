@@ -1,43 +1,43 @@
 exports.up = knex => {
   return knex.schema
-    .createTable('titres_demarches', table => {
+    .createTable('titresDemarches', table => {
       table.string('id', 128).primary()
       table
-        .string('titre_id', 128)
+        .string('titreId', 128)
         .references('titres.id')
         // .notNullable()
         .onDelete('CASCADE')
       table
-        .string('demarche_id', 8)
+        .string('demarcheId', 8)
         .notNullable()
         .references('demarches.id')
       table
-        .string('demarche_statut_id', 3)
+        .string('demarcheStatutId', 3)
         .notNullable()
-        .references('demarches_statuts.id')
+        .references('demarchesStatuts.id')
       table.integer('ordre')
     })
-    .createTable('titres_etapes', table => {
+    .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
       table
-        .string('titre_demarche_id', 128)
-        .references('titres_demarches.id')
+        .string('titreDemarcheId', 128)
+        .references('titresDemarches.id')
         // .notNullable()
         .onDelete('CASCADE')
       table
-        .string('etape_id', 3)
+        .string('etapeId', 3)
         .notNullable()
         .references('etapes.id')
       table
-        .string('etape_statut_id', 3)
+        .string('etapeStatutId', 3)
         .notNullable()
-        .references('etapes_statuts.id')
+        .references('etapesStatuts.id')
       table.integer('ordre')
       table.date('date').notNullable()
       table.integer('duree').notNullable()
       table.float('surface')
       table.boolean('points')
-      table.boolean('points_securite')
+      table.boolean('pointsSecurite')
       table.boolean('substances')
       table.boolean('titulaires')
       table.boolean('amodiataires')
@@ -45,5 +45,5 @@ exports.up = knex => {
 }
 
 exports.down = knex => {
-  return knex.schema.dropTable('titres_etapes').dropTable('titres_demarches')
+  return knex.schema.dropTable('titresEtapes').dropTable('titresDemarches')
 }

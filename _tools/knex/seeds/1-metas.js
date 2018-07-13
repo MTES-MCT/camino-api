@@ -1,24 +1,24 @@
 const domaines = require('../../sources/domaines.json')
 const types = require('../../sources/types.json')
 const statuts = require('../../sources/statuts.json')
-const domainesTypes = require('../../sources/_domaines_types.json')
+const domainesTypes = require('../../sources/domaines-types.json')
 const demarches = require('../../sources/demarches.json')
-const demarchesStatuts = require('../../sources/demarches_statuts.json')
+const demarchesStatuts = require('../../sources/demarches-statuts.json')
 const etapes = require('../../sources/etapes.json')
-const etapesStatuts = require('../../sources/etapes_statuts.json')
+const etapesStatuts = require('../../sources/etapes-statuts.json')
 const emprises = require('../../sources/emprises.json')
-const demarchesEtapes = require('../../sources/_demarches_etapes.json')
+const demarchesEtapes = require('../../sources/demarches-etapes.json')
 
 exports.seed = (knex, Promise) =>
   Promise.all([
-    knex('_domaines_types').del(),
-    knex('_demarches_etapes').del(),
+    knex('domainesTypes').del(),
+    knex('demarchesEtapes').del(),
     knex('statuts').del(),
     knex('emprises').del(),
     knex('demarches').del(),
-    knex('demarches_statuts').del(),
+    knex('demarchesStatuts').del(),
     knex('etapes').del(),
-    knex('etapes_statuts').del()
+    knex('etapesStatuts').del()
   ])
     .then(() => Promise.all([knex('domaines').del(), knex('types').del()]))
     .then(() =>
@@ -30,16 +30,16 @@ exports.seed = (knex, Promise) =>
         .then(() =>
           Promise.all([
             knex('demarches').insert(demarches),
-            knex('demarches_statuts').insert(demarchesStatuts),
+            knex('demarchesStatuts').insert(demarchesStatuts),
             knex('etapes').insert(etapes),
-            knex('etapes_statuts').insert(etapesStatuts),
+            knex('etapesStatuts').insert(etapesStatuts),
             knex('emprises').insert(emprises)
           ])
         )
         .then(() =>
           Promise.all([
-            knex('_domaines_types').insert(domainesTypes),
-            knex('_demarches_etapes').insert(demarchesEtapes)
+            knex('domainesTypes').insert(domainesTypes),
+            knex('demarchesEtapes').insert(demarchesEtapes)
           ])
         )
     )

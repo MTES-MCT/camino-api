@@ -5,18 +5,18 @@ exports.up = knex => {
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('titres_verifications', table => {
+    .createTable('titresVerifications', table => {
       table
-        .string('titre_etape_id', 128)
+        .string('titreEtape_id', 128)
         .primary()
-        .references('titres_etapes.id')
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table.boolean('date')
       table.boolean('duree')
       table.boolean('surface')
       table.boolean('points')
-      table.boolean('points_securite')
+      table.boolean('pointsSecurite')
       table.boolean('substances')
       table.boolean('titulaires')
       table.boolean('amodiataires')
@@ -25,7 +25,5 @@ exports.up = knex => {
 }
 
 exports.down = knex => {
-  return knex.schema
-    .dropTable('titres_verifications')
-    .dropTable('verifications')
+  return knex.schema.dropTable('titresVerifications').dropTable('verifications')
 }

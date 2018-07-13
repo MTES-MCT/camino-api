@@ -8,17 +8,17 @@ exports.up = knex => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
     })
-    .createTable('_domaines_types', table => {
+    .createTable('domainesTypes', table => {
       table
-        .string('domaine_id', 1)
+        .string('domaineId', 1)
         .references('domaines.id')
         .notNullable()
       table
-        .string('type_id', 3)
+        .string('typeId', 3)
         .references('types.id')
         .notNullable()
       table.boolean('archive')
-      table.primary(['domaine_id', 'type_id'])
+      table.primary(['domaineId', 'typeId'])
     })
     .createTable('emprises', table => {
       table.string('id', 3).primary()
@@ -33,7 +33,7 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('_domaines_types')
+    .dropTable('domainesTypes')
     .dropTable('domaines')
     .dropTable('types')
     .dropTable('statuts')

@@ -26,8 +26,8 @@ class Domaines extends Model {
         join: {
           from: 'domaines.id',
           through: {
-            from: 'DomainesTypes.domaineId',
-            to: 'DomainesTypes.typeId'
+            from: 'domainesTypes.domaineId',
+            to: 'domainesTypes.typeId'
           },
           to: 'types.id'
         }
