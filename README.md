@@ -57,7 +57,7 @@ Pour développer sans installer PostgreSQL localement.
 # démarre l'application et la base de données dans des conteneurs Docker
 # en mode `development`
 # accessible à http://localhost:NODE_PORT
-docker-compose -f ./docker-compose.local.yml up --build
+docker-compose -f ./docker-compose.localhost.yml up --build
 ```
 
 ### Environnement de test
