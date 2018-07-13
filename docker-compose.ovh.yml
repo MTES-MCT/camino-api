@@ -2,7 +2,7 @@ version: "3"
 
 services:
 
-  api:
+  app:
     build: .
     depends_on: 
       - postgres
@@ -11,12 +11,7 @@ services:
       VIRTUAL_PORT: ${NODE_PORT}
       LETSENCRYPT_HOST: api.camino.pw
       LETSENCRYPT_EMAIL: francoisromain@gmail.com
-      NODE_PORT: ${NODE_PORT}
       PGHOST: postgres
-      PGPORT: ${PGPORT}
-      PGDATABASE: ${PGDATABASE}
-      PGUSER: ${PGUSER}
-      JWT_SECRET: ${JWT_SECRET}
     expose:
       - ${NODE_PORT}
   

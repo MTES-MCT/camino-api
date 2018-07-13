@@ -2,19 +2,14 @@ version: "3"
 
 services:
 
-  api:
+  app:
     build: .
     depends_on:
       - postgres
     environment:
       VIRTUAL_HOST: api.camino.local
       VIRTUAL_PORT: ${NODE_PORT}
-      NODE_PORT: ${NODE_PORT}
       PGHOST: postgres
-      PGPORT: ${PGPORT}
-      PGDATABASE: ${PGDATABASE}
-      PGUSER: ${PGUSER}
-      JWT_SECRET: ${JWT_SECRET}
     expose:
       - ${NODE_PORT}
   

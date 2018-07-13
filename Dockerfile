@@ -1,7 +1,7 @@
 FROM node:alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
-ENV dir /api
+ENV dir /app
 ENV NODE_ENV production
 WORKDIR $dir
 
@@ -10,6 +10,7 @@ WORKDIR $dir
 COPY package.json /tmp/package.json
 RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
+COPY .env ./
 COPY package*.json ./
 COPY index.js ./
 COPY auth auth/
@@ -17,7 +18,6 @@ COPY conf conf/
 COPY graphql graphql/
 COPY postgres postgres/
 COPY _tools _tools/
-COPY .env ./.env
 
 CMD ["npm", "start"]
 
