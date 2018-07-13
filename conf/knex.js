@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '../.env' })
-// const { knexSnakeCaseMappers } = require('objection')
+const { knexSnakeCaseMappers } = require('objection')
 
 const connection = {
   host: process.env.PGHOST,
@@ -18,7 +18,8 @@ const knexConfig = {
     },
     seeds: {
       directory: '../_tools/knex/seeds'
-    }
+    },
+    ...knexSnakeCaseMappers()
   },
   production: {
     client: 'pg',
@@ -28,7 +29,8 @@ const knexConfig = {
     },
     seeds: {
       directory: '../_tools/knex/seeds'
-    }
+    },
+    ...knexSnakeCaseMappers()
   }
 }
 

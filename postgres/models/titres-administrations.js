@@ -3,13 +3,13 @@ const Administrations = require('./administrations')
 
 class TitresAdministrations extends Model {
   static get tableName() {
-    return 'titres_administrations'
+    return 'titresAdministrations'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['administration_id', 'titre_etape_id'],
+      required: ['administrationId', 'titre_etapeId'],
 
       properties: {
         administration_id: { type: 'string', maxLength: 64 },
@@ -24,7 +24,7 @@ class TitresAdministrations extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Administrations,
         join: {
-          from: 'titres_administrations.administration_id',
+          from: 'titresAdministrations.administrationId',
           to: 'administrations.id'
         }
       }

@@ -21,7 +21,6 @@
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
     "chalk": "^2.4.1",
-    "camelcase-keys": "^4.2.0",
     "compression": "^1.7.2",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",

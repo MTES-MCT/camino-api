@@ -2,17 +2,17 @@ const { Model } = require('objection')
 
 class TitresPointsReferences extends Model {
   static get tableName() {
-    return 'titres_points_references'
+    return 'titresPointsReferences'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['titre_point_id', 'id', 'systeme', 'coordonees'],
+      required: ['titrePointId', 'id', 'systeme', 'coordonees'],
 
       properties: {
         id: { type: 'string' },
-        titre_point_id: { type: 'string' },
+        titrePointId: { type: 'string' },
         systeme: { type: 'string' },
         coordonees: {
           type: 'object',

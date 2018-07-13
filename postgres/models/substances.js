@@ -10,12 +10,12 @@ class Substances extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaine_id', 'type', 'substance_legal_id'],
+      required: ['id', 'nom', 'domaineId', 'type', 'substanceLegalId'],
 
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
-        domaine_id: { type: 'string' },
+        domaineId: { type: 'string' },
         type: { type: 'string' },
         symbole: { type: 'string' },
         alias: {
@@ -24,7 +24,7 @@ class Substances extends Model {
         },
         gerep: { type: ['integer', 'null'] },
         description: { type: 'string', maxLength: 2048 },
-        substance_legal_id: { type: 'string' }
+        substanceLegalId: { type: 'string' }
       }
     }
   }
@@ -35,15 +35,15 @@ class Substances extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: SubstancesLegals,
         join: {
-          from: 'substances.substance_legal_id',
-          to: 'substances_legals.id'
+          from: 'substances.substanceLegalId',
+          to: 'substancesLegals.id'
         }
       },
       domaine: {
         relation: Model.BelongsToOneRelation,
         modelClass: Domaines,
         join: {
-          from: 'substances.domaine_id',
+          from: 'substances.domaineId',
           to: 'domaines.id'
         }
       }

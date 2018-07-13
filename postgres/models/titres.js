@@ -12,13 +12,13 @@ class Titres extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaine_id', 'type_id', 'statut_id'],
+      required: ['id', 'nom', 'domaineId', 'typeId', 'statutId'],
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
-        domaine_id: { type: 'string', maxLength: 1 },
-        type_id: { type: 'string', maxLength: 3 },
-        statut_id: { type: 'string', maxLength: 3 }
+        domaineId: { type: 'string', maxLength: 1 },
+        typeId: { type: 'string', maxLength: 3 },
+        statutId: { type: 'string', maxLength: 3 }
       }
     }
   }
@@ -29,7 +29,7 @@ class Titres extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Domaines,
         join: {
-          from: 'titres.domaine_id',
+          from: 'titres.domaineId',
           to: 'domaines.id'
         }
       },
@@ -37,7 +37,7 @@ class Titres extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Types,
         join: {
-          from: 'titres.type_id',
+          from: 'titres.typeId',
           to: 'types.id'
         }
       },
@@ -45,7 +45,7 @@ class Titres extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Statuts,
         join: {
-          from: 'titres.statut_id',
+          from: 'titres.statutId',
           to: 'statuts.id'
         }
       },
@@ -54,7 +54,7 @@ class Titres extends Model {
         modelClass: TitresDemarches,
         join: {
           from: 'titres.id',
-          to: 'titres_demarches.titre_id'
+          to: 'titresDemarches.titreId'
         }
       }
     }

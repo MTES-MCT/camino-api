@@ -3,17 +3,17 @@ const Emprises = require('./emprises')
 
 class TitresEmprises extends Model {
   static get tableName() {
-    return 'titres_emprises'
+    return 'titresEmprises'
   }
 
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['emprises_id', 'titre_etape_id'],
+      required: ['empriseId', 'titreEtapeId'],
 
       properties: {
-        emprise_id: { type: 'string', maxLength: 3 },
-        titre_etape_id: { type: 'string', maxLength: 128 }
+        empriseId: { type: 'string', maxLength: 3 },
+        titreEtapeId: { type: 'string', maxLength: 128 }
       }
     }
   }
@@ -24,7 +24,7 @@ class TitresEmprises extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: Emprises,
         join: {
-          from: 'titres_emprises.emprise_id',
+          from: 'titresEmprises.empriseId',
           to: 'emprises.id'
         }
       }
