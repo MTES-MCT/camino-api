@@ -1,59 +1,59 @@
 exports.up = (knex, Promise) => {
   return knex.schema
-    .createTable('titres_titulaires', table => {
+    .createTable('titresTitulaires', table => {
       table
-        .string('titre_etape_id', 128)
-        .references('titres_etapes.id')
+        .string('titreEtapeId', 128)
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('entreprise_id', 64)
+        .string('entrepriseId', 64)
         .references('entreprises.id')
         .notNullable()
-      table.primary(['titre_etape_id', 'entreprise_id'])
+      table.primary(['titreEtapeId', 'entrepriseId'])
     })
     .createTable('titres_amodiataires', table => {
       table
-        .string('titre_etape_id', 128)
-        .references('titres_etapes.id')
+        .string('titreEtapeId', 128)
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('entreprise_id', 64)
+        .string('entrepriseId', 64)
         .references('entreprises.id')
         .notNullable()
-      table.primary(['titre_etape_id', 'entreprise_id'])
+      table.primary(['titreEtapeId', 'entrepriseId'])
     })
     .createTable('titres_utilisateurs', table => {
       table
-        .string('titre_etape_id', 128)
-        .references('titres_etapes.id')
+        .string('titreEtapeId', 128)
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('utilisateur_id', 4)
+        .string('utilisateurId', 4)
         .references('utilisateurs.id')
         .notNullable()
-      table.primary(['titre_etape_id', 'utilisateur_id'])
+      table.primary(['titreEtapeId', 'utilisateurId'])
     })
     .createTable('titres_administrations', table => {
       table
-        .string('titre_etape_id', 128)
-        .references('titres_etapes.id')
+        .string('titreEtapeId', 128)
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('administration_id', 4)
+        .string('administrationId', 4)
         .references('administrations.id')
         .notNullable()
-      table.primary(['titre_etape_id', 'administration_id'])
+      table.primary(['titreEtapeId', 'administrationId'])
     })
 }
 
 exports.down = (knex, Promise) => {
   return knex.schema
-    .dropTable('titres_utilisateurs')
-    .dropTable('titres_administrations')
-    .dropTable('titres_amodiataires')
-    .dropTable('titres_titulaires')
+    .dropTable('titresUtilisateurs')
+    .dropTable('titresAdministrations')
+    .dropTable('titresAmodiataires')
+    .dropTable('titresTitulaires')
 }

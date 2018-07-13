@@ -1,33 +1,33 @@
 exports.up = (knex, Promise) => {
   return knex.schema
-    .createTable('titres_substances', table => {
+    .createTable('titresSubstances', table => {
       table
-        .string('titre_etape_id', 128)
-        .references('titres_etapes.id')
+        .string('titreEtapeId', 128)
+        .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('substance_id', 4)
+        .string('substanceId', 4)
         .references('substances.id')
         .notNullable()
       table.boolean('connexe')
       table.integer('ordre')
-      table.primary(['titre_etape_id', 'substance_id'])
+      table.primary(['titreEtapeId', 'substanceId'])
     })
-    .createTable('titres_emprises', table => {
+    .createTable('titresEmprises', table => {
       table
-        .string('titre_etape_id', 128)
+        .string('titreEtapeId', 128)
         .notNullable()
-        .references('titres_etapes.id')
+        .references('titresEtapes.id')
         .onDelete('CASCADE')
       table
-        .string('emprise_id', 3)
+        .string('empriseId', 3)
         .notNullable()
         .references('emprises.id')
-      table.primary(['titre_etape_id', 'emprise_id'])
+      table.primary(['titreEtapeId', 'empriseId'])
     })
 }
 
 exports.down = (knex, Promise) => {
-  return knex.schema.dropTable('titres_substances').dropTable('titres_emprises')
+  return knex.schema.dropTable('titresSubstances').dropTable('titresEmprises')
 }

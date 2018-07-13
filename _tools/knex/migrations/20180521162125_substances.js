@@ -1,6 +1,6 @@
 exports.up = knex => {
   return knex.schema
-    .createTable('substances_legals', table => {
+    .createTable('substancesLegals', table => {
       table.string('id').primary()
       table.string('nom').notNullable()
       table.string('description').notNullable()
@@ -10,7 +10,7 @@ exports.up = knex => {
       table.string('id', 4).primary()
       table.string('nom').notNullable()
       table
-        .string('domaine_id', 1)
+        .string('domaineId', 1)
         .notNullable()
         .references('domaines.id')
       table.enum('type', ['fossile', 'minérale'])
@@ -19,12 +19,12 @@ exports.up = knex => {
       table.integer('gerep')
       table.string('description', 2048)
       table
-        .string('substance_legal_id')
-        .references('substances_legals.id')
+        .string('substanceLegalId')
+        .references('substancesLegals.id')
         .notNullable()
     })
 }
 
 exports.down = knex => {
-  return knex.schema.dropTable('substances').dropTable('substances_legals')
+  return knex.schema.dropTable('substances').dropTable('substancesLegals')
 }
