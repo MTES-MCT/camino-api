@@ -1,37 +1,30 @@
 [
   {
     "id": "c",
-    "nom": "carrières",
-    "couleur": "#3ed1ac"
+    "nom": "carrières"
   },
   {
     "id": "w",
-    "nom": "granulats marins",
-    "couleur": "#00f"
+    "nom": "granulats marins"
   },
   {
     "id": "g",
-    "nom": "géothermie",
-    "couleur": "#d16c3e"
+    "nom": "géothermie"
   },
   {
     "id": "h",
-    "nom": "hydrocarbures liquides ou gazeux",
-    "couleur": "#856940"
+    "nom": "hydrocarbures liquides ou gazeux"
   },
   {
     "id": "m",
-    "nom": "minéraux et métaux",
-    "couleur": "#498bd6"
+    "nom": "minéraux et métaux"
   },
   {
     "id": "s",
-    "nom": "stockages souterrains",
-    "couleur": "#8468b1"
+    "nom": "stockages souterrains"
   },
   {
     "id": "a",
-    "nom": "industrie nucléaire",
-    "couleur": "#f00"
+    "nom": "industrie nucléaire"
   }
 ]

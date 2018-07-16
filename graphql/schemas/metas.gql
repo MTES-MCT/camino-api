@@ -12,7 +12,6 @@ type Type {
 type Domaine {
   id: DomaineId!
   nom: String!
-  couleur: String!
 }
 
 type Statut {
