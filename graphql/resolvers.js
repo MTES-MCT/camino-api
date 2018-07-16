@@ -5,7 +5,7 @@ const {
   titreSupprimer,
   titreModifier
 } = require('./resolvers/titres')
-const { statuts } = require('./resolvers/metas')
+const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
 const json = require('./types/json')
 
@@ -15,7 +15,7 @@ const resolvers = {
   titres,
   substance,
   substances,
-  statuts,
+  metas,
 
   // mutations
   titreAjouter,

@@ -13,7 +13,8 @@ class Domaines extends Model {
 
       properties: {
         id: { type: 'string', maxLength: 1 },
-        nom: { type: 'string' }
+        nom: { type: 'string' },
+        couleur: { type: 'string' }
       }
     }
   }

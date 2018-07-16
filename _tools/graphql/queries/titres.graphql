@@ -1,9 +1,30 @@
 query Titres(
+  $filtrer: Boolean
   $typeIds: [TypeId!]
   $domaineIds: [DomaineId]
   $statutIds: [StatutId!]
 ) {
-  titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
+  metas {
+    types {
+      id
+      nom
+    }
+    domaines {
+      id
+      nom
+    }
+    statuts {
+      id
+      nom
+      couleur
+    }
+  }
+  titres(
+    filtrer: $filtrer
+    typeIds: $typeIds
+    domaineIds: $domaineIds
+    statutIds: $statutIds
+  ) {
     id
     nom
     type {

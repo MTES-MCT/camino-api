@@ -3,6 +3,7 @@ exports.up = knex => {
     .createTable('domaines', table => {
       table.string('id', 1).primary()
       table.string('nom').notNullable()
+      table.string('couleur')
     })
     .createTable('types', table => {
       table.string('id', 3).primary()
