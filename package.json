@@ -21,7 +21,7 @@
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
     "chalk": "^2.4.1",
-    "compression": "^1.7.2",
+    "compression": "^1.7.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
@@ -30,7 +30,7 @@
     "google-spreadsheet-to-json": "^1.0.0",
     "graphql": "^14.0.0-rc.1",
     "jsonwebtoken": "^8.3.0",
-    "knex": "^0.15.0",
+    "knex": "^0.15.1",
     "objection": "^1.1.10",
     "pg": "^7.4.3"
   },
@@ -43,6 +43,6 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.18.1"
+    "nodemon": "^1.18.2"
   }
 }
