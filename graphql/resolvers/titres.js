@@ -6,6 +6,8 @@ const {
   titreModifier
 } = require('../../postgres/queries/titres')
 
+const { types, domaines, statuts } = require('../../postgres/queries/metas')
+
 const {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
@@ -27,6 +29,19 @@ const titreFormat = t => {
   return t
 }
 
+const metasIdsGet = async () => {
+  const ts = await types()
+  const ds = await domaines()
+  const ss = await statuts()
+
+  return {
+    typeIds: ts.map(t => t.id),
+    domaineIds: ds.map(d => d.id),
+    statutIds: ss.map(s => s.id),
+    substances: []
+  }
+}
+
 const resolvers = {
   titre: async ({ id }, context, info) => {
     const t = await titre(id)
@@ -34,14 +49,14 @@ const resolvers = {
   },
 
   titres: async (
-    { typeIds, domaineIds, statutIds, substances },
+    { filtrer, typeIds, domaineIds, statutIds, substances },
     context,
     info
   ) => {
-    const ts = await titres(
-      { typeIds, domaineIds, statutIds, substances },
-      context.user
-    )
+    const variables = filtrer
+      ? { typeIds, domaineIds, statutIds, substances }
+      : await metasIdsGet()
+    const ts = await titres(variables, context.user)
 
     return ts.map(t => titreFormat(t))
   },

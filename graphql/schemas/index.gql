@@ -1,10 +1,12 @@
 type Query {
-  statuts: [Statut]
+  metas: Metas
 
   "Un titre"
   titre(id: String!): Titre
+
   "Liste de titres"
   titres(
+    filtrer: Boolean
     typeIds: [TypeId]
     domaineIds: [DomaineId]
     statutIds: [StatutId]

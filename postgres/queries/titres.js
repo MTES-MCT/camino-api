@@ -30,7 +30,6 @@ const queries = {
     //     substances
     //   }
     // ),
-
     Titres.query()
       .whereIn('typeId', typeIds)
       .whereIn('domaineId', domaineIds)
