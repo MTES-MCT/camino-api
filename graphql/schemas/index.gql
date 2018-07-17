@@ -6,7 +6,6 @@ type Query {
 
   "Liste de titres"
   titres(
-    filtrer: Boolean
     typeIds: [TypeId]
     domaineIds: [DomaineId]
     statutIds: [StatutId]

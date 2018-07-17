@@ -31,6 +31,7 @@ const queries = {
     //   }
     // ),
     Titres.query()
+      .skipUndefined()
       .whereIn('typeId', typeIds)
       .whereIn('domaineId', domaineIds)
       .whereIn('statutId', statutIds)

@@ -49,14 +49,14 @@ const resolvers = {
   },
 
   titres: async (
-    { filtrer, typeIds, domaineIds, statutIds, substances },
+    { typeIds, domaineIds, statutIds, substances },
     context,
     info
   ) => {
-    const variables = filtrer
-      ? { typeIds, domaineIds, statutIds, substances }
-      : await metasIdsGet()
-    const ts = await titres(variables, context.user)
+    const ts = await titres(
+      { typeIds, domaineIds, statutIds, substances },
+      context.user
+    )
 
     return ts.map(t => titreFormat(t))
   },

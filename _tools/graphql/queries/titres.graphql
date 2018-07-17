@@ -1,5 +1,4 @@
 query Titres(
-  $filtrer: Boolean
   $typeIds: [TypeId!]
   $domaineIds: [DomaineId]
   $statutIds: [StatutId!]
@@ -19,12 +18,7 @@ query Titres(
       couleur
     }
   }
-  titres(
-    filtrer: $filtrer
-    typeIds: $typeIds
-    domaineIds: $domaineIds
-    statutIds: $statutIds
-  ) {
+  titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
     id
     nom
     type {
