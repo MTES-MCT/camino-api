@@ -1,7 +1,8 @@
 query Titres(
-  $typeIds: [TypeId!]
+  $typeIds: [TypeId]
   $domaineIds: [DomaineId]
-  $statutIds: [StatutId!]
+  $statutIds: [StatutId]
+  $substances: [String]
 ) {
   metas {
     types {
@@ -18,7 +19,12 @@ query Titres(
       couleur
     }
   }
-  titres(typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds) {
+  titres(
+    typeIds: $typeIds
+    domaineIds: $domaineIds
+    statutIds: $statutIds
+    substances: $substances
+  ) {
     id
     nom
     type {

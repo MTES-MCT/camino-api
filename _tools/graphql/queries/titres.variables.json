@@ -12,5 +12,6 @@
     "cxx"
   ],
   "domaineIds": ["m", "h", "s", "g", "c"],
-  "statutIds": ["dmi", "dmc", "val", "mod", "ech"]
+  "statutIds": ["dmi", "dmc", "val", "mod", "ech"],
+  "substances": ["hydr", "cuivre"]
 }
