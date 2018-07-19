@@ -32,10 +32,12 @@ const queries = {
     // ),
     Titres.query()
       .skipUndefined()
-      .whereIn('typeId', typeIds)
-      .whereIn('domaineId', domaineIds)
-      .whereIn('statutId', statutIds)
-      // .whereIn('s.symbole', substances)
+      .whereIn('titres.typeId', typeIds)
+      .whereIn('titres.domaineId', domaineIds)
+      .whereIn('titres.statutId', statutIds)
+      .joinRelation('demarches.etapes.substances')
+      .whereIn('demarches:etapes:substances.id', substances)
+      .orWhereIn('demarches:etapes:substances.nom', substances)
       .eager(titresOptions.eager),
 
   titreAjouter: async (titre, user) =>
