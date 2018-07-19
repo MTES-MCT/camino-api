@@ -31,7 +31,7 @@
     "graphql": "^14.0.0-rc.1",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.1",
-    "objection": "^1.1.10",
+    "objection": "^1.2.0",
     "pg": "^7.4.3"
   },
   "devDependencies": {
@@ -43,6 +43,6 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.18.2"
+    "nodemon": "^1.18.3"
   }
 }
