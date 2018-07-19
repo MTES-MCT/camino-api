@@ -17,11 +17,11 @@ class TitresEtapes extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'titreId'],
+      required: ['id', 'titreDemarcheId'],
 
       properties: {
         id: { type: 'string', maxLength: 128 },
-        titre_demarcheId: { type: 'string', maxLength: 128 },
+        titreDemarcheId: { type: 'string', maxLength: 128 },
         etapeId: { type: 'string', maxLength: 3 },
         etapeStatutId: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' },

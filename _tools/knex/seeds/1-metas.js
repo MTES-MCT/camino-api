@@ -15,11 +15,10 @@ exports.seed = (knex, Promise) =>
     knex('demarchesEtapes').del(),
     knex('statuts').del(),
     knex('emprises').del(),
-    knex('demarches').del(),
     knex('demarchesStatuts').del(),
-    knex('etapes').del(),
     knex('etapesStatuts').del()
   ])
+    .then(() => Promise.all([knex('demarches').del(), knex('etapes').del()]))
     .then(() => Promise.all([knex('domaines').del(), knex('types').del()]))
     .then(() =>
       Promise.all([
@@ -30,10 +29,14 @@ exports.seed = (knex, Promise) =>
         .then(() =>
           Promise.all([
             knex('demarches').insert(demarches),
-            knex('demarchesStatuts').insert(demarchesStatuts),
             knex('etapes').insert(etapes),
-            knex('etapesStatuts').insert(etapesStatuts),
             knex('emprises').insert(emprises)
+          ])
+        )
+        .then(() =>
+          Promise.all([
+            knex('demarchesStatuts').insert(demarchesStatuts),
+            knex('etapesStatuts').insert(etapesStatuts)
           ])
         )
         .then(() =>
