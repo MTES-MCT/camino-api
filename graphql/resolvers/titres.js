@@ -49,12 +49,12 @@ const resolvers = {
   },
 
   titres: async (
-    { typeIds, domaineIds, statutIds, substances },
+    { typeIds, domaineIds, statutIds, substances, noms },
     context,
     info
   ) => {
     const ts = await titres(
-      { typeIds, domaineIds, statutIds, substances },
+      { typeIds, domaineIds, statutIds, substances, noms },
       context.user
     )
 
