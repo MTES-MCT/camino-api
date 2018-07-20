@@ -2,7 +2,8 @@ query Titres(
   $typeIds: [TypeId!]
   $domaineIds: [DomaineId!]
   $statutIds: [StatutId!]
-  $substances: [String]
+  $substances: [String!]
+  $noms: [String!]
 ) {
   metas {
     types {
@@ -24,6 +25,7 @@ query Titres(
     domaineIds: $domaineIds
     statutIds: $statutIds
     substances: $substances
+    noms: $noms
   ) {
     id
     nom

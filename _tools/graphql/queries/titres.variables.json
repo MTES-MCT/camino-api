@@ -13,5 +13,6 @@
   ],
   "domaineIds": ["m", "h", "s", "g", "c"],
   "statutIds": ["dmi", "dmc", "val", "mod", "ech"],
-  "substances": ["hydr", "cuivre"]
+  "substances": ["hydr", "cuivre"],
+  "noms": ["Tennie"]
 }

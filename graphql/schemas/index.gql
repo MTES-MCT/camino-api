@@ -10,6 +10,7 @@ type Query {
     domaineIds: [DomaineId]
     statutIds: [StatutId]
     substances: [String]
+    noms: [String]
   ): [Titre]
 
   substance(id: String!): Substance
