@@ -70,6 +70,7 @@ type Emprise {
 - __pxc__: Permis exclusif de carrières (C)
 - __pxg__: Permis d'exploitation (G)
 - __pxm__: Permis d'exploitation (M)
+- __pxh__: Permis d'exploitation (H)
 - __cxx__: Concession (M, H, G, S, C)
 """
 enum TypeId {
@@ -80,6 +81,7 @@ enum TypeId {
   prx
   prh
   pxc
+  pxh
   pxg
   pxm
   cxx
@@ -92,7 +94,7 @@ enum TypeId {
 - __g__: Géothermie
 - __c__: Carrières
 - __w__: Granulats marins
-- __a__: Industrie nucléaire
+- __r__: Industrie nucléaire
 """
 enum DomaineId {
   m
@@ -101,7 +103,7 @@ enum DomaineId {
   g
   c
   w
-  a
+  r
 }
 
 """

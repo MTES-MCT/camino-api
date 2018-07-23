@@ -142,19 +142,22 @@ fragment substance on TitreSubstance {
   nom
   connexe
   ordre
-  domaine {
-    id
-    nom
-  }
-  type
   symbole
-  alias
   gerep
   description
   legal {
     id
     nom
     description
-    lien
+    domaine {
+      id
+      nom
+    }
+    code {
+      id
+      nom
+      description
+      lien
+    }
   }
 }

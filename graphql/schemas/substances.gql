@@ -1,10 +1,7 @@
 type Substance {
   id: ID!
   nom: String!
-  domaine: Domaine
-  type: String
   symbole: String
-  alias: [String]
   gerep: Int
   description: String
   legal: SubstanceLegal!
@@ -13,7 +10,16 @@ type Substance {
 type SubstanceLegal {
   id: ID!
   nom: String!
-  description: String!
+  domaine: Domaine
+  description: String
+  code: SubstanceLegalCode!
+}
+
+type SubstanceLegalCode {
+  id: ID!
+  nom: String!
+  domaine: Domaine
+  description: String
   lien: String!
 }
 

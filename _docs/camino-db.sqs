@@ -38,7 +38,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1400.00</y>
+            <y>1450.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -67,17 +67,65 @@
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[2BA32B51-8EFC-45B3-B981-3F9B1197081D]]></uid>
         </SQLField>
-        <SQLConstraint>
-            <name><![CDATA[titresStatuts_id_check]]></name>
-            <checkConstraint><![CDATA[id = ANY (ARRAY[‘eco’::text, ‘ter’::text])]]></checkConstraint>
-            <indexType><![CDATA[CHECK]]></indexType>
-            <uid><![CDATA[609E1796-61D0-4132-AC0E-DE7ADAA53D25]]></uid>
-        </SQLConstraint>
         <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
         <labelWindowIndex><![CDATA[22]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[titresStatuts_pkey]]></PK_KEY_NAME>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[1C0B9E2E-6312-4ED7-BA16-DFFDF66269E0]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[etapes_statut_joint]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>100.00</x>
+            <y>1300.00</y>
+        </location>
+        <size>
+            <width>300.00</width>
+            <height>100.00</height>
+        </size>
+        <zorder>31</zorder>
+        <SQLField>
+            <name><![CDATA[etape_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <primaryKey>1</primaryKey>
+            <referencesField>id</referencesField>
+            <referencesTable>etapes</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[etapes]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[4E0EB8CE-A69A-4C6B-A8BE-ECB63E3E80B5]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[85081038-711D-4859-B83D-2A73209B9BB3]]></referencesTableUID>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <foreignKeyName><![CDATA[titresdomainestypes_typeid_foreign]]></foreignKeyName>
+            <notNull><![CDATA[0]]></notNull>
+            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
+            <uid><![CDATA[C4C40030-0A43-4814-B071-03E68EFCC2E6]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[etape_statut_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <primaryKey>1</primaryKey>
+            <referencesField>id</referencesField>
+            <referencesTable>etapes_statuts</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[etapes_statuts]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[082067CC-7463-419D-BF62-33336DDF6DC5]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[1C0B9E2E-6312-4ED7-BA16-DFFDF66269E0]]></referencesTableUID>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <foreignKeyName><![CDATA[titresdomainestypes_domaineid_foreign]]></foreignKeyName>
+            <notNull><![CDATA[0]]></notNull>
+            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
+            <uid><![CDATA[61AA2281-5B5E-450C-A184-007AC765466F]]></uid>
+        </SQLField>
+        <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <PK_KEY_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_KEY_NAME>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[1EF412D5-263C-4254-BB4E-EE939BB65025]]></uid>
     </SQLTable>
     <SQLComment>
         <name><![CDATA[Comment1_2]]></name>
@@ -100,7 +148,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1300.00</x>
-            <y>1700.00</y>
+            <y>1750.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -155,7 +203,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1100.00</y>
+            <y>1150.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -286,11 +334,11 @@
         <uid><![CDATA[3A4D5DA0-9CB3-400C-B56A-6EF4E0224C30]]></uid>
     </SQLComment>
     <SQLTable>
-        <name><![CDATA[substances_legals]]></name>
+        <name><![CDATA[substances_legals_code]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>1700.00</x>
-            <y>850.00</y>
+            <x>2100.00</x>
+            <y>750.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -341,7 +389,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>30</zorder>
+        <zorder>29</zorder>
         <SQLField>
             <name><![CDATA[titre_etape_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -388,7 +436,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1400.00</y>
+            <y>1450.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -481,7 +529,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1200.00</y>
+            <y>1250.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -576,7 +624,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1050.00</y>
+            <y>1100.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -675,7 +723,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>31</zorder>
+        <zorder>30</zorder>
         <SQLField>
             <name><![CDATA[titre_etape_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -773,8 +821,8 @@
             <y>950.00</y>
         </location>
         <size>
-            <width>321.00</width>
-            <height>180.00</height>
+            <width>300.00</width>
+            <height>220.00</height>
         </size>
         <zorder>13</zorder>
         <SQLField>
@@ -838,6 +886,11 @@
             <uid><![CDATA[EE6A6BE2-C9AB-4CA8-B92A-CBA780538C74]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[echeance]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[AE6D8A7F-351D-4823-A309-6A585F1ECE89]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[duree]]></name>
             <type><![CDATA[INTEGER]]></type>
             <notNull><![CDATA[1]]></notNull>
@@ -873,27 +926,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>500.00</y>
+            <y>550.00</y>
         </location>
         <size>
-            <width>700.00</width>
-            <height>300.00</height>
+            <width>322.00</width>
+            <height>140.00</height>
         </size>
         <zorder>12</zorder>
-        <SQLField>
-            <name><![CDATA[domaine_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(1)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>domaines</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[domaines]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[1D3B9DB1-5CF1-43A1-97BC-C44958175C11]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[019E6549-52FF-4F0D-AC95-DAC6CD16ED56]]></referencesTableUID>
-            <notNull><![CDATA[1]]></notNull>
-            <uid><![CDATA[96698C82-3DC2-48FB-ADD8-DE58572ECF28]]></uid>
-        </SQLField>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(4)]]></type>
@@ -905,31 +944,28 @@
             <unique><![CDATA[0]]></unique>
         </SQLField>
         <SQLField>
+            <name><![CDATA[substance_legal_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(4)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>substances_legals</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[substances_legals]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[DBDF5A85-B869-451D-8E87-FFC0464C9D3B]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[BBBF2BF3-F993-4278-B61D-0A2A0F6C4053]]></referencesTableUID>
+            <uid><![CDATA[2F0D510A-1012-4821-BAEA-9FC34552C841]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[nom]]></name>
             <type><![CDATA[CHARACTER VARYING(255)]]></type>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[8BE49521-14BB-42FE-8220-A2B99A7FC7AD]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[type]]></name>
-            <type><![CDATA[TEXT]]></type>
-            <uid><![CDATA[CD86F275-0190-4AF3-B93D-A8240F7714C6]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[usage]]></name>
-            <type><![CDATA[TEXT]]></type>
-            <notNull><![CDATA[1]]></notNull>
-            <uid><![CDATA[DA2B6C41-8DBD-4D1A-BC30-8DE6A765FC50]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[symbole]]></name>
             <type><![CDATA[CHARACTER VARYING(255)]]></type>
             <uid><![CDATA[DAE429CE-E478-4C30-84D5-AB2F103753D6]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[alias]]></name>
-            <type><![CDATA[ARRAY]]></type>
-            <uid><![CDATA[D012D6BA-5D36-4344-A508-D58F8E53BDF2]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[gerep]]></name>
@@ -941,43 +977,6 @@
             <type><![CDATA[CHARACTER VARYING(2048)]]></type>
             <uid><![CDATA[36EE1E03-7528-4952-9278-99766C2AED85]]></uid>
         </SQLField>
-        <SQLField>
-            <name><![CDATA[substance_legal_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(255)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>substances_legals</referencesTable>
-            <deleteAction>1</deleteAction>
-            <updateAction>4</updateAction>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[substances_legals]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[32B46A25-7005-41AB-A420-9BB5EA80F460]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[3BE11C5C-B32F-49A5-87CA-FF0A07D64CB0]]></referencesTableUID>
-            <connectorHidden><![CDATA[0]]></connectorHidden>
-            <connectorLineStyle><![CDATA[0]]></connectorLineStyle>
-            <foreignKeyName><![CDATA[substances_legalid_foreign]]></foreignKeyName>
-            <notNull><![CDATA[1]]></notNull>
-            <uid><![CDATA[FABCBF34-BD46-4B02-8571-BB9C26C4B7FC]]></uid>
-        </SQLField>
-        <SQLConstraint>
-            <name><![CDATA[substances_domaine_check]]></name>
-            <checkConstraint><![CDATA[domaine_id = ANY (ARRAY[‘m’::text, ‘c’::text, ’s’::text, ‘w’::text, ‘g’::text])]]></checkConstraint>
-            <indexType><![CDATA[CHECK]]></indexType>
-            <uid><![CDATA[C998DD7D-3612-4FB4-A3B3-BF5AB24B67EC]]></uid>
-        </SQLConstraint>
-        <SQLConstraint>
-            <name><![CDATA[substances_type_check]]></name>
-            <checkConstraint><![CDATA[type = ANY (ARRAY['fossile'::text, 'minérale'::text])]]></checkConstraint>
-            <indexType><![CDATA[CHECK]]></indexType>
-            <uid><![CDATA[9913CE1B-48E6-487C-8BAD-0FC91B9CC6BC]]></uid>
-        </SQLConstraint>
-        <SQLConstraint>
-            <name><![CDATA[substances_usage_check]]></name>
-            <checkConstraint><![CDATA[usage = ANY (ARRAY[‘énergétique'::text, 'non énergétique'::text, 'utile à l’énergie atomique'::text, 'stockage'::text])]]></checkConstraint>
-            <indexType><![CDATA[CHECK]]></indexType>
-            <uid><![CDATA[CAA0D446-02EF-4A26-827A-9D9A28E107C7]]></uid>
-        </SQLConstraint>
         <labelColor><![CDATA[{0,0.991439,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[30]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[substances_pkey]]></PK_KEY_NAME>
@@ -989,7 +988,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1550.00</y>
+            <y>1700.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1028,7 +1027,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>29</zorder>
+        <zorder>28</zorder>
         <SQLField>
             <name><![CDATA[titre_etape_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -1075,7 +1074,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1250.00</y>
+            <y>1300.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1114,7 +1113,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>150.00</height>
+            <height>220.00</height>
         </size>
         <zorder>14</zorder>
         <SQLField>
@@ -1145,7 +1144,7 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[nom]]></name>
-            <type><![CDATA[CHARACTER VARYING(255)]]></type>
+            <type><![CDATA[CHARACTER VARYING]]></type>
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[BAD304D5-E724-41D4-9C25-9C7B2EE7CE64]]></uid>
@@ -1162,9 +1161,29 @@
             <uid><![CDATA[34BF6A12-9A78-4605-A20B-F60246F573EA]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[uri]]></name>
+            <type><![CDATA[CHARACTER VARYING(255)]]></type>
+            <uid><![CDATA[51BF6EFB-573D-4A7E-BA77-165AD6A3193F]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[fichier]]></name>
             <type><![CDATA[CHARACTER VARYING(255)]]></type>
             <uid><![CDATA[7C7F2D56-A2B0-4EF5-A21E-989ED727C0D8]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[jorf]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[F744F9B2-1FBB-4D7A-8AFD-2F1D3706FBEF]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[nor]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[A0E77645-BE4F-409A-9C93-13BA6F46B776]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[type]]></name>
+            <type><![CDATA[CHARACTER VARYING(64)]]></type>
+            <uid><![CDATA[D8E5ED6A-A649-4C95-B05C-E695E609E4FB]]></uid>
         </SQLField>
         <labelWindowIndex><![CDATA[17]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1399,47 +1418,6 @@
         <uid><![CDATA[A8AC6C3C-BEF3-47F5-9BD6-018222E08D22]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[modifications]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>500.00</x>
-            <y>1650.00</y>
-        </location>
-        <size>
-            <width>300.00</width>
-            <height>100.00</height>
-        </size>
-        <zorder>28</zorder>
-        <SQLField>
-            <name><![CDATA[id]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <uid><![CDATA[18D75A18-BE25-4402-B5B9-9E655F0CEB0B]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[nom]]></name>
-            <type><![CDATA[CHARACTER VARYING]]></type>
-            <uid><![CDATA[477C15EB-D2BB-4D0C-9C5A-A7527AC62C27]]></uid>
-        </SQLField>
-        <SQLConstraint>
-            <name><![CDATA[modifications_titresTypesPhases_nom_check]]></name>
-            <checkConstraint><![CDATA[nom = ANY (ARRAY[‘ajout’::text, ‘retrait’::text, ‘remplace’::text])]]></checkConstraint>
-            <indexNamePrefix><![CDATA[modifications]]></indexNamePrefix>
-            <indexType><![CDATA[CHECK]]></indexType>
-            <uid><![CDATA[C584828C-18B2-44CF-B4AD-534BA514CFF6]]></uid>
-        </SQLConstraint>
-        <SQLConstraint>
-            <name><![CDATA[modifications_titresTypesPhases_nom_0]]></name>
-            <checkConstraint><![CDATA[id = ANY (ARRAY[‘add’::text, ‘sup’::text, ‘rep’::text])]]></checkConstraint>
-            <indexNamePrefix><![CDATA[modifications]]></indexNamePrefix>
-            <indexType><![CDATA[CHECK]]></indexType>
-            <uid><![CDATA[8E35DDBB-A441-4357-9FAF-F6633ABBC2C3]]></uid>
-        </SQLConstraint>
-        <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[B08F183F-10E8-4B0F-AF14-9CE3CBED7437]]></uid>
-    </SQLTable>
-    <SQLTable>
         <name><![CDATA[domaines_types]]></name>
         <schema><![CDATA[]]></schema>
         <location>
@@ -1568,6 +1546,11 @@
             <type><![CDATA[BOOLEAN]]></type>
             <uid><![CDATA[D1292EE0-7C2B-4529-BBB3-DD0293EBCDB3]]></uid>
         </SQLField>
+        <SQLField>
+            <name><![CDATA[acceptation_implicite]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[BC19E842-EB6A-416B-B9BD-A94A5D4ABDA0]]></uid>
+        </SQLField>
         <SQLConstraint>
             <name><![CDATA[titresTypesPhases_nom_check]]></name>
             <checkConstraint><![CDATA[nom = ANY (ARRAY['octroi'::text, 'prolongation'::text, 'prolongation 1'::text, 'prolongation 2'::text, 'prolongation exceptionnelle'::text])]]></checkConstraint>
@@ -1581,11 +1564,113 @@
         <uid><![CDATA[B954C2C8-756B-48D2-8929-B49F397A30E7]]></uid>
     </SQLTable>
     <SQLTable>
+        <name><![CDATA[substances_legals]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>2100.00</x>
+            <y>500.00</y>
+        </location>
+        <size>
+            <width>300.00</width>
+            <height>200.00</height>
+        </size>
+        <zorder>32</zorder>
+        <SQLField>
+            <name><![CDATA[domaine_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(1)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>domaines</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[domaines]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[1D3B9DB1-5CF1-43A1-97BC-C44958175C11]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[019E6549-52FF-4F0D-AC95-DAC6CD16ED56]]></referencesTableUID>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <notNull><![CDATA[1]]></notNull>
+            <uid><![CDATA[E40E15B7-FA59-4235-8350-F208CA4E5FA6]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[id]]></name>
+            <type><![CDATA[CHARACTER VARYING(4)]]></type>
+            <primaryKey>1</primaryKey>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <notNull><![CDATA[0]]></notNull>
+            <PK_NAME><![CDATA[substances_pkey]]></PK_NAME>
+            <uid><![CDATA[DBDF5A85-B869-451D-8E87-FFC0464C9D3B]]></uid>
+            <unique><![CDATA[0]]></unique>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[nom]]></name>
+            <type><![CDATA[CHARACTER VARYING(255)]]></type>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <notNull><![CDATA[1]]></notNull>
+            <uid><![CDATA[52C2EAF7-896A-453D-A392-3E354C5E0C6A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[type]]></name>
+            <type><![CDATA[TEXT]]></type>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <notNull><![CDATA[0]]></notNull>
+            <uid><![CDATA[B4249792-881A-4F6D-8D7F-E240A84748FB]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[symbole]]></name>
+            <type><![CDATA[CHARACTER VARYING(255)]]></type>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <notNull><![CDATA[0]]></notNull>
+            <uid><![CDATA[DCB91D88-5C89-493B-828F-EA3B83075142]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[description]]></name>
+            <type><![CDATA[CHARACTER VARYING(2048)]]></type>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <notNull><![CDATA[0]]></notNull>
+            <uid><![CDATA[A86C39D2-0C1E-4EC5-A59F-715FC4C75DEB]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[substance_legal_code_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(255)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>substances_legals_code</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[substances_legals_code]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[32B46A25-7005-41AB-A420-9BB5EA80F460]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[3BE11C5C-B32F-49A5-87CA-FF0A07D64CB0]]></referencesTableUID>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <connectorHidden><![CDATA[0]]></connectorHidden>
+            <connectorLineStyle><![CDATA[0]]></connectorLineStyle>
+            <foreignKeyName><![CDATA[substances_legalid_foreign]]></foreignKeyName>
+            <notNull><![CDATA[1]]></notNull>
+            <uid><![CDATA[546EB50F-F82F-42BD-93D1-AAD38AE2A65F]]></uid>
+        </SQLField>
+        <SQLConstraint>
+            <name><![CDATA[substances_domaine_check]]></name>
+            <checkConstraint><![CDATA[domaine_id = ANY (ARRAY[‘m’::text, ‘c’::text, ’s’::text, ‘w’::text, ‘g’::text])]]></checkConstraint>
+            <indexType><![CDATA[CHECK]]></indexType>
+            <uid><![CDATA[FDA981C6-9A14-4D12-8567-1BCBF9BF90FF]]></uid>
+        </SQLConstraint>
+        <SQLConstraint>
+            <name><![CDATA[substances_type_check]]></name>
+            <checkConstraint><![CDATA[type = ANY (ARRAY['fossile'::text, 'minérale'::text])]]></checkConstraint>
+            <indexType><![CDATA[CHECK]]></indexType>
+            <uid><![CDATA[08CD4068-87B0-47FE-B0A0-F46650A05918]]></uid>
+        </SQLConstraint>
+        <labelColor><![CDATA[{0,0.991439,1,1}]]></labelColor>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <PK_KEY_NAME><![CDATA[substances_pkey]]></PK_KEY_NAME>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[BBBF2BF3-F993-4278-B61D-0A2A0F6C4053]]></uid>
+    </SQLTable>
+    <SQLTable>
         <name><![CDATA[utilisateurs]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>2100.00</x>
-            <y>1300.00</y>
+            <y>1350.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1859,16 +1944,16 @@
         <overviewPanelHidden><![CDATA[0]]></overviewPanelHidden>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <RightSidebarWidth><![CDATA[1280.000000]]></RightSidebarWidth>
+        <RightSidebarWidth><![CDATA[1643.000000]]></RightSidebarWidth>
         <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[0.000000]]></SourceSidebarWidth>
         <SQLEditorFileFormatVersion><![CDATA[4]]></SQLEditorFileFormatVersion>
         <uid><![CDATA[67709206-52A1-4046-83B9-A12E9C651AE4]]></uid>
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
-        <windowLocationX><![CDATA[320.000000]]></windowLocationX>
+        <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{521, 320}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{76, 251}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

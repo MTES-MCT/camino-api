@@ -15,6 +15,13 @@ exports.up = knex => {
       table.boolean('points')
       table.boolean('substances')
       table.boolean('titulaires')
+      table.boolean('acceptationImplicite')
+      table.string('delaiImplicite')
+      table.string('delaiRecours')
+      table.string('legalRef')
+      table.string('legalLien')
+      table.date('dateDebut')
+      table.date('dateFin')
     })
     .createTable('etapes', table => {
       table.string('id', 3).primary()
@@ -43,7 +50,7 @@ exports.up = knex => {
       table.string('couleur', 16).notNullable()
     })
     .createTable('etapesStatuts', table => {
-      table.enum('id', ['eco', 'ter', 'afa']).primary()
+      table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
