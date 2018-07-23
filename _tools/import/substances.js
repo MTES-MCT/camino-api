@@ -12,4 +12,5 @@ const cb = json =>
 module.exports = () => {
   build(spreadsheetId, 'substances', 'substances', cb)
   build(spreadsheetId, 'substances_legals', 'substances_legals')
+  build(spreadsheetId, 'substances_legals_codes', 'substances_legals_codes')
 }

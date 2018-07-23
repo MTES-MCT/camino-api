@@ -1,6 +1,5 @@
 const { Model } = require('objection')
 const SubstancesLegals = require('./substances-legals')
-const Domaines = require('./domaines')
 
 class Substances extends Model {
   static get tableName() {
@@ -15,13 +14,7 @@ class Substances extends Model {
       properties: {
         id: { type: 'string' },
         nom: { type: 'string' },
-        domaineId: { type: 'string' },
-        type: { type: 'string' },
         symbole: { type: 'string' },
-        alias: {
-          type: 'array',
-          properties: { type: 'string' }
-        },
         gerep: { type: ['integer', 'null'] },
         description: { type: 'string', maxLength: 2048 },
         substanceLegalId: { type: 'string' }
@@ -37,14 +30,6 @@ class Substances extends Model {
         join: {
           from: 'substances.substanceLegalId',
           to: 'substancesLegals.id'
-        }
-      },
-      domaine: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Domaines,
-        join: {
-          from: 'substances.domaineId',
-          to: 'domaines.id'
         }
       }
     }
