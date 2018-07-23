@@ -29,15 +29,17 @@ const queries = {
     }
 
     if (substances) {
-      q.joinRelation('demarches.etapes.substances')
-        .whereIn(
-          'demarches:etapes:substances.id',
-          substances.map(n => n.toLowerCase())
-        )
-        .orWhereIn(
-          'demarches:etapes:substances.nom',
-          substances.map(n => n.toLowerCase())
-        )
+      q.joinRelation('demarches.etapes.substances').where(builder => {
+        builder
+          .whereIn(
+            'demarches:etapes:substances.id',
+            substances.map(n => n.toLowerCase())
+          )
+          .orWhereIn(
+            'demarches:etapes:substances.nom',
+            substances.map(n => n.toLowerCase())
+          )
+      })
     }
 
     return q
