@@ -14,7 +14,12 @@ const {
 } = require('./_tools-geojson')
 
 const titreFormat = t => {
-  t.perimetres = []
+  t.references =
+    t.references &&
+    Object.keys(t.references).map(r => ({
+      type: r,
+      valeur: t.references[r]
+    }))
   t.demarches &&
     t.demarches.forEach(d => {
       d.etapes &&

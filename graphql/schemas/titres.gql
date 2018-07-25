@@ -19,7 +19,7 @@ type Titre {
 
 type Reference {
   type: String
-  nom: String!
+  valeur: String!
 }
 
 type Etape {

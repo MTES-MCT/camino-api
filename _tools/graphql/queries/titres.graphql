@@ -42,6 +42,10 @@ query Titres(
       nom
       couleur
     }
+    references {
+      type
+      valeur
+    }
     demarches {
       id
       type {

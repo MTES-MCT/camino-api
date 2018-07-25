@@ -15,6 +15,10 @@ query Titre($id: String!) {
       nom
       couleur
     }
+    references {
+      type
+      valeur
+    }
     demarches {
       id
       type {
