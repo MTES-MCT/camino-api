@@ -39,6 +39,7 @@ const queries = {
             'demarches:etapes:substances.nom',
             substances.map(n => n.toLowerCase())
           )
+          .orWhereIn('demarches:etapes:substances.symbole', substances)
       })
     }
 

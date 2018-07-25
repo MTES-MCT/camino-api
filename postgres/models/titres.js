@@ -18,7 +18,8 @@ class Titres extends Model {
         nom: { type: 'string' },
         domaineId: { type: 'string', maxLength: 1 },
         typeId: { type: 'string', maxLength: 3 },
-        statutId: { type: 'string', maxLength: 3 }
+        statutId: { type: 'string', maxLength: 3 },
+        references: { type: 'json' }
       }
     }
   }
