@@ -20,7 +20,17 @@
 
 ## Configuration et imports des données
 
-- Requiert Node.js, npm et une base de données PostgreSQL.
+Requiert 
+- Node.js, npm
+- PostgreSQL comme système de gestion de bases de données, avec un role `postgres` et une base de donnée `camino`
+
+```bash
+# cree le role postgres
+postgres createuser postgres
+# cree la base de donnée camino
+createdb camino
+```
+
 - Renommer le fichier `.env.example` en `.env` et le compléter.
 
 ```bash
