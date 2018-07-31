@@ -78,7 +78,17 @@ const wTitulaires = require('../../sources/titres-w-titulaires.json')
 const wAmodiataires = require('../../sources/titres-w-amodiataires.json')
 const wUtilisateurs = require('../../sources/titres-w-utilisateurs.json')
 
-const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...a, ...w]
+const f = require('../../sources/titres-f.json')
+const fDemarches = require('../../sources/titres-f-demarches.json')
+const fEtapes = require('../../sources/titres-f-etapes.json')
+const fEmprises = require('../../sources/titres-f-emprises.json')
+const fPoints = require('../../sources/titres-f-points.json')
+const fSubstances = require('../../sources/titres-f-substances.json')
+const fTitulaires = require('../../sources/titres-f-titulaires.json')
+const fAmodiataires = require('../../sources/titres-f-amodiataires.json')
+const fUtilisateurs = require('../../sources/titres-f-utilisateurs.json')
+
+const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...a, ...w, ...f]
 
 const titresDemarches = [
   ...mDemarches,
@@ -88,7 +98,8 @@ const titresDemarches = [
   ...cDemarches,
   ...gDemarches,
   ...aDemarches,
-  ...wDemarches
+  ...wDemarches,
+  ...fDemarches
 ]
 
 const titresEtapes = [
@@ -99,7 +110,8 @@ const titresEtapes = [
   ...cEtapes,
   ...gEtapes,
   ...aEtapes,
-  ...wEtapes
+  ...wEtapes,
+  ...fEtapes
 ]
 
 const titresSubstances = [
@@ -110,7 +122,8 @@ const titresSubstances = [
   ...cSubstances,
   ...gSubstances,
   ...aSubstances,
-  ...wSubstances
+  ...wSubstances,
+  ...fSubstances
 ]
 
 const titresPoints = [
@@ -121,7 +134,8 @@ const titresPoints = [
   ...cPoints,
   ...gPoints,
   ...aPoints,
-  ...wPoints
+  ...wPoints,
+  ...fPoints
 ]
 
 const titresTitulaires = [
@@ -132,7 +146,8 @@ const titresTitulaires = [
   ...cTitulaires,
   ...gTitulaires,
   ...aTitulaires,
-  ...wTitulaires
+  ...wTitulaires,
+  ...fTitulaires
 ]
 
 const titresAmodiataires = [
@@ -143,7 +158,8 @@ const titresAmodiataires = [
   ...cAmodiataires,
   ...gAmodiataires,
   ...aAmodiataires,
-  ...wAmodiataires
+  ...wAmodiataires,
+  ...fAmodiataires
 ]
 
 const titresUtilisateurs = [
@@ -154,7 +170,8 @@ const titresUtilisateurs = [
   ...cUtilisateurs,
   ...gUtilisateurs,
   ...aUtilisateurs,
-  ...wUtilisateurs
+  ...wUtilisateurs,
+  ...fUtilisateurs
 ]
 
 const titresEmprises = [
@@ -165,7 +182,8 @@ const titresEmprises = [
   ...cEmprises,
   ...gEmprises,
   ...aEmprises,
-  ...wEmprises
+  ...wEmprises,
+  ...fEmprises
 ]
 
 exports.seed = (knex, Promise) =>
