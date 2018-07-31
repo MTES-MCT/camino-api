@@ -11,7 +11,7 @@
     "pxm",
     "cxx"
   ],
-  "domaineIds": ["m", "h", "s", "g", "c"],
+  "domaineIds": ["m", "h", "s", "g", "c", "f"],
   "statutIds": ["dmi", "dmc", "val", "mod", "ech"],
   "substances": ["hydr", "cuivre"],
   "noms": ["Tennie"]
