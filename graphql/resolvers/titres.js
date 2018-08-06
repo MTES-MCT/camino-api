@@ -34,19 +34,6 @@ const titreFormat = t => {
   return t
 }
 
-const metasIdsGet = async () => {
-  const ts = await types()
-  const ds = await domaines()
-  const ss = await statuts()
-
-  return {
-    typeIds: ts.map(t => t.id),
-    domaineIds: ds.map(d => d.id),
-    statutIds: ss.map(s => s.id),
-    substances: []
-  }
-}
-
 const resolvers = {
   titre: async ({ id }, context, info) => {
     const t = await titre(id)
