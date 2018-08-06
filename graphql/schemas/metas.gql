@@ -94,7 +94,8 @@ enum TypeId {
 - __g__: Géothermie
 - __c__: Carrières
 - __w__: Granulats marins
-- __r__: Industrie nucléaire
+- __r__: Eléments radioactifs
+- __f__: Combustibles fossiles
 """
 enum DomaineId {
   m
@@ -104,6 +105,7 @@ enum DomaineId {
   c
   w
   r
+  f
 }
 
 """
