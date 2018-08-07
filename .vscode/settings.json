@@ -1,0 +1,5 @@
+{
+  "prettier.semi": false,
+  "prettier.eslintIntegration": true,
+  "prettier.singleQuote": true
+}
