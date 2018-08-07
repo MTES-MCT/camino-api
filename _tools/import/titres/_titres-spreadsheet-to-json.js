@@ -1,4 +1,4 @@
-const spreadsheetToJson = require('../_spreadsheetToJson');
+const spreadsheetToJson = require('../_spreadsheet-to-json');
 
 const titresCb = json =>
   json.map(j =>

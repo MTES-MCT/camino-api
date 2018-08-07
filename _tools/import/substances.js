@@ -1,4 +1,4 @@
-const spreadsheetToJson = require('./_spreadsheetToJson');
+const spreadsheetToJson = require('./_spreadsheet-to-json');
 const spreadsheetId = '1-79DUlhFr608AJab-EouZUTk3NlWUstt6BY1mHZ3ub8';
 
 const cb = json =>
