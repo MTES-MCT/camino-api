@@ -1,7 +1,7 @@
-const build = require('./_build.js')
-const spreadsheetId = '1wm64Ot7QAAslHOlXYSTtws6NKOMdKsN575615QCHQiA'
-const type = 'm'
+const titresSpreadsheetToJson = require('./_titresSpreadsheetToJson.js');
+const spreadsheetId = '1wm64Ot7QAAslHOlXYSTtws6NKOMdKsN575615QCHQiA';
+const type = 'm';
 
 module.exports = () => {
-  build(spreadsheetId, type)
-}
+  titresSpreadsheetToJson(spreadsheetId, type);
+};
