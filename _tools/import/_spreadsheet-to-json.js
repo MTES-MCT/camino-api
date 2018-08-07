@@ -1,10 +1,10 @@
-const spreadSheetToJson = require('google-spreadsheet-to-json')
+const spreadsheetToJson = require('google-spreadsheet-to-json')
 const credentials = require('./credentials.js')
 const fileCreate = require('./_utils/file-create')
 const path = require('path')
 
 module.exports = (spreadsheetId, fileName, worksheet, cb) => {
-  spreadSheetToJson({
+  spreadsheetToJson({
     spreadsheetId,
     credentials,
     worksheet
