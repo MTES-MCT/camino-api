@@ -1482,6 +1482,11 @@
             <uid><![CDATA[135AA54E-3922-4DA3-B6C6-F2D327DBF6A9]]></uid>
         </SQLField>
         <SQLField>
+            <name><![CDATA[type]]></name>
+            <type><![CDATA[CHARACTER VARYING(64)]]></type>
+            <uid><![CDATA[D8E5ED6A-A649-4C95-B05C-E695E609E4FB]]></uid>
+        </SQLField>
+        <SQLField>
             <name><![CDATA[nom]]></name>
             <type><![CDATA[CHARACTER VARYING]]></type>
             <autoIncrement><![CDATA[0]]></autoIncrement>
@@ -1512,11 +1517,6 @@
             <name><![CDATA[nor]]></name>
             <type><![CDATA[CHARACTER VARYING(size)]]></type>
             <uid><![CDATA[A0E77645-BE4F-409A-9C93-13BA6F46B776]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[type]]></name>
-            <type><![CDATA[CHARACTER VARYING(64)]]></type>
-            <uid><![CDATA[D8E5ED6A-A649-4C95-B05C-E695E609E4FB]]></uid>
         </SQLField>
         <labelWindowIndex><![CDATA[25]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -2411,7 +2411,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 594}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{31, 428}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

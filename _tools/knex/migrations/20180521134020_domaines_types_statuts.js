@@ -3,12 +3,13 @@ exports.up = knex => {
     .createTable('domaines', table => {
       table.string('id', 1).primary()
       table.string('nom').notNullable()
+      table.integer('ordre')
     })
     .createTable('types', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
     })
-    .createTable('domainesTypes', table => {
+    .createTable('domaines__types', table => {
       table
         .string('domaineId', 1)
         .references('domaines.id')
@@ -33,7 +34,7 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('domainesTypes')
+    .dropTable('domaines__types')
     .dropTable('domaines')
     .dropTable('types')
     .dropTable('statuts')

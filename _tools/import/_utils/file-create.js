@@ -1,11 +1,10 @@
-const fs = require('fs')
+const fs = require('fs-extra')
 
-module.exports = (name, content) => {
-  fs.writeFile(name, content, 'utf8', err => {
-    if (err) {
-      console.log('File: error', err)
-    } else {
-      console.log('File:', name)
-    }
-  })
+module.exports = async (name, content) => {
+  try {
+    await fs.writeFile(name, content, 'utf8')
+    console.log('File:', name)
+  } catch (err) {
+    console.log('File: error', err)
+  }
 }
