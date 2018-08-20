@@ -719,7 +719,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1250.00</y>
+            <y>1350.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1032,7 +1032,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>220.00</height>
+            <height>350.00</height>
         </size>
         <zorder>13</zorder>
         <SQLField>
@@ -1096,15 +1096,15 @@
             <uid><![CDATA[EE6A6BE2-C9AB-4CA8-B92A-CBA780538C74]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[echeance]]></name>
-            <type><![CDATA[DATE]]></type>
-            <uid><![CDATA[AE6D8A7F-351D-4823-A309-6A585F1ECE89]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[duree]]></name>
             <type><![CDATA[INTEGER]]></type>
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[38E7F145-7646-4E07-A195-5B39A1B9284B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[echeance]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[AE6D8A7F-351D-4823-A309-6A585F1ECE89]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[surface]]></name>
@@ -1112,9 +1112,34 @@
             <uid><![CDATA[B0DD99EB-14BC-4464-98EF-C4C6D8D87FAF]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[date_limite]]></name>
-            <type><![CDATA[DATE]]></type>
+            <name><![CDATA[visas]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
             <uid><![CDATA[61C152D8-9EA8-4335-95C0-3D496863F11C]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[points]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[468A3CAE-6C39-48BC-88EE-FFAA3D8E9BFC]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[points_securite]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[CACFF36B-9A6D-4E03-B8BC-FE54B98CDFC4]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[substances]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[91A799CE-E1F1-482C-AF21-9BC9966DD28D]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[titulaires]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[8FEB3426-63D3-4D97-BD5F-4342CE11782B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[amodiataires]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[78696A89-11BA-49A1-8669-9CBD81831A65]]></uid>
         </SQLField>
         <labelWindowIndex><![CDATA[26]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1382,7 +1407,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>100.00</height>
+            <height>120.00</height>
         </size>
         <zorder>16</zorder>
         <SQLField>
@@ -1402,6 +1427,16 @@
             <name><![CDATA[acceptation_auto]]></name>
             <type><![CDATA[BOOLEAN]]></type>
             <uid><![CDATA[C34C046B-B2D3-4883-8BC0-536E6969F26A]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[date_debut]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[D15700B3-B18A-4CF1-8C40-7877AC44BCDF]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[date_fin]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[EBFB2D33-2906-4D93-93A9-41C17B9D3DE1]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
         <labelWindowIndex><![CDATA[23]]></labelWindowIndex>
@@ -1847,11 +1882,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>100.00</x>
-            <y>800.00</y>
+            <y>700.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>150.00</height>
+            <height>220.00</height>
         </size>
         <zorder>0</zorder>
         <SQLField>
@@ -1895,15 +1930,39 @@
             <uid><![CDATA[66BD1B78-BF4B-4B6C-8EA4-31D0B576A56A]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[ordre]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <notNull><![CDATA[1]]></notNull>
-            <uid><![CDATA[419A62BE-7A96-4567-B524-1FA020A32A34]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[acceptation_implicite]]></name>
             <type><![CDATA[BOOLEAN]]></type>
             <uid><![CDATA[BC19E842-EB6A-416B-B9BD-A94A5D4ABDA0]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[delai_implicite]]></name>
+            <type><![CDATA[FLOAT4]]></type>
+            <uid><![CDATA[CA7CD91A-8143-429F-840A-4CFF238966ED]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[delai_recours]]></name>
+            <type><![CDATA[FLOAT4]]></type>
+            <uid><![CDATA[3AAED972-06D4-401D-937A-C58EFE881198]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[legal_ref]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[888E06A6-3A51-4EBA-8CC7-87A5F428401C]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[legal_lien]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[7B2CAA4E-E0BB-4E26-AC81-2C00A651FCF3]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[date_debut]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[CA0A4F4D-379D-4405-873F-32892EE18BD8]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[date_fin]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[F8AEB08B-A791-4A63-B517-6818230A6824]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
         <labelWindowIndex><![CDATA[28]]></labelWindowIndex>
@@ -2352,7 +2411,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{26, 294}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 594}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
