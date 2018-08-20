@@ -6,10 +6,13 @@ exports.up = knex => {
       .references('titresEtapes.id')
       .notNullable()
       .onDelete('CASCADE')
-    table.string('nom').notNullable()
-    table.date('date').notNullable()
-    table.string('url').notNullable()
-    table.string('fichier').notNullable()
+    table.string('type', 16).notNullable()
+    table.string('nom', 1024).notNullable()
+    table.string('jorf', 32)
+    table.string('nor', 32)
+    table.string('url')
+    table.string('uri')
+    table.string('fichier')
   })
 }
 

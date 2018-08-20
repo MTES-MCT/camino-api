@@ -7,9 +7,6 @@ exports.seed = (knex, Promise) =>
     .del()
     .then(() => knex('substancesLegals').del())
     .then(() => knex('substancesLegalsCodes').del())
-    .then(() =>
-      knex('substancesLegalsCodes')
-        .insert(substancesLegalsCodes)
-        .then(() => knex('substancesLegals').insert(substancesLegals))
-        .then(() => knex('substances').insert(substances))
-    )
+    .then(() => knex('substancesLegalsCodes').insert(substancesLegalsCodes))
+    .then(() => knex('substancesLegals').insert(substancesLegals))
+    .then(() => knex('substances').insert(substances))
