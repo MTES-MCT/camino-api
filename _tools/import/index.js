@@ -1,5 +1,6 @@
 const metas = require('./metas')
-const repertoire = require('./repertoire')
+const repertoireAdministrations = require('./repertoire-administrations')
+const repertoireEntreprises = require('./repertoire-entreprises')
 const substances = require('./substances')
 const titresA = require('./titres/a')
 const titresC = require('./titres/c')
@@ -13,7 +14,8 @@ const titresF = require('./titres/f')
 
 const run = async () => {
   await metas()
-  await repertoire()
+  await repertoireAdministrations()
+  await repertoireEntreprises()
   await substances()
   await titresA()
   await titresC()
