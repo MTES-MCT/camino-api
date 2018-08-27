@@ -113,7 +113,7 @@ const fSubstances = require('../../sources/titres-f-substances.json')
 const fTitulaires = require('../../sources/titres-f-titulaires.json')
 const fAmodiataires = require('../../sources/titres-f-amodiataires.json')
 const fUtilisateurs = require('../../sources/titres-f-utilisateurs.json')
-const fVerifications = require('../../sources/titres-w-verifications.json')
+const fVerifications = require('../../sources/titres-f-verifications.json')
 
 const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...a, ...w, ...f]
 
@@ -192,9 +192,9 @@ const titresDocuments = [
 const titresTitulaires = [
   ...mTitulaires,
   ...m973Titulaires,
-  ...hTitulaires,
+  // ...hTitulaires,
   ...sTitulaires,
-  ...cTitulaires,
+  // ...cTitulaires,
   ...gTitulaires,
   ...aTitulaires,
   ...wTitulaires,
