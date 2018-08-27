@@ -7,7 +7,7 @@ exports.up = knex => {
     })
     .createTable('titresVerifications', table => {
       table
-        .string('titreEtape_id', 128)
+        .string('titreEtapeId', 128)
         .primary()
         .references('titresEtapes.id')
         .notNullable()
