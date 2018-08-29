@@ -32,19 +32,19 @@
     "graphql": "^14.0.0-rc.1",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
-    "objection": "^1.2.3",
+    "objection": "^1.2.6",
     "pg": "^7.4.3"
   },
   "devDependencies": {
     "es6-shim": "^0.35.3",
     "eslint": "^5.4.0",
     "eslint-config-prettier": "^3.0.1",
-    "eslint-config-standard": "^12.0.0-alpha.0",
+    "eslint-config-standard": "^12.0.0",
     "eslint-plugin-compat": "^2.5.1",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "nodemon": "^1.18.3"
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^1.18.4"
   }
 }
