@@ -192,9 +192,9 @@ const titresDocuments = [
 const titresTitulaires = [
   ...mTitulaires,
   ...m973Titulaires,
-  // ...hTitulaires,
+  ...hTitulaires,
   ...sTitulaires,
-  // ...cTitulaires,
+  ...cTitulaires,
   ...gTitulaires,
   ...aTitulaires,
   ...wTitulaires,
