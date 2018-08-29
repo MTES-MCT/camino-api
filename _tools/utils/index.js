@@ -17,6 +17,7 @@ const findup = (array, key1, key2) =>
         : [...res, el],
     []
   )
+
 module.exports = {
   dedup,
   findup
