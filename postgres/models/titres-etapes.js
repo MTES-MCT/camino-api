@@ -26,9 +26,15 @@ class TitresEtapes extends Model {
         etapeStatutId: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' },
         date: { type: 'date' },
-        echeance: { type: 'date' },
         duree: { type: 'integer' },
-        surface: { type: 'integer' }
+        echeance: { type: 'date' },
+        surface: { type: 'integer' },
+        visas: { type: 'json' },
+        points: { type: 'boolean' },
+        pointsSecurite: { type: 'boolean' },
+        substances: { type: 'boolean' },
+        titulaires: { type: 'boolean' },
+        amodiataires: { type: 'boolean' }
       }
     }
   }

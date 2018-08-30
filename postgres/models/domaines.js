@@ -20,14 +20,15 @@ class Domaines extends Model {
 
   static get relationMappings() {
     return {
-      type: {
+      types: {
         relation: Model.ManyToManyRelation,
         modelClass: Types,
         join: {
           from: 'domaines.id',
           through: {
-            from: 'domainesTypes.domaineId',
-            to: 'domainesTypes.typeId'
+            from: 'domaines__types.domaineId',
+            to: 'domaines__types.typeId',
+            extra: ['archive']
           },
           to: 'types.id'
         }

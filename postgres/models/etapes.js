@@ -1,4 +1,5 @@
 const { Model } = require('objection')
+const EtapesStatuts = require('./etapes-statuts')
 
 class Etapes extends Model {
   static get tableName() {
@@ -16,8 +17,32 @@ class Etapes extends Model {
           type: 'string',
           maxLength: 128
         },
-        acceptation_auto: {
+        acceptationAuto: {
           type: 'boolean'
+        },
+        dateDebut: {
+          type: 'date'
+        },
+        dateFin: {
+          type: 'date'
+        }
+      }
+    }
+  }
+
+  static get relationMappings() {
+    return {
+      statuts: {
+        relation: Model.ManyToManyRelation,
+        modelClass: EtapesStatuts,
+        join: {
+          from: 'etapes.id',
+          through: {
+            from: 'etapes__etapesStatuts.etapeId',
+            to: 'etapes__etapesStatuts.etapeStatutId',
+            extra: ['ordre']
+          },
+          to: 'etapesStatuts.id'
         }
       }
     }
