@@ -65,60 +65,64 @@ type Emprise {
 - __arc__: Autorisation de recherches (C)
 - __arg__: Autorisation de recherches (G)
 - __axm__: Autorisation d'exploitation (M)
-- __prx__: Permis exclusif de recherches (M, G, S, C)
+- __cxx__: Concession (M, H, G, S, C)
 - __prh__: Permis exclusif de recherches (H)
+- __prx__: Permis exclusif de recherches (M, G, S, C)
 - __pxc__: Permis exclusif de carrières (C)
 - __pxg__: Permis d'exploitation (G)
-- __pxm__: Permis d'exploitation (M)
 - __pxh__: Permis d'exploitation (H)
-- __cxx__: Concession (M, H, G, S, C)
+- __pxm__: Permis d'exploitation (M)
 """
 enum TypeId {
   apx
   arc
   arg
   axm
-  prx
-  prh
-  pxc
-  pxh
-  pxg
-  pxm
   cxx
+  prh
+  prx
+  pxc
+  pxg
+  pxh
+  pxm
 }
 
 """
-- __m__: Minéraux et métaux
-- __h__: Substances énergétiques
-- __s__: Stockage
-- __g__: Géothermie
 - __c__: Carrières
-- __w__: Granulats marins
-- __r__: Eléments radioactifs
 - __f__: Combustibles fossiles
+- __g__: Géothermie
+- __h__: Substances énergétiques
+- __m__: Minéraux et métaux
+- __r__: Eléments radioactifs
+- __s__: Stockage
+- __w__: Granulats marins
 """
 enum DomaineId {
-  m
-  h
-  s
-  g
   c
-  w
-  r
   f
+  g
+  h
+  m
+  r
+  s
+  w
 }
 
 """
-- __ins__: En instruction
-- __val__: Valide
+- __dmc__: Demande classée
+- __dmi__: Demande initiale
 - __ech__: Échu
+- __ind__: Indéterminé
+- __mod__: Modification en instance
+- __val__: Valide
 """
 enum StatutId {
-  dmi
   dmc
-  val
-  mod
+  dmi
   ech
+  ind
+  mod
+  val
 }
 
 """
@@ -131,38 +135,57 @@ enum EmpriseId {
 }
 
 """
-- __ins__: En instruction
 - __acc__: Acceptée
-- __rej__: Rejetée
-- __eco__: En construction
-- __dep__: Déposée
 - __cls__: Classée sans suite
+- __dep__: Déposée
+- __eco__: En construction
+- __ind__: Indeterminé
+- __ini__: Initiée
+- __ins__: En instruction
+- __rej__: Rejetée
 - __ret__: Retirée
+- __ter__: Terminée
 """
 enum DemarcheStatutId {
-  ins
   acc
-  rej
-  eco
-  dep
   cls
-  ret
-}
-
-"""
-- __afa__: Non fait
-- __eco__: En cours
-- __ter__: Terminé
-"""
-enum EtapeStatutId {
-  afa
+  dep
   eco
+  ind
+  ini
+  ins
+  rej
+  ret
   ter
 }
 
+"""
+- __acc__: Acceptation
+- __def__: Défavorable
+- __dre__: Défavorable avec réserves
+- __fav__: Favorable
+- __fre__: Favorable avec réserves
+- __nul__: Non applicable
+- __rej__: Rejet
+- __nfa__: Non fait
+- __fai__: Fait
+"""
+enum EtapeStatutId {
+  acc
+  def
+  dre
+  fav
+  fre
+  nul
+  rej
+  nfa
+  fai
+}
+
 enum Couleur {
+  error
+  info
   neutral
   success
   warning
-  error
 }
