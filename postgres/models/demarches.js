@@ -90,7 +90,7 @@ class Demarches extends Model {
             to: 'demarches__etapes.etapeId',
             extra: ['ordre', 'typeId']
           },
-          to: 'demarchesStatuts.id'
+          to: 'etapes.id'
         }
       }
     }

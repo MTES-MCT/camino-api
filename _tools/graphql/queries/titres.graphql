@@ -92,6 +92,9 @@ query Titres(
         substances {
           ...substance
         }
+        documents {
+          ...document
+        }
       }
     }
   }
@@ -164,4 +167,15 @@ fragment substance on TitreSubstance {
       lien
     }
   }
+}
+
+fragment document on Document {
+  id
+  nom
+  type
+  url
+  uri
+  fichier
+  jorf
+  nor
 }
