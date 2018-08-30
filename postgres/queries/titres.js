@@ -1,4 +1,3 @@
-const { raw } = require('objection')
 const Titres = require('../models/titres')
 const { hasPermission } = require('../../auth/permissions')
 const titresOptions = require('./_titres-options')

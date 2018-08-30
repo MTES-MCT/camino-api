@@ -13,10 +13,13 @@ class TitresDocuments extends Model {
       properties: {
         id: { type: 'string' },
         titreEtapeId: { type: 'string', maxLength: 128 },
+        type: { type: 'string' },
         nom: { type: 'string' },
-        date: { type: 'date' },
         url: { type: 'string' },
-        fichier: { type: 'string' }
+        uri: { type: 'string' },
+        fichier: { type: 'string' },
+        jorf: { type: 'string' },
+        nor: { type: 'string' }
       }
     }
   }
