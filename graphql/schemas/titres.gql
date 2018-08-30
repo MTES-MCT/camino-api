@@ -38,6 +38,7 @@ type Etape {
   titulaires: [Entreprise]
   amodiataires: [Entreprise]
   utilisateurs: [Utilisateur]
+  documents: [Document]
 }
 
 type TitreSubstance {
@@ -56,7 +57,7 @@ type TitreSubstance {
 
 type Entreprise {
   id: ID!
-  nom: String!
+  nom: String
   service: String
   site: String
   email: String
@@ -77,6 +78,17 @@ type Utilisateur {
   telephoneFixe: String
   administrationId: String
   entrepriseId: String
+}
+
+type Document {
+  id: ID!
+  nom: String!
+  type: String
+  url: String
+  uri: String
+  fichier: String
+  jorf: String
+  nor: String
 }
 
 "tauuust"

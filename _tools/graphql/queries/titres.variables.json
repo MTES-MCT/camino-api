@@ -4,15 +4,16 @@
     "arc",
     "arg",
     "axm",
-    "prx",
+    "cxx",
     "prh",
+    "prx",
     "pxc",
     "pxg",
-    "pxm",
-    "cxx"
+    "pxh",
+    "pxm"
   ],
-  "domaineIds": ["m", "h", "s", "g", "c", "f"],
-  "statutIds": ["dmi", "dmc", "val", "mod", "ech"],
+  "domaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
+  "statutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"],
   "substances": ["hydr", "cuivre"],
   "noms": ["Tennie"]
 }
