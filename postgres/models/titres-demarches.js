@@ -33,20 +33,20 @@ class TitresDemarches extends Model {
           to: 'demarches.id'
         }
       },
-      etapes: {
-        relation: Model.HasManyRelation,
-        modelClass: TitresEtapes,
-        join: {
-          from: 'titresDemarches.id',
-          to: 'titresEtapes.titreDemarcheId'
-        }
-      },
       statut: {
         relation: Model.BelongsToOneRelation,
         modelClass: DemarchesStatuts,
         join: {
           from: 'titresDemarches.demarcheStatutId',
           to: 'demarchesStatuts.id'
+        }
+      },
+      etapes: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresEtapes,
+        join: {
+          from: 'titresDemarches.id',
+          to: 'titresEtapes.titreDemarcheId'
         }
       }
     }
