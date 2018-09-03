@@ -24,12 +24,14 @@ const titreFormat = t => {
     t.demarches.forEach(d => {
       d.etapes &&
         d.etapes.forEach(e => {
-          if (e.points) {
+          if (e.points.length > 0) {
             e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
             e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
           }
         })
     })
+
+  t.demarches = t.demarches.reverse()
 
   return t
 }
