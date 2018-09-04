@@ -3,4 +3,7 @@ require('../postgres')
 
 const titresDemarchesStatutUpdate = require('./titres-demarches-statut-update')
 
-titresDemarchesStatutUpdate()
+Promise.all([titresDemarchesStatutUpdate()]).then(r => {
+  console.log('Tache quotidienne executée')
+  process.exit()
+})
