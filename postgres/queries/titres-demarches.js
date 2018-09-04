@@ -10,8 +10,10 @@ const queries = {
 
   titresDemarcheStatutPatch: async ({ id, demarcheStatutId }) =>
     TitresDemarches.query()
+      .skipUndefined()
       .findById(id)
       .patch({ demarcheStatutId })
+      .catch(e => e)
 }
 
 module.exports = queries
