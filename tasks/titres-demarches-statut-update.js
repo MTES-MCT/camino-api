@@ -3,10 +3,13 @@ const {
   titresDemarcheStatutPatch
 } = require('../postgres/queries/titres-demarches')
 
+// classe les étapes selon leur ordre inverse: 3, 2, 1.
 const titreEtapesSorted = td => td.etapes.sort((a, b) => a.ordre < b.ordre)
 
 const titreDemarcheStatutIdSet = td => {
   let titreDemarcheStatut
+
+  // L'étape la plus récente
   const titreEtapeRecent = titreEtapesSorted(td)[0]
 
   //  si
@@ -32,7 +35,7 @@ const titreDemarcheStatutIdSet = td => {
     ].includes(td.demarcheId)
   ) {
     if (
-      //  si la démarche fait l’objet d’une demande
+      //  si --> 1. la démarche fait l’objet d’une demande
       //  - le type de l’étape est publication au JO(dpu) ou décision implicite(dim)
       //  - et le statut de l’étape est acceptée ou rejetée
       ['dpu', 'dim'].includes(titreEtapeRecent.etapeId) &&
@@ -78,7 +81,7 @@ const titreDemarcheStatutIdSet = td => {
       titreDemarcheStatut = 'eco'
     }
   } else if (
-    //  sinon si la démarche ne fait pas l’objet d’une demande (unilatérale)
+    //  sinon si --> 2. la démarche ne fait pas l’objet d’une demande (unilatérale)
     //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
     ['ret', 'abr', 'prr'].includes(td.demarcheId)
   ) {
@@ -102,7 +105,7 @@ const titreDemarcheStatutIdSet = td => {
       titreDemarcheStatut = 'ter'
     }
   } else {
-    //  sinon
+    //  sinon --> 3. base case
     //  - le statut de la démarche est indéterminé
     titreDemarcheStatut = 'ind'
   }
