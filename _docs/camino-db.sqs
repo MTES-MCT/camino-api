@@ -340,7 +340,7 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[nom]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <type><![CDATA[CHARACTER VARYING]]></type>
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <foreignKeyName><![CDATA[titresdomainestypes_typeid_foreign]]></foreignKeyName>
             <notNull><![CDATA[1]]></notNull>
@@ -818,7 +818,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>320.00</height>
+            <height>360.00</height>
         </size>
         <zorder>20</zorder>
         <SQLField>
@@ -870,6 +870,16 @@
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <notNull><![CDATA[0]]></notNull>
             <uid><![CDATA[92FC2CD6-67F7-43C0-9FC0-3BF16E132E69]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[voie_type]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[1B5FF4A3-30C7-4FC1-B22A-CE5420025F73]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[voie_nom]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[52F2FF65-DF93-4B85-BAA5-0175D61CAF3A]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[adresse_complement]]></name>
@@ -1205,8 +1215,8 @@
             <y>550.00</y>
         </location>
         <size>
-            <width>322.00</width>
-            <height>140.00</height>
+            <width>300.00</width>
+            <height>150.00</height>
         </size>
         <zorder>12</zorder>
         <SQLField>
@@ -2411,7 +2421,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{31, 428}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{41, 328}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
