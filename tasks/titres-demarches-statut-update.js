@@ -110,15 +110,18 @@ const titreDemarcheStatutIdSet = td => {
   return titreDemarcheStatut
 }
 
-const titresDemarchesStatutUpdate = () => {
+const titresDemarchesStatutUpdate = async () =>
   titresDemarches({}).then(tds => {
-    tds.forEach(td => {
-      titresDemarcheStatutPatch({
-        id: td.id,
-        demarcheStatutId: titreDemarcheStatutIdSet(td)
-      })
+    Promise.all([
+      ...tds.map(td =>
+        titresDemarcheStatutPatch({
+          id: td.id,
+          demarcheStatutId: titreDemarcheStatutIdSet(td)
+        })
+      )
+    ]).then(r => {
+      console.log('Mise à jour: statuts des démarches de tous les titres.')
     })
   })
-}
 
 module.exports = titresDemarchesStatutUpdate
