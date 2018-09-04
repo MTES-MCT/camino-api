@@ -12,7 +12,7 @@ const titreDemarcheStatutIdSet = td => {
   // L'étape la plus récente
   const titreEtapeRecent = titreEtapesSorted(td)[0]
 
-  //  si
+  //  si --> 1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
   //    octroi ou prolongation(1, 2 ou exceptionnelle)
   //    ou renonciation ou fusion ou extension du périmètre
@@ -35,7 +35,7 @@ const titreDemarcheStatutIdSet = td => {
     ].includes(td.demarcheId)
   ) {
     if (
-      //  si --> 1. la démarche fait l’objet d’une demande
+      //  si
       //  - le type de l’étape est publication au JO(dpu) ou décision implicite(dim)
       //  - et le statut de l’étape est acceptée ou rejetée
       ['dpu', 'dim'].includes(titreEtapeRecent.etapeId) &&
