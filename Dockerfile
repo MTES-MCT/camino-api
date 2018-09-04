@@ -18,6 +18,7 @@ COPY conf conf/
 COPY graphql graphql/
 COPY postgres postgres/
 COPY _tools _tools/
+COPY tasks tasks/
 
 CMD ["npm", "start"]
 
