@@ -6,6 +6,7 @@
   "scripts": {
     "import": "node ./_tools/import/index.js",
     "migrate": "npx knex --knexfile=./conf/knex.js migrate:rollback && npx knex --knexfile=./conf/knex.js migrate:latest && npx knex --knexfile=./conf/knex.js seed:run",
+    "cron-daily": "node ./tasks/daily.js",
     "dev": "nodemon ./index.js",
     "start": "node ./index.js"
   },
