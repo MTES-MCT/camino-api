@@ -11,7 +11,7 @@ const titreDemarchesFind = (titreDemarche, titresDemarches) =>
   titresDemarches.filter(td => td.titreId === titreDemarche.titreId)
 
 // retourne une fonction test sur l'id d'une démarche
-const titreDemarcheIndexFind = titreDemarcheId => titreDemarche =>
+const titreDemarcheIdTest = titreDemarcheId => titreDemarche =>
   titreDemarche.id === titreDemarcheId
 
 // combinaison des trois fonctions ci-dessus:
@@ -21,6 +21,6 @@ const titreDemarcheIndexFind = titreDemarcheId => titreDemarche =>
 const titreDemarcheOrdreFind = (titreDemarche, titresDemarches) =>
   titreDemarchesSortDesc(
     titreDemarchesFind(titreDemarche, titresDemarches)
-  ).findIndex(titreDemarcheIndexFind(titreDemarche.id)) + 1
+  ).findIndex(titreDemarcheIdTest(titreDemarche.id)) + 1
 
 module.exports = titreDemarcheOrdreFind
