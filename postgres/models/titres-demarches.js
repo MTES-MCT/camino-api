@@ -60,6 +60,14 @@ class TitresDemarches extends Model {
   //   console.log('<---------------')
   //   return json
   // }
+
+  static get namedFilters() {
+    return {
+      orderDesc: builder => {
+        builder.orderBy('ordre', 'asc')
+      }
+    }
+  }
 }
 
 module.exports = TitresDemarches

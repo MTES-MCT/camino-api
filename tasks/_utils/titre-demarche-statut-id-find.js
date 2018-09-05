@@ -1,16 +1,10 @@
-const {
-  titresDemarches,
-  titresDemarcheStatutPatch
-} = require('../postgres/queries/titres-demarches')
+const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 
-// classe les étapes selon leur ordre inverse: 3, 2, 1.
-const titreEtapesSorted = td => td.etapes.sort((a, b) => a.ordre < b.ordre)
-
-const titreDemarcheStatutIdSet = td => {
-  let titreDemarcheStatut
+const titreDemarcheStatutIdFind = titreDemarche => {
+  let titreDemarcheStatutId
 
   // L'étape la plus récente
-  const titreEtapeRecent = titreEtapesSorted(td)[0]
+  const titreEtapeRecent = titreEtapesSortDesc(titreDemarche)[0]
 
   //  si --> 1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
@@ -32,7 +26,7 @@ const titreDemarcheStatutIdSet = td => {
       'mut',
       'amo',
       'res'
-    ].includes(td.demarcheId)
+    ].includes(titreDemarche.demarcheId)
   ) {
     if (
       //  si
@@ -43,7 +37,7 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       //  alors
       //  - le statut de la démarche est égal au statut de l’étape: accepté(acc) ou rejeté(rej)
-      titreDemarcheStatut = titreEtapeRecent.etapeStatutId
+      titreDemarcheStatutId = titreEtapeRecent.etapeStatutId
     } else if (
       //  sinon, si
       //  - le type de l’étape est enregistrement de la demande(men)
@@ -53,7 +47,7 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       //  alors
       //  - le statut de la démarche est “en instruction”
-      titreDemarcheStatut = 'ins'
+      titreDemarcheStatutId = 'ins'
     } else if (
       //  sinon si
       //  - le type de l’étape est retrait de la demande(ret)
@@ -61,7 +55,7 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       //  alors
       //  - le statut de la démarche est “retirée”
-      titreDemarcheStatut = 'ret'
+      titreDemarcheStatutId = 'ret'
     } else if (
       //  sinon si
       //  - le type de l’étape est dépôt de la demande(mdp)
@@ -70,7 +64,7 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       //  alors
       //  - le statut de la démarche est “déposée”
-      titreDemarcheStatut = 'dep'
+      titreDemarcheStatutId = 'dep'
     } else if (
       //  sinon, si
       //  - le type de l’étape est formalisation de la demande(mfr)
@@ -78,12 +72,12 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       //  alors
       //  - le statut de la démarche est “en construction”
-      titreDemarcheStatut = 'eco'
+      titreDemarcheStatutId = 'eco'
     }
   } else if (
     //  sinon si --> 2. la démarche ne fait pas l’objet d’une demande (unilatérale)
     //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
-    ['ret', 'abr', 'prr'].includes(td.demarcheId)
+    ['ret', 'abr', 'prr'].includes(titreDemarche.demarcheId)
   ) {
     if (
       // si
@@ -92,7 +86,7 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       // alors
       // - le statut de la démarche est “initiée”
-      titreDemarcheStatut = 'ini'
+      titreDemarcheStatutId = 'ini'
     } else if (
       // sinon si
       // - le type de l’étape est publication au JO
@@ -102,29 +96,15 @@ const titreDemarcheStatutIdSet = td => {
     ) {
       // alors
       // - le statut de la démarche est terminée
-      titreDemarcheStatut = 'ter'
+      titreDemarcheStatutId = 'ter'
     }
   } else {
     //  sinon --> 3. base case
     //  - le statut de la démarche est indéterminé
-    titreDemarcheStatut = 'ind'
+    titreDemarcheStatutId = 'ind'
   }
 
-  return titreDemarcheStatut
+  return titreDemarcheStatutId
 }
 
-const titresDemarchesStatutUpdate = async () =>
-  titresDemarches({}).then(tds => {
-    Promise.all([
-      ...tds.map(td =>
-        titresDemarcheStatutPatch({
-          id: td.id,
-          demarcheStatutId: titreDemarcheStatutIdSet(td)
-        })
-      )
-    ]).then(r => {
-      console.log('Mise à jour: statuts des démarches de tous les titres.')
-    })
-  })
-
-module.exports = titresDemarchesStatutUpdate
+module.exports = titreDemarcheStatutIdFind
