@@ -1,44 +1,54 @@
-const titreStatutIdFind = td => {
-  let titreStatut
+const dateFormat = require('./date-format')
+const titreEcheanceFind = require('./titre-echeance-find')
+
+const titreStatutIdFind = titre => {
+  let titreStatutId
+
+  const titreEcheance = titreEcheanceFind(titre.demarches)
+  const today = dateFormat(new Date())
+
+  console.log(titreEcheance, today)
 
   if (
-    // si
-    // - la date du jour est inférieure à la date d’échéance
-    // - aucune démarche est en instruction || déposée || initiée
-
+    // il y a une seule démarche (octroi)
+    titre.demarches.length === 1 &&
+    titre.demarches[0].demarcheId === 'oct' &&
+    ['ins', 'dep', 'rej', 'cls', 'ret'].includes(
+      titre.demarches[0].demarcheStatutId
+    )
   ) {
-    // alors
-    // - le statut du titre est valide
+    if (
+      // le statut de la démarche est en instruction || déposée
+      ['ins', 'dep'].includes(titre.demarches[0].demarcheStatutId)
+    ) {
+      // le statut du titre est demande initiale
+      titreStatutId = 'dmi'
+    } else if (
+      // le statut de la démarche est rejetée || classée sans suite || retirée
+      ['rej', 'cls', 'ret'].includes(titre.demarches[0].demarcheStatutId)
+    ) {
+      // le statut du titre est demande classée
+      titreStatutId = 'dmc'
+    }
   } else if (
-  // sinon si
-  // - une démarche a le statut en instruction
-
+    // une démarche a le statut en instruction
+    titre.demarches.find(d => d.demarcheStatutId === 'ins')
   ) {
-    // alors
-    // - le statut du titre est modification en instance
+    // le statut du titre est modification en instance
+    titreStatutId = 'mod'
   } else if (
-  // sinon si
-  // - la seule démarche est une démarche d’octroi avec le statut en instruction || déposée
-
-
+    // la date du jour est inférieure à la date d’échéance
+    today < titreEcheance
   ) {
-    // alors
-    // - le statut du titre est demande initiale
-  } else if (
-// sinon si
-  // - la seule démarche est une démarche d’octroi 
-  // - le statut rejetée || classée sans suite || retirée
-
-  ) {
-    // alors
-    // - le statut du titre est demande classée
+    console.log(titre.id)
+    // le statut du titre est valide
+    titreStatutId = 'val'
   } else {
-    //  sinon --> 3. base case
-    //  - le statut du titre est indéterminé
-    titreStatut = 'ind'
+    // le statut du titre est échu
+    titreStatutId = 'ech'
   }
 
-  return titreStatut
+  return titreStatutId || 'ind'
 }
 
 module.exports = titreStatutIdFind

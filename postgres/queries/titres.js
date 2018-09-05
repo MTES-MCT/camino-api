@@ -45,7 +45,7 @@ const queries = {
     return q
   },
 
-  titresStatutUpdate: async ({ id, statutId }) =>
+  titreStatutIdUpdate: async ({ id, statutId }) =>
     Titres.query()
       .skipUndefined()
       .findById(id)
