@@ -19,6 +19,7 @@ const titreDemarcheStatutIdFind = titreDemarche => {
       'pro',
       'pr1',
       'pr2',
+      'pre',
       'ren',
       'fus',
       'exp',
