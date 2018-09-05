@@ -3,17 +3,16 @@ const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 const titreDemarcheStatutIdFind = titreDemarche => {
   let titreDemarcheStatutId
 
-  // L'étape la plus récente
+  // étape la plus récente
   const titreEtapeRecent = titreEtapesSortDesc(titreDemarche)[0]
 
-  //  si --> 1. la démarche fait l’objet d’une demande
-  //  - le nom de la démarche est égal à
-  //    octroi ou prolongation(1, 2 ou exceptionnelle)
-  //    ou renonciation ou fusion ou extension du périmètre
-  //    ou extension de substance ou mutation ou amodiation
-  //    ou résiliation d’amodiation
-
   if (
+    //  1. la démarche fait l’objet d’une demande
+    //  - le nom de la démarche est égal à
+    //    octroi ou prolongation(1, 2 ou exceptionnelle)
+    //    ou renonciation ou fusion ou extension du périmètre
+    //    ou extension de substance ou mutation ou amodiation
+    //    ou résiliation d’amodiation
     [
       'oct',
       'pro',
@@ -30,82 +29,65 @@ const titreDemarcheStatutIdFind = titreDemarche => {
     ].includes(titreDemarche.demarcheId)
   ) {
     if (
-      //  si
-      //  - le type de l’étape est publication au JO(dpu) ou décision implicite(dim)
+      //  - le type de l’étape est publication au JO (dpu) ou décision implicite (dim)
       //  - et le statut de l’étape est acceptée ou rejetée
       ['dpu', 'dim'].includes(titreEtapeRecent.etapeId) &&
       ['acc', 'rej'].includes(titreEtapeRecent.etapeStatutId)
     ) {
-      //  alors
-      //  - le statut de la démarche est égal au statut de l’étape: accepté(acc) ou rejeté(rej)
+      //  - le statut de la démarche est égal au statut de l’étape:
+      // accepté (acc) ou rejeté(rej)
       titreDemarcheStatutId = titreEtapeRecent.etapeStatutId
     } else if (
-      //  sinon, si
-      //  - le type de l’étape est enregistrement de la demande(men)
+      //  - le type de l’étape est enregistrement de la demande (men)
       //  - la date de l'étape est inférieure à la date du jour
       titreEtapeRecent.etapeId === 'men' &&
       new Date(titreEtapeRecent.date) < new Date()
     ) {
-      //  alors
       //  - le statut de la démarche est “en instruction”
       titreDemarcheStatutId = 'ins'
     } else if (
-      //  sinon si
-      //  - le type de l’étape est retrait de la demande(ret)
+      //  - le type de l’étape est retrait de la demande (ret)
       titreEtapeRecent.etapeId === 'ret'
     ) {
-      //  alors
       //  - le statut de la démarche est “retirée”
       titreDemarcheStatutId = 'ret'
     } else if (
-      //  sinon si
-      //  - le type de l’étape est dépôt de la demande(mdp)
+      //  - le type de l’étape est dépôt de la demande (mdp)
       //  - il n’y a pas d’étape après
       titreEtapeRecent.etapeId === 'mdp'
     ) {
-      //  alors
       //  - le statut de la démarche est “déposée”
       titreDemarcheStatutId = 'dep'
     } else if (
-      //  sinon, si
-      //  - le type de l’étape est formalisation de la demande(mfr)
+      //  - le type de l’étape est formalisation de la demande (mfr)
       titreEtapeRecent.etapeId === 'mfr'
     ) {
-      //  alors
       //  - le statut de la démarche est “en construction”
       titreDemarcheStatutId = 'eco'
     }
   } else if (
-    //  sinon si --> 2. la démarche ne fait pas l’objet d’une demande (unilatérale)
+    //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
     //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
     ['ret', 'abr', 'prr'].includes(titreDemarche.demarcheId)
   ) {
     if (
-      // si
       // - la date d’initiation de la procédure est inférieure à la date du jour
       new Date(titreEtapeRecent.date) < new Date()
     ) {
-      // alors
       // - le statut de la démarche est “initiée”
       titreDemarcheStatutId = 'ini'
     } else if (
-      // sinon si
       // - le type de l’étape est publication au JO
       // - et le statut de l’étape est terminée
       titreEtapeRecent.etapeId === 'mfr' &&
       titreEtapeRecent.etapeStatutId === 'ter'
     ) {
-      // alors
       // - le statut de la démarche est terminée
       titreDemarcheStatutId = 'ter'
     }
-  } else {
-    //  sinon --> 3. base case
-    //  - le statut de la démarche est indéterminé
-    titreDemarcheStatutId = 'ind'
   }
 
-  return titreDemarcheStatutId
+  return titreDemarcheStatutId || 'ind'
 }
 
 module.exports = titreDemarcheStatutIdFind
