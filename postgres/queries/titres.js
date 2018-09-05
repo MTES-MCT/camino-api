@@ -13,7 +13,7 @@ const queries = {
     { typeIds, domaineIds, statutIds, substances, noms },
     user
   ) => {
-    const q = Titres.query()
+    const q = await Titres.query()
       .skipUndefined()
       .eager(options.titres.eager)
       .whereIn('titres.typeId', typeIds)
@@ -44,6 +44,12 @@ const queries = {
 
     return q
   },
+
+  titresStatutUpdate: async ({ id, statutId }) =>
+    Titres.query()
+      .skipUndefined()
+      .findById(id)
+      .patch({ statutId }),
 
   titreAjouter: async (titre, user) =>
     hasPermission('admin', user)

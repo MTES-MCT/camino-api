@@ -8,12 +8,18 @@ const queries = {
       .eager(options.demarches.eager)
       .whereIn('titresDemarches.demarcheId', demarcheIds),
 
-  titresDemarcheStatutPatch: async ({ id, demarcheStatutId }) =>
+  titreDemarcheStatutIdUpdate: async ({ id, demarcheStatutId }) =>
     TitresDemarches.query()
       .skipUndefined()
       .findById(id)
       .patch({ demarcheStatutId })
-      .catch(e => e)
+      .catch(e => e),
+
+  titreDemarcheOrdreUpdate: async ({ id, ordre }) =>
+    TitresDemarches.query()
+      .skipUndefined()
+      .findById(id)
+      .patch({ ordre })
 }
 
 module.exports = queries
