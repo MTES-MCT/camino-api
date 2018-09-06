@@ -7,10 +7,6 @@ const titreStatutIdFind = titre => {
   const titreEcheance = titreEcheanceFind(titre.demarches)
   const today = dateFormat(new Date())
 
-  if (titre.id === 'h-cxx-chateaurenard-1964') {
-    console.log('bim', titreEcheance, today)
-  }
-
   if (
     // il y a une seule démarche (octroi)
     titre.demarches.length === 1 &&
