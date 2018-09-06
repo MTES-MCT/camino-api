@@ -2,7 +2,7 @@ const TitresDemarches = require('../models/titres-demarches')
 const options = require('./_options')
 
 const queries = {
-  titresDemarches: async ({ demarcheIds }) =>
+  titresDemarchesGet: async ({ demarcheIds }) =>
     TitresDemarches.query()
       .skipUndefined()
       .eager(options.demarches.eager)
@@ -12,8 +12,7 @@ const queries = {
     TitresDemarches.query()
       .skipUndefined()
       .findById(id)
-      .patch({ demarcheStatutId })
-      .catch(e => e),
+      .patch({ demarcheStatutId }),
 
   titreDemarcheOrdreUpdate: async ({ id, ordre }) =>
     TitresDemarches.query()

@@ -1,6 +1,6 @@
 const {
-  titre,
-  titres,
+  titreGet,
+  titresGet,
   titreAjouter,
   titreSupprimer,
   titreModifier
@@ -38,8 +38,8 @@ const titreFormat = t => {
 
 const resolvers = {
   titre: async ({ id }, context, info) => {
-    const t = await titre(id)
-    return titreFormat(t)
+    const titre = await titreGet(id)
+    return titreFormat(titre)
   },
 
   titres: async (
@@ -47,12 +47,12 @@ const resolvers = {
     context,
     info
   ) => {
-    const ts = await titres(
+    const titres = await titresGet(
       { typeIds, domaineIds, statutIds, substances, noms },
       context.user
     )
 
-    return ts.map(t => titreFormat(t))
+    return titres.map(titre => titreFormat(titre))
   },
 
   titreAjouter: async ({ titre }, context, info) =>

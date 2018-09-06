@@ -1,5 +1,5 @@
 const {
-  titresDemarches,
+  titresDemarchesGet,
   titreDemarcheStatutIdUpdate
 } = require('../postgres/queries/titres-demarches')
 
@@ -7,31 +7,39 @@ const titreDemarcheStatutIdFind = require('./_utils/titre-demarche-statut-id-fin
 
 // met à jour le statut des démarches
 const titresDemarchesStatutUpdate = async () => {
-  const tds = await titresDemarches({})
+  const titresDemarches = await titresDemarchesGet({})
 
-  // filtre uniquement les démarches dont le statut a changé
-  const tdsModified = tds.filter(
-    td => titreDemarcheStatutIdFind(td) !== td.demarcheStatutId
-  )
+  const titresDemarchesUpdate = titresDemarches.reduce((arr, titreDemarche) => {
+    const demarcheStatutId = titreDemarcheStatutIdFind(titreDemarche)
 
-  const tdsUpdated = await Promise.all([
-    ...tdsModified.map(async td => {
-      const demarcheStatutId = titreDemarcheStatutIdFind(td)
-      const titreDemarche = await titreDemarcheStatutIdUpdate({
-        id: td.id,
+    // filtre uniquement les démarches dont le statut a changé
+    if (demarcheStatutId !== titreDemarche.demarcheStatutId) {
+      const titreDemarcheUpdate = titreDemarcheStatutIdUpdate({
+        id: titreDemarche.id,
         demarcheStatutId
+      }).then(u => {
+        console.log(
+          `Mise à jour: démarche ${
+            titreDemarche.id
+          }, statutId ${demarcheStatutId}`
+        )
+        return u
       })
-      console.log(
-        `Mise à jour: démarche ${td.id}, statutId ${demarcheStatutId}`
-      )
-      return titreDemarche
-    })
-  ])
+
+      arr = [...arr, titreDemarcheUpdate]
+    }
+
+    return arr
+  }, [])
+
+  const titresDemarchesUpdated = await Promise.all([...titresDemarchesUpdate])
 
   console.log(
-    `Mise à jour: statuts de ${tdsModified.length} démarches de titres.`
+    `Mise à jour: statuts de ${
+      titresDemarchesUpdate.length
+    } démarches de titres.`
   )
-  return tdsUpdated
+  return titresDemarchesUpdated
 }
 
 module.exports = titresDemarchesStatutUpdate
