@@ -42,12 +42,16 @@ const titreDemarcheEcheanceDureeFind = (demarches, ordre) =>
 // trouve la date d'échéance et la durée d'une démarche d'octroi
 const demarcheOctroiEcheanceFind = (duree, demarche) => {
   const a = demarcheEcheanceAndDureeFind(duree, demarche.etapes)
-
+  const d = duree + a.duree
   const etapeDpu = titreEtapesSortAsc(demarche).filter(
     te => te.etapeId === 'dpu'
   )[0]
+  const etapeDpuDate = etapeDpu ? dateAddYears(etapeDpu.date, d) : 0
 
-  return a.echeance ? a.echeance : dateAddYears(etapeDpu.date, duree)
+  return {
+    duree: d,
+    echeance: a.echeance ? a.echeance : etapeDpuDate
+  }
 }
 
 // trouve la date d'échéance d'une démarche annulée
