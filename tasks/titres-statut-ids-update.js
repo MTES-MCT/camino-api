@@ -1,25 +1,34 @@
-const { titres, titreStatutIdUpdate } = require('../postgres/queries/titres')
+const { titresGet, titreStatutIdUpdate } = require('../postgres/queries/titres')
 
 const titreStatutIdFind = require('./_utils/titre-statut-id-find')
 
 const titresStatutIdsUpdate = async () => {
-  const ts = await titres({})
-  const tsModified = ts.filter(t => titreStatutIdFind(t) !== t.statutId)
+  const titres = await titresGet({})
+  const statutIdsUpdate = titres.reduce((arr, t) => {
+    const statutId = titreStatutIdFind(t)
 
-  const update = await Promise.all([
-    ...tsModified.map(async t => {
-      const statutId = titreStatutIdFind(t)
-      const titre = await titreStatutIdUpdate({
+    if (t.id === 'h-cxx-vert-le-petit-1994') {
+      console.log(statutId, t.statutId, statutId === t.statutId)
+    }
+
+    if (statutId !== t.statutId) {
+      const titreUpdate = titreStatutIdUpdate({
         id: t.id,
         statutId
+      }).then(u => {
+        console.log(`Mise à jour: titre ${t.id}, statutId ${statutId}`)
+        return u
       })
-      console.log(`Mise à jour: titre ${t.id}, statutId ${statutId}`)
 
-      return titre
-    })
-  ])
+      arr = [...arr, titreUpdate]
+    }
 
-  console.log(`Mise à jour: statutId de ${tsModified.length} titres.`)
+    return arr
+  }, [])
+
+  const update = await Promise.all([...statutIdsUpdate])
+
+  console.log(`Mise à jour: statutId de ${statutIdsUpdate.length} titres.`)
 
   return update
 }
