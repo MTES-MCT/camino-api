@@ -6,9 +6,13 @@ const titreDemarchesFind = (titresDemarches, titreId) =>
 
 // classe les démarches selon la date de leur première étape
 const titreDemarchesSortAsc = titreDemarches =>
-  titreDemarches.sort(
-    (a, b) => titreEtapesSortAsc(a)[0].date - titreEtapesSortAsc(b)[0].date
-  )
+  titreDemarches.sort((a, b) => {
+    // date identique -> demander à Guillaume
+    // if (titreEtapesSortAsc(a)[0].date - titreEtapesSortAsc(b)[0].date === 0) {
+    //   console.log(a.id, b.id)
+    // }
+    return titreEtapesSortAsc(a)[0].date - titreEtapesSortAsc(b)[0].date
+  })
 
 // retourne une closure qui teste l'id d'une démarche
 const titreDemarcheIdTest = titreDemarcheId => titreDemarche =>
