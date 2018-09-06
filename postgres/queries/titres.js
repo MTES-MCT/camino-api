@@ -13,7 +13,7 @@ const queries = {
     { typeIds, domaineIds, statutIds, substances, noms },
     user
   ) => {
-    const q = await Titres.query()
+    const q = Titres.query()
       .skipUndefined()
       .eager(options.titres.eager)
       .whereIn('titres.typeId', typeIds)
