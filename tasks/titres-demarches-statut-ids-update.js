@@ -9,37 +9,40 @@ const titreDemarcheStatutIdFind = require('./_utils/titre-demarche-statut-id-fin
 const titresDemarchesStatutUpdate = async () => {
   const titresDemarches = await titresDemarchesGet({})
 
-  const titresDemarchesUpdate = titresDemarches.reduce((arr, titreDemarche) => {
-    const demarcheStatutId = titreDemarcheStatutIdFind(titreDemarche)
+  const titresDemarchesUpdated = titresDemarches.reduce(
+    (arr, titreDemarche) => {
+      const demarcheStatutId = titreDemarcheStatutIdFind(titreDemarche)
 
-    // filtre uniquement les démarches dont le statut a changé
-    if (demarcheStatutId !== titreDemarche.demarcheStatutId) {
-      const titreDemarcheUpdate = titreDemarcheStatutIdUpdate({
-        id: titreDemarche.id,
-        demarcheStatutId
-      }).then(u => {
-        console.log(
-          `Mise à jour: démarche ${
-            titreDemarche.id
-          }, statutId ${demarcheStatutId}`
-        )
-        return u
-      })
+      // filtre uniquement les démarches dont le statut a changé
+      if (demarcheStatutId !== titreDemarche.demarcheStatutId) {
+        const titreDemarcheUpdate = titreDemarcheStatutIdUpdate({
+          id: titreDemarche.id,
+          demarcheStatutId
+        }).then(u => {
+          console.log(
+            `Mise à jour: démarche ${
+              titreDemarche.id
+            }, statutId ${demarcheStatutId}`
+          )
+          return u
+        })
 
-      arr = [...arr, titreDemarcheUpdate]
-    }
+        arr = [...arr, titreDemarcheUpdate]
+      }
 
-    return arr
-  }, [])
+      return arr
+    },
+    []
+  )
 
-  const titresDemarchesUpdated = await Promise.all([...titresDemarchesUpdate])
+  const udpate = await Promise.all([...titresDemarchesUpdated])
 
   console.log(
     `Mise à jour: statuts de ${
-      titresDemarchesUpdate.length
+      titresDemarchesUpdated.length
     } démarches de titres.`
   )
-  return titresDemarchesUpdated
+  return udpate
 }
 
 module.exports = titresDemarchesStatutUpdate

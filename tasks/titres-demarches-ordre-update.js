@@ -7,6 +7,7 @@ const titreDemarcheOrdreFind = require('./_utils/titre-demarche-ordre-find')
 
 const titresDemarchesOrdreUpdate = async () => {
   const titresDemarches = await titresDemarchesGet({})
+
   const titresDemarchesUpdated = titresDemarches.reduce(
     (arr, titreDemarche) => {
       const ordre = titreDemarcheOrdreFind(titreDemarche, titresDemarches)

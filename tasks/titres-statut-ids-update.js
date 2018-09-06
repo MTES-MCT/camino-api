@@ -7,10 +7,6 @@ const titresStatutIdsUpdate = async () => {
   const statutIdsUpdate = titres.reduce((arr, t) => {
     const statutId = titreStatutIdFind(t)
 
-    if (t.id === 'h-cxx-vert-le-petit-1994') {
-      console.log(statutId, t.statutId, statutId === t.statutId)
-    }
-
     if (statutId !== t.statutId) {
       const titreUpdate = titreStatutIdUpdate({
         id: t.id,
