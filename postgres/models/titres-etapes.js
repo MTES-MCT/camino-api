@@ -140,15 +140,6 @@ class TitresEtapes extends Model {
       }
     }
   }
-
-  // $parseDatabaseJson(json) {
-  //   json = super.$parseDatabaseJson(json)
-  //   if (json) {
-  //     console.log('--------------->', json)
-  //   }
-  //   console.log('<---------------')
-  //   return json
-  // }
 }
 
 module.exports = TitresEtapes

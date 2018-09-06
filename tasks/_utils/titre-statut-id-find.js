@@ -7,7 +7,9 @@ const titreStatutIdFind = titre => {
   const titreEcheance = titreEcheanceFind(titre.demarches)
   const today = dateFormat(new Date())
 
-  console.log(titreEcheance, today)
+  if (titre.id === 'h-cxx-chateaurenard-1964') {
+    console.log('bim', titreEcheance, today)
+  }
 
   if (
     // il y a une seule démarche (octroi)
@@ -40,7 +42,6 @@ const titreStatutIdFind = titre => {
     // la date du jour est inférieure à la date d’échéance
     today < titreEcheance
   ) {
-    console.log(titre.id)
     // le statut du titre est valide
     titreStatutId = 'val'
   } else {

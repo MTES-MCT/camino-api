@@ -4,12 +4,12 @@ const options = require('./_options')
 // const knex = require('../../conf/knex')
 
 const queries = {
-  titre: async (id, user) =>
+  titreGet: async (id, user) =>
     Titres.query()
       .findById(id)
       .eager(options.titres.eager),
 
-  titres: async (
+  titresGet: async (
     { typeIds, domaineIds, statutIds, substances, noms },
     user
   ) => {
