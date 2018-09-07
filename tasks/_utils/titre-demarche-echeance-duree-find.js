@@ -6,7 +6,8 @@ const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
 // - l'ordre d'une démarche dont on cherche la date d'échéance et la durée
 // sortie
 // - la date d'échéance de la démarche
-const titreDemarcheEcheanceDureeFind = (demarches, ordre) =>
+// - la durée cumulée depuis la date d'échéance précédemment enregistré dans la bdd
+const titreDemarcheEcheanceAndDureeFind = (demarches, ordre) =>
   demarches
     // liste les démarches précédentes dont le statut est acceptée ou terminée
     .filter(
@@ -42,14 +43,23 @@ const titreDemarcheEcheanceDureeFind = (demarches, ordre) =>
 const demarcheOctroiEcheanceFind = (duree, demarche) => {
   const a = demarcheEcheanceAndDureeFind(duree, demarche.etapes)
   const d = duree + a.duree
-  const etapeDpu = titreEtapesSortAsc(demarche).filter(
-    te => te.etapeId === 'dpu'
-  )[0]
-  const etapeDpuDate = etapeDpu ? dateAddYears(etapeDpu.date, d) : 0
+  let echeance
+
+  // si la démarche
+  if (a.echeance) {
+    echeance = a.echeance
+  } else if (d === 0) {
+    echeance = '2018-12-31'
+  } else {
+    const etapeDpu = titreEtapesSortAsc(demarche).filter(
+      te => te.etapeId === 'dpu'
+    )[0]
+    echeance = etapeDpu ? dateAddYears(etapeDpu.date, d) : 0
+  }
 
   return {
     duree: d,
-    echeance: a.echeance ? a.echeance : etapeDpuDate
+    echeance
   }
 }
 
@@ -63,7 +73,7 @@ const demarcheAnnuleeEcheanceFind = demarche => {
   // l'échéance est la date de l'étape
   return {
     duree: 0,
-    echeance: etapeDex && etapeDex.date
+    echeance: etapeDex && dateFormat(etapeDex.date)
   }
 }
 
@@ -103,4 +113,4 @@ const dateAddYears = (date, years) => {
   return `${Number(d.slice(0, 4)) + years}-${d.slice(5)}`
 }
 
-module.exports = titreDemarcheEcheanceDureeFind
+module.exports = titreDemarcheEcheanceAndDureeFind
