@@ -12,7 +12,6 @@ const titreDemarcheEcheanceDureeFind = (demarches, ordre) =>
     .filter(
       td => ['acc', 'ter'].includes(td.demarcheStatutId) && ordre >= td.ordre
     )
-    .reverse()
     // parcourt les démarches
     .reduce(
       ({ duree, echeance }, demarche) => {
