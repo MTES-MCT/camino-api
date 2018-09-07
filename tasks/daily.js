@@ -9,7 +9,7 @@ const run = async () => {
   await titresDemarchesStatutIdUpdate()
   await titresDemarchesOrdreUpdate()
   await titresStatutIdsUpdate()
-  console.log('Tache quotidienne executée')
+  console.log('Tâches quotidiennes executées')
   process.exit()
 }
 
