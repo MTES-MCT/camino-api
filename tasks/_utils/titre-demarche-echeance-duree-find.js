@@ -40,25 +40,32 @@ const titreDemarcheEcheanceAndDureeFind = (demarches, ordre) =>
     )
 
 // trouve la date d'échéance et la durée d'une démarche d'octroi
-const demarcheOctroiEcheanceFind = (duree, demarche) => {
-  const a = demarcheEcheanceAndDureeFind(duree, demarche.etapes)
-  const d = duree + a.duree
+const demarcheOctroiEcheanceFind = (dureeAcc, demarche) => {
+  const demarcheEcheanceAndDuree = demarcheEcheanceAndDureeFind(
+    dureeAcc,
+    demarche.etapes
+  )
+  const duree = dureeAcc + demarcheEcheanceAndDuree.duree
   let echeance
 
-  // si la démarche
-  if (a.echeance) {
-    echeance = a.echeance
-  } else if (d === 0) {
+  if (demarcheEcheanceAndDuree.echeance) {
+    // si la démarche contient une date d'échéance
+    echeance = demarcheEcheanceAndDuree.echeance
+  } else if (duree === 0) {
+    // si il n'ya ni date d'échéance, ni durée cumulée,
+    // l'échéance par défaut est fixée au 31 décembre 2018
     echeance = '2018-12-31'
   } else {
+    // sinon, la date d'échéance est calculé
+    // en ajoutant la durée cumulée à la date de la première dpu
     const etapeDpu = titreEtapesSortAsc(demarche).filter(
       te => te.etapeId === 'dpu'
     )[0]
-    echeance = etapeDpu ? dateAddYears(etapeDpu.date, d) : 0
+    echeance = etapeDpu ? dateAddYears(etapeDpu.date, duree) : 0
   }
 
   return {
-    duree: d,
+    duree,
     echeance
   }
 }
@@ -83,7 +90,7 @@ const demarcheAnnuleeEcheanceFind = demarche => {
 // retourne
 // - echeance: la date d'échéance de la démarche si définie, sinon null
 // - duree: la durée de la démarche si définie, sinon 0
-const demarcheEcheanceAndDureeFind = (duree, etapes) =>
+const demarcheEcheanceAndDureeFind = (dureeAcc, etapes) =>
   etapes
     // filtre les étapes dont l'id est publication au jorf
     .filter(etape => etape.etapeId === 'dex')
@@ -104,7 +111,7 @@ const demarcheEcheanceAndDureeFind = (duree, etapes) =>
       // l'accumulateur contient initialement
       // - la durée cumulée
       // - la date d'échéance (null)
-      { duree, echeance: null }
+      { duree: dureeAcc, echeance: null }
     )
 
 // ajoute une durée en années à une date au format YYYY-MM-DD
