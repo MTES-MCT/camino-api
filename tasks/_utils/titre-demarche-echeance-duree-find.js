@@ -28,8 +28,11 @@ const titreDemarcheEcheanceAndDureeFind = (demarches, ordre) =>
           // la démarche est une abrogation, retrait ou renonciation
           ['abr', 'ret', 'ren'].includes(demarche.demarcheId)
         ) {
-          return demarcheAnnuleeEcheanceFind(demarche)
+          // trouve la date d'échéance d'une démarche d'annulation
+          return demarcheAnnulationEcheanceFind(demarche)
         } else {
+          // trouve soit la date d'échéance
+          // soit la durée d'une démarche
           return demarcheEcheanceAndDureeFind(duree, demarche.etapes)
         }
       },
@@ -41,11 +44,14 @@ const titreDemarcheEcheanceAndDureeFind = (demarches, ordre) =>
 
 // trouve la date d'échéance et la durée d'une démarche d'octroi
 const demarcheOctroiEcheanceFind = (dureeAcc, demarche) => {
+  // retourne la durée cumulée et la date d'échéance
+  // de la démarche d'octroi
   const demarcheEcheanceAndDuree = demarcheEcheanceAndDureeFind(
     dureeAcc,
     demarche.etapes
   )
-  const duree = dureeAcc + demarcheEcheanceAndDuree.duree
+
+  const duree = demarcheEcheanceAndDuree.duree
   let echeance
 
   if (demarcheEcheanceAndDuree.echeance) {
@@ -70,8 +76,8 @@ const demarcheOctroiEcheanceFind = (dureeAcc, demarche) => {
   }
 }
 
-// trouve la date d'échéance d'une démarche annulée
-const demarcheAnnuleeEcheanceFind = demarche => {
+// trouve la date d'échéance d'une démarche d'annulation
+const demarcheAnnulationEcheanceFind = demarche => {
   // la première étape de décision expresse (dex)
   const etapeDex = titreEtapesSortAsc(demarche).filter(
     te => te.etapeId === 'dex'
@@ -89,7 +95,7 @@ const demarcheAnnuleeEcheanceFind = demarche => {
 // - la durée cumulée
 // retourne
 // - echeance: la date d'échéance de la démarche si définie, sinon null
-// - duree: la durée de la démarche si définie, sinon 0
+// - duree: la durée cumulée
 const demarcheEcheanceAndDureeFind = (dureeAcc, etapes) =>
   etapes
     // filtre les étapes dont l'id est publication au jorf
@@ -97,20 +103,23 @@ const demarcheEcheanceAndDureeFind = (dureeAcc, etapes) =>
     // parcourt les étapes
     .reduce(
       ({ duree, echeance }, etape) =>
-        // si la date d'échéance et la durée ne sont pas définies
-        !echeance && !duree
-          ? // trouve la date d'échéance (ou la durée de l'étape)
+        // si la date d'échéance n'est pas définie
+        // et que l'étape contient soit une duree
+        // soit une date d'échéance
+        !echeance && (etape.duree || etape.echeance)
+          ? // soit ajoute la durée de l'étape à la durée cumulée
+            // soit trouve la date d'échéance
             {
               duree: etape.duree ? etape.duree + duree : duree,
               echeance: etape.echeance
                 ? dateAddYears(etape.echeance, duree)
                 : null
             }
-          : // sinon, retourne l'accumulateur en l'état
+          : // sinon, retourne l'accumulateur
             { duree, echeance },
       // l'accumulateur contient initialement
       // - la durée cumulée
-      // - la date d'échéance (null)
+      // - une date d'échéance (null)
       { duree: dureeAcc, echeance: null }
     )
 
