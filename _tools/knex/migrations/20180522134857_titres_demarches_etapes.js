@@ -40,11 +40,6 @@ exports.up = knex => {
       table.specificType('visas', 'text[]')
       table.integer('engagement')
       table.string('engagementDevise')
-      table.boolean('points')
-      table.boolean('pointsSecurite')
-      table.boolean('substances')
-      table.boolean('titulaires')
-      table.boolean('amodiataires')
     })
 }
 
