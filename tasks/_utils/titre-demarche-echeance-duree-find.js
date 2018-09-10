@@ -11,29 +11,33 @@ const titreDemarcheEcheanceAndDureeFind = (demarches, ordre) =>
   demarches
     // liste les démarches précédentes dont le statut est acceptée ou terminée
     .filter(
-      td => ['acc', 'ter'].includes(td.demarcheStatutId) && ordre >= td.ordre
+      td =>
+        (td.demarcheStatutId === 'acc' || td.demarcheStatutId === 'ter') &&
+        ordre >= td.ordre
     )
     // parcourt les démarches
     .reduce(
-      ({ duree, echeance }, demarche) => {
+      ({ duree, echeance }, td) => {
         // l'échéance est déja définie -> retourne l'accumulateur tel quel
         if (echeance) {
           return { duree, echeance }
         } else if (
           // la démarche est un octroi
-          demarche.demarcheId === 'oct'
+          td.demarcheId === 'oct'
         ) {
-          return demarcheOctroiEcheanceFind(duree, demarche)
+          return demarcheOctroiEcheanceFind(duree, td)
         } else if (
           // la démarche est une abrogation, retrait ou renonciation
-          ['abr', 'ret', 'ren'].includes(demarche.demarcheId)
+          td.demarcheId === 'abr' ||
+          td.demarcheId === 'ret' ||
+          (td.demarcheId === 'ren' && !td.etapes.find(te => te.points))
         ) {
           // trouve la date d'échéance d'une démarche d'annulation
-          return demarcheAnnulationEcheanceFind(demarche)
+          return demarcheAnnulationEcheanceFind(td)
         } else {
           // trouve soit la date d'échéance
           // soit la durée d'une démarche
-          return demarcheEcheanceAndDureeFind(duree, demarche.etapes)
+          return demarcheEcheanceAndDureeFind(duree, td.etapes)
         }
       },
       // l'accumulateur contient initialement
