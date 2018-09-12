@@ -1,7 +1,6 @@
-version: "3"
+version: '3'
 
 services:
-
   app:
     image: node:alpine
     volumes:
@@ -15,7 +14,7 @@ services:
       - ${NODE_PORT}:${NODE_PORT}
     command: npm run dev
 
-  postgres: 
+  postgres:
     image: postgres:alpine
     environment:
       PGUSER: ${PGUSER}
