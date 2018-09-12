@@ -87,8 +87,8 @@ Pré-requis:
 ```bash
 # démarre l'application et la base de données dans des containers Docker
 # en mode `production`
-# accessible à http://api.camino.pw
-docker-compose -f ./docker-compose.ovh.yml up -d --build
+# accessible à http://api.camino.beta.gouv.fr
+docker-compose -f ./docker-compose.prod.yml up -d --build
 ```
 
 ---
