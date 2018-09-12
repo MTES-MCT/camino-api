@@ -1,7 +1,6 @@
-version: "3"
+version: '3'
 
 services:
-
   app:
     build: .
     depends_on:
@@ -12,8 +11,8 @@ services:
       PGHOST: postgres
     expose:
       - ${NODE_PORT}
-  
-  postgres: 
+
+  postgres:
     image: postgres:alpine
     environment:
       PGUSER: ${PGUSER}
