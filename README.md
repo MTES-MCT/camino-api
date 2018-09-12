@@ -8,8 +8,8 @@
 
 - Node.js
 - Express.js
-- Express-GraphQL
 - PostgreSQL
+- Express-GraphQL
 - Knex.js
 - Objection.js
 - Eslint
