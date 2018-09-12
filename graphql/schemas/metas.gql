@@ -85,6 +85,7 @@ enum TypeId {
   pxg
   pxh
   pxm
+  pxx
 }
 
 """
