@@ -29,7 +29,8 @@ type Etape {
   ordre: Int!
   date: String!
   duree: Int
-  echeance: String
+  dateDebut: String
+  dateFin: String
   surface: Float
   emprise: Emprise
   substances: [TitreSubstance]

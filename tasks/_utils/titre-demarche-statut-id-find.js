@@ -80,7 +80,7 @@ const titreDemarcheStatutIdFind = titreDemarche => {
       // - le type de l’étape est publication au JO
       // - et le statut de l’étape est terminée
       titreEtapeRecent.etapeId === 'dpu' &&
-      titreEtapeRecent.etapeStatutId === 'ter'
+      titreEtapeRecent.etapeStatutId === 'fai'
     ) {
       // - le statut de la démarche est terminée
       titreDemarcheStatutId = 'ter'

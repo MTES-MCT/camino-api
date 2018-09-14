@@ -21,7 +21,7 @@ const tables = [
   { name: '_amodiataires', cb: null },
   { name: '_utilisateurs', cb: null },
   { name: '_emprises', cb: null },
-  { name: '_verifications', cb: null }
+  { name: '_erreurs', cb: null }
 ]
 
 module.exports = async (spreadsheetId, domaineId) =>
