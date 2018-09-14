@@ -35,11 +35,13 @@ exports.up = knex => {
       table.integer('ordre')
       table.date('date').notNullable()
       table.integer('duree')
-      table.date('echeance')
+      table.date('dateDebut')
+      table.date('dateFin')
       table.float('surface')
       table.specificType('visas', 'text[]')
       table.integer('engagement')
       table.string('engagementDevise')
+      table.boolean('sourceIndisponible')
     })
 }
 
