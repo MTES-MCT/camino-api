@@ -37,6 +37,7 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
+    "bcrypt": "^3.0.0",
     "es6-shim": "^0.35.3",
     "eslint": "^5.5.0",
     "eslint-config-prettier": "^3.0.1",

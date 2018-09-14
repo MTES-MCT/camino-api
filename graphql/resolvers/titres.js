@@ -6,8 +6,6 @@ const {
   titreModifier
 } = require('../../postgres/queries/titres')
 
-const { types, domaines, statuts } = require('../../postgres/queries/metas')
-
 const {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
@@ -38,7 +36,7 @@ const titreFormat = t => {
 
 const resolvers = {
   titre: async ({ id }, context, info) => {
-    const titre = await titreGet(id)
+    const titre = await titreGet(id, context.user)
     return titreFormat(titre)
   },
 

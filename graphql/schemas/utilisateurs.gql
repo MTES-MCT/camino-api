@@ -1,0 +1,23 @@
+type Utilisateur {
+  id: ID!
+  email: String!
+  password: String!
+  nom: String
+  prenom: String
+  telephoneMobile: String
+  telephoneFixe: String
+  administrationId: String
+  entrepriseId: String
+}
+
+input InputUtilisateur {
+  id: ID!
+  email: String!
+  password: String!
+  nom: String
+  prenom: String
+  telephoneMobile: String
+  telephoneFixe: String
+  administrationId: String
+  entrepriseId: String
+}

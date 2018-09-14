@@ -41,3 +41,7 @@ input InputSubstanceLegal {
   description: String!
   lien: String!
 }
+
+input InputSubstanceId {
+  id: ID!
+}

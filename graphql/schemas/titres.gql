@@ -69,17 +69,6 @@ type Entreprise {
   ville: String
 }
 
-type Utilisateur {
-  id: ID!
-  nom: String!
-  prenom: String
-  email: String
-  telephoneMobile: String
-  telephoneFixe: String
-  administrationId: String
-  entrepriseId: String
-}
-
 type Document {
   id: ID!
   nom: String!
@@ -107,14 +96,6 @@ input InputTitre {
   references: [InputReference]
 }
 
-input InputType {
-  id: TypeId!
-}
-
-input InputDomaine {
-  id: DomaineId!
-}
-
 input InputReference {
   type: String
 }
@@ -126,10 +107,6 @@ input InputDemarche {
   ordre: Int
 }
 
-input InputDemarcheTypeId {
-  id: ID!
-}
-
 input InputEtape {
   id: ID!
   type: InputEtapeTypeId!
@@ -138,14 +115,6 @@ input InputEtape {
   surface: Float
   emprise: [InputEmpriseId]
   substances: [InputSubstanceId!]
-}
-
-input InputSubstanceId {
-  id: ID!
-}
-
-input InputEtapeTypeId {
-  id: ID!
 }
 
 input InputEmpriseId {
