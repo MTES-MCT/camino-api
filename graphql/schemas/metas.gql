@@ -190,3 +190,19 @@ enum Couleur {
   success
   warning
 }
+
+input InputType {
+  id: TypeId!
+}
+
+input InputDomaine {
+  id: DomaineId!
+}
+
+input InputDemarcheTypeId {
+  id: ID!
+}
+
+input InputEtapeTypeId {
+  id: ID!
+}

@@ -8,15 +8,18 @@ class Utilisateurs extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom'],
+      required: ['id', 'email', 'password'],
 
       properties: {
         id: { type: 'string', maxLength: 64 },
+        email: { type: 'string' },
+        password: { type: 'string' },
         nom: { type: 'string' },
         prenom: { type: 'string' },
-        email: { type: 'string' },
         telephone_fixe: { type: 'string' },
-        telephone_mobile: { type: 'string' }
+        telephone_mobile: { type: 'string' },
+        entrepriseId: { type: 'string', maxLength: 64 },
+        administrationId: { type: 'string', maxLength: 64 }
       }
     }
   }

@@ -36,6 +36,10 @@ exports.up = knex => {
     })
     .createTable('utilisateurs', table => {
       table.string('id').primary()
+      table.string('email').notNullable()
+      table.string('password').notNullable()
+      table.string('nom')
+      table.string('prenom')
       table
         .string('administrationId', 64)
         .references('administrations.id')
@@ -44,8 +48,6 @@ exports.up = knex => {
         .string('entrepriseId', 64)
         .references('entreprises.id')
         .onDelete('CASCADE')
-      table.string('nom').notNullable()
-      table.string('email')
       table.string('telephoneFixe')
       table.string('telephoneMobile')
     })

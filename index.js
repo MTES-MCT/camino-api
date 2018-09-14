@@ -15,7 +15,7 @@ const express = require('express')
 const cors = require('cors')
 const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
-const jwt = require('express-jwt')
+const expressJwt = require('express-jwt')
 const { env, port, url, jwtSecret } = require('./conf')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
@@ -24,13 +24,13 @@ console.log(chalk.bgWhiteBright.black.bold('> Token: Bearer ' + token + ' '))
 
 const app = express()
 
-app.use(cors())
+app.use(cors({ credentials: true }))
 
 app.use(compression())
 
 app.use(
   '/',
-  jwt({
+  expressJwt({
     secret: jwtSecret || 'jwtSecret should be declared in .env',
     credentialsRequired: false
   }),
