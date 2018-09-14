@@ -5,9 +5,10 @@ const Substances = require('./substances')
 const TitresPoints = require('./titres-points')
 const Entreprises = require('./entreprises')
 const Utilisateurs = require('./utilisateurs')
-const titresAdministrations = require('./titres-administrations')
-const titresDocuments = require('./titres-documents')
-const titresEmprises = require('./titres-emprises')
+const TitresAdministrations = require('./titres-administrations')
+const TitresDocuments = require('./titres-documents')
+const TitresEmprises = require('./titres-emprises')
+const TitresErreurs = require('./titres-erreurs')
 
 class TitresEtapes extends Model {
   static get tableName() {
@@ -24,12 +25,15 @@ class TitresEtapes extends Model {
         titreDemarcheId: { type: 'string', maxLength: 128 },
         etapeId: { type: 'string', maxLength: 3 },
         etapeStatutId: { type: 'string', maxLength: 3 },
-        ordre: { type: 'integer' },
         date: { type: 'date' },
         duree: { type: 'integer' },
-        echeance: { type: 'date' },
+        dateDebut: { type: 'date' },
+        dateFin: { type: 'date' },
         surface: { type: 'integer' },
-        visas: { type: 'json' }
+        visas: { type: 'json' },
+        ordre: { type: 'integer' },
+        engagement: { type: 'integer' },
+        engagementDevise: { type: 'string' }
       }
     }
   }
@@ -111,7 +115,7 @@ class TitresEtapes extends Model {
       },
       administrations: {
         relation: Model.HasManyRelation,
-        modelClass: titresAdministrations,
+        modelClass: TitresAdministrations,
         join: {
           from: 'titresEtapes.id',
           to: 'titresAdministrations.titreEtapeId'
@@ -119,7 +123,7 @@ class TitresEtapes extends Model {
       },
       documents: {
         relation: Model.HasManyRelation,
-        modelClass: titresDocuments,
+        modelClass: TitresDocuments,
         join: {
           from: 'titresEtapes.id',
           to: 'titresDocuments.titreEtapeId'
@@ -127,10 +131,18 @@ class TitresEtapes extends Model {
       },
       emprises: {
         relation: Model.HasManyRelation,
-        modelClass: titresEmprises,
+        modelClass: TitresEmprises,
         join: {
           from: 'titresEtapes.id',
           to: 'titresEmprises.titreEtapeId'
+        }
+      },
+      erreurs: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresErreurs,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresErreurs.titreEtapeId'
         }
       }
     }

@@ -9,7 +9,7 @@ const cSubstances = require('../../sources/titres-c-substances.json')
 const cTitulaires = require('../../sources/titres-c-titulaires.json')
 const cAmodiataires = require('../../sources/titres-c-amodiataires.json')
 const cUtilisateurs = require('../../sources/titres-c-utilisateurs.json')
-const cVerifications = require('../../sources/titres-c-verifications.json')
+const cErreurs = require('../../sources/titres-c-erreurs.json')
 
 const f = require('../../sources/titres-f.json')
 const fDemarches = require('../../sources/titres-f-demarches.json')
@@ -22,7 +22,7 @@ const fSubstances = require('../../sources/titres-f-substances.json')
 const fTitulaires = require('../../sources/titres-f-titulaires.json')
 const fAmodiataires = require('../../sources/titres-f-amodiataires.json')
 const fUtilisateurs = require('../../sources/titres-f-utilisateurs.json')
-const fVerifications = require('../../sources/titres-f-verifications.json')
+const fErreurs = require('../../sources/titres-f-erreurs.json')
 
 const g = require('../../sources/titres-g.json')
 const gDemarches = require('../../sources/titres-g-demarches.json')
@@ -35,7 +35,7 @@ const gSubstances = require('../../sources/titres-g-substances.json')
 const gTitulaires = require('../../sources/titres-g-titulaires.json')
 const gAmodiataires = require('../../sources/titres-g-amodiataires.json')
 const gUtilisateurs = require('../../sources/titres-g-utilisateurs.json')
-const gVerifications = require('../../sources/titres-g-verifications.json')
+const gErreurs = require('../../sources/titres-g-erreurs.json')
 
 const h = require('../../sources/titres-h.json')
 const hDemarches = require('../../sources/titres-h-demarches.json')
@@ -48,7 +48,7 @@ const hSubstances = require('../../sources/titres-h-substances.json')
 const hTitulaires = require('../../sources/titres-h-titulaires.json')
 const hAmodiataires = require('../../sources/titres-h-amodiataires.json')
 const hUtilisateurs = require('../../sources/titres-h-utilisateurs.json')
-const hVerifications = require('../../sources/titres-h-verifications.json')
+const hErreurs = require('../../sources/titres-h-erreurs.json')
 
 const m = require('../../sources/titres-m.json')
 const mDemarches = require('../../sources/titres-m-demarches.json')
@@ -61,7 +61,7 @@ const mSubstances = require('../../sources/titres-m-substances.json')
 const mTitulaires = require('../../sources/titres-m-titulaires.json')
 const mAmodiataires = require('../../sources/titres-m-amodiataires.json')
 const mUtilisateurs = require('../../sources/titres-m-utilisateurs.json')
-const mVerifications = require('../../sources/titres-m-verifications.json')
+const mErreurs = require('../../sources/titres-m-erreurs.json')
 
 const m973 = require('../../sources/titres-m973.json')
 const m973Demarches = require('../../sources/titres-m973-demarches.json')
@@ -74,7 +74,7 @@ const m973Substances = require('../../sources/titres-m973-substances.json')
 const m973Titulaires = require('../../sources/titres-m973-titulaires.json')
 const m973Amodiataires = require('../../sources/titres-m973-amodiataires.json')
 const m973Utilisateurs = require('../../sources/titres-m973-utilisateurs.json')
-const m973Verifications = require('../../sources/titres-m973-verifications.json')
+const m973Erreurs = require('../../sources/titres-m973-erreurs.json')
 
 const r = require('../../sources/titres-r.json')
 const rDemarches = require('../../sources/titres-r-demarches.json')
@@ -87,7 +87,7 @@ const rSubstances = require('../../sources/titres-r-substances.json')
 const rTitulaires = require('../../sources/titres-r-titulaires.json')
 const rAmodiataires = require('../../sources/titres-r-amodiataires.json')
 const rUtilisateurs = require('../../sources/titres-r-utilisateurs.json')
-const rVerifications = require('../../sources/titres-r-verifications.json')
+const rErreurs = require('../../sources/titres-r-erreurs.json')
 
 const s = require('../../sources/titres-s.json')
 const sDemarches = require('../../sources/titres-s-demarches.json')
@@ -100,7 +100,7 @@ const sSubstances = require('../../sources/titres-s-substances.json')
 const sTitulaires = require('../../sources/titres-s-titulaires.json')
 const sAmodiataires = require('../../sources/titres-s-amodiataires.json')
 const sUtilisateurs = require('../../sources/titres-s-utilisateurs.json')
-const sVerifications = require('../../sources/titres-s-verifications.json')
+const sErreurs = require('../../sources/titres-s-erreurs.json')
 
 const w = require('../../sources/titres-w.json')
 const wDemarches = require('../../sources/titres-w-demarches.json')
@@ -113,7 +113,7 @@ const wSubstances = require('../../sources/titres-w-substances.json')
 const wTitulaires = require('../../sources/titres-w-titulaires.json')
 const wAmodiataires = require('../../sources/titres-w-amodiataires.json')
 const wUtilisateurs = require('../../sources/titres-w-utilisateurs.json')
-const wVerifications = require('../../sources/titres-w-verifications.json')
+const wErreurs = require('../../sources/titres-w-erreurs.json')
 
 const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...r, ...w, ...f]
 
@@ -237,16 +237,16 @@ const titresEmprises = [
   ...fEmprises
 ]
 
-const titresVerifications = [
-  ...mVerifications,
-  ...m973Verifications,
-  ...hVerifications,
-  ...sVerifications,
-  ...cVerifications,
-  ...gVerifications,
-  ...rVerifications,
-  ...wVerifications,
-  ...fVerifications
+const titresErreurs = [
+  ...mErreurs,
+  ...m973Erreurs,
+  ...hErreurs,
+  ...sErreurs,
+  ...cErreurs,
+  ...gErreurs,
+  ...rErreurs,
+  ...wErreurs,
+  ...fErreurs
 ]
 
 exports.seed = (knex, Promise) =>
@@ -257,7 +257,7 @@ exports.seed = (knex, Promise) =>
     knex('titresUtilisateurs').del(),
     knex('titresTitulaires').del(),
     knex('titresAmodiataires').del(),
-    knex('titresVerifications').del(),
+    knex('titresErreurs').del(),
     knex('titresDocuments').del()
   ])
     .then(() => knex('titresPoints').del())
@@ -274,7 +274,7 @@ exports.seed = (knex, Promise) =>
         knex('titresEmprises').insert(titresEmprises),
         knex('titresTitulaires').insert(titresTitulaires),
         knex('titresAmodiataires').insert(titresAmodiataires),
-        knex('titresVerifications').insert(titresVerifications),
+        knex('titresErreurs').insert(titresErreurs),
         knex('titresUtilisateurs').insert(titresUtilisateurs),
         knex('titresDocuments').insert(titresDocuments)
       ])
