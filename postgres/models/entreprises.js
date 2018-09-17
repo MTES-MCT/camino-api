@@ -40,7 +40,7 @@ class Entreprises extends Model {
         modelClass: Utilisateurs,
         join: {
           from: 'entreprises.id',
-          to: 'utilisateurs.entreprise_id'
+          to: 'utilisateurs.entrepriseId'
         }
       }
     }
