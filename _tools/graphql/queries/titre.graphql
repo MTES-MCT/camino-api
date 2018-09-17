@@ -34,7 +34,8 @@ query Titre($id: String!) {
         id
         date
         duree
-        echeance
+        dateDebut
+        dateFin
         type {
           id
           nom
