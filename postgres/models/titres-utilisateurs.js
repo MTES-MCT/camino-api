@@ -9,11 +9,11 @@ class TitresUtilisateurs extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['utilisateurId', 'titre_etapeId'],
+      required: ['utilisateurId', 'titreEtapeId'],
 
       properties: {
         utilisateurId: { type: 'string', maxLength: 64 },
-        titre_etapeId: { type: 'string', maxLength: 128 }
+        titreEtapeId: { type: 'string', maxLength: 128 }
       }
     }
   }
@@ -29,6 +29,10 @@ class TitresUtilisateurs extends Model {
         }
       }
     }
+  }
+
+  static get idColumn() {
+    return ['utilisateurId', 'titreEtapeId']
   }
 }
 

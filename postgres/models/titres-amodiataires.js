@@ -9,11 +9,11 @@ class TitresAmodiataires extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['entrepriseId', 'titre_etapeId'],
+      required: ['entrepriseId', 'titreEtapeId'],
 
       properties: {
-        entreprise_id: { type: 'string', maxLength: 64 },
-        titre_etape_id: { type: 'string', maxLength: 128 }
+        entrepriseId: { type: 'string', maxLength: 64 },
+        titreEtapeId: { type: 'string', maxLength: 128 }
       }
     }
   }
@@ -29,6 +29,10 @@ class TitresAmodiataires extends Model {
         }
       }
     }
+  }
+
+  static get idColumn() {
+    return ['entrepriseId', 'titreEtapeId']
   }
 }
 

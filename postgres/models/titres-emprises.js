@@ -30,6 +30,10 @@ class TitresEmprises extends Model {
       }
     }
   }
+
+  static get idColumn() {
+    return ['empriseId', 'titreEtapeId']
+  }
 }
 
 module.exports = TitresEmprises
