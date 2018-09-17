@@ -9,11 +9,11 @@ class TitresAdministrations extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['administrationId', 'titre_etapeId'],
+      required: ['administrationId', 'titreEtapeId'],
 
       properties: {
-        administration_id: { type: 'string', maxLength: 64 },
-        titre_etape_id: { type: 'string', maxLength: 128 }
+        administrationId: { type: 'string', maxLength: 64 },
+        titreEtapeId: { type: 'string', maxLength: 128 }
       }
     }
   }
@@ -29,6 +29,10 @@ class TitresAdministrations extends Model {
         }
       }
     }
+  }
+
+  static get idColumn() {
+    return ['administrationId', 'titreEtapeId']
   }
 }
 
