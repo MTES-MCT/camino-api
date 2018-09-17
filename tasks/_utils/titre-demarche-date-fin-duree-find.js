@@ -19,6 +19,7 @@ const titreDemarcheDateFinAndDureeFind = (demarches, ordre) =>
     // parcourt les démarches
     .reduce(
       ({ duree, dateFin }, td) => {
+        // console.log(demarches.map(d => d.id))
         // la date de fin est déja définie -> retourne l'accumulateur tel quel
         if (dateFin) {
           return { duree, dateFin }
@@ -51,7 +52,7 @@ const titreDemarcheDateFinAndDureeFind = (demarches, ordre) =>
 const demarcheOctroiDateFinFind = (dureeAcc, demarche) => {
   // retourne la durée cumulée et la date de fin
   // de la démarche d'octroi
-  const demarcheDateFinAndDuree = demarcheDateFinAndDureeFind(
+  const { duree, dateFin } = demarcheDateFinAndDureeFind(
     dureeAcc,
     demarche.etapes
   )
@@ -61,32 +62,31 @@ const demarcheOctroiDateFinFind = (dureeAcc, demarche) => {
     .filter(te => te.etapeId === 'dpu')
     .find(te => te.dateDebut)
 
-  const duree = demarcheDateFinAndDuree.duree
-  let dateFin
+  let dateFinUpdated
 
-  if (demarcheDateFinAndDuree.dateFin) {
+  if (dateFin) {
     // si la démarche contient une date de fin
-    dateFin = demarcheDateFinAndDuree.dateFin
+    dateFinUpdated = dateFin
   } else if (duree === 0) {
     // si il n'ya ni date de fin, ni durée cumulée,
     // la date de fin par défaut est fixée au 31 décembre 2018
-    dateFin = '2018-12-31'
+    dateFinUpdated = '2018-12-31'
   } else if (etapeDpuHasDateDebut) {
     // si il n'y a ni date de fin, ni durée cumulée,
     // la date de fin par défaut est fixée au 31 décembre 2018
-    dateFin = dateAddYears(etapeDpuHasDateDebut.dateDebut, duree)
+    dateFinUpdated = dateAddYears(etapeDpuHasDateDebut.dateDebut, duree)
   } else {
     // sinon, la date de fin est calculé
     // en ajoutant la durée cumulée à la date de la première dpu ou ens
     const etapeDpu = titreEtapesSortAsc(demarche).find(
       te => te.etapeId === 'dpu'
     )
-    dateFin = etapeDpu ? dateAddYears(etapeDpu.date, duree) : 0
+    dateFinUpdated = etapeDpu ? dateAddYears(etapeDpu.date, duree) : 0
   }
 
   return {
     duree,
-    dateFin
+    dateFin: dateFinUpdated
   }
 }
 
