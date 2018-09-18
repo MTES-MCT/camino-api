@@ -10,7 +10,13 @@ const titresDemarchesOrdreUpdate = async () => {
 
   const titresDemarchesUpdated = titresDemarches.reduce(
     (arr, titreDemarche) => {
-      const ordre = titreDemarcheOrdreFind(titreDemarche, titresDemarches)
+      // démarches appartenant au même titre
+      const titreDemarches = titreDemarchesByTitreFind(
+        titresDemarches,
+        titreDemarche.titreId
+      )
+
+      const ordre = titreDemarcheOrdreFind(titreDemarche, titreDemarches)
 
       if (ordre !== titreDemarche.ordre) {
         const titreDemarcheUdpate = titreDemarcheOrdreUpdate({
@@ -39,5 +45,9 @@ const titresDemarchesOrdreUpdate = async () => {
 
   return update
 }
+
+// retourne les démarches appartenant au même titre
+const titreDemarchesByTitreFind = (titresDemarches, titreId) =>
+  titresDemarches.filter(titreDemarche => titreDemarche.titreId === titreId)
 
 module.exports = titresDemarchesOrdreUpdate

@@ -1,6 +1,7 @@
 const { Model } = require('objection')
 const Demarches = require('./demarches')
 const DemarchesStatuts = require('./demarches-statuts')
+const TitresPhases = require('./titres-phases')
 const TitresEtapes = require('./titres-etapes')
 
 class TitresDemarches extends Model {
@@ -41,6 +42,14 @@ class TitresDemarches extends Model {
           to: 'demarchesStatuts.id'
         }
       },
+      phase: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: TitresPhases,
+        join: {
+          from: 'titresDemarches.id',
+          to: 'titresPhases.titreDemarcheId'
+        }
+      },
       etapes: {
         relation: Model.HasManyRelation,
         modelClass: TitresEtapes,
@@ -63,7 +72,7 @@ class TitresDemarches extends Model {
 
   static get namedFilters() {
     return {
-      orderDesc: builder => {
+      orderAsc: builder => {
         builder.orderBy('ordre', 'asc')
       }
     }
