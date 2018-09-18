@@ -261,7 +261,9 @@ exports.seed = (knex, Promise) =>
     knex('titresDocuments').del()
   ])
     .then(() => knex('titresPoints').del())
-    .then(() => knex('titresEtapes').del())
+    .then(() =>
+      Promise.all([knex('titresEtapes').del(), knex('titresPhases').del()])
+    )
     .then(() => knex('titresDemarches').del())
     .then(() => knex('titres').del())
     .then(() => knex('titres').insert(titres))

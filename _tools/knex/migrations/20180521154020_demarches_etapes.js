@@ -47,6 +47,11 @@ exports.up = knex => {
       table.integer('ordre')
       table.primary(['demarcheId', 'demarcheStatutId'])
     })
+    .createTable('phasesStatuts', table => {
+      table.string('id', 3).primary()
+      table.string('nom', 32).notNullable()
+      table.string('couleur', 16).notNullable()
+    })
     .createTable('etapes', table => {
       table.string('id', 3).primary()
       table.string('nom', 128)
@@ -96,9 +101,10 @@ exports.down = knex => {
     .dropTable('etapes__etapesStatuts')
     .dropTable('etapesStatuts')
     .dropTable('demarches__etapes')
+    .dropTable('etapes')
     .dropTable('demarches__demarchesStatuts')
     .dropTable('demarchesStatuts')
     .dropTable('demarches__types')
     .dropTable('demarches')
-    .dropTable('etapes')
+    .dropTable('phasesStatuts')
 }

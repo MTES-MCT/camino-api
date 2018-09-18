@@ -6,6 +6,7 @@ const queries = {
     TitresDemarches.query()
       .skipUndefined()
       .eager(options.demarches.eager)
+      .orderBy('ordre')
       .whereIn('titresDemarches.demarcheId', demarcheIds),
 
   titreDemarcheStatutIdUpdate: async ({ id, demarcheStatutId }) =>
