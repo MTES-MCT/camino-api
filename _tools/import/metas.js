@@ -11,6 +11,7 @@ const tables = [
   'demarches_statuts',
   'demarches__types',
   'demarches__demarches_statuts',
+  'phases_statuts',
   'etapes',
   'etapes_statuts',
   'etapes__etapes_statuts',

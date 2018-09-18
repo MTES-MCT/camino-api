@@ -22,6 +22,21 @@ type Reference {
   valeur: String!
 }
 
+type Demarche {
+  id: ID!
+  type: DemarcheType!
+  ordre: Int!
+  statut: DemarcheStatut!
+  phase: Phase
+  etapes: [Etape]
+}
+
+type Phase {
+  statut: PhaseStatut!
+  dateDebut: String
+  dateFin: String
+}
+
 type Etape {
   id: ID!
   type: EtapeType!

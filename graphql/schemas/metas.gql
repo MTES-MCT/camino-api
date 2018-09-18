@@ -20,14 +20,6 @@ type Statut {
   couleur: Couleur!
 }
 
-type Demarche {
-  id: ID!
-  type: DemarcheType!
-  ordre: Int!
-  statut: DemarcheStatut!
-  etapes: [Etape]
-}
-
 type DemarcheType {
   id: ID!
   nom: String!
@@ -39,6 +31,12 @@ type DemarcheType {
 
 type DemarcheStatut {
   id: DemarcheStatutId!
+  nom: String!
+  couleur: Couleur!
+}
+
+type PhaseStatut {
+  id: PhaseStatutId!
   nom: String!
   couleur: Couleur!
 }
@@ -158,6 +156,15 @@ enum DemarcheStatutId {
   rej
   ret
   ter
+}
+
+"""
+- __val__: Valide
+- __ech__: Échu
+"""
+enum PhaseStatutId {
+  val
+  ech
 }
 
 """

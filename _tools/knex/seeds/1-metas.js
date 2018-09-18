@@ -2,6 +2,7 @@ const domaines = require('../../sources/domaines.json')
 const types = require('../../sources/types.json')
 const domainesTypes = require('../../sources/domaines--types.json')
 const statuts = require('../../sources/statuts.json')
+const phasesStatuts = require('../../sources/phases-statuts.json')
 const demarches = require('../../sources/demarches.json')
 const demarchesTypes = require('../../sources/demarches--types.json')
 const demarchesStatuts = require('../../sources/demarches-statuts.json')
@@ -24,6 +25,7 @@ exports.seed = (knex, Promise) =>
   ])
     .then(() =>
       Promise.all([
+        knex('phasesStatuts').del(),
         knex('demarches').del(),
         knex('etapes').del(),
         knex('demarchesStatuts').del(),
@@ -36,6 +38,7 @@ exports.seed = (knex, Promise) =>
         knex('domaines').insert(domaines),
         knex('types').insert(types),
         knex('statuts').insert(statuts),
+        knex('phasesStatuts').insert(phasesStatuts),
         knex('demarches').insert(demarches),
         knex('etapes').insert(etapes),
         knex('emprises').insert(emprises),

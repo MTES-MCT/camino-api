@@ -150,7 +150,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1650.00</y>
+            <y>1600.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -320,7 +320,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1100.00</y>
+            <y>850.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -393,7 +393,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1350.00</y>
+            <y>1100.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -990,49 +990,6 @@
         <uid><![CDATA[4CADC010-6331-4463-81BB-16522D0B3513]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[phases]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>500.00</x>
-            <y>850.00</y>
-        </location>
-        <size>
-            <width>300.00</width>
-            <height>60.00</height>
-        </size>
-        <zorder>41</zorder>
-        <SQLField>
-            <name><![CDATA[id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <referencesField>phase_id</referencesField>
-            <referencesTable>titres_phases</referencesTable>
-            <referencesField><![CDATA[phase_id]]></referencesField>
-            <referencesTable><![CDATA[titres_phases]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[742FA562-65F8-4F34-84EF-80E01170E33B]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[58528CA6-CB88-4111-8E16-5F70B8F4A123]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <notNull><![CDATA[0]]></notNull>
-            <PK_NAME><![CDATA[titresTypes_pkey]]></PK_NAME>
-            <uid><![CDATA[BA53AC34-0623-4569-8195-BBC47E9AEFDB]]></uid>
-            <unique><![CDATA[0]]></unique>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[nom]]></name>
-            <type><![CDATA[CHARACTER VARYING(255)]]></type>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <notNull><![CDATA[1]]></notNull>
-            <uid><![CDATA[A5D556A2-3EA0-4D98-A166-CED38C7BDB4D]]></uid>
-        </SQLField>
-        <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
-        <PK_KEY_NAME><![CDATA[titresTypes_pkey]]></PK_KEY_NAME>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[4D2249CF-EFB2-48D2-A1FF-D532FEB38FE7]]></uid>
-    </SQLTable>
-    <SQLTable>
         <name><![CDATA[titres_points_references]]></name>
         <schema><![CDATA[]]></schema>
         <location>
@@ -1081,80 +1038,15 @@
         <uid><![CDATA[550F77D4-E524-4004-8830-73996AEB3D36]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[titres_phases]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>900.00</x>
-            <y>750.00</y>
-        </location>
-        <size>
-            <width>300.00</width>
-            <height>140.00</height>
-        </size>
-        <zorder>40</zorder>
-        <SQLField>
-            <name><![CDATA[titre_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(128)]]></type>
-            <primaryKey>1</primaryKey>
-            <referencesField>id</referencesField>
-            <referencesTable>titres</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[titres]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[1D0B5878-7284-40FC-814D-CE8B24FCCC79]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[376C13F3-7ABB-428B-9877-EFBD5AAB7A2A]]></referencesTableUID>
-            <uid><![CDATA[161390EB-7DFD-45FB-A554-937E04A67F65]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[phase_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <forcedUnique><![CDATA[1]]></forcedUnique>
-            <uid><![CDATA[742FA562-65F8-4F34-84EF-80E01170E33B]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[phase_statut_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>phases_statuts</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[phases_statuts]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[EF464CF2-4CAB-4A5C-B8CD-F495BBC4518D]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[F0C31758-CA5A-4942-9447-860CD9EB442B]]></referencesTableUID>
-            <uid><![CDATA[8255031B-3D51-44FA-A10C-BFE4D84362D4]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[date_debut]]></name>
-            <type><![CDATA[DATE]]></type>
-            <uid><![CDATA[7428F979-49D0-48A2-B6EC-84193A664556]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[date_fin]]></name>
-            <type><![CDATA[DATE]]></type>
-            <uid><![CDATA[F0306EAC-A997-436A-91C2-E684A460726A]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[ordre]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <uid><![CDATA[CD02F8A9-72C9-4FD1-AD66-A4493448631D]]></uid>
-        </SQLField>
-        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[58528CA6-CB88-4111-8E16-5F70B8F4A123]]></uid>
-    </SQLTable>
-    <SQLTable>
         <name><![CDATA[titres_etapes]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1150.00</y>
+            <y>1100.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>300.00</height>
+            <height>350.00</height>
         </size>
         <zorder>13</zorder>
         <SQLField>
@@ -1233,6 +1125,16 @@
             <name><![CDATA[surface]]></name>
             <type><![CDATA[REAL]]></type>
             <uid><![CDATA[B0DD99EB-14BC-4464-98EF-C4C6D8D87FAF]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[volume]]></name>
+            <type><![CDATA[REAL]]></type>
+            <uid><![CDATA[EC878B86-39FC-42C8-89DB-5AAC20F58973]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[volume_unite]]></name>
+            <type><![CDATA[CHARACTER VARYING(size)]]></type>
+            <uid><![CDATA[A383154B-286C-42DF-8767-76FA36ED6102]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[visas]]></name>
@@ -1435,7 +1337,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1800.00</y>
+            <y>1750.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1521,7 +1423,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>1500.00</y>
+            <y>1400.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1639,6 +1541,59 @@
         <labelWindowIndex><![CDATA[28]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[85AD5721-B812-455D-8101-E2FE4EF8AAAC]]></uid>
+    </SQLTable>
+    <SQLTable>
+        <name><![CDATA[titres_phases]]></name>
+        <schema><![CDATA[]]></schema>
+        <location>
+            <x>900.00</x>
+            <y>950.00</y>
+        </location>
+        <size>
+            <width>300.00</width>
+            <height>100.00</height>
+        </size>
+        <zorder>41</zorder>
+        <SQLField>
+            <name><![CDATA[titre_demarche_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(128)]]></type>
+            <primaryKey>1</primaryKey>
+            <referencesField>id</referencesField>
+            <referencesTable>titres_demarches</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[titres_demarches]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[86FB517D-C1A7-4DE8-B9F6-9E594BC7B9B6]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[A8AC6C3C-BEF3-47F5-9BD6-018222E08D22]]></referencesTableUID>
+            <connectorMidPoint><![CDATA[1214.000000]]></connectorMidPoint>
+            <uid><![CDATA[D8A962A3-8442-444C-948B-A56596BA2F81]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[phase_statut_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>phases_statut</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[phases_statut]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[EF464CF2-4CAB-4A5C-B8CD-F495BBC4518D]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[F0C31758-CA5A-4942-9447-860CD9EB442B]]></referencesTableUID>
+            <uid><![CDATA[FB087513-E7A6-44ED-96AF-5F757B98EA6B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[date_debut]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[BAF232B3-DE22-4004-A6A1-3F9E4D665816]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[date_fin]]></name>
+            <type><![CDATA[DATE]]></type>
+            <uid><![CDATA[B3C3BDAE-5B08-4238-838D-9D803EDD934C]]></uid>
+        </SQLField>
+        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
+        <uid><![CDATA[8CF636D8-15EE-4D1D-96C5-C243561BF6E8]]></uid>
     </SQLTable>
     <SQLTable>
         <name><![CDATA[types]]></name>
@@ -1797,7 +1752,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>950.00</y>
+            <y>750.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1817,7 +1772,7 @@
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[1D0B5878-7284-40FC-814D-CE8B24FCCC79]]></referencesFieldUID>
             <referencesTableUID><![CDATA[376C13F3-7ABB-428B-9877-EFBD5AAB7A2A]]></referencesTableUID>
-            <connectorMidPoint><![CDATA[1238.442707]]></connectorMidPoint>
+            <connectorMidPoint><![CDATA[1214.000000]]></connectorMidPoint>
             <foreignKeyName><![CDATA[titresphases_titreid_foreign]]></foreignKeyName>
             <uid><![CDATA[09D7F117-0869-4653-A399-7ACFC4BE58EF]]></uid>
         </SQLField>
@@ -2434,17 +2389,17 @@
         <uid><![CDATA[DAE4EBB0-7223-4140-9A57-0E5C284AA7A8]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[phases_statuts]]></name>
+        <name><![CDATA[phases_statut]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>500.00</x>
-            <y>950.00</y>
+            <y>1250.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>42</zorder>
+        <zorder>40</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -2560,7 +2515,7 @@
         <overviewPanelHidden><![CDATA[0]]></overviewPanelHidden>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <RightSidebarWidth><![CDATA[1003.000000]]></RightSidebarWidth>
+        <RightSidebarWidth><![CDATA[1643.000000]]></RightSidebarWidth>
         <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[0.000000]]></SourceSidebarWidth>
@@ -2569,8 +2524,8 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{401, 403}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1280.000000]]></windowWidth>
+        <windowScrollOrigin><![CDATA[{28, 439}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <defaultLabelExpanded><![CDATA[1]]></defaultLabelExpanded>
