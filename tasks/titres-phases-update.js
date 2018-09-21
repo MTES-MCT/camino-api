@@ -7,7 +7,7 @@ const {
 
 const titreEtapesSortAsc = require('./_utils/titre-etapes-sort-asc')
 const titrePhasesFind = require('./_utils/titre-phases-find')
-const dateFormat = require('./_utils/date-format')
+const dateFormat = require('dateformat')
 
 const titresPhasesUpdate = async () => {
   // retourne les démarches enregistrées en base
@@ -155,7 +155,7 @@ const titrePhaseEqualFind = (titrePhase, titrePhases) =>
 const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
   Object.keys(titrePhase).reduce((res, key) => {
     if (titrePhaseOld[key] instanceof Date) {
-      titrePhaseOld[key] = dateFormat(titrePhaseOld[key])
+      titrePhaseOld[key] = dateFormat(titrePhaseOld[key], 'yyyy-mm-dd')
     }
 
     const mod = { [key]: [titrePhaseOld[key], titrePhase[key]] }
