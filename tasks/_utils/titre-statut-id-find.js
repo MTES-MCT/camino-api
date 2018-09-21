@@ -1,11 +1,11 @@
-const dateFormat = require('./date-format')
+const dateFormat = require('dateformat')
 const titreDateFinFind = require('./titre-date-fin-find')
 
 const titreStatutIdFind = titre => {
   let titreStatutId
 
   const titreDateFin = titreDateFinFind(titre.demarches)
-  const today = dateFormat(new Date())
+  const today = dateFormat(new Date(), 'yyyy-mm-dd')
 
   if (
     // il y a une seule démarche (octroi)
