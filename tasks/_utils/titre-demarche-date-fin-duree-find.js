@@ -1,4 +1,4 @@
-const dateFormat = require('./date-format')
+const dateFormat = require('dateformat')
 const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
 const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 
@@ -108,14 +108,14 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 
   if (etapeDexHasDateFin) {
     // si la démarche contient une date de fin
-    dateFin = dateFormat(etapeDexHasDateFin)
+    dateFin = dateFormat(etapeDexHasDateFin, 'yyyy-mm-dd')
   } else {
     // la première étape de décision expresse (dex)
     const etapeDex = titreEtapesSortAsc(titreDemarche).find(
       te => te.etapeId === 'dex'
     )
 
-    dateFin = dateFormat(etapeDex.date)
+    dateFin = dateFormat(etapeDex.date, 'yyyy-mm-dd')
   }
 
   // la date de fin est la date de l'étape
@@ -161,7 +161,7 @@ const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) =>
 
 // ajoute une durée en années à une date au format YYYY-MM-DD
 const dateAddYears = (date, years) => {
-  const d = dateFormat(date)
+  const d = dateFormat(date, 'yyyy-mm-dd')
   return `${Number(d.slice(0, 4)) + years}-${d.slice(5)}`
 }
 
