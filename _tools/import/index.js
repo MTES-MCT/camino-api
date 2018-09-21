@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const metas = require('./metas')
 const repertoireAdministrations = require('./repertoire-administrations')
 const repertoireEntreprises = require('./repertoire-entreprises')
