@@ -1,6 +1,6 @@
 const etapes = {
   eager:
-    '[points, emprises, type, statut, titulaires, amodiataires, utilisateurs, documents, substances.legal.[code, domaine]]'
+    '[points, emprises, type, statut, titulaires, amodiataires, utilisateurs, documents, substances.legal.[code, domaine], titresSubstances, titresTitulaires, titresAmodiataires, titresUtilisateurs, titresEmprises]'
 }
 
 const phases = {
