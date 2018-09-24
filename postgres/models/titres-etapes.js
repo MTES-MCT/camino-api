@@ -138,7 +138,7 @@ class TitresEtapes extends Model {
         }
       },
       erreurs: {
-        relation: Model.HasManyRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: TitresErreurs,
         join: {
           from: 'titresEtapes.id',
