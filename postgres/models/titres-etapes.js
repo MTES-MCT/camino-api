@@ -5,10 +5,17 @@ const Substances = require('./substances')
 const TitresPoints = require('./titres-points')
 const Entreprises = require('./entreprises')
 const Utilisateurs = require('./utilisateurs')
-const TitresAdministrations = require('./titres-administrations')
+const Administrations = require('./administrations')
 const TitresDocuments = require('./titres-documents')
-const TitresEmprises = require('./titres-emprises')
+const Emprises = require('./emprises')
 const TitresErreurs = require('./titres-erreurs')
+
+const TitresSubstances = require('./titres-substances')
+const TitresAdministrations = require('./titres-administrations')
+const TitresTitulaires = require('./titres-titulaires')
+const TitresAmodiataires = require('./titres-amodiataires')
+const TitresUtilisateurs = require('./titres-utilisateurs')
+const TitresEmprises = require('./titres-emprises')
 
 class TitresEtapes extends Model {
   static get tableName() {
@@ -114,11 +121,15 @@ class TitresEtapes extends Model {
         }
       },
       administrations: {
-        relation: Model.HasManyRelation,
-        modelClass: TitresAdministrations,
+        relation: Model.ManyToManyRelation,
+        modelClass: Administrations,
         join: {
           from: 'titresEtapes.id',
-          to: 'titresAdministrations.titreEtapeId'
+          through: {
+            from: 'titresAdministrations.titreEtapeId',
+            to: 'titresAdministrations.administrationId'
+          },
+          to: 'administrations.id'
         }
       },
       documents: {
@@ -130,11 +141,15 @@ class TitresEtapes extends Model {
         }
       },
       emprises: {
-        relation: Model.HasManyRelation,
-        modelClass: TitresEmprises,
+        relation: Model.ManyToManyRelation,
+        modelClass: Emprises,
         join: {
           from: 'titresEtapes.id',
-          to: 'titresEmprises.titreEtapeId'
+          through: {
+            from: 'titresEmprises.titreEtapeId',
+            to: 'titresEmprises.empriseId'
+          },
+          to: 'emprises.id'
         }
       },
       erreurs: {
@@ -143,6 +158,54 @@ class TitresEtapes extends Model {
         join: {
           from: 'titresEtapes.id',
           to: 'titresErreurs.titreEtapeId'
+        }
+      },
+      titresSubstances: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresSubstances,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresSubstances.titreEtapeId'
+        }
+      },
+      titresTitulaires: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresTitulaires,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresTitulaires.titreEtapeId'
+        }
+      },
+      titresAmodiataires: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresAmodiataires,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresAmodiataires.titreEtapeId'
+        }
+      },
+      titresAdministrations: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresAdministrations,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresAdministrations.titreEtapeId'
+        }
+      },
+      titresUtilisateurs: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresUtilisateurs,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresUtilisateurs.titreEtapeId'
+        }
+      },
+      titresEmprises: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresEmprises,
+        join: {
+          from: 'titresEtapes.id',
+          to: 'titresEmprises.titreEtapeId'
         }
       }
     }
