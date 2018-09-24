@@ -52,9 +52,12 @@ module.exports = async (spreadsheetId, domaineId) => {
   await Promise.all(worksheetRemovePromises)
 
   // retourne un tableau avec les requêtes pour ajouter les nouveaux onglets
-  const worksheetsPromises = tables.map(({ title, columns }) => () =>
+  const worksheetsPromises = tables.map(({ name, columns }) => () =>
     worksheetAdd(gss, {
-      title: decamelize(title),
+      title: decamelize(name),
+      // id est un mot clé reservé par l'API google
+      // pour contourner cette limitation, on converti id en Id
+      // on le convertira à nouveau en id ensuite
       headers: columns.map(h => (h === 'id' ? 'Id' : decamelize(h))),
       colCount: columns.length,
       rowCount: 1
@@ -77,7 +80,7 @@ module.exports = async (spreadsheetId, domaineId) => {
   // pour chaque table,
   tables.forEach(table => {
     // renseigne l'id des worksheets créées
-    const worksheet = worksheets.find(w => w.title === decamelize(table.title))
+    const worksheet = worksheets.find(w => w.title === decamelize(table.name))
     table.id = worksheet && worksheet.id
 
     // retourne les rows mis au format
@@ -90,16 +93,17 @@ module.exports = async (spreadsheetId, domaineId) => {
   const rowPromises = tables.reduce(
     (res, table) => [
       ...res,
-      ...table.rows.map(row => () => rowAdd(gss, table.id, row))
+      ...table.rows.map(row => () => rowAdd(gss, table, row))
     ],
     []
   )
 
-  // on utilise une queue plutôt que Promise.all
-  // pour éviter de saturer google api
+  // utilise une queue plutôt que Promise.all
+  // pour éviter de saturer l'API google
   const rowsQueue = new PQueue({ concurrency: 20 })
   await rowsQueue.addAll(rowPromises)
 
+  // converti le champs Id en id
   const tablesWithId = tables.filter(w => w.columns.find(h => h === 'id'))
 
   tablesWithId.forEach(async table => {
@@ -129,7 +133,9 @@ const rowsCreate = (elements, parents) => {
             : r,
         []
       )
-    : elements
+    : Array.isArray(elements)
+      ? elements
+      : [elements]
 }
 
 const rowFormat = (element, columns, callbacks) =>
@@ -137,6 +143,8 @@ const rowFormat = (element, columns, callbacks) =>
     (r, header) =>
       element[header]
         ? Object.assign(r, {
+            // id est un mot clé réservé par google
+            // pour contourner cette limitation, on converti id en Id
             [header === 'id' ? 'Id' : decamelize(header)]:
               callbacks && Object.keys(callbacks).find(cb => cb === header)
                 ? callbacks[header](element[header])

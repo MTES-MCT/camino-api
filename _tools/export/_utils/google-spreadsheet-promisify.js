@@ -1,3 +1,5 @@
+const decamelize = require('decamelize')
+
 const gssUseServiceAccountAuth = (gss, credentials) =>
   new Promise((resolve, reject) =>
     gss.useServiceAccountAuth(credentials, (err, res) => {
@@ -49,13 +51,17 @@ const worksheetAdd = (gss, worksheet) =>
     })
   )
 
-const rowAdd = (gss, worksheetId, row) =>
+const rowAdd = (gss, worksheet, row) =>
   new Promise((resolve, reject) =>
-    gss.addRow(worksheetId, row, (err, res) => {
+    gss.addRow(worksheet.id, row, (err, res) => {
       if (err) {
         reject(err)
       } else {
-        console.log(`row ajouté: ${row.Id}`)
+        console.log(
+          `row ajouté: ${decamelize(worksheet.name)}, ${
+            row[Object.keys(row)[0]]
+          }`
+        )
         resolve(res)
       }
     })
