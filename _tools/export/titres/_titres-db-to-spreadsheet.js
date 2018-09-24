@@ -12,7 +12,8 @@ const {
   worksheetRemove,
   worksheetAdd,
   rowAdd,
-  cellsGet
+  cellsGet,
+  cellValueSet
 } = require('../_utils/google-spreadsheet-promisify')
 
 const tables = require('./_tables')
@@ -81,7 +82,7 @@ module.exports = async (spreadsheetId, domaineId) => {
   tables.forEach(table => {
     // renseigne l'id des worksheets créées
     const worksheet = worksheets.find(w => w.title === decamelize(table.name))
-    table.id = worksheet && worksheet.id
+    table.worksheetId = worksheet && worksheet.id
 
     // retourne les rows mis au format
     table.rows = rowsCreate(titres, table.parents).map(row =>
@@ -100,27 +101,21 @@ module.exports = async (spreadsheetId, domaineId) => {
 
   // utilise une queue plutôt que Promise.all
   // pour éviter de saturer l'API google
-  const rowsQueue = new PQueue({ concurrency: 20 })
+  const rowsQueue = new PQueue({ concurrency: 15 })
   await rowsQueue.addAll(rowPromises)
 
   // converti le champs Id en id
   const tablesWithId = tables.filter(w => w.columns.find(h => h === 'id'))
 
-  tablesWithId.forEach(async table => {
-    const cellIds = await cellsGet(gss, table.id, {
+  await tablesWithId.forEach(async table => {
+    const cells = await cellsGet(gss, table.worksheetId, {
       'min-row': 1,
       'max-row': 1,
       'min-col': 1,
       'max-col': 1
     })
 
-    cellIds[0].setValue('id', (err, res) => {
-      if (err) {
-        console.log(err)
-      } else {
-        console.log(res)
-      }
-    })
+    await cellValueSet(cells[0], 'id')
   })
 }
 

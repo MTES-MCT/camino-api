@@ -67,7 +67,7 @@ const tables = [
     ],
     parents: ['demarches', 'etapes', 'points'],
     callbacks: {
-      coordonees: v => JSON.stringify(v)
+      coordonees: v => `${v.x}, ${v.y}`
     }
   },
   {
@@ -75,7 +75,7 @@ const tables = [
     columns: ['id', 'titrePointId', 'systeme', 'coordonees'],
     parents: ['demarches', 'etapes', 'points', 'references'],
     callbacks: {
-      coordonees: v => JSON.stringify(v)
+      coordonees: v => `${v.x}, ${v.y}`
     }
   },
   {
@@ -84,12 +84,12 @@ const tables = [
       'id',
       'titreEtapeId',
       'type',
+      'jorf',
+      'nor',
       'nom',
       'url',
       'uri',
-      'fichier',
-      'jorf',
-      'nor'
+      'fichier'
     ],
     parents: ['demarches', 'etapes', 'documents']
   },
