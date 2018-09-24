@@ -15,48 +15,7 @@ const {
   cellsGet
 } = require('../_utils/google-spreadsheet-promisify')
 
-const worksheets = [
-  {
-    title: 'titres',
-    headers: ['id', 'nom', 'typeId', 'domaineId', 'statutId', 'references']
-  },
-  {
-    title: 'titresDemarches',
-    headers: ['id', 'demarcheId', 'titreId', 'demarcheStatutId', 'ordre']
-  },
-  {
-    title: 'titresPhases',
-    headers: ['test']
-  },
-  {
-    title: 'titresEtapes',
-    headers: [
-      'id',
-      'titreDemarcheId',
-      'etapeId',
-      'etapeStatutId',
-      'ordre',
-      'date',
-      'dateDebut',
-      'duree',
-      'dateFin',
-      'surface',
-      'visas',
-      'engagement',
-      'engagementDevise',
-      'sourceIndisponible'
-    ]
-  },
-  { title: 'titresPoints', headers: ['test'] },
-  { title: 'titresPointsReferences', headers: ['test'] },
-  { title: 'titresDocuments', headers: ['test'] },
-  { title: 'titresSubstances', headers: ['test'] },
-  { title: 'titresTitulaires', headers: ['test'] },
-  { title: 'titresAmodiataires', headers: ['test'] },
-  { title: 'titresUtilisateurs', headers: ['test'] },
-  { title: 'titresEmprises', headers: ['test'] },
-  { title: 'titresErreurs', headers: ['test'] }
-]
+const tables = require('./_tables')
 
 module.exports = async (spreadsheetId, domaineId) => {
   const titres = await titresGet({
@@ -93,11 +52,11 @@ module.exports = async (spreadsheetId, domaineId) => {
   await Promise.all(worksheetRemovePromises)
 
   // retourne un tableau avec les requêtes pour ajouter les nouveaux onglets
-  const worksheetsPromises = worksheets.map(({ title, headers }) => () =>
+  const worksheetsPromises = tables.map(({ title, columns }) => () =>
     worksheetAdd(gss, {
       title: decamelize(title),
-      headers: headers.map(h => (h === 'id' ? 'Id' : decamelize(h))),
-      colCount: headers.length,
+      headers: columns.map(h => (h === 'id' ? 'Id' : decamelize(h))),
+      colCount: columns.length,
       rowCount: 1
     })
   )
@@ -105,15 +64,7 @@ module.exports = async (spreadsheetId, domaineId) => {
   // on utilise une queue plutôt que Promise.all
   // pour que les onglets soient créés dans l'ordre
   const worksheetQueue = new PQueue({ concurrency: 1 })
-  const worksheetsNew = await worksheetQueue.addAll(worksheetsPromises)
-
-  // renseigne l'id des worksheets créées
-  worksheets.forEach(w => {
-    const worksheetNew = worksheetsNew.find(
-      wn => wn.title === decamelize(w.title)
-    )
-    w.id = worksheetNew && worksheetNew.id
-  })
+  const worksheets = await worksheetQueue.addAll(worksheetsPromises)
 
   // est ce que l'onglet tmp existe ?
   const worksheetTmpRemove = infos.worksheets.find(w => w.title === 'tmp')
@@ -123,97 +74,36 @@ module.exports = async (spreadsheetId, domaineId) => {
     await worksheetRemove(gss, worksheetTmpRemove)
   }
 
-  const titresRowsPromises = titres.map(titre => {
-    const worksheet = worksheets.find(w => w.title === 'titres')
-    const row = worksheet.headers.reduce(
-      (r, header) =>
-        titre[header]
-          ? Object.assign(r, {
-              [header === 'id' ? 'Id' : decamelize(header)]:
-                header === 'references'
-                  ? JSON.stringify(titre[header])
-                  : titre[header]
-            })
-          : r,
-      {}
+  // pour chaque table,
+  tables.forEach(table => {
+    // renseigne l'id des worksheets créées
+    const worksheet = worksheets.find(w => w.title === decamelize(table.title))
+    table.id = worksheet && worksheet.id
+
+    // retourne les rows mis au format
+    table.rows = rowsCreate(titres, table.parents).map(row =>
+      rowFormat(row, table.columns, table.callbacks)
     )
-
-    console.log(row)
-
-    // retourne une fonction pour PQueue
-    return () => rowAdd(gss, worksheet.id, row)
   })
 
-  // on utilise une queue plutôt que Promise.all
-  // pour éviter une erreur de saturation de google api
-  const titreRowsQueue = new PQueue({ concurrency: 20 })
-  await titreRowsQueue.addAll(titresRowsPromises)
-
-  const titresDemarchesRowsPromises = titres.reduce((res, titre) => {
-    const worksheet = worksheets.find(w => w.title === 'titresDemarches')
-    const promises = titre['demarches'].map(d => {
-      const row = worksheet.headers.reduce(
-        (r, header) =>
-          d[header]
-            ? Object.assign(r, {
-                [header === 'id' ? 'Id' : decamelize(header)]: d[header]
-              })
-            : r,
-        {}
-      )
-
-      // retourne une fonction pour PQueue
-      return () => rowAdd(gss, worksheet.id, row)
-    })
-    return [...res, ...promises]
-  }, [])
-  // on utilise une queue plutôt que Promise.all
-  // pour éviter une erreur de saturation de google api
-  const titresDemarchesRowsQueue = new PQueue({ concurrency: 20 })
-  await titresDemarchesRowsQueue.addAll(titresDemarchesRowsPromises)
-
-  const titresEtapesRowsPromises = titres.reduce((res, titre) => {
-    const worksheet = worksheets.find(w => w.title === 'titresEtapes')
-    const promises = titre['demarches'].reduce(
-      (re, demarche) =>
-        demarche['etapes']
-          ? [
-              ...re,
-              ...demarche['etapes'].map(e => {
-                const row = worksheet.headers.reduce(
-                  (r, header) =>
-                    e[header]
-                      ? Object.assign(r, {
-                          [header === 'id' ? 'Id' : decamelize(header)]: e[
-                            header
-                          ]
-                        })
-                      : r,
-                  {}
-                )
-
-                // retourne une fonction pour PQueue
-                return () => rowAdd(gss, worksheet.id, row)
-              })
-            ]
-          : re,
-      []
-    )
-
-    return [...res, ...promises]
-  }, [])
-
-  // on utilise une queue plutôt que Promise.all
-  // pour éviter une erreur de saturation de google api
-  const titresEtapesRowsQueue = new PQueue({ concurrency: 20 })
-  await titresEtapesRowsQueue.addAll(titresEtapesRowsPromises)
-
-  const worksheetsWithId = worksheets.filter(w =>
-    w.headers.find(h => h === 'id')
+  // retourne un tableau avec les requêtes pour ajouter les nouveaux rows
+  const rowPromises = tables.reduce(
+    (res, table) => [
+      ...res,
+      ...table.rows.map(row => () => rowAdd(gss, table.id, row))
+    ],
+    []
   )
 
-  worksheetsWithId.forEach(async worksheet => {
-    const cellIds = await cellsGet(gss, worksheet.id, {
+  // on utilise une queue plutôt que Promise.all
+  // pour éviter de saturer google api
+  const rowsQueue = new PQueue({ concurrency: 20 })
+  await rowsQueue.addAll(rowPromises)
+
+  const tablesWithId = tables.filter(w => w.columns.find(h => h === 'id'))
+
+  tablesWithId.forEach(async table => {
+    const cellIds = await cellsGet(gss, table.id, {
       'min-row': 1,
       'max-row': 1,
       'min-col': 1,
@@ -229,3 +119,29 @@ module.exports = async (spreadsheetId, domaineId) => {
     })
   })
 }
+
+const rowsCreate = (elements, parents) => {
+  return parents && parents.length > 0
+    ? elements.reduce(
+        (r, e) =>
+          e[parents[0]]
+            ? [...r, ...rowsCreate(e[parents[0]], parents.slice(1))]
+            : r,
+        []
+      )
+    : elements
+}
+
+const rowFormat = (element, columns, callbacks) =>
+  columns.reduce(
+    (r, header) =>
+      element[header]
+        ? Object.assign(r, {
+            [header === 'id' ? 'Id' : decamelize(header)]:
+              callbacks && Object.keys(callbacks).find(cb => cb === header)
+                ? callbacks[header](element[header])
+                : element[header]
+          })
+        : r,
+    {}
+  )
