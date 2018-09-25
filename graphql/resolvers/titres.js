@@ -37,7 +37,7 @@ const titreFormat = t => {
 const resolvers = {
   titre: async ({ id }, context, info) => {
     const titre = await titreGet(id, context.user)
-    return titreFormat(titre)
+    return titre && titreFormat(titre)
   },
 
   titres: async (
@@ -50,7 +50,7 @@ const resolvers = {
       context.user
     )
 
-    return titres.map(titre => titreFormat(titre))
+    return titres.map(titre => titre && titreFormat(titre))
   },
 
   titreAjouter: async ({ titre }, context, info) =>
