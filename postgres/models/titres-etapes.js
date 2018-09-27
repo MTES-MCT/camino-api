@@ -32,13 +32,13 @@ class TitresEtapes extends Model {
         titreDemarcheId: { type: 'string', maxLength: 128 },
         etapeId: { type: 'string', maxLength: 3 },
         etapeStatutId: { type: 'string', maxLength: 3 },
+        ordre: { type: 'integer' },
         date: { type: 'date' },
         duree: { type: 'integer' },
         dateDebut: { type: 'date' },
         dateFin: { type: 'date' },
         surface: { type: 'integer' },
         visas: { type: 'json' },
-        ordre: { type: 'integer' },
         engagement: { type: 'integer' },
         engagementDevise: { type: 'string' }
       }
@@ -207,6 +207,14 @@ class TitresEtapes extends Model {
           from: 'titresEtapes.id',
           to: 'titresEmprises.titreEtapeId'
         }
+      }
+    }
+  }
+
+  static get namedFilters() {
+    return {
+      orderDesc: builder => {
+        builder.orderBy('ordre', 'desc')
       }
     }
   }

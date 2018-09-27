@@ -37,13 +37,9 @@ const titresDemarchesOrdreUpdate = async () => {
     []
   )
 
-  const update = await Promise.all([...titresDemarchesUpdated])
+  await Promise.all([...titresDemarchesUpdated])
 
-  console.log(
-    `Mise à jour: ordre de ${titresDemarchesUpdated.length} démarches.`
-  )
-
-  return update
+  return `Mise à jour: ${titresDemarchesUpdated.length} ordre de démarches.`
 }
 
 // retourne les démarches appartenant au même titre
