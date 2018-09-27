@@ -36,7 +36,7 @@ const titresEtapesOrdreUpdate = async () => {
 
   await Promise.all([...titresEtapesUpdated])
 
-  return `Mise à jour: ${titresEtapesUpdated.length} ordre d'étapes.`
+  return `Mise à jour: ${titresEtapesUpdated.length} ordres d'étapes.`
 }
 
 // retourne les étapes classées par démarche
