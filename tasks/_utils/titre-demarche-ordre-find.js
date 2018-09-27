@@ -1,4 +1,4 @@
-const titreEtapesSortAsc = require('./titre-etapes-sort-desc')
+const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
 
 // retourne l'ordre (index + 1) d'une démarche
 const titreDemarcheOrdreFind = (titreDemarche, titreDemarches) => {

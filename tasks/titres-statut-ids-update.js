@@ -22,11 +22,9 @@ const titresStatutIdsUpdate = async () => {
     return arr
   }, [])
 
-  const update = await Promise.all([...statutIdsUpdate])
+  await Promise.all([...statutIdsUpdate])
 
-  console.log(`Mise à jour: statutId de ${statutIdsUpdate.length} titres.`)
-
-  return update
+  return `Mise à jour: ${statutIdsUpdate.length} statutId de titres.`
 }
 
 module.exports = titresStatutIdsUpdate

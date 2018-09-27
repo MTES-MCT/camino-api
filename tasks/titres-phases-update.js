@@ -49,14 +49,9 @@ const titresPhasesUpdate = async () => {
     []
   )
 
-  const update = await Promise.all([
-    ...titresPhasesUpdated,
-    ...titrePhasesDeleted
-  ])
+  await Promise.all([...titresPhasesUpdated, ...titrePhasesDeleted])
 
-  console.log(`Mise à jour: ${titresPhasesUpdated.length} phases de titres.`)
-
-  return update
+  return `Mise à jour: ${titresPhasesUpdated.length} phases de titres.`
 }
 
 // si

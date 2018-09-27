@@ -6,11 +6,9 @@ const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-dure
 // - la date d'échéance du titre
 const titreDateFinFind = titreDemarches => {
   // la dernière démarche dont le statut est acceptée ou terminée
-  const titreDemarche = titreDemarches
-    .reverse()
-    .find(titreDemarche =>
-      ['acc', 'ter'].includes(titreDemarche.demarcheStatutId)
-    )
+  const titreDemarche = titreDemarches.find(titreDemarche =>
+    ['acc', 'ter'].includes(titreDemarche.demarcheStatutId)
+  )
 
   const dateFin =
     titreDemarche &&
