@@ -4,9 +4,10 @@
   "description": "Camino api",
   "main": "app/index.js",
   "scripts": {
+    "user-admin-create": "node ./tasks/utilisateur-create.js",
     "import": "node ./_tools/import/index.js",
     "export": "node ./_tools/export/index.js",
-    "migrate": "npx knex --knexfile=./conf/knex.js migrate:rollback && npx knex --knexfile=./conf/knex.js migrate:latest && npx knex --knexfile=./conf/knex.js seed:run",
+    "migrate": "npx knex --knexfile=./_tools/knex/config.js migrate:rollback && npx knex --knexfile=./_tools/knex/config.js migrate:latest && npx knex --knexfile=./_tools/knex/config.js seed:run",
     "cron-daily": "node ./tasks/daily.js",
     "dev": "nodemon ./index.js",
     "start": "node ./index.js"
@@ -37,6 +38,7 @@
     "graphql": "^14.0.2",
     "jsonwebtoken": "^8.3.0",
     "knex": "^0.15.2",
+    "knex-cleaner": "^1.1.4",
     "objection": "^1.3.0",
     "p-queue": "^3.0.0",
     "pg": "^7.4.3"
