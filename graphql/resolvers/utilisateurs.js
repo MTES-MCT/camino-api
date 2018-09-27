@@ -1,17 +1,20 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { jwtSecret } = require('../../conf')
 
 const {
   utilisateurGet,
-  utilisateurAjouter
+  utilisateurAdd
 } = require('../../postgres/queries/utilisateurs')
 
 const resolvers = {
   utilisateurIdentifier: async ({ id, password }, context, info) => {
-    const utilisateur = await utilisateurGet(id)
+    const utilisateur = await utilisateurGet({ id, password })
+
+    console.log(utilisateur)
 
     if (!utilisateur) {
-      throw new Error('No utilisateur with that id')
+      throw new Error("Pas d'utilisateur avec cette id")
     }
 
     const valid = await bcrypt.compare(password, utilisateur.password)
@@ -20,20 +23,21 @@ const resolvers = {
       throw new Error('Incorrect password')
     }
 
-    // return json web token
-    return jwt.sign(
+    const token = jwt.sign(
       {
         id: utilisateur.id,
         email: utilisateur.email
       },
-      'somesuperdupersecret',
+      jwtSecret,
       { expiresIn: '1y' }
     )
+    console.log(token)
+    return { token }
   },
 
   utilisateurAjouter: async ({ utilisateur }, context) => {
     utilisateur.password = await bcrypt.hash(utilisateur.password, 10)
-    const res = await utilisateurAjouter(utilisateur, context.user)
+    const res = await utilisateurAdd(utilisateur, context.user)
 
     return res
   }
