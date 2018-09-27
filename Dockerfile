@@ -14,7 +14,7 @@ COPY .env ./
 COPY package*.json ./
 COPY index.js ./
 COPY auth auth/
-COPY conf conf/
+COPY config config/
 COPY graphql graphql/
 COPY postgres postgres/
 COPY _tools _tools/
