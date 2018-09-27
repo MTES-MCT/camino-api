@@ -24,7 +24,7 @@ const titresStatutIdsUpdate = async () => {
 
   await Promise.all([...statutIdsUpdate])
 
-  return `Mise à jour: ${statutIdsUpdate.length} statutId de titres.`
+  return `Mise à jour: ${statutIdsUpdate.length} statuts de titres.`
 }
 
 module.exports = titresStatutIdsUpdate

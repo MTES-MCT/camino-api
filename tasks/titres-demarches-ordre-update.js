@@ -39,7 +39,7 @@ const titresDemarchesOrdreUpdate = async () => {
 
   await Promise.all([...titresDemarchesUpdated])
 
-  return `Mise à jour: ${titresDemarchesUpdated.length} ordre de démarches.`
+  return `Mise à jour: ${titresDemarchesUpdated.length} ordres de démarches.`
 }
 
 // retourne les démarches appartenant au même titre
