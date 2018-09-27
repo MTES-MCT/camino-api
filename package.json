@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
+    "bcrypt": "^3.0.1",
     "chalk": "^2.4.1",
     "compression": "^1.7.3",
     "cors": "^2.8.4",
@@ -43,7 +44,6 @@
     "pg": "^7.4.3"
   },
   "devDependencies": {
-    "bcrypt": "^3.0.1",
     "es6-shim": "^0.35.3",
     "eslint": "^5.6.0",
     "eslint-config-prettier": "^3.1.0",
