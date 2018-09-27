@@ -1,9 +1,8 @@
 const Knex = require('knex')
 const { Model } = require('objection')
 
-const { env } = require('../conf')
-const knexConf = require('../conf/knex')[env]
-const knex = Knex(knexConf)
+const knexConfig = require('../config/knex')
+const knex = Knex(knexConfig)
 
 Model.knex(knex)
 

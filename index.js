@@ -16,7 +16,7 @@ const cors = require('cors')
 const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
 const expressJwt = require('express-jwt')
-const { env, port, url, jwtSecret } = require('./conf')
+const { env, port, url, jwtSecret } = require('./config')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
 

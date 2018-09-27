@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { jwtSecret } = require('../conf')
+const { jwtSecret } = require('../config')
 const user = require('./user')
 
 const token = jwtSecret
