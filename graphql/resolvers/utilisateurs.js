@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { jwtSecret } = require('../../conf')
+const { jwtSecret } = require('../../config')
 
 const {
   utilisateurGet,
@@ -9,18 +9,29 @@ const {
 
 const resolvers = {
   utilisateurIdentifier: async ({ id, password }, context, info) => {
+    const errors = []
+    if (!id) {
+      errors.push('id manquante')
+    }
+
+    if (!password) {
+      errors.push('mot de passe manquant')
+    }
+
+    if (errors.length > 0) {
+      throw new Error(errors.join(', '))
+    }
+
     const utilisateur = await utilisateurGet({ id, password })
 
-    console.log(utilisateur)
-
     if (!utilisateur) {
-      throw new Error("Pas d'utilisateur avec cette id")
+      throw new Error("Pas d'utilisateur avec cette id.")
     }
 
     const valid = await bcrypt.compare(password, utilisateur.password)
 
     if (!valid) {
-      throw new Error('Incorrect password')
+      throw new Error('Mot de passe incorrect')
     }
 
     const token = jwt.sign(

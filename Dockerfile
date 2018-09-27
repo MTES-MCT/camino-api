@@ -7,8 +7,8 @@ WORKDIR $dir
 
 # cache node_modules if no changes to package.json
 # http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/
-COPY package.json /temp/package.json
-RUN cd /temp && npm install && cp -a /temp/node_modules $dir/
+COPY package.json /tmp/package.json
+RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
 COPY .env ./
 COPY package*.json ./
