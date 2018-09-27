@@ -1,0 +1,5 @@
+mutation UtilisateurIdentifier($id: ID!, $password: String!) {
+  utilisateurIdentifier(id: $id, password: $password) {
+    token
+  }
+}
