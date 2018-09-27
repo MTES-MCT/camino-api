@@ -35,14 +35,9 @@ const titresDemarchesStatutUpdate = async () => {
     []
   )
 
-  const udpate = await Promise.all([...titresDemarchesUpdated])
+  await Promise.all([...titresDemarchesUpdated])
 
-  console.log(
-    `Mise à jour: statuts de ${
-      titresDemarchesUpdated.length
-    } démarches de titres.`
-  )
-  return udpate
+  return `Mise à jour: ${titresDemarchesUpdated.length} statuts de démarches.`
 }
 
 module.exports = titresDemarchesStatutUpdate

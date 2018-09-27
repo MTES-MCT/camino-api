@@ -18,6 +18,7 @@ const titreFormat = t => {
       type: r,
       valeur: t.references[r]
     }))
+
   t.demarches &&
     t.demarches.forEach(d => {
       d.etapes &&
@@ -28,8 +29,6 @@ const titreFormat = t => {
           }
         })
     })
-
-  t.demarches = t.demarches.reverse()
 
   return t
 }

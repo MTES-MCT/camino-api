@@ -72,8 +72,8 @@ class TitresDemarches extends Model {
 
   static get namedFilters() {
     return {
-      orderAsc: builder => {
-        builder.orderBy('ordre', 'asc')
+      orderDesc: builder => {
+        builder.orderBy('ordre', 'desc')
       }
     }
   }

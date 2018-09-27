@@ -8,11 +8,13 @@ const phases = {
 }
 
 const demarches = {
-  eager: `[type, statut, phase.${phases.eager}, etapes.${etapes.eager}]`
+  eager: `[type, statut, phase.${phases.eager}, etapes(orderDesc).${
+    etapes.eager
+  }]`
 }
 
 const titres = {
-  eager: `[type, domaine, statut, demarches(orderAsc).${demarches.eager}]`,
+  eager: `[type, domaine, statut, demarches(orderDesc).${demarches.eager}]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],
