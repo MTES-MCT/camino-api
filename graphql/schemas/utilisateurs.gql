@@ -10,6 +10,10 @@ type Utilisateur {
   entrepriseId: String
 }
 
+type Token {
+  token: String!
+}
+
 input InputUtilisateur {
   id: ID!
   email: String!
@@ -20,4 +24,9 @@ input InputUtilisateur {
   telephoneFixe: String
   administrationId: String
   entrepriseId: String
+}
+
+input InputUtilisateurIdentifiants {
+  id: ID!
+  password: String!
 }
