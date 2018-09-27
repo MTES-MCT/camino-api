@@ -8,7 +8,7 @@ const substances = fileImport(__dirname, 'schemas/substances.gql')
 const geojson = fileImport(__dirname, 'schemas/geojsons.gql')
 const utilisateurs = fileImport(__dirname, 'schemas/utilisateurs.gql')
 
-const schemas = buildSchema(`
+module.exports = buildSchema(`
   ${index}
 
   ${metas}
@@ -21,5 +21,3 @@ const schemas = buildSchema(`
 
   ${utilisateurs}
 `)
-
-module.exports = schemas

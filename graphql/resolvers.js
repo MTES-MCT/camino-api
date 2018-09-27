@@ -5,11 +5,13 @@ const {
   titreSupprimer,
   titreModifier
 } = require('./resolvers/titres')
+
+const { utilisateurIdentifier } = require('./resolvers/utilisateurs')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
 const json = require('./types/json')
 
-const resolvers = {
+module.exports = {
   //  queries
   titre,
   titres,
@@ -21,7 +23,7 @@ const resolvers = {
   titreAjouter,
   titreModifier,
   titreSupprimer,
-  json
-}
+  json,
 
-module.exports = resolvers
+  utilisateurIdentifier
+}

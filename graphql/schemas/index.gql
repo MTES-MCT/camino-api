@@ -24,6 +24,8 @@ type Mutation {
   titreModifier(titre: InputTitre!): Titre
 
   titreSupprimer(id: ID!): Titre
+
+  utilisateurIdentifier(id: ID!, password: String!): Token
 }
 
 scalar json
