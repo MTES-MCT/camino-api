@@ -1,14 +1,33 @@
 const utilisateurs = {
-  eager: '[groupes]'
+  eager: 'groupes'
+}
+
+const administrations = {
+  eager: `utilisateurs.${utilisateurs.eager}`
+}
+
+const entreprises = {
+  eager: `utilisateurs.${utilisateurs.eager}`
+}
+
+const substances = {
+  eager: `legal.[code, domaine]`
 }
 
 const etapes = {
-  eager:
-    '[points, emprises, type, statut, titulaires, amodiataires, documents, substances.legal.[code, domaine], titresSubstances, titresTitulaires, titresAmodiataires, titresEmprises]'
+  eager: `[points, type, statut, documents, substances.${
+    substances.eager
+  }, titresSubstances, titulaires.${
+    entreprises.eager
+  }, titresTitulaires, amodiataires.${
+    entreprises.eager
+  }, titresAmodiataires, administrations.${
+    administrations.eager
+  }, titresAdministrations, emprises, titresEmprises]`
 }
 
 const phases = {
-  eager: '[statut]'
+  eager: 'statut'
 }
 
 const demarches = {

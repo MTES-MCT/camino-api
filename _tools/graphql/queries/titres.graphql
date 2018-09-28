@@ -48,6 +48,7 @@ query Titres(
     }
     demarches {
       id
+      ordre
       type {
         id
         nom
@@ -68,8 +69,16 @@ query Titres(
       }
       etapes {
         id
+        ordre
         date
         duree
+        surface
+        volume
+        volumeUnite
+        visas
+        engagement
+        engagementDevise
+        sourceIndisponible
         type {
           id
           nom
@@ -82,6 +91,9 @@ query Titres(
         emprise {
           id
           nom
+        }
+        administrations {
+          ...administration
         }
         titulaires {
           ...entreprise
@@ -106,18 +118,63 @@ query Titres(
   }
 }
 
-fragment entreprise on Entreprise {
-  id
+fragment administration on Administration {
+  id!
   nom
   service
-  site
-  email
-  telephone
   adresse1
   adresse2
   codePostal
   ville
   cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment entreprise on Entreprise {
+  id!
+  nom
+  raisonSociale
+  paysId
+  legalSiren
+  legalEtranger
+  legalForme
+  voieNumero
+  voieType
+  voieNom
+  adresseComplement
+  codePostal
+  ville
+  cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id!
+  email!
+  motDePasse
+  nom
+  prenom
+  telephoneMobile
+  telephoneFixe
+  entrepriseId
+  groupes {
+    ...groupe
+  }
+}
+
+fragment groupe on Groupe {
+  id
+  nom
 }
 
 fragment geojsonMultiPolygon on GeojsonMultiPolygon {
