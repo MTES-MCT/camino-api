@@ -10,8 +10,9 @@ type Utilisateur {
   entrepriseId: String
 }
 
-type Token {
-  token: String!
+type UtilisateurToken {
+  token: String
+  errors: [String!]
 }
 
 input InputUtilisateur {
