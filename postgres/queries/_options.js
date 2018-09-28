@@ -1,6 +1,10 @@
+const utilisateurs = {
+  eager: '[groupes]'
+}
+
 const etapes = {
   eager:
-    '[points, emprises, type, statut, titulaires, amodiataires, utilisateurs, documents, substances.legal.[code, domaine], titresSubstances, titresTitulaires, titresAmodiataires, titresUtilisateurs, titresEmprises]'
+    '[points, emprises, type, statut, titulaires, amodiataires, documents, substances.legal.[code, domaine], titresSubstances, titresTitulaires, titresAmodiataires, titresEmprises]'
 }
 
 const phases = {
@@ -23,6 +27,7 @@ const titres = {
 }
 
 const options = {
+  utilisateurs,
   phases,
   etapes,
   demarches,

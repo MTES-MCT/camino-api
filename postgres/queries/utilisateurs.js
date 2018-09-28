@@ -1,7 +1,11 @@
 const Utilisateurs = require('../models/utilisateurs')
 const { hasPermission } = require('../../auth/permissions')
+const options = require('./_options')
 
-const utilisateurGet = async ({ id }, user) => Utilisateurs.query().findById(id)
+const utilisateurGet = async ({ id }, user) =>
+  Utilisateurs.query()
+    .findById(id)
+    .eager(options.utilisateurs.eager)
 
 const utilisateursGet = async ({ noms }, user) => {
   const q = Utilisateurs.query()

@@ -37,7 +37,7 @@ exports.up = knex => {
     .createTable('utilisateurs', table => {
       table.string('id').primary()
       table.string('email').notNullable()
-      table.string('password').notNullable()
+      table.string('motDePasse').notNullable()
       table.string('nom')
       table.string('prenom')
       table
@@ -51,11 +51,29 @@ exports.up = knex => {
       table.string('telephoneFixe')
       table.string('telephoneMobile')
     })
+    .createTable('groupes', table => {
+      table.string('id', 5).primary()
+      table.string('nom').notNullable()
+    })
+    .createTable('utilisateurs_groupes', table => {
+      table
+        .string('utilisateurId', 128)
+        .references('utilisateurs.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table
+        .string('groupeId', 5)
+        .references('groupes.id')
+        .notNullable()
+      table.primary(['utilisateurId', 'groupeId'])
+    })
 }
 
 exports.down = knex => {
   return knex.schema
+    .dropTable('utilisateurs_groupes')
     .dropTable('utilisateurs')
+    .dropTable('groupes')
     .dropTable('entreprises')
     .dropTable('administrations')
 }
