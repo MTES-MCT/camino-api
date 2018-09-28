@@ -9,7 +9,6 @@ const {
 
 const resolvers = {
   utilisateurToken: async ({ id, password }, context, info) => {
-    console.log({ id, password })
     const errors = []
     let token
 
@@ -37,7 +36,9 @@ const resolvers = {
       if (!errors.length) {
         token = jwt.sign(
           {
-            id: utilisateur.id
+            id: utilisateur.id,
+            email: utilisateur.email,
+            role: utilisateur.role
           },
           jwtSecret,
           { expiresIn: '1y' }
@@ -53,6 +54,11 @@ const resolvers = {
     const res = await utilisateurAdd(utilisateur, context.user)
 
     return res
+  },
+
+  moi: async (variables, context, info) => {
+    console.log(context.user)
+    return context.user
   }
 }
 

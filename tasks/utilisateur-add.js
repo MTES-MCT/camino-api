@@ -11,7 +11,8 @@ const group = {
 const utilisateur = {
   id: process.env.ADMIN_ID,
   email: process.env.ADMIN_EMAIL,
-  password: process.env.ADMIN_PASSWORD
+  password: process.env.ADMIN_PASSWORD,
+  groupes: ['superadmin']
 }
 
 const run = async () => {

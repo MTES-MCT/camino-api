@@ -8,7 +8,6 @@ const cDocuments = require('../../sources/titres-c-documents.json')
 const cSubstances = require('../../sources/titres-c-substances.json')
 const cTitulaires = require('../../sources/titres-c-titulaires.json')
 const cAmodiataires = require('../../sources/titres-c-amodiataires.json')
-const cUtilisateurs = require('../../sources/titres-c-utilisateurs.json')
 const cErreurs = require('../../sources/titres-c-erreurs.json')
 
 const f = require('../../sources/titres-f.json')
@@ -21,7 +20,6 @@ const fDocuments = require('../../sources/titres-f-documents.json')
 const fSubstances = require('../../sources/titres-f-substances.json')
 const fTitulaires = require('../../sources/titres-f-titulaires.json')
 const fAmodiataires = require('../../sources/titres-f-amodiataires.json')
-const fUtilisateurs = require('../../sources/titres-f-utilisateurs.json')
 const fErreurs = require('../../sources/titres-f-erreurs.json')
 
 const g = require('../../sources/titres-g.json')
@@ -34,7 +32,6 @@ const gDocuments = require('../../sources/titres-g-documents.json')
 const gSubstances = require('../../sources/titres-g-substances.json')
 const gTitulaires = require('../../sources/titres-g-titulaires.json')
 const gAmodiataires = require('../../sources/titres-g-amodiataires.json')
-const gUtilisateurs = require('../../sources/titres-g-utilisateurs.json')
 const gErreurs = require('../../sources/titres-g-erreurs.json')
 
 const h = require('../../sources/titres-h.json')
@@ -47,7 +44,6 @@ const hDocuments = require('../../sources/titres-h-documents.json')
 const hSubstances = require('../../sources/titres-h-substances.json')
 const hTitulaires = require('../../sources/titres-h-titulaires.json')
 const hAmodiataires = require('../../sources/titres-h-amodiataires.json')
-const hUtilisateurs = require('../../sources/titres-h-utilisateurs.json')
 const hErreurs = require('../../sources/titres-h-erreurs.json')
 
 const m = require('../../sources/titres-m.json')
@@ -60,7 +56,6 @@ const mDocuments = require('../../sources/titres-m-documents.json')
 const mSubstances = require('../../sources/titres-m-substances.json')
 const mTitulaires = require('../../sources/titres-m-titulaires.json')
 const mAmodiataires = require('../../sources/titres-m-amodiataires.json')
-const mUtilisateurs = require('../../sources/titres-m-utilisateurs.json')
 const mErreurs = require('../../sources/titres-m-erreurs.json')
 
 const m973 = require('../../sources/titres-m973.json')
@@ -73,7 +68,6 @@ const m973Documents = require('../../sources/titres-m973-documents.json')
 const m973Substances = require('../../sources/titres-m973-substances.json')
 const m973Titulaires = require('../../sources/titres-m973-titulaires.json')
 const m973Amodiataires = require('../../sources/titres-m973-amodiataires.json')
-const m973Utilisateurs = require('../../sources/titres-m973-utilisateurs.json')
 const m973Erreurs = require('../../sources/titres-m973-erreurs.json')
 
 const r = require('../../sources/titres-r.json')
@@ -86,7 +80,6 @@ const rDocuments = require('../../sources/titres-r-documents.json')
 const rSubstances = require('../../sources/titres-r-substances.json')
 const rTitulaires = require('../../sources/titres-r-titulaires.json')
 const rAmodiataires = require('../../sources/titres-r-amodiataires.json')
-const rUtilisateurs = require('../../sources/titres-r-utilisateurs.json')
 const rErreurs = require('../../sources/titres-r-erreurs.json')
 
 const s = require('../../sources/titres-s.json')
@@ -99,7 +92,6 @@ const sDocuments = require('../../sources/titres-s-documents.json')
 const sSubstances = require('../../sources/titres-s-substances.json')
 const sTitulaires = require('../../sources/titres-s-titulaires.json')
 const sAmodiataires = require('../../sources/titres-s-amodiataires.json')
-const sUtilisateurs = require('../../sources/titres-s-utilisateurs.json')
 const sErreurs = require('../../sources/titres-s-erreurs.json')
 
 const w = require('../../sources/titres-w.json')
@@ -112,7 +104,6 @@ const wDocuments = require('../../sources/titres-w-documents.json')
 const wSubstances = require('../../sources/titres-w-substances.json')
 const wTitulaires = require('../../sources/titres-w-titulaires.json')
 const wAmodiataires = require('../../sources/titres-w-amodiataires.json')
-const wUtilisateurs = require('../../sources/titres-w-utilisateurs.json')
 const wErreurs = require('../../sources/titres-w-erreurs.json')
 
 const titres = [...m, ...m973, ...h, ...s, ...c, ...g, ...r, ...w, ...f]
@@ -213,18 +204,6 @@ const titresAmodiataires = [
   ...fAmodiataires
 ]
 
-const titresUtilisateurs = [
-  ...mUtilisateurs,
-  ...m973Utilisateurs,
-  ...hUtilisateurs,
-  ...sUtilisateurs,
-  ...cUtilisateurs,
-  ...gUtilisateurs,
-  ...rUtilisateurs,
-  ...wUtilisateurs,
-  ...fUtilisateurs
-]
-
 const titresEmprises = [
   ...mEmprises,
   ...m973Emprises,
@@ -254,7 +233,6 @@ exports.seed = (knex, Promise) =>
     knex('titresEmprises').del(),
     knex('titresSubstances').del(),
     knex('titresPointsReferences').del(),
-    knex('titresUtilisateurs').del(),
     knex('titresTitulaires').del(),
     knex('titresAmodiataires').del(),
     knex('titresErreurs').del(),
@@ -277,7 +255,6 @@ exports.seed = (knex, Promise) =>
         knex('titresTitulaires').insert(titresTitulaires),
         knex('titresAmodiataires').insert(titresAmodiataires),
         knex('titresErreurs').insert(titresErreurs),
-        knex('titresUtilisateurs').insert(titresUtilisateurs),
         knex('titresDocuments').insert(titresDocuments)
       ])
     )

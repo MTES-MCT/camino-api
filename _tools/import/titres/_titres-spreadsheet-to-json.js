@@ -19,7 +19,6 @@ const tables = [
   { name: '_substances', cb: null },
   { name: '_titulaires', cb: null },
   { name: '_amodiataires', cb: null },
-  { name: '_utilisateurs', cb: null },
   { name: '_emprises', cb: null },
   { name: '_erreurs', cb: null }
 ]

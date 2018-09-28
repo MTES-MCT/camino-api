@@ -89,9 +89,6 @@ query Titres(
         amodiataires {
           ...entreprise
         }
-        utilisateurs {
-          ...utilisateur
-        }
         geojsonPoints {
           ...geojsonPoints
         }
@@ -107,17 +104,6 @@ query Titres(
       }
     }
   }
-}
-
-fragment utilisateur on Utilisateur {
-  id
-  nom
-  prenom
-  email
-  telephoneMobile
-  telephoneFixe
-  administrationId
-  entrepriseId
 }
 
 fragment entreprise on Entreprise {

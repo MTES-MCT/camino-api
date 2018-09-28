@@ -64,9 +64,6 @@ query Titre($id: String!) {
         amodiataires {
           ...entreprise
         }
-        utilisateurs {
-          ...utilisateur
-        }
         geojsonPoints {
           ...geojsonPoints
         }
@@ -79,17 +76,6 @@ query Titre($id: String!) {
       }
     }
   }
-}
-
-fragment utilisateur on Utilisateur {
-  id
-  nom
-  prenom
-  email
-  telephoneMobile
-  telephoneFixe
-  administrationId
-  entrepriseId
 }
 
 fragment entreprise on Entreprise {

@@ -14,7 +14,6 @@ const TitresSubstances = require('./titres-substances')
 const TitresAdministrations = require('./titres-administrations')
 const TitresTitulaires = require('./titres-titulaires')
 const TitresAmodiataires = require('./titres-amodiataires')
-const TitresUtilisateurs = require('./titres-utilisateurs')
 const TitresEmprises = require('./titres-emprises')
 
 class TitresEtapes extends Model {
@@ -108,18 +107,6 @@ class TitresEtapes extends Model {
           to: 'entreprises.id'
         }
       },
-      utilisateurs: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Utilisateurs,
-        join: {
-          from: 'titresEtapes.id',
-          through: {
-            from: 'titresUtilisateurs.titreEtapeId',
-            to: 'titresUtilisateurs.utilisateurId'
-          },
-          to: 'utilisateurs.id'
-        }
-      },
       administrations: {
         relation: Model.ManyToManyRelation,
         modelClass: Administrations,
@@ -190,14 +177,6 @@ class TitresEtapes extends Model {
         join: {
           from: 'titresEtapes.id',
           to: 'titresAdministrations.titreEtapeId'
-        }
-      },
-      titresUtilisateurs: {
-        relation: Model.HasManyRelation,
-        modelClass: TitresUtilisateurs,
-        join: {
-          from: 'titresEtapes.id',
-          to: 'titresUtilisateurs.titreEtapeId'
         }
       },
       titresEmprises: {

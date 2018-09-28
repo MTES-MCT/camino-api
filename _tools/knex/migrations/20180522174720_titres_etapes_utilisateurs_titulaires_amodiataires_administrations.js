@@ -24,18 +24,6 @@ exports.up = (knex, Promise) => {
         .notNullable()
       table.primary(['titreEtapeId', 'entrepriseId'])
     })
-    .createTable('titres_utilisateurs', table => {
-      table
-        .string('titreEtapeId', 128)
-        .references('titresEtapes.id')
-        .notNullable()
-        .onDelete('CASCADE')
-      table
-        .string('utilisateurId', 4)
-        .references('utilisateurs.id')
-        .notNullable()
-      table.primary(['titreEtapeId', 'utilisateurId'])
-    })
     .createTable('titres_administrations', table => {
       table
         .string('titreEtapeId', 128)
@@ -52,7 +40,6 @@ exports.up = (knex, Promise) => {
 
 exports.down = (knex, Promise) => {
   return knex.schema
-    .dropTable('titresUtilisateurs')
     .dropTable('titresAdministrations')
     .dropTable('titresAmodiataires')
     .dropTable('titresTitulaires')
