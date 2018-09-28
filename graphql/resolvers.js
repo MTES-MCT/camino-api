@@ -6,7 +6,7 @@ const {
   titreModifier
 } = require('./resolvers/titres')
 
-const { utilisateurIdentifier } = require('./resolvers/utilisateurs')
+const { utilisateurToken } = require('./resolvers/utilisateurs')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
 const json = require('./types/json')
@@ -25,5 +25,5 @@ module.exports = {
   titreSupprimer,
   json,
 
-  utilisateurIdentifier
+  utilisateurToken
 }

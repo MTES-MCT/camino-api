@@ -1,7 +1,7 @@
 require('dotenv').config()
 const bcrypt = require('bcrypt')
 require('../postgres')
-const { utilisateurAjouter } = require('../postgres/queries/utilisateurs')
+const { utilisateurAdd } = require('../postgres/queries/utilisateurs')
 
 const group = {
   id: 'admin',
@@ -16,7 +16,7 @@ const utilisateur = {
 
 const run = async () => {
   utilisateur.password = await bcrypt.hash(utilisateur.password, 10)
-  await utilisateurAjouter(utilisateur, group)
+  await utilisateurAdd(utilisateur, group)
   console.log('Utilisateur créé')
   process.exit()
 }
