@@ -8,7 +8,6 @@ type Moi {
 type Utilisateur {
   id: ID!
   email: String!
-  password: String!
   nom: String
   prenom: String
   telephoneMobile: String

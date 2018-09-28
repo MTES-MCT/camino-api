@@ -47,13 +47,20 @@ type Etape {
   dateDebut: String
   dateFin: String
   surface: Float
+  volume: Float
+  volumeUnite: String
+  visas: [String]
+  engagement: Float
+  engagementDevise: String
   emprise: Emprise
   substances: [TitreSubstance]
   geojsonMultiPolygon: GeojsonMultiPolygon
   geojsonPoints: GeojsonPoints
   titulaires: [Entreprise]
   amodiataires: [Entreprise]
+  administrations: [Administration]
   documents: [Document]
+  sourceIndisponible: Boolean
 }
 
 type TitreSubstance {
@@ -68,20 +75,6 @@ type TitreSubstance {
   legal: SubstanceLegal!
   connexe: Boolean
   ordre: Int
-}
-
-type Entreprise {
-  id: ID!
-  nom: String
-  service: String
-  site: String
-  email: String
-  telephone: String
-  adresse1: String
-  adresse2: String
-  codePostal: Int
-  cedex: Int
-  ville: String
 }
 
 type Document {
