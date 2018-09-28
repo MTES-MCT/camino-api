@@ -1,13 +1,13 @@
 const TitresPhases = require('../models/titres-phases')
 const options = require('./_options')
 
-const titresPhasesGet = async ({ titreDemarcheIds }, user) =>
+const titresPhasesGet = async ({ titreDemarcheIds }) =>
   TitresPhases.query()
     .skipUndefined()
     .eager(options.phases.eager)
     .whereIn('titresPhases.titreDemarcheId', titreDemarcheIds)
 
-const titrePhaseUpdate = async ({ titrePhase }, user) =>
+const titrePhaseUpdate = async ({ titrePhase }) =>
   TitresPhases.query().upsertGraph(titrePhase, { insertMissing: true })
 // {
 //   console.log(titrePhase)
@@ -25,7 +25,7 @@ const titrePhaseUpdate = async ({ titrePhase }, user) =>
 //   }
 // },
 
-const titrePhaseDelete = async ({ titreDemarcheId }, user) =>
+const titrePhaseDelete = async ({ titreDemarcheId }) =>
   TitresPhases.query()
     .deleteById(titreDemarcheId)
     .returning('*')

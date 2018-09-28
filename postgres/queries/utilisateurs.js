@@ -1,13 +1,12 @@
 const Utilisateurs = require('../models/utilisateurs')
-const { hasPermission } = require('../../auth/permissions')
 const options = require('./_options')
 
-const utilisateurGet = async ({ id }, user) =>
+const utilisateurGet = async ({ id }) =>
   Utilisateurs.query()
     .findById(id)
     .eager(options.utilisateurs.eager)
 
-const utilisateursGet = async ({ noms }, user) => {
+const utilisateursGet = async ({ noms }) => {
   const q = Utilisateurs.query()
     .skipUndefined()
     .eager(options.utilisateurs.eager)
@@ -18,28 +17,22 @@ const utilisateursGet = async ({ noms }, user) => {
   return q
 }
 
-const utilisateurAdd = async (utilisateur, user) =>
-  hasPermission('admin', user)
-    ? Utilisateurs.query()
-        .insertGraph(utilisateur)
-        .first()
-    : null
+const utilisateurAdd = async utilisateur =>
+  Utilisateurs.query()
+    .insertGraph(utilisateur)
+    .first()
 
-const utilisateurRemove = async (id, user) =>
-  hasPermission('admin', user)
-    ? Utilisateurs.query()
-        .deleteById(id)
-        .first()
-        .returning('*')
-    : null
+const utilisateurRemove = async id =>
+  Utilisateurs.query()
+    .deleteById(id)
+    .first()
+    .returning('*')
 
-const utilisateurUpdate = async (utilisateur, user) =>
-  hasPermission('admin', user)
-    ? Utilisateurs.query()
-        .upsertGraph([utilisateur], options.utilisateurs.update)
-        .eager(options.utilisateurs.eager)
-        .first()
-    : null
+const utilisateurUpdate = async utilisateur =>
+  Utilisateurs.query()
+    .upsertGraph([utilisateur], options.utilisateurs.update)
+    .eager(options.utilisateurs.eager)
+    .first()
 
 module.exports = {
   utilisateurGet,

@@ -9,7 +9,7 @@ class Utilisateurs extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'email', 'password'],
+      required: ['id', 'email', 'motDePasse'],
 
       properties: {
         id: { type: 'string', maxLength: 64 },

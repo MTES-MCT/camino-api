@@ -5,6 +5,11 @@ type Moi {
   errors: [String!]
 }
 
+type UtilisateurToken {
+  token: String
+  errors: [String!]
+}
+
 type Utilisateur {
   id: ID!
   email: String!
@@ -20,11 +25,6 @@ type Utilisateur {
 type Groupe {
   id: ID!
   nom: String
-}
-
-type UtilisateurToken {
-  token: String
-  errors: [String!]
 }
 
 input InputUtilisateur {
