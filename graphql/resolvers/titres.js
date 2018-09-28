@@ -35,7 +35,7 @@ const titreFormat = t => {
 
 const resolvers = {
   titre: async ({ id }, context, info) => {
-    const titre = await titreGet(id, context.user)
+    const titre = await titreGet(id)
     return titre && titreFormat(titre)
   },
 
@@ -44,22 +44,23 @@ const resolvers = {
     context,
     info
   ) => {
-    const titres = await titresGet(
-      { typeIds, domaineIds, statutIds, substances, noms },
-      context.user
-    )
+    console.log(context.user)
+    const titres = await titresGet({
+      typeIds,
+      domaineIds,
+      statutIds,
+      substances,
+      noms
+    })
 
     return titres.map(titre => titre && titreFormat(titre))
   },
 
-  titreAjouter: async ({ titre }, context, info) =>
-    titreAjouter(titre, context.user),
+  titreAjouter: async ({ titre }, context, info) => titreAjouter(titre),
 
-  titreSupprimer: async ({ id }, context, info) =>
-    titreSupprimer(id, context.user),
+  titreSupprimer: async ({ id }, context, info) => titreSupprimer(id),
 
-  titreModifier: async ({ titre }, context, info) =>
-    titreModifier(titre, context.user)
+  titreModifier: async ({ titre }, context, info) => titreModifier(titre)
 }
 
 module.exports = resolvers

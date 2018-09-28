@@ -1,80 +1,84 @@
 const Titres = require('../models/titres')
-const { hasPermission } = require('../../auth/permissions')
 const options = require('./_options')
-// const knex = require('../../conf/knex')
 
-const queries = {
-  titreGet: async (id, user) =>
-    Titres.query()
-      .findById(id)
-      .eager(options.titres.eager),
+const titreGet = async id =>
+  Titres.query()
+    .findById(id)
+    .eager(options.titres.eager)
 
-  titresGet: async (
-    { typeIds, domaineIds, statutIds, substances, noms },
-    user
-  ) => {
-    const q = Titres.query()
-      .skipUndefined()
-      .eager(options.titres.eager)
-      .whereIn('titres.typeId', typeIds)
-      .whereIn('titres.domaineId', domaineIds)
-      .whereIn('titres.statutId', statutIds)
+const titresGet = async ({
+  typeIds,
+  domaineIds,
+  statutIds,
+  substances,
+  noms
+}) => {
+  const q = Titres.query()
+    .skipUndefined()
+    .eager(options.titres.eager)
+    .whereIn('titres.typeId', typeIds)
+    .whereIn('titres.domaineId', domaineIds)
+    .whereIn('titres.statutId', statutIds)
 
-    if (noms) {
-      q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
-        'titres.nom',
-        ...noms.map(n => n.toLowerCase())
-      ])
-    }
+  if (noms) {
+    q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
+      'titres.nom',
+      ...noms.map(n => n.toLowerCase())
+    ])
+  }
 
-    if (substances) {
-      q.joinRelation('demarches.etapes.substances').where(builder => {
-        builder
-          .whereIn(
-            'demarches:etapes:substances.id',
-            substances.map(n => n.toLowerCase())
-          )
-          .orWhereIn(
-            'demarches:etapes:substances.nom',
-            substances.map(n => n.toLowerCase())
-          )
-          .orWhereIn('demarches:etapes:substances.symbole', substances)
-      })
-    }
+  if (substances) {
+    q.where(builder => {
+      builder
+        .whereIn(
+          'demarches:etapes:substances.id',
+          substances.map(n => n.toLowerCase())
+        )
+        .orWhereIn(
+          'demarches:etapes:substances.nom',
+          substances.map(n => n.toLowerCase())
+        )
+        .orWhereIn(
+          'demarches:etapes:substances.symbole',
+          substances.map(n => n.toLowerCase())
+        )
+        .joinRelation('demarches.etapes.substances')
+    })
+  }
 
-    return q
-  },
-
-  titreStatutIdUpdate: async ({ id, statutId }) =>
-    Titres.query()
-      .skipUndefined()
-      .findById(id)
-      .patch({ statutId }),
-
-  titreAjouter: async (titre, user) =>
-    hasPermission('admin', user)
-      ? Titres.query()
-          .insertGraph(titre, options.titres.update)
-          .first()
-          .eager(options.titres.eager)
-      : null,
-
-  titreSupprimer: async (id, user) =>
-    hasPermission('admin', user)
-      ? Titres.query()
-          .deleteById(id)
-          .first()
-          .eager(options.titres.eager)
-          .returning('*')
-      : null,
-
-  titreModifier: async (titre, user) =>
-    hasPermission('admin', user)
-      ? Titres.query()
-          .upsertGraph([titre], options.titres.update)
-          .eager(options.titres.eager)
-          .first()
-      : null
+  return q
 }
 
-module.exports = queries
+const titreStatutIdUpdate = async ({ id, statutId }) =>
+  Titres.query()
+    .skipUndefined()
+    .findById(id)
+    .patch({ statutId })
+
+const titreAjouter = async titre =>
+  Titres.query()
+    .insertGraph(titre, options.titres.update)
+    .first()
+    .eager(options.titres.eager)
+
+const titreSupprimer = async id =>
+  Titres.query()
+    .deleteById(id)
+    .first()
+    .eager(options.titres.eager)
+    .returning('*')
+
+const titreModifier = async titre =>
+  Titres.query()
+    .upsertGraph([titre], options.titres.update)
+    .eager(options.titres.eager)
+    .first()
+
+module.exports = {
+  titreGet,
+  titresGet,
+  titreStatutIdUpdate,
+  titreAjouter,
+  titreSupprimer,
+  titreModifier
+}

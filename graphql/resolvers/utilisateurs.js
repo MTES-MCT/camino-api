@@ -51,7 +51,7 @@ const resolvers = {
 
   utilisateurAjouter: async ({ utilisateur }, context) => {
     utilisateur.password = await bcrypt.hash(utilisateur.password, 10)
-    const res = await utilisateurAdd(utilisateur, context.user)
+    const res = await utilisateurAdd(utilisateur)
 
     return res
   },
