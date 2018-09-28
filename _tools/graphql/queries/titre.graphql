@@ -21,6 +21,7 @@ query Titre($id: String!) {
     }
     demarches {
       id
+      ordre
       type {
         id
         nom
@@ -41,10 +42,16 @@ query Titre($id: String!) {
       }
       etapes {
         id
+        ordre
         date
         duree
-        dateDebut
-        dateFin
+        surface
+        volume
+        volumeUnite
+        visas
+        engagement
+        engagementDevise
+        sourceIndisponible
         type {
           id
           nom
@@ -57,6 +64,9 @@ query Titre($id: String!) {
         emprise {
           id
           nom
+        }
+        administrations {
+          ...administration
         }
         titulaires {
           ...entreprise
@@ -73,23 +83,71 @@ query Titre($id: String!) {
         substances {
           ...substance
         }
+        documents {
+          ...document
+        }
       }
     }
   }
 }
 
-fragment entreprise on Entreprise {
-  id
+fragment administration on Administration {
+  id!
   nom
   service
-  site
-  email
-  telephone
   adresse1
   adresse2
   codePostal
   ville
   cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment entreprise on Entreprise {
+  id!
+  nom
+  raisonSociale
+  paysId
+  legalSiren
+  legalEtranger
+  legalForme
+  voieNumero
+  voieType
+  voieNom
+  adresseComplement
+  codePostal
+  ville
+  cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id!
+  email!
+  motDePasse
+  nom
+  prenom
+  telephoneMobile
+  telephoneFixe
+  entrepriseId
+  groupes {
+    ...groupe
+  }
+}
+
+fragment groupe on Groupe {
+  id
+  nom
 }
 
 fragment geojsonMultiPolygon on GeojsonMultiPolygon {
@@ -134,4 +192,15 @@ fragment substance on TitreSubstance {
       lien
     }
   }
+}
+
+fragment document on Document {
+  id
+  nom
+  type
+  url
+  uri
+  fichier
+  jorf
+  nor
 }
