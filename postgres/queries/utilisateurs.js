@@ -1,8 +1,7 @@
 const Utilisateurs = require('../models/utilisateurs')
 const { hasPermission } = require('../../auth/permissions')
 
-const utilisateurGet = async ({ id, password }, user) =>
-  Utilisateurs.query().findById(id)
+const utilisateurGet = async ({ id }, user) => Utilisateurs.query().findById(id)
 
 const utilisateursGet = async ({ noms }, user) => {
   const q = Utilisateurs.query()
@@ -22,7 +21,7 @@ const utilisateurAdd = async (utilisateur, user) =>
         .first()
     : null
 
-const utilisateurSupprimer = async (id, user) =>
+const utilisateurRemove = async (id, user) =>
   hasPermission('admin', user)
     ? Utilisateurs.query()
         .deleteById(id)
@@ -30,7 +29,7 @@ const utilisateurSupprimer = async (id, user) =>
         .returning('*')
     : null
 
-const utilisateurModifier = async (utilisateur, user) =>
+const utilisateurUpdate = async (utilisateur, user) =>
   hasPermission('admin', user)
     ? Utilisateurs.query()
         .upsertGraph([utilisateur], options.utilisateurs.update)
@@ -42,6 +41,6 @@ module.exports = {
   utilisateurGet,
   utilisateursGet,
   utilisateurAdd,
-  utilisateurSupprimer,
-  utilisateurModifier
+  utilisateurRemove,
+  utilisateurUpdate
 }
