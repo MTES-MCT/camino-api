@@ -2,8 +2,8 @@
 type Titre {
   """
   L'__id__ du titre est constituée de la concaténation:
-  - du type en 3 lettres.
-  - du nom du titre en minuscule, sans caractères spéciaux, avec des tirets au lieu des espaces.
+  - du type en 3 lettres
+  - du slug du nom du titre
 
   Exemples: _con-saint-elie_ ou _per-pedral_.
   """
@@ -92,8 +92,8 @@ type Document {
 input InputTitre {
   """
   L'__id__ du titre est constituée de la concaténation:
-  - du type en 3 lettres.
-  - du nom du titre en minuscule, sans caractères spéciaux, avec des tirets au lieu des espaces.
+  - du type en 3 lettres
+  - du slug nom du titre
 
   Exemples: _con-saint-elie_ ou _per-pedral_.
   """

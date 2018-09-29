@@ -1,6 +1,0 @@
-mutation UtilisateurToken($id: ID!, $password: String!) {
-  utilisateurToken(id: $id, password: $password) {
-    token
-    errors
-  }
-}
