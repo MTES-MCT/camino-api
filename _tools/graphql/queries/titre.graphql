@@ -92,7 +92,7 @@ query Titre($id: String!) {
 }
 
 fragment administration on Administration {
-  id!
+  id
   nom
   service
   adresse1
@@ -109,7 +109,7 @@ fragment administration on Administration {
 }
 
 fragment entreprise on Entreprise {
-  id!
+  id
   nom
   raisonSociale
   paysId
@@ -132,9 +132,8 @@ fragment entreprise on Entreprise {
 }
 
 fragment utilisateur on Utilisateur {
-  id!
-  email!
-  motDePasse
+  id
+  email
   nom
   prenom
   telephoneMobile

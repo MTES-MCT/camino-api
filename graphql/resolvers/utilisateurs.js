@@ -8,49 +8,52 @@ const {
 } = require('../../postgres/queries/utilisateurs')
 
 const resolvers = {
-  utilisateurToken: async ({ id, password }, context, info) => {
+  token: async ({ id, motDePasse }, context, info) => {
     const errors = []
-    let token
+    let res
+    let utilisateur
 
     if (!id) {
-      errors.push('Id manquante.')
+      errors.push('id manquante')
     }
 
-    if (!password) {
-      errors.push('Mot de passe manquant.')
+    if (!motDePasse) {
+      errors.push('mot de passe manquant')
     }
 
-    if (id && password) {
-      const utilisateur = await utilisateurGet({ id })
+    if (id && motDePasse) {
+      utilisateur = await utilisateurGet({ id })
 
       if (utilisateur) {
-        const valid = await bcrypt.compare(password, utilisateur.password)
+        const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
 
         if (!valid) {
-          errors.push('Mot de passe incorrect.')
+          errors.push('mot de passe incorrect')
         }
       } else {
-        errors.push("Pas d'utilisateur avec cette id.")
-      }
-
-      if (!errors.length) {
-        token = jwt.sign(
-          {
-            id: utilisateur.id,
-            email: utilisateur.email,
-            role: utilisateur.role
-          },
-          jwtSecret,
-          { expiresIn: '1y' }
-        )
+        errors.push("pas d'utilisateur avec cette id")
       }
     }
 
-    return { token, errors }
+    if (!errors.length && utilisateur) {
+      res = jwt.sign(
+        {
+          id: utilisateur.id,
+          email: utilisateur.email,
+          role: utilisateur.role
+        },
+        jwtSecret,
+        { expiresIn: '1y' }
+      )
+    } else {
+      throw new Error(errors.join(', '))
+    }
+
+    return res
   },
 
   utilisateurAjouter: async ({ utilisateur }, context) => {
-    utilisateur.password = await bcrypt.hash(utilisateur.password, 10)
+    utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
     const res = await utilisateurAdd(utilisateur)
 
     return res

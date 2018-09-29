@@ -5,11 +5,6 @@ type Moi {
   errors: [String!]
 }
 
-type UtilisateurToken {
-  token: String
-  errors: [String!]
-}
-
 type Utilisateur {
   id: ID!
   email: String!
