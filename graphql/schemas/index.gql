@@ -27,7 +27,7 @@ type Mutation {
 
   titreSupprimer(id: ID!): Titre
 
-  utilisateurToken(id: ID!, password: String!): UtilisateurToken
+  token(id: ID!, motDePasse: String!): String
 }
 
 scalar json
