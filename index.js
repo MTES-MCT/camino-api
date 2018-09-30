@@ -27,11 +27,19 @@ app.use(cors({ credentials: true }))
 app.use(compression())
 
 app.use(
-  '/',
   expressJwt({
-    secret: jwtSecret || 'jwtSecret should be declared in .env',
-    credentialsRequired: false
+    credentialsRequired: false,
+    secret: jwtSecret || 'jwtSecret should be declared in .env'
   }),
+  function(err, req, res, next) {
+    if (err.code === 'invalid_token') return next()
+    console.log(req.user)
+    return next()
+  }
+)
+
+app.use(
+  '/',
   graphqlHTTP((req, res, graphQLParams) => ({
     schema,
     rootValue,
