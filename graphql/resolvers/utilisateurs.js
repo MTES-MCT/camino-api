@@ -8,9 +8,16 @@ const {
 } = require('../../postgres/queries/utilisateurs')
 
 const resolvers = {
-  token: async ({ id, motDePasse }, context, info) => {
+  utilisateurIdentifier: async (variables, context, info) => {
+    const utilisateur =
+      context.user && (await utilisateurGet({ id: context.user.id }))
+    console.log(utilisateur)
+    return utilisateur
+  },
+
+  utilisateurConnecter: async ({ id, motDePasse }, context, info) => {
     const errors = []
-    let res
+    let token
     let utilisateur
 
     if (!id) {
@@ -36,7 +43,7 @@ const resolvers = {
     }
 
     if (!errors.length && utilisateur) {
-      res = jwt.sign(
+      token = jwt.sign(
         {
           id: utilisateur.id,
           email: utilisateur.email,
@@ -49,7 +56,7 @@ const resolvers = {
       throw new Error(errors.join(', '))
     }
 
-    return res
+    return { token, utilisateur }
   },
 
   utilisateurAjouter: async ({ utilisateur }, context) => {
@@ -57,11 +64,6 @@ const resolvers = {
     const res = await utilisateurAdd(utilisateur)
 
     return res
-  },
-
-  moi: async (variables, context, info) => {
-    console.log(context.user)
-    return context.user
   }
 }
 

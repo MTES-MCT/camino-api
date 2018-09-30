@@ -1,10 +1,3 @@
-type Moi {
-  id: ID!
-  email: String!
-  groupes: [Groupe]
-  errors: [String!]
-}
-
 type Utilisateur {
   id: ID!
   email: String!
@@ -15,6 +8,11 @@ type Utilisateur {
   administrationId: String
   entrepriseId: String
   groupes: [Groupe]
+}
+
+type UtilisateurToken {
+  utilisateur: Utilisateur
+  token: String
 }
 
 type Groupe {
@@ -32,9 +30,4 @@ input InputUtilisateur {
   telephoneFixe: String
   administrationId: String
   entrepriseId: String
-}
-
-input InputUtilisateurIdentifiants {
-  id: ID!
-  password: String!
 }
