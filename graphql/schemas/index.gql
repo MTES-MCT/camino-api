@@ -1,6 +1,4 @@
 type Query {
-  moi: Moi
-
   metas: Metas
 
   "Un titre"
@@ -18,6 +16,8 @@ type Query {
   substance(id: String!): Substance
 
   substances: [Substance]
+
+  utilisateurIdentifier: Utilisateur
 }
 
 type Mutation {
@@ -27,7 +27,7 @@ type Mutation {
 
   titreSupprimer(id: ID!): Titre
 
-  token(id: ID!, motDePasse: String!): String
+  utilisateurConnecter(id: ID!, motDePasse: String!): UtilisateurToken
 }
 
 scalar json
