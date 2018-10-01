@@ -23,6 +23,11 @@ const geojsonFeatureCollectionPoints = points => {
         geometry: {
           type: 'Point',
           coordinates: [p.coordonees.x, p.coordonees.y]
+        },
+        properties: {
+          groupe: p.groupe,
+          contour: p.contour,
+          point: p.point
         }
       }))
     ]

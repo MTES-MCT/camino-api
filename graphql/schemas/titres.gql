@@ -54,6 +54,7 @@ type Etape {
   engagementDevise: String
   emprise: Emprise
   substances: [TitreSubstance]
+  points: [Point]
   geojsonMultiPolygon: GeojsonMultiPolygon
   geojsonPoints: GeojsonPoints
   titulaires: [Entreprise]
@@ -86,6 +87,29 @@ type Document {
   fichier: String
   jorf: String
   nor: String
+}
+
+type Point {
+  id: ID!
+  coordonees: Coordonnees
+  groupe: Int
+  contour: Int
+  point: Int
+  nom: String
+  description: String
+  securite: Boolean
+  references: [PointReference]
+}
+
+type PointReference {
+  id: ID!
+  systeme: String
+  coordonees: Coordonnees
+}
+
+type Coordonnees {
+  x: Float
+  y: Float
 }
 
 "tauuust"
