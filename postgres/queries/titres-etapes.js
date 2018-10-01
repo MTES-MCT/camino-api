@@ -8,13 +8,11 @@ const titresEtapesGet = async ({ etapeIds }) =>
     .orderBy('ordre')
     .whereIn('titresEtapes.etapeId', etapeIds)
 
-const titreEtapeOrdreUpdate = async ({ id, ordre }) => {
-  console.log(id, ordre)
-  return TitresEtapes.query()
+const titreEtapeOrdreUpdate = async ({ id, ordre }) =>
+  TitresEtapes.query()
     .skipUndefined()
     .findById(id)
     .patch({ ordre })
-}
 
 module.exports = {
   titresEtapesGet,

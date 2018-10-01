@@ -14,8 +14,12 @@ const substances = {
   eager: `legal.[code, domaine]`
 }
 
+const points = {
+  eager: `references`
+}
+
 const etapes = {
-  eager: `[points, type, statut, documents, substances.${
+  eager: `[points.${points.eager}, type, statut, documents, substances.${
     substances.eager
   }, titresSubstances, titulaires.${
     entreprises.eager
