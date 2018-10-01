@@ -22,6 +22,15 @@ type GeojsonPoints {
 type FeaturePoint {
   type: FeatureType!
   geometry: GeometryPoints!
+  properites: FeaturePointProperties
+}
+
+type FeaturePointProperties {
+  groupe: Int
+  contour: Int
+  point: Int
+  nom: String
+  description: String
 }
 
 type GeometryPoints {
