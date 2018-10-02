@@ -3,8 +3,6 @@ const titreDateFinFind = require('./titre-date-fin-find')
 
 const titreStatutIdFind = titre => {
   let titreStatutId
-
-  const titreDateFin = titreDateFinFind(titre.demarches)
   const today = dateFormat(new Date(), 'yyyy-mm-dd')
 
   if (
@@ -36,7 +34,7 @@ const titreStatutIdFind = titre => {
     titreStatutId = 'mod'
   } else if (
     // la date du jour est inférieure à la date d’échéance
-    today < titreDateFin
+    today < titreDateFinFind(titre.demarches)
   ) {
     // le statut du titre est valide
     titreStatutId = 'val'
