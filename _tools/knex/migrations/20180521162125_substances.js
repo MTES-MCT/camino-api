@@ -25,15 +25,24 @@ exports.up = knex => {
       table.string('symbole')
       table.integer('gerep')
       table.string('description', 2048)
+    })
+    .createTable('substances__substancesLegals', table => {
+      table
+        .string('substanceId')
+        .references('substances.id')
+        .notNullable()
+        .onDelete('CASCADE')
       table
         .string('substanceLegalId')
         .references('substancesLegals.id')
         .notNullable()
+      table.primary(['substanceId', 'substanceLegalId'])
     })
 }
 
 exports.down = knex => {
   return knex.schema
+    .dropTable('substances__substancesLegals')
     .dropTable('substances')
     .dropTable('substancesLegals')
     .dropTable('substancesLegalsCodes')

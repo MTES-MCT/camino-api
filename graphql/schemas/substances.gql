@@ -4,7 +4,7 @@ type Substance {
   symbole: String
   gerep: Int
   description: String
-  legal: SubstanceLegal!
+  legal: [SubstanceLegal!]!
 }
 
 type SubstanceLegal {
@@ -18,7 +18,6 @@ type SubstanceLegal {
 type SubstanceLegalCode {
   id: ID!
   nom: String!
-  domaine: Domaine
   description: String
   lien: String!
 }

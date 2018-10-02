@@ -25,10 +25,14 @@ class Substances extends Model {
   static get relationMappings() {
     return {
       legal: {
-        relation: Model.BelongsToOneRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: SubstancesLegals,
         join: {
-          from: 'substances.substanceLegalId',
+          from: 'substances.id',
+          through: {
+            from: 'substances__substancesLegals.substanceId',
+            to: 'substances__substancesLegals.substanceLegalId'
+          },
           to: 'substancesLegals.id'
         }
       }
