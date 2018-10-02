@@ -228,8 +228,6 @@ fragment substance on TitreSubstance {
   id
   nom
   connexe
-  ordre
-  symbole
   gerep
   description
   legal {

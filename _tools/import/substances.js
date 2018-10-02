@@ -27,5 +27,10 @@ module.exports = async () =>
       filePathCreate('substances_legals_codes'),
       spreadsheetId,
       'substances_legals_codes'
+    ),
+    spreadsheetToJson(
+      filePathCreate('substances__substances_legals'),
+      spreadsheetId,
+      'substances__substances_legals'
     )
   ])
