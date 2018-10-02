@@ -3,47 +3,56 @@ const {
   titreDemarcheOrdreUpdate
 } = require('../postgres/queries/titres-demarches')
 
+const titreDemarchesSortAsc = require('./_utils/titre-demarches-sort-asc')
 const titreDemarcheOrdreFind = require('./_utils/titre-demarche-ordre-find')
 
 const titresDemarchesOrdreUpdate = async () => {
   const titresDemarches = await titresDemarchesGet({})
 
-  const titresDemarchesUpdated = titresDemarches.reduce(
-    (arr, titreDemarche) => {
-      // démarches appartenant au même titre
-      const titreDemarches = titreDemarchesByTitreFind(
-        titresDemarches,
-        titreDemarche.titreId
+  const titresDemarchesGroupedByTitre = titresDemarches.reduce(
+    (res, titreDemarche) => {
+      res[titreDemarche.titreId] = res[titreDemarche.titreId]
+        ? [...res[titreDemarche.titreId], titreDemarche]
+        : [titreDemarche]
+
+      return res
+    },
+    {}
+  )
+
+  const titresDemarchesUpdated = Object.keys(titresDemarchesGroupedByTitre)
+    .reduce((res, titreId) => {
+      const titreDemarchesOrdreChanged = titreDemarchesOrdreChangedFilter(
+        titresDemarchesGroupedByTitre[titreId]
       )
 
-      const ordre = titreDemarcheOrdreFind(titreDemarche, titreDemarches)
+      return titreDemarchesOrdreChanged.length
+        ? [...res, ...titreDemarchesOrdreChanged]
+        : res
+    }, [])
+    .map(titreDemarche => {
+      const ordre = titreDemarcheOrdreFind(
+        titreDemarche.id,
+        titresDemarchesGroupedByTitre[titreDemarche.titreId]
+      )
 
-      if (ordre !== titreDemarche.ordre) {
-        const titreDemarcheUdpate = titreDemarcheOrdreUpdate({
-          id: titreDemarche.id,
-          ordre
-        }).then(u => {
-          console.log(
-            `Mise à jour: démarche ${titreDemarche.id}, ordre ${ordre}`
-          )
-          return u
-        })
-
-        arr = [...arr, titreDemarcheUdpate]
-      }
-
-      return arr
-    },
-    []
-  )
+      return titreDemarcheOrdreUpdate({
+        id: titreDemarche.id,
+        ordre
+      }).then(u => {
+        console.log(`Mise à jour: démarche ${titreDemarche.id}, ordre ${ordre}`)
+        return u
+      })
+    })
 
   await Promise.all([...titresDemarchesUpdated])
 
   return `Mise à jour: ${titresDemarchesUpdated.length} ordres de démarches.`
 }
 
-// retourne les démarches appartenant au même titre
-const titreDemarchesByTitreFind = (titresDemarches, titreId) =>
-  titresDemarches.filter(titreDemarche => titreDemarche.titreId === titreId)
+const titreDemarchesOrdreChangedFilter = titreDemarches =>
+  titreDemarchesSortAsc(titreDemarches).filter(
+    (td, index) => index + 1 !== td.ordre
+  )
 
 module.exports = titresDemarchesOrdreUpdate

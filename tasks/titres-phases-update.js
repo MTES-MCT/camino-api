@@ -17,7 +17,7 @@ const titresPhasesUpdate = async () => {
   const titresPhasesOld = await titresPhasesGet({})
 
   // filtre les démarches qui donnent lieu à des phases
-  // regroupe les démarches groupées par titre
+  // regroupe les démarches par titre
   const titresDemarchesGroupedByTitres = titresDemarches
     .filter(titreDemarcheFilter)
     .reduce(titreDemarchesByTitreGroup, {})
