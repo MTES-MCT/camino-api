@@ -9,8 +9,6 @@ const connection = {
   password: process.env.PGPASSWORD
 }
 
-console.log(connection)
-
 const knexConfig = {
   client: 'pg',
   connection,

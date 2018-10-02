@@ -1,12 +1,13 @@
 const Substances = require('../models/substances')
+const options = require('./_options')
 
 const substances = async args =>
-  Substances.query().eager('legal.[code, domaine]')
+  Substances.query().eager(options.substances.eager)
 
 const substance = async id =>
   Substances.query()
     .findById(id)
-    .eager('legal.[code, domaine]')
+    .eager(options.substances.eager)
 
 module.exports = {
   substance,

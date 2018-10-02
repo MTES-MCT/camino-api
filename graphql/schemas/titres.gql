@@ -67,13 +67,10 @@ type Etape {
 type TitreSubstance {
   id: ID!
   nom: String!
-  domaine: Domaine
-  type: String
   symbole: String
-  alias: [String]
   gerep: Int
   description: String
-  legal: SubstanceLegal!
+  legal: [SubstanceLegal!]!
   connexe: Boolean
   ordre: Int
 }
