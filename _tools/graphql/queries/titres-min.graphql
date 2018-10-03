@@ -51,10 +51,6 @@ fragment titre on Titre {
     nom
     couleur
   }
-  references {
-    type
-    valeur
-  }
   substances {
     ...substance
   }

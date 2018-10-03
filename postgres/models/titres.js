@@ -112,7 +112,7 @@ class Titres extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Entreprises,
         join: {
-          from: 'titres.titulairesTitreEtapeid',
+          from: 'titres.titulairesTitreEtapeId',
           through: {
             from: 'titresTitulaires.titreEtapeId',
             to: 'titresTitulaires.entrepriseId'
@@ -124,7 +124,7 @@ class Titres extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Entreprises,
         join: {
-          from: 'titres.amodiatairesTitreEtapeid',
+          from: 'titres.amodiatairesTitreEtapeId',
           through: {
             from: 'titresAmodiataires.titreEtapeId',
             to: 'titresAmodiataires.entrepriseId'
@@ -136,7 +136,7 @@ class Titres extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Administrations,
         join: {
-          from: 'titres.administrationsTitreEtapeid',
+          from: 'titres.administrationsTitreEtapeId',
           through: {
             from: 'titresAdministrations.titreEtapeId',
             to: 'titresAdministrations.administrationId'
