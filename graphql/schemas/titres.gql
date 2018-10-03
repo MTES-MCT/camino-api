@@ -13,7 +13,13 @@ type Titre {
   domaine: Domaine!
   references: [Reference]
   statut: Statut!
-  substances: [Substance]
+  substances: [TitreSubstance]
+  points: [Point]
+  geojsonMultiPolygon: GeojsonMultiPolygon
+  geojsonPoints: GeojsonPoints
+  titulaires: [Entreprise]
+  amodiataires: [Entreprise]
+  administrations: [Administration]
   demarches: [Demarche]
 }
 

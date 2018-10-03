@@ -58,10 +58,49 @@ exports.up = knex => {
       table.string('engagementDevise')
       table.boolean('sourceIndisponible')
     })
+    .alterTable('titres', table => {
+      table
+        .string('pointsTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+      table
+        .string('titulairesTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+      table
+        .string('amodiatairesTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+      table
+        .string('administrationsTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+      table
+        .string('surfaceTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+      table
+        .string('volumeTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+      table
+        .string('substancesTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
+    })
 }
 
 exports.down = knex => {
   return knex.schema
+    .alterTable('titres', table => {
+      table.dropColumn('substancesTitreEtapeId')
+      table.dropColumn('pointsTitreEtapeId')
+      table.dropColumn('titulairesTitreEtapeId')
+      table.dropColumn('amodiatairesTitreEtapeId')
+      table.dropColumn('administrationsTitreEtapeId')
+      table.dropColumn('surfaceTitreEtapeId')
+      table.dropColumn('volumeTitreEtapeId')
+    })
     .dropTable('titresEtapes')
     .dropTable('titresPhases')
     .dropTable('titresDemarches')

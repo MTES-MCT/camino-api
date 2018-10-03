@@ -14,13 +14,13 @@ const titreStatutIdFind = titre => {
     )
   ) {
     if (
-      // le statut de la démarche est en instruction || déposée
+      // le statut de la démarche est en instruction ou déposée
       ['ins', 'dep'].includes(titre.demarches[0].demarcheStatutId)
     ) {
       // le statut du titre est demande initiale
       titreStatutId = 'dmi'
     } else if (
-      // le statut de la démarche est rejetée || classée sans suite || retirée
+      // le statut de la démarche est rejetée ou classée sans suite ou retirée
       ['rej', 'cls', 'ret'].includes(titre.demarches[0].demarcheStatutId)
     ) {
       // le statut du titre est demande classée
