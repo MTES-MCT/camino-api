@@ -129,6 +129,9 @@ fragment etape on Etape {
     id
     nom
   }
+  substances {
+    ...substance
+  }
   administrations {
     ...administration
   }

@@ -49,7 +49,6 @@ const resolvers = {
     context,
     info
   ) => {
-    console.log(context.user)
     const titres = await titresGet({
       typeIds,
       domaineIds,
