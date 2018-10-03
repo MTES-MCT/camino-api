@@ -4,7 +4,6 @@ const {
 } = require('../postgres/queries/titres-demarches')
 
 const titreDemarchesSortAsc = require('./_utils/titre-demarches-sort-asc')
-const titreDemarcheOrdreFind = require('./_utils/titre-demarche-ordre-find')
 
 const titresDemarchesOrdreUpdate = async () => {
   const titresDemarches = await titresDemarchesGet({})
@@ -22,25 +21,31 @@ const titresDemarchesOrdreUpdate = async () => {
 
   const titresDemarchesUpdated = Object.keys(titresDemarchesGroupedByTitre)
     .reduce((res, titreId) => {
-      const titreDemarchesOrdreChanged = titreDemarchesOrdreChangedFilter(
+      const titreDemarchesOrdreChanged = titreDemarchesSortAsc(
         titresDemarchesGroupedByTitre[titreId]
       )
+        .map((titreDemarche, index) => {
+          titreDemarche.ordreUpdated = index + 1
+          return titreDemarche
+        })
+        .filter(
+          titreDemarche => titreDemarche.ordreUpdated !== titreDemarche.ordre
+        )
 
       return titreDemarchesOrdreChanged.length
         ? [...res, ...titreDemarchesOrdreChanged]
         : res
     }, [])
     .map(titreDemarche => {
-      const ordre = titreDemarcheOrdreFind(
-        titreDemarche.id,
-        titresDemarchesGroupedByTitre[titreDemarche.titreId]
-      )
-
       return titreDemarcheOrdreUpdate({
         id: titreDemarche.id,
-        ordre
+        ordre: titreDemarche.ordreUpdated
       }).then(u => {
-        console.log(`Mise à jour: démarche ${titreDemarche.id}, ordre ${ordre}`)
+        console.log(
+          `Mise à jour: démarche ${titreDemarche.id}, ordre ${
+            titreDemarche.ordreUpdated
+          }`
+        )
         return u
       })
     })
@@ -49,10 +54,5 @@ const titresDemarchesOrdreUpdate = async () => {
 
   return `Mise à jour: ${titresDemarchesUpdated.length} ordres de démarches.`
 }
-
-const titreDemarchesOrdreChangedFilter = titreDemarches =>
-  titreDemarchesSortAsc(titreDemarches).filter(
-    (td, index) => index + 1 !== td.ordre
-  )
 
 module.exports = titresDemarchesOrdreUpdate

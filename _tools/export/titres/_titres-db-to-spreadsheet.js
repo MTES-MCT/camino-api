@@ -120,7 +120,7 @@ module.exports = async (spreadsheetId, domaineId) => {
 }
 
 const rowsCreate = (elements, parents) => {
-  return parents && parents.length > 0
+  return parents && parents.length
     ? elements.reduce(
         (r, e) =>
           e[parents[0]]

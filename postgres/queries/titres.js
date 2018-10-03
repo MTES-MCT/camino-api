@@ -49,11 +49,11 @@ const titresGet = async ({
   return q
 }
 
-const titreStatutIdUpdate = async ({ id, statutId }) =>
+const titreUpdate = async ({ id, props }) =>
   Titres.query()
     .skipUndefined()
     .findById(id)
-    .patch({ statutId })
+    .patch(props)
 
 const titreAjouter = async titre =>
   Titres.query()
@@ -77,7 +77,7 @@ const titreModifier = async titre =>
 module.exports = {
   titreGet,
   titresGet,
-  titreStatutIdUpdate,
+  titreUpdate,
   titreAjouter,
   titreSupprimer,
   titreModifier

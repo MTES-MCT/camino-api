@@ -19,11 +19,16 @@ const titreFormat = t => {
       valeur: t.references[r]
     }))
 
+  if (t.points && t.points.length) {
+    t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points)
+    t.geojsonPoints = geojsonFeatureCollectionPoints(t.points)
+  }
+
   t.demarches &&
     t.demarches.forEach(d => {
       d.etapes &&
         d.etapes.forEach(e => {
-          if (e.points.length > 0) {
+          if (e.points.length) {
             e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
             e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
           }

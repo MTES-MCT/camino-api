@@ -1,30 +1,30 @@
-const { titresGet, titreStatutIdUpdate } = require('../postgres/queries/titres')
+const { titresGet, titreUpdate } = require('../postgres/queries/titres')
 
 const titreStatutIdFind = require('./_utils/titre-statut-id-find')
 
 const titresStatutIdsUpdate = async () => {
   const titres = await titresGet({})
-  const statutIdsUpdate = titres.reduce((arr, t) => {
+  const titreUpdateRequests = titres.reduce((arr, t) => {
     const statutId = titreStatutIdFind(t)
 
     if (statutId !== t.statutId) {
-      const titreUpdate = titreStatutIdUpdate({
+      const titreUpdateRequest = titreUpdate({
         id: t.id,
-        statutId
+        props: { statutId }
       }).then(u => {
         console.log(`Mise à jour: titre ${t.id}, statutId ${statutId}`)
         return u
       })
 
-      arr = [...arr, titreUpdate]
+      arr = [...arr, titreUpdateRequest]
     }
 
     return arr
   }, [])
 
-  await Promise.all([...statutIdsUpdate])
+  await Promise.all([...titreUpdateRequests])
 
-  return `Mise à jour: ${statutIdsUpdate.length} statuts de titres.`
+  return `Mise à jour: ${titreUpdateRequests.length} statuts de titres.`
 }
 
 module.exports = titresStatutIdsUpdate
