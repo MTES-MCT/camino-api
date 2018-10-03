@@ -55,103 +55,20 @@ fragment titre on Titre {
     type
     valeur
   }
-  administrations {
-    ...administration
-  }
-  titulaires {
-    ...entreprise
-  }
-  amodiataires {
-    ...entreprise
-  }
-  points {
-    ...point
-  }
-  geojsonPoints {
-    ...geojsonPoints
-  }
-  geojsonMultiPolygon {
-    ...geojsonMultiPolygon
-  }
-  demarches {
-    ...demarche
-  }
-}
-
-fragment demarche on Demarche {
-  id
-  ordre
-  type {
-    id
-    nom
-  }
-  statut {
-    id
-    nom
-    couleur
-  }
-  phase {
-    dateDebut
-    dateFin
-    statut {
-      id
-      nom
-      couleur
-    }
-  }
-  etapes {
-    ...etape
-  }
-}
-
-fragment etape on Etape {
-  id
-  ordre
-  date
-  duree
-  surface
-  volume
-  volumeUnite
-  visas
-  engagement
-  engagementDevise
-  sourceIndisponible
-  type {
-    id
-    nom
-  }
-  statut {
-    id
-    nom
-    couleur
-  }
-  emprise {
-    id
-    nom
-  }
-  administrations {
-    ...administration
-  }
-  titulaires {
-    ...entreprise
-  }
-  amodiataires {
-    ...entreprise
-  }
-  points {
-    ...point
-  }
-  geojsonPoints {
-    ...geojsonPoints
-  }
-  geojsonMultiPolygon {
-    ...geojsonMultiPolygon
-  }
   substances {
     ...substance
   }
-  documents {
-    ...document
+  administrations {
+    ...administration
+  }
+  titulaires {
+    ...entreprise
+  }
+  amodiataires {
+    ...entreprise
+  }
+  geojsonMultiPolygon {
+    ...geojsonMultiPolygon
   }
 }
 
@@ -213,48 +130,11 @@ fragment groupe on Groupe {
   nom
 }
 
-fragment point on Point {
-  id
-  coordonees {
-    x
-    y
-  }
-  groupe
-  contour
-  point
-  nom
-  description
-  securite
-  references {
-    ...pointReference
-  }
-}
-
-fragment pointReference on PointReference {
-  id
-  systeme
-  coordonees {
-    x
-    y
-  }
-}
-
 fragment geojsonMultiPolygon on GeojsonMultiPolygon {
   type
   geometry {
     type
     coordinates
-  }
-}
-
-fragment geojsonPoints on GeojsonPoints {
-  type
-  features {
-    type
-    geometry {
-      type
-      coordinates
-    }
   }
 }
 
@@ -279,15 +159,4 @@ fragment substance on TitreSubstance {
       lien
     }
   }
-}
-
-fragment document on Document {
-  id
-  nom
-  type
-  url
-  uri
-  fichier
-  jorf
-  nor
 }

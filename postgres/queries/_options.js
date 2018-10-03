@@ -41,7 +41,13 @@ const demarches = {
 }
 
 const titres = {
-  eager: `[type, domaine, statut, demarches(orderDesc).${demarches.eager}]`,
+  eager: `[type, domaine, statut, points, substances.${
+    substances.eager
+  }, titulaires.${entreprises.eager}, amodiataires.${
+    entreprises.eager
+  }, administrations.${administrations.eager}, demarches(orderDesc).${
+    demarches.eager
+  }]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],
