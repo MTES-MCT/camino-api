@@ -4,18 +4,18 @@ type Substance {
   symbole: String
   gerep: Int
   description: String
-  legal: [SubstanceLegal!]!
+  legales: [SubstanceLegale!]!
 }
 
-type SubstanceLegal {
+type SubstanceLegale {
   id: ID!
   nom: String!
   domaine: Domaine
   description: String
-  code: SubstanceLegalCode!
+  code: SubstanceLegaleCode!
 }
 
-type SubstanceLegalCode {
+type SubstanceLegaleCode {
   id: ID!
   nom: String!
   description: String

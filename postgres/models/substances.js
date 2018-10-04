@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const SubstancesLegals = require('./substances-legals')
+const SubstancesLegales = require('./substances-legales')
 
 class Substances extends Model {
   static get tableName() {
@@ -9,7 +9,7 @@ class Substances extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['id', 'nom', 'domaineId', 'type', 'substanceLegalId'],
+      required: ['id', 'nom', 'domaineId', 'type', 'substanceLegaleId'],
 
       properties: {
         id: { type: 'string' },
@@ -24,16 +24,16 @@ class Substances extends Model {
 
   static get relationMappings() {
     return {
-      legal: {
+      legales: {
         relation: Model.ManyToManyRelation,
-        modelClass: SubstancesLegals,
+        modelClass: SubstancesLegales,
         join: {
           from: 'substances.id',
           through: {
-            from: 'substances__substancesLegals.substanceId',
-            to: 'substances__substancesLegals.substanceLegalId'
+            from: 'substances__substancesLegales.substanceId',
+            to: 'substances__substancesLegales.substanceLegaleId'
           },
-          to: 'substancesLegals.id'
+          to: 'substancesLegales.id'
         }
       }
     }

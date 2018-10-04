@@ -5,7 +5,7 @@ query {
     symbole
     gerep
     description
-    legal {
+    legales {
       id
       nom
       description
