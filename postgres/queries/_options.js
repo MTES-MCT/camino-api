@@ -61,7 +61,8 @@ const options = {
   etapes,
   demarches,
   titres,
-  substances
+  substances,
+  entreprises
 }
 
 module.exports = options

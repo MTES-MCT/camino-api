@@ -4,7 +4,7 @@ query {
   }
 }
 
-fragment substance on TitreSubstance {
+fragment substance on Substance {
   id
   nom
   symbole
