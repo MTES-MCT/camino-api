@@ -1,4 +1,4 @@
-const Entreprises = require('../models/Entreprises')
+const Entreprises = require('../models/entreprises')
 const options = require('./_options')
 
 const entrepriseGet = async id =>
