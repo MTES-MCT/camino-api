@@ -12,6 +12,7 @@ const {
 } = require('./resolvers/utilisateurs')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
+const { entreprise, entreprises } = require('./resolvers/entreprises')
 const json = require('./types/json')
 
 module.exports = {
@@ -22,6 +23,8 @@ module.exports = {
   substances,
   metas,
   utilisateurIdentifier,
+  entreprise,
+  entreprises,
 
   // mutations
   titreAjouter,

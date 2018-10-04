@@ -1,24 +1,28 @@
-query {
-  substance(id: "hydr") {
+query Substance($id: String!) {
+  substance(id: $id) {
+    ...substance
+  }
+}
+
+fragment substance on Substance {
+  id
+  nom
+  symbole
+  gerep
+  description
+  legales {
     id
     nom
-    symbole
-    gerep
     description
-    legales {
+    domaine {
+      id
+      nom
+    }
+    code {
       id
       nom
       description
-      domaine {
-        id
-        nom
-      }
-      code {
-        id
-        nom
-        description
-        lien
-      }
+      lien
     }
   }
 }
