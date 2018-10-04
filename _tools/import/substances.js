@@ -19,18 +19,18 @@ module.exports = async () =>
       cb
     ),
     spreadsheetToJson(
-      filePathCreate('substances_legals'),
+      filePathCreate('substances_legales'),
       spreadsheetId,
-      'substances_legals'
+      'substances_legales'
     ),
     spreadsheetToJson(
-      filePathCreate('substances_legals_codes'),
+      filePathCreate('substances_legales_codes'),
       spreadsheetId,
-      'substances_legals_codes'
+      'substances_legales_codes'
     ),
     spreadsheetToJson(
-      filePathCreate('substances__substances_legals'),
+      filePathCreate('substances__substances_legales'),
       spreadsheetId,
-      'substances__substances_legals'
+      'substances__substances_legales'
     )
   ])

@@ -42,8 +42,7 @@ const titresGet = async ({
           'demarches:etapes:substances.symbole',
           substances.map(n => n.toLowerCase())
         )
-        .joinRelation('demarches.etapes.substances')
-    })
+    }).joinRelation('demarches.etapes.substances')
   }
 
   return q

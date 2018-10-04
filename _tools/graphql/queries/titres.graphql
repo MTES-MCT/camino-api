@@ -55,6 +55,9 @@ fragment titre on Titre {
     type
     valeur
   }
+  substances {
+    ...substance
+  }
   administrations {
     ...administration
   }
@@ -267,7 +270,7 @@ fragment substance on TitreSubstance {
   connexe
   gerep
   description
-  legal {
+  legales {
     id
     nom
     description

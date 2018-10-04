@@ -1,12 +1,12 @@
 exports.up = knex => {
   return knex.schema
-    .createTable('substancesLegalsCodes', table => {
+    .createTable('substancesLegalesCodes', table => {
       table.string('id').primary()
       table.string('nom').notNullable()
       table.string('description')
       table.string('lien').notNullable()
     })
-    .createTable('substancesLegals', table => {
+    .createTable('substancesLegales', table => {
       table.string('id').primary()
       table.string('nom').notNullable()
       table
@@ -15,8 +15,8 @@ exports.up = knex => {
         .references('domaines.id')
       table.string('description')
       table
-        .string('substanceLegalCodeId')
-        .references('substancesLegalsCodes.id')
+        .string('substanceLegaleCodeId')
+        .references('substancesLegalesCodes.id')
         .notNullable()
     })
     .createTable('substances', table => {
@@ -26,24 +26,24 @@ exports.up = knex => {
       table.integer('gerep')
       table.string('description', 2048)
     })
-    .createTable('substances__substancesLegals', table => {
+    .createTable('substances__substancesLegales', table => {
       table
         .string('substanceId')
         .references('substances.id')
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('substanceLegalId')
-        .references('substancesLegals.id')
+        .string('substanceLegaleId')
+        .references('substancesLegales.id')
         .notNullable()
-      table.primary(['substanceId', 'substanceLegalId'])
+      table.primary(['substanceId', 'substanceLegaleId'])
     })
 }
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('substances__substancesLegals')
+    .dropTable('substances__substancesLegales')
     .dropTable('substances')
-    .dropTable('substancesLegals')
-    .dropTable('substancesLegalsCodes')
+    .dropTable('substancesLegales')
+    .dropTable('substancesLegalesCodes')
 }
