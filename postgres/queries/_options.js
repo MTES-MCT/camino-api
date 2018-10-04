@@ -11,7 +11,7 @@ const entreprises = {
 }
 
 const substances = {
-  eager: `legal.[code, domaine]`
+  eager: `legales.[code, domaine]`
 }
 
 const points = {

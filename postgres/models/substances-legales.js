@@ -1,10 +1,10 @@
 const { Model } = require('objection')
-const SubstancesLegalsCodes = require('./substances-legals-codes')
+const SubstancesLegalesCodes = require('./substances-legales-codes')
 const Domaines = require('./domaines')
 
-class SubstancesLegals extends Model {
+class SubstancesLegales extends Model {
   static get tableName() {
-    return 'substancesLegals'
+    return 'substancesLegales'
   }
 
   static get jsonSchema() {
@@ -26,17 +26,17 @@ class SubstancesLegals extends Model {
     return {
       code: {
         relation: Model.BelongsToOneRelation,
-        modelClass: SubstancesLegalsCodes,
+        modelClass: SubstancesLegalesCodes,
         join: {
-          from: 'substancesLegals.substanceLegalCodeId',
-          to: 'substancesLegalsCodes.id'
+          from: 'substancesLegales.substanceLegaleCodeId',
+          to: 'substancesLegalesCodes.id'
         }
       },
       domaine: {
         relation: Model.BelongsToOneRelation,
         modelClass: Domaines,
         join: {
-          from: 'substancesLegals.domaineId',
+          from: 'substancesLegales.domaineId',
           to: 'domaines.id'
         }
       }
@@ -44,4 +44,4 @@ class SubstancesLegals extends Model {
   }
 }
 
-module.exports = SubstancesLegals
+module.exports = SubstancesLegales
