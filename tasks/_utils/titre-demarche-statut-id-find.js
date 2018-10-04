@@ -64,6 +64,22 @@ const titreDemarcheStatutIdFind = titreDemarche => {
     ) {
       //  - le statut de la démarche est “en construction”
       titreDemarcheStatutId = 'eco'
+    } else if (
+      //  - le type de l’étape est recevabilité de la demande (mre)
+      //  - et le statut de l’étape est défavorable (def)
+      titreEtapeRecent.etapeId === 'mre' &&
+      titreEtapeRecent.etapeStatutId === 'def'
+    ) {
+      //  - le statut de la démarche est classée sans suite (cls)
+      titreDemarcheStatutId = 'cls'
+    } else if (
+      //  - le type de l’étape est décision expresse (dex)
+      //  - et le statut de l’étape est rejetée (rej)
+      titreEtapeRecent.etapeId === 'dex' &&
+      titreEtapeRecent.etapeStatutId === 'rej'
+    ) {
+      //  - le statut de la démarche est rejetée (rej)
+      titreDemarcheStatutId = 'rej'
     }
   } else if (
     //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
