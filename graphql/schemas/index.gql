@@ -18,6 +18,10 @@ type Query {
   substances: [Substance]
 
   utilisateurIdentifier: Utilisateur
+
+  entreprise(id: String!): Entreprise
+
+  entreprises: [Entreprise]
 }
 
 type Mutation {
