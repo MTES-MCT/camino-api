@@ -1,7 +1,7 @@
 const Substances = require('../models/substances')
 const options = require('./_options')
 
-const substances = async args =>
+const substances = async () =>
   Substances.query().eager(options.substances.eager)
 
 const substance = async id =>
