@@ -60,7 +60,8 @@ const options = {
   phases,
   etapes,
   demarches,
-  titres
+  titres,
+  substances
 }
 
 module.exports = options
