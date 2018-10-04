@@ -267,7 +267,9 @@ fragment geojsonPoints on GeojsonPoints {
 fragment substance on TitreSubstance {
   id
   nom
+  ordre
   connexe
+  symbole
   gerep
   description
   legales {

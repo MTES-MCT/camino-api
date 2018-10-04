@@ -1,24 +1,28 @@
 query {
   substances {
+    ...substance
+  }
+}
+
+fragment substance on TitreSubstance {
+  id
+  nom
+  symbole
+  gerep
+  description
+  legales {
     id
     nom
-    symbole
-    gerep
     description
-    legales {
+    domaine {
+      id
+      nom
+    }
+    code {
       id
       nom
       description
-      domaine {
-        id
-        nom
-      }
-      code {
-        id
-        nom
-        description
-        lien
-      }
+      lien
     }
   }
 }
