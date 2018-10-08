@@ -25,8 +25,8 @@ class TitresPoints extends Model {
         coordonees: {
           type: 'object',
           properties: {
-            x: { type: 'number' },
-            y: { type: 'number' }
+            x: { type: 'float' },
+            y: { type: 'float' }
           }
         },
         groupe: { type: 'integer' },
