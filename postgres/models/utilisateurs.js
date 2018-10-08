@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const Groupes = require('./groupes')
+const Permissions = require('./permissions')
 
 class Utilisateurs extends Model {
   static get tableName() {
@@ -27,16 +27,16 @@ class Utilisateurs extends Model {
 
   static get relationMappings() {
     return {
-      groupes: {
+      permissions: {
         relation: Model.ManyToManyRelation,
-        modelClass: Groupes,
+        modelClass: Permissions,
         join: {
           from: 'utilisateurs.id',
           through: {
-            from: 'utilisateursGroupes.utilisateurId',
-            to: 'utilisateursGroupes.groupeId'
+            from: 'utilisateursPermissions.utilisateurId',
+            to: 'utilisateursPermissions.groupeId'
           },
-          to: 'groupes.id'
+          to: 'permissions.id'
         }
       }
     }

@@ -7,7 +7,7 @@ type Utilisateur {
   telephoneFixe: String
   administrationId: String
   entrepriseId: String
-  groupes: [Groupe]
+  permissions: [Permission]
 }
 
 type UtilisateurToken {
@@ -15,7 +15,7 @@ type UtilisateurToken {
   token: String
 }
 
-type Groupe {
+type Permission {
   id: ID!
   nom: String
 }

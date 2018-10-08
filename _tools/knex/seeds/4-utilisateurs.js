@@ -1,17 +1,17 @@
 const utilisateurs = require('../../sources/repertoire-utilisateurs.json')
-const groupes = require('../../sources/repertoire-groupes.json')
-const utilisateursGroupes = require('../../sources/repertoire-utilisateurs-groupes.json')
+const permissions = require('../../sources/repertoire-permissions.json')
+const utilisateursPermissions = require('../../sources/repertoire-utilisateurs-permissions.json')
 
 exports.seed = (knex, Promise) =>
-  knex('utilisateursGroupes')
+  knex('utilisateursPermissions')
     .del()
     .then(() =>
-      Promise.all([knex('utilisateurs').del(), knex('groupes').del()])
+      Promise.all([knex('utilisateurs').del(), knex('permissions').del()])
     )
     .then(() =>
       Promise.all([
         knex('utilisateurs').insert(utilisateurs),
-        knex('groupes').insert(groupes)
+        knex('permissions').insert(permissions)
       ])
     )
-    .then(() => knex('utilisateursGroupes').insert(utilisateursGroupes))
+    .then(() => knex('utilisateursPermissions').insert(utilisateursPermissions))

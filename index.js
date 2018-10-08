@@ -16,6 +16,7 @@ const cors = require('cors')
 const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
 const expressJwt = require('express-jwt')
+// const guard = require('express-jwt-permissions')()
 const { env, port, url, jwtSecret } = require('./config')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
@@ -37,6 +38,8 @@ app.use(
     return next()
   }
 )
+
+// app.use(guard.check('admin'))
 
 app.use(
   '/',

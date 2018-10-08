@@ -7,8 +7,8 @@ const password = process.env.ADMIN_PASSWORD
 
 const utilisateur = {
   id: process.env.ADMIN_ID,
-  email: process.env.ADMIN_EMAIL
-  // groupes: ['superadmin']
+  email: process.env.ADMIN_EMAIL,
+  permissions: ['superadmin']
 }
 
 const run = async () => {

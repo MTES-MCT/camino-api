@@ -1,5 +1,5 @@
 const utilisateurs = {
-  eager: 'groupes'
+  eager: 'permissions'
 }
 
 const administrations = {
