@@ -17,8 +17,8 @@ class TitresPointsReferences extends Model {
         coordonees: {
           type: 'object',
           properties: {
-            x: { type: 'number' },
-            y: { type: 'number' }
+            x: { type: 'float' },
+            y: { type: 'float' }
           }
         }
       }
