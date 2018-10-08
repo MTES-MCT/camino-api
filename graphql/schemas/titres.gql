@@ -21,6 +21,9 @@ type Titre {
   amodiataires: [Entreprise]
   administrations: [Administration]
   demarches: [Demarche]
+  surface: Float
+  volume: Float
+  volumeUnite: String
 }
 
 type Reference {

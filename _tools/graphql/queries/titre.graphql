@@ -24,6 +24,9 @@ fragment titre on Titre {
     type
     valeur
   }
+  volume
+  surface
+  volumeUnite
   substances {
     ...substance
   }
