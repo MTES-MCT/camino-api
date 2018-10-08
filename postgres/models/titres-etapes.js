@@ -35,9 +35,11 @@ class TitresEtapes extends Model {
         duree: { type: 'integer' },
         dateDebut: { type: 'date' },
         dateFin: { type: 'date' },
-        surface: { type: 'integer' },
+        surface: { type: 'float' },
+        volume: { type: 'float' },
+        volumeUnite: { type: 'string' },
         visas: { type: 'json' },
-        engagement: { type: 'integer' },
+        engagement: { type: 'float' },
         engagementDevise: { type: 'string' }
       }
     }

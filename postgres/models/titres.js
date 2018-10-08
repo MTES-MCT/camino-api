@@ -70,14 +70,14 @@ class Titres extends Model {
           to: 'titresDemarches.titreId'
         }
       },
-      // fix: faire remonter uniquement la valeur
       surfaceEtape: {
         relation: Model.BelongsToOneRelation,
         modelClass: TitresEtapes,
         join: {
           from: 'titres.surfaceTitreEtapeId',
           to: 'titresEtapes.id'
-        }
+        },
+        modify: builder => builder.select('surface')
       },
       volumeEtape: {
         relation: Model.BelongsToOneRelation,
@@ -85,7 +85,8 @@ class Titres extends Model {
         join: {
           from: 'titres.volumeTitreEtapeId',
           to: 'titresEtapes.id'
-        }
+        },
+        modify: builder => builder.select(['volume', 'volumeUnite'])
       },
       substances: {
         relation: Model.ManyToManyRelation,

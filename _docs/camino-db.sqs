@@ -2157,12 +2157,12 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[delai_implicite]]></name>
-            <type><![CDATA[FLOAT4]]></type>
+            <type><![CDATA[REAL]]></type>
             <uid><![CDATA[CA7CD91A-8143-429F-840A-4CFF238966ED]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[delai_recours]]></name>
-            <type><![CDATA[FLOAT4]]></type>
+            <type><![CDATA[REAL]]></type>
             <uid><![CDATA[3AAED972-06D4-401D-937A-C58EFE881198]]></uid>
         </SQLField>
         <SQLField>
@@ -2656,7 +2656,7 @@
         <overviewPanelHidden><![CDATA[0]]></overviewPanelHidden>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <RightSidebarWidth><![CDATA[1279.000000]]></RightSidebarWidth>
+        <RightSidebarWidth><![CDATA[1003.000000]]></RightSidebarWidth>
         <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[0.000000]]></SourceSidebarWidth>
@@ -2665,7 +2665,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{778, 464}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{27, 482}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
