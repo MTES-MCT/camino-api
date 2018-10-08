@@ -33,6 +33,7 @@
     "express": "^4.16.3",
     "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
+    "express-jwt-permissions": "^1.2.1",
     "fs-extra": "^7.0.0",
     "google-spreadsheet": "^2.0.6",
     "google-spreadsheet-to-json": "^1.0.0",

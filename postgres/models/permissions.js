@@ -1,8 +1,8 @@
 const { Model } = require('objection')
 
-class Groupes extends Model {
+class Permissions extends Model {
   static get tableName() {
-    return 'groupes'
+    return 'permissions'
   }
 
   static get jsonSchema() {
@@ -18,4 +18,4 @@ class Groupes extends Model {
   }
 }
 
-module.exports = Groupes
+module.exports = Permissions
