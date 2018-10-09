@@ -34,10 +34,11 @@ class Utilisateurs extends Model {
           from: 'utilisateurs.id',
           through: {
             from: 'utilisateursPermissions.utilisateurId',
-            to: 'utilisateursPermissions.groupeId'
+            to: 'utilisateursPermissions.permissionId'
           },
           to: 'permissions.id'
         }
+        // modify: builder => builder.select('id')
       }
     }
   }

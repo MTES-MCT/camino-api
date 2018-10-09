@@ -2665,7 +2665,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{27, 482}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{706, 388}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
