@@ -16,7 +16,6 @@ const cors = require('cors')
 const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
 const expressJwt = require('express-jwt')
-// const guard = require('express-jwt-permissions')()
 const { env, port, url, jwtSecret } = require('./config')
 const schema = require('./graphql/schemas')
 const rootValue = require('./graphql/resolvers')
@@ -32,14 +31,11 @@ app.use(
     credentialsRequired: false,
     secret: jwtSecret || 'jwtSecret should be declared in .env'
   }),
-  function(err, req, res, next) {
+  (err, req, res, next) => {
     if (err.code === 'invalid_token') return next()
-    console.log(req.user)
     return next()
   }
 )
-
-// app.use(guard.check('admin'))
 
 app.use(
   '/',
@@ -65,5 +61,4 @@ app.listen(port, () => {
   console.log(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
   console.log(chalk.bgWhiteBright.black.bold('> Env: ' + env + ' '))
   console.log(' ')
-  // draft({ id: 'c-cxx-astrolabe' }).then(r => console.log(r))
 })
