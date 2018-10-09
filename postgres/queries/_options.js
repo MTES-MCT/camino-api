@@ -1,5 +1,9 @@
 const utilisateurs = {
-  eager: 'permissions'
+  eager: 'permissions',
+  update: {
+    relate: ['permissions'],
+    unrelate: ['permissions']
+  }
 }
 
 const administrations = {

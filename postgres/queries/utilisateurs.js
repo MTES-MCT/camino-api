@@ -19,7 +19,8 @@ const utilisateursGet = async ({ noms }) => {
 
 const utilisateurAdd = async utilisateur =>
   Utilisateurs.query()
-    .insertGraph(utilisateur)
+    .insertGraph(utilisateur, options.utilisateurs.update)
+    .eager(options.utilisateurs.eager)
     .first()
 
 const utilisateurRemove = async id =>
