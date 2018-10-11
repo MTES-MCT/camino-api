@@ -1,15 +1,19 @@
-const { types, domaines, statuts } = require('../../postgres/queries/metas')
+const {
+  typesGet,
+  domainesGet,
+  statutsGet
+} = require('../../postgres/queries/metas')
 
 const resolvers = {
-  metas: async (variables, context, info) => {
-    const t = await types()
-    const d = await domaines()
-    const s = await statuts()
+  async metas(variables, context, info) {
+    const types = await typesGet()
+    const domaines = await domainesGet()
+    const statuts = await statutsGet()
 
     return {
-      types: t,
-      domaines: d,
-      statuts: s
+      types,
+      domaines,
+      statuts
     }
   }
 }

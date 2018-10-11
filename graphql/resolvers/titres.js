@@ -1,63 +1,24 @@
 const {
   titreGet,
   titresGet,
-  titreAjouter,
-  titreSupprimer,
-  titreModifier
+  titreAdd,
+  titreRemove,
+  titreUpdate
 } = require('../../postgres/queries/titres')
 
-const {
-  geojsonFeatureMultiPolygon,
-  geojsonFeatureCollectionPoints
-} = require('./_tools-geojson')
-
-const titreFormat = t => {
-  t.references =
-    t.references &&
-    Object.keys(t.references).map(r => ({
-      type: r,
-      valeur: t.references[r]
-    }))
-
-  if (t.points && t.points.length) {
-    t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points)
-    t.geojsonPoints = geojsonFeatureCollectionPoints(t.points)
-  }
-
-  t.demarches &&
-    t.demarches.forEach(d => {
-      d.etapes &&
-        d.etapes.forEach(e => {
-          if (e.points.length) {
-            e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
-            e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
-          }
-        })
-    })
-
-  if (t.volumeEtape) {
-    t.volume = t.volumeEtape.volume
-    t.volumeUnite = t.volumeEtape.volumeUnite
-  }
-
-  if (t.surfaceEtape) {
-    t.surface = t.surfaceEtape.surface
-  }
-
-  return t
-}
+const { titreFormat } = require('./_utils')
 
 const resolvers = {
-  titre: async ({ id }, context, info) => {
+  async titre({ id }, context, info) {
     const titre = await titreGet(id)
     return titre && titreFormat(titre)
   },
 
-  titres: async (
+  async titres(
     { typeIds, domaineIds, statutIds, substances, noms },
     context,
     info
-  ) => {
+  ) {
     const titres = await titresGet({
       typeIds,
       domaineIds,
@@ -69,11 +30,17 @@ const resolvers = {
     return titres.map(titre => titre && titreFormat(titre))
   },
 
-  titreAjouter: async ({ titre }, context, info) => titreAjouter(titre),
+  async titreAjouter({ titre }, context, info) {
+    return titreAdd(titre)
+  },
 
-  titreSupprimer: async ({ id }, context, info) => titreSupprimer(id),
+  async titreSupprimer({ id }, context, info) {
+    return titreRemove(id)
+  },
 
-  titreModifier: async ({ titre }, context, info) => titreModifier(titre)
+  async titreModifier({ titre }, context, info) {
+    return titreUpdate(titre)
+  }
 }
 
 module.exports = resolvers
