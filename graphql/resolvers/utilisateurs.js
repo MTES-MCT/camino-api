@@ -4,18 +4,35 @@ const { jwtSecret } = require('../../config')
 
 const {
   utilisateurGet,
+  utilisateursGet,
   utilisateurAdd
 } = require('../../postgres/queries/utilisateurs')
 
 const resolvers = {
-  utilisateurIdentifier: async (variables, context, info) => {
+  async utilisateur(variables, context, info) {
+    return utilisateurGet({ id: variables.id })
+  },
+  async utilisateurs(
+    { entrepriseIds, administrationIds, noms },
+    context,
+    info
+  ) {
+    const utilisateurs = await utilisateursGet({
+      noms,
+      entrepriseIds,
+      administrationIds
+    })
+
+    return utilisateurs
+  },
+  async utilisateurIdentifier(variables, context, info) {
     const utilisateur =
       context.user && (await utilisateurGet({ id: context.user.id }))
     console.log(utilisateur)
     return utilisateur
   },
 
-  utilisateurConnecter: async ({ id, motDePasse }, context, info) => {
+  async utilisateurConnecter({ id, motDePasse }, context, info) {
     const errors = []
     let token
     let utilisateur
@@ -59,7 +76,7 @@ const resolvers = {
     return { token, utilisateur }
   },
 
-  utilisateurAjouter: async ({ utilisateur }, context) => {
+  async utilisateurAjouter({ utilisateur }, context) {
     utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
     const res = await utilisateurAdd(utilisateur)
 
