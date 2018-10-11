@@ -1,17 +1,17 @@
 const utilisateurs = {
-  eager: 'permissions',
+  eager: '[permissions, administration, entreprise]',
   update: {
-    relate: ['permissions'],
-    unrelate: ['permissions']
+    relate: ['permissions', 'administration', 'entreprise'],
+    unrelate: ['permissions', 'administration', 'entreprise']
   }
 }
 
 const administrations = {
-  eager: `utilisateurs.${utilisateurs.eager}`
+  eager: `utilisateurs.permissions`
 }
 
 const entreprises = {
-  eager: `utilisateurs.${utilisateurs.eager}`
+  eager: `utilisateurs.permissions`
 }
 
 const substances = {
@@ -59,7 +59,7 @@ const titres = {
   }
 }
 
-const options = {
+module.exports = {
   utilisateurs,
   phases,
   etapes,
@@ -68,5 +68,3 @@ const options = {
   substances,
   entreprises
 }
-
-module.exports = options

@@ -1,5 +1,4 @@
 const { Model } = require('objection')
-const Utilisateurs = require('./utilisateurs')
 
 class Administrations extends Model {
   static get tableName() {
@@ -28,6 +27,12 @@ class Administrations extends Model {
   }
 
   static get relationMappings() {
+    // Utilisateurs est requis par Administrations
+    // Administrations est requis par Utilisateurs
+    // ce qui provoque une require loop
+    // solutions to require loops http://vincit.github.io/objection.js/#relations
+    const Utilisateurs = require('./utilisateurs')
+
     return {
       utilisateurs: {
         relation: Model.HasManyRelation,

@@ -7,6 +7,8 @@ const {
 } = require('./resolvers/titres')
 
 const {
+  utilisateur,
+  utilisateurs,
   utilisateurConnecter,
   utilisateurIdentifier
 } = require('./resolvers/utilisateurs')
@@ -25,6 +27,8 @@ module.exports = {
   utilisateurIdentifier,
   entreprise,
   entreprises,
+  utilisateur,
+  utilisateurs,
 
   // mutations
   titreAjouter,

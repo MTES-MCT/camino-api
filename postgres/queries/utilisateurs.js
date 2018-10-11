@@ -1,44 +1,50 @@
 const Utilisateurs = require('../models/utilisateurs')
 const options = require('./_options')
 
-const utilisateurGet = async ({ id }) =>
-  Utilisateurs.query()
-    .findById(id)
-    .eager(options.utilisateurs.eager)
+const queries = {
+  async utilisateurGet({ id }) {
+    return Utilisateurs.query()
+      .findById(id)
+      .eager(options.utilisateurs.eager)
+  },
 
-const utilisateursGet = async ({ noms }) => {
-  const q = Utilisateurs.query()
-    .skipUndefined()
-    .eager(options.utilisateurs.eager)
-    .whereIn('utilisateurs.typeId', typeIds)
-    .whereIn('titres.domaineId', domaineIds)
-    .whereIn('titres.statutId', statutIds)
+  async utilisateursGet({ noms, entrepriseIds, administrationIds }) {
+    const q = Utilisateurs.query()
+      .skipUndefined()
+      .eager(options.utilisateurs.eager)
+      .whereIn('utilisateurs.administrationId', administrationIds)
+      .whereIn('utilisateurs.entrepriseId', entrepriseIds)
 
-  return q
+    if (noms) {
+      q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
+        'utilisateurs.nom',
+        ...noms.map(n => n.toLowerCase())
+      ])
+    }
+
+    return q
+  },
+
+  async utilisateurAdd(utilisateur) {
+    return Utilisateurs.query()
+      .insertGraph(utilisateur, options.utilisateurs.update)
+      .eager(options.utilisateurs.eager)
+      .first()
+  },
+
+  async utilisateurRemove(id) {
+    return Utilisateurs.query()
+      .deleteById(id)
+      .first()
+      .returning('*')
+  },
+
+  async utilisateurUpdate(utilisateur) {
+    Utilisateurs.query()
+      .upsertGraph([utilisateur], options.utilisateurs.update)
+      .eager(options.utilisateurs.eager)
+      .first()
+  }
 }
 
-const utilisateurAdd = async utilisateur =>
-  Utilisateurs.query()
-    .insertGraph(utilisateur, options.utilisateurs.update)
-    .eager(options.utilisateurs.eager)
-    .first()
-
-const utilisateurRemove = async id =>
-  Utilisateurs.query()
-    .deleteById(id)
-    .first()
-    .returning('*')
-
-const utilisateurUpdate = async utilisateur =>
-  Utilisateurs.query()
-    .upsertGraph([utilisateur], options.utilisateurs.update)
-    .eager(options.utilisateurs.eager)
-    .first()
-
-module.exports = {
-  utilisateurGet,
-  utilisateursGet,
-  utilisateurAdd,
-  utilisateurRemove,
-  utilisateurUpdate
-}
+module.exports = queries

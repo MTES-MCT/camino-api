@@ -65,6 +65,7 @@ exports.up = knex => {
         .string('permissionId', 5)
         .references('permissions.id')
         .notNullable()
+        .onDelete('CASCADE')
       table.primary(['utilisateurId', 'permissionId'])
     })
 }
