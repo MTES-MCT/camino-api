@@ -4,12 +4,15 @@ const {
 } = require('../../postgres/queries/entreprises')
 
 const resolvers = {
-  entreprise: async ({ id }, context, info) => entrepriseGet(id),
+  async entreprise({ id }, context, info) {
+    return entrepriseGet(id)
+  },
 
-  entreprises: async ({ noms }, context, info) =>
-    entreprisesGet({
+  async entreprises({ noms }, context, info) {
+    return entreprisesGet({
       noms
     })
+  }
 }
 
 module.exports = resolvers

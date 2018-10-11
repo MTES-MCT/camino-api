@@ -1,20 +1,20 @@
 const TitresEtapes = require('../models/titres-etapes')
 const options = require('./_options')
 
-const titresEtapesGet = async ({ etapeIds }) =>
-  TitresEtapes.query()
-    .skipUndefined()
-    .eager(options.etapes.eager)
-    .orderBy('ordre')
-    .whereIn('titresEtapes.etapeId', etapeIds)
+const queries = {
+  async titresEtapesGet({ etapeIds }) {
+    return TitresEtapes.query()
+      .skipUndefined()
+      .eager(options.etapes.eager)
+      .orderBy('ordre')
+      .whereIn('titresEtapes.etapeId', etapeIds)
+  },
 
-const titreEtapeOrdreUpdate = async ({ id, ordre }) =>
-  TitresEtapes.query()
-    .skipUndefined()
-    .findById(id)
-    .patch({ ordre })
-
-module.exports = {
-  titresEtapesGet,
-  titreEtapeOrdreUpdate
+  async titreEtapeOrdreUpdate({ id, ordre }) {
+    return TitresEtapes.query()
+      .skipUndefined()
+      .findById(id)
+      .patch({ ordre })
+  }
 }
+module.exports = queries
