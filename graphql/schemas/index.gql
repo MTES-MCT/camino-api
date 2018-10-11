@@ -13,6 +13,16 @@ type Query {
     noms: [String]
   ): [Titre]
 
+  "Un utilisateur"
+  utilisateur(id: ID!): Utilisateur
+
+  "Liste des utilisateurs"
+  utilisateurs(
+    entrepriseIds: [ID]
+    administrationIds: [ID]
+    noms: [String]
+  ): [Utilisateur]
+
   substance(id: String!): Substance
 
   substances: [Substance]

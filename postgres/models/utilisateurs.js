@@ -26,6 +26,8 @@ class Utilisateurs extends Model {
   }
 
   static get relationMappings() {
+    const Administrations = require('./administrations')
+    const Entreprises = require('./entreprises')
     return {
       permissions: {
         relation: Model.ManyToManyRelation,
@@ -39,6 +41,22 @@ class Utilisateurs extends Model {
           to: 'permissions.id'
         }
         // modify: builder => builder.select('id')
+      },
+      administration: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Administrations,
+        join: {
+          from: 'utilisateurs.administrationId',
+          to: 'administrations.id'
+        }
+      },
+      entreprise: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Entreprises,
+        join: {
+          from: 'utilisateurs.entrepriseId',
+          to: 'entreprises.id'
+        }
       }
     }
   }

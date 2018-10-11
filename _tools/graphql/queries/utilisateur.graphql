@@ -1,0 +1,24 @@
+query Utilisateur($id: ID!) {
+  utilisateur(id: $id) {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id
+  nom
+  email
+  prenom
+  administration {
+    id
+    nom
+  }
+  entreprise {
+    id
+    nom
+  }
+  permissions {
+    id
+    nom
+  }
+}

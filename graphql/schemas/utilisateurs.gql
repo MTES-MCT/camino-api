@@ -5,8 +5,8 @@ type Utilisateur {
   prenom: String
   telephoneMobile: String
   telephoneFixe: String
-  administrationId: String
-  entrepriseId: String
+  administration: Administration
+  entreprise: Entreprise
   permissions: [Permission]
 }
 
