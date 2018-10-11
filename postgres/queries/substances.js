@@ -1,15 +1,16 @@
 const Substances = require('../models/substances')
 const options = require('./_options')
 
-const substances = async () =>
-  Substances.query().eager(options.substances.eager)
+const queries = {
+  async substancesGet() {
+    return Substances.query().eager(options.substances.eager)
+  },
 
-const substance = async id =>
-  Substances.query()
-    .findById(id)
-    .eager(options.substances.eager)
-
-module.exports = {
-  substance,
-  substances
+  async substanceGet(id) {
+    return Substances.query()
+      .findById(id)
+      .eager(options.substances.eager)
+  }
 }
+
+module.exports = queries

@@ -1,4 +1,4 @@
-const { titresGet, titreUpdate } = require('../postgres/queries/titres')
+const { titresGet, titrePropsUpdate } = require('../postgres/queries/titres')
 const titrePropEtapeIdFind = require('./_utils/titre-prop-etape-id-find')
 
 const props = [
@@ -19,7 +19,7 @@ const titresPropsEtapeIdsUpdate = async () => {
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
 
       if (etapeId !== titre[propEtapeIdName]) {
-        const titreUpdateRequest = titreUpdate({
+        const titreUpdateRequest = titrePropsUpdate({
           id: titre.id,
           props: { [propEtapeIdName]: etapeId }
         }).then(u => {
