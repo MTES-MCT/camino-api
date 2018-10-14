@@ -1,0 +1,13 @@
+{
+  "utilisateur": {
+    "id": "id",
+    "email": "email",
+    "nom": "",
+    "permissions": null,
+    "prenom": "",
+    "telephoneFixe": null,
+    "telephoneMobile": null,
+    "entreprise": null,
+    "administration": null
+  }
+}

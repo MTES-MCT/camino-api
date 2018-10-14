@@ -54,6 +54,7 @@ exports.up = knex => {
     .createTable('permissions', table => {
       table.string('id', 5).primary()
       table.string('nom').notNullable()
+      table.integer('ordre')
     })
     .createTable('utilisateurs_permissions', table => {
       table

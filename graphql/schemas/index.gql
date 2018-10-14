@@ -2,7 +2,7 @@ type Query {
   metas: Metas
 
   "Un titre"
-  titre(id: String!): Titre
+  titre(id: ID!): Titre
 
   "Liste de titres"
   titres(
@@ -29,6 +29,8 @@ type Query {
 
   utilisateurIdentifier: Utilisateur
 
+  permissions: [Permission]
+
   entreprise(id: String!): Entreprise
 
   entreprises: [Entreprise]
@@ -42,6 +44,10 @@ type Mutation {
   titreSupprimer(id: ID!): Titre
 
   utilisateurConnecter(id: ID!, motDePasse: String!): UtilisateurToken
+
+  utilisateurAjouter(utilisateur: InputUtilisateur): Utilisateur
+
+  utilisateurModifier(utilisateur: InputUtilisateur): Utilisateur
 }
 
 scalar json

@@ -11,8 +11,17 @@ class Permissions extends Model {
       required: ['id', 'nom'],
 
       properties: {
-        id: { type: 'string', maxLength: 4 },
-        nom: { type: 'string' }
+        id: { type: 'string', maxLength: 5 },
+        nom: { type: 'string' },
+        ordre: { type: 'integer' }
+      }
+    }
+  }
+
+  static get namedFilters() {
+    return {
+      orderAsc: builder => {
+        builder.orderBy('ordre', 'asc')
       }
     }
   }
