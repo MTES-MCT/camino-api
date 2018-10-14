@@ -40,10 +40,9 @@ const queries = {
   },
 
   async utilisateurUpdate(utilisateur) {
-    Utilisateurs.query()
-      .upsertGraph([utilisateur], options.utilisateurs.update)
+    return Utilisateurs.query()
+      .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
       .eager(options.utilisateurs.eager)
-      .first()
   }
 }
 

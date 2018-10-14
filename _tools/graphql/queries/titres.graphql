@@ -211,7 +211,6 @@ fragment utilisateur on Utilisateur {
   prenom
   telephoneMobile
   telephoneFixe
-  entrepriseId
   permissions {
     ...permission
   }

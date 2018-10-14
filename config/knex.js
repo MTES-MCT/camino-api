@@ -10,6 +10,7 @@ const connection = {
 
 const knexConfig = {
   client: 'pg',
+  // debug: true,
   connection,
   ...knexSnakeCaseMappers()
 }

@@ -19,8 +19,8 @@ class Utilisateurs extends Model {
         prenom: { type: 'string' },
         telephone_fixe: { type: 'string' },
         telephone_mobile: { type: 'string' },
-        entrepriseId: { type: 'string', maxLength: 64 },
-        administrationId: { type: 'string', maxLength: 64 }
+        entrepriseId: { type: ['string', 'null'], maxLength: 64 },
+        administrationId: { type: ['string', 'null'], maxLength: 64 }
       }
     }
   }

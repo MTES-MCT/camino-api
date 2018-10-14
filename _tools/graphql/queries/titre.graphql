@@ -1,4 +1,4 @@
-query Titre($id: String!) {
+query Titre($id: ID!) {
   titre(id: $id) {
     ...titre
   }
@@ -177,7 +177,6 @@ fragment utilisateur on Utilisateur {
   prenom
   telephoneMobile
   telephoneFixe
-  entrepriseId
   permissions {
     ...permission
   }

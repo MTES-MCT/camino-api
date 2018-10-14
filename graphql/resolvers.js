@@ -10,10 +10,12 @@ const {
   utilisateur,
   utilisateurs,
   utilisateurConnecter,
-  utilisateurIdentifier
+  utilisateurIdentifier,
+  utilisateurModifier
 } = require('./resolvers/utilisateurs')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
+const { permissions } = require('./resolvers/permissions')
 const { entreprise, entreprises } = require('./resolvers/entreprises')
 const json = require('./types/json')
 
@@ -29,6 +31,7 @@ module.exports = {
   entreprises,
   utilisateur,
   utilisateurs,
+  permissions,
 
   // mutations
   titreAjouter,
@@ -36,5 +39,6 @@ module.exports = {
   titreSupprimer,
   json,
 
-  utilisateurConnecter
+  utilisateurConnecter,
+  utilisateurModifier
 }
