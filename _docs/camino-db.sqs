@@ -1818,7 +1818,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>60.00</height>
+            <height>80.00</height>
         </size>
         <zorder>42</zorder>
         <SQLField>
@@ -1835,6 +1835,11 @@
             <notNull><![CDATA[1]]></notNull>
             <uid><![CDATA[A89E3454-3D7B-4A31-AB0B-9409108F8FD5]]></uid>
             <unique><![CDATA[0]]></unique>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[ordre]]></name>
+            <type><![CDATA[INTEGER]]></type>
+            <uid><![CDATA[D23E4B9C-3C9C-4E67-8654-EA130D1E1490]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.252792,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
@@ -2665,7 +2670,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{706, 388}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{974, 413}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

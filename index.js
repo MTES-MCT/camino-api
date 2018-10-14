@@ -30,11 +30,11 @@ app.use(
   expressJwt({
     credentialsRequired: false,
     secret: jwtSecret || 'jwtSecret should be declared in .env'
-  }),
-  (err, req, res, next) => {
-    if (err.code === 'invalid_token') return next()
-    return next()
-  }
+  })
+  // (err, req, res, next) => {
+  //   if (err.code === 'invalid_token') return next()
+  //   return next()
+  // }
 )
 
 app.use(
