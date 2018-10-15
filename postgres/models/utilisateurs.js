@@ -15,10 +15,10 @@ class Utilisateurs extends Model {
         id: { type: 'string', maxLength: 64 },
         email: { type: 'string' },
         motDePasse: { type: 'string' },
-        nom: { type: 'string' },
-        prenom: { type: 'string' },
-        telephone_fixe: { type: 'string' },
-        telephone_mobile: { type: 'string' },
+        nom: { type: ['string', 'null'] },
+        prenom: { type: ['string', 'null'] },
+        telephone_fixe: { type: ['string', 'null'] },
+        telephone_mobile: { type: ['string', 'null'] },
         entrepriseId: { type: ['string', 'null'], maxLength: 64 },
         administrationId: { type: ['string', 'null'], maxLength: 64 }
       }
