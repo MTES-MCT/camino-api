@@ -11,7 +11,9 @@ const {
   utilisateurs,
   utilisateurConnecter,
   utilisateurIdentifier,
-  utilisateurModifier
+  utilisateurModifier,
+  utilisateurAjouter,
+  utilisateurSupprimer
 } = require('./resolvers/utilisateurs')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
@@ -40,5 +42,7 @@ module.exports = {
   json,
 
   utilisateurConnecter,
-  utilisateurModifier
+  utilisateurModifier,
+  utilisateurAjouter,
+  utilisateurSupprimer
 }
