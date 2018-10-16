@@ -44,12 +44,12 @@ app.use(
     rootValue,
     graphiql: true,
     pretty: true,
-    // formatError: err => ({
-    //   message: err.message,
-    //   locations: err.locations,
-    //   stack: err.stack ? err.stack.split('\n') : [],
-    //   path: err.path
-    // }),
+    formatError: err => ({
+      message: err.message,
+      locations: err.locations,
+      stack: err.stack ? err.stack.split('\n') : [],
+      path: err.path
+    }),
     context: {
       user: req.user
     }
