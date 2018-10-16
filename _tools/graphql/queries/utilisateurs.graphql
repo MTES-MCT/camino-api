@@ -25,7 +25,7 @@ fragment utilisateur on Utilisateur {
     id
     nom
   }
-  permissions {
+  permission {
     id
     nom
   }

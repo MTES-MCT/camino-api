@@ -19,8 +19,8 @@ const resolvers = {
 
     if (!context.user) {
       if (
-        restricted.domaineIds.includes(titre.domaineId) ||
-        restricted.statutIds.includes(titre.statutId)
+        !restricted.domaineIds.includes(titre.domaineId) ||
+        !restricted.statutIds.includes(titre.statutId)
       ) {
         titre = null
       }

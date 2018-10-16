@@ -177,7 +177,7 @@ fragment utilisateur on Utilisateur {
   prenom
   telephoneMobile
   telephoneFixe
-  permissions {
+  permission {
     ...permission
   }
 }
