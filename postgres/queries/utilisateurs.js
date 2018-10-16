@@ -2,18 +2,40 @@ const Utilisateurs = require('../models/utilisateurs')
 const options = require('./_options')
 
 const queries = {
-  async utilisateurGet({ id }) {
-    return Utilisateurs.query()
+  async utilisateurGet(id) {
+    const utilisateur = await Utilisateurs.query()
       .findById(id)
       .eager(options.utilisateurs.eager)
+
+    return utilisateur
   },
 
-  async utilisateursGet({ noms, entrepriseIds, administrationIds }) {
+  async utilisateurByEmailGet(email) {
+    const utilisateur = await Utilisateurs.query()
+      .where('email', email)
+      .eager(options.utilisateurs.eager)
+      .first()
+
+    return utilisateur
+  },
+
+  async utilisateursGet({
+    noms,
+    entrepriseIds,
+    administrationIds,
+    permissionIds
+  }) {
     const q = Utilisateurs.query()
       .skipUndefined()
       .eager(options.utilisateurs.eager)
       .whereIn('utilisateurs.administrationId', administrationIds)
       .whereIn('utilisateurs.entrepriseId', entrepriseIds)
+
+    if (permissionIds) {
+      q.where(builder => {
+        builder.whereIn('permissions.id', permissionIds)
+      }).joinRelation('permissions')
+    }
 
     if (noms) {
       q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [

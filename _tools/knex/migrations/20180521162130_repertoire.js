@@ -34,6 +34,11 @@ exports.up = knex => {
       table.string('codePostal')
       table.string('cedex')
     })
+    .createTable('permissions', table => {
+      table.string('id', 5).primary()
+      table.string('nom').notNullable()
+      table.integer('ordre')
+    })
     .createTable('utilisateurs', table => {
       table.string('id').primary()
       table.string('email').notNullable()
@@ -50,30 +55,16 @@ exports.up = knex => {
         .onDelete('CASCADE')
       table.string('telephoneFixe')
       table.string('telephoneMobile')
-    })
-    .createTable('permissions', table => {
-      table.string('id', 5).primary()
-      table.string('nom').notNullable()
-      table.integer('ordre')
-    })
-    .createTable('utilisateurs_permissions', table => {
-      table
-        .string('utilisateurId', 128)
-        .references('utilisateurs.id')
-        .notNullable()
-        .onDelete('CASCADE')
       table
         .string('permissionId', 5)
         .references('permissions.id')
         .notNullable()
         .onDelete('CASCADE')
-      table.primary(['utilisateurId', 'permissionId'])
     })
 }
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('utilisateurs_permissions')
     .dropTable('utilisateurs')
     .dropTable('permissions')
     .dropTable('entreprises')

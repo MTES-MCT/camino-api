@@ -20,7 +20,8 @@ class Utilisateurs extends Model {
         telephone_fixe: { type: ['string', 'null'] },
         telephone_mobile: { type: ['string', 'null'] },
         entrepriseId: { type: ['string', 'null'], maxLength: 64 },
-        administrationId: { type: ['string', 'null'], maxLength: 64 }
+        administrationId: { type: ['string', 'null'], maxLength: 64 },
+        permissionId: { type: ['string', 'null'], maxLength: 5 }
       }
     }
   }
@@ -29,15 +30,11 @@ class Utilisateurs extends Model {
     const Administrations = require('./administrations')
     const Entreprises = require('./entreprises')
     return {
-      permissions: {
-        relation: Model.ManyToManyRelation,
+      permission: {
+        relation: Model.BelongsToOneRelation,
         modelClass: Permissions,
         join: {
-          from: 'utilisateurs.id',
-          through: {
-            from: 'utilisateursPermissions.utilisateurId',
-            to: 'utilisateursPermissions.permissionId'
-          },
+          from: 'utilisateurs.permissionId',
           to: 'permissions.id'
         }
         // modify: builder => builder.select('id')
