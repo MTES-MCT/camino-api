@@ -30,12 +30,7 @@ const queries = {
       .eager(options.utilisateurs.eager)
       .whereIn('utilisateurs.administrationId', administrationIds)
       .whereIn('utilisateurs.entrepriseId', entrepriseIds)
-
-    if (permissionIds) {
-      q.where(builder => {
-        builder.whereIn('permissions.id', permissionIds)
-      }).joinRelation('permissions')
-    }
+      .whereIn('utilisateurs.permissionId', permissionIds)
 
     if (noms) {
       q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
