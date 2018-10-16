@@ -3,7 +3,7 @@
     "id": "id",
     "email": "email",
     "nom": "",
-    "permissions": null,
+    "permission": null,
     "prenom": "",
     "telephoneFixe": null,
     "telephoneMobile": null,

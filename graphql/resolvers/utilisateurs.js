@@ -3,13 +3,32 @@ const jwt = require('jsonwebtoken')
 const emailRegex = require('email-regex')
 const { jwtSecret } = require('../../config')
 
+const {
+  utilisateurGet,
+  utilisateursGet,
+  utilisateurAdd,
+  utilisateurUpdate,
+  utilisateurRemove,
+  utilisateurByEmailGet
+} = require('../../postgres/queries/utilisateurs')
+
+const { permissionsCheck } = require('./_permissions')
+
 const utilisateurErreurs = utilisateur => {
   const errors = []
 
   if (!utilisateur.id) {
     errors.push('id manquante')
-  } else if (utilisateur.id.length < 6) {
-    errors.push("l'id doit contenir au moins 6 caractères")
+  } else {
+    if (utilisateur.id.length < 6) {
+      errors.push("l'id doit contenir au moins 6 caractères")
+    }
+
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(utilisateur.id)) {
+      errors.push(
+        "l'id doit contenir uniquement des minuscules, des chiffres et tirets"
+      )
+    }
   }
 
   if (!utilisateur.email) {
@@ -21,36 +40,59 @@ const utilisateurErreurs = utilisateur => {
   return errors
 }
 
-const {
-  utilisateurGet,
-  utilisateursGet,
-  utilisateurAdd,
-  utilisateurUpdate,
-  utilisateurRemove
-} = require('../../postgres/queries/utilisateurs')
-
 const resolvers = {
-  async utilisateur(variables, context, info) {
-    return utilisateurGet({ id: variables.id })
+  async utilisateur({ id }, context, info) {
+    if (
+      permissionsCheck(context.user, ['super']) ||
+      (context.user && context.user.id === id)
+    ) {
+      return utilisateurGet(id)
+    } else if (context.user && permissionsCheck(context.user, ['admin'])) {
+      const utilisateur = await utilisateurGet(id)
+
+      if (permissionsCheck(utilisateur, ['edit', 'user'])) {
+        return utilisateur
+      } else {
+        return null
+      }
+    }
+
+    return null
   },
 
   async utilisateurs(
-    { entrepriseIds, administrationIds, noms },
+    { entrepriseIds, administrationIds, permissionIds, noms },
     context,
     info
   ) {
-    const utilisateurs = await utilisateursGet({
-      noms,
-      entrepriseIds,
-      administrationIds
-    })
+    if (context.user) {
+      if (permissionsCheck(context.user, ['admin'])) {
+        if (permissionIds) {
+          permissionIds = permissionIds.filter(id =>
+            ['edit', 'user'].includes(id)
+          )
+        } else {
+          permissionIds = ['edit', 'user']
+        }
+      } else if (permissionsCheck(context.user, ['edit', 'user'])) {
+        permissionIds = []
+      }
 
-    return utilisateurs
+      const utilisateurs = await utilisateursGet({
+        noms,
+        entrepriseIds,
+        administrationIds,
+        permissionIds
+      })
+
+      return utilisateurs
+    }
+
+    return null
   },
 
   async utilisateurIdentifier(variables, context, info) {
-    const utilisateur =
-      context.user && (await utilisateurGet({ id: context.user.id }))
+    const utilisateur = context.user && (await utilisateurGet(context.user.id))
 
     return utilisateur
   },
@@ -69,7 +111,7 @@ const resolvers = {
     }
 
     if (id && motDePasse) {
-      utilisateur = await utilisateurGet({ id })
+      utilisateur = await utilisateurGet(id)
 
       if (utilisateur) {
         const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
@@ -100,54 +142,74 @@ const resolvers = {
   },
 
   async utilisateurAjouter({ utilisateur }, context) {
-    const errors = utilisateurErreurs(utilisateur)
-    let res
-    console.log(utilisateur)
+    if (permissionsCheck(context.user, ['super', 'admin'])) {
+      const errors = utilisateurErreurs(utilisateur)
+      let res
 
-    if (!utilisateur.motDePasse) {
-      errors.push('mot de passe manquant')
-    } else if (utilisateur.motDePasse.length < 8) {
-      errors.push('le mot de passe doit contenir au moins 8 caractères')
+      if (!utilisateur.motDePasse) {
+        errors.push('mot de passe manquant')
+      } else if (utilisateur.motDePasse.length < 8) {
+        errors.push('le mot de passe doit contenir au moins 8 caractères')
+      }
+
+      if (utilisateur.email) {
+        const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
+          utilisateur.email
+        )
+        if (utilisateurWithTheSameEmail) {
+          errors.push('un utilisateur avec cet email existe déja')
+        }
+      }
+
+      if (!errors.length) {
+        utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
+        res = await utilisateurAdd(utilisateur)
+      } else {
+        throw new Error(errors.join(', '))
+      }
+
+      return res
     }
 
-    if (!errors.length) {
-      utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
-      res = await utilisateurAdd(utilisateur)
-    } else {
-      throw new Error(errors.join(', '))
-    }
-
-    return res
+    return null
   },
 
   async utilisateurModifier({ utilisateur }, context) {
-    const errors = utilisateurErreurs(utilisateur)
-    let res
+    if (permissionsCheck(context.user, ['super', 'admin'])) {
+      const errors = utilisateurErreurs(utilisateur)
+      let res
 
-    if (!errors.length) {
-      res = await utilisateurUpdate(utilisateur)
-    } else {
-      throw new Error(errors.join(', '))
+      if (!errors.length) {
+        res = await utilisateurUpdate(utilisateur)
+      } else {
+        throw new Error(errors.join(', '))
+      }
+
+      return res
     }
 
-    return res
+    return null
   },
 
   async utilisateurSupprimer({ id }, context) {
-    const errors = []
-    let res
+    if (permissionsCheck(context.user, ['super', 'admin'])) {
+      const errors = []
+      let res
 
-    if (!id) {
-      errors.push('id manquante')
+      if (!id) {
+        errors.push('id manquante')
+      }
+
+      if (!errors.length) {
+        res = await utilisateurRemove(id)
+      } else {
+        throw new Error(errors.join(', '))
+      }
+
+      return res
     }
 
-    if (!errors.length) {
-      res = await utilisateurRemove(id)
-    } else {
-      throw new Error(errors.join(', '))
-    }
-
-    return res
+    return null
   },
 
   async utilisateurMotDePasseModifier({ id, motDePasse }, context) {

@@ -1,18 +1,18 @@
 const utilisateurs = {
-  eager: '[permissions, administration, entreprise]',
+  eager: '[permission, administration, entreprise]',
   update: {
-    relate: ['permissions', 'administration', 'entreprise'],
-    unrelate: ['permissions', 'administration', 'entreprise'],
-    noDelete: ['permissions', 'administration', 'entreprise']
+    relate: ['permission', 'administration', 'entreprise'],
+    unrelate: ['permission', 'administration', 'entreprise'],
+    noDelete: ['permission', 'administration', 'entreprise']
   }
 }
 
 const administrations = {
-  eager: `utilisateurs.permissions`
+  eager: `utilisateurs.permission`
 }
 
 const entreprises = {
-  eager: `utilisateurs.permissions`
+  eager: `utilisateurs.permission`
 }
 
 const substances = {

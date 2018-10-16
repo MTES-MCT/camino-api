@@ -7,7 +7,7 @@ type Utilisateur {
   telephoneFixe: String
   administration: Administration
   entreprise: Entreprise
-  permissions: [Permission]
+  permission: Permission
 }
 
 type UtilisateurToken {
@@ -27,7 +27,7 @@ input InputUtilisateur {
   prenom: String
   telephoneMobile: String
   telephoneFixe: String
-  permissions: [InputPermission]
+  permission: InputPermission
   entreprise: [InputEntreprise]
   administration: [InputAdministration]
 }
@@ -40,7 +40,7 @@ input InputUtilisateurAjouter {
   prenom: String
   telephoneMobile: String
   telephoneFixe: String
-  permissions: [InputPermission]
+  permission: InputPermission
   entreprise: [InputEntreprise]
   administration: [InputAdministration]
 }

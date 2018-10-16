@@ -35,7 +35,7 @@ fragment utilisateur on Utilisateur {
   telephoneMobile
   telephoneFixe
   entrepriseId
-  permissions {
+  permission {
     ...permission
   }
 }

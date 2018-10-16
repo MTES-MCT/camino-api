@@ -1,4 +1,4 @@
-query Utilisateur($id: ID!) {
+query Utilisateur($id: ID) {
   utilisateur(id: $id) {
     ...utilisateur
   }
@@ -17,7 +17,7 @@ fragment utilisateur on Utilisateur {
     id
     nom
   }
-  permissions {
+  permission {
     id
     nom
   }
