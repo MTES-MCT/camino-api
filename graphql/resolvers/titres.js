@@ -34,6 +34,7 @@ const resolvers = {
     context,
     info
   ) {
+    console.log('context.user', context.user)
     if (!context.user) {
       if (domaineIds) {
         domaineIds = domaineIds.filter(id => restricted.domaineIds.includes(id))
