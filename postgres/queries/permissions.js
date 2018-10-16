@@ -1,8 +1,11 @@
 const Permissions = require('../models/permissions')
 
 const queries = {
-  async permissionsGet() {
-    return Permissions.query().orderBy('ordre')
+  async permissionsGet({ ordreMax }) {
+    return Permissions.query()
+      .skipUndefined()
+      .where('ordre', '>', ordreMax)
+      .orderBy('ordre')
   },
 
   async permissionGet(id) {

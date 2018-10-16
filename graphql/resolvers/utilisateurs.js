@@ -129,7 +129,7 @@ const resolvers = {
         {
           id: utilisateur.id,
           email: utilisateur.email,
-          permissions: utilisateur.permissions
+          permission: utilisateur.permission
         },
         jwtSecret,
         { expiresIn: '1y' }
