@@ -23,7 +23,19 @@ type Permission {
 input InputUtilisateur {
   id: ID!
   email: String!
-  motDePasse: String
+  nom: String
+  prenom: String
+  telephoneMobile: String
+  telephoneFixe: String
+  permissions: [InputPermission]
+  entreprise: [InputEntreprise]
+  administration: [InputAdministration]
+}
+
+input InputUtilisateurAjouter {
+  id: ID!
+  email: String!
+  motDePasse: String!
   nom: String
   prenom: String
   telephoneMobile: String

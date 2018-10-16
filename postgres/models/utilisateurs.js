@@ -12,9 +12,9 @@ class Utilisateurs extends Model {
       required: ['id', 'email', 'motDePasse'],
 
       properties: {
-        id: { type: 'string', maxLength: 64 },
+        id: { type: 'string', minLength: 1, maxLength: 64 },
         email: { type: 'string' },
-        motDePasse: { type: 'string' },
+        motDePasse: { type: 'string', minLength: 8, maxLength: 255 },
         nom: { type: ['string', 'null'] },
         prenom: { type: ['string', 'null'] },
         telephone_fixe: { type: ['string', 'null'] },

@@ -8,9 +8,24 @@ const {
 
 const { titreFormat } = require('./_utils')
 
+const restricted = {
+  domaineIds: ['g', 'h', 'w'],
+  statutIds: ['dmi', 'mod', 'val']
+}
+
 const resolvers = {
   async titre({ id }, context, info) {
-    const titre = await titreGet(id)
+    let titre = await titreGet(id)
+
+    if (!context.user) {
+      if (
+        restricted.domaineIds.includes(titre.domaineId) ||
+        restricted.statutIds.includes(titre.statutId)
+      ) {
+        titre = null
+      }
+    }
+
     return titre && titreFormat(titre)
   },
 
@@ -19,6 +34,20 @@ const resolvers = {
     context,
     info
   ) {
+    if (!context.user) {
+      if (domaineIds) {
+        domaineIds = domaineIds.filter(id => restricted.domaineIds.includes(id))
+      } else {
+        domaineIds = restricted.domaineIds
+      }
+
+      if (statutIds) {
+        statutIds = statutIds.filter(id => restricted.statutIds.includes(id))
+      } else {
+        statutIds = restricted.statutIds
+      }
+    }
+
     const titres = await titresGet({
       typeIds,
       domaineIds,
