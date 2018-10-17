@@ -13,7 +13,8 @@ const {
   utilisateurIdentifier,
   utilisateurModifier,
   utilisateurAjouter,
-  utilisateurSupprimer
+  utilisateurSupprimer,
+  utilisateurMotDePasseModifier
 } = require('./resolvers/utilisateurs')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
@@ -44,5 +45,6 @@ module.exports = {
   utilisateurConnecter,
   utilisateurModifier,
   utilisateurAjouter,
-  utilisateurSupprimer
+  utilisateurSupprimer,
+  utilisateurMotDePasseModifier
 }

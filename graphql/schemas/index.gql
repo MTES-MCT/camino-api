@@ -44,7 +44,7 @@ type Mutation {
 
   titreSupprimer(id: ID!): Titre
 
-  utilisateurConnecter(id: ID!, motDePasse: String!): UtilisateurToken
+  utilisateurConnecter(email: String!, motDePasse: String!): UtilisateurToken
 
   utilisateurAjouter(utilisateur: InputUtilisateurAjouter!): Utilisateur
 
@@ -52,7 +52,12 @@ type Mutation {
 
   utilisateurSupprimer(id: ID!): Utilisateur
 
-  utilisateurMotDePasseModifier(id: ID!, motDePasse: String!): Utilisateur
+  utilisateurMotDePasseModifier(
+    id: ID!
+    motDePasse: String!
+    motDePasseNouveau1: String!
+    motDePasseNouveau2: String!
+  ): Utilisateur
 }
 
 scalar json
