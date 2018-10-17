@@ -4,7 +4,7 @@ const queries = {
   async permissionsGet({ ordreMax }) {
     return Permissions.query()
       .skipUndefined()
-      .where('ordre', '>', ordreMax)
+      .where('ordre', '>=', ordreMax)
       .orderBy('ordre')
   },
 
