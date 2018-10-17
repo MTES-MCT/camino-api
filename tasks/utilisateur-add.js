@@ -5,8 +5,6 @@ const { utilisateurAdd } = require('../postgres/queries/utilisateurs')
 
 const password = process.env.ADMIN_PASSWORD
 
-console.log(password)
-
 const utilisateur = {
   id: process.env.ADMIN_ID,
   email: process.env.ADMIN_EMAIL,
