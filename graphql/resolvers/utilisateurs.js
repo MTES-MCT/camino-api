@@ -14,21 +14,15 @@ const {
 
 const { permissionsCheck } = require('./_permissions')
 
-const utilisateurErreurs = utilisateur => {
+const utilisateurErreurs = async utilisateur => {
   const errors = []
 
   if (!utilisateur.id) {
     errors.push('id manquante')
-  } else {
-    if (utilisateur.id.length < 6) {
-      errors.push("l'id doit contenir au moins 6 caractères")
-    }
-
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(utilisateur.id)) {
-      errors.push(
-        "l'id doit contenir uniquement des minuscules, des chiffres et tirets"
-      )
-    }
+  } else if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(utilisateur.id)) {
+    errors.push(
+      "l'id doit contenir uniquement des minuscules, des chiffres et tirets"
+    )
   }
 
   if (!utilisateur.email) {
@@ -65,17 +59,15 @@ const resolvers = {
     context,
     info
   ) {
-    if (context.user) {
+    if (context.user && !permissionsCheck(context.user, ['edit', 'user'])) {
       if (permissionsCheck(context.user, ['admin'])) {
         if (permissionIds) {
           permissionIds = permissionIds.filter(id =>
-            ['edit', 'user'].includes(id)
+            ['admin', 'edit', 'user'].includes(id)
           )
         } else {
-          permissionIds = ['edit', 'user']
+          permissionIds = ['admin', 'edit', 'user']
         }
-      } else if (permissionsCheck(context.user, ['edit', 'user'])) {
-        permissionIds = []
       }
 
       const utilisateurs = await utilisateursGet({
@@ -86,9 +78,9 @@ const resolvers = {
       })
 
       return utilisateurs
+    } else {
+      throw new Error("droits insuffisants pour effectuer l'opération")
     }
-
-    return null
   },
 
   async utilisateurIdentifier(variables, context, info) {
@@ -97,21 +89,21 @@ const resolvers = {
     return utilisateur
   },
 
-  async utilisateurConnecter({ id, motDePasse }, context, info) {
+  async utilisateurConnecter({ email, motDePasse }, context, info) {
     const errors = []
     let token
     let utilisateur
 
-    if (!id) {
-      errors.push('id manquante')
+    if (!email) {
+      errors.push('email manquante')
     }
 
     if (!motDePasse) {
       errors.push('mot de passe manquant')
     }
 
-    if (id && motDePasse) {
-      utilisateur = await utilisateurGet(id)
+    if (email && motDePasse) {
+      utilisateur = await utilisateurByEmailGet(email)
 
       if (utilisateur) {
         const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
@@ -143,8 +135,17 @@ const resolvers = {
 
   async utilisateurAjouter({ utilisateur }, context) {
     if (permissionsCheck(context.user, ['super', 'admin'])) {
-      const errors = utilisateurErreurs(utilisateur)
+      const errors = await utilisateurErreurs(utilisateur)
       let res
+
+      if (utilisateur.email) {
+        const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
+          utilisateur.email
+        )
+        if (utilisateurWithTheSameEmail) {
+          errors.push('un utilisateur avec cet email existe déjà')
+        }
+      }
 
       if (!utilisateur.motDePasse) {
         errors.push('mot de passe manquant')
@@ -152,12 +153,10 @@ const resolvers = {
         errors.push('le mot de passe doit contenir au moins 8 caractères')
       }
 
-      if (utilisateur.email) {
-        const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
-          utilisateur.email
-        )
-        if (utilisateurWithTheSameEmail) {
-          errors.push('un utilisateur avec cet email existe déja')
+      if (utilisateur.id) {
+        const utilisateurWithTheSameId = await utilisateurGet(utilisateur.id)
+        if (utilisateurWithTheSameId) {
+          errors.push('un utilisateur avec cette id existe déjà')
         }
       }
 
@@ -169,14 +168,17 @@ const resolvers = {
       }
 
       return res
+    } else {
+      throw new Error("droits insuffisants pour effectuer l'opération")
     }
-
-    return null
   },
 
   async utilisateurModifier({ utilisateur }, context) {
-    if (permissionsCheck(context.user, ['super', 'admin'])) {
-      const errors = utilisateurErreurs(utilisateur)
+    if (
+      permissionsCheck(context.user, ['super', 'admin']) ||
+      context.user.id === utilisateur.id
+    ) {
+      const errors = await utilisateurErreurs(utilisateur)
       let res
 
       if (!errors.length) {
@@ -186,13 +188,16 @@ const resolvers = {
       }
 
       return res
+    } else {
+      throw new Error("droits insuffisants pour effectuer l'opération")
     }
-
-    return null
   },
 
   async utilisateurSupprimer({ id }, context) {
-    if (permissionsCheck(context.user, ['super', 'admin'])) {
+    if (
+      permissionsCheck(context.user, ['super', 'admin']) ||
+      context.user.id === id
+    ) {
       const errors = []
       let res
 
@@ -207,33 +212,73 @@ const resolvers = {
       }
 
       return res
+    } else {
+      throw new Error("droits insuffisants pour effectuer l'opération")
     }
-
-    return null
   },
 
-  async utilisateurMotDePasseModifier({ id, motDePasse }, context) {
-    const errors = []
-    let res
+  async utilisateurMotDePasseModifier(
+    { id, motDePasse, motDePasseNouveau1, motDePasseNouveau2 },
+    context
+  ) {
+    if (
+      permissionsCheck(context.user, ['super', 'admin']) ||
+      context.user.id === id
+    ) {
+      const errors = []
+      let res
 
-    if (!id) {
-      errors.push('id manquante')
-    }
+      if (!id) {
+        errors.push('id manquante')
+      }
 
-    if (!motDePasse) {
-      errors.push('mot de passe manquant')
-    }
+      if (!motDePasse) {
+        errors.push('mot de passe manquant')
+      }
 
-    if (!errors.length) {
-      res = await utilisateurUpdate({
-        id,
-        motDePasse
-      })
+      if (!motDePasseNouveau1) {
+        errors.push('nouveau mot de passe manquant')
+      } else if (motDePasseNouveau1.length < 8) {
+        errors.push('le mot de passe doit contenir au moins 8 caractères')
+      }
+
+      if (!motDePasseNouveau2) {
+        errors.push('vérification du nouveau mot de passe manquante')
+      }
+
+      if (motDePasseNouveau1 !== motDePasseNouveau2) {
+        errors.push(
+          'le nouveau mot de passe est la vérification sont différents'
+        )
+      }
+
+      if (id && motDePasse) {
+        const utilisateur = await utilisateurGet(id)
+
+        if (utilisateur) {
+          const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+
+          if (!valid) {
+            errors.push('mot de passe incorrect')
+          }
+        } else {
+          errors.push("pas d'utilisateur avec cette id")
+        }
+      }
+
+      if (!errors.length) {
+        res = await utilisateurUpdate({
+          id,
+          motDePasse: await bcrypt.hash(motDePasseNouveau1, 10)
+        })
+      } else {
+        throw new Error(errors.join(', '))
+      }
+
+      return res
     } else {
-      throw new Error(errors.join(', '))
+      throw new Error("droits insuffisants pour effectuer l'opération")
     }
-
-    return res
   }
 }
 
