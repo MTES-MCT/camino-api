@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
-    "bcrypt": "^3.0.1",
+    "bcrypt": "^3.0.2",
     "chalk": "^2.4.1",
     "compression": "^1.7.3",
     "cors": "^2.8.4",

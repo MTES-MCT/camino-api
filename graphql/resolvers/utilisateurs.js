@@ -59,7 +59,7 @@ const resolvers = {
     context,
     info
   ) {
-    if (context.user && !permissionsCheck(context.user, ['edit', 'user'])) {
+    if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
       if (permissionsCheck(context.user, ['admin'])) {
         if (permissionIds) {
           permissionIds = permissionIds.filter(id =>
