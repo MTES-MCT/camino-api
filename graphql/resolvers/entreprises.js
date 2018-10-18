@@ -2,16 +2,23 @@ const {
   entrepriseGet,
   entreprisesGet
 } = require('../../postgres/queries/entreprises')
+const { permissionsCheck } = require('./_permissions')
 
 const resolvers = {
   async entreprise({ id }, context, info) {
-    return entrepriseGet(id)
+    if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
+      return entrepriseGet(id)
+    }
+
+    return null
   },
 
   async entreprises({ noms }, context, info) {
-    return entreprisesGet({
-      noms
-    })
+    if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
+      return entreprisesGet({ noms })
+    }
+
+    return null
   }
 }
 
