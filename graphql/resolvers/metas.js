@@ -5,7 +5,7 @@ const {
 } = require('../../postgres/queries/metas')
 
 const restricted = {
-  domaineIds: ['g', 'h', 'w'],
+  domaineIds: ['g', 'h', 'w', 'm'],
   statutIds: ['dmi', 'mod', 'val']
 }
 
