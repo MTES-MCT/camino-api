@@ -40,13 +40,13 @@ const resolvers = {
         let domaines = await domainesGet()
         domaineIds = domaines.map(domaine => domaine.id)
       }
+      domaineIds = domaineIds.filter(id => !restrictedDomaineIds.includes(id))
 
       if (!statutIds) {
         let statuts = await statutsGet()
         statutIds = statuts.map(statut => statut.id)
       }
 
-      domaineIds = domaineIds.filter(id => !restrictedDomaineIds.includes(id))
       statutIds = statutIds.filter(id => !restrictedStatutIds.includes(id))
     }
 
