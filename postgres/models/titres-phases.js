@@ -9,11 +9,11 @@ class TitresPhases extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['titreDemarcheId', 'phaseStatutId'],
+      required: ['titreDemarcheId', 'statutId'],
 
       properties: {
         titreDemarcheId: { type: 'string', maxLength: 128 },
-        phaseStatutId: { type: 'string', maxLength: 3 },
+        statutId: { type: 'string', maxLength: 3 },
         dateDebut: { type: 'date' },
         dateFin: { type: 'date' }
       }
@@ -26,7 +26,7 @@ class TitresPhases extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: PhasesStatuts,
         join: {
-          from: 'titresPhases.phaseStatutId',
+          from: 'titresPhases.statutId',
           to: 'phasesStatuts.id'
         }
       }

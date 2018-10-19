@@ -32,7 +32,12 @@ const etapes = {
     entreprises.eager
   }, titresAmodiataires, administrations.${
     administrations.eager
-  }, titresAdministrations, emprises, titresEmprises]`
+  }, titresAdministrations, emprises, titresEmprises]`,
+  update: {
+    relate: [],
+    unrelate: [],
+    noDelete: []
+  }
 }
 
 const phases = {

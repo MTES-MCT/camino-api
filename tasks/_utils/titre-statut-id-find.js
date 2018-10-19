@@ -8,27 +8,25 @@ const titreStatutIdFind = titre => {
   if (
     // il y a une seule démarche (octroi)
     titre.demarches.length === 1 &&
-    titre.demarches[0].demarcheId === 'oct' &&
-    ['ins', 'dep', 'rej', 'cls', 'ret'].includes(
-      titre.demarches[0].demarcheStatutId
-    )
+    titre.demarches[0].typeId === 'oct' &&
+    ['ins', 'dep', 'rej', 'cls', 'ret'].includes(titre.demarches[0].statutId)
   ) {
     if (
       // le statut de la démarche est en instruction ou déposée
-      ['ins', 'dep'].includes(titre.demarches[0].demarcheStatutId)
+      ['ins', 'dep'].includes(titre.demarches[0].statutId)
     ) {
       // le statut du titre est demande initiale
       titreStatutId = 'dmi'
     } else if (
       // le statut de la démarche est rejetée ou classée sans suite ou retirée
-      ['rej', 'cls', 'ret'].includes(titre.demarches[0].demarcheStatutId)
+      ['rej', 'cls', 'ret'].includes(titre.demarches[0].statutId)
     ) {
       // le statut du titre est demande classée
       titreStatutId = 'dmc'
     }
   } else if (
     // une démarche a le statut en instruction
-    titre.demarches.find(d => d.demarcheStatutId === 'ins')
+    titre.demarches.find(d => d.statutId === 'ins')
   ) {
     // le statut du titre est modification en instance
     titreStatutId = 'mod'

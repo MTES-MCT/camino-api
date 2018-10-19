@@ -5,9 +5,7 @@
 const titrePropEtapeIdFind = (titreDemarches, prop) =>
   // filtre les démarches acceptée ou terminée
   titreDemarches
-    .filter(titreDemarche =>
-      ['acc', 'ter'].includes(titreDemarche.demarcheStatutId)
-    )
+    .filter(titreDemarche => ['acc', 'ter'].includes(titreDemarche.statutId))
     // parcourt les démarches
     .reduce((etapeId, titreDemarche) => {
       if (!etapeId) {
@@ -15,8 +13,8 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
         const etape = titreDemarche.etapes
           .filter(
             titreEtape =>
-              ['acc', 'fai', 'fav'].includes(titreEtape.etapeStatutId) &&
-              ['dpu', 'dex'].includes(titreEtape.etapeId)
+              ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
+              ['dpu', 'dex'].includes(titreEtape.typeId)
           )
           // trouve une étape qui contient la propriété
           .find(

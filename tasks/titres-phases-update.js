@@ -64,18 +64,18 @@ const titresPhasesUpdate = async () => {
 const titreDemarcheFilter = titreDemarche => {
   // retourne l'étape de dpu de la démarche si elle existe
   const etapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
-    titreEtape => titreEtape.etapeId === 'dpu'
+    titreEtape => titreEtape.typeId === 'dpu'
   )
 
   return (
-    (titreDemarche.demarcheId === 'oct' ||
-      titreDemarche.demarcheId === 'pro' ||
-      titreDemarche.demarcheId === 'pr1' ||
-      titreDemarche.demarcheId === 'pr2' ||
-      titreDemarche.demarcheId === 'pre') &&
-    titreDemarche.demarcheStatutId === 'acc' &&
+    (titreDemarche.typeId === 'oct' ||
+      titreDemarche.typeId === 'pro' ||
+      titreDemarche.typeId === 'pr1' ||
+      titreDemarche.typeId === 'pr2' ||
+      titreDemarche.typeId === 'pre') &&
+    titreDemarche.statutId === 'acc' &&
     etapeDpuFirst &&
-    etapeDpuFirst.etapeStatutId === 'acc'
+    etapeDpuFirst.statutId === 'acc'
   )
 }
 

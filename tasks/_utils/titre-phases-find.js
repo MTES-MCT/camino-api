@@ -18,7 +18,7 @@ const titrePhasesFind = titreDemarchesByTitre =>
     // le statut est valide
     // sinon,
     // - le statut est échu
-    const phaseStatutId =
+    const statutId =
       dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
 
     return [
@@ -27,7 +27,7 @@ const titrePhasesFind = titreDemarchesByTitre =>
         titreDemarcheId: titreDemarche.id,
         dateFin,
         dateDebut,
-        phaseStatutId
+        statutId
       }
     ]
   }, [])
@@ -38,7 +38,7 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
 
   // retourne une étape de dpu si celle-ci possède une date de début
   const etapeDpuHasDateDebut = titreEtapesSortDesc(titreDemarche)
-    .filter(te => te.etapeId === 'dpu')
+    .filter(te => te.typeId === 'dpu')
     .find(te => te.dateDebut)
 
   let dateDebut
@@ -47,7 +47,7 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
     // si
     // - la démarche est un octroi
     // - cette démarche a une étape dpu qui possède une date de début
-    titreDemarche.demarcheId === 'oct' &&
+    titreDemarche.typeId === 'oct' &&
     etapeDpuHasDateDebut
   ) {
     // la date de début est égale à la date de début de la dpu
@@ -61,7 +61,7 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
   } else {
     // sinon, la date de début est égale à la date de la première étape de dpu
     const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
-      titreEtape => titreEtape.etapeId === 'dpu'
+      titreEtape => titreEtape.typeId === 'dpu'
     )
 
     dateDebut =

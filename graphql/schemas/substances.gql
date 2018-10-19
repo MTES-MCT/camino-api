@@ -21,26 +21,3 @@ type SubstanceLegaleCode {
   description: String
   lien: String!
 }
-
-input InputSubstance {
-  id: ID!
-  nom: String!
-  domaine: String!
-  type: String
-  symbole: String
-  alias: [String]
-  gerep: Int
-  description: String
-  legal: InputSubstanceLegal!
-}
-
-input InputSubstanceLegal {
-  id: ID!
-  nom: String!
-  description: String!
-  lien: String!
-}
-
-input InputSubstanceId {
-  id: ID!
-}
