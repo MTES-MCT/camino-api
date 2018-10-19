@@ -8,7 +8,7 @@ exports.up = knex => {
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('demarcheId', 8)
+        .string('demarcheId', 3)
         .notNullable()
         .references('demarches.id')
       table

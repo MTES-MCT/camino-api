@@ -9,7 +9,7 @@ const {
 const { titreFormat } = require('./_utils')
 
 const restricted = {
-  domaineIds: ['g', 'h', 'w'],
+  domaineIds: ['g', 'h', 'w', 'm'],
   statutIds: ['dmi', 'mod', 'val']
 }
 

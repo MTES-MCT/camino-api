@@ -24,7 +24,11 @@ const entreprises = [
 const findup = (array, key1) =>
   array.reduce((res, el) => {
     if (res.find(e => e[key1] === el[key1])) {
-      console.log('----------->', el[key1])
+      console.log(
+        'entreprise en doublon (à supprimer dans la source): ',
+        el[key1],
+        el
+      )
       return res
     } else {
       return [...res, el]

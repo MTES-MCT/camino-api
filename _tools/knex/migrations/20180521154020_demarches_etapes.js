@@ -1,7 +1,7 @@
 exports.up = knex => {
   return knex.schema
     .createTable('demarches', table => {
-      table.string('id', 8).primary()
+      table.string('id', 3).primary()
       table.string('nom').notNullable()
       table.integer('ordre')
       table.boolean('duree')

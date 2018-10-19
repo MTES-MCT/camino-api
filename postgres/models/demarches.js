@@ -14,7 +14,7 @@ class Demarches extends Model {
       required: ['id', 'nom'],
 
       properties: {
-        id: { type: 'string', maxLength: 8 },
+        id: { type: 'string', maxLength: 3 },
         nom: {
           type: 'string'
         },
