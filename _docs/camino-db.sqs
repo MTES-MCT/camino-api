@@ -2545,7 +2545,7 @@
             <y>1150.00</y>
         </location>
         <size>
-            <width>330.00</width>
+            <width>300.00</width>
             <height>100.00</height>
         </size>
         <zorder>20</zorder>
@@ -2631,7 +2631,7 @@
         <SQLEditorFileFormatVersion><![CDATA[4]]></SQLEditorFileFormatVersion>
         <uid><![CDATA[67709206-52A1-4046-83B9-A12E9C651AE4]]></uid>
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
-        <windowLocationX><![CDATA[2880.000000]]></windowLocationX>
+        <windowLocationX><![CDATA[2764.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
         <windowScrollOrigin><![CDATA[{0, 0}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
