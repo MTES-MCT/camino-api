@@ -11,18 +11,16 @@ const titresDemarchesStatutUpdate = async () => {
 
   const titresDemarchesUpdated = titresDemarches.reduce(
     (arr, titreDemarche) => {
-      const demarcheStatutId = titreDemarcheStatutIdFind(titreDemarche)
+      const statutId = titreDemarcheStatutIdFind(titreDemarche)
 
       // filtre uniquement les démarches dont le statut a changé
-      if (demarcheStatutId !== titreDemarche.demarcheStatutId) {
+      if (statutId !== titreDemarche.statutId) {
         const titreDemarcheUpdate = titreDemarcheStatutIdUpdate({
           id: titreDemarche.id,
-          demarcheStatutId
+          statutId
         }).then(u => {
           console.log(
-            `Mise à jour: démarche ${
-              titreDemarche.id
-            }, statutId ${demarcheStatutId}`
+            `Mise à jour: démarche ${titreDemarche.id}, statutId ${statutId}`
           )
           return u
         })

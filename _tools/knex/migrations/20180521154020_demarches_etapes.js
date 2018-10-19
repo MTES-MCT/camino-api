@@ -1,6 +1,6 @@
 exports.up = knex => {
   return knex.schema
-    .createTable('demarches', table => {
+    .createTable('demarchesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
       table.integer('ordre')
@@ -11,14 +11,14 @@ exports.up = knex => {
       table.boolean('renouvelable')
       table.boolean('exception')
     })
-    .createTable('demarches__types', table => {
+    .createTable('demarchesTypes__types', table => {
       table
         .string('typeId', 3)
         .references('types.id')
         .notNullable()
       table
-        .string('demarcheId', 3)
-        .references('demarches.id')
+        .string('demarcheTypeId', 3)
+        .references('demarchesTypes.id')
         .notNullable()
       table.integer('dureeMax')
       table.boolean('acceptationImplicite')
@@ -28,31 +28,31 @@ exports.up = knex => {
       table.string('legalLien')
       table.date('dateDebut')
       table.date('dateFin')
-      table.primary(['demarcheId', 'typeId'])
+      table.primary(['demarcheTypeId', 'typeId'])
     })
     .createTable('demarchesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('demarches__demarchesStatuts', table => {
+    .createTable('demarchesTypes__demarchesStatuts', table => {
       table
-        .string('demarcheId', 3)
-        .references('demarches.id')
+        .string('demarcheTypeId', 3)
+        .references('demarchesTypes.id')
         .notNullable()
       table
         .string('demarcheStatutId', 3)
         .references('demarchesStatuts.id')
         .notNullable()
       table.integer('ordre')
-      table.primary(['demarcheId', 'demarcheStatutId'])
+      table.primary(['demarcheTypeId', 'demarcheStatutId'])
     })
     .createTable('phasesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('etapes', table => {
+    .createTable('etapesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom', 128)
       table.boolean('acceptationAuto')
@@ -61,50 +61,50 @@ exports.up = knex => {
       table.date('dateDebut')
       table.date('dateFin')
     })
-    .createTable('demarches__etapes', table => {
+    .createTable('demarchesTypes__etapesTypes', table => {
       table
-        .string('demarcheId', 7)
-        .references('demarches.id')
+        .string('demarcheTypeId', 7)
+        .references('demarchesTypes.id')
         .notNullable()
       table
-        .string('etapeId', 3)
-        .references('etapes.id')
+        .string('etapeTypeId', 3)
+        .references('etapesTypes.id')
         .notNullable()
       table
         .string('typeId', 3)
         .references('types.id')
         .notNullable()
       table.integer('ordre')
-      table.primary(['demarcheId', 'etapeId', 'typeId'])
+      table.primary(['demarcheTypeId', 'etapeTypeId', 'typeId'])
     })
     .createTable('etapesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('etapes__etapesStatuts', table => {
+    .createTable('etapesTypes__etapesStatuts', table => {
       table
-        .string('etapeId', 7)
-        .references('etapes.id')
+        .string('etapeTypeId', 7)
+        .references('etapesTypes.id')
         .notNullable()
       table
         .string('etapeStatutId', 3)
         .references('etapesStatuts.id')
         .notNullable()
       table.integer('ordre')
-      table.primary(['etapeId', 'etapeStatutId'])
+      table.primary(['etapeTypeId', 'etapeStatutId'])
     })
 }
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('etapes__etapesStatuts')
+    .dropTable('etapesTypes__etapesStatuts')
     .dropTable('etapesStatuts')
-    .dropTable('demarches__etapes')
-    .dropTable('etapes')
-    .dropTable('demarches__demarchesStatuts')
+    .dropTable('demarchesTypes__etapesTypes')
+    .dropTable('etapesTypes')
+    .dropTable('demarchesTypes__demarchesStatuts')
     .dropTable('demarchesStatuts')
-    .dropTable('demarches__types')
-    .dropTable('demarches')
+    .dropTable('demarchesTypes__types')
+    .dropTable('demarchesTypes')
     .dropTable('phasesStatuts')
 }

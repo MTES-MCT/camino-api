@@ -1,6 +1,6 @@
 const {
   titresEtapesGet,
-  titreEtapeOrdreUpdate
+  titreEtapeUpdate
 } = require('../postgres/queries/titres-etapes')
 
 const titresEtapesOrdreUpdate = async () => {
@@ -23,12 +23,14 @@ const titresEtapesOrdreUpdate = async () => {
     )
     .filter(titreEtape => titreEtape.ordreNew !== titreEtape.ordre)
     .map(titreEtape =>
-      titreEtapeOrdreUpdate({
+      titreEtapeUpdate({
         id: titreEtape.id,
-        ordre: titreEtape.ordreNew
+        props: {
+          ordre: titreEtape.ordreNew
+        }
       }).then(u => {
         console.log(
-          `Mise à jour: démarche ${titreEtape.id}, ordre ${titreEtape.ordreNew}`
+          `Mise à jour: étape ${titreEtape.id}, ordre ${titreEtape.ordreNew}`
         )
         return u
       })

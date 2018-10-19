@@ -7,14 +7,14 @@ const queries = {
       .skipUndefined()
       .eager(options.demarches.eager)
       .orderBy('ordre')
-      .whereIn('titresDemarches.demarcheId', demarcheIds)
+      .whereIn('titresDemarches.typeId', demarcheIds)
   },
 
-  async titreDemarcheStatutIdUpdate({ id, demarcheStatutId }) {
+  async titreDemarcheStatutIdUpdate({ id, statutId }) {
     return TitresDemarches.query()
       .skipUndefined()
       .findById(id)
-      .patch({ demarcheStatutId })
+      .patch({ statutId })
   },
 
   async titreDemarcheOrdreUpdate({ id, ordre }) {

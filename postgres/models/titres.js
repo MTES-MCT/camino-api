@@ -25,13 +25,16 @@ class Titres extends Model {
         typeId: { type: 'string', maxLength: 3 },
         statutId: { type: 'string', maxLength: 3 },
         references: { type: 'json' },
-        substancesTitreEtapeId: { type: 'string', maxLength: 128 },
-        pointsTitreEtapeId: { type: 'string', maxLength: 128 },
-        titulairesTitreEtapeId: { type: 'string', maxLength: 128 },
-        amodiatairesTitreEtapeId: { type: 'string', maxLength: 128 },
-        administrationsTitreEtapeId: { type: 'string', maxLength: 128 },
-        surfaceTitreEtapeId: { type: 'string', maxLength: 128 },
-        volumeTitreEtapeId: { type: 'string', maxLength: 128 }
+        substancesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+        pointsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+        titulairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+        amodiatairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+        administrationsTitreEtapeId: {
+          type: ['string', 'null'],
+          maxLength: 128
+        },
+        surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+        volumeTitreEtapeId: { type: ['string', 'null'], maxLength: 128 }
       }
     }
   }

@@ -14,12 +14,12 @@ const tables = [
   },
   {
     name: 'titresDemarches',
-    columns: ['id', 'demarcheId', 'titreId', 'demarcheStatutId', 'ordre'],
+    columns: ['id', 'typeId', 'titreId', 'statutId', 'ordre'],
     parents: ['demarches']
   },
   {
     name: 'titresPhases',
-    columns: ['titreDemarcheId', 'phaseStatutId', 'dateDebut', 'dateFin'],
+    columns: ['titreDemarcheId', 'statutId', 'dateDebut', 'dateFin'],
     parents: ['demarches', 'phase'],
     callbacks: {
       dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
@@ -31,8 +31,8 @@ const tables = [
     columns: [
       'id',
       'titreDemarcheId',
-      'etapeId',
-      'etapeStatutId',
+      'typeId',
+      'statutId',
       'ordre',
       'date',
       'dateDebut',

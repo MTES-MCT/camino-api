@@ -3,7 +3,8 @@ const {
   titres,
   titreAjouter,
   titreSupprimer,
-  titreModifier
+  titreModifier,
+  titreEtapeModifier
 } = require('./resolvers/titres')
 
 const {
@@ -40,6 +41,7 @@ module.exports = {
   titreAjouter,
   titreModifier,
   titreSupprimer,
+  titreEtapeModifier,
   json,
 
   utilisateurConnecter,

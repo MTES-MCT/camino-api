@@ -7,14 +7,21 @@ const queries = {
       .skipUndefined()
       .eager(options.etapes.eager)
       .orderBy('ordre')
-      .whereIn('titresEtapes.etapeId', etapeIds)
+      .whereIn('titresEtapes.typeId', etapeIds)
   },
 
-  async titreEtapeOrdreUpdate({ id, ordre }) {
+  async titreEtapeUpdate({ id, props }) {
     return TitresEtapes.query()
       .skipUndefined()
       .findById(id)
-      .patch({ ordre })
+      .patch(props)
+  },
+
+  async titreEtapeUpsert(etape) {
+    return TitresEtapes.query()
+      .upsertGraph(etape)
+      .eager(options.etapes.eager)
   }
 }
+
 module.exports = queries

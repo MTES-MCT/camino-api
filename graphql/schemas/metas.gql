@@ -47,7 +47,19 @@ type EtapeType {
   acceptationAuto: Boolean
 }
 
+input InputEtapeType {
+  id: ID!
+  nom: String!
+  acceptationAuto: Boolean
+}
+
 type EtapeStatut {
+  id: EtapeStatutId!
+  nom: String!
+  couleur: Couleur!
+}
+
+type InputEtapeStatut {
   id: EtapeStatutId!
   nom: String!
   couleur: Couleur!
@@ -207,9 +219,5 @@ input InputDomaine {
 }
 
 input InputDemarcheTypeId {
-  id: ID!
-}
-
-input InputEtapeTypeId {
   id: ID!
 }
