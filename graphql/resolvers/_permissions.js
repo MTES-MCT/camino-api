@@ -1,4 +1,9 @@
-const permissionsCheck = (user, permissions) =>
-  user && permissions.includes(user.permission.id)
+const { debug } = require('../../config')
 
-module.exports = { permissionsCheck }
+const restrictedDomaineIds = debug ? [] : ['c', 'f', 'r', 's']
+const restrictedStatutIds = debug ? [] : ['dmc', 'ech', 'ind']
+
+const permissionsCheck = (user, permissions) =>
+  debug || (user && permissions.includes(user.permission.id))
+
+module.exports = { permissionsCheck, restrictedDomaineIds, restrictedStatutIds }

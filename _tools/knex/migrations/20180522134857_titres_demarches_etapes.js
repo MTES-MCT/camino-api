@@ -8,11 +8,11 @@ exports.up = knex => {
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('demarcheId', 3)
+        .string('typeId', 3)
         .notNullable()
-        .references('demarches.id')
+        .references('demarchesTypes.id')
       table
-        .string('demarcheStatutId', 3)
+        .string('statutId', 3)
         .notNullable()
         .references('demarchesStatuts.id')
       table.integer('ordre')
@@ -24,7 +24,7 @@ exports.up = knex => {
         .references('titresDemarches.id')
         .onDelete('CASCADE')
       table
-        .string('phaseStatutId', 3)
+        .string('statutId', 3)
         .notNullable()
         .references('phasesStatuts.id')
       table.date('dateDebut')
@@ -38,11 +38,11 @@ exports.up = knex => {
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('etapeId', 3)
+        .string('typeId', 3)
         .notNullable()
-        .references('etapes.id')
+        .references('etapesTypes.id')
       table
-        .string('etapeStatutId', 3)
+        .string('statutId', 3)
         .notNullable()
         .references('etapesStatuts.id')
       table.integer('ordre')

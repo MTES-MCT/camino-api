@@ -138,23 +138,61 @@ input InputReference {
   type: String
 }
 
-input InputDemarche {
-  titreId: String!
-  id: ID!
-  type: InputDemarcheTypeId!
-  ordre: Int
-}
-
 input InputEtape {
   id: ID!
-  type: InputEtapeTypeId!
-  duree: Int!
+  etapeId: ID!
+  etapeStatutId: ID!
+  ordre: Int!
   date: String!
+  duree: Int
+  dateDebut: String
+  dateFin: String
   surface: Float
-  emprise: [InputEmpriseId]
-  substances: [InputSubstanceId!]
+  volume: Float
+  volumeUnite: String
+  visas: [String]
+  engagement: Float
+  engagementDevise: String
+  empriseId: EmpriseId
+  substanceIds: [ID!]
+  points: [InputPoint]
+  titulairesIds: [ID!]
+  amodiatairesIds: [ID!]
+  administrationsIds: [ID!]
+  documents: [InputDocument]
+  sourceIndisponible: Boolean
 }
 
-input InputEmpriseId {
-  id: EmpriseId!
+input InputPoint {
+  id: ID!
+  coordonees: InputCoordonnees
+  groupe: Int
+  contour: Int
+  point: Int
+  nom: String
+  description: String
+  securite: Boolean
+  references: [InputPointReference]
+}
+
+input InputPointReference {
+  id: ID!
+  systeme: String
+  coordonees: InputCoordonnees
+}
+
+input InputCoordonnees {
+  x: Float
+  y: Float
+}
+
+input InputDocument {
+  id: ID!
+  nom: String!
+  type: String
+  url: String
+  uri: String
+  fichier: String
+  jorf: String
+  nor: String
 }

@@ -1,11 +1,11 @@
 const { Model } = require('objection')
 const Types = require('./types')
 const DemarchesStatuts = require('./demarches-statuts')
-const Etapes = require('./etapes')
+const EtapesTypes = require('./etapes-types')
 
-class Demarches extends Model {
+class DemarchesTypes extends Model {
   static get tableName() {
-    return 'demarches'
+    return 'demarchesTypes'
   }
 
   static get jsonSchema() {
@@ -15,30 +15,14 @@ class Demarches extends Model {
 
       properties: {
         id: { type: 'string', maxLength: 3 },
-        nom: {
-          type: 'string'
-        },
-        ordre: {
-          type: 'integer'
-        },
-        duree: {
-          type: 'boolean'
-        },
-        points: {
-          type: 'boolean'
-        },
-        substances: {
-          type: 'boolean'
-        },
-        titulaires: {
-          type: 'boolean'
-        },
-        renouvelable: {
-          type: 'boolean'
-        },
-        exception: {
-          type: 'boolean'
-        }
+        nom: { type: 'string' },
+        ordre: { type: 'integer' },
+        duree: { type: 'boolean' },
+        points: { type: 'boolean' },
+        substances: { type: 'boolean' },
+        titulaires: { type: 'boolean' },
+        renouvelable: { type: 'boolean' },
+        exception: { type: 'boolean' }
       }
     }
   }
@@ -49,10 +33,10 @@ class Demarches extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Types,
         join: {
-          from: 'demarches.id',
+          from: 'demarchesTypes.id',
           through: {
-            from: 'demarches__types.demarcheId',
-            to: 'demarches__types.typeId',
+            from: 'demarchesTypes__types.demarcheTypeId',
+            to: 'demarchesTypes__types.typeId',
             extra: [
               'dureeMax',
               'acceptationImplicite',
@@ -71,10 +55,10 @@ class Demarches extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: DemarchesStatuts,
         join: {
-          from: 'demarches.id',
+          from: 'demarchesTypes.id',
           through: {
-            from: 'demarches__demarchesStatuts.demarcheId',
-            to: 'demarches__demarchesStatuts.demarcheStatutId',
+            from: 'demarchesTypes__demarchesStatuts.demarcheTypeId',
+            to: 'demarchesTypes__demarchesStatuts.demarcheStatutId',
             extra: ['ordre']
           },
           to: 'demarchesStatuts.id'
@@ -82,19 +66,19 @@ class Demarches extends Model {
       },
       etapes: {
         relation: Model.ManyToManyRelation,
-        modelClass: Etapes,
+        modelClass: EtapesTypes,
         join: {
-          from: 'demarches.id',
+          from: 'demarchesTypes.id',
           through: {
-            from: 'demarches__etapes.demarcheId',
-            to: 'demarches__etapes.etapeId',
+            from: 'demarchesTypes__etapesTypes.demarcheTypeId',
+            to: 'demarchesTypes__etapesTypes.etapeTypeId',
             extra: ['ordre', 'typeId']
           },
-          to: 'etapes.id'
+          to: 'etapesTypes.id'
         }
       }
     }
   }
 }
 
-module.exports = Demarches
+module.exports = DemarchesTypes

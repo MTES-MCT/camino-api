@@ -1,8 +1,9 @@
 // virtualHost est défini seulement si
 // l'application tourne dans un container docker
-// cd DockerFile
-const env = process.env.NODE_ENV
+// voir le fichier DockerFile
 
+const debug = true
+const env = process.env.NODE_ENV
 const virtualHost = process.env.VIRTUAL_HOST
 const protocol = virtualHost ? 'https' : 'http'
 const port = Number(process.env.NODE_PORT)
@@ -15,5 +16,6 @@ module.exports = {
   port,
   url,
   env,
-  jwtSecret
+  jwtSecret,
+  debug
 }

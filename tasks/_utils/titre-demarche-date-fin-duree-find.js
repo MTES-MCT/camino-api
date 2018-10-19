@@ -13,8 +13,8 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
     // liste les démarches précédentes dont le statut est acceptée ou terminée
     .filter(
       titreDemarche =>
-        (titreDemarche.demarcheStatutId === 'acc' ||
-          titreDemarche.demarcheStatutId === 'ter') &&
+        (titreDemarche.statutId === 'acc' ||
+          titreDemarche.statutId === 'ter') &&
         ordre >= titreDemarche.ordre
     )
     // parcourt les démarches
@@ -26,14 +26,14 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
           return { duree, dateFin }
         } else if (
           // la démarche est un octroi
-          titreDemarche.demarcheId === 'oct'
+          titreDemarche.typeId === 'oct'
         ) {
           return titreDemarcheOctroiDateFinFind(duree, titreDemarche)
         } else if (
           // la démarche est une abrogation, retrait ou renonciation
-          titreDemarche.demarcheId === 'abr' ||
-          titreDemarche.demarcheId === 'ret' ||
-          (titreDemarche.demarcheId === 'ren' &&
+          titreDemarche.typeId === 'abr' ||
+          titreDemarche.typeId === 'ret' ||
+          (titreDemarche.typeId === 'ren' &&
             !titreDemarche.etapes.find(te => te.points))
         ) {
           // trouve la date de fin d'une démarche d'annulation
@@ -64,7 +64,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 
   // retourne une étape de dpu si celle-ci a une date de début
   const titreEtapeDpuHasDateDebut = titreEtapesSortDesc(titreDemarche)
-    .filter(te => te.etapeId === 'dpu')
+    .filter(te => te.typeId === 'dpu')
     .find(te => te.dateDebut)
 
   let dateFinUpdated
@@ -84,7 +84,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
     // sinon, la date de fin est calculé
     // en ajoutant la durée cumulée à la date de la première dpu ou ens
     const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
-      titreEtape => titreEtape.etapeId === 'dpu'
+      titreEtape => titreEtape.typeId === 'dpu'
     )
     dateFinUpdated = titreEtapeDpuFirst
       ? dateAddYears(titreEtapeDpuFirst.date, duree)
@@ -103,7 +103,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 
   // la dernière étape dex qui contient une date de fin
   const etapeDexHasDateFin = titreEtapesSortDesc(titreDemarche)
-    .filter(te => te.etapeId === 'dex')
+    .filter(te => te.typeId === 'dex')
     .find(te => te.dateFin)
 
   if (etapeDexHasDateFin) {
@@ -112,7 +112,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
   } else {
     // la première étape de décision expresse (dex)
     const etapeDex = titreEtapesSortAsc(titreDemarche).find(
-      te => te.etapeId === 'dex'
+      te => te.typeId === 'dex'
     )
 
     dateFin = dateFormat(etapeDex.date, 'yyyy-mm-dd')
@@ -134,7 +134,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) =>
   titreEtapes
     // filtre les étapes dont l'id est publication au jorf
-    .filter(titreEtape => titreEtape.etapeId === 'dex')
+    .filter(titreEtape => titreEtape.typeId === 'dex')
     // parcourt les étapes
     .reduce(
       ({ duree, dateFin }, titreEtape) => {

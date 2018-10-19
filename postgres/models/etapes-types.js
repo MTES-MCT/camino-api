@@ -1,9 +1,9 @@
 const { Model } = require('objection')
 const EtapesStatuts = require('./etapes-statuts')
 
-class Etapes extends Model {
+class EtapesTypes extends Model {
   static get tableName() {
-    return 'etapes'
+    return 'etapesTypes'
   }
 
   static get jsonSchema() {
@@ -36,10 +36,10 @@ class Etapes extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: EtapesStatuts,
         join: {
-          from: 'etapes.id',
+          from: 'etapesTypes.id',
           through: {
-            from: 'etapes__etapesStatuts.etapeId',
-            to: 'etapes__etapesStatuts.etapeStatutId',
+            from: 'etapesTypes__etapesStatuts.etapeTypeId',
+            to: 'etapesTypes__etapesStatuts.etapeStatutId',
             extra: ['ordre']
           },
           to: 'etapesStatuts.id'
@@ -49,4 +49,4 @@ class Etapes extends Model {
   }
 }
 
-module.exports = Etapes
+module.exports = EtapesTypes

@@ -8,7 +8,9 @@ const { permissionsCheck } = require('./_permissions')
 const resolvers = {
   async permissions(_, context) {
     if (permissionsCheck(context.user, ['super', 'admin'])) {
-      return permissionsGet({ ordreMax: context.user.permission.ordre })
+      return permissionsGet({
+        ordreMax: context.user ? context.user.permission.ordre : null
+      })
     }
 
     return null

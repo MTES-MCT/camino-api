@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const Demarches = require('./demarches')
+const DemarchesTypes = require('./demarches-types')
 const DemarchesStatuts = require('./demarches-statuts')
 const TitresPhases = require('./titres-phases')
 const TitresEtapes = require('./titres-etapes')
@@ -17,7 +17,7 @@ class TitresDemarches extends Model {
       properties: {
         id: { type: 'string', maxLength: 128 },
         titreId: { type: 'string', maxLength: 128 },
-        demarcheId: { type: 'string', maxLength: 8 },
+        typeId: { type: 'string', maxLength: 8 },
         statutId: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' }
       }
@@ -28,17 +28,17 @@ class TitresDemarches extends Model {
     return {
       type: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Demarches,
+        modelClass: DemarchesTypes,
         join: {
-          from: 'titresDemarches.demarcheId',
-          to: 'demarches.id'
+          from: 'titresDemarches.typeId',
+          to: 'demarchesTypes.id'
         }
       },
       statut: {
         relation: Model.BelongsToOneRelation,
         modelClass: DemarchesStatuts,
         join: {
-          from: 'titresDemarches.demarcheStatutId',
+          from: 'titresDemarches.statutId',
           to: 'demarchesStatuts.id'
         }
       },

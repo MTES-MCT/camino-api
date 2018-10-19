@@ -38,11 +38,7 @@ type Query {
 }
 
 type Mutation {
-  titreAjouter(titre: InputTitre!): Titre
-
-  titreModifier(titre: InputTitre!): Titre
-
-  titreSupprimer(id: ID!): Titre
+  titreEtapeModifier(etape: InputEtape): Etape
 
   utilisateurConnecter(email: String!, motDePasse: String!): UtilisateurToken
 

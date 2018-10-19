@@ -7,15 +7,15 @@ const tables = [
   'types',
   'domaines__types',
   'statuts',
-  'demarches',
+  'demarches_types',
   'demarches_statuts',
-  'demarches__types',
-  'demarches__demarches_statuts',
+  'demarches_types__types',
+  'demarches_types__demarches_statuts',
   'phases_statuts',
-  'etapes',
+  'etapes_types',
   'etapes_statuts',
-  'etapes__etapes_statuts',
-  'demarches__etapes',
+  'etapes_types__etapes_statuts',
+  'demarches_types__etapes_types',
   'emprises'
 ]
 

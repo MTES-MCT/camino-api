@@ -1,5 +1,5 @@
 const { Model } = require('objection')
-const Etapes = require('./etapes')
+const EtapesTypes = require('./etapes-types')
 const EtapesStatuts = require('./etapes-statuts')
 const Substances = require('./substances')
 const TitresPoints = require('./titres-points')
@@ -28,19 +28,20 @@ class TitresEtapes extends Model {
       properties: {
         id: { type: 'string', maxLength: 128 },
         titreDemarcheId: { type: 'string', maxLength: 128 },
-        etapeId: { type: 'string', maxLength: 3 },
-        etapeStatutId: { type: 'string', maxLength: 3 },
+        typeId: { type: 'string', maxLength: 3 },
+        statutId: { type: 'string', maxLength: 3 },
         ordre: { type: 'integer' },
         date: { type: 'date' },
-        duree: { type: 'integer' },
-        dateDebut: { type: 'date' },
-        dateFin: { type: 'date' },
-        surface: { type: 'float' },
-        volume: { type: 'float' },
-        volumeUnite: { type: 'string' },
-        visas: { type: 'json' },
-        engagement: { type: 'float' },
-        engagementDevise: { type: 'string' }
+        duree: { type: ['integer', 'null'] },
+        dateDebut: { type: ['date', 'null'] },
+        dateFin: { type: ['date', 'null'] },
+        surface: { type: ['float', 'null'] },
+        volume: { type: ['float', 'null'] },
+        volumeUnite: { type: ['string', 'null'] },
+        visas: { type: ['json', 'null'] },
+        engagement: { type: ['float', 'null'] },
+        engagementDevise: { type: ['string', 'null'] },
+        sourceIndisponible: { type: ['boolean', 'null'] }
       }
     }
   }
@@ -49,17 +50,17 @@ class TitresEtapes extends Model {
     return {
       type: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Etapes,
+        modelClass: EtapesTypes,
         join: {
-          from: 'titresEtapes.etapeId',
-          to: 'etapes.id'
+          from: 'titresEtapes.typeId',
+          to: 'etapesTypes.id'
         }
       },
       statut: {
         relation: Model.BelongsToOneRelation,
         modelClass: EtapesStatuts,
         join: {
-          from: 'titresEtapes.etapeStatutId',
+          from: 'titresEtapes.statutId',
           to: 'etapesStatuts.id'
         }
       },

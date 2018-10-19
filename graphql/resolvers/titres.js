@@ -1,3 +1,5 @@
+const { restrictedDomaineIds, restrictedStatutIds } = require('./_permissions')
+
 const {
   titreGet,
   titresGet,
@@ -6,12 +8,11 @@ const {
   titreUpdate
 } = require('../../postgres/queries/titres')
 
-const { titreFormat } = require('./_utils')
+const { domainesGet, statutsGet } = require('../../postgres/queries/metas')
 
-const restricted = {
-  domaineIds: ['g', 'h', 'w', 'm'],
-  statutIds: ['dmi', 'mod', 'val']
-}
+const { titreEtapeUpsert } = require('../../postgres/queries/titres-etapes')
+
+const { titreFormat } = require('./_utils')
 
 const resolvers = {
   async titre({ id }, context, info) {
@@ -19,8 +20,8 @@ const resolvers = {
 
     if (!context.user) {
       if (
-        !restricted.domaineIds.includes(titre.domaineId) ||
-        !restricted.statutIds.includes(titre.statutId)
+        restrictedDomaineIds.includes(titre.domaineId) ||
+        restrictedStatutIds.includes(titre.statutId)
       ) {
         titre = null
       }
@@ -35,17 +36,18 @@ const resolvers = {
     info
   ) {
     if (!context.user) {
-      if (domaineIds) {
-        domaineIds = domaineIds.filter(id => restricted.domaineIds.includes(id))
-      } else {
-        domaineIds = restricted.domaineIds
+      if (!domaineIds) {
+        let domaines = await domainesGet()
+        domaineIds = domaines.map(domaine => domaine.id)
       }
 
-      if (statutIds) {
-        statutIds = statutIds.filter(id => restricted.statutIds.includes(id))
-      } else {
-        statutIds = restricted.statutIds
+      if (!statutIds) {
+        let statuts = await statutsGet()
+        statutIds = statuts.map(statut => statut.id)
       }
+
+      domaineIds = domaineIds.filter(id => !restrictedDomaineIds.includes(id))
+      statutIds = statutIds.filter(id => !restrictedStatutIds.includes(id))
     }
 
     const titres = await titresGet({
@@ -69,6 +71,10 @@ const resolvers = {
 
   async titreModifier({ titre }, context, info) {
     return titreUpdate(titre)
+  },
+
+  async titreEtapeModifier({ etape }, context, info) {
+    return titreEtapeUpsert(etape)
   }
 }
 
