@@ -1,6 +1,6 @@
 const { debug } = require('../../config')
 
-const restrictedDomaineIds = debug ? [] : ['c', 'f', 'r', 's']
+const restrictedDomaineIds = debug ? [] : ['c', 'f', 'r', 's', 'm']
 const restrictedStatutIds = debug ? [] : ['dmc', 'ech', 'ind']
 
 const permissionsCheck = (user, permissions) =>
