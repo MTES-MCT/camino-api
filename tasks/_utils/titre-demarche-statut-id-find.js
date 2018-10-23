@@ -1,6 +1,6 @@
 const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 
-const titreDemarcheStatutIdFind = titreDemarche => {
+const titreDemarcheStatutIdFind = (titreDemarche, titreIsAxm) => {
   let titreDemarcheStatutId
 
   // étape la plus récente
@@ -31,8 +31,11 @@ const titreDemarcheStatutIdFind = titreDemarche => {
     if (
       //  - le type de l’étape est publication au JO (dpu) ou décision implicite (dim)
       //  - et le statut de l’étape est acceptée ou rejetée
-      ['dpu', 'dim'].includes(titreEtapeRecent.typeId) &&
-      ['acc', 'rej'].includes(titreEtapeRecent.statutId)
+      (['dpu', 'dim'].includes(titreEtapeRecent.typeId) &&
+        ['acc', 'rej'].includes(titreEtapeRecent.statutId)) ||
+      (titreIsAxm &&
+        ['dex', 'dim'].includes(titreEtapeRecent.typeId) &&
+        ['acc', 'rej'].includes(titreEtapeRecent.statutId))
     ) {
       //  - le statut de la démarche est égal au statut de l’étape:
       // accepté (acc) ou rejeté(rej)
