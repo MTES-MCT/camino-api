@@ -1,7 +1,7 @@
+const dateFormat = require('dateformat')
 const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-duree-find')
 const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
-const dateFormat = require('dateformat')
 
 // retourne un tableau contenant les phases d'un titre
 const titrePhasesFind = titreDemarchesByTitre =>
@@ -38,7 +38,11 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
 
   // retourne une étape de dpu si celle-ci possède une date de début
   const etapeDpuHasDateDebut = titreEtapesSortDesc(titreDemarche)
-    .filter(te => te.typeId === 'dpu')
+    .filter(
+      titreEtape =>
+        titreEtape.typeId === 'dpu' ||
+        (titreDemarche.titreIsAxm && titreEtape.typeId === 'dex')
+    )
     .find(te => te.dateDebut)
 
   let dateDebut
@@ -61,7 +65,9 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
   } else {
     // sinon, la date de début est égale à la date de la première étape de dpu
     const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
-      titreEtape => titreEtape.typeId === 'dpu'
+      titreEtape =>
+        titreEtape.typeId === 'dpu' ||
+        (titreDemarche.titreIsAxm && titreEtape.typeId === 'dex')
     )
 
     dateDebut =
