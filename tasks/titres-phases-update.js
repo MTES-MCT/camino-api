@@ -1,3 +1,5 @@
+const dateFormat = require('dateformat')
+const { titresGet } = require('../postgres/queries/titres')
 const { titresDemarchesGet } = require('../postgres/queries/titres-demarches')
 const {
   titresPhasesGet,
@@ -7,7 +9,6 @@ const {
 
 const titreEtapesSortAsc = require('./_utils/titre-etapes-sort-asc')
 const titrePhasesFind = require('./_utils/titre-phases-find')
-const dateFormat = require('dateformat')
 
 const titresPhasesUpdate = async () => {
   // retourne les démarches enregistrées en base
@@ -16,10 +17,17 @@ const titresPhasesUpdate = async () => {
   // retourne les phases enregistrées en base
   const titresPhasesOld = await titresPhasesGet({})
 
+  const titres = await titresGet({})
+
   // filtre les démarches qui donnent lieu à des phases
   // regroupe les démarches par titre
   const titresDemarchesGroupedByTitres = titresDemarches
-    .filter(titreDemarcheFilter)
+    .filter(titreDemarche => {
+      const titreIsAxm =
+        titres.find(t => t.id === titreDemarche.titreId).typeId === 'axm'
+      titreDemarche.titreIsAxm = titreIsAxm
+      return titreDemarcheFilter(titreDemarche)
+    })
     .reduce(titreDemarchesByTitreGroup, {})
 
   // retourne un tableau avec les phases
@@ -64,7 +72,9 @@ const titresPhasesUpdate = async () => {
 const titreDemarcheFilter = titreDemarche => {
   // retourne l'étape de dpu de la démarche si elle existe
   const etapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
-    titreEtape => titreEtape.typeId === 'dpu'
+    titreEtape =>
+      titreEtape.typeId === 'dpu' ||
+      (titreDemarche.titreIsAxm && titreEtape.typeId === 'dex')
   )
 
   return (
