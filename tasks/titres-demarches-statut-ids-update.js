@@ -14,7 +14,8 @@ const titresDemarchesStatutUpdate = async () => {
 
   const titresDemarchesUpdated = titresDemarches.reduce(
     (arr, titreDemarche) => {
-      const titreIsAxm = titres.find(t => t.id === titreDemarche.titreId).typeId
+      const titreIsAxm =
+        titres.find(t => t.id === titreDemarche.titreId).typeId === 'axm'
       const statutId = titreDemarcheStatutIdFind(titreDemarche, titreIsAxm)
 
       // filtre uniquement les démarches dont le statut a changé
