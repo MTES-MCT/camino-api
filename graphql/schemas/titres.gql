@@ -61,7 +61,7 @@ type Etape {
   visas: [String]
   engagement: Float
   engagementDevise: String
-  emprise: Emprise
+  emprises: [Emprise]
   substances: [TitreSubstance]
   points: [Point]
   geojsonMultiPolygon: GeojsonMultiPolygon
@@ -140,8 +140,8 @@ input InputReference {
 
 input InputEtape {
   id: ID!
-  etapeId: ID!
-  etapeStatutId: ID!
+  type: InputEtapeTypeId!
+  statut: InputEtapeStatutId!
   ordre: Int!
   date: String!
   duree: Int
@@ -153,13 +153,12 @@ input InputEtape {
   visas: [String]
   engagement: Float
   engagementDevise: String
-  empriseId: EmpriseId
-  substanceIds: [ID!]
+  emprises: [InputEmpriseId]
+  substances: [InputSubstanceId]
   points: [InputPoint]
-  titulairesIds: [ID!]
-  amodiatairesIds: [ID!]
-  administrationsIds: [ID!]
-  documents: [InputDocument]
+  titulaires: [InputEntreprise]
+  amodiataires: [InputEntreprise]
+  administrations: [InputAdministration]
   sourceIndisponible: Boolean
 }
 

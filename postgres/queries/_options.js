@@ -34,8 +34,24 @@ const etapes = {
     administrations.eager
   }, titresAdministrations, emprises, titresEmprises]`,
   update: {
-    relate: [],
-    unrelate: [],
+    relate: [
+      'type',
+      'statut',
+      'titulaires',
+      'amodiataires',
+      'substances',
+      'emprises',
+      'administrations'
+    ],
+    unrelate: [
+      'type',
+      'statut',
+      'titulaires',
+      'amodiataires',
+      'substances',
+      'emprises',
+      'administrations'
+    ],
     noDelete: []
   }
 }

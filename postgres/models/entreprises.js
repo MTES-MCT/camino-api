@@ -13,22 +13,22 @@ class Entreprises extends Model {
 
       properties: {
         id: { type: 'string', maxLength: 64 },
-        nom: { type: 'string' },
-        raisonSociale: { type: 'string' },
-        paysId: { type: 'string' },
-        legalSiren: { type: 'string' },
-        legalEtranger: { type: 'string' },
-        legalForme: { type: 'string' },
-        voieNumero: { type: 'string' },
-        voieType: { type: 'string' },
-        voieNom: { type: 'string' },
-        adresseComplement: { type: 'string' },
-        codePostal: { type: 'integer' },
-        ville: { type: 'string' },
-        cedex: { type: 'integer' },
-        email: { type: 'string' },
-        telephone: { type: 'string' },
-        url: { type: 'string' }
+        nom: { type: ['string', 'null'] },
+        raisonSociale: { type: ['string', 'null'] },
+        paysId: { type: ['string', 'null'] },
+        legalSiren: { type: ['string', 'null'] },
+        legalEtranger: { type: ['string', 'null'] },
+        legalForme: { type: ['string', 'null'] },
+        voieNumero: { type: ['string', 'null'] },
+        voieType: { type: ['string', 'null'] },
+        voieNom: { type: ['string', 'null'] },
+        adresseComplement: { type: ['string', 'null'] },
+        codePostal: { type: ['integer', 'null'] },
+        ville: { type: ['string', 'null'] },
+        cedex: { type: ['integer', 'null'] },
+        email: { type: ['string', 'null'] },
+        telephone: { type: ['string', 'null'] },
+        url: { type: ['string', 'null'] }
       }
     }
   }

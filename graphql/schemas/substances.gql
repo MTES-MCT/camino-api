@@ -21,3 +21,27 @@ type SubstanceLegaleCode {
   description: String
   lien: String!
 }
+
+input InputSubstanceId {
+  id: ID!
+  nom: String
+  symbole: String
+  gerep: Int
+  description: String
+  legales: [InputSubstanceLegaleId]
+}
+
+input InputSubstanceLegaleId {
+  id: ID!
+  nom: String
+  domaine: InputDomaineId
+  description: String
+  code: InputSubstanceLegaleCodeId
+}
+
+input InputSubstanceLegaleCodeId {
+  id: ID!
+  nom: String
+  description: String
+  lien: String
+}

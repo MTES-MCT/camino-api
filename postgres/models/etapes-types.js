@@ -14,17 +14,17 @@ class EtapesTypes extends Model {
       properties: {
         id: { type: 'string', maxLength: 3 },
         nom: {
-          type: 'string',
+          type: ['string', 'null'],
           maxLength: 128
         },
         acceptationAuto: {
-          type: 'boolean'
+          type: ['boolean', 'null']
         },
         dateDebut: {
-          type: 'date'
+          type: ['date', 'null']
         },
         dateFin: {
-          type: 'date'
+          type: ['date', 'null']
         }
       }
     }
