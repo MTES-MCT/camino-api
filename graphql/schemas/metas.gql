@@ -14,6 +14,11 @@ type Domaine {
   nom: String!
 }
 
+input InputDomaineId {
+  id: DomaineId!
+  nom: String
+}
+
 type Statut {
   id: StatutId!
   nom: String!
@@ -47,9 +52,9 @@ type EtapeType {
   acceptationAuto: Boolean
 }
 
-input InputEtapeType {
+input InputEtapeTypeId {
   id: ID!
-  nom: String!
+  nom: String
   acceptationAuto: Boolean
 }
 
@@ -59,15 +64,20 @@ type EtapeStatut {
   couleur: Couleur!
 }
 
-type InputEtapeStatut {
+input InputEtapeStatutId {
   id: EtapeStatutId!
-  nom: String!
-  couleur: Couleur!
+  nom: String
+  couleur: Couleur
 }
 
 type Emprise {
   id: EmpriseId!
   nom: String!
+}
+
+input InputEmpriseId {
+  id: EmpriseId!
+  nom: String
 }
 
 """
