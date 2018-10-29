@@ -12,8 +12,8 @@ class EtapesStatuts extends Model {
 
       properties: {
         id: { type: 'string', maxLength: 3 },
-        nom: { type: 'string' },
-        couleur: { type: 'string', maxLength: 8 }
+        nom: { type: ['string', 'null'] },
+        couleur: { type: ['string', 'null'], maxLength: 8 }
       }
     }
   }

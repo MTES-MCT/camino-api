@@ -19,7 +19,7 @@ const queries = {
 
   async titreEtapeUpsert(etape) {
     return TitresEtapes.query()
-      .upsertGraph(etape)
+      .upsertGraph(etape, options.etapes.update)
       .eager(options.etapes.eager)
   }
 }
