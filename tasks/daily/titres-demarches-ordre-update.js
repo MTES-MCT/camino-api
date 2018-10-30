@@ -1,9 +1,9 @@
 const {
   titresDemarchesGet,
   titreDemarcheOrdreUpdate
-} = require('../postgres/queries/titres-demarches')
+} = require('../../postgres/queries/titres-demarches')
 
-const titreDemarchesSortAsc = require('./_utils/titre-demarches-sort-asc')
+const titreDemarchesSortAsc = require('../_utils/titre-demarches-sort-asc')
 
 const titresDemarchesOrdreUpdate = async () => {
   const titresDemarches = await titresDemarchesGet({})

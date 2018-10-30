@@ -1,5 +1,5 @@
 require('dotenv').config()
-require('../postgres/index')
+require('../../postgres/index')
 
 const titresEtapesOrdreUpdate = require('./titres-etapes-ordre-update')
 const titresDemarchesStatutIdUpdate = require('./titres-demarches-statut-ids-update')

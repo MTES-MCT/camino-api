@@ -1,7 +1,6 @@
-const {
-  titresEtapesGet,
-  titreEtapeUpdate
-} = require('../postgres/queries/titres-etapes')
+const { titresEtapesGet } = require('../../postgres/queries/titres-etapes')
+
+const titreEtapeUpdate = require('../titre-etape-update')
 
 const titresEtapesOrdreUpdate = async () => {
   const titresEtapes = await titresEtapesGet({})
@@ -22,19 +21,13 @@ const titresEtapesOrdreUpdate = async () => {
       []
     )
     .filter(titreEtape => titreEtape.ordreNew !== titreEtape.ordre)
-    .map(titreEtape =>
-      titreEtapeUpdate({
-        id: titreEtape.id,
-        props: {
-          ordre: titreEtape.ordreNew
-        }
-      }).then(u => {
-        console.log(
-          `Mise à jour: étape ${titreEtape.id}, ordre ${titreEtape.ordreNew}`
-        )
-        return u
-      })
-    )
+    .map(titreEtape => {
+      const props = {
+        ordre: titreEtape.ordreNew
+      }
+
+      titreEtapeUpdate(titreEtape.id, props)
+    })
 
   await Promise.all([...titresEtapesUpdated])
 
