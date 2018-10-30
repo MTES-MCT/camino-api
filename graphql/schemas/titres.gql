@@ -42,8 +42,8 @@ type Demarche {
 
 type Phase {
   statut: PhaseStatut!
-  dateDebut: String
-  dateFin: String
+  dateDebut: Date
+  dateFin: Date
 }
 
 type Etape {
