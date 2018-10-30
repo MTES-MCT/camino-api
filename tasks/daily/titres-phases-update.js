@@ -1,14 +1,16 @@
 const dateFormat = require('dateformat')
-const { titresGet } = require('../postgres/queries/titres')
-const { titresDemarchesGet } = require('../postgres/queries/titres-demarches')
+const { titresGet } = require('../../postgres/queries/titres')
+const {
+  titresDemarchesGet
+} = require('../../postgres/queries/titres-demarches')
 const {
   titresPhasesGet,
   titrePhaseUpdate,
   titrePhaseDelete
-} = require('../postgres/queries/titres-phases')
+} = require('../../postgres/queries/titres-phases')
 
-const titreEtapesSortAsc = require('./_utils/titre-etapes-sort-asc')
-const titrePhasesFind = require('./_utils/titre-phases-find')
+const titreEtapesSortAsc = require('../_utils/titre-etapes-sort-asc')
+const titrePhasesFind = require('../_utils/titre-phases-find')
 
 const titresPhasesUpdate = async () => {
   // retourne les démarches enregistrées en base

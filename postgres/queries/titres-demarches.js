@@ -2,12 +2,12 @@ const TitresDemarches = require('../models/titres-demarches')
 const options = require('./_options')
 
 const queries = {
-  async titresDemarchesGet({ demarcheIds }) {
+  async titresDemarchesGet({ demarchesIds }) {
     return TitresDemarches.query()
       .skipUndefined()
       .eager(options.demarches.eager)
       .orderBy('ordre')
-      .whereIn('titresDemarches.typeId', demarcheIds)
+      .whereIn('titresDemarches.typeId', demarchesIds)
   },
 
   async titreDemarcheGet(demarcheId) {

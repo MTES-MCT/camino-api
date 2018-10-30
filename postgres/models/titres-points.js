@@ -32,9 +32,9 @@ class TitresPoints extends Model {
         groupe: { type: 'integer' },
         contour: { type: 'integer' },
         point: { type: 'integer' },
-        nom: { type: 'string' },
-        description: { type: 'string' },
-        securite: { type: 'boolean' }
+        nom: { type: ['string', 'null'] },
+        description: { type: ['string', 'null'] },
+        securite: { type: ['boolean', 'null'] }
       }
     }
   }
@@ -55,8 +55,8 @@ class TitresPoints extends Model {
   // bug: lorsqu'on importe
   $formatDatabaseJson(json) {
     if (json.coordonees) {
-      console.log('boum', json.coordonees)
-      const t = knex.raw('point(?, ?)', [json.coordonees.x, json.coordonees.y])
+      // json.coordonees = { x: -3.09308198868064, y: 48.5080422588997 }
+      const t = `${json.coordonees.x},${json.coordonees.y}`
       json.coordonees = t
     }
     json = super.$formatDatabaseJson(json)

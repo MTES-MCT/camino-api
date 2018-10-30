@@ -12,6 +12,8 @@ exports.up = knex => {
       table.integer('contour').notNullable()
       table.integer('point').notNullable()
       table.string('nom').notNullable()
+      table.string('description')
+      table.boolean('securite')
     })
     .createTable('titresPointsReferences', table => {
       table.string('id').primary()

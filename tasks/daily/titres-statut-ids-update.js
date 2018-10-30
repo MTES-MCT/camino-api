@@ -1,6 +1,6 @@
-const { titresGet, titrePropsUpdate } = require('../postgres/queries/titres')
+const { titresGet, titrePropsUpdate } = require('../../postgres/queries/titres')
 
-const titreStatutIdFind = require('./_utils/titre-statut-id-find')
+const titreStatutIdFind = require('../_utils/titre-statut-id-find')
 
 const titresStatutIdsUpdate = async () => {
   const titres = await titresGet({})

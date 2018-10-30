@@ -1,11 +1,11 @@
 const {
   titresDemarchesGet,
   titreDemarcheStatutIdUpdate
-} = require('../postgres/queries/titres-demarches')
+} = require('../../postgres/queries/titres-demarches')
 
-const { titresGet } = require('../postgres/queries/titres')
+const { titresGet } = require('../../postgres/queries/titres')
 
-const titreDemarcheStatutIdFind = require('./_utils/titre-demarche-statut-id-find')
+const titreDemarcheStatutIdFind = require('../_utils/titre-demarche-statut-id-find')
 
 // met à jour le statut des démarches
 const titresDemarchesStatutUpdate = async () => {
