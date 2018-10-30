@@ -3,7 +3,9 @@ const options = require('./_options')
 
 const queries = {
   async substancesGet() {
-    return Substances.query().eager(options.substances.eager)
+    return Substances.query()
+      .eager(options.substances.eager)
+      .orderBy('nom')
   },
 
   async substanceGet(id) {
