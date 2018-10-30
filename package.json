@@ -4,7 +4,7 @@
   "description": "Camino api",
   "main": "index.js",
   "scripts": {
-    "user-admin-create": "node ./tasks/utilisateur-add.js",
+    "user": "node ./tasks/utilisateur-add.js",
     "import": "node ./_tools/import/index.js",
     "export": "node ./_tools/export/index.js",
     "migrate": "npx knex --knexfile=./_tools/knex/config.js migrate:rollback && npx knex --knexfile=./_tools/knex/config.js migrate:latest && npx knex --knexfile=./_tools/knex/config.js seed:run",
