@@ -51,10 +51,10 @@ type Etape {
   type: EtapeType!
   statut: EtapeStatut!
   ordre: Int!
-  date: String!
+  date: Date!
   duree: Int
-  dateDebut: String
-  dateFin: String
+  dateDebut: Date
+  dateFin: Date
   surface: Float
   volume: Float
   volumeUnite: String
@@ -143,10 +143,10 @@ input InputEtape {
   type: InputEtapeTypeId!
   statut: InputEtapeStatutId!
   ordre: Int!
-  date: String!
+  date: Date!
   duree: Int
-  dateDebut: String
-  dateFin: String
+  dateDebut: Date
+  dateFin: Date
   surface: Float
   volume: Float
   volumeUnite: String
@@ -154,7 +154,7 @@ input InputEtape {
   engagement: Float
   engagementDevise: String
   emprises: [InputEmpriseId]
-  substances: [InputSubstanceId]
+  substances: [InputEtapeSubstanceId]
   points: [InputPoint]
   titulaires: [InputEntreprise]
   amodiataires: [InputEntreprise]

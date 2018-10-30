@@ -1,4 +1,5 @@
-var { buildSchema } = require('graphql')
+const { buildSchema } = require('graphql')
+
 const fileImport = require('./_file-import.js')
 
 const index = fileImport(__dirname, 'schemas/index.gql')
