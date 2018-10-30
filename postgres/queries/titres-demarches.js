@@ -10,6 +10,12 @@ const queries = {
       .whereIn('titresDemarches.typeId', demarcheIds)
   },
 
+  async titreDemarcheGet(demarcheId) {
+    return TitresDemarches.query()
+      .eager(options.demarches.eager)
+      .findById(demarcheId)
+  },
+
   async titreDemarcheStatutIdUpdate({ id, statutId }) {
     return TitresDemarches.query()
       .skipUndefined()

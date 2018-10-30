@@ -13,10 +13,10 @@ class Substances extends Model {
 
       properties: {
         id: { type: 'string' },
-        nom: { type: 'string' },
-        symbole: { type: 'string' },
+        nom: { type: ['string', 'null'] },
+        symbole: { type: ['string', 'null'] },
         gerep: { type: ['integer', 'null'] },
-        description: { type: 'string', maxLength: 2048 },
+        description: { type: ['string', 'null'], maxLength: 2048 },
         substanceLegalId: { type: 'string' }
       }
     }

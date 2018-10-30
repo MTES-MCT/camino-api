@@ -14,10 +14,10 @@ class SubstancesLegales extends Model {
 
       properties: {
         id: { type: 'string' },
-        nom: { type: 'string' },
-        domaineId: { type: 'string' },
-        description: { type: 'string' },
-        substanceLegalCodeId: { type: 'string' }
+        nom: { type: ['string', 'null'] },
+        domaineId: { type: ['string', 'null'] },
+        description: { type: ['string', 'null'] },
+        substanceLegalCodeId: { type: ['string', 'null'] }
       }
     }
   }

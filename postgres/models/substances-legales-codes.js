@@ -12,9 +12,9 @@ class SubstancesLegalesCodes extends Model {
 
       properties: {
         id: { type: 'string' },
-        nom: { type: 'string' },
-        description: { type: 'string' },
-        lien: { type: 'string' }
+        nom: { type: ['string', 'null'] },
+        description: { type: ['string', 'null'] },
+        lien: { type: ['string', 'null'] }
       }
     }
   }

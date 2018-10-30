@@ -22,11 +22,13 @@ type SubstanceLegaleCode {
   lien: String!
 }
 
-input InputSubstanceId {
+input InputEtapeSubstanceId {
   id: ID!
   nom: String
   symbole: String
+  connexe: String
   gerep: Int
+  ordre: Int
   description: String
   legales: [InputSubstanceLegaleId]
 }
