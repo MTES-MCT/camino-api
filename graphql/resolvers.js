@@ -1,3 +1,5 @@
+const { GraphQLDate } = require('graphql-iso-date')
+
 const {
   titre,
   titres,
@@ -43,6 +45,7 @@ module.exports = {
   titreSupprimer,
   titreEtapeModifier,
   json,
+  GraphQLDate,
 
   utilisateurConnecter,
   utilisateurModifier,

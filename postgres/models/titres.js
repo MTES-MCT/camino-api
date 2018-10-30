@@ -24,7 +24,7 @@ class Titres extends Model {
         domaineId: { type: 'string', maxLength: 1 },
         typeId: { type: 'string', maxLength: 3 },
         statutId: { type: 'string', maxLength: 3 },
-        references: { type: 'json' },
+        references: { type: ['json', 'null'] },
         substancesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
         pointsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
         titulairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
