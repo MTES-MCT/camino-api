@@ -74,7 +74,9 @@ const resolvers = {
   },
 
   async titreEtapeModifier({ etape }, context, info) {
-    return titreEtapeUpsert(etape)
+    const res = await titreEtapeUpsert(etape)
+
+    return res
   }
 }
 

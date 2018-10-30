@@ -1,5 +1,5 @@
-const { titresGet, titrePropsUpdate } = require('../postgres/queries/titres')
-const titrePropEtapeIdFind = require('./_utils/titre-prop-etape-id-find')
+const { titresGet, titrePropsUpdate } = require('../../postgres/queries/titres')
+const titrePropEtapeIdFind = require('../_utils/titre-prop-etape-id-find')
 
 const props = [
   'points',
