@@ -1,24 +1,24 @@
 const decamelize = require('decamelize')
-const types = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
+const domaineIds = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
 const files = [
-  '',
-  'Demarches',
-  'Etapes',
-  'Emprises',
-  'Points',
-  'PointsReferences',
-  'Documents',
-  'Substances',
-  'Titulaires',
-  'Amodiataires',
-  'Erreurs'
+  'titres',
+  'titresDemarches',
+  'titresEtapes',
+  'titresEmprises',
+  'titresPoints',
+  'titresPointsReferences',
+  'titresDocuments',
+  'titresSubstances',
+  'titresTitulaires',
+  'titresAmodiataires',
+  'titresErreurs'
 ]
 
 const datas = files.reduce(
   (d, file) =>
     Object.assign(d, {
-      [`titres${file}`]: types.reduce((res, type) => {
-        const fileName = decamelize(`titres-${type}${file}`, '-')
+      [file]: domaineIds.reduce((res, domaineId) => {
+        const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
         return [...res, ...require(`../../sources/${fileName}.json`)]
       }, [])
     }),
