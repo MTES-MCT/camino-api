@@ -2,7 +2,7 @@
 // l'application tourne dans un container docker
 // voir le fichier DockerFile
 
-const debug = false
+const debug = process.env.NODE_DEBUG
 const env = process.env.NODE_ENV
 const virtualHost = process.env.VIRTUAL_HOST
 const protocol = virtualHost ? 'https' : 'http'

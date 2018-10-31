@@ -1,24 +1,22 @@
 require('dotenv').config()
-require('../../postgres')
+require('../../postgres/index')
+const PQueue = require('p-queue')
+const jsonToSpreadsheet = require('./_utils/json-to-spreadsheet')
 
-const titresC = require('./titres/c')
-const titresF = require('./titres/f')
-const titresG = require('./titres/g')
-const titresH = require('./titres/h')
-const titresM = require('./titres/m')
-const titresR = require('./titres/r')
-const titresS = require('./titres/s')
-const titresW = require('./titres/w')
+const credentials = require('./credentials')
+const spreadsheets = require('./spreadsheets')
 
 const run = async () => {
-  // await titresC()
-  // await titresF()
-  // await titresG()
-  await titresH()
-  // await titresM()
-  // await titresR()
-  // await titresS()
-  // await titresW()
+  // on utilise une queue plutôt que Promise.all
+  // pour ne pas surcharger l'API de google
+  const spreadSheetsPromises = spreadsheets.map(s => () => dbProcess(s))
+  const spreadSheetsQueue = new PQueue({ concurrency: 1 })
+  await spreadSheetsQueue.addAll(spreadSheetsPromises)
+}
+
+const dbProcess = async s => {
+  const content = await s.fetch
+  await jsonToSpreadsheet(s.id, credentials, s.tables, content)
 }
 
 run()
