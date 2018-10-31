@@ -10,6 +10,7 @@ const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_W
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
 const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
+const permissionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_PERMISSIONS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
@@ -138,7 +139,12 @@ const spreadSheets = [
   {
     name: 'utilisateurs',
     id: utilisateursSpreadsheetId,
-    tables: [{ name: 'utilisateurs' }, { name: 'permissions' }]
+    tables: [{ name: 'utilisateurs' }]
+  },
+  {
+    name: 'utilisateurs',
+    id: permissionsSpreadsheetId,
+    tables: [{ name: 'permissions' }]
   },
   {
     name: 'administrations',
