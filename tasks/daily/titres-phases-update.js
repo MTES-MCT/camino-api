@@ -1,22 +1,9 @@
-const { titresGet } = require('../../postgres/queries/titres')
-const {
-  titresDemarchesGet
-} = require('../../postgres/queries/titres-demarches')
-const { titresPhasesGet } = require('../../postgres/queries/titres-phases')
 const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 
 const titrePhasesFind = require('../_utils/titre-phases-find')
 const titreDemarchePhasesFilter = require('../_utils/titre-demarche-phases-filter')
 
-const titresPhasesUpdate = async () => {
-  // retourne les démarches enregistrées en base
-  const titresDemarches = await titresDemarchesGet({})
-
-  // retourne les phases enregistrées en base
-  const titresPhasesOld = await titresPhasesGet()
-
-  const titres = await titresGet({})
-
+const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
   // filtre les démarches qui donnent lieu à des phases
   // regroupe les démarches par titre
   const titresDemarchesGroupedByTitres = titresDemarches
