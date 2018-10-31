@@ -16,14 +16,17 @@ const run = async titreEtape => {
   // en fonction de leur date
 
   const titreEtapeOld = await titreEtapeGet(titreEtape.id)
-  const titreDemarche = await titreDemarcheGet(titreEtapeOld.titreDemarcheId)
-  const titre = await titreGet(titreDemarche.titreId)
-  const titreIsAxm = titre.typeId === 'axm'
-
+  const titreDemarcheId = titreEtapeOld.titreDemarcheId
+  let titreDemarche = await titreDemarcheGet(titreDemarcheId)
+  const titreId = titreDemarche.titreId
   const titreEtapesOrdre = await titreEtapesOrdreUpdate(titreDemarche)
 
   // détermine le statut de la démarche
   // en fonction de ses étapes (type, ordre, statut)
+
+  titreDemarche = await titreDemarcheGet(titreDemarcheId)
+  let titre = await titreGet(titreId)
+  const titreIsAxm = titre.typeId === 'axm'
   const titreDemarcheStatutId = await titreDemarcheStatutIdUpdate(
     titreDemarche,
     titreIsAxm
@@ -31,18 +34,22 @@ const run = async titreEtape => {
 
   // détermine l'ordre des démarches
   // en fonction de la date de leur première étape
+  titre = await titreGet(titreId)
   const titreDemarchesOrdre = await titreDemarchesOrdreUpdate(titre.demarches)
 
   // détermine le statut des titres
   // en fonction des démarches et de la date du jour
+  titre = await titreGet(titreId)
   const titreStatutIds = await titreStatutIdsUpdate(titre)
 
   // détermine les phases
   // en fonction des démarches et de la date du jour
+  titre = await titreGet(titreId)
   const titresPhases = await titrePhasesUpdate(titre)
 
   // détermine les phases
   // en fonction des démarches et de la date du jour
+  titre = await titreGet(titreId)
   const titresPropsEtapeId = await titrePropsEtapeIdUpdate(titre)
 
   console.log(titreEtapesOrdre)

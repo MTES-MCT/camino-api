@@ -1,10 +1,6 @@
-const { titresEtapesGet } = require('../../postgres/queries/titres-etapes')
-
 const { titreEtapesOrdreUpdate } = require('../titre-etapes')
 
-const titresEtapesOrdreUpdate = async () => {
-  const titresEtapes = await titresEtapesGet({})
-
+const titresEtapesOrdreUpdate = async titresEtapes => {
   const titreEtapesByDemarches = titreEtapesByDemarchesGroup(titresEtapes)
 
   const titresEtapesUpdated = Object.keys(titreEtapesByDemarches).reduce(
