@@ -2,11 +2,10 @@ const TitresPhases = require('../models/titres-phases')
 const options = require('./_options')
 
 const queries = {
-  async titresPhasesGet({ titreDemarcheIds }) {
+  async titresPhasesGet() {
     return TitresPhases.query()
       .skipUndefined()
       .eager(options.phases.eager)
-      .whereIn('titresPhases.titreDemarcheId', titreDemarcheIds)
   },
 
   async titrePhaseUpdate({ titrePhase }) {
