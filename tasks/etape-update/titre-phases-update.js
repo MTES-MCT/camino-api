@@ -4,11 +4,8 @@ const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 const titrePhasesFind = require('../_utils/titre-phases-find')
 const titreDemarchePhasesFilter = require('../_utils/titre-demarche-phases-filter')
 
-const titresPhasesUpdate = async titreDemarcheId => {
+const titresPhasesUpdate = async titre => {
   // retourne les démarches enregistrées en base
-
-  const titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const titre = await titreGet(titreDemarche.titreId)
 
   // retourne les phases enregistrées en base
   const titresPhasesOld = titre.phases
