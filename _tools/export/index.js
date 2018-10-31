@@ -11,14 +11,14 @@ const titresS = require('./titres/s')
 const titresW = require('./titres/w')
 
 const run = async () => {
-  await titresC()
-  await titresF()
-  await titresG()
+  // await titresC()
+  // await titresF()
+  // await titresG()
   await titresH()
-  await titresM()
-  await titresR()
-  await titresS()
-  await titresW()
+  // await titresM()
+  // await titresR()
+  // await titresS()
+  // await titresW()
 }
 
 run()

@@ -1,35 +1,33 @@
 require('dotenv').config()
-
-const metas = require('./metas')
-const repertoireAdministrations = require('./repertoire-administrations')
-const repertoireEntreprises = require('./repertoire-entreprises')
-const repertoireUtilisateurs = require('./repertoire-utilisateurs')
-const substances = require('./substances')
-const titresC = require('./titres/c')
-const titresG = require('./titres/g')
-const titresH = require('./titres/h')
-const titresM = require('./titres/m')
-const titresM973 = require('./titres/m973')
-const titresR = require('./titres/r')
-const titresS = require('./titres/s')
-const titresW = require('./titres/w')
-const titresF = require('./titres/f')
+const spreadsheetToJson = require('./_utils/_spreadsheet-to-json')
+const filePathCreate = require('./_utils/file-path-create')
+const PQueue = require('p-queue')
+const spreadsheets = require('./spreadsheets')
 
 const run = async () => {
-  await metas()
-  await repertoireAdministrations()
-  await repertoireEntreprises()
-  await repertoireUtilisateurs()
-  await substances()
-  await titresC()
-  await titresG()
-  await titresH()
-  await titresM()
-  await titresM973()
-  await titresR()
-  await titresS()
-  await titresW()
-  await titresF()
+  // on utilise une queue plutôt que Promise.all
+  // pour ne pas surcharger l'API de google
+  const spreadSheetsPromises = spreadsheets
+    .filter(s => s.id)
+    .map(s => () => spreadsheetsProcess(s))
+  const spreadSheetsQueue = new PQueue({ concurrency: 1 })
+  await spreadSheetsQueue.addAll(spreadSheetsPromises)
 }
+
+const spreadsheetsProcess = async spreadsheet =>
+  Promise.all([
+    ...spreadsheet.tables.map(table =>
+      spreadsheetToJson(
+        filePathCreate(
+          spreadsheet.prefixFileName
+            ? `${spreadsheet.name}-${table.name}`
+            : table.name
+        ),
+        spreadsheet.id,
+        table.name,
+        table.cb
+      )
+    )
+  ])
 
 run()
