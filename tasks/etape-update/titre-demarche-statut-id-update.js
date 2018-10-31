@@ -1,14 +1,8 @@
-const { titreDemarcheGet } = require('../../postgres/queries/titres-demarches')
-const { titreGet } = require('../../postgres/queries/titres')
 const { titreDemarcheStatutIdUpdate } = require('../titre-demarches')
 const titreDemarcheStatutIdFind = require('../_utils/titre-demarche-statut-id-find')
 
 // met à jour le statut des démarches
-const titresDemarchesUpdate = async titreDemarcheId => {
-  const titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const titre = await titreGet(titreDemarche.titreId)
-
-  const titreIsAxm = titre.typeId === 'axm'
+const titresDemarchesUpdate = async (titreDemarche, titreIsAxm) => {
   const statutId = titreDemarcheStatutIdFind(titreDemarche, titreIsAxm)
 
   const titreDemarcheUpdated = titreDemarcheStatutIdUpdate(
