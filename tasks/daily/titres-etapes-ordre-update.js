@@ -1,35 +1,21 @@
 const { titresEtapesGet } = require('../../postgres/queries/titres-etapes')
 
-const titreEtapeUpdate = require('../titre-etape-update')
+const { titreEtapesOrdreUpdate } = require('../titre-etapes')
 
 const titresEtapesOrdreUpdate = async () => {
   const titresEtapes = await titresEtapesGet({})
 
   const titreEtapesByDemarches = titreEtapesByDemarchesGroup(titresEtapes)
 
-  const titresEtapesUpdated = Object.keys(titreEtapesByDemarches)
-    .reduce(
-      (arr, titreDemarche) => [
-        ...arr,
-        ...titreEtapesByDemarches[titreDemarche]
-          .sort((a, b) => a.date - b.date)
-          .map((titreEtape, index) => {
-            titreEtape.ordreNew = index + 1
-            return titreEtape
-          })
-      ],
-      []
-    )
-    .filter(titreEtape => titreEtape.ordreNew !== titreEtape.ordre)
-    .map(titreEtape => {
-      const props = {
-        ordre: titreEtape.ordreNew
-      }
+  const titresEtapesUpdated = Object.keys(titreEtapesByDemarches).reduce(
+    (arr, titreDemarche) => [
+      ...arr,
+      ...titreEtapesOrdreUpdate(titreEtapesByDemarches[titreDemarche])
+    ],
+    []
+  )
 
-      titreEtapeUpdate(titreEtape.id, props)
-    })
-
-  await Promise.all([...titresEtapesUpdated])
+  await Promise.all(titresEtapesUpdated)
 
   return `Mise à jour: ${titresEtapesUpdated.length} ordres d'étapes.`
 }

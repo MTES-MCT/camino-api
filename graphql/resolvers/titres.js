@@ -12,6 +12,8 @@ const { domainesGet, statutsGet } = require('../../postgres/queries/metas')
 
 const { titreEtapeUpsert } = require('../../postgres/queries/titres-etapes')
 
+const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
+
 const { titreFormat } = require('./_utils')
 
 const resolvers = {
@@ -75,6 +77,7 @@ const resolvers = {
 
   async titreEtapeModifier({ etape }, context, info) {
     const res = await titreEtapeUpsert(etape)
+    await titreEtapeUpdateTasks(etape)
 
     return res
   }
