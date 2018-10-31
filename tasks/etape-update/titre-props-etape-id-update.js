@@ -1,11 +1,6 @@
-const { titreGet } = require('../../postgres/queries/titres')
-const { titreDemarcheGet } = require('../../postgres/queries/titres-demarches')
 const { titrePropsUpdate, calculatedProps } = require('../titres')
 
-const titresPropsEtapeIdsUpdate = async titreDemarcheId => {
-  const titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const titre = await titreGet(titreDemarche.titreId)
-
+const titresPropsEtapeIdsUpdate = async titre => {
   const titrePropsUpdateRequests = calculatedProps.reduce((res, prop) => {
     const titrePropsUpdated = titrePropsUpdate(titre, prop)
 

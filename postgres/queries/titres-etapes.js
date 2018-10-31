@@ -2,6 +2,12 @@ const TitresEtapes = require('../models/titres-etapes')
 const options = require('./_options')
 
 const queries = {
+  async titreEtapeGet(titreEtapeId) {
+    return TitresEtapes.query()
+      .eager(options.etapes.eager)
+      .findById(titreEtapeId)
+  },
+
   async titresEtapesGet({ etapesIds, titresDemarchesIds }) {
     return TitresEtapes.query()
       .skipUndefined()
