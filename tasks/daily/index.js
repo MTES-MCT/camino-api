@@ -16,49 +16,44 @@ const titresPhasesUpdate = require('./titres-phases-update')
 const titresPropsEtapeIdUpdate = require('./titres-props-etape-id-update')
 
 const run = async () => {
-  let titresEtapes = await titresEtapesGet({})
-
   // détermine l'ordre des étapes
   // en fonction de leur date
+  let titresEtapes = await titresEtapesGet({})
   const titresEtapesOrdre = await titresEtapesOrdreUpdate(titresEtapes)
-
-  let titres = await titresGet({})
-  let titresDemarches = await titresDemarchesGet({})
 
   // détermine le statut des démarches
   // en fonction de ses étapes (type, ordre, statut)
+  let titres = await titresGet({})
+  let titresDemarches = await titresDemarchesGet({})
   const titresDemarchesStatutId = await titresDemarchesStatutIdUpdate(
     titresDemarches,
     titres
   )
 
-  titresDemarches = await titresDemarchesGet({})
-
   // détermine l'ordre des démarche
   // en fonction de la date de leur première étape
+  titresDemarches = await titresDemarchesGet({})
   const titresDemarchesOrdre = await titresDemarchesOrdreUpdate(titresDemarches)
-
-  titres = await titresGet({})
 
   // détermine le statut des titres
   // en fonction des démarches et de la date du jour
+  titres = await titresGet({})
   const titresStatutIds = await titresStatutIdsUpdate(titres)
 
+  // détermine les phases
+  // en fonction des démarches et de la date du jour
   titres = await titresGet({})
   titresDemarches = await titresDemarchesGet({})
   let titresPhases = await titresPhasesGet()
-  // détermine les phases
-  // en fonction des démarches et de la date du jour
   const titresPhasesRes = await titresPhasesUpdate(
     titres,
     titresDemarches,
     titresPhases
   )
 
-  titres = await titresGet({})
-
   // détermine les phases
   // en fonction des démarches et de la date du jour
+  titres = await titresGet({})
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
   console.log(titresEtapesOrdre)
