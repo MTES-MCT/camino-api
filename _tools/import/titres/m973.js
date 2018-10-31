@@ -1,6 +1,5 @@
 const titresSpreadsheetToJson = require('./_titres-spreadsheet-to-json.js')
-const spreadsheetId = '1-NtlzplizQpDSo4KRyYhVvPod44hmm2Lg8hIBzjJrnU'
-// const spreadsheetId = '139RkaNx2NxsDpO5zH4aLbQh3ex3dP6nPqSs96uxRUcU'
+const spreadsheetId = '1QcsOS9_8ghqbFc13jOyxxxex4IRmiSjw0qtKYMXJxe4'
 const type = 'm973'
 
 module.exports = async () => titresSpreadsheetToJson(spreadsheetId, type)
