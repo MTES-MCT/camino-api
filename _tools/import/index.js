@@ -21,7 +21,8 @@ const spreadsheetsProcess = async spreadsheet =>
     ...spreadsheet.tables.map(
       table =>
         spreadsheet.id
-          ? spreadsheetToJson(
+          ? // si l'id de la spreadsheet est renseignée
+            spreadsheetToJson(
               filePathCreate(
                 spreadsheet.prefixFileName
                   ? `${spreadsheet.name}-${table.name}`
@@ -31,7 +32,8 @@ const spreadsheetsProcess = async spreadsheet =>
               table.name,
               table.cb
             )
-          : fileCreate(
+          : // si l'id est absente on créé un fichier vide
+            fileCreate(
               filePathCreate(
                 spreadsheet.prefixFileName
                   ? `${spreadsheet.name}-${table.name}`
