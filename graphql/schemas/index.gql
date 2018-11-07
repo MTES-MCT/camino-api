@@ -54,8 +54,12 @@ type Mutation {
     motDePasseNouveau1: String!
     motDePasseNouveau2: String!
   ): Utilisateur
+
+  titreTravauxRapportAjouter(
+    rapport: InputTitreTravauxRapport!
+  ): TitreTravauxRapport
 }
 
-scalar json
+scalar Json
 
 scalar Date
