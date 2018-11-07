@@ -50,7 +50,7 @@ input InputFeature {
 
 input InputGeometry {
   type: GeometryType
-  coordinates: json
+  coordinates: Json
 }
 
 enum FeatureCollectionType {
