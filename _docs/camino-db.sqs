@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SQLContainer>
+    <SQLComment>
+        <name><![CDATA[Comment1_2]]></name>
+        <comment><![CDATA[Données sur les travaux des titres miniers]]></comment>
+        <location>
+            <x>900.00</x>
+            <y>2000.00</y>
+        </location>
+        <size>
+            <width>800.00</width>
+            <height>50.00</height>
+        </size>
+        <zorder>44</zorder>
+        <commentTitle><![CDATA[travaux]]></commentTitle>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <uid><![CDATA[007AD9DC-245D-4636-AB72-AE3BCBA59664]]></uid>
+    </SQLComment>
     <SQLTable>
         <name><![CDATA[domaines]]></name>
         <schema><![CDATA[]]></schema>
@@ -245,7 +261,7 @@
         <uid><![CDATA[1EF412D5-263C-4254-BB4E-EE939BB65025]]></uid>
     </SQLTable>
     <SQLComment>
-        <name><![CDATA[Comment1_2]]></name>
+        <name><![CDATA[Comment1_3]]></name>
         <comment><![CDATA[Données sur les titres miniers]]></comment>
         <location>
             <x>900.00</x>
@@ -265,7 +281,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1400.00</x>
-            <y>2050.00</y>
+            <y>2100.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -481,7 +497,7 @@
             <y>550.00</y>
         </location>
         <size>
-            <width>385.00</width>
+            <width>300.00</width>
             <height>260.00</height>
         </size>
         <zorder>10</zorder>
@@ -2678,7 +2694,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[2560.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{328, 527}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{249, 235}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
