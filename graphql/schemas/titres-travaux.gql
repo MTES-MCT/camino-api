@@ -1,0 +1,13 @@
+type TitreTravauxRapport {
+  id: ID!
+  titreId: ID!
+  date: Date!
+  contenu: Json
+}
+
+input InputTitreTravauxRapport {
+  id: ID!
+  titreId: ID!
+  date: Date!
+  contenu: Json
+}

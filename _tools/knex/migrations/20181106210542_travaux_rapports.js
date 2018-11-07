@@ -1,16 +1,15 @@
 exports.up = knex => {
-  return knex.schema.createTable('travauxRapports', table => {
-    table.string('id')
+  return knex.schema.createTable('titresTravauxRapports', table => {
+    table.string('id').primary()
     table
       .string('titreId', 128)
-      .primary()
       .references('titres.id')
       .onDelete('CASCADE')
-    table.boolean('date')
+    table.date('date')
     table.jsonb('contenu')
   })
 }
 
 exports.down = knex => {
-  return knex.schema.dropTable('travauxRapports')
+  return knex.schema.dropTable('titresTravauxRapports')
 }

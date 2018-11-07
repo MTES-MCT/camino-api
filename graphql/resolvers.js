@@ -1,4 +1,5 @@
 const { GraphQLDate } = require('graphql-iso-date')
+const Json = require('./types/json')
 
 const {
   titre,
@@ -23,9 +24,13 @@ const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
 const { permissions } = require('./resolvers/permissions')
 const { entreprise, entreprises } = require('./resolvers/entreprises')
-const json = require('./types/json')
+const { titreTravauxRapportAjouter } = require('./resolvers/titres-travaux')
 
 module.exports = {
+  //  types
+  Json,
+  GraphQLDate,
+
   //  queries
   titre,
   titres,
@@ -44,8 +49,7 @@ module.exports = {
   titreModifier,
   titreSupprimer,
   titreEtapeModifier,
-  json,
-  GraphQLDate,
+  titreTravauxRapportAjouter,
 
   utilisateurConnecter,
   utilisateurModifier,

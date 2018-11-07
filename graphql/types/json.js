@@ -1,7 +1,7 @@
 const { GraphQLScalarType } = require('graphql')
 
-const json = new GraphQLScalarType({
-  name: 'json',
+const Json = new GraphQLScalarType({
+  name: 'Json',
   serialize: value => {
     // console.log('serialize value', value);
     return value
@@ -16,4 +16,4 @@ const json = new GraphQLScalarType({
   }
 })
 
-module.exports = json
+module.exports = Json
