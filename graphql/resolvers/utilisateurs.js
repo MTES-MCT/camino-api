@@ -44,7 +44,7 @@ const resolvers = {
     } else if (context.user && permissionsCheck(context.user, ['admin'])) {
       const utilisateur = await utilisateurGet(id)
 
-      if (permissionsCheck(utilisateur, ['edit', 'user'])) {
+      if (permissionsCheck(utilisateur, ['editeur', 'lecteur'])) {
         return utilisateur
       } else {
         return null
@@ -63,10 +63,10 @@ const resolvers = {
       if (permissionsCheck(context.user, ['admin'])) {
         if (permissionIds) {
           permissionIds = permissionIds.filter(id =>
-            ['admin', 'edit', 'user'].includes(id)
+            ['admin', 'editeur', 'lecteur'].includes(id)
           )
         } else {
-          permissionIds = ['admin', 'edit', 'user']
+          permissionIds = ['admin', 'editeur', 'lecteur']
         }
       }
 
