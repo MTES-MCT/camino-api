@@ -1,4 +1,8 @@
-const { restrictedDomaineIds, restrictedStatutIds } = require('./_permissions')
+const {
+  permissionsCheck,
+  restrictedDomaineIds,
+  restrictedStatutIds
+} = require('./_permissions')
 
 const {
   titreGet,
@@ -64,22 +68,62 @@ const resolvers = {
   },
 
   async titreAjouter({ titre }, context, info) {
-    return titreAdd(titre)
+    const errors = []
+
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      errors.push('opération impossible')
+    }
+
+    if (!errors.length) {
+      return titreAdd(titre)
+    } else {
+      throw new Error(errors.join(', '))
+    }
   },
 
   async titreSupprimer({ id }, context, info) {
-    return titreRemove(id)
+    const errors = []
+
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      errors.push('opération impossible')
+    }
+
+    if (!errors.length) {
+      return titreRemove(id)
+    } else {
+      throw new Error(errors.join(', '))
+    }
   },
 
   async titreModifier({ titre }, context, info) {
-    return titreUpdate(titre)
+    const errors = []
+
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      errors.push('opération impossible')
+    }
+
+    if (!errors.length) {
+      return titreUpdate(titre)
+    } else {
+      throw new Error(errors.join(', '))
+    }
   },
 
   async titreEtapeModifier({ etape }, context, info) {
-    const res = await titreEtapeUpsert(etape)
-    await titreEtapeUpdateTasks(etape)
+    const errors = []
 
-    return res
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      errors.push('opération impossible')
+    }
+
+    if (!errors.length) {
+      const res = await titreEtapeUpsert(etape)
+      await titreEtapeUpdateTasks(etape)
+
+      return res
+    } else {
+      throw new Error(errors.join(', '))
+    }
   }
 }
 
