@@ -4,6 +4,6 @@ const restrictedDomaineIds = debug ? [] : ['c', 'f', 'r', 's']
 const restrictedStatutIds = debug ? [] : ['dmc', 'ech', 'ind']
 
 const permissionsCheck = (user, permissions) =>
-  debug || (user && permissions.includes(user.permission.id))
+  debug || (user && user.permission && permissions.includes(user.permission.id))
 
 module.exports = { permissionsCheck, restrictedDomaineIds, restrictedStatutIds }
