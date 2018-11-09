@@ -11,7 +11,7 @@ class Permissions extends Model {
       required: ['id', 'nom'],
 
       properties: {
-        id: { type: 'string', maxLength: 5 },
+        id: { type: 'string', maxLength: 12 },
         nom: { type: 'string' },
         ordre: { type: 'integer' }
       }
