@@ -24,7 +24,10 @@ const resolvers = {
   async titre({ id }, context, info) {
     let titre = await titreGet(id)
 
-    if (!context.user) {
+    if (
+      !context.user ||
+      permissionsCheck(context.user, ['defaut', 'entreprise'])
+    ) {
       if (
         restrictedDomaineIds.includes(titre.domaineId) ||
         restrictedStatutIds.includes(titre.statutId)
@@ -41,7 +44,10 @@ const resolvers = {
     context,
     info
   ) {
-    if (!context.user) {
+    if (
+      !context.user ||
+      permissionsCheck(context.user, ['defaut', 'entreprise'])
+    ) {
       if (!domaineIds) {
         let domaines = await domainesGet()
         domaineIds = domaines.map(domaine => domaine.id)
