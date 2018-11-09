@@ -14,6 +14,14 @@ const {
 
 const { permissionsCheck } = require('./_permissions')
 
+const permissionsVisibleForAdmin = [
+  'admin',
+  'editeur',
+  'lecteur',
+  'entreprise',
+  'defaut'
+]
+
 const utilisateurErreurs = async utilisateur => {
   const errors = []
 
@@ -44,7 +52,7 @@ const resolvers = {
     } else if (context.user && permissionsCheck(context.user, ['admin'])) {
       const utilisateur = await utilisateurGet(id)
 
-      if (permissionsCheck(utilisateur, ['editeur', 'lecteur'])) {
+      if (permissionsCheck(utilisateur, permissionsVisibleForAdmin)) {
         return utilisateur
       } else {
         return null
@@ -63,10 +71,10 @@ const resolvers = {
       if (permissionsCheck(context.user, ['admin'])) {
         if (permissionIds) {
           permissionIds = permissionIds.filter(id =>
-            ['admin', 'editeur', 'lecteur'].includes(id)
+            permissionsVisibleForAdmin.includes(id)
           )
         } else {
-          permissionIds = ['admin', 'editeur', 'lecteur']
+          permissionIds = permissionsVisibleForAdmin
         }
       }
 
