@@ -35,7 +35,7 @@ exports.up = knex => {
       table.string('cedex')
     })
     .createTable('permissions', table => {
-      table.string('id', 8).primary()
+      table.string('id', 12).primary()
       table.string('nom').notNullable()
       table.integer('ordre')
     })
@@ -56,7 +56,7 @@ exports.up = knex => {
       table.string('telephoneFixe')
       table.string('telephoneMobile')
       table
-        .string('permissionId', 8)
+        .string('permissionId', 12)
         .references('permissions.id')
         .notNullable()
         .onDelete('CASCADE')
