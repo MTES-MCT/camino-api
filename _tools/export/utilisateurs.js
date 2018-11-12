@@ -3,18 +3,23 @@ require('../../postgres/index')
 const jsonToSpreadsheet = require('./_utils/json-to-spreadsheet')
 
 const credentials = require('./credentials')
-const spreadsheets = require('./spreadsheets')
-const utilisateursSpreadsheet = spreadsheets.find(
-  s => s.name === 'utilisateurs'
+const definitions = require('./definitions')
+const utilisateursDefinition = definitions.find(
+  definition => definition.name === 'utilisateurs'
 )
 
 const run = async () => {
-  await dbProcess(utilisateursSpreadsheet)
+  await dbProcess(utilisateursDefinition)
 }
 
-const dbProcess = async s => {
-  const content = await s.fetch
-  await jsonToSpreadsheet(s.id, credentials, s.tables, content)
+const dbProcess = async definition => {
+  const content = await definition.fetch
+  await jsonToSpreadsheet(
+    definition.id,
+    credentials,
+    definition.tables,
+    content
+  )
 }
 
 run()
