@@ -33,7 +33,7 @@ const titresFetch = domaineId =>
 
 const utilisateursFetch = () => utilisateursGet({})
 
-const spreadsheets = [
+const definitions = [
   {
     name: 'utilisateurs',
     id: utilisateursSpreadsheetId,
@@ -90,4 +90,4 @@ const spreadsheets = [
   }
 ]
 
-module.exports = spreadsheets
+module.exports = definitions
