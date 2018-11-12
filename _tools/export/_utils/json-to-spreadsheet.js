@@ -12,7 +12,12 @@ const {
   cellValueSet
 } = require('./google-spreadsheet-promisify')
 
-const dbToSpreadsheet = async (spreadsheetId, credentials, tables, content) => {
+const jsonToSpreadsheet = async (
+  spreadsheetId,
+  credentials,
+  tables,
+  content
+) => {
   // instancie le constructeur
   const gss = new GoogleSpreadsheet(spreadsheetId)
 
@@ -115,8 +120,8 @@ const rowsCreate = (elements, parents) => {
         []
       )
     : Array.isArray(elements)
-      ? elements
-      : [elements]
+    ? elements
+    : [elements]
 }
 
 const rowFormat = (element, columns, callbacks) =>
@@ -135,4 +140,4 @@ const rowFormat = (element, columns, callbacks) =>
     {}
   )
 
-module.exports = dbToSpreadsheet
+module.exports = jsonToSpreadsheet
