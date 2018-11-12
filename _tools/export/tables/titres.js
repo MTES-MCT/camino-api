@@ -3,7 +3,7 @@ const dateFormat = require('dateformat')
 // liste des tables
 // la colonne id si elle existe doit être en première position
 // car c'est un mot clé réservé par l'API google
-// (cf: _titres-db-to-spreadsheet.js)
+// (cf: _utils/json-to-spreadsheet.js)
 const tables = [
   {
     name: 'titres',

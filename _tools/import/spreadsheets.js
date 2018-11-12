@@ -14,8 +14,10 @@ const permissionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_PERMISSIONS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
+const titresTravauxRapportsSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_TITRES_TRAVAUX_RAPPORTS
 
-const titresCb = value => json =>
+const jsonParse = value => json =>
   json.map(j =>
     Object.keys(j).reduce((res, cur) => {
       res[cur] = cur === value ? JSON.parse(j[cur]) : j[cur]
@@ -24,9 +26,9 @@ const titresCb = value => json =>
   )
 
 const titresTables = [
-  { name: 'titres', cb: titresCb('references') },
+  { name: 'titres', cb: jsonParse('references') },
   { name: 'titres_demarches' },
-  { name: 'titres_etapes', cb: titresCb('visas') },
+  { name: 'titres_etapes', cb: jsonParse('visas') },
   { name: 'titres_points' },
   { name: 'titres_points_references' },
   { name: 'titres_documents' },
@@ -36,14 +38,6 @@ const titresTables = [
   { name: 'titres_emprises' },
   { name: 'titres_erreurs' }
 ]
-
-const substancesCb = json =>
-  json.map(j =>
-    Object.keys(j).reduce((res, cur) => {
-      res[cur] = cur === 'alias' ? j[cur].split(' ; ') : j[cur]
-      return res
-    }, {})
-  )
 
 const spreadSheets = [
   {
@@ -155,11 +149,16 @@ const spreadSheets = [
     name: 'substances',
     id: substancesSpreadsheetId,
     tables: [
-      { name: 'substances', cb: substancesCb },
+      { name: 'substances' },
       { name: 'substances_legales' },
       { name: 'substances_legales_codes' },
       { name: 'substances__substances_legales' }
     ]
+  },
+  {
+    name: 'titresTravauxRapports',
+    id: titresTravauxRapportsSpreadsheetId,
+    tables: [{ name: 'titres_travaux_rapports', cb: jsonParse('contenu') }]
   }
 ]
 

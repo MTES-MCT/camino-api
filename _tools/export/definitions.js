@@ -1,8 +1,12 @@
 const { titresGet } = require('../../postgres/queries/titres')
 const { utilisateursGet } = require('../../postgres/queries/utilisateurs')
+const {
+  titresTravauxRapportsGet
+} = require('../../postgres/queries/titres-travaux')
 
-const titresTables = require('./tables-titres')
-const utilisateursTables = require('./tables-utilisateurs')
+const titresTables = require('./tables/titres')
+const utilisateursTables = require('./tables/utilisateurs')
+const titresTravauxRapportsTables = require('./tables/titres-travaux')
 
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_C
 const titresFSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_F
@@ -14,6 +18,8 @@ const titresSSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_S
 const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_W
 const utilisateursSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_UTILISATEURS
+const titresTravauxRapportsSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_TRAVAUX_RAPPORTS
 // const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_METAS
 // const entreprisesSpreadsheetId =
 //   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES
@@ -31,62 +37,76 @@ const titresFetch = domaineId =>
     noms: undefined
   })
 
-const utilisateursFetch = () => utilisateursGet({})
+const utilisateursFetch = () =>
+  utilisateursGet({
+    noms: undefined,
+    entrepriseIds: undefined,
+    administrationIds: undefined,
+    permissionIds: undefined
+  })
+
+const titresTravauxRapportsFetch = () => titresTravauxRapportsGet()
 
 const definitions = [
   {
     name: 'utilisateurs',
-    id: utilisateursSpreadsheetId,
+    spreadsheetId: utilisateursSpreadsheetId,
     fetch: utilisateursFetch(),
     tables: utilisateursTables
   },
   {
     name: 'titres-c',
-    id: titresCSpreadsheetId,
+    spreadsheetId: titresCSpreadsheetId,
     fetch: titresFetch('c'),
     tables: titresTables
   },
   {
     name: 'titres-f',
-    id: titresFSpreadsheetId,
+    spreadsheetId: titresFSpreadsheetId,
     fetch: titresFetch('f'),
     tables: titresTables
   },
   {
     name: 'titres-g',
-    id: titresGSpreadsheetId,
+    spreadsheetId: titresGSpreadsheetId,
     fetch: titresFetch('g'),
     tables: titresTables
   },
   {
     name: 'titres-h',
-    id: titresHSpreadsheetId,
+    spreadsheetId: titresHSpreadsheetId,
     fetch: titresFetch('h'),
     tables: titresTables
   },
   {
     name: 'titres-m',
-    id: titresMSpreadsheetId,
+    spreadsheetId: titresMSpreadsheetId,
     fetch: titresFetch('m'),
     tables: titresTables
   },
   {
     name: 'titres-r',
-    id: titresRSpreadsheetId,
+    spreadsheetId: titresRSpreadsheetId,
     fetch: titresFetch('r'),
     tables: titresTables
   },
   {
     name: 'titres-s',
-    id: titresSSpreadsheetId,
+    spreadsheetId: titresSSpreadsheetId,
     fetch: titresFetch('s'),
     tables: titresTables
   },
   {
     name: 'titres-w',
-    id: titresWSpreadsheetId,
+    spreadsheetId: titresWSpreadsheetId,
     fetch: titresFetch('w'),
     tables: titresTables
+  },
+  {
+    name: 'titres-travaux-rapports',
+    spreadsheetId: titresTravauxRapportsSpreadsheetId,
+    fetch: titresTravauxRapportsFetch(),
+    tables: titresTravauxRapportsTables
   }
 ]
 
