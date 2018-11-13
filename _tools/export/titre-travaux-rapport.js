@@ -1,21 +1,12 @@
-const PQueue = require('p-queue')
-const GoogleSpreadsheet = require('google-spreadsheet')
-const decamelize = require('decamelize')
+const credentials = require('./credentials')
+const rowToSpreadsheetAdd = require('./_utils/row-to-spreadsheet-add')
+const table = require('./tables/titres-travaux')
 
-const {
-  gssUseServiceAccountAuth,
-  rowAdd
-} = require('./google-spreadsheet-promisify')
+const t = async content => {
+  const spreadsheetId =
+    process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_TRAVAUX_RAPPORTS
 
-const rowToSpreadsheetAdd = async (
-  spreadsheetId,
-  credentials,
-  tables,
-  content
-) => {
-  // instancie le constructeur
-  const gss = new GoogleSpreadsheet(spreadsheetId)
-
-  // authentification dans google
-  await gssUseServiceAccountAuth(gss, credentials)
+  await rowToSpreadsheetAdd(spreadsheetId, credentials, table, content)
 }
+
+module.exports = t
