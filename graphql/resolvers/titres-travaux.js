@@ -8,6 +8,10 @@ const { titreGet } = require('../../postgres/queries/titres')
 
 const { permissionsCheck } = require('./_permissions')
 
+const {
+  titreTravauxRapportRowAdd
+} = require('../../tools/export/titre-travaux-rapport')
+
 const resolvers = {
   async titreTravauxRapportAjouter({ rapport }, context, info) {
     const errors = []
@@ -35,6 +39,11 @@ const resolvers = {
     }
 
     if (!errors.length) {
+      try {
+        titreTravauxRapportRowAdd(rapport)
+      } catch (e) {
+        console.log("erreur lors de l'ajout d'une ligne dans la spreasheet", e)
+      }
       return titreTravauxRapportAdd({ titreTravauxRapport: rapport })
     } else {
       throw new Error(errors.join(', '))
