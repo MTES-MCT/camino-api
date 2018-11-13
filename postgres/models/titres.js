@@ -8,6 +8,7 @@ const Substances = require('./substances')
 const TitresPoints = require('./titres-points')
 const Entreprises = require('./entreprises')
 const Administrations = require('./administrations')
+const TitresTravauxRapports = require('./titres-travaux-rapports')
 
 class Titres extends Model {
   static get tableName() {
@@ -146,6 +147,14 @@ class Titres extends Model {
             to: 'titresAdministrations.administrationId'
           },
           to: 'administrations.id'
+        }
+      },
+      travauxRapports: {
+        relation: Model.HasManyRelation,
+        modelClass: TitresTravauxRapports,
+        join: {
+          from: 'titres.id',
+          to: 'titresTravauxRapports.titreId'
         }
       }
     }
