@@ -1,6 +1,7 @@
 const PQueue = require('p-queue')
 const GoogleSpreadsheet = require('google-spreadsheet')
 const decamelize = require('decamelize')
+const rowFormat = require('./row-format')
 
 const {
   gssUseServiceAccountAuth,
@@ -83,8 +84,8 @@ const jsonToSpreadsheet = async (
 
   // retourne un tableau avec les requêtes pour ajouter les nouveaux rows
   const rowPromises = tables.reduce(
-    (res, table) => [
-      ...res,
+    (promises, table) => [
+      ...promises,
       ...table.rows.map(row => () => rowAdd(gss, table, row))
     ],
     []
@@ -110,34 +111,37 @@ const jsonToSpreadsheet = async (
   })
 }
 
-const rowsCreate = (elements, parents) => {
-  return parents && parents.length
-    ? elements.reduce(
-        (r, e) =>
-          e[parents[0]]
-            ? [...r, ...rowsCreate(e[parents[0]], parents.slice(1))]
-            : r,
+// fonction récursive qui parcourt les 'elements' (p.e.: 'titres')
+// en descendant la chaîne de 'parents' (p.e.: ['demarches', 'etapes', 'points'])
+// et retourne un tableau avec les éléments à convertir en 'rows'
+// ceux dont le nom correspond à la dernière entrée parmi les parents
+// (p.e.: des 'points')
+// in:
+// - elements: un tableau avec les éléments extraits de la bdd
+// - parents: un tableau avec le nom des ancêtres ['grandParents', 'parents', 'elements']
+// out
+// - un tableau avec les éléments à convertir en 'rows'
+const rowsCreate = (elements, parents) =>
+  // si il existe au moins un parent
+  parents && parents.length
+    ? // parcourt la liste d'éléments
+      elements.reduce(
+        (rows, element) =>
+          // si il existe un element dont le nom correspond au premier parent
+          element[parents[0]]
+            ? // recursion sur rowsCreate avec cet élément
+              // et la liste de parents moins le premier
+              [...rows, ...rowsCreate(element[parents[0]], parents.slice(1))]
+            : // sinon, retourne le résultat
+              rows,
         []
       )
-    : Array.isArray(elements)
-    ? elements
-    : [elements]
-}
-
-const rowFormat = (element, columns, callbacks) =>
-  columns.reduce(
-    (r, header) =>
-      element[header]
-        ? Object.assign(r, {
-            // id est un mot clé réservé par google
-            // pour contourner cette limitation, on converti id en Id
-            [header === 'id' ? 'Id' : decamelize(header)]:
-              callbacks && Object.keys(callbacks).find(cb => cb === header)
-                ? callbacks[header](element[header])
-                : element[header]
-          })
-        : r,
-    {}
-  )
+    : // si il n'y a pas de parent
+    // si elements est un tableau
+    Array.isArray(elements)
+    ? // le retourne tel quel
+      elements
+    : // sinon, l'insère dans un tableau
+      [elements]
 
 module.exports = jsonToSpreadsheet

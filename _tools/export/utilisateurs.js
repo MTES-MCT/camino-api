@@ -7,6 +7,9 @@ const utilisateursDefinition = definitions.find(
   definition => definition.name === 'utilisateurs'
 )
 
-const run = async () => dbProcess(utilisateursDefinition)
+const run = async () => {
+  await dbProcess(utilisateursDefinition)
+  process.exit(1)
+}
 
 run()
