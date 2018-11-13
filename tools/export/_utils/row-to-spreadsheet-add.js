@@ -20,7 +20,7 @@ const rowToSpreadsheetAdd = async (
 
   const row = rowFormat(content, table.columns, table.callbacks)
 
-  await rowAdd(gss, table, row)
+  await rowAdd(gss, 1, row)
 }
 
 module.exports = rowToSpreadsheetAdd

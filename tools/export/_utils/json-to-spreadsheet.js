@@ -86,7 +86,7 @@ const jsonToSpreadsheet = async (
   const rowPromises = tables.reduce(
     (promises, table) => [
       ...promises,
-      ...table.rows.map(row => () => rowAdd(gss, table, row))
+      ...table.rows.map(row => () => rowAdd(gss, table.worksheetId, row))
     ],
     []
   )

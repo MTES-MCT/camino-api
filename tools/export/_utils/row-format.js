@@ -1,4 +1,5 @@
 // formate un objet 'element' sous forme de 'row'
+const decamelize = require('decamelize')
 
 // in
 // - element: un objet json extrait de la base de données source
@@ -7,6 +8,7 @@
 // out
 // - un objet 'row' avec les données formatées par colonnes
 //   prêt à être inséré dans une spreadsheet
+
 const rowFormat = (element, columns, callbacks) =>
   columns.reduce(
     (row, column) =>

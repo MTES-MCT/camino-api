@@ -11,7 +11,7 @@ fetch(url, {
   .then(res => res.json())
   .then(res =>
     fs.writeFileSync(
-      '_tools/graphql/convert-dsl-to-query-result.json',
+      'tools/graphql/convert-dsl-to-query-result.json',
       JSON.stringify(res.data, null, 2)
     )
   )

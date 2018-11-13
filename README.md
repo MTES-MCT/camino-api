@@ -28,11 +28,11 @@
 npm install
 
 # importe les données au format .json
-# depuis google spreadsheets vers './_tools/sources'
+# depuis google spreadsheets vers './tools/sources'
 npm run import
 
 # crée les tables dans la base de données
-# et importe les données depuis './_tools/sources'
+# et importe les données depuis './tools/sources'
 npm run migrate
 ```
 
