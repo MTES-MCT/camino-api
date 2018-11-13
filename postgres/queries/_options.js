@@ -73,7 +73,7 @@ const titres = {
     entreprises.eager
   }, administrations.${administrations.eager}, demarches(orderDesc).${
     demarches.eager
-  }, surfaceEtape, volumeEtape]`,
+  }, surfaceEtape, volumeEtape, travauxRapports]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],

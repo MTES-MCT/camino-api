@@ -24,6 +24,7 @@ type Titre {
   surface: Float
   volume: Float
   volumeUnite: String
+  travauxRapports: [TitreTravauxRapport]
 }
 
 type Reference {
