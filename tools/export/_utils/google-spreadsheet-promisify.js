@@ -52,16 +52,14 @@ const worksheetAdd = (gss, worksheet) =>
     })
   )
 
-const rowAdd = (gss, table, row) =>
+const rowAdd = (gss, worksheetId, row) =>
   new Promise((resolve, reject) =>
-    gss.addRow(table.worksheetId, row, (err, res) => {
+    gss.addRow(worksheetId, row, (err, res) => {
       if (err) {
         console.log('Erreur addRow:', err)
         reject(err)
       } else {
-        console.log(
-          `row ajouté: ${decamelize(table.name)}, ${row[Object.keys(row)[0]]}`
-        )
+        console.log(`row ajouté: ${row[Object.keys(row)[0]]}`)
         resolve(res)
       }
     })

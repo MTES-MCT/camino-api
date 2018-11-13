@@ -1,6 +1,6 @@
 node_modules/
 .env
 
-/_tools/db/**
-/_tools/fr/**
-/_tools/sources/**/*.json
+/tools/db/**
+/tools/fr/**
+/tools/sources/**/*.json

@@ -17,7 +17,7 @@ COPY auth auth/
 COPY config config/
 COPY graphql graphql/
 COPY postgres postgres/
-COPY _tools _tools/
+COPY tools tools/
 COPY tasks tasks/
 
 CMD ["npm", "start"]
