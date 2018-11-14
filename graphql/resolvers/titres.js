@@ -25,8 +25,9 @@ const resolvers = {
     let titre = await titreGet(id)
 
     if (
-      !context.user ||
-      permissionsCheck(context.user, ['defaut', 'entreprise'])
+      titre &&
+      (!context.user ||
+        permissionsCheck(context.user, ['defaut', 'entreprise']))
     ) {
       if (
         restrictedDomaineIds.includes(titre.domaineId) ||
