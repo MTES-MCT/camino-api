@@ -142,43 +142,57 @@ const resolvers = {
   },
 
   async utilisateurAjouter({ utilisateur }, context) {
-    if (permissionsCheck(context.user, ['super', 'admin'])) {
-      const errors = await utilisateurErreurs(utilisateur)
-      let res
+    const errors = await utilisateurErreurs(utilisateur)
+    let res
 
-      if (utilisateur.email) {
-        const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
-          utilisateur.email
-        )
-        if (utilisateurWithTheSameEmail) {
-          errors.push('un utilisateur avec cet email existe déjà')
-        }
+    if (utilisateur.email) {
+      const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
+        utilisateur.email
+      )
+      if (utilisateurWithTheSameEmail) {
+        errors.push('un utilisateur avec cet email existe déjà')
       }
-
-      if (!utilisateur.motDePasse) {
-        errors.push('mot de passe manquant')
-      } else if (utilisateur.motDePasse.length < 8) {
-        errors.push('le mot de passe doit contenir au moins 8 caractères')
-      }
-
-      if (utilisateur.id) {
-        const utilisateurWithTheSameId = await utilisateurGet(utilisateur.id)
-        if (utilisateurWithTheSameId) {
-          errors.push('un utilisateur avec cette id existe déjà')
-        }
-      }
-
-      if (!errors.length) {
-        utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
-        res = await utilisateurAdd(utilisateur)
-      } else {
-        throw new Error(errors.join(', '))
-      }
-
-      return res
-    } else {
-      throw new Error("droits insuffisants pour effectuer l'opération")
     }
+
+    if (!utilisateur.motDePasse) {
+      errors.push('mot de passe manquant')
+    } else if (utilisateur.motDePasse.length < 8) {
+      errors.push('le mot de passe doit contenir au moins 8 caractères')
+    }
+
+    if (utilisateur.id) {
+      const utilisateurWithTheSameId = await utilisateurGet(utilisateur.id)
+      if (utilisateurWithTheSameId) {
+        errors.push('un utilisateur avec cette id existe déjà')
+      }
+    }
+
+    if (
+      !permissionsCheck(context.user, ['super', 'admin']) ||
+      !utilisateur.permission
+    ) {
+      utilisateur.permission = { id: 'defaut' }
+    }
+
+    if (
+      !permissionsCheck(context.user, ['super']) &&
+      utilisateur.permission.id === 'super'
+    ) {
+      errors.push(
+        'droits insuffisants pour créer un utilisateur avec ces permissions'
+      )
+    }
+
+    console.log(utilisateur)
+
+    if (!errors.length) {
+      utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
+      res = await utilisateurAdd(utilisateur)
+    } else {
+      throw new Error(errors.join(', '))
+    }
+
+    return res
   },
 
   async utilisateurModifier({ utilisateur }, context) {
