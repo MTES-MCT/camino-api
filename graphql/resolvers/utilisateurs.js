@@ -143,7 +143,6 @@ const resolvers = {
 
   async utilisateurAjouter({ utilisateur }, context) {
     const errors = await utilisateurErreurs(utilisateur)
-    let res
 
     if (utilisateur.email) {
       const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
@@ -187,12 +186,12 @@ const resolvers = {
 
     if (!errors.length) {
       utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
-      res = await utilisateurAdd(utilisateur)
+      const res = await utilisateurAdd(utilisateur)
+
+      return res
     } else {
       throw new Error(errors.join(', '))
     }
-
-    return res
   },
 
   async utilisateurModifier({ utilisateur }, context) {
@@ -248,7 +247,6 @@ const resolvers = {
       context.user.id === id
     ) {
       const errors = []
-      let res
 
       if (!id) {
         errors.push('id manquante')
@@ -289,17 +287,39 @@ const resolvers = {
       }
 
       if (!errors.length) {
-        res = await utilisateurUpdate({
+        const res = await utilisateurUpdate({
           id,
           motDePasse: await bcrypt.hash(motDePasseNouveau1, 10)
         })
+
+        return res
       } else {
         throw new Error(errors.join(', '))
       }
-
-      return res
     } else {
       throw new Error("droits insuffisants pour effectuer l'opération")
+    }
+  },
+
+  async utilisateurMotDePasseInitialiser({ email }, context) {
+    const errors = []
+
+    if (!email) {
+      errors.push('email manquant')
+    } else if (!emailRegex({ exact: true }).test(email)) {
+      errors.push('adresse email invalide')
+    }
+
+    const utilisateur = await utilisateurByEmailGet(email)
+
+    if (!utilisateur) {
+      errors.push("pas d'utilisateur avec cet email")
+    }
+
+    if (!errors.length) {
+      return 'créer un token, envoyer un email'
+    } else {
+      throw new Error(errors.join(', '))
     }
   }
 }
