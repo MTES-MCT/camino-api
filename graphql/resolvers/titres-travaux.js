@@ -17,14 +17,14 @@ const resolvers = {
     const errors = []
     const titre = await titreGet(rapport.titreId)
 
-    if (!permissionsCheck(context.user, ['super', 'admin', 'editeur'])) {
-      errors.push('opération impossible')
-    } else if (permissionsCheck(context.user, ['societe'])) {
+    if (permissionsCheck(context.user, ['entreprise'])) {
       const user = await utilisateurGet(context.user.id)
 
-      if (user.entrepriseId !== titre.titulaire.id) {
+      if (!titre.titulaires.find(t => t.id === user.entrepriseId)) {
         errors.push('opération impossible')
       }
+    } else if (!permissionsCheck(context.user, ['super', 'admin', 'editeur'])) {
+      errors.push('opération impossible')
     }
 
     if (
