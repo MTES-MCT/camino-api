@@ -17,7 +17,7 @@
     "start": "node ./index.js",
     "dev": "nodemon ./index.js",
     "user-add": "node ./tasks/utilisateur-add.js",
-    "graphql:schema": "node ./tools/graphql/convert-dsl-to-query-result.js"
+    "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js"
   },
   "repository": {
     "type": "git",

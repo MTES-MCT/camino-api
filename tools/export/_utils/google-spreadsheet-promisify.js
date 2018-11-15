@@ -1,5 +1,3 @@
-const decamelize = require('decamelize')
-
 const gssUseServiceAccountAuth = (gss, credentials) =>
   new Promise((resolve, reject) =>
     gss.useServiceAccountAuth(credentials, (err, res) => {
