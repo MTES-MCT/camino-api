@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const emailRegex = require('email-regex')
-const { jwtSecret } = require('../../config')
+const { jwtSecret } = require('../../config/index')
 
 const {
   utilisateurGet,
@@ -12,7 +12,7 @@ const {
   utilisateurByEmailGet
 } = require('../../postgres/queries/utilisateurs')
 
-const { permissionsCheck } = require('./_permissions')
+const permissionsCheck = require('./_permissions-check')
 
 const permissionsVisibleForAdmin = [
   'admin',

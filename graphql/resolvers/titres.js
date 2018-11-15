@@ -1,8 +1,9 @@
+const permissionsCheck = require('./_permissions-check')
+
 const {
-  permissionsCheck,
   restrictedDomaineIds,
   restrictedStatutIds
-} = require('./_permissions')
+} = require('../../config/restrictions')
 
 const {
   titreGet,

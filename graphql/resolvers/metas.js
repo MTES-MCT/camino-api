@@ -1,4 +1,7 @@
-const { restrictedDomaineIds, restrictedStatutIds } = require('./_permissions')
+const {
+  restrictedDomaineIds,
+  restrictedStatutIds
+} = require('../../config/restrictions')
 
 const {
   typesGet,
