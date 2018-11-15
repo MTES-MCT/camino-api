@@ -8,13 +8,13 @@ class TitresPointsReferences extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['titrePointId', 'id', 'systeme', 'coordonees'],
+      required: ['titrePointId', 'id', 'systeme', 'coordonnees'],
 
       properties: {
         id: { type: 'string' },
         titrePointId: { type: 'string' },
         systeme: { type: 'string' },
-        coordonees: {
+        coordonnees: {
           type: 'object',
           properties: {
             x: { type: 'float' },

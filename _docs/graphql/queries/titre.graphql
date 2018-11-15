@@ -189,7 +189,7 @@ fragment permission on Permission {
 
 fragment point on Point {
   id
-  coordonees {
+  coordonnees {
     x
     y
   }
@@ -207,7 +207,7 @@ fragment point on Point {
 fragment pointReference on PointReference {
   id
   systeme
-  coordonees {
+  coordonnees {
     x
     y
   }
