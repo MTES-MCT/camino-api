@@ -3,7 +3,7 @@ const {
   permissionsGet
 } = require('../../postgres/queries/permissions')
 
-const { permissionsCheck } = require('./_permissions')
+const permissionsCheck = require('./_permissions-check')
 
 const resolvers = {
   async permissions(_, context) {

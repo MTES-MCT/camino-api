@@ -2,7 +2,7 @@ const {
   entrepriseGet,
   entreprisesGet
 } = require('../../postgres/queries/entreprises')
-const { permissionsCheck } = require('./_permissions')
+const permissionsCheck = require('./_permissions-check')
 
 const resolvers = {
   async entreprise({ id }, context, info) {
