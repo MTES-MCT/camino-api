@@ -2,7 +2,7 @@ const geojsonMultiPolygonCoordinates = points =>
   points.reduce((res, p) => {
     res[p.groupe] = res[p.groupe] || []
     res[p.groupe][p.contour] = res[p.groupe][p.contour] || []
-    res[p.groupe][p.contour][p.point] = [p.coordonees.x, p.coordonees.y]
+    res[p.groupe][p.contour][p.point] = [p.coordonnees.x, p.coordonnees.y]
     return res
   }, [])
 
@@ -22,7 +22,7 @@ const geojsonFeatureCollectionPoints = points => {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [p.coordonees.x, p.coordonees.y]
+          coordinates: [p.coordonnees.x, p.coordonnees.y]
         },
         properties: {
           groupe: p.groupe,

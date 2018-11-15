@@ -57,7 +57,7 @@ const tables = [
     columns: [
       'id',
       'titreEtapeId',
-      'coordonees',
+      'coordonnees',
       'groupe',
       'contour',
       'point',
@@ -67,15 +67,15 @@ const tables = [
     ],
     parents: ['demarches', 'etapes', 'points'],
     callbacks: {
-      coordonees: v => `${v.x}, ${v.y}`
+      coordonnees: v => `${v.x}, ${v.y}`
     }
   },
   {
     name: 'titresPointsReferences',
-    columns: ['id', 'titrePointId', 'systeme', 'coordonees'],
+    columns: ['id', 'titrePointId', 'systeme', 'coordonnees'],
     parents: ['demarches', 'etapes', 'points', 'references'],
     callbacks: {
-      coordonees: v => `${v.x}, ${v.y}`
+      coordonnees: v => `${v.x}, ${v.y}`
     }
   },
   {

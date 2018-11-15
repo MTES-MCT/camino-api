@@ -7,7 +7,7 @@ exports.up = knex => {
         .references('titresEtapes.id')
         .notNullable()
         .onDelete('CASCADE')
-      table.specificType('coordonees', 'POINT').notNullable()
+      table.specificType('coordonnees', 'POINT').notNullable()
       table.integer('groupe').notNullable()
       table.integer('contour').notNullable()
       table.integer('point').notNullable()
@@ -22,7 +22,7 @@ exports.up = knex => {
         .references('titresPoints.id')
         .onDelete('CASCADE')
       table.string('systeme', 128).notNullable()
-      table.specificType('coordonees', 'POINT').notNullable()
+      table.specificType('coordonnees', 'POINT').notNullable()
     })
 }
 
