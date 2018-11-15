@@ -19,7 +19,7 @@ const { titreEtapeUpsert } = require('../../postgres/queries/titres-etapes')
 
 const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
 
-const { titreFormat } = require('./_utils')
+const { titreFormat } = require('./_format')
 
 const resolvers = {
   async titre({ id }, context, info) {
