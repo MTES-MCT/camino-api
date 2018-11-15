@@ -1,4 +1,4 @@
-// const dateFormat = require('dateformat')
+const dateFormat = require('dateformat')
 
 // liste des tables
 // la colonne id si elle existe doit être en première position
@@ -20,11 +20,11 @@ const tables = [
   {
     name: 'titresPhases',
     columns: ['titreDemarcheId', 'statutId', 'dateDebut', 'dateFin'],
-    parents: ['demarches', 'phase']
-    // callbacks: {
-    //   dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-    //   dateFin: v => dateFormat(v, 'yyyy-mm-dd')
-    // }
+    parents: ['demarches', 'phase'],
+    callbacks: {
+      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateFin: v => dateFormat(v, 'yyyy-mm-dd')
+    }
   },
   {
     name: 'titresEtapes',
@@ -46,9 +46,9 @@ const tables = [
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {
-      // dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-      // dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
-      // date: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
+      date: v => dateFormat(v, 'yyyy-mm-dd'),
       visas: v => JSON.stringify(v)
     }
   },
