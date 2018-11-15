@@ -48,66 +48,66 @@ const utilisateursFetch = () =>
 const titresTravauxRapportsFetch = () => titresTravauxRapportsGet()
 
 const definitions = [
-  // {
-  //   name: 'utilisateurs',
-  //   spreadsheetId: utilisateursSpreadsheetId,
-  //   fetch: utilisateursFetch(),
-  //   tables: utilisateursTables
-  // },
-  // {
-  //   name: 'titres-c',
-  //   spreadsheetId: titresCSpreadsheetId,
-  //   fetch: titresFetch('c'),
-  //   tables: titresTables
-  // },
-  // {
-  //   name: 'titres-f',
-  //   spreadsheetId: titresFSpreadsheetId,
-  //   fetch: titresFetch('f'),
-  //   tables: titresTables
-  // },
-  // {
-  //   name: 'titres-g',
-  //   spreadsheetId: titresGSpreadsheetId,
-  //   fetch: titresFetch('g'),
-  //   tables: titresTables
-  // },
+  {
+    name: 'utilisateurs',
+    spreadsheetId: utilisateursSpreadsheetId,
+    fetch: utilisateursFetch(),
+    tables: utilisateursTables
+  },
+  {
+    name: 'titres-c',
+    spreadsheetId: titresCSpreadsheetId,
+    fetch: titresFetch('c'),
+    tables: titresTables
+  },
+  {
+    name: 'titres-f',
+    spreadsheetId: titresFSpreadsheetId,
+    fetch: titresFetch('f'),
+    tables: titresTables
+  },
+  {
+    name: 'titres-g',
+    spreadsheetId: titresGSpreadsheetId,
+    fetch: titresFetch('g'),
+    tables: titresTables
+  },
   {
     name: 'titres-h',
     spreadsheetId: titresHSpreadsheetId,
     fetch: titresFetch('h'),
     tables: titresTables
+  },
+  {
+    name: 'titres-m',
+    spreadsheetId: titresMSpreadsheetId,
+    fetch: titresFetch('m'),
+    tables: titresTables
+  },
+  {
+    name: 'titres-r',
+    spreadsheetId: titresRSpreadsheetId,
+    fetch: titresFetch('r'),
+    tables: titresTables
+  },
+  {
+    name: 'titres-s',
+    spreadsheetId: titresSSpreadsheetId,
+    fetch: titresFetch('s'),
+    tables: titresTables
+  },
+  {
+    name: 'titres-w',
+    spreadsheetId: titresWSpreadsheetId,
+    fetch: titresFetch('w'),
+    tables: titresTables
+  },
+  {
+    name: 'titres-travaux-rapports',
+    spreadsheetId: titresTravauxRapportsSpreadsheetId,
+    fetch: titresTravauxRapportsFetch(),
+    tables: titresTravauxRapportsTables
   }
-  // {
-  //   name: 'titres-m',
-  //   spreadsheetId: titresMSpreadsheetId,
-  //   fetch: titresFetch('m'),
-  //   tables: titresTables
-  // },
-  // {
-  //   name: 'titres-r',
-  //   spreadsheetId: titresRSpreadsheetId,
-  //   fetch: titresFetch('r'),
-  //   tables: titresTables
-  // },
-  // {
-  //   name: 'titres-s',
-  //   spreadsheetId: titresSSpreadsheetId,
-  //   fetch: titresFetch('s'),
-  //   tables: titresTables
-  // },
-  // {
-  //   name: 'titres-w',
-  //   spreadsheetId: titresWSpreadsheetId,
-  //   fetch: titresFetch('w'),
-  //   tables: titresTables
-  // },
-  // {
-  //   name: 'titres-travaux-rapports',
-  //   spreadsheetId: titresTravauxRapportsSpreadsheetId,
-  //   fetch: titresTravauxRapportsFetch(),
-  //   tables: titresTravauxRapportsTables
-  // }
 ]
 
 module.exports = definitions
