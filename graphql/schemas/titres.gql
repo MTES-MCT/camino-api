@@ -98,7 +98,7 @@ type Document {
 
 type Point {
   id: ID!
-  coordonees: Coordonnees
+  coordonnees: Coordonnees
   groupe: Int
   contour: Int
   point: Int
@@ -111,7 +111,7 @@ type Point {
 type PointReference {
   id: ID!
   systeme: String
-  coordonees: Coordonnees
+  coordonnees: Coordonnees
 }
 
 type Coordonnees {
@@ -165,7 +165,7 @@ input InputEtape {
 
 input InputPoint {
   id: ID!
-  coordonees: InputCoordonnees
+  coordonnees: InputCoordonnees
   groupe: Int
   contour: Int
   point: Int
@@ -178,7 +178,7 @@ input InputPoint {
 input InputPointReference {
   id: ID!
   systeme: String
-  coordonees: InputCoordonnees
+  coordonnees: InputCoordonnees
 }
 
 input InputCoordonnees {

@@ -13,7 +13,7 @@ class TitresPoints extends Model {
       required: [
         'id',
         'titreEtapeId',
-        'coordonees',
+        'coordonnees',
         'groupe',
         'contour',
         'point'
@@ -22,7 +22,7 @@ class TitresPoints extends Model {
       properties: {
         id: { type: 'string' },
         titreEtapeId: { type: 'string', maxLength: 128 },
-        coordonees: {
+        coordonnees: {
           type: 'object',
           properties: {
             x: { type: 'float' },
@@ -52,19 +52,16 @@ class TitresPoints extends Model {
     }
   }
 
-  // bug: lorsqu'on importe
   $formatDatabaseJson(json) {
-    if (json.coordonees) {
-      // json.coordonees = { x: -3.09308198868064, y: 48.5080422588997 }
-      const t = `${json.coordonees.x},${json.coordonees.y}`
-      json.coordonees = t
+    if (json.coordonnees) {
+      const t = `${json.coordonnees.x},${json.coordonnees.y}`
+      json.coordonnees = t
     }
     json = super.$formatDatabaseJson(json)
     return json
   }
 
   $parseDatabaseJson(json) {
-    // Remember to call the super class's implementation.
     json = super.$parseDatabaseJson(json)
     if (json) {
       // console.log('--------------->', json)
