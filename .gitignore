@@ -1,5 +1,5 @@
 node_modules/
 .env
 
-/_docs/db/backups/**
+/docs/db/backups/**
 /tools/sources/**/*.json
