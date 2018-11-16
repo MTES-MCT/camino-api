@@ -1,3 +1,0 @@
-mutation Token($id: ID!, $motDePasse: String!) {
-  token(id: $id, motDePasse: $motDePasse)
-}
