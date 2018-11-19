@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const emailRegex = require('email-regex')
 const { jwtSecret } = require('../../config/index')
+const mailer = require('../../tools/mailer/index')
 
 const {
   utilisateurGet,
@@ -304,6 +305,12 @@ const resolvers = {
   async utilisateurMotDePasseInitialiser({ email }, context) {
     const errors = []
 
+    const subject = `Récupérer votre mot de passe Camino`
+    const text = `Hello`
+    const html = `<b>Hello!</b><p><a href="http://www.yahoo.com">Click Here</a></p>`
+
+    mailer(email, subject, text, html)
+
     if (!email) {
       errors.push('email manquant')
     } else if (!emailRegex({ exact: true }).test(email)) {
@@ -317,6 +324,10 @@ const resolvers = {
     }
 
     if (!errors.length) {
+      const token = jwt.sign({ utilisateur }, jwtSecret, {
+        expiresIn: '60 * 15'
+      })
+
       return 'créer un token, envoyer un email'
     } else {
       throw new Error(errors.join(', '))
