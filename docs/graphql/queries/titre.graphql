@@ -28,7 +28,7 @@ fragment titre on Titre {
   surface
   volumeUnite
   substances {
-    ...substance
+    ...titreSubstance
   }
   administrations {
     ...administration
@@ -100,7 +100,7 @@ fragment etape on Etape {
     nom
     couleur
   }
-  emprise {
+  emprises {
     id
     nom
   }
@@ -123,7 +123,7 @@ fragment etape on Etape {
     ...geojsonMultiPolygon
   }
   substances {
-    ...substance
+    ...titreSubstance
   }
   documents {
     ...document
@@ -232,7 +232,7 @@ fragment geojsonPoints on GeojsonPoints {
   }
 }
 
-fragment substance on TitreSubstance {
+fragment titreSubstance on TitreSubstance {
   id
   nom
   connexe

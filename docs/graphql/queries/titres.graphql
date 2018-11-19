@@ -5,9 +5,6 @@ query Titres(
   $substances: [String!]
   $noms: [String!]
 ) {
-  metas {
-    ...meta
-  }
   titres(
     typeIds: $typeIds
     domaineIds: $domaineIds
@@ -16,22 +13,6 @@ query Titres(
     noms: $noms
   ) {
     ...titre
-  }
-}
-
-fragment meta on Metas {
-  types {
-    id
-    nom
-  }
-  domaines {
-    id
-    nom
-  }
-  statuts {
-    id
-    nom
-    couleur
   }
 }
 
@@ -59,7 +40,7 @@ fragment titre on Titre {
   surface
   volumeUnite
   substances {
-    ...substance
+    ...titreSubstance
   }
   administrations {
     ...administration
@@ -131,12 +112,12 @@ fragment etape on Etape {
     nom
     couleur
   }
-  emprise {
+  emprises {
     id
     nom
   }
   substances {
-    ...substance
+    ...titreSubstance
   }
   administrations {
     ...administration
@@ -155,9 +136,6 @@ fragment etape on Etape {
   }
   geojsonMultiPolygon {
     ...geojsonMultiPolygon
-  }
-  substances {
-    ...substance
   }
   documents {
     ...document
@@ -266,11 +244,11 @@ fragment geojsonPoints on GeojsonPoints {
   }
 }
 
-fragment substance on TitreSubstance {
+fragment titreSubstance on TitreSubstance {
   id
   nom
-  ordre
   connexe
+  ordre
   symbole
   gerep
   description
