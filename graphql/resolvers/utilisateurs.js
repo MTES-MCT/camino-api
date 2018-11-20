@@ -186,8 +186,6 @@ const resolvers = {
       )
     }
 
-    console.log(utilisateur)
-
     if (!errors.length) {
       utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
       const res = await utilisateurAdd(utilisateur)
