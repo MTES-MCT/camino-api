@@ -93,7 +93,10 @@ const resolvers = {
   },
 
   async utilisateurIdentifier(variables, context, info) {
-    const utilisateur = context.user && (await utilisateurGet(context.user.id))
+    const utilisateur =
+      context.user &&
+      context.user.login &&
+      (await utilisateurGet(context.user.id))
 
     return utilisateur
   },
@@ -130,10 +133,10 @@ const resolvers = {
         {
           id: utilisateur.id,
           email: utilisateur.email,
-          permission: utilisateur.permission
+          permission: utilisateur.permission,
+          login: true
         },
-        jwtSecret,
-        { expiresIn: '1y' }
+        jwtSecret
       )
     } else {
       throw new Error(errors.join(', '))
@@ -269,7 +272,7 @@ const resolvers = {
 
       if (motDePasseNouveau1 !== motDePasseNouveau2) {
         errors.push(
-          'le nouveau mot de passe est la vérification sont différents'
+          'le nouveau mot de passe et la vérification sont différents'
         )
       }
 
@@ -302,33 +305,88 @@ const resolvers = {
     }
   },
 
-  async utilisateurMotDePasseInitialiser({ email }, context) {
+  async utilisateurMotDePasseEmailEnvoyer({ email }, context) {
     const errors = []
-
-    const subject = `Récupérer votre mot de passe Camino`
-    const text = `Hello`
-    const html = `<b>Hello!</b><p><a href="http://www.yahoo.com">Click Here</a></p>`
-
-    mailer(email, subject, text, html)
+    let utilisateur
 
     if (!email) {
       errors.push('email manquant')
     } else if (!emailRegex({ exact: true }).test(email)) {
       errors.push('adresse email invalide')
-    }
+    } else {
+      utilisateur = await utilisateurByEmailGet(email)
 
-    const utilisateur = await utilisateurByEmailGet(email)
-
-    if (!utilisateur) {
-      errors.push("pas d'utilisateur avec cet email")
+      if (!utilisateur) {
+        errors.push("pas d'utilisateur enregistré avec cet email")
+      }
     }
 
     if (!errors.length) {
-      const token = jwt.sign({ utilisateur }, jwtSecret, {
-        expiresIn: '60 * 15'
+      const token = jwt.sign({ id: utilisateur.id }, jwtSecret)
+
+      const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
+
+      const subject = `[Camino] Initialisation de votre mot de passe`
+      const text = `Pour initialiser votre mot de passe, rendez-vous sur cette url: ${url}  (lien valable 15 minutes).`
+      const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
+
+      try {
+        mailer(email, subject, text, html)
+      } catch (e) {
+        return "erreur lors de l'envoi d'email"
+      }
+
+      return 'email envoyé'
+    } else {
+      throw new Error(errors.join(', '))
+    }
+  },
+
+  async utilisateurMotDePasseInitialiser(
+    { motDePasse1, motDePasse2 },
+    context
+  ) {
+    const errors = []
+    const now = Math.round(new Date().getTime() / 1000)
+    const delay = 60 * 15 // 15 minutes
+
+    if (now - context.user.iat > delay) {
+      errors.push('délai expiré')
+    } else {
+      if (!motDePasse1) {
+        errors.push('nouveau mot de passe manquant')
+      } else if (motDePasse1.length < 8) {
+        errors.push('le mot de passe doit contenir au moins 8 caractères')
+      }
+
+      if (!motDePasse2) {
+        errors.push('vérification du nouveau mot de passe manquante')
+      }
+
+      if (motDePasse1 !== motDePasse2) {
+        errors.push(
+          'le nouveau mot de passe et la vérification sont différents'
+        )
+      }
+
+      if (context.user.id) {
+        const utilisateur = await utilisateurGet(context.user.id)
+
+        if (!utilisateur) {
+          errors.push("pas d'utilisateur avec cette id")
+        }
+      }
+    }
+
+    if (!errors.length) {
+      const res = await utilisateurUpdate({
+        id: context.user.id,
+        motDePasse: await bcrypt.hash(motDePasse1, 10)
       })
 
-      return 'créer un token, envoyer un email'
+      console.log(res)
+
+      return 'mot de passe mis à jour'
     } else {
       throw new Error(errors.join(', '))
     }
