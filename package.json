@@ -1,6 +1,6 @@
 {
   "name": "camino-api",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Camino api",
   "main": "index.js",
   "scripts": {
@@ -48,7 +48,7 @@
     "graphql-iso-date": "^3.6.1",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.15.2",
-    "nodemailer": "^4.6.8",
+    "nodemailer": "^4.7.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "objection": "^1.4.0",
     "p-queue": "^3.0.0",
