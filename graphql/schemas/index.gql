@@ -55,7 +55,12 @@ type Mutation {
     motDePasseNouveau2: String!
   ): Utilisateur
 
-  utilisateurMotDePasseInitialiser(email: String!): String
+  utilisateurMotDePasseEmailEnvoyer(email: String!): String
+
+  utilisateurMotDePasseInitialiser(
+    motDePasse1: String!
+    motDePasse2: String!
+  ): String
 
   titreTravauxRapportAjouter(
     rapport: InputTitreTravauxRapport!
