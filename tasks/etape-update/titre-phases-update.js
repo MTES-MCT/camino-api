@@ -1,5 +1,3 @@
-const { titreGet } = require('../../postgres/queries/titres')
-const { titreDemarcheGet } = require('../../postgres/queries/titres-demarches')
 const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 const titrePhasesFind = require('../_utils/titre-phases-find')
 const titreDemarchePhasesFilter = require('../_utils/titre-demarche-phases-filter')
