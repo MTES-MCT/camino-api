@@ -26,13 +26,17 @@ const queries = {
     }
 
     if (noms) {
-      q.whereRaw(`?? ~* ?`, [
-        'titres.nom',
-        noms.map(n => `(?=.*?(${n}))`).join('')
-      ]).orWhereRaw(`?? ~* ?`, [
-        'titres.id',
-        noms.map(n => `(?=.*?(${n}))`).join('')
-      ])
+      q.where(builder => {
+        builder
+          .whereRaw(`?? ~* ?`, [
+            'titres.nom',
+            noms.map(n => `(?=.*?(${n}))`).join('')
+          ])
+          .orWhereRaw(`?? ~* ?`, [
+            'titres.id',
+            noms.map(n => `(?=.*?(${n}))`).join('')
+          ])
+      })
     }
 
     if (substances) {
