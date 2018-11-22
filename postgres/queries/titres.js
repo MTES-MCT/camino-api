@@ -29,6 +29,9 @@ const queries = {
       q.whereRaw(`?? ~* ?`, [
         'titres.nom',
         noms.map(n => `(?=.*?(${n}))`).join('')
+      ]).orWhereRaw(`?? ~* ?`, [
+        'titres.id',
+        noms.map(n => `(?=.*?(${n}))`).join('')
       ])
     }
 
