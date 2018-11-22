@@ -25,7 +25,8 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreIsAxm) => {
       'exs',
       'mut',
       'amo',
-      'res'
+      'res',
+      'ces'
     ].includes(titreDemarche.typeId)
   ) {
     if (
@@ -87,15 +88,9 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreIsAxm) => {
   } else if (
     //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
     //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
-    ['ret', 'abr', 'prr'].includes(titreDemarche.typeId)
+    ['ret', 'abr', 'prr', 'dec'].includes(titreDemarche.typeId)
   ) {
     if (
-      // - la date d’initiation de la procédure est inférieure à la date du jour
-      new Date(titreEtapeRecent.date) < new Date()
-    ) {
-      // - le statut de la démarche est “initiée”
-      titreDemarcheStatutId = 'ini'
-    } else if (
       // - le type de l’étape est publication au JO
       // - et le statut de l’étape est terminée
       titreEtapeRecent.typeId === 'dpu' &&
@@ -103,6 +98,9 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreIsAxm) => {
     ) {
       // - le statut de la démarche est terminée
       titreDemarcheStatutId = 'ter'
+    } else {
+      // - le statut de la démarche est “initiée”
+      titreDemarcheStatutId = 'ini'
     }
   }
 
