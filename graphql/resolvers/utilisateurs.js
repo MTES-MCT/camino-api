@@ -105,16 +105,21 @@ const resolvers = {
     const errors = []
     let token
     let utilisateur
+    const emailIsValid = emailRegex({ exact: true }).test(email)
 
     if (!email) {
-      errors.push('email manquante')
+      errors.push('adresse email manquante')
+    }
+
+    if (!emailIsValid) {
+      errors.push('adresse email invalide')
     }
 
     if (!motDePasse) {
       errors.push('mot de passe manquant')
     }
 
-    if (email && motDePasse) {
+    if (email && emailIsValid && motDePasse) {
       utilisateur = await utilisateurByEmailGet(email)
 
       if (utilisateur) {
@@ -124,7 +129,7 @@ const resolvers = {
           errors.push('mot de passe incorrect')
         }
       } else {
-        errors.push("pas d'utilisateur avec cette id")
+        errors.push('aucun utilisateur enregistré avec cette adresse email')
       }
     }
 
@@ -284,7 +289,7 @@ const resolvers = {
             errors.push('mot de passe incorrect')
           }
         } else {
-          errors.push("pas d'utilisateur avec cette id")
+          errors.push('aucun utilisateur enregistré avec cette id')
         }
       }
 
@@ -306,16 +311,17 @@ const resolvers = {
   async utilisateurMotDePasseEmailEnvoyer({ email }, context) {
     const errors = []
     let utilisateur
+    const emailIsValid = emailRegex({ exact: true }).test(email)
 
     if (!email) {
       errors.push('email manquant')
-    } else if (!emailRegex({ exact: true }).test(email)) {
+    } else if (!emailIsValid) {
       errors.push('adresse email invalide')
     } else {
       utilisateur = await utilisateurByEmailGet(email)
 
       if (!utilisateur) {
-        errors.push("pas d'utilisateur enregistré avec cet email")
+        errors.push('aucun utilisateur enregistré avec cette adresse email')
       }
     }
 
@@ -371,7 +377,7 @@ const resolvers = {
         const utilisateur = await utilisateurGet(context.user.id)
 
         if (!utilisateur) {
-          errors.push("pas d'utilisateur avec cette id")
+          errors.push('aucun utilisateur enregistré avec cette id')
         }
       }
     }
@@ -381,8 +387,6 @@ const resolvers = {
         id: context.user.id,
         motDePasse: await bcrypt.hash(motDePasse1, 10)
       })
-
-      console.log(res)
 
       return 'mot de passe mis à jour'
     } else {
