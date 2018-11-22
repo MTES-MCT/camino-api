@@ -12,62 +12,43 @@ const queries = {
     const q = Titres.query()
       .skipUndefined()
       .eager(options.titres.eager)
-      .whereIn('titres.typeId', typeIds)
-      .whereIn('titres.domaineId', domaineIds)
-      .whereIn('titres.statutId', statutIds)
+
+    if (typeIds) {
+      q.whereIn('titres.typeId', typeIds)
+    }
+
+    if (domaineIds) {
+      q.whereIn('titres.domaineId', domaineIds)
+    }
+
+    if (statutIds) {
+      q.whereIn('titres.statutId', statutIds)
+    }
 
     if (noms) {
-      q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
+      q.whereRaw(`?? ~* ?`, [
         'titres.nom',
-        ...noms.map(n => n.toLowerCase())
+        noms.map(n => `(?=.*?(${n}))`).join('')
       ])
     }
 
     if (substances) {
       q.where(builder => {
         builder
-          .whereIn(
-            'substances:legales.id',
-            substances.map(n => n.toLowerCase())
-          )
-          .orWhereRaw(`lower(??) ~* ${substances.map(n => '?').join('|')}`, [
+          .whereRaw(`?? ~* ?`, ['substances.nom', substances.join('|')])
+          .orWhereRaw(`?? ~* ?`, ['substances.id', substances.join('|')])
+          .orWhereRaw(`?? ~* ?`, [
             'substances:legales.nom',
-            ...substances.map(n => n.toLowerCase())
+            substances.join('|')
           ])
-          .orWhereRaw(`lower(??) ~* ${substances.map(n => '?').join('|')}`, [
-            'substances.nom',
-            ...substances.map(n => n.toLowerCase())
-          ])
-          .orWhereRaw(`lower(??) ~* ${substances.map(n => '?').join('|')}`, [
-            'substances.symbole',
-            ...substances.map(n => n.toLowerCase())
+          .orWhereRaw(`?? ~* ?`, [
+            'substances:legales.id',
+            substances.join('|')
           ])
       }).joinRelation('substances.legales')
-
-      // recherche dans l'historique des étapes
-      // bug: retourne plusieurs fois le même titre
-      // si la substance se trouve dans plusieurs étapes
-      // -> solution (to-do): adjusting the result set of the first query for parents.
-      // check out the whereExists() / relatedQuery() example here
-      // http://vincit.github.io/objection.js/#relatedquery
-
-      // q.where(builder => {
-      //   builder
-      //     .whereIn(
-      //       'demarches:etapes:substances.id',
-      //       substances.map(n => n.toLowerCase())
-      //     )
-      //     .orWhereIn(
-      //       'demarches:etapes:substances.nom',
-      //       substances.map(n => n.toLowerCase())
-      //     )
-      //     .orWhereIn(
-      //       'demarches:etapes:substances.symbole',
-      //       substances.map(n => n.toLowerCase())
-      //     )
-      // }).joinRelation('demarches.etapes.substances')
     }
 
+    // console.log(substances, q.toSql())
     return q
   },
 
