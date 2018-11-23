@@ -1,4 +1,4 @@
-const { debug } = require('./index')
+const { debug } = require('../../config/index')
 
 module.exports = {
   restrictedDomaineIds: debug ? [] : ['c', 'f', 'r', 's'],
