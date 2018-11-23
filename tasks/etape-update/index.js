@@ -1,8 +1,8 @@
 require('dotenv').config()
-require('../../postgres/index')
-const { titreGet } = require('../../postgres/queries/titres')
-const { titreDemarcheGet } = require('../../postgres/queries/titres-demarches')
-const { titreEtapeGet } = require('../../postgres/queries/titres-etapes')
+require('../../database/index')
+const { titreGet } = require('../../database/queries/titres')
+const { titreDemarcheGet } = require('../../database/queries/titres-demarches')
+const { titreEtapeGet } = require('../../database/queries/titres-etapes')
 
 const titreEtapesOrdreUpdate = require('./titre-etapes-ordre-update')
 const titreDemarcheStatutIdUpdate = require('./titre-demarche-statut-id-update')

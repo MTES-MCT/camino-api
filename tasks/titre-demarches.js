@@ -1,7 +1,7 @@
 const {
   titreDemarcheStatutIdUpdate,
   titreDemarcheOrdreUpdate
-} = require('../postgres/queries/titres-demarches')
+} = require('../database/queries/titres-demarches')
 
 const titreDemarchesSortAsc = require('./_utils/titre-demarches-sort-asc')
 

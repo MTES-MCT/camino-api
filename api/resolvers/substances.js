@@ -1,7 +1,7 @@
 const {
   substanceGet,
   substancesGet
-} = require('../../postgres/queries/substances')
+} = require('../../database/queries/substances')
 
 const resolvers = {
   async substances(_, context) {

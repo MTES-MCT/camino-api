@@ -1,7 +1,7 @@
 const {
   entrepriseGet,
   entreprisesGet
-} = require('../../postgres/queries/entreprises')
+} = require('../../database/queries/entreprises')
 const permissionsCheck = require('./_permissions-check')
 
 const resolvers = {

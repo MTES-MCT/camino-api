@@ -1,4 +1,4 @@
-const { titrePropsUpdate } = require('../postgres/queries/titres')
+const { titrePropsUpdate } = require('../database/queries/titres')
 const titrePropEtapeIdFind = require('./_utils/titre-prop-etape-id-find')
 
 const titres = {

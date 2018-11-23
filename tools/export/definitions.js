@@ -1,8 +1,8 @@
-const { titresGet } = require('../../postgres/queries/titres')
-const { utilisateursGet } = require('../../postgres/queries/utilisateurs')
+const { titresGet } = require('../../database/queries/titres')
+const { utilisateursGet } = require('../../database/queries/utilisateurs')
 const {
   titresTravauxRapportsGet
-} = require('../../postgres/queries/titres-travaux')
+} = require('../../database/queries/titres-travaux')
 
 const titresTables = require('./tables/titres')
 const utilisateursTables = require('./tables/utilisateurs')

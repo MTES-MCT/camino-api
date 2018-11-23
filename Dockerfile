@@ -14,8 +14,8 @@ COPY .env ./
 COPY package*.json ./
 COPY index.js ./
 COPY config config/
-COPY graphql graphql/
-COPY postgres postgres/
+COPY api api/
+COPY database database/
 COPY tools tools/
 COPY tasks tasks/
 
