@@ -13,10 +13,11 @@ const titrePhasesFind = (titreDemarchesByTitre, titreIsAxm) => {
 
   return titreDemarchesByTitreFiltered.reduce(
     (titrePhases, titreDemarche, index) => {
-      const dateFin = titreDemarcheDateFinAndDureeFind(
-        titreDemarchesByTitreFiltered.slice().reverse(),
+      const dateFin = titrePhaseDateFinFind(
+        titreDemarchesByTitre,
+        titreDemarchesByTitreFiltered,
         titreDemarche.ordre
-      ).dateFin
+      )
 
       const dateDebut = titrePhaseDateDebutFind(
         titreDemarche,
@@ -73,7 +74,7 @@ const titrePhaseDateDebutFind = (
     return dateFormat(etapeDpuHasDateDebut.dateDebut, 'yyyy-mm-dd')
   }
 
-  // il y a une phase précédente
+  // si il y a une phase précédente
   if (phasePrevious) {
     // la date de début est égale à la date de fin de l'étape précédente
     return phasePrevious.dateFin
@@ -86,6 +87,17 @@ const titrePhaseDateDebutFind = (
   )
 
   return titreEtapeDpuFirst && dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
+}
+
+const titrePhaseDateFinFind = (
+  titreDemarchesByTitre,
+  titreDemarchesByTitreFiltered,
+  ordre
+) => {
+  return titreDemarcheDateFinAndDureeFind(
+    titreDemarchesByTitreFiltered.slice().reverse(),
+    ordre
+  ).dateFin
 }
 
 module.exports = titrePhasesFind
