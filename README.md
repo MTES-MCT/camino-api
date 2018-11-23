@@ -101,7 +101,7 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 │
 ├── api                         # `API graphql`
 │   ├── resolvers               # `liens entre l'API et la base de données`
-│   ├── schemas                 # `description des nœud de l'API`
+│   ├── schemas                 # `description des nœuds de l'API`
 │   └── types                   # `types graphQl customs`
 │
 ├── config                      #
