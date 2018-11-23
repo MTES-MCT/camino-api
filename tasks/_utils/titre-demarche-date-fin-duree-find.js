@@ -24,12 +24,16 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
         // la date de fin est déja définie -> retourne l'accumulateur tel quel
         if (dateFin) {
           return { duree, dateFin }
-        } else if (
+        }
+
+        if (
           // la démarche est un octroi
           titreDemarche.typeId === 'oct'
         ) {
           return titreDemarcheOctroiDateFinFind(duree, titreDemarche)
-        } else if (
+        }
+
+        if (
           // la démarche est une abrogation, retrait ou renonciation
           titreDemarche.typeId === 'abr' ||
           titreDemarche.typeId === 'ret' ||
@@ -38,14 +42,14 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
         ) {
           // trouve la date de fin d'une démarche d'annulation
           return titreDemarcheAnnulationDateFinFind(titreDemarche)
-        } else {
-          // trouve soit la date de fin
-          // soit la durée d'une démarche
-          return titreDemarcheNormaleDateFinAndDureeFind(
-            duree,
-            titreDemarche.etapes
-          )
         }
+
+        // trouve soit la date de fin
+        // soit la durée d'une démarche
+        return titreDemarcheNormaleDateFinAndDureeFind(
+          duree,
+          titreDemarche.etapes
+        )
       },
       // l'accumulateur contient initialement
       // - la durée cumulée égale à 0
