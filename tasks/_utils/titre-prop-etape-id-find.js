@@ -25,7 +25,9 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
               (titreEtape[prop] && !Array.isArray(titreEtape[prop]))
           )
 
-        etapeId = (etape && etape.id) || (!etape && null)
+        // si l'étape existe, retourne son id
+        // sinon retourne `null`
+        return (etape && etape.id) || (!etape && null)
       }
 
       return etapeId
