@@ -10,12 +10,11 @@ const titreDateFinFind = titreDemarches => {
     ['acc', 'ter'].includes(titreDemarche.statutId)
   )
 
-  const dateFin =
+  return (
     titreDemarche &&
     titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
       .dateFin
-
-  return dateFin
+  )
 }
 
 module.exports = titreDateFinFind

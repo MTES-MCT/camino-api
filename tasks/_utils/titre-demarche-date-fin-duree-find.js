@@ -65,34 +65,36 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
     titreDemarche.etapes
   )
 
-  // retourne une étape de dpu si celle-ci a une date de début
-  const titreEtapeDpuHasDateDebut = titreEtapesSortDesc(titreDemarche)
-    .filter(te => te.typeId === 'dpu')
-    .find(te => te.dateDebut)
+  const dateFinUpdatedFind = () => {
+    if (duree === 0) {
+      // si il n'y a ni date de fin, ni de durée cumulée,
+      // la date de fin par défaut est fixée au 31 décembre 2018
+      return '2018-12-31'
+    }
 
-  let dateFinUpdated
+    // retourne une étape de dpu si celle-ci a une date de début
+    const titreEtapeDpuHasDateDebut = titreEtapesSortDesc(titreDemarche)
+      .filter(te => te.typeId === 'dpu')
+      .find(te => te.dateDebut)
 
-  if (dateFin) {
-    // si la démarche contient une date de fin
-    dateFinUpdated = dateFin
-  } else if (duree === 0) {
-    // si il n'y a ni date de fin, ni de durée cumulée,
-    // la date de fin par défaut est fixée au 31 décembre 2018
-    dateFinUpdated = '2018-12-31'
-  } else if (titreEtapeDpuHasDateDebut) {
-    // si il n'y a ni date de fin, ni durée cumulée,
-    // la date de fin par défaut est fixée au 31 décembre 2018
-    dateFinUpdated = dateAddYears(titreEtapeDpuHasDateDebut.dateDebut, duree)
-  } else {
+    if (titreEtapeDpuHasDateDebut) {
+      // si il n'y a ni date de fin, ni durée cumulée,
+      // la date de fin par défaut est fixée au 31 décembre 2018
+      return dateAddYears(titreEtapeDpuHasDateDebut.dateDebut, duree)
+    }
+
     // sinon, la date de fin est calculé
     // en ajoutant la durée cumulée à la date de la première dpu ou ens
     const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
       titreEtape => titreEtape.typeId === 'dpu'
     )
-    dateFinUpdated = titreEtapeDpuFirst
-      ? dateAddYears(titreEtapeDpuFirst.date, duree)
-      : 0
+
+    return titreEtapeDpuFirst ? dateAddYears(titreEtapeDpuFirst.date, duree) : 0
   }
+
+  // si la démarche contient une date de fin,
+  // sinon trouve une date de fin
+  const dateFinUpdated = dateFin || dateFinUpdatedFind()
 
   return {
     duree,
@@ -102,29 +104,30 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 
 // trouve la date de fin d'une démarche d'annulation
 const titreDemarcheAnnulationDateFinFind = titreDemarche => {
-  let dateFin
+  const dateFinFind = () => {
+    // la dernière étape dex qui contient une date de fin
+    const etapeDexHasDateFin = titreEtapesSortDesc(titreDemarche)
+      .filter(te => te.typeId === 'dex')
+      .find(te => te.dateFin)
 
-  // la dernière étape dex qui contient une date de fin
-  const etapeDexHasDateFin = titreEtapesSortDesc(titreDemarche)
-    .filter(te => te.typeId === 'dex')
-    .find(te => te.dateFin)
-
-  if (etapeDexHasDateFin) {
     // si la démarche contient une date de fin
-    dateFin = dateFormat(etapeDexHasDateFin, 'yyyy-mm-dd')
-  } else {
-    // la première étape de décision expresse (dex)
+    if (etapeDexHasDateFin) {
+      return dateFormat(etapeDexHasDateFin, 'yyyy-mm-dd')
+    }
+
+    // sinon,
+    // trouve la première étape de décision expresse (dex)
     const etapeDex = titreEtapesSortAsc(titreDemarche).find(
       te => te.typeId === 'dex'
     )
 
-    dateFin = dateFormat(etapeDex.date, 'yyyy-mm-dd')
+    // la date de fin est la date de l'étape
+    return dateFormat(etapeDex.date, 'yyyy-mm-dd')
   }
 
-  // la date de fin est la date de l'étape
   return {
     duree: 0,
-    dateFin
+    dateFin: dateFinFind()
   }
 }
 
