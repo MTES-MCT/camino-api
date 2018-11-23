@@ -1,17 +1,23 @@
 const dateFormat = require('dateformat')
 const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-duree-find')
+const titreDemarchePhasesFilter = require('./titre-demarche-phases-filter')
 const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
 
 // retourne un tableau contenant les phases d'un titre
-const titrePhasesFind = titreDemarchesByTitre =>
+const titrePhasesFind = (titreDemarchesByTitre, titreIsAxm) =>
   titreDemarchesByTitre.reduce((titrePhases, titreDemarche, index) => {
     let dateFin = titreDemarcheDateFinAndDureeFind(
       titreDemarchesByTitre.slice().reverse(),
       titreDemarche.ordre
     ).dateFin
 
-    const dateDebut = titrePhaseDateDebutFind(titreDemarche, titrePhases, index)
+    const dateDebut = titrePhaseDateDebutFind(
+      titreDemarche,
+      titrePhases,
+      index,
+      titreIsAxm
+    )
 
     // si
     // - la date du jour est plus récente que la date de fin
@@ -20,6 +26,8 @@ const titrePhasesFind = titreDemarchesByTitre =>
     // - le statut est échu
     const statutId =
       dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
+
+    // const test = titreDemarchePhasesFilter(titreDemarche, titreIsAxm)
 
     return [
       ...titrePhases,
@@ -32,7 +40,12 @@ const titrePhasesFind = titreDemarchesByTitre =>
     ]
   }, [])
 
-const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
+const titrePhaseDateDebutFind = (
+  titreDemarche,
+  titrePhases,
+  index,
+  titreIsAxm
+) => {
   // retourne la phase précédente
   const phasePrevious = titrePhases[index - 1]
 
@@ -41,7 +54,7 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
     .filter(
       titreEtape =>
         titreEtape.typeId === 'dpu' ||
-        (titreDemarche.titreIsAxm && titreEtape.typeId === 'dex')
+        (titreIsAxm && titreEtape.typeId === 'dex')
     )
     .find(te => te.dateDebut)
 
@@ -67,7 +80,7 @@ const titrePhaseDateDebutFind = (titreDemarche, titrePhases, index) => {
     const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
       titreEtape =>
         titreEtape.typeId === 'dpu' ||
-        (titreDemarche.titreIsAxm && titreEtape.typeId === 'dex')
+        (titreIsAxm && titreEtape.typeId === 'dex')
     )
 
     dateDebut =

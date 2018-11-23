@@ -4,14 +4,21 @@ const titrePhasesFind = require('../_utils/titre-phases-find')
 const titreDemarchePhasesFilter = require('../_utils/titre-demarche-phases-filter')
 
 const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
+  // créé un objet { titreId: titreIsAxm (bool), … }
+  const titreIsAxmList = titres.reduce((res, titre) => {
+    res[titre.id] = titre.typeId === 'axm'
+    return res
+  }, {})
+
   // filtre les démarches qui donnent lieu à des phases
   // regroupe les démarches par titre
   const titresDemarchesGroupedByTitres = titresDemarches
-    .filter(titreDemarche => {
-      titreDemarche.titreIsAxm =
-        titres.find(t => t.id === titreDemarche.titreId).typeId === 'axm'
-      return titreDemarchePhasesFilter(titreDemarche)
-    })
+    .filter(titreDemarche =>
+      titreDemarchePhasesFilter(
+        titreDemarche,
+        titreIsAxmList[titreDemarche.titreId]
+      )
+    )
     .reduce(titreDemarchesByTitreGroup, {})
 
   // retourne un tableau avec les phases
@@ -19,7 +26,10 @@ const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
   const titresPhases = Object.keys(titresDemarchesGroupedByTitres).reduce(
     (res, titreId) => [
       ...res,
-      ...titrePhasesFind(titresDemarchesGroupedByTitres[titreId])
+      ...titrePhasesFind(
+        titresDemarchesGroupedByTitres[titreId],
+        titreIsAxmList[titreId]
+      )
     ],
     []
   )
