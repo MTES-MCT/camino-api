@@ -1,7 +1,6 @@
 const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 
 const titrePhasesFind = require('../_utils/titre-phases-find')
-const titreDemarchePhasesFilter = require('../_utils/titre-demarche-phases-filter')
 
 const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
   // créé un objet { titreId: titreIsAxm (bool), … }
@@ -10,16 +9,11 @@ const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
     return res
   }, {})
 
-  // filtre les démarches qui donnent lieu à des phases
   // regroupe les démarches par titre
-  const titresDemarchesGroupedByTitres = titresDemarches
-    .filter(titreDemarche =>
-      titreDemarchePhasesFilter(
-        titreDemarche,
-        titreIsAxmList[titreDemarche.titreId]
-      )
-    )
-    .reduce(titreDemarchesByTitreGroup, {})
+  const titresDemarchesGroupedByTitres = titresDemarches.reduce(
+    titreDemarchesByTitreGroup,
+    {}
+  )
 
   // retourne un tableau avec les phases
   // crées à partir des démarches

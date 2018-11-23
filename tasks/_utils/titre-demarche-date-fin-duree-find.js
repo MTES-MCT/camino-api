@@ -20,8 +20,7 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
     // parcourt les démarches
     .reduce(
       ({ duree, dateFin }, titreDemarche) => {
-        // console.log(titreDemarches.map(d => d.id))
-        // la date de fin est déja définie -> retourne l'accumulateur tel quel
+        // la date de fin est déjà définie -> retourne l'accumulateur tel quel
         if (dateFin) {
           return { duree, dateFin }
         }

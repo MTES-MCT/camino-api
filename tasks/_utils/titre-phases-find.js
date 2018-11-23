@@ -5,40 +5,49 @@ const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
 const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
 
 // retourne un tableau contenant les phases d'un titre
-const titrePhasesFind = (titreDemarchesByTitre, titreIsAxm) =>
-  titreDemarchesByTitre.reduce((titrePhases, titreDemarche, index) => {
-    let dateFin = titreDemarcheDateFinAndDureeFind(
-      titreDemarchesByTitre.slice().reverse(),
-      titreDemarche.ordre
-    ).dateFin
+const titrePhasesFind = (titreDemarchesByTitre, titreIsAxm) => {
+  // filtre les démarches qui donnent lieu à des phases
+  const titreDemarchesByTitreFiltered = titreDemarchesByTitre.filter(
+    titreDemarche => titreDemarchePhasesFilter(titreDemarche, titreIsAxm)
+  )
 
-    const dateDebut = titrePhaseDateDebutFind(
-      titreDemarche,
-      titrePhases,
-      index,
-      titreIsAxm
-    )
+  return titreDemarchesByTitreFiltered.reduce(
+    (titrePhases, titreDemarche, index) => {
+      const dateFin = titreDemarcheDateFinAndDureeFind(
+        titreDemarchesByTitreFiltered.slice().reverse(),
+        titreDemarche.ordre
+      ).dateFin
 
-    // si
-    // - la date du jour est plus récente que la date de fin
-    // le statut est valide
-    // sinon,
-    // - le statut est échu
-    const statutId =
-      dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
+      const dateDebut = titrePhaseDateDebutFind(
+        titreDemarche,
+        titrePhases,
+        index,
+        titreIsAxm
+      )
 
-    // const test = titreDemarchePhasesFilter(titreDemarche, titreIsAxm)
+      // si
+      // - la date du jour est plus récente que la date de fin
+      // le statut est valide
+      // sinon,
+      // - le statut est échu
+      const statutId =
+        dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
 
-    return [
-      ...titrePhases,
-      {
-        titreDemarcheId: titreDemarche.id,
-        dateFin,
-        dateDebut,
-        statutId
-      }
-    ]
-  }, [])
+      // const test = titreDemarchePhasesFilter(titreDemarche, titreIsAxm)
+
+      return [
+        ...titrePhases,
+        {
+          titreDemarcheId: titreDemarche.id,
+          dateFin,
+          dateDebut,
+          statutId
+        }
+      ]
+    },
+    []
+  )
+}
 
 const titrePhaseDateDebutFind = (
   titreDemarche,
