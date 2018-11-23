@@ -3,16 +3,15 @@ const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 const titrePhasesFind = require('../_utils/titre-phases-find')
 
 const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
-  // créé un objet { titreId: titreIsAxm (bool), … }
+  // créé un objet la liste des titres { titreId: titreIsAxm (bool), … }
   const titreIsAxmList = titres.reduce((res, titre) => {
     res[titre.id] = titre.typeId === 'axm'
     return res
   }, {})
 
   // regroupe les démarches par titre
-  const titresDemarchesGroupedByTitres = titresDemarches.reduce(
-    titreDemarchesByTitreGroup,
-    {}
+  const titresDemarchesGroupedByTitres = titreDemarchesByTitreGroup(
+    titresDemarches
   )
 
   // retourne un tableau avec les phases
@@ -48,13 +47,14 @@ const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
   return `Mise à jour: ${titresPhasesUpdated.length} phases de titres.`
 }
 
-const titreDemarchesByTitreGroup = (titreDemarchesByTitres, titreDemarche) => {
-  titreDemarchesByTitres[titreDemarche.titreId] = titreDemarchesByTitres[
-    titreDemarche.titreId
-  ]
-    ? [...titreDemarchesByTitres[titreDemarche.titreId], titreDemarche]
-    : [titreDemarche]
-  return titreDemarchesByTitres
-}
+const titreDemarchesByTitreGroup = titreDemarches =>
+  titreDemarches.reduce((titreDemarchesByTitres, titreDemarche) => {
+    titreDemarchesByTitres[titreDemarche.titreId] = titreDemarchesByTitres[
+      titreDemarche.titreId
+    ]
+      ? [...titreDemarchesByTitres[titreDemarche.titreId], titreDemarche]
+      : [titreDemarche]
+    return titreDemarchesByTitres
+  }, {})
 
 module.exports = titresPhasesUpdate

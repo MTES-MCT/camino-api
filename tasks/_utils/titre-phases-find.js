@@ -33,8 +33,6 @@ const titrePhasesFind = (titreDemarchesByTitre, titreIsAxm) => {
       const statutId =
         dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
 
-      // const test = titreDemarchePhasesFilter(titreDemarche, titreIsAxm)
-
       return [
         ...titrePhases,
         {
@@ -67,36 +65,27 @@ const titrePhaseDateDebutFind = (
     )
     .find(te => te.dateDebut)
 
-  let dateDebut
-
-  if (
-    // si
-    // - la démarche est un octroi
-    // - cette démarche a une étape dpu qui possède une date de début
-    titreDemarche.typeId === 'oct' &&
-    etapeDpuHasDateDebut
-  ) {
+  // si
+  // - la démarche est un octroi
+  // - cette démarche a une étape dpu qui possède une date de début
+  if (titreDemarche.typeId === 'oct' && etapeDpuHasDateDebut) {
     // la date de début est égale à la date de début de la dpu
-    dateDebut = dateFormat(etapeDpuHasDateDebut.dateDebut, 'yyyy-mm-dd')
-  } else if (
-    // il y a une phase précédente
-    phasePrevious
-  ) {
-    // la date de début est égale à la date de fin de l'étape précédente
-    dateDebut = phasePrevious.dateFin
-  } else {
-    // sinon, la date de début est égale à la date de la première étape de dpu
-    const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
-      titreEtape =>
-        titreEtape.typeId === 'dpu' ||
-        (titreIsAxm && titreEtape.typeId === 'dex')
-    )
-
-    dateDebut =
-      titreEtapeDpuFirst && dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
+    return dateFormat(etapeDpuHasDateDebut.dateDebut, 'yyyy-mm-dd')
   }
 
-  return dateDebut
+  // il y a une phase précédente
+  if (phasePrevious) {
+    // la date de début est égale à la date de fin de l'étape précédente
+    return phasePrevious.dateFin
+  }
+
+  // sinon, la date de début est égale à la date de la première étape de dpu
+  const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
+    titreEtape =>
+      titreEtape.typeId === 'dpu' || (titreIsAxm && titreEtape.typeId === 'dex')
+  )
+
+  return titreEtapeDpuFirst && dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
 }
 
 module.exports = titrePhasesFind
