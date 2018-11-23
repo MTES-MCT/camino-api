@@ -9,16 +9,16 @@
  */
 
 require('dotenv').config()
-require('./postgres')
+require('./database/index')
 const chalk = require('chalk')
 const express = require('express')
 const cors = require('cors')
 const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
 const expressJwt = require('express-jwt')
-const { env, port, url, jwtSecret } = require('./config')
-const schema = require('./graphql/schemas')
-const rootValue = require('./graphql/resolvers')
+const { env, port, url, jwtSecret } = require('./config/index')
+const schema = require('./api/schemas')
+const rootValue = require('./api/resolvers')
 
 const app = express()
 

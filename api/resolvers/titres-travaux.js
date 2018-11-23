@@ -1,10 +1,10 @@
 const {
   titreTravauxRapportAdd
-} = require('../../postgres/queries/titres-travaux')
+} = require('../../database/queries/titres-travaux')
 
-const { utilisateurGet } = require('../../postgres/queries/utilisateurs')
+const { utilisateurGet } = require('../../database/queries/utilisateurs')
 
-const { titreGet } = require('../../postgres/queries/titres')
+const { titreGet } = require('../../database/queries/titres')
 
 const permissionsCheck = require('./_permissions-check')
 

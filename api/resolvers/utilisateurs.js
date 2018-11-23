@@ -11,7 +11,7 @@ const {
   utilisateurUpdate,
   utilisateurRemove,
   utilisateurByEmailGet
-} = require('../../postgres/queries/utilisateurs')
+} = require('../../database/queries/utilisateurs')
 
 const permissionsCheck = require('./_permissions-check')
 

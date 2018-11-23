@@ -1,6 +1,6 @@
 require('dotenv').config()
-require('../postgres')
-const { utilisateurRemove } = require('../postgres/queries/utilisateurs')
+require('../database')
+const { utilisateurRemove } = require('../database/queries/utilisateurs')
 
 const id = process.env.ADMIN_ID
 
