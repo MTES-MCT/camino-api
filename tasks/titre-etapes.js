@@ -1,4 +1,4 @@
-const { titreEtapeUpdate } = require('../postgres/queries/titres-etapes')
+const { titreEtapeUpdate } = require('../database/queries/titres-etapes')
 
 const titreEtapes = {
   titreEtapesOrdreUpdate(titreEtapesByDemarche) {

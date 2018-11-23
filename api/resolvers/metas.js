@@ -7,7 +7,7 @@ const {
   typesGet,
   domainesGet,
   statutsGet
-} = require('../../postgres/queries/metas')
+} = require('../../database/queries/metas')
 
 const check = (elements, restrictedList) =>
   elements.filter(element => !restrictedList.find(id => id === element.id))

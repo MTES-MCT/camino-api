@@ -3,7 +3,7 @@ const dateFormat = require('dateformat')
 const {
   titrePhaseUpdate,
   titrePhaseDelete
-} = require('../postgres/queries/titres-phases')
+} = require('../database/queries/titres-phases')
 
 const titrePhases = {
   titrePhaseUpdate(res, titrePhase, titresPhasesOld) {
@@ -83,8 +83,8 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
     return titrePhase[key] === titrePhaseOld[key]
       ? res
       : res
-        ? Object.assign(res, mod)
-        : mod
+      ? Object.assign(res, mod)
+      : mod
   }, null)
 
 module.exports = titrePhases

@@ -11,11 +11,11 @@ const {
   titreAdd,
   titreRemove,
   titreUpdate
-} = require('../../postgres/queries/titres')
+} = require('../../database/queries/titres')
 
-const { domainesGet, statutsGet } = require('../../postgres/queries/metas')
+const { domainesGet, statutsGet } = require('../../database/queries/metas')
 
-const { titreEtapeUpsert } = require('../../postgres/queries/titres-etapes')
+const { titreEtapeUpsert } = require('../../database/queries/titres-etapes')
 
 const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
 

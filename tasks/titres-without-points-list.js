@@ -1,7 +1,7 @@
 require('dotenv').config()
-require('../postgres/index')
+require('../database/index')
 
-const { titresGet } = require('../postgres/queries/titres')
+const { titresGet } = require('../database/queries/titres')
 
 const titresWithoutPointsList = async () => {
   const titres = await titresGet({ domaineIds: ['g'] })

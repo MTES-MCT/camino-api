@@ -1,7 +1,7 @@
 const {
   permissionGet,
   permissionsGet
-} = require('../../postgres/queries/permissions')
+} = require('../../database/queries/permissions')
 
 const permissionsCheck = require('./_permissions-check')
 

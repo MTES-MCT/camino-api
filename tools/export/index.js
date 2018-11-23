@@ -1,5 +1,5 @@
 require('dotenv').config()
-require('../../postgres/index')
+require('../../database/index')
 const PQueue = require('p-queue')
 const dbProcess = require('./_utils/db-process')
 
