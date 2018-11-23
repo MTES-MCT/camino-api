@@ -93,6 +93,47 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 
 ---
 
+## Structure des fichiers
+
+```bash
+.
+├── index.js                    # `point d'entrée dans l'application`
+│
+├── api                         # `API graphql`
+│   ├── resolvers               # `liens entre l'API et la base de données`
+│   ├── schemas                 # `description des points d'entrée de l'API`
+│   └── types                   # `types graphQl customs`
+│
+├── config                      #
+│   ├── index.js                # `variables globales`
+│   ├── knex.js                 # `connexion à la base de données`
+│   └── restrictions.js         # `restriction à des accès pour les utilisateurs non-enregistrés`
+│
+├── database                    # `base de données PostgresQL`
+│   ├── models                  # `modèles de la base de données`
+│   └── queries                 # `requêtes à la base de données`
+│
+├── docs                        # `documentation est exemples`
+│
+├── tasks                       # `logique métier`
+│   ├── _utils                  # `scripts de mise à jour de la base de données`
+│   ├── daily                   # `scripts quotidiens (npm run daily)`
+│   └── etape-update            # `script effectués lors de la mise à jour d'une étape`
+│
+└── tools                       # `outils`
+    ├── export                  # `exportation de la base de données vers des spreadsheets  (npm run export)`
+    ├── import                  # `import de spreadsheets vers des fichiers json (dans /sources) (npm run import)`
+    ├── knex                    # `scripts de création et d'import de la base de données (npm run migrate)`
+    │   ├── migrations          # `création de la base de données`
+    │   └── seeds               # `import depuis les fichier /sources vers la base de données`
+    ├── mailer                  # `utilitaire d'envoi d'email avec Nodemailer`
+    ├── sources                 # `données sources sous forme de fichiers json`
+    └── utils                   #
+
+```
+
+---
+
 ## PostgreSQL
 
 ![camino database schema](docs/db/camino-db.png)
