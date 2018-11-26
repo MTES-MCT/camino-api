@@ -47,9 +47,9 @@ const resolvers = {
         console.log("erreur lors de l'ajout d'une ligne dans la spreasheet", e)
       }
 
-      const subject = `[Camino] Confirmation d'enregistrement d'un rapport trimestriel ${
-        titre.nom
-      }, ${rapport.contenu.trimestre} trimestre ${rapport.contenu.annee}`
+      const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
+        rapport.contenu.trimestre
+      } trimestre ${rapport.contenu.annee}`
       const html = emailFormat(titre, user, rapport)
 
       try {
