@@ -49,6 +49,7 @@
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.15.2",
     "nodemailer": "^4.7.0",
+    "nodemailer-html-to-text": "^3.0.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "objection": "^1.4.0",
     "p-queue": "^3.0.0",
