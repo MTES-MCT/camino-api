@@ -331,11 +331,10 @@ const resolvers = {
       const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
 
       const subject = `[Camino] Initialisation de votre mot de passe`
-      const text = `Pour initialiser votre mot de passe, rendez-vous sur cette url: ${url}  (lien valable 15 minutes).`
       const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
       try {
-        mailer(email, subject, text, html)
+        mailer(email, subject, html)
       } catch (e) {
         return "erreur lors de l'envoi d'email"
       }
