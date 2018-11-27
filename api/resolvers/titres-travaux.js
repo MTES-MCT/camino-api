@@ -21,12 +21,18 @@ const resolvers = {
     const titre = await titreGet(rapport.titreId)
     const user = await utilisateurGet(context.user.id)
 
+    console.log(
+      !!permissionsCheck(context.user, ['entreprise']),
+      !!titre.titulaires.find(t => t.id === user.entrepriseId),
+      permissionsCheck(context.user, ['entreprise']) &&
+        !titre.titulaires.find(t => t.id === user.entrepriseId)
+    )
     if (
-      (permissionsCheck(context.user, ['entreprise']) &&
-        !titre.titulaires.find(t => t.id === user.entrepriseId)) ||
+      permissionsCheck(context.user, ['entreprise']) &&
+      !titre.titulaires.find(t => t.id === user.entrepriseId) &&
       !permissionsCheck(context.user, ['super', 'admin'])
     ) {
-      errors.push('opération impossible')
+      errors.push("droits insuffisants pour effectuer l'opération")
     }
 
     if (
