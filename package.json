@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "dependencies": {
+    "@sentry/node": "^4.4.0",
     "bcrypt": "^3.0.2",
     "chalk": "^2.4.1",
     "compression": "^1.7.3",
