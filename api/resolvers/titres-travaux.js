@@ -21,12 +21,6 @@ const resolvers = {
     const titre = await titreGet(rapport.titreId)
     const user = await utilisateurGet(context.user.id)
 
-    console.log(
-      !!permissionsCheck(context.user, ['entreprise']),
-      !!titre.titulaires.find(t => t.id === user.entrepriseId),
-      permissionsCheck(context.user, ['entreprise']) &&
-        !titre.titulaires.find(t => t.id === user.entrepriseId)
-    )
     if (
       permissionsCheck(context.user, ['entreprise']) &&
       !titre.titulaires.find(t => t.id === user.entrepriseId) &&
