@@ -22,9 +22,11 @@ const resolvers = {
     const user = await utilisateurGet(context.user.id)
 
     if (
-      permissionsCheck(context.user, ['entreprise']) &&
-      !titre.titulaires.find(t => t.id === user.entrepriseId) &&
-      !permissionsCheck(context.user, ['super', 'admin'])
+      !(
+        permissionsCheck(context.user, ['super', 'admin']) ||
+        (permissionsCheck(context.user, ['entreprise']) &&
+          titre.titulaires.find(t => t.id === user.entrepriseId))
+      )
     ) {
       errors.push("droits insuffisants pour effectuer l'opération")
     }
