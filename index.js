@@ -16,11 +16,19 @@ const cors = require('cors')
 const compression = require('compression')
 const graphqlHTTP = require('express-graphql')
 const expressJwt = require('express-jwt')
+const Sentry = require('@sentry/node')
+
 const { env, port, url, jwtSecret } = require('./config/index')
 const schema = require('./api/schemas')
 const rootValue = require('./api/resolvers')
 
+Sentry.init({
+  dsn: process.env.SENTRY_DSN
+})
+
 const app = express()
+
+app.use(Sentry.Handlers.requestHandler())
 
 app.use(cors({ credentials: true }))
 
@@ -36,6 +44,11 @@ app.use(
   //   return next()
   // }
 )
+
+// app.get('/', (req, res) => {
+//   console.log('broke')
+//   throw new Error('Broke!')
+// })
 
 app.use(
   '/',
@@ -55,6 +68,8 @@ app.use(
     }
   }))
 )
+
+app.use(Sentry.Handlers.errorHandler())
 
 app.listen(port, () => {
   console.log(' ')
