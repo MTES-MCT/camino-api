@@ -22,13 +22,15 @@ const { env, port, url, jwtSecret } = require('./config/index')
 const schema = require('./api/schemas')
 const rootValue = require('./api/resolvers')
 
-Sentry.init({
-  dsn: process.env.SENTRY_DSN
-})
-
 const app = express()
 
-app.use(Sentry.Handlers.requestHandler())
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN
+  })
+
+  app.use(Sentry.Handlers.requestHandler())
+}
 
 app.use(cors({ credentials: true }))
 
@@ -69,7 +71,9 @@ app.use(
   }))
 )
 
-app.use(Sentry.Handlers.errorHandler())
+if (process.env.SENTRY_DSN) {
+  app.use(Sentry.Handlers.errorHandler())
+}
 
 app.listen(port, () => {
   console.log(' ')
