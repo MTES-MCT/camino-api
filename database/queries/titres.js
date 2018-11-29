@@ -42,20 +42,14 @@ const queries = {
     if (substances) {
       q.where(builder => {
         builder
-          .whereRaw(`?? ~* ?`, ['substances.nom', substances.join('|')])
-          .orWhereRaw(`?? ~* ?`, ['substances.id', substances.join('|')])
-          .orWhereRaw(`?? ~* ?`, [
-            'substances:legales.nom',
-            substances.join('|')
-          ])
-          .orWhereRaw(`?? ~* ?`, [
-            'substances:legales.id',
-            substances.join('|')
-          ])
+          .whereIn('substances.nom', substances)
+          .orWhereIn('substances.id', substances)
+          .orWhereIn('substances:legales.nom', substances)
+          .orWhereIn('substances:legales.id', substances)
       }).joinRelation('substances.legales')
     }
 
-    // console.log(substances, q.toSql())
+    // console.log(q.toSql())
     return q
   },
 
