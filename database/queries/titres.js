@@ -39,14 +39,93 @@ const queries = {
       })
     }
 
+    // if (substances) {
+    //   q.where(builder => {
+    //     builder
+    //       .whereRaw(`?? ~* ?`, ['substances.nom', substances.join('|')])
+    //       .orWhereRaw(`?? ~* ?`, ['substances.id', substances.join('|')])
+    //       .orWhereRaw(`?? ~* ?`, [
+    //         'substances:legales.nom',
+    //         substances.join('|')
+    //       ])
+    //       .orWhereRaw(`?? ~* ?`, [
+    //         'substances:legales.id',
+    //         substances.join('|')
+    //       ])
+    //   }).joinRelation('substances.legales')
+    // }
+
+    // if (substances) {
+    //   q.where(builder => {
+    //     builder.whereIn(
+    //       'substances.nom',
+    //       substances.map(s => `%${s.toLowerCase()}%`)
+    //     )
+    //     // .orWhereIn('substances.id', substances)
+    //     // .orWhereIn('substances:legales.nom', substances)
+    //     // .orWhereIn('substances:legales.id', substances)
+    //   }).joinRelation('substances')
+    // }
+
+    // if (substances) {
+    //   q.joinRelation('substances')
+
+    //   q.where('titre.id', 'in', builder => {
+    //     substances.forEach((s, i) => {
+    //       builder.where('substances.nom', 'like', `%${s.toLowerCase()}%`)
+    //       // .orWhereIn('substances.id', substances)
+    //       // .orWhereIn('substances:legales.nom', substances)
+    //       // .orWhereIn('substances:legales.id', substances)
+    //     })
+    //   })
+    // }
+
+    // if (substances) {
+    //   q.where(builder => {
+    //     builder.whereRaw(
+    //       `lower(??) like all(array[${substances.map(() => '?').join(',')}])`,
+    //       ['substances.nom', ...substances.map(s => `%${s.toLowerCase()}%`)]
+    //     )
+    //     // .whereIn('substances.nom', substances)
+    //     // .orWhereIn('substances.id', substances)
+    //     // .orWhereIn('substances:legales.nom', substances)
+    //     // .orWhereIn('substances:legales.id', substances)
+    //   }).joinRelation('substances')
+    // }
+
+    const fields = [
+      'substances.nom',
+      'substances.id',
+      'substances:legales.nom',
+      'substances:legales.id'
+    ]
+
     if (substances) {
       q.where(builder => {
-        builder
-          .whereIn('substances.nom', substances)
-          .orWhereIn('substances.id', substances)
-          .orWhereIn('substances:legales.nom', substances)
-          .orWhereIn('substances:legales.id', substances)
-      }).joinRelation('substances.legales')
+        substances.forEach((s, i) => {
+          fields.forEach(f => {
+            builder.orWhereRaw(`?? like ?`, [f, `%${s.toLowerCase()}%`])
+          })
+        })
+      })
+        .groupBy('titres.id')
+        .havingRaw(
+          `(${substances
+            .map(_ =>
+              fields
+                .map(_ => `count(*) filter (where ?? like ?) > 0`)
+                .join(' or ')
+            )
+            .join(') and (')})`,
+          substances.reduce(
+            (res, s) => [
+              ...res,
+              ...fields.reduce((r, f) => [...r, f, `%${s.toLowerCase()}%`], [])
+            ],
+            []
+          )
+        )
+        .joinRelation('substances.legales')
     }
 
     // console.log(q.toSql())
