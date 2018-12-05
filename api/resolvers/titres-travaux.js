@@ -56,6 +56,9 @@ const resolvers = {
 
       try {
         mailer(user.email, subject, html)
+        if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
+          mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
+        }
       } catch (e) {
         return "erreur lors de l'envoi d'email"
       }
