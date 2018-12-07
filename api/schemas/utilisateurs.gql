@@ -8,6 +8,7 @@ type Utilisateur {
   administration: Administration
   entreprise: Entreprise
   permission: Permission
+  preferences: Json
 }
 
 type UtilisateurToken {
@@ -30,6 +31,7 @@ input InputUtilisateur {
   permission: InputPermission
   entreprise: [InputEntreprise]
   administration: [InputAdministration]
+  preferences: Json
 }
 
 input InputUtilisateurAjouter {
@@ -43,6 +45,7 @@ input InputUtilisateurAjouter {
   permission: InputPermission
   entreprise: [InputEntreprise]
   administration: [InputAdministration]
+  preferences: Json
 }
 
 input InputPermission {

@@ -60,6 +60,7 @@ exports.up = knex => {
         .references('permissions.id')
         .notNullable()
         .onDelete('CASCADE')
+      table.json('preferences')
     })
 }
 
