@@ -9,6 +9,7 @@ const dbProcess = async definition => {
     definition.tables,
     content
   )
+  return `Export: ${content.length} ${definition.name}`
 }
 
 module.exports = dbProcess

@@ -8,8 +8,9 @@ const utilisateursDefinition = definitions.find(
 )
 
 const run = async () => {
-  await dbProcess(utilisateursDefinition)
-  process.exit(1)
+  const res = await dbProcess(utilisateursDefinition)
+  console.log(res)
+  process.exit()
 }
 
 run()
