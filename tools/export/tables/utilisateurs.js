@@ -11,8 +11,12 @@ const utilisateursTables = [
       'entrepriseId',
       'telephoneFixe',
       'telephoneMobile',
-      'permissionId'
-    ]
+      'permissionId',
+      'preferences'
+    ],
+    callbacks: {
+      preferences: v => JSON.stringify(v)
+    }
   }
 ]
 

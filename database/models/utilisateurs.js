@@ -21,7 +21,8 @@ class Utilisateurs extends Model {
         telephone_mobile: { type: ['string', 'null'] },
         entrepriseId: { type: ['string', 'null'], maxLength: 64 },
         administrationId: { type: ['string', 'null'], maxLength: 64 },
-        permissionId: { type: ['string', 'null'], maxLength: 12 }
+        permissionId: { type: ['string', 'null'], maxLength: 12 },
+        preferences: { type: ['json', 'null'] }
       }
     }
   }
