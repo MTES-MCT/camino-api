@@ -70,10 +70,11 @@ const resolvers = {
   }
 }
 
-const emailFormat = (titre, user, rapport) => `
+const emailFormat = (titre, user, rapport) => {
+  const header = `
 <h1>Rapport trimestriel ${titre.nom}, ${rapport.contenu.trimestre} trimestre ${
-  rapport.contenu.annee
-}</h1>
+    rapport.contenu.annee
+  }</h1>
 
 <hr>
 
@@ -104,88 +105,40 @@ const emailFormat = (titre, user, rapport) => `
 
 <hr>
 
-<h2>Travaux</h2>
+<h2>Travaux</h2>`
 
+  const body = rapport.contenu.travaux.reduce(
+    (res, mois) => `
+${res}
+    
 <hr>
 
-<h3>${rapport.contenu.travaux[0].nom} ${rapport.contenu.annee}</h3>
+<h3>${mois.nom} ${rapport.contenu.annee}</h3>
 
 <ul>
-  <li>Non débutés : ${
-    rapport.contenu.travaux[0].nonDebutes ? 'Oui' : 'Non'
-  }</li>
-  <li>Exploitation en cours : ${
-    rapport.contenu.travaux[0].exploitationEnCours ? 'Oui' : 'Non'
-  }</li>
-  <li>Arrêt temporaire : ${
-    rapport.contenu.travaux[0].arretTemporaire ? 'Oui' : 'Non'
-  }</li>
-  <li>Réhabilitation : ${
-    rapport.contenu.travaux[0].rehabilitation ? 'Oui' : 'Non'
-  }</li>
-  <li>Exploitation en cours : ${
-    rapport.contenu.travaux[0].arretDefinitif ? 'Oui' : 'Non'
-  }</li>
+  <li>Non débutés : ${mois.nonDebutes ? 'Oui' : 'Non'}</li>
+  <li>Exploitation en cours : ${mois.exploitationEnCours ? 'Oui' : 'Non'}</li>
+  <li>Arrêt temporaire : ${mois.arretTemporaire ? 'Oui' : 'Non'}</li>
+  <li>Réhabilitation : ${mois.rehabilitation ? 'Oui' : 'Non'}</li>
   <li>Arrêt définitif (après réhabilitation) : ${
-    rapport.contenu.travaux[0].exploitationEnCours ? 'Oui' : 'Non'
+    mois.arretDefinitif ? 'Oui' : 'Non'
   }</li>
-</ul>
+</ul>`,
+    ''
+  )
 
-<hr>
-
-<h3>${rapport.contenu.travaux[1].nom} ${rapport.contenu.annee}</h3>
-
-<ul>
-  <li>Non débutés : ${
-    rapport.contenu.travaux[1].nonDebutes ? 'Oui' : 'Non'
-  }</li>
-  <li>Exploitation en cours : ${
-    rapport.contenu.travaux[1].exploitationEnCours ? 'Oui' : 'Non'
-  }</li>
-  <li>Arrêt temporaire : ${
-    rapport.contenu.travaux[1].arretTemporaire ? 'Oui' : 'Non'
-  }</li>
-  <li>Réhabilitation : ${
-    rapport.contenu.travaux[1].rehabilitation ? 'Oui' : 'Non'
-  }</li>
-  <li>Exploitation en cours : ${
-    rapport.contenu.travaux[1].arretDefinitif ? 'Oui' : 'Non'
-  }</li>
-  <li>Arrêt définitif (après réhabilitation) : ${
-    rapport.contenu.travaux[1].exploitationEnCours ? 'Oui' : 'Non'
-  }</li>
-</ul>
-
-<hr>
-
-<h3>${rapport.contenu.travaux[2].nom} ${rapport.contenu.annee}</h3>
-
-<ul>
-  <li>Non débutés : ${
-    rapport.contenu.travaux[2].nonDebutes ? 'Oui' : 'Non'
-  }</li>
-  <li>Exploitation en cours : ${
-    rapport.contenu.travaux[2].exploitationEnCours ? 'Oui' : 'Non'
-  }</li>
-  <li>Arrêt temporaire : ${
-    rapport.contenu.travaux[2].arretTemporaire ? 'Oui' : 'Non'
-  }</li>
-  <li>Réhabilitation : ${
-    rapport.contenu.travaux[2].rehabilitation ? 'Oui' : 'Non'
-  }</li>
-  <li>Exploitation en cours : ${
-    rapport.contenu.travaux[2].arretDefinitif ? 'Oui' : 'Non'
-  }</li>
-  <li>Arrêt définitif (après réhabilitation) : ${
-    rapport.contenu.travaux[2].exploitationEnCours ? 'Oui' : 'Non'
-  }</li>
-</ul>
-
-<hr>
+  const footer = `<hr>
 
 <h2>Informations complémentaires</h2>
 
 <p>${rapport.contenu.complement}</p>
 `
+
+  return `
+${header}
+${body}
+${footer}
+`
+}
 
 module.exports = resolvers
