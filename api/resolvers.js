@@ -22,6 +22,7 @@ const {
   utilisateurMotDePasseInitialiser,
   utilisateurMotDePasseEmailEnvoyer
 } = require('./resolvers/utilisateurs')
+const { version } = require('./resolvers/version')
 const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
 const { permissions } = require('./resolvers/permissions')
@@ -34,6 +35,7 @@ module.exports = {
   GraphQLDate,
 
   //  queries
+  version,
   titre,
   titres,
   substance,
