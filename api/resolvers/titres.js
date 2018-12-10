@@ -39,7 +39,7 @@ const resolvers = {
   },
 
   async titres(
-    { typeIds, domaineIds, statutIds, substances, noms },
+    { typeIds, domaineIds, statutIds, substances, noms, entreprises },
     context,
     info
   ) {
@@ -66,7 +66,8 @@ const resolvers = {
       domaineIds,
       statutIds,
       substances,
-      noms
+      noms,
+      entreprises
     })
 
     return titres.map(titre => titre && titreFormat(titre))

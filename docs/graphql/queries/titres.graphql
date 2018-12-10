@@ -4,6 +4,7 @@ query Titres(
   $statutIds: [StatutId!]
   $substances: [String!]
   $noms: [String!]
+  $entreprises: [String!]
 ) {
   titres(
     typeIds: $typeIds
@@ -11,6 +12,7 @@ query Titres(
     statutIds: $statutIds
     substances: $substances
     noms: $noms
+    entreprises: $entreprises
   ) {
     ...titre
   }

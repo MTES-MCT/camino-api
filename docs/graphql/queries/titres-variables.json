@@ -15,5 +15,6 @@
   "domaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
   "statutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"],
   "substances": null,
-  "noms": null
+  "noms": null,
+  "entreprises": null
 }
