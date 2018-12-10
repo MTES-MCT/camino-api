@@ -8,7 +8,14 @@ const queries = {
       .eager(options.titres.eager)
   },
 
-  async titresGet({ typeIds, domaineIds, statutIds, substances, noms }) {
+  async titresGet({
+    typeIds,
+    domaineIds,
+    statutIds,
+    substances,
+    noms,
+    entreprises
+  }) {
     const q = Titres.query()
       .skipUndefined()
       .eager(options.titres.eager)
@@ -93,18 +100,18 @@ const queries = {
     //   }).joinRelation('substances')
     // }
 
-    const fields = [
-      'substances.nom',
-      'substances.id',
-      'substances:legales.nom',
-      'substances:legales.id'
-    ]
-
     if (substances) {
+      const fields = [
+        'substances.nom',
+        'substances.id',
+        'substances:legales.nom',
+        'substances:legales.id'
+      ]
+
       q.where(builder => {
-        substances.forEach((s, i) => {
+        substances.forEach(s => {
           fields.forEach(f => {
-            builder.orWhereRaw(`?? like ?`, [f, `%${s.toLowerCase()}%`])
+            builder.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
           })
         })
       })
@@ -113,7 +120,7 @@ const queries = {
           `(${substances
             .map(_ =>
               fields
-                .map(_ => `count(*) filter (where ?? like ?) > 0`)
+                .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
                 .join(' or ')
             )
             .join(') and (')})`,
@@ -126,6 +133,41 @@ const queries = {
           )
         )
         .joinRelation('substances.legales')
+    }
+
+    if (entreprises) {
+      const fields = [
+        'titulaires.nom',
+        'titulaires.id'
+        // 'amodiataires.nom',
+        // 'amodiataires.id'
+      ]
+
+      q.where(builder => {
+        entreprises.forEach(s => {
+          fields.forEach(f => {
+            builder.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
+        })
+      })
+        .groupBy('titres.id')
+        .havingRaw(
+          `(${entreprises
+            .map(_ =>
+              fields
+                .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+                .join(' or ')
+            )
+            .join(') and (')})`,
+          entreprises.reduce(
+            (res, s) => [
+              ...res,
+              ...fields.reduce((r, f) => [...r, f, `%${s.toLowerCase()}%`], [])
+            ],
+            []
+          )
+        )
+        .joinRelation('titulaires')
     }
 
     // console.log(q.toSql())
