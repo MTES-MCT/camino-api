@@ -1,6 +1,6 @@
 {
   "name": "camino-api",
-  "version": "0.1.17",
+  "version": "0.1.0",
   "description": "Camino api",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,9 @@
     "dev": "nodemon ./index.js",
     "user-add": "node ./tasks/utilisateur-add.js",
     "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js",
-    "test": "jest"
+    "test": "jest",
+    "commit": "npx git-cz",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -58,6 +60,8 @@
     "pg": "^7.7.1"
   },
   "devDependencies": {
+    "commitizen": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-standard": "^12.0.0",
@@ -69,7 +73,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^23.6.0",
     "node-fetch": "^2.3.0",
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.7",
+    "standard-version": "^4.4.0"
   },
   "eslintConfig": {
     "extends": [
@@ -84,5 +89,10 @@
     "plugins": [
       "jest"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
