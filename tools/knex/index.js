@@ -7,7 +7,7 @@ const run = new Promise((resolve, reject) => {
   resolve()
 })
 
-function exit(text) {
+const exit = (text) => {
   if (text instanceof Error) {
     console.error(chalk.red(text.stack))
   } else {
