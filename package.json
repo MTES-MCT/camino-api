@@ -31,7 +31,7 @@
     "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js",
     "test": "jest",
     "commit": "npx git-cz",
-    "release": "standard-version && git push --follow-tags && npx conventional-github-releaser"
+    "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser"
   },
   "dependencies": {
     "@sentry/node": "^4.4.1",
