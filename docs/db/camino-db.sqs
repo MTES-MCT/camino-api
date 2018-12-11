@@ -498,7 +498,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>260.00</height>
+            <height>300.00</height>
         </size>
         <zorder>10</zorder>
         <SQLField>
@@ -564,30 +564,17 @@
             <uid><![CDATA[A7D06ADC-4FFE-429D-BBAC-0EC175C160C4]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[surface_titre_etape_id]]></name>
+            <name><![CDATA[substances_titre_etape_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>titres_etapes</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[titres_etapes]]></referencesTable>
+            <referencesField>titre_etape_id</referencesField>
+            <referencesTable>titres_substances</referencesTable>
+            <referencesField><![CDATA[titre_etape_id]]></referencesField>
+            <referencesTable><![CDATA[titres_substances]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[CF8EF612-8723-4EFD-9DBE-EF7A2695EC00]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[5AB3CB56-BF66-469E-9312-3319872975CB]]></referencesTableUID>
-            <uid><![CDATA[082DF02F-6D21-41C6-8D1C-2B86688649C2]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[volume_titre_etape_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(128)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>titres_etapes</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[titres_etapes]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[CF8EF612-8723-4EFD-9DBE-EF7A2695EC00]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[5AB3CB56-BF66-469E-9312-3319872975CB]]></referencesTableUID>
-            <uid><![CDATA[77879A6C-126A-48E5-9389-5C2C35C306A7]]></uid>
+            <referencesFieldUID><![CDATA[15BB1683-2742-46C2-B8B1-572CACB560D9]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[9EA61901-60D6-4557-BF34-94F1AFB14553]]></referencesTableUID>
+            <uid><![CDATA[D24FD3AE-2A60-4834-A825-1B211B6E9B8F]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[points_titre_etape_id]]></name>
@@ -640,6 +627,33 @@
             <referencesFieldUID><![CDATA[256A30C5-0369-4334-BA02-077136822881]]></referencesFieldUID>
             <referencesTableUID><![CDATA[79F34EF2-879C-4C3D-B7A8-E6385E6FE36F]]></referencesTableUID>
             <uid><![CDATA[4F0B8833-AC6F-4ABD-BD91-0B877E6EB404]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[volume_titre_etape_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(128)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>titres_etapes</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[titres_etapes]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[CF8EF612-8723-4EFD-9DBE-EF7A2695EC00]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[5AB3CB56-BF66-469E-9312-3319872975CB]]></referencesTableUID>
+            <uid><![CDATA[77879A6C-126A-48E5-9389-5C2C35C306A7]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[surface_titre_etape_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(128)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>titres_etapes</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[titres_etapes]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[CF8EF612-8723-4EFD-9DBE-EF7A2695EC00]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[5AB3CB56-BF66-469E-9312-3319872975CB]]></referencesTableUID>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
+            <uid><![CDATA[082DF02F-6D21-41C6-8D1C-2B86688649C2]]></uid>
         </SQLField>
         <labelWindowIndex><![CDATA[42]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[titres_pkey]]></PK_KEY_NAME>
@@ -1186,7 +1200,7 @@
             <y>1250.00</y>
         </location>
         <size>
-            <width>300.00</width>
+            <width>350.00</width>
             <height>350.00</height>
         </size>
         <zorder>13</zorder>
@@ -1813,7 +1827,7 @@
             <y>550.00</y>
         </location>
         <size>
-            <width>300.00</width>
+            <width>316.00</width>
             <height>100.00</height>
         </size>
         <zorder>2</zorder>
@@ -1850,6 +1864,7 @@
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[CF8EF612-8723-4EFD-9DBE-EF7A2695EC00]]></referencesFieldUID>
             <referencesTableUID><![CDATA[5AB3CB56-BF66-469E-9312-3319872975CB]]></referencesTableUID>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
             <foreignKeyName><![CDATA[titressubstancesprincipales_titreid_foreign]]></foreignKeyName>
             <notNull><![CDATA[0]]></notNull>
             <PK_NAME><![CDATA[titresSubstancesPrincipales_pkey]]></PK_NAME>
@@ -1875,7 +1890,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2200.00</x>
-            <y>1200.00</y>
+            <y>1250.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2336,7 +2351,7 @@
         </location>
         <size>
             <width>300.00</width>
-            <height>220.00</height>
+            <height>250.00</height>
         </size>
         <zorder>15</zorder>
         <SQLField>
@@ -2418,7 +2433,6 @@
         <SQLField>
             <name><![CDATA[permission_id]]></name>
             <type><![CDATA[CHARACTER VARYING(5)]]></type>
-            <primaryKey>1</primaryKey>
             <referencesField>id</referencesField>
             <referencesTable>permissions</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
@@ -2432,6 +2446,11 @@
             <notNull><![CDATA[0]]></notNull>
             <PK_NAME><![CDATA[titresTitulaires_pkey]]></PK_NAME>
             <uid><![CDATA[2E3112F3-C9DD-4F3D-A743-BFDE46F52394]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[preferences]]></name>
+            <type><![CDATA[JSON]]></type>
+            <uid><![CDATA[F29C6575-1535-430F-8D0F-E5FF117783FC]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.252792,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[29]]></labelWindowIndex>
@@ -2685,17 +2704,17 @@
         <overviewPanelHidden><![CDATA[0]]></overviewPanelHidden>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <RightSidebarWidth><![CDATA[1003.000000]]></RightSidebarWidth>
+        <RightSidebarWidth><![CDATA[1643.000000]]></RightSidebarWidth>
         <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[0.000000]]></SourceSidebarWidth>
         <SQLEditorFileFormatVersion><![CDATA[4]]></SQLEditorFileFormatVersion>
         <uid><![CDATA[67709206-52A1-4046-83B9-A12E9C651AE4]]></uid>
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
-        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
+        <windowLocationX><![CDATA[320.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{432, 258}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1280.000000]]></windowWidth>
+        <windowScrollOrigin><![CDATA[{4, 273}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <defaultLabelExpanded><![CDATA[1]]></defaultLabelExpanded>
