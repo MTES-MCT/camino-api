@@ -18,7 +18,7 @@ cd camino-api
 # Define the main repo as a remote named 'upstream'.
 git remote add upstream https://github.com/MTES-MCT/camino-api.git
 
-# Now you have two remotes: 'orign' (your fork) and 'upstream' (main repo).
+# Now you have two remotes: 'origin' (your fork) and 'upstream' (main repo).
 ```
 
 ---
@@ -60,7 +60,7 @@ git commit -a -m "fix: my fix message"
 git pull --rebase upstream master
 ```
 
-**This can result in conflicts** and this is normal. Fixing them is part of the process. To avoid conflicts, **warn your collegues so you don't work on the same files**.
+**This can result in conflicts** and this is normal. Fixing them is part of the process. To avoid conflicts, **warn your co-workers so you don't work on the same files**.
 
 ### 4. Push your changes to your remote
 
