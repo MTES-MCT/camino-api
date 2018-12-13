@@ -89,6 +89,14 @@ const titrePhaseDateDebutFind = (
   return titreEtapeDpuFirst && dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
 }
 
+// trouve la date de fin d'une phase
+// in:
+// - titreDemarchesByTitre: toutes les démarches du titre,
+//   utile pour trouver la date de fin en cas d'annulation
+// - titreDemarchesByTitreFiltered: uniquement les démarches
+//   d'un titre qui donnent lieu à des phases
+// - ordre: le numéro d'ordre de la démarche dont on cherche la date de fin
+
 const titrePhaseDateFinFind = (
   titreDemarchesByTitre,
   titreDemarchesByTitreFiltered,
