@@ -139,25 +139,39 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 // - duree: la durée cumulée
 const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) =>
   titreEtapes
-    // filtre les étapes dont l'id est publication au jorf
-    .filter(titreEtape => titreEtape.typeId === 'dex')
+    // filtre les étapes dont l'id est une decision expresse
+    // et possiblement les decisions de publication au JORF
+    // si la duree ou la date de fin n'est pas disponible dans les premieres
+    .filter(titreEtape => titreEtape.typeId === 'dex' || titreEtape.typeId === 'dpu')
+    // trie par ordre d'etape
+    .sort((a, b) => a.ordre - b.ordre)
     // parcourt les étapes
     .reduce(
       ({ duree, dateFin }, titreEtape) => {
         // si
-        // - la date de fin n'est pas définie
-        // - l'étape contient une duree ou une date de fin
-        return !dateFin && (titreEtape.duree || titreEtape.dateFin)
-          ? // soit ajoute la durée de l'étape à la durée cumulée
-            // soit trouve la date de fin
-            {
-              duree: titreEtape.duree ? titreEtape.duree + duree : duree,
-              dateFin: titreEtape.dateFin
-                ? dateAddYears(titreEtape.dateFin, duree)
-                : null
-            }
-          : // sinon, retourne l'accumulateur
-            { duree, dateFin }
+        // - une dex a deja une duree ou une date de fin
+        // - on ne se sert pas de celles de la dpu
+        // retourne l'accumulateur
+        if (titreEtape.typeId === 'dpu' && (dateFin || duree)) {
+          return { duree, dateFin }
+        }
+
+        // si
+        // - la date de fin est définie ou
+        // - l'étape ne contient ni duree ni date de fin
+        // retourne l'accumulateur
+        if (dateFin || (!titreEtape.duree && !titreEtape.dateFin)) {
+          return { duree, dateFin }
+        }
+
+        // soit ajoute la durée de l'étape à la durée cumulée
+        // soit trouve la date de fin
+        return {
+          duree: titreEtape.duree ? titreEtape.duree + duree : duree,
+          dateFin: titreEtape.dateFin
+            ? dateAddYears(titreEtape.dateFin, duree)
+            : null
+        }
       },
       // l'accumulateur contient initialement
       // - la durée cumulée
