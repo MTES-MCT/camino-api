@@ -139,18 +139,19 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 // - duree: la durée cumulée
 const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) =>
   titreEtapes
-    // filtre les étapes dont l'id est une decision expresse
-    // et possiblement les decisions de publication au JORF
-    // si la duree ou la date de fin n'est pas disponible dans les premieres
-    .filter(titreEtape => titreEtape.typeId === 'dex' || titreEtape.typeId === 'dpu')
-    // trie par ordre d'etape
+    // filtre les étapes dont le type est décision express (dex)
+    // et decision de publication au JORF (dpu)
+    .filter(
+      titreEtape => titreEtape.typeId === 'dex' || titreEtape.typeId === 'dpu'
+    )
+    // tri par ordre d'étape croissant
     .sort((a, b) => a.ordre - b.ordre)
     // parcourt les étapes
     .reduce(
       ({ duree, dateFin }, titreEtape) => {
         // si
-        // - une dex a deja une duree ou une date de fin
-        // - on ne se sert pas de celles de la dpu
+        // - l'étape courante est une dpu
+        // - la durée ou la date de fin a déjà été renseignée par la dex
         // retourne l'accumulateur
         if (titreEtape.typeId === 'dpu' && (dateFin || duree)) {
           return { duree, dateFin }
@@ -158,14 +159,15 @@ const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) =>
 
         // si
         // - la date de fin est définie ou
-        // - l'étape ne contient ni duree ni date de fin
+        // - l'étape ne contient ni durée, ni date de fin
         // retourne l'accumulateur
         if (dateFin || (!titreEtape.duree && !titreEtape.dateFin)) {
           return { duree, dateFin }
         }
 
-        // soit ajoute la durée de l'étape à la durée cumulée
-        // soit trouve la date de fin
+        // sinon
+        // - ajoute la durée de l'étape (si elle existe) à la durée cumulée
+        // - trouve la date de fin (si elle existe)
         return {
           duree: titreEtape.duree ? titreEtape.duree + duree : duree,
           dateFin: titreEtape.dateFin
