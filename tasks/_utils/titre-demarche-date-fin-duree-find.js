@@ -34,10 +34,12 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
 
         if (
           // la démarche est une abrogation, retrait ou renonciation
+          // si c'est une renonciation et que la démarche contient une étape avec des infos géo (points)
+          // alors c'est une renonciation partielle et elle n'est pas prise en compte
           titreDemarche.typeId === 'abr' ||
           titreDemarche.typeId === 'ret' ||
           (titreDemarche.typeId === 'ren' &&
-            !titreDemarche.etapes.find(te => te.points))
+            !titreDemarche.etapes.find(te => te.points.length))
         ) {
           // trouve la date de fin d'une démarche d'annulation
           return titreDemarcheAnnulationDateFinFind(titreDemarche)
