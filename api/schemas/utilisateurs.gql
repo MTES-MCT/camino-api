@@ -35,7 +35,6 @@ input InputUtilisateur {
 }
 
 input InputUtilisateurAjouter {
-  id: ID!
   email: String!
   motDePasse: String!
   nom: String
