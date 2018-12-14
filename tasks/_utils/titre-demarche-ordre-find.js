@@ -1,9 +1,9 @@
-const titreDemarchesSortAsc = require('./titre-demarches-sort-asc')
+const titreDemarchesAscSort = require('./titre-demarches-asc-sort')
 
 // retourne l'ordre (index + 1) d'une démarche
 const titreDemarcheOrdreFind = (titreDemarcheId, titreDemarches) => {
   // index de la démarche parmi les démarches classées
-  const titreDemarcheIndex = titreDemarchesSortAsc(titreDemarches).findIndex(
+  const titreDemarcheIndex = titreDemarchesAscSort(titreDemarches).findIndex(
     titreDemarche => titreDemarche.id === titreDemarcheId
   )
 
