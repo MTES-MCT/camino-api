@@ -3,9 +3,9 @@ const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 const titrePhasesFind = require('../_utils/titre-phases-find')
 
 const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
-  // créé un objet la liste des titres { titreId: titreIsAxm (bool), … }
-  const titreIsAxmList = titres.reduce((res, titre) => {
-    res[titre.id] = titre.typeId === 'axm'
+  // créé un objet la liste des titres { [titreId]: titre.typeId, … }
+  const titreTypeIdsList = titres.reduce((res, titre) => {
+    res[titre.id] = titre.typeId
     return res
   }, {})
 
@@ -21,7 +21,7 @@ const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
       ...res,
       ...titrePhasesFind(
         titresDemarchesGroupedByTitres[titreId],
-        titreIsAxmList[titreId]
+        titreTypeIdsList[titreId]
       )
     ],
     []

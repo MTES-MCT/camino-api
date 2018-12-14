@@ -1,8 +1,8 @@
-const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
+const titreEtapesDescSort = require('./titre-etapes-desc-sort')
 
-const titreDemarcheStatutIdFind = (titreDemarche, titreIsAxm) => {
+const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // l'étape la plus récente
-  const titreEtapeRecent = titreEtapesSortDesc(titreDemarche)[0]
+  const titreEtapeRecent = titreEtapesDescSort(titreDemarche)[0]
 
   //  1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
@@ -30,11 +30,10 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreIsAxm) => {
     //  - le type de l’étape est publication au JO (dpu) ou décision implicite (dim)
     //  - et le statut de l’étape est acceptée ou rejetée
     if (
-      (['dpu', 'dim'].includes(titreEtapeRecent.typeId) &&
-        ['acc', 'rej'].includes(titreEtapeRecent.statutId)) ||
-      (titreIsAxm &&
-        ['dex', 'dim'].includes(titreEtapeRecent.typeId) &&
-        ['acc', 'rej'].includes(titreEtapeRecent.statutId))
+      ['acc', 'rej'].includes(titreEtapeRecent.statutId) &&
+        (['dpu', 'dim'].includes(titreEtapeRecent.typeId) ||
+         titreTypeId === 'axm' && ['dex'].includes(titreEtapeRecent.typeId) ||
+         titreTypeId === 'prx' && ['rpu'].includes(titreEtapeRecent.typeId))
     ) {
       //  - le statut de la démarche est égal au statut de l’étape:
       // accepté (acc) ou rejeté(rej)
