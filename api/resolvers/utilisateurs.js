@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const emailRegex = require('email-regex')
+const cryptoRandomString = require('crypto-random-string')
 const { jwtSecret } = require('../../config/index')
 const mailer = require('../../tools/mailer/index')
 
@@ -26,12 +27,18 @@ const permissionsVisibleForAdmin = [
 const utilisateurErreurs = async utilisateur => {
   const errors = []
 
-  if (!utilisateur.id) {
-    errors.push('id manquante')
-  } else if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(utilisateur.id)) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(utilisateur.id)) {
     errors.push(
       "l'id doit contenir uniquement des minuscules, des chiffres et tirets"
     )
+  }
+
+  if (!utilisateur.prenom) {
+    errors.push('prénom manquant')
+  }
+
+  if (!utilisateur.nom) {
+    errors.push('nom manquant')
   }
 
   if (!utilisateur.email) {
@@ -41,6 +48,16 @@ const utilisateurErreurs = async utilisateur => {
   }
 
   return errors
+}
+
+const userIdGenerate = async () => {
+  const id = cryptoRandomString(6)
+  const utilisateurWithTheSameId = await utilisateurGet(id)
+  if (utilisateurWithTheSameId) {
+    return userIdGenerate()
+  }
+
+  return id
 }
 
 const resolvers = {
@@ -87,9 +104,8 @@ const resolvers = {
       })
 
       return utilisateurs
-    } else {
-      throw new Error("droits insuffisants pour effectuer l'opération")
     }
+    return null
   },
 
   async utilisateurIdentifier(variables, context, info) {
@@ -168,13 +184,6 @@ const resolvers = {
       errors.push('le mot de passe doit contenir au moins 8 caractères')
     }
 
-    if (utilisateur.id) {
-      const utilisateurWithTheSameId = await utilisateurGet(utilisateur.id)
-      if (utilisateurWithTheSameId) {
-        errors.push('un utilisateur avec cette id existe déjà')
-      }
-    }
-
     if (
       !permissionsCheck(context.user, ['super', 'admin']) ||
       !utilisateur.permission
@@ -193,6 +202,8 @@ const resolvers = {
 
     if (!errors.length) {
       utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
+      utilisateur.id = await userIdGenerate()
+
       const res = await utilisateurAdd(utilisateur)
 
       return res
@@ -206,8 +217,12 @@ const resolvers = {
       permissionsCheck(context.user, ['super', 'admin']) ||
       context.user.id === utilisateur.id
     ) {
-      const errors = await utilisateurErreurs(utilisateur)
       let res
+      const errors = await utilisateurErreurs(utilisateur)
+
+      if (!utilisateur.id) {
+        errors.push('id manquante')
+      }
 
       if (!errors.length) {
         res = await utilisateurUpdate(utilisateur)
