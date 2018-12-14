@@ -9,6 +9,7 @@ const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
 
 const titreDemarchePhasesFilter = (titreDemarche, titreIsAxm) => {
   // retourne l'étape de dpu de la démarche si elle existe
+  // si il existe une dpu et une dpu rectificative, on prend en compte l'originale
   const etapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' || (titreIsAxm && titreEtape.typeId === 'dex')
