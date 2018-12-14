@@ -16,7 +16,7 @@ const titrePhasesFind = (titreDemarchesByTitre, titreIsAxm) => {
       const dateFin = titrePhaseDateFinFind(
         titreDemarchesByTitre,
         titreDemarchesByTitreFiltered,
-        titreDemarche.ordre
+        titreDemarche
       )
 
       const dateDebut = titrePhaseDateDebutFind(
@@ -95,17 +95,17 @@ const titrePhaseDateDebutFind = (
 //   utile pour trouver la date de fin en cas d'annulation
 // - titreDemarchesByTitreFiltered: uniquement les démarches
 //   d'un titre qui donnent lieu à des phases
-// - ordre: le numéro d'ordre de la démarche dont on cherche la date de fin
+// - titreDemarche: la démarche dont on cherche la date de fin
 
 const titrePhaseDateFinFind = (
   titreDemarchesByTitre,
   titreDemarchesByTitreFiltered,
-  ordre
+  titreDemarche
 ) => {
   // trouve une démarche d'annulation si elle existe
   const titreDemarcheAnnulation = demarcheAnnulationFind(
     titreDemarchesByTitre,
-    ordre
+    titreDemarche.annulationDemarcheId
   )
 
   // si il y a une démarche d'annulation
@@ -119,16 +119,14 @@ const titrePhaseDateFinFind = (
 
   return titreDemarcheDateFinAndDureeFind(
     titreDemarchesByTitreFiltered.slice().reverse(),
-    ordre
+    titreDemarche.ordre
   ).dateFin
 }
 
-const demarcheAnnulationFind = (titreDemarchesByTitre, ordre) => {
-  // 2 solutions:
-  // - soit on parcourt toutes les démarches et on identifie la démarche d'annulation relative
-  // - soit l'id de la démarche d'annulation est renseignée en base
+const demarcheAnnulationFind = (titreDemarchesByTitre, annulationDemarcheId) => {
+  if (!annulationDemarcheId) return null
 
-  return null
+  return titreDemarchesByTitre.find(t => t.id === annulationDemarcheId);
 }
 
 module.exports = titrePhasesFind
