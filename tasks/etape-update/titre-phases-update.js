@@ -2,7 +2,7 @@ const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
 const titrePhasesFind = require('../_utils/titre-phases-find')
 
 const titresPhasesUpdate = async titre => {
-  const titreIsAxm = titre.typeId === 'axm'
+  const titreTypeId = titre.typeId
   // retourne les démarches enregistrées en base
 
   // retourne les phases enregistrées en base
@@ -10,7 +10,7 @@ const titresPhasesUpdate = async titre => {
 
   // retourne un tableau avec les phases
   // crées à partir des démarches
-  const titresPhases = titrePhasesFind(titre.demarches, titreIsAxm)
+  const titresPhases = titrePhasesFind(titre.demarches, titreTypeId)
 
   // retourne un tableau de requêtes pour
   // - créer les nouvelles phases

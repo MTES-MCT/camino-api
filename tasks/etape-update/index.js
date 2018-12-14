@@ -26,10 +26,10 @@ const run = async titreEtape => {
 
   titreDemarche = await titreDemarcheGet(titreDemarcheId)
   let titre = await titreGet(titreId)
-  const titreIsAxm = titre.typeId === 'axm'
+  const titreTypeId = titre.typeId
   const titreDemarcheStatutId = await titreDemarcheStatutIdUpdate(
     titreDemarche,
-    titreIsAxm
+    titreTypeId
   )
 
   // détermine l'ordre des démarches

@@ -5,9 +5,9 @@ const titreDemarcheStatutIdFind = require('../_utils/titre-demarche-statut-id-fi
 const titresDemarchesUpdate = async (titresDemarches, titres) => {
   const titresDemarchesUpdated = titresDemarches.reduce(
     (arr, titreDemarche) => {
-      const titreIsAxm =
-        titres.find(t => t.id === titreDemarche.titreId).typeId === 'axm'
-      const statutId = titreDemarcheStatutIdFind(titreDemarche, titreIsAxm)
+      const titreTypeId =
+        titres.find(t => t.id === titreDemarche.titreId).typeId
+      const statutId = titreDemarcheStatutIdFind(titreDemarche, titreTypeId)
 
       const titreDemarcheUpdated = titreDemarcheStatutIdUpdate(
         titreDemarche,

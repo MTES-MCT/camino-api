@@ -1,6 +1,6 @@
 const dateFormat = require('dateformat')
-const titreEtapesSortAsc = require('./titre-etapes-sort-asc')
-const titreEtapesSortDesc = require('./titre-etapes-sort-desc')
+const titreEtapesAscSort = require('./titre-etapes-asc-sort')
+const titreEtapesDescSort = require('./titre-etapes-desc-sort')
 
 // entrée:
 // - les démarches d'un titre
@@ -68,30 +68,40 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
   )
 
   const dateFinUpdatedFind = () => {
+    // si il n'y a ni date de fin, ni de durée cumulée,
+    // la date de fin par défaut est fixée au 31 décembre 2018
     if (duree === 0) {
-      // si il n'y a ni date de fin, ni de durée cumulée,
-      // la date de fin par défaut est fixée au 31 décembre 2018
       return '2018-12-31'
     }
 
-    // retourne une étape de dpu si celle-ci a une date de début
-    const titreEtapeDpuHasDateDebut = titreEtapesSortDesc(titreDemarche)
-      .filter(te => te.typeId === 'dpu')
-      .find(te => te.dateDebut)
+    const titreEtapesDescSorted = titreDemarche.etapes || titreEtapesDescSort(titreDemarche)
 
-    if (titreEtapeDpuHasDateDebut) {
-      // si il n'y a ni date de fin, ni durée cumulée,
-      // la date de fin par défaut est fixée au 31 décembre 2018
-      return dateAddYears(titreEtapeDpuHasDateDebut.dateDebut, duree)
+    // chercher dans les dpu s'il y a une date de debut
+    const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
+      te => ['dex', 'dpu', 'rpu'].includes(te.typeId) && te.dateDebut
+    )
+
+    if (titreEtapeHasDateDebut) {
+      return dateAddYears(titreEtapeHasDateDebut.dateDebut, duree)
     }
 
     // sinon, la date de fin est calculée
     // en ajoutant la durée cumulée à la date de la première dpu ou ens
-    const titreEtapeDpuFirst = titreEtapesSortAsc(titreDemarche).find(
+    const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche).find(
       titreEtape => titreEtape.typeId === 'dpu'
     )
 
-    return titreEtapeDpuFirst ? dateAddYears(titreEtapeDpuFirst.date, duree) : 0
+    if (titreEtapeDpuFirst) {
+      return dateAddYears(titreEtapeDpuFirst.date, duree)
+    }
+
+    // si on ne trouve pas de dpu, la date de fin est calculée
+    // en ajoutant la date de la première dex
+    const titreEtapeDexFirst = titreEtapesAscSort(titreDemarche).find(
+      titreEtape => titreEtape.typeId === 'dex'
+    )
+
+    return titreEtapeDexFirst ? dateAddYears(titreEtapeDexFirst.date, duree) : null
   }
 
   // si la démarche contient une date de fin,
@@ -108,7 +118,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 const titreDemarcheAnnulationDateFinFind = titreDemarche => {
   const dateFinFind = () => {
     // la dernière étape dex qui contient une date de fin
-    const etapeDexHasDateFin = titreEtapesSortDesc(titreDemarche)
+    const etapeDexHasDateFin = titreEtapesDescSort(titreDemarche)
       .filter(te => te.typeId === 'dex')
       .find(te => te.dateFin)
 
@@ -119,7 +129,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 
     // sinon,
     // trouve la première étape de décision expresse (dex)
-    const etapeDex = titreEtapesSortAsc(titreDemarche).find(
+    const etapeDex = titreEtapesAscSort(titreDemarche).find(
       te => te.typeId === 'dex'
     )
 
@@ -140,49 +150,28 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 // - dateFin: la date de fin de la démarche si définie, sinon null
 // - duree: la durée cumulée
 const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) => {
-  const { duree, dateFin } = titreEtapes
+  titreEtapes = titreEtapesDescSort({ etapes: titreEtapes })
+
+  const titreEtapeHasDateFinOrDuree = titreEtapes
     // filtre les étapes dont le type est décision express (dex)
     // et decision de publication au JORF (dpu)
-    .filter(
-      titreEtape => titreEtape.typeId === 'dex' || titreEtape.typeId === 'dpu'
-    )
-    // parcourt les étapes
-    .reduce(
-      ({ duree, dateFin }, titreEtape) => {
-        // si
-        // - l'étape courante est une dpu
-        // - la durée ou la date de fin a déjà été renseignée
-        // retourne l'accumulateur
-        if (titreEtape.typeId === 'dpu' && (dateFin || duree)) {
-          return { duree, dateFin }
-        }
+    // et publication au recueil des actes administratifs de la préfecture (rpu)
+    .filter(titreEtape => ['dex', 'dpu', 'rpu'].includes(titreEtape.typeId))
+    // parcourt les étapes et retourne la première date de fin ou durée trouvée
+    .find(({ dateFin, duree }) => dateFin || duree)
 
-        // si
-        // - la date de fin ou la durée est déjà définie OU
-        // - l'étape ne contient ni durée, ni date de fin
-        // retourne l'accumulateur
-        if (dateFin || duree || (!titreEtape.duree && !titreEtape.dateFin)) {
-          return { duree, dateFin }
-        }
+  if (!titreEtapeHasDateFinOrDuree) {
+    return { dateFin: null, duree: dureeAcc }
+  }
 
-        // sinon
-        // - ajoute la durée de l'étape (si elle existe)
-        // - trouve la date de fin (si elle existe) avec la durée cumulée
-        return {
-          duree: titreEtape.duree ? titreEtape.duree : duree,
-          dateFin: titreEtape.dateFin
-            ? dateAddYears(titreEtape.dateFin, duree + dureeAcc)
-            : null
-        }
-      },
-      // l'accumulateur contient initialement
-      // - une durée à 0
-      // - une date de fin (null)
-      { duree: 0, dateFin: null }
-    )
+  const { dateFin, duree } = titreEtapeHasDateFinOrDuree
 
+  // retourne la date de fin et
   // ajoute la durée calculée à la durée cumulée
-  return { duree: duree + dureeAcc, dateFin }
+  return {
+    duree: duree ? duree + dureeAcc : dureeAcc,
+    dateFin: dateFin ? dateAddYears(dateFin, dureeAcc) : null
+  }
 }
 
 // ajoute une durée en années à une date au format YYYY-MM-DD

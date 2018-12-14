@@ -2,8 +2,8 @@ const { titreDemarcheStatutIdUpdate } = require('../titre-demarches')
 const titreDemarcheStatutIdFind = require('../_utils/titre-demarche-statut-id-find')
 
 // met à jour le statut des démarches
-const titresDemarchesUpdate = async (titreDemarche, titreIsAxm) => {
-  const statutId = titreDemarcheStatutIdFind(titreDemarche, titreIsAxm)
+const titresDemarchesUpdate = async (titreDemarche, titreTypeId) => {
+  const statutId = titreDemarcheStatutIdFind(titreDemarche, titreTypeId)
 
   const titreDemarcheUpdated = titreDemarcheStatutIdUpdate(
     titreDemarche,

@@ -3,7 +3,7 @@ const {
   titreDemarcheOrdreUpdate
 } = require('../database/queries/titres-demarches')
 
-const titreDemarchesSortAsc = require('./_utils/titre-demarches-sort-asc')
+const titreDemarchesAscSort = require('./_utils/titre-demarches-asc-sort')
 
 const titreDemarches = {
   titreDemarcheStatutIdUpdate(titreDemarche, statutId) {
@@ -23,7 +23,7 @@ const titreDemarches = {
   },
 
   titreDemarchesOrdreUpdate(titreDemarchesByTitre) {
-    return titreDemarchesSortAsc(titreDemarchesByTitre)
+    return titreDemarchesAscSort(titreDemarchesByTitre)
       .map((titreDemarche, index) => {
         titreDemarche.ordreUpdated = index + 1
         return titreDemarche
