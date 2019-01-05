@@ -6,15 +6,16 @@
 
 ## Technologies
 
-- Node.js
-- Express.js
-- PostgreSQL
-- Express-GraphQL
-- Knex.js
-- Objection.js
-- Eslint
-- Prettier
-- Standardjs
+- [Node.js](https://nodejs.org/)
+- [Express.js](http://expressjs.com)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Express-GraphQL](https://github.com/graphql/express-graphql)
+- [Knex.js](https://knexjs.org/)
+- [Objection.js](http://vincit.github.io/objection.js/)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+- [Standardjs](https://standardjs.com/)
+- [Docker](https://www.docker.com/)
 
 ---
 
