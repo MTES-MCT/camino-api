@@ -343,7 +343,9 @@ const resolvers = {
     if (!errors.length) {
       const token = jwt.sign({ id: utilisateur.id }, jwtSecret)
 
-      const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
+      const url = `${
+        process.env.UI_URL
+      }/mot-de-passe?token=${token}&email=${email}`
 
       const subject = `[Camino] Initialisation de votre mot de passe`
       const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
