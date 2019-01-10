@@ -26,6 +26,17 @@ transport.use('compile', htmlToText())
 const mailer = async (to, subject, html) => {
   const mail = { from, to, subject, html }
 
+  // si on est pas sur le serveur de prod
+  // l'adresse email du destinataire est remplacée
+  if (process.env.NODE_ENV !== 'production') {
+    mail.html = `
+version: ${process.env.NODE_ENV} | 
+destinataire original: ${mail.to}<br>
+---<br>
+${mail.html}`
+    mail.to = process.env.ADMIN_EMAIL
+  }
+
   try {
     const res = await transport.sendMail(mail)
     console.log(`Message sent: ${res.response}`)
