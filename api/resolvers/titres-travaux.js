@@ -5,7 +5,10 @@ const {
   titreTravauxRapportAdd
 } = require('../../database/queries/titres-travaux')
 
-const { utilisateurGet } = require('../../database/queries/utilisateurs')
+const {
+  utilisateurGet,
+  utilisateursGet
+} = require('../../database/queries/utilisateurs')
 
 const { titreGet } = require('../../database/queries/titres')
 
@@ -20,6 +23,13 @@ const resolvers = {
     const errors = []
     const titre = await titreGet(rapport.titreId)
     const user = await utilisateurGet(context.user.id)
+
+    const utilisateurs = await utilisateursGet({
+      entrepriseIds: titre.titulaires.map(t => t.id),
+      noms: undefined,
+      administrationIds: undefined,
+      permissionIds: undefined
+    })
 
     if (
       !(
@@ -55,7 +65,14 @@ const resolvers = {
       const html = emailFormat(titre, user, rapport)
 
       try {
-        mailer(user.email, subject, html)
+        // envoie un email à tous les titulaires
+        utilisateurs.forEach(u => {
+          if (u.email) {
+            mailer(u.email, subject, html)
+          }
+        })
+
+        // envoie un email de copie à la Déal
         if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
           mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
         }
