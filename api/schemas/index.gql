@@ -60,6 +60,8 @@ type Mutation {
 
   utilisateurMotDePasseEmailEnvoyer(email: String!): String
 
+  utilisateurAjoutEmailEnvoyer(email: String!): String
+
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
