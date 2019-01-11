@@ -18,7 +18,7 @@ const graphqlHTTP = require('express-graphql')
 const expressJwt = require('express-jwt')
 const Sentry = require('@sentry/node')
 
-const { env, port, url, jwtSecret } = require('./config/index')
+const { port, url } = require('./config/index')
 const schema = require('./api/schemas')
 const rootValue = require('./api/resolvers')
 
@@ -39,7 +39,7 @@ app.use(compression())
 app.use(
   expressJwt({
     credentialsRequired: false,
-    secret: jwtSecret || 'jwtSecret should be declared in .env'
+    secret: process.env.JWT_SECRET || 'jwtSecret should be declared in .env'
   })
   // (err, req, res, next) => {
   //   if (err.code === 'invalid_token') return next()
@@ -78,6 +78,9 @@ if (process.env.SENTRY_DSN) {
 app.listen(port, () => {
   console.log(' ')
   console.log(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
-  console.log(chalk.bgWhiteBright.black.bold('> Env: ' + env + ' '))
+  console.log(chalk.bgWhiteBright.black.bold('> ENV: ' + process.env.ENV + ' '))
+  console.log(
+    chalk.bgWhiteBright.black.bold('> NODE_ENV: ' + process.env.NODE_ENV + ' ')
+  )
   console.log(' ')
 })

@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const emailRegex = require('email-regex')
 const cryptoRandomString = require('crypto-random-string')
-const { jwtSecret } = require('../../config/index')
 const mailer = require('../../tools/mailer/index')
 
 const {
@@ -151,7 +150,7 @@ const resolvers = {
           permission: utilisateur.permission,
           login: true
         },
-        jwtSecret
+        process.env.JWT_SECRET
       )
     } else {
       throw new Error(errors.join(', '))
@@ -238,7 +237,7 @@ const resolvers = {
     }
 
     if (!errors.length) {
-      const token = jwt.sign({ email }, jwtSecret)
+      const token = jwt.sign({ email }, process.env.JWT_SECRET)
 
       const url = `${
         process.env.UI_URL
@@ -388,7 +387,7 @@ const resolvers = {
     }
 
     if (!errors.length) {
-      const token = jwt.sign({ id: utilisateur.id }, jwtSecret)
+      const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET)
 
       const url = `${
         process.env.UI_URL
