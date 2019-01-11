@@ -27,12 +27,6 @@ const permissionsVisibleForAdmin = [
 const utilisateurErreurs = async utilisateur => {
   const errors = []
 
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(utilisateur.id)) {
-    errors.push(
-      "l'id doit contenir uniquement des minuscules, des chiffres et tirets"
-    )
-  }
-
   if (!utilisateur.prenom) {
     errors.push('prénom manquant')
   }
@@ -173,6 +167,7 @@ const resolvers = {
       const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
         utilisateur.email
       )
+
       if (utilisateurWithTheSameEmail) {
         errors.push('un utilisateur avec cet email existe déjà')
       }
@@ -200,6 +195,15 @@ const resolvers = {
       )
     }
 
+    if (
+      !permissionsCheck(context.user, ['super', 'admin']) &&
+      context.user.email !== utilisateur.email
+    ) {
+      errors.push(
+        'droits insuffisants pour créer un compte avec cette adresse email'
+      )
+    }
+
     if (!errors.length) {
       utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
       utilisateur.id = await userIdGenerate()
@@ -207,6 +211,49 @@ const resolvers = {
       const res = await utilisateurAdd(utilisateur)
 
       return res
+    } else {
+      throw new Error(errors.join(', '))
+    }
+  },
+
+  async utilisateurAjoutEmailEnvoyer({ email }, context) {
+    const errors = []
+    let utilisateur
+
+    console.log('email', email)
+    const emailIsValid = emailRegex({ exact: true }).test(email)
+
+    if (!email) {
+      errors.push('email manquant')
+    } else if (!emailIsValid) {
+      errors.push('adresse email invalide')
+    } else {
+      utilisateur = await utilisateurByEmailGet(email)
+
+      if (utilisateur) {
+        errors.push(
+          'un utilisateur est déjà enregistré avec cette adresse email'
+        )
+      }
+    }
+
+    if (!errors.length) {
+      const token = jwt.sign({ email }, jwtSecret)
+
+      const url = `${
+        process.env.UI_URL
+      }/creation-de-compte?token=${token}&email=${email}`
+
+      const subject = `[Camino] Création de votre compte utilisateur`
+      const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
+
+      try {
+        mailer(email, subject, html)
+      } catch (e) {
+        return "erreur lors de l'envoi d'email"
+      }
+
+      return 'un lien pour créer votre compte vous a été envoyé par email'
     } else {
       throw new Error(errors.join(', '))
     }
