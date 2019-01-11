@@ -34,18 +34,15 @@ const mailer = async (to, subject, html) => {
     process.env.ENV !== 'prod' ||
     !process.env.ENV
   ) {
-    console.log('test succeed')
-    mail.html = `
-version: ${process.env.NODE_ENV} | 
-destinataire original: ${mail.to}<br>
----<br>
-${mail.html}`
+    mail.subject = `
+${mail.subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
+dest: ${mail.to}`
     mail.to = process.env.ADMIN_EMAIL
   }
 
   try {
     const res = await transport.sendMail(mail)
-    console.log(`Message sent: ${res.response}`)
+    console.log(`Message sent: ${mail.to}, ${mail.subject}, ${res.response}`)
     transport.close()
   } catch (e) {
     console.log(e)
