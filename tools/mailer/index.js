@@ -28,7 +28,10 @@ const mailer = async (to, subject, html) => {
 
   // si on est pas sur le serveur de prod
   // l'adresse email du destinataire est remplacée
-  if (process.env.NODE_ENV !== 'production' && process.env.SERVER !== 'prod') {
+  if (
+    (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') &&
+    (process.env.ENV !== 'prod' || !process.env.ENV)
+  ) {
     mail.html = `
 version: ${process.env.NODE_ENV} | 
 destinataire original: ${mail.to}<br>
