@@ -20,7 +20,8 @@ const {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
-  utilisateurMotDePasseEmailEnvoyer
+  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurAjoutEmailEnvoyer
 } = require('./resolvers/utilisateurs')
 const { version } = require('./resolvers/version')
 const { metas } = require('./resolvers/metas')
@@ -61,5 +62,6 @@ module.exports = {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
-  utilisateurMotDePasseEmailEnvoyer
+  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurAjoutEmailEnvoyer
 }
