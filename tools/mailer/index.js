@@ -28,28 +28,11 @@ const mailer = async (to, subject, html) => {
 
   // si on est pas sur le serveur de prod
   // l'adresse email du destinataire est remplacée
-  console.log(
-    'NODE_ENV:',
-    process.env.NODE_ENV,
-    !process.env.NODE_ENV,
-    process.env.NODE_ENV !== 'production',
-    !process.env.NODE_ENV || process.env.NODE_ENV !== 'production'
-  )
-  console.log(
-    'ENV:',
-    process.env.ENV,
-    !process.env.ENV,
-    process.env.ENV !== 'prod',
-    process.env.ENV !== 'prod' || !process.env.ENV
-  )
-  console.log(
-    'condition:',
-    (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') &&
-      (process.env.ENV !== 'prod' || !process.env.ENV)
-  )
   if (
-    (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') &&
-    (process.env.ENV !== 'prod' || !process.env.ENV)
+    !process.env.NODE_ENV ||
+    process.env.NODE_ENV !== 'production' ||
+    process.env.ENV !== 'prod' ||
+    !process.env.ENV
   ) {
     console.log('test succeed')
     mail.html = `
