@@ -5,7 +5,7 @@
 const tables = [
   {
     name: 'titresTravauxRapports',
-    columns: ['id', 'titreId', 'date', 'contenu'],
+    columns: ['id', 'titreId', 'date', 'confirmation', 'contenu'],
     callbacks: {
       contenu: v => JSON.stringify(v)
     }
