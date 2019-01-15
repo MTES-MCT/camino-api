@@ -14,7 +14,11 @@ const titreTravauxRapportRowUpdate = async content => {
   const spreadsheetId =
     process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_TRAVAUX_RAPPORTS
 
-  await spreadsheetRowUpdate(spreadsheetId, credentials, tables[0], content)
+  try {
+    await spreadsheetRowUpdate(spreadsheetId, credentials, tables[0], content)
+  } catch (e) {
+    console.log("erreur lors de l'ajout d'une ligne dans la spreasheet", e)
+  }
 }
 
 module.exports = { titreTravauxRapportRowAdd, titreTravauxRapportRowUpdate }
