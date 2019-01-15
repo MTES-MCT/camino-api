@@ -54,7 +54,7 @@ const resolvers = {
       errors.push('ce titre ne peut pas recevoir de rapport')
     }
 
-    if (rapportOld.confirmation) {
+    if (rapportOld && rapportOld.confirmation) {
       errors.push('ce rapport a été validé et ne peux plus être modifié')
     }
 
