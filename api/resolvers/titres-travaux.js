@@ -2,7 +2,8 @@ const mailer = require('../../tools/mailer/index')
 const dateFormat = require('dateformat')
 
 const {
-  titreTravauxRapportAdd
+  titresTravauxRapportGet,
+  titreTravauxRapportUpdate
 } = require('../../database/queries/titres-travaux')
 
 const {
@@ -15,14 +16,15 @@ const { titreGet } = require('../../database/queries/titres')
 const permissionsCheck = require('./_permissions-check')
 
 const {
-  titreTravauxRapportRowAdd
+  titreTravauxRapportRowUpdate
 } = require('../../tools/export/titre-travaux-rapport')
 
 const resolvers = {
-  async titreTravauxRapportAjouter({ rapport }, context, info) {
+  async titreTravauxRapportModifier({ rapport }, context, info) {
     const errors = []
     const titre = await titreGet(rapport.titreId)
     const user = await utilisateurGet(context.user.id)
+    const rapportOld = await titresTravauxRapportGet(rapport.id)
 
     const utilisateurs = await utilisateursGet({
       entrepriseIds: titre.titulaires.map(t => t.id),
@@ -52,35 +54,43 @@ const resolvers = {
       errors.push('ce titre ne peut pas recevoir de rapport')
     }
 
+    if (rapportOld.confirmation) {
+      errors.push('ce rapport a été validé et ne peux plus être modifié')
+    }
+
     if (!errors.length) {
       try {
-        titreTravauxRapportRowAdd(rapport)
+        titreTravauxRapportRowUpdate(rapport)
       } catch (e) {
         console.log("erreur lors de l'ajout d'une ligne dans la spreasheet", e)
       }
 
-      const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
-        rapport.contenu.trimestre
-      } trimestre ${rapport.contenu.annee}`
-      const html = emailFormat(titre, user, rapport)
+      if (rapport.confirmation) {
+        const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
+          rapport.contenu.trimestre
+        } trimestre ${rapport.contenu.annee}`
+        const html = emailFormat(titre, user, rapport)
 
-      try {
-        // envoie un email à tous les titulaires
-        utilisateurs.forEach(u => {
-          if (u.email) {
-            mailer(u.email, subject, html)
+        try {
+          // envoie un email à tous les titulaires
+          utilisateurs.forEach(u => {
+            if (u.email) {
+              mailer(u.email, subject, html)
+            }
+          })
+
+          // envoie un email de copie à la Déal
+          if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
+            mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
           }
-        })
-
-        // envoie un email de copie à la Déal
-        if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
-          mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
+        } catch (e) {
+          return "erreur lors de l'envoi d'email"
         }
-      } catch (e) {
-        return "erreur lors de l'envoi d'email"
       }
 
-      return titreTravauxRapportAdd({ titreTravauxRapport: rapport })
+      return titreTravauxRapportUpdate({
+        titreTravauxRapport: rapport
+      })
     } else {
       throw new Error(errors.join(', '))
     }

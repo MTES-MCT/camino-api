@@ -6,7 +6,7 @@ const {
   rowAdd
 } = require('./google-spreadsheet-promisify')
 
-const rowToSpreadsheetAdd = async (
+const spreadsheetRowAdd = async (
   spreadsheetId,
   credentials,
   table,
@@ -23,4 +23,4 @@ const rowToSpreadsheetAdd = async (
   await rowAdd(gss, 1, row)
 }
 
-module.exports = rowToSpreadsheetAdd
+module.exports = spreadsheetRowAdd

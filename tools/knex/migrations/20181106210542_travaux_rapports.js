@@ -6,6 +6,7 @@ exports.up = knex => {
       .references('titres.id')
       .onDelete('CASCADE')
     table.date('date')
+    table.boolean('confirmation')
     table.jsonb('contenu')
   })
 }

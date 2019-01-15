@@ -63,6 +63,30 @@ const rowAdd = (gss, worksheetId, row) =>
     })
   )
 
+const rowsGet = (gss, worksheetId, options) =>
+  new Promise((resolve, reject) =>
+    gss.getRows(worksheetId, options, (err, res) => {
+      if (err) {
+        console.log('Erreur getRows:', err)
+        reject(err)
+      } else {
+        resolve(res)
+      }
+    })
+  )
+
+const rowDelete = row =>
+  new Promise((resolve, reject) =>
+    row.del((err, res) => {
+      if (err) {
+        console.log('Erreur rowSave:', err)
+        reject(err)
+      } else {
+        resolve(res)
+      }
+    })
+  )
+
 const cellsGet = (gss, worksheetId, options) =>
   new Promise((resolve, reject) =>
     gss.getCells(worksheetId, options, (err, res) => {
@@ -75,14 +99,14 @@ const cellsGet = (gss, worksheetId, options) =>
     })
   )
 
-const cellValueSet = (cell, value) =>
+const cellSet = (cell, value) =>
   new Promise((resolve, reject) =>
     cell.setValue(value, (err, res) => {
       if (err) {
         console.log('Erreur cell.setValue:', err)
-        console.log(err)
+        reject(err)
       } else {
-        console.log(res)
+        resolve(res)
       }
     })
   )
@@ -93,6 +117,8 @@ module.exports = {
   worksheetRemove,
   worksheetAdd,
   rowAdd,
+  rowsGet,
+  rowDelete,
   cellsGet,
-  cellValueSet
+  cellSet
 }

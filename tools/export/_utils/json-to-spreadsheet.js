@@ -10,7 +10,7 @@ const {
   worksheetAdd,
   rowAdd,
   cellsGet,
-  cellValueSet
+  cellSet
 } = require('./google-spreadsheet-promisify')
 
 const jsonToSpreadsheet = async (
@@ -99,16 +99,18 @@ const jsonToSpreadsheet = async (
   // converti le champs Id en id
   const tablesWithId = tables.filter(w => w.columns.find(h => h === 'id'))
 
-  await tablesWithId.forEach(async table => {
-    const cells = await cellsGet(gss, table.worksheetId, {
-      'min-row': 1,
-      'max-row': 1,
-      'min-col': 1,
-      'max-col': 1
-    })
+  await Promise.all(
+    tablesWithId.map(async table => {
+      const cells = await cellsGet(gss, table.worksheetId, {
+        'min-row': 1,
+        'max-row': 1,
+        'min-col': 1,
+        'max-col': 1
+      })
 
-    await cellValueSet(cells[0], 'id')
-  })
+      await cellSet(cells[0], 'id')
+    })
+  )
 }
 
 // fonction récursive qui parcourt les 'elements' (p.e.: 'titres')

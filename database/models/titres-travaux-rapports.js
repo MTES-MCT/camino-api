@@ -13,6 +13,7 @@ class TitresTravauxRapports extends Model {
         id: { type: 'string' },
         titreId: { type: 'string' },
         date: { type: 'date' },
+        confirmation: { type: 'boolean' },
         contenu: { type: 'json' }
       }
     }
