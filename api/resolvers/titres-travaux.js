@@ -26,13 +26,6 @@ const resolvers = {
     const user = await utilisateurGet(context.user.id)
     const rapportOld = await titresTravauxRapportGet(rapport.id)
 
-    const utilisateurs = await utilisateursGet({
-      entrepriseIds: titre.titulaires.map(t => t.id),
-      noms: undefined,
-      administrationIds: undefined,
-      permissionIds: undefined
-    })
-
     if (
       !(
         permissionsCheck(context.user, ['super', 'admin']) ||
@@ -59,33 +52,21 @@ const resolvers = {
     }
 
     if (!errors.length) {
-      try {
-        titreTravauxRapportRowUpdate(rapport)
-      } catch (e) {
-        console.log("erreur lors de l'ajout d'une ligne dans la spreasheet", e)
-      }
+      titreTravauxRapportRowUpdate(rapport)
 
       if (rapport.confirmation) {
         const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
           rapport.contenu.trimestre
         } trimestre ${rapport.contenu.annee}`
         const html = emailFormat(titre, user, rapport)
+        const utilisateurs = await utilisateursGet({
+          entrepriseIds: titre.titulaires.map(t => t.id),
+          noms: undefined,
+          administrationIds: undefined,
+          permissionIds: undefined
+        })
 
-        try {
-          // envoie un email à tous les titulaires
-          utilisateurs.forEach(u => {
-            if (u.email) {
-              mailer(u.email, subject, html)
-            }
-          })
-
-          // envoie un email de copie à la Déal
-          if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
-            mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
-          }
-        } catch (e) {
-          return "erreur lors de l'envoi d'email"
-        }
+        await confirmationEmailSend(utilisateurs, subject, html)
       }
 
       return titreTravauxRapportUpdate({
@@ -94,6 +75,24 @@ const resolvers = {
     } else {
       throw new Error(errors.join(', '))
     }
+  }
+}
+
+const confirmationEmailSend = async (utilisateurs, subject, html) => {
+  try {
+    // envoie un email à tous les titulaires
+    utilisateurs.forEach(u => {
+      if (u.email) {
+        mailer(u.email, subject, html)
+      }
+    })
+
+    // envoie un email de copie à la Déal
+    if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
+      mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
+    }
+  } catch (e) {
+    console.log("erreur lors de l'envoi d'email")
   }
 }
 
