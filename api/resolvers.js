@@ -28,7 +28,7 @@ const { metas } = require('./resolvers/metas')
 const { substance, substances } = require('./resolvers/substances')
 const { permissions } = require('./resolvers/permissions')
 const { entreprise, entreprises } = require('./resolvers/entreprises')
-const { titreTravauxRapportAjouter } = require('./resolvers/titres-travaux')
+const { titreTravauxRapportModifier } = require('./resolvers/titres-travaux')
 
 module.exports = {
   //  types
@@ -54,7 +54,7 @@ module.exports = {
   titreModifier,
   titreSupprimer,
   titreEtapeModifier,
-  titreTravauxRapportAjouter,
+  titreTravauxRapportModifier,
 
   utilisateurConnecter,
   utilisateurModifier,

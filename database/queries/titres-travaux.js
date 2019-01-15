@@ -1,14 +1,18 @@
 const titreTravauxRapports = require('../models/titres-travaux-rapports')
 
 const queries = {
+  async titresTravauxRapportGet(id) {
+    return titreTravauxRapports.query().findById(id)
+  },
+
   async titresTravauxRapportsGet() {
     return titreTravauxRapports.query().skipUndefined()
   },
 
-  async titreTravauxRapportAdd({ titreTravauxRapport }) {
+  async titreTravauxRapportUpdate({ titreTravauxRapport }) {
     return titreTravauxRapports
       .query()
-      .insertGraph(titreTravauxRapport, { insertMissing: true })
+      .upsertGraph(titreTravauxRapport, { insertMissing: true })
       .first()
   }
 }
