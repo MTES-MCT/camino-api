@@ -1,6 +1,6 @@
 # Camino API
 
-> API GraphQL de [Camino](http://camino.beta.gouv.fr/)
+> API GraphQL de [Camino](http://camino.beta.gouv.fr/): https://api.camino.beta.gouv.fr
 
 ---
 
