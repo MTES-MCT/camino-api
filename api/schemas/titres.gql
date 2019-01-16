@@ -1,88 +1,139 @@
 "Titre minier"
 type Titre {
   """
-  L'__id__ du titre est constituée de la concaténation:
+  L'__id__ composée de la concaténation:
   - du type en 3 lettres
   - du slug du nom du titre
-
-  Exemples: _con-saint-elie_ ou _per-pedral_.
+  - de l'année d'octroi
   """
   id: ID!
+  "Le nom du titre"
   nom: String!
+  "Le type du titre"
   type: Type!
+  "Le domaine minier auquel se rattache le titre"
   domaine: Domaine!
+  "Les références métier du titre"
   references: [Reference]
+  "Le statut du titre"
   statut: Statut!
+  "Les substances concernées par le titre dans son dernier état de validité"
   substances: [TitreSubstance]
+  "Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité"
   points: [Point]
+  "Le geojson du contour du périmètre géographique du titre dans son dernier état de validité"
   geojsonMultiPolygon: GeojsonMultiPolygon
+  "Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité"
   geojsonPoints: GeojsonPoints
+  "Les titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
+  "Les amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
+  "Les administrations en charge du titre dans son dernier état de validité"
   administrations: [Administration]
+  "Les démarches effectuées sur le titre"
   demarches: [Demarche]
+  "La surface en Km² du titre dans son dernier état de validité"
   surface: Float
+  "Le volume du titre dans son dernier état de validité"
   volume: Float
+  "L'unité du volume du titre dans son dernier état de validité"
   volumeUnite: String
+  "Les rapports de travaux"
   travauxRapports: [TitreTravauxRapport]
 }
 
+"Références métier d'un titre minier"
 type Reference {
+  "Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc."
   type: String
+  "La référence du titre dans le référentiel"
   valeur: String!
 }
 
+"Les démarches effectuées sur un titre minier"
 type Demarche {
+  """
+  L'__id__ composée de la concaténation:
+  - de l'id du titre
+  - du type de la démarche
+  """
   id: ID!
+  "Le type de la démarche composé de trois lettres"
   type: DemarcheType!
+  "L'ordre chronologique de la démarche"
   ordre: Int!
+  "Le statut de la démarche"
   statut: DemarcheStatut!
+  "La phase, si la démarche donne lieu à une phase"
   phase: Phase
+  "Les étapes effectuées sur la démarche"
   etapes: [Etape]
 }
 
+"La phase d'un titre minier"
 type Phase {
+  "Le statut d'une phase"
   statut: PhaseStatut!
+  "La date de début d'une phase"
   dateDebut: Date
+  "La date de fin d'une phase"
   dateFin: Date
 }
 
+"L'étape d'une démarche effectuée sur un titre minier"
 type Etape {
+  """
+  L'__id__ composée de la concaténation:
+  - de l'id de la démarche
+  - du type de l'étape
+  """
   id: ID!
+  "Le type de l'étape"
   type: EtapeType!
+  "Le statut de l'étape"
   statut: EtapeStatut!
+  "L'ordre chronologique de l'étape"
   ordre: Int!
+  "La date de l'étape"
   date: Date!
+  "La durée de la démarche"
   duree: Int
+  "La date de début de la démarche"
   dateDebut: Date
+  "La date de fin de la démarche"
   dateFin: Date
+  "La surface en Km² du titre"
   surface: Float
+  "Le volume du titre"
   volume: Float
+  "L'unité de volume du titre"
   volumeUnite: String
+  "Les visas de l'étape"
   visas: [String]
+  "Le montant de l'engagement financier du titulaire"
   engagement: Float
+  "La devise de l'engagement financier du titulaire"
   engagementDevise: String
+  "L'emprise géographique du titre"
   emprises: [Emprise]
+  "Les substances concernées par le titre"
   substances: [TitreSubstance]
+  "Les coordonnées des points du périmètre géographique du titre"
   points: [Point]
+  "Le geojson du contour du périmètre géographique du titre"
   geojsonMultiPolygon: GeojsonMultiPolygon
+  "Le geojson de la liste de points du périmètre géographique du titre"
   geojsonPoints: GeojsonPoints
+  "Les titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
+  "Les amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
+  "Les administrations en charge du titre"
   administrations: [Administration]
+  "Les documents relatifs à l'étape"
   documents: [Document]
   sourceIndisponible: Boolean
-}
-
-type TitreSubstance {
-  id: ID!
-  nom: String!
-  symbole: String
-  gerep: Int
-  description: String
-  legales: [SubstanceLegale!]!
-  connexe: Boolean
-  ordre: Int
 }
 
 type Document {
