@@ -1,12 +1,28 @@
+"""
+# Requêtes en lecture (_Query_)
+
+- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/docs/graphql)
+- [Documentation offcielle de GraphQL](https://graphql.org/)
+
+_Query_ un type _racine_ (_root_) de GraphQL.
+
+Certaines requêtes sont __publiques__.
+
+Certaines requêtes sont __protégées__ et nécessitent une authentification par token (jwt). Elles sont signalées par une étoile __*__.
+
+Enfin, certaines requêtes sont __semi-publiques__ et retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié. Elles sont signalées par un plus __+__.
+"""
 type Query {
+  "Retourne la version de l'API"
   version: String
 
+  "Retourne les meta-informations sur les titres miniers (types, domaines, statuts)"
   metas: Metas
 
-  "Un titre"
+  "__+__ Retourne un titre minier en fonction de son id"
   titre(id: ID!): Titre
 
-  "Liste de titres"
+  "__+__ Retourne une liste de titres miniers, en fonction de paramètres (optionels)"
   titres(
     typeIds: [TypeId]
     domaineIds: [DomaineId]
@@ -14,12 +30,13 @@ type Query {
     substances: [String]
     noms: [String]
     entreprises: [String]
+    references: [String]
   ): [Titre]
 
-  "Un utilisateur"
+  "__*__ Retourne un utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 
-  "Liste des utilisateurs"
+  "__*__ Retourne une liste d'utilisateurs en fonction de paramètres (optionels)"
   utilisateurs(
     entrepriseIds: [ID]
     administrationIds: [ID]
@@ -27,30 +44,52 @@ type Query {
     noms: [String]
   ): [Utilisateur]
 
+  "Retourne une substance en fonction de son id"
   substance(id: String!): Substance
 
+  "Retourne la liste des substances"
   substances: [Substance]
 
+  "__*__ Retourne un utilisateur en fonction du token"
   utilisateurIdentifier: Utilisateur
 
+  "__+__ Retourne la liste des permissions utilisateurs"
   permissions: [Permission]
 
+  "__*__ Retourne une entreprise en fonction de son id"
   entreprise(id: String!): Entreprise
 
+  "__*__ Retourne la liste des entreprises"
   entreprises: [Entreprise]
 }
 
+"""
+# Requêtes en écriture (_Mutation_)
+
+- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/docs/graphql)
+- [Documentation offcielle de GraphQL](https://graphql.org/)
+
+_Mutation_ un type natif de GraphQL.
+
+Ces requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.
+"""
 type Mutation {
+  "__*__ Modifie une étape de titre minier"
   titreEtapeModifier(etape: InputEtape): Etape
 
+  "__*__ Connecte l'utilisateur en fonction de ses identifiants"
   utilisateurConnecter(email: String!, motDePasse: String!): UtilisateurToken
 
+  "__*__ Ajoute un utilisateur"
   utilisateurAjouter(utilisateur: InputUtilisateurAjouter!): Utilisateur
 
+  "__*__ Modifie un utilisateur"
   utilisateurModifier(utilisateur: InputUtilisateur!): Utilisateur
 
+  "__*__ Supprime un utilisateur"
   utilisateurSupprimer(id: ID!): Utilisateur
 
+  "__*__ Modifie le mot de passe d'un utilisateur"
   utilisateurMotDePasseModifier(
     id: ID!
     motDePasse: String!
@@ -58,15 +97,19 @@ type Mutation {
     motDePasseNouveau2: String!
   ): Utilisateur
 
+  "__*__ Envoie un email à un utilisateur contenant une url pour modifier son mot de passe"
   utilisateurMotDePasseEmailEnvoyer(email: String!): String
 
+  "__*__ Envoie un email à un utilisateur contenant une url pour créer son compte"
   utilisateurAjoutEmailEnvoyer(email: String!): String
 
+  "__*__ Initialise un mot de passe utilisateur"
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
   ): String
 
+  "__*__ Créé ou modifie un rapport de travaux"
   titreTravauxRapportModifier(
     rapport: InputTitreTravauxRapport!
   ): TitreTravauxRapport

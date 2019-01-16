@@ -7,6 +7,17 @@ type Substance {
   legales: [SubstanceLegale!]!
 }
 
+type TitreSubstance {
+  id: ID!
+  nom: String!
+  symbole: String
+  gerep: Int
+  description: String
+  legales: [SubstanceLegale!]!
+  connexe: Boolean
+  ordre: Int
+}
+
 type SubstanceLegale {
   id: ID!
   nom: String!

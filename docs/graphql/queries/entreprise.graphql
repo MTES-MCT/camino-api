@@ -39,7 +39,7 @@ fragment utilisateur on Utilisateur {
   }
 }
 
-fragment permission on Permissions {
+fragment permission on Permission {
   id
   nom
 }
