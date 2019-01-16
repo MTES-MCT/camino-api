@@ -19,9 +19,18 @@
 
 ---
 
+## Environnement
+
+Pour que l'application fonctionne, sont requis:
+
+- Node.js (v.10 ou plus) et npm
+- une base de données PostgreSQL (v.10 ou plus)
+
+---
+
 ## Configuration et imports des données
 
-- Requiert Node.js, npm et une base de données PostgreSQL.
+- Créer une base de données `camino`.
 - Renommer le fichier `.env.example` en `.env` et le compléter.
 
 ```bash
@@ -35,6 +44,9 @@ npm run import
 # crée les tables dans la base de données
 # et importe les données depuis './tools/sources'
 npm run migrate
+
+# met à jour les données
+npm run daily
 ```
 
 ---
