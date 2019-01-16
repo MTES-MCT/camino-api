@@ -24,7 +24,7 @@
 Pour que l'application fonctionne, sont requis:
 
 - Node.js (v.10 ou plus) et npm
-- une base de données PostgreSQL (v.10 ou plus)
+- Une base de données PostgreSQL (v.10 ou plus)
 
 ---
 
