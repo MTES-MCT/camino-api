@@ -1,4 +1,4 @@
-const mailer = require('../../tools/mailer/index')
+const emailsBatch = require('../../tools/mailer/batch')
 const dateFormat = require('dateformat')
 
 const {
@@ -55,18 +55,26 @@ const resolvers = {
       titreTravauxRapportRowUpdate(rapport)
 
       if (rapport.confirmation) {
-        const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
-          rapport.contenu.trimestre
-        } trimestre ${rapport.contenu.annee}`
-        const html = emailFormat(titre, user, rapport)
         const utilisateurs = await utilisateursGet({
           entrepriseIds: titre.titulaires.map(t => t.id),
           noms: undefined,
           administrationIds: undefined,
           permissionIds: undefined
         })
+        const emails = utilisateurs.reduce(
+          (res, u) => (u.email ? [...res, u.email] : res),
+          // si la variable d'environnement existe,
+          // on ajoute un email générique pour recevoir une copie
+          process.env.TRAVAUX_RAPPORTS_EMAIL
+            ? [process.env.TRAVAUX_RAPPORTS_EMAIL]
+            : []
+        )
+        const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
+          rapport.contenu.trimestre
+        } trimestre ${rapport.contenu.annee}`
+        const html = emailFormat(titre, user, rapport)
 
-        await confirmationEmailSend(utilisateurs, subject, html)
+        await emailsBatch(emails, subject, html)
       }
 
       return titreTravauxRapportUpdate({
@@ -78,24 +86,6 @@ const resolvers = {
   }
 }
 
-const confirmationEmailSend = async (utilisateurs, subject, html) => {
-  try {
-    // envoie un email à tous les titulaires
-    utilisateurs.forEach(u => {
-      if (u.email) {
-        mailer(u.email, subject, html)
-      }
-    })
-
-    // envoie un email de copie à la Déal
-    if (process.env.TRAVAUX_RAPPORTS_EMAIL) {
-      mailer(process.env.TRAVAUX_RAPPORTS_EMAIL, subject, html)
-    }
-  } catch (e) {
-    console.log("erreur lors de l'envoi d'email")
-  }
-}
-
 const emailFormat = (titre, user, rapport) => {
   const header = `
 <h1>Rapport trimestriel ${titre.nom}, ${rapport.contenu.trimestre} trimestre ${
@@ -104,7 +94,7 @@ const emailFormat = (titre, user, rapport) => {
 
 <hr>
 
-<b>Lien</b> : ${process.env.UI_URL}/${rapport.titreId} <br>
+<b>Lien</b> : ${process.env.UI_URL}/titres/${rapport.titreId} <br>
 
 <b>Rempli par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
 
@@ -153,12 +143,14 @@ ${res}
     ''
   )
 
-  const footer = `<hr>
+  const footer = rapport.contenu.complement
+    ? `<hr>
 
 <h2>Informations complémentaires</h2>
 
 <p>${rapport.contenu.complement}</p>
 `
+    : ''
 
   return `
 ${header}
