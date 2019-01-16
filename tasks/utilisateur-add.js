@@ -1,6 +1,7 @@
 require('dotenv').config()
 const bcrypt = require('bcrypt')
 require('../database/index')
+
 const { utilisateurAdd } = require('../database/queries/utilisateurs')
 
 const password = process.env.ADMIN_PASSWORD
