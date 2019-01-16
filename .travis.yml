@@ -1,3 +1,5 @@
+before_install:
+  - export TZ=France/Paris
 language: node_js
 node_js:
   - '10'
