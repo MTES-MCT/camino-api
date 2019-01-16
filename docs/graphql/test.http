@@ -2,17 +2,7 @@
 # Work in Visual Studio Code with https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 
 ###
-# Login
-POST http://localhost:4000/login HTTP/1.1
-content-type: application/json
-
-{
-	"username": "root",
-	"password": "roO7p4s5wOrD"
-}
-
-###
-# Get me
+# Liste de titres
 POST http://localhost:4000/ HTTP/1.1
 content-type: application/json
 
@@ -23,7 +13,7 @@ content-type: application/json
 
 
 ###
-# Get me
+# Liste de substances
 POST http://localhost:4000/ HTTP/1.1
 content-type: application/json
 
