@@ -14,7 +14,8 @@ const queries = {
     statutIds,
     substances,
     noms,
-    entreprises
+    entreprises,
+    references
   }) {
     const q = Titres.query()
       .skipUndefined()
@@ -45,6 +46,12 @@ const queries = {
           ])
       })
     }
+
+    // if (references) {
+    //   q.where(builder => {
+    //     builder.where('titres.references::text', 'like', `%${s.toLowerCase()}%`)
+    //   })
+    // }
 
     // if (substances) {
     //   q.where(builder => {
