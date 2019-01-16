@@ -29,7 +29,7 @@
     "dev": "nodemon ./index.js",
     "user-add": "node ./tasks/utilisateur-add.js",
     "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js",
-    "test": "jest",
+    "test": "jest --verbose",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser"
   },
