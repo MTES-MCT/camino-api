@@ -1,32 +1,54 @@
+"""
+Meta-informations sur les titres miniers (types, domaines, statuts)
+"""
 type Metas {
+  "Types (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
   types: [Type]
+  "Domaines (ex: substances énergétiques, minéraux et métaux, etc.)"
   domaines: [Domaine]
+  "Statuts (ex: valide, demande initiale, etc.)"
   statuts: [Statut]
 }
 
+"Le type de titre minier"
 type Type {
+  "L'id composée de trois lettres"
   id: TypeId!
+  "Le nom du type en français"
   nom: String!
 }
 
+"Le domaine minier"
 type Domaine {
+  "L'id composée d'une seule lettre"
   id: DomaineId!
+  "Le nom du domaine en français"
   nom: String!
 }
 
+"Le domaine minier"
 input InputDomaineId {
+  "L'id composée d'une seule lettre"
   id: DomaineId!
+  "Le nom du domaine en français"
   nom: String
 }
 
+"Le statut d'un titre minier"
 type Statut {
+  "L'id composée de trois lettres"
   id: StatutId!
+  "Le nom du statut en français"
   nom: String!
+  "La couleur associé au statut"
   couleur: Couleur!
 }
 
+"Le type de démarche applicable à un titre minier"
 type DemarcheType {
+  "L'id composée de trois lettres"
   id: ID!
+  "Le nom en français"
   nom: String!
   dureeMax: Int!
   renouvelable: Boolean
@@ -34,53 +56,79 @@ type DemarcheType {
   ordre: Int
 }
 
+"Le statut d'une démarche applicable à un titre minier"
 type DemarcheStatut {
+  "L'id composée de trois lettres"
   id: DemarcheStatutId!
+  "Le nom en français"
   nom: String!
   couleur: Couleur!
 }
 
+"Le statut d'une phase de titre minier"
 type PhaseStatut {
+  "Le statut d'une phase de titre minier est composé de trois lettres"
   id: PhaseStatutId!
+  "Le nom d'une phase de titre minier en français"
   nom: String!
   couleur: Couleur!
 }
 
+"Le type d'étape d'une démarche de titre minier"
 type EtapeType {
+  "L'id composée de trois lettres"
   id: ID!
+  "Le nom en français"
   nom: String!
   acceptationAuto: Boolean
 }
 
+"Le type d'étape d'une démarche de titre minier"
 input InputEtapeTypeId {
+  "L'id composée de trois lettres"
   id: ID!
+  "Le nom du domaine en français"
   nom: String
   acceptationAuto: Boolean
 }
 
+"Le statut d'une étape de démarche de titre minier"
 type EtapeStatut {
+  "L'id du statut d'étape est composé de trois lettres"
   id: EtapeStatutId!
+  "Le nom du domaine en français"
   nom: String!
   couleur: Couleur!
 }
 
+"Le statut d'une étape de démarche de titre minier"
 input InputEtapeStatutId {
+  "L'id composée de trois lettres"
   id: EtapeStatutId!
+  "Le nom en français"
   nom: String
   couleur: Couleur
 }
 
+"L'emprise géographique d'un titre minier"
 type Emprise {
+  "L'id composée de trois lettres"
   id: EmpriseId!
+  "Le nom en français"
   nom: String!
 }
 
+"L'emprise géographique d'un titre minier"
 input InputEmpriseId {
+  "L'id composée de trois lettres"
   id: EmpriseId!
+  "Le nom en français"
   nom: String
 }
 
 """
+L'id du type de titre minier
+
 - __apx__: Autorisation de prospections préalables (M, H, C)
 - __arc__: Autorisation de recherches (C)
 - __arg__: Autorisation de recherches (G)
@@ -109,6 +157,8 @@ enum TypeId {
 }
 
 """
+L'id du domaine minier
+
 - __c__: Carrières
 - __f__: Combustibles fossiles
 - __g__: Géothermie
@@ -130,6 +180,8 @@ enum DomaineId {
 }
 
 """
+L'id du statut d'un titre minier
+
 - __dmc__: Demande classée
 - __dmi__: Demande initiale
 - __ech__: Échu
@@ -147,6 +199,8 @@ enum StatutId {
 }
 
 """
+L'id de l'emprise géographique d'un titre minier
+
 - __ter__: À terre
 - __mer__: En mer
 """
@@ -156,6 +210,8 @@ enum EmpriseId {
 }
 
 """
+L'id du statut d'une démarche de titre minier
+
 - __acc__: Acceptée
 - __cls__: Classée sans suite
 - __dep__: Déposée
@@ -181,6 +237,8 @@ enum DemarcheStatutId {
 }
 
 """
+L'id du statut d'une phase de titre minier
+
 - __val__: Valide
 - __ech__: Échu
 """
@@ -190,6 +248,8 @@ enum PhaseStatutId {
 }
 
 """
+L'id du statut d'une étape de démarche de titre minier
+
 - __acc__: Acceptation
 - __def__: Défavorable
 - __dre__: Défavorable avec réserves
@@ -212,6 +272,9 @@ enum EtapeStatutId {
   fai
 }
 
+"""
+Une liste de couleurs génériques
+"""
 enum Couleur {
   error
   info
@@ -220,14 +283,17 @@ enum Couleur {
   warning
 }
 
+"Le type de titre minier"
 input InputType {
   id: TypeId!
 }
 
+"Le domaine minier"
 input InputDomaine {
   id: DomaineId!
 }
 
+"Le type de démarche d'un titre minier"
 input InputDemarcheTypeId {
   id: ID!
 }
