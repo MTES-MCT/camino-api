@@ -6,6 +6,7 @@ const {
 const titreDemarchesAscSort = require('./_utils/titre-demarches-asc-sort')
 
 const titreDemarches = {
+  // met à jour le statut d'une démarche
   titreDemarcheStatutIdUpdate(titreDemarche, statutId) {
     return (
       // filtre uniquement les démarches dont le statut a changé
@@ -22,8 +23,10 @@ const titreDemarches = {
     )
   },
 
+  // met à jour la propriété 'ordre' de toutes les démarches d'un titre
   titreDemarchesOrdreUpdate(titreDemarchesByTitre) {
     return titreDemarchesAscSort(titreDemarchesByTitre)
+    // to-do: faire un reduce au lieu de map-filter-map
       .map((titreDemarche, index) => {
         titreDemarche.ordreUpdated = index + 1
         return titreDemarche
