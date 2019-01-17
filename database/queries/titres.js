@@ -47,11 +47,26 @@ const queries = {
       })
     }
 
-    // if (references) {
-    //   q.where(builder => {
-    //     builder.where('titres.references::text', 'like', `%${s.toLowerCase()}%`)
-    //   })
-    // }
+    if (references) {
+      q.where(builder => {
+        references.forEach(ref => {
+          builder.orWhereRaw(`lower(??::text) like ?`, [
+            'titres.references',
+            `%${ref.toLowerCase()}%`
+          ])
+        })
+      })
+      // .groupBy('titres.id')
+      // .havingRaw(
+      //   `(${references
+      //     .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+      //     .join(') and (')})`,
+      //   references.reduce(
+      //     (res, ref) => [...res, `%${ref.toLowerCase()}%`],
+      //     []
+      //   )
+      // )
+    }
 
     // if (substances) {
     //   q.where(builder => {
