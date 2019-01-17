@@ -22,7 +22,7 @@ type Query {
   "__+__ Retourne un titre minier en fonction de son id"
   titre(id: ID!): Titre
 
-  "__+__ Retourne une liste de titres miniers, en fonction de paramètres (optionels)"
+  "__+__ Retourne une liste de titres miniers, en fonction d'arguments (optionels)"
   titres(
     typeIds: [TypeId]
     domaineIds: [DomaineId]
@@ -36,7 +36,7 @@ type Query {
   "__*__ Retourne un utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 
-  "__*__ Retourne une liste d'utilisateurs en fonction de paramètres (optionels)"
+  "__*__ Retourne une liste d'utilisateurs en fonction d'arguments (optionels)"
   utilisateurs(
     entrepriseIds: [ID]
     administrationIds: [ID]
