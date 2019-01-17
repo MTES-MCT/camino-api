@@ -4,34 +4,19 @@ query Titres(
   $statutIds: [StatutId!]
   $substances: [String!]
   $noms: [String!]
+  $entreprises: [String!]
+  $references: [String!]
 ) {
-  metas {
-    ...meta
-  }
   titres(
     typeIds: $typeIds
     domaineIds: $domaineIds
     statutIds: $statutIds
     substances: $substances
     noms: $noms
+    entreprises: $entreprises
+    references: $references
   ) {
     ...titre
-  }
-}
-
-fragment meta on Metas {
-  types {
-    id
-    nom
-  }
-  domaines {
-    id
-    nom
-  }
-  statuts {
-    id
-    nom
-    couleur
   }
 }
 

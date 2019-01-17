@@ -5,6 +5,7 @@ query Titres(
   $substances: [String!]
   $noms: [String!]
   $entreprises: [String!]
+  $references: [String!]
 ) {
   titres(
     typeIds: $typeIds
@@ -13,6 +14,7 @@ query Titres(
     substances: $substances
     noms: $noms
     entreprises: $entreprises
+    references: $references
   ) {
     ...titre
   }
