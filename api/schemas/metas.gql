@@ -95,7 +95,8 @@ type EtapeType {
   nom: String!
   acceptationAuto: Boolean
   ordre: Int!
-  typeId: TypeId!
+  typeId: TypeId
+  etapesStatuts: [EtapeStatut]
 }
 
 type DemarcheType_etapeType {
