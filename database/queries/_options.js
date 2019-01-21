@@ -82,7 +82,7 @@ const titres = {
 }
 
 const demarchesTypes = {
-  eager: `etapesTypes`
+  eager: `etapesTypes.etapesStatuts`
 }
 
 module.exports = {

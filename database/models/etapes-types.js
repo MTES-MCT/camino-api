@@ -32,7 +32,7 @@ class EtapesTypes extends Model {
 
   static get relationMappings() {
     return {
-      statuts: {
+      etapesStatuts: {
         relation: Model.ManyToManyRelation,
         modelClass: EtapesStatuts,
         join: {
