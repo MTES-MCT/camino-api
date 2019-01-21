@@ -6,7 +6,10 @@ const titresPhasesUpdate = async titre => {
   // retourne les démarches enregistrées en base
 
   // retourne les phases enregistrées en base
-  const titresPhasesOld = titre.phases
+  const titresPhasesOld = titre.demarches.reduce(
+    (res, td) => (td.phase ? [...res, td.phase] : res),
+    []
+  )
 
   // retourne un tableau avec les phases
   // crées à partir des démarches
