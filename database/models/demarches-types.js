@@ -1,5 +1,4 @@
 const { Model } = require('objection')
-const Types = require('./types')
 const DemarchesStatuts = require('./demarches-statuts')
 const EtapesTypes = require('./etapes-types')
 
@@ -29,29 +28,7 @@ class DemarchesTypes extends Model {
 
   static get relationMappings() {
     return {
-      types: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Types,
-        join: {
-          from: 'demarchesTypes.id',
-          through: {
-            from: 'demarchesTypes__types.demarcheTypeId',
-            to: 'demarchesTypes__types.typeId',
-            extra: [
-              'dureeMax',
-              'acceptationImplicite',
-              'delaiImplicite',
-              'delaiRecours',
-              'legalRef',
-              'legalLien',
-              'dateDebut',
-              'dateFin'
-            ]
-          },
-          to: 'types.id'
-        }
-      },
-      statuts: {
+      demarchesStatuts: {
         relation: Model.ManyToManyRelation,
         modelClass: DemarchesStatuts,
         join: {
@@ -64,7 +41,8 @@ class DemarchesTypes extends Model {
           to: 'demarchesStatuts.id'
         }
       },
-      etapes: {
+
+      etapesTypes: {
         relation: Model.ManyToManyRelation,
         modelClass: EtapesTypes,
         join: {

@@ -81,6 +81,10 @@ const titres = {
   }
 }
 
+const demarchesTypes = {
+  eager: `etapesTypes`
+}
+
 module.exports = {
   utilisateurs,
   phases,
@@ -88,5 +92,6 @@ module.exports = {
   demarches,
   titres,
   substances,
-  entreprises
+  entreprises,
+  demarchesTypes
 }

@@ -85,8 +85,8 @@ const titrePhaseDateDebutFind = (
   const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' ||
-        (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
-        (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
+      (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
+      (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
   )
 
   return titreEtapeDpuFirst && dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
@@ -126,8 +126,13 @@ const titrePhaseDateFinFind = (
   ).dateFin
 }
 
-const demarcheAnnulationFind = (titreDemarchesByTitre, annulationDemarcheId) => {
-  if (!annulationDemarcheId) return null
+const demarcheAnnulationFind = (
+  titreDemarchesByTitre,
+  annulationDemarcheId
+) => {
+  if (!annulationDemarcheId) {
+    return null
+  }
 
   return titreDemarchesByTitre.find(t => t.id === annulationDemarcheId)
 }
