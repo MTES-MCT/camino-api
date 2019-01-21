@@ -69,9 +69,9 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 
   const dateFinUpdatedFind = () => {
     // si il n'y a ni date de fin, ni de durée cumulée,
-    // la date de fin par défaut est fixée au 31 décembre 2018
+    // la date de fin par défaut est fixée au 31 décembre 2019
     if (duree === 0) {
-      return '2018-12-31'
+      return '2019-12-31'
     }
 
     const titreEtapesDescSorted = titreDemarche.etapes || titreEtapesDescSort(titreDemarche)
