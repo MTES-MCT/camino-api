@@ -2,12 +2,14 @@
 Meta-informations sur les titres miniers (types, domaines, statuts)
 """
 type Metas {
-  "Types (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
+  "Les types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
   types: [Type]
-  "Domaines (ex: substances énergétiques, minéraux et métaux, etc.)"
+  "Les domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)"
   domaines: [Domaine]
-  "Statuts (ex: valide, demande initiale, etc.)"
+  "Les statuts des titres miniers (ex: valide, demande initiale, etc.)"
   statuts: [Statut]
+  "La liste des types de démarches"
+  demarchesTypes: [DemarcheType]
 }
 
 "Le type de titre minier"
@@ -50,10 +52,21 @@ type DemarcheType {
   id: ID!
   "Le nom en français"
   nom: String!
-  dureeMax: Int!
+  "L'ordre de ce type de démarche"
+  ordre: Int
+  "Si la démarche contient une information de duréee"
+  duree: Boolean
+  "Si la démarche contient des informations géographiques"
+  points: Boolean
+  "Si la démarche contient des informations de substances"
+  substances: Boolean
+  "Si la démarche contient des titulaires"
+  titulaires: Boolean
+  "Si la démarche est renouvelable"
   renouvelable: Boolean
   exception: Boolean
-  ordre: Int
+  "Les types d'étapes applicables à ce type de démarche"
+  etapesTypes: [EtapeType]
 }
 
 "Le statut d'une démarche applicable à un titre minier"
@@ -81,6 +94,15 @@ type EtapeType {
   "Le nom en français"
   nom: String!
   acceptationAuto: Boolean
+  ordre: Int!
+  typeId: TypeId!
+}
+
+type DemarcheType_etapeType {
+  typeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int!
 }
 
 "Le type d'étape d'une démarche de titre minier"

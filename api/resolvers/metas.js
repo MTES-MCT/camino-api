@@ -1,12 +1,12 @@
-const {
-  restrictedDomaineIds,
-  restrictedStatutIds
-} = require('./_restrictions')
+const permissionsCheck = require('./_permissions-check')
+
+const { restrictedDomaineIds, restrictedStatutIds } = require('./_restrictions')
 
 const {
   typesGet,
   domainesGet,
-  statutsGet
+  statutsGet,
+  demarchesTypesGet
 } = require('../../database/queries/metas')
 
 const check = (elements, restrictedList) =>
@@ -17,16 +17,22 @@ const resolvers = {
     const types = await typesGet()
     let domaines = await domainesGet()
     let statuts = await statutsGet()
+    let demarchesTypes
 
     if (!context.user) {
       domaines = check(domaines, restrictedDomaineIds)
       statuts = check(statuts, restrictedStatutIds)
     }
 
+    if (permissionsCheck(context.user, ['super', 'admin'])) {
+      demarchesTypes = demarchesTypesGet()
+    }
+
     return {
       types,
       domaines,
-      statuts
+      statuts,
+      demarchesTypes
     }
   }
 }
