@@ -34,7 +34,7 @@
     "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser"
   },
   "dependencies": {
-    "@sentry/node": "^4.5.2",
+    "@sentry/node": "^4.5.3",
     "bcrypt": "^3.0.3",
     "chalk": "^2.4.2",
     "compression": "^1.7.3",
