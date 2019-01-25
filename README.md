@@ -159,7 +159,7 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 
 ## PostgreSQL
 
-![camino database schema](docs/db/camino-db.png)
+![camino database schema](manual/db/camino-db.png)
 
 ---
 
