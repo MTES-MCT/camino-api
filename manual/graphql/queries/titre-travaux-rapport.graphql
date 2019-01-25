@@ -1,0 +1,12 @@
+mutation TitreTravauxRapport($rapport: InputTitreTravauxRapport!) {
+  titreTravauxRapportAjouter(rapport: $rapport) {
+    ...titreTravauxRapport
+  }
+}
+
+fragment titreTravauxRapport on TitreTravauxRapport {
+  id
+  titreId
+  date
+  contenu
+}

@@ -1,0 +1,32 @@
+query Utilisateurs(
+  $administrationIds: [ID!]
+  $entrepriseIds: [ID!]
+  $noms: [String!]
+) {
+  utilisateurs(
+    administrationIds: $administrationIds
+    entrepriseIds: $entrepriseIds
+    noms: $noms
+  ) {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id
+  nom
+  email
+  prenom
+  administration {
+    id
+    nom
+  }
+  entreprise {
+    id
+    nom
+  }
+  permission {
+    id
+    nom
+  }
+}

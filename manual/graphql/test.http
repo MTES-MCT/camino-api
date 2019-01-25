@@ -1,0 +1,22 @@
+# HTTP request test
+# Work in Visual Studio Code with https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+###
+# Liste de titres
+POST http://localhost:4000/ HTTP/1.1
+content-type: application/json
+
+{
+	"query": "query Titres($typeIds: [TypeId!], $domaineIds: [DomaineId!], $statutIds: [StatutId!], $substances: [String!], $noms: [String!]) {metas { ...meta }, titres( typeIds: $typeIds, domaineIds: $domaineIds, statutIds: $statutIds, substances: $substances, noms: $noms) { ...titre }} fragment meta on Metas {types { id, nom }, domaines { id, nom }, statuts { id, nom, couleur }} fragment titre on Titre { id, nom, type { id, nom }, domaine { id, nom }, statut { id, nom, couleur }, volume, surface, volumeUnite, substances { ...substance }, administrations { ...administration }, titulaires { ...entreprise }, amodiataires { ...entreprise }, geojsonMultiPolygon { ...geojsonMultiPolygon }} fragment administration on Administration { id, nom, service, adresse1, adresse2, codePostal, ville, cedex, url, telephone, email, utilisateurs { ...utilisateur }} fragment entreprise on Entreprise { id, nom, raisonSociale, paysId, legalSiren, legalEtranger, legalForme, voieNumero, voieType, voieNom, adresseComplement, codePostal, ville, cedex, url, telephone, email, utilisateurs { ...utilisateur }} fragment utilisateur on Utilisateur { id, email, nom, prenom, telephoneMobile, telephoneFixe,permission { ...permission }} fragment permission on Permission { id, nom} fragment geojsonMultiPolygon on GeojsonMultiPolygon {type, geometry { type, coordinates }} fragment substance on TitreSubstance { id, nom, connexe, gerep, description, legales { id, nom, description, domaine { id, nom}, code { id, nom, description, lien} }}",
+	"variables": "{ \"typeIds\": [\"apx\", \"arc\", \"arg\", \"axm\", \"cxx\", \"prh\", \"prx\", \"pxc\", \"pxg\", \"pxh\", \"pxm\"], \"domaineIds\": [\"c\", \"f\", \"g\", \"h\", \"m\", \"r\", \"s\", \"w\"], \"statutIds\": [\"dmc\", \"dmi\", \"ech\", \"ind\", \"mod\", \"val\"], \"substances\": null, \"noms\": null, \"entreprises\": null }"
+	}
+
+
+###
+# Liste de substances
+POST http://localhost:4000/ HTTP/1.1
+content-type: application/json
+
+{
+	"query": "query Substances { substances { ...substance } } fragment substance on Substance { id, nom, symbole, gerep, description, legales { id,nom,description,domaine { id, nom },code {id,nom,description,lien } }}"
+}

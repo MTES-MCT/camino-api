@@ -1,0 +1,45 @@
+query Entreprise($id: String!) {
+  entreprise(id: $id) {
+    ...entreprise
+  }
+}
+
+fragment entreprise on Entreprise {
+  id
+  nom
+  raisonSociale
+  paysId
+  legalSiren
+  legalEtranger
+  legalForme
+  voieNumero
+  voieType
+  voieNom
+  adresseComplement
+  codePostal
+  ville
+  cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id
+  email
+  nom
+  prenom
+  telephoneMobile
+  telephoneFixe
+  permission {
+    ...permission
+  }
+}
+
+fragment permission on Permission {
+  id
+  nom
+}
