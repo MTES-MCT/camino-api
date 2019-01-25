@@ -1,0 +1,145 @@
+query Titres(
+  $typeIds: [TypeId!]
+  $domaineIds: [DomaineId!]
+  $statutIds: [StatutId!]
+  $substances: [String!]
+  $noms: [String!]
+  $entreprises: [String!]
+  $references: [String!]
+) {
+  titres(
+    typeIds: $typeIds
+    domaineIds: $domaineIds
+    statutIds: $statutIds
+    substances: $substances
+    noms: $noms
+    entreprises: $entreprises
+    references: $references
+  ) {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  id
+  nom
+  type {
+    id
+    nom
+  }
+  domaine {
+    id
+    nom
+  }
+  statut {
+    id
+    nom
+    couleur
+  }
+  volume
+  surface
+  volumeUnite
+  substances {
+    ...substance
+  }
+  administrations {
+    ...administration
+  }
+  titulaires {
+    ...entreprise
+  }
+  amodiataires {
+    ...entreprise
+  }
+  geojsonMultiPolygon {
+    ...geojsonMultiPolygon
+  }
+}
+
+fragment administration on Administration {
+  id
+  nom
+  service
+  adresse1
+  adresse2
+  codePostal
+  ville
+  cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment entreprise on Entreprise {
+  id
+  nom
+  raisonSociale
+  paysId
+  legalSiren
+  legalEtranger
+  legalForme
+  voieNumero
+  voieType
+  voieNom
+  adresseComplement
+  codePostal
+  ville
+  cedex
+  url
+  telephone
+  email
+  utilisateurs {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id
+  email
+  nom
+  prenom
+  telephoneMobile
+  telephoneFixe
+  permission {
+    ...permission
+  }
+}
+
+fragment permission on Permission {
+  id
+  nom
+}
+
+fragment geojsonMultiPolygon on GeojsonMultiPolygon {
+  type
+  geometry {
+    type
+    coordinates
+  }
+}
+
+fragment substance on TitreSubstance {
+  id
+  nom
+  connexe
+  gerep
+  description
+  legales {
+    id
+    nom
+    description
+    domaine {
+      id
+      nom
+    }
+    code {
+      id
+      nom
+      description
+      lien
+    }
+  }
+}

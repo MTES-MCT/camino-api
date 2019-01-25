@@ -1,0 +1,21 @@
+{
+  "typeIds": [
+    "apx",
+    "arc",
+    "arg",
+    "axm",
+    "cxx",
+    "prh",
+    "prx",
+    "pxc",
+    "pxg",
+    "pxh",
+    "pxm"
+  ],
+  "domaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
+  "statutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"],
+  "substances": null,
+  "noms": null,
+  "entreprises": null,
+  "references": null
+}

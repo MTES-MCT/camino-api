@@ -1,0 +1,30 @@
+mutation UtilisateurModifier($utilisateur: InputUtilisateur!) {
+  utilisateurModifier(utilisateur: $utilisateur) {
+    ...utilisateur
+  }
+}
+
+fragment utilisateur on Utilisateur {
+  id
+  email
+  nom
+  prenom
+  telephoneMobile
+  telephoneFixe
+  administration {
+    id
+    nom
+  }
+  entreprise {
+    id
+    nom
+  }
+  permission {
+    ...permission
+  }
+}
+
+fragment permission on Permission {
+  id
+  nom
+}
