@@ -6,6 +6,6 @@
 
 ## Usages
 
-- Les **agents publics** centralisent leurs contributions et bénéficient d’une vision partagée.
 - Les **entreprises** gagnent en visibilité sur leur business et cela simplifie leurs démarches.
 - Les **citoyens** accèdent simplement aux informations publiques.
+- Les **agents publics** centralisent leurs contributions et bénéficient d’une vision partagée.
