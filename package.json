@@ -130,7 +130,16 @@
     "destination": "./docs",
     "plugins": [
       {
-        "name": "esdoc-standard-plugin"
+        "name": "esdoc-standard-plugin",
+        "option": {
+          "manual": {
+            "index": "./manual/infos.md",
+            "asset": "./manual/asset",
+            "files": [
+              "./manual/docker.md"
+            ]
+          }
+        }
       },
       {
         "name": "esdoc-node"
@@ -139,16 +148,6 @@
         "name": "esdoc-ecmascript-proposal-plugin",
         "option": {
           "objectRestSpread": true
-        }
-      },
-      {
-        "name": "esdoc-integrate-manual-plugin",
-        "option": {
-          "index": "./manual/infos.md",
-          "asset": "./manual/asset",
-          "files": [
-            "./manual/docker.md"
-          ]
         }
       }
     ],

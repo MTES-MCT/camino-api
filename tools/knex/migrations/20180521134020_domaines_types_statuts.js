@@ -1,3 +1,7 @@
+/**
+ * création des tables 'metas' de la base de données
+ */
+
 exports.up = knex => {
   return knex.schema
     .createTable('domaines', table => {
