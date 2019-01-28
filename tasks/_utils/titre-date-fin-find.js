@@ -2,7 +2,7 @@ const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-dure
 
 /**
  * Trouve la date de fin d'un titre
- * @param {Array} titreDemarches la liste des démarches d'un titres
+ * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titres
  * @return {String} la date de fin du titre sous forme yyyy-mm-dd
  */
 
