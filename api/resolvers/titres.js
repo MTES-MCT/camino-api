@@ -132,6 +132,18 @@ const resolvers = {
     }
 
     if (!errors.length) {
+      // si l'id de l'étape ne correspond pas à son type
+      const etapeTypeIdSlug = etape.id.slice(-5, -2)
+      const etapeTypeId = etape.type.id
+      console.log(etapeTypeIdSlug, etapeTypeId)
+      if (etapeTypeIdSlug !== etapeTypeId) {
+        // mettre à jour l'id de l'étape et les ids de ses enfants
+        const etapeIdUpdated = etapeIdUpdate(etape)
+        console.log(etapeIdUpdated)
+        // supprimer l'ancienne étape et ses enfants
+        // ajouter la nouvelle étape et ses enfants
+      }
+
       const res = await titreEtapeUpsert(etape)
       await titreEtapeUpdateTasks(etape)
 
@@ -140,6 +152,21 @@ const resolvers = {
       throw new Error(errors.join(', '))
     }
   }
+}
+
+const etapeIdUpdate = etape => {
+  const props = [
+    'substances',
+    'points',
+    'titulaires',
+    'amodiataires',
+    'administrations',
+    'documents',
+    'communes',
+    'emprises'
+  ]
+
+  return etape
 }
 
 module.exports = resolvers
