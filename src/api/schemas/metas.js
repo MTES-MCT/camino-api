@@ -1,3 +1,4 @@
+module.exports = `
 """
 Meta-informations sur les titres miniers (types, domaines, statuts)
 """
@@ -320,3 +321,4 @@ input InputDomaine {
 input InputDemarcheTypeId {
   id: ID!
 }
+`

@@ -1,3 +1,4 @@
+module.exports = `
 """
 # Requêtes en lecture (_Query_)
 
@@ -118,3 +119,4 @@ type Mutation {
 scalar Json
 
 scalar Date
+`

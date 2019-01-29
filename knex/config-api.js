@@ -13,10 +13,10 @@ const knexConfig = {
   client: 'pg',
   connection,
   migrations: {
-    directory: './tools/knex/migrations'
+    directory: './knex/migrations'
   },
   seeds: {
-    directory: './tools/knex/seeds'
+    directory: './knex/seeds'
   },
   ...knexSnakeCaseMappers()
 }
