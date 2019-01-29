@@ -1,6 +1,6 @@
 {
   "name": "camino-api",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Camino api",
   "license": "AGPL-3.0-or-later",
   "repository": {
@@ -15,19 +15,19 @@
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "main": "index.js",
   "scripts": {
-    "import": "node ./tools/import/index.js",
-    "export": "node ./tools/export/index.js",
-    "export:users": "node ./tools/export/utilisateurs.js",
-    "export:rapports": "node ./tools/export/titres-travaux-rapports.js",
-    "migrate:rollback": "npx knex --knexfile=./tools/knex/config.js migrate:rollback",
-    "migrate:latest": "npx knex --knexfile=./tools/knex/config.js migrate:latest",
-    "seed:run": "npx npx knex --knexfile=./tools/knex/config.js seed:run",
+    "build": "cross-env NODE_ENV=production node build/webpack.prod.js",
+    "dev": "cross-env NODE_ENV=development node build/webpack.dev.js",
+    "import": "mkdir -p sources && node ./dist/import.js",
+    "export": "node ./dist/export.js",
+    "export:users": "node ./dist/export-users.js",
+    "export:rapports": "node ./dist/export-rapports.js",
+    "migrate:rollback": "npx knex --knexfile=./knex/config-cli.js migrate:rollback",
+    "migrate:latest": "npx knex --knexfile=./knex/config-cli.js migrate:latest",
+    "seed:run": "npx npx knex --knexfile=./knex/config-cli.js seed:run",
     "migrate": "npm run migrate:rollback && npm run migrate:latest && npm run seed:run",
-    "migrate-prog": "node ./tools/knex/index.js",
-    "daily": "node ./tasks/daily/index.js",
-    "start": "node ./index.js",
-    "dev": "nodemon ./index.js",
-    "user-add": "node ./tasks/utilisateur-add.js",
+    "migrate-prog": "node ./knex/index.js",
+    "daily": "node ./dist/daily.js",
+    "start": "npm run build && node ./dist/index.js",
     "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js",
     "test": "jest --verbose",
     "commit": "npx git-cz",
@@ -40,6 +40,7 @@
     "chalk": "^2.4.2",
     "compression": "^1.7.3",
     "cors": "^2.8.5",
+    "cross-env": "^5.2.0",
     "crypto-random-string": "^1.0.0",
     "dateformat": "^3.0.3",
     "decamelize": "^2.0.0",
@@ -60,7 +61,11 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "objection": "^1.5.3",
     "p-queue": "^3.0.0",
-    "pg": "^7.8.0"
+    "pg": "^7.8.0",
+    "rimraf": "^2.6.3",
+    "webpack": "^4.29.0",
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "commitizen": "^3.0.5",
@@ -71,18 +76,19 @@
     "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.12.1",
-    "eslint-config-prettier": "^3.6.0",
+    "eslint-config-prettier": "^4.0.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-compat": "^2.6.3",
-    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.1.3",
-    "eslint-plugin-jsdoc": "^4.0.1",
+    "eslint-plugin-jsdoc": "^4.1.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "jest": "^23.6.0",
+    "jest": "^24.0.0",
     "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9",
+    "nodemon-webpack-plugin": "^4.0.7",
     "standard-version": "^4.4.0"
   },
   "eslintConfig": {
@@ -126,7 +132,7 @@
     }
   },
   "esdoc": {
-    "source": "./",
+    "source": "./src",
     "destination": "./docs",
     "plugins": [
       {
@@ -150,9 +156,6 @@
           "objectRestSpread": true
         }
       }
-    ],
-    "excludes": [
-      "(node_modules|docs)"
     ]
   }
 }
