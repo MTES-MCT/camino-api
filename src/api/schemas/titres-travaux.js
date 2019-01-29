@@ -1,3 +1,4 @@
+module.exports = `
 type TitreTravauxRapport {
   id: ID!
   titreId: ID!
@@ -12,4 +13,4 @@ input InputTitreTravauxRapport {
   date: Date!
   confirmation: Boolean
   contenu: Json
-}
+}`

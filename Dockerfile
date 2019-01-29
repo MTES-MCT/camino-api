@@ -12,12 +12,8 @@ RUN cd /tmp && npm install && cp -a /tmp/node_modules $dir/
 
 COPY .env ./
 COPY package*.json ./
-COPY index.js ./
-COPY config config/
-COPY api api/
-COPY database database/
-COPY tools tools/
-COPY tasks tasks/
+COPY build build/
+COPY src src/
+COPY knex knex/
 
 CMD ["npm", "start"]
-

@@ -1,3 +1,4 @@
+module.exports = `
 type Substance {
   id: ID!
   nom: String!
@@ -57,4 +58,4 @@ input InputSubstanceLegaleCodeId {
   nom: String
   description: String
   lien: String
-}
+}`

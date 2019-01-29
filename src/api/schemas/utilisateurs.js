@@ -1,3 +1,4 @@
+module.exports = `
 type Utilisateur {
   id: ID!
   email: String!
@@ -50,4 +51,4 @@ input InputUtilisateurAjouter {
 input InputPermission {
   id: ID!
   nom: String
-}
+}`

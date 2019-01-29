@@ -1,3 +1,4 @@
+module.exports = `
 type GeojsonMultiPolygons {
   type: FeatureCollectionType!
   features: [GeojsonMultiPolygon]
@@ -72,4 +73,4 @@ enum GeometryTypeMultipolygon {
 
 enum GeometryTypePoint {
   Point
-}
+}`

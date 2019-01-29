@@ -1,5 +1,5 @@
 const Knex = require('knex')
-const knexConfig = require('./knex')
+const knexConfig = require('./config-api')
 const knex = Knex(knexConfig)
 const chalk = require('chalk')
 
@@ -7,7 +7,7 @@ const run = new Promise((resolve, reject) => {
   resolve()
 })
 
-const exit = (text) => {
+const exit = text => {
   if (text instanceof Error) {
     console.error(chalk.red(text.stack))
   } else {

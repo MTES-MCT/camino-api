@@ -1,4 +1,4 @@
-const npmPackage = require('../../package.json')
+const npmPackage = require('../../../package.json')
 
 const resolvers = {
   version(variables, context, info) {

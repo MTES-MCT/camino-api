@@ -1,3 +1,4 @@
+module.exports = `
 "Titre minier"
 type Titre {
   """
@@ -285,4 +286,4 @@ input InputDocument {
   fichier: String
   jorf: String
   nor: String
-}
+}`

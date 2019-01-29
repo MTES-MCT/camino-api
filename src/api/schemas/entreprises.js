@@ -1,3 +1,4 @@
+module.exports = `
 type Entreprise {
   id: ID!
   nom: String
@@ -38,4 +39,4 @@ input InputEntreprise {
   telephone: String
   email: String
   utilisateurs: [InputUtilisateur]
-}
+}`

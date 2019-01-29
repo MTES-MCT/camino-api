@@ -1,3 +1,4 @@
+module.exports = `
 type Administration {
   id: ID!
   nom: String
@@ -25,4 +26,4 @@ input InputAdministration {
   codePostal: Int
   ville: String
   cedex: Int
-}
+}`

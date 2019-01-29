@@ -1,5 +1,7 @@
 node_modules/
 .env
 
-/manual/database/backups/**
-/tools/sources/**/*.json
+/backups
+/src/tools/sources/**/*.json
+/dist
+/sources
