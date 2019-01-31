@@ -5,7 +5,7 @@ const webpackConfigProd = {
   mode: 'production',
   devtool: false,
   entry: {
-    index: './src/index.js',
+    index: './src/index.ts',
     import: './src/tools/import/index.js',
     export: './src/tools/export/index.js',
     'export-users': './src/tools/export/utilisateurs.js',

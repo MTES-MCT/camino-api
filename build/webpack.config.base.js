@@ -7,5 +7,21 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, '../dist')
   },
-  externals: [nodeExternals()]
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
+  module: {
+    rules: [
+      { test: /\.tsx?$/, use: 'awesome-typescript-loader' },
+      {
+        test: /\.js$/,
+        use: 'source-map-loader',
+        enforce: 'pre'
+      }
+    ]
+  },
+  externals: [nodeExternals()],
+  node: {
+    __dirname: false
+  }
 }
