@@ -1,41 +1,31 @@
-const { Model } = require('objection')
-const PhasesStatuts = require('./phases-statuts')
+import { Model } from 'objection'
+import PhasesStatuts from './phases-statuts'
 
-class TitresPhases extends Model {
-  static get tableName() {
-    return 'titresPhases'
+export default class TitresPhases extends Model {
+  static tableName = 'titresPhases'
+
+  static jsonSchema = {
+    type: 'object',
+    required: ['titreDemarcheId', 'statutId'],
+
+    properties: {
+      titreDemarcheId: { type: 'string', maxLength: 128 },
+      statutId: { type: 'string', maxLength: 3 },
+      dateDebut: { type: 'date' },
+      dateFin: { type: 'date' }
+    }
   }
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['titreDemarcheId', 'statutId'],
-
-      properties: {
-        titreDemarcheId: { type: 'string', maxLength: 128 },
-        statutId: { type: 'string', maxLength: 3 },
-        dateDebut: { type: 'date' },
-        dateFin: { type: 'date' }
+  static relationMappings = {
+    statut: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: PhasesStatuts,
+      join: {
+        from: 'titresPhases.statutId',
+        to: 'phasesStatuts.id'
       }
     }
   }
 
-  static get relationMappings() {
-    return {
-      statut: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: PhasesStatuts,
-        join: {
-          from: 'titresPhases.statutId',
-          to: 'phasesStatuts.id'
-        }
-      }
-    }
-  }
-
-  static get idColumn() {
-    return 'titreDemarcheId'
-  }
+  static idColumn = 'titreDemarcheId'
 }
-
-module.exports = TitresPhases

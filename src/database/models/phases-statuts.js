@@ -1,22 +1,16 @@
-const { Model } = require('objection')
+import { Model } from 'objection'
 
-class PhasesStatuts extends Model {
-  static get tableName() {
-    return 'phasesStatuts'
-  }
+export default class PhasesStatuts extends Model {
+  static tableName = 'phasesStatuts'
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['id', 'nom', 'couleur'],
+  static jsonSchema = {
+    type: 'object',
+    required: ['id', 'nom', 'couleur'],
 
-      properties: {
-        id: { type: 'string', maxLength: 3 },
-        nom: { type: 'string' },
-        couleur: { type: 'string', maxLength: 8 }
-      }
+    properties: {
+      id: { type: 'string', maxLength: 3 },
+      nom: { type: 'string' },
+      couleur: { type: 'string', maxLength: 8 }
     }
   }
 }
-
-module.exports = PhasesStatuts

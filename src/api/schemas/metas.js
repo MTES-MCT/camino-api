@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 """
 Meta-informations sur les titres miniers (types, domaines, statuts)
 """

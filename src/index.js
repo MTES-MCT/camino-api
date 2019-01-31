@@ -8,25 +8,30 @@
  * You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-require('dotenv').config()
-require('./database/index')
-const chalk = require('chalk')
-const express = require('express')
-const cors = require('cors')
-const compression = require('compression')
-const graphqlHTTP = require('express-graphql')
-const expressJwt = require('express-jwt')
-const Sentry = require('@sentry/node')
+import 'dotenv/config'
+import './database/index'
+import chalk from 'chalk'
+import * as express from 'express'
+import * as cors from 'cors'
+import * as compression from 'compression'
+import * as graphqlHTTP from 'express-graphql'
+import * as expressJwt from 'express-jwt'
+import * as Sentry from '@sentry/node'
 
-const { port, url } = require('./config/index')
-const schema = require('./api/schemas')
-const rootValue = require('./api/resolvers')
+import { port, url } from './config/index'
+import schema from './api/schemas'
+import rootValue from './api/resolvers'
 
 const app = express()
 
 if (process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN
+    // integrations: [
+    //   new Sentry.Integrations.RewriteFrames({
+    //     root: global.__rootdir__
+    //   })
+    // ]
   })
 
   app.use(Sentry.Handlers.requestHandler())
@@ -41,10 +46,6 @@ app.use(
     credentialsRequired: false,
     secret: process.env.JWT_SECRET || 'jwtSecret should be declared in .env'
   })
-  // (err, req, res, next) => {
-  //   if (err.code === 'invalid_token') return next()
-  //   return next()
-  // }
 )
 
 // app.get('/', (req, res) => {

@@ -1,15 +1,7 @@
-const {
-  substanceGet,
-  substancesGet
-} = require('../../database/queries/substances')
+import { substanceGet, substancesGet } from '../../database/queries/substances'
 
-const resolvers = {
-  async substances(_, context) {
-    return substancesGet({})
-  },
-  async substance({ id }, context) {
-    return substanceGet(id)
-  }
-}
+const substance = async ({ id }, context) => substanceGet(id)
 
-module.exports = resolvers
+const substances = async (_, context) => substancesGet()
+
+export { substance, substances }

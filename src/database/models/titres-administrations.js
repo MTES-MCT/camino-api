@@ -1,39 +1,29 @@
-const { Model } = require('objection')
-const Administrations = require('./administrations')
+import { Model } from 'objection'
+import Administrations from './administrations'
 
-class TitresAdministrations extends Model {
-  static get tableName() {
-    return 'titresAdministrations'
+export default class TitresAdministrations extends Model {
+  static tableName = 'titresAdministrations'
+
+  static jsonSchema = {
+    type: 'object',
+    required: ['administrationId', 'titreEtapeId'],
+
+    properties: {
+      administrationId: { type: 'string', maxLength: 64 },
+      titreEtapeId: { type: 'string', maxLength: 128 }
+    }
   }
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['administrationId', 'titreEtapeId'],
-
-      properties: {
-        administrationId: { type: 'string', maxLength: 64 },
-        titreEtapeId: { type: 'string', maxLength: 128 }
+  static relationMappings = {
+    substance: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Administrations,
+      join: {
+        from: 'titresAdministrations.administrationId',
+        to: 'administrations.id'
       }
     }
   }
 
-  static get relationMappings() {
-    return {
-      substance: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Administrations,
-        join: {
-          from: 'titresAdministrations.administrationId',
-          to: 'administrations.id'
-        }
-      }
-    }
-  }
-
-  static get idColumn() {
-    return ['administrationId', 'titreEtapeId']
-  }
+  static idColumn = ['administrationId', 'titreEtapeId']
 }
-
-module.exports = TitresAdministrations

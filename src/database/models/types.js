@@ -1,50 +1,42 @@
-const { Model } = require('objection')
+import { Model } from 'objection'
 
-const DemarchesTypes = require('./demarches-types')
+import DemarchesTypes from './demarches-types'
 
-class Types extends Model {
-  static get tableName() {
-    return 'types'
-  }
+export default class Types extends Model {
+  static tableName = 'types'
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['id', 'nom'],
+  static jsonSchema = {
+    type: 'object',
+    required: ['id', 'nom'],
 
-      properties: {
-        id: { type: 'string', maxLength: 3 },
-        nom: { type: 'string' }
-      }
+    properties: {
+      id: { type: 'string', maxLength: 3 },
+      nom: { type: 'string' }
     }
   }
 
-  static get relationMappings() {
-    return {
-      types: {
-        relation: Model.ManyToManyRelation,
-        modelClass: DemarchesTypes,
-        join: {
-          from: 'types.id',
-          through: {
-            from: 'demarchesTypes__types.typeId',
-            to: 'demarchesTypes__types.demarcheTypeId',
-            extra: [
-              'dureeMax',
-              'acceptationImplicite',
-              'delaiImplicite',
-              'delaiRecours',
-              'legalRef',
-              'legalLien',
-              'dateDebut',
-              'dateFin'
-            ]
-          },
-          to: 'demarchesTypes.id'
-        }
+  static relationMappings = {
+    types: {
+      relation: Model.ManyToManyRelation,
+      modelClass: DemarchesTypes,
+      join: {
+        from: 'types.id',
+        through: {
+          from: 'demarchesTypes__types.typeId',
+          to: 'demarchesTypes__types.demarcheTypeId',
+          extra: [
+            'dureeMax',
+            'acceptationImplicite',
+            'delaiImplicite',
+            'delaiRecours',
+            'legalRef',
+            'legalLien',
+            'dateDebut',
+            'dateFin'
+          ]
+        },
+        to: 'demarchesTypes.id'
       }
     }
   }
 }
-
-module.exports = Types

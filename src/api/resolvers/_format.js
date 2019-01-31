@@ -1,7 +1,7 @@
-const {
+import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} = require('./_geojson')
+} from './_geojson'
 
 const titreFormat = t => {
   t.references =
@@ -39,4 +39,4 @@ const titreFormat = t => {
   return t
 }
 
-module.exports = { titreFormat }
+export { titreFormat }

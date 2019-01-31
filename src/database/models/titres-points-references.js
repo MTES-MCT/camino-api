@@ -1,29 +1,23 @@
-const { Model } = require('objection')
+import { Model } from 'objection'
 
-class TitresPointsReferences extends Model {
-  static get tableName() {
-    return 'titresPointsReferences'
-  }
+export default class TitresPointsReferences extends Model {
+  static tableName = 'titresPointsReferences'
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['titrePointId', 'id', 'systeme', 'coordonnees'],
+  static jsonSchema = {
+    type: 'object',
+    required: ['titrePointId', 'id', 'systeme', 'coordonnees'],
 
-      properties: {
-        id: { type: 'string' },
-        titrePointId: { type: 'string' },
-        systeme: { type: 'string' },
-        coordonnees: {
-          type: 'object',
-          properties: {
-            x: { type: 'float' },
-            y: { type: 'float' }
-          }
+    properties: {
+      id: { type: 'string' },
+      titrePointId: { type: 'string' },
+      systeme: { type: 'string' },
+      coordonnees: {
+        type: 'object',
+        properties: {
+          x: { type: 'float' },
+          y: { type: 'float' }
         }
       }
     }
   }
 }
-
-module.exports = TitresPointsReferences

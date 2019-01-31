@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 type Utilisateur {
   id: ID!
   email: String!

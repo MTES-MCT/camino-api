@@ -1,16 +1,11 @@
-const TitresPoints = require('../models/titres-points')
+import TitresPoints from '../models/titres-points'
 
-const queries = {
-  async titresPointsGet() {
-    return TitresPoints.query()
-  },
+const titresPointsGet = async () => TitresPoints.query()
 
-  async titrePointUpdate({ id, groupe, contour, point }) {
-    return TitresPoints.query()
-      .skipUndefined()
-      .findById(id)
-      .patch({ id, groupe, contour, point })
-  }
-}
+const titrePointUpdate = async ({ id, groupe, contour, point }) =>
+  TitresPoints.query()
+    .skipUndefined()
+    .findById(id)
+    .patch({ id, groupe, contour, point })
 
-module.exports = queries
+export { titresPointsGet, titrePointUpdate }

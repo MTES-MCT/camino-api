@@ -1,41 +1,31 @@
-const { Model } = require('objection')
-const Substances = require('./substances')
+import { Model } from 'objection'
+import Substances from './substances'
 
-class TitresSubstances extends Model {
-  static get tableName() {
-    return 'titresSubstances'
+export default class TitresSubstances extends Model {
+  static tableName = 'titresSubstances'
+
+  static jsonSchema = {
+    type: 'object',
+    required: ['substanceId', 'titreEtapeId'],
+
+    properties: {
+      substanceId: { type: 'string', maxLength: 4 },
+      titreEtapeId: { type: 'string', maxLength: 128 },
+      connexe: { type: 'boolean' },
+      ordre: { type: 'integer' }
+    }
   }
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['substanceId', 'titreEtapeId'],
-
-      properties: {
-        substanceId: { type: 'string', maxLength: 4 },
-        titreEtapeId: { type: 'string', maxLength: 128 },
-        connexe: { type: 'boolean' },
-        ordre: { type: 'integer' }
+  static relationMappings = {
+    substance: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Substances,
+      join: {
+        from: 'titresSubstances.substanceId',
+        to: 'substances.id'
       }
     }
   }
 
-  static get relationMappings() {
-    return {
-      substance: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Substances,
-        join: {
-          from: 'titresSubstances.substanceId',
-          to: 'substances.id'
-        }
-      }
-    }
-  }
-
-  static get idColumn() {
-    return ['substanceId', 'titreEtapeId']
-  }
+  static idColumn = ['substanceId', 'titreEtapeId']
 }
-
-module.exports = TitresSubstances

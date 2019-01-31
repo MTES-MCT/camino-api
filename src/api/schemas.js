@@ -1,18 +1,16 @@
-const { buildSchema } = require('graphql')
+import { buildSchema } from 'graphql'
 
-const fileImport = require('./_file-import.js')
+import index from './schemas/index'
+import metas from './schemas/metas'
+import titres from './schemas/titres'
+import substances from './schemas/substances'
+import geojson from './schemas/geojsons'
+import utilisateurs from './schemas/utilisateurs'
+import administrations from './schemas/administrations'
+import entreprises from './schemas/entreprises'
+import titresTravaux from './schemas/titres-travaux'
 
-const index = require('./schemas/index.js')
-const metas = require('./schemas/metas.js')
-const titres = require('./schemas/titres.js')
-const substances = require('./schemas/substances.js')
-const geojson = require('./schemas/geojsons.js')
-const utilisateurs = require('./schemas/utilisateurs.js')
-const administrations = require('./schemas/administrations.js')
-const entreprises = require('./schemas/entreprises.js')
-const titresTravaux = require('./schemas/titres-travaux.js')
-
-module.exports = buildSchema(`
+const schema = buildSchema(`
   ${index}
 
   ${metas}
@@ -31,3 +29,5 @@ module.exports = buildSchema(`
 
   ${titresTravaux}
 `)
+
+export default schema
