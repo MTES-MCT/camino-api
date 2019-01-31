@@ -1,0 +1,251 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 943,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 62,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 943,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 62,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 0,
+        "end": 942,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 61,
+            "column": 2
+          }
+        },
+        "declaration": {
+          "type": "TemplateLiteral",
+          "start": 15,
+          "end": 942,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 61,
+              "column": 2
+            }
+          },
+          "expressions": [],
+          "quasis": [
+            {
+              "type": "TemplateElement",
+              "start": 16,
+              "end": 941,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 61,
+                  "column": 1
+                }
+              },
+              "value": {
+                "raw": "\ntype Substance {\n  id: ID!\n  nom: String!\n  symbole: String\n  gerep: Int\n  description: String\n  legales: [SubstanceLegale!]!\n}\n\ntype TitreSubstance {\n  id: ID!\n  nom: String!\n  symbole: String\n  gerep: Int\n  description: String\n  legales: [SubstanceLegale!]!\n  connexe: Boolean\n  ordre: Int\n}\n\ntype SubstanceLegale {\n  id: ID!\n  nom: String!\n  domaine: Domaine\n  description: String\n  code: SubstanceLegaleCode!\n}\n\ntype SubstanceLegaleCode {\n  id: ID!\n  nom: String!\n  description: String\n  lien: String!\n}\n\ninput InputEtapeSubstanceId {\n  id: ID!\n  nom: String\n  symbole: String\n  connexe: String\n  gerep: Int\n  ordre: Int\n  description: String\n  legales: [InputSubstanceLegaleId]\n}\n\ninput InputSubstanceLegaleId {\n  id: ID!\n  nom: String\n  domaine: InputDomaineId\n  description: String\n  code: InputSubstanceLegaleCodeId\n}\n\ninput InputSubstanceLegaleCodeId {\n  id: ID!\n  nom: String\n  description: String\n  lien: String\n}",
+                "cooked": "\ntype Substance {\n  id: ID!\n  nom: String!\n  symbole: String\n  gerep: Int\n  description: String\n  legales: [SubstanceLegale!]!\n}\n\ntype TitreSubstance {\n  id: ID!\n  nom: String!\n  symbole: String\n  gerep: Int\n  description: String\n  legales: [SubstanceLegale!]!\n  connexe: Boolean\n  ordre: Int\n}\n\ntype SubstanceLegale {\n  id: ID!\n  nom: String!\n  domaine: Domaine\n  description: String\n  code: SubstanceLegaleCode!\n}\n\ntype SubstanceLegaleCode {\n  id: ID!\n  nom: String!\n  description: String\n  lien: String!\n}\n\ninput InputEtapeSubstanceId {\n  id: ID!\n  nom: String\n  symbole: String\n  connexe: String\n  gerep: Int\n  ordre: Int\n  description: String\n  legales: [InputSubstanceLegaleId]\n}\n\ninput InputSubstanceLegaleId {\n  id: ID!\n  nom: String\n  domaine: InputDomaineId\n  description: String\n  code: InputSubstanceLegaleCodeId\n}\n\ninput InputSubstanceLegaleCodeId {\n  id: ID!\n  nom: String\n  description: String\n  lien: String\n}"
+              },
+              "tail": true
+            }
+          ],
+          "leadingComments": [],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [],
+  "tokens": [
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 7,
+      "end": 14,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 15,
+      "end": 16,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "\ntype Substance {\n  id: ID!\n  nom: String!\n  symbole: String\n  gerep: Int\n  description: String\n  legales: [SubstanceLegale!]!\n}\n\ntype TitreSubstance {\n  id: ID!\n  nom: String!\n  symbole: String\n  gerep: Int\n  description: String\n  legales: [SubstanceLegale!]!\n  connexe: Boolean\n  ordre: Int\n}\n\ntype SubstanceLegale {\n  id: ID!\n  nom: String!\n  domaine: Domaine\n  description: String\n  code: SubstanceLegaleCode!\n}\n\ntype SubstanceLegaleCode {\n  id: ID!\n  nom: String!\n  description: String\n  lien: String!\n}\n\ninput InputEtapeSubstanceId {\n  id: ID!\n  nom: String\n  symbole: String\n  connexe: String\n  gerep: Int\n  ordre: Int\n  description: String\n  legales: [InputSubstanceLegaleId]\n}\n\ninput InputSubstanceLegaleId {\n  id: ID!\n  nom: String\n  domaine: InputDomaineId\n  description: String\n  code: InputSubstanceLegaleCodeId\n}\n\ninput InputSubstanceLegaleCodeId {\n  id: ID!\n  nom: String\n  description: String\n  lien: String\n}",
+      "start": 16,
+      "end": 941,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 61,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 941,
+      "end": 942,
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 1
+        },
+        "end": {
+          "line": 61,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 943,
+      "end": 943,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 0
+        },
+        "end": {
+          "line": 62,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

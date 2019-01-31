@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/api/schemas/titres.js | camino-api</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Camino api"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="camino-api"><meta property="twitter:description" content="Camino api"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/MTES-MCT/camino-api"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#api">api</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-schema">schema</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#api-resolvers">api/resolvers</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreFormat">titreFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-geojsonFeatureCollectionPoints">geojsonFeatureCollectionPoints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-geojsonFeatureMultiPolygon">geojsonFeatureMultiPolygon</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-geojsonMultiPolygonCoordinates">geojsonMultiPolygonCoordinates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-permissionsCheck">permissionsCheck</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-entreprise">entreprise</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-entreprises">entreprises</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-metas">metas</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-permission">permission</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-permissions">permissions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-substance">substance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-substances">substances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreTravauxRapportModifier">titreTravauxRapportModifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titre">titre</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreAjouter">titreAjouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreEtapeModifier">titreEtapeModifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreModifier">titreModifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreSupprimer">titreSupprimer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titres">titres</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateur">utilisateur</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurAjoutEmailEnvoyer">utilisateurAjoutEmailEnvoyer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurAjouter">utilisateurAjouter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurConnecter">utilisateurConnecter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurIdentifier">utilisateurIdentifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurModifier">utilisateurModifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurMotDePasseEmailEnvoyer">utilisateurMotDePasseEmailEnvoyer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurMotDePasseInitialiser">utilisateurMotDePasseInitialiser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurMotDePasseModifier">utilisateurMotDePasseModifier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurSupprimer">utilisateurSupprimer</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurs">utilisateurs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-version">version</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-restrictedDomaineIds">restrictedDomaineIds</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-restrictedStatutIds">restrictedStatutIds</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#config">config</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-debug">debug</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-port">port</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-url">url</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-knexConfig">knexConfig</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#database">database</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-knex">knex</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#database-models">database/models</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/administrations.js~Administrations.html">Administrations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/demarches-statuts.js~DemarchesStatuts.html">DemarchesStatuts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/demarches-types.js~DemarchesTypes.html">DemarchesTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/domaines.js~Domaines.html">Domaines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/emprises.js~Emprises.html">Emprises</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/entreprises.js~Entreprises.html">Entreprises</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/etapes-statuts.js~EtapesStatuts.html">EtapesStatuts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/etapes-types.js~EtapesTypes.html">EtapesTypes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/permissions.js~Permissions.html">Permissions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/phases-statuts.js~PhasesStatuts.html">PhasesStatuts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/statuts.js~Statuts.html">Statuts</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/substances-legales-codes.js~SubstancesLegalesCodes.html">SubstancesLegalesCodes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/substances-legales.js~SubstancesLegales.html">SubstancesLegales</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/substances.js~Substances.html">Substances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-administrations.js~TitresAdministrations.html">TitresAdministrations</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-amodiataires.js~TitresAmodiataires.html">TitresAmodiataires</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-demarches.js~TitresDemarches.html">TitresDemarches</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-documents.js~TitresDocuments.html">TitresDocuments</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-emprises.js~TitresEmprises.html">TitresEmprises</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-erreurs.js~TitresErreurs.html">TitresErreurs</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-etapes.js~TitresEtapes.html">TitresEtapes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-phases.js~TitresPhases.html">TitresPhases</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-points-references.js~TitresPointsReferences.html">TitresPointsReferences</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-points.js~TitresPoints.html">TitresPoints</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-substances.js~TitresSubstances.html">TitresSubstances</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-titulaires.js~TitresTitulaires.html">TitresTitulaires</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres-travaux-rapports.js~TitresTravauxRapports.html">TitresTravauxRapports</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/titres.js~Titres.html">Titres</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/types.js~Types.html">Types</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/database/models/utilisateurs.js~Utilisateurs.html">Utilisateurs</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#database-queries">database/queries</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-entrepriseGet">entrepriseGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-entreprisesGet">entreprisesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-demarchesTypesGet">demarchesTypesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-domainesGet">domainesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-statutsGet">statutsGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-typesGet">typesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-permissionGet">permissionGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-permissionsGet">permissionsGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-substanceGet">substanceGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-substancesGet">substancesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarcheGet">titreDemarcheGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarcheOrdreUpdate">titreDemarcheOrdreUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarcheStatutIdUpdate">titreDemarcheStatutIdUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresDemarchesGet">titresDemarchesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreEtapeGet">titreEtapeGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreEtapeUpdate">titreEtapeUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreEtapeUpsert">titreEtapeUpsert</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresEtapesGet">titresEtapesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titrePhaseDelete">titrePhaseDelete</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titrePhaseUpdate">titrePhaseUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresPhasesGet">titresPhasesGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titrePointUpdate">titrePointUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresPointsGet">titresPointsGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreTravauxRapportUpdate">titreTravauxRapportUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresTravauxRapportGet">titresTravauxRapportGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresTravauxRapportsGet">titresTravauxRapportsGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreAdd">titreAdd</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreGet">titreGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titrePropsUpdate">titrePropsUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreRemove">titreRemove</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreUpdate">titreUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresGet">titresGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurAdd">utilisateurAdd</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurByEmailGet">utilisateurByEmailGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurGet">utilisateurGet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurRemove">utilisateurRemove</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateurUpdate">utilisateurUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-utilisateursGet">utilisateursGet</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tasks">tasks</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-titreDemarches">titreDemarches</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-titreEtapes">titreEtapes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-titrePhases">titrePhases</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-titres">titres</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-titreDemarche">titreDemarche</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tasks--utils">tasks/_utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDateFinFind">titreDateFinFind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarcheDateFinAndDureeFind">titreDemarcheDateFinAndDureeFind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarcheOrdreFind">titreDemarcheOrdreFind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarchePhasesFilter">titreDemarchePhasesFilter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarcheStatutIdFind">titreDemarcheStatutIdFind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreDemarchesAscSort">titreDemarchesAscSort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreEtapesAscSort">titreEtapesAscSort</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreEtapesSortDesc">titreEtapesSortDesc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titrePhasesFind">titrePhasesFind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titrePropEtapeIdFind">titrePropEtapeIdFind</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreStatutIdFind">titreStatutIdFind</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tasks-daily">tasks/daily</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresDemarchesOrdreUpdate">titresDemarchesOrdreUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresDemarchesUpdate">titresDemarchesUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresEtapesOrdreUpdate">titresEtapesOrdreUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresPhasesUpdate">titresPhasesUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresPropsEtapeIdsUpdate">titresPropsEtapeIdsUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresStatutIdsUpdate">titresStatutIdsUpdate</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tasks-etape-update">tasks/etape-update</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-run">run</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresDemarchesUpdate">titresDemarchesUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresDemarchesOrdreUpdate">titresDemarchesOrdreUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresEtapesOrdreUpdate">titresEtapesOrdreUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresPhasesUpdate">titresPhasesUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titresPropsEtapeIdsUpdate">titresPropsEtapeIdsUpdate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-titreStatutUpdate">titreStatutUpdate</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tools-export">tools/export</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-definitions">definitions</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tools-export--utils">tools/export/_utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-dbProcess">dbProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-jsonToSpreadsheet">jsonToSpreadsheet</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-rowFormat">rowFormat</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-spreadsheetRowAdd">spreadsheetRowAdd</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-spreadsheetRowUpdate">spreadsheetRowUpdate</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tools-export-tables">tools/export/tables</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-tables">tables</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-tables">tables</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-utilisateursTables">utilisateursTables</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tools-import">tools/import</a><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-spreadSheets">spreadSheets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tools-import--utils">tools/import/_utils</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-_spreadsheettojson">_spreadsheettojson</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-filecreate">filecreate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-filePathCreate">filePathCreate</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#tools-mailer">tools/mailer</a><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emailsBatch">emailsBatch</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mailer">mailer</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/api/schemas/titres.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export default `
+&quot;Titre minier&quot;
+type Titre {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - du type en 3 lettres
+  - du slug du nom du titre
+  - de l&apos;ann&#xE9;e d&apos;octroi
+  &quot;&quot;&quot;
+  id: ID!
+  &quot;Le nom du titre&quot;
+  nom: String!
+  &quot;Le type du titre&quot;
+  type: Type!
+  &quot;Le domaine minier auquel se rattache le titre&quot;
+  domaine: Domaine!
+  &quot;Les r&#xE9;f&#xE9;rences m&#xE9;tier du titre&quot;
+  references: [Reference]
+  &quot;Le statut du titre&quot;
+  statut: Statut!
+  &quot;Les substances concern&#xE9;es par le titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  substances: [TitreSubstance]
+  &quot;Les coordonn&#xE9;es des points du p&#xE9;rim&#xE8;tre g&#xE9;ographique du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  points: [Point]
+  &quot;Le geojson du contour du p&#xE9;rim&#xE8;tre g&#xE9;ographique du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  geojsonMultiPolygon: GeojsonMultiPolygon
+  &quot;Le geojson de la liste de points du p&#xE9;rim&#xE8;tre g&#xE9;ographique du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  geojsonPoints: GeojsonPoints
+  &quot;Les titualires du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  titulaires: [Entreprise]
+  &quot;Les amodiataires du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  amodiataires: [Entreprise]
+  &quot;Les administrations en charge du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  administrations: [Administration]
+  &quot;Les d&#xE9;marches effectu&#xE9;es sur le titre&quot;
+  demarches: [Demarche]
+  &quot;La surface en Km&#xB2; du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  surface: Float
+  &quot;Le volume du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  volume: Float
+  &quot;L&apos;unit&#xE9; du volume du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  volumeUnite: String
+  &quot;Les rapports de travaux&quot;
+  travauxRapports: [TitreTravauxRapport]
+}
+
+&quot;R&#xE9;f&#xE9;rences m&#xE9;tier d&apos;un titre minier&quot;
+type Reference {
+  &quot;Le type est une chaine de caract&#xE8;re qui d&#xE9;fini le r&#xE9;f&#xE9;rentiel (par exemple: DEB, DGEC, etc.&quot;
+  type: String
+  &quot;La r&#xE9;f&#xE9;rence du titre dans le r&#xE9;f&#xE9;rentiel&quot;
+  valeur: String!
+}
+
+&quot;D&#xE9;marches effectu&#xE9;es sur un titre minier&quot;
+type Demarche {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - de l&apos;id du titre
+  - du type de la d&#xE9;marche
+  &quot;&quot;&quot;
+  id: ID!
+  &quot;Le type de la d&#xE9;marche compos&#xE9; de trois lettres&quot;
+  type: DemarcheType!
+  &quot;L&apos;ordre chronologique de la d&#xE9;marche&quot;
+  ordre: Int!
+  &quot;Le statut de la d&#xE9;marche&quot;
+  statut: DemarcheStatut!
+  &quot;La phase, si la d&#xE9;marche donne lieu &#xE0; une phase&quot;
+  phase: Phase
+  &quot;Les &#xE9;tapes effectu&#xE9;es sur la d&#xE9;marche&quot;
+  etapes: [Etape]
+}
+
+&quot;Phase d&apos;un titre minier&quot;
+type Phase {
+  &quot;Le statut d&apos;une phase&quot;
+  statut: PhaseStatut!
+  &quot;La date de d&#xE9;but d&apos;une phase&quot;
+  dateDebut: Date
+  &quot;La date de fin d&apos;une phase&quot;
+  dateFin: Date
+}
+
+&quot;&#xC9;tape d&apos;une d&#xE9;marche effectu&#xE9;e sur un titre minier&quot;
+type Etape {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - de l&apos;id de la d&#xE9;marche
+  - du type de l&apos;&#xE9;tape
+  &quot;&quot;&quot;
+  id: ID!
+  &quot;Le type de l&apos;&#xE9;tape&quot;
+  type: EtapeType!
+  &quot;Le statut de l&apos;&#xE9;tape&quot;
+  statut: EtapeStatut!
+  &quot;L&apos;ordre chronologique de l&apos;&#xE9;tape&quot;
+  ordre: Int!
+  &quot;La date de l&apos;&#xE9;tape&quot;
+  date: Date!
+  &quot;La dur&#xE9;e de la d&#xE9;marche&quot;
+  duree: Int
+  &quot;La date de d&#xE9;but de la d&#xE9;marche&quot;
+  dateDebut: Date
+  &quot;La date de fin de la d&#xE9;marche&quot;
+  dateFin: Date
+  &quot;La surface en Km&#xB2; du titre&quot;
+  surface: Float
+  &quot;Le volume du titre&quot;
+  volume: Float
+  &quot;L&apos;unit&#xE9; de volume du titre&quot;
+  volumeUnite: String
+  &quot;Les visas de l&apos;&#xE9;tape&quot;
+  visas: [String]
+  &quot;Le montant de l&apos;engagement financier du titulaire&quot;
+  engagement: Float
+  &quot;La devise de l&apos;engagement financier du titulaire&quot;
+  engagementDevise: String
+  &quot;L&apos;emprise g&#xE9;ographique du titre&quot;
+  emprises: [Emprise]
+  &quot;Les substances concern&#xE9;es par le titre&quot;
+  substances: [TitreSubstance]
+  &quot;Les coordonn&#xE9;es des points du p&#xE9;rim&#xE8;tre g&#xE9;ographique du titre&quot;
+  points: [Point]
+  &quot;Le geojson du contour du p&#xE9;rim&#xE8;tre g&#xE9;ographique du titre&quot;
+  geojsonMultiPolygon: GeojsonMultiPolygon
+  &quot;Le geojson de la liste de points du p&#xE9;rim&#xE8;tre g&#xE9;ographique du titre&quot;
+  geojsonPoints: GeojsonPoints
+  &quot;Les titualires du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  titulaires: [Entreprise]
+  &quot;Les amodiataires du titre dans son dernier &#xE9;tat de validit&#xE9;&quot;
+  amodiataires: [Entreprise]
+  &quot;Les administrations en charge du titre&quot;
+  administrations: [Administration]
+  &quot;Les documents relatifs &#xE0; l&apos;&#xE9;tape&quot;
+  documents: [Document]
+  sourceIndisponible: Boolean
+}
+
+&quot;Document attach&#xE9; &#xE0; une &#xE9;tape de d&#xE9;marche&quot;
+type Document {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - de l&apos;id de l&apos;&#xE9;tape
+  - du type du document
+  &quot;&quot;&quot;
+  id: ID!
+  &quot;Le nom du document&quot;
+  nom: String!
+  &quot;Le type de document (arr&#xEA;t&#xE9;, d&#xE9;cret, etc.)&quot;
+  type: String
+  &quot;L&apos;url du document&quot;
+  url: String
+  &quot;L&apos;uri du document&quot;
+  uri: String
+  &quot;Le type de fichier&quot;
+  fichier: String
+  &quot;La r&#xE9;f&#xE9;rence au Journal Officiel&quot;
+  jorf: String
+  &quot;La r&#xE9;f&#xE9;rence Nor&quot;
+  nor: String
+}
+
+&quot;Point du p&#xE9;rim&#xE8;tre g&#xE9;ographique d&apos;un titre (syst&#xE8;me g&#xE9;od&#xE9;sique WGS 84)&quot;
+type Point {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - de l&apos;id de l&apos;&#xE9;tape
+  - du groupe (lettre &apos;g&apos; suivie de 2 chiffres)
+  - du contour (lettre &apos;c&apos; suivie de 2 chiffres)
+  - du point (lettre &apos;p&apos; suivie de 3 chiffres)
+  &quot;&quot;&quot;
+  id: ID!
+  &quot;Les coordonn&#xE9;es du point dans le syst&#xE8;me WGS 84&quot;
+  coordonnees: Coordonnees
+  &quot;Le groupe de contours auquel appartient le point compos&#xE9; d&apos;un nombre entier commen&#xE7;ant &#xE0; 1&quot;
+  groupe: Int
+  &quot;Le contour auquel appartient le point compos&#xE9; d&apos;un nombre entier commen&#xE7;ant &#xE0; 1. Le premier contour forme le p&#xE9;rim&#xE8;tre. Les contours suivant forment des trous dans ce p&#xE9;rim&#xE8;tre.&quot;
+  contour: Int
+  &quot;Le num&#xE9;ro du point dans le contour&quot;
+  point: Int
+  &quot;Le nom du point tel que stipul&#xE9; dans les documents officiels&quot;
+  nom: String
+  &quot;La description du point telle que stipul&#xE9;e dans les documents officiels&quot;
+  description: String
+  &quot;Si le point appartient &#xE0; un p&#xE9;rim&#xE8;tre de s&#xE9;curit&#xE9;&quot;
+  securite: Boolean
+  &quot;Liste d&apos;id de r&#xE9;f&#xE9;rence de points&quot;
+  references: [PointReference]
+}
+
+&quot;Point du p&#xE9;rim&#xE8;tre g&#xE9;ographique d&apos;un titre dans un syst&#xE8;me autre que WGS 84&quot;
+type PointReference {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - de l&apos;id du point
+  - du syst&#xE8;me
+  &quot;&quot;&quot;
+  id: ID!
+  &quot;Le code du syst&#xE8;me de r&#xE9;f&#xE9;rence g&#xE9;od&#xE9;sique&quot;
+  systeme: String
+  &quot;Les coordonn&#xE9;es du point dans le syst&#xE8;me g&#xE9;od&#xE9;sique&quot;
+  coordonnees: Coordonnees
+}
+
+&quot;Paire de coordonn&#xE9;es g&#xE9;ographiques&quot;
+type Coordonnees {
+  &quot;La valeur des coordonn&#xE9;es en X sous forme d&apos;un nombre d&#xE9;cimal&quot;
+  x: Float
+  &quot;La valeur des coordonn&#xE9;es en Y sous forme d&apos;un nombre d&#xE9;cimal&quot;
+  y: Float
+}
+
+&quot;Titre minier&quot;
+input InputTitre {
+  &quot;&quot;&quot;
+  L&apos;__id__ compos&#xE9;e de la concat&#xE9;nation:
+  - du type en 3 lettres
+  - du slug du nom du titre
+  - de l&apos;ann&#xE9;e d&apos;octroi
+  &quot;&quot;&quot;
+  id: ID!
+  nom: String!
+  type: InputType!
+  domaine: InputDomaine!
+  references: [InputReference]
+}
+
+input InputReference {
+  type: String
+}
+
+input InputEtape {
+  id: ID!
+  type: InputEtapeTypeId!
+  statut: InputEtapeStatutId!
+  ordre: Int!
+  date: Date!
+  duree: Int
+  dateDebut: Date
+  dateFin: Date
+  surface: Float
+  volume: Float
+  volumeUnite: String
+  visas: [String]
+  engagement: Float
+  engagementDevise: String
+  emprises: [InputEmpriseId]
+  substances: [InputEtapeSubstanceId]
+  points: [InputPoint]
+  titulaires: [InputEntreprise]
+  amodiataires: [InputEntreprise]
+  administrations: [InputAdministration]
+  sourceIndisponible: Boolean
+}
+
+input InputPoint {
+  id: ID!
+  coordonnees: InputCoordonnees
+  groupe: Int
+  contour: Int
+  point: Int
+  nom: String
+  description: String
+  securite: Boolean
+  references: [InputPointReference]
+}
+
+input InputPointReference {
+  id: ID!
+  systeme: String
+  coordonnees: InputCoordonnees
+}
+
+input InputCoordonnees {
+  x: Float
+  y: Float
+}
+
+input InputDocument {
+  id: ID!
+  nom: String!
+  type: String
+  url: String
+  uri: String
+  fichier: String
+  jorf: String
+  nor: String
+}`
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 951,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 55,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 951,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 55,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 0,
+        "end": 950,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 54,
+            "column": 2
+          }
+        },
+        "declaration": {
+          "type": "TemplateLiteral",
+          "start": 15,
+          "end": 950,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 54,
+              "column": 2
+            }
+          },
+          "expressions": [],
+          "quasis": [
+            {
+              "type": "TemplateElement",
+              "start": 16,
+              "end": 949,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 54,
+                  "column": 1
+                }
+              },
+              "value": {
+                "raw": "\ntype Utilisateur {\n  id: ID!\n  email: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  administration: Administration\n  entreprise: Entreprise\n  permission: Permission\n  preferences: Json\n}\n\ntype UtilisateurToken {\n  utilisateur: Utilisateur\n  token: String\n}\n\ntype Permission {\n  id: ID!\n  nom: String\n}\n\ninput InputUtilisateur {\n  id: ID!\n  email: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  permission: InputPermission\n  entreprise: [InputEntreprise]\n  administration: [InputAdministration]\n  preferences: Json\n}\n\ninput InputUtilisateurAjouter {\n  email: String!\n  motDePasse: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  permission: InputPermission\n  entreprise: [InputEntreprise]\n  administration: [InputAdministration]\n  preferences: Json\n}\n\ninput InputPermission {\n  id: ID!\n  nom: String\n}",
+                "cooked": "\ntype Utilisateur {\n  id: ID!\n  email: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  administration: Administration\n  entreprise: Entreprise\n  permission: Permission\n  preferences: Json\n}\n\ntype UtilisateurToken {\n  utilisateur: Utilisateur\n  token: String\n}\n\ntype Permission {\n  id: ID!\n  nom: String\n}\n\ninput InputUtilisateur {\n  id: ID!\n  email: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  permission: InputPermission\n  entreprise: [InputEntreprise]\n  administration: [InputAdministration]\n  preferences: Json\n}\n\ninput InputUtilisateurAjouter {\n  email: String!\n  motDePasse: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  permission: InputPermission\n  entreprise: [InputEntreprise]\n  administration: [InputAdministration]\n  preferences: Json\n}\n\ninput InputPermission {\n  id: ID!\n  nom: String\n}"
+              },
+              "tail": true
+            }
+          ],
+          "leadingComments": [],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [],
+  "tokens": [
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 7,
+      "end": 14,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 15,
+      "end": 16,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "\ntype Utilisateur {\n  id: ID!\n  email: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  administration: Administration\n  entreprise: Entreprise\n  permission: Permission\n  preferences: Json\n}\n\ntype UtilisateurToken {\n  utilisateur: Utilisateur\n  token: String\n}\n\ntype Permission {\n  id: ID!\n  nom: String\n}\n\ninput InputUtilisateur {\n  id: ID!\n  email: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  permission: InputPermission\n  entreprise: [InputEntreprise]\n  administration: [InputAdministration]\n  preferences: Json\n}\n\ninput InputUtilisateurAjouter {\n  email: String!\n  motDePasse: String!\n  nom: String\n  prenom: String\n  telephoneMobile: String\n  telephoneFixe: String\n  permission: InputPermission\n  entreprise: [InputEntreprise]\n  administration: [InputAdministration]\n  preferences: Json\n}\n\ninput InputPermission {\n  id: ID!\n  nom: String\n}",
+      "start": 16,
+      "end": 949,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 54,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 949,
+      "end": 950,
+      "loc": {
+        "start": {
+          "line": 54,
+          "column": 1
+        },
+        "end": {
+          "line": 54,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 951,
+      "end": 951,
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 0
+        },
+        "end": {
+          "line": 55,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

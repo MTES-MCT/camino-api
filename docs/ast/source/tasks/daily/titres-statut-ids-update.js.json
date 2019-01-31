@@ -1,0 +1,4279 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 533,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 18,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 533,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 18,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 47,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 47
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 28,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 28
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 28,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 28
+                },
+                "identifierName": "titreStatutIdUpdate"
+              },
+              "name": "titreStatutIdUpdate"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 28,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 28
+                },
+                "identifierName": "titreStatutIdUpdate"
+              },
+              "name": "titreStatutIdUpdate"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 36,
+          "end": 47,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 36
+            },
+            "end": {
+              "line": 1,
+              "column": 47
+            }
+          },
+          "extra": {
+            "rawValue": "../titres",
+            "raw": "'../titres'"
+          },
+          "value": "../titres"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 49,
+        "end": 111,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 62
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportDefaultSpecifier",
+            "start": 56,
+            "end": 73,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 7
+              },
+              "end": {
+                "line": 3,
+                "column": 24
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 56,
+              "end": 73,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 7
+                },
+                "end": {
+                  "line": 3,
+                  "column": 24
+                },
+                "identifierName": "titreStatutIdFind"
+              },
+              "name": "titreStatutIdFind"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 79,
+          "end": 111,
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 30
+            },
+            "end": {
+              "line": 3,
+              "column": 62
+            }
+          },
+          "extra": {
+            "rawValue": "../_utils/titre-statut-id-find",
+            "raw": "'../_utils/titre-statut-id-find'"
+          },
+          "value": "../_utils/titre-statut-id-find"
+        }
+      },
+      {
+        "type": "Identifier",
+        "start": 113,
+        "end": 495,
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 16,
+            "column": 1
+          }
+        },
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 119,
+            "end": 495,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 6
+              },
+              "end": {
+                "line": 16,
+                "column": 1
+              }
+            },
+            "id": {
+              "type": "Identifier",
+              "start": 119,
+              "end": 140,
+              "loc": {
+                "start": {
+                  "line": 5,
+                  "column": 6
+                },
+                "end": {
+                  "line": 5,
+                  "column": 27
+                },
+                "identifierName": "titresStatutIdsUpdate"
+              },
+              "name": "titresStatutIdsUpdate"
+            },
+            "init": {
+              "type": "ArrowFunctionExpression",
+              "start": 143,
+              "end": 495,
+              "loc": {
+                "start": {
+                  "line": 5,
+                  "column": 30
+                },
+                "end": {
+                  "line": 16,
+                  "column": 1
+                }
+              },
+              "id": null,
+              "generator": false,
+              "expression": false,
+              "async": true,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 149,
+                  "end": 155,
+                  "loc": {
+                    "start": {
+                      "line": 5,
+                      "column": 36
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 42
+                    },
+                    "identifierName": "titres"
+                  },
+                  "name": "titres"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 159,
+                "end": 495,
+                "loc": {
+                  "start": {
+                    "line": 5,
+                    "column": 46
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 1
+                  }
+                },
+                "body": [
+                  {
+                    "type": "VariableDeclaration",
+                    "start": 163,
+                    "end": 389,
+                    "loc": {
+                      "start": {
+                        "line": 6,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 11,
+                        "column": 8
+                      }
+                    },
+                    "declarations": [
+                      {
+                        "type": "VariableDeclarator",
+                        "start": 169,
+                        "end": 389,
+                        "loc": {
+                          "start": {
+                            "line": 6,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 11,
+                            "column": 8
+                          }
+                        },
+                        "id": {
+                          "type": "Identifier",
+                          "start": 169,
+                          "end": 182,
+                          "loc": {
+                            "start": {
+                              "line": 6,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 6,
+                              "column": 21
+                            },
+                            "identifierName": "titresUpdated"
+                          },
+                          "name": "titresUpdated"
+                        },
+                        "init": {
+                          "type": "CallExpression",
+                          "start": 185,
+                          "end": 389,
+                          "loc": {
+                            "start": {
+                              "line": 6,
+                              "column": 24
+                            },
+                            "end": {
+                              "line": 11,
+                              "column": 8
+                            }
+                          },
+                          "callee": {
+                            "type": "MemberExpression",
+                            "start": 185,
+                            "end": 198,
+                            "loc": {
+                              "start": {
+                                "line": 6,
+                                "column": 24
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 37
+                              }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 185,
+                              "end": 191,
+                              "loc": {
+                                "start": {
+                                  "line": 6,
+                                  "column": 24
+                                },
+                                "end": {
+                                  "line": 6,
+                                  "column": 30
+                                },
+                                "identifierName": "titres"
+                              },
+                              "name": "titres"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 192,
+                              "end": 198,
+                              "loc": {
+                                "start": {
+                                  "line": 6,
+                                  "column": 31
+                                },
+                                "end": {
+                                  "line": 6,
+                                  "column": 37
+                                },
+                                "identifierName": "reduce"
+                              },
+                              "name": "reduce"
+                            },
+                            "computed": false
+                          },
+                          "arguments": [
+                            {
+                              "type": "ArrowFunctionExpression",
+                              "start": 199,
+                              "end": 384,
+                              "loc": {
+                                "start": {
+                                  "line": 6,
+                                  "column": 38
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 3
+                                }
+                              },
+                              "id": null,
+                              "generator": false,
+                              "expression": false,
+                              "async": false,
+                              "params": [
+                                {
+                                  "type": "Identifier",
+                                  "start": 200,
+                                  "end": 203,
+                                  "loc": {
+                                    "start": {
+                                      "line": 6,
+                                      "column": 39
+                                    },
+                                    "end": {
+                                      "line": 6,
+                                      "column": 42
+                                    },
+                                    "identifierName": "arr"
+                                  },
+                                  "name": "arr"
+                                },
+                                {
+                                  "type": "Identifier",
+                                  "start": 205,
+                                  "end": 210,
+                                  "loc": {
+                                    "start": {
+                                      "line": 6,
+                                      "column": 44
+                                    },
+                                    "end": {
+                                      "line": 6,
+                                      "column": 49
+                                    },
+                                    "identifierName": "titre"
+                                  },
+                                  "name": "titre"
+                                }
+                              ],
+                              "body": {
+                                "type": "BlockStatement",
+                                "start": 215,
+                                "end": 384,
+                                "loc": {
+                                  "start": {
+                                    "line": 6,
+                                    "column": 54
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 3
+                                  }
+                                },
+                                "body": [
+                                  {
+                                    "type": "VariableDeclaration",
+                                    "start": 221,
+                                    "end": 262,
+                                    "loc": {
+                                      "start": {
+                                        "line": 7,
+                                        "column": 4
+                                      },
+                                      "end": {
+                                        "line": 7,
+                                        "column": 45
+                                      }
+                                    },
+                                    "declarations": [
+                                      {
+                                        "type": "VariableDeclarator",
+                                        "start": 227,
+                                        "end": 262,
+                                        "loc": {
+                                          "start": {
+                                            "line": 7,
+                                            "column": 10
+                                          },
+                                          "end": {
+                                            "line": 7,
+                                            "column": 45
+                                          }
+                                        },
+                                        "id": {
+                                          "type": "Identifier",
+                                          "start": 227,
+                                          "end": 235,
+                                          "loc": {
+                                            "start": {
+                                              "line": 7,
+                                              "column": 10
+                                            },
+                                            "end": {
+                                              "line": 7,
+                                              "column": 18
+                                            },
+                                            "identifierName": "statutId"
+                                          },
+                                          "name": "statutId"
+                                        },
+                                        "init": {
+                                          "type": "CallExpression",
+                                          "start": 238,
+                                          "end": 262,
+                                          "loc": {
+                                            "start": {
+                                              "line": 7,
+                                              "column": 21
+                                            },
+                                            "end": {
+                                              "line": 7,
+                                              "column": 45
+                                            }
+                                          },
+                                          "callee": {
+                                            "type": "Identifier",
+                                            "start": 238,
+                                            "end": 255,
+                                            "loc": {
+                                              "start": {
+                                                "line": 7,
+                                                "column": 21
+                                              },
+                                              "end": {
+                                                "line": 7,
+                                                "column": 38
+                                              },
+                                              "identifierName": "titreStatutIdFind"
+                                            },
+                                            "name": "titreStatutIdFind"
+                                          },
+                                          "arguments": [
+                                            {
+                                              "type": "Identifier",
+                                              "start": 256,
+                                              "end": 261,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 7,
+                                                  "column": 39
+                                                },
+                                                "end": {
+                                                  "line": 7,
+                                                  "column": 44
+                                                },
+                                                "identifierName": "titre"
+                                              },
+                                              "name": "titre"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "kind": "const"
+                                  },
+                                  {
+                                    "type": "VariableDeclaration",
+                                    "start": 267,
+                                    "end": 324,
+                                    "loc": {
+                                      "start": {
+                                        "line": 8,
+                                        "column": 4
+                                      },
+                                      "end": {
+                                        "line": 8,
+                                        "column": 61
+                                      }
+                                    },
+                                    "declarations": [
+                                      {
+                                        "type": "VariableDeclarator",
+                                        "start": 273,
+                                        "end": 324,
+                                        "loc": {
+                                          "start": {
+                                            "line": 8,
+                                            "column": 10
+                                          },
+                                          "end": {
+                                            "line": 8,
+                                            "column": 61
+                                          }
+                                        },
+                                        "id": {
+                                          "type": "Identifier",
+                                          "start": 273,
+                                          "end": 285,
+                                          "loc": {
+                                            "start": {
+                                              "line": 8,
+                                              "column": 10
+                                            },
+                                            "end": {
+                                              "line": 8,
+                                              "column": 22
+                                            },
+                                            "identifierName": "titreUpdated"
+                                          },
+                                          "name": "titreUpdated"
+                                        },
+                                        "init": {
+                                          "type": "CallExpression",
+                                          "start": 288,
+                                          "end": 324,
+                                          "loc": {
+                                            "start": {
+                                              "line": 8,
+                                              "column": 25
+                                            },
+                                            "end": {
+                                              "line": 8,
+                                              "column": 61
+                                            }
+                                          },
+                                          "callee": {
+                                            "type": "Identifier",
+                                            "start": 288,
+                                            "end": 307,
+                                            "loc": {
+                                              "start": {
+                                                "line": 8,
+                                                "column": 25
+                                              },
+                                              "end": {
+                                                "line": 8,
+                                                "column": 44
+                                              },
+                                              "identifierName": "titreStatutIdUpdate"
+                                            },
+                                            "name": "titreStatutIdUpdate"
+                                          },
+                                          "arguments": [
+                                            {
+                                              "type": "Identifier",
+                                              "start": 308,
+                                              "end": 313,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 8,
+                                                  "column": 45
+                                                },
+                                                "end": {
+                                                  "line": 8,
+                                                  "column": 50
+                                                },
+                                                "identifierName": "titre"
+                                              },
+                                              "name": "titre"
+                                            },
+                                            {
+                                              "type": "Identifier",
+                                              "start": 315,
+                                              "end": 323,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 8,
+                                                  "column": 52
+                                                },
+                                                "end": {
+                                                  "line": 8,
+                                                  "column": 60
+                                                },
+                                                "identifierName": "statutId"
+                                              },
+                                              "name": "statutId"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    ],
+                                    "kind": "const"
+                                  },
+                                  {
+                                    "type": "ReturnStatement",
+                                    "start": 330,
+                                    "end": 380,
+                                    "loc": {
+                                      "start": {
+                                        "line": 10,
+                                        "column": 4
+                                      },
+                                      "end": {
+                                        "line": 10,
+                                        "column": 54
+                                      }
+                                    },
+                                    "argument": {
+                                      "type": "ConditionalExpression",
+                                      "start": 337,
+                                      "end": 380,
+                                      "loc": {
+                                        "start": {
+                                          "line": 10,
+                                          "column": 11
+                                        },
+                                        "end": {
+                                          "line": 10,
+                                          "column": 54
+                                        }
+                                      },
+                                      "test": {
+                                        "type": "Identifier",
+                                        "start": 337,
+                                        "end": 349,
+                                        "loc": {
+                                          "start": {
+                                            "line": 10,
+                                            "column": 11
+                                          },
+                                          "end": {
+                                            "line": 10,
+                                            "column": 23
+                                          },
+                                          "identifierName": "titreUpdated"
+                                        },
+                                        "name": "titreUpdated"
+                                      },
+                                      "consequent": {
+                                        "type": "ArrayExpression",
+                                        "start": 352,
+                                        "end": 374,
+                                        "loc": {
+                                          "start": {
+                                            "line": 10,
+                                            "column": 26
+                                          },
+                                          "end": {
+                                            "line": 10,
+                                            "column": 48
+                                          }
+                                        },
+                                        "elements": [
+                                          {
+                                            "type": "SpreadElement",
+                                            "start": 353,
+                                            "end": 359,
+                                            "loc": {
+                                              "start": {
+                                                "line": 10,
+                                                "column": 27
+                                              },
+                                              "end": {
+                                                "line": 10,
+                                                "column": 33
+                                              }
+                                            },
+                                            "argument": {
+                                              "type": "Identifier",
+                                              "start": 356,
+                                              "end": 359,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 10,
+                                                  "column": 30
+                                                },
+                                                "end": {
+                                                  "line": 10,
+                                                  "column": 33
+                                                },
+                                                "identifierName": "arr"
+                                              },
+                                              "name": "arr"
+                                            }
+                                          },
+                                          {
+                                            "type": "Identifier",
+                                            "start": 361,
+                                            "end": 373,
+                                            "loc": {
+                                              "start": {
+                                                "line": 10,
+                                                "column": 35
+                                              },
+                                              "end": {
+                                                "line": 10,
+                                                "column": 47
+                                              },
+                                              "identifierName": "titreUpdated"
+                                            },
+                                            "name": "titreUpdated"
+                                          }
+                                        ]
+                                      },
+                                      "alternate": {
+                                        "type": "Identifier",
+                                        "start": 377,
+                                        "end": 380,
+                                        "loc": {
+                                          "start": {
+                                            "line": 10,
+                                            "column": 51
+                                          },
+                                          "end": {
+                                            "line": 10,
+                                            "column": 54
+                                          },
+                                          "identifierName": "arr"
+                                        },
+                                        "name": "arr"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "directives": []
+                              }
+                            },
+                            {
+                              "type": "ArrayExpression",
+                              "start": 386,
+                              "end": 388,
+                              "loc": {
+                                "start": {
+                                  "line": 11,
+                                  "column": 5
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 7
+                                }
+                              },
+                              "elements": []
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "kind": "const"
+                  },
+                  {
+                    "type": "ExpressionStatement",
+                    "start": 393,
+                    "end": 425,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 34
+                      }
+                    },
+                    "expression": {
+                      "type": "AwaitExpression",
+                      "start": 393,
+                      "end": 425,
+                      "loc": {
+                        "start": {
+                          "line": 13,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 34
+                        }
+                      },
+                      "argument": {
+                        "type": "CallExpression",
+                        "start": 399,
+                        "end": 425,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 34
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 399,
+                          "end": 410,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 19
+                            }
+                          },
+                          "object": {
+                            "type": "Identifier",
+                            "start": 399,
+                            "end": 406,
+                            "loc": {
+                              "start": {
+                                "line": 13,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 13,
+                                "column": 15
+                              },
+                              "identifierName": "Promise"
+                            },
+                            "name": "Promise"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 407,
+                            "end": 410,
+                            "loc": {
+                              "start": {
+                                "line": 13,
+                                "column": 16
+                              },
+                              "end": {
+                                "line": 13,
+                                "column": 19
+                              },
+                              "identifierName": "all"
+                            },
+                            "name": "all"
+                          },
+                          "computed": false
+                        },
+                        "arguments": [
+                          {
+                            "type": "Identifier",
+                            "start": 411,
+                            "end": 424,
+                            "loc": {
+                              "start": {
+                                "line": 13,
+                                "column": 20
+                              },
+                              "end": {
+                                "line": 13,
+                                "column": 33
+                              },
+                              "identifierName": "titresUpdated"
+                            },
+                            "name": "titresUpdated"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "type": "ReturnStatement",
+                    "start": 429,
+                    "end": 493,
+                    "loc": {
+                      "start": {
+                        "line": 15,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 15,
+                        "column": 66
+                      }
+                    },
+                    "argument": {
+                      "type": "TemplateLiteral",
+                      "start": 436,
+                      "end": 493,
+                      "loc": {
+                        "start": {
+                          "line": 15,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 66
+                        }
+                      },
+                      "expressions": [
+                        {
+                          "type": "MemberExpression",
+                          "start": 452,
+                          "end": 472,
+                          "loc": {
+                            "start": {
+                              "line": 15,
+                              "column": 25
+                            },
+                            "end": {
+                              "line": 15,
+                              "column": 45
+                            }
+                          },
+                          "object": {
+                            "type": "Identifier",
+                            "start": 452,
+                            "end": 465,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 25
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 38
+                              },
+                              "identifierName": "titresUpdated"
+                            },
+                            "name": "titresUpdated"
+                          },
+                          "property": {
+                            "type": "Identifier",
+                            "start": 466,
+                            "end": 472,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 39
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 45
+                              },
+                              "identifierName": "length"
+                            },
+                            "name": "length"
+                          },
+                          "computed": false
+                        }
+                      ],
+                      "quasis": [
+                        {
+                          "type": "TemplateElement",
+                          "start": 437,
+                          "end": 450,
+                          "loc": {
+                            "start": {
+                              "line": 15,
+                              "column": 10
+                            },
+                            "end": {
+                              "line": 15,
+                              "column": 23
+                            }
+                          },
+                          "value": {
+                            "raw": "Mise à jour: ",
+                            "cooked": "Mise à jour: "
+                          },
+                          "tail": false
+                        },
+                        {
+                          "type": "TemplateElement",
+                          "start": 473,
+                          "end": 492,
+                          "loc": {
+                            "start": {
+                              "line": 15,
+                              "column": 46
+                            },
+                            "end": {
+                              "line": 15,
+                              "column": 65
+                            }
+                          },
+                          "value": {
+                            "raw": " statuts de titres.",
+                            "cooked": " statuts de titres."
+                          },
+                          "tail": true
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "directives": []
+              }
+            }
+          }
+        ],
+        "kind": "const",
+        "name": "_",
+        "leadingComments": [],
+        "trailingComments": []
+      },
+      {
+        "type": "Identifier",
+        "start": 496,
+        "end": 532,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 17,
+            "column": 36
+          }
+        },
+        "declaration": {
+          "type": "Identifier",
+          "start": 511,
+          "end": 532,
+          "loc": {
+            "start": {
+              "line": 17,
+              "column": 15
+            },
+            "end": {
+              "line": 17,
+              "column": 36
+            },
+            "identifierName": "titresStatutIdsUpdate"
+          },
+          "name": "titresStatutIdsUpdate"
+        },
+        "name": "_",
+        "leadingComments": [],
+        "trailingComments": []
+      },
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 496,
+        "end": 532,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 17,
+            "column": 36
+          }
+        },
+        "declaration": {
+          "type": "VariableDeclaration",
+          "start": 113,
+          "end": 495,
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 0
+            },
+            "end": {
+              "line": 16,
+              "column": 1
+            }
+          },
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 119,
+              "end": 495,
+              "loc": {
+                "start": {
+                  "line": 5,
+                  "column": 6
+                },
+                "end": {
+                  "line": 16,
+                  "column": 1
+                }
+              },
+              "id": {
+                "type": "Identifier",
+                "start": 119,
+                "end": 140,
+                "loc": {
+                  "start": {
+                    "line": 5,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 5,
+                    "column": 27
+                  },
+                  "identifierName": "titresStatutIdsUpdate"
+                },
+                "name": "titresStatutIdsUpdate"
+              },
+              "init": {
+                "type": "ArrowFunctionExpression",
+                "start": 143,
+                "end": 495,
+                "loc": {
+                  "start": {
+                    "line": 5,
+                    "column": 30
+                  },
+                  "end": {
+                    "line": 16,
+                    "column": 1
+                  }
+                },
+                "id": {
+                  "type": "Identifier",
+                  "start": 119,
+                  "end": 140,
+                  "loc": {
+                    "start": {
+                      "line": 5,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "column": 27
+                    },
+                    "identifierName": "titresStatutIdsUpdate"
+                  },
+                  "name": "titresStatutIdsUpdate"
+                },
+                "generator": false,
+                "expression": false,
+                "async": true,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 149,
+                    "end": 155,
+                    "loc": {
+                      "start": {
+                        "line": 5,
+                        "column": 36
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 42
+                      },
+                      "identifierName": "titres"
+                    },
+                    "name": "titres"
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 159,
+                  "end": 495,
+                  "loc": {
+                    "start": {
+                      "line": 5,
+                      "column": 46
+                    },
+                    "end": {
+                      "line": 16,
+                      "column": 1
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "VariableDeclaration",
+                      "start": 163,
+                      "end": 389,
+                      "loc": {
+                        "start": {
+                          "line": 6,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 11,
+                          "column": 8
+                        }
+                      },
+                      "declarations": [
+                        {
+                          "type": "VariableDeclarator",
+                          "start": 169,
+                          "end": 389,
+                          "loc": {
+                            "start": {
+                              "line": 6,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 11,
+                              "column": 8
+                            }
+                          },
+                          "id": {
+                            "type": "Identifier",
+                            "start": 169,
+                            "end": 182,
+                            "loc": {
+                              "start": {
+                                "line": 6,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 6,
+                                "column": 21
+                              },
+                              "identifierName": "titresUpdated"
+                            },
+                            "name": "titresUpdated"
+                          },
+                          "init": {
+                            "type": "CallExpression",
+                            "start": 185,
+                            "end": 389,
+                            "loc": {
+                              "start": {
+                                "line": 6,
+                                "column": 24
+                              },
+                              "end": {
+                                "line": 11,
+                                "column": 8
+                              }
+                            },
+                            "callee": {
+                              "type": "MemberExpression",
+                              "start": 185,
+                              "end": 198,
+                              "loc": {
+                                "start": {
+                                  "line": 6,
+                                  "column": 24
+                                },
+                                "end": {
+                                  "line": 6,
+                                  "column": 37
+                                }
+                              },
+                              "object": {
+                                "type": "Identifier",
+                                "start": 185,
+                                "end": 191,
+                                "loc": {
+                                  "start": {
+                                    "line": 6,
+                                    "column": 24
+                                  },
+                                  "end": {
+                                    "line": 6,
+                                    "column": 30
+                                  },
+                                  "identifierName": "titres"
+                                },
+                                "name": "titres"
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": 192,
+                                "end": 198,
+                                "loc": {
+                                  "start": {
+                                    "line": 6,
+                                    "column": 31
+                                  },
+                                  "end": {
+                                    "line": 6,
+                                    "column": 37
+                                  },
+                                  "identifierName": "reduce"
+                                },
+                                "name": "reduce"
+                              },
+                              "computed": false
+                            },
+                            "arguments": [
+                              {
+                                "type": "ArrowFunctionExpression",
+                                "start": 199,
+                                "end": 384,
+                                "loc": {
+                                  "start": {
+                                    "line": 6,
+                                    "column": 38
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 3
+                                  }
+                                },
+                                "id": null,
+                                "generator": false,
+                                "expression": false,
+                                "async": false,
+                                "params": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 200,
+                                    "end": 203,
+                                    "loc": {
+                                      "start": {
+                                        "line": 6,
+                                        "column": 39
+                                      },
+                                      "end": {
+                                        "line": 6,
+                                        "column": 42
+                                      },
+                                      "identifierName": "arr"
+                                    },
+                                    "name": "arr"
+                                  },
+                                  {
+                                    "type": "Identifier",
+                                    "start": 205,
+                                    "end": 210,
+                                    "loc": {
+                                      "start": {
+                                        "line": 6,
+                                        "column": 44
+                                      },
+                                      "end": {
+                                        "line": 6,
+                                        "column": 49
+                                      },
+                                      "identifierName": "titre"
+                                    },
+                                    "name": "titre"
+                                  }
+                                ],
+                                "body": {
+                                  "type": "BlockStatement",
+                                  "start": 215,
+                                  "end": 384,
+                                  "loc": {
+                                    "start": {
+                                      "line": 6,
+                                      "column": 54
+                                    },
+                                    "end": {
+                                      "line": 11,
+                                      "column": 3
+                                    }
+                                  },
+                                  "body": [
+                                    {
+                                      "type": "VariableDeclaration",
+                                      "start": 221,
+                                      "end": 262,
+                                      "loc": {
+                                        "start": {
+                                          "line": 7,
+                                          "column": 4
+                                        },
+                                        "end": {
+                                          "line": 7,
+                                          "column": 45
+                                        }
+                                      },
+                                      "declarations": [
+                                        {
+                                          "type": "VariableDeclarator",
+                                          "start": 227,
+                                          "end": 262,
+                                          "loc": {
+                                            "start": {
+                                              "line": 7,
+                                              "column": 10
+                                            },
+                                            "end": {
+                                              "line": 7,
+                                              "column": 45
+                                            }
+                                          },
+                                          "id": {
+                                            "type": "Identifier",
+                                            "start": 227,
+                                            "end": 235,
+                                            "loc": {
+                                              "start": {
+                                                "line": 7,
+                                                "column": 10
+                                              },
+                                              "end": {
+                                                "line": 7,
+                                                "column": 18
+                                              },
+                                              "identifierName": "statutId"
+                                            },
+                                            "name": "statutId"
+                                          },
+                                          "init": {
+                                            "type": "CallExpression",
+                                            "start": 238,
+                                            "end": 262,
+                                            "loc": {
+                                              "start": {
+                                                "line": 7,
+                                                "column": 21
+                                              },
+                                              "end": {
+                                                "line": 7,
+                                                "column": 45
+                                              }
+                                            },
+                                            "callee": {
+                                              "type": "Identifier",
+                                              "start": 238,
+                                              "end": 255,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 7,
+                                                  "column": 21
+                                                },
+                                                "end": {
+                                                  "line": 7,
+                                                  "column": 38
+                                                },
+                                                "identifierName": "titreStatutIdFind"
+                                              },
+                                              "name": "titreStatutIdFind"
+                                            },
+                                            "arguments": [
+                                              {
+                                                "type": "Identifier",
+                                                "start": 256,
+                                                "end": 261,
+                                                "loc": {
+                                                  "start": {
+                                                    "line": 7,
+                                                    "column": 39
+                                                  },
+                                                  "end": {
+                                                    "line": 7,
+                                                    "column": 44
+                                                  },
+                                                  "identifierName": "titre"
+                                                },
+                                                "name": "titre"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "kind": "const"
+                                    },
+                                    {
+                                      "type": "VariableDeclaration",
+                                      "start": 267,
+                                      "end": 324,
+                                      "loc": {
+                                        "start": {
+                                          "line": 8,
+                                          "column": 4
+                                        },
+                                        "end": {
+                                          "line": 8,
+                                          "column": 61
+                                        }
+                                      },
+                                      "declarations": [
+                                        {
+                                          "type": "VariableDeclarator",
+                                          "start": 273,
+                                          "end": 324,
+                                          "loc": {
+                                            "start": {
+                                              "line": 8,
+                                              "column": 10
+                                            },
+                                            "end": {
+                                              "line": 8,
+                                              "column": 61
+                                            }
+                                          },
+                                          "id": {
+                                            "type": "Identifier",
+                                            "start": 273,
+                                            "end": 285,
+                                            "loc": {
+                                              "start": {
+                                                "line": 8,
+                                                "column": 10
+                                              },
+                                              "end": {
+                                                "line": 8,
+                                                "column": 22
+                                              },
+                                              "identifierName": "titreUpdated"
+                                            },
+                                            "name": "titreUpdated"
+                                          },
+                                          "init": {
+                                            "type": "CallExpression",
+                                            "start": 288,
+                                            "end": 324,
+                                            "loc": {
+                                              "start": {
+                                                "line": 8,
+                                                "column": 25
+                                              },
+                                              "end": {
+                                                "line": 8,
+                                                "column": 61
+                                              }
+                                            },
+                                            "callee": {
+                                              "type": "Identifier",
+                                              "start": 288,
+                                              "end": 307,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 8,
+                                                  "column": 25
+                                                },
+                                                "end": {
+                                                  "line": 8,
+                                                  "column": 44
+                                                },
+                                                "identifierName": "titreStatutIdUpdate"
+                                              },
+                                              "name": "titreStatutIdUpdate"
+                                            },
+                                            "arguments": [
+                                              {
+                                                "type": "Identifier",
+                                                "start": 308,
+                                                "end": 313,
+                                                "loc": {
+                                                  "start": {
+                                                    "line": 8,
+                                                    "column": 45
+                                                  },
+                                                  "end": {
+                                                    "line": 8,
+                                                    "column": 50
+                                                  },
+                                                  "identifierName": "titre"
+                                                },
+                                                "name": "titre"
+                                              },
+                                              {
+                                                "type": "Identifier",
+                                                "start": 315,
+                                                "end": 323,
+                                                "loc": {
+                                                  "start": {
+                                                    "line": 8,
+                                                    "column": 52
+                                                  },
+                                                  "end": {
+                                                    "line": 8,
+                                                    "column": 60
+                                                  },
+                                                  "identifierName": "statutId"
+                                                },
+                                                "name": "statutId"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ],
+                                      "kind": "const"
+                                    },
+                                    {
+                                      "type": "ReturnStatement",
+                                      "start": 330,
+                                      "end": 380,
+                                      "loc": {
+                                        "start": {
+                                          "line": 10,
+                                          "column": 4
+                                        },
+                                        "end": {
+                                          "line": 10,
+                                          "column": 54
+                                        }
+                                      },
+                                      "argument": {
+                                        "type": "ConditionalExpression",
+                                        "start": 337,
+                                        "end": 380,
+                                        "loc": {
+                                          "start": {
+                                            "line": 10,
+                                            "column": 11
+                                          },
+                                          "end": {
+                                            "line": 10,
+                                            "column": 54
+                                          }
+                                        },
+                                        "test": {
+                                          "type": "Identifier",
+                                          "start": 337,
+                                          "end": 349,
+                                          "loc": {
+                                            "start": {
+                                              "line": 10,
+                                              "column": 11
+                                            },
+                                            "end": {
+                                              "line": 10,
+                                              "column": 23
+                                            },
+                                            "identifierName": "titreUpdated"
+                                          },
+                                          "name": "titreUpdated"
+                                        },
+                                        "consequent": {
+                                          "type": "ArrayExpression",
+                                          "start": 352,
+                                          "end": 374,
+                                          "loc": {
+                                            "start": {
+                                              "line": 10,
+                                              "column": 26
+                                            },
+                                            "end": {
+                                              "line": 10,
+                                              "column": 48
+                                            }
+                                          },
+                                          "elements": [
+                                            {
+                                              "type": "SpreadElement",
+                                              "start": 353,
+                                              "end": 359,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 10,
+                                                  "column": 27
+                                                },
+                                                "end": {
+                                                  "line": 10,
+                                                  "column": 33
+                                                }
+                                              },
+                                              "argument": {
+                                                "type": "Identifier",
+                                                "start": 356,
+                                                "end": 359,
+                                                "loc": {
+                                                  "start": {
+                                                    "line": 10,
+                                                    "column": 30
+                                                  },
+                                                  "end": {
+                                                    "line": 10,
+                                                    "column": 33
+                                                  },
+                                                  "identifierName": "arr"
+                                                },
+                                                "name": "arr"
+                                              }
+                                            },
+                                            {
+                                              "type": "Identifier",
+                                              "start": 361,
+                                              "end": 373,
+                                              "loc": {
+                                                "start": {
+                                                  "line": 10,
+                                                  "column": 35
+                                                },
+                                                "end": {
+                                                  "line": 10,
+                                                  "column": 47
+                                                },
+                                                "identifierName": "titreUpdated"
+                                              },
+                                              "name": "titreUpdated"
+                                            }
+                                          ]
+                                        },
+                                        "alternate": {
+                                          "type": "Identifier",
+                                          "start": 377,
+                                          "end": 380,
+                                          "loc": {
+                                            "start": {
+                                              "line": 10,
+                                              "column": 51
+                                            },
+                                            "end": {
+                                              "line": 10,
+                                              "column": 54
+                                            },
+                                            "identifierName": "arr"
+                                          },
+                                          "name": "arr"
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "directives": []
+                                }
+                              },
+                              {
+                                "type": "ArrayExpression",
+                                "start": 386,
+                                "end": 388,
+                                "loc": {
+                                  "start": {
+                                    "line": 11,
+                                    "column": 5
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 7
+                                  }
+                                },
+                                "elements": []
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "kind": "const"
+                    },
+                    {
+                      "type": "ExpressionStatement",
+                      "start": 393,
+                      "end": 425,
+                      "loc": {
+                        "start": {
+                          "line": 13,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 34
+                        }
+                      },
+                      "expression": {
+                        "type": "AwaitExpression",
+                        "start": 393,
+                        "end": 425,
+                        "loc": {
+                          "start": {
+                            "line": 13,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 34
+                          }
+                        },
+                        "argument": {
+                          "type": "CallExpression",
+                          "start": 399,
+                          "end": 425,
+                          "loc": {
+                            "start": {
+                              "line": 13,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 34
+                            }
+                          },
+                          "callee": {
+                            "type": "MemberExpression",
+                            "start": 399,
+                            "end": 410,
+                            "loc": {
+                              "start": {
+                                "line": 13,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 13,
+                                "column": 19
+                              }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 399,
+                              "end": 406,
+                              "loc": {
+                                "start": {
+                                  "line": 13,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 13,
+                                  "column": 15
+                                },
+                                "identifierName": "Promise"
+                              },
+                              "name": "Promise"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 407,
+                              "end": 410,
+                              "loc": {
+                                "start": {
+                                  "line": 13,
+                                  "column": 16
+                                },
+                                "end": {
+                                  "line": 13,
+                                  "column": 19
+                                },
+                                "identifierName": "all"
+                              },
+                              "name": "all"
+                            },
+                            "computed": false
+                          },
+                          "arguments": [
+                            {
+                              "type": "Identifier",
+                              "start": 411,
+                              "end": 424,
+                              "loc": {
+                                "start": {
+                                  "line": 13,
+                                  "column": 20
+                                },
+                                "end": {
+                                  "line": 13,
+                                  "column": 33
+                                },
+                                "identifierName": "titresUpdated"
+                              },
+                              "name": "titresUpdated"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "type": "ReturnStatement",
+                      "start": 429,
+                      "end": 493,
+                      "loc": {
+                        "start": {
+                          "line": 15,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 15,
+                          "column": 66
+                        }
+                      },
+                      "argument": {
+                        "type": "TemplateLiteral",
+                        "start": 436,
+                        "end": 493,
+                        "loc": {
+                          "start": {
+                            "line": 15,
+                            "column": 9
+                          },
+                          "end": {
+                            "line": 15,
+                            "column": 66
+                          }
+                        },
+                        "expressions": [
+                          {
+                            "type": "MemberExpression",
+                            "start": 452,
+                            "end": 472,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 25
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 45
+                              }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 452,
+                              "end": 465,
+                              "loc": {
+                                "start": {
+                                  "line": 15,
+                                  "column": 25
+                                },
+                                "end": {
+                                  "line": 15,
+                                  "column": 38
+                                },
+                                "identifierName": "titresUpdated"
+                              },
+                              "name": "titresUpdated"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 466,
+                              "end": 472,
+                              "loc": {
+                                "start": {
+                                  "line": 15,
+                                  "column": 39
+                                },
+                                "end": {
+                                  "line": 15,
+                                  "column": 45
+                                },
+                                "identifierName": "length"
+                              },
+                              "name": "length"
+                            },
+                            "computed": false
+                          }
+                        ],
+                        "quasis": [
+                          {
+                            "type": "TemplateElement",
+                            "start": 437,
+                            "end": 450,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 10
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 23
+                              }
+                            },
+                            "value": {
+                              "raw": "Mise à jour: ",
+                              "cooked": "Mise à jour: "
+                            },
+                            "tail": false
+                          },
+                          {
+                            "type": "TemplateElement",
+                            "start": 473,
+                            "end": 492,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 46
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 65
+                              }
+                            },
+                            "value": {
+                              "raw": " statuts de titres.",
+                              "cooked": " statuts de titres."
+                            },
+                            "tail": true
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              }
+            }
+          ],
+          "kind": "const",
+          "leadingComments": [],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [],
+  "tokens": [
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 7,
+      "end": 8,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreStatutIdUpdate",
+      "start": 9,
+      "end": 28,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 29,
+      "end": 30,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 29
+        },
+        "end": {
+          "line": 1,
+          "column": 30
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 31,
+      "end": 35,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 31
+        },
+        "end": {
+          "line": 1,
+          "column": 35
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "../titres",
+      "start": 36,
+      "end": 47,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 36
+        },
+        "end": {
+          "line": 1,
+          "column": 47
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 49,
+      "end": 55,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreStatutIdFind",
+      "start": 56,
+      "end": 73,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 24
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 74,
+      "end": 78,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 25
+        },
+        "end": {
+          "line": 3,
+          "column": 29
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "../_utils/titre-statut-id-find",
+      "start": 79,
+      "end": 111,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 30
+        },
+        "end": {
+          "line": 3,
+          "column": 62
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 113,
+      "end": 118,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 5
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titresStatutIdsUpdate",
+      "start": 119,
+      "end": 140,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 6
+        },
+        "end": {
+          "line": 5,
+          "column": 27
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 141,
+      "end": 142,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 28
+        },
+        "end": {
+          "line": 5,
+          "column": 29
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "async",
+      "start": 143,
+      "end": 148,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 30
+        },
+        "end": {
+          "line": 5,
+          "column": 35
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titres",
+      "start": 149,
+      "end": 155,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 36
+        },
+        "end": {
+          "line": 5,
+          "column": 42
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=>",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 156,
+      "end": 158,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 43
+        },
+        "end": {
+          "line": 5,
+          "column": 45
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 159,
+      "end": 160,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 46
+        },
+        "end": {
+          "line": 5,
+          "column": 47
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 163,
+      "end": 168,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 2
+        },
+        "end": {
+          "line": 6,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titresUpdated",
+      "start": 169,
+      "end": 182,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 8
+        },
+        "end": {
+          "line": 6,
+          "column": 21
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 183,
+      "end": 184,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 22
+        },
+        "end": {
+          "line": 6,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titres",
+      "start": 185,
+      "end": 191,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 24
+        },
+        "end": {
+          "line": 6,
+          "column": 30
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 191,
+      "end": 192,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 30
+        },
+        "end": {
+          "line": 6,
+          "column": 31
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "reduce",
+      "start": 192,
+      "end": 198,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 31
+        },
+        "end": {
+          "line": 6,
+          "column": 37
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 198,
+      "end": 199,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 37
+        },
+        "end": {
+          "line": 6,
+          "column": 38
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 199,
+      "end": 200,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 38
+        },
+        "end": {
+          "line": 6,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "arr",
+      "start": 200,
+      "end": 203,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 39
+        },
+        "end": {
+          "line": 6,
+          "column": 42
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 203,
+      "end": 204,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 42
+        },
+        "end": {
+          "line": 6,
+          "column": 43
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titre",
+      "start": 205,
+      "end": 210,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 44
+        },
+        "end": {
+          "line": 6,
+          "column": 49
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 210,
+      "end": 211,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 49
+        },
+        "end": {
+          "line": 6,
+          "column": 50
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=>",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 212,
+      "end": 214,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 51
+        },
+        "end": {
+          "line": 6,
+          "column": 53
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 215,
+      "end": 216,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 54
+        },
+        "end": {
+          "line": 6,
+          "column": 55
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 221,
+      "end": 226,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 4
+        },
+        "end": {
+          "line": 7,
+          "column": 9
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "statutId",
+      "start": 227,
+      "end": 235,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 10
+        },
+        "end": {
+          "line": 7,
+          "column": 18
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 236,
+      "end": 237,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 19
+        },
+        "end": {
+          "line": 7,
+          "column": 20
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreStatutIdFind",
+      "start": 238,
+      "end": 255,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 21
+        },
+        "end": {
+          "line": 7,
+          "column": 38
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 255,
+      "end": 256,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 38
+        },
+        "end": {
+          "line": 7,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titre",
+      "start": 256,
+      "end": 261,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 39
+        },
+        "end": {
+          "line": 7,
+          "column": 44
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 261,
+      "end": 262,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 44
+        },
+        "end": {
+          "line": 7,
+          "column": 45
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 267,
+      "end": 272,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 4
+        },
+        "end": {
+          "line": 8,
+          "column": 9
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreUpdated",
+      "start": 273,
+      "end": 285,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 10
+        },
+        "end": {
+          "line": 8,
+          "column": 22
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 286,
+      "end": 287,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 23
+        },
+        "end": {
+          "line": 8,
+          "column": 24
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreStatutIdUpdate",
+      "start": 288,
+      "end": 307,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 25
+        },
+        "end": {
+          "line": 8,
+          "column": 44
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 307,
+      "end": 308,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 44
+        },
+        "end": {
+          "line": 8,
+          "column": 45
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titre",
+      "start": 308,
+      "end": 313,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 45
+        },
+        "end": {
+          "line": 8,
+          "column": 50
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 313,
+      "end": 314,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 50
+        },
+        "end": {
+          "line": 8,
+          "column": 51
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "statutId",
+      "start": 315,
+      "end": 323,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 52
+        },
+        "end": {
+          "line": 8,
+          "column": 60
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 323,
+      "end": 324,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 60
+        },
+        "end": {
+          "line": 8,
+          "column": 61
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "return",
+        "keyword": "return",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "return",
+      "start": 330,
+      "end": 336,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 4
+        },
+        "end": {
+          "line": 10,
+          "column": 10
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreUpdated",
+      "start": 337,
+      "end": 349,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 11
+        },
+        "end": {
+          "line": 10,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "?",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 350,
+      "end": 351,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 24
+        },
+        "end": {
+          "line": 10,
+          "column": 25
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "[",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 352,
+      "end": 353,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 26
+        },
+        "end": {
+          "line": 10,
+          "column": 27
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "...",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 353,
+      "end": 356,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 27
+        },
+        "end": {
+          "line": 10,
+          "column": 30
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "arr",
+      "start": 356,
+      "end": 359,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 30
+        },
+        "end": {
+          "line": 10,
+          "column": 33
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 359,
+      "end": 360,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 33
+        },
+        "end": {
+          "line": 10,
+          "column": 34
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreUpdated",
+      "start": 361,
+      "end": 373,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 35
+        },
+        "end": {
+          "line": 10,
+          "column": 47
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "]",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 373,
+      "end": 374,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 47
+        },
+        "end": {
+          "line": 10,
+          "column": 48
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ":",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 375,
+      "end": 376,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 49
+        },
+        "end": {
+          "line": 10,
+          "column": 50
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "arr",
+      "start": 377,
+      "end": 380,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 51
+        },
+        "end": {
+          "line": 10,
+          "column": 54
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 383,
+      "end": 384,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 2
+        },
+        "end": {
+          "line": 11,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 384,
+      "end": 385,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 3
+        },
+        "end": {
+          "line": 11,
+          "column": 4
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "[",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 386,
+      "end": 387,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 5
+        },
+        "end": {
+          "line": 11,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "]",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 387,
+      "end": 388,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 6
+        },
+        "end": {
+          "line": 11,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 388,
+      "end": 389,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 7
+        },
+        "end": {
+          "line": 11,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "await",
+      "start": 393,
+      "end": 398,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 2
+        },
+        "end": {
+          "line": 13,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "Promise",
+      "start": 399,
+      "end": 406,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 8
+        },
+        "end": {
+          "line": 13,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 406,
+      "end": 407,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 15
+        },
+        "end": {
+          "line": 13,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "all",
+      "start": 407,
+      "end": 410,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 16
+        },
+        "end": {
+          "line": 13,
+          "column": 19
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 410,
+      "end": 411,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 19
+        },
+        "end": {
+          "line": 13,
+          "column": 20
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titresUpdated",
+      "start": 411,
+      "end": 424,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 20
+        },
+        "end": {
+          "line": 13,
+          "column": 33
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 424,
+      "end": 425,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 33
+        },
+        "end": {
+          "line": 13,
+          "column": 34
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "return",
+        "keyword": "return",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "return",
+      "start": 429,
+      "end": 435,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 2
+        },
+        "end": {
+          "line": 15,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 436,
+      "end": 437,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 9
+        },
+        "end": {
+          "line": 15,
+          "column": 10
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "Mise à jour: ",
+      "start": 437,
+      "end": 450,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 10
+        },
+        "end": {
+          "line": 15,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "${",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 450,
+      "end": 452,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 23
+        },
+        "end": {
+          "line": 15,
+          "column": 25
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titresUpdated",
+      "start": 452,
+      "end": 465,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 25
+        },
+        "end": {
+          "line": 15,
+          "column": 38
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 465,
+      "end": 466,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 38
+        },
+        "end": {
+          "line": 15,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "length",
+      "start": 466,
+      "end": 472,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 39
+        },
+        "end": {
+          "line": 15,
+          "column": 45
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 472,
+      "end": 473,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 45
+        },
+        "end": {
+          "line": 15,
+          "column": 46
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": " statuts de titres.",
+      "start": 473,
+      "end": 492,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 46
+        },
+        "end": {
+          "line": 15,
+          "column": 65
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 492,
+      "end": 493,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 65
+        },
+        "end": {
+          "line": 15,
+          "column": 66
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 494,
+      "end": 495,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 496,
+      "end": 502,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 503,
+      "end": 510,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 7
+        },
+        "end": {
+          "line": 17,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titresStatutIdsUpdate",
+      "start": 511,
+      "end": 532,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 15
+        },
+        "end": {
+          "line": 17,
+          "column": 36
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 533,
+      "end": 533,
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 0
+        },
+        "end": {
+          "line": 18,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

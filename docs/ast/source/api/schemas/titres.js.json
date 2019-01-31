@@ -1,0 +1,251 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 7534,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 290,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 7534,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 290,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 0,
+        "end": 7533,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 289,
+            "column": 2
+          }
+        },
+        "declaration": {
+          "type": "TemplateLiteral",
+          "start": 15,
+          "end": 7533,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 289,
+              "column": 2
+            }
+          },
+          "expressions": [],
+          "quasis": [
+            {
+              "type": "TemplateElement",
+              "start": 16,
+              "end": 7532,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 289,
+                  "column": 1
+                }
+              },
+              "value": {
+                "raw": "\n\"Titre minier\"\ntype Titre {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - du type en 3 lettres\n  - du slug du nom du titre\n  - de l'année d'octroi\n  \"\"\"\n  id: ID!\n  \"Le nom du titre\"\n  nom: String!\n  \"Le type du titre\"\n  type: Type!\n  \"Le domaine minier auquel se rattache le titre\"\n  domaine: Domaine!\n  \"Les références métier du titre\"\n  references: [Reference]\n  \"Le statut du titre\"\n  statut: Statut!\n  \"Les substances concernées par le titre dans son dernier état de validité\"\n  substances: [TitreSubstance]\n  \"Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité\"\n  points: [Point]\n  \"Le geojson du contour du périmètre géographique du titre dans son dernier état de validité\"\n  geojsonMultiPolygon: GeojsonMultiPolygon\n  \"Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité\"\n  geojsonPoints: GeojsonPoints\n  \"Les titualires du titre dans son dernier état de validité\"\n  titulaires: [Entreprise]\n  \"Les amodiataires du titre dans son dernier état de validité\"\n  amodiataires: [Entreprise]\n  \"Les administrations en charge du titre dans son dernier état de validité\"\n  administrations: [Administration]\n  \"Les démarches effectuées sur le titre\"\n  demarches: [Demarche]\n  \"La surface en Km² du titre dans son dernier état de validité\"\n  surface: Float\n  \"Le volume du titre dans son dernier état de validité\"\n  volume: Float\n  \"L'unité du volume du titre dans son dernier état de validité\"\n  volumeUnite: String\n  \"Les rapports de travaux\"\n  travauxRapports: [TitreTravauxRapport]\n}\n\n\"Références métier d'un titre minier\"\ntype Reference {\n  \"Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc.\"\n  type: String\n  \"La référence du titre dans le référentiel\"\n  valeur: String!\n}\n\n\"Démarches effectuées sur un titre minier\"\ntype Demarche {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id du titre\n  - du type de la démarche\n  \"\"\"\n  id: ID!\n  \"Le type de la démarche composé de trois lettres\"\n  type: DemarcheType!\n  \"L'ordre chronologique de la démarche\"\n  ordre: Int!\n  \"Le statut de la démarche\"\n  statut: DemarcheStatut!\n  \"La phase, si la démarche donne lieu à une phase\"\n  phase: Phase\n  \"Les étapes effectuées sur la démarche\"\n  etapes: [Etape]\n}\n\n\"Phase d'un titre minier\"\ntype Phase {\n  \"Le statut d'une phase\"\n  statut: PhaseStatut!\n  \"La date de début d'une phase\"\n  dateDebut: Date\n  \"La date de fin d'une phase\"\n  dateFin: Date\n}\n\n\"Étape d'une démarche effectuée sur un titre minier\"\ntype Etape {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de la démarche\n  - du type de l'étape\n  \"\"\"\n  id: ID!\n  \"Le type de l'étape\"\n  type: EtapeType!\n  \"Le statut de l'étape\"\n  statut: EtapeStatut!\n  \"L'ordre chronologique de l'étape\"\n  ordre: Int!\n  \"La date de l'étape\"\n  date: Date!\n  \"La durée de la démarche\"\n  duree: Int\n  \"La date de début de la démarche\"\n  dateDebut: Date\n  \"La date de fin de la démarche\"\n  dateFin: Date\n  \"La surface en Km² du titre\"\n  surface: Float\n  \"Le volume du titre\"\n  volume: Float\n  \"L'unité de volume du titre\"\n  volumeUnite: String\n  \"Les visas de l'étape\"\n  visas: [String]\n  \"Le montant de l'engagement financier du titulaire\"\n  engagement: Float\n  \"La devise de l'engagement financier du titulaire\"\n  engagementDevise: String\n  \"L'emprise géographique du titre\"\n  emprises: [Emprise]\n  \"Les substances concernées par le titre\"\n  substances: [TitreSubstance]\n  \"Les coordonnées des points du périmètre géographique du titre\"\n  points: [Point]\n  \"Le geojson du contour du périmètre géographique du titre\"\n  geojsonMultiPolygon: GeojsonMultiPolygon\n  \"Le geojson de la liste de points du périmètre géographique du titre\"\n  geojsonPoints: GeojsonPoints\n  \"Les titualires du titre dans son dernier état de validité\"\n  titulaires: [Entreprise]\n  \"Les amodiataires du titre dans son dernier état de validité\"\n  amodiataires: [Entreprise]\n  \"Les administrations en charge du titre\"\n  administrations: [Administration]\n  \"Les documents relatifs à l'étape\"\n  documents: [Document]\n  sourceIndisponible: Boolean\n}\n\n\"Document attaché à une étape de démarche\"\ntype Document {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de l'étape\n  - du type du document\n  \"\"\"\n  id: ID!\n  \"Le nom du document\"\n  nom: String!\n  \"Le type de document (arrêté, décret, etc.)\"\n  type: String\n  \"L'url du document\"\n  url: String\n  \"L'uri du document\"\n  uri: String\n  \"Le type de fichier\"\n  fichier: String\n  \"La référence au Journal Officiel\"\n  jorf: String\n  \"La référence Nor\"\n  nor: String\n}\n\n\"Point du périmètre géographique d'un titre (système géodésique WGS 84)\"\ntype Point {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de l'étape\n  - du groupe (lettre 'g' suivie de 2 chiffres)\n  - du contour (lettre 'c' suivie de 2 chiffres)\n  - du point (lettre 'p' suivie de 3 chiffres)\n  \"\"\"\n  id: ID!\n  \"Les coordonnées du point dans le système WGS 84\"\n  coordonnees: Coordonnees\n  \"Le groupe de contours auquel appartient le point composé d'un nombre entier commençant à 1\"\n  groupe: Int\n  \"Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre.\"\n  contour: Int\n  \"Le numéro du point dans le contour\"\n  point: Int\n  \"Le nom du point tel que stipulé dans les documents officiels\"\n  nom: String\n  \"La description du point telle que stipulée dans les documents officiels\"\n  description: String\n  \"Si le point appartient à un périmètre de sécurité\"\n  securite: Boolean\n  \"Liste d'id de référence de points\"\n  references: [PointReference]\n}\n\n\"Point du périmètre géographique d'un titre dans un système autre que WGS 84\"\ntype PointReference {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id du point\n  - du système\n  \"\"\"\n  id: ID!\n  \"Le code du système de référence géodésique\"\n  systeme: String\n  \"Les coordonnées du point dans le système géodésique\"\n  coordonnees: Coordonnees\n}\n\n\"Paire de coordonnées géographiques\"\ntype Coordonnees {\n  \"La valeur des coordonnées en X sous forme d'un nombre décimal\"\n  x: Float\n  \"La valeur des coordonnées en Y sous forme d'un nombre décimal\"\n  y: Float\n}\n\n\"Titre minier\"\ninput InputTitre {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - du type en 3 lettres\n  - du slug du nom du titre\n  - de l'année d'octroi\n  \"\"\"\n  id: ID!\n  nom: String!\n  type: InputType!\n  domaine: InputDomaine!\n  references: [InputReference]\n}\n\ninput InputReference {\n  type: String\n}\n\ninput InputEtape {\n  id: ID!\n  type: InputEtapeTypeId!\n  statut: InputEtapeStatutId!\n  ordre: Int!\n  date: Date!\n  duree: Int\n  dateDebut: Date\n  dateFin: Date\n  surface: Float\n  volume: Float\n  volumeUnite: String\n  visas: [String]\n  engagement: Float\n  engagementDevise: String\n  emprises: [InputEmpriseId]\n  substances: [InputEtapeSubstanceId]\n  points: [InputPoint]\n  titulaires: [InputEntreprise]\n  amodiataires: [InputEntreprise]\n  administrations: [InputAdministration]\n  sourceIndisponible: Boolean\n}\n\ninput InputPoint {\n  id: ID!\n  coordonnees: InputCoordonnees\n  groupe: Int\n  contour: Int\n  point: Int\n  nom: String\n  description: String\n  securite: Boolean\n  references: [InputPointReference]\n}\n\ninput InputPointReference {\n  id: ID!\n  systeme: String\n  coordonnees: InputCoordonnees\n}\n\ninput InputCoordonnees {\n  x: Float\n  y: Float\n}\n\ninput InputDocument {\n  id: ID!\n  nom: String!\n  type: String\n  url: String\n  uri: String\n  fichier: String\n  jorf: String\n  nor: String\n}",
+                "cooked": "\n\"Titre minier\"\ntype Titre {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - du type en 3 lettres\n  - du slug du nom du titre\n  - de l'année d'octroi\n  \"\"\"\n  id: ID!\n  \"Le nom du titre\"\n  nom: String!\n  \"Le type du titre\"\n  type: Type!\n  \"Le domaine minier auquel se rattache le titre\"\n  domaine: Domaine!\n  \"Les références métier du titre\"\n  references: [Reference]\n  \"Le statut du titre\"\n  statut: Statut!\n  \"Les substances concernées par le titre dans son dernier état de validité\"\n  substances: [TitreSubstance]\n  \"Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité\"\n  points: [Point]\n  \"Le geojson du contour du périmètre géographique du titre dans son dernier état de validité\"\n  geojsonMultiPolygon: GeojsonMultiPolygon\n  \"Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité\"\n  geojsonPoints: GeojsonPoints\n  \"Les titualires du titre dans son dernier état de validité\"\n  titulaires: [Entreprise]\n  \"Les amodiataires du titre dans son dernier état de validité\"\n  amodiataires: [Entreprise]\n  \"Les administrations en charge du titre dans son dernier état de validité\"\n  administrations: [Administration]\n  \"Les démarches effectuées sur le titre\"\n  demarches: [Demarche]\n  \"La surface en Km² du titre dans son dernier état de validité\"\n  surface: Float\n  \"Le volume du titre dans son dernier état de validité\"\n  volume: Float\n  \"L'unité du volume du titre dans son dernier état de validité\"\n  volumeUnite: String\n  \"Les rapports de travaux\"\n  travauxRapports: [TitreTravauxRapport]\n}\n\n\"Références métier d'un titre minier\"\ntype Reference {\n  \"Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc.\"\n  type: String\n  \"La référence du titre dans le référentiel\"\n  valeur: String!\n}\n\n\"Démarches effectuées sur un titre minier\"\ntype Demarche {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id du titre\n  - du type de la démarche\n  \"\"\"\n  id: ID!\n  \"Le type de la démarche composé de trois lettres\"\n  type: DemarcheType!\n  \"L'ordre chronologique de la démarche\"\n  ordre: Int!\n  \"Le statut de la démarche\"\n  statut: DemarcheStatut!\n  \"La phase, si la démarche donne lieu à une phase\"\n  phase: Phase\n  \"Les étapes effectuées sur la démarche\"\n  etapes: [Etape]\n}\n\n\"Phase d'un titre minier\"\ntype Phase {\n  \"Le statut d'une phase\"\n  statut: PhaseStatut!\n  \"La date de début d'une phase\"\n  dateDebut: Date\n  \"La date de fin d'une phase\"\n  dateFin: Date\n}\n\n\"Étape d'une démarche effectuée sur un titre minier\"\ntype Etape {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de la démarche\n  - du type de l'étape\n  \"\"\"\n  id: ID!\n  \"Le type de l'étape\"\n  type: EtapeType!\n  \"Le statut de l'étape\"\n  statut: EtapeStatut!\n  \"L'ordre chronologique de l'étape\"\n  ordre: Int!\n  \"La date de l'étape\"\n  date: Date!\n  \"La durée de la démarche\"\n  duree: Int\n  \"La date de début de la démarche\"\n  dateDebut: Date\n  \"La date de fin de la démarche\"\n  dateFin: Date\n  \"La surface en Km² du titre\"\n  surface: Float\n  \"Le volume du titre\"\n  volume: Float\n  \"L'unité de volume du titre\"\n  volumeUnite: String\n  \"Les visas de l'étape\"\n  visas: [String]\n  \"Le montant de l'engagement financier du titulaire\"\n  engagement: Float\n  \"La devise de l'engagement financier du titulaire\"\n  engagementDevise: String\n  \"L'emprise géographique du titre\"\n  emprises: [Emprise]\n  \"Les substances concernées par le titre\"\n  substances: [TitreSubstance]\n  \"Les coordonnées des points du périmètre géographique du titre\"\n  points: [Point]\n  \"Le geojson du contour du périmètre géographique du titre\"\n  geojsonMultiPolygon: GeojsonMultiPolygon\n  \"Le geojson de la liste de points du périmètre géographique du titre\"\n  geojsonPoints: GeojsonPoints\n  \"Les titualires du titre dans son dernier état de validité\"\n  titulaires: [Entreprise]\n  \"Les amodiataires du titre dans son dernier état de validité\"\n  amodiataires: [Entreprise]\n  \"Les administrations en charge du titre\"\n  administrations: [Administration]\n  \"Les documents relatifs à l'étape\"\n  documents: [Document]\n  sourceIndisponible: Boolean\n}\n\n\"Document attaché à une étape de démarche\"\ntype Document {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de l'étape\n  - du type du document\n  \"\"\"\n  id: ID!\n  \"Le nom du document\"\n  nom: String!\n  \"Le type de document (arrêté, décret, etc.)\"\n  type: String\n  \"L'url du document\"\n  url: String\n  \"L'uri du document\"\n  uri: String\n  \"Le type de fichier\"\n  fichier: String\n  \"La référence au Journal Officiel\"\n  jorf: String\n  \"La référence Nor\"\n  nor: String\n}\n\n\"Point du périmètre géographique d'un titre (système géodésique WGS 84)\"\ntype Point {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de l'étape\n  - du groupe (lettre 'g' suivie de 2 chiffres)\n  - du contour (lettre 'c' suivie de 2 chiffres)\n  - du point (lettre 'p' suivie de 3 chiffres)\n  \"\"\"\n  id: ID!\n  \"Les coordonnées du point dans le système WGS 84\"\n  coordonnees: Coordonnees\n  \"Le groupe de contours auquel appartient le point composé d'un nombre entier commençant à 1\"\n  groupe: Int\n  \"Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre.\"\n  contour: Int\n  \"Le numéro du point dans le contour\"\n  point: Int\n  \"Le nom du point tel que stipulé dans les documents officiels\"\n  nom: String\n  \"La description du point telle que stipulée dans les documents officiels\"\n  description: String\n  \"Si le point appartient à un périmètre de sécurité\"\n  securite: Boolean\n  \"Liste d'id de référence de points\"\n  references: [PointReference]\n}\n\n\"Point du périmètre géographique d'un titre dans un système autre que WGS 84\"\ntype PointReference {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id du point\n  - du système\n  \"\"\"\n  id: ID!\n  \"Le code du système de référence géodésique\"\n  systeme: String\n  \"Les coordonnées du point dans le système géodésique\"\n  coordonnees: Coordonnees\n}\n\n\"Paire de coordonnées géographiques\"\ntype Coordonnees {\n  \"La valeur des coordonnées en X sous forme d'un nombre décimal\"\n  x: Float\n  \"La valeur des coordonnées en Y sous forme d'un nombre décimal\"\n  y: Float\n}\n\n\"Titre minier\"\ninput InputTitre {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - du type en 3 lettres\n  - du slug du nom du titre\n  - de l'année d'octroi\n  \"\"\"\n  id: ID!\n  nom: String!\n  type: InputType!\n  domaine: InputDomaine!\n  references: [InputReference]\n}\n\ninput InputReference {\n  type: String\n}\n\ninput InputEtape {\n  id: ID!\n  type: InputEtapeTypeId!\n  statut: InputEtapeStatutId!\n  ordre: Int!\n  date: Date!\n  duree: Int\n  dateDebut: Date\n  dateFin: Date\n  surface: Float\n  volume: Float\n  volumeUnite: String\n  visas: [String]\n  engagement: Float\n  engagementDevise: String\n  emprises: [InputEmpriseId]\n  substances: [InputEtapeSubstanceId]\n  points: [InputPoint]\n  titulaires: [InputEntreprise]\n  amodiataires: [InputEntreprise]\n  administrations: [InputAdministration]\n  sourceIndisponible: Boolean\n}\n\ninput InputPoint {\n  id: ID!\n  coordonnees: InputCoordonnees\n  groupe: Int\n  contour: Int\n  point: Int\n  nom: String\n  description: String\n  securite: Boolean\n  references: [InputPointReference]\n}\n\ninput InputPointReference {\n  id: ID!\n  systeme: String\n  coordonnees: InputCoordonnees\n}\n\ninput InputCoordonnees {\n  x: Float\n  y: Float\n}\n\ninput InputDocument {\n  id: ID!\n  nom: String!\n  type: String\n  url: String\n  uri: String\n  fichier: String\n  jorf: String\n  nor: String\n}"
+              },
+              "tail": true
+            }
+          ],
+          "leadingComments": [],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [],
+  "tokens": [
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 7,
+      "end": 14,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 15,
+      "end": 16,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "\n\"Titre minier\"\ntype Titre {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - du type en 3 lettres\n  - du slug du nom du titre\n  - de l'année d'octroi\n  \"\"\"\n  id: ID!\n  \"Le nom du titre\"\n  nom: String!\n  \"Le type du titre\"\n  type: Type!\n  \"Le domaine minier auquel se rattache le titre\"\n  domaine: Domaine!\n  \"Les références métier du titre\"\n  references: [Reference]\n  \"Le statut du titre\"\n  statut: Statut!\n  \"Les substances concernées par le titre dans son dernier état de validité\"\n  substances: [TitreSubstance]\n  \"Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité\"\n  points: [Point]\n  \"Le geojson du contour du périmètre géographique du titre dans son dernier état de validité\"\n  geojsonMultiPolygon: GeojsonMultiPolygon\n  \"Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité\"\n  geojsonPoints: GeojsonPoints\n  \"Les titualires du titre dans son dernier état de validité\"\n  titulaires: [Entreprise]\n  \"Les amodiataires du titre dans son dernier état de validité\"\n  amodiataires: [Entreprise]\n  \"Les administrations en charge du titre dans son dernier état de validité\"\n  administrations: [Administration]\n  \"Les démarches effectuées sur le titre\"\n  demarches: [Demarche]\n  \"La surface en Km² du titre dans son dernier état de validité\"\n  surface: Float\n  \"Le volume du titre dans son dernier état de validité\"\n  volume: Float\n  \"L'unité du volume du titre dans son dernier état de validité\"\n  volumeUnite: String\n  \"Les rapports de travaux\"\n  travauxRapports: [TitreTravauxRapport]\n}\n\n\"Références métier d'un titre minier\"\ntype Reference {\n  \"Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc.\"\n  type: String\n  \"La référence du titre dans le référentiel\"\n  valeur: String!\n}\n\n\"Démarches effectuées sur un titre minier\"\ntype Demarche {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id du titre\n  - du type de la démarche\n  \"\"\"\n  id: ID!\n  \"Le type de la démarche composé de trois lettres\"\n  type: DemarcheType!\n  \"L'ordre chronologique de la démarche\"\n  ordre: Int!\n  \"Le statut de la démarche\"\n  statut: DemarcheStatut!\n  \"La phase, si la démarche donne lieu à une phase\"\n  phase: Phase\n  \"Les étapes effectuées sur la démarche\"\n  etapes: [Etape]\n}\n\n\"Phase d'un titre minier\"\ntype Phase {\n  \"Le statut d'une phase\"\n  statut: PhaseStatut!\n  \"La date de début d'une phase\"\n  dateDebut: Date\n  \"La date de fin d'une phase\"\n  dateFin: Date\n}\n\n\"Étape d'une démarche effectuée sur un titre minier\"\ntype Etape {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de la démarche\n  - du type de l'étape\n  \"\"\"\n  id: ID!\n  \"Le type de l'étape\"\n  type: EtapeType!\n  \"Le statut de l'étape\"\n  statut: EtapeStatut!\n  \"L'ordre chronologique de l'étape\"\n  ordre: Int!\n  \"La date de l'étape\"\n  date: Date!\n  \"La durée de la démarche\"\n  duree: Int\n  \"La date de début de la démarche\"\n  dateDebut: Date\n  \"La date de fin de la démarche\"\n  dateFin: Date\n  \"La surface en Km² du titre\"\n  surface: Float\n  \"Le volume du titre\"\n  volume: Float\n  \"L'unité de volume du titre\"\n  volumeUnite: String\n  \"Les visas de l'étape\"\n  visas: [String]\n  \"Le montant de l'engagement financier du titulaire\"\n  engagement: Float\n  \"La devise de l'engagement financier du titulaire\"\n  engagementDevise: String\n  \"L'emprise géographique du titre\"\n  emprises: [Emprise]\n  \"Les substances concernées par le titre\"\n  substances: [TitreSubstance]\n  \"Les coordonnées des points du périmètre géographique du titre\"\n  points: [Point]\n  \"Le geojson du contour du périmètre géographique du titre\"\n  geojsonMultiPolygon: GeojsonMultiPolygon\n  \"Le geojson de la liste de points du périmètre géographique du titre\"\n  geojsonPoints: GeojsonPoints\n  \"Les titualires du titre dans son dernier état de validité\"\n  titulaires: [Entreprise]\n  \"Les amodiataires du titre dans son dernier état de validité\"\n  amodiataires: [Entreprise]\n  \"Les administrations en charge du titre\"\n  administrations: [Administration]\n  \"Les documents relatifs à l'étape\"\n  documents: [Document]\n  sourceIndisponible: Boolean\n}\n\n\"Document attaché à une étape de démarche\"\ntype Document {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de l'étape\n  - du type du document\n  \"\"\"\n  id: ID!\n  \"Le nom du document\"\n  nom: String!\n  \"Le type de document (arrêté, décret, etc.)\"\n  type: String\n  \"L'url du document\"\n  url: String\n  \"L'uri du document\"\n  uri: String\n  \"Le type de fichier\"\n  fichier: String\n  \"La référence au Journal Officiel\"\n  jorf: String\n  \"La référence Nor\"\n  nor: String\n}\n\n\"Point du périmètre géographique d'un titre (système géodésique WGS 84)\"\ntype Point {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id de l'étape\n  - du groupe (lettre 'g' suivie de 2 chiffres)\n  - du contour (lettre 'c' suivie de 2 chiffres)\n  - du point (lettre 'p' suivie de 3 chiffres)\n  \"\"\"\n  id: ID!\n  \"Les coordonnées du point dans le système WGS 84\"\n  coordonnees: Coordonnees\n  \"Le groupe de contours auquel appartient le point composé d'un nombre entier commençant à 1\"\n  groupe: Int\n  \"Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre.\"\n  contour: Int\n  \"Le numéro du point dans le contour\"\n  point: Int\n  \"Le nom du point tel que stipulé dans les documents officiels\"\n  nom: String\n  \"La description du point telle que stipulée dans les documents officiels\"\n  description: String\n  \"Si le point appartient à un périmètre de sécurité\"\n  securite: Boolean\n  \"Liste d'id de référence de points\"\n  references: [PointReference]\n}\n\n\"Point du périmètre géographique d'un titre dans un système autre que WGS 84\"\ntype PointReference {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - de l'id du point\n  - du système\n  \"\"\"\n  id: ID!\n  \"Le code du système de référence géodésique\"\n  systeme: String\n  \"Les coordonnées du point dans le système géodésique\"\n  coordonnees: Coordonnees\n}\n\n\"Paire de coordonnées géographiques\"\ntype Coordonnees {\n  \"La valeur des coordonnées en X sous forme d'un nombre décimal\"\n  x: Float\n  \"La valeur des coordonnées en Y sous forme d'un nombre décimal\"\n  y: Float\n}\n\n\"Titre minier\"\ninput InputTitre {\n  \"\"\"\n  L'__id__ composée de la concaténation:\n  - du type en 3 lettres\n  - du slug du nom du titre\n  - de l'année d'octroi\n  \"\"\"\n  id: ID!\n  nom: String!\n  type: InputType!\n  domaine: InputDomaine!\n  references: [InputReference]\n}\n\ninput InputReference {\n  type: String\n}\n\ninput InputEtape {\n  id: ID!\n  type: InputEtapeTypeId!\n  statut: InputEtapeStatutId!\n  ordre: Int!\n  date: Date!\n  duree: Int\n  dateDebut: Date\n  dateFin: Date\n  surface: Float\n  volume: Float\n  volumeUnite: String\n  visas: [String]\n  engagement: Float\n  engagementDevise: String\n  emprises: [InputEmpriseId]\n  substances: [InputEtapeSubstanceId]\n  points: [InputPoint]\n  titulaires: [InputEntreprise]\n  amodiataires: [InputEntreprise]\n  administrations: [InputAdministration]\n  sourceIndisponible: Boolean\n}\n\ninput InputPoint {\n  id: ID!\n  coordonnees: InputCoordonnees\n  groupe: Int\n  contour: Int\n  point: Int\n  nom: String\n  description: String\n  securite: Boolean\n  references: [InputPointReference]\n}\n\ninput InputPointReference {\n  id: ID!\n  systeme: String\n  coordonnees: InputCoordonnees\n}\n\ninput InputCoordonnees {\n  x: Float\n  y: Float\n}\n\ninput InputDocument {\n  id: ID!\n  nom: String!\n  type: String\n  url: String\n  uri: String\n  fichier: String\n  jorf: String\n  nor: String\n}",
+      "start": 16,
+      "end": 7532,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 289,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 7532,
+      "end": 7533,
+      "loc": {
+        "start": {
+          "line": 289,
+          "column": 1
+        },
+        "end": {
+          "line": 289,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 7534,
+      "end": 7534,
+      "loc": {
+        "start": {
+          "line": 290,
+          "column": 0
+        },
+        "end": {
+          "line": 290,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

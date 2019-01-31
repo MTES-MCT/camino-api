@@ -1,0 +1,251 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 5903,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 325,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 5903,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 325,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 0,
+        "end": 5902,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 324,
+            "column": 1
+          }
+        },
+        "declaration": {
+          "type": "TemplateLiteral",
+          "start": 15,
+          "end": 5902,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 324,
+              "column": 1
+            }
+          },
+          "expressions": [],
+          "quasis": [
+            {
+              "type": "TemplateElement",
+              "start": 16,
+              "end": 5901,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 324,
+                  "column": 0
+                }
+              },
+              "value": {
+                "raw": "\n\"\"\"\nMeta-informations sur les titres miniers (types, domaines, statuts)\n\"\"\"\ntype Metas {\n  \"Les types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)\"\n  types: [Type]\n  \"Les domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)\"\n  domaines: [Domaine]\n  \"Les statuts des titres miniers (ex: valide, demande initiale, etc.)\"\n  statuts: [Statut]\n  \"La liste des types de démarches\"\n  demarchesTypes: [DemarcheType]\n}\n\n\"Le type de titre minier\"\ntype Type {\n  \"L'id composée de trois lettres\"\n  id: TypeId!\n  \"Le nom du type en français\"\n  nom: String!\n}\n\n\"Le domaine minier\"\ntype Domaine {\n  \"L'id composée d'une seule lettre\"\n  id: DomaineId!\n  \"Le nom du domaine en français\"\n  nom: String!\n}\n\n\"Le domaine minier\"\ninput InputDomaineId {\n  \"L'id composée d'une seule lettre\"\n  id: DomaineId!\n  \"Le nom du domaine en français\"\n  nom: String\n}\n\n\"Le statut d'un titre minier\"\ntype Statut {\n  \"L'id composée de trois lettres\"\n  id: StatutId!\n  \"Le nom du statut en français\"\n  nom: String!\n  \"La couleur associé au statut\"\n  couleur: Couleur!\n}\n\n\"Le type de démarche applicable à un titre minier\"\ntype DemarcheType {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom en français\"\n  nom: String!\n  \"L'ordre de ce type de démarche\"\n  ordre: Int\n  \"Si la démarche contient une information de duréee\"\n  duree: Boolean\n  \"Si la démarche contient des informations géographiques\"\n  points: Boolean\n  \"Si la démarche contient des informations de substances\"\n  substances: Boolean\n  \"Si la démarche contient des titulaires\"\n  titulaires: Boolean\n  \"Si la démarche est renouvelable\"\n  renouvelable: Boolean\n  exception: Boolean\n  \"Les types d'étapes applicables à ce type de démarche\"\n  etapesTypes: [EtapeType]\n}\n\n\"Le statut d'une démarche applicable à un titre minier\"\ntype DemarcheStatut {\n  \"L'id composée de trois lettres\"\n  id: DemarcheStatutId!\n  \"Le nom en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le statut d'une phase de titre minier\"\ntype PhaseStatut {\n  \"Le statut d'une phase de titre minier est composé de trois lettres\"\n  id: PhaseStatutId!\n  \"Le nom d'une phase de titre minier en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le type d'étape d'une démarche de titre minier\"\ntype EtapeType {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom en français\"\n  nom: String!\n  acceptationAuto: Boolean\n  ordre: Int!\n  typeId: TypeId\n  etapesStatuts: [EtapeStatut]\n}\n\ntype DemarcheType_etapeType {\n  typeId: ID!\n  demarcheTypeId: ID!\n  etapeTypeId: ID!\n  ordre: Int!\n}\n\n\"Le type d'étape d'une démarche de titre minier\"\ninput InputEtapeTypeId {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom du domaine en français\"\n  nom: String\n  acceptationAuto: Boolean\n}\n\n\"Le statut d'une étape de démarche de titre minier\"\ntype EtapeStatut {\n  \"L'id du statut d'étape est composé de trois lettres\"\n  id: EtapeStatutId!\n  \"Le nom du domaine en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le statut d'une étape de démarche de titre minier\"\ninput InputEtapeStatutId {\n  \"L'id composée de trois lettres\"\n  id: EtapeStatutId!\n  \"Le nom en français\"\n  nom: String\n  couleur: Couleur\n}\n\n\"L'emprise géographique d'un titre minier\"\ntype Emprise {\n  \"L'id composée de trois lettres\"\n  id: EmpriseId!\n  \"Le nom en français\"\n  nom: String!\n}\n\n\"L'emprise géographique d'un titre minier\"\ninput InputEmpriseId {\n  \"L'id composée de trois lettres\"\n  id: EmpriseId!\n  \"Le nom en français\"\n  nom: String\n}\n\n\"\"\"\nL'id du type de titre minier\n\n- __apx__: Autorisation de prospections préalables (M, H, C)\n- __arc__: Autorisation de recherches (C)\n- __arg__: Autorisation de recherches (G)\n- __axm__: Autorisation d'exploitation (M)\n- __cxx__: Concession (M, H, G, S, C)\n- __prh__: Permis exclusif de recherches (H)\n- __prx__: Permis exclusif de recherches (M, G, S, C)\n- __pxc__: Permis exclusif de carrières (C)\n- __pxg__: Permis d'exploitation (G)\n- __pxh__: Permis d'exploitation (H)\n- __pxm__: Permis d'exploitation (M)\n\"\"\"\nenum TypeId {\n  apx\n  arc\n  arg\n  axm\n  cxx\n  prh\n  prx\n  pxc\n  pxg\n  pxh\n  pxm\n  pxx\n}\n\n\"\"\"\nL'id du domaine minier\n\n- __c__: Carrières\n- __f__: Combustibles fossiles\n- __g__: Géothermie\n- __h__: Substances énergétiques\n- __m__: Minéraux et métaux\n- __r__: Eléments radioactifs\n- __s__: Stockage\n- __w__: Granulats marins\n\"\"\"\nenum DomaineId {\n  c\n  f\n  g\n  h\n  m\n  r\n  s\n  w\n}\n\n\"\"\"\nL'id du statut d'un titre minier\n\n- __dmc__: Demande classée\n- __dmi__: Demande initiale\n- __ech__: Échu\n- __ind__: Indéterminé\n- __mod__: Modification en instance\n- __val__: Valide\n\"\"\"\nenum StatutId {\n  dmc\n  dmi\n  ech\n  ind\n  mod\n  val\n}\n\n\"\"\"\nL'id de l'emprise géographique d'un titre minier\n\n- __ter__: À terre\n- __mer__: En mer\n\"\"\"\nenum EmpriseId {\n  ter\n  mer\n}\n\n\"\"\"\nL'id du statut d'une démarche de titre minier\n\n- __acc__: Acceptée\n- __cls__: Classée sans suite\n- __dep__: Déposée\n- __eco__: En construction\n- __ind__: Indeterminé\n- __ini__: Initiée\n- __ins__: En instruction\n- __rej__: Rejetée\n- __ret__: Retirée\n- __ter__: Terminée\n\"\"\"\nenum DemarcheStatutId {\n  acc\n  cls\n  dep\n  eco\n  ind\n  ini\n  ins\n  rej\n  ret\n  ter\n}\n\n\"\"\"\nL'id du statut d'une phase de titre minier\n\n- __val__: Valide\n- __ech__: Échu\n\"\"\"\nenum PhaseStatutId {\n  val\n  ech\n}\n\n\"\"\"\nL'id du statut d'une étape de démarche de titre minier\n\n- __acc__: Acceptation\n- __def__: Défavorable\n- __dre__: Défavorable avec réserves\n- __fav__: Favorable\n- __fre__: Favorable avec réserves\n- __nul__: Non applicable\n- __rej__: Rejet\n- __nfa__: Non fait\n- __fai__: Fait\n\"\"\"\nenum EtapeStatutId {\n  acc\n  def\n  dre\n  fav\n  fre\n  nul\n  rej\n  nfa\n  fai\n}\n\n\"\"\"\nUne liste de couleurs génériques\n\"\"\"\nenum Couleur {\n  error\n  info\n  neutral\n  success\n  warning\n}\n\n\"Le type de titre minier\"\ninput InputType {\n  id: TypeId!\n}\n\n\"Le domaine minier\"\ninput InputDomaine {\n  id: DomaineId!\n}\n\n\"Le type de démarche d'un titre minier\"\ninput InputDemarcheTypeId {\n  id: ID!\n}\n",
+                "cooked": "\n\"\"\"\nMeta-informations sur les titres miniers (types, domaines, statuts)\n\"\"\"\ntype Metas {\n  \"Les types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)\"\n  types: [Type]\n  \"Les domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)\"\n  domaines: [Domaine]\n  \"Les statuts des titres miniers (ex: valide, demande initiale, etc.)\"\n  statuts: [Statut]\n  \"La liste des types de démarches\"\n  demarchesTypes: [DemarcheType]\n}\n\n\"Le type de titre minier\"\ntype Type {\n  \"L'id composée de trois lettres\"\n  id: TypeId!\n  \"Le nom du type en français\"\n  nom: String!\n}\n\n\"Le domaine minier\"\ntype Domaine {\n  \"L'id composée d'une seule lettre\"\n  id: DomaineId!\n  \"Le nom du domaine en français\"\n  nom: String!\n}\n\n\"Le domaine minier\"\ninput InputDomaineId {\n  \"L'id composée d'une seule lettre\"\n  id: DomaineId!\n  \"Le nom du domaine en français\"\n  nom: String\n}\n\n\"Le statut d'un titre minier\"\ntype Statut {\n  \"L'id composée de trois lettres\"\n  id: StatutId!\n  \"Le nom du statut en français\"\n  nom: String!\n  \"La couleur associé au statut\"\n  couleur: Couleur!\n}\n\n\"Le type de démarche applicable à un titre minier\"\ntype DemarcheType {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom en français\"\n  nom: String!\n  \"L'ordre de ce type de démarche\"\n  ordre: Int\n  \"Si la démarche contient une information de duréee\"\n  duree: Boolean\n  \"Si la démarche contient des informations géographiques\"\n  points: Boolean\n  \"Si la démarche contient des informations de substances\"\n  substances: Boolean\n  \"Si la démarche contient des titulaires\"\n  titulaires: Boolean\n  \"Si la démarche est renouvelable\"\n  renouvelable: Boolean\n  exception: Boolean\n  \"Les types d'étapes applicables à ce type de démarche\"\n  etapesTypes: [EtapeType]\n}\n\n\"Le statut d'une démarche applicable à un titre minier\"\ntype DemarcheStatut {\n  \"L'id composée de trois lettres\"\n  id: DemarcheStatutId!\n  \"Le nom en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le statut d'une phase de titre minier\"\ntype PhaseStatut {\n  \"Le statut d'une phase de titre minier est composé de trois lettres\"\n  id: PhaseStatutId!\n  \"Le nom d'une phase de titre minier en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le type d'étape d'une démarche de titre minier\"\ntype EtapeType {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom en français\"\n  nom: String!\n  acceptationAuto: Boolean\n  ordre: Int!\n  typeId: TypeId\n  etapesStatuts: [EtapeStatut]\n}\n\ntype DemarcheType_etapeType {\n  typeId: ID!\n  demarcheTypeId: ID!\n  etapeTypeId: ID!\n  ordre: Int!\n}\n\n\"Le type d'étape d'une démarche de titre minier\"\ninput InputEtapeTypeId {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom du domaine en français\"\n  nom: String\n  acceptationAuto: Boolean\n}\n\n\"Le statut d'une étape de démarche de titre minier\"\ntype EtapeStatut {\n  \"L'id du statut d'étape est composé de trois lettres\"\n  id: EtapeStatutId!\n  \"Le nom du domaine en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le statut d'une étape de démarche de titre minier\"\ninput InputEtapeStatutId {\n  \"L'id composée de trois lettres\"\n  id: EtapeStatutId!\n  \"Le nom en français\"\n  nom: String\n  couleur: Couleur\n}\n\n\"L'emprise géographique d'un titre minier\"\ntype Emprise {\n  \"L'id composée de trois lettres\"\n  id: EmpriseId!\n  \"Le nom en français\"\n  nom: String!\n}\n\n\"L'emprise géographique d'un titre minier\"\ninput InputEmpriseId {\n  \"L'id composée de trois lettres\"\n  id: EmpriseId!\n  \"Le nom en français\"\n  nom: String\n}\n\n\"\"\"\nL'id du type de titre minier\n\n- __apx__: Autorisation de prospections préalables (M, H, C)\n- __arc__: Autorisation de recherches (C)\n- __arg__: Autorisation de recherches (G)\n- __axm__: Autorisation d'exploitation (M)\n- __cxx__: Concession (M, H, G, S, C)\n- __prh__: Permis exclusif de recherches (H)\n- __prx__: Permis exclusif de recherches (M, G, S, C)\n- __pxc__: Permis exclusif de carrières (C)\n- __pxg__: Permis d'exploitation (G)\n- __pxh__: Permis d'exploitation (H)\n- __pxm__: Permis d'exploitation (M)\n\"\"\"\nenum TypeId {\n  apx\n  arc\n  arg\n  axm\n  cxx\n  prh\n  prx\n  pxc\n  pxg\n  pxh\n  pxm\n  pxx\n}\n\n\"\"\"\nL'id du domaine minier\n\n- __c__: Carrières\n- __f__: Combustibles fossiles\n- __g__: Géothermie\n- __h__: Substances énergétiques\n- __m__: Minéraux et métaux\n- __r__: Eléments radioactifs\n- __s__: Stockage\n- __w__: Granulats marins\n\"\"\"\nenum DomaineId {\n  c\n  f\n  g\n  h\n  m\n  r\n  s\n  w\n}\n\n\"\"\"\nL'id du statut d'un titre minier\n\n- __dmc__: Demande classée\n- __dmi__: Demande initiale\n- __ech__: Échu\n- __ind__: Indéterminé\n- __mod__: Modification en instance\n- __val__: Valide\n\"\"\"\nenum StatutId {\n  dmc\n  dmi\n  ech\n  ind\n  mod\n  val\n}\n\n\"\"\"\nL'id de l'emprise géographique d'un titre minier\n\n- __ter__: À terre\n- __mer__: En mer\n\"\"\"\nenum EmpriseId {\n  ter\n  mer\n}\n\n\"\"\"\nL'id du statut d'une démarche de titre minier\n\n- __acc__: Acceptée\n- __cls__: Classée sans suite\n- __dep__: Déposée\n- __eco__: En construction\n- __ind__: Indeterminé\n- __ini__: Initiée\n- __ins__: En instruction\n- __rej__: Rejetée\n- __ret__: Retirée\n- __ter__: Terminée\n\"\"\"\nenum DemarcheStatutId {\n  acc\n  cls\n  dep\n  eco\n  ind\n  ini\n  ins\n  rej\n  ret\n  ter\n}\n\n\"\"\"\nL'id du statut d'une phase de titre minier\n\n- __val__: Valide\n- __ech__: Échu\n\"\"\"\nenum PhaseStatutId {\n  val\n  ech\n}\n\n\"\"\"\nL'id du statut d'une étape de démarche de titre minier\n\n- __acc__: Acceptation\n- __def__: Défavorable\n- __dre__: Défavorable avec réserves\n- __fav__: Favorable\n- __fre__: Favorable avec réserves\n- __nul__: Non applicable\n- __rej__: Rejet\n- __nfa__: Non fait\n- __fai__: Fait\n\"\"\"\nenum EtapeStatutId {\n  acc\n  def\n  dre\n  fav\n  fre\n  nul\n  rej\n  nfa\n  fai\n}\n\n\"\"\"\nUne liste de couleurs génériques\n\"\"\"\nenum Couleur {\n  error\n  info\n  neutral\n  success\n  warning\n}\n\n\"Le type de titre minier\"\ninput InputType {\n  id: TypeId!\n}\n\n\"Le domaine minier\"\ninput InputDomaine {\n  id: DomaineId!\n}\n\n\"Le type de démarche d'un titre minier\"\ninput InputDemarcheTypeId {\n  id: ID!\n}\n"
+              },
+              "tail": true
+            }
+          ],
+          "leadingComments": [],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [],
+  "tokens": [
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 7,
+      "end": 14,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 15,
+      "end": 16,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "\n\"\"\"\nMeta-informations sur les titres miniers (types, domaines, statuts)\n\"\"\"\ntype Metas {\n  \"Les types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)\"\n  types: [Type]\n  \"Les domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)\"\n  domaines: [Domaine]\n  \"Les statuts des titres miniers (ex: valide, demande initiale, etc.)\"\n  statuts: [Statut]\n  \"La liste des types de démarches\"\n  demarchesTypes: [DemarcheType]\n}\n\n\"Le type de titre minier\"\ntype Type {\n  \"L'id composée de trois lettres\"\n  id: TypeId!\n  \"Le nom du type en français\"\n  nom: String!\n}\n\n\"Le domaine minier\"\ntype Domaine {\n  \"L'id composée d'une seule lettre\"\n  id: DomaineId!\n  \"Le nom du domaine en français\"\n  nom: String!\n}\n\n\"Le domaine minier\"\ninput InputDomaineId {\n  \"L'id composée d'une seule lettre\"\n  id: DomaineId!\n  \"Le nom du domaine en français\"\n  nom: String\n}\n\n\"Le statut d'un titre minier\"\ntype Statut {\n  \"L'id composée de trois lettres\"\n  id: StatutId!\n  \"Le nom du statut en français\"\n  nom: String!\n  \"La couleur associé au statut\"\n  couleur: Couleur!\n}\n\n\"Le type de démarche applicable à un titre minier\"\ntype DemarcheType {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom en français\"\n  nom: String!\n  \"L'ordre de ce type de démarche\"\n  ordre: Int\n  \"Si la démarche contient une information de duréee\"\n  duree: Boolean\n  \"Si la démarche contient des informations géographiques\"\n  points: Boolean\n  \"Si la démarche contient des informations de substances\"\n  substances: Boolean\n  \"Si la démarche contient des titulaires\"\n  titulaires: Boolean\n  \"Si la démarche est renouvelable\"\n  renouvelable: Boolean\n  exception: Boolean\n  \"Les types d'étapes applicables à ce type de démarche\"\n  etapesTypes: [EtapeType]\n}\n\n\"Le statut d'une démarche applicable à un titre minier\"\ntype DemarcheStatut {\n  \"L'id composée de trois lettres\"\n  id: DemarcheStatutId!\n  \"Le nom en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le statut d'une phase de titre minier\"\ntype PhaseStatut {\n  \"Le statut d'une phase de titre minier est composé de trois lettres\"\n  id: PhaseStatutId!\n  \"Le nom d'une phase de titre minier en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le type d'étape d'une démarche de titre minier\"\ntype EtapeType {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom en français\"\n  nom: String!\n  acceptationAuto: Boolean\n  ordre: Int!\n  typeId: TypeId\n  etapesStatuts: [EtapeStatut]\n}\n\ntype DemarcheType_etapeType {\n  typeId: ID!\n  demarcheTypeId: ID!\n  etapeTypeId: ID!\n  ordre: Int!\n}\n\n\"Le type d'étape d'une démarche de titre minier\"\ninput InputEtapeTypeId {\n  \"L'id composée de trois lettres\"\n  id: ID!\n  \"Le nom du domaine en français\"\n  nom: String\n  acceptationAuto: Boolean\n}\n\n\"Le statut d'une étape de démarche de titre minier\"\ntype EtapeStatut {\n  \"L'id du statut d'étape est composé de trois lettres\"\n  id: EtapeStatutId!\n  \"Le nom du domaine en français\"\n  nom: String!\n  couleur: Couleur!\n}\n\n\"Le statut d'une étape de démarche de titre minier\"\ninput InputEtapeStatutId {\n  \"L'id composée de trois lettres\"\n  id: EtapeStatutId!\n  \"Le nom en français\"\n  nom: String\n  couleur: Couleur\n}\n\n\"L'emprise géographique d'un titre minier\"\ntype Emprise {\n  \"L'id composée de trois lettres\"\n  id: EmpriseId!\n  \"Le nom en français\"\n  nom: String!\n}\n\n\"L'emprise géographique d'un titre minier\"\ninput InputEmpriseId {\n  \"L'id composée de trois lettres\"\n  id: EmpriseId!\n  \"Le nom en français\"\n  nom: String\n}\n\n\"\"\"\nL'id du type de titre minier\n\n- __apx__: Autorisation de prospections préalables (M, H, C)\n- __arc__: Autorisation de recherches (C)\n- __arg__: Autorisation de recherches (G)\n- __axm__: Autorisation d'exploitation (M)\n- __cxx__: Concession (M, H, G, S, C)\n- __prh__: Permis exclusif de recherches (H)\n- __prx__: Permis exclusif de recherches (M, G, S, C)\n- __pxc__: Permis exclusif de carrières (C)\n- __pxg__: Permis d'exploitation (G)\n- __pxh__: Permis d'exploitation (H)\n- __pxm__: Permis d'exploitation (M)\n\"\"\"\nenum TypeId {\n  apx\n  arc\n  arg\n  axm\n  cxx\n  prh\n  prx\n  pxc\n  pxg\n  pxh\n  pxm\n  pxx\n}\n\n\"\"\"\nL'id du domaine minier\n\n- __c__: Carrières\n- __f__: Combustibles fossiles\n- __g__: Géothermie\n- __h__: Substances énergétiques\n- __m__: Minéraux et métaux\n- __r__: Eléments radioactifs\n- __s__: Stockage\n- __w__: Granulats marins\n\"\"\"\nenum DomaineId {\n  c\n  f\n  g\n  h\n  m\n  r\n  s\n  w\n}\n\n\"\"\"\nL'id du statut d'un titre minier\n\n- __dmc__: Demande classée\n- __dmi__: Demande initiale\n- __ech__: Échu\n- __ind__: Indéterminé\n- __mod__: Modification en instance\n- __val__: Valide\n\"\"\"\nenum StatutId {\n  dmc\n  dmi\n  ech\n  ind\n  mod\n  val\n}\n\n\"\"\"\nL'id de l'emprise géographique d'un titre minier\n\n- __ter__: À terre\n- __mer__: En mer\n\"\"\"\nenum EmpriseId {\n  ter\n  mer\n}\n\n\"\"\"\nL'id du statut d'une démarche de titre minier\n\n- __acc__: Acceptée\n- __cls__: Classée sans suite\n- __dep__: Déposée\n- __eco__: En construction\n- __ind__: Indeterminé\n- __ini__: Initiée\n- __ins__: En instruction\n- __rej__: Rejetée\n- __ret__: Retirée\n- __ter__: Terminée\n\"\"\"\nenum DemarcheStatutId {\n  acc\n  cls\n  dep\n  eco\n  ind\n  ini\n  ins\n  rej\n  ret\n  ter\n}\n\n\"\"\"\nL'id du statut d'une phase de titre minier\n\n- __val__: Valide\n- __ech__: Échu\n\"\"\"\nenum PhaseStatutId {\n  val\n  ech\n}\n\n\"\"\"\nL'id du statut d'une étape de démarche de titre minier\n\n- __acc__: Acceptation\n- __def__: Défavorable\n- __dre__: Défavorable avec réserves\n- __fav__: Favorable\n- __fre__: Favorable avec réserves\n- __nul__: Non applicable\n- __rej__: Rejet\n- __nfa__: Non fait\n- __fai__: Fait\n\"\"\"\nenum EtapeStatutId {\n  acc\n  def\n  dre\n  fav\n  fre\n  nul\n  rej\n  nfa\n  fai\n}\n\n\"\"\"\nUne liste de couleurs génériques\n\"\"\"\nenum Couleur {\n  error\n  info\n  neutral\n  success\n  warning\n}\n\n\"Le type de titre minier\"\ninput InputType {\n  id: TypeId!\n}\n\n\"Le domaine minier\"\ninput InputDomaine {\n  id: DomaineId!\n}\n\n\"Le type de démarche d'un titre minier\"\ninput InputDemarcheTypeId {\n  id: ID!\n}\n",
+      "start": 16,
+      "end": 5901,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 324,
+          "column": 0
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 5901,
+      "end": 5902,
+      "loc": {
+        "start": {
+          "line": 324,
+          "column": 0
+        },
+        "end": {
+          "line": 324,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 5903,
+      "end": 5903,
+      "loc": {
+        "start": {
+          "line": 325,
+          "column": 0
+        },
+        "end": {
+          "line": 325,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

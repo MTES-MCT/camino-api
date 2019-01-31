@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | camino-api</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Camino api"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="camino-api"><meta property="twitter:description" content="Camino api"></head>
+<body class="layout-container manual-root manual-index" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/MTES-MCT/camino-api"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/docker.html"><a href="manual/docker.html" data-ice="link">Manipuler la base de donn&#xE9;es</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/docker.html"><a href="manual/docker.html#recr&#xE9;er-la-base-de-donn&#xE9;es-dans-son-conteneur-docker" data-ice="link">Recr&#xE9;er la base de donn&#xE9;es dans son conteneur Docker</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/docker.html"><a href="manual/docker.html#d&#xE9;marrer-un-shell-dans-le-conteneur-docker-de-l--39-api" data-ice="link">D&#xE9;marrer un shell dans le conteneur Docker de l&apos;API</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/docker.html"><a href="manual/docker.html#faire-un-dump-de-la-base-de-donn&#xE9;es-locale-et-l--39-uploader-sur-le-serveur" data-ice="link">Faire un dump de la base de donn&#xE9;es locale et l&apos;uploader sur le serveur</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/docker.html"><a href="manual/docker.html#importer-la-base-de-donn&#xE9;es-depuis-le-r&#xE9;pertoire-tmp-vers-le-conteneur-docker" data-ice="link">Importer la base de donn&#xE9;es depuis le r&#xE9;pertoire tmp vers le conteneur Docker</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  <div class="manual-user-index" data-ice="manualUserIndex"><h1 id="camino">Camino</h1><blockquote>
+<p>le cadastre minier num&#xE9;rique ouvert</p>
+</blockquote>
+<p><a href="http://camino.beta.gouv.fr/">Camino</a> est le nouvel outil de gestion du domaine minier de l&apos;administration. Il pr&#xE9;sente les caract&#xE9;ristiques des titres miniers sur une carte et permet de les suivre &#xE0; chaque &#xE9;tape de leur vie.</p>
+<h2 id="usages">Usages</h2><ul>
+<li>Les <strong>entreprises</strong> gagnent en visibilit&#xE9; sur leur business et cela simplifie leurs d&#xE9;marches.</li>
+<li>Les <strong>citoyens</strong> acc&#xE8;dent simplement aux informations publiques.</li>
+<li>Les <strong>agents publics</strong> centralisent leurs contributions et b&#xE9;n&#xE9;ficient d&#x2019;une vision partag&#xE9;e.</li>
+</ul>
+</div>
+
+  
+
+  <div class="manual-cards">
+    
+  <div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Manipuler la base de donn&#xE9;es</h1><h2>Recr&#xE9;er la base de donn&#xE9;es dans son conteneur Docker</h2><pre><code class="lang-sh"><code class="source-code prettyprint"># stopper le conteneur de l&apos;API
+docker stop camino-api_app_1
+
+# d&#xE9;marrer psql dans le conteneur de la base de donn&#xE9;es
+docker exec -it camino-api_postgres_1 psql postgres</code>
+</code></pre><pre><code class="lang-psql"><code class="source-code prettyprint"># supprimer la base de donn&#xE9;es et la re-cr&#xE9;er
+DROP DATABASE camino; CREATE DATABASE camino;
+
+# quitter psql
+\q</code>
+</code></pre><pre><code class="lang-sh"><code class="source-code prettyprint"># red&#xE9;marrer le conteneur Docker de l&apos;API
+docker start camino-api_app_1</code>
+</code></pre><h2>D&#xE9;marrer un shell dans le conteneur Docker de l&apos;API</h2><pre><code class="lang-sh"><code class="source-code prettyprint"># start a shell in the camino-api app
+docker exec -it camino-api_app_1 sh</code>
+</code></pre><h2>Faire un dump de la base de donn&#xE9;es locale et l&apos;uploader sur le serveur</h2><pre><code class="lang-bash"><code class="source-code prettyprint">pg_dump camino &gt; camino.sql &amp;&amp; scp camino.sql &lt;user&gt;@&lt;ip&gt;:/srv/tmp/dumps/camino.sql</code>
+</code></pre><h2>Importer la base de donn&#xE9;es depuis le r&#xE9;pertoire tmp vers le conteneur Docker</h2><pre><code class="lang-sh"><code class="source-code prettyprint"># se placer dans le dossier /tmp ou se trouve le dump
+cd /srv/tmp/dumps/
+
+# importer la base de donn&#xE9;es depuis le dump
+cat camino.sql | docker exec -i caminoapi_postgres_1 psql -U postgres -d camino</code>
+</code></pre></div>
+        <a data-ice="link" href="manual/docker.html"></a>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

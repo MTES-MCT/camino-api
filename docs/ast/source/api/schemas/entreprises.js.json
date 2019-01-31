@@ -1,0 +1,251 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 758,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 43,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 758,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 43,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 0,
+        "end": 757,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 42,
+            "column": 2
+          }
+        },
+        "declaration": {
+          "type": "TemplateLiteral",
+          "start": 15,
+          "end": 757,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 15
+            },
+            "end": {
+              "line": 42,
+              "column": 2
+            }
+          },
+          "expressions": [],
+          "quasis": [
+            {
+              "type": "TemplateElement",
+              "start": 16,
+              "end": 756,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 16
+                },
+                "end": {
+                  "line": 42,
+                  "column": 1
+                }
+              },
+              "value": {
+                "raw": "\ntype Entreprise {\n  id: ID!\n  nom: String\n  raisonSociale: String\n  paysId: String\n  legalSiren: String\n  legalEtranger: String\n  legalForme: String\n  voieNumero: String\n  voieType: String\n  voieNom: String\n  adresseComplement: String\n  codePostal: Int\n  ville: String\n  cedex: Int\n  url: String\n  telephone: String\n  email: String\n  utilisateurs: [Utilisateur]\n}\n\ninput InputEntreprise {\n  id: ID!\n  nom: String\n  raisonSociale: String\n  paysId: String\n  legalSiren: String\n  legalEtranger: String\n  legalForme: String\n  voieNumero: String\n  voieType: String\n  voieNom: String\n  adresseComplement: String\n  codePostal: Int\n  ville: String\n  cedex: Int\n  url: String\n  telephone: String\n  email: String\n  utilisateurs: [InputUtilisateur]\n}",
+                "cooked": "\ntype Entreprise {\n  id: ID!\n  nom: String\n  raisonSociale: String\n  paysId: String\n  legalSiren: String\n  legalEtranger: String\n  legalForme: String\n  voieNumero: String\n  voieType: String\n  voieNom: String\n  adresseComplement: String\n  codePostal: Int\n  ville: String\n  cedex: Int\n  url: String\n  telephone: String\n  email: String\n  utilisateurs: [Utilisateur]\n}\n\ninput InputEntreprise {\n  id: ID!\n  nom: String\n  raisonSociale: String\n  paysId: String\n  legalSiren: String\n  legalEtranger: String\n  legalForme: String\n  voieNumero: String\n  voieType: String\n  voieNom: String\n  adresseComplement: String\n  codePostal: Int\n  ville: String\n  cedex: Int\n  url: String\n  telephone: String\n  email: String\n  utilisateurs: [InputUtilisateur]\n}"
+              },
+              "tail": true
+            }
+          ],
+          "leadingComments": [],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [],
+  "tokens": [
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 7,
+      "end": 14,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 15,
+      "end": 16,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "template",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "\ntype Entreprise {\n  id: ID!\n  nom: String\n  raisonSociale: String\n  paysId: String\n  legalSiren: String\n  legalEtranger: String\n  legalForme: String\n  voieNumero: String\n  voieType: String\n  voieNom: String\n  adresseComplement: String\n  codePostal: Int\n  ville: String\n  cedex: Int\n  url: String\n  telephone: String\n  email: String\n  utilisateurs: [Utilisateur]\n}\n\ninput InputEntreprise {\n  id: ID!\n  nom: String\n  raisonSociale: String\n  paysId: String\n  legalSiren: String\n  legalEtranger: String\n  legalForme: String\n  voieNumero: String\n  voieType: String\n  voieNom: String\n  adresseComplement: String\n  codePostal: Int\n  ville: String\n  cedex: Int\n  url: String\n  telephone: String\n  email: String\n  utilisateurs: [InputUtilisateur]\n}",
+      "start": 16,
+      "end": 756,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 16
+        },
+        "end": {
+          "line": 42,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "`",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 756,
+      "end": 757,
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 1
+        },
+        "end": {
+          "line": 42,
+          "column": 2
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 758,
+      "end": 758,
+      "loc": {
+        "start": {
+          "line": 43,
+          "column": 0
+        },
+        "end": {
+          "line": 43,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

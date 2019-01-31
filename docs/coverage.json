@@ -1,0 +1,1067 @@
+{
+  "coverage": "0.29%",
+  "expectCount": 342,
+  "actualCount": 1,
+  "files": {
+    "src/api/resolvers/_format.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "src/api/resolvers/_geojson.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        9,
+        17
+      ]
+    },
+    "src/api/resolvers/_permissions-check.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/api/resolvers/_restrictions.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4
+      ]
+    },
+    "src/api/resolvers/entreprises.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        16
+      ]
+    },
+    "src/api/resolvers/metas.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        12,
+        15
+      ]
+    },
+    "src/api/resolvers/permissions.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        8,
+        10
+      ]
+    },
+    "src/api/resolvers/substances.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        5
+      ]
+    },
+    "src/api/resolvers/titres-travaux.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        87,
+        22
+      ]
+    },
+    "src/api/resolvers/titres.js": {
+      "expectCount": 7,
+      "actualCount": 0,
+      "undocumentLines": [
+        144,
+        19,
+        37,
+        73,
+        87,
+        101,
+        115
+      ]
+    },
+    "src/api/resolvers/utilisateurs.js": {
+      "expectCount": 14,
+      "actualCount": 0,
+      "undocumentLines": [
+        18,
+        26,
+        46,
+        56,
+        75,
+        103,
+        112,
+        161,
+        217,
+        258,
+        282,
+        306,
+        367,
+        406
+      ]
+    },
+    "src/api/resolvers/version.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/api/schemas.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        13
+      ]
+    },
+    "src/config/index.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        7,
+        8,
+        9,
+        5
+      ]
+    },
+    "src/config/knex.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        11
+      ]
+    },
+    "src/database/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/database/models/administrations.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        26
+      ]
+    },
+    "src/database/models/demarches-statuts.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/demarches-types.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        25
+      ]
+    },
+    "src/database/models/domaines.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        17
+      ]
+    },
+    "src/database/models/emprises.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/entreprises.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        32
+      ]
+    },
+    "src/database/models/etapes-statuts.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/etapes-types.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        29
+      ]
+    },
+    "src/database/models/permissions.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6,
+        17
+      ]
+    },
+    "src/database/models/phases-statuts.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/statuts.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/substances-legales-codes.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/substances-legales.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        21
+      ]
+    },
+    "src/database/models/substances.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        21
+      ]
+    },
+    "src/database/models/titres-administrations.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        17,
+        28
+      ]
+    },
+    "src/database/models/titres-amodiataires.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        17,
+        28
+      ]
+    },
+    "src/database/models/titres-demarches.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        8,
+        10,
+        24,
+        76
+      ]
+    },
+    "src/database/models/titres-documents.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/titres-emprises.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        17,
+        28
+      ]
+    },
+    "src/database/models/titres-erreurs.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/titres-etapes.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        18,
+        19,
+        21,
+        45,
+        189
+      ]
+    },
+    "src/database/models/titres-phases.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        19,
+        30
+      ]
+    },
+    "src/database/models/titres-points-references.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/titres-points.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        37,
+        48,
+        57
+      ]
+    },
+    "src/database/models/titres-substances.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        19,
+        30
+      ]
+    },
+    "src/database/models/titres-titulaires.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        5,
+        7,
+        17
+      ]
+    },
+    "src/database/models/titres-travaux-rapports.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        4,
+        6
+      ]
+    },
+    "src/database/models/titres.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        13,
+        14,
+        16,
+        39
+      ]
+    },
+    "src/database/models/types.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        18
+      ]
+    },
+    "src/database/models/utilisateurs.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        5,
+        6,
+        8,
+        27
+      ]
+    },
+    "src/database/queries/_options.js": {
+      "expectCount": 10,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        10,
+        14,
+        18,
+        22,
+        26,
+        59,
+        63,
+        69,
+        84
+      ]
+    },
+    "src/database/queries/entreprises.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        9
+      ]
+    },
+    "src/database/queries/metas.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        9,
+        11,
+        13
+      ]
+    },
+    "src/database/queries/permissions.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        9
+      ]
+    },
+    "src/database/queries/substances.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        9
+      ]
+    },
+    "src/database/queries/titres-demarches.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        12,
+        4,
+        17,
+        23
+      ]
+    },
+    "src/database/queries/titres-etapes.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        9,
+        17,
+        23
+      ]
+    },
+    "src/database/queries/titres-phases.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        9,
+        12
+      ]
+    },
+    "src/database/queries/titres-points.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        5
+      ]
+    },
+    "src/database/queries/titres-travaux.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        3,
+        6,
+        9
+      ]
+    },
+    "src/database/queries/titres.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        9,
+        197,
+        203,
+        209,
+        216
+      ]
+    },
+    "src/database/queries/utilisateurs.js": {
+      "expectCount": 6,
+      "actualCount": 0,
+      "undocumentLines": [
+        4,
+        9,
+        15,
+        38,
+        44,
+        50
+      ]
+    },
+    "src/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        25
+      ]
+    },
+    "src/tasks/_utils/titre-date-fin-find.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/tasks/_utils/titre-demarche-date-fin-duree-find.js": {
+      "expectCount": 5,
+      "actualCount": 0,
+      "undocumentLines": [
+        62,
+        118,
+        152,
+        178,
+        11
+      ]
+    },
+    "src/tasks/_utils/titre-demarche-ordre-find.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tasks/_utils/titre-demarche-phases-filter.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        10
+      ]
+    },
+    "src/tasks/_utils/titre-demarche-statut-id-find.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tasks/_utils/titre-demarches-asc-sort.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tasks/_utils/titre-etapes-asc-sort.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        2
+      ]
+    },
+    "src/tasks/_utils/titre-etapes-desc-sort.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        2
+      ]
+    },
+    "src/tasks/_utils/titre-phases-find.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        51,
+        103,
+        129,
+        8
+      ]
+    },
+    "src/tasks/_utils/titre-prop-etape-id-find.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tasks/_utils/titre-statut-id-find.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tasks/daily/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        18
+      ]
+    },
+    "src/tasks/daily/titres-demarches-ordre-update.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        21,
+        3
+      ]
+    },
+    "src/tasks/daily/titres-demarches-statut-ids-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tasks/daily/titres-etapes-ordre-update.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        20,
+        3
+      ]
+    },
+    "src/tasks/daily/titres-phases-update.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        50,
+        5
+      ]
+    },
+    "src/tasks/daily/titres-props-etape-id-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tasks/daily/titres-statut-ids-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tasks/etape-update/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        14
+      ]
+    },
+    "src/tasks/etape-update/titre-demarche-statut-id-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tasks/etape-update/titre-demarches-ordre-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tasks/etape-update/titre-etapes-ordre-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tasks/etape-update/titre-phases-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tasks/etape-update/titre-props-etape-id-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tasks/etape-update/titre-statut-id-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tasks/titre-demarches.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/tasks/titre-etapes.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tasks/titre-phases.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        70,
+        75,
+        8
+      ]
+    },
+    "src/tasks/titres-without-points-list.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        19
+      ]
+    },
+    "src/tasks/titres.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tasks/utilisateur-add.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        7,
+        9,
+        15
+      ]
+    },
+    "src/tasks/utilisateur-remove.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        8
+      ]
+    },
+    "src/tools/dev/database/demarches-by-titre.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        10
+      ]
+    },
+    "src/tools/dev/database/demarches-types.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/tools/dev/database/demarches-with-no-points.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/tools/dev/database/titres.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        6
+      ]
+    },
+    "src/tools/dev/database/utilisateurs-by-titre.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/tools/dev/graphql-dsl-to-query-convert.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tools/dev/index.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        12
+      ]
+    },
+    "src/tools/dev/json/error-find.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        33
+      ]
+    },
+    "src/tools/export/_utils/db-process.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        4
+      ]
+    },
+    "src/tools/export/_utils/google-spreadsheet-promisify.js": {
+      "expectCount": 9,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        14,
+        27,
+        40,
+        53,
+        66,
+        78,
+        90,
+        102
+      ]
+    },
+    "src/tools/export/_utils/json-to-spreadsheet.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        126,
+        16
+      ]
+    },
+    "src/tools/export/_utils/row-format.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        12
+      ]
+    },
+    "src/tools/export/_utils/spreadsheet-row-add.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        9
+      ]
+    },
+    "src/tools/export/_utils/spreadsheet-row-update.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        11
+      ]
+    },
+    "src/tools/export/definitions.js": {
+      "expectCount": 14,
+      "actualCount": 0,
+      "undocumentLines": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        21,
+        31,
+        40,
+        48,
+        50
+      ]
+    },
+    "src/tools/export/index.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        8
+      ]
+    },
+    "src/tools/export/tables/titres-travaux.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tools/export/tables/titres.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        7
+      ]
+    },
+    "src/tools/export/tables/utilisateurs.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        1
+      ]
+    },
+    "src/tools/export/titre-travaux-rapport.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        13
+      ]
+    },
+    "src/tools/export/titres-travaux-rapports.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        10
+      ]
+    },
+    "src/tools/export/utilisateurs.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        6,
+        10
+      ]
+    },
+    "src/tools/import/_utils/_spreadsheet-to-json.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        5
+      ]
+    },
+    "src/tools/import/_utils/file-create.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tools/import/_utils/file-path-create.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tools/import/index.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        9,
+        19
+      ]
+    },
+    "src/tools/import/spreadsheets.js": {
+      "expectCount": 19,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        20,
+        28,
+        42
+      ]
+    },
+    "src/tools/mailer/batch.js": {
+      "expectCount": 1,
+      "actualCount": 0,
+      "undocumentLines": [
+        3
+      ]
+    },
+    "src/tools/mailer/index.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        13,
+        17,
+        19,
+        26
+      ]
+    }
+  }
+}

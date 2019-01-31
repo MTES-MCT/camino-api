@@ -1,0 +1,3075 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 683,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 23,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 683,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 23,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 83,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 83
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportDefaultSpecifier",
+            "start": 7,
+            "end": 39,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 7
+              },
+              "end": {
+                "line": 1,
+                "column": 39
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 7,
+              "end": 39,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 7
+                },
+                "end": {
+                  "line": 1,
+                  "column": 39
+                },
+                "identifierName": "titreDemarcheDateFinAndDureeFind"
+              },
+              "name": "titreDemarcheDateFinAndDureeFind"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 45,
+          "end": 83,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 45
+            },
+            "end": {
+              "line": 1,
+              "column": 83
+            }
+          },
+          "extra": {
+            "rawValue": "./titre-demarche-date-fin-duree-find",
+            "raw": "'./titre-demarche-date-fin-duree-find'"
+          },
+          "value": "./titre-demarche-date-fin-duree-find",
+          "leadingComments": null,
+          "trailingComments": null
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * Trouve la date de fin d'un titre\n * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titres\n * @return {String} la date de fin du titre sous forme yyyy-mm-dd\n ",
+            "start": 85,
+            "end": 272,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "Identifier",
+        "start": 274,
+        "end": 649,
+        "loc": {
+          "start": {
+            "line": 9,
+            "column": 0
+          },
+          "end": {
+            "line": 20,
+            "column": 1
+          }
+        },
+        "declarations": [
+          {
+            "type": "VariableDeclarator",
+            "start": 280,
+            "end": 649,
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 6
+              },
+              "end": {
+                "line": 20,
+                "column": 1
+              }
+            },
+            "id": {
+              "type": "Identifier",
+              "start": 280,
+              "end": 296,
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 6
+                },
+                "end": {
+                  "line": 9,
+                  "column": 22
+                },
+                "identifierName": "titreDateFinFind"
+              },
+              "name": "titreDateFinFind",
+              "leadingComments": null
+            },
+            "init": {
+              "type": "ArrowFunctionExpression",
+              "start": 299,
+              "end": 649,
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 25
+                },
+                "end": {
+                  "line": 20,
+                  "column": 1
+                }
+              },
+              "id": null,
+              "generator": false,
+              "expression": false,
+              "async": false,
+              "params": [
+                {
+                  "type": "Identifier",
+                  "start": 299,
+                  "end": 313,
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 25
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 39
+                    },
+                    "identifierName": "titreDemarches"
+                  },
+                  "name": "titreDemarches"
+                }
+              ],
+              "body": {
+                "type": "BlockStatement",
+                "start": 317,
+                "end": 649,
+                "loc": {
+                  "start": {
+                    "line": 9,
+                    "column": 43
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 1
+                  }
+                },
+                "body": [
+                  {
+                    "type": "VariableDeclaration",
+                    "start": 387,
+                    "end": 501,
+                    "loc": {
+                      "start": {
+                        "line": 11,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 13,
+                        "column": 3
+                      }
+                    },
+                    "declarations": [
+                      {
+                        "type": "VariableDeclarator",
+                        "start": 393,
+                        "end": 501,
+                        "loc": {
+                          "start": {
+                            "line": 11,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 13,
+                            "column": 3
+                          }
+                        },
+                        "id": {
+                          "type": "Identifier",
+                          "start": 393,
+                          "end": 406,
+                          "loc": {
+                            "start": {
+                              "line": 11,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 11,
+                              "column": 21
+                            },
+                            "identifierName": "titreDemarche"
+                          },
+                          "name": "titreDemarche",
+                          "leadingComments": null
+                        },
+                        "init": {
+                          "type": "CallExpression",
+                          "start": 409,
+                          "end": 501,
+                          "loc": {
+                            "start": {
+                              "line": 11,
+                              "column": 24
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 3
+                            }
+                          },
+                          "callee": {
+                            "type": "MemberExpression",
+                            "start": 409,
+                            "end": 428,
+                            "loc": {
+                              "start": {
+                                "line": 11,
+                                "column": 24
+                              },
+                              "end": {
+                                "line": 11,
+                                "column": 43
+                              }
+                            },
+                            "object": {
+                              "type": "Identifier",
+                              "start": 409,
+                              "end": 423,
+                              "loc": {
+                                "start": {
+                                  "line": 11,
+                                  "column": 24
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 38
+                                },
+                                "identifierName": "titreDemarches"
+                              },
+                              "name": "titreDemarches"
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 424,
+                              "end": 428,
+                              "loc": {
+                                "start": {
+                                  "line": 11,
+                                  "column": 39
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 43
+                                },
+                                "identifierName": "find"
+                              },
+                              "name": "find"
+                            },
+                            "computed": false
+                          },
+                          "arguments": [
+                            {
+                              "type": "ArrowFunctionExpression",
+                              "start": 429,
+                              "end": 497,
+                              "loc": {
+                                "start": {
+                                  "line": 11,
+                                  "column": 44
+                                },
+                                "end": {
+                                  "line": 12,
+                                  "column": 51
+                                }
+                              },
+                              "id": null,
+                              "generator": false,
+                              "expression": true,
+                              "async": false,
+                              "params": [
+                                {
+                                  "type": "Identifier",
+                                  "start": 429,
+                                  "end": 442,
+                                  "loc": {
+                                    "start": {
+                                      "line": 11,
+                                      "column": 44
+                                    },
+                                    "end": {
+                                      "line": 11,
+                                      "column": 57
+                                    },
+                                    "identifierName": "titreDemarche"
+                                  },
+                                  "name": "titreDemarche"
+                                }
+                              ],
+                              "body": {
+                                "type": "CallExpression",
+                                "start": 450,
+                                "end": 497,
+                                "loc": {
+                                  "start": {
+                                    "line": 12,
+                                    "column": 4
+                                  },
+                                  "end": {
+                                    "line": 12,
+                                    "column": 51
+                                  }
+                                },
+                                "callee": {
+                                  "type": "MemberExpression",
+                                  "start": 450,
+                                  "end": 473,
+                                  "loc": {
+                                    "start": {
+                                      "line": 12,
+                                      "column": 4
+                                    },
+                                    "end": {
+                                      "line": 12,
+                                      "column": 27
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "ArrayExpression",
+                                    "start": 450,
+                                    "end": 464,
+                                    "loc": {
+                                      "start": {
+                                        "line": 12,
+                                        "column": 4
+                                      },
+                                      "end": {
+                                        "line": 12,
+                                        "column": 18
+                                      }
+                                    },
+                                    "elements": [
+                                      {
+                                        "type": "StringLiteral",
+                                        "start": 451,
+                                        "end": 456,
+                                        "loc": {
+                                          "start": {
+                                            "line": 12,
+                                            "column": 5
+                                          },
+                                          "end": {
+                                            "line": 12,
+                                            "column": 10
+                                          }
+                                        },
+                                        "extra": {
+                                          "rawValue": "acc",
+                                          "raw": "'acc'"
+                                        },
+                                        "value": "acc"
+                                      },
+                                      {
+                                        "type": "StringLiteral",
+                                        "start": 458,
+                                        "end": 463,
+                                        "loc": {
+                                          "start": {
+                                            "line": 12,
+                                            "column": 12
+                                          },
+                                          "end": {
+                                            "line": 12,
+                                            "column": 17
+                                          }
+                                        },
+                                        "extra": {
+                                          "rawValue": "ter",
+                                          "raw": "'ter'"
+                                        },
+                                        "value": "ter"
+                                      }
+                                    ]
+                                  },
+                                  "property": {
+                                    "type": "Identifier",
+                                    "start": 465,
+                                    "end": 473,
+                                    "loc": {
+                                      "start": {
+                                        "line": 12,
+                                        "column": 19
+                                      },
+                                      "end": {
+                                        "line": 12,
+                                        "column": 27
+                                      },
+                                      "identifierName": "includes"
+                                    },
+                                    "name": "includes"
+                                  },
+                                  "computed": false
+                                },
+                                "arguments": [
+                                  {
+                                    "type": "MemberExpression",
+                                    "start": 474,
+                                    "end": 496,
+                                    "loc": {
+                                      "start": {
+                                        "line": 12,
+                                        "column": 28
+                                      },
+                                      "end": {
+                                        "line": 12,
+                                        "column": 50
+                                      }
+                                    },
+                                    "object": {
+                                      "type": "Identifier",
+                                      "start": 474,
+                                      "end": 487,
+                                      "loc": {
+                                        "start": {
+                                          "line": 12,
+                                          "column": 28
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 41
+                                        },
+                                        "identifierName": "titreDemarche"
+                                      },
+                                      "name": "titreDemarche"
+                                    },
+                                    "property": {
+                                      "type": "Identifier",
+                                      "start": 488,
+                                      "end": 496,
+                                      "loc": {
+                                        "start": {
+                                          "line": 12,
+                                          "column": 42
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 50
+                                        },
+                                        "identifierName": "statutId"
+                                      },
+                                      "name": "statutId"
+                                    },
+                                    "computed": false
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "leadingComments": null
+                      }
+                    ],
+                    "kind": "const",
+                    "leadingComments": [
+                      {
+                        "type": "CommentLine",
+                        "value": " la dernière démarche dont le statut est acceptée ou terminée",
+                        "start": 321,
+                        "end": 384,
+                        "loc": {
+                          "start": {
+                            "line": 10,
+                            "column": 2
+                          },
+                          "end": {
+                            "line": 10,
+                            "column": 65
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "VariableDeclaration",
+                    "start": 504,
+                    "end": 629,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 17,
+                        "column": 14
+                      }
+                    },
+                    "declarations": [
+                      {
+                        "type": "VariableDeclarator",
+                        "start": 510,
+                        "end": 629,
+                        "loc": {
+                          "start": {
+                            "line": 14,
+                            "column": 8
+                          },
+                          "end": {
+                            "line": 17,
+                            "column": 14
+                          }
+                        },
+                        "id": {
+                          "type": "Identifier",
+                          "start": 510,
+                          "end": 517,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 14,
+                              "column": 15
+                            },
+                            "identifierName": "dateFin"
+                          },
+                          "name": "dateFin"
+                        },
+                        "init": {
+                          "type": "LogicalExpression",
+                          "start": 524,
+                          "end": 629,
+                          "loc": {
+                            "start": {
+                              "line": 15,
+                              "column": 4
+                            },
+                            "end": {
+                              "line": 17,
+                              "column": 14
+                            }
+                          },
+                          "left": {
+                            "type": "Identifier",
+                            "start": 524,
+                            "end": 537,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 15,
+                                "column": 17
+                              },
+                              "identifierName": "titreDemarche"
+                            },
+                            "name": "titreDemarche"
+                          },
+                          "operator": "&&",
+                          "right": {
+                            "type": "MemberExpression",
+                            "start": 545,
+                            "end": 629,
+                            "loc": {
+                              "start": {
+                                "line": 16,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 17,
+                                "column": 14
+                              }
+                            },
+                            "object": {
+                              "type": "CallExpression",
+                              "start": 545,
+                              "end": 614,
+                              "loc": {
+                                "start": {
+                                  "line": 16,
+                                  "column": 4
+                                },
+                                "end": {
+                                  "line": 16,
+                                  "column": 73
+                                }
+                              },
+                              "callee": {
+                                "type": "Identifier",
+                                "start": 545,
+                                "end": 577,
+                                "loc": {
+                                  "start": {
+                                    "line": 16,
+                                    "column": 4
+                                  },
+                                  "end": {
+                                    "line": 16,
+                                    "column": 36
+                                  },
+                                  "identifierName": "titreDemarcheDateFinAndDureeFind"
+                                },
+                                "name": "titreDemarcheDateFinAndDureeFind"
+                              },
+                              "arguments": [
+                                {
+                                  "type": "Identifier",
+                                  "start": 578,
+                                  "end": 592,
+                                  "loc": {
+                                    "start": {
+                                      "line": 16,
+                                      "column": 37
+                                    },
+                                    "end": {
+                                      "line": 16,
+                                      "column": 51
+                                    },
+                                    "identifierName": "titreDemarches"
+                                  },
+                                  "name": "titreDemarches"
+                                },
+                                {
+                                  "type": "MemberExpression",
+                                  "start": 594,
+                                  "end": 613,
+                                  "loc": {
+                                    "start": {
+                                      "line": 16,
+                                      "column": 53
+                                    },
+                                    "end": {
+                                      "line": 16,
+                                      "column": 72
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "Identifier",
+                                    "start": 594,
+                                    "end": 607,
+                                    "loc": {
+                                      "start": {
+                                        "line": 16,
+                                        "column": 53
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 66
+                                      },
+                                      "identifierName": "titreDemarche"
+                                    },
+                                    "name": "titreDemarche"
+                                  },
+                                  "property": {
+                                    "type": "Identifier",
+                                    "start": 608,
+                                    "end": 613,
+                                    "loc": {
+                                      "start": {
+                                        "line": 16,
+                                        "column": 67
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 72
+                                      },
+                                      "identifierName": "ordre"
+                                    },
+                                    "name": "ordre"
+                                  },
+                                  "computed": false
+                                }
+                              ]
+                            },
+                            "property": {
+                              "type": "Identifier",
+                              "start": 622,
+                              "end": 629,
+                              "loc": {
+                                "start": {
+                                  "line": 17,
+                                  "column": 7
+                                },
+                                "end": {
+                                  "line": 17,
+                                  "column": 14
+                                },
+                                "identifierName": "dateFin"
+                              },
+                              "name": "dateFin"
+                            },
+                            "computed": false
+                          }
+                        }
+                      }
+                    ],
+                    "kind": "const"
+                  },
+                  {
+                    "type": "ReturnStatement",
+                    "start": 633,
+                    "end": 647,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 19,
+                        "column": 16
+                      }
+                    },
+                    "argument": {
+                      "type": "Identifier",
+                      "start": 640,
+                      "end": 647,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 9
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 16
+                        },
+                        "identifierName": "dateFin"
+                      },
+                      "name": "dateFin"
+                    }
+                  }
+                ],
+                "directives": []
+              }
+            },
+            "leadingComments": null
+          }
+        ],
+        "kind": "const",
+        "leadingComments": [],
+        "name": "_",
+        "trailingComments": []
+      },
+      {
+        "type": "Identifier",
+        "start": 651,
+        "end": 682,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 22,
+            "column": 31
+          }
+        },
+        "declaration": {
+          "type": "Identifier",
+          "start": 666,
+          "end": 682,
+          "loc": {
+            "start": {
+              "line": 22,
+              "column": 15
+            },
+            "end": {
+              "line": 22,
+              "column": 31
+            },
+            "identifierName": "titreDateFinFind"
+          },
+          "name": "titreDateFinFind"
+        },
+        "name": "_",
+        "leadingComments": [],
+        "trailingComments": []
+      },
+      {
+        "type": "ExportDefaultDeclaration",
+        "start": 651,
+        "end": 682,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 22,
+            "column": 31
+          }
+        },
+        "declaration": {
+          "type": "VariableDeclaration",
+          "start": 274,
+          "end": 649,
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 0
+            },
+            "end": {
+              "line": 20,
+              "column": 1
+            }
+          },
+          "declarations": [
+            {
+              "type": "VariableDeclarator",
+              "start": 280,
+              "end": 649,
+              "loc": {
+                "start": {
+                  "line": 9,
+                  "column": 6
+                },
+                "end": {
+                  "line": 20,
+                  "column": 1
+                }
+              },
+              "id": {
+                "type": "Identifier",
+                "start": 280,
+                "end": 296,
+                "loc": {
+                  "start": {
+                    "line": 9,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 22
+                  },
+                  "identifierName": "titreDateFinFind"
+                },
+                "name": "titreDateFinFind",
+                "leadingComments": null
+              },
+              "init": {
+                "type": "ArrowFunctionExpression",
+                "start": 299,
+                "end": 649,
+                "loc": {
+                  "start": {
+                    "line": 9,
+                    "column": 25
+                  },
+                  "end": {
+                    "line": 20,
+                    "column": 1
+                  }
+                },
+                "id": {
+                  "type": "Identifier",
+                  "start": 280,
+                  "end": 296,
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 9,
+                      "column": 22
+                    },
+                    "identifierName": "titreDateFinFind"
+                  },
+                  "name": "titreDateFinFind",
+                  "leadingComments": null
+                },
+                "generator": false,
+                "expression": false,
+                "async": false,
+                "params": [
+                  {
+                    "type": "Identifier",
+                    "start": 299,
+                    "end": 313,
+                    "loc": {
+                      "start": {
+                        "line": 9,
+                        "column": 25
+                      },
+                      "end": {
+                        "line": 9,
+                        "column": 39
+                      },
+                      "identifierName": "titreDemarches"
+                    },
+                    "name": "titreDemarches"
+                  }
+                ],
+                "body": {
+                  "type": "BlockStatement",
+                  "start": 317,
+                  "end": 649,
+                  "loc": {
+                    "start": {
+                      "line": 9,
+                      "column": 43
+                    },
+                    "end": {
+                      "line": 20,
+                      "column": 1
+                    }
+                  },
+                  "body": [
+                    {
+                      "type": "VariableDeclaration",
+                      "start": 387,
+                      "end": 501,
+                      "loc": {
+                        "start": {
+                          "line": 11,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 13,
+                          "column": 3
+                        }
+                      },
+                      "declarations": [
+                        {
+                          "type": "VariableDeclarator",
+                          "start": 393,
+                          "end": 501,
+                          "loc": {
+                            "start": {
+                              "line": 11,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 13,
+                              "column": 3
+                            }
+                          },
+                          "id": {
+                            "type": "Identifier",
+                            "start": 393,
+                            "end": 406,
+                            "loc": {
+                              "start": {
+                                "line": 11,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 11,
+                                "column": 21
+                              },
+                              "identifierName": "titreDemarche"
+                            },
+                            "name": "titreDemarche",
+                            "leadingComments": null
+                          },
+                          "init": {
+                            "type": "CallExpression",
+                            "start": 409,
+                            "end": 501,
+                            "loc": {
+                              "start": {
+                                "line": 11,
+                                "column": 24
+                              },
+                              "end": {
+                                "line": 13,
+                                "column": 3
+                              }
+                            },
+                            "callee": {
+                              "type": "MemberExpression",
+                              "start": 409,
+                              "end": 428,
+                              "loc": {
+                                "start": {
+                                  "line": 11,
+                                  "column": 24
+                                },
+                                "end": {
+                                  "line": 11,
+                                  "column": 43
+                                }
+                              },
+                              "object": {
+                                "type": "Identifier",
+                                "start": 409,
+                                "end": 423,
+                                "loc": {
+                                  "start": {
+                                    "line": 11,
+                                    "column": 24
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 38
+                                  },
+                                  "identifierName": "titreDemarches"
+                                },
+                                "name": "titreDemarches"
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": 424,
+                                "end": 428,
+                                "loc": {
+                                  "start": {
+                                    "line": 11,
+                                    "column": 39
+                                  },
+                                  "end": {
+                                    "line": 11,
+                                    "column": 43
+                                  },
+                                  "identifierName": "find"
+                                },
+                                "name": "find"
+                              },
+                              "computed": false
+                            },
+                            "arguments": [
+                              {
+                                "type": "ArrowFunctionExpression",
+                                "start": 429,
+                                "end": 497,
+                                "loc": {
+                                  "start": {
+                                    "line": 11,
+                                    "column": 44
+                                  },
+                                  "end": {
+                                    "line": 12,
+                                    "column": 51
+                                  }
+                                },
+                                "id": null,
+                                "generator": false,
+                                "expression": true,
+                                "async": false,
+                                "params": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 429,
+                                    "end": 442,
+                                    "loc": {
+                                      "start": {
+                                        "line": 11,
+                                        "column": 44
+                                      },
+                                      "end": {
+                                        "line": 11,
+                                        "column": 57
+                                      },
+                                      "identifierName": "titreDemarche"
+                                    },
+                                    "name": "titreDemarche"
+                                  }
+                                ],
+                                "body": {
+                                  "type": "CallExpression",
+                                  "start": 450,
+                                  "end": 497,
+                                  "loc": {
+                                    "start": {
+                                      "line": 12,
+                                      "column": 4
+                                    },
+                                    "end": {
+                                      "line": 12,
+                                      "column": 51
+                                    }
+                                  },
+                                  "callee": {
+                                    "type": "MemberExpression",
+                                    "start": 450,
+                                    "end": 473,
+                                    "loc": {
+                                      "start": {
+                                        "line": 12,
+                                        "column": 4
+                                      },
+                                      "end": {
+                                        "line": 12,
+                                        "column": 27
+                                      }
+                                    },
+                                    "object": {
+                                      "type": "ArrayExpression",
+                                      "start": 450,
+                                      "end": 464,
+                                      "loc": {
+                                        "start": {
+                                          "line": 12,
+                                          "column": 4
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 18
+                                        }
+                                      },
+                                      "elements": [
+                                        {
+                                          "type": "StringLiteral",
+                                          "start": 451,
+                                          "end": 456,
+                                          "loc": {
+                                            "start": {
+                                              "line": 12,
+                                              "column": 5
+                                            },
+                                            "end": {
+                                              "line": 12,
+                                              "column": 10
+                                            }
+                                          },
+                                          "extra": {
+                                            "rawValue": "acc",
+                                            "raw": "'acc'"
+                                          },
+                                          "value": "acc"
+                                        },
+                                        {
+                                          "type": "StringLiteral",
+                                          "start": 458,
+                                          "end": 463,
+                                          "loc": {
+                                            "start": {
+                                              "line": 12,
+                                              "column": 12
+                                            },
+                                            "end": {
+                                              "line": 12,
+                                              "column": 17
+                                            }
+                                          },
+                                          "extra": {
+                                            "rawValue": "ter",
+                                            "raw": "'ter'"
+                                          },
+                                          "value": "ter"
+                                        }
+                                      ]
+                                    },
+                                    "property": {
+                                      "type": "Identifier",
+                                      "start": 465,
+                                      "end": 473,
+                                      "loc": {
+                                        "start": {
+                                          "line": 12,
+                                          "column": 19
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 27
+                                        },
+                                        "identifierName": "includes"
+                                      },
+                                      "name": "includes"
+                                    },
+                                    "computed": false
+                                  },
+                                  "arguments": [
+                                    {
+                                      "type": "MemberExpression",
+                                      "start": 474,
+                                      "end": 496,
+                                      "loc": {
+                                        "start": {
+                                          "line": 12,
+                                          "column": 28
+                                        },
+                                        "end": {
+                                          "line": 12,
+                                          "column": 50
+                                        }
+                                      },
+                                      "object": {
+                                        "type": "Identifier",
+                                        "start": 474,
+                                        "end": 487,
+                                        "loc": {
+                                          "start": {
+                                            "line": 12,
+                                            "column": 28
+                                          },
+                                          "end": {
+                                            "line": 12,
+                                            "column": 41
+                                          },
+                                          "identifierName": "titreDemarche"
+                                        },
+                                        "name": "titreDemarche"
+                                      },
+                                      "property": {
+                                        "type": "Identifier",
+                                        "start": 488,
+                                        "end": 496,
+                                        "loc": {
+                                          "start": {
+                                            "line": 12,
+                                            "column": 42
+                                          },
+                                          "end": {
+                                            "line": 12,
+                                            "column": 50
+                                          },
+                                          "identifierName": "statutId"
+                                        },
+                                        "name": "statutId"
+                                      },
+                                      "computed": false
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          "leadingComments": null
+                        }
+                      ],
+                      "kind": "const",
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " la dernière démarche dont le statut est acceptée ou terminée",
+                          "start": 321,
+                          "end": 384,
+                          "loc": {
+                            "start": {
+                              "line": 10,
+                              "column": 2
+                            },
+                            "end": {
+                              "line": 10,
+                              "column": 65
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "VariableDeclaration",
+                      "start": 504,
+                      "end": 629,
+                      "loc": {
+                        "start": {
+                          "line": 14,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 17,
+                          "column": 14
+                        }
+                      },
+                      "declarations": [
+                        {
+                          "type": "VariableDeclarator",
+                          "start": 510,
+                          "end": 629,
+                          "loc": {
+                            "start": {
+                              "line": 14,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 17,
+                              "column": 14
+                            }
+                          },
+                          "id": {
+                            "type": "Identifier",
+                            "start": 510,
+                            "end": 517,
+                            "loc": {
+                              "start": {
+                                "line": 14,
+                                "column": 8
+                              },
+                              "end": {
+                                "line": 14,
+                                "column": 15
+                              },
+                              "identifierName": "dateFin"
+                            },
+                            "name": "dateFin"
+                          },
+                          "init": {
+                            "type": "LogicalExpression",
+                            "start": 524,
+                            "end": 629,
+                            "loc": {
+                              "start": {
+                                "line": 15,
+                                "column": 4
+                              },
+                              "end": {
+                                "line": 17,
+                                "column": 14
+                              }
+                            },
+                            "left": {
+                              "type": "Identifier",
+                              "start": 524,
+                              "end": 537,
+                              "loc": {
+                                "start": {
+                                  "line": 15,
+                                  "column": 4
+                                },
+                                "end": {
+                                  "line": 15,
+                                  "column": 17
+                                },
+                                "identifierName": "titreDemarche"
+                              },
+                              "name": "titreDemarche"
+                            },
+                            "operator": "&&",
+                            "right": {
+                              "type": "MemberExpression",
+                              "start": 545,
+                              "end": 629,
+                              "loc": {
+                                "start": {
+                                  "line": 16,
+                                  "column": 4
+                                },
+                                "end": {
+                                  "line": 17,
+                                  "column": 14
+                                }
+                              },
+                              "object": {
+                                "type": "CallExpression",
+                                "start": 545,
+                                "end": 614,
+                                "loc": {
+                                  "start": {
+                                    "line": 16,
+                                    "column": 4
+                                  },
+                                  "end": {
+                                    "line": 16,
+                                    "column": 73
+                                  }
+                                },
+                                "callee": {
+                                  "type": "Identifier",
+                                  "start": 545,
+                                  "end": 577,
+                                  "loc": {
+                                    "start": {
+                                      "line": 16,
+                                      "column": 4
+                                    },
+                                    "end": {
+                                      "line": 16,
+                                      "column": 36
+                                    },
+                                    "identifierName": "titreDemarcheDateFinAndDureeFind"
+                                  },
+                                  "name": "titreDemarcheDateFinAndDureeFind"
+                                },
+                                "arguments": [
+                                  {
+                                    "type": "Identifier",
+                                    "start": 578,
+                                    "end": 592,
+                                    "loc": {
+                                      "start": {
+                                        "line": 16,
+                                        "column": 37
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 51
+                                      },
+                                      "identifierName": "titreDemarches"
+                                    },
+                                    "name": "titreDemarches"
+                                  },
+                                  {
+                                    "type": "MemberExpression",
+                                    "start": 594,
+                                    "end": 613,
+                                    "loc": {
+                                      "start": {
+                                        "line": 16,
+                                        "column": 53
+                                      },
+                                      "end": {
+                                        "line": 16,
+                                        "column": 72
+                                      }
+                                    },
+                                    "object": {
+                                      "type": "Identifier",
+                                      "start": 594,
+                                      "end": 607,
+                                      "loc": {
+                                        "start": {
+                                          "line": 16,
+                                          "column": 53
+                                        },
+                                        "end": {
+                                          "line": 16,
+                                          "column": 66
+                                        },
+                                        "identifierName": "titreDemarche"
+                                      },
+                                      "name": "titreDemarche"
+                                    },
+                                    "property": {
+                                      "type": "Identifier",
+                                      "start": 608,
+                                      "end": 613,
+                                      "loc": {
+                                        "start": {
+                                          "line": 16,
+                                          "column": 67
+                                        },
+                                        "end": {
+                                          "line": 16,
+                                          "column": 72
+                                        },
+                                        "identifierName": "ordre"
+                                      },
+                                      "name": "ordre"
+                                    },
+                                    "computed": false
+                                  }
+                                ]
+                              },
+                              "property": {
+                                "type": "Identifier",
+                                "start": 622,
+                                "end": 629,
+                                "loc": {
+                                  "start": {
+                                    "line": 17,
+                                    "column": 7
+                                  },
+                                  "end": {
+                                    "line": 17,
+                                    "column": 14
+                                  },
+                                  "identifierName": "dateFin"
+                                },
+                                "name": "dateFin"
+                              },
+                              "computed": false
+                            }
+                          }
+                        }
+                      ],
+                      "kind": "const"
+                    },
+                    {
+                      "type": "ReturnStatement",
+                      "start": 633,
+                      "end": 647,
+                      "loc": {
+                        "start": {
+                          "line": 19,
+                          "column": 2
+                        },
+                        "end": {
+                          "line": 19,
+                          "column": 16
+                        }
+                      },
+                      "argument": {
+                        "type": "Identifier",
+                        "start": 640,
+                        "end": 647,
+                        "loc": {
+                          "start": {
+                            "line": 19,
+                            "column": 9
+                          },
+                          "end": {
+                            "line": 19,
+                            "column": 16
+                          },
+                          "identifierName": "dateFin"
+                        },
+                        "name": "dateFin"
+                      }
+                    }
+                  ],
+                  "directives": []
+                }
+              },
+              "leadingComments": null
+            }
+          ],
+          "kind": "const",
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * Trouve la date de fin d'un titre\n * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titres\n * @return {String} la date de fin du titre sous forme yyyy-mm-dd\n ",
+              "start": 85,
+              "end": 272,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 0
+                },
+                "end": {
+                  "line": 7,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Trouve la date de fin d'un titre\n * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titres\n * @return {String} la date de fin du titre sous forme yyyy-mm-dd\n ",
+      "start": 85,
+      "end": 272,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentLine",
+      "value": " la dernière démarche dont le statut est acceptée ou terminée",
+      "start": 321,
+      "end": 384,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 2
+        },
+        "end": {
+          "line": 10,
+          "column": 65
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 0,
+      "end": 6,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarcheDateFinAndDureeFind",
+      "start": 7,
+      "end": 39,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 40,
+      "end": 44,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 40
+        },
+        "end": {
+          "line": 1,
+          "column": 44
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./titre-demarche-date-fin-duree-find",
+      "start": 45,
+      "end": 83,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 45
+        },
+        "end": {
+          "line": 1,
+          "column": 83
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * Trouve la date de fin d'un titre\n * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titres\n * @return {String} la date de fin du titre sous forme yyyy-mm-dd\n ",
+      "start": 85,
+      "end": 272,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 274,
+      "end": 279,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 5
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDateFinFind",
+      "start": 280,
+      "end": 296,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 6
+        },
+        "end": {
+          "line": 9,
+          "column": 22
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 297,
+      "end": 298,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 23
+        },
+        "end": {
+          "line": 9,
+          "column": 24
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarches",
+      "start": 299,
+      "end": 313,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 25
+        },
+        "end": {
+          "line": 9,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=>",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 314,
+      "end": 316,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 40
+        },
+        "end": {
+          "line": 9,
+          "column": 42
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 317,
+      "end": 318,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 43
+        },
+        "end": {
+          "line": 9,
+          "column": 44
+        }
+      }
+    },
+    {
+      "type": "CommentLine",
+      "value": " la dernière démarche dont le statut est acceptée ou terminée",
+      "start": 321,
+      "end": 384,
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 2
+        },
+        "end": {
+          "line": 10,
+          "column": 65
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 387,
+      "end": 392,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 2
+        },
+        "end": {
+          "line": 11,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarche",
+      "start": 393,
+      "end": 406,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 8
+        },
+        "end": {
+          "line": 11,
+          "column": 21
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 407,
+      "end": 408,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 22
+        },
+        "end": {
+          "line": 11,
+          "column": 23
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarches",
+      "start": 409,
+      "end": 423,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 24
+        },
+        "end": {
+          "line": 11,
+          "column": 38
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 423,
+      "end": 424,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 38
+        },
+        "end": {
+          "line": 11,
+          "column": 39
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "find",
+      "start": 424,
+      "end": 428,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 39
+        },
+        "end": {
+          "line": 11,
+          "column": 43
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 428,
+      "end": 429,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 43
+        },
+        "end": {
+          "line": 11,
+          "column": 44
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarche",
+      "start": 429,
+      "end": 442,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 44
+        },
+        "end": {
+          "line": 11,
+          "column": 57
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=>",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 443,
+      "end": 445,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 58
+        },
+        "end": {
+          "line": 11,
+          "column": 60
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "[",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 450,
+      "end": 451,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 4
+        },
+        "end": {
+          "line": 12,
+          "column": 5
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "acc",
+      "start": 451,
+      "end": 456,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 5
+        },
+        "end": {
+          "line": 12,
+          "column": 10
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 456,
+      "end": 457,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 10
+        },
+        "end": {
+          "line": 12,
+          "column": 11
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "ter",
+      "start": 458,
+      "end": 463,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 12
+        },
+        "end": {
+          "line": 12,
+          "column": 17
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "]",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 463,
+      "end": 464,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 17
+        },
+        "end": {
+          "line": 12,
+          "column": 18
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 464,
+      "end": 465,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 18
+        },
+        "end": {
+          "line": 12,
+          "column": 19
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "includes",
+      "start": 465,
+      "end": 473,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 19
+        },
+        "end": {
+          "line": 12,
+          "column": 27
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 473,
+      "end": 474,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 27
+        },
+        "end": {
+          "line": 12,
+          "column": 28
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarche",
+      "start": 474,
+      "end": 487,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 28
+        },
+        "end": {
+          "line": 12,
+          "column": 41
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 487,
+      "end": 488,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 41
+        },
+        "end": {
+          "line": 12,
+          "column": 42
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "statutId",
+      "start": 488,
+      "end": 496,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 42
+        },
+        "end": {
+          "line": 12,
+          "column": 50
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 496,
+      "end": 497,
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 50
+        },
+        "end": {
+          "line": 12,
+          "column": 51
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 500,
+      "end": 501,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 2
+        },
+        "end": {
+          "line": 13,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "const",
+        "keyword": "const",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "const",
+      "start": 504,
+      "end": 509,
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 2
+        },
+        "end": {
+          "line": 14,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "dateFin",
+      "start": 510,
+      "end": 517,
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 8
+        },
+        "end": {
+          "line": 14,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 518,
+      "end": 519,
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 16
+        },
+        "end": {
+          "line": 14,
+          "column": 17
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarche",
+      "start": 524,
+      "end": 537,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 4
+        },
+        "end": {
+          "line": 15,
+          "column": 17
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "&&",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": 2,
+        "updateContext": null
+      },
+      "value": "&&",
+      "start": 538,
+      "end": 540,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 18
+        },
+        "end": {
+          "line": 15,
+          "column": 20
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarcheDateFinAndDureeFind",
+      "start": 545,
+      "end": 577,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 4
+        },
+        "end": {
+          "line": 16,
+          "column": 36
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "(",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 577,
+      "end": 578,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 36
+        },
+        "end": {
+          "line": 16,
+          "column": 37
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarches",
+      "start": 578,
+      "end": 592,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 37
+        },
+        "end": {
+          "line": 16,
+          "column": 51
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 592,
+      "end": 593,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 51
+        },
+        "end": {
+          "line": 16,
+          "column": 52
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDemarche",
+      "start": 594,
+      "end": 607,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 53
+        },
+        "end": {
+          "line": 16,
+          "column": 66
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 607,
+      "end": 608,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 66
+        },
+        "end": {
+          "line": 16,
+          "column": 67
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "ordre",
+      "start": 608,
+      "end": 613,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 67
+        },
+        "end": {
+          "line": 16,
+          "column": 72
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ")",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 613,
+      "end": 614,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 72
+        },
+        "end": {
+          "line": 16,
+          "column": 73
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ".",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 621,
+      "end": 622,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 6
+        },
+        "end": {
+          "line": 17,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "dateFin",
+      "start": 622,
+      "end": 629,
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 7
+        },
+        "end": {
+          "line": 17,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "return",
+        "keyword": "return",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "return",
+      "start": 633,
+      "end": 639,
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 2
+        },
+        "end": {
+          "line": 19,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "dateFin",
+      "start": 640,
+      "end": 647,
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 9
+        },
+        "end": {
+          "line": 19,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 648,
+      "end": 649,
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 1
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "export",
+        "keyword": "export",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "export",
+      "start": 651,
+      "end": 657,
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "default",
+        "keyword": "default",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "default",
+      "start": 658,
+      "end": 665,
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 7
+        },
+        "end": {
+          "line": 22,
+          "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "titreDateFinFind",
+      "start": 666,
+      "end": 682,
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 15
+        },
+        "end": {
+          "line": 22,
+          "column": 31
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 683,
+      "end": 683,
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 0
+        }
+      }
+    }
+  ]
+}
