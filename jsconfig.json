@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "checkJs": true,
-    "target": "es6",
-    "allowSyntheticDefaultImports": true
-  },
-  "exclude": ["node_modules", "**/node_modules/*"]
-}
