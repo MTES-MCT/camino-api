@@ -1,4 +1,4 @@
-import dateFormat from 'dateformat'
+import * as dateFormat from 'dateformat'
 
 import {
   titresTravauxRapportGet,
