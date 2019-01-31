@@ -14,7 +14,7 @@ import chalk from 'chalk'
 import * as express from 'express'
 import * as cors from 'cors'
 import * as compression from 'compression'
-import * as graphqlHTTP from 'express-graphql'
+import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
 import * as Sentry from '@sentry/node'
 
@@ -55,7 +55,7 @@ app.use(
 
 app.use(
   '/',
-  graphqlHTTP((req, res, graphQLParams) => ({
+  expressGraphql((req, res, graphQLParams) => ({
     schema,
     rootValue,
     graphiql: true,
