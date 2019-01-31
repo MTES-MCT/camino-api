@@ -34,7 +34,7 @@
     "test": "jest --verbose",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser",
-    "doc": "npx esdoc"
+    "doc": "rm -rf docs && npx esdoc"
   },
   "dependencies": {
     "@sentry/types": "^4.5.3",
