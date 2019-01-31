@@ -14,24 +14,29 @@ import { domainesGet, statutsGet } from '../../database/queries/metas'
 
 import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 
+import { utilisateurGet } from '../../database/queries/utilisateurs'
+
 const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
 
 const titre = async ({ id }, context, info) => {
-  let titre = await titreGet(id)
+  const titre = await titreGet(id)
 
-  if (
-    titre &&
-    (!context.user || permissionsCheck(context.user, ['defaut', 'entreprise']))
-  ) {
-    if (
-      restrictedDomaineIds.includes(titre.domaineId) ||
-      restrictedStatutIds.includes(titre.statutId)
-    ) {
-      titre = null
-    }
+  const userEntreprisePermissions = async (userId, titreEntrepriseIds) => {
+    const utilisateur = await utilisateurGet(userId)
+    const entrepriseId = utilisateur.entreprise && utilisateur.entreprise.id
+    return titreEntrepriseIds.some(id => id === entrepriseId)
   }
 
-  return titre && titreFormat(titre)
+  return (!restrictedDomaineIds.includes(titre.domaineId) &&
+    !restrictedStatutIds.includes(titre.statutId)) ||
+    (context.user &&
+      (permissionsCheck(context.user, ['admin', 'super']) ||
+        (await userEntreprisePermissions(context.user.id, [
+          ...titre.titulaires.map(t => t.id),
+          ...titre.amodiataires.map(t => t.id)
+        ]))))
+    ? titre && titreFormat(titre)
+    : null
 }
 
 const titres = async (
@@ -39,35 +44,69 @@ const titres = async (
   context,
   info
 ) => {
-  if (
-    !context.user ||
-    permissionsCheck(context.user, ['defaut', 'entreprise'])
-  ) {
+  const domaineIdsRestrict = async domaineIds => {
     if (!domaineIds) {
-      let domaines = await domainesGet()
+      const domaines = await domainesGet()
       domaineIds = domaines.map(domaine => domaine.id)
     }
-    domaineIds = domaineIds.filter(id => !restrictedDomaineIds.includes(id))
 
+    return domaineIds.filter(id => !restrictedDomaineIds.includes(id))
+  }
+
+  const statutIdsRestrict = async statutIds => {
     if (!statutIds) {
-      let statuts = await statutsGet()
+      const statuts = await statutsGet()
       statutIds = statuts.map(statut => statut.id)
     }
 
-    statutIds = statutIds.filter(id => !restrictedStatutIds.includes(id))
+    return statutIds.filter(id => !restrictedStatutIds.includes(id))
   }
+
+  const entrepriseTitresFind = async userId => {
+    const utilisateur = await utilisateurGet(userId)
+    const entrepriseId = utilisateur.entreprise && utilisateur.entreprise.id
+
+    if (entrepriseId) {
+      const entrepriseTitres = await titresGet({
+        typeIds: null,
+        domaineIds: null,
+        statutIds: null,
+        substances: null,
+        noms: null,
+        entreprises: [entrepriseId],
+        references: null
+      })
+
+      return entrepriseTitres
+    }
+
+    return []
+  }
+
+  const entrepriseTitres =
+    !context.user || !permissionsCheck(context.user, ['entreprise'])
+      ? []
+      : await entrepriseTitresFind(context.user.id)
 
   const titres = await titresGet({
     typeIds,
-    domaineIds,
-    statutIds,
+    domaineIds:
+      context.user && permissionsCheck(context.user, ['admin', 'super'])
+        ? domaineIds
+        : await domaineIdsRestrict(domaineIds),
+    statutIds:
+      context.user && permissionsCheck(context.user, ['admin', 'super'])
+        ? statutIds
+        : await statutIdsRestrict(statutIds),
     substances,
     noms,
     entreprises,
     references
   })
 
-  return titres.map(titre => titre && titreFormat(titre))
+  return [...titres, ...entrepriseTitres].map(
+    titre => titre && titreFormat(titre)
+  )
 }
 
 const titreAjouter = async ({ titre }, context, info) => {
