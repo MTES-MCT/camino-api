@@ -1,7 +1,7 @@
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import emailRegex from 'email-regex'
-import cryptoRandomString from 'crypto-random-string'
+import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken'
+import * as emailRegex from 'email-regex'
+import * as cryptoRandomString from 'crypto-random-string'
 const mailer = require('../../tools/mailer/index')
 
 import {
@@ -101,12 +101,18 @@ const utilisateurs = async (
 }
 
 const utilisateurIdentifier = async (variables, context, info) => {
-  const utilisateur =
-    context.user &&
-    context.user.login &&
-    (await utilisateurGet(context.user.id))
+  const utilisateur = context.user && (await utilisateurGet(context.user.id))
+  let token
 
-  return utilisateur
+  if (utilisateur) {
+    token = tokenCreate(
+      utilisateur.id,
+      utilisateur.email,
+      utilisateur.permission
+    )
+  }
+
+  return { token, utilisateur }
 }
 
 const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
@@ -142,14 +148,10 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
   }
 
   if (!errors.length && utilisateur) {
-    token = jwt.sign(
-      {
-        id: utilisateur.id,
-        email: utilisateur.email,
-        permission: utilisateur.permission,
-        login: true
-      },
-      process.env.JWT_SECRET
+    token = tokenCreate(
+      utilisateur.id,
+      utilisateur.email,
+      utilisateur.permission
     )
   } else {
     throw new Error(errors.join(', '))
@@ -448,6 +450,16 @@ const utilisateurMotDePasseInitialiser = async (
     throw new Error(errors.join(', '))
   }
 }
+
+const tokenCreate = (id, email, permission) =>
+  jwt.sign(
+    {
+      id,
+      email,
+      permission
+    },
+    process.env.JWT_SECRET
+  )
 
 export {
   utilisateur,

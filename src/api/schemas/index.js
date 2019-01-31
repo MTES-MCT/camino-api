@@ -51,8 +51,8 @@ type Query {
   "Retourne la liste des substances"
   substances: [Substance]
 
-  "__*__ Retourne un utilisateur en fonction du token"
-  utilisateurIdentifier: Utilisateur
+  "__*__ Retourne un utilisateur et son token en fonction du token"
+  utilisateurIdentifier: UtilisateurToken
 
   "__+__ Retourne la liste des permissions utilisateurs"
   permissions: [Permission]
