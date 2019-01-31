@@ -1,37 +1,17 @@
-const TitresPhases = require('../models/titres-phases')
-const options = require('./_options')
+import TitresPhases from '../models/titres-phases'
+import options from './_options'
 
-const queries = {
-  async titresPhasesGet() {
-    return TitresPhases.query()
-      .skipUndefined()
-      .eager(options.phases.eager)
-  },
+const titresPhasesGet = async () =>
+  TitresPhases.query()
+    .skipUndefined()
+    .eager(options.phases.eager)
 
-  async titrePhaseUpdate({ titrePhase }) {
-    return TitresPhases.query().upsertGraph(titrePhase, { insertMissing: true })
-    // {
-    //   console.log(titrePhase)
-    //   const exists = await TitresPhases.query().where(
-    //     'titreDemarcheId',
-    //     titrePhase.titreDemarcheId
-    //   )
+const titrePhaseUpdate = async ({ titrePhase }) =>
+  TitresPhases.query().upsertGraph(titrePhase, { insertMissing: true })
 
-    //   if (exists) {
-    //     return TitresPhases.query()
-    //       .where('titreDemarcheId', titrePhase.titreDemarcheId)
-    //       .patch(titrePhase)
-    //   } else {
-    //     return TitresPhases.query().insert(titrePhase)
-    //   }
-    // },
-  },
+const titrePhaseDelete = async ({ titreDemarcheId }) =>
+  TitresPhases.query()
+    .deleteById(titreDemarcheId)
+    .returning('*')
 
-  async titrePhaseDelete({ titreDemarcheId }) {
-    return TitresPhases.query()
-      .deleteById(titreDemarcheId)
-      .returning('*')
-  }
-}
-
-module.exports = queries
+export { titresPhasesGet, titrePhaseUpdate, titrePhaseDelete }

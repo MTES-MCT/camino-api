@@ -85,7 +85,7 @@ const demarchesTypes = {
   eager: `etapesTypes.etapesStatuts`
 }
 
-module.exports = {
+export default {
   utilisateurs,
   phases,
   etapes,

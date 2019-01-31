@@ -1,20 +1,19 @@
-const titreTravauxRapports = require('../models/titres-travaux-rapports')
+import titreTravauxRapports from '../models/titres-travaux-rapports'
 
-const queries = {
-  async titresTravauxRapportGet(id) {
-    return titreTravauxRapports.query().findById(id)
-  },
+const titresTravauxRapportGet = async id =>
+  titreTravauxRapports.query().findById(id)
 
-  async titresTravauxRapportsGet() {
-    return titreTravauxRapports.query().skipUndefined()
-  },
+const titresTravauxRapportsGet = async () =>
+  titreTravauxRapports.query().skipUndefined()
 
-  async titreTravauxRapportUpdate({ titreTravauxRapport }) {
-    return titreTravauxRapports
-      .query()
-      .upsertGraph(titreTravauxRapport, { insertMissing: true })
-      .first()
-  }
+const titreTravauxRapportUpdate = async ({ titreTravauxRapport }) =>
+  titreTravauxRapports
+    .query()
+    .upsertGraph(titreTravauxRapport, { insertMissing: true })
+    .first()
+
+export {
+  titresTravauxRapportGet,
+  titresTravauxRapportsGet,
+  titreTravauxRapportUpdate
 }
-
-module.exports = queries

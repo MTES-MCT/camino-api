@@ -1,23 +1,20 @@
-const {
+import {
   permissionGet,
   permissionsGet
-} = require('../../database/queries/permissions')
+} from '../../database/queries/permissions'
 
-const permissionsCheck = require('./_permissions-check')
+import permissionsCheck from './_permissions-check'
 
-const resolvers = {
-  async permissions(_, context) {
-    if (permissionsCheck(context.user, ['super', 'admin'])) {
-      return permissionsGet({
-        ordreMax: context.user ? context.user.permission.ordre : null
-      })
-    }
+const permission = async ({ id }, context) => permissionGet(id)
 
-    return null
-  },
-  async permission({ id }, context) {
-    return permissionGet(id)
+const permissions = async (_, context) => {
+  if (permissionsCheck(context.user, ['super', 'admin'])) {
+    return permissionsGet({
+      ordreMax: context.user ? context.user.permission.ordre : null
+    })
   }
+
+  return null
 }
 
-module.exports = resolvers
+export { permission, permissions }

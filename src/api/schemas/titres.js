@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 "Titre minier"
 type Titre {
   """

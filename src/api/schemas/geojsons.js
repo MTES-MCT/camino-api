@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 type GeojsonMultiPolygons {
   type: FeatureCollectionType!
   features: [GeojsonMultiPolygon]

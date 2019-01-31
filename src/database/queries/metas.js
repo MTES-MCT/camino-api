@@ -1,25 +1,16 @@
-const Types = require('../models/types')
-const Domaines = require('../models/domaines')
-const Statuts = require('../models/statuts')
-const DemarchesTypes = require('../models/demarches-types')
-const options = require('./_options')
+import Types from '../models/types'
+import Domaines from '../models/domaines'
+import Statuts from '../models/statuts'
+import DemarchesTypes from '../models/demarches-types'
+import options from './_options'
 
-const queries = {
-  async typesGet() {
-    return Types.query()
-  },
+const typesGet = async () => Types.query()
 
-  async domainesGet() {
-    return Domaines.query()
-  },
+const domainesGet = async () => Domaines.query()
 
-  async statutsGet() {
-    return Statuts.query()
-  },
+const statutsGet = async () => Statuts.query()
 
-  async demarchesTypesGet() {
-    return DemarchesTypes.query().eager(options.demarchesTypes.eager)
-  }
-}
+const demarchesTypesGet = async () =>
+  DemarchesTypes.query().eager(options.demarchesTypes.eager)
 
-module.exports = queries
+export { typesGet, domainesGet, statutsGet, demarchesTypesGet }

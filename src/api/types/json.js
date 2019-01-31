@@ -16,4 +16,4 @@ const Json = new GraphQLScalarType({
   }
 })
 
-module.exports = Json
+export default Json

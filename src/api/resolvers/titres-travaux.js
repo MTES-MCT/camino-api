@@ -1,88 +1,86 @@
-const emailsBatch = require('../../tools/mailer/batch')
-const dateFormat = require('dateformat')
+import dateFormat from 'dateformat'
 
-const {
+import {
   titresTravauxRapportGet,
   titreTravauxRapportUpdate
-} = require('../../database/queries/titres-travaux')
+} from '../../database/queries/titres-travaux'
 
-const {
+import {
   utilisateurGet,
   utilisateursGet
-} = require('../../database/queries/utilisateurs')
+} from '../../database/queries/utilisateurs'
 
-const { titreGet } = require('../../database/queries/titres')
+import { titreGet } from '../../database/queries/titres'
 
-const permissionsCheck = require('./_permissions-check')
+import permissionsCheck from './_permissions-check'
 
 const {
   titreTravauxRapportRowUpdate
 } = require('../../tools/export/titre-travaux-rapport')
+const emailsBatch = require('../../tools/mailer/batch')
 
-const resolvers = {
-  async titreTravauxRapportModifier({ rapport }, context, info) {
-    const errors = []
-    const titre = await titreGet(rapport.titreId)
-    const user = await utilisateurGet(context.user.id)
-    const rapportOld = await titresTravauxRapportGet(rapport.id)
+const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
+  const errors = []
+  const titre = await titreGet(rapport.titreId)
+  const user = await utilisateurGet(context.user.id)
+  const rapportOld = await titresTravauxRapportGet(rapport.id)
 
-    if (
-      !(
-        permissionsCheck(context.user, ['super', 'admin']) ||
-        (permissionsCheck(context.user, ['entreprise']) &&
-          titre.titulaires.find(t => t.id === user.entrepriseId))
-      )
-    ) {
-      errors.push("droits insuffisants pour effectuer l'opération")
-    }
+  if (
+    !(
+      permissionsCheck(context.user, ['super', 'admin']) ||
+      (permissionsCheck(context.user, ['entreprise']) &&
+        titre.titulaires.find(t => t.id === user.entrepriseId))
+    )
+  ) {
+    errors.push("droits insuffisants pour effectuer l'opération")
+  }
 
-    if (
-      !(
-        titre.domaineId === 'm' &&
-        (titre.typeId === 'cxx' ||
-          titre.typeId === 'pxm' ||
-          titre.typeId === 'axm')
-      )
-    ) {
-      errors.push('ce titre ne peut pas recevoir de rapport')
-    }
+  if (
+    !(
+      titre.domaineId === 'm' &&
+      (titre.typeId === 'cxx' ||
+        titre.typeId === 'pxm' ||
+        titre.typeId === 'axm')
+    )
+  ) {
+    errors.push('ce titre ne peut pas recevoir de rapport')
+  }
 
-    if (rapportOld && rapportOld.confirmation) {
-      errors.push('ce rapport a été validé et ne peux plus être modifié')
-    }
+  if (rapportOld && rapportOld.confirmation) {
+    errors.push('ce rapport a été validé et ne peux plus être modifié')
+  }
 
-    if (!errors.length) {
-      titreTravauxRapportRowUpdate(rapport)
+  if (!errors.length) {
+    titreTravauxRapportRowUpdate(rapport)
 
-      if (rapport.confirmation) {
-        const utilisateurs = await utilisateursGet({
-          entrepriseIds: titre.titulaires.map(t => t.id),
-          noms: undefined,
-          administrationIds: undefined,
-          permissionIds: undefined
-        })
-        const emails = utilisateurs.reduce(
-          (res, u) => (u.email ? [...res, u.email] : res),
-          // si la variable d'environnement existe,
-          // on ajoute un email générique pour recevoir une copie
-          process.env.TRAVAUX_RAPPORTS_EMAIL
-            ? [process.env.TRAVAUX_RAPPORTS_EMAIL]
-            : []
-        )
-        const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
-          rapport.contenu.trimestre
-        } trimestre ${rapport.contenu.annee}`
-        const html = emailFormat(titre, user, rapport)
-
-        await emailsBatch(emails, subject, html)
-      }
-
-      return titreTravauxRapportUpdate({
-        titreTravauxRapport: rapport
+    if (rapport.confirmation) {
+      const utilisateurs = await utilisateursGet({
+        entrepriseIds: titre.titulaires.map(t => t.id),
+        noms: undefined,
+        administrationIds: undefined,
+        permissionIds: undefined
       })
-    } else {
-      throw new Error(errors.join(', '))
+      const emails = utilisateurs.reduce(
+        (res, u) => (u.email ? [...res, u.email] : res),
+        // si la variable d'environnement existe,
+        // on ajoute un email générique pour recevoir une copie
+        process.env.TRAVAUX_RAPPORTS_EMAIL
+          ? [process.env.TRAVAUX_RAPPORTS_EMAIL]
+          : []
+      )
+      const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
+        rapport.contenu.trimestre
+      } trimestre ${rapport.contenu.annee}`
+      const html = emailFormat(titre, user, rapport)
+
+      await emailsBatch(emails, subject, html)
     }
+
+    return titreTravauxRapportUpdate({
+      titreTravauxRapport: rapport
+    })
+  } else {
+    throw new Error(errors.join(', '))
   }
 }
 
@@ -159,4 +157,4 @@ ${footer}
 `
 }
 
-module.exports = resolvers
+export { titreTravauxRapportModifier }

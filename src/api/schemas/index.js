@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 """
 # Requêtes en lecture (_Query_)
 

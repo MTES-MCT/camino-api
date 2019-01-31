@@ -1,35 +1,27 @@
-const { Model } = require('objection')
-const Entreprises = require('./entreprises')
+import { Model } from 'objection'
+import Entreprises from './entreprises'
 
-class TitresTitulaires extends Model {
-  static get tableName() {
-    return 'titresTitulaires'
-  }
+export default class TitresTitulaires extends Model {
+  static tableName = 'titresTitulaires'
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['entrepriseId', 'titreEtapeId'],
+  static jsonSchema = {
+    type: 'object',
+    required: ['entrepriseId', 'titreEtapeId'],
 
-      properties: {
-        entrepriseId: { type: 'string', maxLength: 64 },
-        titreEtapeId: { type: 'string', maxLength: 128 }
-      }
+    properties: {
+      entrepriseId: { type: 'string', maxLength: 64 },
+      titreEtapeId: { type: 'string', maxLength: 128 }
     }
   }
 
-  static get relationMappings() {
-    return {
-      entreprise: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Entreprises,
-        join: {
-          from: 'titresTitulaires.entrepriseId',
-          to: 'entreprises.id'
-        }
+  static relationMappings = {
+    entreprise: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Entreprises,
+      join: {
+        from: 'titresTitulaires.entrepriseId',
+        to: 'entreprises.id'
       }
     }
   }
 }
-
-module.exports = TitresTitulaires

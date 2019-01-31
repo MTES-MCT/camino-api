@@ -34,7 +34,7 @@ const geojsonFeatureCollectionPoints = points => {
   }
 }
 
-module.exports = {
+export {
   geojsonMultiPolygonCoordinates,
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints

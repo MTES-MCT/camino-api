@@ -1,52 +1,44 @@
-const { Model } = require('objection')
-const EtapesStatuts = require('./etapes-statuts')
+import { Model } from 'objection'
+import EtapesStatuts from './etapes-statuts'
 
-class EtapesTypes extends Model {
-  static get tableName() {
-    return 'etapesTypes'
-  }
+export default class EtapesTypes extends Model {
+  static tableName = 'etapesTypes'
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['id', 'nom'],
+  static jsonSchema = {
+    type: 'object',
+    required: ['id', 'nom'],
 
-      properties: {
-        id: { type: 'string', maxLength: 3 },
-        nom: {
-          type: ['string', 'null'],
-          maxLength: 128
-        },
-        acceptationAuto: {
-          type: ['boolean', 'null']
-        },
-        dateDebut: {
-          type: ['date', 'null']
-        },
-        dateFin: {
-          type: ['date', 'null']
-        }
+    properties: {
+      id: { type: 'string', maxLength: 3 },
+      nom: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      acceptationAuto: {
+        type: ['boolean', 'null']
+      },
+      dateDebut: {
+        type: ['date', 'null']
+      },
+      dateFin: {
+        type: ['date', 'null']
       }
     }
   }
 
-  static get relationMappings() {
-    return {
-      etapesStatuts: {
-        relation: Model.ManyToManyRelation,
-        modelClass: EtapesStatuts,
-        join: {
-          from: 'etapesTypes.id',
-          through: {
-            from: 'etapesTypes__etapesStatuts.etapeTypeId',
-            to: 'etapesTypes__etapesStatuts.etapeStatutId',
-            extra: ['ordre']
-          },
-          to: 'etapesStatuts.id'
-        }
+  static relationMappings = {
+    etapesStatuts: {
+      relation: Model.ManyToManyRelation,
+      modelClass: EtapesStatuts,
+      join: {
+        from: 'etapesTypes.id',
+        through: {
+          from: 'etapesTypes__etapesStatuts.etapeTypeId',
+          to: 'etapesTypes__etapesStatuts.etapeStatutId',
+          extra: ['ordre']
+        },
+        to: 'etapesStatuts.id'
       }
     }
   }
 }
-
-module.exports = EtapesTypes

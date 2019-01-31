@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 type TitreTravauxRapport {
   id: ID!
   titreId: ID!

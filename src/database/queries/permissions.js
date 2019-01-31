@@ -1,16 +1,11 @@
-const Permissions = require('../models/permissions')
+import Permissions from '../models/permissions'
 
-const queries = {
-  async permissionsGet({ ordreMax }) {
-    return Permissions.query()
-      .skipUndefined()
-      .where('ordre', '>=', ordreMax)
-      .orderBy('ordre')
-  },
+const permissionsGet = async ({ ordreMax }) =>
+  Permissions.query()
+    .skipUndefined()
+    .where('ordre', '>=', ordreMax)
+    .orderBy('ordre')
 
-  async permissionGet(id) {
-    return Permissions.query().findById(id)
-  }
-}
+const permissionGet = async id => Permissions.query().findById(id)
 
-module.exports = queries
+export { permissionsGet, permissionGet }

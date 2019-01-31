@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 type Entreprise {
   id: ID!
   nom: String

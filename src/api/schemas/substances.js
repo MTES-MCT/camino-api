@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 type Substance {
   id: ID!
   nom: String!

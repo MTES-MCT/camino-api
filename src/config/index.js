@@ -10,8 +10,4 @@ const url = virtualHost
   ? `${protocol}://${virtualHost}/`
   : `${protocol}://localhost:${port}/`
 
-module.exports = {
-  port,
-  url,
-  debug
-}
+export { port, url, debug }

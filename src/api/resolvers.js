@@ -1,40 +1,40 @@
 const { GraphQLDate } = require('graphql-iso-date')
-const Json = require('./types/json')
+import Json from './types/json'
 
-const {
+import {
   titre,
   titres,
   titreAjouter,
   titreSupprimer,
   titreModifier,
   titreEtapeModifier
-} = require('./resolvers/titres')
+} from './resolvers/titres'
 
-const {
+import {
   utilisateur,
   utilisateurs,
-  utilisateurConnecter,
   utilisateurIdentifier,
-  utilisateurModifier,
+  utilisateurConnecter,
   utilisateurAjouter,
+  utilisateurAjoutEmailEnvoyer,
+  utilisateurModifier,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
-  utilisateurMotDePasseInitialiser,
   utilisateurMotDePasseEmailEnvoyer,
-  utilisateurAjoutEmailEnvoyer
-} = require('./resolvers/utilisateurs')
-const { version } = require('./resolvers/version')
-const { metas } = require('./resolvers/metas')
-const { substance, substances } = require('./resolvers/substances')
-const { permissions } = require('./resolvers/permissions')
-const { entreprise, entreprises } = require('./resolvers/entreprises')
-const { titreTravauxRapportModifier } = require('./resolvers/titres-travaux')
+  utilisateurMotDePasseInitialiser
+} from './resolvers/utilisateurs'
 
-module.exports = {
+import { version } from './resolvers/version'
+import { metas } from './resolvers/metas'
+import { substance, substances } from './resolvers/substances'
+import { permissions } from './resolvers/permissions'
+import { entreprise, entreprises } from './resolvers/entreprises'
+import { titreTravauxRapportModifier } from './resolvers/titres-travaux'
+
+export default {
   //  types
   Json,
   GraphQLDate,
-
   //  queries
   version,
   titre,
@@ -48,14 +48,12 @@ module.exports = {
   utilisateur,
   utilisateurs,
   permissions,
-
   // mutations
   titreAjouter,
   titreModifier,
   titreSupprimer,
   titreEtapeModifier,
   titreTravauxRapportModifier,
-
   utilisateurConnecter,
   utilisateurModifier,
   utilisateurAjouter,

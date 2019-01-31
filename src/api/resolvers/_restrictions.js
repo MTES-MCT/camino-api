@@ -1,6 +1,6 @@
 const { debug } = require('../../config/index')
 
-module.exports = {
-  restrictedDomaineIds: debug ? [] : ['f', 'r', 's'],
-  restrictedStatutIds: debug ? [] : ['dmc', 'ech', 'ind']
-}
+const restrictedDomaineIds = debug ? [] : ['f', 'r', 's']
+const restrictedStatutIds = debug ? [] : ['dmc', 'ech', 'ind']
+
+export { restrictedDomaineIds, restrictedStatutIds }
