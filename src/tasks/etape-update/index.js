@@ -1,15 +1,15 @@
-require('dotenv').config()
-require('../../database/index')
-const { titreGet } = require('../../database/queries/titres')
-const { titreDemarcheGet } = require('../../database/queries/titres-demarches')
-const { titreEtapeGet } = require('../../database/queries/titres-etapes')
+import 'dotenv/config'
+import '../../database/index'
+import { titreGet } from '../../database/queries/titres'
+import { titreDemarcheGet } from '../../database/queries/titres-demarches'
+import { titreEtapeGet } from '../../database/queries/titres-etapes'
 
-const titreEtapesOrdreUpdate = require('./titre-etapes-ordre-update')
-const titreDemarcheStatutIdUpdate = require('./titre-demarche-statut-id-update')
-const titreDemarchesOrdreUpdate = require('./titre-demarches-ordre-update')
-const titreStatutIdsUpdate = require('./titre-statut-id-update')
-const titrePhasesUpdate = require('./titre-phases-update')
-const titrePropsEtapeIdUpdate = require('./titre-props-etape-id-update')
+import titreEtapesOrdreUpdate from './titre-etapes-ordre-update'
+import titreDemarcheStatutIdUpdate from './titre-demarche-statut-id-update'
+import titreDemarchesOrdreUpdate from './titre-demarches-ordre-update'
+import titreStatutIdsUpdate from './titre-statut-id-update'
+import titrePhasesUpdate from './titre-phases-update'
+import titrePropsEtapeIdUpdate from './titre-props-etape-id-update'
 
 const run = async titreEtape => {
   // détermine l'ordre des étapes
@@ -62,4 +62,4 @@ const run = async titreEtape => {
   console.log('Étape mise à jour')
 }
 
-module.exports = run
+export default run

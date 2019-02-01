@@ -1,6 +1,6 @@
-const { titreStatutIdUpdate } = require('../titres')
+import { titreStatutIdUpdate } from '../titres'
 
-const titreStatutIdFind = require('../_utils/titre-statut-id-find')
+import titreStatutIdFind from '../_utils/titre-statut-id-find'
 
 const titreStatutUpdate = async titre => {
   const statutId = titreStatutIdFind(titre)

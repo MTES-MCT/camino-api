@@ -1,11 +1,11 @@
-const spreadSheetToJson = require('google-spreadsheet-to-json')
-const credentials = require('../credentials.js')
-const fileCreate = require('./file-create.js')
+import * as googleSpreadSheetToJson from 'google-spreadsheet-to-json'
+import credentials from '../credentials.js'
+import fileCreate from './file-create.js'
 
-module.exports = async (filePath, spreadsheetId, worksheet, cb) => {
+const spreadsheetToJson = async (filePath, spreadsheetId, worksheet, cb) => {
   try {
     console.log(`Spreadsheet: ${filePath}`)
-    let json = await spreadSheetToJson({
+    let json = await googleSpreadSheetToJson({
       spreadsheetId,
       credentials,
       worksheet
@@ -22,3 +22,5 @@ module.exports = async (filePath, spreadsheetId, worksheet, cb) => {
     console.log(err)
   }
 }
+
+export default spreadsheetToJson

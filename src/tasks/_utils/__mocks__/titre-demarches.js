@@ -1,4 +1,4 @@
-module.exports = [
+export default [
   {
     id: 'h-cxx-courdemanges-1988-oct01',
     titreId: 'h-cxx-courdemanges-1988',

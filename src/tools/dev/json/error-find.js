@@ -7,6 +7,15 @@ const entreprisesM = require('../sources/repertoire-entreprises-m.json')
 const entreprisesM973 = require('../sources/repertoire-entreprises-m973.json')
 const entreprisesS = require('../sources/repertoire-entreprises-s.json')
 const entreprisesW = require('../sources/repertoire-entreprises-w.json')
+const titulairesR = require('../sources/titres-r-titulaires.json')
+const titulairesC = require('../sources/titres-c-titulaires.json')
+const titulairesF = require('../sources/titres-f-titulaires.json')
+const titulairesG = require('../sources/titres-g-titulaires.json')
+const titulairesH = require('../sources/titres-h-titulaires.json')
+const titulairesM = require('../sources/titres-m-titulaires.json')
+const titulairesM973 = require('../sources/titres-m973-titulaires.json')
+const titulairesS = require('../sources/titres-s-titulaires.json')
+const titulairesW = require('../sources/titres-w-titulaires.json')
 
 const entreprises = [
   ...entreprisesC,
@@ -19,16 +28,6 @@ const entreprises = [
   ...entreprisesS,
   ...entreprisesW
 ]
-
-const titulairesR = require('../sources/titres-r-titulaires.json')
-const titulairesC = require('../sources/titres-c-titulaires.json')
-const titulairesF = require('../sources/titres-f-titulaires.json')
-const titulairesG = require('../sources/titres-g-titulaires.json')
-const titulairesH = require('../sources/titres-h-titulaires.json')
-const titulairesM = require('../sources/titres-m-titulaires.json')
-const titulairesM973 = require('../sources/titres-m973-titulaires.json')
-const titulairesS = require('../sources/titres-s-titulaires.json')
-const titulairesW = require('../sources/titres-w-titulaires.json')
 
 const titulaires = [
   ...titulairesR,

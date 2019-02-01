@@ -1,69 +1,67 @@
-const dateFormat = require('dateformat')
+import * as dateFormat from 'dateformat'
 
-const {
-  titrePhaseUpdate,
-  titrePhaseDelete
-} = require('../database/queries/titres-phases')
+import {
+  titrePhaseUpdate as queryTitrePhaseUpdate,
+  titrePhaseDelete as queryTitrePhaseDelete
+} from '../database/queries/titres-phases'
 
-const titrePhases = {
-  titrePhaseUpdate(res, titrePhase, titresPhasesOld) {
-    const titrePhaseOld = titrePhaseEqualFind(
-      titrePhase.titreDemarcheId,
-      titresPhasesOld
-    )
-    const titrePhasePropsChanged = titrePhaseOld
-      ? titrePhasePropsChangedFind(titrePhase, titrePhaseOld)
-      : null
+const titrePhaseUpdate = (res, titrePhase, titresPhasesOld) => {
+  const titrePhaseOld = titrePhaseEqualFind(
+    titrePhase.titreDemarcheId,
+    titresPhasesOld
+  )
+  const titrePhasePropsChanged = titrePhaseOld
+    ? titrePhasePropsChangedFind(titrePhase, titrePhaseOld)
+    : null
 
-    let titrePhaseUpdated
+  let titrePhaseUpdated
 
-    if (
-      // si la phase n'existe pas
-      !titrePhaseOld
-    ) {
-      titrePhaseUpdated = titrePhaseUpdate({ titrePhase }).then(u => {
-        console.log(`Création: phase ${titrePhase.titreDemarcheId}`)
+  if (
+    // si la phase n'existe pas
+    !titrePhaseOld
+  ) {
+    titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(u => {
+      console.log(`Création: phase ${titrePhase.titreDemarcheId}`)
 
-        return u
-      })
-    } else if (
-      // si la phase existe et est modifiée
-      titrePhasePropsChanged
-    ) {
-      // console.log(titrePhasePropsChanged)
-      titrePhaseUpdated = titrePhaseUpdate({ titrePhase }).then(u => {
-        console.log(
-          `Mise à jour: phase ${titrePhase.titreDemarcheId}, ${JSON.stringify(
-            titrePhasePropsChanged
-          )}`
-        )
+      return u
+    })
+  } else if (
+    // si la phase existe et est modifiée
+    titrePhasePropsChanged
+  ) {
+    // console.log(titrePhasePropsChanged)
+    titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(u => {
+      console.log(
+        `Mise à jour: phase ${titrePhase.titreDemarcheId}, ${JSON.stringify(
+          titrePhasePropsChanged
+        )}`
+      )
 
-        return u
-      })
-    }
-
-    return titrePhaseUpdated ? [...res, titrePhaseUpdated] : res
-  },
-
-  titrePhaseDelete(res, titrePhaseOld, titresPhases) {
-    const titrePhase = titrePhaseEqualFind(
-      titrePhaseOld.titreDemarcheId,
-      titresPhases
-    )
-
-    let titrePhaseDeleted
-
-    if (!titrePhase) {
-      titrePhaseDeleted = titrePhaseDelete({
-        titreDemarcheId: titrePhaseOld.titreDemarcheId
-      }).then(u => {
-        console.log(`Suppression: phase ${titrePhaseOld.titreDemarcheId}`)
-
-        return u
-      })
-    }
-    return titrePhaseDeleted ? [...res, titrePhaseDeleted] : res
+      return u
+    })
   }
+
+  return titrePhaseUpdated ? [...res, titrePhaseUpdated] : res
+}
+
+const titrePhaseDelete = (res, titrePhaseOld, titresPhases) => {
+  const titrePhase = titrePhaseEqualFind(
+    titrePhaseOld.titreDemarcheId,
+    titresPhases
+  )
+
+  let titrePhaseDeleted
+
+  if (!titrePhase) {
+    titrePhaseDeleted = queryTitrePhaseDelete({
+      titreDemarcheId: titrePhaseOld.titreDemarcheId
+    }).then(u => {
+      console.log(`Suppression: phase ${titrePhaseOld.titreDemarcheId}`)
+
+      return u
+    })
+  }
+  return titrePhaseDeleted ? [...res, titrePhaseDeleted] : res
 }
 
 // retourne une phase parmi les titrePhases en fonction de son id
@@ -87,4 +85,4 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
       : mod
   }, null)
 
-module.exports = titrePhases
+export { titrePhaseUpdate, titrePhaseDelete }

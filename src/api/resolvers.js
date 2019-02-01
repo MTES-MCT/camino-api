@@ -1,4 +1,5 @@
-const { GraphQLDate } = require('graphql-iso-date')
+import { GraphQLDate } from 'graphql-iso-date'
+
 import Json from './types/json'
 
 import {

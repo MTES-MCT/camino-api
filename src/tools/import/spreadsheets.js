@@ -162,4 +162,4 @@ const spreadSheets = [
   }
 ]
 
-module.exports = spreadSheets
+export default spreadSheets

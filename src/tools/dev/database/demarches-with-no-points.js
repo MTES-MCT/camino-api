@@ -1,9 +1,7 @@
-require('dotenv').config()
-require('../../../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const {
-  titresDemarchesGet
-} = require('../../../database/queries/titres-demarches')
+import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 
 async function main() {
   let res = await titresDemarchesGet({ demarchesIds: ['abr', 'ren', 'ret'] })

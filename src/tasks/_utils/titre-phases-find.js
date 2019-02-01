@@ -1,8 +1,8 @@
-const dateFormat = require('dateformat')
-const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-duree-find')
-const titreDemarchePhasesFilter = require('./titre-demarche-phases-filter')
-const titreEtapesDescSort = require('./titre-etapes-desc-sort')
-const titreEtapesAscSort = require('./titre-etapes-asc-sort')
+import * as dateFormat from 'dateformat'
+import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
+import titreDemarchePhasesFilter from './titre-demarche-phases-filter'
+import titreEtapesDescSort from './titre-etapes-desc-sort'
+import titreEtapesAscSort from './titre-etapes-asc-sort'
 
 // retourne un tableau contenant les phases d'un titre
 const titrePhasesFind = (titreDemarchesByTitre, titreTypeId) => {
@@ -137,4 +137,4 @@ const demarcheAnnulationFind = (
   return titreDemarchesByTitre.find(t => t.id === annulationDemarcheId)
 }
 
-module.exports = titrePhasesFind
+export default titrePhasesFind

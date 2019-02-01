@@ -1,4 +1,4 @@
-const { titrePropsUpdate, calculatedProps } = require('../titres')
+import { titrePropsUpdate, calculatedProps } from '../titres'
 
 const titresPropsEtapeIdsUpdate = async titre => {
   const titrePropsUpdateRequests = calculatedProps.reduce((res, prop) => {

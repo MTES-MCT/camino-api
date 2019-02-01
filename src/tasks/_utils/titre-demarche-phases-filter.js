@@ -1,4 +1,4 @@
-const titreEtapesAscSort = require('./titre-etapes-asc-sort')
+import titreEtapesAscSort from './titre-etapes-asc-sort'
 
 // si
 // - la démarche est un octroi ou une prolongation ou une prolongation 1
@@ -13,8 +13,8 @@ const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
   const etapeDpuFirst = titreEtapesAscSort(titreDemarche).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' ||
-        (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
-        (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
+      (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
+      (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
   )
 
   return (
@@ -29,4 +29,4 @@ const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
   )
 }
 
-module.exports = titreDemarchePhasesFilter
+export default titreDemarchePhasesFilter

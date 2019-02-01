@@ -20,4 +20,4 @@ const utilisateursTables = [
   }
 ]
 
-module.exports = utilisateursTables
+export default utilisateursTables

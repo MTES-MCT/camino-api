@@ -1,12 +1,12 @@
-const GoogleSpreadsheet = require('google-spreadsheet')
-const rowFormat = require('./row-format')
+import * as GoogleSpreadsheet from 'google-spreadsheet'
+import rowFormat from './row-format'
 
-const {
+import {
   gssUseServiceAccountAuth,
   rowsGet,
   rowDelete,
   rowAdd
-} = require('./google-spreadsheet-promisify')
+} from './google-spreadsheet-promisify'
 
 const spreadsheetRowUpdate = async (
   spreadsheetId,
@@ -31,4 +31,4 @@ const spreadsheetRowUpdate = async (
   await rowAdd(gss, 1, row)
 }
 
-module.exports = spreadsheetRowUpdate
+export default spreadsheetRowUpdate

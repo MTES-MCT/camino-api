@@ -1,6 +1,6 @@
-const { writeFile } = require('fs-extra')
+import { writeFile } from 'fs-extra'
 
-module.exports = async (name, content) => {
+const fileCreate = async (name, content) => {
   try {
     await writeFile(name, content, 'utf8')
     console.log('File:', name)
@@ -8,3 +8,5 @@ module.exports = async (name, content) => {
     console.log('File: error', err)
   }
 }
+
+export default fileCreate

@@ -18,7 +18,7 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import { dupRemove, dupFind } from '../../tools/index'
 
-const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
+import titreEtapeUpdateTasks from '../../tasks/etape-update/index'
 
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id)
@@ -77,7 +77,8 @@ const titres = async (
     }
   ) => {
     const utilisateur = await utilisateurGet(userId)
-    const entrepriseId = utilisateur.entreprise && utilisateur.entreprise.id
+    const entrepriseId =
+      utilisateur && utilisateur.entreprise && utilisateur.entreprise.id
 
     if (entrepriseId) {
       // si le filtre `entreprise est renseigné,

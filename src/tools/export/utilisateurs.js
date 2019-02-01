@@ -1,7 +1,7 @@
-require('dotenv').config()
-require('../../database/index')
-const dbProcess = require('./_utils/db-process')
-const definitions = require('./definitions')
+import 'dotenv/config'
+import '../../database/index'
+import dbProcess from './_utils/db-process'
+import definitions from './definitions'
 
 const utilisateursDefinition = definitions.find(
   definition => definition.name === 'utilisateurs'

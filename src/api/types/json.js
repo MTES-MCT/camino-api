@@ -1,4 +1,4 @@
-const { GraphQLScalarType } = require('graphql')
+import { GraphQLScalarType } from 'graphql'
 
 const Json = new GraphQLScalarType({
   name: 'Json',
