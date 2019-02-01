@@ -16,6 +16,8 @@ import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
+import { dedup } from '../../tools/index'
+
 const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
 
 const titre = async ({ id }, context, info) => {
@@ -62,15 +64,15 @@ const titres = async (
     return statutIds.filter(id => !restrictedStatutIds.includes(id))
   }
 
-  const entrepriseTitresFind = async userId => {
+  const entrepriseTitresFind = async (userId, domaineIds, statutIds) => {
     const utilisateur = await utilisateurGet(userId)
     const entrepriseId = utilisateur.entreprise && utilisateur.entreprise.id
 
     if (entrepriseId) {
       const entrepriseTitres = await titresGet({
         typeIds: null,
-        domaineIds: null,
-        statutIds: null,
+        domaineIds,
+        statutIds,
         substances: null,
         noms: null,
         entreprises: [entrepriseId],
@@ -84,9 +86,9 @@ const titres = async (
   }
 
   const entrepriseTitres =
-    !context.user || !permissionsCheck(context.user, ['entreprise'])
-      ? []
-      : await entrepriseTitresFind(context.user.id)
+    context.user && permissionsCheck(context.user, ['entreprise'])
+      ? await entrepriseTitresFind(context.user.id, domaineIds, statutIds)
+      : []
 
   const titres = await titresGet({
     typeIds,
@@ -104,9 +106,9 @@ const titres = async (
     references
   })
 
-  return [...titres, ...entrepriseTitres].map(
-    titre => titre && titreFormat(titre)
-  )
+  const titresList = dedup('id', titres, entrepriseTitres)
+
+  return titresList.map(titre => titre && titreFormat(titre))
 }
 
 const titreAjouter = async ({ titre }, context, info) => {
