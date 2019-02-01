@@ -22,12 +22,14 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
   const titre = await titreGet(rapport.titreId)
   const user = await utilisateurGet(context.user.id)
   const rapportOld = await titresTravauxRapportGet(rapport.id)
+  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
+  const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
 
   if (
     !(
       permissionsCheck(context.user, ['super', 'admin']) ||
       (permissionsCheck(context.user, ['entreprise']) &&
-        titre.titulaires.find(t => t.id === user.entrepriseId))
+        (isAmodiataire || (!titre.amodiataires.length && isTitulaire)))
     )
   ) {
     errors.push("droits insuffisants pour effectuer l'opération")
@@ -53,7 +55,9 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
 
     if (rapport.confirmation) {
       const utilisateurs = await utilisateursGet({
-        entrepriseIds: titre.titulaires.map(t => t.id),
+        entrepriseIds: isAmodiataire
+          ? titre.amodiataires.map(t => t.id)
+          : titre.titulaires.map(t => t.id),
         noms: undefined,
         administrationIds: undefined,
         permissionIds: undefined
