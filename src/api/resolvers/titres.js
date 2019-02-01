@@ -16,7 +16,7 @@ import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import { dedup } from '../../tools/index'
+import { dupRemove, dupFind } from '../../tools/index'
 
 const titreEtapeUpdateTasks = require('../../tasks/etape-update/index')
 
@@ -64,30 +64,67 @@ const titres = async (
     return statutIds.filter(id => !restrictedStatutIds.includes(id))
   }
 
-  const entrepriseTitresFind = async (userId, domaineIds, statutIds) => {
+  const userEntrepriseTitresFind = async (
+    userId,
+    {
+      typeIds,
+      domaineIds,
+      statutIds,
+      substances,
+      noms,
+      entreprises,
+      references
+    }
+  ) => {
     const utilisateur = await utilisateurGet(userId)
     const entrepriseId = utilisateur.entreprise && utilisateur.entreprise.id
 
     if (entrepriseId) {
-      const entrepriseTitres = await titresGet({
-        typeIds: null,
+      // si le filtre `entreprise est renseigné,
+      // on en peut pas savoir si `entreprises` renvoie la même liste que `[entrepriseId]`
+      // donc on fait une requête pour chaque
+      // et on ne garde que les éléments présent dans les deux
+      const entrepriseTitres =
+        entreprises &&
+        (await titresGet({
+          typeIds,
+          domaineIds,
+          statutIds,
+          substances,
+          noms,
+          entreprises,
+          references
+        }))
+
+      const userEntrepriseTitres = await titresGet({
+        typeIds,
         domaineIds,
         statutIds,
-        substances: null,
-        noms: null,
+        substances,
+        noms,
         entreprises: [entrepriseId],
-        references: null
+        references
       })
 
-      return entrepriseTitres
+      return entreprises
+        ? dupFind('id', entrepriseTitres, userEntrepriseTitres)
+        : userEntrepriseTitres
     }
 
     return []
   }
 
-  const entrepriseTitres =
+  const userEntrepriseTitres =
     context.user && permissionsCheck(context.user, ['entreprise'])
-      ? await entrepriseTitresFind(context.user.id, domaineIds, statutIds)
+      ? await userEntrepriseTitresFind(context.user.id, {
+          typeIds,
+          domaineIds,
+          statutIds,
+          substances,
+          noms,
+          entreprises,
+          references
+        })
       : []
 
   const titres = await titresGet({
@@ -106,7 +143,7 @@ const titres = async (
     references
   })
 
-  const titresList = dedup('id', titres, entrepriseTitres)
+  const titresList = dupRemove('id', titres, userEntrepriseTitres)
 
   return titresList.map(titre => titre && titreFormat(titre))
 }

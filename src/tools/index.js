@@ -1,21 +1,19 @@
-const dedup = (key, ...arrays) =>
+const dupRemove = (key, ...arrays) =>
   arrays.reduce(
     (result, array) =>
       array.reduce(
         (res, el) =>
-          !res.find(e => el[key] && e[key] === el[key]) ? [...res, el] : res,
+          res.find(e => el[key] && e[key] === el[key]) ? res : [...res, el],
         result
       ),
     []
   )
 
-const findup = (array, key1, key2) =>
-  array.reduce(
-    (res, el) =>
-      res.find(e => e[key1] === el[key1] && e[key2] === el[key2])
-        ? res
-        : [...res, el],
-    []
+const dupFind = (key, ...arrays) =>
+  arrays.reduce(
+    (result, array) =>
+      result.filter(el => array.find(e => e[key] && e[key] === el[key])),
+    arrays.pop()
   )
 
-export { dedup, findup }
+export { dupRemove, dupFind }
