@@ -1,9 +1,9 @@
-const dedup = (...arrays) =>
+const dedup = (key, ...arrays) =>
   arrays.reduce(
     (result, array) =>
       array.reduce(
         (res, el) =>
-          !res.find(e => el.id && e.id === el.id) ? [...res, el] : res,
+          !res.find(e => el[key] && e[key] === el[key]) ? [...res, el] : res,
         result
       ),
     []
@@ -18,7 +18,4 @@ const findup = (array, key1, key2) =>
     []
   )
 
-module.exports = {
-  dedup,
-  findup
-}
+export { dedup, findup }
