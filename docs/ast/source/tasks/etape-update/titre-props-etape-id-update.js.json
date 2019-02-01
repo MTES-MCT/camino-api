@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 497,
+  "end": 499,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 497,
+    "end": 499,
     "loc": {
       "start": {
         "line": 1,
@@ -164,7 +164,7 @@
         }
       },
       {
-        "type": "Identifier",
+        "type": "VariableDeclaration",
         "start": 63,
         "end": 454,
         "loc": {
@@ -223,7 +223,23 @@
                   "column": 1
                 }
               },
-              "id": null,
+              "id": {
+                "type": "Identifier",
+                "start": 69,
+                "end": 94,
+                "loc": {
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 31
+                  },
+                  "identifierName": "titresPropsEtapeIdsUpdate"
+                },
+                "name": "titresPropsEtapeIdsUpdate"
+              },
               "generator": false,
               "expression": false,
               "async": true,
@@ -959,15 +975,12 @@
             }
           }
         ],
-        "kind": "const",
-        "name": "_",
-        "leadingComments": [],
-        "trailingComments": []
+        "kind": "const"
       },
       {
-        "type": "Identifier",
+        "type": "ExpressionStatement",
         "start": 456,
-        "end": 496,
+        "end": 498,
         "loc": {
           "start": {
             "line": 15,
@@ -975,859 +988,91 @@
           },
           "end": {
             "line": 15,
-            "column": 40
+            "column": 42
           }
         },
-        "declaration": {
-          "type": "Identifier",
-          "start": 471,
-          "end": 496,
+        "expression": {
+          "type": "AssignmentExpression",
+          "start": 456,
+          "end": 498,
           "loc": {
             "start": {
               "line": 15,
-              "column": 15
-            },
-            "end": {
-              "line": 15,
-              "column": 40
-            },
-            "identifierName": "titresPropsEtapeIdsUpdate"
-          },
-          "name": "titresPropsEtapeIdsUpdate"
-        },
-        "name": "_",
-        "leadingComments": [],
-        "trailingComments": []
-      },
-      {
-        "type": "ExportDefaultDeclaration",
-        "start": 456,
-        "end": 496,
-        "loc": {
-          "start": {
-            "line": 15,
-            "column": 0
-          },
-          "end": {
-            "line": 15,
-            "column": 40
-          }
-        },
-        "declaration": {
-          "type": "VariableDeclaration",
-          "start": 63,
-          "end": 454,
-          "loc": {
-            "start": {
-              "line": 3,
               "column": 0
             },
             "end": {
-              "line": 13,
-              "column": 1
+              "line": 15,
+              "column": 42
             }
           },
-          "declarations": [
-            {
-              "type": "VariableDeclarator",
-              "start": 69,
-              "end": 454,
+          "operator": "=",
+          "left": {
+            "type": "MemberExpression",
+            "start": 456,
+            "end": 470,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 14
+              }
+            },
+            "object": {
+              "type": "Identifier",
+              "start": 456,
+              "end": 462,
               "loc": {
                 "start": {
-                  "line": 3,
-                  "column": 6
+                  "line": 15,
+                  "column": 0
                 },
                 "end": {
-                  "line": 13,
-                  "column": 1
-                }
+                  "line": 15,
+                  "column": 6
+                },
+                "identifierName": "module"
               },
-              "id": {
-                "type": "Identifier",
-                "start": 69,
-                "end": 94,
-                "loc": {
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 31
-                  },
-                  "identifierName": "titresPropsEtapeIdsUpdate"
+              "name": "module"
+            },
+            "property": {
+              "type": "Identifier",
+              "start": 463,
+              "end": 470,
+              "loc": {
+                "start": {
+                  "line": 15,
+                  "column": 7
                 },
-                "name": "titresPropsEtapeIdsUpdate"
+                "end": {
+                  "line": 15,
+                  "column": 14
+                },
+                "identifierName": "exports"
               },
-              "init": {
-                "type": "ArrowFunctionExpression",
-                "start": 97,
-                "end": 454,
-                "loc": {
-                  "start": {
-                    "line": 3,
-                    "column": 34
-                  },
-                  "end": {
-                    "line": 13,
-                    "column": 1
-                  }
-                },
-                "id": {
-                  "type": "Identifier",
-                  "start": 69,
-                  "end": 94,
-                  "loc": {
-                    "start": {
-                      "line": 3,
-                      "column": 6
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 31
-                    },
-                    "identifierName": "titresPropsEtapeIdsUpdate"
-                  },
-                  "name": "titresPropsEtapeIdsUpdate"
-                },
-                "generator": false,
-                "expression": false,
-                "async": true,
-                "params": [
-                  {
-                    "type": "Identifier",
-                    "start": 103,
-                    "end": 108,
-                    "loc": {
-                      "start": {
-                        "line": 3,
-                        "column": 40
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 45
-                      },
-                      "identifierName": "titre"
-                    },
-                    "name": "titre"
-                  }
-                ],
-                "body": {
-                  "type": "BlockStatement",
-                  "start": 112,
-                  "end": 454,
-                  "loc": {
-                    "start": {
-                      "line": 3,
-                      "column": 49
-                    },
-                    "end": {
-                      "line": 13,
-                      "column": 1
-                    }
-                  },
-                  "body": [
-                    {
-                      "type": "VariableDeclaration",
-                      "start": 116,
-                      "end": 323,
-                      "loc": {
-                        "start": {
-                          "line": 4,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 8
-                        }
-                      },
-                      "declarations": [
-                        {
-                          "type": "VariableDeclarator",
-                          "start": 122,
-                          "end": 323,
-                          "loc": {
-                            "start": {
-                              "line": 4,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 8,
-                              "column": 8
-                            }
-                          },
-                          "id": {
-                            "type": "Identifier",
-                            "start": 122,
-                            "end": 146,
-                            "loc": {
-                              "start": {
-                                "line": 4,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 4,
-                                "column": 32
-                              },
-                              "identifierName": "titrePropsUpdateRequests"
-                            },
-                            "name": "titrePropsUpdateRequests"
-                          },
-                          "init": {
-                            "type": "CallExpression",
-                            "start": 149,
-                            "end": 323,
-                            "loc": {
-                              "start": {
-                                "line": 4,
-                                "column": 35
-                              },
-                              "end": {
-                                "line": 8,
-                                "column": 8
-                              }
-                            },
-                            "callee": {
-                              "type": "MemberExpression",
-                              "start": 149,
-                              "end": 171,
-                              "loc": {
-                                "start": {
-                                  "line": 4,
-                                  "column": 35
-                                },
-                                "end": {
-                                  "line": 4,
-                                  "column": 57
-                                }
-                              },
-                              "object": {
-                                "type": "Identifier",
-                                "start": 149,
-                                "end": 164,
-                                "loc": {
-                                  "start": {
-                                    "line": 4,
-                                    "column": 35
-                                  },
-                                  "end": {
-                                    "line": 4,
-                                    "column": 50
-                                  },
-                                  "identifierName": "calculatedProps"
-                                },
-                                "name": "calculatedProps"
-                              },
-                              "property": {
-                                "type": "Identifier",
-                                "start": 165,
-                                "end": 171,
-                                "loc": {
-                                  "start": {
-                                    "line": 4,
-                                    "column": 51
-                                  },
-                                  "end": {
-                                    "line": 4,
-                                    "column": 57
-                                  },
-                                  "identifierName": "reduce"
-                                },
-                                "name": "reduce"
-                              },
-                              "computed": false
-                            },
-                            "arguments": [
-                              {
-                                "type": "ArrowFunctionExpression",
-                                "start": 172,
-                                "end": 318,
-                                "loc": {
-                                  "start": {
-                                    "line": 4,
-                                    "column": 58
-                                  },
-                                  "end": {
-                                    "line": 8,
-                                    "column": 3
-                                  }
-                                },
-                                "id": null,
-                                "generator": false,
-                                "expression": false,
-                                "async": false,
-                                "params": [
-                                  {
-                                    "type": "Identifier",
-                                    "start": 173,
-                                    "end": 176,
-                                    "loc": {
-                                      "start": {
-                                        "line": 4,
-                                        "column": 59
-                                      },
-                                      "end": {
-                                        "line": 4,
-                                        "column": 62
-                                      },
-                                      "identifierName": "res"
-                                    },
-                                    "name": "res"
-                                  },
-                                  {
-                                    "type": "Identifier",
-                                    "start": 178,
-                                    "end": 182,
-                                    "loc": {
-                                      "start": {
-                                        "line": 4,
-                                        "column": 64
-                                      },
-                                      "end": {
-                                        "line": 4,
-                                        "column": 68
-                                      },
-                                      "identifierName": "prop"
-                                    },
-                                    "name": "prop"
-                                  }
-                                ],
-                                "body": {
-                                  "type": "BlockStatement",
-                                  "start": 187,
-                                  "end": 318,
-                                  "loc": {
-                                    "start": {
-                                      "line": 4,
-                                      "column": 73
-                                    },
-                                    "end": {
-                                      "line": 8,
-                                      "column": 3
-                                    }
-                                  },
-                                  "body": [
-                                    {
-                                      "type": "VariableDeclaration",
-                                      "start": 193,
-                                      "end": 248,
-                                      "loc": {
-                                        "start": {
-                                          "line": 5,
-                                          "column": 4
-                                        },
-                                        "end": {
-                                          "line": 5,
-                                          "column": 59
-                                        }
-                                      },
-                                      "declarations": [
-                                        {
-                                          "type": "VariableDeclarator",
-                                          "start": 199,
-                                          "end": 248,
-                                          "loc": {
-                                            "start": {
-                                              "line": 5,
-                                              "column": 10
-                                            },
-                                            "end": {
-                                              "line": 5,
-                                              "column": 59
-                                            }
-                                          },
-                                          "id": {
-                                            "type": "Identifier",
-                                            "start": 199,
-                                            "end": 216,
-                                            "loc": {
-                                              "start": {
-                                                "line": 5,
-                                                "column": 10
-                                              },
-                                              "end": {
-                                                "line": 5,
-                                                "column": 27
-                                              },
-                                              "identifierName": "titrePropsUpdated"
-                                            },
-                                            "name": "titrePropsUpdated"
-                                          },
-                                          "init": {
-                                            "type": "CallExpression",
-                                            "start": 219,
-                                            "end": 248,
-                                            "loc": {
-                                              "start": {
-                                                "line": 5,
-                                                "column": 30
-                                              },
-                                              "end": {
-                                                "line": 5,
-                                                "column": 59
-                                              }
-                                            },
-                                            "callee": {
-                                              "type": "Identifier",
-                                              "start": 219,
-                                              "end": 235,
-                                              "loc": {
-                                                "start": {
-                                                  "line": 5,
-                                                  "column": 30
-                                                },
-                                                "end": {
-                                                  "line": 5,
-                                                  "column": 46
-                                                },
-                                                "identifierName": "titrePropsUpdate"
-                                              },
-                                              "name": "titrePropsUpdate"
-                                            },
-                                            "arguments": [
-                                              {
-                                                "type": "Identifier",
-                                                "start": 236,
-                                                "end": 241,
-                                                "loc": {
-                                                  "start": {
-                                                    "line": 5,
-                                                    "column": 47
-                                                  },
-                                                  "end": {
-                                                    "line": 5,
-                                                    "column": 52
-                                                  },
-                                                  "identifierName": "titre"
-                                                },
-                                                "name": "titre"
-                                              },
-                                              {
-                                                "type": "Identifier",
-                                                "start": 243,
-                                                "end": 247,
-                                                "loc": {
-                                                  "start": {
-                                                    "line": 5,
-                                                    "column": 54
-                                                  },
-                                                  "end": {
-                                                    "line": 5,
-                                                    "column": 58
-                                                  },
-                                                  "identifierName": "prop"
-                                                },
-                                                "name": "prop"
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ],
-                                      "kind": "const"
-                                    },
-                                    {
-                                      "type": "ReturnStatement",
-                                      "start": 254,
-                                      "end": 314,
-                                      "loc": {
-                                        "start": {
-                                          "line": 7,
-                                          "column": 4
-                                        },
-                                        "end": {
-                                          "line": 7,
-                                          "column": 64
-                                        }
-                                      },
-                                      "argument": {
-                                        "type": "ConditionalExpression",
-                                        "start": 261,
-                                        "end": 314,
-                                        "loc": {
-                                          "start": {
-                                            "line": 7,
-                                            "column": 11
-                                          },
-                                          "end": {
-                                            "line": 7,
-                                            "column": 64
-                                          }
-                                        },
-                                        "test": {
-                                          "type": "Identifier",
-                                          "start": 261,
-                                          "end": 278,
-                                          "loc": {
-                                            "start": {
-                                              "line": 7,
-                                              "column": 11
-                                            },
-                                            "end": {
-                                              "line": 7,
-                                              "column": 28
-                                            },
-                                            "identifierName": "titrePropsUpdated"
-                                          },
-                                          "name": "titrePropsUpdated"
-                                        },
-                                        "consequent": {
-                                          "type": "ArrayExpression",
-                                          "start": 281,
-                                          "end": 308,
-                                          "loc": {
-                                            "start": {
-                                              "line": 7,
-                                              "column": 31
-                                            },
-                                            "end": {
-                                              "line": 7,
-                                              "column": 58
-                                            }
-                                          },
-                                          "elements": [
-                                            {
-                                              "type": "SpreadElement",
-                                              "start": 282,
-                                              "end": 288,
-                                              "loc": {
-                                                "start": {
-                                                  "line": 7,
-                                                  "column": 32
-                                                },
-                                                "end": {
-                                                  "line": 7,
-                                                  "column": 38
-                                                }
-                                              },
-                                              "argument": {
-                                                "type": "Identifier",
-                                                "start": 285,
-                                                "end": 288,
-                                                "loc": {
-                                                  "start": {
-                                                    "line": 7,
-                                                    "column": 35
-                                                  },
-                                                  "end": {
-                                                    "line": 7,
-                                                    "column": 38
-                                                  },
-                                                  "identifierName": "res"
-                                                },
-                                                "name": "res"
-                                              }
-                                            },
-                                            {
-                                              "type": "Identifier",
-                                              "start": 290,
-                                              "end": 307,
-                                              "loc": {
-                                                "start": {
-                                                  "line": 7,
-                                                  "column": 40
-                                                },
-                                                "end": {
-                                                  "line": 7,
-                                                  "column": 57
-                                                },
-                                                "identifierName": "titrePropsUpdated"
-                                              },
-                                              "name": "titrePropsUpdated"
-                                            }
-                                          ]
-                                        },
-                                        "alternate": {
-                                          "type": "Identifier",
-                                          "start": 311,
-                                          "end": 314,
-                                          "loc": {
-                                            "start": {
-                                              "line": 7,
-                                              "column": 61
-                                            },
-                                            "end": {
-                                              "line": 7,
-                                              "column": 64
-                                            },
-                                            "identifierName": "res"
-                                          },
-                                          "name": "res"
-                                        }
-                                      }
-                                    }
-                                  ],
-                                  "directives": []
-                                }
-                              },
-                              {
-                                "type": "ArrayExpression",
-                                "start": 320,
-                                "end": 322,
-                                "loc": {
-                                  "start": {
-                                    "line": 8,
-                                    "column": 5
-                                  },
-                                  "end": {
-                                    "line": 8,
-                                    "column": 7
-                                  }
-                                },
-                                "elements": []
-                              }
-                            ]
-                          }
-                        }
-                      ],
-                      "kind": "const"
-                    },
-                    {
-                      "type": "ExpressionStatement",
-                      "start": 327,
-                      "end": 370,
-                      "loc": {
-                        "start": {
-                          "line": 10,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 10,
-                          "column": 45
-                        }
-                      },
-                      "expression": {
-                        "type": "AwaitExpression",
-                        "start": 327,
-                        "end": 370,
-                        "loc": {
-                          "start": {
-                            "line": 10,
-                            "column": 2
-                          },
-                          "end": {
-                            "line": 10,
-                            "column": 45
-                          }
-                        },
-                        "argument": {
-                          "type": "CallExpression",
-                          "start": 333,
-                          "end": 370,
-                          "loc": {
-                            "start": {
-                              "line": 10,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 10,
-                              "column": 45
-                            }
-                          },
-                          "callee": {
-                            "type": "MemberExpression",
-                            "start": 333,
-                            "end": 344,
-                            "loc": {
-                              "start": {
-                                "line": 10,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 10,
-                                "column": 19
-                              }
-                            },
-                            "object": {
-                              "type": "Identifier",
-                              "start": 333,
-                              "end": 340,
-                              "loc": {
-                                "start": {
-                                  "line": 10,
-                                  "column": 8
-                                },
-                                "end": {
-                                  "line": 10,
-                                  "column": 15
-                                },
-                                "identifierName": "Promise"
-                              },
-                              "name": "Promise"
-                            },
-                            "property": {
-                              "type": "Identifier",
-                              "start": 341,
-                              "end": 344,
-                              "loc": {
-                                "start": {
-                                  "line": 10,
-                                  "column": 16
-                                },
-                                "end": {
-                                  "line": 10,
-                                  "column": 19
-                                },
-                                "identifierName": "all"
-                              },
-                              "name": "all"
-                            },
-                            "computed": false
-                          },
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "start": 345,
-                              "end": 369,
-                              "loc": {
-                                "start": {
-                                  "line": 10,
-                                  "column": 20
-                                },
-                                "end": {
-                                  "line": 10,
-                                  "column": 44
-                                },
-                                "identifierName": "titrePropsUpdateRequests"
-                              },
-                              "name": "titrePropsUpdateRequests"
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    {
-                      "type": "ReturnStatement",
-                      "start": 374,
-                      "end": 452,
-                      "loc": {
-                        "start": {
-                          "line": 12,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 12,
-                          "column": 80
-                        }
-                      },
-                      "argument": {
-                        "type": "TemplateLiteral",
-                        "start": 381,
-                        "end": 452,
-                        "loc": {
-                          "start": {
-                            "line": 12,
-                            "column": 9
-                          },
-                          "end": {
-                            "line": 12,
-                            "column": 80
-                          }
-                        },
-                        "expressions": [
-                          {
-                            "type": "MemberExpression",
-                            "start": 397,
-                            "end": 428,
-                            "loc": {
-                              "start": {
-                                "line": 12,
-                                "column": 25
-                              },
-                              "end": {
-                                "line": 12,
-                                "column": 56
-                              }
-                            },
-                            "object": {
-                              "type": "Identifier",
-                              "start": 397,
-                              "end": 421,
-                              "loc": {
-                                "start": {
-                                  "line": 12,
-                                  "column": 25
-                                },
-                                "end": {
-                                  "line": 12,
-                                  "column": 49
-                                },
-                                "identifierName": "titrePropsUpdateRequests"
-                              },
-                              "name": "titrePropsUpdateRequests"
-                            },
-                            "property": {
-                              "type": "Identifier",
-                              "start": 422,
-                              "end": 428,
-                              "loc": {
-                                "start": {
-                                  "line": 12,
-                                  "column": 50
-                                },
-                                "end": {
-                                  "line": 12,
-                                  "column": 56
-                                },
-                                "identifierName": "length"
-                              },
-                              "name": "length"
-                            },
-                            "computed": false
-                          }
-                        ],
-                        "quasis": [
-                          {
-                            "type": "TemplateElement",
-                            "start": 382,
-                            "end": 395,
-                            "loc": {
-                              "start": {
-                                "line": 12,
-                                "column": 10
-                              },
-                              "end": {
-                                "line": 12,
-                                "column": 23
-                              }
-                            },
-                            "value": {
-                              "raw": "Mise à jour: ",
-                              "cooked": "Mise à jour: "
-                            },
-                            "tail": false
-                          },
-                          {
-                            "type": "TemplateElement",
-                            "start": 429,
-                            "end": 451,
-                            "loc": {
-                              "start": {
-                                "line": 12,
-                                "column": 57
-                              },
-                              "end": {
-                                "line": 12,
-                                "column": 79
-                              }
-                            },
-                            "value": {
-                              "raw": " propriétés de titres.",
-                              "cooked": " propriétés de titres."
-                            },
-                            "tail": true
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "directives": []
-                }
-              }
-            }
-          ],
-          "kind": "const",
-          "leadingComments": [],
-          "trailingComments": []
+              "name": "exports"
+            },
+            "computed": false
+          },
+          "right": {
+            "type": "Identifier",
+            "start": 473,
+            "end": 498,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 17
+              },
+              "end": {
+                "line": 15,
+                "column": 42
+              },
+              "identifierName": "titresPropsEtapeIdsUpdate"
+            },
+            "name": "titresPropsEtapeIdsUpdate"
+          }
         }
       }
     ],
@@ -3709,19 +2954,17 @@
     },
     {
       "type": {
-        "label": "export",
-        "keyword": "export",
+        "label": "name",
         "beforeExpr": false,
-        "startsExpr": false,
+        "startsExpr": true,
         "rightAssociative": false,
         "isLoop": false,
         "isAssign": false,
         "prefix": false,
         "postfix": false,
-        "binop": null,
-        "updateContext": null
+        "binop": null
       },
-      "value": "export",
+      "value": "module",
       "start": 456,
       "end": 462,
       "loc": {
@@ -3737,9 +2980,8 @@
     },
     {
       "type": {
-        "label": "default",
-        "keyword": "default",
-        "beforeExpr": true,
+        "label": ".",
+        "beforeExpr": false,
         "startsExpr": false,
         "rightAssociative": false,
         "isLoop": false,
@@ -3749,7 +2991,32 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "default",
+      "start": 462,
+      "end": 463,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 6
+        },
+        "end": {
+          "line": 15,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "exports",
       "start": 463,
       "end": 470,
       "loc": {
@@ -3760,6 +3027,33 @@
         "end": {
           "line": 15,
           "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 471,
+      "end": 472,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 15
+        },
+        "end": {
+          "line": 15,
+          "column": 16
         }
       }
     },
@@ -3776,16 +3070,16 @@
         "binop": null
       },
       "value": "titresPropsEtapeIdsUpdate",
-      "start": 471,
-      "end": 496,
+      "start": 473,
+      "end": 498,
       "loc": {
         "start": {
           "line": 15,
-          "column": 15
+          "column": 17
         },
         "end": {
           "line": 15,
-          "column": 40
+          "column": 42
         }
       }
     },
@@ -3802,8 +3096,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 497,
-      "end": 497,
+      "start": 499,
+      "end": 499,
       "loc": {
         "start": {
           "line": 16,

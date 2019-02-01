@@ -180,9 +180,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "camino-api/src/tools/import/_utils/_spreadsheet-to-json.js~_spreadsheettojson",
-    "function/index.html#static-function-_spreadsheettojson",
-    "<span>_spreadsheettojson</span> <span class=\"search-result-import-path\">camino-api/src/tools/import/_utils/_spreadsheet-to-json.js</span>",
+    "camino-api/src/tasks/titres.js~calculatedprops",
+    "variable/index.html#static-variable-calculatedProps",
+    "<span>calculatedProps</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titres.js</span>",
+    "variable"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~cellset",
+    "function/index.html#static-function-cellSet",
+    "<span>cellSet</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~cellsget",
+    "function/index.html#static-function-cellsGet",
+    "<span>cellsGet</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
     "function"
   ],
   [
@@ -216,6 +228,18 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "camino-api/src/tools/index.js~dupfind",
+    "function/index.html#static-function-dupFind",
+    "<span>dupFind</span> <span class=\"search-result-import-path\">camino-api/src/tools/index.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/index.js~dupremove",
+    "function/index.html#static-function-dupRemove",
+    "<span>dupRemove</span> <span class=\"search-result-import-path\">camino-api/src/tools/index.js</span>",
+    "function"
+  ],
+  [
     "camino-api/src/tools/mailer/batch.js~emailsbatch",
     "function/index.html#static-function-emailsBatch",
     "<span>emailsBatch</span> <span class=\"search-result-import-path\">camino-api/src/tools/mailer/batch.js</span>",
@@ -246,15 +270,15 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tools/import/_utils/file-path-create.js~filepathcreate",
-    "function/index.html#static-function-filePathCreate",
-    "<span>filePathCreate</span> <span class=\"search-result-import-path\">camino-api/src/tools/import/_utils/file-path-create.js</span>",
+    "camino-api/src/tools/import/_utils/file-create.js~filecreate",
+    "function/index.html#static-function-fileCreate",
+    "<span>fileCreate</span> <span class=\"search-result-import-path\">camino-api/src/tools/import/_utils/file-create.js</span>",
     "function"
   ],
   [
-    "camino-api/src/tools/import/_utils/file-create.js~filecreate",
-    "function/index.html#static-function-filecreate",
-    "<span>filecreate</span> <span class=\"search-result-import-path\">camino-api/src/tools/import/_utils/file-create.js</span>",
+    "camino-api/src/tools/import/_utils/file-path-create.js~filepathcreate",
+    "function/index.html#static-function-filePathCreate",
+    "<span>filePathCreate</span> <span class=\"search-result-import-path\">camino-api/src/tools/import/_utils/file-path-create.js</span>",
     "function"
   ],
   [
@@ -273,6 +297,18 @@ window.esdocSearchIndex = [
     "camino-api/src/api/resolvers/_geojson.js~geojsonmultipolygoncoordinates",
     "function/index.html#static-function-geojsonMultiPolygonCoordinates",
     "<span>geojsonMultiPolygonCoordinates</span> <span class=\"search-result-import-path\">camino-api/src/api/resolvers/_geojson.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~gssgetinfo",
+    "function/index.html#static-function-gssGetInfo",
+    "<span>gssGetInfo</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~gssuseserviceaccountauth",
+    "function/index.html#static-function-gssUseServiceAccountAuth",
+    "<span>gssUseServiceAccountAuth</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
     "function"
   ],
   [
@@ -354,9 +390,27 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~rowadd",
+    "function/index.html#static-function-rowAdd",
+    "<span>rowAdd</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~rowdelete",
+    "function/index.html#static-function-rowDelete",
+    "<span>rowDelete</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
+    "function"
+  ],
+  [
     "camino-api/src/tools/export/_utils/row-format.js~rowformat",
     "function/index.html#static-function-rowFormat",
     "<span>rowFormat</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/row-format.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~rowsget",
+    "function/index.html#static-function-rowsGet",
+    "<span>rowsGet</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
     "function"
   ],
   [
@@ -387,6 +441,12 @@ window.esdocSearchIndex = [
     "camino-api/src/tools/export/_utils/spreadsheet-row-update.js~spreadsheetrowupdate",
     "function/index.html#static-function-spreadsheetRowUpdate",
     "<span>spreadsheetRowUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/spreadsheet-row-update.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/import/_utils/_spreadsheet-to-json.js~spreadsheettojson",
+    "function/index.html#static-function-spreadsheetToJson",
+    "<span>spreadsheetToJson</span> <span class=\"search-result-import-path\">camino-api/src/tools/import/_utils/_spreadsheet-to-json.js</span>",
     "function"
   ],
   [
@@ -498,15 +558,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tasks/titre-demarches.js~titredemarches",
-    "variable/index.html#static-variable-titreDemarches",
-    "<span>titreDemarches</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-demarches.js</span>",
-    "variable"
+    "camino-api/src/tasks/titre-demarches.js~titredemarchestatutidupdate",
+    "function/index.html#static-function-titreDemarcheStatutIdUpdate",
+    "<span>titreDemarcheStatutIdUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-demarches.js</span>",
+    "function"
   ],
   [
     "camino-api/src/tasks/_utils/titre-demarches-asc-sort.js~titredemarchesascsort",
     "function/index.html#static-function-titreDemarchesAscSort",
     "<span>titreDemarchesAscSort</span> <span class=\"search-result-import-path\">camino-api/src/tasks/_utils/titre-demarches-asc-sort.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tasks/titre-demarches.js~titredemarchesordreupdate",
+    "function/index.html#static-function-titreDemarchesOrdreUpdate",
+    "<span>titreDemarchesOrdreUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-demarches.js</span>",
     "function"
   ],
   [
@@ -534,15 +600,15 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tasks/titre-etapes.js~titreetapes",
-    "variable/index.html#static-variable-titreEtapes",
-    "<span>titreEtapes</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-etapes.js</span>",
-    "variable"
-  ],
-  [
     "camino-api/src/tasks/_utils/titre-etapes-asc-sort.js~titreetapesascsort",
     "function/index.html#static-function-titreEtapesAscSort",
     "<span>titreEtapesAscSort</span> <span class=\"search-result-import-path\">camino-api/src/tasks/_utils/titre-etapes-asc-sort.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tasks/titre-etapes.js~titreetapesordreupdate",
+    "function/index.html#static-function-titreEtapesOrdreUpdate",
+    "<span>titreEtapesOrdreUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-etapes.js</span>",
     "function"
   ],
   [
@@ -576,16 +642,22 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "camino-api/src/tasks/titre-phases.js~titrephasedelete",
+    "function/index.html#static-function-titrePhaseDelete",
+    "<span>titrePhaseDelete</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-phases.js</span>",
+    "function"
+  ],
+  [
     "camino-api/src/database/queries/titres-phases.js~titrephaseupdate",
     "function/index.html#static-function-titrePhaseUpdate",
     "<span>titrePhaseUpdate</span> <span class=\"search-result-import-path\">camino-api/src/database/queries/titres-phases.js</span>",
     "function"
   ],
   [
-    "camino-api/src/tasks/titre-phases.js~titrephases",
-    "variable/index.html#static-variable-titrePhases",
-    "<span>titrePhases</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-phases.js</span>",
-    "variable"
+    "camino-api/src/tasks/titre-phases.js~titrephaseupdate",
+    "function/index.html#static-function-titrePhaseUpdate",
+    "<span>titrePhaseUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titre-phases.js</span>",
+    "function"
   ],
   [
     "camino-api/src/tasks/_utils/titre-phases-find.js~titrephasesfind",
@@ -612,6 +684,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "camino-api/src/tasks/titres.js~titrepropsupdate",
+    "function/index.html#static-function-titrePropsUpdate",
+    "<span>titrePropsUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titres.js</span>",
+    "function"
+  ],
+  [
     "camino-api/src/database/queries/titres.js~titreremove",
     "function/index.html#static-function-titreRemove",
     "<span>titreRemove</span> <span class=\"search-result-import-path\">camino-api/src/database/queries/titres.js</span>",
@@ -624,9 +702,9 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tasks/etape-update/titre-statut-id-update.js~titrestatutupdate",
-    "function/index.html#static-function-titreStatutUpdate",
-    "<span>titreStatutUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/etape-update/titre-statut-id-update.js</span>",
+    "camino-api/src/tasks/titres.js~titrestatutidupdate",
+    "function/index.html#static-function-titreStatutIdUpdate",
+    "<span>titreStatutIdUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titres.js</span>",
     "function"
   ],
   [
@@ -639,6 +717,18 @@ window.esdocSearchIndex = [
     "camino-api/src/api/resolvers/titres-travaux.js~titretravauxrapportmodifier",
     "function/index.html#static-function-titreTravauxRapportModifier",
     "<span>titreTravauxRapportModifier</span> <span class=\"search-result-import-path\">camino-api/src/api/resolvers/titres-travaux.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/titre-travaux-rapport.js~titretravauxrapportrowadd",
+    "function/index.html#static-function-titreTravauxRapportRowAdd",
+    "<span>titreTravauxRapportRowAdd</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/titre-travaux-rapport.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/titre-travaux-rapport.js~titretravauxrapportrowupdate",
+    "function/index.html#static-function-titreTravauxRapportRowUpdate",
+    "<span>titreTravauxRapportRowUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/titre-travaux-rapport.js</span>",
     "function"
   ],
   [
@@ -660,12 +750,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tasks/titres.js~titres",
-    "variable/index.html#static-variable-titres",
-    "<span>titres</span> <span class=\"search-result-import-path\">camino-api/src/tasks/titres.js</span>",
-    "variable"
-  ],
-  [
     "camino-api/src/database/queries/titres-demarches.js~titresdemarchesget",
     "function/index.html#static-function-titresDemarchesGet",
     "<span>titresDemarchesGet</span> <span class=\"search-result-import-path\">camino-api/src/database/queries/titres-demarches.js</span>",
@@ -678,21 +762,9 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tasks/etape-update/titre-demarches-ordre-update.js~titresdemarchesordreupdate",
-    "function/index.html#static-function-titresDemarchesOrdreUpdate",
-    "<span>titresDemarchesOrdreUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/etape-update/titre-demarches-ordre-update.js</span>",
-    "function"
-  ],
-  [
     "camino-api/src/tasks/daily/titres-demarches-statut-ids-update.js~titresdemarchesupdate",
     "function/index.html#static-function-titresDemarchesUpdate",
     "<span>titresDemarchesUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/daily/titres-demarches-statut-ids-update.js</span>",
-    "function"
-  ],
-  [
-    "camino-api/src/tasks/etape-update/titre-demarche-statut-id-update.js~titresdemarchesupdate",
-    "function/index.html#static-function-titresDemarchesUpdate",
-    "<span>titresDemarchesUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/etape-update/titre-demarche-statut-id-update.js</span>",
     "function"
   ],
   [
@@ -705,12 +777,6 @@ window.esdocSearchIndex = [
     "camino-api/src/tasks/daily/titres-etapes-ordre-update.js~titresetapesordreupdate",
     "function/index.html#static-function-titresEtapesOrdreUpdate",
     "<span>titresEtapesOrdreUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/daily/titres-etapes-ordre-update.js</span>",
-    "function"
-  ],
-  [
-    "camino-api/src/tasks/etape-update/titre-etapes-ordre-update.js~titresetapesordreupdate",
-    "function/index.html#static-function-titresEtapesOrdreUpdate",
-    "<span>titresEtapesOrdreUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/etape-update/titre-etapes-ordre-update.js</span>",
     "function"
   ],
   [
@@ -732,12 +798,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "camino-api/src/tasks/etape-update/titre-phases-update.js~titresphasesupdate",
-    "function/index.html#static-function-titresPhasesUpdate",
-    "<span>titresPhasesUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/etape-update/titre-phases-update.js</span>",
-    "function"
-  ],
-  [
     "camino-api/src/database/queries/titres-points.js~titrespointsget",
     "function/index.html#static-function-titresPointsGet",
     "<span>titresPointsGet</span> <span class=\"search-result-import-path\">camino-api/src/database/queries/titres-points.js</span>",
@@ -747,12 +807,6 @@ window.esdocSearchIndex = [
     "camino-api/src/tasks/daily/titres-props-etape-id-update.js~titrespropsetapeidsupdate",
     "function/index.html#static-function-titresPropsEtapeIdsUpdate",
     "<span>titresPropsEtapeIdsUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/daily/titres-props-etape-id-update.js</span>",
-    "function"
-  ],
-  [
-    "camino-api/src/tasks/etape-update/titre-props-etape-id-update.js~titrespropsetapeidsupdate",
-    "function/index.html#static-function-titresPropsEtapeIdsUpdate",
-    "<span>titresPropsEtapeIdsUpdate</span> <span class=\"search-result-import-path\">camino-api/src/tasks/etape-update/titre-props-etape-id-update.js</span>",
     "function"
   ],
   [
@@ -897,6 +951,18 @@ window.esdocSearchIndex = [
     "camino-api/src/api/resolvers/version.js~version",
     "function/index.html#static-function-version",
     "<span>version</span> <span class=\"search-result-import-path\">camino-api/src/api/resolvers/version.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~worksheetadd",
+    "function/index.html#static-function-worksheetAdd",
+    "<span>worksheetAdd</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
+    "function"
+  ],
+  [
+    "camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js~worksheetremove",
+    "function/index.html#static-function-worksheetRemove",
+    "<span>worksheetRemove</span> <span class=\"search-result-import-path\">camino-api/src/tools/export/_utils/google-spreadsheet-promisify.js</span>",
     "function"
   ],
   [
@@ -2382,12 +2448,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/tools/dev/index.js",
-    "file/src/tools/dev/index.js.html",
-    "src/tools/dev/index.js",
-    "file"
-  ],
-  [
     "src/tools/dev/json/error-find.js",
     "file/src/tools/dev/json/error-find.js.html",
     "src/tools/dev/json/error-find.js",
@@ -2523,6 +2583,12 @@ window.esdocSearchIndex = [
     "src/tools/import/spreadsheets.js",
     "file/src/tools/import/spreadsheets.js.html",
     "src/tools/import/spreadsheets.js",
+    "file"
+  ],
+  [
+    "src/tools/index.js",
+    "file/src/tools/index.js.html",
+    "src/tools/index.js",
     "file"
   ],
   [

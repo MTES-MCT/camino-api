@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 265,
+  "end": 272,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 265,
+    "end": 272,
     "loc": {
       "start": {
         "line": 1,
@@ -100,7 +100,7 @@
       {
         "type": "Identifier",
         "start": 30,
-        "end": 236,
+        "end": 243,
         "loc": {
           "start": {
             "line": 3,
@@ -115,7 +115,7 @@
           {
             "type": "VariableDeclarator",
             "start": 36,
-            "end": 236,
+            "end": 243,
             "loc": {
               "start": {
                 "line": 3,
@@ -146,7 +146,7 @@
             "init": {
               "type": "ArrowFunctionExpression",
               "start": 50,
-              "end": 236,
+              "end": 243,
               "loc": {
                 "start": {
                   "line": 3,
@@ -217,7 +217,7 @@
               "body": {
                 "type": "BlockStatement",
                 "start": 83,
-                "end": 236,
+                "end": 243,
                 "loc": {
                   "start": {
                     "line": 3,
@@ -232,7 +232,7 @@
                   {
                     "type": "TryStatement",
                     "start": 87,
-                    "end": 234,
+                    "end": 241,
                     "loc": {
                       "start": {
                         "line": 4,
@@ -502,7 +502,7 @@
                     "handler": {
                       "type": "CatchClause",
                       "start": 169,
-                      "end": 234,
+                      "end": 241,
                       "loc": {
                         "start": {
                           "line": 8,
@@ -533,7 +533,7 @@
                       "body": {
                         "type": "BlockStatement",
                         "start": 179,
-                        "end": 234,
+                        "end": 241,
                         "loc": {
                           "start": {
                             "line": 8,
@@ -548,7 +548,7 @@
                           {
                             "type": "ExpressionStatement",
                             "start": 185,
-                            "end": 230,
+                            "end": 237,
                             "loc": {
                               "start": {
                                 "line": 9,
@@ -556,13 +556,13 @@
                               },
                               "end": {
                                 "line": 9,
-                                "column": 49
+                                "column": 56
                               }
                             },
                             "expression": {
                               "type": "CallExpression",
                               "start": 185,
-                              "end": 230,
+                              "end": 237,
                               "loc": {
                                 "start": {
                                   "line": 9,
@@ -570,7 +570,7 @@
                                 },
                                 "end": {
                                   "line": 9,
-                                  "column": 49
+                                  "column": 56
                                 }
                               },
                               "callee": {
@@ -627,7 +627,7 @@
                                 {
                                   "type": "StringLiteral",
                                   "start": 197,
-                                  "end": 229,
+                                  "end": 236,
                                   "loc": {
                                     "start": {
                                       "line": 9,
@@ -635,14 +635,14 @@
                                     },
                                     "end": {
                                       "line": 9,
-                                      "column": 48
+                                      "column": 55
                                     }
                                   },
                                   "extra": {
-                                    "rawValue": "erreur lors de l'envoi d'email",
-                                    "raw": "\"erreur lors de l'envoi d'email\""
+                                    "rawValue": "erreur lors de l'envoi de batch email",
+                                    "raw": "\"erreur lors de l'envoi de batch email\""
                                   },
-                                  "value": "erreur lors de l'envoi d'email"
+                                  "value": "erreur lors de l'envoi de batch email"
                                 }
                               ]
                             }
@@ -667,8 +667,8 @@
       },
       {
         "type": "Identifier",
-        "start": 238,
-        "end": 264,
+        "start": 245,
+        "end": 271,
         "loc": {
           "start": {
             "line": 13,
@@ -681,8 +681,8 @@
         },
         "declaration": {
           "type": "Identifier",
-          "start": 253,
-          "end": 264,
+          "start": 260,
+          "end": 271,
           "loc": {
             "start": {
               "line": 13,
@@ -702,8 +702,8 @@
       },
       {
         "type": "ExportDefaultDeclaration",
-        "start": 238,
-        "end": 264,
+        "start": 245,
+        "end": 271,
         "loc": {
           "start": {
             "line": 13,
@@ -717,7 +717,7 @@
         "declaration": {
           "type": "VariableDeclaration",
           "start": 30,
-          "end": 236,
+          "end": 243,
           "loc": {
             "start": {
               "line": 3,
@@ -732,7 +732,7 @@
             {
               "type": "VariableDeclarator",
               "start": 36,
-              "end": 236,
+              "end": 243,
               "loc": {
                 "start": {
                   "line": 3,
@@ -763,7 +763,7 @@
               "init": {
                 "type": "ArrowFunctionExpression",
                 "start": 50,
-                "end": 236,
+                "end": 243,
                 "loc": {
                   "start": {
                     "line": 3,
@@ -850,7 +850,7 @@
                 "body": {
                   "type": "BlockStatement",
                   "start": 83,
-                  "end": 236,
+                  "end": 243,
                   "loc": {
                     "start": {
                       "line": 3,
@@ -865,7 +865,7 @@
                     {
                       "type": "TryStatement",
                       "start": 87,
-                      "end": 234,
+                      "end": 241,
                       "loc": {
                         "start": {
                           "line": 4,
@@ -1135,7 +1135,7 @@
                       "handler": {
                         "type": "CatchClause",
                         "start": 169,
-                        "end": 234,
+                        "end": 241,
                         "loc": {
                           "start": {
                             "line": 8,
@@ -1166,7 +1166,7 @@
                         "body": {
                           "type": "BlockStatement",
                           "start": 179,
-                          "end": 234,
+                          "end": 241,
                           "loc": {
                             "start": {
                               "line": 8,
@@ -1181,7 +1181,7 @@
                             {
                               "type": "ExpressionStatement",
                               "start": 185,
-                              "end": 230,
+                              "end": 237,
                               "loc": {
                                 "start": {
                                   "line": 9,
@@ -1189,13 +1189,13 @@
                                 },
                                 "end": {
                                   "line": 9,
-                                  "column": 49
+                                  "column": 56
                                 }
                               },
                               "expression": {
                                 "type": "CallExpression",
                                 "start": 185,
-                                "end": 230,
+                                "end": 237,
                                 "loc": {
                                   "start": {
                                     "line": 9,
@@ -1203,7 +1203,7 @@
                                   },
                                   "end": {
                                     "line": 9,
-                                    "column": 49
+                                    "column": 56
                                   }
                                 },
                                 "callee": {
@@ -1260,7 +1260,7 @@
                                   {
                                     "type": "StringLiteral",
                                     "start": 197,
-                                    "end": 229,
+                                    "end": 236,
                                     "loc": {
                                       "start": {
                                         "line": 9,
@@ -1268,14 +1268,14 @@
                                       },
                                       "end": {
                                         "line": 9,
-                                        "column": 48
+                                        "column": 55
                                       }
                                     },
                                     "extra": {
-                                      "rawValue": "erreur lors de l'envoi d'email",
-                                      "raw": "\"erreur lors de l'envoi d'email\""
+                                      "rawValue": "erreur lors de l'envoi de batch email",
+                                      "raw": "\"erreur lors de l'envoi de batch email\""
                                     },
-                                    "value": "erreur lors de l'envoi d'email"
+                                    "value": "erreur lors de l'envoi de batch email"
                                   }
                                 ]
                               }
@@ -2507,9 +2507,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "erreur lors de l'envoi d'email",
+      "value": "erreur lors de l'envoi de batch email",
       "start": 197,
-      "end": 229,
+      "end": 236,
       "loc": {
         "start": {
           "line": 9,
@@ -2517,7 +2517,7 @@
         },
         "end": {
           "line": 9,
-          "column": 48
+          "column": 55
         }
       }
     },
@@ -2533,16 +2533,16 @@
         "postfix": false,
         "binop": null
       },
-      "start": 229,
-      "end": 230,
+      "start": 236,
+      "end": 237,
       "loc": {
         "start": {
           "line": 9,
-          "column": 48
+          "column": 55
         },
         "end": {
           "line": 9,
-          "column": 49
+          "column": 56
         }
       }
     },
@@ -2558,8 +2558,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 233,
-      "end": 234,
+      "start": 240,
+      "end": 241,
       "loc": {
         "start": {
           "line": 10,
@@ -2583,8 +2583,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 235,
-      "end": 236,
+      "start": 242,
+      "end": 243,
       "loc": {
         "start": {
           "line": 11,
@@ -2611,8 +2611,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 238,
-      "end": 244,
+      "start": 245,
+      "end": 251,
       "loc": {
         "start": {
           "line": 13,
@@ -2639,8 +2639,8 @@
         "updateContext": null
       },
       "value": "default",
-      "start": 245,
-      "end": 252,
+      "start": 252,
+      "end": 259,
       "loc": {
         "start": {
           "line": 13,
@@ -2665,8 +2665,8 @@
         "binop": null
       },
       "value": "emailsBatch",
-      "start": 253,
-      "end": 264,
+      "start": 260,
+      "end": 271,
       "loc": {
         "start": {
           "line": 13,
@@ -2691,8 +2691,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 265,
-      "end": 265,
+      "start": 272,
+      "end": 272,
       "loc": {
         "start": {
           "line": 14,

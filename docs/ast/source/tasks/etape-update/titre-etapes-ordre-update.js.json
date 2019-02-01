@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 346,
+  "end": 348,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 346,
+    "end": 348,
     "loc": {
       "start": {
         "line": 1,
@@ -115,7 +115,7 @@
         }
       },
       {
-        "type": "Identifier",
+        "type": "VariableDeclaration",
         "start": 58,
         "end": 305,
         "loc": {
@@ -174,7 +174,23 @@
                   "column": 1
                 }
               },
-              "id": null,
+              "id": {
+                "type": "Identifier",
+                "start": 64,
+                "end": 87,
+                "loc": {
+                  "start": {
+                    "line": 3,
+                    "column": 6
+                  },
+                  "end": {
+                    "line": 3,
+                    "column": 29
+                  },
+                  "identifierName": "titresEtapesOrdreUpdate"
+                },
+                "name": "titresEtapesOrdreUpdate"
+              },
               "generator": false,
               "expression": false,
               "async": true,
@@ -590,15 +606,12 @@
             }
           }
         ],
-        "kind": "const",
-        "name": "_",
-        "leadingComments": [],
-        "trailingComments": []
+        "kind": "const"
       },
       {
-        "type": "Identifier",
+        "type": "ExpressionStatement",
         "start": 307,
-        "end": 345,
+        "end": 347,
         "loc": {
           "start": {
             "line": 11,
@@ -606,539 +619,91 @@
           },
           "end": {
             "line": 11,
-            "column": 38
+            "column": 40
           }
         },
-        "declaration": {
-          "type": "Identifier",
-          "start": 322,
-          "end": 345,
+        "expression": {
+          "type": "AssignmentExpression",
+          "start": 307,
+          "end": 347,
           "loc": {
             "start": {
               "line": 11,
-              "column": 15
-            },
-            "end": {
-              "line": 11,
-              "column": 38
-            },
-            "identifierName": "titresEtapesOrdreUpdate"
-          },
-          "name": "titresEtapesOrdreUpdate"
-        },
-        "name": "_",
-        "leadingComments": [],
-        "trailingComments": []
-      },
-      {
-        "type": "ExportDefaultDeclaration",
-        "start": 307,
-        "end": 345,
-        "loc": {
-          "start": {
-            "line": 11,
-            "column": 0
-          },
-          "end": {
-            "line": 11,
-            "column": 38
-          }
-        },
-        "declaration": {
-          "type": "VariableDeclaration",
-          "start": 58,
-          "end": 305,
-          "loc": {
-            "start": {
-              "line": 3,
               "column": 0
             },
             "end": {
-              "line": 9,
-              "column": 1
+              "line": 11,
+              "column": 40
             }
           },
-          "declarations": [
-            {
-              "type": "VariableDeclarator",
-              "start": 64,
-              "end": 305,
+          "operator": "=",
+          "left": {
+            "type": "MemberExpression",
+            "start": 307,
+            "end": 321,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 14
+              }
+            },
+            "object": {
+              "type": "Identifier",
+              "start": 307,
+              "end": 313,
               "loc": {
                 "start": {
-                  "line": 3,
-                  "column": 6
+                  "line": 11,
+                  "column": 0
                 },
                 "end": {
-                  "line": 9,
-                  "column": 1
-                }
+                  "line": 11,
+                  "column": 6
+                },
+                "identifierName": "module"
               },
-              "id": {
-                "type": "Identifier",
-                "start": 64,
-                "end": 87,
-                "loc": {
-                  "start": {
-                    "line": 3,
-                    "column": 6
-                  },
-                  "end": {
-                    "line": 3,
-                    "column": 29
-                  },
-                  "identifierName": "titresEtapesOrdreUpdate"
+              "name": "module"
+            },
+            "property": {
+              "type": "Identifier",
+              "start": 314,
+              "end": 321,
+              "loc": {
+                "start": {
+                  "line": 11,
+                  "column": 7
                 },
-                "name": "titresEtapesOrdreUpdate"
+                "end": {
+                  "line": 11,
+                  "column": 14
+                },
+                "identifierName": "exports"
               },
-              "init": {
-                "type": "ArrowFunctionExpression",
-                "start": 90,
-                "end": 305,
-                "loc": {
-                  "start": {
-                    "line": 3,
-                    "column": 32
-                  },
-                  "end": {
-                    "line": 9,
-                    "column": 1
-                  }
-                },
-                "id": {
-                  "type": "Identifier",
-                  "start": 64,
-                  "end": 87,
-                  "loc": {
-                    "start": {
-                      "line": 3,
-                      "column": 6
-                    },
-                    "end": {
-                      "line": 3,
-                      "column": 29
-                    },
-                    "identifierName": "titresEtapesOrdreUpdate"
-                  },
-                  "name": "titresEtapesOrdreUpdate"
-                },
-                "generator": false,
-                "expression": false,
-                "async": true,
-                "params": [
-                  {
-                    "type": "Identifier",
-                    "start": 96,
-                    "end": 109,
-                    "loc": {
-                      "start": {
-                        "line": 3,
-                        "column": 38
-                      },
-                      "end": {
-                        "line": 3,
-                        "column": 51
-                      },
-                      "identifierName": "titreDemarche"
-                    },
-                    "name": "titreDemarche"
-                  }
-                ],
-                "body": {
-                  "type": "BlockStatement",
-                  "start": 113,
-                  "end": 305,
-                  "loc": {
-                    "start": {
-                      "line": 3,
-                      "column": 55
-                    },
-                    "end": {
-                      "line": 9,
-                      "column": 1
-                    }
-                  },
-                  "body": [
-                    {
-                      "type": "VariableDeclaration",
-                      "start": 117,
-                      "end": 189,
-                      "loc": {
-                        "start": {
-                          "line": 4,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 4,
-                          "column": 74
-                        }
-                      },
-                      "declarations": [
-                        {
-                          "type": "VariableDeclarator",
-                          "start": 123,
-                          "end": 189,
-                          "loc": {
-                            "start": {
-                              "line": 4,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 4,
-                              "column": 74
-                            }
-                          },
-                          "id": {
-                            "type": "Identifier",
-                            "start": 123,
-                            "end": 142,
-                            "loc": {
-                              "start": {
-                                "line": 4,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 4,
-                                "column": 27
-                              },
-                              "identifierName": "titresEtapesUpdated"
-                            },
-                            "name": "titresEtapesUpdated"
-                          },
-                          "init": {
-                            "type": "CallExpression",
-                            "start": 145,
-                            "end": 189,
-                            "loc": {
-                              "start": {
-                                "line": 4,
-                                "column": 30
-                              },
-                              "end": {
-                                "line": 4,
-                                "column": 74
-                              }
-                            },
-                            "callee": {
-                              "type": "Identifier",
-                              "start": 145,
-                              "end": 167,
-                              "loc": {
-                                "start": {
-                                  "line": 4,
-                                  "column": 30
-                                },
-                                "end": {
-                                  "line": 4,
-                                  "column": 52
-                                },
-                                "identifierName": "titreEtapesOrdreUpdate"
-                              },
-                              "name": "titreEtapesOrdreUpdate"
-                            },
-                            "arguments": [
-                              {
-                                "type": "MemberExpression",
-                                "start": 168,
-                                "end": 188,
-                                "loc": {
-                                  "start": {
-                                    "line": 4,
-                                    "column": 53
-                                  },
-                                  "end": {
-                                    "line": 4,
-                                    "column": 73
-                                  }
-                                },
-                                "object": {
-                                  "type": "Identifier",
-                                  "start": 168,
-                                  "end": 181,
-                                  "loc": {
-                                    "start": {
-                                      "line": 4,
-                                      "column": 53
-                                    },
-                                    "end": {
-                                      "line": 4,
-                                      "column": 66
-                                    },
-                                    "identifierName": "titreDemarche"
-                                  },
-                                  "name": "titreDemarche"
-                                },
-                                "property": {
-                                  "type": "Identifier",
-                                  "start": 182,
-                                  "end": 188,
-                                  "loc": {
-                                    "start": {
-                                      "line": 4,
-                                      "column": 67
-                                    },
-                                    "end": {
-                                      "line": 4,
-                                      "column": 73
-                                    },
-                                    "identifierName": "etapes"
-                                  },
-                                  "name": "etapes"
-                                },
-                                "computed": false
-                              }
-                            ]
-                          }
-                        }
-                      ],
-                      "kind": "const"
-                    },
-                    {
-                      "type": "ExpressionStatement",
-                      "start": 193,
-                      "end": 231,
-                      "loc": {
-                        "start": {
-                          "line": 6,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 6,
-                          "column": 40
-                        }
-                      },
-                      "expression": {
-                        "type": "AwaitExpression",
-                        "start": 193,
-                        "end": 231,
-                        "loc": {
-                          "start": {
-                            "line": 6,
-                            "column": 2
-                          },
-                          "end": {
-                            "line": 6,
-                            "column": 40
-                          }
-                        },
-                        "argument": {
-                          "type": "CallExpression",
-                          "start": 199,
-                          "end": 231,
-                          "loc": {
-                            "start": {
-                              "line": 6,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 6,
-                              "column": 40
-                            }
-                          },
-                          "callee": {
-                            "type": "MemberExpression",
-                            "start": 199,
-                            "end": 210,
-                            "loc": {
-                              "start": {
-                                "line": 6,
-                                "column": 8
-                              },
-                              "end": {
-                                "line": 6,
-                                "column": 19
-                              }
-                            },
-                            "object": {
-                              "type": "Identifier",
-                              "start": 199,
-                              "end": 206,
-                              "loc": {
-                                "start": {
-                                  "line": 6,
-                                  "column": 8
-                                },
-                                "end": {
-                                  "line": 6,
-                                  "column": 15
-                                },
-                                "identifierName": "Promise"
-                              },
-                              "name": "Promise"
-                            },
-                            "property": {
-                              "type": "Identifier",
-                              "start": 207,
-                              "end": 210,
-                              "loc": {
-                                "start": {
-                                  "line": 6,
-                                  "column": 16
-                                },
-                                "end": {
-                                  "line": 6,
-                                  "column": 19
-                                },
-                                "identifierName": "all"
-                              },
-                              "name": "all"
-                            },
-                            "computed": false
-                          },
-                          "arguments": [
-                            {
-                              "type": "Identifier",
-                              "start": 211,
-                              "end": 230,
-                              "loc": {
-                                "start": {
-                                  "line": 6,
-                                  "column": 20
-                                },
-                                "end": {
-                                  "line": 6,
-                                  "column": 39
-                                },
-                                "identifierName": "titresEtapesUpdated"
-                              },
-                              "name": "titresEtapesUpdated"
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    {
-                      "type": "ReturnStatement",
-                      "start": 235,
-                      "end": 303,
-                      "loc": {
-                        "start": {
-                          "line": 8,
-                          "column": 2
-                        },
-                        "end": {
-                          "line": 8,
-                          "column": 70
-                        }
-                      },
-                      "argument": {
-                        "type": "TemplateLiteral",
-                        "start": 242,
-                        "end": 303,
-                        "loc": {
-                          "start": {
-                            "line": 8,
-                            "column": 9
-                          },
-                          "end": {
-                            "line": 8,
-                            "column": 70
-                          }
-                        },
-                        "expressions": [
-                          {
-                            "type": "MemberExpression",
-                            "start": 258,
-                            "end": 284,
-                            "loc": {
-                              "start": {
-                                "line": 8,
-                                "column": 25
-                              },
-                              "end": {
-                                "line": 8,
-                                "column": 51
-                              }
-                            },
-                            "object": {
-                              "type": "Identifier",
-                              "start": 258,
-                              "end": 277,
-                              "loc": {
-                                "start": {
-                                  "line": 8,
-                                  "column": 25
-                                },
-                                "end": {
-                                  "line": 8,
-                                  "column": 44
-                                },
-                                "identifierName": "titresEtapesUpdated"
-                              },
-                              "name": "titresEtapesUpdated"
-                            },
-                            "property": {
-                              "type": "Identifier",
-                              "start": 278,
-                              "end": 284,
-                              "loc": {
-                                "start": {
-                                  "line": 8,
-                                  "column": 45
-                                },
-                                "end": {
-                                  "line": 8,
-                                  "column": 51
-                                },
-                                "identifierName": "length"
-                              },
-                              "name": "length"
-                            },
-                            "computed": false
-                          }
-                        ],
-                        "quasis": [
-                          {
-                            "type": "TemplateElement",
-                            "start": 243,
-                            "end": 256,
-                            "loc": {
-                              "start": {
-                                "line": 8,
-                                "column": 10
-                              },
-                              "end": {
-                                "line": 8,
-                                "column": 23
-                              }
-                            },
-                            "value": {
-                              "raw": "Mise à jour: ",
-                              "cooked": "Mise à jour: "
-                            },
-                            "tail": false
-                          },
-                          {
-                            "type": "TemplateElement",
-                            "start": 285,
-                            "end": 302,
-                            "loc": {
-                              "start": {
-                                "line": 8,
-                                "column": 52
-                              },
-                              "end": {
-                                "line": 8,
-                                "column": 69
-                              }
-                            },
-                            "value": {
-                              "raw": " ordres d'étapes.",
-                              "cooked": " ordres d'étapes."
-                            },
-                            "tail": true
-                          }
-                        ]
-                      }
-                    }
-                  ],
-                  "directives": []
-                }
-              }
-            }
-          ],
-          "kind": "const",
-          "leadingComments": [],
-          "trailingComments": []
+              "name": "exports"
+            },
+            "computed": false
+          },
+          "right": {
+            "type": "Identifier",
+            "start": 324,
+            "end": 347,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 17
+              },
+              "end": {
+                "line": 11,
+                "column": 40
+              },
+              "identifierName": "titresEtapesOrdreUpdate"
+            },
+            "name": "titresEtapesOrdreUpdate"
+          }
         }
       }
     ],
@@ -2189,19 +1754,17 @@
     },
     {
       "type": {
-        "label": "export",
-        "keyword": "export",
+        "label": "name",
         "beforeExpr": false,
-        "startsExpr": false,
+        "startsExpr": true,
         "rightAssociative": false,
         "isLoop": false,
         "isAssign": false,
         "prefix": false,
         "postfix": false,
-        "binop": null,
-        "updateContext": null
+        "binop": null
       },
-      "value": "export",
+      "value": "module",
       "start": 307,
       "end": 313,
       "loc": {
@@ -2217,9 +1780,8 @@
     },
     {
       "type": {
-        "label": "default",
-        "keyword": "default",
-        "beforeExpr": true,
+        "label": ".",
+        "beforeExpr": false,
         "startsExpr": false,
         "rightAssociative": false,
         "isLoop": false,
@@ -2229,7 +1791,32 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "default",
+      "start": 313,
+      "end": 314,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 6
+        },
+        "end": {
+          "line": 11,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "exports",
       "start": 314,
       "end": 321,
       "loc": {
@@ -2240,6 +1827,33 @@
         "end": {
           "line": 11,
           "column": 14
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "=",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": true,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "=",
+      "start": 322,
+      "end": 323,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 15
+        },
+        "end": {
+          "line": 11,
+          "column": 16
         }
       }
     },
@@ -2256,16 +1870,16 @@
         "binop": null
       },
       "value": "titresEtapesOrdreUpdate",
-      "start": 322,
-      "end": 345,
+      "start": 324,
+      "end": 347,
       "loc": {
         "start": {
           "line": 11,
-          "column": 15
+          "column": 17
         },
         "end": {
           "line": 11,
-          "column": 38
+          "column": 40
         }
       }
     },
@@ -2282,8 +1896,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 346,
-      "end": 346,
+      "start": 348,
+      "end": 348,
       "loc": {
         "start": {
           "line": 12,
