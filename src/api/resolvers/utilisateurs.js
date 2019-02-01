@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import * as emailRegex from 'email-regex'
 import * as cryptoRandomString from 'crypto-random-string'
-const mailer = require('../../tools/mailer/index')
+import mailer from '../../tools/mailer/index'
 
 import {
   utilisateurGet,

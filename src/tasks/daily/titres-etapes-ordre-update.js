@@ -1,4 +1,4 @@
-const { titreEtapesOrdreUpdate } = require('../titre-etapes')
+import { titreEtapesOrdreUpdate } from '../titre-etapes'
 
 const titresEtapesOrdreUpdate = async titresEtapes => {
   const titreEtapesByDemarches = titreEtapesByDemarchesGroup(titresEtapes)
@@ -27,4 +27,4 @@ const titreEtapesByDemarchesGroup = titresEtapes =>
     return titreEtapesByDemarches
   }, {})
 
-module.exports = titresEtapesOrdreUpdate
+export default titresEtapesOrdreUpdate

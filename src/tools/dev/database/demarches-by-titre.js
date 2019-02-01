@@ -1,11 +1,9 @@
-require('dotenv').config()
-require('../../../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const fileCreate = require('../../import/_utils/file-create.js')
+import fileCreate from '../../import/_utils/file-create.js'
 
-const {
-  titresDemarchesGet
-} = require('../../../database/queries/titres-demarches')
+import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
 
 async function main() {
   const res = await titresDemarchesGet({

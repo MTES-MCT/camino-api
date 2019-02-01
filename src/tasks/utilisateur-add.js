@@ -1,8 +1,8 @@
-require('dotenv').config()
-const bcrypt = require('bcrypt')
-require('../database/index')
+import 'dotenv/config'
+import '../../database/index'
+import * as bcrypt from 'bcrypt'
 
-const { utilisateurAdd } = require('../database/queries/utilisateurs')
+import { utilisateurAdd } from '../database/queries/utilisateurs'
 
 const password = process.env.ADMIN_PASSWORD
 

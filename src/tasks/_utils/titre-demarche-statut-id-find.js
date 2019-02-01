@@ -1,4 +1,4 @@
-const titreEtapesDescSort = require('./titre-etapes-desc-sort')
+import titreEtapesDescSort from './titre-etapes-desc-sort'
 
 const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // l'étape la plus récente
@@ -31,9 +31,9 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - et le statut de l’étape est acceptée ou rejetée
     if (
       ['acc', 'rej'].includes(titreEtapeRecent.statutId) &&
-        (['dpu', 'dim'].includes(titreEtapeRecent.typeId) ||
-         titreTypeId === 'axm' && ['dex'].includes(titreEtapeRecent.typeId) ||
-         titreTypeId === 'prx' && ['rpu'].includes(titreEtapeRecent.typeId))
+      (['dpu', 'dim'].includes(titreEtapeRecent.typeId) ||
+        (titreTypeId === 'axm' && ['dex'].includes(titreEtapeRecent.typeId)) ||
+        (titreTypeId === 'prx' && ['rpu'].includes(titreEtapeRecent.typeId)))
     ) {
       //  - le statut de la démarche est égal au statut de l’étape:
       // accepté (acc) ou rejeté(rej)
@@ -114,4 +114,4 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   return 'ind'
 }
 
-module.exports = titreDemarcheStatutIdFind
+export default titreDemarcheStatutIdFind

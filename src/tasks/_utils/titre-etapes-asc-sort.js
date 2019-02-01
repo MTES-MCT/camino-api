@@ -2,4 +2,4 @@
 const titreEtapesAscSort = titreDemarche =>
   titreDemarche.etapes.sort((a, b) => a.ordre - b.ordre)
 
-module.exports = titreEtapesAscSort
+export default titreEtapesAscSort

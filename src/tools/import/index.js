@@ -1,10 +1,10 @@
-require('dotenv').config()
-const PQueue = require('p-queue')
-const spreadsheetToJson = require('./_utils/_spreadsheet-to-json')
-const filePathCreate = require('./_utils/file-path-create')
-const fileCreate = require('./_utils/file-create.js')
+import 'dotenv/config'
+import * as PQueue from 'p-queue'
+import spreadsheetToJson from './_utils/_spreadsheet-to-json'
+import filePathCreate from './_utils/file-path-create'
+import fileCreate from './_utils/file-create.js'
 
-const spreadsheets = require('./spreadsheets')
+import spreadsheets from './spreadsheets'
 
 const run = async () => {
   // on utilise une queue plutôt que Promise.all
@@ -18,29 +18,28 @@ const run = async () => {
 
 const spreadsheetsProcess = async spreadsheet =>
   Promise.all([
-    ...spreadsheet.tables.map(
-      table =>
-        spreadsheet.id
-          ? // si l'id de la spreadsheet est renseignée
-            spreadsheetToJson(
-              filePathCreate(
-                spreadsheet.prefixFileName
-                  ? `${spreadsheet.name}-${table.name}`
-                  : table.name
-              ),
-              spreadsheet.id,
-              table.name,
-              table.cb
-            )
-          : // si l'id est absente on créé un fichier vide
-            fileCreate(
-              filePathCreate(
-                spreadsheet.prefixFileName
-                  ? `${spreadsheet.name}-${table.name}`
-                  : table.name
-              ),
-              JSON.stringify([], null, 2)
-            )
+    ...spreadsheet.tables.map(table =>
+      spreadsheet.id
+        ? // si l'id de la spreadsheet est renseignée
+          spreadsheetToJson(
+            filePathCreate(
+              spreadsheet.prefixFileName
+                ? `${spreadsheet.name}-${table.name}`
+                : table.name
+            ),
+            spreadsheet.id,
+            table.name,
+            table.cb
+          )
+        : // si l'id est absente on créé un fichier vide
+          fileCreate(
+            filePathCreate(
+              spreadsheet.prefixFileName
+                ? `${spreadsheet.name}-${table.name}`
+                : table.name
+            ),
+            JSON.stringify([], null, 2)
+          )
     )
   ])
 

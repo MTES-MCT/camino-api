@@ -1,4 +1,4 @@
-const { titrePropsUpdate, calculatedProps } = require('../titres')
+import { titrePropsUpdate, calculatedProps } from '../titres'
 
 const titresPropsEtapeIdsUpdate = async titres => {
   const titreUpdateRequests = titres.reduce((arr, titre) => {
@@ -16,4 +16,4 @@ const titresPropsEtapeIdsUpdate = async titres => {
   return `Mise à jour: ${titreUpdateRequests.length} propriétés de titres.`
 }
 
-module.exports = titresPropsEtapeIdsUpdate
+export default titresPropsEtapeIdsUpdate

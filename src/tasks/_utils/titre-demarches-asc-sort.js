@@ -1,5 +1,5 @@
 // classe les démarches selon la date de leur première étape
-const titreEtapesAscSort = require('./titre-etapes-asc-sort')
+import titreEtapesAscSort from './titre-etapes-asc-sort'
 
 const titreDemarchesAscSort = titreDemarches =>
   titreDemarches.sort((a, b) => {
@@ -10,4 +10,4 @@ const titreDemarchesAscSort = titreDemarches =>
     return titreEtapesAscSort(a)[0].date - titreEtapesAscSort(b)[0].date
   })
 
-module.exports = titreDemarchesAscSort
+export default titreDemarchesAscSort

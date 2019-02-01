@@ -1,4 +1,4 @@
-const { titreDemarchesOrdreUpdate } = require('../titre-demarches')
+import { titreDemarchesOrdreUpdate } from '../titre-demarches'
 
 const titresDemarchesOrdreUpdate = async titresDemarches => {
   const titresDemarchesByTitre = titresDemarchesByTitreGroup(titresDemarches)
@@ -27,4 +27,4 @@ const titresDemarchesByTitreGroup = titresDemarches =>
     return res
   }, {})
 
-module.exports = titresDemarchesOrdreUpdate
+export default titresDemarchesOrdreUpdate

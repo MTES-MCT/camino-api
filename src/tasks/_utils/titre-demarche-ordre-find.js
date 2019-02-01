@@ -1,4 +1,4 @@
-const titreDemarchesAscSort = require('./titre-demarches-asc-sort')
+import titreDemarchesAscSort from './titre-demarches-asc-sort'
 
 // retourne l'ordre (index + 1) d'une démarche
 const titreDemarcheOrdreFind = (titreDemarcheId, titreDemarches) => {
@@ -10,4 +10,4 @@ const titreDemarcheOrdreFind = (titreDemarcheId, titreDemarches) => {
   return titreDemarcheIndex !== -1 ? titreDemarcheIndex + 1 : 0
 }
 
-module.exports = titreDemarcheOrdreFind
+export default titreDemarcheOrdreFind

@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer')
-const htmlToText = require('nodemailer-html-to-text').htmlToText
-// const smtpTransport = require('nodemailer-smtp-transport')
+import * as nodemailer from 'nodemailer'
+import * as nodemailerHtmlToText from 'nodemailer-html-to-text'
+// const smtpTransport from 'nodemailer-smtp-transport')
 
 // const smtpTransportConfig = smtpTransport({
 //   service: process.env.EMAIL_SERVICE,
@@ -21,7 +21,7 @@ const transport = nodemailer.createTransport(smtpTransportConfig)
 // https://www.npmjs.com/package/html-to-text
 // const htmlToTextOptions = {}
 
-transport.use('compile', htmlToText())
+transport.use('compile', nodemailerHtmlToText.htmlToText())
 
 const mailer = async (to, subject, html) => {
   const mail = { from, to, subject, html }
@@ -49,4 +49,4 @@ dest: ${mail.to}`
   }
 }
 
-module.exports = mailer
+export default mailer

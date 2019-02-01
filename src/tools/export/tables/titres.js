@@ -1,4 +1,4 @@
-const dateFormat = require('dateformat')
+import * as dateFormat from 'dateformat'
 
 // liste des tables
 // la colonne id si elle existe doit être en première position
@@ -137,4 +137,4 @@ const tables = [
   }
 ]
 
-module.exports = tables
+export default tables

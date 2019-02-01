@@ -1,6 +1,6 @@
-const dateFormat = require('dateformat')
-const titreEtapesAscSort = require('./titre-etapes-asc-sort')
-const titreEtapesDescSort = require('./titre-etapes-desc-sort')
+import * as dateFormat from 'dateformat'
+import titreEtapesAscSort from './titre-etapes-asc-sort'
+import titreEtapesDescSort from './titre-etapes-desc-sort'
 
 // entrée:
 // - les démarches d'un titre
@@ -74,7 +74,8 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
       return '2018-12-31'
     }
 
-    const titreEtapesDescSorted = titreDemarche.etapes || titreEtapesDescSort(titreDemarche)
+    const titreEtapesDescSorted =
+      titreDemarche.etapes || titreEtapesDescSort(titreDemarche)
 
     // chercher dans les dpu s'il y a une date de debut
     const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
@@ -101,7 +102,9 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
       titreEtape => titreEtape.typeId === 'dex'
     )
 
-    return titreEtapeDexFirst ? dateAddYears(titreEtapeDexFirst.date, duree) : null
+    return titreEtapeDexFirst
+      ? dateAddYears(titreEtapeDexFirst.date, duree)
+      : null
   }
 
   // si la démarche contient une date de fin,
@@ -180,4 +183,4 @@ const dateAddYears = (date, years) => {
   return `${Number(d.slice(0, 4)) + years}-${d.slice(5)}`
 }
 
-module.exports = titreDemarcheDateFinAndDureeFind
+export default titreDemarcheDateFinAndDureeFind

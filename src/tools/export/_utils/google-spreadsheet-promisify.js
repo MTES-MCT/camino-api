@@ -111,7 +111,7 @@ const cellSet = (cell, value) =>
     })
   )
 
-module.exports = {
+export {
   gssUseServiceAccountAuth,
   gssGetInfo,
   worksheetRemove,

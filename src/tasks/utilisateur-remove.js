@@ -1,7 +1,7 @@
-require('dotenv').config()
-require('../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const { utilisateurRemove } = require('../database/queries/utilisateurs')
+import { utilisateurRemove } from '../database/queries/utilisateurs'
 
 const id = process.env.ADMIN_ID
 

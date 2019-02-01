@@ -1,6 +1,6 @@
-const fetch = require('node-fetch')
-const { introspectionQuery } = require('graphql')
-const fs = require('fs')
+import * as fetch from 'node-fetch'
+import { introspectionQuery } from 'graphql'
+import * as fs from 'fs'
 const url = `http://localhost:4000`
 
 fetch(url, {

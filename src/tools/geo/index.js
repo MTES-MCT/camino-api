@@ -1,6 +1,6 @@
 // converti les coordoonnées géo
 
-const proj4 = require('proj4')
+import * as proj4 from 'proj4'
 
 proj4.defs(
   'EPSG:2972',

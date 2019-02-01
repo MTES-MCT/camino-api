@@ -1,5 +1,5 @@
-const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-duree-find')
-const titreDemarches = require('./__mocks__/titre-demarches')
+import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
+import titreDemarches from './__mocks__/titre-demarches'
 
 test("trouve la date de fin et la durée d'une démarche", () => {
   expect(titreDemarcheDateFinAndDureeFind(titreDemarches, 2)).toEqual({

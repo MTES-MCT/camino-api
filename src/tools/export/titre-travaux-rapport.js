@@ -1,7 +1,7 @@
-const credentials = require('./credentials')
-const spreadsheetRowAdd = require('./_utils/spreadsheet-row-add')
-const spreadsheetRowUpdate = require('./_utils/spreadsheet-row-update')
-const tables = require('./tables/titres-travaux')
+import credentials from './credentials'
+import spreadsheetRowAdd from './_utils/spreadsheet-row-add'
+import spreadsheetRowUpdate from './_utils/spreadsheet-row-update'
+import tables from './tables/titres-travaux'
 
 const titreTravauxRapportRowAdd = async content => {
   const spreadsheetId =
@@ -21,4 +21,4 @@ const titreTravauxRapportRowUpdate = async content => {
   }
 }
 
-module.exports = { titreTravauxRapportRowAdd, titreTravauxRapportRowUpdate }
+export { titreTravauxRapportRowAdd, titreTravauxRapportRowUpdate }

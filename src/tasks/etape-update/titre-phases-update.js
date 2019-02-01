@@ -1,5 +1,5 @@
-const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
-const titrePhasesFind = require('../_utils/titre-phases-find')
+import { titrePhaseUpdate, titrePhaseDelete } from '../titre-phases'
+import titrePhasesFind from '../_utils/titre-phases-find'
 
 const titresPhasesUpdate = async titre => {
   const titreTypeId = titre.typeId

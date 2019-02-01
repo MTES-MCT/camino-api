@@ -1,5 +1,5 @@
-const dateFormat = require('dateformat')
-const titreDateFinFind = require('./titre-date-fin-find')
+import * as dateFormat from 'dateformat'
+import titreDateFinFind from './titre-date-fin-find'
 
 const titreStatutIdFind = titre => {
   const today = dateFormat(new Date(), 'yyyy-mm-dd')
@@ -41,4 +41,4 @@ const titreStatutIdFind = titre => {
   return 'ech'
 }
 
-module.exports = titreStatutIdFind
+export default titreStatutIdFind
