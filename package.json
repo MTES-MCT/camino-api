@@ -83,10 +83,10 @@
     "source-map-loader": "^0.2.4",
     "webpack": "^4.29.0",
     "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2",
-    "typescript": "^3.3.1"
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.13",
     "commitizen": "^3.0.5",
     "cz-conventional-changelog": "^2.1.0",
     "esdoc": "^1.1.0",
@@ -107,7 +107,9 @@
     "nodemon": "^1.18.9",
     "nodemon-webpack-plugin": "^4.0.7",
     "standard-version": "^4.4.0",
-    "ts-node": "^8.0.2"
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.1"
   },
   "eslintConfig": {
     "extends": [
