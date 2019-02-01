@@ -91,7 +91,6 @@
     "cz-conventional-changelog": "^2.1.0",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
-    "esdoc-node": "^1.0.4",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.12.1",
     "eslint-config-prettier": "^4.0.0",
@@ -165,9 +164,6 @@
             ]
           }
         }
-      },
-      {
-        "name": "esdoc-node"
       },
       {
         "name": "esdoc-ecmascript-proposal-plugin",
