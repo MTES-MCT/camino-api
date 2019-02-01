@@ -24,7 +24,7 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
         .filter(
           titreEtape =>
             ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
-            (['dpu', 'dex', 'rpu'].includes(titreEtape.typeId) ||
+            (['dpu', 'dex', 'rpu', 'dim'].includes(titreEtape.typeId) ||
               // Si l'étape est une formalisation de la demande,
               // on ne prend en compte que pour un octroi (demande initiale)
               (titreEtape.typeId === 'mfr' && titreDemarche.typeId === 'oct'))
