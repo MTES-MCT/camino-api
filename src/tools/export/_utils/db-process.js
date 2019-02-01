@@ -1,5 +1,5 @@
-const jsonToSpreadsheet = require('./json-to-spreadsheet')
-const credentials = require('../credentials')
+import jsonToSpreadsheet from './json-to-spreadsheet'
+import credentials from '../credentials'
 
 const dbProcess = async definition => {
   const content = await definition.fetch
@@ -12,4 +12,4 @@ const dbProcess = async definition => {
   return `Export: ${content.length} ${definition.name}`
 }
 
-module.exports = dbProcess
+export default dbProcess

@@ -1,5 +1,5 @@
 // formate un objet 'element' sous forme de 'row'
-const decamelize = require('decamelize')
+import * as decamelize from 'decamelize'
 
 // in
 // - element: un objet json extrait de la base de données source
@@ -25,4 +25,4 @@ const rowFormat = (element, columns, callbacks) =>
     {}
   )
 
-module.exports = rowFormat
+export default rowFormat

@@ -2,12 +2,12 @@ import permissionsCheck from './_permissions-check'
 
 import { restrictedDomaineIds, restrictedStatutIds } from './_restrictions'
 
-const {
+import {
   typesGet,
   domainesGet,
   statutsGet,
   demarchesTypesGet
-} = require('../../database/queries/metas')
+} from '../../database/queries/metas'
 
 const check = (elements, restrictedList) =>
   elements.filter(element => !restrictedList.find(id => id === element.id))

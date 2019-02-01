@@ -1,9 +1,9 @@
-require('dotenv').config()
-require('../../../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const fileCreate = require('../../import/_utils/file-create.js')
+import fileCreate from '../../import/_utils/file-create.js'
 
-const { demarchesTypesGet } = require('../../../database/queries/metas')
+import { demarchesTypesGet } from '../../../database/queries/metas'
 
 async function main() {
   const res = await demarchesTypesGet()

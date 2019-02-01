@@ -1,12 +1,10 @@
-const { titresGet } = require('../../database/queries/titres')
-const { utilisateursGet } = require('../../database/queries/utilisateurs')
-const {
-  titresTravauxRapportsGet
-} = require('../../database/queries/titres-travaux')
+import { titresGet } from '../../database/queries/titres'
+import { utilisateursGet } from '../../database/queries/utilisateurs'
+import { titresTravauxRapportsGet } from '../../database/queries/titres-travaux'
 
-const titresTables = require('./tables/titres')
-const utilisateursTables = require('./tables/utilisateurs')
-const titresTravauxRapportsTables = require('./tables/titres-travaux')
+import titresTables from './tables/titres'
+import utilisateursTables from './tables/utilisateurs'
+import titresTravauxRapportsTables from './tables/titres-travaux'
 
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_C
 const titresFSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_F
@@ -110,4 +108,4 @@ const definitions = [
   }
 ]
 
-module.exports = definitions
+export default definitions

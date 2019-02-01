@@ -1,4 +1,4 @@
-const { titreDemarchesOrdreUpdate } = require('../titre-demarches')
+import { titreDemarchesOrdreUpdate } from '../titre-demarches'
 
 const titresDemarchesOrdreUpdate = async titresDemarchesByTitre => {
   const titreDemarchesOrdreUpdated = titreDemarchesOrdreUpdate(

@@ -1,9 +1,9 @@
-const PQueue = require('p-queue')
-const GoogleSpreadsheet = require('google-spreadsheet')
-const decamelize = require('decamelize')
-const rowFormat = require('./row-format')
+import * as PQueue from 'p-queue'
+import * as GoogleSpreadsheet from 'google-spreadsheet'
+import * as decamelize from 'decamelize'
+import rowFormat from './row-format'
 
-const {
+import {
   gssUseServiceAccountAuth,
   gssGetInfo,
   worksheetRemove,
@@ -11,7 +11,7 @@ const {
   rowAdd,
   cellsGet,
   cellSet
-} = require('./google-spreadsheet-promisify')
+} from './google-spreadsheet-promisify'
 
 const jsonToSpreadsheet = async (
   spreadsheetId,
@@ -146,4 +146,4 @@ const rowsCreate = (elements, parents) =>
     : // sinon, l'insère dans un tableau
       [elements]
 
-module.exports = jsonToSpreadsheet
+export default jsonToSpreadsheet

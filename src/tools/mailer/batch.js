@@ -1,4 +1,4 @@
-const mailer = require('./index')
+import mailer from './index'
 
 const emailsBatch = async (emails, subject, html) => {
   try {
@@ -6,8 +6,8 @@ const emailsBatch = async (emails, subject, html) => {
       mailer(email, subject, html)
     })
   } catch (e) {
-    console.log("erreur lors de l'envoi d'email")
+    console.log("erreur lors de l'envoi de batch email")
   }
 }
 
-module.exports = emailsBatch
+export default emailsBatch

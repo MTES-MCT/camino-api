@@ -1,19 +1,17 @@
-require('dotenv').config()
-require('../../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const { titresGet } = require('../../database/queries/titres')
-const {
-  titresDemarchesGet
-} = require('../../database/queries/titres-demarches')
-const { titresPhasesGet } = require('../../database/queries/titres-phases')
-const { titresEtapesGet } = require('../../database/queries/titres-etapes')
+import { titresGet } from '../../database/queries/titres'
+import { titresDemarchesGet } from '../../database/queries/titres-demarches'
+import { titresPhasesGet } from '../../database/queries/titres-phases'
+import { titresEtapesGet } from '../../database/queries/titres-etapes'
 
-const titresEtapesOrdreUpdate = require('./titres-etapes-ordre-update')
-const titresDemarchesStatutIdUpdate = require('./titres-demarches-statut-ids-update')
-const titresDemarchesOrdreUpdate = require('./titres-demarches-ordre-update')
-const titresStatutIdsUpdate = require('./titres-statut-ids-update')
-const titresPhasesUpdate = require('./titres-phases-update')
-const titresPropsEtapeIdUpdate = require('./titres-props-etape-id-update')
+import titresEtapesOrdreUpdate from './titres-etapes-ordre-update'
+import titresDemarchesStatutIdUpdate from './titres-demarches-statut-ids-update'
+import titresDemarchesOrdreUpdate from './titres-demarches-ordre-update'
+import titresStatutIdsUpdate from './titres-statut-ids-update'
+import titresPhasesUpdate from './titres-phases-update'
+import titresPropsEtapeIdUpdate from './titres-props-etape-id-update'
 
 const run = async () => {
   // 1.

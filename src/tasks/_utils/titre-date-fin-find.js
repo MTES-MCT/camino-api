@@ -1,4 +1,4 @@
-const titreDemarcheDateFinAndDureeFind = require('./titre-demarche-date-fin-duree-find')
+import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 
 /**
  * Trouve la date de fin d'un titre
@@ -19,4 +19,4 @@ const titreDateFinFind = titreDemarches => {
   return dateFin
 }
 
-module.exports = titreDateFinFind
+export default titreDateFinFind

@@ -1,9 +1,9 @@
-require('dotenv').config()
-require('../../database/index')
-const PQueue = require('p-queue')
-const dbProcess = require('./_utils/db-process')
+import 'dotenv/config'
+import '../../database/index'
 
-const definitions = require('./definitions')
+import * as PQueue from 'p-queue'
+import dbProcess from './_utils/db-process'
+import definitions from './definitions'
 
 const run = async () => {
   // on utilise une queue plutôt que Promise.all

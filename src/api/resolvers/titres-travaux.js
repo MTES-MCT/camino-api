@@ -14,10 +14,8 @@ import { titreGet } from '../../database/queries/titres'
 
 import permissionsCheck from './_permissions-check'
 
-const {
-  titreTravauxRapportRowUpdate
-} = require('../../tools/export/titre-travaux-rapport')
-const emailsBatch = require('../../tools/mailer/batch')
+import { titreTravauxRapportRowUpdate } from '../../tools/export/titre-travaux-rapport'
+import emailsBatch from '../../tools/mailer/batch'
 
 const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
   const errors = []

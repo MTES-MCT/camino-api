@@ -1,7 +1,7 @@
-require('dotenv').config()
-require('../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const { titresGet } = require('../database/queries/titres')
+import { titresGet } from '../database/queries/titres'
 
 const titresWithoutPointsList = async () => {
   const titres = await titresGet({ domaineIds: ['g'] })

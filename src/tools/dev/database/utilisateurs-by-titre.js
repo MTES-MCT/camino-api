@@ -1,8 +1,8 @@
-require('dotenv').config()
-require('../../../database/index')
+import 'dotenv/config'
+import '../../database/index'
 
-const { utilisateursGet } = require('../../../database/queries/utilisateurs')
-const { titreGet } = require('../../../database/queries/titres')
+import { utilisateursGet } from '../../../database/queries/utilisateurs'
+import { titreGet } from '../../../database/queries/titres'
 
 async function main() {
   const titre = await titreGet('m-pxm-esperance-1993')

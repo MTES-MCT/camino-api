@@ -12,4 +12,4 @@ const tables = [
   }
 ]
 
-module.exports = tables
+export default tables

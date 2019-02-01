@@ -1,6 +1,6 @@
-const { titrePhaseUpdate, titrePhaseDelete } = require('../titre-phases')
+import { titrePhaseUpdate, titrePhaseDelete } from '../titre-phases'
 
-const titrePhasesFind = require('../_utils/titre-phases-find')
+import titrePhasesFind from '../_utils/titre-phases-find'
 
 const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
   // créé un objet la liste des titres { [titreId]: titre.typeId, … }
@@ -57,4 +57,4 @@ const titreDemarchesByTitreGroup = titreDemarches =>
     return titreDemarchesByTitres
   }, {})
 
-module.exports = titresPhasesUpdate
+export default titresPhasesUpdate
