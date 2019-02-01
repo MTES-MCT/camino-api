@@ -50,7 +50,7 @@
     "@types/graphql": "^14.0.5",
     "@types/jsonwebtoken": "^8.3.0",
     "@types/knex": "^0.15.1",
-    "@types/node": "^10.12.20",
+    "@types/node": "^10.12.21",
     "@sentry/node": "^4.5.3",
     "awesome-typescript-loader": "^5.2.1",
     "bcrypt": "^3.0.3",
@@ -84,7 +84,7 @@
     "webpack": "^4.29.0",
     "webpack-merge": "^4.2.1",
     "webpack-node-externals": "^1.7.2",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.1"
   },
   "devDependencies": {
     "commitizen": "^3.0.5",
@@ -97,7 +97,7 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-compat": "^2.6.3",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^22.2.1",
+    "eslint-plugin-jest": "^22.2.2",
     "eslint-plugin-jsdoc": "^4.1.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
