@@ -121,37 +121,40 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 
 ```bash
 .
-├── index.js                    # `point d'entrée`
+├── docs                 # `documentation et exemples`
 │
-├── api                         # `API graphql`
-│   ├── resolvers               # `liens entre l'API et la base de données`
-│   ├── schemas                 # `description des nœuds de l'API`
-│   └── types                   # `types graphQl customs`
+├── knex                 # `scripts de création et d'import de la base de données (npm run migrate)
+│   ├── migrations       # `création de la base de données`
+│   └── seeds            # `import depuis les fichier /sources vers la base de données`
+
+├── sources              # `sources de la base de données au format json. Généré avec npm run import.`
 │
-├── config                      #
-│   ├── index.js                # `variables globales`
-│   └── knex.js                 # `connexion à la base de données`
-│
-├── database                    # `base de données PostgresQL`
-│   ├── models                  # `modèles de la base de données (knex.js / objection.js)`
-│   └── queries                 # `requêtes à la base de données (knex.js / objection.js)`
-│
-├── docs                        # `documentation et exemples`
-│
-├── tasks                       # `logique métier`
-│   ├── _utils                  # `scripts de mise à jour de la base de données`
-│   ├── daily                   # `scripts quotidiens (npm run daily)`
-│   └── etape-update            # `script effectués lors de la mise à jour d'une étape`
-│
-└── tools                       # `outils`
-    ├── export                  # `exportation de la base de données vers des spreadsheets (npm run export)`
-    ├── import                  # `import de spreadsheets vers des fichiers json dans /sources (npm run import)`
-    ├── knex                    # `scripts de création et d'import de la base de données (npm run migrate)`
-    │   ├── migrations          # `création de la base de données`
-    │   └── seeds               # `import depuis les fichier /sources vers la base de données`
-    ├── mailer                  # `utilitaire d'envoi d'email (Nodemailer)`
-    ├── sources                 # `données sources sous forme de fichiers json`
-    └── utils                   #
+└── src                  # `logique métier`
+    ├── index.js         # `point d'entrée`
+    │
+    ├── api              # `API graphql`
+    │   ├── resolvers    # `liens entre l'API et la base de données`
+    │   ├── schemas      # `description des nœuds de l'API`
+    │   └── types        # `types graphQl customs`
+    │
+    ├── config           #
+    │   ├── index.js     # `variables globales`
+    │   └── knex.js      # `connexion à la base de données`
+    │
+    ├── database         # `base de données PostgresQL`
+    │   ├── models       # `modèles de la base de données (knex.js / objection.js)`
+    │   └── queries      # `requêtes à la base de données (knex.js / objection.js)`
+    │
+    ├── tasks            # `logique métier`
+    │   ├── _utils       # `scripts de mise à jour de la base de données`
+    │   ├── daily        # `scripts quotidiens (npm run daily)`
+    │   └── etape-update # `script effectués lors de la mise à jour d'une étape`
+    │
+    └── tools            # `outils`
+        ├── export       # `exportation de la base de données vers des spreadsheets (npm run export)`
+        ├── import       # `import de spreadsheets vers des fichiers json dans /sources (npm run import)`
+        ├── mailer       # `utilitaire d'envoi d'email (Nodemailer)`
+        └── utils        #
 
 ```
 
@@ -159,7 +162,7 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 
 ## PostgreSQL
 
-![camino database schema](manual/db/camino-db.png)
+![camino database schema](manual/database/camino-db.png)
 
 ---
 
