@@ -126,7 +126,7 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 ├── knex                 # `scripts de création et d'import de la base de données (npm run migrate)
 │   ├── migrations       # `création de la base de données`
 │   └── seeds            # `import depuis les fichier /sources vers la base de données`
-
+│
 ├── sources              # `sources de la base de données au format json. Générées avec npm run import.`
 │
 └── src                  # `fichiers sources. Transformés avec npm run build.`
