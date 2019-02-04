@@ -127,9 +127,9 @@ docker-compose -f ./docker-compose.prod.yml up -d --build
 │   ├── migrations       # `création de la base de données`
 │   └── seeds            # `import depuis les fichier /sources vers la base de données`
 
-├── sources              # `sources de la base de données au format json. Généré avec npm run import.`
+├── sources              # `sources de la base de données au format json. Générées avec npm run import.`
 │
-└── src                  # `logique métier`
+└── src                  # `fichiers sources. Transformés avec npm run build.`
     ├── index.js         # `point d'entrée`
     │
     ├── api              # `API graphql`
