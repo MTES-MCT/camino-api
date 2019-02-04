@@ -17,8 +17,6 @@
   "scripts": {
     "build": "npx tsc",
     "dev": "nodemon --watch 'src/**' --exec 'ts-node' src/index.js",
-    "w-build": "cross-env NODE_ENV=production node build/webpack.prod.js",
-    "w-dev": "cross-env NODE_ENV=development node build/webpack.dev.js",
     "import": "mkdir -p sources && node ./dist/tools/import/index.js",
     "export": "node ./dist/tools/export/index.js",
     "export:users": "node ./dist/tools/export/utilisateurs.js",
@@ -52,7 +50,6 @@
     "@types/knex": "^0.15.1",
     "@types/node": "^10.12.21",
     "@sentry/node": "^4.5.3",
-    "awesome-typescript-loader": "^5.2.1",
     "bcrypt": "^3.0.3",
     "chalk": "^2.4.2",
     "compression": "^1.7.3",
@@ -79,11 +76,6 @@
     "objection": "^1.5.3",
     "p-queue": "^3.0.0",
     "pg": "^7.8.0",
-    "rimraf": "^2.6.3",
-    "source-map-loader": "^0.2.4",
-    "webpack": "^4.29.0",
-    "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2",
     "typescript": "^3.3.1"
   },
   "devDependencies": {
