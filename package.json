@@ -83,7 +83,8 @@
     "source-map-loader": "^0.2.4",
     "webpack": "^4.29.0",
     "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "typescript": "^3.3.1"
   },
   "devDependencies": {
     "@types/jest": "^23.3.13",
@@ -92,7 +93,7 @@
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "eslint": "^5.12.1",
+    "eslint": "^5.13.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-compat": "^2.6.3",
@@ -108,8 +109,7 @@
     "nodemon-webpack-plugin": "^4.0.7",
     "standard-version": "^4.4.0",
     "ts-jest": "^23.10.5",
-    "ts-node": "^8.0.2",
-    "typescript": "^3.3.1"
+    "ts-node": "^8.0.2"
   },
   "eslintConfig": {
     "extends": [
