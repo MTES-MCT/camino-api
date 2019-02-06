@@ -1,7 +1,7 @@
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} from './_geojson'
+} from '../../tools/geojson'
 
 const titreFormat = t => {
   t.references =
