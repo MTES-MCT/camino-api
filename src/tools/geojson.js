@@ -1,10 +1,20 @@
+// converti des points
+// [{groupe: 1, contour: 1, point: 1, coordonnees: {x: 1.111111, y: 1.111111}}]
+// en un tableau 'coordinates' de geojson: [[[[1.11111, 1.111111]]]]
+
 const geojsonMultiPolygonCoordinates = points =>
   points.reduce((res, p) => {
-    res[p.groupe] = res[p.groupe] || []
-    res[p.groupe][p.contour] = res[p.groupe][p.contour] || []
-    res[p.groupe][p.contour][p.point] = [p.coordonnees.x, p.coordonnees.y]
+    res[p.groupe - 1] = res[p.groupe - 1] || []
+    res[p.groupe - 1][p.contour - 1] = res[p.groupe - 1][p.contour - 1] || []
+    res[p.groupe - 1][p.contour - 1][p.point - 1] = [
+      p.coordonnees.x,
+      p.coordonnees.y
+    ]
     return res
   }, [])
+
+// converti des points
+// en un geojson de type 'MultiPolygon'
 
 const geojsonFeatureMultiPolygon = points => ({
   type: 'Feature',
@@ -13,6 +23,9 @@ const geojsonFeatureMultiPolygon = points => ({
     coordinates: geojsonMultiPolygonCoordinates(points)
   }
 })
+
+// converti des points
+// en un geojson de type 'FeatureCollection' de 'Point'
 
 const geojsonFeatureCollectionPoints = points => {
   return {
