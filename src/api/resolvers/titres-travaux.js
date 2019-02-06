@@ -101,9 +101,16 @@ const emailFormat = (titre, user, rapport) => {
 <b>Date</b> : ${dateFormat(rapport.date, 'dd-mm-yyyy')} <br>
 
 <hr>
-
 <ul>
-  <li><b>Or net extrait (g)</b> : ${rapport.contenu.or}</li>
+`
+  const orNet = rapport.contenu.orNet
+    ? `
+  <li><b>Or net extrait (g)</b> : ${rapport.contenu.orNet}</li>
+`
+    : ''
+
+  const body = `
+  <li><b>Or brut extrait (g)</b> : ${rapport.contenu.orBrut}</li>
   <li><b>Mercure récupéré (g)</b> : ${rapport.contenu.mercure}</li>
   <li><b>Carburant détaxé (l)</b> : ${rapport.contenu.carburantDetaxe}</li>
   <li><b>Carburant conventionnel (l)</b> : ${
@@ -123,7 +130,7 @@ const emailFormat = (titre, user, rapport) => {
 
 <h2>Travaux</h2>`
 
-  const body = rapport.contenu.travaux.reduce(
+  const travaux = rapport.contenu.travaux.reduce(
     (res, mois) => `
 ${res}
     
@@ -154,7 +161,9 @@ ${res}
 
   return `
 ${header}
+${orNet}
 ${body}
+${travaux}
 ${footer}
 `
 }
