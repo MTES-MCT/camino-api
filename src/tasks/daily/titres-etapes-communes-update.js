@@ -9,10 +9,19 @@ import communesGeojsonGet from '../../tools/api-communes'
 const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
   const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
 
-  const communesInsertQueries = communesInsertQueriesBuild(
-    titresEtapesCommunes,
-    communes
+  const communesNew = Object.keys(titresEtapesCommunes).reduce(
+    (res, titreEtapeId) => [
+      ...res,
+      ...titresEtapesCommunes[titreEtapeId].reduce(
+        (r, commune) =>
+          res.find(c => c.id === commune.id) ? r : [...r, commune],
+        []
+      )
+    ],
+    []
   )
+
+  const communesInsertQueries = communesInsert(communesNew, communes)
 
   await Promise.all(communesInsertQueries)
 
@@ -27,22 +36,9 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
   ])
 
   return `Mise à jour: ${
-    communesInsertQueries.length
+    titresEtapesCommunesInsertQueries.length
   } communes dans des étapes.`
 }
-
-const communesInsertQueriesBuild = (titresEtapesCommunes, communes) =>
-  Object.keys(titresEtapesCommunes).reduce(
-    (communesInsertQueries, titreEtapeId) => {
-      const communesInsertQueriesNew = communesInsert(
-        titresEtapesCommunes[titreEtapeId],
-        communes
-      )
-
-      return [...communesInsertQueries, ...communesInsertQueriesNew]
-    },
-    []
-  )
 
 const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
   Object.keys(titresEtapesCommunes).reduce(
