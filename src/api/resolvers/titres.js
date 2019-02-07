@@ -212,7 +212,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     }
 
     const res = await titreEtapeUpsert(etape)
-    await titreEtapeUpdateTasks(etape)
+    await titreEtapeUpdateTasks(etape.id)
 
     return res
   } else {

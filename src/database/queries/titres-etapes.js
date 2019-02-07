@@ -1,4 +1,5 @@
 import TitresEtapes from '../models/titres-etapes'
+import TitresCommunes from '../models/titres-communes'
 import options from './_options'
 
 const titreEtapeGet = async titreEtapeId =>
@@ -6,12 +7,17 @@ const titreEtapeGet = async titreEtapeId =>
     .eager(options.etapes.eager)
     .findById(titreEtapeId)
 
-const titresEtapesGet = async ({ etapesIds, titresDemarchesIds }) =>
+const titresEtapesGet = async ({
+  etapesIds,
+  etapesTypeIds,
+  titresDemarchesIds
+}) =>
   TitresEtapes.query()
     .skipUndefined()
     .eager(options.etapes.eager)
     .orderBy('ordre')
-    .whereIn('titresEtapes.typeId', etapesIds)
+    .whereIn('titresEtapes.id', etapesIds)
+    .whereIn('titresEtapes.typeId', etapesTypeIds)
     .whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
 
 const titreEtapeUpdate = async ({ id, props }) =>
@@ -25,4 +31,17 @@ const titreEtapeUpsert = async etape =>
     .upsertGraph(etape, options.etapes.update)
     .eager(options.etapes.eager)
 
-export { titreEtapeGet, titresEtapesGet, titreEtapeUpdate, titreEtapeUpsert }
+const titreEtapeCommuneInsert = async ({ titreEtapeId, communeId }) =>
+  TitresCommunes.query().insert({ titreEtapeId, communeId })
+
+const titreEtapeCommuneDelete = async ({ titreEtapeId, communeId }) =>
+  TitresCommunes.query({ titreEtapeId, communeId }).delete()
+
+export {
+  titreEtapeGet,
+  titresEtapesGet,
+  titreEtapeUpdate,
+  titreEtapeUpsert,
+  titreEtapeCommuneInsert,
+  titreEtapeCommuneDelete
+}

@@ -54,7 +54,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2200.00</x>
-            <y>1550.00</y>
+            <y>1700.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1321,11 +1321,11 @@
         <uid><![CDATA[5AB3CB56-BF66-469E-9312-3319872975CB]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[outremers]]></name>
+        <name><![CDATA[pays]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>2200.00</x>
-            <y>1700.00</y>
+            <y>1400.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1334,7 +1334,7 @@
         <zorder>37</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
-            <type><![CDATA[CHARACTER VARYING(5)]]></type>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <primaryKey>1</primaryKey>
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <forcedUnique><![CDATA[1]]></forcedUnique>
@@ -2026,21 +2026,6 @@
             <uid><![CDATA[903D0834-0D4A-4DD8-A5E7-F8523F70D4A8]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[outremer_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(5)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>outremers</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[outremers]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[A96D3094-2DFF-4A1D-B33E-7A3B6C999C6D]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[5B51EC84-B01C-4CBC-BAD9-F42238DF8780]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <notNull><![CDATA[0]]></notNull>
-            <uid><![CDATA[6AD24835-330B-4DE6-9668-4E0FAD5EA219]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
             <primaryKey>1</primaryKey>
@@ -2311,13 +2296,26 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2200.00</x>
-            <y>1400.00</y>
+            <y>1550.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>100.00</height>
         </size>
         <zorder>35</zorder>
+        <SQLField>
+            <name><![CDATA[pays_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>pays</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[pays]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[A96D3094-2DFF-4A1D-B33E-7A3B6C999C6D]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[5B51EC84-B01C-4CBC-BAD9-F42238DF8780]]></referencesTableUID>
+            <uid><![CDATA[D53AD01C-8BD3-4FAB-B8CA-C13DD671759C]]></uid>
+        </SQLField>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(5)]]></type>
@@ -2713,7 +2711,7 @@
         <windowHeight><![CDATA[1058.000000]]></windowHeight>
         <windowLocationX><![CDATA[320.000000]]></windowLocationX>
         <windowLocationY><![CDATA[360.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{4, 273}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{62, 282}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1920.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

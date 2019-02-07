@@ -23,16 +23,18 @@ const points = {
   eager: `references`
 }
 
+const communes = {
+  eager: `departement.regions.pays`
+}
+
 const etapes = {
   eager: `[points.${points.eager}, type, statut, documents, substances.${
     substances.eager
-  }, titresSubstances, titulaires.${
+  }, titulaires.${entreprises.eager}, amodiataires.${
     entreprises.eager
-  }, titresTitulaires, amodiataires.${
-    entreprises.eager
-  }, titresAmodiataires, administrations.${
-    administrations.eager
-  }, titresAdministrations, emprises, titresEmprises]`,
+  }, administrations.${administrations.eager}, emprises, communes.${
+    communes.eager
+  }]`,
   update: {
     relate: [
       'type',

@@ -32,7 +32,8 @@ export default class Titres extends Model {
         maxLength: 128
       },
       surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      volumeTitreEtapeId: { type: ['string', 'null'], maxLength: 128 }
+      volumeTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+      communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 }
     }
   }
 
