@@ -1,0 +1,17 @@
+const pays = require('../../sources/pays.json')
+const regions = require('../../sources/regions.json')
+const departements = require('../../sources/departements.json')
+// const communes = require('../../sources/communes.json')
+
+exports.seed = (knex, Promise) =>
+  // knex('communes')
+  //   .del()
+  knex('communes')
+    .del()
+    .then(() => knex('departements').del())
+    .then(() => knex('regions').del())
+    .then(() => knex('pays').del())
+    .then(() => knex('pays').insert(pays))
+    .then(() => knex('regions').insert(regions))
+    .then(() => knex('departements').insert(departements))
+// .then(() => knex('communes').insert(communes))
