@@ -1,34 +1,18 @@
 import 'dotenv/config'
-import '../../database/index'
+import '../../../database/index'
 
-import { titresGet } from '../../../database/queries/titres-demarches'
+import { titreGet } from '../../../database/queries/titres'
 
 async function main() {
-  const res = await titresGet({
-    typeIds: [
-      'apx',
-      'arc',
-      'arg',
-      'axm',
-      'cxx',
-      'prh',
-      'prx',
-      'pxc',
-      'pxg',
-      'pxh',
-      'pxm'
-    ],
-    domaineIds: ['c', 'g', 'h', 'm', 'w'],
-    statutIds: ['dmi', 'mod', 'val'],
-    substances: null,
-    noms: null,
-    entreprises: null,
-    references: null
-  })
+  const res = titreGet('g-prx-arzacq-2014')
 
-  console.log(res)
+  console.log('one', res)
 
-  process.exit()
+  setTimeout(() => {
+    console.log('two', res)
+
+    process.exit()
+  }, 1000)
 }
 
 main()

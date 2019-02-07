@@ -7,13 +7,14 @@ import Entreprises from './entreprises'
 import Administrations from './administrations'
 import TitresDocuments from './titres-documents'
 import Emprises from './emprises'
+import Communes from './communes'
 import TitresErreurs from './titres-erreurs'
 
-import TitresSubstances from './titres-substances'
-import TitresAdministrations from './titres-administrations'
-import TitresTitulaires from './titres-titulaires'
-import TitresAmodiataires from './titres-amodiataires'
-import TitresEmprises from './titres-emprises'
+// import TitresSubstances from './titres-substances'
+// import TitresAdministrations from './titres-administrations'
+// import TitresTitulaires from './titres-titulaires'
+// import TitresAmodiataires from './titres-amodiataires'
+// import TitresEmprises from './titres-emprises'
 
 export default class TitresEtapes extends Model {
   static tableName = 'titresEtapes'
@@ -51,6 +52,7 @@ export default class TitresEtapes extends Model {
         to: 'etapesTypes.id'
       }
     },
+
     statut: {
       relation: Model.BelongsToOneRelation,
       modelClass: EtapesStatuts,
@@ -59,6 +61,7 @@ export default class TitresEtapes extends Model {
         to: 'etapesStatuts.id'
       }
     },
+
     substances: {
       relation: Model.ManyToManyRelation,
       modelClass: Substances,
@@ -72,6 +75,7 @@ export default class TitresEtapes extends Model {
         to: 'substances.id'
       }
     },
+
     points: {
       relation: Model.HasManyRelation,
       modelClass: TitresPoints,
@@ -80,6 +84,7 @@ export default class TitresEtapes extends Model {
         to: 'titresPoints.titreEtapeId'
       }
     },
+
     titulaires: {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
@@ -92,6 +97,7 @@ export default class TitresEtapes extends Model {
         to: 'entreprises.id'
       }
     },
+
     amodiataires: {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
@@ -104,6 +110,7 @@ export default class TitresEtapes extends Model {
         to: 'entreprises.id'
       }
     },
+
     administrations: {
       relation: Model.ManyToManyRelation,
       modelClass: Administrations,
@@ -116,6 +123,7 @@ export default class TitresEtapes extends Model {
         to: 'administrations.id'
       }
     },
+
     documents: {
       relation: Model.HasManyRelation,
       modelClass: TitresDocuments,
@@ -124,6 +132,7 @@ export default class TitresEtapes extends Model {
         to: 'titresDocuments.titreEtapeId'
       }
     },
+
     emprises: {
       relation: Model.ManyToManyRelation,
       modelClass: Emprises,
@@ -136,6 +145,20 @@ export default class TitresEtapes extends Model {
         to: 'emprises.id'
       }
     },
+
+    communes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: Communes,
+      join: {
+        from: 'titresEtapes.id',
+        through: {
+          from: 'titresCommunes.titreEtapeId',
+          to: 'titresCommunes.communeId'
+        },
+        to: 'communes.id'
+      }
+    },
+
     erreurs: {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresErreurs,
@@ -143,47 +166,48 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.id',
         to: 'titresErreurs.titreEtapeId'
       }
-    },
-    titresSubstances: {
-      relation: Model.HasManyRelation,
-      modelClass: TitresSubstances,
-      join: {
-        from: 'titresEtapes.id',
-        to: 'titresSubstances.titreEtapeId'
-      }
-    },
-    titresTitulaires: {
-      relation: Model.HasManyRelation,
-      modelClass: TitresTitulaires,
-      join: {
-        from: 'titresEtapes.id',
-        to: 'titresTitulaires.titreEtapeId'
-      }
-    },
-    titresAmodiataires: {
-      relation: Model.HasManyRelation,
-      modelClass: TitresAmodiataires,
-      join: {
-        from: 'titresEtapes.id',
-        to: 'titresAmodiataires.titreEtapeId'
-      }
-    },
-    titresAdministrations: {
-      relation: Model.HasManyRelation,
-      modelClass: TitresAdministrations,
-      join: {
-        from: 'titresEtapes.id',
-        to: 'titresAdministrations.titreEtapeId'
-      }
-    },
-    titresEmprises: {
-      relation: Model.HasManyRelation,
-      modelClass: TitresEmprises,
-      join: {
-        from: 'titresEtapes.id',
-        to: 'titresEmprises.titreEtapeId'
-      }
     }
+
+    // titresSubstances: {
+    //   relation: Model.HasManyRelation,
+    //   modelClass: TitresSubstances,
+    //   join: {
+    //     from: 'titresEtapes.id',
+    //     to: 'titresSubstances.titreEtapeId'
+    //   }
+    // },
+    // titresTitulaires: {
+    //   relation: Model.HasManyRelation,
+    //   modelClass: TitresTitulaires,
+    //   join: {
+    //     from: 'titresEtapes.id',
+    //     to: 'titresTitulaires.titreEtapeId'
+    //   }
+    // },
+    // titresAmodiataires: {
+    //   relation: Model.HasManyRelation,
+    //   modelClass: TitresAmodiataires,
+    //   join: {
+    //     from: 'titresEtapes.id',
+    //     to: 'titresAmodiataires.titreEtapeId'
+    //   }
+    // },
+    // titresAdministrations: {
+    //   relation: Model.HasManyRelation,
+    //   modelClass: TitresAdministrations,
+    //   join: {
+    //     from: 'titresEtapes.id',
+    //     to: 'titresAdministrations.titreEtapeId'
+    //   }
+    // },
+    // titresEmprises: {
+    //   relation: Model.HasManyRelation,
+    //   modelClass: TitresEmprises,
+    //   join: {
+    //     from: 'titresEtapes.id',
+    //     to: 'titresEmprises.titreEtapeId'
+    //   }
+    // }
   }
 
   static namedFilters = {

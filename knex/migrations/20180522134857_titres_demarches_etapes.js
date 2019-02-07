@@ -88,6 +88,10 @@ exports.up = knex => {
         .string('substancesTitreEtapeId', 128)
         .references('titresEtapes.id')
         .onDelete('CASCADE')
+      table
+        .string('communesTitreEtapeId', 128)
+        .references('titresEtapes.id')
+        .onDelete('CASCADE')
     })
 }
 
@@ -101,6 +105,7 @@ exports.down = knex => {
       table.dropColumn('administrationsTitreEtapeId')
       table.dropColumn('surfaceTitreEtapeId')
       table.dropColumn('volumeTitreEtapeId')
+      table.dropColumn('communesTitreEtapeId')
     })
     .dropTable('titresEtapes')
     .dropTable('titresPhases')
