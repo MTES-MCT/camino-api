@@ -37,7 +37,6 @@
   "dependencies": {
     "@sentry/types": "^4.5.3",
     "@types/bcrypt": "^3.0.0",
-    "@types/chalk": "^2.2.0",
     "@types/compression": "0.0.36",
     "@types/cors": "^2.8.4",
     "@types/crypto-random-string": "^1.0.0",
@@ -73,6 +72,7 @@
     "nodemailer": "^5.1.1",
     "nodemailer-html-to-text": "^3.0.0",
     "nodemailer-smtp-transport": "^2.7.4",
+    "node-fetch": "^2.3.0",
     "objection": "^1.5.3",
     "p-queue": "^3.0.0",
     "pg": "^7.8.0",
@@ -96,7 +96,6 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.1.0",
-    "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9",
     "nodemon-webpack-plugin": "^4.0.7",
     "standard-version": "^4.4.0",
