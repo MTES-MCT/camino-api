@@ -35,9 +35,11 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
     titresEtapesCommunesDeleteQueries
   ])
 
-  return `Mise à jour: ${
-    titresEtapesCommunesInsertQueries.length
-  } communes dans des étapes.`
+  return [
+    `Mise à jour: ${communesInsertQueries.length} communes.`,
+    `Mise à jour: ${titresEtapesCommunesInsertQueries.length +
+      titresEtapesCommunesDeleteQueries.length} communes dans des étapes.`
+  ]
 }
 
 const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
