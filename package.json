@@ -47,7 +47,7 @@
     "@types/graphql": "^14.0.5",
     "@types/jsonwebtoken": "^8.3.0",
     "@types/knex": "^0.15.1",
-    "@types/node": "^10.12.21",
+    "@types/node": "^10.12.24",
     "@sentry/node": "^4.5.3",
     "bcrypt": "^3.0.4",
     "chalk": "^2.4.2",
@@ -76,7 +76,7 @@
     "objection": "^1.5.3",
     "p-queue": "^3.0.0",
     "pg": "^7.8.0",
-    "typescript": "^3.3.1"
+    "typescript": "^3.3.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.0",
@@ -96,7 +96,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.1.0",
-    "nodemon": "^1.18.9",
+    "nodemon": "^1.18.10",
     "nodemon-webpack-plugin": "^4.0.7",
     "standard-version": "^4.4.0",
     "ts-jest": "^23.10.5",
