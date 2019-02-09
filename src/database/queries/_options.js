@@ -24,7 +24,7 @@ const points = {
 }
 
 const communes = {
-  eager: `departement.regions.pays`
+  eager: `departement.region.pays`
 }
 
 const etapes = {
@@ -75,7 +75,7 @@ const titres = {
     entreprises.eager
   }, administrations.${administrations.eager}, demarches(orderDesc).${
     demarches.eager
-  }, surfaceEtape, volumeEtape, travauxRapports]`,
+  }, surfaceEtape, volumeEtape, travauxRapports, communes.${communes.eager}]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],

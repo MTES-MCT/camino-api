@@ -8,38 +8,57 @@ type Titre {
   - de l'année d'octroi
   """
   id: ID!
+
   "Le nom du titre"
   nom: String!
+
   "Le type du titre"
   type: Type!
+
   "Le domaine minier auquel se rattache le titre"
   domaine: Domaine!
+
   "Les références métier du titre"
   references: [Reference]
+
   "Le statut du titre"
   statut: Statut!
+
   "Les substances concernées par le titre dans son dernier état de validité"
   substances: [TitreSubstance]
+
   "Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité"
   points: [Point]
+
   "Le geojson du contour du périmètre géographique du titre dans son dernier état de validité"
   geojsonMultiPolygon: GeojsonMultiPolygon
   "Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité"
+
   geojsonPoints: GeojsonPoints
   "Les titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
+
   "Les amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
+
   "Les administrations en charge du titre dans son dernier état de validité"
   administrations: [Administration]
+
+  "Les communes du titre dans son dernier état de validité"
+  pays: [Pays]
+
   "Les démarches effectuées sur le titre"
   demarches: [Demarche]
+
   "La surface en Km² du titre dans son dernier état de validité"
   surface: Float
+
   "Le volume du titre dans son dernier état de validité"
   volume: Float
+
   "L'unité du volume du titre dans son dernier état de validité"
   volumeUnite: String
+
   "Les rapports de travaux"
   travauxRapports: [TitreTravauxRapport]
 }
@@ -48,6 +67,7 @@ type Titre {
 type Reference {
   "Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc."
   type: String
+
   "La référence du titre dans le référentiel"
   valeur: String!
 }
@@ -60,14 +80,19 @@ type Demarche {
   - du type de la démarche
   """
   id: ID!
+
   "Le type de la démarche composé de trois lettres"
   type: DemarcheType!
+
   "L'ordre chronologique de la démarche"
   ordre: Int!
+
   "Le statut de la démarche"
   statut: DemarcheStatut!
+
   "La phase, si la démarche donne lieu à une phase"
   phase: Phase
+
   "Les étapes effectuées sur la démarche"
   etapes: [Etape]
 }
@@ -76,8 +101,10 @@ type Demarche {
 type Phase {
   "Le statut d'une phase"
   statut: PhaseStatut!
+
   "La date de début d'une phase"
   dateDebut: Date
+
   "La date de fin d'une phase"
   dateFin: Date
 }
@@ -90,50 +117,73 @@ type Etape {
   - du type de l'étape
   """
   id: ID!
+
   "Le type de l'étape"
   type: EtapeType!
+
   "Le statut de l'étape"
   statut: EtapeStatut!
+
   "L'ordre chronologique de l'étape"
   ordre: Int!
+
   "La date de l'étape"
   date: Date!
+
   "La durée de la démarche"
   duree: Int
+
   "La date de début de la démarche"
   dateDebut: Date
+
   "La date de fin de la démarche"
   dateFin: Date
+
   "La surface en Km² du titre"
   surface: Float
+
   "Le volume du titre"
   volume: Float
+
   "L'unité de volume du titre"
   volumeUnite: String
+
   "Les visas de l'étape"
   visas: [String]
+
   "Le montant de l'engagement financier du titulaire"
   engagement: Float
+
   "La devise de l'engagement financier du titulaire"
   engagementDevise: String
+
   "L'emprise géographique du titre"
   emprises: [Emprise]
+
   "Les substances concernées par le titre"
   substances: [TitreSubstance]
+
   "Les coordonnées des points du périmètre géographique du titre"
   points: [Point]
+
   "Le geojson du contour du périmètre géographique du titre"
   geojsonMultiPolygon: GeojsonMultiPolygon
+
   "Le geojson de la liste de points du périmètre géographique du titre"
   geojsonPoints: GeojsonPoints
+
   "Les titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
+
   "Les amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
+
   "Les administrations en charge du titre"
   administrations: [Administration]
+
   "Les documents relatifs à l'étape"
   documents: [Document]
+
   sourceIndisponible: Boolean
 }
 
@@ -145,18 +195,25 @@ type Document {
   - du type du document
   """
   id: ID!
+
   "Le nom du document"
   nom: String!
+
   "Le type de document (arrêté, décret, etc.)"
   type: String
+
   "L'url du document"
   url: String
+
   "L'uri du document"
   uri: String
+
   "Le type de fichier"
   fichier: String
+
   "La référence au Journal Officiel"
   jorf: String
+
   "La référence Nor"
   nor: String
 }
@@ -171,20 +228,28 @@ type Point {
   - du point (lettre 'p' suivie de 3 chiffres)
   """
   id: ID!
+
   "Les coordonnées du point dans le système WGS 84"
   coordonnees: Coordonnees
+
   "Le groupe de contours auquel appartient le point composé d'un nombre entier commençant à 1"
   groupe: Int
+
   "Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre."
   contour: Int
+
   "Le numéro du point dans le contour"
   point: Int
+
   "Le nom du point tel que stipulé dans les documents officiels"
   nom: String
+
   "La description du point telle que stipulée dans les documents officiels"
   description: String
+
   "Si le point appartient à un périmètre de sécurité"
   securite: Boolean
+
   "Liste d'id de référence de points"
   references: [PointReference]
 }
@@ -197,8 +262,10 @@ type PointReference {
   - du système
   """
   id: ID!
+
   "Le code du système de référence géodésique"
   systeme: String
+
   "Les coordonnées du point dans le système géodésique"
   coordonnees: Coordonnees
 }
@@ -207,6 +274,7 @@ type PointReference {
 type Coordonnees {
   "La valeur des coordonnées en X sous forme d'un nombre décimal"
   x: Float
+
   "La valeur des coordonnées en Y sous forme d'un nombre décimal"
   y: Float
 }
@@ -220,9 +288,13 @@ input InputTitre {
   - de l'année d'octroi
   """
   id: ID!
+
   nom: String!
+
   type: InputType!
+
   domaine: InputDomaine!
+
   references: [InputReference]
 }
 
@@ -232,58 +304,96 @@ input InputReference {
 
 input InputEtape {
   id: ID!
+
   type: InputEtapeTypeId!
+
   statut: InputEtapeStatutId!
+
   ordre: Int!
+
   date: Date!
+
   duree: Int
+
   dateDebut: Date
+
   dateFin: Date
+
   surface: Float
+
   volume: Float
+
   volumeUnite: String
+
   visas: [String]
+
   engagement: Float
+
   engagementDevise: String
+
   emprises: [InputEmpriseId]
+
   substances: [InputEtapeSubstanceId]
+
   points: [InputPoint]
+
   titulaires: [InputEntreprise]
+
   amodiataires: [InputEntreprise]
+
   administrations: [InputAdministration]
+
   sourceIndisponible: Boolean
 }
 
 input InputPoint {
   id: ID!
+
   coordonnees: InputCoordonnees
+
   groupe: Int
+
   contour: Int
+
   point: Int
+
   nom: String
+
   description: String
+
   securite: Boolean
+
   references: [InputPointReference]
 }
 
 input InputPointReference {
   id: ID!
+
   systeme: String
+
   coordonnees: InputCoordonnees
 }
 
 input InputCoordonnees {
   x: Float
+
   y: Float
 }
 
 input InputDocument {
   id: ID!
+
   nom: String!
+
   type: String
+
   url: String
+
   uri: String
+
   fichier: String
+
   jorf: String
+
   nor: String
 }`

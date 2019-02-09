@@ -8,6 +8,7 @@ import Substances from './substances'
 import TitresPoints from './titres-points'
 import Entreprises from './entreprises'
 import Administrations from './administrations'
+import Communes from './communes'
 import TitresTravauxRapports from './titres-travaux-rapports'
 
 export default class Titres extends Model {
@@ -143,6 +144,18 @@ export default class Titres extends Model {
           to: 'titresAdministrations.administrationId'
         },
         to: 'administrations.id'
+      }
+    },
+    communes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: Communes,
+      join: {
+        from: 'titres.communesTitreEtapeId',
+        through: {
+          from: 'titresCommunes.titreEtapeId',
+          to: 'titresCommunes.communeId'
+        },
+        to: 'communes.id'
       }
     },
     travauxRapports: {
