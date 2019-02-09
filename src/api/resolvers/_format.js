@@ -3,6 +3,10 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 
+// optimisation possible pour un expert SQL
+// remplacer le contenu de ce fichier
+// par des requêtes sql (dans /database/queries/titres)
+// qui retournent les données directement formatées
 const titreFormat = t => {
   t.references =
     t.references &&
@@ -14,6 +18,10 @@ const titreFormat = t => {
   if (t.points && t.points.length) {
     t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points)
     t.geojsonPoints = geojsonFeatureCollectionPoints(t.points)
+  }
+
+  if (t.communes && t.communes.length) {
+    t.pays = paysRegionsDepartementsCommunes(t.communes)
   }
 
   t.demarches &&
@@ -38,5 +46,50 @@ const titreFormat = t => {
 
   return t
 }
+
+const paysRegionsDepartementsCommunes = communes =>
+  communes.reduce((pays, commune) => {
+    // "un pay", singulier de "des pays"
+    let pay = pays.find(p => p.id === commune.departement.region.pays.id)
+
+    if (!pay) {
+      pay = {
+        id: commune.departement.region.pays.id,
+        nom: commune.departement.region.pays.nom,
+        regions: []
+      }
+      pays.push(pay)
+    }
+
+    let region = pay.regions.find(r => r.id === commune.departement.region.id)
+
+    if (!region) {
+      region = {
+        id: commune.departement.region.id,
+        nom: commune.departement.region.nom,
+        departements: []
+      }
+      pay.regions.push(region)
+    }
+
+    let departement = region.departements.find(
+      d => d.id === commune.departement.id
+    )
+
+    if (!departement) {
+      departement = {
+        id: commune.departement.id,
+        nom: commune.departement.nom,
+        communes: []
+      }
+      region.departements.push(departement)
+    }
+
+    if (!departement.communes.find(c => c.id === commune.id)) {
+      departement.communes.push({ id: commune.id, nom: commune.nom })
+    }
+
+    return pays
+  }, [])
 
 export { titreFormat }

@@ -15,7 +15,7 @@ export default class Departements extends Model {
   }
 
   static relationMappings = {
-    regions: {
+    region: {
       relation: Model.BelongsToOneRelation,
       modelClass: Regions,
       join: {
