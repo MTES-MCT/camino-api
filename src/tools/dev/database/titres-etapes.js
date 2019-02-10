@@ -6,7 +6,7 @@ import { communesGet } from '../../../database/queries/communes'
 import titreEtapeCommunesUpdate from '../../../tasks/etape-update/titre-etape-communes-update'
 
 async function main() {
-  const titreEtapeId = 'h-cxx-saint-marcet-1943-oct01-dpu01'
+  const titreEtapeId = 'h-prh-tarbes-val-d-adour-2008-pr101-dpu01'
 
   const titreEtape = await titreEtapeGet(titreEtapeId)
 
@@ -18,7 +18,7 @@ async function main() {
 
   console.log(titresEtapesCommunes)
 
-  // process.exit()
+  process.exit()
 }
 
 main()

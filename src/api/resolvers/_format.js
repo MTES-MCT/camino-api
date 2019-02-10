@@ -47,8 +47,8 @@ const titreFormat = t => {
   return t
 }
 
-const paysRegionsDepartementsCommunes = communes =>
-  communes.reduce((pays, commune) => {
+const paysRegionsDepartementsCommunes = communes => {
+  const pays = communes.reduce((pays, commune) => {
     // "un pay", singulier de "des pays"
     let pay = pays.find(p => p.id === commune.departement.region.pays.id)
 
@@ -91,5 +91,20 @@ const paysRegionsDepartementsCommunes = communes =>
 
     return pays
   }, [])
+
+  // trie par ordre alphabétique
+  pays.sort((a, b) => a.nom > b.nom)
+  pays.forEach(p => {
+    p.regions.sort((a, b) => (a.nom > b.nom ? 1 : -1))
+    p.regions.forEach(r => {
+      r.departements.sort((a, b) => (a.nom > b.nom ? 1 : -1))
+      r.departements.forEach(d => {
+        d.communes.sort((a, b) => (a.nom > b.nom ? 1 : -1))
+      })
+    })
+  })
+
+  return pays
+}
 
 export { titreFormat }
