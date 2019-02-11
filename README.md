@@ -49,6 +49,9 @@ npm run migrate
 
 # met à jour les données
 npm run daily
+
+# Compile l'application avec typescript
+npm run build
 ```
 
 ---
