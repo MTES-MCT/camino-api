@@ -1,3 +1,5 @@
+import * as rewind from 'geojson-rewind'
+
 // converti des points
 // [{groupe: 1, contour: 1, point: 1, coordonnees: {x: 1.111111, y: 1.111111}}]
 // en un tableau 'coordinates' de geojson: [[[[1.11111, 1.111111]]]]
@@ -16,13 +18,17 @@ const geojsonMultiPolygonCoordinates = points =>
 // converti des points
 // en un geojson de type 'MultiPolygon'
 
-const geojsonFeatureMultiPolygon = points => ({
-  type: 'Feature',
-  geometry: {
-    type: 'MultiPolygon',
-    coordinates: geojsonMultiPolygonCoordinates(points)
-  }
-})
+const geojsonFeatureMultiPolygon = points =>
+  rewind(
+    {
+      type: 'Feature',
+      geometry: {
+        type: 'MultiPolygon',
+        coordinates: geojsonMultiPolygonCoordinates(points)
+      }
+    },
+    true
+  )
 
 // converti des points
 // en un geojson de type 'FeatureCollection' de 'Point'
