@@ -72,7 +72,6 @@ const run = async () => {
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
   // logs
-  console.log('process.env.GEO_API_URL', process.env.GEO_API_URL)
   console.log(titresEtapesOrdre)
   console.log(titresDemarchesStatutId)
   console.log(titresDemarchesOrdre)

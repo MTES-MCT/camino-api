@@ -3,7 +3,7 @@ import api from '../api-communes'
 
 const geojson = {
   type: 'Feature',
-  properties: {},
+  properties: { id: 'test' },
   geometry: {
     type: 'MultiPolygon',
     coordinates: [

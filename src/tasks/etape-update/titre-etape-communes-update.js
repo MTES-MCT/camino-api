@@ -13,11 +13,9 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
 
   const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
-  const geojsonCommunes = await geojsonCommunesGet(geojson).catch(err => {
-    console.log(titreEtape.id, err)
-  })
+  const geojsonCommunes = await geojsonCommunesGet(geojson)
 
-  if (!geojsonCommunes.length) {
+  if (!geojsonCommunes || !geojsonCommunes.length) {
     return
   }
 
