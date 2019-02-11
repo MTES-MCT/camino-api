@@ -8,9 +8,18 @@ const communesGeojsonGet = geojson =>
     },
     body: JSON.stringify(geojson)
   })
-    .then(response => response.json())
-    .catch(err => {
-      console.log('communesGeojsonGet error: ', err)
+    .then(async response => {
+      const result = await response.json()
+
+      if (response.status > 400) {
+        throw result
+      }
+
+      return result
+    })
+    .catch(({ error }) => {
+      const id = geojson.properties ? `(${geojson.properties.id}) ` : ''
+      console.error(`communesGeojsonGet ${id}error: `, error)
       return []
     })
 
