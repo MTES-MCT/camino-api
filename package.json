@@ -32,7 +32,8 @@
     "test": "jest --verbose",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser",
-    "doc": "rm -rf docs && npx esdoc"
+    "doc": "rm -rf docs && npx esdoc",
+    "user-add": "ts-node ./src/tools/dev/database/utilisateur-admin-add.js"
   },
   "dependencies": {
     "@sentry/node": "^4.5.3",
