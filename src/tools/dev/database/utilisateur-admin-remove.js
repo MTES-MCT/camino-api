@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import '../../database/index'
+import '../../../database/index'
 
-import { utilisateurRemove } from '../database/queries/utilisateurs'
+import { utilisateurRemove } from '../../../database/queries/utilisateurs'
 
-const id = process.env.ADMIN_ID
+const id = 'admin'
 
 const run = async () => {
   const utilisateur = await utilisateurRemove(id)
