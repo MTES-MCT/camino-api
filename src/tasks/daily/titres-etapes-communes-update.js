@@ -90,7 +90,7 @@ const titresEtapesCommunesGet = async titresEtapes => {
 
     const communesGeojson = await communesGeojsonGet(geojson)
 
-    if (!communesGeojson.length) continue
+    if (!communesGeojson || !communesGeojson.length) continue
 
     titresEtapesCommunes[titreEtape.id] = communesGeojson.map(geojson => ({
       id: geojson.properties.code,

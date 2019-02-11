@@ -1,4 +1,5 @@
 import * as fetch from 'node-fetch'
+import chalk from 'chalk'
 
 const communesGeojsonGet = geojson =>
   fetch(process.env.GEO_API_URL, {
@@ -18,9 +19,15 @@ const communesGeojsonGet = geojson =>
       return result
     })
     .catch(({ error }) => {
-      const id = geojson.properties ? `(${geojson.properties.id}) ` : ''
-      console.error(`communesGeojsonGet ${id}error: `, error)
-      return []
+      console.error('')
+      console.error(chalk.bgRed.black.bold(' erreur '))
+      console.error(
+        chalk.red.bold(
+          `communesGeojsonGet ${JSON.stringify(geojson.properties)}:`,
+          error
+        )
+      )
+      console.error('')
     })
 
 export default communesGeojsonGet
