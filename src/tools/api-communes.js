@@ -7,12 +7,11 @@ const communesGeojsonGet = geojson =>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(geojson)
-  }).then(
-    response => response.json(),
-    err => {
+  })
+    .then(response => response.json())
+    .catch(err => {
       console.log('communesGeojsonGet error: ', err)
       return []
-    }
-  )
+    })
 
 export default communesGeojsonGet
