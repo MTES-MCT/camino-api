@@ -86,6 +86,7 @@ const titresEtapesCommunesGet = async titresEtapes => {
     if (!titreEtape.points.length) continue
 
     const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+    geojson.properties = { id: titreEtape.id }
 
     const communesGeojson = await communesGeojsonGet(geojson)
 
