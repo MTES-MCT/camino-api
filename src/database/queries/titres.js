@@ -134,65 +134,20 @@ const titresGet = async ({
 
     const fieldsExact = ['communes:departement.id', 'communes.id']
 
-    q.where(builder => {
-      builder
-        .where(b => {
-          territoires.forEach(s => {
-            fieldsLike.forEach(f => {
-              b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
-            })
-          })
+    q.where(b => {
+      territoires.forEach(t => {
+        fieldsLike.forEach(f => {
+          b.orWhereRaw(`lower(??) like ?`, [f, `%${t.toLowerCase()}%`])
         })
-        .groupBy('titres.id')
-        .havingRaw(
-          `(${territoires
-            .map(_ =>
-              fieldsLike
-                .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
-                .join(' or ')
-            )
-            .join(') and (')})`,
-          territoires.reduce(
-            (res, s) => [
-              ...res,
-              ...fieldsLike.reduce(
-                (r, f) => [...r, f, `%${s.toLowerCase()}%`],
-                []
-              )
-            ],
-            []
-          )
-        )
 
-      builder
-        .orWhere(b => {
-          territoires.forEach(t => {
-            fieldsExact.forEach(f => {
-              b.orWhereRaw(`?? = ?`, [f, t])
-            })
-          })
+        fieldsExact.forEach(f => {
+          b.orWhereRaw(`?? = ?`, [f, t])
         })
-        .groupBy('titres.id')
-        .havingRaw(
-          `(${territoires
-            .map(_ =>
-              fieldsExact
-                .map(_ => `count(*) filter (where ?? = ?) > 0`)
-                .join(' or ')
-            )
-            .join(') and (')})`,
-          territoires.reduce(
-            (res, t) => [
-              ...res,
-              ...fieldsExact.reduce((r, f) => [...r, f, t], [])
-            ],
-            []
-          )
-        )
+      })
     }).joinRelation('communes.departement.region')
   }
 
-  // console.log(q.toSql())
+  console.log(q.toSql())
   return q
 }
 
