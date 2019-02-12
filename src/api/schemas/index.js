@@ -32,6 +32,7 @@ type Query {
     noms: [String]
     entreprises: [String]
     references: [String]
+    territoires: [String]
   ): [Titre]
 
   "__*__ Retourne un utilisateur en fonction de son id"
