@@ -17,5 +17,6 @@
   "substances": null,
   "noms": null,
   "entreprises": null,
-  "references": null
+  "references": null,
+  "territoires": ["77"]
 }

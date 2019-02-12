@@ -13,7 +13,8 @@ const titresGet = async ({
   substances,
   noms,
   entreprises,
-  references
+  references,
+  territoires
 }) => {
   const q = Titres.query()
     .skipUndefined()
@@ -32,93 +33,27 @@ const titresGet = async ({
   }
 
   if (noms) {
-    q.where(builder => {
-      builder
-        .whereRaw(`?? ~* ?`, [
-          'titres.nom',
-          noms.map(n => `(?=.*?(${n}))`).join('')
-        ])
-        .orWhereRaw(`?? ~* ?`, [
-          'titres.id',
-          noms.map(n => `(?=.*?(${n}))`).join('')
-        ])
+    q.where(b => {
+      b.whereRaw(`?? ~* ?`, [
+        'titres.nom',
+        noms.map(n => `(?=.*?(${n}))`).join('')
+      ]).orWhereRaw(`?? ~* ?`, [
+        'titres.id',
+        noms.map(n => `(?=.*?(${n}))`).join('')
+      ])
     })
   }
 
   if (references) {
-    q.where(builder => {
+    q.where(b => {
       references.forEach(ref => {
-        builder.orWhereRaw(`lower(??::text) like ?`, [
+        b.orWhereRaw(`lower(??::text) like ?`, [
           'titres.references',
           `%${ref.toLowerCase()}%`
         ])
       })
     })
-    // .groupBy('titres.id')
-    // .havingRaw(
-    //   `(${references
-    //     .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
-    //     .join(') and (')})`,
-    //   references.reduce(
-    //     (res, ref) => [...res, `%${ref.toLowerCase()}%`],
-    //     []
-    //   )
-    // )
   }
-
-  // if (substances) {
-  //   q.where(builder => {
-  //     builder
-  //       .whereRaw(`?? ~* ?`, ['substances.nom', substances.join('|')])
-  //       .orWhereRaw(`?? ~* ?`, ['substances.id', substances.join('|')])
-  //       .orWhereRaw(`?? ~* ?`, [
-  //         'substances:legales.nom',
-  //         substances.join('|')
-  //       ])
-  //       .orWhereRaw(`?? ~* ?`, [
-  //         'substances:legales.id',
-  //         substances.join('|')
-  //       ])
-  //   }).joinRelation('substances.legales')
-  // }
-
-  // if (substances) {
-  //   q.where(builder => {
-  //     builder.whereIn(
-  //       'substances.nom',
-  //       substances.map(s => `%${s.toLowerCase()}%`)
-  //     )
-  //     // .orWhereIn('substances.id', substances)
-  //     // .orWhereIn('substances:legales.nom', substances)
-  //     // .orWhereIn('substances:legales.id', substances)
-  //   }).joinRelation('substances')
-  // }
-
-  // if (substances) {
-  //   q.joinRelation('substances')
-
-  //   q.where('titre.id', 'in', builder => {
-  //     substances.forEach((s, i) => {
-  //       builder.where('substances.nom', 'like', `%${s.toLowerCase()}%`)
-  //       // .orWhereIn('substances.id', substances)
-  //       // .orWhereIn('substances:legales.nom', substances)
-  //       // .orWhereIn('substances:legales.id', substances)
-  //     })
-  //   })
-  // }
-
-  // if (substances) {
-  //   q.where(builder => {
-  //     builder.whereRaw(
-  //       `lower(??) like all(array[${substances.map(() => '?').join(',')}])`,
-  //       ['substances.nom', ...substances.map(s => `%${s.toLowerCase()}%`)]
-  //     )
-  //     // .whereIn('substances.nom', substances)
-  //     // .orWhereIn('substances.id', substances)
-  //     // .orWhereIn('substances:legales.nom', substances)
-  //     // .orWhereIn('substances:legales.id', substances)
-  //   }).joinRelation('substances')
-  // }
 
   if (substances) {
     const fields = [
@@ -128,10 +63,10 @@ const titresGet = async ({
       'substances:legales.id'
     ]
 
-    q.where(builder => {
+    q.where(b => {
       substances.forEach(s => {
         fields.forEach(f => {
-          builder.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
         })
       })
     })
@@ -163,10 +98,10 @@ const titresGet = async ({
       // 'amodiataires.id'
     ]
 
-    q.where(builder => {
+    q.where(b => {
       entreprises.forEach(s => {
         fields.forEach(f => {
-          builder.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
         })
       })
     })
@@ -188,6 +123,73 @@ const titresGet = async ({
         )
       )
       .joinRelation('titulaires')
+  }
+
+  if (territoires) {
+    const fieldsLike = [
+      'communes:departement:region.nom',
+      'communes:departement.nom',
+      'communes.nom'
+    ]
+
+    const fieldsExact = ['communes:departement.id', 'communes.id']
+
+    q.where(builder => {
+      builder
+        .where(b => {
+          territoires.forEach(s => {
+            fieldsLike.forEach(f => {
+              b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+            })
+          })
+        })
+        .groupBy('titres.id')
+        .havingRaw(
+          `(${territoires
+            .map(_ =>
+              fieldsLike
+                .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+                .join(' or ')
+            )
+            .join(') and (')})`,
+          territoires.reduce(
+            (res, s) => [
+              ...res,
+              ...fieldsLike.reduce(
+                (r, f) => [...r, f, `%${s.toLowerCase()}%`],
+                []
+              )
+            ],
+            []
+          )
+        )
+
+      builder
+        .orWhere(b => {
+          territoires.forEach(t => {
+            fieldsExact.forEach(f => {
+              b.orWhereRaw(`?? = ?`, [f, t])
+            })
+          })
+        })
+        .groupBy('titres.id')
+        .havingRaw(
+          `(${territoires
+            .map(_ =>
+              fieldsExact
+                .map(_ => `count(*) filter (where ?? = ?) > 0`)
+                .join(' or ')
+            )
+            .join(') and (')})`,
+          territoires.reduce(
+            (res, t) => [
+              ...res,
+              ...fieldsExact.reduce((r, f) => [...r, f, t], [])
+            ],
+            []
+          )
+        )
+    }).joinRelation('communes.departement.region')
   }
 
   // console.log(q.toSql())

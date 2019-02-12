@@ -42,7 +42,16 @@ const titre = async ({ id }, context, info) => {
 }
 
 const titres = async (
-  { typeIds, domaineIds, statutIds, substances, noms, entreprises, references },
+  {
+    typeIds,
+    domaineIds,
+    statutIds,
+    substances,
+    noms,
+    entreprises,
+    references,
+    territoires
+  },
   context,
   info
 ) => {
@@ -73,7 +82,8 @@ const titres = async (
       substances,
       noms,
       entreprises,
-      references
+      references,
+      territoires
     }
   ) => {
     const utilisateur = await utilisateurGet(userId)
@@ -94,7 +104,8 @@ const titres = async (
           substances,
           noms,
           entreprises,
-          references
+          references,
+          territoires
         }))
 
       const userEntrepriseTitres = await titresGet({
@@ -104,7 +115,8 @@ const titres = async (
         substances,
         noms,
         entreprises: [entrepriseId],
-        references
+        references,
+        territoires
       })
 
       return entreprises
@@ -124,7 +136,8 @@ const titres = async (
           substances,
           noms,
           entreprises,
-          references
+          references,
+          territoires
         })
       : []
 
@@ -141,7 +154,8 @@ const titres = async (
     substances,
     noms,
     entreprises,
-    references
+    references,
+    territoires
   })
 
   const titresList = dupRemove('id', titres, userEntrepriseTitres)
