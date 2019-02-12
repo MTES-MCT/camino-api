@@ -2,7 +2,7 @@ import 'dotenv/config'
 import * as PQueue from 'p-queue'
 import spreadsheetToJson from './_utils/_spreadsheet-to-json'
 import filePathCreate from './_utils/file-path-create'
-import fileCreate from './_utils/file-create.js'
+import fileCreate from '../file-create'
 
 import spreadsheets from './spreadsheets'
 
