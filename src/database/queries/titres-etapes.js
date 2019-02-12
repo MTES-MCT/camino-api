@@ -31,6 +31,9 @@ const titreEtapeUpsert = async etape =>
     .upsertGraph(etape, options.etapes.update)
     .eager(options.etapes.eager)
 
+const titresEtapesCommunesGet = async () =>
+  TitresCommunes.query()
+
 const titreEtapeCommuneInsert = async ({ titreEtapeId, communeId }) =>
   TitresCommunes.query().insert({ titreEtapeId, communeId })
 
@@ -43,5 +46,6 @@ export {
   titreEtapeUpdate,
   titreEtapeUpsert,
   titreEtapeCommuneInsert,
-  titreEtapeCommuneDelete
+  titreEtapeCommuneDelete,
+  titresEtapesCommunesGet
 }
