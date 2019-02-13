@@ -75,7 +75,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
     }
 
     const titreEtapesDescSorted =
-      titreDemarche.etapes || titreEtapesDescSort(titreDemarche)
+      titreDemarche.etapes && titreEtapesDescSort(titreDemarche.etapes)
 
     // chercher dans les dpu s'il y a une date de debut
     const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
@@ -88,7 +88,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 
     // sinon, la date de fin est calculée
     // en ajoutant la durée cumulée à la date de la première dpu ou ens
-    const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche).find(
+    const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
       titreEtape => titreEtape.typeId === 'dpu'
     )
 
@@ -98,7 +98,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 
     // si on ne trouve pas de dpu, la date de fin est calculée
     // en ajoutant la date de la première dex
-    const titreEtapeDexFirst = titreEtapesAscSort(titreDemarche).find(
+    const titreEtapeDexFirst = titreEtapesAscSort(titreDemarche.etapes).find(
       titreEtape => titreEtape.typeId === 'dex'
     )
 
@@ -121,7 +121,7 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 const titreDemarcheAnnulationDateFinFind = titreDemarche => {
   const dateFinFind = () => {
     // la dernière étape dex qui contient une date de fin
-    const etapeDexHasDateFin = titreEtapesDescSort(titreDemarche)
+    const etapeDexHasDateFin = titreEtapesDescSort(titreDemarche.etapes)
       .filter(te => te.typeId === 'dex')
       .find(te => te.dateFin)
 
@@ -132,7 +132,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 
     // sinon,
     // trouve la première étape de décision expresse (dex)
-    const etapeDex = titreEtapesAscSort(titreDemarche).find(
+    const etapeDex = titreEtapesAscSort(titreDemarche.etapes).find(
       te => te.typeId === 'dex'
     )
 
@@ -153,7 +153,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 // - dateFin: la date de fin de la démarche si définie, sinon null
 // - duree: la durée cumulée
 const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) => {
-  titreEtapes = titreEtapesDescSort({ etapes: titreEtapes })
+  titreEtapes = titreEtapesDescSort(titreEtapes)
 
   const titreEtapeHasDateFinOrDuree = titreEtapes
     // filtre les étapes dont le type est décision express (dex)

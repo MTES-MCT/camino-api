@@ -2,7 +2,7 @@ import titreEtapesDescSort from './titre-etapes-desc-sort'
 
 const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // l'étape la plus récente
-  const titreEtapeRecent = titreEtapesDescSort(titreDemarche)[0]
+  const titreEtapeRecent = titreEtapesDescSort(titreDemarche.etapes)[0]
 
   //  1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
