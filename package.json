@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "dev": "nodemon --watch 'src/**' --exec 'ts-node' src/index.js",
+    "dev": "nodemon --watch 'src/**' --exec 'ts-node' src/index.ts",
     "import": "mkdir -p sources && node ./dist/tools/import/index.js",
     "export": "node ./dist/tools/export/index.js",
     "export:users": "node ./dist/tools/export/utilisateurs.js",
