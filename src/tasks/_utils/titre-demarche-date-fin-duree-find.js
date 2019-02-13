@@ -69,7 +69,9 @@ const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
 
   const dateFinUpdatedFind = () => {
     // si il n'y a ni date de fin, ni de durée cumulée,
-    // la date de fin par défaut est fixée au 31 décembre 2018
+    // la date de fin par défaut est fixée au 31 décembre 2018,
+    // selon l'article L144-4 du code minier :
+    // https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504741
     if (duree === 0) {
       return '2018-12-31'
     }
