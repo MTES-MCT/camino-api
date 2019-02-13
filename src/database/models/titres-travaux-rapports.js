@@ -9,6 +9,7 @@ export default class TitresTravauxRapports extends Model {
     properties: {
       id: { type: 'string' },
       titreId: { type: 'string' },
+      utilisateurId: { type: 'string' },
       date: { type: 'date' },
       confirmation: { type: 'boolean' },
       contenu: { type: 'json' }
