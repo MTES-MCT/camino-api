@@ -35,4 +35,4 @@ const titresPhasesUpdate = async titre => {
   return `Mise à jour: ${titresPhasesUpdated.length} phases de titres.`
 }
 
-module.exports = titresPhasesUpdate
+export default titresPhasesUpdate

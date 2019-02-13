@@ -12,4 +12,4 @@ const titresDemarchesOrdreUpdate = async titresDemarchesByTitre => {
   } ordres de démarches.`
 }
 
-module.exports = titresDemarchesOrdreUpdate
+export default titresDemarchesOrdreUpdate

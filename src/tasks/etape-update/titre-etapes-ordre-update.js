@@ -8,4 +8,4 @@ const titresEtapesOrdreUpdate = async titreDemarche => {
   return `Mise à jour: ${titresEtapesUpdated.length} ordres d'étapes.`
 }
 
-module.exports = titresEtapesOrdreUpdate
+export default titresEtapesOrdreUpdate
