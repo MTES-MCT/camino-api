@@ -17,4 +17,4 @@ const titresDemarchesUpdate = async (titreDemarche, titreTypeId) => {
   return `Mise à jour: ${titreDemarcheUpdated ? '1' : '0'} statut de démarches.`
 }
 
-module.exports = titresDemarchesUpdate
+export default titresDemarchesUpdate

@@ -12,4 +12,4 @@ const titresPropsEtapeIdsUpdate = async titre => {
   return `Mise à jour: ${titrePropsUpdateRequests.length} propriétés de titres.`
 }
 
-module.exports = titresPropsEtapeIdsUpdate
+export default titresPropsEtapeIdsUpdate

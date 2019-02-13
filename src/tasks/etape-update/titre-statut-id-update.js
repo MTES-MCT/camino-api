@@ -13,4 +13,4 @@ const titreStatutUpdate = async titre => {
   return `Mise à jour: ${titreUpdated ? '1' : '0'} statuts de titres.`
 }
 
-module.exports = titreStatutUpdate
+export default titreStatutUpdate
