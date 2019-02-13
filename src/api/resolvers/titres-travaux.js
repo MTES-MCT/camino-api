@@ -15,7 +15,7 @@ import { titreGet } from '../../database/queries/titres'
 import permissionsCheck from './_permissions-check'
 
 import { titreTravauxRapportRowUpdate } from '../../tools/export/titre-travaux-rapport'
-import emailsBatch from '../../tools/mailer/batch'
+import emailsSend from '../../tools/emails-send'
 
 const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
   const errors = []
@@ -77,7 +77,7 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
       } trimestre ${rapport.contenu.annee}`
       const html = emailFormat(titre, user, rapport)
 
-      await emailsBatch(emails, subject, html)
+      await emailsSend(emails, subject, html)
     }
 
     return titreTravauxRapportUpdate({
