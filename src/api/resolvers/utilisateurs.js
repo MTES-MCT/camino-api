@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import * as emailRegex from 'email-regex'
 import * as cryptoRandomString from 'crypto-random-string'
-import mailer from '../../tools/mailer/index'
+import emailsSend from '../../tools/emails-send'
 
 import {
   utilisateurGet,
@@ -246,7 +246,7 @@ const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
 
     try {
-      mailer(email, subject, html)
+      emailsSend(email, subject, html)
     } catch (e) {
       return "erreur lors de l'envoi d'email"
     }
@@ -394,7 +394,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
     const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
     try {
-      mailer(email, subject, html)
+      emailsSend(email, subject, html)
     } catch (e) {
       return "erreur lors de l'envoi d'email"
     }
