@@ -4,7 +4,7 @@ import titreDateFinFind from './titre-date-fin-find'
 const titreStatutIdFind = titre => {
   const today = dateFormat(new Date(), 'yyyy-mm-dd')
 
-  // si il y a une seule démarche (octroi)
+  // s'il y a une seule démarche (octroi)
   if (
     titre.demarches.length === 1 &&
     titre.demarches[0].typeId === 'oct' &&
