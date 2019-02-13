@@ -7,10 +7,10 @@ const titreDemarchesAscSort = titreDemarches =>
     // if (titreEtapesAscSort(a.etapes)[0].date - titreEtapesAscSort(b.etapes)[0].date === 0) {
     //   console.log(a.id, b.id)
     // }
-    return (
-      titreEtapesAscSort(a.etapes)[0].date -
-      titreEtapesAscSort(b.etapes)[0].date
-    )
+
+    const dateA = titreEtapesAscSort(a.etapes)[0].date
+    const dateB = titreEtapesAscSort(b.etapes)[0].date
+    return dateA < dateB ? -1 : dateA > dateB ? 1 : 0
   })
 
 export default titreDemarchesAscSort
