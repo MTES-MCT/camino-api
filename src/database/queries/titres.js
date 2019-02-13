@@ -147,7 +147,7 @@ const titresGet = async ({
     }).joinRelation('communes.departement.region')
   }
 
-  console.log(q.toSql())
+  // console.log(q.toSql())
   return q
 }
 
