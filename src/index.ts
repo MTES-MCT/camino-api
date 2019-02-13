@@ -41,6 +41,11 @@ app.use(cors({ credentials: true }))
 
 app.use(compression())
 
+// problème de typage de express-jwt: https://github.com/auth0/express-jwt/issues/215
+interface AuthRequest extends express.Request {
+  user?: string
+}
+
 app.use(
   expressJwt({
     credentialsRequired: false,
@@ -55,7 +60,7 @@ app.use(
 
 app.use(
   '/',
-  expressGraphql((req, res, graphQLParams) => ({
+  expressGraphql((req: AuthRequest, res, graphQLParams) => ({
     schema,
     rootValue,
     graphiql: true,
