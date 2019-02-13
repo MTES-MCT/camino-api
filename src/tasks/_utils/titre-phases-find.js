@@ -58,7 +58,7 @@ const titrePhaseDateDebutFind = (
   const phasePrevious = titrePhases[index - 1]
 
   // retourne une étape de dpu si celle-ci possède une date de début
-  const etapeDpuHasDateDebut = titreEtapesDescSort(titreDemarche)
+  const etapeDpuHasDateDebut = titreEtapesDescSort(titreDemarche.etapes)
     .filter(
       titreEtape =>
         titreEtape.typeId === 'dpu' ||
@@ -82,7 +82,7 @@ const titrePhaseDateDebutFind = (
   }
 
   // sinon, la date de début est égale à la date de la première étape de dpu
-  const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche).find(
+  const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' ||
       (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
