@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer'
 import * as nodemailerHtmlToText from 'nodemailer-html-to-text'
+import * as emailRegex from 'email-regex'
 // const smtpTransport from 'nodemailer-smtp-transport')
 
 // const smtpTransportConfig = smtpTransport({
@@ -24,7 +25,7 @@ const transport = nodemailer.createTransport(smtpTransportConfig)
 transport.use('compile', nodemailerHtmlToText.htmlToText())
 
 const mailer = async (to, subject, html) => {
-  const mail = { from, to, subject, html }
+  const email = { from, to, subject, html }
 
   // si on est pas sur le serveur de prod
   // l'adresse email du destinataire est remplacée
@@ -34,19 +35,39 @@ const mailer = async (to, subject, html) => {
     process.env.ENV !== 'prod' ||
     !process.env.ENV
   ) {
-    mail.subject = `
-${mail.subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
-dest: ${mail.to}`
-    mail.to = process.env.ADMIN_EMAIL
+    email.subject = `
+${email.subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
+dest: ${email.to}`
+    email.to = process.env.ADMIN_EMAIL
   }
 
   try {
-    const res = await transport.sendMail(mail)
-    console.log(`Message sent: ${mail.to}, ${mail.subject}, ${res.response}`)
-    transport.close()
+    if (emailRegex({ exact: true }).test(email.to)) {
+      const res = await transport.sendMail(email)
+      console.log(
+        `Message sent: ${email.to}, ${email.subject}, ${res.response}`
+      )
+      transport.close()
+    } else {
+      throw new Error('adresse email invalide')
+    }
   } catch (e) {
     console.log(e)
   }
 }
 
-export default mailer
+const emailsSend = async (emails, subject, html) => {
+  try {
+    if (Array.isArray(emails)) {
+      emails.forEach(email => {
+        mailer(email, subject, html)
+      })
+    } else {
+      mailer(emails, subject, html)
+    }
+  } catch (e) {
+    console.log("erreur lors de l'envoi de batch email")
+  }
+}
+
+export default emailsSend
