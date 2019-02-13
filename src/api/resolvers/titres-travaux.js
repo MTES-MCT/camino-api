@@ -51,6 +51,7 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
   }
 
   if (!errors.length) {
+    rapport.utilisateurId = context.user.id
     titreTravauxRapportRowUpdate(rapport)
 
     if (rapport.confirmation) {
@@ -70,6 +71,7 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
           ? [process.env.TRAVAUX_RAPPORTS_EMAIL]
           : []
       )
+
       const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
         rapport.contenu.trimestre
       } trimestre ${rapport.contenu.annee}`
