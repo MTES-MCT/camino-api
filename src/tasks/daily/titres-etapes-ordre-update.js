@@ -19,10 +19,11 @@ const titresEtapesOrdreUpdate = async titresEtapes => {
 // retourne les étapes classées par démarche
 const titreEtapesByDemarchesGroup = titresEtapes =>
   titresEtapes.reduce((titreEtapesByDemarches, titreEtape) => {
-    titreEtapesByDemarches[titreEtape.titreDemarcheId] = titreEtapesByDemarches[
-      titreEtape.titreDemarcheId
+    const { titreDemarcheId } = titreEtape
+    titreEtapesByDemarches[titreDemarcheId] = titreEtapesByDemarches[
+      titreDemarcheId
     ]
-      ? [...titreEtapesByDemarches[titreEtape.titreDemarcheId], titreEtape]
+      ? [...titreEtapesByDemarches[titreDemarcheId], titreEtape]
       : [titreEtape]
     return titreEtapesByDemarches
   }, {})
