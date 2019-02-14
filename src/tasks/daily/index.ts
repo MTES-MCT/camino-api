@@ -140,7 +140,7 @@ const run = async () => {
 
     console.log('Tâches quotidiennes executées')
   } catch (e) {
-    console.log('erreur:', e)
+    console.log('Erreur:', e)
   } finally {
     process.exit()
   }

@@ -2,14 +2,15 @@ import jsonToSpreadsheet from './json-to-spreadsheet'
 import credentials from '../credentials'
 
 const dbProcess = async definition => {
-  const content = await definition.fetch
+  const elements = await definition.fetch
+
   await jsonToSpreadsheet(
     definition.spreadsheetId,
     credentials,
     definition.tables,
-    content
+    elements
   )
-  return `Export: ${content.length} ${definition.name}`
+  return `Export: ${elements.length} ${definition.name}`
 }
 
 export default dbProcess

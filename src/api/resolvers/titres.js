@@ -221,8 +221,16 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       // mettre à jour l'id de l'étape et les ids de ses enfants
       const etapeIdUpdated = etapeIdUpdate(etape)
       console.log(etapeIdUpdated)
+
+      // si l'étape est liée depuis la table titres
+      const titreRelatedProps = titreRelatedPropsFind(etape.id)
+      console.log(titreRelatedProps)
+      // supprime les liens depuis la table titres
+
       // supprimer l'ancienne étape et ses enfants
       // ajouter la nouvelle étape et ses enfants
+
+      // recréé les liens depuis la table titres vers la nouvelle etapeId
     }
 
     const res = await titreEtapeUpsert(etape)
@@ -234,6 +242,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   }
 }
 
+//
 const etapeIdUpdate = etape => {
   const props = [
     'substances',
@@ -247,6 +256,18 @@ const etapeIdUpdate = etape => {
   ]
 
   return etape
+}
+
+const titreRelatedPropsFind = titreEtapeId => {
+  const props = [
+    'substances',
+    'points',
+    'titulaires',
+    'amodiataires',
+    'administrations',
+    'communes'
+  ]
+  return []
 }
 
 export {

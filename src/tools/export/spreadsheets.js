@@ -45,7 +45,7 @@ const utilisateursFetch = () =>
 
 const titresTravauxRapportsFetch = () => titresTravauxRapportsGet()
 
-const definitions = [
+const spreadsheets = [
   {
     name: 'utilisateurs',
     spreadsheetId: utilisateursSpreadsheetId,
@@ -108,4 +108,4 @@ const definitions = [
   }
 ]
 
-export default definitions
+export default spreadsheets
