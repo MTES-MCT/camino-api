@@ -39,6 +39,9 @@ Pour que l'application fonctionne, sont requis:
 # installe les dépendances
 npm install
 
+# compile l'application avec typescript
+npm run build
+
 # importe les données au format .json
 # depuis google spreadsheets vers './tools/sources'
 npm run import
@@ -49,9 +52,6 @@ npm run migrate
 
 # met à jour les données
 npm run daily
-
-# Compile l'application avec typescript
-npm run build
 ```
 
 ---
@@ -87,7 +87,7 @@ npm run test
 ├── sources              # `sources de la base de données au format json. Générées avec npm run import.`
 │
 └── src                  # `fichiers sources. Transformés avec npm run build.`
-    ├── index.js         # `point d'entrée`
+    ├── index            # `point d'entrée`
     │
     ├── api              # `API graphql`
     │   ├── resolvers    # `liens entre l'API et la base de données`
@@ -95,8 +95,8 @@ npm run test
     │   └── types        # `types graphQl customs`
     │
     ├── config           #
-    │   ├── index.js     # `variables globales`
-    │   └── knex.js      # `connexion à la base de données`
+    │   ├── index        # `variables globales`
+    │   └── knex         # `connexion à la base de données`
     │
     ├── database         # `base de données PostgresQL`
     │   ├── models       # `modèles de la base de données (knex.js / objection.js)`
@@ -108,10 +108,11 @@ npm run test
     │   └── etape-update # `script effectués lors de la mise à jour d'une étape`
     │
     └── tools            # `outils`
+        ├── dev          # `outils de développement`
         ├── export       # `exportation de la base de données vers des spreadsheets (npm run export)`
         ├── import       # `import de spreadsheets vers des fichiers json dans /sources (npm run import)`
-        ├── mailer       # `utilitaire d'envoi d'email (Nodemailer)`
-        └── utils        #
+        ├── api-communes # `connexion à l'api de detection d'intersections des communes`
+        └── emails-send  # `envoi d'email`
 
 ```
 

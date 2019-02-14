@@ -41,7 +41,8 @@ app.use(cors({ credentials: true }))
 
 app.use(compression())
 
-// problème de typage de express-jwt: https://github.com/auth0/express-jwt/issues/215
+// bug de typage de express-jwt
+// https://github.com/auth0/express-jwt/issues/215
 interface AuthRequest extends express.Request {
   user?: string
 }
@@ -53,6 +54,7 @@ app.use(
   })
 )
 
+// test sentry
 // app.get('/', (req, res) => {
 //   console.log('broke')
 //   throw new Error('Broke!')

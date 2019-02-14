@@ -1,14 +1,14 @@
 import 'dotenv/config'
 import '../../database/index'
 import dbProcess from './_utils/db-process'
-import definitions from './definitions'
+import spreadsheets from './spreadsheets'
 
-const titresTravauxRapportsDefinition = definitions.find(
-  definition => definition.name === 'titres-travaux-rapports'
+const titresTravauxRapportsSpreadsheet = spreadsheets.find(
+  spreadsheet => spreadsheet.name === 'titres-travaux-rapports'
 )
 
 const run = async () => {
-  const res = await dbProcess(titresTravauxRapportsDefinition)
+  const res = await dbProcess(titresTravauxRapportsSpreadsheet)
   console.log(res)
   process.exit()
 }

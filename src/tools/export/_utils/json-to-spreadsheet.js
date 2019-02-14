@@ -17,7 +17,7 @@ const jsonToSpreadsheet = async (
   spreadsheetId,
   credentials,
   tables,
-  content
+  elements
 ) => {
   // instancie le constructeur
   const gss = new GoogleSpreadsheet(spreadsheetId)
@@ -25,7 +25,7 @@ const jsonToSpreadsheet = async (
   // authentification dans google
   await gssUseServiceAccountAuth(gss, credentials)
 
-  // obtiens les infos sur la spreadsheet
+  // obtient les infos sur la spreadsheet
   const infos = await gssGetInfo(gss)
 
   // si l'onglet 'tmp' n'existe pas, le créer
@@ -48,7 +48,7 @@ const jsonToSpreadsheet = async (
   const worksheetsPromises = tables.map(({ name, columns }) => () =>
     worksheetAdd(gss, {
       title: decamelize(name),
-      // id est un mot clé reservé par l'API google
+      // id est un mot clé réservé par l'API google
       // pour contourner cette limitation, on converti id en Id
       // on le convertira à nouveau en id ensuite
       headers: columns.map(h => (h === 'id' ? 'Id' : decamelize(h))),
@@ -77,7 +77,7 @@ const jsonToSpreadsheet = async (
     table.worksheetId = worksheet && worksheet.id
 
     // retourne les rows mis au format
-    table.rows = rowsCreate(content, table.parents).map(row =>
+    table.rows = rowsCreate(elements, table.parents).map(row =>
       rowFormat(row, table.columns, table.callbacks)
     )
   })
