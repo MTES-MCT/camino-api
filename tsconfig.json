@@ -16,7 +16,7 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "target": "ES2017",
-    "types": ["node"]
+    "types": ["node", "geojson", "node-fetch"]
   },
   "include": ["src/**/*"]
 }
