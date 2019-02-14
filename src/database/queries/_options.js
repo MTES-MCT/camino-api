@@ -34,7 +34,7 @@ const etapes = {
     entreprises.eager
   }, administrations.${administrations.eager}, emprises, communes.${
     communes.eager
-  }]`,
+  }, titresSubstances, titresTitulaires, titresAmodiataires, titresAdministrations, titresEmprises]`,
   update: {
     relate: [
       'type',
