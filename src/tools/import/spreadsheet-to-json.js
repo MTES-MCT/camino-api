@@ -1,6 +1,6 @@
 import * as googleSpreadSheetToJson from 'google-spreadsheet-to-json'
-import credentials from '../credentials'
-import fileCreate from '../../file-create'
+import credentials from './credentials'
+import fileCreate from '../file-create'
 
 const spreadsheetToJson = async (filePath, spreadsheetId, worksheet, cb) => {
   try {
