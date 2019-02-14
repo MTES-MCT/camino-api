@@ -10,11 +10,11 @@ import Emprises from './emprises'
 import Communes from './communes'
 import TitresErreurs from './titres-erreurs'
 
-// import TitresSubstances from './titres-substances'
-// import TitresAdministrations from './titres-administrations'
-// import TitresTitulaires from './titres-titulaires'
-// import TitresAmodiataires from './titres-amodiataires'
-// import TitresEmprises from './titres-emprises'
+import TitresSubstances from './titres-substances'
+import TitresAdministrations from './titres-administrations'
+import TitresTitulaires from './titres-titulaires'
+import TitresAmodiataires from './titres-amodiataires'
+import TitresEmprises from './titres-emprises'
 
 export default class TitresEtapes extends Model {
   static tableName = 'titresEtapes'
@@ -166,48 +166,50 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.id',
         to: 'titresErreurs.titreEtapeId'
       }
-    }
+    },
 
-    // titresSubstances: {
-    //   relation: Model.HasManyRelation,
-    //   modelClass: TitresSubstances,
-    //   join: {
-    //     from: 'titresEtapes.id',
-    //     to: 'titresSubstances.titreEtapeId'
-    //   }
-    // },
-    // titresTitulaires: {
-    //   relation: Model.HasManyRelation,
-    //   modelClass: TitresTitulaires,
-    //   join: {
-    //     from: 'titresEtapes.id',
-    //     to: 'titresTitulaires.titreEtapeId'
-    //   }
-    // },
-    // titresAmodiataires: {
-    //   relation: Model.HasManyRelation,
-    //   modelClass: TitresAmodiataires,
-    //   join: {
-    //     from: 'titresEtapes.id',
-    //     to: 'titresAmodiataires.titreEtapeId'
-    //   }
-    // },
-    // titresAdministrations: {
-    //   relation: Model.HasManyRelation,
-    //   modelClass: TitresAdministrations,
-    //   join: {
-    //     from: 'titresEtapes.id',
-    //     to: 'titresAdministrations.titreEtapeId'
-    //   }
-    // },
-    // titresEmprises: {
-    //   relation: Model.HasManyRelation,
-    //   modelClass: TitresEmprises,
-    //   join: {
-    //     from: 'titresEtapes.id',
-    //     to: 'titresEmprises.titreEtapeId'
-    //   }
-    // }
+    // relations pour exporter les tables de jointures
+    // via /tools/exports
+    titresSubstances: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresSubstances,
+      join: {
+        from: 'titresEtapes.id',
+        to: 'titresSubstances.titreEtapeId'
+      }
+    },
+    titresTitulaires: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresTitulaires,
+      join: {
+        from: 'titresEtapes.id',
+        to: 'titresTitulaires.titreEtapeId'
+      }
+    },
+    titresAmodiataires: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresAmodiataires,
+      join: {
+        from: 'titresEtapes.id',
+        to: 'titresAmodiataires.titreEtapeId'
+      }
+    },
+    titresAdministrations: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresAdministrations,
+      join: {
+        from: 'titresEtapes.id',
+        to: 'titresAdministrations.titreEtapeId'
+      }
+    },
+    titresEmprises: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresEmprises,
+      join: {
+        from: 'titresEtapes.id',
+        to: 'titresEmprises.titreEtapeId'
+      }
+    }
   }
 
   static namedFilters = {
