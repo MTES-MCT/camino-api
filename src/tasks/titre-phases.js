@@ -5,7 +5,7 @@ import {
   titrePhaseDelete as queryTitrePhaseDelete
 } from '../database/queries/titres-phases'
 
-const titrePhaseUpdate = (res, titrePhase, titresPhasesOld) => {
+const titrePhaseUpdate = (titrePhase, titresPhasesOld) => {
   const titrePhaseOld = titrePhaseEqualFind(
     titrePhase.titreDemarcheId,
     titresPhasesOld
@@ -29,7 +29,6 @@ const titrePhaseUpdate = (res, titrePhase, titresPhasesOld) => {
     // si la phase existe et est modifiée
     titrePhasePropsChanged
   ) {
-    // console.log(titrePhasePropsChanged)
     titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(u => {
       console.log(
         `Mise à jour: phase ${titrePhase.titreDemarcheId}, ${JSON.stringify(
@@ -41,10 +40,10 @@ const titrePhaseUpdate = (res, titrePhase, titresPhasesOld) => {
     })
   }
 
-  return titrePhaseUpdated ? [...res, titrePhaseUpdated] : res
+  return titrePhaseUpdated ? titrePhaseUpdated : null
 }
 
-const titrePhaseDelete = (res, titrePhaseOld, titresPhases) => {
+const titrePhaseDelete = (titrePhaseOld, titresPhases) => {
   const titrePhase = titrePhaseEqualFind(
     titrePhaseOld.titreDemarcheId,
     titresPhases
@@ -61,7 +60,7 @@ const titrePhaseDelete = (res, titrePhaseOld, titresPhases) => {
       return u
     })
   }
-  return titrePhaseDeleted ? [...res, titrePhaseDeleted] : res
+  return titrePhaseDeleted ? titrePhaseDeleted : null
 }
 
 // retourne une phase parmi les titrePhases en fonction de son id
@@ -81,8 +80,8 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
     return titrePhase[key] === titrePhaseOld[key]
       ? res
       : res
-      ? Object.assign(res, mod)
-      : mod
+        ? Object.assign(res, mod)
+        : mod
   }, null)
 
 export { titrePhaseUpdate, titrePhaseDelete }

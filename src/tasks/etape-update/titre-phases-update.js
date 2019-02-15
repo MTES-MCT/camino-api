@@ -19,14 +19,16 @@ const titresPhasesUpdate = async titre => {
   // - créer les nouvelles phases
   // - modifier les phases existantes
   const titresPhasesUpdated = titresPhases.reduce(
-    (res, titrePhase) => titrePhaseUpdate(res, titrePhase, titresPhasesOld),
+    (res, titrePhase) =>
+      res.concat(titrePhaseUpdate(titrePhase, titresPhasesOld)),
     []
   )
 
   // retourne un tableau de requêtes pour
   // - supprimer les phases qui n'existent plus
   const titrePhasesDeleted = titresPhasesOld.reduce(
-    (res, titrePhaseOld) => titrePhaseDelete(res, titrePhaseOld, titresPhases),
+    (res, titrePhaseOld) =>
+      res.concat(titrePhaseDelete(titrePhaseOld, titresPhases)),
     []
   )
 
