@@ -1,6 +1,11 @@
 # Camino API
 
-[![Build Status](https://travis-ci.org/MTES-MCT/camino-api.svg?branch=master)](https://travis-ci.org/MTES-MCT/camino-api)
+[![Build Status][ci-img]][ci] [![codecov][codecov-img]][codecov]
+
+[ci-img]: https://travis-ci.org/MTES-MCT/camino-api.svg?branch=master
+[ci]: https://travis-ci.org/MTES-MCT/camino-api
+[codecov-img]: https://codecov.io/gh/MTES-MCT/camino-api/branch/master/graph/badge.svg
+[codecov]: https://codecov.io/gh/MTES-MCT/camino-api
 
 > API GraphQL de [Camino](http://camino.beta.gouv.fr/): [api.camino.beta.gouv.fr](https://api.camino.beta.gouv.fr)
 
@@ -68,8 +73,8 @@ npm run dev
 ## Tests
 
 ```bash
-# lance les tests
-npm run test
+# lance les tests en local
+npm run jest
 ```
 
 ---
