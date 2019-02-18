@@ -18,23 +18,28 @@ const titresPhasesUpdate = async titre => {
   // retourne un tableau de requêtes pour
   // - créer les nouvelles phases
   // - modifier les phases existantes
-  const titresPhasesUpdated = titresPhases.reduce(
-    (res, titrePhase) =>
-      res.concat(titrePhaseUpdate(titrePhase, titresPhasesOld)),
-    []
-  )
+  const titresPhasesUpdated = titresPhases.reduce((res, titrePhase) => {
+    const titrePhaseUpdated = titrePhaseUpdate(titrePhase, titresPhasesOld)
+    return !titrePhaseUpdated ? res : [...res, titrePhaseUpdated]
+  }, [])
 
+  console.log({ titresPhasesOld })
   // retourne un tableau de requêtes pour
   // - supprimer les phases qui n'existent plus
-  const titrePhasesDeleted = titresPhasesOld.reduce(
-    (res, titrePhaseOld) =>
-      res.concat(titrePhaseDelete(titrePhaseOld, titresPhases)),
-    []
-  )
+  const titrePhasesDeleted = titresPhasesOld.reduce((res, titrePhaseOld) => {
+    const titrePhaseDeleted = titrePhaseDelete(titrePhaseOld, titresPhases)
+    return !titrePhaseDeleted ? res : [...res, titrePhaseDeleted]
+  }, [])
 
-  await Promise.all([...titresPhasesUpdated, ...titrePhasesDeleted])
+  const titrePhasesQueries = [
+    ...titresPhasesUpdated,
+    ...titrePhasesDeleted
+  ].map(q => q.then(log => console.log(log)))
 
-  return `Mise à jour: ${titresPhasesUpdated.length} phases de titres.`
+  await Promise.all(titrePhasesQueries)
+
+  return `Mise à jour: ${titresPhasesUpdated.length +
+    titrePhasesDeleted.length} phases de titres.`
 }
 
 export default titresPhasesUpdate

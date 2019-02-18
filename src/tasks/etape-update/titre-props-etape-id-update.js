@@ -8,7 +8,10 @@ const titresPropsEtapeIdsUpdate = async titre => {
   }, [])
 
   if (titrePropsUpdateRequests && titrePropsUpdateRequests.length) {
-    await Promise.all(titrePropsUpdateRequests)
+    const titrePropsUpdateQueries = titrePropsUpdateRequests.map(q =>
+      q.then(log => console.log(log))
+    )
+    await Promise.all(titrePropsUpdateQueries)
   }
 
   return `Mise à jour: ${titrePropsUpdateRequests.length} propriétés de titres.`

@@ -5,7 +5,12 @@ const titresDemarchesOrdreUpdate = async titresDemarchesByTitre => {
     titresDemarchesByTitre
   )
 
-  await Promise.all(titreDemarchesOrdreUpdated)
+  if (titreDemarchesOrdreUpdated) {
+    const titreDemarcheOrdreUpdateQueries = titreDemarchesOrdreUpdated.map(q =>
+      q.then(log => console.log(log))
+    )
+    await Promise.all(titreDemarcheOrdreUpdateQueries)
+  }
 
   return `Mise à jour: ${
     titreDemarchesOrdreUpdated.length

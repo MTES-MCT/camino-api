@@ -20,24 +20,19 @@ const titrePhaseUpdate = (titrePhase, titresPhasesOld) => {
     // si la phase n'existe pas
     !titrePhaseOld
   ) {
-    titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(u => {
-      console.log(`Création: phase ${titrePhase.titreDemarcheId}`)
-
-      return u
-    })
+    titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(
+      u => `Création: phase ${titrePhase.titreDemarcheId}`
+    )
   } else if (
     // si la phase existe et est modifiée
     titrePhasePropsChanged
   ) {
-    titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(u => {
-      console.log(
+    titrePhaseUpdated = queryTitrePhaseUpdate({ titrePhase }).then(
+      u =>
         `Mise à jour: phase ${titrePhase.titreDemarcheId}, ${JSON.stringify(
           titrePhasePropsChanged
         )}`
-      )
-
-      return u
-    })
+    )
   }
 
   return titrePhaseUpdated ? titrePhaseUpdated : null
@@ -54,11 +49,7 @@ const titrePhaseDelete = (titrePhaseOld, titresPhases) => {
   if (!titrePhase) {
     titrePhaseDeleted = queryTitrePhaseDelete({
       titreDemarcheId: titrePhaseOld.titreDemarcheId
-    }).then(u => {
-      console.log(`Suppression: phase ${titrePhaseOld.titreDemarcheId}`)
-
-      return u
-    })
+    }).then(u => `Suppression: phase ${titrePhaseOld.titreDemarcheId}`)
   }
   return titrePhaseDeleted ? titrePhaseDeleted : null
 }
@@ -75,13 +66,11 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
       titrePhaseOld[key] = dateFormat(titrePhaseOld[key], 'yyyy-mm-dd')
     }
 
+    if (titrePhase[key] === titrePhaseOld[key]) return res
+
     const mod = { [key]: [titrePhaseOld[key], titrePhase[key]] }
 
-    return titrePhase[key] === titrePhaseOld[key]
-      ? res
-      : res
-        ? Object.assign(res, mod)
-        : mod
+    return res ? Object.assign(res, mod) : mod
   }, null)
 
 export { titrePhaseUpdate, titrePhaseDelete }
