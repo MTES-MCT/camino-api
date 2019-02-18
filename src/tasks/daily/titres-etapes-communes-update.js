@@ -7,6 +7,17 @@ import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes'
 
 const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
+  // teste l'API geo-communes-api
+  const geoCommunesApiTest = await communesGeojsonTest()
+  // si la connexion à l'Api échoue, retourne
+  if (!geoCommunesApiTest) {
+    return [
+      "Erreur: impossible de se connecter à l'API Géo communes",
+      'Mise à jour: 0 communes.',
+      'Mise à jour: 0 communes dans des étapes.'
+    ]
+  }
+
   const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
 
   const communesNew = Object.keys(titresEtapesCommunes).reduce(
@@ -100,6 +111,19 @@ const titresEtapesCommunesGet = async titresEtapes => {
   }
 
   return titresEtapesCommunes
+}
+
+const communesGeojsonTest = () => {
+  const geojson = {
+    type: 'Feature',
+    properties: { id: 'api-test' },
+    geometry: {
+      type: 'Polygon',
+      coordinates: [[[2, 48], [3, 48], [3, 49], [2, 49], [2, 48]]]
+    }
+  }
+
+  return communesGeojsonGet(geojson)
 }
 
 export default titresEtapesCommunesUpdate
