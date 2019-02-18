@@ -1,11 +1,13 @@
 # Camino API
 
-[![Build Status][ci-img]][ci] [![codecov][codecov-img]][codecov]
+[![Build Status][ci-img]][ci] [![codecov][codecov-img]][codecov] [![Dependency Status][dep-img]][dep]
 
 [ci-img]: https://travis-ci.org/MTES-MCT/camino-api.svg?branch=master
 [ci]: https://travis-ci.org/MTES-MCT/camino-api
 [codecov-img]: https://codecov.io/gh/MTES-MCT/camino-api/branch/master/graph/badge.svg
 [codecov]: https://codecov.io/gh/MTES-MCT/camino-api
+[dep-img]: https://david-dm.org/MTES-MCT/camino-api.svg
+[dep]: https://david-dm.org/MTES-MCT/camino-api
 
 > API GraphQL de [Camino](http://camino.beta.gouv.fr/): [api.camino.beta.gouv.fr](https://api.camino.beta.gouv.fr)
 
