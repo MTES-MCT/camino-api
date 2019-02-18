@@ -17,12 +17,8 @@ const titreStatutIdFind = titre => {
     }
 
     // le statut de la démarche est rejetée ou classée sans suite ou retirée
-    if (['rej', 'cls', 'ret'].includes(titre.demarches[0].statutId)) {
-      // le statut du titre est demande classée
-      return 'dmc'
-    }
-
-    return 'ind'
+    // le statut du titre est demande classée
+    return 'dmc'
   }
 
   // une démarche a le statut en instruction
