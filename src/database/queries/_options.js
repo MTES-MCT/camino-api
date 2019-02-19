@@ -20,7 +20,7 @@ const substances = {
 }
 
 const points = {
-  eager: `references`
+  eager: `references.geoSysteme`
 }
 
 const communes = {
@@ -32,7 +32,9 @@ const etapes = {
     substances.eager
   }, titulaires.${entreprises.eager}, amodiataires.${
     entreprises.eager
-  }, administrations.${administrations.eager}, emprises, communes.${
+  }, administrations.${
+    administrations.eager
+  }, emprises, engagementDevise, volumeUnite, communes.${
     communes.eager
   }, titresSubstances, titresTitulaires, titresAmodiataires, titresAdministrations, titresEmprises]`,
   update: {
@@ -75,7 +77,9 @@ const titres = {
     entreprises.eager
   }, administrations.${administrations.eager}, demarches(orderDesc).${
     demarches.eager
-  }, surfaceEtape, volumeEtape, travauxRapports, communes.${communes.eager}]`,
+  }, surfaceEtape, volumeEtape, volumeUnite, travauxRapports, communes.${
+    communes.eager
+  }]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],

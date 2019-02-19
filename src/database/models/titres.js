@@ -10,6 +10,7 @@ import Entreprises from './entreprises'
 import Administrations from './administrations'
 import Communes from './communes'
 import TitresTravauxRapports from './titres-travaux-rapports'
+import VolumeUnites from './volume-unites'
 
 export default class Titres extends Model {
   static tableName = 'titres'
@@ -47,6 +48,7 @@ export default class Titres extends Model {
         to: 'domaines.id'
       }
     },
+
     type: {
       relation: Model.BelongsToOneRelation,
       modelClass: Types,
@@ -55,6 +57,7 @@ export default class Titres extends Model {
         to: 'types.id'
       }
     },
+
     statut: {
       relation: Model.BelongsToOneRelation,
       modelClass: Statuts,
@@ -63,6 +66,7 @@ export default class Titres extends Model {
         to: 'statuts.id'
       }
     },
+
     demarches: {
       relation: Model.HasManyRelation,
       modelClass: TitresDemarches,
@@ -71,6 +75,7 @@ export default class Titres extends Model {
         to: 'titresDemarches.titreId'
       }
     },
+
     surfaceEtape: {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresEtapes,
@@ -80,6 +85,7 @@ export default class Titres extends Model {
       },
       modify: builder => builder.select('surface')
     },
+
     volumeEtape: {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresEtapes,
@@ -87,8 +93,22 @@ export default class Titres extends Model {
         from: 'titres.volumeTitreEtapeId',
         to: 'titresEtapes.id'
       },
-      modify: builder => builder.select(['volume', 'volumeUnite'])
+      modify: builder => builder.select('volume')
     },
+
+    volumeUnite: {
+      relation: Model.HasOneThroughRelation,
+      modelClass: VolumeUnites,
+      join: {
+        from: 'titres.volumeTitreEtapeId',
+        through: {
+          from: 'titresEtapes.id',
+          to: 'titresEtapes.volumeUniteId'
+        },
+        to: 'volumeUnites.id'
+      }
+    },
+
     substances: {
       relation: Model.ManyToManyRelation,
       modelClass: Substances,
@@ -102,6 +122,7 @@ export default class Titres extends Model {
         to: 'substances.id'
       }
     },
+
     points: {
       relation: Model.HasManyRelation,
       modelClass: TitresPoints,
@@ -110,6 +131,7 @@ export default class Titres extends Model {
         to: 'titresPoints.titreEtapeId'
       }
     },
+
     titulaires: {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
@@ -122,6 +144,7 @@ export default class Titres extends Model {
         to: 'entreprises.id'
       }
     },
+
     amodiataires: {
       relation: Model.ManyToManyRelation,
       modelClass: Entreprises,
@@ -134,6 +157,7 @@ export default class Titres extends Model {
         to: 'entreprises.id'
       }
     },
+
     administrations: {
       relation: Model.ManyToManyRelation,
       modelClass: Administrations,
@@ -146,6 +170,7 @@ export default class Titres extends Model {
         to: 'administrations.id'
       }
     },
+
     communes: {
       relation: Model.ManyToManyRelation,
       modelClass: Communes,
@@ -158,6 +183,7 @@ export default class Titres extends Model {
         to: 'communes.id'
       }
     },
+
     travauxRapports: {
       relation: Model.HasManyRelation,
       modelClass: TitresTravauxRapports,

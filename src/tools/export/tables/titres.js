@@ -72,7 +72,7 @@ const tables = [
   },
   {
     name: 'titresPointsReferences',
-    columns: ['id', 'titrePointId', 'systeme', 'coordonnees'],
+    columns: ['id', 'titrePointId', 'geoSystemeId', 'coordonnees'],
     parents: ['demarches', 'etapes', 'points', 'references'],
     callbacks: {
       coordonnees: v => `${v.x}, ${v.y}`

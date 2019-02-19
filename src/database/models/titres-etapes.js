@@ -9,6 +9,8 @@ import TitresDocuments from './titres-documents'
 import Emprises from './emprises'
 import Communes from './communes'
 import TitresErreurs from './titres-erreurs'
+import Devises from './devises'
+import VolumeUnites from './volume-unites'
 
 import TitresSubstances from './titres-substances'
 import TitresAdministrations from './titres-administrations'
@@ -33,12 +35,12 @@ export default class TitresEtapes extends Model {
       duree: { type: ['integer', 'null'] },
       dateDebut: { type: 'date' },
       dateFin: { type: 'date' },
-      surface: { type: 'float' },
-      volume: { type: 'float' },
-      volumeUnite: { type: ['string', 'null'] },
+      surface: { type: ['number', 'null'] },
+      volume: { type: ['number', 'null'] },
+      volumeUniteId: { type: ['string', 'null'] },
       visas: { type: ['json', 'null'] },
-      engagement: { type: ['float', 'null'] },
-      engagementDevise: { type: ['string', 'null'] },
+      engagement: { type: ['number', 'null'] },
+      engagementDeviseId: { type: ['string', 'null'] },
       sourceIndisponible: { type: ['boolean', 'null'] }
     }
   }
@@ -165,6 +167,24 @@ export default class TitresEtapes extends Model {
       join: {
         from: 'titresEtapes.id',
         to: 'titresErreurs.titreEtapeId'
+      }
+    },
+
+    volumeUnite: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: VolumeUnites,
+      join: {
+        from: 'titresEtapes.volumeUniteId',
+        to: 'volumeUnites.id'
+      }
+    },
+
+    engagementDevise: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Devises,
+      join: {
+        from: 'titresEtapes.engagementDeviseId',
+        to: 'devises.id'
       }
     },
 
