@@ -6,25 +6,29 @@ import {
 
 const titreEtapesOrdreUpdate = titreEtapesByDemarche =>
   titreEtapesByDemarche
-    .sort((a, b) => a.date - b.date)
+    .sort((a, b) => {
+      a = new Date(a.date)
+      b = new Date(b.date)
+      return a < b ? -1 : a > b ? 1 : 0
+    })
     .reduce(
       (acc, titreEtape, index) =>
         titreEtape.ordre === index + 1
-        ? acc
-        : [
-          ...acc,
-          titreEtapeUpdate({
-            id: titreEtape.id,
-            props: { ordre: index + 1 }
-          }).then(u => {
-            console.log(
-              `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
-                ordre: index + 1
-              })}`
-            )
-            return u
-          })
-        ],
+          ? acc
+          : [
+              ...acc,
+              titreEtapeUpdate({
+                id: titreEtape.id,
+                props: { ordre: index + 1 }
+              }).then(u => {
+                console.log(
+                  `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
+                    ordre: index + 1
+                  })}`
+                )
+                return u
+              })
+            ],
       []
     )
 

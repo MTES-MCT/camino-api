@@ -7,8 +7,8 @@ import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import geojsonCommunesGet from '../../tools/api-communes'
 
 const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
-  if (!titreEtape.points.length) {
-    return
+  if (!titreEtape.points || !titreEtape.points.length) {
+    return []
   }
 
   const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
@@ -16,7 +16,7 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
   const geojsonCommunes = await geojsonCommunesGet(geojson)
 
   if (!geojsonCommunes || !geojsonCommunes.length) {
-    return
+    return []
   }
 
   const communesIds = geojsonCommunes.map(
@@ -30,6 +30,7 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
   }))
 
   const communesInsertQueries = communesInsert(titreEtapeCommunes, communes)
+
   await Promise.all(communesInsertQueries)
 
   const titreEtapeCommunesInsertQueries = titreEtapeCommunesInsert(
@@ -45,9 +46,12 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
   await Promise.all(titreEtapeCommunesInsertQueries)
   await Promise.all(titreEtapeCommunesDeleteQueries)
 
-  return `Mise à jour: ${
-    titreEtapeCommunesInsertQueries.length
-  } communes dans des étapes.`
+  return [
+    `Mise à jour: ${titreEtapeCommunes.length} communes dans la base.`,
+    `Mise à jour: ${
+      titreEtapeCommunesInsertQueries.length
+    } communes dans des étapes.`
+  ]
 }
 
 export default titreEtapeCommunesUpdate
