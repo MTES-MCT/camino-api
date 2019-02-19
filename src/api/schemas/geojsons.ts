@@ -1,4 +1,13 @@
 export default `
+"Paire de coordonnées géographiques"
+type Coordonnees {
+  "La valeur des coordonnées en X sous forme d'un nombre décimal"
+  x: Float
+
+  "La valeur des coordonnées en Y sous forme d'un nombre décimal"
+  y: Float
+}
+
 type GeojsonMultiPolygons {
   type: FeatureCollectionType!
   features: [GeojsonMultiPolygon]
@@ -37,6 +46,12 @@ type FeaturePointProperties {
 type GeometryPoints {
   type: GeometryTypePoint!
   coordinates: [Float]
+}
+
+input InputCoordonnees {
+  x: Float
+
+  y: Float
 }
 
 input InputGeojson {

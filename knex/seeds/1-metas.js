@@ -12,6 +12,9 @@ const demarchesTypes_EtapesTypes = require('../../sources/demarches-types--etape
 const etapesStatuts = require('../../sources/etapes-statuts.json')
 const etapesTypes_EtapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
 const emprises = require('../../sources/emprises.json')
+const geoSystemes = require('../../sources/geo-systemes.json')
+const devises = require('../../sources/devises.json')
+const volumeUnites = require('../../sources/volume-unites.json')
 
 exports.seed = (knex, Promise) =>
   Promise.all([
@@ -21,7 +24,10 @@ exports.seed = (knex, Promise) =>
     knex('demarchesTypes__demarchesStatuts').del(),
     knex('etapesTypes__etapesStatuts').del(),
     knex('statuts').del(),
-    knex('emprises').del()
+    knex('emprises').del(),
+    knex('geoSystemes').del(),
+    knex('devises').del(),
+    knex('volumeUnites').del()
   ])
     .then(() =>
       Promise.all([
@@ -43,7 +49,10 @@ exports.seed = (knex, Promise) =>
         knex('etapesTypes').insert(etapesTypes),
         knex('emprises').insert(emprises),
         knex('demarchesStatuts').insert(demarchesStatuts),
-        knex('etapesStatuts').insert(etapesStatuts)
+        knex('etapesStatuts').insert(etapesStatuts),
+        knex('geoSystemes').insert(geoSystemes),
+        knex('devises').insert(devises),
+        knex('volumeUnites').insert(volumeUnites)
       ])
     )
     .then(() =>
