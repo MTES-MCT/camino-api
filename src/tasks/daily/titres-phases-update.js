@@ -3,7 +3,7 @@ import { titrePhaseUpdate, titrePhaseDelete } from '../titre-phases'
 import titrePhasesFind from '../_utils/titre-phases-find'
 
 const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
-  // créé un objet la liste des titres { [titreId]: titre.typeId, … }
+  // créé un dictionnaire titre -> titre.typeId
   const titreTypeIdsList = titres.reduce((res, titre) => {
     res[titre.id] = titre.typeId
     return res
@@ -30,17 +30,17 @@ const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
   // retourne un tableau de requêtes pour
   // - créer les nouvelles phases
   // - modifier les phases existantes
-  const titresPhasesUpdated = titresPhases.reduce(
-    (res, titrePhase) => titrePhaseUpdate(res, titrePhase, titresPhasesOld),
-    []
-  )
+  const titresPhasesUpdated = titresPhases.reduce((res, titrePhase) => {
+    const titrePhaseUpdated = titrePhaseUpdate(titrePhase, titresPhasesOld)
+    return !titrePhaseUpdated ? res : [...res, titrePhaseUpdated]
+  }, [])
 
   // retourne un tableau de requêtes pour
   // - supprimer les phases qui n'existent plus
-  const titrePhasesDeleted = titresPhasesOld.reduce(
-    (res, titrePhaseOld) => titrePhaseDelete(res, titrePhaseOld, titresPhases),
-    []
-  )
+  const titrePhasesDeleted = titresPhasesOld.reduce((res, titrePhaseOld) => {
+    const titrePhaseDeleted = titrePhaseDelete(titrePhaseOld, titresPhases)
+    return !titrePhaseDeleted ? res : [...res, titrePhaseDeleted]
+  }, [])
 
   await Promise.all([...titresPhasesUpdated, ...titrePhasesDeleted])
 
