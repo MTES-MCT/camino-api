@@ -26,7 +26,10 @@ fragment titre on Titre {
   }
   volume
   surface
-  volumeUnite
+  volumeUnite {
+    id
+    nom
+  }
   substances {
     ...titreSubstance
   }
@@ -105,7 +108,10 @@ fragment etape on Etape {
   volumeUnite
   visas
   engagement
-  engagementDevise
+  engagementDevise {
+    id
+    nom
+  }
   sourceIndisponible
   type {
     id
@@ -222,7 +228,12 @@ fragment point on Point {
 
 fragment pointReference on PointReference {
   id
-  systeme
+  geoSysteme {
+    id
+    nom
+    zone
+    unite
+  }
   coordonnees {
     x
     y

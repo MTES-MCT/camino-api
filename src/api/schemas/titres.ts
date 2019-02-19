@@ -57,7 +57,7 @@ type Titre {
   volume: Float
 
   "L'unité du volume du titre dans son dernier état de validité"
-  volumeUnite: String
+  volumeUnite: VolumeUnite
 
   "Les rapports de travaux"
   travauxRapports: [TitreTravauxRapport]
@@ -146,7 +146,7 @@ type Etape {
   volume: Float
 
   "L'unité de volume du titre"
-  volumeUnite: String
+  volumeUnite: VolumeUnite
 
   "Les visas de l'étape"
   visas: [String]
@@ -155,7 +155,7 @@ type Etape {
   engagement: Float
 
   "La devise de l'engagement financier du titulaire"
-  engagementDevise: String
+  engagementDevise: Devise
 
   "L'emprise géographique du titre"
   emprises: [Emprise]
@@ -264,19 +264,10 @@ type PointReference {
   id: ID!
 
   "Le code du système de référence géodésique"
-  systeme: String
+  geoSysteme: GeoSysteme
 
   "Les coordonnées du point dans le système géodésique"
   coordonnees: Coordonnees
-}
-
-"Paire de coordonnées géographiques"
-type Coordonnees {
-  "La valeur des coordonnées en X sous forme d'un nombre décimal"
-  x: Float
-
-  "La valeur des coordonnées en Y sous forme d'un nombre décimal"
-  y: Float
 }
 
 "Titre minier"
@@ -323,17 +314,17 @@ input InputEtape {
 
   volume: Float
 
-  volumeUnite: String
+  volumeUnite: inputVolumeUnite
 
   visas: [String]
 
   engagement: Float
 
-  engagementDevise: String
+  engagementDevise: inputDevise
 
   emprises: [InputEmpriseId]
 
-  substances: [InputEtapeSubstanceId]
+  substances: [InputEtapeSubstance]
 
   points: [InputPoint]
 
@@ -369,15 +360,9 @@ input InputPoint {
 input InputPointReference {
   id: ID!
 
-  systeme: String
+  geoSysteme: inputGeoSysteme
 
   coordonnees: InputCoordonnees
-}
-
-input InputCoordonnees {
-  x: Float
-
-  y: Float
 }
 
 input InputDocument {

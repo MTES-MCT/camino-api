@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import GeoSystemes from './geo-systemes'
 
 export default class TitresPointsReferences extends Model {
   static tableName = 'titresPointsReferences'
@@ -10,13 +11,24 @@ export default class TitresPointsReferences extends Model {
     properties: {
       id: { type: 'string' },
       titrePointId: { type: 'string' },
-      systeme: { type: 'string' },
+      geoSystemeId: { type: 'string' },
       coordonnees: {
         type: 'object',
         properties: {
-          x: { type: 'float' },
-          y: { type: 'float' }
+          x: { type: 'number' },
+          y: { type: 'number' }
         }
+      }
+    }
+  }
+
+  static relationMappings = {
+    geoSysteme: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: GeoSystemes,
+      join: {
+        from: 'titresPointsReferences.geoSystemeId',
+        to: 'geoSystemes.id'
       }
     }
   }

@@ -36,4 +36,18 @@ fragment meta on Metas {
       typeId
     }
   }
+  devises {
+    id
+    nom
+  }
+  volumeUnites {
+    id
+    nom
+  }
+  geoSystemes {
+    id
+    nom
+    zone
+    unite
+  }
 }

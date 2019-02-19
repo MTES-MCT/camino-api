@@ -112,7 +112,10 @@ const spreadSheets = [
       { name: 'etapes_statuts' },
       { name: 'etapes_types__etapes_statuts' },
       { name: 'demarches_types__etapes_types' },
-      { name: 'emprises' }
+      { name: 'emprises' },
+      { name: 'geo_systemes' },
+      { name: 'devises' },
+      { name: 'volume_unites' }
     ]
   },
   {

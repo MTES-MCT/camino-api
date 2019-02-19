@@ -37,7 +37,6 @@ const titreFormat = t => {
 
   if (t.volumeEtape) {
     t.volume = t.volumeEtape.volume
-    t.volumeUnite = t.volumeEtape.volumeUnite
   }
 
   if (t.surfaceEtape) {

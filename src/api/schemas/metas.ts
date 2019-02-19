@@ -3,20 +3,33 @@ export default `
 Meta-informations sur les titres miniers (types, domaines, statuts)
 """
 type Metas {
-  "Les types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
+  "Types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
   types: [Type]
-  "Les domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)"
+
+  "Domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)"
   domaines: [Domaine]
-  "Les statuts des titres miniers (ex: valide, demande initiale, etc.)"
+
+  "Statuts des titres miniers (ex: valide, demande initiale, etc.)"
   statuts: [Statut]
-  "La liste des types de démarches"
+
+  "Types de démarches"
   demarchesTypes: [DemarcheType]
+
+  "Systèmes géodésiques utilisés dans Camino"
+  geoSystemes: [GeoSysteme]
+
+  "Devises utilisées dans Camino"
+  devises: [Devise]
+
+  "Unités de volume utilisées dans Camino"
+  volumeUnites: [VolumeUnite]
 }
 
 "Le type de titre minier"
 type Type {
   "L'id composée de trois lettres"
   id: TypeId!
+
   "Le nom du type en français"
   nom: String!
 }
@@ -25,6 +38,7 @@ type Type {
 type Domaine {
   "L'id composée d'une seule lettre"
   id: DomaineId!
+
   "Le nom du domaine en français"
   nom: String!
 }
@@ -33,6 +47,7 @@ type Domaine {
 input InputDomaineId {
   "L'id composée d'une seule lettre"
   id: DomaineId!
+
   "Le nom du domaine en français"
   nom: String
 }
@@ -41,8 +56,10 @@ input InputDomaineId {
 type Statut {
   "L'id composée de trois lettres"
   id: StatutId!
+
   "Le nom du statut en français"
   nom: String!
+
   "La couleur associé au statut"
   couleur: Couleur!
 }
@@ -51,21 +68,30 @@ type Statut {
 type DemarcheType {
   "L'id composée de trois lettres"
   id: ID!
+
   "Le nom en français"
   nom: String!
+
   "L'ordre de ce type de démarche"
   ordre: Int
+
   "Si la démarche contient une information de duréee"
   duree: Boolean
+
   "Si la démarche contient des informations géographiques"
   points: Boolean
+
   "Si la démarche contient des informations de substances"
   substances: Boolean
+
   "Si la démarche contient des titulaires"
   titulaires: Boolean
+
   "Si la démarche est renouvelable"
   renouvelable: Boolean
+
   exception: Boolean
+
   "Les types d'étapes applicables à ce type de démarche"
   etapesTypes: [EtapeType]
 }
@@ -74,8 +100,10 @@ type DemarcheType {
 type DemarcheStatut {
   "L'id composée de trois lettres"
   id: DemarcheStatutId!
+
   "Le nom en français"
   nom: String!
+
   couleur: Couleur!
 }
 
@@ -83,8 +111,10 @@ type DemarcheStatut {
 type PhaseStatut {
   "Le statut d'une phase de titre minier est composé de trois lettres"
   id: PhaseStatutId!
+
   "Le nom d'une phase de titre minier en français"
   nom: String!
+
   couleur: Couleur!
 }
 
@@ -92,18 +122,25 @@ type PhaseStatut {
 type EtapeType {
   "L'id composée de trois lettres"
   id: ID!
+
   "Le nom en français"
   nom: String!
+
   acceptationAuto: Boolean
   ordre: Int!
+
   typeId: TypeId
+
   etapesStatuts: [EtapeStatut]
 }
 
 type DemarcheType_etapeType {
   typeId: ID!
+
   demarcheTypeId: ID!
+
   etapeTypeId: ID!
+
   ordre: Int!
 }
 
@@ -111,8 +148,10 @@ type DemarcheType_etapeType {
 input InputEtapeTypeId {
   "L'id composée de trois lettres"
   id: ID!
+
   "Le nom du domaine en français"
   nom: String
+
   acceptationAuto: Boolean
 }
 
@@ -120,17 +159,46 @@ input InputEtapeTypeId {
 type EtapeStatut {
   "L'id du statut d'étape est composé de trois lettres"
   id: EtapeStatutId!
+
   "Le nom du domaine en français"
   nom: String!
+
   couleur: Couleur!
+}
+
+"Unité de volume"
+type VolumeUnite {
+  id: ID!
+
+  nom: String!
+}
+
+"Devise"
+type Devise {
+  id: ID!
+
+  nom: String!
+}
+
+"Système géodésique"
+type GeoSysteme {
+  id: ID!
+
+  nom: String!
+
+  zone: String
+
+  unite: String
 }
 
 "Le statut d'une étape de démarche de titre minier"
 input InputEtapeStatutId {
   "L'id composée de trois lettres"
   id: EtapeStatutId!
+
   "Le nom en français"
   nom: String
+
   couleur: Couleur
 }
 
@@ -138,6 +206,7 @@ input InputEtapeStatutId {
 type Emprise {
   "L'id composée de trois lettres"
   id: EmpriseId!
+
   "Le nom en français"
   nom: String!
 }
@@ -146,6 +215,7 @@ type Emprise {
 input InputEmpriseId {
   "L'id composée de trois lettres"
   id: EmpriseId!
+
   "Le nom en français"
   nom: String
 }
@@ -321,4 +391,30 @@ input InputDomaine {
 input InputDemarcheTypeId {
   id: ID!
 }
+
+"Unité de volume"
+input inputVolumeUnite {
+  id: ID!
+
+  nom: String!
+}
+
+"Devise"
+input inputDevise {
+  id: ID!
+
+  nom: String!
+}
+
+"Système géodésique"
+input inputGeoSysteme {
+  id: ID!
+
+  nom: String!
+
+  zone: String
+  
+  unite: String
+}
+
 `
