@@ -7,7 +7,9 @@ const titresPropsEtapeIdsUpdate = async titre => {
     return titrePropsUpdated ? [...res, titrePropsUpdated] : res
   }, [])
 
-  await Promise.all(titrePropsUpdateRequests)
+  if (titrePropsUpdateRequests && titrePropsUpdateRequests.length) {
+    await Promise.all(titrePropsUpdateRequests)
+  }
 
   return `Mise à jour: ${titrePropsUpdateRequests.length} propriétés de titres.`
 }
