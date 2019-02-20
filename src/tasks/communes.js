@@ -7,24 +7,14 @@ const communesInsert = (communesNew, communesOld) =>
         ? queries
         : [
             ...queries,
-            communeInsert({ id, nom, departementId })
-              .then(u => {
-                const commune = JSON.stringify({
-                  id,
-                  nom,
-                  departementId
-                })
-                console.log(`Mise à jour: commune, ${commune}`)
-                return u
+            communeInsert({ id, nom, departementId }).then(u => {
+              const commune = JSON.stringify({
+                id,
+                nom,
+                departementId
               })
-              .catch(err => {
-                const commune = JSON.stringify({
-                  id,
-                  nom,
-                  departementId
-                })
-                console.log(`Erreur: commune, ${commune}, ${err}`)
-              })
+              return `Mise à jour: commune, ${commune}`
+            })
           ],
     []
   )

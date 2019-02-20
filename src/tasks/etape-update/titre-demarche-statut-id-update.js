@@ -11,7 +11,10 @@ const titresDemarcheStatutIdUpdate = async (titreDemarche, titreTypeId) => {
   )
 
   if (titreDemarcheUpdated) {
-    await titreDemarcheUpdated
+    const titreDemarcheUpdateQuery = titreDemarcheUpdated.then(log =>
+      console.log(log)
+    )
+    await titreDemarcheUpdateQuery
   }
 
   return `Mise à jour: ${titreDemarcheUpdated ? '1' : '0'} statut de démarche.`

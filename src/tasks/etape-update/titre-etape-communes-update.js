@@ -12,6 +12,7 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
   }
 
   const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+  geojson.properties = { id: titreEtape.id }
 
   const geojsonCommunes = await geojsonCommunesGet(geojson)
 
@@ -23,13 +24,15 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
     geojson => `${geojson.properties.code}`
   )
 
-  const titreEtapeCommunes = geojsonCommunes.map(geojson => ({
+  const communesNew = geojsonCommunes.map(geojson => ({
     id: `${geojson.properties.code}`,
     nom: geojson.properties.nom,
     departementId: `${geojson.properties.departement}`
   }))
 
-  const communesInsertQueries = communesInsert(titreEtapeCommunes, communes)
+  const communesInsertQueries = communesInsert(communesNew, communes).map(q =>
+    q.then(log => console.log(log))
+  )
 
   await Promise.all(communesInsertQueries)
 
@@ -43,14 +46,17 @@ const titreEtapeCommunesUpdate = async (titreEtape, communes) => {
     communesIds
   )
 
-  await Promise.all(titreEtapeCommunesInsertQueries)
-  await Promise.all(titreEtapeCommunesDeleteQueries)
+  const titreEtapeCommunesQueries = [
+    ...titreEtapeCommunesInsertQueries,
+    ...titreEtapeCommunesDeleteQueries
+  ].map(q => q.then(log => console.log(log)))
+
+  await Promise.all(titreEtapeCommunesQueries)
 
   return [
-    `Mise à jour: ${titreEtapeCommunes.length} communes dans la base.`,
-    `Mise à jour: ${
-      titreEtapeCommunesInsertQueries.length
-    } communes dans des étapes.`
+    `Mise à jour: ${communesInsertQueries.length} communes dans la base.`,
+    `Mise à jour: ${titreEtapeCommunesInsertQueries.length +
+      titreEtapeCommunesDeleteQueries.length} communes dans des étapes.`
   ]
 }
 

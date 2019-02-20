@@ -42,7 +42,12 @@ const titresPhasesUpdate = async (titres, titresDemarches, titresPhasesOld) => {
     return !titrePhaseDeleted ? res : [...res, titrePhaseDeleted]
   }, [])
 
-  await Promise.all([...titresPhasesUpdated, ...titrePhasesDeleted])
+  const titrePhasesQueries = [
+    ...titresPhasesUpdated,
+    ...titrePhasesDeleted
+  ].map(q => q.then(log => console.log(log)))
+
+  await Promise.all(titrePhasesQueries)
 
   return `Mise à jour: ${titresPhasesUpdated.length} phases de titres.`
 }

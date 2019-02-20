@@ -17,10 +17,7 @@ const titreStatutIdUpdate = (titre, statutId) =>
   queryTitrePropsUpdate({
     id: titre.id,
     props: { statutId }
-  }).then(u => {
-    console.log(`Mise à jour: titre ${titre.id}, statutId ${statutId}`)
-    return u
-  })
+  }).then(u => `Mise à jour: titre ${titre.id}, statutId ${statutId}`)
 
 const titrePropsUpdate = (titre, prop) => {
   const propEtapeIdName = `${prop}TitreEtapeId`
@@ -31,10 +28,7 @@ const titrePropsUpdate = (titre, prop) => {
     queryTitrePropsUpdate({
       id: titre.id,
       props: { [propEtapeIdName]: etapeId }
-    }).then(u => {
-      console.log(`Mise à jour: titre ${titre.id}, ${prop}, ${etapeId}`)
-      return u
-    })
+    }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${etapeId}`)
   )
 }
 
