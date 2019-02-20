@@ -1,5 +1,6 @@
 jest.mock('../titres', () => ({
-  titrePropsUpdate: (titre, prop) => titre[prop],
+  titrePropsUpdate: (titre, prop) =>
+    titre[prop] && Promise.resolve(titre[prop]),
   calculatedProps: [
     'points',
     'titulaires',
