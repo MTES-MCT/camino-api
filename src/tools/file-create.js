@@ -1,11 +1,12 @@
 import { writeFile } from 'fs-extra'
+import errorLog from './error-log'
 
 const fileCreate = async (name, content) => {
   try {
     await writeFile(name, content, 'utf8')
-    console.log('File:', name)
+    console.log('Créé le fichier:', name)
   } catch (err) {
-    console.log('File: error', err)
+    errorLog(`Créé le fichier: ${name}`, err)
   }
 }
 
