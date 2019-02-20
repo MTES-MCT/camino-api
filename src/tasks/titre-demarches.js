@@ -12,34 +12,27 @@ const titreDemarcheStatutIdUpdate = (titreDemarche, statutId) =>
   queryTitreDemarcheStatutIdUpdate({
     id: titreDemarche.id,
     statutId
-  }).then(u => {
-    console.log(
-      `Mise à jour: démarche ${titreDemarche.id}, statutId ${statutId}`
-    )
-    return u
-  })
+  }).then(
+    u => `Mise à jour: démarche ${titreDemarche.id}, statutId ${statutId}`
+  )
 
 // met à jour la propriété 'ordre' de toutes les démarches d'un titre
 const titreDemarchesOrdreUpdate = titreDemarchesByTitre =>
-  titreDemarchesAscSort(titreDemarchesByTitre)
-    // to-do: faire un reduce au lieu de map-filter-map
-    .map((titreDemarche, index) => {
-      titreDemarche.ordreUpdated = index + 1
-      return titreDemarche
-    })
-    .filter(titreDemarche => titreDemarche.ordreUpdated !== titreDemarche.ordre)
-    .map(titreDemarche => {
-      return queryTitreDemarcheOrdreUpdate({
-        id: titreDemarche.id,
-        ordre: titreDemarche.ordreUpdated
-      }).then(u => {
-        console.log(
-          `Mise à jour: démarche ${titreDemarche.id}, ordre ${
-            titreDemarche.ordreUpdated
-          }`
-        )
-        return u
-      })
-    })
+  titreDemarchesAscSort(titreDemarchesByTitre).reduce(
+    (acc, titreDemarche, index) =>
+      titreDemarche.ordre === index + 1
+        ? acc
+        : [
+            ...acc,
+            queryTitreDemarcheOrdreUpdate({
+              id: titreDemarche.id,
+              ordre: index + 1
+            }).then(
+              u =>
+                `Mise à jour: démarche ${titreDemarche.id}, ordre ${index + 1}`
+            )
+          ],
+    []
+  )
 
 export { titreDemarcheStatutIdUpdate, titreDemarchesOrdreUpdate }

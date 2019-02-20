@@ -7,7 +7,8 @@ const titreStatutUpdate = async titre => {
   const titreUpdated = titreStatutIdUpdate(titre, statutId)
 
   if (titreUpdated) {
-    await titreUpdated
+    const log = await titreUpdated
+    console.log(log)
   }
 
   return `Mise à jour: ${titreUpdated ? '1' : '0'} statuts de titres.`

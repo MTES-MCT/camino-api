@@ -4,12 +4,16 @@ const geojson = {}
 const apiCommunes = {}
 
 jest.mock('../communes', () => ({
-  communesInsert: points => points
+  communesInsert: points => points.map(point => Promise.resolve(point))
 }))
 
 jest.mock('../titre-etapes', () => ({
-  titreEtapeCommunesInsert: (titreEtape, communes) => communes,
-  titreEtapeCommunesDelete: (titreEtape, communes) => communes
+  titreEtapeCommunesInsert: (titreEtape, communes) => [
+    Promise.resolve(communes)
+  ],
+  titreEtapeCommunesDelete: (titreEtape, communes) => [
+    Promise.resolve(communes)
+  ]
 }))
 
 jest.mock('../../tools/geojson', () => ({
@@ -19,7 +23,7 @@ jest.mock('../../tools/geojson', () => ({
 jest.mock('../../tools/api-communes', () => ({
   default: points =>
     apiCommunes.get
-      ? apiCommunes.get(points).map(() => ({ properties: {} }))
+      ? apiCommunes.get(points).map(point => ({ properties: { code: point } }))
       : []
 }))
 

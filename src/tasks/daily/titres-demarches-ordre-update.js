@@ -2,16 +2,15 @@ import { titreDemarchesOrdreUpdate } from '../titre-demarches'
 
 const titresDemarchesOrdreUpdate = async titresDemarches => {
   const titresDemarchesByTitre = titresDemarchesByTitreGroup(titresDemarches)
-  const titresDemarchesUpdated = Object.keys(titresDemarchesByTitre).reduce(
-    (res, titreId) => {
+  const titresDemarchesUpdated = Object.keys(titresDemarchesByTitre)
+    .reduce((res, titreId) => {
       const titreDemarchesOrdreUpdated = titreDemarchesOrdreUpdate(
         titresDemarchesByTitre[titreId]
       )
 
       return [...res, ...titreDemarchesOrdreUpdated]
-    },
-    []
-  )
+    }, [])
+    .map(q => q.then(log => console.log(log)))
 
   await Promise.all(titresDemarchesUpdated)
 

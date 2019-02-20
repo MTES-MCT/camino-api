@@ -10,7 +10,7 @@ jest.mock('../titre-demarches', () => ({
 
 describe("met à jour le statut d'une démarche en fonction du type de titre", () => {
   test('le statut de la démarche est mis à jour', async () => {
-    titreDemarches.titreDemarcheStatutIdUpdate = () => true
+    titreDemarches.titreDemarcheStatutIdUpdate = () => Promise.resolve(true)
 
     expect(await titresDemarcheStatutIdUpdate(titreDemarcheOctPoints)).toEqual(
       'Mise à jour: 1 statut de démarche.'

@@ -32,7 +32,9 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
     []
   )
 
-  const communesInsertQueries = communesInsert(communesNew, communes)
+  const communesInsertQueries = communesInsert(communesNew, communes).map(q =>
+    q.then(log => console.log(log))
+  )
 
   await Promise.all(communesInsertQueries)
 
@@ -41,13 +43,15 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
     titresEtapesCommunesDeleteQueries
   } = titresEtapesCommunesQueriesBuild(titresEtapes, titresEtapesCommunes)
 
-  await Promise.all([
-    titresEtapesCommunesInsertQueries,
-    titresEtapesCommunesDeleteQueries
-  ])
+  const titreEtapesCommunesQueries = [
+    ...titresEtapesCommunesInsertQueries,
+    ...titresEtapesCommunesDeleteQueries
+  ].map(q => q.then(log => console.log(log)))
+
+  await Promise.all(titreEtapesCommunesQueries)
 
   return [
-    `Mise à jour: ${communesInsertQueries.length} communes.`,
+    `Mise à jour: ${communesInsertQueries.length} communes dans la base.`,
     `Mise à jour: ${titresEtapesCommunesInsertQueries.length +
       titresEtapesCommunesDeleteQueries.length} communes dans des étapes.`
   ]

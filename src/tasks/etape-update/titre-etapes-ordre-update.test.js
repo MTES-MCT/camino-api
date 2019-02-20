@@ -1,5 +1,5 @@
 jest.mock('../titre-etapes', () => ({
-  titreEtapesOrdreUpdate: etapes => etapes
+  titreEtapesOrdreUpdate: etapes => etapes.map(e => Promise.resolve(e))
 }))
 
 import titreEtapesOrdreUpdate from './titre-etapes-ordre-update'

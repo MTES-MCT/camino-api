@@ -20,14 +20,12 @@ const titreEtapesOrdreUpdate = titreEtapesByDemarche =>
               titreEtapeUpdate({
                 id: titreEtape.id,
                 props: { ordre: index + 1 }
-              }).then(u => {
-                console.log(
+              }).then(
+                u =>
                   `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
                     ordre: index + 1
                   })}`
-                )
-                return u
-              })
+              )
             ],
       []
     )
@@ -42,18 +40,9 @@ const titreEtapeCommunesInsert = (titreEtape, communesIds) =>
             titreEtapeCommuneInsertQuery({
               titreEtapeId: titreEtape.id,
               communeId
-            })
-              .then(u => {
-                console.log(
-                  `Mise à jour: étape ${titreEtape.id}, commune ${communeId}`
-                )
-                return u
-              })
-              .catch(err => {
-                console.log(
-                  `Erreur: étape ${titreEtape.id}, commune ${communeId}, ${err}`
-                )
-              })
+            }).then(
+              u => `Mise à jour: étape ${titreEtape.id}, commune ${communeId}`
+            )
           ],
     []
   )
@@ -69,12 +58,10 @@ const titreEtapeCommunesDelete = (titreEtape, communesIds) =>
                 titreEtapeCommuneDeleteQuery({
                   titreEtapeId: titreEtape.id,
                   communeId: commune.id
-                }).then(u => {
-                  console.log(
+                }).then(
+                  u =>
                     `Suppression: étape ${titreEtape.id}, commune ${commune.id}`
-                  )
-                  return u
-                })
+                )
               ],
         []
       )
