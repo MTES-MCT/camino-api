@@ -2,18 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [0.12.0](https://github.com/MTES-MCT/camino-api/compare/v0.11.0...v0.12.0) (2019-02-20)
-
-
-### Bug Fixes
-
-* **export:** expose les tables de jointure dans les relations des étapes ([eb74c48](https://github.com/MTES-MCT/camino-api/commit/eb74c48))
-* **tasks:** teste la connexion à l'API géo-communes avant de requêter tous les titres ([c136160](https://github.com/MTES-MCT/camino-api/commit/c136160))
-
-
-### Features
-
-* **api:** expose la liste des systèmes géodésique, les unités de volume et les devises ([598852b](https://github.com/MTES-MCT/camino-api/commit/598852b))
+## [0.12.1](https://github.com/MTES-MCT/camino-api/compare/v0.12.0...v0.12.1) (2019-02-20)
 
 
 
