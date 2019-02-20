@@ -1,23 +1,26 @@
-const titreDemarchesQueries = {
+import {
+  titreDemarcheStatutIdUpdate,
+  titreDemarchesOrdreUpdate
+} from './titre-demarches'
+import * as titreDemarchesQueries from '../database/queries/titres-demarches'
+
+import {
+  titreDemarches,
+  titreDemarchesOrdonnees
+} from './__mocks__/titre-demarches-demarches'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../database/queries/titres-demarches', () => ({
   titreDemarcheStatutIdUpdate: jest
     .fn()
     .mockImplementation(() => Promise.resolve()),
   titreDemarcheOrdreUpdate: jest
     .fn()
     .mockImplementation(() => Promise.resolve())
-}
+}))
 
-jest.mock('../database/queries/titres-demarches', () => titreDemarchesQueries)
-
-import {
-  titreDemarcheStatutIdUpdate,
-  titreDemarchesOrdreUpdate
-} from './titre-demarches'
-
-import {
-  titreDemarches,
-  titreDemarchesOrdonnees
-} from './__mocks__/titre-demarches-demarches'
+console.log = jest.fn()
 
 describe("met à jour le statut d'une démarche", () => {
   test('un titre dont le statut a changé est mis à jour', async () => {

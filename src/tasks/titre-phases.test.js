@@ -1,17 +1,18 @@
-const titrePhasesQueries = {
-  titrePhaseUpdate: jest.fn().mockImplementation(() => Promise.resolve()),
-  titrePhaseDelete: jest.fn().mockImplementation(() => Promise.resolve())
-}
-
-jest.mock('../database/queries/titres-phases', () => titrePhasesQueries)
-
 import { titrePhaseUpdate, titrePhaseDelete } from './titre-phases'
+import * as titrePhasesQueries from '../database/queries/titres-phases'
 
 import {
   titrePhase,
   titrePhaseModifiee,
   titrePhases
 } from './__mocks__/titre-phases-phases'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../database/queries/titres-phases', () => ({
+  titrePhaseUpdate: jest.fn().mockImplementation(() => Promise.resolve()),
+  titrePhaseDelete: jest.fn().mockImplementation(() => Promise.resolve())
+}))
 
 describe('ajoute ou met à jour une phase', () => {
   test("crée une phase qui n'existe pas", async () => {

@@ -1,11 +1,6 @@
-const titrePhasesQueries = {
-  titrePhaseUpdate: (titrePhase, titresPhasesOld) => Promise.resolve(),
-  titrePhaseDelete: (titresPhasesOld, titrePhases) => Promise.resolve()
-}
-
-jest.mock('../titre-phases', () => titrePhasesQueries)
-
 import titrePhasesUpdate from './titre-phases-update'
+import * as titrePhasesQueries from '../titre-phases'
+
 import {
   titreSansPhase,
   titreUnePhase,
@@ -13,6 +8,15 @@ import {
   titrePhaseASupprimer,
   titreUnePhaseSansChangement
 } from './__mocks__/titre-phases-update-titres'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../titre-phases', () => ({
+  titrePhaseUpdate: (titrePhase, titresPhasesOld) => Promise.resolve(),
+  titrePhaseDelete: (titresPhasesOld, titrePhases) => Promise.resolve()
+}))
+
+console.log = jest.fn()
 
 describe("met à jour les phase d'un titre", () => {
   test('un titre avec une phase est mis à jour', async () => {

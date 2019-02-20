@@ -1,11 +1,15 @@
 import titresDemarchesOrdreUpdate from './titre-demarches-ordre-update'
+import * as titreDemarches from '../titre-demarches'
+
 import { titresDemarcheOctPoints } from './__mocks__/titre-demarches-ordre-update-demarches'
 
-const titreDemarches = {}
-
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../titre-demarches', () => ({
-  titreDemarchesOrdreUpdate: () => titreDemarches.titreDemarchesOrdreUpdate()
+  titreDemarchesOrdreUpdate: () => {}
 }))
+
+console.log = jest.fn()
 
 describe("met à jour l'ordre de toutes les démarches d'un titre", () => {
   test("met à jour l' ordre de deux démarches", async () => {

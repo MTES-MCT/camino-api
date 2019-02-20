@@ -1,12 +1,13 @@
-const titresQueries = {
-  titrePropsUpdate: jest.fn().mockImplementation(() => Promise.resolve())
-}
-
-jest.mock('../database/queries/titres', () => titresQueries)
-
 import { titreStatutIdUpdate, titrePropsUpdate } from './titres'
+import * as titresQueries from '../database/queries/titres'
 
 import { titreValide } from './__mocks__/titres-titres'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../database/queries/titres', () => ({
+  titrePropsUpdate: jest.fn().mockImplementation(() => Promise.resolve())
+}))
 
 beforeAll(() => {
   jest

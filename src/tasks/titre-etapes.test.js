@@ -1,18 +1,9 @@
-const titreEtapesQueries = {
-  titreEtapeUpdate: jest.fn().mockImplementation(() => Promise.resolve()),
-  titreEtapeCommuneInsert: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve()),
-  titreEtapeCommuneDelete: jest.fn().mockImplementation(() => Promise.resolve())
-}
-
-jest.mock('../database/queries/titres-etapes', () => titreEtapesQueries)
-
 import {
   titreEtapesOrdreUpdate,
   titreEtapeCommunesInsert,
   titreEtapeCommunesDelete
 } from './titre-etapes'
+import * as titreEtapesQueries from '../database/queries/titres-etapes'
 
 import {
   titreEtapesByDemarche,
@@ -21,6 +12,18 @@ import {
   titreEtapeCommunesParis,
   titreEtapeCommunesMetz
 } from './__mocks__/titre-etapes-etapes'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../database/queries/titres-etapes', () => ({
+  titreEtapeUpdate: jest.fn().mockImplementation(() => Promise.resolve()),
+  titreEtapeCommuneInsert: jest
+    .fn()
+    .mockImplementation(() => Promise.resolve()),
+  titreEtapeCommuneDelete: jest.fn().mockImplementation(() => Promise.resolve())
+}))
+
+console.log = jest.fn()
 
 describe("met à jour l'ordre des étapes d'une démarche", () => {
   test('deux étapes sont mises à jour', async () => {

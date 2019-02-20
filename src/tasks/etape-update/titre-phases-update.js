@@ -23,7 +23,6 @@ const titresPhasesUpdate = async titre => {
     return !titrePhaseUpdated ? res : [...res, titrePhaseUpdated]
   }, [])
 
-  console.log({ titresPhasesOld })
   // retourne un tableau de requêtes pour
   // - supprimer les phases qui n'existent plus
   const titrePhasesDeleted = titresPhasesOld.reduce((res, titrePhaseOld) => {

@@ -1,15 +1,18 @@
-const communesQueries = {
-  communeInsert: jest.fn().mockImplementation(() => Promise.resolve())
-}
-
-jest.mock('../database/queries/communes', () => communesQueries)
-
 import { communesInsert } from './communes'
+import * as communesQueries from '../database/queries/communes'
 
 import {
   communesNouvelles,
   communesAnciennes
 } from './__mocks__/communes-communes'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../database/queries/communes', () => ({
+  communeInsert: jest.fn().mockImplementation(() => Promise.resolve())
+}))
+
+console.log = jest.fn()
 
 describe('ajoute ou met à jour une commune', () => {
   test("insert deux communes qui n'existaient pas dans la liste en base", async () => {

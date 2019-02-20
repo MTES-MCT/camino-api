@@ -1,8 +1,17 @@
-const communes = {}
-const titreEtapes = {}
-const geojson = {}
-const apiCommunes = {}
+import titreEtapeCommunesUpdate from './titre-etape-communes-update'
 
+import * as communes from '../communes'
+import * as titreEtapes from '../titre-etapes'
+import * as geojson from '../../tools/geojson'
+import * as apiCommunes from '../../tools/api-communes'
+
+import {
+  titreEtapePoints,
+  titreEtapePointsVides
+} from './__mocks__/titre-etape-communes-update-etapes'
+
+// `jest.mock()` est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../communes', () => ({
   communesInsert: points => points.map(point => Promise.resolve(point))
 }))
@@ -27,11 +36,7 @@ jest.mock('../../tools/api-communes', () => ({
       : []
 }))
 
-import titreEtapeCommunesUpdate from './titre-etape-communes-update'
-import {
-  titreEtapePoints,
-  titreEtapePointsVides
-} from './__mocks__/titre-etape-communes-update-etapes'
+console.log = jest.fn()
 
 describe('met à jour la liste globale des communes et la liste de communes pour une étape', () => {
   test('ajoute 2 communes dans une étape et dans la liste de communes', async () => {
