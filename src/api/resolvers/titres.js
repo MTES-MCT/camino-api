@@ -18,7 +18,7 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import { dupRemove, dupFind } from '../../tools/index'
 
-import titreEtapeUpdateTasks from '../../tasks/etape-update/index'
+import titreEtapeUpdateTasks from '../../tasks/etape-update'
 
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id)
