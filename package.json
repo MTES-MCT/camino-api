@@ -26,7 +26,7 @@
     "seed:run": "npx npx knex --knexfile=./knex/config-cli.js seed:run",
     "migrate": "npm run migrate:rollback && npm run migrate:latest && npm run seed:run",
     "migrate-api": "node ./knex/index.js",
-    "daily": "node ./dist/tasks/daily/index.js",
+    "daily": "node ./dist/tasks/daily.js",
     "start": "npm run build && node ./dist/index.js",
     "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js",
     "test": "jest --verbose && codecov",
