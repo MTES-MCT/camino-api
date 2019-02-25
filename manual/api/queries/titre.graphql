@@ -24,9 +24,14 @@ fragment titre on Titre {
     type
     valeur
   }
-  volume
   surface
+  volume
   volumeUnite {
+    id
+    nom
+  }
+  engagement
+  engagementDevise {
     id
     nom
   }

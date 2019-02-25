@@ -11,6 +11,7 @@ import Administrations from './administrations'
 import Communes from './communes'
 import TitresTravauxRapports from './titres-travaux-rapports'
 import VolumeUnites from './volume-unites'
+import Devises from './devises'
 
 export default class Titres extends Model {
   static tableName = 'titres'
@@ -35,7 +36,13 @@ export default class Titres extends Model {
       },
       surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       volumeTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 }
+      volumeUniteIdTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+      communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+      engagementTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+      engagementDeviseIdTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      }
     }
   }
 
@@ -100,12 +107,35 @@ export default class Titres extends Model {
       relation: Model.HasOneThroughRelation,
       modelClass: VolumeUnites,
       join: {
-        from: 'titres.volumeTitreEtapeId',
+        from: 'titres.volumeUniteIdTitreEtapeId',
         through: {
           from: 'titresEtapes.id',
           to: 'titresEtapes.volumeUniteId'
         },
         to: 'volumeUnites.id'
+      }
+    },
+
+    engagementEtape: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: TitresEtapes,
+      join: {
+        from: 'titres.engagementTitreEtapeId',
+        to: 'titresEtapes.id'
+      },
+      modify: builder => builder.select('engagement')
+    },
+
+    engagementDevise: {
+      relation: Model.HasOneThroughRelation,
+      modelClass: Devises,
+      join: {
+        from: 'titres.engagementDeviseIdTitreEtapeId',
+        through: {
+          from: 'titresEtapes.id',
+          to: 'titresEtapes.engagementDeviseId'
+        },
+        to: 'devises.id'
       }
     },
 

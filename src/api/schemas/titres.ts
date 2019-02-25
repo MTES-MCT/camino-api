@@ -59,6 +59,12 @@ type Titre {
   "L'unité du volume du titre dans son dernier état de validité"
   volumeUnite: VolumeUnite
 
+  "Le montant de l'engagement financier du titulaire"
+  engagement: Float
+
+  "La devise de l'engagement financier du titulaire"
+  engagementDevise: Devise
+
   "Les rapports de travaux"
   travauxRapports: [TitreTravauxRapport]
 }
