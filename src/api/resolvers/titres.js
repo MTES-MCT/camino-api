@@ -55,6 +55,12 @@ const titres = async (
   context,
   info
 ) => {
+  // todo:
+  // pour optimiser la requête sql en fonction de la requête graphql
+  // construire un eager.options à passer à la requête sql
+  // à partir de l'AST de graphQL
+  // console.log(JSON.stringify(info.fragments, null, 2))
+  // cf: https://github.com/graphql/graphql-js/issues/799
   const domaineIdsRestrict = async domaineIds => {
     if (!domaineIds) {
       const domaines = await domainesGet()
