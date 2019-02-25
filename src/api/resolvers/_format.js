@@ -39,6 +39,10 @@ const titreFormat = t => {
     t.volume = t.volumeEtape.volume
   }
 
+  if (t.engagementEtape) {
+    t.engagement = t.engagementEtape.engagement
+  }
+
   if (t.surfaceEtape) {
     t.surface = t.surfaceEtape.surface
   }

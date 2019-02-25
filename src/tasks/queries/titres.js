@@ -8,8 +8,11 @@ const calculatedProps = [
   'administrations',
   'surface',
   'volume',
+  'volumeUniteId',
   'substances',
-  'communes'
+  'communes',
+  'engagement',
+  'engagementDeviseId'
 ]
 
 const titreStatutIdUpdate = (titre, statutId) =>
