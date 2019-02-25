@@ -27,7 +27,7 @@ describe('retourne si la démarche donne lieu à une étape ou non', () => {
     ).toBeTruthy()
   })
 
-  test("une démarche d'octroi dont l'étape de dex est acceptée pour un titre AXM ne donne pas lieu à une phase", () => {
+  test("une démarche d'octroi dont l'étape de dex n'est pas acceptée pour un titre AXM ne donne pas lieu à une phase", () => {
     expect(
       titreDemarchePhasesFilter(titreAxmDemarcheOctDexRej, 'axm')
     ).toBeFalsy()
@@ -39,7 +39,7 @@ describe('retourne si la démarche donne lieu à une étape ou non', () => {
     ).toBeTruthy()
   })
 
-  test("une démarche d'octroi dont l'étape de rpu est acceptée pour un titre PRX ne donne pas lieu à une phase", () => {
+  test("une démarche d'octroi dont l'étape de rpu n'est pas acceptée pour un titre PRX ne donne pas lieu à une phase", () => {
     expect(
       titreDemarchePhasesFilter(titrePrxDemarcheOctRpuRej, 'prx')
     ).toBeFalsy()
