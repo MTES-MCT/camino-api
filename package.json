@@ -37,7 +37,7 @@
     "user-add": "ts-node ./src/tools/dev/database/utilisateur-admin-add.js"
   },
   "dependencies": {
-    "@sentry/node": "^4.6.3",
+    "@sentry/node": "^4.6.4",
     "@sentry/types": "^4.5.3",
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "0.0.36",
@@ -84,8 +84,8 @@
     "typescript": "^3.3.3333"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.6",
-    "@typescript-eslint/parser": "^1.4.1",
+    "@types/jest": "^24.0.9",
+    "@typescript-eslint/parser": "^1.4.2",
     "codecov": "^3.2.0",
     "commitizen": "^3.0.7",
     "cz-conventional-changelog": "^2.1.0",
