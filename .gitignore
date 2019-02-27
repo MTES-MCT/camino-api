@@ -1,6 +1,6 @@
 node_modules/
 .env
-.env-public
+env-public
 
 /backups
 /src/tools/sources/**/*.json

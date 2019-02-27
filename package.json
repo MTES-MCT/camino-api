@@ -78,7 +78,7 @@
     "nodemailer": "^5.1.1",
     "nodemailer-html-to-text": "^3.0.0",
     "nodemailer-smtp-transport": "^2.7.4",
-    "objection": "^1.6.2",
+    "objection": "^1.6.3",
     "p-queue": "^3.1.0",
     "pg": "^7.8.1",
     "typescript": "^3.3.3333"
@@ -93,7 +93,7 @@
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^5.14.1",
-    "eslint-config-prettier": "^4.0.0",
+    "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.3.0",
