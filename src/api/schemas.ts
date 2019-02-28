@@ -9,7 +9,7 @@ import geojson from './schemas/geojsons'
 import utilisateurs from './schemas/utilisateurs'
 import administrations from './schemas/administrations'
 import entreprises from './schemas/entreprises'
-import titresTravaux from './schemas/titres-travaux'
+import titresActivites from './schemas/titres-activites'
 
 const schema = buildSchema(`
   ${index}
@@ -30,7 +30,7 @@ const schema = buildSchema(`
 
   ${entreprises}
 
-  ${titresTravaux}
+  ${titresActivites}
 `)
 
 export default schema

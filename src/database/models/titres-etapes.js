@@ -198,6 +198,7 @@ export default class TitresEtapes extends Model {
         to: 'titresSubstances.titreEtapeId'
       }
     },
+
     titresTitulaires: {
       relation: Model.HasManyRelation,
       modelClass: TitresTitulaires,
@@ -206,6 +207,7 @@ export default class TitresEtapes extends Model {
         to: 'titresTitulaires.titreEtapeId'
       }
     },
+
     titresAmodiataires: {
       relation: Model.HasManyRelation,
       modelClass: TitresAmodiataires,

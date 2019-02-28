@@ -17,7 +17,7 @@ export default class TitresDemarches extends Model {
       typeId: { type: 'string', maxLength: 8 },
       statutId: { type: 'string', maxLength: 3 },
       ordre: { type: 'integer' },
-      annulationDemarcheId: { type: 'string', maxLength: 128 }
+      annulationTitreDemarcheId: { type: 'string', maxLength: 128 }
     }
   }
 
@@ -58,7 +58,7 @@ export default class TitresDemarches extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresDemarches,
       join: {
-        from: 'titresDemarches.annulationDemarcheId',
+        from: 'titresDemarches.annulationTitreDemarcheId',
         to: 'titresDemarches.id'
       }
     }

@@ -14,8 +14,8 @@ const permissionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_PERMISSIONS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
-const titresTravauxRapportsSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_TITRES_TRAVAUX_RAPPORTS
+const titresActivitesRapportsSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES_RAPPORTS
 const geoSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_GEO
 
 const jsonParse = value => json =>
@@ -29,6 +29,7 @@ const jsonParse = value => json =>
 const titresTables = [
   { name: 'titres', cb: jsonParse('references') },
   { name: 'titres_demarches' },
+  { name: 'titres_demarches_liens' },
   { name: 'titres_etapes', cb: jsonParse('visas') },
   { name: 'titres_points' },
   { name: 'titres_points_references' },
@@ -160,9 +161,9 @@ const spreadSheets = [
     ]
   },
   {
-    name: 'titresTravauxRapports',
-    id: titresTravauxRapportsSpreadsheetId,
-    tables: [{ name: 'titres_travaux_rapports', cb: jsonParse('contenu') }]
+    name: 'titresActivitesRapports',
+    id: titresActivitesRapportsSpreadsheetId,
+    tables: [{ name: 'titres_activites_rapports', cb: jsonParse('contenu') }]
   },
   {
     name: 'geo',

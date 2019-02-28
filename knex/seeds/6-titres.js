@@ -3,6 +3,7 @@ const domaineIds = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
 const files = [
   'titres',
   'titresDemarches',
+  'titresDemarchesLiens',
   'titresEtapes',
   'titresEmprises',
   'titresPoints',
@@ -37,13 +38,22 @@ exports.seed = (knex, Promise) =>
   ])
     .then(() => knex('titresPoints').del())
     .then(() =>
-      Promise.all([knex('titresEtapes').del(), knex('titresPhases').del()])
+      Promise.all([
+        knex('titresEtapes').del(),
+        knex('titresPhases').del(),
+        knex('titresDemarchesLiens').del()
+      ])
     )
     .then(() => knex('titresDemarches').del())
     .then(() => knex('titres').del())
     .then(() => knex('titres').insert(datas.titres))
     .then(() => knex('titresDemarches').insert(datas.titresDemarches))
-    .then(() => knex('titresEtapes').insert(datas.titresEtapes))
+    .then(() =>
+      Promise.all([
+        knex('titresEtapes').insert(datas.titresEtapes),
+        knex('titresDemarchesLiens').insert(datas.titresDemarchesLiens)
+      ])
+    )
     .then(() =>
       Promise.all([
         knex('titresSubstances').insert(datas.titresSubstances),

@@ -10,6 +10,7 @@ exports.up = knex => {
       table.boolean('titulaires')
       table.boolean('renouvelable')
       table.boolean('exception')
+      table.boolean('auto')
     })
     .createTable('demarchesTypes__types', table => {
       table

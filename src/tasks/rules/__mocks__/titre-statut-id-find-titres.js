@@ -7,7 +7,7 @@ const titreValide = {
       typeId: 'oct',
       statutId: 'acc',
       ordre: 1,
-      annulationDemarcheId: null,
+      annulationTitreDemarcheId: null,
       etapes: [
         {
           id: 'm-prx-saint-pierre-2014-oct01-dex01',
@@ -58,7 +58,7 @@ const titreOctroiInstruction = {
       typeId: 'oct',
       statutId: 'ins',
       ordre: 1,
-      annulationDemarcheId: null
+      annulationTitreDemarcheId: null
     }
   ]
 }
@@ -72,7 +72,7 @@ const titreOctroiDepose = {
       typeId: 'oct',
       statutId: 'dep',
       ordre: 1,
-      annulationDemarcheId: null
+      annulationTitreDemarcheId: null
     }
   ]
 }
@@ -86,7 +86,7 @@ const titreOctroiRejete = {
       typeId: 'oct',
       statutId: 'rej',
       ordre: 1,
-      annulationDemarcheId: null
+      annulationTitreDemarcheId: null
     }
   ]
 }
@@ -100,7 +100,7 @@ const titreOctroiClasse = {
       typeId: 'oct',
       statutId: 'cls',
       ordre: 1,
-      annulationDemarcheId: null
+      annulationTitreDemarcheId: null
     }
   ]
 }
@@ -114,7 +114,7 @@ const titreOctroiRetire = {
       typeId: 'oct',
       statutId: 'ret',
       ordre: 1,
-      annulationDemarcheId: null
+      annulationTitreDemarcheId: null
     }
   ]
 }
@@ -128,7 +128,7 @@ const titreDemarcheInstruction = {
       typeId: 'mut',
       statutId: 'ins',
       ordre: 1,
-      annulationDemarcheId: null
+      annulationTitreDemarcheId: null
     }
   ]
 }
