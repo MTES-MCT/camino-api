@@ -16,7 +16,16 @@ exports.up = knex => {
         .notNullable()
         .references('demarchesStatuts.id')
       table.integer('ordre')
-      table.string('annulationDemarcheId', 128).references('id')
+      table.string('annulationTitreDemarcheId', 128).references('id')
+    })
+    .createTable('titresDemarchesLiens', table => {
+      table
+        .string('enfantTitreDemarcheid', 128)
+        .references('titresDemarches.id')
+      table
+        .string('parentTitreDemarcheid', 128)
+        .references('titresDemarches.id')
+      table.primary(['enfantTitreDemarcheid', 'parentTitreDemarcheid'])
     })
     .createTable('titresPhases', table => {
       table
@@ -124,5 +133,6 @@ exports.down = knex => {
     })
     .dropTable('titresEtapes')
     .dropTable('titresPhases')
+    .dropTable('titresDemarchesLiens')
     .dropTable('titresDemarches')
 }

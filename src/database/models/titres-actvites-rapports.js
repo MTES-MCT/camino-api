@@ -1,7 +1,7 @@
 import { Model } from 'objection'
 
-export default class TitresTravauxRapports extends Model {
-  static tableName = 'titresTravauxRapports'
+export default class TitresActivitesRapports extends Model {
+  static tableName = 'titresActivitesRapports'
 
   static jsonSchema = {
     type: 'object',

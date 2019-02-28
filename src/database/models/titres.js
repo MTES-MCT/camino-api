@@ -9,7 +9,7 @@ import TitresPoints from './titres-points'
 import Entreprises from './entreprises'
 import Administrations from './administrations'
 import Communes from './communes'
-import TitresTravauxRapports from './titres-travaux-rapports'
+import TitresActivitesRapports from './titres-actvites-rapports'
 import VolumeUnites from './volume-unites'
 import Devises from './devises'
 
@@ -214,12 +214,12 @@ export default class Titres extends Model {
       }
     },
 
-    travauxRapports: {
+    activitesRapports: {
       relation: Model.HasManyRelation,
-      modelClass: TitresTravauxRapports,
+      modelClass: TitresActivitesRapports,
       join: {
         from: 'titres.id',
-        to: 'titresTravauxRapports.titreId'
+        to: 'titresActivitesRapports.titreId'
       }
     }
   }

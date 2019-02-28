@@ -1,9 +1,9 @@
 import * as dateFormat from 'dateformat'
 
 import {
-  titresTravauxRapportGet,
-  titreTravauxRapportUpdate
-} from '../../database/queries/titres-travaux'
+  titresActivitesRapportGet,
+  titreActivitesRapportUpdate
+} from '../../database/queries/titres-activites'
 
 import {
   utilisateurGet,
@@ -14,14 +14,14 @@ import { titreGet } from '../../database/queries/titres'
 
 import permissionsCheck from './_permissions-check'
 
-import { titreTravauxRapportRowUpdate } from '../../tools/export/titre-travaux-rapport'
+import { titreActivitesRapportRowUpdate } from '../../tools/export/titre-activites-rapport'
 import emailsSend from '../../tools/emails-send'
 
-const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
+const titreActivitesRapportModifier = async ({ rapport }, context, info) => {
   const errors = []
   const titre = await titreGet(rapport.titreId)
   const user = await utilisateurGet(context.user.id)
-  const rapportOld = await titresTravauxRapportGet(rapport.id)
+  const rapportOld = await titresActivitesRapportGet(rapport.id)
   const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
   const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
 
@@ -52,7 +52,7 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
 
   if (!errors.length) {
     rapport.utilisateurId = context.user.id
-    titreTravauxRapportRowUpdate(rapport)
+    titreActivitesRapportRowUpdate(rapport)
 
     if (rapport.confirmation) {
       const utilisateurs = await utilisateursGet({
@@ -67,8 +67,8 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
         (res, u) => (u.email ? [...res, u.email] : res),
         // si la variable d'environnement existe,
         // on ajoute un email générique pour recevoir une copie
-        process.env.TRAVAUX_RAPPORTS_EMAIL
-          ? [process.env.TRAVAUX_RAPPORTS_EMAIL]
+        process.env.ACTIVITES_RAPPORTS_EMAIL
+          ? [process.env.ACTIVITES_RAPPORTS_EMAIL]
           : []
       )
 
@@ -80,8 +80,8 @@ const titreTravauxRapportModifier = async ({ rapport }, context, info) => {
       await emailsSend(emails, subject, html)
     }
 
-    return titreTravauxRapportUpdate({
-      titreTravauxRapport: rapport
+    return titreActivitesRapportUpdate({
+      titreActivitesRapport: rapport
     })
   } else {
     throw new Error(errors.join(', '))
@@ -170,4 +170,4 @@ ${footer}
 `
 }
 
-export { titreTravauxRapportModifier }
+export { titreActivitesRapportModifier }

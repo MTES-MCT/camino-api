@@ -107,7 +107,7 @@ const titrePhaseDateFinFind = (
   // trouve une démarche d'annulation si elle existe
   const titreDemarcheAnnulation = demarcheAnnulationFind(
     titreDemarches,
-    titreDemarche.annulationDemarcheId
+    titreDemarche.annulationTitreDemarcheId
   )
 
   // si il y a une démarche d'annulation
@@ -125,12 +125,12 @@ const titrePhaseDateFinFind = (
   ).dateFin
 }
 
-const demarcheAnnulationFind = (titreDemarches, annulationDemarcheId) => {
-  if (!annulationDemarcheId) {
+const demarcheAnnulationFind = (titreDemarches, annulationTitreDemarcheId) => {
+  if (!annulationTitreDemarcheId) {
     return null
   }
 
-  return titreDemarches.find(t => t.id === annulationDemarcheId)
+  return titreDemarches.find(t => t.id === annulationTitreDemarcheId)
 }
 
 export default titrePhasesFind
