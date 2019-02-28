@@ -37,6 +37,7 @@
     "user-add": "ts-node ./src/tools/dev/database/utilisateur-admin-add.js"
   },
   "dependencies": {
+    "@mapbox/geojsonhint": "^2.1.0",
     "@sentry/node": "^4.6.4",
     "@sentry/types": "^4.5.3",
     "@types/bcrypt": "^3.0.0",
@@ -84,7 +85,6 @@
     "typescript": "^3.3.3333"
   },
   "devDependencies": {
-    "@mapbox/geojsonhint": "^2.1.0",
     "@types/jest": "^24.0.9",
     "@typescript-eslint/parser": "^1.4.2",
     "codecov": "^3.2.0",
@@ -104,7 +104,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.1.0",
     "nodemon": "^1.18.10",
-    "standard-version": "^5.0.0",
+    "standard-version": "^5.0.1",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.2"
   },
