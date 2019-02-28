@@ -8,14 +8,9 @@ type Coordonnees {
   y: Float
 }
 
-type GeojsonMultiPolygons {
-  type: FeatureCollectionType!
-  features: [GeojsonMultiPolygon]
-}
-
 type GeojsonMultiPolygon {
   type: FeatureType!
-  properties: Titre
+  properties: EtapeId!
   geometry: GeometryMultiPolygon!
 }
 
@@ -26,6 +21,7 @@ type GeometryMultiPolygon {
 
 type GeojsonPoints {
   type: FeatureCollectionType!
+  properties: EtapeId!
   features: [FeaturePoint]
 }
 
@@ -56,11 +52,13 @@ input InputCoordonnees {
 
 input InputGeojson {
   type: FeatureCollectionType!
+  properties: InputEtapeId!
   feature: [InputFeature]
 }
 
 input InputFeature {
   type: FeatureType!
+  properties: InputEtapeId!
   geometry: InputGeometry!
 }
 
