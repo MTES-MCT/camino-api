@@ -1,3 +1,5 @@
+import * as geojsonhint from '@mapbox/geojsonhint'
+import errorLog from '../../tools/error-log'
 import { communesInsert } from '../queries/communes'
 import {
   titreEtapeCommunesInsert,
@@ -100,7 +102,15 @@ const titresEtapesCommunesGet = async titresEtapes => {
     if (!titreEtape.points.length) continue
 
     const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
-    geojson.properties = { id: titreEtape.id }
+    const geojsonErrors = geojsonhint.hint(geojson)
+    if (geojsonErrors.length) {
+      geojsonErrors.forEach(error => {
+        errorLog(
+          `le geojson n'est pas conforme ${titreEtape.id}`,
+          JSON.stringify(error)
+        )
+      })
+    }
 
     const communesGeojson = await communesGeojsonGet(geojson)
 
