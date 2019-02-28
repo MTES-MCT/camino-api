@@ -14,9 +14,21 @@ const tables = [
   },
   {
     name: 'titresDemarches',
-    columns: ['id', 'typeId', 'titreId', 'statutId', 'ordre'],
+    columns: [
+      'id',
+      'typeId',
+      'titreId',
+      'statutId',
+      'ordre',
+      'annulationTitreDemarcheId'
+    ],
     parents: ['demarches']
   },
+  // {
+  //   name: 'titresDemarchesLiens',
+  //   columns: ['parentTitreDemarcheId', 'enfantTitreDemarcheId'],
+  //   parents: ['demarches']
+  // },
   {
     name: 'titresPhases',
     columns: ['titreDemarcheId', 'statutId', 'dateDebut', 'dateFin'],
@@ -41,7 +53,9 @@ const tables = [
       'surface',
       'visas',
       'engagement',
-      'engagementDevise',
+      'engagementDeviseId',
+      'engagementVolume',
+      'engagementVolumeUniteId',
       'sourceIndisponible'
     ],
     parents: ['demarches', 'etapes'],

@@ -4,8 +4,15 @@
 // (cf: _utils/json-to-spreadsheet.js)
 const tables = [
   {
-    name: 'titresTravauxRapports',
-    columns: ['id', 'titreId', 'utilisateurId', 'date', 'confirmation', 'contenu'],
+    name: 'titresActivitesRapports',
+    columns: [
+      'id',
+      'titreId',
+      'utilisateurId',
+      'date',
+      'confirmation',
+      'contenu'
+    ],
     callbacks: {
       contenu: v => JSON.stringify(v)
     }

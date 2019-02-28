@@ -1,5 +1,5 @@
 export default `
-type TitreTravauxRapport {
+type TitreActivitesRapport {
   id: ID!
   titreId: ID!
   date: Date!
@@ -7,7 +7,7 @@ type TitreTravauxRapport {
   contenu: Json
 }
 
-input InputTitreTravauxRapport {
+input InputTitreActivitesRapport {
   id: ID!
   titreId: ID!
   date: Date!

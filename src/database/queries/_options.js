@@ -77,7 +77,7 @@ const titres = {
     entreprises.eager
   }, administrations.${administrations.eager}, demarches(orderDesc).${
     demarches.eager
-  }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, travauxRapports, communes.${
+  }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, activitesRapports, communes.${
     communes.eager
   }]`,
   update: {

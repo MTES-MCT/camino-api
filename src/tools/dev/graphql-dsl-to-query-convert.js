@@ -11,7 +11,7 @@ fetch(url, {
   .then(res => res.json())
   .then(res =>
     fs.writeFileSync(
-      'docs/graphql/schema.json',
+      'manual/api/schema.json',
       JSON.stringify(res.data, null, 2)
     )
   )
