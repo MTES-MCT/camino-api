@@ -193,6 +193,10 @@ type Etape {
   sourceIndisponible: Boolean
 }
 
+type EtapeId {
+  etapeId: ID!
+}
+
 "Document attaché à une étape de démarche"
 type Document {
   """
@@ -341,6 +345,10 @@ input InputEtape {
   administrations: [InputAdministration]
 
   sourceIndisponible: Boolean
+}
+
+input InputEtapeId {
+  etapeId: ID!
 }
 
 input InputPoint {
