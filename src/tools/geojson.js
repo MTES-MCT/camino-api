@@ -18,7 +18,7 @@ const geojsonFeatureMultiPolygon = points => ({
 })
 
 // converti des points
-// en un geojson de type 'FeatureCollection' de 'Point'
+// en un geojson de type 'FeatureCollection' de 'Points'
 
 const geojsonFeatureCollectionPoints = points => ({
   type: 'FeatureCollection',

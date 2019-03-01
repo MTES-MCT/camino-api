@@ -20,12 +20,12 @@ exports.up = knex => {
     })
     .createTable('titresDemarchesLiens', table => {
       table
-        .string('enfantTitreDemarcheid', 128)
+        .string('enfantTitreDemarcheId', 128)
         .references('titresDemarches.id')
       table
-        .string('parentTitreDemarcheid', 128)
+        .string('parentTitreDemarcheId', 128)
         .references('titresDemarches.id')
-      table.primary(['enfantTitreDemarcheid', 'parentTitreDemarcheid'])
+      table.primary(['enfantTitreDemarcheId', 'parentTitreDemarcheId'])
     })
     .createTable('titresPhases', table => {
       table
