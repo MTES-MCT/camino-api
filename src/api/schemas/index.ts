@@ -1,9 +1,9 @@
 export default `
 """
-# Requêtes en lecture (_Query_)
+# Query
+## _Requêtes en lecture_
 
-- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/docs/graphql)
-- [Documentation offcielle de GraphQL](https://graphql.org/)
+- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)
 
 _Query_ un type _racine_ (_root_) de GraphQL.
 
@@ -66,10 +66,10 @@ type Query {
 }
 
 """
-# Requêtes en écriture (_Mutation_)
+# Mutation
+## _Requêtes en écriture_
 
-- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/docs/graphql)
-- [Documentation offcielle de GraphQL](https://graphql.org/)
+- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)
 
 _Mutation_ un type natif de GraphQL.
 
