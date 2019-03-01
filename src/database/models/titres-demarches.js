@@ -30,6 +30,7 @@ export default class TitresDemarches extends Model {
         to: 'demarchesTypes.id'
       }
     },
+
     statut: {
       relation: Model.BelongsToOneRelation,
       modelClass: DemarchesStatuts,
@@ -38,6 +39,7 @@ export default class TitresDemarches extends Model {
         to: 'demarchesStatuts.id'
       }
     },
+
     phase: {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresPhases,
@@ -46,6 +48,7 @@ export default class TitresDemarches extends Model {
         to: 'titresPhases.titreDemarcheId'
       }
     },
+
     etapes: {
       relation: Model.HasManyRelation,
       modelClass: TitresEtapes,
@@ -54,11 +57,38 @@ export default class TitresDemarches extends Model {
         to: 'titresEtapes.titreDemarcheId'
       }
     },
+
     annulationDemarche: {
       relation: Model.BelongsToOneRelation,
       modelClass: TitresDemarches,
       join: {
         from: 'titresDemarches.annulationTitreDemarcheId',
+        to: 'titresDemarches.id'
+      }
+    },
+
+    parents: {
+      relation: Model.ManyToManyRelation,
+      modelClass: TitresDemarches,
+      join: {
+        from: 'titresDemarches.id',
+        through: {
+          from: 'titresDemarchesLiens.enfantTitreDemarcheId',
+          to: 'titresDemarchesLiens.parentTitreDemarcheId'
+        },
+        to: 'titresDemarches.id'
+      }
+    },
+
+    enfants: {
+      relation: Model.ManyToManyRelation,
+      modelClass: TitresDemarches,
+      join: {
+        from: 'titresDemarches.id',
+        through: {
+          from: 'titresDemarchesLiens.parentTitreDemarcheId',
+          to: 'titresDemarchesLiens.enfantTitreDemarcheId'
+        },
         to: 'titresDemarches.id'
       }
     }

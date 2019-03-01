@@ -101,6 +101,12 @@ type Demarche {
 
   "Les étapes effectuées sur la démarche"
   etapes: [Etape]
+
+  "Les démarches liées"
+  enfants: [Demarche]
+
+  "Les démarches liées"
+  parents: [Demarche]
 }
 
 "Phase d'un titre minier"
