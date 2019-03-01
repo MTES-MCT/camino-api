@@ -129,6 +129,7 @@ type EtapeType {
   acceptationAuto: Boolean
   ordre: Int!
 
+  "Type de titre pour laquelle cette étape existe"
   typeId: TypeId
 
   etapesStatuts: [EtapeStatut]
