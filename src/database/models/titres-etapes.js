@@ -216,6 +216,7 @@ export default class TitresEtapes extends Model {
         to: 'titresAmodiataires.titreEtapeId'
       }
     },
+
     titresAdministrations: {
       relation: Model.HasManyRelation,
       modelClass: TitresAdministrations,
@@ -224,6 +225,7 @@ export default class TitresEtapes extends Model {
         to: 'titresAdministrations.titreEtapeId'
       }
     },
+
     titresEmprises: {
       relation: Model.HasManyRelation,
       modelClass: TitresEmprises,

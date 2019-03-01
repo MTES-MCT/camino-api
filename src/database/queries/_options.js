@@ -67,7 +67,7 @@ const phases = {
 const demarches = {
   eager: `[type, statut, phase.${phases.eager}, etapes(orderDesc).${
     etapes.eager
-  }]`
+  }, parents.^1, enfants.^1]`
 }
 
 const titres = {
