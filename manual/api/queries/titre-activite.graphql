@@ -1,0 +1,12 @@
+mutation TitreActivite($activite: InputTitreActivite!) {
+  titreActiviteAjouter(activite: $activite) {
+    ...titreActivite
+  }
+}
+
+fragment titreActivite on TitreActivite {
+  id
+  titreId
+  date
+  contenu
+}

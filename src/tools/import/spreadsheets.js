@@ -14,8 +14,8 @@ const permissionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_PERMISSIONS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
-const titresActivitesRapportsSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES_RAPPORTS
+const titresActivitesSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
 const geoSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_GEO
 
 const jsonParse = value => json =>
@@ -161,9 +161,9 @@ const spreadSheets = [
     ]
   },
   {
-    name: 'titresActivitesRapports',
-    id: titresActivitesRapportsSpreadsheetId,
-    tables: [{ name: 'titres_activites_rapports', cb: jsonParse('contenu') }]
+    name: 'titresActivites',
+    id: titresActivitesSpreadsheetId,
+    tables: [{ name: 'titres_activites', cb: jsonParse('contenu') }]
   },
   {
     name: 'geo',

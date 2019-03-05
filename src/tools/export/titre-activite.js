@@ -3,16 +3,16 @@ import spreadsheetRowAdd from './_utils/spreadsheet-row-add'
 import spreadsheetRowUpdate from './_utils/spreadsheet-row-update'
 import tables from './tables/titres-actvites'
 
-const titreActivitesRapportRowAdd = async content => {
+const titreActiviteRowAdd = async content => {
   const spreadsheetId =
-    process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES_RAPPORTS
+    process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES
 
   await spreadsheetRowAdd(spreadsheetId, credentials, tables[0], content)
 }
 
-const titreActivitesRapportRowUpdate = async content => {
+const titreActiviteRowUpdate = async content => {
   const spreadsheetId =
-    process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES_RAPPORTS
+    process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES
 
   try {
     await spreadsheetRowUpdate(spreadsheetId, credentials, tables[0], content)
@@ -21,4 +21,4 @@ const titreActivitesRapportRowUpdate = async content => {
   }
 }
 
-export { titreActivitesRapportRowAdd, titreActivitesRapportRowUpdate }
+export { titreActiviteRowAdd, titreActiviteRowUpdate }

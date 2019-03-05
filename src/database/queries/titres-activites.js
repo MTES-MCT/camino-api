@@ -1,19 +1,13 @@
-import titreActivitesRapports from '../models/titres-actvites-rapports'
+import titreActivites from '../models/titres-actvites'
 
-const titresActivitesRapportGet = async id =>
-  titreActivitesRapports.query().findById(id)
+const titresActiviteGet = async id => titreActivites.query().findById(id)
 
-const titresActivitesRapportsGet = async () =>
-  titreActivitesRapports.query().skipUndefined()
+const titresActivitesGet = async () => titreActivites.query().skipUndefined()
 
-const titreActivitesRapportUpdate = async ({ titreActivitesRapport }) =>
-  titreActivitesRapports
+const titreActiviteUpdate = async ({ titreActivite }) =>
+  titreActivites
     .query()
-    .upsertGraph(titreActivitesRapport, { insertMissing: true })
+    .upsertGraph(titreActivite, { insertMissing: true })
     .first()
 
-export {
-  titresActivitesRapportGet,
-  titresActivitesRapportsGet,
-  titreActivitesRapportUpdate
-}
+export { titresActiviteGet, titresActivitesGet, titreActiviteUpdate }

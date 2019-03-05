@@ -65,8 +65,8 @@ type Titre {
   "La devise de l'engagement financier du titulaire"
   engagementDevise: Devise
 
-  "Les rapports d'activités"
-  activitesRapports: [TitreActivitesRapport]
+  "Les activités sur un titre"
+  activites: [TitreActivite]
 }
 
 "Références métier d'un titre minier"
