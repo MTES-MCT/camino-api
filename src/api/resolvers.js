@@ -30,7 +30,7 @@ import { metas } from './resolvers/metas'
 import { substance, substances } from './resolvers/substances'
 import { permissions } from './resolvers/permissions'
 import { entreprise, entreprises } from './resolvers/entreprises'
-import { titreActivitesRapportModifier } from './resolvers/titres-activites'
+import { titreActiviteModifier } from './resolvers/titres-activites'
 
 export default {
   //  types
@@ -54,7 +54,7 @@ export default {
   titreModifier,
   titreSupprimer,
   titreEtapeModifier,
-  titreActivitesRapportModifier,
+  titreActiviteModifier,
   utilisateurConnecter,
   utilisateurModifier,
   utilisateurAjouter,

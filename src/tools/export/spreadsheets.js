@@ -1,10 +1,10 @@
 import { titresGet } from '../../database/queries/titres'
 import { utilisateursGet } from '../../database/queries/utilisateurs'
-import { titresActivitesRapportsGet } from '../../database/queries/titres-activites'
+import { titresActivitesGet } from '../../database/queries/titres-activites'
 
 import titresTables from './tables/titres'
 import utilisateursTables from './tables/utilisateurs'
-import titresActivitesRapportsTables from './tables/titres-actvites'
+import titresActivitesTables from './tables/titres-actvites'
 
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_C
 const titresFSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_F
@@ -16,8 +16,8 @@ const titresSSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_S
 const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_W
 const utilisateursSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_UTILISATEURS
-const titresActivitesRapportsSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES_RAPPORTS
+const titresActivitesSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES
 // const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_METAS
 // const entreprisesSpreadsheetId =
 //   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES
@@ -43,7 +43,7 @@ const utilisateursFetch = () =>
     permissionIds: undefined
   })
 
-const titresActivitesRapportsFetch = () => titresActivitesRapportsGet()
+const titresActivitesFetch = () => titresActivitesGet()
 
 const spreadsheets = [
   {
@@ -101,10 +101,10 @@ const spreadsheets = [
     tables: titresTables
   },
   {
-    name: 'titres-activites-rapports',
-    spreadsheetId: titresActivitesRapportsSpreadsheetId,
-    fetch: titresActivitesRapportsFetch(),
-    tables: titresActivitesRapportsTables
+    name: 'titres-activites',
+    spreadsheetId: titresActivitesSpreadsheetId,
+    fetch: titresActivitesFetch(),
+    tables: titresActivitesTables
   }
 ]
 

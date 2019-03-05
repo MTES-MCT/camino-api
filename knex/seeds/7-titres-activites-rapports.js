@@ -1,12 +1,12 @@
 const dateFormat = require('dateformat')
-const titresActivitesRapports = require('../../sources/titres-activites-rapports.json')
+const titresActivites = require('../../sources/titres-activites.json')
 
 exports.seed = (knex, Promise) =>
-  knex('titresActivitesRapports')
+  knex('titresActivites')
     .del()
     .then(() =>
-      knex('titresActivitesRapports').insert(
-        titresActivitesRapports.map(tr => {
+      knex('titresActivites').insert(
+        titresActivites.map(tr => {
           tr.date = dateFormat(tr.date, 'yyyy-mm-dd')
           return tr
         })
