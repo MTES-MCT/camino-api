@@ -1,8 +1,8 @@
 import * as dateFormat from 'dateformat'
 
 import {
-  titresActivitesRapportGet,
-  titreActivitesRapportUpdate
+  titresActiviteGet,
+  titreActiviteUpdate
 } from '../../database/queries/titres-activites'
 
 import {
@@ -14,14 +14,14 @@ import { titreGet } from '../../database/queries/titres'
 
 import permissionsCheck from './_permissions-check'
 
-import { titreActivitesRapportRowUpdate } from '../../tools/export/titre-activites-rapport'
+import { titreActiviteRowUpdate } from '../../tools/export/titre-activite'
 import emailsSend from '../../tools/emails-send'
 
-const titreActivitesRapportModifier = async ({ rapport }, context, info) => {
+const titreActiviteModifier = async ({ activite }, context, info) => {
   const errors = []
-  const titre = await titreGet(rapport.titreId)
+  const titre = await titreGet(activite.titreId)
   const user = await utilisateurGet(context.user.id)
-  const rapportOld = await titresActivitesRapportGet(rapport.id)
+  const activiteOld = await titresActiviteGet(activite.id)
   const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
   const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
 
@@ -43,18 +43,18 @@ const titreActivitesRapportModifier = async ({ rapport }, context, info) => {
         titre.typeId === 'axm')
     )
   ) {
-    errors.push('ce titre ne peut pas recevoir de rapport')
+    errors.push('ce titre ne peut pas recevoir de activite')
   }
 
-  if (rapportOld && rapportOld.confirmation) {
-    errors.push('ce rapport a été validé et ne peux plus être modifié')
+  if (activiteOld && activiteOld.confirmation) {
+    errors.push('ce activite a été validé et ne peux plus être modifié')
   }
 
   if (!errors.length) {
-    rapport.utilisateurId = context.user.id
-    titreActivitesRapportRowUpdate(rapport)
+    activite.utilisateurId = context.user.id
+    titreActiviteRowUpdate(activite)
 
-    if (rapport.confirmation) {
+    if (activite.confirmation) {
       const utilisateurs = await utilisateursGet({
         entrepriseIds: isAmodiataire
           ? titre.amodiataires.map(t => t.id)
@@ -73,57 +73,57 @@ const titreActivitesRapportModifier = async ({ rapport }, context, info) => {
       )
 
       const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
-        rapport.contenu.trimestre
-      } trimestre ${rapport.contenu.annee}`
-      const html = emailFormat(titre, user, rapport)
+        activite.contenu.trimestre
+      } trimestre ${activite.contenu.annee}`
+      const html = emailFormat(titre, user, activite)
 
       await emailsSend(emails, subject, html)
     }
 
-    return titreActivitesRapportUpdate({
-      titreActivitesRapport: rapport
+    return titreActiviteUpdate({
+      titreActivite: activite
     })
   } else {
     throw new Error(errors.join(', '))
   }
 }
 
-const emailFormat = (titre, user, rapport) => {
+const emailFormat = (titre, user, { contenu, titreId, date }) => {
   const header = `
-<h1>Rapport trimestriel ${titre.nom}, ${rapport.contenu.trimestre} trimestre ${
-    rapport.contenu.annee
+<h1>Rapport trimestriel ${titre.nom}, ${contenu.trimestre} trimestre ${
+    contenu.annee
   }</h1>
 
 <hr>
 
-<b>Lien</b> : ${process.env.UI_URL}/titres/${rapport.titreId} <br>
+<b>Lien</b> : ${process.env.UI_URL}/titres/${titreId} <br>
 
 <b>Rempli par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
 
-<b>Date</b> : ${dateFormat(rapport.date, 'dd-mm-yyyy')} <br>
+<b>Date</b> : ${dateFormat(date, 'dd-mm-yyyy')} <br>
 
 <hr>
 <ul>
 `
-  const orNet = rapport.contenu.orNet
+  const orNet = contenu.orNet
     ? `
-  <li><b>Or net extrait (g)</b> : ${rapport.contenu.orNet}</li>
+  <li><b>Or net extrait (g)</b> : ${contenu.orNet}</li>
 `
     : ''
 
   const body = `
-  <li><b>Or brut extrait (g)</b> : ${rapport.contenu.orBrut}</li>
-  <li><b>Mercure récupéré (g)</b> : ${rapport.contenu.mercure}</li>
-  <li><b>Carburant détaxé (l)</b> : ${rapport.contenu.carburantDetaxe}</li>
+  <li><b>Or brut extrait (g)</b> : ${contenu.orBrut}</li>
+  <li><b>Mercure récupéré (g)</b> : ${contenu.mercure}</li>
+  <li><b>Carburant détaxé (l)</b> : ${contenu.carburantDetaxe}</li>
   <li><b>Carburant conventionnel (l)</b> : ${
-    rapport.contenu.carburantConventionnel
+    contenu.carburantConventionnel
   }</li>
-  <li><b>Pompes actives</b> : ${rapport.contenu.pompes}</li>
-  <li><b>Pelles actives</b> : ${rapport.contenu.pelles}</li>
-  <li><b>Effectifs</b> : ${rapport.contenu.effectifs}</li>
+  <li><b>Pompes actives</b> : ${contenu.pompes}</li>
+  <li><b>Pelles actives</b> : ${contenu.pelles}</li>
+  <li><b>Effectifs</b> : ${contenu.effectifs}</li>
   <li>
     <b>Dépenses relatives à la protection de l’environnement (euros)</b> : ${
-      rapport.contenu.environnement
+      contenu.environnement
     }
   </li>
 </ul>
@@ -132,13 +132,13 @@ const emailFormat = (titre, user, rapport) => {
 
 <h2>Travaux</h2>`
 
-  const travaux = rapport.contenu.travaux.reduce(
+  const travaux = contenu.travaux.reduce(
     (res, mois) => `
 ${res}
     
 <hr>
 
-<h3>${mois.nom} ${rapport.contenu.annee}</h3>
+<h3>${mois.nom} ${contenu.annee}</h3>
 
 <ul>
   <li>Non débutés : ${mois.nonDebutes ? 'Oui' : 'Non'}</li>
@@ -152,12 +152,12 @@ ${res}
     ''
   )
 
-  const footer = rapport.contenu.complement
+  const footer = contenu.complement
     ? `<hr>
 
 <h2>Informations complémentaires</h2>
 
-<p>${rapport.contenu.complement}</p>
+<p>${contenu.complement}</p>
 `
     : ''
 
@@ -170,4 +170,4 @@ ${footer}
 `
 }
 
-export { titreActivitesRapportModifier }
+export { titreActiviteModifier }

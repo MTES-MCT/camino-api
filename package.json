@@ -20,7 +20,7 @@
     "import": "mkdir -p sources && node ./dist/tools/import/index.js",
     "export": "node ./dist/tools/export/index.js",
     "export:users": "node ./dist/tools/export/utilisateurs.js",
-    "export:rapports": "node ./dist/tools/export/titres-activites-rapports.js",
+    "export:activites": "node ./dist/tools/export/titres-activites.js",
     "migrate:rollback": "npx knex --knexfile=./knex/config-cli.js migrate:rollback",
     "migrate:latest": "npx knex --knexfile=./knex/config-cli.js migrate:latest",
     "seed:run": "npx npx knex --knexfile=./knex/config-cli.js seed:run",

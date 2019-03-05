@@ -111,10 +111,10 @@ type Mutation {
     motDePasse2: String!
   ): String
 
-  "__*__ Créé ou modifie un rapport d'activités"
-  titreActivitesRapportModifier(
-    rapport: InputTitreActivitesRapport!
-  ): TitreActivitesRapport
+  "__*__ Créé ou modifie une activité"
+  titreActiviteModifier(
+    activite: InputTitreActivite!
+  ): TitreActivite
 }
 
 scalar Json
