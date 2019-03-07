@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import * as PQueue from 'p-queue'
-import * as googleSpreadSheetToJson from 'google-spreadsheet-to-json'
+import errorLog from '../error-log'
+import { spreadsheetsGet } from '../api-google-spreadsheets'
 import credentials from './credentials'
 import fileCreate from '../file-create'
 import spreadsheets from './spreadsheets'
@@ -9,59 +10,75 @@ const run = async () => {
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
   const spreadsheetsPromises = spreadsheets.map(s => () =>
-    spreadsheetsProcess(s)
+    spreadsheetToJsonFiles(s)
   )
 
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API de google
-  const spreadsheetsQueue = new PQueue({ concurrency: 1 })
+  const spreadsheetsQueue = new PQueue({
+    concurrency: 1,
+    intervalCap: 1,
+    interval: 1000
+  })
   await spreadsheetsQueue.addAll(spreadsheetsPromises)
 }
 
-// retourne un tableau de promesses par spreadsheet
-// une promesse par onglet de la spreadsheet
-const spreadsheetsProcess = async spreadsheet =>
-  Promise.all([
-    ...spreadsheet.tables.map(async table => {
-      const spreadsheetName = `${spreadsheet.name}-${table.name}`
+const spreadsheetToJsonFiles = async spreadsheet => {
+  console.log(`Spreadheet: ${spreadsheet.name}`)
 
-      console.log(`Import: ${spreadsheetName}`)
+  try {
+    const filesList = filesListBuild(spreadsheet)
 
-      const filePath = filePathCreate(
-        spreadsheet.prefixFileName ? spreadsheetName : table.name
-      )
+    const res = await spreadsheetsGet(
+      credentials,
+      spreadsheet.id,
+      filesList.map(({ worksheetName }) => worksheetName)
+    )
 
-      const json = spreadsheet.id
-        ? // si l'id de la spreadsheet est renseignée,
-          // on créé le json à partir de la spreadsheet
-          await spreadsheetToJson(spreadsheet.id, table.name, table.cb)
-        : // sinon le json est vide
-          []
+    const jsons = res.map(r => rowsToJson(r.values.shift(), r.values))
 
-      return fileCreate(filePath, JSON.stringify(json, null, 2))
+    filesList.forEach(({ path, cb }, i) => {
+      // applique le callback si il existe
+      const json = cb ? cb(jsons[i]) : jsons[i]
+
+      fileCreate(path, JSON.stringify(json, null, 2))
     })
-  ])
+  } catch (error) {
+    errorLog(error)
+  }
+}
+
+// retourne un tableau par spreadsheet
+// une promesse par onglet de la spreadsheet
+const filesListBuild = spreadsheet =>
+  spreadsheet.tables.reduce(
+    (res, table) => [
+      ...res,
+      {
+        path: filePathCreate(
+          spreadsheet.prefixFileName
+            ? `${spreadsheet.name}-${table.name}`
+            : table.name
+        ),
+        worksheetName: table.name,
+        cb: table.cb
+      }
+    ],
+    []
+  )
+
+const rowsToJson = (columns, rows) =>
+  rows.map(row =>
+    columns.reduce((res, column, index) => {
+      if (row[index]) {
+        res[column] = row[index]
+      }
+      return res
+    }, {})
+  )
 
 const filePathCreate = fileName =>
   `./sources/${fileName.replace(/_/g, '-')}.json`
-
-const spreadsheetToJson = async (spreadsheetId, worksheet, cb) => {
-  try {
-    let json = await googleSpreadSheetToJson({
-      spreadsheetId,
-      credentials,
-      worksheet
-    })
-
-    if (cb) {
-      json = cb(json)
-    }
-
-    return json
-  } catch (err) {
-    console.log(err)
-  }
-}
 
 run()
