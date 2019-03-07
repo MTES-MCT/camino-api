@@ -12,7 +12,7 @@ exports.up = knex => {
         .notNullable()
         .references('pays.id')
       table.string('cheflieuId', 5)
-      table.string('iso31662', 6)
+      table.string('iso_3166_2', 6)
     })
     .createTable('departements', table => {
       table.string('id', 3).primary()
@@ -22,7 +22,7 @@ exports.up = knex => {
         .notNullable()
         .references('regions.id')
       table.string('cheflieuId', 5)
-      table.string('iso31662', 6)
+      table.string('iso_3166_2', 6)
     })
     .createTable('communes', table => {
       table.string('id', 5).primary()
