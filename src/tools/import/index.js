@@ -24,15 +24,15 @@ const run = async () => {
   await spreadsheetsQueue.addAll(spreadsheetsPromises)
 }
 
-const spreadsheetToJsonFiles = async spreadsheet => {
-  console.log(`Spreadheet: ${spreadsheet.name}`)
+const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
+  console.log(`Spreadheet: ${name}`)
 
   try {
-    const filesList = filesListBuild(spreadsheet)
+    const filesList = filesListBuild({ name, tables, prefixFileName })
 
     const res = await spreadsheetsGet(
       credentials,
-      spreadsheet.id,
+      id,
       filesList.map(({ worksheetName }) => worksheetName)
     )
 
@@ -51,15 +51,13 @@ const spreadsheetToJsonFiles = async spreadsheet => {
 
 // retourne un tableau par spreadsheet
 // une promesse par onglet de la spreadsheet
-const filesListBuild = spreadsheet =>
-  spreadsheet.tables.reduce(
+const filesListBuild = ({ name, tables, prefixFileName }) =>
+  tables.reduce(
     (res, table) => [
       ...res,
       {
         path: filePathCreate(
-          spreadsheet.prefixFileName
-            ? `${spreadsheet.name}-${table.name}`
-            : table.name
+          prefixFileName ? `${name}-${table.name}` : table.name
         ),
         worksheetName: table.name,
         cb: table.cb

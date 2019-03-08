@@ -1,85 +1,48 @@
 import { google } from 'googleapis'
 const googleSheets = google.sheets('v4')
 
-const spreadsheetsGet = async (credentials, spreadsheetId, worksheetNames) =>
+const spreadsheetsGet = async (cred, spreadsheetId, ranges) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.values.batchGet(
-      {
-        auth: authGet(credentials),
-        spreadsheetId,
-        ranges: worksheetNames
-      },
-      (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-
-        resolve(res.data.valueRanges)
-      }
+      { auth: authGet(cred), spreadsheetId, ranges },
+      (err, res) => (err ? reject(err) : resolve(res.data.valueRanges))
     )
   )
 
-const spreadsheetGet = async (credentials, spreadsheetId) =>
+const spreadsheetGet = async (cred, spreadsheetId) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.get(
-      { spreadsheetId, auth: authGet(credentials) },
-      (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-
-        resolve(res.data)
-      }
+      { auth: authGet(cred), spreadsheetId },
+      (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )
 
-const worksheetAdd = async (credentials, spreadsheetId, worksheet) =>
+const worksheetAdd = async (cred, spreadsheetId, worksheet) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.batchUpdate(
       {
-        auth: authGet(credentials),
+        auth: authGet(cred),
         spreadsheetId,
-        resource: {
-          requests: [{ addSheet: worksheet }]
-        }
+        resource: { requests: [{ addSheet: worksheet }] }
       },
-      (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-
-        resolve(res.data)
-      }
+      (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )
 
-const worksheetDelete = async (credentials, spreadsheetId, worksheetId) =>
+const worksheetDelete = async (cred, spreadsheetId, sheetId) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.batchUpdate(
       {
-        auth: authGet(credentials),
+        auth: authGet(cred),
         spreadsheetId,
-        resource: {
-          requests: [
-            {
-              deleteSheet: { sheetId: worksheetId }
-            }
-          ]
-        }
+        resource: { requests: [{ deleteSheet: { sheetId } }] }
       },
-      (err, res) => {
-        if (err) {
-          return reject(err)
-        }
-
-        resolve(res.data)
-      }
+      (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )
 
-const authGet = credentials =>
-  new google.auth.JWT(credentials.client_email, null, credentials.private_key, [
-    'https://www.googleapis.com/auth/spreadsheets'
-  ])
+// eslint-disable-next-line camelcase
+const authGet = ({ client_email, private_key, scopes }) =>
+  new google.auth.JWT(client_email, null, private_key, scopes)
 
 export { spreadsheetsGet, spreadsheetGet, worksheetAdd, worksheetDelete }

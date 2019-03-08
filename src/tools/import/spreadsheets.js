@@ -41,7 +41,7 @@ const titresTables = [
   { name: 'titres_erreurs' }
 ]
 
-const spreadSheets = [
+const spreadsheets = [
   {
     name: 'titres-c',
     id: titresCSpreadsheetId,
@@ -123,15 +123,15 @@ const spreadSheets = [
     name: 'entreprises',
     id: entreprisesSpreadsheetId,
     tables: [
-      { name: 'c' },
-      { name: 'f' },
-      { name: 'g' },
-      { name: 'h' },
-      { name: 'm' },
-      { name: 'm973' },
-      { name: 'r' },
-      { name: 's' },
-      { name: 'w' }
+      { name: 'titres_c' },
+      { name: 'titres_f' },
+      { name: 'titres_g' },
+      { name: 'titres_h' },
+      { name: 'titres_m' },
+      { name: 'titres_m973' },
+      { name: 'titres_r' },
+      { name: 'titres_s' },
+      { name: 'titres_w' }
     ],
     prefixFileName: true
   },
@@ -177,4 +177,4 @@ const spreadSheets = [
   }
 ]
 
-export default spreadSheets
+export default spreadsheets
