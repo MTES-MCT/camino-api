@@ -50,9 +50,9 @@
     "@types/express-jwt": "0.0.41",
     "@types/geojson": "^7946.0.6",
     "@types/graphql": "^14.0.7",
-    "@types/jsonwebtoken": "^8.3.0",
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/knex": "^0.15.2",
-    "@types/node": "^11.10.4",
+    "@types/node": "^11.10.5",
     "@types/node-fetch": "^2.1.6",
     "bcrypt": "^3.0.4",
     "chalk": "^2.4.2",
@@ -61,7 +61,7 @@
     "cross-env": "^5.2.0",
     "crypto-random-string": "^1.0.0",
     "dateformat": "^3.0.3",
-    "decamelize": "^2.0.0",
+    "decamelize": "^3.0.0",
     "dotenv": "^6.2.0",
     "email-regex": "^3.0.0",
     "express": "^4.16.4",
@@ -80,8 +80,8 @@
     "nodemailer-html-to-text": "^3.0.0",
     "nodemailer-smtp-transport": "^2.7.4",
     "objection": "^1.6.3",
-    "p-queue": "^3.2.0",
-    "pg": "^7.8.1",
+    "p-queue": "^4.0.0",
+    "pg": "^7.8.2",
     "typescript": "^3.3.3333"
   },
   "devDependencies": {
@@ -102,11 +102,11 @@
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
-    "jest": "^24.1.0",
+    "jest": "^24.3.1",
     "nodemon": "^1.18.10",
     "standard-version": "^5.0.1",
     "ts-jest": "^24.0.0",
-    "ts-node": "^8.0.2"
+    "ts-node": "^8.0.3"
   },
   "prettier": {
     "semi": false,
