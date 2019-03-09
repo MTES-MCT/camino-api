@@ -17,25 +17,27 @@ const spreadsheetGet = async (cred, spreadsheetId) =>
     )
   )
 
-const worksheetAdd = async (cred, spreadsheetId, worksheet) =>
+const spreadsheetBatchUpdate = async (cred, spreadsheetId, requests) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.batchUpdate(
       {
         auth: authGet(cred),
         spreadsheetId,
-        resource: { requests: [{ addSheet: worksheet }] }
+        resource: {
+          requests
+        }
       },
       (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )
 
-const worksheetDelete = async (cred, spreadsheetId, sheetId) =>
+const spreadsheetValuesGet = async (cred, spreadsheetId, range) =>
   new Promise((resolve, reject) =>
-    googleSheets.spreadsheets.batchUpdate(
+    googleSheets.spreadsheets.values.get(
       {
         auth: authGet(cred),
         spreadsheetId,
-        resource: { requests: [{ deleteSheet: { sheetId } }] }
+        range
       },
       (err, res) => (err ? reject(err) : resolve(res.data))
     )
@@ -45,4 +47,9 @@ const worksheetDelete = async (cred, spreadsheetId, sheetId) =>
 const authGet = ({ client_email, private_key, scopes }) =>
   new google.auth.JWT(client_email, null, private_key, scopes)
 
-export { spreadsheetsGet, spreadsheetGet, worksheetAdd, worksheetDelete }
+export {
+  spreadsheetGet,
+  spreadsheetsGet,
+  spreadsheetBatchUpdate,
+  spreadsheetValuesGet
+}

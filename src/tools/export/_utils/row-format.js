@@ -10,19 +10,27 @@ import * as decamelize from 'decamelize'
 //   prêt à être inséré dans une spreadsheet
 
 const rowFormat = (element, columns, callbacks) =>
-  columns.reduce(
-    (row, column) =>
-      element[column]
-        ? Object.assign(row, {
-            // id est un mot clé réservé par google
-            // pour contourner cette limitation, on converti id en Id
-            [column === 'id' ? 'Id' : decamelize(column)]:
-              callbacks && Object.keys(callbacks).find(cb => cb === column)
-                ? callbacks[column](element[column])
-                : element[column]
-          })
-        : row,
-    {}
+  // columns.reduce(
+  //   (row, column) =>
+  //     element[column]
+  //       ? Object.assign(row, {
+  //           [decamelize(column)]:
+  //             callbacks && Object.keys(callbacks).find(cb => cb === column)
+  //               ? callbacks[column](element[column])
+  //               : element[column]
+  //         })
+  //       : row,
+  //   {}
+  // )
+  columns.map(c =>
+    (
+      (element[c] &&
+        callbacks &&
+        (Object.keys(callbacks).find(cb => cb === c)
+          ? callbacks[c](element[c])
+          : element[c])) ||
+      ''
+    ).toString()
   )
 
 export default rowFormat
