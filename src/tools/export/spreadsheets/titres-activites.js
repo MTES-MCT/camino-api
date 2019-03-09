@@ -15,12 +15,15 @@ const tables = [
       'titreId',
       'utilisateurId',
       'date',
-      'confirmation',
-      'contenu'
+      'dateSaisie',
+      'contenu',
+      'activiteTypeId',
+      'activiteStatutId'
     ],
     callbacks: {
       contenu: v => JSON.stringify(v),
-      date: v => dateFormat(v, 'yyyy-mm-dd')
+      date: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateSaisie: v => dateFormat(v, 'yyyy-mm-dd')
     }
   }
 ]

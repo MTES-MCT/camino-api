@@ -1,16 +1,21 @@
 const domaines = require('../../sources/domaines.json')
 const types = require('../../sources/types.json')
+// eslint-disable-next-line camelcase
 const domaines_types = require('../../sources/domaines--types.json')
 const statuts = require('../../sources/statuts.json')
 const phasesStatuts = require('../../sources/phases-statuts.json')
 const demarchesTypes = require('../../sources/demarches-types.json')
+// eslint-disable-next-line camelcase
 const demarchesTypes_types = require('../../sources/demarches-types--types.json')
 const demarchesStatuts = require('../../sources/demarches-statuts.json')
-const demarchesTypes_DemarchesStatuts = require('../../sources/demarches-types--demarches-statuts.json')
+// eslint-disable-next-line camelcase
+const demarchesTypes_demarchesStatuts = require('../../sources/demarches-types--demarches-statuts.json')
 const etapesTypes = require('../../sources/etapes-types.json')
-const demarchesTypes_EtapesTypes = require('../../sources/demarches-types--etapes-types.json')
+// eslint-disable-next-line camelcase
+const demarchesTypes_etapesTypes = require('../../sources/demarches-types--etapes-types.json')
 const etapesStatuts = require('../../sources/etapes-statuts.json')
-const etapesTypes_EtapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
+// eslint-disable-next-line camelcase
+const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
 const emprises = require('../../sources/emprises.json')
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
@@ -60,9 +65,9 @@ exports.seed = (knex, Promise) =>
         knex('domaines__types').insert(domaines_types),
         knex('demarchesTypes__types').insert(demarchesTypes_types),
         knex('demarchesTypes__demarchesStatuts').insert(
-          demarchesTypes_DemarchesStatuts
+          demarchesTypes_demarchesStatuts
         ),
-        knex('demarchesTypes__etapesTypes').insert(demarchesTypes_EtapesTypes),
-        knex('etapesTypes__etapesStatuts').insert(etapesTypes_EtapesStatuts)
+        knex('demarchesTypes__etapesTypes').insert(demarchesTypes_etapesTypes),
+        knex('etapesTypes__etapesStatuts').insert(etapesTypes_etapesStatuts)
       ])
     )
