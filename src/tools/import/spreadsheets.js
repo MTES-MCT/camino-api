@@ -16,7 +16,7 @@ const administrationsSpreadsheetId =
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
 const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
-const geoSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_GEO
+const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 
 const jsonParse = value => json =>
   json.map(j =>
@@ -166,8 +166,8 @@ const spreadsheets = [
     tables: [{ name: 'titres_activites', cb: jsonParse('contenu') }]
   },
   {
-    name: 'geo',
-    id: geoSpreadsheetId,
+    name: 'territoires',
+    id: territoiresSpreadsheetId,
     tables: [
       { name: 'pays' },
       { name: 'regions' },

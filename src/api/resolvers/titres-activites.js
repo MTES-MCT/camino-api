@@ -4,17 +4,16 @@ import {
   titresActiviteGet,
   titreActiviteUpdate
 } from '../../database/queries/titres-activites'
-
 import {
   utilisateurGet,
   utilisateursGet
 } from '../../database/queries/utilisateurs'
-
 import { titreGet } from '../../database/queries/titres'
 
 import permissionsCheck from './_permissions-check'
 
 import { titreActiviteRowUpdate } from '../../tools/export/titre-activite'
+
 import emailsSend from '../../tools/emails-send'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
