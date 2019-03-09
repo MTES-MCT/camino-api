@@ -18,10 +18,12 @@ exports.up = knex => {
         .string('domaineId', 1)
         .references('domaines.id')
         .notNullable()
+        .onDelete('CASCADE')
       table
         .string('typeId', 3)
         .references('types.id')
         .notNullable()
+        .onDelete('CASCADE')
       table.boolean('archive')
       table.primary(['domaineId', 'typeId'])
     })

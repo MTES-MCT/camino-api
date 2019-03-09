@@ -14,9 +14,12 @@ const permissionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_PERMISSIONS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
+const metasActivitesSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_METAS_ACTIVITES
 const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
 const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
+const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 
 const jsonParse = value => json =>
   json.map(j =>
@@ -161,7 +164,16 @@ const spreadsheets = [
     ]
   },
   {
-    name: 'titresActivites',
+    name: 'metas-activites',
+    id: metasActivitesSpreadsheetId,
+    tables: [
+      { name: 'activites_types', cb: jsonParse('champs') },
+      { name: 'activites_statuts' },
+      { name: 'activites_types__types' }
+    ]
+  },
+  {
+    name: 'titres-activites',
     id: titresActivitesSpreadsheetId,
     tables: [{ name: 'titres_activites', cb: jsonParse('contenu') }]
   },
@@ -174,6 +186,11 @@ const spreadsheets = [
       { name: 'departements' }
       // { name: 'communes' }
     ]
+  },
+  {
+    name: 'calendrier',
+    id: calendrierSpreadsheetId,
+    tables: [{ name: 'frequences' }, { name: 'trimestres' }, { name: 'mois' }]
   }
 ]
 
