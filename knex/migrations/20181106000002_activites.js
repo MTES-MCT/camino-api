@@ -7,8 +7,12 @@ exports.up = knex => {
       .onDelete('CASCADE')
     table.string('utilisateurId', 128).references('utilisateurs.id')
     table.date('date')
-    table.boolean('confirmation')
+    table.date('dateSaisie')
     table.jsonb('contenu')
+    table.string('activiteTypeId', 3).references('activitesTypes.id')
+    // .notNullable()
+    table.string('activiteStatutId', 3).references('activitesStatuts.id')
+    // .notNullable()
   })
 }
 
