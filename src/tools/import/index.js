@@ -16,12 +16,12 @@ const run = async () => {
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API de google
-  const spreadsheetsQueue = new PQueue({
+  const queue = new PQueue({
     concurrency: 1,
     intervalCap: 1,
     interval: 1000
   })
-  await spreadsheetsQueue.addAll(spreadsheetsPromises)
+  await queue.addAll(spreadsheetsPromises)
 }
 
 const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
