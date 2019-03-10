@@ -1,9 +1,11 @@
 export default `
 type TitreActivite {
   id: ID!
+  type: ActiviteType!
+  statut: ActiviteStatut!
   titreId: ID!
   date: Date!
-  confirmation: Boolean
+  dateSaisie: Date!
   contenu: Json
 }
 
@@ -11,6 +13,7 @@ input InputTitreActivite {
   id: ID!
   titreId: ID!
   date: Date!
-  confirmation: Boolean
+  statut: InputTitreActiviteStatut!
+  type: InputTitreActiviteType!
   contenu: Json
 }`
