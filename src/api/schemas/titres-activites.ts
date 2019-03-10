@@ -7,6 +7,8 @@ type TitreActivite {
   date: Date!
   dateSaisie: Date!
   contenu: Json
+  periode: Json
+  annee: Int
 }
 
 input InputTitreActivite {

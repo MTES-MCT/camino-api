@@ -18,7 +18,9 @@ const tables = [
       'dateSaisie',
       'contenu',
       'activiteTypeId',
-      'activiteStatutId'
+      'activiteStatutId',
+      'frequenceElementId',
+      'annee'
     ],
     callbacks: {
       contenu: v => JSON.stringify(v),

@@ -17,7 +17,9 @@ export default class TitresActivites extends Model {
       dateSaisie: { type: 'date' },
       contenu: { type: 'json' },
       activiteTypeId: { type: 'string', maxLength: 3 },
-      activiteStatutId: { type: 'string', maxLength: 3 }
+      activiteStatutId: { type: 'string', maxLength: 3 },
+      frequenceElementId: { type: 'integer' },
+      annee: { type: 'integer', maxLength: 4 }
     }
   }
 
