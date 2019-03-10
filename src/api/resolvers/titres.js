@@ -29,16 +29,19 @@ const titre = async ({ id }, context, info) => {
     return titreEntrepriseIds.some(id => id === entrepriseId)
   }
 
-  return (!restrictedDomaineIds.includes(titre.domaineId) &&
-    !restrictedStatutIds.includes(titre.statutId)) ||
-    (context.user &&
-      (permissionsCheck(context.user, ['admin', 'super']) ||
-        (await userEntreprisePermissions(context.user.id, [
-          ...titre.titulaires.map(t => t.id),
-          ...titre.amodiataires.map(t => t.id)
-        ]))))
-    ? titre && titreFormat(titre)
-    : null
+  const titreIsPublic =
+    !restrictedDomaineIds.includes(titre.domaineId) &&
+    !restrictedStatutIds.includes(titre.statutId)
+
+  const userHasAccess =
+    context.user &&
+    (permissionsCheck(context.user, ['admin', 'super']) ||
+      (await userEntreprisePermissions(context.user.id, [
+        ...titre.titulaires.map(t => t.id),
+        ...titre.amodiataires.map(t => t.id)
+      ])))
+
+  return titreIsPublic || userHasAccess ? titre && titreFormat(titre) : null
 }
 
 const titres = async (
@@ -79,7 +82,7 @@ const titres = async (
     return statutIds.filter(id => !restrictedStatutIds.includes(id))
   }
 
-  const userEntrepriseTitresFind = async (
+  const titresUserEntrepriseFind = async (
     userId,
     {
       typeIds,
@@ -92,16 +95,13 @@ const titres = async (
       territoires
     }
   ) => {
-    const utilisateur = await utilisateurGet(userId)
-    const entrepriseId =
-      utilisateur && utilisateur.entreprise && utilisateur.entreprise.id
+    const user = await utilisateurGet(userId)
+    const entrepriseId = user && user.entreprise && user.entreprise.id
 
+    // si l'utilisateur appartient à une entreprise
     if (entrepriseId) {
-      // si le filtre `entreprise est renseigné,
-      // on en peut pas savoir si `entreprises` renvoie la même liste que `[entrepriseId]`
-      // donc on fait une requête pour chaque
-      // et on ne garde que les éléments présent dans les deux
-      const entrepriseTitres =
+      // les titres qui correspondent au filtre `entreprises`
+      const titresFilterEntreprises =
         entreprises &&
         (await titresGet({
           typeIds,
@@ -114,7 +114,8 @@ const titres = async (
           territoires
         }))
 
-      const userEntrepriseTitres = await titresGet({
+      // les titres qui correspondent à l'entreprise de l'utilisateur
+      const titresUserEntreprise = await titresGet({
         typeIds,
         domaineIds,
         statutIds,
@@ -125,17 +126,21 @@ const titres = async (
         territoires
       })
 
+      // si le filtre `entreprises` est renseigné,
       return entreprises
-        ? dupFind('id', entrepriseTitres, userEntrepriseTitres)
-        : userEntrepriseTitres
+        ? // on doit faire deux requêtes:
+          // et on ne garde que les éléments présent dans les deux
+          dupFind('id', titresFilterEntreprises, titresUserEntreprise)
+        : // sinon on ne fait qu'une requête
+          titresUserEntreprise
     }
 
     return []
   }
 
-  const userEntrepriseTitres =
+  const titresUserEntreprise =
     context.user && permissionsCheck(context.user, ['entreprise'])
-      ? await userEntrepriseTitresFind(context.user.id, {
+      ? await titresUserEntrepriseFind(context.user.id, {
           typeIds,
           domaineIds,
           statutIds,
@@ -164,7 +169,7 @@ const titres = async (
     territoires
   })
 
-  const titresList = dupRemove('id', titres, userEntrepriseTitres)
+  const titresList = dupRemove('id', titres, titresUserEntreprise)
 
   return titresList.map(titre => titre && titreFormat(titre))
 }
