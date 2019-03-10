@@ -47,6 +47,25 @@ const titreFormat = t => {
     t.surface = t.surfaceEtape.surface
   }
 
+  if (t.activites && t.activites.length) {
+    t.activites.forEach(ta => {
+      if (ta.frequenceElementId && ta.type && ta.type.frequence) {
+        if (
+          ta.type.frequence.trimestres &&
+          ta.type.frequence.trimestres.length
+        ) {
+          ta.periode = ta.type.frequence.trimestres.find(
+            p => p.id === ta.frequenceElementId
+          )
+        } else if (ta.type.frequence.mois && ta.type.frequence.mois.length) {
+          ta.periode = ta.type.frequences.mois.find(
+            p => p.id === ta.frequenceElementId
+          )
+        }
+      }
+    })
+  }
+
   return t
 }
 

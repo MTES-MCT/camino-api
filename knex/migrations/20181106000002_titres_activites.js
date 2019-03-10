@@ -9,10 +9,16 @@ exports.up = knex => {
     table.date('date')
     table.date('dateSaisie')
     table.jsonb('contenu')
-    table.string('activiteTypeId', 3).references('activitesTypes.id')
-    // .notNullable()
-    table.string('activiteStatutId', 3).references('activitesStatuts.id')
-    // .notNullable()
+    table
+      .string('activiteTypeId', 3)
+      .references('activitesTypes.id')
+      .notNullable()
+    table
+      .string('activiteStatutId', 3)
+      .references('activitesStatuts.id')
+      .notNullable()
+    table.integer('annee', 4)
+    table.integer('frequenceElementId', 2)
   })
 }
 

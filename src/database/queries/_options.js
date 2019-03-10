@@ -71,7 +71,7 @@ const demarches = {
 }
 
 const titresActivites = {
-  eager: `[type.[pays, frequence], statut, utilisateur]`
+  eager: `[type.[pays, frequence.[mois, trimestres.mois]], statut, utilisateur]`
 }
 
 const titres = {
