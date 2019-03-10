@@ -70,6 +70,10 @@ const demarches = {
   }, parents.^1, enfants.^1]`
 }
 
+const titresActivites = {
+  eager: `[type.[pays, frequence], statut, utilisateur]`
+}
+
 const titres = {
   eager: `[type, domaine, statut, points, substances.${
     substances.eager
@@ -77,9 +81,9 @@ const titres = {
     entreprises.eager
   }, administrations.${administrations.eager}, demarches(orderDesc).${
     demarches.eager
-  }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, activites, communes.${
+  }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${
     communes.eager
-  }]`,
+  }, activites.${titresActivites.eager}]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],
@@ -99,5 +103,6 @@ export default {
   titres,
   substances,
   entreprises,
-  demarchesTypes
+  demarchesTypes,
+  titresActivites
 }

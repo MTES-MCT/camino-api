@@ -2,7 +2,9 @@ import { buildSchema } from 'graphql'
 
 import index from './schemas/index'
 import metas from './schemas/metas'
-import geo from './schemas/geo'
+import metasActivites from './schemas/metas-activites'
+import territoires from './schemas/territoires'
+import calendrier from './schemas/calendrier'
 import titres from './schemas/titres'
 import substances from './schemas/substances'
 import geojson from './schemas/geojsons'
@@ -16,7 +18,11 @@ const schema = buildSchema(`
 
   ${metas}
 
-  ${geo}
+  ${metasActivites}
+
+  ${territoires}
+
+  ${calendrier}
 
   ${titres}
 
