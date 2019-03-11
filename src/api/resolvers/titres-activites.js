@@ -39,15 +39,19 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
       type => type.domaineId === titre.domaineId && type.id === titre.typeId
     )
   ) {
-    errors.push('ce titre ne peut pas recevoir de activite')
+    errors.push("ce titre ne peut pas recevoir d'activite")
   }
 
   if (activiteOld && activiteOld.statut.id === 'dep') {
-    errors.push('cette activite a été validé et ne peux plus être modifié')
+    errors.push('cette activite a été validé et ne peux plus être modifiée')
   }
 
   if (!errors.length) {
     activite.utilisateurId = context.user.id
+
+    const res = await titreActiviteUpdate({
+      titreActivite: activite
+    })
 
     titreActiviteRowUpdate(activite)
     if (activite.statutId === 'dep') {
@@ -76,9 +80,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
       await emailsSend(emails, subject, html)
     }
 
-    return titreActiviteUpdate({
-      titreActivite: activite
-    })
+    return 'success'
   } else {
     throw new Error(errors.join(', '))
   }

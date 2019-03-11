@@ -14,11 +14,21 @@ const titresActivitesGet = async () =>
     .eager(options.titresActivites.eager)
     .skipUndefined()
 
-const titreActiviteUpdate = async ({ titreActivite }) =>
+const titreActiviteUpdate = async titreActivite =>
   titreActivites
     .query()
     .eager(options.titresActivites.eager)
-    .upsertGraph(titreActivite, { insertMissing: true })
-    .first()
+    .update(titreActivite)
 
-export { titreActiviteGet, titresActivitesGet, titreActiviteUpdate }
+const titreActiviteInsert = async titreActivite =>
+  titreActivites
+    .query()
+    .eager(options.titresActivites.eager)
+    .update(titreActivite)
+
+export {
+  titreActiviteGet,
+  titreActiviteInsert,
+  titresActivitesGet,
+  titreActiviteUpdate
+}
