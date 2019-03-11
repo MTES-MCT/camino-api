@@ -7,7 +7,7 @@ const json = {
           id: 'orBrut',
           nom: 'Or brut extrait (g)',
           description:
-            'Masse d’or but en sortie de mine extrait au cours du trimestre (exemple : masse sous la forme de concentré gravimétrique).',
+            'Masse d’or brut en sortie de mine extrait au cours du trimestre (exemple : masse sous la forme de concentré gravimétrique).',
           type: 'number'
         },
         {
@@ -15,7 +15,7 @@ const json = {
           nom: 'Or net extrait (g)',
           description:
             'Masse d’or en gramme obtenue au cours de l’année après traitement métallurgique (au sens de l’<a href="https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850943&cidTexte=LEGITEXT000006069569" target="_blank" rel="noopener noreferrer">article 318 B de l’annexe II au code général des impôts, annexe 2 </a>). Cette masse sera prise en compte pour le calcul de la taxe sur l’or et des différentes redevances associées.',
-          trimestres: [4],
+          frequenceElementIds: [4],
           type: 'number'
         },
         {
@@ -75,20 +75,231 @@ const json = {
       elements: [
         {
           type: 'checkbox',
-          repetition: 'mois',
-          id: 'nom',
-          nom: 'nom',
+          id: '1',
+          nom: 'Janvier',
+          frequenceElementIds: [1],
           valeurs: [
-            { id: 'nonDebutes', nom: 'Non débutés' },
+            { id: 'nonDebutes', nom: 'non débutés' },
             {
               id: 'exploitationEnCours',
-              nom: 'Exploitation en cours'
+              nom: 'exploitation en cours'
             },
-            { id: 'arretTemporaire', nom: 'Arrêt temporaire' },
-            { id: 'rehabilitation', nom: 'Réhabilitation' },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
             {
               id: 'arretDefinitif',
-              nom: 'Arrêt définitif (après réhabilitation)'
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+
+        {
+          type: 'checkbox',
+          id: '2',
+          nom: 'Février',
+          frequenceElementIds: [1],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+
+        {
+          type: 'checkbox',
+          id: '3',
+          nom: 'Mars',
+          frequenceElementIds: [1],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '4',
+          nom: 'Avril',
+          frequenceElementIds: [2],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '5',
+          nom: 'Mai',
+          frequenceElementIds: [2],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '6',
+          nom: 'Juin',
+          frequenceElementIds: [2],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '7',
+          nom: 'Juillet',
+          frequenceElementIds: [3],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '8',
+          nom: 'Août',
+          frequenceElementIds: [3],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '9',
+          nom: 'Septembre',
+          frequenceElementIds: [3],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '10',
+          nom: 'Octobre',
+          frequenceElementIds: [4],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '11',
+          nom: 'Novembre',
+          frequenceElementIds: [4],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
+            }
+          ]
+        },
+        {
+          type: 'checkbox',
+          id: '12',
+          nom: 'Décembre',
+          frequenceElementIds: [4],
+          valeurs: [
+            { id: 'nonDebutes', nom: 'non débutés' },
+            {
+              id: 'exploitationEnCours',
+              nom: 'exploitation en cours'
+            },
+            { id: 'arretTemporaire', nom: 'arrêt temporaire' },
+            { id: 'rehabilitation', nom: 'réhabilitation' },
+            {
+              id: 'arretDefinitif',
+              nom: 'arrêt définitif (après réhabilitation)'
             }
           ]
         }
@@ -100,7 +311,9 @@ const json = {
       elements: [
         {
           id: 'texte',
-          type: 'textarea'
+          type: 'textarea',
+          description:
+            'Toute information sur les événements marquants du trimestre (accident, incident, arrêt ou suspension d’activité en précisant les raisons, évolution de l’exploitation, difficultés rencontrées, etc.).'
         }
       ]
     }
