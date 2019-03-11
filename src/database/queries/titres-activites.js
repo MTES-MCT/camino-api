@@ -6,6 +6,7 @@ const titreActiviteGet = async id =>
     .query()
     .eager(options.titresActivites.eager)
     .findById(id)
+    .first()
 
 const titresActivitesGet = async () =>
   titreActivites
