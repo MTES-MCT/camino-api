@@ -1,7 +1,7 @@
-import titreActivites from '../models/titres-actvites'
+import titreActivites from '../models/titres-activites'
 import options from './_options'
 
-const titresActiviteGet = async id =>
+const titreActiviteGet = async id =>
   titreActivites
     .query()
     .eager(options.titresActivites.eager)
@@ -20,4 +20,4 @@ const titreActiviteUpdate = async ({ titreActivite }) =>
     .upsertGraph(titreActivite, { insertMissing: true })
     .first()
 
-export { titresActiviteGet, titresActivitesGet, titreActiviteUpdate }
+export { titreActiviteGet, titresActivitesGet, titreActiviteUpdate }

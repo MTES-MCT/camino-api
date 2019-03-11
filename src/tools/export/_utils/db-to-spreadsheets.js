@@ -85,6 +85,7 @@ const requestsBuild = (sheets, tables, elements) => {
     })
   })
 
+  // supprime l'onglet `tmp`
   requests.push({
     deleteSheet: { sheetId: 0 }
   })
