@@ -9,7 +9,7 @@ import TitresPoints from './titres-points'
 import Entreprises from './entreprises'
 import Administrations from './administrations'
 import Communes from './communes'
-import TitresActivites from './titres-actvites'
+import TitresActivites from './titres-activites'
 import VolumeUnites from './volume-unites'
 import Devises from './devises'
 

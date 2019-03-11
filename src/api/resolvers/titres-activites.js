@@ -35,25 +35,22 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   }
 
   if (
-    !(
-      titre.domaineId === 'm' &&
-      (titre.typeId === 'cxx' ||
-        titre.typeId === 'pxm' ||
-        titre.typeId === 'axm')
+    !activiteOld.type.types.find(
+      type => type.domaineId === titre.domaineId && type.id === titre.typeId
     )
   ) {
     errors.push('ce titre ne peut pas recevoir de activite')
   }
 
-  if (activiteOld && activiteOld.confirmation) {
-    errors.push('ce activite a été validé et ne peux plus être modifié')
+  if (activiteOld && activiteOld.statut.id === 'dep') {
+    errors.push('cette activite a été validé et ne peux plus être modifié')
   }
 
   if (!errors.length) {
     activite.utilisateurId = context.user.id
-    titreActiviteRowUpdate(activite)
 
-    if (activite.confirmation) {
+    titreActiviteRowUpdate(activite)
+    if (activite.statutId === 'dep') {
       const utilisateurs = await utilisateursGet({
         entrepriseIds: isAmodiataire
           ? titre.amodiataires.map(t => t.id)

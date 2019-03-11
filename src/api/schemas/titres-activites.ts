@@ -13,9 +13,6 @@ type TitreActivite {
 
 input InputTitreActivite {
   id: ID!
-  titreId: ID!
-  date: Date!
-  statut: InputTitreActiviteStatut!
-  type: InputTitreActiviteType!
+  statutId: String!
   contenu: Json
 }`
