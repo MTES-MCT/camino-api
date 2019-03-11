@@ -2,14 +2,14 @@ import { titreDemarchesOrdreUpdate } from '../queries/titre-demarches'
 
 const titresDemarchesOrdreUpdate = async titres => {
   const titresDemarchesUpdated = titres
-    .reduce((res, titre) => {
+    .reduce((acc, titre) => {
       const titreDemarchesOrdreUpdated = titreDemarchesOrdreUpdate(
         titre.demarches.slice().reverse()
       )
 
       return !titreDemarchesOrdreUpdated.length
-        ? res
-        : [...res, ...titreDemarchesOrdreUpdated]
+        ? acc
+        : [...acc, ...titreDemarchesOrdreUpdated]
     }, [])
     .map(q => q.then(log => console.log(log)))
 

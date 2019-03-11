@@ -53,8 +53,8 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
 // une promesse par onglet de la spreadsheet
 const filesListBuild = ({ name, tables, prefixFileName }) =>
   tables.reduce(
-    (res, table) => [
-      ...res,
+    (acc, table) => [
+      ...acc,
       {
         path: filePathCreate(
           prefixFileName ? `${name}-${table.name}` : table.name
@@ -68,11 +68,11 @@ const filesListBuild = ({ name, tables, prefixFileName }) =>
 
 const rowsToJson = (columns, rows) =>
   rows.map(row =>
-    columns.reduce((res, column, index) => {
+    columns.reduce((acc, column, index) => {
       if (row[index]) {
-        res[column] = row[index]
+        acc[column] = row[index]
       }
-      return res
+      return acc
     }, {})
   )
 

@@ -70,8 +70,16 @@ const demarches = {
   }, parents.^1, enfants.^1]`
 }
 
+const demarchesTypes = {
+  eager: `etapesTypes.etapesStatuts`
+}
+
+const activitesTypes = {
+  eager: `[pays, frequence.[mois, trimestres.mois], types]`
+}
+
 const titresActivites = {
-  eager: `[type.[pays, frequence.[mois, trimestres.mois], types], statut, utilisateur]`
+  eager: `[type.${activitesTypes.eager}, statut, utilisateur]`
 }
 
 const titres = {
@@ -91,10 +99,6 @@ const titres = {
   }
 }
 
-const demarchesTypes = {
-  eager: `etapesTypes.etapesStatuts`
-}
-
 export default {
   utilisateurs,
   phases,
@@ -104,5 +108,6 @@ export default {
   substances,
   entreprises,
   demarchesTypes,
-  titresActivites
+  titresActivites,
+  activitesTypes
 }

@@ -94,26 +94,26 @@ const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
     }
   )
 
-const titresEtapesCommunesGet = async titresEtapes => {
-  const titresEtapesCommunes = {}
-  for (const titreEtape of titresEtapes) {
-    if (!titreEtape.points.length) continue
+const titresEtapesCommunesGet = async titresEtapes =>
+  titresEtapes.reduce(async (titresEtapesCommunes, titreEtape) => {
+    if (!titreEtape.points.length) return titresEtapesCommunes
 
     const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
     const communesGeojson = await communesGeojsonGet(geojson)
 
-    if (!communesGeojson || !communesGeojson.length) continue
+    if (!communesGeojson || !communesGeojson.length) return titresEtapesCommunes
+
+    titresEtapesCommunes = await titresEtapesCommunes
 
     titresEtapesCommunes[titreEtape.id] = communesGeojson.map(geojson => ({
       id: geojson.properties.code,
       nom: geojson.properties.nom,
       departementId: geojson.properties.departement
     }))
-  }
 
-  return titresEtapesCommunes
-}
+    return titresEtapesCommunes
+  }, {})
 
 const communesGeojsonTest = () => {
   const geojson = {

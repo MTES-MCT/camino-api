@@ -18,7 +18,7 @@ jest.mock('../queries/titre-phases', () => ({
 
 console.log = jest.fn()
 
-describe("met à jour les phase d'un titre", () => {
+describe("met à jour les phases d'un titre", () => {
   test('un titre avec une phase est mis à jour', async () => {
     expect(await titresPhasesUpdate(titresUnePhase)).toEqual(
       'Mise à jour: 1 phases de titres.'
