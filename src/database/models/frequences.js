@@ -11,7 +11,8 @@ export default class Frequences extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 3 },
-      nom: { type: 'string' }
+      nom: { type: 'string' },
+      elementsNom: { type: 'string' }
     }
   }
 

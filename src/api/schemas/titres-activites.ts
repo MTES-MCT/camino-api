@@ -13,6 +13,6 @@ type TitreActivite {
 
 input InputTitreActivite {
   id: ID!
-  statutId: String!
+  activiteStatutId: String!
   contenu: Json
 }`
