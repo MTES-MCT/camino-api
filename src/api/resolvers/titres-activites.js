@@ -1,7 +1,7 @@
 import * as dateFormat from 'dateformat'
 
 import {
-  titresActiviteGet,
+  titreActiviteGet,
   titreActiviteUpdate
 } from '../../database/queries/titres-activites'
 import {
@@ -18,9 +18,10 @@ import emailsSend from '../../tools/emails-send'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
   const errors = []
-  const titre = await titreGet(activite.titreId)
   const user = await utilisateurGet(context.user.id)
-  const activiteOld = await titresActiviteGet(activite.id)
+  const activiteOld = await titreActiviteGet(activite.id)
+  const titre = await titreGet(activiteOld.titreId)
+
   const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
   const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
 
@@ -48,123 +49,109 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
 
   if (!errors.length) {
     activite.utilisateurId = context.user.id
+    activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
 
-    const res = await titreActiviteUpdate({
-      titreActivite: activite
-    })
+    const activiteRes = await titreActiviteUpdate(activite)
 
-    titreActiviteRowUpdate(activite)
-    if (activite.statutId === 'dep') {
-      const utilisateurs = await utilisateursGet({
-        entrepriseIds: isAmodiataire
-          ? titre.amodiataires.map(t => t.id)
-          : titre.titulaires.map(t => t.id),
-        noms: undefined,
-        administrationIds: undefined,
-        permissionIds: undefined
-      })
-      const emails = utilisateurs.reduce(
-        (res, u) => (u.email ? [...res, u.email] : res),
-        // si la variable d'environnement existe,
-        // on ajoute un email générique pour recevoir une copie
-        process.env.ACTIVITES_RAPPORTS_EMAIL
-          ? [process.env.ACTIVITES_RAPPORTS_EMAIL]
-          : []
-      )
+    titreActiviteRowUpdate(activiteRes)
 
+    if (activiteRes.activiteStatutId === 'dep') {
+      const entrepriseIds = isAmodiataire
+        ? titre.amodiataires.map(t => t.id)
+        : titre.titulaires.map(t => t.id)
+      const emails = await emailsGet(entrepriseIds)
       const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
-        activite.contenu.trimestre
-      } trimestre ${activite.contenu.annee}`
-      const html = emailFormat(titre, user, activite)
+        activiteRes.contenu.trimestre
+      } trimestre ${activiteRes.contenu.annee}`
+      const html = emailFormat(titre.nom, user, activiteRes)
 
       await emailsSend(emails, subject, html)
     }
 
-    return 'success'
+    return activiteRes
   } else {
     throw new Error(errors.join(', '))
   }
 }
 
-const emailFormat = (titre, user, { contenu, titreId, date }) => {
+const emailsGet = async entrepriseIds => {
+  const utilisateurs = await utilisateursGet({
+    entrepriseIds,
+    noms: undefined,
+    administrationIds: undefined,
+    permissionIds: undefined
+  })
+
+  return utilisateurs.reduce(
+    (res, u) => (u.email ? [...res, u.email] : res),
+    // si la variable d'environnement existe,
+    // on ajoute un email générique pour recevoir une copie
+    process.env.ACTIVITES_RAPPORTS_EMAIL
+      ? [process.env.ACTIVITES_RAPPORTS_EMAIL]
+      : []
+  )
+}
+
+const emailFormat = (
+  titreNom,
+  user,
+  { contenu, annee, titreId, dateSaisie, type, frequenceElementId }
+) => {
   const header = `
-<h1>Rapport trimestriel ${titre.nom}, ${contenu.trimestre} trimestre ${
-    contenu.annee
-  }</h1>
+<h1>${titreNom} | ${type.nom}, ${
+    type.frequence.elementsNom
+      ? type.frequence[type.frequence.elementsNom][frequenceElementId].nom
+      : ''
+  } ${annee}
+</h1>
 
 <hr>
 
 <b>Lien</b> : ${process.env.UI_URL}/titres/${titreId} <br>
-
 <b>Rempli par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
-
-<b>Date</b> : ${dateFormat(date, 'dd-mm-yyyy')} <br>
+<b>Date</b> : ${dateFormat(dateSaisie, 'dd-mm-yyyy')} <br>
 
 <hr>
-<ul>
 `
-  const orNet = contenu.orNet
-    ? `
-  <li><b>Or net extrait (g)</b> : ${contenu.orNet}</li>
-`
-    : ''
 
-  const body = `
-  <li><b>Or brut extrait (g)</b> : ${contenu.orBrut}</li>
-  <li><b>Mercure récupéré (g)</b> : ${contenu.mercure}</li>
-  <li><b>Carburant détaxé (l)</b> : ${contenu.carburantDetaxe}</li>
-  <li><b>Carburant conventionnel (l)</b> : ${
-    contenu.carburantConventionnel
-  }</li>
-  <li><b>Pompes actives</b> : ${contenu.pompes}</li>
-  <li><b>Pelles actives</b> : ${contenu.pelles}</li>
-  <li><b>Effectifs</b> : ${contenu.effectifs}</li>
-  <li>
-    <b>Dépenses relatives à la protection de l’environnement (euros)</b> : ${
-      contenu.environnement
-    }
-  </li>
+  const elementHtml = (sectionId, element) =>
+    contenu[sectionId] && contenu[sectionId][element.id]
+      ? `<li>${element.nom} : ${contenu[sectionId][element.id]}</li>`
+      : ''
+
+  const elementsHtml = (sectionId, elements) =>
+    elements.reduce(
+      (html, element) => `
+${html}
+
+${elementHtml(sectionId, element)}
+`,
+      ''
+    )
+
+  const sectionHtml = section => {
+    const sectionNomHtml = section.nom ? `<h2>${section.nom}</h2>` : ''
+
+    return `
+${sectionNomHtml}
+<ul>
+  ${elementsHtml(section.id, section.elements)}
 </ul>
+    `
+  }
 
-<hr>
-
-<h2>Travaux</h2>`
-
-  const travaux = contenu.travaux.reduce(
-    (res, mois) => `
+  const body = type.champs.sections.reduce(
+    (res, section) => `
 ${res}
-    
-<hr>
 
-<h3>${mois.nom} ${contenu.annee}</h3>
-
-<ul>
-  <li>Non débutés : ${mois.nonDebutes ? 'Oui' : 'Non'}</li>
-  <li>Exploitation en cours : ${mois.exploitationEnCours ? 'Oui' : 'Non'}</li>
-  <li>Arrêt temporaire : ${mois.arretTemporaire ? 'Oui' : 'Non'}</li>
-  <li>Réhabilitation : ${mois.rehabilitation ? 'Oui' : 'Non'}</li>
-  <li>Arrêt définitif (après réhabilitation) : ${
-    mois.arretDefinitif ? 'Oui' : 'Non'
-  }</li>
-</ul>`,
+${sectionHtml(section)}
+`,
     ''
   )
 
-  const footer = contenu.complement
-    ? `<hr>
-
-<h2>Informations complémentaires</h2>
-
-<p>${contenu.complement}</p>
-`
-    : ''
-
   return `
 ${header}
-${orNet}
 ${body}
-${travaux}
-${footer}
 `
 }
 
