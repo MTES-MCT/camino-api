@@ -14,11 +14,13 @@ const titresActivitesGet = async () =>
     .eager(options.titresActivites.eager)
     .skipUndefined()
 
-const titreActiviteUpdate = async titreActivite =>
-  titreActivites
+const titreActiviteUpdate = async titreActivite => {
+  console.log(titreActivite)
+  return titreActivites
     .query()
     .eager(options.titresActivites.eager)
-    .update(titreActivite)
+    .patchAndFetchById(titreActivite.id, titreActivite)
+}
 
 const titreActiviteInsert = async titreActivite =>
   titreActivites

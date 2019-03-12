@@ -152,7 +152,7 @@ const titres = async (
         })
       : []
 
-  const titres = await titresGet({
+  const titresPublics = await titresGet({
     typeIds,
     domaineIds:
       context.user && permissionsCheck(context.user, ['admin', 'super'])
@@ -169,9 +169,9 @@ const titres = async (
     territoires
   })
 
-  const titresList = dupRemove('id', titres, titresUserEntreprise)
+  const titres = dupRemove('id', titresPublics, titresUserEntreprise)
 
-  return titresList.map(titre => titre && titreFormat(titre))
+  return titres.map(titre => titre && titreFormat(titre))
 }
 
 const titreAjouter = async ({ titre }, context, info) => {
