@@ -2,7 +2,7 @@ import Titres from '../models/titres'
 import options from './_options'
 
 const titreGet = async id =>
-  Titres.query()
+  await Titres.query()
     .findById(id)
     .eager(options.titres.eager)
 
@@ -15,7 +15,7 @@ const titresGet = async ({
   entreprises,
   references,
   territoires
-}) => {
+} = {}) => {
   const q = Titres.query()
     .skipUndefined()
     .eager(options.titres.eager)
@@ -132,7 +132,11 @@ const titresGet = async ({
       'communes.nom'
     ]
 
-    const fieldsExact = ['communes:departement.id', 'communes.id']
+    const fieldsExact = [
+      'communes:departement:region:pays.id',
+      'communes:departement.id',
+      'communes.id'
+    ]
 
     q.where(b => {
       territoires.forEach(t => {
@@ -144,7 +148,7 @@ const titresGet = async ({
           b.orWhereRaw(`?? = ?`, [f, t])
         })
       })
-    }).joinRelation('communes.departement.region')
+    }).joinRelation('communes.departement.region.pays')
   }
 
   // console.log(q.toSql())

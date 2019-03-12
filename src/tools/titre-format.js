@@ -1,7 +1,7 @@
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} from '../../tools/geojson'
+} from './geojson'
 
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier

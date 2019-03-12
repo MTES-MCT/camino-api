@@ -8,7 +8,15 @@ export default class TitresActivites extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreId', 'date', 'contenu'],
+    required: [
+      'id',
+      'titreId',
+      'date',
+      'activiteTypeId',
+      'activiteStatutId',
+      'frequenceElementId',
+      'annee'
+    ],
     properties: {
       id: { type: 'string' },
       titreId: { type: 'string' },
@@ -50,5 +58,16 @@ export default class TitresActivites extends Model {
         to: 'utilisateurs.id'
       }
     }
+  }
+
+  $parseJson(json) {
+    if (!json.id) {
+      const id = `${json.titreId}-${json.activiteTypeId}-${
+        json.annee
+      }-${json.frequenceElementId.toString().padStart(2, '0')}`
+      json.id = id
+    }
+    json = super.$parseJson(json)
+    return json
   }
 }
