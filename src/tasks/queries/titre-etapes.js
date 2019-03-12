@@ -8,11 +8,11 @@ import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 
 const titreEtapesOrdreUpdate = titreEtapes =>
   titreEtapesAscSortByDate(titreEtapes).reduce(
-    (acc, titreEtape, index) =>
+    (queries, titreEtape, index) =>
       titreEtape.ordre === index + 1
-        ? acc
+        ? queries
         : [
-            ...acc,
+            ...queries,
             titreEtapeUpdate({
               id: titreEtape.id,
               props: { ordre: index + 1 }

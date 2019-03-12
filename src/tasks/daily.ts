@@ -6,6 +6,7 @@ import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresPhasesGet } from '../database/queries/titres-phases'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
 import { communesGet } from '../database/queries/communes'
+import { activitesTypesGet } from '../database/queries/metas'
 
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
@@ -14,6 +15,7 @@ import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresActivitesTypesUpdate from './processes/titres-activites-update'
 
 const run = async () => {
   try {
@@ -114,6 +116,20 @@ const run = async () => {
     })
     const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
+    // 8.
+    // activités
+    // crée les activités manquantes en fonction des titres
+    // pour l'année 2018 (en dur)
+    const annees = [2018]
+
+    titres = await titresGet()
+    const activitesTypes = await activitesTypesGet()
+    const titresActivites = await titresActivitesTypesUpdate(
+      titres,
+      activitesTypes,
+      annees
+    )
+
     // logs
     console.log(titresEtapesOrdre)
     console.log(titresDemarchesStatutId)
@@ -124,6 +140,7 @@ const run = async () => {
       console.log(log)
     })
     console.log(titresPropsEtapeId)
+    console.log(titresActivites)
 
     console.log('Tâches quotidiennes executées')
   } catch (e) {

@@ -43,7 +43,8 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est enregistrement de la demande (men)
     //  - la date de l'étape est inférieure à la date du jour
     if (
-      titreEtapeRecent.typeId === 'men' &&
+      (titreEtapeRecent.typeId === 'men' ||
+        (titreEtapeRecent.typeId === 'mfr' && titreTypeId === 'arm')) &&
       new Date(titreEtapeRecent.date) < new Date()
     ) {
       //  - le statut de la démarche est “en instruction”
