@@ -26,7 +26,7 @@ const titreActiviteInsert = async titreActivite =>
   titreActivites
     .query()
     .eager(options.titresActivites.eager)
-    .update(titreActivite)
+    .insert(titreActivite)
 
 export {
   titreActiviteGet,

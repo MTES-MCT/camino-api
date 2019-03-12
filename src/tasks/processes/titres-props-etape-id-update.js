@@ -2,10 +2,10 @@ import { titrePropsUpdate, calculatedProps } from '../queries/titres'
 
 const titresPropsEtapeIdsUpdate = async titres => {
   const titreUpdateRequests = titres.reduce((arr, titre) => {
-    const titrePropsUpdateRequests = calculatedProps.reduce((res, prop) => {
+    const titrePropsUpdateRequests = calculatedProps.reduce((acc, prop) => {
       const titrePropsUpdated = titrePropsUpdate(titre, prop)
 
-      return titrePropsUpdated ? [...res, titrePropsUpdated] : res
+      return titrePropsUpdated ? [...acc, titrePropsUpdated] : acc
     }, [])
 
     return [...arr, ...titrePropsUpdateRequests]

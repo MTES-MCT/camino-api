@@ -6,6 +6,7 @@ import options from './_options'
 import Devises from '../models/devises'
 import GeoSystemes from '../models/geo-systemes'
 import VolumeUnites from '../models/volume-unites'
+import ActivitesTypes from '../models/activites-types'
 
 const typesGet = async () => Types.query()
 
@@ -22,6 +23,9 @@ const geoSystemesGet = async () => GeoSystemes.query()
 
 const volumeUnitesGet = async () => VolumeUnites.query()
 
+const activitesTypesGet = async () =>
+  ActivitesTypes.query().eager(options.activitesTypes.eager)
+
 export {
   typesGet,
   domainesGet,
@@ -29,5 +33,6 @@ export {
   demarchesTypesGet,
   devisesGet,
   geoSystemesGet,
-  volumeUnitesGet
+  volumeUnitesGet,
+  activitesTypesGet
 }
