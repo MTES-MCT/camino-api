@@ -20,6 +20,14 @@ import { dupRemove, dupFind } from '../../tools/index'
 
 import titreEtapeUpdateTasks from '../../tasks/etape-update'
 
+const titreRestrictions = (titre, userHasAccess) => {
+  if (!userHasAccess) {
+    titre.activites = []
+  }
+
+  return titre
+}
+
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id)
 
@@ -41,7 +49,9 @@ const titre = async ({ id }, context, info) => {
         ...titre.amodiataires.map(t => t.id)
       ])))
 
-  return titreIsPublic || userHasAccess ? titre && titreFormat(titre) : null
+  return titreIsPublic || userHasAccess
+    ? titre && titreFormat(titreRestrictions(titre, userHasAccess))
+    : null
 }
 
 const titres = async (
