@@ -51,18 +51,40 @@ const titreFormat = t => {
     t.activites.forEach(ta => {
       if (ta.frequenceElementId && ta.type && ta.type.frequence) {
         if (
-          ta.type.frequence.trimestres &&
-          ta.type.frequence.trimestres.length
+          ta.type.frequence[ta.type.frequence.elementsNom] &&
+          ta.type.frequence[ta.type.frequence.elementsNom].length
         ) {
-          ta.periode = ta.type.frequence.trimestres.find(
-            p => p.id === ta.frequenceElementId
-          )
-        } else if (ta.type.frequence.mois && ta.type.frequence.mois.length) {
-          ta.periode = ta.type.frequences.mois.find(
+          ta.periode = ta.type.frequence[ta.type.frequence.elementsNom].find(
             p => p.id === ta.frequenceElementId
           )
         }
       }
+
+      ta.sections = ta.type.champs.sections.map(s => {
+        const section = {
+          id: s.id,
+          nom: s.nom,
+          type: s.type,
+          description: s.description,
+          elements: s.elements.reduce(
+            (elements, e) =>
+              !e.frequenceElementIds ||
+              (e.frequenceElementIds &&
+                e.frequenceElementIds.find(
+                  id => ta.periode && ta.periode.id === id
+                ) > 0)
+                ? [...elements, e]
+                : elements,
+            []
+          )
+        }
+
+        if (s.frequenceElementIds) {
+          section.frequenceElementIds = s.frequenceElementIds
+        }
+
+        return section
+      })
     })
   }
 
