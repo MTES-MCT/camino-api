@@ -49,13 +49,13 @@ const titreFormat = t => {
 
   if (t.activites && t.activites.length) {
     t.activites.forEach(ta => {
-      if (ta.frequenceElementId && ta.type && ta.type.frequence) {
+      if (ta.frequencePeriodeId && ta.type && ta.type.frequence) {
         if (
-          ta.type.frequence[ta.type.frequence.elementsNom] &&
-          ta.type.frequence[ta.type.frequence.elementsNom].length
+          ta.type.frequence[ta.type.frequence.periodesNom] &&
+          ta.type.frequence[ta.type.frequence.periodesNom].length
         ) {
-          ta.periode = ta.type.frequence[ta.type.frequence.elementsNom].find(
-            p => p.id === ta.frequenceElementId
+          ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
+            p => p.id === ta.frequencePeriodeId
           )
         }
       }
@@ -68,9 +68,9 @@ const titreFormat = t => {
           description: s.description,
           elements: s.elements.reduce(
             (elements, e) =>
-              !e.frequenceElementIds ||
-              (e.frequenceElementIds &&
-                e.frequenceElementIds.find(
+              !e.frequencePeriodesIds ||
+              (e.frequencePeriodesIds &&
+                e.frequencePeriodesIds.find(
                   id => ta.periode && ta.periode.id === id
                 ) > 0)
                 ? [...elements, e]
@@ -79,8 +79,8 @@ const titreFormat = t => {
           )
         }
 
-        if (s.frequenceElementIds) {
-          section.frequenceElementIds = s.frequenceElementIds
+        if (s.frequencePeriodesIds) {
+          section.frequencePeriodesIds = s.frequencePeriodesIds
         }
 
         return section

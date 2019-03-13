@@ -14,7 +14,7 @@ export default class TitresActivites extends Model {
       'date',
       'activiteTypeId',
       'activiteStatutId',
-      'frequenceElementId',
+      'frequencePeriodeId',
       'annee'
     ],
     properties: {
@@ -26,7 +26,7 @@ export default class TitresActivites extends Model {
       contenu: { type: 'json' },
       activiteTypeId: { type: 'string', maxLength: 3 },
       activiteStatutId: { type: 'string', maxLength: 3 },
-      frequenceElementId: { type: 'integer' },
+      frequencePeriodeId: { type: 'integer' },
       annee: { type: 'integer', maxLength: 4 }
     }
   }
@@ -64,7 +64,7 @@ export default class TitresActivites extends Model {
     if (!json.id) {
       const id = `${json.titreId}-${json.activiteTypeId}-${
         json.annee
-      }-${json.frequenceElementId.toString().padStart(2, '0')}`
+      }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
       json.id = id
     }
     json = super.$parseJson(json)

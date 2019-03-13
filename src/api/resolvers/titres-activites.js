@@ -95,12 +95,12 @@ const emailsGet = async entrepriseIds => {
 const emailFormat = (
   titreNom,
   user,
-  { contenu, annee, titreId, dateSaisie, type, frequenceElementId }
+  { contenu, annee, titreId, dateSaisie, type, frequencePeriodeId }
 ) => {
   const header = `
 <h1>${titreNom} | ${type.nom}, ${
-    type.frequence.elementsNom
-      ? type.frequence[type.frequence.elementsNom][frequenceElementId].nom
+    type.frequence.periodesNom
+      ? type.frequence[type.frequence.periodesNom][frequencePeriodeId - 1].nom
       : ''
   } ${annee}
 </h1>

@@ -4,7 +4,7 @@ import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 const titreActiviteTypeUpdate = (titre, activiteType, annees) => {
   const { id: activiteTypeId, frequence } = activiteType
 
-  const periods = frequence[frequence.elementsNom]
+  const periods = frequence[frequence.periodesNom]
 
   const periodMonthsCount = 12 / periods.length
 
@@ -21,7 +21,7 @@ const titreActiviteTypeUpdate = (titre, activiteType, annees) => {
         const activite =
           titre.activites &&
           titre.activites.find(
-            a => a.annee === annee && a.frequenceElementId === i + 1
+            a => a.annee === annee && a.frequencePeriodeId === i + 1
           )
 
         // la ligne d'activité existe déjà pour le titre
@@ -37,7 +37,7 @@ const titreActiviteTypeUpdate = (titre, activiteType, annees) => {
           // le statut de l'activité crée automatiquement
           // est 'absente'
           activiteStatutId: 'abs',
-          frequenceElementId: i + 1,
+          frequencePeriodeId: i + 1,
           annee
         }
 

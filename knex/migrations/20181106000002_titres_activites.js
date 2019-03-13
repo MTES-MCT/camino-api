@@ -18,7 +18,7 @@ exports.up = knex => {
       .references('activitesStatuts.id')
       .notNullable()
     table.integer('annee', 4)
-    table.integer('frequenceElementId', 2)
+    table.integer('frequencePeriodeId', 2)
   })
 }
 

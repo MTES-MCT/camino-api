@@ -3,7 +3,7 @@ exports.up = knex => {
     .createTable('frequences', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
-      table.string('elementsNom')
+      table.string('periodesNom')
     })
     .createTable('trimestres', table => {
       table.integer('id', 1).primary()

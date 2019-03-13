@@ -17,7 +17,7 @@ const titresUneActivite = [
     activites: [
       {
         annee: 2018,
-        frequenceElementId: 1
+        frequencePeriodeId: 1
       }
     ]
   }
@@ -29,19 +29,19 @@ const titresToutesActivites = [
     activites: [
       {
         annee: 2018,
-        frequenceElementId: 1
+        frequencePeriodeId: 1
       },
       {
         annee: 2018,
-        frequenceElementId: 2
+        frequencePeriodeId: 2
       },
       {
         annee: 2018,
-        frequenceElementId: 3
+        frequencePeriodeId: 3
       },
       {
         annee: 2018,
-        frequenceElementId: 4
+        frequencePeriodeId: 4
       }
     ]
   }
