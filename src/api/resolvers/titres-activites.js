@@ -115,8 +115,16 @@ const emailFormat = (
 `
 
   const elementHtml = (sectionId, element) =>
-    contenu[sectionId] && contenu[sectionId][element.id]
-      ? `<li>${element.nom} : ${contenu[sectionId][element.id]}</li>`
+    contenu[sectionId] &&
+    (contenu[sectionId][element.id] || contenu[sectionId][element.id] === 0)
+      ? `<li>${element.nom ? element.nom + ' : ' : ''}${
+          element.type === 'checkbox'
+            ? contenu[sectionId][element.id]
+                .split(',')
+                .map(id => element.valeurs[id])
+                .join(', ')
+            : contenu[sectionId][element.id]
+        }</li>`
       : ''
 
   const elementsHtml = (sectionId, elements) =>
@@ -129,13 +137,13 @@ ${elementHtml(sectionId, element)}
       ''
     )
 
-  const sectionHtml = section => {
-    const sectionNomHtml = section.nom ? `<h2>${section.nom}</h2>` : ''
+  const sectionHtml = ({ id, nom, elements }) => {
+    const sectionNomHtml = nom ? `<h2>${nom}</h2>` : ''
 
     return `
 ${sectionNomHtml}
 <ul>
-  ${elementsHtml(section.id, section.elements)}
+  ${elementsHtml(id, elements)}
 </ul>
     `
   }

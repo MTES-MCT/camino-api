@@ -70,4 +70,10 @@ export default class TitresActivites extends Model {
     json = super.$parseJson(json)
     return json
   }
+
+  static namedFilters = {
+    orderByDateDesc: builder => {
+      builder.orderBy('date', 'desc')
+    }
+  }
 }

@@ -91,7 +91,7 @@ const titres = {
     demarches.eager
   }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${
     communes.eager
-  }, activites.${titresActivites.eager}]`,
+  }, activites(orderByDateDesc).${titresActivites.eager}]`,
   update: {
     relate: ['type', 'domaine', 'statut', 'substances'],
     unrelate: ['type', 'domaine', 'statut', 'substances'],
