@@ -5,9 +5,10 @@ type TitreActivite {
   statut: ActiviteStatut!
   titreId: ID!
   date: Date!
-  dateSaisie: Date!
+  dateSaisie: Date
   contenu: Json
   periode: Json
+  sections: Json
   annee: Int
 }
 
