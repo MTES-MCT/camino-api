@@ -1,17 +1,17 @@
 const titreVide = {}
 
 const titreAvecActivites = {
-  activites: [{ annee: 2018, frequenceElementId: 1 }]
+  activites: [{ annee: 2018, frequencePeriodeId: 1 }]
 }
 
 const activiteTypeTrimestre = {
   id: 'test',
-  frequence: { elementsNom: 'trimestres', trimestres: [{}, {}, {}, {}] }
+  frequence: { periodesNom: 'trimestres', trimestres: [{}, {}, {}, {}] }
 }
 
 const activiteTypeMois = {
   id: 'test',
-  frequence: { elementsNom: 'mois', mois: [{}] }
+  frequence: { periodesNom: 'mois', mois: [{}] }
 }
 
 export {

@@ -19,7 +19,7 @@ const tables = [
       'contenu',
       'activiteTypeId',
       'activiteStatutId',
-      'frequenceElementId',
+      'frequencePeriodeId',
       'annee'
     ],
     callbacks: {
