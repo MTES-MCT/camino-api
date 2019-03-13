@@ -3,7 +3,7 @@ const dupRemove = (key, ...arrays) =>
     (result, array) =>
       array.reduce(
         (res, el) =>
-          res.find(e => el[key] && e[key] === el[key]) ? res : [...res, el],
+          res.find(e => !el[key] || e[key] === el[key]) ? res : [...res, el],
         result
       ),
     []
