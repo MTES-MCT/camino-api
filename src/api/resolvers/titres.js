@@ -74,6 +74,10 @@ const titres = async (
   // à partir de l'AST de graphQL
   // console.log(JSON.stringify(info.fragments, null, 2))
   // cf: https://github.com/graphql/graphql-js/issues/799
+
+  const userIsAdmin =
+    context.user && permissionsCheck(context.user, ['admin', 'super'])
+
   const domaineIdsRestrict = async domaineIds => {
     if (!domaineIds) {
       const domaines = await domainesGet()
@@ -164,14 +168,8 @@ const titres = async (
 
   const titresPublics = await titresGet({
     typeIds,
-    domaineIds:
-      context.user && permissionsCheck(context.user, ['admin', 'super'])
-        ? domaineIds
-        : await domaineIdsRestrict(domaineIds),
-    statutIds:
-      context.user && permissionsCheck(context.user, ['admin', 'super'])
-        ? statutIds
-        : await statutIdsRestrict(statutIds),
+    domaineIds: userIsAdmin ? domaineIds : await domaineIdsRestrict(domaineIds),
+    statutIds: userIsAdmin ? statutIds : await statutIdsRestrict(statutIds),
     substances,
     noms,
     entreprises,
@@ -179,7 +177,11 @@ const titres = async (
     territoires
   })
 
-  const titres = dupRemove('id', titresPublics, titresUserEntreprise)
+  const titres = dupRemove(
+    'id',
+    titresUserEntreprise,
+    titresPublics.map(t => titreRestrictions(t, userIsAdmin))
+  )
 
   return titres.map(titre => titre && titreFormat(titre))
 }
