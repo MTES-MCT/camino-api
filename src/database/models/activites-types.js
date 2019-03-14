@@ -13,7 +13,7 @@ export default class ActivitesTypes extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      champs: { type: 'json' },
+      sections: { type: 'json' },
       paysId: { type: 'string', maxLength: 3 },
       frequenceId: { type: 'string', maxLength: 3 }
     }

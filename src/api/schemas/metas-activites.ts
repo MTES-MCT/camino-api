@@ -8,7 +8,7 @@ type ActiviteStatut {
 type ActiviteType {
   id: ID!
   nom: String!
-  champs: Json!
+  sections: Json!
   frequence: Frequence!
   pays: [Pays!]
 }

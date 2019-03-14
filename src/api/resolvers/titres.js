@@ -1,5 +1,5 @@
 import permissionsCheck from './_permissions-check'
-import { titreFormat } from '../../tools/titre-format'
+import { titreFormat } from '../../database/format'
 import { restrictedDomaineIds, restrictedStatutIds } from './_restrictions'
 
 import {
