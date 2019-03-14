@@ -1,4 +1,5 @@
 import * as dateFormat from 'dateformat'
+import { titreActiviteFormat } from '../../database/format'
 
 import {
   titreActiviteGet,
@@ -60,10 +61,19 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
         ? titre.amodiataires.map(t => t.id)
         : titre.titulaires.map(t => t.id)
       const emails = await emailsGet(entrepriseIds)
-      const subject = `[Camino] Rapport trimestriel ${titre.nom}, ${
-        activiteRes.contenu.trimestre
-      } trimestre ${activiteRes.contenu.annee}`
-      const html = emailFormat(titre.nom, user, activiteRes)
+      const emailTitle = `${titre.nom} | ${activiteRes.type.nom}, ${
+        activiteRes.type.frequence.periodesNom
+          ? activiteRes.type.frequence[activiteRes.type.frequence.periodesNom][
+              activiteRes.frequencePeriodeId - 1
+            ].nom
+          : ''
+      } ${activiteRes.annee}`
+      const subject = `[Camino] ${emailTitle}`
+      const html = emailFormat(
+        emailTitle,
+        user,
+        titreActiviteFormat(activiteRes)
+      )
 
       await emailsSend(emails, subject, html)
     }
@@ -93,23 +103,18 @@ const emailsGet = async entrepriseIds => {
 }
 
 const emailFormat = (
-  titreNom,
+  emailTitle,
   user,
-  { contenu, annee, titreId, dateSaisie, type, frequencePeriodeId }
+  { contenu, titreId, dateSaisie, sections }
 ) => {
   const header = `
-<h1>${titreNom} | ${type.nom}, ${
-    type.frequence.periodesNom
-      ? type.frequence[type.frequence.periodesNom][frequencePeriodeId - 1].nom
-      : ''
-  } ${annee}
-</h1>
+<h1>${emailTitle}</h1>
 
 <hr>
 
 <b>Lien</b> : ${process.env.UI_URL}/titres/${titreId} <br>
 <b>Rempli par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
-<b>Date</b> : ${dateFormat(dateSaisie, 'dd-mm-yyyy')} <br>
+<b>Date de dépôt</b> : ${dateFormat(dateSaisie, 'dd-mm-yyyy')} <br>
 
 <hr>
 `
@@ -125,7 +130,7 @@ const emailFormat = (
                 .join(', ')
             : contenu[sectionId][element.id]
         }</li>`
-      : ''
+      : `<li>–</li>`
 
   const elementsHtml = (sectionId, elements) =>
     elements.reduce(
@@ -148,7 +153,7 @@ ${sectionNomHtml}
     `
   }
 
-  const body = type.champs.sections.reduce(
+  const body = sections.reduce(
     (res, section) => `
 ${res}
 
