@@ -1,7 +1,7 @@
 import titresActivitesTypesUpdate from './titres-activites-update'
 
 import '../../database/format'
-import * as titreActivitesTypesFilter from '../rules/titre-activites-filter'
+import * as titreActivitesTypesFilter from '../utils/titre-activites-filter'
 import * as titreActivitesQueries from '../queries/titre-activites'
 
 import {
@@ -15,7 +15,7 @@ jest.mock('../../database/format', () => ({
   titreFormat: e => e
 }))
 
-jest.mock('../rules/titre-activites-filter', () => ({
+jest.mock('../utils/titre-activites-filter', () => ({
   default: () => [{}]
 }))
 
