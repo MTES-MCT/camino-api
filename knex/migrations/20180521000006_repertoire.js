@@ -2,11 +2,13 @@ exports.up = knex => {
   return knex.schema
     .createTable('entreprises', table => {
       table.string('id', 64).primary()
-      table.string('raisonSociale')
+      table.string('nom')
       table.string('paysId')
       table.string('legalSiren')
       table.string('legalEtranger')
       table.string('legalForme')
+      table.string('categorie')
+      table.string('dateCreation')
       table.string('voieNumero')
       table.string('voieType')
       table.string('voieNom')
@@ -27,7 +29,7 @@ exports.up = knex => {
         .references('entreprises.id')
         .notNullable()
         .onDelete('CASCADE')
-      table.string('nom').notNullable()
+      table.string('nom')
       table.string('legalSiret')
       table.date('dateDebut')
       table.date('dateFin')

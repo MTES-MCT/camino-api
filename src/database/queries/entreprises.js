@@ -6,9 +6,14 @@ const entrepriseGet = async id =>
     .findById(id)
     .eager(options.entreprises.eager)
 
-const entreprisesGet = async ({ noms }) =>
+const entreprisesGet = async () =>
   Entreprises.query()
     .skipUndefined()
     .eager(options.entreprises.eager)
 
-export { entrepriseGet, entreprisesGet }
+const entrepriseUpdate = async entreprise =>
+  Entreprises.query()
+    .eager(options.entreprises.eager)
+    .upsertGraph(entreprise, options.entreprises.update)
+
+export { entrepriseGet, entreprisesGet, entrepriseUpdate }

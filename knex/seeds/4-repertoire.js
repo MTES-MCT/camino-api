@@ -43,8 +43,10 @@ const entreprisesEtablissements = [
   ...entreprisesWEtablissements
 ]
 
-const findup = (array, key1) =>
+const findDuplicates = (array, key1) =>
   array.reduce((res, el) => {
+    if (el[key1][0] === 'F') console.log('majuscule', el)
+
     if (res.find(e => e[key1] === el[key1])) {
       console.log(
         'entreprise en doublon (à supprimer dans la source): ',
@@ -57,7 +59,16 @@ const findup = (array, key1) =>
     }
   }, [])
 
-const entr = findup(entreprises, 'id')
+const findMissing = (entreprises, etablissements) =>
+  etablissements.forEach(et => {
+    if (!entreprises.find(e => et.entreprise_id === e.id)) {
+      throw new Error(`Missing: ${et.entreprise_id}`)
+    }
+  })
+
+const entr = findDuplicates(entreprises, 'id')
+
+findMissing(entreprises, entreprisesEtablissements)
 
 exports.seed = (knex, Promise) =>
   Promise.all([

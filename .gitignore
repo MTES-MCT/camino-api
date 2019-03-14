@@ -7,3 +7,4 @@ env-public
 /dist
 /sources
 /coverage
+/responses
