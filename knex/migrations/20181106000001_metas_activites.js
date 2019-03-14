@@ -3,7 +3,7 @@ exports.up = knex => {
     .createTable('activitesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
-      table.jsonb('champs')
+      table.specificType('sections', 'jsonb[]')
       table
         .string('frequenceId', 3)
         .notNullable()

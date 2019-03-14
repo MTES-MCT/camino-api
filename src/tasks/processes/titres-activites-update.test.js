@@ -1,18 +1,17 @@
 import titresActivitesTypesUpdate from './titres-activites-update'
 
-import '../../tools/titre-format'
+import '../../database/format'
 import * as titreActivitesTypesFilter from '../rules/titre-activites-filter'
 import * as titreActivitesQueries from '../queries/titre-activites'
 
 import {
   titresSansActivite,
-  titresUneActivite,
   titresToutesActivites
 } from './__mocks__/titres-activites-update-titres'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../tools/titre-format', () => ({
+jest.mock('../../database/format', () => ({
   titreFormat: e => e
 }))
 

@@ -3,7 +3,7 @@ import * as dateFormat from 'dateformat'
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} from './geojson'
+} from '../tools/geojson'
 
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier
@@ -51,44 +51,7 @@ const titreFormat = t => {
 
   if (t.activites && t.activites.length) {
     t.activites.forEach(ta => {
-      if (ta.frequencePeriodeId && ta.type && ta.type.frequence) {
-        if (
-          ta.type.frequence[ta.type.frequence.periodesNom] &&
-          ta.type.frequence[ta.type.frequence.periodesNom].length
-        ) {
-          ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
-            p => p.id === ta.frequencePeriodeId
-          )
-        }
-      }
-
-      ta.sections = ta.type.champs.sections.map(s => {
-        const section = {
-          id: s.id,
-          nom: s.nom,
-          type: s.type,
-          description: s.description,
-          elements: s.elements.reduce(
-            (elements, e) =>
-              (!e.frequencePeriodesIds ||
-                (e.frequencePeriodesIds &&
-                  e.frequencePeriodesIds.find(
-                    id => ta.periode && ta.periode.id === id
-                  ))) &&
-              (!e.archiveDate ||
-                e.archiveDate > dateFormat(ta.date, 'yyyy-mm-dd'))
-                ? [...elements, e]
-                : elements,
-            []
-          )
-        }
-
-        if (s.frequencePeriodesIds) {
-          section.frequencePeriodesIds = s.frequencePeriodesIds
-        }
-
-        return section
-      })
+      ta = titreActiviteFormat(ta)
     })
   }
 
@@ -155,4 +118,46 @@ const paysRegionsDepartementsCommunes = communes => {
   return pays
 }
 
-export { titreFormat }
+const titreActiviteFormat = ta => {
+  if (ta.frequencePeriodeId && ta.type && ta.type.frequence) {
+    if (
+      ta.type.frequence[ta.type.frequence.periodesNom] &&
+      ta.type.frequence[ta.type.frequence.periodesNom].length
+    ) {
+      ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
+        p => p.id === ta.frequencePeriodeId
+      )
+    }
+  }
+
+  ta.sections = ta.type.sections.map(s => {
+    const section = {
+      id: s.id,
+      nom: s.nom,
+      type: s.type,
+      description: s.description,
+      elements: s.elements.reduce(
+        (elements, e) =>
+          (!e.frequencePeriodesIds ||
+            (e.frequencePeriodesIds &&
+              e.frequencePeriodesIds.find(
+                id => ta.periode && ta.periode.id === id
+              ))) &&
+          (!e.archiveDate || e.archiveDate > dateFormat(ta.date, 'yyyy-mm-dd'))
+            ? [...elements, e]
+            : elements,
+        []
+      )
+    }
+
+    if (s.frequencePeriodesIds) {
+      section.frequencePeriodesIds = s.frequencePeriodesIds
+    }
+
+    return section
+  })
+
+  return ta
+}
+
+export { titreFormat, titreActiviteFormat }

@@ -5,7 +5,7 @@ exports.up = knex => {
     table.string('typeId', 3).notNullable()
     table.string('domaineId', 1).notNullable()
     table.string('statutId', 3).notNullable()
-    table.json('references')
+    table.jsonb('references')
   })
 }
 
