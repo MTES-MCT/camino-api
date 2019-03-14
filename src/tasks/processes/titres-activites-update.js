@@ -1,4 +1,4 @@
-import { titreFormat } from '../../tools/titre-format'
+import { titreFormat } from '../../database/format'
 import titreActivitesTypesFilter from '../rules/titre-activites-filter'
 import { titreActiviteTypeUpdate } from '../queries/titre-activites'
 

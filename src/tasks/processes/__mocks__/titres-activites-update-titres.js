@@ -11,18 +11,6 @@ const titresSansActivite = [
   }
 ]
 
-const titresUneActivite = [
-  {
-    id: 'h-cxx-courdemanges-1988',
-    activites: [
-      {
-        annee: 2018,
-        frequencePeriodeId: 1
-      }
-    ]
-  }
-]
-
 const titresToutesActivites = [
   {
     id: 'h-cxx-courdemanges-1988',
@@ -47,6 +35,4 @@ const titresToutesActivites = [
   }
 ]
 
-const activite = {}
-
-export { titresSansActivite, titresUneActivite, titresToutesActivites }
+export { titresSansActivite, titresToutesActivites }

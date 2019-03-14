@@ -167,7 +167,7 @@ const spreadsheets = [
     name: 'metas-activites',
     id: metasActivitesSpreadsheetId,
     tables: [
-      { name: 'activites_types', cb: jsonParse('champs') },
+      { name: 'activites_types', cb: jsonParse('sections') },
       { name: 'activites_statuts' },
       { name: 'activites_types__types' },
       { name: 'activites_types__pays' }
