@@ -1,3 +1,5 @@
+import * as dateFormat from 'dateformat'
+
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
@@ -68,11 +70,13 @@ const titreFormat = t => {
           description: s.description,
           elements: s.elements.reduce(
             (elements, e) =>
-              !e.frequencePeriodesIds ||
-              (e.frequencePeriodesIds &&
-                e.frequencePeriodesIds.find(
-                  id => ta.periode && ta.periode.id === id
-                ) > 0)
+              (!e.frequencePeriodesIds ||
+                (e.frequencePeriodesIds &&
+                  e.frequencePeriodesIds.find(
+                    id => ta.periode && ta.periode.id === id
+                  ))) &&
+              (!e.archiveDate ||
+                e.archiveDate > dateFormat(ta.date, 'yyyy-mm-dd'))
                 ? [...elements, e]
                 : elements,
             []
