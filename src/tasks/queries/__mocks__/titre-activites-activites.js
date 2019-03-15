@@ -6,12 +6,12 @@ const titreAvecActivites = {
 
 const activiteTypeTrimestre = {
   id: 'test',
-  frequence: { periodesNom: 'trimestres', trimestres: [{}, {}, {}, {}] }
+  frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] }
 }
 
 const activiteTypeMois = {
   id: 'test',
-  frequence: { periodesNom: 'mois', mois: [{}] }
+  frequence: { periodesNom: 'mois', mois: [...new Array(12)] }
 }
 
 export {

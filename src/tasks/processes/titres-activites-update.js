@@ -1,5 +1,5 @@
 import { titreFormat } from '../../database/format'
-import titreActivitesTypesFilter from '../rules/titre-activites-filter'
+import titreActivitesTypesFilter from '../utils/titre-activites-filter'
 import { titreActiviteTypeUpdate } from '../queries/titre-activites'
 
 const titresActivitesTypesUpdate = async (titres, activitesTypes, annees) => {
