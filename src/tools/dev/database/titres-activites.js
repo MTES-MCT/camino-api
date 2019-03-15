@@ -12,7 +12,7 @@ async function main() {
   const titresActivitesUpdated = await titresActivitesTypesUpdate(
     titres,
     activitesTypes,
-    2018
+    [2018]
   )
 
   console.log(titresActivitesUpdated)
