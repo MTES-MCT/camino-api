@@ -148,6 +148,7 @@ Voir [contributing.md](contributing.md) (en anglais) pour plus d'infos.
 - Guillaume Levieux, intrapreneur
 - Joeffrey Arruyer, coach
 - [François Romain](http://francoisromain.com), développeur
+- [Adrien Risser](https://github.com/risseraka), développeur
 
 ---
 
