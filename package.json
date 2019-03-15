@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "dev": "nodemon --watch 'src/**' --exec 'ts-node' src/index.ts",
+    "dev": "nodemon",
     "import": "mkdir -p sources && node ./dist/tools/import/index.js",
     "export": "node ./dist/tools/export/index.js",
     "export:users": "node ./dist/tools/export/utilisateurs.js",
@@ -97,7 +97,7 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.3.2",
-    "eslint-plugin-jsdoc": "^4.1.1",
+    "eslint-plugin-jsdoc": "^4.4.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
