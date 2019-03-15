@@ -1,6 +1,6 @@
 import { titreActiviteTypeUpdate } from './titre-activites'
 import * as titreActivitesQueries from '../../database/queries/titres-activites'
-import * as titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
+import * as titreActiviteCreate from '../rules/titre-activite-create'
 
 import {
   titreVide,
@@ -15,33 +15,31 @@ jest.mock('../../database/queries/titres-activites', () => ({
   titreActiviteInsert: jest.fn().mockImplementation(() => Promise.resolve())
 }))
 
-jest.mock('../utils/titre-validite-periode-check', () => ({
+jest.mock('../rules/titre-activite-create', () => ({
   default: jest.fn().mockImplementation(() => true)
 }))
 
 describe('ajoute des nouvelles activités à un titre', () => {
-  test("de nouvelles activités sont ajoutés à un titre qui n'en contient pas", async () => {
+  test("quatre activités sont ajoutées pour un type d'activité trimestriel", async () => {
     expect(
       (await Promise.all(
-        titreActiviteTypeUpdate(titreVide, activiteTypeTrimestre, [2018, 2019])
+        titreActiviteTypeUpdate(titreVide, activiteTypeTrimestre, [2018])
       ))[0]
     ).toMatch(/Création/)
-    expect(titreActivitesQueries.titreActiviteInsert).toHaveBeenCalledTimes(8)
+    expect(titreActivitesQueries.titreActiviteInsert).toHaveBeenCalledTimes(4)
   })
 
-  test("aucune activité n'est ajoutée pour un titre qui en contient déjà", async () => {
+  test("douze activités sont ajoutées pour un type d'activité mensuel", async () => {
     expect(
-      await Promise.all(
+      (await Promise.all(
         titreActiviteTypeUpdate(titreAvecActivites, activiteTypeMois, [2018])
-      )
-    ).toEqual([])
-    expect(titreActivitesQueries.titreActiviteInsert).not.toHaveBeenCalled()
+      ))[0]
+    ).toMatch(/Création/)
+    expect(titreActivitesQueries.titreActiviteInsert).toHaveBeenCalledTimes(12)
   })
 
-  test("aucune activité n'est ajoutée pour un titre non valide", async () => {
-    jest
-      .spyOn(titreValiditePeriodeCheck, 'default')
-      .mockImplementation(() => false)
+  test("aucune activité n'est ajoutée si le titre ne correspond pas aux critères de l'activité", async () => {
+    jest.spyOn(titreActiviteCreate, 'default').mockImplementation(() => false)
 
     expect(
       await Promise.all(
