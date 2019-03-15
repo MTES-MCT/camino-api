@@ -2575,7 +2575,7 @@
             <uid><![CDATA[BEFD57A2-D1AF-4344-9547-885E8CB72E5F]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[champs]]></name>
+            <name><![CDATA[sections]]></name>
             <type><![CDATA[JSONB]]></type>
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <notNull><![CDATA[0]]></notNull>
@@ -3499,7 +3499,7 @@
         <overviewPanelHidden><![CDATA[0]]></overviewPanelHidden>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <RightSidebarWidth><![CDATA[1003.000000]]></RightSidebarWidth>
+        <RightSidebarWidth><![CDATA[1279.000000]]></RightSidebarWidth>
         <sidebarIndex><![CDATA[2]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[0.000000]]></SourceSidebarWidth>
@@ -3508,7 +3508,7 @@
         <windowHeight><![CDATA[1418.000000]]></windowHeight>
         <windowLocationX><![CDATA[0.000000]]></windowLocationX>
         <windowLocationY><![CDATA[0.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{660, 344}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 37}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
