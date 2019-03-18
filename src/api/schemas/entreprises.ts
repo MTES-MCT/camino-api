@@ -1,7 +1,6 @@
 export default `
 type Entreprise {
   id: ID!
-  nom: String
   raisonSociale: String
   paysId: String
   legalSiren: String
@@ -17,12 +16,20 @@ type Entreprise {
   url: String
   telephone: String
   email: String
+  etablissements: [EntrepriseEtablissement]
   utilisateurs: [Utilisateur]
+}
+
+type EntrepriseEtablissement {
+  id: ID!
+  nom: String!
+  dateDebut: Date
+  dateFin: Date
+  legalSiret: String
 }
 
 input InputEntreprise {
   id: ID!
-  nom: String
   raisonSociale: String
   paysId: String
   legalSiren: String

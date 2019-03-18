@@ -2,7 +2,6 @@ exports.up = knex => {
   return knex.schema
     .createTable('entreprises', table => {
       table.string('id', 64).primary()
-      table.string('nom')
       table.string('raisonSociale')
       table.string('paysId')
       table.string('legalSiren')
@@ -20,6 +19,18 @@ exports.up = knex => {
       table.string('url')
       table.string('email')
       table.string('telephone')
+    })
+    .createTable('entreprisesEtablissements', table => {
+      table.string('id', 64).primary()
+      table
+        .string('entrepriseId', 64)
+        .references('entreprises.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table.string('nom')
+      table.string('legalSiret')
+      table.date('dateDebut')
+      table.date('dateFin')
     })
     .createTable('administrations', table => {
       table.string('id', 64).primary()
@@ -66,6 +77,7 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
+    .dropTable('entreprisesEtablissements')
     .dropTable('utilisateurs')
     .dropTable('permissions')
     .dropTable('entreprises')
