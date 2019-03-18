@@ -36,6 +36,7 @@ export default {
   //  types
   Json,
   GraphQLDate,
+
   //  queries
   version,
   titre,
@@ -49,6 +50,7 @@ export default {
   utilisateur,
   utilisateurs,
   permissions,
+
   // mutations
   titreAjouter,
   titreModifier,
