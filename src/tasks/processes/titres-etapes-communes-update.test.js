@@ -42,7 +42,7 @@ describe('met à jour la liste globale des communes et la liste de communes pour
       )
 
     expect(await titresEtapeCommunesUpdate(titresEtapesPoints, [])).toEqual([
-      'Mise à jour: 2 communes dans la base.',
+      'Mise à jour: 2 communes.',
       'Mise à jour: 2 communes dans des étapes.'
     ])
 
@@ -65,7 +65,7 @@ describe('met à jour la liste globale des communes et la liste de communes pour
         { id: 1 }
       ])
     ).toEqual([
-      'Mise à jour: 1 communes dans la base.',
+      'Mise à jour: 1 communes.',
       'Mise à jour: 1 communes dans des étapes.'
     ])
 
@@ -81,7 +81,7 @@ describe('met à jour la liste globale des communes et la liste de communes pour
     apiCommunes.default = () => []
 
     expect(await titresEtapeCommunesUpdate(titresEtapesPoints, [])).toEqual([
-      'Mise à jour: 0 communes dans la base.',
+      'Mise à jour: 0 communes.',
       'Mise à jour: 0 communes dans des étapes.'
     ])
 
@@ -90,7 +90,7 @@ describe('met à jour la liste globale des communes et la liste de communes pour
 
   test("l'étape n'a pas de périmètre", async () => {
     expect(await titresEtapeCommunesUpdate(titresEtapesPointsVides)).toEqual([
-      'Mise à jour: 0 communes dans la base.',
+      'Mise à jour: 0 communes.',
       'Mise à jour: 0 communes dans des étapes.'
     ])
 
@@ -102,7 +102,7 @@ describe('met à jour la liste globale des communes et la liste de communes pour
 
     expect(await titresEtapeCommunesUpdate(titresEtapesPointsVides)).toEqual([
       "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 communes dans la base.',
+      'Mise à jour: 0 communes.',
       'Mise à jour: 0 communes dans des étapes.'
     ])
 
