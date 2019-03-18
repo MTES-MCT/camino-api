@@ -3,7 +3,6 @@ import '../database/index'
 
 import { titresGet } from '../database/queries/titres'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
-import { titresPhasesGet } from '../database/queries/titres-phases'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
 import { communesGet } from '../database/queries/communes'
 import { activitesTypesGet } from '../database/queries/metas'

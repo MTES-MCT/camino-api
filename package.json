@@ -101,10 +101,12 @@
     "eslint-plugin-jest": "^22.3.2",
     "eslint-plugin-jsdoc": "^4.4.1",
     "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.5.0",
     "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
     "standard-version": "^5.0.1",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3"
@@ -125,6 +127,7 @@
       "jest/globals": true
     },
     "plugins": [
+      "prettier",
       "jest",
       "jsdoc"
     ],
@@ -147,7 +150,10 @@
       "jsdoc/require-returns-description": 1,
       "jsdoc/require-returns-type": 1,
       "jsdoc/valid-types": 1,
-      "no-throw-literal": 0
+      "no-throw-literal": 0,
+      "prettier/prettier": [
+        "error"
+      ]
     }
   },
   "config": {

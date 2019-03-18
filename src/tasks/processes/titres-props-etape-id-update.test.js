@@ -1,5 +1,4 @@
 import titresPhasesUpdate from './titres-props-etape-id-update'
-import titresQueries from '../queries/titres'
 
 import {
   titresUnePropriete,

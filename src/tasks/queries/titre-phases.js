@@ -35,7 +35,7 @@ const titrePhaseUpdate = (titrePhase, titresPhasesOld) => {
     )
   }
 
-  return titrePhaseUpdated ? titrePhaseUpdated : null
+  return titrePhaseUpdated || null
 }
 
 const titrePhaseDelete = (titrePhaseOld, titresPhases) => {
@@ -51,7 +51,7 @@ const titrePhaseDelete = (titrePhaseOld, titresPhases) => {
       titreDemarcheId: titrePhaseOld.titreDemarcheId
     }).then(u => `Suppression: phase ${titrePhaseOld.titreDemarcheId}`)
   }
-  return titrePhaseDeleted ? titrePhaseDeleted : null
+  return titrePhaseDeleted || null
 }
 
 // retourne une phase parmi les titrePhases en fonction de son id
