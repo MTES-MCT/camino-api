@@ -267,29 +267,29 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 
 //
 const etapeIdUpdate = etape => {
-  const props = [
-    'substances',
-    'points',
-    'titulaires',
-    'amodiataires',
-    'administrations',
-    'documents',
-    'communes',
-    'emprises'
-  ]
+  // const props = [
+  //   'substances',
+  //   'points',
+  //   'titulaires',
+  //   'amodiataires',
+  //   'administrations',
+  //   'documents',
+  //   'communes',
+  //   'emprises'
+  // ]
 
   return etape
 }
 
 const titreRelatedPropsFind = titreEtapeId => {
-  const props = [
-    'substances',
-    'points',
-    'titulaires',
-    'amodiataires',
-    'administrations',
-    'communes'
-  ]
+  // const props = [
+  //   'substances',
+  //   'points',
+  //   'titulaires',
+  //   'amodiataires',
+  //   'administrations',
+  //   'communes'
+  // ]
   return []
 }
 

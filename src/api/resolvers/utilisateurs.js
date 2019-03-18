@@ -440,7 +440,7 @@ const utilisateurMotDePasseInitialiser = async (
   }
 
   if (!errors.length) {
-    const res = await utilisateurUpdate({
+    await utilisateurUpdate({
       id: context.user.id,
       motDePasse: await bcrypt.hash(motDePasse1, 10)
     })

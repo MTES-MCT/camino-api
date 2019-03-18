@@ -2,7 +2,7 @@ import Titres from '../models/titres'
 import options from './_options'
 
 const titreGet = async id =>
-  await Titres.query()
+  Titres.query()
     .findById(id)
     .eager(options.titres.eager)
 
