@@ -92,7 +92,7 @@ const titresGet = async ({
 
   if (entreprises) {
     const fields = [
-      'titulaires.nom',
+      'titulaires:etablissements.nom',
       'titulaires.id'
       // 'amodiataires.nom',
       // 'amodiataires.id'
@@ -122,7 +122,7 @@ const titresGet = async ({
           []
         )
       )
-      .joinRelation('titulaires')
+      .joinRelation('titulaires.etablissements')
   }
 
   if (territoires) {

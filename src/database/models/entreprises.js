@@ -1,5 +1,5 @@
 import { Model } from 'objection'
-import { join } from 'path'
+import EntreprisesEtablissements from './entreprises-etablissements'
 
 export default class Entreprises extends Model {
   static tableName = 'entreprises'
@@ -10,7 +10,6 @@ export default class Entreprises extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 64 },
-      nom: { type: ['string', 'null'] },
       raisonSociale: { type: ['string', 'null'] },
       paysId: { type: ['string', 'null'] },
       legalSiren: { type: ['string', 'null'] },
@@ -36,6 +35,15 @@ export default class Entreprises extends Model {
       join: {
         from: 'entreprises.id',
         to: 'utilisateurs.entrepriseId'
+      }
+    },
+
+    etablissements: {
+      relation: Model.HasManyRelation,
+      modelClass: EntreprisesEtablissements,
+      join: {
+        from: 'entreprises.id',
+        to: 'entreprisesEtablissements.entrepriseId'
       }
     }
   }

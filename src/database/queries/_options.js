@@ -12,7 +12,7 @@ const administrations = {
 }
 
 const entreprises = {
-  eager: `utilisateurs.permission`
+  eager: `[utilisateurs.permission, etablissements]`
 }
 
 const substances = {
