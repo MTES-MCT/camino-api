@@ -1,5 +1,4 @@
 // formate un objet 'element' sous forme de 'row'
-import * as decamelize from 'decamelize'
 
 // in
 // - element: un objet json extrait de la base de données source

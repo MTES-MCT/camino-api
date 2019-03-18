@@ -1,8 +1,6 @@
 import titresEtapeCommunesUpdate from './titres-etapes-communes-update'
 
-import * as communes from '../queries/communes'
 import * as titreEtapes from '../queries/titre-etapes'
-import * as geojson from '../../tools/geojson'
 import * as apiCommunes from '../../tools/api-communes'
 
 import {

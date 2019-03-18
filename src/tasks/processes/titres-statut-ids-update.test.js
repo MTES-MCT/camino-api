@@ -1,5 +1,4 @@
 import titresStatutIdsUpdate from './titres-statut-ids-update'
-import * as titres from '../queries/titres'
 
 import {
   titresValideStatutIdAJour,

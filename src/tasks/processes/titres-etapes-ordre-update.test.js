@@ -1,5 +1,4 @@
 import titresEtapesOrdreUpdate from './titres-etapes-ordre-update'
-import titresEtapes from '../queries/titre-etapes'
 
 import {
   titresDemarchesEtapes,
