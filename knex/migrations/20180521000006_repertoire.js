@@ -27,7 +27,7 @@ exports.up = knex => {
         .references('entreprises.id')
         .notNullable()
         .onDelete('CASCADE')
-      table.string('nom')
+      table.string('nom').notNullable()
       table.string('legalSiret')
       table.date('dateDebut')
       table.date('dateFin')

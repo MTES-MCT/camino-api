@@ -13,7 +13,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
   if (!geoCommunesApiTest) {
     return [
       "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 communes dans la base.',
+      'Mise à jour: 0 communes.',
       'Mise à jour: 0 communes dans des étapes.'
     ]
   }
@@ -50,7 +50,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
   await Promise.all(titreEtapesCommunesQueries)
 
   return [
-    `Mise à jour: ${communesInsertQueries.length} communes dans la base.`,
+    `Mise à jour: ${communesInsertQueries.length} communes.`,
     `Mise à jour: ${titresEtapesCommunesInsertQueries.length +
       titresEtapesCommunesDeleteQueries.length} communes dans des étapes.`
   ]
