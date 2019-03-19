@@ -34,7 +34,7 @@
     "test": "jest --verbose && codecov",
     "jest": "jest --verbose --coverage --watch",
     "commit": "npx git-cz",
-    "release": "standard-version && git push --follow-tags origin master && conventional-github-releaser",
+    "release": "standard-version && git push --follow-tags origin master && npx conventional-github-releaser",
     "doc": "rm -rf docs && npx esdoc",
     "user-add": "ts-node ./src/tools/dev/database/utilisateur-admin-add.js"
   },
@@ -90,6 +90,7 @@
     "@typescript-eslint/parser": "^1.4.2",
     "codecov": "^3.2.0",
     "commitizen": "^3.0.7",
+    "conventional-github-releaser": "^3.1.2",
     "cz-conventional-changelog": "^2.1.0",
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
