@@ -46,4 +46,13 @@ input InputEntreprise {
   telephone: String
   email: String
   utilisateurs: [InputUtilisateur]
+  etablissements: [InputEtablissements]
+}
+
+input InputEtablissements {
+  id: ID!
+  nom: String
+  legalSiret: String
+  dateDebut: Date
+  dateFin: Date
 }`
