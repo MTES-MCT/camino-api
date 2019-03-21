@@ -16,6 +16,13 @@ fragment utilisateur on Utilisateur {
   entreprise {
     id
     nom
+    etablissements {
+      id
+      nom
+      dateDebut
+      dateFin
+      legalSiret
+    }
   }
   permission {
     id
