@@ -1,11 +1,13 @@
 export default `
 type Entreprise {
   id: ID!
-  raisonSociale: String
+  nom: String
   paysId: String
   legalSiren: String
   legalEtranger: String
   legalForme: String
+  categorie: String
+  dateCreation: Date
   voieNumero: String
   voieType: String
   voieNom: String
@@ -22,7 +24,7 @@ type Entreprise {
 
 type EntrepriseEtablissement {
   id: ID!
-  nom: String!
+  nom: String
   dateDebut: Date
   dateFin: Date
   legalSiret: String
@@ -30,7 +32,7 @@ type EntrepriseEtablissement {
 
 input InputEntreprise {
   id: ID!
-  raisonSociale: String
+  nom: String
   paysId: String
   legalSiren: String
   legalEtranger: String
