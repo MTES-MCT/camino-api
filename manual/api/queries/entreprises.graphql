@@ -7,7 +7,13 @@ query {
 fragment entreprise on Entreprise {
   id
   nom
-  raisonSociale
+  etablissements {
+    id
+    nom
+    dateDebut
+    dateFin
+    legalSiret
+  }
   paysId
   legalSiren
   legalEtranger

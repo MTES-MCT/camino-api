@@ -2,11 +2,11 @@ import * as fetch from 'node-fetch'
 import * as dateFormat from 'dateformat'
 
 import errorLog from '../error-log'
-import fileCreate from '..//file-create'
+import fileCreate from '../file-create'
 
-import * as inseePays from './pays'
-import * as inseeCategoriesJuridiques from './categories-juridiques'
-import * as inseeTypesVoies from './voies'
+import inseePays from './pays'
+import inseeCategoriesJuridiques from './categories-juridiques'
+import inseeTypesVoies from './voies'
 
 const RESPONSES_FOLDER = 'responses/insee'
 const MAX_CALLS_MINUTE = 30
@@ -20,9 +20,6 @@ let apiToken
 
 const inseeTokenQuery = () => `${INSEE_API_URL}/token`
 
-const inseeSingleIdQuery = (type, id) =>
-  `${INSEE_API_URL}/entreprises/sirene/V3/${type}/${id}`
-
 const inseeMultiIdsSearch = (type, q) => {
   return `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`
 }
@@ -30,15 +27,17 @@ const inseeMultiIdsSearch = (type, q) => {
 const tokenFetch = async () => {
   console.info("Appel d'API : récupération du token de l'API INSEE SIRENE V3")
 
+  const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
+    'base64'
+  )
+
   const response = await fetch(inseeTokenQuery(), {
     method: 'POST',
     body: 'grant_type=client_credentials',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${Buffer.from(
-        `${INSEE_API_KEY}:${INSEE_API_SECRET}`
-      ).toString('base64')}`
+      Authorization: `Basic ${auth}`
     }
   })
 
@@ -51,7 +50,7 @@ const tokenFetch = async () => {
 }
 
 const inseeFetch = async (type, q) => {
-  console.info(`Appel d\'API : \`${type}\`, ids : ${q}`)
+  console.info(`Appel d'API : ${type}, ids : ${q}`)
 
   const response = await fetch(inseeMultiIdsSearch(type, q), {
     credentials: 'include',
@@ -70,7 +69,9 @@ const inseeFetch = async (type, q) => {
 
   // attend quelques secondes après chaque appel
   // pour ne pas dépasser les quotas
-  await new Promise(r => setTimeout(r, (60 / MAX_CALLS_MINUTE) * 1000))
+  await new Promise((resolve, reject) =>
+    setTimeout(resolve, (60 / MAX_CALLS_MINUTE) * 1000)
+  )
 
   return result
 }
@@ -128,7 +129,6 @@ const inseeFetchMulti = async (type, field, ids, q) => {
         console.info(
           `no ${type} cache file (${cacheFilePath}) found in \`insee\` calling API`
         )
-        return []
 
         result = await inseeFetch(type, q)
 
@@ -149,7 +149,7 @@ const inseeFetchMulti = async (type, field, ids, q) => {
   }
 }
 
-const inseeTypeFetchbatch = async (type, field, ids, queryFormatter) => {
+const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   let batches = [ids]
 
   if (ids.length > MAX_RESULTS) {
@@ -391,7 +391,7 @@ const formatEntrepriseAdresse = e => {
 const entrepriseHistoriqueGet = async sirenIds => {
   if (!sirenIds.length) return []
 
-  const entreprisesHistoriques = await inseeTypeFetchbatch(
+  const entreprisesHistoriques = await inseeTypeFetchBatch(
     'siren',
     'unitesLegales',
     sirenIds,
@@ -408,14 +408,14 @@ const entrepriseHistoriqueGet = async sirenIds => {
 }
 
 const entrepriseAdresseGet = async sirenIds => {
-  const etablissements = await inseeTypeFetchbatch(
+  const etablissements = await inseeTypeFetchBatch(
     'siret',
     'etablissements',
     sirenIds,
-    idsBatch =>
-      `(${idsBatch
-        .map(s => `siren:${s}`)
-        .join(' OR ')}) AND etablissementSiege:true`
+    idsBatch => {
+      const ids = idsBatch.map(s => `siren:${s}`).join(' OR ')
+      return `(${ids}) AND etablissementSiege:true`
+    }
   )
   if (!etablissements || !Array.isArray(etablissements)) return null
 
