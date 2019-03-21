@@ -190,12 +190,7 @@ const spreadsheets = [
   {
     name: 'territoires',
     id: territoiresSpreadsheetId,
-    tables: [
-      { name: 'pays' },
-      { name: 'regions' },
-      { name: 'departements' }
-      // { name: 'communes' }
-    ]
+    tables: [{ name: 'pays' }, { name: 'regions' }, { name: 'departements' }]
   },
   {
     name: 'calendrier',

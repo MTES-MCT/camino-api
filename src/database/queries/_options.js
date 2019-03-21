@@ -16,8 +16,7 @@ const entreprises = {
   update: {
     insertMissing: true,
     relate: false,
-    unrelate: false,
-    noDelete: []
+    unrelate: false
   }
 }
 
