@@ -2,7 +2,7 @@ import * as fetch from 'node-fetch'
 import * as geojsonhint from '@mapbox/geojsonhint'
 import errorLog from './error-log'
 
-const communesGeojsonGet = async geojson => {
+const communesGeojsonFetch = async geojson => {
   const properties = JSON.stringify(geojson.properties)
 
   try {
@@ -29,6 +29,19 @@ const communesGeojsonGet = async geojson => {
   } catch ({ error }) {
     errorLog(`communesGeojsonGet ${properties}`, error)
   }
+}
+
+const format = geojson => ({
+  id: geojson.properties.code,
+  nom: geojson.properties.nom,
+  departementId: geojson.properties.departement
+})
+
+const communesGeojsonGet = async geojson => {
+  const communesGeojson = await communesGeojsonFetch(geojson)
+  if (!communesGeojson || !Array.isArray(communesGeojson)) return null
+
+  return communesGeojson.map(format)
 }
 
 export default communesGeojsonGet

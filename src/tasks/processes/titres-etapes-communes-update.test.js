@@ -26,9 +26,7 @@ jest.mock('../../tools/geojson', () => ({
 
 jest.mock('../../tools/api-communes', () => ({
   default: geojson =>
-    Promise.resolve(
-      geojson.geometry.coordinates.map(p => ({ properties: { code: p } }))
-    )
+    Promise.resolve(geojson.geometry.coordinates.map(p => ({ id: p })))
 }))
 
 console.log = jest.fn()

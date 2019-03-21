@@ -106,11 +106,7 @@ const titresEtapesCommunesGet = async titresEtapes =>
 
     titresEtapesCommunes = await titresEtapesCommunes
 
-    titresEtapesCommunes[titreEtape.id] = communesGeojson.map(geojson => ({
-      id: geojson.properties.code,
-      nom: geojson.properties.nom,
-      departementId: geojson.properties.departement
-    }))
+    titresEtapesCommunes[titreEtape.id] = communesGeojson
 
     return titresEtapesCommunes
   }, {})
