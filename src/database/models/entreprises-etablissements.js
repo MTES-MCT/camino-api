@@ -5,14 +5,15 @@ export default class EntreprisesEtablissements extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'entrepriseId', 'nom'],
+    required: ['id', 'entrepriseId'],
 
     properties: {
       id: { type: 'string', maxLength: 64 },
+      entrepriseId: { type: 'string', maxLength: 64 },
       nom: { type: ['string', 'null'] },
       legalSiret: { type: ['string', 'null'] },
-      dateDebut: { type: ['date', 'null'] },
-      dateFin: { type: ['date', 'null'] }
+      dateDebut: { type: 'date' },
+      dateFin: { type: 'date' }
     }
   }
 }

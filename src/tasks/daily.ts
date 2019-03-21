@@ -141,7 +141,7 @@ const run = async () => {
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
 
-    console.log('Tâches quotidiennes executées')
+    console.log('Tâches quotidiennes exécutées')
   } catch (e) {
     console.log('Erreur:', e)
   } finally {
