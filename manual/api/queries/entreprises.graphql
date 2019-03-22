@@ -18,12 +18,10 @@ fragment entreprise on Entreprise {
   legalSiren
   legalEtranger
   legalForme
-  voieNumero
-  voieType
-  voieNom
-  adresseComplement
+  categorie
+  adresse
   codePostal
-  ville
+  commune
   cedex
   url
   telephone

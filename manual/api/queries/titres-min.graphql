@@ -65,7 +65,7 @@ fragment administration on Administration {
   adresse1
   adresse2
   codePostal
-  ville
+  commune
   cedex
   url
   telephone
@@ -78,17 +78,20 @@ fragment administration on Administration {
 fragment entreprise on Entreprise {
   id
   nom
-  raisonSociale
+  etablissements {
+    id
+    nom
+    dateDebut
+    dateFin
+    legalSiret
+  }
   paysId
   legalSiren
   legalEtranger
   legalForme
-  voieNumero
-  voieType
-  voieNom
-  adresseComplement
+  adresse
   codePostal
-  ville
+  commune
   cedex
   url
   telephone
