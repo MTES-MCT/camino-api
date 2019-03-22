@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import '../../../database/index'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
-import { communesGet } from '../../../database/queries/communes'
+import { communesGet } from '../../../database/queries/territoires'
 
 import titreEtapeCommunesUpdate from '../../../tasks/etape-update/titre-etape-communes-update'
 

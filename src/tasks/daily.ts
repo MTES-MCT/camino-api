@@ -4,7 +4,7 @@ import '../database/index'
 import { titresGet } from '../database/queries/titres'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
-import { communesGet } from '../database/queries/communes'
+import { communesGet } from '../database/queries/territoires'
 import { activitesTypesGet } from '../database/queries/metas'
 
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'

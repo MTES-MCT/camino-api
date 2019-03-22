@@ -3,7 +3,7 @@ import '../database/index'
 import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import { titreEtapeGet } from '../database/queries/titres-etapes'
-import { communesGet } from '../database/queries/communes'
+import { communesGet } from '../database/queries/territoires'
 
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'

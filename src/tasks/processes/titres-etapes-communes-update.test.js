@@ -1,5 +1,6 @@
 import titresEtapeCommunesUpdate from './titres-etapes-communes-update'
 
+import * as communesQuery from '../queries/communes'
 import * as titreEtapes from '../queries/titre-etapes'
 import * as apiCommunes from '../../tools/api-communes'
 
