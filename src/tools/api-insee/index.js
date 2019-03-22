@@ -1,5 +1,6 @@
 import * as fetch from 'node-fetch'
 import * as dateFormat from 'dateformat'
+import { textCapitalize } from '../text-transform'
 
 import errorLog from '../error-log'
 import fileCreate from '../file-create'
@@ -173,7 +174,7 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   return batchesResults.reduce((r, p) => r.concat(p), [])
 }
 
-const formatNomEntreprise = (e, officielle = true) => {
+const nomEntrepriseFormat = (e, officielle = true) => {
   let denomination = officielle
     ? e.denominationUniteLegale && e.denominationUniteLegale.trim()
     : e.denominationUsuelle1UniteLegale &&
@@ -189,8 +190,8 @@ const formatNomEntreprise = (e, officielle = true) => {
   return `${denomination} (${sigle})`
 }
 
-const formatNomPersonne = (e, officielle) => {
-  if (!officielle) return formatNomEntreprise(e, officielle)
+const nomIndividuFormat = (e, officielle) => {
+  if (!officielle) return nomEntrepriseFormat(e, officielle)
 
   const civilite = e.sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'
   const prenom = e.prenomUsuelUniteLegale
@@ -199,15 +200,15 @@ const formatNomPersonne = (e, officielle) => {
   return `${civilite} ${prenom} ${nom}`
 }
 
-const formatNom = (e, officielle) => {
+const nomFormat = (e, officielle) => {
   const nom = e.nomUniteLegale
-    ? formatNomPersonne(e)
-    : formatNomEntreprise(e, officielle)
+    ? nomIndividuFormat(e)
+    : nomEntrepriseFormat(e, officielle)
 
   return nom
 }
 
-const formatEntrepriseEtablissements = (entreprise, e) => {
+const entrepriseEtablissementsFormat = (entrepriseId, e) => {
   // periodesUniteLegale est un tableau
   // classé par ordre de fin chronologique décroissant
   if (!e.periodesUniteLegale || !e.periodesUniteLegale.length) return null
@@ -215,7 +216,7 @@ const formatEntrepriseEtablissements = (entreprise, e) => {
   // regroupe les établissement en fonction du nom, suivant les périodes
   const etablissements = e.periodesUniteLegale
     .reduce((acc, p) => {
-      let nom = formatNom({
+      let nom = nomFormat({
         ...e,
         ...p
       })
@@ -232,8 +233,8 @@ const formatEntrepriseEtablissements = (entreprise, e) => {
       const dateDebut = dateFormat(p.dateDebut, 'yyyy-mm-dd')
 
       const etablissement = {
-        id: `${entreprise.id}-${nic}-${dateDebut}`,
-        entrepriseId: entreprise.id,
+        id: `${entrepriseId}-${nic}-${dateDebut}`,
+        entrepriseId,
         nom,
         dateDebut,
         legalSiret: `${e.siren}${nic}`
@@ -260,7 +261,7 @@ const formatEntrepriseEtablissements = (entreprise, e) => {
   return etablissements
 }
 
-const formatEntrepriseHistorique = e => {
+const entrepriseHistoriqueFormat = e => {
   if (!e) return null
 
   const entrepriseId = `fr-${e.siren}`
@@ -281,7 +282,7 @@ const formatEntrepriseHistorique = e => {
     )
   }
 
-  const etablissements = formatEntrepriseEtablissements(entreprise, e)
+  const etablissements = entrepriseEtablissementsFormat(entrepriseId, e)
   if (etablissements && etablissements.length) {
     entreprise.etablissements = etablissements
   }
@@ -289,7 +290,7 @@ const formatEntrepriseHistorique = e => {
   return entreprise
 }
 
-const formatEntrepriseAdresse = e => {
+const entrepriseAdresseFormat = e => {
   if (!e) return null
 
   const { uniteLegale: unite, adresseEtablissement: adresse } = e
@@ -301,7 +302,7 @@ const formatEntrepriseAdresse = e => {
     legalSiren: e.siren
   }
 
-  const nom = formatNom(
+  const nom = nomFormat(
     {
       ...e,
       ...unite
@@ -402,7 +403,7 @@ const entrepriseHistoriqueGet = async sirenIds => {
     return null
 
   return entreprisesHistoriques.reduce(
-    (acc, e) => (e ? [...acc, formatEntrepriseHistorique(e)] : acc),
+    (acc, e) => (e ? [...acc, entrepriseHistoriqueFormat(e)] : acc),
     []
   )
 }
@@ -420,15 +421,9 @@ const entrepriseAdresseGet = async sirenIds => {
   if (!etablissements || !Array.isArray(etablissements)) return null
 
   return etablissements.reduce(
-    (acc, e) => (e ? [...acc, formatEntrepriseAdresse(e)] : acc),
+    (acc, e) => (e ? [...acc, entrepriseAdresseFormat(e)] : acc),
     []
   )
 }
 
-export {
-  tokenInitialize,
-  entrepriseHistoriqueGet,
-  entrepriseAdresseGet,
-  formatEntrepriseAdresse,
-  formatEntrepriseHistorique
-}
+export { tokenInitialize, entrepriseHistoriqueGet, entrepriseAdresseGet }
