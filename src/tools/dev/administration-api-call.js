@@ -4,7 +4,12 @@ import '../../database/index'
 import fileCreate from '../file-create'
 
 import { titresGet } from '../../database/queries/titres'
+import {
+  titresEtapesGet,
+  titreEtapeAdministrationInsert
+} from '../../database/queries/titres-etapes'
 import { departementsGet } from '../../database/queries/territoires'
+import { administrationInsert } from '../../database/queries/administrations'
 import { titreFormat } from '../../database/format'
 
 import { geojsonFeatureMultiPolygon } from '../geojson'
@@ -79,35 +84,43 @@ const main = async () => {
     []
   )
 
+  const administrationsIndex = administrations.reduce(
+    (acc, a) => ({ ...acc, [a.departementId]: a }),
+    {}
+  )
   await fileCreate(
     'test-administrations.json',
     JSON.stringify(administrations, null, 2)
   )
-  process.exit()
 
-  administrations.map(console.log)
+  try {
+    await Promise.all(administrations.map(administrationInsert))
+  } catch (e) {}
 
-  process.exit()
+  const titresEtapes = await titresEtapesGet()
 
-  const titres = (await titresGet()).map(titreFormat)
+  console.log('titresEtapes:', titresEtapes.length)
 
-  console.log(titres.length)
+  const res = await Promise.all(
+    titresEtapes.reduce(
+      (acc, titreEtape) =>
+        !titreEtape.communes || !titreEtape.communes.length
+          ? acc
+          : [
+              ...acc,
+              ...titreEtape.communes.map(commune =>
+                titreEtapeAdministrationInsert({
+                  titreEtapeId: titreEtape.id,
+                  administrationId:
+                    administrationsIndex[commune.departementId].id
+                })
+              )
+            ],
+      []
+    )
+  )
 
-  titres.reduce((acc, titre) => {
-    if (!titre.pays) return acc
-
-    const {
-      pays: [
-        {
-          regions: [region]
-        }
-      ]
-    } = titre
-
-    const { departements } = region
-
-    return [...acc, [region.nom, ':', departements.map(d => d.nom).join(', ')]]
-  }, [])
+  //console.log(res)
 
   process.exit()
 }

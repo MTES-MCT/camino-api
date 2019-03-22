@@ -1,5 +1,6 @@
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
+import TitresAdministrations from '../models/titres-administrations'
 import options from './_options'
 
 const titreEtapeGet = async titreEtapeId =>
@@ -11,7 +12,7 @@ const titresEtapesGet = async ({
   etapesIds,
   etapesTypeIds,
   titresDemarchesIds
-}) =>
+} = {}) =>
   TitresEtapes.query()
     .skipUndefined()
     .eager(options.etapes.eager)
@@ -39,6 +40,11 @@ const titreEtapeCommuneInsert = async ({ titreEtapeId, communeId }) =>
 const titreEtapeCommuneDelete = async ({ titreEtapeId, communeId }) =>
   TitresCommunes.query({ titreEtapeId, communeId }).delete()
 
+const titreEtapeAdministrationInsert = async ({
+  titreEtapeId,
+  administrationId
+}) => TitresAdministrations.query().insert({ titreEtapeId, administrationId })
+
 export {
   titreEtapeGet,
   titresEtapesGet,
@@ -46,5 +52,6 @@ export {
   titreEtapeUpsert,
   titreEtapeCommuneInsert,
   titreEtapeCommuneDelete,
-  titresEtapesCommunesGet
+  titresEtapesCommunesGet,
+  titreEtapeAdministrationInsert
 }

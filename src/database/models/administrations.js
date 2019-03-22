@@ -10,16 +10,18 @@ export default class Administrations extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 64 },
+      administrationTypeId: { type: 'string' },
       nom: { type: 'string' },
       service: { type: 'string' },
       site: { type: 'string' },
-      email: { type: 'string' },
+      email: { type: ['string', 'null'] },
       telephone: { type: 'string' },
       adresse1: { type: 'string' },
-      adresse2: { type: 'string' },
+      adresse2: { type: ['string', 'null'] },
       codePostal: { type: 'integer' },
       commune: { type: 'string' },
-      cedex: { type: 'integer' }
+      cedex: { type: 'integer' },
+      departementId: { type: 'string' }
     }
   }
 

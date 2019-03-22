@@ -14,14 +14,14 @@ const { ADMINISTRATION_API_URL } = process.env
 // utiliser `initializeToken` pour l'initialiser
 let apiToken
 
-const organismeUrlGet = (departement, nom) => {
-  return `${ADMINISTRATION_API_URL}/v1/organismes/${departement}/${nom}`
+const organismeUrlGet = (departementId, nom) => {
+  return `${ADMINISTRATION_API_URL}/v3/departements/${departementId}/${nom}`
 }
 
-const organismeFetch = async (departement, nom) => {
-  console.info(`Appel d'API : ${departement}, ${nom}`)
+const organismeFetch = async (departementId, nom) => {
+  console.info(`Appel d'API : ${departementId}, ${nom}`)
 
-  const organismeUrl = organismeUrlGet(departement, nom)
+  const organismeUrl = organismeUrlGet(departementId, nom)
 
   console.log({ organismeUrl })
 
@@ -49,21 +49,21 @@ const organismeFetch = async (departement, nom) => {
   return result
 }
 
-const organismeCall = async (departement, nom) => {
+const organismeCall = async (departementId, nom) => {
   try {
     let result
 
     if (process.env.NODE_ENV === 'development') {
-      const cacheFilePath = `${RESPONSES_FOLDER}/organisme-${departement}-${nom}`
+      const cacheFilePath = `${RESPONSES_FOLDER}/organisme-${departementId}-${nom}`
 
       try {
         result = require(`../../${cacheFilePath}.json`)
       } catch (e) {
         console.info(
-          `Pas de fichier de cache pour ${departement}/${nom} dans \`${RESPONSES_FOLDER}\`, appel d'API`
+          `Pas de fichier de cache pour ${departementId}/${nom} dans \`${RESPONSES_FOLDER}\`, appel d'API`
         )
 
-        result = await organismeFetch(departement, nom)
+        result = await organismeFetch(departementId, nom)
 
         await fileCreate(
           cacheFilePath + '.json',
@@ -71,7 +71,7 @@ const organismeCall = async (departement, nom) => {
         )
       }
     } else {
-      result = await organismeFetch(departement, nom)
+      result = await organismeFetch(departementId, nom)
     }
 
     return result
@@ -81,44 +81,34 @@ const organismeCall = async (departement, nom) => {
   }
 }
 
-const organismeFormat = e => {
+const organismeFormat = (e, departementId) => {
   const { properties: p } = e.features[0]
-  let { Adresse: adresses, CoordonnéesNum: coordonnees } = p
+  let { adresses } = p
 
   let organisme
   try {
-    adresses = Array.isArray(adresses) ? adresses : [adresses]
-
     let [adresse1, adresse2] = adresses
 
-    adresse1 = Array.isArray(adresse1.Ligne)
-      ? adresse1.Ligne.join(', ')
-      : adresse1.Ligne
+    adresse1 = adresse1.lignes
+      .reduce((acc, line) => (line.length > 100 ? acc : [...acc, line]), [])
+      .join(', ')
 
-    adresse2 = !adresse2
-      ? null
-      : Array.isArray(adresse2.Ligne)
-        ? adresse2.Ligne.join(', ')
-        : adresse2.Ligne
-
-    const telephone = coordonnees.Téléphone
-      ? (coordonnees.Téléphone.$t || coordonnees.Téléphone).replace(/ /g, '')
-      : null
+    adresse2 = adresse2 ? adresse2.lignes.join(', ') : null
 
     organisme = {
       id: p.id,
-      nom: p.Nom,
+      administrationTypeId:
+        p.pivotLocal === 'prefecture' ? 'pre' : p.pivotLocal,
+      nom: p.nom,
       service: p.pivotLocal,
       adresse1,
       adresse2,
-      codePostal: adresses[0].CodePostal,
-      commune: adresses[0].NomCommune,
-      telephone,
-      email: coordonnees.Email,
-      site: coordonnees.Url,
-
-      codeInsee: p.codeInsee,
-      dateMiseAJour: p.dateMiseAJour
+      codePostal: +adresses[0].codePostal,
+      commune: adresses[0].commune,
+      telephone: p.telephone,
+      email: p.email && p.email.match('@') ? p.email : null,
+      site: p.url,
+      departementId
     }
 
     if (p.id === 'prefecture-68066-01') {
@@ -133,12 +123,12 @@ const organismeFormat = e => {
   return organisme
 }
 
-const organismeGet = async (departement, nom) => {
-  if (!departement || !nom) return null
+const organismeGet = async (departementId, nom) => {
+  if (!departementId || !nom) return null
 
-  const organisme = await organismeCall(departement, nom)
-  return organisme
-  return organisme ? organismeFormat(organisme) : null
+  const organisme = await organismeCall(departementId, nom)
+  //  return organisme
+  return organisme ? organismeFormat(organisme, departementId) : null
 }
 
 export { organismeGet }

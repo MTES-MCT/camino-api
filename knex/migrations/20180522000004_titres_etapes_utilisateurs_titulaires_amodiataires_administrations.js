@@ -31,7 +31,7 @@ exports.up = (knex, Promise) => {
         .notNullable()
         .onDelete('CASCADE')
       table
-        .string('administrationId', 4)
+        .string('administrationId', 64)
         .references('administrations.id')
         .notNullable()
       table.primary(['titreEtapeId', 'administrationId'])
