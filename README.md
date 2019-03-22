@@ -59,6 +59,7 @@ npm run migrate
 
 # met à jour les données
 npm run daily
+npm run monthly
 ```
 
 ---
