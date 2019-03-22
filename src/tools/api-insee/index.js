@@ -7,6 +7,7 @@ import fileCreate from '../file-create'
 import inseePays from './pays'
 import inseeCategoriesJuridiques from './categories-juridiques'
 import inseeTypesVoies from './voies'
+const makeDir = require('make-dir')
 
 const RESPONSES_FOLDER = 'responses/insee'
 const MAX_CALLS_MINUTE = 30
@@ -25,7 +26,7 @@ const inseeMultiIdsSearch = (type, q) => {
 }
 
 const tokenFetch = async () => {
-  console.info("Appel d'API : récupération du token de l'API INSEE SIRENE V3")
+  console.info('API Insee: récupération du token')
 
   const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
     'base64'
@@ -50,7 +51,7 @@ const tokenFetch = async () => {
 }
 
 const inseeFetch = async (type, q) => {
-  console.info(`Appel d'API : ${type}, ids : ${q}`)
+  console.info(`API Insee: ${type}, ids: ${q}`)
 
   const response = await fetch(inseeMultiIdsSearch(type, q), {
     credentials: 'include',
@@ -81,20 +82,19 @@ const tokenInitialize = async () => {
     let result
 
     if (process.env.NODE_ENV === 'development') {
+      await makeDir(RESPONSES_FOLDER)
       const cacheFilePath = `${RESPONSES_FOLDER}/insee-token`
 
       try {
         result = require(`../../../${cacheFilePath}.json`)
-        console.info('Lecture du token depuis le cache')
+        console.info('API Insee: lecture du token depuis le cache')
       } catch (e) {
-        console.info(
-          `Pas de fichier de cache de token dans \`${RESPONSES_FOLDER}\`, appel d'API`
-        )
+        console.info(`API Insee: création du token`)
 
         result = await tokenFetch()
 
         await fileCreate(
-          cacheFilePath + '.json',
+          `${cacheFilePath}.json`,
           JSON.stringify(result, null, 2)
         )
       }
@@ -124,16 +124,16 @@ const inseeFetchMulti = async (type, field, ids, q) => {
 
       try {
         result = require(`../../../${cacheFilePath}.json`)
-        console.info(`Lecture de ${type} depuis le cache, ids : ${ids}`)
-      } catch (e) {
         console.info(
-          `no ${type} cache file (${cacheFilePath}) found in \`insee\` calling API`
+          `API Insee: lecture de ${type} depuis le cache, ids: ${ids}`
         )
+      } catch (e) {
+        console.info(`API Insee: requête de ${type}`)
 
         result = await inseeFetch(type, q)
 
         await fileCreate(
-          cacheFilePath + '.json',
+          `${cacheFilePath}.json`,
           JSON.stringify(result, null, 2)
         )
       }
