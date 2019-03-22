@@ -8,12 +8,9 @@ type Entreprise {
   legalForme: String
   categorie: String
   dateCreation: Date
-  voieNumero: String
-  voieType: String
-  voieNom: String
-  adresseComplement: String
+  adresse: String
   codePostal: Int
-  ville: String
+  commune: String
   cedex: Int
   url: String
   telephone: String
@@ -37,12 +34,10 @@ input InputEntreprise {
   legalSiren: String
   legalEtranger: String
   legalForme: String
-  voieNumero: String
-  voieType: String
-  voieNom: String
-  adresseComplement: String
+  categorie: String
+  adresse: String
   codePostal: Int
-  ville: String
+  commune: String
   cedex: Int
   url: String
   telephone: String

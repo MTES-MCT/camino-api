@@ -1,6 +1,5 @@
 import * as fetch from 'node-fetch'
 import * as dateFormat from 'dateformat'
-import { textCapitalize } from '../text-transform'
 
 import errorLog from '../error-log'
 import fileCreate from '../file-create'
@@ -174,47 +173,36 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   return batchesResults.reduce((r, p) => r.concat(p), [])
 }
 
-const nomEntrepriseFormat = (e, officielle = true) => {
-  let denomination = officielle
-    ? e.denominationUniteLegale && e.denominationUniteLegale.trim()
-    : e.denominationUsuelle1UniteLegale &&
+const nomEntrepriseFormat = (e, usuel) => {
+  let denomination = usuel
+    ? e.denominationUsuelle1UniteLegale &&
       e.denominationUsuelle1UniteLegale.trim()
+    : e.denominationUniteLegale && e.denominationUniteLegale.trim()
 
   const sigle = e.sigleUniteLegale && e.sigleUniteLegale.trim()
 
   if (!denomination && !sigle) return null
 
   if (!denomination) return sigle
+
   if (!sigle || denomination === sigle) return denomination
 
   return `${denomination} (${sigle})`
 }
 
-const nomIndividuFormat = (e, officielle) => {
-  if (!officielle) return nomEntrepriseFormat(e, officielle)
+const nomIndividuFormat = e =>
+  `${e.sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'} ${
+    e.prenomUsuelUniteLegale
+  } ${e.nomUniteLegale}`
 
-  const civilite = e.sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'
-  const prenom = e.prenomUsuelUniteLegale
-  const nom = e.nomUniteLegale
-
-  return `${civilite} ${prenom} ${nom}`
-}
-
-const nomFormat = (e, officielle) => {
-  const nom = e.nomUniteLegale
+const nomFormat = (e, usuel) =>
+  e.nomUniteLegale && !usuel
     ? nomIndividuFormat(e)
-    : nomEntrepriseFormat(e, officielle)
+    : nomEntrepriseFormat(e, usuel)
 
-  return nom
-}
-
-const entrepriseEtablissementsFormat = (entrepriseId, e) => {
-  // periodesUniteLegale est un tableau
-  // classé par ordre de fin chronologique décroissant
-  if (!e.periodesUniteLegale || !e.periodesUniteLegale.length) return null
-
-  // regroupe les établissement en fonction du nom, suivant les périodes
-  const etablissements = e.periodesUniteLegale
+// regroupe les établissement en fonction du nom, suivant les périodes
+const entrepriseEtablissementsFormat = (entrepriseId, e) =>
+  e.periodesUniteLegale
     .reduce((acc, p) => {
       let nom = nomFormat({
         ...e,
@@ -258,9 +246,6 @@ const entrepriseEtablissementsFormat = (entrepriseId, e) => {
       return first
     })
 
-  return etablissements
-}
-
 const entrepriseHistoriqueFormat = e => {
   if (!e) return null
 
@@ -282,9 +267,10 @@ const entrepriseHistoriqueFormat = e => {
     )
   }
 
-  const etablissements = entrepriseEtablissementsFormat(entrepriseId, e)
-  if (etablissements && etablissements.length) {
-    entreprise.etablissements = etablissements
+  // periodesUniteLegale est un tableau
+  // classé par ordre de fin chronologique décroissant
+  if (e.periodesUniteLegale && e.periodesUniteLegale.length) {
+    entreprise.etablissements = entrepriseEtablissementsFormat(entrepriseId, e)
   }
 
   return entreprise
@@ -307,7 +293,7 @@ const entrepriseAdresseFormat = e => {
       ...e,
       ...unite
     },
-    false
+    true
   )
   if (nom) {
     entreprise.nom = nom
@@ -321,23 +307,14 @@ const entrepriseAdresseFormat = e => {
     entreprise.cedex = parseInt(adresse.codeCedexEtablissement)
   }
 
+  entreprise.adresse = ''
+
   if (adresse.numeroVoieEtablissement) {
-    entreprise.voieNumero = adresse.numeroVoieEtablissement
-
-    if (adresse.indiceRepetitionEtablissement) {
-      entreprise.voieNumero += ` ${adresse.indiceRepetitionEtablissement}`
-    }
+    entreprise.adresse += `${adresse.numeroVoieEtablissement} `
   }
 
-  if (adresse.libelleVoieEtablissement) {
-    entreprise.voieNom = adresse.libelleVoieEtablissement
-  }
-
-  const commune =
-    adresse.libelleCommuneEtablissement ||
-    adresse.libelleCommuneEtrangerEtablissement
-  if (commune) {
-    entreprise.ville = commune
+  if (adresse.indiceRepetitionEtablissement) {
+    entreprise.adresse += `${adresse.indiceRepetitionEtablissement} `
   }
 
   if (adresse.typeVoieEtablissement) {
@@ -345,8 +322,24 @@ const entrepriseAdresseFormat = e => {
       t => t.id === adresse.typeVoieEtablissement
     )
     if (typeVoie) {
-      entreprise.voieType = typeVoie.nom
+      entreprise.adresse += `${typeVoie.nom} `
     }
+  }
+
+  if (adresse.libelleVoieEtablissement) {
+    entreprise.adresse += `${adresse.libelleVoieEtablissement} `
+  }
+
+  if (adresse.codePostalEtablissement) {
+    entreprise.codePostal = parseInt(adresse.codePostalEtablissement)
+  }
+
+  const commune =
+    adresse.libelleCommuneEtablissement ||
+    adresse.libelleCommuneEtrangerEtablissement
+
+  if (commune) {
+    entreprise.commune = commune
   }
 
   if (unite.categorieJuridiqueUniteLegale) {

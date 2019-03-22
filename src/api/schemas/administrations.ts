@@ -9,7 +9,7 @@ type Administration {
   adresse1: String
   adresse2: String
   codePostal: Int
-  ville: String
+  commune: String
   cedex: Int
   utilisateurs: [Utilisateur]
 }
@@ -24,6 +24,6 @@ input InputAdministration {
   adresse1: String
   adresse2: String
   codePostal: Int
-  ville: String
+  commune: String
   cedex: Int
 }`

@@ -17,8 +17,8 @@ export default class Administrations extends Model {
       telephone: { type: 'string' },
       adresse1: { type: 'string' },
       adresse2: { type: 'string' },
-      code_postal: { type: 'integer' },
-      ville: { type: 'string' },
+      codePostal: { type: 'integer' },
+      commune: { type: 'string' },
       cedex: { type: 'integer' }
     }
   }
