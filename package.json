@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^2.1.0",
-    "@sentry/node": "^4.6.4",
+    "@sentry/node": "^4.6.5",
     "@sentry/types": "^4.5.3",
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "0.0.36",
@@ -65,7 +65,7 @@
     "cross-env": "^5.2.0",
     "crypto-random-string": "^1.0.0",
     "dateformat": "^3.0.3",
-    "decamelize": "^3.1.0",
+    "decamelize": "^3.1.1",
     "dotenv": "^7.0.0",
     "email-regex": "^3.0.0",
     "express": "^4.16.4",
