@@ -63,10 +63,20 @@ const titreEtapeCommunesMetz = {
   communes: [{ id: 'Metz' }]
 }
 
+const titreEtapeAdministrationsPrefectureParis = {
+  administrations: [{ id: 'prefecture-paris' }]
+}
+
+const titreEtapeAdministrationsPrefectureMetz = {
+  administrations: [{ id: 'prefecture-metz' }]
+}
+
 export {
   titreEtapes,
   titreEtapesEgales,
   titreEtapesOrdonnees,
   titreEtapeCommunesParis,
-  titreEtapeCommunesMetz
+  titreEtapeCommunesMetz,
+  titreEtapeAdministrationsPrefectureParis,
+  titreEtapeAdministrationsPrefectureMetz
 }
