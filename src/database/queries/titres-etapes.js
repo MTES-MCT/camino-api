@@ -45,6 +45,11 @@ const titreEtapeAdministrationInsert = async ({
   administrationId
 }) => TitresAdministrations.query().insert({ titreEtapeId, administrationId })
 
+const titreEtapeAdministrationDelete = async ({
+  titreEtapeId,
+  administrationId
+}) => TitresAdministrations.query({ titreEtapeId, administrationId }).delete()
+
 export {
   titreEtapeGet,
   titresEtapesGet,
@@ -53,5 +58,6 @@ export {
   titreEtapeCommuneInsert,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
-  titreEtapeAdministrationInsert
+  titreEtapeAdministrationInsert,
+  titreEtapeAdministrationDelete
 }
