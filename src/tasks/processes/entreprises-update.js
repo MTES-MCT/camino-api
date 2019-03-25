@@ -41,17 +41,24 @@ const entreprisesUpdate = async entreprises => {
   const entreprisesAdresses = await entrepriseAdresseGet(sirens)
   const entreprisesHistoriques = await entrepriseHistoriqueGet(sirens)
 
-  const historiquesUpdateQueries = entreprisesHistoriques.reduce(
-    (acc, entreprise) =>
-      !entreprise || !entreprise.etablissements
-        ? acc
-        : [...acc, entrepriseUpdate(entreprise)],
-    []
-  )
+  const historiquesUpdateQueries =
+    [] ||
+    entreprisesHistoriques.reduce((acc, entrepriseNew) => {
+      const entrepriseOld = entreprises.find(a => a.id === entrepriseNew.id)
+
+      const entrepriseUpdated = entrepriseUpdate(entrepriseNew, entrepriseOld)
+
+      return entrepriseUpdated ? [...acc, entrepriseUpdated] : acc
+    }, [])
 
   const adressesUpdateQueries = entreprisesAdresses.reduce(
-    (acc, etablissement) =>
-      !etablissement ? acc : [...acc, entrepriseUpdate(etablissement)],
+    (acc, entrepriseNew) => {
+      const entrepriseOld = entreprises.find(a => a.id === entrepriseNew.id)
+
+      const entrepriseUpdated = entrepriseUpdate(entrepriseNew, entrepriseOld)
+
+      return entrepriseUpdated ? [...acc, entrepriseUpdated] : acc
+    },
     []
   )
 
