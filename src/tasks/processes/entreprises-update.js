@@ -5,7 +5,7 @@ import {
   entrepriseAdresseGet
 } from '../../tools/api-insee'
 
-const titresEntreprisesUpdate = async entreprises => {
+const entreprisesUpdate = async entreprises => {
   const sirensIndex = entreprises.reduce((acc, e) => {
     if (!e || !e.legalSiren) return acc
 
@@ -65,4 +65,4 @@ const titresEntreprisesUpdate = async entreprises => {
   ]
 }
 
-export default titresEntreprisesUpdate
+export default entreprisesUpdate

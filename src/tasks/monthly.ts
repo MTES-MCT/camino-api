@@ -2,8 +2,11 @@ import 'dotenv/config'
 import '../database/index'
 
 import { entreprisesGet } from '../database/queries/entreprises'
+import { administrationsGet } from '../database/queries/administrations'
+import { departementsGet } from '../database/queries/territoires'
 
 import entreprisesUpdate from './processes/entreprises-update'
+import administrationsUpdate from './processes/administrations-update'
 
 const run = async () => {
   try {
@@ -14,8 +17,19 @@ const run = async () => {
     const entreprises = await entreprisesGet()
     const entreprisesUpdates = await entreprisesUpdate(entreprises)
 
+    // 2.
+    // mise à jour des administrations grâce à l'API Administration
+
+    const departements = await departementsGet()
+    const administrations = await administrationsGet()
+    const administrationsUpdates = await administrationsUpdate(
+      administrations,
+      departements
+    )
+
     // logs
     entreprisesUpdates.forEach(u => console.log(u))
+    console.log(administrationsUpdates)
 
     console.log('Tâches mensuelles exécutées')
   } catch (e) {

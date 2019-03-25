@@ -1,12 +1,14 @@
+import { join } from 'path'
+
 import * as fetch from 'node-fetch'
 import * as dateFormat from 'dateformat'
+import * as makeDir from 'make-dir'
 
 import errorLog from './error-log'
 import fileCreate from './file-create'
 
-const RESPONSES_FOLDER = 'responses/administration'
+const RESPONSES_FOLDER = 'responses/administration/'
 const MAX_CALLS_MINUTE = 200
-const MAX_RESULTS = 20
 
 const { ADMINISTRATION_API_URL } = process.env
 
@@ -23,16 +25,12 @@ const organismeFetch = async (departementId, nom) => {
 
   const organismeUrl = organismeUrlGet(departementId, nom)
 
-  console.log({ organismeUrl })
-
   const response = await fetch(organismeUrl, {
     method: 'GET',
     headers: {
       accept: 'application/json'
     }
   })
-
-  console.log('status:', response.status)
 
   if (response.status > 400) {
     throw response.statusText
@@ -49,24 +47,29 @@ const organismeFetch = async (departementId, nom) => {
   return result
 }
 
-const organismeCall = async (departementId, nom) => {
+const organismeDepartementCall = async (departementId, nom) => {
   try {
     let result
 
     if (process.env.NODE_ENV === 'development') {
-      const cacheFilePath = `${RESPONSES_FOLDER}/organisme-${departementId}-${nom}`
+      await makeDir(RESPONSES_FOLDER)
+      const cacheFilePath = join(
+        RESPONSES_FOLDER,
+        `organisme-${departementId}-${nom}`
+      )
 
       try {
         result = require(`../../${cacheFilePath}.json`)
-      } catch (e) {
         console.info(
-          `Pas de fichier de cache pour ${departementId}/${nom} dans \`${RESPONSES_FOLDER}\`, appel d'API`
+          `API Administration: lecture de l'organisme depuis le cache, département: ${departementId}, type: ${nom}`
         )
+      } catch (e) {
+        console.info(`API Administration: requête ${departementId}/${nom}`)
 
         result = await organismeFetch(departementId, nom)
 
         await fileCreate(
-          cacheFilePath + '.json',
+          `${cacheFilePath}.json`,
           JSON.stringify(result, null, 2)
         )
       }
@@ -78,6 +81,7 @@ const organismeCall = async (departementId, nom) => {
   } catch (err) {
     const error = err.error ? `${err.error}: ${err.error_description}` : err
     errorLog(`organisme call, error:`, error)
+    throw error
   }
 }
 
@@ -97,8 +101,9 @@ const organismeFormat = (e, departementId) => {
 
     organisme = {
       id: p.id,
-      administrationTypeId:
-        p.pivotLocal === 'prefecture' ? 'pre' : p.pivotLocal,
+      administrationTypeId: p.pivotLocal.match(/^prefecture/)
+        ? 'pre'
+        : p.pivotLocal,
       nom: p.nom,
       service: p.pivotLocal,
       adresse1,
@@ -107,13 +112,8 @@ const organismeFormat = (e, departementId) => {
       commune: adresses[0].commune,
       telephone: p.telephone,
       email: p.email && p.email.match('@') ? p.email : null,
-      site: p.url,
+      site: p.url || null,
       departementId
-    }
-
-    if (p.id === 'prefecture-68066-01') {
-      //console.log(adresses)
-      //throw new Error('coucou')
     }
   } catch (error) {
     console.error(p, organisme)
@@ -123,12 +123,12 @@ const organismeFormat = (e, departementId) => {
   return organisme
 }
 
-const organismeGet = async (departementId, nom) => {
+const organismeDepartementGet = async (departementId, nom) => {
   if (!departementId || !nom) return null
 
-  const organisme = await organismeCall(departementId, nom)
+  const organisme = await organismeDepartementCall(departementId, nom)
   //  return organisme
   return organisme ? organismeFormat(organisme, departementId) : null
 }
 
-export { organismeGet }
+export { organismeDepartementGet }

@@ -16,4 +16,6 @@ const dupFind = (key, ...arrays) =>
     arrays.pop()
   )
 
-export { dupRemove, dupFind }
+const objectsDiffer = (a, b) => Object.keys(a).find(k => a[k] !== b[k])
+
+export { dupRemove, dupFind, objectsDiffer }

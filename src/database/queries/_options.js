@@ -114,5 +114,6 @@ export default {
   entreprises,
   demarchesTypes,
   titresActivites,
-  activitesTypes
+  activitesTypes,
+  communes
 }
