@@ -7,7 +7,10 @@ const entreprisesM973 = require('../../sources/entreprises-titres-m973.json')
 const entreprisesR = require('../../sources/entreprises-titres-r.json')
 const entreprisesS = require('../../sources/entreprises-titres-s.json')
 const entreprisesW = require('../../sources/entreprises-titres-w.json')
+
 const administrations = require('../../sources/administrations.json')
+const administrationsTypes = require('../../sources/administrations-types.json')
+const administrationsDomaines = require('../../sources/administrations--domaines.json')
 
 const entreprisesCEtablissements = require('../../sources/entreprises-titres-c-etablissements.json')
 const entreprisesFEtablissements = require('../../sources/entreprises-titres-f-etablissements.json')
@@ -79,7 +82,9 @@ exports.seed = (knex, Promise) =>
     .then(() =>
       Promise.all([
         knex('entreprises').insert(entr),
-        knex('administrations').insert(administrations)
+        knex('administrations').insert(administrations),
+        knex('administrations_types').insert(administrationsTypes),
+        knex('administrations__domaines').insert(administrationsDomaines)
       ])
     )
     .then(() =>

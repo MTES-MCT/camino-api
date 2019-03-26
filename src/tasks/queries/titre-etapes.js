@@ -1,7 +1,9 @@
 import {
   titreEtapeUpdate,
   titreEtapeCommuneInsert as titreEtapeCommuneInsertQuery,
-  titreEtapeCommuneDelete as titreEtapeCommuneDeleteQuery
+  titreEtapeCommuneDelete as titreEtapeCommuneDeleteQuery,
+  titreEtapeAdministrationInsert as titreEtapeAdministrationInsertQuery,
+  titreEtapeAdministrationDelete as titreEtapeAdministrationDeleteQuery
 } from '../../database/queries/titres-etapes'
 
 import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
@@ -63,8 +65,55 @@ const titreEtapeCommunesDelete = (titreEtape, communesIds) =>
       )
     : []
 
+const titreEtapeAdministrationsInsert = (titreEtape, administrationsIds) =>
+  administrationsIds.reduce(
+    (queries, administrationId) =>
+      titreEtape.administrations &&
+      titreEtape.administrations.find(c => c.id === administrationId)
+        ? queries
+        : [
+            ...queries,
+            titreEtapeAdministrationInsertQuery({
+              titreEtapeId: titreEtape.id,
+              administrationId
+            }).then(
+              u =>
+                `Mise à jour: étape ${
+                  titreEtape.id
+                }, administration ${administrationId}`
+            )
+          ],
+    []
+  )
+
+const titreEtapeAdministrationsDelete = (titreEtape, administrationsIds) =>
+  titreEtape.administrations
+    ? titreEtape.administrations.reduce(
+        (queries, administration) =>
+          administrationsIds.find(
+            administrationId => administrationId === administration.id
+          )
+            ? queries
+            : [
+                ...queries,
+                titreEtapeAdministrationDeleteQuery({
+                  titreEtapeId: titreEtape.id,
+                  administrationId: administration.id
+                }).then(
+                  u =>
+                    `Suppression: étape ${titreEtape.id}, administration ${
+                      administration.id
+                    }`
+                )
+              ],
+        []
+      )
+    : []
+
 export {
   titreEtapesOrdreUpdate,
   titreEtapeCommunesInsert,
-  titreEtapeCommunesDelete
+  titreEtapeCommunesDelete,
+  titreEtapeAdministrationsInsert,
+  titreEtapeAdministrationsDelete
 }

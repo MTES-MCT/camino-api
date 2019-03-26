@@ -1,11 +1,14 @@
-import { entrepriseUpdate } from '../queries/entreprises'
+import {
+  entrepriseUpdate,
+  entrepriseEtablissementUpdate
+} from '../queries/entreprises'
 import {
   tokenInitialize,
-  entrepriseHistoriqueGet,
+  entrepriseEtablissementGet,
   entrepriseAdresseGet
 } from '../../tools/api-insee'
 
-const titresEntreprisesUpdate = async entreprises => {
+const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
   const sirensIndex = entreprises.reduce((acc, e) => {
     if (!e || !e.legalSiren) return acc
 
@@ -39,30 +42,45 @@ const titresEntreprisesUpdate = async entreprises => {
   }
 
   const entreprisesAdresses = await entrepriseAdresseGet(sirens)
-  const entreprisesHistoriques = await entrepriseHistoriqueGet(sirens)
+  let entreprisesEtablissementsNew = await entrepriseEtablissementGet(sirens)
 
-  const historiquesUpdateQueries = entreprisesHistoriques.reduce(
-    (acc, entreprise) =>
-      !entreprise || !entreprise.etablissements
-        ? acc
-        : [...acc, entrepriseUpdate(entreprise)],
+  const etablissementsUpdateQueries = entreprisesEtablissementsNew.reduce(
+    (acc, entrepriseEtablissementNew) => {
+      const entrepriseEtablissementOld = entreprisesEtablissements.find(
+        a => a.id === entrepriseEtablissementNew.id
+      )
+
+      const entrepriseEtablissementUpdated = entrepriseEtablissementUpdate(
+        entrepriseEtablissementNew,
+        entrepriseEtablissementOld
+      )
+
+      return entrepriseEtablissementUpdated
+        ? [...acc, entrepriseEtablissementUpdated]
+        : acc
+    },
     []
   )
 
   const adressesUpdateQueries = entreprisesAdresses.reduce(
-    (acc, etablissement) =>
-      !etablissement ? acc : [...acc, entrepriseUpdate(etablissement)],
+    (acc, entrepriseNew) => {
+      const entrepriseOld = entreprises.find(a => a.id === entrepriseNew.id)
+
+      const entrepriseUpdated = entrepriseUpdate(entrepriseNew, entrepriseOld)
+
+      return entrepriseUpdated ? [...acc, entrepriseUpdated] : acc
+    },
     []
   )
 
-  await Promise.all([...adressesUpdateQueries, ...historiquesUpdateQueries])
+  await Promise.all([...adressesUpdateQueries, ...etablissementsUpdateQueries])
 
   return [
     `Mise à jour: ${
-      historiquesUpdateQueries.length
-    } historiques d'entreprises.`,
+      etablissementsUpdateQueries.length
+    } etablissements d'entreprises.`,
     `Mise à jour: ${adressesUpdateQueries.length} adresses d'entreprises.`
   ]
 }
 
-export default titresEntreprisesUpdate
+export default entreprisesUpdate

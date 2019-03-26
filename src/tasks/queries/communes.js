@@ -1,4 +1,4 @@
-import { communeInsert } from '../../database/queries/communes'
+import { communeInsert } from '../../database/queries/territoires'
 
 const communesInsert = (communesNew, communesOld) =>
   communesNew.reduce(

@@ -1,7 +1,9 @@
 import {
   titreEtapesOrdreUpdate,
   titreEtapeCommunesInsert,
-  titreEtapeCommunesDelete
+  titreEtapeCommunesDelete,
+  titreEtapeAdministrationsInsert,
+  titreEtapeAdministrationsDelete
 } from './titre-etapes'
 import * as titreEtapesQueries from '../../database/queries/titres-etapes'
 
@@ -10,7 +12,9 @@ import {
   titreEtapesEgales,
   titreEtapesOrdonnees,
   titreEtapeCommunesParis,
-  titreEtapeCommunesMetz
+  titreEtapeCommunesMetz,
+  titreEtapeAdministrationsPrefectureParis,
+  titreEtapeAdministrationsPrefectureMetz
 } from './__mocks__/titre-etapes-etapes'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
@@ -20,7 +24,15 @@ jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeCommuneInsert: jest
     .fn()
     .mockImplementation(() => Promise.resolve()),
-  titreEtapeCommuneDelete: jest.fn().mockImplementation(() => Promise.resolve())
+  titreEtapeCommuneDelete: jest
+    .fn()
+    .mockImplementation(() => Promise.resolve()),
+  titreEtapeAdministrationInsert: jest
+    .fn()
+    .mockImplementation(() => Promise.resolve()),
+  titreEtapeAdministrationDelete: jest
+    .fn()
+    .mockImplementation(() => Promise.resolve())
 }))
 
 describe("met à jour l'ordre des étapes d'une démarche", () => {
@@ -66,5 +78,48 @@ describe('supprime des communes à une étape', () => {
   test("l'étape n'a pas de communes", async () => {
     titreEtapeCommunesDelete({}, ['Paris'])
     expect(titreEtapesQueries.titreEtapeCommuneDelete).not.toHaveBeenCalled()
+  })
+})
+
+describe('ajoute des administrations à une étape', () => {
+  test("une nouvelle administration est ajoutée à l'étape", async () => {
+    titreEtapeAdministrationsInsert(titreEtapeAdministrationsPrefectureParis, [
+      'prefecture-metz'
+    ])
+    expect(titreEtapesQueries.titreEtapeAdministrationInsert).toHaveBeenCalled()
+  })
+
+  test("l'administration déjà présente dans l'étape qui n'est pas mise à jour", async () => {
+    titreEtapeAdministrationsInsert(titreEtapeAdministrationsPrefectureMetz, [
+      'prefecture-metz'
+    ])
+    expect(
+      titreEtapesQueries.titreEtapeAdministrationInsert
+    ).not.toHaveBeenCalled()
+  })
+})
+
+describe('supprime des administrations à une étape', () => {
+  test("une administration est supprimée de l'étape", async () => {
+    titreEtapeAdministrationsDelete(titreEtapeAdministrationsPrefectureMetz, [
+      'prefecture-paris'
+    ])
+    expect(titreEtapesQueries.titreEtapeAdministrationDelete).toHaveBeenCalled()
+  })
+
+  test("l'administration n'existe pas dans l'étape qui n'est pas mise à jour", async () => {
+    titreEtapeAdministrationsDelete(titreEtapeAdministrationsPrefectureParis, [
+      'prefecture-paris'
+    ])
+    expect(
+      titreEtapesQueries.titreEtapeAdministrationDelete
+    ).not.toHaveBeenCalled()
+  })
+
+  test("l'étape n'a pas d'administration", async () => {
+    titreEtapeAdministrationsDelete({}, ['prefecture-paris'])
+    expect(
+      titreEtapesQueries.titreEtapeAdministrationDelete
+    ).not.toHaveBeenCalled()
   })
 })

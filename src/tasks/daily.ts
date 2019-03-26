@@ -4,8 +4,9 @@ import '../database/index'
 import { titresGet } from '../database/queries/titres'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
-import { communesGet } from '../database/queries/communes'
+import { communesGet } from '../database/queries/territoires'
 import { activitesTypesGet } from '../database/queries/metas'
+import { administrationsGet } from '../database/queries/administrations'
 
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
@@ -13,6 +14,7 @@ import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-updat
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
+import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresActivitesTypesUpdate from './processes/titres-activites-update'
 
@@ -89,7 +91,7 @@ const run = async () => {
 
     // 6.
     // communes associées aux étapes
-    const titresEtapes = await titresEtapesGet({
+    let titresEtapes = await titresEtapesGet({
       etapesIds: undefined,
       etapesTypeIds: undefined,
       titresDemarchesIds: undefined
@@ -101,6 +103,19 @@ const run = async () => {
     )
 
     // 7.
+    // administrations associées aux étapes
+    titresEtapes = await titresEtapesGet({
+      etapesIds: undefined,
+      etapesTypeIds: undefined,
+      titresDemarchesIds: undefined
+    })
+    const administrations = await administrationsGet()
+    const titresEtapesAdministrations = await titresEtapesAdministrationsUpdate(
+      titresEtapes,
+      administrations
+    )
+
+    // 8.
     // propriétés des titres
     // en fonction de la chronologie des démarches
     titres = await titresGet({
@@ -115,7 +130,7 @@ const run = async () => {
     })
     const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
-    // 8.
+    // 9.
     // activités
     // crée les activités manquantes en fonction des titres
     // pour l'année 2018 (en dur)
@@ -138,6 +153,7 @@ const run = async () => {
     titresEtapesCommunes.forEach(log => {
       console.log(log)
     })
+    console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
 
