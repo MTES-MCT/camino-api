@@ -8,7 +8,7 @@ exports.up = knex => {
       table.string('legalEtranger')
       table.string('legalForme')
       table.string('categorie')
-      table.string('dateCreation')
+      table.date('dateCreation')
       table.string('adresse')
       table.string('codePostal')
       table.string('commune')
@@ -29,8 +29,16 @@ exports.up = knex => {
       table.date('dateDebut')
       table.date('dateFin')
     })
+    .createTable('administrationsTypes', table => {
+      table.string('id', 64).primary()
+      table.string('nom').notNullable()
+    })
     .createTable('administrations', table => {
       table.string('id', 64).primary()
+      table
+        .string('administrationTypeId')
+        .references('administrationsTypes.id')
+        .notNullable()
       table.string('nom').notNullable()
       table.string('service')
       table.string('site')
@@ -38,9 +46,20 @@ exports.up = knex => {
       table.string('telephone')
       table.string('adresse1')
       table.string('adresse2')
-      table.string('commune')
       table.string('codePostal')
+      table.string('commune')
       table.string('cedex')
+      table.string('departementId').references('departements.id')
+    })
+    .createTable('administrations__domaines', table => {
+      table
+        .string('domaineId', 1)
+        .references('domaines.id')
+        .notNullable()
+      table
+        .string('administrationId')
+        .references('administrations.id')
+        .notNullable()
     })
     .createTable('permissions', table => {
       table.string('id', 12).primary()
@@ -78,5 +97,7 @@ exports.down = knex => {
     .dropTable('utilisateurs')
     .dropTable('permissions')
     .dropTable('entreprises')
+    .dropTable('administrations__domaines')
     .dropTable('administrations')
+    .dropTable('administrationsTypes')
 }
