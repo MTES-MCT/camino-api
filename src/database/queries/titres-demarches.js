@@ -1,7 +1,7 @@
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 
-const titresDemarchesGet = async ({ demarchesIds, titresIds }) =>
+const titresDemarchesGet = async ({ demarchesIds, titresIds } = {}) =>
   TitresDemarches.query()
     .skipUndefined()
     .eager(options.demarches.eager)

@@ -15,22 +15,36 @@ const run = async () => {
     // mise à jour des informations historiques et postales
     // des entreprises et établissements grâce à l'API INSEE
 
-    const entreprises = await entreprisesGet()
-    const entreprisesEtablissements = await entreprisesEtablissementsGet()
-    const entreprisesUpdates = await entreprisesUpdate(
-      entreprises,
-      entreprisesEtablissements
-    )
+    let entreprisesUpdates
+    if (process.env.INSEE_API_URL) {
+      const entreprises = await entreprisesGet()
+      const entreprisesEtablissements = await entreprisesEtablissementsGet()
+      entreprisesUpdates = await entreprisesUpdate(
+        entreprises,
+        entreprisesEtablissements
+      )
+    } else {
+      entreprisesUpdates = [
+        "Connexion à l'API INSEE impossible: variable d'environnement manquante"
+      ]
+    }
 
     // 2.
     // mise à jour des administrations grâce à l'API Administration
 
-    const departements = await departementsGet()
-    const administrations = await administrationsGet()
-    const administrationsUpdates = await administrationsUpdate(
-      administrations,
-      departements
-    )
+    let administrationsUpdates
+
+    if (process.env.ADMINISTRATION_API_URL) {
+      const departements = await departementsGet()
+      const administrations = await administrationsGet()
+      administrationsUpdates = await administrationsUpdate(
+        administrations,
+        departements
+      )
+    } else {
+      administrationsUpdates =
+        "Connexion à l'API Administration impossible: variable d'environnement manquante"
+    }
 
     // logs
     entreprisesUpdates.forEach(u => console.log(u))
