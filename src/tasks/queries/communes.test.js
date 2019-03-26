@@ -1,5 +1,5 @@
 import { communesInsert } from './communes'
-import * as communesQueries from '../../database/queries/communes'
+import * as communesQueries from '../../database/queries/territoires'
 
 import {
   communesNouvelles,
@@ -8,7 +8,7 @@ import {
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../database/queries/communes', () => ({
+jest.mock('../../database/queries/territoires', () => ({
   communeInsert: jest.fn().mockImplementation(() => Promise.resolve())
 }))
 

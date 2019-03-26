@@ -94,7 +94,8 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.id',
         through: {
           from: 'titresTitulaires.titreEtapeId',
-          to: 'titresTitulaires.entrepriseId'
+          to: 'titresTitulaires.entrepriseId',
+          extra: ['operateur']
         },
         to: 'entreprises.id'
       }
@@ -107,7 +108,8 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.id',
         through: {
           from: 'titresAmodiataires.titreEtapeId',
-          to: 'titresAmodiataires.entrepriseId'
+          to: 'titresAmodiataires.entrepriseId',
+          extra: ['operateur']
         },
         to: 'entreprises.id'
       }
@@ -120,7 +122,8 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.id',
         through: {
           from: 'titresAdministrations.titreEtapeId',
-          to: 'titresAdministrations.administrationId'
+          to: 'titresAdministrations.administrationId',
+          extra: ['coordinateur']
         },
         to: 'administrations.id'
       }

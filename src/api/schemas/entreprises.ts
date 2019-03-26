@@ -9,9 +9,9 @@ type Entreprise {
   categorie: String
   dateCreation: Date
   adresse: String
-  codePostal: Int
+  codePostal: String
   commune: String
-  cedex: Int
+  cedex: String
   url: String
   telephone: String
   email: String
@@ -36,9 +36,9 @@ input InputEntreprise {
   legalForme: String
   categorie: String
   adresse: String
-  codePostal: Int
+  codePostal: String
   commune: String
-  cedex: Int
+  cedex: String
   url: String
   telephone: String
   email: String

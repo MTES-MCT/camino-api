@@ -160,7 +160,11 @@ const spreadsheets = [
   {
     name: 'administrations',
     id: administrationsSpreadsheetId,
-    tables: [{ name: 'administrations' }]
+    tables: [
+      { name: 'administrations' },
+      { name: 'administrations_types' },
+      { name: 'administrations__domaines' }
+    ]
   },
   {
     name: 'substances',

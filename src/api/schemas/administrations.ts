@@ -8,9 +8,9 @@ type Administration {
   telephone: String
   adresse1: String
   adresse2: String
-  codePostal: Int
+  codePostal: String
   commune: String
-  cedex: Int
+  cedex: String
   utilisateurs: [Utilisateur]
 }
 
@@ -23,7 +23,7 @@ input InputAdministration {
   telephone: String
   adresse1: String
   adresse2: String
-  codePostal: Int
+  codePostal: String
   commune: String
-  cedex: Int
+  cedex: String
 }`
