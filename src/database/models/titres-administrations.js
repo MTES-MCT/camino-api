@@ -9,7 +9,8 @@ export default class TitresAdministrations extends Model {
 
     properties: {
       administrationId: { type: 'string', maxLength: 64 },
-      titreEtapeId: { type: 'string', maxLength: 128 }
+      titreEtapeId: { type: 'string', maxLength: 128 },
+      coordinateur: { type: ['boolean', 'null'] }
     }
   }
 

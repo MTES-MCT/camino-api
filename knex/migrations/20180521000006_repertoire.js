@@ -10,9 +10,9 @@ exports.up = knex => {
       table.string('categorie')
       table.date('dateCreation')
       table.string('adresse')
-      table.integer('codePostal')
+      table.string('codePostal')
       table.string('commune')
-      table.integer('cedex')
+      table.string('cedex')
       table.string('url')
       table.string('email')
       table.string('telephone')
@@ -46,12 +46,12 @@ exports.up = knex => {
       table.string('telephone')
       table.string('adresse1')
       table.string('adresse2')
-      table.integer('codePostal')
+      table.string('codePostal')
       table.string('commune')
-      table.integer('cedex')
+      table.string('cedex')
       table.string('departementId').references('departements.id')
     })
-    .createTable('administrationsDomaines', table => {
+    .createTable('administrations__domaines', table => {
       table
         .string('domaineId', 1)
         .references('domaines.id')
@@ -97,7 +97,7 @@ exports.down = knex => {
     .dropTable('utilisateurs')
     .dropTable('permissions')
     .dropTable('entreprises')
-    .dropTable('administrationsDomaines')
+    .dropTable('administrations__domaines')
     .dropTable('administrations')
     .dropTable('administrationsTypes')
 }

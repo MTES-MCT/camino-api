@@ -18,9 +18,9 @@ export default class Entreprises extends Model {
       categorie: { type: ['string', 'null'] },
       dateCreation: { type: 'date' },
       adresse: { type: ['string', 'null'] },
-      codePostal: { type: ['integer', 'null'] },
+      codePostal: { type: ['string', 'null'] },
       commune: { type: ['string', 'null'] },
-      cedex: { type: ['integer', 'null'] },
+      cedex: { type: ['string', 'null'] },
       email: { type: ['string', 'null'] },
       telephone: { type: ['string', 'null'] },
       url: { type: ['string', 'null'] }

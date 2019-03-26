@@ -250,7 +250,7 @@ const entrepriseEtablissementsFormat = (entrepriseId, e) =>
       return first
     })
 
-const entrepriseHistoriqueFormat = e => {
+const entrepriseEtablissementFormat = e => {
   if (!e) return null
 
   const entrepriseId = `fr-${e.siren}`
@@ -290,7 +290,7 @@ const entrepriseAdresseFormat = e => {
   }
 
   if (adresse.codeCedexEtablissement) {
-    entreprise.cedex = parseInt(adresse.codeCedexEtablissement)
+    entreprise.cedex = adresse.codeCedexEtablissement
   }
 
   entreprise.adresse = ''
@@ -317,7 +317,7 @@ const entrepriseAdresseFormat = e => {
   }
 
   if (adresse.codePostalEtablissement) {
-    entreprise.codePostal = parseInt(adresse.codePostalEtablissement)
+    entreprise.codePostal = adresse.codePostalEtablissement
   }
 
   const commune =
@@ -368,21 +368,21 @@ const entrepriseAdresseFormat = e => {
   return entreprise
 }
 
-const entrepriseHistoriqueGet = async sirenIds => {
+const entrepriseEtablissementGet = async sirenIds => {
   if (!sirenIds.length) return []
 
-  const entreprisesHistoriques = await inseeTypeFetchBatch(
+  const entreprisesEtablissements = await inseeTypeFetchBatch(
     'siren',
     'unitesLegales',
     sirenIds,
     idsBatch => idsBatch.map(s => `siren:${s}`).join(' OR ')
   )
 
-  if (!entreprisesHistoriques || !Array.isArray(entreprisesHistoriques))
+  if (!entreprisesEtablissements || !Array.isArray(entreprisesEtablissements))
     return null
 
-  return entreprisesHistoriques.reduce(
-    (acc, e) => (e ? [...acc, ...entrepriseHistoriqueFormat(e)] : acc),
+  return entreprisesEtablissements.reduce(
+    (acc, e) => (e ? [...acc, ...entrepriseEtablissementFormat(e)] : acc),
     []
   )
 }
@@ -405,4 +405,4 @@ const entrepriseAdresseGet = async sirenIds => {
   )
 }
 
-export { tokenInitialize, entrepriseHistoriqueGet, entrepriseAdresseGet }
+export { tokenInitialize, entrepriseEtablissementGet, entrepriseAdresseGet }

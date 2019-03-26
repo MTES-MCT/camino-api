@@ -105,10 +105,9 @@ const organismeFormat = (e, departementId) => {
         ? 'pre'
         : p.pivotLocal,
       nom: p.nom,
-      service: p.pivotLocal,
       adresse1,
       adresse2,
-      codePostal: +adresses[0].codePostal,
+      codePostal: adresses[0].codePostal,
       commune: adresses[0].commune,
       telephone: p.telephone,
       email: p.email && p.email.match('@') ? p.email : null,

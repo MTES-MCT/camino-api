@@ -10,7 +10,8 @@ export default class TitresAmodiataires extends Model {
 
     properties: {
       entrepriseId: { type: 'string', maxLength: 64 },
-      titreEtapeId: { type: 'string', maxLength: 128 }
+      titreEtapeId: { type: 'string', maxLength: 128 },
+      operateur: { type: ['boolean', 'null'] }
     }
   }
 

@@ -8,7 +8,12 @@ const utilisateurs = {
 }
 
 const administrations = {
-  eager: `utilisateurs.permission`
+  eager: `utilisateurs.permission`,
+  update: {
+    insertMissing: true,
+    relate: ['administrationsTypes'],
+    unrelate: ['administrationsTypes']
+  }
 }
 
 const entreprises = {
@@ -117,6 +122,7 @@ export default {
   demarches,
   titres,
   substances,
+  administrations,
   entreprises,
   entreprisesEtablissements,
   demarchesTypes,

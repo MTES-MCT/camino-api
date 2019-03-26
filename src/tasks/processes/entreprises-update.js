@@ -4,7 +4,7 @@ import {
 } from '../queries/entreprises'
 import {
   tokenInitialize,
-  entrepriseHistoriqueGet,
+  entrepriseEtablissementGet,
   entrepriseAdresseGet
 } from '../../tools/api-insee'
 
@@ -42,9 +42,9 @@ const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
   }
 
   const entreprisesAdresses = await entrepriseAdresseGet(sirens)
-  const entreprisesHistoriques = await entrepriseHistoriqueGet(sirens)
+  let entreprisesEtablissementsNew = await entrepriseEtablissementGet(sirens)
 
-  const historiquesUpdateQueries = entreprisesHistoriques.reduce(
+  const etablissementsUpdateQueries = entreprisesEtablissementsNew.reduce(
     (acc, entrepriseEtablissementNew) => {
       const entrepriseEtablissementOld = entreprisesEtablissements.find(
         a => a.id === entrepriseEtablissementNew.id
@@ -73,12 +73,12 @@ const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
     []
   )
 
-  await Promise.all([...adressesUpdateQueries, ...historiquesUpdateQueries])
+  await Promise.all([...adressesUpdateQueries, ...etablissementsUpdateQueries])
 
   return [
     `Mise à jour: ${
-      historiquesUpdateQueries.length
-    } historiques d'entreprises.`,
+      etablissementsUpdateQueries.length
+    } etablissements d'entreprises.`,
     `Mise à jour: ${adressesUpdateQueries.length} adresses d'entreprises.`
   ]
 }

@@ -10,9 +10,10 @@ exports.up = (knex, Promise) => {
         .string('entrepriseId', 64)
         .references('entreprises.id')
         .notNullable()
+      table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
     })
-    .createTable('titres_amodiataires', table => {
+    .createTable('titresAmodiataires', table => {
       table
         .string('titreEtapeId', 128)
         .references('titresEtapes.id')
@@ -22,9 +23,10 @@ exports.up = (knex, Promise) => {
         .string('entrepriseId', 64)
         .references('entreprises.id')
         .notNullable()
+      table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
     })
-    .createTable('titres_administrations', table => {
+    .createTable('titresAdministrations', table => {
       table
         .string('titreEtapeId', 128)
         .references('titresEtapes.id')
@@ -34,6 +36,7 @@ exports.up = (knex, Promise) => {
         .string('administrationId', 64)
         .references('administrations.id')
         .notNullable()
+      table.boolean('coordinateur')
       table.primary(['titreEtapeId', 'administrationId'])
     })
 }
