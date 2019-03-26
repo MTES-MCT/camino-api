@@ -15,7 +15,7 @@
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "rm -rf dist && npx tsc",
     "dev": "nodemon",
     "import": "mkdir -p sources && node ./dist/tools/import/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",

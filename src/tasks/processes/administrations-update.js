@@ -40,9 +40,7 @@ const administrationsUpdate = async (administrations, departements) => {
     await Promise.all(administrationsUpdateQueries)
   }
 
-  return [
-    `Mise à jour: ${administrationsUpdateRequests.length} administrations.`
-  ]
+  return `Mise à jour: ${administrationsUpdateRequests.length} administrations.`
 }
 
 export default administrationsUpdate
