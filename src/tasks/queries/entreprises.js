@@ -1,12 +1,9 @@
 import { entrepriseUpdate as entrepriseUpdateQuery } from '../../database/queries/entreprises'
+import { entrepriseEtablissementUpdate as entrepriseEtablissementUpdateQuery } from '../../database/queries/entreprises-etablissements'
 import { objectsDiffer } from '../../tools'
 
 const entrepriseUpdate = (entrepriseNew, entrepriseOld) => {
   const updated = !entrepriseOld || objectsDiffer(entrepriseNew, entrepriseOld)
-
-  if (updated) {
-    console.log({ entrepriseOld, entrepriseNew, updated })
-  }
 
   return updated
     ? entrepriseUpdateQuery(entrepriseNew).then(
@@ -15,4 +12,22 @@ const entrepriseUpdate = (entrepriseNew, entrepriseOld) => {
     : null
 }
 
-export { entrepriseUpdate }
+const entrepriseEtablissementUpdate = (
+  entrepriseEtablissementNew,
+  entrepriseEtablissementOld
+) => {
+  const updated =
+    !entrepriseEtablissementOld ||
+    objectsDiffer(entrepriseEtablissementNew, entrepriseEtablissementOld)
+
+  return updated
+    ? entrepriseEtablissementUpdateQuery(entrepriseEtablissementNew).then(
+        u =>
+          `Mise à jour: entrepriseEtablissement ${
+            entrepriseEtablissementNew.id
+          }`
+      )
+    : null
+}
+
+export { entrepriseUpdate, entrepriseEtablissementUpdate }

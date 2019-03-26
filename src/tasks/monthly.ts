@@ -2,6 +2,7 @@ import 'dotenv/config'
 import '../database/index'
 
 import { entreprisesGet } from '../database/queries/entreprises'
+import { entreprisesEtablissementsGet } from '../database/queries/entreprises-etablissements'
 import { administrationsGet } from '../database/queries/administrations'
 import { departementsGet } from '../database/queries/territoires'
 
@@ -15,7 +16,11 @@ const run = async () => {
     // des entreprises et établissements grâce à l'API INSEE
 
     const entreprises = await entreprisesGet()
-    const entreprisesUpdates = await entreprisesUpdate(entreprises)
+    const entreprisesEtablissements = await entreprisesEtablissementsGet()
+    const entreprisesUpdates = await entreprisesUpdate(
+      entreprises,
+      entreprisesEtablissements
+    )
 
     // 2.
     // mise à jour des administrations grâce à l'API Administration

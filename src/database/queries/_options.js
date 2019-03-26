@@ -20,6 +20,12 @@ const entreprises = {
   }
 }
 
+const entreprisesEtablissements = {
+  update: {
+    insertMissing: true
+  }
+}
+
 const substances = {
   eager: `legales.[code, domaine]`
 }
@@ -112,6 +118,7 @@ export default {
   titres,
   substances,
   entreprises,
+  entreprisesEtablissements,
   demarchesTypes,
   titresActivites,
   activitesTypes,

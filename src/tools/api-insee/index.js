@@ -255,29 +255,11 @@ const entrepriseHistoriqueFormat = e => {
 
   const entrepriseId = `fr-${e.siren}`
 
-  const entreprise = {
-    id: entrepriseId,
-    legalSiren: e.siren
-  }
-
-  if (e.categorieEntreprise) {
-    entreprise.categorie = e.categorieEntreprise
-  }
-
-  if (e.dateCreationUniteLegale) {
-    entreprise.dateCreation = dateFormat(
-      e.dateCreationUniteLegale,
-      'yyyy-mm-dd'
-    )
-  }
-
   // periodesUniteLegale est un tableau
   // classé par ordre de fin chronologique décroissant
-  if (e.periodesUniteLegale && e.periodesUniteLegale.length) {
-    entreprise.etablissements = entrepriseEtablissementsFormat(entrepriseId, e)
-  }
-
-  return entreprise
+  return e.periodesUniteLegale && e.periodesUniteLegale.length
+    ? entrepriseEtablissementsFormat(entrepriseId, e)
+    : []
 }
 
 const entrepriseAdresseFormat = e => {
@@ -400,7 +382,7 @@ const entrepriseHistoriqueGet = async sirenIds => {
     return null
 
   return entreprisesHistoriques.reduce(
-    (acc, e) => (e ? [...acc, entrepriseHistoriqueFormat(e)] : acc),
+    (acc, e) => (e ? [...acc, ...entrepriseHistoriqueFormat(e)] : acc),
     []
   )
 }

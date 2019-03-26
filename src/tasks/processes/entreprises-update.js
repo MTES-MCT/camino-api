@@ -1,11 +1,14 @@
-import { entrepriseUpdate } from '../queries/entreprises'
+import {
+  entrepriseUpdate,
+  entrepriseEtablissementUpdate
+} from '../queries/entreprises'
 import {
   tokenInitialize,
   entrepriseHistoriqueGet,
   entrepriseAdresseGet
 } from '../../tools/api-insee'
 
-const entreprisesUpdate = async entreprises => {
+const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
   const sirensIndex = entreprises.reduce((acc, e) => {
     if (!e || !e.legalSiren) return acc
 
@@ -41,15 +44,23 @@ const entreprisesUpdate = async entreprises => {
   const entreprisesAdresses = await entrepriseAdresseGet(sirens)
   const entreprisesHistoriques = await entrepriseHistoriqueGet(sirens)
 
-  const historiquesUpdateQueries =
-    [] ||
-    entreprisesHistoriques.reduce((acc, entrepriseNew) => {
-      const entrepriseOld = entreprises.find(a => a.id === entrepriseNew.id)
+  const historiquesUpdateQueries = entreprisesHistoriques.reduce(
+    (acc, entrepriseEtablissementNew) => {
+      const entrepriseEtablissementOld = entreprisesEtablissements.find(
+        a => a.id === entrepriseEtablissementNew.id
+      )
 
-      const entrepriseUpdated = entrepriseUpdate(entrepriseNew, entrepriseOld)
+      const entrepriseEtablissementUpdated = entrepriseEtablissementUpdate(
+        entrepriseEtablissementNew,
+        entrepriseEtablissementOld
+      )
 
-      return entrepriseUpdated ? [...acc, entrepriseUpdated] : acc
-    }, [])
+      return entrepriseEtablissementUpdated
+        ? [...acc, entrepriseEtablissementUpdated]
+        : acc
+    },
+    []
+  )
 
   const adressesUpdateQueries = entreprisesAdresses.reduce(
     (acc, entrepriseNew) => {
