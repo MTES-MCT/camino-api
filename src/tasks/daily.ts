@@ -23,92 +23,53 @@ const run = async () => {
     // 1.
     // ordre des étapes
     // en fonction de leur date
-    let titresDemarches = await titresDemarchesGet({
-      demarchesIds: undefined,
-      titresIds: undefined
-    })
+    let titresDemarches = await titresDemarchesGet()
     const titresEtapesOrdre = await titresEtapesOrdreUpdate(titresDemarches)
 
     // 2.
     // statut des démarches
     // en fonction de ses étapes (type, ordre, statut)
-    let titres = await titresGet({
-      typeIds: undefined,
-      domaineIds: undefined,
-      statutIds: undefined,
-      substances: undefined,
-      noms: undefined,
-      entreprises: undefined,
-      references: undefined,
-      territoires: undefined
-    })
+    let titres = await titresGet()
     const titresDemarchesStatutId = await titresDemarchesStatutIdUpdate(titres)
 
     // 3.
     // détermine l'ordre des démarche
     // en fonction de la date de leur première étape
-    titres = await titresGet({
-      typeIds: undefined,
-      domaineIds: undefined,
-      statutIds: undefined,
-      substances: undefined,
-      noms: undefined,
-      entreprises: undefined,
-      references: undefined,
-      territoires: undefined
-    })
+    titres = await titresGet()
     const titresDemarchesOrdre = await titresDemarchesOrdreUpdate(titres)
 
     // 4.
     // statut des titres
     // en fonction des démarches et de la date du jour
-    titres = await titresGet({
-      typeIds: undefined,
-      domaineIds: undefined,
-      statutIds: undefined,
-      substances: undefined,
-      noms: undefined,
-      entreprises: undefined,
-      references: undefined,
-      territoires: undefined
-    })
+    titres = await titresGet()
     const titresStatutIds = await titresStatutIdsUpdate(titres)
 
     // 5.
     // phases des titres
     // en fonction des démarches et de la date du jour
-    titres = await titresGet({
-      typeIds: undefined,
-      domaineIds: undefined,
-      statutIds: undefined,
-      substances: undefined,
-      noms: undefined,
-      entreprises: undefined,
-      references: undefined,
-      territoires: undefined
-    })
+    titres = await titresGet()
     const titresPhases = await titresPhasesUpdate(titres)
 
-    // 6.
-    // communes associées aux étapes
-    let titresEtapes = await titresEtapesGet({
-      etapesIds: undefined,
-      etapesTypeIds: undefined,
-      titresDemarchesIds: undefined
-    })
-    const communes = await communesGet()
-    const titresEtapesCommunes = await titresEtapesCommunesUpdate(
-      titresEtapes,
-      communes
-    )
+    let titresEtapes
+    let titresEtapesCommunes
+    if (process.env.GEO_API_URL) {
+      // 6.
+      // communes associées aux étapes
+      titresEtapes = await titresEtapesGet()
+      const communes = await communesGet()
+      titresEtapesCommunes = await titresEtapesCommunesUpdate(
+        titresEtapes,
+        communes
+      )
+    } else {
+      titresEtapesCommunes = [
+        "Connexion à l'API Géo Commune impossible: variable d'environnement manquante"
+      ]
+    }
 
     // 7.
     // administrations associées aux étapes
-    titresEtapes = await titresEtapesGet({
-      etapesIds: undefined,
-      etapesTypeIds: undefined,
-      titresDemarchesIds: undefined
-    })
+    titresEtapes = await titresEtapesGet()
     const administrations = await administrationsGet()
     const titresEtapesAdministrations = await titresEtapesAdministrationsUpdate(
       titresEtapes,
@@ -118,16 +79,7 @@ const run = async () => {
     // 8.
     // propriétés des titres
     // en fonction de la chronologie des démarches
-    titres = await titresGet({
-      typeIds: undefined,
-      domaineIds: undefined,
-      statutIds: undefined,
-      substances: undefined,
-      noms: undefined,
-      entreprises: undefined,
-      references: undefined,
-      territoires: undefined
-    })
+    titres = await titresGet()
     const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
     // 9.

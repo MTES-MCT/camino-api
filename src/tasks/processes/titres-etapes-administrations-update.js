@@ -22,7 +22,8 @@ const titresEtapesAdministrationsUpdate = async (
               administrationsIds: Object.keys(
                 titreEtape.communes.reduce(
                   (acc, commune) =>
-                    !acc[commune.departementId]
+                    !acc[commune.departementId] &&
+                    administrationsIndex[commune.departementId]
                       ? {
                           ...acc,
                           [administrationsIndex[commune.departementId].id]: true
