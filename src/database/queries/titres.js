@@ -1,5 +1,6 @@
 import Titres from '../models/titres'
 import options from './_options'
+// import * as sqlFormatter from 'sql-formatter'
 
 const titreGet = async id =>
   Titres.query()
@@ -148,10 +149,37 @@ const titresGet = async ({
           b.orWhereRaw(`?? = ?`, [f, t])
         })
       })
-    }).joinRelation('communes.departement.region.pays')
+    })
+      .groupBy('titres.id')
+      .havingRaw(
+        `(${territoires
+          .map(_ =>
+            [
+              ...fieldsLike.map(
+                _ => `count(*) filter (where lower(??) like ?) > 0`
+              ),
+              ...fieldsExact.map(
+                _ => `count(*) filter (where lower(??) = ?) > 0`
+              )
+            ].join(' or ')
+          )
+          .join(') and (')})`,
+        territoires.reduce(
+          (res, s) => [
+            ...res,
+            ...fieldsLike.reduce(
+              (r, f) => [...r, f, `%${s.toLowerCase()}%`],
+              []
+            ),
+            ...fieldsExact.reduce((r, f) => [...r, f, s.toLowerCase()], [])
+          ],
+          []
+        )
+      )
+      .joinRelation('communes.departement.region.pays')
   }
 
-  // console.log(q.toSql())
+  // console.log(sqlFormatter.format(q.toSql()))
   return q
 }
 
