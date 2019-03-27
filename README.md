@@ -50,16 +50,16 @@ npm install
 npm run build
 
 # importe les données au format .json
-# depuis google spreadsheets vers './tools/sources'
+# depuis google spreadsheets vers './sources'
 npm run import
 
 # crée les tables dans la base de données
-# et importe les données depuis './tools/sources'
+# et importe les données depuis './sources'
 npm run migrate
 
 # met à jour les données
-npm run daily
 npm run monthly
+npm run daily
 ```
 
 ---
@@ -106,20 +106,24 @@ npm run jest
     │   ├── index        # `variables globales`
     │   └── knex         # `connexion à la base de données`
     │
-    ├── database         # `base de données PostgresQL`
+    ├── database         # `base de données PostgreSQL`
     │   ├── models       # `modèles de la base de données (knex.js / objection.js)`
     │   └── queries      # `requêtes à la base de données (knex.js / objection.js)`
     │
-    ├── tasks            # `logique métier`
-    │   ├── _utils       # `scripts de mise à jour de la base de données`
-    │   ├── daily        # `scripts quotidiens (npm run daily)`
-    │   └── etape-update # `script effectués lors de la mise à jour d'une étape`
+    ├── tasks            # `mise à jours périodiques selon la logique métier`
+    │   ├── processes    # `scripts de traitement`
+    │   ├── queries      # `requêtes de mise à jour`
+    │   ├── rules        # `transcrit les lois et procédures administratives`
+    │   ├── utils        # `utilitaires de filtrage et de classement`
+    │   ├── daily        # `scripts de mise à jour quotidiens (npm run daily)`
+    │   ├── etape-update # `script effectués lors de la mise à jour d'une étape`
+    │   └── monthly      # `scripts de mise à jour mensuels (npm run monthly)`
     │
     └── tools            # `outils`
         ├── dev          # `outils de développement`
         ├── export       # `exportation de la base de données vers des spreadsheets (npm run export)`
         ├── import       # `import de spreadsheets vers des fichiers json dans /sources (npm run import)`
-        ├── api-communes # `connexion à l'api de detection d'intersections des communes`
+        ├── api-...      # `connexion aux api externes`
         └── emails-send  # `envoi d'email`
 
 ```
