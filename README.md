@@ -110,7 +110,7 @@ npm run jest
     │   ├── models       # `modèles de la base de données (knex.js / objection.js)`
     │   └── queries      # `requêtes à la base de données (knex.js / objection.js)`
     │
-    ├── tasks            # `mise à jours périodiques selon la logique métier`
+    ├── tasks            # `mise à jours selon la logique métier`
     │   ├── processes    # `scripts de traitement`
     │   ├── queries      # `requêtes de mise à jour`
     │   ├── rules        # `transcrit les lois et procédures administratives`
