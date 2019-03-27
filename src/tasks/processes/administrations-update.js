@@ -1,5 +1,5 @@
 import { administrationUpdate } from '../queries/administrations'
-import { organismeDepartementGet } from '../../tools/api-administration'
+import { organismeDepartementGet } from '../../tools/api-administrations'
 
 const administrationsUpdate = async (administrations, departements) => {
   const administrationsOrganismes = await departements.reduce(
