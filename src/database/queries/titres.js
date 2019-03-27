@@ -1,5 +1,6 @@
 import Titres from '../models/titres'
 import options from './_options'
+// import * as sqlFormatter from 'sql-formatter'
 
 const titreGet = async id =>
   Titres.query()
@@ -73,9 +74,9 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${substances
-          .map(_ =>
+          .map(() =>
             fields
-              .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+              .map(() => `count(*) filter (where lower(??) like ?) > 0`)
               .join(' or ')
           )
           .join(') and (')})`,
@@ -93,9 +94,11 @@ const titresGet = async ({
   if (entreprises) {
     const fields = [
       'titulaires:etablissements.nom',
-      'titulaires.id'
-      // 'amodiataires.nom',
-      // 'amodiataires.id'
+      'titulaires.nom',
+      'titulaires.id',
+      'amodiataires:etablissements.nom',
+      'amodiataires.nom',
+      'amodiataires.id'
     ]
 
     q.where(b => {
@@ -108,9 +111,9 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${entreprises
-          .map(_ =>
+          .map(() =>
             fields
-              .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+              .map(() => `count(*) filter (where lower(??) like ?) > 0`)
               .join(' or ')
           )
           .join(') and (')})`,
@@ -122,7 +125,7 @@ const titresGet = async ({
           []
         )
       )
-      .joinRelation('titulaires.etablissements')
+      .joinRelation('[titulaires.etablissements, amodiataires.etablissements]')
   }
 
   if (territoires) {
@@ -148,10 +151,37 @@ const titresGet = async ({
           b.orWhereRaw(`?? = ?`, [f, t])
         })
       })
-    }).joinRelation('communes.departement.region.pays')
+    })
+      .groupBy('titres.id')
+      .havingRaw(
+        `(${territoires
+          .map(() =>
+            [
+              ...fieldsLike.map(
+                () => `count(*) filter (where lower(??) like ?) > 0`
+              ),
+              ...fieldsExact.map(
+                () => `count(*) filter (where lower(??) = ?) > 0`
+              )
+            ].join(' or ')
+          )
+          .join(') and (')})`,
+        territoires.reduce(
+          (res, s) => [
+            ...res,
+            ...fieldsLike.reduce(
+              (r, f) => [...r, f, `%${s.toLowerCase()}%`],
+              []
+            ),
+            ...fieldsExact.reduce((r, f) => [...r, f, s.toLowerCase()], [])
+          ],
+          []
+        )
+      )
+      .joinRelation('communes.departement.region.pays')
   }
 
-  // console.log(q.toSql())
+  // console.log(sqlFormatter.format(q.toSql()))
   return q
 }
 
