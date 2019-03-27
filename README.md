@@ -132,7 +132,7 @@ npm run jest
 
 ## PostgreSQL
 
-![camino database schema](manual/database/camino-db.png)
+![camino database schema](manual/database/camino-db.svg)
 
 ---
 
