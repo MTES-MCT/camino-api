@@ -94,9 +94,11 @@ const titresGet = async ({
   if (entreprises) {
     const fields = [
       'titulaires:etablissements.nom',
-      'titulaires.id'
-      // 'amodiataires.nom',
-      // 'amodiataires.id'
+      'titulaires.nom',
+      'titulaires.id',
+      'amodiataires:etablissements.nom',
+      'amodiataires.nom',
+      'amodiataires.id'
     ]
 
     q.where(b => {
@@ -123,7 +125,7 @@ const titresGet = async ({
           []
         )
       )
-      .joinRelation('titulaires.etablissements')
+      .joinRelation('[titulaires.etablissements, amodiataires.etablissements]')
   }
 
   if (territoires) {
