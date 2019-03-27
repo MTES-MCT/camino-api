@@ -12,6 +12,11 @@ import {
 } from '../../api-google-spreadsheets'
 
 const dbToSpreadsheets = async ({ name, id, get, tables }) => {
+  if (!id) {
+    console.log(`Spreadsheet: ${name}, id de la spreadsheet manquant`)
+    return
+  }
+
   console.log(`Spreadsheet: ${name}`)
   const elements = await get
 

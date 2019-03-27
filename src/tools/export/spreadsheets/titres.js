@@ -158,18 +158,24 @@ const tables = [
   },
   {
     id: 11,
+    name: 'titresAdministrations',
+    columns: ['titreEtapeId', 'administrationId'],
+    parents: ['demarches', 'etapes', 'titresAdministrations']
+  },
+  {
+    id: 12,
     name: 'titresUtilisateurs',
     columns: ['titreEtapeId', 'utilisateurId'],
     parents: ['demarches', 'etapes', 'titresUtilisateurs']
   },
   {
-    id: 12,
+    id: 13,
     name: 'titresEmprises',
     columns: ['titreEtapeId', 'empriseId'],
     parents: ['demarches', 'etapes', 'titresEmprises']
   },
   {
-    id: 13,
+    id: 14,
     name: 'titresErreurs',
     columns: [
       'titreEtapeId',

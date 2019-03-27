@@ -20,6 +20,7 @@
     "import": "mkdir -p sources && node ./dist/tools/import/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
     "export": "node ./dist/tools/export/index.js",
+    "dev:export": "ts-node --transpile-only ./src/tools/export/index.js",
     "export:users": "node ./dist/tools/export/utilisateurs.js",
     "export:activites": "node ./dist/tools/export/titres-activites.js",
     "migrate:rollback": "npx knex --knexfile=./knex/config-cli.js migrate:rollback",
