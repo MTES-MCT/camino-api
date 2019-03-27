@@ -74,9 +74,9 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${substances
-          .map(_ =>
+          .map(() =>
             fields
-              .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+              .map(() => `count(*) filter (where lower(??) like ?) > 0`)
               .join(' or ')
           )
           .join(') and (')})`,
@@ -111,9 +111,9 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${entreprises
-          .map(_ =>
+          .map(() =>
             fields
-              .map(_ => `count(*) filter (where lower(??) like ?) > 0`)
+              .map(() => `count(*) filter (where lower(??) like ?) > 0`)
               .join(' or ')
           )
           .join(') and (')})`,
@@ -155,13 +155,13 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${territoires
-          .map(_ =>
+          .map(() =>
             [
               ...fieldsLike.map(
-                _ => `count(*) filter (where lower(??) like ?) > 0`
+                () => `count(*) filter (where lower(??) like ?) > 0`
               ),
               ...fieldsExact.map(
-                _ => `count(*) filter (where lower(??) = ?) > 0`
+                () => `count(*) filter (where lower(??) = ?) > 0`
               )
             ].join(' or ')
           )
