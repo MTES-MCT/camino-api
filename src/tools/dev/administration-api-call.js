@@ -14,7 +14,7 @@ import { titreFormat } from '../../database/format'
 
 import { geojsonFeatureMultiPolygon } from '../geojson'
 
-import { organismeGet } from '../api-administration'
+import { organismeGet } from '../api-administrations'
 import { departementChefGeojsonGet } from '../api-communes'
 
 const multiDepartements = async () => {
@@ -120,7 +120,7 @@ const main = async () => {
     )
   )
 
-  //console.log(res)
+  // console.log(res)
 
   process.exit()
 }

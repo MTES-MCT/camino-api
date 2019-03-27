@@ -1,3 +1,5 @@
+// https://etablissements-publics.api.gouv.fr
+
 import { join } from 'path'
 
 import * as fetch from 'node-fetch'
