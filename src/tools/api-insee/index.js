@@ -1,3 +1,5 @@
+// https://api.insee.fr/catalogue/site/themes/wso2/subthemes/insee/pages/item-info.jag?name=Sirene&version=V3&provider=insee
+
 import { join } from 'path'
 
 import * as fetch from 'node-fetch'

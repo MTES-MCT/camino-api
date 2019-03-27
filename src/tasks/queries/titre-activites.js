@@ -17,6 +17,7 @@ const titreActiviteTypeUpdate = (titre, activiteType, annees) => {
           periodIndex,
           monthsCount
         )
+
         if (!titreActivite) return acc
 
         return [
