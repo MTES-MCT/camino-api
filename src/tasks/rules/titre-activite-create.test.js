@@ -20,20 +20,11 @@ jest.mock('../utils/titre-validite-periode-check', () => ({
 }))
 
 describe("construit une activité à partir d'une période", () => {
-  test("une activité n'est pas créée pour un titre qui la possède déjà", () => {
-    expect(
-      titreActiviteCreate(titreAvecActivite201801, activiteTypeGrp.id, 2018, 0)
-    ).toBeNull()
-
-    expect(titreValiditePeriodeCheck.default).not.toHaveBeenCalled()
-  })
-
-  test('une activité est créée pour un titre qui ne la possède pas déjà', () => {
+  test("une activité n'est pas créée si le titre n'est pas valide pour la période", () => {
     expect(
       titreActiviteCreate(titreAvecActivite201801, activiteTypeXxx.id, 2018, 0)
     ).not.toBeNull()
-
-    expect(titreValiditePeriodeCheck.default).toHaveBeenCalled()
+    expect(titreValiditePeriodeCheck.default).toHaveBeenCalledTimes(1)
   })
 
   test("une activité n'est pas créée si le titre n'est pas valide pour la période", () => {

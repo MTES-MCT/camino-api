@@ -1,32 +1,13 @@
 import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
 const titreActiviteCreateFromPeriod = (
-  {
-    activites: titreActivites,
-    demarches: titreDemarches,
-    statutId: titreStatutId,
-    id: titreId
-  },
+  { demarches: titreDemarches, statutId: titreStatutId, id: titreId },
   activiteTypeId,
   annee,
   periodIndex,
   monthsCount
 ) => {
   const frequencePeriodeId = periodIndex + 1
-
-  // cherche si l'activité existe déjà dans le titre
-  let titreActivite =
-    titreActivites &&
-    titreActivites.find(
-      a =>
-        a.activiteTypeId === activiteTypeId &&
-        a.annee === annee &&
-        a.frequencePeriodeId === frequencePeriodeId
-    )
-
-  // la ligne d'activité existe déjà pour le titre
-  // il n'est pas nécessaire de la créer
-  if (titreActivite) return null
 
   const nextPeriodeStart = new Date(annee, (periodIndex + 1) * monthsCount, 1)
 
@@ -47,7 +28,7 @@ const titreActiviteCreateFromPeriod = (
     if (!valid) return null
   }
 
-  titreActivite = {
+  const titreActivite = {
     titreId,
     // la date de début de l'activité est le premier jour du mois
     // du début de la période suivante, en fonction de la fréquence
