@@ -10,7 +10,7 @@ docker stop camino-api_app_1
 docker exec -it camino-api_postgres_1 psql postgres
 ```
 
-```psql
+```sql
 # supprimer la base de données et la re-créer
 DROP DATABASE camino; CREATE DATABASE camino;
 
