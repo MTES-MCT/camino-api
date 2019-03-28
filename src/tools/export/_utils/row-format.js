@@ -10,13 +10,9 @@
 
 const rowFormat = (element, columns, callbacks) =>
   columns.map(c =>
-    (
-      (element[c] &&
-        callbacks &&
-        (Object.keys(callbacks).find(cb => cb === c)
-          ? callbacks[c](element[c])
-          : element[c])) ||
-      ''
+    (element[c] && callbacks && callbacks[c]
+      ? callbacks[c](element[c])
+      : element[c] || ''
     ).toString()
   )
 
