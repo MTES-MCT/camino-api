@@ -11,13 +11,9 @@ import {
 } from '../../database/queries/titres'
 
 import { domainesGet, statutsGet } from '../../database/queries/metas'
-
 import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
-
 import { utilisateurGet } from '../../database/queries/utilisateurs'
-
 import { dupRemove, dupFind } from '../../tools/index'
-
 import titreEtapeUpdateTasks from '../../tasks/etape-update'
 
 const titreRestrictions = (titre, userHasAccess) => {
@@ -31,26 +27,38 @@ const titreRestrictions = (titre, userHasAccess) => {
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id)
 
-  const userEntreprisePermissions = async (userId, titreEntrepriseIds) => {
+  const userEntreprisePermissionsGet = async (userId, titreEntrepriseIds) => {
     const utilisateur = await utilisateurGet(userId)
     const entrepriseId = utilisateur.entreprise && utilisateur.entreprise.id
     return titreEntrepriseIds.some(id => id === entrepriseId)
   }
 
-  const titreIsPublic =
-    !restrictedDomaineIds.includes(titre.domaineId) &&
-    !restrictedStatutIds.includes(titre.statutId)
+  const titreIsPublicTest = (titreDomaineId, titreStatutId) =>
+    !restrictedDomaineIds.includes(titreDomaineId) &&
+    !restrictedStatutIds.includes(titreStatutId)
+
+  const titreEntrepriseIdsGet = (titreTitulaires, titreAmodiataires) => [
+    ...titreTitulaires.map(t => t.id),
+    ...titreAmodiataires.map(t => t.id)
+  ]
+
+  const userHasAccessTest = async (user, titreEntrepriseIds) =>
+    permissionsCheck(user, ['admin', 'super']) ||
+    userEntreprisePermissionsGet(user.id, titreEntrepriseIds)
 
   const userHasAccess =
+    titre &&
     context.user &&
-    (permissionsCheck(context.user, ['admin', 'super']) ||
-      (await userEntreprisePermissions(context.user.id, [
-        ...titre.titulaires.map(t => t.id),
-        ...titre.amodiataires.map(t => t.id)
-      ])))
+    userHasAccessTest(
+      context.user,
+      titreEntrepriseIdsGet(titre.titulaires, titre.amodiataires)
+    )
+
+  const titreIsPublic =
+    titre && titreIsPublicTest(titre.domaineId, titre.statutId)
 
   return titreIsPublic || userHasAccess
-    ? titre && titreFormat(titreRestrictions(titre, userHasAccess))
+    ? titreFormat(titreRestrictions(titre, userHasAccess))
     : null
 }
 
