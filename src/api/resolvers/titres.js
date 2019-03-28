@@ -47,17 +47,15 @@ const titre = async ({ id }, context, info) => {
     userEntreprisePermissionsGet(user.id, titreEntrepriseIds)
 
   const userHasAccess =
-    titre &&
     context.user &&
     userHasAccessTest(
       context.user,
       titreEntrepriseIdsGet(titre.titulaires, titre.amodiataires)
     )
 
-  const titreIsPublic =
-    titre && titreIsPublicTest(titre.domaineId, titre.statutId)
+  const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
 
-  return titreIsPublic || userHasAccess
+  return titre && (titreIsPublic || userHasAccess)
     ? titreFormat(titreRestrictions(titre, userHasAccess))
     : null
 }
