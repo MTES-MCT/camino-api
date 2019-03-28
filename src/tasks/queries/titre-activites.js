@@ -7,25 +7,40 @@ const titreActiviteTypeUpdate = (titre, activiteType, annees) => {
   const periods = activiteType.frequence[frequence.periodesNom]
   const monthsCount = 12 / periods.length
 
+  const { activites: titreActivites } = titre
+
   return annees.reduce(
     (acc, annee) =>
       periods.reduce((acc, e, periodIndex) => {
-        const titreActivite = titreActiviteCreate(
+        // cherche si l'activité existe déjà dans le titre
+        let titreActivite =
+          titreActivites &&
+          titreActivites.find(
+            a =>
+              a.activiteTypeId === activiteType.id &&
+              a.annee === annee &&
+              a.frequencePeriodeId === periodIndex + 1
+          )
+
+        // la ligne d'activité existe déjà pour le titre
+        // il n'est pas nécessaire de la créer
+        if (titreActivite) return acc
+
+        titreActivite = titreActiviteCreate(
           titre,
           activiteType.id,
           annee,
           periodIndex,
           monthsCount
         )
-
-        if (!titreActivite) return acc
-
-        return [
-          ...acc,
-          titreActiviteInsertQuery(titreActivite).then(
-            u => `Création: activité ${titreActivite.id}`
-          )
-        ]
+        return titreActivite
+          ? [
+              ...acc,
+              titreActiviteInsertQuery(titreActivite).then(
+                u => `Création: activité ${titreActivite.id}`
+              )
+            ]
+          : acc
       }, acc),
     []
   )

@@ -38,6 +38,17 @@ describe('ajoute des nouvelles activités à un titre', () => {
     expect(titreActivitesQueries.titreActiviteInsert).toHaveBeenCalledTimes(12)
   })
 
+  test('les activités déjà présentes dans le titre ne sont pas ajoutées', async () => {
+    expect(
+      (await Promise.all(
+        titreActiviteTypeUpdate(titreAvecActivites, activiteTypeTrimestre, [
+          2018
+        ])
+      ))[0]
+    ).toMatch(/Création/)
+    expect(titreActivitesQueries.titreActiviteInsert).toHaveBeenCalledTimes(3)
+  })
+
   test("aucune activité n'est ajoutée si le titre ne correspond pas aux critères de l'activité", async () => {
     jest.spyOn(titreActiviteCreate, 'default').mockImplementation(() => false)
 
