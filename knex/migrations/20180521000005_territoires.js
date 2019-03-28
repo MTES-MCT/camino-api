@@ -3,6 +3,7 @@ exports.up = knex => {
     .createTable('pays', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
+      table.string('timezone')
     })
     .createTable('regions', table => {
       table.string('id', 2).primary()
