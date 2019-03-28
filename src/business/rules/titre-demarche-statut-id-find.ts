@@ -28,6 +28,7 @@ const titreEtapesDecisivesDemandesTypes = [
 
 const titreDemarchesDemandesTypes = [
   'oct',
+  'vto',
   'pro',
   'pr1',
   'pr2',

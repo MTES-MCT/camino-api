@@ -30,7 +30,7 @@ const titreStatutIdFind = (titre: ITitre) => {
   }
 
   // une démarche a le statut en instruction
-  if (titre.demarches.find(d => d.statutId === 'ins')) {
+  if (titre.demarches.find(d => d.statutId === 'ins' && d.typeId !== 'vto')) {
     // le statut du titre est modification en instance
     return 'mod'
   }

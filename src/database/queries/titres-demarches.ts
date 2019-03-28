@@ -354,5 +354,7 @@ export {
   titreDemarcheUpdate,
   titreDemarcheUpsert,
   titreDemarcheDelete,
+  titreDemarcheStatutIdUpdate,
+  titreDemarcheOrdreUpdate,
   titreDemarchesIdsUpdate
 }

@@ -96,14 +96,14 @@ class TitresDemarches extends Model {
 
     parents: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-demarches'),
+      modelClass: join(__dirname, 'titres'),
       join: {
         from: 'titresDemarches.id',
         through: {
           from: 'titresDemarchesLiens.enfantTitreDemarcheId',
-          to: 'titresDemarchesLiens.parentTitreDemarcheId'
+          to: 'titresDemarchesLiens.parentTitreId'
         },
-        to: 'titresDemarches.id'
+        to: 'titres.id'
       }
     },
 
@@ -113,7 +113,7 @@ class TitresDemarches extends Model {
       join: {
         from: 'titresDemarches.id',
         through: {
-          from: 'titresDemarchesLiens.parentTitreDemarcheId',
+          from: 'titresDemarchesLiens.parentTitreId',
           to: 'titresDemarchesLiens.enfantTitreDemarcheId'
         },
         to: 'titresDemarches.id'

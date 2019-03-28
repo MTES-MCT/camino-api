@@ -1,5 +1,5 @@
 import { activitesTypesGet } from '../database/queries/metas'
-import { titreGet } from '../database/queries/titres'
+import { titreGet, titresGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import { titreEtapeGet } from '../database/queries/titres-etapes'
 import { communesGet } from '../database/queries/territoires'
@@ -12,6 +12,7 @@ import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-i
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
+import titresDemarchesVirtuellesUpdate from './processes/titres-demarches-virtuelles-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
@@ -102,6 +103,15 @@ const titreEtapeUpdate = async (
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
       titre
     ])
+
+    console.log('étapes virtuelles (enfant/parent)…')
+    let titres = await titreGet(titreId, {
+      fields: { demarches: { etapes: { id: {} } } }
+    })
+    const titresDemarchesVirtuellesUpdated = await titresDemarchesVirtuellesUpdate(
+      [titreDemarche],
+      titres
+    )
 
     console.info()
     console.info('statut des titres…')
@@ -254,6 +264,9 @@ const titreEtapeUpdate = async (
     )
     console.info(
       `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
+    )
+    console.info(
+      `Mise à jour: ${titresDemarchesVirtuellesUpdated.length} démarches virtuelles.`
     )
     console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`

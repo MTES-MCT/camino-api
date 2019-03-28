@@ -17,10 +17,13 @@ import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
+import titresDemarchesVirtuellesUpdate from './processes/titres-demarches-virtuelles-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
+import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
+import titresEtapesVirtuellesUpdate from './processes/titres-etapes-virtuelles-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPointsReferencesCreate from './processes/titres-points-references-create'
 import titresPublicUpdate from './processes/titres-public-update'
@@ -32,10 +35,11 @@ import { titresActivitesRowsUpdate } from './titres-activites-rows-update'
 const run = async () => {
   try {
     let titres
+    let titresDemarches
 
     console.info()
     console.info('ordre des étapes…')
-    const titresDemarches = await titresDemarchesGet(
+    titresDemarches = await titresDemarchesGet(
       {},
       {
         fields: {
@@ -114,6 +118,19 @@ const run = async () => {
       'super'
     )
     const titresPublicUpdated = await titresPublicUpdate(titres)
+
+    console.info('démarches virtuelles…')
+    // démarches et étapes virtuelles (enfant/parent)
+    // création, mise à jour ou suppression des démarches virtuelles
+    titresDemarches = await titresDemarchesGet({}, { fields: { eteapes: {} } })
+    titres = await titresGet(
+      {},
+      { fields: { demarches: { etapes: { id: {} } } } }
+    )
+    const titresDemarchesVirtuellesUpdated = await titresDemarchesVirtuellesUpdate(
+      titresDemarches,
+      titres
+    )
 
     console.info()
     console.info('phases des titres…')
@@ -298,6 +315,9 @@ const run = async () => {
     )
     console.info(
       `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
+    )
+    console.info(
+      `Mise à jour: ${titresDemarchesVirtuellesUpdated.length} démarches virtuelles.`
     )
     console.info(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
