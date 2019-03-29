@@ -10,15 +10,21 @@ const connection = {
 }
 
 const knexConfig = {
-  client: 'pg',
-  connection,
-  migrations: {
-    directory: './knex/migrations'
+  knex: {
+    client: 'pg',
+    connection,
+    migrations: {
+      directory: './knex/migrations'
+    },
+    seeds: {
+      directory: './knex/seeds'
+    },
+    ...knexSnakeCaseMappers()
   },
-  seeds: {
-    directory: './knex/seeds'
-  },
-  ...knexSnakeCaseMappers()
+  dbManager: {
+    superUser: connection.user,
+    superPassword: connection.password
+  }
 }
 
 module.exports = knexConfig

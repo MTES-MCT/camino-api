@@ -28,14 +28,18 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
   console.log(`Spreadheet: ${name}`)
 
   try {
+    // construit la liste avec un fichier par table
     const filesList = filesListBuild({ name, tables, prefixFileName })
 
+    // récupère un tableau avec une entrée { range, majorDimension, values }
     const res = await spreadsheetsGet(
       credentials,
       id,
       filesList.map(({ worksheetName }) => worksheetName)
     )
 
+    // converti la réponse en json
+    // la première ligne de value forme les clés
     const jsons = res.map(r => rowsToJson(r.values.shift(), r.values))
 
     filesList.forEach(({ path, cb }, i) => {
