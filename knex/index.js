@@ -1,7 +1,9 @@
 const Knex = require('knex')
-const knexConfig = require('./config-api')
-const knex = Knex(knexConfig)
+const config = require('./config-api')
+const knex = Knex(config.knex)
 const chalk = require('chalk')
+
+const dbManager = require('knex-db-manager').databaseManagerFactory(config)
 
 const run = new Promise((resolve, reject) => {
   resolve()
@@ -18,6 +20,12 @@ const exit = text => {
 }
 
 run
+  .then(() => {
+    return dbManager.dropDb('camino')
+  })
+  .then(() => {
+    return dbManager.createDb('camino')
+  })
   .then(() => {
     console.log('Rollback')
     return knex.migrate
