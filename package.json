@@ -27,7 +27,7 @@
     "migrate:latest": "npx knex --knexfile=./knex/config-cli.js migrate:latest",
     "seed:run": "npx npx knex --knexfile=./knex/config-cli.js seed:run",
     "migrate": "npm run migrate:rollback && npm run migrate:latest && npm run seed:run",
-    "migrate-api": "node ./knex/index.js",
+    "migrate-api": "node ./knex/recreate.js && node ./knex/migrate.js",
     "daily": "node ./dist/tasks/daily.js",
     "dev:daily": "ts-node --transpile-only ./src/tasks/daily.ts",
     "monthly": "node ./dist/tasks/monthly.js",
