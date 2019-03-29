@@ -312,9 +312,9 @@ input InputReference {
 input InputEtape {
   id: ID!
 
-  type: InputEtapeTypeId!
+  typeId: ID!
 
-  statut: InputEtapeStatutId!
+  statutId: EtapeStatutId!
 
   ordre: Int!
 
@@ -340,7 +340,7 @@ input InputEtape {
 
   emprises: [InputEmpriseId]
 
-  substances: [InputEtapeSubstance]
+  substances: [InputSubstanceIds]
 
   points: [InputPoint]
 

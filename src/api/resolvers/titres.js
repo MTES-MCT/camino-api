@@ -238,17 +238,28 @@ const titreModifier = async ({ titre }, context, info) => {
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   const errors = []
+  const propsMandatory = ['date', 'typeId', 'statutId']
 
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     errors.push('opération impossible')
   }
 
+  if (etape.visas) {
+    console.log(etape.visas)
+  }
+
+  propsMandatory.forEach(p => {
+    if (!etape[p]) {
+      errors.push(`le champ ${p} est requis`)
+    }
+  })
+
   if (!errors.length) {
     // si l'id de l'étape ne correspond pas à son type
     const etapeTypeIdSlug = etape.id.slice(-5, -2)
-    const etapeTypeId = etape.type.id
-    console.log(etapeTypeIdSlug, etapeTypeId)
-    if (etapeTypeIdSlug !== etapeTypeId) {
+    console.log(etapeTypeIdSlug, etape.typeId)
+
+    if (etapeTypeIdSlug !== etape.typeId) {
       // mettre à jour l'id de l'étape et les ids de ses enfants
       const etapeIdUpdated = etapeIdUpdate(etape)
       console.log(etapeIdUpdated)
