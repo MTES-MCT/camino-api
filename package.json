@@ -17,7 +17,7 @@
   "scripts": {
     "build": "rm -rf dist && npx tsc",
     "dev": "nodemon",
-    "import": "mkdir -p sources && node ./dist/tools/import/index.js",
+    "import": "rm -rf sources && mkdir sources && node ./dist/tools/import/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
     "export": "node ./dist/tools/export/index.js",
     "dev:export": "ts-node --transpile-only ./src/tools/export/index.js",
@@ -78,6 +78,7 @@
     "graphql-iso-date": "^3.6.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "0.16.3",
+    "knex-db-manager": "^0.5.0",
     "make-dir": "^2.1.0",
     "node-fetch": "^2.3.0",
     "nodemailer": "^6.0.0",
@@ -86,6 +87,7 @@
     "objection": "^1.6.6",
     "p-queue": "^4.0.0",
     "pg": "^7.9.0",
+    "pg-escape": "^0.2.0",
     "typescript": "^3.3.4000"
   },
   "devDependencies": {
