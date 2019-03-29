@@ -12,9 +12,6 @@ type Metas {
   "Statuts des titres miniers (ex: valide, demande initiale, etc.)"
   statuts: [Statut]
 
-  "Types de démarches"
-  demarchesTypes: [DemarcheType]
-
   "Systèmes géodésiques utilisés dans Camino"
   geoSystemes: [GeoSysteme]
 

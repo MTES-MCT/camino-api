@@ -80,14 +80,14 @@ const phases = {
   eager: 'statut'
 }
 
-const demarches = {
-  eager: `[type, statut, phase.${phases.eager}, etapes(orderDesc).${
-    etapes.eager
-  }, parents.^1, enfants.^1]`
+const demarchesTypes = {
+  eager: `[etapesTypes.etapesStatuts]`
 }
 
-const demarchesTypes = {
-  eager: `etapesTypes.etapesStatuts`
+const demarches = {
+  eager: `[type.${demarchesTypes.eager}, statut, phase.${
+    phases.eager
+  }, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`
 }
 
 const activitesTypes = {

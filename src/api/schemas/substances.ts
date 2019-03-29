@@ -34,6 +34,6 @@ type SubstanceLegaleCode {
   lien: String!
 }
 
-input InputSubstanceIds {
+input InputSubstanceId {
   id: ID!
 }`

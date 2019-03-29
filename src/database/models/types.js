@@ -16,7 +16,7 @@ export default class Types extends Model {
   }
 
   static relationMappings = {
-    types: {
+    demarchesTypes: {
       relation: Model.ManyToManyRelation,
       modelClass: DemarchesTypes,
       join: {

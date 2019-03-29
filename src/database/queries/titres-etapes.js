@@ -27,6 +27,11 @@ const titreEtapeUpdate = async ({ id, props }) =>
     .findById(id)
     .patch(props)
 
+const titreEtapeDelete = async id =>
+  TitresEtapes.query()
+    .deleteById(id)
+    .eager(options.etapes.eager)
+
 const titreEtapeUpsert = async etape =>
   TitresEtapes.query()
     .upsertGraph(etape, options.etapes.update)
@@ -53,6 +58,7 @@ const titreEtapeAdministrationDelete = async ({
 export {
   titreEtapeGet,
   titresEtapesGet,
+  titreEtapeDelete,
   titreEtapeUpdate,
   titreEtapeUpsert,
   titreEtapeCommuneInsert,

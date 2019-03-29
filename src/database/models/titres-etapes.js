@@ -248,6 +248,5 @@ export default class TitresEtapes extends Model {
   }
 
   // nécessaire lorsqu'on insère un tableau de 'visas'
-  //
   static jsonAttributes = []
 }
