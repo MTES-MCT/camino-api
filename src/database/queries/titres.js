@@ -131,8 +131,9 @@ const titresGet = async ({
           []
         )
       )
-      .joinRelation('titulaires.etablissements')
-      .leftJoinRelation('amodiataires.etablissements')
+      .leftJoinRelation(
+        '[titulaires.etablissements, amodiataires.etablissements]'
+      )
   }
 
   if (territoires) {
