@@ -61,13 +61,14 @@ export default class TitresActivites extends Model {
   }
 
   $parseJson(json) {
+    json = super.$parseJson(json)
     if (!json.id) {
       const id = `${json.titreId}-${json.activiteTypeId}-${
         json.annee
       }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
       json.id = id
     }
-    json = super.$parseJson(json)
+
     return json
   }
 

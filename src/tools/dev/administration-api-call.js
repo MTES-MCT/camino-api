@@ -10,7 +10,6 @@ import {
 } from '../../database/queries/titres-etapes'
 import { departementsGet } from '../../database/queries/territoires'
 import { administrationInsert } from '../../database/queries/administrations'
-import { titreFormat } from '../../database/format'
 
 import { geojsonFeatureMultiPolygon } from '../geojson'
 
@@ -18,7 +17,7 @@ import { organismeGet } from '../api-administrations'
 import { departementChefGeojsonGet } from '../api-communes'
 
 const multiDepartements = async () => {
-  const titres = (await titresGet()).map(titreFormat)
+  const titres = await titresGet()
 
   const titresMultiDepartements = titres.filter(
     t =>

@@ -1,4 +1,4 @@
-import titreEtapesAscSortByOrdre from '../utils/titre-etapes-asc-sort-by-ordre'
+import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 
 // si
 // - la démarche est un octroi ou une prolongation ou une prolongation 1
@@ -10,7 +10,7 @@ import titreEtapesAscSortByOrdre from '../utils/titre-etapes-asc-sort-by-ordre'
 const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
   // retourne l'étape de dpu de la démarche si elle existe
   // si il existe une dpu et une dpu rectificative, on prend en compte l'originale
-  const etapeDpuFirst = titreEtapesAscSortByOrdre(titreDemarche.etapes).find(
+  const etapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' ||
       (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||

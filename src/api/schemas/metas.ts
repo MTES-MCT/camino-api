@@ -12,9 +12,6 @@ type Metas {
   "Statuts des titres miniers (ex: valide, demande initiale, etc.)"
   statuts: [Statut]
 
-  "Types de démarches"
-  demarchesTypes: [DemarcheType]
-
   "Systèmes géodésiques utilisés dans Camino"
   geoSystemes: [GeoSysteme]
 
@@ -145,17 +142,6 @@ type DemarcheType_etapeType {
   ordre: Int!
 }
 
-"Le type d'étape d'une démarche de titre minier"
-input InputEtapeTypeId {
-  "L'id composée de trois lettres"
-  id: ID!
-
-  "Le nom du domaine en français"
-  nom: String
-
-  acceptationAuto: Boolean
-}
-
 "Le statut d'une étape de démarche de titre minier"
 type EtapeStatut {
   "L'id du statut d'étape est composé de trois lettres"
@@ -190,17 +176,6 @@ type GeoSysteme {
   zone: String
 
   unite: String
-}
-
-"Le statut d'une étape de démarche de titre minier"
-input InputEtapeStatutId {
-  "L'id composée de trois lettres"
-  id: EtapeStatutId!
-
-  "Le nom en français"
-  nom: String
-
-  couleur: Couleur
 }
 
 "L'emprise géographique d'un titre minier"
