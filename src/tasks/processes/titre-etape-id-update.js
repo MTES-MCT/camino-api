@@ -1,4 +1,4 @@
-import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
+import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import { titrePropsUpdate, calculatedProps } from '../queries/titres'
 
 // si le type d'une étape change
@@ -24,7 +24,7 @@ const titreEtapesIdUpdate = async (titreEtapeId, titreDemarche) => {
   const titreEtape = titreDemarche.etapes.find(te => te.id === titreEtapeId)
 
   // les étapes de même type dans l'ordre asc
-  const titreEtapes = titreEtapesAscSortByDate(
+  const titreEtapes = titreEtapesAscSort(
     titreDemarche.etapes.filter(te => te.type.id === titreEtape.type.id)
   )
 
@@ -42,11 +42,16 @@ const titreEtapesIdUpdate = async (titreEtapeId, titreDemarche) => {
       return acc
     }
 
-    // - change l'id de l'étape
+    // fait une copie de l'étape
+    // - change l'id de la nouvelle étape
     // - change l'id des tables liées (colonnes id et titreEtapeId)
+    // - const props = propriété du titre qui pointent vers l'ancienne étape
+    // - ajoute la nouvelle étape dans la base
 
-    // si des props du titre pointent vers l'étape:
+    // si props.length:
     // - change le titreEtapeId des props
+
+    // - supprime l'ancienne étape dans la base
 
     return acc
   }, [])
