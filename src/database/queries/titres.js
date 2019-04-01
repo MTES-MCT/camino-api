@@ -1,11 +1,15 @@
 import Titres from '../models/titres'
 import options from './_options'
+import { titreFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async id =>
-  Titres.query()
+const titreGet = async id => {
+  const titre = await Titres.query()
     .findById(id)
     .eager(options.titres.eager)
+
+  return titreFormat(titre)
+}
 
 const titresGet = async ({
   typeIds,
@@ -181,8 +185,10 @@ const titresGet = async ({
       .joinRelation('communes.departement.region.pays')
   }
 
+  const titres = await q
+
   // console.log(sqlFormatter.format(q.toSql()))
-  return q
+  return titres.map(t => titreFormat(t))
 }
 
 const titrePropsUpdate = async ({ id, props }) =>

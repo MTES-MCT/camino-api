@@ -1,5 +1,4 @@
 import permissionsCheck from './_permissions-check'
-import { titreFormat } from '../../database/format'
 import { restrictedDomaineIds, restrictedStatutIds } from './_restrictions'
 
 import {
@@ -14,7 +13,7 @@ import { domainesGet, statutsGet } from '../../database/queries/metas'
 import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
-import titreEtapeUpdateTasks from '../../tasks/etape-update'
+import titreEtapeUpdate from '../../tasks/titre-etape-update'
 
 const titreRestrictions = (titre, userHasAccess) => {
   if (!userHasAccess) {
@@ -58,7 +57,7 @@ const titre = async ({ id }, context, info) => {
   const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
 
   return titreIsPublic || userHasAccess
-    ? titreFormat(titreRestrictions(titre, userHasAccess))
+    ? titreRestrictions(titre, userHasAccess)
     : null
 }
 
@@ -191,7 +190,7 @@ const titres = async (
     titresPublics.map(t => titreRestrictions(t, userIsAdmin))
   )
 
-  return titres.map(titre => titre && titreFormat(titre))
+  return titres
 }
 
 const titreAjouter = async ({ titre }, context, info) => {
@@ -238,67 +237,26 @@ const titreModifier = async ({ titre }, context, info) => {
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   const errors = []
+  const propsMandatory = ['date', 'typeId', 'statutId']
 
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     errors.push('opération impossible')
   }
 
-  if (!errors.length) {
-    // si l'id de l'étape ne correspond pas à son type
-    const etapeTypeIdSlug = etape.id.slice(-5, -2)
-    const etapeTypeId = etape.type.id
-    console.log(etapeTypeIdSlug, etapeTypeId)
-    if (etapeTypeIdSlug !== etapeTypeId) {
-      // mettre à jour l'id de l'étape et les ids de ses enfants
-      const etapeIdUpdated = etapeIdUpdate(etape)
-      console.log(etapeIdUpdated)
-
-      // si l'étape est liée depuis la table titres
-      const titreRelatedProps = titreRelatedPropsFind(etape.id)
-      console.log(titreRelatedProps)
-      // supprime les liens depuis la table titres
-
-      // supprimer l'ancienne étape et ses enfants
-      // ajouter la nouvelle étape et ses enfants
-
-      // recréé les liens depuis la table titres vers la nouvelle etapeId
+  propsMandatory.forEach(p => {
+    if (!etape[p]) {
+      errors.push(`le champ ${p} est requis`)
     }
+  })
 
+  if (!errors.length) {
     const res = await titreEtapeUpsert(etape)
-    await titreEtapeUpdateTasks(etape.id)
+    await titreEtapeUpdate(etape.id)
 
     return res
   } else {
     throw new Error(errors.join(', '))
   }
-}
-
-//
-const etapeIdUpdate = etape => {
-  // const props = [
-  //   'substances',
-  //   'points',
-  //   'titulaires',
-  //   'amodiataires',
-  //   'administrations',
-  //   'documents',
-  //   'communes',
-  //   'emprises'
-  // ]
-
-  return etape
-}
-
-const titreRelatedPropsFind = titreEtapeId => {
-  // const props = [
-  //   'substances',
-  //   'points',
-  //   'titulaires',
-  //   'amodiataires',
-  //   'administrations',
-  //   'communes'
-  // ]
-  return []
 }
 
 export {

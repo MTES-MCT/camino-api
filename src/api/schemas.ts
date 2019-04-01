@@ -8,6 +8,7 @@ import calendrier from './schemas/calendrier'
 import titres from './schemas/titres'
 import substances from './schemas/substances'
 import geojson from './schemas/geojsons'
+import points from './schemas/points'
 import utilisateurs from './schemas/utilisateurs'
 import administrations from './schemas/administrations'
 import entreprises from './schemas/entreprises'
@@ -29,6 +30,8 @@ const schema = buildSchema(`
   ${substances}
 
   ${geojson}
+
+  ${points}
 
   ${utilisateurs}
 

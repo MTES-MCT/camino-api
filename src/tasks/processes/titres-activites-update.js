@@ -1,4 +1,3 @@
-import { titreFormat } from '../../database/format'
 import titreActivitesTypesFilter from '../utils/titre-activites-filter'
 import { titreActiviteTypeUpdate } from '../queries/titre-activites'
 
@@ -9,7 +8,6 @@ const titresActivitesTypesUpdate = async (titres, activitesTypes, annees) => {
 
   const titresActivitesInsertRequests = titres
     // formate les pays des titres
-    .map(titreFormat)
     .reduce((acc, titre) => {
       // TODO: à supprimer une fois que
       // la requête ne renverra plus de doublons

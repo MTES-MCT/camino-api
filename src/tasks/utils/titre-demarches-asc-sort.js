@@ -1,6 +1,6 @@
 // classe les démarches selon la date de leur première étape
 // puis par ordre si les dates sont identiques
-import titreEtapesAscSortByOrdre from './titre-etapes-asc-sort-by-ordre'
+import titreEtapesAscSortByOrdre from './titre-etapes-asc-sort'
 
 const titreDemarchesAscSort = titreDemarches =>
   titreDemarches.sort((a, b) => {

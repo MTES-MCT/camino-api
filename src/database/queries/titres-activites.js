@@ -1,30 +1,42 @@
 import titreActivites from '../models/titres-activites'
 import options from './_options'
+import { titreActiviteFormat } from './_format'
 
-const titreActiviteGet = async id =>
-  titreActivites
+const titreActiviteGet = async id => {
+  const ta = await titreActivites
     .query()
     .eager(options.titresActivites.eager)
     .findById(id)
     .first()
 
-const titresActivitesGet = async () =>
-  titreActivites
+  return titreActiviteFormat(ta)
+}
+
+const titresActivitesGet = async () => {
+  const tas = await titreActivites
     .query()
     .eager(options.titresActivites.eager)
     .skipUndefined()
 
-const titreActiviteUpdate = async titreActivite =>
-  titreActivites
+  return tas.map(ta => titreActiviteFormat(ta))
+}
+
+const titreActiviteUpdate = async titreActivite => {
+  const ta = await titreActivites
     .query()
     .eager(options.titresActivites.eager)
     .patchAndFetchById(titreActivite.id, titreActivite)
+  return titreActiviteFormat(ta)
+}
 
-const titreActiviteInsert = async titreActivite =>
-  titreActivites
+const titreActiviteInsert = async titreActivite => {
+  const ta = await titreActivites
     .query()
     .eager(options.titresActivites.eager)
     .insert(titreActivite)
+
+  return titreActiviteFormat(ta)
+}
 
 export {
   titreActiviteGet,
