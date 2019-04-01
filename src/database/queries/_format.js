@@ -3,7 +3,7 @@ import * as dateFormat from 'dateformat'
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} from '../tools/geojson'
+} from '../../tools/geojson'
 
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier
@@ -28,6 +28,12 @@ const titreFormat = t => {
 
   t.demarches &&
     t.demarches.forEach(d => {
+      if (d.type.etapesTypes) {
+        d.type.etapesTypes = d.type.etapesTypes.filter(
+          e => e.typeId === t.type.id
+        )
+      }
+
       d.etapes &&
         d.etapes.forEach(e => {
           if (e.points.length) {

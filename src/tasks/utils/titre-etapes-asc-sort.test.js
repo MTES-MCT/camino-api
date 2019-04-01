@@ -1,9 +1,9 @@
-import titreEtapesAscSortByOrdre from './titre-etapes-asc-sort-by-ordre'
+import titreEtapesAscSortByOrdre from './titre-etapes-asc-sort'
 import {
   titreEtapesSortedAsc,
   titreEtapesSortedDesc,
   titreEtapesSortedAscResult
-} from './__mocks__/titre-etapes-asc-sort-by-ordre-etapes'
+} from './__mocks__/titre-etapes-asc-sort-etapes'
 
 describe('trie les étapes', () => {
   test('des étapes organisées par ordre décroissant sont triées par ordre croissant', () => {

@@ -113,7 +113,7 @@ const organismeFormat = (e, departementId) => {
       commune: adresses[0].commune,
       telephone: p.telephone,
       email: p.email && p.email.match('@') ? p.email : null,
-      site: p.url || null,
+      url: p.url || null,
       departementId
     }
   } catch (error) {

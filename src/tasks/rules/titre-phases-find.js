@@ -1,8 +1,8 @@
 import * as dateFormat from 'dateformat'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 import titreDemarchePhasesFilter from './titre-demarche-phases-filter'
-import titreEtapesDescSortByOrdre from '../utils/titre-etapes-desc-sort-by-ordre'
-import titreEtapesAscSortByOrdre from '../utils/titre-etapes-asc-sort-by-ordre'
+import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
+import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 
 // retourne un tableau contenant les phases d'un titre
 const titrePhasesFind = (titreDemarches, titreTypeId) => {
@@ -55,7 +55,7 @@ const titrePhaseDateDebutFind = (
   const phasePrevious = titrePhases[index - 1]
 
   // retourne une étape de dpu si celle-ci possède une date de début
-  const etapeDpuHasDateDebut = titreEtapesDescSortByOrdre(titreDemarche.etapes)
+  const etapeDpuHasDateDebut = titreEtapesDescSort(titreDemarche.etapes)
     .filter(
       titreEtape =>
         titreEtape.typeId === 'dpu' ||
@@ -79,9 +79,7 @@ const titrePhaseDateDebutFind = (
   }
 
   // sinon, la date de début est égale à la date de la première étape de dpu
-  const titreEtapeDpuFirst = titreEtapesAscSortByOrdre(
-    titreDemarche.etapes
-  ).find(
+  const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' ||
       (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||

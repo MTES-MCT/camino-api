@@ -2,7 +2,7 @@ exports.up = knex => {
   return knex.schema
     .createTable('entreprises', table => {
       table.string('id', 64).primary()
-      table.string('nom')
+      table.string('nom').notNullable()
       table.string('paysId')
       table.string('legalSiren')
       table.string('legalEtranger')
@@ -41,7 +41,7 @@ exports.up = knex => {
         .notNullable()
       table.string('nom').notNullable()
       table.string('service')
-      table.string('site')
+      table.string('url')
       table.string('email')
       table.string('telephone')
       table.string('adresse1')

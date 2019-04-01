@@ -34,28 +34,6 @@ type SubstanceLegaleCode {
   lien: String!
 }
 
-input InputEtapeSubstance {
+input InputSubstanceId {
   id: ID!
-  nom: String
-  symbole: String
-  connexe: Boolean
-  gerep: Int
-  ordre: Int
-  description: String
-  legales: [InputSubstanceLegale]
-}
-
-input InputSubstanceLegale {
-  id: ID!
-  nom: String
-  domaine: InputDomaineId
-  description: String
-  code: InputSubstanceLegaleCode
-}
-
-input InputSubstanceLegaleCode {
-  id: ID!
-  nom: String
-  description: String
-  lien: String
 }`

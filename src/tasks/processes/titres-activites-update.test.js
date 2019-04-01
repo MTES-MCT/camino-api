@@ -1,6 +1,5 @@
 import titresActivitesTypesUpdate from './titres-activites-update'
 
-import '../../database/format'
 import * as titreActivitesTypesFilter from '../utils/titre-activites-filter'
 import * as titreActivitesQueries from '../queries/titre-activites'
 
@@ -8,12 +7,6 @@ import {
   titresSansActivite,
   titresToutesActivites
 } from './__mocks__/titres-activites-update-titres'
-
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../database/format', () => ({
-  titreFormat: e => e
-}))
 
 jest.mock('../utils/titre-activites-filter', () => ({
   default: () => [{}]

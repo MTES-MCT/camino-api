@@ -1,5 +1,4 @@
 import * as dateFormat from 'dateformat'
-import { titreActiviteFormat } from '../../database/format'
 
 import {
   titreActiviteGet,
@@ -69,11 +68,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
           : ''
       } ${activiteRes.annee}`
       const subject = `[Camino] ${emailTitle}`
-      const html = emailFormat(
-        emailTitle,
-        user,
-        titreActiviteFormat(activiteRes)
-      )
+      const html = emailFormat(emailTitle, user, activiteRes)
 
       await emailsSend(emails, subject, html)
     }

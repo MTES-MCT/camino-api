@@ -13,14 +13,15 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 
-const titreUpdate = async titreEtapeId => {
-  // ordre des étapes
-  // en fonction de leur date
+import titreEtapesIdUpdate from './processes/titre-etape-id-update'
 
+const titreUpdate = async titreEtapeId => {
   const titreEtape = await titreEtapeGet(titreEtapeId)
   const { titreDemarcheId } = titreEtape
+
+  // ordre des étapes
+  // en fonction de leur date
   let titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const { titreId } = titreDemarche
   const titreEtapesOrdre = await titresEtapesOrdreUpdate([titreDemarche])
 
   // statut de la démarche
@@ -35,6 +36,7 @@ const titreUpdate = async titreEtapeId => {
 
   // ordre des démarches
   // en fonction de la date de leur première étape
+  const { titreId } = titreDemarche
   let titre = await titreGet(titreId)
   const titreDemarchesOrdre = await titresDemarchesOrdreUpdate([titre])
 
@@ -60,6 +62,10 @@ const titreUpdate = async titreEtapeId => {
   titre = await titreGet(titreId)
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
+  // met à jour l'id des étapes
+  titreDemarche = await titreDemarcheGet(titreDemarcheId)
+  const titreEtapesId = await titreEtapesIdUpdate(titreEtapeId, titreDemarche)
+
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)
   console.log(titreDemarchesOrdre)
@@ -67,6 +73,7 @@ const titreUpdate = async titreEtapeId => {
   console.log(titresPhases)
   titresEtapesCommunes.forEach(log => console.log(log))
   console.log(titresPropsEtapeId)
+  console.log(titreEtapesId)
 
   console.log('Étape mise à jour')
 }

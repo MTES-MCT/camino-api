@@ -15,7 +15,7 @@ export default class Administrations extends Model {
       administrationTypeId: { type: 'string' },
       nom: { type: 'string' },
       service: { type: ['string', 'null'] },
-      site: { type: ['string', 'null'] },
+      url: { type: ['string', 'null'] },
       email: { type: ['string', 'null'] },
       telephone: { type: ['string', 'null'] },
       adresse1: { type: ['string', 'null'] },

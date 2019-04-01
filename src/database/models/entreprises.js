@@ -6,11 +6,11 @@ export default class Entreprises extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id'],
+    required: ['id', 'nom'],
 
     properties: {
       id: { type: 'string', maxLength: 64 },
-      nom: { type: ['string', 'null'] },
+      nom: { type: 'string' },
       paysId: { type: ['string', 'null'] },
       legalSiren: { type: ['string', 'null'] },
       legalEtranger: { type: ['string', 'null'] },
