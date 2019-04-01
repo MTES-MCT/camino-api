@@ -4,11 +4,11 @@ import { titreFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
 const titreGet = async id => {
-  const titre = await Titres.query()
+  const t = await Titres.query()
     .findById(id)
     .eager(options.titres.eager)
 
-  return titreFormat(titre)
+  return t && titreFormat(t)
 }
 
 const titresGet = async ({
@@ -188,14 +188,17 @@ const titresGet = async ({
   const titres = await q
 
   // console.log(sqlFormatter.format(q.toSql()))
-  return titres.map(t => titreFormat(t))
+  return titres.map(t => t && titreFormat(t))
 }
 
-const titrePropsUpdate = async ({ id, props }) =>
-  Titres.query()
+const titrePropsUpdate = async ({ id, props }) => {
+  const t = Titres.query()
     .skipUndefined()
     .findById(id)
     .patch(props)
+
+  return t && titreFormat(t)
+}
 
 const titreAdd = async titre =>
   Titres.query()
@@ -210,11 +213,14 @@ const titreRemove = async id =>
     .eager(options.titres.eager)
     .returning('*')
 
-const titreUpdate = async titre =>
-  Titres.query()
+const titreUpdate = async titre => {
+  const t = Titres.query()
     .upsertGraph([titre], options.titres.update)
     .eager(options.titres.eager)
     .first()
+
+  return t && titreFormat(t)
+}
 
 export {
   titreGet,
