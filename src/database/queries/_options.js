@@ -61,7 +61,10 @@ const etapes = {
       'amodiataires',
       'substances',
       'emprises',
-      'administrations'
+      'administrations',
+      'communes',
+      'engagementDevise',
+      'volumeUnite'
     ],
     unrelate: [
       'type',
@@ -70,9 +73,13 @@ const etapes = {
       'amodiataires',
       'substances',
       'emprises',
-      'administrations'
+      'administrations',
+      'communes',
+      'engagementDevise',
+      'volumeUnite'
     ],
-    noDelete: []
+    noDelete: [],
+    insertMissing: true
   }
 }
 

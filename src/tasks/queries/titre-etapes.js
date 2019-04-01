@@ -3,7 +3,8 @@ import {
   titreEtapeCommuneInsert as titreEtapeCommuneInsertQuery,
   titreEtapeCommuneDelete as titreEtapeCommuneDeleteQuery,
   titreEtapeAdministrationInsert as titreEtapeAdministrationInsertQuery,
-  titreEtapeAdministrationDelete as titreEtapeAdministrationDeleteQuery
+  titreEtapeAdministrationDelete as titreEtapeAdministrationDeleteQuery,
+  titreEtapesUpdateAll
 } from '../../database/queries/titres-etapes'
 
 import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
@@ -115,5 +116,6 @@ export {
   titreEtapeCommunesInsert,
   titreEtapeCommunesDelete,
   titreEtapeAdministrationsInsert,
-  titreEtapeAdministrationsDelete
+  titreEtapeAdministrationsDelete,
+  titreEtapesUpdateAll
 }

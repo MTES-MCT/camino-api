@@ -5,18 +5,18 @@ export default class TitresDocuments extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreEtapeId', 'nom', 'date'],
+    required: ['id', 'titreEtapeId', 'nom'],
 
     properties: {
       id: { type: 'string' },
       titreEtapeId: { type: 'string', maxLength: 128 },
       type: { type: 'string' },
       nom: { type: 'string' },
-      url: { type: 'string' },
-      uri: { type: 'string' },
-      fichier: { type: 'string' },
-      jorf: { type: 'string' },
-      nor: { type: 'string' }
+      url: { type: ['string', 'null'] },
+      uri: { type: ['string', 'null'] },
+      fichier: { type: ['string', 'null'] },
+      jorf: { type: ['string', 'null'] },
+      nor: { type: ['string', 'null'] }
     }
   }
 }

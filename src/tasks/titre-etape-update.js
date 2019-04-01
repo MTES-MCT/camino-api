@@ -15,8 +15,8 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 
 import titreEtapesIdUpdate from './processes/titre-etape-id-update'
 
-const titreUpdate = async titreEtapeId => {
-  const titreEtape = await titreEtapeGet(titreEtapeId)
+const titreEtapeUpdate = async titreEtapeId => {
+  let titreEtape = await titreEtapeGet(titreEtapeId)
   const { titreDemarcheId } = titreEtape
 
   // ordre des étapes
@@ -64,7 +64,13 @@ const titreUpdate = async titreEtapeId => {
 
   // met à jour l'id des étapes
   titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const titreEtapesId = await titreEtapesIdUpdate(titreEtapeId, titreDemarche)
+  titreEtape = await titreEtapeGet(titreEtapeId)
+  titre = await titreGet(titreId)
+  const titreEtapesId = await titreEtapesIdUpdate(
+    titreEtape,
+    titreDemarche,
+    titre
+  )
 
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)
@@ -78,4 +84,4 @@ const titreUpdate = async titreEtapeId => {
   console.log('Étape mise à jour')
 }
 
-export default titreUpdate
+export default titreEtapeUpdate
