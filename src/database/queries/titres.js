@@ -78,10 +78,11 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${substances
-          .map(() =>
-            fields
-              .map(() => `count(*) filter (where lower(??) like ?) > 0`)
-              .join(' or ')
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              fields.map(() => 'lower(??) like ?').join(' or ') +
+              ') > 0'
           )
           .join(') and (')})`,
         substances.reduce(
@@ -115,10 +116,11 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${entreprises
-          .map(() =>
-            fields
-              .map(() => `count(*) filter (where lower(??) like ?) > 0`)
-              .join(' or ')
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              fields.map(() => 'lower(??) like ?').join(' or ') +
+              ') > 0'
           )
           .join(') and (')})`,
         entreprises.reduce(
@@ -129,7 +131,9 @@ const titresGet = async ({
           []
         )
       )
-      .joinRelation('[titulaires.etablissements, amodiataires.etablissements]')
+      .leftJoinRelation(
+        '[titulaires.etablissements, amodiataires.etablissements]'
+      )
   }
 
   if (territoires) {
@@ -159,15 +163,14 @@ const titresGet = async ({
       .groupBy('titres.id')
       .havingRaw(
         `(${territoires
-          .map(() =>
-            [
-              ...fieldsLike.map(
-                () => `count(*) filter (where lower(??) like ?) > 0`
-              ),
-              ...fieldsExact.map(
-                () => `count(*) filter (where lower(??) = ?) > 0`
-              )
-            ].join(' or ')
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              [
+                ...fieldsLike.map(() => 'lower(??) like ?'),
+                ...fieldsExact.map(() => `lower(??) = ?`)
+              ].join(' or ') +
+              ') > 0'
           )
           .join(') and (')})`,
         territoires.reduce(
