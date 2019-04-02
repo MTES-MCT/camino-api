@@ -13,7 +13,7 @@ import { domainesGet, statutsGet } from '../../database/queries/metas'
 import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
-import titreEtapeUpdate from '../../tasks/titre-etape-update'
+import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
 
 const titreRestrictions = (titre, userHasAccess) => {
   if (!userHasAccess) {
@@ -251,7 +251,8 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 
   if (!errors.length) {
     const res = await titreEtapeUpsert(etape)
-    await titreEtapeUpdate(etape.id)
+
+    await titreEtapeUpdateTask(etape.id)
 
     return res
   } else {

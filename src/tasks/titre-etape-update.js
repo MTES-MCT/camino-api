@@ -60,17 +60,12 @@ const titreEtapeUpdate = async titreEtapeId => {
   // propriétés du titre
   // en fonction des démarches et de la date du jour
   titre = await titreGet(titreId)
-  const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
+  let titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
   // met à jour l'id des étapes
-  titreDemarche = await titreDemarcheGet(titreDemarcheId)
   titreEtape = await titreEtapeGet(titreEtapeId)
   titre = await titreGet(titreId)
-  const titreEtapesId = await titreEtapesIdUpdate(
-    titreEtape,
-    titreDemarche,
-    titre
-  )
+  const titreEtapesId = await titreEtapesIdUpdate(titreEtape, titre)
 
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)

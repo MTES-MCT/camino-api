@@ -60,14 +60,12 @@ const titreEtapesUpdateAll = async (titresEtapesIdsOld, titresEtapesNew) => {
   const knex = TitresEtapes.knex()
 
   return transaction(knex, async tr => {
-    await Promise.all(
-      titresEtapesIdsOld.map(titreEtapeId =>
-        titreEtapeDelete(titreEtapeId, knex)
-      )
-    )
-    return Promise.all(
-      titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, knex))
-    )
+    await Promise.all([
+      ...titresEtapesIdsOld.map(titreEtapeId =>
+        titreEtapeDelete(titreEtapeId, tr)
+      ),
+      ...titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, tr))
+    ])
   })
 }
 

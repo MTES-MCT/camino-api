@@ -78,7 +78,30 @@ const etapes = {
       'engagementDevise',
       'volumeUnite'
     ],
-    noDelete: [],
+    noInsert: [
+      'points.references.geoSysteme',
+      'titresSubstances',
+      'titresTitulaires',
+      'titresAmodiataires',
+      'titresAdministrations',
+      'titresEmprises'
+    ],
+    noUpdate: [
+      'points.references.geoSysteme',
+      'titresSubstances',
+      'titresTitulaires',
+      'titresAmodiataires',
+      'titresAdministrations',
+      'titresEmprises'
+    ],
+    noDelete: [
+      'points.references.geoSysteme',
+      'titresSubstances',
+      'titresTitulaires',
+      'titresAmodiataires',
+      'titresAdministrations',
+      'titresEmprises'
+    ],
     insertMissing: true
   }
 }

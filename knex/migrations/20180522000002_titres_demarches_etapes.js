@@ -72,47 +72,47 @@ exports.up = knex => {
       table
         .string('pointsTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('titulairesTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('amodiatairesTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('administrationsTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('surfaceTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('volumeTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('volumeUniteIdTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('substancesTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('communesTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('engagementTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
       table
         .string('engagementDeviseIdTitreEtapeId', 128)
         .references('titresEtapes.id')
-        .onDelete('CASCADE')
+        .onDelete('SET NULL')
     })
 }
 
