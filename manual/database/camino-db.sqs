@@ -1516,7 +1516,7 @@
             <y>575.00</y>
         </location>
         <size>
-            <width>300.00</width>
+            <width>333.00</width>
             <height>350.00</height>
         </size>
         <zorder>13</zorder>
@@ -1613,7 +1613,7 @@
             <uid><![CDATA[EC878B86-39FC-42C8-89DB-5AAC20F58973]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[volume_unite]]></name>
+            <name><![CDATA[volume_unite_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <referencesField>id</referencesField>
             <referencesTable>volume_unites</referencesTable>
@@ -1631,7 +1631,7 @@
             <uid><![CDATA[0A460023-9A9C-449D-AB97-8C3543F59578]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[engagement_devise]]></name>
+            <name><![CDATA[engagement_devise_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <referencesField>id</referencesField>
             <referencesTable>devises</referencesTable>
@@ -3651,9 +3651,9 @@
         <SQLEditorFileFormatVersion><![CDATA[4]]></SQLEditorFileFormatVersion>
         <uid><![CDATA[67709206-52A1-4046-83B9-A12E9C651AE4]]></uid>
         <windowHeight><![CDATA[1418.000000]]></windowHeight>
-        <windowLocationX><![CDATA[-0.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[-0.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{276, 0}]]></windowScrollOrigin>
+        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[0.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{565, 0}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
