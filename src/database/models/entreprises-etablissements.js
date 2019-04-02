@@ -16,4 +16,10 @@ export default class EntreprisesEtablissements extends Model {
       dateFin: { type: 'date' }
     }
   }
+
+  static namedFilters = {
+    orderDesc: builder => {
+      builder.orderBy('dateDebut', 'desc')
+    }
+  }
 }
