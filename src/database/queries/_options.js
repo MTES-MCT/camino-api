@@ -16,18 +16,18 @@ const administrations = {
   }
 }
 
+const entreprisesEtablissements = {
+  update: {
+    insertMissing: true
+  }
+}
+
 const entreprises = {
-  eager: `[utilisateurs.permission, etablissements]`,
+  eager: `[utilisateurs.permission, etablissements(orderDesc)]`,
   update: {
     insertMissing: true,
     relate: false,
     unrelate: false
-  }
-}
-
-const entreprisesEtablissements = {
-  update: {
-    insertMissing: true
   }
 }
 
