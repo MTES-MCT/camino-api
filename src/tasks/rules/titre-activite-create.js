@@ -11,6 +11,10 @@ const titreActiviteCreateFromPeriod = (
 
   const nextPeriodeStart = new Date(annee, (periodIndex + 1) * monthsCount, 1)
 
+  // si la date de début de la période suivante est dans le futur
+  // on ne crée pas l'activité
+  if (nextPeriodeStart > new Date()) return null
+
   // on ne vérifie les dates de validité que
   // si le statut du titre n'est pas "modification en instance"
   if (titreStatutId !== 'mod') {
