@@ -74,7 +74,7 @@ input InputPoint {
 input InputPointReference {
   id: ID!
 
-  geoSysteme: inputGeoSysteme
+  geoSystemeId: ID!
 
   coordonnees: InputCoordonnees
 }

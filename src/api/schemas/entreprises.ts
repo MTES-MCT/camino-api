@@ -27,10 +27,6 @@ type EntrepriseEtablissement {
   legalSiret: String
 }
 
-input InputEntrepriseId {
-  id: ID!
-}
-
 input InputEntreprise {
   id: ID!
   nom: String

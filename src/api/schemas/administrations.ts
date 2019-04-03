@@ -14,10 +14,6 @@ type Administration {
   utilisateurs: [Utilisateur]
 }
 
-input InputAdministrationId {
-  id: ID!
-}
-
 input InputAdministration {
   id: ID!
   nom: String

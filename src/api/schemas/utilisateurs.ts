@@ -30,8 +30,8 @@ input InputUtilisateur {
   telephoneMobile: String
   telephoneFixe: String
   permission: InputPermission
-  entreprise: [InputEntrepriseId]
-  administration: [InputAdministrationId]
+  entrepriseId: ID
+  administrationId: ID
   preferences: Json
 }
 
@@ -43,8 +43,8 @@ input InputUtilisateurAjouter {
   telephoneMobile: String
   telephoneFixe: String
   permission: InputPermission
-  entreprise: [InputEntrepriseId]
-  administration: [InputAdministrationId]
+  entrepriseId: ID
+  administrationId: ID
   preferences: Json
 }
 

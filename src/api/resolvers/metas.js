@@ -9,7 +9,8 @@ import {
   demarchesTypesGet,
   devisesGet,
   geoSystemesGet,
-  volumeUnitesGet
+  volumeUnitesGet,
+  emprisesGet
 } from '../../database/queries/metas'
 
 const check = (elements, restrictedList) =>
@@ -20,6 +21,7 @@ const metas = async (variables, context, info) => {
   const devises = await devisesGet()
   const geoSystemes = await geoSystemesGet()
   const volumeUnites = await volumeUnitesGet()
+  const emprises = await emprisesGet()
   let domaines = await domainesGet()
   let statuts = await statutsGet()
   let demarchesTypes
@@ -40,7 +42,8 @@ const metas = async (variables, context, info) => {
     demarchesTypes,
     devises,
     geoSystemes,
-    volumeUnites
+    volumeUnites,
+    emprises
   }
 }
 
