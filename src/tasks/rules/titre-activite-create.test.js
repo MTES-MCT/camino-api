@@ -20,9 +20,22 @@ jest.mock('../utils/titre-validite-periode-check', () => ({
 }))
 
 describe("construit une activité à partir d'une période", () => {
+  test("une activité n'est pas créée si la fin de la période est dans le futur", () => {
+    expect(
+      titreActiviteCreate(titreVide, activiteTypeGrp, 3000, 1, 3)
+    ).toBeNull()
+    expect(titreValiditePeriodeCheck.default).not.toHaveBeenCalled()
+  })
+
   test("une activité n'est pas créée si le titre n'est pas valide pour la période", () => {
     expect(
-      titreActiviteCreate(titreAvecActivite201801, activiteTypeXxx.id, 2018, 0)
+      titreActiviteCreate(
+        titreAvecActivite201801,
+        activiteTypeXxx.id,
+        2018,
+        0,
+        3
+      )
     ).not.toBeNull()
     expect(titreValiditePeriodeCheck.default).toHaveBeenCalledTimes(1)
   })
@@ -32,7 +45,9 @@ describe("construit une activité à partir d'une période", () => {
       .spyOn(titreValiditePeriodeCheck, 'default')
       .mockImplementation(() => false)
 
-    expect(titreActiviteCreate(titreVide, activiteTypeGrp, 2018, 3)).toBeNull()
+    expect(
+      titreActiviteCreate(titreVide, activiteTypeGrp, 2018, 3, 3)
+    ).toBeNull()
     expect(titreValiditePeriodeCheck.default).toHaveBeenCalledTimes(1)
   })
 
@@ -42,7 +57,13 @@ describe("construit une activité à partir d'une période", () => {
       .mockImplementation(() => false)
 
     expect(
-      titreActiviteCreate(titreModificationEnInstance, activiteTypeGrp, 2018, 3)
+      titreActiviteCreate(
+        titreModificationEnInstance,
+        activiteTypeGrp,
+        2018,
+        3,
+        3
+      )
     ).not.toBeNull()
     expect(titreValiditePeriodeCheck.default).not.toHaveBeenCalled()
   })
