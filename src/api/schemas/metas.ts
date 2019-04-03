@@ -187,15 +187,6 @@ type Emprise {
   nom: String!
 }
 
-"L'emprise géographique d'un titre minier"
-input InputEmpriseId {
-  "L'id composée de trois lettres"
-  id: EmpriseId!
-
-  "Le nom en français"
-  nom: String
-}
-
 """
 L'id du type de titre minier
 
@@ -362,35 +353,4 @@ input InputType {
 input InputDomaine {
   id: DomaineId!
 }
-
-"Le type de démarche d'un titre minier"
-input InputDemarcheTypeId {
-  id: ID!
-}
-
-"Unité de volume"
-input inputVolumeUnite {
-  id: ID!
-
-  nom: String!
-}
-
-"Devise"
-input inputDevise {
-  id: ID!
-
-  nom: String!
-}
-
-"Système géodésique"
-input inputGeoSysteme {
-  id: ID!
-
-  nom: String!
-
-  zone: String
-  
-  unite: String
-}
-
 `
