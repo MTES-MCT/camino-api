@@ -33,6 +33,7 @@ const titreActiviteTypeUpdate = (titre, activiteType, annees) => {
           periodIndex,
           monthsCount
         )
+
         return titreActivite
           ? [
               ...acc,
