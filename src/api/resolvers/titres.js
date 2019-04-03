@@ -265,8 +265,6 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       delete etape[propsIds]
     })
 
-    console.log(etape)
-
     const res = await titreEtapeUpsert(etape)
     await titreEtapeUpdate(etape.id)
 
