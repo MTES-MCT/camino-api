@@ -278,25 +278,25 @@ input InputEtape {
 
   volume: Float
 
-  volumeUnite: inputVolumeUnite
+  volumeUniteId: ID
 
   visas: [String]
 
   engagement: Float
 
-  engagementDevise: inputDevise
+  engagementDeviseId: ID
 
-  emprises: [InputEmpriseId]
+  emprisesIds: [ID!]
 
-  substances: [InputSubstanceId]
+  substancesIds: [ID!]
 
   points: [InputPoint]
 
-  titulaires: [InputEntrepriseId]
+  titulairesIds: [ID!]
 
-  amodiataires: [InputEntrepriseId]
+  amodiatairesIds: [ID!]
 
-  administrations: [InputAdministrationId]
+  administrationsIds: [ID!]
 
   sourceIndisponible: Boolean
 }

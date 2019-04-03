@@ -27,4 +27,4 @@ Certaines requêtes nécessitent le passage de variables. Par exemple, pour obte
 
 ### Requêtes nécessitant une authentification
 
-Certaines requêtes sont protégées et nécessitent une authentification par token (jwt). Pour les tester, il faut passer le token dans le header http de la requête. Cela n'est pas possible avec l'interface _GraphiQL_. C'est possible avec [GraphQL Playground](https://github.com/prisma/graphql-playground), [GraphiQL App](https://github.com/skevy/graphiql-app) ou une applications pour faire des requêtes http ([exemple](https://github.com/MTES-MCT/camino-api/blob/master/manual/api/test.http)).
+Certaines requêtes sont protégées et nécessitent une authentification par token (jwt). Pour les tester, il faut passer le token dans le header http de la requête. Cela n'est pas possible avec l'interface _GraphiQL_. C'est possible avec [GraphQL Playground](https://github.com/prisma/graphql-playground), [GraphiQL App](https://github.com/skevy/graphiql-app) ou une application pour faire des requêtes http ([exemple](https://github.com/MTES-MCT/camino-api/blob/master/manual/api/test.http)).

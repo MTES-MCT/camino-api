@@ -32,8 +32,4 @@ type SubstanceLegaleCode {
   nom: String!
   description: String
   lien: String!
-}
-
-input InputSubstanceId {
-  id: ID!
 }`

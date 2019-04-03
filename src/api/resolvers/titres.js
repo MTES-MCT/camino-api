@@ -250,6 +250,23 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   })
 
   if (!errors.length) {
+    const joinTables = [
+      'titulaires',
+      'amodiataires',
+      'administrations',
+      'substances',
+      'emprises'
+    ]
+
+    joinTables.forEach(props => {
+      const propsIds = `${props}Ids`
+      if (etape[propsIds]) {
+        etape[props] = etape[propsIds].map(id => ({ id }))
+
+        delete etape[propsIds]
+      }
+    })
+
     const res = await titreEtapeUpsert(etape)
     await titreEtapeUpdate(etape.id)
 
