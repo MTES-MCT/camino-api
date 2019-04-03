@@ -20,6 +20,9 @@ type Metas {
 
   "Unités de volume utilisées dans Camino"
   volumeUnites: [VolumeUnite]
+
+  "Les emprises territoriales"
+  emprises: [Emprise]
 }
 
 "Le type de titre minier"

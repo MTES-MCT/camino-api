@@ -260,9 +260,11 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 
     joinTables.forEach(props => {
       const propsIds = `${props}Ids`
-      etape[props] = etape[propsIds] ? etape[propsIds].map(id => ({ id })) : []
+      if (etape[propsIds]) {
+        etape[props] = etape[propsIds].map(id => ({ id }))
 
-      delete etape[propsIds]
+        delete etape[propsIds]
+      }
     })
 
     const res = await titreEtapeUpsert(etape)
