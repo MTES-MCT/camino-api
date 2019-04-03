@@ -26,9 +26,29 @@ import { titreEtapesUpdateAll } from '../queries/titre-etapes'
 //   'emprises'
 // ]
 
-const titreEtapesProps = [['points', 'references'], 'documents']
+const titreEtapesProps = [
+  {
+    name: 'points',
+    elementIdProp: 'titreEtapeId',
+    children: [
+      {
+        name: 'references',
+        elementIdProp: 'titrePointId'
+      }
+    ]
+  },
+  {
+    name: 'documents',
+    elementIdProp: 'titreEtapeId'
+  }
+]
 
-const titreCalculatedPropsUpdate = (titre, titreEtapeIdNew, titreEtapeIdOld) =>
+const titreCalculatedPropsUpdate = (
+  titre,
+  titreEtapeIdNew,
+  titreEtapeIdOld,
+  titreCalculatedProps
+) =>
   titreCalculatedProps.reduce((acc, prop) => {
     const titreProp = titre[`${prop}TitreEtapeId`]
 
@@ -37,85 +57,57 @@ const titreCalculatedPropsUpdate = (titre, titreEtapeIdNew, titreEtapeIdOld) =>
       : acc
   }, {})
 
-const titreEtapePropUpdate = (
+const elementChildrenPropUpdate = (
   elements,
   titreEtapeIdNew,
   titreEtapeIdOld,
-  prop,
   elementIdProp
 ) => {
-  if (!Array.isArray(elements)) {
-    elements = [elements]
-  }
-
   elements.forEach(element => {
-    const elementIdMatch = element.id && element.id.match(titreEtapeIdOld)
-    const elementTitreEtapeIdOldMatch =
-      element[elementIdProp] && element[elementIdProp].match(titreEtapeIdOld)
-
-    if (!elementIdMatch || !elementTitreEtapeIdOldMatch) {
-      return
+    if (element.id && element.id.match(titreEtapeIdOld)) {
+      element.id = element.id.replace(titreEtapeIdOld, titreEtapeIdNew)
     }
 
-    if (elementIdMatch) {
-      const elementIdOld = element.id
-      const elementIdNew = elementIdOld.replace(
-        titreEtapeIdOld,
-        titreEtapeIdNew
-      )
-
-      element.id = elementIdNew
-    }
-
-    if (elementTitreEtapeIdOldMatch) {
+    if (
+      element[elementIdProp] &&
+      element[elementIdProp].match(titreEtapeIdOld)
+    ) {
       element[elementIdProp] = titreEtapeIdNew
     }
   })
 }
 
-const titreEtapePropsUpdate = (
+const elementChildrenPropsUpdate = (
   titreEtapeNew,
   titreEtapeIdNew,
   titreEtapeIdOld,
-  titreEtapesProps,
-  titreEtapeIdProp
+  titreEtapesProps
 ) => {
   titreEtapesProps.forEach(prop => {
-    if (Array.isArray(prop)) {
-      const elements = titreEtapeNew[prop[0]]
+    const elements = titreEtapeNew[prop.name]
+    if (!elements) return
 
-      titreEtapePropUpdate(
-        elements,
-        titreEtapeIdNew,
-        titreEtapeIdOld,
-        prop[0],
-        titreEtapeIdProp
-      )
-
+    if (prop.children) {
       elements.forEach(element => {
-        titreEtapePropsUpdate(
+        elementChildrenPropsUpdate(
           element,
           titreEtapeIdNew,
           titreEtapeIdOld,
-          prop.slice(1),
-          'titrePointId'
+          prop.children
         )
       })
-
-      return
     }
 
-    titreEtapePropUpdate(
-      titreEtapeNew[prop],
+    elementChildrenPropUpdate(
+      elements,
       titreEtapeIdNew,
       titreEtapeIdOld,
-      prop,
-      titreEtapeIdProp
+      prop.elementIdProp
     )
   })
 }
 
-const titreEtapeCopy = (titreEtapeOld, titre, i) => {
+const titreEtapeIdUpdate = (titreEtapeOld, titre, i) => {
   const { id: titreEtapeIdOld } = titreEtapeOld
 
   const titreEtapeTypeId = titreEtapeIdOld.slice(-5, -2)
@@ -132,10 +124,11 @@ const titreEtapeCopy = (titreEtapeOld, titre, i) => {
     return {}
   }
 
-  // fait une copie de l'étape
+  // utilise la référence à l'étape liée à la référence du titre
+  // pour la mise à jour
   const titreEtapeNew = titreEtapeOld
 
-  // suppression des propriétés de points
+  // supprime des propriétés de points
   delete titreEtapeNew.geojsonMultiPolygon
   delete titreEtapeNew.geojsonPoints
 
@@ -150,20 +143,42 @@ const titreEtapeCopy = (titreEtapeOld, titre, i) => {
   const titreProps = titreCalculatedPropsUpdate(
     titre,
     titreEtapeIdNew,
-    titreEtapeIdOld
+    titreEtapeIdOld,
+    titreCalculatedProps
   )
 
   // - change l'id des tables liées (id de la ligne si basé sur l'id de l'étape)
-  titreEtapePropsUpdate(
+  elementChildrenPropsUpdate(
     titreEtapeNew,
     titreEtapeIdNew,
     titreEtapeIdOld,
-    titreEtapesProps,
-    'titreEtapeId'
+    titreEtapesProps
   )
 
   return { titreProps, titreEtapeNew }
 }
+
+const titreEtapesTypeIdUpdate = (titreEtapes, titre) =>
+  titreEtapes.reduce(
+    (acc, titreEtapeOld, i) => {
+      const { id: titreEtapeOldId } = titreEtapeOld
+
+      const { titreEtapeNew, titreProps } = titreEtapeIdUpdate(
+        titreEtapeOld,
+        titre,
+        i
+      )
+
+      return titreEtapeNew
+        ? {
+            titreEtapesIdsOld: [...acc.titreEtapesIdsOld, titreEtapeOldId],
+            titreEtapesNew: [...acc.titreEtapesNew, titreEtapeNew],
+            titreProps: { ...acc.titreProps, ...titreProps }
+          }
+        : acc
+    },
+    { titreEtapesIdsOld: [], titreEtapesNew: [], titreProps: {} }
+  )
 
 const titreEtapesIdUpdate = async (titreEtape, titre) => {
   const { id: titreEtapeIdOld, titreDemarcheId } = titreEtape
@@ -191,26 +206,7 @@ const titreEtapesIdUpdate = async (titreEtape, titre) => {
         titreEtapesIdsOld,
         titreEtapesNew,
         titreProps
-      } = titreEtapes.reduce(
-        (acc, titreEtapeOld, i) => {
-          const { id: titreEtapeOldId } = titreEtapeOld
-
-          const { titreEtapeNew, titreProps } = titreEtapeCopy(
-            titreEtapeOld,
-            titre,
-            i
-          )
-
-          return titreEtapeNew
-            ? {
-                titreEtapesIdsOld: [...acc.titreEtapesIdsOld, titreEtapeOldId],
-                titreEtapesNew: [...acc.titreEtapesNew, titreEtapeNew],
-                titreProps: { ...acc.titreProps, ...titreProps }
-              }
-            : acc
-        },
-        { titreEtapesIdsOld: [], titreEtapesNew: [], titreProps: {} }
-      )
+      } = titreEtapesTypeIdUpdate(titreEtapes, titre)
 
       return {
         titreEtapesIdsOld: [...acc.titreEtapesIdsOld, ...titreEtapesIdsOld],
@@ -222,9 +218,6 @@ const titreEtapesIdUpdate = async (titreEtape, titre) => {
   )
 
   if (titreEtapesNew.length) {
-    console.log('updateall')
-    console.log(JSON.stringify(titreEtapesNew))
-
     await titreEtapesUpdateAll(titreEtapesIdsOld, titreEtapesNew)
   }
 
