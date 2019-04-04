@@ -147,7 +147,7 @@ const tables = [
   {
     id: 9,
     name: 'titresTitulaires',
-    columns: ['titreEtapeId', 'entrepriseId'],
+    columns: ['titreEtapeId', 'entrepriseId', 'operateur'],
     parents: ['demarches', 'etapes', 'titresTitulaires']
   },
   {
@@ -159,7 +159,7 @@ const tables = [
   {
     id: 11,
     name: 'titresAdministrations',
-    columns: ['titreEtapeId', 'administrationId'],
+    columns: ['titreEtapeId', 'administrationId', 'coordinateur'],
     parents: ['demarches', 'etapes', 'titresAdministrations']
   },
   {

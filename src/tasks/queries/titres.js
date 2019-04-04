@@ -1,4 +1,4 @@
-import { titrePropsUpdate as queryTitrePropsUpdate } from '../../database/queries/titres'
+import { titrePropsUpdate as titrePropsUpdateQuery } from '../../database/queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
 const calculatedProps = [
@@ -17,7 +17,7 @@ const calculatedProps = [
 
 const titreStatutIdUpdate = (titre, statutId) =>
   statutId !== titre.statutId &&
-  queryTitrePropsUpdate({
+  titrePropsUpdateQuery({
     id: titre.id,
     props: { statutId }
   }).then(u => `Mise à jour: titre ${titre.id}, statutId ${statutId}`)
@@ -28,7 +28,7 @@ const titrePropsUpdate = (titre, prop) => {
 
   return (
     etapeId !== titre[propEtapeIdName] &&
-    queryTitrePropsUpdate({
+    titrePropsUpdateQuery({
       id: titre.id,
       props: { [propEtapeIdName]: etapeId }
     }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${etapeId}`)
