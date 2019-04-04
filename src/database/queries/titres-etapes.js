@@ -56,7 +56,7 @@ const titreEtapeAdministrationDelete = async ({
   administrationId
 }) => TitresAdministrations.query({ titreEtapeId, administrationId }).delete()
 
-const titreEtapesUpdateAll = async (titresEtapesIdsOld, titresEtapesNew) => {
+const titreEtapesIdsUpdate = async (titresEtapesIdsOld, titresEtapesNew) => {
   const knex = TitresEtapes.knex()
 
   return transaction(knex, async tr => {
@@ -79,5 +79,5 @@ export {
   titresEtapesCommunesGet,
   titreEtapeAdministrationInsert,
   titreEtapeAdministrationDelete,
-  titreEtapesUpdateAll
+  titreEtapesIdsUpdate
 }

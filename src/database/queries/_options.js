@@ -64,7 +64,8 @@ const etapes = {
       'administrations',
       'communes',
       'engagementDevise',
-      'volumeUnite'
+      'volumeUnite',
+      'points.references.geoSysteme'
     ],
     unrelate: [
       'type',
@@ -76,10 +77,10 @@ const etapes = {
       'administrations',
       'communes',
       'engagementDevise',
-      'volumeUnite'
+      'volumeUnite',
+      'points.references.geoSysteme'
     ],
     noInsert: [
-      'points.references.geoSysteme',
       'titresSubstances',
       'titresTitulaires',
       'titresAmodiataires',
@@ -87,7 +88,6 @@ const etapes = {
       'titresEmprises'
     ],
     noUpdate: [
-      'points.references.geoSysteme',
       'titresSubstances',
       'titresTitulaires',
       'titresAmodiataires',
@@ -95,7 +95,6 @@ const etapes = {
       'titresEmprises'
     ],
     noDelete: [
-      'points.references.geoSysteme',
       'titresSubstances',
       'titresTitulaires',
       'titresAmodiataires',
