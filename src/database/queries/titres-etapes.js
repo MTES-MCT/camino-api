@@ -1,3 +1,4 @@
+import { transaction } from 'objection'
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
 import TitresAdministrations from '../models/titres-administrations'
@@ -27,13 +28,13 @@ const titreEtapeUpdate = async ({ id, props }) =>
     .findById(id)
     .patch(props)
 
-const titreEtapeDelete = async id =>
-  TitresEtapes.query()
+const titreEtapeDelete = async (id, trx) =>
+  TitresEtapes.query(trx)
     .deleteById(id)
     .eager(options.etapes.eager)
 
-const titreEtapeUpsert = async etape =>
-  TitresEtapes.query()
+const titreEtapeUpsert = async (etape, trx) =>
+  TitresEtapes.query(trx)
     .upsertGraph(etape, options.etapes.update)
     .eager(options.etapes.eager)
 
@@ -55,15 +56,28 @@ const titreEtapeAdministrationDelete = async ({
   administrationId
 }) => TitresAdministrations.query({ titreEtapeId, administrationId }).delete()
 
+const titreEtapesIdsUpdate = async (titresEtapesIdsOld, titresEtapesNew) => {
+  const knex = TitresEtapes.knex()
+
+  return transaction(knex, async tr => {
+    await Promise.all([
+      ...titresEtapesIdsOld.map(titreEtapeId =>
+        titreEtapeDelete(titreEtapeId, tr)
+      ),
+      ...titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, tr))
+    ])
+  })
+}
+
 export {
   titreEtapeGet,
   titresEtapesGet,
-  titreEtapeDelete,
   titreEtapeUpdate,
   titreEtapeUpsert,
   titreEtapeCommuneInsert,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
   titreEtapeAdministrationInsert,
-  titreEtapeAdministrationDelete
+  titreEtapeAdministrationDelete,
+  titreEtapesIdsUpdate
 }

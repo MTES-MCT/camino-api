@@ -11,8 +11,8 @@ export default class TitresSubstances extends Model {
     properties: {
       substanceId: { type: 'string', maxLength: 4 },
       titreEtapeId: { type: 'string', maxLength: 128 },
-      connexe: { type: 'boolean' },
-      ordre: { type: 'integer' }
+      connexe: { type: ['boolean', 'null'] },
+      ordre: { type: ['integer', 'null'] }
     }
   }
 
