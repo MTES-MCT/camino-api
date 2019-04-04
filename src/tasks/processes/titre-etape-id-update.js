@@ -1,5 +1,7 @@
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
-import { titrePropsUpdate, calculatedProps } from '../queries/titres'
+import titreEtapesByTypeUpdate from '../utils/titre-etapes-by-type-update'
+import { titrePropsUpdate } from '../queries/titres'
+import { titreEtapesIdsUpdate } from '../queries/titre-etapes'
 
 // si le type d'une étape change
 // ou si l'ordre est 00 (ajout d'une nouvelle étape)
@@ -10,53 +12,78 @@ import { titrePropsUpdate, calculatedProps } from '../queries/titres'
 // - met à jour le titreEtapeId des props
 
 // const props = [
-//   'substances',
+// DOCUMENTS
 //   ['points', 'pointsReferences'],
+//   'documents',
+// JOINTURES
+//   'substances',
 //   'titulaires',
 //   'amodiataires',
 //   'administrations',
-//   'documents',
 //   'communes',
 //   'emprises'
 // ]
 
-const titreEtapesIdUpdate = async (titreEtapeId, titreDemarche) => {
-  const titreEtape = titreDemarche.etapes.find(te => te.id === titreEtapeId)
+const titreEtapesIdUpdate = async (titreEtape, titre) => {
+  const { id: titreEtapeOldId, titreDemarcheId } = titreEtape
 
-  // les étapes de même type dans l'ordre asc
-  const titreEtapes = titreEtapesAscSort(
-    titreDemarche.etapes.filter(te => te.type.id === titreEtape.type.id)
+  const titreDemarche = titre.demarches.find(t => t.id === titreDemarcheId)
+
+  const titreEtapeTypeOldId = titreEtapeOldId.slice(-5, -2)
+  const titreEtapeTypeNewId = titreEtape.typeId
+
+  if (titreEtapeTypeOldId === titreEtapeTypeNewId) {
+    return [
+      `Mise à jour: 0 id d'étapes.`,
+      `Mise à jour: 0 propriétés de titres.`
+    ]
+  }
+
+  // les étapes de l'ancien type de l'étape dans l'ordre asc
+  const titreEtapesByTypeOld = titreEtapesAscSort(
+    titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeOldId)
   )
 
-  const titreEtapesUpdateRequests = titreEtapes.reduce((acc, te, i) => {
-    const titreEtapeTypeId = titreEtapeId.slice(-5, -2)
-    const titreEtapeOrder = parseInt(titreEtapeId.slice(-2))
-    console.log(titreEtapeTypeId, titreEtapeOrder, te.typeId)
+  // les étapes du nouveau type que l'étape dans l'ordre asc
+  const titreEtapesByTypeNew = titreEtapesAscSort(
+    titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeNewId)
+  )
 
-    if (
-      // si le type d'une étape n'a pas changé
-      titreEtapeTypeId === te.typeId &&
-      // et si l'ordre n'a pas changé
-      titreEtapeOrder === i + 1
-    ) {
-      return acc
-    }
+  const { titreEtapesOldIds, titreEtapesNew, titreProps } = [
+    titreEtapesByTypeOld,
+    titreEtapesByTypeNew
+  ].reduce(
+    (acc, titreEtapes) => {
+      if (!titreEtapes.length) return acc
 
-    // fait une copie de l'étape
-    // - change l'id de la nouvelle étape
-    // - change l'id des tables liées (colonnes id et titreEtapeId)
-    // - const props = propriété du titre qui pointent vers l'ancienne étape
-    // - ajoute la nouvelle étape dans la base
+      const {
+        titreEtapesOldIds,
+        titreEtapesNew,
+        titreProps
+      } = titreEtapesByTypeUpdate(titreEtapes, titre)
 
-    // si props.length:
-    // - change le titreEtapeId des props
+      return {
+        titreEtapesOldIds: [...acc.titreEtapesOldIds, ...titreEtapesOldIds],
+        titreEtapesNew: [...acc.titreEtapesNew, ...titreEtapesNew],
+        titreProps: { ...acc.titreProps, ...titreProps }
+      }
+    },
+    { titreEtapesOldIds: [], titreEtapesNew: [], titreProps: {} }
+  )
 
-    // - supprime l'ancienne étape dans la base
+  if (titreEtapesNew.length) {
+    await titreEtapesIdsUpdate(titreEtapesOldIds, titreEtapesNew)
+  }
 
-    return acc
-  }, [])
+  const titrePropsKeys = Object.keys(titreProps)
+  if (titrePropsKeys.length > 0) {
+    await Promise.all(titrePropsKeys.map(prop => titrePropsUpdate(titre, prop)))
+  }
 
-  return `Mise à jour: ${titreEtapesUpdateRequests.length} id d'étapes.`
+  return [
+    `Mise à jour: ${titreEtapesNew.length} id d'étapes.`,
+    `Mise à jour: ${titrePropsKeys.length} propriétés de titres.`
+  ]
 }
 
 export default titreEtapesIdUpdate

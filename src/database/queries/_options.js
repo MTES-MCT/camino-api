@@ -61,7 +61,11 @@ const etapes = {
       'amodiataires',
       'substances',
       'emprises',
-      'administrations'
+      'administrations',
+      'communes',
+      'engagementDevise',
+      'volumeUnite',
+      'points.references.geoSysteme'
     ],
     unrelate: [
       'type',
@@ -70,9 +74,34 @@ const etapes = {
       'amodiataires',
       'substances',
       'emprises',
-      'administrations'
+      'administrations',
+      'communes',
+      'engagementDevise',
+      'volumeUnite',
+      'points.references.geoSysteme'
     ],
-    noDelete: []
+    noInsert: [
+      'titresSubstances',
+      'titresTitulaires',
+      'titresAmodiataires',
+      'titresAdministrations',
+      'titresEmprises'
+    ],
+    noUpdate: [
+      'titresSubstances',
+      'titresTitulaires',
+      'titresAmodiataires',
+      'titresAdministrations',
+      'titresEmprises'
+    ],
+    noDelete: [
+      'titresSubstances',
+      'titresTitulaires',
+      'titresAmodiataires',
+      'titresAdministrations',
+      'titresEmprises'
+    ],
+    insertMissing: true
   }
 }
 

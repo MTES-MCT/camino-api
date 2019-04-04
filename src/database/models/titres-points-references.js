@@ -6,7 +6,7 @@ export default class TitresPointsReferences extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['titrePointId', 'id', 'systeme', 'coordonnees'],
+    required: ['titrePointId', 'id', 'geoSystemeId', 'coordonnees'],
 
     properties: {
       id: { type: 'string' },
@@ -31,5 +31,14 @@ export default class TitresPointsReferences extends Model {
         to: 'geoSystemes.id'
       }
     }
+  }
+
+  $formatDatabaseJson(json) {
+    if (json.coordonnees) {
+      const t = `${json.coordonnees.x},${json.coordonnees.y}`
+      json.coordonnees = t
+    }
+    json = super.$formatDatabaseJson(json)
+    return json
   }
 }
