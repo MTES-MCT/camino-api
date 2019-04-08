@@ -44,7 +44,7 @@ const titre = async ({ id }, context, info) => {
   ]
 
   const userHasAccessTest = async (user, titreEntrepriseIds) =>
-    permissionsCheck(user, ['admin', 'super']) ||
+    permissionsCheck(user, ['admin', 'super', 'editeur']) ||
     userEntreprisePermissionsGet(user.id, titreEntrepriseIds)
 
   const userHasAccess =
@@ -83,7 +83,8 @@ const titres = async (
   // cf: https://github.com/graphql/graphql-js/issues/799
 
   const userIsAdmin =
-    context.user && permissionsCheck(context.user, ['admin', 'super'])
+    context.user &&
+    permissionsCheck(context.user, ['admin', 'super', 'editeur'])
 
   const domaineIdsRestrict = async domaineIds => {
     if (!domaineIds) {
