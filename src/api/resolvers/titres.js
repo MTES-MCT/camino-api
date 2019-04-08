@@ -15,6 +15,8 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
 import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
 
+import titreEtapeUpdateValidation from '../../tasks/titre-etape-validation'
+
 const titreRestrictions = (titre, userHasAccess) => {
   if (!userHasAccess) {
     titre.activites = []
@@ -248,6 +250,12 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     if (!etape[p]) {
       errors.push(`le champ ${p} est requis`)
     }
+  })
+
+  const rulesErrors = await titreEtapeUpdateValidation(etape)
+
+  rulesErrors.forEach(error => {
+    errors.push(error)
   })
 
   if (!errors.length) {
