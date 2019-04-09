@@ -24,7 +24,7 @@ import rootValue from './api/resolvers'
 
 const app = express()
 
-if (process.env.SENTRY_DSN) {
+if (process.env.SENTRY_DSN && false) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN
     // integrations: [
