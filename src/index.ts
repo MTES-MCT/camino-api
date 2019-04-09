@@ -79,9 +79,9 @@ app.use(
   }))
 )
 
-if (process.env.SENTRY_DSN) {
-  app.use(Sentry.Handlers.errorHandler())
-}
+// if (process.env.SENTRY_DSN) {
+//   app.use(Sentry.Handlers.errorHandler())
+// }
 
 app.listen(port, () => {
   console.log(' ')
