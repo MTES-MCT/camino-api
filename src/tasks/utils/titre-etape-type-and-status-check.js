@@ -1,33 +1,29 @@
 // valide le type et le statut de l'étape en fonction du type de titre
 // et du type de démarche
 
-const titreEtapeTypeAndStatusCheck = (
-  titreEtape,
-  titre,
-  titreDemarcheEtapesTypes
-) => {
-  const { typeId: titreEtapeTypeId } = titreEtape
-  const titreDemarcheEtapeTypes = titreDemarcheEtapesTypes.filter(
-    td => td.id === titreEtapeTypeId
-  )
-  if (!titreDemarcheEtapeTypes.length) {
-    return "type d'étape invalide pour la démarche"
-  }
+const titreEtapeTypeAndStatusCheck = (titreEtape, titreDemarche) => {
+  const {
+    etapesTypes: titreDemarcheEtapesTypes,
+    nom: titreDemarcheTypeNom
+  } = titreDemarche.type
 
-  const { typeId: titreTypeId } = titre
-  const titreEtapeType = titreDemarcheEtapeTypes.find(
-    et => et.typeId === titreTypeId
+  const { typeId: titreEtapeTypeId } = titreEtape
+
+  const titreDemarcheEtapeType = titreDemarcheEtapesTypes.find(
+    etapeType => etapeType.id === titreEtapeTypeId
   )
-  if (!titreEtapeType) {
-    return "type d'étape invalide pour le type de titre"
+  if (!titreDemarcheEtapeType) {
+    return `type d'étape "${titreEtapeTypeId}" invalide pour une démarche de type ${titreDemarcheTypeNom}`
   }
 
   const { statutId: titreEtapeStatutId } = titreEtape
-  const titreEtapeStatut = titreEtapeType.etapesStatuts.find(
-    td => td.id === titreEtapeStatutId
+  const titreEtapeStatut = titreDemarcheEtapeType.etapesStatuts.find(
+    etapeStatut => etapeStatut.id === titreEtapeStatutId
   )
   if (!titreEtapeStatut) {
-    return "statut de l'étape invalide pour le type d'étape"
+    return `statut de l'étape "${titreEtapeStatutId}" invalide pour une type d'étape de type ${
+      titreDemarcheEtapeType.nom
+    }`
   }
 
   return null

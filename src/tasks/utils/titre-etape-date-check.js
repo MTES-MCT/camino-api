@@ -3,52 +3,74 @@ import titreEtapesAscSort from './titre-etapes-asc-sort'
 // valide le type et le statut de l'étape en fonction du type de titre
 // et du type de démarche
 
-const titreEtapeTypeAndStatusCheck = (
-  titreEtape,
-  titreDemarche,
-  titre,
-  titreDemarcheEtapesTypes
-) => {
-  const { typeId: titreTypeId } = titre
-  const titreEtapeTypes = titreDemarcheEtapesTypes.filter(
-    et => et.typeId === titreTypeId
-  )
+const titreEtapeDateCheck = (titreEtape, titreDemarche) => {
+  const {
+    etapesTypes: titreDemarcheEtapesTypes,
+    nom: titreDemarcheTypeNom
+  } = titreDemarche.type
 
   const titreEtapes = titreEtapesAscSort(titreDemarche.etapes)
 
-  const titreEtapeType = titreEtapeTypes.find(et => et.id === titreEtape.typeId)
+  const { typeId: titreEtapeTypeId } = titreEtape
 
-  const { id: titreEtapeId, date } = titreEtape
-  const titreEtapeDate = new Date(date)
-  const { ordre: titreEtapeTypeOrdre } = titreEtapeType
+  const titreDemarcheEtapeType = titreDemarcheEtapesTypes.find(
+    etapeType => etapeType.id === titreEtapeTypeId
+  )
+  if (!titreDemarcheEtapeType) {
+    return `type d'étape "${titreEtapeTypeId}" invalide pour une démarche de type ${titreDemarcheTypeNom}`
+  }
 
-  let invalidDate
+  let { id: titreEtapeId, date: titreEtapeDate } = titreEtape
+  titreEtapeDate = new Date(titreEtapeDate)
+
+  const {
+    ordre: titreEtapeTypeOrdre,
+    nom: titreEtapeTypeNom
+  } = titreDemarcheEtapeType
+
+  let errorInvalidDate = null
 
   titreEtapes.some(titreEtapeCurrent => {
     if (titreEtapeCurrent.id === titreEtapeId) return false
 
-    const titreEtapeTypeCurrent = titreEtapeTypes.find(
-      td => td.id === titreEtapeCurrent.typeId
+    const {
+      typeId: titreEtapeCurrentTypeId,
+      date: titreEtapeCurrentDate
+    } = titreEtapeCurrent
+
+    const titreEtapeTypeCurrent = titreDemarcheEtapesTypes.find(
+      etapeType => etapeType.id === titreEtapeCurrentTypeId
     )
+    if (!titreEtapeTypeCurrent) {
+      console.warn(
+        `type d'étape "${titreEtapeCurrentTypeId}" invalide pour une démarche de type ${titreDemarcheTypeNom}`
+      )
+      return false
+    }
+
+    const {
+      ordre: titreEtapeTypeCurrentOrdre,
+      nom: titreEtapeTypeCurrentNom
+    } = titreEtapeTypeCurrent
 
     const isDateAfter =
-      titreEtapeTypeOrdre < titreEtapeTypeCurrent.ordre &&
-      titreEtapeDate > titreEtapeCurrent.date
+      titreEtapeTypeOrdre < titreEtapeTypeCurrentOrdre &&
+      titreEtapeDate > titreEtapeCurrentDate
     if (isDateAfter) {
-      invalidDate = `date d'étape ${titreEtapeType.id} postérieure`
+      errorInvalidDate = `une étape de type ${titreEtapeTypeNom} ne peut pas être postérieure à une étape de type ${titreEtapeTypeCurrentNom}`
     }
 
     const isDateBefore =
-      titreEtapeTypeOrdre > titreEtapeTypeCurrent.ordre &&
-      titreEtapeDate < titreEtapeCurrent.date
+      titreEtapeTypeOrdre > titreEtapeTypeCurrentOrdre &&
+      titreEtapeDate < titreEtapeCurrentDate
     if (isDateBefore) {
-      invalidDate = `date d'étape ${titreEtapeType.id} antérieure`
+      errorInvalidDate = `une étape de type ${titreEtapeTypeNom} ne peut pas être antérieure à une étape de type ${titreEtapeTypeCurrentNom}`
     }
 
     return isDateAfter || isDateBefore
   })
 
-  return invalidDate
+  return errorInvalidDate
 }
 
-export default titreEtapeTypeAndStatusCheck
+export default titreEtapeDateCheck

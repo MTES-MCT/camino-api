@@ -252,11 +252,10 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     }
   })
 
-  const rulesErrors = await titreEtapeUpdateValidation(etape)
-
-  rulesErrors.forEach(error => {
-    errors.push(error)
-  })
+  const rulesError = await titreEtapeUpdateValidation(etape)
+  if (rulesError) {
+    errors.push(rulesError)
+  }
 
   if (!errors.length) {
     const joinTables = [

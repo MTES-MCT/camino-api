@@ -110,7 +110,7 @@ const paysRegionsDepartementsCommunes = communes => {
 }
 
 const titreDemarcheFormat = (td, typeId) => {
-  if (td.type && td.type.etapesTypes) {
+  if (typeId && td.type && td.type.etapesTypes) {
     td.type.etapesTypes = td.type.etapesTypes.filter(e => e.typeId === typeId)
   }
 
