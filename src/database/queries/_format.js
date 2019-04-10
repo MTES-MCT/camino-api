@@ -27,7 +27,7 @@ const titreFormat = t => {
   }
 
   if (t.demarches && t.demarches.length) {
-    t.demarches = t.demarches.map(titreDemarcheFormat)
+    t.demarches = t.demarches.map(td => titreDemarcheFormat(td, t.typeId))
   }
 
   if (t.volumeEtape) {
@@ -109,11 +109,9 @@ const paysRegionsDepartementsCommunes = communes => {
   return pays
 }
 
-const titreDemarcheFormat = td => {
+const titreDemarcheFormat = (td, typeId) => {
   if (td.type && td.type.etapesTypes) {
-    td.type.etapesTypes = td.type.etapesTypes.filter(
-      e => e.typeId === td.type.id
-    )
+    td.type.etapesTypes = td.type.etapesTypes.filter(e => e.typeId === typeId)
   }
 
   if (td.etapes && td.etapes.length) {
