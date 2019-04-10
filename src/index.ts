@@ -16,7 +16,7 @@ import * as cors from 'cors'
 import * as compression from 'compression'
 import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
-// import * as Sentry from '@sentry/node'
+import * as Sentry from '@sentry/node'
 
 import { port, url } from './config/index'
 import schema from './api/schemas'
@@ -24,18 +24,18 @@ import rootValue from './api/resolvers'
 
 const app = express()
 
-// if (process.env.SENTRY_DSN && false) {
-//   Sentry.init({
-//     dsn: process.env.SENTRY_DSN
-//     // integrations: [
-//     //   new Sentry.Integrations.RewriteFrames({
-//     //     root: global.__rootdir__
-//     //   })
-//     // ]
-//   })
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN
+    // integrations: [
+    //   new Sentry.Integrations.RewriteFrames({
+    //     root: global.__rootdir__
+    //   })
+    // ]
+  })
 
-//   app.use(Sentry.Handlers.requestHandler())
-// }
+  app.use(Sentry.Handlers.requestHandler())
+}
 
 app.use(cors({ credentials: true }))
 
@@ -79,9 +79,9 @@ app.use(
   }))
 )
 
-// if (process.env.SENTRY_DSN) {
-//   app.use(Sentry.Handlers.errorHandler())
-// }
+if (process.env.SENTRY_DSN) {
+  app.use(Sentry.Handlers.errorHandler())
+}
 
 app.listen(port, () => {
   console.log(' ')
