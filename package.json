@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
-    "@sentry/node": "^5.0.6",
+    "@sentry/node": "^5.0.7",
     "@sentry/types": "^5.0.6",
     "@types/bcrypt": "^3.0.0",
     "@types/compression": "0.0.36",
@@ -63,7 +63,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "cross-env": "^5.2.0",
-    "crypto-random-string": "^1.0.0",
+    "crypto-random-string": "^2.0.0",
     "dateformat": "^3.0.3",
     "decamelize": "^3.2.0",
     "dotenv": "^7.0.0",
@@ -88,7 +88,7 @@
     "p-queue": "^5.0.0",
     "pg": "^7.9.0",
     "pg-escape": "^0.2.0",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.3"
   },
   "devDependencies": {
     "@types/jest": "^24.0.11",
@@ -105,7 +105,7 @@
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
-    "eslint-plugin-jsdoc": "^4.8.2",
+    "eslint-plugin-jsdoc": "^4.8.3",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-promise": "^4.1.1",
