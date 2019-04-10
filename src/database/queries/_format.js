@@ -124,7 +124,7 @@ const titreDemarcheFormat = td => {
 }
 
 const titreEtapeFormat = te => {
-  if (te.points.length) {
+  if (te.points && te.points.length) {
     te.geojsonMultiPolygon = geojsonFeatureMultiPolygon(te.points)
     te.geojsonPoints = geojsonFeatureCollectionPoints(te.points)
   }
