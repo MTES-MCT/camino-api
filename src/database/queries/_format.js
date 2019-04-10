@@ -27,9 +27,7 @@ const titreFormat = t => {
   }
 
   if (t.demarches && t.demarches.length) {
-    t.demarches.forEach(td => {
-      td = titreDemarcheFormat(td)
-    })
+    t.demarches = t.demarches.map(titreDemarcheFormat)
   }
 
   if (t.volumeEtape) {
@@ -45,9 +43,7 @@ const titreFormat = t => {
   }
 
   if (t.activites && t.activites.length) {
-    t.activites.forEach(ta => {
-      ta = titreActiviteFormat(ta)
-    })
+    t.activites = t.activites.map(titreActiviteFormat)
   }
 
   return t
@@ -114,16 +110,14 @@ const paysRegionsDepartementsCommunes = communes => {
 }
 
 const titreDemarcheFormat = td => {
-  if (td.type.etapesTypes) {
+  if (td.type && td.type.etapesTypes) {
     td.type.etapesTypes = td.type.etapesTypes.filter(
       e => e.typeId === td.type.id
     )
   }
 
   if (td.etapes && td.etapes.length) {
-    td.etapes.forEach(te => {
-      te = titreEtapeFormat(te)
-    })
+    td.etapes = td.etapes.map(titreEtapeFormat)
   }
 
   return td
