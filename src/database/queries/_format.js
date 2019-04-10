@@ -26,22 +26,9 @@ const titreFormat = t => {
     t.pays = paysRegionsDepartementsCommunes(t.communes)
   }
 
-  t.demarches &&
-    t.demarches.forEach(d => {
-      if (d.type.etapesTypes) {
-        d.type.etapesTypes = d.type.etapesTypes.filter(
-          e => e.typeId === t.type.id
-        )
-      }
-
-      d.etapes &&
-        d.etapes.forEach(e => {
-          if (e.points.length) {
-            e.geojsonMultiPolygon = geojsonFeatureMultiPolygon(e.points)
-            e.geojsonPoints = geojsonFeatureCollectionPoints(e.points)
-          }
-        })
-    })
+  if (t.demarches && t.demarches.length) {
+    t.demarches = t.demarches.map(titreDemarcheFormat)
+  }
 
   if (t.volumeEtape) {
     t.volume = t.volumeEtape.volume
@@ -56,9 +43,7 @@ const titreFormat = t => {
   }
 
   if (t.activites && t.activites.length) {
-    t.activites.forEach(ta => {
-      ta = titreActiviteFormat(ta)
-    })
+    t.activites = t.activites.map(titreActiviteFormat)
   }
 
   return t
@@ -124,6 +109,29 @@ const paysRegionsDepartementsCommunes = communes => {
   return pays
 }
 
+const titreDemarcheFormat = td => {
+  if (td.type && td.type.etapesTypes) {
+    td.type.etapesTypes = td.type.etapesTypes.filter(
+      e => e.typeId === td.type.id
+    )
+  }
+
+  if (td.etapes && td.etapes.length) {
+    td.etapes = td.etapes.map(titreEtapeFormat)
+  }
+
+  return td
+}
+
+const titreEtapeFormat = te => {
+  if (te.points && te.points.length) {
+    te.geojsonMultiPolygon = geojsonFeatureMultiPolygon(te.points)
+    te.geojsonPoints = geojsonFeatureCollectionPoints(te.points)
+  }
+
+  return te
+}
+
 const titreActiviteFormat = ta => {
   if (ta.frequencePeriodeId && ta.type && ta.type.frequence) {
     if (
@@ -166,4 +174,9 @@ const titreActiviteFormat = ta => {
   return ta
 }
 
-export { titreFormat, titreActiviteFormat }
+export {
+  titreFormat,
+  titreActiviteFormat,
+  titreDemarcheFormat,
+  titreEtapeFormat
+}
