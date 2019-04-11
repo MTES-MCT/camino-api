@@ -102,9 +102,7 @@ const run = async () => {
     console.log(titresDemarchesOrdre)
     console.log(titresStatutIds)
     console.log(titresPhases)
-    titresEtapesCommunes.forEach(log => {
-      console.log(log)
-    })
+    titresEtapesCommunes.forEach(log => console.log(log))
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
