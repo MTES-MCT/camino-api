@@ -41,4 +41,10 @@ export default class EtapesTypes extends Model {
       }
     }
   }
+
+  static namedFilters = {
+    orderDesc: builder => {
+      builder.orderBy('ordre', 'desc')
+    }
+  }
 }

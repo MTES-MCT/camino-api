@@ -110,7 +110,7 @@ const phases = {
 }
 
 const demarchesTypes = {
-  eager: `[etapesTypes.etapesStatuts]`
+  eager: `[etapesTypes(orderDesc).etapesStatuts]`
 }
 
 const demarches = {
