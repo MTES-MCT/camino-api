@@ -1,5 +1,6 @@
 import titreDemarcheStatutIdFind from './titre-demarche-statut-id-find'
 import {
+  titreDemarcheOctAnf,
   titreDemarcheOctDpuAcc,
   titreAxmDemarcheOctDexAcc,
   titrePrxDemarcheOctRpuAcc,
@@ -11,14 +12,18 @@ import {
   titreDemarcheOctRet,
   titreDemarcheOctMdp,
   titreDemarcheOctMfr,
-  titreDemarcheOctMreDef,
-  titreDemarcheOctMreInd,
+  titreDemarcheOctMcrDef,
+  titreDemarcheOctMcrInd,
   titreDemarcheRetDpuFai,
   titreDemarcheRetDpuIni,
   titreDemarcheIndefinie
 } from './__mocks__/titre-demarche-statut-id-find-demarches'
 
 describe("retourne le statut d'une démarche", () => {
+  test("une démarche d'octroi dont aucune étape n'est décisive a le statut “indéfinie”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctAnf)).toEqual('ind')
+  })
+
   test("une démarche d'octroi dont l'étape de dpu la plus récente est acceptée a le statut “acceptée”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctDpuAcc)).toEqual('acc')
   })
@@ -67,16 +72,20 @@ describe("retourne le statut d'une démarche", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctMfr)).toEqual('eco')
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente est mre et a été faite a le statut “classée sans suite”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheOctMreDef)).toEqual('cls')
+  test("une démarche d'octroi dont l'étape la plus récente est mcr et a été faite a le statut “classée sans suite”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrDef)).toEqual('cls')
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente est mre et n'a pas été faite a le statut “indéfinie”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheOctMreInd)).toEqual('ind')
+  test("une démarche d'octroi dont l'étape la plus récente est mcr et n'a pas été faite a le statut “indéfinie”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrInd)).toEqual('ind')
   })
 
   test("une démarche de retrait dont l'étape la plus récente de dpu a été faite a le statut “indéfinie”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheRetDpuFai)).toEqual('ter')
+  })
+
+  test("une démarche de retrait dont l'étape la plus récente de dpu n'a pas encore été faite a le statut “initiée”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheRetDpuIni)).toEqual('ini')
   })
 
   test("une démarche de retrait dont l'étape la plus récente de dpu n'a pas encore été faite a le statut “initiée”", () => {
