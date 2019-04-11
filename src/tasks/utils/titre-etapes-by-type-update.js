@@ -85,12 +85,15 @@ const elementRelationsUpdate = (
 const titreEtapeIdUpdate = (titreEtapeOld, titre, i) => {
   const { id: titreEtapeOldId } = titreEtapeOld
 
+  const titreEtapeDemarcheId = titreEtapeOldId.slice(0, -6)
   const titreEtapeTypeId = titreEtapeOldId.slice(-5, -2)
   const titreEtapeOrder = titreEtapeOldId.slice(-2)
 
   const titreEtapeOrderString = (i + 1).toString().padStart(2, '0')
 
   if (
+    // si l'id de la démarche n'a pas changé
+    titreEtapeDemarcheId === titreEtapeOld.titreDemarcheId &&
     // si le type d'une étape n'a pas changé
     titreEtapeTypeId === titreEtapeOld.typeId &&
     // et si l'ordre n'a pas changé

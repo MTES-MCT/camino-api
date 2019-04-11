@@ -1,5 +1,7 @@
-import { titreGet } from './titres'
+import { transaction } from 'objection'
+
 import TitresDemarches from '../models/titres-demarches'
+import { titreGet } from './titres'
 import options from './_options'
 import { titreDemarcheFormat } from './_format'
 
@@ -18,13 +20,15 @@ const titreDemarcheGet = async demarcheId => {
 
   const titreDemarche = await q
 
+  if (!titreDemarche) return titreDemarche
+
   const titre = await titreGet(titreDemarche.titreId)
 
   return titreDemarcheFormat(titreDemarche, titre.typeId)
 }
 
-const titreDemarcheDelete = async id =>
-  TitresDemarches.query()
+const titreDemarcheDelete = async (id, trx) =>
+  TitresDemarches.query(trx)
     .deleteById(id)
     .eager(options.demarches.eager)
     .returning('*')
@@ -46,11 +50,32 @@ const titreDemarcheOrdreUpdate = async ({ id, ordre }) =>
     .findById(id)
     .patch({ ordre })
 
+const titreDemarchesIdsUpdate = async (
+  titresDemarchesIdsOld,
+  titresDemarchesNew
+) => {
+  const knex = TitresDemarches.knex()
+
+  return transaction(knex, async tr => {
+    await Promise.all(
+      titresDemarchesIdsOld.map(titreDemarcheId =>
+        titreDemarcheDelete(titreDemarcheId, tr)
+      )
+    )
+    await Promise.all(
+      titresDemarchesNew.map(titreDemarche =>
+        titreDemarcheUpsert(titreDemarche, tr)
+      )
+    )
+  })
+}
+
 export {
   titreDemarcheGet,
   titresDemarchesGet,
   titreDemarcheUpsert,
   titreDemarcheDelete,
   titreDemarcheStatutIdUpdate,
-  titreDemarcheOrdreUpdate
+  titreDemarcheOrdreUpdate,
+  titreDemarchesIdsUpdate
 }

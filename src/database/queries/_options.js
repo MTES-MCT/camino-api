@@ -116,7 +116,35 @@ const demarchesTypes = {
 const demarches = {
   eager: `[type.${demarchesTypes.eager}, statut, phase.${
     phases.eager
-  }, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`
+  }, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
+  update: {
+    relate: [
+      'type',
+      'type.etapesTypes',
+      'type.etapesTypes.etapesStatuts',
+      'type.demarchesStatuts',
+      'statut',
+      'annulationDemarche',
+      'parents',
+      ...etapes.update.relate.map(k => `etapes.${k}`),
+      'phase.statut'
+    ],
+    unrelate: [
+      'type',
+      'type.etapesTypes',
+      'type.etapesTypes.etapesStatuts',
+      'type.demarchesStatuts',
+      'statut',
+      'annulationDemarche',
+      'enfants',
+      ...etapes.update.unrelate.map(k => `etapes.${k}`),
+      'phase.statut'
+    ],
+    noInsert: [...etapes.update.noInsert.map(k => `etapes.${k}`)],
+    noUpdate: [...etapes.update.noUpdate.map(k => `etapes.${k}`)],
+    noDelete: [...etapes.update.noDelete.map(k => `etapes.${k}`)],
+    insertMissing: true
+  }
 }
 
 const activitesTypes = {
