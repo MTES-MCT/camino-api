@@ -1,8 +1,29 @@
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
 const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
+  // filtre les types d'étapes qui ont un impact sur le statut de la démarche
+  const titreEtapesDecisives = titreDemarche.etapes.filter(titreEtape =>
+    [
+      'mfr',
+      'mdp',
+      'men',
+      'ide',
+      'ret',
+      'mcr',
+      'dim',
+      'dex',
+      'apu',
+      'rpu',
+      'dpu'
+    ].includes(titreEtape.typeId)
+  )
+
+  // si aucune étape décisive n'est présente dans la démarche
+  // le statut est indétrminé
+  if (!titreEtapesDecisives.length) return 'ind'
+
   // l'étape la plus récente
-  const titreEtapeRecent = titreEtapesDescSort(titreDemarche.etapes)[0]
+  const titreEtapeRecent = titreEtapesDescSort(titreEtapesDecisives)[0]
 
   //  1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
@@ -70,10 +91,10 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       return 'eco'
     }
 
-    //  - le type de l’étape est recevabilité de la demande (mre)
+    //  - le type de l’étape est recevabilité de la demande (mcr)
     //  - et le statut de l’étape est défavorable (def)
     if (
-      titreEtapeRecent.typeId === 'mre' &&
+      titreEtapeRecent.typeId === 'mcr' &&
       titreEtapeRecent.statutId === 'def'
     ) {
       //  - le statut de la démarche est classée sans suite (cls)
