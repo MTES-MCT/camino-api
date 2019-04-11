@@ -82,10 +82,12 @@ exports.seed = (knex, Promise) =>
     .then(() =>
       Promise.all([
         knex('entreprises').insert(entr),
-        knex('administrations').insert(administrations),
-        knex('administrations_types').insert(administrationsTypes),
-        knex('administrations__domaines').insert(administrationsDomaines)
+        knex('administrations_types').insert(administrationsTypes)
       ])
+    )
+    .then(() => knex('administrations').insert(administrations))
+    .then(() =>
+      knex('administrations__domaines').insert(administrationsDomaines)
     )
     .then(() =>
       knex('entreprisesEtablissements').insert(entreprisesEtablissements)
