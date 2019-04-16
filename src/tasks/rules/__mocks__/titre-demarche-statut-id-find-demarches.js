@@ -196,6 +196,21 @@ const titreDemarcheOctMcrDef = {
   ]
 }
 
+const titreDemarcheOctMcrAcc = {
+  id: 'h-cxx-courdemanges-1988-oct01',
+  titreId: 'h-cxx-courdemanges-1988',
+  typeId: 'oct',
+  statutId: 'acc',
+  etapes: [
+    {
+      id: 'h-cxx-courdemanges-1988-oct01-mcr01',
+      typeId: 'mcr',
+      statutId: 'acc',
+      date: '1988-03-11T23:00:00.000Z'
+    }
+  ]
+}
+
 const titreDemarcheOctMcrInd = {
   id: 'h-cxx-courdemanges-1988-oct01',
   titreId: 'h-cxx-courdemanges-1988',
@@ -204,7 +219,9 @@ const titreDemarcheOctMcrInd = {
   etapes: [
     {
       id: 'h-cxx-courdemanges-1988-oct01-mcr01',
-      typeId: 'mcr'
+      typeId: 'mcr',
+      statutId: 'acc',
+      date: '4002-03-11T23:00:00.000Z'
     }
   ]
 }
@@ -258,6 +275,7 @@ export {
   titreDemarcheOctMdp,
   titreDemarcheOctMfr,
   titreDemarcheOctMcrDef,
+  titreDemarcheOctMcrAcc,
   titreDemarcheOctMcrInd,
   titreDemarcheRetDpuFai,
   titreDemarcheRetDpuIni,
