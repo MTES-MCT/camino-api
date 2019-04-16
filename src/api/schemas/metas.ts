@@ -196,6 +196,7 @@ L'id du type de titre minier
 - __apx__: Autorisation de prospections préalables (M, H, C)
 - __arc__: Autorisation de recherches (C)
 - __arg__: Autorisation de recherches (G)
+- __arm__: Autorisation de recherches (M)
 - __axm__: Autorisation d'exploitation (M)
 - __cxx__: Concession (M, H, G, S, C)
 - __prh__: Permis exclusif de recherches (H)
@@ -209,6 +210,7 @@ enum TypeId {
   apx
   arc
   arg
+  arm
   axm
   cxx
   prh

@@ -43,6 +43,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       'exp',
       'exs',
       'mut',
+      'vut',
       'amo',
       'res',
       'ces'
