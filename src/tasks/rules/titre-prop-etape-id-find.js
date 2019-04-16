@@ -23,9 +23,9 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
           // filtre les étapes acceptation, fait ou favorable
           ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
           (['dpu', 'dex', 'rpu', 'dim'].includes(titreEtape.typeId) ||
-            // Si l'étape est une formalisation de la demande,
-            // on ne prend en compte que pour un octroi (demande initiale)
-            (titreEtape.typeId === 'mfr' && titreDemarche.typeId === 'oct')) &&
+            // Si la démarche est un octroi (demande initiale)
+            // on prend en compte n'importe quelle étape
+            titreDemarche.typeId === 'oct') &&
           // trouve une étape qui contient la propriété
           (titreEtape[prop] &&
             (!Array.isArray(titreEtape[prop]) ||
