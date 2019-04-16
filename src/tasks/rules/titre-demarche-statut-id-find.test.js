@@ -13,6 +13,7 @@ import {
   titreDemarcheOctMdp,
   titreDemarcheOctMfr,
   titreDemarcheOctMcrDef,
+  titreDemarcheOctMcrAcc,
   titreDemarcheOctMcrInd,
   titreDemarcheRetDpuFai,
   titreDemarcheRetDpuIni,
@@ -72,11 +73,15 @@ describe("retourne le statut d'une démarche", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctMfr)).toEqual('eco')
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente est mcr et a été faite a le statut “classée sans suite”", () => {
+  test("une démarche d'octroi dont l'étape la plus récente de mcr a le statut défavorable a le statut “classée sans suite”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrDef)).toEqual('cls')
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente est mcr et n'a pas été faite a le statut “indéfinie”", () => {
+  test("une démarche d'octroi dont l'étape la plus récente de mcr n'a pas le statut défavorable et est antérieure à aujourd'hui a le statut “en instruction”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrAcc)).toEqual('ins')
+  })
+
+  test("une démarche d'octroi dont l'étape la plus récente de mcr n'a pas le statut défavorable et est postérieure à aujourd'hui a le statut “indéfinie”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrInd)).toEqual('ind')
   })
 

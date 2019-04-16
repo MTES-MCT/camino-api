@@ -61,17 +61,6 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       return titreEtapeRecent.statutId
     }
 
-    //  - le type de l’étape est enregistrement de la demande (men)
-    //  - la date de l'étape est inférieure à la date du jour
-    if (
-      (titreEtapeRecent.typeId === 'men' ||
-        (titreEtapeRecent.typeId === 'mfr' && titreTypeId === 'arm')) &&
-      new Date(titreEtapeRecent.date) < new Date()
-    ) {
-      //  - le statut de la démarche est “en instruction”
-      return 'ins'
-    }
-
     //  - le type de l’étape est retrait de la demande (ret)
     if (titreEtapeRecent.typeId === 'ret') {
       //  - le statut de la démarche est “retirée”
@@ -85,12 +74,6 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       return 'dep'
     }
 
-    //  - le type de l’étape est formalisation de la demande (mfr)
-    if (titreEtapeRecent.typeId === 'mfr') {
-      //  - le statut de la démarche est “en construction”
-      return 'eco'
-    }
-
     //  - le type de l’étape est recevabilité de la demande (mcr)
     //  - et le statut de l’étape est défavorable (def)
     if (
@@ -99,6 +82,25 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     ) {
       //  - le statut de la démarche est classée sans suite (cls)
       return 'cls'
+    }
+
+    //  - le type de l’étape est recevabilité de la demande (mcr) (non défavorable)
+    //  - le type de l’étape est enregistrement de la demande (men)
+    //  - la date de l'étape est inférieure à la date du jour
+    if (
+      (titreEtapeRecent.typeId === 'mcr' ||
+        titreEtapeRecent.typeId === 'men' ||
+        (titreEtapeRecent.typeId === 'mfr' && titreTypeId === 'arm')) &&
+      new Date(titreEtapeRecent.date) < new Date()
+    ) {
+      //  - le statut de la démarche est “en instruction”
+      return 'ins'
+    }
+
+    //  - le type de l’étape est formalisation de la demande (mfr)
+    if (titreEtapeRecent.typeId === 'mfr') {
+      //  - le statut de la démarche est “en construction”
+      return 'eco'
     }
 
     //  - le type de l’étape est décision expresse (dex)
