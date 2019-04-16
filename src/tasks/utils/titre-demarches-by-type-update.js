@@ -19,7 +19,7 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
 
   // utilise la référence à l'étape liée à la référence du titre
   // pour la mise à jour
-  const titreDemarcheNew = titreDemarcheOld
+  const titreDemarcheNew = { ...titreDemarcheOld }
 
   // - change l'id de la nouvelle étape
   const titreDemarcheNewId = `${titreDemarcheOld.titreId}-${
@@ -38,7 +38,10 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
   titreEtapesByTypeUpdate(titreDemarcheNew.etapes, titre)
 
   let titrePhase = null
-  if (titreDemarcheNew.phase) {
+  if (
+    titreDemarcheNew.phase &&
+    titreDemarcheNew.phase.titreDemarcheId === titreDemarcheOldId
+  ) {
     titrePhase = titreDemarcheNew.phase
     titreDemarcheNew.phase.titreDemarcheId = titreDemarcheNewId
     delete titreDemarcheNew.phase
@@ -65,7 +68,9 @@ const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
               titreDemarcheOldId
             ],
             titreDemarchesNew: [...acc.titreDemarchesNew, titreDemarcheNew],
-            titrePhases: [...acc.titrePhases, titrePhase]
+            titrePhases: titrePhase
+              ? [...acc.titrePhases, titrePhase]
+              : acc.titrePhases
           }
         : acc
     },

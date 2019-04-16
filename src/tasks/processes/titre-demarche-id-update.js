@@ -5,8 +5,8 @@ import { titreDemarchesIdsUpdate } from '../queries/titre-demarches'
 
 // si le type d'une démarche change
 // ou si l'ordre est 00 (ajout d'une nouvelle démarche)
-// - met à jour l'id de la démarche
-// - met à jour l'id des tables liées (colonnes id et titreDemarcheId)
+// - met à jour l'id de la démarche et ses étapes
+// - met à jour les phases du titre
 
 const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
   const { id: titreDemarcheOldId, titreDemarcheId } = titreDemarche
@@ -62,9 +62,7 @@ const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
 
   let titrePhasesUpdated = []
   if (titrePhases.length > 0) {
-    titrePhasesUpdated = await titresPhasesUpdate([
-      { demarches: [titreDemarche], phases: titrePhases }
-    ])
+    titrePhasesUpdated = await titresPhasesUpdate([titre])
   }
 
   return [

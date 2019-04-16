@@ -72,7 +72,7 @@ const titreEtapeUpdate = async titreEtapeId => {
   console.log(titreDemarchesOrdre)
   console.log(titreStatutIds)
   console.log(titresPhases)
-  titresEtapesCommunes.forEach(log => console.log(log))
+  console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
   console.log(titreEtapesId)
 
