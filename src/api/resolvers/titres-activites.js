@@ -120,7 +120,6 @@ const emailFormat = (
       ? `<li>${element.nom ? element.nom + ' : ' : ''}${
           element.type === 'checkbox'
             ? contenu[sectionId][element.id]
-                .split(',')
                 .map(id => element.valeurs[id])
                 .join(', ')
             : contenu[sectionId][element.id]
