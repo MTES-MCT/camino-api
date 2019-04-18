@@ -414,6 +414,15 @@ const titreDemarchesRenPointsVide = [
     ordre: 2,
     etapes: [
       {
+        id: 'h-cxx-courdemanges-1988-ren01-dpu01',
+        titreDemarcheId: 'h-cxx-courdemanges-1988-ren01',
+        typeId: 'dpu',
+        statutId: 'acc',
+        ordre: 2,
+        date: '1988-06-17T23:00:00.000Z',
+        points: []
+      },
+      {
         id: 'h-cxx-courdemanges-1988-ren01-dex01',
         titreDemarcheId: 'h-cxx-courdemanges-1988-ren01',
         typeId: 'dex',
@@ -454,6 +463,27 @@ const titreDemarchesRenPointsVide = [
   }
 ]
 
+const titreDemarchesRenPointsVideNiDpu = [
+  {
+    id: 'h-cxx-courdemanges-1988-ren01',
+    titreId: 'h-cxx-courdemanges-1988',
+    typeId: 'ren',
+    statutId: 'acc',
+    ordre: 2,
+    etapes: [
+      {
+        id: 'h-cxx-courdemanges-1988-ren01-dex01',
+        titreDemarcheId: 'h-cxx-courdemanges-1988-ren01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '1988-06-06T23:00:00.000Z',
+        points: []
+      }
+    ]
+  }
+]
+
 export {
   titreDemarchesOctDateFin,
   titreDemarchesOctDateDebut,
@@ -465,5 +495,6 @@ export {
   titreDemarchesOctAbrDateFin,
   titreDemarchesOctAbrDate,
   titreDemarchesRenPoints,
-  titreDemarchesRenPointsVide
+  titreDemarchesRenPointsVide,
+  titreDemarchesRenPointsVideNiDpu
 }
