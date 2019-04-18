@@ -110,7 +110,7 @@ const titrePhaseDateFinFind = (
 
   // si il y a une démarche d'annulation
   // retourne sa date de fin
-  if (titreDemarcheAnnulation !== null) {
+  if (titreDemarcheAnnulation) {
     return titreDemarcheDateFinAndDureeFind(
       titreDemarches.slice().reverse(),
       titreDemarcheAnnulation.ordre
