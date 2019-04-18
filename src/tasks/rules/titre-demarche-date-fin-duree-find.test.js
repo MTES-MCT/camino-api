@@ -10,7 +10,8 @@ import {
   titreDemarchesOctAbrDateFin,
   titreDemarchesOctAbrDate,
   titreDemarchesRenPoints,
-  titreDemarchesRenPointsVide
+  titreDemarchesRenPointsVide,
+  titreDemarchesRenPointsVideNiDpu
 } from './__mocks__/titre-demarche-date-fin-duree-find-demarches'
 
 describe("retourne la date de fin et la durée d'une démarche", () => {
@@ -104,11 +105,20 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     })
   })
 
-  test("la date de fin d'une démarche de renonciation est celle de l'étape si celle-ci ne possède pas de périmètre géographique", () => {
+  test("la date de fin d'une démarche de renonciation est la date de l'étape de dpu si celle-ci ne possède pas de périmètre géographique", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVide, 5)
     ).toEqual({
-      dateFin: '1988-06-07',
+      dateFin: '1988-06-18',
+      duree: 0
+    })
+  })
+
+  test("la date de fin d'une démarche de renonciation est sans étape possédant un périmètre ni dpu est indéfinie", () => {
+    expect(
+      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideNiDpu, 5)
+    ).toEqual({
+      dateFin: null,
       duree: 0
     })
   })

@@ -16,7 +16,8 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
         dateFin ||
         // filtre les démarches précédentes dont le statut est acceptée ou terminée
         (!['acc', 'ter'].includes(titreDemarche.statutId) ||
-          ordre < titreDemarche.ordre)
+          // filtre les étapes dont l'ordre est inférieur à celui donné en paramètre
+          titreDemarche.ordre > ordre)
       ) {
         return { duree, dateFin }
       }
@@ -29,14 +30,21 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
       if (
         // la démarche est une abrogation, retrait ou renonciation
         titreDemarche.typeId === 'abr' ||
-        titreDemarche.typeId === 'ret' ||
-        (titreDemarche.typeId === 'ren' &&
-          // si c'est une renonciation et que la démarche contient une étape avec des infos géo (points)
-          // alors c'est une renonciation partielle et elle n'est pas prise en compte
-          !titreDemarche.etapes.find(te => te.points.length))
+        titreDemarche.typeId === 'ret'
       ) {
         // trouve la date de fin d'une démarche d'annulation
         return titreDemarcheAnnulationDateFinFind(titreDemarche)
+      }
+
+      if (
+        titreDemarche.typeId === 'ren' &&
+        // si c'est une renonciation et que la démarche contient une étape avec des infos géo (points)
+        // alors c'est une renonciation partielle
+        // et elle n'est pas prise en compte
+        !titreDemarche.etapes.find(te => te.points.length)
+      ) {
+        // trouve la date de fin d'une démarche de renonciation
+        return titreDemarcheRenonciationDateFinFind(titreDemarche)
       }
 
       // trouve soit la date de fin
@@ -134,6 +142,26 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 
     // la date de fin est la date de l'étape
     return dateFormat(etapeDex.date, 'yyyy-mm-dd')
+  }
+
+  return {
+    duree: 0,
+    dateFin: dateFinFind()
+  }
+}
+
+// trouve la date de fin d'une démarche de renonciation
+const titreDemarcheRenonciationDateFinFind = titreDemarche => {
+  const dateFinFind = () => {
+    // la dernière étape dpu
+    const etapeDpu = titreEtapesDescSort(titreDemarche.etapes).find(
+      te => te.typeId === 'dpu'
+    )
+
+    // la date de fin est la date de l'étape
+    return etapeDpu && etapeDpu.date
+      ? dateFormat(etapeDpu.date, 'yyyy-mm-dd')
+      : null
   }
 
   return {
