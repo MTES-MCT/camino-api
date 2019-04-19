@@ -5,10 +5,7 @@ import titreEtapeTypeAndStatusCheck from './utils/titre-etape-type-and-status-ch
 import titreEtapeDateCheck from './utils/titre-etape-date-check'
 
 const titreEtapeValidation = async titreEtapeNew => {
-  const { id: titreEtapeId } = titreEtapeNew
-
-  const titreEtapeOld = await titreEtapeGet(titreEtapeId)
-  const titreDemarche = await titreDemarcheGet(titreEtapeOld.titreDemarcheId)
+  const titreDemarche = await titreDemarcheGet(titreEtapeNew.titreDemarcheId)
   const titre = await titreGet(titreDemarche.titreId)
 
   // 1. le type d'étape correspond à la démarche et au type de titre

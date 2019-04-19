@@ -281,20 +281,20 @@ const utilisateurModifier = async ({ utilisateur }, context) => {
   }
 }
 
-const utilisateurSupprimer = async ({ id }, context) => {
+const utilisateurSupprimer = async ({ utilisateurId }, context) => {
   if (
     permissionsCheck(context.user, ['super', 'admin']) ||
-    context.user.id === id
+    context.user.id === utilisateurId
   ) {
     const errors = []
     let res
 
-    if (!id) {
+    if (!utilisateurId) {
       errors.push('id manquante')
     }
 
     if (!errors.length) {
-      res = await utilisateurRemove(id)
+      res = await utilisateurRemove(utilisateurId)
     } else {
       throw new Error(errors.join(', '))
     }

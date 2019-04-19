@@ -32,6 +32,7 @@ const titreEtapeDelete = async (id, trx) =>
   TitresEtapes.query(trx)
     .deleteById(id)
     .eager(options.etapes.eager)
+    .returning('*')
 
 const titreEtapeUpsert = async (etape, trx) =>
   TitresEtapes.query(trx)
@@ -79,5 +80,6 @@ export {
   titresEtapesCommunesGet,
   titreEtapeAdministrationInsert,
   titreEtapeAdministrationDelete,
-  titreEtapesIdsUpdate
+  titreEtapesIdsUpdate,
+  titreEtapeDelete
 }

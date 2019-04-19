@@ -8,7 +8,8 @@ import {
   titreAjouter,
   titreSupprimer,
   titreModifier,
-  titreEtapeModifier
+  titreEtapeModifier,
+  titreEtapeSupprimer
 } from './resolvers/titres'
 
 import {
@@ -56,6 +57,7 @@ export default {
   titreModifier,
   titreSupprimer,
   titreEtapeModifier,
+  titreEtapeSupprimer,
   titreActiviteModifier,
   utilisateurConnecter,
   utilisateurModifier,

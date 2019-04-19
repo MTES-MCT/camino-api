@@ -10,7 +10,10 @@ import {
 } from '../../database/queries/titres'
 
 import { domainesGet, statutsGet } from '../../database/queries/metas'
-import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
+import {
+  titreEtapeUpsert,
+  titreEtapeDelete
+} from '../../database/queries/titres-etapes'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
 import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
@@ -253,6 +256,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   })
 
   const rulesError = await titreEtapeUpdateValidation(etape)
+
   if (rulesError) {
     errors.push(rulesError)
   }
@@ -285,11 +289,28 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   }
 }
 
+const titreEtapeSupprimer = async ({ etapeId }, context, info) => {
+  const errors = []
+
+  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    errors.push('opération impossible')
+  }
+
+  if (!errors.length) {
+    const res = await titreEtapeDelete(etapeId)
+
+    return res
+  } else {
+    throw new Error(errors.join(', '))
+  }
+}
+
 export {
   titre,
   titres,
   titreAjouter,
   titreSupprimer,
   titreModifier,
-  titreEtapeModifier
+  titreEtapeModifier,
+  titreEtapeSupprimer
 }
