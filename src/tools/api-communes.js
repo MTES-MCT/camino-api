@@ -26,8 +26,8 @@ const communesGeojsonFetch = async (path, geojson) => {
     }
 
     return result
-  } catch ({ error }) {
-    errorLog(`communesGeojsonGet ${properties}`, error)
+  } catch (e) {
+    errorLog(`communesGeojsonGet ${properties}`, e.error || e.message || e)
   }
 }
 
