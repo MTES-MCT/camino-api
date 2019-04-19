@@ -220,11 +220,11 @@ const titreSupprimer = async ({ id }, context, info) => {
     errors.push('opération impossible')
   }
 
-  if (!errors.length) {
-    return titreRemove(id)
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  return titreRemove(id)
 }
 
 const titreModifier = async ({ titre }, context, info) => {
@@ -234,11 +234,11 @@ const titreModifier = async ({ titre }, context, info) => {
     errors.push('opération impossible')
   }
 
-  if (!errors.length) {
-    return titreUpdate(titre)
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  return titreUpdate(titre)
 }
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
@@ -261,32 +261,32 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     errors.push(rulesError)
   }
 
-  if (!errors.length) {
-    const joinTables = [
-      'titulaires',
-      'amodiataires',
-      'administrations',
-      'substances',
-      'emprises'
-    ]
-
-    joinTables.forEach(props => {
-      const propsIds = `${props}Ids`
-      if (etape[propsIds]) {
-        etape[props] = etape[propsIds].map(id => ({ id }))
-
-        delete etape[propsIds]
-      }
-    })
-
-    const res = await titreEtapeUpsert(etape)
-
-    await titreEtapeUpdateTask(etape.id)
-
-    return res
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  const joinTables = [
+    'titulaires',
+    'amodiataires',
+    'administrations',
+    'substances',
+    'emprises'
+  ]
+
+  joinTables.forEach(props => {
+    const propsIds = `${props}Ids`
+    if (etape[propsIds]) {
+      etape[props] = etape[propsIds].map(id => ({ id }))
+
+      delete etape[propsIds]
+    }
+  })
+
+  const res = await titreEtapeUpsert(etape)
+
+  await titreEtapeUpdateTask(etape.id)
+
+  return res
 }
 
 const titreEtapeSupprimer = async ({ etapeId }, context, info) => {
@@ -296,13 +296,13 @@ const titreEtapeSupprimer = async ({ etapeId }, context, info) => {
     errors.push('opération impossible')
   }
 
-  if (!errors.length) {
-    const res = await titreEtapeDelete(etapeId)
-
-    return res
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  const res = await titreEtapeDelete(etapeId)
+
+  return res
 }
 
 export {
