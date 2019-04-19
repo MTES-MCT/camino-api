@@ -2,10 +2,11 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresPoints', table => {
       table.string('id').primary()
+      table.string('titreEtapeId', 128).notNullable()
       table
-        .string('titreEtapeId', 128)
+        .foreign('titreEtapeId')
         .references('titresEtapes.id')
-        .notNullable()
+        .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.specificType('coordonnees', 'POINT').notNullable()
       table.integer('groupe').notNullable()
