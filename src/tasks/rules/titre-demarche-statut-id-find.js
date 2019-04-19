@@ -28,9 +28,9 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   //  1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
   //    octroi ou prolongation(1, 2 ou exceptionnelle)
-  //    ou renonciation ou fusion ou extension du périmètre
-  //    ou extension de substance ou mutation ou amodiation
-  //    ou résiliation d’amodiation
+  //    ou renonciation ou fusion (native ou virtuelle) ou extension du périmètre
+  //    ou extension de substance ou mutation (native ou virtuelle) ou amodiation
+  //    ou résiliation d’amodiation ou déplacement de périmètre
   if (
     [
       'oct',
@@ -46,7 +46,9 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       'vut',
       'amo',
       'res',
-      'ces'
+      'ces',
+      'dep',
+      'vus'
     ].includes(titreDemarche.typeId)
   ) {
     //  - le type de l’étape est publication au JO (dpu) ou décision implicite (dim)
