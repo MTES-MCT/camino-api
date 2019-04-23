@@ -9,7 +9,12 @@ const titresEtapesOrdreUpdate = async titresDemarches => {
     []
   )
 
-  await Promise.all(titresEtapesUpdated)
+  if (titresEtapesUpdated.length) {
+    const titresEtapesUpdatedQueries = titresEtapesUpdated.map(q =>
+      q.then(log => console.log(log))
+    )
+    await Promise.all(titresEtapesUpdatedQueries)
+  }
 
   return `Mise à jour: ${titresEtapesUpdated.length} ordres d'étapes.`
 }

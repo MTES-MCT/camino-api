@@ -5,11 +5,6 @@ import TitresCommunes from '../models/titres-communes'
 import TitresAdministrations from '../models/titres-administrations'
 import options from './_options'
 
-const titreEtapeGet = async titreEtapeId =>
-  TitresEtapes.query()
-    .eager(options.etapes.eager)
-    .findById(titreEtapeId)
-
 const titresEtapesGet = async ({
   etapesIds,
   etapesTypeIds,
@@ -22,6 +17,11 @@ const titresEtapesGet = async ({
     .whereIn('titresEtapes.id', etapesIds)
     .whereIn('titresEtapes.typeId', etapesTypeIds)
     .whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
+
+const titreEtapeGet = async titreEtapeId =>
+  TitresEtapes.query()
+    .eager(options.etapes.eager)
+    .findById(titreEtapeId)
 
 const titreEtapeUpdate = async ({ id, props }) =>
   TitresEtapes.query()
@@ -62,18 +62,18 @@ const titreEtapesIdsUpdate = async (titresEtapesIdsOld, titresEtapesNew) => {
   const knex = TitresEtapes.knex()
 
   return transaction(knex, async tr => {
-    await Promise.all([
-      ...titresEtapesIdsOld.map(titreEtapeId =>
-        titreEtapeDelete(titreEtapeId, tr)
-      ),
-      ...titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, tr))
-    ])
+    await Promise.all(
+      titresEtapesIdsOld.map(titreEtapeId => titreEtapeDelete(titreEtapeId, tr))
+    )
+    await Promise.all(
+      titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, tr))
+    )
   })
 }
 
 export {
-  titreEtapeGet,
   titresEtapesGet,
+  titreEtapeGet,
   titreEtapeUpdate,
   titreEtapeUpsert,
   titreEtapeCommuneInsert,

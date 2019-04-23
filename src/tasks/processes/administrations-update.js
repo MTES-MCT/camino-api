@@ -33,7 +33,7 @@ const administrationsUpdate = async (administrations, departements) => {
     []
   )
 
-  if (administrationsUpdateRequests) {
+  if (administrationsUpdateRequests.length) {
     const administrationsUpdateQueries = administrationsUpdateRequests.map(q =>
       q.then(log => console.log(log))
     )
