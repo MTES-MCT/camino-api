@@ -71,8 +71,8 @@ const titreDemarchesIdsUpdate = async (
 }
 
 export {
-  titreDemarcheGet,
   titresDemarchesGet,
+  titreDemarcheGet,
   titreDemarcheUpsert,
   titreDemarcheDelete,
   titreDemarcheStatutIdUpdate,

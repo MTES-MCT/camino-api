@@ -12,7 +12,7 @@ export default class DemarchesTypes extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      ordre: { type: 'integer' },
+      ordre: { type: ['integer', 'null'] },
       duree: { type: ['boolean', 'null'] },
       points: { type: ['boolean', 'null'] },
       substances: { type: ['boolean', 'null'] },
