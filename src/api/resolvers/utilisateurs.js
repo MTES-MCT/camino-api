@@ -59,7 +59,7 @@ const utilisateur = async ({ id }, context, info) => {
     (context.user && context.user.id === id)
   ) {
     return utilisateurGet(id)
-  } else if (context.user && permissionsCheck(context.user, ['admin'])) {
+  } else if (permissionsCheck(context.user, ['admin'])) {
     const utilisateur = await utilisateurGet(id)
 
     if (permissionsCheck(utilisateur, permissionsVisibleForAdmin)) {
@@ -77,7 +77,7 @@ const utilisateurs = async (
   context,
   info
 ) => {
-  if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
+  if (permissionsCheck(context.user, ['super', 'admin'])) {
     if (permissionsCheck(context.user, ['admin'])) {
       if (permissionIds) {
         permissionIds = permissionIds.filter(id =>
@@ -97,6 +97,7 @@ const utilisateurs = async (
 
     return utilisateurs
   }
+
   return null
 }
 
@@ -117,7 +118,6 @@ const utilisateurIdentifier = async (variables, context, info) => {
 
 const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
   const errors = []
-  let token
   let utilisateur
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
@@ -136,26 +136,26 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
   if (email && emailIsValid && motDePasse) {
     utilisateur = await utilisateurByEmailGet(email)
 
-    if (utilisateur) {
-      const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
-
-      if (!valid) {
-        errors.push('mot de passe incorrect')
-      }
-    } else {
+    if (!utilisateur) {
       errors.push('aucun utilisateur enregistré avec cette adresse email')
+    }
+
+    const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+
+    if (!valid) {
+      errors.push('mot de passe incorrect')
     }
   }
 
-  if (!errors.length && utilisateur) {
-    token = tokenCreate(
-      utilisateur.id,
-      utilisateur.email,
-      utilisateur.permission
-    )
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  const token = tokenCreate(
+    utilisateur.id,
+    utilisateur.email,
+    utilisateur.permission
+  )
 
   return { token, utilisateur }
 }
@@ -204,16 +204,16 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
     )
   }
 
-  if (!errors.length) {
-    utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
-    utilisateur.id = await userIdGenerate()
-
-    const res = await utilisateurAdd(utilisateur)
-
-    return res
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
+  utilisateur.id = await userIdGenerate()
+
+  const res = await utilisateurAdd(utilisateur)
+
+  return res
 }
 
 const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
@@ -235,74 +235,74 @@ const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
     }
   }
 
-  if (!errors.length) {
-    const token = jwt.sign({ email }, process.env.JWT_SECRET)
-
-    const url = `${
-      process.env.UI_URL
-    }/creation-de-compte?token=${token}&email=${email}`
-
-    const subject = `[Camino] Création de votre compte utilisateur`
-    const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
-
-    try {
-      emailsSend(email, subject, html)
-    } catch (e) {
-      return "erreur lors de l'envoi d'email"
-    }
-
-    return 'un lien pour créer votre compte vous a été envoyé par email'
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  const token = jwt.sign({ email }, process.env.JWT_SECRET)
+
+  const url = `${
+    process.env.UI_URL
+  }/creation-de-compte?token=${token}&email=${email}`
+
+  const subject = `[Camino] Création de votre compte utilisateur`
+  const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
+
+  try {
+    emailsSend(email, subject, html)
+  } catch (e) {
+    return "erreur lors de l'envoi d'email"
+  }
+
+  return 'un lien pour créer votre compte vous a été envoyé par email'
 }
 
 const utilisateurModifier = async ({ utilisateur }, context) => {
   if (
-    permissionsCheck(context.user, ['super', 'admin']) ||
-    context.user.id === utilisateur.id
+    !permissionsCheck(context.user, ['super', 'admin']) &&
+    context.user.id !== utilisateur.id
   ) {
-    let res
-    const errors = await utilisateurErreurs(utilisateur)
-
-    if (!utilisateur.id) {
-      errors.push('id manquante')
-    }
-
-    if (!errors.length) {
-      res = await utilisateurUpdate(utilisateur)
-    } else {
-      throw new Error(errors.join(', '))
-    }
-
-    return res
-  } else {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
+
+  let res
+  const errors = await utilisateurErreurs(utilisateur)
+
+  if (!utilisateur.id) {
+    errors.push('id manquante')
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join(', '))
+  }
+
+  res = await utilisateurUpdate(utilisateur)
+
+  return res
 }
 
-const utilisateurSupprimer = async ({ utilisateurId }, context) => {
+const utilisateurSupprimer = async ({ id }, context) => {
   if (
-    permissionsCheck(context.user, ['super', 'admin']) ||
-    context.user.id === utilisateurId
+    !permissionsCheck(context.user, ['super', 'admin']) &&
+    context.user.id !== id
   ) {
-    const errors = []
-    let res
-
-    if (!utilisateurId) {
-      errors.push('id manquante')
-    }
-
-    if (!errors.length) {
-      res = await utilisateurRemove(utilisateurId)
-    } else {
-      throw new Error(errors.join(', '))
-    }
-
-    return res
-  } else {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
+
+  const errors = []
+  let res
+
+  if (!id) {
+    errors.push('id manquante')
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join(', '))
+  }
+
+  res = await utilisateurRemove(id)
+
+  return res
 }
 
 const utilisateurMotDePasseModifier = async (
@@ -310,60 +310,60 @@ const utilisateurMotDePasseModifier = async (
   context
 ) => {
   if (
-    permissionsCheck(context.user, ['super', 'admin']) ||
-    context.user.id === id
+    !permissionsCheck(context.user, ['super', 'admin']) &&
+    context.user.id !== id
   ) {
-    const errors = []
-
-    if (!id) {
-      errors.push('id manquante')
-    }
-
-    if (!motDePasse) {
-      errors.push('mot de passe manquant')
-    }
-
-    if (!motDePasseNouveau1) {
-      errors.push('nouveau mot de passe manquant')
-    } else if (motDePasseNouveau1.length < 8) {
-      errors.push('le mot de passe doit contenir au moins 8 caractères')
-    }
-
-    if (!motDePasseNouveau2) {
-      errors.push('vérification du nouveau mot de passe manquante')
-    }
-
-    if (motDePasseNouveau1 !== motDePasseNouveau2) {
-      errors.push('le nouveau mot de passe et la vérification sont différents')
-    }
-
-    if (id && motDePasse) {
-      const utilisateur = await utilisateurGet(id)
-
-      if (utilisateur) {
-        const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
-
-        if (!valid) {
-          errors.push('mot de passe incorrect')
-        }
-      } else {
-        errors.push('aucun utilisateur enregistré avec cette id')
-      }
-    }
-
-    if (!errors.length) {
-      const res = await utilisateurUpdate({
-        id,
-        motDePasse: await bcrypt.hash(motDePasseNouveau1, 10)
-      })
-
-      return res
-    } else {
-      throw new Error(errors.join(', '))
-    }
-  } else {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
+
+  const errors = []
+
+  if (!id) {
+    errors.push('id manquante')
+  }
+
+  if (!motDePasse) {
+    errors.push('mot de passe manquant')
+  }
+
+  if (!motDePasseNouveau1) {
+    errors.push('nouveau mot de passe manquant')
+  } else if (motDePasseNouveau1.length < 8) {
+    errors.push('le mot de passe doit contenir au moins 8 caractères')
+  }
+
+  if (!motDePasseNouveau2) {
+    errors.push('vérification du nouveau mot de passe manquante')
+  }
+
+  if (motDePasseNouveau1 !== motDePasseNouveau2) {
+    errors.push('le nouveau mot de passe et la vérification sont différents')
+  }
+
+  if (id && motDePasse) {
+    const utilisateur = await utilisateurGet(id)
+
+    if (utilisateur) {
+      const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+
+      if (!valid) {
+        errors.push('mot de passe incorrect')
+      }
+    } else {
+      errors.push('aucun utilisateur enregistré avec cette id')
+    }
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join(', '))
+  }
+
+  const res = await utilisateurUpdate({
+    id,
+    motDePasse: await bcrypt.hash(motDePasseNouveau1, 10)
+  })
+
+  return res
 }
 
 const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
@@ -383,26 +383,24 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
     }
   }
 
-  if (!errors.length) {
-    const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET)
-
-    const url = `${
-      process.env.UI_URL
-    }/mot-de-passe?token=${token}&email=${email}`
-
-    const subject = `[Camino] Initialisation de votre mot de passe`
-    const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
-
-    try {
-      emailsSend(email, subject, html)
-    } catch (e) {
-      return "erreur lors de l'envoi d'email"
-    }
-
-    return 'email envoyé'
-  } else {
+  if (errors.length) {
     throw new Error(errors.join(', '))
   }
+
+  const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET)
+
+  const url = `${process.env.UI_URL}/mot-de-passe?token=${token}&email=${email}`
+
+  const subject = `[Camino] Initialisation de votre mot de passe`
+  const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
+
+  try {
+    emailsSend(email, subject, html)
+  } catch (e) {
+    return "erreur lors de l'envoi d'email"
+  }
+
+  return 'email envoyé'
 }
 
 const utilisateurMotDePasseInitialiser = async (
@@ -440,15 +438,15 @@ const utilisateurMotDePasseInitialiser = async (
   }
 
   if (!errors.length) {
-    await utilisateurUpdate({
-      id: context.user.id,
-      motDePasse: await bcrypt.hash(motDePasse1, 10)
-    })
-
-    return 'mot de passe mis à jour'
-  } else {
     throw new Error(errors.join(', '))
   }
+
+  await utilisateurUpdate({
+    id: context.user.id,
+    motDePasse: await bcrypt.hash(motDePasse1, 10)
+  })
+
+  return 'mot de passe mis à jour'
 }
 
 const tokenCreate = (id, email, permission) =>
