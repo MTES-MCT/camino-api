@@ -10,15 +10,9 @@ import {
 } from '../../database/queries/titres'
 
 import { domainesGet, statutsGet } from '../../database/queries/metas'
-import {
-  titreEtapeUpsert,
-  titreEtapeDelete
-} from '../../database/queries/titres-etapes'
+
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
-import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
-
-import titreEtapeUpdateValidation from '../../tasks/titre-etape-validation'
 
 const titreRestrictions = (titre, userHasAccess) => {
   if (!userHasAccess) {
@@ -241,76 +235,4 @@ const titreModifier = async ({ titre }, context, info) => {
   return titreUpdate(titre)
 }
 
-const titreEtapeModifier = async ({ etape }, context, info) => {
-  const errors = []
-  const propsMandatory = ['date', 'typeId', 'statutId']
-
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
-  }
-
-  propsMandatory.forEach(p => {
-    if (!etape[p]) {
-      errors.push(`le champ ${p} est requis`)
-    }
-  })
-
-  const rulesError = await titreEtapeUpdateValidation(etape)
-
-  if (rulesError) {
-    errors.push(rulesError)
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
-  }
-
-  const joinTables = [
-    'titulaires',
-    'amodiataires',
-    'administrations',
-    'substances',
-    'emprises'
-  ]
-
-  joinTables.forEach(props => {
-    const propsIds = `${props}Ids`
-    if (etape[propsIds]) {
-      etape[props] = etape[propsIds].map(id => ({ id }))
-
-      delete etape[propsIds]
-    }
-  })
-
-  const res = await titreEtapeUpsert(etape)
-
-  await titreEtapeUpdateTask(etape.id)
-
-  return res
-}
-
-const titreEtapeSupprimer = async ({ etapeId }, context, info) => {
-  const errors = []
-
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
-  }
-
-  const res = await titreEtapeDelete(etapeId)
-
-  return res
-}
-
-export {
-  titre,
-  titres,
-  titreAjouter,
-  titreSupprimer,
-  titreModifier,
-  titreEtapeModifier,
-  titreEtapeSupprimer
-}
+export { titre, titres, titreAjouter, titreSupprimer, titreModifier }

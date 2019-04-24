@@ -257,6 +257,16 @@ input InputReference {
   type: String
 }
 
+input InputDemarche {
+  id: ID!
+
+  typeId: ID!
+
+  statutId: EtapeStatutId!
+
+  titreId: ID!
+}
+
 input InputEtape {
   id: ID!
 

@@ -7,10 +7,18 @@ import {
   titres,
   titreAjouter,
   titreSupprimer,
-  titreModifier,
+  titreModifier
+} from './resolvers/titres'
+
+import {
   titreEtapeModifier,
   titreEtapeSupprimer
-} from './resolvers/titres'
+} from './resolvers/titres-etapes'
+
+import {
+  titreDemarcheModifier,
+  titreDemarcheSupprimer
+} from './resolvers/titres-demarches'
 
 import {
   utilisateur,
@@ -56,6 +64,8 @@ export default {
   titreAjouter,
   titreModifier,
   titreSupprimer,
+  titreDemarcheModifier,
+  titreDemarcheSupprimer,
   titreEtapeModifier,
   titreEtapeSupprimer,
   titreActiviteModifier,

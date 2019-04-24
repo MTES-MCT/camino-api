@@ -109,10 +109,16 @@ type Mutation {
   ): String
 
   "__*__ Modifie une étape de titre minier"
+  titreDemarcheModifier(demarche: InputDemarche): Demarche
+
+  "__*__ Supprime une étape de titre minier"
+  titreDemarcheSupprimer(id: ID!): Demarche
+
+  "__*__ Modifie une étape de titre minier"
   titreEtapeModifier(etape: InputEtape): Etape
 
   "__*__ Supprime une étape de titre minier"
-  titreEtapeSupprimer(etapeId: ID!): Etape
+  titreEtapeSupprimer(id: ID!): Etape
 
   "__*__ Créé ou modifie une activité"
   titreActiviteModifier(
