@@ -23,26 +23,6 @@ const permissionsVisibleForAdmin = [
   'defaut'
 ]
 
-const utilisateurErreurs = async utilisateur => {
-  const errors = []
-
-  if (!utilisateur.prenom) {
-    errors.push('prénom manquant')
-  }
-
-  if (!utilisateur.nom) {
-    errors.push('nom manquant')
-  }
-
-  if (!utilisateur.email) {
-    errors.push('email manquant')
-  } else if (!emailRegex({ exact: true }).test(utilisateur.email)) {
-    errors.push('adresse email invalide')
-  }
-
-  return errors
-}
-
 const userIdGenerate = async () => {
   const id = cryptoRandomString(6)
   const utilisateurWithTheSameId = await utilisateurGet(id)
@@ -59,14 +39,16 @@ const utilisateur = async ({ id }, context, info) => {
     (context.user && context.user.id === id)
   ) {
     return utilisateurGet(id)
-  } else if (permissionsCheck(context.user, ['admin'])) {
-    const utilisateur = await utilisateurGet(id)
+  }
 
-    if (permissionsCheck(utilisateur, permissionsVisibleForAdmin)) {
-      return utilisateur
-    } else {
-      return null
-    }
+  if (!permissionsCheck(context.user, ['admin'])) {
+    return null
+  }
+
+  const utilisateur = await utilisateurGet(id)
+
+  if (permissionsCheck(utilisateur, permissionsVisibleForAdmin)) {
+    return utilisateur
   }
 
   return null
@@ -77,28 +59,24 @@ const utilisateurs = async (
   context,
   info
 ) => {
-  if (permissionsCheck(context.user, ['super', 'admin'])) {
-    if (permissionsCheck(context.user, ['admin'])) {
-      if (permissionIds) {
-        permissionIds = permissionIds.filter(id =>
-          permissionsVisibleForAdmin.includes(id)
-        )
-      } else {
-        permissionIds = permissionsVisibleForAdmin
-      }
-    }
-
-    const utilisateurs = await utilisateursGet({
-      noms,
-      entrepriseIds,
-      administrationIds,
-      permissionIds
-    })
-
-    return utilisateurs
+  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    return null
   }
 
-  return null
+  if (permissionsCheck(context.user, ['admin'])) {
+    permissionIds = permissionIds
+      ? permissionIds.filter(id => permissionsVisibleForAdmin.includes(id))
+      : permissionsVisibleForAdmin
+  }
+
+  const utilisateurs = await utilisateursGet({
+    noms,
+    entrepriseIds,
+    administrationIds,
+    permissionIds
+  })
+
+  return utilisateurs
 }
 
 const utilisateurIdentifier = async (variables, context, info) => {
@@ -117,38 +95,22 @@ const utilisateurIdentifier = async (variables, context, info) => {
 }
 
 const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
-  const errors = []
-  let utilisateur
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
-  if (!email) {
-    errors.push('adresse email manquante')
-  }
-
   if (!emailIsValid) {
-    errors.push('adresse email invalide')
+    throw new Error('adresse email invalide')
   }
 
-  if (!motDePasse) {
-    errors.push('mot de passe manquant')
+  const utilisateur = await utilisateurByEmailGet(email)
+
+  if (!utilisateur) {
+    throw new Error('aucun utilisateur enregistré avec cette adresse email')
   }
 
-  if (email && emailIsValid && motDePasse) {
-    utilisateur = await utilisateurByEmailGet(email)
+  const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
 
-    if (!utilisateur) {
-      errors.push('aucun utilisateur enregistré avec cette adresse email')
-    }
-
-    const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
-
-    if (!valid) {
-      errors.push('mot de passe incorrect')
-    }
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+  if (!valid) {
+    throw new Error('mot de passe incorrect')
   }
 
   const token = tokenCreate(
@@ -161,36 +123,13 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
 }
 
 const utilisateurAjouter = async ({ utilisateur }, context) => {
-  const errors = await utilisateurErreurs(utilisateur)
-
-  if (utilisateur.email) {
-    const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
-      utilisateur.email
-    )
-
-    if (utilisateurWithTheSameEmail) {
-      errors.push('un utilisateur avec cet email existe déjà')
-    }
-  }
-
-  if (!utilisateur.motDePasse) {
-    errors.push('mot de passe manquant')
-  } else if (utilisateur.motDePasse.length < 8) {
-    errors.push('le mot de passe doit contenir au moins 8 caractères')
-  }
-
-  if (
-    !permissionsCheck(context.user, ['super', 'admin']) ||
-    !utilisateur.permission
-  ) {
-    utilisateur.permission = { id: 'defaut' }
-  }
+  const errors = []
 
   if (
     !permissionsCheck(context.user, ['super']) &&
-    utilisateur.permission.id === 'super'
+    utilisateur.permissionId === 'super'
   ) {
-    errors.push(
+    throw new Error(
       'droits insuffisants pour créer un utilisateur avec ces permissions'
     )
   }
@@ -199,9 +138,29 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
     !permissionsCheck(context.user, ['super', 'admin']) &&
     context.user.email !== utilisateur.email
   ) {
-    errors.push(
+    throw new Error(
       'droits insuffisants pour créer un compte avec cette adresse email'
     )
+  }
+
+  if (!emailRegex({ exact: true }).test(utilisateur.email)) {
+    errors.push('adresse email invalide')
+  }
+
+  if (utilisateur.motDePasse.length < 8) {
+    errors.push('le mot de passe doit contenir au moins 8 caractères')
+  }
+
+  const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
+    utilisateur.email
+  )
+
+  if (utilisateurWithTheSameEmail) {
+    throw new Error('un utilisateur avec cet email existe déjà')
+  }
+
+  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    utilisateur.permission = { id: 'defaut' }
   }
 
   if (errors.length) {
@@ -211,21 +170,16 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
   utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
   utilisateur.id = await userIdGenerate()
 
-  const res = await utilisateurAdd(utilisateur)
-
-  return res
+  return utilisateurAdd(utilisateur)
 }
 
 const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
   const errors = []
   let utilisateur
 
-  console.log('email', email)
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
-  if (!email) {
-    errors.push('email manquant')
-  } else if (!emailIsValid) {
+  if (!emailIsValid) {
     errors.push('adresse email invalide')
   } else {
     utilisateur = await utilisateurByEmailGet(email)
@@ -265,20 +219,19 @@ const utilisateurModifier = async ({ utilisateur }, context) => {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
-  let res
-  const errors = await utilisateurErreurs(utilisateur)
-
-  if (!utilisateur.id) {
-    errors.push('id manquante')
+  if (!emailRegex({ exact: true }).test(utilisateur.email)) {
+    throw new Error('adresse email invalide')
   }
 
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    const utilisateurOld = await utilisateurGet(utilisateur.id)
+
+    if (utilisateurOld.permissionId !== utilisateur.permissionId) {
+      throw new Error('droits insuffisants pour modifier les permissions')
+    }
   }
 
-  res = await utilisateurUpdate(utilisateur)
-
-  return res
+  return utilisateurUpdate(utilisateur)
 }
 
 const utilisateurSupprimer = async ({ id }, context) => {
@@ -289,20 +242,7 @@ const utilisateurSupprimer = async ({ id }, context) => {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
-  const errors = []
-  let res
-
-  if (!id) {
-    errors.push('id manquante')
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
-  }
-
-  res = await utilisateurRemove(id)
-
-  return res
+  return utilisateurRemove(id)
 }
 
 const utilisateurMotDePasseModifier = async (
@@ -316,75 +256,46 @@ const utilisateurMotDePasseModifier = async (
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
-  const errors = []
-
-  if (!id) {
-    errors.push('id manquante')
-  }
-
-  if (!motDePasse) {
-    errors.push('mot de passe manquant')
-  }
-
-  if (!motDePasseNouveau1) {
-    errors.push('nouveau mot de passe manquant')
-  } else if (motDePasseNouveau1.length < 8) {
-    errors.push('le mot de passe doit contenir au moins 8 caractères')
-  }
-
-  if (!motDePasseNouveau2) {
-    errors.push('vérification du nouveau mot de passe manquante')
+  if (motDePasseNouveau1.length < 8) {
+    throw new Error('le mot de passe doit contenir au moins 8 caractères')
   }
 
   if (motDePasseNouveau1 !== motDePasseNouveau2) {
-    errors.push('le nouveau mot de passe et la vérification sont différents')
+    throw new Error(
+      'le nouveau mot de passe et la vérification sont différents'
+    )
   }
 
-  if (id && motDePasse) {
-    const utilisateur = await utilisateurGet(id)
+  const utilisateur = await utilisateurGet(id)
 
-    if (utilisateur) {
-      const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
-
-      if (!valid) {
-        errors.push('mot de passe incorrect')
-      }
-    } else {
-      errors.push('aucun utilisateur enregistré avec cette id')
-    }
+  if (!utilisateur) {
+    throw new Error('aucun utilisateur enregistré avec cet id')
   }
 
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+  const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+
+  if (!valid) {
+    throw new Error('mot de passe incorrect')
   }
 
-  const res = await utilisateurUpdate({
+  return utilisateurUpdate({
     id,
     motDePasse: await bcrypt.hash(motDePasseNouveau1, 10)
   })
-
-  return res
 }
 
+// envoie l'email avec un lien vers un formulaire de ré-init
 const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
-  const errors = []
-  let utilisateur
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
-  if (!email) {
-    errors.push('email manquant')
-  } else if (!emailIsValid) {
-    errors.push('adresse email invalide')
-  } else {
-    utilisateur = await utilisateurByEmailGet(email)
-
-    if (!utilisateur) {
-      errors.push('aucun utilisateur enregistré avec cette adresse email')
-    }
+  if (!emailIsValid) {
+    throw new Error('adresse email invalide')
   }
 
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+  const utilisateur = await utilisateurByEmailGet(email)
+
+  if (!utilisateur) {
+    throw new Error('aucun utilisateur enregistré avec cette adresse email')
   }
 
   const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET)
@@ -403,42 +314,34 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
   return 'email envoyé'
 }
 
+// formulaire de ré-init du mot de passe
 const utilisateurMotDePasseInitialiser = async (
   { motDePasse1, motDePasse2 },
   context
 ) => {
-  const errors = []
   const now = Math.round(new Date().getTime() / 1000)
   const delay = 60 * 15 // 15 minutes
 
   if (now - context.user.iat > delay) {
-    errors.push('délai expiré')
-  } else {
-    if (!motDePasse1) {
-      errors.push('nouveau mot de passe manquant')
-    } else if (motDePasse1.length < 8) {
-      errors.push('le mot de passe doit contenir au moins 8 caractères')
-    }
-
-    if (!motDePasse2) {
-      errors.push('vérification du nouveau mot de passe manquante')
-    }
-
-    if (motDePasse1 !== motDePasse2) {
-      errors.push('le nouveau mot de passe et la vérification sont différents')
-    }
-
-    if (context.user.id) {
-      const utilisateur = await utilisateurGet(context.user.id)
-
-      if (!utilisateur) {
-        errors.push('aucun utilisateur enregistré avec cette id')
-      }
-    }
+    throw new Error('délai expiré')
   }
 
-  if (!errors.length) {
-    throw new Error(errors.join(', '))
+  if (motDePasse1.length < 8) {
+    throw new Error('le mot de passe doit contenir au moins 8 caractères')
+  }
+
+  if (motDePasse1 !== motDePasse2) {
+    throw new Error(
+      'le nouveau mot de passe et la vérification sont différents'
+    )
+  }
+
+  if (context.user.id) {
+    const utilisateur = await utilisateurGet(context.user.id)
+
+    if (!utilisateur) {
+      throw new Error('aucun utilisateur enregistré avec cet id')
+    }
   }
 
   await utilisateurUpdate({

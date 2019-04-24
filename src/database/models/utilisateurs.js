@@ -34,6 +34,7 @@ export default class Utilisateurs extends Model {
       }
       // modify: builder => builder.select('id')
     },
+
     administration: {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'administrations'),
@@ -42,6 +43,7 @@ export default class Utilisateurs extends Model {
         to: 'administrations.id'
       }
     },
+
     entreprise: {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'entreprises'),

@@ -86,7 +86,7 @@ type Mutation {
   utilisateurModifier(utilisateur: InputUtilisateur!): Utilisateur
 
   "__*__ Supprime un utilisateur"
-  utilisateurSupprimer(utilisateurId: ID!): Utilisateur
+  utilisateurSupprimer(id: ID!): Utilisateur
 
   "__*__ Modifie le mot de passe d'un utilisateur"
   utilisateurMotDePasseModifier(
@@ -108,10 +108,10 @@ type Mutation {
     motDePasse2: String!
   ): String
 
-  "__*__ Modifie une étape de titre minier"
+  "__*__ Modifie une démarche de titre minier"
   titreDemarcheModifier(demarche: InputDemarche): Demarche
 
-  "__*__ Supprime une étape de titre minier"
+  "__*__ Supprime une démarche de titre minier"
   titreDemarcheSupprimer(id: ID!): Demarche
 
   "__*__ Modifie une étape de titre minier"
