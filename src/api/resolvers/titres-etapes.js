@@ -17,7 +17,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   const rulesError = await titreEtapeUpdateValidation(etape)
 
   if (rulesError) {
-    throw new Error(rulesError.join(', '))
+    throw new Error(rulesError)
   }
 
   const res = await titreEtapeUpsert(etape)

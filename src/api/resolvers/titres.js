@@ -194,42 +194,24 @@ const titres = async (
 }
 
 const titreAjouter = async ({ titre }, context, info) => {
-  const errors = []
-
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
+    throw new Error('opération impossible')
   }
 
-  if (!errors.length) {
-    return titreAdd(titre)
-  } else {
-    throw new Error(errors.join(', '))
-  }
+  return titreAdd(titre)
 }
 
 const titreSupprimer = async ({ id }, context, info) => {
-  const errors = []
-
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+    throw new Error('opération impossible')
   }
 
   return titreRemove(id)
 }
 
 const titreModifier = async ({ titre }, context, info) => {
-  const errors = []
-
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+    throw new Error('opération impossible')
   }
 
   return titreUpdate(titre)

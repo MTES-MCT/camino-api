@@ -123,8 +123,6 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
 }
 
 const utilisateurAjouter = async ({ utilisateur }, context) => {
-  const errors = []
-
   if (
     !permissionsCheck(context.user, ['super']) &&
     utilisateur.permissionId === 'super'
@@ -143,12 +141,18 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
     )
   }
 
+  const errors = []
+
   if (!emailRegex({ exact: true }).test(utilisateur.email)) {
     errors.push('adresse email invalide')
   }
 
   if (utilisateur.motDePasse.length < 8) {
     errors.push('le mot de passe doit contenir au moins 8 caractères')
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join(', '))
   }
 
   const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
@@ -163,10 +167,6 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
     utilisateur.permission = { id: 'defaut' }
   }
 
-  if (errors.length) {
-    throw new Error(errors.join(', '))
-  }
-
   utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
   utilisateur.id = await userIdGenerate()
 
@@ -174,23 +174,18 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
 }
 
 const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
-  const errors = []
-  let utilisateur
-
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
   if (!emailIsValid) {
-    errors.push('adresse email invalide')
-  } else {
-    utilisateur = await utilisateurByEmailGet(email)
-
-    if (utilisateur) {
-      errors.push('un utilisateur est déjà enregistré avec cette adresse email')
-    }
+    throw new Error('adresse email invalide')
   }
 
-  if (errors.length) {
-    throw new Error(errors.join(', '))
+  const utilisateur = await utilisateurByEmailGet(email)
+
+  if (utilisateur) {
+    throw new Error(
+      'un utilisateur est déjà enregistré avec cette adresse email'
+    )
   }
 
   const token = jwt.sign({ email }, process.env.JWT_SECRET)

@@ -17,7 +17,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
   const rulesError = await titreDemarcheUpdateValidation(demarche)
 
   if (rulesError) {
-    throw new Error(rulesError.join(', '))
+    throw new Error(rulesError)
   }
 
   const res = await titreDemarcheUpsert(demarche)
