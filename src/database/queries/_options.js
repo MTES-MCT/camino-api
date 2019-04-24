@@ -128,7 +128,7 @@ const titresActivites = {
 }
 
 const titres = {
-  eager: `[type, domaine, statut, points, substances.${
+  eager: `[type.demarchesTypes.demarchesStatuts, domaine, statut, points, substances.${
     substances.eager
   }, titulaires.${entreprises.eager}, amodiataires.${
     entreprises.eager

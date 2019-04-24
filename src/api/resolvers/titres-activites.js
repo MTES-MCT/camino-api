@@ -17,7 +17,6 @@ import { titreActiviteRowUpdate } from '../../tools/export/titre-activite'
 import emailsSend from '../../tools/emails-send'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
-  const errors = []
   const user = await utilisateurGet(context.user.id)
   const activiteOld = await titreActiviteGet(activite.id)
   const titre = await titreGet(activiteOld.titreId)
@@ -32,7 +31,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
         (isAmodiataire || (!titre.amodiataires.length && isTitulaire)))
     )
   ) {
-    errors.push("droits insuffisants pour effectuer l'opération")
+    throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
   if (
@@ -40,43 +39,41 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
       type => type.domaineId === titre.domaineId && type.id === titre.typeId
     )
   ) {
-    errors.push("ce titre ne peut pas recevoir d'activite")
+    throw new Error("ce titre ne peut pas recevoir d'activite")
   }
 
   if (activiteOld && activiteOld.statut.id === 'dep') {
-    errors.push('cette activite a été validé et ne peux plus être modifiée')
+    throw new Error(
+      'cette activite a été validée et ne peux plus être modifiée'
+    )
   }
 
-  if (!errors.length) {
-    activite.utilisateurId = context.user.id
-    activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
+  activite.utilisateurId = context.user.id
+  activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
 
-    const activiteRes = await titreActiviteUpdate(activite)
+  const activiteRes = await titreActiviteUpdate(activite)
 
-    titreActiviteRowUpdate(activiteRes)
+  titreActiviteRowUpdate(activiteRes)
 
-    if (activiteRes.activiteStatutId === 'dep') {
-      const entrepriseIds = isAmodiataire
-        ? titre.amodiataires.map(t => t.id)
-        : titre.titulaires.map(t => t.id)
-      const emails = await emailsGet(entrepriseIds)
-      const emailTitle = `${titre.nom} | ${activiteRes.type.nom}, ${
-        activiteRes.type.frequence.periodesNom
-          ? activiteRes.type.frequence[activiteRes.type.frequence.periodesNom][
-              activiteRes.frequencePeriodeId - 1
-            ].nom
-          : ''
-      } ${activiteRes.annee}`
-      const subject = `[Camino] ${emailTitle}`
-      const html = emailFormat(emailTitle, user, activiteRes)
+  if (activiteRes.activiteStatutId === 'dep') {
+    const entrepriseIds = isAmodiataire
+      ? titre.amodiataires.map(t => t.id)
+      : titre.titulaires.map(t => t.id)
+    const emails = await emailsGet(entrepriseIds)
+    const emailTitle = `${titre.nom} | ${activiteRes.type.nom}, ${
+      activiteRes.type.frequence.periodesNom
+        ? activiteRes.type.frequence[activiteRes.type.frequence.periodesNom][
+            activiteRes.frequencePeriodeId - 1
+          ].nom
+        : ''
+    } ${activiteRes.annee}`
+    const subject = `[Camino] ${emailTitle}`
+    const html = emailFormat(emailTitle, user, activiteRes)
 
-      await emailsSend(emails, subject, html)
-    }
-
-    return activiteRes
-  } else {
-    throw new Error(errors.join(', '))
+    await emailsSend(emails, subject, html)
   }
+
+  return activiteRes
 }
 
 const emailsGet = async entrepriseIds => {

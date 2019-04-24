@@ -25,11 +25,11 @@ type Permission {
 input InputUtilisateur {
   id: ID!
   email: String!
-  nom: String
-  prenom: String
+  nom: String!
+  prenom: String!
   telephoneMobile: String
   telephoneFixe: String
-  permission: InputPermission
+  permissionId: ID
   entrepriseId: ID
   administrationId: ID
   preferences: Json
@@ -38,17 +38,12 @@ input InputUtilisateur {
 input InputUtilisateurAjouter {
   email: String!
   motDePasse: String!
-  nom: String
-  prenom: String
+  nom: String!
+  prenom: String!
   telephoneMobile: String
   telephoneFixe: String
-  permission: InputPermission
+  permissionId: ID
   entrepriseId: ID
   administrationId: ID
   preferences: Json
-}
-
-input InputPermission {
-  id: ID!
-  nom: String
 }`

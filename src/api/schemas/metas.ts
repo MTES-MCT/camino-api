@@ -32,6 +32,9 @@ type Type {
 
   "Le nom du type en français"
   nom: String!
+
+  "Les types de démarches applicables à ce type de titre"
+  demarchesTypes: [DemarcheType]
 }
 
 "Le domaine minier"
@@ -91,6 +94,9 @@ type DemarcheType {
   renouvelable: Boolean
 
   exception: Boolean
+
+  "Les types de statuts applicables à ce type de démarche"
+  demarchesStatuts: [DemarcheStatut]
 
   "Les types d'étapes applicables à ce type de démarche"
   etapesTypes: [EtapeType]
