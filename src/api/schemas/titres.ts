@@ -257,6 +257,16 @@ input InputReference {
   type: String
 }
 
+input InputDemarche {
+  id: ID!
+
+  typeId: ID!
+
+  statutId: EtapeStatutId!
+
+  titreId: ID!
+}
+
 input InputEtape {
   id: ID!
 
@@ -264,11 +274,11 @@ input InputEtape {
 
   statutId: EtapeStatutId!
 
-  titreDemarcheId: ID
-
-  ordre: Int!
+  titreDemarcheId: ID!
 
   date: Date!
+
+  ordre: Int
 
   duree: Int
 
