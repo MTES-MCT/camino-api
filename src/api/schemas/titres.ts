@@ -262,7 +262,7 @@ input InputDemarche {
 
   typeId: ID!
 
-  statutId: EtapeStatutId!
+  statutId: DemarcheStatutId!
 
   titreId: ID!
 }
