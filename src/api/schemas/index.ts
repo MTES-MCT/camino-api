@@ -76,9 +76,6 @@ _Mutation_ un type natif de GraphQL.
 Ces requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.
 """
 type Mutation {
-  "__*__ Modifie une étape de titre minier"
-  titreEtapeModifier(etape: InputEtape): Etape
-
   "__*__ Connecte l'utilisateur en fonction de ses identifiants"
   utilisateurConnecter(email: String!, motDePasse: String!): UtilisateurToken
 
@@ -110,6 +107,18 @@ type Mutation {
     motDePasse1: String!
     motDePasse2: String!
   ): String
+
+  "__*__ Modifie une démarche de titre minier"
+  titreDemarcheModifier(demarche: InputDemarche): Demarche
+
+  "__*__ Supprime une démarche de titre minier"
+  titreDemarcheSupprimer(id: ID!): Demarche
+
+  "__*__ Modifie une étape de titre minier"
+  titreEtapeModifier(etape: InputEtape): Etape
+
+  "__*__ Supprime une étape de titre minier"
+  titreEtapeSupprimer(id: ID!): Etape
 
   "__*__ Créé ou modifie une activité"
   titreActiviteModifier(

@@ -10,12 +10,9 @@ import {
 } from '../../database/queries/titres'
 
 import { domainesGet, statutsGet } from '../../database/queries/metas'
-import { titreEtapeUpsert } from '../../database/queries/titres-etapes'
+
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
-import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
-
-import titreEtapeUpdateValidation from '../../tasks/titre-etape-validation'
 
 const titreRestrictions = (titre, userHasAccess) => {
   if (!userHasAccess) {
@@ -197,99 +194,27 @@ const titres = async (
 }
 
 const titreAjouter = async ({ titre }, context, info) => {
-  const errors = []
-
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
+    throw new Error('opération impossible')
   }
 
-  if (!errors.length) {
-    return titreAdd(titre)
-  } else {
-    throw new Error(errors.join(', '))
-  }
+  return titreAdd(titre)
 }
 
 const titreSupprimer = async ({ id }, context, info) => {
-  const errors = []
-
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
+    throw new Error('opération impossible')
   }
 
-  if (!errors.length) {
-    return titreRemove(id)
-  } else {
-    throw new Error(errors.join(', '))
-  }
+  return titreRemove(id)
 }
 
 const titreModifier = async ({ titre }, context, info) => {
-  const errors = []
-
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
+    throw new Error('opération impossible')
   }
 
-  if (!errors.length) {
-    return titreUpdate(titre)
-  } else {
-    throw new Error(errors.join(', '))
-  }
+  return titreUpdate(titre)
 }
 
-const titreEtapeModifier = async ({ etape }, context, info) => {
-  const errors = []
-  const propsMandatory = ['date', 'typeId', 'statutId']
-
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    errors.push('opération impossible')
-  }
-
-  propsMandatory.forEach(p => {
-    if (!etape[p]) {
-      errors.push(`le champ ${p} est requis`)
-    }
-  })
-
-  const rulesError = await titreEtapeUpdateValidation(etape)
-  if (rulesError) {
-    errors.push(rulesError)
-  }
-
-  if (!errors.length) {
-    const joinTables = [
-      'titulaires',
-      'amodiataires',
-      'administrations',
-      'substances',
-      'emprises'
-    ]
-
-    joinTables.forEach(props => {
-      const propsIds = `${props}Ids`
-      if (etape[propsIds]) {
-        etape[props] = etape[propsIds].map(id => ({ id }))
-
-        delete etape[propsIds]
-      }
-    })
-
-    const res = await titreEtapeUpsert(etape)
-
-    await titreEtapeUpdateTask(etape.id)
-
-    return res
-  } else {
-    throw new Error(errors.join(', '))
-  }
-}
-
-export {
-  titre,
-  titres,
-  titreAjouter,
-  titreSupprimer,
-  titreModifier,
-  titreEtapeModifier
-}
+export { titre, titres, titreAjouter, titreSupprimer, titreModifier }
