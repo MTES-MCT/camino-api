@@ -264,7 +264,7 @@ input InputEtape {
 
   statutId: EtapeStatutId!
 
-  titreDemarcheId: ID
+  titreDemarcheId: ID!
 
   ordre: Int!
 

@@ -1,5 +1,4 @@
 import { titreGet } from '../database/queries/titres'
-import { titreEtapeGet } from '../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import titreEtapeTypeAndStatusCheck from './utils/titre-etape-type-and-status-check'
 import titreEtapeDateCheck from './utils/titre-etape-date-check'
@@ -15,6 +14,7 @@ const titreEtapeValidation = async titreEtapeNew => {
     titreDemarche,
     titre
   )
+
   if (error) {
     return error
   }
