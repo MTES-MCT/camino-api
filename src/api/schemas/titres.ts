@@ -276,9 +276,9 @@ input InputEtape {
 
   titreDemarcheId: ID!
 
-  ordre: Int!
-
   date: Date!
+
+  ordre: Int
 
   duree: Int
 
