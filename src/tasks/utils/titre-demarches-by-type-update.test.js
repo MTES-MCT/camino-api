@@ -21,7 +21,8 @@ describe("change l'id de la démarche d'un titre", () => {
       )
     ).toEqual({
       titreDemarchesNew: [],
-      titreDemarchesOldIds: []
+      titreDemarchesOldIds: [],
+      titreProps: {}
     })
   })
 
@@ -40,7 +41,8 @@ describe("change l'id de la démarche d'un titre", () => {
           etapes: []
         }
       ],
-      titreDemarchesOldIds: ['h-nom-cxx-oct01']
+      titreDemarchesOldIds: ['h-nom-cxx-oct01'],
+      titreProps: {}
     })
   })
 
@@ -78,7 +80,8 @@ describe("change l'id de la démarche d'un titre", () => {
           ]
         }
       ],
-      titreDemarchesOldIds: ['h-nom-cxx-oct01', 'h-nom-cxx-mut01']
+      titreDemarchesOldIds: ['h-nom-cxx-oct01', 'h-nom-cxx-mut01'],
+      titreProps: {}
     })
   })
 
@@ -94,7 +97,8 @@ describe("change l'id de la démarche d'un titre", () => {
           etapes: []
         }
       ],
-      titreDemarchesOldIds: ['h-nom-cxx-oct01']
+      titreDemarchesOldIds: ['h-nom-cxx-oct01'],
+      titreProps: {}
     })
   })
 })

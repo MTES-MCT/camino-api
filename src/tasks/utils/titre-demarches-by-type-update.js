@@ -1,20 +1,24 @@
 import titreEtapesByTypeUpdate from './titre-etapes-by-type-update'
 
-const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
+const titreDemarcheIdUpdate = (
+  titreDemarcheOld,
+  titre,
+  titreDemarcheOrderNew
+) => {
   const { id: titreDemarcheOldId } = titreDemarcheOld
 
-  const titreDemarcheTypeId = titreDemarcheOldId.slice(-5, -2)
-  const titreDemarcheOrder = titreDemarcheOldId.slice(-2)
+  const titreDemarcheOldTypeId = titreDemarcheOldId.slice(-5, -2)
+  const titreDemarcheOldOrder = titreDemarcheOldId.slice(-2)
 
-  const titreDemarcheOrderString = (i + 1).toString().padStart(2, '0')
+  titreDemarcheOrderNew = titreDemarcheOrderNew.toString().padStart(2, '0')
 
   if (
     // si le type d'une étape n'a pas changé
-    titreDemarcheTypeId === titreDemarcheOld.typeId &&
+    titreDemarcheOldTypeId === titreDemarcheOld.typeId &&
     // et si l'ordre n'a pas changé
-    titreDemarcheOrder === titreDemarcheOrderString
+    titreDemarcheOldOrder === titreDemarcheOrderNew
   ) {
-    return null
+    return {}
   }
 
   // utilise la référence à l'étape liée à la référence du titre
@@ -24,7 +28,7 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
   // - change l'id de la nouvelle étape
   const titreDemarcheNewId = `${titreDemarcheOld.titreId}-${
     titreDemarcheOld.typeId
-  }${titreDemarcheOrderString}`
+  }${titreDemarcheOrderNew}`
 
   titreDemarcheNew.id = titreDemarcheNewId
 
@@ -36,7 +40,7 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
   delete titreDemarcheNew.type
 
   // mets à jour les ids des étapes et tables jointes
-  titreEtapesByTypeUpdate(titreDemarcheNew.etapes, titre)
+  const { titreProps } = titreEtapesByTypeUpdate(titreDemarcheNew.etapes, titre)
 
   // supprime la phase, elle sera recréée plus tard
   if (
@@ -46,7 +50,7 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
     delete titreDemarcheNew.phase
   }
 
-  return titreDemarcheNew
+  return { titreDemarcheNew, titreProps }
 }
 
 const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
@@ -54,7 +58,11 @@ const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
     (acc, titreDemarcheOld, i) => {
       const { id: titreDemarcheOldId } = titreDemarcheOld
 
-      const titreDemarcheNew = titreDemarcheIdUpdate(titreDemarcheOld, titre, i)
+      const { titreDemarcheNew, titreProps } = titreDemarcheIdUpdate(
+        titreDemarcheOld,
+        titre,
+        i + 1
+      )
 
       return titreDemarcheNew
         ? {
@@ -62,11 +70,12 @@ const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
               ...acc.titreDemarchesOldIds,
               titreDemarcheOldId
             ],
-            titreDemarchesNew: [...acc.titreDemarchesNew, titreDemarcheNew]
+            titreDemarchesNew: [...acc.titreDemarchesNew, titreDemarcheNew],
+            titreProps: { ...acc.titreProps, ...titreProps }
           }
         : acc
     },
-    { titreDemarchesOldIds: [], titreDemarchesNew: [] }
+    { titreDemarchesOldIds: [], titreDemarchesNew: [], titreProps: {} }
   )
 
 export default titreDemarchesByTypeUpdate

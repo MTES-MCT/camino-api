@@ -23,7 +23,8 @@ jest.mock('../queries/titre-demarches', () => ({
 jest.mock('../utils/titre-demarches-by-type-update', () => ({
   default: jest.fn().mockImplementation(titreDemarches => ({
     titreDemarchesOldIds: titreDemarches.map(t => t.id),
-    titreDemarchesNew: titreDemarches
+    titreDemarchesNew: titreDemarches,
+    titreProps: titreDemarches.reduce((acc, d) => ((acc[d.id] = true), acc), {})
   }))
 }))
 
@@ -39,7 +40,10 @@ describe("change l'id de la démarche d'un titre", () => {
         titreDemarcheNoChange,
         titreWithDemarchesNoChange
       )
-    ).toEqual('Mise à jour: 0 id de démarches.')
+    ).toEqual([
+      'Mise à jour: 0 id de démarches.',
+      'Mise à jour: 0 propriétés de titres.'
+    ])
 
     expect(updateSpy).not.toHaveBeenCalled()
   })
@@ -55,7 +59,10 @@ describe("change l'id de la démarche d'un titre", () => {
         titreDemarcheChanged,
         titreWithDemarchesChanged
       )
-    ).toEqual('Mise à jour: 1 id de démarches.')
+    ).toEqual([
+      'Mise à jour: 1 id de démarches.',
+      'Mise à jour: 1 propriétés de titres.'
+    ])
 
     expect(updateSpy).toHaveBeenCalledTimes(1)
   })
