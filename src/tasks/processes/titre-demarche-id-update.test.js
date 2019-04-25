@@ -2,7 +2,6 @@ import titreDemarcheIdUpdate from './titre-demarche-id-update'
 
 import * as titreQueries from '../queries/titres'
 import * as titreDemarchesQueries from '../queries/titre-demarches'
-import * as titresPhases from './titres-phases-update'
 import * as titreDemarchesByTypeUpdate from '../utils/titre-demarches-by-type-update'
 
 import {
@@ -21,16 +20,10 @@ jest.mock('../queries/titre-demarches', () => ({
     .fn()
     .mockImplementation(titreDemarches => titreDemarches)
 }))
-jest.mock('./titres-phases-update', () => ({
-  default: jest
-    .fn()
-    .mockImplementation(() => 'Mise à jour: 1 phases de titres.')
-}))
 jest.mock('../utils/titre-demarches-by-type-update', () => ({
   default: jest.fn().mockImplementation(titreDemarches => ({
     titreDemarchesOldIds: titreDemarches.map(t => t.id),
-    titreDemarchesNew: titreDemarches,
-    titrePhases: titreDemarches.map(t => t.id)
+    titreDemarchesNew: titreDemarches
   }))
 }))
 
@@ -48,10 +41,7 @@ describe("change l'id de la démarche d'un titre", () => {
         titreDemarcheNoChange,
         titreWithDemarchesNoChange
       )
-    ).toEqual([
-      'Mise à jour: 0 id de démarches.',
-      'Mise à jour: 0 phases de titres.'
-    ])
+    ).toEqual('Mise à jour: 0 id de démarches.')
 
     expect(updateSpy).not.toHaveBeenCalled()
     expect(console.log).toHaveBeenCalledTimes(0)
@@ -68,10 +58,7 @@ describe("change l'id de la démarche d'un titre", () => {
         titreDemarcheChanged,
         titreWithDemarchesChanged
       )
-    ).toEqual([
-      'Mise à jour: 1 id de démarches.',
-      'Mise à jour: 1 phases de titres.'
-    ])
+    ).toEqual('Mise à jour: 1 id de démarches.')
 
     expect(updateSpy).toHaveBeenCalledTimes(1)
     expect(console.log).toHaveBeenCalledTimes(0)

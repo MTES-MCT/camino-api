@@ -37,6 +37,7 @@ const titreDemarcheUpsert = async (demarche, trx) =>
   TitresDemarches.query(trx)
     .upsertGraph(demarche, options.demarches.update)
     .eager(options.demarches.eager)
+    .returning('*')
 
 const titreDemarcheStatutIdUpdate = async ({ id, statutId }) =>
   TitresDemarches.query()

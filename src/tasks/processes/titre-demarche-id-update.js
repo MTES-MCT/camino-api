@@ -1,12 +1,10 @@
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreDemarchesByTypeUpdate from '../utils/titre-demarches-by-type-update'
-import titresPhasesUpdate from './titres-phases-update'
 import { titreDemarchesIdsUpdate } from '../queries/titre-demarches'
 
 // si le type d'une démarche change
 // ou si l'ordre est 00 (ajout d'une nouvelle démarche)
 // - met à jour l'id de la démarche et ses étapes
-// - met à jour les phases du titre
 
 const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
   const { id: titreDemarcheOldId, titreDemarcheId } = titreDemarche
@@ -15,10 +13,7 @@ const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
   const titreDemarcheTypeNewId = titreDemarche.typeId
 
   if (titreDemarcheTypeOldId === titreDemarcheTypeNewId) {
-    return [
-      'Mise à jour: 0 id de démarches.',
-      'Mise à jour: 0 phases de titres.'
-    ]
+    return 'Mise à jour: 0 id de démarches.'
   }
 
   // les démarches de l'ancien type de la démarche dans l'ordre asc
@@ -31,7 +26,7 @@ const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
     titre.demarches.filter(te => te.typeId === titreDemarcheTypeNewId)
   )
 
-  const { titreDemarchesOldIds, titreDemarchesNew, titrePhases } = [
+  const { titreDemarchesOldIds, titreDemarchesNew } = [
     titreDemarchesByTypeOld,
     titreDemarchesByTypeNew
   ].reduce(
@@ -40,8 +35,7 @@ const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
 
       const {
         titreDemarchesOldIds,
-        titreDemarchesNew,
-        titrePhases
+        titreDemarchesNew
       } = titreDemarchesByTypeUpdate(titreDemarches, titre)
 
       return {
@@ -49,26 +43,17 @@ const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
           ...acc.titreDemarchesOldIds,
           ...titreDemarchesOldIds
         ],
-        titreDemarchesNew: [...acc.titreDemarchesNew, ...titreDemarchesNew],
-        titrePhases: [...acc.titrePhases, ...titrePhases]
+        titreDemarchesNew: [...acc.titreDemarchesNew, ...titreDemarchesNew]
       }
     },
-    { titreDemarchesOldIds: [], titreDemarchesNew: [], titrePhases: [] }
+    { titreDemarchesOldIds: [], titreDemarchesNew: [] }
   )
 
   if (titreDemarchesNew.length) {
     await titreDemarchesIdsUpdate(titreDemarchesOldIds, titreDemarchesNew)
   }
 
-  let titrePhasesUpdated = []
-  if (titrePhases.length > 0) {
-    titrePhasesUpdated = await titresPhasesUpdate([titre])
-  }
-
-  return [
-    `Mise à jour: ${titreDemarchesNew.length} id de démarches.`,
-    titrePhasesUpdated
-  ]
+  return `Mise à jour: ${titreDemarchesNew.length} id de démarches.`
 }
 
 export default titreDemarchesIdUpdate

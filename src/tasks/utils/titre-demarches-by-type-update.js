@@ -14,7 +14,7 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
     // et si l'ordre n'a pas changé
     titreDemarcheOrder === titreDemarcheOrderString
   ) {
-    return {}
+    return null
   }
 
   // utilise la référence à l'étape liée à la référence du titre
@@ -35,19 +35,18 @@ const titreDemarcheIdUpdate = (titreDemarcheOld, titre, i) => {
 
   delete titreDemarcheNew.type
 
+  // mets à jour les ids des étapes et tables jointes
   titreEtapesByTypeUpdate(titreDemarcheNew.etapes, titre)
 
-  let titrePhase = null
+  // supprime la phase, elle sera recréée plus tard
   if (
     titreDemarcheNew.phase &&
     titreDemarcheNew.phase.titreDemarcheId === titreDemarcheOldId
   ) {
-    titrePhase = titreDemarcheNew.phase
-    titreDemarcheNew.phase.titreDemarcheId = titreDemarcheNewId
     delete titreDemarcheNew.phase
   }
 
-  return { titreDemarcheNew, titrePhase }
+  return titreDemarcheNew
 }
 
 const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
@@ -55,11 +54,7 @@ const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
     (acc, titreDemarcheOld, i) => {
       const { id: titreDemarcheOldId } = titreDemarcheOld
 
-      const { titreDemarcheNew, titrePhase } = titreDemarcheIdUpdate(
-        titreDemarcheOld,
-        titre,
-        i
-      )
+      const titreDemarcheNew = titreDemarcheIdUpdate(titreDemarcheOld, titre, i)
 
       return titreDemarcheNew
         ? {
@@ -67,14 +62,11 @@ const titreDemarchesByTypeUpdate = (titreDemarches, titre) =>
               ...acc.titreDemarchesOldIds,
               titreDemarcheOldId
             ],
-            titreDemarchesNew: [...acc.titreDemarchesNew, titreDemarcheNew],
-            titrePhases: titrePhase
-              ? [...acc.titrePhases, titrePhase]
-              : acc.titrePhases
+            titreDemarchesNew: [...acc.titreDemarchesNew, titreDemarcheNew]
           }
         : acc
     },
-    { titreDemarchesOldIds: [], titreDemarchesNew: [], titrePhases: [] }
+    { titreDemarchesOldIds: [], titreDemarchesNew: [] }
   )
 
 export default titreDemarchesByTypeUpdate

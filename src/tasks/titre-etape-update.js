@@ -26,7 +26,6 @@ const titreEtapeUpdate = async titreEtapeId => {
 
   // statut de la démarche
   // en fonction de ses étapes (type, ordre, statut)
-
   titreDemarche = await titreDemarcheGet(titreDemarcheId)
   const titreDemarcheStatutId = await titresDemarchesStatutIdUpdate([
     {
@@ -74,7 +73,7 @@ const titreEtapeUpdate = async titreEtapeId => {
   console.log(titresPhases)
   console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
-  console.log(titreEtapesId)
+  console.log(titreEtapesId.join('\n'))
 
   console.log('Étape mise à jour')
 }

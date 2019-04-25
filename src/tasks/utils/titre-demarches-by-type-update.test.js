@@ -21,8 +21,7 @@ describe("change l'id de la démarche d'un titre", () => {
       )
     ).toEqual({
       titreDemarchesNew: [],
-      titreDemarchesOldIds: [],
-      titrePhases: []
+      titreDemarchesOldIds: []
     })
   })
 
@@ -41,8 +40,7 @@ describe("change l'id de la démarche d'un titre", () => {
           etapes: []
         }
       ],
-      titreDemarchesOldIds: ['h-nom-cxx-oct01'],
-      titrePhases: []
+      titreDemarchesOldIds: ['h-nom-cxx-oct01']
     })
   })
 
@@ -80,12 +78,11 @@ describe("change l'id de la démarche d'un titre", () => {
           ]
         }
       ],
-      titreDemarchesOldIds: ['h-nom-cxx-oct01', 'h-nom-cxx-mut01'],
-      titrePhases: []
+      titreDemarchesOldIds: ['h-nom-cxx-oct01', 'h-nom-cxx-mut01']
     })
   })
 
-  test("l'id de démarche dans la phase est mis à jour", async () => {
+  test('la phase est supprimée', async () => {
     expect(
       await titreDemarchesByTypeUpdate(titreWithPhase.demarches, titreWithPhase)
     ).toEqual({
@@ -97,12 +94,7 @@ describe("change l'id de la démarche d'un titre", () => {
           etapes: []
         }
       ],
-      titreDemarchesOldIds: ['h-nom-cxx-oct01'],
-      titrePhases: [
-        {
-          titreDemarcheId: 'h-nom-cxx-mut01'
-        }
-      ]
+      titreDemarchesOldIds: ['h-nom-cxx-oct01']
     })
   })
 })
