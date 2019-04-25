@@ -262,8 +262,6 @@ input InputDemarche {
 
   typeId: ID!
 
-  statutId: DemarcheStatutId!
-
   titreId: ID!
 }
 
