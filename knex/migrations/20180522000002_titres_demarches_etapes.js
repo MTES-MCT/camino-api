@@ -2,7 +2,7 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresDemarches', table => {
       table.string('id', 128).primary()
-      table.string('titreId', 128)
+      table.string('titreId', 128).notNullable()
       table
         .foreign('titreId')
         .references('titres.id')
@@ -50,7 +50,7 @@ exports.up = knex => {
     })
     .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
-      table.string('titreDemarcheId', 128)
+      table.string('titreDemarcheId', 128).notNullable()
       table
         .foreign('titreDemarcheId')
         .references('titresDemarches.id')
