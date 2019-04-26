@@ -209,18 +209,18 @@ const titreAdd = async titre =>
     .first()
     .eager(options.titres.eager)
 
-const titreRemove = async id =>
+const titreDelete = async id =>
   Titres.query()
     .deleteById(id)
     .first()
     .eager(options.titres.eager)
     .returning('*')
 
-const titreUpdate = async titre => {
+const titreUpsert = async titre => {
   const t = Titres.query()
-    .upsertGraph([titre], options.titres.update)
+    .upsertGraph(titre, options.titres.update)
     .eager(options.titres.eager)
-    .first()
+    .returning('*')
 
   return t && titreFormat(t)
 }
@@ -230,6 +230,6 @@ export {
   titresGet,
   titrePropsUpdate,
   titreAdd,
-  titreRemove,
-  titreUpdate
+  titreDelete,
+  titreUpsert
 }

@@ -246,15 +246,16 @@ input InputTitre {
 
   nom: String!
 
-  type: InputType!
+  typeId: ID!
 
-  domaine: InputDomaine!
+  domaineId: ID!
 
   references: [InputReference]
 }
 
 input InputReference {
-  type: String
+  type: String!
+  valeur: String!
 }
 
 input InputDemarche {

@@ -25,7 +25,10 @@ export default class Titres extends Model {
       domaineId: { type: 'string', maxLength: 1 },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
-      references: { type: ['json', 'null'] },
+      references: {
+        type: ['array', 'null'],
+        items: { type: 'object' }
+      },
       substancesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       pointsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       titulairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
@@ -225,5 +228,9 @@ export default class Titres extends Model {
         to: 'titresActivites.titreId'
       }
     }
+  }
+
+  static get jsonAttributes() {
+    return []
   }
 }

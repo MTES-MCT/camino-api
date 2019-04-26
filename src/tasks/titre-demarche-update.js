@@ -1,9 +1,6 @@
 import '../database/index'
 import { titreGet } from '../database/queries/titres'
-import {
-  titresDemarchesGet,
-  titreDemarcheGet
-} from '../database/queries/titres-demarches'
+import { titreDemarcheGet } from '../database/queries/titres-demarches'
 
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'

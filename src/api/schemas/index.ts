@@ -108,6 +108,12 @@ type Mutation {
     motDePasse2: String!
   ): String
 
+  "__*__ Modifie un titre minier"
+  titreModifier(titre: InputTitre): Titre
+
+  "__*__ Supprime un titre minier"
+  titreSupprimer(id: ID!): Titre
+
   "__*__ Modifie une démarche de titre minier"
   titreDemarcheModifier(demarche: InputDemarche): Demarche
 

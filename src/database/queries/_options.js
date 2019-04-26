@@ -151,6 +151,7 @@ const titres = {
     relate: [
       'type',
       'statut',
+      'domaine',
       'engagementDevise',
       ...demarches.update.relate.map(k => `demarches.${k}`)
     ],
@@ -162,7 +163,6 @@ const titres = {
       ...demarches.update.unrelate.map(k => `demarches.${k}`)
     ],
     noInsert: [
-      'domaine',
       'points',
       'pays',
       'pays.departement',
