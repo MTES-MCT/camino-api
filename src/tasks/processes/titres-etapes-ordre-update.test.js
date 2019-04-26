@@ -11,6 +11,8 @@ jest.mock('../queries/titre-etapes', () => ({
   titreEtapesOrdreUpdate: etapes => etapes.map(e => Promise.resolve(e))
 }))
 
+console.log = jest.fn()
+
 describe("met à jour l'ordre des étapes d'une démarche", () => {
   test("l'ordre de deux étapes d'une démarche est mis à jour", async () => {
     expect(await titresEtapesOrdreUpdate(titresDemarchesEtapes, [])).toEqual(

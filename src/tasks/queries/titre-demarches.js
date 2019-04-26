@@ -1,6 +1,7 @@
 import {
   titreDemarcheStatutIdUpdate as queryTitreDemarcheStatutIdUpdate,
-  titreDemarcheOrdreUpdate as queryTitreDemarcheOrdreUpdate
+  titreDemarcheOrdreUpdate as queryTitreDemarcheOrdreUpdate,
+  titreDemarchesIdsUpdate
 } from '../../database/queries/titres-demarches'
 
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
@@ -35,4 +36,8 @@ const titreDemarchesOrdreUpdate = titreDemarches =>
     []
   )
 
-export { titreDemarcheStatutIdUpdate, titreDemarchesOrdreUpdate }
+export {
+  titreDemarcheStatutIdUpdate,
+  titreDemarchesOrdreUpdate,
+  titreDemarchesIdsUpdate
+}

@@ -12,7 +12,6 @@ import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-
 import titreEtapesIdUpdate from './processes/titre-etape-id-update'
 
 const titreEtapeUpdate = async titreEtapeId => {
@@ -26,7 +25,6 @@ const titreEtapeUpdate = async titreEtapeId => {
 
   // statut de la démarche
   // en fonction de ses étapes (type, ordre, statut)
-
   titreDemarche = await titreDemarcheGet(titreDemarcheId)
   const titreDemarcheStatutId = await titresDemarchesStatutIdUpdate([
     {
@@ -72,9 +70,9 @@ const titreEtapeUpdate = async titreEtapeId => {
   console.log(titreDemarchesOrdre)
   console.log(titreStatutIds)
   console.log(titresPhases)
-  titresEtapesCommunes.forEach(log => console.log(log))
+  console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
-  console.log(titreEtapesId)
+  console.log(titreEtapesId.join('\n'))
 
   console.log('Étape mise à jour')
 }
