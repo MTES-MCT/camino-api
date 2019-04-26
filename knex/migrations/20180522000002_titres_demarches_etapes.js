@@ -15,6 +15,7 @@ exports.up = knex => {
         .string('statutId', 3)
         .notNullable()
         .references('demarchesStatuts.id')
+        .defaultTo('ind')
       table.integer('ordre')
       table.string('annulationTitreDemarcheId', 128).references('id')
     })
