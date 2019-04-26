@@ -4,7 +4,10 @@ exports.up = knex => {
     table.string('nom').notNullable()
     table.string('typeId', 3).notNullable()
     table.string('domaineId', 1).notNullable()
-    table.string('statutId', 3).notNullable()
+    table
+      .string('statutId', 3)
+      .notNullable()
+      .defaultTo('ind')
     table.jsonb('references')
   })
 }
