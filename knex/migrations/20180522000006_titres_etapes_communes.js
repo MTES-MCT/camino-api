@@ -1,9 +1,10 @@
 exports.up = knex => {
   return knex.schema.createTable('titresCommunes', table => {
+    table.string('titreEtapeId', 128).notNullable()
     table
-      .string('titreEtapeId', 128)
-      .notNullable()
+      .foreign('titreEtapeId')
       .references('titresEtapes.id')
+      .onUpdate('CASCADE')
       .onDelete('CASCADE')
     table
       .string('communeId', 8)

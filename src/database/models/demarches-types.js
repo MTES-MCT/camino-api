@@ -12,13 +12,13 @@ export default class DemarchesTypes extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      ordre: { type: 'integer' },
-      duree: { type: 'boolean' },
-      points: { type: 'boolean' },
-      substances: { type: 'boolean' },
-      titulaires: { type: 'boolean' },
-      renouvelable: { type: 'boolean' },
-      exception: { type: 'boolean' }
+      ordre: { type: ['integer', 'null'] },
+      duree: { type: ['boolean', 'null'] },
+      points: { type: ['boolean', 'null'] },
+      substances: { type: ['boolean', 'null'] },
+      titulaires: { type: ['boolean', 'null'] },
+      renouvelable: { type: ['boolean', 'null'] },
+      exception: { type: ['boolean', 'null'] }
     }
   }
 
