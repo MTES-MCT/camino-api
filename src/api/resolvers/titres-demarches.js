@@ -7,7 +7,7 @@ import {
 
 import titreDemarcheUpdateTask from '../../tasks/titre-demarche-update'
 
-import titreDemarcheUpdateValidation from '../../tasks/titre-demarche-validation'
+import titreDemarcheUpdateValidation from '../../tasks/titre-demarche-update-validation'
 
 const titreDemarcheModifier = async ({ demarche }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
