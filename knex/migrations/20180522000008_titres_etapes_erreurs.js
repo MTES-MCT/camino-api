@@ -1,9 +1,10 @@
 exports.up = knex => {
   return knex.schema.createTable('titresErreurs', table => {
+    table.string('titreEtapeId', 128).primary()
     table
-      .string('titreEtapeId', 128)
-      .primary()
+      .foreign('titreEtapeId')
       .references('titresEtapes.id')
+      .onUpdate('CASCADE')
       .onDelete('CASCADE')
     table.boolean('date')
     table.boolean('dateDebut')

@@ -2,10 +2,11 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresDemarches', table => {
       table.string('id', 128).primary()
+      table.string('titreId', 128).notNullable()
       table
-        .string('titreId', 128)
+        .foreign('titreId')
         .references('titres.id')
-        .notNullable()
+        .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table
         .string('typeId', 3)
@@ -19,19 +20,26 @@ exports.up = knex => {
       table.string('annulationTitreDemarcheId', 128).references('id')
     })
     .createTable('titresDemarchesLiens', table => {
+      table.string('enfantTitreDemarcheId', 128)
       table
-        .string('enfantTitreDemarcheId', 128)
+        .foreign('enfantTitreDemarcheId')
         .references('titresDemarches.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
+      table.string('parentTitreDemarcheId', 128)
       table
-        .string('parentTitreDemarcheId', 128)
+        .foreign('parentTitreDemarcheId')
         .references('titresDemarches.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
       table.primary(['enfantTitreDemarcheId', 'parentTitreDemarcheId'])
     })
     .createTable('titresPhases', table => {
+      table.string('titreDemarcheId', 128).primary()
       table
-        .string('titreDemarcheId', 128)
-        .primary()
+        .foreign('titreDemarcheId')
         .references('titresDemarches.id')
+        .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table
         .string('statutId', 3)
@@ -42,10 +50,11 @@ exports.up = knex => {
     })
     .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
+      table.string('titreDemarcheId', 128).notNullable()
       table
-        .string('titreDemarcheId', 128)
+        .foreign('titreDemarcheId')
         .references('titresDemarches.id')
-        .notNullable()
+        .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table
         .string('typeId', 3)
@@ -69,49 +78,71 @@ exports.up = knex => {
       table.boolean('sourceIndisponible')
     })
     .alterTable('titres', table => {
+      table.string('pointsTitreEtapeId', 128)
       table
-        .string('pointsTitreEtapeId', 128)
+        .foreign('pointsTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('titulairesTitreEtapeId', 128)
       table
-        .string('titulairesTitreEtapeId', 128)
+        .foreign('titulairesTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('amodiatairesTitreEtapeId', 128)
       table
-        .string('amodiatairesTitreEtapeId', 128)
+        .foreign('amodiatairesTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('administrationsTitreEtapeId', 128)
       table
-        .string('administrationsTitreEtapeId', 128)
+        .foreign('administrationsTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('surfaceTitreEtapeId', 128)
       table
-        .string('surfaceTitreEtapeId', 128)
+        .foreign('surfaceTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('volumeTitreEtapeId', 128)
       table
-        .string('volumeTitreEtapeId', 128)
+        .foreign('volumeTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('volumeUniteIdTitreEtapeId', 128)
       table
-        .string('volumeUniteIdTitreEtapeId', 128)
+        .foreign('volumeUniteIdTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('substancesTitreEtapeId', 128)
       table
-        .string('substancesTitreEtapeId', 128)
+        .foreign('substancesTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('communesTitreEtapeId', 128)
       table
-        .string('communesTitreEtapeId', 128)
+        .foreign('communesTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('engagementTitreEtapeId', 128)
       table
-        .string('engagementTitreEtapeId', 128)
+        .foreign('engagementTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
+      table.string('engagementDeviseIdTitreEtapeId', 128)
       table
-        .string('engagementDeviseIdTitreEtapeId', 128)
+        .foreign('engagementDeviseIdTitreEtapeId')
         .references('titresEtapes.id')
+        .onUpdate('CASCADE')
         .onDelete('SET NULL')
     })
 }

@@ -82,19 +82,22 @@ const elementRelationsUpdate = (
   })
 }
 
-const titreEtapeIdUpdate = (titreEtapeOld, titre, i) => {
+const titreEtapeIdUpdate = (titreEtapeOld, titre, titreEtapeOrderNew) => {
   const { id: titreEtapeOldId } = titreEtapeOld
 
-  const titreEtapeTypeId = titreEtapeOldId.slice(-5, -2)
-  const titreEtapeOrder = titreEtapeOldId.slice(-2)
+  const titreEtapeOldDemarcheId = titreEtapeOldId.slice(0, -6)
+  const titreEtapeOldTypeId = titreEtapeOldId.slice(-5, -2)
+  const titreEtapeOldOrder = titreEtapeOldId.slice(-2)
 
-  const titreEtapeOrderString = (i + 1).toString().padStart(2, '0')
+  titreEtapeOrderNew = titreEtapeOrderNew.toString().padStart(2, '0')
 
   if (
+    // si l'id de la démarche n'a pas changé
+    titreEtapeOldDemarcheId === titreEtapeOld.titreDemarcheId &&
     // si le type d'une étape n'a pas changé
-    titreEtapeTypeId === titreEtapeOld.typeId &&
+    titreEtapeOldTypeId === titreEtapeOld.typeId &&
     // et si l'ordre n'a pas changé
-    titreEtapeOrder === titreEtapeOrderString
+    titreEtapeOldOrder === titreEtapeOrderNew
   ) {
     return {}
   }
@@ -110,7 +113,7 @@ const titreEtapeIdUpdate = (titreEtapeOld, titre, i) => {
   // - change l'id de la nouvelle étape
   const titreEtapeNewId = `${titreEtapeOld.titreDemarcheId}-${
     titreEtapeOld.typeId
-  }${titreEtapeOrderString}`
+  }${titreEtapeOrderNew}`
 
   titreEtapeNew.id = titreEtapeNewId
 
@@ -141,7 +144,7 @@ const titreEtapesByTypeUpdate = (titreEtapes, titre) =>
       const { titreEtapeNew, titreProps } = titreEtapeIdUpdate(
         titreEtapeOld,
         titre,
-        i
+        i + 1
       )
 
       return titreEtapeNew

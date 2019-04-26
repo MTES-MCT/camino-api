@@ -189,8 +189,9 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.engagementDeviseId',
         to: 'devises.id'
       }
-    },
+    }
 
+    /*
     // relations pour exporter les tables de jointures
     // via /tools/exports
     titresSubstances: {
@@ -237,6 +238,7 @@ export default class TitresEtapes extends Model {
         to: 'titresEmprises.titreEtapeId'
       }
     }
+    */
   }
 
   static namedFilters = {

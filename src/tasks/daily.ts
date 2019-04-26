@@ -85,7 +85,7 @@ const run = async () => {
     // 9.
     // activités
     // crée les activités manquantes en fonction des titres
-    // pour l'année 2018 (en dur)
+    // pour les année 2018 et 2019 (en dur)
     const annees = [2018, 2019]
 
     titres = await titresGet()
