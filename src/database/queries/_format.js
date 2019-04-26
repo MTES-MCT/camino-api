@@ -10,13 +10,6 @@ import {
 // par des requêtes sql (dans /database/queries/titres)
 // qui retournent les données directement formatées
 const titreFormat = t => {
-  t.references =
-    t.references &&
-    Object.keys(t.references).map(r => ({
-      type: r,
-      valeur: t.references[r]
-    }))
-
   if (t.points && t.points.length) {
     t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points)
     t.geojsonPoints = geojsonFeatureCollectionPoints(t.points)

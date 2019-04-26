@@ -354,14 +354,4 @@ enum Couleur {
   success
   warning
 }
-
-"Le type de titre minier"
-input InputType {
-  id: TypeId!
-}
-
-"Le domaine minier"
-input InputDomaine {
-  id: DomaineId!
-}
 `
