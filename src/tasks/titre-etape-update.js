@@ -13,6 +13,7 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titreEtapesIdUpdate from './processes/titre-etape-id-update'
+import titreDemarchesIdUpdate from './processes/titre-demarche-id-update'
 
 const titreEtapeUpdate = async titreEtapeId => {
   let titreEtape = await titreEtapeGet(titreEtapeId)
@@ -37,6 +38,12 @@ const titreEtapeUpdate = async titreEtapeId => {
   const { titreId } = titreDemarche
   let titre = await titreGet(titreId)
   const titreDemarchesOrdre = await titresDemarchesOrdreUpdate([titre])
+
+  // id de démarche
+  // en fonction du type et de l'ordre
+  titreDemarche = await titreDemarcheGet(titreDemarcheId)
+  titre = await titreGet(titreId)
+  const titreDemarchesId = await titreDemarchesIdUpdate(titreDemarche, titre)
 
   // statut du titre
   // en fonction des démarches et de la date du jour
