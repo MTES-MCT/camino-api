@@ -7,7 +7,7 @@ import {
 
 import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
 
-import titreEtapeUpdateValidation from '../../tasks/titre-etape-validation'
+import titreEtapeUpdateValidation from '../../tasks/titre-etape-update-validation'
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {

@@ -5,14 +5,18 @@ import {
   titreGet,
   titresGet,
   titreAdd,
-  titreRemove,
-  titreUpdate
+  titreDelete,
+  titreUpsert
 } from '../../database/queries/titres'
 
 import { domainesGet, statutsGet } from '../../database/queries/metas'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 import { dupRemove, dupFind } from '../../tools/index'
+
+import titreUpdateTask from '../../tasks/titre-update'
+
+import titreUpdateValidation from '../../tasks/titre-update-validation'
 
 const titreRestrictions = (titre, userHasAccess) => {
   if (!userHasAccess) {
@@ -206,7 +210,7 @@ const titreSupprimer = async ({ id }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  return titreRemove(id)
+  return titreDelete(id)
 }
 
 const titreModifier = async ({ titre }, context, info) => {
@@ -214,7 +218,17 @@ const titreModifier = async ({ titre }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  return titreUpdate(titre)
+  const rulesError = await titreUpdateValidation(titre)
+
+  if (rulesError) {
+    throw new Error(rulesError)
+  }
+
+  const res = await titreUpsert(titre)
+
+  await titreUpdateTask(titre.id)
+
+  return res
 }
 
 export { titre, titres, titreAjouter, titreSupprimer, titreModifier }
