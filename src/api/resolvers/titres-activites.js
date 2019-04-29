@@ -42,7 +42,11 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
     throw new Error("ce titre ne peut pas recevoir d'activite")
   }
 
-  if (activiteOld && activiteOld.statut.id === 'dep') {
+  if (
+    !permissionsCheck(context.user, ['super', 'admin']) &&
+    activiteOld &&
+    activiteOld.statut.id === 'dep'
+  ) {
     throw new Error(
       'cette activite a été validée et ne peux plus être modifiée'
     )
