@@ -67,7 +67,7 @@ app.use(
     rootValue,
     graphiql: true,
     pretty: true,
-    formatError: err => ({
+    customFormatErrorFn: err => ({
       message: err.message,
       locations: err.locations,
       stack: err.stack ? err.stack.split('\n') : [],
