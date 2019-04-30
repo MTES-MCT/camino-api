@@ -11,11 +11,14 @@ import { titreDemarchesIdsUpdate } from '../queries/titre-demarches'
 // - met à jour le titreEtapeId des props
 
 const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
-  const { id: titreDemarcheOldId, titreDemarcheId } = titreDemarche
+  const { id: titreDemarcheOldId } = titreDemarche
 
   const titreDemarcheTypeOldId = titreDemarcheOldId.slice(-5, -2)
   const titreDemarcheTypeNewId = titreDemarche.typeId
 
+  // problème: si l'ordre de démarches de même type change
+  // il faut changer les ids
+  // ça n'est pas pris en compte actuellement
   if (titreDemarcheTypeOldId === titreDemarcheTypeNewId) {
     return [
       'Mise à jour: 0 id de démarches.',

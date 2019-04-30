@@ -1,5 +1,6 @@
 import { Model } from 'objection'
 import DemarchesTypes from './demarches-types'
+import Types from './types'
 import DemarchesStatuts from './demarches-statuts'
 import TitresPhases from './titres-phases'
 import TitresEtapes from './titres-etapes'
@@ -9,7 +10,7 @@ export default class TitresDemarches extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreId'],
+    required: ['id', 'titreId', 'typeId'],
 
     properties: {
       id: { type: 'string', maxLength: 128 },
@@ -46,6 +47,19 @@ export default class TitresDemarches extends Model {
       join: {
         from: 'titresDemarches.id',
         to: 'titresPhases.titreDemarcheId'
+      }
+    },
+
+    titreType: {
+      relation: Model.HasOneThroughRelation,
+      modelClass: Types,
+      join: {
+        from: 'titresDemarches.titreId',
+        through: {
+          from: 'titres.id',
+          to: 'titres.typeId'
+        },
+        to: 'types.id'
       }
     },
 
@@ -93,15 +107,6 @@ export default class TitresDemarches extends Model {
       }
     }
   }
-
-  // $parseDatabaseJson(json) {
-  //   json = super.$parseDatabaseJson(json)
-  //   if (json) {
-  //     console.log('--------------->', json)
-  //   }
-  //   console.log('<---------------')
-  //   return json
-  // }
 
   static namedFilters = {
     orderDesc: builder => {

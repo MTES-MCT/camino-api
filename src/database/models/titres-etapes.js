@@ -12,11 +12,11 @@ import TitresErreurs from './titres-erreurs'
 import Devises from './devises'
 import VolumeUnites from './volume-unites'
 
-import TitresSubstances from './titres-substances'
-import TitresAdministrations from './titres-administrations'
-import TitresTitulaires from './titres-titulaires'
-import TitresAmodiataires from './titres-amodiataires'
-import TitresEmprises from './titres-emprises'
+// import TitresSubstances from './titres-substances'
+// import TitresAdministrations from './titres-administrations'
+// import TitresTitulaires from './titres-titulaires'
+// import TitresAmodiataires from './titres-amodiataires'
+// import TitresEmprises from './titres-emprises'
 
 export default class TitresEtapes extends Model {
   static tableName = 'titresEtapes'
@@ -239,6 +239,26 @@ export default class TitresEtapes extends Model {
       }
     }
     */
+  }
+
+  $parseJson(json) {
+    if (json.amodiatairesIds) {
+      json.amodiataires = json.amodiatairesIds.map(id => ({ entrepriseId: id }))
+      delete json.amodiatairesIds
+    }
+
+    if (json.titulairesIds) {
+      json.titulaires = json.titulairesIds.map(id => ({ entrepriseId: id }))
+      delete json.titulairesIds
+    }
+
+    if (json.substancesIds) {
+      json.substances = json.substancesIds.map(id => ({ substanceId: id }))
+      delete json.substancesIds
+    }
+
+    json = super.$parseJson(json)
+    return json
   }
 
   static namedFilters = {

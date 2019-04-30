@@ -20,11 +20,11 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
     throw new Error(rulesError)
   }
 
-  const res = await titreDemarcheUpsert(demarche)
+  const demarcheNew = await titreDemarcheUpsert(demarche)
 
-  await titreDemarcheUpdateTask(demarche.id)
+  await titreDemarcheUpdateTask(demarcheNew.id, demarcheNew.titreId)
 
-  return res
+  return demarcheNew
 }
 
 const titreDemarcheSupprimer = async ({ id }, context, info) => {

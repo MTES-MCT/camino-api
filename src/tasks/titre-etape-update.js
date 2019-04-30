@@ -13,7 +13,7 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titreEtapesIdUpdate from './processes/titre-etape-id-update'
-import titreDemarchesIdUpdate from './processes/titre-demarche-id-update'
+import titreDemarchesIdUpdate from './processes/titre-demarches-id-update'
 
 const titreEtapeUpdate = async titreEtapeId => {
   let titreEtape = await titreEtapeGet(titreEtapeId)

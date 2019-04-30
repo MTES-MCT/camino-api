@@ -12,10 +12,9 @@ const titreDemarcheIdUpdate = (
 
   titreDemarcheOrderNew = titreDemarcheOrderNew.toString().padStart(2, '0')
 
+  // si le type et l'ordre de la démarche n'ont pas changé
   if (
-    // si le type d'une étape n'a pas changé
     titreDemarcheOldTypeId === titreDemarcheOld.typeId &&
-    // et si l'ordre n'a pas changé
     titreDemarcheOldOrder === titreDemarcheOrderNew
   ) {
     return {}
@@ -25,7 +24,7 @@ const titreDemarcheIdUpdate = (
   // pour la mise à jour
   const titreDemarcheNew = { ...titreDemarcheOld }
 
-  // - change l'id de la nouvelle étape
+  // - change l'id de la nouvelle démarche
   const titreDemarcheNewId = `${titreDemarcheOld.titreId}-${
     titreDemarcheOld.typeId
   }${titreDemarcheOrderNew}`
@@ -42,7 +41,8 @@ const titreDemarcheIdUpdate = (
   // mets à jour les ids des étapes et tables jointes
   const { titreProps } = titreEtapesByTypeUpdate(titreDemarcheNew.etapes, titre)
 
-  // supprime la phase, elle sera recréée plus tard
+  // supprime la phase
+  // les phases seront recréées ensuite
   if (
     titreDemarcheNew.phase &&
     titreDemarcheNew.phase.titreDemarcheId === titreDemarcheOldId
