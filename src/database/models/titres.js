@@ -18,7 +18,7 @@ export default class Titres extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'domaineId', 'typeId', 'statutId'],
+    required: ['id', 'nom', 'domaineId', 'typeId'],
     properties: {
       id: { type: 'string' },
       nom: { type: 'string' },
@@ -245,7 +245,7 @@ export default class Titres extends Model {
 
   $parseJson(json) {
     json = super.$parseDatabaseJson(json)
-    if (json.references && json.references.length) {
+    if (json.references) {
       json.references = json.references.reduce(
         (references, ref) =>
           Object.assign(references, {
