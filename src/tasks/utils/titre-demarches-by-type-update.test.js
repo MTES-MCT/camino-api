@@ -4,8 +4,7 @@ import {
   titreWithDemarchesNoChange,
   titreWithDemarchesChanged,
   titreWith2Mut,
-  titreWithPhase,
-  titreWithSubElement
+  titreWithPhase
 } from './__mocks__/titre-demarches-by-type-update-demarches'
 
 jest.mock('../queries/titres', () => ({

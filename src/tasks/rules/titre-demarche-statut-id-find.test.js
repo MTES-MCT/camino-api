@@ -1,5 +1,6 @@
 import titreDemarcheStatutIdFind from './titre-demarche-statut-id-find'
 import {
+  titreDemarcheSansEtapes,
   titreDemarcheOctAnf,
   titreDemarcheOctDpuAcc,
   titreAxmDemarcheOctDexAcc,
@@ -21,6 +22,10 @@ import {
 } from './__mocks__/titre-demarche-statut-id-find-demarches'
 
 describe("retourne le statut d'une démarche", () => {
+  test('une démarche sans étape a le statut “indéfinie”', () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheSansEtapes)).toEqual('ind')
+  })
+
   test("une démarche d'octroi dont aucune étape n'est décisive a le statut “indéfinie”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctAnf)).toEqual('ind')
   })

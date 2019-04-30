@@ -2,8 +2,6 @@ import * as dateFormat from 'dateformat'
 import titreDateFinFind from './titre-date-fin-find'
 
 const titreStatutIdFind = titre => {
-  const today = dateFormat(new Date(), 'yyyy-mm-dd')
-
   // s'il y a une seule démarche (octroi)
   if (
     titre.demarches.length === 1 &&
@@ -28,6 +26,7 @@ const titreStatutIdFind = titre => {
   }
 
   // la date du jour est inférieure à la date d’échéance
+  const today = dateFormat(new Date(), 'yyyy-mm-dd')
   if (today < titreDateFinFind(titre.demarches)) {
     // le statut du titre est valide
     return 'val'

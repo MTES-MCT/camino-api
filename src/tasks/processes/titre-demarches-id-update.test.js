@@ -1,8 +1,6 @@
-import titreDemarcheIdUpdate from './titre-demarche-id-update'
+import titreDemarcheIdUpdate from './titre-demarches-id-update'
 
-import * as titreQueries from '../queries/titres'
 import * as titreDemarchesQueries from '../queries/titre-demarches'
-import * as titreDemarchesByTypeUpdate from '../utils/titre-demarches-by-type-update'
 
 import {
   titreDemarcheNoChange,
@@ -15,11 +13,13 @@ jest.mock('../queries/titres', () => ({
   titrePropsUpdate: jest.fn().mockImplementation(titre => {}),
   calculatedProps: ['titulaires']
 }))
+
 jest.mock('../queries/titre-demarches', () => ({
   titreDemarchesIdsUpdate: jest
     .fn()
     .mockImplementation(titreDemarches => titreDemarches)
 }))
+
 jest.mock('../utils/titre-demarches-by-type-update', () => ({
   default: jest.fn().mockImplementation(titreDemarches => ({
     titreDemarchesOldIds: titreDemarches.map(t => t.id),

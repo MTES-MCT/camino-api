@@ -1,3 +1,11 @@
+const titreDemarcheSansEtapes = {
+  id: 'h-cxx-courdemanges-1988-oct01',
+  titreId: 'h-cxx-courdemanges-1988',
+  typeId: 'oct',
+  statutId: 'acc',
+  etapes: []
+}
+
 const titreDemarcheOctAnf = {
   id: 'h-cxx-courdemanges-1988-oct01',
   titreId: 'h-cxx-courdemanges-1988',
@@ -262,6 +270,7 @@ const titreDemarcheIndefinie = {
 }
 
 export {
+  titreDemarcheSansEtapes,
   titreDemarcheOctAnf,
   titreDemarcheOctDpuAcc,
   titreAxmDemarcheOctDexAcc,

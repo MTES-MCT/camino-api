@@ -8,7 +8,7 @@ exports.up = knex => {
       .string('statutId', 3)
       .notNullable()
       .defaultTo('ind')
-    table.specificType('references', 'jsonb[]')
+    table.jsonb('references')
   })
 }
 

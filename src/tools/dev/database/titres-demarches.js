@@ -3,7 +3,7 @@ import '../../../database/index'
 import { titreGet } from '../../../database/queries/titres'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 
-import titreDemarcheUpdate from '../../../tasks/processes/titre-demarche-id-update'
+import titreDemarcheUpdate from '../../../tasks/processes/titre-demarches-id-update'
 
 async function main() {
   let typeId = 'pro'

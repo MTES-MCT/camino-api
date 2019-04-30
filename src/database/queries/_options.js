@@ -97,7 +97,7 @@ const demarchesTypes = {
 const demarches = {
   eager: `[type.${demarchesTypes.eager}, statut, phase.${
     phases.eager
-  }, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
+  }, titreType, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
   update: {
     relate: [
       'type',

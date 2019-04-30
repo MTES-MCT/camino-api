@@ -2,7 +2,7 @@ import * as dateFormat from 'dateformat'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
-// entrée:
+// entrée
 // - les démarches d'un titre
 // - l'ordre d'une démarche dont on cherche la date de fin et la durée
 // sortie
@@ -11,48 +11,54 @@ import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
   titreDemarches.reduce(
     ({ duree, dateFin }, titreDemarche) => {
+      // si
+      // - la date de fin est déjà définie
+      // - ou la démarche n'a pas un statut acceptée ou terminée
+      // - ou l'ordre de la démarche est supérieur à celui donné en paramètre
+      // retourne l'accumulateur tel quel
       if (
-        // la date de fin est déjà définie -> retourne l'accumulateur tel quel
         dateFin ||
-        // filtre les démarches précédentes dont le statut est acceptée ou terminée
-        (!['acc', 'ter'].includes(titreDemarche.statutId) ||
-          // filtre les étapes dont l'ordre est inférieur à celui donné en paramètre
-          titreDemarche.ordre > ordre)
+        !['acc', 'ter'].includes(titreDemarche.statutId) ||
+        titreDemarche.ordre > ordre
       ) {
         return { duree, dateFin }
       }
 
-      // la démarche est un octroi
+      // si
+      // - la démarche est un octroi
       if (titreDemarche.typeId === 'oct') {
-        return titreDemarcheOctroiDateFinFind(duree, titreDemarche)
+        return titreDemarcheOctroiDateFinAndDureeFind(
+          duree,
+          titreDemarche.etapes
+        )
       }
 
-      if (
-        // la démarche est une abrogation, retrait ou renonciation
-        titreDemarche.typeId === 'abr' ||
-        titreDemarche.typeId === 'ret'
-      ) {
-        // trouve la date de fin d'une démarche d'annulation
+      // si
+      // - la démarche est une abrogation, retrait ou renonciation
+      // retourne la date de fin d'une démarche d'annulation
+      if (titreDemarche.typeId === 'abr' || titreDemarche.typeId === 'ret') {
         return {
           duree: 0,
-          dateFin: titreDemarcheAnnulationDateFinFind(titreDemarche)
+          dateFin: titreDemarcheAnnulationDateFinFind(titreDemarche.etapes)
         }
       }
 
+      // si
+      // - c'est une renonciation
+      // - ça n'est pas une renonciation partielle
+      // (= ne contient pas d'étape avec des infos géo (points)
+      // retourne la date de fin d'une démarche de renonciation
       if (
         titreDemarche.typeId === 'ren' &&
-        // si c'est une renonciation et que la démarche contient une étape avec des infos géo (points)
-        // alors c'est une renonciation partielle
-        // et elle n'est pas prise en compte
         !titreDemarche.etapes.find(te => te.points.length)
       ) {
-        // trouve la date de fin d'une démarche de renonciation
         return {
           duree: 0,
-          dateFin: titreDemarcheRenonciationDateFinFind(titreDemarche)
+          dateFin: titreDemarcheRenonciationDateFinFind(titreDemarche.etapes)
         }
       }
 
+      // sinon
       // trouve soit la date de fin
       // soit la durée d'une démarche
       return titreDemarcheNormaleDateFinAndDureeFind(
@@ -60,77 +66,78 @@ const titreDemarcheDateFinAndDureeFind = (titreDemarches, ordre) =>
         titreDemarche.etapes
       )
     },
+
     // l'accumulateur contient initialement
     // - la durée cumulée égale à 0
     // - la date de fin (null)
     { duree: 0, dateFin: null }
   )
 
+const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
+  // si il n'y a pas de durée cumulée,
+  // la date de fin par défaut est fixée au 31 décembre 2018,
+  // selon l'article L144-4 du code minier :
+  // https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504741
+  if (duree === 0) {
+    return '2018-12-31'
+  }
+
+  const titreEtapesDescSorted =
+    titreDemarcheEtapes && titreEtapesDescSort(titreDemarcheEtapes)
+
+  // chercher dans les dex, dpu et rpu s'il y a une date de debut
+  const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
+    te => ['dex', 'dpu', 'rpu'].includes(te.typeId) && te.dateDebut
+  )
+
+  if (titreEtapeHasDateDebut) {
+    return dateAddYears(titreEtapeHasDateDebut.dateDebut, duree)
+  }
+
+  // sinon, la date de fin est calculée
+  // en ajoutant la durée cumulée à la date de la première dpu ou ens
+  const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
+    titreEtape => titreEtape.typeId === 'dpu'
+  )
+
+  if (titreEtapeDpuFirst) {
+    return dateAddYears(titreEtapeDpuFirst.date, duree)
+  }
+
+  // si on ne trouve pas de dpu, la date de fin est calculée
+  // en ajoutant la date de la première dex
+  const titreEtapeDexFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
+    titreEtape => titreEtape.typeId === 'dex'
+  )
+
+  return titreEtapeDexFirst
+    ? dateAddYears(titreEtapeDexFirst.date, duree)
+    : null
+}
+
 // trouve la date de fin et la durée d'une démarche d'octroi
-const titreDemarcheOctroiDateFinFind = (dureeAcc, titreDemarche) => {
+const titreDemarcheOctroiDateFinAndDureeFind = (
+  dureeAcc,
+  titreDemarcheEtapes
+) => {
   // retourne la durée cumulée et la date de fin
   // de la démarche d'octroi
   const { duree, dateFin } = titreDemarcheNormaleDateFinAndDureeFind(
     dureeAcc,
-    titreDemarche.etapes
+    titreDemarcheEtapes
   )
-
-  const dateFinUpdatedFind = () => {
-    // si il n'y a ni date de fin, ni de durée cumulée,
-    // la date de fin par défaut est fixée au 31 décembre 2018,
-    // selon l'article L144-4 du code minier :
-    // https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504741
-    if (duree === 0) {
-      return '2018-12-31'
-    }
-
-    const titreEtapesDescSorted =
-      titreDemarche.etapes && titreEtapesDescSort(titreDemarche.etapes)
-
-    // chercher dans les dex, dpu et rpu s'il y a une date de debut
-    const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
-      te => ['dex', 'dpu', 'rpu'].includes(te.typeId) && te.dateDebut
-    )
-
-    if (titreEtapeHasDateDebut) {
-      return dateAddYears(titreEtapeHasDateDebut.dateDebut, duree)
-    }
-
-    // sinon, la date de fin est calculée
-    // en ajoutant la durée cumulée à la date de la première dpu ou ens
-    const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
-      titreEtape => titreEtape.typeId === 'dpu'
-    )
-
-    if (titreEtapeDpuFirst) {
-      return dateAddYears(titreEtapeDpuFirst.date, duree)
-    }
-
-    // si on ne trouve pas de dpu, la date de fin est calculée
-    // en ajoutant la date de la première dex
-    const titreEtapeDexFirst = titreEtapesAscSort(titreDemarche.etapes).find(
-      titreEtape => titreEtape.typeId === 'dex'
-    )
-
-    return titreEtapeDexFirst
-      ? dateAddYears(titreEtapeDexFirst.date, duree)
-      : null
-  }
-
-  // si la démarche contient une date de fin,
-  // sinon trouve une date de fin
-  const dateFinUpdated = dateFin || dateFinUpdatedFind()
 
   return {
     duree,
-    dateFin: dateFinUpdated
+    dateFin:
+      dateFin || titreDemarcheOctroiDateFinFind(duree, titreDemarcheEtapes)
   }
 }
 
 // trouve la date de fin d'une démarche d'annulation
-const titreDemarcheAnnulationDateFinFind = titreDemarche => {
+const titreDemarcheAnnulationDateFinFind = titreDemarcheEtapes => {
   // la dernière étape dex qui contient une date de fin
-  const etapeDexHasDateFin = titreEtapesDescSort(titreDemarche.etapes).find(
+  const etapeDexHasDateFin = titreEtapesDescSort(titreDemarcheEtapes).find(
     te => te.typeId === 'dex' && te.dateFin
   )
 
@@ -141,7 +148,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 
   // sinon,
   // trouve la première étape de décision expresse (dex)
-  const etapeDex = titreEtapesAscSort(titreDemarche.etapes).find(
+  const etapeDex = titreEtapesAscSort(titreDemarcheEtapes).find(
     te => te.typeId === 'dex'
   )
 
@@ -150,9 +157,9 @@ const titreDemarcheAnnulationDateFinFind = titreDemarche => {
 }
 
 // trouve la date de fin d'une démarche de renonciation
-const titreDemarcheRenonciationDateFinFind = titreDemarche => {
+const titreDemarcheRenonciationDateFinFind = titreDemarcheEtapes => {
   // la dernière étape dpu
-  const etapeDpu = titreEtapesDescSort(titreDemarche.etapes).find(
+  const etapeDpu = titreEtapesDescSort(titreDemarcheEtapes).find(
     te => te.typeId === 'dpu'
   )
 
@@ -168,17 +175,19 @@ const titreDemarcheRenonciationDateFinFind = titreDemarche => {
 // retourne
 // - dateFin: la date de fin de la démarche si définie, sinon null
 // - duree: la durée cumulée
-const titreDemarcheNormaleDateFinAndDureeFind = (dureeAcc, titreEtapes) => {
-  titreEtapes = titreEtapesDescSort(titreEtapes)
-
-  const titreEtapeHasDateFinOrDuree = titreEtapes.find(
+const titreDemarcheNormaleDateFinAndDureeFind = (
+  dureeAcc,
+  titreDemarcheEtapes
+) => {
+  // la dernière étape
+  // - dont le type est décision express (dex)
+  //   ou decision de publication au JORF (dpu)
+  //   ou publication au recueil des actes administratifs de la préfecture (rpu)
+  // - qui possède une date de fin ou durée
+  const titreDemarcheEtapesSorted = titreEtapesDescSort(titreDemarcheEtapes)
+  const titreEtapeHasDateFinOrDuree = titreDemarcheEtapesSorted.find(
     ({ typeId, dateFin, duree }) =>
-      // filtre les étapes dont le type est décision express (dex)
-      // et decision de publication au JORF (dpu)
-      // et publication au recueil des actes administratifs de la préfecture (rpu)
-      ['dex', 'dpu', 'rpu'].includes(typeId) &&
-      // retourne la première date de fin ou durée trouvée
-      (dateFin || duree)
+      ['dex', 'dpu', 'rpu'].includes(typeId) && (dateFin || duree)
   )
 
   if (!titreEtapeHasDateFinOrDuree) {
