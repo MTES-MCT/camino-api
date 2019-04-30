@@ -25,10 +25,7 @@ export default class Titres extends Model {
       domaineId: { type: 'string', maxLength: 1 },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
-      references: {
-        type: ['array', 'null'],
-        items: { type: 'object' }
-      },
+      references: { type: ['object', 'null'] },
       substancesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       pointsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       titulairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
@@ -232,5 +229,32 @@ export default class Titres extends Model {
 
   static get jsonAttributes() {
     return []
+  }
+
+  $parseDatabaseJson(json) {
+    json = super.$parseDatabaseJson(json)
+    json.references =
+      json.references &&
+      Object.keys(json.references).map(r => ({
+        type: r,
+        valeur: json.references[r]
+      }))
+
+    return json
+  }
+
+  $parseJson(json) {
+    json = super.$parseDatabaseJson(json)
+    if (json.references && json.references.length) {
+      json.references = json.references.reduce(
+        (references, ref) =>
+          Object.assign(references, {
+            [ref.type]: ref.valeur
+          }),
+        {}
+      )
+    }
+
+    return json
   }
 }

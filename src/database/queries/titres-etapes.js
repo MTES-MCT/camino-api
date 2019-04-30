@@ -39,6 +39,7 @@ const titreEtapeUpsert = async (etape, trx) =>
   TitresEtapes.query(trx)
     .upsertGraph(etape, options.etapes.update)
     .eager(options.etapes.eager)
+    .returning('*')
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
 

@@ -1,4 +1,4 @@
-import titreDemarcheStatutIdFind from './titre-statut-id-find'
+import titreStatutIdFind from './titre-statut-id-find'
 import {
   titreValide,
   titreEchu,
@@ -12,34 +12,34 @@ import {
 
 describe("retourne le statut d'un titre", () => {
   test("le statut d'un titre dont la date de fin est dans le futur est “val”", () => {
-    expect(titreDemarcheStatutIdFind(titreValide)).toEqual('val')
+    expect(titreStatutIdFind(titreValide)).toEqual('val')
   })
 
   test("le statut d'un titre dont la date de fin est dans le passé est “ech”", () => {
-    expect(titreDemarcheStatutIdFind(titreEchu)).toEqual('ech')
+    expect(titreStatutIdFind(titreEchu)).toEqual('ech')
   })
 
   test("le statut d'un titre dont l'unique démarche est un octroi en instruction est “dmi”", () => {
-    expect(titreDemarcheStatutIdFind(titreOctroiInstruction)).toEqual('dmi')
+    expect(titreStatutIdFind(titreOctroiInstruction)).toEqual('dmi')
   })
 
   test("le statut d'un titre dont l'unique démarche est un octroi déposé est “dmi”", () => {
-    expect(titreDemarcheStatutIdFind(titreOctroiDepose)).toEqual('dmi')
+    expect(titreStatutIdFind(titreOctroiDepose)).toEqual('dmi')
   })
 
   test("le statut d'un titre dont l'unique démarche est un octroi rejeté est “dmc”", () => {
-    expect(titreDemarcheStatutIdFind(titreOctroiRejete)).toEqual('dmc')
+    expect(titreStatutIdFind(titreOctroiRejete)).toEqual('dmc')
   })
 
   test("le statut d'un titre dont l'unique démarche est un octroi classé sans suite est “dmc”", () => {
-    expect(titreDemarcheStatutIdFind(titreOctroiClasse)).toEqual('dmc')
+    expect(titreStatutIdFind(titreOctroiClasse)).toEqual('dmc')
   })
 
   test("le statut d'un titre dont l'unique démarche est un octroi retiré est “dmc”", () => {
-    expect(titreDemarcheStatutIdFind(titreOctroiRetire)).toEqual('dmc')
+    expect(titreStatutIdFind(titreOctroiRetire)).toEqual('dmc')
   })
 
   test("le statut d'un titre avec une démarche en instruction est “mod”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheInstruction)).toEqual('mod')
+    expect(titreStatutIdFind(titreDemarcheInstruction)).toEqual('mod')
   })
 })

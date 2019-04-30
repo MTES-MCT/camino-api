@@ -1,7 +1,5 @@
 import { transaction } from 'objection'
-
 import TitresDemarches from '../models/titres-demarches'
-import { titreGet } from './titres'
 import options from './_options'
 import { titreDemarcheFormat } from './_format'
 
@@ -20,11 +18,7 @@ const titreDemarcheGet = async demarcheId => {
 
   const titreDemarche = await q
 
-  if (!titreDemarche) return titreDemarche
-
-  const titre = await titreGet(titreDemarche.titreId)
-
-  return titreDemarcheFormat(titreDemarche, titre.typeId)
+  return titreDemarche && titreDemarcheFormat(titreDemarche)
 }
 
 const titreDemarcheDelete = async (id, trx) =>
