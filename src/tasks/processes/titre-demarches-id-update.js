@@ -13,41 +13,36 @@ import { titreDemarchesIdsUpdate } from '../queries/titre-demarches'
 const titreDemarchesIdUpdate = async (titreDemarche, titre) => {
   const { id: titreDemarcheOldId } = titreDemarche
 
-  const titreDemarcheTypeOldId = titreDemarcheOldId.slice(-5, -2)
-  const titreDemarcheTypeNewId = titreDemarche.typeId
+  const titreDemarcheOldTypeId = titreDemarcheOldId.slice(-5, -2)
+  const titreDemarcheTypeId = titreDemarche.typeId
 
-  // problème: si l'ordre de démarches de même type change
-  // il faut changer les ids
-  // ça n'est pas pris en compte actuellement
-  if (titreDemarcheTypeOldId === titreDemarcheTypeNewId) {
-    return [
-      'Mise à jour: 0 id de démarches.',
-      'Mise à jour: 0 propriétés de titres.'
-    ]
-  }
+  // un tableau contenant les liste de démarches modifiées
+  // une seule liste de démarches si le type n'a pas changé
+  // sinon, une liste de démarche de chaque type
+  const titreDemarchesByTypes =
+    titreDemarcheOldTypeId === titreDemarcheTypeId
+      ? [titre.demarches.filter(te => te.typeId === titreDemarcheTypeId)]
+      : [
+          titre.demarches.filter(te => te.typeId === titreDemarcheTypeId),
+          titre.demarches.filter(te => te.typeId === titreDemarcheOldTypeId)
+        ]
 
-  // les démarches de l'ancien type de la démarche dans l'ordre asc
-  const titreDemarchesByTypeOld = titreDemarchesAscSort(
-    titre.demarches.filter(te => te.typeId === titreDemarcheTypeOldId)
-  )
-
-  // les démarches du nouveau type que la démarche dans l'ordre asc
-  const titreDemarchesByTypeNew = titreDemarchesAscSort(
-    titre.demarches.filter(te => te.typeId === titreDemarcheTypeNewId)
-  )
-
-  const { titreDemarchesOldIds, titreDemarchesNew, titreProps } = [
-    titreDemarchesByTypeOld,
-    titreDemarchesByTypeNew
-  ].reduce(
-    (acc, titreDemarches) => {
-      if (!titreDemarches.length) return acc
+  const {
+    titreDemarchesOldIds,
+    titreDemarchesNew,
+    titreProps
+  } = titreDemarchesByTypes.reduce(
+    (acc, titreDemarchesByType) => {
+      if (!titreDemarchesByType.length) return acc
 
       const {
         titreDemarchesOldIds,
         titreDemarchesNew,
         titreProps
-      } = titreDemarchesByTypeUpdate(titreDemarches, titre)
+      } = titreDemarchesByTypeUpdate(
+        titreDemarchesAscSort(titreDemarchesByType),
+        titre
+      )
 
       return {
         titreDemarchesOldIds: [
