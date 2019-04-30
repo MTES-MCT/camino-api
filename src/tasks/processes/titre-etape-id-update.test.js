@@ -1,8 +1,6 @@
 import titreEtapeIdUpdate from './titre-etape-id-update'
 
-import * as titreQueries from '../queries/titres'
 import * as titreEtapesQueries from '../queries/titre-etapes'
-import * as titreEtapesByTypeUpdate from '../utils/titre-etapes-by-type-update'
 
 import {
   titreEtapeNoChange,
