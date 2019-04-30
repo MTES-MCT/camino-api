@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.17.0](https://github.com/MTES-MCT/camino-api/compare/v0.16.0...v0.17.0) (2019-04-30)
+
+
+### Bug Fixes
+
+* édition des titres ([29fd675](https://github.com/MTES-MCT/camino-api/commit/29fd675))
+* **api:** supprime le paramètre statut lors de la mise à jour d'une démarche ([ebae82c](https://github.com/MTES-MCT/camino-api/commit/ebae82c))
+* pousse les modification sur la remote git "upstream" après une release ([1b1a851](https://github.com/MTES-MCT/camino-api/commit/1b1a851))
+* **api-communes:** loggue les erreurs ([16c2424](https://github.com/MTES-MCT/camino-api/commit/16c2424))
+
+
+### Features
+
+* **activités:** autorise un utilisateur admin à modifier une activité validée ([182bd6f](https://github.com/MTES-MCT/camino-api/commit/182bd6f))
+* **api:** expose la fonction de modification d'un titre ([#55](https://github.com/MTES-MCT/camino-api/issues/55)) ([642aaa6](https://github.com/MTES-MCT/camino-api/commit/642aaa6))
+* initialise le statut des titres et démarches à 'ind' par défaut ([0b87ae5](https://github.com/MTES-MCT/camino-api/commit/0b87ae5))
+* mets à jour l'id de la démarche lors de la mise à jour d'une étape ([b8a92ab](https://github.com/MTES-MCT/camino-api/commit/b8a92ab))
+* **api:** expose les fonctions d'édition des titres ([#51](https://github.com/MTES-MCT/camino-api/issues/51)) ([8e491fd](https://github.com/MTES-MCT/camino-api/commit/8e491fd))
+* **tasks:** met à jour les ids de démarches ([179b9f8](https://github.com/MTES-MCT/camino-api/commit/179b9f8))
+
+
+
 # [0.16.0](https://github.com/MTES-MCT/camino-api/compare/v0.14.0...v0.16.0) (2019-04-19)
 
 
