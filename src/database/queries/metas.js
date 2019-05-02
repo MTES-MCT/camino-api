@@ -11,7 +11,7 @@ import Emprises from '../models/emprises'
 
 const typesGet = async () => Types.query()
 
-const domainesGet = async () => Domaines.query()
+const domainesGet = async () => Domaines.query().eager(options.domaines.eager)
 
 const statutsGet = async () => Statuts.query()
 
