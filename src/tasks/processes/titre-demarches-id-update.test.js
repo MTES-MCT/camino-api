@@ -3,9 +3,7 @@ import titreDemarcheIdUpdate from './titre-demarches-id-update'
 import * as titreDemarchesQueries from '../queries/titre-demarches'
 
 import {
-  titreDemarcheNoChange,
   titreDemarcheChanged,
-  titreWithDemarchesNoChange,
   titreWithDemarchesChanged
 } from './__mocks__/titre-demarche-id-update-demarches'
 
