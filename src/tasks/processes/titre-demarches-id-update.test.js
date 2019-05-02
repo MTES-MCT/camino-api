@@ -29,25 +29,6 @@ jest.mock('../utils/titre-demarches-by-type-update', () => ({
 }))
 
 describe("change l'id de la démarche d'un titre", () => {
-  test("une démarche dont le type n'a pas changé n'est pas mise à jour", async () => {
-    const updateSpy = jest.spyOn(
-      titreDemarchesQueries,
-      'titreDemarchesIdsUpdate'
-    )
-
-    expect(
-      await titreDemarcheIdUpdate(
-        titreDemarcheNoChange,
-        titreWithDemarchesNoChange
-      )
-    ).toEqual([
-      'Mise à jour: 0 id de démarches.',
-      'Mise à jour: 0 propriétés de titres.'
-    ])
-
-    expect(updateSpy).not.toHaveBeenCalled()
-  })
-
   test('une démarche dont le type a changé est mise à jour', async () => {
     const updateSpy = jest.spyOn(
       titreDemarchesQueries,
