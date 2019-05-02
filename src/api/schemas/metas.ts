@@ -25,6 +25,17 @@ type Metas {
   emprises: [Emprise]
 }
 
+"Le domaine minier"
+type Domaine {
+  "L'id composée d'une seule lettre"
+  id: DomaineId!
+
+  "Le nom du domaine en français"
+  nom: String!
+
+  types: [Type]!
+}
+
 "Le type de titre minier"
 type Type {
   "L'id composée de trois lettres"
@@ -35,24 +46,6 @@ type Type {
 
   "Les types de démarches applicables à ce type de titre"
   demarchesTypes: [DemarcheType]
-}
-
-"Le domaine minier"
-type Domaine {
-  "L'id composée d'une seule lettre"
-  id: DomaineId!
-
-  "Le nom du domaine en français"
-  nom: String!
-}
-
-"Le domaine minier"
-input InputDomaineId {
-  "L'id composée d'une seule lettre"
-  id: DomaineId!
-
-  "Le nom du domaine en français"
-  nom: String
 }
 
 "Le statut d'un titre minier"

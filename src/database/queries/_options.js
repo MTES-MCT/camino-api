@@ -136,12 +136,22 @@ const titresActivites = {
   eager: `[type.${activitesTypes.eager}, statut, utilisateur]`
 }
 
+const types = {
+  eager: `[demarchesTypes.demarchesStatuts]`
+}
+
+const domaines = {
+  eager: `[types.${types.eager}]`
+}
+
 const titres = {
-  eager: `[type.demarchesTypes.demarchesStatuts, domaine, statut, points, substances.${
-    substances.eager
-  }, titulaires.${entreprises.eager}, amodiataires.${
+  eager: `[type.${types.eager}, domaine.${
+    domaines.eager
+  }, statut, points, substances.${substances.eager}, titulaires.${
     entreprises.eager
-  }, administrations.${administrations.eager}, demarches(orderDesc).${
+  }, amodiataires.${entreprises.eager}, administrations.${
+    administrations.eager
+  }, demarches(orderDesc).${
     demarches.eager
   }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${
     communes.eager
@@ -253,6 +263,7 @@ export default {
   administrations,
   entreprises,
   entreprisesEtablissements,
+  domaines,
   demarchesTypes,
   titresActivites,
   activitesTypes,
