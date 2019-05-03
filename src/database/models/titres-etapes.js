@@ -242,18 +242,23 @@ export default class TitresEtapes extends Model {
   }
 
   $parseJson(json) {
+    if (json.administrationsIds) {
+      json.administrations = json.administrationsIds.map(id => ({ id }))
+      delete json.administrationsIds
+    }
+
     if (json.amodiatairesIds) {
-      json.amodiataires = json.amodiatairesIds.map(id => ({ entrepriseId: id }))
+      json.amodiataires = json.amodiatairesIds.map(id => ({ id }))
       delete json.amodiatairesIds
     }
 
     if (json.titulairesIds) {
-      json.titulaires = json.titulairesIds.map(id => ({ entrepriseId: id }))
+      json.titulaires = json.titulairesIds.map(id => ({ id }))
       delete json.titulairesIds
     }
 
     if (json.substancesIds) {
-      json.substances = json.substancesIds.map(id => ({ substanceId: id }))
+      json.substances = json.substancesIds.map(id => ({ id }))
       delete json.substancesIds
     }
 
