@@ -6,7 +6,7 @@ export default class Substances extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'domaineId', 'type', 'substanceLegaleId'],
+    required: ['id', 'nom', 'substanceLegaleId'],
 
     properties: {
       id: { type: 'string' },
@@ -14,7 +14,7 @@ export default class Substances extends Model {
       symbole: { type: ['string', 'null'] },
       gerep: { type: ['integer', 'null'] },
       description: { type: ['string', 'null'], maxLength: 2048 },
-      substanceLegalId: { type: 'string' }
+      substanceLegaleId: { type: 'string' }
     }
   }
 
