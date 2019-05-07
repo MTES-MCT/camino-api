@@ -15,10 +15,7 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titreEtapesIdUpdate from './processes/titre-etape-id-update'
 import titreDemarchesIdUpdate from './processes/titre-demarches-id-update'
 
-const titreEtapeUpdate = async titreEtapeId => {
-  let titreEtape = await titreEtapeGet(titreEtapeId)
-  const { titreDemarcheId } = titreEtape
-
+const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // ordre des étapes
   // en fonction de leur date
   let titreDemarche = await titreDemarcheGet(titreDemarcheId)
@@ -56,6 +53,7 @@ const titreEtapeUpdate = async titreEtapeId => {
   const titresPhases = await titresPhasesUpdate([titre])
 
   // communes associées aux étapes
+  let titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
   const communes = await communesGet()
   const titresEtapesCommunes = await titresEtapeCommunesUpdate(
     [titreEtape],
@@ -68,7 +66,7 @@ const titreEtapeUpdate = async titreEtapeId => {
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
   // met à jour l'id des étapes
-  titreEtape = await titreEtapeGet(titreEtapeId)
+  titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
   titre = await titreGet(titreId)
   const titreEtapesId = await titreEtapesIdUpdate(titreEtape, titre)
 

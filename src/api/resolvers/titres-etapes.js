@@ -20,11 +20,11 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     throw new Error(rulesError)
   }
 
-  const res = await titreEtapeUpsert(etape)
+  const etapeNew = await titreEtapeUpsert(etape)
 
-  await titreEtapeUpdateTask(etape.id)
+  await titreEtapeUpdateTask(etapeNew.id, etapeNew.titreDemarcheId)
 
-  return res
+  return etapeNew
 }
 
 const titreEtapeSupprimer = async ({ id }, context, info) => {
