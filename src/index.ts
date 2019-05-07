@@ -61,6 +61,20 @@ app.use(
 // })
 
 app.use(
+  '/fichiers',
+  (req: AuthRequest, res, next) => {
+    console.log(req.header('file-props'), req.user)
+
+    if (req.user) {
+      return next()
+    } else {
+      return res.status(403).send('Accès protégé')
+    }
+  },
+  express.static('files', { fallthrough: false })
+)
+
+app.use(
   '/',
   expressGraphql((req: AuthRequest, res, graphQLParams) => ({
     schema,
