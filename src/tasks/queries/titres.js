@@ -1,4 +1,7 @@
-import { titrePropsUpdate as titrePropsUpdateQuery } from '../../database/queries/titres'
+import {
+  titrePropsUpdate as titrePropsUpdateQuery,
+  titreIdUpdate as titreIdUpdateQuery
+} from '../../database/queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
 const calculatedProps = [
@@ -35,4 +38,8 @@ const titrePropsUpdate = (titre, prop) => {
   )
 }
 
-export { calculatedProps, titreStatutIdUpdate, titrePropsUpdate }
+const titreIdUpdate = (titreOldId, titreNew) =>
+  (titreNew.id !== titreOldId && console.log(JSON.stringify(titreNew))) ||
+  titreIdUpdateQuery(titreOldId, titreNew)
+
+export { calculatedProps, titreStatutIdUpdate, titrePropsUpdate, titreIdUpdate }

@@ -3,8 +3,6 @@ import '../../../database/index'
 import { titreGet } from '../../../database/queries/titres'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 
-import titreDemarcheUpdate from '../../../tasks/processes/titre-demarches-id-update'
-
 async function main() {
   let typeId = 'pro'
   let titreDemarcheId = `h-prh-tarbes-val-d-adour-2008-pr101`
@@ -21,10 +19,6 @@ async function main() {
   const titreDemarcheOld = titre.demarches.find(d => d.id === titreDemarcheId)
 
   titreDemarcheOld.typeId = typeId
-
-  const titresDemarches = await titreDemarcheUpdate(titreDemarcheOld, titre)
-
-  console.log(titresDemarches)
 
   process.exit()
 }

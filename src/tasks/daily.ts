@@ -18,6 +18,8 @@ import titresEtapesAdministrationsUpdate from './processes/titres-etapes-adminis
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresActivitesTypesUpdate from './processes/titres-activites-update'
 
+import titreIdUpdate from './processes/titre-id-update'
+
 const run = async () => {
   try {
     // 1.
@@ -96,6 +98,9 @@ const run = async () => {
       annees
     )
 
+    titres = await titresGet()
+    const titresIds = await Promise.all(titres.map(titreIdUpdate))
+
     // logs
     console.log(titresEtapesOrdre)
     console.log(titresDemarchesStatutId)
@@ -106,6 +111,7 @@ const run = async () => {
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
+    console.log(titresIds.filter(a => a).join('\n'))
 
     console.log('Tâches quotidiennes exécutées')
   } catch (e) {

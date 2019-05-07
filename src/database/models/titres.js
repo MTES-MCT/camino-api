@@ -245,6 +245,7 @@ export default class Titres extends Model {
 
   $parseJson(json) {
     json = super.$parseDatabaseJson(json)
+
     if (json.references) {
       json.references = json.references.reduce(
         (references, ref) =>
@@ -254,6 +255,12 @@ export default class Titres extends Model {
         {}
       )
     }
+
+    delete json.engagement
+    delete json.geojsonMultiPolygon
+    delete json.geojsonPoints
+    delete json.pays
+    delete json.surface
 
     return json
   }

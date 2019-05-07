@@ -1,0 +1,130 @@
+import slugify from '@sindresorhus/slugify'
+import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
+import elementRelationsUpdate from './element-relations-update'
+import titreDemarchesAscSort from './titre-demarches-asc-sort'
+import titreEtapesAscSort from './titre-etapes-asc-sort'
+import { calculatedProps as titreCalculatedProps } from '../queries/titres'
+
+const titreIdUpdate = titre => {
+  const { domaineId, typeId, nom } = titre
+
+  const demarcheOctroiDateDebut = titreDemarcheOctroiDateDebutFind(titre)
+
+  return slugify(
+    `${domaineId}-${typeId}-${nom}-${demarcheOctroiDateDebut.slice(0, 4)}`
+  )
+}
+
+const titreDemarcheIdUpdate = (titreDemarche, titre) => {
+  const titreDemarcheTypeOrder =
+    titreDemarchesAscSort(
+      titre.demarches.filter(d => d.typeId === titreDemarche.typeId)
+    ).findIndex(d => d.id === titreDemarche.id) + 1
+
+  return `${titre.id}-${
+    titreDemarche.typeId
+  }${titreDemarcheTypeOrder.toString().padStart(2, '0')}`
+}
+
+const titreEtapeIdUpdate = (titreEtape, titreDemarche) => {
+  const titreEtapeTypeOrder =
+    titreEtapesAscSort(
+      titreDemarche.etapes.filter(e => e.typeId === titreEtape.typeId)
+    ).findIndex(d => d.id === titreEtape.id) + 1
+
+  return `${titreDemarche.id}-${
+    titreEtape.typeId
+  }${titreEtapeTypeOrder.toString().padStart(2, '0')}`
+}
+
+const titreRelations = {
+  idUpdate: titreIdUpdate,
+  links: [
+    {
+      path: 'demarches',
+      props: ['titreId']
+    },
+    {
+      path: 'activites',
+      props: ['id', 'titreId']
+    }
+  ]
+}
+
+const titreDemarcheRelations = {
+  idUpdate: titreDemarcheIdUpdate,
+  links: [
+    {
+      path: 'etapes',
+      props: ['titreDemarcheId']
+    },
+    {
+      path: 'phase',
+      props: ['titreDemarcheId']
+    },
+    {
+      path: '/titre/demarches',
+      props: ['annulationTitreDemarcheId']
+    }
+  ]
+}
+
+const titreEtapeRelations = {
+  idUpdate: titreEtapeIdUpdate,
+  links: [
+    {
+      path: '/titre',
+      props: titreCalculatedProps.map(prop => `${prop}TitreEtapeId`)
+    },
+    {
+      path: 'points',
+      props: ['id', 'titreEtapeId'],
+      links: [
+        {
+          path: 'references',
+          props: ['id', 'titrePointId']
+        }
+      ]
+    },
+    {
+      path: 'documents',
+      props: ['id', 'titreEtapeId', 'fichier']
+    },
+    {
+      path: 'erreurs',
+      props: ['id', 'titreEtapeId']
+    }
+  ]
+}
+
+const titreIdAndRelationsUpdate = titreOld => {
+  const titreNew = { ...titreOld }
+
+  // met à jour l'id du titre et ses relations
+  elementRelationsUpdate(titreNew, titreRelations, { titre: titreNew })
+
+  titreNew.demarches.forEach(titreDemarche => {
+    // met à jour l'id de la démarche du titre et ses relations
+    elementRelationsUpdate(
+      titreDemarche,
+      titreDemarcheRelations,
+      { titre: titreNew },
+      titreNew
+    )
+
+    // met à jour l'id de l'étape de la démarche et ses relations
+    titreDemarche.etapes &&
+      titreDemarche.etapes.forEach(titreEtape =>
+        elementRelationsUpdate(
+          titreEtape,
+          titreEtapeRelations,
+          { titre: titreNew },
+          titreDemarche
+        )
+      )
+  })
+
+  return titreNew
+}
+
+export default titreIdAndRelationsUpdate
