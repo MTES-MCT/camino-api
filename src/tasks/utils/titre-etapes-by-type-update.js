@@ -1,4 +1,5 @@
 import { calculatedProps as titreCalculatedProps } from '../queries/titres'
+import elementRelationsUpdate from './element-relations-update'
 
 // liste les relations hasManyRelations du modèle titresEtapes
 const titreEtapesRelations = [
@@ -15,8 +16,21 @@ const titreEtapesRelations = [
   {
     name: 'documents',
     elementIdProp: 'titreEtapeId'
+  },
+  {
+    name: 'erreurs',
+    elementIdProp: 'titreEtapeId'
   }
 ]
+
+/**
+ * Calcule les propriétés d'un titre à mettre à jour
+ * @param {Titre} titre le titre à modifier
+ * @param {String} titreEtapeNewId le nouvel id de l'étape
+ * @param {String} titreEtapeOldId l'ancien id de l'étape
+ * @param {Object} titreCalculatedProps les propriétés calculées du titre
+ * @return {Object} les propriétés du titre à modifier
+ */
 
 const titreCalculatedPropsUpdate = (
   titre,
@@ -31,56 +45,6 @@ const titreCalculatedPropsUpdate = (
       ? { ...acc, [prop]: titreEtapeNewId }
       : acc
   }, {})
-
-const elementRelationUpdate = (
-  relations,
-  titreEtapeNewId,
-  titreEtapeOldId,
-  elementIdProp
-) => {
-  relations.forEach(relation => {
-    if (relation.id && relation.id.match(titreEtapeOldId)) {
-      relation.id = relation.id.replace(titreEtapeOldId, titreEtapeNewId)
-    }
-
-    if (
-      relation[elementIdProp] &&
-      relation[elementIdProp].match(titreEtapeOldId)
-    ) {
-      relation[elementIdProp] = titreEtapeNewId
-    }
-  })
-}
-
-const elementRelationsUpdate = (
-  element,
-  titreEtapeNewId,
-  titreEtapeOldId,
-  titreEtapesRelations
-) => {
-  titreEtapesRelations.forEach(prop => {
-    const relations = element[prop.name]
-    if (!relations) return
-
-    if (prop.children) {
-      relations.forEach(element => {
-        elementRelationsUpdate(
-          element,
-          titreEtapeNewId,
-          titreEtapeOldId,
-          prop.children
-        )
-      })
-    }
-
-    elementRelationUpdate(
-      relations,
-      titreEtapeNewId,
-      titreEtapeOldId,
-      prop.elementIdProp
-    )
-  })
-}
 
 const titreEtapeIdUpdate = (titreEtapeOld, titre, titreEtapeOrderNew) => {
   const { id: titreEtapeOldId } = titreEtapeOld
@@ -104,7 +68,7 @@ const titreEtapeIdUpdate = (titreEtapeOld, titre, titreEtapeOrderNew) => {
 
   // utilise la référence à l'étape liée à la référence du titre
   // pour la mise à jour
-  const titreEtapeNew = titreEtapeOld
+  let titreEtapeNew = titreEtapeOld
 
   // supprime des propriétés de points
   delete titreEtapeNew.geojsonMultiPolygon
@@ -126,7 +90,7 @@ const titreEtapeIdUpdate = (titreEtapeOld, titre, titreEtapeOrderNew) => {
   )
 
   // - change l'id des tables liées (id de la ligne si basé sur l'id de l'étape)
-  elementRelationsUpdate(
+  titreEtapeNew = elementRelationsUpdate(
     titreEtapeNew,
     titreEtapeNewId,
     titreEtapeOldId,

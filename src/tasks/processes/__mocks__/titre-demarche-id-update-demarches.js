@@ -11,11 +11,25 @@ const titreDemarcheChanged = {
 }
 
 const titreWithDemarchesNoChange = {
-  demarches: [titreDemarcheNoChange]
+  demarches: [
+    titreDemarcheNoChange,
+    {
+      id: 'h-nom-cxx-mut01',
+      typeId: 'mut',
+      titreId: 'h-nom-cxx'
+    }
+  ]
 }
 
 const titreWithDemarchesChanged = {
-  demarches: [titreDemarcheChanged]
+  demarches: [
+    titreDemarcheChanged,
+    {
+      id: 'h-nom-cxx-mut01',
+      typeId: 'mut',
+      titreId: 'h-nom-cxx'
+    }
+  ]
 }
 
 export {

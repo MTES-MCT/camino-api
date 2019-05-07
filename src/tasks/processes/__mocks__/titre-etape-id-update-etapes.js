@@ -15,9 +15,10 @@ const titreWithDemarchesNoChange = {
     {
       id: 'h-nom-cxx-oct01',
       etapes: [
+        titreEtapeNoChange,
         {
-          id: 'h-nom-cxx-oct01-dex01',
-          typeId: 'dex',
+          id: 'h-nom-cxx-oct01-dpu01',
+          typeId: 'dpu',
           titreDemarcheId: 'h-nom-cxx-oct01'
         }
       ]
@@ -30,8 +31,9 @@ const titreWithDemarchesChanged = {
     {
       id: 'h-nom-cxx-oct01',
       etapes: [
+        titreEtapeChanged,
         {
-          id: 'h-nom-cxx-oct01-dex01',
+          id: 'h-nom-cxx-oct01-dpu01',
           typeId: 'dpu',
           titreDemarcheId: 'h-nom-cxx-oct01'
         }

@@ -1,5 +1,38 @@
 import titreEtapesByTypeUpdate from './titre-etapes-by-type-update'
+import elementRelationsUpdate from './element-relations-update'
 
+const titreDemarchesRelations = [
+  {
+    name: 'etapes',
+    elementIdProp: 'titreDemarcheId',
+    children: [
+      {
+        name: 'points',
+        elementIdProp: 'titreEtapeId',
+        children: [
+          {
+            name: 'references',
+            elementIdProp: 'titrePointId'
+          }
+        ]
+      },
+      {
+        name: 'documents',
+        elementIdProp: 'titreEtapeId'
+      },
+      {
+        name: 'erreurs',
+        elementIdProp: 'titreEtapeId'
+      }
+    ]
+  },
+  {
+    name: 'phases',
+    elementIdProp: 'titreDemarcheId'
+  }
+]
+
+//
 const titreDemarcheIdUpdate = (
   titreDemarcheOld,
   titre,
@@ -22,7 +55,7 @@ const titreDemarcheIdUpdate = (
 
   // utilise la référence à l'étape liée à la référence du titre
   // pour la mise à jour
-  const titreDemarcheNew = { ...titreDemarcheOld }
+  let titreDemarcheNew = { ...titreDemarcheOld }
 
   // - change l'id de la nouvelle démarche
   const titreDemarcheNewId = `${titreDemarcheOld.titreId}-${
@@ -31,14 +64,15 @@ const titreDemarcheIdUpdate = (
 
   titreDemarcheNew.id = titreDemarcheNewId
 
-  titreDemarcheNew.etapes.forEach(titreEtape => {
-    titreEtape.titreDemarcheId = titreDemarcheNewId
-    delete titreEtape.type
-  })
+  // - change l'id des tables liées (id de la ligne si basé sur l'id de la démarche)
+  titreDemarcheNew = elementRelationsUpdate(
+    titreDemarcheNew,
+    titreDemarcheNewId,
+    titreDemarcheOldId,
+    titreDemarchesRelations
+  )
 
-  delete titreDemarcheNew.type
-
-  // mets à jour les ids des étapes et tables jointes
+  // mets à jour les ids des étapes et tables jointes par référence
   const { titreProps } = titreEtapesByTypeUpdate(titreDemarcheNew.etapes, titre)
 
   // supprime la phase

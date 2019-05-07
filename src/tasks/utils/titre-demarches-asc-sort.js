@@ -4,8 +4,16 @@ import titreEtapesAscSortByOrdre from './titre-etapes-asc-sort'
 
 const titreDemarchesAscSort = titreDemarches =>
   titreDemarches.sort((a, b) => {
-    if (!a.etapes || !a.etapes.length) return 1
-    if (!b.etapes || !b.etapes.length) return -1
+    const aHasEtapes = a.etapes && a.etapes.length
+    const bHasEtapes = b.etapes && b.etapes.length
+    if (!aHasEtapes && bHasEtapes) return 1
+    if (aHasEtapes && !bHasEtapes) return -1
+    if (!aHasEtapes && !bHasEtapes) {
+      return (
+        ((a.type && a.type.ordre) || Infinity) -
+        ((b.type && b.type.ordre) || Infinity)
+      )
+    }
 
     const dateA = titreEtapesAscSortByOrdre(a.etapes)[0].date
     const dateB = titreEtapesAscSortByOrdre(b.etapes)[0].date
