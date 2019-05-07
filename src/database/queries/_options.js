@@ -102,10 +102,6 @@ const demarches = {
   }, titreType, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
   update: {
     relate: [
-      'type',
-      'type.etapesTypes',
-      'type.etapesTypes.etapesStatuts',
-      'type.demarchesStatuts',
       'statut',
       'annulationDemarche',
       'parents',
@@ -113,19 +109,33 @@ const demarches = {
       ...etapes.update.relate.map(k => `etapes.${k}`)
     ],
     unrelate: [
-      'type',
-      'type.etapesTypes',
-      'type.etapesTypes.etapesStatuts',
-      'type.demarchesStatuts',
       'statut',
       'annulationDemarche',
       'enfants',
       'phase.statut',
       ...etapes.update.unrelate.map(k => `etapes.${k}`)
     ],
-    noInsert: [...etapes.update.noInsert.map(k => `etapes.${k}`)],
-    noUpdate: [...etapes.update.noUpdate.map(k => `etapes.${k}`)],
-    noDelete: [...etapes.update.noDelete.map(k => `etapes.${k}`)],
+    noInsert: [
+      'type',
+      'type.etapesTypes',
+      'type.etapesTypes.etapesStatuts',
+      'titreType',
+      ...etapes.update.noInsert.map(k => `etapes.${k}`)
+    ],
+    noUpdate: [
+      'type',
+      'type.etapesTypes',
+      'type.etapesTypes.etapesStatuts',
+      'titreType',
+      ...etapes.update.noUpdate.map(k => `etapes.${k}`)
+    ],
+    noDelete: [
+      'type',
+      'type.etapesTypes',
+      'type.etapesTypes.etapesStatuts',
+      'titreType',
+      ...etapes.update.noDelete.map(k => `etapes.${k}`)
+    ],
     insertMissing: true
   }
 }
