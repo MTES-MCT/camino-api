@@ -1,6 +1,33 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.18.0](https://github.com/MTES-MCT/camino-api/compare/v0.17.0...v0.18.0) (2019-05-07)
+
+
+### Bug Fixes
+
+* ajout d'une étape ([a265647](https://github.com/MTES-MCT/camino-api/commit/a265647))
+
+
+### Build System
+
+* ignore le répertoire files ([3d90f57](https://github.com/MTES-MCT/camino-api/commit/3d90f57))
+* met à jour les dépendances ([0b0c7a4](https://github.com/MTES-MCT/camino-api/commit/0b0c7a4))
+* met à jour les dépendances ([9714cff](https://github.com/MTES-MCT/camino-api/commit/9714cff))
+
+
+### Features
+
+* **api:** expose les types de titres par domaines ([bf11cf5](https://github.com/MTES-MCT/camino-api/commit/bf11cf5))
+* ajoute un titre ([fdbb6e5](https://github.com/MTES-MCT/camino-api/commit/fdbb6e5))
+
+
+### Tests
+
+* supprime un test qui n'a plus lieu d'être ([529c26f](https://github.com/MTES-MCT/camino-api/commit/529c26f))
+
+
 
 # [0.17.0](https://github.com/MTES-MCT/camino-api/compare/v0.16.0...v0.17.0) (2019-04-30)
 
