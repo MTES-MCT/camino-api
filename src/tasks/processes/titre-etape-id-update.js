@@ -32,27 +32,22 @@ const titreEtapesIdUpdate = async (titreEtape, titre) => {
   const titreEtapeTypeOldId = titreEtapeOldId.slice(-5, -2)
   const titreEtapeTypeNewId = titreEtape.typeId
 
-  if (titreEtapeTypeOldId === titreEtapeTypeNewId) {
-    return [
-      `Mise à jour: 0 id d'étapes.`,
-      `Mise à jour: 0 propriétés de titres.`
-    ]
-  }
+  // un tableau contenant les liste d'étapes modifiées
+  // une seule liste d'étapes si le type n'a pas changé
+  // sinon, une liste d'étapes de chaque type
+  const titreEtapesByTypes =
+    titreEtapeTypeOldId === titreEtapeTypeNewId
+      ? [titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeNewId)]
+      : [
+          titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeNewId),
+          titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeOldId)
+        ]
 
-  // les étapes de l'ancien type de l'étape dans l'ordre asc
-  const titreEtapesByTypeOld = titreEtapesAscSort(
-    titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeOldId)
-  )
-
-  // les étapes du nouveau type que l'étape dans l'ordre asc
-  const titreEtapesByTypeNew = titreEtapesAscSort(
-    titreDemarche.etapes.filter(te => te.typeId === titreEtapeTypeNewId)
-  )
-
-  const { titreEtapesOldIds, titreEtapesNew, titreProps } = [
-    titreEtapesByTypeOld,
-    titreEtapesByTypeNew
-  ].reduce(
+  const {
+    titreEtapesOldIds,
+    titreEtapesNew,
+    titreProps
+  } = titreEtapesByTypes.reduce(
     (acc, titreEtapes) => {
       if (!titreEtapes.length) return acc
 

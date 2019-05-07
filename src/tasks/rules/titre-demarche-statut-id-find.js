@@ -3,11 +3,7 @@ import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // si la démarche ne contient pas d'étapes
   // le statut est indétrminé
-  if (
-    !titreDemarche.etapes ||
-    (titreDemarche.etapes && !titreDemarche.etapes.length)
-  )
-    return 'ind'
+  if (!titreDemarche.etapes || !titreDemarche.etapes.length) return 'ind'
 
   // filtre les types d'étapes qui ont un impact sur le statut de la démarche
   const titreEtapesDecisives = titreDemarche.etapes.filter(titreEtape =>

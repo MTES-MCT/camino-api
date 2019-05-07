@@ -19,6 +19,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
   if (rulesError) {
     throw new Error(rulesError)
   }
+
   const demarcheNew = await titreDemarcheUpsert(demarche)
 
   await titreDemarcheUpdateTask(demarcheNew.id, demarcheNew.titreId)
