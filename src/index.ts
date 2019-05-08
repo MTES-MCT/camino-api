@@ -21,6 +21,7 @@ import * as Sentry from '@sentry/node'
 import { port, url } from './config/index'
 import schema from './api/schemas'
 import rootValue from './api/resolvers'
+import { fileDownloadPermissionCheck } from './api/resolvers/file-download'
 
 const app = express()
 
@@ -44,7 +45,9 @@ app.use(compression())
 // bug de typage de express-jwt
 // https://github.com/auth0/express-jwt/issues/215
 interface AuthRequest extends express.Request {
-  user?: string
+  user?: {
+    [id: string]: string
+  }
 }
 
 app.use(
@@ -63,9 +66,15 @@ app.use(
 app.use(
   '/fichiers',
   (req: AuthRequest, res, next) => {
-    console.log(req.header('file-props'), req.user)
+    const userId = req.user && req.user.id
 
-    if (req.user) {
+    if (
+      fileDownloadPermissionCheck(
+        userId,
+        req.header('X-titre-id'),
+        req.header('X-titre-document-id')
+      )
+    ) {
       return next()
     } else {
       return res.status(403).send('Accès protégé')
