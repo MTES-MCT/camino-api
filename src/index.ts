@@ -70,16 +70,16 @@ app.use(
     const userId = req.user && req.user.id
 
     if (
-      fileDownloadPermissionCheck(
+      !fileDownloadPermissionCheck(
         userId,
         req.header('X-titre-id'),
         req.header('X-titre-document-id')
       )
     ) {
-      return next()
+      return res.status(403).send('Accès protégé')
     }
 
-    return res.status(403).send('Accès protégé')
+    return next()
   },
   express.static(path.join(__dirname, '../files'), { fallthrough: false })
 )

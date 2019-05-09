@@ -64,6 +64,6 @@ docker cp files/. camino-api_app_1:/app/files/
 Inspecter le volume
 
 ```bash
-# créé un container avec l'image Docker busybox pour inspécter le contenu du volume
+# crée un container avec l'image Docker busybox pour inspécter le contenu du volume
 docker run -it --rm -v camino-api_files:/vol busybox ls -l /vol
 ```

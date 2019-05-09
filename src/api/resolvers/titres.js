@@ -97,13 +97,13 @@ const titres = async (
   const user = context.user && (await utilisateurGet(context.user.id))
 
   return titres.filter(titre => {
-    const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
-
     const userHasAccess = auth(user, titre, ['admin', 'super', 'editeur'])
 
     if (userHasAccess) {
       return titre
     }
+
+    const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
 
     if (titreIsPublic) {
       return titreRestrictions(titre)
