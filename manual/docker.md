@@ -43,5 +43,27 @@ pg_dump camino > camino.sql && scp camino.sql <user>@<ip>:/srv/tmp/dumps/camino.
 cd /srv/tmp/dumps/
 
 # importer la base de données depuis le dump
-cat camino.sql | docker exec -i caminoapi_postgres_1 psql -U postgres -d camino
+cat camino.sql | docker exec -i camino-api_postgres_1 psql -U postgres -d camino
+```
+
+## Copier les fichiers pdf (files) sur le serveur
+
+```bash
+# localement
+scp -r files <user>@<ip>:/srv/tmp/camino-api-files
+```
+
+```bash
+# sur le serveur
+# copie les fichiers dans le volume
+docker cp /srv/tmp/camino-api-files/. camino-api_app_1:/app/files/
+# ou pour la version locale
+docker cp files/. camino-api_app_1:/app/files/
+```
+
+Inspecter le volume
+
+```bash
+# crée un container avec l'image Docker busybox pour inspécter le contenu du volume
+docker run -it --rm -v camino-api_files:/vol busybox ls -l /vol
 ```

@@ -22,9 +22,9 @@ const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 
 const jsonParse = value => json =>
-  json.map(j =>
-    Object.keys(j).reduce((res, cur) => {
-      res[cur] = cur === value ? JSON.parse(j[cur]) : j[cur]
+  json.map(row =>
+    Object.keys(row).reduce((res, col) => {
+      res[col] = col === value ? JSON.parse(row[col]) : row[col]
       return res
     }, {})
   )
