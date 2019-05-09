@@ -18,7 +18,7 @@ import titresEtapesAdministrationsUpdate from './processes/titres-etapes-adminis
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresActivitesTypesUpdate from './processes/titres-activites-update'
 
-import titreIdUpdate from './processes/titre-id-update'
+import titresIdsUpdate from './processes/titres-ids-update'
 
 const run = async () => {
   try {
@@ -98,8 +98,11 @@ const run = async () => {
       annees
     )
 
+    // 10.
+    // id de titres
+    // met à jour les ids de titres, démarches, étapes et sous-éléments
     titres = await titresGet()
-    const titresIds = await Promise.all(titres.map(titreIdUpdate))
+    const titresIds = await titresIdsUpdate(titres)
 
     // logs
     console.log(titresEtapesOrdre)
@@ -111,7 +114,7 @@ const run = async () => {
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
-    console.log(titresIds.filter(a => a).join('\n'))
+    console.log(titresIds)
 
     console.log('Tâches quotidiennes exécutées')
   } catch (e) {

@@ -39,7 +39,6 @@ const titrePropsUpdate = (titre, prop) => {
 }
 
 const titreIdUpdate = (titreOldId, titreNew) =>
-  (titreNew.id !== titreOldId && console.log(JSON.stringify(titreNew))) ||
-  titreIdUpdateQuery(titreOldId, titreNew)
+  titreNew.id !== titreOldId && titreIdUpdateQuery(titreOldId, titreNew)
 
 export { calculatedProps, titreStatutIdUpdate, titrePropsUpdate, titreIdUpdate }

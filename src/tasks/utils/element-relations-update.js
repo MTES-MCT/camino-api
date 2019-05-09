@@ -29,17 +29,27 @@ const elementRelationsUpdate = (
 
   // met à jour l'id
   if (params.idUpdate) {
-    element.id = params.idUpdate(
+    const elementIdNew = params.idUpdate(
       element,
       parent,
       parentIdOld,
       parent && parent.id
     )
+
+    // l'id de l'élément n'a pas changé
+    // aucune mise à jour n'est nécessaire
+    if (elementIdNew === elementIdOld) {
+      return
+    }
+
+    element.id = elementIdNew
   }
 
   // met à jour les propriétés basée sur l'id parent
   if (params.props && parent) {
     params.props.forEach(prop => {
+      // if (prop.match('TitreEtapeId')) delete element[prop]
+
       if (element[prop] && element[prop].match(parentIdOld)) {
         element[prop] = element[prop].replace(parentIdOld, parent.id)
       }

@@ -4,24 +4,29 @@ import options from './_options'
 import { titreFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async id => {
+const titreGet = async (id, format = true) => {
   const t = await Titres.query()
     .findById(id)
     .eager(options.titres.eager)
 
+  if (!format) return t
+
   return t && titreFormat(t)
 }
 
-const titresGet = async ({
-  typeIds,
-  domaineIds,
-  statutIds,
-  substances,
-  noms,
-  entreprises,
-  references,
-  territoires
-} = {}) => {
+const titresGet = async (
+  {
+    typeIds,
+    domaineIds,
+    statutIds,
+    substances,
+    noms,
+    entreprises,
+    references,
+    territoires
+  } = {},
+  format = true
+) => {
   const q = Titres.query()
     .skipUndefined()
     .eager(options.titres.eager)
@@ -190,6 +195,8 @@ const titresGet = async ({
   }
 
   const titres = await q
+
+  if (!format) return titres
 
   // console.log(sqlFormatter.format(q.toSql()))
   return titres.map(t => t && titreFormat(t))
