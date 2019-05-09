@@ -47,7 +47,7 @@ const titre = async ({ id }, context, info) => {
   if (!titre) return null
 
   const user = context.user && (await utilisateurGet(context.user.id))
-  const userHasAccess = auth(user, titre, ['admin', 'super', 'editeur'])
+  const userHasAccess = user && auth(user, titre, ['admin', 'super', 'editeur'])
 
   if (userHasAccess) {
     return titre
@@ -97,7 +97,8 @@ const titres = async (
   const user = context.user && (await utilisateurGet(context.user.id))
 
   return titres.filter(titre => {
-    const userHasAccess = auth(user, titre, ['admin', 'super', 'editeur'])
+    const userHasAccess =
+      user && auth(user, titre, ['admin', 'super', 'editeur'])
 
     if (userHasAccess) {
       return titre
