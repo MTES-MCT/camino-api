@@ -17,10 +17,12 @@ import * as compression from 'compression'
 import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
 import * as Sentry from '@sentry/node'
+import * as path from 'path'
 
 import { port, url } from './config/index'
 import schema from './api/schemas'
 import rootValue from './api/resolvers'
+import { fileDownloadPermissionCheck } from './api/resolvers/file-download'
 
 const app = express()
 
@@ -44,7 +46,9 @@ app.use(compression())
 // bug de typage de express-jwt
 // https://github.com/auth0/express-jwt/issues/215
 interface AuthRequest extends express.Request {
-  user?: string
+  user?: {
+    [id: string]: string
+  }
 }
 
 app.use(
@@ -59,6 +63,26 @@ app.use(
 //   console.log('broke')
 //   throw new Error('Broke!')
 // })
+
+app.use(
+  '/fichiers',
+  (req: AuthRequest, res, next) => {
+    const userId = req.user && req.user.id
+
+    if (
+      !fileDownloadPermissionCheck(
+        userId,
+        req.header('X-titre-id'),
+        req.header('X-titre-document-id')
+      )
+    ) {
+      return res.status(403).send('Accès protégé')
+    }
+
+    return next()
+  },
+  express.static(path.join(__dirname, '../files'), { fallthrough: false })
+)
 
 app.use(
   '/',
