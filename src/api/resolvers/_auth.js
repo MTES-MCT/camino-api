@@ -8,10 +8,10 @@ const auth = (user, titre, permissions, amodiatairePriority) => {
   const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
   const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
 
-  // soit l'utilisateur à les permissions
-  // soit l'utilisateur et de type 'entreprise', dans ce cas:
+  // soit l'utilisateur a les permissions
+  // soit l'utilisateur est de type 'entreprise', dans ce cas:
   // - si la condition 'amodiatairePriority' est FALSE,
-  //   l'utilisateur est autorisé qu'il soit titulaire ou amodiataire
+  //   l'utilisateur est autorisé, qu'il soit titulaire ou amodiataire
   // - sinon ('amodiatairePriority' est TRUE)
   //   l'utilisateur n'est autorisé que
   //   - si il est amodiataire
