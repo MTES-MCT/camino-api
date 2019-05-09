@@ -16,9 +16,22 @@ import titreUpdateTask from '../../tasks/titre-update'
 
 import titreUpdateValidation from '../../tasks/titre-update-validation'
 
-const titreRestrictions = (titre, userHasAccess) => {
-  if (!userHasAccess) {
-    titre.activites = []
+const titreRestrictions = titre => {
+  titre.activites = []
+  if (titre.demarches) {
+    titre.demarches.forEach(td => {
+      if (td.etapes) {
+        td.etapes.forEach(te => {
+          if (te.documents) {
+            te.documents.forEach(ed => {
+              if (!ed.public && ed.fichier) {
+                delete ed.fichier
+              }
+            })
+          }
+        })
+      }
+    })
   }
 
   return titre
@@ -35,11 +48,18 @@ const titre = async ({ id }, context, info) => {
 
   const user = context.user && (await utilisateurGet(context.user.id))
   const userHasAccess = auth(user, titre, ['admin', 'super', 'editeur'])
+
+  if (userHasAccess) {
+    return titre
+  }
+
   const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
 
-  return titreIsPublic || userHasAccess
-    ? titreRestrictions(titre, userHasAccess)
-    : null
+  if (titreIsPublic) {
+    return titreRestrictions(titre)
+  }
+
+  return null
 }
 
 const titres = async (
@@ -77,12 +97,19 @@ const titres = async (
   const user = context.user && (await utilisateurGet(context.user.id))
 
   return titres.filter(titre => {
-    const userHasAccess = auth(user, titre, ['admin', 'super', 'editeur'])
     const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
 
-    return titreIsPublic || userHasAccess
-      ? titreRestrictions(titre, userHasAccess)
-      : null
+    const userHasAccess = auth(user, titre, ['admin', 'super', 'editeur'])
+
+    if (userHasAccess) {
+      return titre
+    }
+
+    if (titreIsPublic) {
+      return titreRestrictions(titre)
+    }
+
+    return null
   })
 }
 

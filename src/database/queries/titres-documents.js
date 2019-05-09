@@ -1,6 +1,6 @@
 import TitresDocuments from '../models/titres-documents'
 
-const titresDocumentGet = async titreDocumentId =>
+const titreDocumentGet = async titreDocumentId =>
   TitresDocuments.query().findById(titreDocumentId)
 
-export { titresDocumentGet }
+export { titreDocumentGet }

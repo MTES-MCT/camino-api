@@ -17,6 +17,7 @@ import * as compression from 'compression'
 import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
 import * as Sentry from '@sentry/node'
+import * as path from 'path'
 
 import { port, url } from './config/index'
 import schema from './api/schemas'
@@ -76,11 +77,11 @@ app.use(
       )
     ) {
       return next()
-    } else {
-      return res.status(403).send('Accès protégé')
     }
+
+    return res.status(403).send('Accès protégé')
   },
-  express.static('files', { fallthrough: false })
+  express.static(path.join(__dirname, '../files'), { fallthrough: false })
 )
 
 app.use(

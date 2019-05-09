@@ -13,6 +13,8 @@ services:
       PGHOST: postgres
     expose:
       - ${NODE_PORT}
+    volumes:
+      - files:/app/files
 
   postgres:
     image: postgres:alpine
@@ -25,6 +27,7 @@ services:
 
 volumes:
   data: {}
+  files:
 
 networks:
   default:

@@ -14,8 +14,10 @@ const fileDownloadPermissionCheck = async (
 
   if (document.public) return true
 
+  if (!userId) return false
+
   const titre = await titreGet(titreId)
-  const user = userId && (await utilisateurGet(userId))
+  const user = await utilisateurGet(userId)
 
   return auth(user, titre, ['admin', 'super', 'editeur'])
 }
