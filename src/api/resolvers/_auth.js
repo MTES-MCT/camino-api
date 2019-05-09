@@ -1,23 +1,19 @@
 import permissionsCheck from './_permissions-check'
 
-const auth = (user, titre) => {
+const auth = (user, titre, permissions, amodiatairePriority) => {
   if (!user) {
     return false
   }
 
-  const userEntreprisePermissionsGet = (user, titreEntrepriseIds) => {
-    const entrepriseId = user.entreprise && user.entreprise.id
-    return titreEntrepriseIds.some(id => id === entrepriseId)
-  }
+  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
+  const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
 
-  const userHasAccessTest = async (user, titreEntrepriseIds) =>
-    permissionsCheck(user, ['admin', 'super', 'editeur']) ||
-    userEntreprisePermissionsGet(user, titreEntrepriseIds)
-
-  return userHasAccessTest(user, [
-    ...titre.titulaires.map(t => t.id),
-    ...titre.amodiataires.map(t => t.id)
-  ])
+  return (
+    permissionsCheck(user, permissions) ||
+    (permissionsCheck(user, ['entreprise']) && amodiatairePriority
+      ? isAmodiataire || (!titre.amodiataires.length && isTitulaire)
+      : isAmodiataire || isTitulaire)
+  )
 }
 
 export default auth

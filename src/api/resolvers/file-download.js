@@ -17,7 +17,7 @@ const fileDownloadPermissionCheck = async (
   const titre = await titreGet(titreId)
   const user = userId && (await utilisateurGet(userId))
 
-  return auth(user, titre)
+  return auth(user, titre, ['admin', 'super', 'editeur'])
 }
 
 export { fileDownloadPermissionCheck }

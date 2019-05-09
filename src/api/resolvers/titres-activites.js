@@ -1,5 +1,7 @@
 import * as dateFormat from 'dateformat'
 
+import auth from './_auth'
+
 import {
   titreActiviteGet,
   titreActiviteUpdate
@@ -21,16 +23,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   const activiteOld = await titreActiviteGet(activite.id)
   const titre = await titreGet(activiteOld.titreId)
 
-  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
-  const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
-
-  if (
-    !(
-      permissionsCheck(context.user, ['super', 'admin']) ||
-      (permissionsCheck(context.user, ['entreprise']) &&
-        (isAmodiataire || (!titre.amodiataires.length && isTitulaire)))
-    )
-  ) {
+  if (!auth(user, titre, ['admin', 'super'], true)) {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
