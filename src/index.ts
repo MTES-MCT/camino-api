@@ -22,7 +22,7 @@ import * as path from 'path'
 import { port, url } from './config/index'
 import schema from './api/schemas'
 import rootValue from './api/resolvers'
-import { fileDownloadPermissionCheck } from './api/resolvers/file-download'
+import { documentNameGet } from './api/resolvers/documents'
 
 const app = express()
 
@@ -64,25 +64,30 @@ app.use(
 //   throw new Error('Broke!')
 // })
 
-app.use(
-  '/fichiers',
-  (req: AuthRequest, res, next) => {
+app.get('/documents/:titreDocumentId', async (req: AuthRequest, res, next) => {
+  try {
     const userId = req.user && req.user.id
+    const { titreDocumentId } = req.params
+    const documentName = await documentNameGet(userId, titreDocumentId)
 
-    if (
-      !fileDownloadPermissionCheck(
-        userId,
-        req.header('X-titre-id'),
-        req.header('X-titre-document-id')
-      )
-    ) {
-      return res.status(403).send('Accès protégé')
+    const options = {
+      root: path.join(__dirname, '../files'),
+      dotfiles: 'deny',
+      headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+      }
     }
 
-    return next()
-  },
-  express.static(path.join(__dirname, '../files'), { fallthrough: false })
-)
+    return res.sendFile(documentName, options, err => {
+      if (err) {
+        res.status(404).send('fichier introuvable')
+      }
+    })
+  } catch (error) {
+    return res.status(403).send(error)
+  }
+})
 
 app.use(
   '/',
