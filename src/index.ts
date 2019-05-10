@@ -64,10 +64,10 @@ app.use(
 //   throw new Error('Broke!')
 // })
 
-app.use('/documents/:titreDocumentId', async (req: AuthRequest, res, next) => {
+app.get('/documents/:titreDocumentId', async (req: AuthRequest, res, next) => {
   try {
     const userId = req.user && req.user.id
-    const titreDocumentId = req.params.titreDocumentId
+    const { titreDocumentId } = req.params
     const documentName = await documentNameGet(userId, titreDocumentId)
 
     const options = {
