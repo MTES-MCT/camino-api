@@ -23,11 +23,7 @@ const titreRestrictions = titre => {
       if (td.etapes) {
         td.etapes.forEach(te => {
           if (te.documents) {
-            te.documents.forEach(ed => {
-              if (!ed.public && ed.fichier) {
-                delete ed.fichier
-              }
-            })
+            te.documents = te.documents.filter(ed => ed.public)
           }
         })
       }
