@@ -137,32 +137,38 @@ const titreActiviteFormat = ta => {
     }
   }
 
-  ta.sections = ta.type.sections.map(s => {
+  // - ne conserve que les sections qui contiennent des élements
+  ta.sections = ta.type.sections.reduce((sections, s) => {
+    // ne conserve que les éléments dont la période,
+    // la date de début et la date de fin
+    // correspondent à l'activité
+    const elements = s.elements.reduce(
+      (elements, e) =>
+        (!e.frequencePeriodesIds ||
+          e.frequencePeriodesIds.find(
+            id => ta.periode && ta.periode.id === id
+          )) &&
+        (!e.dateFin || e.dateFin >= dateFormat(ta.date, 'yyyy-mm-dd')) &&
+        (!e.dateDebut || e.dateDebut < dateFormat(ta.date, 'yyyy-mm-dd'))
+          ? [...elements, e]
+          : elements,
+      []
+    )
+
     const section = {
       id: s.id,
       nom: s.nom,
       type: s.type,
       description: s.description,
-      elements: s.elements.reduce(
-        (elements, e) =>
-          (!e.frequencePeriodesIds ||
-            (e.frequencePeriodesIds &&
-              e.frequencePeriodesIds.find(
-                id => ta.periode && ta.periode.id === id
-              ))) &&
-          (!e.archiveDate || e.archiveDate > dateFormat(ta.date, 'yyyy-mm-dd'))
-            ? [...elements, e]
-            : elements,
-        []
-      )
+      elements
     }
 
     if (s.frequencePeriodesIds) {
       section.frequencePeriodesIds = s.frequencePeriodesIds
     }
 
-    return section
-  })
+    return section.elements.length ? [...sections, section] : sections
+  }, [])
 
   return ta
 }
