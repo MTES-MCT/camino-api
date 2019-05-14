@@ -137,7 +137,11 @@ const titreActiviteFormat = ta => {
     }
   }
 
+  // - ne conserve que les sections qui contiennent des élements
   ta.sections = ta.type.sections.reduce((sections, s) => {
+    // ne conserve que les éléments dont la période,
+    // la date de début et la date de fin
+    // correspondent à l'activité
     const elements = s.elements.reduce(
       (elements, e) =>
         (!e.frequencePeriodesIds ||
