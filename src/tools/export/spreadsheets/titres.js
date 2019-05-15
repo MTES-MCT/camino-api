@@ -176,7 +176,7 @@ const tables = [
   },
   {
     id: 14,
-    name: 'titresErreurs',
+    name: 'titresIncertitudes',
     columns: [
       'titreEtapeId',
       'date',

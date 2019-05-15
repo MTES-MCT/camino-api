@@ -12,7 +12,7 @@ const files = [
   'titresSubstances',
   'titresTitulaires',
   'titresAmodiataires',
-  'titresErreurs'
+  'titresIncertitudes'
 ]
 
 const datas = files.reduce(
@@ -33,7 +33,7 @@ exports.seed = (knex, Promise) =>
     knex('titresPointsReferences').del(),
     knex('titresTitulaires').del(),
     knex('titresAmodiataires').del(),
-    knex('titresErreurs').del(),
+    knex('titresIncertitudes').del(),
     knex('titresDocuments').del()
   ])
     .then(() => knex('titresPoints').del())
@@ -61,7 +61,7 @@ exports.seed = (knex, Promise) =>
         knex('titresEmprises').insert(datas.titresEmprises),
         knex('titresTitulaires').insert(datas.titresTitulaires),
         knex('titresAmodiataires').insert(datas.titresAmodiataires),
-        knex('titresErreurs').insert(datas.titresErreurs),
+        knex('titresIncertitudes').insert(datas.titresIncertitudes),
         knex('titresDocuments').insert(datas.titresDocuments)
       ])
     )
