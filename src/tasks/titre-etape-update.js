@@ -38,9 +38,11 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
 
   // id de démarche
   // en fonction du type et de l'ordre
-  titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  titre = await titreGet(titreId)
-  const titreDemarchesId = await titreDemarchesIdUpdate(titreDemarche, titre)
+  /*
+   titreDemarche = await titreDemarcheGet(titreDemarcheId)
+   titre = await titreGet(titreId)
+   const titreDemarchesId = await titreDemarchesIdUpdate(titreDemarche, titre)
+   */
 
   // statut du titre
   // en fonction des démarches et de la date du jour
@@ -66,19 +68,21 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
   // met à jour l'id des étapes
+  /*
   titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
   titre = await titreGet(titreId)
   const titreEtapesId = await titreEtapesIdUpdate(titreEtape, titre)
+   */
 
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)
   console.log(titreDemarchesOrdre)
-  console.log(titreDemarchesId)
+  // console.log(titreDemarchesId)
   console.log(titreStatutIds)
   console.log(titresPhases)
   console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
-  console.log(titreEtapesId.join('\n'))
+  // console.log(titreEtapesId.join('\n'))
 
   console.log('Étape mise à jour')
 }
