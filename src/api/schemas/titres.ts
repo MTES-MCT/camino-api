@@ -195,12 +195,31 @@ type Etape {
 
   "Les documents relatifs à l'étape"
   documents: [Document]
-
-  sourceIndisponible: Boolean
+ 
+  incertitudes: Incertitudes
 }
 
 type EtapeId {
   etapeId: ID!
+}
+
+type Incertitudes {
+  date: Boolean
+  duree: Boolean
+  dateDebut: Boolean
+  dateFin: Boolean
+  surface: Boolean
+  volume: Boolean
+  volumeUnite: Boolean
+  visas: Boolean
+  engagement: Boolean
+  engagementDevise: Boolean
+  emprises: Boolean
+  substances: Boolean
+  points: Boolean
+  titulaires: Boolean
+  amodiataires: Boolean
+  documents: Boolean
 }
 
 "Document attaché à une étape de démarche"
@@ -308,8 +327,8 @@ input InputEtape {
   amodiatairesIds: [ID!]
 
   administrationsIds: [ID!]
-
-  sourceIndisponible: Boolean
+ 
+  incertitudes: InputIncertitudes
 }
 
 input InputEtapeId {
@@ -332,4 +351,23 @@ input InputDocument {
   jorf: String
 
   nor: String
+}
+
+input InputIncertitudes {
+  date: Boolean
+  duree: Boolean
+  dateDebut: Boolean
+  dateFin: Boolean
+  surface: Boolean
+  volume: Boolean
+  volumeUnite: Boolean
+  visas: Boolean
+  engagement: Boolean
+  engagementDevise: Boolean
+  emprises: Boolean
+  substances: Boolean
+  points: Boolean
+  titulaires: Boolean
+  amodiataires: Boolean
+  documents: Boolean
 }`
