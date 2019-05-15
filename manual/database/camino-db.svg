@@ -1,27 +1,19 @@
 <svg viewBox="0 0 2870 2370" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
-    <path d="M2035.5 1765.5c0-2.76-2.24-5-5-5h-1190c-2.76 0-5 2.24-5 5v215c0 2.76 2.24 5 5 5h1190c2.76 0 5-2.24 5-5v-215z" fill="#fff" stroke="#000"/>
-    <text x="847.5" y="1776.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
-        logs
-    </text>
-    <path d="M2035.5 1440.5c0-2.76-2.24-5-5-5h-1190c-2.76 0-5 2.24-5 5v290c0 2.76 2.24 5 5 5h1190c2.76 0 5-2.24 5-5v-290z" fill="#fff" stroke="#000"/>
-    <text x="847.5" y="1451.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
-        activités
-    </text>
-    <path d="M2860.5 2015.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v340c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-340z" fill="#fff" stroke="#000"/>
-    <text x="2072.5" y="2026.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
-        calendrier
-    </text>
-    <path d="M2860.5 1640.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v340c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-340z" fill="#fff" stroke="#000"/>
-    <text x="2072.5" y="1651.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
-        territoires
-    </text>
+    <path d="M-1.885-1.663a7.5 7.5 0 1 0-10.607-10.605A7.5 7.5 0 0 0-1.885-1.663" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-12.522-12.282a7.43 7.43 0 0 0 0 10.548C-10.091.683-6.406 1.094-3.549-.502l3.742.93C.086.162-.153-.725-.683-3.348c1.6-2.948 1.166-6.548-1.233-8.934-2.929-2.912-7.677-2.912-10.606 0zM.197.438C.281.647.281.45.281.45L.193.428l.004.01z" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.966-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.966-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.916-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
+    <path d="M-1.966-1.663a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298" fill-rule="nonzero"/>
     <path d="M2860.5 715.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v890c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-890z" fill="#fff" stroke="#000"/>
     <text x="2072.5" y="726.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
         repertoire
-    </text>
-    <path d="M2860.5 440.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v240c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-240z" fill="#fff" stroke="#000"/>
-    <text x="2072.5" y="451.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
-        unités
     </text>
     <path d="M2860.5 15.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v390c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-390z" fill="#fff" stroke="#000"/>
     <text x="2072.5" y="26.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
@@ -31,9 +23,29 @@
     <text x="847.5" y="26.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
         titres miniers
     </text>
+    <path d="M2860.5 440.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v240c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-240z" fill="#fff" stroke="#000"/>
+    <text x="2072.5" y="451.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
+        unités
+    </text>
+    <path d="M2860.5 1640.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v340c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-340z" fill="#fff" stroke="#000"/>
+    <text x="2072.5" y="1651.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
+        territoires
+    </text>
+    <path d="M2035.5 1440.5c0-2.76-2.24-5-5-5h-1190c-2.76 0-5 2.24-5 5v290c0 2.76 2.24 5 5 5h1190c2.76 0 5-2.24 5-5v-290z" fill="#fff" stroke="#000"/>
+    <text x="847.5" y="1451.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
+        activités
+    </text>
+    <path d="M2860.5 2015.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v340c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5v-340z" fill="#fff" stroke="#000"/>
+    <text x="2072.5" y="2026.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
+        calendrier
+    </text>
     <path d="M810.5 15.5c0-2.76-2.24-5-5-5h-790c-2.76 0-5 2.24-5 5v1790c0 2.76 2.24 5 5 5h790c2.76 0 5-2.24 5-5V15.5z" fill="#fff" stroke="#000"/>
     <text x="22.5" y="26.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
         metas
+    </text>
+    <path d="M2035.5 1765.5c0-2.76-2.24-5-5-5h-1190c-2.76 0-5 2.24-5 5v215c0 2.76 2.24 5 5 5h1190c2.76 0 5-2.24 5-5v-215z" fill="#fff" stroke="#000"/>
+    <text x="847.5" y="1776.5" font-family="'Arial-BoldMT','Arial',sans-serif" font-weight="700" font-size="13">
+        logs
     </text>
     <path d="M360.5 215.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v210c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-210z" fill="#fff" fill-opacity=".8" stroke="#000"/>
     <path d="M60.5 230.5h300" fill-rule="nonzero" stroke="#000"/>
@@ -312,93 +324,95 @@
     <text x="1695.5" y="1324.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
         titres_emprises
     </text>
-    <path d="M1585.5 115.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v140c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-140z" fill="#fff" fill-opacity=".8" stroke="#000"/>
-    <path d="M1285.5 130.5h300" fill-rule="nonzero" stroke="#000"/>
-    <path d="M1285.5 130.5v-15c1-3 1-3 5-5h290c4 2 4 2 5 5v15h-300" fill="#d4f6d0" fill-opacity=".937" fill-rule="nonzero"/>
-    <path d="M1585.5 115.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v140c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-140z" fill="none" stroke="#000"/>
-    <path d="M1285.5 148.5h300" fill-rule="nonzero" stroke="#000"/>
-    <path fill="#fff" fill-opacity=".2" d="M1285.5 130.5h300v18h-300z"/>
-    <text x="1302.5" y="144.5" font-family="Helvetica" font-size="12">
-        titre_id
-    </text>
-    <text x="1344.5" y="144.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
-        CHARACTER VARYING(128)
-    </text>
-    <g fill-rule="nonzero">
-        <path d="M1564.58 129.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
-        <path d="M1556.6 120.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
-    </g>
-    <path d="M1285.5 166.5h300" fill-rule="nonzero" stroke="#000"/>
-    <path fill="#fff" fill-opacity=".2" d="M1285.5 148.5h300v18h-300z"/>
-    <text x="1302.5" y="162.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
-        id
-    </text>
-    <text x="1317.5" y="162.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
-        CHARACTER VARYING(128)
-    </text>
-    <g fill-rule="nonzero">
-        <path d="M1564.58 147.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
-        <path d="M1558.48 142.282v-2.568h1.464c.216 0 .424.016.624.048s.376.094.528.186c.152.092.274.222.366.39.092.168.138.388.138.66s-.046.492-.138.66a1.013 1.013 0 0 1-.366.39 1.452 1.452 0 0 1-.528.186c-.2.032-.408.048-.624.048h-1.464zm-1.884-4.032v8.568h1.884v-3.072h1.98c.536 0 .992-.078 1.368-.234a2.56 2.56 0 0 0 .918-.618c.236-.256.408-.55.516-.882a3.259 3.259 0 0 0 0-2.034 2.374 2.374 0 0 0-.516-.876 2.56 2.56 0 0 0-.918-.618c-.376-.156-.832-.234-1.368-.234h-3.864z" fill="#fffffe"/>
-    </g>
     <g>
-        <path d="M1285.5 184.5h300" fill-rule="nonzero" stroke="#000"/>
-        <path fill="#fff" fill-opacity=".2" d="M1285.5 166.5h300v18h-300z"/>
-        <text x="1302.5" y="180.5" font-family="Helvetica" font-size="12">
-            type_id
+        <path d="M1585.5 115.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v140c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-140z" fill="#fff" fill-opacity=".8" stroke="#000"/>
+        <path d="M1285.5 130.5h300" fill-rule="nonzero" stroke="#000"/>
+        <path d="M1285.5 130.5v-15c1-3 1-3 5-5h290c4 2 4 2 5 5v15h-300" fill="#d4f6d0" fill-opacity=".937" fill-rule="nonzero"/>
+        <path d="M1585.5 115.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v140c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-140z" fill="none" stroke="#000"/>
+        <path d="M1285.5 148.5h300" fill-rule="nonzero" stroke="#000"/>
+        <path fill="#fff" fill-opacity=".2" d="M1285.5 130.5h300v18h-300z"/>
+        <text x="1302.5" y="144.5" font-family="Helvetica" font-size="12">
+            titre_id
         </text>
-        <text x="1347.5" y="180.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
-            CHARACTER VARYING(3)
-        </text>
-        <g fill-rule="nonzero">
-            <path d="M1564.58 165.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
-            <path d="M1556.6 156.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
-        </g>
-        <g fill-rule="nonzero">
-            <path d="M1546.58 165.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
-            <path d="M1537.66 156.25v8.568h1.764v-5.736h.024l3.564 5.736h1.884v-8.568h-1.764v5.748h-.024l-3.576-5.748h-1.872z" fill="#fffffe"/>
-        </g>
-    </g>
-    <g>
-        <path d="M1285.5 202.5h300" fill-rule="nonzero" stroke="#000"/>
-        <path fill="#fff" fill-opacity=".2" d="M1285.5 184.5h300v18h-300z"/>
-        <text x="1302.5" y="198.5" font-family="Helvetica" font-size="12">
-            statut_id
-        </text>
-        <text x="1353.5" y="198.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
-            CHARACTER VARYING(3)
-        </text>
-        <g fill-rule="nonzero">
-            <path d="M1564.58 183.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
-            <path d="M1556.6 174.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
-        </g>
-    </g>
-    <g>
-        <path d="M1285.5 220.5h300" fill-rule="nonzero" stroke="#000"/>
-        <path fill="#fff" fill-opacity=".2" d="M1285.5 202.5h300v18h-300z"/>
-        <text x="1302.5" y="216.5" font-family="Helvetica" font-size="12">
-            ordre
-        </text>
-        <text x="1336.5" y="216.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
-            INTEGER
-        </text>
-    </g>
-    <g>
-        <path d="M1285.5 238.5h300" fill-rule="nonzero" stroke="#000"/>
-        <path fill="#fff" fill-opacity=".2" d="M1285.5 220.5h300v18h-300z"/>
-        <text x="1302.5" y="234.5" font-family="Helvetica" font-size="12">
-            annulation_titre_demarche_id
-        </text>
-        <text x="1466.5" y="234.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+        <text x="1344.5" y="144.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
             CHARACTER VARYING(128)
         </text>
         <g fill-rule="nonzero">
-            <path d="M1564.58 219.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
-            <path d="M1556.6 210.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
+            <path d="M1564.58 129.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
+            <path d="M1556.6 120.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
         </g>
+        <path d="M1285.5 166.5h300" fill-rule="nonzero" stroke="#000"/>
+        <path fill="#fff" fill-opacity=".2" d="M1285.5 148.5h300v18h-300z"/>
+        <text x="1302.5" y="162.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
+            id
+        </text>
+        <text x="1317.5" y="162.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+            CHARACTER VARYING(128)
+        </text>
+        <g fill-rule="nonzero">
+            <path d="M1564.58 147.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
+            <path d="M1558.48 142.282v-2.568h1.464c.216 0 .424.016.624.048s.376.094.528.186c.152.092.274.222.366.39.092.168.138.388.138.66s-.046.492-.138.66a1.013 1.013 0 0 1-.366.39 1.452 1.452 0 0 1-.528.186c-.2.032-.408.048-.624.048h-1.464zm-1.884-4.032v8.568h1.884v-3.072h1.98c.536 0 .992-.078 1.368-.234a2.56 2.56 0 0 0 .918-.618c.236-.256.408-.55.516-.882a3.259 3.259 0 0 0 0-2.034 2.374 2.374 0 0 0-.516-.876 2.56 2.56 0 0 0-.918-.618c-.376-.156-.832-.234-1.368-.234h-3.864z" fill="#fffffe"/>
+        </g>
+        <g>
+            <path d="M1285.5 184.5h300" fill-rule="nonzero" stroke="#000"/>
+            <path fill="#fff" fill-opacity=".2" d="M1285.5 166.5h300v18h-300z"/>
+            <text x="1302.5" y="180.5" font-family="Helvetica" font-size="12">
+                type_id
+            </text>
+            <text x="1347.5" y="180.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+                CHARACTER VARYING(3)
+            </text>
+            <g fill-rule="nonzero">
+                <path d="M1564.58 165.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
+                <path d="M1556.6 156.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
+            </g>
+            <g fill-rule="nonzero">
+                <path d="M1546.58 165.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
+                <path d="M1537.66 156.25v8.568h1.764v-5.736h.024l3.564 5.736h1.884v-8.568h-1.764v5.748h-.024l-3.576-5.748h-1.872z" fill="#fffffe"/>
+            </g>
+        </g>
+        <g>
+            <path d="M1285.5 202.5h300" fill-rule="nonzero" stroke="#000"/>
+            <path fill="#fff" fill-opacity=".2" d="M1285.5 184.5h300v18h-300z"/>
+            <text x="1302.5" y="198.5" font-family="Helvetica" font-size="12">
+                statut_id
+            </text>
+            <text x="1353.5" y="198.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+                CHARACTER VARYING(3)
+            </text>
+            <g fill-rule="nonzero">
+                <path d="M1564.58 183.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
+                <path d="M1556.6 174.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
+            </g>
+        </g>
+        <g>
+            <path d="M1285.5 220.5h300" fill-rule="nonzero" stroke="#000"/>
+            <path fill="#fff" fill-opacity=".2" d="M1285.5 202.5h300v18h-300z"/>
+            <text x="1302.5" y="216.5" font-family="Helvetica" font-size="12">
+                ordre
+            </text>
+            <text x="1336.5" y="216.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+                INTEGER
+            </text>
+        </g>
+        <g>
+            <path d="M1285.5 238.5h300" fill-rule="nonzero" stroke="#000"/>
+            <path fill="#fff" fill-opacity=".2" d="M1285.5 220.5h300v18h-300z"/>
+            <text x="1302.5" y="234.5" font-family="Helvetica" font-size="12">
+                annulation_titre_demarche_id
+            </text>
+            <text x="1466.5" y="234.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+                CHARACTER VARYING(128)
+            </text>
+            <g fill-rule="nonzero">
+                <path d="M1564.58 219.837a7.5 7.5 0 0 0 0-10.606 7.5 7.5 0 0 0-10.606 0 7.5 7.5 0 0 0 0 10.606 7.5 7.5 0 0 0 10.606 0" fill-opacity=".298"/>
+                <path d="M1556.6 210.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
+            </g>
+        </g>
+        <text x="1295.5" y="124.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
+            titres_demarches
+        </text>
     </g>
-    <text x="1295.5" y="124.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
-        titres_demarches
-    </text>
     <g>
         <path d="M1985.5 490.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v190c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-190z" fill="#fff" fill-opacity=".8" stroke="#000"/>
         <path d="M1685.5 505.5h300" fill-rule="nonzero" stroke="#000"/>
@@ -1213,16 +1227,6 @@
                 <path d="M1589.6 822.25v8.568h1.884v-3.54h3.588v-1.464h-3.588v-1.98h4.14v-1.584h-6.024z" fill="#fffffe"/>
             </g>
         </g>
-        <g>
-            <path d="M1285.5 868.5h333" fill-rule="nonzero" stroke="#000"/>
-            <path fill="#fff" fill-opacity=".2" d="M1285.5 850.5h333v18h-333z"/>
-            <text x="1302.5" y="864.5" font-family="Helvetica" font-size="12">
-                source_indisponible
-            </text>
-            <text x="1414.5" y="864.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
-                BOOLEAN
-            </text>
-        </g>
         <text x="1295.5" y="574.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
             titres_etapes
         </text>
@@ -1476,10 +1480,10 @@
         </text>
     </g>
     <g>
-        <path d="M760.5 965.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v110c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-110z" fill="#fff" fill-opacity=".8" stroke="#000"/>
+        <path d="M760.5 965.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v130c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-130z" fill="#fff" fill-opacity=".8" stroke="#000"/>
         <path d="M460.5 980.5h300" fill-rule="nonzero" stroke="#000"/>
         <path d="M460.5 980.5v-15c1-3 1-3 5-5h290c4 2 4 2 5 5v15h-300" fill="#ffe0c2" fill-rule="nonzero"/>
-        <path d="M760.5 965.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v110c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-110z" fill="none" stroke="#000"/>
+        <path d="M760.5 965.5c0-2.76-2.24-5-5-5h-290c-2.76 0-5 2.24-5 5v130c0 2.76 2.24 5 5 5h290c2.76 0 5-2.24 5-5v-130z" fill="none" stroke="#000"/>
         <path d="M460.5 998.5h300" fill-rule="nonzero" stroke="#000"/>
         <path fill="#fff" fill-opacity=".2" d="M460.5 980.5h300v18h-300z"/>
         <text x="477.5" y="994.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
@@ -1528,6 +1532,16 @@
             </text>
             <text x="526.5" y="1066.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
                 DATE
+            </text>
+        </g>
+        <g>
+            <path d="M460.5 1088.5h300" fill-rule="nonzero" stroke="#000"/>
+            <path fill="#fff" fill-opacity=".2" d="M460.5 1070.5h300v18h-300z"/>
+            <text x="477.5" y="1084.5" font-family="Helvetica" font-size="12">
+                fondamentale
+            </text>
+            <text x="556.5" y="1084.5" font-family="Helvetica" font-size="12" fill="#4d4d4d">
+                BOOLEAN
             </text>
         </g>
         <text x="470.5" y="974.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
@@ -2074,7 +2088,7 @@
             </text>
         </g>
         <text x="1295.5" y="974.5" font-family="'Helvetica-Bold','Helvetica'" font-weight="700" font-size="12">
-            titres_erreurs
+            titres_incertitudes
         </text>
     </g>
     <g>

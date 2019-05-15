@@ -1,5 +1,5 @@
 exports.up = knex => {
-  return knex.schema.createTable('titresErreurs', table => {
+  return knex.schema.createTable('titresIncertitudes', table => {
     table.string('titreEtapeId', 128).primary()
     table
       .foreign('titreEtapeId')
@@ -21,5 +21,5 @@ exports.up = knex => {
 }
 
 exports.down = knex => {
-  return knex.schema.dropTable('titresErreurs')
+  return knex.schema.dropTable('titresIncertitudes')
 }

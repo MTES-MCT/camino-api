@@ -60,6 +60,7 @@ exports.up = knex => {
     .createTable('etapesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom', 128)
+      table.boolean('fondamentale')
       table.boolean('acceptationAuto')
       table.string('legalRef')
       table.string('legalLien')
