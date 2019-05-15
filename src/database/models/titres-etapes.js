@@ -8,7 +8,7 @@ import Administrations from './administrations'
 import TitresDocuments from './titres-documents'
 import Emprises from './emprises'
 import Communes from './communes'
-import TitresErreurs from './titres-erreurs'
+import titresIncertitudes from './titres-incertitudes'
 import Devises from './devises'
 import VolumeUnites from './volume-unites'
 
@@ -164,12 +164,12 @@ export default class TitresEtapes extends Model {
       }
     },
 
-    erreurs: {
+    incertitudes: {
       relation: Model.BelongsToOneRelation,
-      modelClass: TitresErreurs,
+      modelClass: titresIncertitudes,
       join: {
         from: 'titresEtapes.id',
-        to: 'titresErreurs.titreEtapeId'
+        to: 'titresIncertitudes.titreEtapeId'
       }
     },
 
