@@ -165,7 +165,7 @@ export default class TitresEtapes extends Model {
     },
 
     incertitudes: {
-      relation: Model.BelongsToOneRelation,
+      relation: Model.HasOneRelation,
       modelClass: titresIncertitudes,
       join: {
         from: 'titresEtapes.id',

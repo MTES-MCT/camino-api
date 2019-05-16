@@ -5,23 +5,24 @@ export default class titresIncertitudes extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreDemarcheId'],
+    required: ['titreEtapeId'],
 
     properties: {
       titreEtapeId: { type: 'string', maxLength: 128 },
-      date: { type: 'boolean' },
-      duree: { type: 'boolean' },
-      dateDebut: { type: 'boolean' },
-      dateFin: { type: 'boolean' },
-      surface: { type: 'boolean' },
-      visas: { type: 'boolean' },
-      engagement: { type: 'boolean' },
-      engagementDevise: { type: 'boolean' },
-      points: { type: 'boolean' },
-      substances: { type: 'boolean' },
-      titulaires: { type: 'boolean' },
-      amodiataires: { type: 'boolean' },
-      administrations: { type: 'boolean' }
+      date: { type: ['null', 'boolean'] },
+      dateDebut: { type: ['null', 'boolean'] },
+      dateFin: { type: ['null', 'boolean'] },
+      duree: { type: ['null', 'boolean'] },
+      surface: { type: ['null', 'boolean'] },
+      volume: { type: ['null', 'boolean'] },
+      engagement: { type: ['null', 'boolean'] },
+      points: { type: ['null', 'boolean'] },
+      substances: { type: ['null', 'boolean'] },
+      titulaires: { type: ['null', 'boolean'] },
+      amodiataires: { type: ['null', 'boolean'] },
+      administrations: { type: ['null', 'boolean'] }
     }
   }
+
+  static idColumn = 'titreEtapeId'
 }
