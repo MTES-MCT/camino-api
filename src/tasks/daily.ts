@@ -101,7 +101,19 @@ const run = async () => {
     // 10.
     // id de titres
     // met à jour les ids de titres, démarches, étapes et sous-éléments
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        typeIds: null,
+        domaineIds: null,
+        statutIds: null,
+        substances: null,
+        noms: null,
+        entreprises: null,
+        references: null,
+        territoires: null
+      },
+      false
+    )
     const titresIds = await titresIdsUpdate(titres)
 
     // logs

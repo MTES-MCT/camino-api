@@ -261,6 +261,7 @@ export default class Titres extends Model {
     delete json.geojsonPoints
     delete json.pays
     delete json.surface
+    delete json.volume
 
     return json
   }
