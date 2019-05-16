@@ -205,21 +205,17 @@ type EtapeId {
 
 type Incertitudes {
   date: Boolean
-  duree: Boolean
   dateDebut: Boolean
   dateFin: Boolean
+  duree: Boolean
   surface: Boolean
   volume: Boolean
-  volumeUnite: Boolean
-  visas: Boolean
   engagement: Boolean
-  engagementDevise: Boolean
-  emprises: Boolean
-  substances: Boolean
   points: Boolean
+  substances: Boolean
   titulaires: Boolean
   amodiataires: Boolean
-  documents: Boolean
+  administrations: Boolean
 }
 
 "Document attaché à une étape de démarche"
@@ -355,19 +351,15 @@ input InputDocument {
 
 input InputIncertitudes {
   date: Boolean
-  duree: Boolean
   dateDebut: Boolean
   dateFin: Boolean
+  duree: Boolean
   surface: Boolean
   volume: Boolean
-  volumeUnite: Boolean
-  visas: Boolean
   engagement: Boolean
-  engagementDevise: Boolean
-  emprises: Boolean
-  substances: Boolean
   points: Boolean
+  substances: Boolean
   titulaires: Boolean
   amodiataires: Boolean
-  documents: Boolean
+  administrations: Boolean
 }`
