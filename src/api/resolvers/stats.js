@@ -1,32 +1,28 @@
 import { titresGet } from '../../database/queries/titres'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
-import { restrictedDomaineIds, restrictedStatutIds } from './_restrictions'
+import { titreIsPublicTest } from './_restrictions'
+const ACTIVITE_ANNEE_DEBUT = 2018
 
 const stats = async () => {
   const titres = await titresGet()
   const titresTotal = titres.length
 
   const titresValide = titres.filter(titre => {
-    const titreIsPublicTest = (titreDomaineId, titreStatutId) =>
-      !restrictedDomaineIds.includes(titreDomaineId) &&
-      !restrictedStatutIds.includes(titreStatutId)
-
     const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
 
-    if (titreIsPublic) return titre
-
-    return null
+    return titreIsPublic ? titre : null
   }).length
 
   const titresActivites = await titresActivitesGet()
 
   const titreActivite2018Total = titresActivites.filter(
-    titreActivite => titreActivite.annee >= 2018
+    titreActivite => titreActivite.annee >= ACTIVITE_ANNEE_DEBUT
   ).length
 
   const titresActivites2018Depose = titresActivites.filter(
     titreActivite =>
-      titreActivite.annee >= 2018 && titreActivite.activiteStatutId === 'dep'
+      titreActivite.annee >= ACTIVITE_ANNEE_DEBUT &&
+      titreActivite.activiteStatutId === 'dep'
   ).length
 
   const titreActivites2018Ratio = Math.round(
