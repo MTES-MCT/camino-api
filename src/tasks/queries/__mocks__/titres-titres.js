@@ -78,4 +78,14 @@ const titreValide = {
   substancesTitreEtapeId: 'm-prx-saint-pierre-2014-oct01-dpu01'
 }
 
-export { titreValide }
+const titreOldId = 'm-prx-saint-pierre-2014'
+
+const titreOld = {
+  id: titreOldId
+}
+
+const titreNew = {
+  id: 'm-prx-saint-pierre-2015'
+}
+
+export { titreValide, titreOld, titreOldId, titreNew }

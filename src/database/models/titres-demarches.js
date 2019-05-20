@@ -41,15 +41,6 @@ export default class TitresDemarches extends Model {
       }
     },
 
-    phase: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: TitresPhases,
-      join: {
-        from: 'titresDemarches.id',
-        to: 'titresPhases.titreDemarcheId'
-      }
-    },
-
     titreType: {
       relation: Model.HasOneThroughRelation,
       modelClass: Types,
@@ -69,6 +60,15 @@ export default class TitresDemarches extends Model {
       join: {
         from: 'titresDemarches.id',
         to: 'titresEtapes.titreDemarcheId'
+      }
+    },
+
+    phase: {
+      relation: Model.HasOneRelation,
+      modelClass: TitresPhases,
+      join: {
+        from: 'titresDemarches.id',
+        to: 'titresPhases.titreDemarcheId'
       }
     },
 
