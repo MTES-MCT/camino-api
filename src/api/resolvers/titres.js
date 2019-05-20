@@ -1,6 +1,6 @@
 import permissionsCheck from './_permissions-check'
 import auth from './_auth'
-import { restrictedDomaineIds, restrictedStatutIds } from './_restrictions'
+import { titreIsPublicTest } from './_restrictions'
 
 import {
   titreGet,
@@ -32,10 +32,6 @@ const titreRestrictions = titre => {
 
   return titre
 }
-
-const titreIsPublicTest = (titreDomaineId, titreStatutId) =>
-  !restrictedDomaineIds.includes(titreDomaineId) &&
-  !restrictedStatutIds.includes(titreStatutId)
 
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id)
