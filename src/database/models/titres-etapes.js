@@ -263,6 +263,10 @@ export default class TitresEtapes extends Model {
     }
 
     json = super.$parseJson(json)
+
+    delete json.geojsonMultiPolygon
+    delete json.geojsonPoints
+
     return json
   }
 

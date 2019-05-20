@@ -12,8 +12,7 @@ import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-import titreEtapesIdUpdate from './processes/titre-etape-id-update'
-import titreDemarchesIdUpdate from './processes/titre-demarches-id-update'
+import titresIdsUpdate from './processes/titres-ids-update'
 
 const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // ordre des étapes
@@ -69,20 +68,19 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
 
   // met à jour l'id des étapes
   /*
-  titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
-  titre = await titreGet(titreId)
-  const titreEtapesId = await titreEtapesIdUpdate(titreEtape, titre)
+  // met à jour l'id du titres, des démarches et des étapes
+  titre = await titreGet(titreId, false)
+  const titresIds = await titresIdsUpdate([titre])
    */
 
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)
   console.log(titreDemarchesOrdre)
-  // console.log(titreDemarchesId)
   console.log(titreStatutIds)
   console.log(titresPhases)
   console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
-  // console.log(titreEtapesId.join('\n'))
+  console.log(titresIds.join('\n'))
 
   console.log('Étape mise à jour')
 }
