@@ -63,6 +63,9 @@ type Query {
 
   "__*__ Retourne la liste des entreprises"
   entreprises: [Entreprise]
+
+  "__*__ Retourne les statistiques"
+  stats: Stats
 }
 
 """
