@@ -17,6 +17,8 @@ const RESPONSES_FOLDER = 'responses/insee/'
 const MAX_CALLS_MINUTE = 30
 const MAX_RESULTS = 20
 
+const TEST_SIREN_ID = '805296415'
+
 const { INSEE_API_URL, INSEE_API_KEY, INSEE_API_SECRET } = process.env
 
 // token local au fichier
@@ -31,6 +33,8 @@ const inseeMultiIdsSearch = (type, q) => {
 
 const tokenFetch = async () => {
   console.info('API Insee: récupération du token')
+
+  console.log('auth:', `${INSEE_API_KEY}:${INSEE_API_SECRET}`)
 
   const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
     'base64'
@@ -81,36 +85,42 @@ const inseeFetch = async (type, q) => {
   return result
 }
 
+const tokenFetchDev = async () => {
+  let result
+
+  await makeDir(RESPONSES_FOLDER)
+
+  const cacheFilePath = join(RESPONSES_FOLDER, `insee-token`)
+
+  try {
+    result = require(`../../../${cacheFilePath}.json`)
+    console.info('API Insee: lecture du token depuis le cache')
+
+    apiToken = result && result.access_token
+
+    console.info('Requête de test du token sur /siren')
+    await entrepriseAdresseGet([TEST_SIREN_ID])
+  } catch (e) {
+    console.info(`API Insee: création du token`)
+
+    result = await tokenFetch()
+
+    await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
+  }
+
+  return result
+}
+
 const tokenInitialize = async () => {
   try {
-    let result
+    let result =
+      process.env.NODE_ENV === 'development'
+        ? await tokenFetchDev()
+        : await tokenFetch()
 
-    if (process.env.NODE_ENV === 'development') {
-      await makeDir(RESPONSES_FOLDER)
-      const cacheFilePath = join(RESPONSES_FOLDER, `insee-token`)
+    apiToken = result && result.access_token
 
-      try {
-        result = require(`../../../${cacheFilePath}.json`)
-        console.info('API Insee: lecture du token depuis le cache')
-      } catch (e) {
-        console.info(`API Insee: création du token`)
-
-        result = await tokenFetch()
-
-        await fileCreate(
-          `${cacheFilePath}.json`,
-          JSON.stringify(result, null, 2)
-        )
-      }
-    } else {
-      result = await tokenFetch()
-    }
-
-    const token = result.access_token
-
-    apiToken = token
-
-    return token
+    return apiToken
   } catch (err) {
     const error = err.error ? `${err.error}: ${err.error_description}` : err
     errorLog(`insee token generate`, error)

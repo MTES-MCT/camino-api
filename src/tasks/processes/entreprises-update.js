@@ -32,7 +32,11 @@ const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
 
   // initialise le token de connexion à l'API INSEE
   // s'il est vide, la connexion a échoué
-  const token = await tokenInitialize()
+  let token
+  try {
+    token = await tokenInitialize()
+  } catch (e) {}
+
   if (!token) {
     return [
       "Erreur: impossible de se connecter à l'API INSEE SIREN V3",
