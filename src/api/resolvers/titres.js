@@ -1,3 +1,4 @@
+import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 import auth from './_auth'
 import { titreIsPublicTest } from './_restrictions'
@@ -133,11 +134,20 @@ const titreModifier = async ({ titre }, context, info) => {
     throw new Error(rulesError)
   }
 
-  const res = await titreUpsert(titre)
+  try {
+    const res = await titreUpsert(titre)
 
-  await titreUpdateTask(titre.id)
+    const titreNew = await titreUpdateTask(titre.id)
 
-  return res
+    return titreNew
+  } catch (e) {
+    console.log('coucou')
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 export { titre, titres, titreAjouter, titreSupprimer, titreModifier }
