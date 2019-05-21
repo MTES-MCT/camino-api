@@ -41,6 +41,8 @@ const elementRelationsUpdate = (
     if (elementIdNew !== elementIdOld) {
       element.id = elementIdNew
       hasChanged = true
+    } else {
+      return
     }
   }
 
