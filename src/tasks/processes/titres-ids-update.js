@@ -1,32 +1,25 @@
-import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
+import titreIdUpdate from './titre-id-update'
 import { titreIdUpdate as titreIdUpdateQuery } from '../queries/titres'
 
-const titreIdUpdate = async titresOld => {
-  const titresIdsUpdate = await titresOld.reduce(
-    async (titresIdsUpdate, titreOld) => {
-      try {
-        titresIdsUpdate = await titresIdsUpdate
+const titresIdsUpdate = async titresOld => {
+  const titresNews = await titresOld.reduce(async (titresNews, titreOld) => {
+    try {
+      titresNews = await titresNews
 
-        const titreNew = titreIdAndRelationsUpdate(titreOld)
+      const titreNew = await titreIdUpdate(titreOld)
 
-        if (titreNew.id === titreOld.id) return titresIdsUpdate
+      return titreNew.id !== titreOld.id
+        ? [...titresNews, titreNew]
+        : titresNews
+    } catch (e) {
+      console.error(titreOld.id)
+      console.error(e)
 
-        const titreIdUpdate = await titreIdUpdateQuery(titreOld.id, titreNew)
+      return titresNews
+    }
+  }, [])
 
-        console.log(titreIdUpdate)
-
-        return [...titresIdsUpdate, titreIdUpdate]
-      } catch (e) {
-        console.error(titreOld.id)
-        console.error(e)
-
-        return titresIdsUpdate
-      }
-    },
-    []
-  )
-
-  return `Mise à jour: ${titresIdsUpdate.length} id(s) de titres.`
+  return `Mise à jour: ${titresNews.length} id(s) de titres.`
 }
 
-export default titreIdUpdate
+export default titresIdsUpdate

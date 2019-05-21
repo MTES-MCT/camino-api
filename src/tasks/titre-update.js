@@ -1,7 +1,8 @@
 import '../database/index'
 import { titreGet } from '../database/queries/titres'
+import { titreFormat } from '../database/queries/_format'
 
-import titresIdsUpdate from './processes/titres-ids-update'
+import titreIdUpdate from './processes/titre-id-update'
 
 const titreUpdate = async titreId => {
   try {
@@ -9,11 +10,11 @@ const titreUpdate = async titreId => {
     // id du titre
     // en fonction du type, du nom et de l'année d'octroi
     const titre = await titreGet(titreId, false)
-    const titreIdUpdated = await titresIdsUpdate([titre])
-
-    console.log(titreIdUpdated)
+    const titreNew = await titreIdUpdate(titre)
 
     console.log('Titre mis à jour')
+
+    return titreGet(titreNew.id)
   } catch (e) {
     console.error(`Erreur pendant la mise à jour du titre: ${titreId}`)
     console.error(e)

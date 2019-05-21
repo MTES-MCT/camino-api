@@ -117,17 +117,17 @@ type Mutation {
   "__*__ Supprime un titre minier"
   titreSupprimer(id: ID!): Titre
 
-  "__*__ Modifie une démarche de titre minier"
-  titreDemarcheModifier(demarche: InputDemarche): Demarche
+  "__*__ Modifie une démarche et met à jour le titre minier"
+  titreDemarcheModifier(demarche: InputDemarche): Titre
 
-  "__*__ Supprime une démarche de titre minier"
-  titreDemarcheSupprimer(id: ID!): Demarche
+  "__*__ Supprime une démarche et met à jour le titre minier"
+  titreDemarcheSupprimer(id: ID!): Titre
 
-  "__*__ Modifie une étape de titre minier"
-  titreEtapeModifier(etape: InputEtape): Etape
+  "__*__ Modifie une étape et met à jour le titre minier"
+  titreEtapeModifier(etape: InputEtape): Titre
 
-  "__*__ Supprime une étape de titre minier"
-  titreEtapeSupprimer(id: ID!): Etape
+  "__*__ Supprime une étape et met à jour le titre minier"
+  titreEtapeSupprimer(id: ID!): Titre
 
   "__*__ Créé ou modifie une activité"
   titreActiviteModifier(

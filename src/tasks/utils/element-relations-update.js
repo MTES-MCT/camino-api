@@ -25,6 +25,8 @@ const elementRelationsUpdate = (
   parent = null,
   parentIdOld = ''
 ) => {
+  let hasChanged = false
+
   const elementIdOld = element.id
 
   // met à jour l'id
@@ -36,22 +38,18 @@ const elementRelationsUpdate = (
       parent && parent.id
     )
 
-    // l'id de l'élément n'a pas changé
-    // aucune mise à jour n'est nécessaire
-    if (elementIdNew === elementIdOld) {
-      return
+    if (elementIdNew !== elementIdOld) {
+      element.id = elementIdNew
+      hasChanged = true
     }
-
-    element.id = elementIdNew
   }
 
   // met à jour les propriétés basée sur l'id parent
   if (params.props && parent) {
     params.props.forEach(prop => {
-      // if (prop.match('TitreEtapeId')) delete element[prop]
-
       if (element[prop] && element[prop].match(parentIdOld)) {
         element[prop] = element[prop].replace(parentIdOld, parent.id)
+        hasChanged = true
       }
     })
   }
@@ -68,17 +66,20 @@ const elementRelationsUpdate = (
 
       if (elementsLinked && elementsLinked.length) {
         elementsLinked.forEach(elementLinked => {
-          elementRelationsUpdate(
-            elementLinked,
-            link,
-            root,
-            element,
-            elementIdOld
-          )
+          hasChanged =
+            elementRelationsUpdate(
+              elementLinked,
+              link,
+              root,
+              element,
+              elementIdOld
+            ) || hasChanged
         })
       }
     })
   }
+
+  return hasChanged
 }
 
 export default elementRelationsUpdate
