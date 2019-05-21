@@ -1,11 +1,11 @@
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
-import { titreIdUpdate as titreIdUpdateQuery } from '../queries/titres'
+import { titreIdsUpdate } from '../queries/titres'
 
 const titreIdUpdate = async titreOld => {
-  const titreNew = titreIdAndRelationsUpdate(titreOld)
-  if (titreNew.id === titreOld.id) return titreOld
+  const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
+  if (!hasChanged) return titreOld
 
-  const titreIdUpdate = await titreIdUpdateQuery(titreOld.id, titreNew)
+  const titreIdUpdate = await titreIdsUpdate(titreOld.id, titreNew)
 
   console.log(titreIdUpdate)
 

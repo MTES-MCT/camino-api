@@ -19,7 +19,7 @@ const titreDemarcheIdUpdate = (titreDemarche, titre) => {
   const titreDemarcheTypeOrder =
     titreDemarchesAscSort(
       titre.demarches.filter(d => d.typeId === titreDemarche.typeId)
-    ).findIndex(d => d.id === titreDemarche.id) + 1
+    ).findIndex(d => d === titreDemarche) + 1
 
   return `${titre.id}-${
     titreDemarche.typeId
@@ -30,7 +30,7 @@ const titreEtapeIdUpdate = (titreEtape, titreDemarche) => {
   const titreEtapeTypeOrder =
     titreEtapesAscSort(
       titreDemarche.etapes.filter(e => e.typeId === titreEtape.typeId)
-    ).findIndex(d => d.id === titreEtape.id) + 1
+    ).findIndex(e => e === titreEtape) + 1
 
   return `${titreDemarche.id}-${
     titreEtape.typeId
@@ -101,30 +101,35 @@ const titreIdAndRelationsUpdate = titreOld => {
   const titreNew = { ...titreOld }
 
   // met à jour l'id du titre et ses relations
-  elementRelationsUpdate(titreNew, titreRelations, { titre: titreNew })
+  let hasChanged = elementRelationsUpdate(titreNew, titreRelations, {
+    titre: titreNew
+  })
 
   titreNew.demarches.forEach(titreDemarche => {
     // met à jour l'id de la démarche du titre et ses relations
-    elementRelationsUpdate(
-      titreDemarche,
-      titreDemarcheRelations,
-      { titre: titreNew },
-      titreNew
-    )
+    hasChanged =
+      elementRelationsUpdate(
+        titreDemarche,
+        titreDemarcheRelations,
+        { titre: titreNew },
+        titreNew
+      ) || hasChanged
 
     // met à jour l'id de l'étape de la démarche et ses relations
     titreDemarche.etapes &&
-      titreDemarche.etapes.forEach(titreEtape =>
-        elementRelationsUpdate(
-          titreEtape,
-          titreEtapeRelations,
-          { titre: titreNew },
-          titreDemarche
-        )
+      titreDemarche.etapes.forEach(
+        titreEtape =>
+          (hasChanged =
+            elementRelationsUpdate(
+              titreEtape,
+              titreEtapeRelations,
+              { titre: titreNew },
+              titreDemarche
+            ) || hasChanged)
       )
   })
 
-  return titreNew
+  return { titreNew, hasChanged }
 }
 
 export default titreIdAndRelationsUpdate

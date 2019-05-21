@@ -46,13 +46,17 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   titre = await titreGet(titreId)
   const titresPhases = await titresPhasesUpdate([titre])
 
-  // communes associées aux étapes
-  let titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
-  const communes = await communesGet()
-  const titresEtapesCommunes = await titresEtapeCommunesUpdate(
-    [titreEtape],
-    communes
-  )
+  // communes associées à l'étapes
+  let titresEtapesCommunes
+  // si l'étape est supprimée, pas de mise à jour
+  if (titreEtapeId) {
+    let titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
+    const communes = await communesGet()
+    titresEtapesCommunes = await titresEtapeCommunesUpdate(
+      [titreEtape],
+      communes
+    )
+  }
 
   // propriétés du titre
   // en fonction des démarches et de la date du jour
@@ -69,7 +73,9 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   console.log(titreDemarchesOrdre)
   console.log(titreStatutIds)
   console.log(titresPhases)
-  console.log(titresEtapesCommunes.join('\n'))
+  if (titresEtapesCommunes) {
+    console.log(titresEtapesCommunes.join('\n'))
+  }
   console.log(titresPropsEtapeId)
 
   console.log('Étape mise à jour')

@@ -2,6 +2,7 @@ import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
 import {
+  titreEtapeGet,
   titreEtapeUpsert,
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
@@ -44,7 +45,21 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  return titreEtapeDelete(id)
+  try {
+    const etapeOld = await titreEtapeGet(id)
+
+    await titreEtapeDelete(id)
+
+    const titreNew = await titreEtapeUpdateTask(null, etapeOld.titreDemarcheId)
+
+    return titreNew
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 export { titreEtapeModifier, titreEtapeSupprimer }

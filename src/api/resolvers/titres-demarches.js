@@ -2,6 +2,7 @@ import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
 import {
+  titreDemarcheGet,
   titreDemarcheUpsert,
   titreDemarcheDelete
 } from '../../database/queries/titres-demarches'
@@ -45,12 +46,11 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
   }
 
   try {
-    const demarcheOld = await titreDemarcheDelete(id)
+    const demarcheOld = await titreDemarcheGet(id)
 
-    const titreNew = await titreDemarcheUpdateTask(
-      demarcheOld.id,
-      demarcheOld.titreId
-    )
+    await titreDemarcheDelete(id)
+
+    const titreNew = await titreDemarcheUpdateTask(null, demarcheOld.titreId)
 
     return titreNew
   } catch (e) {
