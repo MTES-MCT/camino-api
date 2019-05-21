@@ -1,3 +1,4 @@
+import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
 import {
@@ -20,11 +21,22 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
     throw new Error(rulesError)
   }
 
-  const demarcheNew = await titreDemarcheUpsert(demarche)
+  try {
+    const demarcheNew = await titreDemarcheUpsert(demarche)
 
-  await titreDemarcheUpdateTask(demarcheNew.id, demarcheNew.titreId)
+    const titreNew = await titreDemarcheUpdateTask(
+      demarcheNew.id,
+      demarcheNew.titreId
+    )
 
-  return demarcheNew
+    return titreNew
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const titreDemarcheSupprimer = async ({ id }, context, info) => {
@@ -32,7 +44,22 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  return titreDemarcheDelete(id)
+  try {
+    const demarcheOld = await titreDemarcheDelete(id)
+
+    const titreNew = await titreDemarcheUpdateTask(
+      demarcheOld.id,
+      demarcheOld.titreId
+    )
+
+    return titreNew
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 export { titreDemarcheModifier, titreDemarcheSupprimer }

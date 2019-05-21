@@ -1,3 +1,4 @@
+import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
 import {
@@ -11,7 +12,7 @@ import titreEtapeUpdateValidation from '../../tasks/titre-etape-update-validatio
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('droits insuffisants pour effectuer la modification')
+    throw new Error('opération impossible')
   }
 
   const rulesError = await titreEtapeUpdateValidation(etape)
@@ -20,16 +21,27 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     throw new Error(rulesError)
   }
 
-  const etapeNew = await titreEtapeUpsert(etape)
+  try {
+    const etapeNew = await titreEtapeUpsert(etape)
 
-  await titreEtapeUpdateTask(etapeNew.id, etapeNew.titreDemarcheId)
+    const titreNew = await titreEtapeUpdateTask(
+      etapeNew.id,
+      etapeNew.titreDemarcheId
+    )
 
-  return etapeNew
+    return titreNew
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const titreEtapeSupprimer = async ({ id }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('droits insuffisants pour effectuer la modification')
+    throw new Error('opération impossible')
   }
 
   return titreEtapeDelete(id)

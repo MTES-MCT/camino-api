@@ -4,6 +4,7 @@ import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import { titreEtapeGet } from '../database/queries/titres-etapes'
 import { communesGet } from '../database/queries/territoires'
+import { titreFormat } from '../database/queries/_format'
 
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
@@ -12,7 +13,7 @@ import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-import titresIdsUpdate from './processes/titres-ids-update'
+import titreIdUpdate from './processes/titre-id-update'
 
 const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // ordre des étapes
@@ -61,7 +62,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // met à jour l'id des étapes
   // met à jour l'id du titres, des démarches et des étapes
   titre = await titreGet(titreId, false)
-  const titresIds = await titresIdsUpdate([titre])
+  const titreNew = await titreIdUpdate(titre)
 
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)
@@ -70,9 +71,10 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   console.log(titresPhases)
   console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
-  console.log(titresIds)
 
   console.log('Étape mise à jour')
+
+  return titreGet(titreNew.id)
 }
 
 export default titreEtapeUpdate
