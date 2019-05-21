@@ -126,7 +126,6 @@ const run = async () => {
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
-
     console.log(titresIds)
 
     console.log('Tâches quotidiennes exécutées')

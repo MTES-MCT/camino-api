@@ -70,7 +70,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   console.log(titresPhases)
   console.log(titresEtapesCommunes.join('\n'))
   console.log(titresPropsEtapeId)
-  console.log(titresIds.join('\n'))
+  console.log(titresIds)
 
   console.log('Étape mise à jour')
 }
