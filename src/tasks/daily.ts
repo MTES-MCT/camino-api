@@ -122,10 +122,11 @@ const run = async () => {
     console.log(titresDemarchesOrdre)
     console.log(titresStatutIds)
     console.log(titresPhases)
-    titresEtapesCommunes.forEach(log => console.log(log))
+    console.log(titresEtapesCommunes.join('\n'))
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
+
     console.log(titresIds)
 
     console.log('Tâches quotidiennes exécutées')

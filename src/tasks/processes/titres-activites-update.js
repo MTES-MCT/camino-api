@@ -35,7 +35,9 @@ const titresActivitesTypesUpdate = async (titres, activitesTypes, annees) => {
     }, [])
     .map(q => q.then(log => console.log(log)))
 
-  await Promise.all(titresActivitesInsertRequests)
+  if (titresActivitesInsertRequests.length) {
+    await Promise.all(titresActivitesInsertRequests)
+  }
 
   return `Mise à jour: ${titresActivitesInsertRequests.length} activités.`
 }
