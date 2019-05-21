@@ -1,4 +1,4 @@
-import { titreStatutIdUpdate, titrePropsUpdate, titreIdUpdate } from './titres'
+import { titreStatutIdUpdate, titrePropsUpdate, titreIdsUpdate } from './titres'
 import * as titresQueries from '../../database/queries/titres'
 
 import {
@@ -49,14 +49,9 @@ describe("met à jour la propriété calculée d'un titre", () => {
   })
 })
 
-describe("met à jour l'id d'un titre", () => {
-  test("un titre dont l'id a changé est mis à jour", async () => {
-    titreIdUpdate(titreOldId, titreNew)
+describe('met à jour le titre et ses dépendances', () => {
+  test('le titre et ses dépendances sont mis à jour', async () => {
+    titreIdsUpdate(titreOldId, titreNew)
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
-  })
-
-  test("un titre dont l'id est inchangé n'est pas mis à jour", async () => {
-    titreIdUpdate(titreOldId, titreOld)
-    expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()
   })
 })

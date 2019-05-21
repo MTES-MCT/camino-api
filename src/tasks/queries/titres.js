@@ -38,10 +38,14 @@ const titrePropsUpdate = (titre, prop) => {
   )
 }
 
-const titreIdUpdate = (titreOldId, titreNew) =>
-  titreNew.id !== titreOldId &&
+const titreIdsUpdate = (titreOldId, titreNew) =>
   titreIdUpdateQuery(titreOldId, titreNew).then(
-    u => `Mise à jour: titre id ${titreOldId} => ${titreNew.id}`
+    u => `Mise à jour: titre ids: ${titreNew.id}`
   )
 
-export { calculatedProps, titreStatutIdUpdate, titrePropsUpdate, titreIdUpdate }
+export {
+  calculatedProps,
+  titreStatutIdUpdate,
+  titrePropsUpdate,
+  titreIdsUpdate
+}
