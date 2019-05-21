@@ -26,6 +26,7 @@ const titreActiviteUpdate = async titreActivite => {
     .query()
     .eager(options.titresActivites.eager)
     .patchAndFetchById(titreActivite.id, titreActivite)
+
   return titreActiviteFormat(ta)
 }
 

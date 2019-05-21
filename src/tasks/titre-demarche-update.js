@@ -36,16 +36,14 @@ const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
   // 5.
   // id du titre
   // met à jour l'id du titres, des démarches et des étapes
-  /*
   titre = await titreGet(titreId, false)
   const titresIds = await titresIdsUpdate([titre])
-   */
 
   console.log(titreDemarchesOrdre)
   console.log(titresPropsEtapeId)
   console.log(titreStatutIds)
   console.log(titresPhases)
-  // console.log(titresIds)
+  console.log(titresIds)
 
   console.log('Démarche mise à jour')
 }

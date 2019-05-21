@@ -1,4 +1,3 @@
-import slugify from '@sindresorhus/slugify'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreIdUpdate as titreIdUpdateQuery } from '../queries/titres'
 

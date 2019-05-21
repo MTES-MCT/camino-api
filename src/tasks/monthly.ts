@@ -47,7 +47,7 @@ const run = async () => {
     }
 
     // logs
-    entreprisesUpdates.forEach(u => console.log(u))
+    console.log(entreprisesUpdates.join('\n'))
     console.log(administrationsUpdates)
 
     console.log('Tâches mensuelles exécutées')
