@@ -4,9 +4,9 @@ import * as titreEtapes from '../queries/titre-etapes'
 
 import {
   administrations,
-  titresEtapesCommunes,
-  titresEtapesCommunesVides,
-  titresEtapesCommunesMemeCommune
+  titresCommunes,
+  titresCommunesVides,
+  titresCommunesMemeCommune
 } from './__mocks__/titres-etapes-administrations-update-etapes'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
@@ -19,22 +19,21 @@ jest.mock('../queries/titre-etapes', () => ({
 console.log = jest.fn()
 
 describe('met à jour la liste de administrations pour une étape', () => {
-  test('ajoute 2 administrations dans une étape', async () => {
+  test('ajoute 4 administrations dans une étape', async () => {
     const insertSpy = jest
       .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
-      .mockImplementation(titreEtape =>
-        titreEtape.communes.map(p => Promise.resolve(p))
+      .mockImplementation(
+        titreEtape =>
+          titreEtape.communes &&
+          titreEtape.communes.map(p => Promise.resolve(p))
       )
 
     expect(
-      await titresEtapeAdministrationsUpdate(
-        titresEtapesCommunes,
-        administrations
-      )
-    ).toEqual('Mise à jour: 2 administrations dans des étapes.')
+      await titresEtapeAdministrationsUpdate(titresCommunes, administrations)
+    ).toEqual('Mise à jour: 4 administrations dans des étapes.')
 
     expect(insertSpy).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.log).toHaveBeenCalledTimes(4)
 
     insertSpy.mockRestore()
   })
@@ -49,7 +48,7 @@ describe('met à jour la liste de administrations pour une étape', () => {
 
     expect(
       await titresEtapeAdministrationsUpdate(
-        titresEtapesCommunesMemeCommune,
+        titresCommunesMemeCommune,
         administrations
       )
     ).toEqual('Mise à jour: 1 administrations dans des étapes.')
@@ -65,7 +64,7 @@ describe('met à jour la liste de administrations pour une étape', () => {
   test("l'étape n'a pas de commune", async () => {
     expect(
       await titresEtapeAdministrationsUpdate(
-        titresEtapesCommunesVides,
+        titresCommunesVides,
         administrations
       )
     ).toEqual('Mise à jour: 0 administrations dans des étapes.')
