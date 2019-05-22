@@ -53,6 +53,9 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   titreActiviteRowUpdate(activiteRes)
 
   if (activiteRes.activiteStatutId === 'dep') {
+    const isAmodiataire = titre.amodiataires.some(
+      t => t.id === user.entrepriseId
+    )
     const entrepriseIds = isAmodiataire
       ? titre.amodiataires.map(t => t.id)
       : titre.titulaires.map(t => t.id)
