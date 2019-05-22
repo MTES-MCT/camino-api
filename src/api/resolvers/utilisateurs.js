@@ -24,7 +24,7 @@ const permissionsVisibleForAdmin = [
 ]
 
 const userIdGenerate = async () => {
-  const id = cryptoRandomString(6)
+  const id = cryptoRandomString({ length: 6 })
   const utilisateurWithTheSameId = await utilisateurGet(id)
   if (utilisateurWithTheSameId) {
     return userIdGenerate()
