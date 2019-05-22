@@ -35,7 +35,7 @@
     "start": "npm run build && node ./dist/index.js",
     "graphql:schema": "node ./tools/utils/graphql-dsl-to-query-convert.js",
     "test": "jest --verbose && codecov",
-    "jest": "jest --verbose --coverage --watch",
+    "jest": "jest --verbose --watch",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "doc": "rm -rf docs && npx esdoc",
