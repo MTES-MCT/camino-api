@@ -23,7 +23,8 @@ export default class Administrations extends Model {
       codePostal: { type: ['string', 'null'] },
       commune: { type: ['string', 'null'] },
       cedex: { type: ['string', 'null'] },
-      departementId: { type: ['string', 'null'] }
+      departementId: { type: ['string', 'null'] },
+      regionId: { type: ['string', 'null'] }
     }
   }
 
@@ -32,7 +33,7 @@ export default class Administrations extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: AdministrationsTypes,
       join: {
-        from: 'administrations.typeId',
+        from: 'administrations.administrationTypeId',
         to: 'administrationsTypes.id'
       }
     },
