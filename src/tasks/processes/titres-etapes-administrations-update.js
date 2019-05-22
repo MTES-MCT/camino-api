@@ -11,11 +11,11 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
   if (titreEtape.communes && titreEtape.communes.length) {
     const { departementIds, regionIds } = titreEtape.communes.reduce(
       ({ departementIds, regionIds }, commune) => {
-        if (!departementIds[commune.departementId]) {
+        if (commune.departementId && !departementIds[commune.departementId]) {
           departementIds.push(commune.departementId)
         }
 
-        if (!regionIds[commune.regionId]) {
+        if (commune.regionId && !regionIds[commune.regionId]) {
           regionIds.push(commune.departement.regionId)
         }
 
@@ -60,6 +60,7 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
   if (['dex', 'dpu', 'men'].includes(titreEtape.typeId)) {
     globaleAdministrationsIds = administrations.reduce(
       (acc, administration) =>
+        administration.domaines &&
         administration.domaines.length &&
         administration.domaines.find(({ id }) => id === domaineId)
           ? [...acc, administration.id]
@@ -83,17 +84,23 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
       titre.demarches.reduce(
         (titresEtapesAdministrations, titreDemarche) =>
           titreDemarche.etapes.reduce(
-            (titresEtapesAdministrations, titreEtape) => ({
-              ...titresEtapesAdministrations,
-              [titreEtape.id]: {
+            (titresEtapesAdministrations, titreEtape) => {
+              const administrationsIds = administrationsIdsFind(
                 titreEtape,
-                administrationsIds: administrationsIdsFind(
-                  titreEtape,
-                  administrations,
-                  titre.domaineId
-                )
-              }
-            }),
+                administrations,
+                titre.domaineId
+              )
+
+              return administrationsIds.length
+                ? {
+                    ...titresEtapesAdministrations,
+                    [titreEtape.id]: {
+                      titreEtape,
+                      administrationsIds
+                    }
+                  }
+                : titresEtapesAdministrations
+            },
             titresEtapesAdministrations
           ),
         titresEtapesAdministrations
