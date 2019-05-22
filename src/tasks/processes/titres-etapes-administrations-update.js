@@ -15,7 +15,11 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
           departementIds.push(commune.departementId)
         }
 
-        if (commune.regionId && !regionIds[commune.regionId]) {
+        if (
+          commune.departement &&
+          commune.departement.regionId &&
+          !regionIds[commune.departement.regionId]
+        ) {
           regionIds.push(commune.departement.regionId)
         }
 
