@@ -38,12 +38,10 @@ const elementRelationsUpdate = (
       parent && parent.id
     )
 
-    if (elementIdNew === elementIdOld) {
-      return
+    if (elementIdNew !== elementIdOld) {
+      element.id = elementIdNew
+      hasChanged = true
     }
-
-    element.id = elementIdNew
-    hasChanged = true
   }
 
   // met à jour les propriétés basée sur l'id parent
