@@ -71,10 +71,10 @@ const run = async () => {
 
     // 7.
     // administrations associées aux étapes
-    titresEtapes = await titresEtapesGet()
+    titres = await titresGet()
     const administrations = await administrationsGet()
     const titresEtapesAdministrations = await titresEtapesAdministrationsUpdate(
-      titresEtapes,
+      titres,
       administrations
     )
 

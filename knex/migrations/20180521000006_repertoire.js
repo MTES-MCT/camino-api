@@ -32,11 +32,12 @@ exports.up = knex => {
     .createTable('administrationsTypes', table => {
       table.string('id', 64).primary()
       table.string('nom').notNullable()
+      table.integer('ordre')
     })
     .createTable('administrations', table => {
       table.string('id', 64).primary()
       table
-        .string('administrationTypeId')
+        .string('typeId')
         .references('administrationsTypes.id')
         .notNullable()
       table.string('nom').notNullable()
@@ -50,6 +51,7 @@ exports.up = knex => {
       table.string('commune')
       table.string('cedex')
       table.string('departementId').references('departements.id')
+      table.string('regionId').references('regions.id')
     })
     .createTable('administrations__domaines', table => {
       table

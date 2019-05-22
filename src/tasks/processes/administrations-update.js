@@ -4,13 +4,9 @@ import { organismeDepartementGet } from '../../tools/api-administrations'
 const administrationsUpdate = async (administrations, departements) => {
   const administrationsOrganismes = await departements.reduce(
     async (acc, { id: departementId }) => {
-      const administrationTypeId =
-        departementId === '75' ? 'prefecture_region' : 'prefecture'
+      const typeId = departementId === '75' ? 'prefecture_region' : 'prefecture'
 
-      const organisme = await organismeDepartementGet(
-        departementId,
-        administrationTypeId
-      )
+      const organisme = await organismeDepartementGet(departementId, typeId)
 
       return [...(await acc), organisme]
     },

@@ -39,6 +39,10 @@ const titreFormat = t => {
     t.activites = t.activites.map(titreActiviteFormat)
   }
 
+  if (t.administrations && t.administrations.length) {
+    t.administrations.sort((a, b) => a.type.ordre - b.type.ordre)
+  }
+
   return t
 }
 

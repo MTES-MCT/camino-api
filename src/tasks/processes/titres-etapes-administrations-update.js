@@ -3,48 +3,115 @@ import {
   titreEtapeAdministrationsDelete
 } from '../queries/titre-etapes'
 
-const titresEtapesAdministrationsUpdate = async (
-  titresEtapes,
-  administrations
-) => {
-  const administrationsIndex = administrations.reduce(
-    (acc, a) => ({ ...acc, [a.departementId]: a }),
-    {}
-  )
+const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
+  let departementsAdministrationsIds = []
+  let regionsAdministrationsIds = []
+  let globaleAdministrationsIds = []
 
-  const titresEtapesAdministrations = titresEtapes.reduce(
-    (acc, titreEtape) =>
-      titreEtape.communes && titreEtape.communes.length
-        ? {
-            ...acc,
-            [titreEtape.id]: {
-              titreEtape,
-              administrationsIds: Object.keys(
-                titreEtape.communes.reduce(
-                  (acc, commune) =>
-                    !acc[commune.departementId] &&
-                    administrationsIndex[commune.departementId]
-                      ? {
-                          ...acc,
-                          [administrationsIndex[commune.departementId].id]: true
-                        }
-                      : acc,
-                  {}
-                )
+  if (titreEtape.communes && titreEtape.communes.length) {
+    const { departementIds, regionIds } = titreEtape.communes.reduce(
+      ({ departementIds, regionIds }, commune) => {
+        if (commune.departementId && !departementIds[commune.departementId]) {
+          departementIds.push(commune.departementId)
+        }
+
+        if (commune.regionId && !regionIds[commune.regionId]) {
+          regionIds.push(commune.departement.regionId)
+        }
+
+        return {
+          departementIds,
+          regionIds
+        }
+      },
+      { regionIds: [], departementIds: [] }
+    )
+
+    const departementsAndRegionsAdministrationsIds = administrations.reduce(
+      (
+        { departementsAdministrationsIds, regionsAdministrationsIds },
+        administration
+      ) => {
+        if (
+          administration.departementId &&
+          departementIds.find(id => id === administration.departementId)
+        ) {
+          departementsAdministrationsIds.push(administration.id)
+        }
+
+        if (
+          administration.regionId &&
+          regionIds.find(id => id === administration.regionId)
+        ) {
+          regionsAdministrationsIds.push(administration.id)
+        }
+
+        return { departementsAdministrationsIds, regionsAdministrationsIds }
+      },
+      { departementsAdministrationsIds: [], regionsAdministrationsIds: [] }
+    )
+
+    departementsAdministrationsIds =
+      departementsAndRegionsAdministrationsIds.departementsAdministrationsIds
+    regionsAdministrationsIds =
+      departementsAndRegionsAdministrationsIds.regionsAdministrationsIds
+  }
+
+  if (['dex', 'dpu', 'men'].includes(titreEtape.typeId)) {
+    globaleAdministrationsIds = administrations.reduce(
+      (acc, administration) =>
+        administration.domaines &&
+        administration.domaines.length &&
+        administration.domaines.find(({ id }) => id === domaineId)
+          ? [...acc, administration.id]
+          : acc,
+      []
+    )
+  }
+
+  return [
+    ...departementsAdministrationsIds,
+    ...regionsAdministrationsIds,
+    ...globaleAdministrationsIds
+  ]
+}
+
+const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
+  // parcourt les étapes à partir des titres
+  // car on a besoin de titre.domaineId
+  const titresEtapesAdministrations = titres.reduce(
+    (titresEtapesAdministrations, titre) =>
+      titre.demarches.reduce(
+        (titresEtapesAdministrations, titreDemarche) =>
+          titreDemarche.etapes.reduce(
+            (titresEtapesAdministrations, titreEtape) => {
+              const administrationsIds = administrationsIdsFind(
+                titreEtape,
+                administrations,
+                titre.domaineId
               )
-            }
-          }
-        : acc,
+
+              return administrationsIds.length
+                ? {
+                    ...titresEtapesAdministrations,
+                    [titreEtape.id]: {
+                      titreEtape,
+                      administrationsIds
+                    }
+                  }
+                : titresEtapesAdministrations
+            },
+            titresEtapesAdministrations
+          ),
+        titresEtapesAdministrations
+      ),
     {}
   )
 
   const {
     titresEtapesAdministrationsInsertQueries,
     titresEtapesAdministrationsDeleteQueries
-  } = titresEtapesAdministrationsQueriesBuild(
-    titresEtapes,
-    titresEtapesAdministrations
-  )
+  } = titresEtapesAdministrationsQueriesBuild(titresEtapesAdministrations)
 
   const titreEtapesAdministrationsQueries = [
     ...titresEtapesAdministrationsInsertQueries,
@@ -57,10 +124,7 @@ const titresEtapesAdministrationsUpdate = async (
     titresEtapesAdministrationsDeleteQueries.length} administrations dans des étapes.`
 }
 
-const titresEtapesAdministrationsQueriesBuild = (
-  titresEtapes,
-  titresEtapesAdministrations
-) =>
+const titresEtapesAdministrationsQueriesBuild = titresEtapesAdministrations =>
   Object.values(titresEtapesAdministrations).reduce(
     (
       {
