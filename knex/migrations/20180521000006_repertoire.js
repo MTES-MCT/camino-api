@@ -37,7 +37,7 @@ exports.up = knex => {
     .createTable('administrations', table => {
       table.string('id', 64).primary()
       table
-        .string('administrationTypeId')
+        .string('typeId')
         .references('administrationsTypes.id')
         .notNullable()
       table.string('nom').notNullable()

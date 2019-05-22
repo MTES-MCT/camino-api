@@ -103,9 +103,7 @@ const organismeFormat = (e, departementId) => {
 
     organisme = {
       id: p.id,
-      administrationTypeId: p.pivotLocal.match(/^prefecture/)
-        ? 'pre'
-        : p.pivotLocal,
+      typeId: p.pivotLocal.match(/^prefecture/) ? 'pre' : p.pivotLocal,
       nom: p.nom,
       adresse1,
       adresse2,

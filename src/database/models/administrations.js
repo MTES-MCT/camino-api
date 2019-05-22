@@ -8,11 +8,11 @@ export default class Administrations extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'administrationTypeId'],
+    required: ['id', 'nom', 'typeId'],
 
     properties: {
       id: { type: 'string', maxLength: 64 },
-      administrationTypeId: { type: 'string' },
+      typeId: { type: 'string' },
       nom: { type: 'string' },
       service: { type: ['string', 'null'] },
       url: { type: ['string', 'null'] },
@@ -33,7 +33,7 @@ export default class Administrations extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: AdministrationsTypes,
       join: {
-        from: 'administrations.administrationTypeId',
+        from: 'administrations.typeId',
         to: 'administrationsTypes.id'
       }
     },

@@ -6,7 +6,7 @@ import {
 const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
   let departementsAdministrationsIds = []
   let regionsAdministrationsIds = []
-  let paysAdministrationsIds = []
+  let globaleAdministrationsIds = []
 
   if (titreEtape.communes && titreEtape.communes.length) {
     const { departementIds, regionIds } = titreEtape.communes.reduce(
@@ -58,7 +58,7 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
   }
 
   if (['dex', 'dpu', 'men'].includes(titreEtape.typeId)) {
-    paysAdministrationsIds = administrations.reduce(
+    globaleAdministrationsIds = administrations.reduce(
       (acc, administration) =>
         administration.domaines.length &&
         administration.domaines.find(({ id }) => id === domaineId)
@@ -71,7 +71,7 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
   return [
     ...departementsAdministrationsIds,
     ...regionsAdministrationsIds,
-    ...paysAdministrationsIds
+    ...globaleAdministrationsIds
   ]
 }
 
@@ -79,14 +79,12 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
   const titresEtapesAdministrations = titres.reduce(
-    (titresAcc, titre) => ({
-      ...titresAcc,
-      ...titre.demarches.reduce(
-        (titreDemarchesAcc, titreDemarche) => ({
-          ...titreDemarchesAcc,
-          ...titreDemarche.etapes.reduce(
-            (acc, titreEtape) => ({
-              ...acc,
+    (titresEtapesAdministrations, titre) =>
+      titre.demarches.reduce(
+        (titresEtapesAdministrations, titreDemarche) =>
+          titreDemarche.etapes.reduce(
+            (titresEtapesAdministrations, titreEtape) => ({
+              ...titresEtapesAdministrations,
               [titreEtape.id]: {
                 titreEtape,
                 administrationsIds: administrationsIdsFind(
@@ -96,12 +94,10 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
                 )
               }
             }),
-            titreDemarchesAcc
-          )
-        }),
-        titresAcc
-      )
-    }),
+            titresEtapesAdministrations
+          ),
+        titresEtapesAdministrations
+      ),
     {}
   )
 
