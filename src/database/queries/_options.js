@@ -74,7 +74,11 @@ const etapes = {
       'emprises',
       'engagementDevise',
       'volumeUnite',
-      'points.references.geoSysteme'
+      'points.references.geoSysteme',
+      'communes',
+      'communes.departement',
+      'communes.departement.region',
+      'communes.departement.region.pays'
     ],
     unrelate: [
       'type',
@@ -95,26 +99,15 @@ const etapes = {
       'emprises',
       'engagementDevise',
       'volumeUnite',
-      'points.references.geoSysteme'
-    ],
-    noInsert: [
+      'points.references.geoSysteme',
       'communes',
       'communes.departement',
       'communes.departement.region',
       'communes.departement.region.pays'
     ],
-    noUpdate: [
-      'communes',
-      'communes.departement',
-      'communes.departement.region',
-      'communes.departement.region.pays'
-    ],
-    noDelete: [
-      'communes',
-      'communes.departement',
-      'communes.departement.region',
-      'communes.departement.region.pays'
-    ],
+    noInsert: [],
+    noUpdate: [],
+    noDelete: [],
     insertMissing: true
   }
 }
@@ -202,17 +195,19 @@ const titres = {
   }, activites(orderByDateDesc).${titresActivites.eager}]`,
 
   update: {
-    relate: [...demarches.update.relate.map(k => `demarches.${k}`)],
-    unrelate: [...demarches.update.unrelate.map(k => `demarches.${k}`)],
-    noInsert: [
+    relate: [
       'type',
-      'type.demarchesTypes',
-      'type.demarchesTypes.demarchesStatuts',
       'statut',
       'domaine',
-      'domaine.types',
-      'domaine.types.demarchesTypes',
-      'domaine.types.demarchesTypes.demarchesStatuts',
+      ...demarches.update.relate.map(k => `demarches.${k}`)
+    ],
+    unrelate: [
+      'type',
+      'statut',
+      'domaine',
+      ...demarches.update.unrelate.map(k => `demarches.${k}`)
+    ],
+    noInsert: [
       'points',
       'pays',
       'pays.departement',
@@ -241,17 +236,6 @@ const titres = {
       'surfaceEtape',
       'engagementEtape',
       'engagementDevise',
-      'pointsTitreEtapeId',
-      'titulairesTitreEtapeId',
-      'amodiatairesTitreEtapeId',
-      'administrationsTitreEtapeId',
-      'surfaceTitreEtapeId',
-      'volumeTitreEtapeId',
-      'volumeUniteIdTitreEtapeId',
-      'substancesTitreEtapeId',
-      'communesTitreEtapeId',
-      'engagementTitreEtapeId',
-      'engagementDeviseIdTitreEtapeId',
       'activites.type',
       'activites.statut',
       'activites.utilisateur',
@@ -263,8 +247,6 @@ const titres = {
       ...demarches.update.noInsert.map(k => `demarches.${k}`)
     ],
     noUpdate: [
-      'domaine.types',
-      'domaine.types.demarchesTypes',
       'points',
       'pays',
       'communes',
@@ -307,8 +289,6 @@ const titres = {
       ...demarches.update.noUpdate.map(k => `demarches.${k}`)
     ],
     noDelete: [
-      'domaine.types',
-      'domaine.types.demarchesTypes',
       'points',
       'pays',
       'communes',
