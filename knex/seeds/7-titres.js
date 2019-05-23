@@ -1,5 +1,7 @@
 const decamelize = require('decamelize')
+
 const domaineIds = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
+
 const files = [
   'titres',
   'titresDemarches',
@@ -15,14 +17,14 @@ const files = [
   'titresIncertitudes'
 ]
 
-const datas = files.reduce(
-  (d, file) =>
-    Object.assign(d, {
-      [file]: domaineIds.reduce((res, domaineId) => {
-        const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
-        return [...res, ...require(`../../sources/${fileName}.json`)]
-      }, [])
-    }),
+const data = files.reduce(
+  (d, file) => ({
+    ...d,
+    [file]: domaineIds.reduce((res, domaineId) => {
+      const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
+      return [...res, ...require(`../../sources/${fileName}.json`)]
+    }, [])
+  }),
   {}
 )
 
@@ -46,25 +48,27 @@ exports.seed = (knex, Promise) =>
     )
     .then(() => knex('titresDemarches').del())
     .then(() => knex('titres').del())
-    .then(() => knex('titres').insert(datas.titres))
-    .then(() => knex('titresDemarches').insert(datas.titresDemarches))
+    .then(() => knex('titres').insert(data.titres))
+    .then(() => knex('titresDemarches').insert(data.titresDemarches))
     .then(() =>
       Promise.all([
-        knex('titresEtapes').insert(datas.titresEtapes),
-        knex('titresDemarchesLiens').insert(datas.titresDemarchesLiens)
+        knex('titresEtapes').insert(data.titresEtapes),
+        knex('titresDemarchesLiens').insert(data.titresDemarchesLiens)
       ])
     )
     .then(() =>
       Promise.all([
-        knex('titresSubstances').insert(datas.titresSubstances),
-        knex('titresPoints').insert(datas.titresPoints),
-        knex('titresEmprises').insert(datas.titresEmprises),
-        knex('titresTitulaires').insert(datas.titresTitulaires),
-        knex('titresAmodiataires').insert(datas.titresAmodiataires),
-        knex('titresIncertitudes').insert(datas.titresIncertitudes),
-        knex('titresDocuments').insert(datas.titresDocuments)
+        knex('titresSubstances').insert(data.titresSubstances),
+        knex('titresPoints').insert(data.titresPoints),
+        knex('titresEmprises').insert(data.titresEmprises),
+        knex('titresTitulaires').insert(data.titresTitulaires),
+        knex('titresAmodiataires').insert(data.titresAmodiataires),
+        knex('titresIncertitudes').insert(data.titresIncertitudes),
+        knex('titresDocuments').insert(data.titresDocuments)
       ])
     )
     .then(() =>
-      knex('titresPointsReferences').insert(datas.titresPointsReferences)
+      knex('titresPointsReferences').insert(data.titresPointsReferences)
     )
+
+exports.data = data
