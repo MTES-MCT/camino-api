@@ -3,7 +3,7 @@ import { titresActivitesGet } from '../../database/queries/titres-activites'
 import { titreIsPublicTest } from './_restrictions'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
-const stats = async () => {
+const statistiques = async () => {
   const titres = await titresGet()
   const titresTotal = titres.length
 
@@ -47,4 +47,4 @@ const stats = async () => {
   }
 }
 
-export { stats }
+export { statistiques }
