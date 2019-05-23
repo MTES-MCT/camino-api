@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.19.0](https://github.com/MTES-MCT/camino-api/compare/v0.18.0...v0.19.0) (2019-05-23)
+
+
+### Bug Fixes
+
+* renomme une occurence de 'stats' qui avait été oubliée ([04fd244](https://github.com/MTES-MCT/camino-api/commit/04fd244))
+* **tasks:** corrige le calcul des administrations ([#74](https://github.com/MTES-MCT/camino-api/issues/74)) ([7b743fe](https://github.com/MTES-MCT/camino-api/commit/7b743fe))
+* corrige la mise à jour des titres contenant des administrations ([#73](https://github.com/MTES-MCT/camino-api/issues/73)) ([329a218](https://github.com/MTES-MCT/camino-api/commit/329a218))
+* **administrations:** lie les administrations régionales ([#72](https://github.com/MTES-MCT/camino-api/issues/72)) ([dbd83a3](https://github.com/MTES-MCT/camino-api/commit/dbd83a3))
+* **incertitudes:** uniformise la liste des champs "incertitudes" entre la bdd et l'api ([#63](https://github.com/MTES-MCT/camino-api/issues/63)) ([0d3f0f6](https://github.com/MTES-MCT/camino-api/commit/0d3f0f6))
+* **insee:** corrige la génération du token en mode dev ([#67](https://github.com/MTES-MCT/camino-api/issues/67)) ([178ae15](https://github.com/MTES-MCT/camino-api/commit/178ae15))
+* **tasks:** corrige la mise à jour d'une étape ([f452a02](https://github.com/MTES-MCT/camino-api/commit/f452a02))
+* **tasks:** corrige la mise à jour des ids de démarches ([#56](https://github.com/MTES-MCT/camino-api/issues/56)) ([104a3a6](https://github.com/MTES-MCT/camino-api/commit/104a3a6))
+* **tasks:** corrige la mise à jour des ids de titre ([#68](https://github.com/MTES-MCT/camino-api/issues/68)) ([25944cb](https://github.com/MTES-MCT/camino-api/commit/25944cb))
+* **tasks:** corrige les changements d'ids pour les titres avec activités ([#70](https://github.com/MTES-MCT/camino-api/issues/70)) ([2a6eaa2](https://github.com/MTES-MCT/camino-api/commit/2a6eaa2))
+* **tasks:** corrige les éditions et suppression de titres/démarches/étapes ([#69](https://github.com/MTES-MCT/camino-api/issues/69)) ([89b41d0](https://github.com/MTES-MCT/camino-api/commit/89b41d0))
+* corrige temporairement l'édition des titres/démarches/étapes ([#61](https://github.com/MTES-MCT/camino-api/issues/61)) ([d06f455](https://github.com/MTES-MCT/camino-api/commit/d06f455))
+
+
+### Build System
+
+* met à jour les dépendances ([58c6d47](https://github.com/MTES-MCT/camino-api/commit/58c6d47))
+* met à jour les dépendances ([8988c0f](https://github.com/MTES-MCT/camino-api/commit/8988c0f))
+* met à jour les dépendances ([2f9c010](https://github.com/MTES-MCT/camino-api/commit/2f9c010))
+
+
+### Features
+
+* **tools:** ajoute un script de vérification d'intégrité des données ([#75](https://github.com/MTES-MCT/camino-api/issues/75)) ([b4e7bed](https://github.com/MTES-MCT/camino-api/commit/b4e7bed))
+* expose les statistiques ([#66](https://github.com/MTES-MCT/camino-api/issues/66)) ([378a3c6](https://github.com/MTES-MCT/camino-api/commit/378a3c6))
+* expose un champs "incertitudes" sur les étapes ([#62](https://github.com/MTES-MCT/camino-api/issues/62)) ([4e6608d](https://github.com/MTES-MCT/camino-api/commit/4e6608d))
+* lie les administrations centrales aux titres ([#71](https://github.com/MTES-MCT/camino-api/issues/71)) ([9b1a7c2](https://github.com/MTES-MCT/camino-api/commit/9b1a7c2))
+* **activités:** ajoute une date de création à un champs des activités ([#60](https://github.com/MTES-MCT/camino-api/issues/60)) ([b640d8b](https://github.com/MTES-MCT/camino-api/commit/b640d8b))
+* **fichiers:** gère le téléchargement des fichiers ([#58](https://github.com/MTES-MCT/camino-api/issues/58)) ([1c554d2](https://github.com/MTES-MCT/camino-api/commit/1c554d2))
+* **fichiers:** masque les fichiers qui ne sont pas publics ([b96adfa](https://github.com/MTES-MCT/camino-api/commit/b96adfa))
+* **tasks:** mets à jour l'id lors de la mise à jour d'un titre ([#57](https://github.com/MTES-MCT/camino-api/issues/57)) ([a8c0646](https://github.com/MTES-MCT/camino-api/commit/a8c0646))
+
+
+
 ## [0.18.0](https://github.com/MTES-MCT/camino-api/compare/v0.17.0...v0.18.0) (2019-05-07)
 
 
