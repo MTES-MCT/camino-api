@@ -1,6 +1,6 @@
 export default `
 "Statistiques"
-type Stats{
+type Statistiques {
     titresTotal: Int
     titresValide: Int 
     titresActivites2018Depose: Int
