@@ -40,7 +40,7 @@ import { substance, substances } from './resolvers/substances'
 import { permissions } from './resolvers/permissions'
 import { entreprise, entreprises } from './resolvers/entreprises'
 import { titreActiviteModifier } from './resolvers/titres-activites'
-import { stats } from './resolvers/stats'
+import { statistiques } from './resolvers/statistiques'
 
 export default {
   //  types
@@ -60,7 +60,7 @@ export default {
   utilisateur,
   utilisateurs,
   permissions,
-  stats,
+  statistiques,
 
   // mutations
   titreAjouter,

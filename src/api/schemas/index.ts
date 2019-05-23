@@ -65,7 +65,7 @@ type Query {
   entreprises: [Entreprise]
 
   "__*__ Retourne les statistiques"
-  stats: Stats
+  statistiques: Statistiques
 }
 
 """
