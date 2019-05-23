@@ -4,23 +4,19 @@ import {
 } from '../queries/titre-etapes'
 
 const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
-  let departementsAdministrationsIds = []
-  let regionsAdministrationsIds = []
-  let globaleAdministrationsIds = []
+  let adminDepartementsIds = []
+  let adminRegionsIds = []
+  let adminGlobalesIds = []
 
   if (titreEtape.communes && titreEtape.communes.length) {
     const { departementIds, regionIds } = titreEtape.communes.reduce(
       ({ departementIds, regionIds }, commune) => {
-        if (commune.departementId && !departementIds[commune.departementId]) {
-          departementIds.push(commune.departementId)
+        if (commune.departementId) {
+          departementIds.add(commune.departementId)
         }
 
-        if (
-          commune.departement &&
-          commune.departement.regionId &&
-          !regionIds[commune.departement.regionId]
-        ) {
-          regionIds.push(commune.departement.regionId)
+        if (commune.departement && commune.departement.regionId) {
+          regionIds.add(commune.departement.regionId)
         }
 
         return {
@@ -28,41 +24,35 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
           regionIds
         }
       },
-      { regionIds: [], departementIds: [] }
+      { regionIds: new Set(), departementIds: new Set() }
     )
 
-    const departementsAndRegionsAdministrationsIds = administrations.reduce(
-      (
-        { departementsAdministrationsIds, regionsAdministrationsIds },
-        administration
-      ) => {
+    const adminIds = administrations.reduce(
+      ({ adminDepartementsIds, adminRegionsIds }, administration) => {
         if (
           administration.departementId &&
-          departementIds.find(id => id === administration.departementId)
+          departementIds.has(administration.departementId)
         ) {
-          departementsAdministrationsIds.push(administration.id)
+          adminDepartementsIds.add(administration.id)
         }
 
-        if (
-          administration.regionId &&
-          regionIds.find(id => id === administration.regionId)
-        ) {
-          regionsAdministrationsIds.push(administration.id)
+        if (administration.regionId && regionIds.has(administration.regionId)) {
+          adminRegionsIds.add(administration.id)
         }
 
-        return { departementsAdministrationsIds, regionsAdministrationsIds }
+        return { adminDepartementsIds, adminRegionsIds }
       },
-      { departementsAdministrationsIds: [], regionsAdministrationsIds: [] }
+      { adminDepartementsIds: new Set(), adminRegionsIds: new Set() }
     )
 
-    departementsAdministrationsIds =
-      departementsAndRegionsAdministrationsIds.departementsAdministrationsIds
-    regionsAdministrationsIds =
-      departementsAndRegionsAdministrationsIds.regionsAdministrationsIds
+    // const dedup = arr => [...new Set(...arr)]
+
+    adminDepartementsIds = [...adminIds.adminDepartementsIds]
+    adminRegionsIds = [...adminIds.adminRegionsIds]
   }
 
   if (['dex', 'dpu', 'men'].includes(titreEtape.typeId)) {
-    globaleAdministrationsIds = administrations.reduce(
+    adminGlobalesIds = administrations.reduce(
       (acc, administration) =>
         administration.domaines &&
         administration.domaines.length &&
@@ -73,11 +63,7 @@ const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
     )
   }
 
-  return [
-    ...departementsAdministrationsIds,
-    ...regionsAdministrationsIds,
-    ...globaleAdministrationsIds
-  ]
+  return [...adminDepartementsIds, ...adminRegionsIds, ...adminGlobalesIds]
 }
 
 const titresEtapesAdministrationsUpdate = async (titres, administrations) => {

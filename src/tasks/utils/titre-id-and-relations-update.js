@@ -91,7 +91,7 @@ const titreEtapeRelations = {
       props: ['id', 'titreEtapeId', 'fichier']
     },
     {
-      path: 'erreurs',
+      path: 'incertitudes',
       props: ['id', 'titreEtapeId']
     }
   ]
