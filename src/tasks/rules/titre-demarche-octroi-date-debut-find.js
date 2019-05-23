@@ -1,10 +1,11 @@
 import * as dateFormat from 'dateformat'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
-import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
+import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
 const titreDemarcheOctroiDateDebutFind = titre => {
   if (!titre.demarches || !titre.demarches.length) return '0000'
 
+  // récupère la démarche d'octroi (naturelle ou virtuelle)
   const demarcheOctroi = titreDemarchesAscSort(titre.demarches).find(d =>
     ['oct', 'vut'].includes(d.typeId)
   )
@@ -16,13 +17,17 @@ const titreDemarcheOctroiDateDebutFind = titre => {
     return '0000'
   }
 
-  const etapes = titreEtapesAscSort(demarcheOctroi.etapes)
+  // trie les étapes dans l'ordre décroissant
+  const etapes = titreEtapesDescSort(demarcheOctroi.etapes)
 
+  // récupère l'étape la plus importante de l'octroi en premier
   const etapeOctroi =
     ['dpu', 'rpu', 'dim', 'dex', 'mfr'].reduce(
       (etape, typeId) => etape || etapes.find(e => e.typeId === typeId),
       null
-    ) || etapes[0]
+    ) ||
+    // sinon utilise la première étape (chronologique) de l'octroi
+    etapes[etapes.length - 1]
 
   const demarcheOctroiDate = etapeOctroi.dateDebut || etapeOctroi.date || '0000'
 
