@@ -13,7 +13,7 @@ import utilisateurs from './schemas/utilisateurs'
 import administrations from './schemas/administrations'
 import entreprises from './schemas/entreprises'
 import titresActivites from './schemas/titres-activites'
-import stats from './schemas/stats'
+import statistiques from './schemas/statistiques'
 
 const schema = buildSchema(`
   ${index}
@@ -42,7 +42,7 @@ const schema = buildSchema(`
 
   ${titresActivites}
 
-  ${stats}
+  ${statistiques}
 `)
 
 export default schema
