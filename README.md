@@ -58,7 +58,7 @@ npm run migrate
 npm run monthly
 npm run daily
 
-# créer un utilisateur admin
+# crée un utilisateur admin
 npm run user-add
 ```
 
