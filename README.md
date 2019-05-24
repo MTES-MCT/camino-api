@@ -40,6 +40,7 @@ Pour que l'application fonctionne, sont requis:
 ## Configuration et imports des données
 
 - Créer une base de données `camino`.
+- Importer les données sources depuis [camino-sources-example](https://github.com/MTES-MCT/camino-sources-example)
 - Renommer le fichier `.env.example` en `.env` et le compléter.
 
 ```bash
@@ -49,10 +50,6 @@ npm install
 # compile l'application avec typescript
 npm run build
 
-# importe les données au format .json
-# depuis google spreadsheets vers './sources'
-npm run import
-
 # crée les tables dans la base de données
 # et importe les données depuis './sources'
 npm run migrate
@@ -60,6 +57,9 @@ npm run migrate
 # met à jour les données
 npm run monthly
 npm run daily
+
+# créer un utilisateur admin
+npm run user-add
 ```
 
 ---
