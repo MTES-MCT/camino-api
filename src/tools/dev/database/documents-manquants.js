@@ -15,7 +15,7 @@ async function main() {
   )
 
   const pdfFiles = fs.readdirSync('././././files')
-  const pdfNames = pdfFiles.map(pdfFile => path.basename(pdfFile))
+  const pdfNames = pdfFiles.map(pdfFile => path.basename(pdfFile, '.pdf'))
 
   const pdfMiss = pdfNames.filter(
     pdfName => titresDocumentsListe.indexOf(pdfName) === -1
