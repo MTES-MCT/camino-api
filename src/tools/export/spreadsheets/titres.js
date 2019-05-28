@@ -190,7 +190,7 @@ const tables = [
       'amodiataires',
       'administrations'
     ],
-    parents: ['demarches', 'etapes', 'erreurs']
+    parents: ['demarches', 'etapes', 'incertitudes']
   }
 ]
 

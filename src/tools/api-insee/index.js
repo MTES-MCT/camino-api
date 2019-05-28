@@ -190,20 +190,32 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
 }
 
 const nomEntrepriseFormat = (e, usuel) => {
-  let denomination = usuel
-    ? e.denominationUsuelle1UniteLegale &&
-      e.denominationUsuelle1UniteLegale.trim()
-    : e.denominationUniteLegale && e.denominationUniteLegale.trim()
+  const denomination =
+    e.denominationUniteLegale && e.denominationUniteLegale.trim()
+
+  const denominationUsuelle =
+    e.denominationUsuelle1UniteLegale &&
+    e.denominationUsuelle1UniteLegale.trim()
 
   const sigle = e.sigleUniteLegale && e.sigleUniteLegale.trim()
 
-  if (!denomination && !sigle) return null
+  // priorise la dénomination officielle
+  // par rapport à la dénomination usuelle
+  let nom = denomination || denominationUsuelle
 
-  if (!denomination) return sigle
+  if (!nom && !sigle) return null
 
-  if (!sigle || denomination === sigle) return denomination
+  // si le nom n'est pas rempli, retourne le sigle
+  if (!nom) return sigle
 
-  return `${denomination} (${sigle})`
+  // si le sigle est rempli
+  // et qu'il est différent du nom
+  if (sigle && nom !== sigle) {
+    // alors concatène le nom et le sigle (différent du nom)
+    return `${nom} (${sigle})`
+  }
+
+  return nom
 }
 
 const nomIndividuFormat = e =>
@@ -211,6 +223,13 @@ const nomIndividuFormat = e =>
     e.prenomUsuelUniteLegale
   } ${e.nomUniteLegale}`
 
+/**
+ * Formate le nom d'une entreprise ou établissement
+ * @param {Object} e l'entité à formater
+ * @param {Boolean} usuel récupère le nom usuel ou non
+ *     si usuel est `true` et que l'entité est une personne
+ *     alors format le nom comme une entreprise
+ */
 const nomFormat = (e, usuel) =>
   e.nomUniteLegale && !usuel
     ? nomIndividuFormat(e)
