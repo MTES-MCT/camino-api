@@ -8,7 +8,7 @@ import * as path from 'path'
 
 async function main() {
   const titresDocuments = await titresDocumentsGet()
-  const titresDocumentsListe = titresDocuments.reduce(
+  const titresDocumentsFichiers = titresDocuments.reduce(
     (arr, titreDocument) =>
       titreDocument.fichier ? [...arr, titreDocument.fichier] : arr,
     []
@@ -17,27 +17,35 @@ async function main() {
   const pdfFiles = fs.readdirSync('././././files')
   const pdfNames = pdfFiles.map(pdfFile => path.basename(pdfFile, '.pdf'))
 
-  const pdfMiss = pdfNames.filter(
-    pdfName => titresDocumentsListe.indexOf(pdfName) === -1
+  const pdfMissing = pdfNames.filter(
+    pdfName => titresDocumentsFichiers.indexOf(pdfName) === -1
   )
 
-  if (pdfMiss.length === 0) {
+  if (pdfMissing.length === 0) {
     console.log('Tous les pdfs sont présents dans la base de données')
   } else {
-    console.log(`Il manque ${pdfMiss.length} pdfs  dans la base de données`)
-    console.log(pdfMiss.map(pdf => `- ${pdf}`).join('\n'))
+    console.log(
+      `${pdfMissing.length} pdfs n'existent pas dans la base de données`
+    )
+    console.log(pdfMissing.map(pdf => `- ${pdf}`).join('\n'))
   }
 
-  const titresDocumentsMiss = titresDocumentsListe.filter(
+  const titreDocumentsFichiersMissing = titresDocumentsFichiers.filter(
     titresDocumentsName => pdfNames.indexOf(titresDocumentsName) === -1
   )
-  if (titresDocumentsMiss.length === 0) {
-    console.log('Tous les documents sont présents dans les fichiers')
+  if (titreDocumentsFichiersMissing.length === 0) {
+    console.log(
+      'Tous les noms de fichiers renseignés en base de données existent'
+    )
   } else {
     console.log(
-      `Il manque ${titresDocumentsMiss.length} documents dans les fichiers`
+      `${
+        titreDocumentsFichiersMissing.length
+      } noms de fichiers renseignés en base de données n'existent pas`
     )
-    console.log(titresDocumentsMiss.map(titres => `- ${titres}`).join('\n'))
+    console.log(
+      titreDocumentsFichiersMissing.map(titres => `- ${titres}`).join('\n')
+    )
   }
 
   process.exit(0)
