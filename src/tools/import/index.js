@@ -44,7 +44,7 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
 
     filesList.forEach(({ path, cb }, i) => {
       // applique le callback si il existe
-      const json = cb ? cb(jsons[i]) : jsons[i]
+      const json = cb ? cb(jsons[i], path) : jsons[i]
 
       fileCreate(path, JSON.stringify(json, null, 2))
     })
