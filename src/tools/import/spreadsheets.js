@@ -21,11 +21,17 @@ const titresActivitesSpreadsheetId =
 const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 
-const jsonParse = value => json =>
+const jsonParse = value => (json, table) =>
   json.map(row =>
     Object.keys(row).reduce((res, col) => {
-      res[col] = col === value ? JSON.parse(row[col]) : row[col]
-      return res
+      try {
+        res[col] = col === value ? JSON.parse(row[col]) : row[col]
+        return res
+      } catch (e) {
+        throw new Error(
+          `Could not parse field ${table}, ${col} = ${row[col]}: ${e.message}`
+        )
+      }
     }, {})
   )
 
