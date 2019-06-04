@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.20.0](https://github.com/MTES-MCT/camino-api/compare/v0.19.0...v0.20.0) (2019-06-04)
+
+
+### Bug Fixes
+
+* **import:** explicite l'erreur lors du formatage JSON ([#82](https://github.com/MTES-MCT/camino-api/issues/82)) ([d66ff14](https://github.com/MTES-MCT/camino-api/commit/d66ff14))
+* **insee:** privilégie le nom de l'unité légale face au nom usuel ([#81](https://github.com/MTES-MCT/camino-api/issues/81)) ([19fa632](https://github.com/MTES-MCT/camino-api/commit/19fa632))
+* **migrate:** corrige la longueur des messages d'erreurs du seed lors de la migration ([#83](https://github.com/MTES-MCT/camino-api/issues/83)) ([202a720](https://github.com/MTES-MCT/camino-api/commit/202a720))
+* **migrate:** corrige un commentaire ([#84](https://github.com/MTES-MCT/camino-api/issues/84)) ([a944eed](https://github.com/MTES-MCT/camino-api/commit/a944eed))
+* vérifie la validité des amodiataires pour les propriétés de titres ([#64](https://github.com/MTES-MCT/camino-api/issues/64)) ([2d1e273](https://github.com/MTES-MCT/camino-api/commit/2d1e273))
+* **tasks:** corrige le calcul de la date d'octroi ([#77](https://github.com/MTES-MCT/camino-api/issues/77)) ([a352ecd](https://github.com/MTES-MCT/camino-api/commit/a352ecd))
+
+
+### Build System
+
+* met à jour les dépendances ([e7f53c4](https://github.com/MTES-MCT/camino-api/commit/e7f53c4))
+* supprime une dépendance inutile ([f6b6aaa](https://github.com/MTES-MCT/camino-api/commit/f6b6aaa))
+
+
+### Features
+
+* **tools:** vérifie que les documents sont présents en base [#80](https://github.com/MTES-MCT/camino-api/issues/80) ([e3e3107](https://github.com/MTES-MCT/camino-api/commit/e3e3107))
+
+
+
 ## [0.19.0](https://github.com/MTES-MCT/camino-api/compare/v0.18.0...v0.19.0) (2019-05-23)
 
 
