@@ -15,8 +15,8 @@ module.exports = func => knex => {
     return knex(table)
       .insert(data)
       .catch(e => {
-        // Si le message d'erreur est trop long
-        // Réduit la taille du message d'erreur à 100 caracters
+        // Récupère le message d'erreur provenant de la base de données
+        // ex : `value too long for type character varying(255)`
         const problem = e.message.split(' - ').pop()
         const message = `Table "${table}" - ${problem}`
 
