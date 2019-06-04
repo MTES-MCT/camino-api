@@ -1,5 +1,7 @@
 const decamelize = require('decamelize')
 
+const seeding = require('../seeding')
+
 const domaineIds = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
 
 const files = [
@@ -28,47 +30,41 @@ const data = files.reduce(
   {}
 )
 
-exports.seed = (knex, Promise) =>
-  Promise.all([
-    knex('titresEmprises').del(),
-    knex('titresSubstances').del(),
-    knex('titresPointsReferences').del(),
-    knex('titresTitulaires').del(),
-    knex('titresAmodiataires').del(),
-    knex('titresIncertitudes').del(),
-    knex('titresDocuments').del()
+exports.seed = seeding(async ({ del, insert }) => {
+  await Promise.all([
+    del('titresEmprises'),
+    del('titresSubstances'),
+    del('titresPointsReferences'),
+    del('titresTitulaires'),
+    del('titresAmodiataires'),
+    del('titresIncertitudes'),
+    del('titresDocuments')
   ])
-    .then(() => knex('titresPoints').del())
-    .then(() =>
-      Promise.all([
-        knex('titresEtapes').del(),
-        knex('titresPhases').del(),
-        knex('titresDemarchesLiens').del()
-      ])
-    )
-    .then(() => knex('titresDemarches').del())
-    .then(() => knex('titres').del())
-    .then(() => knex('titres').insert(data.titres))
-    .then(() => knex('titresDemarches').insert(data.titresDemarches))
-    .then(() =>
-      Promise.all([
-        knex('titresEtapes').insert(data.titresEtapes),
-        knex('titresDemarchesLiens').insert(data.titresDemarchesLiens)
-      ])
-    )
-    .then(() =>
-      Promise.all([
-        knex('titresSubstances').insert(data.titresSubstances),
-        knex('titresPoints').insert(data.titresPoints),
-        knex('titresEmprises').insert(data.titresEmprises),
-        knex('titresTitulaires').insert(data.titresTitulaires),
-        knex('titresAmodiataires').insert(data.titresAmodiataires),
-        knex('titresIncertitudes').insert(data.titresIncertitudes),
-        knex('titresDocuments').insert(data.titresDocuments)
-      ])
-    )
-    .then(() =>
-      knex('titresPointsReferences').insert(data.titresPointsReferences)
-    )
+  await del('titresPoints')
+  await Promise.all([
+    del('titresEtapes'),
+    del('titresPhases'),
+    del('titresDemarchesLiens')
+  ])
+  await del('titresDemarches')
+  await del('titres')
+
+  await insert('titres', data.titres)
+  await insert('titresDemarches', data.titresDemarches)
+  await Promise.all([
+    insert('titresEtapes', data.titresEtapes),
+    insert('titresDemarchesLiens', data.titresDemarchesLiens)
+  ])
+  await Promise.all([
+    insert('titresSubstances', data.titresSubstances),
+    insert('titresPoints', data.titresPoints),
+    insert('titresEmprises', data.titresEmprises),
+    insert('titresTitulaires', data.titresTitulaires),
+    insert('titresAmodiataires', data.titresAmodiataires),
+    insert('titresIncertitudes', data.titresIncertitudes),
+    insert('titresDocuments', data.titresDocuments)
+  ])
+  await insert('titresPointsReferences', data.titresPointsReferences)
+})
 
 exports.data = data
