@@ -1,3 +1,5 @@
+const seeding = require('../seeding')
+
 const domaines = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
 
 const entreprises = domaines.reduce(
@@ -46,22 +48,15 @@ const entr = findDuplicates(entreprises, 'id')
 findMissing(entreprises, entreprisesEtablissements, 'id', 'entreprise_id')
 findMissing(administrationsTypes, administrations, 'id', 'type_id')
 
-exports.seed = (knex, Promise) =>
-  Promise.all([
-    knex('entreprisesEtablissements').del(),
-    knex('administrations').del()
+exports.seed = seeding(async ({ del, insert }) => {
+  await Promise.all([del('entreprisesEtablissements'), del('administrations')])
+  await del('entreprises')
+
+  await Promise.all([
+    insert('entreprises', entr),
+    insert('administrations_types', administrationsTypes)
   ])
-    .then(() => knex('entreprises').del())
-    .then(() =>
-      Promise.all([
-        knex('entreprises').insert(entr),
-        knex('administrations_types').insert(administrationsTypes)
-      ])
-    )
-    .then(() => knex('administrations').insert(administrations))
-    .then(() =>
-      knex('administrations__domaines').insert(administrationsDomaines)
-    )
-    .then(() =>
-      knex('entreprisesEtablissements').insert(entreprisesEtablissements)
-    )
+  await insert('administrations', administrations)
+  await insert('administrations__domaines', administrationsDomaines)
+  await insert('entreprisesEtablissements', entreprisesEtablissements)
+})
