@@ -89,7 +89,7 @@
     "p-queue": "^5.0.0",
     "pg": "^7.11.0",
     "pg-escape": "^0.2.0",
-    "typescript": "^3.5.1"
+    "typescript": "3.4.5"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
