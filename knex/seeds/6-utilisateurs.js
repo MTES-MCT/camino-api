@@ -1,7 +1,11 @@
+const seeding = require('../seeding')
+
 const utilisateurs = require('../../sources/utilisateurs.json')
 const permissions = require('../../sources/permissions.json')
 
-exports.seed = (knex, Promise) =>
-  Promise.all([knex('utilisateurs').del(), knex('permissions').del()])
-    .then(() => knex('permissions').insert(permissions))
-    .then(() => knex('utilisateurs').insert(utilisateurs))
+exports.seed = seeding(async ({ del, insert }) => {
+  await Promise.all([del('utilisateurs'), del('permissions')])
+
+  await insert('permissions', permissions)
+  await insert('utilisateurs', utilisateurs)
+})
