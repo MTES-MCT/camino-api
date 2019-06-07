@@ -1,3 +1,4 @@
+import * as dateFormat from 'dateformat'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 
 /**
@@ -11,10 +12,14 @@ const titreDateFinFind = titreDemarches => {
   const titreDemarche = titreDemarches.find(titreDemarche =>
     ['acc', 'ter'].includes(titreDemarche.statutId)
   )
+
   const dateFin =
     titreDemarche &&
-    titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
-      .dateFin
+    dateFormat(
+      titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
+        .dateFin,
+      'yyyy-mm-dd'
+    )
 
   return dateFin
 }
