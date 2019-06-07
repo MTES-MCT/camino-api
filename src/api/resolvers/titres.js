@@ -46,7 +46,7 @@ const titre = async ({ id }, context, info) => {
     return titre
   }
 
-  const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
+  const titreIsPublic = titreIsPublicTest(titre)
 
   if (titreIsPublic) {
     return titreRestrictions(titre)
@@ -97,7 +97,7 @@ const titres = async (
       return titre
     }
 
-    const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
+    const titreIsPublic = titreIsPublicTest(titre)
 
     if (titreIsPublic) {
       return titreRestrictions(titre)

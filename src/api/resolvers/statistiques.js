@@ -8,7 +8,7 @@ const statistiques = async () => {
   const titresTotal = titres.length
 
   const titresValide = titres.filter(titre => {
-    const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
+    const titreIsPublic = titreIsPublicTest(titre)
 
     return titreIsPublic ? titre : null
   }).length
