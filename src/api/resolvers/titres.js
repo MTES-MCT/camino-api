@@ -34,25 +34,34 @@ const titreRestrictions = titre => {
   return titre
 }
 
+const titrePermissionsCheck = (user, titre) => {
+  const userHasAccess = user && auth(user, titre, ['admin', 'super', 'editeur'])
+
+  // Si l'utilisateur est authentifié et qu'il a un droit d'accès supérieur
+  // alors il peut voir n'importe quel titre
+  if (userHasAccess) {
+    return titre
+  }
+
+  const titreIsPublic = titreIsPublicTest(titre)
+
+  // Sinon, que l'utilisateur soit authentifié ou non
+  // on vérifie si le titre est public
+  if (titreIsPublic) {
+    return titreRestrictions(titre)
+  }
+
+  return null
+}
+
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id)
 
   if (!titre) return null
 
   const user = context.user && (await utilisateurGet(context.user.id))
-  const userHasAccess = user && auth(user, titre, ['admin', 'super', 'editeur'])
 
-  if (userHasAccess) {
-    return titre
-  }
-
-  const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
-
-  if (titreIsPublic) {
-    return titreRestrictions(titre)
-  }
-
-  return null
+  return titrePermissionsCheck(user, titre)
 }
 
 const titres = async (
@@ -89,22 +98,7 @@ const titres = async (
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titres.filter(titre => {
-    const userHasAccess =
-      user && auth(user, titre, ['admin', 'super', 'editeur'])
-
-    if (userHasAccess) {
-      return titre
-    }
-
-    const titreIsPublic = titreIsPublicTest(titre.domaineId, titre.statutId)
-
-    if (titreIsPublic) {
-      return titreRestrictions(titre)
-    }
-
-    return null
-  })
+  return titres.filter(titre => titrePermissionsCheck(user, titre))
 }
 
 const titreAjouter = async ({ titre }, context, info) => {

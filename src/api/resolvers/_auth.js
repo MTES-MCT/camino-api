@@ -5,21 +5,31 @@ const auth = (user, titre, permissions, amodiatairePriority) => {
     return false
   }
 
-  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
-  const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
-
   // soit l'utilisateur a les permissions
-  // soit l'utilisateur est dans le groupe 'entreprise', dans ce cas:
+  if (permissionsCheck(user, permissions)) {
+    return true
+  }
+
+  // soit l'utilisateur n'est pas dans le groupe 'entreprise'
+  if (!permissionsCheck(user, ['entreprise'])) {
+    return false
+  }
+
+  // sinon, s'il est dans le groupe 'entreprise' :
+
   // - si il est amodiataire, il est autorisé
+  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
+
+  if (isAmodiataire) {
+    return true
+  }
+
   // - si il est titulaire il est autorisé,
   //   - si la condition 'amodiatairePriority' est FALSE,
-  //   - ou si la  si il n'y a aucun amodiataire
-  return (
-    permissionsCheck(user, permissions) ||
-    (permissionsCheck(user, ['entreprise']) &&
-      (isAmodiataire ||
-        (isTitulaire && (!amodiatairePriority || !titre.amodiataires.length))))
-  )
+  //   - ou si il n'y a aucun amodiataire
+  const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
+
+  return isTitulaire && (!amodiatairePriority || !titre.amodiataires.length)
 }
 
 export default auth
