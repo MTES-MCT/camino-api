@@ -47,7 +47,9 @@ const titreDateDebutFind = (titreDemarches, titreTypeId) => {
       titreDemarche.typeId === 'oct'
   )
 
-  return titreDemarche && titreDemarcheDateDebutFind(titreDemarche, titreTypeId)
+  if (!titreDemarche) return null
+
+  return titreDemarcheDateDebutFind(titreDemarche, titreTypeId)
 }
 
 export default titreDateDebutFind

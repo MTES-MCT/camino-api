@@ -50,6 +50,11 @@ describe("met à jour la propriété calculée d'un titre", () => {
     )
     expect(titresQueries.titrePropsUpdate).not.toHaveBeenCalled()
   })
+
+  test('un titre avec une propriété date est pas mis à jour', async () => {
+    titrePropUpdate(titreValide, 'dateDebut', '2008-12-12T23:00:00.000Z')
+    expect(titresQueries.titrePropsUpdate).toHaveBeenCalled()
+  })
 })
 
 describe('met à jour le titre et ses dépendances', () => {

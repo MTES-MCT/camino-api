@@ -1,3 +1,5 @@
+import * as dateFormat from 'dateformat'
+
 import {
   titrePropsUpdate as titrePropsUpdateQuery,
   titreIdUpdate as titreIdUpdateQuery
@@ -24,12 +26,20 @@ const titreStatutIdUpdate = (titre, statutId) =>
     props: { statutId }
   }).then(u => `Mise à jour: titre ${titre.id}, statutId ${statutId}`)
 
-const titrePropUpdate = (titre, prop, value) =>
-  value !== titre[prop] &&
-  titrePropsUpdateQuery({
-    id: titre.id,
-    props: { [prop]: value }
-  }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${value}`)
+const titrePropUpdate = (titre, prop, value) => {
+  const valueOld =
+    titre[prop] instanceof Date
+      ? dateFormat(titre[prop], 'yyyy-mm-dd')
+      : titre[prop]
+
+  return (
+    value !== valueOld &&
+    titrePropsUpdateQuery({
+      id: titre.id,
+      props: { [prop]: value }
+    }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${value}`)
+  )
+}
 
 const titreIdsUpdate = (titreOldId, titreNew) =>
   titreIdUpdateQuery(titreOldId, titreNew).then(

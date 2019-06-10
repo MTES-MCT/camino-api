@@ -13,15 +13,13 @@ const titreDateFinFind = titreDemarches => {
     ['acc', 'ter'].includes(titreDemarche.statutId)
   )
 
-  const dateFin =
-    titreDemarche &&
-    dateFormat(
-      titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
-        .dateFin,
-      'yyyy-mm-dd'
-    )
+  if (!titreDemarche) return null
 
-  return dateFin
+  return dateFormat(
+    titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
+      .dateFin,
+    'yyyy-mm-dd'
+  )
 }
 
 export default titreDateFinFind
