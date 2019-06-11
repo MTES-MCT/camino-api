@@ -13,6 +13,7 @@ import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-i
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
+import titresDateDebutDateFinUpdate from './processes/titres-date-fin-date-debut-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
@@ -52,11 +53,16 @@ const run = async () => {
     titres = await titresGet()
     const titresPhases = await titresPhasesUpdate(titres)
 
+    // 6.
+    // date de début et de fin d'un titre
+    titres = await titresGet()
+    const titresDateDebutDateFin = await titresDateDebutDateFinUpdate(titres)
+
+    // 7.
+    // communes associées aux étapes
     let titresEtapes
     let titresEtapesCommunes
     if (process.env.GEO_API_URL) {
-      // 6.
-      // communes associées aux étapes
       titresEtapes = await titresEtapesGet()
       const communes = await communesGet()
       titresEtapesCommunes = await titresEtapesCommunesUpdate(
@@ -69,7 +75,7 @@ const run = async () => {
       ]
     }
 
-    // 7.
+    // 8.
     // administrations associées aux étapes
     titres = await titresGet()
     const administrations = await administrationsGet()
@@ -78,13 +84,13 @@ const run = async () => {
       administrations
     )
 
-    // 8.
+    // 9.
     // propriétés des titres
     // en fonction de la chronologie des démarches
     titres = await titresGet()
     const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
-    // 9.
+    // 10.
     // activités
     // crée les activités manquantes en fonction des titres
     // pour les année 2018 et 2019 (en dur)
@@ -98,7 +104,7 @@ const run = async () => {
       annees
     )
 
-    // 10.
+    // 11.
     // id de titres
     // met à jour les ids de titres, démarches, étapes et sous-éléments
     titres = await titresGet(
@@ -122,6 +128,7 @@ const run = async () => {
     console.log(titresDemarchesOrdre)
     console.log(titresStatutIds)
     console.log(titresPhases)
+    console.log(titresDateDebutDateFin)
     console.log(titresEtapesCommunes.join('\n'))
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)

@@ -9,6 +9,8 @@ exports.up = knex => {
       .notNullable()
       .defaultTo('ind')
     table.jsonb('references')
+    table.date('dateDebut')
+    table.date('dateFin')
   })
 }
 

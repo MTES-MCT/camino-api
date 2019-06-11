@@ -1,6 +1,7 @@
 const titreValide = {
   id: 'm-prx-saint-pierre-2014',
   statutId: 'val',
+  dateDebut: new Date('2008-12-12T23:00:00.000Z'),
   demarches: [
     {
       id: 'm-prx-saint-pierre-2014-oct01',

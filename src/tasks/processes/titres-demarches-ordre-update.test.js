@@ -12,7 +12,7 @@ jest.mock('../queries/titre-demarches', () => ({
 console.log = jest.fn()
 
 describe("met à jour l'ordre de toutes les démarches d'un titre", () => {
-  test("met à jour l' ordre de deux démarches", async () => {
+  test("met à jour l'ordre de deux démarches", async () => {
     titreDemarches.titreDemarchesOrdreUpdate = () =>
       [1, 2].map(p => Promise.resolve(p))
 
