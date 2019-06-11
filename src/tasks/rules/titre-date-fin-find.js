@@ -3,7 +3,7 @@ import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-fi
 
 /**
  * Trouve la date de fin d'un titre
- * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titres
+ * @param {titreDemarche[]} titreDemarches la liste des démarches d'un titre
  * @return {String} la date de fin du titre sous forme yyyy-mm-dd
  */
 
