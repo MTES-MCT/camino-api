@@ -1,8 +1,9 @@
+import * as dateFormat from 'dateformat'
+
 import {
   titrePropsUpdate as titrePropsUpdateQuery,
   titreIdUpdate as titreIdUpdateQuery
 } from '../../database/queries/titres'
-import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
 const calculatedProps = [
   'points',
@@ -25,16 +26,18 @@ const titreStatutIdUpdate = (titre, statutId) =>
     props: { statutId }
   }).then(u => `Mise à jour: titre ${titre.id}, statutId ${statutId}`)
 
-const titrePropsUpdate = (titre, prop) => {
-  const propEtapeIdName = `${prop}TitreEtapeId`
-  const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
+const titrePropUpdate = (titre, prop, value) => {
+  const valueOld =
+    titre[prop] instanceof Date
+      ? dateFormat(titre[prop], 'yyyy-mm-dd')
+      : titre[prop]
 
   return (
-    etapeId !== titre[propEtapeIdName] &&
+    value !== valueOld &&
     titrePropsUpdateQuery({
       id: titre.id,
-      props: { [propEtapeIdName]: etapeId }
-    }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${etapeId}`)
+      props: { [prop]: value }
+    }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${value}`)
   )
 }
 
@@ -43,9 +46,4 @@ const titreIdsUpdate = (titreOldId, titreNew) =>
     u => `Mise à jour: titre ids: ${titreNew.id}`
   )
 
-export {
-  calculatedProps,
-  titreStatutIdUpdate,
-  titrePropsUpdate,
-  titreIdsUpdate
-}
+export { calculatedProps, titreStatutIdUpdate, titrePropUpdate, titreIdsUpdate }
