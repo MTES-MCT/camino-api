@@ -1,4 +1,4 @@
-import titresDateFinDateDebutUpdate from './titres-date-fin-date-debut-update'
+import titresDateFinDateDebutUpdate from './titres-dates-update'
 import { titrePropUpdate } from '../queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
@@ -22,13 +22,13 @@ describe("met à jour les dates de début et de fin d'un titre", () => {
     titrePropUpdate.mockImplementation(() => Promise.resolve('Mise à jour…'))
 
     const titresDateFinDateDebutUpdateLog = await titresDateFinDateDebutUpdate([
-      { type: { id: 'titre-id' } }
+      { type: { id: 'titre-id' }, statut: { id: 'titre-statut-id' } }
     ])
 
     expect(titresDateFinDateDebutUpdateLog).toEqual(
-      'Mise à jour: 2 dates de titres.'
+      'Mise à jour: 3 dates de titres.'
     )
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.log).toHaveBeenCalledTimes(3)
   })
 
   test("aucune mise à jour n'est effectuée", async () => {
@@ -37,7 +37,7 @@ describe("met à jour les dates de début et de fin d'un titre", () => {
     titrePropUpdate.mockImplementation(() => false)
 
     const titresDateFinDateDebutUpdateLog = await titresDateFinDateDebutUpdate([
-      { type: { id: 'titre-id' } }
+      { type: { id: 'titre-type-id' }, statut: { id: 'titre-statut-id' } }
     ])
 
     expect(titresDateFinDateDebutUpdateLog).toEqual(

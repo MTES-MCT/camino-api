@@ -53,6 +53,9 @@ type Titre {
   "La date de fin d'un titre"
   dateFin: Date
 
+  "La date de demande initiale d'un titre"
+  dateDemande: Date
+
   "Les démarches effectuées sur le titre"
   demarches: [Demarche]
 

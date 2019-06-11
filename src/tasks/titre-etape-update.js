@@ -4,13 +4,13 @@ import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import { titreEtapeGet } from '../database/queries/titres-etapes'
 import { communesGet } from '../database/queries/territoires'
-import { titreFormat } from '../database/queries/_format'
 
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
+import titresDatesUpdate from './processes/titres-dates-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titreIdUpdate from './processes/titre-id-update'
@@ -44,15 +44,19 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // phases du titre
   // en fonction des démarches et de la date du jour
   titre = await titreGet(titreId)
-  const titresPhases = await titresPhasesUpdate([titre])
+  const titrePhases = await titresPhasesUpdate([titre])
+
+  // date de début, de fin et de demande initiale d'un titre
+  titre = await titreGet(titreId)
+  const titreDates = await titresDatesUpdate([titre])
 
   // communes associées à l'étapes
-  let titresEtapesCommunes
+  let titreEtapesCommunes
   // si l'étape est supprimée, pas de mise à jour
   if (titreEtapeId) {
     let titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
     const communes = await communesGet()
-    titresEtapesCommunes = await titresEtapeCommunesUpdate(
+    titreEtapesCommunes = await titresEtapeCommunesUpdate(
       [titreEtape],
       communes
     )
@@ -61,7 +65,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // propriétés du titre
   // en fonction des démarches et de la date du jour
   titre = await titreGet(titreId)
-  const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
+  const titrePropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
   // met à jour l'id des étapes
   // met à jour l'id du titres, des démarches et des étapes
@@ -72,11 +76,12 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   console.log(titreDemarcheStatutId)
   console.log(titreDemarchesOrdre)
   console.log(titreStatutIds)
-  console.log(titresPhases)
-  if (titresEtapesCommunes) {
-    console.log(titresEtapesCommunes.join('\n'))
+  console.log(titrePhases)
+  console.log(titreDates)
+  if (titreEtapesCommunes) {
+    console.log(titreEtapesCommunes.join('\n'))
   }
-  console.log(titresPropsEtapeId)
+  console.log(titrePropsEtapeId)
 
   console.log('Étape mise à jour')
 

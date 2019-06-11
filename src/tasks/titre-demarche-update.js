@@ -1,11 +1,10 @@
 import '../database/index'
 import { titreGet } from '../database/queries/titres'
-import { titreDemarcheGet } from '../database/queries/titres-demarches'
-import { titreFormat } from '../database/queries/_format'
 
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
+import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titreIdUpdate from './processes/titre-id-update'
 
@@ -32,9 +31,14 @@ const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
   // phases du titre
   // en fonction des démarches et de la date du jour
   titre = await titreGet(titreId)
-  const titresPhases = await titresPhasesUpdate([titre])
+  const titrePhases = await titresPhasesUpdate([titre])
 
   // 5.
+  // date de début, de fin et de demande initiale d'un titre
+  titre = await titreGet(titreId)
+  const titreDates = await titresDatesUpdate([titre])
+
+  // 6.
   // id du titre
   // met à jour l'id du titres, des démarches et des étapes
   titre = await titreGet(titreId, false)
@@ -43,7 +47,8 @@ const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
   console.log(titreDemarchesOrdre)
   console.log(titresPropsEtapeId)
   console.log(titreStatutIds)
-  console.log(titresPhases)
+  console.log(titrePhases)
+  console.log(titreDates)
 
   console.log('Démarche mise à jour')
 
