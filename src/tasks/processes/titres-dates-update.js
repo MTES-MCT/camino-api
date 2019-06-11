@@ -1,8 +1,9 @@
 import { titrePropUpdate } from '../queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
+import titreDateDemandeFind from '../rules/titre-date-demande-find'
 
-const titresDateDebutDateFinUpdate = async titres => {
+const titresDatesUpdate = async titres => {
   const titresDateDebutDateFinQueries = titres.reduce((acc, titre) => {
     const dateFin = titreDateFinFind(titre.demarches)
     const titreDateFinUpdated = titrePropUpdate(titre, 'dateFin', dateFin)
@@ -17,6 +18,18 @@ const titresDateDebutDateFinUpdate = async titres => {
     if (titreDateDebutUpdated) {
       acc.push(titreDateDebutUpdated)
     }
+
+    const dateDemande = titreDateDemandeFind(titre.demarches, titre.statut.id)
+    const titreDateDemandeUpdated = titrePropUpdate(
+      titre,
+      'dateDemande',
+      dateDemande
+    )
+
+    if (titreDateDemandeUpdated) {
+      acc.push(titreDateDemandeUpdated)
+    }
+
     return acc
   }, [])
 
@@ -31,4 +44,4 @@ const titresDateDebutDateFinUpdate = async titres => {
   return `Mise à jour: ${titresDateDebutDateFinQueries.length} dates de titres.`
 }
 
-export default titresDateDebutDateFinUpdate
+export default titresDatesUpdate
