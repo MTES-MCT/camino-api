@@ -1,12 +1,7 @@
-import { titreStatutIdUpdate, titrePropsUpdate, titreIdsUpdate } from './titres'
+import { titreStatutIdUpdate, titrePropUpdate, titreIdsUpdate } from './titres'
 import * as titresQueries from '../../database/queries/titres'
 
-import {
-  titreValide,
-  titreOldId,
-  titreOld,
-  titreNew
-} from './__mocks__/titres-titres'
+import { titreValide, titreOldId, titreNew } from './__mocks__/titres-titres'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
@@ -39,13 +34,26 @@ describe("met à jour le statut d'un titre", () => {
 
 describe("met à jour la propriété calculée d'un titre", () => {
   test("un titre avec une propriété dont l'étape est différente est mis à jour", async () => {
-    titrePropsUpdate(titreValide, 'points')
+    titrePropUpdate(
+      titreValide,
+      'pointsEtapeId',
+      'm-prx-saint-pierre-2014-oct01-dpu02'
+    )
     expect(titresQueries.titrePropsUpdate).toHaveBeenCalled()
   })
 
   test("un titre avec une propriété dont l'étape est la même n'est pas mis à jour", async () => {
-    titrePropsUpdate(titreValide, 'substances')
+    titrePropUpdate(
+      titreValide,
+      'substancesTitreEtapeId',
+      'm-prx-saint-pierre-2014-oct01-dpu01'
+    )
     expect(titresQueries.titrePropsUpdate).not.toHaveBeenCalled()
+  })
+
+  test('un titre avec une propriété date est pas mis à jour', async () => {
+    titrePropUpdate(titreValide, 'dateDebut', '2008-12-12T23:00:00.000Z')
+    expect(titresQueries.titrePropsUpdate).toHaveBeenCalled()
   })
 })
 

@@ -1,5 +1,4 @@
 import titreIdUpdate from './titre-id-update'
-import { titreIdUpdate as titreIdUpdateQuery } from '../queries/titres'
 
 const titresIdsUpdate = async titresOld => {
   const titresNews = await titresOld.reduce(async (titresNews, titreOld) => {

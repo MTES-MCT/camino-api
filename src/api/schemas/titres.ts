@@ -47,6 +47,12 @@ type Titre {
   "Les communes du titre dans son dernier état de validité"
   pays: [Pays]
 
+  "La date de début d'un titre"
+  dateDebut: Date
+
+  "La date de fin d'un titre"
+  dateFin: Date
+
   "Les démarches effectuées sur le titre"
   demarches: [Demarche]
 
