@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.21.0](https://github.com/MTES-MCT/camino-api/compare/v0.20.0...v0.21.0) (2019-06-11)
+
+
+### Bug Fixes
+
+* corrige l'importation de p-queue qui a changé ([e947ba7](https://github.com/MTES-MCT/camino-api/commit/e947ba7))
+* **migrate:** corrige l'insertion de plus de 10 000 éléments ([#85](https://github.com/MTES-MCT/camino-api/issues/85)) ([ff287b4](https://github.com/MTES-MCT/camino-api/commit/ff287b4))
+
+
+### Build System
+
+* ajoute la coloration pour le plugin vscode/peacock ([266b376](https://github.com/MTES-MCT/camino-api/commit/266b376))
+* met à jour les dépendances ([4555862](https://github.com/MTES-MCT/camino-api/commit/4555862))
+
+
+### Features
+
+* **import:** ajout du script pour valider l'import ([#89](https://github.com/MTES-MCT/camino-api/issues/89)) ([9d80da7](https://github.com/MTES-MCT/camino-api/commit/9d80da7))
+* calcule et expose la date de demande initiale ([#88](https://github.com/MTES-MCT/camino-api/issues/88)) ([5ca265d](https://github.com/MTES-MCT/camino-api/commit/5ca265d))
+* calcule les dates de début et de fin d'un titre ([#87](https://github.com/MTES-MCT/camino-api/issues/87)) ([eaaec19](https://github.com/MTES-MCT/camino-api/commit/eaaec19))
+* **permissions:** oblige l'authentification pour voir les titres de type ARM ([#86](https://github.com/MTES-MCT/camino-api/issues/86)) ([61cfdf0](https://github.com/MTES-MCT/camino-api/commit/61cfdf0))
+* mise à jour des dépendances ([9c37fe6](https://github.com/MTES-MCT/camino-api/commit/9c37fe6))
+
+
+
 ## [0.20.0](https://github.com/MTES-MCT/camino-api/compare/v0.19.0...v0.20.0) (2019-06-04)
 
 
