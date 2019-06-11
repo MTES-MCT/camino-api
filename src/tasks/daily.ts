@@ -13,7 +13,7 @@ import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-i
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
-import titresDateDebutDateFinUpdate from './processes/titres-date-fin-date-debut-update'
+import titresDatesUpdate from './processes/titres-dates-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
@@ -54,9 +54,9 @@ const run = async () => {
     const titresPhases = await titresPhasesUpdate(titres)
 
     // 6.
-    // date de début et de fin d'un titre
+    // date de début, de fin et de demande initiale d'un titre
     titres = await titresGet()
-    const titresDateDebutDateFin = await titresDateDebutDateFinUpdate(titres)
+    const titresDates = await titresDatesUpdate(titres)
 
     // 7.
     // communes associées aux étapes
@@ -128,7 +128,7 @@ const run = async () => {
     console.log(titresDemarchesOrdre)
     console.log(titresStatutIds)
     console.log(titresPhases)
-    console.log(titresDateDebutDateFin)
+    console.log(titresDates)
     console.log(titresEtapesCommunes.join('\n'))
     console.log(titresEtapesAdministrations)
     console.log(titresPropsEtapeId)

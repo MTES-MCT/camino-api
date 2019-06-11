@@ -11,6 +11,7 @@ exports.up = knex => {
     table.jsonb('references')
     table.date('dateDebut')
     table.date('dateFin')
+    table.date('dateDemande')
   })
 }
 
