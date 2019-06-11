@@ -19,6 +19,7 @@
     "dev": "nodemon",
     "import": "rm -rf sources && mkdir sources && node ./dist/tools/import/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
+    "dev:import-check": "ts-node --transpile-only ./src/tools/dev/json/import-check.js",
     "export": "node ./dist/tools/export/index.js",
     "dev:export": "ts-node --transpile-only ./src/tools/export/index.js",
     "export:users": "node ./dist/tools/export/utilisateurs.js",
