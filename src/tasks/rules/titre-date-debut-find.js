@@ -28,11 +28,10 @@ const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
       (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
   )
 
-  // sinon retourne null
+  // si l'étape de dpu n'existe pas, ou n'a pas de date
   if (!titreEtapeDpuDate || !titreEtapeDpuDate.date) return null
 
-  // si l'étape de dpu existe
-  // la date de début est égale à la date de la dpu
+  // sinon la date de début est égale à la date de la dpu
   return dateFormat(titreEtapeDpuDate.date, 'yyyy-mm-dd')
 }
 
