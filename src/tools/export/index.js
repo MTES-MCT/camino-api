@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import '../../database/index'
-import * as PQueue from 'p-queue'
+import PQueue from 'p-queue'
 
 import dbToSpreadsheet from './_utils/db-to-spreadsheets'
 import spreadsheetsTitres from './spreadsheets/titres'
