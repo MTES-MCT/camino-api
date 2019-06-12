@@ -70,7 +70,7 @@ exports.up = knex => {
     })
     .createTable('utilisateurs', table => {
       table.string('id').primary()
-      table.string('email').notNullable()
+      table.string('email')
       table.string('motDePasse').notNullable()
       table.string('nom')
       table.string('prenom')

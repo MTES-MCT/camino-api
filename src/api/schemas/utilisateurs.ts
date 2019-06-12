@@ -1,7 +1,7 @@
 export default `
 type Utilisateur {
   id: ID!
-  email: String!
+  email: String
   nom: String
   prenom: String
   telephoneMobile: String
