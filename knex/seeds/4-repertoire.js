@@ -1,6 +1,6 @@
 const seeding = require('../seeding')
 
-const domaines = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
+const domaines = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const entreprises = domaines.reduce(
   (acc, domaine) =>
