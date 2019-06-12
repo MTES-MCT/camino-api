@@ -59,7 +59,7 @@ const titrePhaseDateDebutFind = (
     .filter(
       titreEtape =>
         titreEtape.typeId === 'dpu' ||
-        (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
+        (titreTypeId === 'axm' && ['dex', 'rpu'].includes(titreEtape.typeId)) ||
         (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
     )
     .find(te => te.dateDebut)
@@ -82,7 +82,7 @@ const titrePhaseDateDebutFind = (
   const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
     titreEtape =>
       titreEtape.typeId === 'dpu' ||
-      (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
+      (titreTypeId === 'axm' && ['dex', 'rpu'].includes(titreEtape.typeId)) ||
       (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
   )
 

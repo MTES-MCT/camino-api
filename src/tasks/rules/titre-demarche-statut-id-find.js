@@ -60,7 +60,8 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     if (
       ['acc', 'rej'].includes(titreEtapeRecent.statutId) &&
       (['dpu', 'dim'].includes(titreEtapeRecent.typeId) ||
-        (titreTypeId === 'axm' && ['dex'].includes(titreEtapeRecent.typeId)) ||
+        (titreTypeId === 'axm' &&
+          ['dex', 'rpu'].includes(titreEtapeRecent.typeId)) ||
         (titreTypeId === 'prx' && ['rpu'].includes(titreEtapeRecent.typeId)))
     ) {
       //  - le statut de la démarche est égal au statut de l’étape:
