@@ -2,7 +2,7 @@ const decamelize = require('decamelize')
 
 const seeding = require('../seeding')
 
-const domaineIds = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
+const domaineIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const files = [
   'titres',
