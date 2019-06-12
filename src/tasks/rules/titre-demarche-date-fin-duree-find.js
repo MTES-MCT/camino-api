@@ -158,9 +158,17 @@ const titreDemarcheAnnulationDateFinFind = titreDemarcheEtapes => {
 
 // trouve la date de fin d'une démarche de renonciation
 const titreDemarcheRenonciationDateFinFind = titreDemarcheEtapes => {
-  // la dernière étape dpu
+  // la dernière étape de dpu
+
   const etapeDpu = titreEtapesDescSort(titreDemarcheEtapes).find(
-    te => te.typeId === 'dpu'
+    te =>
+      te.typeId === 'dpu' ||
+      // ATTENTION ! l'étape de DEX n'est valide que pour les AXM
+      // or, le type de titre n'est pas passé à la fonction
+      // TODO: deux solutions :
+      // 1- ajout d'un paramètre `titreTypeId` partout où nécessaire
+      // 2- création d'une nouvelle étape DEP pour les AXM
+      te.typeId === 'dex'
   )
 
   // la date de fin est la date de l'étape
