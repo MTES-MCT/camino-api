@@ -17,7 +17,6 @@ export default class Utilisateurs extends Model {
       prenom: { type: ['string', 'null'] },
       telephone_fixe: { type: ['string', 'null'] },
       telephone_mobile: { type: ['string', 'null'] },
-      entrepriseId: { type: ['string', 'null'], maxLength: 64 },
       administrationId: { type: ['string', 'null'], maxLength: 64 },
       permissionId: { type: ['string', 'null'], maxLength: 12 },
       preferences: { type: ['json', 'null'] }
@@ -44,13 +43,27 @@ export default class Utilisateurs extends Model {
       }
     },
 
-    entreprise: {
-      relation: Model.BelongsToOneRelation,
+    entreprises: {
+      relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'entreprises'),
       join: {
-        from: 'utilisateurs.entrepriseId',
+        from: 'utilisateurs.id',
+        through: {
+          from: 'utilisateurs__entreprises.utilisateurId',
+          to: 'utilisateurs__entreprises.entrepriseId'
+        },
         to: 'entreprises.id'
       }
     }
+  }
+
+  $parseJson(json) {
+    json = super.$parseJson(json)
+    if (json.entreprisesIds) {
+      json.entreprises = json.entreprisesIds.map(id => ({ id }))
+      delete json.entreprisesIds
+    }
+
+    return json
   }
 }

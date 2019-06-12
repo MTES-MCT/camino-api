@@ -7,7 +7,7 @@ type Utilisateur {
   telephoneMobile: String
   telephoneFixe: String
   administration: Administration
-  entreprise: Entreprise
+  entreprises: [Entreprise]
   permission: Permission
   preferences: Json
 }
@@ -30,7 +30,7 @@ input InputUtilisateur {
   telephoneMobile: String
   telephoneFixe: String
   permissionId: ID
-  entrepriseId: ID
+  entreprisesIds: [ID]
   administrationId: ID
   preferences: Json
 }
@@ -43,7 +43,7 @@ input InputUtilisateurAjouter {
   telephoneMobile: String
   telephoneFixe: String
   permissionId: ID
-  entrepriseId: ID
+  entreprisesIds: [ID]
   administrationId: ID
   preferences: Json
 }`
