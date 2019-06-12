@@ -9,7 +9,6 @@ import {
   utilisateursGet,
   utilisateurAdd,
   utilisateurUpdate,
-  utilisateurRemove,
   utilisateurByEmailGet
 } from '../../database/queries/utilisateurs'
 
@@ -242,7 +241,14 @@ const utilisateurSupprimer = async ({ id }, context) => {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
-  return utilisateurRemove(id)
+  const utilisateur = await utilisateurGet(id)
+
+  utilisateur.email = null
+  utilisateur.telephoneFixe = null
+  utilisateur.telephoneMobile = null
+  utilisateur.permissionId = 'defaut'
+
+  return utilisateurUpdate(utilisateur)
 }
 
 const utilisateurMotDePasseModifier = async (
