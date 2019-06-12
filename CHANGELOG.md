@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.22.0](https://github.com/MTES-MCT/camino-api/compare/v0.21.0...v0.22.0) (2019-06-12)
+
+
+### Bug Fixes
+
+* **utilisateur:** efface les données lors de la suppression de compte et converti l'email en bas de casse ([#91](https://github.com/MTES-MCT/camino-api/issues/91)) ([f51f9bb](https://github.com/MTES-MCT/camino-api/commit/f51f9bb))
+
+
+### Features
+
+* **rules:** prend en compte la DEX lors de la renonciation d'un AXM ([#90](https://github.com/MTES-MCT/camino-api/issues/90)) ([3b11678](https://github.com/MTES-MCT/camino-api/commit/3b11678))
+
+
+
 ## [0.21.0](https://github.com/MTES-MCT/camino-api/compare/v0.20.0...v0.21.0) (2019-06-11)
 
 
