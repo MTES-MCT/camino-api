@@ -34,7 +34,10 @@ const tables = [
     name: 'titres',
     columns: ['id', 'nom', 'typeId', 'domaineId', 'statutId', 'references'],
     callbacks: {
-      references: v => JSON.stringify(v)
+      references: v =>
+        JSON.stringify(
+          v.reduce((r, { type, valeur }) => ({ ...r, [type]: valeur }), {})
+        )
     }
   },
   {
@@ -50,13 +53,17 @@ const tables = [
     ],
     parents: ['demarches']
   },
-  // {
-  //   name: 'titresDemarchesLiens',
-  //   columns: ['parentTitreDemarcheId', 'enfantTitreDemarcheId'],
-  //   parents: ['demarches']
-  // },
   {
     id: 3,
+    name: 'titresDemarchesLiens',
+    columns: [
+      { key: 'parent.id', value: 'parentTitreDemarcheId' },
+      { key: 'id', value: 'enfantTitreDemarcheId' }
+    ],
+    parents: ['demarches', 'parents']
+  },
+  {
+    id: 4,
     name: 'titresPhases',
     columns: ['titreDemarcheId', 'statutId', 'dateDebut', 'dateFin'],
     parents: ['demarches', 'phase'],
@@ -66,7 +73,7 @@ const tables = [
     }
   },
   {
-    id: 4,
+    id: 5,
     name: 'titresEtapes',
     columns: [
       'id',
@@ -95,7 +102,7 @@ const tables = [
     }
   },
   {
-    id: 5,
+    id: 6,
     name: 'titresPoints',
     columns: [
       'id',
@@ -114,7 +121,7 @@ const tables = [
     }
   },
   {
-    id: 6,
+    id: 7,
     name: 'titresPointsReferences',
     columns: ['id', 'titrePointId', 'geoSystemeId', 'coordonnees'],
     parents: ['demarches', 'etapes', 'points', 'references'],
@@ -123,7 +130,7 @@ const tables = [
     }
   },
   {
-    id: 7,
+    id: 8,
     name: 'titresDocuments',
     columns: [
       'id',
@@ -139,46 +146,68 @@ const tables = [
     parents: ['demarches', 'etapes', 'documents']
   },
   {
-    id: 8,
-    name: 'titresSubstances',
-    columns: ['titreEtapeId', 'substanceId', 'connexe', 'ordre'],
-    parents: ['demarches', 'etapes', 'titresSubstances']
-  },
-  {
     id: 9,
-    name: 'titresTitulaires',
-    columns: ['titreEtapeId', 'entrepriseId', 'operateur'],
-    parents: ['demarches', 'etapes', 'titresTitulaires']
+    name: 'titresSubstances',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'substanceId' },
+      'connexe',
+      'ordre'
+    ],
+    parents: ['demarches', 'etapes', 'substances']
   },
   {
     id: 10,
-    name: 'titresAmodiataires',
-    columns: ['titreEtapeId', 'entrepriseId'],
-    parents: ['demarches', 'etapes', 'titresAmodiataires']
+    name: 'titresTitulaires',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'entrepriseId' },
+      'operateur'
+    ],
+    parents: ['demarches', 'etapes', 'titulaires']
   },
   {
     id: 11,
-    name: 'titresAdministrations',
-    columns: ['titreEtapeId', 'administrationId', 'coordinateur'],
-    parents: ['demarches', 'etapes', 'titresAdministrations']
+    name: 'titresAmodiataires',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'entrepriseId' }
+    ],
+    parents: ['demarches', 'etapes', 'amodiataires']
   },
   {
     id: 12,
-    name: 'titresUtilisateurs',
-    columns: ['titreEtapeId', 'utilisateurId'],
-    parents: ['demarches', 'etapes', 'titresUtilisateurs']
+    name: 'titresAdministrations',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'administrationId' },
+      'coordinateur'
+    ],
+    parents: ['demarches', 'etapes', 'administrations']
   },
   {
     id: 13,
-    name: 'titresEmprises',
-    columns: ['titreEtapeId', 'empriseId'],
-    parents: ['demarches', 'etapes', 'titresEmprises']
+    name: 'titresUtilisateurs',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'utilisateurId' }
+    ],
+    parents: ['demarches', 'etapes', 'utilisateurs']
   },
   {
     id: 14,
+    name: 'titresEmprises',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'empriseId' }
+    ],
+    parents: ['demarches', 'etapes', 'emprises']
+  },
+  {
+    id: 15,
     name: 'titresIncertitudes',
     columns: [
-      'titreEtapeId',
+      { key: 'parent.id', value: 'titreEtapeId' },
       'date',
       'dateDebut',
       'dateFin',

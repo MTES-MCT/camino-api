@@ -11,7 +11,7 @@ const siren2 = '484860507'
 const siret1 = '57219916400045'
 const siret2 = '48486050700017'
 
-const entreprises = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
+const entreprises = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
   .reduce(
     (r, d) => r.concat(require(`../../../sources/entreprises-titres-${d}`)),
     []

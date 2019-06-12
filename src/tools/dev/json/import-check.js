@@ -1,7 +1,7 @@
 const camelize = require('camelcase')
 const decamelize = require('decamelize')
 
-const domainesIds = ['c', 'f', 'g', 'h', 'm', 'm973', 'r', 's', 'w']
+const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
 const metas = [
   'domaines',
