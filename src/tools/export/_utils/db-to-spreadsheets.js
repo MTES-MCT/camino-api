@@ -69,16 +69,15 @@ const requestsBuild = (sheets, tables, elements) => {
       }
     })
 
-    const rows = [
-      // header
-      {
-        values: columns.map(h => ({
-          userEnteredValue: { stringValue: decamelize(h) }
-        }))
-      },
-      // content
-      ...rowsToRowData({ columns, parents, callbacks }, elements)
-    ]
+    const header = {
+      values: columns.map(h => ({
+        userEnteredValue: { stringValue: decamelize(h.value || h) }
+      }))
+    }
+
+    const content = rowsToRowData({ columns, parents, callbacks }, elements)
+
+    const rows = [header, ...content]
 
     // requêtes pour ajouter le contenu de chaque onglet
     requests.push({
@@ -99,8 +98,8 @@ const requestsBuild = (sheets, tables, elements) => {
 }
 
 const rowsToRowData = ({ columns, parents, callbacks }, elements) =>
-  rowsCreate(elements, parents).map(row => ({
-    values: rowFormat(row, columns, callbacks).map(r => ({
+  rowsCreate(elements, parents).map(({ element: row, parent }) => ({
+    values: rowFormat(row, columns, parent, callbacks).map(r => ({
       userEnteredValue: { stringValue: r }
     }))
   }))
