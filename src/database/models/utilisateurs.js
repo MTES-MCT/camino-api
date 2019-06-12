@@ -11,7 +11,7 @@ export default class Utilisateurs extends Model {
 
     properties: {
       id: { type: 'string', minLength: 1, maxLength: 64 },
-      email: { type: 'string' },
+      email: { type: ['string', 'null'] },
       motDePasse: { type: 'string', minLength: 8, maxLength: 255 },
       nom: { type: ['string', 'null'] },
       prenom: { type: ['string', 'null'] },

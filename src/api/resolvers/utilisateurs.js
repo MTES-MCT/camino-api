@@ -9,7 +9,6 @@ import {
   utilisateursGet,
   utilisateurAdd,
   utilisateurUpdate,
-  utilisateurRemove,
   utilisateurByEmailGet
 } from '../../database/queries/utilisateurs'
 
@@ -76,7 +75,7 @@ const utilisateurs = async (
     permissionIds
   })
 
-  return utilisateurs
+  return utilisateurs.filter(({ email }) => email)
 }
 
 const utilisateurIdentifier = async (variables, context, info) => {
@@ -95,6 +94,8 @@ const utilisateurIdentifier = async (variables, context, info) => {
 }
 
 const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
+  email = email.toLowerCase()
+
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
   if (!emailIsValid) {
@@ -123,6 +124,8 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
 }
 
 const utilisateurAjouter = async ({ utilisateur }, context) => {
+  utilisateur.email = utilisateur.email.toLowerCase()
+
   if (
     !permissionsCheck(context.user, ['super']) &&
     utilisateur.permissionId === 'super'
@@ -174,6 +177,7 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
 }
 
 const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
+  email = email.toLowerCase()
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
   if (!emailIsValid) {
@@ -190,9 +194,7 @@ const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
 
   const token = jwt.sign({ email }, process.env.JWT_SECRET)
 
-  const url = `${
-    process.env.UI_URL
-  }/creation-de-compte?token=${token}&email=${email}`
+  const url = `${process.env.UI_URL}/creation-de-compte?token=${token}&email=${email}`
 
   const subject = `[Camino] Création de votre compte utilisateur`
   const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
@@ -207,6 +209,8 @@ const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
 }
 
 const utilisateurModifier = async ({ utilisateur }, context) => {
+  utilisateur.email = utilisateur.email.toLowerCase()
+
   if (
     !permissionsCheck(context.user, ['super', 'admin']) &&
     context.user.id !== utilisateur.id
@@ -237,7 +241,14 @@ const utilisateurSupprimer = async ({ id }, context) => {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
-  return utilisateurRemove(id)
+  const utilisateur = await utilisateurGet(id)
+
+  utilisateur.email = null
+  utilisateur.telephoneFixe = null
+  utilisateur.telephoneMobile = null
+  utilisateur.permissionId = 'defaut'
+
+  return utilisateurUpdate(utilisateur)
 }
 
 const utilisateurMotDePasseModifier = async (
