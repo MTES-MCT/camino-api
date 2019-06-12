@@ -3,7 +3,6 @@ const titresFSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_F
 const titresGSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_G
 const titresHSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_H
 const titresMSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_M
-const titresM973SpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_M973
 const titresRSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_R
 const titresSSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_S
 const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_W
@@ -82,12 +81,6 @@ const spreadsheets = [
     prefixFileName: true
   },
   {
-    name: 'titres-m973',
-    id: titresM973SpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
     name: 'titres-r',
     id: titresRSpreadsheetId,
     tables: titresTables,
@@ -137,7 +130,6 @@ const spreadsheets = [
       { name: 'titres_g' },
       { name: 'titres_h' },
       { name: 'titres_m' },
-      { name: 'titres_m973' },
       { name: 'titres_r' },
       { name: 'titres_s' },
       { name: 'titres_w' },
@@ -146,7 +138,6 @@ const spreadsheets = [
       { name: 'titres_g_etablissements' },
       { name: 'titres_h_etablissements' },
       { name: 'titres_m_etablissements' },
-      { name: 'titres_m973_etablissements' },
       { name: 'titres_r_etablissements' },
       { name: 'titres_s_etablissements' },
       { name: 'titres_w_etablissements' }
