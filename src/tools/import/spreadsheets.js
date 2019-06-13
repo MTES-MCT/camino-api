@@ -147,10 +147,13 @@ const spreadsheets = [
   {
     name: 'utilisateurs',
     id: utilisateursSpreadsheetId,
-    tables: [{ name: 'utilisateurs', cb: jsonParse('preferences') }]
+    tables: [
+      { name: 'utilisateurs', cb: jsonParse('preferences') },
+      { name: 'utilisateurs__entreprises' }
+    ]
   },
   {
-    name: 'utilisateurs',
+    name: 'permissions',
     id: permissionsSpreadsheetId,
     tables: [{ name: 'permissions' }]
   },
