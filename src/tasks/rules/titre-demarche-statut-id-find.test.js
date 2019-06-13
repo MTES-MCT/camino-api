@@ -4,6 +4,7 @@ import {
   titreDemarcheOctAnf,
   titreDemarcheOctDpuAcc,
   titreAxmDemarcheOctDexAcc,
+  titreArmDemarcheOctDefAcc,
   titrePrxDemarcheOctRpuAcc,
   titreDemarcheProDpuAcc,
   titreDemarcheOctDexAcc,
@@ -36,6 +37,12 @@ describe("retourne le statut d'une démarche", () => {
 
   test("une démarche d'octroi d'un titre AXM dont l'étape de dex la plus récente est acceptée a le statut “acceptée”", () => {
     expect(titreDemarcheStatutIdFind(titreAxmDemarcheOctDexAcc, 'axm')).toEqual(
+      'acc'
+    )
+  })
+
+  test("une démarche d'octroi d'un titre ARM dont l'étape de def la plus récente est acceptée a le statut “acceptée”", () => {
+    expect(titreDemarcheStatutIdFind(titreArmDemarcheOctDefAcc, 'arm')).toEqual(
       'acc'
     )
   })
