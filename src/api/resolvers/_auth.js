@@ -10,8 +10,8 @@ const auth = (user, titre, permissions, amodiatairePriority) => {
     return true
   }
 
-  if (titre.typeId === 'arm' && permissionsCheck(user, ['onf'])) {
-    return titre
+  if (titre.typeId === 'arm' && !permissionsCheck(user, ['onf'])) {
+    return false
   }
 
   // soit l'utilisateur n'est pas dans le groupe 'entreprise'
