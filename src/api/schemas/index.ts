@@ -47,7 +47,7 @@ type Query {
   ): [Utilisateur]
 
   "Retourne une substance en fonction de son id"
-  substance(id: String!): Substance
+  substance(id: ID!): Substance
 
   "Retourne la liste des substances"
   substances: [Substance]
@@ -59,7 +59,7 @@ type Query {
   permissions: [Permission]
 
   "__*__ Retourne une entreprise en fonction de son id"
-  entreprise(id: String!): Entreprise
+  entreprise(id: ID!): Entreprise
 
   "__*__ Retourne la liste des entreprises"
   entreprises: [Entreprise]
