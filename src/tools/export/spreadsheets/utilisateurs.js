@@ -29,6 +29,11 @@ const tables = [
     callbacks: {
       preferences: v => JSON.stringify(v)
     }
+  },
+  {
+    id: 2,
+    name: 'utilisateurs__entreprises',
+    columns: ['utilisateurId', 'entrepriseId']
   }
 ]
 

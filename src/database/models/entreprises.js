@@ -29,11 +29,15 @@ export default class Entreprises extends Model {
 
   static relationMappings = {
     utilisateurs: {
-      relation: Model.HasManyRelation,
+      relation: Model.ManyToManyRelation,
       modelClass: `${__dirname}/utilisateurs`,
       join: {
         from: 'entreprises.id',
-        to: 'utilisateurs.entrepriseId'
+        through: {
+          from: 'utilisateurs__entreprises.entrepriseId',
+          to: 'utilisateurs__entreprises.utilisateurId'
+        },
+        to: 'utilisateurs.id'
       }
     },
 
@@ -52,6 +56,12 @@ export default class Entreprises extends Model {
     if (json.id) {
       json.id = json.id.toLowerCase()
     }
+
+    if (json.utilisateursIds) {
+      json.utilisateurs = json.utilisateursIds.map(id => ({ id }))
+      delete json.utilisateursIds
+    }
+
     return json
   }
 }

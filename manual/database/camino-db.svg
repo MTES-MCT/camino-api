@@ -2481,7 +2481,7 @@
                 <text x="80" y="2" dx="10" dy="12.00" fill="#4D4D4D" font-size="12.00" font-family="Helvetica" text-rendering="optimizeLegibility">CHARACTER VARYING(64)</text>
                 <use xlink:href="#ForeignKey" x="281.000000" y="1.000000" width="16" height="16"></use>
             </g>
-            <text x="0" y="2" dx="10" dy="12.00" fill="black" font-size="12.00" font-family="Helvetica-Bold" text-rendering="optimizeLegibility" clip-path="url(#09F68EBE-4EB0-473D-92E9-E32BD8977759-clip)">entreprises__utilisateurs</text>
+            <text x="0" y="2" dx="10" dy="12.00" fill="black" font-size="12.00" font-family="Helvetica-Bold" text-rendering="optimizeLegibility" clip-path="url(#09F68EBE-4EB0-473D-92E9-E32BD8977759-clip)">utilisateurs__entreprises</text>
         </g>
         <g class="Connector">
             <line stroke="rgb(128,128,128)" stroke-width="1.5" x1="375" y1="254" x2="400" y2="254"></line>

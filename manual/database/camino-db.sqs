@@ -232,7 +232,7 @@
         <uid><![CDATA[08FC62D1-7371-4519-983D-7336363CD4D9]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[entreprises__utilisateurs]]></name>
+        <name><![CDATA[utilisateurs__entreprises]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>2525.00</x>
