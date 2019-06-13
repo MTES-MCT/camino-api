@@ -57,6 +57,21 @@ const titreAxmDemarcheOctDexAcc = {
   ]
 }
 
+const titreArmDemarcheOctDefAcc = {
+  id: 'h-arm-courdemanges-1988-oct01',
+  titreId: 'h-arm-courdemanges-1988',
+  typeId: 'oct',
+  statutId: 'acc',
+  etapes: [
+    {
+      id: 'h-arm-courdemanges-1988-oct01-def01',
+      typeId: 'def',
+      statutId: 'acc',
+      ordre: 1
+    }
+  ]
+}
+
 const titrePrxDemarcheOctRpuAcc = {
   id: 'h-prx-courdemanges-1988-oct01',
   titreId: 'h-prx-courdemanges-1988',
@@ -274,6 +289,7 @@ export {
   titreDemarcheOctAnf,
   titreDemarcheOctDpuAcc,
   titreAxmDemarcheOctDexAcc,
+  titreArmDemarcheOctDefAcc,
   titrePrxDemarcheOctRpuAcc,
   titreDemarcheProDpuAcc,
   titreDemarcheOctDexAcc,

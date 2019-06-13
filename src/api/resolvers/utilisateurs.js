@@ -19,6 +19,7 @@ const permissionsVisibleForAdmin = [
   'editeur',
   'lecteur',
   'entreprise',
+  'onf',
   'defaut'
 ]
 
