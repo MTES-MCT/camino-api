@@ -20,7 +20,6 @@ const tables = [
       'nom',
       'prenom',
       'administrationId',
-      'entrepriseId',
       'telephoneFixe',
       'telephoneMobile',
       'permissionId',
@@ -33,7 +32,11 @@ const tables = [
   {
     id: 2,
     name: 'utilisateurs__entreprises',
-    columns: ['utilisateurId', 'entrepriseId']
+    columns: [
+      { key: 'parent.id', value: 'utilisateurId' },
+      { key: 'id', value: 'entrepriseId' }
+    ],
+    parents: ['entreprises']
   }
 ]
 
