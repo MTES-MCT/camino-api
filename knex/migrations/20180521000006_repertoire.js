@@ -89,12 +89,12 @@ exports.up = knex => {
     })
     .createTable('utilisateurs__entreprises', table => {
       table
-        .string('entrepriseId', 64)
-        .references('entreprises.id')
-        .onDelete('CASCADE')
-      table
         .string('utilisateurId', 64)
         .references('utilisateurs.id')
+        .onDelete('CASCADE')
+      table
+        .string('entrepriseId', 64)
+        .references('entreprises.id')
         .onDelete('CASCADE')
     })
 }
