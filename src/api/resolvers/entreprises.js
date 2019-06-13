@@ -18,7 +18,7 @@ const entreprises = async ({ noms }, context, info) => {
     return entreprisesGet({ noms })
   }
 
-  return null
+  return []
 }
 
 export { entreprise, entreprises }

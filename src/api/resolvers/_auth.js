@@ -18,7 +18,9 @@ const auth = (user, titre, permissions, amodiatairePriority) => {
   // sinon, s'il est dans le groupe 'entreprise' :
 
   // - si il est amodiataire, il est autorisé
-  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
+  const isAmodiataire = titre.amodiataires.some(t =>
+    user.entreprises.find(({ id }) => id === t.id)
+  )
 
   if (isAmodiataire) {
     return true
@@ -27,7 +29,9 @@ const auth = (user, titre, permissions, amodiatairePriority) => {
   // - si il est titulaire il est autorisé,
   //   - si la condition 'amodiatairePriority' est FALSE,
   //   - ou si il n'y a aucun amodiataire
-  const isTitulaire = titre.titulaires.some(t => t.id === user.entrepriseId)
+  const isTitulaire = titre.titulaires.some(t =>
+    user.entreprises.find(({ id }) => id === t.id)
+  )
 
   return isTitulaire && (!amodiatairePriority || !titre.amodiataires.length)
 }

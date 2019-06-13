@@ -61,7 +61,11 @@ const repertoires = [
 
 const calendrier = ['frequences', 'trimestres', 'mois']
 
-const utilisateurs = ['utilisateurs', 'permissions']
+const utilisateurs = [
+  'utilisateurs',
+  'utilisateurs--entreprises',
+  'permissions'
+]
 
 const titresFiles = [
   'titres',

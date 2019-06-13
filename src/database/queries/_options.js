@@ -1,9 +1,9 @@
 const utilisateurs = {
-  eager: '[permission, administration, entreprise.etablissements]',
+  eager: '[permission, administration, entreprises.etablissements]',
   update: {
-    relate: ['permission', 'administration', 'entreprise'],
-    unrelate: ['permission', 'administration', 'entreprise'],
-    noDelete: ['permission', 'administration', 'entreprise']
+    relate: ['permission', 'administration', 'entreprises'],
+    unrelate: ['permission', 'administration', 'entreprises'],
+    noDelete: ['permission', 'administration', 'entreprises']
   }
 }
 
@@ -44,15 +44,7 @@ const communes = {
 }
 
 const etapes = {
-  eager: `[points.${points.eager}, type, statut, documents, substances.${
-    substances.eager
-  }, titulaires.${entreprises.eager}, amodiataires.${
-    entreprises.eager
-  }, administrations.${
-    administrations.eager
-  }, emprises, engagementDevise, volumeUnite, communes.${
-    communes.eager
-  }, incertitudes]`,
+  eager: `[points.${points.eager}, type, statut, documents, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, emprises, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
 
   update: {
     relate: [
@@ -125,9 +117,7 @@ const demarchesTypes = {
 }
 
 const demarches = {
-  eager: `[type.${demarchesTypes.eager}, statut, phase.${
-    phases.eager
-  }, titreType, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
+  eager: `[type.${demarchesTypes.eager}, statut, phase.${phases.eager}, titreType, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
 
   update: {
     relate: [
@@ -186,17 +176,7 @@ const domaines = {
 }
 
 const titres = {
-  eager: `[type.${types.eager}, domaine.${
-    domaines.eager
-  }, statut, points, substances.${substances.eager}, titulaires.${
-    entreprises.eager
-  }, amodiataires.${entreprises.eager}, administrations.${
-    administrations.eager
-  }, demarches(orderDesc).${
-    demarches.eager
-  }, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${
-    communes.eager
-  }, activites(orderByDateDesc).${titresActivites.eager}]`,
+  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderByDateDesc).${titresActivites.eager}]`,
 
   update: {
     relate: [
