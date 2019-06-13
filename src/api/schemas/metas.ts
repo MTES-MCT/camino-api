@@ -316,6 +316,8 @@ enum PhaseStatutId {
 L'id du statut d'une étape de démarche de titre minier
 
 - __acc__: Acceptation
+- __aca__: Avis commission ARM
+- __ajo__: Ajournée
 - __def__: Défavorable
 - __dre__: Défavorable avec réserves
 - __fav__: Favorable
@@ -327,6 +329,8 @@ L'id du statut d'une étape de démarche de titre minier
 """
 enum EtapeStatutId {
   acc
+  aca
+  ajo
   def
   dre
   fav
