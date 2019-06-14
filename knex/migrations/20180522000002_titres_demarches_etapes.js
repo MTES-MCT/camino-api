@@ -77,6 +77,7 @@ exports.up = knex => {
       table.float('engagement')
       table.string('engagementDeviseId').references('devises.id')
       table.boolean('sourceIndisponible')
+      table.jsonb('contenu')
     })
     .alterTable('titres', table => {
       table.string('pointsTitreEtapeId', 128)

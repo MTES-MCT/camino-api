@@ -204,8 +204,10 @@ type Etape {
 
   "Les documents relatifs à l'étape"
   documents: [Document]
- 
+
   incertitudes: Incertitudes
+
+  contenu: Json
 }
 
 type EtapeId {
@@ -332,7 +334,7 @@ input InputEtape {
   amodiatairesIds: [ID!]
 
   administrationsIds: [ID!]
- 
+
   incertitudes: InputIncertitudes
 }
 
