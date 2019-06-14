@@ -66,6 +66,7 @@ exports.up = knex => {
       table.string('legalLien')
       table.date('dateDebut')
       table.date('dateFin')
+      table.specificType('sections', 'jsonb[]')
     })
     .createTable('demarchesTypes__etapesTypes', table => {
       table
