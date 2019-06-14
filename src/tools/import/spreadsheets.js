@@ -20,11 +20,11 @@ const titresActivitesSpreadsheetId =
 const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 
-const jsonParse = value => (json, table) =>
+const jsonParse = values => (json, table) =>
   json.map(row =>
     Object.keys(row).reduce((res, col) => {
       try {
-        res[col] = col === value ? JSON.parse(row[col]) : row[col]
+        res[col] = values.includes(col) ? JSON.parse(row[col]) : row[col]
         return res
       } catch (e) {
         throw new Error(
@@ -35,10 +35,10 @@ const jsonParse = value => (json, table) =>
   )
 
 const titresTables = [
-  { name: 'titres', cb: jsonParse('references') },
+  { name: 'titres', cb: jsonParse(['references']) },
   { name: 'titres_demarches' },
   { name: 'titres_demarches_liens' },
-  { name: 'titres_etapes', cb: jsonParse('visas') },
+  { name: 'titres_etapes', cb: jsonParse(['visas', 'contenu']) },
   { name: 'titres_points' },
   { name: 'titres_points_references' },
   { name: 'titres_documents' },
