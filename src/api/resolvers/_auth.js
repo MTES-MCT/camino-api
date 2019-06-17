@@ -5,13 +5,14 @@ const auth = (user, titre, permissions, amodiatairePriority) => {
     return false
   }
 
+  // les ARM sont cachées à tous les utilisateurs sauf 'onf' et 'super'
+  if (titre.typeId === 'arm') {
+    return permissionsCheck(user, ['super', 'onf'])
+  }
+
   // soit l'utilisateur a les permissions
   if (permissionsCheck(user, permissions)) {
     return true
-  }
-
-  if (titre.typeId === 'arm') {
-    return permissionsCheck(user, ['onf'])
   }
 
   // soit l'utilisateur n'est pas dans le groupe 'entreprise'
