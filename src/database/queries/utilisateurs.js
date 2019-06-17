@@ -21,9 +21,18 @@ const utilisateursGet = async ({
   const q = Utilisateurs.query()
     .skipUndefined()
     .eager(options.utilisateurs.eager)
-    .whereIn('utilisateurs.administrationId', administrationIds)
-    .whereIn('utilisateurs.entrepriseId', entrepriseIds)
-    .whereIn('utilisateurs.permissionId', permissionIds)
+
+  if (administrationIds) {
+    q.whereIn('administrationId', administrationIds)
+  }
+
+  if (permissionIds) {
+    q.whereIn('permissionId', permissionIds)
+  }
+
+  if (entrepriseIds) {
+    q.whereIn('entreprises.id', entrepriseIds).joinRelation('entreprises')
+  }
 
   if (noms) {
     q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
