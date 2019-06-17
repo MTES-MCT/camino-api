@@ -91,7 +91,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   )
 
   if (titreEtapeHasDateDebut) {
-    return dateAddYears(titreEtapeHasDateDebut.dateDebut, duree)
+    return dateAddMonths(titreEtapeHasDateDebut.dateDebut, duree)
   }
 
   // sinon, la date de fin est calculée
@@ -101,7 +101,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   )
 
   if (titreEtapeDpuFirst) {
-    return dateAddYears(titreEtapeDpuFirst.date, duree)
+    return dateAddMonths(titreEtapeDpuFirst.date, duree)
   }
 
   // si on ne trouve pas de dpu, la date de fin est calculée
@@ -111,7 +111,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   )
 
   return titreEtapeDexFirst
-    ? dateAddYears(titreEtapeDexFirst.date, duree)
+    ? dateAddMonths(titreEtapeDexFirst.date, duree)
     : null
 }
 
@@ -208,14 +208,15 @@ const titreDemarcheNormaleDateFinAndDureeFind = (
   // ajoute la durée calculée à la durée cumulée
   return {
     duree: duree ? duree + dureeAcc : dureeAcc,
-    dateFin: dateFin ? dateAddYears(dateFin, dureeAcc) : null
+    dateFin: dateFin ? dateAddMonths(dateFin, dureeAcc) : null
   }
 }
 
 // ajoute une durée en années à une date au format YYYY-MM-DD
-const dateAddYears = (date, years) => {
-  const d = dateFormat(date, 'yyyy-mm-dd')
-  return `${Number(d.slice(0, 4)) + years}-${d.slice(5)}`
+const dateAddMonths = (date, months) => {
+  const [y, m, d] = dateFormat(date, 'yyyy-mm-dd').split('-')
+  const dateNew = new Date(y, m - 1 + months, d)
+  return dateFormat(dateNew, 'yyyy-mm-dd')
 }
 
 export default titreDemarcheDateFinAndDureeFind

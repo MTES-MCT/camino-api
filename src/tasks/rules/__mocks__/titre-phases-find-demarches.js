@@ -10,7 +10,7 @@ const titreDemarcheOctDpuAcc = {
       statutId: 'acc',
       ordre: 2,
       date: '2200-01-01',
-      duree: 2
+      duree: 2 * 12
     },
     {
       id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -18,7 +18,7 @@ const titreDemarcheOctDpuAcc = {
       statutId: 'acc',
       ordre: 1,
       date: '2200-01-01',
-      duree: 2
+      duree: 2 * 12
     }
   ]
 }
@@ -35,7 +35,7 @@ const titreAxmDemarcheOctDexAcc = {
       statutId: 'acc',
       ordre: 1,
       date: '2200-01-01',
-      duree: 2
+      duree: 2 * 12
     }
   ]
 }
@@ -70,7 +70,7 @@ const titreDemarcheOctDpuDateDebut = {
       ordre: 2,
       date: '2200-01-01',
       dateDebut: '2200-01-02',
-      duree: 2
+      duree: 2 * 12
     },
     {
       id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -79,7 +79,7 @@ const titreDemarcheOctDpuDateDebut = {
       ordre: 1,
       date: '2200-01-01',
       dateDebut: '2200-01-02',
-      duree: 2
+      duree: 2 * 12
     }
   ]
 }

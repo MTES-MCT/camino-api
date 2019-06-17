@@ -30,7 +30,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDateDebut, 1)
     ).toEqual({
       dateFin: '2023-03-12',
-      duree: 10
+      duree: 10 * 12
     })
   })
 
@@ -48,7 +48,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctPasDeDpu, 5)
     ).toEqual({
       dateFin: '2013-03-07',
-      duree: 25
+      duree: 25 * 12
     })
   })
 
@@ -57,7 +57,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDpuFirst, 5)
     ).toEqual({
       dateFin: '2013-03-07',
-      duree: 25
+      duree: 25 * 12
     })
   })
 
@@ -66,7 +66,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctNiDpuNiDex, 5)
     ).toEqual({
       dateFin: null,
-      duree: 25
+      duree: 25 * 12
     })
   })
 
@@ -75,7 +75,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctProDuree, 5)
     ).toEqual({
       dateFin: '2038-03-12',
-      duree: 50
+      duree: 50 * 12
     })
   })
 
@@ -102,7 +102,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesRenPoints, 5)
     ).toEqual({
       dateFin: '2013-03-12',
-      duree: 25
+      duree: 25 * 12
     })
   })
 
