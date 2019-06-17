@@ -35,7 +35,7 @@ const metas = async (variables, context, info) => {
     statuts = check(statuts, restrictedStatutIds)
   }
 
-  if (!context.user || !permissionsCheck(context.user, ['onf'])) {
+  if (!context.user || !permissionsCheck(context.user, ['super', 'onf'])) {
     types = check(types, restrictedTypeIds)
   }
 
