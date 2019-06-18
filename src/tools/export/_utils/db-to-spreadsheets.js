@@ -40,7 +40,7 @@ const requestsBuild = (sheets, tables, elements) => {
 
   if (!worksheetTmpExists) {
     requests.push({
-      addSheet: { properties: { title: 'camino-api-tmp', sheetId: 0 } }
+      addSheet: { properties: { title: 'camino-api-tmp', sheetId: 999 } }
     })
   }
 
@@ -63,7 +63,8 @@ const requestsBuild = (sheets, tables, elements) => {
           sheetType: 'GRID',
           gridProperties: {
             columnCount: columns.length,
-            rowCount: 1
+            rowCount: 2,
+            frozenRowCount: 1
           }
         }
       }
@@ -91,7 +92,7 @@ const requestsBuild = (sheets, tables, elements) => {
 
   // supprime l'onglet `tmp`
   requests.push({
-    deleteSheet: { sheetId: 0 }
+    deleteSheet: { sheetId: 999 }
   })
 
   return requests
