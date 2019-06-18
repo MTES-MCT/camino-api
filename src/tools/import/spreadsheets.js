@@ -111,7 +111,7 @@ const spreadsheets = [
       { name: 'demarches_types__types' },
       { name: 'demarches_types__demarches_statuts' },
       { name: 'phases_statuts' },
-      { name: 'etapes_types' },
+      { name: 'etapes_types', cb: jsonParse('sections') },
       { name: 'etapes_statuts' },
       { name: 'etapes_types__etapes_statuts' },
       { name: 'demarches_types__etapes_types' },
