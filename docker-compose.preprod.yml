@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      VIRTUAL_HOST: preprod.camino.beta.gouv.fr
+      VIRTUAL_PORT: ${NODE_PORT}
+      LETSENCRYPT_HOST: preprod.camino.beta.gouv.fr
+      LETSENCRYPT_EMAIL: risseraka@gmail.com
+      PGHOST: postgres
+    expose:
+      - ${NODE_PORT}
+    volumes:
+      - files:/app/files
+
+  postgres:
+    image: postgres:alpine
+    environment:
+      PGUSER: ${PGUSER}
+    expose:
+      - ${PGPORT}
+    volumes:
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data: {}
+  files:
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
