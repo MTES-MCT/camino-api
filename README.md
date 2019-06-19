@@ -40,7 +40,7 @@ Pour que l'application fonctionne, sont requis:
 ## Configuration et imports des données
 
 - Créer une base de données `camino`.
-- Importer les données sources depuis [camino-sources-example](https://github.com/MTES-MCT/camino-sources-example)
+- Importer les données sources (faire une demande par [email](mailto:camino@beta.gouv.fr))
 - Renommer le fichier `.env.example` en `.env` et le compléter.
 
 ```bash
