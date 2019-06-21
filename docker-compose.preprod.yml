@@ -6,9 +6,9 @@ services:
     depends_on:
       - postgres
     environment:
-      VIRTUAL_HOST: preprod.camino.beta.gouv.fr
+      VIRTUAL_HOST: preprod.api.camino.beta.gouv.fr
       VIRTUAL_PORT: ${NODE_PORT}
-      LETSENCRYPT_HOST: preprod.camino.beta.gouv.fr
+      LETSENCRYPT_HOST: preprod.api.camino.beta.gouv.fr
       LETSENCRYPT_EMAIL: risseraka@gmail.com
       PGHOST: postgres
     expose:
