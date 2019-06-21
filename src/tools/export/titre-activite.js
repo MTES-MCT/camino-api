@@ -17,7 +17,7 @@ const titreActiviteRowUpdate = async activite => {
     // - pour trouver l'index de la ligne à modifier
     // - pour la mettre à jour
 
-    const values = rowFormat(activite, table.columns, table.callbacks)
+    const values = rowFormat(activite, table.columns, null, table.callbacks)
 
     const rowIndex = await rowIndexFind(values)
     const sheetId = table.id
