@@ -1,69 +1,43 @@
-# Manipuler la base de données
+# Docker
 
-## Recréer la base de données dans son conteneur Docker
+## Environnement de développement
 
-```sh
-# stopper le conteneur de l'API
-docker stop camino-api_app_1
-
-# démarrer psql dans le conteneur de la base de données
-docker exec -it camino-api_postgres_1 psql postgres
-```
-
-```sql
-# supprimer la base de données et la re-créer
-DROP DATABASE camino; CREATE DATABASE camino;
-
-# quitter psql
-\q
-```
-
-```sh
-# redémarrer le conteneur Docker de l'API
-docker start camino-api_app_1
-```
-
-## Démarrer un shell dans le conteneur Docker de l'API
-
-```sh
-# start a shell in the camino-api app
-docker exec -it camino-api_app_1 sh
-```
-
-## Faire un dump de la base de données locale et l'uploader sur le serveur
+Pour développer sans installer PostgreSQL localement.
 
 ```bash
-pg_dump camino > camino.sql && scp camino.sql <user>@<ip>:/srv/tmp/dumps/camino.sql
+# démarre l'application et la base de données dans des conteneurs Docker
+# en mode `development`
+# accessible à http://localhost:NODE_PORT
+docker-compose -f ./docker-compose.localhost.yml up --build
 ```
 
-## Importer la base de données depuis le répertoire tmp vers le conteneur Docker
+## Environnement de test
 
-```sh
-# se placer dans le dossier /tmp ou se trouve le dump
-cd /srv/tmp/dumps/
+Pour tester l'application en local dans un environnement de production
 
-# importer la base de données depuis le dump
-cat camino.sql | docker exec -i camino-api_postgres_1 psql -U postgres -d camino
-```
+Pré-requis:
 
-## Copier les fichiers pdf (files) sur le serveur
+- une installation locale active de https://github.com/jwilder/nginx-proxy
+- un certificat ssl auto-signé
+- [instructions](https://medium.com/@francoisromain/set-a-local-web-development-environment-with-custom-urls-and-https-3fbe91d2eaf0)
 
 ```bash
-# localement
-scp -r files <user>@<ip>:/srv/tmp/camino-api-files
+# démarre l'application et la base de données dans des containers Docker
+# en mode `production`
+# accessible à https://api.camino.local
+docker-compose -f ./docker-compose.local.yml up --build
 ```
 
-```bash
-# sur le serveur
-# copie les fichiers dans le volume
-docker cp /srv/tmp/camino-api-files/. camino-api_app_1:/app/files/
-# ou pour la version locale
-docker cp files/. camino-api_app_1:/app/files/
-```
+## Environnement de production
 
-Inspecter le volume
+Pré-requis:
+
+- une installation active de https://github.com/jwilder/nginx-proxy
+- [instructions](https://medium.com/@francoisromain/host-multiple-websites-with-https-inside-docker-containers-on-a-single-server-18467484ab95)
 
 ```bash
-# crée un container avec l'image Docker busybox pour inspécter le contenu du volume
-docker run -it --rm -v camino-api_files:/vol busybox ls -l /vol
+# démarre l'application et la base de données dans des containers Docker
+# en mode `production`
+# accessible à http://api.camino.beta.gouv.fr
+docker-compose -f ./docker-compose.yml up -d --build
 ```
