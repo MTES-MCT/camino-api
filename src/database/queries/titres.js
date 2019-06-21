@@ -25,12 +25,14 @@ const titresGet = async (
     references,
     territoires
   } = {},
+  eager,
   format = true
 ) => {
   const q = Titres.query()
     .skipUndefined()
-    .eager(options.titres.eager)
-
+    // .eager(options.titres.eager)
+    .eager(eager)
+    
   if (typeIds) {
     q.whereIn('titres.typeId', typeIds)
   }

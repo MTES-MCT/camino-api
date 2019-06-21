@@ -13,6 +13,8 @@ import {
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
+import { titresEager, titreEager } from '../../database/queries/_eager'
+
 import titreUpdateTask from '../../tasks/titre-update'
 
 import titreUpdateValidation from '../../tasks/titre-update-validation'
@@ -55,7 +57,8 @@ const titrePermissionsCheck = (user, titre) => {
 }
 
 const titre = async ({ id }, context, info) => {
-  const titre = await titreGet(id)
+  const eager = titreEager(info.fragments)
+  const titre = await titreGet(id, eager)
 
   if (!titre) return null
 
@@ -84,17 +87,20 @@ const titres = async (
   // à partir de l'AST de graphQL
   // console.log(JSON.stringify(info.fragments, null, 2))
   // cf: https://github.com/graphql/graphql-js/issues/799
-
-  const titres = await titresGet({
-    typeIds,
-    domaineIds,
-    statutIds,
-    substances,
-    noms,
-    entreprises,
-    references,
-    territoires
-  })
+  const eager = titresEager(info.fragments)
+  const titres = await titresGet(
+    {
+      typeIds,
+      domaineIds,
+      statutIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    },
+    eager
+  )
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
