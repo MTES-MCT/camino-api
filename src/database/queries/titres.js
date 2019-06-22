@@ -4,10 +4,11 @@ import options from './_options'
 import { titreFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async (id, format = true) => {
+const titreGet = async (id, eager, format = true) => {
   const t = await Titres.query()
     .findById(id)
     .eager(options.titres.eager)
+    // .eager(eager)
 
   if (!format) return t
 
@@ -30,8 +31,8 @@ const titresGet = async (
 ) => {
   const q = Titres.query()
     .skipUndefined()
-    // .eager(options.titres.eager)
-    .eager(eager)
+    .eager(options.titres.eager)
+    // .eager(eager)
     
   if (typeIds) {
     q.whereIn('titres.typeId', typeIds)

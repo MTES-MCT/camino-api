@@ -1,15 +1,33 @@
-const titresEager = fragments => {
-  const types = `[demarchesTypes.demarchesStatuts]`
-  const domaines = `[types.[demarchesTypes.demarchesStatuts]]`
-  const substances = `legales.[code, domaine]`
-  const entreprises = `[utilisateurs.permission, etablissements(orderDesc)]`
-  const administrations = `[utilisateurs.permission, domaines, type]`
-  const demarches = `[type.[etapesTypes(orderDesc).etapesStatuts], statut, phase.statut, titreType, etapes(orderDesc).[points.references.geoSysteme, type, statut, documents, substances.legales.[code, domaine],titulaires.[utilisateurs.permission, etablissements(orderDesc)],amodiataires.[utilisateurs.permission, etablissements(orderDesc)],administrations.[utilisateurs.permission, domaines, type], emprises, engagementDevise, volumeUnite, communes.departement.region.pays, incertitudes], parents.^1, enfants.^1]`
-  const communes = `departement.region.pays`
-  const titresActivites = `[type.[pays, frequence.[mois, trimestres.mois], types], statut, utilisateur]`
-  const eager = `[type.${types}, domaine.${domaines}, statut, points, substances.${substances}, titulaires.${entreprises}, amodiataires.${entreprises}, administrations.${administrations}, demarches(orderDesc).${demarches}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes}, activites(orderByDateDesc).${titresActivites}]`
-  return eager
-}
+// const mappingRelationsGet = mappings => {
+//   return Object.keys(mappings).reduce((relations, name) => {
+//     const mapping = mappings[name]
+
+//     const { modelClass: model, join } = mapping
+
+//     if (join.through) {
+//       return [
+//         ...relations,
+//         splitJoin(name, join.from, join.through.from),
+//         splitJoin(name, join.through.to, join.to)
+//       ]
+//     }
+
+//     return [...relations, splitJoin(name, join.from, join.to, true)]
+//   }, [])
+// }
+
+// const titresEager = fragments => {
+//   const types = `[demarchesTypes.demarchesStatuts]`
+//   const domaines = `[types.[demarchesTypes.demarchesStatuts]]`
+//   const substances = `legales.[code, domaine]`
+//   const entreprises = `[utilisateurs.permission, etablissements(orderDesc)]`
+//   const administrations = `[utilisateurs.permission, domaines, type]`
+//   const demarches = `[type.[etapesTypes(orderDesc).etapesStatuts], statut, phase.statut, titreType, etapes(orderDesc).[points.references.geoSysteme, type, statut, documents, substances.legales.[code, domaine],titulaires.[utilisateurs.permission, etablissements(orderDesc)],amodiataires.[utilisateurs.permission, etablissements(orderDesc)],administrations.[utilisateurs.permission, domaines, type], emprises, engagementDevise, volumeUnite, communes.departement.region.pays, incertitudes], parents.^1, enfants.^1]`
+//   const communes = `departement.region.pays`
+//   const titresActivites = `[type.[pays, frequence.[mois, trimestres.mois], types], statut, utilisateur]`
+//   const eager = `[type.${types}, domaine.${domaines}, statut, points, substances.${substances}, titulaires.${entreprises}, amodiataires.${entreprises}, administrations.${administrations}, demarches(orderDesc).${demarches}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes}, activites(orderByDateDesc).${titresActivites}]`
+//   return eager
+// }
 
 const titreEager = fragments => {
   let eager = `[`
@@ -19,40 +37,14 @@ const titreEager = fragments => {
       `eager potentiellement faussé, le retour graphql ne correspond pas au retour d'un titre`
     )
 
-  fonctionGenial(titre, eager, fragments)
+  fieldSelection(titre, eager, fragments)
   eager += `]`
   return eager
 }
 
-const fonctionSuper = (field, eager, fragments) => {
-  let conditionSortie = true
-  let eagerData = ``
-  while (conditionSortie) {
-    const selectionsField = field.selectionSet.selections
-    selectionsField.forEach(elem => {
-      const nomElem = elem.name.value
-      if (nomElem !== 'id' && nomElem !== 'nom' && nomElem === '__typename') {
-        if (elem.selectionSet !== undefined) {
-          eagerData += `.[`
-          fonctionGenial(elem, eager, fragments)
-          eagerData += `]`
-        } else {
-          eagerData += `.`
-          const field = fragments[elem.name.value]
-          fonctionGenial(field, eager, fragments)
-        }
-      }
-      eagerData += `,`
-    })
-
-    if (eagerData === `,` || eagerData === ``) conditionSortie = false
-  }
-  return eagerData
-}
-
-const fonctionGenial = (titre, eager, fragments) => {
+const fieldSelection = (titre, eager, fragments) => {
   const selectionsTitre = titre.selectionSet.selections
-  let eagerGenial = ``
+  let eagerSelection = ``
   let paysInversion = false
   selectionsTitre.forEach(field => {
     const nomSelection = field.name.value
@@ -83,26 +75,51 @@ const fonctionGenial = (titre, eager, fragments) => {
       paysInversion = false
     }
 
-    eagerGenial += nomSelection
+    eagerSelection += nomSelection
 
     if (field.selectionSet === undefined) {
-      eagerGenial += `,`
+      eagerSelection += `,`
       return
     }
 
     // ICI LE WHILE
-    const eagerData = fonctionSuper(field, eagerGenial, fragments)
-    eagerGenial += eagerData + `,`
+    const eagerData = fieldFragmentations(field, eagerSelection, fragments)
+    eagerSelection += eagerData + `,`
   })
   if (paysInversion) {
     let eagerPays = ``
-    const tablePays = eagerGenial.split(',').reverse()
+    const tablePays = eagerSelection.split(',').reverse()
     tablePays.forEach(elem => (eagerPays += elem + `,`))
     eager += eagerPays
   } else {
-    eager += eagerGenial
+    eager += eagerSelection
   }
-  console.log(eager)
+  // console.log(eager)
 }
 
-export { titresEager, titreEager }
+const fieldFragmentations = (field, eager, fragments) => {
+  let conditionSortie = true
+  let eagerData = ``
+  while (conditionSortie) {
+    const selectionsField = field.selectionSet.selections
+    let eagerFields = []
+    selectionsField.forEach(elem => {
+      const nomElem = elem.name.value
+      if (nomElem !== 'id' && nomElem !== 'nom' && nomElem !== '__typename') {
+        eagerFields.append(``)
+        fieldSelection(
+          elem.selectionSet !== undefined ? elem : fragments[elem.name.value],
+          eagerFields[-1],
+          fragments
+        )
+      }
+    })
+    if (eagerFields.length === 1) conditionSortie = false
+    else if (eagerFields.length === 1) {
+      eagerData = `${eagerData}.${eagerFields[0]}`
+    } else eagerData = `${eagerData}.${JSON.stringify(eagerFields)}`
+  }
+  return eagerData
+}
+
+export { titreEager }
