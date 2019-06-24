@@ -5,6 +5,7 @@ import {
 } from '../queries/titre-etapes'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes'
+import PQueue from 'p-queue'
 
 const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
   // teste l'API geo-communes-api
@@ -94,22 +95,47 @@ const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
     }
   )
 
-const titresEtapesCommunesGet = async titresEtapes =>
-  titresEtapes.reduce(async (titresEtapesCommunes, titreEtape) => {
-    if (!titreEtape.points.length) return titresEtapesCommunes
+const titresEtapesCommunesGet = async titresEtapes => {
+  const communesGeojsonGetRequests = titresEtapes.reduce(
+    (communesGeojsonGetRequests, titreEtape) =>
+      titreEtape.points.length
+        ? [
+            ...communesGeojsonGetRequests,
+            async () => {
+              const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
-    const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+              const communesGeojson = await communesGeojsonGet(geojson)
 
-    const communesGeojson = await communesGeojsonGet(geojson)
+              return {
+                titreEtapeId: titreEtape.id,
+                communesGeojson
+              }
+            }
+          ]
+        : communesGeojsonGetRequests,
+    []
+  )
 
-    if (!communesGeojson || !communesGeojson.length) return titresEtapesCommunes
+  // exécute les requêtes en série
+  // avec PQueue plutôt que Promise.all
+  // pour ne pas surcharger l'API geocommunes
+  const queue = new PQueue({
+    concurrency: 100
+  })
 
-    titresEtapesCommunes = await titresEtapesCommunes
+  const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
 
-    titresEtapesCommunes[titreEtape.id] = communesGeojson
-
-    return titresEtapesCommunes
-  }, {})
+  return communesGeojsons.reduce(
+    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) =>
+      communesGeojson && communesGeojson.length
+        ? {
+            ...titresEtapesCommunes,
+            [titreEtapeId]: communesGeojson
+          }
+        : titresEtapesCommunes,
+    {}
+  )
+}
 
 const communesGeojsonTest = () => {
   const geojson = {

@@ -8,7 +8,7 @@ const communesGeojsonFetch = async (path, geojson) => {
   try {
     const geojsonErrors = geojsonhint.hint(geojson)
     if (geojsonErrors.length) {
-      throw { error: geojsonErrors.map(e => e.message) }
+      throw new Error(geojsonErrors.map(e => e.message).join('\n'))
     }
 
     const response = await fetch(process.env.GEO_API_URL + path, {
@@ -21,7 +21,7 @@ const communesGeojsonFetch = async (path, geojson) => {
 
     const result = await response.json()
 
-    if (response.status > 400) {
+    if (response.status >= 400) {
       throw result
     }
 
