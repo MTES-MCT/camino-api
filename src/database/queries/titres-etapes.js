@@ -47,7 +47,10 @@ const titreEtapeCommuneInsert = async ({ titreEtapeId, communeId }) =>
   TitresCommunes.query().insert({ titreEtapeId, communeId })
 
 const titreEtapeCommuneDelete = async ({ titreEtapeId, communeId }) =>
-  TitresCommunes.query({ titreEtapeId, communeId }).delete()
+  TitresCommunes.query()
+    .delete()
+    .where('titreEtapeId', titreEtapeId)
+    .andWhere('communeId', communeId)
 
 const titreEtapeAdministrationInsert = async ({
   titreEtapeId,
@@ -57,7 +60,11 @@ const titreEtapeAdministrationInsert = async ({
 const titreEtapeAdministrationDelete = async ({
   titreEtapeId,
   administrationId
-}) => TitresAdministrations.query({ titreEtapeId, administrationId }).delete()
+}) =>
+  TitresAdministrations.query()
+    .delete()
+    .where('titreEtapeId', titreEtapeId)
+    .andWhere('administrationId', administrationId)
 
 const titreEtapesIdsUpdate = async (titresEtapesIdsOld, titresEtapesNew) => {
   const knex = TitresEtapes.knex()

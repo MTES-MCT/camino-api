@@ -107,7 +107,7 @@ const titresEtapesCommunesGet = async titresEtapes => {
               const communesGeojson = await communesGeojsonGet(geojson)
 
               return {
-                titreEtape,
+                titreEtapeId: titreEtape.id,
                 communesGeojson
               }
             }
@@ -126,11 +126,11 @@ const titresEtapesCommunesGet = async titresEtapes => {
   const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
 
   return communesGeojsons.reduce(
-    (titresEtapesCommunes, { titreEtape, communesGeojson }) =>
+    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) =>
       communesGeojson && communesGeojson.length
         ? {
             ...titresEtapesCommunes,
-            [titreEtape.id]: communesGeojson
+            [titreEtapeId]: communesGeojson
           }
         : titresEtapesCommunes,
     {}
