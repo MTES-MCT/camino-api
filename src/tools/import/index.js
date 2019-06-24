@@ -40,7 +40,9 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
 
     // converti la réponse en json
     // la première ligne de value forme les clés
-    const jsons = res.map(r => rowsToJson(r.values.shift(), r.values))
+    const jsons = res.map(row =>
+      row.values ? rowsToJson(row.values.shift(), row.values) : []
+    )
 
     filesList.forEach(({ path, cb }, i) => {
       // applique le callback si il existe
