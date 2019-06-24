@@ -16,36 +16,28 @@
 //   }, [])
 // }
 
-// const titresEager = fragments => {
-//   const types = `[demarchesTypes.demarchesStatuts]`
-//   const domaines = `[types.[demarchesTypes.demarchesStatuts]]`
-//   const substances = `legales.[code, domaine]`
-//   const entreprises = `[utilisateurs.permission, etablissements(orderDesc)]`
-//   const administrations = `[utilisateurs.permission, domaines, type]`
-//   const demarches = `[type.[etapesTypes(orderDesc).etapesStatuts], statut, phase.statut, titreType, etapes(orderDesc).[points.references.geoSysteme, type, statut, documents, substances.legales.[code, domaine],titulaires.[utilisateurs.permission, etablissements(orderDesc)],amodiataires.[utilisateurs.permission, etablissements(orderDesc)],administrations.[utilisateurs.permission, domaines, type], emprises, engagementDevise, volumeUnite, communes.departement.region.pays, incertitudes], parents.^1, enfants.^1]`
-//   const communes = `departement.region.pays`
-//   const titresActivites = `[type.[pays, frequence.[mois, trimestres.mois], types], statut, utilisateur]`
-//   const eager = `[type.${types}, domaine.${domaines}, statut, points, substances.${substances}, titulaires.${entreprises}, amodiataires.${entreprises}, administrations.${administrations}, demarches(orderDesc).${demarches}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes}, activites(orderByDateDesc).${titresActivites}]`
-//   return eager
-// }
+const titresEager = fragments => {
+  const titre = fragments.titreList
+  if (titre.typeCondition.name.value !== 'Titre')
+    console.log(
+      `eager potentiellement faussé, le retour graphql ne correspond pas au retour d'un titre: ${titre.typeCondition.name.value}`
+    )
+  return eagerCleaner(`[${fieldSelection(titre, fragments)}]`)
+}
 
 const titreEager = fragments => {
-  let eager = `[`
   const titre = fragments.titre
   if (titre.typeCondition.name.value !== 'Titre')
     console.log(
       `eager potentiellement faussé, le retour graphql ne correspond pas au retour d'un titre`
     )
-
-  fieldSelection(titre, eager, fragments)
-  eager += `]`
-  return eager
+  return eagerCleaner(`[${fieldSelection(titre, fragments)}]`)
 }
 
-const fieldSelection = (titre, eager, fragments) => {
+const fieldSelection = (titre, fragments) => {
   const selectionsTitre = titre.selectionSet.selections
   let eagerSelection = ``
-  let paysInversion = false
+  // let paysInversion = false
   selectionsTitre.forEach(field => {
     const nomSelection = field.name.value
     // Amélioration à faire, importer le modèle du titre pour ne pas faire de selection arbitraire, mais ne selectionner que les relations et pas les propriétés.
@@ -68,58 +60,65 @@ const fieldSelection = (titre, eager, fragments) => {
 
     // doit etre dans l'eager comme comm.dep.reg.pays, mais qui est la comme pays.reg.dep.comm
     // Soit résolution de ce probleme avec des exceptions, soit je trouve un moyen
-    if (nomSelection === 'pays') {
-      paysInversion = true
-      return
-    } else {
-      paysInversion = false
-    }
+    // if (nomSelection === 'pays') {
+    //   paysInversion = true
+    //   return
+    // } else {
+    //   paysInversion = false
+    // }
 
     eagerSelection += nomSelection
 
-    if (field.selectionSet === undefined) {
+    if (field.kind === 'Field' && field.selectionSet === undefined) {
       eagerSelection += `,`
       return
     }
 
-    // ICI LE WHILE
-    const eagerData = fieldFragmentations(field, eagerSelection, fragments)
+    const eagerData = fieldFragmentations(field, fragments)
     eagerSelection += eagerData + `,`
   })
-  if (paysInversion) {
-    let eagerPays = ``
-    const tablePays = eagerSelection.split(',').reverse()
-    tablePays.forEach(elem => (eagerPays += elem + `,`))
-    eager += eagerPays
-  } else {
-    eager += eagerSelection
-  }
-  // console.log(eager)
+  return eagerSelection
 }
 
-const fieldFragmentations = (field, eager, fragments) => {
-  let conditionSortie = true
+const fieldFragmentations = (field, fragments) => {
   let eagerData = ``
-  while (conditionSortie) {
-    const selectionsField = field.selectionSet.selections
-    let eagerFields = []
-    selectionsField.forEach(elem => {
-      const nomElem = elem.name.value
-      if (nomElem !== 'id' && nomElem !== 'nom' && nomElem !== '__typename') {
-        eagerFields.append(``)
+  const fieldFragments =
+    field.selectionSet !== undefined ? field : fragments[field.name.value]
+  const selectionsField = fieldFragments.selectionSet.selections
+  let eagerFields = []
+  selectionsField.forEach(elem => {
+    const nomElem = elem.name.value
+    if (nomElem !== 'id' && nomElem !== 'nom' && nomElem !== '__typename') {
+      if (elem.kind === 'Field' && elem.selectionSet === undefined) return
+
+      eagerFields.push(
         fieldSelection(
           elem.selectionSet !== undefined ? elem : fragments[elem.name.value],
-          eagerFields[-1],
           fragments
         )
-      }
-    })
-    if (eagerFields.length === 1) conditionSortie = false
-    else if (eagerFields.length === 1) {
-      eagerData = `${eagerData}.${eagerFields[0]}`
-    } else eagerData = `${eagerData}.${JSON.stringify(eagerFields)}`
+      )
+    }
+  })
+
+  if (eagerFields.length === 1) {
+    eagerData = `${eagerData}.${eagerFields[0]}`
+  } else if (eagerFields.length >= 2) {
+    let eagerAjout = `.[`
+    eagerFields.forEach(field => (eagerAjout = `${eagerAjout}${field}`))
+    eagerData = `${eagerData}${eagerAjout}]`
   }
   return eagerData
 }
 
-export { titreEager }
+const eagerCleaner = eager => {
+  // A chaque ",", si il y a un "]" ou une autre "," derriere, on la supprime
+  // A chaque ".", si il y a un "," derriere, on le supprime
+  return eager
+    .replace(/,{3}/g, ',')
+    .replace(/,{2}/g, ',')
+    .replace(/,]/g, ']')
+    .replace(/\.]/g, ']')
+    .replace(/\.,/g, ',')
+}
+
+export { titreEager, titresEager }

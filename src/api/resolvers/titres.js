@@ -13,7 +13,7 @@ import {
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import { titresEager, titreEager } from '../../database/queries/_eager'
+import { titreEager, titresEager } from '../../database/queries/_eager'
 
 import titreUpdateTask from '../../tasks/titre-update'
 
