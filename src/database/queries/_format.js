@@ -126,6 +126,10 @@ const titreEtapeFormat = te => {
     te.geojsonPoints = geojsonFeatureCollectionPoints(te.points)
   }
 
+  if (te.communes && te.communes.length) {
+    te.pays = paysRegionsDepartementsCommunes(te.communes)
+  }
+
   return te
 }
 

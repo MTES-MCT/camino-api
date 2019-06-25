@@ -7,7 +7,7 @@ const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
 const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
 
 // ajoute des propriétés requises par /database/queries/_format
-const fieldsTitreFormat = (obj, isRoot) => {
+const fieldsTitreFormat = (obj, parent) => {
   // ajoute la propriété `type` sur les administrations
   if (
     obj.administrations &&
@@ -47,11 +47,11 @@ const fieldsTitreFormat = (obj, isRoot) => {
     }
   })
 
-  if (obj.pays && !obj.pays.recursionStop) {
+  if (obj.pays && (parent === 'titres' || parent === 'etapes')) {
     obj.communes = {
       departement: {
         region: {
-          pays: { recursionStop: {} }
+          pays: { id: {} }
         }
       }
     }
@@ -60,7 +60,7 @@ const fieldsTitreFormat = (obj, isRoot) => {
   }
 
   // à la racine de l'objet
-  if (isRoot) {
+  if (parent === 'titres') {
     // si les propriété `surface`, `volume` ou `engagement` sont présentes
     // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
     fieldsPropsEtapes.forEach(key => {
@@ -84,15 +84,15 @@ const fieldsTitreFormat = (obj, isRoot) => {
 
 // in: objet {cle1: { id: {}}, cle2: {id: {}}}
 // out: array ["cle1", "cle2"]
-const fieldsFind = (obj, isRoot) => {
-  obj = fieldsTitreFormat(obj, isRoot)
+const fieldsFind = (obj, parent) => {
+  obj = fieldsTitreFormat(obj, parent)
 
   return Object.keys(obj).reduce((acc, key) => {
     // supprime les propriétés qui n'ont pas d'enfants
     if (Object.keys(obj[key]).length === 0) return acc
 
     // formate les propriétés enfants récursivement
-    const fieldsSub = graphQlFieldsFormat(obj[key])
+    const fieldsSub = graphQlFieldsFormat(obj[key], key)
 
     // ajoute `(orderDesc)` à certaine propriétés
     if (fieldsOrderDesc.includes(key)) {
@@ -111,8 +111,8 @@ const fieldsFind = (obj, isRoot) => {
 
 // in: objet {cle1: { id: {}}, cle2: {cle3: {id: {}}, cle4: {id: {}}}}
 // out: string "[cle1, cle2.[cle3, cle4]]"
-const graphQlFieldsFormat = (obj, isRoot = false) => {
-  const fields = fieldsFind(obj, isRoot)
+const graphQlFieldsFormat = (obj, parent = false) => {
+  const fields = fieldsFind(obj, parent)
 
   return fields.length > 1 ? `[${fields.join(', ')}]` : fields.toString()
 }
@@ -132,7 +132,7 @@ const titreEagerBuild = info => {
 
   // transforme l'ast de la requête GraphQl
   // en une string pour renseigner le eager de objection.js
-  return graphQlFieldsFormat(graphQlFieldsAst, true)
+  return graphQlFieldsFormat(graphQlFieldsAst, 'titres')
 }
 
 export default titreEagerBuild

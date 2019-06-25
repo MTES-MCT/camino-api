@@ -211,6 +211,9 @@ type Etape {
   "Les administrations en charge du titre"
   administrations: [Administration]
 
+  "Les communes du titre"
+  pays: [Pays]
+
   "Les documents relatifs à l'étape"
   documents: [Document]
 
