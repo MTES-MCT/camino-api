@@ -11,7 +11,6 @@ const titresPropsActivitesUpdate = async titres => {
     const titrePropsUpdateRequests = activitesProps.reduce(
       (acc, { id, prop }) => {
         const value = titrePropActivitesCount(titre.activites, id)
-        console.log(value)
         const titrePropUpdated = titrePropUpdate(titre, prop, value)
 
         return titrePropUpdated ? [...acc, titrePropUpdated] : acc
