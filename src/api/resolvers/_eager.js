@@ -47,16 +47,11 @@ const fieldsTitreFormat = (obj, isRoot) => {
     }
   })
 
-  if (
-    obj.pays &&
-    obj.pays.regions &&
-    obj.pays.regions.departements &&
-    obj.pays.regions.departements.communes
-  ) {
+  if (obj.pays && !obj.pays.recursionStop) {
     obj.communes = {
       departement: {
         region: {
-          pays: { id: {} }
+          pays: { recursionStop: {} }
         }
       }
     }
@@ -122,10 +117,22 @@ const graphQlFieldsFormat = (obj, isRoot = false) => {
   return fields.length > 1 ? `[${fields.join(', ')}]` : fields.toString()
 }
 
-const titreEagerBuild = info =>
-  graphQlFieldsFormat(
-    graphqlFields(info, {}, { excludedFields: ['__typename'] }),
-    true
+// optimise la requête Sql en demandant uniquement les champs
+// qui sont requis par le client GraphQl
+// in: objet info contenant les propriétés de la requête graphQl
+// out: string de eager pour la requête avec objection.js
+const titreEagerBuild = info => {
+  // transforme la requête graphQl en un AST
+  // qui défini tous les champs requis par le client
+  const graphQlFieldsAst = graphqlFields(
+    info,
+    {},
+    { excludedFields: ['__typename'] }
   )
+
+  // transforme l'ast de la requête GraphQl
+  // en une string pour renseigner le eager de objection.js
+  return graphQlFieldsFormat(graphQlFieldsAst, true)
+}
 
 export default titreEagerBuild
