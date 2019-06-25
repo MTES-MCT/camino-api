@@ -51,7 +51,7 @@ const fieldsTitreFormat = (obj, isRoot) => {
     obj.pays &&
     obj.pays.regions &&
     obj.pays.regions.departements &&
-    obj.regions.departements.communes
+    obj.pays.regions.departements.communes
   ) {
     obj.communes = {
       departement: {
