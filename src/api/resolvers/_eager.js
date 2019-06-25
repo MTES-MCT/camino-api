@@ -1,102 +1,22 @@
 import * as graphqlFields from 'graphql-fields'
 
-const fieldsOrderDesc = ['etablissements', 'demarches', 'etapes', 'activites']
-const fieldsToRemove = ['coordonnees']
-const fieldsToRemoveRoot = ['references']
-const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
-const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
-
-// ajoute des propriétés requises par /database/queries/_format
-const fieldsTitreFormat = (obj, parent) => {
-  // ajoute la propriété `type` sur les administrations
-  if (
-    obj.administrations &&
-    !obj.administrations.type &&
-    Object.keys(obj.administrations).length !== 0
-  ) {
-    obj.administrations.type = { id: {} }
-  }
-
-  // ajoute la propriété `titreType` sur les démarches
-  if (obj.demarches && !obj.demarches.titreType) {
-    obj.demarches.titreType = { id: {} }
-  }
-
-  // ajoute la propriété `type` sur les activités
-  if (obj.activites && !obj.activites.type) {
-    obj.activites.type = { id: {} }
-  }
-
-  // si `geojsonPoints` ou `geojsonMultiPolygon` sont présentes
-  // - ajoute la propriété `points`
-  // - supprime les propriété `geojsonPoints` ou `geojsonMultiPolygon`
-  fieldsGeoToReplace.forEach(key => {
-    if (obj[key]) {
-      if (!obj.points) {
-        obj.points = { id: {} }
-      }
-
-      delete obj[key]
-    }
-  })
-
-  // supprime la propriété `coordonnees`
-  fieldsToRemove.forEach(key => {
-    if (obj[key]) {
-      delete obj[key]
-    }
-  })
-
-  if (obj.pays && (parent === 'titres' || parent === 'etapes')) {
-    obj.communes = {
-      departement: {
-        region: {
-          pays: { id: {} }
-        }
-      }
-    }
-
-    delete obj.pays
-  }
-
-  // à la racine de l'objet
-  if (parent === 'titres') {
-    // si les propriété `surface`, `volume` ou `engagement` sont présentes
-    // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
-    fieldsPropsEtapes.forEach(key => {
-      if (obj[key]) {
-        obj[`${key}Etape`] = { id: {} }
-
-        delete obj[key]
-      }
-    })
-
-    // supprime la propriété `references`
-    fieldsToRemoveRoot.forEach(key => {
-      if (obj[key]) {
-        delete obj[key]
-      }
-    })
-  }
-
-  return obj
-}
-
 // in: objet {cle1: { id: {}}, cle2: {id: {}}}
 // out: array ["cle1", "cle2"]
-const fieldsFind = (obj, parent) => {
-  obj = fieldsTitreFormat(obj, parent)
-
+const fieldsFind = (obj, format) => {
   return Object.keys(obj).reduce((acc, key) => {
-    // supprime les propriétés qui n'ont pas d'enfants
-    if (Object.keys(obj[key]).length === 0) return acc
+    // supprime
+    // - les propriétés qui n'ont pas d'enfants
+    // - les propriétés dont le nom commence par '$'
+    // (cf $modifier)
+    if (Object.keys(obj[key]).length === 0 || key.slice(0, 1) === '$')
+      return acc
 
     // formate les propriétés enfants récursivement
-    const fieldsSub = graphQlFieldsFormat(obj[key], key)
+    const fieldsSub = graphQlFieldsFormat(obj[key], key, format)
 
-    // ajoute `(orderDesc)` à certaine propriétés
-    if (fieldsOrderDesc.includes(key)) {
-      key = `${key}(orderDesc)`
+    // ajoute un modifieur à certaine propriétés
+    if (obj[key].$modifier) {
+      key = `${key}(${obj[key].$modifier})`
     }
 
     // si la propriété a des enfants
@@ -111,17 +31,19 @@ const fieldsFind = (obj, parent) => {
 
 // in: objet {cle1: { id: {}}, cle2: {cle3: {id: {}}, cle4: {id: {}}}}
 // out: string "[cle1, cle2.[cle3, cle4]]"
-const graphQlFieldsFormat = (obj, parent = false) => {
-  const fields = fieldsFind(obj, parent)
+const graphQlFieldsFormat = (obj, parent, format) => {
+  const fields = fieldsFind(format(obj, parent), format)
 
   return fields.length > 1 ? `[${fields.join(', ')}]` : fields.toString()
 }
 
 // optimise la requête Sql en demandant uniquement les champs
 // qui sont requis par le client GraphQl
-// in: objet info contenant les propriétés de la requête graphQl
+// in:
+// - info: objet contenant les propriétés de la requête graphQl
+// - format: fonction qui transforme l'objet
 // out: string de eager pour la requête avec objection.js
-const titreEagerBuild = info => {
+const titreEagerBuild = (info, format = (obj, parent) => obj) => {
   // transforme la requête graphQl en un AST
   // qui défini tous les champs requis par le client
   const graphQlFieldsAst = graphqlFields(
@@ -132,7 +54,7 @@ const titreEagerBuild = info => {
 
   // transforme l'ast de la requête GraphQl
   // en une string pour renseigner le eager de objection.js
-  return graphQlFieldsFormat(graphQlFieldsAst, 'titres')
+  return graphQlFieldsFormat(graphQlFieldsAst, 'titres', format)
 }
 
 export default titreEagerBuild

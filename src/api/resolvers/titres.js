@@ -5,6 +5,7 @@ import { titreIsPublicTest } from './_restrictions'
 
 // import fileCreate from '../../tools/file-create'
 import titreEagerBuild from './_eager'
+import { titreEagerFormat } from './_eager-titres'
 
 import {
   titreGet,
@@ -58,7 +59,9 @@ const titrePermissionsCheck = (user, titre) => {
 }
 
 const titre = async ({ id }, context, info) => {
-  const titre = await titreGet(id, { eager: titreEagerBuild(info) })
+  const titre = await titreGet(id, {
+    eager: titreEagerBuild(info, titreEagerFormat)
+  })
 
   if (!titre) return null
 
@@ -92,7 +95,7 @@ const titres = async (
       references,
       territoires
     },
-    { eager: titreEagerBuild(info) }
+    { eager: titreEagerBuild(info, titreEagerFormat) }
   )
 
   const user = context.user && (await utilisateurGet(context.user.id))
