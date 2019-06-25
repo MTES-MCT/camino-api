@@ -38,20 +38,6 @@ exports.up = knex => {
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
     })
-    .createTable('demarchesTypes__demarchesStatuts', table => {
-      table
-        .string('demarcheTypeId', 3)
-        .references('demarchesTypes.id')
-        .notNullable()
-        .onDelete('CASCADE')
-      table
-        .string('demarcheStatutId', 3)
-        .references('demarchesStatuts.id')
-        .notNullable()
-        .onDelete('CASCADE')
-      table.integer('ordre')
-      table.primary(['demarcheTypeId', 'demarcheStatutId'])
-    })
     .createTable('phasesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
@@ -114,7 +100,6 @@ exports.down = knex => {
     .dropTable('etapesStatuts')
     .dropTable('demarchesTypes__etapesTypes')
     .dropTable('etapesTypes')
-    .dropTable('demarchesTypes__demarchesStatuts')
     .dropTable('demarchesStatuts')
     .dropTable('demarchesTypes__types')
     .dropTable('demarchesTypes')

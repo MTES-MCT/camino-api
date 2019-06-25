@@ -10,14 +10,14 @@ import {
   titreDemarchesOctAmodiatairesMod
 } from './__mocks__/titre-prop-etape-id-find-demarches'
 
-describe("trouve l'id de l'étape pour laquelle une propriété est valide (dé-normalise)", () => {
+describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
   test("trouve l'id de la dernière étape acceptée de la démarche d'octroi acceptée ayant la propriété 'points'", () => {
     expect(titrePropEtapeIdFind(titreDemarchesOctPointsMut, 'points')).toEqual(
       'h-cxx-courdemanges-1989-oct01-dpu01'
     )
   })
 
-  test("le résultat est vide car la dernière étape acceptée de la dernière démarche acceptée possède une propriété 'points' à tableau vide", () => {
+  test("ne trouve pas d'id si la dernière étape acceptée de la dernière démarche acceptée possède une propriété 'points' vide", () => {
     expect(
       titrePropEtapeIdFind(titreDemarchesOctPointsVides, 'points')
     ).toBeNull()
@@ -29,7 +29,7 @@ describe("trouve l'id de l'étape pour laquelle une propriété est valide (dé-
     )
   })
 
-  test("le résultat est vide car aucune étape acceptée ne contient la propriété 'communes'", () => {
+  test("ne trouve pas d'id si aucune étape acceptée ne contient la propriété 'communes'", () => {
     expect(
       titrePropEtapeIdFind(titreDemarchesOctMutPoints, 'communes')
     ).toBeNull()
@@ -41,7 +41,7 @@ describe("trouve l'id de l'étape pour laquelle une propriété est valide (dé-
     ).toEqual('h-cxx-courdemanges-1985-oct01-dpu01')
   })
 
-  test("le résultat est vide car l'étape est rejetée", () => {
+  test("ne trouve pas d'id si l'étape est rejetée", () => {
     expect(
       titrePropEtapeIdFind(titreDemarchesOctAccDpuRej, 'points')
     ).toBeNull()
@@ -53,7 +53,7 @@ describe("trouve l'id de l'étape pour laquelle une propriété est valide (dé-
     )
   })
 
-  test("Le résultat est vide car la démarche de l'étape contenant la propriété 'amodiataires' a une date de fin passée", () => {
+  test("ne trouve pas d'id si la démarche de l'étape contenant la propriété 'amodiataires' a une date de fin passée", () => {
     expect(
       titrePropEtapeIdFind(titreDemarchesOctAmodiatairesPassee, 'amodiataires')
     ).toBeNull()

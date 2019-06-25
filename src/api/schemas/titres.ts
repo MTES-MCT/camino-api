@@ -76,6 +76,15 @@ type Titre {
 
   "Les activités sur un titre"
   activites: [TitreActivite]
+
+  "le nombre d'activités déposées"
+  activitesDeposees: Int
+
+  "le nombre d'activités en construction"
+  activitesEnConstruction: Int
+  
+  "le nombre d'activités absentes"
+  activitesAbsentes:  Int
 }
 
 "Références métier d'un titre minier"

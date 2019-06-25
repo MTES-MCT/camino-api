@@ -3,7 +3,7 @@ import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-dat
 import elementRelationsUpdate from './element-relations-update'
 import titreDemarchesAscSort from './titre-demarches-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
-import { calculatedProps as titreCalculatedProps } from '../queries/titres'
+import { etapesProps } from '../queries/titres'
 
 const titreIdUpdate = titre => {
   const { domaineId, typeId, nom } = titre
@@ -74,7 +74,7 @@ const titreEtapeRelations = {
   links: [
     {
       path: '/titre',
-      props: titreCalculatedProps.map(prop => `${prop}TitreEtapeId`)
+      props: etapesProps.map(prop => `${prop}TitreEtapeId`)
     },
     {
       path: 'points',
@@ -89,7 +89,7 @@ const titreEtapeRelations = {
     {
       path: 'documents',
       // TODO: renommer le fichier en physique ?
-      props: ['id', 'titreEtapeId' /*, 'fichier'*/]
+      props: ['id', 'titreEtapeId' /*, 'fichier' */]
     },
     {
       path: 'incertitudes',

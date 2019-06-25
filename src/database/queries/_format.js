@@ -20,7 +20,7 @@ const titreFormat = t => {
   }
 
   if (t.demarches && t.demarches.length) {
-    t.demarches = t.demarches.map(td => titreDemarcheFormat(td))
+    t.demarches = t.demarches.map(titreDemarcheFormat)
   }
 
   if (t.volumeEtape) {

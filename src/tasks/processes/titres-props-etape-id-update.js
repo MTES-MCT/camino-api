@@ -1,9 +1,9 @@
-import { titrePropUpdate, calculatedProps } from '../queries/titres'
+import { titrePropUpdate, etapesProps } from '../queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
 const titresPropsEtapeIdsUpdate = async titres => {
   const titreUpdateRequests = titres.reduce((arr, titre) => {
-    const titrePropsUpdateRequests = calculatedProps.reduce((acc, prop) => {
+    const titrePropsUpdateRequests = etapesProps.reduce((acc, prop) => {
       const propEtapeIdName = `${prop}TitreEtapeId`
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
 
@@ -22,7 +22,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
     await Promise.all(titreUpdateQueries)
   }
 
-  return `Mise à jour: ${titreUpdateRequests.length} propriétés de titres.`
+  return `Mise à jour: ${titreUpdateRequests.length} propriétés (étapes) de titres.`
 }
 
 export default titresPropsEtapeIdsUpdate

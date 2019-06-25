@@ -12,6 +12,9 @@ exports.up = knex => {
     table.date('dateDebut')
     table.date('dateFin')
     table.date('dateDemande')
+    table.integer('activitesDeposees')
+    table.integer('activitesEnConstruction')
+    table.integer('activitesAbsentes')
   })
 }
 
