@@ -5,7 +5,7 @@ import { titrePropUpdate } from '../queries/titres'
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../queries/titres', () => ({
   titrePropUpdate: jest.fn(),
-  etapesProps: [
+  titrePropsEtapes: [
     'points',
     'titulaires',
     'amodiataires',

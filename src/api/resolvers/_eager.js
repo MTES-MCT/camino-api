@@ -40,7 +40,7 @@ const fieldsTitreFormat = (obj, isRoot) => {
     }
   })
 
-  // supprime le champs `coordonees`
+  // supprime la propriété `coordonnees`
   fieldsToRemove.forEach(key => {
     if (obj[key]) {
       delete obj[key]
@@ -76,7 +76,7 @@ const fieldsTitreFormat = (obj, isRoot) => {
       }
     })
 
-    // supprime le champs `references`
+    // supprime la propriété `references`
     fieldsToRemoveRoot.forEach(key => {
       if (obj[key]) {
         delete obj[key]
@@ -96,7 +96,7 @@ const fieldsFind = (obj, isRoot) => {
     // supprime les propriétés qui n'ont pas d'enfants
     if (Object.keys(obj[key]).length === 0) return acc
 
-    // format les champs enfants récursivement
+    // formate les propriétés enfants récursivement
     const fieldsSub = graphQlFieldsFormat(obj[key])
 
     // ajoute `(orderDesc)` à certaine propriétés

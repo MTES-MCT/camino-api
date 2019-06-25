@@ -3,7 +3,7 @@ import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-dat
 import elementRelationsUpdate from './element-relations-update'
 import titreDemarchesAscSort from './titre-demarches-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
-import { etapesProps } from '../queries/titres'
+import { titrePropsEtapes } from '../queries/titres'
 
 const titreIdUpdate = titre => {
   const { domaineId, typeId, nom } = titre
@@ -74,7 +74,7 @@ const titreEtapeRelations = {
   links: [
     {
       path: '/titre',
-      props: etapesProps.map(prop => `${prop}TitreEtapeId`)
+      props: titrePropsEtapes.map(prop => `${prop}TitreEtapeId`)
     },
     {
       path: 'points',

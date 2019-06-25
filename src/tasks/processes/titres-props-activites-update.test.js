@@ -7,7 +7,7 @@ jest.mock('../queries/titres', () => ({
   titrePropUpdate: jest.fn()
 }))
 
-jest.mock('../rules/titre-prop-activites-count', () => ({
+jest.mock('../utils/titre-prop-activites-count', () => ({
   default: () => ''
 }))
 

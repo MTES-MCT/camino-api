@@ -1,5 +1,5 @@
 import { titrePropUpdate } from '../queries/titres'
-import titrePropActivitesCount from '../rules/titre-prop-activites-count'
+import titrePropActivitesCount from '../utils/titre-prop-activites-count'
 
 const activitesProps = [
   { id: 'abs', prop: 'activitesAbsentes' },

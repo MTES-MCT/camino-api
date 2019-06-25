@@ -5,7 +5,7 @@ import {
   titreIdUpdate as titreIdUpdateQuery
 } from '../../database/queries/titres'
 
-const etapesProps = [
+const titrePropsEtapes = [
   'points',
   'titulaires',
   'amodiataires',
@@ -46,4 +46,9 @@ const titreIdsUpdate = (titreOldId, titreNew) =>
     u => `Mise à jour: titre ids: ${titreNew.id}`
   )
 
-export { etapesProps, titreStatutIdUpdate, titrePropUpdate, titreIdsUpdate }
+export {
+  titrePropsEtapes,
+  titreStatutIdUpdate,
+  titrePropUpdate,
+  titreIdsUpdate
+}

@@ -1,6 +1,6 @@
 import titrePropActivitesCount from './titre-prop-activites-count'
 
-import { titreActivites } from './__mocks__/titre-prop-activites-count-activites'
+import { titreActivites } from '../rules/__mocks__/titre-prop-activites-count-activites'
 
 describe('décompte des activités (dé-normalise)', () => {
   test('compte les activités', () => {
