@@ -42,7 +42,7 @@ const fieldsAstToEagerString = (obj, parent, format) => {
 // - info: objet contenant les propriétés de la requête graphQl
 // - format: fonction qui transforme l'objet
 // out: string de eager pour la requête avec objection.js
-const titreEagerBuild = (info, format = (obj, parent) => obj) => {
+const eagerBuild = (info, format = (obj, parent) => obj) => {
   // transforme la requête graphQl en un AST
   // qui défini tous les champs requis par le client
   const graphQlFieldsAst = graphqlFields(
@@ -56,4 +56,4 @@ const titreEagerBuild = (info, format = (obj, parent) => obj) => {
   return fieldsAstToEagerString(graphQlFieldsAst, 'root', format)
 }
 
-export default titreEagerBuild
+export default eagerBuild
