@@ -5,7 +5,7 @@ import titreEagerBuild from './_eager'
 import { titreEagerFormat } from './_eager-titres'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
-const statistiques = async ({}, context, info) => {
+const statistiques = async (args, context, info) => {
   const titres = await titresGet(
     {},
     { eager: titreEagerBuild(info, titreEagerFormat) }
