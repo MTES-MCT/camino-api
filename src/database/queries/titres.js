@@ -30,7 +30,6 @@ const titresGet = async (
   } = {},
   { eager = options.titres.eager, format = true } = {}
 ) => {
-  console.log(eager)
   const q = Titres.query()
     .skipUndefined()
     .eager(eager)

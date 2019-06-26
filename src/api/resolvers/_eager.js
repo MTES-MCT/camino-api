@@ -51,7 +51,6 @@ const titreEagerBuild = (info, format = (obj, parent) => obj) => {
     { excludedFields: ['__typename'] }
   )
 
-  console.log(graphQlFieldsAst)
   // transforme l'ast de la requête GraphQl
   // en une string pour renseigner le eager de objection.js
   return fieldsAstToEagerString(graphQlFieldsAst, 'root', format)
