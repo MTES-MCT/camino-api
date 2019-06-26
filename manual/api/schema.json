@@ -620,86 +620,86 @@
       {
         "kind": "ENUM",
         "name": "TypeId",
-        "description": "L'id du type de titre minier\n\n- __apx__: Autorisation de prospections préalables (M, H, C)\n- __arc__: Autorisation de recherches (C)\n- __arg__: Autorisation de recherches (G)\n- __arm__: Autorisation de recherches (M)\n- __axm__: Autorisation d'exploitation (M)\n- __cxx__: Concession (M, H, G, S, C)\n- __prh__: Permis exclusif de recherches (H)\n- __prx__: Permis exclusif de recherches (M, G, S, C)\n- __pxc__: Permis exclusif de carrières (C)\n- __pxg__: Permis d'exploitation (G)\n- __pxh__: Permis d'exploitation (H)\n- __pxm__: Permis d'exploitation (M)",
+        "description": "L'id du type de titre minier",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "apx",
-            "description": null,
+            "description": "Autorisation de prospections préalables (M, H, C)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "arc",
-            "description": null,
+            "description": "Autorisation de recherches (C)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "arg",
-            "description": null,
+            "description": "Autorisation de recherches (G)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "arm",
-            "description": null,
+            "description": "Autorisation de recherches (M)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "axm",
-            "description": null,
+            "description": "Autorisation d'exploitation (M)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "cxx",
-            "description": null,
+            "description": "Concession (M, H, G, S, C)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "prh",
-            "description": null,
+            "description": "Permis exclusif de recherches (H)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "prx",
-            "description": null,
+            "description": "Permis exclusif de recherches (M, G, S, C)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "pxc",
-            "description": null,
+            "description": "Permis exclusif de carrières (C)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "pxg",
-            "description": null,
+            "description": "Permis d'exploitation (G)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "pxh",
-            "description": null,
+            "description": "Permis d'exploitation (H)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "pxm",
-            "description": null,
+            "description": "Permis d'exploitation (M)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "pxx",
-            "description": null,
+            "description": "Permis d'exploitation (W, R)",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -828,22 +828,6 @@
             "deprecationReason": null
           },
           {
-            "name": "demarchesStatuts",
-            "description": "Les types de statuts applicables à ce type de démarche",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DemarcheStatut",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "etapesTypes",
             "description": "Les types d'étapes applicables à ce type de démarche",
             "args": [],
@@ -893,177 +877,6 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "DemarcheStatut",
-        "description": "Le statut d'une démarche applicable à un titre minier",
-        "fields": [
-          {
-            "name": "id",
-            "description": "L'id composée de trois lettres",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "DemarcheStatutId",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": "Le nom en français",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "couleur",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "ENUM",
-                "name": "Couleur",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "DemarcheStatutId",
-        "description": "L'id du statut d'une démarche de titre minier\n\n- __acc__: Acceptée\n- __cls__: Classée sans suite\n- __dep__: Déposée\n- __eco__: En construction\n- __ind__: Indeterminé\n- __ini__: Initiée\n- __ins__: En instruction\n- __rej__: Rejetée\n- __ret__: Retirée\n- __ter__: Terminée",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "acc",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "cls",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dep",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "eco",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ind",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ini",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ins",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "rej",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ret",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ter",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "Couleur",
-        "description": "Une liste de couleurs génériques",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "error",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "info",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "neutral",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "success",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "warning",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
         "possibleTypes": null
       },
       {
@@ -1227,67 +1040,108 @@
       {
         "kind": "ENUM",
         "name": "EtapeStatutId",
-        "description": "L'id du statut d'une étape de démarche de titre minier\n\n- __acc__: Acceptation\n- __ajo__: Ajournée\n- __def__: Défavorable\n- __dre__: Défavorable avec réserves\n- __fav__: Favorable\n- __fre__: Favorable avec réserves\n- __nul__: Non applicable\n- __rej__: Rejet\n- __nfa__: Non fait\n- __fai__: Fait",
+        "description": "L'id du statut d'une étape de démarche de titre minier",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "acc",
-            "description": null,
+            "description": "Acceptation",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ajo",
-            "description": null,
+            "description": "Ajournée",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "def",
-            "description": null,
+            "description": "Défavorable",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "dre",
-            "description": null,
+            "description": "Défavorable avec réserves",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "fav",
-            "description": null,
+            "description": "Favorable",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "fre",
-            "description": null,
+            "description": "Favorable avec réserves",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "nul",
-            "description": null,
+            "description": "Non applicable",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "rej",
-            "description": null,
+            "description": "Rejet",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "nfa",
-            "description": null,
+            "description": "Non fait",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "fai",
+            "description": "Fait",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "Couleur",
+        "description": "Une liste de couleurs génériques",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "error",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "info",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "neutral",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "success",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "warning",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -1361,56 +1215,56 @@
       {
         "kind": "ENUM",
         "name": "DomaineId",
-        "description": "L'id du domaine minier\n\n- __c__: Carrières\n- __f__: Combustibles fossiles\n- __g__: Géothermie\n- __h__: Substances énergétiques\n- __m__: Minéraux et métaux\n- __r__: Eléments radioactifs\n- __s__: Stockage\n- __w__: Granulats marins",
+        "description": "L'id du domaine minier",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "c",
-            "description": null,
+            "description": "Carrières",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "f",
-            "description": null,
+            "description": "Combustibles fossiles",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "g",
-            "description": null,
+            "description": "Géothermie",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "h",
-            "description": null,
+            "description": "Substances énergétiques",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "m",
-            "description": null,
+            "description": "Minéraux et métaux",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "r",
-            "description": null,
+            "description": "Eléments radioactifs",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "s",
-            "description": null,
+            "description": "Stockage",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "w",
-            "description": null,
+            "description": "Granulats marins",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -1479,44 +1333,44 @@
       {
         "kind": "ENUM",
         "name": "StatutId",
-        "description": "L'id du statut d'un titre minier\n\n- __dmc__: Demande classée\n- __dmi__: Demande initiale\n- __ech__: Échu\n- __ind__: Indéterminé\n- __mod__: Modification en instance\n- __val__: Valide",
+        "description": "L'id du statut d'un titre minier",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "dmc",
-            "description": null,
+            "description": "Demande classée",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "dmi",
-            "description": null,
+            "description": "Demande initiale",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ech",
-            "description": null,
+            "description": "Échu",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ind",
-            "description": null,
+            "description": "Indéterminé",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "mod",
-            "description": null,
+            "description": "Modification en instance",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "val",
-            "description": null,
+            "description": "Valide",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -1722,20 +1576,20 @@
       {
         "kind": "ENUM",
         "name": "EmpriseId",
-        "description": "L'id de l'emprise géographique d'un titre minier\n\n- __ter__: À terre\n- __mer__: En mer",
+        "description": "L'id de l'emprise géographique d'un titre minier",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "ter",
-            "description": null,
+            "description": "À terre",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "mer",
-            "description": null,
+            "description": "En mer",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -2087,6 +1941,42 @@
                 "name": "TitreActivite",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesDeposees",
+            "description": "le nombre d'activités déposées",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesEnConstruction",
+            "description": "le nombre d'activités en construction",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesAbsentes",
+            "description": "le nombre d'activités absentes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4097,6 +3987,136 @@
       },
       {
         "kind": "OBJECT",
+        "name": "DemarcheStatut",
+        "description": "Le statut d'une démarche applicable à un titre minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "L'id composée de trois lettres",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "DemarcheStatutId",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Le nom en français",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "couleur",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "Couleur",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "DemarcheStatutId",
+        "description": "L'id du statut d'une démarche de titre minier",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "acc",
+            "description": "Acceptée",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "cls",
+            "description": "Classée sans suite",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dep",
+            "description": "Déposée",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "eco",
+            "description": "En construction",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ind",
+            "description": "Indeterminé",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ini",
+            "description": "Initiée",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ins",
+            "description": "En instruction",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rej",
+            "description": "Rejetée",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ret",
+            "description": "Retirée",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ter",
+            "description": "Terminée",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Phase",
         "description": "Phase d'un titre minier",
         "fields": [
@@ -4208,20 +4228,20 @@
       {
         "kind": "ENUM",
         "name": "PhaseStatutId",
-        "description": "L'id du statut d'une phase de titre minier\n\n- __val__: Valide\n- __ech__: Échu",
+        "description": "L'id du statut d'une phase de titre minier ",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "val",
-            "description": null,
+            "description": "Valide",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ech",
-            "description": null,
+            "description": "Échu",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -4539,6 +4559,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Administration",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pays",
+            "description": "Les communes du titre",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Pays",
                 "ofType": null
               }
             },
