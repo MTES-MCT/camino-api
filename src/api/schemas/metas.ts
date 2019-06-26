@@ -188,151 +188,145 @@ type Emprise {
 
 """
 L'id du type de titre minier
-
-- __apx__: Autorisation de prospections préalables (M, H, C)
-- __arc__: Autorisation de recherches (C)
-- __arg__: Autorisation de recherches (G)
-- __arm__: Autorisation de recherches (M)
-- __axm__: Autorisation d'exploitation (M)
-- __cxx__: Concession (M, H, G, S, C)
-- __prh__: Permis exclusif de recherches (H)
-- __prx__: Permis exclusif de recherches (M, G, S, C)
-- __pxc__: Permis exclusif de carrières (C)
-- __pxg__: Permis d'exploitation (G)
-- __pxh__: Permis d'exploitation (H)
-- __pxm__: Permis d'exploitation (M)
 """
 enum TypeId {
+  "Autorisation de prospections préalables (M, H, C)"
   apx
+  "Autorisation de recherches (C)"
   arc
+  "Autorisation de recherches (G)"
   arg
+  "Autorisation de recherches (M)"
   arm
+  "Autorisation d'exploitation (M)"
   axm
+  "Concession (M, H, G, S, C)"
   cxx
+  "Permis exclusif de recherches (H)"
   prh
+  "Permis exclusif de recherches (M, G, S, C)"
   prx
+  "Permis exclusif de carrières (C)"
   pxc
+  "Permis d'exploitation (G)"
   pxg
+  "Permis d'exploitation (H)"
   pxh
+  "Permis d'exploitation (M)"
   pxm
+  "Permis d'exploitation (W, R)"
   pxx
 }
 
 """
 L'id du domaine minier
-
-- __c__: Carrières
-- __f__: Combustibles fossiles
-- __g__: Géothermie
-- __h__: Substances énergétiques
-- __m__: Minéraux et métaux
-- __r__: Eléments radioactifs
-- __s__: Stockage
-- __w__: Granulats marins
 """
 enum DomaineId {
+  "Carrières"
   c
+  "Combustibles fossiles"
   f
+  "Géothermie"
   g
+  "Substances énergétiques"
   h
+  "Minéraux et métaux"
   m
+  "Eléments radioactifs"
   r
+  "Stockage"
   s
+  "Granulats marins"
   w
 }
 
 """
 L'id du statut d'un titre minier
-
-- __dmc__: Demande classée
-- __dmi__: Demande initiale
-- __ech__: Échu
-- __ind__: Indéterminé
-- __mod__: Modification en instance
-- __val__: Valide
 """
 enum StatutId {
+  "Demande classée"
   dmc
+  "Demande initiale"
   dmi
+  "Échu"
   ech
+  "Indéterminé"
   ind
+  "Modification en instance"
   mod
+  "Valide"
   val
 }
 
 """
 L'id de l'emprise géographique d'un titre minier
-
-- __ter__: À terre
-- __mer__: En mer
 """
 enum EmpriseId {
+  "À terre"
   ter
+  "En mer"
   mer
 }
 
 """
 L'id du statut d'une démarche de titre minier
-
-- __acc__: Acceptée
-- __cls__: Classée sans suite
-- __dep__: Déposée
-- __eco__: En construction
-- __ind__: Indeterminé
-- __ini__: Initiée
-- __ins__: En instruction
-- __rej__: Rejetée
-- __ret__: Retirée
-- __ter__: Terminée
 """
 enum DemarcheStatutId {
+  "Acceptée"
   acc
+  "Classée sans suite"
   cls
+  "Déposée"
   dep
+  "En construction"
   eco
+  "Indeterminé"
   ind
+  "Initiée"
   ini
+  "En instruction"
   ins
+  "Rejetée"
   rej
+  "Retirée"
   ret
+  "Terminée"
   ter
 }
 
 """
-L'id du statut d'une phase de titre minier
-
-- __val__: Valide
-- __ech__: Échu
+L'id du statut d'une phase de titre minier 
 """
 enum PhaseStatutId {
+  "Valide"
   val
+  "Échu"
   ech
 }
 
 """
 L'id du statut d'une étape de démarche de titre minier
-
-- __acc__: Acceptation
-- __ajo__: Ajournée
-- __def__: Défavorable
-- __dre__: Défavorable avec réserves
-- __fav__: Favorable
-- __fre__: Favorable avec réserves
-- __nul__: Non applicable
-- __rej__: Rejet
-- __nfa__: Non fait
-- __fai__: Fait
 """
 enum EtapeStatutId {
+  "Acceptation"
   acc
+  "Ajournée"
   ajo
+  "Défavorable"
   def
+  "Défavorable avec réserves"
   dre
+  "Favorable"
   fav
+  "Favorable avec réserves"
   fre
+  "Non applicable"
   nul
+  "Rejet"
   rej
+  "Non fait"
   nfa
+  "Fait"
   fai
 }
 
