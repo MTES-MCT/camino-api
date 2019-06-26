@@ -79,9 +79,7 @@ const titreEtapeAdministrationsInsert = (titreEtape, administrationsIds) =>
               administrationId
             }).then(
               u =>
-                `Mise à jour: étape ${
-                  titreEtape.id
-                }, administration ${administrationId}`
+                `Mise à jour: étape ${titreEtape.id}, administration ${administrationId}`
             )
           ],
     []
@@ -102,9 +100,7 @@ const titreEtapeAdministrationsDelete = (titreEtape, administrationsIds) =>
                   administrationId: administration.id
                 }).then(
                   u =>
-                    `Suppression: étape ${titreEtape.id}, administration ${
-                      administration.id
-                    }`
+                    `Suppression: étape ${titreEtape.id}, administration ${administration.id}`
                 )
               ],
         []

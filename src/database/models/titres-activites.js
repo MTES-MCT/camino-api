@@ -74,7 +74,7 @@ export default class TitresActivites extends Model {
   }
 
   static namedFilters = {
-    orderByDateDesc: builder => {
+    orderDesc: builder => {
       builder.orderBy('date', 'desc')
     }
   }

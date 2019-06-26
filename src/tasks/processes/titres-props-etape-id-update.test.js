@@ -5,7 +5,7 @@ import { titrePropUpdate } from '../queries/titres'
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../queries/titres', () => ({
   titrePropUpdate: jest.fn(),
-  calculatedProps: [
+  titrePropsEtapes: [
     'points',
     'titulaires',
     'amodiataires',
@@ -23,23 +23,23 @@ jest.mock('../rules/titre-prop-etape-id-find', () => ({
 
 console.log = jest.fn()
 
-describe("met à jour les propriétés d'un titre", () => {
-  test('8 propriétés sont trouvées dans les étapes', async () => {
+describe("propriétés (étape) d'un titre", () => {
+  test('trouve 8 propriétés dans les étapes', async () => {
     titrePropUpdate.mockImplementation(() => Promise.resolve('Mise à jour…'))
     const titresPropsEtapeIdUpdatelog = await titresPropsEtapeIdUpdate([{}])
 
     expect(titresPropsEtapeIdUpdatelog).toEqual(
-      'Mise à jour: 8 propriétés de titres.'
+      'Mise à jour: 8 propriétés (étapes) de titres.'
     )
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("les propriétés n'existent pas dans les étapes", async () => {
+  test('ne trouve pas de propriétés dans les étapes', async () => {
     titrePropUpdate.mockImplementation(() => false)
     const titresPropsEtapeIdUpdatelog = await titresPropsEtapeIdUpdate([{}])
 
     expect(titresPropsEtapeIdUpdatelog).toEqual(
-      'Mise à jour: 0 propriétés de titres.'
+      'Mise à jour: 0 propriétés (étapes) de titres.'
     )
   })
 })

@@ -20,7 +20,7 @@ const titreFormat = t => {
   }
 
   if (t.demarches && t.demarches.length) {
-    t.demarches = t.demarches.map(td => titreDemarcheFormat(td))
+    t.demarches = t.demarches.map(titreDemarcheFormat)
   }
 
   if (t.volumeEtape) {
@@ -124,6 +124,10 @@ const titreEtapeFormat = te => {
   if (te.points && te.points.length) {
     te.geojsonMultiPolygon = geojsonFeatureMultiPolygon(te.points)
     te.geojsonPoints = geojsonFeatureCollectionPoints(te.points)
+  }
+
+  if (te.communes && te.communes.length) {
+    te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 
   return te

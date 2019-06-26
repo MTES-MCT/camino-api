@@ -1,6 +1,5 @@
 import '../database/index'
 import { titreGet } from '../database/queries/titres'
-import { titreFormat } from '../database/queries/_format'
 
 import titreIdUpdate from './processes/titre-id-update'
 
@@ -9,7 +8,7 @@ const titreUpdate = async titreId => {
     // 1.
     // id du titre
     // en fonction du type, du nom et de l'année d'octroi
-    const titre = await titreGet(titreId, false)
+    const titre = await titreGet(titreId, { format: false })
     const titreNew = await titreIdUpdate(titre)
 
     console.log('Titre mis à jour')

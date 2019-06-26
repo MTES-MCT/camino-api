@@ -168,7 +168,7 @@ const titresActivites = {
 }
 
 const types = {
-  eager: `[demarchesTypes.demarchesStatuts]`
+  eager: `[demarchesTypes]`
 }
 
 const domaines = {
@@ -176,7 +176,7 @@ const domaines = {
 }
 
 const titres = {
-  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderByDateDesc).${titresActivites.eager}]`,
+  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}]`,
 
   update: {
     relate: [
