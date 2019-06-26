@@ -23,9 +23,7 @@ const entrepriseEtablissementUpdate = (
   return updated
     ? entrepriseEtablissementUpdateQuery(entrepriseEtablissementNew).then(
         u =>
-          `Mise à jour: entrepriseEtablissement ${
-            entrepriseEtablissementNew.id
-          }`
+          `Mise à jour: entrepriseEtablissement ${entrepriseEtablissementNew.id}`
       )
     : null
 }

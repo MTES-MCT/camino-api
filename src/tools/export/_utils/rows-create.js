@@ -27,11 +27,11 @@ const rowsCreate = (elements, parents, parentElement) =>
         []
       )
     : // si il n'y a pas de parent
-      // si elements est un tableau
-      Array.isArray(elements)
-      ? // le retourne tel quel
-        elements.map(element => ({ element, parent: parentElement }))
-      : // sinon, l'insère dans un tableau
-        [{ element: elements, parent: parentElement }]
+    // si elements est un tableau
+    Array.isArray(elements)
+    ? // le retourne tel quel
+      elements.map(element => ({ element, parent: parentElement }))
+    : // sinon, l'insère dans un tableau
+      [{ element: elements, parent: parentElement }]
 
 export default rowsCreate

@@ -21,9 +21,7 @@ const titreEtapeTypeAndStatusCheck = (titreEtape, titreDemarche) => {
     etapeStatut => etapeStatut.id === titreEtapeStatutId
   )
   if (!titreEtapeStatut) {
-    return `statut de l'étape "${titreEtapeStatutId}" invalide pour une type d'étape de type ${
-      titreDemarcheEtapeType.nom
-    }`
+    return `statut de l'étape "${titreEtapeStatutId}" invalide pour une type d'étape de type ${titreDemarcheEtapeType.nom}`
   }
 
   return null

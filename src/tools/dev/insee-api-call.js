@@ -1,12 +1,9 @@
 import 'dotenv/config'
-import 'dotenv/config'
+
 import '../../database/index'
 import fileCreate from '../file-create'
 
 import { inseeSirenGet, inseeSiretGet } from '../api-insee'
-
-const siren1 = '572199164'
-const siren2 = '484860507'
 
 const siret1 = '57219916400045'
 const siret2 = '48486050700017'
@@ -23,7 +20,8 @@ const entreprises = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 console.log(entreprises.length)
 
 async function main() {
-  if (true) {
+  const test = true
+  if (test) {
     const result = await inseeSirenGet(entreprises)
 
     console.log(result.length)
@@ -31,7 +29,7 @@ async function main() {
     await fileCreate('test-entreprises.json', JSON.stringify(result, null, 2))
   }
 
-  if (false) {
+  if (!test) {
     const etablissements = await inseeSiretGet([siret1, siret2])
 
     console.log(etablissements)

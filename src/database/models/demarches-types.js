@@ -1,5 +1,4 @@
 import { Model } from 'objection'
-import DemarchesStatuts from './demarches-statuts'
 import EtapesTypes from './etapes-types'
 
 export default class DemarchesTypes extends Model {

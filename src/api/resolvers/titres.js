@@ -130,7 +130,7 @@ const titreModifier = async ({ titre }, context, info) => {
   }
 
   try {
-    const res = await titreUpsert(titre)
+    await titreUpsert(titre)
 
     const titreNew = await titreUpdateTask(titre.id)
 

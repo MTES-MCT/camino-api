@@ -1,7 +1,6 @@
 import 'dotenv/config'
 import * as dateFormat from 'dateformat'
 import '../../../database/index'
-import fileCreate from '../../file-create'
 
 import { titresGet } from '../../../database/queries/titres'
 

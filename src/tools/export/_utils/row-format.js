@@ -27,8 +27,8 @@ const rowFormat = (element, columns, parent, callbacks) =>
     return (currentElement[key] && callbacks && callbacks[key]
       ? callbacks[key](currentElement[key])
       : currentElement[key] !== undefined && currentElement[key] !== null
-        ? currentElement[key]
-        : ''
+      ? currentElement[key]
+      : ''
     ).toString()
   })
 
