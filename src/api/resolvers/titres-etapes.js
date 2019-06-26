@@ -7,9 +7,9 @@ import {
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
 
-import titreEtapeUpdateTask from '../../tasks/titre-etape-update'
+import titreEtapeUpdateTask from '../../business/titre-etape-update'
 
-import titreEtapeUpdateValidation from '../../tasks/titre-etape-update-validation'
+import titreEtapeUpdateValidation from '../../business/titre-etape-update-validation'
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
