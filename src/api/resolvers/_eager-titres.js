@@ -45,7 +45,7 @@ const titreEagerFormat = (obj, parent) => {
     }
   })
 
-  if (obj.pays && (parent === 'titres' || parent === 'etapes')) {
+  if (obj.pays && (parent === 'root' || parent === 'etapes')) {
     obj.communes = {
       departement: {
         region: {
@@ -63,8 +63,8 @@ const titreEagerFormat = (obj, parent) => {
   }
 
   // à la racine de l'objet
-  if (parent === 'titres') {
-    // si les propriété `surface`, `volume` ou `engagement` sont présentes
+  if (parent === 'root') {
+    // si les propriétés `surface`, `volume` ou `engagement` sont présentes
     // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
     fieldsPropsEtapes.forEach(key => {
       if (obj[key]) {
