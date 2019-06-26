@@ -3,7 +3,6 @@ import permissionsCheck from './_permissions-check'
 import auth from './_auth'
 import { titreIsPublicTest } from './_restrictions'
 
-// import fileCreate from '../../tools/file-create'
 import titreEagerBuild from './_eager'
 import { titreEagerFormat } from './_eager-titres'
 
