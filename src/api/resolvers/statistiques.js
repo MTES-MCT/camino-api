@@ -1,15 +1,10 @@
 import { titresGet } from '../../database/queries/titres'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
 import { titreIsPublicTest } from './_restrictions'
-import titreEagerBuild from './_eager'
-import { titreEagerFormat } from './_eager-titres'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
-const statistiques = async (args, context, info) => {
-  const titres = await titresGet(
-    {},
-    { eager: titreEagerBuild(info, titreEagerFormat) }
-  )
+const statistiques = async () => {
+  const titres = await titresGet({}, { eager: '' })
   const titresTotal = titres.length
 
   const titresValide = titres.filter(titre => {
