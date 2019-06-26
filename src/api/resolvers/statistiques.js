@@ -4,7 +4,7 @@ import { titreIsPublicTest } from './_restrictions'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiques = async () => {
-  const titres = await titresGet()
+  const titres = await titresGet({}, { eager: '', format: false })
   const titresTotal = titres.length
 
   const titresValide = titres.filter(titre => {

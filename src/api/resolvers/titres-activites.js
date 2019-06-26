@@ -17,6 +17,7 @@ import permissionsCheck from './_permissions-check'
 import { titreActiviteRowUpdate } from '../../tools/export/titre-activite'
 
 import emailsSend from '../../tools/emails-send'
+import titreActivitePropUpdate from '../../tasks/titre-activite-props-update'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
   const user = await utilisateurGet(context.user.id)
@@ -49,6 +50,8 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
 
   const activiteRes = await titreActiviteUpdate(activite)
+
+  await titreActivitePropUpdate(titre.id)
 
   titreActiviteRowUpdate(activiteRes)
 

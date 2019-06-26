@@ -47,9 +47,9 @@ export default class TitresPoints extends Model {
 
   $formatDatabaseJson(json) {
     if (json.coordonnees) {
-      const t = `${json.coordonnees.x},${json.coordonnees.y}`
-      json.coordonnees = t
+      json.coordonnees = `${json.coordonnees.x},${json.coordonnees.y}`
     }
+
     json = super.$formatDatabaseJson(json)
     return json
   }

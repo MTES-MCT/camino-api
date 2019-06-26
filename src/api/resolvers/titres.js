@@ -3,6 +3,9 @@ import permissionsCheck from './_permissions-check'
 import auth from './_auth'
 import { titreIsPublicTest } from './_restrictions'
 
+import eagerBuild from './_eager'
+import { titreEagerFormat } from './_eager-titres'
+
 import {
   titreGet,
   titresGet,
@@ -55,7 +58,9 @@ const titrePermissionsCheck = (user, titre) => {
 }
 
 const titre = async ({ id }, context, info) => {
-  const titre = await titreGet(id)
+  const titre = await titreGet(id, {
+    eager: eagerBuild(info, titreEagerFormat)
+  })
 
   if (!titre) return null
 
@@ -78,23 +83,19 @@ const titres = async (
   context,
   info
 ) => {
-  // todo:
-  // pour optimiser la requête sql en fonction de la requête graphql
-  // construire un eager.options à passer à la requête sql
-  // à partir de l'AST de graphQL
-  // console.log(JSON.stringify(info.fragments, null, 2))
-  // cf: https://github.com/graphql/graphql-js/issues/799
-
-  const titres = await titresGet({
-    typeIds,
-    domaineIds,
-    statutIds,
-    substances,
-    noms,
-    entreprises,
-    references,
-    territoires
-  })
+  const titres = await titresGet(
+    {
+      typeIds,
+      domaineIds,
+      statutIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    },
+    { eager: eagerBuild(info, titreEagerFormat) }
+  )
 
   const user = context.user && (await utilisateurGet(context.user.id))
 

@@ -88,9 +88,6 @@ type DemarcheType {
 
   exception: Boolean
 
-  "Les types de statuts applicables à ce type de démarche"
-  demarchesStatuts: [DemarcheStatut]
-
   "Les types d'étapes applicables à ce type de démarche"
   etapesTypes: [EtapeType]
 }

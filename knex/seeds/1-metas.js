@@ -28,7 +28,6 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('domaines__types'),
     del('demarchesTypes__types'),
     del('demarchesTypes__etapesTypes'),
-    del('demarchesTypes__demarchesStatuts'),
     del('etapesTypes__etapesStatuts'),
     del('statuts'),
     del('emprises'),
@@ -62,7 +61,6 @@ exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
     insert('domaines__types', domaines_types),
     insert('demarchesTypes__types', demarchesTypes_types),
-    insert('demarchesTypes__demarchesStatuts', demarchesTypes_demarchesStatuts),
     insert('demarchesTypes__etapesTypes', demarchesTypes_etapesTypes),
     insert('etapesTypes__etapesStatuts', etapesTypes_etapesStatuts)
   ])
