@@ -11,9 +11,7 @@ import * as emailRegex from 'email-regex'
 //   }
 // })
 
-const smtpTransportConfig = `smtps://${process.env.EMAIL_API_KEY}:${
-  process.env.EMAIL_API_PASSWORD
-}@${process.env.EMAIL_SMTP_SERVER}`
+const smtpTransportConfig = `smtps://${process.env.EMAIL_API_KEY}:${process.env.EMAIL_API_PASSWORD}@${process.env.EMAIL_SMTP_SERVER}`
 
 const from = process.env.EMAIL_USER
 

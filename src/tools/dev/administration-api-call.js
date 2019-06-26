@@ -1,9 +1,9 @@
 import 'dotenv/config'
-import 'dotenv/config'
+
 import '../../database/index'
 import fileCreate from '../file-create'
 
-import { titresGet } from '../../database/queries/titres'
+// import { titresGet } from '../../database/queries/titres'
 import {
   titresEtapesGet,
   titreEtapeAdministrationInsert
@@ -11,65 +11,65 @@ import {
 import { departementsGet } from '../../database/queries/territoires'
 import { administrationInsert } from '../../database/queries/administrations'
 
-import { geojsonFeatureMultiPolygon } from '../geojson'
+// import { geojsonFeatureMultiPolygon } from '../geojson'
 
 import { organismeGet } from '../api-administrations'
-import { departementChefGeojsonGet } from '../api-communes'
+// import { departementChefGeojsonGet } from '../api-communes'
 
-const multiDepartements = async () => {
-  const titres = await titresGet()
+// const multiDepartements = async () => {
+//   const titres = await titresGet()
 
-  const titresMultiDepartements = titres.filter(
-    t =>
-      t.pays &&
-      t.pays[0].regions &&
-      t.pays[0].regions[0].departements &&
-      t.pays[0].regions[0].departements.length > 1
-  )
+//   const titresMultiDepartements = titres.filter(
+//     t =>
+//       t.pays &&
+//       t.pays[0].regions &&
+//       t.pays[0].regions[0].departements &&
+//       t.pays[0].regions[0].departements.length > 1
+//   )
 
-  console.log(
-    titresMultiDepartements
-      .map(t => t.id)
-      .sort()
-      .join('\n')
-  )
+//   console.log(
+//     titresMultiDepartements
+//       .map(t => t.id)
+//       .sort()
+//       .join('\n')
+//   )
 
-  console.log('multi dep:', titresMultiDepartements.length)
+//   console.log('multi dep:', titresMultiDepartements.length)
 
-  const titresDepartements = await titresMultiDepartements.reduce(
-    async (acc, titre) => {
-      const departementChef = await departementChefGeojsonGet(
-        titre.geojsonMultiPolygon
-      )
+//   const titresDepartements = await titresMultiDepartements.reduce(
+//     async (acc, titre) => {
+//       const departementChef = await departementChefGeojsonGet(
+//         titre.geojsonMultiPolygon
+//       )
 
-      console.log(
-        titre.id,
-        titre.pays[0].regions[0].departements.map(d => d.id).join(','),
-        'chef:',
-        departementChef.id
-      )
+//       console.log(
+//         titre.id,
+//         titre.pays[0].regions[0].departements.map(d => d.id).join(','),
+//         'chef:',
+//         departementChef.id
+//       )
 
-      const { id: departementId } = departementChef
+//       const { id: departementId } = departementChef
 
-      return [...(await acc), { id: titre.id, departementId }]
-    },
-    []
-  )
+//       return [...(await acc), { id: titre.id, departementId }]
+//     },
+//     []
+//   )
 
-  console.log(titresDepartements)
+//   console.log(titresDepartements)
 
-  process.exit()
+//   process.exit()
 
-  const orgs = await Promise.all(
-    ['prefecture', 'dreal', 'dreal_ut'].map(org =>
-      organismeGet(departementChef.id, org)
-    )
-  )
+//   const orgs = await Promise.all(
+//     ['prefecture', 'dreal', 'dreal_ut'].map(org =>
+//       organismeGet(departementChef.id, org)
+//     )
+//   )
 
-  console.log('orgs:', JSON.stringify(orgs, null, 2))
+//   console.log('orgs:', JSON.stringify(orgs, null, 2))
 
-  process.exit()
-}
+//   process.exit()
+// }
 
 const main = async () => {
   const departements = await departementsGet()
@@ -100,7 +100,7 @@ const main = async () => {
 
   console.log('titresEtapes:', titresEtapes.length)
 
-  const res = await Promise.all(
+  await Promise.all(
     titresEtapes.reduce(
       (acc, titreEtape) =>
         !titreEtape.communes || !titreEtape.communes.length

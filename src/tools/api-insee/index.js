@@ -224,11 +224,14 @@ const nomIndividuFormat = e =>
   } ${e.nomUniteLegale}`
 
 /**
- * Formate le nom d'une entreprise ou établissement
- * @param {Object} e l'entité à formater
- * @param {Boolean} usuel récupère le nom usuel ou non
+ * @description Formate le nom d'une entreprise ou établissement.
+ *
+ * @param {object} e - L'entité à formater.
+ * @param {boolean} usuel - Récupère le nom usuel ou non
  *     si usuel est `true` et que l'entité est une personne
- *     alors format le nom comme une entreprise
+ *     alors format le nom comme une entreprise.
+ * @returns {string} Le nom de l'entreprise.
+ *
  */
 const nomFormat = (e, usuel) =>
   e.nomUniteLegale && !usuel
@@ -367,9 +370,7 @@ const entrepriseAdresseFormat = e => {
       entreprise.legalForme = categorie.nom
     } else {
       console.error(
-        `catégorie juridique introuvable : ${
-          unite.categorieJuridiqueUniteLegale
-        }`
+        `catégorie juridique introuvable : ${unite.categorieJuridiqueUniteLegale}`
       )
     }
   }

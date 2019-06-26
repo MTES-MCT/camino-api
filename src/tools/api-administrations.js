@@ -3,7 +3,6 @@
 import { join } from 'path'
 
 import * as fetch from 'node-fetch'
-import * as dateFormat from 'dateformat'
 import * as makeDir from 'make-dir'
 
 import errorLog from './error-log'
@@ -13,10 +12,6 @@ const RESPONSES_FOLDER = 'responses/administration/'
 const MAX_CALLS_MINUTE = 200
 
 const { ADMINISTRATION_API_URL } = process.env
-
-// token local au fichier
-// utiliser `initializeToken` pour l'initialiser
-let apiToken
 
 const organismeUrlGet = (departementId, nom) => {
   return `${ADMINISTRATION_API_URL}/v3/departements/${departementId}/${nom}`

@@ -80,9 +80,7 @@ const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
   await Promise.all([...adressesUpdateQueries, ...etablissementsUpdateQueries])
 
   return [
-    `Mise à jour: ${
-      etablissementsUpdateQueries.length
-    } etablissements d'entreprises.`,
+    `Mise à jour: ${etablissementsUpdateQueries.length} etablissements d'entreprises.`,
     `Mise à jour: ${adressesUpdateQueries.length} adresses d'entreprises.`
   ]
 }

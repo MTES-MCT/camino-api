@@ -39,9 +39,7 @@ async function main() {
     )
   } else {
     console.log(
-      `${
-        titreDocumentsFichiersMissing.length
-      } noms de fichiers renseignés en base de données n'existent pas`
+      `${titreDocumentsFichiersMissing.length} noms de fichiers renseignés en base de données n'existent pas`
     )
     console.log(
       titreDocumentsFichiersMissing.map(titres => `- ${titres}`).join('\n')

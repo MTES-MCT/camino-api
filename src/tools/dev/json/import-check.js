@@ -175,7 +175,7 @@ const mappingRelationsGet = mappings => {
   return Object.keys(mappings).reduce((relations, name) => {
     const mapping = mappings[name]
 
-    const { modelClass: model, join } = mapping
+    const { join } = mapping
 
     if (join.through) {
       return [
