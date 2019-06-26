@@ -16,9 +16,9 @@ import {
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import titreUpdateTask from '../../tasks/titre-update'
+import titreUpdateTask from '../../business/titre-update'
 
-import titreUpdateValidation from '../../tasks/titre-update-validation'
+import titreUpdateValidation from '../../business/titre-update-validation'
 
 const titreRestrictions = titre => {
   titre.activites = []

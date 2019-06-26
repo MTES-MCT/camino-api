@@ -7,9 +7,9 @@ import {
   titreDemarcheDelete
 } from '../../database/queries/titres-demarches'
 
-import titreDemarcheUpdateTask from '../../tasks/titre-demarche-update'
+import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 
-import titreDemarcheUpdateValidation from '../../tasks/titre-demarche-update-validation'
+import titreDemarcheUpdateValidation from '../../business/titre-demarche-update-validation'
 
 const titreDemarcheModifier = async ({ demarche }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {

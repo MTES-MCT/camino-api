@@ -3,7 +3,7 @@ import '../../../database/index'
 
 import { titresGet } from '../../../database/queries/titres'
 
-import titresActivitesTypesUpdate from '../../../tasks/processes/titres-activites-update'
+import titresActivitesTypesUpdate from '../../../business/processes/titres-activites-update'
 import { activitesTypesGet } from '../../../database/queries/metas'
 
 async function main() {

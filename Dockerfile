@@ -2,7 +2,6 @@ FROM node:latest
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
-ENV NODE_ENV production
 WORKDIR $dir
 
 # cache node_modules if no changes to package.json

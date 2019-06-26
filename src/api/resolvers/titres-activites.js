@@ -17,7 +17,7 @@ import permissionsCheck from './_permissions-check'
 import { titreActiviteRowUpdate } from '../../tools/export/titre-activite'
 
 import emailsSend from '../../tools/emails-send'
-import titreActivitePropUpdate from '../../tasks/titre-activite-props-update'
+import titreActivitePropUpdate from '../../business/titre-activite-props-update'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
   const user = await utilisateurGet(context.user.id)

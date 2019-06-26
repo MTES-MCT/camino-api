@@ -3,7 +3,7 @@ import '../../../database/index'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { communesGet } from '../../../database/queries/territoires'
 
-import titreEtapeCommunesUpdate from '../../../tasks/etape-update/titre-etape-communes-update'
+import titreEtapeCommunesUpdate from '../../../business/etape-update/titre-etape-communes-update'
 
 async function main() {
   const titreEtapeId = 'h-prh-tarbes-val-d-adour-2008-pr101-dpu01'
