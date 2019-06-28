@@ -6,6 +6,9 @@ const titresMSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_M
 const titresRSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_R
 const titresSSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_S
 const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_W
+const titresRepriseSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_TITRES_REPRISE
+
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
 const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
@@ -100,6 +103,15 @@ const spreadsheets = [
     tables: titresTables,
     prefixFileName: true
   },
+
+  // feuille optionnelle pour la reprise de données
+  {
+    name: 'titres-reprise',
+    id: titresRepriseSpreadsheetId,
+    tables: titresTables,
+    prefixFileName: true
+  },
+
   {
     name: 'metas',
     id: metasSpreadsheetId,
