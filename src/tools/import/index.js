@@ -9,8 +9,9 @@ import spreadsheets from './spreadsheets'
 const run = async () => {
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
-  const spreadsheetsPromises = spreadsheets.map(s => () =>
-    spreadsheetToJsonFiles(s)
+  const spreadsheetsPromises = spreadsheets.reduce(
+    (r, s) => (s.id ? [...r, spreadsheetToJsonFiles(s)] : r),
+    []
   )
 
   // exécute les requêtes en série
