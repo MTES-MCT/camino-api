@@ -25,8 +25,18 @@ const statistiques = async () => {
       titreActivite.activiteStatutId === 'dep'
   ).length
 
+  const titresActivites2018OnlyDepose = titresActivites.filter(
+    titreActivite =>
+      titreActivite.annee === ACTIVITE_ANNEE_DEBUT &&
+      titreActivite.activiteStatutId === 'dep'
+  ).length
+
+  const titreActivite2018OnlyTotal = titresActivites.filter(
+    titreActivite => titreActivite.annee === ACTIVITE_ANNEE_DEBUT
+  ).length
+
   const titreActivites2018Ratio = Math.round(
-    (titresActivites2018Depose / titreActivite2018Total) * 100
+    (titresActivites2018OnlyDepose / titreActivite2018OnlyTotal) * 100
   )
 
   const titresActivites2018BeneficesEntreprise = Math.round(
