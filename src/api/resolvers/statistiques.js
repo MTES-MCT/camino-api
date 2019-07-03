@@ -15,45 +15,41 @@ const statistiques = async () => {
 
   const titresActivites = await titresActivitesGet()
 
-  const titreActivite2018Total = titresActivites.filter(
-    titreActivite => titreActivite.annee >= ACTIVITE_ANNEE_DEBUT
-  ).length
-
-  const titresActivites2018Depose = titresActivites.filter(
+  const titresActivitesDepose = titresActivites.filter(
     titreActivite =>
       titreActivite.annee >= ACTIVITE_ANNEE_DEBUT &&
       titreActivite.activiteStatutId === 'dep'
   ).length
 
-  const titresActivites2018OnlyDepose = titresActivites.filter(
+  const titresActivites2018Depose = titresActivites.filter(
     titreActivite =>
       titreActivite.annee === ACTIVITE_ANNEE_DEBUT &&
       titreActivite.activiteStatutId === 'dep'
   ).length
 
-  const titreActivite2018OnlyTotal = titresActivites.filter(
+  const titreActivite2018Total = titresActivites.filter(
     titreActivite => titreActivite.annee === ACTIVITE_ANNEE_DEBUT
   ).length
 
   const titreActivites2018Ratio = Math.round(
-    (titresActivites2018OnlyDepose / titreActivite2018OnlyTotal) * 100
+    (titresActivites2018Depose / titreActivite2018Total) * 100
   )
 
-  const titresActivites2018BeneficesEntreprise = Math.round(
-    (titresActivites2018Depose * 2) / 7
+  const titresActivitesBeneficesEntreprise = Math.round(
+    (titresActivitesDepose * 2) / 7
   )
 
-  const titresActivites2018BeneficesAdministration = Math.round(
-    (titresActivites2018Depose * 1) / 7
+  const titresActivitesBeneficesAdministration = Math.round(
+    (titresActivitesDepose * 1) / 7
   )
 
   return {
     titresTotal,
     titresValide,
-    titresActivites2018Depose,
+    titresActivitesDepose,
     titreActivites2018Ratio,
-    titresActivites2018BeneficesEntreprise,
-    titresActivites2018BeneficesAdministration
+    titresActivitesBeneficesEntreprise,
+    titresActivitesBeneficesAdministration
   }
 }
 
