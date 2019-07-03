@@ -1,4 +1,3 @@
-export default `
 "Titre minier"
 type Titre {
   """
@@ -33,7 +32,6 @@ type Titre {
   "Le geojson du contour du périmètre géographique du titre dans son dernier état de validité"
   geojsonMultiPolygon: GeojsonMultiPolygon
   "Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité"
-
   geojsonPoints: GeojsonPoints
   "Les titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
@@ -82,9 +80,9 @@ type Titre {
 
   "le nombre d'activités en construction"
   activitesEnConstruction: Int
-  
+
   "le nombre d'activités absentes"
-  activitesAbsentes:  Int
+  activitesAbsentes: Int
 }
 
 "Références métier d'un titre minier"
@@ -385,4 +383,4 @@ input InputIncertitudes {
   titulaires: Boolean
   amodiataires: Boolean
   administrations: Boolean
-}`
+}

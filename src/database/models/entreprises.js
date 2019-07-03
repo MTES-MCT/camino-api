@@ -28,6 +28,15 @@ export default class Entreprises extends Model {
   }
 
   static relationMappings = {
+    etablissements: {
+      relation: Model.HasManyRelation,
+      modelClass: EntreprisesEtablissements,
+      join: {
+        from: 'entreprises.id',
+        to: 'entreprisesEtablissements.entrepriseId'
+      }
+    },
+
     utilisateurs: {
       relation: Model.ManyToManyRelation,
       modelClass: `${__dirname}/utilisateurs`,
@@ -41,12 +50,29 @@ export default class Entreprises extends Model {
       }
     },
 
-    etablissements: {
-      relation: Model.HasManyRelation,
-      modelClass: EntreprisesEtablissements,
+    titresTitulaire: {
+      relation: Model.ManyToManyRelation,
+      modelClass: `${__dirname}/titres`,
       join: {
         from: 'entreprises.id',
-        to: 'entreprisesEtablissements.entrepriseId'
+        through: {
+          from: 'titresTitulaires.entrepriseId',
+          to: 'titresTitulaires.titreEtapeId'
+        },
+        to: 'titres.titulairesTitreEtapeId'
+      }
+    },
+
+    titresAmodiataire: {
+      relation: Model.ManyToManyRelation,
+      modelClass: `${__dirname}/titres`,
+      join: {
+        from: 'entreprises.id',
+        through: {
+          from: 'titresAmodiataires.entrepriseId',
+          to: 'titresAmodiataires.titreEtapeId'
+        },
+        to: 'titres.amodiatairesTitreEtapeId'
       }
     }
   }

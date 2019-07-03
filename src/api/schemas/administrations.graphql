@@ -1,4 +1,3 @@
-export default `
 type Administration {
   id: ID!
   nom: String
@@ -26,4 +25,4 @@ input InputAdministration {
   codePostal: String
   commune: String
   cedex: String
-}`
+}

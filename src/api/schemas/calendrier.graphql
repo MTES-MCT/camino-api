@@ -1,4 +1,3 @@
-export default `
 type Frequence {
   id: ID!
   nom: String!
@@ -15,4 +14,4 @@ type Trimestre {
 type Mois {
   id: ID!
   nom: String!
-}`
+}
