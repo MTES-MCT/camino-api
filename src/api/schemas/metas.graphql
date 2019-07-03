@@ -1,4 +1,3 @@
-export default `
 """
 Meta-informations sur les titres miniers (types, domaines, statuts)
 """
@@ -295,7 +294,7 @@ enum DemarcheStatutId {
 }
 
 """
-L'id du statut d'une phase de titre minier 
+L'id du statut d'une phase de titre minier
 """
 enum PhaseStatutId {
   "Valide"
@@ -340,4 +339,3 @@ enum Couleur {
   success
   warning
 }
-`

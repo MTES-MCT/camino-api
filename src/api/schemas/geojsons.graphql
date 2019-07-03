@@ -1,4 +1,3 @@
-export default `
 "Paire de coordonnées géographiques"
 type Coordonnees {
   "La valeur des coordonnées en X sous forme d'un nombre décimal"
@@ -86,4 +85,4 @@ enum GeometryTypeMultipolygon {
 
 enum GeometryTypePoint {
   Point
-}`
+}
