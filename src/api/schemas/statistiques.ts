@@ -3,9 +3,9 @@ export default `
 type Statistiques {
   titresTotal: Int
   titresValide: Int 
-  titresActivites2018Depose: Int
+  titresActivitesDepose: Int
   titreActivites2018Ratio: Int
-  titresActivites2018BeneficesEntreprise: Int
-  titresActivites2018BeneficesAdministration: Int
+  titresActivitesBeneficesEntreprise: Int
+  titresActivitesBeneficesAdministration: Int
 }
 `
