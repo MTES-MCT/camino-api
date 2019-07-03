@@ -1,6 +1,3 @@
-export default `
-
-
 "Pays"
 type Pays {
   """
@@ -43,7 +40,6 @@ type Departement {
   communes: [Commune]
 }
 
-
 "Commune"
 type Commune {
   """
@@ -54,4 +50,3 @@ type Commune {
   "Le nom de la commune"
   nom: String!
 }
-`

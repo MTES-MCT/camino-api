@@ -1,4 +1,17 @@
-export default `
+# import * from 'administrations.graphql'
+# import * from 'calendrier.graphql'
+# import * from 'entreprises.graphql'
+# import * from 'geojsons.graphql'
+# import * from 'metas-activites.graphql'
+# import * from 'metas.graphql'
+# import * from 'points.graphql'
+# import * from 'statistiques.graphql'
+# import * from 'substances.graphql'
+# import * from 'territoires.graphql'
+# import * from 'titres-activites.graphql'
+# import * from 'titres.graphql'
+# import * from 'utilisateurs.graphql'
+
 """
 # Query
 ## _Requêtes en lecture_
@@ -130,12 +143,9 @@ type Mutation {
   titreEtapeSupprimer(id: ID!): Titre
 
   "__*__ Créé ou modifie une activité"
-  titreActiviteModifier(
-    activite: InputTitreActivite!
-  ): TitreActivite
+  titreActiviteModifier(activite: InputTitreActivite!): TitreActivite
 }
 
 scalar Json
 
 scalar Date
-`

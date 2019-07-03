@@ -1,4 +1,3 @@
-export default `
 type ActiviteStatut {
   id: ID!
   nom: String!
@@ -29,4 +28,4 @@ input InputTitreActiviteType {
 
   "Le nom en français"
   nom: String
-}`
+}
