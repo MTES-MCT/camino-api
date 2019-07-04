@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.24.0](https://github.com/MTES-MCT/camino-api/compare/v0.23.0...v0.24.0) (2019-07-04)
+
+
+### Bug Fixes
+
+* masque les activités sur la liste de titres ([1921e28](https://github.com/MTES-MCT/camino-api/commit/1921e28))
+* **import:** corrige l'erreur en cas de feuille manquante ou vide ([#109](https://github.com/MTES-MCT/camino-api/issues/109)) ([7119616](https://github.com/MTES-MCT/camino-api/commit/7119616))
+* **import:** corrige l'import des spreadsheets ([#113](https://github.com/MTES-MCT/camino-api/issues/113)) ([83e757f](https://github.com/MTES-MCT/camino-api/commit/83e757f))
+* **tasks:** utilise une file d'attente pour les requêtes à l'API communes ([#108](https://github.com/MTES-MCT/camino-api/issues/108)) ([09b0b24](https://github.com/MTES-MCT/camino-api/commit/09b0b24))
+* corrige l'export d'un rapport d'activité ([#106](https://github.com/MTES-MCT/camino-api/issues/106)) ([8001d61](https://github.com/MTES-MCT/camino-api/commit/8001d61))
+* **tasks:** supprime le renommage des fichiers lors du changement d'id de titre ([#104](https://github.com/MTES-MCT/camino-api/issues/104)) ([2778df0](https://github.com/MTES-MCT/camino-api/commit/2778df0))
+* corrige le docker-compose de preprod ([#105](https://github.com/MTES-MCT/camino-api/issues/105)) ([ddf1412](https://github.com/MTES-MCT/camino-api/commit/ddf1412))
+* supprime le dossier docs et ajoute le au .gitignore ([fe4550d](https://github.com/MTES-MCT/camino-api/commit/fe4550d))
+* **export:** exporte et importe les phases et les administrations ([#103](https://github.com/MTES-MCT/camino-api/issues/103)) ([1c6cd53](https://github.com/MTES-MCT/camino-api/commit/1c6cd53))
+* **import:** corrige l'import des sections dans etapes_types ([#102](https://github.com/MTES-MCT/camino-api/issues/102)) ([33f8a89](https://github.com/MTES-MCT/camino-api/commit/33f8a89))
+
+
+### Build System
+
+* met à jour les dépendances ([76c2f43](https://github.com/MTES-MCT/camino-api/commit/76c2f43))
+* met à jour les dépendances ([1ad492c](https://github.com/MTES-MCT/camino-api/commit/1ad492c))
+
+
+### Features
+
+* **export:** ajout d'un filtre par ids sur les titres ([#116](https://github.com/MTES-MCT/camino-api/issues/116)) ([8560584](https://github.com/MTES-MCT/camino-api/commit/8560584))
+* **statistiques:** ajoute seulement les activités de 2018 dans le calcul du ratio ([#114](https://github.com/MTES-MCT/camino-api/issues/114)) ([1ae341e](https://github.com/MTES-MCT/camino-api/commit/1ae341e))
+* filtre le champs visas ([521934f](https://github.com/MTES-MCT/camino-api/commit/521934f))
+* **import:** ajoute une feuille pour la reprise de données ([#112](https://github.com/MTES-MCT/camino-api/issues/112)) ([ca9da81](https://github.com/MTES-MCT/camino-api/commit/ca9da81))
+* ajoute le docker-compose de preprod ([586f9a2](https://github.com/MTES-MCT/camino-api/commit/586f9a2))
+
+
+
 ## [0.23.0](https://github.com/MTES-MCT/camino-api/compare/v0.22.0...v0.23.0) (2019-06-17)
 
 
