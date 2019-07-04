@@ -22,6 +22,9 @@ import titreUpdateValidation from '../../business/titre-update-validation'
 
 const titreRestrictions = titre => {
   titre.activites = []
+  titre.activitesAbsentes = null
+  titre.activitesDeposees = null
+  titre.activitesEnConstruction = null
   if (titre.demarches) {
     titre.demarches.forEach(td => {
       if (td.etapes) {
