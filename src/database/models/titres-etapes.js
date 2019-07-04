@@ -26,16 +26,16 @@ export default class TitresEtapes extends Model {
       statutId: { type: 'string', maxLength: 3 },
       ordre: { type: 'integer' },
       date: { type: 'date' },
-      duree: { type: ['integer', 'null'] },
       dateDebut: { type: 'date' },
       dateFin: { type: 'date' },
+      duree: { type: ['integer', 'null'] },
       surface: { type: ['number', 'null'] },
       volume: { type: ['number', 'null'] },
       volumeUniteId: { type: ['string', 'null'] },
       visas: { type: ['array', 'null'] },
       engagement: { type: ['number', 'null'] },
       engagementDeviseId: { type: ['string', 'null'] },
-      sourceIndisponible: { type: ['boolean', 'null'] }
+      contenu: { type: [] }
     }
   }
 
