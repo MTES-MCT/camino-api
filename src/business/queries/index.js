@@ -1,6 +1,6 @@
 /**
- * @typedef {Object} titreDemarche
- * @property {!String} id id de la démarche
+ * @typedef {object} titreDemarche
+ * @property {!string} id id de la démarche
  * @property {!string} titreId id du titre minier
  * @property {!string} typeId id du type de la démarche
  * @property {!string} statutId id du statut de la démarche

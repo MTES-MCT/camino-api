@@ -35,7 +35,7 @@ export default class TitresEtapes extends Model {
       visas: { type: ['array', 'null'] },
       engagement: { type: ['number', 'null'] },
       engagementDeviseId: { type: ['string', 'null'] },
-      contenu: { type: [] }
+      contenu: { type: 'json' }
     }
   }
 
