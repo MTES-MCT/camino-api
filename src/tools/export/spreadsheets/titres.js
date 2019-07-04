@@ -10,6 +10,9 @@ const titresMSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_M
 const titresRSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_R
 const titresSSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_S
 const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_W
+const titresIdsFilter = process.env.GOOGLE_EXPORT_TITRES_IDS
+  ? process.env.GOOGLE_EXPORT_TITRES_IDS.split(',')
+  : []
 
 // const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_METAS
 // const entreprisesSpreadsheetId =
@@ -19,8 +22,8 @@ const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_W
 // const substancesSpreadsheetId =
 //   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_SUBSTANCES
 
-const get = domaineId =>
-  titresGet({
+const get = async domaineId => {
+  const titres = await titresGet({
     typeIds: undefined,
     domaineIds: [domaineId],
     statutIds: undefined,
@@ -28,16 +31,37 @@ const get = domaineId =>
     noms: undefined
   })
 
+  return titresIdsFilter.length > 0
+    ? titres.filter(t => titresIdsFilter.includes(t.id))
+    : titres
+}
+
 const tables = [
   {
     id: 1,
     name: 'titres',
-    columns: ['id', 'nom', 'typeId', 'domaineId', 'statutId', 'references'],
+    columns: [
+      'id',
+      'nom',
+      'typeId',
+      'domaineId',
+      'statutId',
+      'references',
+      'dateDebut',
+      'dateFin',
+      'dateDemande',
+      'activitesDeposees',
+      'activitesEnConstruction',
+      'activitesAbsentes'
+    ],
     callbacks: {
       references: v =>
         JSON.stringify(
           v.reduce((r, { type, valeur }) => ({ ...r, [type]: valeur }), {})
-        )
+        ),
+      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateDemande: v => dateFormat(v, 'yyyy-mm-dd')
     }
   },
   {
@@ -83,15 +107,15 @@ const tables = [
       'ordre',
       'date',
       'dateDebut',
-      'duree',
       'dateFin',
+      'duree',
       'surface',
+      'volume',
+      'volumeUniteId',
       'visas',
       'engagement',
       'engagementDeviseId',
-      'engagementVolume',
-      'engagementVolumeUniteId',
-      'sourceIndisponible'
+      'contenu'
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {
@@ -141,7 +165,8 @@ const tables = [
       'nom',
       'url',
       'uri',
-      'fichier'
+      'fichier',
+      'public'
     ],
     parents: ['demarches', 'etapes', 'documents']
   },
@@ -151,8 +176,8 @@ const tables = [
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
       { key: 'id', value: 'substanceId' },
-      'connexe',
-      'ordre'
+      'ordre',
+      'connexe'
     ],
     parents: ['demarches', 'etapes', 'substances']
   },
@@ -171,7 +196,8 @@ const tables = [
     name: 'titresAmodiataires',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'entrepriseId' }
+      { key: 'id', value: 'entrepriseId' },
+      'operateur'
     ],
     parents: ['demarches', 'etapes', 'amodiataires']
   },
@@ -213,6 +239,8 @@ const tables = [
       'dateFin',
       'duree',
       'surface',
+      'volume',
+      'engagement',
       'points',
       'substances',
       'titulaires',

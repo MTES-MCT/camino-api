@@ -10,6 +10,7 @@ import spreadsheetAdministrations from './spreadsheets/administrations'
 
 const run = async () => {
   console.log('Export en cours…')
+
   // construit un tableau de promesses avec
   // - les requête en base de données
   // - les appels à l'API Google Sheets
