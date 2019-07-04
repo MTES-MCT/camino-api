@@ -15,8 +15,8 @@ export default class TitresPointsReferences extends Model {
       coordonnees: {
         type: 'object',
         properties: {
-          x: { type: 'number' },
-          y: { type: 'number' }
+          x: { type: 'string' },
+          y: { type: 'string' }
         }
       }
     }
