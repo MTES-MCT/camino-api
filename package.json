@@ -33,6 +33,8 @@
     "dev:daily": "ts-node --transpile-only ./src/business/daily.ts",
     "monthly": "node ./dist/business/monthly.js",
     "dev:monthly": "ts-node --transpile-only ./src/business/monthly.ts",
+    "db:export": "pg_dump -c -d camino --username=postgres -h localhost -f ./manual/database/camino-db.dump",
+    "db:import": "psql -d camino --username=postgres -h localhost < ./manual/database/camino-db.dump",
     "start": "npm run build && node ./dist/index.js",
     "graphql:schema": "ts-node ./src/tools/dev/api/graphql-dsl-to-query-convert.js",
     "test": "jest --verbose && codecov",
