@@ -39,14 +39,19 @@ Pour que l'application fonctionne, sont requis:
 
 ## Configuration et imports des données
 
+- Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`
 - Créer une base de données `camino`.
 - Importer les données sources (faire une demande par [email](mailto:camino@beta.gouv.fr))
-- Renommer le fichier `.env.example` en `.env` et le compléter.
+- Renommer le fichier `.env-example` en `.env` et le compléter.
+
+### Installation
 
 ```bash
 # installe les dépendances
 npm install
+```
 
+```bash
 # compile l'application avec typescript
 npm run build
 
@@ -62,13 +67,18 @@ npm run daily
 npm run user-add
 ```
 
----
-
-## Développement
+### Développement
 
 ```bash
 # démarre le serveur avec nodemon
 npm run dev
+```
+
+### Production
+
+```bash
+# démarre le serveur
+npm run start
 ```
 
 ---
