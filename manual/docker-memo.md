@@ -50,13 +50,17 @@ cat camino.sql | docker exec -i camino-api_postgres_1 psql -U postgres -d camino
 
 ```bash
 # localement
-scp -r files <user>@<ip>:/srv/tmp/camino-api-files
+tar -zcvf files.tar.gz files/*
+scp -r files.tar.gz <user>@<ip>:/srv/tmp/camino-api-files
 ```
 
 ```bash
 # sur le serveur
 # copie les fichiers dans le volume
+cd /srv/tmp/camino-api-files
+tar -zxvf files.tar.gz
 docker cp /srv/tmp/camino-api-files/. camino-api_app_1:/app/files/
+
 # ou pour la version locale
 docker cp files/. camino-api_app_1:/app/files/
 ```
