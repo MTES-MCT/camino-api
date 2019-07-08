@@ -40,7 +40,7 @@ Pour que l'application fonctionne, sont requis:
 ## Configuration et imports des données
 
 - Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`
-- Créer une base de données `camino`.
+- Créer une base de données PostgreSQL nommée `camino`.
 - Renommer le fichier `.env-example` en `.env` et le compléter.
 
 ### Installation
@@ -54,7 +54,7 @@ npm install
 # compile l'application avec typescript
 npm run build
 
-# importe les données
+# importe les données depuis /database/camino-public.sql
 npm run db:import
 
 # crée un utilisateur admin
