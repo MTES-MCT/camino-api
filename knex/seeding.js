@@ -9,9 +9,7 @@ module.exports = func => knex => {
 
   const insert = (table, data) => {
     console.log(
-      `Insertion des données de la table "${table}", (${
-        data.length
-      } élément(s))`
+      `Insertion des données de la table "${table}", (${data.length} élément(s))`
     )
 
     const arrs = []

@@ -1,9 +1,10 @@
 .DS_Store
 .env
-env-public
+.env-public
 
 node_modules
-/backups
+/database/*
+!/database/camino-public.sql
 /src/tools/sources/**/*.json
 /dist
 /sources
