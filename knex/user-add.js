@@ -1,9 +1,9 @@
-import 'dotenv/config'
-import * as emailRegex from 'email-regex'
-import '../../../database/index'
-import * as bcrypt from 'bcrypt'
+const Knex = require('knex')
+const config = require('./config-api')
+const knex = Knex(config.knex)
 
-import { utilisateurAdd } from '../../../database/queries/utilisateurs'
+const emailRegex = require('email-regex')
+const bcrypt = require('bcrypt')
 
 const password = process.env.ADMIN_PASSWORD
 
@@ -30,7 +30,7 @@ const run = async () => {
 
   if (!errors.length) {
     utilisateur.motDePasse = await bcrypt.hash(password, 10)
-    await utilisateurAdd(utilisateur)
+    await knex('utilisateurs').insert(utilisateur)
     console.log('Utilisateur créé')
   } else {
     console.log('Aucun utilisateur créé:', errors.join(', '))

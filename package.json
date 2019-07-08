@@ -44,7 +44,7 @@
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "doc": "rm -rf docs && npx esdoc",
-    "user-add": "ts-node ./src/tools/dev/database/utilisateur-admin-add.js"
+    "user-add": "node ./knex/user-add.js"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
