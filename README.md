@@ -48,11 +48,6 @@ Pour que l'application fonctionne, sont requis:
 ```bash
 # installe les dépendances
 npm install
-```
-
-```bash
-# compile l'application avec typescript
-npm run build
 
 # importe les données depuis /database/camino-public.sql
 npm run db:import
@@ -71,11 +66,12 @@ npm run dev
 ### Production
 
 ```bash
+# compile l'application avec typescript
+npm run build
+
 # démarre le serveur
 npm run start
 ```
-
----
 
 ## Tests
 
