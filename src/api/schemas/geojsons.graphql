@@ -26,16 +26,18 @@ type GeojsonPoints {
 
 type FeaturePoint {
   type: FeatureType!
+  properties: FeaturePointProperties
   geometry: GeometryPoints!
-  properites: FeaturePointProperties
 }
 
 type FeaturePointProperties {
+  id: ID!
   groupe: Int
   contour: Int
   point: Int
   nom: String
   description: String
+  references: [PointReference]
 }
 
 type GeometryPoints {
@@ -47,23 +49,6 @@ input InputCoordonnees {
   x: Float
 
   y: Float
-}
-
-input InputGeojson {
-  type: FeatureCollectionType!
-  properties: InputEtapeId!
-  feature: [InputFeature]
-}
-
-input InputFeature {
-  type: FeatureType!
-  properties: InputEtapeId!
-  geometry: InputGeometry!
-}
-
-input InputGeometry {
-  type: GeometryType
-  coordinates: Json
 }
 
 enum FeatureCollectionType {
