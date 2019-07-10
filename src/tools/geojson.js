@@ -35,7 +35,7 @@ const geojsonFeatureCollectionPoints = points => ({
         groupe: p.groupe,
         contour: p.contour,
         point: p.point,
-        references: p.references
+        references: p.references && p.references.length ? p.references : null
       }
     }))
   ]
