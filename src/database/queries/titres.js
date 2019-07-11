@@ -4,17 +4,12 @@ import options from './_options'
 import { titreFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async (
-  id,
-  { eager = options.titres.eager, format = true } = {}
-) => {
+const titreGet = async (id, { eager = options.titres.eager, format } = {}) => {
   const t = await Titres.query()
     .findById(id)
     .eager(eager)
 
-  if (!format) return t
-
-  return t && titreFormat(t)
+  return t && titreFormat(t, format)
 }
 
 const titresGet = async (
@@ -28,7 +23,7 @@ const titresGet = async (
     references,
     territoires
   } = {},
-  { eager = options.titres.eager, format = true } = {}
+  { eager = options.titres.eager, format } = {}
 ) => {
   const q = Titres.query()
     .skipUndefined()
@@ -199,10 +194,8 @@ const titresGet = async (
 
   const titres = await q
 
-  if (!format) return titres
-
   // console.log(sqlFormatter.format(q.toSql()))
-  return titres.map(t => t && titreFormat(t))
+  return titres.map(t => t && titreFormat(t, format))
 }
 
 const titrePropsUpdate = async ({ id, props }) => {
