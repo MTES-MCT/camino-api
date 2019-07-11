@@ -3,67 +3,82 @@ import {
   titreEtapeAdministrationsDelete
 } from '../queries/titre-etapes'
 
-const administrationsIdsFind = (titreEtape, administrations, domaineId) => {
-  let adminDepartementsIds = []
-  let adminRegionsIds = []
-  let adminGlobalesIds = []
+const typesAdministrationsLocalesLink = {
+  arm: false
+}
 
-  if (titreEtape.communes && titreEtape.communes.length) {
-    const { departementIds, regionIds } = titreEtape.communes.reduce(
-      ({ departementIds, regionIds }, commune) => {
+const typesAdministrationsCentralesLink = {
+  axm: false,
+  arm: ['ope-onf-973-01']
+}
+
+const administrationsIdsFind = (
+  titreEtape,
+  administrations,
+  { domaineId, typeId }
+) => {
+  let adminsLocalesIds = []
+  let adminsCentralesIds = []
+
+  if (
+    typesAdministrationsLocalesLink[typeId] !== false &&
+    titreEtape.communes &&
+    titreEtape.communes.length
+  ) {
+    const {
+      titreDepartementsIds,
+      titreRegionsIds
+    } = titreEtape.communes.reduce(
+      ({ titreDepartementsIds, titreRegionsIds }, commune) => {
         if (commune.departementId) {
-          departementIds.add(commune.departementId)
+          titreDepartementsIds.add(commune.departementId)
         }
 
         if (commune.departement && commune.departement.regionId) {
-          regionIds.add(commune.departement.regionId)
+          titreRegionsIds.add(commune.departement.regionId)
         }
 
         return {
-          departementIds,
-          regionIds
+          titreDepartementsIds,
+          titreRegionsIds
         }
       },
-      { regionIds: new Set(), departementIds: new Set() }
+      { titreRegionsIds: new Set(), titreDepartementsIds: new Set() }
     )
 
-    const adminIds = administrations.reduce(
-      ({ adminDepartementsIds, adminRegionsIds }, administration) => {
-        if (
-          administration.departementId &&
-          departementIds.has(administration.departementId)
-        ) {
-          adminDepartementsIds.add(administration.id)
-        }
-
-        if (administration.regionId && regionIds.has(administration.regionId)) {
-          adminRegionsIds.add(administration.id)
-        }
-
-        return { adminDepartementsIds, adminRegionsIds }
-      },
-      { adminDepartementsIds: new Set(), adminRegionsIds: new Set() }
-    )
-
-    // const dedup = arr => [...new Set(...arr)]
-
-    adminDepartementsIds = [...adminIds.adminDepartementsIds]
-    adminRegionsIds = [...adminIds.adminRegionsIds]
-  }
-
-  if (['dex', 'dpu', 'men'].includes(titreEtape.typeId)) {
-    adminGlobalesIds = administrations.reduce(
-      (acc, administration) =>
-        administration.domaines &&
-        administration.domaines.length &&
-        administration.domaines.find(({ id }) => id === domaineId)
-          ? [...acc, administration.id]
-          : acc,
+    adminsLocalesIds = administrations.reduce(
+      (adminsLocalesIds, administration) =>
+        (administration.departementId &&
+          titreDepartementsIds.has(administration.departementId)) ||
+        (administration.regionId &&
+          titreRegionsIds.has(administration.regionId))
+          ? [...adminsLocalesIds, administration.id]
+          : adminsLocalesIds,
       []
     )
   }
 
-  return [...adminDepartementsIds, ...adminRegionsIds, ...adminGlobalesIds]
+  if (
+    typesAdministrationsCentralesLink[typeId] !== false &&
+    ['dex', 'dpu', 'men'].includes(titreEtape.typeId)
+  ) {
+    if (Array.isArray(typesAdministrationsCentralesLink[typeId])) {
+      adminsCentralesIds = typesAdministrationsCentralesLink[typeId]
+    } else {
+      adminsCentralesIds = administrations.reduce(
+        (adminsCentralesIds, administration) =>
+          administration.domaines &&
+          administration.domaines.length &&
+          administration.domaines.find(({ id }) => id === domaineId)
+            ? [...adminsCentralesIds, administration.id]
+            : adminsCentralesIds,
+        []
+      )
+    }
+  }
+
+  // dédoublonne les ids d'administrations, au cas où
+  return [...new Set([...adminsCentralesIds, ...adminsLocalesIds])]
 }
 
 const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
@@ -78,7 +93,7 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
               const administrationsIds = administrationsIdsFind(
                 titreEtape,
                 administrations,
-                titre.domaineId
+                titre
               )
 
               return administrationsIds.length
