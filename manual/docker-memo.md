@@ -23,6 +23,13 @@ DROP DATABASE camino; CREATE DATABASE camino;
 docker start camino-api_app_1
 ```
 
+## Faire une sauvegarde de la base de données vers l'extérieur
+
+```sh
+docker exec -t camino-api_postgres_1 pg_dumpall -c -U postgres > /srv/tmp/dumps/dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+```
+
+
 ## Démarrer un shell dans le conteneur Docker de l'API
 
 ```sh
