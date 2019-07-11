@@ -3,6 +3,7 @@ import permissionsCheck from './_permissions-check'
 import auth from './_auth'
 import { titreIsPublicTest } from './_restrictions'
 
+import formatBuild from './_format'
 import eagerBuild from './_eager'
 import { titreEagerFormat } from './_eager-titres'
 
@@ -66,7 +67,8 @@ const titrePermissionsCheck = (user, titre) => {
 
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id, {
-    eager: eagerBuild(info, titreEagerFormat)
+    eager: eagerBuild(info, titreEagerFormat),
+    format: formatBuild(info)
   })
 
   if (!titre) return null
@@ -101,7 +103,7 @@ const titres = async (
       references,
       territoires
     },
-    { eager: eagerBuild(info, titreEagerFormat) }
+    { eager: eagerBuild(info, titreEagerFormat), format: formatBuild(info) }
   )
 
   const user = context.user && (await utilisateurGet(context.user.id))
