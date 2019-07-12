@@ -53,12 +53,4 @@ export default class TitresPoints extends Model {
     json = super.$formatDatabaseJson(json)
     return json
   }
-
-  $parseDatabaseJson(json) {
-    json = super.$parseDatabaseJson(json)
-    if (json) {
-      // console.log('--------------->', json)
-    }
-    return json
-  }
 }

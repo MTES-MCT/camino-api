@@ -7,8 +7,7 @@ import {
   titresCommunes,
   titresCommunesVides,
   titresCommunesMemeCommune,
-  titresArm,
-  titresAxm
+  titresArm
 } from './__mocks__/titres-etapes-administrations-update-etapes'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
@@ -20,7 +19,7 @@ jest.mock('../queries/titre-etapes', () => ({
 
 console.log = jest.fn()
 
-describe('met à jour la liste de administrations pour une étape', () => {
+describe("met à jour la liste d'administrations d'une étape", () => {
   test('ajoute 4 administrations dans une étape', async () => {
     const insertSpy = jest
       .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
@@ -40,7 +39,7 @@ describe('met à jour la liste de administrations pour une étape', () => {
     insertSpy.mockRestore()
   })
 
-  test("une administration en doublon n'est pas ajoutée deux fois", async () => {
+  test("n'ajoute pas deux fois une administration en doublon ", async () => {
     const insertSpy = jest
       .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
       .mockImplementation(titreEtape => [Promise.resolve()])
@@ -63,7 +62,7 @@ describe('met à jour la liste de administrations pour une étape', () => {
     deleteSpy.mockRestore()
   })
 
-  test("l'étape n'a pas de commune", async () => {
+  test("ne met pas à jour les administrations d'une étape qui n'a pas de commune", async () => {
     expect(
       await titresEtapeAdministrationsUpdate(
         titresCommunesVides,
@@ -74,8 +73,8 @@ describe('met à jour la liste de administrations pour une étape', () => {
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("un titre de type ARM n'est affilié qu'à l'ONF comme administration centrale", async () => {
-    const insertSpy = jest
+  test("ajoute uniquement l'ONF comme administration centrale à un titre de type ARM", async () => {
+    jest
       .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
       .mockImplementation((_, adminsIds) =>
         adminsIds.map(p => Promise.resolve(p))
@@ -88,13 +87,7 @@ describe('met à jour la liste de administrations pour une étape', () => {
     expect(console.log).toHaveBeenCalledTimes(1)
   })
 
-  test("un titre de type AXM n'est pas affilié aux administrations centrales", async () => {
-    const insertSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
-      .mockImplementation((_, adminsIds) =>
-        adminsIds.map(p => Promise.resolve(p))
-      )
-
+  test("n'ajoute aucune administration centrale à un titre de type AXM", async () => {
     expect(
       await titresEtapeAdministrationsUpdate(
         titresCommunesVides,
