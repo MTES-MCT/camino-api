@@ -35,10 +35,19 @@ export default class TitresPointsReferences extends Model {
 
   $formatDatabaseJson(json) {
     if (json.coordonnees) {
-      const t = `${json.coordonnees.x},${json.coordonnees.y}`
-      json.coordonnees = t
+      json.coordonnees = [json.coordonnees.x, json.coordonnees.y]
     }
     json = super.$formatDatabaseJson(json)
     return json
   }
+
+  $parseDatabaseJson(json) {
+    json = super.$parseDatabaseJson(json)
+    if (json && json.coordonnees) {
+      json.coordonnees = { x: json.coordonnees[0], y: json.coordonnees[1] }
+    }
+    return json
+  }
+
+  static jsonAttributes = []
 }

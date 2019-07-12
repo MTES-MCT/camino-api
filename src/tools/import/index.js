@@ -47,7 +47,22 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
 
     filesList.forEach(({ path, cb }, i) => {
       // applique le callback si il existe
-      const json = cb ? cb(jsons[i], path) : jsons[i]
+      const json = cb
+        ? jsons[i].map(row =>
+            Object.keys(cb).reduce((row, col) => {
+              let value = row[col]
+              if (!(col in row) || !value) return row
+
+              try {
+                return { ...row, [col]: cb[col](value) }
+              } catch (e) {
+                throw new Error(
+                  `Could not parse field ${path}, ${col} = ${value}: ${e.message}`
+                )
+              }
+            }, row)
+          )
+        : jsons[i]
 
       fileCreate(path, JSON.stringify(json, null, 2))
     })

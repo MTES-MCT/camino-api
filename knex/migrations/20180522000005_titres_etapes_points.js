@@ -23,7 +23,7 @@ exports.up = knex => {
         .references('titresPoints.id')
         .onDelete('CASCADE')
       table.string('geoSystemeId', 5).notNullable()
-      table.string('coordonnees').notNullable()
+      table.specificType('coordonnees', 'text[]').notNullable()
     })
 }
 
