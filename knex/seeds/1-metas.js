@@ -10,8 +10,6 @@ const demarchesTypes = require('../../sources/demarches-types.json')
 // eslint-disable-next-line camelcase
 const demarchesTypes_types = require('../../sources/demarches-types--types.json')
 const demarchesStatuts = require('../../sources/demarches-statuts.json')
-// eslint-disable-next-line camelcase
-const demarchesTypes_demarchesStatuts = require('../../sources/demarches-types--demarches-statuts.json')
 const etapesTypes = require('../../sources/etapes-types.json')
 // eslint-disable-next-line camelcase
 const demarchesTypes_etapesTypes = require('../../sources/demarches-types--etapes-types.json')
