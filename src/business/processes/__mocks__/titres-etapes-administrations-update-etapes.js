@@ -86,9 +86,55 @@ const titresCommunesMemeCommune = [
   }
 ]
 
+const titresArm = [
+  {
+    id: 'titre-id',
+    typeId: 'arm',
+    demarches: [
+      {
+        etapes: [
+          {
+            id: 'm-arm-crique-saint-doux-oct01-men01',
+            titreDemarcheId: 'm-arm-crique-saint-doux-oct01',
+            typeId: 'men',
+            statutId: 'acc',
+            ordre: 2,
+            date: '1988-03-11T23:00:00.000Z',
+            communes: []
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const titresAxm = [
+  {
+    id: 'titre-id',
+    typeId: 'axm',
+    demarches: [
+      {
+        etapes: [
+          {
+            id: 'm-axm-crique-saint-doux-oct01-men01',
+            titreDemarcheId: 'm-axm-crique-saint-doux-oct01',
+            typeId: 'men',
+            statutId: 'acc',
+            ordre: 2,
+            date: '1988-03-11T23:00:00.000Z',
+            communes: []
+          }
+        ]
+      }
+    ]
+  }
+]
+
 export {
   administrations,
   titresCommunes,
   titresCommunesVides,
-  titresCommunesMemeCommune
+  titresCommunesMemeCommune,
+  titresArm,
+  titresAxm
 }
