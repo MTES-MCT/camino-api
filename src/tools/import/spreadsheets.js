@@ -23,28 +23,14 @@ const titresActivitesSpreadsheetId =
 const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 
-const jsonParse = values => (json, table) =>
-  json.map(row =>
-    Object.keys(row).reduce((res, col) => {
-      try {
-        res[col] = values.includes(col) ? JSON.parse(row[col]) : row[col]
-        return res
-      } catch (e) {
-        throw new Error(
-          `Could not parse field ${table}, ${col} = ${row[col]}: ${e.message}`
-        )
-      }
-    }, {})
-  )
-
 const titresTables = [
-  { name: 'titres', cb: jsonParse(['references']) },
+  { name: 'titres', cb: { references: JSON.parse } },
   { name: 'titres_demarches' },
   { name: 'titres_demarches_liens' },
   { name: 'titres_phases' },
-  { name: 'titres_etapes', cb: jsonParse(['visas', 'contenu']) },
+  { name: 'titres_etapes', cb: { visas: JSON.parse, contenu: JSON.parse } },
   { name: 'titres_points' },
-  { name: 'titres_points_references' },
+  { name: 'titres_points_references', cb: { coordonnees: v => v.split(',') } },
   { name: 'titres_documents' },
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
@@ -125,7 +111,7 @@ const spreadsheets = [
       { name: 'demarches_types__types' },
       { name: 'demarches_types__demarches_statuts' },
       { name: 'phases_statuts' },
-      { name: 'etapes_types', cb: jsonParse('sections') },
+      { name: 'etapes_types', cb: { sections: JSON.parse } },
       { name: 'etapes_statuts' },
       { name: 'etapes_types__etapes_statuts' },
       { name: 'demarches_types__etapes_types' },
@@ -162,7 +148,7 @@ const spreadsheets = [
     name: 'utilisateurs',
     id: utilisateursSpreadsheetId,
     tables: [
-      { name: 'utilisateurs', cb: jsonParse('preferences') },
+      { name: 'utilisateurs', cb: { preferences: JSON.parse } },
       { name: 'utilisateurs__entreprises' }
     ]
   },
@@ -194,7 +180,7 @@ const spreadsheets = [
     name: 'metas-activites',
     id: metasActivitesSpreadsheetId,
     tables: [
-      { name: 'activites_types', cb: jsonParse('sections') },
+      { name: 'activites_types', cb: { sections: JSON.parse } },
       { name: 'activites_statuts' },
       { name: 'activites_types__types' },
       { name: 'activites_types__pays' }
@@ -203,7 +189,7 @@ const spreadsheets = [
   {
     name: 'titres-activites',
     id: titresActivitesSpreadsheetId,
-    tables: [{ name: 'titres_activites', cb: jsonParse('contenu') }]
+    tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
   },
   {
     name: 'territoires',

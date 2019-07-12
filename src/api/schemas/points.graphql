@@ -1,4 +1,20 @@
-# import Point from 'points.graphql'
+"Paire de coordonnées géographiques"
+type Coordonnees {
+  "La valeur des coordonnées en X sous forme d'un nombre décimal"
+  x: Float
+
+  "La valeur des coordonnées en Y sous forme d'un nombre décimal"
+  y: Float
+}
+
+"Paire de coordonnées de références"
+type CoordonneesReferences {
+  "La valeur des coordonnées en X sous forme d'un texte"
+  x: String
+
+  "La valeur des coordonnées en Y sous forme d'un texte"
+  y: String
+}
 
 "Point du périmètre géographique d'un titre (système géodésique WGS 84)"
 type Point {
@@ -49,7 +65,7 @@ type PointReference {
   geoSysteme: GeoSysteme
 
   "Les coordonnées du point dans le système géodésique"
-  coordonnees: Coordonnees
+  coordonnees: CoordonneesReferences
 }
 
 input InputPoint {
@@ -77,5 +93,17 @@ input InputPointReference {
 
   geoSystemeId: ID!
 
-  coordonnees: InputCoordonnees
+  coordonnees: InputCoordonneesReferences
+}
+
+input InputCoordonnees {
+  x: Float
+
+  y: Float
+}
+
+input InputCoordonneesReferences {
+  x: String
+
+  y: String
 }
