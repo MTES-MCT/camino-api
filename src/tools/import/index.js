@@ -49,18 +49,18 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
       // applique le callback si il existe
       const json = cb
         ? jsons[i].map(row =>
-            Object.keys(cb).reduce((row, col) => {
+            Object.keys(row).map(col => {
               let value = row[col]
-              if (!(col in row) || !value) return row
+              if (!cb[col]) return value
 
               try {
-                return { ...row, [col]: cb[col](value) }
+                return cb[col](value)
               } catch (e) {
                 throw new Error(
                   `Could not parse field ${path}, ${col} = ${value}: ${e.message}`
                 )
               }
-            }, row)
+            })
           )
         : jsons[i]
 
