@@ -262,12 +262,15 @@ export default class Titres extends Model {
       )
     }
 
-    delete json.engagement
     delete json.geojsonMultiPolygon
     delete json.geojsonPoints
     delete json.pays
+    delete json.engagement
     delete json.surface
     delete json.volume
+    delete json.engagementEtape
+    delete json.surfaceEtape
+    delete json.volumeEtape
 
     return json
   }

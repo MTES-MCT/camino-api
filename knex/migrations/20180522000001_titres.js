@@ -15,6 +15,17 @@ exports.up = knex => {
     table.integer('activitesDeposees')
     table.integer('activitesEnConstruction')
     table.integer('activitesAbsentes')
+    table.string('pointsTitreEtapeId', 128)
+    table.string('titulairesTitreEtapeId', 128)
+    table.string('amodiatairesTitreEtapeId', 128)
+    table.string('administrationsTitreEtapeId', 128)
+    table.string('surfaceTitreEtapeId', 128)
+    table.string('volumeTitreEtapeId', 128)
+    table.string('volumeUniteIdTitreEtapeId', 128)
+    table.string('substancesTitreEtapeId', 128)
+    table.string('communesTitreEtapeId', 128)
+    table.string('engagementTitreEtapeId', 128)
+    table.string('engagementDeviseIdTitreEtapeId', 128)
   })
 }
 
