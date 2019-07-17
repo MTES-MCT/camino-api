@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import '../../database/index'
-import { titreActiviteRowUpdate } from '../export/titre-activite'
+import { titreActivitesRowUpdate } from '../export/titre-activites'
 
 async function main() {
   const activite = {
@@ -39,7 +39,7 @@ async function main() {
     }
   }
 
-  await titreActiviteRowUpdate(activite)
+  await titreActivitesRowUpdate([activite])
 
   process.exit()
 }

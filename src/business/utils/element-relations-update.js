@@ -61,9 +61,7 @@ const elementRelationsUpdate = (
   // met à jour les tables en relation avec l'élément courant
   if (params.links) {
     params.links.forEach(link => {
-      let elementsLinked
-
-      elementsLinked =
+      const elementsLinked =
         link.path[0] === '/'
           ? elementsLinkedAccumulate(root, link.path.slice(1))
           : elementsLinkedAccumulate(element, link.path)

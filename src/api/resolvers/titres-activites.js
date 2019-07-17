@@ -14,7 +14,7 @@ import { titreGet } from '../../database/queries/titres'
 
 import permissionsCheck from './_permissions-check'
 
-import { titreActiviteRowUpdate } from '../../tools/export/titre-activite'
+import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
 import emailsSend from '../../tools/emails-send'
 import titreActivitePropUpdate from '../../business/titre-activite-props-update'
@@ -53,7 +53,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
 
   await titreActivitePropUpdate(titre.id)
 
-  titreActiviteRowUpdate(activiteRes)
+  titreActivitesRowUpdate([activiteRes])
 
   if (activiteRes.activiteStatutId === 'dep') {
     const isAmodiataire = titre.amodiataires.some(
