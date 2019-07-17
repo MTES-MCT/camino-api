@@ -1,6 +1,6 @@
 import * as dateFormat from 'dateformat'
 
-import { titrePropsUpdate, titreIdUpdate } from '../../database/queries/titres'
+import { titrePatch, titreIdUpdate } from '../../database/queries/titres'
 
 const titrePropsEtapes = [
   'points',
@@ -18,7 +18,7 @@ const titrePropsEtapes = [
 
 const titreStatutIdUpdate = (titre, statutId) =>
   statutId !== titre.statutId &&
-  titrePropsUpdate({
+  titrePatch({
     id: titre.id,
     props: { statutId }
   }).then(u => `Mise à jour: titre ${titre.id}, statutId ${statutId}`)
@@ -31,7 +31,7 @@ const titrePropUpdate = (titre, prop, value) => {
 
   return (
     value !== valueOld &&
-    titrePropsUpdate({
+    titrePatch({
       id: titre.id,
       props: { [prop]: value }
     }).then(u => `Mise à jour: titre ${titre.id}, ${prop}, ${value}`)
