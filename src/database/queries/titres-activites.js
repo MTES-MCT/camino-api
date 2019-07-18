@@ -1,6 +1,7 @@
 import titreActivites from '../models/titres-activites'
 import options from './_options'
 import { titreActiviteFormat } from './_format'
+// import * as sqlFormatter from 'sql-formatter'
 
 const titreActiviteGet = async id => {
   const ta = await titreActivites
@@ -9,25 +10,22 @@ const titreActiviteGet = async id => {
     .findById(id)
     .first()
 
-  return titreActiviteFormat(ta)
+  return ta && titreActiviteFormat(ta)
 }
 
 const titresActivitesGet = async () => {
-  const tas = await titreActivites
-    .query()
-    .eager(options.titresActivites.eager)
-    .skipUndefined()
+  const tas = await titreActivites.query().eager(options.titresActivites.eager)
 
   return tas.map(ta => titreActiviteFormat(ta))
 }
 
-const titreActiviteUpdate = async titreActivite => {
+const titreActiviteUpdate = async (id, props) => {
   const ta = await titreActivites
     .query()
     .eager(options.titresActivites.eager)
-    .patchAndFetchById(titreActivite.id, titreActivite)
+    .patchAndFetchById(id, props)
 
-  return titreActiviteFormat(ta)
+  return ta && titreActiviteFormat(ta)
 }
 
 const titreActiviteInsert = async titreActivite => {

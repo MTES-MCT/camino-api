@@ -49,7 +49,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   activite.utilisateurId = context.user.id
   activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
 
-  const activiteRes = await titreActiviteUpdate(activite)
+  const activiteRes = await titreActiviteUpdate(activite.id, activite)
 
   await titreActivitePropUpdate(titre.id)
 

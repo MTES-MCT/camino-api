@@ -84,7 +84,7 @@ const organismeDepartementCall = async (departementId, nom) => {
 
 const organismeFormat = (e, departementId) => {
   const { properties: p } = e.features[0]
-  let { adresses } = p
+  const { adresses } = p
 
   let organisme
   try {
