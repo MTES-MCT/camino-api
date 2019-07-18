@@ -198,11 +198,8 @@ const titresGet = async (
   return titres.map(t => t && titreFormat(t, format))
 }
 
-const titrePatch = async ({ id, props }) => {
-  const t = Titres.query()
-    .skipUndefined()
-    .findById(id)
-    .patch(props)
+const titreUpdate = async (id, props) => {
+  const t = await Titres.query().patchAndFetchById(id, props)
 
   return t && titreFormat(t)
 }
@@ -241,7 +238,7 @@ const titreIdUpdate = async (titreOldId, titreNew) => {
 export {
   titreGet,
   titresGet,
-  titrePatch,
+  titreUpdate,
   titreAdd,
   titreDelete,
   titreUpsert,

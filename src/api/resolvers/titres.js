@@ -12,7 +12,7 @@ import {
   titresGet,
   titreAdd,
   titreDelete,
-  titrePatch
+  titreUpdate
 } from '../../database/queries/titres'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
@@ -139,8 +139,7 @@ const titreModifier = async ({ titre }, context, info) => {
   }
 
   try {
-    const { id, ...props } = titre
-    await titrePatch({ id, props })
+    await titreUpdate(titre.id, titre)
 
     const titreNew = await titreUpdateTask(titre.id)
 

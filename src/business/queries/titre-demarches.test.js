@@ -2,6 +2,7 @@ import {
   titreDemarcheStatutIdUpdate,
   titreDemarchesOrdreUpdate
 } from './titre-demarches'
+
 import * as titreDemarchesQueries from '../../database/queries/titres-demarches'
 
 import {
@@ -12,38 +13,29 @@ import {
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres-demarches', () => ({
-  titreDemarcheStatutIdUpdate: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve()),
-  titreDemarcheOrdreUpdate: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve())
+  titreDemarcheUpdate: jest.fn().mockImplementation(() => Promise.resolve())
 }))
 
-describe("met à jour le statut d'une démarche", () => {
-  test('un titre dont le statut a changé est mis à jour', async () => {
+describe("statut de démarche d'un titre", () => {
+  test("met à jour le statut d'un titre dont le statut d'une démarche a changé", async () => {
     titreDemarcheStatutIdUpdate(titreDemarches[0], 'rej')
-    expect(titreDemarchesQueries.titreDemarcheStatutIdUpdate).toHaveBeenCalled()
+    expect(titreDemarchesQueries.titreDemarcheUpdate).toHaveBeenCalled()
   })
 
-  test("un titre dont le statut est inchangé n'est pas mis à jour", async () => {
+  test('ne met pas à jour un titre dont le statut de la démarche est inchangé', async () => {
     titreDemarcheStatutIdUpdate(titreDemarches[0], 'acc')
-    expect(
-      titreDemarchesQueries.titreDemarcheStatutIdUpdate
-    ).not.toHaveBeenCalled()
+    expect(titreDemarchesQueries.titreDemarcheUpdate).not.toHaveBeenCalled()
   })
 })
 
-describe("met à jour l'ordre des démarches d'un titre", () => {
-  test("un titre avec une propriété dont l'étape est différente est mis à jour", async () => {
+describe("ordre des démarches d'un titre", () => {
+  test("met à jour un titre dont une propriété d'étape a changé", async () => {
     titreDemarchesOrdreUpdate(titreDemarches)
-    expect(titreDemarchesQueries.titreDemarcheOrdreUpdate).toHaveBeenCalled()
+    expect(titreDemarchesQueries.titreDemarcheUpdate).toHaveBeenCalled()
   })
 
-  test("un titre avec une propriété dont l'étape est la même n'est pas mis à jour", async () => {
+  test("ne met pas à jour un titre dont une propriété d'étape est inchangée", async () => {
     titreDemarchesOrdreUpdate(titreDemarchesOrdonnees)
-    expect(
-      titreDemarchesQueries.titreDemarcheOrdreUpdate
-    ).not.toHaveBeenCalled()
+    expect(titreDemarchesQueries.titreDemarcheUpdate).not.toHaveBeenCalled()
   })
 })

@@ -46,7 +46,7 @@ const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
   }
 
   const entreprisesAdresses = await entrepriseAdresseGet(sirens)
-  let entreprisesEtablissementsNew = await entrepriseEtablissementGet(sirens)
+  const entreprisesEtablissementsNew = await entrepriseEtablissementGet(sirens)
 
   const etablissementsUpdateQueries = entreprisesEtablissementsNew.reduce(
     (acc, entrepriseEtablissementNew) => {

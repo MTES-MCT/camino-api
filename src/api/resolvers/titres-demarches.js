@@ -3,7 +3,7 @@ import permissionsCheck from './_permissions-check'
 
 import {
   titreDemarcheGet,
-  titreDemarcheUpsert,
+  titreDemarcheUpdate,
   titreDemarcheDelete
 } from '../../database/queries/titres-demarches'
 
@@ -23,8 +23,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
   }
 
   try {
-    const demarcheNew = await titreDemarcheUpsert(demarche)
-
+    const demarcheNew = await titreDemarcheUpdate(demarche.id, demarche)
     const titreNew = await titreDemarcheUpdateTask(
       demarcheNew.id,
       demarcheNew.titreId

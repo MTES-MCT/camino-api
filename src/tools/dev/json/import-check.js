@@ -147,18 +147,13 @@ const data = [
 }, {})
 
 const splitJoin = (name, from, to, swapIfId = false) => {
-  let fromTable
-  let fromField
-  let toTable
-  let toField
-
   from = from.split('.')
-  fromTable = camelize(from[0])
-  fromField = decamelize(from[1])
+  const fromTable = camelize(from[0])
+  const fromField = decamelize(from[1])
 
   to = to.split('.')
-  toTable = camelize(to[0])
-  toField = decamelize(to[1])
+  const toTable = camelize(to[0])
+  const toField = decamelize(to[1])
 
   return fromField === 'id'
     ? {

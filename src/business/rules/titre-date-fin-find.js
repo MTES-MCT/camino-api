@@ -1,13 +1,6 @@
 import * as dateFormat from 'dateformat'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 
-/**
- * Trouve la date de fin d'un titre.
- *
- * @param {titreDemarche[]} titreDemarches - La liste des démarches d'un titre.
- * @returns {string} La date de fin du titre sous forme yyyy-mm-dd.
- */
-
 const titreDateFinFind = titreDemarches => {
   // la dernière démarche dont le statut est acceptée ou terminée
   const titreDemarche = titreDemarches.find(titreDemarche =>

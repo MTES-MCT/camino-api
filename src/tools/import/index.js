@@ -50,7 +50,7 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
       const json = cb
         ? jsons[i].map(row =>
             Object.keys(cb).reduce((row, col) => {
-              let value = row[col]
+              const value = row[col]
               if (!(col in row) || !value) return row
 
               try {

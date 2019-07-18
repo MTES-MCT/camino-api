@@ -3,7 +3,7 @@ import permissionsCheck from './_permissions-check'
 
 import {
   titreEtapeGet,
-  titreEtapeUpsert,
+  titreEtapeUpdate,
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
 
@@ -23,14 +23,14 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   }
 
   try {
-    const etapeNew = await titreEtapeUpsert(etape)
+    const etapeUpdated = await titreEtapeUpdate(etape.id, etape)
 
-    const titreNew = await titreEtapeUpdateTask(
-      etapeNew.id,
-      etapeNew.titreDemarcheId
+    const titreUpdated = await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId
     )
 
-    return titreNew
+    return titreUpdated
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -50,9 +50,12 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
 
     await titreEtapeDelete(id)
 
-    const titreNew = await titreEtapeUpdateTask(null, etapeOld.titreDemarcheId)
+    const titreUpdated = await titreEtapeUpdateTask(
+      null,
+      etapeOld.titreDemarcheId
+    )
 
-    return titreNew
+    return titreUpdated
   } catch (e) {
     if (debug) {
       console.error(e)
