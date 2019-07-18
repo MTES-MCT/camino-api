@@ -21,6 +21,14 @@ const titreDemarcheGet = async demarcheId => {
   return titreDemarche && titreDemarcheFormat(titreDemarche)
 }
 
+const titreDemarcheCreate = async demarche => {
+  const titreDemarche = await TitresDemarches.query()
+    .insertAndFetch(demarche)
+    .eager(options.demarches.eager)
+
+  return titreDemarche && titreDemarcheFormat(titreDemarche)
+}
+
 const titreDemarcheDelete = async (id, trx) =>
   TitresDemarches.query(trx)
     .deleteById(id)
@@ -64,6 +72,7 @@ const titreDemarchesIdsUpdate = async (
 export {
   titresDemarchesGet,
   titreDemarcheGet,
+  titreDemarcheCreate,
   titreDemarcheUpdate,
   titreDemarcheUpsert,
   titreDemarcheDelete,

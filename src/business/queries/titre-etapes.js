@@ -16,10 +16,7 @@ const titreEtapesOrdreUpdate = titreEtapes =>
         ? queries
         : [
             ...queries,
-            titreEtapeUpdate({
-              id: titreEtape.id,
-              props: { ordre: index + 1 }
-            }).then(
+            titreEtapeUpdate(titreEtape.id, { ordre: index + 1 }).then(
               u =>
                 `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
                   ordre: index + 1

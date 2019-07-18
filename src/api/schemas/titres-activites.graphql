@@ -10,7 +10,7 @@ type TitreActivite {
   annee: Int
 }
 
-input InputTitreActivite {
+input InputTitreActiviteModification {
   id: ID!
   activiteStatutId: String!
   contenu: Json

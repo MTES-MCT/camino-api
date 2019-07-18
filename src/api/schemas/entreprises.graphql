@@ -43,8 +43,6 @@ input InputEntreprise {
   url: String
   telephone: String
   email: String
-  utilisateurs: [InputUtilisateur]
-  etablissements: [InputEtablissements]
 }
 
 input InputEtablissements {

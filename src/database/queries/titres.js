@@ -198,17 +198,21 @@ const titresGet = async (
   return titres.map(t => t && titreFormat(t, format))
 }
 
-const titreUpdate = async (id, props) => {
-  const t = await Titres.query().patchAndFetchById(id, props)
+const titreCreate = async titre => {
+  const t = await Titres.query()
+    .insertAndFetch(titre)
+    .eager(options.titres.eager)
 
   return t && titreFormat(t)
 }
 
-const titreAdd = async titre =>
-  Titres.query()
-    .insertGraph(titre, options.titres.update)
-    .first()
+const titreUpdate = async (id, props) => {
+  const t = await Titres.query()
+    .patchAndFetchById(id, props)
     .eager(options.titres.eager)
+
+  return t && titreFormat(t)
+}
 
 const titreDelete = async (id, tr) =>
   Titres.query(tr)
@@ -228,7 +232,6 @@ const titreUpsert = async (titre, tr) => {
 
 const titreIdUpdate = async (titreOldId, titreNew) => {
   const knex = Titres.knex()
-
   return transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
     await titreUpsert(titreNew, tr)
@@ -239,7 +242,7 @@ export {
   titreGet,
   titresGet,
   titreUpdate,
-  titreAdd,
+  titreCreate,
   titreDelete,
   titreUpsert,
   titreIdUpdate

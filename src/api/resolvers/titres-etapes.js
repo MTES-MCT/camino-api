@@ -1,22 +1,54 @@
+import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
 import {
   titreEtapeGet,
+  titreEtapeCreate,
   titreEtapeUpdate,
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
 
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 
-import titreEtapeUpdateValidation from '../../business/titre-etape-update-validation'
+import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
+
+const titreEtapeCreer = async ({ etape }, context, info) => {
+  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    throw new Error('opération impossible')
+  }
+
+  const rulesError = await titreEtapeUpdationValidate(etape)
+
+  if (rulesError) {
+    throw new Error(rulesError)
+  }
+
+  try {
+    etape.id = cryptoRandomString({ length: 6 })
+    const etapeUpdated = await titreEtapeCreate(etape)
+
+    const titreUpdated = await titreEtapeUpdateTask(
+      etapeUpdated.id,
+      etapeUpdated.titreDemarcheId
+    )
+
+    return titreUpdated
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreEtapeUpdateValidation(etape)
+  const rulesError = await titreEtapeUpdationValidate(etape)
 
   if (rulesError) {
     throw new Error(rulesError)
@@ -65,4 +97,4 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
   }
 }
 
-export { titreEtapeModifier, titreEtapeSupprimer }
+export { titreEtapeCreer, titreEtapeModifier, titreEtapeSupprimer }

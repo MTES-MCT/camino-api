@@ -1,4 +1,4 @@
-const titreDemarcheValidation = async titreDemarcheNew => {
+const titreDemarcheUpdationValidate = async titreDemarcheNew => {
   // vérifie
   // - si le statut de la démarche est possible sur ce type de démarche
   // - si la démarche contient des étapes qui ne sont pas recevables
@@ -6,4 +6,4 @@ const titreDemarcheValidation = async titreDemarcheNew => {
   return null
 }
 
-export default titreDemarcheValidation
+export default titreDemarcheUpdationValidate
