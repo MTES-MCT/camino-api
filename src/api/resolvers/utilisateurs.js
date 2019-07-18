@@ -12,6 +12,8 @@ import {
   utilisateurByEmailGet
 } from '../../database/queries/utilisateurs'
 
+import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
+
 import permissionsCheck from './_permissions-check'
 
 const permissionsVisibleForAdmin = [
@@ -174,7 +176,10 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
   utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
   utilisateur.id = await userIdGenerate()
 
-  return utilisateurAdd(utilisateur)
+  const utilisateurNew = await utilisateurAdd(utilisateur)
+
+  await utilisateurRowUpdate(utilisateurNew)
+  return utilisateurNew
 }
 
 const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
@@ -231,7 +236,11 @@ const utilisateurModifier = async ({ utilisateur }, context) => {
     }
   }
 
-  return utilisateurUpdate(utilisateur)
+  const utilisateurNew = await utilisateurUpdate(utilisateur)
+
+  await utilisateurRowUpdate(utilisateurNew)
+
+  return utilisateurNew
 }
 
 const utilisateurSupprimer = async ({ id }, context) => {
