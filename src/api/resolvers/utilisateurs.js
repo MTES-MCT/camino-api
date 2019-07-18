@@ -178,7 +178,6 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
 
   const utilisateurNew = await utilisateurAdd(utilisateur)
 
-  console.log('utilisateurNew', utilisateurNew)
   await utilisateurRowUpdate(utilisateurNew)
   return utilisateurNew
 }
@@ -239,7 +238,6 @@ const utilisateurModifier = async ({ utilisateur }, context) => {
 
   const utilisateurNew = await utilisateurUpdate(utilisateur)
 
-  console.log('utilisateurNew', utilisateurNew)
   await utilisateurRowUpdate(utilisateurNew)
 
   return utilisateurNew
