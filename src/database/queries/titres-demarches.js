@@ -27,23 +27,19 @@ const titreDemarcheDelete = async (id, trx) =>
     .eager(options.demarches.eager)
     .returning('*')
 
+const titreDemarcheUpdate = async (id, props) => {
+  const titreDemarche = await TitresDemarches.query()
+    .eager(options.demarches.eager)
+    .patchAndFetchById(id, props)
+
+  return titreDemarche && titreDemarcheFormat(titreDemarche)
+}
+
 const titreDemarcheUpsert = async (demarche, trx) =>
   TitresDemarches.query(trx)
     .upsertGraph(demarche, options.demarches.update)
     .eager(options.demarches.eager)
     .returning('*')
-
-const titreDemarcheStatutIdUpdate = async ({ id, statutId }) =>
-  TitresDemarches.query()
-    .skipUndefined()
-    .findById(id)
-    .patch({ statutId })
-
-const titreDemarcheOrdreUpdate = async ({ id, ordre }) =>
-  TitresDemarches.query()
-    .skipUndefined()
-    .findById(id)
-    .patch({ ordre })
 
 const titreDemarchesIdsUpdate = async (
   titresDemarchesIdsOld,
@@ -68,9 +64,8 @@ const titreDemarchesIdsUpdate = async (
 export {
   titresDemarchesGet,
   titreDemarcheGet,
+  titreDemarcheUpdate,
   titreDemarcheUpsert,
   titreDemarcheDelete,
-  titreDemarcheStatutIdUpdate,
-  titreDemarcheOrdreUpdate,
   titreDemarchesIdsUpdate
 }

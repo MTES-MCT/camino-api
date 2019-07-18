@@ -113,7 +113,7 @@ const tokenFetchDev = async () => {
 
 const tokenInitialize = async () => {
   try {
-    let result =
+    const result =
       process.env.NODE_ENV === 'development'
         ? await tokenFetchDev()
         : await tokenFetch()
@@ -201,7 +201,7 @@ const nomEntrepriseFormat = (e, usuel) => {
 
   // priorise la dénomination officielle
   // par rapport à la dénomination usuelle
-  let nom = denomination || denominationUsuelle
+  const nom = denomination || denominationUsuelle
 
   if (!nom && !sigle) return null
 
@@ -223,6 +223,7 @@ const nomIndividuFormat = e =>
     e.prenomUsuelUniteLegale
   } ${e.nomUniteLegale}`
 
+// eslint-disable-next-line jsdoc/require-description
 /**
  * @description Formate le nom d'une entreprise ou établissement.
  *
@@ -242,7 +243,7 @@ const nomFormat = (e, usuel) =>
 const entrepriseEtablissementsFormat = (entrepriseId, e) =>
   e.periodesUniteLegale
     .reduce((acc, p) => {
-      let nom = nomFormat({
+      const nom = nomFormat({
         ...e,
         ...p
       })
@@ -376,7 +377,7 @@ const entrepriseAdresseFormat = e => {
   }
 
   if (adresse.codePaysEtrangerEtablissement) {
-    let pays = inseePays.find(
+    const pays = inseePays.find(
       p => p.cog === adresse.codePaysEtrangerEtablissement
     )
     if (pays) {

@@ -23,11 +23,10 @@ const titreEtapeGet = async titreEtapeId =>
     .eager(options.etapes.eager)
     .findById(titreEtapeId)
 
-const titreEtapeUpdate = async ({ id, props }) =>
+const titreEtapeUpdate = async (id, props) =>
   TitresEtapes.query()
-    .skipUndefined()
-    .findById(id)
-    .patch(props)
+    .eager(options.etapes.eager)
+    .patchAndFetchById(id, props)
 
 const titreEtapeDelete = async (id, trx) =>
   TitresEtapes.query(trx)

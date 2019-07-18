@@ -1,9 +1,9 @@
 /**
  * @typedef {object} titreDemarche
- * @property {!string} id id de la démarche
- * @property {!string} titreId id du titre minier
- * @property {!string} typeId id du type de la démarche
- * @property {!string} statutId id du statut de la démarche
- * @property {number} ordre ordre chronologique de la démarche au sein du titre
- * @property {boolean} annulationTitreDemarcheId si la démarche est une annulation, cette id identifie la démarche annulée
+ * @property {!string} id Id de la démarche.
+ * @property {!string} titreId Id du titre minier.
+ * @property {!string} typeId Id du type de la démarche.
+ * @property {!string} statutId Id du statut de la démarche.
+ * @property {number} ordre Ordre chronologique de la démarche au sein du titre.
+ * @property {boolean} annulationTitreDemarcheId Si la démarche est une annulation, cette id identifie la démarche annulée.
  */

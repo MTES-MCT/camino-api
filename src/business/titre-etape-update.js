@@ -54,7 +54,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   let titreEtapesCommunes
   // si l'étape est supprimée, pas de mise à jour
   if (titreEtapeId) {
-    let titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
+    const titreEtape = await titreEtapeGet(titreEtapeId, titreDemarcheId)
     const communes = await communesGet()
     titreEtapesCommunes = await titresEtapeCommunesUpdate(
       [titreEtape],

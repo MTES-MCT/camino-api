@@ -1,8 +1,4 @@
-import {
-  titreDemarcheStatutIdUpdate as queryTitreDemarcheStatutIdUpdate,
-  titreDemarcheOrdreUpdate as queryTitreDemarcheOrdreUpdate,
-  titreDemarchesIdsUpdate
-} from '../../database/queries/titres-demarches'
+import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 
@@ -10,10 +6,7 @@ import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 const titreDemarcheStatutIdUpdate = (titreDemarche, statutId) =>
   // filtre uniquement les démarches dont le statut a changé
   statutId !== titreDemarche.statutId &&
-  queryTitreDemarcheStatutIdUpdate({
-    id: titreDemarche.id,
-    statutId
-  }).then(
+  titreDemarcheUpdate(titreDemarche.id, { statutId }).then(
     u => `Mise à jour: démarche ${titreDemarche.id}, statutId ${statutId}`
   )
 
@@ -25,10 +18,7 @@ const titreDemarchesOrdreUpdate = titreDemarches =>
         ? acc
         : [
             ...acc,
-            queryTitreDemarcheOrdreUpdate({
-              id: titreDemarche.id,
-              ordre: index + 1
-            }).then(
+            titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 }).then(
               u =>
                 `Mise à jour: démarche ${titreDemarche.id}, ordre ${index + 1}`
             )
@@ -36,8 +26,4 @@ const titreDemarchesOrdreUpdate = titreDemarches =>
     []
   )
 
-export {
-  titreDemarcheStatutIdUpdate,
-  titreDemarchesOrdreUpdate,
-  titreDemarchesIdsUpdate
-}
+export { titreDemarcheStatutIdUpdate, titreDemarchesOrdreUpdate }
