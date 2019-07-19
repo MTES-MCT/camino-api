@@ -21,7 +21,7 @@ type Permission {
   nom: String
 }
 
-input InputUtilisateur {
+input InputUtilisateurModification {
   id: ID!
   email: String!
   nom: String!
@@ -34,7 +34,7 @@ input InputUtilisateur {
   preferences: Json
 }
 
-input InputUtilisateurAjouter {
+input InputUtilisateurCreation {
   email: String!
   motDePasse: String!
   nom: String!

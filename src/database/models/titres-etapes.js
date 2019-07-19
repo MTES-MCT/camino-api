@@ -187,6 +187,8 @@ export default class TitresEtapes extends Model {
   }
 
   $parseJson(json) {
+    json = super.$parseJson(json)
+
     if (json.administrationsIds) {
       json.administrations = json.administrationsIds.map(id => ({ id }))
       delete json.administrationsIds
@@ -207,7 +209,9 @@ export default class TitresEtapes extends Model {
       delete json.substancesIds
     }
 
-    json = super.$parseJson(json)
+    if (json.incertitudes && !json.incertitudes.titreEtapeId) {
+      json.incertitudes.titreEtapeId = json.id
+    }
 
     delete json.geojsonMultiPolygon
     delete json.geojsonPoints

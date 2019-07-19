@@ -1,3 +1,4 @@
+import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 import auth from './_auth'
@@ -10,16 +11,16 @@ import { titreEagerFormat } from './_eager-titres'
 import {
   titreGet,
   titresGet,
-  titreAdd,
-  titreDelete,
-  titreUpdate
+  titreCreate,
+  titreUpdate,
+  titreDelete
 } from '../../database/queries/titres'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreUpdateTask from '../../business/titre-update'
 
-import titreUpdateValidation from '../../business/titre-update-validation'
+import titreUpdationValidate from '../../business/titre-updation-validate'
 
 const titreRestrictions = titre => {
   titre.activites = []
@@ -111,12 +112,53 @@ const titres = async (
   return titres.filter(titre => titrePermissionsCheck(user, titre))
 }
 
-const titreAjouter = async ({ titre }, context, info) => {
+const titreCreer = async ({ titre }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     throw new Error('opération impossible')
   }
 
-  return titreAdd(titre)
+  const rulesError = await titreUpdationValidate(titre)
+
+  if (rulesError) {
+    throw new Error(rulesError)
+  }
+
+  try {
+    titre.id = cryptoRandomString({ length: 6 })
+    await titreCreate(titre)
+
+    return titreUpdateTask(titre.id)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreModifier = async ({ titre }, context, info) => {
+  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    throw new Error('opération impossible')
+  }
+
+  const rulesError = await titreUpdationValidate(titre)
+
+  if (rulesError) {
+    throw new Error(rulesError)
+  }
+
+  try {
+    await titreUpdate(titre.id, titre)
+
+    return titreUpdateTask(titre.id)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const titreSupprimer = async ({ id }, context, info) => {
@@ -127,31 +169,4 @@ const titreSupprimer = async ({ id }, context, info) => {
   return titreDelete(id)
 }
 
-const titreModifier = async ({ titre }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const rulesError = await titreUpdateValidation(titre)
-
-  if (rulesError) {
-    throw new Error(rulesError)
-  }
-
-  try {
-    await titreUpdate(titre.id, titre)
-
-    const titreNew = await titreUpdateTask(titre.id)
-
-    return titreNew
-  } catch (e) {
-    console.log('coucou')
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-export { titre, titres, titreAjouter, titreSupprimer, titreModifier }
+export { titre, titres, titreCreer, titreModifier, titreSupprimer }

@@ -95,11 +95,11 @@ type Mutation {
   "__*__ Connecte l'utilisateur en fonction de ses identifiants"
   utilisateurConnecter(email: String!, motDePasse: String!): UtilisateurToken
 
-  "__*__ Ajoute un utilisateur"
-  utilisateurAjouter(utilisateur: InputUtilisateurAjouter!): Utilisateur
+  "__*__ Crée un utilisateur"
+  utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur
 
   "__*__ Modifie un utilisateur"
-  utilisateurModifier(utilisateur: InputUtilisateur!): Utilisateur
+  utilisateurModifier(utilisateur: InputUtilisateurModification!): Utilisateur
 
   "__*__ Supprime un utilisateur"
   utilisateurSupprimer(id: ID!): Utilisateur
@@ -116,7 +116,7 @@ type Mutation {
   utilisateurMotDePasseEmailEnvoyer(email: String!): String
 
   "__*__ Envoie un email à un utilisateur contenant une url pour créer son compte"
-  utilisateurAjoutEmailEnvoyer(email: String!): String
+  utilisateurCreationEmailEnvoyer(email: String!): String
 
   "__*__ Initialise un mot de passe utilisateur"
   utilisateurMotDePasseInitialiser(
@@ -125,25 +125,36 @@ type Mutation {
   ): String
 
   "__*__ Modifie un titre minier"
-  titreModifier(titre: InputTitre): Titre
+  titreCreer(titre: InputTitreCreation!): Titre
+
+  "__*__ Modifie un titre minier"
+  titreModifier(titre: InputTitreModification!): Titre
 
   "__*__ Supprime un titre minier"
   titreSupprimer(id: ID!): Titre
 
   "__*__ Modifie une démarche et met à jour le titre minier"
-  titreDemarcheModifier(demarche: InputDemarche): Titre
+  titreDemarcheCreer(demarche: InputDemarcheCreation!): Titre
+
+  "__*__ Modifie une démarche et met à jour le titre minier"
+  titreDemarcheModifier(demarche: InputDemarcheModification!): Titre
 
   "__*__ Supprime une démarche et met à jour le titre minier"
   titreDemarcheSupprimer(id: ID!): Titre
 
   "__*__ Modifie une étape et met à jour le titre minier"
-  titreEtapeModifier(etape: InputEtape): Titre
+  titreEtapeCreer(etape: InputEtapeCreation!): Titre
+
+  "__*__ Modifie une étape et met à jour le titre minier"
+  titreEtapeModifier(etape: InputEtapeModification!): Titre
 
   "__*__ Supprime une étape et met à jour le titre minier"
   titreEtapeSupprimer(id: ID!): Titre
 
-  "__*__ Créé ou modifie une activité"
-  titreActiviteModifier(activite: InputTitreActivite!): TitreActivite
+  "__*__ Crée ou modifie une activité"
+  titreActiviteModifier(
+    activite: InputTitreActiviteModification!
+  ): TitreActivite
 }
 
 scalar Json

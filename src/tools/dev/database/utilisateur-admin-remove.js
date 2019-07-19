@@ -1,12 +1,12 @@
 import 'dotenv/config'
 import '../../../database/index'
 
-import { utilisateurRemove } from '../../../database/queries/utilisateurs'
+import { utilisateurDelete } from '../../../database/queries/utilisateurs'
 
 const id = 'admin'
 
 const run = async () => {
-  const utilisateur = await utilisateurRemove(id)
+  const utilisateur = await utilisateurDelete(id)
   if (utilisateur) {
     console.log('Utilisateur supprimé')
   } else {

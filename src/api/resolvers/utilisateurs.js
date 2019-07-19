@@ -7,7 +7,7 @@ import emailsSend from '../../tools/emails-send'
 import {
   utilisateurGet,
   utilisateursGet,
-  utilisateurAdd,
+  utilisateurCreate,
   utilisateurUpdate,
   utilisateurByEmailGet
 } from '../../database/queries/utilisateurs'
@@ -126,7 +126,7 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
   return { token, utilisateur }
 }
 
-const utilisateurAjouter = async ({ utilisateur }, context) => {
+const utilisateurCreer = async ({ utilisateur }, context) => {
   utilisateur.email = utilisateur.email.toLowerCase()
 
   if (
@@ -176,13 +176,13 @@ const utilisateurAjouter = async ({ utilisateur }, context) => {
   utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
   utilisateur.id = await userIdGenerate()
 
-  const utilisateurNew = await utilisateurAdd(utilisateur)
+  const utilisateurNew = await utilisateurCreate(utilisateur)
 
   await utilisateurRowUpdate(utilisateurNew)
   return utilisateurNew
 }
 
-const utilisateurAjoutEmailEnvoyer = async ({ email }, context) => {
+const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
   email = email.toLowerCase()
   const emailIsValid = emailRegex({ exact: true }).test(email)
 
@@ -383,8 +383,8 @@ export {
   utilisateurs,
   utilisateurIdentifier,
   utilisateurConnecter,
-  utilisateurAjouter,
-  utilisateurAjoutEmailEnvoyer,
+  utilisateurCreer,
+  utilisateurCreationEmailEnvoyer,
   utilisateurModifier,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
