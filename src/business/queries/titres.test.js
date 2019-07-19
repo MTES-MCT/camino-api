@@ -1,4 +1,4 @@
-import { titreStatutIdUpdate, titrePropUpdate, titreIdsUpdate } from './titres'
+import { titrePropsUpdate, titreIdsUpdate } from './titres'
 import * as titresQueries from '../../database/queries/titres'
 
 import { titreValide, titreOldId, titreNew } from './__mocks__/titres-titres'
@@ -20,21 +20,9 @@ afterAll(() => {
   jest.restoreAllMocks()
 })
 
-describe("met à jour le statut d'un titre", () => {
-  test('un titre dont le statut a changé est mis à jour', async () => {
-    titreStatutIdUpdate(titreValide, 'ech')
-    expect(titresQueries.titreUpdate).toHaveBeenCalled()
-  })
-
-  test("un titre dont le statut est inchangé n'est pas mis à jour", async () => {
-    titreStatutIdUpdate(titreValide, 'val')
-    expect(titresQueries.titreUpdate).not.toHaveBeenCalled()
-  })
-})
-
 describe("met à jour la propriété calculée d'un titre", () => {
   test("un titre avec une propriété dont l'étape est différente est mis à jour", async () => {
-    titrePropUpdate(
+    titrePropsUpdate(
       titreValide,
       'pointsEtapeId',
       'm-prx-saint-pierre-2014-oct01-dpu02'
@@ -43,7 +31,7 @@ describe("met à jour la propriété calculée d'un titre", () => {
   })
 
   test("un titre avec une propriété dont l'étape est la même n'est pas mis à jour", async () => {
-    titrePropUpdate(
+    titrePropsUpdate(
       titreValide,
       'substancesTitreEtapeId',
       'm-prx-saint-pierre-2014-oct01-dpu01'
@@ -52,7 +40,7 @@ describe("met à jour la propriété calculée d'un titre", () => {
   })
 
   test('un titre avec une propriété date est pas mis à jour', async () => {
-    titrePropUpdate(titreValide, 'dateDebut', '2008-12-12T23:00:00.000Z')
+    titrePropsUpdate(titreValide, 'dateDebut', '2008-12-12T23:00:00.000Z')
     expect(titresQueries.titreUpdate).toHaveBeenCalled()
   })
 })

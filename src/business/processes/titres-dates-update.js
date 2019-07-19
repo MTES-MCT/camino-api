@@ -1,36 +1,37 @@
-import { titrePropUpdate } from '../queries/titres'
+import * as dateFormat from 'dateformat'
+import { titrePropsUpdate } from '../queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 import titreDateDemandeFind from '../rules/titre-date-demande-find'
 
+const datesDiffer = (dateOld, dateNew) =>
+  dateOld !== dateFormat(dateNew, 'yyyy-mm-dd')
+
 const titresDatesUpdate = async titres => {
   const titresDateDebutDateFinQueries = titres.reduce((acc, titre) => {
-    const dateFin = titreDateFinFind(titre.demarches)
-    const titreDateFinUpdated = titrePropUpdate(titre, 'dateFin', dateFin)
+    const props = {}
 
-    if (titreDateFinUpdated) {
-      acc.push(titreDateFinUpdated)
+    const dateFin = titreDateFinFind(titre.demarches)
+
+    if (datesDiffer(titre[dateFin], dateFin)) {
+      props.dateFin = dateFin
     }
 
     const dateDebut = titreDateDebutFind(titre.demarches, titre.type.id)
-    const titreDateDebutUpdated = titrePropUpdate(titre, 'dateDebut', dateDebut)
 
-    if (titreDateDebutUpdated) {
-      acc.push(titreDateDebutUpdated)
+    if (datesDiffer(titre[dateDebut], dateDebut)) {
+      props.dateDebut = dateDebut
     }
 
     const dateDemande = titreDateDemandeFind(titre.demarches, titre.statut.id)
-    const titreDateDemandeUpdated = titrePropUpdate(
-      titre,
-      'dateDemande',
-      dateDemande
-    )
 
-    if (titreDateDemandeUpdated) {
-      acc.push(titreDateDemandeUpdated)
+    if (datesDiffer(titre[dateDemande], dateDemande)) {
+      props.dateDemande = dateDemande
     }
 
-    return acc
+    return Object.keys(props).length
+      ? () => titrePropsUpdate(titre, props)
+      : acc
   }, [])
 
   if (titresDateDebutDateFinQueries.length) {

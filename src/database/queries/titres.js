@@ -1,3 +1,4 @@
+import knex from 'knex'
 import { transaction } from 'objection'
 import Titres from '../models/titres'
 import options from './_options'
@@ -221,21 +222,19 @@ const titreDelete = async (id, tr) =>
     .eager(options.titres.eager)
     .returning('*')
 
-const titreUpsert = async (titre, tr) => {
-  const t = Titres.query(tr)
+const titreUpsert = async (titre, tr) =>
+  Titres.query(tr)
     .upsertGraph(titre, options.titres.update)
     .eager(options.titres.eager)
     .returning('*')
 
-  return t && titreFormat(t)
-}
-
 const titreIdUpdate = async (titreOldId, titreNew) => {
-  const knex = Titres.knex()
-  return transaction(knex, async tr => {
+  const t = await transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
     await titreUpsert(titreNew, tr)
   })
+
+  return t && titreFormat(t)
 }
 
 export {

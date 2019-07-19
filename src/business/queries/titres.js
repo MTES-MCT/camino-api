@@ -1,5 +1,3 @@
-import * as dateFormat from 'dateformat'
-
 import { titreUpdate, titreIdUpdate } from '../../database/queries/titres'
 
 const titrePropsEtapes = [
@@ -16,24 +14,10 @@ const titrePropsEtapes = [
   'engagementDeviseId'
 ]
 
-const titreStatutIdUpdate = (titre, statutId) =>
-  statutId !== titre.statutId &&
-  titreUpdate(titre.id, { statutId }).then(
-    u => `Mise à jour: titre ${titre.id}, statutId ${statutId}`
-  )
+const titrePropsUpdate = async (titre, props) => {
+  await titreUpdate(titre.id, props)
 
-const titrePropUpdate = (titre, prop, value) => {
-  const valueOld =
-    titre[prop] instanceof Date
-      ? dateFormat(titre[prop], 'yyyy-mm-dd')
-      : titre[prop]
-
-  return (
-    value !== valueOld &&
-    titreUpdate(titre.id, { [prop]: value }).then(
-      u => `Mise à jour: titre ${titre.id}, ${prop}, ${value}`
-    )
-  )
+  return `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
 }
 
 const titreIdsUpdate = (titreOldId, titreNew) =>
@@ -41,9 +25,4 @@ const titreIdsUpdate = (titreOldId, titreNew) =>
     u => `Mise à jour: titre ids: ${titreNew.id}`
   )
 
-export {
-  titrePropsEtapes,
-  titreStatutIdUpdate,
-  titrePropUpdate,
-  titreIdsUpdate
-}
+export { titrePropsEtapes, titrePropsUpdate, titreIdsUpdate }

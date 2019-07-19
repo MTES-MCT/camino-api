@@ -1,12 +1,12 @@
 import titresDateFinDateDebutUpdate from './titres-dates-update'
-import { titrePropUpdate } from '../queries/titres'
+import { titrePropsUpdate } from '../queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../queries/titres', () => ({
-  titrePropUpdate: jest.fn()
+  titrePropsUpdate: jest.fn()
 }))
 
 jest.mock('../rules/titre-date-fin-find')
@@ -19,7 +19,7 @@ describe("met à jour les dates de début et de fin d'un titre", () => {
   test('met à jour 2 dates de titres', async () => {
     titreDateFinFind.mockImplementation(() => null)
     titreDateDebutFind.mockImplementation(() => null)
-    titrePropUpdate.mockImplementation(() => Promise.resolve('Mise à jour…'))
+    titrePropsUpdate.mockImplementation(() => Promise.resolve('Mise à jour…'))
 
     const titresDateFinDateDebutUpdateLog = await titresDateFinDateDebutUpdate([
       { type: { id: 'titre-id' }, statut: { id: 'titre-statut-id' } }
@@ -34,7 +34,7 @@ describe("met à jour les dates de début et de fin d'un titre", () => {
   test("aucune mise à jour n'est effectuée", async () => {
     titreDateFinFind.mockImplementation(() => null)
     titreDateDebutFind.mockImplementation(() => null)
-    titrePropUpdate.mockImplementation(() => false)
+    titrePropsUpdate.mockImplementation(() => false)
 
     const titresDateFinDateDebutUpdateLog = await titresDateFinDateDebutUpdate([
       { type: { id: 'titre-type-id' }, statut: { id: 'titre-statut-id' } }
