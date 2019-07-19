@@ -5,17 +5,19 @@ import Json from './types/json'
 import {
   titre,
   titres,
-  titreAjouter,
+  titreCreer,
   titreSupprimer,
   titreModifier
 } from './resolvers/titres'
 
 import {
+  titreEtapeCreer,
   titreEtapeModifier,
   titreEtapeSupprimer
 } from './resolvers/titres-etapes'
 
 import {
+  titreDemarcheCreer,
   titreDemarcheModifier,
   titreDemarcheSupprimer
 } from './resolvers/titres-demarches'
@@ -25,8 +27,8 @@ import {
   utilisateurs,
   utilisateurIdentifier,
   utilisateurConnecter,
-  utilisateurAjouter,
-  utilisateurAjoutEmailEnvoyer,
+  utilisateurCreer,
+  utilisateurCreationEmailEnvoyer,
   utilisateurModifier,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
@@ -63,20 +65,22 @@ export default {
   statistiques,
 
   // mutations
-  titreAjouter,
+  titreCreer,
   titreModifier,
   titreSupprimer,
+  titreDemarcheCreer,
   titreDemarcheModifier,
   titreDemarcheSupprimer,
+  titreEtapeCreer,
   titreEtapeModifier,
   titreEtapeSupprimer,
   titreActiviteModifier,
   utilisateurConnecter,
   utilisateurModifier,
-  utilisateurAjouter,
+  utilisateurCreer,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
   utilisateurMotDePasseEmailEnvoyer,
-  utilisateurAjoutEmailEnvoyer
+  utilisateurCreationEmailEnvoyer
 }

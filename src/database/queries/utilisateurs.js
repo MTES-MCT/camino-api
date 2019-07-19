@@ -44,13 +44,13 @@ const utilisateursGet = async ({
   return q
 }
 
-const utilisateurAdd = async utilisateur =>
+const utilisateurCreate = async utilisateur =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
     .eager(options.utilisateurs.eager)
     .first()
 
-const utilisateurRemove = async id =>
+const utilisateurDelete = async id =>
   Utilisateurs.query()
     .deleteById(id)
     .first()
@@ -65,7 +65,7 @@ export {
   utilisateurGet,
   utilisateurByEmailGet,
   utilisateursGet,
-  utilisateurAdd,
-  utilisateurRemove,
+  utilisateurCreate,
+  utilisateurDelete,
   utilisateurUpdate
 }

@@ -1,5 +1,5 @@
 mutation TitreActivite($activite: InputTitreActivite!) {
-  titreActiviteAjouter(activite: $activite) {
+  titreActiviteModifier(activite: $activite) {
     ...titreActivite
   }
 }

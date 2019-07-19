@@ -3,6 +3,10 @@ import { titreIdsUpdate } from '../queries/titres'
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
 const titreIdUpdate = async titreOld => {
+  // TODO
+  // si l'id du titre change,
+  // vérifier dans tous les titres si cet id existe déjà
+  // si l'id existe déja, on modifie le nom en ajoutant un chiffre
   const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
   if (!hasChanged) return titreOld
 

@@ -271,7 +271,18 @@ type Document {
 }
 
 "Titre minier"
-input InputTitre {
+input InputTitreCreation {
+  nom: String!
+
+  typeId: ID!
+
+  domaineId: ID!
+
+  references: [InputReference]
+}
+
+"Titre minier"
+input InputTitreModification {
   """
   L'__id__ composée de la concaténation:
   - du type en 3 lettres
@@ -294,7 +305,13 @@ input InputReference {
   valeur: String!
 }
 
-input InputDemarche {
+input InputDemarcheCreation {
+  typeId: ID!
+
+  titreId: ID!
+}
+
+input InputDemarcheModification {
   id: ID!
 
   typeId: ID!
@@ -302,7 +319,51 @@ input InputDemarche {
   titreId: ID!
 }
 
-input InputEtape {
+input InputEtapeCreation {
+  typeId: ID!
+
+  statutId: EtapeStatutId!
+
+  titreDemarcheId: ID!
+
+  date: Date!
+
+  ordre: Int
+
+  duree: Int
+
+  dateDebut: Date
+
+  dateFin: Date
+
+  surface: Float
+
+  volume: Float
+
+  volumeUniteId: ID
+
+  visas: [String]
+
+  engagement: Float
+
+  engagementDeviseId: ID
+
+  emprisesIds: [ID!]
+
+  substancesIds: [ID!]
+
+  points: [InputPoint]
+
+  titulairesIds: [ID!]
+
+  amodiatairesIds: [ID!]
+
+  administrationsIds: [ID!]
+
+  incertitudes: InputIncertitudes
+}
+
+input InputEtapeModification {
   id: ID!
 
   typeId: ID!

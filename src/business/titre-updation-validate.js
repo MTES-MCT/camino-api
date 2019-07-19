@@ -1,8 +1,8 @@
-const titreValidation = async titreNew => {
+const titreUpdationValidate = async titreNew => {
   // vérifie
   // - si un titre contient des démarches qui ne sont pas recevables
 
   return null
 }
 
-export default titreValidation
+export default titreUpdationValidate

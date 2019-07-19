@@ -32,7 +32,7 @@ const requestsBuild = (sheets, tables, elements) => {
   const requests = []
 
   // il est impossible de supprimer tous les onglets dans une spreadsheet,
-  // donc on créé un onglet `tmp` vide, le temps de faire le ménage
+  // donc on crée un onglet `tmp` vide, le temps de faire le ménage
 
   const worksheetTmpExists = sheets.find(
     ({ properties }) => properties.title === 'camino-api-tmp'
