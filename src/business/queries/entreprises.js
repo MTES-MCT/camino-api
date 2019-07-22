@@ -1,31 +1,18 @@
-import { entrepriseUpdate as entrepriseUpdateQuery } from '../../database/queries/entreprises'
-import { entrepriseEtablissementUpdate as entrepriseEtablissementUpdateQuery } from '../../database/queries/entreprises-etablissements'
-import { objectsDiffer } from '../../tools'
+import { entreprisesUpsert as entreprisesUpsertQuery } from '../../database/queries/entreprises'
+import { entreprisesEtablissementsUpsert as entreprisesEtablissementsUpsertQuery } from '../../database/queries/entreprises-etablissements'
 
-const entrepriseUpdate = (entrepriseNew, entrepriseOld) => {
-  const updated = !entrepriseOld || objectsDiffer(entrepriseNew, entrepriseOld)
+const entreprisesUpsert = async entreprises => {
+  await entreprisesUpsertQuery(entreprises)
 
-  return updated
-    ? entrepriseUpdateQuery(entrepriseNew).then(
-        u => `Mise à jour: entreprise ${entrepriseNew.id}`
-      )
-    : null
+  return `Mise à jour: entreprise ${entreprises.map(e => e.id).join(', ')}`
 }
 
-const entrepriseEtablissementUpdate = (
-  entrepriseEtablissementNew,
-  entrepriseEtablissementOld
-) => {
-  const updated =
-    !entrepriseEtablissementOld ||
-    objectsDiffer(entrepriseEtablissementNew, entrepriseEtablissementOld)
+const entreprisesEtablissementsUpsert = async entreprisesEtablissements => {
+  await entreprisesEtablissementsUpsertQuery(entreprisesEtablissements)
 
-  return updated
-    ? entrepriseEtablissementUpdateQuery(entrepriseEtablissementNew).then(
-        u =>
-          `Mise à jour: entrepriseEtablissement ${entrepriseEtablissementNew.id}`
-      )
-    : null
+  return `Mise à jour: entreprisesEtablissements ${entreprisesEtablissements
+    .map(e => e.id)
+    .join(', ')}`
 }
 
-export { entrepriseUpdate, entrepriseEtablissementUpdate }
+export { entreprisesUpsert, entreprisesEtablissementsUpsert }

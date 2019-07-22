@@ -7,14 +7,14 @@ const entrepriseEtablissementGet = async id =>
 const entreprisesEtablissementsGet = async () =>
   EntrepriseEtablissements.query().skipUndefined()
 
-const entrepriseEtablissementUpdate = async entrepriseEtablissement =>
+const entreprisesEtablissementsUpsert = async entreprisesEtablissements =>
   EntrepriseEtablissements.query().upsertGraph(
-    entrepriseEtablissement,
+    entreprisesEtablissements,
     options.entreprisesEtablissements.update
   )
 
 export {
   entrepriseEtablissementGet,
   entreprisesEtablissementsGet,
-  entrepriseEtablissementUpdate
+  entreprisesEtablissementsUpsert
 }

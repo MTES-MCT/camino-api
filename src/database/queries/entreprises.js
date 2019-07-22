@@ -14,9 +14,9 @@ const entreprisesGet = async (
     .skipUndefined()
     .eager(eager)
 
-const entrepriseUpdate = async entreprise =>
+const entreprisesUpsert = async entreprises =>
   Entreprises.query()
     .eager(options.entreprises.eager)
-    .upsertGraph(entreprise, options.entreprises.update)
+    .upsertGraph(entreprises, options.entreprises.update)
 
-export { entrepriseGet, entreprisesGet, entrepriseUpdate }
+export { entrepriseGet, entreprisesGet, entreprisesUpsert }
