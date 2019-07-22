@@ -7,15 +7,14 @@ const titresStatutIdsUpdate = async titres => {
     const statutId = titreStatutIdFind(titre)
     const titreUpdated =
       statutId !== titre.statutId &&
-      (() => titrePropsUpdate(titre, { statutId }))
+      (() => titrePropsUpdate(titre.id, { statutId }).then(console.log))
 
     return titreUpdated ? [...arr, titreUpdated] : arr
   }, [])
 
   if (titresUpdatedRequests.length) {
     const queue = new PQueue({ concurrency: 100 })
-    const logs = await queue.addAll(titresUpdatedRequests)
-    console.log(logs.join(''))
+    await queue.addAll(titresUpdatedRequests)
   }
 
   return `Mise à jour: statuts de ${titresUpdatedRequests.length} titre(s).`

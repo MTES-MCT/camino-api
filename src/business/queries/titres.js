@@ -14,15 +14,16 @@ const titrePropsEtapes = [
   'engagementDeviseId'
 ]
 
-const titrePropsUpdate = async (titre, props) => {
-  await titreUpdate(titre.id, props)
+const titrePropsUpdate = async (titreId, props) => {
+  await titreUpdate(titreId, props)
 
-  return `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+  return `Mise à jour: titre ${titreId} props: ${JSON.stringify(props)}`
 }
 
-const titreIdsUpdate = (titreOldId, titreNew) =>
-  titreIdUpdate(titreOldId, titreNew).then(
-    u => `Mise à jour: titre ids: ${titreNew.id}`
-  )
+const titreIdsUpdate = async (titreOldId, titreNew) => {
+  await titreIdUpdate(titreOldId, titreNew)
+
+  return `Mise à jour: titre ids: ${titreNew.id}`
+}
 
 export { titrePropsEtapes, titrePropsUpdate, titreIdsUpdate }

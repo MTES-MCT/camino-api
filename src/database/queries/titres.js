@@ -1,4 +1,3 @@
-import knex from 'knex'
 import { transaction } from 'objection'
 import Titres from '../models/titres'
 import options from './_options'
@@ -229,6 +228,8 @@ const titreUpsert = async (titre, tr) =>
     .returning('*')
 
 const titreIdUpdate = async (titreOldId, titreNew) => {
+  const knex = Titres.knex()
+
   const t = await transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
     await titreUpsert(titreNew, tr)
@@ -243,6 +244,5 @@ export {
   titreUpdate,
   titreCreate,
   titreDelete,
-  titreUpsert,
   titreIdUpdate
 }

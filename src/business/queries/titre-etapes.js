@@ -1,5 +1,5 @@
 import {
-  titreEtapeUpdate,
+  titreEtapeUpdate as titreEtapeUpdateQuery,
   titreEtapeCommuneInsert as titreEtapeCommuneInsertQuery,
   titreEtapeCommuneDelete as titreEtapeCommuneDeleteQuery,
   titreEtapeAdministrationInsert as titreEtapeAdministrationInsertQuery,
@@ -7,24 +7,11 @@ import {
   titreEtapesIdsUpdate
 } from '../../database/queries/titres-etapes'
 
-import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
+const titreEtapeUpdate = async (titreEtapeId, props) => {
+  await titreEtapeUpdateQuery(titreEtapeId, props)
 
-const titreEtapesOrdreUpdate = titreEtapes =>
-  titreEtapesAscSortByDate(titreEtapes).reduce(
-    (queries, titreEtape, index) =>
-      titreEtape.ordre === index + 1
-        ? queries
-        : [
-            ...queries,
-            titreEtapeUpdate(titreEtape.id, { ordre: index + 1 }).then(
-              u =>
-                `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
-                  ordre: index + 1
-                })}`
-            )
-          ],
-    []
-  )
+  return `Mise à jour: étape ${titreEtapeId}, ${JSON.stringify(props)}`
+}
 
 const titreEtapeCommunesInsert = (titreEtape, communesIds) =>
   communesIds.reduce(
@@ -105,7 +92,7 @@ const titreEtapeAdministrationsDelete = (titreEtape, administrationsIds) =>
     : []
 
 export {
-  titreEtapesOrdreUpdate,
+  titreEtapeUpdate,
   titreEtapeCommunesInsert,
   titreEtapeCommunesDelete,
   titreEtapeAdministrationsInsert,

@@ -16,14 +16,14 @@ const titresPropsActivitesUpdate = async titres => {
     }, {})
 
     return Object.keys(props).length
-      ? [...acc, () => titrePropsUpdate(titre, props)]
+      ? [...acc, () => titrePropsUpdate(titre.id, props)]
       : acc
   }, [])
 
   if (titreUpdateRequests.length) {
     const queue = new PQueue({ concurrency: 100 })
     const logs = await queue.addAll(titreUpdateRequests)
-    console.log(logs.join(''))
+    console.log(logs.join('\n'))
   }
 
   return `Mise à jour: propriétés (activités) de ${titreUpdateRequests.length} titre(s).`

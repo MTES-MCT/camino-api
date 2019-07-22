@@ -1,8 +1,6 @@
 import { titrePropsUpdate, titreIdsUpdate } from './titres'
 import * as titresQueries from '../../database/queries/titres'
 
-import { titreValide, titreOldId, titreNew } from './__mocks__/titres-titres'
-
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres', () => ({
@@ -20,34 +18,26 @@ afterAll(() => {
   jest.restoreAllMocks()
 })
 
-describe("met à jour la propriété calculée d'un titre", () => {
-  test("un titre avec une propriété dont l'étape est différente est mis à jour", async () => {
-    titrePropsUpdate(
-      titreValide,
-      'pointsEtapeId',
-      'm-prx-saint-pierre-2014-oct01-dpu02'
-    )
-    expect(titresQueries.titreUpdate).toHaveBeenCalled()
-  })
+describe("propriétés calculées d'un titre", () => {
+  test("met à jour les propriétés d'un titre", async () => {
+    const log = await titrePropsUpdate('m-prx-saint-pierre-2014', {
+      pointsEtapeId: 'm-prx-saint-pierre-2014-oct01-dpu02'
+    })
 
-  test("un titre avec une propriété dont l'étape est la même n'est pas mis à jour", async () => {
-    titrePropsUpdate(
-      titreValide,
-      'substancesTitreEtapeId',
-      'm-prx-saint-pierre-2014-oct01-dpu01'
+    expect(log).toEqual(
+      'Mise à jour: titre m-prx-saint-pierre-2014 props: {"pointsEtapeId":"m-prx-saint-pierre-2014-oct01-dpu02"}'
     )
-    expect(titresQueries.titreUpdate).not.toHaveBeenCalled()
-  })
-
-  test('un titre avec une propriété date est pas mis à jour', async () => {
-    titrePropsUpdate(titreValide, 'dateDebut', '2008-12-12T23:00:00.000Z')
     expect(titresQueries.titreUpdate).toHaveBeenCalled()
   })
 })
 
-describe('met à jour le titre et ses dépendances', () => {
-  test('le titre et ses dépendances sont mis à jour', async () => {
-    titreIdsUpdate(titreOldId, titreNew)
+describe("ids d'un titre et ses dépendances", () => {
+  test('met à jour le titre et ses dépendances', async () => {
+    const log = await titreIdsUpdate('m-prx-saint-pierre-2013', {
+      id: 'm-prx-saint-pierre-2014'
+    })
+
+    expect(log).toEqual('Mise à jour: titre ids: m-prx-saint-pierre-2014')
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
   })
 })

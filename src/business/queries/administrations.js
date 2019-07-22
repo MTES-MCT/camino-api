@@ -1,15 +1,11 @@
-import { administrationUpdate as administrationUpdateQuery } from '../../database/queries/administrations'
-import { objectsDiffer } from '../../tools'
+import { administrationsUpsert } from '../../database/queries/administrations'
 
-const administrationUpdate = (administrationNew, administrationOld) => {
-  const updated =
-    !administrationOld || objectsDiffer(administrationNew, administrationOld)
+const administrationUpdate = async administrations => {
+  await administrationsUpsert(administrations)
 
-  return updated
-    ? administrationUpdateQuery(administrationNew).then(
-        u => `Mise à jour: administration ${administrationNew.id}`
-      )
-    : null
+  return `Mise à jour: administrations ${administrations
+    .map(a => a.id)
+    .join(', ')}`
 }
 
 export { administrationUpdate }

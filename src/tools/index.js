@@ -23,9 +23,13 @@ const objectsDiffer = (a, b) =>
     if (a[k] && b[k]) {
       if (b[k].constructor === Date) {
         return a[k] !== dateFormat(b[k], 'yyyy-mm-dd')
-      } else if (Array.isArray(a[k]) && Array.isArray(b[k])) {
+      }
+
+      if (Array.isArray(a[k]) && Array.isArray(b[k])) {
         return a[k].find((a, i) => objectsDiffer(a, b[k][i]))
-      } else if (typeof a[k] === 'object' && typeof b[k] === 'object' && a[k]) {
+      }
+
+      if (typeof a[k] === 'object' && typeof b[k] === 'object' && a[k]) {
         return objectsDiffer(a[k], b[k])
       }
     }

@@ -4,7 +4,7 @@ import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../queries/titres', () => ({
-  titrePropsUpdate: jest.fn(),
+  titrePropsUpdate: jest.fn().mockResolvedValue(),
   titrePropsEtapes: [
     'points',
     'titulaires',
@@ -18,10 +18,10 @@ jest.mock('../queries/titres', () => ({
 }))
 
 jest.mock('../rules/titre-prop-etape-id-find', () => ({
-  default: () => 'etape-id'
+  default: jest.fn()
 }))
 
-// console.log = jest.fn()
+console.log = jest.fn()
 
 describe("propriétés (étape) d'un titre", () => {
   test('trouve 8 propriétés dans les étapes', async () => {

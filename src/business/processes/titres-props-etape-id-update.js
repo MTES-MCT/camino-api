@@ -8,26 +8,19 @@ const titresPropsEtapeIdsUpdate = async titres => {
       const propEtapeIdName = `${prop}TitreEtapeId`
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
 
-      console.log(propEtapeIdName, etapeId, titre[propEtapeIdName])
-
       return etapeId !== titre[propEtapeIdName]
         ? { ...props, [propEtapeIdName]: etapeId }
         : props
     }, {})
 
-    console.log(props)
-
     return Object.keys(props).length
-      ? [...acc, () => titrePropsUpdate(titre, props)]
+      ? [...acc, () => titrePropsUpdate(titre.id, props).then(console.log)]
       : acc
   }, [])
 
   if (titresUpdatedRequests.length) {
-    const queue = new PQueue({
-      concurrency: 100
-    })
-    const logs = await queue.addAll(titresUpdatedRequests)
-    console.log(logs.join(''))
+    const queue = new PQueue({ concurrency: 100 })
+    await queue.addAll(titresUpdatedRequests)
   }
 
   return `Mise à jour: propriétés (étapes) de ${titresUpdatedRequests.length} titre(s).`

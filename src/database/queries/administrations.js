@@ -4,10 +4,10 @@ import options from './_options'
 const administrationsGet = async () =>
   Administrations.query().eager(options.administrations.eager)
 
-const administrationUpdate = async administration =>
+const administrationsUpsert = async administrations =>
   Administrations.query().upsertGraph(
-    administration,
+    administrations,
     options.administrations.update
   )
 
-export { administrationsGet, administrationUpdate }
+export { administrationsGet, administrationsUpsert }

@@ -1,5 +1,5 @@
 import {
-  titreEtapesOrdreUpdate,
+  titreEtapeUpdate,
   titreEtapeCommunesInsert,
   titreEtapeCommunesDelete,
   titreEtapeAdministrationsInsert,
@@ -8,9 +8,6 @@ import {
 import * as titreEtapesQueries from '../../database/queries/titres-etapes'
 
 import {
-  titreEtapes,
-  titreEtapesEgales,
-  titreEtapesOrdonnees,
   titreEtapeCommunesParis,
   titreEtapeCommunesMetz,
   titreEtapeAdministrationsPrefectureParis,
@@ -20,35 +17,18 @@ import {
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres-etapes', () => ({
-  titreEtapeUpdate: jest.fn().mockImplementation(() => Promise.resolve()),
-  titreEtapeCommuneInsert: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve()),
-  titreEtapeCommuneDelete: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve()),
-  titreEtapeAdministrationInsert: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve()),
-  titreEtapeAdministrationDelete: jest
-    .fn()
-    .mockImplementation(() => Promise.resolve())
+  titreEtapeUpdate: jest.fn().mockResolvedValue(),
+  titreEtapeCommuneInsert: jest.fn().mockResolvedValue(),
+  titreEtapeCommuneDelete: jest.fn().mockResolvedValue(),
+  titreEtapeAdministrationInsert: jest.fn().mockResolvedValue(),
+  titreEtapeAdministrationDelete: jest.fn().mockResolvedValue()
 }))
 
-describe("met à jour l'ordre des étapes d'une démarche", () => {
-  test('deux étapes triées par date décroissante sont mises à jour', async () => {
-    titreEtapesOrdreUpdate(titreEtapes)
-    expect(titreEtapesQueries.titreEtapeUpdate).toHaveBeenCalledTimes(2)
-  })
-
-  test('les étapes dont les dates sont les mêmes mais triées par ordre décroissant sont mises à jour', async () => {
-    titreEtapesOrdreUpdate(titreEtapesEgales)
+describe("propriétés d'une étape", () => {
+  test("met à jour des propriétés d'étape", async () => {
+    const log = await titreEtapeUpdate('', {})
+    expect(log).toMatch(/Mise à jour/)
     expect(titreEtapesQueries.titreEtapeUpdate).toHaveBeenCalled()
-  })
-
-  test("les étapes dont l'ordre est correct ne sont pas mises à jour", async () => {
-    titreEtapesOrdreUpdate(titreEtapesOrdonnees)
-    expect(titreEtapesQueries.titreEtapeUpdate).not.toHaveBeenCalled()
   })
 })
 
