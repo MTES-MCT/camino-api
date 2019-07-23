@@ -1,6 +1,20 @@
 import PQueue from 'p-queue'
-import { titrePropsUpdate, titrePropsEtapes } from '../queries/titres'
+import { titrePropsUpdate } from '../queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
+
+const titrePropsEtapes = [
+  'points',
+  'titulaires',
+  'amodiataires',
+  'administrations',
+  'surface',
+  'volume',
+  'volumeUniteId',
+  'substances',
+  'communes',
+  'engagement',
+  'engagementDeviseId'
+]
 
 const titresPropsEtapeIdsUpdate = async titres => {
   const titresUpdatedRequests = titres.reduce((acc, titre) => {
@@ -25,5 +39,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
 
   return `Mise à jour: propriétés (étapes) de ${titresUpdatedRequests.length} titre(s).`
 }
+
+export { titrePropsEtapes }
 
 export default titresPropsEtapeIdsUpdate

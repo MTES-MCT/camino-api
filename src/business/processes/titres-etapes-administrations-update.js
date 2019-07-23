@@ -1,6 +1,7 @@
+import PQueue from 'p-queue'
 import {
-  titreEtapeAdministrationsInsert,
-  titreEtapeAdministrationsDelete
+  titresEtapesAdministrationsCreate,
+  titreEtapeAdministrationDelete
 } from '../queries/titre-etapes'
 
 const typesAdministrationsLocalesLink = {
@@ -12,10 +13,51 @@ const typesAdministrationsCentralesLink = {
   arm: ['ope-onf-973-01']
 }
 
-const administrationsIdsFind = (
+const titreEtapeAdministrationsCreatedBuild = (
   titreEtape,
-  administrations,
-  { domaineId, typeId }
+  administrationsIds
+) =>
+  administrationsIds.reduce(
+    (queries, administrationId) =>
+      !titreEtape.administrations ||
+      !titreEtape.administrations.find(
+        administrationOld => administrationOld.id === administrationId
+      )
+        ? [
+            ...queries,
+            {
+              titreEtapeId: titreEtape.id,
+              administrationId
+            }
+          ]
+        : queries,
+    []
+  )
+
+const titreEtapeAdministrationsDeleteBuild = (titreEtape, administrationsIds) =>
+  titreEtape.administrations
+    ? titreEtape.administrations.reduce(
+        (queries, administrationOld) =>
+          !administrationsIds.find(
+            administrationId => administrationId === administrationOld.id
+          )
+            ? [
+                ...queries,
+                {
+                  titreEtapeId: titreEtape.id,
+                  administrationId: administrationOld.id
+                }
+              ]
+            : queries,
+        []
+      )
+    : []
+
+// retourne un tableau d'ids d'administrations
+const administrationsIdsBuild = (
+  { domaineId, typeId },
+  titreEtape,
+  administrations
 ) => {
   let adminsLocalesIds = []
   let adminsCentralesIds = []
@@ -81,19 +123,53 @@ const administrationsIdsFind = (
   return [...new Set([...adminsCentralesIds, ...adminsLocalesIds])]
 }
 
-const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
-  // parcourt les étapes à partir des titres
-  // car on a besoin de titre.domaineId
-  const titresEtapesAdministrations = titres.reduce(
+const titresEtapesAdministrationsCreatedDeletedBuild = titresEtapesAdministrations =>
+  Object.values(titresEtapesAdministrations).reduce(
+    (
+      {
+        titresEtapesAdministrationsCreated,
+        titresEtapesAdministrationsDeleted
+      },
+      { titreEtape, administrationsIds }
+    ) => {
+      const titreEtapeAdministrationsCreated = titreEtapeAdministrationsCreatedBuild(
+        titreEtape,
+        administrationsIds
+      )
+
+      const titreEtapeAdministrationsDeleted = titreEtapeAdministrationsDeleteBuild(
+        titreEtape,
+        administrationsIds
+      )
+
+      return {
+        titresEtapesAdministrationsCreated: [
+          ...titresEtapesAdministrationsCreated,
+          ...titreEtapeAdministrationsCreated
+        ],
+        titresEtapesAdministrationsDeleted: [
+          ...titresEtapesAdministrationsDeleted,
+          ...titreEtapeAdministrationsDeleted
+        ]
+      }
+    },
+    {
+      titresEtapesAdministrationsCreated: [],
+      titresEtapesAdministrationsDeleted: []
+    }
+  )
+
+const titresEtapesAdministrationsBuild = (titres, administrations) =>
+  titres.reduce(
     (titresEtapesAdministrations, titre) =>
       titre.demarches.reduce(
         (titresEtapesAdministrations, titreDemarche) =>
           titreDemarche.etapes.reduce(
             (titresEtapesAdministrations, titreEtape) => {
-              const administrationsIds = administrationsIdsFind(
+              const administrationsIds = administrationsIdsBuild(
+                titre,
                 titreEtape,
-                administrations,
-                titre
+                administrations
               )
 
               return administrationsIds.length
@@ -113,56 +189,45 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
     {}
   )
 
-  const {
-    titresEtapesAdministrationsInsertQueries,
-    titresEtapesAdministrationsDeleteQueries
-  } = titresEtapesAdministrationsQueriesBuild(titresEtapesAdministrations)
+const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
+  // parcourt les étapes à partir des titres
+  // car on a besoin de titre.domaineId
 
-  const titreEtapesAdministrationsQueries = [
-    ...titresEtapesAdministrationsInsertQueries,
-    ...titresEtapesAdministrationsDeleteQueries
-  ].map(q => q.then(log => console.log(log)))
-
-  await Promise.all(titreEtapesAdministrationsQueries)
-
-  return `Mise à jour: ${titresEtapesAdministrationsInsertQueries.length +
-    titresEtapesAdministrationsDeleteQueries.length} administrations dans des étapes.`
-}
-
-const titresEtapesAdministrationsQueriesBuild = titresEtapesAdministrations =>
-  Object.values(titresEtapesAdministrations).reduce(
-    (
-      {
-        titresEtapesAdministrationsInsertQueries,
-        titresEtapesAdministrationsDeleteQueries
-      },
-      { titreEtape, administrationsIds }
-    ) => {
-      const titreEtapeAdministrationsInsertQueriesNew = titreEtapeAdministrationsInsert(
-        titreEtape,
-        administrationsIds
-      )
-
-      const titreEtapeAdministrationsDeleteQueriesNew = titreEtapeAdministrationsDelete(
-        titreEtape,
-        administrationsIds
-      )
-
-      return {
-        titresEtapesAdministrationsInsertQueries: [
-          ...titresEtapesAdministrationsInsertQueries,
-          ...titreEtapeAdministrationsInsertQueriesNew
-        ],
-        titresEtapesAdministrationsDeleteQueries: [
-          ...titresEtapesAdministrationsDeleteQueries,
-          ...titreEtapeAdministrationsDeleteQueriesNew
-        ]
-      }
-    },
-    {
-      titresEtapesAdministrationsInsertQueries: [],
-      titresEtapesAdministrationsDeleteQueries: []
-    }
+  // retourne un dictionnaire { [titreEtapeId]: { titreEtape, administrationsIds}}
+  const titresEtapesAdministrations = titresEtapesAdministrationsBuild(
+    titres,
+    administrations
   )
+
+  const {
+    titresEtapesAdministrationsCreated,
+    titresEtapesAdministrationsDeleted
+  } = titresEtapesAdministrationsCreatedDeletedBuild(
+    titresEtapesAdministrations
+  )
+
+  if (titresEtapesAdministrationsCreated.length) {
+    await titresEtapesAdministrationsCreate(titresEtapesAdministrations).then(
+      console.log
+    )
+  }
+
+  if (titresEtapesAdministrationsDeleted.length) {
+    const titresEtapesAdministrationsDeletedQueries = titresEtapesAdministrationsDeleted.map(
+      ({ titreEtapeId, administrationId }) => () =>
+        titreEtapeAdministrationDelete(titreEtapeId, administrationId).then(
+          console.log
+        )
+    )
+
+    const queue = new PQueue({ concurrency: 100 })
+    await queue.addAll(titresEtapesAdministrationsDeletedQueries)
+  }
+
+  return [
+    `Mise à jour: ${titresEtapesAdministrationsCreated.length} administration(s) ajoutée(s) dans des étapes.`,
+    `Mise à jour: ${titresEtapesAdministrationsDeleted.length} administration(s) supprimée(s) dans des étapes.`
+  ]
+}
 
 export default titresEtapesAdministrationsUpdate

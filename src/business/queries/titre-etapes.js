@@ -2,7 +2,7 @@ import {
   titreEtapeUpdate as titreEtapeUpdateQuery,
   titreEtapesCommunesCreate as titreEtapesCommunesCreateQuery,
   titreEtapeCommuneDelete as titreEtapeCommuneDeleteQuery,
-  titreEtapeAdministrationInsert as titreEtapeAdministrationInsertQuery,
+  titreEtapesAdministrationsCreate as titreEtapesAdministrationsCreateQuery,
   titreEtapeAdministrationDelete as titreEtapeAdministrationDeleteQuery,
   titreEtapesIdsUpdate
 } from '../../database/queries/titres-etapes'
@@ -27,52 +27,28 @@ const titreEtapeCommuneDelete = async (titreEtapeId, communeId) => {
   return `Suppression: étape ${titreEtapeId}, commune ${communeId}`
 }
 
-const titreEtapeAdministrationsInsert = (titreEtape, administrationsIds) =>
-  administrationsIds.reduce(
-    (queries, administrationId) =>
-      titreEtape.administrations &&
-      titreEtape.administrations.find(c => c.id === administrationId)
-        ? queries
-        : [
-            ...queries,
-            titreEtapeAdministrationInsertQuery({
-              titreEtapeId: titreEtape.id,
-              administrationId
-            }).then(
-              u =>
-                `Mise à jour: étape ${titreEtape.id}, administration ${administrationId}`
-            )
-          ],
-    []
-  )
+const titresEtapesAdministrationsCreate = async titreEtapesAdministrations => {
+  await titreEtapesAdministrationsCreateQuery(titreEtapesAdministrations)
 
-const titreEtapeAdministrationsDelete = (titreEtape, administrationsIds) =>
-  titreEtape.administrations
-    ? titreEtape.administrations.reduce(
-        (queries, administration) =>
-          administrationsIds.find(
-            administrationId => administrationId === administration.id
-          )
-            ? queries
-            : [
-                ...queries,
-                titreEtapeAdministrationDeleteQuery({
-                  titreEtapeId: titreEtape.id,
-                  administrationId: administration.id
-                }).then(
-                  u =>
-                    `Suppression: étape ${titreEtape.id}, administration ${administration.id}`
-                )
-              ],
-        []
-      )
-    : []
+  return `Mise à jour: étape administrations ${titreEtapesAdministrations
+    .map(tea => JSON.stringify(tea))
+    .join(', ')}`
+}
+
+const titreEtapeAdministrationDelete = async (
+  titreEtapeId,
+  administrationId
+) => {
+  await titreEtapeAdministrationDeleteQuery(titreEtapeId, administrationId)
+
+  return `Suppression: étape ${titreEtapeId}, administration ${administrationId}`
+}
 
 export {
   titreEtapeUpdate,
   titreEtapesCommunesCreate,
   titreEtapeCommuneDelete,
-  titreEtapeAdministrationsInsert,
-  titreEtapeAdministrationsDelete,
+  titresEtapesAdministrationsCreate,
+  titreEtapeAdministrationDelete,
   titreEtapesIdsUpdate
 }

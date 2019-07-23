@@ -60,7 +60,7 @@ const titreEtapeCommuneDelete = async (titreEtapeId, communeId) =>
     .where('titreEtapeId', titreEtapeId)
     .andWhere('communeId', communeId)
 
-const titreEtapeAdministrationInsert = async ({
+const titreEtapesAdministrationsCreate = async ({
   titreEtapeId,
   administrationId
 }) => TitresAdministrations.query().insert({ titreEtapeId, administrationId })
@@ -96,7 +96,7 @@ export {
   titreEtapesCommunesCreate,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
-  titreEtapeAdministrationInsert,
+  titreEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete,
   titreEtapesIdsUpdate,
   titreEtapeDelete

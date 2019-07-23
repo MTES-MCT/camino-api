@@ -11,12 +11,12 @@ import {
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/communes', () => ({
+jest.mock('../../database/queries/communes', () => ({
   communesUpsert: jest.fn().mockResolvedValue()
 }))
 
 jest.mock('../queries/titre-etapes', () => ({
-  titreEtapesCommunesCreate: jest.fn().mockResolvedValue(),
+  titresEtapesCommunesCreate: jest.fn().mockResolvedValue(),
   titreEtapeCommuneDelete: jest.fn().mockResolvedValue()
 }))
 

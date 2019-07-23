@@ -1,4 +1,4 @@
-import { administrationUpsert } from '../queries/administrations'
+import { administrationsUpsert } from '../../database/queries/administrations'
 import { organismesDepartementsGet } from '../../tools/api-administrations'
 
 import { objectsDiffer } from '../../tools'
@@ -36,7 +36,12 @@ const administrationsUpdate = async (administrationsOld, departements) => {
   )
 
   if (administrationsUpdated.length) {
-    await administrationUpsert(administrationsUpdated).then(console.log)
+    await administrationsUpsert(administrationsUpdated)
+    console.log(
+      `Mise à jour: administrations ${administrationsUpdated
+        .map(a => a.id)
+        .join(', ')}`
+    )
   }
 
   return `Mise à jour: ${administrationsUpdated.length} administration(s).`

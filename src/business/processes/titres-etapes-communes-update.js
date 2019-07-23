@@ -1,11 +1,11 @@
-import { communesUpsert } from '../queries/communes'
+import PQueue from 'p-queue'
+import { communesUpsert } from '../../database/queries/communes'
 import {
-  titreEtapesCommunesCreate,
+  titresEtapesCommunesCreate,
   titreEtapeCommuneDelete
 } from '../queries/titre-etapes'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes'
-import PQueue from 'p-queue'
 
 const titreEtapesCommunesCreateBuild = (titreEtape, communesEtape) =>
   communesEtape.reduce(
@@ -40,81 +40,10 @@ const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
       )
     : []
 
-const communesBuild = (communesOld, titresEtapesCommunes) => {
-  const communesOldIndex = communesOld.reduce(
-    (communesOldIndex, communeOld) => ({
-      ...communesOldIndex,
-      [communeOld.id]: communeOld
-    }),
-    {}
-  )
-
-  const { communesNew } = Object.keys(titresEtapesCommunes).reduce(
-    (acc, titreEtapeId) =>
-      titresEtapesCommunes[titreEtapeId].reduce(
-        ({ communesIndex, communesNew }, commune) =>
-          // Ajoute la commune
-          // - si elle n'est pas déjà présente dans l'accumulateur
-          // - si elle n'est pas présente dans communesOld
-          !communesIndex[commune.id] && !communesOldIndex[commune.id]
-            ? { communesIndex, communesNew: [...communesNew, commune] }
-            : { communesIndex, communesNew },
-        acc
-      ),
-    { communesIndex: {}, communesNew: [] }
-  )
-
-  return communesNew
-}
-
-const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
-  // teste l'API geo-communes-api
-  const geoCommunesApiTest = await communesGeojsonTest()
-  // si la connexion à l'API échoue, retourne
-  if (!geoCommunesApiTest) {
-    return [
-      "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
-    ]
-  }
-
-  const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
-
-  const communesUpdated = communesBuild(communesOld, titresEtapesCommunes)
-
-  if (communesUpdated.length) {
-    await communesUpsert(communesUpdated).then(console.log)
-  }
-
-  const {
-    titresEtapesCommunesCreated,
-    titresEtapesCommunesDeleted
-  } = titresEtapesCommunesQueriesBuild(titresEtapes, titresEtapesCommunes)
-
-  if (titresEtapesCommunesCreated.length) {
-    await titreEtapesCommunesCreate(titresEtapesCommunes).then(console.log)
-  }
-
-  if (titresEtapesCommunesDeleted.length) {
-    const titresEtapesCommunesDeleteQueries = titresEtapesCommunesDeleted.map(
-      ({ titreEtapeId, communeId }) => () =>
-        titreEtapeCommuneDelete(titreEtapeId, communeId).then(console.log)
-    )
-
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresEtapesCommunesDeleteQueries)
-  }
-
-  return [
-    `Mise à jour: ${communesUpdated.length} commune(s).`,
-    `Mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes.`,
-    `Mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes.`
-  ]
-}
-
-const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
+const titresEtapesCommunesCreatedDeletedBuild = (
+  titresEtapes,
+  titresEtapesCommunes
+) =>
   Object.keys(titresEtapesCommunes).reduce(
     (
       { titresEtapesCommunesCreated, titresEtapesCommunesDeleted },
@@ -149,6 +78,33 @@ const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
       titresEtapesCommunesDeleted: []
     }
   )
+
+const communesBuild = (communesOld, titresEtapesCommunes) => {
+  const communesOldIndex = communesOld.reduce(
+    (communesOldIndex, communeOld) => ({
+      ...communesOldIndex,
+      [communeOld.id]: communeOld
+    }),
+    {}
+  )
+
+  const { communesNew } = Object.keys(titresEtapesCommunes).reduce(
+    (acc, titreEtapeId) =>
+      titresEtapesCommunes[titreEtapeId].reduce(
+        ({ communesIndex, communesNew }, commune) =>
+          // Ajoute la commune
+          // - si elle n'est pas déjà présente dans l'accumulateur
+          // - si elle n'est pas présente dans communesOld
+          !communesIndex[commune.id] && !communesOldIndex[commune.id]
+            ? { communesIndex, communesNew: [...communesNew, commune] }
+            : { communesIndex, communesNew },
+        acc
+      ),
+    { communesIndex: {}, communesNew: [] }
+  )
+
+  return communesNew
+}
 
 const titresEtapesCommunesGet = async titresEtapes => {
   const communesGeojsonGetRequests = titresEtapes.map(
@@ -194,6 +150,68 @@ const communesGeojsonTest = () => {
   }
 
   return communesGeojsonGet(geojson)
+}
+
+const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
+  // teste l'API geo-communes-api
+  const geoCommunesApiTest = await communesGeojsonTest()
+  // si la connexion à l'API échoue, retourne
+  if (!geoCommunesApiTest) {
+    return [
+      "Erreur: impossible de se connecter à l'API Géo communes",
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+    ]
+  }
+
+  const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
+
+  const communesUpdated = communesBuild(communesOld, titresEtapesCommunes)
+
+  if (communesUpdated.length) {
+    await communesUpsert(communesUpdated)
+    console.log(
+      `Mise à jour: communes, ${communesUpdated
+        .map(commune => commune.id)
+        .join(', ')}`
+    )
+  }
+
+  const {
+    titresEtapesCommunesCreated,
+    titresEtapesCommunesDeleted
+  } = titresEtapesCommunesCreatedDeletedBuild(
+    titresEtapes,
+    titresEtapesCommunes
+  )
+
+  if (titresEtapesCommunesCreated.length) {
+    await titresEtapesCommunesCreate(titresEtapesCommunes)
+    console.log(
+      `Mise à jour: étape communes ${titresEtapesCommunes
+        .map(tec => JSON.stringify(tec))
+        .join(', ')}`
+    )
+  }
+
+  if (titresEtapesCommunesDeleted.length) {
+    const titresEtapesCommunesDeleteQueries = titresEtapesCommunesDeleted.map(
+      ({ titreEtapeId, communeId }) => async () => {
+        await titreEtapeCommuneDelete(titreEtapeId, communeId)
+        console.log(`Suppression: étape ${titreEtapeId}, commune ${communeId}`)
+      }
+    )
+
+    const queue = new PQueue({ concurrency: 100 })
+    await queue.addAll(titresEtapesCommunesDeleteQueries)
+  }
+
+  return [
+    `Mise à jour: ${communesUpdated.length} commune(s).`,
+    `Mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes.`,
+    `Mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes.`
+  ]
 }
 
 export default titresEtapesCommunesUpdate

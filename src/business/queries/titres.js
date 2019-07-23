@@ -1,19 +1,5 @@
 import { titreUpdate, titreIdUpdate } from '../../database/queries/titres'
 
-const titrePropsEtapes = [
-  'points',
-  'titulaires',
-  'amodiataires',
-  'administrations',
-  'surface',
-  'volume',
-  'volumeUniteId',
-  'substances',
-  'communes',
-  'engagement',
-  'engagementDeviseId'
-]
-
 const titrePropsUpdate = async (titreId, props) => {
   await titreUpdate(titreId, props)
 
@@ -26,4 +12,4 @@ const titreIdsUpdate = async (titreOldId, titreNew) => {
   return `Mise à jour: titre ids: ${titreNew.id}`
 }
 
-export { titrePropsEtapes, titrePropsUpdate, titreIdsUpdate }
+export { titrePropsUpdate, titreIdsUpdate }

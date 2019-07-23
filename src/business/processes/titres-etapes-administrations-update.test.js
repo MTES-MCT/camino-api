@@ -13,88 +13,88 @@ import {
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../queries/titre-etapes', () => ({
-  titreEtapeAdministrationsInsert: () => [],
-  titreEtapeAdministrationsDelete: () => []
+  titresEtapesAdministrationsCreate: jest.fn().mockResolvedValue(),
+  titreEtapeAdministrationsDelete: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 
-describe("met à jour la liste d'administrations d'une étape", () => {
-  test('ajoute 4 administrations dans une étape', async () => {
-    const insertSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
-      .mockImplementation(
-        titreEtape =>
-          titreEtape.communes &&
-          titreEtape.communes.map(p => Promise.resolve(p))
-      )
+describe("administrations d'une étape", () => {
+  test('ajoute 2 administrations dans une étape', async () => {
+    const log = await titresEtapeAdministrationsUpdate(
+      titresCommunes,
+      administrations
+    )
 
-    expect(
-      await titresEtapeAdministrationsUpdate(titresCommunes, administrations)
-    ).toEqual('Mise à jour: 4 administrations dans des étapes.')
+    expect(log).toEqual([
+      'Mise à jour: 2 administration(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+    ])
 
-    expect(insertSpy).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(4)
-
-    insertSpy.mockRestore()
+    expect(console.log).toHaveBeenCalledTimes(1)
   })
 
   test("n'ajoute pas deux fois une administration en doublon ", async () => {
-    const insertSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
-      .mockImplementation(titreEtape => [Promise.resolve()])
-    const deleteSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeAdministrationsDelete')
-      .mockImplementation(titreEtape => [])
+    const log = await titresEtapeAdministrationsUpdate(
+      titresCommunesMemeCommune,
+      administrations
+    )
 
-    expect(
-      await titresEtapeAdministrationsUpdate(
-        titresCommunesMemeCommune,
-        administrations
-      )
-    ).toEqual('Mise à jour: 1 administrations dans des étapes.')
+    expect(log).toEqual([
+      'Mise à jour: 1 administration(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+    ])
 
-    expect(insertSpy).toHaveBeenCalledTimes(1)
-    expect(deleteSpy).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(1)
-
-    insertSpy.mockRestore()
-    deleteSpy.mockRestore()
+    expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
+    expect(titreEtapes.titreEtapeAdministrationsDelete).not.toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalled()
   })
 
   test("ne met pas à jour les administrations d'une étape qui n'a pas de commune", async () => {
-    expect(
-      await titresEtapeAdministrationsUpdate(
-        titresCommunesVides,
-        administrations
-      )
-    ).toEqual('Mise à jour: 0 administrations dans des étapes.')
+    const log = await titresEtapeAdministrationsUpdate(
+      titresCommunesVides,
+      administrations
+    )
 
+    expect(log).toEqual([
+      'Mise à jour: 0 administration(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+    ])
+
+    expect(titreEtapes.titresEtapesAdministrationsCreate).not.toHaveBeenCalled()
+    expect(titreEtapes.titreEtapeAdministrationsDelete).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 
   test("ajoute uniquement l'ONF comme administration centrale à un titre de type ARM", async () => {
-    jest
-      .spyOn(titreEtapes, 'titreEtapeAdministrationsInsert')
-      .mockImplementation((_, adminsIds) =>
-        adminsIds.map(p => Promise.resolve(p))
-      )
+    const log = await titresEtapeAdministrationsUpdate(
+      titresArm,
+      administrations
+    )
 
-    expect(
-      await titresEtapeAdministrationsUpdate(titresArm, administrations)
-    ).toEqual('Mise à jour: 1 administrations dans des étapes.')
+    expect(log).toEqual([
+      'Mise à jour: 1 administration(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+    ])
 
-    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
+    expect(titreEtapes.titreEtapeAdministrationsDelete).not.toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalled()
   })
 
   test("n'ajoute aucune administration centrale à un titre de type AXM", async () => {
-    expect(
-      await titresEtapeAdministrationsUpdate(
-        titresCommunesVides,
-        administrations
-      )
-    ).toEqual('Mise à jour: 0 administrations dans des étapes.')
+    const log = await titresEtapeAdministrationsUpdate(
+      titresCommunesVides,
+      administrations
+    )
 
+    expect(log).toEqual([
+      'Mise à jour: 0 administration(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+    ])
+
+    expect(titreEtapes.titresEtapesAdministrationsCreate).not.toHaveBeenCalled()
+    expect(titreEtapes.titreEtapeAdministrationsDelete).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 })

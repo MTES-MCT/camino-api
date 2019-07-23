@@ -13,8 +13,8 @@ import {
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/administrations', () => ({
-  administrationUpsert: jest.fn().mockResolvedValue()
+jest.mock('../../database/queries/administrations', () => ({
+  administrationsUpsert: jest.fn().mockResolvedValue()
 }))
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
