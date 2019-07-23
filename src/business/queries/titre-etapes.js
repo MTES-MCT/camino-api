@@ -1,6 +1,6 @@
 import {
   titreEtapeUpdate as titreEtapeUpdateQuery,
-  titreEtapeCommuneInsert as titreEtapeCommuneInsertQuery,
+  titreEtapesCommunesCreate as titreEtapesCommunesCreateQuery,
   titreEtapeCommuneDelete as titreEtapeCommuneDeleteQuery,
   titreEtapeAdministrationInsert as titreEtapeAdministrationInsertQuery,
   titreEtapeAdministrationDelete as titreEtapeAdministrationDeleteQuery,
@@ -13,42 +13,19 @@ const titreEtapeUpdate = async (titreEtapeId, props) => {
   return `Mise à jour: étape ${titreEtapeId}, ${JSON.stringify(props)}`
 }
 
-const titreEtapeCommunesInsert = (titreEtape, communesIds) =>
-  communesIds.reduce(
-    (queries, communeId) =>
-      titreEtape.communes && titreEtape.communes.find(c => c.id === communeId)
-        ? queries
-        : [
-            ...queries,
-            titreEtapeCommuneInsertQuery({
-              titreEtapeId: titreEtape.id,
-              communeId
-            }).then(
-              u => `Mise à jour: étape ${titreEtape.id}, commune ${communeId}`
-            )
-          ],
-    []
-  )
+const titreEtapesCommunesCreate = async titreEtapesCommunes => {
+  await titreEtapesCommunesCreateQuery(titreEtapesCommunes)
 
-const titreEtapeCommunesDelete = (titreEtape, communesIds) =>
-  titreEtape.communes
-    ? titreEtape.communes.reduce(
-        (queries, commune) =>
-          communesIds.find(communeId => communeId === commune.id)
-            ? queries
-            : [
-                ...queries,
-                titreEtapeCommuneDeleteQuery({
-                  titreEtapeId: titreEtape.id,
-                  communeId: commune.id
-                }).then(
-                  u =>
-                    `Suppression: étape ${titreEtape.id}, commune ${commune.id}`
-                )
-              ],
-        []
-      )
-    : []
+  return `Mise à jour: étape communes ${titreEtapesCommunes
+    .map(tec => JSON.stringify(tec))
+    .join(', ')}`
+}
+
+const titreEtapeCommuneDelete = async (titreEtapeId, communeId) => {
+  await titreEtapeCommuneDeleteQuery(titreEtapeId, communeId)
+
+  return `Suppression: étape ${titreEtapeId}, commune ${communeId}`
+}
 
 const titreEtapeAdministrationsInsert = (titreEtape, administrationsIds) =>
   administrationsIds.reduce(
@@ -93,8 +70,8 @@ const titreEtapeAdministrationsDelete = (titreEtape, administrationsIds) =>
 
 export {
   titreEtapeUpdate,
-  titreEtapeCommunesInsert,
-  titreEtapeCommunesDelete,
+  titreEtapesCommunesCreate,
+  titreEtapeCommuneDelete,
   titreEtapeAdministrationsInsert,
   titreEtapeAdministrationsDelete,
   titreEtapesIdsUpdate

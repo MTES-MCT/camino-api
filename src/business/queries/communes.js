@@ -1,22 +1,11 @@
-import { communeInsert } from '../../database/queries/territoires'
+import { communesUpsert as communesUpsertQuery } from '../../database/queries/territoires'
 
-const communesInsert = (communesNew, communesOld) =>
-  communesNew.reduce(
-    (queries, { id, nom, departementId }) =>
-      communesOld.find(cOld => cOld.id === id)
-        ? queries
-        : [
-            ...queries,
-            communeInsert({ id, nom, departementId }).then(u => {
-              const commune = JSON.stringify({
-                id,
-                nom,
-                departementId
-              })
-              return `Mise à jour: commune, ${commune}`
-            })
-          ],
-    []
-  )
+const communesUpsert = async communes => {
+  await communesUpsertQuery(communes)
 
-export { communesInsert }
+  return `Mise à jour: communes, ${communes
+    .map(commune => commune.id)
+    .join(', ')}`
+}
+
+export { communesUpsert }

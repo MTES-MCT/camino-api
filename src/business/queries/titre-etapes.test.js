@@ -1,15 +1,13 @@
 import {
   titreEtapeUpdate,
-  titreEtapeCommunesInsert,
-  titreEtapeCommunesDelete,
+  titreEtapesCommunesCreate,
+  titreEtapeCommuneDelete,
   titreEtapeAdministrationsInsert,
   titreEtapeAdministrationsDelete
 } from './titre-etapes'
 import * as titreEtapesQueries from '../../database/queries/titres-etapes'
 
 import {
-  titreEtapeCommunesParis,
-  titreEtapeCommunesMetz,
   titreEtapeAdministrationsPrefectureParis,
   titreEtapeAdministrationsPrefectureMetz
 } from './__mocks__/titre-etapes-etapes'
@@ -18,46 +16,40 @@ import {
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeUpdate: jest.fn().mockResolvedValue(),
-  titreEtapeCommuneInsert: jest.fn().mockResolvedValue(),
+  titreEtapesCommunesCreate: jest.fn().mockResolvedValue(),
   titreEtapeCommuneDelete: jest.fn().mockResolvedValue(),
   titreEtapeAdministrationInsert: jest.fn().mockResolvedValue(),
   titreEtapeAdministrationDelete: jest.fn().mockResolvedValue()
 }))
 
-describe("propriétés d'une étape", () => {
+describe('queries étape (à supprimer)', () => {
   test("met à jour des propriétés d'étape", async () => {
     const log = await titreEtapeUpdate('', {})
+
     expect(log).toMatch(/Mise à jour/)
     expect(titreEtapesQueries.titreEtapeUpdate).toHaveBeenCalled()
   })
-})
 
-describe('ajoute des communes à une étape', () => {
-  test("une nouvelle commune est ajoutée à l'étape", async () => {
-    titreEtapeCommunesInsert(titreEtapeCommunesParis, ['Metz'])
-    expect(titreEtapesQueries.titreEtapeCommuneInsert).toHaveBeenCalled()
+  test("ajoute une nouvelle commune à l'étape", async () => {
+    const log = await titreEtapesCommunesCreate([
+      {
+        titreEtapeId: 'id-etape',
+        communeId: 'Paris'
+      }
+    ])
+
+    expect(log).toMatch(/Mise à jour/)
+    expect(titreEtapesQueries.titreEtapesCommunesCreate).toHaveBeenCalled()
   })
 
-  test("la commune déjà présente dans l'étape qui n'est pas mise à jour", async () => {
-    titreEtapeCommunesInsert(titreEtapeCommunesMetz, ['Metz'])
-    expect(titreEtapesQueries.titreEtapeCommuneInsert).not.toHaveBeenCalled()
-  })
-})
+  test("supprime une commune de l'étape", async () => {
+    const log = await titreEtapeCommuneDelete({
+      titreEtapeId: 'id-etape',
+      communeId: 'Paris'
+    })
 
-describe('supprime des communes à une étape', () => {
-  test("une commune est supprimée de l'étape", async () => {
-    titreEtapeCommunesDelete(titreEtapeCommunesMetz, ['Paris'])
+    expect(log).toMatch(/Suppression/)
     expect(titreEtapesQueries.titreEtapeCommuneDelete).toHaveBeenCalled()
-  })
-
-  test("la commune n'existe pas dans l'étape qui n'est pas mise à jour", async () => {
-    titreEtapeCommunesDelete(titreEtapeCommunesParis, ['Paris'])
-    expect(titreEtapesQueries.titreEtapeCommuneDelete).not.toHaveBeenCalled()
-  })
-
-  test("l'étape n'a pas de communes", async () => {
-    titreEtapeCommunesDelete({}, ['Paris'])
-    expect(titreEtapesQueries.titreEtapeCommuneDelete).not.toHaveBeenCalled()
   })
 })
 

@@ -1,11 +1,3 @@
-const titreEtapeCommunesParis = {
-  communes: [{ id: 'Paris' }]
-}
-
-const titreEtapeCommunesMetz = {
-  communes: [{ id: 'Metz' }]
-}
-
 const titreEtapeAdministrationsPrefectureParis = {
   administrations: [{ id: 'prefecture-paris' }]
 }
@@ -15,8 +7,6 @@ const titreEtapeAdministrationsPrefectureMetz = {
 }
 
 export {
-  titreEtapeCommunesParis,
-  titreEtapeCommunesMetz,
   titreEtapeAdministrationsPrefectureParis,
   titreEtapeAdministrationsPrefectureMetz
 }
