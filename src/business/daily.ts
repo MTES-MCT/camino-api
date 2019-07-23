@@ -17,10 +17,10 @@ import titresDatesUpdate from './processes/titres-dates-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-import titresActivitesTypesUpdate from './processes/titres-activites-update'
+import titresActivitesUpdate from './processes/titres-activites-update'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 
-import titresIdsUpdate from './processes/titres-ids-update'
+import {titresIdsUpdate} from './processes/titres-ids-update'
 
 const run = async () => {
   try {
@@ -99,7 +99,7 @@ const run = async () => {
 
     titres = await titresGet()
     const activitesTypes = await activitesTypesGet()
-    const titresActivites = await titresActivitesTypesUpdate(
+    const titresActivites = await titresActivitesUpdate(
       titres,
       activitesTypes,
       annees

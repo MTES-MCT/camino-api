@@ -8,20 +8,20 @@ import {
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../queries/titres', () => ({
-  titrePropsUpdate: () => Promise.resolve()
+  titrePropsUpdate: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 
-describe("met à jour le statut d'un titre", () => {
-  test('un statut obselète est mis à jour', async () => {
+describe("statut d'un titre", () => {
+  test('met à jour un titre si son statut est obsolète', async () => {
     expect(await titresStatutIdsUpdate(titresEchuStatutIdObselete)).toEqual(
       'Mise à jour: statuts de 1 titre(s).'
     )
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("un statut à jour n'est pas mis à jour", async () => {
+  test("ne met pas à jour le statut d'un titre", async () => {
     expect(await titresStatutIdsUpdate(titresValideStatutIdAJour)).toEqual(
       'Mise à jour: statuts de 0 titre(s).'
     )

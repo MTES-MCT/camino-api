@@ -6,7 +6,7 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
-import titreIdUpdate from './processes/titre-id-update'
+import { titreIdsUpdate } from './processes/titres-ids-update'
 
 const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
   // 1.
@@ -42,7 +42,8 @@ const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
   // id du titre
   // met à jour l'id du titres, des démarches et des étapes
   titre = await titreGet(titreId, { format: false })
-  const titreNew = await titreIdUpdate(titre)
+  // titreNew n'est pas formaté
+  const titreNew = await titreIdsUpdate(titre)
 
   console.log(titreDemarchesOrdre)
   console.log(titresPropsEtapeId)
@@ -52,6 +53,7 @@ const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
 
   console.log('Démarche mise à jour')
 
+  // on retourne le titre bien formaté
   return titreGet(titreNew.id)
 }
 

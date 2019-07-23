@@ -13,7 +13,7 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-import titreIdUpdate from './processes/titre-id-update'
+import { titreIdsUpdate } from './processes/titres-ids-update'
 
 const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // ordre des étapes
@@ -70,7 +70,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // met à jour l'id des étapes
   // met à jour l'id du titres, des démarches et des étapes
   titre = await titreGet(titreId, { format: false })
-  const titreNew = await titreIdUpdate(titre)
+  const titreNew = await titreIdsUpdate(titre)
 
   console.log(titreEtapesOrdre)
   console.log(titreDemarcheStatutId)
@@ -85,6 +85,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
 
   console.log('Étape mise à jour')
 
+  // on récupère le titre bien formaté
   return titreGet(titreNew.id)
 }
 

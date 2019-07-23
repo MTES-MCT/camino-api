@@ -1,6 +1,6 @@
 import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
-const titreActiviteCreateFromPeriod = (
+const titreActiviteBuild = (
   { demarches: titreDemarches, statutId: titreStatutId, id: titreId },
   activiteTypeId,
   annee,
@@ -48,4 +48,43 @@ const titreActiviteCreateFromPeriod = (
   return titreActivite
 }
 
-export default titreActiviteCreateFromPeriod
+const titreActivitesBuild = (titre, activiteType, annees) => {
+  const { frequence } = activiteType
+
+  const periods = activiteType.frequence[frequence.periodesNom]
+  const monthsCount = 12 / periods.length
+
+  const { activites: titreActivites } = titre
+
+  return annees.reduce(
+    (acc, annee) =>
+      periods.reduce((acc, e, periodIndex) => {
+        // cherche si l'activité existe déjà dans le titre
+        let titreActivite =
+          titreActivites &&
+          titreActivites.find(
+            a =>
+              a.activiteTypeId === activiteType.id &&
+              a.annee === annee &&
+              a.frequencePeriodeId === periodIndex + 1
+          )
+
+        // la ligne d'activité existe déjà pour le titre
+        // il n'est pas nécessaire de la créer
+        if (titreActivite) return acc
+
+        titreActivite = titreActiviteBuild(
+          titre,
+          activiteType.id,
+          annee,
+          periodIndex,
+          monthsCount
+        )
+
+        return titreActivite ? [...acc, titreActivite] : acc
+      }, acc),
+    []
+  )
+}
+
+export default titreActivitesBuild
