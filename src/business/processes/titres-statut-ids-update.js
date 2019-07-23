@@ -1,15 +1,24 @@
-import { titrePropsUpdate } from '../queries/titres'
+import { titreUpdate } from '../../database/queries/titres'
 import PQueue from 'p-queue'
 import titreStatutIdFind from '../rules/titre-statut-id-find'
 
 const titresStatutIdsUpdate = async titres => {
   const titresUpdatedRequests = titres.reduce((arr, titre) => {
     const statutId = titreStatutIdFind(titre)
-    const titreUpdated =
-      statutId !== titre.statutId &&
-      (() => titrePropsUpdate(titre.id, { statutId }).then(console.log))
 
-    return titreUpdated ? [...arr, titreUpdated] : arr
+    return statutId !== titre.statutId
+      ? [
+          ...arr,
+          async () => {
+            await titreUpdate(titre.id, { statutId })
+            console.log(
+              `Mise à jour: titre ${titre.id} props: ${JSON.stringify({
+                statutId
+              })}`
+            )
+          }
+        ]
+      : arr
   }, [])
 
   if (titresUpdatedRequests.length) {

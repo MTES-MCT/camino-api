@@ -1,7 +1,7 @@
 import titresActivitesTypesUpdate from './titres-activites-update'
 
 import * as titreActivitesTypesFilter from '../utils/titre-activites-filter'
-import * as titreActivitesQueries from '../queries/titre-activites'
+import * as titreActivitesQueries from '../../database/queries/titres-activites'
 import * as titreActivitesBuild from '../rules/titre-activites-build'
 
 import {
@@ -13,7 +13,7 @@ jest.mock('../utils/titre-activites-filter', () => ({
   default: jest.fn()
 }))
 
-jest.mock('../queries/titre-activites', () => ({
+jest.mock('../../database/queries/titres-activites', () => ({
   titreActivitesUpsert: jest.fn().mockResolvedValue()
 }))
 

@@ -21,7 +21,7 @@ const titresActivitesGet = async () => {
 const titreActivitesUpsert = async titreActivites => {
   const tas = await TitreActivites.query()
     .eager(options.titresActivites.eager)
-    .upsertGraph(titreActivites)
+    .upsertGraph(titreActivites, { insertMissing: true })
 
   return tas.map(ta => titreActiviteFormat(ta))
 }

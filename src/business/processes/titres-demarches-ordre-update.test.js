@@ -7,7 +7,7 @@ import {
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titre-demarches', () => ({
+jest.mock('../../database/queries/titres-demarches', () => ({
   titreDemarcheUpdate: jest.fn().mockResolvedValue()
 }))
 

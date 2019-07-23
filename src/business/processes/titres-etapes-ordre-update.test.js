@@ -1,5 +1,5 @@
 import titresEtapesOrdreUpdate from './titres-etapes-ordre-update'
-import { titreEtapeUpdate } from '../queries/titre-etapes'
+import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 
 import {
   titresDemarchesEtapes,
@@ -8,7 +8,7 @@ import {
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titre-etapes', () => ({
+jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeUpdate: jest.fn().mockResolvedValue()
 }))
 

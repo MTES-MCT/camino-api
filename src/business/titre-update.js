@@ -1,7 +1,7 @@
 import '../database/index'
 import { titreGet } from '../database/queries/titres'
 
-import titreIdsUpdate from './processes/titre-ids-update'
+import { titreIdsUpdate } from './processes/titres-ids-update'
 
 const titreUpdate = async titreId => {
   try {

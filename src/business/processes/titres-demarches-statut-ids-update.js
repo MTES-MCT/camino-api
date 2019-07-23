@@ -1,4 +1,4 @@
-import { titreDemarcheUpdate } from '../queries/titre-demarches'
+import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 import PQueue from 'p-queue'
 
@@ -12,10 +12,16 @@ const titreDemarcheStatutUpdate = (titreDemarche, titre) => {
   )
 
   return titreDemarche.statutId !== statutId
-    ? () =>
-        titreDemarcheUpdate(titreDemarche.id, {
+    ? async () => {
+        await titreDemarcheUpdate(titreDemarche.id, {
           statutId
-        }).then(console.log)
+        })
+        console.log(
+          `Mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
+            statutId
+          })}`
+        )
+      }
     : null
 }
 

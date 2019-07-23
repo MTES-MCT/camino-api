@@ -1,4 +1,4 @@
-import { titreDemarcheUpdate } from '../queries/titre-demarches'
+import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import PQueue from 'p-queue'
 
@@ -8,10 +8,14 @@ const titreDemarchesOrdreUpdate = titreDemarches =>
       titreDemarche.ordre !== index + 1
         ? [
             ...acc,
-            () =>
-              titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 }).then(
-                console.log
+            async () => {
+              await titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 })
+              console.log(
+                `Mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
+                  ordre: index + 1
+                })}`
               )
+            }
           ]
         : acc,
     []

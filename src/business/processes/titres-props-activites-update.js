@@ -1,4 +1,4 @@
-import { titrePropsUpdate } from '../queries/titres'
+import { titreUpdate } from '../../database/queries/titres'
 import titrePropActivitesCount from '../utils/titre-prop-activites-count'
 import PQueue from 'p-queue'
 
@@ -16,14 +16,21 @@ const titresPropsActivitesUpdate = async titres => {
     }, {})
 
     return Object.keys(props).length
-      ? [...acc, () => titrePropsUpdate(titre.id, props)]
+      ? [
+          ...acc,
+          async () => {
+            await titreUpdate(titre.id, props)
+            console.log(
+              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+            )
+          }
+        ]
       : acc
   }, [])
 
   if (titreUpdateRequests.length) {
     const queue = new PQueue({ concurrency: 100 })
-    const logs = await queue.addAll(titreUpdateRequests)
-    console.log(logs.join('\n'))
+    await queue.addAll(titreUpdateRequests)
   }
 
   return `Mise à jour: propriétés (activités) de ${titreUpdateRequests.length} titre(s).`

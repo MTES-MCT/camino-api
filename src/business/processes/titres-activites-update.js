@@ -1,5 +1,5 @@
 import titreActivitesTypesFilter from '../utils/titre-activites-filter'
-import { titreActivitesUpsert } from '../queries/titre-activites'
+import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
 const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
@@ -36,7 +36,10 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
     }, [])
 
   if (titresActivitesNew.length) {
-    await titreActivitesUpsert(titresActivitesNew).then(console.log)
+    await titreActivitesUpsert(titresActivitesNew)
+    console.log(
+      `Création: activité ${titresActivitesNew.map(ta => ta.id).join(', ')}`
+    )
   }
 
   return `Mise à jour: ${titresActivitesNew.length} activités.`

@@ -1,7 +1,7 @@
 import { titresIdsUpdate, titreIdsUpdate } from './titres-ids-update'
 
 import * as titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
-import * as titresQueries from '../queries/titres'
+import * as titresQueries from '../../database/queries/titres'
 import * as titresActivitesExport from '../../tools/export/titre-activites'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
@@ -10,8 +10,8 @@ jest.mock('../utils/titre-id-and-relations-update', () => ({
   default: jest.fn()
 }))
 
-jest.mock('../queries/titres', () => ({
-  titreIdsUpdate: jest.fn().mockResolvedValue()
+jest.mock('../../database/queries/titres', () => ({
+  titreIdUpdate: jest.fn().mockResolvedValue()
 }))
 
 jest.mock('../../tools/export/titre-activites', () => ({
@@ -37,7 +37,7 @@ describe("id d'un titre", () => {
     expect(titreNew.id).toEqual(id)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdsUpdate).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
     expect(titresActivitesExport.titreActivitesRowUpdate).not.toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
@@ -55,7 +55,7 @@ describe("id d'un titre", () => {
     expect(titreNew.id).toEqual(id)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdsUpdate).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
     expect(titresActivitesExport.titreActivitesRowUpdate).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
@@ -73,7 +73,7 @@ describe("id d'un titre", () => {
     expect(titreNew.id).toEqual(id)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdsUpdate).not.toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()
     expect(titresActivitesExport.titreActivitesRowUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -93,7 +93,7 @@ describe('id de plusieurs titres', () => {
     expect(log).toEqual('Mise à jour: 1 titre(s) (ids).')
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdsUpdate).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
     expect(titresActivitesExport.titreActivitesRowUpdate).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
@@ -105,14 +105,14 @@ describe('id de plusieurs titres', () => {
       titreNew: { id, activites: [1] },
       hasChanged: true
     }))
-    titresQueries.titreIdsUpdate.mockRejectedValue(new Error('bim !'))
+    titresQueries.titreIdUpdate.mockRejectedValue(new Error('bim !'))
 
     const log = await titresIdsUpdate([{ id: 'id-old' }])
 
     expect(log).toEqual('Mise à jour: 0 titre(s) (ids).')
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdsUpdate).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
     expect(titresActivitesExport.titreActivitesRowUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
     expect(console.error).toHaveBeenCalledTimes(2)
@@ -131,7 +131,7 @@ describe('id de plusieurs titres', () => {
     expect(log).toEqual('Mise à jour: 0 titre(s) (ids).')
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdsUpdate).not.toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()
     expect(titresActivitesExport.titreActivitesRowUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })

@@ -5,8 +5,8 @@ import titreDateDemandeFind from '../rules/titre-date-demande-find'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titres', () => ({
-  titrePropsUpdate: jest.fn().mockResolvedValue()
+jest.mock('../../database/queries/titres', () => ({
+  titreUpdate: jest.fn().mockResolvedValue()
 }))
 jest.mock('../rules/titre-date-fin-find')
 jest.mock('../rules/titre-date-debut-find')

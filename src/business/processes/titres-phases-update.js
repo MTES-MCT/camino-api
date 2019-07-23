@@ -1,5 +1,8 @@
 import * as dateFormat from 'dateformat'
-import { titrePhasesUpdate, titrePhasesDelete } from '../queries/titre-phases'
+import {
+  titrePhasesUpdate,
+  titrePhasesDelete
+} from '../../database/queries/titres-phases'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titrePhasesFind from '../rules/titre-phases-find'
 import PQueue from 'p-queue'
@@ -83,9 +86,10 @@ const titresPhasesUpdate = async titres => {
     // - créer les nouvelles phases
     // - modifier les phases existantes
     if (titrePhasesUpdated.length) {
-      titrePhasesUpdateRequests.push(() =>
-        titrePhasesUpdate(titrePhasesUpdated).then(console.log)
-      )
+      titrePhasesUpdateRequests.push(async () => {
+        await titrePhasesUpdate(titrePhasesUpdated)
+        console.log(`Mise à jour: phases ${JSON.stringify(titrePhasesUpdated)}`)
+      })
     }
 
     const titrePhasesDeletedIds = titrePhasesDeletedFind(
@@ -97,9 +101,10 @@ const titresPhasesUpdate = async titres => {
     // - supprimer les phases qui n'existent plus
 
     if (titrePhasesDeletedIds.length) {
-      titrePhasesUpdateRequests.push(() =>
-        titrePhasesDelete(titrePhasesDeletedIds).then(console.log)
-      )
+      titrePhasesUpdateRequests.push(async () => {
+        await titrePhasesDelete(titrePhasesDeletedIds)
+        console.log(`Suppression: phases ${titrePhasesDeletedIds.join(', ')}}`)
+      })
     }
 
     return titrePhasesUpdateRequests.length

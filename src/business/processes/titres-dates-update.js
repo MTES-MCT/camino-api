@@ -1,5 +1,5 @@
 import * as dateFormat from 'dateformat'
-import { titrePropsUpdate } from '../queries/titres'
+import { titreUpdate } from '../../database/queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 import titreDateDemandeFind from '../rules/titre-date-demande-find'
@@ -33,8 +33,13 @@ const titresDatesUpdate = async titres => {
     return Object.keys(props).length
       ? [
           ...acc,
-          // async () => console.log(await titrePropsUpdate(titre.id, props))
-          () => titrePropsUpdate(titre.id, props).then(console.log)
+          // async () => console.log(await titreUpdate(titre.id, props))
+          async () => {
+            await titreUpdate(titre.id, props)
+            console.log(
+              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+            )
+          }
         ]
       : acc
   }, [])

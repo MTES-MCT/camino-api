@@ -1,8 +1,6 @@
 import { objectsDiffer } from '../../tools'
-import {
-  entreprisesUpsert,
-  entreprisesEtablissementsUpsert
-} from '../queries/entreprises'
+import { entreprisesUpsert } from '../../database/queries/entreprises'
+import { entreprisesEtablissementsUpsert } from '../../database/queries/entreprises-etablissements'
 import {
   tokenInitialize,
   entrepriseEtablissementGet,
@@ -95,13 +93,19 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   )
 
   if (etablissementsUpdated.length) {
-    const log = await entreprisesEtablissementsUpsert(etablissementsUpdated)
-    console.log(log)
+    await entreprisesEtablissementsUpsert(etablissementsUpdated)
+    console.log(
+      `Mise à jour: entreprisesEtablissements ${etablissementsUpdated
+        .map(e => e.id)
+        .join(', ')}`
+    )
   }
 
   if (entreprisesUpdated.length) {
-    const log = await entreprisesUpsert(entreprisesUpdated)
-    console.log(log)
+    await entreprisesUpsert(entreprisesUpdated)
+    console.log(
+      `Mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
+    )
   }
 
   return [

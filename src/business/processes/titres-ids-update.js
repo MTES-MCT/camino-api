@@ -1,5 +1,5 @@
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
-import { titreIdsUpdate as titreIdsUpdateQuery } from '../queries/titres'
+import { titreIdUpdate as titreIdUpdateQuery } from '../../database/queries/titres'
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 import PQueue from 'p-queue'
 
@@ -8,7 +8,8 @@ const titreIdUpdate = async (titreOld, titreNew) => {
   // si l'id du titre change,
   // vérifier dans tous les titres si cet id existe déjà
   // si l'id existe déja, on modifie le nom en ajoutant un chiffre
-  await titreIdsUpdateQuery(titreOld.id, titreNew).then(console.log)
+  await titreIdUpdateQuery(titreOld.id, titreNew)
+  console.log(`Mise à jour: titre ids: ${titreNew.id}`)
 
   // met à jour toutes les activités dans la spreadsheet
   if (

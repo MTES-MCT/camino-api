@@ -1,5 +1,5 @@
 import PQueue from 'p-queue'
-import { titrePropsUpdate } from '../queries/titres'
+import { titreUpdate } from '../../database/queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
 const titrePropsEtapes = [
@@ -28,7 +28,15 @@ const titresPropsEtapeIdsUpdate = async titres => {
     }, {})
 
     return Object.keys(props).length
-      ? [...acc, () => titrePropsUpdate(titre.id, props).then(console.log)]
+      ? [
+          ...acc,
+          async () => {
+            await titreUpdate(titre.id, props)
+            console.log(
+              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+            )
+          }
+        ]
       : acc
   }, [])
 

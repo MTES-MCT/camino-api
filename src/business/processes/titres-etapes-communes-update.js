@@ -1,9 +1,9 @@
 import PQueue from 'p-queue'
-import { communesUpsert } from '../../database/queries/communes'
+import { communesUpsert } from '../../database/queries/territoires'
 import {
   titresEtapesCommunesCreate,
   titreEtapeCommuneDelete
-} from '../queries/titre-etapes'
+} from '../../database/queries/titres-etapes'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes'
 
@@ -96,7 +96,10 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
           // - si elle n'est pas déjà présente dans l'accumulateur
           // - si elle n'est pas présente dans communesOld
           !communesIndex[commune.id] && !communesOldIndex[commune.id]
-            ? { communesIndex, communesNew: [...communesNew, commune] }
+            ? {
+                communesIndex: { ...communesIndex, [commune.id]: true },
+                communesNew: [...communesNew, commune]
+              }
             : { communesIndex, communesNew },
         acc
       ),
@@ -109,7 +112,7 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
 const titresEtapesCommunesGet = async titresEtapes => {
   const communesGeojsonGetRequests = titresEtapes.map(
     titreEtape => async () => {
-      let communesGeojson = []
+      let communesGeojson
 
       if (titreEtape.points.length) {
         const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
@@ -119,7 +122,7 @@ const titresEtapesCommunesGet = async titresEtapes => {
 
       return {
         titreEtapeId: titreEtape.id,
-        communesGeojson
+        communesGeojson: communesGeojson || []
       }
     }
   )
@@ -187,9 +190,9 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   )
 
   if (titresEtapesCommunesCreated.length) {
-    await titresEtapesCommunesCreate(titresEtapesCommunes)
+    await titresEtapesCommunesCreate(titresEtapesCommunesCreated)
     console.log(
-      `Mise à jour: étape communes ${titresEtapesCommunes
+      `Mise à jour: étape communes ${titresEtapesCommunesCreated
         .map(tec => JSON.stringify(tec))
         .join(', ')}`
     )

@@ -84,7 +84,7 @@ const run = async () => {
       titres,
       administrations
     )
-
+    
     // 9.
     // propriétés des titres
     // en fonction de la chronologie des démarches
@@ -136,7 +136,7 @@ const run = async () => {
     console.log(titresPhases)
     console.log(titresDates)
     console.log(titresEtapesCommunes.join('\n'))
-    console.log(titresEtapesAdministrations)
+    console.log(titresEtapesAdministrations.join('\n'))
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
     console.log(titresPropsActivites)

@@ -2,7 +2,7 @@ import PQueue from 'p-queue'
 import {
   titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete
-} from '../queries/titre-etapes'
+} from '../../database/queries/titres-etapes'
 
 const typesAdministrationsLocalesLink = {
   arm: false
@@ -172,15 +172,13 @@ const titresEtapesAdministrationsBuild = (titres, administrations) =>
                 administrations
               )
 
-              return administrationsIds.length
-                ? {
-                    ...titresEtapesAdministrations,
-                    [titreEtape.id]: {
-                      titreEtape,
-                      administrationsIds
-                    }
-                  }
-                : titresEtapesAdministrations
+              return {
+                ...titresEtapesAdministrations,
+                [titreEtape.id]: {
+                  titreEtape,
+                  administrationsIds
+                }
+              }
             },
             titresEtapesAdministrations
           ),
@@ -192,7 +190,6 @@ const titresEtapesAdministrationsBuild = (titres, administrations) =>
 const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
-
   // retourne un dictionnaire { [titreEtapeId]: { titreEtape, administrationsIds}}
   const titresEtapesAdministrations = titresEtapesAdministrationsBuild(
     titres,
@@ -207,17 +204,22 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   )
 
   if (titresEtapesAdministrationsCreated.length) {
-    await titresEtapesAdministrationsCreate(titresEtapesAdministrations).then(
-      console.log
+    await titresEtapesAdministrationsCreate(titresEtapesAdministrationsCreated)
+    console.log(
+      `Mise à jour: étape administrations ${titresEtapesAdministrationsCreated
+        .map(tea => JSON.stringify(tea))
+        .join(', ')}`
     )
   }
 
   if (titresEtapesAdministrationsDeleted.length) {
     const titresEtapesAdministrationsDeletedQueries = titresEtapesAdministrationsDeleted.map(
-      ({ titreEtapeId, administrationId }) => () =>
-        titreEtapeAdministrationDelete(titreEtapeId, administrationId).then(
-          console.log
+      ({ titreEtapeId, administrationId }) => async () => {
+        await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
+        console.log(
+          `Suppression: étape ${titreEtapeId}, administration ${administrationId}`
         )
+      }
     )
 
     const queue = new PQueue({ concurrency: 100 })

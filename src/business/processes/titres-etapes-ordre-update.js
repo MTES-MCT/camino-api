@@ -1,5 +1,5 @@
 import PQueue from 'p-queue'
-import { titreEtapeUpdate } from '../queries/titre-etapes'
+import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 
 const titreEtapesOrdreUpdate = titreEtapes =>
@@ -8,10 +8,15 @@ const titreEtapesOrdreUpdate = titreEtapes =>
       titreEtape.ordre !== index + 1
         ? [
             ...queries,
-            () =>
-              titreEtapeUpdate(titreEtape.id, { ordre: index + 1 }).then(
-                console.log
+            async () => {
+              await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
+
+              console.log(
+                `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
+                  ordre: index + 1
+                })}`
               )
+            }
           ]
         : queries,
     []

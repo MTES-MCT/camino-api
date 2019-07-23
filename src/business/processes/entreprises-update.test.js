@@ -18,8 +18,11 @@ import {
 
 // 'jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/entreprises', () => ({
-  entreprisesUpsert: jest.fn().mockResolvedValue(),
+jest.mock('../../database/queries/entreprises', () => ({
+  entreprisesUpsert: jest.fn().mockResolvedValue()
+}))
+
+jest.mock('../../database/queries/entreprises-etablissements', () => ({
   entreprisesEtablissementsUpsert: jest.fn().mockResolvedValue()
 }))
 
