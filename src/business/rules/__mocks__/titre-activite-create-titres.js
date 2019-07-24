@@ -9,7 +9,8 @@ const titreAvecActivite201801 = {
 }
 
 const activiteTypeXxx = {
-  id: 'xxx'
+  id: 'xxx',
+  frequence: { periodesNom: 'trimestres', trimestres: [...new Array(4)] }
 }
 
 const activiteTypeGrp = {

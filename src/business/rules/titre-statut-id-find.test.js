@@ -10,7 +10,7 @@ import {
   titreDemarcheInstruction
 } from './__mocks__/titre-statut-id-find-titres'
 
-describe("retourne le statut d'un titre", () => {
+describe("statut d'un titre", () => {
   test("le statut d'un titre dont la date de fin est dans le futur est “val”", () => {
     expect(titreStatutIdFind(titreValide)).toEqual('val')
   })

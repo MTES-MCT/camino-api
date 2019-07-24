@@ -1,7 +1,8 @@
 import titresActivitesTypesUpdate from './titres-activites-update'
 
 import * as titreActivitesTypesFilter from '../utils/titre-activites-filter'
-import * as titreActivitesQueries from '../queries/titre-activites'
+import * as titreActivitesQueries from '../../database/queries/titres-activites'
+import * as titreActivitesBuild from '../rules/titre-activites-build'
 
 import {
   titresSansActivite,
@@ -9,69 +10,58 @@ import {
 } from './__mocks__/titres-activites-update-titres'
 
 jest.mock('../utils/titre-activites-filter', () => ({
-  default: () => [{}]
+  default: jest.fn()
 }))
 
-jest.mock('../queries/titre-activites', () => ({
-  titreActiviteTypeUpdate: jest
-    .fn()
-    .mockImplementation(titre =>
-      [...new Array(4 - titre.activites.length)].map(() => Promise.resolve())
-    )
+jest.mock('../../database/queries/titres-activites', () => ({
+  titreActivitesUpsert: jest.fn().mockResolvedValue()
+}))
+
+jest.mock('../rules/titre-activites-build', () => ({
+  default: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 
-describe("crée les activités manquantes d'un titre", () => {
-  test("un titre ne correspondant à aucun type d'activité n'est pas mis à jour", async () => {
-    const filterSpy = jest
-      .spyOn(titreActivitesTypesFilter, 'default')
-      .mockImplementation(() => [])
-    const updateSpy = jest.spyOn(
-      titreActivitesQueries,
-      'titreActiviteTypeUpdate'
-    )
+describe("activités d'un titre", () => {
+  test('met à jour un titre sans activité', async () => {
+    titreActivitesTypesFilter.default.mockImplementation(() => [1])
+    titreActivitesBuild.default.mockImplementation(() => [1])
 
-    expect(
-      await titresActivitesTypesUpdate(titresSansActivite, [], [])
-    ).toEqual('Mise à jour: 0 activités.')
+    const log = await titresActivitesTypesUpdate(titresSansActivite, [], [])
 
-    expect(filterSpy).toHaveBeenCalledTimes(1)
-    expect(updateSpy).toHaveBeenCalledTimes(0)
-    expect(console.log).toHaveBeenCalledTimes(0)
+    expect(log).toEqual('Mise à jour: 1 activités.')
 
-    filterSpy.mockRestore()
+    expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
+    expect(titreActivitesQueries.titreActivitesUpsert).toHaveBeenCalled()
+    expect(titreActivitesBuild.default).toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalled()
   })
 
-  test('un titre sans activité est mis à jour', async () => {
-    const filterSpy = jest.spyOn(titreActivitesTypesFilter, 'default')
-    const updateSpy = jest.spyOn(
-      titreActivitesQueries,
-      'titreActiviteTypeUpdate'
-    )
+  test('ne met pas à jour un titre possédant déjà des activités', async () => {
+    titreActivitesTypesFilter.default.mockImplementation(() => [1])
+    titreActivitesBuild.default.mockImplementation(() => [])
 
-    expect(
-      await titresActivitesTypesUpdate(titresSansActivite, [], [])
-    ).toEqual('Mise à jour: 4 activités.')
+    const log = await titresActivitesTypesUpdate(titresToutesActivites, [], [])
 
-    expect(filterSpy).toHaveBeenCalledTimes(1)
-    expect(updateSpy).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(4)
+    expect(log).toEqual('Mise à jour: 0 activités.')
+
+    expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
+    expect(titreActivitesBuild.default).toHaveBeenCalled()
+    expect(titreActivitesQueries.titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("un titre avec activité n'est pas mis à jour", async () => {
-    const filterSpy = jest.spyOn(titreActivitesTypesFilter, 'default')
-    const updateSpy = jest.spyOn(
-      titreActivitesQueries,
-      'titreActiviteTypeUpdate'
-    )
+  test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {
+    titreActivitesTypesFilter.default.mockImplementation(() => [])
 
-    expect(
-      await titresActivitesTypesUpdate(titresToutesActivites, [], [])
-    ).toEqual('Mise à jour: 0 activités.')
+    const log = await titresActivitesTypesUpdate(titresSansActivite, [], [])
 
-    expect(filterSpy).toHaveBeenCalledTimes(1)
-    expect(updateSpy).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(0)
+    expect(log).toEqual('Mise à jour: 0 activités.')
+
+    expect(titreActivitesTypesFilter.default).toHaveBeenCalledTimes(1)
+    expect(titreActivitesBuild.default).not.toHaveBeenCalled()
+    expect(titreActivitesQueries.titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(console.log).not.toHaveBeenCalled()
   })
 })

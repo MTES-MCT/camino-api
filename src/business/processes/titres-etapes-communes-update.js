@@ -1,138 +1,143 @@
-import { communesInsert } from '../queries/communes'
+import PQueue from 'p-queue'
+import { communesUpsert } from '../../database/queries/territoires'
 import {
-  titreEtapeCommunesInsert,
-  titreEtapeCommunesDelete
-} from '../queries/titre-etapes'
+  titresEtapesCommunesCreate,
+  titreEtapeCommuneDelete
+} from '../../database/queries/titres-etapes'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes'
-import PQueue from 'p-queue'
 
-const titresEtapesCommunesUpdate = async (titresEtapes, communes) => {
-  // teste l'API geo-communes-api
-  const geoCommunesApiTest = await communesGeojsonTest()
-  // si la connexion à l'API échoue, retourne
-  if (!geoCommunesApiTest) {
-    return [
-      "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 communes.',
-      'Mise à jour: 0 communes dans des étapes.'
-    ]
-  }
-
-  const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
-
-  const communesNew = Object.keys(titresEtapesCommunes).reduce(
-    (acc, titreEtapeId) =>
-      titresEtapesCommunes[titreEtapeId].reduce(
-        (acc, commune) =>
-          // Ajoute la commune si elle n'est pas déjà présente dans l'accumulateur
-          acc.find(c => c.id === commune.id) ? acc : [...acc, commune],
-        acc
-      ),
+const titreEtapesCommunesCreateBuild = (titreEtape, communesEtape) =>
+  communesEtape.reduce(
+    (queries, { id: communeId }) =>
+      !titreEtape.communes ||
+      !titreEtape.communes.find(communeOld => communeOld.id === communeId)
+        ? [
+            ...queries,
+            {
+              titreEtapeId: titreEtape.id,
+              communeId
+            }
+          ]
+        : queries,
     []
   )
 
-  const communesInsertQueries = communesInsert(communesNew, communes).map(q =>
-    q.then(log => console.log(log))
-  )
+const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
+  titreEtape.communes
+    ? titreEtape.communes.reduce(
+        (queries, communeOld) =>
+          !communesEtape.find(communeEtape => communeEtape.id === communeOld.id)
+            ? [
+                ...queries,
+                {
+                  titreEtapeId: titreEtape.id,
+                  communeId: communeOld.id
+                }
+              ]
+            : queries,
+        []
+      )
+    : []
 
-  await Promise.all(communesInsertQueries)
-
-  const {
-    titresEtapesCommunesInsertQueries,
-    titresEtapesCommunesDeleteQueries
-  } = titresEtapesCommunesQueriesBuild(titresEtapes, titresEtapesCommunes)
-
-  const titreEtapesCommunesQueries = [
-    ...titresEtapesCommunesInsertQueries,
-    ...titresEtapesCommunesDeleteQueries
-  ].map(q => q.then(log => console.log(log)))
-
-  await Promise.all(titreEtapesCommunesQueries)
-
-  return [
-    `Mise à jour: ${communesInsertQueries.length} communes.`,
-    `Mise à jour: ${titresEtapesCommunesInsertQueries.length +
-      titresEtapesCommunesDeleteQueries.length} communes dans des étapes.`
-  ]
-}
-
-const titresEtapesCommunesQueriesBuild = (titresEtapes, titresEtapesCommunes) =>
+const titresEtapesCommunesCreatedDeletedBuild = (
+  titresEtapes,
+  titresEtapesCommunes
+) =>
   Object.keys(titresEtapesCommunes).reduce(
     (
-      { titresEtapesCommunesInsertQueries, titresEtapesCommunesDeleteQueries },
+      { titresEtapesCommunesCreated, titresEtapesCommunesDeleted },
       titreEtapeId
     ) => {
       const titreEtape = titresEtapes.find(te => te.id === titreEtapeId)
-      const communesIds = titresEtapesCommunes[titreEtapeId].map(
-        commune => commune.id
+      const communesEtape = titresEtapesCommunes[titreEtapeId]
+
+      const titreEtapesCommunesCreated = titreEtapesCommunesCreateBuild(
+        titreEtape,
+        communesEtape
       )
 
-      const titreEtapeCommunesInsertQueriesNew = titreEtapeCommunesInsert(
+      const titreEtapeCommunesDeleted = titreEtapesCommunesDeleteBuild(
         titreEtape,
-        communesIds
-      )
-
-      const titreEtapeCommunesDeleteQueriesNew = titreEtapeCommunesDelete(
-        titreEtape,
-        communesIds
+        communesEtape
       )
 
       return {
-        titresEtapesCommunesInsertQueries: [
-          ...titresEtapesCommunesInsertQueries,
-          ...titreEtapeCommunesInsertQueriesNew
+        titresEtapesCommunesCreated: [
+          ...titresEtapesCommunesCreated,
+          ...titreEtapesCommunesCreated
         ],
-        titresEtapesCommunesDeleteQueries: [
-          ...titresEtapesCommunesDeleteQueries,
-          ...titreEtapeCommunesDeleteQueriesNew
+        titresEtapesCommunesDeleted: [
+          ...titresEtapesCommunesDeleted,
+          ...titreEtapeCommunesDeleted
         ]
       }
     },
     {
-      titresEtapesCommunesInsertQueries: [],
-      titresEtapesCommunesDeleteQueries: []
+      titresEtapesCommunesCreated: [],
+      titresEtapesCommunesDeleted: []
     }
   )
 
-const titresEtapesCommunesGet = async titresEtapes => {
-  const communesGeojsonGetRequests = titresEtapes.reduce(
-    (communesGeojsonGetRequests, titreEtape) =>
-      titreEtape.points.length
-        ? [
-            ...communesGeojsonGetRequests,
-            async () => {
-              const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+const communesBuild = (communesOld, titresEtapesCommunes) => {
+  const communesOldIndex = communesOld.reduce(
+    (communesOldIndex, communeOld) => ({
+      ...communesOldIndex,
+      [communeOld.id]: communeOld
+    }),
+    {}
+  )
 
-              const communesGeojson = await communesGeojsonGet(geojson)
-
-              return {
-                titreEtapeId: titreEtape.id,
-                communesGeojson
+  const { communesNew } = Object.keys(titresEtapesCommunes).reduce(
+    (acc, titreEtapeId) =>
+      titresEtapesCommunes[titreEtapeId].reduce(
+        ({ communesIndex, communesNew }, commune) =>
+          // Ajoute la commune
+          // - si elle n'est pas déjà présente dans l'accumulateur
+          // - si elle n'est pas présente dans communesOld
+          !communesIndex[commune.id] && !communesOldIndex[commune.id]
+            ? {
+                communesIndex: { ...communesIndex, [commune.id]: true },
+                communesNew: [...communesNew, commune]
               }
-            }
-          ]
-        : communesGeojsonGetRequests,
-    []
+            : { communesIndex, communesNew },
+        acc
+      ),
+    { communesIndex: {}, communesNew: [] }
+  )
+
+  return communesNew
+}
+
+const titresEtapesCommunesGet = async titresEtapes => {
+  const communesGeojsonGetRequests = titresEtapes.map(
+    titreEtape => async () => {
+      let communesGeojson
+
+      if (titreEtape.points.length) {
+        const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+
+        communesGeojson = await communesGeojsonGet(geojson)
+      }
+
+      return {
+        titreEtapeId: titreEtape.id,
+        communesGeojson: communesGeojson || []
+      }
+    }
   )
 
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API geocommunes
-  const queue = new PQueue({
-    concurrency: 100
-  })
-
+  const queue = new PQueue({ concurrency: 100 })
   const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
 
   return communesGeojsons.reduce(
-    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) =>
-      communesGeojson && communesGeojson.length
-        ? {
-            ...titresEtapesCommunes,
-            [titreEtapeId]: communesGeojson
-          }
-        : titresEtapesCommunes,
+    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => ({
+      ...titresEtapesCommunes,
+      [titreEtapeId]: communesGeojson
+    }),
     {}
   )
 }
@@ -148,6 +153,68 @@ const communesGeojsonTest = () => {
   }
 
   return communesGeojsonGet(geojson)
+}
+
+const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
+  // teste l'API geo-communes-api
+  const geoCommunesApiTest = await communesGeojsonTest()
+  // si la connexion à l'API échoue, retourne
+  if (!geoCommunesApiTest) {
+    return [
+      "Erreur: impossible de se connecter à l'API Géo communes",
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+    ]
+  }
+
+  const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
+
+  const communesUpdated = communesBuild(communesOld, titresEtapesCommunes)
+
+  if (communesUpdated.length) {
+    await communesUpsert(communesUpdated)
+    console.log(
+      `Mise à jour: communes, ${communesUpdated
+        .map(commune => commune.id)
+        .join(', ')}`
+    )
+  }
+
+  const {
+    titresEtapesCommunesCreated,
+    titresEtapesCommunesDeleted
+  } = titresEtapesCommunesCreatedDeletedBuild(
+    titresEtapes,
+    titresEtapesCommunes
+  )
+
+  if (titresEtapesCommunesCreated.length) {
+    await titresEtapesCommunesCreate(titresEtapesCommunesCreated)
+    console.log(
+      `Mise à jour: étape communes ${titresEtapesCommunesCreated
+        .map(tec => JSON.stringify(tec))
+        .join(', ')}`
+    )
+  }
+
+  if (titresEtapesCommunesDeleted.length) {
+    const titresEtapesCommunesDeleteQueries = titresEtapesCommunesDeleted.map(
+      ({ titreEtapeId, communeId }) => async () => {
+        await titreEtapeCommuneDelete(titreEtapeId, communeId)
+        console.log(`Suppression: étape ${titreEtapeId}, commune ${communeId}`)
+      }
+    )
+
+    const queue = new PQueue({ concurrency: 100 })
+    await queue.addAll(titresEtapesCommunesDeleteQueries)
+  }
+
+  return [
+    `Mise à jour: ${communesUpdated.length} commune(s).`,
+    `Mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes.`,
+    `Mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes.`
+  ]
 }
 
 export default titresEtapesCommunesUpdate

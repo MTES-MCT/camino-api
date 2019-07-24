@@ -1,12 +1,14 @@
 import titreActivitesTypesFilter from '../utils/titre-activites-filter'
-import { titreActiviteTypeUpdate } from '../queries/titre-activites'
+import { titreActivitesUpsert } from '../../database/queries/titres-activites'
+import titreActivitesBuild from '../rules/titre-activites-build'
 
-const titresActivitesTypesUpdate = async (titres, activitesTypes, annees) => {
-  // TODO: à supprimer une fois que
-  // la requête ne renverra plus de doublons
+const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
+  // TODO:
+  // - à supprimer une fois que la requête ne renverra plus de doublons
+  // - doit on supprimer des activités (pe: si un titre change de périmètre)
   const processedTitres = {}
 
-  const titresActivitesInsertRequests = titres
+  const titresActivitesNew = titres
     // formate les pays des titres
     .reduce((acc, titre) => {
       // TODO: à supprimer une fois que
@@ -27,19 +29,21 @@ const titresActivitesTypesUpdate = async (titres, activitesTypes, annees) => {
         ...titreActivitesTypes.reduce(
           (acc, titreActiviteType) => [
             ...acc,
-            ...titreActiviteTypeUpdate(titre, titreActiviteType, annees)
+            ...titreActivitesBuild(titre, titreActiviteType, annees)
           ],
           []
         )
       ]
     }, [])
-    .map(q => q.then(log => console.log(log)))
 
-  if (titresActivitesInsertRequests.length) {
-    await Promise.all(titresActivitesInsertRequests)
+  if (titresActivitesNew.length) {
+    await titreActivitesUpsert(titresActivitesNew)
+    console.log(
+      `Création: activité ${titresActivitesNew.map(ta => ta.id).join(', ')}`
+    )
   }
 
-  return `Mise à jour: ${titresActivitesInsertRequests.length} activités.`
+  return `Mise à jour: ${titresActivitesNew.length} activités.`
 }
 
-export default titresActivitesTypesUpdate
+export default titresActivitesUpdate

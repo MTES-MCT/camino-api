@@ -1,33 +1,28 @@
 import titresDemarchesOrdreUpdate from './titres-demarches-ordre-update'
-import * as titreDemarches from '../queries/titre-demarches'
 
-import { titresDemarcheOctPoints } from './__mocks__/titres-demarches-ordre-update-demarches'
+import {
+  titresDemarchesDesordonnees,
+  titresDemarchesOrdonnees
+} from './__mocks__/titres-demarches-ordre-update-demarches'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titre-demarches', () => ({
-  titreDemarchesOrdreUpdate: () => {}
+jest.mock('../../database/queries/titres-demarches', () => ({
+  titreDemarcheUpdate: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 
-describe("met à jour l'ordre de toutes les démarches d'un titre", () => {
+describe('ordre des démarches', () => {
   test("met à jour l'ordre de deux démarches", async () => {
-    titreDemarches.titreDemarchesOrdreUpdate = () =>
-      [1, 2].map(p => Promise.resolve(p))
-
-    expect(await titresDemarchesOrdreUpdate(titresDemarcheOctPoints)).toEqual(
-      'Mise à jour: 2 ordres de démarches.'
-    )
+    const log = await titresDemarchesOrdreUpdate(titresDemarchesDesordonnees)
+    expect(log).toEqual('Mise à jour: 2 démarche(s) (ordre).')
     expect(console.log).toHaveBeenCalledTimes(2)
   })
 
-  test("aucune mise à jour n'est effectuée", async () => {
-    titreDemarches.titreDemarchesOrdreUpdate = () => false
-
-    expect(await titresDemarchesOrdreUpdate(titresDemarcheOctPoints)).toEqual(
-      'Mise à jour: 0 ordres de démarches.'
-    )
+  test('ne met à jour aucune démarche', async () => {
+    const log = await titresDemarchesOrdreUpdate(titresDemarchesOrdonnees)
+    expect(log).toEqual('Mise à jour: 0 démarche(s) (ordre).')
     expect(console.log).not.toHaveBeenCalled()
   })
 })

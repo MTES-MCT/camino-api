@@ -1,42 +1,50 @@
-import { administrationUpdate } from '../queries/administrations'
-import { organismeDepartementGet } from '../../tools/api-administrations'
+import { administrationsUpsert } from '../../database/queries/administrations'
+import { organismesDepartementsGet } from '../../tools/api-administrations'
 
-const administrationsUpdate = async (administrations, departements) => {
-  const administrationsOrganismes = await departements.reduce(
-    async (acc, { id: departementId }) => {
-      const typeId = departementId === '75' ? 'prefecture_region' : 'prefecture'
+import { objectsDiffer } from '../../tools'
 
-      const organisme = await organismeDepartementGet(departementId, typeId)
-
-      return [...(await acc), organisme]
-    },
-    []
-  )
-
-  const administrationsUpdateRequests = administrationsOrganismes.reduce(
-    (acc, administrationNew) => {
-      const administrationOld = administrations.find(
-        a => a.id === administrationNew.id
-      )
-
-      const administrationUpdated = administrationUpdate(
-        administrationNew,
-        administrationOld
-      )
-
-      return administrationUpdated ? [...acc, administrationUpdated] : acc
-    },
-    []
-  )
-
-  if (administrationsUpdateRequests.length) {
-    const administrationsUpdateQueries = administrationsUpdateRequests.map(q =>
-      q.then(log => console.log(log))
+const administrationsUpdatedFind = (administrationsOld, administrationsNew) =>
+  administrationsNew.reduce((acc, administrationNew) => {
+    const administrationOld = administrationsOld.find(
+      a => a.id === administrationNew.id
     )
-    await Promise.all(administrationsUpdateQueries)
+
+    const updated =
+      !administrationOld || objectsDiffer(administrationNew, administrationOld)
+
+    return updated ? [...acc, administrationsNew] : acc
+  }, [])
+
+const administrationsGet = async departements => {
+  const departementsIdsNoms = departements.map(({ id: departementId }) => ({
+    departementId,
+    nom: departementId === '75' ? 'prefecture_region' : 'prefecture'
+  }))
+
+  return organismesDepartementsGet(departementsIdsNoms)
+}
+
+const administrationsUpdate = async (administrationsOld, departements) => {
+  const administrationsNew = await administrationsGet(departements)
+
+  // TODO: si aucune administration est retournée,
+  // effacer les administrations correspondantes dans la base
+
+  const administrationsUpdated = administrationsUpdatedFind(
+    administrationsOld,
+    administrationsNew
+  )
+
+  if (administrationsUpdated.length) {
+    await administrationsUpsert(administrationsUpdated)
+    console.log(
+      `Mise à jour: administrations ${administrationsUpdated
+        .map(a => a.id)
+        .join(', ')}`
+    )
   }
 
-  return `Mise à jour: ${administrationsUpdateRequests.length} administrations.`
+  return `Mise à jour: ${administrationsUpdated.length} administration(s).`
 }
 
 export default administrationsUpdate

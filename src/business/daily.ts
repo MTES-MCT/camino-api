@@ -17,50 +17,46 @@ import titresDatesUpdate from './processes/titres-dates-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-import titresActivitesTypesUpdate from './processes/titres-activites-update'
+import titresActivitesUpdate from './processes/titres-activites-update'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 
-import titresIdsUpdate from './processes/titres-ids-update'
+import {titresIdsUpdate} from './processes/titres-ids-update'
+import console = require('console');
 
 const run = async () => {
   try {
     // 1.
-    // ordre des étapes
-    // en fonction de leur date
+    console.log('ordre des étapes…')
     let titresDemarches = await titresDemarchesGet()
     const titresEtapesOrdre = await titresEtapesOrdreUpdate(titresDemarches)
 
     // 2.
-    // statut des démarches
-    // en fonction de ses étapes (type, ordre, statut)
+    console.log('statut des démarches…')
     let titres = await titresGet()
     const titresDemarchesStatutId = await titresDemarchesStatutIdUpdate(titres)
 
     // 3.
-    // détermine l'ordre des démarche
-    // en fonction de la date de leur première étape
+    console.log('ordre des démarches…')
     titres = await titresGet()
     const titresDemarchesOrdre = await titresDemarchesOrdreUpdate(titres)
 
     // 4.
-    // statut des titres
-    // en fonction des démarches et de la date du jour
+    console.log('statut des titres…')
     titres = await titresGet()
     const titresStatutIds = await titresStatutIdsUpdate(titres)
 
     // 5.
-    // phases des titres
-    // en fonction des démarches et de la date du jour
+    console.log('phases des titres…')
     titres = await titresGet()
     const titresPhases = await titresPhasesUpdate(titres)
 
     // 6.
-    // date de début, de fin et de demande initiale d'un titre
+    console.log("date de début, de fin et de demande initiale des titres…")
     titres = await titresGet()
     const titresDates = await titresDatesUpdate(titres)
 
     // 7.
-    // communes associées aux étapes
+    console.log('communes associées aux étapes…')
     let titresEtapes
     let titresEtapesCommunes
     if (process.env.GEO_API_URL) {
@@ -77,42 +73,39 @@ const run = async () => {
     }
 
     // 8.
-    // administrations associées aux étapes
+    console.log('administrations associées aux étapes…')
     titres = await titresGet()
     const administrations = await administrationsGet()
     const titresEtapesAdministrations = await titresEtapesAdministrationsUpdate(
       titres,
       administrations
     )
-
+    
     // 9.
-    // propriétés des titres
-    // en fonction de la chronologie des démarches
+    console.log('propriétés des titres (liens vers les étapes)…')
     titres = await titresGet()
     const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
     // 10.
-    // activités
-    // crée les activités manquantes en fonction des titres
     // pour les année 2018 et 2019 (en dur)
+    console.log('activités des titres…')
     const annees = [2018, 2019]
 
     titres = await titresGet()
     const activitesTypes = await activitesTypesGet()
-    const titresActivites = await titresActivitesTypesUpdate(
+    const titresActivites = await titresActivitesUpdate(
       titres,
       activitesTypes,
       annees
     )
 
     // 11.
-    //
+    console.log('propriétés des titres (activités abs, enc et dep)…')
     titres = await titresGet()
     const titresPropsActivites = await titresPropsActivitesUpdate(titres)
 
     // 12.
-    // id de titres
-    // met à jour les ids de titres, démarches, étapes et sous-éléments
+    console.log('ids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet(
       {
         typeIds: null,
@@ -136,7 +129,7 @@ const run = async () => {
     console.log(titresPhases)
     console.log(titresDates)
     console.log(titresEtapesCommunes.join('\n'))
-    console.log(titresEtapesAdministrations)
+    console.log(titresEtapesAdministrations.join('\n'))
     console.log(titresPropsEtapeId)
     console.log(titresActivites)
     console.log(titresPropsActivites)

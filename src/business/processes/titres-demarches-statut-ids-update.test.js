@@ -1,32 +1,32 @@
 import titresDemarcheStatutIdUpdate from './titres-demarches-statut-ids-update'
-import * as titreDemarches from '../queries/titre-demarches'
 
-import { titresDemarchesOctPoints } from './__mocks__/titres-demarches-statut-ids-update-demarches'
+import {
+  titresDemarchesStatutModifie,
+  titresDemarchesStatutIdentique
+} from './__mocks__/titres-demarches-statut-ids-update-demarches'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titre-demarches', () => ({
-  titreDemarcheStatutIdUpdate: () => {}
+jest.mock('../../database/queries/titres-demarches', () => ({
+  titreDemarcheUpdate: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 
-describe("met à jour le statut d'une démarche en fonction du type de titre", () => {
-  test('le statut de la démarche est mis à jour', async () => {
-    titreDemarches.titreDemarcheStatutIdUpdate = () => Promise.resolve(true)
+describe("statut des démarches d'un titre", () => {
+  test("met à jour le statut d'une démarche", async () => {
+    const log = await titresDemarcheStatutIdUpdate(titresDemarchesStatutModifie)
 
-    expect(
-      await titresDemarcheStatutIdUpdate(titresDemarchesOctPoints)
-    ).toEqual('Mise à jour: 1 statuts de démarches.')
+    expect(log).toEqual('Mise à jour: 1 démarche(s) (statut).')
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("le statut de la démarche n'est pas mis à jour", async () => {
-    titreDemarches.titreDemarcheStatutIdUpdate = () => false
+  test("ne met pas à jour le statut d'une démarche", async () => {
+    const log = await titresDemarcheStatutIdUpdate(
+      titresDemarchesStatutIdentique
+    )
 
-    expect(
-      await titresDemarcheStatutIdUpdate(titresDemarchesOctPoints)
-    ).toEqual('Mise à jour: 0 statuts de démarches.')
+    expect(log).toEqual('Mise à jour: 0 démarche(s) (statut).')
     expect(console.log).not.toHaveBeenCalled()
   })
 })

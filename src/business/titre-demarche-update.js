@@ -6,43 +6,39 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
-import titreIdUpdate from './processes/titre-id-update'
+import { titreIdsUpdate } from './processes/titres-ids-update'
 
-const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
-  // 1.
-  // ordre des démarches
-  // en fonction de la date de leur première étape
+const titreDemarcheUpdate = async titreId => {
+  // 3.
+  console.log('ordre des démarches…')
   let titre = await titreGet(titreId)
   const titreDemarchesOrdre = await titresDemarchesOrdreUpdate([titre])
 
-  // 2.
-  // propriétés du titre
-  // en fonction des démarches et de la date du jour
-  titre = await titreGet(titreId)
-  const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
-
-  // 3.
-  // statut du titre
-  // en fonction des démarches et de la date du jour
+  // 4.
+  console.log('statut des titres…')
   titre = await titreGet(titreId)
   const titreStatutIds = await titresStatutIdsUpdate([titre])
 
-  // 4.
-  // phases du titre
-  // en fonction des démarches et de la date du jour
+  // 5.
+  console.log('phases des titres…')
   titre = await titreGet(titreId)
   const titrePhases = await titresPhasesUpdate([titre])
 
-  // 5.
-  // date de début, de fin et de demande initiale d'un titre
+  // 6.
+  console.log('date de début, de fin et de demande initiale des titres…')
   titre = await titreGet(titreId)
   const titreDates = await titresDatesUpdate([titre])
 
-  // 6.
-  // id du titre
-  // met à jour l'id du titres, des démarches et des étapes
+  // 9.
+  console.log('propriétés des titres (liens vers les étapes)…')
+  titre = await titreGet(titreId)
+  const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
+
+  // 12.
+  console.log('ids de titres, démarches, étapes et sous-éléments…')
   titre = await titreGet(titreId, { format: false })
-  const titreNew = await titreIdUpdate(titre)
+  // titreNew n'est pas formaté
+  const titreNew = await titreIdsUpdate(titre)
 
   console.log(titreDemarchesOrdre)
   console.log(titresPropsEtapeId)
@@ -52,6 +48,7 @@ const titreDemarcheUpdate = async (titreDemarcheId, titreId) => {
 
   console.log('Démarche mise à jour')
 
+  // on retourne le titre bien formaté
   return titreGet(titreNew.id)
 }
 

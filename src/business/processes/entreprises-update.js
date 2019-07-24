@@ -1,32 +1,66 @@
-import {
-  entrepriseUpdate,
-  entrepriseEtablissementUpdate
-} from '../queries/entreprises'
+import { objectsDiffer } from '../../tools'
+import { entreprisesUpsert } from '../../database/queries/entreprises'
+import { entreprisesEtablissementsUpsert } from '../../database/queries/entreprises-etablissements'
 import {
   tokenInitialize,
   entrepriseEtablissementGet,
   entrepriseAdresseGet
 } from '../../tools/api-insee'
 
-const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
-  const sirensIndex = entreprises.reduce((acc, e) => {
-    if (!e || !e.legalSiren) return acc
+const entreprisesEtablissementsUpdatedFind = (
+  entreprisesEtablissementsOld,
+  entreprisesEtablissementsNew
+) =>
+  entreprisesEtablissementsNew.reduce((acc, entrepriseEtablissementNew) => {
+    const entrepriseEtablissementOld = entreprisesEtablissementsOld.find(
+      a => a && a.id === entrepriseEtablissementNew.id
+    )
 
-    acc[e.legalSiren] = (acc[e.legalSiren] | 0) + 1
+    const updated =
+      !entrepriseEtablissementOld ||
+      objectsDiffer(entrepriseEtablissementNew, entrepriseEtablissementOld)
 
-    // prévient s'il y a des doublons dans les sirens
-    if (acc[e.legalSiren] > 1) {
-      console.info(`SIREN en doublon: ${e.legalSiren}`)
-    }
-    return acc
-  }, {})
+    return updated ? [...acc, entrepriseEtablissementNew] : acc
+  }, [])
 
-  const sirens = Object.keys(sirensIndex)
+const entreprisesUpdatedFind = (entreprisesOld, entreprisesNew) =>
+  entreprisesNew.reduce((acc, entrepriseNew) => {
+    const entrepriseOld = entreprisesOld.find(
+      a => a && a.id === entrepriseNew.id
+    )
+
+    const updated =
+      !entrepriseOld || objectsDiffer(entrepriseNew, entrepriseOld)
+
+    return updated ? [...acc, entrepriseNew] : acc
+  }, [])
+
+const sirensFind = entreprisesOld =>
+  Object.keys(
+    entreprisesOld.reduce((acc, entrepriseOld) => {
+      if (!entrepriseOld || !entrepriseOld.legalSiren) return acc
+
+      acc[entrepriseOld.legalSiren] = (acc[entrepriseOld.legalSiren] | 0) + 1
+
+      // prévient s'il y a des doublons dans les sirens
+      if (acc[entrepriseOld.legalSiren] > 1) {
+        console.info(`SIREN en doublon: ${entrepriseOld.legalSiren}`)
+      }
+
+      return acc
+    }, {})
+  )
+
+const entreprisesEtablissementsEtAdressesUpdate = async (
+  entreprisesOld,
+  entreprisesEtablissementsOld
+) => {
+  const sirens = sirensFind(entreprisesOld)
 
   if (!sirens.length) {
     return [
-      'Mise à jour: 0 entreprises.',
-      "Mise à jour: 0 établissements d'entreprises."
+      "Mise à jour: 0 établissement(s) d'entreprise(s).",
+      "Mise à jour: 0 adresse(s) d'entreprise(s)."
     ]
   }
 
@@ -40,49 +74,44 @@ const entreprisesUpdate = async (entreprises, entreprisesEtablissements) => {
   if (!token) {
     return [
       "Erreur: impossible de se connecter à l'API INSEE SIREN V3",
-      'Mise à jour: 0 entreprises.',
-      "Mise à jour: 0 établissements d'entreprises."
+      "Mise à jour: 0 établissement(s) d'entreprise(s).",
+      "Mise à jour: 0 adresse(s) d'entreprise(s)."
     ]
   }
 
-  const entreprisesAdresses = await entrepriseAdresseGet(sirens)
+  const entreprisesNew = await entrepriseAdresseGet(sirens)
   const entreprisesEtablissementsNew = await entrepriseEtablissementGet(sirens)
 
-  const etablissementsUpdateQueries = entreprisesEtablissementsNew.reduce(
-    (acc, entrepriseEtablissementNew) => {
-      const entrepriseEtablissementOld = entreprisesEtablissements.find(
-        a => a.id === entrepriseEtablissementNew.id
-      )
-
-      const entrepriseEtablissementUpdated = entrepriseEtablissementUpdate(
-        entrepriseEtablissementNew,
-        entrepriseEtablissementOld
-      )
-
-      return entrepriseEtablissementUpdated
-        ? [...acc, entrepriseEtablissementUpdated]
-        : acc
-    },
-    []
+  const entreprisesUpdated = entreprisesUpdatedFind(
+    entreprisesOld,
+    entreprisesNew
   )
 
-  const adressesUpdateQueries = entreprisesAdresses.reduce(
-    (acc, entrepriseNew) => {
-      const entrepriseOld = entreprises.find(a => a.id === entrepriseNew.id)
-
-      const entrepriseUpdated = entrepriseUpdate(entrepriseNew, entrepriseOld)
-
-      return entrepriseUpdated ? [...acc, entrepriseUpdated] : acc
-    },
-    []
+  const etablissementsUpdated = entreprisesEtablissementsUpdatedFind(
+    entreprisesEtablissementsOld,
+    entreprisesEtablissementsNew
   )
 
-  await Promise.all([...adressesUpdateQueries, ...etablissementsUpdateQueries])
+  if (etablissementsUpdated.length) {
+    await entreprisesEtablissementsUpsert(etablissementsUpdated)
+    console.log(
+      `Mise à jour: entreprisesEtablissements ${etablissementsUpdated
+        .map(e => e.id)
+        .join(', ')}`
+    )
+  }
+
+  if (entreprisesUpdated.length) {
+    await entreprisesUpsert(entreprisesUpdated)
+    console.log(
+      `Mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
+    )
+  }
 
   return [
-    `Mise à jour: ${etablissementsUpdateQueries.length} etablissements d'entreprises.`,
-    `Mise à jour: ${adressesUpdateQueries.length} adresses d'entreprises.`
+    `Mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s).`,
+    `Mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s).`
   ]
 }
 
-export default entreprisesUpdate
+export default entreprisesEtablissementsEtAdressesUpdate
