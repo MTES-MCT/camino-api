@@ -6,12 +6,15 @@ const titresPhasesGet = async () =>
     .skipUndefined()
     .eager(options.phases.eager)
 
-const titrePhaseUpdate = async ({ titrePhase }) =>
-  TitresPhases.query().upsertGraph(titrePhase, { insertMissing: true })
+const titrePhasesUpdate = async titrePhases =>
+  TitresPhases.query().upsertGraph(titrePhases, {
+    insertMissing: true,
+    noDelete: true
+  })
 
-const titrePhaseDelete = async ({ titreDemarcheId }) =>
+const titrePhasesDelete = async titrePhasesIds =>
   TitresPhases.query()
-    .deleteById(titreDemarcheId)
-    .returning('*')
+    .delete()
+    .whereIn('titreDemarcheId', titrePhasesIds)
 
-export { titresPhasesGet, titrePhaseUpdate, titrePhaseDelete }
+export { titresPhasesGet, titrePhasesUpdate, titrePhasesDelete }

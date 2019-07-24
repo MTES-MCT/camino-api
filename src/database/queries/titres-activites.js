@@ -1,11 +1,10 @@
-import titreActivites from '../models/titres-activites'
+import TitreActivites from '../models/titres-activites'
 import options from './_options'
 import { titreActiviteFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
 const titreActiviteGet = async id => {
-  const ta = await titreActivites
-    .query()
+  const ta = await TitreActivites.query()
     .eager(options.titresActivites.eager)
     .findById(id)
     .first()
@@ -14,32 +13,30 @@ const titreActiviteGet = async id => {
 }
 
 const titresActivitesGet = async () => {
-  const tas = await titreActivites.query().eager(options.titresActivites.eager)
+  const tas = await TitreActivites.query().eager(options.titresActivites.eager)
+
+  return tas.map(ta => titreActiviteFormat(ta))
+}
+
+const titreActivitesUpsert = async titreActivites => {
+  const tas = await TitreActivites.query()
+    .eager(options.titresActivites.eager)
+    .upsertGraph(titreActivites, { insertMissing: true })
 
   return tas.map(ta => titreActiviteFormat(ta))
 }
 
 const titreActiviteUpdate = async (id, props) => {
-  const ta = await titreActivites
-    .query()
+  const ta = await TitreActivites.query()
     .eager(options.titresActivites.eager)
     .patchAndFetchById(id, props)
 
   return ta && titreActiviteFormat(ta)
 }
 
-const titreActiviteInsert = async titreActivite => {
-  const ta = await titreActivites
-    .query()
-    .eager(options.titresActivites.eager)
-    .insert(titreActivite)
-
-  return titreActiviteFormat(ta)
-}
-
 export {
   titreActiviteGet,
-  titreActiviteInsert,
+  titreActivitesUpsert,
   titresActivitesGet,
   titreActiviteUpdate
 }

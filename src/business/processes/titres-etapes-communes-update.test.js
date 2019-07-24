@@ -1,109 +1,134 @@
 import titresEtapeCommunesUpdate from './titres-etapes-communes-update'
-
-import * as titreEtapes from '../queries/titre-etapes'
 import * as apiCommunes from '../../tools/api-communes'
 
 import {
   titresEtapesPoints,
   titresEtapesPointsVides,
-  titresEtapesPointsMemeCommune
+  titresEtapesPointsMemeCommune,
+  titresEtapesPointsCommuneInexistante,
+  titresEtapesPointsCommuneExistante
 } from './__mocks__/titres-etapes-communes-update-etapes'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/communes', () => ({
-  communesInsert: communes => communes.map(commune => Promise.resolve(commune))
+jest.mock('../../database/queries/territoires', () => ({
+  communesUpsert: jest.fn().mockResolvedValue()
 }))
 
-jest.mock('../queries/titre-etapes', () => ({
-  titreEtapeCommunesInsert: () => [],
-  titreEtapeCommunesDelete: () => []
+jest.mock('../../database/queries/titres-etapes', () => ({
+  titresEtapesCommunesCreate: jest.fn().mockResolvedValue(),
+  titreEtapeCommuneDelete: jest.fn().mockResolvedValue()
 }))
 
 jest.mock('../../tools/geojson', () => ({
-  geojsonFeatureMultiPolygon: points => ({ geometry: { coordinates: points } })
+  geojsonFeatureMultiPolygon: points => ({
+    geometry: { coordinates: [...new Set(points)] }
+  })
 }))
 
 jest.mock('../../tools/api-communes', () => ({
-  default: geojson =>
-    Promise.resolve(geojson.geometry.coordinates.map(p => ({ id: p })))
+  default: jest.fn()
 }))
 
 console.log = jest.fn()
 
-describe('met à jour la liste globale des communes et la liste de communes pour une étape', () => {
+describe("communes et communes d'étapes", () => {
   test('ajoute 2 communes dans une étape et dans la liste de communes', async () => {
-    const insertSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeCommunesInsert')
-      .mockImplementation(titreEtape =>
-        titreEtape.points.map(p => Promise.resolve(p))
-      )
+    apiCommunes.default.mockResolvedValue([{ id: 1 }, { id: 2 }])
 
-    expect(await titresEtapeCommunesUpdate(titresEtapesPoints, [])).toEqual([
-      'Mise à jour: 2 communes.',
-      'Mise à jour: 2 communes dans des étapes.'
+    const log = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
+
+    expect(log).toEqual([
+      'Mise à jour: 2 commune(s).',
+      'Mise à jour: 2 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
     ])
-
-    expect(insertSpy).toHaveBeenCalledTimes(1)
-    expect(console.log).toHaveBeenCalledTimes(4)
-
-    insertSpy.mockRestore()
+    expect(console.log).toHaveBeenCalledTimes(2)
   })
 
-  test("une commune en doublon n'est pas ajoutée deux fois", async () => {
-    const insertSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeCommunesInsert')
-      .mockImplementation(titreEtape => [Promise.resolve()])
-    const deleteSpy = jest
-      .spyOn(titreEtapes, 'titreEtapeCommunesDelete')
-      .mockImplementation(titreEtape => [])
+  test("n'ajoute qu'une seule fois une commune en doublon", async () => {
+    apiCommunes.default.mockResolvedValue([{ id: 1 }])
 
-    expect(
-      await titresEtapeCommunesUpdate(titresEtapesPointsMemeCommune, [
-        { id: 1 }
-      ])
-    ).toEqual([
-      'Mise à jour: 1 communes.',
-      'Mise à jour: 1 communes dans des étapes.'
+    const log = await titresEtapeCommunesUpdate(titresEtapesPointsMemeCommune, [
+      { id: 0 }
     ])
 
-    expect(insertSpy).toHaveBeenCalledTimes(1)
-    expect(deleteSpy).toHaveBeenCalledTimes(1)
+    expect(log).toEqual([
+      'Mise à jour: 1 commune(s).',
+      'Mise à jour: 1 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+    ])
     expect(console.log).toHaveBeenCalledTimes(2)
-
-    insertSpy.mockRestore()
-    deleteSpy.mockRestore()
   })
 
   test("n'ajoute aucune commune dans l'étape ni dans la liste de communes", async () => {
-    apiCommunes.default = () => []
+    apiCommunes.default.mockResolvedValue([])
 
-    expect(await titresEtapeCommunesUpdate(titresEtapesPoints, [])).toEqual([
-      'Mise à jour: 0 communes.',
-      'Mise à jour: 0 communes dans des étapes.'
+    const log = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
+
+    expect(log).toEqual([
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
     ])
-
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("l'étape n'a pas de périmètre", async () => {
-    expect(await titresEtapeCommunesUpdate(titresEtapesPointsVides)).toEqual([
-      'Mise à jour: 0 communes.',
-      'Mise à jour: 0 communes dans des étapes.'
-    ])
+  test("n'ajoute pas de commune si l'étape n'a pas de périmètre", async () => {
+    const log = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
+    apiCommunes.default.mockResolvedValue([])
 
+    expect(log).toEqual([
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+    ])
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("l'API Géo communes ne répond pas", async () => {
-    apiCommunes.default = jest.fn()
+  test("n'ajoute pas de commune si elle existe déjà dans l'étape", async () => {
+    apiCommunes.default.mockResolvedValue([{ id: 1 }])
 
-    expect(await titresEtapeCommunesUpdate(titresEtapesPointsVides)).toEqual([
+    const log = await titresEtapeCommunesUpdate(
+      titresEtapesPointsCommuneExistante,
+      [{ id: 1 }]
+    )
+
+    expect(log).toEqual([
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+    ])
+    expect(console.log).not.toHaveBeenCalled()
+  })
+
+  test("supprime une commune si l'étape ne la contient plus dans son périmètre", async () => {
+    apiCommunes.default.mockResolvedValue([{ id: 1 }])
+
+    const log = await titresEtapeCommunesUpdate(
+      titresEtapesPointsCommuneInexistante,
+      [{ id: 0 }]
+    )
+
+    expect(log).toEqual([
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 1 commune(s) supprimée(s) dans des étapes.'
+    ])
+    expect(console.log).toHaveBeenCalled()
+  })
+
+  test("retourne un message d'erreur si l'API Géo communes ne répond pas", async () => {
+    apiCommunes.default.mockResolvedValue()
+
+    const log = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
+
+    expect(log).toEqual([
       "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 communes.',
-      'Mise à jour: 0 communes dans des étapes.'
+      'Mise à jour: 0 commune(s).',
+      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
+      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
     ])
-
     expect(apiCommunes.default).toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })

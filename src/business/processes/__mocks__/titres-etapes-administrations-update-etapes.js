@@ -14,7 +14,7 @@ const administrations = [
   }
 ]
 
-const titresCommunes = [
+const titresEtapesCommunes = [
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -41,7 +41,7 @@ const titresCommunes = [
   }
 ]
 
-const titresCommunesVides = [
+const titresEtapesCommunesVides = [
   {
     id: 'titre-id',
     demarches: [
@@ -62,7 +62,7 @@ const titresCommunesVides = [
   }
 ]
 
-const titresCommunesMemeCommune = [
+const titresEtapesCommunesMemeCommune = [
   {
     id: 'titre-id',
     demarches: [
@@ -78,6 +78,52 @@ const titresCommunesMemeCommune = [
             communes: [
               { departementId: 1, departement: { regionId: 1 } },
               { departementId: 1, departement: { regionId: 1 } }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const titresEtapesAdministrationInexistante = [
+  {
+    id: 'titre-id',
+    domaineId: 'h',
+    demarches: [
+      {
+        etapes: [
+          {
+            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            typeId: 'dpu',
+            communes: [],
+            administrations: [
+              {
+                id: 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const titresEtapesAdministrationExistante = [
+  {
+    id: 'titre-id',
+    domaineId: 'h',
+    demarches: [
+      {
+        etapes: [
+          {
+            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            typeId: 'dpu',
+            communes: [{ departementId: 1, departement: { regionId: 1 } }],
+            administrations: [
+              {
+                id: 1
+              }
             ]
           }
         ]
@@ -132,9 +178,11 @@ const titresAxm = [
 
 export {
   administrations,
-  titresCommunes,
-  titresCommunesVides,
-  titresCommunesMemeCommune,
+  titresEtapesCommunes,
+  titresEtapesCommunesVides,
+  titresEtapesCommunesMemeCommune,
+  titresEtapesAdministrationInexistante,
+  titresEtapesAdministrationExistante,
   titresArm,
   titresAxm
 }

@@ -1,5 +1,5 @@
 // https://etablissements-publics.api.gouv.fr
-
+import PQueue from 'p-queue'
 import { join } from 'path'
 
 import * as fetch from 'node-fetch'
@@ -125,4 +125,14 @@ const organismeDepartementGet = async (departementId, nom) => {
   return organisme ? organismeFormat(organisme, departementId) : null
 }
 
-export { organismeDepartementGet }
+const organismesDepartementsGet = async departementsIdsNoms => {
+  const administrationsOrganismesRequests = departementsIdsNoms.map(
+    ({ departementId, nom }) => () =>
+      organismeDepartementGet(departementId, nom)
+  )
+
+  const queue = new PQueue({ concurrency: 100 })
+  return queue.addAll(administrationsOrganismesRequests)
+}
+
+export { organismeDepartementGet, organismesDepartementsGet }

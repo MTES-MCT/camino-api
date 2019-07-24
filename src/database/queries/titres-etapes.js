@@ -51,24 +51,19 @@ const titreEtapeUpsert = async (etape, trx) =>
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
 
-const titreEtapeCommuneInsert = async ({ titreEtapeId, communeId }) =>
-  TitresCommunes.query().insert({ titreEtapeId, communeId })
+const titresEtapesCommunesCreate = async titresEtapesCommunes =>
+  TitresCommunes.query().insert(titresEtapesCommunes)
 
-const titreEtapeCommuneDelete = async ({ titreEtapeId, communeId }) =>
+const titreEtapeCommuneDelete = async (titreEtapeId, communeId) =>
   TitresCommunes.query()
     .delete()
     .where('titreEtapeId', titreEtapeId)
     .andWhere('communeId', communeId)
 
-const titreEtapeAdministrationInsert = async ({
-  titreEtapeId,
-  administrationId
-}) => TitresAdministrations.query().insert({ titreEtapeId, administrationId })
+const titresEtapesAdministrationsCreate = async titresEtapesAdministrations =>
+  TitresAdministrations.query().insert(titresEtapesAdministrations)
 
-const titreEtapeAdministrationDelete = async ({
-  titreEtapeId,
-  administrationId
-}) =>
+const titreEtapeAdministrationDelete = async (titreEtapeId, administrationId) =>
   TitresAdministrations.query()
     .delete()
     .where('titreEtapeId', titreEtapeId)
@@ -93,10 +88,10 @@ export {
   titreEtapeCreate,
   titreEtapeUpdate,
   titreEtapeUpsert,
-  titreEtapeCommuneInsert,
+  titresEtapesCommunesCreate,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
-  titreEtapeAdministrationInsert,
+  titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete,
   titreEtapesIdsUpdate,
   titreEtapeDelete

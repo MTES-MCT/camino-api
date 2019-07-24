@@ -1,28 +1,53 @@
-import { titrePropUpdate, titrePropsEtapes } from '../queries/titres'
+import PQueue from 'p-queue'
+import { titreUpdate } from '../../database/queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
+const titrePropsEtapes = [
+  'points',
+  'titulaires',
+  'amodiataires',
+  'administrations',
+  'surface',
+  'volume',
+  'volumeUniteId',
+  'substances',
+  'communes',
+  'engagement',
+  'engagementDeviseId'
+]
+
 const titresPropsEtapeIdsUpdate = async titres => {
-  const titreUpdateRequests = titres.reduce((arr, titre) => {
-    const titrePropsUpdateRequests = titrePropsEtapes.reduce((acc, prop) => {
+  const titresUpdatedRequests = titres.reduce((acc, titre) => {
+    const props = titrePropsEtapes.reduce((props, prop) => {
       const propEtapeIdName = `${prop}TitreEtapeId`
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
 
-      const titrePropUpdated = titrePropUpdate(titre, propEtapeIdName, etapeId)
+      return etapeId !== titre[propEtapeIdName]
+        ? { ...props, [propEtapeIdName]: etapeId }
+        : props
+    }, {})
 
-      return titrePropUpdated ? [...acc, titrePropUpdated] : acc
-    }, [])
-
-    return [...arr, ...titrePropsUpdateRequests]
+    return Object.keys(props).length
+      ? [
+          ...acc,
+          async () => {
+            await titreUpdate(titre.id, props)
+            console.log(
+              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+            )
+          }
+        ]
+      : acc
   }, [])
 
-  if (titreUpdateRequests.length) {
-    const titreUpdateQueries = titreUpdateRequests.map(q =>
-      q.then(log => console.log(log))
-    )
-    await Promise.all(titreUpdateQueries)
+  if (titresUpdatedRequests.length) {
+    const queue = new PQueue({ concurrency: 100 })
+    await queue.addAll(titresUpdatedRequests)
   }
 
-  return `Mise à jour: ${titreUpdateRequests.length} propriétés (étapes) de titres.`
+  return `Mise à jour: ${titresUpdatedRequests.length} titre(s) (propriétés-étapes).`
 }
+
+export { titrePropsEtapes }
 
 export default titresPropsEtapeIdsUpdate

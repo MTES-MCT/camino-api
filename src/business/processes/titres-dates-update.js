@@ -1,47 +1,55 @@
-import { titrePropUpdate } from '../queries/titres'
+import * as dateFormat from 'dateformat'
+import { titreUpdate } from '../../database/queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 import titreDateDemandeFind from '../rules/titre-date-demande-find'
+import PQueue from 'p-queue'
+
+const datesDiffer = (dateOld, dateNew) =>
+  (dateOld && dateFormat(dateOld, 'yyyy-mm-dd')) !== dateNew
 
 const titresDatesUpdate = async titres => {
-  const titresDateDebutDateFinQueries = titres.reduce((acc, titre) => {
+  const titresDatesUpdateRequests = titres.reduce((acc, titre) => {
+    const props = {}
+
     const dateFin = titreDateFinFind(titre.demarches)
-    const titreDateFinUpdated = titrePropUpdate(titre, 'dateFin', dateFin)
 
-    if (titreDateFinUpdated) {
-      acc.push(titreDateFinUpdated)
+    if (datesDiffer(titre.dateFin, dateFin)) {
+      props.dateFin = dateFin
     }
 
-    const dateDebut = titreDateDebutFind(titre.demarches, titre.type.id)
-    const titreDateDebutUpdated = titrePropUpdate(titre, 'dateDebut', dateDebut)
+    const dateDebut = titreDateDebutFind(titre.demarches, titre.typeId)
 
-    if (titreDateDebutUpdated) {
-      acc.push(titreDateDebutUpdated)
+    if (datesDiffer(titre.dateDebut, dateDebut)) {
+      props.dateDebut = dateDebut
     }
 
-    const dateDemande = titreDateDemandeFind(titre.demarches, titre.statut.id)
-    const titreDateDemandeUpdated = titrePropUpdate(
-      titre,
-      'dateDemande',
-      dateDemande
-    )
+    const dateDemande = titreDateDemandeFind(titre.demarches, titre.statutId)
 
-    if (titreDateDemandeUpdated) {
-      acc.push(titreDateDemandeUpdated)
+    if (datesDiffer(titre.dateDemande, dateDemande)) {
+      props.dateDemande = dateDemande
     }
 
-    return acc
+    return Object.keys(props).length
+      ? [
+          ...acc,
+          // async () => console.log(await titreUpdate(titre.id, props))
+          async () => {
+            await titreUpdate(titre.id, props)
+            console.log(
+              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+            )
+          }
+        ]
+      : acc
   }, [])
 
-  if (titresDateDebutDateFinQueries.length) {
-    const titreUpdateQueries = titresDateDebutDateFinQueries.map(q =>
-      q.then(log => console.log(log))
-    )
-
-    await Promise.all(titreUpdateQueries)
+  if (titresDatesUpdateRequests.length) {
+    const queue = new PQueue({ concurrency: 100 })
+    await queue.addAll(titresDatesUpdateRequests)
   }
 
-  return `Mise à jour: ${titresDateDebutDateFinQueries.length} dates de titres.`
+  return `Mise à jour: ${titresDatesUpdateRequests.length} titre(s) (propriétés-dates).`
 }
 
 export default titresDatesUpdate

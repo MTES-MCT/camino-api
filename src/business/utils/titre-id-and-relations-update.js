@@ -3,7 +3,7 @@ import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-dat
 import elementRelationsUpdate from './element-relations-update'
 import titreDemarchesAscSort from './titre-demarches-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
-import { titrePropsEtapes } from '../queries/titres'
+import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
 
 const titreIdUpdate = titre => {
   const { domaineId, typeId, nom } = titre

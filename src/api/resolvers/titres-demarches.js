@@ -27,10 +27,7 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
   try {
     demarche.id = cryptoRandomString({ length: 6 })
     const demarcheUpdated = await titreDemarcheCreate(demarche)
-    const titreUpdated = await titreDemarcheUpdateTask(
-      demarcheUpdated.id,
-      demarcheUpdated.titreId
-    )
+    const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
     return titreUpdated
   } catch (e) {
@@ -55,10 +52,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
 
   try {
     const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
-    const titreUpdated = await titreDemarcheUpdateTask(
-      demarcheUpdated.id,
-      demarcheUpdated.titreId
-    )
+    const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
     return titreUpdated
   } catch (e) {
@@ -82,10 +76,7 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
 
     await titreDemarcheDelete(id)
 
-    const titreUpdated = await titreDemarcheUpdateTask(
-      null,
-      demarcheOld.titreId
-    )
+    const titreUpdated = await titreDemarcheUpdateTask(demarcheOld.titreId)
 
     return titreUpdated
   } catch (e) {

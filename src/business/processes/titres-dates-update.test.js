@@ -1,47 +1,49 @@
-import titresDateFinDateDebutUpdate from './titres-dates-update'
-import { titrePropUpdate } from '../queries/titres'
+import titresDatesUpdate from './titres-dates-update'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
+import titreDateDemandeFind from '../rules/titre-date-demande-find'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titres', () => ({
-  titrePropUpdate: jest.fn()
+jest.mock('../../database/queries/titres', () => ({
+  titreUpdate: jest.fn().mockResolvedValue()
 }))
-
 jest.mock('../rules/titre-date-fin-find')
-
 jest.mock('../rules/titre-date-debut-find')
+jest.mock('../rules/titre-date-demande-find')
 
 console.log = jest.fn()
 
-describe("met à jour les dates de début et de fin d'un titre", () => {
-  test('met à jour 2 dates de titres', async () => {
-    titreDateFinFind.mockImplementation(() => null)
+describe("dates d'un titre", () => {
+  test("met à jour les dates d'un titre", async () => {
+    titreDateFinFind.mockImplementation(() => '2019-01-01')
     titreDateDebutFind.mockImplementation(() => null)
-    titrePropUpdate.mockImplementation(() => Promise.resolve('Mise à jour…'))
+    titreDateDemandeFind.mockImplementation(() => null)
 
-    const titresDateFinDateDebutUpdateLog = await titresDateFinDateDebutUpdate([
-      { type: { id: 'titre-id' }, statut: { id: 'titre-statut-id' } }
-    ])
+    const titresDatesUpdateLog = await titresDatesUpdate([{ id: 'titre-id' }])
 
-    expect(titresDateFinDateDebutUpdateLog).toEqual(
-      'Mise à jour: 3 dates de titres.'
+    expect(titresDatesUpdateLog).toEqual(
+      'Mise à jour: 1 titre(s) (propriétés-dates).'
     )
-    expect(console.log).toHaveBeenCalledTimes(3)
+    expect(console.log).toHaveBeenCalledTimes(1)
   })
 
-  test("aucune mise à jour n'est effectuée", async () => {
-    titreDateFinFind.mockImplementation(() => null)
+  test('ne met à jour aucun titre', async () => {
+    titreDateFinFind.mockImplementation(() => '2019-01-01')
     titreDateDebutFind.mockImplementation(() => null)
-    titrePropUpdate.mockImplementation(() => false)
+    titreDateDemandeFind.mockImplementation(() => null)
 
-    const titresDateFinDateDebutUpdateLog = await titresDateFinDateDebutUpdate([
-      { type: { id: 'titre-type-id' }, statut: { id: 'titre-statut-id' } }
+    const titresDatesUpdateLog = await titresDatesUpdate([
+      {
+        id: 'titre-type-id',
+        dateFin: new Date('2019-01-01'),
+        dateDebut: null,
+        dateDemande: null
+      }
     ])
 
-    expect(titresDateFinDateDebutUpdateLog).toEqual(
-      'Mise à jour: 0 dates de titres.'
+    expect(titresDatesUpdateLog).toEqual(
+      'Mise à jour: 0 titre(s) (propriétés-dates).'
     )
     expect(console.log).toHaveBeenCalledTimes(0)
   })

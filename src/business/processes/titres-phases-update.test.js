@@ -1,62 +1,54 @@
 import titresPhasesUpdate from './titres-phases-update'
-import * as titresPhasesQueries from '../queries/titre-phases'
 
 import {
   titresSansPhase,
   titresUnePhase,
-  titresDeuxPhases,
   titresPhaseASupprimer,
-  titresUnePhaseSansChangement
+  titresUnePhaseSansChangement,
+  titresUnePhaseMiseAJour
 } from './__mocks__/titres-phases-update-titres'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../queries/titre-phases', () => ({
-  titrePhaseUpdate: (titrePhase, titresPhasesOld) => Promise.resolve(),
-  titrePhaseDelete: (titresPhasesOld, titresPhases) => Promise.resolve()
+jest.mock('../../database/queries/titres-phases', () => ({
+  titrePhasesUpdate: jest.fn().mockResolvedValue(),
+  titrePhasesDelete: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 
-describe("met à jour les phases d'un titre", () => {
-  test('un titre avec une phase est mis à jour', async () => {
+describe("phases d'un titre", () => {
+  test('met à jour un titre dont une phase est créée', async () => {
     expect(await titresPhasesUpdate(titresUnePhase)).toEqual(
-      'Mise à jour: 1 phases de titres.'
+      'Mise à jour: 1 titre(s) (phases).'
     )
     expect(console.log).toHaveBeenCalled()
   })
 
-  test('un titre avec deux phases est mis à jour', async () => {
-    expect(await titresPhasesUpdate(titresDeuxPhases)).toEqual(
-      'Mise à jour: 2 phases de titres.'
+  test('met à jour un titre dont une phase est modifiée', async () => {
+    expect(await titresPhasesUpdate(titresUnePhaseMiseAJour)).toEqual(
+      'Mise à jour: 1 titre(s) (phases).'
     )
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.log).toHaveBeenCalled()
   })
 
-  test("un titre sans phase n'est pas mis à jour", async () => {
-    expect(await titresPhasesUpdate(titresSansPhase)).toEqual(
-      'Mise à jour: 0 phases de titres.'
+  test('met à jour un titre dont une phase est supprimée', async () => {
+    expect(await titresPhasesUpdate(titresPhaseASupprimer)).toEqual(
+      'Mise à jour: 1 titre(s) (phases).'
+    )
+    expect(console.log).toHaveBeenCalled()
+  })
+
+  test("ne met pas à jour un titre si aucune phase n'est modifiée", async () => {
+    expect(await titresPhasesUpdate(titresUnePhaseSansChangement)).toEqual(
+      'Mise à jour: 0 titre(s) (phases).'
     )
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("un titre dont une phase n'existe plus est mis à jour", async () => {
-    expect(await titresPhasesUpdate(titresPhaseASupprimer)).toEqual(
-      'Mise à jour: 1 phases de titres.'
-    )
-    expect(console.log).toHaveBeenCalled()
-  })
-
-  test("un titre dont une phase n'a pas changé n'est pas mis à jour", async () => {
-    titresPhasesQueries.titrePhaseUpdate = jest
-      .fn()
-      .mockImplementation(() => null)
-    titresPhasesQueries.titrePhaseDelete = jest
-      .fn()
-      .mockImplementation(() => null)
-
-    expect(await titresPhasesUpdate(titresUnePhaseSansChangement)).toEqual(
-      'Mise à jour: 0 phases de titres.'
+  test("ne met pas à jour un titre si aucune phase n'existe", async () => {
+    expect(await titresPhasesUpdate(titresSansPhase)).toEqual(
+      'Mise à jour: 0 titre(s) (phases).'
     )
     expect(console.log).not.toHaveBeenCalled()
   })
