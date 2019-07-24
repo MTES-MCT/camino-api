@@ -22,7 +22,7 @@ import {
   titreDemarcheIndefinie
 } from './__mocks__/titre-demarche-statut-id-find-demarches'
 
-describe("retourne le statut d'une démarche", () => {
+describe("statut d'une démarche", () => {
   test('une démarche sans étape a le statut “indéfinie”', () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheSansEtapes)).toEqual('ind')
   })

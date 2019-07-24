@@ -18,23 +18,37 @@ const dupFind = (key, ...arrays) =>
     arrays.pop()
   )
 
-const objectsDiffer = (a, b) =>
-  Object.keys(a).find(k => {
-    if (a[k] && b[k]) {
-      if (b[k].constructor === Date) {
-        return a[k] !== dateFormat(b[k], 'yyyy-mm-dd')
+const objectsDiffer = (a, b) => {
+  if (typeof a !== 'object' && typeof b !== 'object') {
+    return a !== b
+  }
+
+  return (
+    Object.keys(a).find(k => {
+      let aK = a[k]
+      let bK = b[k]
+
+      if (aK && aK.constructor === Date) {
+        aK = dateFormat(aK, 'yyyy-mm-dd')
       }
 
-      if (Array.isArray(a[k]) && Array.isArray(b[k])) {
-        return a[k].find((a, i) => objectsDiffer(a, b[k][i]))
+      if (bK && bK.constructor === Date) {
+        bK = dateFormat(bK, 'yyyy-mm-dd')
       }
 
-      if (typeof a[k] === 'object' && typeof b[k] === 'object' && a[k]) {
-        return objectsDiffer(a[k], b[k])
-      }
-    }
+      if (aK && bK) {
+        if (Array.isArray(aK) && Array.isArray(bK)) {
+          return aK.find((a, i) => objectsDiffer(a, bK[i]))
+        }
 
-    return a[k] !== b[k]
-  })
+        if (typeof aK === 'object' && typeof bK === 'object' && aK) {
+          return objectsDiffer(aK, bK)
+        }
+      }
+
+      return aK !== bK
+    }) !== undefined
+  )
+}
 
 export { dupRemove, dupFind, objectsDiffer }

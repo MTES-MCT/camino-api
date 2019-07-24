@@ -10,36 +10,32 @@ import { titreIdsUpdate } from './processes/titres-ids-update'
 
 const titreDemarcheUpdate = async titreId => {
   // 3.
-  // ordre des démarches
-  // en fonction de la date de leur première étape
+  console.log('ordre des démarches…')
   let titre = await titreGet(titreId)
   const titreDemarchesOrdre = await titresDemarchesOrdreUpdate([titre])
 
   // 4.
-  // statut du titre
-  // en fonction des démarches et de la date du jour
+  console.log('statut des titres…')
   titre = await titreGet(titreId)
   const titreStatutIds = await titresStatutIdsUpdate([titre])
 
   // 5.
-  // phases du titre
-  // en fonction des démarches et de la date du jour
+  console.log('phases des titres…')
   titre = await titreGet(titreId)
   const titrePhases = await titresPhasesUpdate([titre])
 
   // 6.
-  // date de début, de fin et de demande initiale d'un titre
+  console.log('date de début, de fin et de demande initiale des titres…')
   titre = await titreGet(titreId)
   const titreDates = await titresDatesUpdate([titre])
 
   // 9.
-  // propriétés du titre
-  // en fonction des démarches et de la date du jour
+  console.log('propriétés des titres (liens vers les étapes)…')
   titre = await titreGet(titreId)
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
   // 12.
-  // id du titres, des démarches et des étapes
+  console.log('ids de titres, démarches, étapes et sous-éléments…')
   titre = await titreGet(titreId, { format: false })
   // titreNew n'est pas formaté
   const titreNew = await titreIdsUpdate(titre)
