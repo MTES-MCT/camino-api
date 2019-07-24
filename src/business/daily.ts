@@ -37,7 +37,7 @@ const run = async () => {
     const titresDemarchesStatutId = await titresDemarchesStatutIdUpdate(titres)
 
     // 3.
-    // détermine l'ordre des démarche
+    // ordre des démarche
     // en fonction de la date de leur première étape
     titres = await titresGet()
     const titresDemarchesOrdre = await titresDemarchesOrdreUpdate(titres)
@@ -106,13 +106,12 @@ const run = async () => {
     )
 
     // 11.
-    //
+    // nombre d'activités abs, enc et dep des titres
     titres = await titresGet()
     const titresPropsActivites = await titresPropsActivitesUpdate(titres)
 
     // 12.
-    // id de titres
-    // met à jour les ids de titres, démarches, étapes et sous-éléments
+    // ids de titres, démarches, étapes et sous-éléments
     titres = await titresGet(
       {
         typeIds: null,

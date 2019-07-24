@@ -33,7 +33,7 @@ const titresPropsActivitesUpdate = async titres => {
     await queue.addAll(titreUpdateRequests)
   }
 
-  return `Mise à jour: propriétés (activités) de ${titreUpdateRequests.length} titre(s).`
+  return `Mise à jour: ${titreUpdateRequests.length} titre(s) (propriétés-activités).`
 }
 
 export default titresPropsActivitesUpdate

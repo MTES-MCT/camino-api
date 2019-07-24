@@ -3,8 +3,9 @@ import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
 const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
-  // TODO: à supprimer une fois que
-  // la requête ne renverra plus de doublons
+  // TODO:
+  // - à supprimer une fois que la requête ne renverra plus de doublons
+  // - doit on supprimer des activités (pe: si un titre change de périmètre)
   const processedTitres = {}
 
   const titresActivitesNew = titres

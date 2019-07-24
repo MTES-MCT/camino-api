@@ -45,7 +45,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
     await queue.addAll(titresUpdatedRequests)
   }
 
-  return `Mise à jour: propriétés (étapes) de ${titresUpdatedRequests.length} titre(s).`
+  return `Mise à jour: ${titresUpdatedRequests.length} titre(s) (propriétés-étapes).`
 }
 
 export { titrePropsEtapes }

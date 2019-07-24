@@ -9,8 +9,7 @@ import {
   titresEtapesCommunesMemeCommune,
   titresEtapesAdministrationInexistante,
   titresEtapesAdministrationExistante,
-  titresArm,
-  titresAxm
+  titresArm
 } from './__mocks__/titres-etapes-administrations-update-etapes'
 
 // `jest.mock()` est hoisté avant l'import, le court-circuitant
@@ -34,7 +33,7 @@ describe("administrations d'une étape", () => {
       'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
     ])
 
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.log).toHaveBeenCalledTimes(1)
   })
 
   test("n'ajoute pas deux fois une administration en doublon ", async () => {

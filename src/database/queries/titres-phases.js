@@ -15,6 +15,6 @@ const titrePhasesUpdate = async titrePhases =>
 const titrePhasesDelete = async titrePhasesIds =>
   TitresPhases.query()
     .delete()
-    .whereIn('demarcheId', titrePhasesIds)
+    .whereIn('titreDemarcheId', titrePhasesIds)
 
 export { titresPhasesGet, titrePhasesUpdate, titrePhasesDelete }

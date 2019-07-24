@@ -49,7 +49,7 @@ const titresDatesUpdate = async titres => {
     await queue.addAll(titresDatesUpdateRequests)
   }
 
-  return `Mise à jour: propriétés (dates) de ${titresDatesUpdateRequests.length} titre(s).`
+  return `Mise à jour: ${titresDatesUpdateRequests.length} titre(s) (propriétés-dates).`
 }
 
 export default titresDatesUpdate

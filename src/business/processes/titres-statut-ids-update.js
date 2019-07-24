@@ -26,6 +26,6 @@ const titresStatutIdsUpdate = async titres => {
     await queue.addAll(titresUpdatedRequests)
   }
 
-  return `Mise à jour: statuts de ${titresUpdatedRequests.length} titre(s).`
+  return `Mise à jour: ${titresUpdatedRequests.length} titre(s) (statuts).`
 }
 export default titresStatutIdsUpdate

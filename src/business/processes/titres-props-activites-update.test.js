@@ -13,13 +13,13 @@ jest.mock('../utils/titre-prop-activites-count', () => ({
 
 console.log = jest.fn()
 
-describe("propriétés (activités) d'un titre", () => {
+describe('titre propriétés-activités', () => {
   test('met à jour 3 propriétés activités', async () => {
     titrePropActivitesCount.mockImplementation(() => 3)
     const titresPropsActivitesUpdatelog = await titresPropsActivitesUpdate([{}])
 
     expect(titresPropsActivitesUpdatelog).toEqual(
-      'Mise à jour: propriétés (activités) de 1 titre(s).'
+      'Mise à jour: 1 titre(s) (propriétés-activités).'
     )
     expect(console.log).toHaveBeenCalled()
   })
@@ -35,7 +35,7 @@ describe("propriétés (activités) d'un titre", () => {
     ])
 
     expect(titresPropsActivitesUpdatelog).toEqual(
-      'Mise à jour: propriétés (activités) de 0 titre(s).'
+      'Mise à jour: 0 titre(s) (propriétés-activités).'
     )
   })
 })
