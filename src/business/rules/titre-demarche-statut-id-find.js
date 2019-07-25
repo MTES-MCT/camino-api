@@ -53,7 +53,8 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       'res',
       'ces',
       'dep',
-      'vus'
+      'vus',
+      'vct'
     ].includes(titreDemarche.typeId)
   ) {
     //  - le type de l’étape est publication au JO (dpu) ou décision implicite (dim)
