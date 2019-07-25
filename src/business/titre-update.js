@@ -9,7 +9,7 @@ const titreUpdate = async titreId => {
     // id du titre
     // en fonction du type, du nom et de l'année d'octroi
     const titre = await titreGet(titreId, { format: false })
-    const titreNew = await titreIdsUpdate([titre])
+    const titreNew = await titreIdsUpdate(titre)
 
     console.log('Titre mis à jour')
 
