@@ -29,8 +29,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 2 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 2 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 administration(s) supprimée(s) dans des étapes'
     ])
 
     expect(console.log).toHaveBeenCalledTimes(1)
@@ -43,8 +43,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 1 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 1 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 administration(s) supprimée(s) dans des étapes'
     ])
 
     expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
@@ -59,8 +59,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 0 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 administration(s) supprimée(s) dans des étapes'
     ])
 
     expect(titreEtapes.titresEtapesAdministrationsCreate).not.toHaveBeenCalled()
@@ -75,8 +75,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 0 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 administration(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -88,8 +88,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 0 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 1 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 1 administration(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).toHaveBeenCalled()
   })
@@ -101,8 +101,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 1 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 1 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 administration(s) supprimée(s) dans des étapes'
     ])
 
     expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
@@ -117,8 +117,8 @@ describe("administrations d'une étape", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 0 administration(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 administration(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 administration(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 administration(s) supprimée(s) dans des étapes'
     ])
 
     expect(titreEtapes.titresEtapesAdministrationsCreate).not.toHaveBeenCalled()

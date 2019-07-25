@@ -19,7 +19,7 @@ describe("propriétés (étape) d'un titre", () => {
     const titresPropsEtapeIdUpdatelog = await titresPropsEtapeIdUpdate([{}])
 
     expect(titresPropsEtapeIdUpdatelog).toEqual(
-      'Mise à jour: 1 titre(s) (propriétés-étapes).'
+      'mise à jour: 1 titre(s) (propriétés-étapes)'
     )
     expect(console.log).toHaveBeenCalled()
   })
@@ -29,7 +29,7 @@ describe("propriétés (étape) d'un titre", () => {
     const titresPropsEtapeIdUpdatelog = await titresPropsEtapeIdUpdate([{}])
 
     expect(titresPropsEtapeIdUpdatelog).toEqual(
-      'Mise à jour: 0 titre(s) (propriétés-étapes).'
+      'mise à jour: 0 titre(s) (propriétés-étapes)'
     )
   })
 })

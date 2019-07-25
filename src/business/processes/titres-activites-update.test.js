@@ -30,7 +30,7 @@ describe("activités d'un titre", () => {
 
     const log = await titresActivitesTypesUpdate(titresSansActivite, [], [])
 
-    expect(log).toEqual('Mise à jour: 1 activités.')
+    expect(log).toEqual('mise à jour: 1 activités')
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
     expect(titreActivitesQueries.titreActivitesUpsert).toHaveBeenCalled()
@@ -44,7 +44,7 @@ describe("activités d'un titre", () => {
 
     const log = await titresActivitesTypesUpdate(titresToutesActivites, [], [])
 
-    expect(log).toEqual('Mise à jour: 0 activités.')
+    expect(log).toEqual('mise à jour: 0 activités')
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
     expect(titreActivitesBuild.default).toHaveBeenCalled()
@@ -57,7 +57,7 @@ describe("activités d'un titre", () => {
 
     const log = await titresActivitesTypesUpdate(titresSansActivite, [], [])
 
-    expect(log).toEqual('Mise à jour: 0 activités.')
+    expect(log).toEqual('mise à jour: 0 activités')
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild.default).not.toHaveBeenCalled()

@@ -12,7 +12,7 @@ const titreEtapesOrdreUpdate = titreEtapes =>
               await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
               console.log(
-                `Mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
+                `mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
                   ordre: index + 1
                 })}`
               )
@@ -36,7 +36,7 @@ const titresEtapesOrdreUpdate = async titresDemarches => {
     await queue.addAll(titresEtapesUpdated)
   }
 
-  return `Mise à jour: ${titresEtapesUpdated.length} étape(s) (ordre).`
+  return `mise à jour: ${titresEtapesUpdated.length} étape(s) (ordre)`
 }
 
 export default titresEtapesOrdreUpdate

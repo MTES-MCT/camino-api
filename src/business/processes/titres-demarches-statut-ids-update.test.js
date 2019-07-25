@@ -17,7 +17,7 @@ describe("statut des démarches d'un titre", () => {
   test("met à jour le statut d'une démarche", async () => {
     const log = await titresDemarcheStatutIdUpdate(titresDemarchesStatutModifie)
 
-    expect(log).toEqual('Mise à jour: 1 démarche(s) (statut).')
+    expect(log).toEqual('mise à jour: 1 démarche(s) (statut)')
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -26,7 +26,7 @@ describe("statut des démarches d'un titre", () => {
       titresDemarchesStatutIdentique
     )
 
-    expect(log).toEqual('Mise à jour: 0 démarche(s) (statut).')
+    expect(log).toEqual('mise à jour: 0 démarche(s) (statut)')
     expect(console.log).not.toHaveBeenCalled()
   })
 })

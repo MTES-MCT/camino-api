@@ -50,8 +50,8 @@ describe('entreprises', () => {
     )
 
     expect(log).toEqual([
-      "Mise à jour: 1 établissement(s) d'entreprise(s).",
-      "Mise à jour: 1 adresse(s) d'entreprise(s)."
+      "mise à jour: 1 établissement(s) d'entreprise(s)",
+      "mise à jour: 1 adresse(s) d'entreprise(s)"
     ])
     expect(console.log).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
@@ -71,8 +71,8 @@ describe('entreprises', () => {
     )
 
     expect(log).toEqual([
-      "Mise à jour: 1 établissement(s) d'entreprise(s).",
-      "Mise à jour: 1 adresse(s) d'entreprise(s)."
+      "mise à jour: 1 établissement(s) d'entreprise(s)",
+      "mise à jour: 1 adresse(s) d'entreprise(s)"
     ])
     expect(console.log).toHaveBeenCalled()
   })
@@ -91,8 +91,8 @@ describe('entreprises', () => {
     )
 
     expect(log).toEqual([
-      "Mise à jour: 0 établissement(s) d'entreprise(s).",
-      "Mise à jour: 0 adresse(s) d'entreprise(s)."
+      "mise à jour: 0 établissement(s) d'entreprise(s)",
+      "mise à jour: 0 adresse(s) d'entreprise(s)"
     ])
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -111,8 +111,8 @@ describe('entreprises', () => {
     )
 
     expect(log).toEqual([
-      "Mise à jour: 0 établissement(s) d'entreprise(s).",
-      "Mise à jour: 0 adresse(s) d'entreprise(s)."
+      "mise à jour: 0 établissement(s) d'entreprise(s)",
+      "mise à jour: 0 adresse(s) d'entreprise(s)"
     ])
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -126,9 +126,9 @@ describe('entreprises', () => {
     )
 
     expect(log).toEqual([
-      "Erreur: impossible de se connecter à l'API INSEE SIREN V3",
-      "Mise à jour: 0 établissement(s) d'entreprise(s).",
-      "Mise à jour: 0 adresse(s) d'entreprise(s)."
+      "erreur: impossible de se connecter à l'API INSEE SIREN V3",
+      "mise à jour: 0 établissement(s) d'entreprise(s)",
+      "mise à jour: 0 adresse(s) d'entreprise(s)"
     ])
     expect(console.log).not.toHaveBeenCalled()
   })

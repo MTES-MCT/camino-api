@@ -206,7 +206,7 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   if (titresEtapesAdministrationsCreated.length) {
     await titresEtapesAdministrationsCreate(titresEtapesAdministrationsCreated)
     console.log(
-      `Mise à jour: étape administrations ${titresEtapesAdministrationsCreated
+      `mise à jour: étape administrations ${titresEtapesAdministrationsCreated
         .map(tea => JSON.stringify(tea))
         .join(', ')}`
     )
@@ -227,8 +227,8 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   }
 
   return [
-    `Mise à jour: ${titresEtapesAdministrationsCreated.length} administration(s) ajoutée(s) dans des étapes.`,
-    `Mise à jour: ${titresEtapesAdministrationsDeleted.length} administration(s) supprimée(s) dans des étapes.`
+    `mise à jour: ${titresEtapesAdministrationsCreated.length} administration(s) ajoutée(s) dans des étapes`,
+    `mise à jour: ${titresEtapesAdministrationsDeleted.length} administration(s) supprimée(s) dans des étapes`
   ]
 }
 

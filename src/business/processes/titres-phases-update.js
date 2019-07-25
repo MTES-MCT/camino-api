@@ -88,7 +88,7 @@ const titresPhasesUpdate = async titres => {
     if (titrePhasesUpdated.length) {
       titrePhasesUpdateRequests.push(async () => {
         await titrePhasesUpdate(titrePhasesUpdated)
-        console.log(`Mise à jour: phases ${JSON.stringify(titrePhasesUpdated)}`)
+        console.log(`mise à jour: phases ${JSON.stringify(titrePhasesUpdated)}`)
       })
     }
 
@@ -117,7 +117,7 @@ const titresPhasesUpdate = async titres => {
     await queue.addAll(titresPhasesRequests)
   }
 
-  return `Mise à jour: ${titresPhasesRequests.length} titre(s) (phases).`
+  return `mise à jour: ${titresPhasesRequests.length} titre(s) (phases)`
 }
 
 export default titresPhasesUpdate

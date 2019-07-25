@@ -37,7 +37,7 @@ const titresDatesUpdate = async titres => {
           async () => {
             await titreUpdate(titre.id, props)
             console.log(
-              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+              `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
             )
           }
         ]
@@ -49,7 +49,7 @@ const titresDatesUpdate = async titres => {
     await queue.addAll(titresDatesUpdateRequests)
   }
 
-  return `Mise à jour: ${titresDatesUpdateRequests.length} titre(s) (propriétés-dates).`
+  return `mise à jour: ${titresDatesUpdateRequests.length} titre(s) (propriétés-dates)`
 }
 
 export default titresDatesUpdate

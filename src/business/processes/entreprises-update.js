@@ -59,8 +59,8 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
 
   if (!sirens.length) {
     return [
-      "Mise à jour: 0 établissement(s) d'entreprise(s).",
-      "Mise à jour: 0 adresse(s) d'entreprise(s)."
+      "mise à jour: 0 établissement(s) d'entreprise(s)",
+      "mise à jour: 0 adresse(s) d'entreprise(s)"
     ]
   }
 
@@ -73,9 +73,9 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
 
   if (!token) {
     return [
-      "Erreur: impossible de se connecter à l'API INSEE SIREN V3",
-      "Mise à jour: 0 établissement(s) d'entreprise(s).",
-      "Mise à jour: 0 adresse(s) d'entreprise(s)."
+      "erreur: impossible de se connecter à l'API INSEE SIREN V3",
+      "mise à jour: 0 établissement(s) d'entreprise(s)",
+      "mise à jour: 0 adresse(s) d'entreprise(s)"
     ]
   }
 
@@ -95,7 +95,7 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   if (etablissementsUpdated.length) {
     await entreprisesEtablissementsUpsert(etablissementsUpdated)
     console.log(
-      `Mise à jour: entreprisesEtablissements ${etablissementsUpdated
+      `mise à jour: entreprisesEtablissements ${etablissementsUpdated
         .map(e => e.id)
         .join(', ')}`
     )
@@ -104,13 +104,13 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   if (entreprisesUpdated.length) {
     await entreprisesUpsert(entreprisesUpdated)
     console.log(
-      `Mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
+      `mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
     )
   }
 
   return [
-    `Mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s).`,
-    `Mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s).`
+    `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`,
+    `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
   ]
 }
 

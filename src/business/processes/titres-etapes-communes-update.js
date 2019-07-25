@@ -161,10 +161,10 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   // si la connexion à l'API échoue, retourne
   if (!geoCommunesApiTest) {
     return [
-      "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      "erreur: impossible de se connecter à l'API Géo communes",
+      'mise à jour: 0 commune(s)',
+      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ]
   }
 
@@ -175,7 +175,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   if (communesUpdated.length) {
     await communesUpsert(communesUpdated)
     console.log(
-      `Mise à jour: communes, ${communesUpdated
+      `mise à jour: communes, ${communesUpdated
         .map(commune => commune.id)
         .join(', ')}`
     )
@@ -192,7 +192,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   if (titresEtapesCommunesCreated.length) {
     await titresEtapesCommunesCreate(titresEtapesCommunesCreated)
     console.log(
-      `Mise à jour: étape communes ${titresEtapesCommunesCreated
+      `mise à jour: étape communes ${titresEtapesCommunesCreated
         .map(tec => JSON.stringify(tec))
         .join(', ')}`
     )
@@ -211,9 +211,9 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   }
 
   return [
-    `Mise à jour: ${communesUpdated.length} commune(s).`,
-    `Mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes.`,
-    `Mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes.`
+    `mise à jour: ${communesUpdated.length} commune(s)`,
+    `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes`,
+    `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
   ]
 }
 

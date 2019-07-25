@@ -19,7 +19,7 @@ describe('titre propriétés-activités', () => {
     const titresPropsActivitesUpdatelog = await titresPropsActivitesUpdate([{}])
 
     expect(titresPropsActivitesUpdatelog).toEqual(
-      'Mise à jour: 1 titre(s) (propriétés-activités).'
+      'mise à jour: 1 titre(s) (propriétés-activités)'
     )
     expect(console.log).toHaveBeenCalled()
   })
@@ -35,7 +35,7 @@ describe('titre propriétés-activités', () => {
     ])
 
     expect(titresPropsActivitesUpdatelog).toEqual(
-      'Mise à jour: 0 titre(s) (propriétés-activités).'
+      'mise à jour: 0 titre(s) (propriétés-activités)'
     )
   })
 })

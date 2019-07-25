@@ -9,7 +9,7 @@ const titreIdUpdate = async (titreOld, titreNew) => {
   // vérifier dans tous les titres si cet id existe déjà
   // si l'id existe déja, on modifie le nom en ajoutant un chiffre
   await titreIdUpdateQuery(titreOld.id, titreNew)
-  console.log(`Mise à jour: titre ids: ${titreNew.id}`)
+  console.log(`mise à jour: titre ids: ${titreNew.id}`)
 
   // met à jour toutes les activités dans la spreadsheet
   if (
@@ -67,7 +67,7 @@ const titresIdsUpdate = async titresOld => {
     titresUpdated = titresUpdated.filter(e => e)
   }
 
-  return `Mise à jour: ${titresUpdated.length} titre(s) (ids).`
+  return `mise à jour: ${titresUpdated.length} titre(s) (ids)`
 }
 
 export { titresIdsUpdate, titreIdsUpdate }
