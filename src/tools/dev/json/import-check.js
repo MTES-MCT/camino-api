@@ -200,7 +200,7 @@ const findMissing = relations =>
           `${fromTable}.${fromField} (${f[fromField]}) manquant dans ${toTable}`
         )
         console.error(f)
-        // throw new Error('Erreur : donnée manquante')
+        // throw new Error('erreur : donnée manquante')
       }
     })
   })

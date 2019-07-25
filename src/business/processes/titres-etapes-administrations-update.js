@@ -217,7 +217,7 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
       ({ titreEtapeId, administrationId }) => async () => {
         await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
         console.log(
-          `Suppression: étape ${titreEtapeId}, administration ${administrationId}`
+          `suppression: étape ${titreEtapeId}, administration ${administrationId}`
         )
       }
     )

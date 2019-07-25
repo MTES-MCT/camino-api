@@ -202,7 +202,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
     const titresEtapesCommunesDeleteQueries = titresEtapesCommunesDeleted.map(
       ({ titreEtapeId, communeId }) => async () => {
         await titreEtapeCommuneDelete(titreEtapeId, communeId)
-        console.log(`Suppression: étape ${titreEtapeId}, commune ${communeId}`)
+        console.log(`suppression: étape ${titreEtapeId}, commune ${communeId}`)
       }
     )
 

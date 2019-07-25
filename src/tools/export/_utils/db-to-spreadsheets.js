@@ -13,11 +13,11 @@ import {
 
 const dbToSpreadsheets = async ({ name, id, get, tables }) => {
   if (!id) {
-    console.log(`Spreadsheet: ${name}, id de la spreadsheet manquant`)
+    console.log(`spreadsheet: ${name}, id de la spreadsheet manquant`)
     return
   }
 
-  console.log(`Spreadsheet: ${name}`)
+  console.log(`spreadsheet: ${name}`)
   const elements = await get
 
   // obtient les infos sur la spreadsheet
@@ -25,7 +25,7 @@ const dbToSpreadsheets = async ({ name, id, get, tables }) => {
   const requests = requestsBuild(infos.sheets, tables, elements)
 
   await spreadsheetBatchUpdate(credentials, id, requests)
-  console.log(`Export: ${elements.length} ${name}`)
+  console.log(`export: ${elements.length} ${name}`)
 }
 
 const requestsBuild = (sheets, tables, elements) => {

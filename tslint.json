@@ -1,0 +1,21 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:latest",
+    "tslint-config-standard",
+    "tslint-config-prettier"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-console": false,
+    "no-submodule-imports": false,
+    "max-classes-per-file": false,
+    "no-floating-promises": false,
+    "await-promise": false,
+    "deprecation": false,
+    "no-unnecessary-qualifier": false,
+    "no-unnecessary-type-assertion": false,
+    "strict-type-predicates": false
+  },
+  "rulesDirectory": []
+}

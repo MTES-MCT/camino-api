@@ -18,7 +18,7 @@ const organismeUrlGet = (departementId, nom) => {
 }
 
 const organismeFetch = async (departementId, nom) => {
-  console.info(`Appel d'API : ${departementId}, ${nom}`)
+  console.info(`API administration: ${departementId}, ${nom}`)
 
   const organismeUrl = organismeUrlGet(departementId, nom)
 

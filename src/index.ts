@@ -9,21 +9,24 @@
  */
 
 import 'dotenv/config'
-import './database/index'
+
 import chalk from 'chalk'
-import * as express from 'express'
-import * as cors from 'cors'
 import * as compression from 'compression'
+import * as cors from 'cors'
+import * as express from 'express'
 import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
-import * as Sentry from '@sentry/node'
-import * as path from 'path'
 import * as http from 'http'
+import * as path from 'path'
 
-import { port, url } from './config/index'
-import schema from './api/schemas'
+import './database/index'
+
 import rootValue from './api/resolvers'
 import { documentNameGet } from './api/resolvers/documents'
+import schema from './api/schemas'
+import { port, url } from './config/index'
+
+import * as Sentry from '@sentry/node'
 
 const app = express()
 
@@ -46,7 +49,7 @@ app.use(compression())
 
 // bug de typage de express-jwt
 // https://github.com/auth0/express-jwt/issues/215
-interface AuthRequest extends express.Request {
+interface IAuthRequest extends express.Request {
   user?: {
     [id: string]: string
   }
@@ -65,19 +68,19 @@ app.use(
 //   throw new Error('Broke!')
 // })
 
-app.get('/documents/:titreDocumentId', async (req: AuthRequest, res, next) => {
+app.get('/documents/:titreDocumentId', async (req: IAuthRequest, res, next) => {
   try {
     const userId = req.user && req.user.id
     const { titreDocumentId } = req.params
     const documentName = await documentNameGet(userId, titreDocumentId)
 
     const options = {
-      root: path.join(__dirname, '../files'),
       dotfiles: 'deny',
       headers: {
-        'x-timestamp': Date.now(),
-        'x-sent': true
-      }
+        'x-sent': true,
+        'x-timestamp': Date.now()
+      },
+      root: path.join(__dirname, '../files')
     }
 
     return res.sendFile(documentName, options, err => {
@@ -90,7 +93,7 @@ app.get('/documents/:titreDocumentId', async (req: AuthRequest, res, next) => {
   }
 })
 
-interface AuthRequestHttp extends http.IncomingMessage {
+interface IAuthRequestHttp extends http.IncomingMessage {
   user?: {
     [id: string]: string
   }
@@ -98,20 +101,20 @@ interface AuthRequestHttp extends http.IncomingMessage {
 
 app.use(
   '/',
-  expressGraphql((req: AuthRequestHttp, res, graphQLParams) => ({
-    schema,
-    rootValue,
-    graphiql: true,
-    pretty: true,
-    customFormatErrorFn: err => ({
-      message: err.message,
-      locations: err.locations,
-      stack: err.stack ? err.stack.split('\n') : [],
-      path: err.path
-    }),
+  expressGraphql((req: IAuthRequestHttp, res, graphQLParams) => ({
     context: {
       user: req.user
-    }
+    },
+    customFormatErrorFn: err => ({
+      locations: err.locations,
+      message: err.message,
+      path: err.path,
+      stack: err.stack ? err.stack.split('\n') : []
+    }),
+    graphiql: true,
+    pretty: true,
+    rootValue,
+    schema
   }))
 )
 

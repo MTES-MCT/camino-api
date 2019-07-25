@@ -1,11 +1,11 @@
 import { knexSnakeCaseMappers } from 'objection'
 
 const connection = {
-  host: process.env.PGHOST,
-  port: Number(process.env.PGPORT),
   database: process.env.PGDATABASE,
-  user: process.env.PGUSER,
-  password: process.env.PGPASSWORD
+  host: process.env.PGHOST,
+  password: process.env.PGPASSWORD,
+  port: Number(process.env.PGPORT),
+  user: process.env.PGUSER
 }
 
 const knexConfig = {
