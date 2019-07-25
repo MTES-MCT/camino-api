@@ -61,9 +61,10 @@ const titresIdsUpdate = async titresOld => {
   let titresUpdated = []
 
   if (titresUpdatedRequests.length) {
-    const queue = new PQueue({ concurrency: 100 })
+    // attention : les transactions ne peuvent pas être exécutées en parallèle
+    const queue = new PQueue({ concurrency: 1 })
     titresUpdated = await queue.addAll(titresUpdatedRequests)
-    // filtre les titres ayant été réellement mis à jour
+    // filtre les titres ayant étés réellement mis à jour
     titresUpdated = titresUpdated.filter(e => e)
   }
 

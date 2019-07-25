@@ -104,19 +104,7 @@ const run = async () => {
 
     // 12.
     console.log('\nids de titres, démarches, étapes et sous-éléments…')
-    titres = await titresGet(
-      {
-        domaineIds: null,
-        entreprises: null,
-        noms: null,
-        references: null,
-        statutIds: null,
-        substances: null,
-        territoires: null,
-        typeIds: null
-      },
-      { format: false }
-    )
+    titres = await titresGet({}, { format: false })
     const titresIds = await titresIdsUpdate(titres)
 
     console.log('\ntâches quotidiennes exécutées:')
