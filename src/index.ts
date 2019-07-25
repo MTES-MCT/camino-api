@@ -18,6 +18,7 @@ import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
 import * as Sentry from '@sentry/node'
 import * as path from 'path'
+import * as http from 'http'
 
 import { port, url } from './config/index'
 import schema from './api/schemas'
@@ -89,9 +90,15 @@ app.get('/documents/:titreDocumentId', async (req: AuthRequest, res, next) => {
   }
 })
 
+interface AuthRequestHttp extends http.IncomingMessage {
+  user?: {
+    [id: string]: string
+  }
+}
+
 app.use(
   '/',
-  expressGraphql((req: AuthRequest, res, graphQLParams) => ({
+  expressGraphql((req: AuthRequestHttp, res, graphQLParams) => ({
     schema,
     rootValue,
     graphiql: true,
