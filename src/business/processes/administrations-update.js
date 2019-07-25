@@ -12,7 +12,7 @@ const administrationsUpdatedFind = (administrationsOld, administrationsNew) =>
     const updated =
       !administrationOld || objectsDiffer(administrationNew, administrationOld)
 
-    return updated ? [...acc, administrationsNew] : acc
+    return updated ? [...acc, administrationNew] : acc
   }, [])
 
 const administrationsGet = async departements => {
