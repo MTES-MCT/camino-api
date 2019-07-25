@@ -32,7 +32,7 @@ async function main() {
       effectifs: 6,
       trimestre: 1,
       complement:
-        "RAS. La tenneur moyenne récupérée en couche est de l'ordre de 0,67 g/m3. Rapport papier daté du 22/08/2018 enregistré par la DEAL le 27/08/2018.",
+        "RAS. La tenneur moyenne récupérée en couche est de l'ordre de 0,67 g/m3. Rapport papier daté du 22/08/2018 enregistré par la DEAL le 27/08/2018",
       environnement: 0,
       carburantDetaxe: 0,
       carburantConventionnel: 31863

@@ -23,7 +23,7 @@ describe("dates d'un titre", () => {
     const titresDatesUpdateLog = await titresDatesUpdate([{ id: 'titre-id' }])
 
     expect(titresDatesUpdateLog).toEqual(
-      'Mise à jour: 1 titre(s) (propriétés-dates).'
+      'mise à jour: 1 titre(s) (propriétés-dates)'
     )
     expect(console.log).toHaveBeenCalledTimes(1)
   })
@@ -43,7 +43,7 @@ describe("dates d'un titre", () => {
     ])
 
     expect(titresDatesUpdateLog).toEqual(
-      'Mise à jour: 0 titre(s) (propriétés-dates).'
+      'mise à jour: 0 titre(s) (propriétés-dates)'
     )
     expect(console.log).toHaveBeenCalledTimes(0)
   })

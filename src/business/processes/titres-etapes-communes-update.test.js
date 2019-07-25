@@ -39,9 +39,9 @@ describe("communes et communes d'étapes", () => {
     const log = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
 
     expect(log).toEqual([
-      'Mise à jour: 2 commune(s).',
-      'Mise à jour: 2 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      'mise à jour: 2 commune(s)',
+      'mise à jour: 2 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).toHaveBeenCalledTimes(2)
   })
@@ -54,9 +54,9 @@ describe("communes et communes d'étapes", () => {
     ])
 
     expect(log).toEqual([
-      'Mise à jour: 1 commune(s).',
-      'Mise à jour: 1 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      'mise à jour: 1 commune(s)',
+      'mise à jour: 1 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).toHaveBeenCalledTimes(2)
   })
@@ -67,9 +67,9 @@ describe("communes et communes d'étapes", () => {
     const log = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
 
     expect(log).toEqual([
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 commune(s)',
+      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -79,9 +79,9 @@ describe("communes et communes d'étapes", () => {
     apiCommunes.default.mockResolvedValue([])
 
     expect(log).toEqual([
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 commune(s)',
+      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -95,9 +95,9 @@ describe("communes et communes d'étapes", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 commune(s)',
+      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -111,9 +111,9 @@ describe("communes et communes d'étapes", () => {
     )
 
     expect(log).toEqual([
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 1 commune(s) supprimée(s) dans des étapes.'
+      'mise à jour: 0 commune(s)',
+      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 1 commune(s) supprimée(s) dans des étapes'
     ])
     expect(console.log).toHaveBeenCalled()
   })
@@ -124,10 +124,10 @@ describe("communes et communes d'étapes", () => {
     const log = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
 
     expect(log).toEqual([
-      "Erreur: impossible de se connecter à l'API Géo communes",
-      'Mise à jour: 0 commune(s).',
-      'Mise à jour: 0 commune(s) ajoutée(s) dans des étapes.',
-      'Mise à jour: 0 commune(s) supprimée(s) dans des étapes.'
+      "erreur: impossible de se connecter à l'API Géo communes",
+      'mise à jour: 0 commune(s)',
+      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
+      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
     ])
     expect(apiCommunes.default).toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()

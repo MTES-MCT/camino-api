@@ -17,7 +17,7 @@ console.log = jest.fn()
 describe('ordre des étapes', () => {
   test("met à jour l'ordre de deux étapes", async () => {
     expect(await titresEtapesOrdreUpdate(titresDemarchesEtapes, [])).toEqual(
-      'Mise à jour: 1 étape(s) (ordre).'
+      'mise à jour: 1 étape(s) (ordre)'
     )
     expect(titreEtapeUpdate).toHaveBeenCalled()
   })
@@ -25,7 +25,7 @@ describe('ordre des étapes', () => {
   test("ne met aucun ordre d'étape à jour", async () => {
     expect(
       await titresEtapesOrdreUpdate(titresDemarchesEtapesVides, [])
-    ).toEqual('Mise à jour: 0 étape(s) (ordre).')
+    ).toEqual('mise à jour: 0 étape(s) (ordre)')
     expect(titreEtapeUpdate).not.toHaveBeenCalled()
   })
 })

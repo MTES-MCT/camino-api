@@ -11,7 +11,7 @@ const titreDemarchesOrdreUpdate = titreDemarches =>
             async () => {
               await titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 })
               console.log(
-                `Mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
+                `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
                   ordre: index + 1
                 })}`
               )
@@ -37,7 +37,7 @@ const titresDemarchesOrdreUpdate = async titres => {
     await queue.addAll(titresDemarchesUpdated)
   }
 
-  return `Mise à jour: ${titresDemarchesUpdated.length} démarche(s) (ordre).`
+  return `mise à jour: ${titresDemarchesUpdated.length} démarche(s) (ordre)`
 }
 
 export default titresDemarchesOrdreUpdate

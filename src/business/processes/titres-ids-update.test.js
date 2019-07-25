@@ -90,7 +90,7 @@ describe('id de plusieurs titres', () => {
 
     const log = await titresIdsUpdate([{ id: 'id-old' }])
 
-    expect(log).toEqual('Mise à jour: 1 titre(s) (ids).')
+    expect(log).toEqual('mise à jour: 1 titre(s) (ids)')
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -109,7 +109,7 @@ describe('id de plusieurs titres', () => {
 
     const log = await titresIdsUpdate([{ id: 'id-old' }])
 
-    expect(log).toEqual('Mise à jour: 0 titre(s) (ids).')
+    expect(log).toEqual('mise à jour: 0 titre(s) (ids)')
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -128,7 +128,7 @@ describe('id de plusieurs titres', () => {
 
     const log = await titresIdsUpdate([{ id }])
 
-    expect(log).toEqual('Mise à jour: 0 titre(s) (ids).')
+    expect(log).toEqual('mise à jour: 0 titre(s) (ids)')
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()

@@ -38,13 +38,13 @@ const administrationsUpdate = async (administrationsOld, departements) => {
   if (administrationsUpdated.length) {
     await administrationsUpsert(administrationsUpdated)
     console.log(
-      `Mise à jour: administrations ${administrationsUpdated
+      `mise à jour: administrations ${administrationsUpdated
         .map(a => a.id)
         .join(', ')}`
     )
   }
 
-  return `Mise à jour: ${administrationsUpdated.length} administration(s).`
+  return `mise à jour: ${administrationsUpdated.length} administration(s)`
 }
 
 export default administrationsUpdate

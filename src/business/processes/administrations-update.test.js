@@ -36,7 +36,7 @@ describe('administrations', () => {
       departements
     )
 
-    expect(log).toEqual('Mise à jour: 1 administration(s).')
+    expect(log).toEqual('mise à jour: 1 administration(s)')
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -50,7 +50,7 @@ describe('administrations', () => {
       departements
     )
 
-    expect(log).toEqual('Mise à jour: 1 administration(s).')
+    expect(log).toEqual('mise à jour: 1 administration(s)')
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -64,7 +64,7 @@ describe('administrations', () => {
       departements
     )
 
-    expect(log).toEqual('Mise à jour: 0 administration(s).')
+    expect(log).toEqual('mise à jour: 0 administration(s)')
     expect(console.log).not.toHaveBeenCalled()
   })
 })

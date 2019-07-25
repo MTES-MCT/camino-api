@@ -33,7 +33,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
           async () => {
             await titreUpdate(titre.id, props)
             console.log(
-              `Mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+              `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
             )
           }
         ]
@@ -45,7 +45,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
     await queue.addAll(titresUpdatedRequests)
   }
 
-  return `Mise à jour: ${titresUpdatedRequests.length} titre(s) (propriétés-étapes).`
+  return `mise à jour: ${titresUpdatedRequests.length} titre(s) (propriétés-étapes)`
 }
 
 export { titrePropsEtapes }
