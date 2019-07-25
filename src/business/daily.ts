@@ -20,8 +20,7 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 
-import {titresIdsUpdate} from './processes/titres-ids-update'
-import console = require('console');
+import { titresIdsUpdate } from './processes/titres-ids-update'
 
 const run = async () => {
   try {
