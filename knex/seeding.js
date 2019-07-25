@@ -2,14 +2,14 @@ const INSERT_SIZE = 5000
 
 module.exports = func => knex => {
   const del = table => {
-    console.info(`Suppression des données de la table "${table}"`)
+    console.info(`suppression des données de la table "${table}"`)
 
     return knex(table).del()
   }
 
   const insert = (table, data) => {
     console.log(
-      `Insertion des données de la table "${table}", (${data.length} élément(s))`
+      `insertion des données de la table "${table}", (${data.length} élément(s))`
     )
 
     const arrs = []

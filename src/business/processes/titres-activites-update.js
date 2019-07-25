@@ -39,7 +39,7 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
   if (titresActivitesNew.length) {
     await titreActivitesUpsert(titresActivitesNew)
     console.log(
-      `Création: activité ${titresActivitesNew.map(ta => ta.id).join(', ')}`
+      `création: activité ${titresActivitesNew.map(ta => ta.id).join(', ')}`
     )
   }
 

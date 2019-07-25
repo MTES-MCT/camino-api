@@ -1,20 +1,18 @@
 import 'dotenv/config'
 import '../database/index'
 
+import { administrationsGet } from '../database/queries/administrations'
 import { entreprisesGet } from '../database/queries/entreprises'
 import { entreprisesEtablissementsGet } from '../database/queries/entreprises-etablissements'
-import { administrationsGet } from '../database/queries/administrations'
 import { departementsGet } from '../database/queries/territoires'
 
-import entreprisesUpdate from './processes/entreprises-update'
 import administrationsUpdate from './processes/administrations-update'
+import entreprisesUpdate from './processes/entreprises-update'
 
 const run = async () => {
   try {
     // 1.
-    // mise à jour des informations historiques et postales
-    // des entreprises et établissements grâce à l'API INSEE
-
+    console.log('\nentreprises (API INSEE)…')
     let entreprisesUpdates
     if (process.env.INSEE_API_URL) {
       const entreprises = await entreprisesGet()
@@ -25,7 +23,7 @@ const run = async () => {
       )
     } else {
       entreprisesUpdates = [
-        "Connexion à l'API INSEE impossible: variable d'environnement manquante"
+        "API INSEE: connexion impossible car la variable d'environnement est absente"
       ]
     }
 
@@ -43,16 +41,14 @@ const run = async () => {
       )
     } else {
       administrationsUpdates =
-        "Connexion à l'API Administration impossible: variable d'environnement manquante"
+        "API Administration: connexion impossible car la variable d'environnement est absente"
     }
 
-    // logs
+    console.log('\ntâches mensuelles exécutées:')
     console.log(entreprisesUpdates.join('\n'))
     console.log(administrationsUpdates)
-
-    console.log('Tâches mensuelles exécutées')
   } catch (e) {
-    console.log('Erreur:', e)
+    console.log('erreur:', e)
   } finally {
     process.exit()
   }

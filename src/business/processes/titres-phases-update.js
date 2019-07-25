@@ -103,7 +103,7 @@ const titresPhasesUpdate = async titres => {
     if (titrePhasesDeletedIds.length) {
       titrePhasesUpdateRequests.push(async () => {
         await titrePhasesDelete(titrePhasesDeletedIds)
-        console.log(`Suppression: phases ${titrePhasesDeletedIds.join(', ')}}`)
+        console.log(`suppression: phases ${titrePhasesDeletedIds.join(', ')}}`)
       })
     }
 

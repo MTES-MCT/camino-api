@@ -26,7 +26,7 @@ const run = async () => {
 }
 
 const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
-  console.log(`Spreadheet: ${name}`)
+  console.log(`spreadheet: ${name}`)
 
   try {
     // construit la liste avec un fichier par table
