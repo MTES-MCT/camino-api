@@ -21,7 +21,14 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
     }
 
     const valueNew = titrePhase[key]
-    if (valueNew === valueOld) return res
+
+    if (
+      // compare `undefined` et `null` entre eux
+      (!valueNew && !valueOld) ||
+      // compare deux mêmes valeurs
+      valueNew === valueOld
+    )
+      return res
 
     const log = { [key]: [valueOld, valueNew] }
 
