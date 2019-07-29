@@ -33,7 +33,6 @@ const titresDatesUpdate = async titres => {
     return Object.keys(props).length
       ? [
           ...acc,
-          // async () => console.log(await titreUpdate(titre.id, props))
           async () => {
             await titreUpdate(titre.id, props)
             console.log(
