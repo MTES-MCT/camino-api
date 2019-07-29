@@ -86,7 +86,11 @@ const titrePhaseDateDebutFind = (
       (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
   )
 
-  return titreEtapeDpuFirst && dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
+  // si une date de dpu est trouvée, formate la date
+  // sinon, retourne null
+  return titreEtapeDpuFirst
+    ? dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
+    : null
 }
 
 // trouve la date de fin d'une phase
