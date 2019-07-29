@@ -129,7 +129,12 @@ const data = [
       : null
   } catch (e) {}
 
-  const data = require(`../../../../sources/${decamelize(file, '-')}.json`)
+  let data
+  try {
+    data = require(`../../../../sources/${decamelize(file, '-')}.json`)
+  } catch (e) {
+    data = []
+  }
 
   if (acc[name]) {
     acc[name].data = acc[name].data.concat(data)
@@ -146,7 +151,7 @@ const data = [
   }
 }, {})
 
-const splitJoin = (name, from, to, swapIfId = false) => {
+const splitJoin = (from, to, swapIfId = false) => {
   from = from.split('.')
   const fromTable = camelize(from[0])
   const fromField = decamelize(from[1])
@@ -157,16 +162,15 @@ const splitJoin = (name, from, to, swapIfId = false) => {
 
   return fromField === 'id'
     ? {
-        name,
         fromTable: toTable,
         fromField: toField,
         toTable: fromTable,
         toField: fromField
       }
-    : { name, fromTable, fromField, toTable, toField }
+    : { fromTable, fromField, toTable, toField }
 }
 
-const mappingRelationsGet = mappings => {
+const mappingRelationsGet = (file, mappings) => {
   return Object.keys(mappings).reduce((relations, name) => {
     const mapping = mappings[name]
 
@@ -175,29 +179,45 @@ const mappingRelationsGet = mappings => {
     if (join.through) {
       return [
         ...relations,
-        splitJoin(name, join.from, join.through.from),
-        splitJoin(name, join.through.to, join.to)
+        {
+          file,
+          name,
+          ...splitJoin(join.from, join.through.from)
+        },
+        { file, name, ...splitJoin(join.through.to, join.to) }
       ]
     }
 
-    return [...relations, splitJoin(name, join.from, join.to, true)]
+    return [
+      ...relations,
+      {
+        file,
+        name,
+        ...splitJoin(join.from, join.to, true)
+      }
+    ]
   }, [])
 }
 
 const findMissing = relations =>
   relations.forEach(relation => {
-    const { fromTable, fromField, toTable, toField } = relation
+    const { file, name, fromTable, fromField, toTable, toField } = relation
 
     if (!data[fromTable]) {
       return
     }
 
     data[fromTable].data.forEach(f => {
-      if (!f[fromField]) return
+      if (!(fromField in f)) return
 
-      if (!data[toTable].data.find(t => t[toField] === f[fromField])) {
+      const isCalculatedProp = data[toTable].data.every(t => !(toField in t))
+      if (isCalculatedProp) return
+
+      const found = data[toTable].data.find(t => t[toField] === f[fromField])
+
+      if (!found) {
         console.log(
-          `${fromTable}.${fromField} (${f[fromField]}) manquant dans ${toTable}`
+          `${file}.${name}: ${fromTable}.${fromField} (${f[fromField]}) manquant dans ${toTable}`
         )
         console.error(f)
         // throw new Error('erreur : donnée manquante')
@@ -209,7 +229,7 @@ const main = async () => {
   Object.keys(data).forEach(file => {
     const e = data[file]
     if (e.model && e.model.relationMappings) {
-      const relations = mappingRelationsGet(e.model.relationMappings)
+      const relations = mappingRelationsGet(file, e.model.relationMappings)
       findMissing(relations)
     }
   })
