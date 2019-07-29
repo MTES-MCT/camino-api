@@ -361,6 +361,8 @@ input InputEtapeCreation {
   administrationsIds: [ID!]
 
   incertitudes: InputIncertitudes
+
+  contenu: Json
 }
 
 input InputEtapeModification {
@@ -407,6 +409,8 @@ input InputEtapeModification {
   administrationsIds: [ID!]
 
   incertitudes: InputIncertitudes
+
+  contenu: Json
 }
 
 input InputEtapeId {

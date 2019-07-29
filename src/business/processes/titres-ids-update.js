@@ -46,7 +46,7 @@ const titresIdsUpdate = async titresOld => {
             ...(await titresUpdatedRequests),
             () =>
               titreIdUpdate(titreOld, titreNew).catch(e => {
-                console.error(titreOld.id)
+                console.error(`erreur: titreIdUpdate ${titreOld.id}`)
                 console.error(e)
 
                 return null

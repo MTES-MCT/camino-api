@@ -6,9 +6,9 @@ import {
 } from '../../tools/geojson'
 
 const titreEtapeFormatDefault = {
-  geojsonMultiPolygon: {},
-  geojsonPoints: {},
-  pays: {}
+  geojsonMultiPolygon: true,
+  geojsonPoints: true,
+  pays: true
 }
 
 const titreDemarcheFormatDefaut = {
@@ -16,20 +16,20 @@ const titreDemarcheFormatDefaut = {
 }
 
 const titreActiviteFormatDefault = {
-  periode: {},
-  sections: {}
+  periode: true,
+  sections: true
 }
 
 const titreFormatDefault = {
-  surface: {},
-  engagement: {},
-  volume: {},
-  geojsonMultiPolygon: {},
-  geojsonPoints: {},
-  pays: {},
+  surface: true,
+  engagement: true,
+  volume: true,
+  geojsonMultiPolygon: true,
+  geojsonPoints: true,
+  pays: true,
   demarches: titreDemarcheFormatDefaut,
   activites: titreActiviteFormatDefault,
-  administrations: {}
+  administrations: true
 }
 
 // optimisation possible pour un expert SQL
@@ -160,6 +160,36 @@ const titreDemarcheFormat = (td, format = titreDemarcheFormatDefaut) => {
   return td
 }
 
+// - ne conserve que les sections qui contiennent des élements
+const titreSectionsFormat = tea =>
+  tea.type.sections.reduce((sections, s) => {
+    const elements = s.elements.reduce(
+      (elements, e) =>
+        // ne conserve que les éléments dont la période,
+        // la date de début et la date de fin
+        // correspondent à l'activité
+        (!e.frequencePeriodesIds ||
+          e.frequencePeriodesIds.find(
+            id => tea.periode && tea.periode.id === id
+          )) &&
+        (!e.dateFin || e.dateFin >= dateFormat(tea.date, 'yyyy-mm-dd')) &&
+        (!e.dateDebut || e.dateDebut < dateFormat(tea.date, 'yyyy-mm-dd'))
+          ? [...elements, e]
+          : elements,
+      []
+    )
+
+    const section = {
+      id: s.id,
+      nom: s.nom,
+      type: s.type,
+      description: s.description,
+      elements
+    }
+
+    return section.elements.length ? [...sections, section] : sections
+  }, [])
+
 const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
   if (te.points && te.points.length) {
     if (format.geojsonMultiPolygon) {
@@ -175,54 +205,32 @@ const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
     te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 
+  // console.log(te.type)
+
+  if (te.type.sections) {
+    // - ne conserve que les sections qui contiennent des élements
+    te.type.sections = titreSectionsFormat(te)
+  }
+
   return te
 }
 
 const titreActiviteFormat = (ta, format = titreActiviteFormatDefault) => {
-  if (ta.frequencePeriodeId && ta.type && ta.type.frequence && format.periode) {
-    if (
-      ta.type.frequence[ta.type.frequence.periodesNom] &&
-      ta.type.frequence[ta.type.frequence.periodesNom].length
-    ) {
-      ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
-        p => p.id === ta.frequencePeriodeId
-      )
-    }
+  if (
+    format.periode &&
+    ta.frequencePeriodeId &&
+    ta.type.frequence &&
+    ta.type.frequence[ta.type.frequence.periodesNom] &&
+    ta.type.frequence[ta.type.frequence.periodesNom].length
+  ) {
+    ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
+      p => p.id === ta.frequencePeriodeId
+    )
   }
 
-  if (ta.type.sections && format.sections) {
+  if (ta.type.sections) {
     // - ne conserve que les sections qui contiennent des élements
-    ta.sections = ta.type.sections.reduce((sections, s) => {
-      // ne conserve que les éléments dont la période,
-      // la date de début et la date de fin
-      // correspondent à l'activité
-      const elements = s.elements.reduce(
-        (elements, e) =>
-          (!e.frequencePeriodesIds ||
-            e.frequencePeriodesIds.find(
-              id => ta.periode && ta.periode.id === id
-            )) &&
-          (!e.dateFin || e.dateFin >= dateFormat(ta.date, 'yyyy-mm-dd')) &&
-          (!e.dateDebut || e.dateDebut < dateFormat(ta.date, 'yyyy-mm-dd'))
-            ? [...elements, e]
-            : elements,
-        []
-      )
-
-      const section = {
-        id: s.id,
-        nom: s.nom,
-        type: s.type,
-        description: s.description,
-        elements
-      }
-
-      if (s.frequencePeriodesIds) {
-        section.frequencePeriodesIds = s.frequencePeriodesIds
-      }
-
-      return section.elements.length ? [...sections, section] : sections
-    }, [])
+    ta.type.sections = titreSectionsFormat(ta)
   }
 
   return ta

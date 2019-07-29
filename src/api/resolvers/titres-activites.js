@@ -1,4 +1,5 @@
 import * as dateFormat from 'dateformat'
+import titresActivitesEmailFormat from './titres-activites-email-format'
 
 import auth from './_auth'
 
@@ -71,7 +72,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
         : ''
     } ${activiteRes.annee}`
     const subject = `[Camino] ${emailTitle}`
-    const html = emailFormat(emailTitle, user, activiteRes)
+    const html = titresActivitesEmailFormat(emailTitle, user, activiteRes)
 
     await emailsSend(emails, subject, html)
   }
@@ -95,71 +96,6 @@ const emailsGet = async entrepriseIds => {
       ? [process.env.ACTIVITES_RAPPORTS_EMAIL]
       : []
   )
-}
-
-const emailFormat = (
-  emailTitle,
-  user,
-  { contenu, titreId, dateSaisie, sections }
-) => {
-  const header = `
-<h1>${emailTitle}</h1>
-
-<hr>
-
-<b>Lien</b> : ${process.env.UI_URL}/titres/${titreId} <br>
-<b>Rempli par</b> : ${user.prenom} ${user.nom} (${user.email}) <br>
-<b>Date de dépôt</b> : ${dateFormat(dateSaisie, 'dd-mm-yyyy')} <br>
-
-<hr>
-`
-
-  const elementHtml = (sectionId, element) =>
-    contenu[sectionId] &&
-    (contenu[sectionId][element.id] || contenu[sectionId][element.id] === 0)
-      ? `<li>${element.nom ? element.nom + ' : ' : ''}${
-          element.type === 'checkbox'
-            ? contenu[sectionId][element.id]
-                .map(id => element.valeurs[id])
-                .join(', ')
-            : contenu[sectionId][element.id]
-        }</li>`
-      : `<li>–</li>`
-
-  const elementsHtml = (sectionId, elements) =>
-    elements.reduce(
-      (html, element) => `
-${html}
-
-${elementHtml(sectionId, element)}
-`,
-      ''
-    )
-
-  const sectionHtml = ({ id, nom, elements }) => {
-    const sectionNomHtml = nom ? `<h2>${nom}</h2>` : ''
-
-    return `
-${sectionNomHtml}
-<ul>
-  ${elementsHtml(id, elements)}
-</ul>
-    `
-  }
-
-  const body = sections.reduce(
-    (res, section) => `
-${res}
-
-${sectionHtml(section)}
-`,
-    ''
-  )
-
-  return `
-${header}
-${body}
-`
 }
 
 export { titreActiviteModifier }

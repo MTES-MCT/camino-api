@@ -220,7 +220,7 @@ const findMissing = relations =>
           `${file}.${name}: ${fromTable}.${fromField} (${f[fromField]}) manquant dans ${toTable}`
         )
         console.error(f)
-        // throw new Error('erreur : donnée manquante')
+        // throw new Error('erreur: donnée manquante')
       }
     })
   })

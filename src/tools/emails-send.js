@@ -64,7 +64,7 @@ const emailsSend = async (emails, subject, html) => {
       mailer(emails, subject, html)
     }
   } catch (e) {
-    console.log("erreur lors de l'envoi de batch email")
+    console.log("erreur: envoi d'emails groupés")
   }
 }
 

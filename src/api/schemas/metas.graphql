@@ -121,13 +121,18 @@ type EtapeType {
   "Le nom en français"
   nom: String!
 
-  acceptationAuto: Boolean
-  ordre: Int!
-
   "Type de titre pour laquelle cette étape existe"
   typeId: TypeId
 
+  ordre: Int!
+
+  fondamentale: Boolean
+
+  acceptationAuto: Boolean
+
   etapesStatuts: [EtapeStatut]
+
+  sections: Json
 }
 
 type DemarcheType_etapeType {

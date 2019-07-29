@@ -74,7 +74,7 @@ const json = {
       nom: 'Statut des travaux',
       elements: [
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '1',
           nom: 'Janvier',
           frequencePeriodesIds: [1],
@@ -88,7 +88,7 @@ const json = {
         },
 
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '2',
           nom: 'Février',
           frequencePeriodesIds: [1],
@@ -102,7 +102,7 @@ const json = {
         },
 
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '3',
           nom: 'Mars',
           frequencePeriodesIds: [1],
@@ -115,7 +115,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '4',
           nom: 'Avril',
           frequencePeriodesIds: [2],
@@ -128,7 +128,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '5',
           nom: 'Mai',
           frequencePeriodesIds: [2],
@@ -141,7 +141,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '6',
           nom: 'Juin',
           frequencePeriodesIds: [2],
@@ -154,7 +154,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '7',
           nom: 'Juillet',
           frequencePeriodesIds: [3],
@@ -167,7 +167,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '8',
           nom: 'Août',
           frequencePeriodesIds: [3],
@@ -180,7 +180,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '9',
           nom: 'Septembre',
           frequencePeriodesIds: [3],
@@ -193,7 +193,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '10',
           nom: 'Octobre',
           frequencePeriodesIds: [4],
@@ -206,7 +206,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '11',
           nom: 'Novembre',
           frequencePeriodesIds: [4],
@@ -219,7 +219,7 @@ const json = {
           }
         },
         {
-          type: 'checkbox',
+          type: 'checkboxes',
           id: '12',
           nom: 'Décembre',
           frequencePeriodesIds: [4],

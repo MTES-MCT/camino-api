@@ -10,19 +10,12 @@ export default class EtapesTypes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 3 },
-      nom: {
-        type: ['string', 'null'],
-        maxLength: 128
-      },
-      acceptationAuto: {
-        type: ['boolean', 'null']
-      },
-      dateDebut: {
-        type: ['date', 'null']
-      },
-      dateFin: {
-        type: ['date', 'null']
-      }
+      nom: { type: ['string', 'null'], maxLength: 128 },
+      acceptationAuto: { type: ['boolean', 'null'] },
+      fondamentale: { type: ['boolean', 'null'] },
+      dateDebut: { type: ['date', 'null'] },
+      dateFin: { type: ['date', 'null'] },
+      sections: { type: 'json' }
     }
   }
 
