@@ -7,7 +7,9 @@ import {
   titreArmDemarcheOctDefAcc,
   titrePrxDemarcheOctRpuAcc,
   titreDemarcheProDpuAcc,
+  titreDemarcheOctScoFai,
   titreDemarcheOctDexAcc,
+  titreDemarcheOctDexDpuAcc,
   titreDemarcheOctDexRej,
   titreDemarcheOctMenIns,
   titreDemarcheOctMenInd,
@@ -58,8 +60,16 @@ describe("statut d'une démarche", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheProDpuAcc)).toEqual('acc')
   })
 
+  test("une démarche d'octroi dont l'étape de sco est faite a le statut “acceptée”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctScoFai)).toEqual('acc')
+  })
+
   test("une démarche d'octroi ne contenant une unique étape de dex acceptée a le statut “indéfinie”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctDexAcc)).toEqual('ind')
+  })
+
+  test("une démarche d'octroi contenant une étape de publication acceptée après une dex acceptée a le statut “acceptée”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctDexDpuAcc)).toEqual('acc')
   })
 
   test("une démarche d'octroi dont l'unique étape de dex est rejetée a le statut “rejetée”", () => {

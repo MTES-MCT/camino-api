@@ -2,37 +2,35 @@ import * as dateFormat from 'dateformat'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
+import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
 const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
-  // retourne la dernière étape de dpu si celle-ci possède une date de début
-  const etapeDpuHasDateDebut = titreEtapesDescSort(titreDemarche.etapes)
-    .filter(
-      titreEtape =>
-        titreEtape.typeId === 'dpu' ||
-        (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
-        (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
-    )
-    .find(te => te.dateDebut)
-
-  // si cette démarche a une étape dpu qui possède une date de début
-  if (etapeDpuHasDateDebut) {
-    // la date de début est égale à la date de début de la dpu
-    return dateFormat(etapeDpuHasDateDebut.dateDebut, 'yyyy-mm-dd')
-  }
-
-  // retourne la première étape de dpu
-  const titreEtapeDpuDate = titreEtapesAscSort(titreDemarche.etapes).find(
+  // retourne la dernière étape de publication si celle-ci possède une date de début
+  const etapePublicationHasDateDebut = titreEtapesDescSort(
+    titreDemarche.etapes
+  ).find(
     titreEtape =>
-      titreEtape.typeId === 'dpu' ||
-      (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
-      (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
+      titreEtapePublicationFilter(titreEtape, titreTypeId) &&
+      titreEtape.dateDebut
   )
 
-  // si l'étape de dpu n'existe pas, ou n'a pas de date
-  if (!titreEtapeDpuDate || !titreEtapeDpuDate.date) return null
+  // si cette démarche a une étape de publication qui possède une date de début
+  if (etapePublicationHasDateDebut) {
+    // la date de début est égale à la date de début de l'étape de publication
+    return dateFormat(etapePublicationHasDateDebut.dateDebut, 'yyyy-mm-dd')
+  }
 
-  // sinon la date de début est égale à la date de la dpu
-  return dateFormat(titreEtapeDpuDate.date, 'yyyy-mm-dd')
+  // retourne la première étape de publication de la démarche
+  const titreEtapePublicationFirst = titreEtapesAscSort(
+    titreDemarche.etapes
+  ).find(te => titreEtapePublicationFilter(te, titreTypeId))
+
+  // si la démarche n'a pas d'étape de publication, ou que l'étape n'a pas de date
+  if (!titreEtapePublicationFirst || !titreEtapePublicationFirst.date)
+    return null
+
+  // sinon la date de début est égale à la date de la première étape de publication
+  return dateFormat(titreEtapePublicationFirst.date, 'yyyy-mm-dd')
 }
 
 const titreDateDebutFind = (titreDemarches, titreTypeId) => {

@@ -3,6 +3,7 @@ import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-fi
 import titreDemarchePhasesFilter from './titre-demarche-phases-filter'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
+import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
 // retourne un tableau contenant les phases d'un titre
 const titrePhasesFind = (titreDemarches, titreTypeId) => {
@@ -50,26 +51,26 @@ const titrePhaseDateDebutFind = (
   index,
   titreTypeId
 ) => {
-  // retourne la phase précédente
-  const phasePrevious = titrePhases[index - 1]
-
-  // retourne une étape de dpu si celle-ci possède une date de début
-  const etapeDpuHasDateDebut = titreEtapesDescSort(titreDemarche.etapes)
-    .filter(
-      titreEtape =>
-        titreEtape.typeId === 'dpu' ||
-        (titreTypeId === 'axm' && ['dex', 'rpu'].includes(titreEtape.typeId)) ||
-        (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
-    )
-    .find(te => te.dateDebut)
-
   // si
   // - la démarche est un octroi
-  // - cette démarche a une étape dpu qui possède une date de début
-  if (titreDemarche.typeId === 'oct' && etapeDpuHasDateDebut) {
-    // la date de début est égale à la date de début de la dpu
-    return dateFormat(etapeDpuHasDateDebut.dateDebut, 'yyyy-mm-dd')
+  if (titreDemarche.typeId === 'oct') {
+    // retourne une étape de publication si celle-ci possède une date de début
+    const etapePublicationHasDateDebut = titreEtapesDescSort(
+      titreDemarche.etapes
+    ).find(
+      titreEtape =>
+        titreEtapePublicationFilter(titreEtape, titreTypeId) &&
+        titreEtape.dateDebut
+    )
+
+    if (etapePublicationHasDateDebut) {
+      // la date de début est égale à la date de début de l'étape de publication
+      return dateFormat(etapePublicationHasDateDebut.dateDebut, 'yyyy-mm-dd')
+    }
   }
+
+  // retourne la phase précédente
+  const phasePrevious = titrePhases[index - 1]
 
   // si il y a une phase précédente
   if (phasePrevious) {
@@ -77,19 +78,13 @@ const titrePhaseDateDebutFind = (
     return phasePrevious.dateFin
   }
 
-  // sinon, la date de début est égale à la date de la première étape de dpu
-  const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
-    titreEtape =>
-      titreEtape.typeId === 'dpu' ||
-      (titreTypeId === 'axm' && ['dex', 'rpu'].includes(titreEtape.typeId)) ||
-      (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
-  )
+  // retourne la première étape de publication de la démarche
+  const titreEtapePublicationFirst = titreEtapesAscSort(
+    titreDemarche.etapes
+  ).find(te => titreEtapePublicationFilter(te, titreTypeId))
 
-  // si une date de dpu est trouvée, formate la date
-  // sinon, retourne null
-  return titreEtapeDpuFirst
-    ? dateFormat(titreEtapeDpuFirst.date, 'yyyy-mm-dd')
-    : null
+  // sinon la date de début est égale à la date de la première étape de publication
+  return dateFormat(titreEtapePublicationFirst.date, 'yyyy-mm-dd')
 }
 
 // trouve la date de fin d'une phase
@@ -120,6 +115,7 @@ const titrePhaseDateFinFind = (
     ).dateFin
   }
 
+  // sinon, calcule la date de fin en fonction des démarches
   return titreDemarcheDateFinAndDureeFind(
     titreDemarchesFiltered.slice().reverse(),
     titreDemarche.ordre

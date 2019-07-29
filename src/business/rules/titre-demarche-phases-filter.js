@@ -1,32 +1,34 @@
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
+import titreEtapePublicationFilter from './titre-etape-publication-filter'
+
+const demarchesTypesPhases = ['oct', 'pro', 'pr1', 'pr2', 'pre']
 
 // si
 // - la démarche est un octroi ou une prolongation ou une prolongation 1
 // ou une prolongation 2 ou une prolongation exceptionnelle
 // - le statut de la démarche est acceptée
-// - la démarche a une étape de dpu
-// - le statut de l'étape de dpu est acceptée
+// - la démarche a une étape de publication
+// - le statut de l'étape de publication est acceptée
 
 const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
-  // retourne l'étape de dpu de la démarche si elle existe
-  // si il existe une dpu et une dpu rectificative, on prend en compte l'originale
-  const etapeDpuFirst = titreEtapesAscSort(titreDemarche.etapes).find(
-    titreEtape =>
-      titreEtape.typeId === 'dpu' ||
-      (titreTypeId === 'axm' && titreEtape.typeId === 'dex') ||
-      (titreTypeId === 'prx' && titreEtape.typeId === 'rpu')
-  )
+  if (!demarchesTypesPhases.includes(titreDemarche.typeId)) {
+    return false
+  }
 
-  return (
-    (titreDemarche.typeId === 'oct' ||
-      titreDemarche.typeId === 'pro' ||
-      titreDemarche.typeId === 'pr1' ||
-      titreDemarche.typeId === 'pr2' ||
-      titreDemarche.typeId === 'pre') &&
-    titreDemarche.statutId === 'acc' &&
-    etapeDpuFirst &&
-    etapeDpuFirst.statutId === 'acc'
-  )
+  if (titreDemarche.statutId !== 'acc') {
+    return false
+  }
+
+  // on trie les étapes de façon ascendante pour le cas où
+  // il existe une étape de publication et une étape rectificative,
+  // on prend alors en compte l'originale
+  const etapePublicationFirst = titreEtapesAscSort(
+    titreDemarche.etapes.slice()
+  ).find(etape => titreEtapePublicationFilter(etape, titreTypeId))
+
+  return etapePublicationFirst
+    ? etapePublicationFirst.statutId === 'acc'
+    : false
 }
 
 export default titreDemarchePhasesFilter

@@ -87,7 +87,8 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
 
   // chercher dans les dex, dpu et rpu s'il y a une date de debut
   const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
-    te => ['dex', 'dpu', 'rpu'].includes(te.typeId) && te.dateDebut
+    te =>
+      ['dpu', 'rpu', 'dex', 'def', 'sco'].includes(te.typeId) && te.dateDebut
   )
 
   if (titreEtapeHasDateDebut) {
@@ -97,7 +98,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   // sinon, la date de fin est calculée
   // en ajoutant la durée cumulée à la date de la première dpu ou ens
   const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
-    titreEtape => titreEtape.typeId === 'dpu'
+    titreEtape => ['dpu', 'sco', 'def'].includes(titreEtape.typeId)
   )
 
   if (titreEtapeDpuFirst) {
@@ -107,7 +108,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   // si on ne trouve pas de dpu, la date de fin est calculée
   // en ajoutant la date de la première dex
   const titreEtapeDexFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
-    titreEtape => titreEtape.typeId === 'dex'
+    titreEtape => ['dex', 'sco', 'def'].includes(titreEtape.typeId)
   )
 
   return titreEtapeDexFirst
@@ -122,15 +123,17 @@ const titreDemarcheOctroiDateFinAndDureeFind = (
 ) => {
   // retourne la durée cumulée et la date de fin
   // de la démarche d'octroi
-  const { duree, dateFin } = titreDemarcheNormaleDateFinAndDureeFind(
+  let { duree, dateFin } = titreDemarcheNormaleDateFinAndDureeFind(
     dureeAcc,
     titreDemarcheEtapes
   )
 
+  dateFin =
+    dateFin || titreDemarcheOctroiDateFinFind(duree, titreDemarcheEtapes)
+
   return {
     duree,
-    dateFin:
-      dateFin || titreDemarcheOctroiDateFinFind(duree, titreDemarcheEtapes)
+    dateFin
   }
 }
 
@@ -195,7 +198,7 @@ const titreDemarcheNormaleDateFinAndDureeFind = (
   const titreDemarcheEtapesSorted = titreEtapesDescSort(titreDemarcheEtapes)
   const titreEtapeHasDateFinOrDuree = titreDemarcheEtapesSorted.find(
     ({ typeId, dateFin, duree }) =>
-      ['dex', 'dpu', 'rpu'].includes(typeId) && (dateFin || duree)
+      ['dpu', 'rpu', 'dex', 'def', 'sco'].includes(typeId) && (dateFin || duree)
   )
 
   if (!titreEtapeHasDateFinOrDuree) {

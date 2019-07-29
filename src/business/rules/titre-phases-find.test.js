@@ -1,6 +1,7 @@
 import titrePhasesFind from './titre-phases-find'
 import {
   titreDemarcheOctDpuAcc,
+  titreDemarcheOctDpuInexistante,
   titreAxmDemarcheOctDexAcc,
   titrePrxDemarcheOctRpuAcc,
   titreDemarcheOctDpuDateDebut,
@@ -8,8 +9,8 @@ import {
   titreDemarchesOctAnnulation
 } from './__mocks__/titre-phases-find-demarches'
 
-describe("retourne les phases d'une démarche", () => {
-  test("un titre qui a une démarche d'octroi avec une dpu valide a une phase", () => {
+describe("phases d'une démarche", () => {
+  test("un titre qui a une démarche d'octroi avec une dpu a une phase", () => {
     expect(titrePhasesFind([titreDemarcheOctDpuAcc])).toEqual([
       {
         dateDebut: '2200-01-01',
@@ -20,7 +21,11 @@ describe("retourne les phases d'une démarche", () => {
     ])
   })
 
-  test("un titre AXM qui a une démarche d'octroi avec une dex valide a une phase", () => {
+  test("un titre qui a une démarche d'octroi sans dpu n'a pas de phase", () => {
+    expect(titrePhasesFind([titreDemarcheOctDpuInexistante])).toEqual([])
+  })
+
+  test("un titre AXM qui a une démarche d'octroi avec une dex a une phase", () => {
     expect(titrePhasesFind([titreAxmDemarcheOctDexAcc], 'axm')).toEqual([
       {
         dateDebut: '2200-01-01',
@@ -31,7 +36,7 @@ describe("retourne les phases d'une démarche", () => {
     ])
   })
 
-  test("un titre PRX qui a une démarche d'octroi avec une rpu valide a une phase", () => {
+  test("un titre PRX qui a une démarche d'octroi avec une rpu a une phase", () => {
     expect(titrePhasesFind([titrePrxDemarcheOctRpuAcc], 'prx')).toEqual([
       {
         dateDebut: '2200-01-01',
@@ -53,7 +58,7 @@ describe("retourne les phases d'une démarche", () => {
     ])
   })
 
-  test('un titre qui a une démarche de prolongation avec une dpu valide a une phase', () => {
+  test('un titre qui a une démarche de prolongation avec une dpu a une phase', () => {
     expect(titrePhasesFind(titreDemarchesOctProlongation)).toEqual([
       {
         dateDebut: '2200-01-01',
