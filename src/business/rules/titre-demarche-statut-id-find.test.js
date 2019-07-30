@@ -19,6 +19,7 @@ import {
   titreDemarcheOctMcrInd,
   titreDemarcheRetDpuFai,
   titreDemarcheRetDpuIni,
+  titreDemarcheRtd,
   titreDemarcheIndefinie
 } from './__mocks__/titre-demarche-statut-id-find-demarches'
 
@@ -107,6 +108,10 @@ describe("statut d'une démarche", () => {
 
   test("une démarche de retrait dont l'étape la plus récente de dpu n'a pas encore été faite a le statut “initiée”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheRetDpuIni)).toEqual('ini')
+  })
+
+  test("une démarche dont l'étape la plus récente est de type “retrait de décision” a le statut “rejetée”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheRtd)).toEqual('rej')
   })
 
   test('une démarche inexistante a le statut “indéfinie”', () => {

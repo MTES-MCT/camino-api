@@ -1,5 +1,44 @@
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
+const titreEtapesDecisivesTypes = [
+  'mfr',
+  'mdp',
+  'men',
+  'ide',
+  'ret',
+  'mcr',
+  'dim',
+  'dex',
+  'def',
+  'sco',
+  'apu',
+  'rpu',
+  'dpu',
+  'rtd',
+  'abd',
+  'and'
+]
+
+const titreDemarchesDemandesTypes = [
+  'oct',
+  'pro',
+  'pr1',
+  'pr2',
+  'pre',
+  'ren',
+  'fus',
+  'exp',
+  'exs',
+  'mut',
+  'vut',
+  'amo',
+  'res',
+  'ces',
+  'dep',
+  'vus',
+  'vct'
+]
+
 const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // si la démarche ne contient pas d'étapes
   // le statut est indétrminé
@@ -7,20 +46,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
 
   // filtre les types d'étapes qui ont un impact sur le statut de la démarche
   const titreEtapesDecisives = titreDemarche.etapes.filter(titreEtape =>
-    [
-      'mfr',
-      'mdp',
-      'men',
-      'ide',
-      'ret',
-      'mcr',
-      'dim',
-      'dex',
-      'def',
-      'apu',
-      'rpu',
-      'dpu'
-    ].includes(titreEtape.typeId)
+    titreEtapesDecisivesTypes.includes(titreEtape.typeId)
   )
 
   // si aucune étape décisive n'est présente dans la démarche
@@ -30,34 +56,22 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesDescSort(titreEtapesDecisives)[0]
 
+  //  - le type de l’étape est retrait de la décision (rtd)
+  //  - le type de l’étape est abrogation de la décision (abd)
+  //  - le type de l’étape est annulation de la décision (and)
+  if (['rtd', 'abd', 'and'].includes(titreEtapeRecent.typeId)) {
+    //  - le statut de la démarche est “rejetée”
+    return 'rej'
+  }
+
   //  1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
   //    octroi ou prolongation(1, 2 ou exceptionnelle)
   //    ou renonciation ou fusion (native ou virtuelle) ou extension du périmètre
   //    ou extension de substance ou mutation (native ou virtuelle) ou amodiation
   //    ou résiliation d’amodiation ou déplacement de périmètre
-  if (
-    [
-      'oct',
-      'pro',
-      'pr1',
-      'pr2',
-      'pre',
-      'ren',
-      'fus',
-      'exp',
-      'exs',
-      'mut',
-      'vut',
-      'amo',
-      'res',
-      'ces',
-      'dep',
-      'vus',
-      'vct'
-    ].includes(titreDemarche.typeId)
-  ) {
-    //  - le type de l’étape est publication au JO (dpu) ou décision implicite (dim)
+  if (titreDemarchesDemandesTypes.includes(titreDemarche.typeId)) {
+    //  - le type de l’étape est une publication ou une décision implicite (dim)
     //  - et le statut de l’étape est acceptée ou rejetée
     if (
       ['acc', 'rej'].includes(titreEtapeRecent.statutId) &&
@@ -72,17 +86,20 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       return titreEtapeRecent.statutId
     }
 
+    //  - le type de l’étape est décision expresse (dex)
+    //  - et le statut de l’étape est rejetée (rej)
+    if (
+      titreEtapeRecent.typeId === 'dex' &&
+      titreEtapeRecent.statutId === 'rej'
+    ) {
+      //  - le statut de la démarche est rejetée (rej)
+      return 'rej'
+    }
+
     //  - le type de l’étape est retrait de la demande (ret)
     if (titreEtapeRecent.typeId === 'ret') {
       //  - le statut de la démarche est “retirée”
       return 'ret'
-    }
-
-    //  - le type de l’étape est dépôt de la demande (mdp)
-    //  - il n’y a pas d’étape après
-    if (titreEtapeRecent.typeId === 'mdp') {
-      //  - le statut de la démarche est “déposée”
-      return 'dep'
     }
 
     //  - le type de l’étape est recevabilité de la demande (mcr)
@@ -97,31 +114,28 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
 
     //  - le type de l’étape est recevabilité de la demande (mcr) (non défavorable)
     //  - le type de l’étape est enregistrement de la demande (men)
+    //  - le type de l’étape est décision explicite (dex)
     //  - la date de l'étape est inférieure à la date du jour
     if (
-      (titreEtapeRecent.typeId === 'mcr' ||
-        titreEtapeRecent.typeId === 'men' ||
-        (titreEtapeRecent.typeId === 'mfr' && titreTypeId === 'arm')) &&
+      (['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
+        (titreEtapeRecent.typeId === 'mdp' && titreTypeId === 'arm')) &&
       new Date(titreEtapeRecent.date) < new Date()
     ) {
       //  - le statut de la démarche est “en instruction”
       return 'ins'
     }
 
+    //  - le type de l’étape est dépôt de la demande (mdp)
+    //  - il n’y a pas d’étape après
+    if (titreEtapeRecent.typeId === 'mdp') {
+      //  - le statut de la démarche est “déposée”
+      return 'dep'
+    }
+
     //  - le type de l’étape est formalisation de la demande (mfr)
     if (titreEtapeRecent.typeId === 'mfr') {
       //  - le statut de la démarche est “en construction”
       return 'eco'
-    }
-
-    //  - le type de l’étape est décision expresse (dex)
-    //  - et le statut de l’étape est rejetée (rej)
-    if (
-      titreEtapeRecent.typeId === 'dex' &&
-      titreEtapeRecent.statutId === 'rej'
-    ) {
-      //  - le statut de la démarche est rejetée (rej)
-      return 'rej'
     }
 
     // sinon le statut de la démarche est indéterminé
