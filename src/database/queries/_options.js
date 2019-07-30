@@ -49,6 +49,7 @@ const etapes = {
   update: {
     relate: [
       'type',
+      'type',
       'statut',
       'titulaires',
       'titulaires.etablissements',

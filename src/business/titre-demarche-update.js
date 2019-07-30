@@ -46,8 +46,6 @@ const titreDemarcheUpdate = async titreId => {
   console.log(titrePhases)
   console.log(titreDates)
 
-  console.log('Démarche mise à jour')
-
   // on retourne le titre bien formaté
   return titreGet(titreNew.id)
 }

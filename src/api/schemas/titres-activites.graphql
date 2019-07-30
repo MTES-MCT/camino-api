@@ -4,10 +4,10 @@ type TitreActivite {
   statut: ActiviteStatut!
   date: Date!
   dateSaisie: Date
-  contenu: Json
   periode: Json
-  sections: Json
   annee: Int
+  sections: Json
+  contenu: Json
 }
 
 input InputTitreActiviteModification {

@@ -102,8 +102,6 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   console.log(titresEtapesAdministrations.join('\n'))
   console.log(titrePropsEtapeId)
 
-  console.log('Étape mise à jour')
-
   // on récupère le titre bien formaté
   return titreGet(titreNew.id)
 }

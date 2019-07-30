@@ -217,6 +217,8 @@ type Etape {
 
   incertitudes: Incertitudes
 
+  sections: Json
+
   contenu: Json
 }
 
@@ -361,6 +363,8 @@ input InputEtapeCreation {
   administrationsIds: [ID!]
 
   incertitudes: InputIncertitudes
+
+  contenu: Json
 }
 
 input InputEtapeModification {
@@ -407,6 +411,8 @@ input InputEtapeModification {
   administrationsIds: [ID!]
 
   incertitudes: InputIncertitudes
+
+  contenu: Json
 }
 
 input InputEtapeId {

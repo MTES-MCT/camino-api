@@ -256,49 +256,49 @@ const spreadsheets = [
   {
     name: 'titres-c',
     id: titresCSpreadsheetId,
-    get: get('c'),
+    get: async () => get('c'),
     tables
   },
   {
     name: 'titres-f',
     id: titresFSpreadsheetId,
-    get: get('f'),
+    get: async () => get('f'),
     tables
   },
   {
     name: 'titres-g',
     id: titresGSpreadsheetId,
-    get: get('g'),
+    get: async () => get('g'),
     tables
   },
   {
     name: 'titres-h',
     id: titresHSpreadsheetId,
-    get: get('h'),
+    get: async () => get('h'),
     tables
   },
   {
     name: 'titres-m',
     id: titresMSpreadsheetId,
-    get: get('m'),
+    get: async () => get('m'),
     tables
   },
   {
     name: 'titres-r',
     id: titresRSpreadsheetId,
-    get: get('r'),
+    get: async () => get('r'),
     tables
   },
   {
     name: 'titres-s',
     id: titresSSpreadsheetId,
-    get: get('s'),
+    get: async () => get('s'),
     tables
   },
   {
     name: 'titres-w',
     id: titresWSpreadsheetId,
-    get: get('w'),
+    get: async () => get('w'),
     tables
   }
 ]
