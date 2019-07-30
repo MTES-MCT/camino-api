@@ -208,7 +208,7 @@ const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
   try {
     emailsSend(email, subject, html)
   } catch (e) {
-    return "erreur lors de l'envoi d'email"
+    return "erreur: envoi d'email"
   }
 
   return 'un lien pour créer votre compte vous a été envoyé par email'
@@ -324,7 +324,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
   try {
     emailsSend(email, subject, html)
   } catch (e) {
-    return "erreur lors de l'envoi d'email"
+    return "erreur: envoi d'email"
   }
 
   return 'email envoyé'

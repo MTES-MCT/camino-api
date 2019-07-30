@@ -7,7 +7,6 @@ const titreActivitePropUpdate = async titreId => {
   const titresPropsActivites = await titresPropsActivitesUpdate([titre])
 
   console.log(titresPropsActivites)
-  console.log("Propriétés activités d'un titre mises à jour")
 }
 
 export default titreActivitePropUpdate

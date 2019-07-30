@@ -80,10 +80,7 @@ const utilisateurRowUpdate = async utilisateur => {
       await spreadsheetBatchUpdate(credentials, spreadsheet.id, requests)
     }
   } catch (e) {
-    console.log(
-      "erreur lors de l'ajout d'une ligne dans la spreasheet utilisateurs",
-      e
-    )
+    console.log("erreur: ajout d'une ligne dans la spreasheet utilisateurs", e)
   }
 }
 

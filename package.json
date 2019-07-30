@@ -17,7 +17,7 @@
   "scripts": {
     "build": "rm -rf dist && npx tsc && cp -r ./src/api/schemas ./dist/api",
     "start": "npm run build && node ./dist/index.js",
-    "lint": "eslint --fix src/ && tslint 'src/**/*.ts' --fix",
+    "lint": "eslint --fix src/ && tslint --fix 'src/**/*.ts'",
     "dev": "nodemon",
     "import": "rm -rf sources && mkdir sources && node ./dist/tools/import/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
@@ -39,7 +39,7 @@
     "db:dump-public": "node ./knex/copy-clean.js && pg_dump --clean --dbname=camino-public --username=postgres --host=localhost --file=./database/camino-public.sql && dropdb --username=postgres --host=localhost camino-public",
     "db:import": "psql --dbname=camino --username=postgres --host=localhost < ./database/camino-public.sql",
     "graphql:schema": "ts-node ./src/tools/dev/api/graphql-dsl-to-query-convert.js",
-    "test": "jest --verbose && codecov",
+    "test": "eslint src/ && tslint 'src/**/*.ts' && jest --verbose && codecov",
     "jest": "jest --verbose --watch",
     "commit": "npx git-cz",
     "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",

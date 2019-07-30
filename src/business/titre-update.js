@@ -11,11 +11,9 @@ const titreUpdate = async titreId => {
     const titre = await titreGet(titreId, { format: false })
     const titreNew = await titreIdsUpdate(titre)
 
-    console.log('Titre mis à jour')
-
     return titreGet(titreNew.id)
   } catch (e) {
-    console.error(`erreur pendant la mise à jour du titre: ${titreId}`)
+    console.error(`erreur: titreUpdate ${titreId}`)
     console.error(e)
     throw e
   }

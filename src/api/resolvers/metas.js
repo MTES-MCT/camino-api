@@ -10,7 +10,6 @@ import {
   typesGet,
   domainesGet,
   statutsGet,
-  demarchesTypesGet,
   devisesGet,
   geoSystemesGet,
   volumeUnitesGet,
@@ -28,7 +27,6 @@ const metas = async (variables, context, info) => {
   let domaines = await domainesGet()
   let statuts = await statutsGet()
   let types = await typesGet()
-  let demarchesTypes
 
   if (!context.user) {
     domaines = check(domaines, restrictedDomaineIds)
@@ -39,15 +37,10 @@ const metas = async (variables, context, info) => {
     types = check(types, restrictedTypeIds)
   }
 
-  if (permissionsCheck(context.user, ['super', 'admin'])) {
-    demarchesTypes = demarchesTypesGet()
-  }
-
   return {
     types,
     domaines,
     statuts,
-    demarchesTypes,
     devises,
     geoSystemes,
     volumeUnites,

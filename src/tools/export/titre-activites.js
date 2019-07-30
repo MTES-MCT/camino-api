@@ -55,10 +55,7 @@ const titreActivitesRowUpdate = async (
 
     await spreadsheetBatchUpdate(credentials, spreadsheet.id, requests)
   } catch (e) {
-    console.log(
-      "erreur lors de l'ajout d'une ligne dans la spreasheet activités",
-      e
-    )
+    console.log("erreur: ajout d'une ligne dans la spreasheet activités", e)
   }
 }
 

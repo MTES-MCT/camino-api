@@ -4,7 +4,7 @@ import { titresActivitesGet } from '../../../database/queries/titres-activites'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES
 
-const get = titresActivitesGet()
+const get = async () => titresActivitesGet()
 
 const tables = [
   {

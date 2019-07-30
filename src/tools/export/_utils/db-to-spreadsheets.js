@@ -18,7 +18,7 @@ const dbToSpreadsheets = async ({ name, id, get, tables }) => {
   }
 
   console.log(`spreadsheet: ${name}`)
-  const elements = await get
+  const elements = await get()
 
   // obtient les infos sur la spreadsheet
   const infos = await spreadsheetGet(credentials, id)
