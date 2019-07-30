@@ -276,6 +276,19 @@ const titreDemarcheRetDpuIni = {
   ]
 }
 
+const titreDemarcheRtd = {
+  id: 'h-cxx-courdemanges-1988-ret01',
+  titreId: 'h-cxx-courdemanges-1988',
+  typeId: 'ret',
+  statutId: 'acc',
+  etapes: [
+    {
+      id: 'h-cxx-courdemanges-1988-ret01-rtd01',
+      typeId: 'rtd'
+    }
+  ]
+}
+
 const titreDemarcheIndefinie = {
   id: 'h-cxx-courdemanges-1988-ret01',
   titreId: 'h-cxx-courdemanges-1988',
@@ -304,5 +317,6 @@ export {
   titreDemarcheOctMcrInd,
   titreDemarcheRetDpuFai,
   titreDemarcheRetDpuIni,
+  titreDemarcheRtd,
   titreDemarcheIndefinie
 }

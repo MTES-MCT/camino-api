@@ -56,6 +56,14 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   // l'étape la plus récente
   const titreEtapeRecent = titreEtapesDescSort(titreEtapesDecisives)[0]
 
+  //  - le type de l’étape est retrait de la décision (rtd)
+  //  - le type de l’étape est abrogation de la décision (abd)
+  //  - le type de l’étape est annulation de la décision (and)
+  if (['rtd', 'abd', 'and'].includes(titreEtapeRecent.typeId)) {
+    //  - le statut de la démarche est “rejetée”
+    return 'rej'
+  }
+
   //  1. la démarche fait l’objet d’une demande
   //  - le nom de la démarche est égal à
   //    octroi ou prolongation(1, 2 ou exceptionnelle)
@@ -92,14 +100,6 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     if (titreEtapeRecent.typeId === 'ret') {
       //  - le statut de la démarche est “retirée”
       return 'ret'
-    }
-
-    //  - le type de l’étape est retrait de la décision (rtd)
-    //  - le type de l’étape est abrogation de la décision (abd)
-    //  - le type de l’étape est annulation de la décision (and)
-    if (['rtd', 'abd', 'and'].includes(titreEtapeRecent.typeId)) {
-      //  - le statut de la démarche est “rejetée”
-      return 'rej'
     }
 
     //  - le type de l’étape est recevabilité de la demande (mcr)
