@@ -13,7 +13,7 @@ const titreUpdate = async titreId => {
 
     return titreGet(titreNew.id)
   } catch (e) {
-    console.error(`erreur: mise à jour du titre ${titreId}`)
+    console.error(`erreur: titreUpdate ${titreId}`)
     console.error(e)
     throw e
   }

@@ -216,6 +216,11 @@ const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
 }
 
 const titreActiviteFormat = (ta, format = titreActiviteFormatDefault) => {
+  // si
+  // - le formatage de la période est requis
+  // - l'activité a une périodicité
+  // - le type d'activité a une fréquence qui contient un tableau de périodes
+  // alors la période de l'activité en cours est définie
   if (
     format.periode &&
     ta.frequencePeriodeId &&
