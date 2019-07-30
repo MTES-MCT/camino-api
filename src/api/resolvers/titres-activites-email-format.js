@@ -36,7 +36,7 @@ ${sectionNomHtml}
 const titresActivitesEmailFormat = (
   emailTitle,
   user,
-  { contenu, titreId, dateSaisie, type }
+  { contenu, titreId, dateSaisie, sections }
 ) => {
   const header = `
 <h1>${emailTitle}</h1>
@@ -50,7 +50,7 @@ const titresActivitesEmailFormat = (
 <hr>
 `
 
-  const body = type.sections.reduce(
+  const body = sections.reduce(
     (res, section) => `
 ${res}
 

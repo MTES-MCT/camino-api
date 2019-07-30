@@ -8,7 +8,8 @@ import {
 const titreEtapeFormatDefault = {
   geojsonMultiPolygon: true,
   geojsonPoints: true,
-  pays: true
+  pays: true,
+  sections: true
 }
 
 const titreDemarcheFormatDefaut = {
@@ -165,8 +166,9 @@ const titreSectionsFormat = tea =>
   tea.type.sections.reduce((sections, s) => {
     const elements = s.elements.reduce(
       (elements, e) =>
-        // ne conserve que les éléments dont la période,
-        // la date de début et la date de fin
+        // ne conserve que les éléments dont
+        // - la période (si elle existe),
+        // - la date de début et la date de fin
         // correspondent à l'activité
         (!e.frequencePeriodesIds ||
           e.frequencePeriodesIds.find(
@@ -205,11 +207,9 @@ const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
     te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 
-  if (te.type.sections) {
-    // supprime la référence de te.type vers etapeType
-    te.type = { ...te.type }
-    // - ne conserve que les sections qui contiennent des élements sur cette étape
-    te.type.sections = titreSectionsFormat(te)
+  if (format.sections && te.type.sections) {
+    // - les sections qui contiennent des élements sur cette étape
+    te.sections = titreSectionsFormat(te)
   }
 
   return te
@@ -228,11 +228,9 @@ const titreActiviteFormat = (ta, format = titreActiviteFormatDefault) => {
     )
   }
 
-  if (ta.type.sections) {
-    // supprime la référence de ta.type vers activiteType
-    ta.type = { ...ta.type }
-    // - ne conserve que les sections qui contiennent des élements sur cette activité
-    ta.type.sections = titreSectionsFormat(ta)
+  if (format.sections && ta.type.sections) {
+    // - les sections qui contiennent des élements sur cette activité
+    ta.sections = titreSectionsFormat(ta)
   }
 
   return ta
