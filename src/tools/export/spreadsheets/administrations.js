@@ -2,12 +2,13 @@ import { administrationsGet } from '../../../database/queries/administrations'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ADMINISTRATIONS
 
-const get = administrationsGet({
-  noms: undefined,
-  entrepriseIds: undefined,
-  administrationIds: undefined,
-  permissionIds: undefined
-})
+const get = async () =>
+  administrationsGet({
+    noms: undefined,
+    entrepriseIds: undefined,
+    administrationIds: undefined,
+    permissionIds: undefined
+  })
 
 const tables = [
   {

@@ -205,10 +205,10 @@ const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
     te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 
-  // console.log(te.type)
-
   if (te.type.sections) {
-    // - ne conserve que les sections qui contiennent des élements
+    // supprime la référence de te.type vers etapeType
+    te.type = { ...te.type }
+    // - ne conserve que les sections qui contiennent des élements sur cette étape
     te.type.sections = titreSectionsFormat(te)
   }
 
@@ -229,7 +229,9 @@ const titreActiviteFormat = (ta, format = titreActiviteFormatDefault) => {
   }
 
   if (ta.type.sections) {
-    // - ne conserve que les sections qui contiennent des élements
+    // supprime la référence de ta.type vers activiteType
+    ta.type = { ...ta.type }
+    // - ne conserve que les sections qui contiennent des élements sur cette activité
     ta.type.sections = titreSectionsFormat(ta)
   }
 
