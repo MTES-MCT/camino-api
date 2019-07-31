@@ -124,6 +124,7 @@ const demarches = {
     relate: [
       'statut',
       'annulationDemarche',
+      'enfants',
       'parents',
       'phase.statut',
       ...etapes.update.relate.map(k => `etapes.${k}`)
@@ -132,6 +133,7 @@ const demarches = {
       'statut',
       'annulationDemarche',
       'enfants',
+      'parents',
       'phase.statut',
       ...etapes.update.unrelate.map(k => `etapes.${k}`)
     ],
