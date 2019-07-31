@@ -11,11 +11,10 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
       if (
         // si une étape a déjà été trouvée
         etapeId ||
-        // filtre les démarches acceptée, terminée ou en instruction
-        !['acc', 'ter', 'ins'].includes(titreDemarche.statutId) ||
-        // Si la démarche est en instruction,
-        // on ne prend en compte que l'octroi (demande initiale)
-        (titreDemarche.statutId === 'ins' && titreDemarche.typeId !== 'oct')
+        // filtre les démarches non acceptée, non terminée ou non en instruction
+        // sauf si la démarche est un octroi
+        (!['acc', 'ter'].includes(titreDemarche.statutId) &&
+          titreDemarche.typeId !== 'oct')
       ) {
         return etapeId
       }
@@ -24,10 +23,11 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
         // filtre les étapes acceptation, fait ou favorable
         const isEtapeValide =
           ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
-          (['dpu', 'dex', 'rpu', 'dim'].includes(titreEtape.typeId) ||
-            // Si la démarche est un octroi (demande initiale)
-            // on prend en compte n'importe quelle étape
-            titreDemarche.typeId === 'oct')
+          // Si la démarche est un octroi (demande initiale)
+          // on prend en compte n'importe quelle étape
+          (titreDemarche.typeId === 'oct' ||
+            // sinon, on ne prend en compte que les démarches de décision
+            ['dpu', 'dex', 'rpu', 'dim'].includes(titreEtape.typeId))
         if (!isEtapeValide) return false
 
         // trouve une étape qui contient la propriété
