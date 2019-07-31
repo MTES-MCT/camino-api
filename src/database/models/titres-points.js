@@ -45,6 +45,32 @@ export default class TitresPoints extends Model {
     }
   }
 
+  $parseJson(json) {
+    json = super.$parseJson(json)
+
+    if (
+      !json.id &&
+      json.titreEtapeId &&
+      json.groupe &&
+      json.contour &&
+      json.point
+    ) {
+      json.id = `${json.titreEtapeId}-g${json.groupe
+        .toString()
+        .padStart(2, '0')}-c${json.contour
+        .toString()
+        .padStart(2, '0')}-p${json.point.toString().padStart(3, '0')}`
+    }
+
+    if (json.references) {
+      json.references.forEach(reference => {
+        reference.titrePointId = json.id
+      })
+    }
+
+    return json
+  }
+
   $formatDatabaseJson(json) {
     if (json.coordonnees) {
       json.coordonnees = `${json.coordonnees.x},${json.coordonnees.y}`

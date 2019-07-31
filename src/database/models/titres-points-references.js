@@ -41,11 +41,23 @@ export default class TitresPointsReferences extends Model {
     return json
   }
 
+  $parseJson(json) {
+    json = super.$parseJson(json)
+
+    if (!json.id && json.titrePointId && json.geoSystemeId) {
+      json.id = `${json.titrePointId}-${json.geoSystemeId}`
+    }
+
+    return json
+  }
+
   $parseDatabaseJson(json) {
     json = super.$parseDatabaseJson(json)
+
     if (json && json.coordonnees) {
       json.coordonnees = { x: json.coordonnees[0], y: json.coordonnees[1] }
     }
+
     return json
   }
 
