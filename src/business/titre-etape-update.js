@@ -28,16 +28,13 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // 2.
   console.log('statut des démarches…')
   titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const titreDemarcheStatutId = await titresDemarchesStatutIdUpdate([
-    {
-      demarches: [titreDemarche]
-    }
-  ])
+  const { titreId } = titreDemarche
+  let titre = await titreGet(titreId)
+  const titreDemarcheStatutId = await titresDemarchesStatutIdUpdate([titre])
 
   // 3.
   console.log('ordre des démarches…')
-  const { titreId } = titreDemarche
-  let titre = await titreGet(titreId)
+  titre = await titreGet(titreId)
   const titreDemarchesOrdre = await titresDemarchesOrdreUpdate([titre])
 
   // 4.
