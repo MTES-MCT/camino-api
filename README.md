@@ -112,7 +112,6 @@ npm run jest
     │
     ├── business         # `logique métier`
     │   ├── processes    # `scripts de traitement`
-    │   ├── queries      # `requêtes de mise à jour`
     │   ├── rules        # `lois et procédures administratives`
     │   ├── utils        # `utilitaires de filtrage et de classement`
     │   ├── daily        # `scripts de mise à jour quotidiens (npm run daily)`
