@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.1](https://github.com/MTES-MCT/camino-api/compare/v0.24.0...v0.24.1) (2019-07-31)
+
+
+### Bug Fixes
+
+* **api:** supprime la référence à l'étape sur un point ([4c648e7](https://github.com/MTES-MCT/camino-api/commit/4c648e7))
+* ajoute les références dans les propriétés geojson des points ([#123](https://github.com/MTES-MCT/camino-api/issues/123)) ([583aecf](https://github.com/MTES-MCT/camino-api/commit/583aecf))
+* ajoute un type manquant ([415b1dd](https://github.com/MTES-MCT/camino-api/commit/415b1dd))
+* corrige import-check s'il n'y a pas de reprise de données ([#137](https://github.com/MTES-MCT/camino-api/issues/137)) ([65019f3](https://github.com/MTES-MCT/camino-api/commit/65019f3))
+* corrige l'affichage des demandes rejetées ([#143](https://github.com/MTES-MCT/camino-api/issues/143)) ([9a0c3d9](https://github.com/MTES-MCT/camino-api/commit/9a0c3d9))
+* corrige l'appel de la fonction de mise à jour des ids de titre ([#135](https://github.com/MTES-MCT/camino-api/issues/135)) ([f27f662](https://github.com/MTES-MCT/camino-api/commit/f27f662))
+* corrige l'édition d'étapes des titres AEX, PRX, ARM ([#145](https://github.com/MTES-MCT/camino-api/issues/145)) ([66e6926](https://github.com/MTES-MCT/camino-api/commit/66e6926))
+* corrige la comparaison de propriétés des phases ([#138](https://github.com/MTES-MCT/camino-api/issues/138)) ([d6101bb](https://github.com/MTES-MCT/camino-api/commit/d6101bb))
+* corrige une erreur typescript ([0f70d68](https://github.com/MTES-MCT/camino-api/commit/0f70d68))
+* exporte les activités lorsque l'id d'un titre est modifiée ([#129](https://github.com/MTES-MCT/camino-api/issues/129)) ([7ecf44b](https://github.com/MTES-MCT/camino-api/commit/7ecf44b))
+* génère automatiquement les ids ([#142](https://github.com/MTES-MCT/camino-api/issues/142)) ([1920e74](https://github.com/MTES-MCT/camino-api/commit/1920e74))
+* retourne null si un point n'a pas de références ([58c7d8b](https://github.com/MTES-MCT/camino-api/commit/58c7d8b))
+* supprime les sections sur les étapes ([689955b](https://github.com/MTES-MCT/camino-api/commit/689955b))
+* **business:** corrige la mise à jour des administrations et ids de titres ([#136](https://github.com/MTES-MCT/camino-api/issues/136)) ([a5a7f7b](https://github.com/MTES-MCT/camino-api/commit/a5a7f7b))
+* met à jour les propriétés du titre lors d'un changement d'id ([#128](https://github.com/MTES-MCT/camino-api/issues/128)) ([554ded8](https://github.com/MTES-MCT/camino-api/commit/554ded8))
+
+
+### Features
+
+* ajoute des règles sur les étapes d'annulations de démarche ([#140](https://github.com/MTES-MCT/camino-api/issues/140)) ([9892282](https://github.com/MTES-MCT/camino-api/commit/9892282))
+* ajoute du contenu dynamique sur une étape ([#139](https://github.com/MTES-MCT/camino-api/issues/139)) ([2c8cd25](https://github.com/MTES-MCT/camino-api/commit/2c8cd25))
+* ajoute la démarche virtuelle de demande de titre d'exploitation ([#134](https://github.com/MTES-MCT/camino-api/issues/134)) ([b689bde](https://github.com/MTES-MCT/camino-api/commit/b689bde))
+* **api:** export utilisateur lors de modification ([#130](https://github.com/MTES-MCT/camino-api/issues/130)) ([4451fb7](https://github.com/MTES-MCT/camino-api/commit/4451fb7))
+* **api:** expose des fonctions de création d'un titre, d'une démarche, ou d'une étape ([#132](https://github.com/MTES-MCT/camino-api/issues/132)) ([cfa6639](https://github.com/MTES-MCT/camino-api/commit/cfa6639))
+* autorise les chaines de caractères dans les coordonnées des références de point ([bd4f12a](https://github.com/MTES-MCT/camino-api/commit/bd4f12a))
+* gère les exceptions d'affiliation des administrations pour les ARM et AXM ([#126](https://github.com/MTES-MCT/camino-api/issues/126)) ([f7e4301](https://github.com/MTES-MCT/camino-api/commit/f7e4301))
+
 ## [0.24.0](https://github.com/MTES-MCT/camino-api/compare/v0.23.0...v0.24.0) (2019-07-04)
 
 
