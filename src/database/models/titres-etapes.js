@@ -17,7 +17,7 @@ export default class TitresEtapes extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreDemarcheId'],
+    required: ['id', 'titreDemarcheId', 'date'],
 
     properties: {
       id: { type: 'string', maxLength: 128 },
