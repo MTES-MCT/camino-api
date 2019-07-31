@@ -34,7 +34,8 @@ const data = files.reduce(
         console.warn(e.message)
         content = []
       }
-      return [...res, ...content]
+      res.push(content)
+      return res
     }, [])
   }),
   {}

@@ -35,7 +35,8 @@ const titresDemarchesStatutUpdate = async titres => {
           titre
         )
 
-        return titreDemarcheUpdated ? [...arr, titreDemarcheUpdated] : arr
+        if (titreDemarcheUpdated) arr.push(titreDemarcheUpdated)
+        return arr
       }, arr),
     []
   )

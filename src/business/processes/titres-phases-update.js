@@ -27,8 +27,9 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
       (!valueNew && !valueOld) ||
       // compare deux mêmes valeurs
       valueNew === valueOld
-    )
+    ) {
       return res
+    }
 
     const log = { [key]: [valueOld, valueNew] }
 
@@ -43,7 +44,10 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
     )
     // si la phase n'existe pas
     // on l'ajoute à l'accumulateur
-    if (!titrePhaseOld) return [...res, titrePhase]
+    if (!titrePhaseOld) {
+      res.push(titrePhaseOld)
+      return res
+    }
 
     const titrePhasePropsChanged = titrePhasePropsChangedFind(
       titrePhase,
@@ -51,9 +55,8 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
     )
 
     // si la phase existe et est modifiée
-    return Object.keys(titrePhasePropsChanged).length
-      ? [...res, titrePhase]
-      : res
+    if (Object.keys(titrePhasePropsChanged).length) res.push(titrePhase)
+    return res
   }, [])
 
 const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
@@ -63,7 +66,8 @@ const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
       titresPhases
     )
 
-    return !titrePhase ? [...res, titrePhaseOld.titreDemarcheId] : res
+    if (!titrePhase) res.push(titrePhaseOld.titreDemarcheId)
+    return res
   }, [])
 
 const titresPhasesUpdate = async titres => {
@@ -73,10 +77,10 @@ const titresPhasesUpdate = async titres => {
     const demarches = titreDemarchesAscSort(titre.demarches.reverse())
 
     // retourne les phases enregistrées en base
-    const titrePhasesOld = demarches.reduce(
-      (res, td) => (td.phase ? [...res, td.phase] : res),
-      []
-    )
+    const titrePhasesOld = demarches.reduce((res, td) => {
+      if (td.phase) res.push(td.phase)
+      return res
+    }, [])
 
     // retourne un tableau avec les phases
     // créées à partir des démarches
@@ -114,9 +118,10 @@ const titresPhasesUpdate = async titres => {
       })
     }
 
-    return titrePhasesUpdateRequests.length
-      ? [...acc, ...titrePhasesUpdateRequests]
-      : acc
+    if (titrePhasesUpdateRequests.length)
+      acc = acc.concat(titrePhasesUpdateRequests)
+
+    return acc
   }, [])
 
   if (titresPhasesRequests.length) {

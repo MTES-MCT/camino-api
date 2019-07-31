@@ -90,10 +90,10 @@ const titresGet = async (
           )
           .join(') and (')})`,
         substances.reduce(
-          (res, s) => [
-            ...res,
-            ...fields.reduce((r, f) => [...r, f, `%${s.toLowerCase()}%`], [])
-          ],
+          (res, s) =>
+            res.concat(
+              fields.reduce((r, f) => [...r, f, `%${s.toLowerCase()}%`], [])
+            ),
           []
         )
       )

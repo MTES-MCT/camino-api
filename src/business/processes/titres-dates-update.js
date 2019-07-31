@@ -30,17 +30,14 @@ const titresDatesUpdate = async titres => {
       props.dateDemande = dateDemande
     }
 
-    return Object.keys(props).length
-      ? [
-          ...acc,
-          async () => {
-            await titreUpdate(titre.id, props)
-            console.log(
-              `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-            )
-          }
-        ]
-      : acc
+    if (Object.keys(props).length)
+      acc.push(async () => {
+        await titreUpdate(titre.id, props)
+        console.log(
+          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+        )
+      })
+    return acc
   }, [])
 
   if (titresDatesUpdateRequests.length) {

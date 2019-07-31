@@ -24,7 +24,8 @@ const fieldsToArray = (fields, format) => {
       id = `${id}.${fieldsSubString}`
     }
 
-    return [...acc, id]
+    acc.push(id)
+    return acc
   }, [])
 }
 
