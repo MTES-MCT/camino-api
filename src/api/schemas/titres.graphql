@@ -217,8 +217,6 @@ type Etape {
 
   incertitudes: Incertitudes
 
-  sections: Json
-
   contenu: Json
 }
 

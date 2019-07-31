@@ -207,11 +207,6 @@ const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
     te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 
-  if (format.sections && te.type.sections) {
-    // - les sections qui contiennent des élements sur cette étape
-    te.sections = titreSectionsFormat(te)
-  }
-
   return te
 }
 
