@@ -1,4 +1,3 @@
-import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
@@ -25,7 +24,6 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
   }
 
   try {
-    demarche.id = cryptoRandomString({ length: 6 })
     const demarcheUpdated = await titreDemarcheCreate(demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 

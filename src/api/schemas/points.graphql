@@ -69,7 +69,7 @@ type PointReference {
 }
 
 input InputPoint {
-  id: ID!
+  titreEtapeId: ID!
 
   coordonnees: InputCoordonnees
 
@@ -89,7 +89,7 @@ input InputPoint {
 }
 
 input InputPointReference {
-  id: ID!
+  titrePointId: ID!
 
   geoSystemeId: ID!
 

@@ -250,7 +250,11 @@ export default class Titres extends Model {
   }
 
   $parseJson(json) {
-    json = super.$parseDatabaseJson(json)
+    json = super.$parseJson(json)
+
+    if (!json.id && json.domaineId && json.typeId && json.nom) {
+      json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`
+    }
 
     if (json.references) {
       json.references = json.references.reduce(

@@ -1,4 +1,3 @@
-import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 import auth from './_auth'
@@ -124,7 +123,6 @@ const titreCreer = async ({ titre }, context, info) => {
   }
 
   try {
-    titre.id = cryptoRandomString({ length: 6 })
     await titreCreate(titre)
 
     return titreUpdateTask(titre.id)
