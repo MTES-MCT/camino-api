@@ -33,15 +33,14 @@ const titrePhasesFind = (titreDemarches, titreTypeId) => {
     const statutId =
       dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
 
-    return [
-      ...titrePhases,
-      {
-        titreDemarcheId: titreDemarche.id,
-        dateFin,
-        dateDebut,
-        statutId
-      }
-    ]
+    titrePhases.push({
+      titreDemarcheId: titreDemarche.id,
+      dateFin,
+      dateDebut,
+      statutId
+    })
+
+    return titrePhases
   }, [])
 }
 

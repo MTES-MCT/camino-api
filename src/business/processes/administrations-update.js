@@ -12,7 +12,9 @@ const administrationsUpdatedFind = (administrationsOld, administrationsNew) =>
     const updated =
       !administrationOld || objectsDiffer(administrationNew, administrationOld)
 
-    if (updated) acc.push(administrationNew)
+    if (!updated) return acc
+
+    acc.push(administrationNew)
     return acc
   }, [])
 

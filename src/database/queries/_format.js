@@ -190,8 +190,9 @@ const titreSectionsFormat = tea =>
       elements
     }
 
-    if (section.elements.length) sections.push(section)
+    if (!section.elements.length) return sections
 
+    sections.push(section)
     return sections
   }, [])
 

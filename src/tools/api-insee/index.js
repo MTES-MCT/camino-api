@@ -176,13 +176,13 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
     )
   }
 
-  const batchesQueries = batches.reduce(
-    async (acc, batch) => [
-      ...(await acc),
+  const batchesQueries = batches.reduce(async (acc, batch) => {
+    const accPromesse = await acc
+    accPromesse.push(
       await inseeFetchMulti(type, field, batch, queryFormatter(batch))
-    ],
-    []
-  )
+    )
+    return accPromesse
+  }, [])
 
   const batchesResults = await batchesQueries
 
@@ -243,10 +243,7 @@ const nomFormat = (e, usuel) =>
 const entrepriseEtablissementsFormat = (entrepriseId, e) =>
   e.periodesUniteLegale
     .reduce((acc, p) => {
-      const nom = nomFormat({
-        ...e,
-        ...p
-      })
+      const nom = nomFormat(Object.assign({}, e, p))
 
       let previous = acc[acc.length - 1]
 
@@ -309,13 +306,7 @@ const entrepriseAdresseFormat = e => {
     legalSiren: e.siren
   }
 
-  const nom = nomFormat(
-    {
-      ...e,
-      ...unite
-    },
-    true
-  )
+  const nom = nomFormat(Object.assign({}, e, unite), true)
   if (nom) {
     entreprise.nom = nom
   }
@@ -415,7 +406,7 @@ const entrepriseEtablissementGet = async sirenIds => {
     return null
 
   return entreprisesEtablissements.reduce(
-    (acc, e) => (e ? [...acc, ...entrepriseEtablissementFormat(e)] : acc),
+    (acc, e) => (e ? acc.concat(entrepriseEtablissementFormat(e)) : acc),
     []
   )
 }
@@ -433,10 +424,12 @@ const entrepriseAdresseGet = async sirenIds => {
   )
   if (!etablissements || !Array.isArray(etablissements)) return null
 
-  return etablissements.reduce(
-    (acc, e) => (e ? [...acc, entrepriseAdresseFormat(e)] : acc),
-    []
-  )
+  return etablissements.reduce((acc, e) => {
+    if (!e) return acc
+
+    acc.push(entrepriseAdresseFormat(e))
+    return acc
+  }, [])
 }
 
 export { tokenInitialize, entrepriseEtablissementGet, entrepriseAdresseGet }

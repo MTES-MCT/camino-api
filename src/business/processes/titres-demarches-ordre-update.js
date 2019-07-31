@@ -23,10 +23,9 @@ const titresDemarchesOrdreUpdate = async titres => {
       titre.demarches.slice().reverse()
     )
 
-    if (titreDemarchesOrdreUpdated.length)
-      acc.push(...titreDemarchesOrdreUpdate)
+    if (!titreDemarchesOrdreUpdated.length) return acc
 
-    return acc
+    return acc.concat(titreDemarchesOrdreUpdated)
   }, [])
 
   if (titresDemarchesUpdated.length) {

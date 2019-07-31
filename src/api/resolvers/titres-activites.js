@@ -90,7 +90,9 @@ const emailsGet = async entrepriseIds => {
 
   return utilisateurs.reduce(
     (res, u) => {
-      if (u.email) res.push(u.email)
+      if (!u.email) return res
+
+      res.push(u.email)
       return res
     },
     // si la variable d'environnement existe,
