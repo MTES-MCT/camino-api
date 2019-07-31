@@ -352,7 +352,7 @@ input InputEtapeCreation {
 
   substancesIds: [ID!]
 
-  points: [InputPoint]
+  points: [InputEtapePoint]
 
   titulairesIds: [ID!]
 
@@ -400,7 +400,7 @@ input InputEtapeModification {
 
   substancesIds: [ID!]
 
-  points: [InputPoint]
+  points: [InputEtapePoint]
 
   titulairesIds: [ID!]
 
