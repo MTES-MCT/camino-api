@@ -189,6 +189,16 @@ export default class TitresEtapes extends Model {
   $parseJson(json) {
     json = super.$parseJson(json)
 
+    if (!json.id && json.titreDemarcheId && json.typeId) {
+      json.id = `${json.titreDemarcheId}-${json.typeId}99`
+    }
+
+    if (json.points) {
+      json.points.forEach(point => {
+        point.titreEtapeId = json.id
+      })
+    }
+
     if (json.administrationsIds) {
       json.administrations = json.administrationsIds.map(id => ({ id }))
       delete json.administrationsIds

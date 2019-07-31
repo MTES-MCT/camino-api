@@ -108,6 +108,16 @@ export default class TitresDemarches extends Model {
     }
   }
 
+  $parseJson(json) {
+    json = super.$parseJson(json)
+
+    if (!json.id && json.titreId && json.typeId) {
+      json.id = `${json.titreId}-${json.typeId}99`
+    }
+
+    return json
+  }
+
   static namedFilters = {
     orderDesc: builder => {
       builder.orderBy('ordre', 'desc')

@@ -1,11 +1,9 @@
-import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
 
 import {
   titreEtapeGet,
-  titreEtapeCreate,
-  titreEtapeUpdate,
+  titreEtapeUpsert,
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
 
@@ -25,8 +23,7 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
   }
 
   try {
-    etape.id = cryptoRandomString({ length: 6 })
-    const etapeUpdated = await titreEtapeCreate(etape)
+    const etapeUpdated = await titreEtapeUpsert(etape)
 
     const titreUpdated = await titreEtapeUpdateTask(
       etapeUpdated.id,
@@ -55,7 +52,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   }
 
   try {
-    const etapeUpdated = await titreEtapeUpdate(etape.id, etape)
+    const etapeUpdated = await titreEtapeUpsert(etape)
 
     const titreUpdated = await titreEtapeUpdateTask(
       etapeUpdated.id,
