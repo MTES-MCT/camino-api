@@ -174,13 +174,11 @@ const titresEtapesAdministrationsBuild = (titres, administrations) =>
                 administrations
               )
 
-              return {
-                ...titresEtapesAdministrations,
-                [titreEtape.id]: {
-                  titreEtape,
-                  administrationsIds
-                }
+              titresEtapesAdministrations[titreEtape.id] = {
+                titreEtape,
+                administrationsIds
               }
+              return titresEtapesAdministrations
             },
             titresEtapesAdministrations
           ),

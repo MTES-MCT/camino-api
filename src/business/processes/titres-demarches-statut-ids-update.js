@@ -3,13 +3,9 @@ import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 import PQueue from 'p-queue'
 
 const titreDemarcheStatutUpdate = (titreDemarche, titre) => {
-  const statutId = titreDemarcheStatutIdFind(
-    {
-      ...titreDemarche,
-      etapes: titreDemarche.etapes && titreDemarche.etapes.reverse()
-    },
-    titre.typeId
-  )
+  titreDemarche['etapes'] =
+    titreDemarche.etapes && titreDemarche.etapes.reverse()
+  const statutId = titreDemarcheStatutIdFind(titreDemarche, titre.typeId)
 
   return titreDemarche.statutId !== statutId
     ? async () => {

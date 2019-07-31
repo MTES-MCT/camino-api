@@ -130,10 +130,10 @@ const titresEtapesCommunesGet = async titresEtapes => {
   const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
 
   return communesGeojsons.reduce(
-    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => ({
-      ...titresEtapesCommunes,
-      [titreEtapeId]: communesGeojson
-    }),
+    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => {
+      titresEtapesCommunes[titreEtapeId] = communesGeojson
+      return titresEtapesCommunes
+    },
     {}
   )
 }

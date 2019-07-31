@@ -20,10 +20,8 @@ const titreEtapesOrdreUpdate = titreEtapes =>
 
 const titresEtapesOrdreUpdate = async titresDemarches => {
   const titresEtapesUpdated = titresDemarches.reduce(
-    (arr, titreDemarche) => [
-      ...arr,
-      ...titreEtapesOrdreUpdate(titreDemarche.etapes)
-    ],
+    (arr, titreDemarche) =>
+      arr.concat(titreEtapesOrdreUpdate(titreDemarche.etapes)),
     []
   )
 

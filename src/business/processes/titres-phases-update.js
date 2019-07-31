@@ -31,9 +31,8 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
       return res
     }
 
-    const log = { [key]: [valueOld, valueNew] }
-
-    return { ...res, ...log }
+    res[key] = [valueOld, valueNew]
+    return res
   }, {})
 
 const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
