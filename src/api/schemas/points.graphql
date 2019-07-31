@@ -68,9 +68,7 @@ type PointReference {
   coordonnees: CoordonneesReferences
 }
 
-input InputPoint {
-  titreEtapeId: ID!
-
+input InputEtapePoint {
   coordonnees: InputCoordonnees
 
   groupe: Int
@@ -85,12 +83,10 @@ input InputPoint {
 
   securite: Boolean
 
-  references: [InputPointReference]
+  references: [InputEtapePointReference]
 }
 
-input InputPointReference {
-  titrePointId: ID!
-
+input InputEtapePointReference {
   geoSystemeId: ID!
 
   coordonnees: InputCoordonneesReferences
