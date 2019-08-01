@@ -31,7 +31,7 @@ const titreActivitesRowUpdate = async (
     const requests = activites.map(activite => {
       const values = rowFormat(activite, table.columns, null, table.callbacks)
 
-      const id = idGet(values[0])
+      const id = idGet(values)
       const rowIndex = rowIndexFind(worksheet, id)
       const sheetId = table.id
 
