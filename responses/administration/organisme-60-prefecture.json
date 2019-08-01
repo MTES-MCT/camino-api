@@ -1,0 +1,53 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.07387709618,
+          49.4344406128
+        ]
+      },
+      "properties": {
+        "id": "prefecture-60057-01",
+        "codeInsee": "60057",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de l'Oise",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, place de la Préfecture"
+            ],
+            "codePostal": "60022",
+            "commune": "Beauvais Cedex",
+            "coordonnees": [
+              2.07387709618,
+              49.4344406128
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "03 44 06 12 60",
+        "url": "http://www.oise.gouv.fr"
+      }
+    }
+  ]
+}

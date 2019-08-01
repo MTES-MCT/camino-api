@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.199037998915,
+          48.0019607544
+        ]
+      },
+      "properties": {
+        "id": "prefecture-72181-01",
+        "codeInsee": "72181",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Sarthe",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Place Aristide-Briand"
+            ],
+            "codePostal": "72041",
+            "commune": "Le Mans Cedex 9",
+            "coordonnees": [
+              0.199037998915,
+              48.0019607544
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "15:00:00"
+              }
+            ]
+          },
+          {
+            "du": "lundi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "pref-mail@sarthe.gouv.fr",
+        "telephone": "02 43 39 72 72",
+        "url": "http://www.sarthe.gouv.fr"
+      }
+    }
+  ]
+}

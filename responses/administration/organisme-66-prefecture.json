@@ -1,0 +1,99 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.89329099655,
+          42.6999511719
+        ]
+      },
+      "properties": {
+        "id": "prefecture-66136-01",
+        "codeInsee": "66136",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Pyrénées-Orientales",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "24, quai Sadi-Carnot",
+              "BP 951"
+            ],
+            "codePostal": "66951",
+            "commune": "Perpignan Cedex",
+            "coordonnees": [
+              2.89329099655,
+              42.6999511719
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "mardi",
+            "au": "mardi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:15:00",
+                "a": "15:30:00"
+              }
+            ]
+          },
+          {
+            "du": "lundi",
+            "au": "lundi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "15:30:00"
+              }
+            ]
+          },
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "12:00:00"
+              }
+            ]
+          },
+          {
+            "du": "mercredi",
+            "au": "mercredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "12:00:00"
+              }
+            ]
+          },
+          {
+            "du": "jeudi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:15:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://www.pyrenees-orientales.gouv.fr/Contactez-nous",
+        "telephone": "04 68 51 66 66",
+        "url": "http://www.pyrenees-orientales.gouv.fr"
+      }
+    }
+  ]
+}

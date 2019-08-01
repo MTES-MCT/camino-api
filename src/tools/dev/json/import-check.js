@@ -34,30 +34,27 @@ const territoires = ['pays', 'regions', 'departements']
 
 const entreprisesFiles = ['', 'Etablissements']
 
-const repertoires = [
-  ...domainesIds.reduce(
-    (res, domaineId) => [
-      ...res,
-      ...entreprisesFiles.reduce(
-        (d, file) => [
-          ...d,
-          {
-            name: `entreprises${file}`,
-            file: decamelize(
-              `entreprises-titres-${domaineId}${file ? '-' : ''}${file}`,
-              '-'
-            )
-          }
-        ],
-        []
-      )
-    ],
-    []
-  ),
+const repertoires = domainesIds.reduce(
+  (res, domaineId) =>
+    res.concat(
+      entreprisesFiles.reduce((d, file) => {
+        d.push({
+          name: `entreprises${file}`,
+          file: decamelize(
+            `entreprises-titres-${domaineId}${file ? '-' : ''}${file}`,
+            '-'
+          )
+        })
+        return d
+      }, [])
+    ),
+  []
+)
+repertoires.push(
   'administrations',
   'administrationsTypes',
   'administrations--domaines'
-]
+)
 
 const calendrier = ['frequences', 'trimestres', 'mois']
 
@@ -83,19 +80,16 @@ const titresFiles = [
 ]
 
 const titres = titresFiles.reduce(
-  (d, file) => [
-    ...d,
-    ...domainesIds.reduce(
-      (res, domaineId) => [
-        ...res,
-        {
+  (d, file) =>
+    d.concat(
+      domainesIds.reduce((res, domaineId) => {
+        res.push({
           name: file,
           file: decamelize(`titres-${domaineId}-${file}`, '-')
-        }
-      ],
-      []
-    )
-  ],
+        })
+        return res
+      }, [])
+    ),
   []
 )
 
@@ -108,49 +102,50 @@ const activitesMetas = [
 
 const titresActivites = ['titresActivites']
 
-const data = [
-  ...metas,
-  ...substances,
-  ...territoires,
-  ...repertoires,
-  ...calendrier,
-  ...utilisateurs,
-  ...titres,
-  ...activitesMetas,
-  ...titresActivites
-].reduce((acc, e) => {
-  const name = camelize(typeof e === 'object' ? e.name : e)
-  const file = typeof e === 'object' ? e.file : e
+const data = []
+  .concat(
+    metas,
+    substances,
+    territoires,
+    repertoires,
+    calendrier,
+    utilisateurs,
+    titres,
+    activitesMetas,
+    titresActivites
+  )
+  .reduce((acc, e) => {
+    const name = camelize(typeof e === 'object' ? e.name : e)
+    const file = typeof e === 'object' ? e.file : e
 
-  let model
-  try {
-    model = !file.match(/--/)
-      ? require(`../../../database/models/${decamelize(name, '-')}`).default
-      : null
-  } catch (e) {}
+    let model
+    try {
+      model = !file.match(/--/)
+        ? require(`../../../database/models/${decamelize(name, '-')}`).default
+        : null
+    } catch (e) {}
 
-  let data
-  try {
-    data = require(`../../../../sources/${decamelize(file, '-')}.json`)
-  } catch (e) {
-    data = []
-  }
+    let data
+    try {
+      data = require(`../../../../sources/${decamelize(file, '-')}.json`)
+    } catch (e) {
+      data = []
+    }
 
-  if (acc[name]) {
-    acc[name].data = acc[name].data.concat(data)
+    if (acc[name]) {
+      acc[name].data = acc[name].data.concat(data)
 
-    return acc
-  }
+      return acc
+    }
 
-  return {
-    ...acc,
-    [name]: {
+    acc[name] = {
       name,
       model,
       data
     }
-  }
-}, {})
+
+    return acc
+  }, {})
 
 const splitJoin = (from, to, swapIfId = false) => {
   from = from.split('.')
@@ -178,25 +173,15 @@ const mappingRelationsGet = (file, mappings) => {
     const { join } = mapping
 
     if (join.through) {
-      return [
-        ...relations,
-        {
-          file,
-          name,
-          ...splitJoin(join.from, join.through.from)
-        },
-        { file, name, ...splitJoin(join.through.to, join.to) }
-      ]
+      relations.push(
+        {}.assign(file, name, splitJoin(join.from, join.through.from)),
+        {}.assign(file, name, splitJoin(join.through.to, join.to))
+      )
+      return relations
     }
 
-    return [
-      ...relations,
-      {
-        file,
-        name,
-        ...splitJoin(join.from, join.to, true)
-      }
-    ]
+    relations.push({}.assign(file, name, splitJoin(join.from, join.to, true)))
+    return relations
   }, [])
 }
 

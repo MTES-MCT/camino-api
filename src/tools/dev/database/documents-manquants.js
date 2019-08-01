@@ -9,8 +9,12 @@ import * as path from 'path'
 async function main() {
   const titresDocuments = await titresDocumentsGet()
   const titresDocumentsFichiers = titresDocuments.reduce(
-    (arr, titreDocument) =>
-      titreDocument.fichier ? [...arr, titreDocument.fichier] : arr,
+    (arr, titreDocument) => {
+      if (!titreDocument.fichier) return arr
+
+      arr.push(titreDocument.fichier)
+      return arr
+    },
     []
   )
 

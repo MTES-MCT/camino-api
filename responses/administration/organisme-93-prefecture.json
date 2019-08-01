@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.4761759,
+          48.910285
+        ]
+      },
+      "properties": {
+        "id": "prefecture-93008-01",
+        "codeInsee": "93008",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de la Seine-Saint-Denis",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, esplanade Jean-Moulin"
+            ],
+            "codePostal": "93007",
+            "commune": "Bobigny Cedex",
+            "coordonnees": [
+              2.4761759,
+              48.910285
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@seine-saint-denis.gouv.fr",
+        "telephone": "01 41 60 60 60",
+        "url": "http://www.seine-saint-denis.gouv.fr"
+      }
+    }
+  ]
+}

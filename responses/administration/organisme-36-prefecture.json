@@ -1,0 +1,58 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.68746,
+          46.810638
+        ]
+      },
+      "properties": {
+        "id": "prefecture-36044-01",
+        "codeInsee": "36044",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Indre",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "Rue des Jeux marins"
+            ],
+            "codePostal": "36000",
+            "commune": "Châteauroux",
+            "coordonnees": [
+              1.68746,
+              46.810638
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "Place de la Victoire et des Alliés",
+              "CS 80583"
+            ],
+            "codePostal": "36019",
+            "commune": "Châteauroux Cedex"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "'09:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "02 54 29 50 00",
+        "url": "http://www.indre.gouv.fr"
+      }
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.43824100494,
+          48.6275253296
+        ]
+      },
+      "properties": {
+        "id": "prefecture-91228-01",
+        "codeInsee": "91228",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Essonne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Boulevard de France"
+            ],
+            "codePostal": "91010",
+            "commune": "Évry",
+            "coordonnees": [
+              2.43824100494,
+              48.6275253296
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@essonne.gouv.fr",
+        "telephone": "01 69 91 91 91",
+        "url": "http://www.essonne.gouv.fr"
+      }
+    }
+  ]
+}

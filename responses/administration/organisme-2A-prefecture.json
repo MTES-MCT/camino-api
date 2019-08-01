@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          8.7368818,
+          41.9191356
+        ]
+      },
+      "properties": {
+        "id": "prefecture-2A004-01",
+        "codeInsee": "2A004",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de Corse-du-Sud",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Palais Lantivy",
+              "Cours Napoléon"
+            ],
+            "codePostal": "20188",
+            "commune": "Ajaccio Cedex 9",
+            "coordonnees": [
+              8.7368818,
+              41.9191356
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@corse-du-sud.gouv.fr",
+        "telephone": "04 95 11 12 13",
+        "url": "http://www.corse-du-sud.gouv.fr"
+      }
+    }
+  ]
+}

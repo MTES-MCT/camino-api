@@ -15,27 +15,27 @@ const titulairesM = require('../../../../sources/titres-m-titres-titulaires.json
 const titulairesS = require('../../../../sources/titres-s-titres-titulaires.json')
 const titulairesW = require('../../../../sources/titres-w-titres-titulaires.json')
 
-const entreprises = [
-  ...entreprisesC,
-  ...entreprisesF,
-  ...entreprisesG,
-  ...entreprisesH,
-  ...entreprisesM,
-  ...entreprisesR,
-  ...entreprisesS,
-  ...entreprisesW
-]
+const entreprises = [].concat(
+  entreprisesC,
+  entreprisesF,
+  entreprisesG,
+  entreprisesH,
+  entreprisesM,
+  entreprisesR,
+  entreprisesS,
+  entreprisesW
+)
 
-const titulaires = [
-  ...titulairesR,
-  ...titulairesC,
-  ...titulairesF,
-  ...titulairesG,
-  ...titulairesH,
-  ...titulairesM,
-  ...titulairesS,
-  ...titulairesW
-]
+const titulaires = [].concat(
+  titulairesR,
+  titulairesC,
+  titulairesF,
+  titulairesG,
+  titulairesH,
+  titulairesM,
+  titulairesS,
+  titulairesW
+)
 
 // demarches.forEach(d => {
 //   const ti = titres.find(t => t.id === d.titre_id)

@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.08364105225,
+          45.7760696411
+        ]
+      },
+      "properties": {
+        "id": "prefecture-63113-01",
+        "codeInsee": "63113",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Puy-de-Dôme",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, rue d'Assas"
+            ],
+            "codePostal": "63033",
+            "commune": "Clermont-Ferrand Cedex 1",
+            "coordonnees": [
+              3.08364105225,
+              45.7760696411
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "08:15:00",
+                "a": "16:00:00"
+              }
+            ]
+          },
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:15:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "04 73 98 63 63",
+        "url": "http://www.puy-de-dome.gouv.fr"
+      }
+    }
+  ]
+}

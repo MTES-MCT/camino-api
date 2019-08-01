@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.37958812714,
+          43.2904243469
+        ]
+      },
+      "properties": {
+        "id": "prefecture-13203-01",
+        "codeInsee": "13203",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture des Bouches-du-Rhône",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Boulevard Paul-Peytral"
+            ],
+            "codePostal": "13282",
+            "commune": "Marseille Cedex 20",
+            "coordonnees": [
+              5.37958812714,
+              43.2904243469
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:15:00",
+                "a": "11:45:00"
+              }
+            ]
+          }
+        ],
+        "email": "contact@bouches-du-rhone.pref.gouv.fr",
+        "telephone": "04 84 35 40 00",
+        "url": "http://www.bouches-du-rhone.gouv.fr"
+      }
+    }
+  ]
+}

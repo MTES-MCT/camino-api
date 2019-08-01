@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.843362,
+          45.7614853
+        ]
+      },
+      "properties": {
+        "id": "prefecture-69383-01",
+        "codeInsee": "69383",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Rhône",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "97, rue Molière"
+            ],
+            "codePostal": "69003",
+            "commune": "Lyon",
+            "coordonnees": [
+              4.843362,
+              45.7614853
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "106, rue Pierre-Corneille"
+            ],
+            "codePostal": "69419",
+            "commune": "Lyon Cedex 03",
+            "coordonnees": [
+              4.8442611,
+              45.7608555
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://www.rhone.gouv.fr/Contactez-nous",
+        "telephone": "0821 80 30 69",
+        "url": "http://www.rhone.gouv.fr"
+      }
+    }
+  ]
+}

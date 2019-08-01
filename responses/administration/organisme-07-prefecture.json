@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.6005152,
+          44.735761
+        ]
+      },
+      "properties": {
+        "id": "prefecture-07186-01",
+        "codeInsee": "07186",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Ardèche",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "4, boulevard de Vernon"
+            ],
+            "codePostal": "07000",
+            "commune": "Privas",
+            "coordonnees": [
+              4.6005152,
+              44.735761
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:00:00",
+                "a": "17:00:00"
+              }
+            ]
+          },
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "pref-courrier@ardeche.gouv.fr",
+        "telephone": "04 75 66 50 00",
+        "url": "http://www.ardeche.gouv.fr"
+      }
+    }
+  ]
+}

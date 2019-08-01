@@ -1,14 +1,17 @@
 import * as dateFormat from 'dateformat'
 
 const dupRemove = (key, ...arrays) =>
-  arrays.reduce(
-    (result, array) =>
-      array.reduce(
-        (res, el) =>
-          res.find(e => !el[key] || e[key] === el[key]) ? res : [...res, el],
-        result
-      ),
-    []
+  arrays.reduce((result, array) =>
+    array.reduce(
+      (res, el) =>
+        res.find(e => {
+          if (!el[key] || e[key] === el[key]) return res
+
+          res.push(el)
+          return res
+        }, result),
+      []
+    )
   )
 
 const dupFind = (key, ...arrays) =>

@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.0912149995565,
+          48.432258606
+        ]
+      },
+      "properties": {
+        "id": "prefecture-61001-01",
+        "codeInsee": "61001",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de l'Orne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "BP 529",
+              "39, rue Saint-Blaise"
+            ],
+            "codePostal": "61018",
+            "commune": "Alençon Cedex",
+            "coordonnees": [
+              0.0912149995565,
+              48.432258606
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:30:00"
+              },
+              {
+                "de": "13:15:00",
+                "a": "17:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "pref-communication@orne.gouv.fr",
+        "telephone": "02 33 80 61 61",
+        "url": "http://www.orne.gouv.fr"
+      }
+    }
+  ]
+}

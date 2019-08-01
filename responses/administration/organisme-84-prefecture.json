@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.8216766,
+          43.9480723
+        ]
+      },
+      "properties": {
+        "id": "prefecture-84007-01",
+        "codeInsee": "84007",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Vaucluse",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "2, avenue de la Folie"
+            ],
+            "codePostal": "84000",
+            "commune": "Avignon",
+            "coordonnees": [
+              4.8216766,
+              43.9480723
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "Services de l'Etat en Vaucluse Préfecture"
+            ],
+            "codePostal": "84905",
+            "commune": "Avignon Cedex 9"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "pref-contact@vaucluse.gouv.fr",
+        "telephone": "04 88 17 84 84",
+        "url": "http://www.vaucluse.gouv.fr"
+      }
+    }
+  ]
+}

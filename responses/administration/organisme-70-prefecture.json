@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.15336894989,
+          47.6231956482
+        ]
+      },
+      "properties": {
+        "id": "prefecture-70550-01",
+        "codeInsee": "70550",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Haute-Saône",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, rue de la Préfecture",
+              "BP 429"
+            ],
+            "codePostal": "70013",
+            "commune": "Vesoul Cedex",
+            "coordonnees": [
+              6.15336894989,
+              47.6231956482
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "14:00:00",
+                "a": "17:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@haute-saone.pref.gouv.fr",
+        "telephone": "03 84 77 70 00",
+        "url": "http://www.haute-saone.gouv.fr"
+      }
+    }
+  ]
+}

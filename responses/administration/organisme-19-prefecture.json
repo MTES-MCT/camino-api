@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.77021098137,
+          45.272354126
+        ]
+      },
+      "properties": {
+        "id": "prefecture-19272-01",
+        "codeInsee": "19272",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Corrèze",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, rue Souham",
+              "BP 250"
+            ],
+            "codePostal": "19012",
+            "commune": "Tulle Cedex",
+            "coordonnees": [
+              1.77021098137,
+              45.272354126
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:15:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@correze.gouv.fr",
+        "telephone": "05 55 20 55 20",
+        "url": "http://www.correze.gouv.fr"
+      }
+    }
+  ]
+}

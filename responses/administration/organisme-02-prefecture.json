@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.621034,
+          49.564231
+        ]
+      },
+      "properties": {
+        "id": "prefecture-02408-01",
+        "codeInsee": "02408",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Aisne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "2, rue Paul-Doumer"
+            ],
+            "codePostal": "02010",
+            "commune": "Laon Cedex",
+            "coordonnees": [
+              3.621034,
+              49.564231
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "'09:00:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "14:00:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@aisne.gouv.fr",
+        "telephone": "03 23 21 82 82",
+        "url": "http://www.aisne.gouv.fr"
+      }
+    }
+  ]
+}

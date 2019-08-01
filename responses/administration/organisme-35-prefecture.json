@@ -1,0 +1,60 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.69316697121,
+          48.1268234253
+        ]
+      },
+      "properties": {
+        "id": "prefecture-35238-01",
+        "codeInsee": "35238",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Ille-et-Vilaine",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "3, avenue de la Préfecture"
+            ],
+            "codePostal": "35026",
+            "commune": "Rennes Cedex 9",
+            "coordonnees": [
+              -1.69316697121,
+              48.1268234253
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:30:00",
+                "a": "12:45:00"
+              }
+            ]
+          },
+          {
+            "du": "lundi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@ille-et-vilaine.gouv.fr",
+        "telephone": "02 99 02 10 35",
+        "url": "http://www.bretagne.gouv.fr"
+      }
+    }
+  ]
+}

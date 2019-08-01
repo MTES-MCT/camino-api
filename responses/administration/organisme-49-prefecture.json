@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.549000024796,
+          47.4694290161
+        ]
+      },
+      "properties": {
+        "id": "prefecture-49007-01",
+        "codeInsee": "49007",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Maine-et-Loire",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Place Michel-Debré"
+            ],
+            "codePostal": "49934",
+            "commune": "Angers Cedex 9",
+            "coordonnees": [
+              -0.549000024796,
+              47.4694290161
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:15:00",
+                "a": "16:15:00"
+              }
+            ]
+          }
+        ],
+        "email": "modernisation@maine-et-loire.pref.gouv.fr",
+        "telephone": "02 41 81 81 81",
+        "url": "http://www.maine-et-loire.gouv.fr"
+      }
+    }
+  ]
+}

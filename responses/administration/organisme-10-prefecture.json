@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.0781621933,
+          48.2977714539
+        ]
+      },
+      "properties": {
+        "id": "prefecture-10387-01",
+        "codeInsee": "10387",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Aube",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "CS 20372",
+              "2, rue Pierre-Labonde"
+            ],
+            "codePostal": "10025",
+            "commune": "Troyes Cedex",
+            "coordonnees": [
+              4.0781621933,
+              48.2977714539
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:00:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@aube.gouv.fr",
+        "telephone": "03 25 42 35 00",
+        "url": "http://www.aube.gouv.fr"
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.5509844,
+          46.6721349
+        ]
+      },
+      "properties": {
+        "id": "prefecture-39300-01",
+        "codeInsee": "39300",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Jura",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "8, rue de la Préfecture"
+            ],
+            "codePostal": "39030",
+            "commune": "Lons-le-Saunier Cedex",
+            "coordonnees": [
+              5.5509844,
+              46.6721349
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "11:45:00"
+              },
+              {
+                "de": "13:45:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@jura.gouv.fr",
+        "telephone": "03 84 86 84 00",
+        "url": "http://www.jura.gouv.fr"
+      }
+    }
+  ]
+}

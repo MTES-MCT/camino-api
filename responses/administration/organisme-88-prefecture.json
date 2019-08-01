@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.44819021225,
+          48.1730003357
+        ]
+      },
+      "properties": {
+        "id": "prefecture-88160-01",
+        "codeInsee": "88160",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture des Vosges",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, place Foch"
+            ],
+            "codePostal": "88026",
+            "commune": "Epinal Cedex",
+            "coordonnees": [
+              6.44819021225,
+              48.1730003357
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "14:00:00",
+                "a": "16:15:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@vosges.gouv.fr",
+        "telephone": "03 29 69 88 88",
+        "url": "http://www.vosges.gouv.fr"
+      }
+    }
+  ]
+}

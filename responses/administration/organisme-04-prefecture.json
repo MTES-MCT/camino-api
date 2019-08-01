@@ -1,0 +1,53 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.23773384094,
+          44.092250824
+        ]
+      },
+      "properties": {
+        "id": "prefecture-04070-01",
+        "codeInsee": "04070",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Alpes-de-Haute-Provence",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "8, rue Docteur-Romieu"
+            ],
+            "codePostal": "04016",
+            "commune": "Digne-les-Bains Cedex",
+            "coordonnees": [
+              6.23773384094,
+              44.092250824
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "04 92 36 72 00",
+        "url": "http://www.alpes-de-haute-provence.gouv.fr"
+      }
+    }
+  ]
+}

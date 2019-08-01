@@ -1,0 +1,49 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.17526197433,
+          49.1220779419
+        ]
+      },
+      "properties": {
+        "id": "prefecture-57463-01",
+        "codeInsee": "57463",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Moselle",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "9, place de la Préfecture",
+              "BP 71014"
+            ],
+            "codePostal": "57034",
+            "commune": "Metz Cedex 01",
+            "coordonnees": [
+              6.17526197433,
+              49.1220779419
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "03 87 34 87 34"
+      }
+    }
+  ]
+}

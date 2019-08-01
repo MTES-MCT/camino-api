@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.605753,
+          42.9671656
+        ]
+      },
+      "properties": {
+        "id": "prefecture-09122-01",
+        "codeInsee": "09122",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Ariège",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "2, rue de la Préfecture - Préfet Claude Erignac",
+              "BP 4087"
+            ],
+            "codePostal": "09007",
+            "commune": "Foix Cedex",
+            "coordonnees": [
+              1.605753,
+              42.9671656
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@ariege.gouv.fr",
+        "telephone": "05 61 02 10 00",
+        "url": "http://www.ariege.gouv.fr"
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.44717001915,
+          44.9285812378
+        ]
+      },
+      "properties": {
+        "id": "prefecture-15014-01",
+        "codeInsee": "15014",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Cantal",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Cours Monthyon",
+              "BP 529"
+            ],
+            "codePostal": "15005",
+            "commune": "Aurillac Cedex",
+            "coordonnees": [
+              2.44717001915,
+              44.9285812378
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:45:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "courrier@cantal.pref.gouv.fr",
+        "telephone": "04 71 46 23 00",
+        "url": "http://www.cantal.gouv.fr"
+      }
+    }
+  ]
+}

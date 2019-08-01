@@ -1,0 +1,49 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.0791752,
+          49.4455478
+        ]
+      },
+      "properties": {
+        "id": "prefecture-76540-01",
+        "codeInsee": "76540",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de la Seine-Maritime",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "7, place de la Madeleine"
+            ],
+            "codePostal": "76036",
+            "commune": "Rouen Cedex",
+            "coordonnees": [
+              1.0791752,
+              49.4455478
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "15:45:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "02 32 76 50 00",
+        "url": "http://www.seine-maritime.gouv.fr"
+      }
+    }
+  ]
+}

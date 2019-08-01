@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.2723935,
+          48.8401046
+        ]
+      },
+      "properties": {
+        "id": "prefecture_region-75115-01",
+        "codeInsee": "75115",
+        "pivotLocal": "prefecture_region",
+        "nom": "Préfecture de région - Île-de-France",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "5 rue Leblanc"
+            ],
+            "codePostal": "75911",
+            "commune": "Paris Cedex 15",
+            "coordonnees": [
+              2.2723935,
+              48.8401046
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:00:00",
+                "a": "18:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://prefectures-regions.gouv.fr/ile-de-france/Outils/Nous-contacter",
+        "telephone": "01 82 52 40 00",
+        "url": "http://www.prefectures-regions.gouv.fr/ile-de-france"
+      }
+    }
+  ]
+}

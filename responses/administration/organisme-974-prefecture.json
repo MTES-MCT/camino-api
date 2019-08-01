@@ -1,0 +1,51 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          55.4473944,
+          -20.8754608
+        ]
+      },
+      "properties": {
+        "id": "prefecture-97411-01",
+        "codeInsee": "97411",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Réunion",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, rue de la Messagerie",
+              "CS 51079"
+            ],
+            "codePostal": "97404",
+            "commune": "Saint-Denis Cedex",
+            "coordonnees": [
+              55.4473944,
+              -20.8754608
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "07:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://www.reunion.gouv.fr/spip.php?article167",
+        "telephone": "+262 262 40 77 77",
+        "url": "http://www.reunion.gouv.fr"
+      }
+    }
+  ]
+}

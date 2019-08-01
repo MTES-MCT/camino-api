@@ -51,7 +51,9 @@ import { organismeGet } from '../api-administrations/index'
 
 //       const { id: departementId } = departementChef
 
-//       return [...(await acc), { id: titre.id, departementId }]
+//       const accPromesse = await acc
+//       accPromesse.push({ id : titre.id, departementId })
+//       return accPromesse
 //     },
 //     []
 //   )
@@ -75,18 +77,18 @@ const main = async () => {
   const departements = await departementsGet()
   console.log(departements.length)
 
-  const administrations = await departements.reduce(
-    async (acc, { id }) => [
-      ...(await acc),
+  const administrations = await departements.reduce(async (acc, { id }) => {
+    const accPromesse = await acc
+    accPromesse.push(
       await organismeGet(id, id === '75' ? 'prefecture_region' : 'prefecture')
-    ],
-    []
-  )
+    )
+    return accPromesse
+  }, [])
 
-  const administrationsIndex = administrations.reduce(
-    (acc, a) => ({ ...acc, [a.departementId]: a }),
-    {}
-  )
+  const administrationsIndex = administrations.reduce((acc, a) => {
+    acc[a.departementId] = a
+    return acc
+  }, {})
   await fileCreate(
     'test-administrations.json',
     JSON.stringify(administrations, null, 2)
@@ -105,16 +107,15 @@ const main = async () => {
       (acc, titreEtape) =>
         !titreEtape.communes || !titreEtape.communes.length
           ? acc
-          : [
-              ...acc,
-              ...titreEtape.communes.map(commune =>
+          : acc.concat(
+              titreEtape.communes.map(commune =>
                 titreEtapeAdministrationInsert({
                   titreEtapeId: titreEtape.id,
                   administrationId:
                     administrationsIndex[commune.departementId].id
                 })
               )
-            ],
+            ),
       []
     )
   )

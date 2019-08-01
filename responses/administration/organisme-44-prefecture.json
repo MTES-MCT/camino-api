@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.55436205864,
+          47.2202568054
+        ]
+      },
+      "properties": {
+        "id": "prefecture-44109-01",
+        "codeInsee": "44109",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Loire-Atlantique",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "6, quai Ceineray",
+              "BP 33515"
+            ],
+            "codePostal": "44035",
+            "commune": "Nantes Cedex 1",
+            "coordonnees": [
+              -1.55436205864,
+              47.2202568054
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "16:15:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "02 40 41 20 20",
+        "url": "http://www.loire-atlantique.gouv.fr"
+      }
+    }
+  ]
+}

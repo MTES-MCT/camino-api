@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.15700995922,
+          46.1571998596
+        ]
+      },
+      "properties": {
+        "id": "prefecture-17300-01",
+        "codeInsee": "17300",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Charente-Maritime",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "CS 70000",
+              "38, rue Réaumur"
+            ],
+            "codePostal": "17017",
+            "commune": "La Rochelle Cedex 1",
+            "coordonnees": [
+              -1.15700995922,
+              46.1571998596
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@charente-maritime.gouv.fr",
+        "telephone": "05 46 27 43 00",
+        "url": "http://www.charente-maritime.gouv.fr"
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.4955812,
+          44.5204685
+        ]
+      },
+      "properties": {
+        "id": "prefecture-48095-01",
+        "codeInsee": "48095",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de la Lozère",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "Rue du Faubourg-Montbel"
+            ],
+            "codePostal": "48000",
+            "commune": "Mende",
+            "coordonnees": [
+              3.4955812,
+              44.5204685
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "BP 130"
+            ],
+            "codePostal": "48005",
+            "commune": "Mende Cedex"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "17:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@lozere.gouv.fr",
+        "telephone": "04 66 49 60 00",
+        "url": "http://www.lozere.gouv.fr"
+      }
+    }
+  ]
+}

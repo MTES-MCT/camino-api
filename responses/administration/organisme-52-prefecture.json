@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.1400731,
+          48.1147661
+        ]
+      },
+      "properties": {
+        "id": "prefecture-52121-01",
+        "codeInsee": "52121",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Haute-Marne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "89, rue de la Victoire-de-la-Marne"
+            ],
+            "codePostal": "52011",
+            "commune": "Chaumont Cedex",
+            "coordonnees": [
+              5.1400731,
+              48.1147661
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@haute-marne.gouv.fr",
+        "telephone": "03 25 30 52 52",
+        "url": "http://www.haute-marne.gouv.fr"
+      }
+    }
+  ]
+}

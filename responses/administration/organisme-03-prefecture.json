@@ -1,0 +1,51 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.3346071,
+          46.5676289
+        ]
+      },
+      "properties": {
+        "id": "prefecture-03190-01",
+        "codeInsee": "03190",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Allier",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "2, rue Michel-de-L'Hospital",
+              "CS 31649"
+            ],
+            "codePostal": "03016",
+            "commune": "Moulins Cedex",
+            "coordonnees": [
+              3.3346071,
+              46.5676289
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "'08:00:00",
+                "a": "17:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@allier.gouv.fr",
+        "telephone": "04 70 48 30 00",
+        "url": "http://www.allier.gouv.fr"
+      }
+    }
+  ]
+}

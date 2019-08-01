@@ -1,0 +1,60 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.0679514,
+          14.6050554
+        ]
+      },
+      "properties": {
+        "id": "prefecture-97209-01",
+        "codeInsee": "97209",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Martinique",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "82, rue Victor-Sévère"
+            ],
+            "codePostal": "97262",
+            "commune": "Fort-de-France Cedex",
+            "coordonnees": [
+              -61.0679514,
+              14.6050554
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "lundi",
+            "heures": [
+              {
+                "de": "08:00:00",
+                "a": "14:00:00"
+              }
+            ]
+          },
+          {
+            "du": "mardi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:00:00",
+                "a": "12:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "contact.prefecture@martinique.pref.gouv.fr",
+        "telephone": "+596 596 39 36 00",
+        "url": "http://www.martinique.pref.gouv.fr"
+      }
+    }
+  ]
+}

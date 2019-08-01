@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.38566684723,
+          45.4445457458
+        ]
+      },
+      "properties": {
+        "id": "prefecture-42218-01",
+        "codeInsee": "42218",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Loire",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "2, rue Charles-de-Gaulle"
+            ],
+            "codePostal": "42022",
+            "commune": "Saint-Etienne Cedex 1",
+            "coordonnees": [
+              4.38566684723,
+              45.4445457458
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "'09:00:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:00:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "pref-loire@loire.pref.gouv.fr",
+        "telephone": "04 77 48 48 48",
+        "url": "http://www.loire.gouv.fr"
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.76440906525,
+          48.514339447
+        ]
+      },
+      "properties": {
+        "id": "prefecture-22278-01",
+        "codeInsee": "22278",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Côtes-d'Armor",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "1, place du Général-de-Gaulle",
+              "BP 2370"
+            ],
+            "codePostal": "22023",
+            "commune": "Saint-Brieuc Cedex 1",
+            "coordonnees": [
+              -2.76440906525,
+              48.514339447
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "12:15:00"
+              },
+              {
+                "de": "13:15:00",
+                "a": "16:15:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@cotes-darmor.gouv.fr",
+        "telephone": "02 96 62 44 22",
+        "url": "http://www.cotes-darmor.gouv.fr"
+      }
+    }
+  ]
+}

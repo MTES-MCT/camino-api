@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.5745825,
+          44.3492977
+        ]
+      },
+      "properties": {
+        "id": "prefecture-12202-01",
+        "codeInsee": "12202",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture de l'Aveyron",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Place Charles-de-Gaulle\nBP 715"
+            ],
+            "codePostal": "12007",
+            "commune": "Rodez Cedex",
+            "coordonnees": [
+              2.5745825,
+              44.3492977
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "17:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@aveyron.fr",
+        "telephone": "05 65 75 71 71",
+        "url": "http://www.aveyron.gouv.fr"
+      }
+    }
+  ]
+}

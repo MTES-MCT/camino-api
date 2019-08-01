@@ -1,0 +1,86 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -2.7615166,
+          47.6557441
+        ]
+      },
+      "properties": {
+        "id": "prefecture-56260-01",
+        "codeInsee": "56260",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Morbihan",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "24, place de la République"
+            ],
+            "codePostal": "56000",
+            "commune": "Vannes",
+            "coordonnees": [
+              -2.7615166,
+              47.6557441
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "Préfecture du Morbihan",
+              "BP 501"
+            ],
+            "codePostal": "56019",
+            "commune": "Vannes Cedex"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "lundi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          },
+          {
+            "du": "mardi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              }
+            ]
+          },
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:00:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "02 97 54 84 00",
+        "url": "http://www.morbihan.gouv.fr"
+      }
+    }
+  ]
+}

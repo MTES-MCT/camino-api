@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.75308704376,
+          48.5875320435
+        ]
+      },
+      "properties": {
+        "id": "prefecture-67482-01",
+        "codeInsee": "67482",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Bas-Rhin",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "5 place de la République",
+              "BP 1047"
+            ],
+            "codePostal": "67073",
+            "commune": "Strasbourg Cedex",
+            "coordonnees": [
+              7.75308704376,
+              48.5875320435
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "'08:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "03 88 21 67 68",
+        "url": "http://www.bas-rhin.gouv.fr"
+      }
+    }
+  ]
+}

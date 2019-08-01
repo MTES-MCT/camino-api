@@ -1,0 +1,59 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.3495015,
+          48.0736341
+        ]
+      },
+      "properties": {
+        "id": "prefecture-68066-01",
+        "codeInsee": "68066",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Haut-Rhin",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "11, avenue de la République"
+            ],
+            "codePostal": "68000",
+            "commune": "Colmar",
+            "coordonnees": [
+              7.3495015,
+              48.0736341
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "7, rue Bruat",
+              "BP 10489"
+            ],
+            "codePostal": "68020",
+            "commune": "Colmar Cedex"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:15:00",
+                "a": "12:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "pref-courrier@haut-rhin.gouv.fr",
+        "telephone": "03 89 29 20 00",
+        "url": "http://www.haut-rhin.gouv.fr"
+      }
+    }
+  ]
+}

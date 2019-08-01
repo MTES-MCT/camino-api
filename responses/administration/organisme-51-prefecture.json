@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3666337,
+          48.953427
+        ]
+      },
+      "properties": {
+        "id": "prefecture-51108-01",
+        "codeInsee": "51108",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Marne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "38, rue Carnot"
+            ],
+            "codePostal": "51036",
+            "commune": "Châlons-en-Champagne Cedex",
+            "coordonnees": [
+              4.3666337,
+              48.953427
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:45:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:15:00"
+              }
+            ]
+          }
+        ],
+        "email": "contact@marne.gouv.fr",
+        "telephone": "03 26 26 10 10",
+        "url": "http://www.marne.gouv.fr"
+      }
+    }
+  ]
+}

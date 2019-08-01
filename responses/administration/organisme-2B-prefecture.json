@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4507484436,
+          42.7021369934
+        ]
+      },
+      "properties": {
+        "id": "prefecture-2B033-01",
+        "codeInsee": "2B033",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Haute-Corse",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "CS 60007",
+              "Rond-Point du Maréchal-Leclerc-de-Hautecloque"
+            ],
+            "codePostal": "20401",
+            "commune": "Bastia Cedex 09",
+            "coordonnees": [
+              9.4507484436,
+              42.7021369934
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:30:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "15:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture.haute-corse@haute-corse.pref.gouv.fr",
+        "telephone": "04 95 34 50 00",
+        "url": "http://www.haute-corse.gouv.fr"
+      }
+    }
+  ]
+}

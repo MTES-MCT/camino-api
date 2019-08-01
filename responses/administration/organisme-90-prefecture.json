@@ -1,0 +1,54 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.86125612259,
+          47.6390914917
+        ]
+      },
+      "properties": {
+        "id": "prefecture-90010-01",
+        "codeInsee": "90010",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Territoire de Belfort",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Place de la République"
+            ],
+            "codePostal": "90020",
+            "commune": "Belfort Cedex",
+            "coordonnees": [
+              6.86125612259,
+              47.6390914917
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "11:00:00"
+              },
+              {
+                "de": "13:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "courrier90@territoire-de-belfort.pref.gouv.fr",
+        "telephone": "03 84 57 00 07",
+        "url": "http://www.territoire-belfort.gouv.fr"
+      }
+    }
+  ]
+}

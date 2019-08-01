@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.4511617,
+          48.7823039
+        ]
+      },
+      "properties": {
+        "id": "prefecture-94028-01",
+        "codeInsee": "94028",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Val-de-Marne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "21-29, avenue du Général-de-Gaulle"
+            ],
+            "codePostal": "94038",
+            "commune": "Créteil Cedex",
+            "coordonnees": [
+              2.4511617,
+              48.7823039
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@val-de-marne.gouv.fr",
+        "telephone": "01 49 56 60 00",
+        "url": "http://www.val-de-marne.gouv.fr"
+      }
+    }
+  ]
+}

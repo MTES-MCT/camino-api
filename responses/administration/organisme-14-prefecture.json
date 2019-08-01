@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.363263010979,
+          49.1789245605
+        ]
+      },
+      "properties": {
+        "id": "prefecture-14118-01",
+        "codeInsee": "14118",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Calvados",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Rue Daniel-Huet"
+            ],
+            "codePostal": "14038",
+            "commune": "Caen Cedex 9",
+            "coordonnees": [
+              -0.363263010979,
+              49.1789245605
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:45:00",
+                "a": "12:45:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@calvados.gouv.fr",
+        "telephone": "02 31 30 64 00",
+        "url": "http://www.calvados.gouv.fr"
+      }
+    }
+  ]
+}

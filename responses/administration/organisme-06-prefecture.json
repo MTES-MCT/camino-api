@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.1873922348,
+          43.7129249573
+        ]
+      },
+      "properties": {
+        "id": "prefecture-06088-01",
+        "codeInsee": "06088",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Alpes-Maritimes",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "CADAM",
+              "147, route de Grenoble"
+            ],
+            "codePostal": "06000",
+            "commune": "Nice",
+            "coordonnees": [
+              7.1873922348,
+              43.7129249573
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "Services de l'État dans les Alpes-Maritimes",
+              "Préfecture",
+              "CADAM",
+              "147, route de Grenoble"
+            ],
+            "codePostal": "06286",
+            "commune": "Nice Cedex 3"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "14:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://www.pref06.fr/depot/contact/?table=contact_bacc",
+        "telephone": "04 93 72 20 00",
+        "url": "http://www.alpes-maritimes.gouv.fr"
+      }
+    }
+  ]
+}

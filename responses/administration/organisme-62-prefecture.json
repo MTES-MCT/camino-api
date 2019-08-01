@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.76395797729,
+          50.2916107178
+        ]
+      },
+      "properties": {
+        "id": "prefecture-62041-01",
+        "codeInsee": "62041",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Pas-de-Calais",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "Rue Ferdinand-Buisson"
+            ],
+            "codePostal": "62020",
+            "commune": "Arras Cedex 9",
+            "coordonnees": [
+              2.76395797729,
+              50.2916107178
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "'09:00:00",
+                "a": "16:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://www.pas-de-calais.gouv.fr/Contactez-nous",
+        "telephone": "03 21 21 20 00",
+        "url": "http://www.pas-de-calais.gouv.fr"
+      }
+    }
+  ]
+}

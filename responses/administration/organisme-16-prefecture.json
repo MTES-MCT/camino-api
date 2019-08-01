@@ -1,0 +1,51 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.1564641,
+          45.6459409
+        ]
+      },
+      "properties": {
+        "id": "prefecture-16015-01",
+        "codeInsee": "16015",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Charente",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "7-9, rue de la Préfecture",
+              "CS 92301"
+            ],
+            "codePostal": "16023",
+            "commune": "Angoulême Cedex",
+            "coordonnees": [
+              0.1564641,
+              45.6459409
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "13:30:00"
+              }
+            ]
+          }
+        ],
+        "email": "communication@charente.gouv.fr",
+        "telephone": "05 45 97 61 00",
+        "url": "http://www.charente.gouv.fr"
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.5849107,
+          44.8380261
+        ]
+      },
+      "properties": {
+        "id": "prefecture-33063-01",
+        "codeInsee": "33063",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Gironde",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "Rue Claude-Bonnier"
+            ],
+            "codePostal": "33000",
+            "commune": "Bordeaux",
+            "coordonnees": [
+              -0.5849107,
+              44.8380261
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "2, esplanade Charles-de-Gaulle",
+              "CS 41397"
+            ],
+            "codePostal": "33077",
+            "commune": "Bordeaux Cedex",
+            "coordonnees": [
+              -0.584344983101,
+              44.8371658325
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "12:30:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "05 56 90 60 60",
+        "url": "http://www.gironde.gouv.fr"
+      }
+    }
+  ]
+}

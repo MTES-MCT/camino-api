@@ -1,0 +1,51 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.15764188766,
+          48.7739944458
+        ]
+      },
+      "properties": {
+        "id": "prefecture-55029-01",
+        "codeInsee": "55029",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Meuse",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "40, rue du Bourg",
+              "CS 30512"
+            ],
+            "codePostal": "55012",
+            "commune": "Bar-le-Duc Cedex",
+            "coordonnees": [
+              5.15764188766,
+              48.7739944458
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:45:00",
+                "a": "12:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "http://www.meuse.gouv.fr/ne/ne.php",
+        "telephone": "03 29 77 55 55",
+        "url": "http://www.meuse.gouv.fr"
+      }
+    }
+  ]
+}

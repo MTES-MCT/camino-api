@@ -1,0 +1,57 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.4494251,
+          43.5995936
+        ]
+      },
+      "properties": {
+        "id": "prefecture-31555-01",
+        "codeInsee": "31555",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Haute-Garonne",
+        "adresses": [
+          {
+            "type": "physique",
+            "lignes": [
+              "1, place Saint-Étienne"
+            ],
+            "codePostal": "31000",
+            "commune": "Toulouse",
+            "coordonnees": [
+              1.4494251,
+              43.5995936
+            ]
+          },
+          {
+            "type": "postale",
+            "lignes": [
+              "Place Saint-Étienne"
+            ],
+            "codePostal": "31038",
+            "commune": "Toulouse Cedex 9"
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "09:00:00",
+                "a": "15:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "05 34 45 34 45",
+        "url": "http://www.haute-garonne.gouv.fr"
+      }
+    }
+  ]
+}

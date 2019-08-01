@@ -1,0 +1,64 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.3589145,
+          44.0175746
+        ]
+      },
+      "properties": {
+        "id": "prefecture-82121-01",
+        "codeInsee": "82121",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture - Tarn-et-Garonne",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "2, allée de l'Empereur",
+              "BP 779"
+            ],
+            "codePostal": "82013",
+            "commune": "Montauban Cedex",
+            "coordonnees": [
+              1.3589145,
+              44.0175746
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "vendredi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "14:00:00"
+              }
+            ]
+          },
+          {
+            "du": "lundi",
+            "au": "jeudi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "11:45:00"
+              },
+              {
+                "de": "13:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "telephone": "05 63 22 82 00",
+        "url": "http://www.tarn-et-garonne.gouv.fr"
+      }
+    }
+  ]
+}

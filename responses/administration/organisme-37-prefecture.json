@@ -1,0 +1,50 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.693157017231,
+          47.3935241699
+        ]
+      },
+      "properties": {
+        "id": "prefecture-37261-01",
+        "codeInsee": "37261",
+        "pivotLocal": "prefecture",
+        "nom": "Préfecture d'Indre-et-Loire",
+        "adresses": [
+          {
+            "type": "géopostale",
+            "lignes": [
+              "15, rue Bernard-Palissy"
+            ],
+            "codePostal": "37925",
+            "commune": "Tours Cedex 9",
+            "coordonnees": [
+              0.693157017231,
+              47.3935241699
+            ]
+          }
+        ],
+        "horaires": [
+          {
+            "du": "lundi",
+            "au": "vendredi",
+            "heures": [
+              {
+                "de": "08:30:00",
+                "a": "16:00:00"
+              }
+            ]
+          }
+        ],
+        "email": "prefecture@indre-et-loire.gouv.fr",
+        "telephone": "+ 33 2 47 64 37 37",
+        "url": "http://www.indre-et-loire.gouv.fr"
+      }
+    }
+  ]
+}
