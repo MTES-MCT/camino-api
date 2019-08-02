@@ -14,6 +14,7 @@ import {
 const dbToSpreadsheets = async ({ name, id, get, tables }) => {
   if (!id) {
     console.log(`spreadsheet: ${name}, id de la spreadsheet manquant`)
+
     return
   }
 

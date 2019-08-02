@@ -38,6 +38,7 @@ async function main() {
       (acc, contours) => (contours.length > 1 ? true : acc || false),
       false
     )
+
     return contoursLength
   })
 

@@ -10,6 +10,7 @@ async function main() {
     if (typeId === 'ren') {
       return !etapes.find(te => te.points.length)
     }
+
     return true
   })
 

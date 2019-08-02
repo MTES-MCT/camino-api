@@ -83,6 +83,7 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
   const communesOldIndex = communesOld.reduce(
     (communesOldIndex, communeOld) => {
       communesOldIndex[communeOld.id] = true
+
       return communesOldIndex
     },
     {}

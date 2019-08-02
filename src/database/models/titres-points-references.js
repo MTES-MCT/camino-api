@@ -38,6 +38,7 @@ export default class TitresPointsReferences extends Model {
       json.coordonnees = [json.coordonnees.x, json.coordonnees.y]
     }
     json = super.$formatDatabaseJson(json)
+
     return json
   }
 

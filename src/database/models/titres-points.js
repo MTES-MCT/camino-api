@@ -77,6 +77,7 @@ export default class TitresPoints extends Model {
     }
 
     json = super.$formatDatabaseJson(json)
+
     return json
   }
 }

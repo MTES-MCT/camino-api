@@ -17,6 +17,7 @@ const titreDemarchesAscSort = titreDemarches =>
 
     const dateA = titreEtapesAscSortByOrdre(a.etapes)[0].date
     const dateB = titreEtapesAscSortByOrdre(b.etapes)[0].date
+
     return dateA < dateB ? -1 : dateA > dateB ? 1 : a.ordre - b.ordre
   })
 

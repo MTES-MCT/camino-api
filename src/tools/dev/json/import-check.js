@@ -138,6 +138,7 @@ const data = [
 
   if (acc[name]) {
     acc[name].data = acc[name].data.concat(data)
+
     return acc
   }
 
