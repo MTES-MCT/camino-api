@@ -45,6 +45,7 @@ const titreEtapeDateCheck = (titreEtape, titreDemarche) => {
       console.warn(
         `type d'étape "${titreEtapeCurrentTypeId}" invalide pour une démarche de type ${titreDemarcheTypeNom}`
       )
+
       return false
     }
 

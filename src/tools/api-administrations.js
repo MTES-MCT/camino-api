@@ -121,6 +121,7 @@ const organismeDepartementGet = async (departementId, nom) => {
   if (!departementId || !nom) return null
 
   const organisme = await organismeDepartementCall(departementId, nom)
+
   //  return organisme
   return organisme ? organismeFormat(organisme, departementId) : null
 }
@@ -132,6 +133,7 @@ const organismesDepartementsGet = async departementsIdsNoms => {
   )
 
   const queue = new PQueue({ concurrency: 100 })
+
   return queue.addAll(administrationsOrganismesRequests)
 }
 

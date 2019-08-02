@@ -94,6 +94,7 @@ const rowsToJson = (columns, rows) =>
       if (row[index]) {
         acc[column] = row[index]
       }
+
       return acc
     }, {})
   )

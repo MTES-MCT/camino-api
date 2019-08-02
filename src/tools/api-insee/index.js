@@ -427,6 +427,7 @@ const entrepriseAdresseGet = async sirenIds => {
     sirenIds,
     idsBatch => {
       const ids = idsBatch.map(s => `siren:${s}`).join(' OR ')
+
       return `(${ids}) AND etablissementSiege:true`
     }
   )

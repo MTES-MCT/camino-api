@@ -216,6 +216,7 @@ const titreDemarcheNormaleDateFinAndDureeFind = (
 const dateAddMonths = (date, months) => {
   const [y, m, d] = dateFormat(date, 'yyyy-mm-dd').split('-')
   const dateNew = new Date(y, m - 1 + months, d)
+
   return dateFormat(dateNew, 'yyyy-mm-dd')
 }
 

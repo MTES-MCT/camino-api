@@ -179,6 +179,7 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
   const utilisateurNew = await utilisateurCreate(utilisateur)
 
   await utilisateurRowUpdate(utilisateurNew)
+
   return utilisateurNew
 }
 

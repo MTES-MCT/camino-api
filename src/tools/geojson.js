@@ -58,6 +58,7 @@ const multiPolygonCoordinates = points =>
       p.coordonnees.x,
       p.coordonnees.y
     ]
+
     return res
   }, [])
 
@@ -67,6 +68,7 @@ const multiPolygonContoursClose = groupes =>
   groupes.map(contours =>
     contours.reduce((acc, points) => {
       points[points.length] = points[0]
+
       return [...acc, points]
     }, [])
   )
