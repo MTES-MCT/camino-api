@@ -20,9 +20,10 @@ const entreprisesEtablissementsUpdatedFind = (
       !entrepriseEtablissementOld ||
       objectsDiffer(entrepriseEtablissementNew, entrepriseEtablissementOld)
 
-    if (!updated) return acc
+    if (updated) {
+      acc.push(entrepriseEtablissementNew)
+    }
 
-    acc.push(entrepriseEtablissementNew)
     return acc
   }, [])
 
@@ -35,9 +36,10 @@ const entreprisesUpdatedFind = (entreprisesOld, entreprisesNew) =>
     const updated =
       !entrepriseOld || objectsDiffer(entrepriseNew, entrepriseOld)
 
-    if (!updated) return acc
+    if (updated) {
+      acc.push(entrepriseNew)
+    }
 
-    acc.push(entrepriseNew)
     return acc
   }, [])
 

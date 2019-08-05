@@ -23,11 +23,12 @@ const titreEtapeAdministrationsCreatedBuild = (
       !titreEtape.administrations.find(
         administrationOld => administrationOld.id === administrationId
       )
-    )
+    ) {
       queries.push({
         titreEtapeId: titreEtape.id,
         administrationId
       })
+    }
 
     return queries
   }, [])
@@ -39,11 +40,12 @@ const titreEtapeAdministrationsDeleteBuild = (titreEtape, administrationsIds) =>
           !administrationsIds.find(
             administrationId => administrationId === administrationOld.id
           )
-        )
+        ) {
           queries.push({
             titreEtapeId: titreEtape.id,
             administrationId: administrationOld.id
           })
+        }
 
         return queries
       }, [])
@@ -91,8 +93,9 @@ const administrationsIdsBuild = (
             titreDepartementsIds.has(administration.departementId)) ||
           (administration.regionId &&
             titreRegionsIds.has(administration.regionId))
-        )
+        ) {
           adminsLocalesIds.push(administration.id)
+        }
 
         return adminsLocalesIds
       },
@@ -113,8 +116,9 @@ const administrationsIdsBuild = (
             administration.domaines &&
             administration.domaines.length &&
             administration.domaines.find(({ id }) => id === domaineId)
-          )
+          ) {
             adminsCentralesIds.push(administration.id)
+          }
 
           return adminsCentralesIds
         },

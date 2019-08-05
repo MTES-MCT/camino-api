@@ -41,17 +41,18 @@ const titresIdsUpdate = async titresOld => {
     async (titresUpdatedRequestsPromesse, titreOld) => {
       const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
 
-      if (!hasChanged) return titresUpdatedRequestsPromesse
+      if (hasChanged) {
+        const titresUpdatedRequests = await titresUpdatedRequestsPromesse
+        titresUpdatedRequests.push(() =>
+          titreIdUpdate(titreOld, titreNew).catch(e => {
+            console.error(`erreur: titreIdUpdate ${titreOld.id}`)
+            console.error(e)
 
-      const titresUpdatedRequests = await titresUpdatedRequestsPromesse
-      titresUpdatedRequests.push(() =>
-        titreIdUpdate(titreOld, titreNew).catch(e => {
-          console.error(`erreur: titreIdUpdate ${titreOld.id}`)
-          console.error(e)
+            return null
+          })
+        )
+      }
 
-          return null
-        })
-      )
       return titresUpdatedRequests
     },
     []

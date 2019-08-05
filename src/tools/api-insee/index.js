@@ -176,12 +176,10 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
     )
   }
 
-  const batchesQueries = batches.reduce(async (acc, batch) => {
-    const accPromesse = await acc
-    accPromesse.push(
-      await inseeFetchMulti(type, field, batch, queryFormatter(batch))
-    )
-    return accPromesse
+  const batchesQueries = batches.reduce(async (accPromesse, batch) => {
+    const acc = await accPromesse
+    acc.push(await inseeFetchMulti(type, field, batch, queryFormatter(batch)))
+    return acc
   }, [])
 
   const batchesResults = await batchesQueries
@@ -425,9 +423,10 @@ const entrepriseAdresseGet = async sirenIds => {
   if (!etablissements || !Array.isArray(etablissements)) return null
 
   return etablissements.reduce((acc, e) => {
-    if (!e) return acc
+    if (e) {
+      acc.push(entrepriseAdresseFormat(e))
+    }
 
-    acc.push(entrepriseAdresseFormat(e))
     return acc
   }, [])
 }

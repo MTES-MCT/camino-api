@@ -53,10 +53,11 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
       titrePhaseOld
     )
 
-    if (!Object.keys(titrePhasePropsChanged).length) return res
-
     // si la phase existe et est modifiée
-    res.push(titrePhase)
+    if (Object.keys(titrePhasePropsChanged).length) {
+      res.push(titrePhase)
+    }
+
     return res
   }, [])
 
@@ -67,9 +68,10 @@ const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
       titresPhases
     )
 
-    if (titrePhase) return res
+    if (titrePhase) {
+      res.push(titrePhaseOld.titreDemarcheId)
+    }
 
-    res.push(titrePhaseOld.titreDemarcheId)
     return res
   }, [])
 
@@ -81,9 +83,10 @@ const titresPhasesUpdate = async titres => {
 
     // retourne les phases enregistrées en base
     const titrePhasesOld = demarches.reduce((res, td) => {
-      if (!td.phase) return res
+      if (td.phase) {
+        res.push(td.phase)
+      }
 
-      res.push(td.phase)
       return res
     }, [])
 

@@ -10,9 +10,10 @@ async function main() {
   const titresDocuments = await titresDocumentsGet()
   const titresDocumentsFichiers = titresDocuments.reduce(
     (arr, titreDocument) => {
-      if (!titreDocument.fichier) return arr
+      if (titreDocument.fichier) {
+        arr.push(titreDocument.fichier)
+      }
 
-      arr.push(titreDocument.fichier)
       return arr
     },
     []

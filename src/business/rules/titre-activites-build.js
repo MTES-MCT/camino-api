@@ -81,9 +81,10 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
           monthsCount
         )
 
-        if (!titreActivite) return acc
+        if (titreActivite) {
+          acc.push(titreActivite)
+        }
 
-        acc.push(titreActivite)
         return acc
       }, acc),
     []

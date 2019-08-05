@@ -45,6 +45,7 @@ const repertoires = domainesIds.reduce(
             '-'
           )
         })
+
         return d
       }, [])
     ),
@@ -87,6 +88,7 @@ const titres = titresFiles.reduce(
           name: file,
           file: decamelize(`titres-${domaineId}-${file}`, '-')
         })
+
         return res
       }, [])
     ),
@@ -102,50 +104,48 @@ const activitesMetas = [
 
 const titresActivites = ['titresActivites']
 
-const data = []
-  .concat(
-    metas,
-    substances,
-    territoires,
-    repertoires,
-    calendrier,
-    utilisateurs,
-    titres,
-    activitesMetas,
-    titresActivites
-  )
-  .reduce((acc, e) => {
-    const name = camelize(typeof e === 'object' ? e.name : e)
-    const file = typeof e === 'object' ? e.file : e
+const data = [
+  ...metas,
+  ...substances,
+  ...territoires,
+  ...repertoires,
+  ...calendrier,
+  ...utilisateurs,
+  ...titres,
+  ...activitesMetas,
+  ...titresActivites
+].reduce((acc, e) => {
+  const name = camelize(typeof e === 'object' ? e.name : e)
+  const file = typeof e === 'object' ? e.file : e
 
-    let model
-    try {
-      model = !file.match(/--/)
-        ? require(`../../../database/models/${decamelize(name, '-')}`).default
-        : null
-    } catch (e) {}
+  let model
+  try {
+    model = !file.match(/--/)
+      ? require(`../../../database/models/${decamelize(name, '-')}`).default
+      : null
+  } catch (e) {}
 
-    let data
-    try {
-      data = require(`../../../../sources/${decamelize(file, '-')}.json`)
-    } catch (e) {
-      data = []
-    }
+  let data
+  try {
+    data = require(`../../../../sources/${decamelize(file, '-')}.json`)
+  } catch (e) {
+    data = []
+  }
 
-    if (acc[name]) {
-      acc[name].data = acc[name].data.concat(data)
-
-      return acc
-    }
-
-    acc[name] = {
-      name,
-      model,
-      data
-    }
+  if (acc[name]) {
+    acc[name].data = acc[name].data.concat(data)
 
     return acc
-  }, {})
+  }
+
+  acc[name] = {
+    name,
+    model,
+    data
+  }
+
+  return acc
+}, {})
 
 const splitJoin = (from, to, swapIfId = false) => {
   from = from.split('.')
@@ -177,10 +177,12 @@ const mappingRelationsGet = (file, mappings) => {
         {}.assign(file, name, splitJoin(join.from, join.through.from)),
         {}.assign(file, name, splitJoin(join.through.to, join.to))
       )
+
       return relations
     }
 
     relations.push({}.assign(file, name, splitJoin(join.from, join.to, true)))
+
     return relations
   }, [])
 }

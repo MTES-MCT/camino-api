@@ -4,7 +4,7 @@ import PQueue from 'p-queue'
 
 const titreDemarchesOrdreUpdate = titreDemarches =>
   titreDemarchesAscSort(titreDemarches).reduce((acc, titreDemarche, index) => {
-    if (titreDemarche.ordre !== index + 1)
+    if (titreDemarche.ordre !== index + 1) {
       acc.push(async () => {
         await titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 })
         console.log(
@@ -13,6 +13,7 @@ const titreDemarchesOrdreUpdate = titreDemarches =>
           })}`
         )
       })
+    }
 
     return acc
   }, [])
@@ -23,9 +24,11 @@ const titresDemarchesOrdreUpdate = async titres => {
       titre.demarches.slice().reverse()
     )
 
-    if (!titreDemarchesOrdreUpdated.length) return acc
+    if (titreDemarchesOrdreUpdated.length) {
+      acc = acc.concat(titreDemarchesOrdreUpdated)
+    }
 
-    return acc.concat(titreDemarchesOrdreUpdated)
+    return acc
   }, [])
 
   if (titresDemarchesUpdated.length) {

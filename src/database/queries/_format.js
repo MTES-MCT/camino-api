@@ -176,8 +176,9 @@ const titreSectionsFormat = tea =>
           )) &&
         (!e.dateFin || e.dateFin >= dateFormat(tea.date, 'yyyy-mm-dd')) &&
         (!e.dateDebut || e.dateDebut < dateFormat(tea.date, 'yyyy-mm-dd'))
-      )
+      ) {
         elements.push(e)
+      }
 
       return elements
     }, [])
@@ -190,9 +191,10 @@ const titreSectionsFormat = tea =>
       elements
     }
 
-    if (!section.elements.length) return sections
+    if (section.elements.length) {
+      sections.push(section)
+    }
 
-    sections.push(section)
     return sections
   }, [])
 

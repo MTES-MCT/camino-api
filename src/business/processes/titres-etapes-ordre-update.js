@@ -4,7 +4,7 @@ import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 
 const titreEtapesOrdreUpdate = titreEtapes =>
   titreEtapesAscSortByDate(titreEtapes).reduce((queries, titreEtape, index) => {
-    if (titreEtape.ordre !== index + 1)
+    if (titreEtape.ordre !== index + 1) {
       queries.push(async () => {
         await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
@@ -14,6 +14,7 @@ const titreEtapesOrdreUpdate = titreEtapes =>
           })}`
         )
       })
+    }
 
     return queries
   }, [])

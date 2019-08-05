@@ -37,7 +37,7 @@ import { organismeGet } from '../api-administrations/index'
 //   console.log('multi dep:', titresMultiDepartements.length)
 
 //   const titresDepartements = await titresMultiDepartements.reduce(
-//     async (acc, titre) => {
+//     async (accPromesse, titre) => {
 //       const departementChef = await departementChefGeojsonGet(
 //         titre.geojsonMultiPolygon
 //       )
@@ -51,9 +51,9 @@ import { organismeGet } from '../api-administrations/index'
 
 //       const { id: departementId } = departementChef
 
-//       const accPromesse = await acc
-//       accPromesse.push({ id : titre.id, departementId })
-//       return accPromesse
+//       const acc = await accPromesse
+//       acc.push({ id : titre.id, departementId })
+//       return acc
 //     },
 //     []
 //   )
@@ -77,13 +77,16 @@ const main = async () => {
   const departements = await departementsGet()
   console.log(departements.length)
 
-  const administrations = await departements.reduce(async (acc, { id }) => {
-    const accPromesse = await acc
-    accPromesse.push(
-      await organismeGet(id, id === '75' ? 'prefecture_region' : 'prefecture')
-    )
-    return accPromesse
-  }, [])
+  const administrations = await departements.reduce(
+    async (accPromesse, { id }) => {
+      const acc = await accPromesse
+      acc.push(
+        await organismeGet(id, id === '75' ? 'prefecture_region' : 'prefecture')
+      )
+      return acc
+    },
+    []
+  )
 
   const administrationsIndex = administrations.reduce((acc, a) => {
     acc[a.departementId] = a

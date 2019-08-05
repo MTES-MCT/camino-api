@@ -61,11 +61,13 @@ const requestsBuild = (elements, tables) =>
         }
       }))
 
-      const requestsTable = [].concat(rowsDeleteRequests, rowsAppendRequests)
+      const requestsTable = [...rowsDeleteRequests, ...rowsAppendRequests]
 
-      if (!requestsTable.length) return requests
+      if (requestsTable.length) {
+        requests = (await requests).concat(requestsTable)
+      }
 
-      return (await requests).concat(requestsTable)
+      return requests
     },
     []
   )
@@ -86,9 +88,10 @@ const utilisateurRowUpdate = async utilisateur => {
 
 const rowsIndicesFind = (worksheet, id) => {
   return worksheet.values.reduce((rowsIndices, [rowId], index) => {
-    if (rowId !== id) return rowsIndices
+    if (rowId === id) {
+      rowsIndices.push(index)
+    }
 
-    rowsIndices.push(index)
     return rowsIndices
   }, [])
 }

@@ -12,11 +12,12 @@ const titreEtapesCommunesCreateBuild = (titreEtape, communesEtape) =>
     if (
       !titreEtape.communes ||
       !titreEtape.communes.find(communeOld => communeOld.id === communeId)
-    )
+    ) {
       queries.push({
         titreEtapeId: titreEtape.id,
         communeId
       })
+    }
 
     return queries
   }, [])
@@ -26,11 +27,12 @@ const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
     ? titreEtape.communes.reduce((queries, communeOld) => {
         if (
           !communesEtape.find(communeEtape => communeEtape.id === communeOld.id)
-        )
+        ) {
           queries.push({
             titreEtapeId: titreEtape.id,
             communeId: communeOld.id
           })
+        }
 
         return queries
       }, [])

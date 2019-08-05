@@ -10,9 +10,10 @@ const run = async () => {
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
   const spreadsheetsPromises = spreadsheets.reduce((r, s) => {
-    if (!s.id) return r
+    if (s.id) {
+      r.push(() => spreadsheetToJsonFiles(s))
+    }
 
-    r.push(() => spreadsheetToJsonFiles(s))
     return r
   }, [])
 
