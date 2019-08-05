@@ -6,8 +6,6 @@ import {
   titresDemarchesEtapesVides
 } from './__mocks__/titres-etapes-ordre-update-demarches'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeUpdate: jest.fn().mockResolvedValue()
 }))

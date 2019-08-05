@@ -1,7 +1,7 @@
 import 'dotenv/config'
 import PQueue from 'p-queue'
 import errorLog from '../error-log'
-import { spreadsheetsGet } from '../api-google-spreadsheets'
+import { spreadsheetsGet } from '../api-google-spreadsheets/index'
 import credentials from './credentials'
 import fileCreate from '../file-create'
 import spreadsheets from './spreadsheets'

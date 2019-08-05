@@ -1,5 +1,5 @@
 import titresEtapeCommunesUpdate from './titres-etapes-communes-update'
-import * as apiCommunes from '../../tools/api-communes'
+import * as apiCommunes from '../../tools/api-communes/index'
 
 import {
   titresEtapesPoints,
@@ -9,8 +9,6 @@ import {
   titresEtapesPointsCommuneExistante
 } from './__mocks__/titres-etapes-communes-update-etapes'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/territoires', () => ({
   communesUpsert: jest.fn().mockResolvedValue()
 }))
@@ -26,7 +24,7 @@ jest.mock('../../tools/geojson', () => ({
   })
 }))
 
-jest.mock('../../tools/api-communes', () => ({
+jest.mock('../../tools/api-communes/index', () => ({
   default: jest.fn()
 }))
 

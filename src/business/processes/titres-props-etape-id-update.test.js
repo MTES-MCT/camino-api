@@ -1,8 +1,6 @@
 import titresPropsEtapeIdUpdate from './titres-props-etape-id-update'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue()
 }))

@@ -13,7 +13,7 @@ import inseeCategoriesJuridiques from './categories-juridiques'
 import inseeTypesVoies from './voies'
 const makeDir = require('make-dir')
 
-const RESPONSES_FOLDER = 'responses/insee/'
+const CACHE_DIR = 'api-cache/insee/'
 const MAX_CALLS_MINUTE = 30
 const MAX_RESULTS = 20
 
@@ -88,9 +88,9 @@ const inseeFetch = async (type, q) => {
 const tokenFetchDev = async () => {
   let result
 
-  await makeDir(RESPONSES_FOLDER)
+  await makeDir(CACHE_DIR)
 
-  const cacheFilePath = join(RESPONSES_FOLDER, `insee-token`)
+  const cacheFilePath = join(CACHE_DIR, `insee-token`)
 
   try {
     result = require(`../../../${cacheFilePath}.json`)
@@ -132,9 +132,9 @@ const inseeFetchMulti = async (type, field, ids, q) => {
     let result
 
     if (process.env.NODE_ENV === 'development') {
-      await makeDir(RESPONSES_FOLDER)
+      await makeDir(CACHE_DIR)
       const cacheFilePath = join(
-        RESPONSES_FOLDER,
+        CACHE_DIR,
         `insee-${field}-${ids.map(i => i.slice(-1)[0]).join('-')}`
       )
 

@@ -1,6 +1,6 @@
 import * as fetch from 'node-fetch'
 import * as geojsonhint from '@mapbox/geojsonhint'
-import errorLog from './error-log'
+import errorLog from '../error-log'
 
 const communesGeojsonFetch = async (path, geojson) => {
   const properties = JSON.stringify(geojson.properties)

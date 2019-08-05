@@ -4,8 +4,6 @@ import * as titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-upda
 import * as titresQueries from '../../database/queries/titres'
 import * as titresActivitesExport from '../../tools/export/titre-activites'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../utils/titre-id-and-relations-update', () => ({
   default: jest.fn()
 }))

@@ -13,8 +13,8 @@ import { administrationInsert } from '../../database/queries/administrations'
 
 // import { geojsonFeatureMultiPolygon } from '../geojson'
 
-import { organismeGet } from '../api-administrations'
-// import { departementChefGeojsonGet } from '../api-communes'
+import { organismeGet } from '../api-administrations/index'
+// import { departementChefGeojsonGet } from '../api-communes/index'
 
 // const multiDepartements = async () => {
 //   const titres = await titresGet()

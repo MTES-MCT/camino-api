@@ -5,10 +5,10 @@ import { join } from 'path'
 import * as fetch from 'node-fetch'
 import * as makeDir from 'make-dir'
 
-import errorLog from './error-log'
-import fileCreate from './file-create'
+import errorLog from '../error-log'
+import fileCreate from '../file-create'
 
-const RESPONSES_FOLDER = 'responses/administration/'
+const CACHE_DIR = 'api-cache/administration/'
 const MAX_CALLS_MINUTE = 200
 
 const { ADMINISTRATION_API_URL } = process.env
@@ -49,11 +49,8 @@ const organismeDepartementCall = async (departementId, nom) => {
     let result
 
     if (process.env.NODE_ENV === 'development') {
-      await makeDir(RESPONSES_FOLDER)
-      const cacheFilePath = join(
-        RESPONSES_FOLDER,
-        `organisme-${departementId}-${nom}`
-      )
+      await makeDir(CACHE_DIR)
+      const cacheFilePath = join(CACHE_DIR, `organisme-${departementId}-${nom}`)
 
       try {
         result = require(`../../${cacheFilePath}.json`)

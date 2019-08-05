@@ -9,7 +9,7 @@ import rowsCreate from './rows-create'
 import {
   spreadsheetGet,
   spreadsheetBatchUpdate
-} from '../../api-google-spreadsheets'
+} from '../../api-google-spreadsheets/index'
 
 const dbToSpreadsheets = async ({ name, id, get, tables }) => {
   if (!id) {

@@ -1,8 +1,6 @@
 import titresPropsActivitesUpdate from './titres-props-activites-update'
 import titrePropActivitesCount from '../utils/titre-prop-activites-count'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn()
 }))
