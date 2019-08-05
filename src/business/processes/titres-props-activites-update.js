@@ -15,6 +15,7 @@ const titresPropsActivitesUpdate = async titres => {
       if (value === titre[prop]) return props
 
       props[prop] = value
+
       return props
     }, {})
 

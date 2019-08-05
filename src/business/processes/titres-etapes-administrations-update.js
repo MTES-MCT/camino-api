@@ -182,6 +182,7 @@ const titresEtapesAdministrationsBuild = (titres, administrations) =>
                 titreEtape,
                 administrationsIds
               }
+
               return titresEtapesAdministrations
             },
             titresEtapesAdministrations

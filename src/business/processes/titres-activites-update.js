@@ -28,6 +28,7 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
             acc = acc.concat(
               titreActivitesBuild(titre, titreActiviteType, annees)
             )
+
             return acc
           }, [])
         )

@@ -83,6 +83,7 @@ const main = async () => {
       acc.push(
         await organismeGet(id, id === '75' ? 'prefecture_region' : 'prefecture')
       )
+
       return acc
     },
     []
@@ -90,6 +91,7 @@ const main = async () => {
 
   const administrationsIndex = administrations.reduce((acc, a) => {
     acc[a.departementId] = a
+
     return acc
   }, {})
   await fileCreate(

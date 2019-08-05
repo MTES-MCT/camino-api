@@ -134,6 +134,7 @@ const titresEtapesCommunesGet = async titresEtapes => {
   return communesGeojsons.reduce(
     (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => {
       titresEtapesCommunes[titreEtapeId] = communesGeojson
+
       return titresEtapesCommunes
     },
     {}

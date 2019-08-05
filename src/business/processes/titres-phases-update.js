@@ -23,15 +23,16 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
     const valueNew = titrePhase[key]
 
     if (
-      // compare `undefined` et `null` entre eux
-      (!valueNew && !valueOld) ||
-      // compare deux mêmes valeurs
-      valueNew === valueOld
+      !// compare `undefined` et `null` entre eux
+      (
+        (!valueNew && !valueOld) ||
+        // compare deux mêmes valeurs
+        valueNew === valueOld
+      )
     ) {
-      return res
+      res[key] = [valueOld, valueNew]
     }
 
-    res[key] = [valueOld, valueNew]
     return res
   }, {})
 
@@ -45,6 +46,7 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
     // on l'ajoute à l'accumulateur
     if (!titrePhaseOld) {
       res.push(titrePhaseOld)
+
       return res
     }
 
@@ -68,7 +70,7 @@ const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
       titresPhases
     )
 
-    if (titrePhase) {
+    if (!titrePhase) {
       res.push(titrePhaseOld.titreDemarcheId)
     }
 

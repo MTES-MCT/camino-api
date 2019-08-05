@@ -58,6 +58,7 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
 
               try {
                 row[col] = cb[col](value)
+
                 return row
               } catch (e) {
                 throw new Error(
@@ -86,6 +87,7 @@ const filesListBuild = ({ name, tables, prefixFileName }) =>
       worksheetName: table.name,
       cb: table.cb
     })
+
     return acc
   }, [])
 

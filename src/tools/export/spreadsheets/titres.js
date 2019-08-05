@@ -59,6 +59,7 @@ const tables = [
         JSON.stringify(
           v.reduce((r, { type, valeur }) => {
             r[type] = valeur
+
             return r
           }, {})
         ),

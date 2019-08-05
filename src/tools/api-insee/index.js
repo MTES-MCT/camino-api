@@ -179,6 +179,7 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   const batchesQueries = batches.reduce(async (accPromesse, batch) => {
     const acc = await accPromesse
     acc.push(await inseeFetchMulti(type, field, batch, queryFormatter(batch)))
+
     return acc
   }, [])
 

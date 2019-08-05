@@ -25,6 +25,7 @@ const fieldsToArray = (fields, format) => {
     }
 
     acc.push(id)
+
     return acc
   }, [])
 }
