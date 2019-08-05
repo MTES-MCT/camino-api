@@ -6,7 +6,7 @@ const titresStatutIdsUpdate = async titres => {
   const titresUpdatedRequests = titres.reduce((arr, titre) => {
     const statutId = titreStatutIdFind(titre)
 
-    if (statutId === titre.statutId) {
+    if (statutId !== titre.statutId) {
       arr.push(async () => {
         await titreUpdate(titre.id, { statutId })
         console.log(

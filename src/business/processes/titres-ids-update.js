@@ -38,12 +38,12 @@ const titreIdsUpdate = async titreOld => {
 const titresIdsUpdate = async titresOld => {
   // async reduce pour traiter les titres les uns après les autres
   const titresUpdatedRequests = await titresOld.reduce(
-    async (titresUpdatedRequestsPromesse, titreOld) => {
+    async (titresUpdatedRequestPromesse, titreOld) => {
       const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
 
+      const titresUpdatedRequest = await titresUpdatedRequestPromesse
       if (hasChanged) {
-        const titresUpdatedRequests = await titresUpdatedRequestsPromesse
-        titresUpdatedRequests.push(() =>
+        titresUpdatedRequest.push(() =>
           titreIdUpdate(titreOld, titreNew).catch(e => {
             console.error(`erreur: titreIdUpdate ${titreOld.id}`)
             console.error(e)
@@ -53,7 +53,7 @@ const titresIdsUpdate = async titresOld => {
         )
       }
 
-      return titresUpdatedRequests
+      return titresUpdatedRequest
     },
     []
   )
