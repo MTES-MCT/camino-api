@@ -5,7 +5,7 @@ import {
   titreEtapeCommuneDelete
 } from '../../database/queries/titres-etapes'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
-import communesGeojsonGet from '../../tools/api-communes'
+import communesGeojsonGet from '../../tools/api-communes/index'
 
 const titreEtapesCommunesCreateBuild = (titreEtape, communesEtape) =>
   communesEtape.reduce(

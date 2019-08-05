@@ -5,8 +5,6 @@ import {
   titresEchuStatutIdObselete
 } from './__mocks__/titres-statut-ids-update-titres'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue()
 }))

@@ -1,5 +1,5 @@
 import { administrationsUpsert } from '../../database/queries/administrations'
-import { organismesDepartementsGet } from '../../tools/api-administrations'
+import { organismesDepartementsGet } from '../../tools/api-administrations/index'
 
 import { objectsDiffer } from '../../tools'
 

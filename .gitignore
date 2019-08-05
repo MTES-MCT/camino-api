@@ -9,6 +9,6 @@ node_modules
 /dist
 /sources
 /coverage
-/responses
+/api-cache
 /files
 /docs

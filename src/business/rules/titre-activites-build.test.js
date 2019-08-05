@@ -9,8 +9,6 @@ import {
   activiteTypeGrp
 } from './__mocks__/titre-activite-create-titres'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres-activites', () => ({
   titreActiviteInsert: jest.fn().mockImplementation(() => Promise.resolve())
 }))

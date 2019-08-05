@@ -12,8 +12,6 @@ import {
   titresArm
 } from './__mocks__/titres-etapes-administrations-update-etapes'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/titres-etapes', () => ({
   titresEtapesAdministrationsCreate: jest.fn().mockResolvedValue(),
   titreEtapeAdministrationDelete: jest.fn().mockResolvedValue()

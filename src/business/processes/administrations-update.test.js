@@ -1,5 +1,5 @@
 import administrationUpdate from './administrations-update'
-import * as apiAdministrations from '../../tools/api-administrations'
+import * as apiAdministrations from '../../tools/api-administrations/index'
 
 import {
   departements,
@@ -11,15 +11,11 @@ import {
   administrationsApiExistantes
 } from './__mocks__/administrations-update'
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/administrations', () => ({
   administrationsUpsert: jest.fn().mockResolvedValue()
 }))
 
-// `jest.mock()` est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../tools/api-administrations', () => ({
+jest.mock('../../tools/api-administrations/index', () => ({
   organismesDepartementsGet: jest.fn()
 }))
 

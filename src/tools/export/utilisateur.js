@@ -3,7 +3,7 @@ import credentials from './credentials'
 import {
   spreadsheetValuesGet,
   spreadsheetBatchUpdate
-} from '../api-google-spreadsheets'
+} from '../api-google-spreadsheets/index'
 import rowsCreate from './_utils/rows-create'
 import rowFormat from './_utils/row-format'
 import spreadsheet from './spreadsheets/utilisateurs'
