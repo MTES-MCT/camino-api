@@ -39,7 +39,7 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
     // si la phase n'existe pas
     // on l'ajoute à l'accumulateur
     if (!titrePhaseOld) {
-      res.push(titrePhaseOld)
+      res.push(titrePhase)
 
       return res
     }

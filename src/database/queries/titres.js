@@ -170,9 +170,11 @@ const titresGet = async (
           .map(
             () =>
               'count(*) filter (where ' +
-              fieldsLike
-                .map(() => 'lower(??) like ?')
-                .concat(fieldsExact.map(() => `lower(??) = ?`))
+              []
+                .concat(
+                  fieldsLike.map(() => 'lower(??) like ?'),
+                  fieldsExact.map(() => `lower(??) = ?`)
+                )
                 .join(' or ') +
               ') > 0'
           )

@@ -1,11 +1,13 @@
 import titresPhasesUpdate from './titres-phases-update'
+import * as queries from '../../database/queries/titres-phases'
 
 import {
   titresSansPhase,
   titresUnePhase,
   titresPhaseASupprimer,
   titresUnePhaseSansChangement,
-  titresUnePhaseMiseAJour
+  titresUnePhaseMiseAJour,
+  titrePhase
 } from './__mocks__/titres-phases-update-titres'
 
 jest.mock('../../database/queries/titres-phases', () => ({
@@ -20,6 +22,8 @@ describe("phases d'un titre", () => {
     expect(await titresPhasesUpdate(titresUnePhase)).toEqual(
       'mise à jour: 1 titre(s) (phases)'
     )
+
+    expect(queries.titrePhasesUpdate).toHaveBeenCalledWith(titrePhase)
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -27,6 +31,8 @@ describe("phases d'un titre", () => {
     expect(await titresPhasesUpdate(titresUnePhaseMiseAJour)).toEqual(
       'mise à jour: 1 titre(s) (phases)'
     )
+
+    expect(queries.titrePhasesUpdate).toHaveBeenCalledWith(titrePhase)
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -34,6 +40,10 @@ describe("phases d'un titre", () => {
     expect(await titresPhasesUpdate(titresPhaseASupprimer)).toEqual(
       'mise à jour: 1 titre(s) (phases)'
     )
+
+    expect(queries.titrePhasesDelete).toHaveBeenCalledWith([
+      'h-cxx-courdemanges-1988-oct01'
+    ])
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -41,6 +51,9 @@ describe("phases d'un titre", () => {
     expect(await titresPhasesUpdate(titresUnePhaseSansChangement)).toEqual(
       'mise à jour: 0 titre(s) (phases)'
     )
+
+    expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
+    expect(queries.titrePhasesUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 
@@ -48,6 +61,9 @@ describe("phases d'un titre", () => {
     expect(await titresPhasesUpdate(titresSansPhase)).toEqual(
       'mise à jour: 0 titre(s) (phases)'
     )
+
+    expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
+    expect(queries.titrePhasesUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 })

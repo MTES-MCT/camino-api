@@ -47,6 +47,15 @@ const titresUnePhase = [
   }
 ]
 
+const titrePhase = [
+  {
+    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    dateFin: '2500-01-01',
+    dateDebut: '2200-01-01',
+    statutId: 'val'
+  }
+]
+
 const titresUnePhaseMiseAJour = [
   {
     id: 'h-cxx-courdemanges-1988',
@@ -150,6 +159,7 @@ const titresUnePhaseSansChangement = [
 export {
   titresSansPhase,
   titresUnePhase,
+  titrePhase,
   titresUnePhaseMiseAJour,
   titresPhaseASupprimer,
   titresUnePhaseSansChangement
