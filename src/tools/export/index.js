@@ -14,8 +14,9 @@ const run = async () => {
   // construit un tableau de promesses avec
   // - les requête en base de données
   // - les appels à l'API Google Sheets
-  const spreadsheetsPromises = [spreadsheetsTitres]
-    .push(
+  const spreadsheetsPromises = []
+    .concat(
+      spreadsheetsTitres,
       spreadsheetUtilisateurs,
       spreadsheetActivites,
       spreadsheetAdministrations
