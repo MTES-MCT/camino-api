@@ -33,8 +33,10 @@ const data = files.reduce((d, file) => {
       content = []
     }
     res.push(content)
+
     return res
   }, [])
+
   return d
 }, {})
 

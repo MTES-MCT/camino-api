@@ -33,6 +33,7 @@ const findDuplicates = (array, key1) =>
     } else {
       res.push(el)
     }
+
     return res
   }, [])
 

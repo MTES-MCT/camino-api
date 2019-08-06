@@ -25,6 +25,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
       if (etapeId === titre[propEtapeIdName]) return props
 
       props[propEtapeIdName] = etapeId
+
       return props
     }, {})
 
