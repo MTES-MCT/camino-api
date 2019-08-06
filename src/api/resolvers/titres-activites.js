@@ -89,7 +89,13 @@ const emailsGet = async entrepriseIds => {
   })
 
   return utilisateurs.reduce(
-    (res, u) => (u.email ? [...res, u.email] : res),
+    (res, u) => {
+      if (u.email) {
+        res.push(u.email)
+      }
+
+      return res
+    },
     // si la variable d'environnement existe,
     // on ajoute un email générique pour recevoir une copie
     process.env.ACTIVITES_RAPPORTS_EMAIL

@@ -3,11 +3,13 @@ import * as dateFormat from 'dateformat'
 const dupRemove = (key, ...arrays) =>
   arrays.reduce(
     (result, array) =>
-      array.reduce(
-        (res, el) =>
-          res.find(e => !el[key] || e[key] === el[key]) ? res : [...res, el],
-        result
-      ),
+      array.reduce((res, el) => {
+        if (!res.find(e => !el[key] || e[key] === el[key])) {
+          res.push(el)
+        }
+
+        return res
+      }, result),
     []
   )
 

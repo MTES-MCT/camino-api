@@ -14,19 +14,20 @@ const run = async () => {
   // construit un tableau de promesses avec
   // - les requête en base de données
   // - les appels à l'API Google Sheets
-  const spreadsheetsPromises = [
-    ...spreadsheetsTitres,
-    spreadsheetUtilisateurs,
-    spreadsheetActivites,
-    spreadsheetAdministrations
-  ].map(({ id, name, get, tables }) => () =>
-    dbToSpreadsheet({
-      id,
-      name,
-      get,
-      tables
-    })
-  )
+  const spreadsheetsPromises = [spreadsheetsTitres]
+    .push(
+      spreadsheetUtilisateurs,
+      spreadsheetActivites,
+      spreadsheetAdministrations
+    )
+    .map(({ id, name, get, tables }) => () =>
+      dbToSpreadsheet({
+        id,
+        name,
+        get,
+        tables
+      })
+    )
 
   // utilise une queue plutôt que Promise.all
   // pour ne pas surcharger l'API de google

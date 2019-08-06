@@ -79,7 +79,7 @@ const requestsBuild = (sheets, tables, elements) => {
 
     const content = rowsToRowData({ columns, parents, callbacks }, elements)
 
-    const rows = [header, ...content]
+    const rows = [header].concat(content)
 
     // requêtes pour ajouter le contenu de chaque onglet
     requests.push({

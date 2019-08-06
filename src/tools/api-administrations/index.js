@@ -88,7 +88,13 @@ const organismeFormat = (e, departementId) => {
     let [adresse1, adresse2] = adresses
 
     adresse1 = adresse1.lignes
-      .reduce((acc, line) => (line.length > 100 ? acc : [...acc, line]), [])
+      .reduce((acc, line) => {
+        if (line.length <= 100) {
+          acc.push(line)
+        }
+
+        return acc
+      }, [])
       .join(', ')
 
     adresse2 = adresse2 ? adresse2.lignes.join(', ') : null

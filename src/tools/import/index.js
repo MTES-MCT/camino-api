@@ -9,10 +9,13 @@ import spreadsheets from './spreadsheets'
 const run = async () => {
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
-  const spreadsheetsPromises = spreadsheets.reduce(
-    (r, s) => (s.id ? [...r, () => spreadsheetToJsonFiles(s)] : r),
-    []
-  )
+  const spreadsheetsPromises = spreadsheets.reduce((r, s) => {
+    if (s.id) {
+      r.push(() => spreadsheetToJsonFiles(s))
+    }
+
+    return r
+  }, [])
 
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
@@ -54,7 +57,9 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
               if (!(col in row) || !value) return row
 
               try {
-                return { ...row, [col]: cb[col](value) }
+                row[col] = cb[col](value)
+
+                return row
               } catch (e) {
                 throw new Error(
                   `Could not parse field ${path}, ${col} = ${value}: ${e.message}`
@@ -74,19 +79,17 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
 // retourne un tableau par spreadsheet
 // une promesse par onglet de la spreadsheet
 const filesListBuild = ({ name, tables, prefixFileName }) =>
-  tables.reduce(
-    (acc, table) => [
-      ...acc,
-      {
-        path: filePathCreate(
-          prefixFileName ? `${name}-${table.name}` : table.name
-        ),
-        worksheetName: table.name,
-        cb: table.cb
-      }
-    ],
-    []
-  )
+  tables.reduce((acc, table) => {
+    acc.push({
+      path: filePathCreate(
+        prefixFileName ? `${name}-${table.name}` : table.name
+      ),
+      worksheetName: table.name,
+      cb: table.cb
+    })
+
+    return acc
+  }, [])
 
 const rowsToJson = (columns, rows) =>
   rows.map(row =>

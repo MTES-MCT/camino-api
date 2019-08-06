@@ -22,18 +22,17 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
         activitesTypes
       )
 
-      if (!titreActivitesTypes.length) return acc
-
-      return [
-        ...acc,
-        ...titreActivitesTypes.reduce(
-          (acc, titreActiviteType) => [
-            ...acc,
-            ...titreActivitesBuild(titre, titreActiviteType, annees)
-          ],
-          []
+      if (titreActivitesTypes.length) {
+        acc = acc.concat(
+          titreActivitesTypes.reduce(
+            (acc, titreActiviteType) =>
+              acc.concat(titreActivitesBuild(titre, titreActiviteType, annees)),
+            []
+          )
         )
-      ]
+      }
+
+      return acc
     }, [])
 
   if (titresActivitesNew.length) {

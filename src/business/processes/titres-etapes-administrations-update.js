@@ -17,40 +17,38 @@ const titreEtapeAdministrationsCreatedBuild = (
   titreEtape,
   administrationsIds
 ) =>
-  administrationsIds.reduce(
-    (queries, administrationId) =>
+  administrationsIds.reduce((queries, administrationId) => {
+    if (
       !titreEtape.administrations ||
       !titreEtape.administrations.find(
         administrationOld => administrationOld.id === administrationId
       )
-        ? [
-            ...queries,
-            {
-              titreEtapeId: titreEtape.id,
-              administrationId
-            }
-          ]
-        : queries,
-    []
-  )
+    ) {
+      queries.push({
+        titreEtapeId: titreEtape.id,
+        administrationId
+      })
+    }
+
+    return queries
+  }, [])
 
 const titreEtapeAdministrationsDeleteBuild = (titreEtape, administrationsIds) =>
   titreEtape.administrations
-    ? titreEtape.administrations.reduce(
-        (queries, administrationOld) =>
+    ? titreEtape.administrations.reduce((queries, administrationOld) => {
+        if (
           !administrationsIds.find(
             administrationId => administrationId === administrationOld.id
           )
-            ? [
-                ...queries,
-                {
-                  titreEtapeId: titreEtape.id,
-                  administrationId: administrationOld.id
-                }
-              ]
-            : queries,
-        []
-      )
+        ) {
+          queries.push({
+            titreEtapeId: titreEtape.id,
+            administrationId: administrationOld.id
+          })
+        }
+
+        return queries
+      }, [])
     : []
 
 // retourne un tableau d'ids d'administrations
@@ -89,13 +87,18 @@ const administrationsIdsBuild = (
     )
 
     adminsLocalesIds = administrations.reduce(
-      (adminsLocalesIds, administration) =>
-        (administration.departementId &&
-          titreDepartementsIds.has(administration.departementId)) ||
-        (administration.regionId &&
-          titreRegionsIds.has(administration.regionId))
-          ? [...adminsLocalesIds, administration.id]
-          : adminsLocalesIds,
+      (adminsLocalesIds, administration) => {
+        if (
+          (administration.departementId &&
+            titreDepartementsIds.has(administration.departementId)) ||
+          (administration.regionId &&
+            titreRegionsIds.has(administration.regionId))
+        ) {
+          adminsLocalesIds.push(administration.id)
+        }
+
+        return adminsLocalesIds
+      },
       []
     )
   }
@@ -108,19 +111,24 @@ const administrationsIdsBuild = (
       adminsCentralesIds = typesAdministrationsCentralesLink[typeId]
     } else {
       adminsCentralesIds = administrations.reduce(
-        (adminsCentralesIds, administration) =>
-          administration.domaines &&
-          administration.domaines.length &&
-          administration.domaines.find(({ id }) => id === domaineId)
-            ? [...adminsCentralesIds, administration.id]
-            : adminsCentralesIds,
+        (adminsCentralesIds, administration) => {
+          if (
+            administration.domaines &&
+            administration.domaines.length &&
+            administration.domaines.find(({ id }) => id === domaineId)
+          ) {
+            adminsCentralesIds.push(administration.id)
+          }
+
+          return adminsCentralesIds
+        },
         []
       )
     }
   }
 
   // dédoublonne les ids d'administrations, au cas où
-  return [...new Set([...adminsCentralesIds, ...adminsLocalesIds])]
+  return [...new Set(adminsCentralesIds.concat(adminsLocalesIds))]
 }
 
 const titresEtapesAdministrationsCreatedDeletedBuild = titresEtapesAdministrations =>
@@ -143,14 +151,12 @@ const titresEtapesAdministrationsCreatedDeletedBuild = titresEtapesAdministratio
       )
 
       return {
-        titresEtapesAdministrationsCreated: [
-          ...titresEtapesAdministrationsCreated,
-          ...titreEtapeAdministrationsCreated
-        ],
-        titresEtapesAdministrationsDeleted: [
-          ...titresEtapesAdministrationsDeleted,
-          ...titreEtapeAdministrationsDeleted
-        ]
+        titresEtapesAdministrationsCreated: titresEtapesAdministrationsCreated.concat(
+          titreEtapeAdministrationsCreated
+        ),
+        titresEtapesAdministrationsDeleted: titresEtapesAdministrationsDeleted.concat(
+          titreEtapeAdministrationsDeleted
+        )
       }
     },
     {
@@ -172,13 +178,12 @@ const titresEtapesAdministrationsBuild = (titres, administrations) =>
                 administrations
               )
 
-              return {
-                ...titresEtapesAdministrations,
-                [titreEtape.id]: {
-                  titreEtape,
-                  administrationsIds
-                }
+              titresEtapesAdministrations[titreEtape.id] = {
+                titreEtape,
+                administrationsIds
               }
+
+              return titresEtapesAdministrations
             },
             titresEtapesAdministrations
           ),

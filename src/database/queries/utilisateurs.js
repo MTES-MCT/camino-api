@@ -35,10 +35,10 @@ const utilisateursGet = async ({
   }
 
   if (noms) {
-    q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
-      'utilisateurs.nom',
-      ...noms.map(n => n.toLowerCase())
-    ])
+    q.whereRaw(
+      `lower(??) ~* ${noms.map(n => '?').join('|')}`,
+      ['utilisateurs.nom'].concat(noms.map(n => n.toLowerCase()))
+    )
   }
 
   return q

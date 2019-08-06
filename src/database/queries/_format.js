@@ -164,22 +164,24 @@ const titreDemarcheFormat = (td, format = titreDemarcheFormatDefaut) => {
 // - ne conserve que les sections qui contiennent des élements
 const titreSectionsFormat = tea =>
   tea.type.sections.reduce((sections, s) => {
-    const elements = s.elements.reduce(
-      (elements, e) =>
-        // ne conserve que les éléments dont
-        // - la période (si elle existe),
-        // - la date de début et la date de fin
-        // correspondent à l'activité
+    const elements = s.elements.reduce((elements, e) => {
+      // ne conserve que les éléments dont
+      // - la période (si elle existe),
+      // - la date de début et la date de fin
+      // correspondent à l'activité
+      if (
         (!e.frequencePeriodesIds ||
           e.frequencePeriodesIds.find(
             id => tea.periode && tea.periode.id === id
           )) &&
         (!e.dateFin || e.dateFin >= dateFormat(tea.date, 'yyyy-mm-dd')) &&
         (!e.dateDebut || e.dateDebut < dateFormat(tea.date, 'yyyy-mm-dd'))
-          ? [...elements, e]
-          : elements,
-      []
-    )
+      ) {
+        elements.push(e)
+      }
+
+      return elements
+    }, [])
 
     const section = {
       id: s.id,
@@ -189,7 +191,11 @@ const titreSectionsFormat = tea =>
       elements
     }
 
-    return section.elements.length ? [...sections, section] : sections
+    if (section.elements.length) {
+      sections.push(section)
+    }
+
+    return sections
   }, [])
 
 const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {

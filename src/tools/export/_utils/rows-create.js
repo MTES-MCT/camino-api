@@ -18,10 +18,9 @@ const rowsCreate = (elements, parents, parentElement) =>
           element[parents[0]]
             ? // recursion sur rowsCreate avec cet élément
               // et la liste de parents moins le premier
-              [
-                ...rows,
-                ...rowsCreate(element[parents[0]], parents.slice(1), element)
-              ]
+              rows.concat(
+                rowsCreate(element[parents[0]], parents.slice(1), element)
+              )
             : // sinon, retourne le résultat
               rows,
         []

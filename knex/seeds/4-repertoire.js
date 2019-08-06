@@ -30,10 +30,11 @@ const findDuplicates = (array, key1) =>
         el[key1],
         el
       )
-      return res
     } else {
-      return [...res, el]
+      res.push(el)
     }
+
+    return res
   }, [])
 
 const findMissing = (elements, relations, field1, field2) =>

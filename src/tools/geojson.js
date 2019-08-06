@@ -23,22 +23,20 @@ const geojsonFeatureMultiPolygon = points => ({
 const geojsonFeatureCollectionPoints = points => ({
   type: 'FeatureCollection',
   properties: { etapeId: points[0].titreEtapeId },
-  features: [
-    ...points.map(p => ({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [p.coordonnees.x, p.coordonnees.y]
-      },
-      properties: {
-        id: p.id,
-        groupe: p.groupe,
-        contour: p.contour,
-        point: p.point,
-        references: p.references && p.references.length ? p.references : null
-      }
-    }))
-  ]
+  features: points.map(p => ({
+    type: 'Feature',
+    geometry: {
+      type: 'Point',
+      coordinates: [p.coordonnees.x, p.coordonnees.y]
+    },
+    properties: {
+      id: p.id,
+      groupe: p.groupe,
+      contour: p.contour,
+      point: p.point,
+      references: p.references && p.references.length ? p.references : null
+    }
+  }))
 })
 
 // converti une liste de points
@@ -68,8 +66,9 @@ const multiPolygonContoursClose = groupes =>
   groupes.map(contours =>
     contours.reduce((acc, points) => {
       points[points.length] = points[0]
+      acc.push(points)
 
-      return [...acc, points]
+      return acc
     }, [])
   )
 
