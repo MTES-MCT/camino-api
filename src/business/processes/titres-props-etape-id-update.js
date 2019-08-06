@@ -22,22 +22,23 @@ const titresPropsEtapeIdsUpdate = async titres => {
       const propEtapeIdName = `${prop}TitreEtapeId`
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
 
-      return etapeId !== titre[propEtapeIdName]
-        ? { ...props, [propEtapeIdName]: etapeId }
-        : props
+      if (etapeId !== titre[propEtapeIdName]) {
+        props[propEtapeIdName] = etapeId
+      }
+
+      return props
     }, {})
 
-    return Object.keys(props).length
-      ? [
-          ...acc,
-          async () => {
-            await titreUpdate(titre.id, props)
-            console.log(
-              `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-            )
-          }
-        ]
-      : acc
+    if (Object.keys(props).length) {
+      acc.push(async () => {
+        await titreUpdate(titre.id, props)
+        console.log(
+          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+        )
+      })
+    }
+
+    return acc
   }, [])
 
   if (titresUpdatedRequests.length) {

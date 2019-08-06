@@ -57,7 +57,11 @@ const tables = [
     callbacks: {
       references: v =>
         JSON.stringify(
-          v.reduce((r, { type, valeur }) => ({ ...r, [type]: valeur }), {})
+          v.reduce((r, { type, valeur }) => {
+            r[type] = valeur
+
+            return r
+          }, {})
         ),
       dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
       dateFin: v => dateFormat(v, 'yyyy-mm-dd'),

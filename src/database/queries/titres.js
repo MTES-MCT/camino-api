@@ -90,10 +90,10 @@ const titresGet = async (
           )
           .join(') and (')})`,
         substances.reduce(
-          (res, s) => [
-            ...res,
-            ...fields.reduce((r, f) => [...r, f, `%${s.toLowerCase()}%`], [])
-          ],
+          (res, s) =>
+            res.concat(
+              fields.reduce((r, f) => r.concat([f, `%${s.toLowerCase()}%`]), [])
+            ),
           []
         )
       )
@@ -128,10 +128,10 @@ const titresGet = async (
           )
           .join(') and (')})`,
         entreprises.reduce(
-          (res, s) => [
-            ...res,
-            ...fields.reduce((r, f) => [...r, f, `%${s.toLowerCase()}%`], [])
-          ],
+          (res, s) =>
+            res.concat(
+              fields.reduce((r, f) => r.concat([f, `%${s.toLowerCase()}%`]), [])
+            ),
           []
         )
       )
@@ -170,22 +170,22 @@ const titresGet = async (
           .map(
             () =>
               'count(*) filter (where ' +
-              [
-                ...fieldsLike.map(() => 'lower(??) like ?'),
-                ...fieldsExact.map(() => `lower(??) = ?`)
-              ].join(' or ') +
+              fieldsLike
+                .map(() => 'lower(??) like ?')
+                .concat(fieldsExact.map(() => `lower(??) = ?`))
+                .join(' or ') +
               ') > 0'
           )
           .join(') and (')})`,
         territoires.reduce(
-          (res, s) => [
-            ...res,
-            ...fieldsLike.reduce(
-              (r, f) => [...r, f, `%${s.toLowerCase()}%`],
-              []
+          (res, s) =>
+            res.concat(
+              fieldsLike.reduce(
+                (r, f) => r.concat([f, `%${s.toLowerCase()}%`]),
+                []
+              ),
+              fieldsExact.reduce((r, f) => r.concat([f, s.toLowerCase()]), [])
             ),
-            ...fieldsExact.reduce((r, f) => [...r, f, s.toLowerCase()], [])
-          ],
           []
         )
       )

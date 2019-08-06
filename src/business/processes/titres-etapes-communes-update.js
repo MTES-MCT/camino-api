@@ -8,36 +8,34 @@ import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes/index'
 
 const titreEtapesCommunesCreateBuild = (titreEtape, communesEtape) =>
-  communesEtape.reduce(
-    (queries, { id: communeId }) =>
+  communesEtape.reduce((queries, { id: communeId }) => {
+    if (
       !titreEtape.communes ||
       !titreEtape.communes.find(communeOld => communeOld.id === communeId)
-        ? [
-            ...queries,
-            {
-              titreEtapeId: titreEtape.id,
-              communeId
-            }
-          ]
-        : queries,
-    []
-  )
+    ) {
+      queries.push({
+        titreEtapeId: titreEtape.id,
+        communeId
+      })
+    }
+
+    return queries
+  }, [])
 
 const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
   titreEtape.communes
-    ? titreEtape.communes.reduce(
-        (queries, communeOld) =>
+    ? titreEtape.communes.reduce((queries, communeOld) => {
+        if (
           !communesEtape.find(communeEtape => communeEtape.id === communeOld.id)
-            ? [
-                ...queries,
-                {
-                  titreEtapeId: titreEtape.id,
-                  communeId: communeOld.id
-                }
-              ]
-            : queries,
-        []
-      )
+        ) {
+          queries.push({
+            titreEtapeId: titreEtape.id,
+            communeId: communeOld.id
+          })
+        }
+
+        return queries
+      }, [])
     : []
 
 const titresEtapesCommunesCreatedDeletedBuild = (
@@ -63,14 +61,12 @@ const titresEtapesCommunesCreatedDeletedBuild = (
       )
 
       return {
-        titresEtapesCommunesCreated: [
-          ...titresEtapesCommunesCreated,
-          ...titreEtapesCommunesCreated
-        ],
-        titresEtapesCommunesDeleted: [
-          ...titresEtapesCommunesDeleted,
-          ...titreEtapeCommunesDeleted
-        ]
+        titresEtapesCommunesCreated: titresEtapesCommunesCreated.concat(
+          titreEtapesCommunesCreated
+        ),
+        titresEtapesCommunesDeleted: titresEtapesCommunesDeleted.concat(
+          titreEtapeCommunesDeleted
+        )
       }
     },
     {
@@ -92,16 +88,17 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
   const { communesNew } = Object.keys(titresEtapesCommunes).reduce(
     (acc, titreEtapeId) =>
       titresEtapesCommunes[titreEtapeId].reduce(
-        ({ communesIndex, communesNew }, commune) =>
+        ({ communesIndex, communesNew }, commune) => {
           // Ajoute la commune
           // - si elle n'est pas déjà présente dans l'accumulateur
           // - si elle n'est pas présente dans communesOld
-          !communesIndex[commune.id] && !communesOldIndex[commune.id]
-            ? {
-                communesIndex: { ...communesIndex, [commune.id]: true },
-                communesNew: [...communesNew, commune]
-              }
-            : { communesIndex, communesNew },
+          if (!communesIndex[commune.id] && !communesOldIndex[commune.id]) {
+            communesNew.push(commune)
+            communesIndex[commune.id] = true
+          }
+
+          return { communesIndex, communesNew }
+        },
         acc
       ),
     { communesIndex: {}, communesNew: [] }
@@ -135,10 +132,11 @@ const titresEtapesCommunesGet = async titresEtapes => {
   const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
 
   return communesGeojsons.reduce(
-    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => ({
-      ...titresEtapesCommunes,
-      [titreEtapeId]: communesGeojson
-    }),
+    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => {
+      titresEtapesCommunes[titreEtapeId] = communesGeojson
+
+      return titresEtapesCommunes
+    },
     {}
   )
 }

@@ -12,20 +12,23 @@ const titresPropsActivitesUpdate = async titres => {
     const props = activitesProps.reduce((props, { id, prop }) => {
       const value = titrePropActivitesCount(titre.activites, id)
 
-      return value !== titre[prop] ? { ...props, [prop]: value } : props
+      if (value !== titre[prop]) {
+        props[prop] = value
+      }
+
+      return props
     }, {})
 
-    return Object.keys(props).length
-      ? [
-          ...acc,
-          async () => {
-            await titreUpdate(titre.id, props)
-            console.log(
-              `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-            )
-          }
-        ]
-      : acc
+    if (Object.keys(props).length) {
+      acc.push(async () => {
+        await titreUpdate(titre.id, props)
+        console.log(
+          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+        )
+      })
+    }
+
+    return acc
   }, [])
 
   if (titreUpdateRequests.length) {

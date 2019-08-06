@@ -3,31 +3,26 @@ import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 
 const titreEtapesOrdreUpdate = titreEtapes =>
-  titreEtapesAscSortByDate(titreEtapes).reduce(
-    (queries, titreEtape, index) =>
-      titreEtape.ordre !== index + 1
-        ? [
-            ...queries,
-            async () => {
-              await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
+  titreEtapesAscSortByDate(titreEtapes).reduce((queries, titreEtape, index) => {
+    if (titreEtape.ordre !== index + 1) {
+      queries.push(async () => {
+        await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
-              console.log(
-                `mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
-                  ordre: index + 1
-                })}`
-              )
-            }
-          ]
-        : queries,
-    []
-  )
+        console.log(
+          `mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
+            ordre: index + 1
+          })}`
+        )
+      })
+    }
+
+    return queries
+  }, [])
 
 const titresEtapesOrdreUpdate = async titresDemarches => {
   const titresEtapesUpdated = titresDemarches.reduce(
-    (arr, titreDemarche) => [
-      ...arr,
-      ...titreEtapesOrdreUpdate(titreDemarche.etapes)
-    ],
+    (arr, titreDemarche) =>
+      arr.concat(titreEtapesOrdreUpdate(titreDemarche.etapes)),
     []
   )
 

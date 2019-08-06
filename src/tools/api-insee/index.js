@@ -11,6 +11,8 @@ import fileCreate from '../file-create'
 import inseePays from './pays'
 import inseeCategoriesJuridiques from './categories-juridiques'
 import inseeTypesVoies from './voies'
+import PQueue from 'p-queue'
+
 const makeDir = require('make-dir')
 
 const CACHE_DIR = 'api-cache/insee/'
@@ -176,15 +178,15 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
     )
   }
 
-  const batchesQueries = batches.reduce(
-    async (acc, batch) => [
-      ...(await acc),
-      await inseeFetchMulti(type, field, batch, queryFormatter(batch))
-    ],
-    []
-  )
+  const batchesQueries = batches.reduce((acc, batch) => {
+    acc.push(() => inseeFetchMulti(type, field, batch, queryFormatter(batch)))
 
-  const batchesResults = await batchesQueries
+    return acc
+  }, [])
+
+  const queue = new PQueue({ concurrency: 10 })
+
+  const batchesResults = await queue.addAll(batchesQueries)
 
   return batchesResults.reduce((r, p) => r.concat(p), [])
 }
@@ -243,10 +245,7 @@ const nomFormat = (e, usuel) =>
 const entrepriseEtablissementsFormat = (entrepriseId, e) =>
   e.periodesUniteLegale
     .reduce((acc, p) => {
-      const nom = nomFormat({
-        ...e,
-        ...p
-      })
+      const nom = nomFormat(Object.assign({}, e, p))
 
       let previous = acc[acc.length - 1]
 
@@ -309,13 +308,7 @@ const entrepriseAdresseFormat = e => {
     legalSiren: e.siren
   }
 
-  const nom = nomFormat(
-    {
-      ...e,
-      ...unite
-    },
-    true
-  )
+  const nom = nomFormat(Object.assign({}, e, unite), true)
   if (nom) {
     entreprise.nom = nom
   }
@@ -415,7 +408,7 @@ const entrepriseEtablissementGet = async sirenIds => {
     return null
 
   return entreprisesEtablissements.reduce(
-    (acc, e) => (e ? [...acc, ...entrepriseEtablissementFormat(e)] : acc),
+    (acc, e) => (e ? acc.concat(entrepriseEtablissementFormat(e)) : acc),
     []
   )
 }
@@ -433,10 +426,13 @@ const entrepriseAdresseGet = async sirenIds => {
   )
   if (!etablissements || !Array.isArray(etablissements)) return null
 
-  return etablissements.reduce(
-    (acc, e) => (e ? [...acc, entrepriseAdresseFormat(e)] : acc),
-    []
-  )
+  return etablissements.reduce((acc, e) => {
+    if (e) {
+      acc.push(entrepriseAdresseFormat(e))
+    }
+
+    return acc
+  }, [])
 }
 
 export { tokenInitialize, entrepriseEtablissementGet, entrepriseAdresseGet }

@@ -37,7 +37,7 @@ import { organismeGet } from '../api-administrations/index'
 //   console.log('multi dep:', titresMultiDepartements.length)
 
 //   const titresDepartements = await titresMultiDepartements.reduce(
-//     async (acc, titre) => {
+//     async (accPromise, titre) => {
 //       const departementChef = await departementChefGeojsonGet(
 //         titre.geojsonMultiPolygon
 //       )
@@ -51,7 +51,9 @@ import { organismeGet } from '../api-administrations/index'
 
 //       const { id: departementId } = departementChef
 
-//       return [...(await acc), { id: titre.id, departementId }]
+//       const acc = await accPromise
+//       acc.push({ id : titre.id, departementId })
+//       return acc
 //     },
 //     []
 //   )
@@ -76,17 +78,22 @@ const main = async () => {
   console.log(departements.length)
 
   const administrations = await departements.reduce(
-    async (acc, { id }) => [
-      ...(await acc),
-      await organismeGet(id, id === '75' ? 'prefecture_region' : 'prefecture')
-    ],
+    async (accPromise, { id }) => {
+      const acc = await accPromise
+      acc.push(
+        await organismeGet(id, id === '75' ? 'prefecture_region' : 'prefecture')
+      )
+
+      return acc
+    },
     []
   )
 
-  const administrationsIndex = administrations.reduce(
-    (acc, a) => ({ ...acc, [a.departementId]: a }),
-    {}
-  )
+  const administrationsIndex = administrations.reduce((acc, a) => {
+    acc[a.departementId] = a
+
+    return acc
+  }, {})
   await fileCreate(
     'test-administrations.json',
     JSON.stringify(administrations, null, 2)
@@ -105,16 +112,15 @@ const main = async () => {
       (acc, titreEtape) =>
         !titreEtape.communes || !titreEtape.communes.length
           ? acc
-          : [
-              ...acc,
-              ...titreEtape.communes.map(commune =>
+          : acc.concat(
+              titreEtape.communes.map(commune =>
                 titreEtapeAdministrationInsert({
                   titreEtapeId: titreEtape.id,
                   administrationId:
                     administrationsIndex[commune.departementId].id
                 })
               )
-            ],
+            ),
       []
     )
   )

@@ -21,24 +21,23 @@ const files = [
   'titresIncertitudes'
 ]
 
-const data = files.reduce(
-  (d, file) => ({
-    ...d,
-    [file]: domaineIds.reduce((res, domaineId) => {
-      const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
+const data = files.reduce((d, file) => {
+  d[file] = domaineIds.reduce((res, domaineId) => {
+    const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
 
-      let content
-      try {
-        content = require(`../../sources/${fileName}.json`)
-      } catch (e) {
-        console.warn(e.message)
-        content = []
-      }
-      return [...res, ...content]
-    }, [])
-  }),
-  {}
-)
+    let content
+    try {
+      content = require(`../../sources/${fileName}.json`)
+    } catch (e) {
+      console.warn(e.message)
+      content = []
+    }
+
+    return res.concat(content)
+  }, [])
+
+  return d
+}, {})
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([

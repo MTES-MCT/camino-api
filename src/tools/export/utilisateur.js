@@ -63,9 +63,11 @@ const requestsBuild = (elements, tables) =>
 
       const requestsTable = [...rowsDeleteRequests, ...rowsAppendRequests]
 
-      return requestsTable.length
-        ? [...(await requests), ...requestsTable]
-        : requests
+      if (requestsTable.length) {
+        requests = (await requests).concat(requestsTable)
+      }
+
+      return requests
     },
     []
   )
@@ -85,11 +87,13 @@ const utilisateurRowUpdate = async utilisateur => {
 }
 
 const rowsIndicesFind = (worksheet, id) => {
-  return worksheet.values.reduce(
-    (rowsIndices, [rowId], index) =>
-      rowId === id ? [...rowsIndices, index] : rowsIndices,
-    []
-  )
+  return worksheet.values.reduce((rowsIndices, [rowId], index) => {
+    if (rowId === id) {
+      rowsIndices.push(index)
+    }
+
+    return rowsIndices
+  }, [])
 }
 
 export { utilisateurRowUpdate }
