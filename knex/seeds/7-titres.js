@@ -32,9 +32,8 @@ const data = files.reduce((d, file) => {
       console.warn(e.message)
       content = []
     }
-    res.push(content)
 
-    return res
+    return res.concat(content)
   }, [])
 
   return d

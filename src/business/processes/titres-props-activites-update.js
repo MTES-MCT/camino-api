@@ -12,9 +12,9 @@ const titresPropsActivitesUpdate = async titres => {
     const props = activitesProps.reduce((props, { id, prop }) => {
       const value = titrePropActivitesCount(titre.activites, id)
 
-      if (value === titre[prop]) return props
-
-      props[prop] = value
+      if (value !== titre[prop]) {
+        props[prop] = value
+      }
 
       return props
     }, {})

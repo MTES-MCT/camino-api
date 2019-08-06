@@ -22,14 +22,8 @@ const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
 
     const valueNew = titrePhase[key]
 
-    if (
-      !// compare `undefined` et `null` entre eux
-      (
-        (!valueNew && !valueOld) ||
-        // compare deux mêmes valeurs
-        valueNew === valueOld
-      )
-    ) {
+    // met la prop à jour si les variables sont différentes
+    if (valueNew !== valueOld) {
       res[key] = [valueOld, valueNew]
     }
 
@@ -91,6 +85,7 @@ const titresPhasesUpdate = async titres => {
 
       return res
     }, [])
+    // console.log(titrePhasesOld)
 
     // retourne un tableau avec les phases
     // créées à partir des démarches

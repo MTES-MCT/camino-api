@@ -174,14 +174,16 @@ const mappingRelationsGet = (file, mappings) => {
 
     if (join.through) {
       relations.push(
-        {}.assign(file, name, splitJoin(join.from, join.through.from)),
-        {}.assign(file, name, splitJoin(join.through.to, join.to))
+        Object.assign({ file, name }, splitJoin(join.from, join.through.from)),
+        Object.assign({ file, name }, splitJoin(join.through.to, join.to))
       )
 
       return relations
     }
 
-    relations.push({}.assign(file, name, splitJoin(join.from, join.to, true)))
+    relations.push(
+      Object.assign({ file, name }, splitJoin(join.from, join.to, true))
+    )
 
     return relations
   }, [])

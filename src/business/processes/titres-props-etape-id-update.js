@@ -22,9 +22,9 @@ const titresPropsEtapeIdsUpdate = async titres => {
       const propEtapeIdName = `${prop}TitreEtapeId`
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
 
-      if (etapeId === titre[propEtapeIdName]) return props
-
-      props[propEtapeIdName] = etapeId
+      if (etapeId !== titre[propEtapeIdName]) {
+        props[propEtapeIdName] = etapeId
+      }
 
       return props
     }, {})

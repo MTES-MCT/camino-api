@@ -11,6 +11,8 @@ import fileCreate from '../file-create'
 import inseePays from './pays'
 import inseeCategoriesJuridiques from './categories-juridiques'
 import inseeTypesVoies from './voies'
+import PQueue from 'p-queue'
+
 const makeDir = require('make-dir')
 
 const CACHE_DIR = 'api-cache/insee/'
@@ -176,14 +178,15 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
     )
   }
 
-  const batchesQueries = batches.reduce(async (accPromesse, batch) => {
-    const acc = await accPromesse
-    acc.push(await inseeFetchMulti(type, field, batch, queryFormatter(batch)))
+  const batchesQueries = batches.reduce((acc, batch) => {
+    acc.push(() => inseeFetchMulti(type, field, batch, queryFormatter(batch)))
 
     return acc
   }, [])
 
-  const batchesResults = await batchesQueries
+  const queue = new PQueue({ concurrency: 10 })
+
+  const batchesResults = await queue.addAll(batchesQueries)
 
   return batchesResults.reduce((r, p) => r.concat(p), [])
 }
