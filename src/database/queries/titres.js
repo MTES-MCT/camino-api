@@ -219,7 +219,6 @@ const titreUpdate = async (id, props) => {
 const titreDelete = async (id, tr) =>
   Titres.query(tr)
     .deleteById(id)
-    .first()
     .eager(options.titres.eager)
     .returning('*')
 
