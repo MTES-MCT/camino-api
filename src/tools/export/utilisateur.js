@@ -64,7 +64,8 @@ const requestsBuild = (elements, tables) =>
       const requestsTable = [...rowsDeleteRequests, ...rowsAppendRequests]
 
       if (requestsTable.length) {
-        requests = (await requests).concat(requestsTable)
+        requests = await requests
+        requests.push(...requestsTable)
       }
 
       return requests

@@ -188,7 +188,11 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
 
   const batchesResults = await queue.addAll(batchesQueries)
 
-  return batchesResults.reduce((r, p) => r.concat(p), [])
+  return batchesResults.reduce((r, p) => {
+    r.push(...p)
+
+    return r
+  }, [])
 }
 
 const nomEntrepriseFormat = (e, usuel) => {
@@ -407,10 +411,13 @@ const entrepriseEtablissementGet = async sirenIds => {
   if (!entreprisesEtablissements || !Array.isArray(entreprisesEtablissements))
     return null
 
-  return entreprisesEtablissements.reduce(
-    (acc, e) => (e ? acc.concat(entrepriseEtablissementFormat(e)) : acc),
-    []
-  )
+  return entreprisesEtablissements.reduce((acc, e) => {
+    if (e) {
+      acc.push(...entrepriseEtablissementFormat(e))
+    }
+
+    return acc
+  }, [])
 }
 
 const entrepriseAdresseGet = async sirenIds => {

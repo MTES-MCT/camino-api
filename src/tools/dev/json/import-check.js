@@ -34,23 +34,23 @@ const territoires = ['pays', 'regions', 'departements']
 
 const entreprisesFiles = ['', 'Etablissements']
 
-const repertoires = domainesIds.reduce(
-  (res, domaineId) =>
-    res.concat(
-      entreprisesFiles.reduce((d, file) => {
-        d.push({
-          name: `entreprises${file}`,
-          file: decamelize(
-            `entreprises-titres-${domaineId}${file ? '-' : ''}${file}`,
-            '-'
-          )
-        })
+const repertoires = domainesIds.reduce((res, domaineId) => {
+  res.push(
+    ...entreprisesFiles.reduce((d, file) => {
+      d.push({
+        name: `entreprises${file}`,
+        file: decamelize(
+          `entreprises-titres-${domaineId}${file ? '-' : ''}${file}`,
+          '-'
+        )
+      })
 
-        return d
-      }, [])
-    ),
-  []
-)
+      return d
+    }, [])
+  )
+
+  return res
+}, [])
 repertoires.push(
   'administrations',
   'administrationsTypes',
@@ -80,20 +80,20 @@ const titresFiles = [
   'titresIncertitudes'
 ]
 
-const titres = titresFiles.reduce(
-  (d, file) =>
-    d.concat(
-      domainesIds.reduce((res, domaineId) => {
-        res.push({
-          name: file,
-          file: decamelize(`titres-${domaineId}-${file}`, '-')
-        })
+const titres = titresFiles.reduce((d, file) => {
+  d.push(
+    ...domainesIds.reduce((res, domaineId) => {
+      res.push({
+        name: file,
+        file: decamelize(`titres-${domaineId}-${file}`, '-')
+      })
 
-        return res
-      }, [])
-    ),
-  []
-)
+      return res
+    }, [])
+  )
+
+  return d
+}, [])
 
 const activitesMetas = [
   'activitesStatuts',
@@ -133,7 +133,7 @@ const data = [
   }
 
   if (acc[name]) {
-    acc[name].data = acc[name].data.concat(data)
+    acc[name].data.push(...data)
 
     return acc
   }

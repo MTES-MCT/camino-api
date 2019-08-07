@@ -108,21 +108,20 @@ const main = async () => {
   console.log('titresEtapes:', titresEtapes.length)
 
   await Promise.all(
-    titresEtapes.reduce(
-      (acc, titreEtape) =>
-        !titreEtape.communes || !titreEtape.communes.length
-          ? acc
-          : acc.concat(
-              titreEtape.communes.map(commune =>
-                titreEtapeAdministrationInsert({
-                  titreEtapeId: titreEtape.id,
-                  administrationId:
-                    administrationsIndex[commune.departementId].id
-                })
-              )
-            ),
-      []
-    )
+    titresEtapes.reduce((acc, titreEtape) => {
+      if (titreEtape.communes && titreEtape.communes.length) {
+        acc.push(
+          ...titreEtape.communes.map(commune =>
+            titreEtapeAdministrationInsert({
+              titreEtapeId: titreEtape.id,
+              administrationId: administrationsIndex[commune.departementId].id
+            })
+          )
+        )
+      }
+
+      return acc
+    }, [])
   )
 
   // console.log(res)
