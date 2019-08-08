@@ -50,23 +50,17 @@ const titresEtapesCommunesCreatedDeletedBuild = (
       const titreEtape = titresEtapes.find(te => te.id === titreEtapeId)
       const communesEtape = titresEtapesCommunes[titreEtapeId]
 
-      const titreEtapesCommunesCreated = titreEtapesCommunesCreateBuild(
-        titreEtape,
-        communesEtape
+      titresEtapesCommunesCreated.push(
+        ...titreEtapesCommunesCreateBuild(titreEtape, communesEtape)
       )
 
-      const titreEtapeCommunesDeleted = titreEtapesCommunesDeleteBuild(
-        titreEtape,
-        communesEtape
+      titresEtapesCommunesDeleted.push(
+        ...titreEtapesCommunesDeleteBuild(titreEtape, communesEtape)
       )
 
       return {
-        titresEtapesCommunesCreated: titresEtapesCommunesCreated.concat(
-          titreEtapesCommunesCreated
-        ),
-        titresEtapesCommunesDeleted: titresEtapesCommunesDeleted.concat(
-          titreEtapeCommunesDeleted
-        )
+        titresEtapesCommunesCreated,
+        titresEtapesCommunesDeleted
       }
     },
     {

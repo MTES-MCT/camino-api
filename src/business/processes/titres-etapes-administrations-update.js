@@ -127,8 +127,10 @@ const administrationsIdsBuild = (
     }
   }
 
+  adminsCentralesIds.push(...adminsLocalesIds)
+
   // dédoublonne les ids d'administrations, au cas où
-  return [...new Set(adminsCentralesIds.concat(adminsLocalesIds))]
+  return [...new Set(adminsCentralesIds)]
 }
 
 const titresEtapesAdministrationsCreatedDeletedBuild = titresEtapesAdministrations =>
@@ -140,23 +142,17 @@ const titresEtapesAdministrationsCreatedDeletedBuild = titresEtapesAdministratio
       },
       { titreEtape, administrationsIds }
     ) => {
-      const titreEtapeAdministrationsCreated = titreEtapeAdministrationsCreatedBuild(
-        titreEtape,
-        administrationsIds
+      titresEtapesAdministrationsCreated.push(
+        ...titreEtapeAdministrationsCreatedBuild(titreEtape, administrationsIds)
       )
 
-      const titreEtapeAdministrationsDeleted = titreEtapeAdministrationsDeleteBuild(
-        titreEtape,
-        administrationsIds
+      titresEtapesAdministrationsDeleted.push(
+        ...titreEtapeAdministrationsDeleteBuild(titreEtape, administrationsIds)
       )
 
       return {
-        titresEtapesAdministrationsCreated: titresEtapesAdministrationsCreated.concat(
-          titreEtapeAdministrationsCreated
-        ),
-        titresEtapesAdministrationsDeleted: titresEtapesAdministrationsDeleted.concat(
-          titreEtapeAdministrationsDeleted
-        )
+        titresEtapesAdministrationsCreated,
+        titresEtapesAdministrationsDeleted
       }
     },
     {

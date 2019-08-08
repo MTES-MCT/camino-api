@@ -20,11 +20,11 @@ const titreEtapesOrdreUpdate = titreEtapes =>
   }, [])
 
 const titresEtapesOrdreUpdate = async titresDemarches => {
-  const titresEtapesUpdated = titresDemarches.reduce(
-    (arr, titreDemarche) =>
-      arr.concat(titreEtapesOrdreUpdate(titreDemarche.etapes)),
-    []
-  )
+  const titresEtapesUpdated = titresDemarches.reduce((arr, titreDemarche) => {
+    arr.push(...titreEtapesOrdreUpdate(titreDemarche.etapes))
+
+    return arr
+  }, [])
 
   if (titresEtapesUpdated.length) {
     const queue = new PQueue({ concurrency: 100 })

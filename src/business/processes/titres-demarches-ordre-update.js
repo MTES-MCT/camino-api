@@ -25,7 +25,7 @@ const titresDemarchesOrdreUpdate = async titres => {
     )
 
     if (titreDemarchesOrdreUpdated.length) {
-      acc = acc.concat(titreDemarchesOrdreUpdated)
+      acc.push(...titreDemarchesOrdreUpdated)
     }
 
     return acc

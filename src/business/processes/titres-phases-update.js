@@ -123,8 +123,9 @@ const titresPhasesUpdate = async titres => {
       })
     }
 
-    if (titrePhasesUpdateRequests.length)
-      acc = acc.concat(titrePhasesUpdateRequests)
+    if (titrePhasesUpdateRequests.length) {
+      acc.push(...titrePhasesUpdateRequests)
+    }
 
     return acc
   }, [])

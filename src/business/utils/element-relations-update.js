@@ -5,7 +5,7 @@ const elementsLinkedAccumulate = (root, path) => {
         let items = acc.root[name]
         items = !Array.isArray(items) ? [items] : items
 
-        acc.elementsLinked = acc.elementsLinked.concat(items)
+        acc.elementsLinked.push(...items)
       }
 
       acc.root = acc.root[name]

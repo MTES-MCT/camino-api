@@ -12,19 +12,18 @@ const rowsCreate = (elements, parents, parentElement) =>
   // si il existe au moins un parent
   parents && parents.length
     ? // parcourt la liste d'éléments
-      elements.reduce(
-        (rows, element) =>
-          // si il existe un element dont le nom correspond au premier parent
-          element[parents[0]]
-            ? // recursion sur rowsCreate avec cet élément
-              // et la liste de parents moins le premier
-              rows.concat(
-                rowsCreate(element[parents[0]], parents.slice(1), element)
-              )
-            : // sinon, retourne le résultat
-              rows,
-        []
-      )
+      elements.reduce((rows, element) => {
+        // si il existe un element dont le nom correspond au premier parent
+        if (element[parents[0]]) {
+          // recursion sur rowsCreate avec cet élément
+          // et la liste de parents moins le premier
+          rows.push(
+            ...rowsCreate(element[parents[0]], parents.slice(1), element)
+          )
+        }
+
+        return rows
+      }, [])
     : // si il n'y a pas de parent
     // si elements est un tableau
     Array.isArray(elements)

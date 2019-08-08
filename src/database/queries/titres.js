@@ -89,13 +89,17 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        substances.reduce(
-          (res, s) =>
-            res.concat(
-              fields.reduce((r, f) => r.concat([f, `%${s.toLowerCase()}%`]), [])
-            ),
-          []
-        )
+        substances.reduce((res, s) => {
+          res.push(
+            ...fields.reduce((r, f) => {
+              r.push(f, `%${s.toLowerCase()}%`)
+
+              return r
+            }, [])
+          )
+
+          return res
+        }, [])
       )
       .joinRelation('substances.legales')
   }
@@ -127,13 +131,17 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        entreprises.reduce(
-          (res, s) =>
-            res.concat(
-              fields.reduce((r, f) => r.concat([f, `%${s.toLowerCase()}%`]), [])
-            ),
-          []
-        )
+        entreprises.reduce((res, s) => {
+          res.push(
+            ...fields.reduce((r, f) => {
+              r.push(f, `%${s.toLowerCase()}%`)
+
+              return r
+            }, [])
+          )
+
+          return res
+        }, [])
       )
       .leftJoinRelation(
         '[titulaires.etablissements, amodiataires.etablissements]'
@@ -170,26 +178,29 @@ const titresGet = async (
           .map(
             () =>
               'count(*) filter (where ' +
-              []
-                .concat(
-                  fieldsLike.map(() => 'lower(??) like ?'),
-                  fieldsExact.map(() => `lower(??) = ?`)
-                )
-                .join(' or ') +
+              [
+                ...fieldsLike.map(() => 'lower(??) like ?'),
+                ...fieldsExact.map(() => `lower(??) = ?`)
+              ].join(' or ') +
               ') > 0'
           )
           .join(') and (')})`,
-        territoires.reduce(
-          (res, s) =>
-            res.concat(
-              fieldsLike.reduce(
-                (r, f) => r.concat([f, `%${s.toLowerCase()}%`]),
-                []
-              ),
-              fieldsExact.reduce((r, f) => r.concat([f, s.toLowerCase()]), [])
-            ),
-          []
-        )
+        territoires.reduce((res, s) => {
+          res.push(
+            ...fieldsLike.reduce((r, f) => {
+              r.push(f, `%${s.toLowerCase()}%`)
+
+              return r
+            }, []),
+            ...fieldsExact.reduce((r, f) => {
+              r.push(f, s.toLowerCase())
+
+              return r
+            }, [])
+          )
+
+          return res
+        }, [])
       )
       .joinRelation('communes.departement.region.pays')
   }

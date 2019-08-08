@@ -71,15 +71,14 @@ const requestsBuild = (sheets, tables, elements) => {
       }
     })
 
-    const header = {
-      values: columns.map(h => ({
-        userEnteredValue: { stringValue: decamelize(h.value || h) }
-      }))
-    }
-
-    const content = rowsToRowData({ columns, parents, callbacks }, elements)
-
-    const rows = [header].concat(content)
+    const rows = [
+      {
+        values: columns.map(h => ({
+          userEnteredValue: { stringValue: decamelize(h.value || h) }
+        }))
+      },
+      ...rowsToRowData({ columns, parents, callbacks }, elements)
+    ]
 
     // requêtes pour ajouter le contenu de chaque onglet
     requests.push({
