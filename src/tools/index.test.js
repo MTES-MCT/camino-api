@@ -10,7 +10,7 @@ describe('comparaison entre des objets', () => {
     expect(res).toBe(false)
   })
 
-  test('retourne true si au moins une propriété des objets sont différentes (dates)', () => {
+  test('retourne true si au moins une propriété des objets est différente (dates)', () => {
     const res = objectsDiffer({ date: new Date() }, { date: '1000-01-01' })
 
     expect(res).toBe(true)
@@ -22,7 +22,7 @@ describe('comparaison entre des objets', () => {
     expect(res).toBe(false)
   })
 
-  test('retourne true si au moins une propriété des objets sont différentes (tableaux)', () => {
+  test('retourne true si au moins une propriété des objets est différente (tableaux)', () => {
     const res = objectsDiffer({ arr: [1, 2] }, { arr: [1] })
 
     expect(res).toBe(true)
@@ -34,7 +34,7 @@ describe('comparaison entre des objets', () => {
     expect(res).toBe(false)
   })
 
-  test('retourne true si au moins une propriété des objets sont différentes (objets)', () => {
+  test('retourne true si au moins une propriété des objets est différente (objets)', () => {
     const res = objectsDiffer({ obj: { prop: true } }, { obj: { prop: false } })
 
     expect(res).toBe(true)

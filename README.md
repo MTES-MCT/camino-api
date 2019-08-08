@@ -50,10 +50,10 @@ Pour que l'application fonctionne, sont requis:
 npm install
 
 # importe les données depuis /database/camino-public.sql
-npm run db:import
+npm run db:import-public
 
 # crée un utilisateur admin
-npm run user-add
+npm run db:user
 ```
 
 ### Développement
@@ -77,7 +77,7 @@ npm run start
 
 ```bash
 # lance les tests en local
-npm run jest
+npm run dev:test
 ```
 
 ---
