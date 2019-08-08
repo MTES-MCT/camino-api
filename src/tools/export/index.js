@@ -16,9 +16,9 @@ const run = async () => {
   // - les appels à l'API Google Sheets
   const spreadsheetsPromises = [
     ...spreadsheetsTitres,
-    ...spreadsheetUtilisateurs,
-    ...spreadsheetActivites,
-    ...spreadsheetAdministrations
+    spreadsheetUtilisateurs,
+    spreadsheetActivites,
+    spreadsheetAdministrations
   ].map(({ id, name, get, tables }) => () =>
     dbToSpreadsheet({
       id,
