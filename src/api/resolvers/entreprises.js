@@ -6,10 +6,13 @@ import {
 import permissionsCheck from './_permissions-check'
 
 import eagerBuild from './_eager'
+import { titreEagerFormat } from './_eager-titres'
 
 const entreprise = async ({ id }, context, info) => {
   if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
-    return entrepriseGet(id, { eager: eagerBuild(info) })
+    const eager = eagerBuild(info, titreEagerFormat)
+
+    return entrepriseGet(id, { eager })
   }
 
   return null

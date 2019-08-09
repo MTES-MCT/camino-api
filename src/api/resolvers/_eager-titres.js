@@ -5,48 +5,48 @@ const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
 const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
 
 // ajoute des propriétés requises par /database/queries/_format
-const titreEagerFormat = (obj, parent) => {
+const titreEagerFormat = (fields, parent) => {
   // ajoute la propriété `type` sur les administrations
   if (
-    obj.administrations &&
-    !obj.administrations.type &&
-    Object.keys(obj.administrations).length !== 0
+    fields.administrations &&
+    !fields.administrations.type &&
+    Object.keys(fields.administrations).length !== 0
   ) {
-    obj.administrations.type = { id: {} }
+    fields.administrations.type = { id: {} }
   }
 
   // ajoute la propriété `titreType` sur les démarches
-  if (obj.demarches && !obj.demarches.titreType) {
-    obj.demarches.titreType = { id: {} }
+  if (fields.demarches && !fields.demarches.titreType) {
+    fields.demarches.titreType = { id: {} }
   }
 
   // ajoute la propriété `type` sur les activités
-  if (obj.activites && !obj.activites.type) {
-    obj.activites.type = { id: {} }
+  if (fields.activites && !fields.activites.type) {
+    fields.activites.type = { id: {} }
   }
 
   // si `geojsonPoints` ou `geojsonMultiPolygon` sont présentes
   // - ajoute la propriété `points`
   // - supprime les propriété `geojsonPoints` ou `geojsonMultiPolygon`
   fieldsGeoToReplace.forEach(key => {
-    if (obj[key]) {
-      if (!obj.points) {
-        obj.points = { id: {} }
+    if (fields[key]) {
+      if (!fields.points) {
+        fields.points = { id: {} }
       }
 
-      delete obj[key]
+      delete fields[key]
     }
   })
 
   // supprime la propriété `coordonnees`
   fieldsToRemove.forEach(key => {
-    if (obj[key]) {
-      delete obj[key]
+    if (fields[key]) {
+      delete fields[key]
     }
   })
 
-  if (obj.pays && (parent === 'root' || parent === 'etapes')) {
-    obj.communes = {
+  if (fields.pays && (parent === 'root' || parent === 'etapes')) {
+    fields.communes = {
       departement: {
         region: {
           pays: { id: {} }
@@ -54,35 +54,39 @@ const titreEagerFormat = (obj, parent) => {
       }
     }
 
-    delete obj.pays
+    delete fields.pays
   }
 
   // ajoute `(orderDesc)` à certaine propriétés
   if (fieldsOrderDesc.includes(parent)) {
-    obj.$modifier = 'orderDesc'
+    fields.$modifier = 'orderDesc'
   }
 
   // à la racine de l'objet
-  if (parent === 'root') {
+  if (
+    parent === 'root' ||
+    parent === 'titresAmodiataire' ||
+    parent === 'titresTitulaire'
+  ) {
     // si les propriétés `surface`, `volume` ou `engagement` sont présentes
     // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
     fieldsPropsEtapes.forEach(key => {
-      if (obj[key]) {
-        obj[`${key}Etape`] = { id: {} }
+      if (fields[key]) {
+        fields[`${key}Etape`] = { id: {} }
 
-        delete obj[key]
+        delete fields[key]
       }
     })
 
     // supprime la propriété `references`
     fieldsToRemoveRoot.forEach(key => {
-      if (obj[key]) {
-        delete obj[key]
+      if (fields[key]) {
+        delete fields[key]
       }
     })
   }
 
-  return obj
+  return fields
 }
 
 export { titreEagerFormat }
