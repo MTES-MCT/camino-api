@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const seeding = require('../seeding')
 
 const domaines = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
@@ -26,9 +27,9 @@ const findDuplicates = (array, key1) =>
 
     if (res.find(e => e[key1] === el[key1])) {
       console.log(
-        'entreprise en doublon (à supprimer dans la source): ',
-        el[key1],
-        el
+        chalk.red(
+          `erreur: entreprise en doublon (à supprimer dans la source): ${el[key1]}`
+        )
       )
     } else {
       res.push(el)

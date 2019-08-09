@@ -29,7 +29,7 @@
     "dev:export": "ts-node --transpile-only ./src/tools/export/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
     "dev:import-check": "ts-node --transpile-only ./src/tools/dev/json/import-check.js",
-    "dev:lint": "eslint --fix src/ && tslint --fix 'src/**/*.ts'",
+    "dev:lint": "eslint --fix src/ && eslint --fix knex/ && tslint --fix 'src/**/*.ts'",
     "dev:monthly": "ts-node --transpile-only ./src/business/monthly.ts",
     "dev:schema": "ts-node ./src/tools/dev/api/graphql-dsl-to-query-convert.js",
     "dev:test": "npm run dev:lint && jest --verbose --watch",
@@ -46,7 +46,7 @@
     "monthly": "node ./dist/business/monthly.js",
     "release": "standard-version && git push --follow-tags upstream master && npx conventional-github-releaser",
     "start": "npm run build && node ./dist/index.js",
-    "test": "eslint src/ && tslint 'src/**/*.ts' && jest --verbose && codecov"
+    "test": "eslint src/ && eslint knex/ && tslint 'src/**/*.ts' && jest --verbose && codecov"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",

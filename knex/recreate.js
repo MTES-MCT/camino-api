@@ -4,10 +4,16 @@ const dbManager = require('knex-db-manager').databaseManagerFactory(config)
 
 const run = async () => {
   try {
-    console.log('Re créé la base de données')
+    console.log('supprime la base de données…')
     await dbManager.dropDb('camino')
-    await dbManager.createDb('camino')
+    console.log('base de données supprimée')
 
+    console.log('')
+    console.log('crée la base de données…')
+    await dbManager.createDb('camino')
+    console.log('base de données créée')
+
+    console.log('')
     process.exit()
   } catch (e) {
     console.error(chalk.red(e))

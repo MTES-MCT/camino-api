@@ -1,5 +1,5 @@
 /**
- * création des tables 'metas' de la base de données
+ * Création des tables 'metas' de la base de données.
  */
 
 exports.up = knex => {

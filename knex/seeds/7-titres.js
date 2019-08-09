@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const decamelize = require('decamelize')
 
 const seeding = require('../seeding')
@@ -28,11 +29,10 @@ const data = files.reduce((d, file) => {
     let content
     try {
       content = require(`../../sources/${fileName}.json`)
+      res.push(...content)
     } catch (e) {
-      console.warn(e.message)
-      content = []
+      console.log(chalk.red(e.message.split('\n')[0]))
     }
-    res.push(...content)
 
     return res
   }, [])
