@@ -10,7 +10,10 @@ import { titreEagerFormat } from './_eager-titres'
 
 const entreprise = async ({ id }, context, info) => {
   if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
-    const eager = eagerBuild(info, titreEagerFormat)
+    const eager = eagerBuild(info, {
+      format: titreEagerFormat,
+      root: 'entreprise'
+    })
 
     return entrepriseGet(id, { eager })
   }

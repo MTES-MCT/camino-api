@@ -67,7 +67,7 @@ const titrePermissionsCheck = (user, titre) => {
 
 const titre = async ({ id }, context, info) => {
   const titre = await titreGet(id, {
-    eager: eagerBuild(info, titreEagerFormat),
+    eager: eagerBuild(info, { format: titreEagerFormat, root: 'titre' }),
     format: formatBuild(info)
   })
 
@@ -103,7 +103,10 @@ const titres = async (
       references,
       territoires
     },
-    { eager: eagerBuild(info, titreEagerFormat), format: formatBuild(info) }
+    {
+      eager: eagerBuild(info, { format: titreEagerFormat, root: 'titres' }),
+      format: formatBuild(info)
+    }
   )
 
   const user = context.user && (await utilisateurGet(context.user.id))

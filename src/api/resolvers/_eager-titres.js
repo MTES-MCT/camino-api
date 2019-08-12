@@ -45,7 +45,10 @@ const titreEagerFormat = (fields, parent) => {
     }
   })
 
-  if (fields.pays && (parent === 'root' || parent === 'etapes')) {
+  if (
+    fields.pays &&
+    (parent === 'titres' || parent === 'titre' || parent === 'etapes')
+  ) {
     fields.communes = {
       departement: {
         region: {
@@ -64,7 +67,8 @@ const titreEagerFormat = (fields, parent) => {
 
   // à la racine de l'objet
   if (
-    parent === 'root' ||
+    parent === 'titres' ||
+    parent === 'titre' ||
     parent === 'titresAmodiataire' ||
     parent === 'titresTitulaire'
   ) {
