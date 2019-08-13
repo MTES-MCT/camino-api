@@ -38,9 +38,9 @@ type Query {
 
   "__+__ Retourne une liste de titres miniers, en fonction d'arguments (optionels)"
   titres(
-    typeIds: [TypeId]
-    domaineIds: [DomaineId]
-    statutIds: [StatutId]
+    typeIds: [ID]
+    domaineIds: [ID]
+    statutIds: [ID]
     substances: [String]
     noms: [String]
     entreprises: [String]

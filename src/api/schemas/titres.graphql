@@ -322,7 +322,7 @@ input InputDemarcheModification {
 input InputEtapeCreation {
   typeId: ID!
 
-  statutId: EtapeStatutId!
+  statutId: ID!
 
   titreDemarcheId: ID!
 
@@ -370,7 +370,7 @@ input InputEtapeModification {
 
   typeId: ID!
 
-  statutId: EtapeStatutId!
+  statutId: ID!
 
   titreDemarcheId: ID!
 
