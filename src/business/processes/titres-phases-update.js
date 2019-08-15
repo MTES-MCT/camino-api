@@ -1,11 +1,12 @@
+import PQueue from 'p-queue'
 import * as dateFormat from 'dateformat'
+
 import {
   titrePhasesUpdate,
   titrePhasesDelete
 } from '../../database/queries/titres-phases'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titrePhasesFind from '../rules/titre-phases-find'
-import PQueue from 'p-queue'
 
 // retourne une phase parmi les titrePhases en fonction de son id
 const titrePhaseEqualFind = (titreDemarcheId, titrePhases) =>

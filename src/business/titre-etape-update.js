@@ -52,7 +52,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   titre = await titreGet(titreId)
   const titreDates = await titresDatesUpdate([titre])
 
-  // 7.
+  // 8.
   console.log('communes associées aux étapes…')
   let titreEtapesCommunes
   // si l'étape est supprimée, pas de mise à jour
@@ -65,7 +65,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     )
   }
 
-  // 8.
+  // 9.
   console.log('administrations associées aux étapes…')
   titre = await titreGet(titreId)
   const administrations = await administrationsGet()
@@ -74,7 +74,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     administrations
   )
 
-  // 9.
+  // 10.
   console.log('propriétés des titres (liens vers les étapes)…')
   titre = await titreGet(titreId)
   const titrePropsEtapeId = await titresPropsEtapeIdUpdate([titre])
@@ -82,7 +82,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // TODO
   // doit-on aussi créer des activités ?
 
-  // 12.
+  // 13.
   console.log('ids de titres, démarches, étapes et sous-éléments…')
   titre = await titreGet(titreId, { format: false })
   const titreNew = await titreIdsUpdate(titre)

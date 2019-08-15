@@ -1,7 +1,8 @@
+import PQueue from 'p-queue'
+
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreIdUpdate as titreIdUpdateQuery } from '../../database/queries/titres'
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
-import PQueue from 'p-queue'
 
 const titreIdUpdate = async (titreOld, titreNew) => {
   // TODO

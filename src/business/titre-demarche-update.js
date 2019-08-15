@@ -29,12 +29,12 @@ const titreDemarcheUpdate = async titreId => {
   titre = await titreGet(titreId)
   const titreDates = await titresDatesUpdate([titre])
 
-  // 9.
+  // 10.
   console.log('propriétés des titres (liens vers les étapes)…')
   titre = await titreGet(titreId)
   const titresPropsEtapeId = await titresPropsEtapeIdUpdate([titre])
 
-  // 12.
+  // 13.
   console.log('ids de titres, démarches, étapes et sous-éléments…')
   titre = await titreGet(titreId, { format: false })
   // titreNew n'est pas formaté

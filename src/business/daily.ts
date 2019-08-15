@@ -20,6 +20,7 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 
 import { titresIdsUpdate } from './processes/titres-ids-update'
+import titresPointsReferencesCreate from './processes/titres-points-references-create'
 
 const run = async () => {
   try {
@@ -54,6 +55,11 @@ const run = async () => {
     const titresDates = await titresDatesUpdate(titres)
 
     // 7.
+    console.log('\nréférences des points…')
+    titres = await titresGet()
+    const titresPointsReferences = await titresPointsReferencesCreate(titres)
+
+    // 8.
     console.log('\ncommunes associées aux étapes…')
     let titresEtapes
     let titresEtapesCommunes
@@ -70,7 +76,7 @@ const run = async () => {
       ]
     }
 
-    // 8.
+    // 9.
     console.log('\nadministrations associées aux étapes…')
     titres = await titresGet()
     const administrations = await administrationsGet()
@@ -79,12 +85,12 @@ const run = async () => {
       administrations
     )
 
-    // 9.
+    // 10.
     console.log('\npropriétés des titres (liens vers les étapes)…')
     titres = await titresGet()
     const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
 
-    // 10.
+    // 11.
     // pour les année 2018 et 2019 (en dur)
     console.log('\nactivités des titres…')
     const annees = [2018, 2019]
@@ -97,12 +103,12 @@ const run = async () => {
       annees
     )
 
-    // 11.
+    // 12.
     console.log('\npropriétés des titres (activités abs, enc et dep)…')
     titres = await titresGet()
     const titresPropsActivites = await titresPropsActivitesUpdate(titres)
 
-    // 12.
+    // 13.
     console.log('\nids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet(
       {
@@ -126,6 +132,7 @@ const run = async () => {
     console.log(titresStatutIds)
     console.log(titresPhases)
     console.log(titresDates)
+    console.log(titresPointsReferences)
     console.log(titresEtapesCommunes.join('\n'))
     console.log(titresEtapesAdministrations.join('\n'))
     console.log(titresPropsEtapeId)
