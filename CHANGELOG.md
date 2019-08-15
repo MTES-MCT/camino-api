@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.2](https://github.com/MTES-MCT/camino-api/compare/v0.24.1...v0.24.2) (2019-08-15)
+
+
+### Bug Fixes
+
+* corrige l'export ([609df3c](https://github.com/MTES-MCT/camino-api/commit/609df3c))
+* corrige le commit précédent ([813769e](https://github.com/MTES-MCT/camino-api/commit/813769e))
+* met à jour knex ([b1cce3d](https://github.com/MTES-MCT/camino-api/commit/b1cce3d))
+* passe le nom du nœud racine à la fonction de eager ([8b52965](https://github.com/MTES-MCT/camino-api/commit/8b52965))
+* **export:** trouve l'id de la ligne de l'activité dans la spreadsheet ([#146](https://github.com/MTES-MCT/camino-api/issues/146)) ([bc53b98](https://github.com/MTES-MCT/camino-api/commit/bc53b98))
+
+
+### Features
+
+* converti les coordonnées géo lors de l'éditiom ([728d159](https://github.com/MTES-MCT/camino-api/commit/728d159))
+* **business:** ajoute une référence sur les points géo qui n'en n'ont pas ([9eb6ad5](https://github.com/MTES-MCT/camino-api/commit/9eb6ad5))
+* formate le eager sur titres au sein d'une entreprise ([24aaa16](https://github.com/MTES-MCT/camino-api/commit/24aaa16))
+* supprime les champs pré-définis dans l'API ([e143336](https://github.com/MTES-MCT/camino-api/commit/e143336))
+
 ### [0.24.1](https://github.com/MTES-MCT/camino-api/compare/v0.24.0...v0.24.1) (2019-07-31)
 
 
