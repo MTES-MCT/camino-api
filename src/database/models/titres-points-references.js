@@ -18,7 +18,8 @@ export default class TitresPointsReferences extends Model {
           x: { type: 'string' },
           y: { type: 'string' }
         }
-      }
+      },
+      opposable: { type: ['boolean', 'null'] }
     }
   }
 

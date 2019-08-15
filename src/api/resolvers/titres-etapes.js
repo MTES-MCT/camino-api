@@ -8,7 +8,7 @@ import {
 } from '../../database/queries/titres-etapes'
 
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
-
+import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
 
 const titreEtapeCreer = async ({ etape }, context, info) => {
@@ -23,6 +23,10 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
   }
 
   try {
+    if (etape.points) {
+      etape.points = titreEtapePointsCalc(etape.points)
+    }
+
     const etapeUpdated = await titreEtapeUpsert(etape)
 
     const titreUpdated = await titreEtapeUpdateTask(
@@ -52,6 +56,10 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
   }
 
   try {
+    if (etape.points) {
+      etape.points = titreEtapePointsCalc(etape.points)
+    }
+
     const etapeUpdated = await titreEtapeUpsert(etape)
 
     const titreUpdated = await titreEtapeUpdateTask(

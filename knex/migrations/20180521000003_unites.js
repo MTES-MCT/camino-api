@@ -9,6 +9,7 @@ exports.up = knex => {
       table.string('nom').notNullable()
       table.string('unite', 8)
       table.string('zone')
+      table.string('definitionProj4')
     })
     .createTable('volumeUnites', table => {
       table.string('id', 3).primary()

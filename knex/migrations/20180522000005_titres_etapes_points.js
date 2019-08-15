@@ -15,6 +15,7 @@ exports.up = knex => {
       table.string('nom').notNullable()
       table.string('description', 1023)
       table.boolean('securite')
+      table.boolean('subsidiaire')
     })
     .createTable('titresPointsReferences', table => {
       table.string('id').primary()
@@ -24,6 +25,7 @@ exports.up = knex => {
         .onDelete('CASCADE')
       table.string('geoSystemeId', 5).notNullable()
       table.specificType('coordonnees', 'text[]').notNullable()
+      table.boolean('opposable')
     })
 }
 

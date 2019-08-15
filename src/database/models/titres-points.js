@@ -6,14 +6,7 @@ export default class TitresPoints extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: [
-      'id',
-      'titreEtapeId',
-      'coordonnees',
-      'groupe',
-      'contour',
-      'point'
-    ],
+    required: ['titreEtapeId', 'coordonnees', 'groupe', 'contour', 'point'],
 
     properties: {
       id: { type: 'string' },
@@ -30,7 +23,8 @@ export default class TitresPoints extends Model {
       point: { type: 'integer' },
       nom: { type: ['string', 'null'] },
       description: { type: ['string', 'null'] },
-      securite: { type: ['boolean', 'null'] }
+      securite: { type: ['boolean', 'null'] },
+      subsidiaire: { type: ['boolean', 'null'] }
     }
   }
 

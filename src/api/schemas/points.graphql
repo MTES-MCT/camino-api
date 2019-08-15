@@ -48,6 +48,8 @@ type Point {
   "Si le point appartient à un périmètre de sécurité"
   securite: Boolean
 
+  subsidiaire: Boolean
+
   "Liste d'id de référence de points"
   references: [PointReference]
 }
@@ -66,11 +68,11 @@ type PointReference {
 
   "Les coordonnées du point dans le système géodésique"
   coordonnees: CoordonneesReferences
+
+  opposable: Boolean
 }
 
 input InputEtapePoint {
-  coordonnees: InputCoordonnees
-
   groupe: Int
 
   contour: Int
@@ -83,6 +85,8 @@ input InputEtapePoint {
 
   securite: Boolean
 
+  subsidiaire: Boolean
+
   references: [InputEtapePointReference]
 }
 
@@ -90,6 +94,8 @@ input InputEtapePointReference {
   geoSystemeId: ID!
 
   coordonnees: InputCoordonneesReferences
+
+  opposable: Boolean
 }
 
 input InputCoordonnees {
