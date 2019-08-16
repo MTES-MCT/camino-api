@@ -40,8 +40,9 @@ Pour que l'application fonctionne, sont requis:
 ## Configuration et imports des données
 
 - Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`
-- Créer une base de données PostgreSQL nommée `camino`.
-- Renommer le fichier `.env-example` en `.env` et le compléter.
+- Renommer le fichier `.env-example` en `.env` et le compléter
+- Créer un dossier `database` et y cloner le contenu du repo [Camino database](https://github.com/MTES-MCT/camino-database)
+- Créer une base de données PostgreSQL nommée `camino`
 
 ### Installation
 

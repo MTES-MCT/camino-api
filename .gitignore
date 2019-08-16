@@ -3,8 +3,7 @@
 .env-public
 
 node_modules
-/database/*
-!/database/camino-public.sql
+/database
 /src/tools/sources/**/*.json
 /dist
 /sources
