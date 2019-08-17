@@ -41,7 +41,7 @@ Pour que l'application fonctionne, sont requis:
 
 - Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`
 - Renommer le fichier `.env-example` en `.env` et le compléter
-- Créer un dossier `database` et y cloner le contenu du repo [Camino database](https://github.com/MTES-MCT/camino-database)
+- Créer un dossier `database` et l'intérieur de ce dossier, coller le fichier `camino-public.sql` disponible ici : [Camino database](https://github.com/MTES-MCT/camino-database)
 - Créer une base de données PostgreSQL nommée `camino`
 
 ### Installation
@@ -87,13 +87,12 @@ npm run dev:test
 
 ```bash
 .
-├── docs                 # `documentation et exemples`
 │
 ├── knex                 # `scripts de création et d'import de la base de données (npm run migrate)
 │   ├── migrations       # `création de la base de données`
 │   └── seeds            # `import depuis les fichier /sources vers la base de données`
 │
-├── sources              # `sources de la base de données au format json. Générées avec npm run import.`
+├── manual               # `source de la documentation générée avec esdoc`
 │
 └── src                  # `fichiers sources. Transformés avec npm run build.`
     ├── index            # `point d'entrée`
