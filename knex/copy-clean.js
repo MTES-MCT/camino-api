@@ -14,7 +14,7 @@ const run = async () => {
   try {
     console.log('Copie de la base de données…')
     await dbManager.dropDb('camino-public')
-    await dbManager.copyDb('camino', 'camino-public')
+    await dbManager.copyDb(config.knex.connection.database, 'camino-public')
 
     console.log('Suppression des informations confidentielles…')
 

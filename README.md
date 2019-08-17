@@ -30,19 +30,17 @@
 
 ## Environnement
 
-Pour que l'application fonctionne, sont requis:
-
 - Node.js (v.10 ou plus) et npm
-- Une base de données PostgreSQL (v.10 ou plus)
+- PostgreSQL (v.10 ou plus)
 
 ---
 
 ## Configuration et imports des données
 
-- Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`
-- Renommer le fichier `.env-example` en `.env` et le compléter
-- Créer un dossier `database` et l'intérieur de ce dossier, coller le fichier `camino-public.sql` disponible ici : [Camino database](https://github.com/MTES-MCT/camino-database)
-- Créer une base de données PostgreSQL nommée `camino`
+- Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`.
+- Renommer le fichier `.env-example` en `.env` et le compléter.
+- Créer une base de données PostgreSQL correspondant au fichier `.env`.
+- À l'intérieur du dossier `/database`, coller le fichier `camino-public.sql` disponible ici : [Camino database](https://github.com/MTES-MCT/camino-database).
 
 ### Installation
 

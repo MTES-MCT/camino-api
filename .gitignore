@@ -3,7 +3,8 @@
 .env-public
 
 node_modules
-/database
+/database/*
+!/database/infos.md
 /src/tools/sources/**/*.json
 /dist
 /sources
