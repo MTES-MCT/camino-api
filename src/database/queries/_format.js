@@ -21,6 +21,11 @@ const titreActiviteFormatDefault = {
   sections: true
 }
 
+const titreTaxeFormatDefault = {
+  periode: true,
+  sections: true
+}
+
 const titreFormatDefault = {
   surface: true,
   engagement: true,
@@ -30,6 +35,7 @@ const titreFormatDefault = {
   pays: true,
   demarches: titreDemarcheFormatDefaut,
   activites: titreActiviteFormatDefault,
+  taxes: titreTaxeFormatDefault,
   administrations: true
 }
 
@@ -76,6 +82,10 @@ const titreFormat = (t, format = titreFormatDefault) => {
     t.activites = t.activites.map(titreActivite =>
       titreActiviteFormat(titreActivite, format.activites)
     )
+  }
+
+  if (t.taxes && t.taxes.length && format.taxes) {
+    t.taxes = t.taxes.map(titreTaxe => titreTaxeFormat(titreTaxe, format.taxes))
   }
 
   if (t.administrations && t.administrations.length && format.administrations) {
@@ -242,9 +252,12 @@ const titreActiviteFormat = (ta, format = titreActiviteFormatDefault) => {
   return ta
 }
 
+const titreTaxeFormat = ta => ta
+
 export {
   titreFormat,
   titreActiviteFormat,
+  titreTaxeFormat,
   titreDemarcheFormat,
   titreEtapeFormat
 }

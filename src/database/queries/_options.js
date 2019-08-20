@@ -166,8 +166,16 @@ const activitesTypes = {
   eager: `[pays, frequence.[mois, trimestres.mois], types]`
 }
 
+const taxesTypes = {
+  eager: `[pays, frequence, types]`
+}
+
 const titresActivites = {
   eager: `[type.${activitesTypes.eager}, statut, utilisateur]`
+}
+
+const titresTaxes = {
+  eager: `[type.${taxesTypes.eager}, statut]`
 }
 
 const types = {
@@ -179,7 +187,7 @@ const domaines = {
 }
 
 const titres = {
-  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}]`,
+  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}, taxes(orderDesc).${titresTaxes.eager}]`,
 
   update: {
     relate: [
@@ -233,6 +241,13 @@ const titres = {
       'activites.type.frequence.trimestres.mois',
       'activites.type.pays',
       'activites.type.types',
+      'taxes.type',
+      'taxes.statut',
+      'taxes.type.frequence',
+      'taxes.type.frequence.trimestres',
+      'taxes.type.frequence.trimestres.mois',
+      'taxes.type.pays',
+      'taxes.type.types',
       ...demarches.update.noInsert.map(k => `demarches.${k}`)
     ],
     noUpdate: [
@@ -266,6 +281,13 @@ const titres = {
       'activites.type.frequence.trimestres.mois',
       'activites.type.pays',
       'activites.type.types',
+      'taxes.type',
+      'taxes.statut',
+      'taxes.type.frequence',
+      'taxes.type.frequence.trimestres',
+      'taxes.type.frequence.trimestres.mois',
+      'taxes.type.pays',
+      'taxes.type.types',
       ...demarches.update.noUpdate.map(k => `demarches.${k}`)
     ],
     noDelete: [
@@ -299,6 +321,13 @@ const titres = {
       'activites.type.frequence.trimestres.mois',
       'activites.type.pays',
       'activites.type.types',
+      'taxes.type',
+      'taxes.statut',
+      'taxes.type.frequence',
+      'taxes.type.frequence.trimestres',
+      'taxes.type.frequence.trimestres.mois',
+      'taxes.type.pays',
+      'taxes.type.types',
       ...demarches.update.noDelete.map(k => `demarches.${k}`)
     ],
     insertMissing: true
@@ -319,5 +348,7 @@ export default {
   demarchesTypes,
   titresActivites,
   activitesTypes,
+  titresTaxes,
+  taxesTypes,
   communes
 }
