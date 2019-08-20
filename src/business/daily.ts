@@ -2,7 +2,7 @@ import 'dotenv/config'
 import '../database/index'
 
 import { administrationsGet } from '../database/queries/administrations'
-import { activitesTypesGet } from '../database/queries/metas'
+import { activitesTypesGet, taxesTypesGet } from '../database/queries/metas'
 import { communesGet } from '../database/queries/territoires'
 import { titresGet } from '../database/queries/titres'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
@@ -23,6 +23,7 @@ import titresPointsReferencesCreate from './processes/titres-points-references-c
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
+import titresTaxesUpdate from './processes/titres-taxes-update'
 
 import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
@@ -272,6 +273,13 @@ const run = async () => {
 
     // 13.
     console.log()
+    console.log('taxes des titres…')
+    titres = await titresGet()
+    const taxesTypes = await taxesTypesGet()
+    const titresTaxesNew = await titresTaxesUpdate(titres, taxesTypes)
+
+    // 13.
+    console.log()
     console.log('propriétés des titres (activités abs, enc et dep)…')
     titres = await titresGet(
       {
@@ -385,6 +393,7 @@ const run = async () => {
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
     console.log(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
+    console.log(`mise à jour: ${titresTaxesNew.length} taxes`)
     console.log(
       `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )

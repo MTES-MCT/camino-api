@@ -11,6 +11,7 @@ import ActivitesTypes from '../models/activites-types'
 import DocumentsTypes from '../models/documents-types'
 import ReferencesTypes from '../models/references-types'
 import Permissions from '../models/permissions'
+import TaxesTypes from '../models/taxes-types'
 
 const permissionsGet = async ({ ordreMax }) =>
   Permissions.query()
@@ -52,6 +53,9 @@ const activitesTypesGet = async () =>
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
+const taxesTypesGet = async () =>
+  TaxesTypes.query().graph(options.taxesTypes.graph)
+
 export {
   typesGet,
   domainesGet,
@@ -66,5 +70,6 @@ export {
   activitesTypesGet,
   referencesTypesGet,
   permissionsGet,
-  permissionGet
+  permissionGet,
+  taxesTypesGet
 }

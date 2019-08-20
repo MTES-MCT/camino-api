@@ -40,6 +40,11 @@ const titreActiviteFormatFields = {
   sections: true
 }
 
+const titreTaxeFormatFields = {
+  periode: true,
+  sections: true
+}
+
 const titreFormatFields = {
   surface: true,
   engagement: true,
@@ -49,6 +54,7 @@ const titreFormatFields = {
   pays: true,
   demarches: titreDemarcheFormatFields,
   activites: titreActiviteFormatFields,
+  taxes: titreTaxeFormatFields,
   administrations: true
 }
 
@@ -254,6 +260,10 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     t.amodiataires = entreprisesFormat(t.amodiataires, user)
   }
 
+  if (fields.taxes && t.taxes && t.taxes.length) {
+    t.taxes = t.taxes.map(titreTaxe => titreTaxeFormat(titreTaxe, fields.taxes))
+  }
+
   return t
 }
 
@@ -423,5 +433,7 @@ const titreActiviteFormat = (ta, fields = titreActiviteFormatFields) => {
 
   return ta
 }
+
+const titreTaxeFormat = ta => ta
 
 export { titreFormat, titresFormat, titreActiviteFormat, demarcheTypeFormat }

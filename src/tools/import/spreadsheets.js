@@ -26,6 +26,9 @@ const metasActivitesSpreadsheetId =
 const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
 
+const metasTaxesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS_TAXES
+const titresTaxesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_TAXES
+
 const titresTables = [
   { name: 'titres', cb: { references: JSON.parse } },
   { name: 'titres_references' },
@@ -189,6 +192,22 @@ const spreadsheets = [
     name: 'titres-activites',
     id: titresActivitesSpreadsheetId,
     tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
+  },
+
+  {
+    name: 'metas-taxes',
+    id: metasTaxesSpreadsheetId,
+    tables: [
+      { name: 'taxes_types', cb: { sections: JSON.parse } },
+      { name: 'taxes_statuts' },
+      { name: 'taxes_types__types' },
+      { name: 'taxes_types__pays' }
+    ]
+  },
+  {
+    name: 'titres-taxes',
+    id: titresTaxesSpreadsheetId,
+    tables: [{ name: 'titres_taxes', cb: { contenu: JSON.parse } }]
   },
 
   {

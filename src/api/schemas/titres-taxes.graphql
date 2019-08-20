@@ -1,0 +1,17 @@
+type TitreTaxe {
+  id: ID!
+  type: TaxeType!
+  statut: TaxeStatut!
+  date: Date!
+  dateSaisie: Date
+  periode: Json
+  annee: Int
+  sections: Json
+  contenu: Json
+}
+
+input InputTitreTaxeModification {
+  id: ID!
+  TaxeStatutId: String!
+  contenu: Json
+}

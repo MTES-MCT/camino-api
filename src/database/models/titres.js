@@ -10,6 +10,7 @@ import Entreprises from './entreprises'
 import Administrations from './administrations'
 import Communes from './communes'
 import Unites from './unites'
+import TitresTaxes from './titres-taxes'
 import Devises from './devises'
 import { paysFormat } from './_format'
 import TitresReferences from './titres-references'
@@ -251,6 +252,15 @@ export default class Titres extends Model {
       join: {
         from: 'titres.id',
         to: 'titresReferences.titreId'
+      }
+    },
+
+    taxes: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresTaxes,
+      join: {
+        from: 'titres.id',
+        to: 'titresTaxes.titreId'
       }
     }
   }

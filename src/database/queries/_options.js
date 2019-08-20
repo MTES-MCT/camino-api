@@ -151,8 +151,16 @@ const activitesTypes = {
   graph: `[pays, frequence.[mois, trimestres.mois], types]`
 }
 
+const taxesTypes = {
+  graph: `[pays, frequence, types]`
+}
+
 const titresActivites = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.[titulaires, amodiataires]]`
+}
+
+const titresTaxes = {
+  graph: `[type.${taxesTypes.graph}, statut]`
 }
 
 const types = {
@@ -224,6 +232,13 @@ const titresUpdateFalse = [
   'activites.type.frequence.trimestres.mois',
   'activites.type.pays',
   'activites.type.types',
+  'taxes.type',
+  'taxes.statut',
+  'taxes.type.frequence',
+  'taxes.type.frequence.trimestres',
+  'taxes.type.frequence.trimestres.mois',
+  'taxes.type.pays',
+  'taxes.type.types',
   ...demarchesUpdateFalse.map(k => `demarches.${k}`)
 ]
 
@@ -246,7 +261,8 @@ const titres = {
     engagementDevise,
     communes.${communes.graph},
     activites(orderDesc).${titresActivites.graph},
-    references(orderAsc)
+    references(orderAsc),
+    taxes(orderDesc).${titresTaxes.graph}
   ]`,
 
   update: {
@@ -264,18 +280,21 @@ export default {
   administrations,
   communes,
   demarches,
+  demarchesTypes,
+  domaines,
   entreprises,
   entreprisesEtablissements,
   etapes,
-  demarchesTypes,
-  domaines,
   geoSystemes,
   phases,
+  points,
   substances,
+  taxesTypes,
   titres,
   titresActivites,
+  titresTaxes,
+  types,
   pays,
   points,
-  utilisateurs,
-  types
+  utilisateurs
 }

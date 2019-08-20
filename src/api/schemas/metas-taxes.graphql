@@ -1,0 +1,31 @@
+type taxeStatut {
+  id: ID!
+  nom: String!
+  couleur: String!
+}
+
+type taxeType {
+  id: ID!
+  nom: String!
+  sections: Json!
+  frequence: Frequence!
+  pays: [Pays!]
+}
+
+input InputTitretaxeStatut {
+  "L'id composée de trois lettres"
+  id: EtapeStatutId!
+
+  "Le nom en français"
+  nom: String
+
+  couleur: Couleur
+}
+
+input InputTitretaxeType {
+  "L'id composée de trois lettres"
+  id: EtapeStatutId!
+
+  "Le nom en français"
+  nom: String
+}
