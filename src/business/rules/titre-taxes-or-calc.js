@@ -15,9 +15,9 @@ const titreOrContenuCalc = (orNet, tarif, taxeTypeId) => {
   }
 
   return {
-    montant,
-    tonnageExtrait: orNet,
-    investissements
+    montant: Math.round(montant),
+    tonnageExtrait: Math.round(orNet * 100) / 100,
+    investissements: Math.round(investissements)
   }
 }
 
