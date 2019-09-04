@@ -12,8 +12,7 @@ import inseePays from './pays'
 import inseeCategoriesJuridiques from './categories-juridiques'
 import inseeTypesVoies from './voies'
 import PQueue from 'p-queue'
-
-const makeDir = require('make-dir')
+import * as makeDir from 'make-dir'
 
 const CACHE_DIR = 'api-cache/insee/'
 const MAX_CALLS_MINUTE = 30
