@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import PQueue from 'p-queue'
+import * as makeDir from 'make-dir'
 import errorLog from '../error-log'
 import { spreadsheetsGet } from '../api-google-spreadsheets/index'
 import credentials from './credentials'
@@ -7,6 +8,8 @@ import fileCreate from '../file-create'
 import spreadsheets from './spreadsheets'
 
 const run = async () => {
+  await makeDir('./sources');
+
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
   const spreadsheetsPromises = spreadsheets.reduce((r, s) => {
