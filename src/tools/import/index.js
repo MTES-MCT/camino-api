@@ -8,7 +8,8 @@ import fileCreate from '../file-create'
 import spreadsheets from './spreadsheets'
 
 const run = async () => {
-  await makeDir('./sources');
+  // crée le dossier /sources
+  await makeDir('./sources')
 
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
