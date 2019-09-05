@@ -26,8 +26,10 @@ const titrePropEtapeIdFind = (titreDemarches, prop) =>
           // Si la démarche est un octroi (demande initiale)
           // on prend en compte n'importe quelle étape
           (titreDemarche.typeId === 'oct' ||
-            // sinon, on ne prend en compte que les démarches de décision
-            ['dpu', 'dex', 'rpu', 'dim'].includes(titreEtape.typeId))
+            // sinon, on ne prend en compte que les étapes de décision
+            ['dpu', 'rpu', 'dex', 'dim', 'sco', 'def'].includes(
+              titreEtape.typeId
+            ))
         if (!isEtapeValide) return false
 
         // trouve une étape qui contient la propriété

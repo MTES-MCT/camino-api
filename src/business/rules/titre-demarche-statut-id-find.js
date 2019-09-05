@@ -1,4 +1,5 @@
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
+import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
 const titreEtapesDecisivesTypes = [
   'mfr',
@@ -9,6 +10,7 @@ const titreEtapesDecisivesTypes = [
   'mcr',
   'dim',
   'dex',
+  'aca',
   'def',
   'sco',
   'apu',
@@ -35,6 +37,7 @@ const titreDemarchesDemandesTypes = [
   'res',
   'ces',
   'dep',
+  'mec',
   'vus',
   'vct'
 ]
@@ -75,15 +78,37 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - et le statut de l’étape est acceptée ou rejetée
     if (
       ['acc', 'rej'].includes(titreEtapeRecent.statutId) &&
-      (['dpu', 'dim'].includes(titreEtapeRecent.typeId) ||
-        (titreTypeId === 'axm' &&
-          ['dex', 'rpu'].includes(titreEtapeRecent.typeId)) ||
-        (titreTypeId === 'arm' && ['def'].includes(titreEtapeRecent.typeId)) ||
-        (titreTypeId === 'prx' && ['rpu'].includes(titreEtapeRecent.typeId)))
+      (titreEtapeRecent.typeId === 'dim' ||
+        titreEtapePublicationFilter(titreEtapeRecent, titreTypeId))
     ) {
       //  - le statut de la démarche est égal au statut de l’étape:
       // accepté (acc) ou rejeté(rej)
       return titreEtapeRecent.statutId
+    }
+
+    // l'étape de publication la plus récente
+    const titreEtapePublicationRecent = titreEtapesDecisives.filter(te =>
+      titreEtapePublicationFilter(te, titreTypeId)
+    )[0]
+
+    // s'il existe une étape de publication antérieure à l'étape
+    if (
+      titreEtapePublicationRecent &&
+      ['acc', 'rej'].includes(titreEtapePublicationRecent.statutId)
+    ) {
+      // - le statut de la démarche est égal au statut de l'étape
+      // accepté (acc) ou rejeté(rej)
+      return titreEtapePublicationRecent.statutId
+    }
+
+    //  - le type de l’étape est COTAM d'ARM (sco)
+    //  - et le statut de l’étape est fait (fai)
+    if (
+      titreEtapeRecent.typeId === 'sco' &&
+      titreEtapeRecent.statutId === 'fai'
+    ) {
+      //  - le statut de la démarche est acceptée (acc)
+      return 'acc'
     }
 
     //  - le type de l’étape est décision expresse (dex)
@@ -105,7 +130,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est recevabilité de la demande (mcr)
     //  - et le statut de l’étape est défavorable (def)
     if (
-      titreEtapeRecent.typeId === 'mcr' &&
+      ['mcr', 'aca'].includes(titreEtapeRecent.typeId) &&
       titreEtapeRecent.statutId === 'def'
     ) {
       //  - le statut de la démarche est classée sans suite (cls)

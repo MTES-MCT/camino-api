@@ -23,6 +23,14 @@ const titreDemarcheOctDpuAcc = {
   ]
 }
 
+const titreDemarcheOctDpuInexistante = {
+  id: 'h-cxx-courdemanges-1988-oct01',
+  titreId: 'h-cxx-courdemanges-1988',
+  typeId: 'oct',
+  statutId: 'acc',
+  etapes: []
+}
+
 const titreAxmDemarcheOctDexAcc = {
   id: 'h-axm-courdemanges-1988-oct01',
   titreId: 'h-axm-courdemanges-1988',
@@ -189,6 +197,7 @@ const titreDemarchesOctAnnulation = [
 
 export {
   titreDemarcheOctDpuAcc,
+  titreDemarcheOctDpuInexistante,
   titreAxmDemarcheOctDexAcc,
   titrePrxDemarcheOctRpuAcc,
   titreDemarcheOctDpuDateDebut,

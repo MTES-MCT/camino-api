@@ -22,9 +22,11 @@ const titreDemarcheOctroiDateDebutFind = titre => {
 
   // récupère l'étape la plus importante de l'octroi en premier
   const etapeOctroi =
-    ['dpu', 'rpu', 'dim', 'dex', 'mfr'].reduce(
-      (etape, typeId) => etape || etapes.find(e => e.typeId === typeId),
-      null
+    etapes.find(
+      e =>
+        (['dpu', 'rpu', 'dex', 'dim', 'sco', 'def'].includes(e.typeId) &&
+          demarcheOctroi.statutId === 'acc') ||
+        e.typeId === 'mfr'
     ) ||
     // sinon utilise la première étape (chronologique) de l'octroi
     etapes[etapes.length - 1]
