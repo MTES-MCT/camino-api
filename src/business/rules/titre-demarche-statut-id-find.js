@@ -129,6 +129,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     }
 
     //  - le type de l’étape est recevabilité de la demande (mcr)
+    //  - le type de l’étape est avis de la commission ARM (aca)
     //  - et le statut de l’étape est défavorable (def)
     if (
       ['mcr', 'aca'].includes(titreEtapeRecent.typeId) &&
@@ -142,11 +143,16 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est enregistrement de la demande (men)
     //  - le type de l’étape est décision explicite (dex)
     //  - la date de l'étape est inférieure à la date du jour
+    //  OU
+    //  - le type de l’étape est avis de la commission ARM (aca) (non défavorable)
+    //  - le type de l’étape est décision de l'ONF (def) (non défavorable)
     if (
-      (['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
+      ((['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
         (['mdp', 'meo'].includes(titreEtapeRecent.typeId) &&
           titreTypeId === 'arm')) &&
-      new Date(titreEtapeRecent.date) < new Date()
+        new Date(titreEtapeRecent.date) < new Date()) ||
+      (['def', 'aca'].includes(titreEtapeRecent.typeId) &&
+        titreTypeId === 'arm')
     ) {
       //  - le statut de la démarche est “en instruction”
       return 'ins'
