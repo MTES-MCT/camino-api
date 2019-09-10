@@ -142,6 +142,7 @@ const tables = [
       'point',
       'nom',
       'description',
+      'subsidiaire',
       'securite'
     ],
     parents: ['demarches', 'etapes', 'points'],
