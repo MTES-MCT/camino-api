@@ -5,6 +5,7 @@ const titreEtapesDecisivesTypes = [
   'mfr',
   'mdp',
   'men',
+  'meo',
   'ide',
   'ret',
   'mcr',
@@ -143,7 +144,8 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - la date de l'étape est inférieure à la date du jour
     if (
       (['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
-        (titreEtapeRecent.typeId === 'mdp' && titreTypeId === 'arm')) &&
+        (['mdp', 'meo'].includes(titreEtapeRecent.typeId) &&
+          titreTypeId === 'arm')) &&
       new Date(titreEtapeRecent.date) < new Date()
     ) {
       //  - le statut de la démarche est “en instruction”
