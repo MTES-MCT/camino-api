@@ -7,7 +7,8 @@ import {
   titreDemarchesOctAccDpuRej,
   titreDemarchesOctMfrPoints,
   titreDemarchesOctAmodiatairesPassee,
-  titreDemarchesOctAmodiatairesMod
+  titreDemarchesOctAmodiatairesMod,
+  titreDemarchesProPointsMod
 } from './__mocks__/titre-prop-etape-id-find-demarches'
 
 describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
@@ -63,5 +64,11 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     expect(
       titrePropEtapeIdFind(titreDemarchesOctAmodiatairesMod, 'amodiataires')
     ).toEqual('h-cxx-courdemanges-1981-amo01-dpu01')
+  })
+
+  test("trouve l'id de la dernière étape de dpu car l'étape contient un périmètre et le titre a le statut 'modification en instance'", () => {
+    expect(titrePropEtapeIdFind(titreDemarchesProPointsMod, 'points')).toEqual(
+      'h-cxx-courdemanges-1981-pro01-dpu01'
+    )
   })
 })

@@ -20,7 +20,7 @@ const titresPropsEtapeIdsUpdate = async titres => {
   const titresToUpdate = titres.reduce((acc, titre) => {
     const props = titrePropsEtapes.reduce((props, prop) => {
       const propEtapeIdName = `${prop}TitreEtapeId`
-      const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
+      const etapeId = titrePropEtapeIdFind(titre, prop)
 
       if (etapeId !== titre[propEtapeIdName]) {
         props[propEtapeIdName] = etapeId
