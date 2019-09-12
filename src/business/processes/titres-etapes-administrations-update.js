@@ -105,7 +105,7 @@ const administrationsIdsBuild = (
 
   if (
     typesAdministrationsCentralesLink[typeId] !== false &&
-    ['dex', 'dpu', 'men'].includes(titreEtape.typeId)
+    ['dex', 'dpu', 'men', 'meo', 'def', 'sco'].includes(titreEtape.typeId)
   ) {
     if (Array.isArray(typesAdministrationsCentralesLink[typeId])) {
       adminsCentralesIds = typesAdministrationsCentralesLink[typeId]
