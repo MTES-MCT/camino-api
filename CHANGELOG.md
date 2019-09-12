@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.3](https://github.com/MTES-MCT/camino-api/compare/v0.24.2...v0.24.3) (2019-09-12)
+
+
+### Bug Fixes
+
+* **business:** ajout des étapes de `def` et `sco` pour le calcul des administrations ([870edb8](https://github.com/MTES-MCT/camino-api/commit/870edb8))
+* **business:** ajoute la règle d'instruction pour l'étape de 'meo' ([2e1ee0f](https://github.com/MTES-MCT/camino-api/commit/2e1ee0f))
+* **business:** ajoute la règle d'instruction pour les étapes de def et aca ajournées/programmées ([2ecd5c3](https://github.com/MTES-MCT/camino-api/commit/2ecd5c3))
+* **export:** ajoute la colonne 'subsidiaire' dans l'export des points ([0b4c8d1](https://github.com/MTES-MCT/camino-api/commit/0b4c8d1))
+* ajoute la colonne 'opposable' dans l'export ([66e70b0](https://github.com/MTES-MCT/camino-api/commit/66e70b0))
+* **business:** ajoute les règles métier ARM; factorise les étapes de publication ([#147](https://github.com/MTES-MCT/camino-api/issues/147)) ([22aef8f](https://github.com/MTES-MCT/camino-api/commit/22aef8f))
+* crée le dossier `sources` s'il n'existe pas lors de l'import [#149](https://github.com/MTES-MCT/camino-api/issues/149) ([f0982bf](https://github.com/MTES-MCT/camino-api/commit/f0982bf))
+
 ### [0.24.2](https://github.com/MTES-MCT/camino-api/compare/v0.24.1...v0.24.2) (2019-08-15)
 
 
