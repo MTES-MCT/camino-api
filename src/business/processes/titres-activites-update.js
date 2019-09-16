@@ -39,7 +39,7 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
   if (titresActivitesNew.length) {
     await titreActivitesUpsert(titresActivitesNew)
     // export des activités vers la spreadsheet camino-db-titres-activites-prod
-    await titreActivitesRowUpdate(titresActivitesNew)
+    titreActivitesRowUpdate(titresActivitesNew)
 
     console.log(
       `création: activité ${titresActivitesNew.map(ta => ta.id).join(', ')}`
