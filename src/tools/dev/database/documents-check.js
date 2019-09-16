@@ -8,22 +8,27 @@ import * as path from 'path'
 
 async function main() {
   const titresDocuments = await titresDocumentsGet()
-  const titresDocumentsFichiers = titresDocuments.reduce(
-    (arr, titreDocument) => {
-      if (titreDocument.fichier) {
-        arr.push(titreDocument.fichier)
-      }
+  const titresDocumentsIndex = titresDocuments.reduce((res, titreDocument) => {
+    if (titreDocument.fichier) {
+      res[titreDocument.fichier] = true
+    }
 
-      return arr
-    },
-    []
-  )
+    return res
+  }, {})
 
-  const pdfFiles = fs.readdirSync('././././files')
+  const pdfFiles = fs.readdirSync('./files')
   const pdfNames = pdfFiles.map(pdfFile => path.basename(pdfFile, '.pdf'))
 
+  const pdfIndex = pdfNames.reduce((res, pdfName) => {
+    if (pdfName) {
+      res[pdfName] = true
+    }
+
+    return res
+  }, {})
+
   const pdfMissing = pdfNames.filter(
-    pdfName => titresDocumentsFichiers.indexOf(pdfName) === -1
+    pdfName => pdfName && !titresDocumentsIndex[pdfName]
   )
 
   if (pdfMissing.length === 0) {
@@ -35,9 +40,9 @@ async function main() {
     console.log(pdfMissing.map(pdf => `- ${pdf}`).join('\n'))
   }
 
-  const titreDocumentsFichiersMissing = titresDocumentsFichiers.filter(
-    titresDocumentsName => pdfNames.indexOf(titresDocumentsName) === -1
-  )
+  const titreDocumentsFichiersMissing = Object.keys(
+    titresDocumentsIndex
+  ).filter(titresDocumentsName => !pdfIndex[titresDocumentsName])
   if (titreDocumentsFichiersMissing.length === 0) {
     console.log(
       'Tous les noms de fichiers renseignés en base de données existent'
