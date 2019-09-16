@@ -2,6 +2,7 @@ import titresActivitesTypesUpdate from './titres-activites-update'
 
 import * as titreActivitesTypesFilter from '../utils/titre-activites-filter'
 import * as titreActivitesQueries from '../../database/queries/titres-activites'
+import * as titreActivitesExport from '../../tools/export/titre-activites'
 import * as titreActivitesBuild from '../rules/titre-activites-build'
 
 import {
@@ -15,6 +16,10 @@ jest.mock('../utils/titre-activites-filter', () => ({
 
 jest.mock('../../database/queries/titres-activites', () => ({
   titreActivitesUpsert: jest.fn().mockResolvedValue()
+}))
+
+jest.mock('../../tools/export/titre-activites', () => ({
+  titreActivitesRowUpdate: jest.fn().mockResolvedValue()
 }))
 
 jest.mock('../rules/titre-activites-build', () => ({
@@ -38,6 +43,7 @@ describe("activités d'un titre", () => {
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
     expect(titreActivitesQueries.titreActivitesUpsert).toHaveBeenCalled()
+    expect(titreActivitesExport.titreActivitesRowUpdate).toHaveBeenCalled()
     expect(titreActivitesBuild.default).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
@@ -57,6 +63,7 @@ describe("activités d'un titre", () => {
     expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
     expect(titreActivitesBuild.default).toHaveBeenCalled()
     expect(titreActivitesQueries.titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(titreActivitesExport.titreActivitesRowUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 
@@ -74,6 +81,7 @@ describe("activités d'un titre", () => {
     expect(titreActivitesTypesFilter.default).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild.default).not.toHaveBeenCalled()
     expect(titreActivitesQueries.titreActivitesUpsert).not.toHaveBeenCalled()
+    expect(titreActivitesExport.titreActivitesRowUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 })
