@@ -27,12 +27,12 @@ describe('administrations', () => {
       administrationsApiCreees
     )
 
-    const log = await administrationUpdate(
+    const administrationsUpdated = await administrationUpdate(
       administrationsDbCreees,
       departements
     )
 
-    expect(log).toEqual('mise à jour: 1 administration(s)')
+    expect(administrationsUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -41,12 +41,12 @@ describe('administrations', () => {
       administrationsApiModifiees
     )
 
-    const log = await administrationUpdate(
+    const administrationsUpdated = await administrationUpdate(
       administrationsDbModifiees,
       departements
     )
 
-    expect(log).toEqual('mise à jour: 1 administration(s)')
+    expect(administrationsUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -55,12 +55,12 @@ describe('administrations', () => {
       administrationsApiExistantes
     )
 
-    const log = await administrationUpdate(
+    const administrationsUpdated = await administrationUpdate(
       administrationsDbExistantes,
       departements
     )
 
-    expect(log).toEqual('mise à jour: 0 administration(s)')
+    expect(administrationsUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
 })

@@ -6,8 +6,9 @@ import {
   entrepriseEtablissementGet,
   entrepriseAdresseGet
 } from '../../tools/api-insee'
+import errorLog from '../../tools/error-log'
 
-const entreprisesEtablissementsUpdatedFind = (
+const entreprisesEtablissementsToUpdateFind = (
   entreprisesEtablissementsOld,
   entreprisesEtablissementsNew
 ) =>
@@ -27,7 +28,7 @@ const entreprisesEtablissementsUpdatedFind = (
     return acc
   }, [])
 
-const entreprisesUpdatedFind = (entreprisesOld, entreprisesNew) =>
+const entreprisesToUpdateFind = (entreprisesOld, entreprisesNew) =>
   entreprisesNew.reduce((acc, entrepriseNew) => {
     const entrepriseOld = entreprisesOld.find(
       a => a && a.id === entrepriseNew.id
@@ -66,42 +67,41 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   const sirens = sirensFind(entreprisesOld)
 
   if (!sirens.length) {
-    return [
-      "mise à jour: 0 établissement(s) d'entreprise(s)",
-      "mise à jour: 0 adresse(s) d'entreprise(s)"
-    ]
+    return [[], []]
   }
 
   // initialise le token de connexion à l'API INSEE
   // s'il est vide, la connexion a échoué
-  let token
-  try {
-    token = await tokenInitialize()
-  } catch (e) {}
+
+  const token = await tokenInitialize()
 
   if (!token) {
-    return [
-      "erreur: impossible de se connecter à l'API INSEE SIREN V3",
-      "mise à jour: 0 établissement(s) d'entreprise(s)",
-      "mise à jour: 0 adresse(s) d'entreprise(s)"
-    ]
+    errorLog("impossible de se connecter à l'API INSEE")
+
+    return [[], []]
   }
 
   const entreprisesNew = await entrepriseAdresseGet(sirens)
   const entreprisesEtablissementsNew = await entrepriseEtablissementGet(sirens)
 
-  const entreprisesUpdated = entreprisesUpdatedFind(
+  const entreprisesToUpdate = entreprisesToUpdateFind(
     entreprisesOld,
     entreprisesNew
   )
 
-  const etablissementsUpdated = entreprisesEtablissementsUpdatedFind(
+  const etablissementsToUpdate = entreprisesEtablissementsToUpdateFind(
     entreprisesEtablissementsOld,
     entreprisesEtablissementsNew
   )
 
-  if (etablissementsUpdated.length) {
-    await entreprisesEtablissementsUpsert(etablissementsUpdated)
+  let etablissementsUpdated = []
+  let entreprisesUpdated = []
+
+  if (etablissementsToUpdate.length) {
+    etablissementsUpdated = await entreprisesEtablissementsUpsert(
+      etablissementsToUpdate
+    )
+
     console.log(
       `mise à jour: entreprisesEtablissements ${etablissementsUpdated
         .map(e => e.id)
@@ -109,17 +109,14 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     )
   }
 
-  if (entreprisesUpdated.length) {
-    await entreprisesUpsert(entreprisesUpdated)
+  if (entreprisesToUpdate.length) {
+    entreprisesUpdated = await entreprisesUpsert(entreprisesToUpdate)
     console.log(
       `mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
     )
   }
 
-  return [
-    `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`,
-    `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
-  ]
+  return [entreprisesUpdated, etablissementsUpdated]
 }
 
 export default entreprisesEtablissementsEtAdressesUpdate

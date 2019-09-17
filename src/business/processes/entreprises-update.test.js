@@ -1,5 +1,5 @@
 import entrepriseUpdate from './entreprises-update'
-import * as apientreprises from '../../tools/api-insee'
+import * as apiEntreprises from '../../tools/api-insee'
 
 import {
   entreprisesDbCreees,
@@ -11,6 +11,7 @@ import {
   entreprisesDbExistantes,
   entreprisesEtablissementsDbExistants,
   entreprisesApiExistantes,
+  entreprisesEtablissementsApiExistantes,
   entreprisesDbInexistantes,
   entreprisesEtablissementsDbInexistants,
   entreprisesApiInexistantes
@@ -19,11 +20,11 @@ import {
 // 'jest.mock()` est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../database/queries/entreprises', () => ({
-  entreprisesUpsert: jest.fn().mockResolvedValue()
+  entreprisesUpsert: jest.fn().mockImplementation(a => a)
 }))
 
 jest.mock('../../database/queries/entreprises-etablissements', () => ({
-  entreprisesEtablissementsUpsert: jest.fn().mockResolvedValue()
+  entreprisesEtablissementsUpsert: jest.fn().mockImplementation(a => a)
 }))
 
 // 'jest.mock()' est hoisté avant l'import, le court-circuitant
@@ -36,100 +37,91 @@ jest.mock('../../tools/api-insee', () => ({
 
 console.log = jest.fn()
 console.info = jest.fn()
+console.error = jest.fn()
 
 describe('entreprises', () => {
   test("crée les entreprises si elles n'existent pas", async () => {
-    apientreprises.entrepriseAdresseGet.mockResolvedValue(entreprisesApiCreees)
-    apientreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(entreprisesApiCreees)
+    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
       entreprisesApiCreees
     )
 
-    const log = await entrepriseUpdate(
+    const [etablissementsUpdated, entreprisesUpdated] = await entrepriseUpdate(
       entreprisesDbCreees,
       entreprisesEtablissementsDbCreees
     )
 
-    expect(log).toEqual([
-      "mise à jour: 1 établissement(s) d'entreprise(s)",
-      "mise à jour: 1 adresse(s) d'entreprise(s)"
-    ])
+    expect(etablissementsUpdated.length).toEqual(1)
+    expect(entreprisesUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour les entreprises qui ont été modifiées', async () => {
-    apientreprises.entrepriseAdresseGet.mockResolvedValue(
+    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(
       entreprisesApiModifiees
     )
-    apientreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
       entreprisesApiModifiees
     )
 
-    const log = await entrepriseUpdate(
+    const [etablissementsUpdated, entreprisesUpdated] = await entrepriseUpdate(
       entreprisesDbModifiees,
       entreprisesEtablissementsDbModifies
     )
 
-    expect(log).toEqual([
-      "mise à jour: 1 établissement(s) d'entreprise(s)",
-      "mise à jour: 1 adresse(s) d'entreprise(s)"
-    ])
+    expect(etablissementsUpdated.length).toEqual(1)
+    expect(entreprisesUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
   test('ne crée pas les entreprises qui existent déjà', async () => {
-    apientreprises.entrepriseAdresseGet.mockResolvedValue(
+    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(
       entreprisesApiExistantes
     )
-    apientreprises.entrepriseEtablissementGet.mockResolvedValue(
-      entreprisesApiExistantes
+    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
+      entreprisesEtablissementsApiExistantes
     )
 
-    const log = await entrepriseUpdate(
+    const [entreprisesUpdated, etablissementsUpdated] = await entrepriseUpdate(
       entreprisesDbExistantes,
       entreprisesEtablissementsDbExistants
     )
 
-    expect(log).toEqual([
-      "mise à jour: 0 établissement(s) d'entreprise(s)",
-      "mise à jour: 0 adresse(s) d'entreprise(s)"
-    ])
+    expect(entreprisesUpdated.length).toEqual(0)
+    expect(etablissementsUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
 
   test("ne modifie pas d'entreprises si elles n'existent déjà", async () => {
-    apientreprises.entrepriseAdresseGet.mockResolvedValue(
+    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(
       entreprisesApiInexistantes
     )
-    apientreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
       entreprisesApiInexistantes
     )
 
-    const log = await entrepriseUpdate(
+    const [etablissementsUpdated, entreprisesUpdated] = await entrepriseUpdate(
       entreprisesDbInexistantes,
       entreprisesEtablissementsDbInexistants
     )
 
-    expect(log).toEqual([
-      "mise à jour: 0 établissement(s) d'entreprise(s)",
-      "mise à jour: 0 adresse(s) d'entreprise(s)"
-    ])
+    expect(etablissementsUpdated.length).toEqual(0)
+    expect(entreprisesUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
 
-  test("retourne un message d'erreur si l'accès à l'api Siren ne fonctionne pas", async () => {
-    apientreprises.tokenInitialize.mockRejectedValue(new Error('token error'))
+  test("retourne un message d'erreur si le token d'accès à l'api Siren ne fonctionne pas", async () => {
+    apiEntreprises.tokenInitialize.mockResolvedValue(null)
 
-    const log = await entrepriseUpdate(
+    const [etablissementsUpdated, entreprisesUpdated] = await entrepriseUpdate(
       entreprisesDbCreees,
       entreprisesEtablissementsDbCreees
     )
 
-    expect(log).toEqual([
-      "erreur: impossible de se connecter à l'API INSEE SIREN V3",
-      "mise à jour: 0 établissement(s) d'entreprise(s)",
-      "mise à jour: 0 adresse(s) d'entreprise(s)"
-    ])
+    expect(etablissementsUpdated.length).toEqual(0)
+    expect(entreprisesUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
+    expect(console.error).toHaveBeenCalled()
   })
 })

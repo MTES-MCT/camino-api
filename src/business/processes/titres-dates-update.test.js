@@ -18,11 +18,9 @@ describe("dates d'un titre", () => {
     titreDateDebutFind.mockImplementation(() => null)
     titreDateDemandeFind.mockImplementation(() => null)
 
-    const titresDatesUpdateLog = await titresDatesUpdate([{ id: 'titre-id' }])
+    const titresDatesUpdated = await titresDatesUpdate([{ id: 'titre-id' }])
 
-    expect(titresDatesUpdateLog).toEqual(
-      'mise à jour: 1 titre(s) (propriétés-dates)'
-    )
+    expect(titresDatesUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalledTimes(1)
   })
 
@@ -31,7 +29,7 @@ describe("dates d'un titre", () => {
     titreDateDebutFind.mockImplementation(() => null)
     titreDateDemandeFind.mockImplementation(() => null)
 
-    const titresDatesUpdateLog = await titresDatesUpdate([
+    const titresDatesUpdated = await titresDatesUpdate([
       {
         id: 'titre-type-id',
         dateFin: new Date('2019-01-01'),
@@ -40,9 +38,7 @@ describe("dates d'un titre", () => {
       }
     ])
 
-    expect(titresDatesUpdateLog).toEqual(
-      'mise à jour: 0 titre(s) (propriétés-dates)'
-    )
+    expect(titresDatesUpdated.length).toEqual(0)
     expect(console.log).toHaveBeenCalledTimes(0)
   })
 })

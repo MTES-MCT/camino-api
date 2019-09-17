@@ -14,20 +14,16 @@ console.log = jest.fn()
 describe("propriétés (étape) d'un titre", () => {
   test('trouve 8 propriétés dans les étapes', async () => {
     titrePropEtapeIdFind.mockImplementation(() => 'etape-id')
-    const titresPropsEtapeIdUpdatelog = await titresPropsEtapeIdUpdate([{}])
+    const titresUpdatedRequests = await titresPropsEtapeIdUpdate([{}])
 
-    expect(titresPropsEtapeIdUpdatelog).toEqual(
-      'mise à jour: 1 titre(s) (propriétés-étapes)'
-    )
+    expect(titresUpdatedRequests.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
   test('ne trouve pas de propriétés dans les étapes', async () => {
     titrePropEtapeIdFind.mockImplementation(() => undefined)
-    const titresPropsEtapeIdUpdatelog = await titresPropsEtapeIdUpdate([{}])
+    const titresUpdatedRequests = await titresPropsEtapeIdUpdate([{}])
 
-    expect(titresPropsEtapeIdUpdatelog).toEqual(
-      'mise à jour: 0 titre(s) (propriétés-étapes)'
-    )
+    expect(titresUpdatedRequests.length).toEqual(0)
   })
 })

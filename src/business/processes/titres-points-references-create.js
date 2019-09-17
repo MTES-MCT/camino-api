@@ -54,12 +54,13 @@ const titresPointsReferencesCreate = async titres => {
     console.log(`création: référence du point ${JSON.stringify(r.id)}`)
   })
 
-  if (pointsReferencesCreated.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(pointsReferencesCreated)
+  if (!pointsReferencesCreated.length) {
+    return []
   }
 
-  return `création: ${pointsReferencesCreated.length} référence(s) de points`
+  const queue = new PQueue({ concurrency: 100 })
+
+  return queue.addAll(pointsReferencesCreated)
 }
 
 export default titresPointsReferencesCreate

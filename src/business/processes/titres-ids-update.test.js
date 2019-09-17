@@ -30,9 +30,9 @@ describe("id d'un titre", () => {
       hasChanged: true
     }))
 
-    const titreNew = await titreIdsUpdate({ id: 'id-old' })
+    const titresUpdated = await titreIdsUpdate({ id: 'id-old' })
 
-    expect(titreNew.id).toEqual(id)
+    expect(titresUpdated.id).toEqual(id)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -48,9 +48,9 @@ describe("id d'un titre", () => {
       hasChanged: true
     }))
 
-    const titreNew = await titreIdsUpdate({ id: 'id-old' })
+    const titresUpdated = await titreIdsUpdate({ id: 'id-old' })
 
-    expect(titreNew.id).toEqual(id)
+    expect(titresUpdated.id).toEqual(id)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -66,9 +66,9 @@ describe("id d'un titre", () => {
       hasChanged: false
     }))
 
-    const titreNew = await titreIdsUpdate({ id })
+    const titresUpdated = await titreIdsUpdate({ id })
 
-    expect(titreNew.id).toEqual(id)
+    expect(titresUpdated.id).toEqual(id)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()
@@ -86,9 +86,9 @@ describe('id de plusieurs titres', () => {
       hasChanged: true
     }))
 
-    const log = await titresIdsUpdate([{ id: 'id-old' }])
+    const titresUpdated = await titresIdsUpdate([{ id: 'id-old' }])
 
-    expect(log).toEqual('mise à jour: 1 titre(s) (ids)')
+    expect(titresUpdated.length).toEqual(1)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -105,9 +105,9 @@ describe('id de plusieurs titres', () => {
     }))
     titresQueries.titreIdUpdate.mockRejectedValue(new Error('bim !'))
 
-    const log = await titresIdsUpdate([{ id: 'id-old' }])
+    const titresUpdated = await titresIdsUpdate([{ id: 'id-old' }])
 
-    expect(log).toEqual('mise à jour: 0 titre(s) (ids)')
+    expect(titresUpdated.length).toEqual(0)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -124,9 +124,9 @@ describe('id de plusieurs titres', () => {
       hasChanged: false
     }))
 
-    const log = await titresIdsUpdate([{ id }])
+    const titresUpdated = await titresIdsUpdate([{ id }])
 
-    expect(log).toEqual('mise à jour: 0 titre(s) (ids)')
+    expect(titresUpdated.length).toEqual(0)
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()

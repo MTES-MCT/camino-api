@@ -14,17 +14,17 @@ console.log = jest.fn()
 describe('titre propriétés-activités', () => {
   test('met à jour 3 propriétés activités', async () => {
     titrePropActivitesCount.mockImplementation(() => 3)
-    const titresPropsActivitesUpdatelog = await titresPropsActivitesUpdate([{}])
 
-    expect(titresPropsActivitesUpdatelog).toEqual(
-      'mise à jour: 1 titre(s) (propriétés-activités)'
-    )
+    const titresPropsActivitesUpdated = await titresPropsActivitesUpdate([{}])
+
+    expect(titresPropsActivitesUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
   test('ne trouve pas de propriétés activités à mettre à jour', async () => {
     titrePropActivitesCount.mockImplementation(() => null)
-    const titresPropsActivitesUpdatelog = await titresPropsActivitesUpdate([
+
+    const titresPropsActivitesUpdated = await titresPropsActivitesUpdate([
       {
         activitesAbsentes: null,
         activitesEnConstruction: null,
@@ -32,8 +32,6 @@ describe('titre propriétés-activités', () => {
       }
     ])
 
-    expect(titresPropsActivitesUpdatelog).toEqual(
-      'mise à jour: 0 titre(s) (propriétés-activités)'
-    )
+    expect(titresPropsActivitesUpdated.length).toEqual(0)
   })
 })

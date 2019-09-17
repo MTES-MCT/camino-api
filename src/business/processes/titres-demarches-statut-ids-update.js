@@ -39,12 +39,12 @@ const titresDemarchesStatutUpdate = async titres => {
     []
   )
 
-  if (titresDemarchesStatutUpdated.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresDemarchesStatutUpdated)
+  if (!titresDemarchesStatutUpdated.length) {
+    return []
   }
+  const queue = new PQueue({ concurrency: 100 })
 
-  return `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
+  return queue.addAll(titresDemarchesStatutUpdated)
 }
 
 export default titresDemarchesStatutUpdate

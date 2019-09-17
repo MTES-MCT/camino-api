@@ -133,31 +133,31 @@ const administrationsIdsBuild = (
   return [...new Set(adminsCentralesIds)]
 }
 
-const titresEtapesAdministrationsCreatedDeletedBuild = titresEtapesAdministrations =>
+const titresEtapesAdministrationsToCreateAndDeleteBuild = titresEtapesAdministrations =>
   Object.values(titresEtapesAdministrations).reduce(
     (
       {
-        titresEtapesAdministrationsCreated,
-        titresEtapesAdministrationsDeleted
+        titresEtapesAdministrationsToCreate,
+        titresEtapesAdministrationsToDelete
       },
       { titreEtape, administrationsIds }
     ) => {
-      titresEtapesAdministrationsCreated.push(
+      titresEtapesAdministrationsToCreate.push(
         ...titreEtapeAdministrationsCreatedBuild(titreEtape, administrationsIds)
       )
 
-      titresEtapesAdministrationsDeleted.push(
+      titresEtapesAdministrationsToDelete.push(
         ...titreEtapeAdministrationsDeleteBuild(titreEtape, administrationsIds)
       )
 
       return {
-        titresEtapesAdministrationsCreated,
-        titresEtapesAdministrationsDeleted
+        titresEtapesAdministrationsToCreate,
+        titresEtapesAdministrationsToDelete
       }
     },
     {
-      titresEtapesAdministrationsCreated: [],
-      titresEtapesAdministrationsDeleted: []
+      titresEtapesAdministrationsToCreate: [],
+      titresEtapesAdministrationsToDelete: []
     }
   )
 
@@ -198,14 +198,19 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   )
 
   const {
-    titresEtapesAdministrationsCreated,
-    titresEtapesAdministrationsDeleted
-  } = titresEtapesAdministrationsCreatedDeletedBuild(
+    titresEtapesAdministrationsToCreate,
+    titresEtapesAdministrationsToDelete
+  } = titresEtapesAdministrationsToCreateAndDeleteBuild(
     titresEtapesAdministrations
   )
 
-  if (titresEtapesAdministrationsCreated.length) {
-    await titresEtapesAdministrationsCreate(titresEtapesAdministrationsCreated)
+  let titresEtapesAdministrationsCreated = []
+  let titresEtapesAdministrationsDeleted = []
+
+  if (titresEtapesAdministrationsToCreate.length) {
+    titresEtapesAdministrationsCreated = await titresEtapesAdministrationsCreate(
+      titresEtapesAdministrationsToCreate
+    )
     console.log(
       `mise à jour: étape administrations ${titresEtapesAdministrationsCreated
         .map(tea => JSON.stringify(tea))
@@ -213,8 +218,8 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
     )
   }
 
-  if (titresEtapesAdministrationsDeleted.length) {
-    const titresEtapesAdministrationsDeletedQueries = titresEtapesAdministrationsDeleted.map(
+  if (titresEtapesAdministrationsToDelete.length) {
+    const titresEtapesAdministrationsToDeleteQueries = titresEtapesAdministrationsToDelete.map(
       ({ titreEtapeId, administrationId }) => async () => {
         await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
         console.log(
@@ -224,12 +229,14 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
     )
 
     const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresEtapesAdministrationsDeletedQueries)
+    titresEtapesAdministrationsDeleted = await queue.addAll(
+      titresEtapesAdministrationsToDeleteQueries
+    )
   }
 
   return [
-    `mise à jour: ${titresEtapesAdministrationsCreated.length} administration(s) ajoutée(s) dans des étapes`,
-    `mise à jour: ${titresEtapesAdministrationsDeleted.length} administration(s) supprimée(s) dans des étapes`
+    titresEtapesAdministrationsCreated,
+    titresEtapesAdministrationsDeleted
   ]
 }
 

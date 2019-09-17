@@ -31,12 +31,13 @@ const titresDemarchesOrdreUpdate = async titres => {
     return acc
   }, [])
 
-  if (titresDemarchesUpdated.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresDemarchesUpdated)
+  if (!titresDemarchesUpdated.length) {
+    return []
   }
 
-  return `mise à jour: ${titresDemarchesUpdated.length} démarche(s) (ordre)`
+  const queue = new PQueue({ concurrency: 100 })
+
+  return queue.addAll(titresDemarchesUpdated)
 }
 
 export default titresDemarchesOrdreUpdate

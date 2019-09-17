@@ -16,7 +16,9 @@ const entreprisesEtablissementsDbExistants = [
   { id: 'toto', legalSiren: 'toto' }
 ]
 const entreprisesApiExistantes = [{ id: 'toto', legalSiren: 'toto' }]
-
+const entreprisesEtablissementsApiExistantes = [
+  { id: 'toto', legalSiren: 'toto' }
+]
 const entreprisesDbInexistantes = []
 const entreprisesEtablissementsDbInexistantes = []
 const entreprisesApiInexistantes = []
@@ -30,6 +32,7 @@ export {
   entreprisesApiModifiees,
   entreprisesDbExistantes,
   entreprisesApiExistantes,
+  entreprisesEtablissementsApiExistantes,
   entreprisesEtablissementsDbExistants,
   entreprisesDbInexistantes,
   entreprisesEtablissementsDbInexistantes,

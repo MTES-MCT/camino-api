@@ -39,34 +39,34 @@ const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
       }, [])
     : []
 
-const titresEtapesCommunesCreatedDeletedBuild = (
+const titresEtapesCommunesToCreateAndDeleteBuild = (
   titresEtapes,
   titresEtapesCommunes
 ) =>
   Object.keys(titresEtapesCommunes).reduce(
     (
-      { titresEtapesCommunesCreated, titresEtapesCommunesDeleted },
+      { titresEtapesCommunesToCreate, titresEtapesCommunesToDelete },
       titreEtapeId
     ) => {
       const titreEtape = titresEtapes.find(te => te.id === titreEtapeId)
       const communesEtape = titresEtapesCommunes[titreEtapeId]
 
-      titresEtapesCommunesCreated.push(
+      titresEtapesCommunesToCreate.push(
         ...titreEtapesCommunesCreateBuild(titreEtape, communesEtape)
       )
 
-      titresEtapesCommunesDeleted.push(
+      titresEtapesCommunesToDelete.push(
         ...titreEtapesCommunesDeleteBuild(titreEtape, communesEtape)
       )
 
       return {
-        titresEtapesCommunesCreated,
-        titresEtapesCommunesDeleted
+        titresEtapesCommunesToCreate,
+        titresEtapesCommunesToDelete
       }
     },
     {
-      titresEtapesCommunesCreated: [],
-      titresEtapesCommunesDeleted: []
+      titresEtapesCommunesToCreate: [],
+      titresEtapesCommunesToDelete: []
     }
   )
 
@@ -154,37 +154,39 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   const geoCommunesApiTest = await communesGeojsonTest()
   // si la connexion à l'API échoue, retourne
   if (!geoCommunesApiTest) {
-    return [
-      "erreur: impossible de se connecter à l'API Géo communes",
-      'mise à jour: 0 commune(s)',
-      'mise à jour: 0 commune(s) ajoutée(s) dans des étapes',
-      'mise à jour: 0 commune(s) supprimée(s) dans des étapes'
-    ]
+    return [[], [], []]
   }
 
   const titresEtapesCommunes = await titresEtapesCommunesGet(titresEtapes)
 
-  const communesUpdated = communesBuild(communesOld, titresEtapesCommunes)
+  const communesToUpdate = communesBuild(communesOld, titresEtapesCommunes)
 
-  if (communesUpdated.length) {
-    await communesUpsert(communesUpdated)
+  let communesUpdated = []
+
+  if (communesToUpdate.length) {
+    communesUpdated = await communesUpsert(communesToUpdate)
     console.log(
-      `mise à jour: communes, ${communesUpdated
+      `mise à jour: communes, ${communesToUpdate
         .map(commune => commune.id)
         .join(', ')}`
     )
   }
 
   const {
-    titresEtapesCommunesCreated,
-    titresEtapesCommunesDeleted
-  } = titresEtapesCommunesCreatedDeletedBuild(
+    titresEtapesCommunesToCreate,
+    titresEtapesCommunesToDelete
+  } = titresEtapesCommunesToCreateAndDeleteBuild(
     titresEtapes,
     titresEtapesCommunes
   )
 
-  if (titresEtapesCommunesCreated.length) {
-    await titresEtapesCommunesCreate(titresEtapesCommunesCreated)
+  let titresEtapesCommunesCreated = []
+  let titresEtapesCommunesDeleted = []
+
+  if (titresEtapesCommunesToCreate.length) {
+    titresEtapesCommunesCreated = await titresEtapesCommunesCreate(
+      titresEtapesCommunesToCreate
+    )
     console.log(
       `mise à jour: étape communes ${titresEtapesCommunesCreated
         .map(tec => JSON.stringify(tec))
@@ -192,8 +194,8 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
     )
   }
 
-  if (titresEtapesCommunesDeleted.length) {
-    const titresEtapesCommunesDeleteQueries = titresEtapesCommunesDeleted.map(
+  if (titresEtapesCommunesToDelete.length) {
+    const titresEtapesCommunesDeleteQueries = titresEtapesCommunesToDelete.map(
       ({ titreEtapeId, communeId }) => async () => {
         await titreEtapeCommuneDelete(titreEtapeId, communeId)
         console.log(`suppression: étape ${titreEtapeId}, commune ${communeId}`)
@@ -201,13 +203,15 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
     )
 
     const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresEtapesCommunesDeleteQueries)
+    titresEtapesCommunesDeleted = await queue.addAll(
+      titresEtapesCommunesDeleteQueries
+    )
   }
 
   return [
-    `mise à jour: ${communesUpdated.length} commune(s)`,
-    `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes`,
-    `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
+    communesUpdated,
+    titresEtapesCommunesCreated,
+    titresEtapesCommunesDeleted
   ]
 }
 

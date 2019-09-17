@@ -4,9 +4,11 @@ import titresPropsActivitesUpdate from './processes/titres-props-activites-updat
 const titreActivitePropUpdate = async titreId => {
   const titre = await titreGet(titreId)
 
-  const titresPropsActivites = await titresPropsActivitesUpdate([titre])
+  const titresPropsActivitesUpdated = await titresPropsActivitesUpdate([titre])
 
-  console.log(titresPropsActivites)
+  console.log(
+    `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
+  )
 }
 
 export default titreActivitePropUpdate
