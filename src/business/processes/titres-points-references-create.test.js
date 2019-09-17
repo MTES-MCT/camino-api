@@ -30,9 +30,10 @@ describe("références des points d'un titre", () => {
         ]
       }
     ]
-    expect(await titresPointsReferencesCreate(titres)).toEqual(
-      'création: 1 référence(s) de points'
-    )
+
+    const pointsReferencesCreated = await titresPointsReferencesCreate(titres)
+
+    expect(pointsReferencesCreated.length).toEqual(1)
 
     expect(queries.titrePointReferenceCreate).toHaveBeenCalledWith({
       id: 'point-id-4326',
@@ -49,9 +50,10 @@ describe("références des points d'un titre", () => {
       { id: 'titre-id-sans-etapes', demarches: [{}] },
       { id: 'titre-id-sans-points', demarches: [{ etapes: [{}] }] }
     ]
-    expect(await titresPointsReferencesCreate(titres)).toEqual(
-      'création: 0 référence(s) de points'
-    )
+
+    const pointsReferencesCreated = await titresPointsReferencesCreate(titres)
+
+    expect(pointsReferencesCreated.length).toEqual(0)
 
     expect(queries.titrePointReferenceCreate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()

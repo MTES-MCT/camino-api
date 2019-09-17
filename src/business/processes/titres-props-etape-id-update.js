@@ -17,7 +17,7 @@ const titrePropsEtapes = [
 ]
 
 const titresPropsEtapeIdsUpdate = async titres => {
-  const titresUpdatedRequests = titres.reduce((acc, titre) => {
+  const titresToUpdate = titres.reduce((acc, titre) => {
     const props = titrePropsEtapes.reduce((props, prop) => {
       const propEtapeIdName = `${prop}TitreEtapeId`
       const etapeId = titrePropEtapeIdFind(titre.demarches, prop)
@@ -30,23 +30,26 @@ const titresPropsEtapeIdsUpdate = async titres => {
     }, {})
 
     if (Object.keys(props).length) {
-      acc.push(async () => {
-        await titreUpdate(titre.id, props)
-        console.log(
-          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-        )
-      })
+      acc.push({ id: titre.id, ...props })
     }
 
     return acc
   }, [])
 
-  if (titresUpdatedRequests.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresUpdatedRequests)
+  if (!titresToUpdate.length) {
+    return []
   }
 
-  return `mise à jour: ${titresUpdatedRequests.length} titre(s) (propriétés-étapes)`
+  const titresUpdated = titresToUpdate.map(({ id, ...props }) => async () => {
+    const titreUpdated = await titreUpdate(id, props)
+    console.log(`mise à jour: titre ${id} props: ${JSON.stringify(props)}`)
+
+    return titreUpdated
+  })
+
+  const queue = new PQueue({ concurrency: 100 })
+
+  return queue.addAll(titresUpdated)
 }
 
 export { titrePropsEtapes }

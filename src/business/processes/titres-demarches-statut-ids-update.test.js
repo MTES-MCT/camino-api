@@ -13,18 +13,20 @@ console.log = jest.fn()
 
 describe("statut des démarches d'un titre", () => {
   test("met à jour le statut d'une démarche", async () => {
-    const log = await titresDemarcheStatutIdUpdate(titresDemarchesStatutModifie)
+    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate(
+      titresDemarchesStatutModifie
+    )
 
-    expect(log).toEqual('mise à jour: 1 démarche(s) (statut)')
+    expect(titresDemarchesStatutUpdated.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
   test("ne met pas à jour le statut d'une démarche", async () => {
-    const log = await titresDemarcheStatutIdUpdate(
+    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate(
       titresDemarchesStatutIdentique
     )
 
-    expect(log).toEqual('mise à jour: 0 démarche(s) (statut)')
+    expect(titresDemarchesStatutUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
 })

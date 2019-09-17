@@ -131,12 +131,13 @@ const titresPhasesUpdate = async titres => {
     return acc
   }, [])
 
-  if (titresPhasesRequests.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresPhasesRequests)
+  if (!titresPhasesRequests.length) {
+    return []
   }
 
-  return `mise à jour: ${titresPhasesRequests.length} titre(s) (phases)`
+  const queue = new PQueue({ concurrency: 100 })
+
+  return queue.addAll(titresPhasesRequests)
 }
 
 export default titresPhasesUpdate

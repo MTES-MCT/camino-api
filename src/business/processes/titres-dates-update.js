@@ -42,12 +42,12 @@ const titresDatesUpdate = async titres => {
     return acc
   }, [])
 
-  if (titresDatesUpdateRequests.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titresDatesUpdateRequests)
+  if (!titresDatesUpdateRequests.length) {
+    return []
   }
+  const queue = new PQueue({ concurrency: 100 })
 
-  return `mise à jour: ${titresDatesUpdateRequests.length} titre(s) (propriétés-dates)`
+  return queue.addAll(titresDatesUpdateRequests)
 }
 
 export default titresDatesUpdate

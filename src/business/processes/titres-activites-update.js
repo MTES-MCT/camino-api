@@ -42,7 +42,7 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
     )
   }
 
-  return `mise à jour: ${titresActivitesNew.length} activités`
+  return titresActivitesNew
 }
 
 export default titresActivitesUpdate

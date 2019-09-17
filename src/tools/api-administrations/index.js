@@ -13,21 +13,24 @@ const MAX_CALLS_MINUTE = 200
 
 const { ADMINISTRATION_API_URL } = process.env
 
-const organismeUrlGet = (departementId, nom) => {
-  return `${ADMINISTRATION_API_URL}/v3/departements/${departementId}/${nom}`
-}
-
 const organismeFetch = async (departementId, nom) => {
+  if (!ADMINISTRATION_API_URL) {
+    throw new Error(
+      "impossible de se connecter à l'API administration car la variable d'environnement est absente"
+    )
+  }
+
   console.info(`API administration: ${departementId}, ${nom}`)
 
-  const organismeUrl = organismeUrlGet(departementId, nom)
-
-  const response = await fetch(organismeUrl, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json'
+  const response = await fetch(
+    `${ADMINISTRATION_API_URL}/v3/departements/${departementId}/${nom}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json'
+      }
     }
-  })
+  )
 
   if (response.status > 400) {
     throw response.statusText

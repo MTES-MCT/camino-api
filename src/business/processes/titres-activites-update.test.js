@@ -28,9 +28,13 @@ describe("activités d'un titre", () => {
     titreActivitesTypesFilter.default.mockImplementation(() => [1])
     titreActivitesBuild.default.mockImplementation(() => [1])
 
-    const log = await titresActivitesTypesUpdate(titresSansActivite, [], [])
+    const titresActivitesNew = await titresActivitesTypesUpdate(
+      titresSansActivite,
+      [],
+      []
+    )
 
-    expect(log).toEqual('mise à jour: 1 activités')
+    expect(titresActivitesNew.length).toEqual(1)
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
     expect(titreActivitesQueries.titreActivitesUpsert).toHaveBeenCalled()
@@ -42,9 +46,13 @@ describe("activités d'un titre", () => {
     titreActivitesTypesFilter.default.mockImplementation(() => [1])
     titreActivitesBuild.default.mockImplementation(() => [])
 
-    const log = await titresActivitesTypesUpdate(titresToutesActivites, [], [])
+    const titresActivitesNew = await titresActivitesTypesUpdate(
+      titresToutesActivites,
+      [],
+      []
+    )
 
-    expect(log).toEqual('mise à jour: 0 activités')
+    expect(titresActivitesNew.length).toEqual(0)
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalled()
     expect(titreActivitesBuild.default).toHaveBeenCalled()
@@ -55,9 +63,13 @@ describe("activités d'un titre", () => {
   test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {
     titreActivitesTypesFilter.default.mockImplementation(() => [])
 
-    const log = await titresActivitesTypesUpdate(titresSansActivite, [], [])
+    const titresActivitesNew = await titresActivitesTypesUpdate(
+      titresSansActivite,
+      [],
+      []
+    )
 
-    expect(log).toEqual('mise à jour: 0 activités')
+    expect(titresActivitesNew.length).toEqual(0)
 
     expect(titreActivitesTypesFilter.default).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild.default).not.toHaveBeenCalled()

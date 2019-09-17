@@ -12,41 +12,39 @@ import entreprisesUpdate from './processes/entreprises-update'
 const run = async () => {
   try {
     // 1.
-    console.log('\nentreprises (API INSEE)…')
-    let entreprisesUpdates
-    if (process.env.INSEE_API_URL) {
-      const entreprises = await entreprisesGet()
-      const entreprisesEtablissements = await entreprisesEtablissementsGet()
-      entreprisesUpdates = await entreprisesUpdate(
-        entreprises,
-        entreprisesEtablissements
-      )
-    } else {
-      entreprisesUpdates = [
-        "API INSEE: connexion impossible car la variable d'environnement est absente"
-      ]
-    }
+    console.log()
+    console.log('entreprises (API INSEE)…')
+
+    const entreprises = await entreprisesGet()
+    const entreprisesEtablissements = await entreprisesEtablissementsGet()
+
+    const [
+      entreprisesUpdated = [],
+      etablissementsUpdated = []
+    ] = await entreprisesUpdate(entreprises, entreprisesEtablissements)
 
     // 2.
     // mise à jour des administrations grâce à l'API Administration
 
-    let administrationsUpdates
+    const departements = await departementsGet()
+    const administrations = await administrationsGet()
+    const administrationsUpdated = await administrationsUpdate(
+      administrations,
+      departements
+    )
 
-    if (process.env.ADMINISTRATION_API_URL) {
-      const departements = await departementsGet()
-      const administrations = await administrationsGet()
-      administrationsUpdates = await administrationsUpdate(
-        administrations,
-        departements
-      )
-    } else {
-      administrationsUpdates =
-        "API Administration: connexion impossible car la variable d'environnement est absente"
-    }
+    console.log()
+    console.log('tâches mensuelles exécutées:')
 
-    console.log('\ntâches mensuelles exécutées:')
-    console.log(entreprisesUpdates.join('\n'))
-    console.log(administrationsUpdates)
+    console.log(
+      `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`
+    )
+    console.log(
+      `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
+    )
+    console.log(
+      `mise à jour: ${administrationsUpdated.length} administration(s)`
+    )
   } catch (e) {
     console.log('erreur:', e)
   } finally {

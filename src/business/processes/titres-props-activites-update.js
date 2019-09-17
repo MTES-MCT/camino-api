@@ -8,7 +8,7 @@ const activitesProps = [
   { id: 'dep', prop: 'activitesDeposees' }
 ]
 const titresPropsActivitesUpdate = async titres => {
-  const titreUpdateRequests = titres.reduce((acc, titre) => {
+  const titresToUpdate = titres.reduce((acc, titre) => {
     const props = activitesProps.reduce((props, { id, prop }) => {
       const value = titrePropActivitesCount(titre.activites, id)
 
@@ -20,23 +20,26 @@ const titresPropsActivitesUpdate = async titres => {
     }, {})
 
     if (Object.keys(props).length) {
-      acc.push(async () => {
-        await titreUpdate(titre.id, props)
-        console.log(
-          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-        )
-      })
+      acc.push({ id: titre.id, ...props })
     }
 
     return acc
   }, [])
 
-  if (titreUpdateRequests.length) {
-    const queue = new PQueue({ concurrency: 100 })
-    await queue.addAll(titreUpdateRequests)
+  if (!titresToUpdate.length) {
+    return []
   }
 
-  return `mise à jour: ${titreUpdateRequests.length} titre(s) (propriétés-activités)`
+  const titresUpdated = titresToUpdate.map(({ id, ...props }) => async () => {
+    const titreUpdated = await titreUpdate(id, props)
+    console.log(`mise à jour: titre ${id} props: ${JSON.stringify(props)}`)
+
+    return titreUpdated
+  })
+
+  const queue = new PQueue({ concurrency: 100 })
+
+  return queue.addAll(titresUpdated)
 }
 
 export default titresPropsActivitesUpdate

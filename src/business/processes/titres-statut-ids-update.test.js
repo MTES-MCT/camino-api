@@ -13,16 +13,18 @@ console.log = jest.fn()
 
 describe("statut d'un titre", () => {
   test('met à jour un titre si son statut est obsolète', async () => {
-    expect(await titresStatutIdsUpdate(titresEchuStatutIdObselete)).toEqual(
-      'mise à jour: 1 titre(s) (statuts)'
+    const titresUpdatedRequests = await titresStatutIdsUpdate(
+      titresEchuStatutIdObselete
     )
+    expect(titresUpdatedRequests.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
 
   test("ne met pas à jour le statut d'un titre", async () => {
-    expect(await titresStatutIdsUpdate(titresValideStatutIdAJour)).toEqual(
-      'mise à jour: 0 titre(s) (statuts)'
+    const titresUpdatedRequests = await titresStatutIdsUpdate(
+      titresValideStatutIdAJour
     )
+    expect(titresUpdatedRequests.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
 })

@@ -26,13 +26,13 @@ const { INSEE_API_URL, INSEE_API_KEY, INSEE_API_SECRET } = process.env
 // utiliser `initializeToken` pour l'initialiser
 let apiToken
 
-const inseeTokenQuery = () => `${INSEE_API_URL}/token`
-
-const inseeMultiIdsSearch = (type, q) => {
-  return `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`
-}
-
 const tokenFetch = async () => {
+  if (!INSEE_API_URL) {
+    throw new Error(
+      "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
+    )
+  }
+
   console.info('API Insee: récupération du token')
 
   console.log('auth:', `${INSEE_API_KEY}:${INSEE_API_SECRET}`)
@@ -41,7 +41,7 @@ const tokenFetch = async () => {
     'base64'
   )
 
-  const response = await fetch(inseeTokenQuery(), {
+  const response = await fetch(`${INSEE_API_URL}/token`, {
     method: 'POST',
     body: 'grant_type=client_credentials',
     headers: {
@@ -52,7 +52,7 @@ const tokenFetch = async () => {
   })
 
   const result = await response.json()
-  if (response.status > 400 || !result || result.error) {
+  if (response.status >= 400 || !result || result.error) {
     throw result
   }
 
@@ -60,16 +60,24 @@ const tokenFetch = async () => {
 }
 
 const inseeFetch = async (type, q) => {
+  if (!INSEE_API_URL) {
+    throw new Error(
+      "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
+    )
+  }
   console.info(`API Insee: ${type}, ids: ${q}`)
 
-  const response = await fetch(inseeMultiIdsSearch(type, q), {
-    credentials: 'include',
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      authorization: `Bearer ${apiToken}`
+  const response = await fetch(
+    `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`,
+    {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        authorization: `Bearer ${apiToken}`
+      }
     }
-  })
+  )
 
   const result = await response.json()
 
@@ -121,10 +129,14 @@ const tokenInitialize = async () => {
 
     apiToken = result && result.access_token
 
+    if (!apiToken) {
+      throw new Error()
+    }
+
     return apiToken
   } catch (err) {
     const error = err.error ? `${err.error}: ${err.error_description}` : err
-    errorLog(`insee token generate`, error)
+    throw new Error(`impossible de générer le token de l'API INSEE ${error}`)
   }
 }
 
@@ -183,7 +195,7 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
     return acc
   }, [])
 
-  const queue = new PQueue({ concurrency: 10 })
+  const queue = new PQueue({ concurrency: 2 })
 
   const batchesResults = await queue.addAll(batchesQueries)
 

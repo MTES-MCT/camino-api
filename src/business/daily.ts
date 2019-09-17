@@ -7,6 +7,7 @@ import { communesGet } from '../database/queries/territoires'
 import { titresGet } from '../database/queries/titres'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
+
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
@@ -25,91 +26,103 @@ import titresPointsReferencesCreate from './processes/titres-points-references-c
 const run = async () => {
   try {
     // 1.
-    console.log('\nordre des étapes…')
+    console.log()
+    console.log('ordre des étapes…')
     const titresDemarches = await titresDemarchesGet()
-    const titresEtapesOrdre = await titresEtapesOrdreUpdate(titresDemarches)
-
-    // 2.
-    console.log('\nstatut des démarches…')
-    let titres = await titresGet()
-    const titresDemarchesStatutId = await titresDemarchesStatutIdUpdate(titres)
-
-    // 3.
-    console.log('\nordre des démarches…')
-    titres = await titresGet()
-    const titresDemarchesOrdre = await titresDemarchesOrdreUpdate(titres)
-
-    // 4.
-    console.log('\nstatut des titres…')
-    titres = await titresGet()
-    const titresStatutIds = await titresStatutIdsUpdate(titres)
-
-    // 5.
-    console.log('\nphases des titres…')
-    titres = await titresGet()
-    const titresPhases = await titresPhasesUpdate(titres)
-
-    // 6.
-    console.log('\ndate de début, de fin et de demande initiale des titres…')
-    titres = await titresGet()
-    const titresDates = await titresDatesUpdate(titres)
-
-    // 7.
-    console.log('\nréférences des points…')
-    titres = await titresGet()
-    const titresPointsReferences = await titresPointsReferencesCreate(titres)
-
-    // 8.
-    console.log('\ncommunes associées aux étapes…')
-    let titresEtapes
-    let titresEtapesCommunes
-    if (process.env.GEO_API_URL) {
-      titresEtapes = await titresEtapesGet()
-      const communes = await communesGet()
-      titresEtapesCommunes = await titresEtapesCommunesUpdate(
-        titresEtapes,
-        communes
-      )
-    } else {
-      titresEtapesCommunes = [
-        "\nAPI Géo Commune impossible: connexion impossible car la variable d'environnement est absente"
-      ]
-    }
-
-    // 9.
-    console.log('\nadministrations associées aux étapes…')
-    titres = await titresGet()
-    const administrations = await administrationsGet()
-    const titresEtapesAdministrations = await titresEtapesAdministrationsUpdate(
-      titres,
-      administrations
+    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
+      titresDemarches
     )
 
-    // 10.
-    console.log('\npropriétés des titres (liens vers les étapes)…')
+    // 2.
+    console.log()
+    console.log('statut des démarches…')
+    let titres = await titresGet()
+    const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
+      titres
+    )
+
+    // 3.
+    console.log()
+    console.log('ordre des démarches…')
     titres = await titresGet()
-    const titresPropsEtapeId = await titresPropsEtapeIdUpdate(titres)
+    const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
+
+    // 4.
+    console.log()
+    console.log('statut des titres…')
+    titres = await titresGet()
+    const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
+
+    // 5.
+    console.log()
+    console.log('phases des titres…')
+    titres = await titresGet()
+    const titresPhasesUpdated = await titresPhasesUpdate(titres)
+
+    // 6.
+    console.log()
+    console.log('date de début, de fin et de demande initiale des titres…')
+    titres = await titresGet()
+    const titresDatesUpdated = await titresDatesUpdate(titres)
+
+    // 7.
+    console.log()
+    console.log('références des points…')
+    titres = await titresGet()
+    const pointsReferencesCreated = await titresPointsReferencesCreate(titres)
+
+    // 8.
+    console.log()
+    console.log('communes associées aux étapes…')
+    let titresEtapes
+
+    titresEtapes = await titresEtapesGet()
+    const communes = await communesGet()
+    const [
+      titreCommunesUpdated = [],
+      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesDeleted = []
+    ] = await titresEtapesCommunesUpdate(titresEtapes, communes)
+
+    // 9.
+    console.log()
+    console.log('administrations associées aux étapes…')
+    titres = await titresGet()
+    const administrations = await administrationsGet()
+    const [
+      titresEtapesAdministrationsCreated = [],
+      titresEtapesAdministrationsDeleted = []
+    ] = await titresEtapesAdministrationsUpdate(titres, administrations)
+
+    // 10.
+    console.log()
+    console.log('propriétés des titres (liens vers les étapes)…')
+    titres = await titresGet()
+    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
 
     // 11.
     // pour les année 2018 et 2019 (en dur)
-    console.log('\nactivités des titres…')
+    console.log()
+    console.log('activités des titres…')
     const annees = [2018, 2019]
 
     titres = await titresGet()
     const activitesTypes = await activitesTypesGet()
-    const titresActivites = await titresActivitesUpdate(
+    const titresActivitesNew = await titresActivitesUpdate(
       titres,
       activitesTypes,
       annees
     )
 
     // 12.
-    console.log('\npropriétés des titres (activités abs, enc et dep)…')
+    console.log()
+    console.log('propriétés des titres (activités abs, enc et dep)…')
     titres = await titresGet()
-    const titresPropsActivites = await titresPropsActivitesUpdate(titres)
+    const titresPropsActivitesUpdated = await titresPropsActivitesUpdate(titres)
 
     // 13.
-    console.log('\nids de titres, démarches, étapes et sous-éléments…')
+    console.log()
+    console.log('ids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet(
       {
         domaineIds: null,
@@ -123,22 +136,50 @@ const run = async () => {
       },
       { format: false }
     )
-    const titresIds = await titresIdsUpdate(titres)
+    const titresUpdated = await titresIdsUpdate(titres)
 
-    console.log('\ntâches quotidiennes exécutées:')
-    console.log(titresEtapesOrdre)
-    console.log(titresDemarchesStatutId)
-    console.log(titresDemarchesOrdre)
-    console.log(titresStatutIds)
-    console.log(titresPhases)
-    console.log(titresDates)
-    console.log(titresPointsReferences)
-    console.log(titresEtapesCommunes.join('\n'))
-    console.log(titresEtapesAdministrations.join('\n'))
-    console.log(titresPropsEtapeId)
-    console.log(titresActivites)
-    console.log(titresPropsActivites)
-    console.log(titresIds)
+    console.log()
+    console.log('tâches quotidiennes exécutées:')
+    console.log(
+      `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
+    )
+    console.log(
+      `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
+    )
+    console.log(
+      `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
+    )
+    console.log(
+      `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
+    )
+    console.log(`mise à jour: ${titresPhasesUpdated.length} titre(s) (phases)`)
+    console.log(
+      `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
+    )
+    console.log(
+      `création: ${pointsReferencesCreated.length} référence(s) de points`
+    )
+    console.log(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
+    console.log(
+      `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes`
+    )
+    console.log(
+      `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
+    )
+    console.log(
+      `mise à jour: ${titresEtapesAdministrationsCreated.length} administration(s) ajoutée(s) dans des étapes`
+    )
+    console.log(
+      `mise à jour: ${titresEtapesAdministrationsDeleted.length} administration(s) supprimée(s) dans des étapes`
+    )
+    console.log(
+      `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+    )
+    console.log(`mise à jour: ${titresActivitesNew.length} activités`)
+    console.log(
+      `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
+    )
+    console.log(`mise à jour: ${titresUpdated.length} titre(s) (ids)`)
   } catch (e) {
     console.log('erreur:', e)
   } finally {

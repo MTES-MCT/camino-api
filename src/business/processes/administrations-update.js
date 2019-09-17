@@ -48,7 +48,7 @@ const administrationsUpdate = async (administrationsOld, departements) => {
     )
   }
 
-  return `mise à jour: ${administrationsUpdated.length} administration(s)`
+  return administrationsUpdated
 }
 
 export default administrationsUpdate
