@@ -15,13 +15,14 @@ import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-i
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
+import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
+import titresPointsReferencesCreate from './processes/titres-points-references-create'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 
-import { titresIdsUpdate } from './processes/titres-ids-update'
-import titresPointsReferencesCreate from './processes/titres-points-references-create'
+import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
 const run = async () => {
   try {
@@ -180,6 +181,13 @@ const run = async () => {
       `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )
     console.log(`mise à jour: ${titresUpdated.length} titre(s) (ids)`)
+
+    console.log()
+    console.log('exports vers les spreadsheets')
+
+    // export des activités vers la spreadsheet camino-db-titres-activites-prod
+    console.log('export des activités ')
+    await titreActivitesRowUpdate(titresActivitesNew)
   } catch (e) {
     console.log('erreur:', e)
   } finally {
