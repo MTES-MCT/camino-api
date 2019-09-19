@@ -10,9 +10,10 @@ const titreEtapePointsReferencesNewFind = titrePoints =>
         titrePointId: titrePoint.id,
         geoSystemeId: '4326',
         coordonnees: {
-          x: titrePoint.coordonnees.x.toString(),
-          y: titrePoint.coordonnees.y.toString()
-        }
+          x: titrePoint.coordonnees.x,
+          y: titrePoint.coordonnees.y
+        },
+        unite: 'degré'
       })
     }
 

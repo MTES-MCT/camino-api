@@ -30,13 +30,12 @@ const titresTables = [
   { name: 'titres_phases' },
   { name: 'titres_etapes', cb: { visas: JSON.parse, contenu: JSON.parse } },
   { name: 'titres_points' },
-  { name: 'titres_points_references', cb: { coordonnees: v => v.split(',') } },
+  { name: 'titres_points_references' },
   { name: 'titres_documents' },
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
   { name: 'titres_administrations' },
   { name: 'titres_amodiataires' },
-  { name: 'titres_emprises' },
   { name: 'titres_incertitudes' }
 ]
 
@@ -115,7 +114,6 @@ const spreadsheets = [
       { name: 'etapes_statuts' },
       { name: 'etapes_types__etapes_statuts' },
       { name: 'demarches_types__etapes_types' },
-      { name: 'emprises' },
       { name: 'geo_systemes' },
       { name: 'devises' },
       { name: 'volume_unites' }

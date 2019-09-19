@@ -37,9 +37,10 @@ describe("références des points d'un titre", () => {
 
     expect(queries.titrePointReferenceCreate).toHaveBeenCalledWith({
       id: 'point-id-4326',
-      coordonnees: { x: '0.1', y: '0.2' },
+      coordonnees: { x: 0.1, y: 0.2 },
       titrePointId: 'point-id',
-      geoSystemeId: '4326'
+      geoSystemeId: '4326',
+      unite: 'degré'
     })
     expect(console.log).toHaveBeenCalled()
   })

@@ -7,15 +7,6 @@ type Coordonnees {
   y: Float
 }
 
-"Paire de coordonnées de références"
-type CoordonneesReferences {
-  "La valeur des coordonnées en X sous forme d'un texte"
-  x: String
-
-  "La valeur des coordonnées en Y sous forme d'un texte"
-  y: String
-}
-
 "Point du périmètre géographique d'un titre (système géodésique WGS 84)"
 type Point {
   """
@@ -67,7 +58,9 @@ type PointReference {
   geoSysteme: GeoSysteme
 
   "Les coordonnées du point dans le système géodésique"
-  coordonnees: CoordonneesReferences
+  coordonnees: Coordonnees
+
+  unite: String
 
   opposable: Boolean
 }
@@ -93,7 +86,9 @@ input InputEtapePoint {
 input InputEtapePointReference {
   geoSystemeId: ID!
 
-  coordonnees: InputCoordonneesReferences
+  coordonnees: InputCoordonnees
+
+  unite: String
 
   opposable: Boolean
 }
@@ -102,10 +97,4 @@ input InputCoordonnees {
   x: Float
 
   y: Float
-}
-
-input InputCoordonneesReferences {
-  x: String
-
-  y: String
 }
