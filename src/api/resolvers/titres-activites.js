@@ -4,7 +4,7 @@ import { titrePermissionCheck } from './_titre'
 
 import {
   titreActiviteGet,
-  titreActiviteUpdate
+  titreActiviteUpdate as titreActiviteUpdateQuery
 } from '../../database/queries/titres-activites'
 import {
   utilisateurGet,
@@ -14,10 +14,8 @@ import { titreGet } from '../../database/queries/titres'
 
 import permissionsCheck from './_permissions-check'
 
-import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
-
 import emailsSend from '../../tools/emails-send'
-import titreActivitePropUpdate from '../../business/titre-activite-props-update'
+import titreActiviteUpdate from '../../business/titre-activite-update'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
   const user = await utilisateurGet(context.user.id)
@@ -49,11 +47,9 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   activite.utilisateurId = context.user.id
   activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
 
-  const activiteRes = await titreActiviteUpdate(activite.id, activite)
+  const activiteRes = await titreActiviteUpdateQuery(activite.id, activite)
 
-  await titreActivitePropUpdate(titre.id)
-
-  titreActivitesRowUpdate([activiteRes])
+  await titreActiviteUpdate(activiteRes.id)
 
   if (activiteRes.activiteStatutId === 'dep') {
     const isAmodiataire = titre.amodiataires.some(
