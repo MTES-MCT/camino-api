@@ -17,7 +17,6 @@ const metas = [
   'etapesStatuts',
   'etapes-types--etapes-statuts',
   'phasesStatuts',
-  'emprises',
   'devises',
   'volumeUnites',
   'geoSystemes'
@@ -70,7 +69,6 @@ const titresFiles = [
   'titresDemarches',
   'titresDemarchesLiens',
   'titresEtapes',
-  'titresEmprises',
   'titresPoints',
   'titresPointsReferences',
   'titresDocuments',

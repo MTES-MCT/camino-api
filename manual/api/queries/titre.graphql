@@ -127,10 +127,6 @@ fragment etape on Etape {
     nom
     couleur
   }
-  emprises {
-    id
-    nom
-  }
   administrations {
     ...administration
   }

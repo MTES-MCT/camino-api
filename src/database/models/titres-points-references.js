@@ -15,10 +15,11 @@ export default class TitresPointsReferences extends Model {
       coordonnees: {
         type: 'object',
         properties: {
-          x: { type: 'string' },
-          y: { type: 'string' }
+          x: { type: 'number' },
+          y: { type: 'number' }
         }
       },
+      unite: { type: 'string' },
       opposable: { type: ['boolean', 'null'] }
     }
   }
@@ -34,15 +35,6 @@ export default class TitresPointsReferences extends Model {
     }
   }
 
-  $formatDatabaseJson(json) {
-    if (json.coordonnees) {
-      json.coordonnees = [json.coordonnees.x, json.coordonnees.y]
-    }
-    json = super.$formatDatabaseJson(json)
-
-    return json
-  }
-
   $parseJson(json) {
     json = super.$parseJson(json)
 
@@ -53,12 +45,12 @@ export default class TitresPointsReferences extends Model {
     return json
   }
 
-  $parseDatabaseJson(json) {
-    json = super.$parseDatabaseJson(json)
-
-    if (json && json.coordonnees) {
-      json.coordonnees = { x: json.coordonnees[0], y: json.coordonnees[1] }
+  $formatDatabaseJson(json) {
+    if (json.coordonnees) {
+      json.coordonnees = `${json.coordonnees.x},${json.coordonnees.y}`
     }
+
+    json = super.$formatDatabaseJson(json)
 
     return json
   }

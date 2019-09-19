@@ -44,7 +44,7 @@ const communes = {
 }
 
 const etapes = {
-  eager: `[points.${points.eager}, type, statut, documents, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, emprises, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
+  eager: `[points.${points.eager}, type, statut, documents, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
 
   update: {
     relate: [
@@ -66,7 +66,6 @@ const etapes = {
       'administrations.utilisateurs.permission',
       'substances',
       'substances.legales',
-      'emprises',
       'engagementDevise',
       'volumeUnite',
       'points.references.geoSysteme',
@@ -93,7 +92,6 @@ const etapes = {
       'administrations.utilisateurs.permission',
       'substances',
       'substances.legales',
-      'emprises',
       'engagementDevise',
       'volumeUnite',
       'points.references.geoSysteme',

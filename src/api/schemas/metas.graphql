@@ -19,9 +19,6 @@ type Metas {
 
   "Unités de volume utilisées dans Camino"
   volumeUnites: [VolumeUnite]
-
-  "Les emprises territoriales"
-  emprises: [Emprise]
 }
 
 "Le domaine minier"
@@ -170,7 +167,7 @@ type Devise {
   nom: String!
 }
 
-"Système géodésique"
+"Système géographique"
 type GeoSysteme {
   id: ID!
 
@@ -178,16 +175,7 @@ type GeoSysteme {
 
   zone: String
 
-  unite: String
-}
-
-"L'emprise géographique d'un titre minier"
-type Emprise {
-  "L'id composée de trois lettres"
-  id: ID!
-
-  "Le nom en français"
-  nom: String!
+  uniteType: String
 }
 
 """

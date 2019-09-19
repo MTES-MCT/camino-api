@@ -16,7 +16,6 @@ const demarchesTypes_etapesTypes = require('../../sources/demarches-types--etape
 const etapesStatuts = require('../../sources/etapes-statuts.json')
 // eslint-disable-next-line camelcase
 const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
-const emprises = require('../../sources/emprises.json')
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
 const volumeUnites = require('../../sources/volume-unites.json')
@@ -28,7 +27,6 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('demarchesTypes__etapesTypes'),
     del('etapesTypes__etapesStatuts'),
     del('statuts'),
-    del('emprises'),
     del('geoSystemes'),
     del('devises'),
     del('volumeUnites')
@@ -49,7 +47,6 @@ exports.seed = seeding(async ({ del, insert }) => {
     insert('phasesStatuts', phasesStatuts),
     insert('demarchesTypes', demarchesTypes),
     insert('etapesTypes', etapesTypes),
-    insert('emprises', emprises),
     insert('demarchesStatuts', demarchesStatuts),
     insert('etapesStatuts', etapesStatuts),
     insert('geoSystemes', geoSystemes),

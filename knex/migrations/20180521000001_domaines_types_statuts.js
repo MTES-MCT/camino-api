@@ -27,10 +27,6 @@ exports.up = knex => {
       table.boolean('archive')
       table.primary(['domaineId', 'typeId'])
     })
-    .createTable('emprises', table => {
-      table.string('id', 3).primary()
-      table.string('nom').notNullable()
-    })
     .createTable('statuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
@@ -44,5 +40,4 @@ exports.down = knex => {
     .dropTable('domaines')
     .dropTable('types')
     .dropTable('statuts')
-    .dropTable('emprises')
 }

@@ -6,7 +6,6 @@ import TitresPoints from './titres-points'
 import Entreprises from './entreprises'
 import Administrations from './administrations'
 import TitresDocuments from './titres-documents'
-import Emprises from './emprises'
 import Communes from './communes'
 import titresIncertitudes from './titres-incertitudes'
 import Devises from './devises'
@@ -129,19 +128,6 @@ export default class TitresEtapes extends Model {
       join: {
         from: 'titresEtapes.id',
         to: 'titresDocuments.titreEtapeId'
-      }
-    },
-
-    emprises: {
-      relation: Model.ManyToManyRelation,
-      modelClass: Emprises,
-      join: {
-        from: 'titresEtapes.id',
-        through: {
-          from: 'titresEmprises.titreEtapeId',
-          to: 'titresEmprises.empriseId'
-        },
-        to: 'emprises.id'
       }
     },
 

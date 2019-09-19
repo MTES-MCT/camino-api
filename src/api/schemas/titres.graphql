@@ -185,9 +185,6 @@ type Etape {
   "La devise de l'engagement financier du titulaire"
   engagementDevise: Devise
 
-  "L'emprise géographique du titre"
-  emprises: [Emprise]
-
   "Les substances concernées par le titre"
   substances: [TitreSubstance]
 
@@ -348,8 +345,6 @@ input InputEtapeCreation {
 
   engagementDeviseId: ID
 
-  emprisesIds: [ID!]
-
   substancesIds: [ID!]
 
   points: [InputEtapePoint]
@@ -395,8 +390,6 @@ input InputEtapeModification {
   engagement: Float
 
   engagementDeviseId: ID
-
-  emprisesIds: [ID!]
 
   substancesIds: [ID!]
 

@@ -138,7 +138,7 @@ const organismesDepartementsGet = async departementsIdsNoms => {
       organismeDepartementGet(departementId, nom)
   )
 
-  const queue = new PQueue({ concurrency: 100 })
+  const queue = new PQueue({ concurrency: 10 })
 
   return queue.addAll(administrationsOrganismesRequests)
 }
