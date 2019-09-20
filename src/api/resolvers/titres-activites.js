@@ -1,7 +1,6 @@
 import * as dateFormat from 'dateformat'
-import titresActivitesEmailFormat from './titres-activites-email-format'
-
-import auth from './_auth'
+import titreActiviteEmailFormat from './_titre-activite-email-format'
+import { titrePermissionCheck } from './_titre'
 
 import {
   titreActiviteGet,
@@ -25,7 +24,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   const activiteOld = await titreActiviteGet(activite.id)
   const titre = await titreGet(activiteOld.titreId)
 
-  if (!auth(user, titre, ['admin', 'super'], true)) {
+  if (!titrePermissionCheck(titre, user, ['admin', 'super'], true)) {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
@@ -72,7 +71,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
         : ''
     } ${activiteRes.annee}`
     const subject = `[Camino] ${emailTitle}`
-    const html = titresActivitesEmailFormat(emailTitle, user, activiteRes)
+    const html = titreActiviteEmailFormat(emailTitle, user, activiteRes)
 
     await emailsSend(emails, subject, html)
   }

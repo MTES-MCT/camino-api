@@ -1,6 +1,6 @@
 import { titresGet } from '../../database/queries/titres'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
-import { titreIsPublicTest } from './_restrictions'
+import { titreIsPublicCheck } from './_titre'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiques = async () => {
@@ -8,7 +8,7 @@ const statistiques = async () => {
   const titresTotal = titres.length
 
   const titresValide = titres.filter(titre => {
-    const titreIsPublic = titreIsPublicTest(titre)
+    const titreIsPublic = titreIsPublicCheck(titre)
 
     return titreIsPublic ? titre : null
   }).length

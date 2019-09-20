@@ -1,11 +1,10 @@
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
-import auth from './_auth'
-import { titreIsPublicTest } from './_restrictions'
+import { titreRestrict, titresRestrict } from './_titre'
 
-import formatBuild from './_format'
-import eagerBuild from './_eager'
-import { titreEagerFormat } from './_eager-titres'
+import fieldsBuild from './_fields-build'
+import eagerBuild from './_eager-build'
+import titreEagerFormat from './_titre-eager-format'
 
 import {
   titreGet,
@@ -14,68 +13,24 @@ import {
   titreUpdate,
   titreDelete
 } from '../../database/queries/titres'
-
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreUpdateTask from '../../business/titre-update'
 
 import titreUpdationValidate from '../../business/titre-updation-validate'
 
-const titreRestrictions = titre => {
-  titre.activites = []
-  titre.activitesAbsentes = null
-  titre.activitesDeposees = null
-  titre.activitesEnConstruction = null
-  if (titre.demarches) {
-    titre.demarches.forEach(td => {
-      if (td.etapes) {
-        td.etapes.forEach(te => {
-          if (te.documents) {
-            te.documents = te.documents.filter(ed => ed.public)
-          }
-
-          if (te.visas) {
-            delete te.visas
-          }
-        })
-      }
-    })
-  }
-
-  return titre
-}
-
-const titrePermissionsCheck = (user, titre) => {
-  const userHasAccess = user && auth(user, titre, ['admin', 'super', 'editeur'])
-
-  // Si l'utilisateur est authentifié et qu'il a un droit d'accès supérieur
-  // alors il peut voir n'importe quel titre
-  if (userHasAccess) {
-    return titre
-  }
-
-  const titreIsPublic = titreIsPublicTest(titre)
-
-  // Sinon, que l'utilisateur soit authentifié ou non
-  // on vérifie si le titre est public
-  if (titreIsPublic) {
-    return titreRestrictions(titre)
-  }
-
-  return null
-}
-
 const titre = async ({ id }, context, info) => {
+  const fields = fieldsBuild(info)
   const titre = await titreGet(id, {
-    eager: eagerBuild(info, { format: titreEagerFormat, root: 'titre' }),
-    format: formatBuild(info)
+    eager: eagerBuild(fields, { format: titreEagerFormat, root: 'titre' }),
+    format: fields
   })
 
   if (!titre) return null
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titrePermissionsCheck(user, titre)
+  return titreRestrict(titre, user)
 }
 
 const titres = async (
@@ -92,6 +47,7 @@ const titres = async (
   context,
   info
 ) => {
+  const fields = fieldsBuild(info)
   const titres = await titresGet(
     {
       typeIds,
@@ -104,14 +60,14 @@ const titres = async (
       territoires
     },
     {
-      eager: eagerBuild(info, { format: titreEagerFormat, root: 'titres' }),
-      format: formatBuild(info)
+      eager: eagerBuild(fields, { format: titreEagerFormat, root: 'titres' }),
+      format: fields
     }
   )
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titres.filter(titre => titrePermissionsCheck(user, titre))
+  return titresRestrict(titres, user)
 }
 
 const titreCreer = async ({ titre }, context, info) => {

@@ -1,7 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import * as emailRegex from 'email-regex'
-import * as cryptoRandomString from 'crypto-random-string'
 import emailsSend from '../../tools/emails-send'
 
 import {
@@ -16,44 +15,18 @@ import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
 import permissionsCheck from './_permissions-check'
 
-const permissionsVisibleForAdmin = [
-  'admin',
-  'editeur',
-  'lecteur',
-  'entreprise',
-  'onf',
-  'defaut'
-]
-
-const userIdGenerate = async () => {
-  const id = cryptoRandomString({ length: 6 })
-  const utilisateurWithTheSameId = await utilisateurGet(id)
-  if (utilisateurWithTheSameId) {
-    return userIdGenerate()
-  }
-
-  return id
-}
+import {
+  userIdGenerate,
+  utilisateursRestrict,
+  utilisateurRestrict
+} from './_utilisateur'
 
 const utilisateur = async ({ id }, context, info) => {
-  if (
-    permissionsCheck(context.user, ['super']) ||
-    (context.user && context.user.id === id)
-  ) {
-    return utilisateurGet(id)
-  }
-
-  if (!permissionsCheck(context.user, ['admin'])) {
-    return null
-  }
-
   const utilisateur = await utilisateurGet(id)
 
-  if (permissionsCheck(utilisateur, permissionsVisibleForAdmin)) {
-    return utilisateur
-  }
+  const user = context.user && (await utilisateurGet(context.user.id))
 
-  return null
+  return utilisateurRestrict(utilisateur, user)
 }
 
 const utilisateurs = async (
@@ -61,16 +34,6 @@ const utilisateurs = async (
   context,
   info
 ) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    return null
-  }
-
-  if (permissionsCheck(context.user, ['admin'])) {
-    permissionIds = permissionIds
-      ? permissionIds.filter(id => permissionsVisibleForAdmin.includes(id))
-      : permissionsVisibleForAdmin
-  }
-
   const utilisateurs = await utilisateursGet({
     noms,
     entrepriseIds,
@@ -78,7 +41,9 @@ const utilisateurs = async (
     permissionIds
   })
 
-  return utilisateurs.filter(({ email }) => email)
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  return utilisateursRestrict(utilisateurs, user)
 }
 
 const utilisateurIdentifier = async (variables, context, info) => {
