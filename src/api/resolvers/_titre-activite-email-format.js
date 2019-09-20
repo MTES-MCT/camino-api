@@ -33,7 +33,7 @@ ${sectionNomHtml}
     `
 }
 
-const titresActivitesEmailFormat = (
+const titreActiviteEmailFormat = (
   emailTitle,
   user,
   { contenu, titreId, dateSaisie, sections }
@@ -65,4 +65,4 @@ ${body}
 `
 }
 
-export default titresActivitesEmailFormat
+export default titreActiviteEmailFormat

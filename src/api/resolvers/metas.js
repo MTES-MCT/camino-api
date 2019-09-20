@@ -1,9 +1,8 @@
 import permissionsCheck from './_permissions-check'
-
 import {
   restrictedDomaineIds,
-  restrictedStatutIds,
-  restrictedTypeIds
+  restrictedTypeIds,
+  restrictedStatutIds
 } from './_restrictions'
 
 import {

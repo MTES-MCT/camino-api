@@ -93,4 +93,4 @@ const titreEagerFormat = (fields, parent) => {
   return fields
 }
 
-export { titreEagerFormat }
+export default titreEagerFormat

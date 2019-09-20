@@ -1,5 +1,3 @@
-import * as graphqlFields from 'graphql-fields'
-
 // in: objet {cle1: { id: {}}, cle2: {id: {}}}
 // out: array ["cle1", "cle2"]
 const fieldsToArray = (fields, format) => {
@@ -30,7 +28,10 @@ const fieldsToArray = (fields, format) => {
   }, [])
 }
 
-// in: objet {cle1: { id: {}}, cle2: {cle3: {id: {}}, cle4: {id: {}}}}
+// in:
+// - fields: (objet) {cle1: { id: {}}, cle2: {cle3: {id: {}}, cle4: {id: {}}}}
+// - parent: (string) le nom du parent
+// - format: (function)
 // out: string "[cle1, cle2.[cle3, cle4]]"
 const fieldsToString = (fields, parent, format) => {
   const fieldsArray = fieldsToArray(format(fields, parent), format)
@@ -43,17 +44,14 @@ const fieldsToString = (fields, parent, format) => {
 // optimise la requête Sql en demandant uniquement les champs
 // qui sont requis par le client GraphQl
 // in:
-// - info: objet contenant les propriétés de la requête graphQl
+// - fields: objet contenant les champs de la requête graphQl
 // - format: fonction qui transforme l'objet
 // - root: nom du nœud racine
 // out: string de eager pour la requête avec objection.js
 const eagerBuild = (
-  info,
+  fields,
   { format = (fields, parent) => fields, root = 'root' } = {}
 ) => {
-  // transforme la requête graphQl en un AST
-  const fields = graphqlFields(info, {}, { excludedFields: ['__typename'] })
-
   // in: AST de la requête GraphQl
   // out: string au format 'eager' de objection.js
   return fieldsToString(fields, root, format)

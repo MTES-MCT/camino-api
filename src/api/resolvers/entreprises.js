@@ -2,31 +2,58 @@ import {
   entrepriseGet,
   entreprisesGet
 } from '../../database/queries/entreprises'
+import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import permissionsCheck from './_permissions-check'
+import fieldsBuild from './_fields-build'
+import eagerBuild from './_eager-build'
+import titreEagerFormat from './_titre-eager-format'
+import { titresRestrict } from './_titre'
+import { utilisateursRestrict } from './_utilisateur'
 
-import eagerBuild from './_eager'
-import { titreEagerFormat } from './_eager-titres'
+const entrepriseRestrict = (entreprise, user) => {
+  entreprise.titresTitulaire = titresRestrict(entreprise.titresTitulaire, user)
+  entreprise.titresAmodiataire = titresRestrict(
+    entreprise.titresAmodiataire,
+    user
+  )
+  entreprise.utilisateurs = utilisateursRestrict(entreprise.utilisateurs, user)
+
+  return entreprise
+}
+
+const entreprisesRestrict = (entreprises, user) =>
+  entreprises.map(entreprise => entrepriseRestrict(entreprise, user))
 
 const entreprise = async ({ id }, context, info) => {
-  if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
-    const eager = eagerBuild(info, {
+  const fields = fieldsBuild(info)
+
+  const entreprise = await entrepriseGet(id, {
+    eager: eagerBuild(fields, {
       format: titreEagerFormat,
       root: 'entreprise'
     })
+  })
 
-    return entrepriseGet(id, { eager })
-  }
+  const user = context.user && (await utilisateurGet(context.user.id))
 
-  return null
+  return entrepriseRestrict(entreprise, user)
 }
 
 const entreprises = async ({ noms }, context, info) => {
-  if (context.user && permissionsCheck(context.user, ['super', 'admin'])) {
-    return entreprisesGet({ noms }, { eager: eagerBuild(info) })
-  }
+  const fields = fieldsBuild(info)
+  const entreprises = await entreprisesGet(
+    { noms },
+    {
+      eager: eagerBuild(fields, {
+        format: titreEagerFormat,
+        root: 'entreprise'
+      })
+    }
+  )
 
-  return []
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  return entreprisesRestrict(entreprises, user)
 }
 
 export { entreprise, entreprises }

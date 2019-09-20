@@ -1,4 +1,4 @@
-import auth from './_auth'
+import { titrePermissionCheck } from './_titre'
 import { titreDocumentGet } from '../../database/queries/titres-documents'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
@@ -32,7 +32,7 @@ const documentNameGet = async (userId, titreDocumentId) => {
   const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
   const titre = await titreGet(titreDemarche.titreId)
 
-  if (!auth(user, titre, ['admin', 'super', 'editeur'])) {
+  if (!titrePermissionCheck(titre, user, ['admin', 'super', 'editeur'])) {
     throw new Error('permissions insuffisantes')
   }
 
