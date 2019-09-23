@@ -9,10 +9,12 @@ import spreadsheet from './spreadsheets/titres-activites'
 
 const table = spreadsheet.tables[0]
 
-const titreActivitesRowUpdate = async (
-  activites,
-  idGet = values => values[0]
-) => {
+// in:
+// - activites: (Array) titresActivites
+// - titresUpdatedIdsIndex: (Object) { titre1Id: titre1OldId, titre2Id: titre2OldId }
+const titreActivitesRowUpdate = async (activites, titresUpdatedIdsIndex) => {
+  if (!activites.length) return null
+
   try {
     // l'API Google ne permet pas de mettre à jour une ligne
     // en fonction de la valeur d'une de ses cellules (id)
@@ -30,27 +32,48 @@ const titreActivitesRowUpdate = async (
 
     const requests = activites.map(activite => {
       const values = rowFormat(activite, table.columns, null, table.callbacks)
+      const titreOldId =
+        titresUpdatedIdsIndex && titresUpdatedIdsIndex[activite.titreId]
 
-      const id = idGet(values)
-      const rowIndex = rowIndexFind(worksheet, id)
+      // si le titre a changé d'id
+      // on doit remplacer la nouvelle id du titre dans l'id de l'activité
+      // pour la retrouver et la mettre à jour dans la spreadsheet
+      const titreActiviteId = titreOldId
+        ? activite.id.replace(activite.titreId, titreOldId)
+        : activite.id
+      const rowIndex = rowIndexFind(worksheet, titreActiviteId)
       const sheetId = table.id
 
       const rows = [
-        { values: values.map(v => ({ userEnteredValue: { stringValue: v } })) }
+        {
+          values: values.map(v => ({
+            userEnteredValue: {
+              stringValue: v
+            }
+          }))
+        }
       ]
       const fields = '*'
 
-      return rowIndex > 0
-        ? // si l'activité existe déjà, on la met à jour
-          {
+      return rowIndex > 0 // si l'activité existe déjà, on la met à jour
+        ? {
             updateCells: {
-              start: { sheetId, rowIndex, columnIndex: 0 },
+              start: {
+                sheetId,
+                rowIndex,
+                columnIndex: 0
+              },
+              rows,
+              fields
+            }
+          } // sinon on la créée
+        : {
+            appendCells: {
+              sheetId,
               rows,
               fields
             }
           }
-        : // sinon on la créée
-          { appendCells: { sheetId, rows, fields } }
     })
 
     await spreadsheetBatchUpdate(credentials, spreadsheet.id, requests)
@@ -59,8 +82,8 @@ const titreActivitesRowUpdate = async (
   }
 }
 
-const rowIndexFind = (worksheet, id) => {
-  return worksheet.values.findIndex(([rowId]) => rowId === id)
+const rowIndexFind = (worksheet, titreActiviteId) => {
+  return worksheet.values.findIndex(([rowId]) => rowId === titreActiviteId)
 }
 
 export { titreActivitesRowUpdate }

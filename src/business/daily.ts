@@ -102,14 +102,13 @@ const run = async () => {
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
 
     // 11.
-    // pour les année 2018 et 2019 (en dur)
     console.log()
     console.log('activités des titres…')
     const annees = [2018, 2019]
 
     titres = await titresGet()
     const activitesTypes = await activitesTypesGet()
-    const titresActivitesNew = await titresActivitesUpdate(
+    let titresActivitesCreated = await titresActivitesUpdate(
       titres,
       activitesTypes,
       annees
@@ -137,7 +136,26 @@ const run = async () => {
       },
       { format: false }
     )
-    const titresUpdated = await titresIdsUpdate(titres)
+    const { titresUpdated = [], titresUpdatedIdsIndex } = await titresIdsUpdate(
+      titres
+    )
+    let titresActivitesUpdated = []
+    if (Object.keys(titresUpdatedIdsIndex).length) {
+      titresActivitesUpdated = titresUpdated.reduce(
+        (titresActivites, titreUpdated) => {
+          if (titreUpdated.activites.length) {
+            titresActivites.push(...titreUpdated.activites)
+          }
+
+          return titresActivites
+        },
+        []
+      )
+
+      titresActivitesCreated = titresActivitesCreated.filter(
+        (tac: any) => !titresUpdatedIdsIndex[tac.titreId]
+      )
+    }
 
     console.log()
     console.log('tâches quotidiennes exécutées:')
@@ -176,7 +194,7 @@ const run = async () => {
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(`mise à jour: ${titresActivitesNew.length} activités`)
+    console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
     console.log(
       `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )
@@ -186,8 +204,11 @@ const run = async () => {
     console.log('exports vers les spreadsheets')
 
     // export des activités vers la spreadsheet camino-db-titres-activites-prod
-    console.log('export des activités ')
-    await titreActivitesRowUpdate(titresActivitesNew)
+    console.log('export des activités…')
+    await titreActivitesRowUpdate(
+      [...titresActivitesCreated, ...titresActivitesUpdated],
+      titresUpdatedIdsIndex
+    )
   } catch (e) {
     console.log('erreur:', e)
   } finally {

@@ -4,7 +4,11 @@ const googleSheets = google.sheets('v4')
 const spreadsheetsGet = async (cred, spreadsheetId, ranges) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.values.batchGet(
-      { auth: authGet(cred), spreadsheetId, ranges },
+      {
+        auth: authGet(cred),
+        spreadsheetId,
+        ranges
+      },
       (err, res) => (err ? reject(err) : resolve(res.data.valueRanges))
     )
   )
@@ -12,7 +16,10 @@ const spreadsheetsGet = async (cred, spreadsheetId, ranges) =>
 const spreadsheetGet = async (cred, spreadsheetId) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.get(
-      { auth: authGet(cred), spreadsheetId },
+      {
+        auth: authGet(cred),
+        spreadsheetId
+      },
       (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )

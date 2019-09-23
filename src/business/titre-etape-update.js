@@ -19,8 +19,9 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
-
 import { titreIdsUpdate } from './processes/titres-ids-update'
+
+import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
 const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // 1.
@@ -33,7 +34,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   // 2.
   console.log('statut des démarches…')
   titreDemarche = await titreDemarcheGet(titreDemarcheId)
-  const { titreId } = titreDemarche
+  let { titreId } = titreDemarche
   let titre = await titreGet(titreId)
   const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
     titre
@@ -97,7 +98,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
 
   titre = await titreGet(titreId)
   const activitesTypes = await activitesTypesGet()
-  const titresActivitesNew = await titresActivitesUpdate(
+  let titresActivitesCreated = await titresActivitesUpdate(
     [titre],
     activitesTypes,
     annees
@@ -111,8 +112,18 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
 
   // 13.
   console.log('ids de titres, démarches, étapes et sous-éléments…')
-  titre = await titreGet(titreId, { format: false })
+  titre = await titreGet(titreId, {
+    format: false
+  })
   const titreUpdated = await titreIdsUpdate(titre)
+  let titresUpdatedIdsIndex
+  if (titreUpdated && titre.id !== titreUpdated.id) {
+    titresActivitesCreated = titreUpdated.activites
+    titreId = titreUpdated.id
+    titresUpdatedIdsIndex = {
+      [titreId]: titre.id
+    }
+  }
 
   console.log(
     `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
@@ -144,14 +155,20 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   console.log(
     `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
   )
-  console.log(`mise à jour: ${titresActivitesNew.length} activités`)
+  console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
   console.log(
     `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
   )
-  console.log(`mise à jour: 1 titre(s) (ids)`)
+  console.log(`mise à jour: ${titreUpdated ? '1' : '0'} titre(s) (ids)`)
+
+  if (titresActivitesCreated.length) {
+    // export des activités vers la spreadsheet camino-db-titres-activites-prod
+    console.log('export des activités…')
+    await titreActivitesRowUpdate(titresActivitesCreated, titresUpdatedIdsIndex)
+  }
 
   // on récupère le titre bien formaté
-  return titreGet(titreUpdated.id)
+  return titreGet(titreId)
 }
 
 export default titreEtapeUpdate

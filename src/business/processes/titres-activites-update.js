@@ -8,7 +8,7 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
   // - doit on supprimer des activités (pe: si un titre change de périmètre)
   const processedTitres = {}
 
-  const titresActivitesNew = titres
+  const titresActivitesCreated = titres
     // formate les pays des titres
     .reduce((acc, titre) => {
       // TODO: à supprimer une fois que
@@ -35,15 +35,15 @@ const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
       return acc
     }, [])
 
-  if (titresActivitesNew.length) {
-    await titreActivitesUpsert(titresActivitesNew)
+  if (titresActivitesCreated.length) {
+    await titreActivitesUpsert(titresActivitesCreated)
 
     console.log(
-      `création: activité ${titresActivitesNew.map(ta => ta.id).join(', ')}`
+      `création: activité ${titresActivitesCreated.map(ta => ta.id).join(', ')}`
     )
   }
 
-  return titresActivitesNew
+  return titresActivitesCreated
 }
 
 export default titresActivitesUpdate

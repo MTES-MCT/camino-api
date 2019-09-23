@@ -26,6 +26,7 @@
     "db:user": "node ./knex/user-add.js",
     "dev": "nodemon",
     "dev:daily": "ts-node --transpile-only ./src/business/daily.ts",
+    "dev:daily-debug": "node -r ts-node/register --inspect-brk=8080 ./src/business/daily.ts",
     "dev:export": "ts-node --transpile-only ./src/tools/export/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
     "dev:import-check": "ts-node --transpile-only ./src/tools/dev/json/import-check.js",
@@ -187,8 +188,7 @@
   "esdoc": {
     "source": "./src",
     "destination": "./docs",
-    "plugins": [
-      {
+    "plugins": [{
         "name": "esdoc-standard-plugin",
         "option": {
           "manual": {

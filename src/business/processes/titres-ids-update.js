@@ -2,7 +2,6 @@ import PQueue from 'p-queue'
 
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreIdUpdate as titreIdUpdateQuery } from '../../database/queries/titres'
-import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
 const titreIdUpdate = async (titreOld, titreNew) => {
   // TODO
@@ -10,18 +9,8 @@ const titreIdUpdate = async (titreOld, titreNew) => {
   // vérifier dans tous les titres si cet id existe déjà
   // si l'id existe déja, on modifie le nom en ajoutant un chiffre
   await titreIdUpdateQuery(titreOld.id, titreNew)
-  console.log(`mise à jour: titre ids: ${titreNew.id}`)
 
-  // met à jour toutes les activités dans la spreadsheet
-  if (
-    titreOld.id !== titreNew.id &&
-    titreNew.activites &&
-    titreNew.activites.length
-  ) {
-    const idGet = titreActiviteId =>
-      titreActiviteId.replace(titreNew.id, titreOld.id)
-    await titreActivitesRowUpdate(titreNew.activites, idGet)
-  }
+  console.log(`mise à jour: titre ids: ${titreNew.id}`)
 
   return titreNew
 }
@@ -29,20 +18,24 @@ const titreIdUpdate = async (titreOld, titreNew) => {
 const titreIdsUpdate = async titreOld => {
   const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
 
-  if (hasChanged) {
-    await titreIdUpdate(titreOld, titreNew)
+  if (!hasChanged) {
+    return null
   }
 
-  return titreNew
+  return titreIdUpdate(titreOld, titreNew)
 }
 
 const titresIdsUpdate = async titresOld => {
   // async reduce pour traiter les titres les uns après les autres
-  const titresUpdatedRequests = titresOld.reduce(
-    (titresUpdatedRequests, titreOld) => {
+  const { titresUpdatedRequests, titresUpdatedIdsIndex } = titresOld.reduce(
+    ({ titresUpdatedRequests, titresUpdatedIdsIndex }, titreOld) => {
       const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
 
       if (hasChanged) {
+        if (titreNew.id !== titreOld.id) {
+          titresUpdatedIdsIndex[titreNew.id] = titreOld.id
+        }
+
         titresUpdatedRequests.push(() =>
           titreIdUpdate(titreOld, titreNew).catch(e => {
             console.error(`erreur: titreIdUpdate ${titreOld.id}`)
@@ -53,25 +46,39 @@ const titresIdsUpdate = async titresOld => {
         )
       }
 
-      return titresUpdatedRequests
+      return {
+        titresUpdatedRequests,
+        titresUpdatedIdsIndex
+      }
     },
-    []
+    {
+      titresUpdatedRequests: [],
+      titresUpdatedIdsIndex: {}
+    }
   )
 
   // on stock les titres qui ont bien été mis à jour
   let titresUpdated = []
 
   if (!titresUpdatedRequests.length) {
-    return []
+    return {
+      titresUpdated,
+      titresUpdatedIdsIndex
+    }
   }
 
   // attention : les transactions ne peuvent pas être exécutées en parallèle
-  const queue = new PQueue({ concurrency: 1 })
+  const queue = new PQueue({
+    concurrency: 1
+  })
   titresUpdated = await queue.addAll(titresUpdatedRequests)
   // filtre les titres ayant étés réellement mis à jour
   titresUpdated = titresUpdated.filter(e => e)
 
-  return titresUpdated
+  return {
+    titresUpdated,
+    titresUpdatedIdsIndex
+  }
 }
 
 export { titresIdsUpdate, titreIdsUpdate }
