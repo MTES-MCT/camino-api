@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.4](https://github.com/MTES-MCT/camino-api/compare/v0.24.2...v0.24.4) (2019-09-23)
+
+
+### Bug Fixes
+
+* **api:** corrige le formatage de la requête en base ([#157](https://github.com/MTES-MCT/camino-api/issues/157)) ([1171a65](https://github.com/MTES-MCT/camino-api/commit/1171a65))
+* **api:** ordonne les activités, démarches, étapes, etc ([f0a8ff4](https://github.com/MTES-MCT/camino-api/commit/f0a8ff4))
+* **business:** ajout des étapes de `def` et `sco` pour le calcul des administrations ([870edb8](https://github.com/MTES-MCT/camino-api/commit/870edb8))
+* **business:** ajoute la règle d'instruction pour l'étape de 'meo' ([2e1ee0f](https://github.com/MTES-MCT/camino-api/commit/2e1ee0f))
+* **business:** ajoute la règle d'instruction pour les étapes de def et aca ajournées/programmées ([2ecd5c3](https://github.com/MTES-MCT/camino-api/commit/2ecd5c3))
+* **business:** ajoute les règles métier ARM; factorise les étapes de publication ([#147](https://github.com/MTES-MCT/camino-api/issues/147)) ([22aef8f](https://github.com/MTES-MCT/camino-api/commit/22aef8f))
+* **business:** corrige l'export des activités lors du changement d'id de titre ([#158](https://github.com/MTES-MCT/camino-api/issues/158)) ([fa7f43e](https://github.com/MTES-MCT/camino-api/commit/fa7f43e))
+* **database:** définit le type des coordonnnées de références en nombres ([e1a0c5a](https://github.com/MTES-MCT/camino-api/commit/e1a0c5a))
+* **export:** ajoute la colonne 'subsidiaire' dans l'export des points ([0b4c8d1](https://github.com/MTES-MCT/camino-api/commit/0b4c8d1))
+* ajoute la colonne 'opposable' dans l'export ([66e70b0](https://github.com/MTES-MCT/camino-api/commit/66e70b0))
+* crée le dossier `sources` s'il n'existe pas lors de l'import [#149](https://github.com/MTES-MCT/camino-api/issues/149) ([f0982bf](https://github.com/MTES-MCT/camino-api/commit/f0982bf))
+
+
+### Features
+
+* **api:** rend les fiches entreprises visibles au public ([#156](https://github.com/MTES-MCT/camino-api/issues/156)) ([af2186d](https://github.com/MTES-MCT/camino-api/commit/af2186d))
+* **export:** exporte les spreadsheets d'activités ([#155](https://github.com/MTES-MCT/camino-api/issues/155)) ([88834a2](https://github.com/MTES-MCT/camino-api/commit/88834a2))
+
 ### [0.24.3](https://github.com/MTES-MCT/camino-api/compare/v0.24.2...v0.24.3) (2019-09-12)
 
 
