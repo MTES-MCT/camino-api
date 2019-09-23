@@ -139,8 +139,17 @@ const run = async () => {
     const { titresUpdated = [], titresUpdatedIdsIndex } = await titresIdsUpdate(
       titres
     )
+
     let titresActivitesUpdated = []
     if (Object.keys(titresUpdatedIdsIndex).length) {
+      const titresOldIdsIndex = Object.keys(titresUpdatedIdsIndex).reduce(
+        (acc, titreOldId) => {
+          acc[titresUpdatedIdsIndex[titreOldId]] = titreOldId
+          return acc
+        },
+        {}
+      )
+
       titresActivitesUpdated = titresUpdated.reduce(
         (titresActivites, titreUpdated) => {
           if (titreUpdated.activites.length) {
@@ -153,7 +162,7 @@ const run = async () => {
       )
 
       titresActivitesCreated = titresActivitesCreated.filter(
-        (tac: any) => !titresUpdatedIdsIndex[tac.titreId]
+        (tac: any) => !titresOldIdsIndex[tac.titreId]
       )
     }
 
