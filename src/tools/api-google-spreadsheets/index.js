@@ -20,13 +20,7 @@ const spreadsheetGet = async (cred, spreadsheetId) =>
 const spreadsheetBatchUpdate = async (cred, spreadsheetId, requests) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.batchUpdate(
-      {
-        auth: authGet(cred),
-        spreadsheetId,
-        resource: {
-          requests
-        }
-      },
+      { auth: authGet(cred), spreadsheetId, resource: { requests } },
       (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )
@@ -34,11 +28,7 @@ const spreadsheetBatchUpdate = async (cred, spreadsheetId, requests) =>
 const spreadsheetValuesGet = async (cred, spreadsheetId, range) =>
   new Promise((resolve, reject) =>
     googleSheets.spreadsheets.values.get(
-      {
-        auth: authGet(cred),
-        spreadsheetId,
-        range
-      },
+      { auth: authGet(cred), spreadsheetId, range },
       (err, res) => (err ? reject(err) : resolve(res.data))
     )
   )

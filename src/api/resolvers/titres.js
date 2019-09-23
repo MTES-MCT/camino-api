@@ -22,7 +22,10 @@ import titreUpdationValidate from '../../business/titre-updation-validate'
 const titre = async ({ id }, context, info) => {
   const fields = fieldsBuild(info)
   const titre = await titreGet(id, {
-    eager: eagerBuild(fields, { format: titreEagerFormat, root: 'titre' }),
+    eager: eagerBuild(fields, {
+      format: titreEagerFormat,
+      root: 'titre'
+    }),
     format: fields
   })
 
@@ -60,7 +63,10 @@ const titres = async (
       territoires
     },
     {
-      eager: eagerBuild(fields, { format: titreEagerFormat, root: 'titres' }),
+      eager: eagerBuild(fields, {
+        format: titreEagerFormat,
+        root: 'titres'
+      }),
       format: fields
     }
   )
@@ -98,8 +104,10 @@ const titreModifier = async ({ titre }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     throw new Error('opération impossible')
   }
+  const titreOld = await titreGet(titre.id)
 
-  const rulesError = await titreUpdationValidate(titre)
+  const rulesError = await titreUpdationValidate(titre, titreOld)
+  console.log(rulesError)
 
   if (rulesError) {
     throw new Error(rulesError)

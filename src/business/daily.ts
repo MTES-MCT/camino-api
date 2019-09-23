@@ -15,13 +15,14 @@ import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-i
 import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
 import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
+import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
+import titresPointsReferencesCreate from './processes/titres-points-references-create'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 
-import { titresIdsUpdate } from './processes/titres-ids-update'
-import titresPointsReferencesCreate from './processes/titres-points-references-create'
+import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
 const run = async () => {
   try {
@@ -101,14 +102,13 @@ const run = async () => {
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
 
     // 11.
-    // pour les année 2018 et 2019 (en dur)
     console.log()
     console.log('activités des titres…')
     const annees = [2018, 2019]
 
     titres = await titresGet()
     const activitesTypes = await activitesTypesGet()
-    const titresActivitesNew = await titresActivitesUpdate(
+    let titresActivitesCreated = await titresActivitesUpdate(
       titres,
       activitesTypes,
       annees
@@ -136,7 +136,26 @@ const run = async () => {
       },
       { format: false }
     )
-    const titresUpdated = await titresIdsUpdate(titres)
+    const { titresUpdated = [], titresUpdatedIdsIndex } = await titresIdsUpdate(
+      titres
+    )
+    let titresActivitesUpdated = []
+    if (Object.keys(titresUpdatedIdsIndex).length) {
+      titresActivitesUpdated = titresUpdated.reduce(
+        (titresActivites, titreUpdated) => {
+          if (titreUpdated.activites.length) {
+            titresActivites.push(...titreUpdated.activites)
+          }
+
+          return titresActivites
+        },
+        []
+      )
+
+      titresActivitesCreated = titresActivitesCreated.filter(
+        (tac: any) => !titresUpdatedIdsIndex[tac.titreId]
+      )
+    }
 
     console.log()
     console.log('tâches quotidiennes exécutées:')
@@ -175,11 +194,21 @@ const run = async () => {
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(`mise à jour: ${titresActivitesNew.length} activités`)
+    console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
     console.log(
       `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )
     console.log(`mise à jour: ${titresUpdated.length} titre(s) (ids)`)
+
+    console.log()
+    console.log('exports vers les spreadsheets')
+
+    // export des activités vers la spreadsheet camino-db-titres-activites-prod
+    console.log('export des activités…')
+    await titreActivitesRowUpdate(
+      [...titresActivitesCreated, ...titresActivitesUpdated],
+      titresUpdatedIdsIndex
+    )
   } catch (e) {
     console.log('erreur:', e)
   } finally {

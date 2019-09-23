@@ -3,10 +3,20 @@ import titrePropActivitesCount from '../utils/titre-prop-activites-count'
 import PQueue from 'p-queue'
 
 const activitesProps = [
-  { id: 'abs', prop: 'activitesAbsentes' },
-  { id: 'enc', prop: 'activitesEnConstruction' },
-  { id: 'dep', prop: 'activitesDeposees' }
+  {
+    id: 'abs',
+    prop: 'activitesAbsentes'
+  },
+  {
+    id: 'enc',
+    prop: 'activitesEnConstruction'
+  },
+  {
+    id: 'dep',
+    prop: 'activitesDeposees'
+  }
 ]
+
 const titresPropsActivitesUpdate = async titres => {
   const titresToUpdate = titres.reduce((acc, titre) => {
     const props = activitesProps.reduce((props, { id, prop }) => {
@@ -20,7 +30,10 @@ const titresPropsActivitesUpdate = async titres => {
     }, {})
 
     if (Object.keys(props).length) {
-      acc.push({ id: titre.id, ...props })
+      acc.push({
+        id: titre.id,
+        ...props
+      })
     }
 
     return acc
@@ -37,7 +50,9 @@ const titresPropsActivitesUpdate = async titres => {
     return titreUpdated
   })
 
-  const queue = new PQueue({ concurrency: 100 })
+  const queue = new PQueue({
+    concurrency: 100
+  })
 
   return queue.addAll(titresUpdated)
 }
