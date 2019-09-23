@@ -28,10 +28,7 @@ const entreprise = async ({ id }, context, info) => {
   const fields = fieldsBuild(info)
 
   const entreprise = await entrepriseGet(id, {
-    eager: eagerBuild(fields, {
-      format: titreEagerFormat,
-      root: 'entreprise'
-    })
+    eager: eagerBuild(fields, { format: titreEagerFormat, root: 'entreprise' })
   })
 
   const user = context.user && (await utilisateurGet(context.user.id))

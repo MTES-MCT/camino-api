@@ -6,10 +6,6 @@ const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
 
 // ajoute des propriétés requises par /database/queries/_format
 const titreEagerFormat = (fields, parent) => {
-  // copie le premier paramètre
-  // empêche la modification de l'objet d'origine
-  fields = JSON.parse(JSON.stringify(fields))
-
   // ajoute la propriété `type` sur les administrations
   if (
     fields.administrations &&

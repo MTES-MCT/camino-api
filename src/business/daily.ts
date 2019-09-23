@@ -143,8 +143,9 @@ const run = async () => {
     let titresActivitesUpdated = []
     if (Object.keys(titresUpdatedIdsIndex).length) {
       const titresOldIdsIndex = Object.keys(titresUpdatedIdsIndex).reduce(
-        (acc, titreOldId) => {
+        (acc: any, titreOldId) => {
           acc[titresUpdatedIdsIndex[titreOldId]] = titreOldId
+
           return acc
         },
         {}

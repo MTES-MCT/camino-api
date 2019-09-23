@@ -52,6 +52,8 @@ const eagerBuild = (
   fields,
   { format = (fields, parent) => fields, root = 'root' } = {}
 ) => {
+  fields = JSON.parse(JSON.stringify(fields))
+
   // in: AST de la requête GraphQl
   // out: string au format 'eager' de objection.js
   return fieldsToString(fields, root, format)

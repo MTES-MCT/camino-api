@@ -21,13 +21,9 @@ import titreUpdationValidate from '../../business/titre-updation-validate'
 
 const titre = async ({ id }, context, info) => {
   const fields = fieldsBuild(info)
-  const titre = await titreGet(id, {
-    eager: eagerBuild(fields, {
-      format: titreEagerFormat,
-      root: 'titre'
-    }),
-    format: fields
-  })
+  const eager = eagerBuild(fields, { format: titreEagerFormat, root: 'titre' })
+
+  const titre = await titreGet(id, { eager, format: fields })
 
   if (!titre) return null
 
@@ -63,10 +59,7 @@ const titres = async (
       territoires
     },
     {
-      eager: eagerBuild(fields, {
-        format: titreEagerFormat,
-        root: 'titres'
-      }),
+      eager: eagerBuild(fields, { format: titreEagerFormat, root: 'titres' }),
       format: fields
     }
   )
