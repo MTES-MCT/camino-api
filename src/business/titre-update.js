@@ -10,7 +10,7 @@ const titreUpdate = async titreId => {
   try {
     // 11.
     console.log()
-    console.log('ids de titres, démarches, étapes et sous-éléments…')
+    console.log('activités des titres…')
     let titre = await titreGet(titreId, {
       format: false
     })
@@ -26,7 +26,7 @@ const titreUpdate = async titreId => {
     // 13.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId)
+    titre = await titreGet(titreId, { format: false })
     const titreUpdated = await titreIdsUpdate(titre)
     let titresUpdatedIdsIndex
     if (titreUpdated && titre.id !== titreUpdated.id) {
