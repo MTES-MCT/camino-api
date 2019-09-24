@@ -123,7 +123,7 @@ const titresEtapesCommunesGet = async titresEtapes => {
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API geocommunes
-  const queue = new PQueue({ concurrency: 100 })
+  const queue = new PQueue({ concurrency: 1, interval: 1000, intervalCap: 100 })
   const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
 
   return communesGeojsons.reduce(
