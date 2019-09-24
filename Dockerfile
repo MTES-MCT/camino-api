@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:12.10.0-stretch
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
