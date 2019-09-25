@@ -195,7 +195,7 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
     return acc
   }, [])
 
-  const queue = new PQueue({ concurrency: 2 })
+  const queue = new PQueue({ concurrency: 1 })
 
   const batchesResults = await queue.addAll(batchesQueries)
 
