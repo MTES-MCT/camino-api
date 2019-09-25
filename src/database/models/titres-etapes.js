@@ -9,7 +9,7 @@ import TitresDocuments from './titres-documents'
 import Communes from './communes'
 import titresIncertitudes from './titres-incertitudes'
 import Devises from './devises'
-import VolumeUnites from './volume-unites'
+import Unites from './unites'
 
 export default class TitresEtapes extends Model {
   static tableName = 'titresEtapes'
@@ -155,10 +155,10 @@ export default class TitresEtapes extends Model {
 
     volumeUnite: {
       relation: Model.BelongsToOneRelation,
-      modelClass: VolumeUnites,
+      modelClass: Unites,
       join: {
         from: 'titresEtapes.volumeUniteId',
-        to: 'volumeUnites.id'
+        to: 'unites.id'
       }
     },
 

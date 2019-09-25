@@ -1,5 +1,6 @@
 import { Model } from 'objection'
 import GeoSystemes from './geo-systemes'
+import Unites from './unites'
 
 export default class TitresPointsReferences extends Model {
   static tableName = 'titresPointsReferences'
@@ -19,7 +20,7 @@ export default class TitresPointsReferences extends Model {
           y: { type: 'number' }
         }
       },
-      unite: { type: 'string' },
+      uniteId: { type: 'string' },
       opposable: { type: ['boolean', 'null'] }
     }
   }
@@ -31,6 +32,15 @@ export default class TitresPointsReferences extends Model {
       join: {
         from: 'titresPointsReferences.geoSystemeId',
         to: 'geoSystemes.id'
+      }
+    },
+
+    unite: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Unites,
+      join: {
+        from: 'titresPointsReferences.uniteId',
+        to: 'unites.id'
       }
     }
   }

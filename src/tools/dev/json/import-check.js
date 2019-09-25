@@ -18,7 +18,7 @@ const metas = [
   'etapes-types--etapes-statuts',
   'phasesStatuts',
   'devises',
-  'volumeUnites',
+  'unites',
   'geoSystemes'
 ]
 

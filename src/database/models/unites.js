@@ -1,7 +1,7 @@
 import { Model } from 'objection'
 
-export default class VolumeUnites extends Model {
-  static tableName = 'volumeUnites'
+export default class Unites extends Model {
+  static tableName = 'unites'
 
   static jsonSchema = {
     type: 'object',
@@ -9,7 +9,9 @@ export default class VolumeUnites extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 3 },
-      nom: { type: 'string' }
+      nom: { type: 'string' },
+      symbole: { type: 'string' },
+      type: { type: 'string' }
     }
   }
 }

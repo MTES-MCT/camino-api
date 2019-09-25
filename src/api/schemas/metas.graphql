@@ -18,7 +18,7 @@ type Metas {
   devises: [Devise]
 
   "Unités de volume utilisées dans Camino"
-  volumeUnites: [VolumeUnite]
+  unites: [Unite]
 }
 
 "Le domaine minier"
@@ -153,11 +153,15 @@ type EtapeStatut {
   couleur: Couleur!
 }
 
-"Unité de volume"
-type VolumeUnite {
+"Unité"
+type Unite {
   id: ID!
 
   nom: String!
+
+  symbole: String!
+
+  type: String!
 }
 
 "Devise"
