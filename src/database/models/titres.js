@@ -10,7 +10,7 @@ import Entreprises from './entreprises'
 import Administrations from './administrations'
 import Communes from './communes'
 import TitresActivites from './titres-activites'
-import VolumeUnites from './volume-unites'
+import Unites from './unites'
 import Devises from './devises'
 
 export default class Titres extends Model {
@@ -111,14 +111,14 @@ export default class Titres extends Model {
 
     volumeUnite: {
       relation: Model.HasOneThroughRelation,
-      modelClass: VolumeUnites,
+      modelClass: Unites,
       join: {
         from: 'titres.volumeUniteIdTitreEtapeId',
         through: {
           from: 'titresEtapes.id',
           to: 'titresEtapes.volumeUniteId'
         },
-        to: 'volumeUnites.id'
+        to: 'unites.id'
       }
     },
 

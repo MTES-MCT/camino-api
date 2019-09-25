@@ -72,7 +72,7 @@ exports.up = knex => {
       table.integer('duree')
       table.float('surface')
       table.float('volume')
-      table.string('volumeUniteId').references('volumeUnites.id')
+      table.string('volumeUniteId').references('unites.id')
       table.specificType('visas', 'text[]')
       table.float('engagement')
       table.string('engagementDeviseId').references('devises.id')

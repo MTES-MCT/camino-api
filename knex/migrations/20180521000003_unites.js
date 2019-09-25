@@ -11,13 +11,15 @@ exports.up = knex =>
       table.string('zone')
       table.string('definitionProj4')
     })
-    .createTable('volumeUnites', table => {
+    .createTable('unites', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
+      table.string('symbole').notNullable()
+      table.string('type').notNullable()
     })
 
 exports.down = knex =>
   knex.schema
     .dropTable('devises')
     .dropTable('geoSystemes')
-    .dropTable('volumeUnites')
+    .dropTable('unites')

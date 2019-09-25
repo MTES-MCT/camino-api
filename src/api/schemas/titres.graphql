@@ -64,7 +64,7 @@ type Titre {
   volume: Float
 
   "L'unité du volume du titre dans son dernier état de validité"
-  volumeUnite: VolumeUnite
+  volumeUnite: Unite
 
   "Le montant de l'engagement financier du titulaire"
   engagement: Float
@@ -174,7 +174,7 @@ type Etape {
   volume: Float
 
   "L'unité de volume du titre"
-  volumeUnite: VolumeUnite
+  volumeUnite: Unite
 
   "Les visas de l'étape"
   visas: [String]
@@ -347,7 +347,7 @@ input InputEtapeCreation {
 
   substancesIds: [ID!]
 
-  points: [InputEtapePoint]
+  points: [InputPoint]
 
   titulairesIds: [ID!]
 
@@ -393,7 +393,7 @@ input InputEtapeModification {
 
   substancesIds: [ID!]
 
-  points: [InputEtapePoint]
+  points: [InputPoint]
 
   titulairesIds: [ID!]
 

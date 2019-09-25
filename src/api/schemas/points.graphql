@@ -41,6 +41,8 @@ type Point {
 
   subsidiaire: Boolean
 
+  lot: Boolean
+
   "Liste d'id de référence de points"
   references: [PointReference]
 }
@@ -60,12 +62,12 @@ type PointReference {
   "Les coordonnées du point dans le système géodésique"
   coordonnees: Coordonnees
 
-  unite: String
+  unite: Unite
 
   opposable: Boolean
 }
 
-input InputEtapePoint {
+input InputPoint {
   groupe: Int
 
   contour: Int
@@ -80,15 +82,17 @@ input InputEtapePoint {
 
   subsidiaire: Boolean
 
-  references: [InputEtapePointReference]
+  lot: Boolean
+
+  references: [InputPointReference]
 }
 
-input InputEtapePointReference {
+input InputPointReference {
   geoSystemeId: ID!
 
   coordonnees: InputCoordonnees
 
-  unite: String
+  uniteId: String!
 
   opposable: Boolean
 }

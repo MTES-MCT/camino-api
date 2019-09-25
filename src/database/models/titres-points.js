@@ -24,7 +24,8 @@ export default class TitresPoints extends Model {
       nom: { type: ['string', 'null'] },
       description: { type: ['string', 'null'] },
       securite: { type: ['boolean', 'null'] },
-      subsidiaire: { type: ['boolean', 'null'] }
+      subsidiaire: { type: ['boolean', 'null'] },
+      lot: { type: ['boolean', 'null'] }
     }
   }
 

@@ -18,7 +18,7 @@ const etapesStatuts = require('../../sources/etapes-statuts.json')
 const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
-const volumeUnites = require('../../sources/volume-unites.json')
+const unites = require('../../sources/unites.json')
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
@@ -29,7 +29,7 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('statuts'),
     del('geoSystemes'),
     del('devises'),
-    del('volumeUnites')
+    del('unites')
   ])
   await Promise.all([
     del('phasesStatuts'),
@@ -51,7 +51,7 @@ exports.seed = seeding(async ({ del, insert }) => {
     insert('etapesStatuts', etapesStatuts),
     insert('geoSystemes', geoSystemes),
     insert('devises', devises),
-    insert('volumeUnites', volumeUnites)
+    insert('unites', unites)
   ])
   await Promise.all([
     insert('domaines__types', domaines_types),
