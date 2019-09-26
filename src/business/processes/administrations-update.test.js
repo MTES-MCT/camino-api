@@ -16,6 +16,7 @@ jest.mock('../../database/queries/administrations', () => ({
 }))
 
 jest.mock('../../tools/api-administrations/index', () => ({
+  organismeDepartementGet: jest.fn().mockResolvedValue(true),
   organismesDepartementsGet: jest.fn()
 }))
 

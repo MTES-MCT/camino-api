@@ -1,5 +1,8 @@
 import { administrationsUpsert } from '../../database/queries/administrations'
-import { organismesDepartementsGet } from '../../tools/api-administrations/index'
+import {
+  organismeDepartementGet,
+  organismesDepartementsGet
+} from '../../tools/api-administrations/index'
 
 import { objectsDiffer } from '../../tools'
 
@@ -19,6 +22,8 @@ const administrationsUpdatedFind = (administrationsOld, administrationsNew) =>
     return acc
   }, [])
 
+const administrationsGetTest = () => organismeDepartementGet('01', 'prefecture')
+
 const administrationsGet = async departements => {
   const departementsIdsNoms = departements.map(({ id: departementId }) => ({
     departementId,
@@ -29,6 +34,11 @@ const administrationsGet = async departements => {
 }
 
 const administrationsUpdate = async (administrationsOld, departements) => {
+  if (!departements) return []
+
+  const administrationsApiTest = await administrationsGetTest()
+  if (!administrationsApiTest) return []
+
   const administrationsNew = await administrationsGet(departements)
 
   // TODO: si aucune administration est retournée,
