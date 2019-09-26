@@ -1,7 +1,7 @@
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
-const demarchesTypesPhases = ['oct', 'pro', 'pr1', 'pr2', 'pre']
+const demarchesTypesPhases = ['oct', 'pro', 'pr1', 'pr2', 'pre', 'vut', 'vct']
 
 // si
 // - la démarche est un octroi ou une prolongation ou une prolongation 1

@@ -11,8 +11,8 @@ const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
   // sinon
   // trouve la première démarche d'octroi
   const titreDemarchesAscSorted = titreDemarchesAscSort(titreDemarches)
-  const titreDemarche = titreDemarchesAscSorted.find(
-    titreDemarche => titreDemarche.typeId === 'oct'
+  const titreDemarche = titreDemarchesAscSorted.find(titreDemarche =>
+    ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
   )
 
   // si

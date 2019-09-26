@@ -53,7 +53,7 @@ const titrePhaseDateDebutFind = (
 ) => {
   // si
   // - la démarche est un octroi
-  if (titreDemarche.typeId === 'oct') {
+  if (['oct', 'vut', 'vct'].includes(titreDemarche.typeId)) {
     // retourne une étape de publication si celle-ci possède une date de début
     const etapePublicationHasDateDebut = titreEtapesDescSort(
       titreDemarche.etapes
