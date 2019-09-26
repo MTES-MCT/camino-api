@@ -30,8 +30,8 @@ jest.mock('../../database/queries/entreprises-etablissements', () => ({
 // 'jest.mock()' est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../tools/api-insee', () => ({
-  entrepriseAdresseGet: jest.fn(),
-  entrepriseEtablissementGet: jest.fn(),
+  entreprisesAdressesGet: jest.fn(),
+  entreprisesEtablissementsGet: jest.fn(),
   tokenInitialize: jest.fn().mockResolvedValue(1)
 }))
 
@@ -41,8 +41,10 @@ console.error = jest.fn()
 
 describe('entreprises', () => {
   test("crée les entreprises si elles n'existent pas", async () => {
-    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(entreprisesApiCreees)
-    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
+      entreprisesApiCreees
+    )
+    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesApiCreees
     )
 
@@ -58,10 +60,10 @@ describe('entreprises', () => {
   })
 
   test('met à jour les entreprises qui ont été modifiées', async () => {
-    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(
+    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
       entreprisesApiModifiees
     )
-    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesApiModifiees
     )
 
@@ -76,10 +78,10 @@ describe('entreprises', () => {
   })
 
   test('ne crée pas les entreprises qui existent déjà', async () => {
-    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(
+    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
       entreprisesApiExistantes
     )
-    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesEtablissementsApiExistantes
     )
 
@@ -94,10 +96,10 @@ describe('entreprises', () => {
   })
 
   test("ne modifie pas d'entreprises si elles n'existent déjà", async () => {
-    apiEntreprises.entrepriseAdresseGet.mockResolvedValue(
+    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
       entreprisesApiInexistantes
     )
-    apiEntreprises.entrepriseEtablissementGet.mockResolvedValue(
+    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesApiInexistantes
     )
 
