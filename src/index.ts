@@ -58,6 +58,13 @@ interface IAuthRequest extends express.Request {
 app.use(
   expressJwt({
     credentialsRequired: false,
+    getToken: req => {
+      if (!req.headers.authorization) return null
+
+      const [type, token] = req.headers.authorization.split(' ')
+
+      return type === 'Bearer' && token !== 'null' ? token : null
+    },
     secret: process.env.JWT_SECRET || 'jwtSecret should be declared in .env'
   })
 )
