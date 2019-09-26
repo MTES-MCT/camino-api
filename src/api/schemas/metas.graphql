@@ -179,7 +179,7 @@ type GeoSysteme {
 
   zone: String
 
-  uniteType: String
+  type: String
 }
 
 """

@@ -7,7 +7,7 @@ exports.up = knex =>
     .createTable('geoSystemes', table => {
       table.string('id', 5).primary()
       table.string('nom').notNullable()
-      table.string('unite_type', 10)
+      table.string('type', 10)
       table.string('zone')
       table.string('definitionProj4')
     })

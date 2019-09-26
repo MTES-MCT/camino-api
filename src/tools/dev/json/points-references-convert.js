@@ -46,7 +46,7 @@ const unites = {
 
 const geoSystemes = JSON.parse(read('./sources/geo-systemes.json'))
 const systemesIndex = geoSystemes.reduce((index, system) => {
-  index[system.id] = unites[system.unite_type]
+  index[system.id] = unites[system.type]
 
   return index
 }, {})

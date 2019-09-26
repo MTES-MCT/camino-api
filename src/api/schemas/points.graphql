@@ -90,7 +90,7 @@ input InputPoint {
 input InputPointReference {
   geoSystemeId: ID!
 
-  coordonnees: InputCoordonnees
+  coordonnees: InputCoordonnees!
 
   uniteId: String!
 

@@ -10,7 +10,7 @@ export default class GeoSystemes extends Model {
     properties: {
       id: { type: 'string', maxLength: 5 },
       nom: { type: 'string' },
-      uniteType: { type: 'string' },
+      type: { type: 'string' },
       zone: { type: 'string' }
     }
   }
