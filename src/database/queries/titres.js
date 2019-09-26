@@ -243,6 +243,10 @@ const titreIdUpdate = async (titreOldId, titreNew) => {
   const knex = Titres.knex()
 
   const t = await transaction(knex, async tr => {
+    if (titreOldId !== titreNew.id && (await titreGet(titreNew.id, tr))) {
+      throw new Error(`un titre avec l'id ${titreNew.id} existe déjà`)
+    }
+
     await titreDelete(titreOldId, tr)
     await titreUpsert(titreNew, tr)
   })
