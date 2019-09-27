@@ -35,7 +35,7 @@ const tokenFetch = async () => {
 
   console.info('API Insee: récupération du token')
 
-  console.log('auth:', `${INSEE_API_KEY}:${INSEE_API_SECRET}`)
+  console.log('API Insee: auth', `${INSEE_API_KEY}:${INSEE_API_SECRET}`)
 
   const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
     'base64'
@@ -106,9 +106,6 @@ const tokenFetchDev = async () => {
     console.info('API Insee: lecture du token depuis le cache')
 
     apiToken = result && result.access_token
-
-    console.info('Requête de test du token sur /siren')
-    await entrepriseAdresseGet([TEST_SIREN_ID])
   } catch (e) {
     console.info(`API Insee: création du token`)
 
@@ -133,10 +130,20 @@ const tokenInitialize = async () => {
       throw new Error()
     }
 
+    console.info('API Insee: Requête de test du token sur /siren')
+    const res = await inseeFetch('siren', `siren:${TEST_SIREN_ID}`)
+    if (!res) {
+      throw new Error('pas de résultat pour la requête de test')
+    }
+
     return apiToken
   } catch (err) {
-    const error = err.error ? `${err.error}: ${err.error_description}` : err
-    throw new Error(`impossible de générer le token de l'API INSEE ${error}`)
+    const error = err.error
+      ? `${err.error}: ${err.error_description}`
+      : JSON.stringify(err)
+    throw new Error(
+      `API Insee: impossible de générer le token de l'API INSEE ${error}`
+    )
   }
 }
 
@@ -379,7 +386,7 @@ const entrepriseAdresseFormat = e => {
       entreprise.legalForme = categorie.nom
     } else {
       console.error(
-        `catégorie juridique introuvable : ${unite.categorieJuridiqueUniteLegale}`
+        `API Insee: catégorie juridique introuvable : ${unite.categorieJuridiqueUniteLegale}`
       )
     }
   }
@@ -392,7 +399,7 @@ const entrepriseAdresseFormat = e => {
       entreprise.paysId = pays.codeiso2
     } else {
       console.error(
-        `code pays introuvable: ${adresse.codePaysEtrangerEtablissement}`
+        `API Insee: code pays introuvable: ${adresse.codePaysEtrangerEtablissement}`
       )
     }
   } else {
@@ -409,7 +416,7 @@ const entrepriseAdresseFormat = e => {
   return entreprise
 }
 
-const entrepriseEtablissementGet = async sirenIds => {
+const entreprisesEtablissementsGet = async sirenIds => {
   if (!sirenIds.length) return []
 
   const entreprisesEtablissements = await inseeTypeFetchBatch(
@@ -431,7 +438,7 @@ const entrepriseEtablissementGet = async sirenIds => {
   }, [])
 }
 
-const entrepriseAdresseGet = async sirenIds => {
+const entreprisesAdressesGet = async sirenIds => {
   const etablissements = await inseeTypeFetchBatch(
     'siret',
     'etablissements',
@@ -453,4 +460,4 @@ const entrepriseAdresseGet = async sirenIds => {
   }, [])
 }
 
-export { tokenInitialize, entrepriseEtablissementGet, entrepriseAdresseGet }
+export { tokenInitialize, entreprisesEtablissementsGet, entreprisesAdressesGet }
