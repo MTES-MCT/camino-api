@@ -28,7 +28,7 @@ const titresTables = [
   { name: 'titres_demarches' },
   { name: 'titres_demarches_liens' },
   { name: 'titres_phases' },
-  { name: 'titres_etapes', cb: { visas: JSON.parse, contenu: JSON.parse } },
+  { name: 'titres_etapes', cb: { contenu: JSON.parse } },
   { name: 'titres_points' },
   { name: 'titres_points_references' },
   { name: 'titres_documents' },

@@ -176,9 +176,6 @@ type Etape {
   "L'unité de volume du titre"
   volumeUnite: Unite
 
-  "Les visas de l'étape"
-  visas: [String]
-
   "Le montant de l'engagement financier du titulaire"
   engagement: Float
 
@@ -339,8 +336,6 @@ input InputEtapeCreation {
 
   volumeUniteId: ID
 
-  visas: [String]
-
   engagement: Float
 
   engagementDeviseId: ID
@@ -384,8 +379,6 @@ input InputEtapeModification {
   volume: Float
 
   volumeUniteId: ID
-
-  visas: [String]
 
   engagement: Float
 

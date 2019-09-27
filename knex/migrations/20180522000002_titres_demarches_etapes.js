@@ -73,7 +73,6 @@ exports.up = knex => {
       table.float('surface')
       table.float('volume')
       table.string('volumeUniteId').references('unites.id')
-      table.specificType('visas', 'text[]')
       table.float('engagement')
       table.string('engagementDeviseId').references('devises.id')
       table.boolean('sourceIndisponible')

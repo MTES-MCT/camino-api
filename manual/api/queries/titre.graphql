@@ -111,7 +111,6 @@ fragment etape on Etape {
   surface
   volume
   volumeUnite
-  visas
   engagement
   engagementDevise {
     id
