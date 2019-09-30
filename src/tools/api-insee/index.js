@@ -27,94 +27,120 @@ const { INSEE_API_URL, INSEE_API_KEY, INSEE_API_SECRET } = process.env
 let apiToken
 
 const tokenFetch = async () => {
-  if (!INSEE_API_URL) {
-    throw new Error(
-      "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
-    )
-  }
-
-  console.info('API Insee: récupération du token')
-
-  console.log('API Insee: auth', `${INSEE_API_KEY}:${INSEE_API_SECRET}`)
-
-  const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
-    'base64'
-  )
-
-  const response = await fetch(`${INSEE_API_URL}/token`, {
-    method: 'POST',
-    body: 'grant_type=client_credentials',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Basic ${auth}`
+  try {
+    if (!INSEE_API_URL) {
+      throw new Error(
+        "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
+      )
     }
-  })
 
-  const result = await response.json()
-  if (response.status >= 400 || !result || result.error) {
-    throw result
+    console.info(
+      `API Insee: récupération du token ${INSEE_API_KEY}:${INSEE_API_SECRET}`
+    )
+
+    const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
+      'base64'
+    )
+
+    const response = await fetch(`${INSEE_API_URL}/token`, {
+      method: 'POST',
+      body: 'grant_type=client_credentials',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${auth}`
+      }
+    })
+
+    const result = await response.json()
+    if (response.status >= 400 || result.error) {
+      throw result
+    }
+
+    if (!result) {
+      throw new Error('contenu de la réponse vide')
+    }
+
+    return result
+  } catch (e) {
+    errorLog(`API Insee: tokenFetch `, e.error || e.message || e)
   }
-
-  return result
 }
 
-const inseeFetch = async (type, q) => {
-  if (!INSEE_API_URL) {
-    throw new Error(
-      "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
-    )
-  }
-  console.info(`API Insee: ${type}, ids: ${q}`)
-
-  const response = await fetch(
-    `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`,
-    {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        authorization: `Bearer ${apiToken}`
-      }
+const inseeTypeFetch = async (type, q) => {
+  try {
+    if (!INSEE_API_URL) {
+      throw new Error(
+        "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
+      )
     }
-  )
 
-  const result = await response.json()
+    console.info(`API Insee: requête ${type}, ids: ${q}`)
 
-  if (response.status > 400 || (result.fault && result.fault.code === 900804)) {
-    throw result
+    const response = await fetch(
+      `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`,
+      {
+        credentials: 'include',
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Bearer ${apiToken}`
+        }
+      }
+    )
+
+    const result = await response.json()
+
+    if (
+      response.status >= 400 ||
+      (result.fault && result.fault.code === 900804)
+    ) {
+      throw result
+    }
+
+    if (!result) {
+      throw new Error('contenu de la réponse vide')
+    }
+
+    // attend quelques secondes après chaque appel
+    // pour ne pas dépasser les quotas
+    await new Promise((resolve, reject) =>
+      setTimeout(resolve, (60 / MAX_CALLS_MINUTE) * 1000)
+    )
+
+    return result
+  } catch (e) {
+    errorLog(`API Insee: inseeTypeFetch `, e.error || e.message || e)
   }
-
-  // attend quelques secondes après chaque appel
-  // pour ne pas dépasser les quotas
-  await new Promise((resolve, reject) =>
-    setTimeout(resolve, (60 / MAX_CALLS_MINUTE) * 1000)
-  )
-
-  return result
 }
 
 const tokenFetchDev = async () => {
-  let result
-
   await makeDir(CACHE_DIR)
 
   const cacheFilePath = join(CACHE_DIR, `insee-token`)
 
   try {
-    result = require(`../../../${cacheFilePath}.json`)
+    const result = require(`../../../${cacheFilePath}.json`)
+
     console.info('API Insee: lecture du token depuis le cache')
 
-    apiToken = result && result.access_token
+    if (!result) {
+      throw new Error('pas de token dans le cache')
+    }
+
+    return result
   } catch (e) {
     console.info(`API Insee: création du token`)
 
-    result = await tokenFetch()
+    const result = await tokenFetch()
+    if (!result) {
+      throw new Error("pas de token retourné par l'API Insee")
+    }
 
     await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
-  }
 
-  return result
+    return result
+  }
 }
 
 const tokenInitialize = async () => {
@@ -127,11 +153,11 @@ const tokenInitialize = async () => {
     apiToken = result && result.access_token
 
     if (!apiToken) {
-      throw new Error()
+      throw new Error('pas de token après requête')
     }
 
     console.info('API Insee: Requête de test du token sur /siren')
-    const res = await inseeFetch('siren', `siren:${TEST_SIREN_ID}`)
+    const res = await inseeTypeFetch('siren', `siren:${TEST_SIREN_ID}`)
     if (!res) {
       throw new Error('pas de résultat pour la requête de test')
     }
@@ -140,48 +166,52 @@ const tokenInitialize = async () => {
   } catch (err) {
     const error = err.error
       ? `${err.error}: ${err.error_description}`
-      : JSON.stringify(err)
+      : err.message || JSON.stringify(err)
+
     throw new Error(
       `API Insee: impossible de générer le token de l'API INSEE ${error}`
     )
   }
 }
 
-const inseeFetchMulti = async (type, field, ids, q) => {
+const inseeTypeFetchDev = async (type, q, field, ids) => {
+  await makeDir(CACHE_DIR)
+
+  const cacheFilePath = join(
+    CACHE_DIR,
+    `insee-${field}-${ids.map(i => i.slice(-1)[0]).join('-')}`
+  )
+
   try {
-    let result
+    const result = require(`../../../${cacheFilePath}.json`)
 
-    if (process.env.NODE_ENV === 'development') {
-      await makeDir(CACHE_DIR)
-      const cacheFilePath = join(
-        CACHE_DIR,
-        `insee-${field}-${ids.map(i => i.slice(-1)[0]).join('-')}`
-      )
+    console.info(`API Insee: lecture de ${type} depuis le cache, ids: ${ids}`)
 
-      try {
-        result = require(`../../../${cacheFilePath}.json`)
-        console.info(
-          `API Insee: lecture de ${type} depuis le cache, ids: ${ids}`
-        )
-      } catch (e) {
-        console.info(`API Insee: requête de ${type}`)
+    return result
+  } catch (e) {
+    console.info(`API Insee: requête de ${type}`)
 
-        result = await inseeFetch(type, q)
+    const result = await inseeTypeFetch(type, q)
 
-        await fileCreate(
-          `${cacheFilePath}.json`,
-          JSON.stringify(result, null, 2)
-        )
-      }
-    } else {
-      result = await inseeFetch(type, q)
-    }
+    await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
 
-    return result && result[field] ? result[field] : []
+    return result
+  }
+}
+
+const inseeTypeFetchMulti = async (type, field, ids, q) => {
+  try {
+    const result =
+      process.env.NODE_ENV === 'development'
+        ? await inseeTypeFetchDev(type, q, field, ids)
+        : await inseeTypeFetch(type, q)
+
+    return (result && result[field]) || []
   } catch (err) {
-    const error = err.error ? err.error : err
-    errorLog(`insee ${type} get ${ids.join(', ')}`, JSON.stringify(error))
-    throw error
+    errorLog(
+      `API Insee: ${type} get ${ids.join(', ')}`,
+      JSON.stringify(err.error || err.message || err)
+    )
   }
 }
 
@@ -197,7 +227,9 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   }
 
   const batchesQueries = batches.reduce((acc, batch) => {
-    acc.push(() => inseeFetchMulti(type, field, batch, queryFormatter(batch)))
+    acc.push(() =>
+      inseeTypeFetchMulti(type, field, batch, queryFormatter(batch))
+    )
 
     return acc
   }, [])

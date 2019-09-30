@@ -11,6 +11,7 @@ const communesGeojsonFetch = async (path, geojson) => {
         "impossible de se connecter à l'API Géo Commune car la variable d'environnement est absente"
       )
     }
+
     const geojsonErrors = geojsonhint.hint(geojson)
     if (geojsonErrors.length) {
       throw new Error(geojsonErrors.map(e => e.message).join('\n'))

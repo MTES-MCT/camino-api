@@ -5,43 +5,43 @@ export default [
   },
   {
     code: '2110',
-    nom: 'Indivision entre personnes physiques '
+    nom: 'Indivision entre personnes physiques'
   },
   {
     code: '2120',
-    nom: 'Indivision avec personne morale '
+    nom: 'Indivision avec personne morale'
   },
   {
     code: '2210',
-    nom: 'Société créée de fait entre personnes physiques '
+    nom: 'Société créée de fait entre personnes physiques'
   },
   {
     code: '2220',
-    nom: 'Société créée de fait avec personne morale '
+    nom: 'Société créée de fait avec personne morale'
   },
   {
     code: '2310',
-    nom: 'Société en participation entre personnes physiques '
+    nom: 'Société en participation entre personnes physiques'
   },
   {
     code: '2320',
-    nom: 'Société en participation avec personne morale '
+    nom: 'Société en participation avec personne morale'
   },
   {
     code: '2385',
-    nom: 'Société en participation de professions libérales '
+    nom: 'Société en participation de professions libérales'
   },
   {
     code: '2400',
-    nom: 'Fiducie '
+    nom: 'Fiducie'
   },
   {
     code: '2700',
-    nom: 'Paroisse hors zone concordataire '
+    nom: 'Paroisse hors zone concordataire'
   },
   {
     code: '2900',
-    nom: 'Autre groupement de droit privé non doté de la personnalité morale '
+    nom: 'Autre groupement de droit privé non doté de la personnalité morale'
   },
   {
     code: '3110',
@@ -54,7 +54,7 @@ export default [
   },
   {
     code: '3205',
-    nom: 'Organisation internationale '
+    nom: 'Organisation internationale'
   },
   {
     code: '3210',
@@ -62,11 +62,11 @@ export default [
   },
   {
     code: '3220',
-    nom: 'Société étrangère non immatriculée au RCS '
+    nom: 'Société étrangère non immatriculée au RCS'
   },
   {
     code: '3290',
-    nom: 'Autre personne morale de droit étranger '
+    nom: 'Autre personne morale de droit étranger'
   },
   {
     code: '4110',
@@ -80,11 +80,11 @@ export default [
   },
   {
     code: '4130',
-    nom: 'Exploitant public '
+    nom: 'Exploitant public'
   },
   {
     code: '4140',
-    nom: 'Établissement public local à caractère industriel ou commercial '
+    nom: 'Établissement public local à caractère industriel ou commercial'
   },
   {
     code: '4150',
@@ -92,27 +92,27 @@ export default [
   },
   {
     code: '4160',
-    nom: 'Institution Banque de France '
+    nom: 'Institution Banque de France'
   },
   {
     code: '5191',
-    nom: 'Société de caution mutuelle '
+    nom: 'Société de caution mutuelle'
   },
   {
     code: '5192',
-    nom: 'Société coopérative de banque populaire '
+    nom: 'Société coopérative de banque populaire'
   },
   {
     code: '5193',
-    nom: 'Caisse de crédit maritime mutuel '
+    nom: 'Caisse de crédit maritime mutuel'
   },
   {
     code: '5194',
-    nom: 'Caisse (fédérale) de crédit mutuel '
+    nom: 'Caisse (fédérale) de crédit mutuel'
   },
   {
     code: '5195',
-    nom: 'Association coopérative inscrite (droit local Alsace Moselle) '
+    nom: 'Association coopérative inscrite (droit local Alsace Moselle)'
   },
   {
     code: '5196',
@@ -120,27 +120,27 @@ export default [
   },
   {
     code: '5202',
-    nom: 'Société en nom collectif '
+    nom: 'Société en nom collectif'
   },
   {
     code: '5203',
-    nom: 'Société en nom collectif coopérative '
+    nom: 'Société en nom collectif coopérative'
   },
   {
     code: '5306',
-    nom: 'Société en commandite simple '
+    nom: 'Société en commandite simple'
   },
   {
     code: '5307',
-    nom: 'Société en commandite simple coopérative '
+    nom: 'Société en commandite simple coopérative'
   },
   {
     code: '5308',
-    nom: 'Société en commandite par actions '
+    nom: 'Société en commandite par actions'
   },
   {
     code: '5309',
-    nom: 'Société en commandite par actions coopérative '
+    nom: 'Société en commandite par actions coopérative'
   },
   {
     code: '5370',
@@ -153,7 +153,7 @@ export default [
   },
   {
     code: '5410',
-    nom: 'SARL nationale '
+    nom: 'SARL nationale'
   },
   {
     code: '5415',
@@ -185,15 +185,15 @@ export default [
   },
   {
     code: '5443',
-    nom: 'SARL coopérative de construction '
+    nom: 'SARL coopérative de construction'
   },
   {
     code: '5451',
-    nom: 'SARL coopérative de consommation '
+    nom: 'SARL coopérative de consommation'
   },
   {
     code: '5453',
-    nom: 'SARL coopérative artisanale '
+    nom: 'SARL coopérative artisanale'
   },
   {
     code: '5454',
@@ -209,11 +209,11 @@ export default [
   },
   {
     code: '5459',
-    nom: 'SARL union de sociétés coopératives '
+    nom: 'SARL union de sociétés coopératives'
   },
   {
     code: '5460',
-    nom: 'Autre SARL coopérative '
+    nom: 'Autre SARL coopérative'
   },
   {
     code: '5470',
@@ -226,7 +226,7 @@ export default [
   },
   {
     code: '5498',
-    nom: 'SARL unipersonnelle '
+    nom: 'SARL unipersonnelle'
   },
   {
     code: '5499',
@@ -340,11 +340,11 @@ export default [
   },
   {
     code: '5605',
-    nom: 'SA à participation ouvrière à directoire '
+    nom: 'SA à participation ouvrière à directoire'
   },
   {
     code: '5610',
-    nom: 'SA nationale à directoire '
+    nom: 'SA nationale à directoire'
   },
   {
     code: '5615',
@@ -364,7 +364,7 @@ export default [
   },
   {
     code: '5630',
-    nom: 'Safer anonyme à directoire '
+    nom: 'Safer anonyme à directoire'
   },
   {
     code: '5631',
@@ -388,15 +388,15 @@ export default [
   },
   {
     code: '5647',
-    nom: 'Société coopérative de production de HLM anonyme à directoire '
+    nom: 'Société coopérative de production de HLM anonyme à directoire'
   },
   {
     code: '5648',
-    nom: 'SA de crédit immobilier à directoire '
+    nom: 'SA de crédit immobilier à directoire'
   },
   {
     code: '5651',
-    nom: 'SA coopérative de consommation à directoire '
+    nom: 'SA coopérative de consommation à directoire'
   },
   {
     code: '5652',
@@ -404,7 +404,7 @@ export default [
   },
   {
     code: '5653',
-    nom: 'SA coopérative artisanale à directoire '
+    nom: 'SA coopérative artisanale à directoire'
   },
   {
     code: '5654',
@@ -412,7 +412,7 @@ export default [
   },
   {
     code: '5655',
-    nom: 'SA coopérative de transport à directoire '
+    nom: 'SA coopérative de transport à directoire'
   },
   {
     code: '5658',
@@ -420,7 +420,7 @@ export default [
   },
   {
     code: '5659',
-    nom: 'SA union de sociétés coopératives à directoire '
+    nom: 'SA union de sociétés coopératives à directoire'
   },
   {
     code: '5660',
@@ -446,7 +446,7 @@ export default [
   {
     code: '5720',
     nom:
-      'Société par actions simplifiée à associé unique ou société par actions simplifiée unipersonnelle '
+      'Société par actions simplifiée à associé unique ou société par actions simplifiée unipersonnelle'
   },
   {
     code: '5770',
@@ -459,7 +459,7 @@ export default [
   },
   {
     code: '5800',
-    nom: 'Société européenne '
+    nom: 'Société européenne'
   },
   {
     code: '6100',
@@ -479,11 +479,11 @@ export default [
   },
   {
     code: '6317',
-    nom: 'Société coopérative agricole '
+    nom: 'Société coopérative agricole'
   },
   {
     code: '6318',
-    nom: 'Union de sociétés coopératives agricoles '
+    nom: 'Union de sociétés coopératives agricoles'
   },
   {
     code: '6411',
@@ -495,7 +495,7 @@ export default [
   },
   {
     code: '6521',
-    nom: 'Société civile de placement collectif immobilier (SCPI) '
+    nom: 'Société civile de placement collectif immobilier (SCPI)'
   },
   {
     code: '6532',
@@ -507,19 +507,19 @@ export default [
   },
   {
     code: '6534',
-    nom: 'Groupement foncier agricole '
+    nom: 'Groupement foncier agricole'
   },
   {
     code: '6535',
-    nom: 'Groupement agricole foncier '
+    nom: 'Groupement agricole foncier'
   },
   {
     code: '6536',
-    nom: 'Groupement forestier '
+    nom: 'Groupement forestier'
   },
   {
     code: '6537',
-    nom: 'Groupement pastoral '
+    nom: 'Groupement pastoral'
   },
   {
     code: '6538',
@@ -527,11 +527,11 @@ export default [
   },
   {
     code: '6539',
-    nom: 'Société civile foncière '
+    nom: 'Société civile foncière'
   },
   {
     code: '6540',
-    nom: 'Société civile immobilière '
+    nom: 'Société civile immobilière'
   },
   {
     code: '6541',
@@ -543,7 +543,7 @@ export default [
   },
   {
     code: '6543',
-    nom: 'Société civile coopérative de construction '
+    nom: 'Société civile coopérative de construction'
   },
   {
     code: '6544',
@@ -551,7 +551,7 @@ export default [
   },
   {
     code: '6551',
-    nom: 'Société civile coopérative de consommation '
+    nom: 'Société civile coopérative de consommation'
   },
   {
     code: '6554',
@@ -559,11 +559,11 @@ export default [
   },
   {
     code: '6558',
-    nom: 'Société civile coopérative entre médecins '
+    nom: 'Société civile coopérative entre médecins'
   },
   {
     code: '6560',
-    nom: 'Autre société civile coopérative '
+    nom: 'Autre société civile coopérative'
   },
   {
     code: '6561',
@@ -583,31 +583,31 @@ export default [
   },
   {
     code: '6565',
-    nom: 'SCP de notaires '
+    nom: 'SCP de notaires'
   },
   {
     code: '6566',
-    nom: 'SCP de commissaires-priseurs '
+    nom: 'SCP de commissaires-priseurs'
   },
   {
     code: '6567',
-    nom: 'SCP de greffiers de tribunal de commerce '
+    nom: 'SCP de greffiers de tribunal de commerce'
   },
   {
     code: '6568',
-    nom: 'SCP de conseils juridiques '
+    nom: 'SCP de conseils juridiques'
   },
   {
     code: '6569',
-    nom: 'SCP de commissaires aux comptes '
+    nom: 'SCP de commissaires aux comptes'
   },
   {
     code: '6571',
-    nom: 'SCP de médecins '
+    nom: 'SCP de médecins'
   },
   {
     code: '6572',
-    nom: 'SCP de dentistes '
+    nom: 'SCP de dentistes'
   },
   {
     code: '6573',
@@ -623,7 +623,7 @@ export default [
   },
   {
     code: '6576',
-    nom: 'SCP de vétérinaires '
+    nom: 'SCP de vétérinaires'
   },
   {
     code: '6577',
@@ -639,19 +639,19 @@ export default [
   },
   {
     code: '6588',
-    nom: 'Société civile laitière '
+    nom: 'Société civile laitière'
   },
   {
     code: '6589',
-    nom: 'Société civile de moyens '
+    nom: 'Société civile de moyens'
   },
   {
     code: '6595',
-    nom: 'Caisse locale de crédit mutuel '
+    nom: 'Caisse locale de crédit mutuel'
   },
   {
     code: '6596',
-    nom: 'Caisse de crédit agricole mutuel '
+    nom: 'Caisse de crédit agricole mutuel'
   },
   {
     code: '6597',
@@ -659,11 +659,11 @@ export default [
   },
   {
     code: '6598',
-    nom: 'Exploitation agricole à responsabilité limitée '
+    nom: 'Exploitation agricole à responsabilité limitée'
   },
   {
     code: '6599',
-    nom: 'Autre société civile '
+    nom: 'Autre société civile'
   },
   {
     code: '6901',
@@ -672,7 +672,7 @@ export default [
   },
   {
     code: '7111',
-    nom: 'Autorité constitutionnelle '
+    nom: 'Autorité constitutionnelle'
   },
   {
     code: '7112',
@@ -680,7 +680,7 @@ export default [
   },
   {
     code: '7113',
-    nom: 'Ministère '
+    nom: 'Ministère'
   },
   {
     code: '7120',
@@ -688,7 +688,7 @@ export default [
   },
   {
     code: '7150',
-    nom: 'Service du ministère de la Défense '
+    nom: 'Service du ministère de la Défense'
   },
   {
     code: '7160',
@@ -709,15 +709,15 @@ export default [
   },
   {
     code: '7190',
-    nom: 'Ecole nationale non dotée de la personnalité morale '
+    nom: 'Ecole nationale non dotée de la personnalité morale'
   },
   {
     code: '7210',
-    nom: 'Commune et commune nouvelle '
+    nom: 'Commune et commune nouvelle'
   },
   {
     code: '7220',
-    nom: 'Département '
+    nom: 'Département'
   },
   {
     code: '7225',
@@ -725,35 +725,35 @@ export default [
   },
   {
     code: '7229',
-    nom: '(Autre) Collectivité territoriale '
+    nom: '(Autre) Collectivité territoriale'
   },
   {
     code: '7230',
-    nom: 'Région '
+    nom: 'Région'
   },
   {
     code: '7312',
-    nom: 'Commune associée et commune déléguée '
+    nom: 'Commune associée et commune déléguée'
   },
   {
     code: '7313',
-    nom: 'Section de commune '
+    nom: 'Section de commune'
   },
   {
     code: '7314',
-    nom: 'Ensemble urbain '
+    nom: 'Ensemble urbain'
   },
   {
     code: '7321',
-    nom: 'Association syndicale autorisée '
+    nom: 'Association syndicale autorisée'
   },
   {
     code: '7322',
-    nom: 'Association foncière urbaine '
+    nom: 'Association foncière urbaine'
   },
   {
     code: '7323',
-    nom: 'Association foncière de remembrement '
+    nom: 'Association foncière de remembrement'
   },
   {
     code: '7331',
@@ -765,15 +765,15 @@ export default [
   },
   {
     code: '7341',
-    nom: 'Secteur de commune '
+    nom: 'Secteur de commune'
   },
   {
     code: '7342',
-    nom: 'District urbain '
+    nom: 'District urbain'
   },
   {
     code: '7343',
-    nom: 'Communauté urbaine '
+    nom: 'Communauté urbaine'
   },
   {
     code: '7344',
@@ -781,15 +781,15 @@ export default [
   },
   {
     code: '7345',
-    nom: 'Syndicat intercommunal à vocation multiple (SIVOM) '
+    nom: 'Syndicat intercommunal à vocation multiple (SIVOM)'
   },
   {
     code: '7346',
-    nom: 'Communauté de communes '
+    nom: 'Communauté de communes'
   },
   {
     code: '7347',
-    nom: 'Communauté de villes '
+    nom: 'Communauté de villes'
   },
   {
     code: '7348',
@@ -798,7 +798,7 @@ export default [
   {
     code: '7349',
     nom:
-      'Autre établissement public local de coopération non spécialisé ou entente '
+      'Autre établissement public local de coopération non spécialisé ou entente'
   },
   {
     code: '7351',
@@ -806,15 +806,15 @@ export default [
   },
   {
     code: '7352',
-    nom: 'Institution interrégionale ou entente '
+    nom: 'Institution interrégionale ou entente'
   },
   {
     code: '7353',
-    nom: 'Syndicat intercommunal à vocation unique (SIVU) '
+    nom: 'Syndicat intercommunal à vocation unique (SIVU)'
   },
   {
     code: '7354',
-    nom: 'Syndicat mixte fermé '
+    nom: 'Syndicat mixte fermé'
   },
   {
     code: '7355',
@@ -822,7 +822,7 @@ export default [
   },
   {
     code: '7356',
-    nom: 'Commission syndicale pour la gestion des biens indivis des communes '
+    nom: 'Commission syndicale pour la gestion des biens indivis des communes'
   },
   {
     code: '7357',
@@ -834,11 +834,11 @@ export default [
   },
   {
     code: '7362',
-    nom: 'Caisse des écoles '
+    nom: 'Caisse des écoles'
   },
   {
     code: '7363',
-    nom: 'Caisse de crédit municipal '
+    nom: 'Caisse de crédit municipal'
   },
   {
     code: '7364',
@@ -846,11 +846,11 @@ export default [
   },
   {
     code: '7365',
-    nom: 'Syndicat inter hospitalier '
+    nom: 'Syndicat inter hospitalier'
   },
   {
     code: '7366',
-    nom: 'Établissement public local social et médico-social '
+    nom: 'Établissement public local social et médico-social'
   },
   {
     code: '7367',
@@ -866,7 +866,7 @@ export default [
   },
   {
     code: '7373',
-    nom: 'Établissement public local culturel '
+    nom: 'Établissement public local culturel'
   },
   {
     code: '7378',
@@ -874,11 +874,11 @@ export default [
   },
   {
     code: '7379',
-    nom: '(Autre) Établissement public administratif local '
+    nom: '(Autre) Établissement public administratif local'
   },
   {
     code: '7381',
-    nom: 'Organisme consulaire '
+    nom: 'Organisme consulaire'
   },
   {
     code: '7382',
@@ -888,7 +888,7 @@ export default [
   {
     code: '7383',
     nom:
-      'Établissement public national à caractère scientifique culturel et professionnel '
+      'Établissement public national à caractère scientifique culturel et professionnel'
   },
   {
     code: '7384',
@@ -897,11 +897,11 @@ export default [
   {
     code: '7385',
     nom:
-      'Autre établissement public national administratif à compétence territoriale limitée '
+      'Autre établissement public national administratif à compétence territoriale limitée'
   },
   {
     code: '7389',
-    nom: 'Établissement public national à caractère administratif '
+    nom: 'Établissement public national à caractère administratif'
   },
   {
     code: '7410',
@@ -913,15 +913,15 @@ export default [
   },
   {
     code: '7450',
-    nom: 'Etablissement public administratif, cercle et foyer dans les armées '
+    nom: 'Etablissement public administratif, cercle et foyer dans les armées'
   },
   {
     code: '7470',
-    nom: 'Groupement de coopération sanitaire à gestion publique '
+    nom: 'Groupement de coopération sanitaire à gestion publique'
   },
   {
     code: '7490',
-    nom: 'Autre personne morale de droit administratif '
+    nom: 'Autre personne morale de droit administratif'
   },
   {
     code: '8110',
@@ -933,15 +933,15 @@ export default [
   },
   {
     code: '8130',
-    nom: 'Institution de retraite complémentaire '
+    nom: 'Institution de retraite complémentaire'
   },
   {
     code: '8140',
-    nom: 'Mutualité sociale agricole '
+    nom: 'Mutualité sociale agricole'
   },
   {
     code: '8150',
-    nom: 'Régime maladie des non-salariés non agricoles '
+    nom: 'Régime maladie des non-salariés non agricoles'
   },
   {
     code: '8160',
@@ -954,19 +954,19 @@ export default [
   },
   {
     code: '8190',
-    nom: 'Autre régime de prévoyance sociale '
+    nom: 'Autre régime de prévoyance sociale'
   },
   {
     code: '8210',
-    nom: 'Mutuelle '
+    nom: 'Mutuelle'
   },
   {
     code: '8250',
-    nom: 'Assurance mutuelle agricole '
+    nom: 'Assurance mutuelle agricole'
   },
   {
     code: '8290',
-    nom: 'Autre organisme mutualiste '
+    nom: 'Autre organisme mutualiste'
   },
   {
     code: '8310',
@@ -978,48 +978,48 @@ export default [
   },
   {
     code: '8410',
-    nom: 'Syndicat de salariés '
+    nom: 'Syndicat de salariés'
   },
   {
     code: '8420',
-    nom: 'Syndicat patronal '
+    nom: 'Syndicat patronal'
   },
   {
     code: '8450',
-    nom: 'Ordre professionnel ou assimilé '
+    nom: 'Ordre professionnel ou assimilé'
   },
   {
     code: '8470',
     nom:
-      'Centre technique industriel ou comité professionnel du développement économique '
+      'Centre technique industriel ou comité professionnel du développement économique'
   },
   {
     code: '8490',
-    nom: 'Autre organisme professionnel '
+    nom: 'Autre organisme professionnel'
   },
   {
     code: '8510',
-    nom: 'Institution de prévoyance '
+    nom: 'Institution de prévoyance'
   },
   {
     code: '8520',
-    nom: 'Institution de retraite supplémentaire '
+    nom: 'Institution de retraite supplémentaire'
   },
   {
     code: '9110',
-    nom: 'Syndicat de copropriété '
+    nom: 'Syndicat de copropriété'
   },
   {
     code: '9150',
-    nom: 'Association syndicale libre '
+    nom: 'Association syndicale libre'
   },
   {
     code: '9210',
-    nom: 'Association non déclarée '
+    nom: 'Association non déclarée'
   },
   {
     code: '9220',
-    nom: 'Association déclarée '
+    nom: 'Association déclarée'
   },
   {
     code: '9221',
@@ -1027,7 +1027,7 @@ export default [
   },
   {
     code: '9222',
-    nom: 'Association intermédiaire '
+    nom: 'Association intermédiaire'
   },
   {
     code: '9223',
@@ -1043,7 +1043,7 @@ export default [
   },
   {
     code: '9240',
-    nom: 'Congrégation '
+    nom: 'Congrégation'
   },
   {
     code: '9260',
@@ -1051,14 +1051,14 @@ export default [
   },
   {
     code: '9300',
-    nom: 'Fondation '
+    nom: 'Fondation'
   },
   {
     code: '9900',
-    nom: 'Autre personne morale de droit privé '
+    nom: 'Autre personne morale de droit privé'
   },
   {
     code: '9970',
-    nom: 'Groupement de coopération sanitaire à gestion privée '
+    nom: 'Groupement de coopération sanitaire à gestion privée'
   }
 ]
