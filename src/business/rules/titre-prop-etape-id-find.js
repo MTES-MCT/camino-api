@@ -17,7 +17,7 @@ const titrePropEtapeIdFind = (
         (
           ['acc', 'ter'].includes(titreDemarche.statutId) ||
           // sauf si la démarche est un octroi
-          titreDemarche.typeId === 'oct' ||
+          ['oct', 'vut', 'vct'].includes(titreDemarche.typeId) ||
           // ou que le titre a le statut modification en instance
           (titreStatutId === 'mod' &&
             // et que la démarches est une prolongation ou une demande de titre
@@ -45,7 +45,7 @@ const titrePropEtapeIdFind = (
           ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
           // Si la démarche est un octroi (demande initiale)
           // on prend en compte n'importe quelle étape
-          (titreDemarche.typeId === 'oct' ||
+          (['oct', 'vut', 'vct'].includes(titreDemarche.typeId) ||
             // ou si on cherche le périmètre
             // et que le titre est en modification en instance
             (prop.match('point') && titreStatutId === 'mod') ||

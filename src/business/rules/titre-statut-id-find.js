@@ -5,7 +5,7 @@ const titreStatutIdFind = titre => {
   // s'il y a une seule démarche (octroi)
   if (
     titre.demarches.length === 1 &&
-    titre.demarches[0].typeId === 'oct' &&
+    ['oct', 'vut', 'vct'].includes(titre.demarches[0].typeId) &&
     ['ins', 'dep', 'rej', 'cls', 'ret'].includes(titre.demarches[0].statutId)
   ) {
     // le statut de la démarche est en instruction ou déposée

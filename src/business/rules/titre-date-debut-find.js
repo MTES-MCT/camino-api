@@ -39,7 +39,7 @@ const titreDateDebutFind = (titreDemarches, titreTypeId) => {
   const titreDemarche = titreDemarchesAscSorted.find(
     titreDemarche =>
       ['acc', 'ter'].includes(titreDemarche.statutId) &&
-      titreDemarche.typeId === 'oct'
+      ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
   )
 
   if (!titreDemarche) return null
