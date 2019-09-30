@@ -34,7 +34,7 @@ const administrationsGet = async departements => {
 }
 
 const administrationsUpdate = async (administrationsOld, departements) => {
-  if (!departements) return []
+  if (!departements || !departements.length) return []
 
   const administrationsApiTest = await administrationsGetTest()
   if (!administrationsApiTest) return []

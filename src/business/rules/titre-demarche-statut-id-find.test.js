@@ -13,6 +13,7 @@ import {
   titreDemarcheOctDexRej,
   titreDemarcheOctMenIns,
   titreArmDemarcheOctMdpIns,
+  titreArmDemarcheOctDefIns,
   titreDemarcheOctMenInd,
   titreDemarcheOctRet,
   titreDemarcheOctMdp,
@@ -83,6 +84,12 @@ describe("statut d'une démarche", () => {
 
   test("une démarche d'octroi d'un titre ARM dont l'étape de mdp est antérieure à aujourd'hui a le statut “en instruction”", () => {
     expect(titreDemarcheStatutIdFind(titreArmDemarcheOctMdpIns, 'arm')).toEqual(
+      'ins'
+    )
+  })
+
+  test("une démarche d'octroi d'un titre ARM dont la dernière étape est une def a le statut “en instruction”", () => {
+    expect(titreDemarcheStatutIdFind(titreArmDemarcheOctDefIns, 'arm')).toEqual(
       'ins'
     )
   })

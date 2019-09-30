@@ -7,7 +7,10 @@ import {
   titreDemarchesOctAccDpuRej,
   titreDemarchesOctMfrPoints,
   titreDemarchesOctAmodiatairesPassee,
-  titreDemarchesOctAmodiatairesMod
+  titreDemarchesOctAmodiatairesMod,
+  titreDemarchesProPointsModPhaseEch,
+  titreDemarchesProPointsModPhaseVal,
+  titreDemarchesMutPointsMod
 } from './__mocks__/titre-prop-etape-id-find-demarches'
 
 describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
@@ -63,5 +66,23 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     expect(
       titrePropEtapeIdFind(titreDemarchesOctAmodiatairesMod, 'amodiataires')
     ).toEqual('h-cxx-courdemanges-1981-amo01-dpu01')
+  })
+
+  test("trouve l'id de la dernière étape de dpu d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient un périmètre et le titre a le statut 'modification en instance' et aucune phase n'est valide", () => {
+    expect(
+      titrePropEtapeIdFind(titreDemarchesProPointsModPhaseEch, 'points')
+    ).toEqual('h-cxx-courdemanges-1981-pro01-dpu01')
+  })
+
+  test("ne trouve pas l'id de la dernière étape de dpu d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient un périmètre et le titre a le statut 'modification en instance' mais la phase est encore valide", () => {
+    expect(
+      titrePropEtapeIdFind(titreDemarchesProPointsModPhaseVal, 'points')
+    ).toBeNull()
+  })
+
+  test("ne trouve pas l'id de la dernière étape de dpu car aucune démarche de prolongation ou de demande de titre en instruction ne contient de périmètre et le titre a le statut 'modification en instance'", () => {
+    expect(
+      titrePropEtapeIdFind(titreDemarchesMutPointsMod, 'points')
+    ).toBeNull()
   })
 })
