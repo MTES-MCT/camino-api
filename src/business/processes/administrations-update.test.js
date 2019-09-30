@@ -64,4 +64,26 @@ describe('administrations', () => {
     expect(administrationsUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
+
+  test("ne met rien à jour si aucun département n'est fourni", async () => {
+    const administrationsUpdated = await administrationUpdate(
+      administrationsDbExistantes,
+      []
+    )
+
+    expect(administrationsUpdated.length).toEqual(0)
+    expect(console.log).not.toHaveBeenCalled()
+  })
+
+  test("ne met rien à jour si le test de connexion à l'API administration n'est pas concluant", async () => {
+    apiAdministrations.organismeDepartementGet.mockResolvedValue(false)
+
+    const administrationsUpdated = await administrationUpdate(
+      administrationsDbExistantes,
+      departements
+    )
+
+    expect(administrationsUpdated.length).toEqual(0)
+    expect(console.log).not.toHaveBeenCalled()
+  })
 })

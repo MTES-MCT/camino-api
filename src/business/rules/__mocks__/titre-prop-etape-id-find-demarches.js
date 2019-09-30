@@ -303,18 +303,98 @@ const titreDemarchesOctAmodiatairesMod = {
   ]
 }
 
-const titreDemarchesProPointsMod = {
+const titreDemarchesProPointsModPhaseEch = {
   statutId: 'mod',
   demarches: [
     {
       id: 'h-cxx-courdemanges-1981-pro01',
       titreId: 'h-cxx-courdemanges-1981',
       typeId: 'pro',
-      statutId: 'acc',
+      statutId: 'ins',
       etapes: [
         {
           id: 'h-cxx-courdemanges-1981-pro01-dpu01',
           titreDemarcheId: 'h-cxx-courdemanges-1981-pro01',
+          typeId: 'dpu',
+          statutId: 'acc',
+          ordre: 1,
+          points: [1, 2, 3]
+        }
+      ],
+      phase: {
+        statutId: 'ech'
+      }
+    },
+    {
+      id: 'h-cxx-courdemanges-1981-oct01',
+      titreId: 'h-cxx-courdemanges-1981',
+      typeId: 'oct',
+      statutId: 'acc',
+      etapes: [
+        {
+          id: 'h-cxx-courdemanges-1981-oct01-dpu01',
+          titreDemarcheId: 'h-cxx-courdemanges-1981-oct01',
+          typeId: 'dpu',
+          statutId: 'acc',
+          ordre: 1
+        }
+      ]
+    }
+  ]
+}
+
+const titreDemarchesProPointsModPhaseVal = {
+  statutId: 'mod',
+  demarches: [
+    {
+      id: 'h-cxx-courdemanges-1981-pro01',
+      titreId: 'h-cxx-courdemanges-1981',
+      typeId: 'pro',
+      statutId: 'ins',
+      etapes: [
+        {
+          id: 'h-cxx-courdemanges-1981-pro01-dpu01',
+          titreDemarcheId: 'h-cxx-courdemanges-1981-pro01',
+          typeId: 'dpu',
+          statutId: 'acc',
+          ordre: 1,
+          points: [1, 2, 3]
+        }
+      ],
+      phase: {
+        statutId: 'val'
+      }
+    },
+    {
+      id: 'h-cxx-courdemanges-1981-oct01',
+      titreId: 'h-cxx-courdemanges-1981',
+      typeId: 'oct',
+      statutId: 'acc',
+      etapes: [
+        {
+          id: 'h-cxx-courdemanges-1981-oct01-dpu01',
+          titreDemarcheId: 'h-cxx-courdemanges-1981-oct01',
+          typeId: 'dpu',
+          statutId: 'acc',
+          ordre: 1
+        }
+      ]
+    }
+  ]
+}
+
+const titreDemarchesMutPointsMod = {
+  statutId: 'mod',
+  demarches: [
+    {
+      id: 'h-cxx-courdemanges-1981-mut01',
+      titreId: 'h-cxx-courdemanges-1981',
+      typeId: 'mut',
+      statutId: 'ins',
+      etapes: [
+        {
+          id: 'h-cxx-courdemanges-1981-mut01-dpu01',
+          titreDemarcheId: 'h-cxx-courdemanges-1981-mut01',
           typeId: 'dpu',
           statutId: 'acc',
           ordre: 1,
@@ -352,5 +432,7 @@ export {
   titreDemarchesOctMfrPoints,
   titreDemarchesOctAmodiatairesPassee,
   titreDemarchesOctAmodiatairesMod,
-  titreDemarchesProPointsMod
+  titreDemarchesProPointsModPhaseEch,
+  titreDemarchesProPointsModPhaseVal,
+  titreDemarchesMutPointsMod
 }
