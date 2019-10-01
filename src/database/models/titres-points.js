@@ -11,6 +11,8 @@ export default class TitresPoints extends Model {
     properties: {
       id: { type: 'string' },
       titreEtapeId: { type: 'string', maxLength: 128 },
+      nom: { type: ['string', 'null'] },
+      description: { type: ['string', 'null'] },
       coordonnees: {
         type: 'object',
         properties: {
@@ -21,11 +23,9 @@ export default class TitresPoints extends Model {
       groupe: { type: 'integer' },
       contour: { type: 'integer' },
       point: { type: 'integer' },
-      nom: { type: ['string', 'null'] },
-      description: { type: ['string', 'null'] },
+      lot: { type: ['integer', 'null'] },
       securite: { type: ['boolean', 'null'] },
-      subsidiaire: { type: ['boolean', 'null'] },
-      lot: { type: ['boolean', 'null'] }
+      subsidiaire: { type: ['boolean', 'null'] }
     }
   }
 
@@ -74,5 +74,15 @@ export default class TitresPoints extends Model {
     json = super.$formatDatabaseJson(json)
 
     return json
+  }
+
+  static namedFilters = {
+    orderAsc: builder => {
+      builder.orderBy([
+        { column: 'groupe' },
+        { column: 'contour' },
+        { column: 'point' }
+      ])
+    }
   }
 }
