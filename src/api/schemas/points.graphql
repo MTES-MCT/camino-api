@@ -41,7 +41,7 @@ type Point {
 
   subsidiaire: Boolean
 
-  lot: Boolean
+  lot: Int
 
   "Liste d'id de référence de points"
   references: [PointReference]
@@ -82,7 +82,7 @@ input InputPoint {
 
   subsidiaire: Boolean
 
-  lot: Boolean
+  lot: Int
 
   references: [InputPointReference]
 }

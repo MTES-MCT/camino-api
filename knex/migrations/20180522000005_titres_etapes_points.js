@@ -16,7 +16,7 @@ exports.up = knex => {
       table.string('description', 1023)
       table.boolean('securite')
       table.boolean('subsidiaire')
-      table.boolean('lot')
+      table.integer('lot')
     })
     .createTable('titresPointsReferences', table => {
       table.string('id').primary()

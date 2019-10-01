@@ -1,4 +1,5 @@
 const fieldsOrderDesc = ['etablissements', 'demarches', 'etapes', 'activites']
+const fieldsOrderAsc = ['points']
 const fieldsToRemove = ['coordonnees']
 const fieldsToRemoveRoot = ['references']
 const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
@@ -63,6 +64,11 @@ const titreEagerFormat = (fields, parent) => {
   // ajoute `(orderDesc)` à certaine propriétés
   if (fieldsOrderDesc.includes(parent)) {
     fields.$modifier = 'orderDesc'
+  }
+
+  // ajoute `(orderAsc)` à certaine propriétés
+  if (fieldsOrderAsc.includes(parent)) {
+    fields.$modifier = 'orderAsc'
   }
 
   // à la racine de l'objet
