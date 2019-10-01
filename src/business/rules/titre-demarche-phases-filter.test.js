@@ -3,6 +3,8 @@ import {
   titreDemarcheMut,
   titreDemarcheOctRej,
   titreDemarcheOctDpuInexistante,
+  titreDemarcheMutDateFinAcc,
+  titreDemarcheMutDureeAcc,
   titreDemarcheOctDpuAcc,
   titreDemarcheOctDpuRej,
   titreAxmDemarcheOctDexAcc,
@@ -16,7 +18,7 @@ import {
 } from './__mocks__/titre-demarche-phases-filter-demarches'
 
 describe('retourne si la démarche donne lieu à une étape ou non', () => {
-  test('une démarche de mutation ne donne pas lieu à une phase', () => {
+  test('une démarche de mutation sans étape ne donne pas lieu à une phase', () => {
     expect(titreDemarchePhasesFilter(titreDemarcheMut)).toBeFalsy()
   })
 
@@ -28,6 +30,14 @@ describe('retourne si la démarche donne lieu à une étape ou non', () => {
     expect(
       titreDemarchePhasesFilter(titreDemarcheOctDpuInexistante)
     ).toBeFalsy()
+  })
+
+  test("une démarche de mutation dont l'étape de dpu contient une date de fin donne lieu à une phase", () => {
+    expect(titreDemarchePhasesFilter(titreDemarcheMutDateFinAcc)).toBeTruthy()
+  })
+
+  test("une démarche de mutation dont l'étape de dpu contient une durée donne lieu à une phase", () => {
+    expect(titreDemarchePhasesFilter(titreDemarcheMutDureeAcc)).toBeTruthy()
   })
 
   test("une démarche d'octroi dont l'étape de dpu est acceptée donne lieu à une phase", () => {
