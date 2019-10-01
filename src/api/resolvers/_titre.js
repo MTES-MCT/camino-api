@@ -79,10 +79,6 @@ const titrePublicRestrict = titre => {
           if (te.documents) {
             te.documents = te.documents.filter(ed => ed.public)
           }
-
-          if (te.visas) {
-            delete te.visas
-          }
         })
       }
     })

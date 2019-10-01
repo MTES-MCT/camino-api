@@ -116,7 +116,6 @@ const tables = [
       'surface',
       'volume',
       'volumeUniteId',
-      'visas',
       'engagement',
       'engagementDeviseId',
       'contenu'
@@ -126,7 +125,6 @@ const tables = [
       dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
       dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
       date: v => dateFormat(v, 'yyyy-mm-dd'),
-      visas: v => JSON.stringify(v),
       contenu: v => JSON.stringify(v)
     }
   },

@@ -111,7 +111,6 @@ fragment etape on Etape {
     id
     nom
   }
-  visas
   engagement
   engagementDevise {
     id

@@ -31,7 +31,6 @@ export default class TitresEtapes extends Model {
       surface: { type: ['number', 'null'] },
       volume: { type: ['number', 'null'] },
       volumeUniteId: { type: ['string', 'null'] },
-      visas: { type: ['array', 'null'] },
       engagement: { type: ['number', 'null'] },
       engagementDeviseId: { type: ['string', 'null'] },
       contenu: { type: 'json' }
@@ -220,7 +219,4 @@ export default class TitresEtapes extends Model {
       builder.orderBy('ordre', 'desc')
     }
   }
-
-  // nécessaire lorsqu'on insère un tableau de 'visas'
-  static jsonAttributes = []
 }
