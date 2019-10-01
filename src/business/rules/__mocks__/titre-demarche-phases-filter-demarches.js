@@ -50,6 +50,38 @@ const titreDemarcheOctDpuAcc = {
   ]
 }
 
+const titreDemarcheMutDateFinAcc = {
+  id: 'h-cxx-courdemanges-1988-mut01',
+  titreId: 'h-cxx-courdemanges-1988',
+  typeId: 'mut',
+  statutId: 'acc',
+  etapes: [
+    {
+      id: 'h-cxx-courdemanges-1988-mut01-dpu01',
+      typeId: 'dpu',
+      statutId: 'acc',
+      ordre: 1,
+      dateFin: '2018-12-31'
+    }
+  ]
+}
+
+const titreDemarcheMutDureeAcc = {
+  id: 'h-cxx-courdemanges-1988-mut01',
+  titreId: 'h-cxx-courdemanges-1988',
+  typeId: 'mut',
+  statutId: 'acc',
+  etapes: [
+    {
+      id: 'h-cxx-courdemanges-1988-mut01-dpu01',
+      typeId: 'dpu',
+      statutId: 'acc',
+      ordre: 1,
+      duree: 20
+    }
+  ]
+}
+
 const titreDemarcheOctDpuRej = {
   id: 'h-cxx-courdemanges-1988-oct01',
   titreId: 'h-cxx-courdemanges-1988',
@@ -219,6 +251,8 @@ export {
   titreDemarcheMut,
   titreDemarcheOctRej,
   titreDemarcheOctDpuInexistante,
+  titreDemarcheMutDateFinAcc,
+  titreDemarcheMutDureeAcc,
   titreDemarcheOctDpuAcc,
   titreDemarcheOctDpuRej,
   titreAxmDemarcheOctDexAcc,
