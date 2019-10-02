@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.5](https://github.com/MTES-MCT/camino-api/compare/v0.24.4...v0.24.5) (2019-10-02)
+
+
+### Bug Fixes
+
+* **api:** remplace des anciens ids utilisateurs par un hash ([#167](https://github.com/MTES-MCT/camino-api/issues/167)) ([56ffbc7](https://github.com/MTES-MCT/camino-api/commit/56ffbc7))
+* **api-communes:** limite la connexion à l'API externe ([bf6c034](https://github.com/MTES-MCT/camino-api/commit/bf6c034))
+* **api-insee:** limite les appels en parallèle ([8a44a29](https://github.com/MTES-MCT/camino-api/commit/8a44a29))
+* **auth:** corrige une erreur si un utilisateur est logué mais n'existe plus en base ([#163](https://github.com/MTES-MCT/camino-api/issues/163)) ([691a5e2](https://github.com/MTES-MCT/camino-api/commit/691a5e2))
+* **business:** calcule la date de fin de phase pour les mutations ([#94](https://github.com/MTES-MCT/camino-api/issues/94)) ([7cb8574](https://github.com/MTES-MCT/camino-api/commit/7cb8574))
+* **business:** corrige la mise à jour d'un titre ([f4201e3](https://github.com/MTES-MCT/camino-api/commit/f4201e3))
+* **business:** corrige les phases des mutations partielles ([#166](https://github.com/MTES-MCT/camino-api/issues/166)) ([e595cd1](https://github.com/MTES-MCT/camino-api/commit/e595cd1))
+* **business:** effectue un test de connexion à l'API administration ([#164](https://github.com/MTES-MCT/camino-api/issues/164)) ([2d52368](https://github.com/MTES-MCT/camino-api/commit/2d52368))
+* **business:** gère les périmètres des titres en modification en instance ([#150](https://github.com/MTES-MCT/camino-api/issues/150)) ([154b042](https://github.com/MTES-MCT/camino-api/commit/154b042))
+* **business:** n'écrase pas un titre existant si un autre titre à la même id ([#162](https://github.com/MTES-MCT/camino-api/issues/162)) ([d2ab28e](https://github.com/MTES-MCT/camino-api/commit/d2ab28e))
+* **export:** corrige le champs des unités des références ([bcdefb6](https://github.com/MTES-MCT/camino-api/commit/bcdefb6))
+* **insee:** corrige la génération du token ([#165](https://github.com/MTES-MCT/camino-api/issues/165)) ([cd73050](https://github.com/MTES-MCT/camino-api/commit/cd73050))
+
+
+### Features
+
+* **api:** ordonne les points par ordre ascendant ([#171](https://github.com/MTES-MCT/camino-api/issues/171)) ([788097f](https://github.com/MTES-MCT/camino-api/commit/788097f))
+* rend le champs nom d'un point facultatif ([dd56a6d](https://github.com/MTES-MCT/camino-api/commit/dd56a6d))
+* supprime le champs visas ([#169](https://github.com/MTES-MCT/camino-api/issues/169)) ([772bdb7](https://github.com/MTES-MCT/camino-api/commit/772bdb7))
+
 ### [0.24.4](https://github.com/MTES-MCT/camino-api/compare/v0.24.2...v0.24.4) (2019-09-23)
 
 
