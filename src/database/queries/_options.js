@@ -44,7 +44,7 @@ const communes = {
 }
 
 const etapes = {
-  eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
+  eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances(ordreAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
 
   update: {
     relate: [
@@ -177,7 +177,7 @@ const domaines = {
 }
 
 const titres = {
-  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points(orderAsc), substances.${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}]`,
+  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points(orderAsc), substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}]`,
 
   update: {
     relate: [
