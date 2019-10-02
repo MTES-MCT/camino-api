@@ -35,7 +35,7 @@ export default class EtapesTypes extends Model {
     }
   }
 
-  static namedFilters = {
+  static modifiers = {
     orderDesc: builder => {
       builder.orderBy('ordre', 'desc')
     }

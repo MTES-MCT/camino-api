@@ -73,7 +73,7 @@ export default class TitresActivites extends Model {
     return json
   }
 
-  static namedFilters = {
+  static modifiers = {
     orderDesc: builder => {
       builder.orderBy('date', 'desc')
     }

@@ -76,7 +76,7 @@ export default class TitresPoints extends Model {
     return json
   }
 
-  static namedFilters = {
+  static modifiers = {
     orderAsc: builder => {
       builder.orderBy([
         { column: 'groupe' },

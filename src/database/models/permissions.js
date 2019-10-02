@@ -14,7 +14,7 @@ export default class Permissions extends Model {
     }
   }
 
-  static namedFilters = {
+  static modifiers = {
     orderAsc: builder => {
       builder.orderBy('ordre', 'asc')
     }

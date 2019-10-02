@@ -17,7 +17,7 @@ export default class EntreprisesEtablissements extends Model {
     }
   }
 
-  static namedFilters = {
+  static modifiers = {
     orderDesc: builder => {
       builder.orderBy('dateDebut', 'desc')
     }

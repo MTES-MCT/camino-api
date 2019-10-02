@@ -118,7 +118,7 @@ export default class TitresDemarches extends Model {
     return json
   }
 
-  static namedFilters = {
+  static modifiers = {
     orderDesc: builder => {
       builder.orderBy('ordre', 'desc')
     }
