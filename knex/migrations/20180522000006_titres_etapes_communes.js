@@ -12,6 +12,8 @@ exports.up = knex =>
       .references('communes.id')
     table.integer('surface')
     table.primary(['titreEtapeId', 'communeId'])
+    table.index('titreEtapeId')
+    table.index('communeId')
   })
 
 exports.down = knex => knex.schema.dropTable('titresCommunes')

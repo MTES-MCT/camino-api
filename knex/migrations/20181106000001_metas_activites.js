@@ -10,6 +10,7 @@ exports.up = knex => {
         .references('frequences.id')
       table.string('dateDebut').notNullable()
       table.integer('delaiMois')
+      table.index('frequenceId')
     })
     .createTable('titresTypes__activitesTypes', table => {
       table
@@ -21,6 +22,8 @@ exports.up = knex => {
         .references('activitesTypes.id')
         .notNullable()
       table.primary(['titreTypeId', 'activiteTypeId'])
+      table.index('titerTypeId')
+      table.index('activiteTypeId')
     })
     .createTable('activitesTypes__pays', table => {
       table
@@ -33,6 +36,8 @@ exports.up = knex => {
         .notNullable()
         .onDelete('CASCADE')
       table.primary(['paysId', 'activiteTypeId'])
+      table.index('paysId')
+      table.index('activiteTypeId')
     })
     .createTable('activitesTypes__administrations', table => {
       table

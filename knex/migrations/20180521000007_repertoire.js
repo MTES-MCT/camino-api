@@ -28,6 +28,7 @@ exports.up = knex =>
       table.string('legalSiret')
       table.string('dateDebut', 10)
       table.string('dateFin', 10)
+      table.index('entrepriseId')
     })
     .createTable('administrationsTypes', table => {
       table.string('id', 64).primary()
@@ -53,6 +54,9 @@ exports.up = knex =>
       table.string('cedex')
       table.string('departementId').references('departements.id')
       table.string('regionId').references('regions.id')
+      table.index('typeId')
+      table.index('departementId')
+      table.index('regionId')
     })
     .createTable('administrations__domaines', table => {
       table
@@ -65,6 +69,8 @@ exports.up = knex =>
         .notNullable()
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+      table.index('domaineId')
+      table.index('administrationId')
     })
     .createTable('permissions', table => {
       table.string('id', 12).primary()
@@ -85,6 +91,8 @@ exports.up = knex =>
         .notNullable()
         .onDelete('CASCADE')
       table.json('preferences')
+      table.index('administrationId')
+      table.index('permissionId')
     })
     .createTable('utilisateurs__entreprises', table => {
       table
@@ -95,6 +103,9 @@ exports.up = knex =>
         .string('entrepriseId', 64)
         .references('entreprises.id')
         .onDelete('CASCADE')
+      table.primary(['utilisateurId', 'entrepriseId'])
+      table.index('utilisateurId')
+      table.index('entrepriseId')
     })
     .createTable('utilisateurs__administrations', table => {
       table

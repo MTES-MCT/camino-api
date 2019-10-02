@@ -19,6 +19,9 @@ exports.up = knex => {
         .defaultTo('ind')
       table.integer('ordre').defaultTo('0')
       table.string('annulationTitreDemarcheId', 128).references('id')
+      table.index('titreId')
+      table.index('typeId')
+      table.index('statutId')
     })
     .createTable('titresDemarchesLiens', table => {
       table.string('enfantTitreDemarcheId', 128)
@@ -34,6 +37,8 @@ exports.up = knex => {
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.primary(['enfantTitreDemarcheId', 'parentTitreDemarcheId'])
+      table.index('enfantTitreDemarcheId')
+      table.index('parentTitreDemarcheId')
     })
     .createTable('titresPhases', table => {
       table.string('titreDemarcheId', 128).primary()
@@ -48,6 +53,7 @@ exports.up = knex => {
         .references('phasesStatuts.id')
       table.string('dateDebut', 10)
       table.string('dateFin', 10)
+      table.index('statutId')
     })
     .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
@@ -77,6 +83,11 @@ exports.up = knex => {
       table.string('engagementDeviseId').references('devises.id')
       table.boolean('sourceIndisponible')
       table.jsonb('contenu')
+      table.index('titreDemarcheId')
+      table.index('typeId')
+      table.index('statutId')
+      table.index('volumeUniteId')
+      table.index('engagementDeviseId')
     })
 }
 

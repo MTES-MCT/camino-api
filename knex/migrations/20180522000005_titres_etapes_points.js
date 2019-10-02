@@ -17,6 +17,7 @@ exports.up = knex => {
       table.boolean('securite')
       table.boolean('subsidiaire')
       table.integer('lot')
+      table.index('titreEtapeId')
     })
     .createTable('titresPointsReferences', table => {
       table.string('id').primary()
@@ -27,6 +28,7 @@ exports.up = knex => {
       table.string('geoSystemeId', 5).notNullable()
       table.specificType('coordonnees', 'POINT').notNullable()
       table.boolean('opposable')
+      table.index('titrePointId')
     })
 }
 

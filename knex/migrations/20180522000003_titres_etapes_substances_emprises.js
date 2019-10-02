@@ -13,6 +13,8 @@ exports.up = knex => {
     table.boolean('connexe')
     table.integer('ordre')
     table.primary(['titreEtapeId', 'substanceId'])
+    table.index('titreEtapeId')
+    table.index('substanceId')
   })
 }
 

@@ -18,6 +18,7 @@ exports.up = knex => {
     table.boolean('titulaires')
     table.boolean('amodiataires')
     table.boolean('administrations')
+    table.index('titreEtapeId')
   })
 }
 

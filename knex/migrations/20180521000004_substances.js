@@ -18,6 +18,8 @@ exports.up = knex => {
         .string('substanceLegaleCodeId')
         .references('substancesLegalesCodes.id')
         .notNullable()
+      table.index('domaineId')
+      table.index('substanceLegaleCodeId')
     })
     .createTable('substances', table => {
       table.string('id', 4).primary()
@@ -37,6 +39,8 @@ exports.up = knex => {
         .references('substancesLegales.id')
         .notNullable()
       table.primary(['substanceId', 'substanceLegaleId'])
+      table.index('substanceId')
+      table.index('substanceLegaleId')
     })
 }
 

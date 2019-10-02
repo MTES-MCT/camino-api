@@ -15,6 +15,8 @@ exports.up = knex => {
         .notNullable()
       table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
+      table.index('titreEtapeId')
+      table.index('entrepriseId')
     })
     .createTable('titresAmodiataires', table => {
       table
@@ -30,6 +32,8 @@ exports.up = knex => {
         .notNullable()
       table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
+      table.index('titreEtapeId')
+      table.index('entrepriseId')
     })
 
     .createTable('titresAdministrationsGestionnaires', table => {
@@ -64,6 +68,8 @@ exports.up = knex => {
       table.boolean('associee')
       table.boolean('coordinateur')
       table.primary(['titreEtapeId', 'administrationId'])
+      table.index('titreEtapeId')
+      table.index('administrationId')
     })
 }
 

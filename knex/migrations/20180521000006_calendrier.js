@@ -14,12 +14,15 @@ exports.up = knex => {
       table.integer('id', 1).primary()
       table.string('nom').notNullable()
       table.string('frequenceId', 3).references('frequences.id')
+      table.index('frequenceId')
     })
     .createTable('mois', table => {
       table.integer('id', 2).primary()
       table.string('nom').notNullable()
       table.string('frequenceId', 3).references('frequences.id')
       table.integer('trimestreId', 1).references('trimestres.id')
+      table.index('frequenceId')
+      table.index('trimestreId')
     })
 }
 

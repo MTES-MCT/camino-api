@@ -19,6 +19,7 @@ exports.up = knex => {
     table.string('url')
     table.string('uri')
     table.boolean('public')
+    table.index('titreEtapeId')
   })
 }
 

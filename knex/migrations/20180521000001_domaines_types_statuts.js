@@ -27,6 +27,8 @@ exports.up = knex => {
         .onDelete('CASCADE')
       table.boolean('archive')
       table.unique(['domaineId', 'typeId'])
+      table.index('domaineId')
+      table.index('typeId')
     })
     .createTable('titres_statuts', table => {
       table.string('id', 3).primary()

@@ -19,6 +19,10 @@ exports.up = knex =>
       .notNullable()
     table.integer('annee', 4)
     table.integer('frequencePeriodeId', 2)
+    table.index('titreId')
+    table.index('utilisateurId')
+    table.index('activiteTypeId')
+    table.index('activiteStatutId')
   })
 
 exports.down = knex => knex.schema.dropTable('titresActivites')
