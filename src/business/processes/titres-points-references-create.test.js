@@ -40,7 +40,7 @@ describe("références des points d'un titre", () => {
       coordonnees: { x: 0.1, y: 0.2 },
       titrePointId: 'point-id',
       geoSystemeId: '4326',
-      unite: 'degré'
+      uniteId: 'deg'
     })
     expect(console.log).toHaveBeenCalled()
   })

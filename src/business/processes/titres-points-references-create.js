@@ -13,7 +13,7 @@ const titreEtapePointsReferencesNewFind = titrePoints =>
           x: titrePoint.coordonnees.x,
           y: titrePoint.coordonnees.y
         },
-        unite: 'degré'
+        uniteId: 'deg'
       })
     }
 
