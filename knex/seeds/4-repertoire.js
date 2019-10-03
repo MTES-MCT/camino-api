@@ -3,19 +3,19 @@ const seeding = require('../seeding')
 
 const domaines = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
-const entreprises = domaines.reduce((acc, domaine) => {
-  acc.push(...require(`../../sources/entreprises-titres-${domaine}`))
+const entreprises = domaines.reduce(
+  (acc, domaine) =>
+    acc.concat(require(`../../sources/entreprises-titres-${domaine}`)),
+  []
+)
 
-  return acc
-}, [])
-
-const entreprisesEtablissements = domaines.reduce((acc, domaine) => {
-  acc.push(
-    ...require(`../../sources/entreprises-titres-${domaine}-etablissements`)
-  )
-
-  return acc
-}, [])
+const entreprisesEtablissements = domaines.reduce(
+  (acc, domaine) =>
+    acc.concat(
+      require(`../../sources/entreprises-titres-${domaine}-etablissements`)
+    ),
+  []
+)
 
 const administrations = require('../../sources/administrations.json')
 const administrationsTypes = require('../../sources/administrations-types.json')

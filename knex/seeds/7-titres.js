@@ -28,7 +28,8 @@ const data = files.reduce((d, file) => {
     let content
     try {
       content = require(`../../sources/${fileName}.json`)
-      res.push(...content)
+
+      return res.concat(content)
     } catch (e) {
       console.log(chalk.red(e.message.split('\n')[0]))
     }
