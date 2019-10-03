@@ -122,25 +122,7 @@ const spreadsheets = [
   {
     name: 'entreprises',
     id: entreprisesSpreadsheetId,
-    tables: [
-      { name: 'titres_c' },
-      { name: 'titres_f' },
-      { name: 'titres_g' },
-      { name: 'titres_h' },
-      { name: 'titres_m' },
-      { name: 'titres_r' },
-      { name: 'titres_s' },
-      { name: 'titres_w' },
-      { name: 'titres_c_etablissements' },
-      { name: 'titres_f_etablissements' },
-      { name: 'titres_g_etablissements' },
-      { name: 'titres_h_etablissements' },
-      { name: 'titres_m_etablissements' },
-      { name: 'titres_r_etablissements' },
-      { name: 'titres_s_etablissements' },
-      { name: 'titres_w_etablissements' }
-    ],
-    prefixFileName: true
+    tables: [{ name: 'entreprises' }, { name: 'entreprises_etablissements' }]
   },
   {
     name: 'utilisateurs',
