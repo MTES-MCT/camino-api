@@ -32,4 +32,10 @@ export default class Substances extends Model {
       }
     }
   }
+
+  static modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
+    }
+  }
 }
