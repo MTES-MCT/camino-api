@@ -52,7 +52,18 @@ const tables = [
       'dateDemande',
       'activitesDeposees',
       'activitesEnConstruction',
-      'activitesAbsentes'
+      'activitesAbsentes',
+      'pointsTitreEtapeId',
+      'titulairesTitreEtapeId',
+      'amodiatairesTitreEtapeId',
+      'administrationsTitreEtapeId',
+      'surfaceTitreEtapeId',
+      'volumeTitreEtapeId',
+      'volume_uniteIdTitreEtapeId',
+      'substancesTitreEtapeId',
+      'communesTitreEtapeId',
+      'engagementTitreEtapeId',
+      'engagement_deviseIdTitreEtapeId'
     ],
     callbacks: {
       references: v =>
@@ -233,6 +244,15 @@ const tables = [
   },
   {
     id: 14,
+    name: 'titresCommunes',
+    columns: [
+      { key: 'parent.id', value: 'titreEtapeId' },
+      { key: 'id', value: 'communeId' }
+    ],
+    parents: ['demarches', 'etapes', 'communes']
+  },
+  {
+    id: 15,
     name: 'titresIncertitudes',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
