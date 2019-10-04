@@ -20,48 +20,21 @@ const titreEtapePointsReferencesNewFind = titrePoints =>
     return acc
   }, [])
 
-const titreDemarchePointsReferencesNewFind = titreEtapes =>
-  titreEtapes.reduce(
-    (acc, titreEtape) =>
-      titreEtape.points && titreEtape.points.length
-        ? acc.concat(titreEtapePointsReferencesNewFind(titreEtape.points))
-        : acc,
-    []
-  )
-
-const titrePointsReferencesNewFind = titreDemarches =>
-  titreDemarches.reduce(
-    (acc, titreDemarche) =>
-      titreDemarche.etapes && titreDemarche.etapes.length
-        ? acc.concat(titreDemarchePointsReferencesNewFind(titreDemarche.etapes))
-        : acc,
-    []
-  )
-
-const titresPointsReferencesNewFind = titres =>
-  titres.reduce(
-    (acc, titre) =>
-      titre.demarches && titre.demarches.length
-        ? acc.concat(titrePointsReferencesNewFind(titre.demarches))
-        : acc,
-    []
-  )
-
-const titresPointsReferencesCreate = async titres => {
-  const pointsReferencesNew = titresPointsReferencesNewFind(titres)
-  const pointsReferencesCreated = pointsReferencesNew.map(r => async () => {
-    await titrePointReferenceCreate(r)
-
-    console.log(`création: référence du point ${JSON.stringify(r.id)}`)
-  })
-
-  if (!pointsReferencesCreated.length) {
-    return []
-  }
-
+const titresPointsReferencesCreate = async titresPoints => {
   const queue = new PQueue({ concurrency: 100 })
 
-  return queue.addAll(pointsReferencesCreated)
+  const pointsReferencesNew = titreEtapePointsReferencesNewFind(titresPoints)
+  const pointsReferencesCreated = pointsReferencesNew.map(r =>
+    queue.add(async () => {
+      await titrePointReferenceCreate(r)
+
+      console.log(`création: référence du point ${JSON.stringify(r.id)}`)
+    })
+  )
+
+  await queue.onIdle()
+
+  return pointsReferencesCreated
 }
 
 export default titresPointsReferencesCreate

@@ -9,7 +9,9 @@ const datesDiffer = (dateOld, dateNew) =>
   (dateOld && dateFormat(dateOld, 'yyyy-mm-dd')) !== dateNew
 
 const titresDatesUpdate = async titres => {
-  const titresDatesUpdateRequests = titres.reduce((acc, titre) => {
+  const queue = new PQueue({ concurrency: 100 })
+
+  const titresUpdated = titres.reduce((titresUpdated, titre) => {
     const props = {}
 
     const dateFin = titreDateFinFind(titre.demarches)
@@ -31,23 +33,23 @@ const titresDatesUpdate = async titres => {
     }
 
     if (Object.keys(props).length) {
-      acc.push(async () => {
+      queue.add(async () => {
         await titreUpdate(titre.id, props)
+
         console.log(
           `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
         )
+
+        titresUpdated.push(titre.id)
       })
     }
 
-    return acc
+    return titresUpdated
   }, [])
 
-  if (!titresDatesUpdateRequests.length) {
-    return []
-  }
-  const queue = new PQueue({ concurrency: 100 })
+  await queue.onIdle()
 
-  return queue.addAll(titresDatesUpdateRequests)
+  return titresUpdated
 }
 
 export default titresDatesUpdate

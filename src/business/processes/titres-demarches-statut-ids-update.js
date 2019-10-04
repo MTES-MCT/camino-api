@@ -1,50 +1,44 @@
-import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
-import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 import PQueue from 'p-queue'
 
-const titreDemarcheStatutUpdate = (titreDemarche, titre) => {
-  titreDemarche.etapes = titreDemarche.etapes && titreDemarche.etapes.reverse()
-  const statutId = titreDemarcheStatutIdFind(titreDemarche, titre.typeId)
-
-  return titreDemarche.statutId !== statutId
-    ? async () => {
-        await titreDemarcheUpdate(titreDemarche.id, {
-          statutId
-        })
-        console.log(
-          `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
-            statutId
-          })}`
-        )
-      }
-    : null
-}
+import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
+import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
 const titresDemarchesStatutUpdate = async titres => {
-  const titresDemarchesStatutUpdated = titres.reduce(
-    (arr, titre) =>
-      titre.demarches.reduce((arr, titreDemarche) => {
-        const titreDemarcheUpdated = titreDemarcheStatutUpdate(
-          titreDemarche,
-          titre
-        )
+  const queue = new PQueue({ concurrency: 100 })
 
-        if (titreDemarcheUpdated) {
-          arr.push(titreDemarcheUpdated)
-        }
+  const titresDemarchesUpdated = titres.reduce(
+    (titresDemarchesUpdated, titre) =>
+      titre.demarches.reduce((titresDemarchesUpdated, titreDemarche) => {
+        titreDemarche.etapes =
+          titreDemarche.etapes && titreDemarche.etapes.reverse()
 
-        return arr
-      }, arr),
+        const statutId = titreDemarcheStatutIdFind(titreDemarche, titre.typeId)
+
+        if (titreDemarche.statutId === statutId) return titresDemarchesUpdated
+
+        queue.add(async () => {
+          await titreDemarcheUpdate(titreDemarche.id, {
+            statutId
+          })
+
+          console.log(
+            `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
+              statutId
+            })}`
+          )
+
+          titresDemarchesUpdated.push(titreDemarche.id)
+        })
+
+        return titresDemarchesUpdated
+      }, titresDemarchesUpdated),
     []
   )
 
-  if (!titresDemarchesStatutUpdated.length) {
-    return []
-  }
-  const queue = new PQueue({ concurrency: 100 })
+  await queue.onIdle()
 
-  return queue.addAll(titresDemarchesStatutUpdated)
+  return titresDemarchesUpdated
 }
 
 export default titresDemarchesStatutUpdate

@@ -103,37 +103,37 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
 }
 
 const titresEtapesCommunesGet = async titresEtapes => {
-  const communesGeojsonGetRequests = titresEtapes.map(
-    titreEtape => async () => {
-      let communesGeojson
-
-      if (titreEtape.points.length) {
-        const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
-
-        communesGeojson = await communesGeojsonGet(geojson)
-      }
-
-      return {
-        titreEtapeId: titreEtape.id,
-        communesGeojson: communesGeojson || []
-      }
-    }
-  )
-
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API geocommunes
-  const queue = new PQueue({ concurrency: 1, interval: 1000, intervalCap: 100 })
-  const communesGeojsons = await queue.addAll(communesGeojsonGetRequests)
+  const queue = new PQueue({
+    concurrency: 10
+    //    interval: 1000,
+    //    intervalCap: 10
+  })
 
-  return communesGeojsons.reduce(
-    (titresEtapesCommunes, { titreEtapeId, communesGeojson }) => {
-      titresEtapesCommunes[titreEtapeId] = communesGeojson
+  const titresEtapesCommunes = titresEtapes.reduce(
+    (titresEtapesCommunes, titreEtape) => {
+      queue.add(async () => {
+        let titreEtapeCommunes
+
+        if (titreEtape.points.length) {
+          const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+
+          titreEtapeCommunes = await communesGeojsonGet(geojson)
+        }
+
+        titresEtapesCommunes[titreEtape.id] = titreEtapeCommunes || []
+      })
 
       return titresEtapesCommunes
     },
     {}
   )
+
+  await queue.onIdle()
+
+  return titresEtapesCommunes
 }
 
 const communesGeojsonTest = () => {
@@ -181,7 +181,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   )
 
   let titresEtapesCommunesCreated = []
-  let titresEtapesCommunesDeleted = []
+  const titresEtapesCommunesDeleted = []
 
   if (titresEtapesCommunesToCreate.length) {
     titresEtapesCommunesCreated = await titresEtapesCommunesCreate(
@@ -195,17 +195,26 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   }
 
   if (titresEtapesCommunesToDelete.length) {
-    const titresEtapesCommunesDeleteQueries = titresEtapesCommunesToDelete.map(
-      ({ titreEtapeId, communeId }) => async () => {
-        await titreEtapeCommuneDelete(titreEtapeId, communeId)
-        console.log(`suppression: étape ${titreEtapeId}, commune ${communeId}`)
-      }
+    const queue = new PQueue({ concurrency: 100 })
+
+    titresEtapesCommunesToDelete.reduce(
+      (titresEtapesCommunesDeleted, { titreEtapeId, communeId }) => {
+        queue.add(async () => {
+          await titreEtapeCommuneDelete(titreEtapeId, communeId)
+
+          console.log(
+            `suppression: étape ${titreEtapeId}, commune ${communeId}`
+          )
+
+          titresEtapesCommunesDeleted.push(titreEtapeId)
+        })
+
+        return titresEtapesCommunesDeleted
+      },
+      titresEtapesCommunesDeleted
     )
 
-    const queue = new PQueue({ concurrency: 100 })
-    titresEtapesCommunesDeleted = await queue.addAll(
-      titresEtapesCommunesDeleteQueries
-    )
+    await queue.onIdle()
   }
 
   return [
