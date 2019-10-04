@@ -44,7 +44,7 @@ const communes = {
 }
 
 const etapes = {
-  eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances(ordreAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
+  eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
 
   update: {
     relate: [
