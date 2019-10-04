@@ -14,6 +14,7 @@ const titreGet = async (id, { eager = options.titres.eager, format } = {}) => {
 
 const titresGet = async (
   {
+    ids,
     typeIds,
     domaineIds,
     statutIds,
@@ -28,6 +29,10 @@ const titresGet = async (
   const q = Titres.query()
     .skipUndefined()
     .eager(eager)
+
+  if (ids) {
+    q.whereIn('titres.id', ids)
+  }
 
   if (typeIds) {
     q.whereIn('titres.typeId', typeIds)

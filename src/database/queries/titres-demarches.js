@@ -3,18 +3,24 @@ import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 import { titreDemarcheFormat } from './_format'
 
-const titresDemarchesGet = async ({ demarchesIds, titresIds } = {}) =>
+const titresDemarchesGet = async (
+  { demarchesIds, titresIds } = {},
+  { eager = options.demarches.eager }
+) =>
   TitresDemarches.query()
     .skipUndefined()
-    .eager(options.demarches.eager)
+    .eager(eager)
     .orderBy('ordre')
     .whereIn('titresDemarches.typeId', demarchesIds)
     .whereIn('titresDemarches.titreId', titresIds)
 
-const titreDemarcheGet = async demarcheId => {
+const titreDemarcheGet = async (
+  titreDemarcheId,
+  { eager = options.demarches.eager }
+) => {
   const q = TitresDemarches.query()
-    .eager(options.demarches.eager)
-    .findById(demarcheId)
+    .eager(eager)
+    .findById(titreDemarcheId)
 
   const titreDemarche = await q
 
