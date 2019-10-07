@@ -2,7 +2,8 @@ import TitresPoints from '../models/titres-points'
 import TitresPointsReferences from '../models/titres-points-references'
 import options from './_options'
 
-const titresPointsGet = async () => TitresPoints.query()
+const titresPointsGet = async () =>
+  TitresPoints.query().eager(options.points.eager)
 
 const titrePointUpdate = async (id, props) =>
   TitresPoints.query()

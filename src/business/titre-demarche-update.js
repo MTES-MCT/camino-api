@@ -16,27 +16,43 @@ import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 const titreDemarcheUpdate = async titreId => {
   // 3.
   console.log('ordre des démarches…')
-  let titre = await titreGet(titreId)
+  let titre = await titreGet(titreId, {
+    eager: 'demarches.[etapes]',
+    format: null
+  })
   const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([titre])
 
   // 4.
   console.log('statut des titres…')
-  titre = await titreGet(titreId)
+  titre = await titreGet(titreId, {
+    eager: 'demarches.[etapes.[points]]',
+    format: null
+  })
   const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
   // 5.
   console.log('phases des titres…')
-  titre = await titreGet(titreId)
+  titre = await titreGet(titreId, {
+    eager: 'demarches.[phase,etapes.[points]]',
+    format: null
+  })
   const titresPhasesUpdated = await titresPhasesUpdate([titre])
 
   // 6.
   console.log('date de début, de fin et de demande initiale des titres…')
-  titre = await titreGet(titreId)
+  titre = await titreGet(titreId, {
+    eager: 'demarches.[etapes.[points]]',
+    format: null
+  })
   const titresDatesUpdated = await titresDatesUpdate([titre])
 
   // 10.
   console.log('propriétés des titres (liens vers les étapes)…')
-  titre = await titreGet(titreId)
+  titre = await titreGet(titreId, {
+    eager:
+      'demarches.[etapes.[points, titulaires, amodiataires, administrations, substances, communes]]',
+    format: null
+  })
   const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
   // 11.
@@ -45,7 +61,7 @@ const titreDemarcheUpdate = async titreId => {
   console.log('activités des titres…')
   const annees = [2018, 2019]
 
-  titre = await titreGet(titreId)
+  titre = await titreGet(titreId, { eager: 'demarches.[phase]', format: null })
   const activitesTypes = await activitesTypesGet()
   let titresActivitesCreated = await titresActivitesUpdate(
     [titre],
@@ -56,14 +72,12 @@ const titreDemarcheUpdate = async titreId => {
   // 12.
   console.log()
   console.log('propriétés des titres (activités abs, enc et dep)…')
-  titre = await titreGet(titreId)
+  titre = await titreGet(titreId, { eager: 'activites', format: null })
   const titresPropsActivitesUpdated = await titresPropsActivitesUpdate([titre])
 
   // 13.
   console.log('ids de titres, démarches, étapes et sous-éléments…')
-  titre = await titreGet(titreId, {
-    format: false
-  })
+  titre = await titreGet(titreId, { format: false })
   const titreUpdated = await titreIdsUpdate(titre)
   let titresUpdatedIdsIndex
   if (titreUpdated && titre.id !== titreUpdated.id) {

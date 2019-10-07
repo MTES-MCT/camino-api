@@ -7,6 +7,7 @@ import { communesGet } from '../database/queries/territoires'
 import { titresGet } from '../database/queries/titres'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
+import { titresPointsGet } from '../database/queries/titres-points'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresDatesUpdate from './processes/titres-dates-update'
@@ -29,7 +30,10 @@ const run = async () => {
     // 1.
     console.log()
     console.log('ordre des étapes…')
-    const titresDemarches = await titresDemarchesGet()
+    const titresDemarches = await titresDemarchesGet(
+      { demarchesIds: null, titresIds: null },
+      { eager: 'etapes' }
+    )
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
       titresDemarches
     )
@@ -37,7 +41,20 @@ const run = async () => {
     // 2.
     console.log()
     console.log('statut des démarches…')
-    let titres = await titresGet()
+    let titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      { eager: 'demarches.[etapes]', format: null }
+    )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
       titres
     )
@@ -45,39 +62,104 @@ const run = async () => {
     // 3.
     console.log()
     console.log('ordre des démarches…')
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      {
+        eager: 'demarches.[etapes]',
+        format: null
+      }
+    )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
 
     // 4.
     console.log()
     console.log('statut des titres…')
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      { eager: 'demarches.[etapes.[points]]', format: null }
+    )
     const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
 
     // 5.
     console.log()
     console.log('phases des titres…')
-    titres = await titresGet()
-    const titresPhasesUpdated = await titresPhasesUpdate(titres)
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      { eager: 'demarches.[phase,etapes.[points]]', format: null }
+    )
+    const [
+      titresPhasesUpdated = [],
+      titresPhasesDeleted = []
+    ] = await titresPhasesUpdate(titres)
 
     // 6.
     console.log()
     console.log('date de début, de fin et de demande initiale des titres…')
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      { eager: 'demarches.[etapes.[points]]', format: null }
+    )
     const titresDatesUpdated = await titresDatesUpdate(titres)
 
     // 7.
     console.log()
     console.log('références des points…')
-    titres = await titresGet()
-    const pointsReferencesCreated = await titresPointsReferencesCreate(titres)
+    const titresPoints = await titresPointsGet()
+    const pointsReferencesCreated = await titresPointsReferencesCreate(
+      titresPoints
+    )
 
     // 8.
     console.log()
     console.log('communes associées aux étapes…')
-    let titresEtapes
-
-    titresEtapes = await titresEtapesGet()
+    const titresEtapes = await titresEtapesGet(
+      {
+        etapesIds: null,
+        etapesTypeIds: null,
+        titresDemarchesIds: null
+      },
+      { eager: '[points, communes]' }
+    )
     const communes = await communesGet()
     const [
       titreCommunesUpdated = [],
@@ -88,7 +170,24 @@ const run = async () => {
     // 9.
     console.log()
     console.log('administrations associées aux étapes…')
-    titres = await titresGet()
+
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      {
+        eager: 'demarches.etapes.[administrations,communes.[departement]]',
+        format: null
+      }
+    )
     const administrations = await administrationsGet()
     const [
       titresEtapesAdministrationsCreated = [],
@@ -98,15 +197,47 @@ const run = async () => {
     // 10.
     console.log()
     console.log('propriétés des titres (liens vers les étapes)…')
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      {
+        eager:
+          'demarches.[etapes.[points, titulaires, amodiataires, administrations, substances, communes]]',
+        format: null
+      }
+    )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
 
     // 11.
     console.log()
     console.log('activités des titres…')
     const annees = [2018, 2019]
-
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      {
+        eager: 'demarches.[phase]',
+        format: null
+      }
+    )
     const activitesTypes = await activitesTypesGet()
     let titresActivitesCreated = await titresActivitesUpdate(
       titres,
@@ -117,7 +248,23 @@ const run = async () => {
     // 12.
     console.log()
     console.log('propriétés des titres (activités abs, enc et dep)…')
-    titres = await titresGet()
+    titres = await titresGet(
+      {
+        domaineIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutIds: null,
+        substances: null,
+        territoires: null,
+        typeIds: null
+      },
+      {
+        eager: 'activites',
+        format: null
+      }
+    )
     const titresPropsActivitesUpdated = await titresPropsActivitesUpdate(titres)
 
     // 13.
@@ -127,6 +274,7 @@ const run = async () => {
       {
         domaineIds: null,
         entreprises: null,
+        ids: null,
         noms: null,
         references: null,
         statutIds: null,
@@ -152,7 +300,7 @@ const run = async () => {
       )
 
       titresActivitesUpdated = titresUpdated.reduce(
-        (titresActivites, titreUpdated) => {
+        (titresActivites: any, titreUpdated: any) => {
           if (titreUpdated.activites.length) {
             titresActivites.push(...titreUpdated.activites)
           }
@@ -181,7 +329,12 @@ const run = async () => {
     console.log(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
     )
-    console.log(`mise à jour: ${titresPhasesUpdated.length} titre(s) (phases)`)
+    console.log(
+      `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
+    )
+    console.log(
+      `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
+    )
     console.log(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
     )

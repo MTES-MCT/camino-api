@@ -6,22 +6,21 @@ import TitresAdministrations from '../models/titres-administrations'
 import options from './_options'
 import { titreEtapeFormat } from './_format'
 
-const titresEtapesGet = async ({
-  etapesIds,
-  etapesTypeIds,
-  titresDemarchesIds
-} = {}) =>
+const titresEtapesGet = async (
+  { etapesIds, etapesTypeIds, titresDemarchesIds } = {},
+  { eager = options.titres.eager } = {}
+) =>
   TitresEtapes.query()
     .skipUndefined()
-    .eager(options.etapes.eager)
+    .eager(eager)
     .orderBy('ordre')
     .whereIn('titresEtapes.id', etapesIds)
     .whereIn('titresEtapes.typeId', etapesTypeIds)
     .whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
 
-const titreEtapeGet = async titreEtapeId =>
+const titreEtapeGet = async (titreEtapeId, { eager = options.titres.eager }) =>
   TitresEtapes.query()
-    .eager(options.etapes.eager)
+    .eager(eager)
     .findById(titreEtapeId)
 
 const titreEtapeCreate = async etape => {

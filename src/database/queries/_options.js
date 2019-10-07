@@ -309,6 +309,7 @@ export default {
   etapes,
   demarches,
   titres,
+  points,
   substances,
   administrations,
   entreprises,
