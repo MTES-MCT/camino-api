@@ -1,6 +1,7 @@
+import PQueue from 'p-queue'
+
 import { titreUpdate } from '../../database/queries/titres'
 import titrePropActivitesCount from '../utils/titre-prop-activites-count'
-import PQueue from 'p-queue'
 
 const activitesProps = [
   {
@@ -18,7 +19,9 @@ const activitesProps = [
 ]
 
 const titresPropsActivitesUpdate = async titres => {
-  const titresToUpdate = titres.reduce((acc, titre) => {
+  const queue = new PQueue({ concurrency: 100 })
+
+  const titresUpdated = titres.reduce((titresUpdated, titre) => {
     const props = activitesProps.reduce((props, { id, prop }) => {
       const value = titrePropActivitesCount(titre.activites, id)
 
@@ -30,31 +33,22 @@ const titresPropsActivitesUpdate = async titres => {
     }, {})
 
     if (Object.keys(props).length) {
-      acc.push({
-        id: titre.id,
-        ...props
+      queue.add(async () => {
+        const titreUpdated = await titreUpdate(titre.id, props)
+        console.log(
+          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
+        )
+
+        titresUpdated.push(titreUpdated)
       })
     }
 
-    return acc
+    return titresUpdated
   }, [])
 
-  if (!titresToUpdate.length) {
-    return []
-  }
+  await queue.onIdle()
 
-  const titresUpdated = titresToUpdate.map(({ id, ...props }) => async () => {
-    const titreUpdated = await titreUpdate(id, props)
-    console.log(`mise à jour: titre ${id} props: ${JSON.stringify(props)}`)
-
-    return titreUpdated
-  })
-
-  const queue = new PQueue({
-    concurrency: 100
-  })
-
-  return queue.addAll(titresUpdated)
+  return titresUpdated
 }
 
 export default titresPropsActivitesUpdate

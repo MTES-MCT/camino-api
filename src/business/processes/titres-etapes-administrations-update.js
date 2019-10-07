@@ -1,4 +1,5 @@
 import PQueue from 'p-queue'
+
 import {
   titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete
@@ -205,12 +206,13 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   )
 
   let titresEtapesAdministrationsCreated = []
-  let titresEtapesAdministrationsDeleted = []
+  const titresEtapesAdministrationsDeleted = []
 
   if (titresEtapesAdministrationsToCreate.length) {
     titresEtapesAdministrationsCreated = await titresEtapesAdministrationsCreate(
       titresEtapesAdministrationsToCreate
     )
+
     console.log(
       `mise à jour: étape administrations ${titresEtapesAdministrationsCreated
         .map(tea => JSON.stringify(tea))
@@ -219,19 +221,29 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
   }
 
   if (titresEtapesAdministrationsToDelete.length) {
-    const titresEtapesAdministrationsToDeleteQueries = titresEtapesAdministrationsToDelete.map(
-      ({ titreEtapeId, administrationId }) => async () => {
-        await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
-        console.log(
-          `suppression: étape ${titreEtapeId}, administration ${administrationId}`
-        )
-      }
+    const queue = new PQueue({ concurrency: 100 })
+
+    titresEtapesAdministrationsToDelete.reduce(
+      (
+        titresEtapesAdministrationsDeleted,
+        { titreEtapeId, administrationId }
+      ) => {
+        queue.add(async () => {
+          await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
+
+          console.log(
+            `suppression: étape ${titreEtapeId}, administration ${administrationId}`
+          )
+
+          titresEtapesAdministrationsDeleted.push(titreEtapeId)
+        })
+
+        return titresEtapesAdministrationsDeleted
+      },
+      titresEtapesAdministrationsDeleted
     )
 
-    const queue = new PQueue({ concurrency: 100 })
-    titresEtapesAdministrationsDeleted = await queue.addAll(
-      titresEtapesAdministrationsToDeleteQueries
-    )
+    await queue.onIdle()
   }
 
   return [

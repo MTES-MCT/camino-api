@@ -1,30 +1,34 @@
-import { titreUpdate } from '../../database/queries/titres'
 import PQueue from 'p-queue'
+
+import { titreUpdate } from '../../database/queries/titres'
 import titreStatutIdFind from '../rules/titre-statut-id-find'
 
 const titresStatutIdsUpdate = async titres => {
-  const titresUpdatedRequests = titres.reduce((arr, titre) => {
+  const queue = new PQueue({ concurrency: 100 })
+
+  const titresUpdated = titres.reduce((titresUpdated, titre) => {
     const statutId = titreStatutIdFind(titre)
 
     if (statutId !== titre.statutId) {
-      arr.push(async () => {
+      queue.add(async () => {
         await titreUpdate(titre.id, { statutId })
+
         console.log(
           `mise à jour: titre ${titre.id} props: ${JSON.stringify({
             statutId
           })}`
         )
+
+        titresUpdated.push(titre.id)
       })
     }
 
-    return arr
+    return titresUpdated
   }, [])
 
-  if (!titresUpdatedRequests.length) {
-    return []
-  }
-  const queue = new PQueue({ concurrency: 100 })
+  await queue.onIdle()
 
-  return queue.addAll(titresUpdatedRequests)
+  return titresUpdated
 }
+
 export default titresStatutIdsUpdate

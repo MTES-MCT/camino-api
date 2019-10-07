@@ -1,13 +1,9 @@
 import PQueue from 'p-queue'
 
-import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreIdUpdate as titreIdUpdateQuery } from '../../database/queries/titres'
+import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 
 const titreIdUpdate = async (titreOld, titreNew) => {
-  // TODO
-  // si l'id du titre change,
-  // vérifier dans tous les titres si cet id existe déjà
-  // si l'id existe déja, on modifie le nom en ajoutant un chiffre
   await titreIdUpdateQuery(titreOld.id, titreNew)
 
   console.log(`mise à jour: titre ids: ${titreNew.id}`)
@@ -26,9 +22,12 @@ const titreIdsUpdate = async titreOld => {
 }
 
 const titresIdsUpdate = async titresOld => {
+  // attention : les transactions ne peuvent pas être exécutées en parallèle
+  const queue = new PQueue({ concurrency: 1 })
+
   // async reduce pour traiter les titres les uns après les autres
-  const { titresUpdatedRequests, titresUpdatedIdsIndex } = titresOld.reduce(
-    ({ titresUpdatedRequests, titresUpdatedIdsIndex }, titreOld) => {
+  const { titresUpdated, titresUpdatedIdsIndex } = titresOld.reduce(
+    ({ titresUpdated, titresUpdatedIdsIndex }, titreOld) => {
       const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
 
       if (hasChanged) {
@@ -36,44 +35,30 @@ const titresIdsUpdate = async titresOld => {
           titresUpdatedIdsIndex[titreNew.id] = titreOld.id
         }
 
-        titresUpdatedRequests.push(() =>
-          titreIdUpdate(titreOld, titreNew).catch(e => {
+        queue.add(async () => {
+          try {
+            const titreUpdated = await titreIdUpdate(titreOld, titreNew)
+
+            titresUpdated.push(titreUpdated)
+          } catch (e) {
             console.error(`erreur: titreIdUpdate ${titreOld.id}`)
             console.error(e)
-
-            return null
-          })
-        )
+          }
+        })
       }
 
       return {
-        titresUpdatedRequests,
+        titresUpdated,
         titresUpdatedIdsIndex
       }
     },
     {
-      titresUpdatedRequests: [],
+      titresUpdated: [],
       titresUpdatedIdsIndex: {}
     }
   )
 
-  // on stock les titres qui ont bien été mis à jour
-  let titresUpdated = []
-
-  if (!titresUpdatedRequests.length) {
-    return {
-      titresUpdated,
-      titresUpdatedIdsIndex
-    }
-  }
-
-  // attention : les transactions ne peuvent pas être exécutées en parallèle
-  const queue = new PQueue({
-    concurrency: 1
-  })
-  titresUpdated = await queue.addAll(titresUpdatedRequests)
-  // filtre les titres ayant étés réellement mis à jour
-  titresUpdated = titresUpdated.filter(e => e)
+  await queue.onIdle()
 
   return {
     titresUpdated,

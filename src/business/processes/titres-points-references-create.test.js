@@ -9,29 +9,18 @@ console.log = jest.fn()
 
 describe("références des points d'un titre", () => {
   test('crée une référence sur un point si elle est absente', async () => {
-    const titres = [
+    const titresEtapes = [
+      { id: 'point-id', coordonnees: { x: 0.1, y: 0.2 } },
       {
-        id: 'titre-id',
-        demarches: [
-          {
-            etapes: [
-              {
-                points: [
-                  { id: 'point-id', coordonnees: { x: 0.1, y: 0.2 } },
-                  {
-                    id: 'point-id-2',
-                    coordonnees: { x: 0.1, y: 0.2 },
-                    references: [{}]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        id: 'point-id-2',
+        coordonnees: { x: 0.1, y: 0.2 },
+        references: [{}]
       }
     ]
 
-    const pointsReferencesCreated = await titresPointsReferencesCreate(titres)
+    const pointsReferencesCreated = await titresPointsReferencesCreate(
+      titresEtapes
+    )
 
     expect(pointsReferencesCreated.length).toEqual(1)
 
@@ -46,13 +35,11 @@ describe("références des points d'un titre", () => {
   })
 
   test("ne crée pas de référence sur un titre qui n'a pas de point", async () => {
-    const titres = [
-      { id: 'titre-id-sans-demarches' },
-      { id: 'titre-id-sans-etapes', demarches: [{}] },
-      { id: 'titre-id-sans-points', demarches: [{ etapes: [{}] }] }
-    ]
+    const titresEtapes = []
 
-    const pointsReferencesCreated = await titresPointsReferencesCreate(titres)
+    const pointsReferencesCreated = await titresPointsReferencesCreate(
+      titresEtapes
+    )
 
     expect(pointsReferencesCreated.length).toEqual(0)
 

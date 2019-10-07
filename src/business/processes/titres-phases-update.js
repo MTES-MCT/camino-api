@@ -37,6 +37,7 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
       titrePhase.titreDemarcheId,
       titresPhasesOld
     )
+
     // si la phase n'existe pas
     // on l'ajoute à l'accumulateur
     if (!titrePhaseOld) {
@@ -73,71 +74,77 @@ const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
   }, [])
 
 const titresPhasesUpdate = async titres => {
-  const titresPhasesRequests = titres.reduce((acc, titre) => {
-    // met les démarches d'un titre dans le sens croissant avec `reverse()` :
-    // les démarches données part `titresGet` sont dans l'ordre décroissant
-    const demarches = titreDemarchesAscSort(titre.demarches.reverse())
-
-    // retourne les phases enregistrées en base
-    const titrePhasesOld = demarches.reduce((res, td) => {
-      if (td.phase) {
-        res.push(td.phase)
-      }
-
-      return res
-    }, [])
-    // console.log(titrePhasesOld)
-
-    // retourne un tableau avec les phases
-    // créées à partir des démarches
-    const titrePhases = titrePhasesFind(demarches, titre.typeId)
-
-    const titrePhasesUpdateRequests = []
-
-    const titrePhasesUpdated = titrePhasesUpdatedFind(
-      titrePhasesOld,
-      titrePhases
-    )
-
-    // retourne un tableau de requêtes pour
-    // - créer les nouvelles phases
-    // - modifier les phases existantes
-    if (titrePhasesUpdated.length) {
-      titrePhasesUpdateRequests.push(async () => {
-        await titrePhasesUpdate(titrePhasesUpdated)
-        console.log(`mise à jour: phases ${JSON.stringify(titrePhasesUpdated)}`)
-      })
-    }
-
-    const titrePhasesDeletedIds = titrePhasesDeletedFind(
-      titrePhasesOld,
-      titrePhases
-    )
-
-    // retourne un tableau de requêtes pour
-    // - supprimer les phases qui n'existent plus
-
-    if (titrePhasesDeletedIds.length) {
-      titrePhasesUpdateRequests.push(async () => {
-        await titrePhasesDelete(titrePhasesDeletedIds)
-        console.log(`suppression: phases ${titrePhasesDeletedIds.join(', ')}}`)
-      })
-    }
-
-    if (titrePhasesUpdateRequests.length) {
-      acc.push(...titrePhasesUpdateRequests)
-    }
-
-    return acc
-  }, [])
-
-  if (!titresPhasesRequests.length) {
-    return []
-  }
-
   const queue = new PQueue({ concurrency: 100 })
 
-  return queue.addAll(titresPhasesRequests)
+  const { titresPhasesUpdated, titresPhasesDeleted } = titres.reduce(
+    ({ titresPhasesUpdated, titresPhasesDeleted }, titre) => {
+      // met les démarches d'un titre dans le sens croissant avec `reverse()` :
+      // les démarches données part `titresGet` sont dans l'ordre décroissant
+      const demarches = titreDemarchesAscSort(titre.demarches.reverse())
+
+      // retourne les phases enregistrées en base
+      const titrePhasesOld = demarches.reduce((res, td) => {
+        if (td.phase) {
+          res.push(td.phase)
+        }
+
+        return res
+      }, [])
+
+      // retourne un tableau avec les phases
+      // créées à partir des démarches
+      const titrePhases = titrePhasesFind(demarches, titre.typeId)
+
+      const titrePhasesToUpdate = titrePhasesUpdatedFind(
+        titrePhasesOld,
+        titrePhases
+      )
+
+      if (titrePhasesToUpdate.length) {
+        queue.add(async () => {
+          await titrePhasesUpdate(titrePhasesToUpdate)
+
+          console.log(
+            `mise à jour: phases ${JSON.stringify(titrePhasesToUpdate)}`
+          )
+
+          titresPhasesUpdated.push(
+            ...titrePhasesToUpdate.map(p => p.titreDemarcheId)
+          )
+        })
+      }
+
+      const titrePhasesToDeleteIds = titrePhasesDeletedFind(
+        titrePhasesOld,
+        titrePhases
+      )
+
+      if (titrePhasesToDeleteIds.length) {
+        queue.add(async () => {
+          await titrePhasesDelete(titrePhasesToDeleteIds)
+
+          console.log(
+            `suppression: phases ${titrePhasesToDeleteIds.join(', ')}}`
+          )
+
+          titresPhasesDeleted.push(...titrePhasesToDeleteIds)
+        })
+      }
+
+      return {
+        titresPhasesUpdated,
+        titresPhasesDeleted
+      }
+    },
+    {
+      titresPhasesUpdated: [],
+      titresPhasesDeleted: []
+    }
+  )
+
+  await queue.onIdle()
+
+  return [titresPhasesUpdated, titresPhasesDeleted]
 }
 
 export default titresPhasesUpdate
