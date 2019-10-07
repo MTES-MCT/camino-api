@@ -9,14 +9,26 @@ import { titreEtapeFormat } from './_format'
 const titresEtapesGet = async (
   { etapesIds, etapesTypeIds, titresDemarchesIds } = {},
   { eager = options.titres.eager } = {}
-) =>
-  TitresEtapes.query()
+) => {
+  const q = TitresEtapes.query()
     .skipUndefined()
     .eager(eager)
     .orderBy('ordre')
-    .whereIn('titresEtapes.id', etapesIds)
-    .whereIn('titresEtapes.typeId', etapesTypeIds)
-    .whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
+
+  if (etapesIds) {
+    q.whereIn('titresEtapes.id', etapesIds)
+  }
+
+  if (etapesTypeIds) {
+    q.whereIn('titresEtapes.typeId', etapesTypeIds)
+  }
+
+  if (titresDemarchesIds) {
+    q.whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
+  }
+
+  return q
+}
 
 const titreEtapeGet = async (titreEtapeId, { eager = options.titres.eager }) =>
   TitresEtapes.query()
