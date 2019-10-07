@@ -8,7 +8,7 @@ import { titreEtapeFormat } from './_format'
 
 const titresEtapesGet = async (
   { etapesIds, etapesTypeIds, titresDemarchesIds } = {},
-  { eager = options.titres.eager } = {}
+  { eager = options.etapes.eager } = {}
 ) => {
   const q = TitresEtapes.query()
     .skipUndefined()
@@ -30,10 +30,16 @@ const titresEtapesGet = async (
   return q
 }
 
-const titreEtapeGet = async (titreEtapeId, { eager = options.titres.eager }) =>
-  TitresEtapes.query()
+const titreEtapeGet = async (
+  titreEtapeId,
+  { eager = options.etapes.eager, format } = {}
+) => {
+  const titreEtape = TitresEtapes.query()
     .eager(eager)
     .findById(titreEtapeId)
+
+  return titreEtape && titreEtapeFormat(titreEtape, format)
+}
 
 const titreEtapeCreate = async etape => {
   const titreEtape = await TitresEtapes.query()

@@ -62,8 +62,6 @@ type PointReference {
   "Les coordonnées du point dans le système géodésique"
   coordonnees: Coordonnees
 
-  unite: Unite
-
   opposable: Boolean
 }
 
@@ -91,8 +89,6 @@ input InputPointReference {
   geoSystemeId: ID!
 
   coordonnees: InputCoordonnees
-
-  uniteId: String!
 
   opposable: Boolean
 }

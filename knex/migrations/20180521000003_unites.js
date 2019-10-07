@@ -4,18 +4,20 @@ exports.up = knex =>
       table.string('id', 3).primary()
       table.string('nom').notNullable()
     })
-    .createTable('geoSystemes', table => {
-      table.string('id', 5).primary()
-      table.string('nom').notNullable()
-      table.string('unite_type', 10)
-      table.string('zone')
-      table.string('definitionProj4')
-    })
     .createTable('unites', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
       table.string('symbole').notNullable()
-      table.string('type').notNullable()
+    })
+    .createTable('geoSystemes', table => {
+      table.string('id', 5).primary()
+      table.string('nom').notNullable()
+      table
+        .string('uniteId', 3)
+        .references('unites.id')
+        .notNullable()
+      table.string('zone')
+      table.string('definitionProj4')
     })
 
 exports.down = knex =>

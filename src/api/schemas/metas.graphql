@@ -160,8 +160,6 @@ type Unite {
   nom: String!
 
   symbole: String!
-
-  type: String!
 }
 
 "Devise"
@@ -177,9 +175,9 @@ type GeoSysteme {
 
   nom: String!
 
-  zone: String
+  zone: String!
 
-  uniteType: String
+  unite: Unite!
 }
 
 """

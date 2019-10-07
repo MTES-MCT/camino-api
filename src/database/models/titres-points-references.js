@@ -20,7 +20,6 @@ export default class TitresPointsReferences extends Model {
           y: { type: 'number' }
         }
       },
-      uniteId: { type: 'string' },
       opposable: { type: ['boolean', 'null'] }
     }
   }

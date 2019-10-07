@@ -5,7 +5,7 @@ import { titreDemarcheFormat } from './_format'
 
 const titresDemarchesGet = async (
   { demarchesIds, titresIds } = {},
-  { eager = options.demarches.eager }
+  { eager = options.demarches.eager } = {}
 ) => {
   const q = TitresDemarches.query()
     .skipUndefined()
@@ -25,7 +25,7 @@ const titresDemarchesGet = async (
 
 const titreDemarcheGet = async (
   titreDemarcheId,
-  { eager = options.demarches.eager }
+  { eager = options.demarches.eager, format } = {}
 ) => {
   const q = TitresDemarches.query()
     .eager(eager)
@@ -33,7 +33,7 @@ const titreDemarcheGet = async (
 
   const titreDemarche = await q
 
-  return titreDemarche && titreDemarcheFormat(titreDemarche)
+  return titreDemarche && titreDemarcheFormat(titreDemarche, format)
 }
 
 const titreDemarcheCreate = async demarche => {

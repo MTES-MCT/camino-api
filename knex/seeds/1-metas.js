@@ -49,11 +49,11 @@ exports.seed = seeding(async ({ del, insert }) => {
     insert('etapesTypes', etapesTypes),
     insert('demarchesStatuts', demarchesStatuts),
     insert('etapesStatuts', etapesStatuts),
-    insert('geoSystemes', geoSystemes),
     insert('devises', devises),
     insert('unites', unites)
   ])
   await Promise.all([
+    insert('geoSystemes', geoSystemes),
     insert('domaines__types', domaines_types),
     insert('demarchesTypes__types', demarchesTypes_types),
     insert('demarchesTypes__etapesTypes', demarchesTypes_etapesTypes),
