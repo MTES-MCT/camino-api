@@ -29,7 +29,7 @@ const substances = [
   'substances--SubstancesLegales'
 ]
 
-const territoires = ['pays', 'regions', 'departements']
+const territoires = ['pays', 'regions', 'departements', 'communes']
 
 const repertoires = [
   'entreprises',
@@ -58,6 +58,8 @@ const titresFiles = [
   'titresSubstances',
   'titresTitulaires',
   'titresAmodiataires',
+  'titresCommunes',
+  'titresAdministrations',
   'titresIncertitudes'
 ]
 

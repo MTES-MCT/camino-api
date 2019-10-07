@@ -34,6 +34,7 @@ const titresTables = [
   { name: 'titres_documents' },
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
+  { name: 'titres_communes' },
   { name: 'titres_administrations' },
   { name: 'titres_amodiataires' },
   { name: 'titres_incertitudes' }
@@ -174,7 +175,12 @@ const spreadsheets = [
   {
     name: 'territoires',
     id: territoiresSpreadsheetId,
-    tables: [{ name: 'pays' }, { name: 'regions' }, { name: 'departements' }]
+    tables: [
+      { name: 'pays' },
+      { name: 'regions' },
+      { name: 'departements' },
+      { name: 'communes' }
+    ]
   },
   {
     name: 'calendrier',
