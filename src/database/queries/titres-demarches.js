@@ -6,13 +6,22 @@ import { titreDemarcheFormat } from './_format'
 const titresDemarchesGet = async (
   { demarchesIds, titresIds } = {},
   { eager = options.demarches.eager }
-) =>
-  TitresDemarches.query()
+) => {
+  const q = TitresDemarches.query()
     .skipUndefined()
     .eager(eager)
     .orderBy('ordre')
-    .whereIn('titresDemarches.typeId', demarchesIds)
-    .whereIn('titresDemarches.titreId', titresIds)
+
+  if (demarchesIds) {
+    q.whereIn('titresDemarches.typeId', demarchesIds)
+  }
+
+  if (titresIds) {
+    q.whereIn('titresDemarches.titreId', titresIds)
+  }
+
+  return q
+}
 
 const titreDemarcheGet = async (
   titreDemarcheId,
