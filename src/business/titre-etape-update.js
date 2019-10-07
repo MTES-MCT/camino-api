@@ -85,7 +85,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
   let titresEtapesCommunesDeleted = []
   // si l'étape est supprimée, pas de mise à jour
   if (titreEtapeId) {
-    const titreEtape = await titreEtapeGet(titreId, {
+    const titreEtape = await titreEtapeGet(titreEtapeId, {
       eager: '[points(orderAsc), communes]',
       format: null
     })
