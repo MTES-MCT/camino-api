@@ -398,6 +398,12 @@ const entrepriseAdresseFormat = e => {
     entreprise.adresse += `${adresse.libelleVoieEtablissement} `
   }
 
+  // permet de ne pas avoir de comparaisons entre chaîne vide
+  // et null lors des tâches business
+  if (!entreprise.adresse) {
+    entreprise.adresse = null
+  }
+
   if (adresse.codePostalEtablissement) {
     entreprise.codePostal = adresse.codePostalEtablissement
   }

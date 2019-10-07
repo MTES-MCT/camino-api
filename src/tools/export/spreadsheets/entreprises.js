@@ -17,15 +17,19 @@ const tables = [
       'legalSiren',
       'legalEtranger',
       'legalForme',
+      'categorie',
+      'dateCreation',
       'adresse',
       'codePostal',
-      'cedex',
       'commune',
-      'insee',
+      'cedex',
       'url',
       'email',
       'telephone'
-    ]
+    ],
+    callbacks: {
+      dateCreation: v => dateFormat(v, 'yyyy-mm-dd')
+    }
   },
   {
     id: 2,
@@ -34,9 +38,9 @@ const tables = [
       'id',
       { key: 'parent.id', value: 'entrepriseId' },
       'nom',
+      'legalSiret',
       'dateDebut',
-      'dateFin',
-      'legalSiret'
+      'dateFin'
     ],
     parents: ['etablissements'],
     callbacks: {
