@@ -35,8 +35,12 @@ const substances = {
   eager: `legales.[code, domaine]`
 }
 
+const geoSystemes = {
+  eager: `unite`
+}
+
 const points = {
-  eager: `references.geoSysteme`
+  eager: `references.geoSysteme.${geoSystemes.eager}`
 }
 
 const communes = {
@@ -304,19 +308,20 @@ const titres = {
 }
 
 export default {
-  utilisateurs,
-  phases,
-  etapes,
-  demarches,
-  titres,
-  points,
-  substances,
+  activitesTypes,
   administrations,
+  communes,
+  demarches,
   entreprises,
   entreprisesEtablissements,
-  domaines,
+  etapes,
   demarchesTypes,
+  domaines,
+  geoSystemes,
+  phases,
+  substances,
+  titres,
   titresActivites,
-  activitesTypes,
-  communes
+  points,
+  utilisateurs
 }

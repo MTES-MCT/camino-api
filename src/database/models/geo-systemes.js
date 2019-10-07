@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import Unites from './unites'
 
 export default class GeoSystemes extends Model {
   static tableName = 'geoSystemes'
@@ -10,8 +11,19 @@ export default class GeoSystemes extends Model {
     properties: {
       id: { type: 'string', maxLength: 5 },
       nom: { type: 'string' },
-      uniteType: { type: 'string' },
+      uniteId: { type: 'string' },
       zone: { type: 'string' }
+    }
+  }
+
+  static relationMappings = {
+    unite: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Unites,
+      join: {
+        from: 'geoSystemes.uniteId',
+        to: 'unites.id'
+      }
     }
   }
 }

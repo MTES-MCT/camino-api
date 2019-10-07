@@ -10,8 +10,7 @@ export default class Unites extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      symbole: { type: 'string' },
-      type: { type: 'string' }
+      symbole: { type: 'string' }
     }
   }
 }

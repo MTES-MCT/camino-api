@@ -146,6 +146,8 @@ const paysRegionsDepartementsCommunes = communes => {
 }
 
 const titreDemarcheFormat = (td, format = titreDemarcheFormatDefaut) => {
+  if (!format) return td
+
   if (td.titreType.id && td.type && td.type.etapesTypes) {
     td.type.etapesTypes = td.type.etapesTypes.filter(
       e => e.typeId === td.titreType.id
@@ -199,6 +201,8 @@ const titreSectionsFormat = tea =>
   }, [])
 
 const titreEtapeFormat = (te, format = titreEtapeFormatDefault) => {
+  if (!format) return te
+
   if (te.points && te.points.length) {
     if (format.geojsonMultiPolygon) {
       te.geojsonMultiPolygon = geojsonFeatureMultiPolygon(te.points)

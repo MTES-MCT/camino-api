@@ -19,7 +19,8 @@ const demarchesTypesGet = async () =>
 
 const devisesGet = async () => Devises.query()
 
-const geoSystemesGet = async () => GeoSystemes.query()
+const geoSystemesGet = async () =>
+  GeoSystemes.query().eager(options.geoSystemes.eager)
 
 const unitesGet = async () => unites.query()
 
