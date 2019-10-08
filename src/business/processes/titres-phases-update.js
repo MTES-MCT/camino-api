@@ -124,7 +124,7 @@ const titresPhasesUpdate = async titres => {
           await titrePhasesDelete(titrePhasesToDeleteIds)
 
           console.log(
-            `suppression: phases ${titrePhasesToDeleteIds.join(', ')}}`
+            `suppression: phases ${titrePhasesToDeleteIds.join(', ')}`
           )
 
           titresPhasesDeleted.push(...titrePhasesToDeleteIds)
