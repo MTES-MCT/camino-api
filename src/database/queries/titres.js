@@ -1,16 +1,12 @@
 import { transaction } from 'objection'
 import Titres from '../models/titres'
 import options from './_options'
-import { titreFormat } from './_format'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async (id, { eager = options.titres.eager, format } = {}) => {
-  const t = await Titres.query()
+const titreGet = async (id, { eager = options.titres.eager } = {}) =>
+  Titres.query()
     .findById(id)
     .eager(eager)
-
-  return t && titreFormat(t, format)
-}
 
 const titresGet = async (
   {
@@ -24,7 +20,7 @@ const titresGet = async (
     references,
     territoires
   } = {},
-  { eager = options.titres.eager, format } = {}
+  { eager = options.titres.eager } = {}
 ) => {
   const q = Titres.query()
     .skipUndefined()
@@ -210,27 +206,19 @@ const titresGet = async (
       .joinRelation('communes.departement.region.pays')
   }
 
-  const titres = await q
-
   // console.log(sqlFormatter.format(q.toSql()))
-  return titres.map(t => t && titreFormat(t, format))
+  return q
 }
 
-const titreCreate = async titre => {
-  const t = await Titres.query()
+const titreCreate = async titre =>
+  Titres.query()
     .insertAndFetch(titre)
     .eager(options.titres.eager)
 
-  return t && titreFormat(t)
-}
-
-const titreUpdate = async (id, props) => {
-  const t = await Titres.query()
+const titreUpdate = async (id, props) =>
+  Titres.query()
     .patchAndFetchById(id, props)
     .eager(options.titres.eager)
-
-  return t && titreFormat(t)
-}
 
 const titreDelete = async (id, tr) =>
   Titres.query(tr)
@@ -247,7 +235,7 @@ const titreUpsert = async (titre, tr) =>
 const titreIdUpdate = async (titreOldId, titreNew) => {
   const knex = Titres.knex()
 
-  const t = await transaction(knex, async tr => {
+  return transaction(knex, async tr => {
     if (titreOldId !== titreNew.id && (await titreGet(titreNew.id, tr))) {
       throw new Error(`un titre avec l'id ${titreNew.id} existe déjà`)
     }
@@ -255,8 +243,6 @@ const titreIdUpdate = async (titreOldId, titreNew) => {
     await titreDelete(titreOldId, tr)
     await titreUpsert(titreNew, tr)
   })
-
-  return t && titreFormat(t)
 }
 
 export {

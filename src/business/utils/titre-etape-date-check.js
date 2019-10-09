@@ -17,7 +17,7 @@ const titreEtapeDateCheck = (titreEtape, titreDemarche) => {
     etapeType => etapeType.id === titreEtapeTypeId
   )
   if (!titreDemarcheEtapeType) {
-    return `type d'étape "${titreEtapeTypeId}" invalide pour une démarche de type ${titreDemarcheTypeNom}`
+    return `étape "${titreEtapeTypeId}" invalide pour une démarche ${titreDemarcheTypeNom}`
   }
 
   let { id: titreEtapeId, date: titreEtapeDate } = titreEtape
@@ -43,7 +43,7 @@ const titreEtapeDateCheck = (titreEtape, titreDemarche) => {
     )
     if (!titreEtapeTypeCurrent) {
       console.warn(
-        `type d'étape "${titreEtapeCurrentTypeId}" invalide pour une démarche de type ${titreDemarcheTypeNom}`
+        `étape "${titreEtapeCurrentTypeId}" invalide pour une démarche ${titreDemarcheTypeNom}`
       )
 
       return false
@@ -58,14 +58,14 @@ const titreEtapeDateCheck = (titreEtape, titreDemarche) => {
       titreEtapeTypeOrdre < titreEtapeTypeCurrentOrdre &&
       titreEtapeDate > titreEtapeCurrentDate
     if (isDateAfter) {
-      errorInvalidDate = `une étape de type ${titreEtapeTypeNom} ne peut pas être postérieure à une étape de type ${titreEtapeTypeCurrentNom}`
+      errorInvalidDate = `une étape ${titreEtapeTypeNom} ne peut pas être postérieure à une étape ${titreEtapeTypeCurrentNom}`
     }
 
     const isDateBefore =
       titreEtapeTypeOrdre > titreEtapeTypeCurrentOrdre &&
       titreEtapeDate < titreEtapeCurrentDate
     if (isDateBefore) {
-      errorInvalidDate = `une étape de type ${titreEtapeTypeNom} ne peut pas être antérieure à une étape de type ${titreEtapeTypeCurrentNom}`
+      errorInvalidDate = `une étape ${titreEtapeTypeNom} ne peut pas être antérieure à une étape ${titreEtapeTypeCurrentNom}`
     }
 
     return isDateAfter || isDateBefore

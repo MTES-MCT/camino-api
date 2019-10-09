@@ -1,17 +1,17 @@
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
-import { titreRestrict, titresRestrict } from './_titre'
+import { titreFormat, titresFormat } from './_titre-format'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
 import titreEagerFormat from './_titre-eager-format'
 
 import {
+  titreCreate,
+  titreDelete,
   titreGet,
   titresGet,
-  titreCreate,
-  titreUpdate,
-  titreDelete
+  titreUpdate
 } from '../../database/queries/titres'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
@@ -21,15 +21,15 @@ import titreUpdationValidate from '../../business/titre-updation-validate'
 
 const titre = async ({ id }, context, info) => {
   const fields = fieldsBuild(info)
-  const eager = eagerBuild(fields, { format: titreEagerFormat, root: 'titre' })
+  const eager = eagerBuild(fields, 'titre', titreEagerFormat)
 
-  const titre = await titreGet(id, { eager, format: fields })
+  const titreRes = await titreGet(id, { eager })
 
-  if (!titre) return null
+  if (!titreRes) return null
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titreRestrict(titre, user)
+  return titreFormat(titreRes, user, fields)
 }
 
 const titres = async (
@@ -59,14 +59,13 @@ const titres = async (
       territoires
     },
     {
-      eager: eagerBuild(fields, { format: titreEagerFormat, root: 'titres' }),
-      format: fields
+      eager: eagerBuild(fields, 'titres', titreEagerFormat)
     }
   )
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titresRestrict(titres, user)
+  return titres && titresFormat(titres, user, fields)
 }
 
 const titreCreer = async ({ titre }, context, info) => {
@@ -83,7 +82,11 @@ const titreCreer = async ({ titre }, context, info) => {
   try {
     await titreCreate(titre)
 
-    return titreUpdateTask(titre.id)
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    const titreRes = titreUpdateTask(titre.id)
+
+    return titreFormat(titreRes, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -97,10 +100,10 @@ const titreModifier = async ({ titre }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     throw new Error('opération impossible')
   }
+
   const titreOld = await titreGet(titre.id)
 
   const rulesError = await titreUpdationValidate(titre, titreOld)
-  console.log(rulesError)
 
   if (rulesError) {
     throw new Error(rulesError)
@@ -109,7 +112,11 @@ const titreModifier = async ({ titre }, context, info) => {
   try {
     await titreUpdate(titre.id, titre)
 
-    return titreUpdateTask(titre.id)
+    const titreRes = titreUpdateTask(titre.id)
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreRes, user)
   } catch (e) {
     if (debug) {
       console.error(e)

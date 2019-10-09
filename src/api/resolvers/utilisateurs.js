@@ -17,8 +17,8 @@ import permissionsCheck from './_permissions-check'
 
 import {
   userIdGenerate,
-  utilisateursRestrict,
-  utilisateurRestrict
+  utilisateursFormat,
+  utilisateurFormat
 } from './_utilisateur'
 
 const utilisateur = async ({ id }, context, info) => {
@@ -26,7 +26,7 @@ const utilisateur = async ({ id }, context, info) => {
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return utilisateurRestrict(utilisateur, user)
+  return utilisateurFormat(utilisateur, user)
 }
 
 const utilisateurs = async (
@@ -43,7 +43,7 @@ const utilisateurs = async (
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return utilisateursRestrict(utilisateurs, user)
+  return utilisateursFormat(utilisateurs, user)
 }
 
 const utilisateurIdentifier = async (variables, context, info) => {
@@ -168,7 +168,7 @@ const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
 
   const url = `${process.env.UI_URL}/creation-de-compte?token=${token}&email=${email}`
 
-  const subject = `[Camino] Création de votre compte utilisateur`
+  const subject = `Création de votre compte utilisateur`
   const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
 
   try {
@@ -284,7 +284,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
 
   const url = `${process.env.UI_URL}/mot-de-passe?token=${token}&email=${email}`
 
-  const subject = `[Camino] Initialisation de votre mot de passe`
+  const subject = `Initialisation de votre mot de passe`
   const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
   try {

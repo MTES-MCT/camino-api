@@ -1,11 +1,13 @@
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
+import { titreFormat } from './_titre-format'
 
 import {
   titreEtapeGet,
   titreEtapeUpsert,
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
+import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
@@ -34,7 +36,9 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
       etapeUpdated.titreDemarcheId
     )
 
-    return titreUpdated
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreUpdated, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -67,7 +71,9 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       etapeUpdated.titreDemarcheId
     )
 
-    return titreUpdated
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreUpdated, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -92,7 +98,9 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
       etapeOld.titreDemarcheId
     )
 
-    return titreUpdated
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreUpdated, user)
   } catch (e) {
     if (debug) {
       console.error(e)

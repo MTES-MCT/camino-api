@@ -53,7 +53,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches.[etapes]', format: null }
+      { eager: 'demarches.[etapes]' }
     )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
       titres
@@ -75,8 +75,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'demarches.[etapes]',
-        format: null
+        eager: 'demarches.[etapes]'
       }
     )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
@@ -96,7 +95,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches.[etapes.[points]]', format: null }
+      { eager: 'demarches.[etapes.[points]]' }
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
 
@@ -115,7 +114,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches.[phase,etapes.[points]]', format: null }
+      { eager: 'demarches.[phase,etapes.[points]]' }
     )
     const [
       titresPhasesUpdated = [],
@@ -137,7 +136,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches.[etapes.[points]]', format: null }
+      { eager: 'demarches.[etapes.[points]]' }
     )
     const titresDatesUpdated = await titresDatesUpdate(titres)
 
@@ -184,8 +183,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'demarches.etapes.[administrations,communes.[departement]]',
-        format: null
+        eager: 'demarches.etapes.[administrations,communes.[departement]]'
       }
     )
     const administrations = await administrationsGet()
@@ -211,8 +209,7 @@ const run = async () => {
       },
       {
         eager:
-          'demarches.[etapes.[points, titulaires, amodiataires, administrations, substances, communes]]',
-        format: null
+          'demarches.[etapes.[points, titulaires, amodiataires, administrations, substances, communes]]'
       }
     )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
@@ -234,8 +231,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'demarches.[phase]',
-        format: null
+        eager: 'demarches.[phase]'
       }
     )
     const activitesTypes = await activitesTypesGet()
@@ -261,8 +257,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'activites',
-        format: null
+        eager: 'activites'
       }
     )
     const titresPropsActivitesUpdated = await titresPropsActivitesUpdate(titres)
@@ -270,20 +265,17 @@ const run = async () => {
     // 13.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titres = await titresGet(
-      {
-        domaineIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutIds: null,
-        substances: null,
-        territoires: null,
-        typeIds: null
-      },
-      { format: false }
-    )
+    titres = await titresGet({
+      domaineIds: null,
+      entreprises: null,
+      ids: null,
+      noms: null,
+      references: null,
+      statutIds: null,
+      substances: null,
+      territoires: null,
+      typeIds: null
+    })
     const { titresUpdated = [], titresUpdatedIdsIndex } = await titresIdsUpdate(
       titres
     )

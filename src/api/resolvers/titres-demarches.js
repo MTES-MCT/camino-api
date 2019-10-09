@@ -1,5 +1,6 @@
 import { debug } from '../../config/index'
 import permissionsCheck from './_permissions-check'
+import { titreFormat } from './_titre-format'
 
 import {
   titreDemarcheGet,
@@ -7,9 +8,9 @@ import {
   titreDemarcheUpdate,
   titreDemarcheDelete
 } from '../../database/queries/titres-demarches'
+import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
-
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
 
 const titreDemarcheCreer = async ({ demarche }, context, info) => {
@@ -27,7 +28,9 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
     const demarcheUpdated = await titreDemarcheCreate(demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
-    return titreUpdated
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreUpdated, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -52,7 +55,9 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
     const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
-    return titreUpdated
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreUpdated, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -76,7 +81,9 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
 
     const titreUpdated = await titreDemarcheUpdateTask(demarcheOld.titreId)
 
-    return titreUpdated
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titreFormat(titreUpdated, user)
   } catch (e) {
     if (debug) {
       console.error(e)

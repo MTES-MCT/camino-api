@@ -22,7 +22,7 @@ const userIdGenerate = async () => {
   return id
 }
 
-const utilisateurRestrict = (utilisateur, user) => {
+const utilisateurFormat = (utilisateur, user) => {
   // si
   // - user n'existe pas (pas d'utilisateur connecté)
   // - l'utilisateur n'existe pas (pas d'utilisateur avec cette id)
@@ -50,16 +50,16 @@ const utilisateurRestrict = (utilisateur, user) => {
   return null
 }
 
-const utilisateursRestrict = (utilisateurs, user) =>
+const utilisateursFormat = (utilisateurs, user) =>
   utilisateurs &&
   utilisateurs.reduce((acc, utilisateur) => {
-    const utilisateurRestricted = utilisateurRestrict(utilisateur, user)
+    const utilisateurFormated = utilisateurFormat(utilisateur, user)
 
-    if (utilisateurRestricted) {
-      acc.push(utilisateurRestricted)
+    if (utilisateurFormated) {
+      acc.push(utilisateurFormated)
     }
 
     return acc
   }, [])
 
-export { utilisateursRestrict, utilisateurRestrict, userIdGenerate }
+export { utilisateursFormat, utilisateurFormat, userIdGenerate }

@@ -11,7 +11,7 @@ const titreUpdate = async titreId => {
     // 11.
     console.log()
     console.log('activités des titres…')
-    let titre = await titreGet(titreId, { format: false })
+    let titre = await titreGet(titreId)
     const annees = [2018, 2019]
     const activitesTypes = await activitesTypesGet()
     let titresActivitesCreated = await titresActivitesUpdate(
@@ -23,7 +23,7 @@ const titreUpdate = async titreId => {
     // 13.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId, { format: false })
+    titre = await titreGet(titreId)
     const titreUpdated = await titreIdsUpdate(titre)
     let titresUpdatedIdsIndex
     if (titreUpdated && titre.id !== titreUpdated.id) {

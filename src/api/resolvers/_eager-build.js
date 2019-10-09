@@ -50,7 +50,8 @@ const fieldsToString = (fields, parent, format) => {
 // out: string de eager pour la requête avec objection.js
 const eagerBuild = (
   fields,
-  { format = (fields, parent) => fields, root = 'root' } = {}
+  root = 'root',
+  format = (fields, parent) => fields
 ) => {
   fields = JSON.parse(JSON.stringify(fields))
 
