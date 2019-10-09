@@ -1,5 +1,7 @@
 import * as dateFormat from 'dateformat'
 
+import emailsSend from '../../tools/emails-send'
+
 const elementHtmlBuild = (sectionId, element, contenu) =>
   contenu[sectionId] &&
   (contenu[sectionId][element.id] || contenu[sectionId][element.id] === 0)
@@ -34,9 +36,9 @@ ${sectionNomHtml}
 }
 
 const titreActiviteEmailFormat = (
+  { contenu, titreId, dateSaisie, sections },
   emailTitle,
-  user,
-  { contenu, titreId, dateSaisie, sections }
+  user
 ) => {
   const header = `
 <h1>${emailTitle}</h1>
@@ -65,4 +67,44 @@ ${body}
 `
 }
 
-export default titreActiviteEmailFormat
+const titreActiviteEmailTitleFormat = (activite, titreNom) =>
+  `${titreNom} | ${activite.type.nom}, ${
+    activite.type.frequence.periodesNom
+      ? activite.type.frequence[activite.type.frequence.periodesNom][
+          activite.frequencePeriodeId - 1
+        ].nom
+      : ''
+  } ${activite.annee}`
+
+const titreActiviteEmailsGet = utilisateurs => {
+  const emails = utilisateurs.reduce((res, u) => {
+    if (u.email) {
+      res.push(u.email)
+    }
+
+    return res
+  }, [])
+
+  // si la variable d'environnement existe,
+  // on ajoute un email générique pour recevoir une copie
+  if (process.env.ACTIVITES_RAPPORTS_EMAIL) {
+    emails.push(process.env.ACTIVITES_RAPPORTS_EMAIL)
+  }
+
+  return emails
+}
+
+const titreActiviteEmailsSend = async (
+  activite,
+  titreNom,
+  user,
+  utilisateurs
+) => {
+  const subject = titreActiviteEmailTitleFormat(activite, titreNom)
+  const content = titreActiviteEmailFormat(activite, subject, user)
+  const emails = titreActiviteEmailsGet(utilisateurs)
+
+  await emailsSend(emails, subject, content)
+}
+
+export { titreActiviteEmailsSend }

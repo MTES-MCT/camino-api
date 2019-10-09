@@ -56,6 +56,7 @@ dest: ${email.to}`
 
 const emailsSend = async (emails, subject, html) => {
   try {
+    subject = `[Camino] ${subject}`
     if (Array.isArray(emails)) {
       emails.forEach(email => {
         mailer(email, subject, html)

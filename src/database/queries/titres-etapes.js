@@ -4,7 +4,6 @@ import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
 import TitresAdministrations from '../models/titres-administrations'
 import options from './_options'
-import { titreEtapeFormat } from './_format'
 
 const titresEtapesGet = async (
   { etapesIds, etapesTypeIds, titresDemarchesIds } = {},
@@ -32,22 +31,16 @@ const titresEtapesGet = async (
 
 const titreEtapeGet = async (
   titreEtapeId,
-  { eager = options.etapes.eager, format } = {}
-) => {
-  const titreEtape = TitresEtapes.query()
+  { eager = options.etapes.eager } = {}
+) =>
+  TitresEtapes.query()
     .eager(eager)
     .findById(titreEtapeId)
 
-  return titreEtape && titreEtapeFormat(titreEtape, format)
-}
-
-const titreEtapeCreate = async etape => {
-  const titreEtape = await TitresEtapes.query()
+const titreEtapeCreate = async etape =>
+  TitresEtapes.query()
     .insertAndFetch(etape)
     .eager(options.etapes.eager)
-
-  return titreEtape && titreEtapeFormat(titreEtape)
-}
 
 const titreEtapeUpdate = async (id, props) =>
   TitresEtapes.query()

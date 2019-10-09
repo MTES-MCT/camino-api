@@ -1,7 +1,6 @@
 import { transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
-import { titreDemarcheFormat } from './_format'
 
 const titresDemarchesGet = async (
   { demarchesIds, titresIds } = {},
@@ -25,24 +24,16 @@ const titresDemarchesGet = async (
 
 const titreDemarcheGet = async (
   titreDemarcheId,
-  { eager = options.demarches.eager, format } = {}
-) => {
-  const q = TitresDemarches.query()
+  { eager = options.demarches.eager } = {}
+) =>
+  TitresDemarches.query()
     .eager(eager)
     .findById(titreDemarcheId)
 
-  const titreDemarche = await q
-
-  return titreDemarche && titreDemarcheFormat(titreDemarche, format)
-}
-
-const titreDemarcheCreate = async demarche => {
-  const titreDemarche = await TitresDemarches.query()
+const titreDemarcheCreate = async demarche =>
+  TitresDemarches.query()
     .insertAndFetch(demarche)
     .eager(options.demarches.eager)
-
-  return titreDemarche && titreDemarcheFormat(titreDemarche)
-}
 
 const titreDemarcheDelete = async (id, trx) =>
   TitresDemarches.query(trx)
@@ -50,13 +41,10 @@ const titreDemarcheDelete = async (id, trx) =>
     .eager(options.demarches.eager)
     .returning('*')
 
-const titreDemarcheUpdate = async (id, props) => {
-  const titreDemarche = await TitresDemarches.query()
+const titreDemarcheUpdate = async (id, props) =>
+  TitresDemarches.query()
     .eager(options.demarches.eager)
     .patchAndFetchById(id, props)
-
-  return titreDemarche && titreDemarcheFormat(titreDemarche)
-}
 
 const titreDemarcheUpsert = async (demarche, trx) =>
   TitresDemarches.query(trx)

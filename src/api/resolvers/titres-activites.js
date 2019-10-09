@@ -1,6 +1,8 @@
 import * as dateFormat from 'dateformat'
-import titreActiviteEmailFormat from './_titre-activite-email-format'
+import { titreActiviteEmailsSend } from './_titre-activite'
+import permissionsCheck from './_permissions-check'
 import { titrePermissionCheck } from './_titre'
+import { titreActiviteFormat } from './_titre-format'
 
 import {
   titreActiviteGet,
@@ -12,11 +14,8 @@ import {
 } from '../../database/queries/utilisateurs'
 import { titreGet } from '../../database/queries/titres'
 
-import permissionsCheck from './_permissions-check'
-
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
-import emailsSend from '../../tools/emails-send'
 import titreActiviteUpdate from '../../business/titre-activite-update'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
@@ -55,52 +54,34 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
 
   titreActivitesRowUpdate([activiteRes])
 
-  if (activiteRes.activiteStatutId === 'dep') {
-    const isAmodiataire = titre.amodiataires.some(
-      t => t.id === user.entrepriseId
-    )
-    const entrepriseIds = isAmodiataire
-      ? titre.amodiataires.map(t => t.id)
-      : titre.titulaires.map(t => t.id)
-    const emails = await emailsGet(entrepriseIds)
-    const emailTitle = `${titre.nom} | ${activiteRes.type.nom}, ${
-      activiteRes.type.frequence.periodesNom
-        ? activiteRes.type.frequence[activiteRes.type.frequence.periodesNom][
-            activiteRes.frequencePeriodeId - 1
-          ].nom
-        : ''
-    } ${activiteRes.annee}`
-    const subject = `[Camino] ${emailTitle}`
-    const html = titreActiviteEmailFormat(emailTitle, user, activiteRes)
+  const activiteFormated = titreActiviteFormat(activiteRes)
 
-    await emailsSend(emails, subject, html)
+  if (activiteRes.activiteStatutId === 'dep') {
+    const utilisateurs = await titreActiviteUtilisateursGet(titre, user)
+
+    await titreActiviteEmailsSend(
+      activiteFormated,
+      titre.nom,
+      user,
+      utilisateurs
+    )
   }
 
-  return activiteRes
+  return activiteFormated
 }
 
-const emailsGet = async entrepriseIds => {
-  const utilisateurs = await utilisateursGet({
+const titreActiviteUtilisateursGet = (titre, user) => {
+  const isAmodiataire = titre.amodiataires.some(t => t.id === user.entrepriseId)
+  const entrepriseIds = isAmodiataire
+    ? titre.amodiataires.map(t => t.id)
+    : titre.titulaires.map(t => t.id)
+
+  return utilisateursGet({
     entrepriseIds,
-    noms: undefined,
-    administrationIds: undefined,
-    permissionIds: undefined
+    noms: null,
+    administrationIds: null,
+    permissionIds: null
   })
-
-  return utilisateurs.reduce(
-    (res, u) => {
-      if (u.email) {
-        res.push(u.email)
-      }
-
-      return res
-    },
-    // si la variable d'environnement existe,
-    // on ajoute un email générique pour recevoir une copie
-    process.env.ACTIVITES_RAPPORTS_EMAIL
-      ? [process.env.ACTIVITES_RAPPORTS_EMAIL]
-      : []
-  )
 }
 
 export { titreActiviteModifier }
