@@ -56,14 +56,15 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   const userHasPermission = titrePermissionCheck(t, user, [
     'admin',
     'super',
-    'editeur'
+    'editeur',
+    'onf'
   ])
 
   if (!titreIsPublic && !userHasPermission) {
     return null
   }
 
-  if (!userHasPermission) {
+  if (!titrePermissionCheck(t, user, ['super', 'admin', 'editeur'])) {
     t.activites = []
     t.activitesAbsentes = null
     t.activitesDeposees = null
