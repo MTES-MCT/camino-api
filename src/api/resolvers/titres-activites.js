@@ -23,7 +23,7 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
   const activiteOld = await titreActiviteGet(activite.id)
   const titre = await titreGet(activiteOld.titreId)
 
-  if (!titrePermissionCheck(titre, user, ['admin', 'super'], true)) {
+  if (!titrePermissionCheck(titre, user, ['super', 'admin'], true)) {
     throw new Error("droits insuffisants pour effectuer l'opération")
   }
 
