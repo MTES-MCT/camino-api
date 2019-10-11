@@ -5,6 +5,8 @@ import titreDemarchesAscSort from './titre-demarches-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
 import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
 
+const titrePropsEtapesNames = titrePropsEtapes.map(p => p.propName)
+
 const titreIdUpdate = titre => {
   const { domaineId, typeId, nom } = titre
 
@@ -74,7 +76,7 @@ const titreEtapeRelations = {
   links: [
     {
       path: '/titre',
-      props: titrePropsEtapes.map(prop => `${prop}TitreEtapeId`)
+      props: titrePropsEtapesNames
     },
     {
       path: 'points',
