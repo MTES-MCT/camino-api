@@ -2,8 +2,8 @@ type TitreActivite {
   id: ID!
   type: ActiviteType!
   statut: ActiviteStatut!
-  date: Date!
-  dateSaisie: Date
+  date: String!
+  dateSaisie: String
   periode: Json
   annee: Int
   sections: Json

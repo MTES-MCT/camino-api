@@ -2,16 +2,13 @@ import { objectsDiffer, dupRemove, dupFind } from './index'
 
 describe('comparaison entre des objets', () => {
   test('retourne false si les objets sont identiques (dates)', () => {
-    const res = objectsDiffer(
-      { date: new Date('1910-01-01') },
-      { date: new Date('1910-01-01') }
-    )
+    const res = objectsDiffer({ date: '1910-01-01' }, { date: '1910-01-01' })
 
     expect(res).toBe(false)
   })
 
   test('retourne true si au moins une propriété des objets est différente (dates)', () => {
-    const res = objectsDiffer({ date: new Date() }, { date: '1000-01-01' })
+    const res = objectsDiffer({ date: null }, { date: '1000-01-01' })
 
     expect(res).toBe(true)
   })

@@ -53,7 +53,7 @@ const titresEtapesCommunesVides = [
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
-            date: '1988-03-11T23:00:00.000Z',
+            date: '1988-03-11',
             communes: []
           }
         ]
@@ -74,7 +74,7 @@ const titresEtapesCommunesMemeCommune = [
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
-            date: '1988-03-11T23:00:00.000Z',
+            date: '1988-03-11',
             communes: [
               { departementId: 1, departement: { regionId: 1 } },
               { departementId: 1, departement: { regionId: 1 } }
@@ -145,7 +145,7 @@ const titresArm = [
             typeId: 'men',
             statutId: 'acc',
             ordre: 2,
-            date: '1988-03-11T23:00:00.000Z',
+            date: '1988-03-11',
             communes: []
           }
         ]
@@ -167,7 +167,7 @@ const titresAxm = [
             typeId: 'men',
             statutId: 'acc',
             ordre: 2,
-            date: '1988-03-11T23:00:00.000Z',
+            date: '1988-03-11',
             communes: []
           }
         ]

@@ -12,8 +12,8 @@ export default class EntreprisesEtablissements extends Model {
       entrepriseId: { type: 'string', maxLength: 64 },
       nom: { type: ['string', 'null'] },
       legalSiret: { type: ['string', 'null'] },
-      dateDebut: { type: 'date' },
-      dateFin: { type: 'date' }
+      dateDebut: { type: 'string' },
+      dateFin: { type: ['string', 'null'] }
     }
   }
 

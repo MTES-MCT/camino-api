@@ -12,8 +12,8 @@ const titreDemarchesProAccOctAcc = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
-        dateFin: '2038-03-11T23:00:00.000Z',
+        date: '2013-05-21',
+        dateFin: '2038-03-11',
         duree: 25
       }
     ]
@@ -31,7 +31,7 @@ const titreDemarchesProAccOctAcc = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       },
       {
         id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -39,8 +39,8 @@ const titreDemarchesProAccOctAcc = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateFin: '2013-03-11T23:00:00.000Z'
+        date: '1988-03-06',
+        dateFin: '2013-03-11'
       }
     ]
   }
@@ -60,8 +60,8 @@ const titreDemarchesProTerOctAcc = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
-        dateFin: '2038-03-11T23:00:00.000Z',
+        date: '2013-05-21',
+        dateFin: '2038-03-11',
         duree: 25
       }
     ]
@@ -79,7 +79,7 @@ const titreDemarchesProTerOctAcc = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       },
       {
         id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -87,8 +87,8 @@ const titreDemarchesProTerOctAcc = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateFin: '2013-03-11T23:00:00.000Z'
+        date: '1988-03-06',
+        dateFin: '2013-03-11'
       }
     ]
   }
@@ -115,7 +115,7 @@ const titreDemarchesProRejOctAcc = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       },
       {
         id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -123,8 +123,8 @@ const titreDemarchesProRejOctAcc = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateFin: '2013-03-11T23:00:00.000Z'
+        date: '1988-03-06',
+        dateFin: '2013-03-11'
       }
     ]
   }

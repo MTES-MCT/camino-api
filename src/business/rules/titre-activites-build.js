@@ -1,42 +1,47 @@
+import * as dateFormat from 'dateformat'
 import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
 const titreActiviteBuild = (
   { demarches: titreDemarches, statutId: titreStatutId, id: titreId },
   activiteTypeId,
   annee,
-  periodIndex,
+  periodeIndex,
   monthsCount
 ) => {
-  const frequencePeriodeId = periodIndex + 1
+  const frequencePeriodeId = periodeIndex + 1
 
-  const nextPeriodeStart = new Date(annee, (periodIndex + 1) * monthsCount, 1)
+  const dateFin = `${annee}-${((periodeIndex + 1) * monthsCount)
+    .toString()
+    .padStart(2, '0')}-01`
 
-  // si la date de début de la période suivante est dans le futur
+  // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
-  if (nextPeriodeStart > new Date()) return null
+  if (dateFin > dateFormat(new Date(), 'yyyy-mm-dd')) return null
 
-  // on ne vérifie les dates de validité que
   // si le statut du titre n'est pas "modification en instance"
+  // - vérifie les dates de validité
   if (titreStatutId !== 'mod') {
-    const periodeStart = new Date(annee, periodIndex * monthsCount, 1)
+    const dateDebut = `${annee}-${(periodeIndex * monthsCount)
+      .toString()
+      .padStart(2, '0')}-01`
 
     // vérifie la validité du titre pour la période
-    const valid = titreValiditePeriodeCheck(
+    const titreIsValid = titreValiditePeriodeCheck(
       titreDemarches,
-      periodeStart,
-      nextPeriodeStart
+      dateDebut,
+      dateFin
     )
 
     // le titre n'est pas valide pour cette période
     // on ne crée pas l'activité
-    if (!valid) return null
+    if (!titreIsValid) return null
   }
 
   const titreActivite = {
     titreId,
     // la date de début de l'activité est le premier jour du mois
     // du début de la période suivante, en fonction de la fréquence
-    date: nextPeriodeStart,
+    date: dateFin,
     activiteTypeId,
     // le statut de l'activité crée automatiquement
     // est 'absente'
@@ -58,7 +63,7 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
 
   return annees.reduce(
     (acc, annee) =>
-      periods.reduce((acc, e, periodIndex) => {
+      periods.reduce((acc, e, periodeIndex) => {
         // cherche si l'activité existe déjà dans le titre
         let titreActivite =
           titreActivites &&
@@ -66,7 +71,7 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
             a =>
               a.activiteTypeId === activiteType.id &&
               a.annee === annee &&
-              a.frequencePeriodeId === periodIndex + 1
+              a.frequencePeriodeId === periodeIndex + 1
           )
 
         // la ligne d'activité existe déjà pour le titre
@@ -77,7 +82,7 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
           titre,
           activiteType.id,
           annee,
-          periodIndex,
+          periodeIndex,
           monthsCount
         )
 

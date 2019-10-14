@@ -6,8 +6,8 @@ exports.up = knex => {
       .references('titres.id')
       .onDelete('CASCADE')
     table.string('utilisateurId', 128).references('utilisateurs.id')
-    table.date('date')
-    table.date('dateSaisie')
+    table.string('date', 10)
+    table.string('dateSaisie', 10)
     table.jsonb('contenu')
     table
       .string('activiteTypeId', 3)

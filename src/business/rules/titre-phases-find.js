@@ -65,7 +65,7 @@ const titrePhaseDateDebutFind = (
 
     if (etapePublicationHasDateDebut) {
       // la date de début est égale à la date de début de l'étape de publication
-      return dateFormat(etapePublicationHasDateDebut.dateDebut, 'yyyy-mm-dd')
+      return etapePublicationHasDateDebut.dateDebut
     }
   }
 
@@ -84,7 +84,7 @@ const titrePhaseDateDebutFind = (
   ).find(te => titreEtapePublicationFilter(te, titreTypeId))
 
   // sinon la date de début est égale à la date de la première étape de publication
-  return dateFormat(titreEtapePublicationFirst.date, 'yyyy-mm-dd')
+  return titreEtapePublicationFirst.date
 }
 
 // trouve la date de fin d'une phase

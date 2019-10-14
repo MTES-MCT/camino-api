@@ -1,5 +1,3 @@
-import * as dateFormat from 'dateformat'
-
 const dupRemove = (key, ...arrays) =>
   arrays.reduce(
     (result, array) =>
@@ -27,28 +25,17 @@ const objectsDiffer = (a, b) => {
 
   return (
     Object.keys(a).find(k => {
-      let aK = a[k]
-      let bK = b[k]
-
-      if (aK && aK.constructor === Date) {
-        aK = dateFormat(aK, 'yyyy-mm-dd')
-      }
-
-      if (bK && bK.constructor === Date) {
-        bK = dateFormat(bK, 'yyyy-mm-dd')
-      }
-
-      if (aK && bK) {
-        if (Array.isArray(aK) && Array.isArray(bK)) {
-          return aK.find((a, i) => objectsDiffer(a, bK[i]))
+      if (a[k] && b[k]) {
+        if (Array.isArray(a[k]) && Array.isArray(b[k])) {
+          return a[k].find((a, i) => objectsDiffer(a, b[k][i]))
         }
 
-        if (typeof aK === 'object' && typeof bK === 'object' && aK) {
-          return objectsDiffer(aK, bK)
+        if (typeof a[k] === 'object' && typeof b[k] === 'object' && a[k]) {
+          return objectsDiffer(a[k], b[k])
         }
       }
 
-      return aK !== bK
+      return a[k] !== b[k]
     }) !== undefined
   )
 }

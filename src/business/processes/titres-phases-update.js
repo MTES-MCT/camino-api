@@ -1,5 +1,4 @@
 import PQueue from 'p-queue'
-import * as dateFormat from 'dateformat'
 
 import {
   titrePhasesUpdate,
@@ -16,11 +15,7 @@ const titrePhaseEqualFind = (titreDemarcheId, titrePhases) =>
 // qui sont différentes de la nouvelle phase
 const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
   Object.keys(titrePhase).reduce((res, key) => {
-    let valueOld = titrePhaseOld[key]
-    if (valueOld instanceof Date) {
-      valueOld = dateFormat(valueOld, 'yyyy-mm-dd')
-    }
-
+    const valueOld = titrePhaseOld[key]
     const valueNew = titrePhase[key]
 
     // met la prop à jour si les variables sont différentes

@@ -5,7 +5,7 @@ const titresEtapesPoints = [
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
-    date: '1988-03-11T23:00:00.000Z',
+    date: '1988-03-11',
     points: [1, 2]
   }
 ]
@@ -17,7 +17,7 @@ const titresEtapesPointsMemeCommune = [
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
-    date: '1988-03-11T23:00:00.000Z',
+    date: '1988-03-11',
     points: [1, 2]
   }
 ]
@@ -29,7 +29,7 @@ const titresEtapesPointsVides = [
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
-    date: '1988-03-11T23:00:00.000Z',
+    date: '1988-03-11',
     points: []
   }
 ]
@@ -41,7 +41,7 @@ const titresEtapesPointsCommuneInexistante = [
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
-    date: '1988-03-11T23:00:00.000Z',
+    date: '1988-03-11',
     points: [],
     communes: [
       {
@@ -58,7 +58,7 @@ const titresEtapesPointsCommuneExistante = [
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
-    date: '1988-03-11T23:00:00.000Z',
+    date: '1988-03-11',
     points: [1, 2],
     communes: [
       {

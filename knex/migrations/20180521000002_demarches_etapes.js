@@ -29,8 +29,8 @@ exports.up = knex => {
       table.string('delaiRecours')
       table.string('legalRef')
       table.string('legalLien')
-      table.date('dateDebut')
-      table.date('dateFin')
+      table.string('dateDebut', 10)
+      table.string('dateFin', 10)
       table.primary(['demarcheTypeId', 'typeId'])
     })
     .createTable('demarchesStatuts', table => {
@@ -50,8 +50,8 @@ exports.up = knex => {
       table.boolean('acceptationAuto')
       table.string('legalRef')
       table.string('legalLien')
-      table.date('dateDebut')
-      table.date('dateFin')
+      table.string('dateDebut', 10)
+      table.string('dateFin', 10)
       table.specificType('sections', 'jsonb[]')
     })
     .createTable('demarchesTypes__etapesTypes', table => {

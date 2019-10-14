@@ -12,7 +12,7 @@ const titreDemarcheOctEtapeMen = [
         typeId: 'men',
         statutId: 'dep',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       }
     ]
   }
@@ -43,7 +43,7 @@ const titreDemarcheOctSansEtapeMen = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       }
     ]
   }

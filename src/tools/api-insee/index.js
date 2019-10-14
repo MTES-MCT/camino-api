@@ -319,6 +319,7 @@ const entrepriseEtablissementsFormat = (entrepriseId, e) =>
         dateDebut,
         legalSiret: `${e.siren}${nic}`
       }
+
       if (p.dateFin) {
         etablissement.dateFin = dateFormat(p.dateFin, 'yyyy-mm-dd')
       }

@@ -11,8 +11,8 @@ export default class TitresPhases extends Model {
     properties: {
       titreDemarcheId: { type: 'string', maxLength: 128 },
       statutId: { type: 'string', maxLength: 3 },
-      dateDebut: { type: 'date' },
-      dateFin: { type: 'date' }
+      dateDebut: { type: 'string' },
+      dateFin: { type: 'string' }
     }
   }
 

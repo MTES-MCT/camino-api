@@ -1,5 +1,3 @@
-import * as dateFormat from 'dateformat'
-
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_ACTIVITES
@@ -23,9 +21,7 @@ const tables = [
       'annee'
     ],
     callbacks: {
-      contenu: v => JSON.stringify(v),
-      date: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateSaisie: v => dateFormat(v, 'yyyy-mm-dd')
+      contenu: v => JSON.stringify(v)
     }
   }
 ]

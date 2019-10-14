@@ -158,5 +158,3 @@ type Mutation {
 }
 
 scalar Json
-
-scalar Date

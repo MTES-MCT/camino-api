@@ -32,7 +32,7 @@ describe("dates d'un titre", () => {
     const titresDatesUpdated = await titresDatesUpdate([
       {
         id: 'titre-type-id',
-        dateFin: new Date('2019-01-01'),
+        dateFin: '2019-01-01',
         dateDebut: null,
         dateDemande: null
       }

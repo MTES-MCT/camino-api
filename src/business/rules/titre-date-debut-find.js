@@ -1,4 +1,3 @@
-import * as dateFormat from 'dateformat'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
@@ -17,7 +16,7 @@ const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
   // si cette démarche a une étape de publication qui possède une date de début
   if (etapePublicationHasDateDebut) {
     // la date de début est égale à la date de début de l'étape de publication
-    return dateFormat(etapePublicationHasDateDebut.dateDebut, 'yyyy-mm-dd')
+    return etapePublicationHasDateDebut.dateDebut
   }
 
   // retourne la première étape de publication de la démarche
@@ -30,7 +29,7 @@ const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
     return null
 
   // sinon la date de début est égale à la date de la première étape de publication
-  return dateFormat(titreEtapePublicationFirst.date, 'yyyy-mm-dd')
+  return titreEtapePublicationFirst.date
 }
 
 const titreDateDebutFind = (titreDemarches, titreTypeId) => {

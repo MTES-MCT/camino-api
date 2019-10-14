@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import * as dateFormat from 'dateformat'
 import '../../../database/index'
 
 import { titresGet } from '../../../database/queries/titres'
@@ -18,9 +17,8 @@ async function main() {
 
   const titresFiltered = titres.filter(t => {
     const dateDebut = dateDebutFind(titreDemarchesPhasesFind(t.demarches))
-    const dd = dateDebut && dateFormat(dateDebut, 'yyyy-mm-dd')
 
-    return dd >= '2018-04-01'
+    return dateDebut && dateDebut >= '2018-04-01'
   })
 
   console.log('titres:', titresFiltered.map(({ id }) => id))

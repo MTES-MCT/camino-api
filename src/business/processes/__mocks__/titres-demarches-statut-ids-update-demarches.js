@@ -14,7 +14,7 @@ const titresDemarchesStatutModifie = [
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
-            date: '1988-03-11T23:00:00.000Z'
+            date: '1988-03-11'
           },
           {
             id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -22,8 +22,8 @@ const titresDemarchesStatutModifie = [
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
-            date: '1988-03-06T23:00:00.000Z',
-            dateFin: '2013-03-11T23:00:00.000Z'
+            date: '1988-03-06',
+            dateFin: '2013-03-11'
           }
         ]
       }
@@ -47,7 +47,7 @@ const titresDemarchesStatutIdentique = [
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
-            date: '1988-03-11T23:00:00.000Z'
+            date: '1988-03-11'
           },
           {
             id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -55,8 +55,8 @@ const titresDemarchesStatutIdentique = [
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
-            date: '1988-03-06T23:00:00.000Z',
-            dateFin: '2013-03-11T23:00:00.000Z'
+            date: '1988-03-06',
+            dateFin: '2013-03-11'
           }
         ]
       }

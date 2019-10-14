@@ -146,7 +146,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarcheEtapes => {
 
   // si la démarche contient une date de fin
   if (etapeDexHasDateFin) {
-    return dateFormat(etapeDexHasDateFin.dateFin, 'yyyy-mm-dd')
+    return etapeDexHasDateFin.dateFin
   }
 
   // sinon,
@@ -156,7 +156,7 @@ const titreDemarcheAnnulationDateFinFind = titreDemarcheEtapes => {
   )
 
   // la date de fin est la date de l'étape
-  return dateFormat(etapeDex.date, 'yyyy-mm-dd')
+  return etapeDex.date
 }
 
 // trouve la date de fin d'une démarche de renonciation
@@ -175,9 +175,7 @@ const titreDemarcheRenonciationDateFinFind = titreDemarcheEtapes => {
   )
 
   // la date de fin est la date de l'étape
-  return etapeDpu && etapeDpu.date
-    ? dateFormat(etapeDpu.date, 'yyyy-mm-dd')
-    : null
+  return etapeDpu && etapeDpu.date ? etapeDpu.date : null
 }
 
 // entrées:
@@ -215,12 +213,11 @@ const titreDemarcheNormaleDateFinAndDureeFind = (
   }
 }
 
-// ajoute une durée en années à une date au format YYYY-MM-DD
+// ajoute une durée en mois à une string au format YYYY-MM-DD
 const dateAddMonths = (date, months) => {
-  const [y, m, d] = dateFormat(date, 'yyyy-mm-dd').split('-')
-  const dateNew = new Date(y, m - 1 + months, d)
+  const [y, m, d] = date.split('-')
 
-  return dateFormat(dateNew, 'yyyy-mm-dd')
+  return dateFormat(new Date(y, m - 1 + months, d), 'yyyy-mm-dd')
 }
 
 export default titreDemarcheDateFinAndDureeFind

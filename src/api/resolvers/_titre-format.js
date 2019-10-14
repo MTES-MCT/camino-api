@@ -1,5 +1,3 @@
-import * as dateFormat from 'dateformat'
-
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
@@ -213,8 +211,8 @@ const titreSectionsFormat = tea =>
           e.frequencePeriodesIds.find(
             id => tea.periode && tea.periode.id === id
           )) &&
-        (!e.dateFin || e.dateFin >= dateFormat(tea.date, 'yyyy-mm-dd')) &&
-        (!e.dateDebut || e.dateDebut < dateFormat(tea.date, 'yyyy-mm-dd'))
+        (!e.dateFin || e.dateFin >= tea.date) &&
+        (!e.dateDebut || e.dateDebut < tea.date)
       ) {
         elements.push(e)
       }

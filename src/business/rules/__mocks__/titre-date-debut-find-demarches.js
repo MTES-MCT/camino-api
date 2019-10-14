@@ -12,7 +12,7 @@ const titreDemarchesDpu = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       }
     ]
   }
@@ -32,7 +32,7 @@ const titreDemarchesRpu = [
         typeId: 'rpu',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       }
     ]
   }
@@ -52,7 +52,7 @@ const titreDemarchesDex = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       }
     ]
   }
@@ -72,8 +72,8 @@ const titreDemarchesRpuDateDebut = [
         typeId: 'rpu',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z',
-        dateDebut: '1988-03-15T23:00:00.000Z'
+        date: '1988-03-11',
+        dateDebut: '1988-03-15'
       }
     ]
   }
@@ -93,8 +93,8 @@ const titreDemarchesDexDateDebut = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-11T23:00:00.000Z',
-        dateDebut: '1988-03-15T23:00:00.000Z'
+        date: '1988-03-11',
+        dateDebut: '1988-03-15'
       }
     ]
   }
@@ -124,7 +124,7 @@ const titreDemarchesSansDateDebut = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z'
+        date: '1988-03-06'
       }
     ]
   }

@@ -1,4 +1,3 @@
-import * as dateFormat from 'dateformat'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 
 const titreDateFinFind = titreDemarches => {
@@ -9,11 +8,8 @@ const titreDateFinFind = titreDemarches => {
 
   if (!titreDemarche) return null
 
-  return dateFormat(
-    titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
-      .dateFin,
-    'yyyy-mm-dd'
-  )
+  return titreDemarcheDateFinAndDureeFind(titreDemarches, titreDemarche.ordre)
+    .dateFin
 }
 
 export default titreDateFinFind

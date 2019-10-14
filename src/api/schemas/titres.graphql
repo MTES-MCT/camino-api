@@ -46,13 +46,13 @@ type Titre {
   pays: [Pays]
 
   "La date de début d'un titre"
-  dateDebut: Date
+  dateDebut: String
 
   "La date de fin d'un titre"
-  dateFin: Date
+  dateFin: String
 
   "La date de demande initiale d'un titre"
-  dateDemande: Date
+  dateDemande: String
 
   "Les démarches effectuées sur le titre"
   demarches: [Demarche]
@@ -131,10 +131,10 @@ type Phase {
   statut: PhaseStatut!
 
   "La date de début d'une phase"
-  dateDebut: Date
+  dateDebut: String
 
   "La date de fin d'une phase"
-  dateFin: Date
+  dateFin: String
 }
 
 "Étape d'une démarche effectuée sur un titre minier"
@@ -156,16 +156,16 @@ type Etape {
   ordre: Int!
 
   "La date de l'étape"
-  date: Date!
+  date: String!
 
   "La durée de la démarche"
   duree: Int
 
   "La date de début de la démarche"
-  dateDebut: Date
+  dateDebut: String
 
   "La date de fin de la démarche"
-  dateFin: Date
+  dateFin: String
 
   "La surface en Km² du titre"
   surface: Float
@@ -320,15 +320,15 @@ input InputEtapeCreation {
 
   titreDemarcheId: ID!
 
-  date: Date!
+  date: String!
 
   ordre: Int
 
   duree: Int
 
-  dateDebut: Date
+  dateDebut: String
 
-  dateFin: Date
+  dateFin: String
 
   surface: Float
 
@@ -364,15 +364,15 @@ input InputEtapeModification {
 
   titreDemarcheId: ID!
 
-  date: Date!
+  date: String!
 
   ordre: Int
 
   duree: Int
 
-  dateDebut: Date
+  dateDebut: String
 
-  dateFin: Date
+  dateFin: String
 
   surface: Float
 

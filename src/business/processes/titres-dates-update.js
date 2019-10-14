@@ -1,12 +1,8 @@
-import * as dateFormat from 'dateformat'
 import { titreUpdate } from '../../database/queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 import titreDateDemandeFind from '../rules/titre-date-demande-find'
 import PQueue from 'p-queue'
-
-const datesDiffer = (dateOld, dateNew) =>
-  (dateOld && dateFormat(dateOld, 'yyyy-mm-dd')) !== dateNew
 
 const titresDatesUpdate = async titres => {
   const queue = new PQueue({ concurrency: 100 })
@@ -16,19 +12,19 @@ const titresDatesUpdate = async titres => {
 
     const dateFin = titreDateFinFind(titre.demarches)
 
-    if (datesDiffer(titre.dateFin, dateFin)) {
+    if (titre.dateFin !== dateFin) {
       props.dateFin = dateFin
     }
 
     const dateDebut = titreDateDebutFind(titre.demarches, titre.typeId)
 
-    if (datesDiffer(titre.dateDebut, dateDebut)) {
+    if (titre.dateDebut !== dateDebut) {
       props.dateDebut = dateDebut
     }
 
     const dateDemande = titreDateDemandeFind(titre.demarches, titre.statutId)
 
-    if (datesDiffer(titre.dateDemande, dateDemande)) {
+    if (titre.dateDemande !== dateDemande) {
       props.dateDemande = dateDemande
     }
 

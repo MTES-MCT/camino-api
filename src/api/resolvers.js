@@ -1,5 +1,3 @@
-import { GraphQLDate } from 'graphql-iso-date'
-
 import Json from './types/json'
 
 import {
@@ -47,7 +45,6 @@ import { statistiques } from './resolvers/statistiques'
 export default {
   //  types
   Json,
-  GraphQLDate,
 
   //  queries
   version,

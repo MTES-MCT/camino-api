@@ -12,8 +12,8 @@ const titreDemarchesOctDateFin = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
-        dateFin: '2038-03-11T23:00:00.000Z',
+        date: '2013-05-21',
+        dateFin: '2038-03-11',
         duree: 25 * 12
       }
     ]
@@ -31,7 +31,7 @@ const titreDemarchesOctDateFin = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       },
       {
         id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -39,8 +39,8 @@ const titreDemarchesOctDateFin = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateFin: '2013-03-11T23:00:00.000Z'
+        date: '1988-03-06',
+        dateFin: '2013-03-11'
       }
     ]
   }
@@ -60,8 +60,8 @@ const titreDemarchesOctDateDebut = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
-        dateFin: '2038-03-11T23:00:00.000Z',
+        date: '2013-05-21',
+        dateFin: '2038-03-11',
         duree: 25 * 12
       }
     ]
@@ -79,7 +79,7 @@ const titreDemarchesOctDateDebut = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z'
+        date: '1988-03-11'
       },
       {
         id: 'h-cxx-courdemanges-1988-oct01-dex01',
@@ -87,8 +87,8 @@ const titreDemarchesOctDateDebut = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateDebut: '2013-03-11T23:00:00.000Z',
+        date: '1988-03-06',
+        dateDebut: '2013-03-11',
         duree: 10 * 12
       }
     ]
@@ -109,7 +109,7 @@ const titreDemarchesOctDureeZero = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 0,
         points: []
       }
@@ -131,7 +131,7 @@ const titreDemarchesOctPasDeDpu = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 25 * 12
       }
     ]
@@ -152,7 +152,7 @@ const titreDemarchesOctDpuFirst = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 25 * 12
       }
     ]
@@ -173,7 +173,7 @@ const titreDemarchesOctNiDpuNiDex = [
         typeId: 'rpu',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 25 * 12
       }
     ]
@@ -194,7 +194,7 @@ const titreDemarchesOctProDuree = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '2013-05-23T22:00:00.000Z',
+        date: '2013-05-23',
         duree: null
       },
       {
@@ -203,7 +203,7 @@ const titreDemarchesOctProDuree = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
+        date: '2013-05-21',
         duree: 25 * 12
       }
     ]
@@ -221,7 +221,7 @@ const titreDemarchesOctProDuree = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z',
+        date: '1988-03-11',
         duree: null
       },
       {
@@ -230,8 +230,8 @@ const titreDemarchesOctProDuree = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateFin: '2013-03-11T23:00:00.000Z',
+        date: '1988-03-06',
+        dateFin: '2013-03-11',
         duree: 25 * 12
       }
     ]
@@ -252,7 +252,7 @@ const titreDemarchesOctAbrDateFin = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '2013-05-23T22:00:00.000Z',
+        date: '2013-05-23',
         dateFin: null,
         duree: null
       },
@@ -262,8 +262,8 @@ const titreDemarchesOctAbrDateFin = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
-        dateFin: '2200-03-11T23:00:00.000Z'
+        date: '2013-05-21',
+        dateFin: '2200-03-11'
       }
     ]
   },
@@ -280,7 +280,7 @@ const titreDemarchesOctAbrDateFin = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z',
+        date: '1988-03-11',
         dateFin: null,
         duree: null
       },
@@ -290,8 +290,8 @@ const titreDemarchesOctAbrDateFin = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
-        dateFin: '2013-03-11T23:00:00.000Z',
+        date: '1988-03-06',
+        dateFin: '2013-03-11',
         duree: 25 * 12
       }
     ]
@@ -312,7 +312,7 @@ const titreDemarchesOctAbrDate = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '2013-05-23T22:00:00.000Z',
+        date: '2013-05-23',
         duree: null
       },
       {
@@ -321,7 +321,7 @@ const titreDemarchesOctAbrDate = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2013-05-21T22:00:00.000Z',
+        date: '2013-05-21',
         duree: 50 * 12
       }
     ]
@@ -339,7 +339,7 @@ const titreDemarchesOctAbrDate = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z',
+        date: '1988-03-11',
         dateFin: null,
         duree: null
       },
@@ -349,7 +349,7 @@ const titreDemarchesOctAbrDate = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 25 * 12
       }
     ]
@@ -370,7 +370,7 @@ const titreDemarchesRenPoints = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-06-06T23:00:00.000Z',
+        date: '1988-06-06',
         points: [1, 2, 3]
       }
     ]
@@ -388,7 +388,7 @@ const titreDemarchesRenPoints = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z',
+        date: '1988-03-11',
         dateFin: null,
         duree: null
       },
@@ -398,7 +398,7 @@ const titreDemarchesRenPoints = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 25 * 12
       }
     ]
@@ -419,7 +419,7 @@ const titreDemarchesRenPointsVideDpu = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-06-17T23:00:00.000Z',
+        date: '1988-06-17',
         points: []
       },
       {
@@ -428,7 +428,7 @@ const titreDemarchesRenPointsVideDpu = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-06-06T23:00:00.000Z',
+        date: '1988-06-06',
         points: []
       }
     ]
@@ -446,7 +446,7 @@ const titreDemarchesRenPointsVideDpu = [
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '1988-03-11T23:00:00.000Z',
+        date: '1988-03-11',
         dateFin: null,
         duree: null
       },
@@ -456,7 +456,7 @@ const titreDemarchesRenPointsVideDpu = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-03-06T23:00:00.000Z',
+        date: '1988-03-06',
         duree: 25 * 12
       }
     ]
@@ -477,7 +477,7 @@ const titreDemarchesRenPointsVideDex = [
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-06-06T23:00:00.000Z',
+        date: '1988-06-06',
         points: []
       }
     ]
@@ -498,7 +498,7 @@ const titreDemarchesRenPointsVideNiDpuNiDex = [
         typeId: 'mfr',
         statutId: 'acc',
         ordre: 1,
-        date: '1988-06-06T23:00:00.000Z',
+        date: '1988-06-06',
         points: []
       }
     ]

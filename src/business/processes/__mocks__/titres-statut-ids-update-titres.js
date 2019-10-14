@@ -17,9 +17,9 @@ const titresValideStatutIdAJour = [
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
-            date: '2014-04-01T22:00:00.000Z',
+            date: '2014-04-01',
             dateDebut: null,
-            dateFin: '3014-04-01T22:00:00.000Z'
+            dateFin: '3014-04-01'
           }
         ]
       }
@@ -45,9 +45,9 @@ const titresEchuStatutIdObselete = [
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
-            date: '1014-04-01T22:00:00.000Z',
+            date: '1014-04-01',
             dateDebut: null,
-            dateFin: '2014-04-01T22:00:00.000Z'
+            dateFin: '2014-04-01'
           }
         ]
       }

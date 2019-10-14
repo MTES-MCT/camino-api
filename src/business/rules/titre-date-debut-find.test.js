@@ -12,26 +12,26 @@ import {
 
 describe("cherche la date de début d'une démarche", () => {
   test("la date de début de validité d'un titre est celle de la première démarche d'octroi dont le statut est acceptée", () => {
-    expect(titreDateDebutFind(titreDemarchesDpu, 'axm')).toMatch(/1988-03-12/)
+    expect(titreDateDebutFind(titreDemarchesDpu, 'axm')).toBe('1988-03-11')
   })
 
   test("la date de début de validité d'un titre est celle de la première démarche d'octroi dont le statut est acceptée", () => {
-    expect(titreDateDebutFind(titreDemarchesDex, 'axm')).toMatch(/1988-03-12/)
+    expect(titreDateDebutFind(titreDemarchesDex, 'axm')).toBe('1988-03-11')
   })
 
   test("la date de début de validité d'un titre est celle de la première démarche d'octroi dont le statut est acceptée", () => {
-    expect(titreDateDebutFind(titreDemarchesRpu, 'prx')).toMatch(/1988-03-12/)
+    expect(titreDateDebutFind(titreDemarchesRpu, 'prx')).toBe('1988-03-11')
   })
 
   test("la date de début de validité d'un titre est celle de la date de début de la première étape de rpu de la première démarche d'octroi dont le statut est acceptée", () => {
-    expect(titreDateDebutFind(titreDemarchesRpuDateDebut, 'prx')).toMatch(
-      /1988-03-16/
+    expect(titreDateDebutFind(titreDemarchesRpuDateDebut, 'prx')).toBe(
+      '1988-03-15'
     )
   })
 
   test("la date de début de validité d'un titre est celle de la date de début de la première étape de dpu de la première démarche d'octroi dont le statut est acceptée", () => {
-    expect(titreDateDebutFind(titreDemarchesDexDateDebut, 'axm')).toMatch(
-      /1988-03-16/
+    expect(titreDateDebutFind(titreDemarchesDexDateDebut, 'axm')).toBe(
+      '1988-03-15'
     )
   })
 

@@ -20,7 +20,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDateFin, 1)
     ).toEqual({
-      dateFin: '2013-03-12',
+      dateFin: '2013-03-11',
       duree: 0
     })
   })
@@ -29,7 +29,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDateDebut, 1)
     ).toEqual({
-      dateFin: '2023-03-12',
+      dateFin: '2023-03-11',
       duree: 10 * 12
     })
   })
@@ -47,7 +47,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctPasDeDpu, 5)
     ).toEqual({
-      dateFin: '2013-03-07',
+      dateFin: '2013-03-06',
       duree: 25 * 12
     })
   })
@@ -56,7 +56,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDpuFirst, 5)
     ).toEqual({
-      dateFin: '2013-03-07',
+      dateFin: '2013-03-06',
       duree: 25 * 12
     })
   })
@@ -74,7 +74,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctProDuree, 5)
     ).toEqual({
-      dateFin: '2038-03-12',
+      dateFin: '2038-03-11',
       duree: 50 * 12
     })
   })
@@ -83,7 +83,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrDateFin, 5)
     ).toEqual({
-      dateFin: '2200-03-12',
+      dateFin: '2200-03-11',
       duree: 0
     })
   })
@@ -92,7 +92,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrDate, 5)
     ).toEqual({
-      dateFin: '2013-05-22',
+      dateFin: '2013-05-21',
       duree: 0
     })
   })
@@ -101,7 +101,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesRenPoints, 5)
     ).toEqual({
-      dateFin: '2013-03-12',
+      dateFin: '2013-03-11',
       duree: 25 * 12
     })
   })
@@ -110,7 +110,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideDpu, 5)
     ).toEqual({
-      dateFin: '1988-06-18',
+      dateFin: '1988-06-17',
       duree: 0
     })
   })
@@ -119,7 +119,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideDex, 5)
     ).toEqual({
-      dateFin: '1988-06-07',
+      dateFin: '1988-06-06',
       duree: 0
     })
   })

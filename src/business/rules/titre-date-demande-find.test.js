@@ -12,8 +12,8 @@ describe("cherche la date de demande initiale d'un titre", () => {
   })
 
   test("retourne la date de l'étape de dépôt de la demande d'une démarche demande initiale d'un titre dont le statut est demande initiale", () => {
-    expect(titreDateDemandeFind(titreDemarcheOctEtapeMen, 'dmi')).toMatch(
-      /1988-03-12/
+    expect(titreDateDemandeFind(titreDemarcheOctEtapeMen, 'dmi')).toBe(
+      '1988-03-11'
     )
   })
 

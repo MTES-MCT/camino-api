@@ -6,7 +6,7 @@ type Entreprise {
   legalEtranger: String
   legalForme: String
   categorie: String
-  dateCreation: Date
+  dateCreation: String
   adresse: String
   codePostal: String
   commune: String
@@ -23,8 +23,8 @@ type Entreprise {
 type EntrepriseEtablissement {
   id: ID!
   nom: String
-  dateDebut: Date
-  dateFin: Date
+  dateDebut: String
+  dateFin: String
   legalSiret: String
 }
 
@@ -49,6 +49,6 @@ input InputEtablissements {
   id: ID!
   nom: String
   legalSiret: String
-  dateDebut: Date
-  dateFin: Date
+  dateDebut: String
+  dateFin: String
 }

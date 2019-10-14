@@ -1,5 +1,3 @@
-import * as dateFormat from 'dateformat'
-
 import { entreprisesGet } from '../../../database/queries/entreprises'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES
@@ -26,10 +24,7 @@ const tables = [
       'url',
       'email',
       'telephone'
-    ],
-    callbacks: {
-      dateCreation: v => dateFormat(v, 'yyyy-mm-dd')
-    }
+    ]
   },
   {
     id: 2,
@@ -42,11 +37,7 @@ const tables = [
       'dateDebut',
       'dateFin'
     ],
-    parents: ['etablissements'],
-    callbacks: {
-      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateFin: v => dateFormat(v, 'yyyy-mm-dd')
-    }
+    parents: ['etablissements']
   }
 ]
 

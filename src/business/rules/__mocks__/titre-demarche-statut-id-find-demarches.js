@@ -183,7 +183,7 @@ const titreDemarcheOctMenIns = {
     {
       id: 'h-cxx-courdemanges-1988-oct01-men01',
       typeId: 'men',
-      date: '1988-03-11T23:00:00.000Z'
+      date: '1988-03-11'
     }
   ]
 }
@@ -197,7 +197,7 @@ const titreArmDemarcheOctMdpIns = {
     {
       id: 'h-cxx-courdemanges-1988-oct01-mdp01',
       typeId: 'mdp',
-      date: '1988-03-11T23:00:00.000Z'
+      date: '1988-03-11'
     }
   ]
 }
@@ -224,7 +224,7 @@ const titreDemarcheOctMenInd = {
     {
       id: 'h-cxx-courdemanges-1988-oct01-men01',
       typeId: 'men',
-      date: '4000-03-11T23:00:00.000Z'
+      date: '4000-03-11'
     }
   ]
 }
@@ -292,7 +292,7 @@ const titreDemarcheOctMcrAcc = {
       id: 'h-cxx-courdemanges-1988-oct01-mcr01',
       typeId: 'mcr',
       statutId: 'acc',
-      date: '1988-03-11T23:00:00.000Z'
+      date: '1988-03-11'
     }
   ]
 }
@@ -307,7 +307,7 @@ const titreDemarcheOctMcrInd = {
       id: 'h-cxx-courdemanges-1988-oct01-mcr01',
       typeId: 'mcr',
       statutId: 'acc',
-      date: '4002-03-11T23:00:00.000Z'
+      date: '4002-03-11'
     }
   ]
 }

@@ -1,4 +1,3 @@
-import * as dateFormat from 'dateformat'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 
@@ -34,7 +33,7 @@ const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
 
   // sinon
   // retourne la date de la demande initiale
-  return dateFormat(titreEtapeMen.date, 'yyyy-mm-dd')
+  return titreEtapeMen.date
 }
 
 export default titreDateDemandeFind

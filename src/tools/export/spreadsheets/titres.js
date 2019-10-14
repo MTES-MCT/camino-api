@@ -1,5 +1,3 @@
-import * as dateFormat from 'dateformat'
-
 import { titresGet } from '../../../database/queries/titres'
 
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_C
@@ -73,10 +71,7 @@ const tables = [
 
             return r
           }, {})
-        ),
-      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateDemande: v => dateFormat(v, 'yyyy-mm-dd')
+        )
     }
   },
   {
@@ -105,11 +100,7 @@ const tables = [
     id: 4,
     name: 'titresPhases',
     columns: ['titreDemarcheId', 'statutId', 'dateDebut', 'dateFin'],
-    parents: ['demarches', 'phase'],
-    callbacks: {
-      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateFin: v => dateFormat(v, 'yyyy-mm-dd')
-    }
+    parents: ['demarches', 'phase']
   },
   {
     id: 5,
@@ -133,9 +124,6 @@ const tables = [
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {
-      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
-      date: v => dateFormat(v, 'yyyy-mm-dd'),
       contenu: v => JSON.stringify(v)
     }
   },
