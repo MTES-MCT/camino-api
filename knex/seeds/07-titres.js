@@ -20,7 +20,8 @@ const files = [
   'titresAdministrationsCentrales',
   'titresAdministrationsLocales',
   'titresAmodiataires',
-  'titresIncertitudes'
+  'titresIncertitudes',
+  'titresReferences'
 ]
 
 const data = files.reduce((d, file) => {
@@ -60,11 +61,13 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('titresPhases'),
     del('titresDemarchesLiens')
   ])
+  await del('titresReferences')
   await del('titresDemarches')
   await del('titres')
 
   await insert('titres', data.titres)
   await insert('titresDemarches', data.titresDemarches)
+  await insert('titresReferences', data.titresReferences)
   await insert('titresEtapes', data.titresEtapes)
   await insert('titresPhases', data.titresPhases)
   await insert('titresDemarchesLiens', data.titresDemarchesLiens)

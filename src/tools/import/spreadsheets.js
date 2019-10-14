@@ -124,7 +124,11 @@ const spreadsheets = [
       { name: 'unites' },
       { name: 'administrations_types' },
       { name: 'permissions' },
+<<<<<<< HEAD
       { name: 'documents_types' }
+=======
+      { name: 'references_types' }
+>>>>>>> fix: affiche les dates correctement quelque soit le fuseau horaire
     ]
   },
   {

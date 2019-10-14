@@ -44,7 +44,6 @@ const tables = [
       'typeId',
       'domaineId',
       'statutId',
-      'references',
       'dateDebut',
       'dateFin',
       'dateDemande',
@@ -64,6 +63,7 @@ const tables = [
       'engagementDeviseIdTitreEtapeId'
     ],
     callbacks: {
+<<<<<<< HEAD
       references: v =>
         JSON.stringify(
           v.reduce((r, { type, valeur }) => {
@@ -72,6 +72,11 @@ const tables = [
             return r
           }, {})
         )
+=======
+      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
+      dateDemande: v => dateFormat(v, 'yyyy-mm-dd')
+>>>>>>> fix: affiche les dates correctement quelque soit le fuseau horaire
     }
   },
   {
@@ -270,6 +275,11 @@ const tables = [
       'administrations'
     ],
     parents: ['demarches', 'etapes', 'incertitudes']
+  },
+  {
+    id: 16,
+    name: 'titresReferences',
+    columns: ['titreId', 'typeId', 'nom']
   }
 ]
 

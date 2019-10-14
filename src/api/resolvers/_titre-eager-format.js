@@ -1,7 +1,7 @@
 const fieldsOrderDesc = ['etablissements', 'demarches', 'etapes', 'activites']
-const fieldsOrderAsc = ['points', 'substances']
+const fieldsOrderAsc = ['points', 'substances', 'references']
 const fieldsToRemove = ['coordonnees']
-const fieldsToRemoveRoot = ['references']
+const fieldsToRemoveRoot = []
 const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
 const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
 
@@ -109,7 +109,7 @@ const titreEagerFormat = (fields, parent) => {
       }
     })
 
-    // supprime la propriété `references`
+    // supprime certaines propriétés
     fieldsToRemoveRoot.forEach(key => {
       if (fields[key]) {
         delete fields[key]

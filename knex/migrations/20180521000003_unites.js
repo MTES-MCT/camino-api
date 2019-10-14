@@ -19,9 +19,14 @@ exports.up = knex =>
       table.string('zone')
       table.string('definitionProj4')
     })
+    .createTable('referencesTypes', table => {
+      table.string('id', 3).primary()
+      table.string('nom').notNullable()
+    })
 
 exports.down = knex =>
   knex.schema
     .dropTable('devises')
     .dropTable('geoSystemes')
     .dropTable('unites')
+    .dropTable('referencesTypes')
