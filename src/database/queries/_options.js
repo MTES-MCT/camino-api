@@ -47,6 +47,10 @@ const communes = {
   eager: `departement.region.pays`
 }
 
+const pays = {
+  eager: `regions.departements.communes`
+}
+
 const etapes = {
   eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
 
@@ -322,6 +326,7 @@ export default {
   substances,
   titres,
   titresActivites,
+  pays,
   points,
   utilisateurs
 }

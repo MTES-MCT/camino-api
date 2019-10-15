@@ -1,5 +1,5 @@
 import { Model } from 'objection'
-import Regions from './regions'
+import { join } from 'path'
 
 export default class Departements extends Model {
   static tableName = 'departements'
@@ -17,10 +17,19 @@ export default class Departements extends Model {
   static relationMappings = {
     region: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Regions,
+      modelClass: join(__dirname, 'regions'),
       join: {
         from: 'departements.regionId',
         to: 'regions.id'
+      }
+    },
+
+    communes: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'communes'),
+      join: {
+        from: 'departements.id',
+        to: 'communes.departementId'
       }
     }
   }

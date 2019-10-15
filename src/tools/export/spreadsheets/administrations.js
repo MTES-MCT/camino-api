@@ -30,6 +30,15 @@ const tables = [
       'departementId',
       'regionId'
     ]
+  },
+  {
+    id: 3,
+    name: 'administrations__domaines',
+    columns: [
+      { key: 'id', value: 'domaineId' },
+      { key: 'parent.id', value: 'administrationId' }
+    ],
+    parents: ['domaines']
   }
 ]
 

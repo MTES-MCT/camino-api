@@ -117,7 +117,8 @@ const spreadsheets = [
       { name: 'demarches_types__etapes_types' },
       { name: 'geo_systemes' },
       { name: 'devises' },
-      { name: 'unites' }
+      { name: 'unites' },
+      { name: 'administrations_types' }
     ]
   },
   {
@@ -141,11 +142,7 @@ const spreadsheets = [
   {
     name: 'administrations',
     id: administrationsSpreadsheetId,
-    tables: [
-      { name: 'administrations' },
-      { name: 'administrations_types' },
-      { name: 'administrations__domaines' }
-    ]
+    tables: [{ name: 'administrations' }, { name: 'administrations__domaines' }]
   },
   {
     name: 'substances',

@@ -1,5 +1,5 @@
 import { Model } from 'objection'
-import Departements from './departements'
+import { join } from 'path'
 
 export default class Communes extends Model {
   static tableName = 'communes'
@@ -17,7 +17,7 @@ export default class Communes extends Model {
   static relationMappings = {
     departement: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Departements,
+      modelClass: join(__dirname, 'departements'),
       join: {
         from: 'communes.departementId',
         to: 'departements.id'

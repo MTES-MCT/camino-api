@@ -8,6 +8,7 @@ import spreadsheetUtilisateurs from './spreadsheets/utilisateurs'
 import spreadsheetActivites from './spreadsheets/titres-activites'
 import spreadsheetAdministrations from './spreadsheets/administrations'
 import spreadsheetEntreprises from './spreadsheets/entreprises'
+import spreadsheetTerritoires from './spreadsheets/territoires'
 
 const run = async () => {
   console.log('Export en cours…')
@@ -20,7 +21,8 @@ const run = async () => {
     spreadsheetUtilisateurs,
     spreadsheetActivites,
     spreadsheetAdministrations,
-    spreadsheetEntreprises
+    spreadsheetEntreprises,
+    spreadsheetTerritoires
   ].map(({ id, name, get, tables }) => () =>
     dbToSpreadsheet({
       id,
