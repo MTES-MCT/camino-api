@@ -16,7 +16,7 @@ export default class Entreprises extends Model {
       legalEtranger: { type: ['string', 'null'] },
       legalForme: { type: ['string', 'null'] },
       categorie: { type: ['string', 'null'] },
-      dateCreation: { type: 'string' },
+      dateCreation: { type: ['string', 'null'] },
       adresse: { type: ['string', 'null'] },
       codePostal: { type: ['string', 'null'] },
       commune: { type: ['string', 'null'] },
