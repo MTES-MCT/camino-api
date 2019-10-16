@@ -36,9 +36,9 @@ domainesIds.forEach(domaineId => {
 
         // stocke titreId,refId,refValue dans les 'titres_references.json' par domaine
         const myTitreRef = {}
-        myTitreRef['titre_id'] = titreId
-        myTitreRef['type_id'] = refId
-        myTitreRef['nom'] = refValue
+        myTitreRef.titre_id = titreId
+        myTitreRef.type_id = refId
+        myTitreRef.nom = refValue
         titresReferencesArray.push(myTitreRef)
       })
     }
@@ -64,8 +64,8 @@ Object.keys(referencesObject)
   .sort()
   .forEach(key => {
     const myRef = {}
-    myRef['id'] = key
-    myRef['nom'] = referencesObject[key]
+    myRef.id = key
+    myRef.nom = referencesObject[key]
     ref.push(myRef)
     write(`${referencesFilePath}`, JSON.stringify(ref, null, 2))
     console.log(key + ' ## ' + referencesObject[key])

@@ -273,7 +273,8 @@ const tables = [
   {
     id: 16,
     name: 'titresReferences',
-    columns: ['titreId', 'typeId', 'nom']
+    columns: ['titreId', 'typeId', 'nom'],
+    parents: ['references']
   }
 ]
 
