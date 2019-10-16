@@ -63,7 +63,6 @@ const tables = [
       'engagementDeviseIdTitreEtapeId'
     ],
     callbacks: {
-<<<<<<< HEAD
       references: v =>
         JSON.stringify(
           v.reduce((r, { type, valeur }) => {
@@ -72,11 +71,6 @@ const tables = [
             return r
           }, {})
         )
-=======
-      dateDebut: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateFin: v => dateFormat(v, 'yyyy-mm-dd'),
-      dateDemande: v => dateFormat(v, 'yyyy-mm-dd')
->>>>>>> fix: affiche les dates correctement quelque soit le fuseau horaire
     }
   },
   {
