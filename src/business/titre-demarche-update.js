@@ -22,6 +22,7 @@ const titreDemarcheUpdate = async titreId => {
     })
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
+
       return null
     }
 

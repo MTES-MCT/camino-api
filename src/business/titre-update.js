@@ -14,6 +14,7 @@ const titreUpdate = async titreId => {
     let titre = await titreGet(titreId)
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
+
       return null
     }
 

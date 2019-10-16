@@ -32,6 +32,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     })
     if (!titreDemarche) {
       console.log(`warning: la démarche ${titreDemarche} n'existe plus`)
+
       return null
     }
 
