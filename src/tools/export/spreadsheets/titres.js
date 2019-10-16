@@ -57,11 +57,11 @@ const tables = [
       'administrationsTitreEtapeId',
       'surfaceTitreEtapeId',
       'volumeTitreEtapeId',
-      'volume_uniteIdTitreEtapeId',
+      'volumeUniteIdTitreEtapeId',
       'substancesTitreEtapeId',
       'communesTitreEtapeId',
       'engagementTitreEtapeId',
-      'engagement_deviseIdTitreEtapeId'
+      'engagementDeviseIdTitreEtapeId'
     ],
     callbacks: {
       references: v =>
