@@ -1,13 +1,25 @@
 import Administrations from '../models/administrations'
 import options from './_options'
 
-const administrationsGet = async () =>
-  Administrations.query().eager(options.administrations.eager)
+const administrationGet = async (
+  id,
+  { eager = options.administrations.eager } = {}
+) =>
+  Administrations.query()
+    .findById(id)
+    .eager(eager)
+
+const administrationsGet = async (
+  args,
+  { eager = options.administrations.eager } = {}
+) =>
+  Administrations.query()
+    .skipUndefined()
+    .eager(eager)
 
 const administrationsUpsert = async administrations =>
-  Administrations.query().upsertGraph(
-    administrations,
-    options.administrations.update
-  )
+  Administrations.query()
+    .eager(options.administrations.eager)
+    .upsertGraph(administrations, options.administrations.update)
 
-export { administrationsGet, administrationsUpsert }
+export { administrationGet, administrationsGet, administrationsUpsert }

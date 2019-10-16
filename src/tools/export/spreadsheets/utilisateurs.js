@@ -20,7 +20,6 @@ const tables = [
       'motDePasse',
       'nom',
       'prenom',
-      'administrationId',
       'telephoneFixe',
       'telephoneMobile',
       'permissionId',

@@ -77,6 +77,9 @@ type Query {
   "__*__ Retourne la liste des entreprises"
   entreprises: [Entreprise]
 
+  "__*__ Retourne la liste des administrations"
+  administrations: [Administration]
+
   "__*__ Retourne les statistiques"
   statistiques: Statistiques
 }

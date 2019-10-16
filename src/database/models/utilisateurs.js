@@ -17,7 +17,6 @@ export default class Utilisateurs extends Model {
       prenom: { type: ['string', 'null'] },
       telephone_fixe: { type: ['string', 'null'] },
       telephone_mobile: { type: ['string', 'null'] },
-      administrationId: { type: ['string', 'null'], maxLength: 64 },
       permissionId: { type: ['string', 'null'], maxLength: 12 },
       preferences: { type: ['json', 'null'] }
     }
@@ -34,15 +33,6 @@ export default class Utilisateurs extends Model {
       // modify: builder => builder.select('id')
     },
 
-    administration: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'administrations'),
-      join: {
-        from: 'utilisateurs.administrationId',
-        to: 'administrations.id'
-      }
-    },
-
     entreprises: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'entreprises'),
@@ -54,14 +44,33 @@ export default class Utilisateurs extends Model {
         },
         to: 'entreprises.id'
       }
+    },
+
+    administrations: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'administrations'),
+      join: {
+        from: 'utilisateurs.id',
+        through: {
+          from: 'utilisateurs__administrations.utilisateurId',
+          to: 'utilisateurs__administrations.administrationId'
+        },
+        to: 'administrations.id'
+      }
     }
   }
 
   $parseJson(json) {
     json = super.$parseJson(json)
+
     if (json.entreprisesIds) {
       json.entreprises = json.entreprisesIds.map(id => ({ id }))
       delete json.entreprisesIds
+    }
+
+    if (json.administrationsIds) {
+      json.administrations = json.administrationsIds.map(id => ({ id }))
+      delete json.administrationsIds
     }
 
     return json
