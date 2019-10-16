@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.6](https://github.com/MTES-MCT/camino-api/compare/v0.24.5...v0.24.6) (2019-10-16)
+
+
+### Bug Fixes
+
+* **business:** corrige l'ordre des étapes et démarches lors du calcul des propriétés ([#182](https://github.com/MTES-MCT/camino-api/issues/182)) ([ed1a892](https://github.com/MTES-MCT/camino-api/commit/ed1a892))
+* **business:** corrige l'unité de la création des références de points ([#175](https://github.com/MTES-MCT/camino-api/issues/175)) ([6744ccd](https://github.com/MTES-MCT/camino-api/commit/6744ccd))
+* **business:** corrige le calcul de la date de fin d'un titre ([#190](https://github.com/MTES-MCT/camino-api/issues/190)) ([652c32c](https://github.com/MTES-MCT/camino-api/commit/652c32c))
+* **business:** corrige le renommage des propriétés d'étapes de titres ([#188](https://github.com/MTES-MCT/camino-api/issues/188)) ([ba8b86d](https://github.com/MTES-MCT/camino-api/commit/ba8b86d))
+* **business:** corrige les mises à jour de volumes de données importants ([#177](https://github.com/MTES-MCT/camino-api/issues/177)) ([d4b2f88](https://github.com/MTES-MCT/camino-api/commit/d4b2f88))
+* **business:** corrige les paramètres de requêtes de démarches et étapes ([#183](https://github.com/MTES-MCT/camino-api/issues/183)) ([352475d](https://github.com/MTES-MCT/camino-api/commit/352475d))
+* **business:** corrige une erreur pendant la mise à jour si l'objet n'existe plus ([#189](https://github.com/MTES-MCT/camino-api/issues/189)) ([9736b96](https://github.com/MTES-MCT/camino-api/commit/9736b96))
+* **export:** corrige les unités et la devise d'engagement des titres ([a535b8b](https://github.com/MTES-MCT/camino-api/commit/a535b8b))
+* affiche les dates correctement quelque soit le fuseau horaire ([da2f806](https://github.com/MTES-MCT/camino-api/commit/da2f806))
+* corrige le renommage d'un titre ([f7a03de](https://github.com/MTES-MCT/camino-api/commit/f7a03de))
+* corrige une erreur typo ([7be2af1](https://github.com/MTES-MCT/camino-api/commit/7be2af1))
+* **export:** corrige l'export des entreprises et l'adresse de l'établissement ([#181](https://github.com/MTES-MCT/camino-api/issues/181)) ([600c80c](https://github.com/MTES-MCT/camino-api/commit/600c80c))
+* corrige une typo sur l'ordre des substances ([#179](https://github.com/MTES-MCT/camino-api/issues/179)) ([6ef8178](https://github.com/MTES-MCT/camino-api/commit/6ef8178))
+* ordonne la liste des substances ([#173](https://github.com/MTES-MCT/camino-api/issues/173)) ([4b6ab81](https://github.com/MTES-MCT/camino-api/commit/4b6ab81))
+* **import:** corrige l'import des fichiers volumineux ([#174](https://github.com/MTES-MCT/camino-api/issues/174)) ([ddc8397](https://github.com/MTES-MCT/camino-api/commit/ddc8397))
+
+
+### Features
+
+* **export:** exporte les communes, départements, régions et pays ([7301ae8](https://github.com/MTES-MCT/camino-api/commit/7301ae8))
+* **permissions:** autorise l'ONF à voir titres échus et demandes classées ([#187](https://github.com/MTES-MCT/camino-api/issues/187)) ([913b524](https://github.com/MTES-MCT/camino-api/commit/913b524))
+* affecte une unité à un système géographique ([#184](https://github.com/MTES-MCT/camino-api/issues/184)) ([ea23119](https://github.com/MTES-MCT/camino-api/commit/ea23119))
+
 ### [0.24.5](https://github.com/MTES-MCT/camino-api/compare/v0.24.4...v0.24.5) (2019-10-02)
 
 
