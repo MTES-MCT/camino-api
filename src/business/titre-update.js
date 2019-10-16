@@ -12,6 +12,11 @@ const titreUpdate = async titreId => {
     console.log()
     console.log('activités des titres…')
     let titre = await titreGet(titreId)
+    if (!titre) {
+      console.log(`warning: le titre ${titreId} n'existe plus`)
+      return null
+    }
+
     const annees = [2018, 2019]
     const activitesTypes = await activitesTypesGet()
     let titresActivitesCreated = await titresActivitesUpdate(

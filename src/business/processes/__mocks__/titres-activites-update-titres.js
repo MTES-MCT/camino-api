@@ -2,12 +2,6 @@ const titresSansActivite = [
   {
     id: 'h-cxx-courdemanges-1988',
     activites: []
-  },
-  // TODO: à supprimer une fois que
-  // la requête ne renverra plus de doublons
-  {
-    id: 'h-cxx-courdemanges-1988',
-    activites: []
   }
 ]
 

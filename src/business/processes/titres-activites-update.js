@@ -3,19 +3,9 @@ import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
 const titresActivitesUpdate = async (titres, activitesTypes, annees) => {
-  // TODO:
-  // - à supprimer une fois que la requête ne renverra plus de doublons
-  // - doit on supprimer des activités (pe: si un titre change de périmètre)
-  const processedTitres = {}
-
   const titresActivitesCreated = titres
     // formate les pays des titres
     .reduce((acc, titre) => {
-      // TODO: à supprimer une fois que
-      // la requête ne renverra plus de doublons
-      if (processedTitres[titre.id]) return acc
-      processedTitres[titre.id] = true
-
       // filtre les types d'activités qui concernent le titre
       const titreActivitesTypes = titreActivitesTypesFilter(
         titre,
