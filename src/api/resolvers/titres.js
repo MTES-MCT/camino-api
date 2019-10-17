@@ -1,6 +1,11 @@
 import { debug } from '../../config/index'
-import { permissionsCheck } from './_permissions-check'
+import {
+  permissionsCheck,
+  permissionsAdministrationsCheck
+} from './_permissions-check'
 import { titreFormat, titresFormat } from './_titre-format'
+
+import { titrePermissionAdministrationsCheck } from './_titre'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
@@ -69,7 +74,13 @@ const titres = async (
 }
 
 const titreCreer = async ({ titre }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  if (
+    !user ||
+    !permissionsCheck(context.user, ['super']) ||
+    !titrePermissionAdministrationsCheck(titre, user)
+  ) {
     throw new Error('opération impossible')
   }
 
@@ -81,8 +92,6 @@ const titreCreer = async ({ titre }, context, info) => {
 
   try {
     await titreCreate(titre)
-
-    const user = context.user && (await utilisateurGet(context.user.id))
 
     const titreRes = titreUpdateTask(titre.id)
 
@@ -97,7 +106,13 @@ const titreCreer = async ({ titre }, context, info) => {
 }
 
 const titreModifier = async ({ titre }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  if (
+    !user ||
+    !permissionsCheck(context.user, ['super']) ||
+    !titrePermissionAdministrationsCheck(titre, user)
+  ) {
     throw new Error('opération impossible')
   }
 
@@ -114,8 +129,6 @@ const titreModifier = async ({ titre }, context, info) => {
 
     const titreRes = titreUpdateTask(titre.id)
 
-    const user = context.user && (await utilisateurGet(context.user.id))
-
     return titreFormat(titreRes, user)
   } catch (e) {
     if (debug) {
@@ -127,7 +140,13 @@ const titreModifier = async ({ titre }, context, info) => {
 }
 
 const titreSupprimer = async ({ id }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  if (
+    !user ||
+    !permissionsCheck(context.user, ['super']) ||
+    !titrePermissionAdministrationsCheck(titre, user)
+  ) {
     throw new Error('opération impossible')
   }
 

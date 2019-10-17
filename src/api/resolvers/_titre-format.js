@@ -3,11 +3,9 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 
-import {
-  titreIsPublicCheck,
-  titrePermissionCheck,
-  titrePermissionAdministrationsCheck
-} from './_titre'
+import { permissionsAdministrationsCheck } from './_permissions-check'
+
+import { titreIsPublicCheck, titrePermissionCheck } from './_titre'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: true,
@@ -51,7 +49,7 @@ const titresFormat = (titres, user, fields = titreFormatFields) =>
 
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier
-// par des requêtes sql (dans /database/queries/titres)
+// par des requêtes SQL (dans /database/queries/titres)
 // qui retournent les données directement formatées
 const titreFormat = (t, user, fields = titreFormatFields) => {
   const titreIsPublic = titreIsPublicCheck(t)
@@ -68,7 +66,7 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   // si l'utilisateur n'est ni rattaché à la DGALN, ni à la DEAL de Guyane,
   // alors les rapports trimestriels de prod d'or de Guyane sont inaccessibles
   if (
-    !titrePermissionAdministrationsCheck(user, [
+    !permissionsAdministrationsCheck(user, [
       'min-mtes-dgaln-01',
       'dea-guyane-01'
     ])
