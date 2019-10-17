@@ -8,6 +8,24 @@ fragment meta on Metas {
   types {
     id
     nom
+    demarchesTypes {
+      id
+      nom
+      ordre
+      duree
+      points
+      substances
+      titulaires
+      renouvelable
+      exception
+      etapesTypes {
+        id
+        nom
+        acceptationAuto
+        ordre
+        typeId
+      }
+    }
   }
   domaines {
     id
@@ -17,24 +35,6 @@ fragment meta on Metas {
     id
     nom
     couleur
-  }
-  demarchesTypes {
-    id
-    nom
-    ordre
-    duree
-    points
-    substances
-    titulaires
-    renouvelable
-    exception
-    etapesTypes {
-      id
-      nom
-      acceptationAuto
-      ordre
-      typeId
-    }
   }
   devises {
     id

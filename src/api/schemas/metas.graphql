@@ -31,8 +31,6 @@ type Domaine {
 
   "Le nom du domaine en français"
   nom: String!
-
-  types: [Type]!
 }
 
 "Le type de titre minier"

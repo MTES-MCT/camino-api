@@ -18,6 +18,7 @@ import {
   documentsTypesGet
 } from '../../database/queries/metas'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
+import options from '../../database/queries/_options'
 
 const check = (elements, restrictedList) =>
   elements.filter(element => !restrictedList.find(id => id === element.id))
@@ -29,7 +30,7 @@ const metas = async (variables, context, info) => {
   const documentsTypes = await documentsTypesGet()
   let domaines = await domainesGet()
   let statuts = await statutsGet()
-  let types = await typesGet()
+  let types = await typesGet({ eager: options.types.eager })
 
   if (!context.user) {
     domaines = check(domaines, restrictedDomaineIds)
