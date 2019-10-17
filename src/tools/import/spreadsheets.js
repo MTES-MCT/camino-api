@@ -118,7 +118,8 @@ const spreadsheets = [
       { name: 'devises' },
       { name: 'unites' },
       { name: 'administrations_types' },
-      { name: 'permissions' }
+      { name: 'permissions' },
+      { name: 'documents_types' }
     ]
   },
 

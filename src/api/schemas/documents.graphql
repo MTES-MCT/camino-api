@@ -1,0 +1,74 @@
+"Document attaché à une étape de démarche"
+type Document {
+  """
+  L'__id__ composée de la concaténation:
+  - de l'id de l'étape
+  - du type du document
+  """
+  id: ID!
+
+  "Le nom du document"
+  nom: String!
+
+  "Le type de document (arrêté, décret, etc.)"
+  type: DocumentType
+
+  "L'url du document"
+  url: String
+
+  "L'uri du document"
+  uri: String
+
+  "Le type de fichier"
+  fichier: String
+
+  "La référence au Journal Officiel"
+  jorf: String
+
+  "La référence Nor"
+  nor: String
+
+  public: Boolean
+}
+
+input InputDocumentCreation {
+  titreEtapeId: ID!
+
+  typeId: ID!
+
+  nom: String!
+
+  url: String
+
+  uri: String
+
+  fichier: String
+
+  jorf: String
+
+  nor: String
+
+  public: Boolean
+}
+
+input InputDocumentModification {
+  id: ID!
+
+  titreEtapeId: ID!
+
+  typeId: ID!
+
+  nom: String!
+
+  url: String
+
+  uri: String
+
+  fichier: String
+
+  jorf: String
+
+  nor: String
+
+  public: Boolean
+}

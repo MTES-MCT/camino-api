@@ -1,11 +1,13 @@
+import * as cryptoRandomString from 'crypto-random-string'
 import { Model } from 'objection'
+import DocumentsTypes from './documents-types'
 
 export default class TitresDocuments extends Model {
   static tableName = 'titresDocuments'
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'titreEtapeId', 'nom'],
+    required: ['id', 'typeId', 'titreEtapeId', 'nom'],
 
     properties: {
       id: { type: 'string' },
@@ -19,5 +21,28 @@ export default class TitresDocuments extends Model {
       fichier: { type: ['string', 'null'] },
       public: { type: ['boolean', 'null'] }
     }
+  }
+
+  static relationMappings = {
+    type: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: DocumentsTypes,
+      join: {
+        from: 'titresDocuments.typeId',
+        to: 'documentsTypes.id'
+      }
+    }
+  }
+
+  $parseJson(json) {
+    json = super.$parseJson(json)
+
+    if (!json.id && json.titreEtapeId && json.typeId) {
+      json.id = `${json.titreEtapeId}-${json.typeId}-${cryptoRandomString({
+        length: 8
+      })}`
+    }
+
+    return json
   }
 }

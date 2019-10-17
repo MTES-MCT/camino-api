@@ -7,7 +7,10 @@ exports.up = knex => {
       .references('titresEtapes.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-    table.string('type', 32).notNullable()
+    table
+      .string('typeId', 3)
+      .references('documentsTypes.id')
+      .notNullable()
     table.string('nom', 1024).notNullable()
     table.string('jorf', 32)
     table.string('nor', 32)

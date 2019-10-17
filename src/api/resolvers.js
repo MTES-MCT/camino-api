@@ -15,6 +15,12 @@ import {
 } from './resolvers/titres-etapes'
 
 import {
+  titreDocumentCreer,
+  titreDocumentModifier,
+  titreDocumentSupprimer
+} from './resolvers/titres-documents'
+
+import {
   titreDemarcheCreer,
   titreDemarcheModifier,
   titreDemarcheSupprimer
@@ -74,6 +80,9 @@ export default {
   titreEtapeCreer,
   titreEtapeModifier,
   titreEtapeSupprimer,
+  titreDocumentCreer,
+  titreDocumentModifier,
+  titreDocumentSupprimer,
   titreActiviteModifier,
   utilisateurConnecter,
   utilisateurModifier,

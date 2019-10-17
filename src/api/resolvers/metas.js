@@ -14,7 +14,8 @@ import {
   statutsGet,
   devisesGet,
   geoSystemesGet,
-  unitesGet
+  unitesGet,
+  documentsTypesGet
 } from '../../database/queries/metas'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
@@ -25,6 +26,7 @@ const metas = async (variables, context, info) => {
   const devises = await devisesGet()
   const geoSystemes = await geoSystemesGet()
   const unites = await unitesGet()
+  const documentsTypes = await documentsTypesGet()
   let domaines = await domainesGet()
   let statuts = await statutsGet()
   let types = await typesGet()
@@ -48,9 +50,10 @@ const metas = async (variables, context, info) => {
 
   return {
     types,
-    domaines,
-    statuts,
     devises,
+    domaines,
+    documentsTypes,
+    statuts,
     geoSystemes,
     unites
   }

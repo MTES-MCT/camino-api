@@ -19,6 +19,9 @@ type Metas {
 
   "Unités de volume utilisées dans Camino"
   unites: [Unite]
+
+  "Types de documents"
+  documentsTypes: [DocumentType]
 }
 
 "Le domaine minier"
@@ -178,6 +181,12 @@ type GeoSysteme {
   zone: String!
 
   unite: Unite!
+}
+
+type DocumentType {
+  id: ID!
+
+  nom: String!
 }
 
 """
