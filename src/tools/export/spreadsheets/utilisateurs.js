@@ -37,6 +37,15 @@ const tables = [
       { key: 'id', value: 'entrepriseId' }
     ],
     parents: ['entreprises']
+  },
+  {
+    id: 3,
+    name: 'utilisateurs__administrations',
+    columns: [
+      { key: 'parent.id', value: 'utilisateurId' },
+      { key: 'id', value: 'administrationId' }
+    ],
+    parents: ['entreprises']
   }
 ]
 

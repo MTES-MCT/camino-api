@@ -3,7 +3,11 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 
-import { titreIsPublicCheck, titrePermissionCheck } from './_titre'
+import {
+  titreIsPublicCheck,
+  titrePermissionCheck,
+  titrePermissionAdministrationsCheck
+} from './_titre'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: true,
@@ -54,15 +58,21 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   const userHasPermission = titrePermissionCheck(t, user, [
     'admin',
     'super',
-    'editeur',
-    'onf'
+    'editeur'
   ])
 
   if (!titreIsPublic && !userHasPermission) {
     return null
   }
 
-  if (!titrePermissionCheck(t, user, ['super', 'admin', 'editeur'])) {
+  // si l'utilisateur n'est ni rattaché à la DGALN, ni à la DEAL de Guyane,
+  // alors les rapports trimestriels de prod d'or de Guyane sont inaccessibles
+  if (
+    !titrePermissionAdministrationsCheck(user, [
+      'min-mtes-dgaln-01',
+      'dea-guyane-01'
+    ])
+  ) {
     t.activites = []
     t.activitesAbsentes = null
     t.activitesDeposees = null

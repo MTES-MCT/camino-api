@@ -13,7 +13,7 @@ import {
 
 import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
-import permissionsCheck from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 
 import {
   userIdGenerate,

@@ -12,7 +12,6 @@ const titresRepriseSpreadsheetId =
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
 const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
-const permissionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_PERMISSIONS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
@@ -118,9 +117,11 @@ const spreadsheets = [
       { name: 'geo_systemes' },
       { name: 'devises' },
       { name: 'unites' },
-      { name: 'administrations_types' }
+      { name: 'administrations_types' },
+      { name: 'permissions' }
     ]
   },
+
   {
     name: 'entreprises',
     id: entreprisesSpreadsheetId,
@@ -134,11 +135,6 @@ const spreadsheets = [
       { name: 'utilisateurs__entreprises' },
       { name: 'utilisateurs__administrations' }
     ]
-  },
-  {
-    name: 'permissions',
-    id: permissionsSpreadsheetId,
-    tables: [{ name: 'permissions' }]
   },
   {
     name: 'administrations',

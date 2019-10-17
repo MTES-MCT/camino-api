@@ -1,5 +1,5 @@
 import * as cryptoRandomString from 'crypto-random-string'
-import permissionsCheck from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
@@ -8,7 +8,6 @@ const permissionsVisibleForAdmin = [
   'editeur',
   'lecteur',
   'entreprise',
-  'onf',
   'defaut'
 ]
 

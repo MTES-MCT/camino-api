@@ -32,9 +32,7 @@ const documentNameGet = async (userId, titreDocumentId) => {
   const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
   const titre = await titreGet(titreDemarche.titreId)
 
-  if (
-    !titrePermissionCheck(titre, user, ['super', 'admin', 'editeur', 'onf'])
-  ) {
+  if (!titrePermissionCheck(titre, user, ['super', 'admin', 'editeur'])) {
     throw new Error('permissions insuffisantes')
   }
 

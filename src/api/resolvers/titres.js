@@ -1,5 +1,5 @@
 import { debug } from '../../config/index'
-import permissionsCheck from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 import { titreFormat, titresFormat } from './_titre-format'
 
 import fieldsBuild from './_fields-build'
