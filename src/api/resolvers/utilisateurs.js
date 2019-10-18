@@ -48,6 +48,7 @@ const utilisateurs = async (
 
 const utilisateurIdentifier = async (variables, context, info) => {
   const utilisateur = context.user && (await utilisateurGet(context.user.id))
+
   let token
 
   if (utilisateur) {
@@ -220,11 +221,16 @@ const utilisateurSupprimer = async ({ id }, context) => {
   const utilisateur = await utilisateurGet(id)
 
   utilisateur.email = null
+  utilisateur.motDePasse = 'suppression'
   utilisateur.telephoneFixe = null
   utilisateur.telephoneMobile = null
   utilisateur.permissionId = 'defaut'
 
-  return utilisateurUpdate(utilisateur)
+  const utilisateurNew = await utilisateurUpdate(utilisateur)
+
+  await utilisateurRowUpdate(utilisateurNew)
+
+  return utilisateurNew
 }
 
 const utilisateurMotDePasseModifier = async (
@@ -260,10 +266,16 @@ const utilisateurMotDePasseModifier = async (
     throw new Error('mot de passe incorrect')
   }
 
-  return utilisateurUpdate({
+  utilisateur.motDePasse = await bcrypt.hash(motDePasseNouveau1, 10)
+
+  const utilisateurNew = utilisateurUpdate({
     id,
-    motDePasse: await bcrypt.hash(motDePasseNouveau1, 10)
+    motDePasse: utilisateur.motDePasse
   })
+
+  await utilisateurRowUpdate(utilisateurNew)
+
+  return utilisateurNew
 }
 
 // envoie l'email avec un lien vers un formulaire de ré-init
@@ -301,6 +313,10 @@ const utilisateurMotDePasseInitialiser = async (
   { motDePasse1, motDePasse2 },
   context
 ) => {
+  if (!context.user || !context.user.id) {
+    throw new Error('aucun utilisateur identifié')
+  }
+
   const now = Math.round(new Date().getTime() / 1000)
   const delay = 60 * 15 // 15 minutes
 
@@ -318,28 +334,28 @@ const utilisateurMotDePasseInitialiser = async (
     )
   }
 
-  if (context.user.id) {
-    const utilisateur = await utilisateurGet(context.user.id)
+  const utilisateur = await utilisateurGet(context.user.id)
 
-    if (!utilisateur) {
-      throw new Error('aucun utilisateur enregistré avec cet id')
-    }
+  if (!utilisateur) {
+    throw new Error('aucun utilisateur enregistré avec cet id')
   }
 
-  await utilisateurUpdate({
+  utilisateur.motDePasse = await bcrypt.hash(motDePasse1, 10)
+
+  const utilisateurNew = await utilisateurUpdate({
     id: context.user.id,
-    motDePasse: await bcrypt.hash(motDePasse1, 10)
+    motDePasse: utilisateur.motDePasse
   })
 
-  await utilisateurRowUpdate(utilisateur)
+  await utilisateurRowUpdate(utilisateurNew)
 
   const token = tokenCreate(
-    utilisateur.id,
-    utilisateur.email,
-    utilisateur.permission
+    utilisateurNew.id,
+    utilisateurNew.email,
+    utilisateurNew.permission
   )
 
-  return { token, utilisateur }
+  return { token, utilisateur: utilisateurNew }
 }
 
 const tokenCreate = (id, email, permission) =>
