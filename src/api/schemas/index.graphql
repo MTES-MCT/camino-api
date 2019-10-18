@@ -174,3 +174,5 @@ type Mutation {
 }
 
 scalar Json
+
+scalar FileUpload

@@ -17,12 +17,16 @@ import * as express from 'express'
 import * as expressGraphql from 'express-graphql'
 import * as expressJwt from 'express-jwt'
 import * as http from 'http'
-import * as path from 'path'
+
+import { createWriteStream, unlink } from 'fs'
+
+import { graphqlUploadExpress } from 'graphql-upload'
 
 import './database/index'
 
+import fileGet from './server/file-get'
+
 import rootValue from './api/resolvers'
-import { documentNameGet } from './api/resolvers/documents'
 import schema from './api/schemas'
 import { port, url } from './config/index'
 
@@ -47,14 +51,6 @@ app.use(cors({ credentials: true }))
 
 app.use(compression())
 
-// bug de typage de express-jwt
-// https://github.com/auth0/express-jwt/issues/215
-interface IAuthRequest extends express.Request {
-  user?: {
-    [id: string]: string
-  }
-}
-
 app.use(
   expressJwt({
     credentialsRequired: false,
@@ -75,30 +71,7 @@ app.use(
 //   throw new Error('Broke!')
 // })
 
-app.get('/documents/:titreDocumentId', async (req: IAuthRequest, res, next) => {
-  try {
-    const userId = req.user && req.user.id
-    const { titreDocumentId } = req.params
-    const documentName = await documentNameGet(userId, titreDocumentId)
-
-    const options = {
-      dotfiles: 'deny',
-      headers: {
-        'x-sent': true,
-        'x-timestamp': Date.now()
-      },
-      root: path.join(__dirname, '../files')
-    }
-
-    return res.sendFile(documentName, options, err => {
-      if (err) {
-        res.status(404).send('fichier introuvable')
-      }
-    })
-  } catch (error) {
-    return res.status(403).send(error)
-  }
-})
+app.get('/documents/:titreDocumentId', fileGet)
 
 interface IAuthRequestHttp extends http.IncomingMessage {
   user?: {
@@ -106,10 +79,34 @@ interface IAuthRequestHttp extends http.IncomingMessage {
   }
 }
 
+const upload = async (file: any) => {
+  const { createReadStream, filename, mimetype } = await file
+  console.log('booo', createReadStream, filename, mimetype)
+  const stream = createReadStream()
+  const id = 'test'
+  const path = `./files/${id}-${filename}`
+
+  await new Promise((resolve, reject) => {
+    stream
+      .on('error', (error: any) => {
+        unlink(path, () => {
+          reject(error)
+        })
+      })
+      .pipe(createWriteStream(path))
+      .on('error', reject)
+      .on('finish', resolve)
+  })
+
+  return { id, filename, mimetype, path }
+}
+
 app.use(
   '/',
+  graphqlUploadExpress({ maxFileSize: 3000000, maxFiles: 10 }),
   expressGraphql((req: IAuthRequestHttp, res, graphQLParams) => ({
     context: {
+      upload,
       user: req.user
     },
     customFormatErrorFn: err => ({

@@ -1,4 +1,5 @@
 import Json from './types/json'
+import { GraphQLUpload } from 'graphql-upload'
 
 import {
   titre,
@@ -49,9 +50,12 @@ import { administration, administrations } from './resolvers/administrations'
 import { titreActiviteModifier } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
 
+console.log('GraphQLUpload', JSON.stringify(GraphQLUpload))
+
 export default {
   //  types
   Json,
+  Upload: GraphQLUpload,
 
   //  queries
   version,

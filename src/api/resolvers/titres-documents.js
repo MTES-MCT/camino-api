@@ -50,10 +50,17 @@ const titreDocumentModifier = async ({ document }, context, info) => {
     throw new Error('opération impossible')
   }
 
+  console.log(document)
+
   const rulesError = await titreDocumentUpdationValidate(document)
 
   if (rulesError) {
     throw new Error(rulesError)
+  }
+
+  if (document.fichier) {
+    const fichier = await context.upload(document.fichier)
+    console.log('yyyy', fichier)
   }
 
   try {
