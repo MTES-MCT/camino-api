@@ -74,10 +74,6 @@ exports.up = knex => {
       table.string('motDePasse').notNullable()
       table.string('nom')
       table.string('prenom')
-      table
-        .string('administrationId', 64)
-        .references('administrations.id')
-        .onDelete('CASCADE')
       table.string('telephoneFixe')
       table.string('telephoneMobile')
       table
@@ -97,10 +93,21 @@ exports.up = knex => {
         .references('entreprises.id')
         .onDelete('CASCADE')
     })
+    .createTable('utilisateurs__administrations', table => {
+      table
+        .string('utilisateurId', 64)
+        .references('utilisateurs.id')
+        .onDelete('CASCADE')
+      table
+        .string('administrationId', 64)
+        .references('administrations.id')
+        .onDelete('CASCADE')
+    })
 }
 
 exports.down = knex => {
   return knex.schema
+    .dropTable('utilisateurs__administrations')
     .dropTable('utilisateurs__entreprises')
     .dropTable('entreprisesEtablissements')
     .dropTable('utilisateurs')

@@ -3,7 +3,7 @@ import {
   permissionsGet
 } from '../../database/queries/permissions'
 
-import permissionsCheck from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 
 const permission = async ({ id }, context) => permissionGet(id)
 

@@ -23,7 +23,9 @@ const utilisateursGet = async ({
     .eager(options.utilisateurs.eager)
 
   if (administrationIds) {
-    q.whereIn('administrationId', administrationIds)
+    q.whereIn('administrations.id', administrationIds).joinRelation(
+      'administrations'
+    )
   }
 
   if (permissionIds) {

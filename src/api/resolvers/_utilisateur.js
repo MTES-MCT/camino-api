@@ -1,16 +1,7 @@
 import * as cryptoRandomString from 'crypto-random-string'
-import permissionsCheck from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
-
-const permissionsVisibleForAdmin = [
-  'admin',
-  'editeur',
-  'lecteur',
-  'entreprise',
-  'onf',
-  'defaut'
-]
 
 const userIdGenerate = async () => {
   const id = cryptoRandomString({ length: 6 })
@@ -22,32 +13,48 @@ const userIdGenerate = async () => {
   return id
 }
 
+const permissionUtilisateurAdministrationCheck = (utilisateur, user) =>
+  user.administrations.some(userAdministration =>
+    utilisateur.administrations.some(
+      utilisateurAdministration =>
+        userAdministration.id === utilisateurAdministration.id
+    )
+  )
+
+const permissionUtilisateurEntrepriseCheck = (utilisateur, user) =>
+  permissionsCheck(user, ['entreprise']) &&
+  permissionsCheck(utilisateur, ['entreprise']) &&
+  // teste si l'utilisateur connecté (user) possède une entreprise en commun
+  // avec l'utilisateur à afficher ou non (utilisateur)
+  user.entreprises.some(userEntreprise =>
+    utilisateur.entreprises.some(
+      utilisateurEntreprise => userEntreprise.id === utilisateurEntreprise.id
+    )
+  )
+
 const utilisateurFormat = (utilisateur, user) => {
   // si
   // - user n'existe pas (pas d'utilisateur connecté)
-  // - l'utilisateur n'existe pas (pas d'utilisateur avec cette id)
-  // - l'utilisateur n'a pas d'email (compte supprimé)
-  if (!user || !utilisateur || !utilisateur.email) {
+  // - ou l'utilisateur n'existe pas (pas d'utilisateur avec cette id)
+  // - ou l'utilisateur n'a pas d'email (compte supprimé)
+  // - ou
+  //   - l'utilisateur connecté (user) n'est pas l'utilisateur à afficher
+  //   - et l'utilisateur connecté n'est pas super admin
+  //   - et l'utilisateur connecté ne possède pas d'entreprise en commun
+  //   - et l'utilisateur connecté ne possède pas d'administration en commun
+  if (
+    !user ||
+    !utilisateur ||
+    !utilisateur.email ||
+    (user.id !== utilisateur.id &&
+      !permissionsCheck(user, ['super']) &&
+      !permissionUtilisateurAdministrationCheck(utilisateur, user) &&
+      !permissionUtilisateurEntrepriseCheck(utilisateur, user))
+  ) {
     return null
   }
 
-  if (
-    user.id === utilisateur.id ||
-    permissionsCheck(user, ['super']) ||
-    (permissionsCheck(user, ['admin']) &&
-      permissionsCheck(utilisateur, permissionsVisibleForAdmin)) ||
-    (permissionsCheck(user, ['entreprise']) &&
-      permissionsCheck(utilisateur, ['entreprise']) &&
-      user.entreprises.some(eUser =>
-        utilisateur.entreprises.some(
-          eUtilisateur => eUser.id === eUtilisateur.id
-        )
-      ))
-  ) {
-    return utilisateur
-  }
-
-  return null
+  return utilisateur
 }
 
 const utilisateursFormat = (utilisateurs, user) =>

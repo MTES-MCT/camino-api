@@ -77,6 +77,12 @@ type Query {
   "__*__ Retourne la liste des entreprises"
   entreprises: [Entreprise]
 
+  "__*__ Retourne une administration en fonction de son id"
+  administration(id: ID!): Administration
+
+  "__*__ Retourne la liste des administrations"
+  administrations: [Administration]
+
   "__*__ Retourne les statistiques"
   statistiques: Statistiques
 }

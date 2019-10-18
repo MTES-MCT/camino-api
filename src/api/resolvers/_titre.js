@@ -1,4 +1,7 @@
-import permissionsCheck from './_permissions-check'
+import {
+  permissionsCheck,
+  permissionsAdministrationsCheck
+} from './_permissions-check'
 import {
   restrictedDomaineIds,
   restrictedTypeIds,
@@ -20,13 +23,18 @@ const titrePermissionCheck = (
     return false
   }
 
-  // si
-  // - le titre est de type ARM
-  // alors, si l'utilisateurs appartient au groupe 'onf' ou 'super'
-  // le titre est accessible
+  // si l'utilisateur est un super admin
+  // alors le titre est accessible
+  if (permissionsCheck(user, ['super'])) {
+    return true
+  }
+
+  // si le titre est de type ARM
+  // alors, si l'utilisateursest rattaché à l'ONF de Guyane
+  // alors le titre est accessible
   // sinon le titre est inaccessible
   if (titre.typeId === 'arm') {
-    return permissionsCheck(user, ['super', 'onf'])
+    return permissionsAdministrationsCheck(user, ['ope-onf-973-01'])
   }
 
   // si l'utilisateur a les permissions
@@ -67,4 +75,13 @@ const titrePermissionCheck = (
   )
 }
 
-export { titreIsPublicCheck, titrePermissionCheck }
+const titrePermissionAdministrationsCheck = (titre, user) =>
+  titre.administrations &&
+  titre.administrations.length &&
+  permissionsAdministrationsCheck(user, titre.administrations.map(a => a.id))
+
+export {
+  titreIsPublicCheck,
+  titrePermissionCheck,
+  titrePermissionAdministrationsCheck
+}

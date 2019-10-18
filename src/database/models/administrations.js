@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { join } from 'path'
 import AdministrationsTypes from './administrations-types'
 import Domaines from './domaines'
+import { join } from 'path'
 
 export default class Administrations extends Model {
   static tableName = 'administrations'
@@ -56,11 +56,28 @@ export default class Administrations extends Model {
     // ce qui provoque une require loop
     // solutions to require loops http://vincit.github.io/objection.js/#relations
     utilisateurs: {
-      relation: Model.HasManyRelation,
+      relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'utilisateurs'),
       join: {
         from: 'administrations.id',
-        to: 'utilisateurs.administrationId'
+        through: {
+          from: 'utilisateurs__administrations.administrationId',
+          to: 'utilisateurs__administrations.utilisateurId'
+        },
+        to: 'utilisateurs.id'
+      }
+    },
+
+    titres: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'titres'),
+      join: {
+        from: 'administrations.id',
+        through: {
+          from: 'titresAdministrations.administrationId',
+          to: 'titresAdministrations.titreEtapeId'
+        },
+        to: 'titres.administrationsTitreEtapeId'
       }
     }
   }

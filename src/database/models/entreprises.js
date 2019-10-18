@@ -1,5 +1,6 @@
 import { Model } from 'objection'
 import EntreprisesEtablissements from './entreprises-etablissements'
+import { join } from 'path'
 
 export default class Entreprises extends Model {
   static tableName = 'entreprises'
@@ -39,7 +40,7 @@ export default class Entreprises extends Model {
 
     utilisateurs: {
       relation: Model.ManyToManyRelation,
-      modelClass: `${__dirname}/utilisateurs`,
+      modelClass: join(__dirname, 'utilisateurs'),
       join: {
         from: 'entreprises.id',
         through: {
@@ -52,7 +53,7 @@ export default class Entreprises extends Model {
 
     titresTitulaire: {
       relation: Model.ManyToManyRelation,
-      modelClass: `${__dirname}/titres`,
+      modelClass: join(__dirname, 'titres'),
       join: {
         from: 'entreprises.id',
         through: {
@@ -65,7 +66,7 @@ export default class Entreprises extends Model {
 
     titresAmodiataire: {
       relation: Model.ManyToManyRelation,
-      modelClass: `${__dirname}/titres`,
+      modelClass: join(__dirname, 'titres'),
       join: {
         from: 'entreprises.id',
         through: {

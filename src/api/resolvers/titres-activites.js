@@ -1,6 +1,6 @@
 import * as dateFormat from 'dateformat'
 import { titreActiviteEmailsSend } from './_titre-activite'
-import permissionsCheck from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 import { titrePermissionCheck } from './_titre'
 import { titreActiviteFormat } from './_titre-format'
 

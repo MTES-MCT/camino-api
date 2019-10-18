@@ -39,6 +39,7 @@ import { metas } from './resolvers/metas'
 import { substance, substances } from './resolvers/substances'
 import { permissions } from './resolvers/permissions'
 import { entreprise, entreprises } from './resolvers/entreprises'
+import { administration, administrations } from './resolvers/administrations'
 import { titreActiviteModifier } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
 
@@ -56,6 +57,8 @@ export default {
   utilisateurIdentifier,
   entreprise,
   entreprises,
+  administration,
+  administrations,
   utilisateur,
   utilisateurs,
   permissions,

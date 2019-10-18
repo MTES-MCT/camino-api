@@ -1,4 +1,7 @@
-import permissionsCheck from './_permissions-check'
+import {
+  permissionsCheck,
+  permissionsAdministrationsCheck
+} from './_permissions-check'
 import {
   restrictedDomaineIds,
   restrictedTypeIds,
@@ -13,6 +16,7 @@ import {
   geoSystemesGet,
   unitesGet
 } from '../../database/queries/metas'
+import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 const check = (elements, restrictedList) =>
   elements.filter(element => !restrictedList.find(id => id === element.id))
@@ -30,7 +34,15 @@ const metas = async (variables, context, info) => {
     statuts = check(statuts, restrictedStatutIds)
   }
 
-  if (!context.user || !permissionsCheck(context.user, ['super', 'onf'])) {
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  if (
+    !context.user ||
+    !(
+      permissionsCheck(user, ['super']) ||
+      permissionsAdministrationsCheck(user, ['ope-onf-973-01'])
+    )
+  ) {
     types = check(types, restrictedTypeIds)
   }
 
