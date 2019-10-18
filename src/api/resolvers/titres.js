@@ -1,8 +1,5 @@
 import { debug } from '../../config/index'
-import {
-  permissionsCheck,
-  permissionsAdministrationsCheck
-} from './_permissions-check'
+import { permissionsCheck } from './_permissions-check'
 import { titreFormat, titresFormat } from './_titre-format'
 
 import { titrePermissionAdministrationsCheck } from './_titre'
@@ -78,10 +75,10 @@ const titreCreer = async ({ titre }, context, info) => {
 
   if (
     !user ||
-    !permissionsCheck(context.user, ['super']) ||
+    !permissionsCheck(user, ['super']) ||
     !titrePermissionAdministrationsCheck(titre, user)
   ) {
-    throw new Error('opération impossible')
+    throw new Error('o impossible')
   }
 
   const rulesError = await titreUpdationValidate(titre)
@@ -110,7 +107,7 @@ const titreModifier = async ({ titre }, context, info) => {
 
   if (
     !user ||
-    !permissionsCheck(context.user, ['super']) ||
+    !permissionsCheck(user, ['super']) ||
     !titrePermissionAdministrationsCheck(titre, user)
   ) {
     throw new Error('opération impossible')
@@ -144,7 +141,7 @@ const titreSupprimer = async ({ id }, context, info) => {
 
   if (
     !user ||
-    !permissionsCheck(context.user, ['super']) ||
+    !permissionsCheck(user, ['super']) ||
     !titrePermissionAdministrationsCheck(titre, user)
   ) {
     throw new Error('opération impossible')

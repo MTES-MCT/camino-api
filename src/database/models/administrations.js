@@ -1,6 +1,7 @@
 import { Model } from 'objection'
 import AdministrationsTypes from './administrations-types'
 import Domaines from './domaines'
+import { join } from 'path'
 
 export default class Administrations extends Model {
   static tableName = 'administrations'
@@ -56,7 +57,7 @@ export default class Administrations extends Model {
     // solutions to require loops http://vincit.github.io/objection.js/#relations
     utilisateurs: {
       relation: Model.ManyToManyRelation,
-      modelClass: `${__dirname}/utilisateurs`,
+      modelClass: join(__dirname, 'utilisateurs'),
       join: {
         from: 'administrations.id',
         through: {
@@ -64,6 +65,19 @@ export default class Administrations extends Model {
           to: 'utilisateurs__administrations.utilisateurId'
         },
         to: 'utilisateurs.id'
+      }
+    },
+
+    titres: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'titres'),
+      join: {
+        from: 'administrations.id',
+        through: {
+          from: 'titresAdministrations.administrationId',
+          to: 'titresAdministrations.titreEtapeId'
+        },
+        to: 'titres.administrationsTitreEtapeId'
       }
     }
   }

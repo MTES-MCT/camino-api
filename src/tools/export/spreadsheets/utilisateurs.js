@@ -45,7 +45,7 @@ const tables = [
       { key: 'parent.id', value: 'utilisateurId' },
       { key: 'id', value: 'administrationId' }
     ],
-    parents: ['entreprises']
+    parents: ['administrations']
   }
 ]
 

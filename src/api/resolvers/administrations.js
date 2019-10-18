@@ -11,14 +11,7 @@ import { titresFormat } from './_titre-format'
 import { utilisateursFormat } from './_utilisateur'
 
 const administrationFormat = (administration, user) => {
-  administration.titresTitulaire = titresFormat(
-    administration.titresTitulaire,
-    user
-  )
-  administration.titresAmodiataire = titresFormat(
-    administration.titresAmodiataire,
-    user
-  )
+  administration.titres = titresFormat(administration.titres, user)
   administration.utilisateurs = utilisateursFormat(
     administration.utilisateurs,
     user
