@@ -122,7 +122,7 @@ type Mutation {
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
-  ): String
+  ): UtilisateurToken
 
   "__*__ Modifie un titre minier"
   titreCreer(titre: InputTitreCreation!): Titre
