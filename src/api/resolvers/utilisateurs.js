@@ -282,7 +282,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
 
   const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET)
 
-  const url = `${process.env.UI_URL}/mot-de-passe?token=${token}&email=${email}`
+  const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
 
   const subject = `Initialisation de votre mot de passe`
   const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
@@ -331,7 +331,15 @@ const utilisateurMotDePasseInitialiser = async (
     motDePasse: await bcrypt.hash(motDePasse1, 10)
   })
 
-  return 'mot de passe mis à jour'
+  await utilisateurRowUpdate(utilisateur)
+
+  const token = tokenCreate(
+    utilisateur.id,
+    utilisateur.email,
+    utilisateur.permission
+  )
+
+  return { token, utilisateur }
 }
 
 const tokenCreate = (id, email, permission) =>
