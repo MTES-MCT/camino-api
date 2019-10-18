@@ -1,4 +1,4 @@
-mutation TitreActivite($activite: InputTitreActivite!) {
+mutation TitreActivite($activite: InputTitreActiviteModification!) {
   titreActiviteModifier(activite: $activite) {
     ...titreActivite
   }
@@ -6,7 +6,6 @@ mutation TitreActivite($activite: InputTitreActivite!) {
 
 fragment titreActivite on TitreActivite {
   id
-  titreId
   date
   contenu
 }

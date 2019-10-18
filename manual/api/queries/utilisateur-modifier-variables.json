@@ -3,11 +3,11 @@
     "id": "id",
     "email": "email",
     "nom": "",
-    "permission": null,
+    "permissionId": null,
     "prenom": "",
     "telephoneFixe": null,
     "telephoneMobile": null,
-    "entreprise": null,
-    "administration": null
+    "entreprisesIds": null,
+    "administrationsIds": null
   }
 }

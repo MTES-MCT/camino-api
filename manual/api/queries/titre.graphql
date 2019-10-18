@@ -116,7 +116,6 @@ fragment etape on Etape {
     id
     nom
   }
-  sourceIndisponible
   type {
     id
     nom

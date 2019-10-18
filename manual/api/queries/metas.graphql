@@ -48,6 +48,10 @@ fragment meta on Metas {
     id
     nom
     zone
-    unite
+    unite {
+      id
+      nom
+      symbole
+    }
   }
 }
