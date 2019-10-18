@@ -1,5 +1,10 @@
+import { join } from 'path'
+import * as cryptoRandomString from 'crypto-random-string'
+
 import { debug } from '../../config/index'
-import permissionsCheck from './_permissions-check'
+import fileDelete from '../../tools/file-delete'
+import fileStreamCreate from '../../tools/file-stream-create'
+import { permissionsCheck } from './_permissions-check'
 import { titreFormat } from './_titre-format'
 
 import {
@@ -27,6 +32,25 @@ const titreDocumentCreer = async ({ document }, context, info) => {
   }
 
   try {
+    document.id = `${document.titreEtapeId}-${
+      document.typeId
+    }-${cryptoRandomString({
+      length: 8
+    })}`
+
+    if (document.fichierNouveau) {
+      const { createReadStream } = await document.fichierNouveau
+
+      await fileStreamCreate(
+        createReadStream(),
+        join(process.cwd(), `files/${document.id}.pdf`)
+      )
+
+      document.fichier = document.id
+
+      delete document.fichierNouveau
+    }
+
     const documentUpdated = await titreDocumentCreate(document)
 
     const titreUpdated = await titreGet(
@@ -50,20 +74,35 @@ const titreDocumentModifier = async ({ document }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  console.log(document)
-
   const rulesError = await titreDocumentUpdationValidate(document)
 
   if (rulesError) {
     throw new Error(rulesError)
   }
 
-  if (document.fichier) {
-    const fichier = await context.upload(document.fichier)
-    console.log('yyyy', fichier)
-  }
-
   try {
+    if (document.fichierNouveau || !document.fichier) {
+      const documentOld = titreDocumentGet(document.id)
+      if (documentOld.fichier) {
+        await fileDelete(
+          join(process.cwd(), `files/${documentOld.fichier}.pdf`)
+        )
+      }
+    }
+
+    if (document.fichierNouveau) {
+      const { createReadStream } = await document.fichierNouveau
+
+      await fileStreamCreate(
+        createReadStream(),
+        join(process.cwd(), `files/${document.id}.pdf`)
+      )
+
+      document.fichier = document.id
+
+      delete document.fichierNouveau
+    }
+
     const documentUpdated = await titreDocumentUpdate(document.id, document)
 
     const titreUpdated = await titreGet(
@@ -89,6 +128,10 @@ const titreDocumentSupprimer = async ({ id }, context, info) => {
 
   try {
     const documentOld = await titreDocumentGet(id)
+
+    if (documentOld.fichier) {
+      await fileDelete(join(process.cwd(), `files/${documentOld.fichier}.pdf`))
+    }
 
     await titreDocumentDelete(id)
 

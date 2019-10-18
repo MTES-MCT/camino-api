@@ -5,8 +5,8 @@ const titreDocumentGet = async titreDocumentId =>
 
 const titresDocumentsGet = async () => TitresDocuments.query()
 
-const titreDocumentCreate = async etape =>
-  TitresDocuments.query().insertAndFetch(etape)
+const titreDocumentCreate = async document =>
+  TitresDocuments.query().insertAndFetch(document)
 
 const titreDocumentUpdate = async (id, props) =>
   TitresDocuments.query().patchAndFetchById(id, props)

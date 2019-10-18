@@ -50,12 +50,10 @@ import { administration, administrations } from './resolvers/administrations'
 import { titreActiviteModifier } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
 
-console.log('GraphQLUpload', JSON.stringify(GraphQLUpload))
-
 export default {
   //  types
   Json,
-  Upload: GraphQLUpload,
+  FileUpload: GraphQLUpload,
 
   //  queries
   version,

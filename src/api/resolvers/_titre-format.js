@@ -66,7 +66,7 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   // si l'utilisateur n'est ni rattaché à la DGALN, ni à la DEAL de Guyane,
   // alors les rapports trimestriels de prod d'or de Guyane sont inaccessibles
   if (
-    !titrePermissionCheck(t, user, ['super']) ||
+    !titrePermissionCheck(t, user, ['super']) &&
     !permissionsAdministrationsCheck(user, [
       'min-mtes-dgaln-01',
       'dea-guyane-01'

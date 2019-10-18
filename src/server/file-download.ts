@@ -1,5 +1,5 @@
 import * as express from 'express'
-import * as path from 'path'
+import { join } from 'path'
 import { documentNameGet } from '../api/resolvers/documents'
 
 // bug de typage de express-jwt
@@ -26,7 +26,7 @@ const fileGet = async (
         'x-sent': true,
         'x-timestamp': Date.now()
       },
-      root: path.join(__dirname, '../files')
+      root: join(process.cwd(), 'files')
     }
 
     return res.sendFile(documentName, options, err => {
