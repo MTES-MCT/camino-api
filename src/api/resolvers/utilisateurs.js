@@ -313,6 +313,10 @@ const utilisateurMotDePasseInitialiser = async (
   { motDePasse1, motDePasse2 },
   context
 ) => {
+  if (!context.user || !context.user.id) {
+    throw new Error('aucun utilisateur identifié')
+  }
+
   const now = Math.round(new Date().getTime() / 1000)
   const delay = 60 * 15 // 15 minutes
 
@@ -330,10 +334,6 @@ const utilisateurMotDePasseInitialiser = async (
     )
   }
 
-  if (!context.user.id) {
-    throw new Error('aucun utilisateur identifié')
-  }
-
   const utilisateur = await utilisateurGet(context.user.id)
 
   if (!utilisateur) {
@@ -342,20 +342,20 @@ const utilisateurMotDePasseInitialiser = async (
 
   utilisateur.motDePasse = await bcrypt.hash(motDePasse1, 10)
 
-  await utilisateurUpdate({
+  const utilisateurNew = await utilisateurUpdate({
     id: context.user.id,
     motDePasse: utilisateur.motDePasse
   })
 
-  await utilisateurRowUpdate(utilisateur)
+  await utilisateurRowUpdate(utilisateurNew)
 
   const token = tokenCreate(
-    utilisateur.id,
-    utilisateur.email,
-    utilisateur.permission
+    utilisateurNew.id,
+    utilisateurNew.email,
+    utilisateurNew.permission
   )
 
-  return { token, utilisateur }
+  return { token, utilisateur: utilisateurNew }
 }
 
 const tokenCreate = (id, email, permission) =>
