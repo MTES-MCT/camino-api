@@ -11,12 +11,15 @@ const documentNameGet = async (userId, titreDocumentId) => {
   }
 
   const titreDocument = await titreDocumentGet(titreDocumentId)
+  const titreDocumentFileName = `${titreDocument.id}.${titreDocument.fichierTypeId}`
 
   if (!titreDocument || !titreDocument.fichier) {
     throw new Error('fichier inexistant')
   }
 
-  if (titreDocument.public) return `${titreDocument.fichier}.pdf`
+  if (titreDocument.public) {
+    return titreDocumentFileName
+  }
 
   if (!userId) {
     throw new Error('permissions insuffisantes')
@@ -36,7 +39,7 @@ const documentNameGet = async (userId, titreDocumentId) => {
     throw new Error('permissions insuffisantes')
   }
 
-  return `${titreDocument.fichier}.pdf`
+  return titreDocumentFileName
 }
 
 export { documentNameGet }

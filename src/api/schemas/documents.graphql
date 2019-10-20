@@ -1,31 +1,34 @@
 "Document attaché à une étape de démarche"
 type Document {
   """
-  L'__id__ composée de la concaténation:
+  __Id__ composée de la concaténation:
   - de l'id de l'étape
   - du type du document
   """
   id: ID!
 
-  "Le nom du document"
+  "Nom du document"
   nom: String!
 
-  "Le type de document (arrêté, décret, etc.)"
+  "Type de document (arrêté, décret, etc.)"
   type: DocumentType
 
-  "L'url du document"
+  "Url du document"
   url: String
 
-  "L'uri du document"
+  "Uri du document"
   uri: String
 
-  "Le type de fichier"
-  fichier: String
+  "Fichier est hébergé sur camino"
+  fichier: Boolean
 
-  "La référence au Journal Officiel"
+  "Extension du fichier"
+  fichierTypeId: ID
+
+  "Référence au Journal Officiel"
   jorf: String
 
-  "La référence Nor"
+  "Référence Nor"
   nor: String
 
   public: Boolean
@@ -42,7 +45,9 @@ input InputDocumentCreation {
 
   uri: String
 
-  fichier: String
+  fichier: Boolean
+
+  fichierTypeId: ID
 
   fichierNouveau: FileUpload
 
@@ -66,7 +71,9 @@ input InputDocumentModification {
 
   uri: String
 
-  fichier: String
+  fichier: Boolean
+
+  fichierTypeId: ID
 
   fichierNouveau: FileUpload
 

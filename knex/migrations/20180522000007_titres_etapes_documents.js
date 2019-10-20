@@ -12,11 +12,12 @@ exports.up = knex => {
       .references('documentsTypes.id')
       .notNullable()
     table.string('nom', 1024).notNullable()
+    table.boolean('fichier')
+    table.string('fichierTypeId', 3)
     table.string('jorf', 32)
     table.string('nor', 32)
     table.string('url')
     table.string('uri')
-    table.string('fichier')
     table.boolean('public')
   })
 }

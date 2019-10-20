@@ -31,6 +31,10 @@ const titreDocumentCreer = async ({ document }, context, info) => {
     throw new Error(rulesError)
   }
 
+  if (document.fichierNouveau && !document.fichierTypeId) {
+    throw new Error('extension du fichier manquante')
+  }
+
   try {
     document.id = `${document.titreEtapeId}-${
       document.typeId
@@ -43,10 +47,10 @@ const titreDocumentCreer = async ({ document }, context, info) => {
 
       await fileStreamCreate(
         createReadStream(),
-        join(process.cwd(), `files/${document.id}.pdf`)
+        join(process.cwd(), `files/${document.id}.${document.fichierTypeId}`)
       )
 
-      document.fichier = document.id
+      document.fichier = true
 
       delete document.fichierNouveau
     }
@@ -80,12 +84,19 @@ const titreDocumentModifier = async ({ document }, context, info) => {
     throw new Error(rulesError)
   }
 
+  if (document.fichierNouveau && !document.fichierTypeId) {
+    throw new Error('extension du fichier manquante')
+  }
+
   try {
     if (document.fichierNouveau || !document.fichier) {
       const documentOld = titreDocumentGet(document.id)
       if (documentOld.fichier) {
         await fileDelete(
-          join(process.cwd(), `files/${documentOld.fichier}.pdf`)
+          join(
+            process.cwd(),
+            `files/${documentOld.id}.${documentOld.fichierTypeId}`
+          )
         )
       }
     }
@@ -95,7 +106,7 @@ const titreDocumentModifier = async ({ document }, context, info) => {
 
       await fileStreamCreate(
         createReadStream(),
-        join(process.cwd(), `files/${document.id}.pdf`)
+        join(process.cwd(), `files/${document.id}.${document.fichierTypeId}`)
       )
 
       document.fichier = document.id
@@ -130,7 +141,12 @@ const titreDocumentSupprimer = async ({ id }, context, info) => {
     const documentOld = await titreDocumentGet(id)
 
     if (documentOld.fichier) {
-      await fileDelete(join(process.cwd(), `files/${documentOld.fichier}.pdf`))
+      await fileDelete(
+        join(
+          process.cwd(),
+          `files/${documentOld.id}.${documentOld.fichierTypeId}`
+        )
+      )
     }
 
     await titreDocumentDelete(id)
