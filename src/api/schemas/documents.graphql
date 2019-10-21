@@ -1,0 +1,85 @@
+"Document attaché à une étape de démarche"
+type Document {
+  """
+  __Id__ composée de la concaténation:
+  - de l'id de l'étape
+  - du type du document
+  """
+  id: ID!
+
+  "Nom du document"
+  nom: String!
+
+  "Type de document (arrêté, décret, etc.)"
+  type: DocumentType
+
+  "Url du document"
+  url: String
+
+  "Uri du document"
+  uri: String
+
+  "Fichier est hébergé sur camino"
+  fichier: Boolean
+
+  "Extension du fichier"
+  fichierTypeId: ID
+
+  "Référence au Journal Officiel"
+  jorf: String
+
+  "Référence Nor"
+  nor: String
+
+  public: Boolean
+}
+
+input InputDocumentCreation {
+  titreEtapeId: ID!
+
+  typeId: ID!
+
+  nom: String!
+
+  url: String
+
+  uri: String
+
+  fichier: Boolean
+
+  fichierTypeId: ID
+
+  fichierNouveau: FileUpload
+
+  jorf: String
+
+  nor: String
+
+  public: Boolean
+}
+
+input InputDocumentModification {
+  id: ID!
+
+  titreEtapeId: ID!
+
+  typeId: ID!
+
+  nom: String!
+
+  url: String
+
+  uri: String
+
+  fichier: Boolean
+
+  fichierTypeId: ID
+
+  fichierNouveau: FileUpload
+
+  jorf: String
+
+  nor: String
+
+  public: Boolean
+}

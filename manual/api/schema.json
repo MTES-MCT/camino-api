@@ -75,8 +75,8 @@
                   "kind": "LIST",
                   "name": null,
                   "ofType": {
-                    "kind": "ENUM",
-                    "name": "TypeId",
+                    "kind": "SCALAR",
+                    "name": "ID",
                     "ofType": null
                   }
                 },
@@ -89,8 +89,8 @@
                   "kind": "LIST",
                   "name": null,
                   "ofType": {
-                    "kind": "ENUM",
-                    "name": "DomaineId",
+                    "kind": "SCALAR",
+                    "name": "ID",
                     "ofType": null
                   }
                 },
@@ -103,8 +103,8 @@
                   "kind": "LIST",
                   "name": null,
                   "ofType": {
-                    "kind": "ENUM",
-                    "name": "StatutId",
+                    "kind": "SCALAR",
+                    "name": "ID",
                     "ofType": null
                   }
                 },
@@ -521,7 +521,7 @@
             "deprecationReason": null
           },
           {
-            "name": "volumeUnites",
+            "name": "unites",
             "description": "Unités de volume utilisées dans Camino",
             "args": [],
             "type": {
@@ -529,7 +529,23 @@
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "VolumeUnite",
+                "name": "Unite",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "documentsTypes",
+            "description": "Types de documents",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DocumentType",
                 "ofType": null
               }
             },
@@ -555,8 +571,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "TypeId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -602,92 +618,13 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "TypeId",
-        "description": "L'id du type de titre minier",
+        "kind": "SCALAR",
+        "name": "ID",
+        "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
-        "enumValues": [
-          {
-            "name": "apx",
-            "description": "Autorisation de prospections préalables (M, H, C)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "arc",
-            "description": "Autorisation de recherches (C)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "arg",
-            "description": "Autorisation de recherches (G)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "arm",
-            "description": "Autorisation de recherches (M)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "axm",
-            "description": "Autorisation d'exploitation (M)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "cxx",
-            "description": "Concession (M, H, G, S, C)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "prh",
-            "description": "Permis exclusif de recherches (H)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "prx",
-            "description": "Permis exclusif de recherches (M, G, S, C)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pxc",
-            "description": "Permis exclusif de carrières (C)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pxg",
-            "description": "Permis d'exploitation (G)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pxh",
-            "description": "Permis d'exploitation (H)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pxm",
-            "description": "Permis d'exploitation (M)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pxx",
-            "description": "Permis d'exploitation (W, R)",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -835,16 +772,6 @@
       },
       {
         "kind": "SCALAR",
-        "name": "ID",
-        "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
         "name": "Int",
         "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
         "fields": null,
@@ -901,12 +828,12 @@
             "deprecationReason": null
           },
           {
-            "name": "acceptationAuto",
-            "description": null,
+            "name": "typeId",
+            "description": "Type de titre pour laquelle cette étape existe",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Boolean",
+              "name": "ID",
               "ofType": null
             },
             "isDeprecated": false,
@@ -929,12 +856,24 @@
             "deprecationReason": null
           },
           {
-            "name": "typeId",
-            "description": "Type de titre pour laquelle cette étape existe",
+            "name": "fondamentale",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "ENUM",
-              "name": "TypeId",
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "acceptationAuto",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -952,6 +891,18 @@
                 "name": "EtapeStatut",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "sections",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Json",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -975,8 +926,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "EtapeStatutId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -1023,77 +974,6 @@
       },
       {
         "kind": "ENUM",
-        "name": "EtapeStatutId",
-        "description": "L'id du statut d'une étape de démarche de titre minier",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "acc",
-            "description": "Acceptation",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ajo",
-            "description": "Ajournée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "def",
-            "description": "Défavorable",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dre",
-            "description": "Défavorable avec réserves",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "fav",
-            "description": "Favorable",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "fre",
-            "description": "Favorable avec réserves",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nul",
-            "description": "Non applicable",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "rej",
-            "description": "Rejet",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nfa",
-            "description": "Non fait",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "fai",
-            "description": "Fait",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
         "name": "Couleur",
         "description": "Une liste de couleurs génériques",
         "fields": null,
@@ -1134,6 +1014,16 @@
         "possibleTypes": null
       },
       {
+        "kind": "SCALAR",
+        "name": "Json",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "Domaine",
         "description": "Le domaine minier",
@@ -1146,8 +1036,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "DomaineId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -1197,65 +1087,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "DomaineId",
-        "description": "L'id du domaine minier",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "c",
-            "description": "Carrières",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "f",
-            "description": "Combustibles fossiles",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "g",
-            "description": "Géothermie",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "h",
-            "description": "Substances énergétiques",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "m",
-            "description": "Minéraux et métaux",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "r",
-            "description": "Eléments radioactifs",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "s",
-            "description": "Stockage",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "w",
-            "description": "Granulats marins",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "Statut",
         "description": "Le statut d'un titre minier",
@@ -1268,8 +1099,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "StatutId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -1315,56 +1146,9 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "StatutId",
-        "description": "L'id du statut d'un titre minier",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "dmc",
-            "description": "Demande classée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dmi",
-            "description": "Demande initiale",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ech",
-            "description": "Échu",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ind",
-            "description": "Indéterminé",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "mod",
-            "description": "Modification en instance",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "val",
-            "description": "Valide",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "GeoSysteme",
-        "description": "Système géodésique",
+        "description": "Système géographique",
         "fields": [
           {
             "name": "id",
@@ -1403,9 +1187,13 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1415,9 +1203,72 @@
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Unite",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Unite",
+        "description": "Unité",
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "symbole",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -1473,8 +1324,8 @@
       },
       {
         "kind": "OBJECT",
-        "name": "VolumeUnite",
-        "description": "Unité de volume",
+        "name": "DocumentType",
+        "description": null,
         "fields": [
           {
             "name": "id",
@@ -1514,7 +1365,7 @@
         "enumValues": null,
         "possibleTypes": null
       },
-
+      {
         "kind": "OBJECT",
         "name": "Titre",
         "description": "Titre minier",
@@ -1741,7 +1592,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1753,7 +1604,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1765,7 +1616,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -1817,7 +1668,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "VolumeUnite",
+              "name": "Unite",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2272,7 +2123,7 @@
           },
           {
             "name": "contour",
-            "description": "Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre",
+            "description": "Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2325,6 +2176,30 @@
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subsidiaire",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lot",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2436,42 +2311,19 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "CoordonneesReferences",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "CoordonneesReferences",
-        "description": "Paire de coordonnées de références",
-        "fields": [
-          {
-            "name": "x",
-            "description": "La valeur des coordonnées en X sous forme d'un texte",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "name": "Coordonnees",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "y",
-            "description": "La valeur des coordonnées en Y sous forme d'un texte",
+            "name": "opposable",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3051,7 +2903,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3212,16 +3064,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "SCALAR",
-        "name": "Date",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "EntrepriseEtablissement",
         "description": null,
@@ -3260,7 +3102,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3272,7 +3114,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -3634,16 +3476,6 @@
         ],
         "inputFields": null,
         "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "Json",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
         "enumValues": null,
         "possibleTypes": null
       },
@@ -4015,8 +3847,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "DemarcheStatutId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -4062,77 +3894,6 @@
         "possibleTypes": null
       },
       {
-        "kind": "ENUM",
-        "name": "DemarcheStatutId",
-        "description": "L'id du statut d'une démarche de titre minier",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "acc",
-            "description": "Acceptée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "cls",
-            "description": "Classée sans suite",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dep",
-            "description": "Déposée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "eco",
-            "description": "En construction",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ind",
-            "description": "Indeterminé",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ini",
-            "description": "Initiée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ins",
-            "description": "En instruction",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "rej",
-            "description": "Rejetée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ret",
-            "description": "Retirée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ter",
-            "description": "Terminée",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "Phase",
         "description": "Phase d'un titre minier",
@@ -4159,7 +3920,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4171,7 +3932,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4196,8 +3957,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "PhaseStatutId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -4240,29 +4001,6 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "ENUM",
-        "name": "PhaseStatutId",
-        "description": "L'id du statut d'une phase de titre minier",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": [
-          {
-            "name": "val",
-            "description": "Valide",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "ech",
-            "description": "Échu",
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
         "possibleTypes": null
       },
       {
@@ -4343,7 +4081,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -4368,7 +4106,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4380,7 +4118,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4416,24 +4154,8 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "VolumeUnite",
+              "name": "Unite",
               "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "visas",
-            "description": "Les visas de l'étape",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4670,8 +4392,8 @@
             "description": "Le type de document (arrêté, décret, etc.)",
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "OBJECT",
+              "name": "DocumentType",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4732,6 +4454,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "public",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4960,7 +4694,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -4973,19 +4707,7 @@
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "contenu",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Json",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5004,6 +4726,18 @@
             "deprecationReason": null
           },
           {
+            "name": "annee",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "sections",
             "description": null,
             "args": [],
@@ -5016,12 +4750,12 @@
             "deprecationReason": null
           },
           {
-            "name": "annee",
+            "name": "contenu",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "Int",
+              "name": "Json",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5878,7 +5612,7 @@
           },
           {
             "name": "titreCreer",
-            "description": "__*__ Modifie un titre minier",
+            "description": "__*__ Créé un titre minier",
             "args": [
               {
                 "name": "titre",
@@ -5959,7 +5693,7 @@
           },
           {
             "name": "titreDemarcheCreer",
-            "description": "__*__ Modifie une démarche et met à jour le titre minier",
+            "description": "__*__ Créé une démarche et met à jour le titre minier",
             "args": [
               {
                 "name": "demarche",
@@ -6040,7 +5774,7 @@
           },
           {
             "name": "titreEtapeCreer",
-            "description": "__*__ Modifie une étape et met à jour le titre minier",
+            "description": "__*__ Créé une étape et met à jour le titre minier",
             "args": [
               {
                 "name": "etape",
@@ -6095,6 +5829,87 @@
           {
             "name": "titreEtapeSupprimer",
             "description": "__*__ Supprime une étape et met à jour le titre minier",
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Titre",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titreDocumentCreer",
+            "description": "__*__ Créé un document et met à jour le titre minier",
+            "args": [
+              {
+                "name": "document",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "InputDocumentCreation",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Titre",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titreDocumentModifier",
+            "description": "__*__ Modifie un document et met à jour le titre minier",
+            "args": [
+              {
+                "name": "document",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "InputDocumentModification",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Titre",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titreDocumentSupprimer",
+            "description": "__*__ Supprime un document et met à jour le titre minier",
             "args": [
               {
                 "name": "id",
@@ -6720,8 +6535,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "EtapeStatutId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -6749,7 +6564,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -6780,7 +6595,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -6790,7 +6605,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -6822,20 +6637,6 @@
               "kind": "SCALAR",
               "name": "ID",
               "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "visas",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
             },
             "defaultValue": null
           },
@@ -6954,6 +6755,16 @@
               "ofType": null
             },
             "defaultValue": null
+          },
+          {
+            "name": "contenu",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Json",
+              "ofType": null
+            },
+            "defaultValue": null
           }
         ],
         "interfaces": null,
@@ -6966,30 +6777,6 @@
         "description": null,
         "fields": null,
         "inputFields": [
-          {
-            "name": "id",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "coordonnees",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "InputCoordonnees",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
           {
             "name": "groupe",
             "description": null,
@@ -7051,6 +6838,26 @@
             "defaultValue": null
           },
           {
+            "name": "subsidiaire",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "lot",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "references",
             "description": null,
             "type": {
@@ -7061,6 +6868,51 @@
                 "name": "InputPointReference",
                 "ofType": null
               }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InputPointReference",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "geoSystemeId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "coordonnees",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "InputCoordonnees",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "opposable",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "defaultValue": null
           }
@@ -7091,86 +6943,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "Float",
-              "ofType": null
-            },
-            "defaultValue": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "InputPointReference",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "id",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "geoSystemeId",
-            "description": null,
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "coordonnees",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "InputCoordonneesReferences",
-              "ofType": null
-            },
-            "defaultValue": null
-          }
-        ],
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "INPUT_OBJECT",
-        "name": "InputCoordonneesReferences",
-        "description": null,
-        "fields": null,
-        "inputFields": [
-          {
-            "name": "x",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "y",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -7352,8 +7124,8 @@
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "ENUM",
-                "name": "EtapeStatutId",
+                "kind": "SCALAR",
+                "name": "ID",
                 "ofType": null
               }
             },
@@ -7381,7 +7153,7 @@
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "Date",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -7412,7 +7184,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -7422,7 +7194,7 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Date",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -7454,20 +7226,6 @@
               "kind": "SCALAR",
               "name": "ID",
               "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "visas",
-            "description": null,
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
             },
             "defaultValue": null
           },
@@ -7583,6 +7341,266 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "InputIncertitudes",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "contenu",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Json",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InputDocumentCreation",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "titreEtapeId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "typeId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "url",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "uri",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fichier",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Upload",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "jorf",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "nor",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "public",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Upload",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InputDocumentModification",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "titreEtapeId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "typeId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "url",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "uri",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fichier",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Upload",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "jorf",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "nor",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "public",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "defaultValue": null
@@ -8442,7 +8460,11 @@
       {
         "name": "skip",
         "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+        "locations": [
+          "FIELD",
+          "FRAGMENT_SPREAD",
+          "INLINE_FRAGMENT"
+        ],
         "args": [
           {
             "name": "if",
@@ -8463,7 +8485,11 @@
       {
         "name": "include",
         "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+        "locations": [
+          "FIELD",
+          "FRAGMENT_SPREAD",
+          "INLINE_FRAGMENT"
+        ],
         "args": [
           {
             "name": "if",
@@ -8484,7 +8510,10 @@
       {
         "name": "deprecated",
         "description": "Marks an element of a GraphQL schema as no longer supported.",
-        "locations": ["FIELD_DEFINITION", "ENUM_VALUE"],
+        "locations": [
+          "FIELD_DEFINITION",
+          "ENUM_VALUE"
+        ],
         "args": [
           {
             "name": "reason",

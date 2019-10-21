@@ -233,37 +233,6 @@ type Incertitudes {
   administrations: Boolean
 }
 
-"Document attaché à une étape de démarche"
-type Document {
-  """
-  L'__id__ composée de la concaténation:
-  - de l'id de l'étape
-  - du type du document
-  """
-  id: ID!
-
-  "Le nom du document"
-  nom: String!
-
-  "Le type de document (arrêté, décret, etc.)"
-  type: String
-
-  "L'url du document"
-  url: String
-
-  "L'uri du document"
-  uri: String
-
-  "Le type de fichier"
-  fichier: String
-
-  "La référence au Journal Officiel"
-  jorf: String
-
-  "La référence Nor"
-  nor: String
-}
-
 "Titre minier"
 input InputTitreCreation {
   nom: String!
@@ -401,24 +370,6 @@ input InputEtapeModification {
 
 input InputEtapeId {
   etapeId: ID!
-}
-
-input InputDocument {
-  id: ID!
-
-  nom: String!
-
-  type: String
-
-  url: String
-
-  uri: String
-
-  fichier: String
-
-  jorf: String
-
-  nor: String
 }
 
 input InputIncertitudes {

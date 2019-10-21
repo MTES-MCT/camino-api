@@ -19,6 +19,7 @@ const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-st
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
 const unites = require('../../sources/unites.json')
+const documentsTypes = require('../../sources/documents-types.json')
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
@@ -49,6 +50,7 @@ exports.seed = seeding(async ({ del, insert }) => {
     insert('etapesTypes', etapesTypes),
     insert('demarchesStatuts', demarchesStatuts),
     insert('etapesStatuts', etapesStatuts),
+    insert('documentsTypes', documentsTypes),
     insert('devises', devises),
     insert('unites', unites)
   ])

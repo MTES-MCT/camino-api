@@ -1,4 +1,5 @@
 import Json from './types/json'
+import { GraphQLUpload } from 'graphql-upload'
 
 import {
   titre,
@@ -13,6 +14,12 @@ import {
   titreEtapeModifier,
   titreEtapeSupprimer
 } from './resolvers/titres-etapes'
+
+import {
+  titreDocumentCreer,
+  titreDocumentModifier,
+  titreDocumentSupprimer
+} from './resolvers/titres-documents'
 
 import {
   titreDemarcheCreer,
@@ -46,6 +53,7 @@ import { statistiques } from './resolvers/statistiques'
 export default {
   //  types
   Json,
+  FileUpload: GraphQLUpload,
 
   //  queries
   version,
@@ -74,6 +82,9 @@ export default {
   titreEtapeCreer,
   titreEtapeModifier,
   titreEtapeSupprimer,
+  titreDocumentCreer,
+  titreDocumentModifier,
+  titreDocumentSupprimer,
   titreActiviteModifier,
   utilisateurConnecter,
   utilisateurModifier,

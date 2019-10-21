@@ -14,16 +14,14 @@ import chalk from 'chalk'
 import * as compression from 'compression'
 import * as cors from 'cors'
 import * as express from 'express'
-import * as expressGraphql from 'express-graphql'
-import * as expressJwt from 'express-jwt'
-import * as http from 'http'
-import * as path from 'path'
 
 import './database/index'
 
-import rootValue from './api/resolvers'
-import { documentNameGet } from './api/resolvers/documents'
-import schema from './api/schemas'
+import fileDownload from './server/file-download'
+import middlewareGraphql from './server/middleware-graphql'
+import middlewareJwt from './server/middleware-jwt'
+import middlewareUpload from './server/middleware-upload'
+
 import { port, url } from './config/index'
 
 import * as Sentry from '@sentry/node'
@@ -33,99 +31,21 @@ const app = express()
 if (process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN
-    // integrations: [
-    //   new Sentry.Integrations.RewriteFrames({
-    //     root: global.__rootdir__
-    //   })
-    // ]
   })
 
   app.use(Sentry.Handlers.requestHandler())
 }
 
-app.use(cors({ credentials: true }))
-
-app.use(compression())
-
-// bug de typage de express-jwt
-// https://github.com/auth0/express-jwt/issues/215
-interface IAuthRequest extends express.Request {
-  user?: {
-    [id: string]: string
-  }
-}
-
-app.use(
-  expressJwt({
-    credentialsRequired: false,
-    getToken: req => {
-      if (!req.headers.authorization) return null
-
-      const [type, token] = req.headers.authorization.split(' ')
-
-      return type === 'Bearer' && token !== 'null' ? token : null
-    },
-    secret: process.env.JWT_SECRET || 'jwtSecret should be declared in .env'
-  })
-)
-
-// test sentry
-// app.get('/', (req, res) => {
-//   console.log('broke')
-//   throw new Error('Broke!')
-// })
-
-app.get('/documents/:titreDocumentId', async (req: IAuthRequest, res, next) => {
-  try {
-    const userId = req.user && req.user.id
-    const { titreDocumentId } = req.params
-    const documentName = await documentNameGet(userId, titreDocumentId)
-
-    const options = {
-      dotfiles: 'deny',
-      headers: {
-        'x-sent': true,
-        'x-timestamp': Date.now()
-      },
-      root: path.join(__dirname, '../files')
-    }
-
-    return res.sendFile(documentName, options, err => {
-      if (err) {
-        res.status(404).send('fichier introuvable')
-      }
-    })
-  } catch (error) {
-    return res.status(403).send(error)
-  }
-})
-
-interface IAuthRequestHttp extends http.IncomingMessage {
-  user?: {
-    [id: string]: string
-  }
-}
-
-app.use(
-  '/',
-  expressGraphql((req: IAuthRequestHttp, res, graphQLParams) => ({
-    context: {
-      user: req.user
-    },
-    customFormatErrorFn: err => ({
-      locations: err.locations,
-      message: err.message,
-      path: err.path,
-      stack: err.stack ? err.stack.split('\n') : []
-    }),
-    graphiql: true,
-    pretty: true,
-    rootValue,
-    schema
-  }))
-)
+app.use(cors({ credentials: true }), compression(), middlewareJwt)
+app.get('/documents/:titreDocumentId', fileDownload)
+app.use('/', middlewareUpload, middlewareGraphql)
 
 if (process.env.SENTRY_DSN) {
+  // test sentry
+  // app.get('/', (req, res) => {
+  //   console.log('broke')
+  //   throw new Error('Broke!')
+  // })
   app.use(Sentry.Handlers.errorHandler())
 }
 

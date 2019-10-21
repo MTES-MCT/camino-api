@@ -1,3 +1,6 @@
+import { join } from 'path'
+import fileRename from '../../tools/file-rename'
+
 const elementsLinkedAccumulate = (root, path) => {
   const { elementsLinked } = path.split('/').reduce(
     (acc, name, i, path) => {
@@ -52,7 +55,22 @@ const elementRelationsUpdate = (
   if (params.props && parent) {
     params.props.forEach(prop => {
       if (element[prop] && element[prop].match(parentIdOld)) {
-        element[prop] = element[prop].replace(parentIdOld, parent.id)
+        const elementPropOld = element[prop]
+        const elementPropNew = elementPropOld.replace(parentIdOld, parent.id)
+
+        element[prop] = elementPropNew
+
+        if (
+          params.path === 'documents' &&
+          prop === 'id' &&
+          element.fichier === true
+        ) {
+          fileRename(
+            join(process.cwd(), `files/${elementPropOld}.pdf`),
+            join(process.cwd(), `files/${elementPropNew}.pdf`)
+          )
+        }
+
         hasChanged = true
       }
     })

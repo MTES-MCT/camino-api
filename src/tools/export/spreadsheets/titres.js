@@ -169,13 +169,14 @@ const tables = [
     columns: [
       'id',
       'titreEtapeId',
-      'type',
+      'typeId',
       'jorf',
       'nor',
       'nom',
       'url',
       'uri',
       'fichier',
+      'fichierTypeId',
       'public'
     ],
     parents: ['demarches', 'etapes', 'documents']

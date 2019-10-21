@@ -92,6 +92,10 @@ exports.up = knex => {
       table.integer('ordre')
       table.primary(['etapeTypeId', 'etapeStatutId'])
     })
+    .createTable('documentsTypes', table => {
+      table.string('id', 3).primary()
+      table.string('nom').notNullable()
+    })
 }
 
 exports.down = knex => {
@@ -104,4 +108,5 @@ exports.down = knex => {
     .dropTable('demarchesTypes__types')
     .dropTable('demarchesTypes')
     .dropTable('phasesStatuts')
+    .dropTable('documentsTypes')
 }

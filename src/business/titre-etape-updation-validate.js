@@ -4,7 +4,7 @@ import titreEtapeTypeAndStatusCheck from './utils/titre-etape-type-and-status-ch
 import titreEtapeDateCheck from './utils/titre-etape-date-check'
 import titreEtapePointsCheck from './utils/titre-etape-points-check'
 
-const titreEtapeValidation = async titreEtape => {
+const titreEtapeUpdationValidate = async titreEtape => {
   const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
 
   const titre = await titreGet(titreDemarche.titreId)
@@ -44,4 +44,4 @@ const titreEtapeValidation = async titreEtape => {
   return null
 }
 
-export default titreEtapeValidation
+export default titreEtapeUpdationValidate
