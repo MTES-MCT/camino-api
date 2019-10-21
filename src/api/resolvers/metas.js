@@ -30,7 +30,7 @@ const metas = async (variables, context, info) => {
   const documentsTypes = await documentsTypesGet()
   let domaines = await domainesGet()
   let statuts = await statutsGet()
-  let types = await typesGet({ eager: options.types.eager })
+  let types = await typesGet()
 
   if (!context.user) {
     domaines = check(domaines, restrictedDomaineIds)
