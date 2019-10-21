@@ -28,9 +28,6 @@ const check = (elements, restrictedList) =>
 const metas = async (variables, context, info) => {
   const fields = fieldsBuild(info)
   const typesEager = eagerBuild(fields.types, 'types')
-
-  console.log(typesEager)
-
   const devises = await devisesGet()
   const geoSystemes = await geoSystemesGet()
   const unites = await unitesGet()
