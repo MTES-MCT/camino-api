@@ -8,6 +8,9 @@ import {
   restrictedStatutIds
 } from './_restrictions'
 
+import fieldsBuild from './_fields-build'
+import eagerBuild from './_eager-build'
+
 import {
   typesGet,
   domainesGet,
@@ -18,19 +21,23 @@ import {
   documentsTypesGet
 } from '../../database/queries/metas'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
-import options from '../../database/queries/_options'
 
 const check = (elements, restrictedList) =>
   elements.filter(element => !restrictedList.find(id => id === element.id))
 
 const metas = async (variables, context, info) => {
+  const fields = fieldsBuild(info)
+  const typesEager = eagerBuild(fields.types, 'types')
+
+  console.log(typesEager)
+
   const devises = await devisesGet()
   const geoSystemes = await geoSystemesGet()
   const unites = await unitesGet()
   const documentsTypes = await documentsTypesGet()
   let domaines = await domainesGet()
   let statuts = await statutsGet()
-  let types = await typesGet()
+  let types = await typesGet({ eager: typesEager })
 
   if (!context.user) {
     domaines = check(domaines, restrictedDomaineIds)
