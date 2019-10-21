@@ -41,7 +41,8 @@ const titresTables = [
   { name: 'titres_administrations_centrales' },
   { name: 'titres_administrations_locales' },
   { name: 'titres_amodiataires' },
-  { name: 'titres_incertitudes' }
+  { name: 'titres_incertitudes' },
+  { name: 'titres_references' }
 ]
 
 const spreadsheets = [
@@ -124,6 +125,7 @@ const spreadsheets = [
       { name: 'unites' },
       { name: 'administrations_types' },
 <<<<<<< HEAD
+<<<<<<< HEAD
       { name: 'permissions' },
 <<<<<<< HEAD
       { name: 'documents_types' }
@@ -134,6 +136,10 @@ const spreadsheets = [
       { name: 'permissions' } // todo : à rajouter après le passage du script et du migrate
       // { name: 'permissions' },
       // { name: 'references_types' }
+>>>>>>> feat(api): limite la liste des types de références métier
+=======
+      { name: 'permissions' },
+      { name: 'references_types' }
 >>>>>>> feat(api): limite la liste des types de références métier
     ]
   },
