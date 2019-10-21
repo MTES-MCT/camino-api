@@ -3,11 +3,16 @@ import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import titreEtapeTypeAndStatusCheck from './utils/titre-etape-type-and-status-check'
 import titreEtapeDateCheck from './utils/titre-etape-date-check'
 import titreEtapePointsCheck from './utils/titre-etape-points-check'
+import titreEtapeNumbersCheck from './utils/titre-etape-numbers-check'
 
 const titreEtapeUpdationValidate = async titreEtape => {
   const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
 
   const titre = await titreGet(titreDemarche.titreId)
+
+  const etapeType = titreDemarche.type.etapesTypes.find(
+    et => et.id === titreEtape.typeId
+  )
 
   const errors = []
 
@@ -35,6 +40,13 @@ const titreEtapeUpdationValidate = async titreEtape => {
     if (error) {
       errors.push(error)
     }
+  }
+
+  // 4. les champs number ne peuvent avoir une durée négative
+
+  const errorNumbers = titreEtapeNumbersCheck(titreEtape, etapeType.sections)
+  if (errorNumbers) {
+    errors.push(errorNumbers)
   }
 
   if (errors.length) {
