@@ -9,7 +9,8 @@ import unites from '../models/unites'
 import ActivitesTypes from '../models/activites-types'
 import DocumentsTypes from '../models/documents-types'
 
-const typesGet = async () => Types.query()
+const typesGet = async ({ eager = options.types.eager } = {}) =>
+  Types.query().eager(eager)
 
 const domainesGet = async () => Domaines.query().eager(options.domaines.eager)
 

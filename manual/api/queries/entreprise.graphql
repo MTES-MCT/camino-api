@@ -1,4 +1,4 @@
-query Entreprise($id: String!) {
+query Entreprise($id: ID!) {
   entreprise(id: $id) {
     ...entreprise
   }
@@ -18,6 +18,8 @@ fragment entreprise on Entreprise {
   legalSiren
   legalEtranger
   legalForme
+  categorie
+  dateCreation
   adresse
   codePostal
   commune
@@ -37,9 +39,26 @@ fragment utilisateur on Utilisateur {
   prenom
   telephoneMobile
   telephoneFixe
+  administration {
+    ...administration
+  }
   permission {
     ...permission
   }
+}
+
+fragment administration on Administration {
+  id
+  nom
+  service
+  url
+  email
+  telephone
+  adresse1
+  adresse2
+  codePostal
+  commune
+  cedex
 }
 
 fragment permission on Permission {

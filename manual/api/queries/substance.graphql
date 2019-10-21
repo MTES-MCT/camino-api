@@ -1,4 +1,4 @@
-query Substance($id: String!) {
+query Substance($id: ID!) {
   substance(id: $id) {
     ...substance
   }

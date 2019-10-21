@@ -1,5 +1,5 @@
 mutation {
-  titreModifier(titre: { nom: "ghff hfg", typeId: "apx", domaineId: "h" }) {
+  titreCreer(titre: { nom: "ghff hfg", typeId: "apx", domaineId: "h" }) {
     nom
     id
     type {

@@ -177,7 +177,7 @@ const titresActivites = {
 }
 
 const types = {
-  eager: `[demarchesTypes]`
+  eager: `[demarchesTypes.${demarchesTypes.eager}]`
 }
 
 const domaines = {
@@ -328,5 +328,6 @@ export default {
   titresActivites,
   pays,
   points,
-  utilisateurs
+  utilisateurs,
+  types
 }

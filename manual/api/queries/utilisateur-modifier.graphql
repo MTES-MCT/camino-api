@@ -1,4 +1,4 @@
-mutation UtilisateurModifier($utilisateur: InputUtilisateur!) {
+mutation UtilisateurModifier($utilisateur: InputUtilisateurModification!) {
   utilisateurModifier(utilisateur: $utilisateur) {
     ...utilisateur
   }
@@ -11,11 +11,11 @@ fragment utilisateur on Utilisateur {
   prenom
   telephoneMobile
   telephoneFixe
-  administration {
+  administrations {
     id
     nom
   }
-  entreprise {
+  entreprises {
     id
     nom
   }

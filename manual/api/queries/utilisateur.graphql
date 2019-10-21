@@ -1,4 +1,4 @@
-query Utilisateur($id: ID) {
+query Utilisateur($id: ID!) {
   utilisateur(id: $id) {
     ...utilisateur
   }
@@ -9,11 +9,11 @@ fragment utilisateur on Utilisateur {
   nom
   email
   prenom
-  administration {
+  administrations {
     id
     nom
   }
-  entreprise {
+  entreprises {
     id
     nom
     etablissements {
