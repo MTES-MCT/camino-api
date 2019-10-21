@@ -28,8 +28,7 @@ describe("références des points d'un titre", () => {
       id: 'point-id-4326',
       coordonnees: { x: 0.1, y: 0.2 },
       titrePointId: 'point-id',
-      geoSystemeId: '4326',
-      uniteId: 'deg'
+      geoSystemeId: '4326'
     })
     expect(console.log).toHaveBeenCalled()
   })

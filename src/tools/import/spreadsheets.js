@@ -10,17 +10,21 @@ const titresRepriseSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_REPRISE
 
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
+const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
+const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
+const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
+
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
-const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
-const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
+const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
+
+const restrictionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_RESTRICTIONS
+
 const metasActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_METAS_ACTIVITES
 const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
-const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
-const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 
 const titresTables = [
   { name: 'titres', cb: { references: JSON.parse } },
@@ -123,26 +127,6 @@ const spreadsheets = [
       { name: 'documents_types' }
     ]
   },
-
-  {
-    name: 'entreprises',
-    id: entreprisesSpreadsheetId,
-    tables: [{ name: 'entreprises' }, { name: 'entreprises_etablissements' }]
-  },
-  {
-    name: 'utilisateurs',
-    id: utilisateursSpreadsheetId,
-    tables: [
-      { name: 'utilisateurs', cb: { preferences: JSON.parse } },
-      { name: 'utilisateurs__entreprises' },
-      { name: 'utilisateurs__administrations' }
-    ]
-  },
-  {
-    name: 'administrations',
-    id: administrationsSpreadsheetId,
-    tables: [{ name: 'administrations' }, { name: 'administrations__domaines' }]
-  },
   {
     name: 'substances',
     id: substancesSpreadsheetId,
@@ -152,21 +136,6 @@ const spreadsheets = [
       { name: 'substances_legales_codes' },
       { name: 'substances__substances_legales' }
     ]
-  },
-  {
-    name: 'metas-activites',
-    id: metasActivitesSpreadsheetId,
-    tables: [
-      { name: 'activites_types', cb: { sections: JSON.parse } },
-      { name: 'activites_statuts' },
-      { name: 'activites_types__types' },
-      { name: 'activites_types__pays' }
-    ]
-  },
-  {
-    name: 'titres-activites',
-    id: titresActivitesSpreadsheetId,
-    tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
   },
   {
     name: 'territoires',
@@ -182,6 +151,55 @@ const spreadsheets = [
     name: 'calendrier',
     id: calendrierSpreadsheetId,
     tables: [{ name: 'frequences' }, { name: 'trimestres' }, { name: 'mois' }]
+  },
+
+  {
+    name: 'entreprises',
+    id: entreprisesSpreadsheetId,
+    tables: [{ name: 'entreprises' }, { name: 'entreprises_etablissements' }]
+  },
+  {
+    name: 'administrations',
+    id: administrationsSpreadsheetId,
+    tables: [{ name: 'administrations' }, { name: 'administrations__domaines' }]
+  },
+  {
+    name: 'utilisateurs',
+    id: utilisateursSpreadsheetId,
+    tables: [
+      { name: 'utilisateurs', cb: { preferences: JSON.parse } },
+      { name: 'utilisateurs__entreprises' },
+      { name: 'utilisateurs__administrations' }
+    ]
+  },
+
+  {
+    name: 'metas-activites',
+    id: metasActivitesSpreadsheetId,
+    tables: [
+      { name: 'activites_types', cb: { sections: JSON.parse } },
+      { name: 'activites_statuts' },
+      { name: 'activites_types__types' },
+      { name: 'activites_types__pays' }
+    ]
+  },
+  {
+    name: 'titres-activites',
+    id: titresActivitesSpreadsheetId,
+    tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
+  },
+
+  {
+    name: 'restrictions',
+    id: restrictionsSpreadsheetId,
+    tables: [
+      { name: 'restrictions__domaines' },
+      { name: 'restrictions__types__administrations' },
+      { name: 'restrictions__types__statuts' },
+      { name: 'restrictions__types__statuts__administrations' },
+      { name: 'restrictions__etapes_types' },
+      { name: 'restrictions__etapes_types__administrations' }
+    ]
   }
 ]
 

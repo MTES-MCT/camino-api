@@ -10,6 +10,8 @@ import {
   permissionsAdministrationsCheck
 } from './_permissions-check'
 
+import restrictions from './_restrictions'
+
 import { titreIsPublicCheck, titrePermissionCheck } from './_titre'
 
 import { administrationsFormat } from './_administration'
@@ -55,6 +57,41 @@ const titresFormat = (titres, user, fields = titreFormatFields) =>
     return acc
   }, [])
 
+const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
+  const etapeTypeRestricted = restrictions.etapesTypes.find(
+    re => re.etapeTypeId === e.typeId
+  )
+  if (!etapeTypeRestricted) return true
+
+  // si l'utilisateur n'est pas connecté ou qu'il n'a pas de droit sur le titre
+  if (!user || !userHasPermission) {
+    return !etapeTypeRestricted.publicLectureInterdit
+  }
+
+  // si l'utilisateur est titulaire ou amodiataire
+  const isEntreprise = permissionsCheck(user, ['entreprise'])
+  if (isEntreprise) return !etapeTypeRestricted.entreprisesLectureInterdit
+
+  // si l'utilisateur fait partie d'une administration
+  const isAdministration =
+    permissionsCheck(user, ['admin', 'editeur']) &&
+    user.administrations &&
+    user.administrations.length
+  if (isAdministration) {
+    const etapeTypeRestrictedAdministration = restrictions.etapesTypesAdministrations.find(
+      rea =>
+        rea.etapeTypeId === e.typeId &&
+        user.administrations.find(ua => ua.id === rea.administrationId) &&
+        rea.lectureInterdit
+    )
+
+    return !etapeTypeRestrictedAdministration
+  }
+
+  // ne devrait pas arriver jusqu'ici
+  return false
+}
+
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier
 // par des requêtes SQL (dans /database/queries/titres)
@@ -62,8 +99,8 @@ const titresFormat = (titres, user, fields = titreFormatFields) =>
 const titreFormat = (t, user, fields = titreFormatFields) => {
   const titreIsPublic = titreIsPublicCheck(t)
   const userHasPermission = titrePermissionCheck(t, user, [
-    'admin',
     'super',
+    'admin',
     'editeur'
   ])
 
@@ -98,11 +135,11 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     }
   }
 
-  if (t.communes && t.communes.length && fields.pays) {
+  if (fields.pays && t.communes && t.communes.length) {
     t.pays = paysRegionsDepartementsCommunes(t.communes)
   }
 
-  if (t.demarches && t.demarches.length && fields.demarches) {
+  if (fields.demarches && t.demarches && t.demarches.length) {
     t.demarches = t.demarches.map(titreDemarche =>
       titreDemarcheFormat(
         titreDemarche,
@@ -113,48 +150,50 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     )
   }
 
-  if (t.volumeEtape && fields.volume) {
+  if (fields.volume && t.volumeEtape) {
     t.volume = t.volumeEtape.volume
   }
 
-  if (t.engagementEtape && fields.engagement) {
+  if (fields.engagement && t.engagementEtape) {
     t.engagement = t.engagementEtape.engagement
   }
 
-  if (t.surfaceEtape && fields.surface) {
+  if (fields.surface && t.surfaceEtape) {
     t.surface = t.surfaceEtape.surface
   }
 
-  if (t.activites && t.activites.length && fields.activites) {
+  if (fields.activites && t.activites && t.activites.length) {
     t.activites = t.activites.map(titreActivite =>
       titreActiviteFormat(titreActivite, fields.activites)
     )
   }
 
-  const hasAdministrations =
-    (t.administrationsCentrales && t.administrationsCentrales.length) ||
-    (t.administrationsLocales && t.administrationsLocales.length)
-  if (hasAdministrations && fields.administrations) {
-    // fusionne administrations centrales et locales
-    let administrations = dupRemove('id', [
-      ...(t.administrationsCentrales || []),
-      ...(t.administrationsLocales || [])
-    ])
+  if (fields.administrations) {
+    const hasAdministrations =
+      (t.administrationsCentrales && t.administrationsCentrales.length) ||
+      (t.administrationsLocales && t.administrationsLocales.length)
+    if (hasAdministrations) {
+      // fusionne administrations centrales et locales
+      let administrations = dupRemove('id', [
+        ...(t.administrationsCentrales || []),
+        ...(t.administrationsLocales || [])
+      ])
 
-    // si l'utilisateur n'a pas de droits de visualisation suffisants
-    // alors filtre les administrations `subsidiaire`
-    administrations = !permissionsCheck(user, ['super', 'admin', 'editeur'])
-      ? administrations.filter(a => !a.subsidiaire)
-      : administrations
+      // si l'utilisateur n'a pas de droits de visualisation suffisants
+      // alors filtre les administrations `subsidiaire`
+      administrations = !permissionsCheck(user, ['super', 'admin', 'editeur'])
+        ? administrations.filter(a => !a.subsidiaire)
+        : administrations
 
-    t.administrations = administrations.sort(
-      (a, b) => a.type.ordre - b.type.ordre
-    )
+      t.administrations = administrations.sort(
+        (a, b) => a.type.ordre - b.type.ordre
+      )
 
-    t.administrations = administrationsFormat(t.administrations, user)
+      t.administrations = administrationsFormat(t.administrations, user)
 
-    delete t.administrationsCentrales
-    delete t.administrationsLocales
+      delete t.administrationsCentrales
+      delete t.administrationsLocales
+    }
   }
 
   if (t.titulaires) {
@@ -246,10 +285,23 @@ const titreDemarcheFormat = (
     )
   }
 
-  if (td.etapes && td.etapes.length && fields.etapes) {
-    td.etapes = td.etapes.map(titreEtape =>
-      titreEtapeFormat(titreEtape, user, userHasPermission, fields.etapes)
-    )
+  if (fields.etapes && td.etapes && td.etapes.length) {
+    const isSuper = permissionsCheck(user, ['super'])
+
+    td.etapes = td.etapes.reduce((titreEtapes, titreEtape) => {
+      if (
+        !isSuper &&
+        !titreEtapeRestrictionsFilter(titreEtape, user, userHasPermission)
+      ) {
+        return titreEtapes
+      }
+
+      titreEtapes.push(
+        titreEtapeFormat(titreEtape, user, userHasPermission, fields.etapes)
+      )
+
+      return titreEtapes
+    }, [])
   }
 
   return td
@@ -310,7 +362,7 @@ const titreEtapeFormat = (
     }
   }
 
-  if (te.communes && te.communes.length && fields.pays) {
+  if (fields.pays && te.communes && te.communes.length) {
     te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 

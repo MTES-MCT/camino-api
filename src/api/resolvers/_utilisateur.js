@@ -18,6 +18,7 @@ const userIdGenerate = async () => {
 }
 
 const permissionUtilisateurAdministrationCheck = (utilisateur, user) =>
+  user.administrations &&
   user.administrations.some(userAdministration =>
     utilisateur.administrations.some(
       utilisateurAdministration =>
@@ -26,6 +27,7 @@ const permissionUtilisateurAdministrationCheck = (utilisateur, user) =>
   )
 
 const permissionUtilisateurEntrepriseCheck = (utilisateur, user) =>
+  user.entreprises &&
   permissionsCheck(user, ['entreprise']) &&
   permissionsCheck(utilisateur, ['entreprise']) &&
   // teste si l'utilisateur connecté (user) possède une entreprise en commun

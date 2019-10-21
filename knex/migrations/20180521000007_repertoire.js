@@ -1,5 +1,5 @@
-exports.up = knex => {
-  return knex.schema
+exports.up = knex =>
+  knex.schema
     .createTable('entreprises', table => {
       table.string('id', 64).primary()
       table.string('nom').notNullable()
@@ -103,10 +103,9 @@ exports.up = knex => {
         .references('administrations.id')
         .onDelete('CASCADE')
     })
-}
 
-exports.down = knex => {
-  return knex.schema
+exports.down = knex =>
+  knex.schema
     .dropTable('utilisateurs__administrations')
     .dropTable('utilisateurs__entreprises')
     .dropTable('entreprisesEtablissements')
@@ -116,4 +115,3 @@ exports.down = knex => {
     .dropTable('administrations__domaines')
     .dropTable('administrations')
     .dropTable('administrationsTypes')
-}

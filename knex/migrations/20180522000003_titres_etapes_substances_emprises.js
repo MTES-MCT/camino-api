@@ -1,4 +1,4 @@
-exports.up = (knex, Promise) => {
+exports.up = knex => {
   return knex.schema.createTable('titresSubstances', table => {
     table.string('titreEtapeId', 128).notNullable()
     table
@@ -16,6 +16,6 @@ exports.up = (knex, Promise) => {
   })
 }
 
-exports.down = (knex, Promise) => {
+exports.down = knex => {
   return knex.schema.dropTable('titresSubstances')
 }

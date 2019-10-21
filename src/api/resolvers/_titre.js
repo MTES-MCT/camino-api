@@ -2,16 +2,18 @@ import {
   permissionsCheck,
   permissionsAdministrationsCheck
 } from './_permissions-check'
-import {
-  restrictedDomaineIds,
-  restrictedTypeIds,
-  restrictedStatutIds
-} from './_restrictions'
+import restrictions from './_restrictions'
 
-const titreIsPublicCheck = ({ domaineId, typeId, statutId }) =>
-  !restrictedDomaineIds.includes(domaineId) &&
-  !restrictedTypeIds.includes(typeId) &&
-  !restrictedStatutIds.includes(statutId)
+const titreIsPublicCheck = titre =>
+  !restrictions.domaines.find(
+    d => d.domaineId === titre.domaineId && d.publicLectureInterdit
+  ) &&
+  !restrictions.typesStatuts.find(
+    t =>
+      t.typeId === titre.typeId &&
+      t.statutId === titre.statutId &&
+      t.publicLectureInterdit
+  )
 
 const titrePermissionCheck = (
   titre,
@@ -27,14 +29,6 @@ const titrePermissionCheck = (
   // alors le titre est accessible
   if (permissionsCheck(user, ['super'])) {
     return true
-  }
-
-  // si le titre est de type ARM
-  // alors, si l'utilisateursest rattaché à l'ONF de Guyane
-  // alors le titre est accessible
-  // sinon le titre est inaccessible
-  if (titre.typeId === 'arm') {
-    return permissionsAdministrationsCheck(user, ['ope-onf-973-01'])
   }
 
   // si l'utilisateur a les permissions
@@ -55,6 +49,7 @@ const titrePermissionCheck = (
   // si l'utilisateur est amodiataire,
   // le titre est accessible
   if (
+    titre.amodiataires &&
     titre.amodiataires.some(t => user.entreprises.find(({ id }) => id === t.id))
   ) {
     return true
@@ -68,6 +63,7 @@ const titrePermissionCheck = (
   // le titre est accessible
   // sinon le titre est inaccessible
   return (
+    titre.titulaires &&
     titre.titulaires.some(t =>
       user.entreprises.find(({ id }) => id === t.id)
     ) &&
