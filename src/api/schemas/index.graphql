@@ -137,7 +137,7 @@ type Mutation {
     motDePasse2: String!
   ): UtilisateurToken
 
-  "__*__ Créé un titre minier"
+  "__*__ Crée un titre minier"
   titreCreer(titre: InputTitreCreation!): Titre
 
   "__*__ Modifie un titre minier"
@@ -146,7 +146,7 @@ type Mutation {
   "__*__ Supprime un titre minier"
   titreSupprimer(id: ID!): Titre
 
-  "__*__ Créé une démarche et met à jour le titre minier"
+  "__*__ Crée une démarche et met à jour le titre minier"
   titreDemarcheCreer(demarche: InputDemarcheCreation!): Titre
 
   "__*__ Modifie une démarche et met à jour le titre minier"
@@ -155,7 +155,7 @@ type Mutation {
   "__*__ Supprime une démarche et met à jour le titre minier"
   titreDemarcheSupprimer(id: ID!): Titre
 
-  "__*__ Créé une étape et met à jour le titre minier"
+  "__*__ Crée une étape et met à jour le titre minier"
   titreEtapeCreer(etape: InputEtapeCreation!): Titre
 
   "__*__ Modifie une étape et met à jour le titre minier"
@@ -164,7 +164,7 @@ type Mutation {
   "__*__ Supprime une étape et met à jour le titre minier"
   titreEtapeSupprimer(id: ID!): Titre
 
-  "__*__ Créé un document et met à jour le titre minier"
+  "__*__ Crée un document et met à jour le titre minier"
   titreDocumentCreer(document: InputDocumentCreation!): Titre
 
   "__*__ Modifie un document et met à jour le titre minier"

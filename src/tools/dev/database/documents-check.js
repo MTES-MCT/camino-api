@@ -39,7 +39,7 @@ async function main() {
     )
   } else {
     console.log(
-      `${filesMissing.length} fichiers n'ont pas de document correspondant dans la base de données`
+      `${filesMissing.length} fichiers ne correspondent a aucun document dans la base de données`
     )
     console.log(filesMissing.map(file => `- ${file}`).join('\n'))
   }

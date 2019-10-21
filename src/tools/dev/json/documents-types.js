@@ -33,8 +33,8 @@ async function main() {
       }
     })
 
-    // converti la colonne titres_documents.type en titres_documents.type_id
     const documentsNew = documents.map(document => {
+      // convertit la colonne titres_documents.type en titres_documents.type_id
       if (!document.type_id && document.type) {
         document.type_id = documentsTypes.find(
           ({ nom }) => nom === document.type

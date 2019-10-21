@@ -8,7 +8,7 @@ const utilisateurs = {
 }
 
 const administrations = {
-  eager: `[utilisateurs.permission, domaines, type, titres]`,
+  eager: `[utilisateurs.permission, domaines, type]`,
   update: {
     insertMissing: true,
     relate: ['administrationsTypes'],

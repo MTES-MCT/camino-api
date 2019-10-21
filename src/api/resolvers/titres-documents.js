@@ -51,9 +51,9 @@ const titreDocumentCreer = async ({ document }, context, info) => {
       )
 
       document.fichier = true
-
-      delete document.fichierNouveau
     }
+
+    delete document.fichierNouveau
 
     const documentUpdated = await titreDocumentCreate(document)
 
@@ -110,9 +110,9 @@ const titreDocumentModifier = async ({ document }, context, info) => {
       )
 
       document.fichier = document.id
-
-      delete document.fichierNouveau
     }
+
+    delete document.fichierNouveau
 
     const documentUpdated = await titreDocumentUpdate(document.id, document)
 

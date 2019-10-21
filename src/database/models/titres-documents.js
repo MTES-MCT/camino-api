@@ -1,4 +1,3 @@
-import * as cryptoRandomString from 'crypto-random-string'
 import { Model } from 'objection'
 import DocumentsTypes from './documents-types'
 
@@ -33,17 +32,5 @@ export default class TitresDocuments extends Model {
         to: 'documentsTypes.id'
       }
     }
-  }
-
-  $parseJson(json) {
-    json = super.$parseJson(json)
-
-    if (!json.id && json.titreEtapeId && json.typeId) {
-      json.id = `${json.titreEtapeId}-${json.typeId}-${cryptoRandomString({
-        length: 8
-      })}`
-    }
-
-    return json
   }
 }

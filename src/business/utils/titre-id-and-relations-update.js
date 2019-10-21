@@ -90,8 +90,7 @@ const titreEtapeRelations = {
     },
     {
       path: 'documents',
-      // TODO: renommer le fichier en physique ?
-      props: ['id', 'titreEtapeId' /*, 'fichier' */]
+      props: ['id', 'titreEtapeId']
     },
     {
       path: 'incertitudes',
