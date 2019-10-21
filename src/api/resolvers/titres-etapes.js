@@ -26,7 +26,7 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
 
   try {
     if (etape.points) {
-      etape.points = titreEtapePointsCalc(etape.points)
+      etape.points = await titreEtapePointsCalc(etape.points)
     }
 
     const etapeUpdated = await titreEtapeUpsert(etape)
@@ -61,7 +61,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 
   try {
     if (etape.points) {
-      etape.points = titreEtapePointsCalc(etape.points)
+      etape.points = await titreEtapePointsCalc(etape.points)
     }
 
     const etapeUpdated = await titreEtapeUpsert(etape)
