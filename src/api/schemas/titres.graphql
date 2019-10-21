@@ -89,7 +89,7 @@ type Titre {
 
 "Références métier d'un titre minier"
 type Reference {
-  "Le type correspond au type de références"
+  "Le type de références"
   type: ReferenceType
 
   "La référence du titre dans le référentiel"
@@ -97,10 +97,10 @@ type Reference {
 }
 
 type ReferenceType {
-  "L'identifiant technique du type de références"
+  "L'__id__ du type de références en 3 lettres"
   id: String
 
-  "Le nom est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc.)"
+  "Le nom est une chaine de caractère qui définit le nom du type de référence (par exemple: DEB, DGEC, etc.)"
   nom: String
 }
 

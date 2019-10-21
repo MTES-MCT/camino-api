@@ -12,12 +12,4 @@ export default class ReferencesTypes extends Model {
       nom: { type: 'string' }
     }
   }
-
-  $parseJson(json) {
-    json = super.$parseJson(json)
-
-    // todo: à compléter ?
-
-    return json
-  }
 }

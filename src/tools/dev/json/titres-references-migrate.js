@@ -5,7 +5,6 @@ const domainesIds = ['r', 'c', 'f', 'g', 'h', 'm', 's', 'w']
 
 // Constitue l'ojet 'references'
 const references = {}
-let refId, refNom, titreId, refValue
 
 // parse le json de chaque domaine de titres
 domainesIds.forEach(domaineId => {
@@ -19,25 +18,16 @@ domainesIds.forEach(domaineId => {
   titreArray.forEach(titre => {
     if (titre.references) {
       Object.keys(titre.references).forEach(key => {
-        // refId est la clé de 'references-types'
-        // refNom est la valeur
-        // titreId est l'id du titre
-        // refValue est la valeur du type de référence
-        refId = key.toLowerCase().substr(0, 3)
-        refNom = key.toUpperCase()
-        titreId = titre.id
-        refValue = titre.references[key]
-
-        // stocke refId,refNom dans 'references-type.json' (pas de doblons)
+        // 'references-type.json' (pas de doblons)
         console.log(key.toUpperCase() + ' --> ' + titre.references[key])
-        references[key.toLowerCase().substr(0, 3)] = refNom
+        references[key.toLowerCase().substr(0, 3)] = key.toUpperCase()
 
-        // stocke titreId,refId,refValue dans les 'titres_references.json' par domaine
-        const myTitreRef = {}
-        myTitreRef.titre_id = titreId
-        myTitreRef.type_id = refId
-        myTitreRef.nom = refValue
-        titresReferencesArray.push(myTitreRef)
+        // 'titres_references.json' par domaine
+        titresReferencesArray.push({
+          nom: titre.references[key],
+          titre_id: titre.id,
+          type_id: key.toLowerCase().substr(0, 3)
+        })
       })
     }
     // retire les références dans chaque titre
@@ -55,16 +45,11 @@ domainesIds.forEach(domaineId => {
 // ajout des références dans 'references-types.json'
 // parcours l'objet 'references'
 const referencesFilePath = './sources/references-types.json'
-const ref = []
 
-// todo : à faire en mode JS, avec des reduce, etc...
-Object.keys(references)
+const referencesRes = Object.keys(references)
   .sort()
-  .forEach(key => {
-    const myRef = {}
-    myRef.id = key
-    myRef.nom = references[key]
-    ref.push(myRef)
-    write(`${referencesFilePath}`, JSON.stringify(ref, null, 2))
-    console.log(key + ' ## ' + references[key])
-  })
+  .map(key => ({
+    id: key,
+    nom: references[key]
+  }))
+write(`${referencesFilePath}`, JSON.stringify(referencesRes, null, 2))

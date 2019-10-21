@@ -123,12 +123,18 @@ const spreadsheets = [
       { name: 'devises' },
       { name: 'unites' },
       { name: 'administrations_types' },
+<<<<<<< HEAD
       { name: 'permissions' },
 <<<<<<< HEAD
       { name: 'documents_types' }
 =======
       { name: 'references_types' }
 >>>>>>> fix: affiche les dates correctement quelque soit le fuseau horaire
+=======
+      { name: 'permissions' } // todo : à rajouter après le passage du script et du migrate
+      // { name: 'permissions' },
+      // { name: 'references_types' }
+>>>>>>> feat(api): limite la liste des types de références métier
     ]
   },
   {
