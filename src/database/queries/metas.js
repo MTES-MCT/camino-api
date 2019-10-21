@@ -22,6 +22,11 @@ const devisesGet = async () => Devises.query()
 const geoSystemesGet = async () =>
   GeoSystemes.query().eager(options.geoSystemes.eager)
 
+const geoSystemeGet = async id =>
+  GeoSystemes.query()
+    .findById(id)
+    .eager(options.geoSystemes.eager)
+
 const unitesGet = async () => unites.query()
 
 const activitesTypesGet = async () =>
@@ -34,6 +39,7 @@ export {
   demarchesTypesGet,
   devisesGet,
   geoSystemesGet,
+  geoSystemeGet,
   unitesGet,
   activitesTypesGet
 }
