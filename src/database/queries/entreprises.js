@@ -19,4 +19,26 @@ const entreprisesUpsert = async entreprises =>
     .eager(options.entreprises.eager)
     .upsertGraph(entreprises, options.entreprises.update)
 
-export { entrepriseGet, entreprisesGet, entreprisesUpsert }
+const entrepriseBySiren = async (
+  siren,
+  { eager = options.entreprises.eager } = {}
+) => {
+  const entreprise = Entreprises.query()
+    .where({ legalSiren: siren })
+    .eager(eager)
+    .first()
+  console.log(entreprise)
+
+  return entreprise
+}
+
+const entrepriseCreate = async entreprise =>
+  Entreprises.query().insert(entreprise)
+
+export {
+  entrepriseGet,
+  entreprisesGet,
+  entreprisesUpsert,
+  entrepriseBySiren,
+  entrepriseCreate
+}

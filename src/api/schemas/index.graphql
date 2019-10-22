@@ -81,6 +81,9 @@ type Query {
   "__*__ Retourne une entreprise en fonction de son id"
   entreprise(id: ID!): Entreprise
 
+  "__*__ Retourne une entreprise en fonction de son siren"
+  entrepriseParSiren(siren: String!): Entreprise
+
   "__*__ Retourne la liste des entreprises"
   entreprises: [Entreprise]
 
@@ -177,4 +180,7 @@ type Mutation {
   titreActiviteModifier(
     activite: InputTitreActiviteModification!
   ): TitreActivite
+
+  "__*__ Crée une entreprise"
+  entrepriseCreer(entreprise: InputEntrepriseCreation!): Entreprise
 }
