@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.7](https://github.com/MTES-MCT/camino-api/compare/v0.24.6...v0.24.7) (2019-10-23)
+
+
+### Bug Fixes
+
+* convertit les coordonnées en grades ([#196](https://github.com/MTES-MCT/camino-api/issues/196)) ([5f3ce18](https://github.com/MTES-MCT/camino-api/commit/5f3ce18))
+* **api:** identifie l'utilisateur après un changement de mot de passe ([#194](https://github.com/MTES-MCT/camino-api/issues/194)) ([e30880d](https://github.com/MTES-MCT/camino-api/commit/e30880d))
+* **api:** met à jour l'export utilisateurs lors de la suppression ([#192](https://github.com/MTES-MCT/camino-api/issues/192)) ([a49ae1a](https://github.com/MTES-MCT/camino-api/commit/a49ae1a))
+
+
+### Features
+
+* **édition des étapes:** refuse les valeurs négatives sur les champs "number" ([#198](https://github.com/MTES-MCT/camino-api/issues/198)) ([abba6ea](https://github.com/MTES-MCT/camino-api/commit/abba6ea))
+* téléverse des fichiers ([#195](https://github.com/MTES-MCT/camino-api/issues/195)) ([f25f423](https://github.com/MTES-MCT/camino-api/commit/f25f423))
+* **api:** ajoute les administrations aux utilisateurs ([#191](https://github.com/MTES-MCT/camino-api/issues/191)) ([b56e28a](https://github.com/MTES-MCT/camino-api/commit/b56e28a))
+
 ### [0.24.6](https://github.com/MTES-MCT/camino-api/compare/v0.24.5...v0.24.6) (2019-10-16)
 
 
