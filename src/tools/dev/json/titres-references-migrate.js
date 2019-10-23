@@ -10,8 +10,6 @@ const references = {}
 domainesIds.forEach(domaineId => {
   const titresFilePath = `./sources/titres-${domaineId}-titres.json`
   const titres = JSON.parse(read(titresFilePath))
-
-  const titresReferencesFilePath = `./sources/titres-${domaineId}-titres-references.json`
   const titresReferences = []
 
   // pour chaque titre, trouve le(s) référence(s)
@@ -37,8 +35,10 @@ domainesIds.forEach(domaineId => {
     delete titre.references
   })
   // écrase chaque fichier 'titres-...-titres.json'
-  write(`${titresFilePath}`, JSON.stringify(titres, null, 2))
+  write(titresFilePath, JSON.stringify(titres, null, 2))
+
   // écrase ou crée le fichier 'titres-...-titres-references.json'
+  const titresReferencesFilePath = `./sources/titres-${domaineId}-titres-references.json`
   write(
     `${titresReferencesFilePath}`,
     JSON.stringify(titresReferences, null, 2)

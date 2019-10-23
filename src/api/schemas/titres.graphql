@@ -98,7 +98,7 @@ type Reference {
 
 type ReferenceType {
   "L'__id__ du type de références en 3 lettres"
-  id: String
+  id: ID!
 
   "Le nom est une chaine de caractère qui définit le nom du type de référence (par exemple: DEB, DGEC, etc.)"
   nom: String

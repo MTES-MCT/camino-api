@@ -19,11 +19,8 @@ const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-st
 const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
 const unites = require('../../sources/unites.json')
-<<<<<<< HEAD
 const documentsTypes = require('../../sources/documents-types.json')
-=======
 const referencesTypes = require('../../sources/references-types.json')
->>>>>>> fix: affiche les dates correctement quelque soit le fuseau horaire
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
