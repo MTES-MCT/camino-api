@@ -17,7 +17,8 @@ import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
-import titresEtapesAdministrationsUpdate from './processes/titres-etapes-administrations-update'
+import titresAdministrationsCentralesUpdate from './processes/titres-administrations-centrales-update'
+import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 
@@ -101,18 +102,27 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     }
 
     // 9.
-    console.log('administrations associées aux étapes…')
+    console.log('administrations centrales associées aux titres…')
+    titre = await titreGet(titreId, { eager: null })
+    let administrations = await administrationsGet()
+    const [
+      titresAdministrationsCentralesCreated = [],
+      titresAdministrationsCentralesDeleted = []
+    ] = await titresAdministrationsCentralesUpdate([titre], administrations)
+
+    // 10.
+    console.log('administrations locales associées aux étapes…')
     titre = await titreGet(titreId, {
       eager:
         'demarches(orderDesc).etapes(orderDesc).[administrations,communes.[departement]]'
     })
-    const administrations = await administrationsGet()
+    administrations = await administrationsGet()
     const [
-      titresEtapesAdministrationsCreated = [],
-      titresEtapesAdministrationsDeleted = []
-    ] = await titresEtapesAdministrationsUpdate([titre], administrations)
+      titresEtapesAdministrationsLocalesCreated = [],
+      titresEtapesAdministrationsLocalesDeleted = []
+    ] = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
 
-    // 10.
+    // 11.
     console.log('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(titreId, {
       eager:
@@ -120,7 +130,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     })
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
-    // 11.
+    // 12.
     // pour les année 2018 et 2019 (en dur)
     console.log()
     console.log('activités des titres…')
@@ -133,7 +143,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
       annees
     )
 
-    // 12.
+    // 13.
     console.log()
     console.log('propriétés des titres (activités abs, enc et dep)…')
     titre = await titreGet(titreId, { eager: 'activites' })
@@ -141,7 +151,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
       titre
     ])
 
-    // 13.
+    // 14.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {})
     const titreUpdated = await titreIdsUpdate(titre)
@@ -178,10 +188,16 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
     )
     console.log(
-      `mise à jour: ${titresEtapesAdministrationsCreated.length} administration(s) ajoutée(s) dans des étapes`
+      `mise à jour: ${titresAdministrationsCentralesCreated.length} administration(s) centrale(s) ajoutée(s) dans des titres`
     )
     console.log(
-      `mise à jour: ${titresEtapesAdministrationsDeleted.length} administration(s) supprimée(s) dans des étapes`
+      `mise à jour: ${titresAdministrationsCentralesDeleted.length} administration(s) centrale(s) supprimée(s) dans des titres`
+    )
+    console.log(
+      `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
+    )
+    console.log(
+      `mise à jour: ${titresEtapesAdministrationsLocalesDeleted.length} administration(s) locale(s) supprimée(s) dans des étapes`
     )
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`

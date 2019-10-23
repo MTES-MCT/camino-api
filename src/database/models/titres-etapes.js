@@ -113,9 +113,9 @@ export default class TitresEtapes extends Model {
       join: {
         from: 'titresEtapes.id',
         through: {
-          from: 'titresAdministrations.titreEtapeId',
-          to: 'titresAdministrations.administrationId',
-          extra: ['coordinateur']
+          from: 'titresAdministrationsLocales.titreEtapeId',
+          to: 'titresAdministrationsLocales.administrationId',
+          extra: ['subsidiaire', 'coordinateur']
         },
         to: 'administrations.id'
       }

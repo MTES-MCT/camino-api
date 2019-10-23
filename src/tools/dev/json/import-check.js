@@ -59,7 +59,8 @@ const titresFiles = [
   'titresTitulaires',
   'titresAmodiataires',
   'titresCommunes',
-  'titresAdministrations',
+  'titresAdministrationsCentrales',
+  'titresAdministrationsLocales',
   'titresIncertitudes'
 ]
 

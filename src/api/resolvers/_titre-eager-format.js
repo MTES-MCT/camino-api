@@ -5,15 +5,39 @@ const fieldsToRemoveRoot = ['references']
 const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
 const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
 
-// ajoute des propriétés requises par /database/queries/_format
-const titreEagerFormat = (fields, parent) => {
-  // ajoute la propriété `type` sur les administrations
+const titreEagerFormatAdministrations = (fields, type) => {
+  if (!fields.administrations) return
+
+  fields[`administrations${type}`] = {
+    ...fields.administrations
+  }
+
   if (
-    fields.administrations &&
     !fields.administrations.type &&
     Object.keys(fields.administrations).length !== 0
   ) {
-    fields.administrations.type = { id: {} }
+    fields[`administrations${type}`].type = { id: {} }
+  }
+}
+
+// ajoute des propriétés requises par /database/queries/_format
+const titreEagerFormat = (fields, parent) => {
+  if (fields.administrations) {
+    if (
+      ['titres', 'titre', 'titresAmodiataire', 'titresTitulaire'].includes(
+        parent
+      )
+    ) {
+      // ajoute la propriété `type` sur les administrations
+      titreEagerFormatAdministrations(fields, 'Locales')
+      titreEagerFormatAdministrations(fields, 'Centrales')
+      delete fields.administrations
+    } else if (
+      !fields.administrations.type &&
+      Object.keys(fields.administrations).length !== 0
+    ) {
+      fields.administrations.type = { id: {} }
+    }
   }
 
   // ajoute la propriété `titreType` sur les démarches
@@ -46,10 +70,7 @@ const titreEagerFormat = (fields, parent) => {
     }
   })
 
-  if (
-    fields.pays &&
-    (parent === 'titres' || parent === 'titre' || parent === 'etapes')
-  ) {
+  if (fields.pays && ['titres', 'titre', 'etapes'].includes(parent)) {
     fields.communes = {
       departement: {
         region: {

@@ -1,16 +1,23 @@
 const administrations = [
   {
-    id: 1,
-    departementId: 1,
-    domaines: [{ id: 'h' }]
+    id: 'centrale',
+    domaines: [{ id: 'm' }]
   },
   {
-    id: 2,
-    regionId: 2,
-    domaines: []
+    id: 'deal-01',
+    departementId: '01'
   },
   {
-    id: 3
+    id: 'deal-01',
+    regionId: '02'
+  },
+  {
+    id: 'ope-onf-973-01',
+    departementId: '973'
+  },
+  {
+    id: 'xxxx',
+    departementId: 'xxxx'
   }
 ]
 
@@ -25,10 +32,26 @@ const titresEtapesCommunes = [
             id: 'h-cxx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             communes: [
-              { id: 'paris', departementId: 1, departement: { regionId: 1 } },
-              { id: 'issy', departementId: 1, departement: { regionId: 1 } },
-              { id: 'ivry', departementId: 2, departement: { regionId: 2 } },
-              { id: 'evry', departementId: 2, departement: { regionId: 2 } }
+              {
+                id: 'paris',
+                departementId: '01',
+                departement: { regionId: '01' }
+              },
+              {
+                id: 'issy',
+                departementId: '01',
+                departement: { regionId: '01' }
+              },
+              {
+                id: 'ivry',
+                departementId: '02',
+                departement: { regionId: '02' }
+              },
+              {
+                id: 'evry',
+                departementId: '02',
+                departement: { regionId: '02' }
+              }
             ]
           },
           {
@@ -76,8 +99,8 @@ const titresEtapesCommunesMemeCommune = [
             ordre: 2,
             date: '1988-03-11',
             communes: [
-              { departementId: 1, departement: { regionId: 1 } },
-              { departementId: 1, departement: { regionId: 1 } }
+              { departementId: '01', departement: { regionId: '01' } },
+              { departementId: '01', departement: { regionId: '01' } }
             ]
           }
         ]
@@ -86,7 +109,7 @@ const titresEtapesCommunesMemeCommune = [
   }
 ]
 
-const titresEtapesAdministrationInexistante = [
+const titresEtapesAdministrationLocalesInexistante = [
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -99,7 +122,7 @@ const titresEtapesAdministrationInexistante = [
             communes: [],
             administrations: [
               {
-                id: 1
+                id: 'xxx'
               }
             ]
           }
@@ -109,7 +132,7 @@ const titresEtapesAdministrationInexistante = [
   }
 ]
 
-const titresEtapesAdministrationExistante = [
+const titresEtapesAdministrationLocalesExistante = [
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -119,10 +142,12 @@ const titresEtapesAdministrationExistante = [
           {
             id: 'h-cxx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
-            communes: [{ departementId: 1, departement: { regionId: 1 } }],
+            communes: [
+              { departementId: '01', departement: { regionId: '01' } }
+            ],
             administrations: [
               {
-                id: 1
+                id: 'deal-01'
               }
             ]
           }
@@ -136,6 +161,7 @@ const titresArm = [
   {
     id: 'titre-id',
     typeId: 'arm',
+    domaineId: 'm',
     demarches: [
       {
         etapes: [
@@ -146,7 +172,11 @@ const titresArm = [
             statutId: 'acc',
             ordre: 2,
             date: '1988-03-11',
-            communes: []
+            communes: [
+              {
+                departementId: '973'
+              }
+            ]
           }
         ]
       }
@@ -158,6 +188,7 @@ const titresAxm = [
   {
     id: 'titre-id',
     typeId: 'axm',
+    domaineId: 'm',
     demarches: [
       {
         etapes: [
@@ -168,7 +199,11 @@ const titresAxm = [
             statutId: 'acc',
             ordre: 2,
             date: '1988-03-11',
-            communes: []
+            communes: [
+              {
+                departementId: '973'
+              }
+            ]
           }
         ]
       }
@@ -181,8 +216,8 @@ export {
   titresEtapesCommunes,
   titresEtapesCommunesVides,
   titresEtapesCommunesMemeCommune,
-  titresEtapesAdministrationInexistante,
-  titresEtapesAdministrationExistante,
+  titresEtapesAdministrationLocalesInexistante,
+  titresEtapesAdministrationLocalesExistante,
   titresArm,
   titresAxm
 }

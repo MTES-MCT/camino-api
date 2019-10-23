@@ -76,9 +76,12 @@ const titrePermissionCheck = (
 }
 
 const titrePermissionAdministrationsCheck = (titre, user) =>
-  titre.administrations &&
-  titre.administrations.length &&
-  permissionsAdministrationsCheck(user, titre.administrations.map(a => a.id))
+  ((titre.administrationsCentrales && titre.administrationsCentrales.length) ||
+    (titre.administrationsLocales && titre.administrationsLocales.length)) &&
+  permissionsAdministrationsCheck(user, [
+    ...titre.administrationsLocales.map(a => a.id),
+    ...titre.administrationsCentrales.map(a => a.id)
+  ])
 
 export {
   titreIsPublicCheck,
