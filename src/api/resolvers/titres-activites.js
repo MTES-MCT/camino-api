@@ -17,6 +17,7 @@ import { titreGet } from '../../database/queries/titres'
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
 import titreActiviteUpdate from '../../business/titre-activite-update'
+import titreActiviteUpdationValidate from '../../business/titre-activite-updation-validate'
 
 const titreActiviteModifier = async ({ activite }, context, info) => {
   const user = await utilisateurGet(context.user.id)
@@ -43,6 +44,12 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
     throw new Error(
       'cette activite a été validée et ne peux plus être modifiée'
     )
+  }
+
+  const validationErrors = titreActiviteUpdationValidate(activiteOld)
+
+  if (validationErrors) {
+    throw new Error(validationErrors)
   }
 
   activite.utilisateurId = context.user.id
