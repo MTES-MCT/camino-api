@@ -1,12 +1,15 @@
 import titreActiviteNumbersCheck from './utils/titre-activite-numbers-check'
 
-const titreActviteUpdationValidate = titreActvite => {
+const titreActiviteUpdationValidate = (
+  titreActviteContenu,
+  activiteTypeSections
+) => {
   const errors = []
-  // 4. les champs number ne peuvent avoir une durée négative
+  // les champs number ne peuvent avoir une durée négative
 
   const errorNumbers = titreActiviteNumbersCheck(
-    titreActvite.contenu,
-    titreActvite.type.sections
+    titreActviteContenu,
+    activiteTypeSections
   )
 
   if (errorNumbers) {
@@ -20,4 +23,4 @@ const titreActviteUpdationValidate = titreActvite => {
   return null
 }
 
-export default titreActviteUpdationValidate
+export default titreActiviteUpdationValidate

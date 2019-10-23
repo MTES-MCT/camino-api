@@ -46,7 +46,10 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
     )
   }
 
-  const validationErrors = titreActiviteUpdationValidate(activiteOld)
+  const validationErrors = titreActiviteUpdationValidate(
+    activite.contenu,
+    activiteOld.type.sections
+  )
 
   if (validationErrors) {
     throw new Error(validationErrors)
