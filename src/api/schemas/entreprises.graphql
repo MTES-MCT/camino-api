@@ -45,22 +45,6 @@ input InputEntreprise {
   email: String
 }
 
-input InputEntrepriseCreation {
-  nom: String!
-  paysId: String
-  legalSiren: String!
-  legalEtranger: String
-  legalForme: String
-  categorie: String
-  adresse: String
-  codePostal: String
-  commune: String
-  cedex: String
-  url: String
-  telephone: String
-  email: String
-}
-
 input InputEtablissements {
   id: ID!
   nom: String

@@ -19,7 +19,7 @@ const entreprisesUpsert = async entreprises =>
     .eager(options.entreprises.eager)
     .upsertGraph(entreprises, options.entreprises.update)
 
-const entrepriseBySiren = async (
+const entrepriseGetBySiren = async (
   siren,
   { eager = options.entreprises.eager } = {}
 ) => {
@@ -27,7 +27,6 @@ const entrepriseBySiren = async (
     .where({ legalSiren: siren })
     .eager(eager)
     .first()
-  console.log(entreprise)
 
   return entreprise
 }
@@ -39,6 +38,6 @@ export {
   entrepriseGet,
   entreprisesGet,
   entreprisesUpsert,
-  entrepriseBySiren,
+  entrepriseGetBySiren,
   entrepriseCreate
 }

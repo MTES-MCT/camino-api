@@ -182,5 +182,5 @@ type Mutation {
   ): TitreActivite
 
   "__*__ Crée une entreprise"
-  entrepriseCreer(entreprise: InputEntrepriseCreation!): Entreprise
+  entrepriseCreer(entreprise: InputEntreprise!): Entreprise
 }
