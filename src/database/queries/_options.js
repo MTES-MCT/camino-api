@@ -51,66 +51,39 @@ const pays = {
   eager: `regions.departements.communes`
 }
 
+const etapesUpdateTrue = [
+  'type',
+  'statut',
+  'titulaires',
+  'titulaires.etablissements',
+  'titulaires.utilisateurs',
+  'titulaires.utilisateurs.permission',
+  'amodiataires',
+  'amodiataires.etablissements',
+  'amodiataires.utilisateurs',
+  'amodiataires.utilisateurs.permission',
+  'administrations',
+  'administrations.domaines',
+  'administrations.type',
+  'administrations.utilisateurs',
+  'administrations.utilisateurs.permission',
+  'substances',
+  'substances.legales',
+  'engagementDevise',
+  'volumeUnite',
+  'points.references.geoSysteme',
+  'communes',
+  'communes.departement',
+  'communes.departement.region',
+  'communes.departement.region.pays'
+]
+
 const etapes = {
   eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
 
   update: {
-    relate: [
-      'type',
-      'type',
-      'statut',
-      'titulaires',
-      'titulaires.etablissements',
-      'titulaires.utilisateurs',
-      'titulaires.utilisateurs.permission',
-      'amodiataires',
-      'amodiataires.etablissements',
-      'amodiataires.utilisateurs',
-      'amodiataires.utilisateurs.permission',
-      'administrations',
-      'administrations.domaines',
-      'administrations.type',
-      'administrations.utilisateurs',
-      'administrations.utilisateurs.permission',
-      'substances',
-      'substances.legales',
-      'engagementDevise',
-      'volumeUnite',
-      'points.references.geoSysteme',
-      'communes',
-      'communes.departement',
-      'communes.departement.region',
-      'communes.departement.region.pays'
-    ],
-    unrelate: [
-      'type',
-      'statut',
-      'titulaires',
-      'titulaires.etablissements',
-      'titulaires.utilisateurs',
-      'titulaires.utilisateurs.permission',
-      'amodiataires',
-      'amodiataires.etablissements',
-      'amodiataires.utilisateurs',
-      'amodiataires.utilisateurs.permission',
-      'administrations',
-      'administrations.domaines',
-      'administrations.type',
-      'administrations.utilisateurs',
-      'administrations.utilisateurs.permission',
-      'substances',
-      'substances.legales',
-      'engagementDevise',
-      'volumeUnite',
-      'points.references.geoSysteme',
-      'communes',
-      'communes.departement',
-      'communes.departement.region',
-      'communes.departement.region.pays'
-    ],
-    noInsert: [],
-    noUpdate: [],
-    noDelete: [],
+    relate: etapesUpdateTrue,
+    unrelate: etapesUpdateTrue,
     insertMissing: true
   }
 }
@@ -123,47 +96,31 @@ const demarchesTypes = {
   eager: `[etapesTypes(orderDesc).etapesStatuts]`
 }
 
+const demarchesUpdateTrue = [
+  'statut',
+  'annulationDemarche',
+  'enfants',
+  'parents',
+  'phase.statut',
+  ...etapesUpdateTrue.map(k => `etapes.${k}`)
+]
+
+const demarchesUpdateFalse = [
+  'type',
+  'type.etapesTypes',
+  'type.etapesTypes.etapesStatuts',
+  'titreType'
+]
+
 const demarches = {
   eager: `[type.${demarchesTypes.eager}, statut, phase.${phases.eager}, titreType, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
 
   update: {
-    relate: [
-      'statut',
-      'annulationDemarche',
-      'enfants',
-      'parents',
-      'phase.statut',
-      ...etapes.update.relate.map(k => `etapes.${k}`)
-    ],
-    unrelate: [
-      'statut',
-      'annulationDemarche',
-      'enfants',
-      'parents',
-      'phase.statut',
-      ...etapes.update.unrelate.map(k => `etapes.${k}`)
-    ],
-    noInsert: [
-      'type',
-      'type.etapesTypes',
-      'type.etapesTypes.etapesStatuts',
-      'titreType',
-      ...etapes.update.noInsert.map(k => `etapes.${k}`)
-    ],
-    noUpdate: [
-      'type',
-      'type.etapesTypes',
-      'type.etapesTypes.etapesStatuts',
-      'titreType',
-      ...etapes.update.noUpdate.map(k => `etapes.${k}`)
-    ],
-    noDelete: [
-      'type',
-      'type.etapesTypes',
-      'type.etapesTypes.etapesStatuts',
-      'titreType',
-      ...etapes.update.noDelete.map(k => `etapes.${k}`)
-    ],
+    relate: demarchesUpdateTrue,
+    unrelate: demarchesUpdateTrue,
+    noInsert: demarchesUpdateFalse,
+    noUpdate: demarchesUpdateFalse,
+    noDelete: demarchesUpdateFalse,
     insertMissing: true
   }
 }
@@ -184,129 +141,72 @@ const domaines = {
   eager: `[types.${types.eager}]`
 }
 
+const titresUpdateTrue = [
+  'type',
+  'statut',
+  'domaine',
+  ...demarchesUpdateTrue.map(k => `demarches.${k}`)
+]
+
+const titresUpdateFalse = [
+  'type',
+  'type.demarchesTypes',
+  'type.demarchesTypes.etapesTypes',
+  'type.demarchesTypes.etapesTypes.etapesStatuts',
+  'domaine.types',
+  'domaine.types.demarchesTypes',
+  'domaine.types.demarchesTypes.etapesTypes',
+  'domaine.types.demarchesTypes.etapesTypes.etapesStatuts',
+  'points',
+  'pays',
+  'pays.departement',
+  'pays.departement.region',
+  'communes',
+  'communes.departement',
+  'communes.departement.region',
+  'communes.departement.region.pays',
+  'substances',
+  'substances.legales',
+  'substances.legales.code',
+  'substances.legales.domaine',
+  'titulaires',
+  'titulaires.etablissements',
+  'titulaires.utilisateurs',
+  'titulaires.utilisateurs.permission',
+  'amodiataires',
+  'amodiataires.etablissements',
+  'amodiataires.utilisateurs',
+  'amodiataires.utilisateurs.permission',
+  'administrations',
+  'administrations.domaines',
+  'administrations.type',
+  'administrations.utilisateurs',
+  'administrations.utilisateurs.permission',
+  'volumeEtape',
+  'engagementEtape',
+  'surfaceEtape',
+  'volumeUnite',
+  'engagementDevise',
+  'activites.type',
+  'activites.statut',
+  'activites.utilisateur',
+  'activites.type.frequence',
+  'activites.type.frequence.trimestres',
+  'activites.type.frequence.trimestres.mois',
+  'activites.type.pays',
+  'activites.type.types',
+  ...demarchesUpdateFalse.map(k => `demarches.${k}`)
+]
+
 const titres = {
   eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points(orderAsc), substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}]`,
 
   update: {
-    relate: [
-      'type',
-      'statut',
-      'domaine',
-      ...demarches.update.relate.map(k => `demarches.${k}`)
-    ],
-    unrelate: [
-      'type',
-      'statut',
-      'domaine',
-      ...demarches.update.unrelate.map(k => `demarches.${k}`)
-    ],
-    noInsert: [
-      'points',
-      'pays',
-      'pays.departement',
-      'pays.departement.region',
-      'communes',
-      'communes.departement',
-      'communes.departement.region',
-      'communes.departement.region.pays',
-      'substances',
-      'substances.legales',
-      'substances.legales.code',
-      'substances.legales.domaine',
-      'titulaires',
-      'titulaires.etablissements',
-      'titulaires.utilisateurs',
-      'titulaires.utilisateurs.permission',
-      'amodiataires',
-      'amodiataires.etablissements',
-      'amodiataires.utilisateurs',
-      'amodiataires.utilisateurs.permission',
-      'administrations',
-      'administrations.domaines',
-      'administrations.type',
-      'administrations.utilisateurs',
-      'administrations.utilisateurs.permission',
-      'volumeEtape',
-      'engagementEtape',
-      'surfaceEtape',
-      'volumeUnite',
-      'engagementDevise',
-      'activites.type',
-      'activites.statut',
-      'activites.utilisateur',
-      'activites.type.frequence',
-      'activites.type.frequence.trimestres',
-      'activites.type.frequence.trimestres.mois',
-      'activites.type.pays',
-      'activites.type.types',
-      ...demarches.update.noInsert.map(k => `demarches.${k}`)
-    ],
-    noUpdate: [
-      'points',
-      'pays',
-      'communes',
-      'substances',
-      'titulaires',
-      'titulaires.etablissements',
-      'titulaires.utilisateurs',
-      'titulaires.utilisateurs.permission',
-      'amodiataires',
-      'amodiataires.etablissements',
-      'amodiataires.utilisateurs',
-      'amodiataires.utilisateurs.permission',
-      'administrations',
-      'administrations.domaines',
-      'administrations.type',
-      'administrations.utilisateurs',
-      'administrations.utilisateurs.permission',
-      'volumeEtape',
-      'engagementEtape',
-      'surfaceEtape',
-      'volumeUnite',
-      'engagementDevise',
-      'activites.type',
-      'activites.statut',
-      'activites.utilisateur',
-      'activites.type.frequence',
-      'activites.type.frequence.trimestres',
-      'activites.type.frequence.trimestres.mois',
-      'activites.type.pays',
-      'activites.type.types',
-      ...demarches.update.noUpdate.map(k => `demarches.${k}`)
-    ],
-    noDelete: [
-      'points',
-      'pays',
-      'communes',
-      'substances',
-      'titulaires',
-      'titulaires.etablissements',
-      'titulaires.utilisateurs',
-      'titulaires.utilisateurs.permission',
-      'amodiataires',
-      'amodiataires.etablissements',
-      'amodiataires.utilisateurs',
-      'amodiataires.utilisateurs.permission',
-      'administrations',
-      'administrations.domaines',
-      'administrations.type',
-      'administrations.utilisateurs',
-      'administrations.utilisateurs.permission',
-      'volumeEtape',
-      'engagementEtape',
-      'surfaceEtape',
-      'volumeUnite',
-      'engagementDevise',
-      'activites.type',
-      'activites.statut',
-      'activites.utilisateur',
-      'activites.type.frequence',
-      'activites.type.frequence.trimestres',
-      'activites.type.frequence.trimestres.mois',
-      'activites.type.pays',
-      'activites.type.types',
-      ...demarches.update.noDelete.map(k => `demarches.${k}`)
-    ],
+    relate: titresUpdateTrue,
+    unrelate: titresUpdateTrue,
+    noInsert: titresUpdateFalse,
+    noUpdate: titresUpdateFalse,
+    noDelete: titresUpdateFalse,
     insertMissing: true
   }
 }
