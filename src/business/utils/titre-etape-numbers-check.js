@@ -3,7 +3,7 @@ const numberProps = ['duree', 'engagement', 'surface', 'volume']
 const titreEtapeNumbersCheck = (titreEtape, sections) => {
   const errors = numberProps.reduce((errors, prop) => {
     if (titreEtape[prop] && titreEtape[prop] < 0) {
-      errors.push(`le champs ${prop} ne peut avoir une valeur négative`)
+      errors.push(`le champs "${prop}" ne peut pas avoir une valeur négative`)
     }
 
     return errors
