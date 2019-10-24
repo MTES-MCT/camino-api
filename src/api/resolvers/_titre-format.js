@@ -194,7 +194,9 @@ const titreDemarcheFormat = (
 
   if (td.titreType.id && td.type && td.type.etapesTypes) {
     td.type.etapesTypes = td.type.etapesTypes.filter(
-      e => e.typeId === td.titreType.id
+      et =>
+        et.typeId === td.titreType.id &&
+        (!et.unique || !td.etapes.find(e => e.typeId === et.id))
     )
   }
 

@@ -47,6 +47,7 @@ exports.up = knex => {
       table.string('id', 3).primary()
       table.string('nom', 128)
       table.boolean('fondamentale')
+      table.boolean('unique')
       table.boolean('acceptationAuto')
       table.string('legalRef')
       table.string('legalLien')
