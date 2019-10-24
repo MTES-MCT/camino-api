@@ -22,8 +22,6 @@ const requestsBuild = (elements, tables) =>
         ({ element: row, parent }) => rowFormat(row, columns, parent, callbacks)
       )
 
-      if (!rows.length) return requests
-
       // construit les requêtes de suppression et d'ajout de rows
       const rowsAppendRequests = rows.map(values => {
         const rows = [
@@ -43,10 +41,17 @@ const requestsBuild = (elements, tables) =>
         decamelize(name)
       )
 
+      // trouve l'id de l'élément à supprimer
+      // si il n'y a pas de ligne (il s'agit d'une table de jointure vidée: entreprise ou administration)
+      // - on prend l'id de l'élément parent (utilisateur)
+      // sinon
+      // - on prend l'id de la première ligne à ajouter
+      const id = !rows.length && parents ? elements[0].id : rows[0][0]
+
       // trouve l'index de la ligne à supprimer
       // (ou des lignes si il s'agit d'une table de jointure)
-      // à partir de l'id de la première ligne à ajouter
-      const rowsIndices = rowsIndicesFind(worksheet, rows[0][0])
+      const rowsIndices = rowsIndicesFind(worksheet, id)
+
       const rowsDeleteRequests = rowsIndices.map((rowIndex, i) => ({
         deleteDimension: {
           range: {

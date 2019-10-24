@@ -225,6 +225,8 @@ const utilisateurSupprimer = async ({ id }, context) => {
   utilisateur.telephoneFixe = null
   utilisateur.telephoneMobile = null
   utilisateur.permissionId = 'defaut'
+  utilisateur.entreprises = []
+  utilisateur.administrations = []
 
   const utilisateurNew = await utilisateurUpdate(utilisateur)
 
