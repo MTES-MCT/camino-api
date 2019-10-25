@@ -42,7 +42,10 @@ const titreDemarcheUpdate = async titreId => {
     titre = await titreGet(titreId, {
       eager: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]'
     })
-    const titresPhasesUpdated = await titresPhasesUpdate([titre])
+    const [
+      titresPhasesUpdated = [],
+      titresPhasesDeleted = []
+    ] = await titresPhasesUpdate([titre])
 
     // 6.
     console.log('date de début, de fin et de demande initiale des titres…')
@@ -98,7 +101,12 @@ const titreDemarcheUpdate = async titreId => {
     console.log(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
     )
-    console.log(`mise à jour: ${titresPhasesUpdated.length} titre(s) (phases)`)
+    console.log(
+      `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
+    )
+    console.log(
+      `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
+    )
     console.log(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
     )
