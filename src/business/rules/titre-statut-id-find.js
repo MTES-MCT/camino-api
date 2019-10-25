@@ -2,6 +2,8 @@ import * as dateFormat from 'dateformat'
 import titreDateFinFind from './titre-date-fin-find'
 
 const titreStatutIdFind = titre => {
+  if (!titre.demarches || !titre.demarches.length) return 'ind'
+
   // s'il y a une seule démarche (octroi)
   if (
     titre.demarches.length === 1 &&

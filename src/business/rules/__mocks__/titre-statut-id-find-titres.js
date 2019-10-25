@@ -1,3 +1,7 @@
+const titreSansDemarche = {
+  id: 'test'
+}
+
 const titreValide = {
   id: 'm-prx-saint-pierre-2014',
   demarches: [
@@ -134,6 +138,7 @@ const titreDemarcheInstruction = {
 }
 
 export {
+  titreSansDemarche,
   titreValide,
   titreEchu,
   titreOctroiInstruction,
