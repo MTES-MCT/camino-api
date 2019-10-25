@@ -217,9 +217,11 @@ const titreDemarcheFormat = (
 
   if (td.titreType.id && td.type && td.type.etapesTypes) {
     td.type.etapesTypes = td.type.etapesTypes.filter(
-      et =>
-        et.typeId === td.titreType.id &&
-        (!et.unique || !td.etapes.find(e => e.typeId === et.id))
+      et => et.typeId === td.titreType.id
+      // TODO: la ligne suivante génère un problème :
+      //       le type d'étape d'une étape pendant son édition n'est plus disponible
+      //       -> gérer l'unicité dans le front (?)
+      // && (!et.unique || !td.etapes.find(e => e.typeId === et.id))
     )
   }
 
