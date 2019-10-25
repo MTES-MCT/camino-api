@@ -1,5 +1,5 @@
 const demarcheEtapesTypesPublication = {
-  arm: ['def', 'sco'],
+  arm: ['def', 'sco', 'aco'],
   axm: ['dex', 'rpu'],
   prx: ['rpu']
 }

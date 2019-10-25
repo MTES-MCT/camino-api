@@ -54,7 +54,7 @@ const titrePropEtapeIdFind = (
               // et que le titre est en modification en instance
               (prop.match('point') && titreStatutId === 'mod') ||
               // sinon, on ne prend en compte que les étapes de décision
-              ['dpu', 'rpu', 'dex', 'dim', 'sco', 'def'].includes(
+              ['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(
                 titreEtape.typeId
               ))
           if (!isEtapeValide) return false

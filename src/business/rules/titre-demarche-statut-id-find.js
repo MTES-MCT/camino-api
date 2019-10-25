@@ -14,6 +14,7 @@ const titreEtapesDecisivesTypes = [
   'aca',
   'def',
   'sco',
+  'aco',
   'apu',
   'rpu',
   'dpu',
@@ -102,10 +103,10 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
       return titreEtapePublicationRecent.statutId
     }
 
-    //  - le type de l’étape est COTAM d'ARM (sco)
+    //  - le type de l’étape est convention ou avenant de convention d'ARM (sco, aco)
     //  - et le statut de l’étape est fait (fai)
     if (
-      titreEtapeRecent.typeId === 'sco' &&
+      ['sco', 'aco'].includes(titreEtapeRecent.typeId) &&
       titreEtapeRecent.statutId === 'fai'
     ) {
       //  - le statut de la démarche est acceptée (acc)

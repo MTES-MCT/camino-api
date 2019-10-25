@@ -32,7 +32,7 @@ const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
   ).find(etape => titreEtapePublicationFilter(etape, titreTypeId))
 
   return etapePublicationFirst
-    ? etapePublicationFirst.statutId === 'acc'
+    ? ['acc', 'fai'].includes(etapePublicationFirst.statutId)
     : false
 }
 
