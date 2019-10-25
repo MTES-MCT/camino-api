@@ -22,7 +22,7 @@ export default class TitresActivites extends Model {
       titreId: { type: 'string' },
       utilisateurId: { type: ['string', 'null'] },
       date: { type: 'string' },
-      dateSaisie: { type: 'string' },
+      dateSaisie: { type: ['string', 'null'] },
       contenu: { type: 'json' },
       activiteTypeId: { type: 'string', maxLength: 3 },
       activiteStatutId: { type: 'string', maxLength: 3 },
