@@ -1,5 +1,6 @@
 import { transaction } from 'objection'
 import Titres from '../models/titres'
+import TitresAdministrationsCentrales from '../models/titres-administrations-centrales'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
 
@@ -232,6 +233,15 @@ const titreUpsert = async (titre, tr) =>
     .eager(options.titres.eager)
     .returning('*')
 
+const titresAdministrationsCentralesCreate = async titresAdministrationsCentrales =>
+  TitresAdministrationsCentrales.query().insert(titresAdministrationsCentrales)
+
+const titreAdministrationCentraleDelete = async (titreId, administrationId) =>
+  TitresAdministrationsCentrales.query()
+    .delete()
+    .where('titreId', titreId)
+    .andWhere('administrationId', administrationId)
+
 const titreIdUpdate = async (titreOldId, titreNew) => {
   const knex = Titres.knex()
 
@@ -251,5 +261,8 @@ export {
   titreUpdate,
   titreCreate,
   titreDelete,
-  titreIdUpdate
+  titresAdministrationsCentralesCreate,
+  titreAdministrationCentraleDelete,
+  titreIdUpdate,
+  titreUpsert
 }

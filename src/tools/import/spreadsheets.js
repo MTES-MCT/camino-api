@@ -34,7 +34,8 @@ const titresTables = [
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
   { name: 'titres_communes' },
-  { name: 'titres_administrations' },
+  { name: 'titres_administrations_centrales' },
+  { name: 'titres_administrations_locales' },
   { name: 'titres_amodiataires' },
   { name: 'titres_incertitudes' }
 ]

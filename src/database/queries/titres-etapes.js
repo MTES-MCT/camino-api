@@ -2,7 +2,7 @@ import { transaction } from 'objection'
 
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
-import TitresAdministrations from '../models/titres-administrations'
+import TitresAdministrationsLocales from '../models/titres-administrations-locales'
 import options from './_options'
 
 const titresEtapesGet = async (
@@ -71,10 +71,10 @@ const titreEtapeCommuneDelete = async (titreEtapeId, communeId) =>
     .andWhere('communeId', communeId)
 
 const titresEtapesAdministrationsCreate = async titresEtapesAdministrations =>
-  TitresAdministrations.query().insert(titresEtapesAdministrations)
+  TitresAdministrationsLocales.query().insert(titresEtapesAdministrations)
 
 const titreEtapeAdministrationDelete = async (titreEtapeId, administrationId) =>
-  TitresAdministrations.query()
+  TitresAdministrationsLocales.query()
     .delete()
     .where('titreEtapeId', titreEtapeId)
     .andWhere('administrationId', administrationId)

@@ -27,7 +27,22 @@ exports.up = (knex, Promise) => {
       table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
     })
-    .createTable('titresAdministrations', table => {
+
+    .createTable('titresAdministrationsCentrales', table => {
+      table.string('titreId', 128).notNullable()
+      table
+        .foreign('titreId')
+        .references('titres.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
+      table
+        .string('administrationId', 64)
+        .references('administrations.id')
+        .notNullable()
+      table.boolean('subsidiaire')
+      table.primary(['titreId', 'administrationId'])
+    })
+    .createTable('titresAdministrationsLocales', table => {
       table.string('titreEtapeId', 128).notNullable()
       table
         .foreign('titreEtapeId')
@@ -38,6 +53,7 @@ exports.up = (knex, Promise) => {
         .string('administrationId', 64)
         .references('administrations.id')
         .notNullable()
+      table.boolean('subsidiaire')
       table.boolean('coordinateur')
       table.primary(['titreEtapeId', 'administrationId'])
     })
@@ -45,7 +61,8 @@ exports.up = (knex, Promise) => {
 
 exports.down = (knex, Promise) => {
   return knex.schema
-    .dropTable('titresAdministrations')
+    .dropTable('titresAdministrationsLocales')
+    .dropTable('titresAdministrationsCentrales')
     .dropTable('titresAmodiataires')
     .dropTable('titresTitulaires')
 }

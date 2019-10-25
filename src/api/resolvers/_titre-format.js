@@ -3,7 +3,10 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 
-import { permissionsAdministrationsCheck } from './_permissions-check'
+import {
+  permissionsCheck,
+  permissionsAdministrationsCheck
+} from './_permissions-check'
 
 import { titreIsPublicCheck, titrePermissionCheck } from './_titre'
 
@@ -118,8 +121,28 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     )
   }
 
-  if (t.administrations && t.administrations.length && fields.administrations) {
-    t.administrations.sort((a, b) => a.type.ordre - b.type.ordre)
+  const hasAdministrations =
+    (t.administrationsCentrales && t.administrationsCentrales.length) ||
+    (t.administrationsLocales && t.administrationsLocales.length)
+  if (hasAdministrations && fields.administrations) {
+    // fusionne administrations centrales et locales
+    let administrations = [
+      ...(t.administrationsCentrales || []),
+      ...(t.administrationsLocales || [])
+    ]
+
+    // si l'utilisateur n'a pas de droits de visualisation suffisants
+    // alors filtre les administrations `subsidiaire`
+    administrations = !permissionsCheck(user, ['super', 'admin', 'editeur'])
+      ? administrations.filter(a => !a.subsidiaire)
+      : administrations
+
+    t.administrations = administrations.sort(
+      (a, b) => a.type.ordre - b.type.ordre
+    )
+
+    delete t.administrationsCentrales
+    delete t.administrationsLocales
   }
 
   return t

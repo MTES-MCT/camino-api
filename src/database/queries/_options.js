@@ -79,7 +79,20 @@ const etapesUpdateTrue = [
 ]
 
 const etapes = {
-  eager: `[points(orderAsc).${points.eager}, type, statut, documents, substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, engagementDevise, volumeUnite, communes.${communes.eager}, incertitudes]`,
+  eager: `[
+    points(orderAsc).${points.eager},
+    type,
+    statut,
+    documents,
+    substances(orderAsc).${substances.eager},
+    titulaires.${entreprises.eager},
+    amodiataires.${entreprises.eager},
+    administrations.${administrations.eager},
+    engagementDevise,
+    volumeUnite,
+    communes.${communes.eager},
+    incertitudes
+  ]`,
 
   update: {
     relate: etapesUpdateTrue,
@@ -113,7 +126,15 @@ const demarchesUpdateFalse = [
 ]
 
 const demarches = {
-  eager: `[type.${demarchesTypes.eager}, statut, phase.${phases.eager}, titreType, etapes(orderDesc).${etapes.eager}, parents.^1, enfants.^1]`,
+  eager: `[
+     type.${demarchesTypes.eager},
+     statut,
+     phase.${phases.eager},
+     titreType,
+     etapes(orderDesc).${etapes.eager},
+     parents.^1,
+     enfants.^1
+  ]`,
 
   update: {
     relate: demarchesUpdateTrue,
@@ -177,11 +198,16 @@ const titresUpdateFalse = [
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
   'amodiataires.utilisateurs.permission',
-  'administrations',
-  'administrations.domaines',
-  'administrations.type',
-  'administrations.utilisateurs',
-  'administrations.utilisateurs.permission',
+  'administrationsCentrales',
+  'administrationsCentrales.domaines',
+  'administrationsCentrales.type',
+  'administrationsCentrales.utilisateurs',
+  'administrationsCentrales.utilisateurs.permission',
+  'administrationsLocales',
+  'administrationsLocales.domaines',
+  'administrationsLocales.type',
+  'administrationsLocales.utilisateurs',
+  'administrationsLocales.utilisateurs.permission',
   'volumeEtape',
   'engagementEtape',
   'surfaceEtape',
@@ -199,7 +225,25 @@ const titresUpdateFalse = [
 ]
 
 const titres = {
-  eager: `[type.${types.eager}, domaine.${domaines.eager}, statut, points(orderAsc), substances(orderAsc).${substances.eager}, titulaires.${entreprises.eager}, amodiataires.${entreprises.eager}, administrations.${administrations.eager}, demarches(orderDesc).${demarches.eager}, surfaceEtape, volumeEtape, volumeUnite, engagementEtape, engagementDevise, communes.${communes.eager}, activites(orderDesc).${titresActivites.eager}]`,
+  eager: `[
+    type.${types.eager},
+    domaine.${domaines.eager},
+    statut,
+    points(orderAsc),
+    substances(orderAsc).${substances.eager},
+    titulaires.${entreprises.eager},
+    amodiataires.${entreprises.eager},
+    administrationsCentrales.${administrations.eager},
+    administrationsLocales.${administrations.eager},
+    demarches(orderDesc).${demarches.eager},
+    surfaceEtape,
+    volumeEtape,
+    volumeUnite,
+    engagementEtape,
+    engagementDevise,
+    communes.${communes.eager},
+    activites(orderDesc).${titresActivites.eager}
+  ]`,
 
   update: {
     relate: titresUpdateTrue,

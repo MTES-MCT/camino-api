@@ -214,16 +214,27 @@ const tables = [
   },
   {
     id: 12,
-    name: 'titresAdministrations',
+    name: 'titresAdministrationsCentrales',
+    columns: [
+      { key: 'parent.id', value: 'titreId' },
+      { key: 'id', value: 'administrationId' },
+      'subsidiaire'
+    ],
+    parents: ['administrationsCentrales']
+  },
+  {
+    id: 13,
+    name: 'titresAdministrationsLocales',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
       { key: 'id', value: 'administrationId' },
+      'subsidiaire',
       'coordinateur'
     ],
     parents: ['demarches', 'etapes', 'administrations']
   },
   {
-    id: 13,
+    id: 14,
     name: 'titresUtilisateurs',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -232,7 +243,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'utilisateurs']
   },
   {
-    id: 14,
+    id: 15,
     name: 'titresCommunes',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -241,7 +252,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'communes']
   },
   {
-    id: 15,
+    id: 16,
     name: 'titresIncertitudes',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
