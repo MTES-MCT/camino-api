@@ -19,48 +19,87 @@ const typesAdministrationsLocalesDecideurExclusif = {
   arm: ['ope-onf-973-01']
 }
 
-const titreEtapeAdministrationsCreatedBuild = (
-  titreEtape,
-  titreEtapeAdministrations
+const titreEtapeAdministrationsLocalesCreatedBuild = (
+  titreEtapeAdministrationsLocalesOld,
+  titreEtapeAdministrationsLocales
 ) =>
-  titreEtapeAdministrations.reduce((queries, administration) => {
-    if (
-      !titreEtape.administrations ||
-      !titreEtape.administrations.find(
-        administrationOld =>
-          administrationOld.id === administration.administrationId
-      )
-    ) {
-      queries.push({
-        titreEtapeId: titreEtape.id,
-        ...administration
-      })
-    }
+  titreEtapeAdministrationsLocales.reduce(
+    (queries, titreEtapeAdministrationCentrale) => {
+      if (
+        !titreEtapeAdministrationsLocalesOld ||
+        !titreEtapeAdministrationsLocalesOld.find(
+          ({ id: idOld }) =>
+            idOld === titreEtapeAdministrationCentrale.administrationId
+        )
+      ) {
+        queries.push(titreEtapeAdministrationCentrale)
+      }
 
-    return queries
-  }, [])
+      return queries
+    },
+    []
+  )
 
-const titreEtapeAdministrationsDeleteBuild = (
-  titreEtape,
-  titreEtapeAdministrations
+const titreEtapeAdministrationsLocalesDeleteBuild = (
+  titreEtapeAdministrationsLocalesOld,
+  titreEtapeAdministrationsLocales,
+  titreEtapeId
 ) =>
-  titreEtape.administrations
-    ? titreEtape.administrations.reduce((queries, administrationOld) => {
+  titreEtapeAdministrationsLocalesOld
+    ? titreEtapeAdministrationsLocalesOld.reduce((queries, { id: idOld }) => {
         if (
-          !titreEtapeAdministrations.find(
-            administration =>
-              administration.administrationId === administrationOld.id
+          !titreEtapeAdministrationsLocales.find(
+            ({ administrationId: idNew }) => idNew === idOld
           )
         ) {
           queries.push({
-            titreEtapeId: titreEtape.id,
-            administrationId: administrationOld.id
+            titreEtapeId,
+            administrationId: idOld
           })
         }
 
         return queries
       }, [])
     : []
+
+const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = titresEtapesAdministrationsLocales =>
+  Object.values(titresEtapesAdministrationsLocales).reduce(
+    (
+      {
+        titresEtapesAdministrationsLocalesToCreate,
+        titresEtapesAdministrationsLocalesToDelete
+      },
+      {
+        titreEtapeAdministrationsLocalesOld,
+        titreEtapeAdministrationsLocales,
+        titreId
+      }
+    ) => {
+      titresEtapesAdministrationsLocalesToCreate.push(
+        ...titreEtapeAdministrationsLocalesCreatedBuild(
+          titreEtapeAdministrationsLocalesOld,
+          titreEtapeAdministrationsLocales
+        )
+      )
+
+      titresEtapesAdministrationsLocalesToDelete.push(
+        ...titreEtapeAdministrationsLocalesDeleteBuild(
+          titreEtapeAdministrationsLocalesOld,
+          titreEtapeAdministrationsLocales,
+          titreId
+        )
+      )
+
+      return {
+        titresEtapesAdministrationsLocalesToCreate,
+        titresEtapesAdministrationsLocalesToDelete
+      }
+    },
+    {
+      titresEtapesAdministrationsLocalesToCreate: [],
+      titresEtapesAdministrationsLocalesToDelete: []
+    }
+  )
 
 // calcule tous les départements et les régions d'une étape
 const titreEtapeAdministrationsRegionsAndDepartementsBuild = ({ communes }) =>
@@ -87,6 +126,8 @@ const titreEtapeAdministrationsLocalesBuild = (
   titreEtape,
   administrations
 ) => {
+  if (!titreEtape.communes || !titreEtape.communes.length) return []
+
   const {
     titreDepartementsIds,
     titreRegionsIds
@@ -120,6 +161,7 @@ const titreEtapeAdministrationsLocalesBuild = (
       : false
 
     const titreEtapeAdministration = {
+      titreEtapeId: titreEtape.id,
       administrationId: administration.id,
       subsidiaire
     }
@@ -130,119 +172,73 @@ const titreEtapeAdministrationsLocalesBuild = (
   }, [])
 }
 
-// retourne un tableau d'ids d'administrations
-const titreEtapeAdministrationsBuild = (titre, titreEtape, administrations) => {
-  let titreEtapeAdministrationsLocales = new Map()
-
-  if (titreEtape.communes && titreEtape.communes.length) {
-    titreEtapeAdministrationsLocales = titreEtapeAdministrationsLocalesBuild(
-      titre,
-      titreEtape,
-      administrations
-    )
-  }
-
-  return [...titreEtapeAdministrationsLocales.values()]
-}
-
-const titresEtapesAdministrationsToCreateAndDeleteBuild = titresEtapesAdministrations =>
-  Object.values(titresEtapesAdministrations).reduce(
-    (
-      {
-        titresEtapesAdministrationsToCreate,
-        titresEtapesAdministrationsToDelete
-      },
-      { titreEtape, titreEtapeAdministrations }
-    ) => {
-      titresEtapesAdministrationsToCreate.push(
-        ...titreEtapeAdministrationsCreatedBuild(
-          titreEtape,
-          titreEtapeAdministrations
-        )
-      )
-
-      titresEtapesAdministrationsToDelete.push(
-        ...titreEtapeAdministrationsDeleteBuild(
-          titreEtape,
-          titreEtapeAdministrations
-        )
-      )
-
-      return {
-        titresEtapesAdministrationsToCreate,
-        titresEtapesAdministrationsToDelete
-      }
-    },
-    {
-      titresEtapesAdministrationsToCreate: [],
-      titresEtapesAdministrationsToDelete: []
-    }
-  )
-
-const titresEtapesAdministrationsBuild = (titres, administrations) =>
+const titresEtapesAdministrationsLocalesBuild = (titres, administrations) =>
   titres.reduce(
-    (titresEtapesAdministrations, titre) =>
+    (titresEtapesAdministrationsLocales, titre) =>
       titre.demarches.reduce(
-        (titresEtapesAdministrations, titreDemarche) =>
+        (titresEtapesAdministrationsLocales, titreDemarche) =>
           titreDemarche.etapes.reduce(
-            (titresEtapesAdministrations, titreEtape) => {
-              const titreEtapeAdministrations = titreEtapeAdministrationsBuild(
+            (titresEtapesAdministrationsLocales, titreEtape) => {
+              const titreEtapeAdministrationsLocales = titreEtapeAdministrationsLocalesBuild(
                 titre,
                 titreEtape,
                 administrations
               )
 
-              titresEtapesAdministrations[titreEtape.id] = {
-                titreEtape,
-                titreEtapeAdministrations
-              }
+              titresEtapesAdministrationsLocales.push({
+                titreEtapeAdministrationsLocalesOld: titreEtape.administrations,
+                titreEtapeAdministrationsLocales,
+                titreEtapeId: titreEtape.id
+              })
 
-              return titresEtapesAdministrations
+              return titresEtapesAdministrationsLocales
             },
-            titresEtapesAdministrations
+            titresEtapesAdministrationsLocales
           ),
-        titresEtapesAdministrations
+        titresEtapesAdministrationsLocales
       ),
-    {}
+    []
   )
 
-const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
+const titresEtapesAdministrationsLocalesUpdate = async (
+  titres,
+  administrations
+) => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
-  // retourne un dictionnaire { [titreEtapeId]: { titreEtape, titreEtapeAdministrations } }
-  const titresEtapesAdministrations = titresEtapesAdministrationsBuild(
+  const titresEtapesAdministrationsLocales = titresEtapesAdministrationsLocalesBuild(
     titres,
     administrations
   )
 
   const {
-    titresEtapesAdministrationsToCreate,
-    titresEtapesAdministrationsToDelete
-  } = titresEtapesAdministrationsToCreateAndDeleteBuild(
-    titresEtapesAdministrations
+    titresEtapesAdministrationsLocalesToCreate,
+    titresEtapesAdministrationsLocalesToDelete
+  } = titresEtapesAdministrationsLocalesToCreateAndDeleteBuild(
+    titresEtapesAdministrationsLocales
   )
 
-  let titresEtapesAdministrationsCreated = []
-  const titresEtapesAdministrationsDeleted = []
+  let titresEtapesAdministrationsLocalesCreated = []
+  const titresEtapesAdministrationsLocalesDeleted = []
 
-  if (titresEtapesAdministrationsToCreate.length) {
-    titresEtapesAdministrationsCreated = await titresEtapesAdministrationsCreate(
-      titresEtapesAdministrationsToCreate
+  if (titresEtapesAdministrationsLocalesToCreate.length) {
+    titresEtapesAdministrationsLocalesCreated = await titresEtapesAdministrationsCreate(
+      titresEtapesAdministrationsLocalesToCreate
     )
 
     console.log(
-      `mise à jour: étape administrations ${titresEtapesAdministrationsCreated
+      `mise à jour: étape administrations ${titresEtapesAdministrationsLocalesCreated
         .map(tea => JSON.stringify(tea))
         .join(', ')}`
     )
   }
 
-  if (titresEtapesAdministrationsToDelete.length) {
+  if (titresEtapesAdministrationsLocalesToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresEtapesAdministrationsToDelete.reduce(
+    titresEtapesAdministrationsLocalesToDelete.reduce(
       (
-        titresEtapesAdministrationsDeleted,
+        titresEtapesAdministrationsLocalesDeleted,
         { titreEtapeId, administrationId }
       ) => {
         queue.add(async () => {
@@ -252,21 +248,21 @@ const titresEtapesAdministrationsUpdate = async (titres, administrations) => {
             `suppression: étape ${titreEtapeId}, administration ${administrationId}`
           )
 
-          titresEtapesAdministrationsDeleted.push(titreEtapeId)
+          titresEtapesAdministrationsLocalesDeleted.push(titreEtapeId)
         })
 
-        return titresEtapesAdministrationsDeleted
+        return titresEtapesAdministrationsLocalesDeleted
       },
-      titresEtapesAdministrationsDeleted
+      titresEtapesAdministrationsLocalesDeleted
     )
 
     await queue.onIdle()
   }
 
   return [
-    titresEtapesAdministrationsCreated,
-    titresEtapesAdministrationsDeleted
+    titresEtapesAdministrationsLocalesCreated,
+    titresEtapesAdministrationsLocalesDeleted
   ]
 }
 
-export default titresEtapesAdministrationsUpdate
+export default titresEtapesAdministrationsLocalesUpdate

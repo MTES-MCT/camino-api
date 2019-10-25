@@ -16,41 +16,41 @@ const administrationsCentralesTypesExceptionsLink = {
 const typesAdministrationsCentralesSubsidiaire = ['axm', 'arm']
 
 const titreAdministrationsCentralesCreatedBuild = (
-  titre,
+  titreAdministrationsCentralesOld,
   titreAdministrationsCentrales
 ) =>
-  titreAdministrationsCentrales.reduce((queries, administration) => {
-    if (
-      !titre.administrationsCentrales ||
-      !titre.administrationsCentrales.find(
-        administrationOld =>
-          administrationOld.id === administration.administrationId
-      )
-    ) {
-      queries.push({
-        titreId: titre.id,
-        ...administration
-      })
-    }
+  titreAdministrationsCentrales.reduce(
+    (queries, titreAdministrationCentrale) => {
+      if (
+        !titreAdministrationsCentralesOld ||
+        !titreAdministrationsCentralesOld.find(
+          ({ id: idOld }) =>
+            idOld === titreAdministrationCentrale.administrationId
+        )
+      ) {
+        queries.push(titreAdministrationCentrale)
+      }
 
-    return queries
-  }, [])
+      return queries
+    },
+    []
+  )
 
 const titreAdministrationsCentralesDeleteBuild = (
-  titre,
-  titreAdministrationsCentrales
+  titreAdministrationsCentralesOld,
+  titreAdministrationsCentrales,
+  titreId
 ) =>
-  titre.administrationsCentrales
-    ? titre.administrationsCentrales.reduce((queries, administrationOld) => {
+  titreAdministrationsCentralesOld
+    ? titreAdministrationsCentralesOld.reduce((queries, { id: idOld }) => {
         if (
           !titreAdministrationsCentrales.find(
-            administration =>
-              administration.administrationId === administrationOld.id
+            ({ administrationId: idNew }) => idNew === idOld
           )
         ) {
           queries.push({
-            titreId: titre.id,
-            administrationId: administrationOld.id
+            titreId,
+            administrationId: idOld
           })
         }
 
@@ -58,8 +58,47 @@ const titreAdministrationsCentralesDeleteBuild = (
       }, [])
     : []
 
+const titresAdministrationsCentralesToCreateAndDeleteBuild = titresAdministrationsCentrales =>
+  Object.values(titresAdministrationsCentrales).reduce(
+    (
+      {
+        titresAdministrationsCentralesToCreate,
+        titresAdministrationsCentralesToDelete
+      },
+      {
+        titreAdministrationsCentralesOld,
+        titreAdministrationsCentrales,
+        titreId
+      }
+    ) => {
+      titresAdministrationsCentralesToCreate.push(
+        ...titreAdministrationsCentralesCreatedBuild(
+          titreAdministrationsCentralesOld,
+          titreAdministrationsCentrales
+        )
+      )
+
+      titresAdministrationsCentralesToDelete.push(
+        ...titreAdministrationsCentralesDeleteBuild(
+          titreAdministrationsCentralesOld,
+          titreAdministrationsCentrales,
+          titreId
+        )
+      )
+
+      return {
+        titresAdministrationsCentralesToCreate,
+        titresAdministrationsCentralesToDelete
+      }
+    },
+    {
+      titresAdministrationsCentralesToCreate: [],
+      titresAdministrationsCentralesToDelete: []
+    }
+  )
+
 const titreAdministrationsCentralesBuild = (
-  { domaineId, typeId },
+  { id: titreId, domaineId, typeId },
   administrations
 ) =>
   administrations.reduce((titreAdministrationsCentrales, administration) => {
@@ -86,6 +125,7 @@ const titreAdministrationsCentralesBuild = (
       !!administrationsCentraleExceptionLink
 
     const titreAdministrationCentrale = {
+      titreId,
       administrationId: administration.id,
       subsidiaire
     }
@@ -95,40 +135,6 @@ const titreAdministrationsCentralesBuild = (
     return titreAdministrationsCentrales
   }, [])
 
-const titresAdministrationsCentralesToCreateAndDeleteBuild = titresAdministrationsCentrales =>
-  Object.values(titresAdministrationsCentrales).reduce(
-    (
-      {
-        titresAdministrationsCentralesToCreate,
-        titresAdministrationsCentralesToDelete
-      },
-      { titre, titreAdministrationsCentrales }
-    ) => {
-      titresAdministrationsCentralesToCreate.push(
-        ...titreAdministrationsCentralesCreatedBuild(
-          titre,
-          titreAdministrationsCentrales
-        )
-      )
-
-      titresAdministrationsCentralesToDelete.push(
-        ...titreAdministrationsCentralesDeleteBuild(
-          titre,
-          titreAdministrationsCentrales
-        )
-      )
-
-      return {
-        titresAdministrationsCentralesToCreate,
-        titresAdministrationsCentralesToDelete
-      }
-    },
-    {
-      titresAdministrationsCentralesToCreate: [],
-      titresAdministrationsCentralesToDelete: []
-    }
-  )
-
 const titresAdministrationsCentralesBuild = (titres, administrations) =>
   titres.reduce((titresAdministrationsCentrales, titre) => {
     const titreAdministrationsCentrales = titreAdministrationsCentralesBuild(
@@ -136,13 +142,14 @@ const titresAdministrationsCentralesBuild = (titres, administrations) =>
       administrations
     )
 
-    titresAdministrationsCentrales[titre.id] = {
-      titre,
-      titreAdministrationsCentrales
-    }
+    titresAdministrationsCentrales.push({
+      titreAdministrationsCentralesOld: titre.administrationsCentrales,
+      titreAdministrationsCentrales,
+      titreId: titre.id
+    })
 
     return titresAdministrationsCentrales
-  }, {})
+  }, [])
 
 const titresAdministrationsCentralesUpdate = async (
   titres,
@@ -150,7 +157,6 @@ const titresAdministrationsCentralesUpdate = async (
 ) => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
-  // retourne un dictionnaire { [titreId]: { titre, titreAdministrationsCentrales } }
   const titresAdministrationsCentrales = titresAdministrationsCentralesBuild(
     titres,
     administrations
