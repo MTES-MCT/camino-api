@@ -2,6 +2,15 @@ const titreSansDemarche = {
   id: 'test'
 }
 
+const titreDemarcheIndefini = {
+  id: 'test',
+  demarches: [
+    {
+      statutId: 'ind'
+    }
+  ]
+}
+
 const titreValide = {
   id: 'm-prx-saint-pierre-2014',
   demarches: [
@@ -127,10 +136,18 @@ const titreDemarcheInstruction = {
   id: 'm-prx-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
+      id: 'm-prx-saint-pierre-2014-mut01',
       titreId: 'm-prx-saint-pierre-2014',
       typeId: 'mut',
       statutId: 'ins',
+      ordre: 1,
+      annulationTitreDemarcheId: null
+    },
+    {
+      id: 'm-prx-saint-pierre-2014-oct01',
+      titreId: 'm-prx-saint-pierre-2014',
+      typeId: 'oct',
+      statutId: 'acc',
       ordre: 1,
       annulationTitreDemarcheId: null
     }
@@ -139,6 +156,7 @@ const titreDemarcheInstruction = {
 
 export {
   titreSansDemarche,
+  titreDemarcheIndefini,
   titreValide,
   titreEchu,
   titreOctroiInstruction,

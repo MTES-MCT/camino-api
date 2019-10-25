@@ -4,6 +4,10 @@ import titreDateFinFind from './titre-date-fin-find'
 const titreStatutIdFind = titre => {
   if (!titre.demarches || !titre.demarches.length) return 'ind'
 
+  // si toutes les démarches du titre ont le statut `indéfini`
+  // alors le titre a également le statut `indéfini`
+  if (titre.demarches.every(d => d.statutId === 'ind')) return 'ind'
+
   // s'il y a une seule démarche (octroi)
   if (
     titre.demarches.length === 1 &&

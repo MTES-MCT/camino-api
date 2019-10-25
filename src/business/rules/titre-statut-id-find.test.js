@@ -1,6 +1,7 @@
 import titreStatutIdFind from './titre-statut-id-find'
 import {
   titreSansDemarche,
+  titreDemarcheIndefini,
   titreValide,
   titreEchu,
   titreOctroiInstruction,
@@ -14,6 +15,10 @@ import {
 describe("statut d'un titre", () => {
   test("le statut d'un titre sans démarche est “ind”", () => {
     expect(titreStatutIdFind(titreSansDemarche)).toEqual('ind')
+  })
+
+  test("le statut d'un titre avec des démarches dont le statut est “ind” est également “ind”", () => {
+    expect(titreStatutIdFind(titreDemarcheIndefini)).toEqual('ind')
   })
 
   test("le statut d'un titre dont la date de fin est dans le futur est “val”", () => {
