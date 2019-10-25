@@ -106,7 +106,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
 
     // 9.
     console.log('administrations centrales associées aux titres…')
-    titre = await titreGet(titreId, { eager: null })
+    titre = await titreGet(titreId, { eager: 'administrationsCentrales' })
     let administrations = await administrationsGet()
     const [
       titresAdministrationsCentralesCreated = [],
