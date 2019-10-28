@@ -39,7 +39,7 @@ input InputDocumentCreation {
 
   typeId: ID!
 
-  nom: String!
+  nom: String
 
   url: String
 
@@ -65,7 +65,7 @@ input InputDocumentModification {
 
   typeId: ID!
 
-  nom: String!
+  nom: String
 
   url: String
 

@@ -6,7 +6,7 @@ export default class TitresDocuments extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'typeId', 'titreEtapeId', 'nom'],
+    required: ['id', 'typeId', 'titreEtapeId'],
 
     properties: {
       id: { type: 'string' },
