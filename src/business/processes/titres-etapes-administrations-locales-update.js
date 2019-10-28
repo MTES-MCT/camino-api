@@ -5,20 +5,6 @@ import {
   titreEtapeAdministrationDelete
 } from '../../database/queries/titres-etapes'
 
-// liste des types de titres pour lesquels les administrations locales ne sont pas subsidiaires
-// i.e. : Les administrations locales ne seront pas subsidiaires sur les types de titres listés
-const administrationsLocalesTypesExceptionsSubsidiaire = {
-  'ope-onf-973-01': ['arm']
-}
-
-// liste des types de titres pour lesquels uniquement les administrations locales listées sont décideurs
-// i.e. : Seules ces administrations locales ne seront pas subsidiaires
-//        et toutes les autres administrations locales seront subsidiaires.
-//        Les administrations locales des types de titres non listées ne seront pas subsidiaires.
-const typesAdministrationsLocalesDecideurExclusif = {
-  arm: ['ope-onf-973-01']
-}
-
 const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocalesOld,
   titreEtapeAdministrationsLocales
@@ -121,20 +107,13 @@ const titreEtapeAdministrationsRegionsAndDepartementsBuild = ({ communes }) =>
     { titreRegionsIds: new Set(), titreDepartementsIds: new Set() }
   )
 
-const titreEtapeAdministrationsLocalesBuild = (
-  { typeId },
-  titreEtape,
-  administrations
-) => {
+const titreEtapeAdministrationsLocalesBuild = (titreEtape, administrations) => {
   if (!titreEtape.communes || !titreEtape.communes.length) return []
 
   const {
     titreDepartementsIds,
     titreRegionsIds
   } = titreEtapeAdministrationsRegionsAndDepartementsBuild(titreEtape)
-
-  const administrationsLocalesDecideursExclusif =
-    typesAdministrationsLocalesDecideurExclusif[typeId]
 
   // calcule toutes les administrations qui couvrent ces départements et régions
   return administrations.reduce((titreEtapeAdministrations, administration) => {
@@ -146,24 +125,9 @@ const titreEtapeAdministrationsLocalesBuild = (
     // alors l'administration n'est pas rattachée à l'étape
     if (!isAdministrationLocale) return titreEtapeAdministrations
 
-    // s'il y a une liste de décideurs locaux exclusifs pour ce type de titre
-    const subsidiaire = Array.isArray(administrationsLocalesDecideursExclusif)
-      ? // vérifie que l'administration locale n'est pas dans la liste
-        !administrationsLocalesDecideursExclusif.includes(administration.id)
-      : // s'il y a une liste de titres uniquement pour lesquels l'administration n'est pas subsidiaire
-      Array.isArray(
-          administrationsLocalesTypesExceptionsSubsidiaire[administration.id]
-        )
-      ? // vérifie si l'administration locale n'est pas dans la liste
-        !administrationsLocalesTypesExceptionsSubsidiaire[
-          administration.id
-        ].includes(typeId)
-      : false
-
     const titreEtapeAdministration = {
       titreEtapeId: titreEtape.id,
-      administrationId: administration.id,
-      subsidiaire
+      administrationId: administration.id
     }
 
     titreEtapeAdministrations.push(titreEtapeAdministration)
@@ -180,7 +144,6 @@ const titresEtapesAdministrationsLocalesBuild = (titres, administrations) =>
           titreDemarche.etapes.reduce(
             (titresEtapesAdministrationsLocales, titreEtape) => {
               const titreEtapeAdministrationsLocales = titreEtapeAdministrationsLocalesBuild(
-                titre,
                 titreEtape,
                 administrations
               )
