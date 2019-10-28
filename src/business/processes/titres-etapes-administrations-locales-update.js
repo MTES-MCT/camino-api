@@ -5,6 +5,13 @@ import {
   titreEtapeAdministrationDelete
 } from '../../database/queries/titres-etapes'
 
+// administrations subsidiaires sur certains types de titres
+// (ces administrations seront subsidiaires pour ces types de titres)
+const administrationsTypesSubsidiaires = {
+  'dea-guyane-01': ['arm'],
+  'prefecture-97302-01': ['arm']
+}
+
 const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocalesOld,
   titreEtapeAdministrationsLocales
@@ -26,7 +33,7 @@ const titreEtapeAdministrationsLocalesCreatedBuild = (
     []
   )
 
-const titreEtapeAdministrationsLocalesDeleteBuild = (
+const titreEtapeAdministrationsLocalesToDeleteBuild = (
   titreEtapeAdministrationsLocalesOld,
   titreEtapeAdministrationsLocales,
   titreEtapeId
@@ -58,7 +65,7 @@ const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = titresEtapesAdm
       {
         titreEtapeAdministrationsLocalesOld,
         titreEtapeAdministrationsLocales,
-        titreId
+        titreEtapeId
       }
     ) => {
       titresEtapesAdministrationsLocalesToCreate.push(
@@ -69,10 +76,10 @@ const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = titresEtapesAdm
       )
 
       titresEtapesAdministrationsLocalesToDelete.push(
-        ...titreEtapeAdministrationsLocalesDeleteBuild(
+        ...titreEtapeAdministrationsLocalesToDeleteBuild(
           titreEtapeAdministrationsLocalesOld,
           titreEtapeAdministrationsLocales,
-          titreId
+          titreEtapeId
         )
       )
 
@@ -107,7 +114,11 @@ const titreEtapeAdministrationsRegionsAndDepartementsBuild = ({ communes }) =>
     { titreRegionsIds: new Set(), titreDepartementsIds: new Set() }
   )
 
-const titreEtapeAdministrationsLocalesBuild = (titreEtape, administrations) => {
+const titreEtapeAdministrationsLocalesBuild = (
+  titreTypeId,
+  titreEtape,
+  administrations
+) => {
   if (!titreEtape.communes || !titreEtape.communes.length) return []
 
   const {
@@ -130,6 +141,14 @@ const titreEtapeAdministrationsLocalesBuild = (titreEtape, administrations) => {
       administrationId: administration.id
     }
 
+    const subsidiaire =
+      administrationsTypesSubsidiaires[administration.id] &&
+      administrationsTypesSubsidiaires[administration.id].includes(titreTypeId)
+
+    if (subsidiaire) {
+      titreEtapeAdministration.subsidiaire = subsidiaire
+    }
+
     titreEtapeAdministrations.push(titreEtapeAdministration)
 
     return titreEtapeAdministrations
@@ -144,6 +163,7 @@ const titresEtapesAdministrationsLocalesBuild = (titres, administrations) =>
           titreDemarche.etapes.reduce(
             (titresEtapesAdministrationsLocales, titreEtape) => {
               const titreEtapeAdministrationsLocales = titreEtapeAdministrationsLocalesBuild(
+                titre.typeId,
                 titreEtape,
                 administrations
               )

@@ -46,7 +46,7 @@ describe("administrations d'une étape", () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("ajoute uniquement l'ONF comme décideur à un titre de type ARM", async () => {
+  test("ajoute l'ONF comme gestionnaire à un titre de type ARM", async () => {
     const [
       titresAdministrationCentralesCreated,
       titresAdministrationCentralesDeleted
@@ -60,19 +60,17 @@ describe("administrations d'une étape", () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("n'ajoute pas d'administration centrale en décideur à un titre de type AXM", async () => {
+  test("n'ajoute pas l'ONF comme gestionnaire à un titre de type AXM", async () => {
     const [
       titresAdministrationCentralesCreated,
       titresAdministrationCentralesDeleted
     ] = await titresAdministrationCentralesUpdate(titresAxm, administrations)
 
-    expect(titresAdministrationCentralesCreated.length).toEqual(1)
     expect(
       titresAdministrationCentralesCreated.find(
-        a => a.administrationId === 'dgaln'
-      ).subsidiaire
-    ).toBeTruthy()
-
+        a => a.administrationId === 'onf'
+      )
+    ).toBeFalsy()
     expect(titresAdministrationCentralesDeleted.length).toEqual(0)
 
     expect(titre.titresAdministrationsCentralesCreate).toHaveBeenCalled()

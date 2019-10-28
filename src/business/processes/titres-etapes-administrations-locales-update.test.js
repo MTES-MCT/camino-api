@@ -9,8 +9,7 @@ import {
   titresEtapesCommunesMemeCommune,
   titresEtapesAdministrationLocalesInexistante,
   titresEtapesAdministrationLocalesExistante,
-  titresArm,
-  titresAxm
+  titresArm
 } from './__mocks__/titres-etapes-administrations-locales-update-etapes'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
@@ -98,7 +97,7 @@ describe("administrations d'une étape", () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("ajoute uniquement l'ONF comme décideur à un titre de type ARM", async () => {
+  test("ajoute l'option subsidiaire à la Déal Guyane sur une ARM", async () => {
     const [
       titresEtapesAdministrationsCreated,
       titresEtapesAdministrationsLocalesDeleted
@@ -107,40 +106,13 @@ describe("administrations d'une étape", () => {
       administrations
     )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(1)
-    expect(
-      titresEtapesAdministrationsCreated.find(
-        a => a.administrationId === 'ope-onf-973-01'
-      ).subsidiaire
-    ).toBeFalsy()
-
+    expect(titresEtapesAdministrationsCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
-
-    expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
-    expect(titreEtapes.titreEtapeAdministrationDelete).not.toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
-  })
-
-  test("n'ajoute pas l'ONF comme décideur à un titre de type AEX", async () => {
-    const [
-      titresEtapesAdministrationsCreated,
-      titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
-      titresAxm,
-      administrations
-    )
-
-    expect(titresEtapesAdministrationsCreated.length).toEqual(1)
     expect(
       titresEtapesAdministrationsCreated.find(
-        a => a.administrationId === 'ope-onf-973-01'
+        ({ administrationId }) => administrationId === 'dea-guyane-01'
       ).subsidiaire
     ).toBeTruthy()
-
-    expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
-
-    expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
-    expect(titreEtapes.titreEtapeAdministrationDelete).not.toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
 })

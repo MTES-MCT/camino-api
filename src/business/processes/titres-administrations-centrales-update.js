@@ -5,14 +5,17 @@ import {
   titreAdministrationCentraleDelete
 } from '../../database/queries/titres'
 
-// liste des types de titres pour lesquels les administrations centrales font exception
-// i.e. : Ces administrations centrales ne seront ajoutées qu'aux types listés.
-const administrationsCentralesTypesRestrictions = { 'ope-ptmg-973-01': ['arm'] }
+// administrations restreintes à certains types types de titres
+const administrationsTypesRestrictions = {
+  'ope-ptmg-973-01': ['arm'],
+  'ope-onf-973-01': ['arm'],
+  'dea-guyane-01': ['axm']
+}
 
-// liste des types de titres pour lesquels les administrations centrales sont subsidiaires
-// i.e. : Les administrations centrales seront subsidiaires pour ces types de titres.
-const administrationsCentralesTypesSubsidiaires = {
-  'ope-ptmg-973-01': ['arm', 'axm'],
+// administrations subsidiaires sur certains types de titres
+const administrationsTypesSubsidiaires = {
+  'dea-guyane-01': ['arm'],
+  'ope-ptmg-973-01': ['arm'],
   'min-mtes-dgaln-01': ['arm', 'axm']
 }
 
@@ -111,7 +114,7 @@ const titreAdministrationsCentralesBuild = (
     if (!isTitreAdministration) return titreAdministrationsCentrales
 
     const typesRestrictions =
-      administrationsCentralesTypesRestrictions[administration.id]
+      administrationsTypesRestrictions[administration.id]
 
     // si
     // - il y a des restrictions pour cette administration centrale
@@ -122,10 +125,8 @@ const titreAdministrationsCentralesBuild = (
     }
 
     const subsidiaire =
-      administrationsCentralesTypesSubsidiaires[administration.id] &&
-      administrationsCentralesTypesSubsidiaires[administration.id].includes(
-        typeId
-      )
+      administrationsTypesSubsidiaires[administration.id] &&
+      administrationsTypesSubsidiaires[administration.id].includes(typeId)
 
     const titreAdministrationCentrale = {
       titreId,
