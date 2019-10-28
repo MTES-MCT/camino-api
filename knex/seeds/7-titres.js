@@ -65,25 +65,24 @@ exports.seed = seeding(async ({ del, insert }) => {
 
   await insert('titres', data.titres)
   await insert('titresDemarches', data.titresDemarches)
-  await Promise.all([
-    insert('titresEtapes', data.titresEtapes),
-    insert('titresPhases', data.titresPhases),
-    insert('titresDemarchesLiens', data.titresDemarchesLiens)
-  ])
-  await Promise.all([
-    insert('titresSubstances', data.titresSubstances),
-    insert('titresPoints', data.titresPoints),
-    insert('titresTitulaires', data.titresTitulaires),
-    insert('titresCommunes', data.titresCommunes),
-    insert(
-      'titresAdministrationsCentrales',
-      data.titresAdministrationsCentrales
-    ),
-    insert('titresAdministrationsLocales', data.titresAdministrationsLocales),
-    insert('titresAmodiataires', data.titresAmodiataires),
-    insert('titresIncertitudes', data.titresIncertitudes),
-    insert('titresDocuments', data.titresDocuments)
-  ])
+  await insert('titresEtapes', data.titresEtapes)
+  await insert('titresPhases', data.titresPhases)
+  await insert('titresDemarchesLiens', data.titresDemarchesLiens)
+  await insert(
+    'titresAdministrationsCentrales',
+    data.titresAdministrationsCentrales
+  )
+  await insert(
+    'titresAdministrationsLocales',
+    data.titresAdministrationsLocales
+  )
+  await insert('titresAmodiataires', data.titresAmodiataires)
+  await insert('titresIncertitudes', data.titresIncertitudes)
+  await insert('titresDocuments', data.titresDocuments)
+  await insert('titresSubstances', data.titresSubstances)
+  await insert('titresPoints', data.titresPoints)
+  await insert('titresTitulaires', data.titresTitulaires)
+  await insert('titresCommunes', data.titresCommunes)
   await insert('titresPointsReferences', data.titresPointsReferences)
 })
 
