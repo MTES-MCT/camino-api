@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.8](https://github.com/MTES-MCT/camino-api/compare/v0.24.7...v0.24.8) (2019-10-28)
+
+
+### Bug Fixes
+
+* **api:** corrige l'édition d'un titre avec des activités dont la date de saisie est vide ([#206](https://github.com/MTES-MCT/camino-api/issues/206)) ([f67a942](https://github.com/MTES-MCT/camino-api/commit/f67a942))
+* **api:** corrige le calcul des administrations pendant l'édition des étapes ([785dc19](https://github.com/MTES-MCT/camino-api/commit/785dc19))
+* **api:** corrige les permissions pour la création et modification de titres ([45f0653](https://github.com/MTES-MCT/camino-api/commit/45f0653))
+* **api:** supprime le filtre des types d'étapes uniques ([2e5ef49](https://github.com/MTES-MCT/camino-api/commit/2e5ef49))
+* **api:** supprime les liens d'un utilisateur lors de la suppression du compte ([b009cd3](https://github.com/MTES-MCT/camino-api/commit/b009cd3))
+* **business:** corrige l'affichage du résultat du calcul des phases ([849a502](https://github.com/MTES-MCT/camino-api/commit/849a502))
+* **business:** corrige le calcul du statut d'un titre n'ayant que des démarches avec le statut indéfini ([41caf6c](https://github.com/MTES-MCT/camino-api/commit/41caf6c))
+* **business:** corrige le calcul du statut des titres n'ayant pas de démarche ([b038c13](https://github.com/MTES-MCT/camino-api/commit/b038c13))
+* **business:** prend en compte les étapes d'avenant au contrat (aco) ([7f2d1ff](https://github.com/MTES-MCT/camino-api/commit/7f2d1ff))
+* **édition:** corrige une erreur lors de la mise à jour d'une étape ([#202](https://github.com/MTES-MCT/camino-api/issues/202)) ([cf1be91](https://github.com/MTES-MCT/camino-api/commit/cf1be91))
+* **édition:** corrige une erreur lors de la validation des activités ([8c52e4c](https://github.com/MTES-MCT/camino-api/commit/8c52e4c))
+* **migration:** corrige une erreur knex due au volume de données ([32a3a7e](https://github.com/MTES-MCT/camino-api/commit/32a3a7e))
+* corrige une faute de grammaire ([f264b2d](https://github.com/MTES-MCT/camino-api/commit/f264b2d))
+
+
+### Features
+
+* ajoute l'ONF et la DEAL Guyane aux administrations centrales ([#207](https://github.com/MTES-MCT/camino-api/issues/207)) ([a81f3c0](https://github.com/MTES-MCT/camino-api/commit/a81f3c0))
+* **api:** ajoute l'option d'administration "subsidiaire" ([#204](https://github.com/MTES-MCT/camino-api/issues/204)) ([dc8adbf](https://github.com/MTES-MCT/camino-api/commit/dc8adbf))
+* **api:** ajoute les colonnes de permissions de visualisation des étapes pour le public et les titulaires/amodiataires ([28f850d](https://github.com/MTES-MCT/camino-api/commit/28f850d))
+* **api:** prend en compte les étapes uniques ([a5451d7](https://github.com/MTES-MCT/camino-api/commit/a5451d7))
+* **édition:** empêche les durées négatives sur les activtés ([#203](https://github.com/MTES-MCT/camino-api/issues/203)) ([aae1aad](https://github.com/MTES-MCT/camino-api/commit/aae1aad))
+* **édition de documents:** rend le nom facultatif ([919b53c](https://github.com/MTES-MCT/camino-api/commit/919b53c))
+
 ### [0.24.7](https://github.com/MTES-MCT/camino-api/compare/v0.24.6...v0.24.7) (2019-10-23)
 
 
