@@ -20,7 +20,7 @@ jest.mock('../../database/queries/titres-etapes', () => ({
 
 jest.mock('../../tools/geojson', () => ({
   geojsonFeatureMultiPolygon: points => ({
-    geometry: { coordinates: [...new Set(points)] }
+    geometry: { coordinates: [points] }
   })
 }))
 

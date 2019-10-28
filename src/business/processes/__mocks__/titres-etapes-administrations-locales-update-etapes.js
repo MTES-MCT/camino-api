@@ -8,8 +8,12 @@ const administrations = [
     departementId: '01'
   },
   {
-    id: 'deal-01',
+    id: 'deal-02',
     regionId: '02'
+  },
+  {
+    id: 'dea-guyane-01',
+    departementId: '973'
   },
   {
     id: 'ope-onf-973-01',

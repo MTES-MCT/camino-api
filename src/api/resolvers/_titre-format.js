@@ -3,6 +3,8 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 
+import { dupRemove } from '../../tools/index'
+
 import {
   permissionsCheck,
   permissionsAdministrationsCheck
@@ -126,10 +128,10 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     (t.administrationsLocales && t.administrationsLocales.length)
   if (hasAdministrations && fields.administrations) {
     // fusionne administrations centrales et locales
-    let administrations = [
+    let administrations = dupRemove('id', [
       ...(t.administrationsCentrales || []),
       ...(t.administrationsLocales || [])
-    ]
+    ])
 
     // si l'utilisateur n'a pas de droits de visualisation suffisants
     // alors filtre les administrations `subsidiaire`

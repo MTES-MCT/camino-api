@@ -5,15 +5,19 @@ import {
   titreAdministrationCentraleDelete
 } from '../../database/queries/titres'
 
-// liste des types de titres pour lesquels les administrations centrales font exception
-// i.e. : Ces administrations centrales ne seront ajoutées qu'aux types listés.
-const administrationsCentralesTypesExceptionsLink = {
-  'ope-ptmg-973-01': ['arm']
+// administrations restreintes à certains types types de titres
+const administrationsTypesRestrictions = {
+  'ope-ptmg-973-01': ['arm'],
+  'ope-onf-973-01': ['arm'],
+  'dea-guyane-01': ['axm']
 }
 
-// liste des types de titres pour lesquels les administrations centrales sont subsidiaires
-// i.e. : Les administrations centrales seront subsidiaires pour ces types de titres.
-const typesAdministrationsCentralesSubsidiaire = ['axm', 'arm']
+// administrations subsidiaires sur certains types de titres
+const administrationsTypesSubsidiaires = {
+  'dea-guyane-01': ['arm'],
+  'ope-ptmg-973-01': ['arm'],
+  'min-mtes-dgaln-01': ['arm', 'axm']
+}
 
 const titreAdministrationsCentralesCreatedBuild = (
   titreAdministrationsCentralesOld,
@@ -106,28 +110,31 @@ const titreAdministrationsCentralesBuild = (
       administration.domaines &&
       administration.domaines.length &&
       administration.domaines.find(({ id }) => id === domaineId)
+
     if (!isTitreAdministration) return titreAdministrationsCentrales
 
-    const administrationsCentraleExceptionLink =
-      administrationsCentralesTypesExceptionsLink[administration.id]
-    if (
-      // s'il y a une exception de lien pour cette administration centrale
-      administrationsCentraleExceptionLink &&
-      // et que le type de titre n'est pas trouvé parmi les types de titres autorisés
-      !administrationsCentraleExceptionLink.includes(typeId)
-    ) {
-      // alors l'administration n'est pas rattachée à l'étape
+    const typesRestrictions =
+      administrationsTypesRestrictions[administration.id]
+
+    // si
+    // - il y a des restrictions pour cette administration centrale
+    // - le type de titre n'est pas trouvé parmi les types de titres autorisés
+    // l'administration n'est pas rattachée à l'étape
+    if (typesRestrictions && !typesRestrictions.includes(typeId)) {
       return titreAdministrationsCentrales
     }
 
     const subsidiaire =
-      typesAdministrationsCentralesSubsidiaire.includes(typeId) ||
-      !!administrationsCentraleExceptionLink
+      administrationsTypesSubsidiaires[administration.id] &&
+      administrationsTypesSubsidiaires[administration.id].includes(typeId)
 
     const titreAdministrationCentrale = {
       titreId,
-      administrationId: administration.id,
-      subsidiaire
+      administrationId: administration.id
+    }
+
+    if (subsidiaire) {
+      titreAdministrationCentrale.subsidiaire = subsidiaire
     }
 
     titreAdministrationsCentrales.push(titreAdministrationCentrale)
