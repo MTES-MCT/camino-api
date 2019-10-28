@@ -46,7 +46,11 @@ import { metas } from './resolvers/metas'
 import { substance, substances } from './resolvers/substances'
 import { permissions } from './resolvers/permissions'
 import { entreprise, entreprises } from './resolvers/entreprises'
-import { entrepriseCreer, entrepriseParSiren } from './resolvers/entreprise'
+import {
+  entrepriseCreer,
+  entrepriseParSirenDatabase,
+  entrepriseParSirenApi
+} from './resolvers/entreprise'
 import { administration, administrations } from './resolvers/administrations'
 import { titreActiviteModifier } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
@@ -65,7 +69,8 @@ export default {
   metas,
   utilisateurIdentifier,
   entreprise,
-  entrepriseParSiren,
+  entrepriseParSirenDatabase,
+  entrepriseParSirenApi,
   entreprises,
   administration,
   administrations,
