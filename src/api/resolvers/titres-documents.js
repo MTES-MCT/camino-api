@@ -20,19 +20,32 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreDocumentUpdationValidate from '../../business/titre-document-updation-validate'
 
+const documentValidate = document => {
+  const errors = []
+
+  if (!document.typeId) {
+    errors.push('type de fichier manquant')
+  }
+
+  if (document.fichierNouveau && !document.fichierTypeId) {
+    errors.push('extension du fichier manquante')
+  }
+
+  return errors
+}
+
 const titreDocumentCreer = async ({ document }, context, info) => {
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreDocumentUpdationValidate(document)
+  const errors = documentValidate(document)
 
-  if (rulesError) {
-    throw new Error(rulesError)
-  }
+  const rulesErrors = await titreDocumentUpdationValidate(document)
 
-  if (document.fichierNouveau && !document.fichierTypeId) {
-    throw new Error('extension du fichier manquante')
+  if (errors.length || rulesErrors.length) {
+    const e = errors.concat(rulesErrors)
+    throw new Error(e.join(', '))
   }
 
   try {
@@ -78,19 +91,22 @@ const titreDocumentModifier = async ({ document }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreDocumentUpdationValidate(document)
+  const errors = documentValidate(document)
+  const rulesErrors = await titreDocumentUpdationValidate(document)
 
-  if (rulesError) {
-    throw new Error(rulesError)
-  }
-
-  if (document.fichierNouveau && !document.fichierTypeId) {
-    throw new Error('extension du fichier manquante')
+  if (errors.length || rulesErrors.length) {
+    const e = errors.concat(rulesErrors)
+    throw new Error(e.join(', '))
   }
 
   try {
     if (document.fichierNouveau || !document.fichier) {
       const documentOld = titreDocumentGet(document.id)
+
+      if (!documentOld) {
+        throw new Error('aucun document avec cette id')
+      }
+
       if (documentOld.fichier) {
         await fileDelete(
           join(
@@ -139,6 +155,10 @@ const titreDocumentSupprimer = async ({ id }, context, info) => {
 
   try {
     const documentOld = await titreDocumentGet(id)
+
+    if (!documentOld) {
+      throw new Error('aucun document avec cette id')
+    }
 
     if (documentOld.fichier) {
       await fileDelete(

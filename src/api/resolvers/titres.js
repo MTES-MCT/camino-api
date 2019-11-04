@@ -81,10 +81,10 @@ const titreCreer = async ({ titre }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreUpdationValidate(titre)
+  const rulesErrors = await titreUpdationValidate(titre)
 
-  if (rulesError) {
-    throw new Error(rulesError)
+  if (rulesErrors.length) {
+    throw new Error(rulesErrors.join(', '))
   }
 
   try {
@@ -114,10 +114,10 @@ const titreModifier = async ({ titre }, context, info) => {
 
   const titreOld = await titreGet(titre.id)
 
-  const rulesError = await titreUpdationValidate(titre, titreOld)
+  const rulesErrors = await titreUpdationValidate(titre, titreOld)
 
-  if (rulesError) {
-    throw new Error(rulesError)
+  if (rulesErrors.length) {
+    throw new Error(rulesErrors.join(', '))
   }
 
   try {
