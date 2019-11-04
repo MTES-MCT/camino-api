@@ -8,8 +8,7 @@ const entrepriseGetBySirenApi = async (siren, token) => {
 
     return null
   }
-
-  console.log(entrepriseApi)
+  console.log(entrepriseApi[0])
 
   return entrepriseApi[0]
 }

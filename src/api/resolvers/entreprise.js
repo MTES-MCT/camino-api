@@ -7,14 +7,12 @@ import entrepriseGetBySirenApi from '../../business/queries/entrepriseApi'
 import errorLog from '../../tools/error-log'
 
 const entrepriseParSirenDatabase = async ({ siren }) => {
-  console.log(siren)
   const entreprise = await entrepriseGetBySiren(siren)
 
   return entreprise
 }
 
 const entrepriseParSirenApi = async ({ siren }) => {
-  console.log(siren)
   // initialise le token de connexion
   const token = await tokenInitialize()
 
@@ -25,7 +23,6 @@ const entrepriseParSirenApi = async ({ siren }) => {
     return null
   }
 
-  // todo : à débrancher du resolver
   // cherche l'entreprise par son siren dans l'API INSEE
   const entreprise = entrepriseGetBySirenApi(siren, token)
 
@@ -33,7 +30,6 @@ const entrepriseParSirenApi = async ({ siren }) => {
 }
 
 const entrepriseCreer = async ({ entreprise }) => {
-  // todo : gérer l'id en amont s'il n'existe pas
   const entrepriseNew = await entrepriseCreate(entreprise)
 
   return entrepriseNew
