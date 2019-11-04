@@ -16,11 +16,7 @@ const titreActiviteUpdationValidate = (
     errors.push(errorNumbers)
   }
 
-  if (errors.length) {
-    return errors.join(', ')
-  }
-
-  return null
+  return errors
 }
 
 export default titreActiviteUpdationValidate

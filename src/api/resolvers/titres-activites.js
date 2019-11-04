@@ -51,8 +51,8 @@ const titreActiviteModifier = async ({ activite }, context, info) => {
     activiteOld.type.sections
   )
 
-  if (validationErrors) {
-    throw new Error(validationErrors)
+  if (validationErrors.length) {
+    throw new Error(validationErrors.join(', '))
   }
 
   activite.utilisateurId = context.user.id

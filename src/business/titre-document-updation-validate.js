@@ -1,5 +1,7 @@
 const titreDocumentUpdationValidate = async titreDocument => {
-  return null
+  const errors = []
+
+  return errors
 }
 
 export default titreDocumentUpdationValidate

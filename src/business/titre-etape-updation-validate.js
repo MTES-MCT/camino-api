@@ -45,15 +45,12 @@ const titreEtapeUpdationValidate = async titreEtape => {
   // 4. les champs number ne peuvent avoir une durée négative
 
   const errorNumbers = titreEtapeNumbersCheck(titreEtape, etapeType.sections)
+
   if (errorNumbers) {
     errors.push(errorNumbers)
   }
 
-  if (errors.length) {
-    return errors.join(', ')
-  }
-
-  return null
+  return errors
 }
 
 export default titreEtapeUpdationValidate

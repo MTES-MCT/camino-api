@@ -18,10 +18,10 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreDemarcheUpdationValidate(demarche)
+  const rulesErrors = await titreDemarcheUpdationValidate(demarche)
 
-  if (rulesError) {
-    throw new Error(rulesError)
+  if (rulesErrors.length) {
+    throw new Error(rulesErrors.join(', '))
   }
 
   try {
@@ -45,10 +45,10 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreDemarcheUpdationValidate(demarche)
+  const rulesErrors = await titreDemarcheUpdationValidate(demarche)
 
-  if (rulesError) {
-    throw new Error(rulesError)
+  if (rulesErrors.length) {
+    throw new Error(rulesErrors.join(', '))
   }
 
   try {

@@ -18,10 +18,10 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreEtapeUpdationValidate(etape)
+  const rulesErrors = await titreEtapeUpdationValidate(etape)
 
-  if (rulesError) {
-    throw new Error(rulesError)
+  if (rulesErrors.length) {
+    throw new Error(rulesErrors.join(', '))
   }
 
   try {
@@ -53,10 +53,10 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     throw new Error('opération impossible')
   }
 
-  const rulesError = await titreEtapeUpdationValidate(etape)
+  const rulesErrors = await titreEtapeUpdationValidate(etape)
 
-  if (rulesError) {
-    throw new Error(rulesError)
+  if (rulesErrors) {
+    throw new Error(rulesErrors.join(', '))
   }
 
   try {
