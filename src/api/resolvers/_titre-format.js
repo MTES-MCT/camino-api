@@ -12,6 +12,9 @@ import {
 
 import { titreIsPublicCheck, titrePermissionCheck } from './_titre'
 
+import { administrationsFormat } from './_administration'
+import { entreprisesFormat } from './_entreprise'
+
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: true,
   geojsonPoints: true,
@@ -143,8 +146,18 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
       (a, b) => a.type.ordre - b.type.ordre
     )
 
+    t.administrations = administrationsFormat(t.administrations, user)
+
     delete t.administrationsCentrales
     delete t.administrationsLocales
+  }
+
+  if (t.titulaires) {
+    t.titulaires = entreprisesFormat(t.titulaires, user)
+  }
+
+  if (t.amodiataires) {
+    t.amodiataires = entreprisesFormat(t.amodiataires, user)
   }
 
   return t
@@ -212,6 +225,7 @@ const paysRegionsDepartementsCommunes = communes => {
 
 const titreDemarcheFormat = (
   td,
+  user,
   userHasPermission,
   fields = titreDemarcheFormatFields
 ) => {
@@ -229,7 +243,7 @@ const titreDemarcheFormat = (
 
   if (td.etapes && td.etapes.length && fields.etapes) {
     td.etapes = td.etapes.map(titreEtape =>
-      titreEtapeFormat(titreEtape, userHasPermission, fields.etapes)
+      titreEtapeFormat(titreEtape, user, userHasPermission, fields.etapes)
     )
   }
 
@@ -275,6 +289,7 @@ const titreSectionsFormat = tea =>
 
 const titreEtapeFormat = (
   te,
+  user,
   userHasPermission,
   fields = titreEtapeFormatFields
 ) => {
@@ -296,6 +311,18 @@ const titreEtapeFormat = (
 
   if (te.documents && !userHasPermission) {
     te.documents = te.documents.filter(ted => ted.public)
+  }
+
+  if (te.administrations) {
+    te.administrations = administrationsFormat(te.administrations, user)
+  }
+
+  if (te.titulaires) {
+    te.titulaires = entreprisesFormat(te.titulaires, user)
+  }
+
+  if (te.amodiataires) {
+    te.amodiataires = entreprisesFormat(te.amodiataires, user)
   }
 
   return te
