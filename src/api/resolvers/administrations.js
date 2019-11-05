@@ -7,23 +7,7 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
 import titreEagerFormat from './_titre-eager-format'
-import { titresFormat } from './_titre-format'
-import { utilisateursFormat } from './_utilisateur'
-
-const administrationFormat = (administration, user) => {
-  administration.titres = titresFormat(administration.titres, user)
-  administration.utilisateurs = utilisateursFormat(
-    administration.utilisateurs,
-    user
-  )
-
-  return administration
-}
-
-const administrationsFormat = (administrations, user) =>
-  administrations.map(administration =>
-    administrationFormat(administration, user)
-  )
+import { administrationFormat, administrationsFormat } from './_administration'
 
 const administration = async ({ id }, context, info) => {
   const administration = await administrationGet(id, {
