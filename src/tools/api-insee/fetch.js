@@ -36,7 +36,7 @@ const tokenInitialize = async () => {
     }
 
     console.info('API Insee: Requête de test du token sur /siren')
-    const res = await inseeTypeFetch('siren', `siren:${TEST_SIREN_ID}`)
+    const res = await typeFetch('siren', `siren:${TEST_SIREN_ID}`)
     if (!res) {
       throw new Error('pas de résultat pour la requête de test')
     }
@@ -94,7 +94,36 @@ const tokenFetch = async () => {
   }
 }
 
-const inseeTypeFetch = async (type, q) => {
+const tokenFetchDev = async () => {
+  await makeDir(CACHE_DIR)
+
+  const cacheFilePath = join(CACHE_DIR, `insee-token`)
+
+  try {
+    const result = require(`../../../${cacheFilePath}.json`)
+
+    console.info('API Insee: lecture du token depuis le cache')
+
+    if (!result) {
+      throw new Error('pas de token dans le cache')
+    }
+
+    return result
+  } catch (e) {
+    console.info(`API Insee: création du token`)
+
+    const result = await tokenFetch()
+    if (!result) {
+      throw new Error("pas de token retourné par l'API Insee")
+    }
+
+    await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
+
+    return result
+  }
+}
+
+const typeFetch = async (type, q) => {
   try {
     if (!INSEE_API_URL) {
       throw new Error(
@@ -137,40 +166,11 @@ const inseeTypeFetch = async (type, q) => {
 
     return result
   } catch (e) {
-    errorLog(`API Insee: inseeTypeFetch `, e.error || e.message || e)
+    errorLog(`API Insee: typeFetch `, e.error || e.message || e)
   }
 }
 
-const tokenFetchDev = async () => {
-  await makeDir(CACHE_DIR)
-
-  const cacheFilePath = join(CACHE_DIR, `insee-token`)
-
-  try {
-    const result = require(`../../../${cacheFilePath}.json`)
-
-    console.info('API Insee: lecture du token depuis le cache')
-
-    if (!result) {
-      throw new Error('pas de token dans le cache')
-    }
-
-    return result
-  } catch (e) {
-    console.info(`API Insee: création du token`)
-
-    const result = await tokenFetch()
-    if (!result) {
-      throw new Error("pas de token retourné par l'API Insee")
-    }
-
-    await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
-
-    return result
-  }
-}
-
-const inseeTypeFetchDev = async (type, q, field, ids) => {
+const typeFetchDev = async (type, q, field, ids) => {
   await makeDir(CACHE_DIR)
 
   const cacheFilePath = join(
@@ -187,7 +187,7 @@ const inseeTypeFetchDev = async (type, q, field, ids) => {
   } catch (e) {
     console.info(`API Insee: requête de ${type}`)
 
-    const result = await inseeTypeFetch(type, q)
+    const result = await typeFetch(type, q)
 
     await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
 
@@ -195,12 +195,12 @@ const inseeTypeFetchDev = async (type, q, field, ids) => {
   }
 }
 
-const inseeTypeFetchMulti = async (type, field, ids, q) => {
+const typeFetchMulti = async (type, field, ids, q) => {
   try {
     const result =
       process.env.NODE_ENV === 'development'
-        ? await inseeTypeFetchDev(type, q, field, ids)
-        : await inseeTypeFetch(type, q)
+        ? await typeFetchDev(type, q, field, ids)
+        : await typeFetch(type, q)
 
     return (result && result[field]) || []
   } catch (err) {
@@ -211,7 +211,7 @@ const inseeTypeFetchMulti = async (type, field, ids, q) => {
   }
 }
 
-const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
+const typeBatchFetch = async (type, field, ids, queryFormatter) => {
   let batches = [ids]
 
   if (ids.length > MAX_RESULTS) {
@@ -223,9 +223,7 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   }
 
   const batchesQueries = batches.reduce((acc, batch) => {
-    acc.push(() =>
-      inseeTypeFetchMulti(type, field, batch, queryFormatter(batch))
-    )
+    acc.push(() => typeFetchMulti(type, field, batch, queryFormatter(batch)))
 
     return acc
   }, [])
@@ -241,4 +239,4 @@ const inseeTypeFetchBatch = async (type, field, ids, queryFormatter) => {
   }, [])
 }
 
-export { inseeTypeFetchBatch, tokenInitialize }
+export { typeBatchFetch, tokenInitialize }

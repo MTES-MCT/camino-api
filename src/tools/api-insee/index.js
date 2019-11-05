@@ -3,14 +3,14 @@ import {
   entrepriseAdresseFormat
 } from './format'
 
-import { inseeTypeFetchBatch, tokenInitialize } from './fetch'
+import { typeBatchFetch, tokenInitialize } from './fetch'
 
 // cherche les établissements des entreprises
 // retourne des objets du modèle EntrepriseEtablissements
 const entreprisesEtablissementsGet = async sirenIds => {
   if (!sirenIds.length) return []
 
-  const entreprisesEtablissements = await inseeTypeFetchBatch(
+  const entreprisesEtablissements = await typeBatchFetch(
     'siren',
     'unitesLegales',
     sirenIds,
@@ -33,7 +33,7 @@ const entreprisesEtablissementsGet = async sirenIds => {
 // cherche les adresses des entreprises
 // retourne des objets du modèle Entreprise
 const entreprisesGet = async sirenIds => {
-  const etablissements = await inseeTypeFetchBatch(
+  const etablissements = await typeBatchFetch(
     'siret',
     'etablissements',
     sirenIds,
@@ -58,6 +58,12 @@ const entreprisesGet = async sirenIds => {
 }
 
 const entrepriseGet = async sirenId => {
+  const token = await tokenInitialize()
+
+  if (!token) {
+    throw new Error("impossible de se connecter à l'API Insee")
+  }
+
   const entreprises = await entreprisesGet([sirenId])
   if (!entreprises) {
     throw new Error('erreur API Insee')
