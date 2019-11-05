@@ -4,7 +4,7 @@ import { entreprisesEtablissementsUpsert } from '../../database/queries/entrepri
 import {
   tokenInitialize,
   entreprisesEtablissementsGet,
-  entreprisesAdressesGet
+  entreprisesGet
 } from '../../tools/api-insee'
 import errorLog from '../../tools/error-log'
 
@@ -81,7 +81,7 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     return [[], []]
   }
 
-  const entreprisesNew = await entreprisesAdressesGet(sirens)
+  const entreprisesNew = await entreprisesGet(sirens)
   const entreprisesEtablissementsNew = await entreprisesEtablissementsGet(
     sirens
   )

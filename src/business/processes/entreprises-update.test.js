@@ -30,7 +30,7 @@ jest.mock('../../database/queries/entreprises-etablissements', () => ({
 // 'jest.mock()' est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../tools/api-insee', () => ({
-  entreprisesAdressesGet: jest.fn(),
+  entreprisesGet: jest.fn(),
   entreprisesEtablissementsGet: jest.fn(),
   tokenInitialize: jest.fn().mockResolvedValue(1)
 }))
@@ -41,9 +41,7 @@ console.error = jest.fn()
 
 describe('entreprises', () => {
   test("crée les entreprises si elles n'existent pas", async () => {
-    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
-      entreprisesApiCreees
-    )
+    apiEntreprises.entreprisesGet.mockResolvedValue(entreprisesApiCreees)
     apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesApiCreees
     )
@@ -60,9 +58,7 @@ describe('entreprises', () => {
   })
 
   test('met à jour les entreprises qui ont été modifiées', async () => {
-    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
-      entreprisesApiModifiees
-    )
+    apiEntreprises.entreprisesGet.mockResolvedValue(entreprisesApiModifiees)
     apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesApiModifiees
     )
@@ -78,9 +74,7 @@ describe('entreprises', () => {
   })
 
   test('ne crée pas les entreprises qui existent déjà', async () => {
-    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
-      entreprisesApiExistantes
-    )
+    apiEntreprises.entreprisesGet.mockResolvedValue(entreprisesApiExistantes)
     apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesEtablissementsApiExistantes
     )
@@ -96,9 +90,7 @@ describe('entreprises', () => {
   })
 
   test("ne modifie pas d'entreprises si elles n'existent déjà", async () => {
-    apiEntreprises.entreprisesAdressesGet.mockResolvedValue(
-      entreprisesApiInexistantes
-    )
+    apiEntreprises.entreprisesGet.mockResolvedValue(entreprisesApiInexistantes)
     apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
       entreprisesApiInexistantes
     )
