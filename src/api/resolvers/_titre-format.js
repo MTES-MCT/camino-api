@@ -104,7 +104,12 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
   if (t.demarches && t.demarches.length && fields.demarches) {
     t.demarches = t.demarches.map(titreDemarche =>
-      titreDemarcheFormat(titreDemarche, userHasPermission, fields.demarches)
+      titreDemarcheFormat(
+        titreDemarche,
+        user,
+        userHasPermission,
+        fields.demarches
+      )
     )
   }
 
