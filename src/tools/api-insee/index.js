@@ -54,8 +54,7 @@ const entreprisesGet = async sirenIds => {
       const ids = idsBatch.map(s => `siren:${s}`).join(' OR ')
 
       return `(${ids}) AND etablissementSiege:true`
-    },
-    token
+    }
   )
 
   if (!entreprises || !Array.isArray(entreprises)) {
