@@ -2,11 +2,9 @@ import { objectsDiffer } from '../../tools'
 import { entreprisesUpsert } from '../../database/queries/entreprises'
 import { entreprisesEtablissementsUpsert } from '../../database/queries/entreprises-etablissements'
 import {
-  tokenInitialize,
   entreprisesEtablissementsGet,
   entreprisesGet
 } from '../../tools/api-insee'
-import errorLog from '../../tools/error-log'
 
 const entreprisesEtablissementsToUpdateFind = (
   entreprisesEtablissementsOld,
@@ -67,17 +65,6 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   const sirens = sirensFind(entreprisesOld)
 
   if (!sirens.length) {
-    return [[], []]
-  }
-
-  // initialise le token de connexion à l'API INSEE
-  // s'il est vide, la connexion a échoué
-
-  const token = await tokenInitialize()
-
-  if (!token) {
-    errorLog("impossible de se connecter à l'API INSEE")
-
     return [[], []]
   }
 

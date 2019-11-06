@@ -32,10 +32,10 @@ const tokenInitialize = async () => {
     apiToken = result && result.access_token
 
     if (!apiToken) {
-      throw new Error('pas de token après requête')
+      throw new Error('API Insee: pas de token après requête')
     }
 
-    console.info('API Insee: Requête de test du token sur /siren')
+    console.info('API Insee: requête de test du token sur /siren')
     const res = await typeFetch('siren', `siren:${TEST_SIREN_ID}`)
     if (!res) {
       throw new Error('pas de résultat pour la requête de test')
@@ -57,7 +57,7 @@ const tokenFetch = async () => {
   try {
     if (!INSEE_API_URL) {
       throw new Error(
-        "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
+        "API Insee: impossible de se connecter car la variable d'environnement est absente"
       )
     }
 
@@ -85,7 +85,7 @@ const tokenFetch = async () => {
     }
 
     if (!result) {
-      throw new Error('contenu de la réponse vide')
+      throw new Error('API Insee: contenu de la réponse vide')
     }
 
     return result
@@ -105,7 +105,7 @@ const tokenFetchDev = async () => {
     console.info('API Insee: lecture du token depuis le cache')
 
     if (!result) {
-      throw new Error('pas de token dans le cache')
+      throw new Error('API Insee: pas de token dans le cache')
     }
 
     return result
@@ -114,7 +114,7 @@ const tokenFetchDev = async () => {
 
     const result = await tokenFetch()
     if (!result) {
-      throw new Error("pas de token retourné par l'API Insee")
+      throw new Error('API Insee: pas de token retourné')
     }
 
     await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
@@ -127,7 +127,7 @@ const typeFetch = async (type, q) => {
   try {
     if (!INSEE_API_URL) {
       throw new Error(
-        "impossible de se connecter à l'API INSEE car la variable d'environnement est absente"
+        "API Insee: impossible de se connecter car la variable d'environnement est absente"
       )
     }
 
@@ -155,7 +155,7 @@ const typeFetch = async (type, q) => {
     }
 
     if (!result) {
-      throw new Error('contenu de la réponse vide')
+      throw new Error('API Insee: contenu de la réponse vide')
     }
 
     // attend quelques secondes après chaque appel
@@ -195,7 +195,7 @@ const typeFetchDev = async (type, q, field, ids) => {
   }
 }
 
-const typeFetchMulti = async (type, field, ids, q) => {
+const typeMultiFetch = async (type, field, ids, q) => {
   try {
     const result =
       process.env.NODE_ENV === 'development'
@@ -211,7 +211,7 @@ const typeFetchMulti = async (type, field, ids, q) => {
   }
 }
 
-const typeBatchFetch = async (type, field, ids, queryFormatter) => {
+const typeBatchFetch = async (type, field, ids, queryFormat) => {
   let batches = [ids]
 
   if (ids.length > MAX_RESULTS) {
@@ -223,7 +223,7 @@ const typeBatchFetch = async (type, field, ids, queryFormatter) => {
   }
 
   const batchesQueries = batches.reduce((acc, batch) => {
-    acc.push(() => typeFetchMulti(type, field, batch, queryFormatter(batch)))
+    acc.push(() => typeMultiFetch(type, field, batch, queryFormat(batch)))
 
     return acc
   }, [])

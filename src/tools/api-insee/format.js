@@ -76,7 +76,7 @@ const entrepriseEtablissementFormat = e => {
     : []
 }
 
-const entrepriseAdresseFormat = e => {
+const entrepriseFormat = e => {
   if (!e) return null
 
   const { uniteLegale: unite, adresseEtablissement: adresse } = e
@@ -214,4 +214,4 @@ const nomIndividuFormat = e =>
     e.prenomUsuelUniteLegale
   } ${e.nomUniteLegale}`
 
-export { entrepriseEtablissementFormat, entrepriseAdresseFormat }
+export { entrepriseEtablissementFormat, entrepriseFormat }
