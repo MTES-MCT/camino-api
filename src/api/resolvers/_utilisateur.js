@@ -99,7 +99,7 @@ const utilisateurEditionCheck = (user, utilisateur) => {
   }
 
   if (
-    !['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId) &&
+    !permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur']) &&
     utilisateur.administrationsIds &&
     utilisateur.administrationsIds.length
   ) {
@@ -109,7 +109,7 @@ const utilisateurEditionCheck = (user, utilisateur) => {
   }
 
   if (
-    !['entreprise'].includes(utilisateur.permissionId) &&
+    !permissionsCheck(utilisateur, ['entreprise']) &&
     utilisateur.entreprisesIds &&
     utilisateur.entreprisesIds.length
   ) {

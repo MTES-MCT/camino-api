@@ -53,11 +53,7 @@ const utilisateurIdentifier = async (variables, context, info) => {
   let token
 
   if (utilisateur) {
-    token = tokenCreate(
-      utilisateur.id,
-      utilisateur.email,
-      utilisateur.permission
-    )
+    token = userTokenCreate(utilisateur)
   }
 
   return { token, utilisateur }
@@ -82,11 +78,7 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
     throw new Error('mot de passe incorrect')
   }
 
-  const token = tokenCreate(
-    utilisateur.id,
-    utilisateur.email,
-    utilisateur.permission
-  )
+  const token = userTokenCreate(utilisateur)
 
   return { token, utilisateur }
 }
@@ -260,9 +252,7 @@ const utilisateurMotDePasseModifier = async (
 
 // envoie l'email avec un lien vers un formulaire de ré-init
 const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
-  const emailIsValid = emailRegex({ exact: true }).test(email)
-
-  if (!emailIsValid) {
+  if (!emailCheck(email)) {
     throw new Error('adresse email invalide')
   }
 
@@ -329,21 +319,18 @@ const utilisateurMotDePasseInitialiser = async (
 
   await utilisateurRowUpdate(utilisateurNew)
 
-  const token = tokenCreate(
-    utilisateurNew.id,
-    utilisateurNew.email,
-    utilisateurNew.permission
-  )
+  const token = userTokenCreate(utilisateurNew)
 
   return { token, utilisateur: utilisateurNew }
 }
 
-const tokenCreate = (id, email, permission) =>
+const userTokenCreate = ({ id, email, permission }) =>
   jwt.sign(
     {
       id,
       email,
-      permission
+      permissionId: permission.id,
+      permissionOrdre: permission.ordre
     },
     process.env.JWT_SECRET
   )

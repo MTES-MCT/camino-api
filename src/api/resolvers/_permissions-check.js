@@ -1,7 +1,8 @@
 import { debug } from '../../config/index'
 
 const permissionsCheck = (user, permissions) =>
-  debug || (user && user.permission && permissions.includes(user.permission.id))
+  debug ||
+  (user && user.permissionId && permissions.includes(user.permissionId))
 
 const permissionsAdministrationsCheck = (user, administrationsIds) =>
   debug ||

@@ -10,7 +10,7 @@ const permission = async ({ id }, context) => permissionGet(id)
 const permissions = async (_, context) => {
   if (permissionsCheck(context.user, ['super', 'admin'])) {
     return permissionsGet({
-      ordreMax: context.user ? context.user.permission.ordre : null
+      ordreMax: context.user ? context.user.permissionOrdre : null
     })
   }
 
