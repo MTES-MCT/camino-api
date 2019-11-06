@@ -31,8 +31,7 @@ jest.mock('../../database/queries/entreprises-etablissements', () => ({
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
 jest.mock('../../tools/api-insee', () => ({
   entreprisesGet: jest.fn(),
-  entreprisesEtablissementsGet: jest.fn(),
-  tokenInitialize: jest.fn().mockResolvedValue(1)
+  entreprisesEtablissementsGet: jest.fn()
 }))
 
 console.log = jest.fn()
@@ -103,19 +102,5 @@ describe('entreprises', () => {
     expect(etablissementsUpdated.length).toEqual(0)
     expect(entreprisesUpdated.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
-  })
-
-  test("retourne un message d'erreur si le token d'accès à l'api Siren ne fonctionne pas", async () => {
-    apiEntreprises.tokenInitialize.mockResolvedValue(null)
-
-    const [etablissementsUpdated, entreprisesUpdated] = await entrepriseUpdate(
-      entreprisesDbCreees,
-      entreprisesEtablissementsDbCreees
-    )
-
-    expect(etablissementsUpdated.length).toEqual(0)
-    expect(entreprisesUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
-    expect(console.error).toHaveBeenCalled()
   })
 })

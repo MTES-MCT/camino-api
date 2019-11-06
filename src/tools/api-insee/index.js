@@ -1,14 +1,19 @@
-import {
-  entrepriseEtablissementFormat,
-  entrepriseAdresseFormat
-} from './format'
-
+import errorLog from '../../tools/error-log'
+import { entrepriseEtablissementFormat, entrepriseFormat } from './format'
 import { typeBatchFetch, tokenInitialize } from './fetch'
 
 // cherche les établissements des entreprises
 // retourne des objets du modèle EntrepriseEtablissements
 const entreprisesEtablissementsGet = async sirenIds => {
   if (!sirenIds.length) return []
+
+  const token = await tokenInitialize()
+
+  if (!token) {
+    errorLog('API Insee: impossible de se connecter')
+
+    return []
+  }
 
   const entreprisesEtablissements = await typeBatchFetch(
     'siren',
@@ -18,7 +23,7 @@ const entreprisesEtablissementsGet = async sirenIds => {
   )
 
   if (!entreprisesEtablissements || !Array.isArray(entreprisesEtablissements)) {
-    return null
+    return []
   }
 
   return entreprisesEtablissements.reduce((acc, e) => {
@@ -33,7 +38,15 @@ const entreprisesEtablissementsGet = async sirenIds => {
 // cherche les adresses des entreprises
 // retourne des objets du modèle Entreprise
 const entreprisesGet = async sirenIds => {
-  const etablissements = await typeBatchFetch(
+  const token = await tokenInitialize()
+
+  if (!token) {
+    errorLog('API Insee: impossible de se connecter')
+
+    return []
+  }
+
+  const entreprises = await typeBatchFetch(
     'siret',
     'etablissements',
     sirenIds,
@@ -44,42 +57,43 @@ const entreprisesGet = async sirenIds => {
     }
   )
 
-  if (!etablissements || !Array.isArray(etablissements)) {
-    return null
+  if (!entreprises || !Array.isArray(entreprises)) {
+    return []
   }
 
-  return etablissements.reduce((acc, e) => {
+  return entreprises.reduce((acc, e) => {
     if (e) {
-      acc.push(entrepriseAdresseFormat(e))
+      acc.push(entrepriseFormat(e))
     }
 
     return acc
   }, [])
 }
 
-const entrepriseGet = async sirenId => {
+const entrepriseAndEtablissementsGet = async sirenId => {
   const token = await tokenInitialize()
 
   if (!token) {
-    throw new Error("impossible de se connecter à l'API Insee")
+    throw new Error('API Insee: impossible de se connecter')
   }
 
   const entreprises = await entreprisesGet([sirenId])
   if (!entreprises) {
-    throw new Error('erreur API Insee')
+    throw new Error('API Insee: erreur')
   }
 
-  const entreprisesEtablissement = await entreprisesEtablissementsGet([sirenId])
+  const entreprisesEtablissements = await entreprisesEtablissementsGet([
+    sirenId
+  ])
 
   const [entreprise] = entreprises
-  entreprise.etablissements = entreprisesEtablissement
+  entreprise.etablissements = entreprisesEtablissements
 
   return entreprise
 }
 
 export {
-  tokenInitialize,
-  entrepriseGet,
+  entrepriseAndEtablissementsGet,
   entreprisesGet,
   entreprisesEtablissementsGet
 }
