@@ -1,7 +1,11 @@
 import * as cryptoRandomString from 'crypto-random-string'
+import * as emailRegex from 'email-regex'
+
 import { permissionsCheck } from './_permissions-check'
 
 import { utilisateurGet } from '../../database/queries/utilisateurs'
+
+const emailCheck = email => emailRegex({ exact: true }).test(email)
 
 const userIdGenerate = async () => {
   const id = cryptoRandomString({ length: 6 })
@@ -69,4 +73,58 @@ const utilisateursFormat = (utilisateurs, user) =>
     return acc
   }, [])
 
-export { utilisateursFormat, utilisateurFormat, userIdGenerate }
+const utilisateurEditionCheck = (user, utilisateur) => {
+  const errors = []
+
+  if (
+    !permissionsCheck(user, ['super']) &&
+    utilisateur.permissionId === 'super'
+  ) {
+    errors.push(
+      "droits insuffisants pour affecter ces permissions à l'utilisateur"
+    )
+  }
+
+  if (!emailCheck(utilisateur.email)) {
+    errors.push('adresse email invalide')
+  }
+
+  if (
+    !permissionsCheck(user, ['super', 'admin']) &&
+    user.email !== utilisateur.email
+  ) {
+    errors.push(
+      "droits insuffisants pour affecter cette adresse email à l'utilisateur"
+    )
+  }
+
+  if (
+    !permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur']) &&
+    utilisateur.administrationsIds &&
+    utilisateur.administrationsIds.length
+  ) {
+    errors.push(
+      "les permissions de cet utilisateur ne permettent pas de l'associer à une administration"
+    )
+  }
+
+  if (
+    !permissionsCheck(utilisateur, ['entreprise']) &&
+    utilisateur.entreprisesIds &&
+    utilisateur.entreprisesIds.length
+  ) {
+    errors.push(
+      "les permissions de cet utilisateur ne permettent pas de l'associer à une entreprise"
+    )
+  }
+
+  return errors
+}
+
+export {
+  emailCheck,
+  userIdGenerate,
+  utilisateurEditionCheck,
+  utilisateurFormat,
+  utilisateursFormat
+}
