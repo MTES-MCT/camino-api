@@ -1,6 +1,5 @@
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
-import * as emailRegex from 'email-regex'
 import emailsSend from '../../tools/emails-send'
 
 import {
@@ -16,9 +15,11 @@ import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 import { permissionsCheck } from './_permissions-check'
 
 import {
+  emailCheck,
   userIdGenerate,
   utilisateursFormat,
-  utilisateurFormat
+  utilisateurFormat,
+  utilisateurEditionCheck
 } from './_utilisateur'
 
 const utilisateur = async ({ id }, context, info) => {
@@ -65,9 +66,7 @@ const utilisateurIdentifier = async (variables, context, info) => {
 const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
   email = email.toLowerCase()
 
-  const emailIsValid = emailRegex({ exact: true }).test(email)
-
-  if (!emailIsValid) {
+  if (!emailCheck(email)) {
     throw new Error('adresse email invalide')
   }
 
@@ -95,36 +94,10 @@ const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
 const utilisateurCreer = async ({ utilisateur }, context) => {
   utilisateur.email = utilisateur.email.toLowerCase()
 
-  if (
-    !permissionsCheck(context.user, ['super']) &&
-    utilisateur.permissionId === 'super'
-  ) {
-    throw new Error(
-      'droits insuffisants pour créer un utilisateur avec ces permissions'
-    )
-  }
-
-  if (
-    !permissionsCheck(context.user, ['super', 'admin']) &&
-    context.user.email !== utilisateur.email
-  ) {
-    throw new Error(
-      'droits insuffisants pour créer un compte avec cette adresse email'
-    )
-  }
-
-  const errors = []
-
-  if (!emailRegex({ exact: true }).test(utilisateur.email)) {
-    errors.push('adresse email invalide')
-  }
+  const errors = utilisateurEditionCheck(context.user, utilisateur)
 
   if (utilisateur.motDePasse.length < 8) {
     errors.push('le mot de passe doit contenir au moins 8 caractères')
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
   }
 
   const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
@@ -132,7 +105,11 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
   )
 
   if (utilisateurWithTheSameEmail) {
-    throw new Error('un utilisateur avec cet email existe déjà')
+    errors.push('un utilisateur avec cet email existe déjà')
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join(', '))
   }
 
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
@@ -151,9 +128,8 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
 
 const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
   email = email.toLowerCase()
-  const emailIsValid = emailRegex({ exact: true }).test(email)
 
-  if (!emailIsValid) {
+  if (!emailCheck(email)) {
     throw new Error('adresse email invalide')
   }
 
@@ -184,23 +160,25 @@ const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
 const utilisateurModifier = async ({ utilisateur }, context) => {
   utilisateur.email = utilisateur.email.toLowerCase()
 
+  const errors = utilisateurEditionCheck(context.user, utilisateur)
+
   if (
     !permissionsCheck(context.user, ['super', 'admin']) &&
     context.user.id !== utilisateur.id
   ) {
-    throw new Error("droits insuffisants pour effectuer l'opération")
-  }
-
-  if (!emailRegex({ exact: true }).test(utilisateur.email)) {
-    throw new Error('adresse email invalide')
+    errors.push("droits insuffisants pour effectuer l'opération")
   }
 
   if (!permissionsCheck(context.user, ['super', 'admin'])) {
     const utilisateurOld = await utilisateurGet(utilisateur.id)
 
     if (utilisateurOld.permissionId !== utilisateur.permissionId) {
-      throw new Error('droits insuffisants pour modifier les permissions')
+      errors.push('droits insuffisants pour modifier les permissions')
     }
+  }
+
+  if (errors.length) {
+    throw new Error(errors.join(', '))
   }
 
   const utilisateurNew = await utilisateurUpdate(utilisateur)
