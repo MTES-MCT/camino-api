@@ -108,6 +108,14 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
     utilisateur.permission = { id: 'defaut' }
   }
 
+  if (!permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
+    utilisateur.administrationsIds = []
+  }
+
+  if (!permissionsCheck(utilisateur, ['entreprise'])) {
+    utilisateur.entreprisesIds = []
+  }
+
   utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
   utilisateur.id = await userIdGenerate()
 
@@ -171,6 +179,14 @@ const utilisateurModifier = async ({ utilisateur }, context) => {
 
   if (errors.length) {
     throw new Error(errors.join(', '))
+  }
+
+  if (!permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
+    utilisateur.administrationsIds = []
+  }
+
+  if (!permissionsCheck(utilisateur, ['entreprise'])) {
+    utilisateur.entreprisesIds = []
   }
 
   const utilisateurNew = await utilisateurUpdate(utilisateur)
