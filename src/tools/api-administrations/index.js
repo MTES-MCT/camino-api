@@ -20,7 +20,7 @@ const organismeFetch = async (departementId, nom) => {
     )
   }
 
-  console.info(`API administration: ${departementId}, ${nom}`)
+  console.info(`API administration: requête ${departementId}, ${nom}`)
 
   const response = await fetch(
     `${ADMINISTRATION_API_URL}/v3/departements/${departementId}/${nom}`,
@@ -53,22 +53,24 @@ const organismeDepartementCall = async (departementId, nom) => {
 
     if (process.env.NODE_ENV === 'development') {
       await makeDir(CACHE_DIR)
-      const cacheFilePath = join(CACHE_DIR, `organisme-${departementId}-${nom}`)
+      const cacheFilePath = join(
+        CACHE_DIR,
+        `organisme-${departementId}-${nom}.json`
+      )
 
       try {
-        result = require(`../../${cacheFilePath}.json`)
+        result = require(`../../../${cacheFilePath}`)
         console.info(
           `API Administration: lecture de l'organisme depuis le cache, département: ${departementId}, type: ${nom}`
         )
       } catch (e) {
-        console.info(`API Administration: requête ${departementId}/${nom}`)
+        console.log(
+          `API Administration: pas de fichier de cache ${cacheFilePath}`
+        )
 
         result = await organismeFetch(departementId, nom)
 
-        await fileCreate(
-          `${cacheFilePath}.json`,
-          JSON.stringify(result, null, 2)
-        )
+        await fileCreate(cacheFilePath, JSON.stringify(result, null, 2))
       }
     } else {
       result = await organismeFetch(departementId, nom)

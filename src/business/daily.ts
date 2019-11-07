@@ -383,7 +383,7 @@ const run = async () => {
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
+    console.log(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
     console.log(
       `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )
