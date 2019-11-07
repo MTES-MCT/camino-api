@@ -82,12 +82,10 @@ const entrepriseAndEtablissementsGet = async sirenId => {
     throw new Error('API Insee: erreur')
   }
 
-  const entreprisesEtablissements = await entreprisesEtablissementsGet([
-    sirenId
-  ])
-
   const [entreprise] = entreprises
-  entreprise.etablissements = entreprisesEtablissements
+  if (!entreprise) return null
+
+  entreprise.etablissements = await entreprisesEtablissementsGet([sirenId])
 
   return entreprise
 }
