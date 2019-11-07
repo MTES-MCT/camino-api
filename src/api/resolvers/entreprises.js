@@ -68,9 +68,7 @@ const entrepriseCreer = async ({ entreprise }, context) => {
   const entrepriseInsee = await entrepriseAndEtablissementsGet(
     entreprise.legalSiren
   )
-  // TODO
-  // l'API insee doit retourner une erreur si le numéro siren n'existe pas
-  console.log(entrepriseInsee)
+
   if (!entrepriseInsee) {
     throw new Error('numéro de siren non reconnu dans la base Insee')
   }
@@ -96,7 +94,6 @@ const entrepriseModifier = async ({ entreprise }, context) => {
   }
 
   const entrepriseNew = await entrepriseUpsert(entreprise)
-  console.log(entrepriseNew)
 
   return entrepriseNew
 }

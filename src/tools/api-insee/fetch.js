@@ -40,16 +40,16 @@ const tokenInitialize = async () => {
     apiToken = result && result.access_token
 
     if (!apiToken) {
-      throw new Error('API Insee: pas de token après requête')
+      throw new Error('pas de token après requête')
     }
 
     await tokenTest()
 
     return apiToken
-  } catch (err) {
-    const error = err.error
-      ? `${err.error}: ${err.error_description}`
-      : err.message || JSON.stringify(err)
+  } catch (e) {
+    const error = e.error
+      ? `${e.error}: ${e.error_description}`
+      : e.message || JSON.stringify(e)
 
     throw new Error(
       `API Insee: impossible de générer le token de l'API INSEE ${error}`
@@ -61,7 +61,7 @@ const tokenFetch = async () => {
   try {
     if (!INSEE_API_URL) {
       throw new Error(
-        "API Insee: impossible de se connecter car la variable d'environnement est absente"
+        "impossible de se connecter car la variable d'environnement est absente"
       )
     }
 
@@ -89,12 +89,15 @@ const tokenFetch = async () => {
     }
 
     if (!result) {
-      throw new Error('API Insee: contenu de la réponse vide')
+      throw new Error('contenu de la réponse vide')
     }
 
     return result
   } catch (e) {
-    errorLog(`API Insee: tokenFetch `, e.error || e.message || e)
+    errorLog(
+      `API Insee: tokenFetch `,
+      (e.header && e.header.message) || e.error || e.message || e
+    )
   }
 }
 
@@ -116,6 +119,8 @@ const tokenFetchDev = async () => {
 
     return result
   } catch (e) {
+    errorLog(`API Insee: tokenFetchDev `, e.message)
+
     console.info(`API Insee: création du token`)
 
     const result = await tokenFetch()
@@ -172,7 +177,10 @@ const typeFetch = async (type, q) => {
 
     return result
   } catch (e) {
-    errorLog(`API Insee: typeFetch `, e.error || e.message || e)
+    errorLog(
+      `API Insee: typeFetch `,
+      (e.header && e.header.message) || e.error || e.message || e
+    )
   }
 }
 
@@ -191,6 +199,8 @@ const typeFetchDev = async (type, q, field, ids) => {
 
     return result
   } catch (e) {
+    errorLog(`API Insee: typeFetchDev `, e.message)
+
     console.info(`API Insee: requête de ${type}`)
 
     const result = await typeFetch(type, q)
@@ -209,10 +219,10 @@ const typeMultiFetch = async (type, field, ids, q) => {
         : await typeFetch(type, q)
 
     return (result && result[field]) || []
-  } catch (err) {
+  } catch (e) {
     errorLog(
       `API Insee: ${type} get ${ids.join(', ')}`,
-      JSON.stringify(err.error || err.message || err)
+      JSON.stringify(e.error || e.message || e)
     )
   }
 }
