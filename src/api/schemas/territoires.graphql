@@ -1,52 +1,44 @@
 "Pays"
 type Pays {
-  """
-  L'__id__ du pays composé de 3 lettres (code INSEE)
-  """
+  "Id du pays composé de 3 lettres (code INSEE)"
   id: ID!
 
-  "Le nom du pays"
+  "Nom du pays"
   nom: String!
 
-  "La liste des régions"
+  "Liste des régions"
   regions: [Region]
 }
 
 "Région"
 type Region {
-  """
-  L'__id__ de la région composé de 2 chiffres (code INSEE)
-  """
+  "Id de la région composé de 2 chiffres (code INSEE)"
   id: ID!
 
-  "Le nom de la région"
+  "Nom de la région"
   nom: String!
 
-  "La liste des départements"
+  "Liste des départements"
   departements: [Departement]
 }
 
 "Département"
 type Departement {
-  """
-  L'__id__ du département composé de 2 ou 3 chiffres (code INSEE)
-  """
+  "Id du département composé de 2 ou 3 chiffres (code INSEE)"
   id: ID!
 
-  "Le nom du département"
+  "Nom du département"
   nom: String!
 
-  "La liste des communes"
+  "Liste des communes"
   communes: [Commune]
 }
 
 "Commune"
 type Commune {
-  """
-  L'__id__ de la commune composée de 5 chiffres (code INSEE)
-  """
+  "Id de la commune composée de 5 chiffres (code INSEE)"
   id: ID!
 
-  "Le nom de la commune"
+  "Nom de la commune"
   nom: String!
 }

@@ -1,212 +1,214 @@
 "Titre minier"
 type Titre {
   """
-  L'__id__ composée de la concaténation:
+  Id composée de la concaténation:
   - du type en 3 lettres
   - du slug du nom du titre
   - de l'année d'octroi
   """
   id: ID!
 
-  "Le nom du titre"
+  "Nom du titre"
   nom: String!
 
-  "Le type du titre"
+  "Type du titre"
   type: Type!
 
-  "Le domaine minier auquel se rattache le titre"
+  "Domaine minier auquel se rattache le titre"
   domaine: Domaine!
 
-  "Les références métier du titre"
+  "Références métier du titre"
   references: [Reference]
 
-  "Le statut du titre"
+  "Statut du titre"
   statut: Statut!
 
-  "Les substances concernées par le titre dans son dernier état de validité"
+  "Substances concernées par le titre dans son dernier état de validité"
   substances: [TitreSubstance]
 
-  "Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité"
+  "Coordonnées des points du périmètre géographique du titre dans son dernier état de validité"
   points: [Point]
 
-  "Le geojson du contour du périmètre géographique du titre dans son dernier état de validité"
+  "Geojson du contour du périmètre géographique du titre dans son dernier état de validité"
   geojsonMultiPolygon: GeojsonMultiPolygon
-  "Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité"
+
+  "Geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité"
   geojsonPoints: GeojsonPoints
-  "Les titualires du titre dans son dernier état de validité"
+
+  "Titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
 
-  "Les amodiataires du titre dans son dernier état de validité"
+  "Amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
 
-  "Les administrations en charge du titre dans son dernier état de validité"
+  "Administrations en charge du titre dans son dernier état de validité"
   administrations: [Administration]
 
-  "Les communes du titre dans son dernier état de validité"
+  "Communes du titre dans son dernier état de validité"
   pays: [Pays]
 
-  "La date de début d'un titre"
+  "Date de début d'un titre"
   dateDebut: String
 
-  "La date de fin d'un titre"
+  "Date de fin d'un titre"
   dateFin: String
 
-  "La date de demande initiale d'un titre"
+  "Date de demande initiale d'un titre"
   dateDemande: String
 
-  "Les démarches effectuées sur le titre"
+  "Démarches effectuées sur le titre"
   demarches: [Demarche]
 
-  "La surface en Km² du titre dans son dernier état de validité"
+  "Surface en Km² du titre dans son dernier état de validité"
   surface: Float
 
-  "Le volume du titre dans son dernier état de validité"
+  "Volume du titre dans son dernier état de validité"
   volume: Float
 
-  "L'unité du volume du titre dans son dernier état de validité"
+  "Unité du volume du titre dans son dernier état de validité"
   volumeUnite: Unite
 
-  "Le montant de l'engagement financier du titulaire"
+  "Montant de l'engagement financier du titulaire"
   engagement: Float
 
-  "La devise de l'engagement financier du titulaire"
+  "Devise de l'engagement financier du titulaire"
   engagementDevise: Devise
 
-  "Les activités sur un titre"
+  "Activités sur un titre"
   activites: [TitreActivite]
 
-  "le nombre d'activités déposées"
+  "Nombre d'activités déposées"
   activitesDeposees: Int
 
-  "le nombre d'activités en construction"
+  "Nombre d'activités en construction"
   activitesEnConstruction: Int
 
-  "le nombre d'activités absentes"
+  "Nombre d'activités absentes"
   activitesAbsentes: Int
 }
 
 "Références métier d'un titre minier"
 type Reference {
-  "Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc."
+  "Type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc."
   type: String
 
-  "La référence du titre dans le référentiel"
+  "Référence du titre dans le référentiel"
   valeur: String!
 }
 
 "Démarches effectuées sur un titre minier"
 type Demarche {
   """
-  L'__id__ composée de la concaténation:
+  Id composée de la concaténation:
   - de l'id du titre
   - du type de la démarche
   """
   id: ID!
 
-  "Le type de la démarche composé de trois lettres"
+  "Type de la démarche composé de trois lettres"
   type: DemarcheType!
 
-  "L'ordre chronologique de la démarche"
+  "Ordre chronologique de la démarche"
   ordre: Int!
 
-  "Le statut de la démarche"
+  "Statut de la démarche"
   statut: DemarcheStatut!
 
-  "La phase, si la démarche donne lieu à une phase"
+  "Phase, si la démarche donne lieu à une phase"
   phase: Phase
 
-  "Les étapes effectuées sur la démarche"
+  "Étapes effectuées sur la démarche"
   etapes: [Etape]
 
-  "Les démarches liées"
+  "Démarches liées"
   enfants: [Demarche]
 
-  "Les démarches liées"
+  "Démarches liées"
   parents: [Demarche]
 }
 
 "Phase d'un titre minier"
 type Phase {
-  "Le statut d'une phase"
+  "Statut d'une phase"
   statut: PhaseStatut!
 
-  "La date de début d'une phase"
+  "Date de début d'une phase"
   dateDebut: String
 
-  "La date de fin d'une phase"
+  "Date de fin d'une phase"
   dateFin: String
 }
 
 "Étape d'une démarche effectuée sur un titre minier"
 type Etape {
   """
-  L'__id__ composée de la concaténation:
+  Id composée de la concaténation:
   - de l'id de la démarche
   - du type de l'étape
   """
   id: ID!
 
-  "Le type de l'étape"
+  "Type de l'étape"
   type: EtapeType!
 
-  "Le statut de l'étape"
+  "Statut de l'étape"
   statut: EtapeStatut!
 
-  "L'ordre chronologique de l'étape"
+  "Ordre chronologique de l'étape"
   ordre: Int!
 
-  "La date de l'étape"
+  "Date de l'étape"
   date: String!
 
-  "La durée de la démarche"
+  "Durée de la démarche"
   duree: Int
 
-  "La date de début de la démarche"
+  "Date de début de la démarche"
   dateDebut: String
 
-  "La date de fin de la démarche"
+  "Date de fin de la démarche"
   dateFin: String
 
-  "La surface en Km² du titre"
+  "Surface en Km² du titre"
   surface: Float
 
-  "Le volume du titre"
+  "Volume du titre"
   volume: Float
 
-  "L'unité de volume du titre"
+  "Unité de volume du titre"
   volumeUnite: Unite
 
-  "Le montant de l'engagement financier du titulaire"
+  "Montant de l'engagement financier du titulaire"
   engagement: Float
 
-  "La devise de l'engagement financier du titulaire"
+  "Devise de l'engagement financier du titulaire"
   engagementDevise: Devise
 
-  "Les substances concernées par le titre"
+  "Substances concernées par le titre"
   substances: [TitreSubstance]
 
-  "Les coordonnées des points du périmètre géographique du titre"
+  "Coordonnées des points du périmètre géographique du titre"
   points: [Point]
 
-  "Le geojson du contour du périmètre géographique du titre"
+  "Geojson du contour du périmètre géographique du titre"
   geojsonMultiPolygon: GeojsonMultiPolygon
 
-  "Le geojson de la liste de points du périmètre géographique du titre"
+  "Geojson de la liste de points du périmètre géographique du titre"
   geojsonPoints: GeojsonPoints
 
-  "Les titualires du titre dans son dernier état de validité"
+  "Titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
 
-  "Les amodiataires du titre dans son dernier état de validité"
+  "Amodiataires du titre dans son dernier état de validité"
   amodiataires: [Entreprise]
 
-  "Les administrations en charge du titre"
+  "Administrations en charge du titre"
   administrations: [Administration]
 
-  "Les communes du titre"
+  "Communes du titre"
   pays: [Pays]
 
-  "Les documents relatifs à l'étape"
+  "Documents relatifs à l'étape"
   documents: [Document]
 
   incertitudes: Incertitudes
@@ -247,7 +249,7 @@ input InputTitreCreation {
 "Titre minier"
 input InputTitreModification {
   """
-  L'__id__ composée de la concaténation:
+  Id composée de la concaténation:
   - du type en 3 lettres
   - du slug du nom du titre
   - de l'année d'octroi

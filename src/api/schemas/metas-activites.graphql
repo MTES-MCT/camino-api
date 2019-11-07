@@ -13,7 +13,7 @@ type ActiviteType {
 }
 
 input InputTitreActiviteStatut {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
   "Le nom en français"
@@ -23,9 +23,9 @@ input InputTitreActiviteStatut {
 }
 
 input InputTitreActiviteType {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
-  "Le nom en français"
+  "Nom en français"
   nom: String
 }

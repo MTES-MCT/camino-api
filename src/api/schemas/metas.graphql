@@ -24,50 +24,50 @@ type Metas {
   documentsTypes: [DocumentType]
 }
 
-"Le domaine minier"
+"Domaine minier"
 type Domaine {
-  "L'id composée d'une seule lettre"
+  "Id composée d'une seule lettre"
   id: ID!
 
-  "Le nom du domaine en français"
+  "Nom du domaine en français"
   nom: String!
 
   types: [Type]!
 }
 
-"Le type de titre minier"
+"Type de titre minier"
 type Type {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
-  "Le nom du type en français"
+  "Nom du type en français"
   nom: String!
 
-  "Les types de démarches applicables à ce type de titre"
+  "Types de démarches applicables à ce type de titre"
   demarchesTypes: [DemarcheType]
 }
 
-"Le statut d'un titre minier"
+"Statut d'un titre minier"
 type Statut {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
-  "Le nom du statut en français"
+  "Nom du statut en français"
   nom: String!
 
-  "La couleur associé au statut"
+  "Couleur associé au statut"
   couleur: Couleur!
 }
 
-"Le type de démarche applicable à un titre minier"
+"Type de démarche applicable à un titre minier"
 type DemarcheType {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
-  "Le nom en français"
+  "Nom en français"
   nom: String!
 
-  "L'ordre de ce type de démarche"
+  "Ordre de ce type de démarche"
   ordre: Int
 
   "Si la démarche contient une information de duréee"
@@ -87,38 +87,41 @@ type DemarcheType {
 
   exception: Boolean
 
-  "Les types d'étapes applicables à ce type de démarche"
+  "Types d'étapes applicables à ce type de démarche"
   etapesTypes: [EtapeType]
+
+  "Ids des types d'étape déjà présents sur cette démarche"
+  etapesTypeIds: [ID]
 }
 
-"Le statut d'une démarche applicable à un titre minier"
+"Statut d'une démarche applicable à un titre minier"
 type DemarcheStatut {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
-  "Le nom en français"
+  "Nom en français"
   nom: String!
 
   couleur: Couleur!
 }
 
-"Le statut d'une phase de titre minier"
+"Statut d'une phase de titre minier"
 type PhaseStatut {
-  "Le statut d'une phase de titre minier est composé de trois lettres"
+  "Statut d'une phase de titre minier est composé de trois lettres"
   id: ID!
 
-  "Le nom d'une phase de titre minier en français"
+  "Nom d'une phase de titre minier en français"
   nom: String!
 
   couleur: Couleur!
 }
 
-"Le type d'étape d'une démarche de titre minier"
+"Type d'étape d'une démarche de titre minier"
 type EtapeType {
-  "L'id composée de trois lettres"
+  "Id composée de trois lettres"
   id: ID!
 
-  "Le nom en français"
+  "Nom en français"
   nom: String!
 
   "Type de titre pour laquelle cette étape existe"
@@ -129,6 +132,9 @@ type EtapeType {
   fondamentale: Boolean
 
   acceptationAuto: Boolean
+
+  "Si ce type d'étape est unique au sein de la démarche"
+  unique: Boolean
 
   etapesStatuts: [EtapeStatut]
 
@@ -145,12 +151,12 @@ type DemarcheType_etapeType {
   ordre: Int!
 }
 
-"Le statut d'une étape de démarche de titre minier"
+"Statut d'une étape de démarche de titre minier"
 type EtapeStatut {
-  "L'id du statut d'étape est composé de trois lettres"
+  "Id du statut d'étape est composé de trois lettres"
   id: ID!
 
-  "Le nom du domaine en français"
+  "Nom du domaine en français"
   nom: String!
 
   couleur: Couleur!
@@ -190,7 +196,7 @@ type DocumentType {
 }
 
 """
-Une liste de couleurs génériques
+Liste de couleurs génériques
 """
 enum Couleur {
   error
