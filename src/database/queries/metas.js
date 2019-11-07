@@ -1,6 +1,7 @@
 import Types from '../models/types'
 import Domaines from '../models/domaines'
 import Statuts from '../models/statuts'
+import EtapesTypes from '../models/etapes-types'
 import DemarchesTypes from '../models/demarches-types'
 import options from './_options'
 import Devises from '../models/devises'
@@ -18,6 +19,8 @@ const statutsGet = async () => Statuts.query()
 
 const demarchesTypesGet = async () =>
   DemarchesTypes.query().eager(options.demarchesTypes.eager)
+
+const etapesTypesGet = async () => EtapesTypes.query()
 
 const devisesGet = async () => Devises.query()
 
@@ -41,6 +44,7 @@ export {
   domainesGet,
   statutsGet,
   demarchesTypesGet,
+  etapesTypesGet,
   devisesGet,
   documentsTypesGet,
   geoSystemesGet,

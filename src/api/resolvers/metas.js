@@ -1,12 +1,4 @@
-import {
-  permissionsCheck,
-  permissionsAdministrationsCheck
-} from './_permissions-check'
-import {
-  restrictedDomaineIds,
-  restrictedTypeIds,
-  restrictedStatutIds
-} from './_restrictions'
+import restrictions from './_restrictions'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
@@ -20,45 +12,35 @@ import {
   unitesGet,
   documentsTypesGet
 } from '../../database/queries/metas'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
-
-const check = (elements, restrictedList) =>
-  elements.filter(element => !restrictedList.find(id => id === element.id))
 
 const metas = async (variables, context, info) => {
-  const fields = fieldsBuild(info)
-  const typesEager = eagerBuild(fields.types, 'types')
   const devises = await devisesGet()
   const geoSystemes = await geoSystemesGet()
   const unites = await unitesGet()
   const documentsTypes = await documentsTypesGet()
+
   let domaines = await domainesGet()
   let statuts = await statutsGet()
-  let types = await typesGet({ eager: typesEager })
+
+  const fields = fieldsBuild(info)
+  const typesEager = eagerBuild(fields.types, 'types')
+  const types = await typesGet({ eager: typesEager })
 
   if (!context.user) {
-    domaines = check(domaines, restrictedDomaineIds)
-    statuts = check(statuts, restrictedStatutIds)
-  }
-
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  if (
-    !context.user ||
-    !(
-      permissionsCheck(user, ['super']) ||
-      permissionsAdministrationsCheck(user, ['ope-onf-973-01'])
+    domaines = domaines.filter(
+      domaine => !restrictions.domaines.find(d => d.domaineId === domaine.id)
     )
-  ) {
-    types = check(types, restrictedTypeIds)
+    statuts = statuts.filter(
+      statut => !restrictions.statutIds.find(d => d === statut.id)
+    )
   }
 
   return {
+    domaines,
+    statuts,
     types,
     devises,
-    domaines,
     documentsTypes,
-    statuts,
     geoSystemes,
     unites
   }

@@ -32,7 +32,15 @@ const titre = async ({ id }, context, info) => {
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titreFormat(titreRes, user, fields)
+  try {
+    return titreFormat(titreRes, user, fields)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const titres = async (
