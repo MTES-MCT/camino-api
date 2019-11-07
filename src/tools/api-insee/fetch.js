@@ -20,6 +20,14 @@ const { INSEE_API_URL, INSEE_API_KEY, INSEE_API_SECRET } = process.env
 
 const TEST_SIREN_ID = '805296415'
 
+const tokenTest = async () => {
+  console.info('API Insee: requête de test du token sur /siren')
+  const res = await typeFetch('siren', `siren:${TEST_SIREN_ID}`)
+  if (!res) {
+    throw new Error('pas de résultat pour la requête de test')
+  }
+}
+
 const tokenInitialize = async () => {
   if (apiToken) return apiToken
 
@@ -35,11 +43,7 @@ const tokenInitialize = async () => {
       throw new Error('API Insee: pas de token après requête')
     }
 
-    console.info('API Insee: requête de test du token sur /siren')
-    const res = await typeFetch('siren', `siren:${TEST_SIREN_ID}`)
-    if (!res) {
-      throw new Error('pas de résultat pour la requête de test')
-    }
+    await tokenTest()
 
     return apiToken
   } catch (err) {
@@ -107,6 +111,8 @@ const tokenFetchDev = async () => {
     if (!result) {
       throw new Error('API Insee: pas de token dans le cache')
     }
+
+    await tokenTest()
 
     return result
   } catch (e) {
