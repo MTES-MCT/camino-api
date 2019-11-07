@@ -177,4 +177,10 @@ type Mutation {
   titreActiviteModifier(
     activite: InputTitreActiviteModification!
   ): TitreActivite
+
+  "__*__ Crée une entreprise"
+  entrepriseCreer(entreprise: InputEntrepriseCreation!): Entreprise
+
+  "__*__ Modifie une entreprise"
+  entrepriseModifier(entreprise: InputEntrepriseModification!): Entreprise
 }

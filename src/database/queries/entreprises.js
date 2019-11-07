@@ -19,4 +19,10 @@ const entreprisesUpsert = async entreprises =>
     .eager(options.entreprises.eager)
     .upsertGraph(entreprises, options.entreprises.update)
 
-export { entrepriseGet, entreprisesGet, entreprisesUpsert }
+const entrepriseUpsert = async entreprise =>
+  Entreprises.query()
+    .eager(options.entreprises.eager)
+    .upsertGraph(entreprise, options.entreprises.update)
+    .returning('*')
+
+export { entrepriseGet, entreprisesGet, entreprisesUpsert, entrepriseUpsert }
