@@ -33,19 +33,46 @@ export default class Titres extends Model {
       activitesDeposees: { type: ['number', 'null'] },
       activitesEnConstruction: { type: ['number', 'null'] },
       activitesAbsentes: { type: ['number', 'null'] },
-      substancesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      pointsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      titulairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      amodiatairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+      substancesTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      pointsTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      titulairesTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      amodiatairesTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
       administrationsTitreEtapeId: {
         type: ['string', 'null'],
         maxLength: 128
       },
-      surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      volumeTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      volumeUniteIdTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      engagementTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
+      surfaceTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      volumeTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      volumeUniteIdTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      communesTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
+      engagementTitreEtapeId: {
+        type: ['string', 'null'],
+        maxLength: 128
+      },
       engagementDeviseIdTitreEtapeId: {
         type: ['string', 'null'],
         maxLength: 128
@@ -267,6 +294,13 @@ export default class Titres extends Model {
 
   $afterGet() {
     this.pays = paysFormat(this.communes)
+  }
+
+  async $beforeInsert(queryContext) {
+    await super.$beforeInsert(queryContext)
+    if (this.pays) {
+      delete this.pays
+    }
   }
 
   $parseJson(json) {

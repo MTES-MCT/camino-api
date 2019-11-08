@@ -176,6 +176,13 @@ export default class TitresEtapes extends Model {
     this.pays = paysFormat(this.communes)
   }
 
+  async $beforeInsert(queryContext) {
+    await super.$beforeInsert(queryContext)
+    if (this.pays) {
+      delete this.pays
+    }
+  }
+
   $parseJson(json) {
     json = super.$parseJson(json)
 
@@ -190,12 +197,16 @@ export default class TitresEtapes extends Model {
     }
 
     if (json.administrationsIds) {
-      json.administrations = json.administrationsIds.map(id => ({ id }))
+      json.administrations = json.administrationsIds.map(id => ({
+        id
+      }))
       delete json.administrationsIds
     }
 
     if (json.amodiatairesIds) {
-      json.amodiataires = json.amodiatairesIds.map(id => ({ id }))
+      json.amodiataires = json.amodiatairesIds.map(id => ({
+        id
+      }))
       delete json.amodiatairesIds
     }
 

@@ -1,3 +1,4 @@
+import { debug } from '../../config/index'
 import {
   entrepriseGet,
   entreprisesGet,
@@ -16,86 +17,118 @@ import { emailCheck } from './_utilisateur'
 import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
 
 const entreprise = async ({ id }, context, info) => {
-  const entreprise = await entrepriseGet(id, {
-    eager: eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
-  })
+  try {
+    const entreprise = await entrepriseGet(id, {
+      eager: eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
+    })
 
-  const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await utilisateurGet(context.user.id))
 
-  if (!entreprise) {
-    throw new Error('aucune entreprise référencée avec cet identifiant')
+    if (!entreprise) {
+      throw new Error('aucune entreprise référencée avec cet identifiant')
+    }
+
+    return entrepriseFormat(entreprise, user)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
   }
-
-  return entrepriseFormat(entreprise, user)
 }
 
 const entreprises = async ({ noms }, context, info) => {
-  const entreprises = await entreprisesGet(
-    { noms },
-    {
-      eager: eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
+  try {
+    const entreprises = await entreprisesGet(
+      { noms },
+      {
+        eager: eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
+      }
+    )
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return entreprisesFormat(entreprises, user)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
     }
-  )
 
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  return entreprisesFormat(entreprises, user)
+    throw e
+  }
 }
 
 const entrepriseCreer = async ({ entreprise }, context) => {
-  if (!permissionsCheck(context.user, ['super', 'admin', 'editeur'])) {
-    throw new Error('droits insuffisants pour effectuer cette opération')
+  try {
+    if (!permissionsCheck(context.user, ['super', 'admin', 'editeur'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const errors = []
+
+    if (entreprise.paysId !== 'fr') {
+      errors.push('impossible de créer une entreprise étrangère')
+    }
+
+    const entrepriseOld = await entrepriseGet(
+      `${entreprise.paysId}-${entreprise.legalSiren}`
+    )
+
+    if (entrepriseOld) {
+      errors.push(`l'entreprise ${entrepriseOld.nom} existe déjà dans Camino`)
+    }
+
+    if (errors.length) {
+      throw new Error(errors.join(', '))
+    }
+
+    const entrepriseInsee = await entrepriseAndEtablissementsGet(
+      entreprise.legalSiren
+    )
+
+    if (!entrepriseInsee) {
+      throw new Error('numéro de siren non reconnu dans la base Insee')
+    }
+
+    const entrepriseNew = await entrepriseUpsert(entrepriseInsee)
+
+    return entrepriseNew
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
   }
-
-  const errors = []
-
-  if (entreprise.paysId !== 'fr') {
-    errors.push('impossible de créer une entreprise étrangère')
-  }
-
-  const entrepriseOld = await entrepriseGet(
-    `${entreprise.paysId}-${entreprise.legalSiren}`
-  )
-
-  if (entrepriseOld) {
-    errors.push(`l'entreprise ${entrepriseOld.nom} existe déjà dans Camino`)
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
-  }
-
-  const entrepriseInsee = await entrepriseAndEtablissementsGet(
-    entreprise.legalSiren
-  )
-
-  if (!entrepriseInsee) {
-    throw new Error('numéro de siren non reconnu dans la base Insee')
-  }
-
-  const entrepriseNew = await entrepriseUpsert(entrepriseInsee)
-
-  return entrepriseNew
 }
 
 const entrepriseModifier = async ({ entreprise }, context) => {
-  if (!permissionsCheck(context.user, ['super', 'admin', 'editeur'])) {
-    throw new Error('droits insuffisants pour effectuer cette opération')
+  try {
+    if (!permissionsCheck(context.user, ['super', 'admin', 'editeur'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const errors = []
+
+    if (entreprise.email && !emailCheck(entreprise.email)) {
+      errors.push('adresse email invalide')
+    }
+
+    if (errors.length) {
+      throw new Error(errors.join(', '))
+    }
+
+    const entrepriseNew = await entrepriseUpsert(entreprise)
+
+    return entrepriseNew
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
   }
-
-  const errors = []
-
-  if (entreprise.email && !emailCheck(entreprise.email)) {
-    errors.push('adresse email invalide')
-  }
-
-  if (errors.length) {
-    throw new Error(errors.join(', '))
-  }
-
-  const entrepriseNew = await entrepriseUpsert(entreprise)
-
-  return entrepriseNew
 }
 
 export { entreprise, entreprises, entrepriseCreer, entrepriseModifier }

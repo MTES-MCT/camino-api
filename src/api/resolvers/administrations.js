@@ -1,3 +1,4 @@
+import { debug } from '../../config/index'
 import {
   administrationGet,
   administrationsGet
@@ -10,26 +11,42 @@ import titreEagerFormat from './_titre-eager-format'
 import { administrationFormat, administrationsFormat } from './_administration'
 
 const administration = async ({ id }, context, info) => {
-  const administration = await administrationGet(id, {
-    eager: eagerBuild(fieldsBuild(info), 'administration', titreEagerFormat)
-  })
+  try {
+    const administration = await administrationGet(id, {
+      eager: eagerBuild(fieldsBuild(info), 'administration', titreEagerFormat)
+    })
 
-  const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await utilisateurGet(context.user.id))
 
-  return administrationFormat(administration, user)
+    return administrationFormat(administration, user)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const administrations = async ({ noms }, context, info) => {
-  const administrations = await administrationsGet(
-    { noms },
-    {
-      eager: eagerBuild(fieldsBuild(info), 'administration', titreEagerFormat)
+  try {
+    const administrations = await administrationsGet(
+      { noms },
+      {
+        eager: eagerBuild(fieldsBuild(info), 'administration', titreEagerFormat)
+      }
+    )
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return administrationsFormat(administrations, user)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
     }
-  )
 
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  return administrationsFormat(administrations, user)
+    throw e
+  }
 }
 
 export { administration, administrations }

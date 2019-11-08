@@ -14,17 +14,17 @@ import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
 
 const titreEtapeCreer = async ({ etape }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const rulesErrors = await titreEtapeUpdationValidate(etape)
-
-  if (rulesErrors.length) {
-    throw new Error(rulesErrors.join(', '))
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    const rulesErrors = await titreEtapeUpdationValidate(etape)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
     if (etape.points) {
       etape.points = await titreEtapePointsCalc(etape.points)
     }
@@ -49,17 +49,17 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
 }
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const rulesErrors = await titreEtapeUpdationValidate(etape)
-
-  if (rulesErrors) {
-    throw new Error(rulesErrors.join(', '))
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    const rulesErrors = await titreEtapeUpdationValidate(etape)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
     if (etape.points) {
       etape.points = await titreEtapePointsCalc(etape.points)
     }

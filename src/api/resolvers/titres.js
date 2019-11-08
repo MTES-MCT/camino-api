@@ -22,17 +22,17 @@ import titreUpdateTask from '../../business/titre-update'
 import titreUpdationValidate from '../../business/titre-updation-validate'
 
 const titre = async ({ id }, context, info) => {
-  const fields = fieldsBuild(info)
-
-  const eager = eagerBuild(fields, 'titre', titreEagerFormat)
-
-  const titreRes = await titreGet(id, { eager })
-
-  if (!titreRes) return null
-
-  const user = context.user && (await utilisateurGet(context.user.id))
-
   try {
+    const fields = fieldsBuild(info)
+
+    const eager = eagerBuild(fields, 'titre', titreEagerFormat)
+
+    const titreRes = await titreGet(id, { eager })
+
+    if (!titreRes) return null
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
     return titreFormat(titreRes, user, fields)
   } catch (e) {
     if (debug) {
@@ -57,45 +57,53 @@ const titres = async (
   context,
   info
 ) => {
-  const fields = fieldsBuild(info)
-  const titres = await titresGet(
-    {
-      typeIds,
-      domaineIds,
-      statutIds,
-      substances,
-      noms,
-      entreprises,
-      references,
-      territoires
-    },
-    {
-      eager: eagerBuild(fields, 'titres', titreEagerFormat)
+  try {
+    const fields = fieldsBuild(info)
+    const titres = await titresGet(
+      {
+        typeIds,
+        domaineIds,
+        statutIds,
+        substances,
+        noms,
+        entreprises,
+        references,
+        territoires
+      },
+      {
+        eager: eagerBuild(fields, 'titres', titreEagerFormat)
+      }
+    )
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return titres && titresFormat(titres, user, fields)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
     }
-  )
 
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  return titres && titresFormat(titres, user, fields)
+    throw e
+  }
 }
 
 const titreCreer = async ({ titre }, context, info) => {
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  if (
-    !permissionsCheck(context.user, ['super']) &&
-    !titrePermissionAdministrationsCheck(titre, user)
-  ) {
-    throw new Error('opération impossible')
-  }
-
-  const rulesErrors = await titreUpdationValidate(titre)
-
-  if (rulesErrors.length) {
-    throw new Error(rulesErrors.join(', '))
-  }
-
   try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    if (
+      !permissionsCheck(context.user, ['super']) &&
+      !titrePermissionAdministrationsCheck(titre, user)
+    ) {
+      throw new Error('opération impossible')
+    }
+
+    const rulesErrors = await titreUpdationValidate(titre)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
     await titreCreate(titre)
 
     const titreRes = titreUpdateTask(titre.id)
@@ -111,24 +119,24 @@ const titreCreer = async ({ titre }, context, info) => {
 }
 
 const titreModifier = async ({ titre }, context, info) => {
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  if (
-    !permissionsCheck(context.user, ['super']) &&
-    !titrePermissionAdministrationsCheck(titre, user)
-  ) {
-    throw new Error('opération impossible')
-  }
-
-  const titreOld = await titreGet(titre.id)
-
-  const rulesErrors = await titreUpdationValidate(titre, titreOld)
-
-  if (rulesErrors.length) {
-    throw new Error(rulesErrors.join(', '))
-  }
-
   try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    if (
+      !permissionsCheck(context.user, ['super']) &&
+      !titrePermissionAdministrationsCheck(titre, user)
+    ) {
+      throw new Error('opération impossible')
+    }
+
+    const titreOld = await titreGet(titre.id)
+
+    const rulesErrors = await titreUpdationValidate(titre, titreOld)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
     await titreUpdate(titre.id, titre)
 
     const titreRes = titreUpdateTask(titre.id)

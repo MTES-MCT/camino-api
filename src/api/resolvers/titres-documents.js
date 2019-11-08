@@ -35,20 +35,20 @@ const documentValidate = document => {
 }
 
 const titreDocumentCreer = async ({ document }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const errors = documentValidate(document)
-
-  const rulesErrors = await titreDocumentUpdationValidate(document)
-
-  if (errors.length || rulesErrors.length) {
-    const e = errors.concat(rulesErrors)
-    throw new Error(e.join(', '))
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    const errors = documentValidate(document)
+
+    const rulesErrors = await titreDocumentUpdationValidate(document)
+
+    if (errors.length || rulesErrors.length) {
+      const e = errors.concat(rulesErrors)
+      throw new Error(e.join(', '))
+    }
+
     document.id = `${document.titreEtapeId}-${
       document.typeId
     }-${cryptoRandomString({
@@ -87,19 +87,19 @@ const titreDocumentCreer = async ({ document }, context, info) => {
 }
 
 const titreDocumentModifier = async ({ document }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const errors = documentValidate(document)
-  const rulesErrors = await titreDocumentUpdationValidate(document)
-
-  if (errors.length || rulesErrors.length) {
-    const e = errors.concat(rulesErrors)
-    throw new Error(e.join(', '))
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    const errors = documentValidate(document)
+    const rulesErrors = await titreDocumentUpdationValidate(document)
+
+    if (errors.length || rulesErrors.length) {
+      const e = errors.concat(rulesErrors)
+      throw new Error(e.join(', '))
+    }
+
     if (document.fichierNouveau || !document.fichier) {
       const documentOld = titreDocumentGet(document.id)
 
@@ -149,11 +149,11 @@ const titreDocumentModifier = async ({ document }, context, info) => {
 }
 
 const titreDocumentSupprimer = async ({ id }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
     const documentOld = await titreDocumentGet(id)
 
     if (!documentOld) {

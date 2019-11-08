@@ -14,17 +14,17 @@ import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
 
 const titreDemarcheCreer = async ({ demarche }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const rulesErrors = await titreDemarcheUpdationValidate(demarche)
-
-  if (rulesErrors.length) {
-    throw new Error(rulesErrors.join(', '))
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    const rulesErrors = await titreDemarcheUpdationValidate(demarche)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
     const demarcheUpdated = await titreDemarcheCreate(demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
@@ -41,17 +41,17 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
 }
 
 const titreDemarcheModifier = async ({ demarche }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  const rulesErrors = await titreDemarcheUpdationValidate(demarche)
-
-  if (rulesErrors.length) {
-    throw new Error(rulesErrors.join(', '))
-  }
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    const rulesErrors = await titreDemarcheUpdationValidate(demarche)
+
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
+    }
+
     const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
@@ -68,13 +68,13 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
 }
 
 const titreDemarcheSupprimer = async ({ id }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
-    throw new Error('opération impossible')
-  }
-
-  // TODO / question: ajouter une validation ?
-
   try {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+      throw new Error('opération impossible')
+    }
+
+    // TODO / question: ajouter une validation ?
+
     const demarcheOld = await titreDemarcheGet(id)
 
     await titreDemarcheDelete(id)
