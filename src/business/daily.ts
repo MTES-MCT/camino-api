@@ -259,7 +259,7 @@ const run = async () => {
       },
       {
         eager:
-          '[demarches(orderDesc).[phase], communes.departement.region.pays]'
+          '[activites, demarches(orderDesc).[phase], communes.departement.region.pays]'
       }
     )
     const activitesTypes = await activitesTypesGet()
