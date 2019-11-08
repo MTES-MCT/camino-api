@@ -10,6 +10,7 @@ import Communes from './communes'
 import titresIncertitudes from './titres-incertitudes'
 import Devises from './devises'
 import Unites from './unites'
+import { paysFormat } from './_format'
 
 export default class TitresEtapes extends Model {
   static tableName = 'titresEtapes'
@@ -169,6 +170,10 @@ export default class TitresEtapes extends Model {
         to: 'devises.id'
       }
     }
+  }
+
+  $afterGet() {
+    this.pays = paysFormat(this.communes)
   }
 
   $parseJson(json) {
