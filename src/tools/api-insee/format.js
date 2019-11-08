@@ -18,7 +18,7 @@ import inseeTypesVoies from './voies'
 const nomFormat = (e, usuel) =>
   e.nomUniteLegale && !usuel
     ? nomIndividuFormat(e)
-    : nomEntrepriseFormat(e, usuel)
+    : nomEntrepriseFormat(e) || nomIndividuFormat(e)
 
 // regroupe les établissement en fonction du nom, suivant les périodes
 const entrepriseEtablissementsFormat = (entrepriseId, e) =>
@@ -180,7 +180,7 @@ const entrepriseFormat = e => {
   return entreprise
 }
 
-const nomEntrepriseFormat = (e, usuel) => {
+const nomEntrepriseFormat = e => {
   const denomination =
     e.denominationUniteLegale && e.denominationUniteLegale.trim()
 
