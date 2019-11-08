@@ -10,9 +10,10 @@ const titreActiviteBuild = (
 ) => {
   const frequencePeriodeId = periodeIndex + 1
 
-  const dateFin = `${annee}-${((periodeIndex + 1) * monthsCount)
-    .toString()
-    .padStart(2, '0')}-01`
+  const dateFin = dateFormat(
+    new Date(annee, (periodeIndex + 1) * monthsCount, 1),
+    'yyyy-mm-dd'
+  )
 
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
@@ -21,9 +22,10 @@ const titreActiviteBuild = (
   // si le statut du titre n'est pas "modification en instance"
   // - vérifie les dates de validité
   if (titreStatutId !== 'mod') {
-    const dateDebut = `${annee}-${(periodeIndex * monthsCount)
-      .toString()
-      .padStart(2, '0')}-01`
+    const dateDebut = dateFormat(
+      new Date(annee, periodeIndex * monthsCount, 1),
+      'yyyy-mm-dd'
+    )
 
     // vérifie la validité du titre pour la période
     const titreIsValid = titreValiditePeriodeCheck(
