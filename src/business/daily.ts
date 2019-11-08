@@ -211,7 +211,7 @@ const run = async () => {
       },
       {
         eager:
-          'demarches(orderDesc).etapes(orderDesc).[administrations,communes.[departement]]'
+          'demarches(orderDesc).etapes(orderDesc).[administrations, communes.[departement]]'
       }
     )
     administrations = await administrationsGet()
@@ -245,7 +245,6 @@ const run = async () => {
     // 12.
     console.log()
     console.log('activités des titres…')
-    const annees = [2018, 2019]
     titres = await titresGet(
       {
         domaineIds: null,
@@ -259,10 +258,12 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'demarches(orderDesc).[phase]'
+        eager:
+          '[demarches(orderDesc).[phase], communes.departement.region.pays]'
       }
     )
     const activitesTypes = await activitesTypesGet()
+    const annees = [2018, 2019]
     let titresActivitesCreated = await titresActivitesUpdate(
       titres,
       activitesTypes,
