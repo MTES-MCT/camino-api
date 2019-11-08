@@ -47,12 +47,13 @@ const tokenInitialize = async () => {
 
     return apiToken
   } catch (e) {
-    const error = e.error
-      ? `${e.error}: ${e.error_description}`
-      : e.message || JSON.stringify(e)
-
-    throw new Error(
-      `API Insee: impossible de générer le token de l'API INSEE ${error}`
+    errorLog(
+      "API Insee: impossible de générer le token de l'API INSEE ",
+      (e.header && e.header.message) ||
+        (e.fault && `${e.fault.message}: ${e.fault.description}`) ||
+        (e.error && `${e.error}: ${e.error_description}`) ||
+        e.message ||
+        e
     )
   }
 }
@@ -96,7 +97,11 @@ const tokenFetch = async () => {
   } catch (e) {
     errorLog(
       `API Insee: tokenFetch `,
-      (e.header && e.header.message) || e.error || e.message || e
+      (e.header && e.header.message) ||
+        (e.fault && `${e.fault.message}: ${e.fault.description}`) ||
+        (e.error && `${e.error}: ${e.error_description}`) ||
+        e.message ||
+        e
     )
   }
 }
@@ -104,18 +109,20 @@ const tokenFetch = async () => {
 const tokenFetchDev = async () => {
   await makeDir(CACHE_DIR)
 
-  const cacheFilePath = join(CACHE_DIR, `insee-token`)
+  const cacheFilePath = join(CACHE_DIR, `insee-token.json`)
 
   try {
-    const result = require(`../../../${cacheFilePath}.json`)
+    const result = require(`../../../${cacheFilePath}`)
 
-    console.info('API Insee: lecture du token depuis le cache')
+    console.info('API Insee: lecture du token depuis le cache', cacheFilePath)
 
     if (!result) {
       throw new Error('API Insee: pas de token dans le cache')
     }
 
-    await tokenTest()
+    apiToken = result && result.access_token
+
+    console.info('API Insee: requête de test pour le token du cache')
 
     return result
   } catch (e) {
@@ -128,7 +135,7 @@ const tokenFetchDev = async () => {
       throw new Error('API Insee: pas de token retourné')
     }
 
-    await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
+    await fileCreate(cacheFilePath, JSON.stringify(result, null, 2))
 
     return result
   }
@@ -179,7 +186,11 @@ const typeFetch = async (type, q) => {
   } catch (e) {
     errorLog(
       `API Insee: typeFetch `,
-      (e.header && e.header.message) || e.error || e.message || e
+      (e.header && e.header.message) ||
+        (e.fault && `${e.fault.message}: ${e.fault.description}`) ||
+        (e.error && `${e.error}: ${e.error_description}`) ||
+        e.message ||
+        e
     )
   }
 }
@@ -189,11 +200,11 @@ const typeFetchDev = async (type, q, field, ids) => {
 
   const cacheFilePath = join(
     CACHE_DIR,
-    `insee-${field}-${ids.map(i => i.slice(-1)[0]).join('-')}`
+    `insee-${field}-${ids.map(i => i.slice(-1)[0]).join('-')}.json`
   )
 
   try {
-    const result = require(`../../../${cacheFilePath}.json`)
+    const result = require(`../../../${cacheFilePath}`)
 
     console.info(`API Insee: lecture de ${type} depuis le cache, ids: ${ids}`)
 
@@ -205,7 +216,7 @@ const typeFetchDev = async (type, q, field, ids) => {
 
     const result = await typeFetch(type, q)
 
-    await fileCreate(`${cacheFilePath}.json`, JSON.stringify(result, null, 2))
+    await fileCreate(cacheFilePath, JSON.stringify(result, null, 2))
 
     return result
   }
@@ -222,7 +233,13 @@ const typeMultiFetch = async (type, field, ids, q) => {
   } catch (e) {
     errorLog(
       `API Insee: ${type} get ${ids.join(', ')}`,
-      JSON.stringify(e.error || e.message || e)
+      JSON.stringify(
+        (e.header && e.header.message) ||
+          (e.fault && `${e.fault.message}: ${e.fault.description}`) ||
+          (e.error && `${e.error}: ${e.error_description}`) ||
+          e.message ||
+          e
+      )
     )
   }
 }
