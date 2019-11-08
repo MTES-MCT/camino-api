@@ -186,7 +186,9 @@ const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
 
     const token = jwt.sign({ email }, process.env.JWT_SECRET)
 
-    const url = `${process.env.UI_URL}/creation-de-compte?token=${token}&email=${email}`
+    const url = `${
+      process.env.UI_URL
+    }/creation-de-compte?token=${token}&email=${encodeURIComponent(email)}`
 
     const subject = `Création de votre compte utilisateur`
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
