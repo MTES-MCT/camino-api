@@ -135,10 +135,6 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     }
   }
 
-  if (fields.pays && t.communes && t.communes.length) {
-    t.pays = paysRegionsDepartementsCommunes(t.communes)
-  }
-
   if (fields.demarches && t.demarches && t.demarches.length) {
     t.demarches = t.demarches.map(titreDemarche =>
       titreDemarcheFormat(
@@ -193,6 +189,8 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
       delete t.administrationsCentrales
       delete t.administrationsLocales
+    } else {
+      t.administrations = []
     }
   }
 
@@ -205,66 +203,6 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   }
 
   return t
-}
-
-const paysRegionsDepartementsCommunes = communes => {
-  const pays = communes.reduce((pays, commune) => {
-    // "un pay", singulier de "des pays"
-    let pay = pays.find(p => p.id === commune.departement.region.pays.id)
-
-    if (!pay) {
-      pay = {
-        id: commune.departement.region.pays.id,
-        nom: commune.departement.region.pays.nom,
-        regions: []
-      }
-      pays.push(pay)
-    }
-
-    let region = pay.regions.find(r => r.id === commune.departement.region.id)
-
-    if (!region) {
-      region = {
-        id: commune.departement.region.id,
-        nom: commune.departement.region.nom,
-        departements: []
-      }
-      pay.regions.push(region)
-    }
-
-    let departement = region.departements.find(
-      d => d.id === commune.departement.id
-    )
-
-    if (!departement) {
-      departement = {
-        id: commune.departement.id,
-        nom: commune.departement.nom,
-        communes: []
-      }
-      region.departements.push(departement)
-    }
-
-    if (!departement.communes.find(c => c.id === commune.id)) {
-      departement.communes.push({ id: commune.id, nom: commune.nom })
-    }
-
-    return pays
-  }, [])
-
-  // trie par ordre alphabétique
-  pays.sort((a, b) => a.nom > b.nom)
-  pays.forEach(p => {
-    p.regions.sort((a, b) => (a.nom > b.nom ? 1 : -1))
-    p.regions.forEach(r => {
-      r.departements.sort((a, b) => (a.nom > b.nom ? 1 : -1))
-      r.departements.forEach(d => {
-        d.communes.sort((a, b) => (a.nom > b.nom ? 1 : -1))
-      })
-    })
-  })
-
-  return pays
 }
 
 const titreDemarcheFormat = (
@@ -356,10 +294,6 @@ const titreEtapeFormat = (
     if (fields.geojsonPoints) {
       te.geojsonPoints = geojsonFeatureCollectionPoints(te.points)
     }
-  }
-
-  if (fields.pays && te.communes && te.communes.length) {
-    te.pays = paysRegionsDepartementsCommunes(te.communes)
   }
 
   if (te.documents && !userHasPermission) {
