@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.9](https://github.com/MTES-MCT/camino-api/compare/v0.24.8...v0.24.9) (2019-11-13)
+
+
+### Bug Fixes
+
+* **api-insee:** corrige le nom des entreprises n'ayant que le nom du(de la) dirigeant(e) ([d600ba8](https://github.com/MTES-MCT/camino-api/commit/d600ba8))
+* corrige l'enregistrement d'une étape ([88c7da3](https://github.com/MTES-MCT/camino-api/commit/88c7da3))
+* encode l'adresse email pour la passer dans l'url ([61ff2b9](https://github.com/MTES-MCT/camino-api/commit/61ff2b9))
+* **ajout de documents:** rend le "nom" facultatif, limite la taille du fichier à 10mo ([#208](https://github.com/MTES-MCT/camino-api/issues/208)) ([4d10e8a](https://github.com/MTES-MCT/camino-api/commit/4d10e8a))
+* **api:** formate les entreprises et les administrations des titres ([#209](https://github.com/MTES-MCT/camino-api/issues/209)) ([b34278d](https://github.com/MTES-MCT/camino-api/commit/b34278d))
+* **api-insee:** corrige la gestion du cache ([#214](https://github.com/MTES-MCT/camino-api/issues/214)) ([639a514](https://github.com/MTES-MCT/camino-api/commit/639a514))
+* **api-insee:** corrige le message d'erreur en cas de token invalide ([#217](https://github.com/MTES-MCT/camino-api/issues/217)) ([69b36ef](https://github.com/MTES-MCT/camino-api/commit/69b36ef))
+* **api-insee:** corrige si l'entreprise n'est pas trouvée avec un siren ([#215](https://github.com/MTES-MCT/camino-api/issues/215)) ([e48656c](https://github.com/MTES-MCT/camino-api/commit/e48656c))
+* **api-insee:** initialise le token lors de la création d'une entreprise ([2bc55a9](https://github.com/MTES-MCT/camino-api/commit/2bc55a9))
+* **business:** corrige la création des activités ([#216](https://github.com/MTES-MCT/camino-api/issues/216)) ([358c0bd](https://github.com/MTES-MCT/camino-api/commit/358c0bd))
+* **business:** corrige la requête de titres pour la création des activités ([18acf50](https://github.com/MTES-MCT/camino-api/commit/18acf50))
+* **business:** corrige le calcul des dates des activités ([9bd370c](https://github.com/MTES-MCT/camino-api/commit/9bd370c))
+* corrige une erreur d'appel d'une fonction ([df26257](https://github.com/MTES-MCT/camino-api/commit/df26257))
+* supprime les entreprises ou administrations liées ([#213](https://github.com/MTES-MCT/camino-api/issues/213)) ([f5adc1b](https://github.com/MTES-MCT/camino-api/commit/f5adc1b))
+
+
+### Features
+
+* **business:** restreint la visualisation des titres et étapes ([#197](https://github.com/MTES-MCT/camino-api/issues/197)) ([c3b2749](https://github.com/MTES-MCT/camino-api/commit/c3b2749))
+* **édition:** ajoute une entreprise ([#200](https://github.com/MTES-MCT/camino-api/issues/200)) ([c5e078f](https://github.com/MTES-MCT/camino-api/commit/c5e078f))
+* contraint les liens entre utilisateurs et administration / entreprise ([#212](https://github.com/MTES-MCT/camino-api/issues/212)) ([6000dc3](https://github.com/MTES-MCT/camino-api/commit/6000dc3))
+
 ### [0.24.8](https://github.com/MTES-MCT/camino-api/compare/v0.24.7...v0.24.8) (2019-10-28)
 
 
