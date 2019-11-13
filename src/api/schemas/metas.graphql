@@ -22,6 +22,9 @@ type Metas {
 
   "Types de documents"
   documentsTypes: [DocumentType]
+
+  "Types de references"
+  referencesTypes: [ReferenceType]
 }
 
 "Domaine minier"

@@ -9,6 +9,7 @@ import GeoSystemes from '../models/geo-systemes'
 import unites from '../models/unites'
 import ActivitesTypes from '../models/activites-types'
 import DocumentsTypes from '../models/documents-types'
+import ReferencesTypes from '../models/references-types'
 
 const typesGet = async ({ eager = options.types.eager } = {}) =>
   Types.query().eager(eager)
@@ -39,6 +40,8 @@ const unitesGet = async () => unites.query()
 const activitesTypesGet = async () =>
   ActivitesTypes.query().eager(options.activitesTypes.eager)
 
+const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
+
 export {
   typesGet,
   domainesGet,
@@ -50,5 +53,6 @@ export {
   geoSystemesGet,
   geoSystemeGet,
   unitesGet,
-  activitesTypesGet
+  activitesTypesGet,
+  referencesTypesGet
 }
