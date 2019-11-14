@@ -41,7 +41,8 @@ const titresTables = [
   { name: 'titres_administrations_centrales' },
   { name: 'titres_administrations_locales' },
   { name: 'titres_amodiataires' },
-  { name: 'titres_incertitudes' }
+  { name: 'titres_incertitudes' },
+  { name: 'titres_references' }
 ]
 
 const spreadsheets = [
@@ -124,7 +125,8 @@ const spreadsheets = [
       { name: 'unites' },
       { name: 'administrations_types' },
       { name: 'permissions' },
-      { name: 'documents_types' }
+      { name: 'documents_types' },
+      { name: 'references_types' }
     ]
   },
   {

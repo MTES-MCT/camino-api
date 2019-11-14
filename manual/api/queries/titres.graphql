@@ -39,8 +39,7 @@ fragment titre on Titre {
     couleur
   }
   references {
-    type
-    valeur
+    ...reference
   }
   volume
   surface
@@ -295,4 +294,14 @@ fragment document on Document {
   fichier
   jorf
   nor
+}
+
+fragment reference on Reference {
+  ...referenceType
+  nom
+}
+
+fragment referenceType on ReferenceType {
+  id
+  nom
 }

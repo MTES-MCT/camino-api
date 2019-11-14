@@ -13,6 +13,7 @@ import TitresActivites from './titres-activites'
 import Unites from './unites'
 import Devises from './devises'
 import { paysFormat } from './_format'
+import TitresReferences from './titres-references'
 
 export default class Titres extends Model {
   static tableName = 'titres'
@@ -26,7 +27,6 @@ export default class Titres extends Model {
       domaineId: { type: 'string', maxLength: 1 },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
-      references: { type: ['object', 'null'] },
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
       dateDemande: { type: ['string', 'null'] },
@@ -272,24 +272,20 @@ export default class Titres extends Model {
         from: 'titres.id',
         to: 'titresActivites.titreId'
       }
+    },
+
+    references: {
+      relation: Model.HasManyRelation,
+      modelClass: TitresReferences,
+      join: {
+        from: 'titres.id',
+        to: 'titresReferences.titreId'
+      }
     }
   }
 
   static get jsonAttributes() {
     return []
-  }
-
-  $parseDatabaseJson(json) {
-    json = super.$parseDatabaseJson(json)
-
-    json.references =
-      json.references &&
-      Object.keys(json.references).map(r => ({
-        type: r,
-        valeur: json.references[r]
-      }))
-
-    return json
   }
 
   $afterGet() {
@@ -308,16 +304,6 @@ export default class Titres extends Model {
 
     if (!json.id && json.domaineId && json.typeId && json.nom) {
       json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`
-    }
-
-    if (json.references) {
-      json.references = json.references.reduce(
-        (references, ref) =>
-          Object.assign(references, {
-            [ref.type]: ref.valeur
-          }),
-        {}
-      )
     }
 
     delete json.geojsonMultiPolygon

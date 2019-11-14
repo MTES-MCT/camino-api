@@ -56,14 +56,38 @@ const titresGet = async (
   }
 
   if (references) {
+    const fields = ['references.nom', 'references:type.nom']
+
     q.where(b => {
-      references.forEach(ref => {
-        b.orWhereRaw(`lower(??::text) like ?`, [
-          'titres.references',
-          `%${ref.toLowerCase()}%`
-        ])
+      references.forEach(s => {
+        fields.forEach(f => {
+          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+        })
       })
     })
+      .groupBy('titres.id')
+      .havingRaw(
+        `(${references
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              fields.map(() => 'lower(??) like ?').join(' or ') +
+              ') > 0'
+          )
+          .join(') or (')})`,
+        references.reduce((res, s) => {
+          res.push(
+            ...fields.reduce((r, f) => {
+              r.push(f, `%${s.toLowerCase()}%`)
+
+              return r
+            }, [])
+          )
+
+          return res
+        }, [])
+      )
+      .joinRelation('references.type')
   }
 
   if (substances) {
@@ -213,12 +237,12 @@ const titresGet = async (
 
 const titreCreate = async titre =>
   Titres.query()
-    .insertAndFetch(titre)
+    .insertGraphAndFetch(titre)
     .eager(options.titres.eager)
 
 const titreUpdate = async (id, props) =>
   Titres.query()
-    .patchAndFetchById(id, props)
+    .upsertGraphAndFetch(props, options.titres.update)
     .eager(options.titres.eager)
 
 const titreDelete = async (id, tr) =>

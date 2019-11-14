@@ -89,11 +89,19 @@ type Titre {
 
 "Références métier d'un titre minier"
 type Reference {
-  "Type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc."
-  type: String
+  "Le type de références"
+  type: ReferenceType
 
-  "Référence du titre dans le référentiel"
-  valeur: String!
+  "La référence du titre dans le référentiel"
+  nom: String!
+}
+
+type ReferenceType {
+  "L'__id__ du type de références en 3 lettres"
+  id: ID!
+
+  "Le nom est une chaine de caractère qui définit le nom du type de référence (par exemple: DEB, DGEC, etc.)"
+  nom: String
 }
 
 "Démarches effectuées sur un titre minier"
@@ -266,8 +274,8 @@ input InputTitreModification {
 }
 
 input InputReference {
-  type: String!
-  valeur: String!
+  typeId: ID!
+  nom: String!
 }
 
 input InputDemarcheCreation {

@@ -242,7 +242,8 @@ const titres = {
     engagementEtape,
     engagementDevise,
     communes.${communes.eager},
-    activites(orderDesc).${titresActivites.eager}
+    activites(orderDesc).${titresActivites.eager},
+    references(orderAsc)
   ]`,
 
   update: {

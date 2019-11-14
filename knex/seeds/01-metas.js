@@ -20,6 +20,7 @@ const geoSystemes = require('../../sources/geo-systemes.json')
 const devises = require('../../sources/devises.json')
 const unites = require('../../sources/unites.json')
 const documentsTypes = require('../../sources/documents-types.json')
+const referencesTypes = require('../../sources/references-types.json')
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
@@ -30,7 +31,8 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('statuts'),
     del('geoSystemes'),
     del('devises'),
-    del('unites')
+    del('unites'),
+    del('referencesTypes')
   ])
   await Promise.all([
     del('phasesStatuts'),
@@ -52,7 +54,8 @@ exports.seed = seeding(async ({ del, insert }) => {
     insert('etapesStatuts', etapesStatuts),
     insert('documentsTypes', documentsTypes),
     insert('devises', devises),
-    insert('unites', unites)
+    insert('unites', unites),
+    insert('referencesTypes', referencesTypes)
   ])
   await Promise.all([
     insert('geoSystemes', geoSystemes),

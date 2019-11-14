@@ -44,7 +44,6 @@ const tables = [
       'typeId',
       'domaineId',
       'statutId',
-      'references',
       'dateDebut',
       'dateFin',
       'dateDemande',
@@ -270,6 +269,12 @@ const tables = [
       'administrations'
     ],
     parents: ['demarches', 'etapes', 'incertitudes']
+  },
+  {
+    id: 16,
+    name: 'titresReferences',
+    columns: ['titreId', 'typeId', 'nom'],
+    parents: ['references']
   }
 ]
 
