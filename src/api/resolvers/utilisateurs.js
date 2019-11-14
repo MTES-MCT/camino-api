@@ -67,13 +67,9 @@ const utilisateurs = async (
 
 const utilisateurIdentifier = async (variables, context, info) => {
   try {
-    const utilisateur = context.user && (await utilisateurGet(context.user.id))
-
-    let token
-
-    if (utilisateur) {
-      token = userTokenCreate(utilisateur)
-    }
+    const utilisateur =
+      (context.user && (await utilisateurGet(context.user.id))) || null
+    const token = utilisateur ? userTokenCreate(utilisateur) : null
 
     return { token, utilisateur }
   } catch (e) {

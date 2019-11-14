@@ -242,7 +242,7 @@ const titreCreate = async titre =>
 
 const titreUpdate = async (id, props) =>
   Titres.query()
-    .upsertGraphAndFetch(props, options.titres.update)
+    .patchAndFetchById(id, props)
     .eager(options.titres.eager)
 
 const titreDelete = async (id, tr) =>

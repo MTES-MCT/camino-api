@@ -10,6 +10,15 @@ import unites from '../models/unites'
 import ActivitesTypes from '../models/activites-types'
 import DocumentsTypes from '../models/documents-types'
 import ReferencesTypes from '../models/references-types'
+import Permissions from '../models/permissions'
+
+const permissionsGet = async ({ ordreMax }) =>
+  Permissions.query()
+    .skipUndefined()
+    .where('ordre', '>=', ordreMax)
+    .orderBy('ordre')
+
+const permissionGet = async id => Permissions.query().findById(id)
 
 const typesGet = async ({ eager = options.types.eager } = {}) =>
   Types.query().eager(eager)
@@ -54,5 +63,7 @@ export {
   geoSystemeGet,
   unitesGet,
   activitesTypesGet,
-  referencesTypesGet
+  referencesTypesGet,
+  permissionsGet,
+  permissionGet
 }

@@ -34,16 +34,22 @@ Certaines requêtes sont __protégées__ et nécessitent une authentification pa
 Enfin, certaines requêtes sont __semi-publiques__ et retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié. Elles sont signalées par un plus __+__.
 """
 type Query {
-  "Retourne la version de l'API"
+  "Version de l'API"
   version: String
 
-  "Retourne les meta-informations sur les titres miniers (types, domaines, statuts)"
-  metas: Metas
+  devises: [Devise]
+  documentsTypes: [DocumentType]
+  domaines: [Domaine]
+  geoSystemes: [GeoSysteme]
+  referencesTypes: [ReferenceType]
+  statuts: [Statut]
+  types: [Type]
+  unites: [Unite]
 
-  "__+__ Retourne un titre minier en fonction de son id"
+  "__+__ Titre minier en fonction de son id"
   titre(id: ID!): Titre
 
-  "__+__ Retourne une liste de titres miniers, en fonction d'arguments (optionels)"
+  "__+__ Liste de titres miniers, en fonction d'arguments (optionels)"
   titres(
     typeIds: [ID]
     domaineIds: [ID]
@@ -55,10 +61,10 @@ type Query {
     territoires: [String]
   ): [Titre]
 
-  "__*__ Retourne un utilisateur en fonction de son id"
+  "__*__ Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 
-  "__*__ Retourne une liste d'utilisateurs en fonction d'arguments (optionels)"
+  "__*__ Liste d'utilisateurs en fonction d'arguments (optionels)"
   utilisateurs(
     entrepriseIds: [ID]
     administrationIds: [ID]
@@ -66,31 +72,31 @@ type Query {
     noms: [String]
   ): [Utilisateur]
 
-  "Retourne une substance en fonction de son id"
+  "Substance en fonction de son id"
   substance(id: ID!): Substance
 
-  "Retourne la liste des substances"
+  "Liste des substances"
   substances: [Substance]
 
-  "__*__ Retourne un utilisateur et son token en fonction du token"
+  "__*__ Utilisateur et son token en fonction du token"
   utilisateurIdentifier: UtilisateurToken
 
-  "__+__ Retourne la liste des permissions utilisateurs"
+  "__+__ Liste des permissions utilisateurs"
   permissions: [Permission]
 
-  "__*__ Retourne une entreprise en fonction de son id"
+  "__*__ Entreprise en fonction de son id"
   entreprise(id: ID!): Entreprise
 
-  "__*__ Retourne la liste des entreprises"
+  "__*__ Liste des entreprises"
   entreprises: [Entreprise]
 
-  "__*__ Retourne une administration en fonction de son id"
+  "__*__ Administration en fonction de son id"
   administration(id: ID!): Administration
 
-  "__*__ Retourne la liste des administrations"
+  "__*__ Liste des administrations"
   administrations: [Administration]
 
-  "__*__ Retourne les statistiques"
+  "__*__ Statistiques"
   statistiques: Statistiques
 }
 

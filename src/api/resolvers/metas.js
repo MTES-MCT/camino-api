@@ -13,43 +13,31 @@ import {
   geoSystemesGet,
   unitesGet,
   documentsTypesGet,
-  referencesTypesGet
+  referencesTypesGet,
+  permissionGet,
+  permissionsGet
 } from '../../database/queries/metas'
 
-const metas = async (variables, context, info) => {
+import { permissionsCheck } from './_permissions-check'
+
+const npmPackage = require('../../../package.json')
+
+const devises = async (_, context) => devisesGet()
+const geoSystemes = async (_, context) => geoSystemesGet()
+const unites = async (_, context) => unitesGet()
+const documentsTypes = async (_, context) => documentsTypesGet()
+const referencesTypes = async (_, context) => referencesTypesGet()
+const permission = async ({ id }, context) => permissionGet(id)
+
+const permissions = async (_, context) => {
   try {
-    const devises = await devisesGet()
-    const geoSystemes = await geoSystemesGet()
-    const unites = await unitesGet()
-    const documentsTypes = await documentsTypesGet()
-    const referencesTypes = await referencesTypesGet()
-
-    let domaines = await domainesGet()
-    let statuts = await statutsGet()
-
-    const fields = fieldsBuild(info)
-    const typesEager = eagerBuild(fields.types, 'types')
-    const types = await typesGet({ eager: typesEager })
-
-    if (!context.user) {
-      domaines = domaines.filter(
-        domaine => !restrictions.domaines.find(d => d.domaineId === domaine.id)
-      )
-      statuts = statuts.filter(
-        statut => !restrictions.statutIds.find(d => d === statut.id)
-      )
+    if (permissionsCheck(context.user, ['super', 'admin'])) {
+      return permissionsGet({
+        ordreMax: context.user ? context.user.permissionOrdre : null
+      })
     }
 
-    return {
-      domaines,
-      statuts,
-      types,
-      devises,
-      documentsTypes,
-      referencesTypes,
-      geoSystemes,
-      unites
-    }
+    return null
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -59,4 +47,75 @@ const metas = async (variables, context, info) => {
   }
 }
 
-export { metas }
+const domaines = async (variables, context, info) => {
+  try {
+    let domaines = await domainesGet()
+    if (!context.user) {
+      domaines = domaines.filter(
+        domaine => !restrictions.domaines.find(d => d.domaineId === domaine.id)
+      )
+    }
+
+    return domaines
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const statuts = async (variables, context, info) => {
+  try {
+    let statuts = await statutsGet()
+
+    if (!context.user) {
+      statuts = statuts.filter(
+        statut => !restrictions.statutIds.find(d => d === statut.id)
+      )
+    }
+
+    return statuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const types = async (variables, context, info) => {
+  try {
+    const fields = fieldsBuild(info)
+    const typesEager = eagerBuild(fields, 'types')
+    const types = await typesGet({ eager: typesEager })
+
+    return types
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const version = (variables, context, info) => {
+  return npmPackage.version
+}
+
+export {
+  devises,
+  documentsTypes,
+  domaines,
+  geoSystemes,
+  permission,
+  permissions,
+  referencesTypes,
+  statuts,
+  types,
+  unites,
+  version
+}

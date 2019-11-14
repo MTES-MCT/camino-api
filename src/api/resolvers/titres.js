@@ -13,7 +13,7 @@ import {
   titreDelete,
   titreGet,
   titresGet,
-  titreUpdate
+  titreUpsert
 } from '../../database/queries/titres'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
@@ -137,7 +137,7 @@ const titreModifier = async ({ titre }, context, info) => {
       throw new Error(rulesErrors.join(', '))
     }
 
-    await titreUpdate(titre.id, titre)
+    await titreUpsert(titre)
 
     const titreRes = titreUpdateTask(titre.id)
 

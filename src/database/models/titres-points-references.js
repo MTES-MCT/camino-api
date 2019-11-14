@@ -65,4 +65,10 @@ export default class TitresPointsReferences extends Model {
   }
 
   static jsonAttributes = []
+
+  static modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('geoSystemeId', 'asc')
+    }
+  }
 }
