@@ -29,7 +29,7 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     // 1.
     console.log('ordre des étapes…')
     let titreDemarche = await titreDemarcheGet(titreDemarcheId, {
-      eager: 'etapes'
+      eager: '[etapes, type.[etapesTypes]]'
     })
     if (!titreDemarche) {
       console.log(`warning: la démarche ${titreDemarche} n'existe plus`)
