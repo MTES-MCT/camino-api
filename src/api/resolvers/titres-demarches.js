@@ -15,7 +15,7 @@ import titreDemarcheUpdationValidate from '../../business/titre-demarche-updatio
 
 const titreDemarcheCreer = async ({ demarche }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -28,7 +28,7 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
     const demarcheUpdated = await titreDemarcheCreate(demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {
@@ -42,7 +42,7 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
 
 const titreDemarcheModifier = async ({ demarche }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -55,7 +55,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
     const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
     const titreUpdated = await titreDemarcheUpdateTask(demarcheUpdated.titreId)
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {
@@ -69,7 +69,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
 
 const titreDemarcheSupprimer = async ({ id }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -81,7 +81,7 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
 
     const titreUpdated = await titreDemarcheUpdateTask(demarcheOld.titreId)
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {

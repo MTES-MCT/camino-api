@@ -15,7 +15,7 @@ import titreEtapeUpdationValidate from '../../business/titre-etape-updation-vali
 
 const titreEtapeCreer = async ({ etape }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -36,7 +36,7 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
       etapeUpdated.titreDemarcheId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {
@@ -50,7 +50,7 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -71,7 +71,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       etapeUpdated.titreDemarcheId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {
@@ -84,7 +84,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 }
 
 const titreEtapeSupprimer = async ({ id }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+  if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
     throw new Error('opération impossible')
   }
 
@@ -98,7 +98,7 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
       etapeOld.titreDemarcheId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {

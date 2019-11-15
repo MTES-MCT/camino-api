@@ -2,7 +2,7 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat, titresFormat } from './_titre-format'
 
-import { titrePermissionAdministrationsCheck } from './_titre'
+import { titrePermissionAdministrationsEditionCheck } from './_titre'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
@@ -15,6 +15,9 @@ import {
   titresGet,
   titreUpsert
 } from '../../database/queries/titres'
+
+import { administrationsGet } from '../../database/queries/administrations'
+
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreUpdateTask from '../../business/titre-update'
@@ -89,19 +92,25 @@ const titres = async (
 
 const titreCreer = async ({ titre }, context, info) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    if (
-      !permissionsCheck(context.user, ['super']) &&
-      !titrePermissionAdministrationsCheck(titre, user)
-    ) {
+    if (!context.user) {
       throw new Error('opération impossible')
     }
 
-    const rulesErrors = await titreUpdationValidate(titre)
+    const user = await utilisateurGet(context.user.id)
 
-    if (rulesErrors.length) {
-      throw new Error(rulesErrors.join(', '))
+    if (!permissionsCheck(context.user, ['super'])) {
+      const administrations = await administrationsGet()
+
+      if (
+        !titrePermissionAdministrationsEditionCheck(
+          titre,
+          administrations,
+          user,
+          'creation'
+        )
+      ) {
+        throw new Error('Droits insuffisants pour créer ce type de titre')
+      }
     }
 
     await titreCreate(titre)
@@ -120,13 +129,25 @@ const titreCreer = async ({ titre }, context, info) => {
 
 const titreModifier = async ({ titre }, context, info) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    if (
-      !permissionsCheck(context.user, ['super']) &&
-      !titrePermissionAdministrationsCheck(titre, user)
-    ) {
+    if (!context.user) {
       throw new Error('opération impossible')
+    }
+
+    const user = await utilisateurGet(context.user.id)
+
+    if (!permissionsCheck(context.user, ['super'])) {
+      const administrations = await administrationsGet()
+
+      if (
+        !titrePermissionAdministrationsEditionCheck(
+          titre,
+          administrations,
+          user,
+          'modification'
+        )
+      ) {
+        throw new Error('opération impossible')
+      }
     }
 
     const titreOld = await titreGet(titre.id)
@@ -152,12 +173,7 @@ const titreModifier = async ({ titre }, context, info) => {
 }
 
 const titreSupprimer = async ({ id }, context, info) => {
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  if (
-    !permissionsCheck(context.user, ['super']) &&
-    !titrePermissionAdministrationsCheck(titre, user)
-  ) {
+  if (!context.user || !permissionsCheck(context.user, ['super'])) {
     throw new Error('opération impossible')
   }
 

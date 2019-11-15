@@ -1,3 +1,5 @@
+import titreAdministrationsCentralesBuild from '../../business/rules/titre-administrations-centrales-build'
+
 import {
   permissionsCheck,
   permissionsAdministrationsCheck
@@ -79,8 +81,60 @@ const titrePermissionAdministrationsCheck = (titre, user) =>
     ...titre.administrationsCentrales.map(a => a.id)
   ])
 
+const titrePermissionAdministrationsEditionCheck = (
+  titre,
+  administrations,
+  user,
+  editionMode
+) => {
+  // dans un premier temps, on ne vérifie la création que pour les ARM
+  if (titre.typeId !== 'arm') return false
+
+  // calcule les administrations centrales pour le titre
+  const titreAdministrationsCentrales = titreAdministrationsCentralesBuild(
+    titre,
+    administrations
+  )
+
+  if (!titreAdministrationsCentrales.length) return false
+
+  console.log(titre)
+
+  // filtre les restrictions pour ne garder que celles qui concernent le titre
+  const titreRestrictions = restrictions.typesStatutsAdministrations.filter(
+    restriction =>
+      restriction.typeId === titre.typeId &&
+      // si le titre n'a pas de statut, c'est qu'il est en train d'être créé
+      restriction.statutId === (titre.statutId || 'dmi') &&
+      restriction[`${editionMode}Interdit`]
+  )
+
+  console.log({ titreRestrictions })
+
+  // filtre les administration qui font l'objet d'une restriction
+  const titreAdministrationsCentralesEdition = titreAdministrationsCentrales.filter(
+    ac =>
+      !titreRestrictions.find(r => r.administrationId === ac.administrationId)
+  )
+
+  console.log({
+    userAdmin: user.administrations,
+    titreAdministrationsCentrales,
+    titreAdministrationsCentralesEdition
+  })
+
+  // return false
+
+  // - si l'utilisateur a les droits de création sur le domaine/type de titre
+  return permissionsAdministrationsCheck(
+    user,
+    titreAdministrationsCentralesEdition.map(a => a.administrationId)
+  )
+}
+
 export {
   titreIsPublicCheck,
   titrePermissionCheck,
-  titrePermissionAdministrationsCheck
+  titrePermissionAdministrationsCheck,
+  titrePermissionAdministrationsEditionCheck
 }
