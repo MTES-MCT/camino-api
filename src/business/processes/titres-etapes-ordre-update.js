@@ -8,7 +8,7 @@ const titresEtapesOrdreUpdate = async titresDemarches => {
 
   const titresEtapesUpdated = titresDemarches.reduce(
     (titresEtapesUpdated, titreDemarche) =>
-      titreEtapesAscSortByDate(titreDemarche.etapes).reduce(
+      titreEtapesAscSortByDate(titreDemarche.etapes, titreDemarche.type).reduce(
         (titresEtapesUpdated, titreEtape, index) => {
           if (titreEtape.ordre === index + 1) return titresEtapesUpdated
 

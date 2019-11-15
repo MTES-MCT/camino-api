@@ -33,7 +33,7 @@ const run = async () => {
     console.log('ordre des étapes…')
     const titresDemarches = await titresDemarchesGet(
       { demarchesIds: null, titresIds: null },
-      { eager: 'etapes' }
+      { eager: '[etapes, type.[etapesTypes]]' }
     )
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
       titresDemarches

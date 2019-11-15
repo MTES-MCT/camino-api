@@ -1,15 +1,11 @@
 const titreEtapesSortedAsc = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
-    statutId: 'acc',
     ordre: 1,
     date: '1988-03-06'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
-    statutId: 'acc',
     ordre: 2,
     date: '1988-03-11'
   }
@@ -17,16 +13,12 @@ const titreEtapesSortedAsc = [
 
 const titreEtapesSortedDesc = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
-    statutId: 'acc',
     ordre: 2,
     date: '1988-03-11'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
-    statutId: 'acc',
     ordre: 1,
     date: '1988-03-06'
   }
@@ -34,16 +26,12 @@ const titreEtapesSortedDesc = [
 
 const titreEtapesSortedAscResult = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
-    statutId: 'acc',
     ordre: 1,
     date: '1988-03-06'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
-    statutId: 'acc',
     ordre: 2,
     date: '1988-03-11'
   }
@@ -51,16 +39,12 @@ const titreEtapesSortedAscResult = [
 
 const titreEtapesMemesDatesOrdreDesc = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
-    statutId: 'acc',
     ordre: 2,
     date: '1988-03-06'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
-    statutId: 'acc',
     ordre: 1,
     date: '1988-03-06'
   }
@@ -68,25 +52,62 @@ const titreEtapesMemesDatesOrdreDesc = [
 
 const titreEtapesMemesDatesOrdreAscResult = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
-    statutId: 'acc',
     ordre: 1,
     date: '1988-03-06'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
-    statutId: 'acc',
     ordre: 2,
     date: '1988-03-06'
   }
 ]
+
+const titreEtapesMemesDatesMemeOrdreDesc = [
+  {
+    typeId: 'dpu',
+    ordre: 2,
+    date: '1988-03-06'
+  },
+  {
+    typeId: 'dex',
+    ordre: 2,
+    date: '1988-03-06'
+  },
+  {
+    typeId: 'xxx',
+    ordre: 2,
+    date: '1988-03-06'
+  }
+]
+
+const titreEtapesMemesDatesMemeOrdreAscResult = [
+  {
+    typeId: 'dex',
+    ordre: 2,
+    date: '1988-03-06'
+  },
+  {
+    typeId: 'dpu',
+    ordre: 2,
+    date: '1988-03-06'
+  },
+  {
+    typeId: 'xxx',
+    ordre: 2,
+    date: '1988-03-06'
+  }
+]
+
+const etapesTypes = [{ id: 'dex', ordre: 100 }, { id: 'dpu', ordre: 200 }]
 
 export {
   titreEtapesSortedAsc,
   titreEtapesSortedDesc,
   titreEtapesSortedAscResult,
   titreEtapesMemesDatesOrdreDesc,
-  titreEtapesMemesDatesOrdreAscResult
+  titreEtapesMemesDatesOrdreAscResult,
+  titreEtapesMemesDatesMemeOrdreDesc,
+  titreEtapesMemesDatesMemeOrdreAscResult,
+  etapesTypes
 }
