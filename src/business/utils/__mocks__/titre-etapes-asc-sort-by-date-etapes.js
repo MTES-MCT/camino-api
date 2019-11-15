@@ -63,7 +63,7 @@ const titreEtapesMemesDatesOrdreAscResult = [
   }
 ]
 
-const titreEtapesMemesDatesMemeOrdreDesc = [
+const titreEtapesMemesDatesOrdreEtapesTypesDesc = [
   {
     typeId: 'dpu',
     ordre: 2,
@@ -81,7 +81,7 @@ const titreEtapesMemesDatesMemeOrdreDesc = [
   }
 ]
 
-const titreEtapesMemesDatesMemeOrdreAscResult = [
+const titreEtapesMemesDatesOrdreEtapesTypesAscResult = [
   {
     typeId: 'dex',
     ordre: 2,
@@ -94,6 +94,32 @@ const titreEtapesMemesDatesMemeOrdreAscResult = [
   },
   {
     typeId: 'xxx',
+    ordre: 2,
+    date: '1988-03-06'
+  }
+]
+
+const titreEtapesMemesDatesMemeOrdreDesc = [
+  {
+    typeId: 'dex',
+    ordre: 2,
+    date: '1988-03-06'
+  },
+  {
+    typeId: 'dex',
+    ordre: 1,
+    date: '1988-03-06'
+  }
+]
+
+const titreEtapesMemesDatesMemeOrdreAscResult = [
+  {
+    typeId: 'dex',
+    ordre: 1,
+    date: '1988-03-06'
+  },
+  {
+    typeId: 'dex',
     ordre: 2,
     date: '1988-03-06'
   }
@@ -107,6 +133,8 @@ export {
   titreEtapesSortedAscResult,
   titreEtapesMemesDatesOrdreDesc,
   titreEtapesMemesDatesOrdreAscResult,
+  titreEtapesMemesDatesOrdreEtapesTypesDesc,
+  titreEtapesMemesDatesOrdreEtapesTypesAscResult,
   titreEtapesMemesDatesMemeOrdreDesc,
   titreEtapesMemesDatesMemeOrdreAscResult,
   etapesTypes

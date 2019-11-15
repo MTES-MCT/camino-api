@@ -11,7 +11,9 @@ const titreEtapesAscSortByDate = (titreEtapes, { etapesTypes = [] } = {}) =>
     const aType = etapesTypes.find(et => a.typeId === et.id)
     const bType = etapesTypes.find(et => b.typeId === et.id)
 
-    return aType && bType ? aType.ordre - bType.ordre : 0
+    if (!aType || !bType) return a.ordre - b.ordre
+
+    return aType.ordre - bType.ordre || a.ordre - b.ordre
   })
 
 export default titreEtapesAscSortByDate
