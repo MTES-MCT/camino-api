@@ -165,6 +165,15 @@ type EtapeStatut {
   couleur: Couleur!
 }
 
+"Référence métier"
+type ReferenceType {
+  "Id du type de références en 3 lettres"
+  id: ID!
+
+  "Nom de la référence"
+  nom: String
+}
+
 "Unité"
 type Unite {
   id: ID!

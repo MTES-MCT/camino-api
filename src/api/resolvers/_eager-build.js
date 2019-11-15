@@ -1,6 +1,6 @@
 // in: objet {cle1: { id: {}}, cle2: {id: {}}}
 // out: array ["cle1", "cle2"]
-const fieldsToArray = (fields, format, grandparent = 'root') => {
+const fieldsToArray = (fields, format) => {
   return Object.keys(fields).reduce((acc, id) => {
     const fieldsSub = fields[id]
     // supprime
@@ -9,7 +9,7 @@ const fieldsToArray = (fields, format, grandparent = 'root') => {
     if (Object.keys(fieldsSub).length === 0 || id[0] === '$') return acc
 
     // formate les propriétés enfants récursivement
-    const fieldsSubString = fieldsToString(fieldsSub, id, format, grandparent)
+    const fieldsSubString = fieldsToString(fieldsSub, id, format)
 
     // ajoute un modifieur à certaines propriétés
     if (fieldsSub.$modifier) {
@@ -33,12 +33,8 @@ const fieldsToArray = (fields, format, grandparent = 'root') => {
 // - parent: (string) le nom du parent
 // - format: (function)
 // out: string "[cle1, cle2.[cle3, cle4]]"
-const fieldsToString = (fields, parent, format, grandParent = 'root') => {
-  const fieldsArray = fieldsToArray(
-    format(fields, parent, grandParent),
-    format,
-    parent
-  )
+const fieldsToString = (fields, parent, format) => {
+  const fieldsArray = fieldsToArray(format(fields, parent), format, parent)
 
   return fieldsArray.length > 1
     ? `[${fieldsArray.join(', ')}]`

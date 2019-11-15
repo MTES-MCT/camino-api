@@ -41,10 +41,20 @@ import {
   utilisateurMotDePasseInitialiser
 } from './resolvers/utilisateurs'
 
-import { version } from './resolvers/version'
-import { metas } from './resolvers/metas'
+import {
+  devises,
+  documentsTypes,
+  domaines,
+  geoSystemes,
+  permission,
+  permissions,
+  referencesTypes,
+  statuts,
+  types,
+  unites,
+  version
+} from './resolvers/metas'
 import { substance, substances } from './resolvers/substances'
-import { permissions } from './resolvers/permissions'
 import {
   entreprise,
   entreprises,
@@ -61,12 +71,21 @@ export default {
   FileUpload: GraphQLUpload,
 
   //  queries
+  devises,
+  documentsTypes,
+  domaines,
+  geoSystemes,
+  permission,
+  permissions,
+  referencesTypes,
+  statuts,
+  types,
+  unites,
   version,
   titre,
   titres,
   substance,
   substances,
-  metas,
   utilisateurIdentifier,
   entreprise,
   entreprises,
@@ -74,7 +93,6 @@ export default {
   administrations,
   utilisateur,
   utilisateurs,
-  permissions,
   statistiques,
 
   // mutations

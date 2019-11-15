@@ -1,6 +1,5 @@
 const fieldsOrderDesc = ['etablissements', 'demarches', 'etapes', 'activites']
 const fieldsOrderAsc = ['points', 'substances', 'references']
-const fieldsOrderAscExcluded = ['points/references']
 const fieldsToRemove = ['coordonnees']
 const fieldsToRemoveRoot = []
 const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
@@ -22,7 +21,7 @@ const titreEagerFormatAdministrations = (fields, type) => {
 }
 
 // ajoute des propriétés requises par /database/queries/_format
-const titreEagerFormat = (fields, parent, grandParent = 'root') => {
+const titreEagerFormat = (fields, parent) => {
   if (fields.administrations) {
     if (
       ['titres', 'titre', 'titresAmodiataire', 'titresTitulaire'].includes(
@@ -90,9 +89,7 @@ const titreEagerFormat = (fields, parent, grandParent = 'root') => {
 
   // ajoute `(orderAsc)` à certaine propriétés
   if (fieldsOrderAsc.includes(parent)) {
-    if (!fieldsOrderAscExcluded.includes(`${grandParent}/${parent}`)) {
-      fields.$modifier = 'orderAsc'
-    }
+    fields.$modifier = 'orderAsc'
   }
 
   // à la racine de l'objet
