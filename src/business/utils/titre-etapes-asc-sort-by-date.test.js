@@ -5,6 +5,8 @@ import {
   titreEtapesSortedAscResult,
   titreEtapesMemesDatesOrdreDesc,
   titreEtapesMemesDatesOrdreAscResult,
+  titreEtapesMemesDatesOrdreEtapesTypesDesc,
+  titreEtapesMemesDatesOrdreEtapesTypesAscResult,
   titreEtapesMemesDatesMemeOrdreDesc,
   titreEtapesMemesDatesMemeOrdreAscResult,
   etapesTypes
@@ -29,7 +31,15 @@ describe('trie les étapes', () => {
     ).toMatchObject(titreEtapesMemesDatesOrdreAscResult)
   })
 
-  test('des étapes avec les mêmes dates et le même ordre sont triées par ordre de type croissant', () => {
+  test('des étapes avec les mêmes dates sont triées par ordre de type croissant', () => {
+    expect(
+      titreEtapesAscSortByDate(titreEtapesMemesDatesOrdreEtapesTypesDesc, {
+        etapesTypes
+      })
+    ).toMatchObject(titreEtapesMemesDatesOrdreEtapesTypesAscResult)
+  })
+
+  test('des étapes avec les mêmes dates sont triées par ordre croissant', () => {
     expect(
       titreEtapesAscSortByDate(titreEtapesMemesDatesMemeOrdreDesc, {
         etapesTypes
