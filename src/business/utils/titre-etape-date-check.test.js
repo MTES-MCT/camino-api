@@ -19,7 +19,7 @@ import {
   titreArmMecanisee
 } from './__mocks__/titre-etape-date-check-titres'
 
-jest.mock('./titre-etapes-types-restrictions', () => ({
+jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
   default: [
     null,
     {},

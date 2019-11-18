@@ -1,5 +1,5 @@
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
-import titreEtapesTypesRestrictions from './titre-etapes-types-restrictions'
+import titreEtapesTypesRestrictions from '../definitions/titre-etapes-types-restrictions'
 
 // valide la date et la position de l'étape en fonction des autres étapes
 
@@ -40,11 +40,11 @@ const titreEtapeTypesRestrictionsCheck = (
 
   // l'étape nécessite une étape antérieure pour pouvoir exister
   if (obligatoireApresUne) {
-    const obligatoireApresUneKeys = Object.keys(obligatoireApresUne)
+    const obligatoireApresUneEtapeKeys = Object.keys(obligatoireApresUne)
 
     const titreEtapeBefore = titreDemarche.etapes.find(
       e =>
-        obligatoireApresUneKeys.every(k =>
+        obligatoireApresUneEtapeKeys.every(k =>
           Array.isArray(obligatoireApresUne[k])
             ? obligatoireApresUne[k].includes(e[k])
             : obligatoireApresUne[k] === e[k]
@@ -79,11 +79,11 @@ const titreEtapeTypesRestrictionsCheck = (
         )
       }
     } else {
-      const impossibleApresUneKeys = Object.keys(impossibleApresUne)
+      const impossibleApresUneEtapeKeys = Object.keys(impossibleApresUne)
 
       const titreEtapeAfter = titreDemarche.etapes.find(
         e =>
-          impossibleApresUneKeys.every(k =>
+          impossibleApresUneEtapeKeys.every(k =>
             Array.isArray(impossibleApresUne[k])
               ? impossibleApresUne[k].includes(e[k])
               : impossibleApresUne[k] === e[k]
