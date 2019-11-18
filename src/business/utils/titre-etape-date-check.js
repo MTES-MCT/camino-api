@@ -1,77 +1,160 @@
-import titreEtapesAscSort from './titre-etapes-asc-sort'
+import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
+import titreEtapesTypesRestrictions from '../definitions/titre-etapes-types-restrictions'
 
-// valide le type et le statut de l'étape en fonction du type de titre
-// et du type de démarche
+// valide la date et la position de l'étape en fonction des autres étapes
 
-const titreEtapeDateCheck = (titreEtape, titreDemarche) => {
-  const {
-    etapesTypes: titreDemarcheEtapesTypes,
-    nom: titreDemarcheTypeNom
-  } = titreDemarche.type
+const titreEtapeTypesRestrictionsFind = (titreEtape, titreDemarche, titre) =>
+  titreEtapesTypesRestrictions.find(restrictions => {
+    if (!restrictions) return false
 
-  const titreEtapes = titreEtapesAscSort(titreDemarche.etapes)
+    const { condition } = restrictions
+    if (!condition) return false
 
-  const { typeId: titreEtapeTypeId } = titreEtape
+    const isSameEtapeType =
+      condition.etape && titreEtape.typeId === condition.etape.typeId
 
-  const titreDemarcheEtapeType = titreDemarcheEtapesTypes.find(
-    etapeType => etapeType.id === titreEtapeTypeId
-  )
-  if (!titreDemarcheEtapeType) {
-    return `étape "${titreEtapeTypeId}" invalide pour une démarche ${titreDemarcheTypeNom}`
-  }
+    const isSameMecanisation =
+      !condition.titre ||
+      (titre.contenu &&
+        titre.contenu.onf &&
+        condition.titre.contenu &&
+        condition.titre.contenu.onf &&
+        condition.titre.contenu.onf.mecanisee === titre.contenu.onf.mecanisee)
 
-  let { id: titreEtapeId, date: titreEtapeDate } = titreEtape
-  titreEtapeDate = new Date(titreEtapeDate)
-
-  const {
-    ordre: titreEtapeTypeOrdre,
-    nom: titreEtapeTypeNom
-  } = titreDemarcheEtapeType
-
-  let errorInvalidDate = null
-
-  titreEtapes.some(titreEtapeCurrent => {
-    if (titreEtapeCurrent.id === titreEtapeId) return false
-
-    const {
-      typeId: titreEtapeCurrentTypeId,
-      date: titreEtapeCurrentDate
-    } = titreEtapeCurrent
-
-    const titreEtapeTypeCurrent = titreDemarcheEtapesTypes.find(
-      etapeType => etapeType.id === titreEtapeCurrentTypeId
-    )
-    if (!titreEtapeTypeCurrent) {
-      console.warn(
-        `étape "${titreEtapeCurrentTypeId}" invalide pour une démarche ${titreDemarcheTypeNom}`
-      )
-
-      return false
-    }
-
-    const {
-      ordre: titreEtapeTypeCurrentOrdre,
-      nom: titreEtapeTypeCurrentNom
-    } = titreEtapeTypeCurrent
-
-    const isDateAfter =
-      titreEtapeTypeOrdre < titreEtapeTypeCurrentOrdre &&
-      titreEtapeDate > titreEtapeCurrentDate
-    if (isDateAfter) {
-      errorInvalidDate = `une étape ${titreEtapeTypeNom} ne peut pas être postérieure à une étape ${titreEtapeTypeCurrentNom}`
-    }
-
-    const isDateBefore =
-      titreEtapeTypeOrdre > titreEtapeTypeCurrentOrdre &&
-      titreEtapeDate < titreEtapeCurrentDate
-    if (isDateBefore) {
-      errorInvalidDate = `une étape ${titreEtapeTypeNom} ne peut pas être antérieure à une étape ${titreEtapeTypeCurrentNom}`
-    }
-
-    return isDateAfter || isDateBefore
+    return isSameEtapeType && isSameMecanisation
   })
 
-  return errorInvalidDate
+const titreEtapeTypesRestrictionsCheck = (
+  titreEtapeTypesRestrictions,
+  titreEtape,
+  titreEtapeType,
+  titreDemarche,
+  titreEtapeCurrent
+) => {
+  const errors = []
+
+  const {
+    obligatoireApresUne,
+    impossibleApresUne
+  } = titreEtapeTypesRestrictions
+
+  // l'étape nécessite une étape antérieure pour pouvoir exister
+  if (obligatoireApresUne) {
+    const obligatoireApresUneEtapeKeys = Object.keys(obligatoireApresUne)
+
+    const titreEtapeBefore = titreDemarche.etapes.find(
+      e =>
+        obligatoireApresUneEtapeKeys.every(k =>
+          Array.isArray(obligatoireApresUne[k])
+            ? obligatoireApresUne[k].includes(e[k])
+            : obligatoireApresUne[k] === e[k]
+        ) && e.date <= titreEtape.date
+    )
+
+    // si on ne trouve pas l'étape nécessaire, alors c'est une erreur
+    if (!titreEtapeBefore) {
+      const titreEtapeBeforeType = titreEtapeDemarcheEtapeTypeFind(
+        titreDemarche.type,
+        obligatoireApresUne.typeId
+      )
+
+      errors.push(
+        `Une étape « ${titreEtapeBeforeType.nom} » antérieure est nécessaire pour la création d'une étape « ${titreEtapeType.nom} ».`
+      )
+    }
+  }
+
+  // l'étape ne peut se trouver après une étape postérieure
+  if (impossibleApresUne) {
+    // si l'étape doit être la première de la démarche
+    if (impossibleApresUne === '*') {
+      const titreEtapeAfter = titreDemarche.etapes.find(
+        e => e.typeId !== titreEtape.typeId && e.date < titreEtape.date
+      )
+
+      // si on trouve une étape après, alors c'est une erreur
+      if (titreEtapeAfter) {
+        errors.push(
+          `Une étape « ${titreEtapeType.nom} » ne peut être créée après aucune autre étape.`
+        )
+      }
+    } else {
+      const impossibleApresUneEtapeKeys = Object.keys(impossibleApresUne)
+
+      const titreEtapeAfter = titreDemarche.etapes.find(
+        e =>
+          impossibleApresUneEtapeKeys.every(k =>
+            Array.isArray(impossibleApresUne[k])
+              ? impossibleApresUne[k].includes(e[k])
+              : impossibleApresUne[k] === e[k]
+          ) && e.date < titreEtape.date
+      )
+
+      // si on trouve une étape après, alors c'est une erreur
+      if (titreEtapeAfter) {
+        const titreEtapeAfterType = titreEtapeDemarcheEtapeTypeFind(
+          titreDemarche.type,
+          impossibleApresUne.typeId
+        )
+
+        errors.push(
+          `Une étape « ${titreEtapeType.nom} » ne peut être créée après une étape « ${titreEtapeAfterType.nom} ».`
+        )
+      }
+    }
+  }
+
+  return errors
+}
+
+// TODO: remonter le paramètre dans le titre et supprimer
+const titreMecanisationCheck = titreDemarches => {
+  // TODO: attention, façon simpliste de chercher la mécanisation
+  // TODO: gérer la démarche de mécanisation (?)
+  const mecanisation = titreDemarches.find(d =>
+    d.etapes
+      .slice()
+      .reverse()
+      .find(e => e.contenu && e.contenu.onf && e.contenu.onf.mecanisee)
+  )
+
+  return mecanisation !== undefined
+}
+
+const titreEtapeDateCheck = (titreEtape, titreDemarche, titre) => {
+  // pas de validation pour les titres autres qu'ARM
+  if (titre.typeId !== 'arm') return null
+
+  // pas de validation si l'étape est antérieure au 31 octobre 2019
+  // pour ne pas bloquer l'édition du cadastre historique (moins complet)
+  if (titreEtape.date < '2019-10-31') return null
+
+  // TODO: remonter le paramètre dans le titre et supprimer
+  const mecanisee = titreMecanisationCheck(titre.demarches)
+  titre.contenu = { onf: { mecanisee } }
+
+  const titreEtapeTypesRestrictions = titreEtapeTypesRestrictionsFind(
+    titreEtape,
+    titreDemarche,
+    titre
+  )
+
+  // l'étape à vérifier ne fait l'objet d'aucune restriction
+  if (!titreEtapeTypesRestrictions) return null
+
+  const titreEtapeType = titreEtapeDemarcheEtapeTypeFind(
+    titreDemarche.type,
+    titreEtape.typeId
+  )
+
+  const titreEtapesDateErrors = titreEtapeTypesRestrictionsCheck(
+    titreEtapeTypesRestrictions,
+    titreEtape,
+    titreEtapeType,
+    titreDemarche
+  )
+
+  return titreEtapesDateErrors.length ? titreEtapesDateErrors.join('\n') : null
 }
 
 export default titreEtapeDateCheck
