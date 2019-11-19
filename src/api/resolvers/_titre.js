@@ -90,15 +90,23 @@ const titrePermissionAdministrationsEditionCheck = (
   // dans un premier temps, on ne vérifie la création que pour les ARM
   if (titre.typeId !== 'arm') return false
 
-  // calcule les administrations centrales pour le titre
-  const titreAdministrationsCentrales = titreAdministrationsCentralesBuild(
-    titre,
-    administrations
-  )
+  const titreAdministrationsCentrales =
+    titre.administrationsCentrales && titre.administrationsCentrales.length
+      ? titre.administrationsCentrales
+      : // calcule les administrations centrales pour le titre
+        // si elles n'existent pas encore (création de titre)
+        titreAdministrationsCentralesBuild(titre, administrations).map(a => ({
+          id: a.administrationId
+        }))
 
-  if (!titreAdministrationsCentrales.length) return false
+  const { administrationsLocales: titreAdministrationsLocales = [] } = titre
 
-  console.log(titre)
+  const titreAdministrations = [
+    ...titreAdministrationsCentrales,
+    ...titreAdministrationsLocales
+  ]
+
+  if (!titreAdministrations.length) return false
 
   // filtre les restrictions pour ne garder que celles qui concernent le titre
   const titreRestrictions = restrictions.typesStatutsAdministrations.filter(
@@ -109,27 +117,19 @@ const titrePermissionAdministrationsEditionCheck = (
       restriction[`${editionMode}Interdit`]
   )
 
-  console.log({ titreRestrictions })
-
   // filtre les administration qui font l'objet d'une restriction
-  const titreAdministrationsCentralesEdition = titreAdministrationsCentrales.filter(
-    ac =>
-      !titreRestrictions.find(r => r.administrationId === ac.administrationId)
+  const titreAdministrationsEditionIds = titreAdministrations.reduce(
+    (titreAdministrationsEditionIds, ac) => {
+      if (!titreRestrictions.find(r => r.administrationId === ac.id)) {
+        titreAdministrationsEditionIds.push(ac.id)
+      }
+      return titreAdministrationsEditionIds
+    },
+    []
   )
-
-  console.log({
-    userAdmin: user.administrations,
-    titreAdministrationsCentrales,
-    titreAdministrationsCentralesEdition
-  })
-
-  // return false
 
   // - si l'utilisateur a les droits de création sur le domaine/type de titre
-  return permissionsAdministrationsCheck(
-    user,
-    titreAdministrationsCentralesEdition.map(a => a.administrationId)
-  )
+  return permissionsAdministrationsCheck(user, titreAdministrationsEditionIds)
 }
 
 export {

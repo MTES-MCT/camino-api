@@ -15,9 +15,7 @@ import {
   titresGet,
   titreUpsert
 } from '../../database/queries/titres'
-
 import { administrationsGet } from '../../database/queries/administrations'
-
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreUpdateTask from '../../business/titre-update'
@@ -146,7 +144,7 @@ const titreModifier = async ({ titre }, context, info) => {
           'modification'
         )
       ) {
-        throw new Error('opération impossible')
+        throw new Error('Droits insuffisants pour modifier ce titre')
       }
     }
 

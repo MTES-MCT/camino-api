@@ -19,11 +19,13 @@ const userIdGenerate = async () => {
 
 const permissionUtilisateurAdministrationCheck = (utilisateur, user) =>
   user.administrations &&
-  user.administrations.some(userAdministration =>
-    utilisateur.administrations.some(
-      utilisateurAdministration =>
-        userAdministration.id === utilisateurAdministration.id
-    )
+  user.administrations.some(
+    userAdministration =>
+      utilisateur.administrations &&
+      utilisateur.administrations.some(
+        utilisateurAdministration =>
+          userAdministration.id === utilisateurAdministration.id
+      )
   )
 
 const permissionUtilisateurEntrepriseCheck = (utilisateur, user) =>
