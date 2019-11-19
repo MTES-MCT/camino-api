@@ -167,11 +167,11 @@ const titresUpdateTrue = [
   'type',
   'statut',
   'domaine',
+  'administrationsCentrales',
   ...demarchesUpdateTrue.map(k => `demarches.${k}`)
 ]
 
 const titresUpdateFalse = [
-  'type',
   'type.demarchesTypes',
   'type.demarchesTypes.etapesTypes',
   'type.demarchesTypes.etapesTypes.etapesStatuts',
@@ -202,7 +202,6 @@ const titresUpdateFalse = [
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
   'amodiataires.utilisateurs.permission',
-  'administrationsCentrales',
   'administrationsCentrales.domaines',
   'administrationsCentrales.type',
   'administrationsCentrales.utilisateurs',
