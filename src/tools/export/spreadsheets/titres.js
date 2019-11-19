@@ -75,6 +75,12 @@ const tables = [
   },
   {
     id: 2,
+    name: 'titresReferences',
+    columns: ['titreId', 'typeId', 'nom'],
+    parents: ['references']
+  },
+  {
+    id: 3,
     name: 'titresDemarches',
     columns: [
       'id',
@@ -87,7 +93,7 @@ const tables = [
     parents: ['demarches']
   },
   {
-    id: 3,
+    id: 4,
     name: 'titresDemarchesLiens',
     columns: [
       { key: 'parent.id', value: 'parentTitreDemarcheId' },
@@ -96,13 +102,13 @@ const tables = [
     parents: ['demarches', 'parents']
   },
   {
-    id: 4,
+    id: 5,
     name: 'titresPhases',
     columns: ['titreDemarcheId', 'statutId', 'dateDebut', 'dateFin'],
     parents: ['demarches', 'phase']
   },
   {
-    id: 5,
+    id: 6,
     name: 'titresEtapes',
     columns: [
       'id',
@@ -127,7 +133,7 @@ const tables = [
     }
   },
   {
-    id: 6,
+    id: 7,
     name: 'titresPoints',
     columns: [
       'id',
@@ -147,7 +153,7 @@ const tables = [
     }
   },
   {
-    id: 7,
+    id: 8,
     name: 'titresPointsReferences',
     columns: [
       'id',
@@ -163,7 +169,7 @@ const tables = [
     }
   },
   {
-    id: 8,
+    id: 9,
     name: 'titresDocuments',
     columns: [
       'id',
@@ -181,7 +187,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'documents']
   },
   {
-    id: 9,
+    id: 10,
     name: 'titresSubstances',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -192,7 +198,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'substances']
   },
   {
-    id: 10,
+    id: 11,
     name: 'titresTitulaires',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -202,7 +208,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'titulaires']
   },
   {
-    id: 11,
+    id: 12,
     name: 'titresAmodiataires',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -212,7 +218,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'amodiataires']
   },
   {
-    id: 12,
+    id: 13,
     name: 'titresAdministrationsCentrales',
     columns: [
       { key: 'parent.id', value: 'titreId' },
@@ -222,7 +228,7 @@ const tables = [
     parents: ['administrationsCentrales']
   },
   {
-    id: 13,
+    id: 14,
     name: 'titresAdministrationsLocales',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -233,7 +239,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'administrations']
   },
   {
-    id: 14,
+    id: 15,
     name: 'titresUtilisateurs',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -242,7 +248,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'utilisateurs']
   },
   {
-    id: 15,
+    id: 16,
     name: 'titresCommunes',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -251,7 +257,7 @@ const tables = [
     parents: ['demarches', 'etapes', 'communes']
   },
   {
-    id: 16,
+    id: 17,
     name: 'titresIncertitudes',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
@@ -269,12 +275,6 @@ const tables = [
       'administrations'
     ],
     parents: ['demarches', 'etapes', 'incertitudes']
-  },
-  {
-    id: 16,
-    name: 'titresReferences',
-    columns: ['titreId', 'typeId', 'nom'],
-    parents: ['references']
   }
 ]
 

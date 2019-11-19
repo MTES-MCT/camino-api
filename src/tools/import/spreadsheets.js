@@ -28,6 +28,7 @@ const titresActivitesSpreadsheetId =
 
 const titresTables = [
   { name: 'titres', cb: { references: JSON.parse } },
+  { name: 'titres_references' },
   { name: 'titres_demarches' },
   { name: 'titres_demarches_liens' },
   { name: 'titres_phases' },
@@ -41,8 +42,7 @@ const titresTables = [
   { name: 'titres_administrations_centrales' },
   { name: 'titres_administrations_locales' },
   { name: 'titres_amodiataires' },
-  { name: 'titres_incertitudes' },
-  { name: 'titres_references' }
+  { name: 'titres_incertitudes' }
 ]
 
 const spreadsheets = [
