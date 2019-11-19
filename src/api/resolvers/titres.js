@@ -97,6 +97,10 @@ const titreCreer = async ({ titre }, context, info) => {
     const user = await utilisateurGet(context.user.id)
 
     if (!permissionsCheck(context.user, ['super'])) {
+      if (!permissionsCheck(context.user, ['admin'])) {
+        throw new Error('droits insuffisants pour créer ce type de titre')
+      }
+
       const administrations = await administrationsGet()
 
       if (
@@ -134,6 +138,10 @@ const titreModifier = async ({ titre }, context, info) => {
     const user = await utilisateurGet(context.user.id)
 
     if (!permissionsCheck(context.user, ['super'])) {
+      if (!permissionsCheck(context.user, ['admin'])) {
+        throw new Error('droits insuffisants pour modifier ce type de titre')
+      }
+
       const administrations = await administrationsGet()
 
       if (

@@ -28,15 +28,19 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
     let user
 
     if (!permissionsCheck(context.user, ['super'])) {
+      if (!permissionsCheck(context.user, ['admin'])) {
+        throw new Error('droits insuffisants pour créer cette étape')
+      }
+
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
         eager: null
       })
-      if (!demarche) throw new Error("La démarche n'existe pas")
+      if (!demarche) throw new Error("la démarche n'existe pas")
 
       const titre = await titreGet(demarche.titreId, {
         eager: '[administrationsCentrales,administrationsLocales]'
       })
-      if (!titre) throw new Error("Le titre n'existe pas")
+      if (!titre) throw new Error("le titre n'existe pas")
 
       const administrations = await administrationsGet()
 
@@ -100,15 +104,19 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
     let user
 
     if (!permissionsCheck(context.user, ['super'])) {
+      if (!permissionsCheck(context.user, ['admin'])) {
+        throw new Error('droits insuffisants pour modifier cette étape')
+      }
+
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
         eager: null
       })
-      if (!demarche) throw new Error("La démarche n'existe pas")
+      if (!demarche) throw new Error("la démarche n'existe pas")
 
       const titre = await titreGet(demarche.titreId, {
         eager: '[administrationsCentrales,administrationsLocales]'
       })
-      if (!titre) throw new Error("Le titre n'existe pas")
+      if (!titre) throw new Error("le titre n'existe pas")
 
       const administrations = await administrationsGet()
 
@@ -170,7 +178,7 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
 
   try {
     const etapeOld = await titreEtapeGet(id)
-    if (!etapeOld) throw new Error("L'étape n'existe pas")
+    if (!etapeOld) throw new Error("l'étape n'existe pas")
 
     await titreEtapeDelete(id)
 

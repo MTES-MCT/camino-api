@@ -26,8 +26,12 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
     let user
 
     if (!permissionsCheck(context.user, ['super'])) {
+      if (!permissionsCheck(context.user, ['admin'])) {
+        throw new Error('droits insuffisants pour créer cette démarche')
+      }
+
       const titre = await titreGet(demarche.titreId, { eager: null })
-      if (!titre) throw new Error("Le titre n'existe pas")
+      if (!titre) throw new Error("le titre n'existe pas")
 
       const administrations = await administrationsGet()
 
@@ -77,8 +81,12 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
     let user
 
     if (!permissionsCheck(context.user, ['super'])) {
+      if (!permissionsCheck(context.user, ['admin'])) {
+        throw new Error('droits insuffisants pour modifier cette démarche')
+      }
+
       const titre = await titreGet(demarche.titreId, { eager: null })
-      if (!titre) throw new Error("Le titre n'existe pas")
+      if (!titre) throw new Error("le titre n'existe pas")
 
       const administrations = await administrationsGet()
 
@@ -128,7 +136,7 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
     // TODO: ajouter une validation ?
 
     const demarcheOld = await titreDemarcheGet(id)
-    if (!demarcheOld) throw new Error("La démarche n'existe pas")
+    if (!demarcheOld) throw new Error("la démarche n'existe pas")
 
     await titreDemarcheDelete(id)
 

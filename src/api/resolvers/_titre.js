@@ -118,18 +118,18 @@ const titreEditionPermissionAdministrationsCheck = (
   )
 
   // filtre les administration qui font l'objet d'une restriction
-  const titreAdministrationsEditionIds = titreAdministrations.reduce(
-    (titreAdministrationsEditionIds, ac) => {
+  const titreEditionAdministrationsIds = titreAdministrations.reduce(
+    (titreEditionAdministrationsIds, ac) => {
       if (!titreRestrictions.find(r => r.administrationId === ac.id)) {
-        titreAdministrationsEditionIds.push(ac.id)
+        titreEditionAdministrationsIds.push(ac.id)
       }
-      return titreAdministrationsEditionIds
+      return titreEditionAdministrationsIds
     },
     []
   )
 
   // - si l'utilisateur a les droits de création sur le domaine/type de titre
-  return permissionsAdministrationsCheck(user, titreAdministrationsEditionIds)
+  return permissionsAdministrationsCheck(user, titreEditionAdministrationsIds)
 }
 
 export {
