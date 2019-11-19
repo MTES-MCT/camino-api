@@ -15,8 +15,6 @@ import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
 const titreDemarcheUpdate = async titreId => {
   try {
-    // 3.
-    console.log('ordre des démarches…')
     let titre = await titreGet(titreId, {
       eager: 'demarches(orderDesc).[etapes(orderDesc)]'
     })
@@ -25,6 +23,9 @@ const titreDemarcheUpdate = async titreId => {
 
       return null
     }
+
+    // 3.
+    console.log('ordre des démarches…')
 
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
       titre

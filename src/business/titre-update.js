@@ -1,22 +1,37 @@
 import '../database/index'
+
+import { administrationsGet } from '../database/queries/administrations'
 import { titreGet } from '../database/queries/titres'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
+import titresAdministrationsCentralesUpdate from './processes/titres-administrations-centrales-update'
 import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 import { activitesTypesGet } from '../database/queries/metas'
 
 const titreUpdate = async titreId => {
   try {
-    // 11.
-    console.log()
-    console.log('activités des titres…')
-    let titre = await titreGet(titreId)
+    let titre = await titreGet(titreId, { eager: 'administrationsCentrales' })
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
 
       return null
     }
+
+    // 9.
+    console.log()
+    console.log('administrations centrales associées aux titres…')
+
+    const administrations = await administrationsGet()
+    const [
+      titresAdministrationsCentralesCreated = [],
+      titresAdministrationsCentralesDeleted = []
+    ] = await titresAdministrationsCentralesUpdate([titre], administrations)
+
+    // 11.
+    console.log()
+    console.log('activités des titres…')
+    titre = await titreGet(titreId)
 
     const annees = [2018, 2019]
     const activitesTypes = await activitesTypesGet()
@@ -42,6 +57,12 @@ const titreUpdate = async titreId => {
 
     console.log()
     console.log('tâches métiers exécutées:')
+    console.log(
+      `mise à jour: ${titresAdministrationsCentralesCreated.length} administration(s) centrale(s) ajoutée(s) dans des titres`
+    )
+    console.log(
+      `mise à jour: ${titresAdministrationsCentralesDeleted.length} administration(s) centrale(s) supprimée(s) dans des titres`
+    )
     console.log(`mise à jour: ${titreUpdated ? '1' : '0'} titre(s) (ids)`)
 
     if (titresActivitesCreated.length) {

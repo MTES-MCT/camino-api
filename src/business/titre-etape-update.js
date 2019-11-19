@@ -17,7 +17,6 @@ import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
-import titresAdministrationsCentralesUpdate from './processes/titres-administrations-centrales-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
@@ -104,17 +103,9 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
       titresEtapesCommunesDeleted = result[2]
     }
 
-    // 9.
-    console.log('administrations centrales associées aux titres…')
-    titre = await titreGet(titreId, { eager: 'administrationsCentrales' })
-    let administrations = await administrationsGet()
-    const [
-      titresAdministrationsCentralesCreated = [],
-      titresAdministrationsCentralesDeleted = []
-    ] = await titresAdministrationsCentralesUpdate([titre], administrations)
-
     // 10.
     console.log('administrations locales associées aux étapes…')
+    let administrations = await administrationsGet()
     titre = await titreGet(titreId, {
       eager:
         'demarches(orderDesc).etapes(orderDesc).[administrations,communes.[departement]]'
@@ -194,12 +185,6 @@ const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
     )
     console.log(
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
-    )
-    console.log(
-      `mise à jour: ${titresAdministrationsCentralesCreated.length} administration(s) centrale(s) ajoutée(s) dans des titres`
-    )
-    console.log(
-      `mise à jour: ${titresAdministrationsCentralesDeleted.length} administration(s) centrale(s) supprimée(s) dans des titres`
     )
     console.log(
       `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
