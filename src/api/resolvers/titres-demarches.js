@@ -19,17 +19,13 @@ import titreDemarcheUpdationValidate from '../../business/titre-demarche-updatio
 
 const titreDemarcheCreer = async ({ demarche }, context, info) => {
   try {
-    if (!context.user) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
     let user
 
-    if (!permissionsCheck(context.user, ['super'])) {
-      if (!permissionsCheck(context.user, ['admin'])) {
-        throw new Error('droits insuffisants pour créer cette démarche')
-      }
-
+    if (permissionsCheck(context.user, ['admin'])) {
       const titre = await titreGet(demarche.titreId, { eager: null })
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -74,17 +70,13 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
 
 const titreDemarcheModifier = async ({ demarche }, context, info) => {
   try {
-    if (!context.user) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
     let user
 
-    if (!permissionsCheck(context.user, ['super'])) {
-      if (!permissionsCheck(context.user, ['admin'])) {
-        throw new Error('droits insuffisants pour modifier cette démarche')
-      }
-
+    if (permissionsCheck(context.user, ['admin'])) {
       const titre = await titreGet(demarche.titreId, { eager: null })
       if (!titre) throw new Error("le titre n'existe pas")
 

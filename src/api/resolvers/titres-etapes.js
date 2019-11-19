@@ -21,17 +21,13 @@ import titreEtapeUpdationValidate from '../../business/titre-etape-updation-vali
 
 const titreEtapeCreer = async ({ etape }, context, info) => {
   try {
-    if (!context.user) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
     let user
 
-    if (!permissionsCheck(context.user, ['super'])) {
-      if (!permissionsCheck(context.user, ['admin'])) {
-        throw new Error('droits insuffisants pour créer cette étape')
-      }
-
+    if (permissionsCheck(context.user, ['admin'])) {
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
         eager: null
       })
@@ -97,17 +93,13 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   try {
-    if (!context.user) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
     let user
 
-    if (!permissionsCheck(context.user, ['super'])) {
-      if (!permissionsCheck(context.user, ['admin'])) {
-        throw new Error('droits insuffisants pour modifier cette étape')
-      }
-
+    if (permissionsCheck(context.user, ['admin'])) {
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
         eager: null
       })
