@@ -12,10 +12,12 @@ const titreStatutIdFind = titre => {
   if (
     titre.demarches.length === 1 &&
     ['oct', 'vut', 'vct'].includes(titre.demarches[0].typeId) &&
-    ['ins', 'dep', 'rej', 'cls', 'ret'].includes(titre.demarches[0].statutId)
+    ['eco', 'ins', 'dep', 'rej', 'cls', 'ret'].includes(
+      titre.demarches[0].statutId
+    )
   ) {
     // le statut de la démarche est en instruction ou déposée
-    if (['ins', 'dep'].includes(titre.demarches[0].statutId)) {
+    if (['eco', 'ins', 'dep'].includes(titre.demarches[0].statutId)) {
       // le statut du titre est demande initiale
       return 'dmi'
     }
