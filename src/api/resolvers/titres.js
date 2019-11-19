@@ -2,7 +2,7 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat, titresFormat } from './_titre-format'
 
-import { titrePermissionAdministrationsEditionCheck } from './_titre'
+import { titreEditionPermissionAdministrationsCheck } from './_titre'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
@@ -100,14 +100,14 @@ const titreCreer = async ({ titre }, context, info) => {
       const administrations = await administrationsGet()
 
       if (
-        !titrePermissionAdministrationsEditionCheck(
+        !titreEditionPermissionAdministrationsCheck(
           titre,
           administrations,
           user,
           'creation'
         )
       ) {
-        throw new Error('Droits insuffisants pour créer ce type de titre')
+        throw new Error('droits insuffisants pour créer ce type de titre')
       }
     }
 
@@ -137,14 +137,14 @@ const titreModifier = async ({ titre }, context, info) => {
       const administrations = await administrationsGet()
 
       if (
-        !titrePermissionAdministrationsEditionCheck(
+        !titreEditionPermissionAdministrationsCheck(
           titre,
           administrations,
           user,
           'modification'
         )
       ) {
-        throw new Error('Droits insuffisants pour modifier ce titre')
+        throw new Error('droits insuffisants pour modifier ce titre')
       }
     }
 

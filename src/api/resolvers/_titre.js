@@ -81,7 +81,7 @@ const titrePermissionAdministrationsCheck = (titre, user) =>
     ...titre.administrationsCentrales.map(a => a.id)
   ])
 
-const titrePermissionAdministrationsEditionCheck = (
+const titreEditionPermissionAdministrationsCheck = (
   titre,
   administrations,
   user,
@@ -136,5 +136,5 @@ export {
   titreIsPublicCheck,
   titrePermissionCheck,
   titrePermissionAdministrationsCheck,
-  titrePermissionAdministrationsEditionCheck
+  titreEditionPermissionAdministrationsCheck
 }

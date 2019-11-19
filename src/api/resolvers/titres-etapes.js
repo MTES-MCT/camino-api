@@ -2,8 +2,8 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat } from './_titre-format'
 
-import { titrePermissionAdministrationsEditionCheck } from './_titre'
-import { titreEtapePermissionAdministrationsEditionCheck } from './_titre-etape'
+import { titreEditionPermissionAdministrationsCheck } from './_titre'
+import { titreEtapeEditionPermissionAdministrationsCheck } from './_titre-etape'
 
 import {
   titreEtapeGet,
@@ -43,20 +43,20 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
       user = await utilisateurGet(context.user.id)
 
       if (
-        !titrePermissionAdministrationsEditionCheck(
+        !titreEditionPermissionAdministrationsCheck(
           titre,
           administrations,
           user,
           'modification'
         ) ||
-        !titreEtapePermissionAdministrationsEditionCheck(
+        !titreEtapeEditionPermissionAdministrationsCheck(
           etape,
           titre,
           user,
           'creation'
         )
       ) {
-        throw new Error('Droits insuffisants pour créer cette étape')
+        throw new Error('droits insuffisants pour créer cette étape')
       }
     }
 
@@ -115,20 +115,20 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       user = await utilisateurGet(context.user.id)
 
       if (
-        !titrePermissionAdministrationsEditionCheck(
+        !titreEditionPermissionAdministrationsCheck(
           titre,
           administrations,
           user,
           'modification'
         ) ||
-        !titreEtapePermissionAdministrationsEditionCheck(
+        !titreEtapeEditionPermissionAdministrationsCheck(
           etape,
           titre,
           user,
           'modification'
         )
       ) {
-        throw new Error('Droits insuffisants pour modifier cette étape')
+        throw new Error('droits insuffisants pour modifier cette étape')
       }
     }
 

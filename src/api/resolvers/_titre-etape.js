@@ -1,7 +1,7 @@
 import { permissionsAdministrationsCheck } from './_permissions-check'
 import restrictions from './_restrictions'
 
-const titreEtapePermissionAdministrationsEditionCheck = (
+const titreEtapeEditionPermissionAdministrationsCheck = (
   titreEtape,
   titre,
   user,
@@ -43,4 +43,4 @@ const titreEtapePermissionAdministrationsEditionCheck = (
   return permissionsAdministrationsCheck(user, titreAdministrationsEditionIds)
 }
 
-export { titreEtapePermissionAdministrationsEditionCheck }
+export { titreEtapeEditionPermissionAdministrationsCheck }
