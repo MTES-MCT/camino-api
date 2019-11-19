@@ -2,12 +2,18 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat } from './_titre-format'
 
+import { titreEditionPermissionAdministrationsCheck } from './_titre'
+import { titreEtapeEditionPermissionAdministrationsCheck } from './_titre-etape'
+
 import {
   titreEtapeGet,
   titreEtapeUpsert,
   titreEtapeDelete
 } from '../../database/queries/titres-etapes'
+import { titreDemarcheGet } from '../../database/queries/titres-demarches'
+import { titreGet } from '../../database/queries/titres'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { administrationsGet } from '../../database/queries/administrations'
 
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
@@ -15,8 +21,43 @@ import titreEtapeUpdationValidate from '../../business/titre-etape-updation-vali
 
 const titreEtapeCreer = async ({ etape }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
+    }
+
+    let user
+
+    if (permissionsCheck(context.user, ['admin'])) {
+      const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
+        eager: null
+      })
+      if (!demarche) throw new Error("la démarche n'existe pas")
+
+      const titre = await titreGet(demarche.titreId, {
+        eager: '[administrationsCentrales,administrationsLocales]'
+      })
+      if (!titre) throw new Error("le titre n'existe pas")
+
+      const administrations = await administrationsGet()
+
+      user = await utilisateurGet(context.user.id)
+
+      if (
+        !titreEditionPermissionAdministrationsCheck(
+          titre,
+          administrations,
+          user,
+          'modification'
+        ) ||
+        !titreEtapeEditionPermissionAdministrationsCheck(
+          etape,
+          titre,
+          user,
+          'creation'
+        )
+      ) {
+        throw new Error('droits insuffisants pour créer cette étape')
+      }
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(etape)
@@ -36,7 +77,9 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
       etapeUpdated.titreDemarcheId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    if (!user) {
+      user = await utilisateurGet(context.user.id)
+    }
 
     return titreFormat(titreUpdated, user)
   } catch (e) {
@@ -50,8 +93,43 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
 
 const titreEtapeModifier = async ({ etape }, context, info) => {
   try {
-    if (!permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
+    }
+
+    let user
+
+    if (permissionsCheck(context.user, ['admin'])) {
+      const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
+        eager: null
+      })
+      if (!demarche) throw new Error("la démarche n'existe pas")
+
+      const titre = await titreGet(demarche.titreId, {
+        eager: '[administrationsCentrales,administrationsLocales]'
+      })
+      if (!titre) throw new Error("le titre n'existe pas")
+
+      const administrations = await administrationsGet()
+
+      user = await utilisateurGet(context.user.id)
+
+      if (
+        !titreEditionPermissionAdministrationsCheck(
+          titre,
+          administrations,
+          user,
+          'modification'
+        ) ||
+        !titreEtapeEditionPermissionAdministrationsCheck(
+          etape,
+          titre,
+          user,
+          'modification'
+        )
+      ) {
+        throw new Error('droits insuffisants pour modifier cette étape')
+      }
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(etape)
@@ -71,7 +149,9 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       etapeUpdated.titreDemarcheId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    if (!user) {
+      user = await utilisateurGet(context.user.id)
+    }
 
     return titreFormat(titreUpdated, user)
   } catch (e) {
@@ -84,12 +164,13 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 }
 
 const titreEtapeSupprimer = async ({ id }, context, info) => {
-  if (!permissionsCheck(context.user, ['super', 'admin'])) {
+  if (!context.user || !permissionsCheck(context.user, ['super'])) {
     throw new Error('opération impossible')
   }
 
   try {
     const etapeOld = await titreEtapeGet(id)
+    if (!etapeOld) throw new Error("l'étape n'existe pas")
 
     await titreEtapeDelete(id)
 
@@ -98,7 +179,7 @@ const titreEtapeSupprimer = async ({ id }, context, info) => {
       etapeOld.titreDemarcheId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await utilisateurGet(context.user.id)
 
     return titreFormat(titreUpdated, user)
   } catch (e) {

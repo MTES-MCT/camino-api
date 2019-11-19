@@ -1,34 +1,25 @@
 const administrations = [
   {
-    id: 'dgec',
-    departementId: 1,
-    domaines: [{ id: 'h' }]
+    id: 'dgec'
   },
   {
-    id: 'dgaln',
-    domaines: [{ id: 'm' }]
+    id: 'dgaln'
   },
   {
-    id: 'ope-ptmg-973-01',
-    domaines: [{ id: 'm' }]
-  },
+    id: 'ptmg'
+  }
+]
+
+const titresAdministrationCentraleVide = [
   {
-    id: 'ope-onf-973-01',
-    departementId: '973'
-  },
-  {
-    id: 'domaines-empty',
-    domaines: []
-  },
-  {
-    id: 'no-domaines'
+    id: 'titre-id',
+    domaineId: 'm'
   }
 ]
 
 const titresAdministrationCentraleInexistante = [
   {
     id: 'titre-id',
-    domaineId: 'h',
     administrationsCentrales: [
       {
         id: 'inexistante'
@@ -40,7 +31,6 @@ const titresAdministrationCentraleInexistante = [
 const titresAdministrationCentraleExistante = [
   {
     id: 'titre-id',
-    domaineId: 'h',
     administrationsCentrales: [
       {
         id: 'dgec'
@@ -49,26 +39,9 @@ const titresAdministrationCentraleExistante = [
   }
 ]
 
-const titresArm = [
-  {
-    id: 'titre-id',
-    typeId: 'arm',
-    domaineId: 'm'
-  }
-]
-
-const titresAxm = [
-  {
-    id: 'titre-id',
-    typeId: 'axm',
-    domaineId: 'm'
-  }
-]
-
 export {
   administrations,
+  titresAdministrationCentraleVide,
   titresAdministrationCentraleInexistante,
-  titresAdministrationCentraleExistante,
-  titresArm,
-  titresAxm
+  titresAdministrationCentraleExistante
 }

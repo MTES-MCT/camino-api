@@ -1,3 +1,5 @@
+import titreAdministrationsCentralesBuild from '../../business/rules/titre-administrations-centrales-build'
+
 import {
   permissionsCheck,
   permissionsAdministrationsCheck
@@ -79,8 +81,60 @@ const titrePermissionAdministrationsCheck = (titre, user) =>
     ...titre.administrationsCentrales.map(a => a.id)
   ])
 
+const titreEditionPermissionAdministrationsCheck = (
+  titre,
+  administrations,
+  user,
+  editionMode
+) => {
+  // dans un premier temps, on ne vérifie la création que pour les ARM
+  if (titre.typeId !== 'arm') return false
+
+  const titreAdministrationsCentrales =
+    titre.administrationsCentrales && titre.administrationsCentrales.length
+      ? titre.administrationsCentrales
+      : // calcule les administrations centrales pour le titre
+        // si elles n'existent pas encore (création de titre)
+        titreAdministrationsCentralesBuild(titre, administrations).map(a => ({
+          id: a.administrationId
+        }))
+
+  const { administrationsLocales: titreAdministrationsLocales = [] } = titre
+
+  const titreAdministrations = [
+    ...titreAdministrationsCentrales,
+    ...titreAdministrationsLocales
+  ]
+
+  if (!titreAdministrations.length) return false
+
+  // filtre les restrictions pour ne garder que celles qui concernent le titre
+  const titreRestrictions = restrictions.typesStatutsAdministrations.filter(
+    restriction =>
+      restriction.typeId === titre.typeId &&
+      // si le titre n'a pas de statut, c'est qu'il est en train d'être créé
+      restriction.statutId === (titre.statutId || 'dmi') &&
+      restriction[`${editionMode}Interdit`]
+  )
+
+  // filtre les administration qui font l'objet d'une restriction
+  const titreEditionAdministrationsIds = titreAdministrations.reduce(
+    (titreEditionAdministrationsIds, ac) => {
+      if (!titreRestrictions.find(r => r.administrationId === ac.id)) {
+        titreEditionAdministrationsIds.push(ac.id)
+      }
+      return titreEditionAdministrationsIds
+    },
+    []
+  )
+
+  // - si l'utilisateur a les droits de création sur le domaine/type de titre
+  return permissionsAdministrationsCheck(user, titreEditionAdministrationsIds)
+}
+
 export {
   titreIsPublicCheck,
   titrePermissionCheck,
-  titrePermissionAdministrationsCheck
+  titrePermissionAdministrationsCheck,
+  titreEditionPermissionAdministrationsCheck
 }
