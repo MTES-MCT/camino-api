@@ -5,52 +5,52 @@ const administrationsTypesRestrictions = {
   'dea-guyane-01': ['axm']
 }
 
-// administrations subsidiaires sur certains types de titres
-const administrationsTypesSubsidiaires = {
+// administrations associees sur certains types de titres
+const administrationsTypesAssociees = {
   'dea-guyane-01': ['arm'],
   'ope-ptmg-973-01': ['arm'],
   'min-mtes-dgaln-01': ['arm', 'axm']
 }
 
-const titreAdministrationsCentralesBuild = (
+const titreAdministrationsGestionnairesBuild = (
   { id: titreId, domaineId, typeId },
   administrations
 ) =>
-  administrations.reduce((titreAdministrationsCentrales, administration) => {
+  administrations.reduce((titreAdministrationsGestionnaires, administration) => {
     const isTitreAdministration =
       administration.domaines &&
       administration.domaines.length &&
       administration.domaines.find(({ id }) => id === domaineId)
 
-    if (!isTitreAdministration) return titreAdministrationsCentrales
+    if (!isTitreAdministration) return titreAdministrationsGestionnaires
 
     const typesRestrictions =
       administrationsTypesRestrictions[administration.id]
 
     // si
-    // - il y a des restrictions pour cette administration centrale
+    // - il y a des restrictions pour cette administration gestionnaire
     // - le type de titre n'est pas trouvé parmi les types de titres autorisés
     // l'administration n'est pas rattachée à l'étape
     if (typesRestrictions && !typesRestrictions.includes(typeId)) {
-      return titreAdministrationsCentrales
+      return titreAdministrationsGestionnaires
     }
 
-    const subsidiaire =
-      administrationsTypesSubsidiaires[administration.id] &&
-      administrationsTypesSubsidiaires[administration.id].includes(typeId)
+    const associee =
+      administrationsTypesAssociees[administration.id] &&
+      administrationsTypesAssociees[administration.id].includes(typeId)
 
-    const titreAdministrationCentrale = {
+    const titreAdministrationGestionnaire = {
       titreId,
       administrationId: administration.id
     }
 
-    if (subsidiaire) {
-      titreAdministrationCentrale.subsidiaire = subsidiaire
+    if (associee) {
+      titreAdministrationGestionnaire.associee = associee
     }
 
-    titreAdministrationsCentrales.push(titreAdministrationCentrale)
+    titreAdministrationsGestionnaires.push(titreAdministrationGestionnaire)
 
-    return titreAdministrationsCentrales
+    return titreAdministrationsGestionnaires
   }, [])
 
-export default titreAdministrationsCentralesBuild
+export default titreAdministrationsGestionnairesBuild

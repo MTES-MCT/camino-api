@@ -5,9 +5,9 @@ import {
   titreEtapeAdministrationDelete
 } from '../../database/queries/titres-etapes'
 
-// administrations subsidiaires sur certains types de titres
-// (ces administrations seront subsidiaires pour ces types de titres)
-const administrationsTypesSubsidiaires = {
+// administrations associees sur certains types de titres
+// (ces administrations seront associees pour ces types de titres)
+const administrationsTypesAssociees = {
   'dea-guyane-01': ['arm'],
   'prefecture-97302-01': ['arm']
 }
@@ -17,15 +17,15 @@ const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocales
 ) =>
   titreEtapeAdministrationsLocales.reduce(
-    (queries, titreEtapeAdministrationCentrale) => {
+    (queries, titreEtapeAdministrationGestionnaire) => {
       if (
         !titreEtapeAdministrationsLocalesOld ||
         !titreEtapeAdministrationsLocalesOld.find(
           ({ id: idOld }) =>
-            idOld === titreEtapeAdministrationCentrale.administrationId
+            idOld === titreEtapeAdministrationGestionnaire.administrationId
         )
       ) {
-        queries.push(titreEtapeAdministrationCentrale)
+        queries.push(titreEtapeAdministrationGestionnaire)
       }
 
       return queries
@@ -141,12 +141,12 @@ const titreEtapeAdministrationsLocalesBuild = (
       administrationId: administration.id
     }
 
-    const subsidiaire =
-      administrationsTypesSubsidiaires[administration.id] &&
-      administrationsTypesSubsidiaires[administration.id].includes(titreTypeId)
+    const associee =
+      administrationsTypesAssociees[administration.id] &&
+      administrationsTypesAssociees[administration.id].includes(titreTypeId)
 
-    if (subsidiaire) {
-      titreEtapeAdministration.subsidiaire = subsidiaire
+    if (associee) {
+      titreEtapeAdministration.associee = associee
     }
 
     titreEtapeAdministrations.push(titreEtapeAdministration)

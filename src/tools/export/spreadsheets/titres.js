@@ -219,13 +219,13 @@ const tables = [
   },
   {
     id: 13,
-    name: 'titresAdministrationsCentrales',
+    name: 'titresAdministrationsGestionnaires',
     columns: [
       { key: 'parent.id', value: 'titreId' },
       { key: 'id', value: 'administrationId' },
-      'subsidiaire'
+      'associee'
     ],
-    parents: ['administrationsCentrales']
+    parents: ['administrationsGestionnaires']
   },
   {
     id: 14,
@@ -233,7 +233,7 @@ const tables = [
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
       { key: 'id', value: 'administrationId' },
-      'subsidiaire',
+      'associee',
       'coordinateur'
     ],
     parents: ['demarches', 'etapes', 'administrations']

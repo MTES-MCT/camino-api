@@ -11,12 +11,12 @@ const titreEtapeEditionPermissionAdministrationsCheck = (
   if (titre.typeId !== 'arm') return false
 
   const {
-    administrationsCentrales: titreAdministrationsCentrales = [],
+    administrationsGestionnaires: titreAdministrationsGestionnaires = [],
     administrationsLocales: titreAdministrationsLocales = []
   } = titre
 
   const titreAdministrations = [
-    ...titreAdministrationsCentrales,
+    ...titreAdministrationsGestionnaires,
     ...titreAdministrationsLocales
   ]
 

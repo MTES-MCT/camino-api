@@ -116,7 +116,7 @@ export default class TitresEtapes extends Model {
         through: {
           from: 'titresAdministrationsLocales.titreEtapeId',
           to: 'titresAdministrationsLocales.administrationId',
-          extra: ['subsidiaire', 'coordinateur']
+          extra: ['associee', 'coordinateur']
         },
         to: 'administrations.id'
       }

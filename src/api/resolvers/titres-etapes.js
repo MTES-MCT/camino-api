@@ -34,7 +34,7 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
       if (!demarche) throw new Error("la démarche n'existe pas")
 
       const titre = await titreGet(demarche.titreId, {
-        eager: '[administrationsCentrales,administrationsLocales]'
+        eager: '[administrationsGestionnaires,administrationsLocales]'
       })
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -106,7 +106,7 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       if (!demarche) throw new Error("la démarche n'existe pas")
 
       const titre = await titreGet(demarche.titreId, {
-        eager: '[administrationsCentrales,administrationsLocales]'
+        eager: '[administrationsGestionnaires,administrationsLocales]'
       })
       if (!titre) throw new Error("le titre n'existe pas")
 

@@ -1,12 +1,16 @@
-const { readFileSync: read, writeFileSync: write , unlinkSync: remove} = require('fs')
+const {
+  readFileSync: read,
+  writeFileSync: write,
+  unlinkSync: remove
+} = require('fs')
 const domainesIds = ['r', 'c', 'f', 'g', 'h', 'm', 's', 'w']
 
 domainesIds.forEach(domaineId => {
-  const oldFilePath = `./sources/titres-${domaineId}-titres-administrations-centrales.json`
+  const oldFilePath = `./sources/titres-${domaineId}-titres-administrations-gestionnaires.json`
   const newFilePath = `./sources/titres-${domaineId}-titres-administrations-gestionnaires.json`
   const oldTitresAdm = JSON.parse(read(oldFilePath))
 
-  const newTitresAdm = oldTitresAdm.map( titreAdm => {
+  const newTitresAdm = oldTitresAdm.map(titreAdm => {
     titreAdm.associee = titreAdm.subsidiaire
     delete titreAdm.subsidiaire
 

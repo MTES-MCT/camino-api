@@ -10,7 +10,7 @@ import { titresEtapesGet } from '../database/queries/titres-etapes'
 import { titresPointsGet } from '../database/queries/titres-points'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
-import titresAdministrationsCentralesUpdate from './processes/titres-administrations-centrales-update'
+import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
@@ -169,7 +169,7 @@ const run = async () => {
 
     // 9.
     console.log()
-    console.log('administrations centrales associées aux titres…')
+    console.log('administrations gestionnaires associées aux titres…')
 
     titres = await titresGet(
       {
@@ -184,14 +184,14 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'administrationsCentrales'
+        eager: 'administrationsGestionnaires'
       }
     )
     let administrations = await administrationsGet()
     const [
-      titresAdministrationsCentralesCreated = [],
-      titresAdministrationsCentralesDeleted = []
-    ] = await titresAdministrationsCentralesUpdate(titres, administrations)
+      titresAdministrationsGestionnairesCreated = [],
+      titresAdministrationsGestionnairesDeleted = []
+    ] = await titresAdministrationsGestionnairesUpdate(titres, administrations)
 
     // 10.
     console.log()
@@ -370,10 +370,10 @@ const run = async () => {
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
     )
     console.log(
-      `mise à jour: ${titresAdministrationsCentralesCreated.length} administration(s) centrale(s) ajoutée(s) dans des titres`
+      `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
     )
     console.log(
-      `mise à jour: ${titresAdministrationsCentralesDeleted.length} administration(s) centrale(s) supprimée(s) dans des titres`
+      `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
     )
     console.log(
       `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`

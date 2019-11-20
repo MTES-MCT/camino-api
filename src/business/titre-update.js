@@ -4,14 +4,14 @@ import { administrationsGet } from '../database/queries/administrations'
 import { titreGet } from '../database/queries/titres'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
-import titresAdministrationsCentralesUpdate from './processes/titres-administrations-centrales-update'
+import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
 import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 import { activitesTypesGet } from '../database/queries/metas'
 
 const titreUpdate = async titreId => {
   try {
-    let titre = await titreGet(titreId, { eager: 'administrationsCentrales' })
+    let titre = await titreGet(titreId, { eager: 'administrationsGestionnaires' })
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
 
@@ -20,13 +20,13 @@ const titreUpdate = async titreId => {
 
     // 9.
     console.log()
-    console.log('administrations centrales associées aux titres…')
+    console.log('administrations gestionnaires associées aux titres…')
 
     const administrations = await administrationsGet()
     const [
-      titresAdministrationsCentralesCreated = [],
-      titresAdministrationsCentralesDeleted = []
-    ] = await titresAdministrationsCentralesUpdate([titre], administrations)
+      titresAdministrationsGestionnairesCreated = [],
+      titresAdministrationsGestionnairesDeleted = []
+    ] = await titresAdministrationsGestionnairesUpdate([titre], administrations)
 
     // 11.
     console.log()
@@ -58,10 +58,10 @@ const titreUpdate = async titreId => {
     console.log()
     console.log('tâches métiers exécutées:')
     console.log(
-      `mise à jour: ${titresAdministrationsCentralesCreated.length} administration(s) centrale(s) ajoutée(s) dans des titres`
+      `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
     )
     console.log(
-      `mise à jour: ${titresAdministrationsCentralesDeleted.length} administration(s) centrale(s) supprimée(s) dans des titres`
+      `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
     )
     console.log(`mise à jour: ${titreUpdated ? '1' : '0'} titre(s) (ids)`)
 

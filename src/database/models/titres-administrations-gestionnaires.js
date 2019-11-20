@@ -1,7 +1,7 @@
 import { Model } from 'objection'
 
-export default class TitresAdministrationsCentrales extends Model {
-  static tableName = 'titresAdministrationsCentrales'
+export default class TitresAdministrationsGestionnaires extends Model {
+  static tableName = 'titresAdministrationsGestionnaires'
 
   static jsonSchema = {
     type: 'object',
@@ -10,7 +10,7 @@ export default class TitresAdministrationsCentrales extends Model {
     properties: {
       administrationId: { type: 'string', maxLength: 64 },
       titreId: { type: 'string', maxLength: 128 },
-      subsidiaire: { type: ['boolean', 'null'] }
+      associee: { type: ['boolean', 'null'] }
     }
   }
 

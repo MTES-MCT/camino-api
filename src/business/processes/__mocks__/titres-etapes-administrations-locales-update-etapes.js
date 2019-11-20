@@ -1,6 +1,6 @@
 const administrations = [
   {
-    id: 'centrale',
+    id: 'gestionnaire',
     domaines: [{ id: 'm' }]
   },
   {

@@ -1,4 +1,4 @@
-import titreAdministrationsCentralesBuild from '../../business/rules/titre-administrations-centrales-build'
+import titreAdministrationsGestionnairesBuild from '../../business/rules/titre-administrations-gestionnaires-build'
 
 import {
   permissionsCheck,
@@ -74,11 +74,11 @@ const titrePermissionCheck = (
 }
 
 const titrePermissionAdministrationsCheck = (titre, user) =>
-  ((titre.administrationsCentrales && titre.administrationsCentrales.length) ||
+  ((titre.administrationsGestionnaires && titre.administrationsGestionnaires.length) ||
     (titre.administrationsLocales && titre.administrationsLocales.length)) &&
   permissionsAdministrationsCheck(user, [
     ...titre.administrationsLocales.map(a => a.id),
-    ...titre.administrationsCentrales.map(a => a.id)
+    ...titre.administrationsGestionnaires.map(a => a.id)
   ])
 
 const titreEditionPermissionAdministrationsCheck = (
@@ -90,19 +90,19 @@ const titreEditionPermissionAdministrationsCheck = (
   // dans un premier temps, on ne vérifie la création que pour les ARM
   if (titre.typeId !== 'arm') return false
 
-  const titreAdministrationsCentrales =
-    titre.administrationsCentrales && titre.administrationsCentrales.length
-      ? titre.administrationsCentrales
-      : // calcule les administrations centrales pour le titre
+  const titreAdministrationsGestionnaires =
+    titre.administrationsGestionnaires && titre.administrationsGestionnaires.length
+      ? titre.administrationsGestionnaires
+      : // calcule les administrations gestionnaires pour le titre
         // si elles n'existent pas encore (création de titre)
-        titreAdministrationsCentralesBuild(titre, administrations).map(a => ({
+        titreAdministrationsGestionnairesBuild(titre, administrations).map(a => ({
           id: a.administrationId
         }))
 
   const { administrationsLocales: titreAdministrationsLocales = [] } = titre
 
   const titreAdministrations = [
-    ...titreAdministrationsCentrales,
+    ...titreAdministrationsGestionnaires,
     ...titreAdministrationsLocales
   ]
 
