@@ -11,7 +11,9 @@ import {
 } from './__mocks__/titres-administrations-gestionnaires-update-titres'
 
 jest.mock('../../database/queries/titres', () => ({
-  titresAdministrationsGestionnairesCreate: jest.fn().mockImplementation(a => a),
+  titresAdministrationsGestionnairesCreate: jest
+    .fn()
+    .mockImplementation(a => a),
   titreAdministrationGestionnaireDelete: jest.fn()
 }))
 
@@ -39,7 +41,9 @@ describe("administrations d'une étape", () => {
     expect(titresAdministrationGestionnairesCreated.length).toEqual(2)
     expect(titresAdministrationGestionnairesDeleted.length).toEqual(0)
 
-    expect(titreQueries.titresAdministrationsGestionnairesCreate).toHaveBeenCalled()
+    expect(
+      titreQueries.titresAdministrationsGestionnairesCreate
+    ).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -76,7 +80,9 @@ describe("administrations d'une étape", () => {
     expect(titresAdministrationGestionnairesCreated.length).toEqual(0)
     expect(titresAdministrationGestionnairesDeleted.length).toEqual(1)
 
-    expect(titreQueries.titreAdministrationGestionnaireDelete).toHaveBeenCalled()
+    expect(
+      titreQueries.titreAdministrationGestionnaireDelete
+    ).toHaveBeenCalled()
     expect(console.log).toHaveBeenCalled()
   })
 })

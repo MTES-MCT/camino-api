@@ -166,7 +166,8 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
   if (fields.administrations) {
     const hasAdministrations =
-      (t.administrationsGestionnaires && t.administrationsGestionnaires.length) ||
+      (t.administrationsGestionnaires &&
+        t.administrationsGestionnaires.length) ||
       (t.administrationsLocales && t.administrationsLocales.length)
     if (hasAdministrations) {
       // fusionne administrations gestionnaires et locales

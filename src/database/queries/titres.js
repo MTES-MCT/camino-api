@@ -258,9 +258,14 @@ const titreUpsert = async (titre, tr) =>
     .returning('*')
 
 const titresAdministrationsGestionnairesCreate = async titresAdministrationsGestionnaires =>
-  TitresAdministrationsGestionnaires.query().insert(titresAdministrationsGestionnaires)
+  TitresAdministrationsGestionnaires.query().insert(
+    titresAdministrationsGestionnaires
+  )
 
-const titreAdministrationGestionnaireDelete = async (titreId, administrationId) =>
+const titreAdministrationGestionnaireDelete = async (
+  titreId,
+  administrationId
+) =>
   TitresAdministrationsGestionnaires.query()
     .delete()
     .where('titreId', titreId)

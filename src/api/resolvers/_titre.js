@@ -74,7 +74,8 @@ const titrePermissionCheck = (
 }
 
 const titrePermissionAdministrationsCheck = (titre, user) =>
-  ((titre.administrationsGestionnaires && titre.administrationsGestionnaires.length) ||
+  ((titre.administrationsGestionnaires &&
+    titre.administrationsGestionnaires.length) ||
     (titre.administrationsLocales && titre.administrationsLocales.length)) &&
   permissionsAdministrationsCheck(user, [
     ...titre.administrationsLocales.map(a => a.id),
@@ -91,13 +92,16 @@ const titreEditionPermissionAdministrationsCheck = (
   if (titre.typeId !== 'arm') return false
 
   const titreAdministrationsGestionnaires =
-    titre.administrationsGestionnaires && titre.administrationsGestionnaires.length
+    titre.administrationsGestionnaires &&
+    titre.administrationsGestionnaires.length
       ? titre.administrationsGestionnaires
       : // calcule les administrations gestionnaires pour le titre
         // si elles n'existent pas encore (création de titre)
-        titreAdministrationsGestionnairesBuild(titre, administrations).map(a => ({
-          id: a.administrationId
-        }))
+        titreAdministrationsGestionnairesBuild(titre, administrations).map(
+          a => ({
+            id: a.administrationId
+          })
+        )
 
   const { administrationsLocales: titreAdministrationsLocales = [] } = titre
 
@@ -123,6 +127,7 @@ const titreEditionPermissionAdministrationsCheck = (
       if (!titreRestrictions.find(r => r.administrationId === ac.id)) {
         titreEditionAdministrationsIds.push(ac.id)
       }
+
       return titreEditionAdministrationsIds
     },
     []

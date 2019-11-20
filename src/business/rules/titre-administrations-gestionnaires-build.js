@@ -16,41 +16,44 @@ const titreAdministrationsGestionnairesBuild = (
   { id: titreId, domaineId, typeId },
   administrations
 ) =>
-  administrations.reduce((titreAdministrationsGestionnaires, administration) => {
-    const isTitreAdministration =
-      administration.domaines &&
-      administration.domaines.length &&
-      administration.domaines.find(({ id }) => id === domaineId)
+  administrations.reduce(
+    (titreAdministrationsGestionnaires, administration) => {
+      const isTitreAdministration =
+        administration.domaines &&
+        administration.domaines.length &&
+        administration.domaines.find(({ id }) => id === domaineId)
 
-    if (!isTitreAdministration) return titreAdministrationsGestionnaires
+      if (!isTitreAdministration) return titreAdministrationsGestionnaires
 
-    const typesRestrictions =
-      administrationsTypesRestrictions[administration.id]
+      const typesRestrictions =
+        administrationsTypesRestrictions[administration.id]
 
-    // si
-    // - il y a des restrictions pour cette administration gestionnaire
-    // - le type de titre n'est pas trouvé parmi les types de titres autorisés
-    // l'administration n'est pas rattachée à l'étape
-    if (typesRestrictions && !typesRestrictions.includes(typeId)) {
+      // si
+      // - il y a des restrictions pour cette administration gestionnaire
+      // - le type de titre n'est pas trouvé parmi les types de titres autorisés
+      // l'administration n'est pas rattachée à l'étape
+      if (typesRestrictions && !typesRestrictions.includes(typeId)) {
+        return titreAdministrationsGestionnaires
+      }
+
+      const associee =
+        administrationsTypesAssociees[administration.id] &&
+        administrationsTypesAssociees[administration.id].includes(typeId)
+
+      const titreAdministrationGestionnaire = {
+        titreId,
+        administrationId: administration.id
+      }
+
+      if (associee) {
+        titreAdministrationGestionnaire.associee = associee
+      }
+
+      titreAdministrationsGestionnaires.push(titreAdministrationGestionnaire)
+
       return titreAdministrationsGestionnaires
-    }
-
-    const associee =
-      administrationsTypesAssociees[administration.id] &&
-      administrationsTypesAssociees[administration.id].includes(typeId)
-
-    const titreAdministrationGestionnaire = {
-      titreId,
-      administrationId: administration.id
-    }
-
-    if (associee) {
-      titreAdministrationGestionnaire.associee = associee
-    }
-
-    titreAdministrationsGestionnaires.push(titreAdministrationGestionnaire)
-
-    return titreAdministrationsGestionnaires
-  }, [])
+    },
+    []
+  )
 
 export default titreAdministrationsGestionnairesBuild

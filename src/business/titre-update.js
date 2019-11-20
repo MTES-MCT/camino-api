@@ -11,7 +11,9 @@ import { activitesTypesGet } from '../database/queries/metas'
 
 const titreUpdate = async titreId => {
   try {
-    let titre = await titreGet(titreId, { eager: 'administrationsGestionnaires' })
+    let titre = await titreGet(titreId, {
+      eager: 'administrationsGestionnaires'
+    })
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
 
