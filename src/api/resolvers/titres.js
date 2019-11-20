@@ -2,7 +2,10 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat, titresFormat } from './_titre-format'
 
-import { titreEditionPermissionAdministrationsCheck } from './_titre'
+import {
+  titreCreationPermissionAdministrationsCheck,
+  titreModificationPermissionAdministrationsCheck
+} from './_titre'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
@@ -100,8 +103,7 @@ const titreCreer = async ({ titre }, context, info) => {
       const administrations = await administrationsGet()
 
       if (
-        !titreEditionPermissionAdministrationsCheck(
-          'creation',
+        !titreCreationPermissionAdministrationsCheck(
           titre,
           user,
           administrations
@@ -137,8 +139,7 @@ const titreModifier = async ({ titre }, context, info) => {
       const administrations = await administrationsGet()
 
       if (
-        !titreEditionPermissionAdministrationsCheck(
-          'modification',
+        !titreModificationPermissionAdministrationsCheck(
           titre,
           user,
           administrations

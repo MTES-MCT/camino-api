@@ -137,9 +137,16 @@ const titreEditionPermissionAdministrationsCheck = (
   return permissionsAdministrationsCheck(user, titreEditionAdministrationsIds)
 }
 
+const titreCreationPermissionAdministrationsCheck = (...args) =>
+  titreEditionPermissionAdministrationsCheck(...args, 'edition')
+
+const titreModificationPermissionAdministrationsCheck = (...args) =>
+  titreEditionPermissionAdministrationsCheck(...args, 'modification')
+
 export {
   titreIsPublicCheck,
   titrePermissionCheck,
   titrePermissionAdministrationsCheck,
-  titreEditionPermissionAdministrationsCheck
+  titreCreationPermissionAdministrationsCheck,
+  titreModificationPermissionAdministrationsCheck
 }

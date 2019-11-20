@@ -2,7 +2,7 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat } from './_titre-format'
 
-import { titreEditionPermissionAdministrationsCheck } from './_titre'
+import { titreModificationPermissionAdministrationsCheck } from './_titre'
 
 import {
   titreDemarcheGet,
@@ -34,8 +34,7 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
       user = await utilisateurGet(context.user.id)
 
       if (
-        !titreEditionPermissionAdministrationsCheck(
-          'modification',
+        !titreModificationPermissionAdministrationsCheck(
           titre,
           user,
           administrations
@@ -85,8 +84,7 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
       user = await utilisateurGet(context.user.id)
 
       if (
-        !titreEditionPermissionAdministrationsCheck(
-          'modification',
+        !titreModificationPermissionAdministrationsCheck(
           titre,
           user,
           administrations

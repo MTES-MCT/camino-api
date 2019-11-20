@@ -40,4 +40,20 @@ const objectsDiffer = (a, b) => {
   )
 }
 
-export { dupRemove, dupFind, objectsDiffer }
+const objConditionMatch = (condition, obj, keys = null) => {
+  // si les conditions sont testées plusieurs fois, (dans une boucle par ex)
+  // alors les clés de l'objet de condition peuvent être passées optionnellement
+  // pour ne pas les recalculer à chaque fois
+  const conditionKeys = keys || Object.keys(condition)
+
+  return conditionKeys.every(k =>
+    // si la condition est multiple (tableau)
+    Array.isArray(condition[k])
+      ? // teste si l'objet contient au moins une des valeurs
+        condition[k].includes(obj[k])
+      : // sinon, teste la valeur exacte
+        condition[k] === obj[k]
+  )
+}
+
+export { dupRemove, dupFind, objectsDiffer, objConditionMatch }

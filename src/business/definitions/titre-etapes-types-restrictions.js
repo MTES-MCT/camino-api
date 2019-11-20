@@ -43,40 +43,45 @@ const titreEtapesTypesRestrictions = [
   },
 
   {
-    condition: { etape: { typeId: 'mcr' } },
+    condition: { etape: { typeId: 'mcr', statutId: 'fav' } },
     obligatoireApresUne: { typeId: 'pfd' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    impossibleApresUne: { typeId: 'aca' }
+  },
+  {
+    condition: { etape: { typeId: 'mcr', statutId: 'def' } },
+    obligatoireApresUne: { typeId: 'mdp' },
+    impossibleApresUne: { typeId: 'aca' }
   },
   {
     condition: { etape: { typeId: 'edm' } },
     obligatoireApresUne: { typeId: 'mcr', statutId: 'fav' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    impossibleApresUne: { typeId: 'aca' }
   },
   {
     condition: { etape: { typeId: 'ede' } },
     obligatoireApresUne: { typeId: 'mcr', statutId: 'fav' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    impossibleApresUne: { typeId: 'aca' }
   },
   {
     condition: { etape: { typeId: 'rde' } },
     obligatoireApresUne: { typeId: 'mcr', statutId: 'fav' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    impossibleApresUne: { typeId: 'aca' }
   },
   {
     condition: { etape: { typeId: 'eof' } },
     obligatoireApresUne: { typeId: 'mcr', statutId: 'fav' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    impossibleApresUne: { typeId: 'aca' }
   },
   {
     condition: { etape: { typeId: 'aof' } },
-    obligatoireApresUne: { typeId: 'mcr', statutId: 'fav' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    obligatoireApresUne: { typeId: 'eof' },
+    impossibleApresUne: { typeId: 'aca' }
   },
 
   {
     condition: { etape: { typeId: 'aca' } },
     obligatoireApresUne: { typeId: 'mcr', statutId: 'fav' },
-    impossibleApresUne: { typeId: 'aca', statutId: ['def', 'fav'] }
+    impossibleApresUne: { typeId: 'ret' }
   },
 
   {

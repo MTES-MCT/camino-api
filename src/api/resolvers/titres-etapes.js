@@ -2,8 +2,11 @@ import { debug } from '../../config/index'
 import { permissionsCheck } from './_permissions-check'
 import { titreFormat } from './_titre-format'
 
-import { titreEditionPermissionAdministrationsCheck } from './_titre'
-import { titreEtapeEditionPermissionAdministrationsCheck } from './_titre-etape'
+import { titreModificationPermissionAdministrationsCheck } from './_titre'
+import {
+  titreEtapeCreationPermissionAdministrationsCheck,
+  titreEtapeModificationPermissionAdministrationsCheck
+} from './_titre-etape'
 
 import {
   titreEtapeGet,
@@ -43,14 +46,12 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
       user = await utilisateurGet(context.user.id)
 
       if (
-        !titreEditionPermissionAdministrationsCheck(
-          'modification',
+        !titreModificationPermissionAdministrationsCheck(
           titre,
           user,
           administrations
         ) ||
-        !titreEtapeEditionPermissionAdministrationsCheck(
-          'creation',
+        !titreEtapeCreationPermissionAdministrationsCheck(
           etape.typeId,
           titre,
           user
@@ -115,14 +116,12 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
       user = await utilisateurGet(context.user.id)
 
       if (
-        !titreEditionPermissionAdministrationsCheck(
-          'modification',
+        !titreModificationPermissionAdministrationsCheck(
           titre,
           user,
           administrations
         ) ||
-        !titreEtapeEditionPermissionAdministrationsCheck(
-          'modification',
+        !titreEtapeModificationPermissionAdministrationsCheck(
           etape.typeId,
           titre,
           user
