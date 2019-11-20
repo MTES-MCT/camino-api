@@ -35,10 +35,10 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
 
       if (
         !titreEditionPermissionAdministrationsCheck(
+          'modification',
           titre,
-          administrations,
           user,
-          'modification'
+          administrations
         )
       ) {
         throw new Error('droits insuffisants pour créer cette démarche')
@@ -86,10 +86,10 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
 
       if (
         !titreEditionPermissionAdministrationsCheck(
+          'modification',
           titre,
-          administrations,
           user,
-          'modification'
+          administrations
         )
       ) {
         throw new Error('droits insuffisants pour modifier cette démarche')

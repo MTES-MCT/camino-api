@@ -101,10 +101,10 @@ const titreCreer = async ({ titre }, context, info) => {
 
       if (
         !titreEditionPermissionAdministrationsCheck(
+          'creation',
           titre,
-          administrations,
           user,
-          'creation'
+          administrations
         )
       ) {
         throw new Error('droits insuffisants pour créer ce type de titre')
@@ -138,10 +138,10 @@ const titreModifier = async ({ titre }, context, info) => {
 
       if (
         !titreEditionPermissionAdministrationsCheck(
+          'modification',
           titre,
-          administrations,
           user,
-          'modification'
+          administrations
         )
       ) {
         throw new Error('droits insuffisants pour modifier ce titre')
