@@ -44,16 +44,16 @@ const titreEtapeCreer = async ({ etape }, context, info) => {
 
       if (
         !titreEditionPermissionAdministrationsCheck(
+          'modification',
           titre,
-          administrations,
           user,
-          'modification'
+          administrations
         ) ||
         !titreEtapeEditionPermissionAdministrationsCheck(
-          etape,
+          'creation',
+          etape.typeId,
           titre,
-          user,
-          'creation'
+          user
         )
       ) {
         throw new Error('droits insuffisants pour créer cette étape')
@@ -116,16 +116,16 @@ const titreEtapeModifier = async ({ etape }, context, info) => {
 
       if (
         !titreEditionPermissionAdministrationsCheck(
+          'modification',
           titre,
-          administrations,
           user,
-          'modification'
+          administrations
         ) ||
         !titreEtapeEditionPermissionAdministrationsCheck(
-          etape,
+          'modification',
+          etape.typeId,
           titre,
-          user,
-          'modification'
+          user
         )
       ) {
         throw new Error('droits insuffisants pour modifier cette étape')

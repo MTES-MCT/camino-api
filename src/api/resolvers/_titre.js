@@ -83,12 +83,12 @@ const titrePermissionAdministrationsCheck = (titre, user) =>
   ])
 
 const titreEditionPermissionAdministrationsCheck = (
+  editionMode,
   titre,
-  administrations,
   user,
-  editionMode
+  administrations
 ) => {
-  // dans un premier temps, on ne vérifie la création que pour les ARM
+  // dans un premier temps, on ne vérifie l'édition que pour les ARM
   if (titre.typeId !== 'arm') return false
 
   const titreAdministrationsGestionnaires =

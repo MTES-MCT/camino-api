@@ -36,6 +36,8 @@ type Domaine {
   nom: String!
 
   types: [Type]!
+
+  editable: Boolean
 }
 
 "Type de titre minier"
@@ -48,6 +50,8 @@ type Type {
 
   "Types de démarches applicables à ce type de titre"
   demarchesTypes: [DemarcheType]
+
+  editable: Boolean
 }
 
 "Statut d'un titre minier"
@@ -95,6 +99,8 @@ type DemarcheType {
 
   "Ids des types d'étape déjà présents sur cette démarche"
   etapesTypeIds: [ID]
+
+  editable: Boolean
 }
 
 "Statut d'une démarche applicable à un titre minier"
@@ -130,6 +136,8 @@ type EtapeType {
   "Type de titre pour laquelle cette étape existe"
   typeId: ID
 
+  demarcheTypeId: ID
+
   ordre: Int!
 
   fondamentale: Boolean
@@ -142,6 +150,8 @@ type EtapeType {
   etapesStatuts: [EtapeStatut]
 
   sections: Json
+
+  editable: Boolean
 }
 
 type DemarcheType_etapeType {

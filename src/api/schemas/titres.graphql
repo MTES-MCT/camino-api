@@ -85,6 +85,9 @@ type Titre {
 
   "Nombre d'activités absentes"
   activitesAbsentes: Int
+
+  editable: Boolean
+  supprimable: Boolean
 }
 
 "Références métier d'un titre minier"
@@ -125,6 +128,9 @@ type Demarche {
 
   "Démarches liées"
   parents: [Demarche]
+
+  editable: Boolean
+  supprimable: Boolean
 }
 
 "Phase d'un titre minier"
@@ -214,6 +220,9 @@ type Etape {
   incertitudes: Incertitudes
 
   contenu: Json
+
+  editable: Boolean
+  supprimable: Boolean
 }
 
 type EtapeId {
