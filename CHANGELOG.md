@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.10](https://github.com/MTES-MCT/camino-api/compare/v0.24.9...v0.24.10) (2019-11-21)
+
+
+### Bug Fixes
+
+* **business:** corrige l'ordre des étapes en cas de dates similaires ([#221](https://github.com/MTES-MCT/camino-api/issues/221)) ([62b9bb6](https://github.com/MTES-MCT/camino-api/commit/62b9bb6))
+* **business:** corrige la mise à jour d'un titre (perte d'administrations) ([cfed9a0](https://github.com/MTES-MCT/camino-api/commit/cfed9a0))
+* **business:** corrige le statut des titres pour les démarches en construction ([2fac4f1](https://github.com/MTES-MCT/camino-api/commit/2fac4f1))
+* **business:** n'associe les administrations centrales qu'à la mise à jour d'un titre ([2eec1f2](https://github.com/MTES-MCT/camino-api/commit/2eec1f2))
+* **export:** corrige l'export des références ([0564443](https://github.com/MTES-MCT/camino-api/commit/0564443))
+* corrige la nouvelle structure des références ; refactor: sépare les métas dans l'api ([#219](https://github.com/MTES-MCT/camino-api/issues/219)) ([7d67949](https://github.com/MTES-MCT/camino-api/commit/7d67949))
+* **business:** prends en compte l'ordre si les étapes ont la même date et type ([#222](https://github.com/MTES-MCT/camino-api/issues/222)) ([91020f5](https://github.com/MTES-MCT/camino-api/commit/91020f5))
+
+
+### Features
+
+* **api:** limite la liste des types de références métier ([#185](https://github.com/MTES-MCT/camino-api/issues/185)) ([5299064](https://github.com/MTES-MCT/camino-api/commit/5299064))
+* **api:** restreint l'édition des titres selon les permissions ([#223](https://github.com/MTES-MCT/camino-api/issues/223)) ([2d9fa01](https://github.com/MTES-MCT/camino-api/commit/2d9fa01))
+* **api:** valide l'ordre des étapes ARM ([#205](https://github.com/MTES-MCT/camino-api/issues/205)) ([39317c1](https://github.com/MTES-MCT/camino-api/commit/39317c1))
+
 ### [0.24.9](https://github.com/MTES-MCT/camino-api/compare/v0.24.8...v0.24.9) (2019-11-13)
 
 
