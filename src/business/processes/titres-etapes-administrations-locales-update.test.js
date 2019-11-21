@@ -97,7 +97,7 @@ describe("administrations d'une étape", () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test("ajoute l'option subsidiaire à la Déal Guyane sur une ARM", async () => {
+  test("ajoute l'option associee à la Déal Guyane sur une ARM", async () => {
     const [
       titresEtapesAdministrationsCreated,
       titresEtapesAdministrationsLocalesDeleted
@@ -111,7 +111,7 @@ describe("administrations d'une étape", () => {
     expect(
       titresEtapesAdministrationsCreated.find(
         ({ administrationId }) => administrationId === 'dea-guyane-01'
-      ).subsidiaire
+      ).associee
     ).toBeTruthy()
     expect(console.log).toHaveBeenCalled()
   })

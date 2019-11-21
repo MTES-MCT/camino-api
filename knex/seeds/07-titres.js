@@ -17,7 +17,7 @@ const files = [
   'titresSubstances',
   'titresTitulaires',
   'titresCommunes',
-  'titresAdministrationsCentrales',
+  'titresAdministrationsGestionnaires',
   'titresAdministrationsLocales',
   'titresAmodiataires',
   'titresIncertitudes',
@@ -49,7 +49,7 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('titresPointsReferences'),
     del('titresTitulaires'),
     del('titresCommunes'),
-    del('titresAdministrationsCentrales'),
+    del('titresAdministrationsGestionnaires'),
     del('titresAdministrationsLocales'),
     del('titresAmodiataires'),
     del('titresIncertitudes'),
@@ -72,8 +72,8 @@ exports.seed = seeding(async ({ del, insert }) => {
   await insert('titresPhases', data.titresPhases)
   await insert('titresDemarchesLiens', data.titresDemarchesLiens)
   await insert(
-    'titresAdministrationsCentrales',
-    data.titresAdministrationsCentrales
+    'titresAdministrationsGestionnaires',
+    data.titresAdministrationsGestionnaires
   )
   await insert(
     'titresAdministrationsLocales',

@@ -73,7 +73,7 @@ const run = async () => {
     )
 
     const titresAdministrations = [
-      ...(await knex('titres_administrations_centrales')),
+      ...(await knex('titres_administrations_gestionnaires')),
       ...(await knex('titres_administrations_locales')),
       ...(await knex('administrations__domaines'))
     ]

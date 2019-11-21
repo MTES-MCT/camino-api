@@ -30,7 +30,7 @@ const titreEagerFormat = (fields, parent) => {
     ) {
       // ajoute la propriété `type` sur les administrations
       titreEagerFormatAdministrations(fields, 'Locales')
-      titreEagerFormatAdministrations(fields, 'Centrales')
+      titreEagerFormatAdministrations(fields, 'Gestionnaires')
       delete fields.administrations
     } else if (
       !fields.administrations.type &&

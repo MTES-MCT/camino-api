@@ -28,7 +28,7 @@ exports.up = knex => {
       table.primary(['titreEtapeId', 'entrepriseId'])
     })
 
-    .createTable('titresAdministrationsCentrales', table => {
+    .createTable('titresAdministrationsGestionnaires', table => {
       table.string('titreId', 128).notNullable()
       table
         .foreign('titreId')
@@ -39,7 +39,7 @@ exports.up = knex => {
         .string('administrationId', 64)
         .references('administrations.id')
         .notNullable()
-      table.boolean('subsidiaire')
+      table.boolean('associee')
       table.primary(['titreId', 'administrationId'])
     })
     .createTable('titresAdministrationsLocales', table => {
@@ -53,7 +53,7 @@ exports.up = knex => {
         .string('administrationId', 64)
         .references('administrations.id')
         .notNullable()
-      table.boolean('subsidiaire')
+      table.boolean('associee')
       table.boolean('coordinateur')
       table.primary(['titreEtapeId', 'administrationId'])
     })
@@ -62,7 +62,7 @@ exports.up = knex => {
 exports.down = knex => {
   return knex.schema
     .dropTable('titresAdministrationsLocales')
-    .dropTable('titresAdministrationsCentrales')
+    .dropTable('titresAdministrationsGestionnaires')
     .dropTable('titresAmodiataires')
     .dropTable('titresTitulaires')
 }

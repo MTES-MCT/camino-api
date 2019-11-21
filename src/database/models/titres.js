@@ -194,15 +194,15 @@ export default class Titres extends Model {
       }
     },
 
-    administrationsCentrales: {
+    administrationsGestionnaires: {
       relation: Model.ManyToManyRelation,
       modelClass: Administrations,
       join: {
         from: 'titres.id',
         through: {
-          from: 'titresAdministrationsCentrales.titreId',
-          to: 'titresAdministrationsCentrales.administrationId',
-          extra: ['subsidiaire']
+          from: 'titresAdministrationsGestionnaires.titreId',
+          to: 'titresAdministrationsGestionnaires.administrationId',
+          extra: ['associee']
         },
         to: 'administrations.id'
       }
@@ -216,7 +216,7 @@ export default class Titres extends Model {
         through: {
           from: 'titresAdministrationsLocales.titreEtapeId',
           to: 'titresAdministrationsLocales.administrationId',
-          extra: ['subsidiaire', 'coordinateur']
+          extra: ['associee', 'coordinateur']
         },
         to: 'administrations.id'
       }

@@ -166,19 +166,20 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
   if (fields.administrations) {
     const hasAdministrations =
-      (t.administrationsCentrales && t.administrationsCentrales.length) ||
+      (t.administrationsGestionnaires &&
+        t.administrationsGestionnaires.length) ||
       (t.administrationsLocales && t.administrationsLocales.length)
     if (hasAdministrations) {
-      // fusionne administrations centrales et locales
+      // fusionne administrations gestionnaires et locales
       let administrations = dupRemove('id', [
-        ...(t.administrationsCentrales || []),
+        ...(t.administrationsGestionnaires || []),
         ...(t.administrationsLocales || [])
       ])
 
       // si l'utilisateur n'a pas de droits de visualisation suffisants
-      // alors filtre les administrations `subsidiaire`
+      // alors filtre les administrations `associee`
       administrations = !permissionsCheck(user, ['super', 'admin', 'editeur'])
-        ? administrations.filter(a => !a.subsidiaire)
+        ? administrations.filter(a => !a.associee)
         : administrations
 
       t.administrations = administrations.sort(
@@ -187,7 +188,7 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
       t.administrations = administrationsFormat(t.administrations, user)
 
-      delete t.administrationsCentrales
+      delete t.administrationsGestionnaires
       delete t.administrationsLocales
     } else {
       t.administrations = []

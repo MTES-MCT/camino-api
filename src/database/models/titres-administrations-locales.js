@@ -10,7 +10,7 @@ export default class TitresAdministrationsLocales extends Model {
     properties: {
       administrationId: { type: 'string', maxLength: 64 },
       titreEtapeId: { type: 'string', maxLength: 128 },
-      subsidiaire: { type: ['boolean', 'null'] },
+      associee: { type: ['boolean', 'null'] },
       coordinateur: { type: ['boolean', 'null'] }
     }
   }

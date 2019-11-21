@@ -167,7 +167,7 @@ const titresUpdateTrue = [
   'type',
   'statut',
   'domaine',
-  'administrationsCentrales',
+  'administrationsGestionnaires',
   ...demarchesUpdateTrue.map(k => `demarches.${k}`)
 ]
 
@@ -202,10 +202,10 @@ const titresUpdateFalse = [
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
   'amodiataires.utilisateurs.permission',
-  'administrationsCentrales.domaines',
-  'administrationsCentrales.type',
-  'administrationsCentrales.utilisateurs',
-  'administrationsCentrales.utilisateurs.permission',
+  'administrationsGestionnaires.domaines',
+  'administrationsGestionnaires.type',
+  'administrationsGestionnaires.utilisateurs',
+  'administrationsGestionnaires.utilisateurs.permission',
   'administrationsLocales',
   'administrationsLocales.domaines',
   'administrationsLocales.type',
@@ -236,7 +236,7 @@ const titres = {
     substances(orderAsc).${substances.eager},
     titulaires.${entreprises.eager},
     amodiataires.${entreprises.eager},
-    administrationsCentrales.${administrations.eager},
+    administrationsGestionnaires.${administrations.eager},
     administrationsLocales.${administrations.eager},
     demarches(orderDesc).${demarches.eager},
     surfaceEtape,
