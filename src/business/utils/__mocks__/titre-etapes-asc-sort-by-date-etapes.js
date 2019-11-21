@@ -125,7 +125,10 @@ const titreEtapesMemesDatesMemeOrdreAscResult = [
   }
 ]
 
-const etapesTypes = [{ id: 'dex', ordre: 100 }, { id: 'dpu', ordre: 200 }]
+const etapesTypes = [
+  { id: 'dex', ordre: 100 },
+  { id: 'dpu', ordre: 200 }
+]
 
 export {
   titreEtapesSortedAsc,

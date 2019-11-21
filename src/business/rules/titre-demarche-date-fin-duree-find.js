@@ -98,9 +98,9 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
 
   // sinon, la date de fin est calculée
   // en ajoutant la durée cumulée à la date de la première dpu ou ens
-  const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
-    titreEtape => ['dpu', 'sco', 'def', 'aco'].includes(titreEtape.typeId)
-  )
+  const titreEtapeDpuFirst = titreEtapesAscSort(
+    titreDemarcheEtapes
+  ).find(titreEtape => ['dpu', 'sco', 'def', 'aco'].includes(titreEtape.typeId))
 
   if (titreEtapeDpuFirst) {
     return dateAddMonths(titreEtapeDpuFirst.date, duree)
@@ -108,9 +108,9 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
 
   // si on ne trouve pas de dpu, la date de fin est calculée
   // en ajoutant la date de la première dex
-  const titreEtapeDexFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
-    titreEtape => ['dex', 'def', 'sco', 'aco'].includes(titreEtape.typeId)
-  )
+  const titreEtapeDexFirst = titreEtapesAscSort(
+    titreDemarcheEtapes
+  ).find(titreEtape => ['dex', 'def', 'sco', 'aco'].includes(titreEtape.typeId))
 
   return titreEtapeDexFirst
     ? dateAddMonths(titreEtapeDexFirst.date, duree)

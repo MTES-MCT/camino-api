@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import * as chalk from 'chalk'
 
 const errorLog = (error: string, ...args: any[]) => {
   console.error('')

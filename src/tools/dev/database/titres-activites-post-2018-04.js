@@ -21,7 +21,10 @@ async function main() {
     return dateDebut && dateDebut >= '2018-04-01'
   })
 
-  console.log('titres:', titresFiltered.map(({ id }) => id))
+  console.log(
+    'titres:',
+    titresFiltered.map(({ id }) => id)
+  )
 
   process.exit()
 }

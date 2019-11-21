@@ -42,8 +42,14 @@ describe('comparaison entre des tableaux', () => {
   test('retourne un seul tableau en combinant les éléments', () => {
     const res = dupRemove(
       'id',
-      [{ id: 1, nom: 'nom-1' }, { id: 2, nom: 'nom-2' }],
-      [{ id: 1, nom: 'nom-1-bis' }, { id: 3, nom: 'nom-3' }]
+      [
+        { id: 1, nom: 'nom-1' },
+        { id: 2, nom: 'nom-2' }
+      ],
+      [
+        { id: 1, nom: 'nom-1-bis' },
+        { id: 3, nom: 'nom-3' }
+      ]
     )
 
     expect(res).toEqual([
@@ -56,8 +62,14 @@ describe('comparaison entre des tableaux', () => {
   test('retourne un seul tableau en combinant les éléments en doublon', () => {
     const res = dupFind(
       'id',
-      [{ id: 1, nom: 'nom-1' }, { id: 2, nom: 'nom-2' }],
-      [{ id: 1, nom: 'nom-1-bis' }, { id: 3, nom: 'nom-3' }]
+      [
+        { id: 1, nom: 'nom-1' },
+        { id: 2, nom: 'nom-2' }
+      ],
+      [
+        { id: 1, nom: 'nom-1-bis' },
+        { id: 3, nom: 'nom-3' }
+      ]
     )
 
     expect(res).toEqual([{ id: 1, nom: 'nom-1-bis' }])

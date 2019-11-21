@@ -16,19 +16,23 @@ const titrePropEtapeIdFind = (
       if (etapeId) return etapeId
 
       if (
-        !// filtre les démarches non acceptée, non terminée ou non en instruction
-        (
-          ['acc', 'ter'].includes(titreDemarche.statutId) ||
-          // sauf si la démarche est un octroi
-          ['oct', 'vut', 'vct'].includes(titreDemarche.typeId) ||
-          // ou que le titre a le statut modification en instance
-          (titreStatutId === 'mod' &&
-            // et que la démarches est une prolongation ou une demande de titre
-            ['pro', 'pr1', 'pr2', 'prr', 'vct'].includes(
-              titreDemarche.typeId
-            ) &&
-            // et que plus aucune phase n'est valide
-            !titreDemarches.find(td => td.phase && td.phase.statutId === 'val'))
+        !(
+          // filtre les démarches non acceptée, non terminée ou non en instruction
+          (
+            ['acc', 'ter'].includes(titreDemarche.statutId) ||
+            // sauf si la démarche est un octroi
+            ['oct', 'vut', 'vct'].includes(titreDemarche.typeId) ||
+            // ou que le titre a le statut modification en instance
+            (titreStatutId === 'mod' &&
+              // et que la démarches est une prolongation ou une demande de titre
+              ['pro', 'pr1', 'pr2', 'prr', 'vct'].includes(
+                titreDemarche.typeId
+              ) &&
+              // et que plus aucune phase n'est valide
+              !titreDemarches.find(
+                td => td.phase && td.phase.statutId === 'val'
+              ))
+          )
         )
       ) {
         return etapeId

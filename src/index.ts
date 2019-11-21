@@ -10,7 +10,7 @@
 
 import 'dotenv/config'
 
-import chalk from 'chalk'
+import * as chalk from 'chalk'
 import * as compression from 'compression'
 import * as cors from 'cors'
 import * as express from 'express'

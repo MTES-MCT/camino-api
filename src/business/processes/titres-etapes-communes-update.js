@@ -142,7 +142,15 @@ const communesGeojsonTest = () => {
     properties: { id: 'api-test' },
     geometry: {
       type: 'Polygon',
-      coordinates: [[[2, 48], [3, 48], [3, 49], [2, 49], [2, 48]]]
+      coordinates: [
+        [
+          [2, 48],
+          [3, 48],
+          [3, 49],
+          [2, 49],
+          [2, 48]
+        ]
+      ]
     }
   }
 
