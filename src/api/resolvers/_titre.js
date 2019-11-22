@@ -138,10 +138,10 @@ const titreEditionPermissionAdministrationsCheck = (
 }
 
 const titreCreationPermissionAdministrationsCheck = (...args) =>
-  titreEditionPermissionAdministrationsCheck(...args, 'edition')
+  titreEditionPermissionAdministrationsCheck('edition', ...args)
 
 const titreModificationPermissionAdministrationsCheck = (...args) =>
-  titreEditionPermissionAdministrationsCheck(...args, 'modification')
+  titreEditionPermissionAdministrationsCheck('modification', ...args)
 
 export {
   titreIsPublicCheck,

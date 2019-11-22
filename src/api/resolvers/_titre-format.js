@@ -15,10 +15,10 @@ import restrictions from './_restrictions'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
-  titreEditionPermissionAdministrationsCheck
+  titreModificationPermissionAdministrationsCheck
 } from './_titre'
 
-import { titreEtapeEditionPermissionAdministrationsCheck } from './_titre-etape'
+import { titreEtapeModificationPermissionAdministrationsCheck } from './_titre-etape'
 
 import { administrationsFormat } from './_administration'
 import { entreprisesFormat } from './_entreprise'
@@ -125,12 +125,7 @@ const demarcheTypeFormat = (demarcheType, t, user, { isSuper }) => {
       et.editable =
         isSuper ||
         (t.editable &&
-          titreEtapeEditionPermissionAdministrationsCheck(
-            'modification',
-            et.id,
-            t,
-            user
-          ))
+          titreEtapeModificationPermissionAdministrationsCheck(et.id, t, user))
 
       if (et.editable) {
         demarcheTypeEtapesTypesEditablesCount += 1
@@ -171,8 +166,7 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
   if (isSuper || isAdmin) {
     t.editable =
-      isSuper ||
-      titreEditionPermissionAdministrationsCheck('modification', t, user)
+      isSuper || titreModificationPermissionAdministrationsCheck(t, user)
     t.supprimable = isSuper
 
     if (t.type && t.type.demarchesTypes) {
@@ -408,8 +402,7 @@ const titreEtapeFormat = (
       editable =
         isSuper ||
         (td.editable &&
-          titreEtapeEditionPermissionAdministrationsCheck(
-            'modification',
+          titreEtapeModificationPermissionAdministrationsCheck(
             te.typeId,
             t,
             user
