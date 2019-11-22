@@ -1,7 +1,31 @@
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
 import titreEtapesTypesRestrictions from '../definitions/titre-etapes-types-restrictions'
 
+import { objConditionMatch } from '../../tools/index'
+
 // valide la date et la position de l'étape en fonction des autres étapes
+
+titreEtapesTypesRestrictions.forEach(restrictions => {
+  if (!restrictions) return false
+
+  const { condition } = restrictions
+  if (!condition || !condition.etape) return false
+
+  restrictions.impossibleAvantDes = titreEtapesTypesRestrictions.reduce(
+    (impossibleAvantDes, restriction) => {
+      if (
+        restriction &&
+        restriction.impossibleApresUne &&
+        condition.etape.typeId === restriction.impossibleApresUne.typeId
+      ) {
+        impossibleAvantDes.push({ typeId: restriction.condition.etape.typeId })
+      }
+
+      return impossibleAvantDes
+    },
+    []
+  )
+})
 
 const titreEtapeTypesRestrictionsFind = (titreEtape, titreDemarche, titre) =>
   titreEtapesTypesRestrictions.find(restrictions => {
@@ -11,7 +35,7 @@ const titreEtapeTypesRestrictionsFind = (titreEtape, titreDemarche, titre) =>
     if (!condition) return false
 
     const isSameEtapeType =
-      condition.etape && titreEtape.typeId === condition.etape.typeId
+      condition.etape && objConditionMatch(condition.etape, titreEtape)
 
     const isSameMecanisation =
       !condition.titre ||
@@ -35,7 +59,8 @@ const titreEtapeTypesRestrictionsCheck = (
 
   const {
     obligatoireApresUne,
-    impossibleApresUne
+    impossibleApresUne,
+    impossibleAvantDes
   } = titreEtapeTypesRestrictions
 
   // l'étape nécessite une étape antérieure pour pouvoir exister
@@ -44,10 +69,10 @@ const titreEtapeTypesRestrictionsCheck = (
 
     const titreEtapeBefore = titreDemarche.etapes.find(
       e =>
-        obligatoireApresUneEtapeKeys.every(k =>
-          Array.isArray(obligatoireApresUne[k])
-            ? obligatoireApresUne[k].includes(e[k])
-            : obligatoireApresUne[k] === e[k]
+        objConditionMatch(
+          obligatoireApresUne,
+          e,
+          obligatoireApresUneEtapeKeys
         ) && e.date <= titreEtape.date
     )
 
@@ -59,7 +84,19 @@ const titreEtapeTypesRestrictionsCheck = (
       )
 
       errors.push(
-        `Une étape « ${titreEtapeBeforeType.nom} » antérieure est nécessaire pour la création d'une étape « ${titreEtapeType.nom} ».`
+        `Une étape « ${
+          titreEtapeBeforeType.nom
+        } » antérieure est nécessaire pour la création d'une étape « ${
+          titreEtapeType.nom
+        } »${
+          obligatoireApresUne.statutId
+            ? ` dont le statut est « ${
+                Array.isArray(obligatoireApresUne.statutId)
+                  ? obligatoireApresUne.statutId.join(' ou ')
+                  : obligatoireApresUne.statutId
+              } »`
+            : ''
+        }.`
       )
     }
   }
@@ -83,10 +120,10 @@ const titreEtapeTypesRestrictionsCheck = (
 
       const titreEtapeAfter = titreDemarche.etapes.find(
         e =>
-          impossibleApresUneEtapeKeys.every(k =>
-            Array.isArray(impossibleApresUne[k])
-              ? impossibleApresUne[k].includes(e[k])
-              : impossibleApresUne[k] === e[k]
+          objConditionMatch(
+            impossibleApresUne,
+            e,
+            impossibleApresUneEtapeKeys
           ) && e.date < titreEtape.date
       )
 
@@ -102,6 +139,33 @@ const titreEtapeTypesRestrictionsCheck = (
         )
       }
     }
+  }
+
+  if (impossibleAvantDes && impossibleAvantDes.length > 0) {
+    impossibleAvantDes.forEach(impossibleAvantUne => {
+      const impossibleAvantUneEtapeKeys = Object.keys(impossibleAvantUne)
+
+      const titreEtapeBefore = titreDemarche.etapes.find(
+        e =>
+          objConditionMatch(
+            impossibleAvantUne,
+            e,
+            impossibleAvantUneEtapeKeys
+          ) && titreEtape.date < e.date
+      )
+
+      // si on trouve une étape avant, alors c'est une erreur
+      if (titreEtapeBefore) {
+        const titreEtapeBeforeType = titreEtapeDemarcheEtapeTypeFind(
+          titreDemarche.type,
+          impossibleAvantUne.typeId
+        )
+
+        errors.push(
+          `Une étape « ${titreEtapeType.nom} » ne peut être créée avant une étape « ${titreEtapeBeforeType.nom} ».`
+        )
+      }
+    })
   }
 
   return errors

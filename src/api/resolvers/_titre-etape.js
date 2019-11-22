@@ -46,4 +46,13 @@ const titreEtapeEditionPermissionAdministrationsCheck = (
   )
 }
 
-export { titreEtapeEditionPermissionAdministrationsCheck }
+const titreEtapeCreationPermissionAdministrationsCheck = (...args) =>
+  titreEtapeEditionPermissionAdministrationsCheck(...args, 'edition')
+
+const titreEtapeModificationPermissionAdministrationsCheck = (...args) =>
+  titreEtapeEditionPermissionAdministrationsCheck(...args, 'modification')
+
+export {
+  titreEtapeCreationPermissionAdministrationsCheck,
+  titreEtapeModificationPermissionAdministrationsCheck
+}

@@ -1,23 +1,4 @@
 import titreEtapeDateCheck from './titre-etape-date-check'
-import {
-  titreEtapeHistorique,
-  titreEtapeAucuneRestriction,
-  titreDemarcheAucuneRestriction,
-  titreEtapeAnterieureAvant,
-  titreEtapeAnterieureApres,
-  titreDemarcheAnterieure,
-  titreEtapePosterieureApres,
-  titreEtapePosterieureAvant,
-  titreDemarchePosterieure,
-  titreEtapePremiereApres,
-  titreEtapePremiereAvant,
-  titreDemarchePremiere,
-  titreEtapeMecanisee,
-  titreDemarcheMecanisee,
-  titreAutre,
-  titreArm,
-  titreArmMecanisee
-} from './__mocks__/titre-etape-date-check-titres'
 
 jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
   default: [
@@ -26,22 +7,38 @@ jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
     { condition: null },
     { condition: {} },
     {
-      condition: { etape: { typeId: 'etape-avant' } },
-      obligatoireApresUne: {
-        typeId: 'etape-anterieure',
-        statutId: ['ok', 'ko']
-      },
-      impossibleApresUne: null
-    },
-    {
-      condition: { etape: { typeId: 'etape-apres' } },
-      obligatoireApresUne: null,
-      impossibleApresUne: { typeId: 'etape-posterieure' }
-    },
-    {
       condition: { etape: { typeId: 'etape-premiere' } },
       obligatoireApresUne: null,
       impossibleApresUne: '*'
+    },
+    {
+      condition: { etape: { typeId: 'etape-milieu-obligatoire-apres' } },
+      obligatoireApresUne: { typeId: 'etape-premiere' },
+      impossibleApresUne: null
+    },
+    {
+      condition: {
+        etape: { typeId: 'etape-milieu-obligatoire-apres-cond-simple' }
+      },
+      obligatoireApresUne: { typeId: 'etape-premiere', statutId: 'ko' },
+      impossibleApresUne: null
+    },
+    {
+      condition: {
+        etape: { typeId: 'etape-milieu-obligatoire-apres-cond-tableau' }
+      },
+      obligatoireApresUne: { typeId: 'etape-premiere', statutId: ['ok', 'ko'] },
+      impossibleApresUne: null
+    },
+    {
+      condition: { etape: { typeId: 'etape-milieu-impossible-apres' } },
+      obligatoireApresUne: null,
+      impossibleApresUne: { typeId: 'etape-derniere' }
+    },
+    {
+      condition: { etape: { typeId: 'etape-derniere' } },
+      obligatoireApresUne: null,
+      impossibleApresUne: null
     },
     {
       condition: {
@@ -54,87 +51,295 @@ jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
   ]
 }))
 
+const type = {
+  etapesTypes: [
+    {
+      id: 'etape-premiere',
+      nom: 'etape-premiere'
+    },
+    {
+      id: 'etape-milieu-obligatoire-apres',
+      nom: 'etape-milieu-obligatoire-apres'
+    },
+    {
+      id: 'etape-milieu-obligatoire-apres-cond-simple',
+      nom: 'etape-milieu-obligatoire-apres-cond-simple'
+    },
+    {
+      id: 'etape-milieu-obligatoire-apres-cond-tableau',
+      nom: 'etape-milieu-obligatoire-apres-cond-tableau'
+    },
+    {
+      id: 'etape-milieu-impossible-apres',
+      nom: 'etape-milieu-impossible-apres'
+    },
+    {
+      id: 'etape-derniere',
+      nom: 'etape-derniere'
+    },
+    {
+      id: 'etape-mecanisee',
+      nom: 'etape-mecanisee'
+    }
+  ]
+}
+
 describe("vérifie la date d'une étape pour une démarche en fonction des autres étapes d'une démarche", () => {
   test("un titre de type autre que ARM n'est pas validé", () => {
-    expect(titreEtapeDateCheck({}, {}, titreAutre)).toBeNull()
+    expect(titreEtapeDateCheck({}, {}, { typeId: 'autre' })).toBeNull()
   })
 
   test("une étape historique dont la date est antérieure au 31 octobre 2019 n'est pas validée", () => {
-    expect(titreEtapeDateCheck(titreEtapeHistorique, {}, titreArm)).toBeNull()
+    expect(
+      titreEtapeDateCheck(
+        { date: '2000-01-01' },
+        {},
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toBeNull()
+  })
+
+  test('parametre invalide', () => {
+    expect(
+      titreEtapeDateCheck(
+        {},
+        { etapes: [{}, null] },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toBeNull()
   })
 
   test('aucune restriction', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapeAucuneRestriction,
-        titreDemarcheAucuneRestriction,
-        titreArm
+        { typeId: 'etape-aucune-restriction' },
+        { etapes: [{}, null] },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toBeNull()
   })
 
-  test('anterieure apres', () => {
+  test('avant la premiere', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapeAnterieureAvant,
-        titreDemarcheAnterieure,
-        titreArm
+        {
+          typeId: 'etape-milieu-obligatoire-apres',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-premiere',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toEqual(
-      "Une étape « etape-anterieure » antérieure est nécessaire pour la création d'une étape « etape-avant »."
+      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres »."
     )
   })
 
-  test('anterieure avant', () => {
+  test('avant la premiere avec condition simple', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapeAnterieureApres,
-        titreDemarcheAnterieure,
-        titreArm
-      )
-    ).toBeNull()
-  })
-
-  test('posterieure apres', () => {
-    expect(
-      titreEtapeDateCheck(
-        titreEtapePosterieureApres,
-        titreDemarchePosterieure,
-        titreArm
+        {
+          typeId: 'etape-milieu-obligatoire-apres-cond-simple',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-premiere',
+              date: '4000-01-01',
+              statutId: 'ko'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toEqual(
-      'Une étape « etape-apres » ne peut être créée après une étape « etape-posterieure ».'
+      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-simple » dont le statut est « ko »."
     )
   })
 
-  test('posterieure avant', () => {
+  test('avant la premiere avec condition tableau', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapePosterieureAvant,
-        titreDemarchePosterieure,
-        titreArm
+        {
+          typeId: 'etape-milieu-obligatoire-apres-cond-tableau',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-premiere',
+              date: '4000-01-01',
+              statutId: 'ok'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toEqual(
+      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-tableau » dont le statut est « ok ou ko »."
+    )
+  })
+
+  test('après la premiere', () => {
+    expect(
+      titreEtapeDateCheck(
+        {
+          typeId: 'etape-milieu-obligatoire-apres',
+          date: '5000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-premiere',
+              date: '4000-01-01',
+              statutId: 'ok'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toBeNull()
   })
 
-  test('premiere après', () => {
+  test('après la dernière', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapePremiereApres,
-        titreDemarchePremiere,
-        titreArm
+        {
+          typeId: 'etape-milieu-impossible-apres',
+          date: '5000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-derniere',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toEqual(
+      'Une étape « etape-milieu-impossible-apres » ne peut être créée après une étape « etape-derniere ».'
+    )
+  })
+
+  test('avant la dernière', () => {
+    expect(
+      titreEtapeDateCheck(
+        {
+          typeId: 'etape-milieu-impossible-apres',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-derniere',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toBeNull()
+  })
+
+  test('dernière avant une autre', () => {
+    expect(
+      titreEtapeDateCheck(
+        {
+          typeId: 'etape-derniere',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-milieu-impossible-apres',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toEqual(
+      'Une étape « etape-derniere » ne peut être créée avant une étape « etape-milieu-impossible-apres ».'
+    )
+  })
+
+  test('dernière après une autre', () => {
+    expect(
+      titreEtapeDateCheck(
+        {
+          typeId: 'etape-derniere',
+          date: '5000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape-milieu-impossible-apres',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
+      )
+    ).toBeNull()
+  })
+
+  test('première après une autre étape', () => {
+    expect(
+      titreEtapeDateCheck(
+        {
+          typeId: 'etape-premiere',
+          date: '5000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toEqual(
       'Une étape « etape-premiere » ne peut être créée après aucune autre étape.'
     )
   })
 
-  test('premiere avant', () => {
+  test('premiere avant une autre étape', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapePremiereAvant,
-        titreDemarchePremiere,
-        titreArm
+        {
+          typeId: 'etape-premiere',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: [
+            {
+              typeId: 'etape',
+              date: '4000-01-01'
+            }
+          ]
+        },
+        { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toBeNull()
   })
@@ -142,9 +347,23 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('mecanisee', () => {
     expect(
       titreEtapeDateCheck(
-        titreEtapeMecanisee,
-        titreDemarcheMecanisee,
-        titreArmMecanisee
+        {
+          typeId: 'etape-mecanisee',
+          date: '2020-01-01'
+        },
+        {
+          type,
+          etapes: [{ contenu: { onf: { mecanisee: true } } }]
+        },
+        {
+          typeId: 'arm',
+          demarches: [
+            {
+              type,
+              etapes: [{ contenu: { onf: { mecanisee: true } } }]
+            }
+          ]
+        }
       )
     ).toBeNull()
   })
