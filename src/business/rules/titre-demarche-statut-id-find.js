@@ -149,10 +149,8 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est décision de l'ONF (def) (non défavorable)
     if (
       ['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
-      (['mdp', 'meo'].includes(titreEtapeRecent.typeId) &&
-        titreTypeId === 'arm') ||
-      (['def', 'aca'].includes(titreEtapeRecent.typeId) &&
-        titreTypeId === 'arm')
+      (titreTypeId === 'arm' &&
+        ['mdp', 'meo', 'def', 'aca'].includes(titreEtapeRecent.typeId))
     ) {
       //  - le statut de la démarche est “en instruction”
       return 'ins'

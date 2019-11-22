@@ -14,13 +14,11 @@ import {
   titreDemarcheOctMenIns,
   titreArmDemarcheOctMdpIns,
   titreArmDemarcheOctDefIns,
-  titreDemarcheOctMenInd,
   titreDemarcheOctRet,
   titreDemarcheOctMdp,
   titreDemarcheOctMfr,
   titreDemarcheOctMcrDef,
   titreDemarcheOctMcrAcc,
-  titreDemarcheOctMcrInd,
   titreDemarcheRetDpuFai,
   titreDemarcheRetDpuIni,
   titreDemarcheRtd,
@@ -66,8 +64,8 @@ describe("statut d'une démarche", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctScoFai)).toEqual('acc')
   })
 
-  test("une démarche d'octroi ne contenant une unique étape de dex acceptée a le statut “indéfinie”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheOctDexAcc)).toEqual('ind')
+  test("une démarche d'octroi ne contenant une unique étape de dex acceptée a le statut “en instruction”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctDexAcc)).toEqual('ins')
   })
 
   test("une démarche d'octroi contenant une étape de publication acceptée après une dex acceptée a le statut “acceptée”", () => {
@@ -94,10 +92,6 @@ describe("statut d'une démarche", () => {
     )
   })
 
-  test("une démarche d'octroi dont l'étape de men est postérieure à aujourd'hui a le statut “indéfinie”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheOctMenInd)).toEqual('ind')
-  })
-
   test("une démarche d'octroi dont l'étape la plus récente est ret a le statut “retirée”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctRet)).toEqual('ret')
   })
@@ -116,10 +110,6 @@ describe("statut d'une démarche", () => {
 
   test("une démarche d'octroi dont l'étape la plus récente de mcr n'a pas le statut défavorable et est antérieure à aujourd'hui a le statut “en instruction”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrAcc)).toEqual('ins')
-  })
-
-  test("une démarche d'octroi dont l'étape la plus récente de mcr n'a pas le statut défavorable et est postérieure à aujourd'hui a le statut “indéfinie”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrInd)).toEqual('ind')
   })
 
   test("une démarche de retrait dont l'étape la plus récente de dpu a été faite a le statut “indéfinie”", () => {
