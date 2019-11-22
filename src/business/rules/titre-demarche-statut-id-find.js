@@ -148,10 +148,9 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est avis de la commission ARM (aca) (non défavorable)
     //  - le type de l’étape est décision de l'ONF (def) (non défavorable)
     if (
-      ((['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
-        (['mdp', 'meo'].includes(titreEtapeRecent.typeId) &&
-          titreTypeId === 'arm')) &&
-        new Date(titreEtapeRecent.date) < new Date()) ||
+      ['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
+      (['mdp', 'meo'].includes(titreEtapeRecent.typeId) &&
+        titreTypeId === 'arm') ||
       (['def', 'aca'].includes(titreEtapeRecent.typeId) &&
         titreTypeId === 'arm')
     ) {
