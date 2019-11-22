@@ -313,10 +313,12 @@ const utilisateurMotDePasseModifier = async (
       throw new Error('aucun utilisateur enregistré avec cet id')
     }
 
-    const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+    if (!permissionsCheck(context.user, ['super'])) {
+      const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
 
-    if (!valid) {
-      throw new Error('mot de passe incorrect')
+      if (!valid) {
+        throw new Error('mot de passe incorrect')
+      }
     }
 
     utilisateur.motDePasse = await bcrypt.hash(motDePasseNouveau1, 10)
