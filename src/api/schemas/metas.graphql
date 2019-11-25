@@ -51,6 +51,8 @@ type Type {
   "Types de démarches applicables à ce type de titre"
   demarchesTypes: [DemarcheType]
 
+  domaineId: ID
+
   editable: Boolean
 }
 
