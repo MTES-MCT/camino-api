@@ -17,8 +17,10 @@ import {
   permissionGet,
   permissionsGet
 } from '../../database/queries/metas'
+import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import { permissionsCheck } from './_permissions-check'
+import { typePermissionCheck, domainePermissionCheck } from './_metas'
 
 const npmPackage = require('../../../package.json')
 
@@ -57,26 +59,58 @@ const domaines = async (variables, context, info) => {
       )
     }
 
-    const isSuper = permissionsCheck(context.user, ['super'])
-    const isAdmin = permissionsCheck(context.user, ['admin'])
+    if (permissionsCheck(context.user, ['super'])) {
+      domaines.forEach(d => {
+        d.editable = true
 
-    if (isSuper || isAdmin) {
-      domaines.forEach(domaine => {
-        // dans un premier temps, seules les ARM sont éditables
-        const editable = isSuper || domaine.id === 'm'
-
-        domaine.editable = editable
-
-        if (editable && domaine.types) {
-          domaine.types.forEach(type => {
-            // dans un premier temps, seules les ARM sont éditables
-            type.editable = isSuper || type.id === 'arm'
+        return (
+          domaines.type &&
+          domaines.type.forEach(t => {
+            t.editable = true
           })
-        }
+        )
+      })
+
+      return domaines
+    } else if (permissionsCheck(context.user, ['admin'])) {
+      const user = await utilisateurGet(context.user.id)
+
+      domaines.forEach(domaine => {
+        domaine.editable = domainePermissionCheck(domaine, user)
       })
     }
 
     return domaines
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const types = async (variables, context, info) => {
+  try {
+    const fields = fieldsBuild(info)
+    const typesEager = eagerBuild(fields, 'types')
+    const types = await typesGet({ eager: typesEager })
+
+    if (permissionsCheck(context.user, ['super'])) {
+      types.forEach(d => {
+        d.editable = true
+      })
+
+      return types
+    } else if (permissionsCheck(context.user, ['admin'])) {
+      const user = await utilisateurGet(context.user.id)
+
+      types.forEach(type => {
+        type.editable = typePermissionCheck(type.id, user)
+      })
+    }
+
+    return types
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -97,31 +131,6 @@ const statuts = async (variables, context, info) => {
     }
 
     return statuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const types = async (variables, context, info) => {
-  try {
-    const fields = fieldsBuild(info)
-    const typesEager = eagerBuild(fields, 'types')
-    const types = await typesGet({ eager: typesEager })
-
-    const isSuper = permissionsCheck(context.user, ['super'])
-    const isAdmin = permissionsCheck(context.user, ['admin'])
-
-    if (isSuper || isAdmin) {
-      types.forEach(type => {
-        type.editable = isSuper || type.id === 'arm'
-      })
-    }
-
-    return types
   } catch (e) {
     if (debug) {
       console.error(e)

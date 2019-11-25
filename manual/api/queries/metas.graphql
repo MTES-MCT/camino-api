@@ -27,23 +27,28 @@ fragment meta on Metas {
       }
     }
   }
+
   domaines {
     id
     nom
   }
+
   statuts {
     id
     nom
     couleur
   }
+
   devises {
     id
     nom
   }
+
   unites {
     id
     nom
   }
+
   geoSystemes {
     id
     nom

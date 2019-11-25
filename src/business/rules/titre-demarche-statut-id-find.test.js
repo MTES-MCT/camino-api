@@ -92,6 +92,12 @@ describe("statut d'une démarche", () => {
     )
   })
 
+  test("une démarche d'octroi d'un titre autre qu'ARM dont la dernière étape est une def a le statut “indéfinie”", () => {
+    expect(titreDemarcheStatutIdFind(titreArmDemarcheOctDefIns, 'prh')).toEqual(
+      'ind'
+    )
+  })
+
   test("une démarche d'octroi dont l'étape la plus récente est ret a le statut “retirée”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctRet)).toEqual('ret')
   })

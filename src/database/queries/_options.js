@@ -1,5 +1,5 @@
 const utilisateurs = {
-  eager: '[permission, administrations, entreprises.etablissements]',
+  eager: '[permission, administrations.[domaines], entreprises.etablissements]',
   update: {
     relate: ['permission', 'administrations', 'entreprises'],
     unrelate: ['permission', 'administrations', 'entreprises'],
