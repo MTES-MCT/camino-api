@@ -6,16 +6,16 @@ import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
 
 import {
-  typesGet,
+  documentsTypesGet,
   domainesGet,
-  statutsGet,
   devisesGet,
   geoSystemesGet,
-  unitesGet,
-  documentsTypesGet,
-  referencesTypesGet,
+  permissionsGet,
   permissionGet,
-  permissionsGet
+  referencesTypesGet,
+  statutsGet,
+  typesGet,
+  unitesGet
 } from '../../database/queries/metas'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 

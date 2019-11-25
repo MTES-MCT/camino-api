@@ -10,6 +10,7 @@ import {
 } from './resolvers/titres'
 
 import {
+  etapesTypesEtapeEdition,
   titreEtapeCreer,
   titreEtapeModifier,
   titreEtapeSupprimer
@@ -94,6 +95,7 @@ export default {
   utilisateur,
   utilisateurs,
   statistiques,
+  etapesTypesEtapeEdition,
 
   // mutations
   titreCreer,

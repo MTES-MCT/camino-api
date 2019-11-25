@@ -46,6 +46,9 @@ type Query {
   types: [Type]
   unites: [Unite]
 
+  "__+__ Types d'étapes valides pour l'édition d'une étape dans une démarche"
+  etapesTypesEtapeEdition(titreDemarcheId: ID!, etapeTypeId: ID): [EtapeType]
+
   "__+__ Titre minier en fonction de son id"
   titre(id: ID!): Titre
 
