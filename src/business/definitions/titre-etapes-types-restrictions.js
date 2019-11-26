@@ -105,7 +105,7 @@ const titreEtapesTypesRestrictions = [
       titre: { contenu: { onf: { mecanisee: true } } },
       etape: { typeId: 'mno' }
     },
-    obligatoireApresUne: { typeId: 'aca', statutId: 'fav' },
+    obligatoireApresUne: { typeId: 'aca' },
     impossibleApresUne: { typeId: 'pfc' }
   },
   {
@@ -113,7 +113,7 @@ const titreEtapesTypesRestrictions = [
       titre: { contenu: { onf: { mecanisee: true } } },
       etape: { typeId: 'pfc' }
     },
-    obligatoireApresUne: { typeId: 'mno', statutId: 'fav' },
+    obligatoireApresUne: { typeId: 'mno' },
     impossibleApresUne: { typeId: 'sco' }
   },
   {
