@@ -1,6 +1,7 @@
 import * as nodemailer from 'nodemailer'
 import * as nodemailerHtmlToText from 'nodemailer-html-to-text'
 import * as emailRegex from 'email-regex'
+import fileCreate from './file-create'
 // const smtpTransport from 'nodemailer-smtp-transport')
 
 // const smtpTransportConfig = smtpTransport({
@@ -22,51 +23,57 @@ const transport = nodemailer.createTransport(smtpTransportConfig)
 
 transport.use('compile', nodemailerHtmlToText.htmlToText())
 
-const mailer = async (to, subject, html) => {
-  const email = { from, to, subject, html }
-
-  // si on est pas sur le serveur de prod
-  // l'adresse email du destinataire est remplacée
-  if (
-    !process.env.NODE_ENV ||
-    process.env.NODE_ENV !== 'production' ||
-    process.env.ENV !== 'prod' ||
-    !process.env.ENV
-  ) {
-    email.subject = `
-${email.subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
-dest: ${email.to}`
-    email.to = process.env.ADMIN_EMAIL
-  }
-
+const emailSend = async (to, subject, html) => {
   try {
-    if (emailRegex({ exact: true }).test(email.to)) {
-      const res = await transport.sendMail(email)
-      console.log(
-        `Message sent: ${email.to}, ${email.subject}, ${res.response}`
-      )
-      transport.close()
-    } else {
-      throw new Error('adresse email invalide')
+    // si on est pas sur le serveur de prod
+    // l'adresse email du destinataire est remplacée
+    if (
+      !process.env.NODE_ENV ||
+      process.env.NODE_ENV !== 'production' ||
+      process.env.ENV !== 'prod' ||
+      !process.env.ENV
+    ) {
+      // pour les tests E2E avec Cypress
+      if (to === 'test@camino.local') {
+        await fileCreate(
+          '../camino-ui/cypress/fixtures/_api-email.json',
+          JSON.stringify({ to, subject, html }, null, 2)
+        )
+      }
+
+      subject = `${subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
+dest: ${to}`
+      to = process.env.ADMIN_EMAIL
     }
+
+    subject = `[Camino] ${subject}`
+
+    if (!emailRegex({ exact: true }).test(to)) {
+      throw new Error(`adresse email invalide ${to}`)
+    }
+
+    const res = await transport.sendMail({ from, to, subject, html })
+    transport.close()
+
+    console.log(`Message sent: ${to}, ${subject}, ${res.response}`)
   } catch (e) {
-    console.log(e)
+    throw new Error(e)
   }
 }
 
 const emailsSend = async (emails, subject, html) => {
   try {
-    subject = `[Camino] ${subject}`
     if (Array.isArray(emails)) {
       emails.forEach(email => {
-        mailer(email, subject, html)
+        emailSend(email, subject, html)
       })
     } else {
-      mailer(emails, subject, html)
+      throw new Error(`un tableau d'emails est attendu ${emails}`)
     }
   } catch (e) {
-    console.log("erreur: envoi d'emails groupés")
+    console.log('erreur: emailsSend', e)
+    throw new Error(e)
   }
 }
 
-export default emailsSend
+export { emailsSend, emailSend }

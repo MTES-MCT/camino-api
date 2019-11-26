@@ -1,6 +1,6 @@
 import * as dateFormat from 'dateformat'
 
-import emailsSend from '../../tools/emails-send'
+import { emailsSend } from '../../tools/emails-send'
 
 const elementHtmlBuild = (sectionId, element, contenu) =>
   contenu[sectionId] &&

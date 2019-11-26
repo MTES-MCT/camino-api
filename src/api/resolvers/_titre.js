@@ -17,28 +17,7 @@ const titreIsPublicCheck = titre =>
       t.publicLectureInterdit
   )
 
-const titrePermissionCheck = (
-  titre,
-  user,
-  permissions,
-  amodiatairePriority
-) => {
-  if (!user) {
-    return false
-  }
-
-  // si l'utilisateur est un super admin
-  // alors le titre est accessible
-  if (permissionsCheck(user, ['super'])) {
-    return true
-  }
-
-  // si l'utilisateur a les permissions
-  // le titre est accessible
-  if (permissionsCheck(user, permissions)) {
-    return true
-  }
-
+const titreEntreprisePermissionCheck = (titre, user, amodiatairePriority) => {
   // si l'utilisateur n'est pas dans le groupe 'entreprise'
   // le titre est inaccessible
   if (!permissionsCheck(user, ['entreprise'])) {
@@ -71,6 +50,31 @@ const titrePermissionCheck = (
     ) &&
     (!amodiatairePriority || !titre.amodiataires.length)
   )
+}
+
+const titrePermissionCheck = (
+  titre,
+  user,
+  permissions,
+  amodiatairePriority
+) => {
+  if (!user) {
+    return false
+  }
+
+  // si l'utilisateur est un super admin
+  // alors le titre est accessible
+  if (permissionsCheck(user, ['super'])) {
+    return true
+  }
+
+  // si l'utilisateur a les permissions
+  // le titre est accessible
+  if (permissionsCheck(user, permissions)) {
+    return true
+  }
+
+  return titreEntreprisePermissionCheck(titre, user, amodiatairePriority)
 }
 
 const titrePermissionAdministrationsCheck = (titre, user) =>
@@ -146,6 +150,7 @@ const titreModificationPermissionAdministrationsCheck = (...args) =>
 export {
   titreIsPublicCheck,
   titrePermissionCheck,
+  titreEntreprisePermissionCheck,
   titrePermissionAdministrationsCheck,
   titreCreationPermissionAdministrationsCheck,
   titreModificationPermissionAdministrationsCheck

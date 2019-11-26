@@ -15,6 +15,7 @@ import restrictions from './_restrictions'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
+  titreEntreprisePermissionCheck,
   titreModificationPermissionAdministrationsCheck
 } from './_titre'
 
@@ -187,7 +188,8 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     !permissionsAdministrationsCheck(user, [
       'min-mtes-dgaln-01',
       'dea-guyane-01'
-    ])
+    ]) &&
+    !titreEntreprisePermissionCheck(t, user)
   ) {
     t.activites = []
     t.activitesAbsentes = null

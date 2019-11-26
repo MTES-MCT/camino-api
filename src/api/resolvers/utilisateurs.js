@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 
 import { debug } from '../../config/index'
-import emailsSend from '../../tools/emails-send'
+import { emailSend } from '../../tools/emails-send'
 
 import {
   utilisateurGet,
@@ -189,13 +189,9 @@ const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
     const subject = `Création de votre compte utilisateur`
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
 
-    try {
-      emailsSend(email, subject, html)
-    } catch (e) {
-      return "erreur: envoi d'email"
-    }
+    emailSend(email, subject, html)
 
-    return 'un lien pour créer votre compte vous a été envoyé par email'
+    return 'email envoyé'
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -361,7 +357,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
     const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
     try {
-      emailsSend(email, subject, html)
+      emailSend(email, subject, html)
     } catch (e) {
       return "erreur: envoi d'email"
     }
