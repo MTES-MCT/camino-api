@@ -63,12 +63,11 @@ const domaines = async (variables, context, info) => {
       domaines.forEach(d => {
         d.editable = true
 
-        return (
-          domaines.type &&
-          domaines.type.forEach(t => {
+        if (d.types) {
+          d.types.forEach(t => {
             t.editable = true
           })
-        )
+        }
       })
 
       return domaines
