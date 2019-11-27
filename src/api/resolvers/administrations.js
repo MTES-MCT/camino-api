@@ -8,7 +8,10 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
 import titreEagerFormat from './_titre-eager-format'
-import { administrationFormat, administrationsFormat } from './_administration'
+import {
+  administrationFormat,
+  administrationsFormat
+} from './format/administration'
 
 const administration = async ({ id }, context, info) => {
   try {

@@ -1,7 +1,7 @@
 import { debug } from '../../config/index'
 import { titresGet } from '../../database/queries/titres'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
-import { titreIsPublicCheck } from './_titre'
+import { titreIsPublicCheck } from './permissions/titre'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiques = async () => {

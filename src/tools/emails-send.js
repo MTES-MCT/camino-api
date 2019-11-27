@@ -57,6 +57,7 @@ dest: ${to}`
 
     console.log(`Message sent: ${to}, ${subject}, ${res.response}`)
   } catch (e) {
+    console.log('erreur: emailsSend', e)
     throw new Error(e)
   }
 }

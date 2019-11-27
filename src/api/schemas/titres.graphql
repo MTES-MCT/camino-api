@@ -75,7 +75,7 @@ type Titre {
   engagementDevise: Devise
 
   "Activités sur un titre"
-  activites: [TitreActivite]
+  activites: [Activite]
 
   "Nombre d'activités déposées"
   activitesDeposees: Int

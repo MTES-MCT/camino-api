@@ -1,5 +1,5 @@
 import { debug } from '../../config/index'
-import { titrePermissionCheck } from './_titre'
+import { titrePermissionCheck } from './permissions/titre'
 import { titreDocumentGet } from '../../database/queries/titres-documents'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
