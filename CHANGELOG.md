@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.11](https://github.com/MTES-MCT/camino-api/compare/v0.24.10...v0.24.11) (2019-11-27)
+
+
+### Features
+
+* **api:** restreint les domaines et types de titre en fonction des permissions ([#228](https://github.com/MTES-MCT/camino-api/issues/228)) ([ceda8b4](https://github.com/MTES-MCT/camino-api/commit/ceda8b4c1ae51daf22d8d6e690ea69d89d3a51a5))
+* autorise les superadmins à changer les mots de passe ([#227](https://github.com/MTES-MCT/camino-api/issues/227)) ([e135c60](https://github.com/MTES-MCT/camino-api/commit/e135c60b4744d2f38a793f4021d334978f1853d5))
+* **api:** expose des propriétés pour éditer selon les droits utilisateur ([#225](https://github.com/MTES-MCT/camino-api/issues/225)) ([454bebb](https://github.com/MTES-MCT/camino-api/commit/454bebb0b32e985025183cba45550e37917df8dd))
+
+
+### Bug Fixes
+
+* **api:** corrige l'édition d'un titre pour l'utilisateur super admin ([d0347c0](https://github.com/MTES-MCT/camino-api/commit/d0347c07973db9a897999b2cb76125233f0b0a67))
+* **api:** corrige la validation des étapes ([#230](https://github.com/MTES-MCT/camino-api/issues/230)) ([8fb34c9](https://github.com/MTES-MCT/camino-api/commit/8fb34c9f418185d1046228a19fc3029512e10a11))
+* **api:** corrige la vérification des permissions pour le paramètre editable ([7c01225](https://github.com/MTES-MCT/camino-api/commit/7c0122513fa76ae23598ef922a38b1c8d0e0f173))
+* **api:** rend visible les activités pour les titulaires ([#231](https://github.com/MTES-MCT/camino-api/issues/231)) ([6554859](https://github.com/MTES-MCT/camino-api/commit/655485905b558e06bc06a5812959dae7793394ad))
+* **business:** ajout de règles de validation d'ordre des étapes ([#226](https://github.com/MTES-MCT/camino-api/issues/226)) ([0463b91](https://github.com/MTES-MCT/camino-api/commit/0463b91270921cc641fe19134de238e41968f9ef))
+* **business:** corrige les tests de calcul de statut de démarche ([eddb921](https://github.com/MTES-MCT/camino-api/commit/eddb9217caedb84a48eb6f479ee2df55e8245881))
+* **business:** supprime la vérification de date dans le futur pour le statut en instruction des démarches ([92f060b](https://github.com/MTES-MCT/camino-api/commit/92f060b8d8a28ca20f85883a6a6bdbc4038a22b1))
+
 ### [0.24.10](https://github.com/MTES-MCT/camino-api/compare/v0.24.9...v0.24.10) (2019-11-21)
 
 
