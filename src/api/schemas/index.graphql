@@ -121,7 +121,7 @@ Ces requêtes sont __protégées__. Elles nécessitent une authentification par 
 """
 type Mutation {
   "__*__ Connecte l'utilisateur en fonction de ses identifiants"
-  tokenCreer(email: String!, motDePasse: String!): UtilisateurToken
+  utilisateurTokenCreer(email: String!, motDePasse: String!): UtilisateurToken
 
   "__*__ Crée un utilisateur"
   utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur

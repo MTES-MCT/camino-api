@@ -84,7 +84,7 @@ const moi = async (variables, context, info) => {
   }
 }
 
-const tokenCreer = async ({ email, motDePasse }, context, info) => {
+const utilisateurTokenCreer = async ({ email, motDePasse }, context, info) => {
   try {
     email = email.toLowerCase()
 
@@ -440,7 +440,7 @@ export {
   utilisateur,
   utilisateurs,
   moi,
-  tokenCreer,
+  utilisateurTokenCreer,
   utilisateurCreer,
   utilisateurCreationEmailEnvoyer,
   utilisateurModifier,
