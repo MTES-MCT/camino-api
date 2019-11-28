@@ -17,12 +17,9 @@ import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
 import { permissionsCheck } from './permissions/permissions-check'
 
-import {
-  emailCheck,
-  utilisateursFormat,
-  utilisateurFormat,
-  utilisateurEditionCheck
-} from './permissions/utilisateur'
+import { emailCheck, utilisateurEditionCheck } from './permissions/utilisateur'
+
+import { utilisateursFormat, utilisateurFormat } from './format/utilisateur'
 
 const userIdGenerate = async () => {
   const id = cryptoRandomString({ length: 6 })
