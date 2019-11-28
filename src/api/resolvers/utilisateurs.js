@@ -1,5 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
+import * as cryptoRandomString from 'crypto-random-string'
 
 import { debug } from '../../config/index'
 import { emailSend } from '../../tools/emails-send'
@@ -14,15 +15,24 @@ import {
 
 import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
-import { permissionsCheck } from './_permissions-check'
+import { permissionsCheck } from './permissions/permissions-check'
 
 import {
   emailCheck,
-  userIdGenerate,
   utilisateursFormat,
   utilisateurFormat,
   utilisateurEditionCheck
-} from './_utilisateur'
+} from './permissions/utilisateur'
+
+const userIdGenerate = async () => {
+  const id = cryptoRandomString({ length: 6 })
+  const utilisateurWithTheSameId = await utilisateurGet(id)
+  if (utilisateurWithTheSameId) {
+    return userIdGenerate()
+  }
+
+  return id
+}
 
 const utilisateur = async ({ id }, context, info) => {
   try {
@@ -65,13 +75,9 @@ const utilisateurs = async (
   }
 }
 
-const utilisateurIdentifier = async (variables, context, info) => {
+const moi = async (variables, context, info) => {
   try {
-    const utilisateur =
-      (context.user && (await utilisateurGet(context.user.id))) || null
-    const token = utilisateur ? userTokenCreate(utilisateur) : null
-
-    return { token, utilisateur }
+    return context.user ? await utilisateurGet(context.user.id) : null
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -81,7 +87,7 @@ const utilisateurIdentifier = async (variables, context, info) => {
   }
 }
 
-const utilisateurConnecter = async ({ email, motDePasse }, context, info) => {
+const tokenCreer = async ({ email, motDePasse }, context, info) => {
   try {
     email = email.toLowerCase()
 
@@ -356,11 +362,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
     const subject = `Initialisation de votre mot de passe`
     const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
 
-    try {
-      emailSend(email, subject, html)
-    } catch (e) {
-      return "erreur: envoi d'email"
-    }
+    emailSend(email, subject, html)
 
     return 'email envoyé'
   } catch (e) {
@@ -440,8 +442,8 @@ const userTokenCreate = ({ id, email, permission }) =>
 export {
   utilisateur,
   utilisateurs,
-  utilisateurIdentifier,
-  utilisateurConnecter,
+  moi,
+  tokenCreer,
   utilisateurCreer,
   utilisateurCreationEmailEnvoyer,
   utilisateurModifier,

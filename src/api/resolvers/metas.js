@@ -6,21 +6,24 @@ import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
 
 import {
-  typesGet,
+  documentsTypesGet,
   domainesGet,
-  statutsGet,
   devisesGet,
   geoSystemesGet,
-  unitesGet,
-  documentsTypesGet,
-  referencesTypesGet,
+  permissionsGet,
   permissionGet,
-  permissionsGet
+  referencesTypesGet,
+  statutsGet,
+  typesGet,
+  unitesGet
 } from '../../database/queries/metas'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import { permissionsCheck } from './_permissions-check'
-import { typePermissionCheck, domainePermissionCheck } from './_metas'
+import { permissionsCheck } from './permissions/permissions-check'
+import {
+  typePermissionCheck,
+  domainePermissionCheck
+} from './permissions/metas'
 
 const npmPackage = require('../../../package.json')
 
@@ -53,30 +56,51 @@ const domaines = async (variables, context, info) => {
   try {
     const domaines = await domainesGet()
 
-    if (!context.user) {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
       return domaines.filter(
         domaine => !restrictions.domaines.find(d => d.domaineId === domaine.id)
       )
     }
 
-    if (permissionsCheck(context.user, ['super'])) {
-      domaines.forEach(d => {
-        d.editable = true
+    return domaines
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
 
-        if (d.types) {
-          d.types.forEach(t => {
-            t.editable = true
-          })
-        }
-      })
+    throw e
+  }
+}
 
-      return domaines
-    } else if (permissionsCheck(context.user, ['admin'])) {
+const utilisateurDomaines = async (variables, context, info) => {
+  try {
+    if (!context.user) return []
+
+    let domaines = await domainesGet()
+
+    const isSuper = permissionsCheck(context.user, ['super'])
+    const isAdmin = permissionsCheck(context.user, ['admin'])
+
+    if (!isSuper && !isAdmin) return []
+
+    if (isAdmin) {
       const user = await utilisateurGet(context.user.id)
 
-      domaines.forEach(domaine => {
-        domaine.editable = domainePermissionCheck(domaine, user)
-      })
+      domaines = domaines.reduce((domaines, domaine) => {
+        const editable = domainePermissionCheck(domaine, user)
+
+        if (editable) {
+          if (domaine.types) {
+            domaines.types = domaines.types.filter(t =>
+              typePermissionCheck(t.id, user)
+            )
+          }
+
+          domaines.push(domaine)
+        }
+
+        return domaines
+      }, [])
     }
 
     return domaines
@@ -154,5 +178,6 @@ export {
   statuts,
   types,
   unites,
-  version
+  version,
+  utilisateurDomaines
 }

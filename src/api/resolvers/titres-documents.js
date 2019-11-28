@@ -4,8 +4,8 @@ import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import fileDelete from '../../tools/file-delete'
 import fileStreamCreate from '../../tools/file-stream-create'
-import { permissionsCheck } from './_permissions-check'
-import { titreFormat } from './_titre-format'
+import { permissionsCheck } from './permissions/permissions-check'
+import { titreFormat } from './format/titre'
 
 import {
   titreDocumentGet,
@@ -34,7 +34,7 @@ const documentValidate = document => {
   return errors
 }
 
-const titreDocumentCreer = async ({ document }, context, info) => {
+const documentCreer = async ({ document }, context, info) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -86,7 +86,7 @@ const titreDocumentCreer = async ({ document }, context, info) => {
   }
 }
 
-const titreDocumentModifier = async ({ document }, context, info) => {
+const documentModifier = async ({ document }, context, info) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -148,7 +148,7 @@ const titreDocumentModifier = async ({ document }, context, info) => {
   }
 }
 
-const titreDocumentSupprimer = async ({ id }, context, info) => {
+const documentSupprimer = async ({ id }, context, info) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -185,4 +185,4 @@ const titreDocumentSupprimer = async ({ id }, context, info) => {
   }
 }
 
-export { titreDocumentCreer, titreDocumentModifier, titreDocumentSupprimer }
+export { documentCreer, documentModifier, documentSupprimer }

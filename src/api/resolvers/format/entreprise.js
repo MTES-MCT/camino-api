@@ -1,5 +1,5 @@
-import { titresFormat } from './_titre-format'
-import { utilisateursFormat } from './_utilisateur'
+import { titresFormat } from './titre'
+import { utilisateursFormat } from './utilisateur'
 
 const entrepriseFormat = (entreprise, user) => {
   entreprise.titres = titresFormat(entreprise.titres, user)

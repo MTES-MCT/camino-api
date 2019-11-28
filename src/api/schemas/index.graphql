@@ -37,14 +37,8 @@ type Query {
   "Version de l'API"
   version: String
 
-  devises: [Devise]
-  documentsTypes: [DocumentType]
-  domaines: [Domaine]
-  geoSystemes: [GeoSysteme]
-  referencesTypes: [ReferenceType]
-  statuts: [Statut]
-  types: [Type]
-  unites: [Unite]
+  "__*__ Utilisateur en fonction du token"
+  moi: Utilisateur
 
   "__+__ Titre minier en fonction de son id"
   titre(id: ID!): Titre
@@ -78,8 +72,14 @@ type Query {
   "Liste des substances"
   substances: [Substance]
 
-  "__*__ Utilisateur et son token en fonction du token"
-  utilisateurIdentifier: UtilisateurToken
+  devises: [Devise]
+  documentsTypes: [DocumentType]
+  domaines: [Domaine]
+  geoSystemes: [GeoSysteme]
+  referencesTypes: [ReferenceType]
+  statuts: [Statut]
+  types: [Type]
+  unites: [Unite]
 
   "__+__ Liste des permissions utilisateurs"
   permissions: [Permission]
@@ -98,6 +98,15 @@ type Query {
 
   "__*__ Statistiques"
   statistiques: Statistiques
+
+  "__+__ Domaines disponibles pour un utilisateur"
+  utilisateurDomaines: [Domaine]
+
+  "__+__ Types de démarches disponibles dans un titre"
+  titreDemarchesTypes(titreId: ID!, demarcheTypeId: ID): [DemarcheType]
+
+  "__+__ Types d'étapes disponibles dans une démarche"
+  demarcheEtapesTypes(titreDemarcheId: ID!, etapeTypeId: ID): [EtapeType]
 }
 
 """
@@ -112,7 +121,7 @@ Ces requêtes sont __protégées__. Elles nécessitent une authentification par 
 """
 type Mutation {
   "__*__ Connecte l'utilisateur en fonction de ses identifiants"
-  utilisateurConnecter(email: String!, motDePasse: String!): UtilisateurToken
+  tokenCreer(email: String!, motDePasse: String!): UtilisateurToken
 
   "__*__ Crée un utilisateur"
   utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur
@@ -153,36 +162,34 @@ type Mutation {
   titreSupprimer(id: ID!): Titre
 
   "__*__ Crée une démarche et met à jour le titre minier"
-  titreDemarcheCreer(demarche: InputDemarcheCreation!): Titre
+  demarcheCreer(demarche: InputDemarcheCreation!): Titre
 
   "__*__ Modifie une démarche et met à jour le titre minier"
-  titreDemarcheModifier(demarche: InputDemarcheModification!): Titre
+  demarcheModifier(demarche: InputDemarcheModification!): Titre
 
   "__*__ Supprime une démarche et met à jour le titre minier"
-  titreDemarcheSupprimer(id: ID!): Titre
+  demarcheSupprimer(id: ID!): Titre
 
   "__*__ Crée une étape et met à jour le titre minier"
-  titreEtapeCreer(etape: InputEtapeCreation!): Titre
+  etapeCreer(etape: InputEtapeCreation!): Titre
 
   "__*__ Modifie une étape et met à jour le titre minier"
-  titreEtapeModifier(etape: InputEtapeModification!): Titre
+  etapeModifier(etape: InputEtapeModification!): Titre
 
   "__*__ Supprime une étape et met à jour le titre minier"
-  titreEtapeSupprimer(id: ID!): Titre
+  etapeSupprimer(id: ID!): Titre
 
   "__*__ Crée un document et met à jour le titre minier"
-  titreDocumentCreer(document: InputDocumentCreation!): Titre
+  documentCreer(document: InputDocumentCreation!): Titre
 
   "__*__ Modifie un document et met à jour le titre minier"
-  titreDocumentModifier(document: InputDocumentModification!): Titre
+  documentModifier(document: InputDocumentModification!): Titre
 
   "__*__ Supprime un document et met à jour le titre minier"
-  titreDocumentSupprimer(id: ID!): Titre
+  documentSupprimer(id: ID!): Titre
 
   "__*__ Crée ou modifie une activité"
-  titreActiviteModifier(
-    activite: InputTitreActiviteModification!
-  ): TitreActivite
+  activiteModifier(activite: InputActiviteModification!): Activite
 
   "__*__ Crée une entreprise"
   entrepriseCreer(entreprise: InputEntrepriseCreation!): Entreprise

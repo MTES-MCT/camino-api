@@ -1,8 +1,11 @@
 import { debug } from '../../config/index'
-import { permissionsCheck } from './_permissions-check'
-import { titreFormat } from './_titre-format'
 
-import { titreModificationPermissionAdministrationsCheck } from './_titre'
+import metas from './_metas'
+
+import { permissionsCheck } from './permissions/permissions-check'
+import { titreModificationPermissionAdministrationsCheck } from './permissions/titre'
+
+import { titreFormat, demarcheTypeFormat } from './format/titre'
 
 import {
   titreDemarcheGet,
@@ -17,9 +20,57 @@ import { administrationsGet } from '../../database/queries/administrations'
 import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
 
-const titreDemarcheCreer = async ({ demarche }, context, info) => {
+const titreDemarchesTypes = async (
+  { titreId, demarcheTypeId },
+  context,
+  info
+) => {
+  if (!context.user) return []
+
+  const titre = await titreGet(titreId, {
+    eager: '[administrationsGestionnaires, administrationsLocales, demarches]'
+  })
+
+  const isSuper = permissionsCheck(context.user, ['super'])
+
+  const user = !isSuper && (await utilisateurGet(context.user.id))
+
+  const type = metas.types.find(t => t.id === titre.typeId)
+  if (!type) throw new Error(`${titre.typeId} inexistant`)
+
+  titre.editable =
+    isSuper || titreModificationPermissionAdministrationsCheck(titre, user)
+
+  return type.demarchesTypes.reduce((demarchesTypes, dt) => {
+    // si
+    // - le param demarcheTypeId n'existe pas (-> création d'une démarche)
+    //   ou si ce param est différent de celui du type de démarche
+    // - le type démarche est unique
+    // - une autre démarche du même type existe au sein du titre
+    // alors
+    // - on ne l'ajoute pas à la liste des types de démarches disponibles
+    if (
+      (!demarcheTypeId || dt.demarcheTypeId !== demarcheTypeId) &&
+      dt.unique &&
+      titre.demarches.find(e => e.typeId === dt.demarcheTypeId)
+    ) {
+      return demarchesTypes
+    }
+
+    dt = demarcheTypeFormat(dt, titre, user, { isSuper })
+
+    if (dt.editable) {
+      dt.typeId = titre.typeId
+      demarchesTypes.push(dt)
+    }
+
+    return demarchesTypes
+  }, [])
+}
+
+const demarcheCreer = async ({ demarche }, context, info) => {
   try {
-    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -67,9 +118,9 @@ const titreDemarcheCreer = async ({ demarche }, context, info) => {
   }
 }
 
-const titreDemarcheModifier = async ({ demarche }, context, info) => {
+const demarcheModifier = async ({ demarche }, context, info) => {
   try {
-    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -117,9 +168,9 @@ const titreDemarcheModifier = async ({ demarche }, context, info) => {
   }
 }
 
-const titreDemarcheSupprimer = async ({ id }, context, info) => {
+const demarcheSupprimer = async ({ id }, context, info) => {
   try {
-    if (!context.user || !permissionsCheck(context.user, ['super'])) {
+    if (!permissionsCheck(context.user, ['super'])) {
       throw new Error('opération impossible')
     }
 
@@ -144,4 +195,9 @@ const titreDemarcheSupprimer = async ({ id }, context, info) => {
   }
 }
 
-export { titreDemarcheCreer, titreDemarcheModifier, titreDemarcheSupprimer }
+export {
+  titreDemarchesTypes,
+  demarcheCreer,
+  demarcheModifier,
+  demarcheSupprimer
+}

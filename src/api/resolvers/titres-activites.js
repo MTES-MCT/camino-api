@@ -1,9 +1,9 @@
 import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
 import { titreActiviteEmailsSend } from './_titre-activite'
-import { permissionsCheck } from './_permissions-check'
-import { titrePermissionCheck } from './_titre'
-import { titreActiviteFormat } from './_titre-format'
+import { permissionsCheck } from './permissions/permissions-check'
+import { titrePermissionCheck } from './permissions/titre'
+import { titreActiviteFormat } from './format/titre'
 
 import {
   titreActiviteGet,
@@ -20,7 +20,7 @@ import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 import titreActiviteUpdate from '../../business/titre-activite-update'
 import titreActiviteUpdationValidate from '../../business/titre-activite-updation-validate'
 
-const titreActiviteModifier = async ({ activite }, context, info) => {
+const activiteModifier = async ({ activite }, context, info) => {
   try {
     const user = await utilisateurGet(context.user.id)
     const activiteOld = await titreActiviteGet(activite.id)
@@ -113,4 +113,4 @@ const titreActiviteUtilisateursGet = (titre, user) => {
   }
 }
 
-export { titreActiviteModifier }
+export { activiteModifier }

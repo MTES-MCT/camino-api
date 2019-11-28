@@ -1,10 +1,10 @@
-import titreAdministrationsGestionnairesBuild from '../../business/rules/titre-administrations-gestionnaires-build'
+import titreAdministrationsGestionnairesBuild from '../../../business/rules/titre-administrations-gestionnaires-build'
 
 import {
   permissionsCheck,
   permissionsAdministrationsCheck
-} from './_permissions-check'
-import restrictions from './_restrictions'
+} from './permissions-check'
+import restrictions from '../_restrictions'
 
 const titreIsPublicCheck = titre =>
   !restrictions.domaines.find(

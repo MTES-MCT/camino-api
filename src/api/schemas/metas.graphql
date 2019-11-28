@@ -156,16 +156,6 @@ type EtapeType {
   editable: Boolean
 }
 
-type DemarcheType_etapeType {
-  typeId: ID!
-
-  demarcheTypeId: ID!
-
-  etapeTypeId: ID!
-
-  ordre: Int!
-}
-
 "Statut d'une étape de démarche de titre minier"
 type EtapeStatut {
   "Id du statut d'étape est composé de trois lettres"

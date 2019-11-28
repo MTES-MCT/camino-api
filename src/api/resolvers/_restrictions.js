@@ -17,7 +17,7 @@ const restrictions = {
   typesStatuts: [],
   statutIds: [],
   typesStatutsAdministrations: [],
-  etapeTypes: [],
+  etapesTypes: [],
   etapesTypesAdministrations: []
 }
 

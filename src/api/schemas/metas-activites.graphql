@@ -12,7 +12,7 @@ type ActiviteType {
   pays: [Pays!]
 }
 
-input InputTitreActiviteStatut {
+input InputActiviteStatut {
   "Id composée de trois lettres"
   id: ID!
 
@@ -22,7 +22,7 @@ input InputTitreActiviteStatut {
   couleur: Couleur
 }
 
-input InputTitreActiviteType {
+input InputActiviteType {
   "Id composée de trois lettres"
   id: ID!
 

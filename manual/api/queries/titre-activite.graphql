@@ -1,10 +1,10 @@
-mutation TitreActivite($activite: InputTitreActiviteModification!) {
-  titreActiviteModifier(activite: $activite) {
-    ...titreActivite
+mutation Activite($activite: InputActiviteModification!) {
+  ActiviteModifier(activite: $activite) {
+    ...Activite
   }
 }
 
-fragment titreActivite on TitreActivite {
+fragment Activite on Activite {
   id
   date
   contenu

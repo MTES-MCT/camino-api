@@ -1,28 +1,28 @@
 import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
-} from '../../tools/geojson'
+} from '../../../tools/geojson'
 
-import { dupRemove } from '../../tools/index'
+import { dupRemove } from '../../../tools/index'
+
+import metas from '../_metas'
+
+import restrictions from '../_restrictions'
 
 import {
   permissionsCheck,
   permissionsAdministrationsCheck
-} from './_permissions-check'
-
-import restrictions from './_restrictions'
-
+} from '../permissions/permissions-check'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
   titreEntreprisePermissionCheck,
   titreModificationPermissionAdministrationsCheck
-} from './_titre'
+} from '../permissions/titre'
+import { titreEtapeModificationPermissionAdministrationsCheck } from '../permissions/titre-etape'
 
-import { titreEtapeModificationPermissionAdministrationsCheck } from './_titre-etape'
-
-import { administrationsFormat } from './_administration'
-import { entreprisesFormat } from './_entreprise'
+import { administrationsFormat } from './administration'
+import { entreprisesFormat } from './entreprise'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: true,
@@ -99,53 +99,26 @@ const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
   return false
 }
 
-const demarcheTypeFormat = (demarcheType, t, user, { isSuper }) => {
-  if (!demarcheType.etapesTypes) {
+const demarcheTypeFormat = (demarcheType, titre, user, { isSuper }) => {
+  if (!titre.editable) {
     demarcheType.editable = false
 
     return demarcheType
   }
 
-  const {
-    demarcheTypeEtapesTypes,
-    demarcheTypeEtapesTypesEditablesCount
-  } = demarcheType.etapesTypes.reduce(
-    (
-      { demarcheTypeEtapesTypes, demarcheTypeEtapesTypesEditablesCount },
-      et
-    ) => {
-      if (et.typeId !== t.typeId) {
-        return {
-          demarcheTypeEtapesTypes,
-          demarcheTypeEtapesTypesEditablesCount
-        }
-      }
+  const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
+  if (!dt) throw new Error(`${demarcheType.id} inexistant`)
 
-      et.demarcheTypeId = demarcheType.id
-
-      et.editable =
-        isSuper ||
-        (t.editable &&
-          titreEtapeModificationPermissionAdministrationsCheck(et.id, t, user))
-
-      if (et.editable) {
-        demarcheTypeEtapesTypesEditablesCount += 1
-      }
-
-      demarcheTypeEtapesTypes.push(et)
-
-      return {
-        demarcheTypeEtapesTypes,
-        demarcheTypeEtapesTypesEditablesCount
-      }
-    },
-    { demarcheTypeEtapesTypes: [], demarcheTypeEtapesTypesEditablesCount: 0 }
+  demarcheType.editable = dt.etapesTypes.some(
+    et =>
+      et.typeId === titre.typeId &&
+      (isSuper ||
+        titreEtapeModificationPermissionAdministrationsCheck(
+          et.id,
+          titre,
+          user
+        ))
   )
-
-  demarcheType.etapesTypes = demarcheTypeEtapesTypes
-
-  demarcheType.editable =
-    t.editable && demarcheTypeEtapesTypesEditablesCount > 0
 
   return demarcheType
 }
@@ -169,12 +142,6 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     t.editable =
       isSuper || titreModificationPermissionAdministrationsCheck(t, user)
     t.supprimable = isSuper
-
-    if (t.type && t.type.demarchesTypes) {
-      t.type.demarchesTypes = t.type.demarchesTypes.map(demarcheType =>
-        demarcheTypeFormat(demarcheType, t, user, { isSuper })
-      )
-    }
   }
 
   if (!titreIsPublic && !userHasPermission) {
@@ -293,13 +260,9 @@ const titreDemarcheFormat = (
   td.editable = isSuper || t.editable
   td.supprimable = isSuper
 
-  if (td.titreType.id && td.type && td.type.etapesTypes) {
+  if (td.titreType.id && td.type) {
     // cherche le statut `editable` dans le type de démarche du titre
-    if (t.type && t.type.demarchesTypes) {
-      td.type = t.type.demarchesTypes.find(dt => dt.id === td.typeId)
-    } else {
-      td.type = demarcheTypeFormat(td.type, t, user, { isSuper })
-    }
+    td.type = demarcheTypeFormat(td.type, t, user, { isSuper })
   }
 
   if (fields.etapes && td.etapes && td.etapes.length) {
@@ -379,39 +342,15 @@ const titreEtapeFormat = (
   fields = titreEtapeFormatFields
 ) => {
   if (isSuper || isAdmin) {
-    let editable
+    te.editable =
+      isSuper ||
+      (td.editable &&
+        titreEtapeModificationPermissionAdministrationsCheck(
+          te.typeId,
+          t,
+          user
+        ))
 
-    if (
-      !isSuper &&
-      td.editable &&
-      // cherche le statut `editable` dans le type d'étape de la démarche
-      td.type &&
-      td.type.etapesTypes
-    ) {
-      const etapeType = td.type.etapesTypes.find(et => et.id === te.typeId)
-
-      if (etapeType) {
-        editable = etapeType.editable
-      } else {
-        console.warning(
-          `Etape non trouvée ${te.typeId} dans les types d'étapes de la démarche ${td.typeId} du titre ${t.typeId}`
-        )
-      }
-    }
-
-    // si on n'a pas réussi à récupérer le statut `editable`, alors on le calcule
-    if (editable === undefined) {
-      editable =
-        isSuper ||
-        (td.editable &&
-          titreEtapeModificationPermissionAdministrationsCheck(
-            te.typeId,
-            t,
-            user
-          ))
-    }
-
-    te.editable = editable
     te.supprimable = isSuper
 
     if (te.type) {
@@ -476,4 +415,4 @@ const titreActiviteFormat = (ta, fields = titreActiviteFormatFields) => {
   return ta
 }
 
-export { titreFormat, titresFormat, titreActiviteFormat }
+export { titreFormat, titresFormat, titreActiviteFormat, demarcheTypeFormat }

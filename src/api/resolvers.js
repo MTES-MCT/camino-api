@@ -10,28 +10,30 @@ import {
 } from './resolvers/titres'
 
 import {
-  titreEtapeCreer,
-  titreEtapeModifier,
-  titreEtapeSupprimer
+  demarcheEtapesTypes,
+  etapeCreer,
+  etapeModifier,
+  etapeSupprimer
 } from './resolvers/titres-etapes'
 
 import {
-  titreDocumentCreer,
-  titreDocumentModifier,
-  titreDocumentSupprimer
+  documentCreer,
+  documentModifier,
+  documentSupprimer
 } from './resolvers/titres-documents'
 
 import {
-  titreDemarcheCreer,
-  titreDemarcheModifier,
-  titreDemarcheSupprimer
+  titreDemarchesTypes,
+  demarcheCreer,
+  demarcheModifier,
+  demarcheSupprimer
 } from './resolvers/titres-demarches'
 
 import {
   utilisateur,
   utilisateurs,
-  utilisateurIdentifier,
-  utilisateurConnecter,
+  moi,
+  tokenCreer,
   utilisateurCreer,
   utilisateurCreationEmailEnvoyer,
   utilisateurModifier,
@@ -52,7 +54,8 @@ import {
   statuts,
   types,
   unites,
-  version
+  version,
+  utilisateurDomaines
 } from './resolvers/metas'
 import { substance, substances } from './resolvers/substances'
 import {
@@ -62,7 +65,7 @@ import {
   entrepriseModifier
 } from './resolvers/entreprises'
 import { administration, administrations } from './resolvers/administrations'
-import { titreActiviteModifier } from './resolvers/titres-activites'
+import { activiteModifier } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
 
 export default {
@@ -86,7 +89,7 @@ export default {
   titres,
   substance,
   substances,
-  utilisateurIdentifier,
+  moi,
   entreprise,
   entreprises,
   administration,
@@ -94,22 +97,25 @@ export default {
   utilisateur,
   utilisateurs,
   statistiques,
+  titreDemarchesTypes,
+  demarcheEtapesTypes,
+  utilisateurDomaines,
 
   // mutations
   titreCreer,
   titreModifier,
   titreSupprimer,
-  titreDemarcheCreer,
-  titreDemarcheModifier,
-  titreDemarcheSupprimer,
-  titreEtapeCreer,
-  titreEtapeModifier,
-  titreEtapeSupprimer,
-  titreDocumentCreer,
-  titreDocumentModifier,
-  titreDocumentSupprimer,
-  titreActiviteModifier,
-  utilisateurConnecter,
+  demarcheCreer,
+  demarcheModifier,
+  demarcheSupprimer,
+  etapeCreer,
+  etapeModifier,
+  etapeSupprimer,
+  documentCreer,
+  documentModifier,
+  documentSupprimer,
+  activiteModifier,
+  tokenCreer,
   utilisateurModifier,
   utilisateurCreer,
   utilisateurSupprimer,

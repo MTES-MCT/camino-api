@@ -1,11 +1,11 @@
 import { debug } from '../../config/index'
-import { permissionsCheck } from './_permissions-check'
-import { titreFormat, titresFormat } from './_titre-format'
+import { permissionsCheck } from './permissions/permissions-check'
+import { titreFormat, titresFormat } from './format/titre'
 
 import {
   titreCreationPermissionAdministrationsCheck,
   titreModificationPermissionAdministrationsCheck
-} from './_titre'
+} from './permissions/titre'
 
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
@@ -93,7 +93,7 @@ const titres = async (
 
 const titreCreer = async ({ titre }, context, info) => {
   try {
-    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -129,7 +129,7 @@ const titreCreer = async ({ titre }, context, info) => {
 
 const titreModifier = async ({ titre }, context, info) => {
   try {
-    if (!context.user || !permissionsCheck(context.user, ['super', 'admin'])) {
+    if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
     }
 
@@ -172,7 +172,7 @@ const titreModifier = async ({ titre }, context, info) => {
 }
 
 const titreSupprimer = async ({ id }, context, info) => {
-  if (!context.user || !permissionsCheck(context.user, ['super'])) {
+  if (!permissionsCheck(context.user, ['super'])) {
     throw new Error('opération impossible')
   }
 

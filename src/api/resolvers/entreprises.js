@@ -9,10 +9,10 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 import fieldsBuild from './_fields-build'
 import eagerBuild from './_eager-build'
 import titreEagerFormat from './_titre-eager-format'
-import { entrepriseFormat, entreprisesFormat } from './_entreprise'
-import { permissionsCheck } from './_permissions-check'
+import { entrepriseFormat, entreprisesFormat } from './format/entreprise'
+import { permissionsCheck } from './permissions/permissions-check'
 
-import { emailCheck } from './_utilisateur'
+import { emailCheck } from './permissions/utilisateur'
 
 import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
 

@@ -1,5 +1,5 @@
-import { permissionsAdministrationsCheck } from './_permissions-check'
-import restrictions from './_restrictions'
+import { permissionsAdministrationsCheck } from './permissions-check'
+import restrictions from '../_restrictions'
 
 const titreEtapeEditionPermissionAdministrationsCheck = (
   editionMode,

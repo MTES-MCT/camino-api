@@ -1,4 +1,4 @@
-type TitreActivite {
+type Activite {
   id: ID!
   type: ActiviteType!
   statut: ActiviteStatut!
@@ -10,7 +10,7 @@ type TitreActivite {
   contenu: Json
 }
 
-input InputTitreActiviteModification {
+input InputActiviteModification {
   id: ID!
   activiteStatutId: String!
   contenu: Json
