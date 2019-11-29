@@ -2,7 +2,7 @@ import { permissionsCheck } from '../permissions/permissions-check'
 import {
   permissionUtilisateurAdministrationCheck,
   permissionUtilisateurEntrepriseCheck
-} from '../permissions/titre'
+} from '../permissions/utilisateur'
 
 const utilisateurFormat = (utilisateur, user) => {
   // si
