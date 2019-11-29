@@ -75,9 +75,17 @@ const utilisateurEditionCheck = (user, utilisateur) => {
   return errors
 }
 
+const utilisateurTestCheck = email =>
+  (!process.env.NODE_ENV ||
+    process.env.NODE_ENV !== 'production' ||
+    process.env.ENV !== 'prod' ||
+    !process.env.ENV) &&
+  email === 'test@camino.local'
+
 export {
   emailCheck,
   permissionUtilisateurEntrepriseCheck,
   permissionUtilisateurAdministrationCheck,
-  utilisateurEditionCheck
+  utilisateurEditionCheck,
+  utilisateurTestCheck
 }
