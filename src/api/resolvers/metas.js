@@ -91,7 +91,7 @@ const utilisateurDomaines = async (variables, context, info) => {
 
         if (editable) {
           if (domaine.types) {
-            domaines.types = domaines.types.filter(t =>
+            domaine.types = domaine.types.filter(t =>
               typePermissionCheck(t.id, user)
             )
           }
