@@ -40,7 +40,7 @@
 - Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`.
 - Renommer le fichier `.env-example` en `.env` et le compléter.
 - Créer une base de données PostgreSQL correspondant au fichier `.env`.
-- À l'intérieur du dossier `/database`, coller le fichier `camino-public.sql` disponible ici : [Camino database](https://github.com/MTES-MCT/camino-database).
+- À l'intérieur du dossier `/backups`, coller le fichier `camino-public.sql` disponible ici : [Camino database](https://github.com/MTES-MCT/camino-database).
 
 ### Installation
 
@@ -72,11 +72,52 @@ npm run build
 npm run start
 ```
 
-## Tests
+## Tests unitaires
+
+```sh
+# lance les tests en local
+npm run test:jest
+```
+
+## Tests de bout-en-bout
+
+Ces tests sont lancés depuis `camino-ui` avec la commande `npm run test:cypress`.
+
+Pour que cela fonctionne l'API doit être lancée avec `npm run dev`.
+
+Pour que les tests soient plus rapides, on peut utiliser une version publique de la base de données contenant seulement certains titres miniers.
 
 ```bash
-# lance les tests en local
-npm run dev:test
+# crée une copie de la base de données (publique)
+npm run db:dump-public
+
+# importe et met à jour la base de données publique et crée un utilisateur super-admin
+npm run test:cypress
+
+# lance le serveur
+npm run dev
+```
+
+## Récupérer la base de données de production
+
+Pré-requis: avoir un utilisateur se connectant en SSH sur le serveur de production.
+
+```sh
+# récupère la dernière version de la base de données de production
+# - depuis le serveur: `/srv/backups/camino.sql`
+# - vers le dossier local: `/backups/camino.sql`
+u=votre-nom-d-utilisateur npm run db:prod-fetch
+```
+
+## Exporter la base de données publique vers le serveur de test
+
+Pré-requis: avoir un utilisateur se connectant en SSH sur le serveur de test.
+
+```sh
+# exporte la base de données
+# - depuis le dossier local: `/backups/camino-public.sql`
+# - vers le serveur de test: `/srv/backups/camino.sql`
+u=votre-nom-d-utilisateur npm run db:test-push
 ```
 
 ---

@@ -26,12 +26,7 @@ const emailSend = async (to, subject, html) => {
   try {
     // si on est pas sur le serveur de prod
     // l'adresse email du destinataire est remplacée
-    if (
-      !process.env.NODE_ENV ||
-      process.env.NODE_ENV !== 'production' ||
-      process.env.ENV !== 'prod' ||
-      !process.env.ENV
-    ) {
+    if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
       subject = `${subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
 dest: ${to}`
       to = process.env.ADMIN_EMAIL

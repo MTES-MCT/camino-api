@@ -76,10 +76,7 @@ const utilisateurEditionCheck = (user, utilisateur) => {
 }
 
 const utilisateurTestCheck = email =>
-  (!process.env.NODE_ENV ||
-    process.env.NODE_ENV !== 'production' ||
-    process.env.ENV !== 'prod' ||
-    !process.env.ENV) &&
+  (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') &&
   email === 'test@camino.local'
 
 export {
