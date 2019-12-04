@@ -30,6 +30,9 @@ type Departement {
   "Nom du département"
   nom: String!
 
+  "Région du département"
+  region: Region
+
   "Liste des communes"
   communes: [Commune]
 }
@@ -41,4 +44,7 @@ type Commune {
 
   "Nom de la commune"
   nom: String!
+
+  "Département de la commune"
+  departement: Departement
 }

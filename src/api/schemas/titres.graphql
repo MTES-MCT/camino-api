@@ -214,6 +214,9 @@ type Etape {
   "Communes du titre"
   pays: [Pays]
 
+  "Communes du titre"
+  communes: [Commune]
+
   "Documents relatifs à l'étape"
   documents: [Document]
 
