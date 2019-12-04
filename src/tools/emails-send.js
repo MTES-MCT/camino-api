@@ -1,7 +1,6 @@
 import * as nodemailer from 'nodemailer'
 import * as nodemailerHtmlToText from 'nodemailer-html-to-text'
 import * as emailRegex from 'email-regex'
-import fileCreate from './file-create'
 // const smtpTransport from 'nodemailer-smtp-transport')
 
 // const smtpTransportConfig = smtpTransport({
@@ -27,20 +26,7 @@ const emailSend = async (to, subject, html) => {
   try {
     // si on est pas sur le serveur de prod
     // l'adresse email du destinataire est remplacée
-    if (
-      !process.env.NODE_ENV ||
-      process.env.NODE_ENV !== 'production' ||
-      process.env.ENV !== 'prod' ||
-      !process.env.ENV
-    ) {
-      // pour les tests E2E avec Cypress
-      if (to === 'test@camino.local') {
-        await fileCreate(
-          '../camino-ui/cypress/fixtures/_api-email.json',
-          JSON.stringify({ to, subject, html }, null, 2)
-        )
-      }
-
+    if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
       subject = `${subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
 dest: ${to}`
       to = process.env.ADMIN_EMAIL

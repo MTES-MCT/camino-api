@@ -17,7 +17,11 @@ import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
 import { permissionsCheck } from './permissions/permissions-check'
 
-import { emailCheck, utilisateurEditionCheck } from './permissions/utilisateur'
+import {
+  emailCheck,
+  utilisateurEditionCheck,
+  utilisateurTestCheck
+} from './permissions/utilisateur'
 
 import { utilisateursFormat, utilisateurFormat } from './format/utilisateur'
 
@@ -191,6 +195,10 @@ const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
 
     const subject = `Création de votre compte utilisateur`
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
+
+    if (utilisateurTestCheck(email)) {
+      return url
+    }
 
     emailSend(email, subject, html)
 
