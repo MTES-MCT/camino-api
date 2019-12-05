@@ -16,7 +16,7 @@ export default class TitresDocuments extends Model {
       nor: { type: ['string', 'null'] },
       url: { type: ['string', 'null'] },
       uri: { type: ['string', 'null'] },
-      nom: { type: 'string' },
+      nom: { type: ['string', 'null'] },
       fichier: { type: ['boolean', 'null'] },
       fichierTypeId: { type: ['string', 'null'] },
       public: { type: ['boolean', 'null'] }
