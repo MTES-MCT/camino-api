@@ -148,22 +148,25 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     return null
   }
 
-  // si l'utilisateur admin n'est ni rattaché à la DGALN ni à la DEAL de Guyane,
-  //    ou que l'utilisateur editeur n'est pas rattaché à la préfecture de Guyane,
-  //    ou que l'utilisateur n'est pas titulaire du titre
-  // alors les rapports trimestriels de prod d'or de Guyane sont inaccessibles
-  if (
-    !isSuper &&
-    !permissionsAdministrationsCheck(user, [
+  // si
+  // - l'utilisateur est super
+  // - ou l'utilisateur est rattaché à la DGALN ou à la DEAL de Guyane,
+  // - ou l'utilisateur editeur est rattaché à la préfecture de Guyane,
+  // - ou l'utilisateur est titulaire du titre
+  // alors
+  // - les activités sont inaccessibles
+
+  const userHasAccessToActivites =
+    isSuper ||
+    permissionsAdministrationsCheck(user, [
       'min-mtes-dgaln-01',
       'dea-guyane-01'
-    ]) &&
-    !(
-      permissionsAdministrationsCheck(user, ['prefecture-97302-01']) &&
-      permissionsCheck(user, ['editeur'])
-    ) &&
-    !titreEntreprisePermissionCheck(t, user)
-  ) {
+    ]) ||
+    (permissionsAdministrationsCheck(user, ['prefecture-97302-01']) &&
+      permissionsCheck(user, ['editeur']) &&
+      titreEntreprisePermissionCheck(t, user))
+
+  if (!userHasAccessToActivites) {
     t.activites = []
     t.activitesAbsentes = null
     t.activitesDeposees = null
