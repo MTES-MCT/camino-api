@@ -3,18 +3,18 @@
 ## Sauvegarde
 
 ```sh
-# exécutable de sauvegarde
+# sauvegarde la base de données et les fichiers (exécutable)
 /srv/scripts/backup
 ```
 
 - écrase le fichier `/srv/backups/camino.sql` avec un export de la base de données
 - écrase le dossier `/srv/backups/files` avec les fichiers
-- ajoute une archive nommée `yyyymmdd_hhMMss.tar.gz` contenant les deux dossiers ci-dessus
+- ajoute une archive nommée `yyyymmdd_hhMMss-camino.tar.gz` contenant les deux dossiers ci-dessus
 
 ## Restauration
 
 ```sh
-# exécutable de sauvegarde
+# restaure la base de données et les fichiers (exécutable)
 /srv/scripts/restore
 ```
 

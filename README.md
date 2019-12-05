@@ -35,7 +35,9 @@
 
 ---
 
-## Configuration et imports des données
+## Utilisation
+
+### Configuration et imports des données
 
 - Cloner ce repo : `git clone https://github.com/MTES-MCT/camino-api.git`.
 - Renommer le fichier `.env-example` en `.env` et le compléter.
@@ -72,14 +74,18 @@ npm run build
 npm run start
 ```
 
-## Tests unitaires
+---
+
+## Tests
+
+### Tests unitaires
 
 ```sh
 # lance les tests en local
 npm run test:jest
 ```
 
-## Tests de bout-en-bout
+### Tests de bout-en-bout
 
 Ces tests sont lancés depuis `camino-ui` avec la commande `npm run test:cypress`.
 
@@ -98,7 +104,11 @@ npm run test:cypress
 npm run dev
 ```
 
-## Récupérer la base de données de production
+---
+
+## Utilitaires
+
+### Récupérer la base de données de production
 
 Pré-requis: avoir un utilisateur se connectant en SSH sur le serveur de production.
 
@@ -109,7 +119,7 @@ Pré-requis: avoir un utilisateur se connectant en SSH sur le serveur de product
 u=votre-nom-d-utilisateur npm run db:prod-fetch
 ```
 
-## Exporter la base de données publique vers le serveur de test
+### Exporter la base de données publique vers le serveur de test
 
 Pré-requis: avoir un utilisateur se connectant en SSH sur le serveur de test.
 
@@ -119,6 +129,12 @@ Pré-requis: avoir un utilisateur se connectant en SSH sur le serveur de test.
 # - vers le serveur de test: `/srv/backups/camino.sql`
 u=votre-nom-d-utilisateur npm run db:test-push
 ```
+
+---
+
+## Documentation
+
+La documentation [est disponible ici](https://github.com/MTES-MCT/camino-api/tree/master/manual).
 
 ---
 

@@ -1,6 +1,8 @@
 # Fichiers
 
-## En local, envoyer les fichiers pdf (files) vers le serveur
+## En local
+
+### Envoyer les fichiers pdf (files) vers le serveur
 
 ```sh
 # crée une archive
@@ -10,22 +12,16 @@ tar -zcvf files.tar.gz files/*
 scp -r files.tar.gz <user>@<ip>:/srv/tmp
 ```
 
-## En local, récupérer les fichiers sur le serveur
+### Récupérer les fichiers sur le serveur
 
 ```sh
 # récupère les fichiers sur le serveur
 scp -r <user>@<ip>:/srv/tmp/files/* files
 ```
 
-```bash
-# crée une archive
-tar -zcvf files.tar.gz files/*
+## Sur le serveur
 
-# envoie l'archive vers le serveur
-scp -r files.tar.gz <user>@<ip>:/srv/tmp
-```
-
-## Copier les fichiers depuis le volume
+### Copier les fichiers depuis le volume
 
 ```bash
 docker cp camino-api_app_1:/app/files/. /srv/tmp/files/

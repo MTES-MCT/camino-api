@@ -15,7 +15,7 @@
   "homepage": "https://github.com/MTES-MCT/camino-api",
   "main": "index.js",
   "scripts": {
-    "bim": "npm run build && npm run import && npm run migrate && npm run monthly && npm run daily",
+    "bim": "npm i && npm run build && npm run db:recreate && npm run db:import && npm run monthly && npm run daily",
     "build": "rm -rf dist && npx tsc && cp -r ./src/api/schemas ./dist/api",
     "commit": "npx git-cz",
     "daily": "node ./dist/business/daily.js",
@@ -25,6 +25,7 @@
     "db:test-push": "npm run db:dump-public && scp backups/camino-public.sql $u@api.test.camino.beta.gouv.fr:/srv/backups/camino.sql",
     "db:import": "psql --dbname=camino --username=postgres --host=localhost < ./backups/camino.sql",
     "db:import-public": "psql --dbname=camino --username=postgres --host=localhost < ./backups/camino-public.sql",
+    "db:recreate": "dropdb --username=postgres --host=localhost camino && createdb --username=postgres --host=localhost camino",
     "db:user": "node ./knex/user-add.js",
     "dev": "nodemon",
     "dev:daily": "ts-node --transpile-only ./src/business/daily.ts",

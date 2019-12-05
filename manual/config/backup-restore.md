@@ -42,7 +42,7 @@ Créer un fichier `/srv/scripts/backups-archive` contenant:
 # backups-archive
 # cree une archive a partir du dossier `files` et du fichier `camino.sql`
 
-tar -zcvf /srv/backups/`date +%Y%m%d"_"%H%M%S`.tar.gz /srv/backups/files/* /srv/backups/camino.sql
+tar -zcvf /srv/backups/`date +%Y%m%d"_"%H%M%S`-camino.tar.gz /srv/backups/files/* /srv/backups/camino.sql
 
 ```
 
