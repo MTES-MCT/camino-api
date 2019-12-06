@@ -19,9 +19,8 @@ import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
 
 const entreprise = async ({ id }, context, info) => {
   try {
-    const entreprise = await entrepriseGet(id, {
-      eager: eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
-    })
+    const eager = eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
+    const entreprise = await entrepriseGet(id, { eager })
 
     const user = context.user && (await utilisateurGet(context.user.id))
 

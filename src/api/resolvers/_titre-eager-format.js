@@ -70,14 +70,17 @@ const titreEagerFormat = (fields, parent) => {
     }
   })
 
-  if (fields.pays && ['titres', 'titre', 'etapes'].includes(parent)) {
-    fields.communes = {
-      departement: {
-        region: {
-          pays: { id: {} }
-        }
-      }
-    }
+  if (
+    fields.pays &&
+    [
+      'titres',
+      'titre',
+      'etapes',
+      'titresTitulaire',
+      'titresAmodiataire'
+    ].includes(parent)
+  ) {
+    fields.communes = { departement: { region: { pays: { id: {} } } } }
 
     delete fields.pays
   }
