@@ -163,8 +163,8 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
       'dea-guyane-01'
     ]) ||
     (permissionsAdministrationsCheck(user, ['prefecture-97302-01']) &&
-      permissionsCheck(user, ['editeur']) &&
-      titreEntreprisePermissionCheck(t, user))
+      permissionsCheck(user, ['editeur'])) ||
+    titreEntreprisePermissionCheck(t, user)
 
   if (!userHasAccessToActivites) {
     t.activites = []
