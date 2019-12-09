@@ -2,6 +2,7 @@ import { Model } from 'objection'
 import ActivitesTypes from './activites-types'
 import ActivitesStatuts from './activites-statuts'
 import Utilisateurs from './utilisateurs'
+import { join } from 'path'
 
 export default class TitresActivites extends Model {
   static tableName = 'titresActivites'
@@ -38,6 +39,15 @@ export default class TitresActivites extends Model {
       join: {
         from: 'titresActivites.activiteTypeId',
         to: 'activitesTypes.id'
+      }
+    },
+
+    titre: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'titres'),
+      join: {
+        from: 'titresActivites.titreId',
+        to: 'titres.id'
       }
     },
 

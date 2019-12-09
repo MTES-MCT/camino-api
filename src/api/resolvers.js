@@ -55,7 +55,8 @@ import {
   types,
   unites,
   version,
-  utilisateurDomaines
+  utilisateurDomaines,
+  activitesTypes
 } from './resolvers/metas'
 import { substance, substances } from './resolvers/substances'
 import {
@@ -65,7 +66,11 @@ import {
   entrepriseModifier
 } from './resolvers/entreprises'
 import { administration, administrations } from './resolvers/administrations'
-import { activiteModifier } from './resolvers/titres-activites'
+import {
+  activite,
+  activites,
+  activiteModifier
+} from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
 
 export default {
@@ -100,6 +105,9 @@ export default {
   titreDemarchesTypes,
   demarcheEtapesTypes,
   utilisateurDomaines,
+  activite,
+  activites,
+  activitesTypes,
 
   // mutations
   titreCreer,

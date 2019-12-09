@@ -9,11 +9,11 @@ import TitresPoints from './titres-points'
 import Entreprises from './entreprises'
 import Administrations from './administrations'
 import Communes from './communes'
-import TitresActivites from './titres-activites'
 import Unites from './unites'
 import Devises from './devises'
 import { paysFormat } from './_format'
 import TitresReferences from './titres-references'
+import { join } from 'path'
 
 export default class Titres extends Model {
   static tableName = 'titres'
@@ -238,7 +238,7 @@ export default class Titres extends Model {
 
     activites: {
       relation: Model.HasManyRelation,
-      modelClass: TitresActivites,
+      modelClass: join(__dirname, 'titresActivites'),
       join: {
         from: 'titres.id',
         to: 'titresActivites.titreId'

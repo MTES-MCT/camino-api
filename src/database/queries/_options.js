@@ -152,7 +152,7 @@ const activitesTypes = {
 }
 
 const titresActivites = {
-  eager: `[type.${activitesTypes.eager}, statut, utilisateur]`
+  eager: `[type.${activitesTypes.eager}, statut, utilisateur, titre]`
 }
 
 const types = {
