@@ -138,7 +138,8 @@ export default class TitresEtapes extends Model {
         from: 'titresEtapes.id',
         through: {
           from: 'titresCommunes.titreEtapeId',
-          to: 'titresCommunes.communeId'
+          to: 'titresCommunes.communeId',
+          extra: ['surface']
         },
         to: 'communes.id'
       }

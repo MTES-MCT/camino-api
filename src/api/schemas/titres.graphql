@@ -44,7 +44,7 @@ type Titre {
   "Administrations en charge du titre dans son dernier état de validité"
   administrations: [Administration]
 
-  "Communes du titre dans son dernier état de validité"
+  "Territoires du titre dans son dernier état de validité"
   pays: [Pays]
 
   "Date de début d'un titre"
@@ -211,7 +211,7 @@ type Etape {
   "Administrations en charge du titre"
   administrations: [Administration]
 
-  "Communes du titre"
+  "Territoires du titre"
   pays: [Pays]
 
   "Documents relatifs à l'étape"

@@ -41,4 +41,7 @@ type Commune {
 
   "Nom de la commune"
   nom: String!
+
+  "Surface couverte par le titre"
+  surface: Int
 }
