@@ -238,7 +238,7 @@ export default class Titres extends Model {
 
     activites: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'titresActivites'),
+      modelClass: join(__dirname, 'titres-activites'),
       join: {
         from: 'titres.id',
         to: 'titresActivites.titreId'
