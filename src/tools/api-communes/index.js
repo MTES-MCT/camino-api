@@ -40,7 +40,8 @@ const communesGeojsonFetch = async (path, geojson) => {
 const communeFormat = geojson => ({
   id: geojson.properties.code,
   nom: geojson.properties.nom,
-  departementId: geojson.properties.departement
+  departementId: geojson.properties.departement,
+  surface: geojson.properties.surface
 })
 
 const departementFormat = geojson => ({

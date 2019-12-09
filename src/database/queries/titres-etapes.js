@@ -64,6 +64,9 @@ const titresEtapesCommunesGet = async () => TitresCommunes.query()
 const titresEtapesCommunesCreate = async titresEtapesCommunes =>
   TitresCommunes.query().insert(titresEtapesCommunes)
 
+const titresEtapesCommunesUpdate = async titresEtapesCommunes =>
+  TitresCommunes.query().upsertGraph(titresEtapesCommunes)
+
 const titreEtapeCommuneDelete = async (titreEtapeId, communeId) =>
   TitresCommunes.query()
     .delete()
@@ -99,6 +102,7 @@ export {
   titreEtapeUpdate,
   titreEtapeUpsert,
   titresEtapesCommunesCreate,
+  titresEtapesCommunesUpdate,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
   titresEtapesAdministrationsCreate,

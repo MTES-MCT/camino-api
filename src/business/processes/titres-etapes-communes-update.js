@@ -2,21 +2,23 @@ import PQueue from 'p-queue'
 
 import { communesUpsert } from '../../database/queries/territoires'
 import {
-  titresEtapesCommunesCreate,
+  titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery,
   titreEtapeCommuneDelete
 } from '../../database/queries/titres-etapes'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes/index'
 
-const titreEtapesCommunesCreateBuild = (titreEtape, communesEtape) =>
-  communesEtape.reduce((queries, { id: communeId }) => {
-    if (
-      !titreEtape.communes ||
-      !titreEtape.communes.find(communeOld => communeOld.id === communeId)
-    ) {
+const titreEtapesCommunesUpdateBuild = (titreEtape, communesEtape) =>
+  communesEtape.reduce((queries, { id: communeId, surface }) => {
+    const titreEtapeCommune =
+      titreEtape.communes &&
+      titreEtape.communes.find(communeOld => communeOld.id === communeId)
+
+    if (!titreEtapeCommune || titreEtapeCommune.surface !== surface) {
       queries.push({
         titreEtapeId: titreEtape.id,
-        communeId
+        communeId,
+        surface
       })
     }
 
@@ -39,20 +41,20 @@ const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
       }, [])
     : []
 
-const titresEtapesCommunesToCreateAndDeleteBuild = (
+const titresEtapesCommunesToUpdateAndDeleteBuild = (
   titresEtapes,
   titresEtapesCommunes
 ) =>
   Object.keys(titresEtapesCommunes).reduce(
     (
-      { titresEtapesCommunesToCreate, titresEtapesCommunesToDelete },
+      { titresEtapesCommunesToUpdate, titresEtapesCommunesToDelete },
       titreEtapeId
     ) => {
       const titreEtape = titresEtapes.find(te => te.id === titreEtapeId)
       const communesEtape = titresEtapesCommunes[titreEtapeId]
 
-      titresEtapesCommunesToCreate.push(
-        ...titreEtapesCommunesCreateBuild(titreEtape, communesEtape)
+      titresEtapesCommunesToUpdate.push(
+        ...titreEtapesCommunesUpdateBuild(titreEtape, communesEtape)
       )
 
       titresEtapesCommunesToDelete.push(
@@ -60,12 +62,12 @@ const titresEtapesCommunesToCreateAndDeleteBuild = (
       )
 
       return {
-        titresEtapesCommunesToCreate,
+        titresEtapesCommunesToUpdate,
         titresEtapesCommunesToDelete
       }
     },
     {
-      titresEtapesCommunesToCreate: [],
+      titresEtapesCommunesToUpdate: [],
       titresEtapesCommunesToDelete: []
     }
   )
@@ -181,25 +183,37 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
   }
 
   const {
-    titresEtapesCommunesToCreate,
+    titresEtapesCommunesToUpdate,
     titresEtapesCommunesToDelete
-  } = titresEtapesCommunesToCreateAndDeleteBuild(
+  } = titresEtapesCommunesToUpdateAndDeleteBuild(
     titresEtapes,
     titresEtapesCommunes
   )
 
-  let titresEtapesCommunesCreated = []
+  const titresEtapesCommunesUpdated = []
   const titresEtapesCommunesDeleted = []
 
-  if (titresEtapesCommunesToCreate.length) {
-    titresEtapesCommunesCreated = await titresEtapesCommunesCreate(
-      titresEtapesCommunesToCreate
+  if (titresEtapesCommunesToUpdate.length) {
+    const queue = new PQueue({ concurrency: 100 })
+
+    titresEtapesCommunesToUpdate.reduce(
+      (titresEtapesCommunesUpdated, titreEtapeCommune) => {
+        queue.add(async () => {
+          await titresEtapesCommunesUpdateQuery(titreEtapeCommune)
+
+          console.log(
+            `mise à jour: étape commune ${JSON.stringify(titreEtapeCommune)}`
+          )
+
+          titresEtapesCommunesUpdated.push(titreEtapeCommune.titreEtapeId)
+        })
+
+        return titresEtapesCommunesUpdated
+      },
+      titresEtapesCommunesUpdated
     )
-    console.log(
-      `mise à jour: étape communes ${titresEtapesCommunesCreated
-        .map(tec => JSON.stringify(tec))
-        .join(', ')}`
-    )
+
+    await queue.onIdle()
   }
 
   if (titresEtapesCommunesToDelete.length) {
@@ -227,7 +241,7 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
 
   return [
     communesUpdated,
-    titresEtapesCommunesCreated,
+    titresEtapesCommunesUpdated,
     titresEtapesCommunesDeleted
   ]
 }

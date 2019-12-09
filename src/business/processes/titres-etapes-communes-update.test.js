@@ -14,7 +14,7 @@ jest.mock('../../database/queries/territoires', () => ({
 }))
 
 jest.mock('../../database/queries/titres-etapes', () => ({
-  titresEtapesCommunesCreate: jest.fn().mockImplementation(a => a),
+  titresEtapesCommunesUpdate: jest.fn().mockImplementation(a => a),
   titreEtapeCommuneDelete: jest.fn().mockImplementation(a => a)
 }))
 
@@ -36,14 +36,14 @@ describe("communes et communes d'étapes", () => {
 
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
 
     expect(titreCommunesUpdated.length).toEqual(2)
-    expect(titresEtapesCommunesCreated.length).toEqual(2)
+    expect(titresEtapesCommunesUpdated.length).toEqual(2)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.log).toHaveBeenCalledTimes(3)
   })
 
   test("n'ajoute qu'une seule fois une commune en doublon", async () => {
@@ -51,14 +51,14 @@ describe("communes et communes d'étapes", () => {
 
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPointsMemeCommune, [
       { id: 0 }
     ])
 
     expect(titreCommunesUpdated.length).toEqual(1)
-    expect(titresEtapesCommunesCreated.length).toEqual(1)
+    expect(titresEtapesCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(console.log).toHaveBeenCalledTimes(2)
   })
@@ -68,12 +68,12 @@ describe("communes et communes d'étapes", () => {
 
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
 
     expect(titreCommunesUpdated.length).toEqual(0)
-    expect(titresEtapesCommunesCreated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -81,13 +81,13 @@ describe("communes et communes d'étapes", () => {
   test("n'ajoute pas de commune si l'étape n'a pas de périmètre", async () => {
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
     apiCommunes.default.mockResolvedValue([])
 
     expect(titreCommunesUpdated.length).toEqual(0)
-    expect(titresEtapesCommunesCreated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
   })
@@ -97,16 +97,33 @@ describe("communes et communes d'étapes", () => {
 
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneExistante, [
       { id: 1 }
     ])
 
     expect(titreCommunesUpdated.length).toEqual(0)
-    expect(titresEtapesCommunesCreated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(console.log).not.toHaveBeenCalled()
+  })
+
+  test("met à jour la commune dans l'étape si sa surface couverte a changé", async () => {
+    apiCommunes.default.mockResolvedValue([{ id: 1, surface: 10 }])
+
+    const [
+      titreCommunesUpdated = [],
+      titresEtapesCommunesUpdated = [],
+      titresEtapesCommunesDeleted = []
+    ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneExistante, [
+      { id: 1, surface: 0 }
+    ])
+
+    expect(titreCommunesUpdated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(1)
+    expect(titresEtapesCommunesDeleted.length).toEqual(0)
+    expect(console.log).toHaveBeenCalled()
   })
 
   test("supprime une commune si l'étape ne la contient plus dans son périmètre", async () => {
@@ -114,14 +131,14 @@ describe("communes et communes d'étapes", () => {
 
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneInexistante, [
       { id: 0 }
     ])
 
     expect(titreCommunesUpdated.length).toEqual(0)
-    expect(titresEtapesCommunesCreated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(1)
     expect(console.log).toHaveBeenCalled()
   })
@@ -131,12 +148,12 @@ describe("communes et communes d'étapes", () => {
 
     const [
       titreCommunesUpdated = [],
-      titresEtapesCommunesCreated = [],
+      titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
     ] = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
 
     expect(titreCommunesUpdated.length).toEqual(0)
-    expect(titresEtapesCommunesCreated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(apiCommunes.default).toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
