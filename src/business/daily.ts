@@ -364,7 +364,7 @@ const run = async () => {
     )
     console.log(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
     console.log(
-      `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes`
+      `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) mise(s) à jour dans des étapes`
     )
     console.log(
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`

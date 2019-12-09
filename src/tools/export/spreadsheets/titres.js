@@ -252,7 +252,8 @@ const tables = [
     name: 'titresCommunes',
     columns: [
       { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'communeId' }
+      { key: 'id', value: 'communeId' },
+      'surface'
     ],
     parents: ['demarches', 'etapes', 'communes']
   },

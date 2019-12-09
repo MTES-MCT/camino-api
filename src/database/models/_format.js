@@ -48,7 +48,11 @@ const paysFormat = communes => {
     }
 
     if (!departement.communes.find(c => c.id === commune.id)) {
-      departement.communes.push({ id: commune.id, nom: commune.nom })
+      departement.communes.push({
+        id: commune.id,
+        nom: commune.nom,
+        surface: commune.surface
+      })
     }
 
     return pays

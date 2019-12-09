@@ -1,5 +1,5 @@
-exports.up = knex => {
-  return knex.schema.createTable('titresCommunes', table => {
+exports.up = knex =>
+  knex.schema.createTable('titresCommunes', table => {
     table.string('titreEtapeId', 128).notNullable()
     table
       .foreign('titreEtapeId')
@@ -12,8 +12,5 @@ exports.up = knex => {
       .references('communes.id')
     table.primary(['titreEtapeId', 'communeId'])
   })
-}
 
-exports.down = knex => {
-  return knex.schema.dropTable('titresCommunes')
-}
+exports.down = knex => knex.schema.dropTable('titresCommunes')
