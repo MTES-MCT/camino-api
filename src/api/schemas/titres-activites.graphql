@@ -1,6 +1,7 @@
 type Activite {
   id: ID!
   type: ActiviteType!
+  titre: Titre
   statut: ActiviteStatut!
   date: String!
   dateSaisie: String
@@ -8,6 +9,7 @@ type Activite {
   annee: Int
   sections: Json
   contenu: Json
+  frequencePeriodeId: Int
 }
 
 input InputActiviteModification {

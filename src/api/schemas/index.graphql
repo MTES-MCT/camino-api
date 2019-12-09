@@ -25,7 +25,7 @@ scalar FileUpload
 
 - [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)
 
-_Query_ un type _racine_ (_root_) de GraphQL.
+_Query_ un type _racine_ de GraphQL.
 
 Certaines requêtes sont __publiques__.
 
@@ -54,6 +54,15 @@ type Query {
     references: [String]
     territoires: [String]
   ): [Titre]
+
+  "__*__ Activité en fonction de son id"
+  activite(id: ID!): Activite
+
+  "Liste des activités"
+  activites(typeId: ID, annee: Int): [Activite]
+
+  "Types d'activités"
+  activitesTypes: [ActiviteType]
 
   "__*__ Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
@@ -84,19 +93,19 @@ type Query {
   "__+__ Liste des permissions utilisateurs"
   permissions: [Permission]
 
-  "__*__ Entreprise en fonction de son id"
+  "Entreprise en fonction de son id"
   entreprise(id: ID!): Entreprise
 
-  "__*__ Liste des entreprises"
+  "Liste des entreprises"
   entreprises: [Entreprise]
 
-  "__*__ Administration en fonction de son id"
+  "Administration en fonction de son id"
   administration(id: ID!): Administration
 
-  "__*__ Liste des administrations"
+  "Liste des administrations"
   administrations: [Administration]
 
-  "__*__ Statistiques"
+  "Statistiques"
   statistiques: Statistiques
 
   "__+__ Domaines disponibles pour un utilisateur"
@@ -115,7 +124,7 @@ type Query {
 
 - [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)
 
-_Mutation_ un type natif de GraphQL.
+_Mutation_ un type _racine_ de GraphQL.
 
 Ces requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.
 """

@@ -11,21 +11,3 @@ type ActiviteType {
   frequence: Frequence!
   pays: [Pays!]
 }
-
-input InputActiviteStatut {
-  "Id composée de trois lettres"
-  id: ID!
-
-  "Le nom en français"
-  nom: String
-
-  couleur: Couleur
-}
-
-input InputActiviteType {
-  "Id composée de trois lettres"
-  id: ID!
-
-  "Nom en français"
-  nom: String
-}

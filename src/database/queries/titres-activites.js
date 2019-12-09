@@ -8,8 +8,19 @@ const titreActiviteGet = async id =>
     .findById(id)
     .first()
 
-const titresActivitesGet = async () =>
-  TitreActivites.query().eager(options.titresActivites.eager)
+const titresActivitesGet = async ({ typeId, annee }) => {
+  const q = TitreActivites.query().eager(options.titresActivites.eager)
+
+  if (typeId) {
+    q.where('titresActivites.activiteTypeId', typeId)
+  }
+
+  if (annee) {
+    q.where('titresActivites.annee', Number(annee))
+  }
+
+  return q
+}
 
 const titreActivitesUpsert = async titreActivites =>
   TitreActivites.query()

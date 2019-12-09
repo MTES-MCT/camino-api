@@ -15,7 +15,8 @@ import {
   referencesTypesGet,
   statutsGet,
   typesGet,
-  unitesGet
+  unitesGet,
+  activitesTypesGet
 } from '../../database/queries/metas'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
@@ -167,6 +168,24 @@ const version = (variables, context, info) => {
   return npmPackage.version
 }
 
+const activitesTypes = async (variables, context, info) => {
+  try {
+    const activitesTypes = await activitesTypesGet()
+
+    if (!permissionsCheck(context.user, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    return activitesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   documentsTypes,
@@ -179,5 +198,6 @@ export {
   types,
   unites,
   version,
-  utilisateurDomaines
+  utilisateurDomaines,
+  activitesTypes
 }

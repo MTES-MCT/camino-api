@@ -7,6 +7,7 @@ import { titreActiviteFormat } from './format/titre'
 
 import {
   titreActiviteGet,
+  titresActivitesGet,
   titreActiviteUpdate as titreActiviteUpdateQuery
 } from '../../database/queries/titres-activites'
 import {
@@ -19,6 +20,44 @@ import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
 import titreActiviteUpdate from '../../business/titre-activite-update'
 import titreActiviteUpdationValidate from '../../business/titre-activite-updation-validate'
+
+const activite = async ({ id }, context, info) => {
+  try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+    if (!permissionsCheck(user, ['super'])) {
+      throw new Error("droits insuffisants pour effectuer l'opération")
+    }
+
+    const activite = await titreActiviteGet(id)
+
+    return activite && titreActiviteFormat(activite)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const activites = async ({ typeId, annee }, context, info) => {
+  try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+    if (!permissionsCheck(user, ['super'])) {
+      throw new Error("droits insuffisants pour effectuer l'opération")
+    }
+
+    const activites = await titresActivitesGet({ typeId, annee })
+
+    return activites && activites.map(activite => titreActiviteFormat(activite))
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
 
 const activiteModifier = async ({ activite }, context, info) => {
   try {
@@ -35,7 +74,7 @@ const activiteModifier = async ({ activite }, context, info) => {
         type => type.domaineId === titre.domaineId && type.id === titre.typeId
       )
     ) {
-      throw new Error("ce titre ne peut pas recevoir d'activite")
+      throw new Error("ce titre ne peut pas recevoir d'activité")
     }
 
     if (
@@ -44,7 +83,7 @@ const activiteModifier = async ({ activite }, context, info) => {
       activiteOld.statut.id === 'dep'
     ) {
       throw new Error(
-        'cette activite a été validée et ne peux plus être modifiée'
+        'cette activité a été validée et ne peux plus être modifiée'
       )
     }
 
@@ -113,4 +152,4 @@ const titreActiviteUtilisateursGet = (titre, user) => {
   }
 }
 
-export { activiteModifier }
+export { activite, activites, activiteModifier }
