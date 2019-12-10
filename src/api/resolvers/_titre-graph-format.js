@@ -5,7 +5,7 @@ const fieldsToRemoveRoot = []
 const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
 const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
 
-const titreEagerFormatAdministrations = (fields, type) => {
+const titreAdministrationsGraphFormat = (fields, type) => {
   if (!fields.administrations) return
 
   fields[`administrations${type}`] = {
@@ -21,7 +21,7 @@ const titreEagerFormatAdministrations = (fields, type) => {
 }
 
 // ajoute des propriétés requises par /database/queries/_format
-const titreEagerFormat = (fields, parent) => {
+const titreGraphFormat = (fields, parent) => {
   if (fields.administrations) {
     if (
       ['titres', 'titre', 'titresAmodiataire', 'titresTitulaire'].includes(
@@ -29,8 +29,8 @@ const titreEagerFormat = (fields, parent) => {
       )
     ) {
       // ajoute la propriété `type` sur les administrations
-      titreEagerFormatAdministrations(fields, 'Locales')
-      titreEagerFormatAdministrations(fields, 'Gestionnaires')
+      titreAdministrationsGraphFormat(fields, 'Locales')
+      titreAdministrationsGraphFormat(fields, 'Gestionnaires')
       delete fields.administrations
     } else if (
       !fields.administrations.type &&
@@ -123,4 +123,4 @@ const titreEagerFormat = (fields, parent) => {
   return fields
 }
 
-export default titreEagerFormat
+export default titreGraphFormat

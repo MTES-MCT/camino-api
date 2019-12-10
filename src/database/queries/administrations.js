@@ -3,23 +3,23 @@ import options from './_options'
 
 const administrationGet = async (
   id,
-  { eager = options.administrations.eager } = {}
+  { graph = options.administrations.graph } = {}
 ) =>
   Administrations.query()
     .findById(id)
-    .eager(eager)
+    .withGraphFetched(graph)
 
 const administrationsGet = async (
   args,
-  { eager = options.administrations.eager } = {}
+  { graph = options.administrations.graph } = {}
 ) =>
   Administrations.query()
     .skipUndefined()
-    .eager(eager)
+    .withGraphFetched(graph)
 
 const administrationsUpsert = async administrations =>
   Administrations.query()
-    .eager(options.administrations.eager)
+    .withGraphFetched(options.administrations.graph)
     .upsertGraph(administrations, options.administrations.update)
 
 export { administrationGet, administrationsGet, administrationsUpsert }

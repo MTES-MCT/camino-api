@@ -6,8 +6,8 @@ import {
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
-import eagerBuild from './_eager-build'
-import titreEagerFormat from './_titre-eager-format'
+import graphBuild from './_graph-build'
+import titreGraphFormat from './_titre-graph-format'
 import {
   administrationFormat,
   administrationsFormat
@@ -16,7 +16,7 @@ import {
 const administration = async ({ id }, context, info) => {
   try {
     const administration = await administrationGet(id, {
-      eager: eagerBuild(fieldsBuild(info), 'administration', titreEagerFormat)
+      graph: graphBuild(fieldsBuild(info), 'administration', titreGraphFormat)
     })
 
     const user = context.user && (await utilisateurGet(context.user.id))
@@ -36,7 +36,7 @@ const administrations = async ({ noms }, context, info) => {
     const administrations = await administrationsGet(
       { noms },
       {
-        eager: eagerBuild(fieldsBuild(info), 'administration', titreEagerFormat)
+        graph: graphBuild(fieldsBuild(info), 'administration', titreGraphFormat)
       }
     )
 

@@ -4,12 +4,14 @@ import options from './_options'
 
 const titreActiviteGet = async id =>
   TitreActivites.query()
-    .eager(options.titresActivites.eager)
+    .withGraphFetched(options.titresActivites.graph)
     .findById(id)
     .first()
 
 const titresActivitesGet = async ({ typeId, annee }) => {
-  const q = TitreActivites.query().eager(options.titresActivites.eager)
+  const q = TitreActivites.query().withGraphFetched(
+    options.titresActivites.graph
+  )
 
   if (typeId) {
     q.where('titresActivites.activiteTypeId', typeId)
@@ -24,12 +26,12 @@ const titresActivitesGet = async ({ typeId, annee }) => {
 
 const titreActivitesUpsert = async titreActivites =>
   TitreActivites.query()
-    .eager(options.titresActivites.eager)
+    .withGraphFetched(options.titresActivites.graph)
     .upsertGraph(titreActivites, { insertMissing: true })
 
 const titreActiviteUpdate = async (id, props) =>
   TitreActivites.query()
-    .eager(options.titresActivites.eager)
+    .withGraphFetched(options.titresActivites.graph)
     .patchAndFetchById(id, props)
 
 export {

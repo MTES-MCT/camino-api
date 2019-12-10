@@ -3,7 +3,7 @@ import { debug } from '../../config/index'
 import restrictions from './_restrictions'
 
 import fieldsBuild from './_fields-build'
-import eagerBuild from './_eager-build'
+import graphBuild from './_graph-build'
 
 import {
   documentsTypesGet,
@@ -117,8 +117,8 @@ const utilisateurDomaines = async (variables, context, info) => {
 const types = async (variables, context, info) => {
   try {
     const fields = fieldsBuild(info)
-    const typesEager = eagerBuild(fields, 'types')
-    const types = await typesGet({ eager: typesEager })
+    const typesGraph = graphBuild(fields, 'types')
+    const types = await typesGet({ graph: typesGraph })
 
     if (permissionsCheck(context.user, ['super'])) {
       types.forEach(d => {

@@ -16,7 +16,7 @@ import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 const titreDemarcheUpdate = async titreId => {
   try {
     let titre = await titreGet(titreId, {
-      eager: 'demarches(orderDesc).[etapes(orderDesc)]'
+      graph: 'demarches(orderDesc).[etapes(orderDesc)]'
     })
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
@@ -34,14 +34,14 @@ const titreDemarcheUpdate = async titreId => {
     // 4.
     console.log('statut des titres…')
     titre = await titreGet(titreId, {
-      eager: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
+      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
     })
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
     console.log('phases des titres…')
     titre = await titreGet(titreId, {
-      eager: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]'
+      graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]'
     })
     const [
       titresPhasesUpdated = [],
@@ -51,14 +51,14 @@ const titreDemarcheUpdate = async titreId => {
     // 6.
     console.log('date de début, de fin et de demande initiale des titres…')
     titre = await titreGet(titreId, {
-      eager: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
+      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
     })
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 10.
     console.log('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(titreId, {
-      eager:
+      graph:
         'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
     })
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
@@ -69,7 +69,7 @@ const titreDemarcheUpdate = async titreId => {
     console.log('activités des titres…')
     const annees = [2018, 2019]
 
-    titre = await titreGet(titreId, { eager: 'demarches(orderDesc).[phase]' })
+    titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
     const activitesTypes = await activitesTypesGet()
     let titresActivitesCreated = await titresActivitesUpdate(
       [titre],
@@ -80,7 +80,7 @@ const titreDemarcheUpdate = async titreId => {
     // 12.
     console.log()
     console.log('propriétés des titres (activités abs, enc et dep)…')
-    titre = await titreGet(titreId, { eager: 'activites' })
+    titre = await titreGet(titreId, { graph: 'activites' })
     const titresPropsActivitesUpdated = await titresPropsActivitesUpdate([
       titre
     ])

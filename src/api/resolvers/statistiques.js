@@ -6,7 +6,7 @@ const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiques = async () => {
   try {
-    const titres = await titresGet({}, { eager: '', format: false })
+    const titres = await titresGet({}, { graph: '', format: false })
     const titresTotal = titres.length
 
     const titresValide = titres.filter(titre => {

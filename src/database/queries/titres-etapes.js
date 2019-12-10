@@ -7,11 +7,11 @@ import options from './_options'
 
 const titresEtapesGet = async (
   { etapesIds, etapesTypeIds, titresDemarchesIds } = {},
-  { eager = options.etapes.eager } = {}
+  { graph = options.etapes.graph } = {}
 ) => {
   const q = TitresEtapes.query()
     .skipUndefined()
-    .eager(eager)
+    .withGraphFetched(graph)
     .orderBy('ordre')
 
   if (etapesIds) {
@@ -31,32 +31,32 @@ const titresEtapesGet = async (
 
 const titreEtapeGet = async (
   titreEtapeId,
-  { eager = options.etapes.eager } = {}
+  { graph = options.etapes.graph } = {}
 ) =>
   TitresEtapes.query()
-    .eager(eager)
+    .withGraphFetched(graph)
     .findById(titreEtapeId)
 
 const titreEtapeCreate = async etape =>
   TitresEtapes.query()
     .insertAndFetch(etape)
-    .eager(options.etapes.eager)
+    .withGraphFetched(options.etapes.graph)
 
 const titreEtapeUpdate = async (id, props) =>
   TitresEtapes.query()
-    .eager(options.etapes.eager)
+    .withGraphFetched(options.etapes.graph)
     .patchAndFetchById(id, props)
 
 const titreEtapeDelete = async (id, trx) =>
   TitresEtapes.query(trx)
     .deleteById(id)
-    .eager(options.etapes.eager)
+    .withGraphFetched(options.etapes.graph)
     .returning('*')
 
 const titreEtapeUpsert = async (etape, trx) =>
   TitresEtapes.query(trx)
     .upsertGraph(etape, options.etapes.update)
-    .eager(options.etapes.eager)
+    .withGraphFetched(options.etapes.graph)
     .returning('*')
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()

@@ -33,11 +33,11 @@ const demarcheEtapesTypes = async (
   if (!context.user && !debug) return []
 
   const demarche = await titreDemarcheGet(titreDemarcheId, {
-    eager: '[etapes, type.etapesTypes.etapesStatuts]'
+    graph: '[etapes, type.etapesTypes.etapesStatuts]'
   })
 
   const titre = await titreGet(demarche.titreId, {
-    eager: '[administrationsGestionnaires, administrationsLocales]'
+    graph: '[administrationsGestionnaires, administrationsLocales]'
   })
 
   const isSuper = permissionsCheck(context.user, ['super'])
@@ -98,13 +98,13 @@ const etapeCreer = async ({ etape }, context, info) => {
 
     if (!isSuper) {
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
-        eager: null
+        graph: null
       })
 
       if (!demarche) throw new Error("la démarche n'existe pas")
 
       const titre = await titreGet(demarche.titreId, {
-        eager: '[administrationsGestionnaires, administrationsLocales]'
+        graph: '[administrationsGestionnaires, administrationsLocales]'
       })
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -169,12 +169,12 @@ const etapeModifier = async ({ etape }, context, info) => {
 
     if (!permissionsCheck(context.user, ['super'])) {
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
-        eager: null
+        graph: null
       })
       if (!demarche) throw new Error("la démarche n'existe pas")
 
       const titre = await titreGet(demarche.titreId, {
-        eager: '[administrationsGestionnaires, administrationsLocales]'
+        graph: '[administrationsGestionnaires, administrationsLocales]'
       })
       if (!titre) throw new Error("le titre n'existe pas")
 

@@ -4,10 +4,10 @@ import TitresAdministrationsGestionnaires from '../models/titres-administrations
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async (id, { eager = options.titres.eager } = {}, tr) =>
+const titreGet = async (id, { graph = options.titres.graph } = {}, tr) =>
   Titres.query(tr)
     .findById(id)
-    .eager(eager)
+    .withGraphFetched(graph)
 
 const titresGet = async (
   {
@@ -21,11 +21,11 @@ const titresGet = async (
     references,
     territoires
   } = {},
-  { eager = options.titres.eager } = {}
+  { graph = options.titres.graph } = {}
 ) => {
   const q = Titres.query()
     .skipUndefined()
-    .eager(eager)
+    .withGraphFetched(graph)
 
   if (ids) {
     q.whereIn('titres.id', ids)
@@ -238,23 +238,23 @@ const titresGet = async (
 const titreCreate = async titre =>
   Titres.query()
     .insertGraphAndFetch(titre)
-    .eager(options.titres.eager)
+    .withGraphFetched(options.titres.graph)
 
 const titreUpdate = async (id, props) =>
   Titres.query()
     .patchAndFetchById(id, props)
-    .eager(options.titres.eager)
+    .withGraphFetched(options.titres.graph)
 
 const titreDelete = async (id, tr) =>
   Titres.query(tr)
     .deleteById(id)
-    .eager(options.titres.eager)
+    .withGraphFetched(options.titres.graph)
     .returning('*')
 
 const titreUpsert = async (titre, tr) =>
   Titres.query(tr)
     .upsertGraph(titre, options.titres.update)
-    .eager(options.titres.eager)
+    .withGraphFetched(options.titres.graph)
     .returning('*')
 
 const titresAdministrationsGestionnairesCreate = async titresAdministrationsGestionnaires =>

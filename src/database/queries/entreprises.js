@@ -1,27 +1,27 @@
 import Entreprises from '../models/entreprises'
 import options from './_options'
 
-const entrepriseGet = async (id, { eager = options.entreprises.eager } = {}) =>
+const entrepriseGet = async (id, { graph = options.entreprises.graph } = {}) =>
   Entreprises.query()
     .findById(id)
-    .eager(eager)
+    .withGraphFetched(graph)
 
 const entreprisesGet = async (
   args,
-  { eager = options.entreprises.eager } = {}
+  { graph = options.entreprises.graph } = {}
 ) =>
   Entreprises.query()
     .skipUndefined()
-    .eager(eager)
+    .withGraphFetched(graph)
 
 const entreprisesUpsert = async entreprises =>
   Entreprises.query()
-    .eager(options.entreprises.eager)
+    .withGraphFetched(options.entreprises.graph)
     .upsertGraph(entreprises, options.entreprises.update)
 
 const entrepriseUpsert = async entreprise =>
   Entreprises.query()
-    .eager(options.entreprises.eager)
+    .withGraphFetched(options.entreprises.graph)
     .upsertGraph(entreprise, options.entreprises.update)
     .returning('*')
 

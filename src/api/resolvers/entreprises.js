@@ -7,8 +7,8 @@ import {
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
-import eagerBuild from './_eager-build'
-import titreEagerFormat from './_titre-eager-format'
+import graphBuild from './_graph-build'
+import titreGraphFormat from './_titre-graph-format'
 
 import { entrepriseFormat, entreprisesFormat } from './format/entreprise'
 
@@ -19,8 +19,8 @@ import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
 
 const entreprise = async ({ id }, context, info) => {
   try {
-    const eager = eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
-    const entreprise = await entrepriseGet(id, { eager })
+    const graph = graphBuild(fieldsBuild(info), 'entreprise', titreGraphFormat)
+    const entreprise = await entrepriseGet(id, { graph })
 
     const user = context.user && (await utilisateurGet(context.user.id))
 
@@ -43,7 +43,7 @@ const entreprises = async ({ noms }, context, info) => {
     const entreprises = await entreprisesGet(
       { noms },
       {
-        eager: eagerBuild(fieldsBuild(info), 'entreprise', titreEagerFormat)
+        graph: graphBuild(fieldsBuild(info), 'entreprise', titreGraphFormat)
       }
     )
 
