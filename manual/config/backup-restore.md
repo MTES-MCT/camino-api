@@ -97,10 +97,10 @@ Créer un fichier `/srv/scripts/restore` incluant les deux commandes ci-dessus.
 # restore
 
 # restaure la base de donnees
-/scripts/database-restore
+/srv/scripts/database-restore
 
 # restaure les fichiers
-/scripts/files-restore
+/srv/scripts/files-restore
 ```
 
 ### Permissions
