@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.13](https://github.com/MTES-MCT/camino-api/compare/v0.24.12...v0.24.13) (2019-12-10)
+
+
+### Features
+
+* **api:** expose les activités ([#236](https://github.com/MTES-MCT/camino-api/issues/236)) ([000bade](https://github.com/MTES-MCT/camino-api/commit/000badeb25817f3054f1aa23de86898425e1df6e))
+* **communes:** ajoute de la surface couverte sur la commune par le titre ([#235](https://github.com/MTES-MCT/camino-api/issues/235)) ([573b9f3](https://github.com/MTES-MCT/camino-api/commit/573b9f32bd425eeb0915df29a93c0ecd8ffeec01))
+
+
+### Bug Fixes
+
+* corrige l'affichage d'une page entreprise ([b6f41ba](https://github.com/MTES-MCT/camino-api/commit/b6f41ba9407235db7fbcce003bcb3044834dd361))
+* corrige l'insertion des communes en base de données ([c9a28ed](https://github.com/MTES-MCT/camino-api/commit/c9a28eded5da7baf3575dec2a12f690859eb65b6))
+* corrige la page stats qui ne s'affiche plus ([34dcfe6](https://github.com/MTES-MCT/camino-api/commit/34dcfe63a72a82f3fada8f23fe47bf47744b6077))
+* corrige une erreur pendant le daily ([ba98360](https://github.com/MTES-MCT/camino-api/commit/ba983606636feee95008a50479409f707b3abf06))
+* dynamise le graph sur la requête activités ([2a550c6](https://github.com/MTES-MCT/camino-api/commit/2a550c674a8d43518bd0f81f86f04027cc2394ee))
+
 ### [0.24.12](https://github.com/MTES-MCT/camino-api/compare/v0.24.10...v0.24.12) (2019-12-06)
 
 
