@@ -8,7 +8,7 @@ const titreActiviteGet = async id =>
     .findById(id)
     .first()
 
-const titresActivitesGet = async ({ typeId, annee }) => {
+const titresActivitesGet = async ({ typeId, annee } = {}) => {
   const q = TitreActivites.query().withGraphFetched(
     options.titresActivites.graph
   )
