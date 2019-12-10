@@ -1,40 +1,49 @@
-const entreprisesDbCreees = [
+const dbEntreprisesCreees = [
   null,
   { id: 'pipo', legalSiren: null },
   { id: 'toto', legalSiren: 'toto' },
   { id: 'nunu', legalSiren: 'toto' }
 ]
-const entreprisesEtablissementsDbCreees = []
-const entreprisesApiCreees = [{ id: 'papa', legalSiren: 'toto' }]
+const dbEntreprisesEtablissementsCreees = []
+const apiEntreprisesCreees = [{ id: 'papa', legalSiren: 'toto' }]
 
-const entreprisesDbModifiees = [{ id: 'toto', legalSiren: 'toto' }]
-const entreprisesEtablissementsDbModifies = []
-const entreprisesApiModifiees = [{ id: 'toto', legalSiren: 'papa' }]
+const dbEntreprisesModifiees = [{ id: 'toto', legalSiren: 'toto' }]
+const dbEntreprisesEtablissementsModifies = []
+const apiEntreprisesModifiees = [{ id: 'toto', legalSiren: 'papa' }]
 
-const entreprisesDbExistantes = [{ id: 'toto', legalSiren: 'toto' }]
-const entreprisesEtablissementsDbExistants = [
+const dbEntreprisesSupprimeees = [{ id: 'papa', legalSiren: 'toto' }]
+const dbEntreprisesEtablissementsSupprimeees = [
+  { id: 'papa', legalSiren: 'toto' }
+]
+const apiEntreprisesSupprimeees = []
+
+const dbEntreprisesExistantes = [{ id: 'toto', legalSiren: 'toto' }]
+const dbEntreprisesEtablissementsExistants = [
   { id: 'toto', legalSiren: 'toto' }
 ]
-const entreprisesApiExistantes = [{ id: 'toto', legalSiren: 'toto' }]
+const apiEntreprisesExistantes = [{ id: 'toto', legalSiren: 'toto' }]
 const entreprisesEtablissementsApiExistantes = [
   { id: 'toto', legalSiren: 'toto' }
 ]
-const entreprisesDbInexistantes = []
-const entreprisesEtablissementsDbInexistantes = []
-const entreprisesApiInexistantes = []
+const dbEntreprisesInexistantes = []
+const dbEntreprisesEtablissementsInexistantes = []
+const apiEntreprisesInexistantes = []
 
 export {
-  entreprisesDbCreees,
-  entreprisesEtablissementsDbCreees,
-  entreprisesApiCreees,
-  entreprisesDbModifiees,
-  entreprisesEtablissementsDbModifies,
-  entreprisesApiModifiees,
-  entreprisesDbExistantes,
-  entreprisesApiExistantes,
+  dbEntreprisesCreees,
+  dbEntreprisesEtablissementsCreees,
+  apiEntreprisesCreees,
+  dbEntreprisesModifiees,
+  dbEntreprisesEtablissementsModifies,
+  apiEntreprisesModifiees,
+  dbEntreprisesSupprimeees,
+  dbEntreprisesEtablissementsSupprimeees,
+  apiEntreprisesSupprimeees,
+  dbEntreprisesExistantes,
+  apiEntreprisesExistantes,
   entreprisesEtablissementsApiExistantes,
-  entreprisesEtablissementsDbExistants,
-  entreprisesDbInexistantes,
-  entreprisesEtablissementsDbInexistantes,
-  entreprisesApiInexistantes
+  dbEntreprisesEtablissementsExistants,
+  dbEntreprisesInexistantes,
+  dbEntreprisesEtablissementsInexistantes,
+  apiEntreprisesInexistantes
 }

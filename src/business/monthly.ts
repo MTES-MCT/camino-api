@@ -20,7 +20,8 @@ const run = async () => {
 
     const [
       entreprisesUpdated = [],
-      etablissementsUpdated = []
+      etablissementsUpdated = [],
+      etablissementsDeleted = []
     ] = await entreprisesUpdate(entreprises, entreprisesEtablissements)
 
     // 2.
@@ -37,10 +38,13 @@ const run = async () => {
     console.log('tâches mensuelles exécutées:')
 
     console.log(
+      `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
+    )
+    console.log(
       `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`
     )
     console.log(
-      `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
+      `suppression: ${etablissementsDeleted.length} établissement(s) d'entreprise(s)`
     )
     console.log(
       `mise à jour: ${administrationsUpdated.length} administration(s)`

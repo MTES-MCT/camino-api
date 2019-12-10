@@ -20,60 +20,79 @@ const nomFormat = (e, usuel) =>
     ? nomIndividuFormat(e)
     : nomEntrepriseFormat(e) || nomIndividuFormat(e)
 
-// regroupe les établissement en fonction du nom, suivant les périodes
-const entrepriseEtablissementsFormat = (entrepriseId, e) =>
-  e.periodesUniteLegale
-    .reduce((acc, p) => {
-      const nom = nomFormat(Object.assign({}, e, p))
+const entrepriseEtablissementFormat = ({
+  entrepriseId,
+  siren,
+  nom,
+  periodes
+}) => {
+  // on prend le dernier établissement pour avoir les informations les plus à jour
+  const periodeLast = periodes.shift()
 
-      let previous = acc[acc.length - 1]
-
-      if (!previous || !previous[0] || previous[0].nom !== nom) {
-        previous = []
-        acc.push(previous)
-      }
-
-      const nic = p.nicSiegeUniteLegale || 'xxxxx'
-
-      const dateDebut = dateFormat(p.dateDebut, 'yyyy-mm-dd')
-
-      const etablissement = {
-        id: `${entrepriseId}-${nic}-${dateDebut}`,
-        entrepriseId,
-        nom,
-        dateDebut,
-        legalSiret: `${e.siren}${nic}`
-      }
-
-      if (p.dateFin) {
-        etablissement.dateFin = dateFormat(p.dateFin, 'yyyy-mm-dd')
-      }
-
-      previous.push(etablissement)
-
-      return acc
-    }, [])
+  if (periodes.length > 0) {
     // corrige la date de début de la période
-    .map(periodesEtablissements => {
-      const first = periodesEtablissements[0]
+    // prend la période la plus ancienne
+    const dateDebut = periodes.pop().dateDebut
 
-      if (periodesEtablissements.length > 1) {
-        first.dateDebut = periodesEtablissements.slice(-1)[0].dateDebut
-      }
+    periodeLast.dateDebut = dateDebut
+  }
 
-      return first
-    })
+  const nic = periodeLast.nicSiegeUniteLegale || 'xxxxx'
 
-const entrepriseEtablissementFormat = e => {
-  if (!e) return null
+  const legalSiret = `${siren}${nic}`
 
-  const entrepriseId = `fr-${e.siren}`
+  const dateDebut = dateFormat(periodeLast.dateDebut, 'yyyy-mm-dd')
+
+  const etablissement = {
+    id: `${entrepriseId}-${nic}-${dateDebut}`,
+    entrepriseId,
+    nom,
+    dateDebut,
+    legalSiret
+  }
+
+  if (periodeLast.dateFin) {
+    etablissement.dateFin = dateFormat(periodeLast.dateFin, 'yyyy-mm-dd')
+  }
+
+  return etablissement
+}
+
+const entrepriseEtablissementsFormat = entreprise => {
+  if (!entreprise) return null
 
   // periodesUniteLegale est un tableau
   // classé par ordre de fin chronologique décroissant
-  return e.periodesUniteLegale && e.periodesUniteLegale.length
-    ? entrepriseEtablissementsFormat(entrepriseId, e)
-    : []
+  if (!entreprise.periodesUniteLegale || !entreprise.periodesUniteLegale.length)
+    return []
+
+  const entrepriseId = `fr-${entreprise.siren}`
+
+  const entrepriseEtablissements = entreprise.periodesUniteLegale
+    // regroupe les établissement en fonction du nom, suivant les périodes
+    .reduce((acc, periodeUniteLegale) => {
+      const nom = nomFormat({ ...entreprise, ...periodeUniteLegale })
+
+      let previous = acc[acc.length - 1]
+
+      if (!previous || !previous.periodes[0] || previous.nom !== nom) {
+        previous = {
+          entrepriseId,
+          siren: entreprise.siren,
+          nom,
+          periodes: []
+        }
+
+        acc.push(previous)
+      }
+
+      previous.periodes.push(periodeUniteLegale)
+
+      return acc
+    }, [])
+    .map(entrepriseEtablissementFormat)
+
+  return entrepriseEtablissements
 }
 
 const entrepriseFormat = e => {
@@ -214,4 +233,4 @@ const nomIndividuFormat = e =>
     e.prenomUsuelUniteLegale
   } ${e.nomUniteLegale}`
 
-export { entrepriseEtablissementFormat, entrepriseFormat }
+export { entrepriseEtablissementsFormat, entrepriseFormat }

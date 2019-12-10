@@ -6,7 +6,7 @@ const titresPhasesGet = async () =>
     .skipUndefined()
     .withGraphFetched(options.phases.graph)
 
-const titrePhasesUpdate = async titrePhases =>
+const titrePhasesUpsert = async titrePhases =>
   TitresPhases.query().upsertGraph(titrePhases, {
     insertMissing: true,
     noDelete: true
@@ -17,4 +17,4 @@ const titrePhasesDelete = async titrePhasesIds =>
     .delete()
     .whereIn('titreDemarcheId', titrePhasesIds)
 
-export { titresPhasesGet, titrePhasesUpdate, titrePhasesDelete }
+export { titresPhasesGet, titrePhasesUpsert, titrePhasesDelete }

@@ -13,8 +13,14 @@ const entreprisesEtablissementsUpsert = async entreprisesEtablissements =>
     options.entreprisesEtablissements.update
   )
 
+const entreprisesEtablissementsDelete = async entreprisesEtablissementsIds =>
+  EntrepriseEtablissements.query()
+    .delete()
+    .whereIn('id', entreprisesEtablissementsIds)
+
 export {
   entrepriseEtablissementGet,
   entreprisesEtablissementsGet,
-  entreprisesEtablissementsUpsert
+  entreprisesEtablissementsUpsert,
+  entreprisesEtablissementsDelete
 }

@@ -1,7 +1,7 @@
 import PQueue from 'p-queue'
 
 import {
-  titrePhasesUpdate,
+  titrePhasesUpsert,
   titrePhasesDelete
 } from '../../database/queries/titres-phases'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
@@ -97,7 +97,7 @@ const titresPhasesUpdate = async titres => {
 
       if (titrePhasesToUpdate.length) {
         queue.add(async () => {
-          await titrePhasesUpdate(titrePhasesToUpdate)
+          await titrePhasesUpsert(titrePhasesToUpdate)
 
           console.log(
             `mise à jour: phases ${JSON.stringify(titrePhasesToUpdate)}`

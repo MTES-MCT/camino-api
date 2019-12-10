@@ -1,12 +1,15 @@
 import { objectsDiffer } from '../../tools'
 import { entreprisesUpsert } from '../../database/queries/entreprises'
-import { entreprisesEtablissementsUpsert } from '../../database/queries/entreprises-etablissements'
+import {
+  entreprisesEtablissementsUpsert,
+  entreprisesEtablissementsDelete
+} from '../../database/queries/entreprises-etablissements'
 import {
   entreprisesEtablissementsGet,
   entreprisesGet
 } from '../../tools/api-insee'
 
-const entreprisesEtablissementsToUpdateFind = (
+const entreprisesEtablissementsToUpdateBuild = (
   entreprisesEtablissementsOld,
   entreprisesEtablissementsNew
 ) =>
@@ -26,7 +29,23 @@ const entreprisesEtablissementsToUpdateFind = (
     return acc
   }, [])
 
-const entreprisesToUpdateFind = (entreprisesOld, entreprisesNew) =>
+const entreprisesEtablissementsToDeleteBuild = (
+  entreprisesEtablissementsOld,
+  entreprisesEtablissementsNew
+) =>
+  entreprisesEtablissementsOld.reduce((acc, entrepriseEtablissementOld) => {
+    const deleted = !entreprisesEtablissementsNew.find(
+      a => a && a.id === entrepriseEtablissementOld.id
+    )
+
+    if (deleted) {
+      acc.push(entrepriseEtablissementOld.id)
+    }
+
+    return acc
+  }, [])
+
+const entreprisesToUpdateBuild = (entreprisesOld, entreprisesNew) =>
   entreprisesNew.reduce((acc, entrepriseNew) => {
     const entrepriseOld = entreprisesOld.find(
       a => a && a.id === entrepriseNew.id
@@ -65,7 +84,7 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   const sirens = sirensFind(entreprisesOld)
 
   if (!sirens.length) {
-    return [[], []]
+    return [[], [], []]
   }
 
   const entreprisesNew = await entreprisesGet(sirens)
@@ -73,18 +92,22 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     sirens
   )
 
-  const entreprisesToUpdate = entreprisesToUpdateFind(
+  const entreprisesToUpdate = entreprisesToUpdateBuild(
     entreprisesOld,
     entreprisesNew
   )
 
-  const etablissementsToUpdate = entreprisesEtablissementsToUpdateFind(
+  const etablissementsToUpdate = entreprisesEtablissementsToUpdateBuild(
+    entreprisesEtablissementsOld,
+    entreprisesEtablissementsNew
+  )
+
+  const etablissementsToDelete = entreprisesEtablissementsToDeleteBuild(
     entreprisesEtablissementsOld,
     entreprisesEtablissementsNew
   )
 
   let etablissementsUpdated = []
-  let entreprisesUpdated = []
 
   if (etablissementsToUpdate.length) {
     etablissementsUpdated = await entreprisesEtablissementsUpsert(
@@ -98,6 +121,20 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     )
   }
 
+  const etablissementsDeleted = etablissementsToDelete
+
+  if (etablissementsToDelete.length) {
+    await entreprisesEtablissementsDelete(etablissementsToDelete)
+
+    console.log(
+      `suppression: entreprisesEtablissements ${etablissementsToDelete.join(
+        ', '
+      )}`
+    )
+  }
+
+  let entreprisesUpdated = []
+
   if (entreprisesToUpdate.length) {
     entreprisesUpdated = await entreprisesUpsert(entreprisesToUpdate)
     console.log(
@@ -105,7 +142,7 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     )
   }
 
-  return [entreprisesUpdated, etablissementsUpdated]
+  return [entreprisesUpdated, etablissementsUpdated, etablissementsDeleted]
 }
 
 export default entreprisesEtablissementsEtAdressesUpdate
