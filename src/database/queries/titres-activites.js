@@ -8,10 +8,11 @@ const titreActiviteGet = async id =>
     .findById(id)
     .first()
 
-const titresActivitesGet = async ({ typeId, annee } = {}) => {
-  const q = TitreActivites.query().withGraphFetched(
-    options.titresActivites.graph
-  )
+const titresActivitesGet = async (
+  { typeId, annee } = {},
+  { graph = options.titresActivites.graph } = {}
+) => {
+  const q = TitreActivites.query().withGraphFetched(graph)
 
   if (typeId) {
     q.where('titresActivites.activiteTypeId', typeId)

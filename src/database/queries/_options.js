@@ -152,7 +152,7 @@ const activitesTypes = {
 }
 
 const titresActivites = {
-  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre]`
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.[titulaires, amodiataires]]`
 }
 
 const types = {

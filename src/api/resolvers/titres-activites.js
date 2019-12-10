@@ -4,6 +4,9 @@ import { titreActiviteEmailsSend } from './_titre-activite'
 import { permissionsCheck } from './permissions/permissions-check'
 import { titrePermissionCheck } from './permissions/titre'
 import { titreActiviteFormat } from './format/titre'
+import fieldsBuild from './_fields-build'
+import graphBuild from './_graph-build'
+import titreGraphFormat from './_titre-graph-format'
 
 import {
   titreActiviteGet,
@@ -46,8 +49,11 @@ const activites = async ({ typeId, annee }, context, info) => {
     if (!permissionsCheck(user, ['super'])) {
       throw new Error("droits insuffisants pour effectuer l'opération")
     }
+    const fields = fieldsBuild(info)
 
-    const activites = await titresActivitesGet({ typeId, annee })
+    const graph = graphBuild(fields, 'titre', titreGraphFormat)
+
+    const activites = await titresActivitesGet({ typeId, annee }, { graph })
 
     return activites && activites.map(activite => titreActiviteFormat(activite))
   } catch (e) {
