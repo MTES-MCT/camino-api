@@ -85,13 +85,13 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
   const { communesNew } = Object.keys(titresEtapesCommunes).reduce(
     (acc, titreEtapeId) =>
       titresEtapesCommunes[titreEtapeId].reduce(
-        ({ communesIndex, communesNew }, commune) => {
+        ({ communesIndex, communesNew }, { id, nom, departementId }) => {
           // Ajoute la commune
           // - si elle n'est pas déjà présente dans l'accumulateur
           // - si elle n'est pas présente dans communesOld
-          if (!communesIndex[commune.id] && !communesOldIndex[commune.id]) {
-            communesNew.push(commune)
-            communesIndex[commune.id] = true
+          if (!communesIndex[id] && !communesOldIndex[id]) {
+            communesNew.push({ id, nom, departementId })
+            communesIndex[id] = true
           }
 
           return { communesIndex, communesNew }

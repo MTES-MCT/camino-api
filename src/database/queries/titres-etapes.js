@@ -62,7 +62,9 @@ const titreEtapeUpsert = async (etape, trx) =>
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
 
 const titresEtapesCommunesUpdate = async titresEtapesCommunes =>
-  TitresCommunes.query().upsertGraph(titresEtapesCommunes)
+  TitresCommunes.query().upsertGraph(titresEtapesCommunes, {
+    insertMissing: true
+  })
 
 const titreEtapeCommuneDelete = async (titreEtapeId, communeId) =>
   TitresCommunes.query()
