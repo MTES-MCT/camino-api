@@ -1,5 +1,5 @@
 import errorLog from '../../tools/error-log'
-import { entrepriseEtablissementFormat, entrepriseFormat } from './format'
+import { entrepriseEtablissementsFormat, entrepriseFormat } from './format'
 import { typeBatchFetch, tokenInitialize } from './fetch'
 
 // cherche les établissements des entreprises
@@ -28,7 +28,7 @@ const entreprisesEtablissementsGet = async sirenIds => {
 
   return entreprisesEtablissements.reduce((acc, e) => {
     if (e) {
-      acc.push(...entrepriseEtablissementFormat(e))
+      acc.push(...entrepriseEtablissementsFormat(e))
     }
 
     return acc

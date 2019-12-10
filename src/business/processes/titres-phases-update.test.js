@@ -11,7 +11,7 @@ import {
 } from './__mocks__/titres-phases-update-titres'
 
 jest.mock('../../database/queries/titres-phases', () => ({
-  titrePhasesUpdate: jest.fn().mockResolvedValue(),
+  titrePhasesUpsert: jest.fn().mockResolvedValue(),
   titrePhasesDelete: jest.fn().mockResolvedValue()
 }))
 
@@ -26,7 +26,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(1)
     expect(titresPhasesDeleted.length).toEqual(0)
 
-    expect(queries.titrePhasesUpdate).toHaveBeenCalledWith(titrePhase)
+    expect(queries.titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -38,7 +38,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesUpdated.length).toEqual(1)
     expect(titresPhasesDeleted.length).toEqual(0)
 
-    expect(queries.titrePhasesUpdate).toHaveBeenCalledWith(titrePhase)
+    expect(queries.titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
     expect(console.log).toHaveBeenCalled()
   })
 
@@ -65,7 +65,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesDeleted.length).toEqual(0)
 
     expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
-    expect(queries.titrePhasesUpdate).not.toHaveBeenCalled()
+    expect(queries.titrePhasesUpsert).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 
@@ -78,7 +78,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesDeleted.length).toEqual(0)
 
     expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
-    expect(queries.titrePhasesUpdate).not.toHaveBeenCalled()
+    expect(queries.titrePhasesUpsert).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 })
