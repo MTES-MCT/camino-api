@@ -1,5 +1,5 @@
 const utilisateurs = {
-  eager: '[permission, administrations.[domaines], entreprises.etablissements]',
+  graph: '[permission, administrations.[domaines], entreprises.etablissements]',
   update: {
     relate: ['permission', 'administrations', 'entreprises'],
     unrelate: ['permission', 'administrations', 'entreprises'],
@@ -8,7 +8,7 @@ const utilisateurs = {
 }
 
 const administrations = {
-  eager: `[utilisateurs.permission, domaines, type]`,
+  graph: `[utilisateurs.permission, domaines, type]`,
   update: {
     insertMissing: true,
     relate: ['administrationsTypes'],
@@ -23,7 +23,7 @@ const entreprisesEtablissements = {
 }
 
 const entreprises = {
-  eager: `[utilisateurs.permission, etablissements(orderDesc)]`,
+  graph: `[utilisateurs.permission, etablissements(orderDesc)]`,
   update: {
     insertMissing: true,
     relate: false,
@@ -32,23 +32,23 @@ const entreprises = {
 }
 
 const substances = {
-  eager: `legales.[code, domaine]`
+  graph: `legales.[code, domaine]`
 }
 
 const geoSystemes = {
-  eager: `unite`
+  graph: `unite`
 }
 
 const points = {
-  eager: `references.geoSysteme.${geoSystemes.eager}`
+  graph: `references.geoSysteme.${geoSystemes.graph}`
 }
 
 const communes = {
-  eager: `departement.region.pays`
+  graph: `departement.region.pays`
 }
 
 const pays = {
-  eager: `regions.departements.communes`
+  graph: `regions.departements.communes`
 }
 
 const etapesUpdateTrue = [
@@ -80,18 +80,18 @@ const etapesUpdateTrue = [
 ]
 
 const etapes = {
-  eager: `[
-    points(orderAsc).${points.eager},
+  graph: `[
+    points(orderAsc).${points.graph},
     type,
     statut,
     documents,
-    substances(orderAsc).${substances.eager},
-    titulaires.${entreprises.eager},
-    amodiataires.${entreprises.eager},
-    administrations.${administrations.eager},
+    substances(orderAsc).${substances.graph},
+    titulaires.${entreprises.graph},
+    amodiataires.${entreprises.graph},
+    administrations.${administrations.graph},
     engagementDevise,
     volumeUnite,
-    communes.${communes.eager},
+    communes.${communes.graph},
     incertitudes
   ]`,
 
@@ -103,11 +103,11 @@ const etapes = {
 }
 
 const phases = {
-  eager: 'statut'
+  graph: 'statut'
 }
 
 const demarchesTypes = {
-  eager: `[etapesTypes(orderDesc).etapesStatuts]`
+  graph: `[etapesTypes(orderDesc).etapesStatuts]`
 }
 
 const demarchesUpdateTrue = [
@@ -127,12 +127,12 @@ const demarchesUpdateFalse = [
 ]
 
 const demarches = {
-  eager: `[
-     type.${demarchesTypes.eager},
+  graph: `[
+     type.${demarchesTypes.graph},
      statut,
-     phase.${phases.eager},
+     phase.${phases.graph},
      titreType,
-     etapes(orderDesc).${etapes.eager},
+     etapes(orderDesc).${etapes.graph},
      parents.^1,
      enfants.^1
   ]`,
@@ -148,19 +148,19 @@ const demarches = {
 }
 
 const activitesTypes = {
-  eager: `[pays, frequence.[mois, trimestres.mois], types]`
+  graph: `[pays, frequence.[mois, trimestres.mois], types]`
 }
 
 const titresActivites = {
-  eager: `[type.${activitesTypes.eager}, statut, utilisateur, titre]`
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre]`
 }
 
 const types = {
-  eager: `[demarchesTypes.${demarchesTypes.eager}]`
+  graph: `[demarchesTypes.${demarchesTypes.graph}]`
 }
 
 const domaines = {
-  eager: `[types.${types.eager}]`
+  graph: `[types.${types.graph}]`
 }
 
 const titresUpdateTrue = [
@@ -228,24 +228,24 @@ const titresUpdateFalse = [
 ]
 
 const titres = {
-  eager: `[
-    type.${types.eager},
-    domaine.${domaines.eager},
+  graph: `[
+    type.${types.graph},
+    domaine.${domaines.graph},
     statut,
-    points(orderAsc).${points.eager},
-    substances(orderAsc).${substances.eager},
-    titulaires.${entreprises.eager},
-    amodiataires.${entreprises.eager},
-    administrationsGestionnaires.${administrations.eager},
-    administrationsLocales.${administrations.eager},
-    demarches(orderDesc).${demarches.eager},
+    points(orderAsc).${points.graph},
+    substances(orderAsc).${substances.graph},
+    titulaires.${entreprises.graph},
+    amodiataires.${entreprises.graph},
+    administrationsGestionnaires.${administrations.graph},
+    administrationsLocales.${administrations.graph},
+    demarches(orderDesc).${demarches.graph},
     surfaceEtape,
     volumeEtape,
     volumeUnite,
     engagementEtape,
     engagementDevise,
-    communes.${communes.eager},
-    activites(orderDesc).${titresActivites.eager},
+    communes.${communes.graph},
+    activites(orderDesc).${titresActivites.graph},
     references(orderAsc)
   ]`,
 

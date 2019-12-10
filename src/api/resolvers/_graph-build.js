@@ -47,8 +47,8 @@ const fieldsToString = (fields, parent, format) => {
 // - fields: objet contenant les champs de la requête graphQl
 // - format: fonction qui transforme l'objet
 // - root: nom du nœud racine
-// out: string de eager pour la requête avec objection.js
-const eagerBuild = (
+// out: string de graph pour la requête avec objection.js
+const graphBuild = (
   fields,
   root = 'root',
   format = (fields, parent) => fields
@@ -56,8 +56,8 @@ const eagerBuild = (
   fields = JSON.parse(JSON.stringify(fields))
 
   // in: AST de la requête GraphQl
-  // out: string au format 'eager' de objection.js
+  // out: string au format 'graph' de objection.js
   return fieldsToString(fields, root, format)
 }
 
-export default eagerBuild
+export default graphBuild

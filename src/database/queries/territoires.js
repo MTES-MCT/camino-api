@@ -3,10 +3,11 @@ import Departements from '../models/departements'
 import Communes from '../models/communes'
 import _options from './_options'
 
-const paysGet = async () => Pays.query().eager(_options.pays.eager)
+const paysGet = async () => Pays.query().withGraphFetched(_options.pays.graph)
 const departementsGet = async () => Departements.query()
 
-const communesGet = async () => Communes.query().eager(_options.communes.eager)
+const communesGet = async () =>
+  Communes.query().withGraphFetched(_options.communes.graph)
 
 const communesUpsert = async communes =>
   Communes.query().upsertGraph(communes, { insertMissing: true })

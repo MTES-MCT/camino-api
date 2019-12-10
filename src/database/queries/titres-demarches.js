@@ -4,11 +4,11 @@ import options from './_options'
 
 const titresDemarchesGet = async (
   { demarchesIds, titresIds } = {},
-  { eager = options.demarches.eager } = {}
+  { graph = options.demarches.graph } = {}
 ) => {
   const q = TitresDemarches.query()
     .skipUndefined()
-    .eager(eager)
+    .withGraphFetched(graph)
     .orderBy('ordre')
 
   if (demarchesIds) {
@@ -24,32 +24,32 @@ const titresDemarchesGet = async (
 
 const titreDemarcheGet = async (
   titreDemarcheId,
-  { eager = options.demarches.eager } = {}
+  { graph = options.demarches.graph } = {}
 ) =>
   TitresDemarches.query()
-    .eager(eager)
+    .withGraphFetched(graph)
     .findById(titreDemarcheId)
 
 const titreDemarcheCreate = async demarche =>
   TitresDemarches.query()
     .insertAndFetch(demarche)
-    .eager(options.demarches.eager)
+    .withGraphFetched(options.demarches.graph)
 
 const titreDemarcheDelete = async (id, trx) =>
   TitresDemarches.query(trx)
     .deleteById(id)
-    .eager(options.demarches.eager)
+    .withGraphFetched(options.demarches.graph)
     .returning('*')
 
 const titreDemarcheUpdate = async (id, props) =>
   TitresDemarches.query()
-    .eager(options.demarches.eager)
+    .withGraphFetched(options.demarches.graph)
     .patchAndFetchById(id, props)
 
 const titreDemarcheUpsert = async (demarche, trx) =>
   TitresDemarches.query(trx)
     .upsertGraph(demarche, options.demarches.update)
-    .eager(options.demarches.eager)
+    .withGraphFetched(options.demarches.graph)
     .returning('*')
 
 const titreDemarchesIdsUpdate = async (

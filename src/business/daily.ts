@@ -33,7 +33,7 @@ const run = async () => {
     console.log('ordre des étapes…')
     const titresDemarches = await titresDemarchesGet(
       { demarchesIds: null, titresIds: null },
-      { eager: '[etapes, type.[etapesTypes]]' }
+      { graph: '[etapes, type.[etapesTypes]]' }
     )
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
       titresDemarches
@@ -54,7 +54,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches(orderDesc).[etapes(orderDesc)]' }
+      { graph: 'demarches(orderDesc).[etapes(orderDesc)]' }
     )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
       titres
@@ -76,7 +76,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'demarches(orderDesc).[etapes(orderDesc)]'
+        graph: 'demarches(orderDesc).[etapes(orderDesc)]'
       }
     )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
@@ -96,7 +96,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
+      { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
 
@@ -115,7 +115,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]' }
+      { graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]' }
     )
     const [
       titresPhasesUpdated = [],
@@ -137,7 +137,7 @@ const run = async () => {
         territoires: null,
         typeIds: null
       },
-      { eager: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
+      { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
     )
     const titresDatesUpdated = await titresDatesUpdate(titres)
 
@@ -158,7 +158,7 @@ const run = async () => {
         etapesTypeIds: null,
         titresDemarchesIds: null
       },
-      { eager: '[points, communes]' }
+      { graph: '[points, communes]' }
     )
     const communes = await communesGet()
     const [
@@ -184,7 +184,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'administrationsGestionnaires'
+        graph: 'administrationsGestionnaires'
       }
     )
     let administrations = await administrationsGet()
@@ -210,7 +210,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager:
+        graph:
           'demarches(orderDesc).etapes(orderDesc).[administrations, communes.[departement]]'
       }
     )
@@ -236,7 +236,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager:
+        graph:
           'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
       }
     )
@@ -258,7 +258,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager:
+        graph:
           '[activites, demarches(orderDesc).[phase], communes.departement.region.pays]'
       }
     )
@@ -286,7 +286,7 @@ const run = async () => {
         typeIds: null
       },
       {
-        eager: 'activites'
+        graph: 'activites'
       }
     )
     const titresPropsActivitesUpdated = await titresPropsActivitesUpdate(titres)

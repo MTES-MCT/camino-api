@@ -4,7 +4,7 @@ import options from './_options'
 const titresPhasesGet = async () =>
   TitresPhases.query()
     .skipUndefined()
-    .eager(options.phases.eager)
+    .withGraphFetched(options.phases.graph)
 
 const titrePhasesUpdate = async titrePhases =>
   TitresPhases.query().upsertGraph(titrePhases, {

@@ -28,7 +28,7 @@ const titreDemarchesTypes = async (
   if (!context.user) return []
 
   const titre = await titreGet(titreId, {
-    eager: '[administrationsGestionnaires, administrationsLocales, demarches]'
+    graph: '[administrationsGestionnaires, administrationsLocales, demarches]'
   })
 
   const isSuper = permissionsCheck(context.user, ['super'])
@@ -77,7 +77,7 @@ const demarcheCreer = async ({ demarche }, context, info) => {
     let user
 
     if (permissionsCheck(context.user, ['admin'])) {
-      const titre = await titreGet(demarche.titreId, { eager: null })
+      const titre = await titreGet(demarche.titreId, { graph: null })
       if (!titre) throw new Error("le titre n'existe pas")
 
       const administrations = await administrationsGet()
@@ -127,7 +127,7 @@ const demarcheModifier = async ({ demarche }, context, info) => {
     let user
 
     if (permissionsCheck(context.user, ['admin'])) {
-      const titre = await titreGet(demarche.titreId, { eager: null })
+      const titre = await titreGet(demarche.titreId, { graph: null })
       if (!titre) throw new Error("le titre n'existe pas")
 
       const administrations = await administrationsGet()

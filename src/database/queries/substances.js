@@ -3,12 +3,12 @@ import options from './_options'
 
 const substancesGet = async () =>
   Substances.query()
-    .eager(options.substances.eager)
+    .withGraphFetched(options.substances.graph)
     .orderBy('nom')
 
 const substanceGet = async id =>
   Substances.query()
     .findById(id)
-    .eager(options.substances.eager)
+    .withGraphFetched(options.substances.graph)
 
 export { substancesGet, substanceGet }

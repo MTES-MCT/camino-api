@@ -4,12 +4,12 @@ import options from './_options'
 const utilisateurGet = async id =>
   Utilisateurs.query()
     .findById(id)
-    .eager(options.utilisateurs.eager)
+    .withGraphFetched(options.utilisateurs.graph)
 
 const utilisateurByEmailGet = async email =>
   Utilisateurs.query()
     .where('email', email)
-    .eager(options.utilisateurs.eager)
+    .withGraphFetched(options.utilisateurs.graph)
     .first()
 
 const utilisateursGet = async ({
@@ -20,7 +20,7 @@ const utilisateursGet = async ({
 }) => {
   const q = Utilisateurs.query()
     .skipUndefined()
-    .eager(options.utilisateurs.eager)
+    .withGraphFetched(options.utilisateurs.graph)
 
   if (administrationIds) {
     q.whereIn('administrations.id', administrationIds).joinRelation(
@@ -49,7 +49,7 @@ const utilisateursGet = async ({
 const utilisateurCreate = async utilisateur =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
-    .eager(options.utilisateurs.eager)
+    .withGraphFetched(options.utilisateurs.graph)
     .first()
 
 const utilisateurDelete = async id =>
@@ -61,7 +61,7 @@ const utilisateurDelete = async id =>
 const utilisateurUpdate = async utilisateur =>
   Utilisateurs.query()
     .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
-    .eager(options.utilisateurs.eager)
+    .withGraphFetched(options.utilisateurs.graph)
 
 export {
   utilisateurGet,

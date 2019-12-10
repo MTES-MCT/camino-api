@@ -20,15 +20,16 @@ const permissionsGet = async ({ ordreMax }) =>
 
 const permissionGet = async id => Permissions.query().findById(id)
 
-const typesGet = async ({ eager = options.types.eager } = {}) =>
-  Types.query().eager(eager)
+const typesGet = async ({ graph = options.types.graph } = {}) =>
+  Types.query().withGraphFetched(graph)
 
-const domainesGet = async () => Domaines.query().eager(options.domaines.eager)
+const domainesGet = async () =>
+  Domaines.query().withGraphFetched(options.domaines.graph)
 
 const statutsGet = async () => Statuts.query()
 
 const demarchesTypesGet = async () =>
-  DemarchesTypes.query().eager(options.demarchesTypes.eager)
+  DemarchesTypes.query().withGraphFetched(options.demarchesTypes.graph)
 
 const etapesTypesGet = async () => EtapesTypes.query()
 
@@ -37,17 +38,17 @@ const devisesGet = async () => Devises.query()
 const documentsTypesGet = async () => DocumentsTypes.query()
 
 const geoSystemesGet = async () =>
-  GeoSystemes.query().eager(options.geoSystemes.eager)
+  GeoSystemes.query().withGraphFetched(options.geoSystemes.graph)
 
 const geoSystemeGet = async id =>
   GeoSystemes.query()
     .findById(id)
-    .eager(options.geoSystemes.eager)
+    .withGraphFetched(options.geoSystemes.graph)
 
 const unitesGet = async () => unites.query()
 
 const activitesTypesGet = async () =>
-  ActivitesTypes.query().eager(options.activitesTypes.eager)
+  ActivitesTypes.query().withGraphFetched(options.activitesTypes.graph)
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 

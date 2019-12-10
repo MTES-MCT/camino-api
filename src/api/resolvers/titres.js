@@ -8,8 +8,8 @@ import {
 } from './permissions/titre'
 
 import fieldsBuild from './_fields-build'
-import eagerBuild from './_eager-build'
-import titreEagerFormat from './_titre-eager-format'
+import graphBuild from './_graph-build'
+import titreGraphFormat from './_titre-graph-format'
 
 import {
   titreCreate,
@@ -29,9 +29,9 @@ const titre = async ({ id }, context, info) => {
   try {
     const fields = fieldsBuild(info)
 
-    const eager = eagerBuild(fields, 'titre', titreEagerFormat)
+    const graph = graphBuild(fields, 'titre', titreGraphFormat)
 
-    const titreRes = await titreGet(id, { eager })
+    const titreRes = await titreGet(id, { graph })
 
     if (!titreRes) return null
 
@@ -75,7 +75,7 @@ const titres = async (
         territoires
       },
       {
-        eager: eagerBuild(fields, 'titres', titreEagerFormat)
+        graph: graphBuild(fields, 'titres', titreGraphFormat)
       }
     )
 

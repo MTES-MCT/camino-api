@@ -12,7 +12,7 @@ import { activitesTypesGet } from '../database/queries/metas'
 const titreUpdate = async titreId => {
   try {
     let titre = await titreGet(titreId, {
-      eager: 'administrationsGestionnaires'
+      graph: 'administrationsGestionnaires'
     })
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)

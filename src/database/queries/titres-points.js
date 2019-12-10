@@ -3,11 +3,11 @@ import TitresPointsReferences from '../models/titres-points-references'
 import options from './_options'
 
 const titresPointsGet = async () =>
-  TitresPoints.query().eager(options.points.eager)
+  TitresPoints.query().withGraphFetched(options.points.graph)
 
 const titrePointUpdate = async (id, props) =>
   TitresPoints.query()
-    .eager(options.points.eager)
+    .withGraphFetched(options.points.graph)
     .patchAndFetchById(id, props)
 
 const titrePointReferenceCreate = async titrePointReference =>
