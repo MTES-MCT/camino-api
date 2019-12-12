@@ -11,6 +11,7 @@ type Administration {
   commune: String
   cedex: String
   utilisateurs: [Utilisateur]
+  domaines: [Domaine]
 }
 
 input InputAdministration {
