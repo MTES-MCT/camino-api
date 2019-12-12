@@ -1,9 +1,12 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const substances = require('../../sources/substances.json')
-const substancesLegales = require('../../sources/substances-legales.json')
-const substancesLegalesCodes = require('../../sources/substances-legales-codes.json')
-const substancesSubstancesLegales = require('../../sources/substances--substances-legales.json')
+const data = sourcesImport([
+  'substances',
+  'substancesLegales',
+  'substancesLegalesCodes',
+  'substances_substancesLegales'
+])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await del('substances')
@@ -11,8 +14,11 @@ exports.seed = seeding(async ({ del, insert }) => {
   await del('substancesLegales')
   await del('substancesLegalesCodes')
 
-  await insert('substancesLegalesCodes', substancesLegalesCodes)
-  await insert('substancesLegales', substancesLegales)
-  await insert('substances', substances)
-  await insert('substances__substancesLegales', substancesSubstancesLegales)
+  await insert('substancesLegalesCodes', data.substancesLegalesCodes)
+  await insert('substancesLegales', data.substancesLegales)
+  await insert('substances', data.substances)
+  await insert(
+    'substances__substancesLegales',
+    data.substances_substancesLegales
+  )
 })

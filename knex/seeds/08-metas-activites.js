@@ -1,11 +1,12 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const activitesStatuts = require('../../sources/activites-statuts.json')
-const activitesTypes = require('../../sources/activites-types.json')
-// eslint-disable-next-line camelcase
-const activitesTypes_types = require('../../sources/activites-types--types.json')
-// eslint-disable-next-line camelcase
-const activitesTypes_pays = require('../../sources/activites-types--pays.json')
+const data = sourcesImport([
+  'activitesStatuts',
+  'activitesTypes',
+  'activitesTypes_types',
+  'activitesTypes_pays'
+])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await del('activitesTypes__pays')
@@ -13,8 +14,8 @@ exports.seed = seeding(async ({ del, insert }) => {
   await del('activitesTypes')
   await del('activitesStatuts')
 
-  await insert('activitesStatuts', activitesStatuts)
-  await insert('activitesTypes', activitesTypes)
-  await insert('activitesTypes__types', activitesTypes_types)
-  await insert('activitesTypes__pays', activitesTypes_pays)
+  await insert('activitesStatuts', data.activitesStatuts)
+  await insert('activitesTypes', data.activitesTypes)
+  await insert('activitesTypes__types', data.activitesTypes_types)
+  await insert('activitesTypes__pays', data.activitesTypes_pays)
 })

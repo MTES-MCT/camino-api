@@ -1,9 +1,10 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const titresActivites = require('../../sources/titres-activites.json')
+const data = sourcesImport(['titresActivites'])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await del('titresActivites')
 
-  await insert('titresActivites', titresActivites)
+  await insert('titresActivites', data.titresActivites)
 })

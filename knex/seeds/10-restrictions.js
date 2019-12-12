@@ -1,11 +1,14 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const restrictionsDomaines = require('../../sources/restrictions--domaines.json')
-const restrictionsTypesAdministrations = require('../../sources/restrictions--types--administrations.json')
-const restrictionsTypesStatuts = require('../../sources/restrictions--types--statuts.json')
-const restrictionsTypesStatutsAdministrations = require('../../sources/restrictions--types--statuts--administrations.json')
-const restrictionsEtapesTypes = require('../../sources/restrictions--etapes-types.json')
-const restrictionsEtapesTypesAdministrations = require('../../sources/restrictions--etapes-types--administrations.json')
+const data = sourcesImport([
+  'restrictions_domaines',
+  'restrictions_types_administrations',
+  'restrictions_types_statuts',
+  'restrictions_types_statuts_administrations',
+  'restrictions_etapesTypes',
+  'restrictions_etapesTypes_administrations'
+])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
@@ -18,20 +21,20 @@ exports.seed = seeding(async ({ del, insert }) => {
   ])
 
   await Promise.all([
-    insert('restrictions__domaines', restrictionsDomaines),
+    insert('restrictions__domaines', data.restrictions_domaines),
     insert(
       'restrictions__types__administrations',
-      restrictionsTypesAdministrations
+      data.restrictions_types_administrations
     ),
-    insert('restrictions__types__statuts', restrictionsTypesStatuts),
+    insert('restrictions__types__statuts', data.restrictions_types_statuts),
     insert(
       'restrictions__types__statuts__administrations',
-      restrictionsTypesStatutsAdministrations
+      data.restrictions_types_statuts_administrations
     ),
-    insert('restrictions__etapesTypes', restrictionsEtapesTypes),
+    insert('restrictions__etapesTypes', data.restrictions_etapesTypes),
     insert(
       'restrictions__etapesTypes__administrations',
-      restrictionsEtapesTypesAdministrations
+      data.restrictions_etapesTypes_administrations
     )
   ])
 })

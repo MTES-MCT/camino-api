@@ -1,7 +1,7 @@
 const chalk = require('chalk')
 const decamelize = require('decamelize')
 
-const seeding = require('../seeding')
+const seeding = require('../_seeding')
 
 const domaineIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w', 'reprise']
 
@@ -28,9 +28,8 @@ const data = files.reduce((d, file) => {
   d[file] = domaineIds.reduce((res, domaineId) => {
     const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
 
-    let content
     try {
-      content = require(`../../sources/${fileName}.json`)
+      const content = require(`../../sources/${fileName}.json`)
 
       return res.concat(content)
     } catch (e) {

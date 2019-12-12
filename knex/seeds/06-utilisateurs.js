@@ -1,9 +1,12 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const utilisateurs = require('../../sources/utilisateurs.json')
-const utilisateursEntreprises = require('../../sources/utilisateurs--entreprises.json')
-const utilisateursAdministrations = require('../../sources/utilisateurs--administrations.json')
-const permissions = require('../../sources/permissions.json')
+const data = sourcesImport([
+  'permissions',
+  'utilisateurs',
+  'utilisateurs_entreprises',
+  'utilisateurs_administrations'
+])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await del('utilisateurs__administrations')
@@ -11,8 +14,11 @@ exports.seed = seeding(async ({ del, insert }) => {
   await del('utilisateurs')
   await del('permissions')
 
-  await insert('permissions', permissions)
-  await insert('utilisateurs', utilisateurs)
-  await insert('utilisateurs__entreprises', utilisateursEntreprises)
-  await insert('utilisateurs__administrations', utilisateursAdministrations)
+  await insert('permissions', data.permissions)
+  await insert('utilisateurs', data.utilisateurs)
+  await insert('utilisateurs__entreprises', data.utilisateurs_entreprises)
+  await insert(
+    'utilisateurs__administrations',
+    data.utilisateurs_administrations
+  )
 })

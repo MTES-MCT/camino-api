@@ -1,17 +1,15 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const frequences = require('../../sources/frequences.json')
-const annees = require('../../sources/annees.json')
-const trimestres = require('../../sources/trimestres.json')
-const mois = require('../../sources/mois.json')
+const data = sourcesImport(['frequences', 'annees', 'trimestres', 'mois'])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await del('mois')
   await del('trimestres')
   await del('frequences')
 
-  await insert('frequences', frequences)
-  await insert('trimestres', trimestres)
-  await insert('annees', annees)
-  await insert('mois', mois)
+  await insert('frequences', data.frequences)
+  await insert('annees', data.annees)
+  await insert('trimestres', data.trimestres)
+  await insert('mois', data.mois)
 })

@@ -1,9 +1,7 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const pays = require('../../sources/pays.json')
-const regions = require('../../sources/regions.json')
-const departements = require('../../sources/departements.json')
-const communes = require('../../sources/communes.json')
+const data = sourcesImport(['pays', 'regions', 'departements', 'communes'])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await del('communes')
@@ -11,8 +9,8 @@ exports.seed = seeding(async ({ del, insert }) => {
   await del('regions')
   await del('pays')
 
-  await insert('pays', pays)
-  await insert('regions', regions)
-  await insert('departements', departements)
-  await insert('communes', communes)
+  await insert('pays', data.pays)
+  await insert('regions', data.regions)
+  await insert('departements', data.departements)
+  await insert('communes', data.communes)
 })

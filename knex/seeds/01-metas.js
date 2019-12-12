@@ -1,26 +1,25 @@
-const seeding = require('../seeding')
+const sourcesImport = require('../_sources-import')
+const seeding = require('../_seeding')
 
-const domaines = require('../../sources/domaines.json')
-const types = require('../../sources/types.json')
-// eslint-disable-next-line camelcase
-const domaines_types = require('../../sources/domaines--types.json')
-const statuts = require('../../sources/statuts.json')
-const phasesStatuts = require('../../sources/phases-statuts.json')
-const demarchesTypes = require('../../sources/demarches-types.json')
-// eslint-disable-next-line camelcase
-const demarchesTypes_types = require('../../sources/demarches-types--types.json')
-const demarchesStatuts = require('../../sources/demarches-statuts.json')
-const etapesTypes = require('../../sources/etapes-types.json')
-// eslint-disable-next-line camelcase
-const demarchesTypes_etapesTypes = require('../../sources/demarches-types--etapes-types.json')
-const etapesStatuts = require('../../sources/etapes-statuts.json')
-// eslint-disable-next-line camelcase
-const etapesTypes_etapesStatuts = require('../../sources/etapes-types--etapes-statuts.json')
-const geoSystemes = require('../../sources/geo-systemes.json')
-const devises = require('../../sources/devises.json')
-const unites = require('../../sources/unites.json')
-const documentsTypes = require('../../sources/documents-types.json')
-const referencesTypes = require('../../sources/references-types.json')
+const data = sourcesImport([
+  'domaines',
+  'types',
+  'domaines_types',
+  'statuts',
+  'phasesStatuts',
+  'demarchesTypes',
+  'demarchesTypes_types',
+  'demarchesStatuts',
+  'etapesTypes',
+  'demarchesTypes_etapesTypes',
+  'etapesStatuts',
+  'etapesTypes_etapesStatuts',
+  'geoSystemes',
+  'devises',
+  'unites',
+  'documentsTypes',
+  'referencesTypes'
+])
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
@@ -44,24 +43,24 @@ exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([del('domaines'), del('types')])
 
   await Promise.all([
-    insert('domaines', domaines),
-    insert('types', types),
-    insert('statuts', statuts),
-    insert('phasesStatuts', phasesStatuts),
-    insert('demarchesTypes', demarchesTypes),
-    insert('etapesTypes', etapesTypes),
-    insert('demarchesStatuts', demarchesStatuts),
-    insert('etapesStatuts', etapesStatuts),
-    insert('documentsTypes', documentsTypes),
-    insert('devises', devises),
-    insert('unites', unites),
-    insert('referencesTypes', referencesTypes)
+    insert('domaines', data.domaines),
+    insert('types', data.types),
+    insert('statuts', data.statuts),
+    insert('phasesStatuts', data.phasesStatuts),
+    insert('demarchesTypes', data.demarchesTypes),
+    insert('etapesTypes', data.etapesTypes),
+    insert('demarchesStatuts', data.demarchesStatuts),
+    insert('etapesStatuts', data.etapesStatuts),
+    insert('documentsTypes', data.documentsTypes),
+    insert('devises', data.devises),
+    insert('unites', data.unites),
+    insert('referencesTypes', data.referencesTypes)
   ])
   await Promise.all([
-    insert('geoSystemes', geoSystemes),
-    insert('domaines__types', domaines_types),
-    insert('demarchesTypes__types', demarchesTypes_types),
-    insert('demarchesTypes__etapesTypes', demarchesTypes_etapesTypes),
-    insert('etapesTypes__etapesStatuts', etapesTypes_etapesStatuts)
+    insert('geoSystemes', data.geoSystemes),
+    insert('domaines__types', data.domaines_types),
+    insert('demarchesTypes__types', data.demarchesTypes_types),
+    insert('demarchesTypes__etapesTypes', data.demarchesTypes_etapesTypes),
+    insert('etapesTypes__etapesStatuts', data.etapesTypes_etapesStatuts)
   ])
 })
