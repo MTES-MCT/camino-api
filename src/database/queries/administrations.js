@@ -22,14 +22,4 @@ const administrationsUpsert = async administrations =>
     .withGraphFetched(options.administrations.graph)
     .upsertGraph(administrations, options.administrations.update)
 
-const administrationsUpdate = async administrations =>
-  Administrations.query()
-    .withGraphFetched(options.administrations.graph)
-    .updateAndFetch(administrations, options.administrations.update)
-
-export {
-  administrationGet,
-  administrationsGet,
-  administrationsUpsert,
-  administrationsUpdate
-}
+export { administrationGet, administrationsGet, administrationsUpsert }
