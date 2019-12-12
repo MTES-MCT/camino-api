@@ -275,7 +275,10 @@ const titreIdUpdate = async (titreOldId, titreNew) => {
   const knex = Titres.knex()
 
   return transaction(knex, async tr => {
-    if (titreOldId !== titreNew.id && (await titreGet(titreNew.id, {}, tr))) {
+    if (
+      titreOldId !== titreNew.id &&
+      (await titreGet(titreNew.id, { graph: null }, tr))
+    ) {
       throw new Error(`un titre avec l'id ${titreNew.id} existe déjà`)
     }
 
