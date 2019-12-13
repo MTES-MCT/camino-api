@@ -14,9 +14,9 @@ async function main() {
     { id: 'DGPR', value: 'DGPR/SRT/SDRCP/BSSS' }
   ]
 
-  const res = await administrationsGet()
+  const administrations = await administrationsGet()
 
-  res.forEach(administration => {
+  administrations.forEach(administration => {
     // écrit l'abréviation "DREAL - Grand Est - Siège de Metz" pour "Direction régionale de l'environnement, de l'aménagement et du logement (DREAL) - Grand Est - Siège de Metz"
     administration.abreviation = administration.nom
       .substring(administration.nom.indexOf('('))
