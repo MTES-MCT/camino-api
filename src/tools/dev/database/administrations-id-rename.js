@@ -12,21 +12,29 @@ async function main() {
 
   var conversion = {}
 
-  const res = administrations.map(administration => {
-    // const id = administration.id
-    // administration.id = id.replace(
-    //   id.substring(0, id.indexOf('-')),
-    //   administration.typeId
-    // )
-    // conversion[id] = administration.id
-    administration.service = 'service'
+  administrations.forEach(administration => {
+    conversion[administration.id] = administration.id.replace(
+      administration.id.substring(0, administration.id.indexOf('-')),
+      administration.typeId
+    )
 
-    return administration
+    administration.id = conversion[administration.id]
+
+    Promise.resolve(Administrations.query().insert(administration))
   })
 
-  await administrationsUpsert(res)
+  // const res = administrations.map(administration => {
+  //   // const id = administration.id
+  //   // administration.id = id.replace(
+  //   //   id.substring(0, id.indexOf('-')),
+  //   //   administration.typeId
+  //   // )
+  //   // conversion[id] = administration.id
 
-  // console.log(conversion)
+  //   return administration
+  // })
+
+  console.log(conversion)
 }
 
 main()
