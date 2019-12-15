@@ -39,12 +39,11 @@ async function main() {
       // alimente la table de conversion
       conversion[administration.id] = newId
 
-      // patch l'id s'il a changé
-      Promise.resolve(
-        Administrations.query()
-          .findById(administration.id)
-          .patch({ id: newId })
-      )
+      const administrationNew = administration
+      administrationNew.id = newId
+
+      // insert administationNew avec le newId
+      Promise.resolve(Administrations.query().insert(administrationNew))
     }
   })
 
@@ -58,6 +57,14 @@ async function main() {
       )
     })
   })
+
+  console.log(Object.keys(conversion).length)
+  // delete depuis la table de conversion des administration avec l'ancien id
+  // Promise.resolve(
+  //   Administrations.query()
+  //     .del()
+  //     .where('id', 'in', Object.keys(conversion))
+  // )
 }
 
 main()
