@@ -124,8 +124,8 @@ async function main() {
 
     process.exit()
   } catch (e) {
-    process.exit()
     console.log(e)
+    process.exit()
   }
 }
 main()
