@@ -1,7 +1,0 @@
-before_install:
-  - export TZ=Europe/Paris
-language: node_js
-node_js:
-  - '10'
-env:
-  - CODECOV_TOKEN="0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff"

@@ -1,4 +1,4 @@
-import * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
 
@@ -102,7 +102,7 @@ const utilisateurTokenCreer = async ({ email, motDePasse }, context, info) => {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
 
-    const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+    const valid = bcrypt.compareSync(motDePasse, utilisateur.motDePasse)
 
     if (!valid) {
       throw new Error('mot de passe incorrect')
@@ -154,7 +154,7 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
       utilisateur.entreprisesIds = []
     }
 
-    utilisateur.motDePasse = await bcrypt.hash(utilisateur.motDePasse, 10)
+    utilisateur.motDePasse = bcrypt.hashSync(utilisateur.motDePasse, 10)
     utilisateur.id = await userIdGenerate()
 
     const utilisateurNew = await utilisateurCreate(utilisateur)
@@ -321,14 +321,14 @@ const utilisateurMotDePasseModifier = async (
     }
 
     if (!permissionsCheck(context.user, ['super'])) {
-      const valid = await bcrypt.compare(motDePasse, utilisateur.motDePasse)
+      const valid = bcrypt.compareSync(motDePasse, utilisateur.motDePasse)
 
       if (!valid) {
         throw new Error('mot de passe incorrect')
       }
     }
 
-    utilisateur.motDePasse = await bcrypt.hash(motDePasseNouveau1, 10)
+    utilisateur.motDePasse = bcrypt.hashSync(motDePasseNouveau1, 10)
 
     const utilisateurNew = utilisateurUpdate({
       id,
@@ -412,7 +412,7 @@ const utilisateurMotDePasseInitialiser = async (
       throw new Error('aucun utilisateur enregistré avec cet id')
     }
 
-    utilisateur.motDePasse = await bcrypt.hash(motDePasse1, 10)
+    utilisateur.motDePasse = bcrypt.hashSync(motDePasse1, 10)
 
     const utilisateurNew = await utilisateurUpdate({
       id: context.user.id,

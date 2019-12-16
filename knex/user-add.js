@@ -3,7 +3,7 @@ const config = require('./config-api')
 const knex = Knex(config.knex)
 
 const emailRegex = require('email-regex')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 const password = process.env.ADMIN_PASSWORD
 
@@ -29,7 +29,7 @@ const run = async () => {
   }
 
   if (!errors.length) {
-    utilisateur.motDePasse = await bcrypt.hash(password, 10)
+    utilisateur.motDePasse = bcrypt.hashSync(password, 10)
     await knex('utilisateurs').insert(utilisateur)
     console.log('Utilisateur créé')
   } else {

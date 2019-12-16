@@ -13,6 +13,7 @@ services:
       - ${NODE_PORT}
     volumes:
       - files:/app/files
+    env_file: .env
 
   postgres:
     image: postgres:alpine

@@ -1,4 +1,4 @@
-FROM node:12.10.0-stretch
+FROM node:12.13.1-alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app
@@ -9,10 +9,11 @@ WORKDIR $dir
 COPY package.json /tmp/package.json
 RUN cd /tmp && npm install --production && cp -a /tmp/node_modules $dir/
 
-COPY .env ./
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY src src/
 COPY knex knex/
 
-CMD ["npm", "start"]
+RUN npm run build
+
+CMD npm start
