@@ -58,7 +58,6 @@ async function main() {
     })
   })
 
-  console.log(Object.keys(conversion).length)
   // delete depuis la table de conversion des administration avec l'ancien id
   // Promise.resolve(
   //   Administrations.query()
