@@ -78,13 +78,13 @@ async function main() {
           Administrations.query().deleteById(idOld)
         )
 
-        relationTable.forEach(table => {
-          administrationsRelationsInsertQueue.add(() =>
+        administrationsRelationsInsertQueue.addAll(
+          relationTable.map(table => () =>
             knex(table)
               .update('administration_id', idNew)
               .where('administration_id', '=', idOld)
           )
-        })
+        )
 
         return {
           administrationsNewInsertQueue,
