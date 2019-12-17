@@ -112,6 +112,7 @@ const demarchesTypes = {
 
 const demarchesUpdateTrue = [
   'statut',
+  'type',
   'annulationDemarche',
   'enfants',
   'parents',
@@ -120,7 +121,6 @@ const demarchesUpdateTrue = [
 ]
 
 const demarchesUpdateFalse = [
-  'type',
   'type.etapesTypes',
   'type.etapesTypes.etapesStatuts',
   'titreType'
