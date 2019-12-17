@@ -32,16 +32,6 @@ async function main() {
       'utilisateurs__administrations'
     ]
 
-    // const relations = [
-    //   'administrations__domaines',
-    //   'restrictions__etapes_types__administrations',
-    //   'restrictions__types__administrations',
-    //   'restrictions__types__statuts__administrations',
-    //   'titres_administrations_gestionnaires',
-    //   'titres_administrations_locales',
-    //   'utilisateurs__administrations'
-    // ]
-
     const administrations = await administrationsGet()
 
     const {
