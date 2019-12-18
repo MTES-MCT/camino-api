@@ -62,6 +62,8 @@ exports.up = knex =>
         .string('administrationId')
         .references('administrations.id')
         .notNullable()
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
     })
     .createTable('permissions', table => {
       table.string('id', 12).primary()
@@ -102,6 +104,7 @@ exports.up = knex =>
         .string('administrationId', 64)
         .references('administrations.id')
         .onDelete('CASCADE')
+        .onUpdate('CASCADE')
     })
 
 exports.down = knex =>
