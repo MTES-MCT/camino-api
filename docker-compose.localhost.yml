@@ -15,7 +15,7 @@ services:
     command: npm run dev
 
   postgres:
-    image: postgres:alpine
+    image: postgres:12-alpine
     environment:
       PGUSER: ${PGUSER}
     expose:

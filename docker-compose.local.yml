@@ -16,7 +16,7 @@ services:
     env_file: .env
 
   postgres:
-    image: postgres:alpine
+    image: postgres:12-alpine
     environment:
       PGUSER: ${PGUSER}
     expose:
