@@ -4,8 +4,8 @@ services:
   app:
     image: node:alpine
     volumes:
-      - ./:/api
-    working_dir: /api
+      - ./:/app
+    working_dir: /app
     depends_on:
       - postgres
     environment:

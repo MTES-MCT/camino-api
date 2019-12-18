@@ -1,4 +1,4 @@
-FROM node:12.13.1-alpine
+FROM node:12-alpine
 LABEL maintainer=francois.romain@beta.gouv.fr
 
 ENV dir /app

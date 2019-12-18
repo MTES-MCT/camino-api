@@ -15,7 +15,7 @@ services:
       - ${NODE_PORT}
     volumes:
       - files:/app/files
-    env_file: .env
+      - ./.env:/app/.env
 
   postgres:
     image: postgres:12-alpine
