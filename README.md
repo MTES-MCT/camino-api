@@ -97,11 +97,11 @@ Pour que les tests soient plus rapides, on peut utiliser une version publique de
 # crée une copie de la base de données (publique)
 npm run db:dump-public
 
-# importe et met à jour la base de données publique et crée un utilisateur super-admin
+# importe la base de données publique
+# met à jour les données (daily)
+# crée un utilisateur super-admin
+# lance le serveur de dev
 npm run test:cypress
-
-# lance le serveur
-npm run dev
 ```
 
 ---

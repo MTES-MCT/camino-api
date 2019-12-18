@@ -52,7 +52,7 @@
     "test": "eslint src/ && eslint knex/ && tslint 'src/**/*.ts' && jest --verbose && codecov",
     "test:lint": "eslint --fix src/ && eslint --fix knex/ && tslint --fix 'src/**/*.ts'",
     "test:jest": "npm run test:lint && jest --verbose --watch",
-    "test:cypress": "npm run db:import-public && npm run daily && npm run db:user"
+    "test:cypress": "npm run db:import-public && npm run daily && npm run db:user  && npm run dev"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
