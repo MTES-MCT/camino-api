@@ -1,6 +1,7 @@
 type Administration {
   id: ID!
   nom: String
+  abreviation: String
   service: String
   url: String
   email: String

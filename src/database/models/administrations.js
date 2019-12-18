@@ -24,7 +24,8 @@ export default class Administrations extends Model {
       commune: { type: ['string', 'null'] },
       cedex: { type: ['string', 'null'] },
       departementId: { type: ['string', 'null'] },
-      regionId: { type: ['string', 'null'] }
+      regionId: { type: ['string', 'null'] },
+      abreviation: { type: ['string', 'null'] }
     }
   }
 
