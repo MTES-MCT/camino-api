@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.14](https://github.com/MTES-MCT/camino-api/compare/v0.24.13...v0.24.14) (2019-12-19)
+
+
+### Features
+
+* **data:** ajoute des règles pour le déplacement de contenu des étapes ([#242](https://github.com/MTES-MCT/camino-api/issues/242)) ([f74995a](https://github.com/MTES-MCT/camino-api/commit/f74995a07f3f9c676ca80e1e6afcfc8d7a0fe9c0))
+* **data:** déplace des contenus d'étapes ARM ([#232](https://github.com/MTES-MCT/camino-api/issues/232)) ([8be65bb](https://github.com/MTES-MCT/camino-api/commit/8be65bb5a5bbadc56a9c3164120c006ea17966b9))
+
+
+### Bug Fixes
+
+* ajoute des contraintes dans la base de données ([#243](https://github.com/MTES-MCT/camino-api/issues/243)) ([f529017](https://github.com/MTES-MCT/camino-api/commit/f529017cdaa52ee9f0a935315f7fd96ee0f70aaf))
+* corrige les paramètres de mise à jour ([6ed6020](https://github.com/MTES-MCT/camino-api/commit/6ed6020bab734eaaddb183cf0f7d268ae97e2863))
+* **business:** corrige l'enregistrement des établissements d'entreprise ([#238](https://github.com/MTES-MCT/camino-api/issues/238)) ([de5ab5c](https://github.com/MTES-MCT/camino-api/commit/de5ab5ccf29a025b8abb149b24813e6ac26792a3))
+
 ### [0.24.13](https://github.com/MTES-MCT/camino-api/compare/v0.24.12...v0.24.13) (2019-12-10)
 
 
