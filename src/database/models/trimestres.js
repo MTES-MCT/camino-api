@@ -11,7 +11,7 @@ export default class Trimestres extends Model {
     properties: {
       id: { type: 'integer', maxLength: 1 },
       nom: { type: 'string' },
-      freqeunceId: { type: 'string', maxLength: 3 }
+      frequenceId: { type: 'string', maxLength: 3 }
     }
   }
 

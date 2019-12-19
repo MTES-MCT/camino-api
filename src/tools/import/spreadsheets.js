@@ -152,7 +152,12 @@ const spreadsheets = [
   {
     name: 'calendrier',
     id: calendrierSpreadsheetId,
-    tables: [{ name: 'frequences' }, { name: 'trimestres' }, { name: 'mois' }]
+    tables: [
+      { name: 'frequences' },
+      { name: 'annees' },
+      { name: 'trimestres' },
+      { name: 'mois' }
+    ]
   },
 
   {
