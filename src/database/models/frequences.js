@@ -1,5 +1,7 @@
 import { Model } from 'objection'
+import Annees from './annees'
 import Trimestres from './trimestres'
+
 import Mois from './mois'
 
 export default class Frequences extends Model {
@@ -17,6 +19,15 @@ export default class Frequences extends Model {
   }
 
   static relationMappings = {
+    annees: {
+      relation: Model.HasManyRelation,
+      modelClass: Annees,
+      join: {
+        from: 'frequences.id',
+        to: 'annees.frequenceId'
+      }
+    },
+
     trimestres: {
       relation: Model.HasManyRelation,
       modelClass: Trimestres,

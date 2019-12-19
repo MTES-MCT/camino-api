@@ -5,6 +5,11 @@ exports.up = knex => {
       table.string('nom').notNullable()
       table.string('periodesNom')
     })
+    .createTable('annees', table => {
+      table.integer('id', 1).primary()
+      table.string('nom').notNullable()
+      table.string('frequenceId', 3).references('frequences.id')
+    })
     .createTable('trimestres', table => {
       table.integer('id', 1).primary()
       table.string('nom').notNullable()

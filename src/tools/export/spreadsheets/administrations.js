@@ -20,6 +20,7 @@ const tables = [
       'nom',
       'abreviation',
       'service',
+      'abreviation',
       'url',
       'email',
       'telephone',
