@@ -16,6 +16,7 @@ services:
     volumes:
       - files:/app/files
       - ./.env:/app/.env
+    restart: always
 
   postgres:
     image: postgres:12-alpine
