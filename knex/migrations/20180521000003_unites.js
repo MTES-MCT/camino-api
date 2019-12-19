@@ -3,6 +3,7 @@ exports.up = knex =>
     .createTable('devises', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
+      table.integer('ordre')
     })
     .createTable('unites', table => {
       table.string('id', 3).primary()
@@ -12,6 +13,7 @@ exports.up = knex =>
     .createTable('geoSystemes', table => {
       table.string('id', 5).primary()
       table.string('nom').notNullable()
+      table.integer('ordre')
       table
         .string('uniteId', 3)
         .references('unites.id')

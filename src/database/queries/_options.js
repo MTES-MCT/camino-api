@@ -107,7 +107,7 @@ const phases = {
 }
 
 const demarchesTypes = {
-  graph: `[etapesTypes(orderDesc).etapesStatuts]`
+  graph: `[etapesTypes.etapesStatuts]`
 }
 
 const demarchesUpdateTrue = [
@@ -156,11 +156,11 @@ const titresActivites = {
 }
 
 const types = {
-  graph: `[demarchesTypes.${demarchesTypes.graph}]`
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}]`
 }
 
 const domaines = {
-  graph: `[types.${types.graph}]`
+  graph: `[types(orderAsc).${types.graph}]`
 }
 
 const titresUpdateTrue = [

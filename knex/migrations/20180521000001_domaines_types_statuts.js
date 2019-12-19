@@ -8,6 +8,7 @@ exports.up = knex => {
     .createTable('types', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
+      table.integer('ordre')
     })
     .createTable('domaines__types', table => {
       table
@@ -27,6 +28,7 @@ exports.up = knex => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
+      table.integer('ordre')
     })
 }
 

@@ -39,4 +39,10 @@ export default class Types extends Model {
       }
     }
   }
+
+  static modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
+    }
+  }
 }

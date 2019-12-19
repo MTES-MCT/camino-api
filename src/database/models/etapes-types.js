@@ -36,8 +36,8 @@ export default class EtapesTypes extends Model {
   }
 
   static modifiers = {
-    orderDesc: builder => {
-      builder.orderBy('ordre', 'desc')
+    orderAsc: builder => {
+      builder.orderBy('etapesTypes.ordre', 'asc')
     }
   }
 }

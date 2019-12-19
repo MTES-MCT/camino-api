@@ -13,6 +13,7 @@ const entreprisesGet = async (
   Entreprises.query()
     .skipUndefined()
     .withGraphFetched(graph)
+    .orderBy('nom')
 
 const entreprisesUpsert = async entreprises =>
   Entreprises.query()

@@ -33,7 +33,7 @@ const demarcheEtapesTypes = async (
   if (!context.user && !debug) return []
 
   const demarche = await titreDemarcheGet(titreDemarcheId, {
-    graph: '[etapes, type.etapesTypes.etapesStatuts]'
+    graph: '[etapes, type.etapesTypes(orderAsc).etapesStatuts]'
   })
 
   const titre = await titreGet(demarche.titreId, {

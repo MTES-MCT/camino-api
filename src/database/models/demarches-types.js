@@ -36,4 +36,10 @@ export default class DemarchesTypes extends Model {
       }
     }
   }
+
+  static modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
+    }
+  }
 }
