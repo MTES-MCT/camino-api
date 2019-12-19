@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.15](https://github.com/MTES-MCT/camino-api/compare/v0.24.14...v0.24.15) (2019-12-19)
+
 ### [0.24.14](https://github.com/MTES-MCT/camino-api/compare/v0.24.13...v0.24.14) (2019-12-19)
 
 
