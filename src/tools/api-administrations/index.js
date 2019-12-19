@@ -106,10 +106,8 @@ const organismeFormat = (e, departementId) => {
     adresse2 = adresse2 ? adresse2.lignes.join(', ') : null
 
     organisme = {
-      id: p.id,
-      typeId: p.pivotLocal.match(/^(prefecture|paris_ppp)/)
-        ? 'pre'
-        : p.pivotLocal,
+      id: p.id.replace(/prefecture|paris_ppp/, 'pre'),
+      typeId: p.pivotLocal.replace(/prefecture|paris_ppp/, 'pre'),
       nom: p.nom,
       adresse1,
       adresse2,
