@@ -84,6 +84,7 @@ const titreEtapeRelationMove = (
     !condition(titreEtapeTo, titreEtapeFrom)
   ) {
     console.log('condition non remplie', condition, condition(titreEtapeFrom))
+
     return false
   }
 
@@ -478,7 +479,7 @@ async function main(modifs) {
 
     const titresDemarchesModifiees = titresDemarchesModifieesGet(
       modifs,
-      titres //.filter(t => t.id === 'm-arm-belle-helene-2014')
+      titres // .filter(t => t.id === 'm-arm-belle-helene-2014')
     )
 
     console.log('demarches modifiees:', titresDemarchesModifiees.length)
