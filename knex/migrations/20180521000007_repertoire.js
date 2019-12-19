@@ -41,6 +41,7 @@ exports.up = knex =>
         .references('administrationsTypes.id')
         .notNullable()
       table.string('nom').notNullable()
+      table.string('abreviation', 255)
       table.string('service')
       table.string('url')
       table.string('email')

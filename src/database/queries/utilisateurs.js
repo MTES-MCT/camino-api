@@ -21,6 +21,7 @@ const utilisateursGet = async ({
   const q = Utilisateurs.query()
     .skipUndefined()
     .withGraphFetched(options.utilisateurs.graph)
+    .orderBy('nom')
 
   if (administrationIds) {
     q.whereIn('administrations.id', administrationIds).joinRelation(

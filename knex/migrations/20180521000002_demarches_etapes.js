@@ -37,6 +37,7 @@ exports.up = knex => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
+      table.integer('ordre')
     })
     .createTable('phasesStatuts', table => {
       table.string('id', 3).primary()
@@ -46,6 +47,7 @@ exports.up = knex => {
     .createTable('etapesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom', 128)
+      table.integer('ordre')
       table.boolean('fondamentale')
       table.boolean('unique')
       table.boolean('acceptationAuto')

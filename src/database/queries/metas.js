@@ -24,18 +24,22 @@ const typesGet = async ({ graph = options.types.graph } = {}) =>
   Types.query().withGraphFetched(graph)
 
 const domainesGet = async () =>
-  Domaines.query().withGraphFetched(options.domaines.graph)
+  Domaines.query()
+    .withGraphFetched(options.domaines.graph)
+    .orderBy('ordre')
 
 const statutsGet = async () => Statuts.query()
 
 const demarchesTypesGet = async () =>
-  DemarchesTypes.query().withGraphFetched(options.demarchesTypes.graph)
+  DemarchesTypes.query()
+    .withGraphFetched(options.demarchesTypes.graph)
+    .orderBy('ordre')
 
-const etapesTypesGet = async () => EtapesTypes.query()
+const etapesTypesGet = async () => EtapesTypes.query().orderBy('nom')
 
-const devisesGet = async () => Devises.query()
+const devisesGet = async () => Devises.query().orderBy('nom')
 
-const documentsTypesGet = async () => DocumentsTypes.query()
+const documentsTypesGet = async () => DocumentsTypes.query().orderBy('nom')
 
 const geoSystemesGet = async () =>
   GeoSystemes.query().withGraphFetched(options.geoSystemes.graph)
