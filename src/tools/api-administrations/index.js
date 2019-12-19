@@ -84,6 +84,8 @@ const organismeDepartementCall = async (departementId, nom) => {
 }
 
 const organismeFormat = (e, departementId) => {
+  if (!e.features.length) return null
+
   const { properties: p } = e.features[0]
   const { adresses } = p
 
@@ -105,7 +107,9 @@ const organismeFormat = (e, departementId) => {
 
     organisme = {
       id: p.id,
-      typeId: p.pivotLocal.match(/^prefecture/) ? 'pre' : p.pivotLocal,
+      typeId: p.pivotLocal.match(/^(prefecture|paris_ppp)/)
+        ? 'pre'
+        : p.pivotLocal,
       nom: p.nom,
       adresse1,
       adresse2,

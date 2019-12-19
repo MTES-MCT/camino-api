@@ -27,7 +27,7 @@ const administrationsGetTest = () => organismeDepartementGet('01', 'prefecture')
 const administrationsGet = async departements => {
   const departementsIdsNoms = departements.map(({ id: departementId }) => ({
     departementId,
-    nom: departementId === '75' ? 'prefecture_region' : 'prefecture'
+    nom: departementId === '75' ? 'paris_ppp' : 'prefecture'
   }))
 
   return organismesDepartementsGet(departementsIdsNoms)
