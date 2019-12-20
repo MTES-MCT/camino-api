@@ -47,7 +47,7 @@ const titreEtapeEditionPermissionAdministrationsCheck = (
 }
 
 const titreEtapeCreationPermissionAdministrationsCheck = (...args) =>
-  titreEtapeEditionPermissionAdministrationsCheck('edition', ...args)
+  titreEtapeEditionPermissionAdministrationsCheck('creation', ...args)
 
 const titreEtapeModificationPermissionAdministrationsCheck = (...args) =>
   titreEtapeEditionPermissionAdministrationsCheck('modification', ...args)

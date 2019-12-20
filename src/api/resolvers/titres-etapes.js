@@ -26,7 +26,7 @@ import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
 
 const demarcheEtapesTypes = async (
-  { titreDemarcheId, etapeTypeId },
+  { titreDemarcheId, etapeTypeId = null },
   context,
   info
 ) => {
@@ -70,11 +70,12 @@ const demarcheEtapesTypes = async (
 
     et.editable =
       isSuper ||
-      titreEtapeModificationPermissionAdministrationsCheck(
-        et.etapeTypeId,
-        titre,
-        user
-      )
+      // si un etapeTypeId est fourni au resolver
+      // alors c'est une modification d'étape
+      // sinon c'est une création d'étape dans une démarche
+      (etapeTypeId
+        ? titreEtapeModificationPermissionAdministrationsCheck
+        : titreEtapeCreationPermissionAdministrationsCheck)(et.id, titre, user)
 
     if (et.editable) {
       et.demarcheTypeId = demarche.typeId

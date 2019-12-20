@@ -21,7 +21,7 @@ import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
 
 const titreDemarchesTypes = async (
-  { titreId, demarcheTypeId },
+  { titreId, demarcheTypeId = null },
   context,
   info
 ) => {

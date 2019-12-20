@@ -142,7 +142,7 @@ const titreEditionPermissionAdministrationsCheck = (
 }
 
 const titreCreationPermissionAdministrationsCheck = (...args) =>
-  titreEditionPermissionAdministrationsCheck('edition', ...args)
+  titreEditionPermissionAdministrationsCheck('creation', ...args)
 
 const titreModificationPermissionAdministrationsCheck = (...args) =>
   titreEditionPermissionAdministrationsCheck('modification', ...args)
