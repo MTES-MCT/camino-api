@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.16](https://github.com/MTES-MCT/camino-api/compare/v0.24.15...v0.24.16) (2019-12-20)
+
+
+### Features
+
+* crée des activités annuelles pour l'or net ([#248](https://github.com/MTES-MCT/camino-api/issues/248)) ([3721367](https://github.com/MTES-MCT/camino-api/commit/3721367a391aa4b1d6f2cea97b6b42a64cbd6018))
+* **api-insee:** enregistre tous les établissements ([#244](https://github.com/MTES-MCT/camino-api/issues/244)) ([fee9f50](https://github.com/MTES-MCT/camino-api/commit/fee9f5076be5db32fadf4ae2f3bf4fba0801232c))
+
+
+### Bug Fixes
+
+* **api:** corrige les restrictions de création/modification d'étape ([11e816f](https://github.com/MTES-MCT/camino-api/commit/11e816fbf8d2a39de725084bc59a549738dcdd8a))
+* **api:** expose les 'années' dans le champs 'fréquence' ([76ffc9b](https://github.com/MTES-MCT/camino-api/commit/76ffc9b5249147dc78ce72517708923c4667ee07))
+* **api:** ordonne les métas ([#246](https://github.com/MTES-MCT/camino-api/issues/246)) ([61ff8eb](https://github.com/MTES-MCT/camino-api/commit/61ff8eb4c31947da6e3f08ad8b702a781e28ef68))
+* **api-administrations:** corrige l'id de la préfecture de Paris ([6d15a21](https://github.com/MTES-MCT/camino-api/commit/6d15a21e84eab308dec995f8ce8032b3d6d24860))
+* **api-administrations:** corrige l'import et l'export des administrations ([#247](https://github.com/MTES-MCT/camino-api/issues/247)) ([19afc4a](https://github.com/MTES-MCT/camino-api/commit/19afc4ad5cb83fc480db47f037c75baf6bc64fe8))
+
 ### [0.24.15](https://github.com/MTES-MCT/camino-api/compare/v0.24.14...v0.24.15) (2019-12-19)
 
 ### [0.24.14](https://github.com/MTES-MCT/camino-api/compare/v0.24.13...v0.24.14) (2019-12-19)
