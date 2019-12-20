@@ -1,6 +1,7 @@
 type Frequence {
   id: ID!
   nom: String!
+  annees: [Annee]
   trimestres: [Trimestre]
   mois: [Mois]
 }
@@ -12,6 +13,11 @@ type Trimestre {
 }
 
 type Mois {
+  id: ID!
+  nom: String!
+}
+
+type Annee {
   id: ID!
   nom: String!
 }
