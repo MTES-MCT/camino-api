@@ -216,8 +216,6 @@ const titresUpdateFalse = [
   'surfaceEtape',
   'volumeUnite',
   'engagementDevise',
-  'activites.titre',
-  'activites.titre.titulaires',
   'activites.type',
   'activites.statut',
   'activites.utilisateur',
