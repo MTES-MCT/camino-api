@@ -4,7 +4,7 @@ import options from './_options'
 
 const titreActiviteGet = async id =>
   TitreActivites.query()
-    .withGraphFetched(options.titresActivites.graph)
+    .withGraphFetched(options.titresActivite.graph)
     .findById(id)
     .first()
 

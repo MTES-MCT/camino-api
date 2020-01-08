@@ -151,8 +151,12 @@ const activitesTypes = {
   graph: `[pays, frequence.[mois, trimestres.mois, annees], types]`
 }
 
-const titresActivites = {
+const titresActivite = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.[titulaires, amodiataires]]`
+}
+
+const titresActivites = {
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
 }
 
 const types = {
@@ -216,12 +220,15 @@ const titresUpdateFalse = [
   'surfaceEtape',
   'volumeUnite',
   'engagementDevise',
+  'activites.titre',
+  'activites.titre.titulaires',
   'activites.type',
   'activites.statut',
   'activites.utilisateur',
   'activites.type.frequence',
   'activites.type.frequence.trimestres',
   'activites.type.frequence.trimestres.mois',
+  'activites.type.frequence.annees',
   'activites.type.pays',
   'activites.type.types',
   ...demarchesUpdateFalse.map(k => `demarches.${k}`)
@@ -273,6 +280,7 @@ export default {
   phases,
   substances,
   titres,
+  titresActivite,
   titresActivites,
   pays,
   points,
