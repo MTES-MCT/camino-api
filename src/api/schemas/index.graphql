@@ -43,7 +43,7 @@ type Query {
   "__+__ Titre minier en fonction de son id"
   titre(id: ID!): Titre
 
-  "__+__ Liste de titres miniers, en fonction d'arguments (optionels)"
+  "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
   titres(
     typeIds: [ID]
     domaineIds: [ID]
@@ -67,7 +67,7 @@ type Query {
   "__*__ Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 
-  "__*__ Liste d'utilisateurs en fonction d'arguments (optionels)"
+  "__*__ Liste d'utilisateurs en fonction d'arguments (optionnels)"
   utilisateurs(
     entrepriseIds: [ID]
     administrationIds: [ID]
