@@ -31,7 +31,11 @@ const activite = async ({ id }, context, info) => {
       throw new Error("droits insuffisants pour effectuer l'opération")
     }
 
-    const activite = await titreActiviteGet(id)
+    const fields = fieldsBuild(info)
+
+    const graph = graphBuild(fields, 'titre', titreGraphFormat)
+
+    const activite = await titreActiviteGet(id, { graph })
 
     return activite && titreActiviteFormat(activite)
   } catch (e) {
@@ -49,6 +53,7 @@ const activites = async ({ typeId, annee }, context, info) => {
     if (!permissionsCheck(user, ['super'])) {
       throw new Error("droits insuffisants pour effectuer l'opération")
     }
+
     const fields = fieldsBuild(info)
 
     const graph = graphBuild(fields, 'titre', titreGraphFormat)

@@ -2,9 +2,12 @@ import TitreActivites from '../models/titres-activites'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreActiviteGet = async id =>
+const titreActiviteGet = async (
+  id,
+  { graph = options.titresActivites.graph }
+) =>
   TitreActivites.query()
-    .withGraphFetched(options.titresActivite.graph)
+    .withGraphFetched(graph)
     .findById(id)
     .first()
 
