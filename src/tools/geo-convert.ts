@@ -68,6 +68,7 @@ proj4.defs([
     'EPSG:27562',
     '+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs'
   ],
+  ['EPSG:4624', '+proj=longlat +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +no_defs '],
   [
     'EPSG:27563',
     '+proj=lcc +lat_1=44.10000000000001 +lat_0=44.10000000000001 +lon_0=0 +k_0=0.999877499 +x_0=600000 +y_0=200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs'
