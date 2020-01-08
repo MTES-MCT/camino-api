@@ -152,7 +152,7 @@ const activitesTypes = {
 }
 
 const titresActivites = {
-  graph: `[type.${activitesTypes.graph}, statut, utilisateur, titre.[titulaires, amodiataires]]`
+  graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
 }
 
 const types = {
@@ -222,6 +222,7 @@ const titresUpdateFalse = [
   'activites.type.frequence',
   'activites.type.frequence.trimestres',
   'activites.type.frequence.trimestres.mois',
+  'activites.type.frequence.annees',
   'activites.type.pays',
   'activites.type.types',
   ...demarchesUpdateFalse.map(k => `demarches.${k}`)
