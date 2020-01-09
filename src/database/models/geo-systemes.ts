@@ -2,21 +2,23 @@ import { Model } from 'objection'
 import Unites from './unites'
 
 export default class GeoSystemes extends Model {
-  static tableName = 'geoSystemes'
+  public static tableName = 'geoSystemes'
 
-  static jsonSchema = {
-    type: 'object',
+  public static jsonSchema = {
     required: ['id', 'nom'],
+    type: 'object',
 
     properties: {
       id: { type: 'string', maxLength: 5 },
+      definitionProj4: { type: 'string' },
       nom: { type: 'string' },
+      ordre: { type: 'integer' },
       uniteId: { type: 'string' },
       zone: { type: 'string' }
     }
   }
 
-  static relationMappings = {
+  public static relationMappings = {
     unite: {
       relation: Model.BelongsToOneRelation,
       modelClass: Unites,
@@ -26,4 +28,7 @@ export default class GeoSystemes extends Model {
       }
     }
   }
+
+  public id!: string
+  public definitionProj4!: string
 }

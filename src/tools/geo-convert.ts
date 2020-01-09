@@ -4,10 +4,11 @@ import { geoSystemesGet } from '../database/queries/metas'
 
 const init = async () => {
   const geoSystemes = await geoSystemesGet()
+
   proj4.defs(
-    geoSystemes.map(geosystem => [
-      `EPSG:${geosystem.id}`,
-      geosystem.definitionProj4
+    geoSystemes.map(geoSysteme => [
+      `EPSG:${geoSysteme.id}`,
+      geoSysteme.definitionProj4
     ])
   )
 }

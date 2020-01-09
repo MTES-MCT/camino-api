@@ -7,15 +7,16 @@
   ],
   "jsRules": {},
   "rules": {
-    "newline-before-return": true,
-    "no-console": false,
-    "no-submodule-imports": false,
-    "max-classes-per-file": false,
-    "no-floating-promises": false,
     "await-promise": false,
     "deprecation": false,
+    "max-classes-per-file": false,
+    "newline-before-return": true,
+    "no-console": false,
+    "no-floating-promises": false,
+    "no-submodule-imports": false,
     "no-unnecessary-qualifier": false,
     "no-unnecessary-type-assertion": false,
+    "object-literal-sort-keys": false,
     "strict-type-predicates": false
   },
   "rulesDirectory": []
