@@ -24,7 +24,7 @@ const utilisateursGet = async ({
     .orderBy('nom')
 
   if (administrationIds) {
-    q.whereIn('administrations.id', administrationIds).joinRelation(
+    q.whereIn('administrations.id', administrationIds).joinRelated(
       'administrations'
     )
   }
@@ -34,7 +34,7 @@ const utilisateursGet = async ({
   }
 
   if (entrepriseIds) {
-    q.whereIn('entreprises.id', entrepriseIds).joinRelation('entreprises')
+    q.whereIn('entreprises.id', entrepriseIds).joinRelated('entreprises')
   }
 
   if (noms) {

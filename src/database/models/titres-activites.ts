@@ -72,7 +72,11 @@ export default class TitresActivites extends Model {
 
   public static modifiers: Modifiers = {
     orderDesc: builder => {
-      builder.orderBy('date', 'desc')
+      builder
+        .joinRelated('type')
+        .orderByRaw(
+          "date desc, array_position(array['ann','tri','men']::varchar[], type.frequence_id)"
+        )
     }
   }
 
