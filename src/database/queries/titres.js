@@ -87,7 +87,7 @@ const titresGet = async (
           return res
         }, [])
       )
-      .joinRelation('references.type')
+      .joinRelated('references.type')
   }
 
   if (substances) {
@@ -127,7 +127,7 @@ const titresGet = async (
           return res
         }, [])
       )
-      .joinRelation('substances.legales')
+      .joinRelated('substances.legales')
   }
 
   if (entreprises) {
@@ -169,7 +169,7 @@ const titresGet = async (
           return res
         }, [])
       )
-      .leftJoinRelation(
+      .leftjoinRelated(
         '[titulaires.etablissements, amodiataires.etablissements]'
       )
   }
@@ -228,7 +228,7 @@ const titresGet = async (
           return res
         }, [])
       )
-      .joinRelation('communes.departement.region.pays')
+      .joinRelated('communes.departement.region.pays')
   }
 
   // console.log(sqlFormatter.format(q.toSql()))
