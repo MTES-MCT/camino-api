@@ -2,46 +2,46 @@ const paysFormat = communes => {
   if (!communes || !communes.length) return []
 
   const pays = communes.reduce((pays, commune) => {
-    const { departement: departementCommune } = commune
-    if (!departementCommune) return pays
+    const { departement: communeDepartement } = commune
+    if (!communeDepartement) return pays
 
-    const { region: regionCommune } = departementCommune
-    if (!regionCommune) return pays
+    const { region: communeRegion } = communeDepartement
+    if (!communeRegion) return pays
 
-    const { pays: paysCommune } = regionCommune
-    if (!paysCommune) return pays
+    const { pays: communePay } = communeRegion
+    if (!communePay) return pays
 
     // "un pay", singulier de "des pays"
-    let pay = pays.find(p => p.id === paysCommune.id)
+    let pay = pays.find(p => p.id === communePay.id)
 
     if (!pay) {
       pay = {
-        id: paysCommune.id,
-        nom: paysCommune.nom,
+        id: communePay.id,
+        nom: communePay.nom,
         regions: []
       }
       pays.push(pay)
     }
 
-    let region = pay.regions.find(r => r.id === regionCommune.id)
+    let region = pay.regions.find(r => r.id === communeRegion.id)
 
     if (!region) {
       region = {
-        id: regionCommune.id,
-        nom: regionCommune.nom,
+        id: communeRegion.id,
+        nom: communeRegion.nom,
         departements: []
       }
       pay.regions.push(region)
     }
 
     let departement = region.departements.find(
-      d => d.id === departementCommune.id
+      d => d.id === communeDepartement.id
     )
 
     if (!departement) {
       departement = {
-        id: departementCommune.id,
-        nom: departementCommune.nom,
+        id: communeDepartement.id,
+        nom: communeDepartement.nom,
         communes: []
       }
       region.departements.push(departement)

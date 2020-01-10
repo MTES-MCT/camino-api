@@ -5,7 +5,7 @@ export default class GeoSystemes extends Model {
   public static tableName = 'geoSystemes'
 
   public static jsonSchema = {
-    required: ['id', 'nom'],
+    required: ['id', 'nom', 'definitionProj4'],
     type: 'object',
 
     properties: {

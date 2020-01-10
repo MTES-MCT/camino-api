@@ -1,0 +1,18 @@
+import { Model } from 'objection'
+
+export default class Devises extends Model {
+  public static tableName = 'devises'
+
+  public static jsonSchema = {
+    type: 'object',
+    required: ['id', 'nom'],
+
+    properties: {
+      id: { type: 'string', maxLength: 3 },
+      nom: { type: 'string' }
+    }
+  }
+
+  public id!: string
+  public nom!: string
+}
