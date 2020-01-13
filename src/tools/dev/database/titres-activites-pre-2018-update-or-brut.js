@@ -3,7 +3,7 @@ import '../../../database/index'
 
 import {
   titresActivitesGet,
-  titresActivitesUpsert
+  titreActivitesUpsert
 } from '../../../database/queries/titres-activites'
 
 async function main() {
@@ -28,7 +28,7 @@ async function main() {
   if (activitesToUpdate.length) {
     console.log(activitesToUpdate.map(({ id }) => id).join('\n'))
 
-    await titresActivitesUpsert(activitesToUpdate)
+    await titreActivitesUpsert(activitesToUpdate)
   }
 
   process.exit()
