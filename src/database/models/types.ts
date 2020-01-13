@@ -11,7 +11,8 @@ export default class Types extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 3 },
-      nom: { type: 'string' }
+      nom: { type: 'string' },
+      ordre: { type: 'integer' }
     }
   }
 
@@ -48,5 +49,6 @@ export default class Types extends Model {
 
   public id!: string
   public nom!: string
+  public ordre!: number
   public demarchesTypes?: DemarchesTypes[]
 }

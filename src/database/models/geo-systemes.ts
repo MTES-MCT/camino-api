@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 import Unites from './unites'
 
 export default class GeoSystemes extends Model {
@@ -29,6 +29,16 @@ export default class GeoSystemes extends Model {
     }
   }
 
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
+    }
+  }
+
   public id!: string
   public definitionProj4!: string
+  public nom!: string
+  public ordre!: number
+  public uniteId?: string
+  public zone?: string
 }
