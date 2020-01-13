@@ -25,14 +25,16 @@ const permissionsGet = async ({ ordreMax }: IPermissionsOptions) =>
 const permissionGet = async (id: string) => Permissions.query().findById(id)
 
 const typesGet = async ({ graph = options.types.graph } = {}) =>
-  Types.query().withGraphFetched(graph)
+  Types.query()
+    .withGraphFetched(graph)
+    .orderBy('ordre')
 
 const domainesGet = async () =>
   Domaines.query()
     .withGraphFetched(options.domaines.graph)
     .orderBy('ordre')
 
-const statutsGet = async () => Statuts.query()
+const statutsGet = async () => Statuts.query().orderBy('ordre')
 
 const demarchesTypesGet = async () =>
   DemarchesTypes.query()
@@ -46,14 +48,16 @@ const devisesGet = async () => Devises.query().orderBy('nom')
 const documentsTypesGet = async () => DocumentsTypes.query().orderBy('nom')
 
 const geoSystemesGet = async () =>
-  GeoSystemes.query().withGraphFetched(options.geoSystemes.graph)
+  GeoSystemes.query()
+    .withGraphFetched(options.geoSystemes.graph)
+    .orderBy('ordre')
 
 const geoSystemeGet = async (id: string) =>
   GeoSystemes.query()
     .findById(id)
     .withGraphFetched(options.geoSystemes.graph)
 
-const unitesGet = async () => unites.query()
+const unitesGet = async () => unites.query().orderBy('ordre')
 
 const activitesTypesGet = async () =>
   ActivitesTypes.query().withGraphFetched(options.activitesTypes.graph)

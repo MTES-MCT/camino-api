@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 
 export default class AdministrationsTypes extends Model {
   public static tableName = 'administrationsTypes'
@@ -11,6 +11,12 @@ export default class AdministrationsTypes extends Model {
       id: { type: 'string', maxLength: 3 },
       nom: { type: ['string', 'null'], maxLength: 128 },
       ordre: { type: 'integer' }
+    }
+  }
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
     }
   }
 

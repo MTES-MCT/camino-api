@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 import Types from './types'
 
 export default class Domaines extends Model {
@@ -10,7 +10,8 @@ export default class Domaines extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 1 },
-      nom: { type: 'string' }
+      nom: { type: 'string' },
+      ordre: { type: 'integer' }
     }
   }
 
@@ -30,7 +31,14 @@ export default class Domaines extends Model {
     }
   }
 
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('ordre', 'asc')
+    }
+  }
+
   public id!: string
   public nom!: string
+  public ordre!: number
   public types!: Types
 }
