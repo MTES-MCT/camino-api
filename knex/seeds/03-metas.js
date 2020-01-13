@@ -24,26 +24,6 @@ const referencesTypes = require('../../sources/references-types.json')
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
-    del('domaines__types'),
-    del('demarchesTypes__types'),
-    del('demarchesTypes__etapesTypes'),
-    del('etapesTypes__etapesStatuts'),
-    del('statuts'),
-    del('geoSystemes'),
-    del('devises'),
-    del('unites'),
-    del('referencesTypes')
-  ])
-  await Promise.all([
-    del('phasesStatuts'),
-    del('demarchesTypes'),
-    del('etapesTypes'),
-    del('demarchesStatuts'),
-    del('etapesStatuts')
-  ])
-  await Promise.all([del('domaines'), del('types')])
-
-  await Promise.all([
     insert('domaines', domaines),
     insert('types', types),
     insert('statuts', statuts),

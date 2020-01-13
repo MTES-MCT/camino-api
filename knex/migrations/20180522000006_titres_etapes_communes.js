@@ -10,6 +10,7 @@ exports.up = knex =>
       .string('communeId', 8)
       .notNullable()
       .references('communes.id')
+    table.integer('surface')
     table.primary(['titreEtapeId', 'communeId'])
   })
 

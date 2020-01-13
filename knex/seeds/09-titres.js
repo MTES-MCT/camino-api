@@ -44,27 +44,6 @@ const data = files.reduce((d, file) => {
 }, {})
 
 exports.seed = seeding(async ({ del, insert }) => {
-  await Promise.all([
-    del('titresSubstances'),
-    del('titresPointsReferences'),
-    del('titresTitulaires'),
-    del('titresCommunes'),
-    del('titresAdministrationsGestionnaires'),
-    del('titresAdministrationsLocales'),
-    del('titresAmodiataires'),
-    del('titresIncertitudes'),
-    del('titresDocuments')
-  ])
-  await del('titresPoints')
-  await Promise.all([
-    del('titresEtapes'),
-    del('titresPhases'),
-    del('titresDemarchesLiens')
-  ])
-  await del('titresReferences')
-  await del('titresDemarches')
-  await del('titres')
-
   await insert('titres', data.titres)
   await insert('titresDemarches', data.titresDemarches)
   await insert('titresReferences', data.titresReferences)

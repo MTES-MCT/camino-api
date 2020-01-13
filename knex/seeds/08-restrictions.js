@@ -9,15 +9,6 @@ const restrictionsEtapesTypesAdministrations = require('../../sources/restrictio
 
 exports.seed = seeding(async ({ del, insert }) => {
   await Promise.all([
-    del('restrictions__domaines'),
-    del('restrictions__types__administrations'),
-    del('restrictions__types__statuts'),
-    del('restrictions__types__statuts__administrations'),
-    del('restrictions__etapesTypes'),
-    del('restrictions__etapesTypes__administrations')
-  ])
-
-  await Promise.all([
     insert('restrictions__domaines', restrictionsDomaines),
     insert(
       'restrictions__types__administrations',

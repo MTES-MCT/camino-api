@@ -18,12 +18,9 @@ findMissing(entreprises, entreprisesEtablissements, 'id', 'entreprise_id')
 findMissing(administrationsTypes, administrations, 'id', 'type_id')
 
 exports.seed = seeding(async ({ del, insert }) => {
-  await Promise.all([del('entreprisesEtablissements'), del('administrations')])
-  await del('entreprises')
-
   await Promise.all([
     insert('entreprises', entreprises),
-    insert('administrations_types', administrationsTypes)
+    insert('administrationsTypes', administrationsTypes)
   ])
   await insert('administrations', administrations)
   await insert('administrations__domaines', administrationsDomaines)
