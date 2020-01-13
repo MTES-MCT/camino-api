@@ -169,7 +169,7 @@ const titresGet = async (
           return res
         }, [])
       )
-      .leftjoinRelated(
+      .leftJoinRelated(
         '[titulaires.etablissements, amodiataires.etablissements]'
       )
   }
