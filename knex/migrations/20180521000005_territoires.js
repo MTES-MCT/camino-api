@@ -30,6 +30,7 @@ exports.up = knex => {
         .string('departementId', 3)
         .notNullable()
         .references('departements.id')
+      table.integer('surface')
     })
 }
 
