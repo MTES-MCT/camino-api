@@ -6,9 +6,9 @@ import {
 } from '../../database/queries/entreprises'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import fieldsBuild from './_fields-build'
-import graphBuild from './_graph-build'
-import titreGraphFormat from './_titre-graph-format'
+import graphFieldsBuild from './graph/fields-build'
+import graphBuild from './graph/build'
+import graphTitreFormat from './graph/titre-format'
 
 import { entrepriseFormat, entreprisesFormat } from './format/entreprise'
 
@@ -19,7 +19,11 @@ import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
 
 const entreprise = async ({ id }, context, info) => {
   try {
-    const graph = graphBuild(fieldsBuild(info), 'entreprise', titreGraphFormat)
+    const graph = graphBuild(
+      graphFieldsBuild(info),
+      'entreprise',
+      graphTitreFormat
+    )
     const entreprise = await entrepriseGet(id, { graph })
 
     const user = context.user && (await utilisateurGet(context.user.id))
@@ -43,7 +47,11 @@ const entreprises = async ({ noms }, context, info) => {
     const entreprises = await entreprisesGet(
       { noms },
       {
-        graph: graphBuild(fieldsBuild(info), 'entreprise', titreGraphFormat)
+        graph: graphBuild(
+          graphFieldsBuild(info),
+          'entreprise',
+          graphTitreFormat
+        )
       }
     )
 

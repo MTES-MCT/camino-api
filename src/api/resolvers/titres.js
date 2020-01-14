@@ -7,9 +7,9 @@ import {
   titreModificationPermissionAdministrationsCheck
 } from './permissions/titre'
 
-import fieldsBuild from './_fields-build'
-import graphBuild from './_graph-build'
-import titreGraphFormat from './_titre-graph-format'
+import graphFieldsBuild from './graph/fields-build'
+import graphBuild from './graph/build'
+import graphTitreFormat from './graph/titre-format'
 
 import {
   titreCreate,
@@ -27,9 +27,9 @@ import titreUpdationValidate from '../../business/titre-updation-validate'
 
 const titre = async ({ id }, context, info) => {
   try {
-    const fields = fieldsBuild(info)
+    const fields = graphFieldsBuild(info)
 
-    const graph = graphBuild(fields, 'titre', titreGraphFormat)
+    const graph = graphBuild(fields, 'titre', graphTitreFormat)
 
     const titreRes = await titreGet(id, { graph })
 
@@ -62,7 +62,7 @@ const titres = async (
   info
 ) => {
   try {
-    const fields = fieldsBuild(info)
+    const fields = graphFieldsBuild(info)
     const titres = await titresGet(
       {
         typeIds,
@@ -75,7 +75,7 @@ const titres = async (
         territoires
       },
       {
-        graph: graphBuild(fields, 'titres', titreGraphFormat)
+        graph: graphBuild(fields, 'titres', graphTitreFormat)
       }
     )
 

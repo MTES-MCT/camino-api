@@ -2,11 +2,14 @@ import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
 import { titreActiviteEmailsSend } from './_titre-activite'
 import { permissionsCheck } from './permissions/permissions-check'
-import { titrePermissionCheck } from './permissions/titre'
-import { titreActiviteFormat } from './format/titre'
-import fieldsBuild from './_fields-build'
-import graphBuild from './_graph-build'
-import titreGraphFormat from './_titre-graph-format'
+import {
+  titrePermissionCheck,
+  titreActivitePermissionCheck
+} from './permissions/titre'
+import { titreActiviteFormat } from './format/titre-activites'
+import graphFieldsBuild from './graph/fields-build'
+import graphBuild from './graph/build'
+import graphTitreFormat from './graph/titre-format'
 
 import {
   titreActiviteGet,
@@ -27,15 +30,22 @@ import titreActiviteUpdationValidate from '../../business/titre-activite-updatio
 const activite = async ({ id }, context, info) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
-    if (!permissionsCheck(user, ['super'])) {
-      throw new Error("droits insuffisants pour effectuer l'opération")
-    }
 
-    const fields = fieldsBuild(info)
+    const fields = graphFieldsBuild(info)
 
-    const graph = graphBuild(fields, 'titre', titreGraphFormat)
+    // TODO:
+    // créer titreActiviteGraphFormat
+    // pour vérifier que fields contient bien titre && titre.titulaires && titre.amodiataires,
+    // sinon l'ajouter
+    // car c'est nécessaire dans titreActivitePermissionCheck
+
+    const graph = graphBuild(fields, 'titre', graphTitreFormat)
 
     const activite = await titreActiviteGet(id, { graph })
+
+    if (!titreActivitePermissionCheck(user, activite.titre, activite)) {
+      throw new Error("droits insuffisants pour effectuer l'opération")
+    }
 
     return activite && titreActiviteFormat(activite)
   } catch (e) {
@@ -50,17 +60,25 @@ const activite = async ({ id }, context, info) => {
 const activites = async ({ typeId, annee }, context, info) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
-    if (!permissionsCheck(user, ['super'])) {
-      throw new Error("droits insuffisants pour effectuer l'opération")
-    }
 
-    const fields = fieldsBuild(info)
+    const fields = graphFieldsBuild(info)
 
-    const graph = graphBuild(fields, 'titre', titreGraphFormat)
+    // TODO: utiliser titreActiviteGraphFormat
+    const graph = graphBuild(fields, 'titre', graphTitreFormat)
 
     const activites = await titresActivitesGet({ typeId, annee }, { graph })
 
-    return activites && activites.map(activite => titreActiviteFormat(activite))
+    return (
+      activites &&
+      activites.length &&
+      activites.reduce((res, activite) => {
+        if (titreActivitePermissionCheck(user, activite.titre, activite)) {
+          res.push(titreActiviteFormat(activite))
+        }
+
+        return res
+      }, [])
+    )
   } catch (e) {
     if (debug) {
       console.error(e)

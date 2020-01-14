@@ -1,4 +1,5 @@
 import { Model } from 'objection'
+import Administrations from './administrations'
 import Frequences from './frequences'
 import Pays from './pays'
 import Types from './types'
@@ -69,6 +70,19 @@ export default class ActivitesTypes extends Model {
         from: 'activitesTypes.frequenceId',
         to: 'frequences.id'
       }
+    },
+
+    administrations: {
+      relation: Model.ManyToManyRelation,
+      modelClass: Administrations,
+      join: {
+        from: 'activitesTypes.id',
+        through: {
+          from: 'activitesTypes__administrations.activiteTypeId',
+          to: 'activitesTypes__administrations.administrationId'
+        },
+        to: 'administrations.id'
+      }
     }
   }
 
@@ -79,4 +93,5 @@ export default class ActivitesTypes extends Model {
   public types?: Types[]
   public pays?: Pays[]
   public frequence!: Frequences
+  public administrations?: Administrations
 }

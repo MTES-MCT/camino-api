@@ -2,8 +2,8 @@ import { debug } from '../../config/index'
 
 import restrictions from './_restrictions'
 
-import fieldsBuild from './_fields-build'
-import graphBuild from './_graph-build'
+import graphFieldsBuild from './graph/fields-build'
+import graphBuild from './graph/build'
 
 import {
   documentsTypesGet,
@@ -116,7 +116,7 @@ const utilisateurDomaines = async (variables, context, info) => {
 
 const types = async (variables, context, info) => {
   try {
-    const fields = fieldsBuild(info)
+    const fields = graphFieldsBuild(info)
     const typesGraph = graphBuild(fields, 'types')
     const types = await typesGet({ graph: typesGraph })
 
@@ -172,9 +172,8 @@ const activitesTypes = async (variables, context, info) => {
   try {
     const activitesTypes = await activitesTypesGet()
 
-    if (!permissionsCheck(context.user, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
+    // TODO
+    // ne retourner que les types d'activités auquel l'utilisateur à accès
 
     return activitesTypes
   } catch (e) {

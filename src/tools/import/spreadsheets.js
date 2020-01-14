@@ -187,7 +187,8 @@ const spreadsheets = [
       { name: 'activites_types', cb: { sections: JSON.parse } },
       { name: 'activites_statuts' },
       { name: 'activites_types__types' },
-      { name: 'activites_types__pays' }
+      { name: 'activites_types__pays' },
+      { name: 'activites_types__administrations' }
     ]
   },
   {

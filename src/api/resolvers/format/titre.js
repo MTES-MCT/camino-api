@@ -8,21 +8,24 @@ import { dupRemove } from '../../../tools/index'
 import metas from '../_metas'
 
 import restrictions from '../_restrictions'
-
-import {
-  permissionsCheck,
-  permissionsAdministrationsCheck
-} from '../permissions/permissions-check'
+import { permissionsCheck } from '../permissions/permissions-check'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
-  titreEntreprisePermissionCheck,
-  titreModificationPermissionAdministrationsCheck
+  titreModificationPermissionAdministrationsCheck,
+  titreActivitePermissionCheck
 } from '../permissions/titre'
+
 import { titreEtapeModificationPermissionAdministrationsCheck } from '../permissions/titre-etape'
 
 import { administrationsFormat } from './administration'
 import { entreprisesFormat } from './entreprise'
+
+import {
+  titreActiviteFormatFields,
+  titreActiviteFormat,
+  titreActiviteCalc
+} from './titre-activites'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: true,
@@ -33,11 +36,6 @@ const titreEtapeFormatFields = {
 
 const titreDemarcheFormatFields = {
   etapes: titreEtapeFormatFields
-}
-
-const titreActiviteFormatFields = {
-  periode: true,
-  sections: true
 }
 
 const titreFormatFields = {
@@ -135,6 +133,10 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     'editeur'
   ])
 
+  if (!titreIsPublic && !userHasPermission) {
+    return null
+  }
+
   const isSuper = permissionsCheck(user, ['super'])
   const isAdmin = permissionsCheck(user, ['admin'])
 
@@ -142,35 +144,6 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     t.editable =
       isSuper || titreModificationPermissionAdministrationsCheck(t, user)
     t.supprimable = isSuper
-  }
-
-  if (!titreIsPublic && !userHasPermission) {
-    return null
-  }
-
-  // si
-  // - l'utilisateur est super
-  // - ou l'utilisateur est rattaché à la DGALN ou à la DEAL de Guyane,
-  // - ou l'utilisateur editeur est rattaché à la préfecture de Guyane,
-  // - ou l'utilisateur est titulaire du titre
-  // alors
-  // - les activités sont inaccessibles
-
-  const userHasAccessToActivites =
-    isSuper ||
-    permissionsAdministrationsCheck(user, [
-      'min-mtes-dgaln-01',
-      'dea-guyane-01'
-    ]) ||
-    (permissionsAdministrationsCheck(user, ['prefecture-97302-01']) &&
-      permissionsCheck(user, ['editeur'])) ||
-    titreEntreprisePermissionCheck(t, user)
-
-  if (!userHasAccessToActivites) {
-    t.activites = []
-    t.activitesAbsentes = null
-    t.activitesDeposees = null
-    t.activitesEnConstruction = null
   }
 
   if (!fields) return t
@@ -210,9 +183,17 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   }
 
   if (fields.activites && t.activites && t.activites.length) {
-    t.activites = t.activites.map(titreActivite =>
-      titreActiviteFormat(titreActivite, fields.activites)
-    )
+    t.activites = t.activites.reduce((acc, ta) => {
+      if (titreActivitePermissionCheck(user, t, ta)) {
+        acc.push(titreActiviteFormat(ta, fields.activites))
+      }
+
+      return acc
+    }, [])
+
+    t.activitesAbsentes = titreActiviteCalc(t.activites, 'abs')
+    t.activitesDeposees = titreActiviteCalc(t.activites, 'dep')
+    t.activitesEnConstruction = titreActiviteCalc(t.activites, 'enc')
   }
 
   if (fields.administrations) {
@@ -305,43 +286,6 @@ const titreDemarcheFormat = (
   return td
 }
 
-// - ne conserve que les sections qui contiennent des élements
-const titreSectionsFormat = tea =>
-  tea.type.sections.reduce((sections, s) => {
-    const elements = s.elements.reduce((elements, e) => {
-      // ne conserve que les éléments dont
-      // - la période (si elle existe),
-      // - la date de début et la date de fin
-      // correspondent à l'activité
-      if (
-        (!e.frequencePeriodesIds ||
-          e.frequencePeriodesIds.find(
-            id => tea.periode && tea.periode.id === id
-          )) &&
-        (!e.dateFin || e.dateFin >= tea.date) &&
-        (!e.dateDebut || e.dateDebut < tea.date)
-      ) {
-        elements.push(e)
-      }
-
-      return elements
-    }, [])
-
-    const section = {
-      id: s.id,
-      nom: s.nom,
-      type: s.type,
-      description: s.description,
-      elements
-    }
-
-    if (section.elements.length) {
-      sections.push(section)
-    }
-
-    return sections
-  }, [])
-
 const titreEtapeFormat = (
   te,
   td,
@@ -398,30 +342,4 @@ const titreEtapeFormat = (
   return te
 }
 
-const titreActiviteFormat = (ta, fields = titreActiviteFormatFields) => {
-  // si
-  // - le formatage de la période est requis
-  // - l'activité a une périodicité
-  // - le type d'activité a une fréquence qui contient un tableau de périodes
-  // alors la période de l'activité en cours est définie
-  if (
-    fields.periode &&
-    ta.frequencePeriodeId &&
-    ta.type.frequence &&
-    ta.type.frequence[ta.type.frequence.periodesNom] &&
-    ta.type.frequence[ta.type.frequence.periodesNom].length
-  ) {
-    ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
-      p => p.id === ta.frequencePeriodeId
-    )
-  }
-
-  if (fields.sections && ta.type.sections) {
-    // - les sections qui contiennent des élements sur cette activité
-    ta.sections = titreSectionsFormat(ta)
-  }
-
-  return ta
-}
-
-export { titreFormat, titresFormat, titreActiviteFormat, demarcheTypeFormat }
+export { titreFormat, titresFormat, demarcheTypeFormat }
