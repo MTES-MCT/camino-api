@@ -4,7 +4,7 @@ import options from './_options'
 
 const titreActiviteGet = async (
   id,
-  { graph = options.titresActivites.graph }
+  { graph = options.titresActivites.graph } = {}
 ) =>
   TitreActivites.query()
     .withGraphFetched(graph)
