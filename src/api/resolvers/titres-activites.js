@@ -1,7 +1,10 @@
 import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
 import { titreActiviteEmailsSend } from './_titre-activite'
-import { permissionsCheck } from './permissions/permissions-check'
+import {
+  permissionsCheck,
+  permissionsAdministrationsCheck
+} from './permissions/permissions-check'
 import { titrePermissionCheck } from './permissions/titre'
 import { titreActiviteFormat } from './format/titre'
 import fieldsBuild from './_fields-build'
@@ -50,8 +53,22 @@ const activite = async ({ id }, context, info) => {
 const activites = async ({ typeId, annee }, context, info) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
-    if (!permissionsCheck(user, ['super'])) {
+    if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error("droits insuffisants pour effectuer l'opération")
+    }
+
+    const userHasAccessToActivites =
+      permissionsCheck(user, ['super']) ||
+      (permissionsCheck(user, ['admin', 'editeur']) &&
+        (permissionsAdministrationsCheck(user, [
+          'min-mtes-dgaln-01',
+          'dea-guyane-01'
+        ]) ||
+          (permissionsAdministrationsCheck(user, ['prefecture-97302-01']) &&
+            permissionsCheck(user, ['editeur']))))
+
+    if (!userHasAccessToActivites) {
+      annee = '0000'
     }
 
     const fields = fieldsBuild(info)
