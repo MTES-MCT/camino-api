@@ -57,7 +57,7 @@ const geoSystemeGet = async (id: string) =>
     .findById(id)
     .withGraphFetched(options.geoSystemes.graph)
 
-const unitesGet = async () => unites.query().orderBy('ordre')
+const unitesGet = async () => unites.query()
 
 const activitesTypesGet = async () =>
   ActivitesTypes.query().withGraphFetched(options.activitesTypes.graph)

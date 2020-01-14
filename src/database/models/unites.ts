@@ -10,19 +10,11 @@ export default class Unites extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      symbole: { type: 'string' },
-      ordre: { type: 'integer' }
-    }
-  }
-
-  public static modifiers: Modifiers = {
-    orderAsc: builder => {
-      builder.orderBy('ordre', 'asc')
+      symbole: { type: 'string' }
     }
   }
 
   public id!: string
   public nom!: string
   public symbole!: string
-  public ordre!: number
 }
