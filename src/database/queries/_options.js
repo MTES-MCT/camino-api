@@ -148,7 +148,7 @@ const demarches = {
 }
 
 const activitesTypes = {
-  graph: `[pays, frequence.[mois, trimestres.mois, annees], types]`
+  graph: `[pays, frequence.[mois, trimestres.mois, annees], types, administrations]`
 }
 
 const titresActivites = {
