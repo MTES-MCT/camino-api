@@ -34,7 +34,7 @@ const fieldsToArray = (fields, format) => {
 // - format: (function)
 // out: string "[cle1, cle2.[cle3, cle4]]"
 const fieldsToString = (fields, parent, format) => {
-  const fieldsArray = fieldsToArray(format(fields, parent), format, parent)
+  const fieldsArray = fieldsToArray(format(fields, parent), format)
 
   return fieldsArray.length > 1
     ? `[${fieldsArray.join(', ')}]`

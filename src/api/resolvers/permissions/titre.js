@@ -141,16 +141,16 @@ const titreEditionPermissionAdministrationsCheck = (
   return permissionsAdministrationsCheck(user, titreEditionAdministrationsIds)
 }
 
-const titreActivitePermissionAdministrationCheck = (user, ta) =>
+const titreActivitePermissionAdministrationCheck = (user, titreActiviteType) =>
   permissionsCheck(user, ['admin', 'editeur']) &&
   permissionsAdministrationsCheck(
     user,
-    ta.administrations.map(id => id)
+    titreActiviteType.administrations.map(({ id }) => id)
   )
 
 const titreActivitePermissionCheck = (user, titre, titreActivite) =>
   permissionsCheck(user, ['super']) ||
-  titreActivitePermissionAdministrationCheck(user, titreActivite) ||
+  titreActivitePermissionAdministrationCheck(user, titreActivite.type) ||
   titreEntreprisePermissionCheck(user, titre)
 
 const titreCreationPermissionAdministrationsCheck = (...args) =>

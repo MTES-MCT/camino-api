@@ -1,9 +1,9 @@
 const fieldsOrderDesc = ['etablissements', 'demarches', 'etapes', 'activites']
 const fieldsOrderAsc = ['points', 'substances', 'references']
 const fieldsToRemove = ['coordonnees']
-const fieldsToRemoveRoot = []
-const fieldsGeoToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
-const fieldsPropsEtapes = ['surface', 'volume', 'engagement']
+const titreFieldsToRemove = []
+const geoFieldsToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
+const titrePropsEtapesFields = ['surface', 'volume', 'engagement']
 
 const graphTitreAdministrationsFormat = (fields, type) => {
   if (!fields.administrations) return
@@ -21,7 +21,7 @@ const graphTitreAdministrationsFormat = (fields, type) => {
 }
 
 // ajoute des propriétés requises par /database/queries/_format
-const graphTitreFormat = (fields, parent) => {
+const graphFormat = (fields, parent) => {
   if (fields.administrations) {
     if (
       ['titres', 'titre', 'titresAmodiataire', 'titresTitulaire'].includes(
@@ -53,7 +53,7 @@ const graphTitreFormat = (fields, parent) => {
   // si `geojsonPoints` ou `geojsonMultiPolygon` sont présentes
   // - ajoute la propriété `points`
   // - supprime les propriété `geojsonPoints` ou `geojsonMultiPolygon`
-  fieldsGeoToReplace.forEach(key => {
+  geoFieldsToReplace.forEach(key => {
     if (fields[key]) {
       if (!fields.points) {
         fields.points = { id: {} }
@@ -95,7 +95,7 @@ const graphTitreFormat = (fields, parent) => {
     fields.$modifier = 'orderAsc'
   }
 
-  // à la racine de l'objet
+  // sur les titres
   if (
     parent === 'titres' ||
     parent === 'titre' ||
@@ -104,7 +104,7 @@ const graphTitreFormat = (fields, parent) => {
   ) {
     // si les propriétés `surface`, `volume` ou `engagement` sont présentes
     // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
-    fieldsPropsEtapes.forEach(key => {
+    titrePropsEtapesFields.forEach(key => {
       if (fields[key]) {
         fields[`${key}Etape`] = { id: {} }
 
@@ -113,14 +113,36 @@ const graphTitreFormat = (fields, parent) => {
     })
 
     // supprime certaines propriétés
-    fieldsToRemoveRoot.forEach(key => {
+    titreFieldsToRemove.forEach(key => {
       if (fields[key]) {
         delete fields[key]
       }
     })
   }
 
+  if (parent === 'activites' || parent === 'activite') {
+    if (!fields.type) {
+      fields.type = { id: {} }
+    }
+
+    if (!fields.type.administrations) {
+      fields.type.administrations = { id: {} }
+    }
+
+    if (!fields.titre) {
+      fields.titre = { id: {} }
+    }
+
+    if (!fields.titre.titulaires) {
+      fields.titre.titulaires = { id: {} }
+    }
+
+    if (!fields.titre.amodiataires) {
+      fields.titre.amodiataires = { id: {} }
+    }
+  }
+
   return fields
 }
 
-export default graphTitreFormat
+export default graphFormat

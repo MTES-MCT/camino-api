@@ -9,7 +9,7 @@ import {
 import { titreActiviteFormat } from './format/titre-activites'
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
-import graphTitreFormat from './graph/titre-format'
+import graphFormat from './graph/format'
 
 import {
   titreActiviteGet,
@@ -33,13 +33,7 @@ const activite = async ({ id }, context, info) => {
 
     const fields = graphFieldsBuild(info)
 
-    // TODO:
-    // créer titreActiviteGraphFormat
-    // pour vérifier que fields contient bien titre && titre.titulaires && titre.amodiataires,
-    // sinon l'ajouter
-    // car c'est nécessaire dans titreActivitePermissionCheck
-
-    const graph = graphBuild(fields, 'titre', graphTitreFormat)
+    const graph = graphBuild(fields, 'activite', graphFormat)
 
     const activite = await titreActiviteGet(id, { graph })
 
@@ -63,8 +57,7 @@ const activites = async ({ typeId, annee }, context, info) => {
 
     const fields = graphFieldsBuild(info)
 
-    // TODO: utiliser titreActiviteGraphFormat
-    const graph = graphBuild(fields, 'titre', graphTitreFormat)
+    const graph = graphBuild(fields, 'activites', graphFormat)
 
     const activites = await titresActivitesGet({ typeId, annee }, { graph })
 

@@ -9,7 +9,7 @@ import {
 
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
-import graphTitreFormat from './graph/titre-format'
+import graphFormat from './graph/format'
 
 import {
   titreCreate,
@@ -29,7 +29,7 @@ const titre = async ({ id }, context, info) => {
   try {
     const fields = graphFieldsBuild(info)
 
-    const graph = graphBuild(fields, 'titre', graphTitreFormat)
+    const graph = graphBuild(fields, 'titre', graphFormat)
 
     const titreRes = await titreGet(id, { graph })
 
@@ -75,7 +75,7 @@ const titres = async (
         territoires
       },
       {
-        graph: graphBuild(fields, 'titres', graphTitreFormat)
+        graph: graphBuild(fields, 'titres', graphFormat)
       }
     )
 
