@@ -1,13 +1,14 @@
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
-const titreDemarcheOctroiDateDebutFind = titre => {
-  if (!titre.demarches || !titre.demarches.length) return '0000'
+const titreDemarcheOctroiDateDebutFind = titreDemarches => {
+  if (!titreDemarches || !titreDemarches.length) return '0000'
 
   // récupère la démarche d'octroi (naturelle ou virtuelle)
-  const demarcheOctroi = titreDemarchesAscSort(titre.demarches).find(d =>
-    ['oct', 'vut'].includes(d.typeId)
-  )
+  const demarcheOctroi = titreDemarchesAscSort(
+    titreDemarches
+  ).find(({ typeId }) => ['oct', 'vut'].includes(typeId))
+
   if (
     !demarcheOctroi ||
     !demarcheOctroi.etapes ||
@@ -22,10 +23,10 @@ const titreDemarcheOctroiDateDebutFind = titre => {
   // récupère l'étape la plus importante de l'octroi en premier
   const etapeOctroi =
     etapes.find(
-      e =>
-        (['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(e.typeId) &&
+      ({ typeId }) =>
+        (['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(typeId) &&
           demarcheOctroi.statutId === 'acc') ||
-        e.typeId === 'mfr'
+        typeId === 'mfr'
     ) ||
     // sinon utilise la première étape (chronologique) de l'octroi
     etapes[etapes.length - 1]

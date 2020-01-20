@@ -1,23 +1,11 @@
-import slugify from '@sindresorhus/slugify'
-import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
-import elementRelationsUpdate from './element-relations-update'
+import idsUpdate from './ids-update'
 import titreDemarchesAscSort from './titre-demarches-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
 import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
 
-const titrePropsEtapesNames = titrePropsEtapes.map(p => p.propName)
+const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)
 
-const titreIdUpdate = titre => {
-  const { domaineId, typeId, nom } = titre
-
-  const demarcheOctroiDateDebut = titreDemarcheOctroiDateDebutFind(titre)
-
-  return slugify(
-    `${domaineId}-${typeId}-${nom}-${demarcheOctroiDateDebut.slice(0, 4)}`
-  )
-}
-
-const titreDemarcheIdUpdate = (titreDemarche, titre) => {
+const titreDemarcheIdFind = (titreDemarche, titre) => {
   const titreDemarcheTypeOrder =
     titreDemarchesAscSort(
       titre.demarches.filter(d => d.typeId === titreDemarche.typeId)
@@ -28,7 +16,7 @@ const titreDemarcheIdUpdate = (titreDemarche, titre) => {
   }${titreDemarcheTypeOrder.toString().padStart(2, '0')}`
 }
 
-const titreEtapeIdUpdate = (titreEtape, titreDemarche) => {
+const titreEtapeIdFind = (titreEtape, titreDemarche) => {
   const titreEtapeTypeOrder =
     titreEtapesAscSort(
       titreDemarche.etapes.filter(e => e.typeId === titreEtape.typeId)
@@ -39,99 +27,71 @@ const titreEtapeIdUpdate = (titreEtape, titreDemarche) => {
   }${titreEtapeTypeOrder.toString().padStart(2, '0')}`
 }
 
-const titreRelations = {
-  idUpdate: titreIdUpdate,
-  links: [
+const titreRelation = {
+  name: 'titre',
+  relations: [
     {
-      path: 'demarches',
-      props: ['titreId']
+      name: 'demarches',
+      props: ['titreId'],
+      idFind: titreDemarcheIdFind,
+      relations: [
+        {
+          name: 'etapes',
+          props: ['titreDemarcheId'],
+          idFind: titreEtapeIdFind,
+          relations: [
+            {
+              name: 'titre',
+              props: titrePropsEtapesNames,
+              path: []
+            },
+            {
+              name: 'points',
+              props: ['id', 'titreEtapeId'],
+              relations: [
+                {
+                  name: 'references',
+                  props: ['id', 'titrePointId']
+                }
+              ]
+            },
+            {
+              name: 'documents',
+              props: ['id', 'titreEtapeId']
+            },
+            {
+              name: 'incertitudes',
+              props: ['id', 'titreEtapeId']
+            }
+          ]
+        },
+        {
+          name: 'phase',
+          props: ['titreDemarcheId']
+        },
+        {
+          name: 'demarches',
+          props: ['annulationTitreDemarcheId'],
+          path: ['titre']
+        }
+      ]
     },
     {
-      path: 'activites',
+      name: 'activites',
       props: ['id', 'titreId']
     }
   ]
 }
 
-const titreDemarcheRelations = {
-  idUpdate: titreDemarcheIdUpdate,
-  links: [
-    {
-      path: 'etapes',
-      props: ['titreDemarcheId']
-    },
-    {
-      path: 'phase',
-      props: ['titreDemarcheId']
-    },
-    {
-      path: '/titre/demarches',
-      props: ['annulationTitreDemarcheId']
-    }
-  ]
-}
+const titreIdAndRelationsUpdate = (titreOld, titreIdFind) => {
+  const titreRelationNew = { ...titreRelation, idFind: titreIdFind }
 
-const titreEtapeRelations = {
-  idUpdate: titreEtapeIdUpdate,
-  links: [
-    {
-      path: '/titre',
-      props: titrePropsEtapesNames
-    },
-    {
-      path: 'points',
-      props: ['id', 'titreEtapeId'],
-      links: [
-        {
-          path: 'references',
-          props: ['id', 'titrePointId']
-        }
-      ]
-    },
-    {
-      path: 'documents',
-      props: ['id', 'titreEtapeId']
-    },
-    {
-      path: 'incertitudes',
-      props: ['id', 'titreEtapeId']
-    }
-  ]
-}
+  const titre = JSON.parse(JSON.stringify(titreOld))
 
-const titreIdAndRelationsUpdate = titreOld => {
-  const titreNew = { ...titreOld }
+  // met à jour les ids
+  idsUpdate(titre, titreRelationNew, { titre })
 
-  // met à jour l'id du titre et ses relations
-  let hasChanged = elementRelationsUpdate(titreNew, titreRelations, {
-    titre: titreNew
-  })
-
-  titreNew.demarches.forEach(titreDemarche => {
-    // met à jour l'id de la démarche du titre et ses relations
-    hasChanged =
-      elementRelationsUpdate(
-        titreDemarche,
-        titreDemarcheRelations,
-        { titre: titreNew },
-        titreNew
-      ) || hasChanged
-
-    // met à jour l'id de l'étape de la démarche et ses relations
-    titreDemarche.etapes &&
-      titreDemarche.etapes.forEach(
-        titreEtape =>
-          (hasChanged =
-            elementRelationsUpdate(
-              titreEtape,
-              titreEtapeRelations,
-              { titre: titreNew },
-              titreDemarche
-            ) || hasChanged)
-      )
-  })
-
-  return { titreNew, hasChanged }
+  return titre
 }
 
 export default titreIdAndRelationsUpdate

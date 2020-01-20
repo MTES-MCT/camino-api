@@ -8,26 +8,20 @@ jest.mock('../utils/titre-id-and-relations-update', () => ({
 }))
 
 jest.mock('../../database/queries/titres', () => ({
-  titreIdUpdate: jest.fn().mockResolvedValue()
+  titreIdUpdate: jest.fn().mockResolvedValue(),
+  titreGet: jest.fn().mockResolvedValue()
 }))
 
 console.log = jest.fn()
 console.error = jest.fn()
 
-describe("id d'un titre", () => {
+describe("mise à jour de l'id d'un titre", () => {
   test('met à jour le titre si un id a changé', async () => {
     const id = 'id-new'
 
-    titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id
-      },
-      hasChanged: true
-    }))
+    titreIdAndRelationsUpdate.default.mockImplementation(() => ({ id }))
 
-    const titresUpdated = await titreIdsUpdate({
-      id: 'id-old'
-    })
+    const titresUpdated = await titreIdsUpdate({ id: 'id-old' })
 
     expect(titresUpdated.id).toEqual(id)
 
@@ -40,11 +34,8 @@ describe("id d'un titre", () => {
     const id = 'id-new'
 
     titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id,
-        activites: [1]
-      },
-      hasChanged: true
+      id,
+      activites: [1]
     }))
 
     const titresUpdated = await titreIdsUpdate({
@@ -61,16 +52,9 @@ describe("id d'un titre", () => {
   test("ne met pas à jour le titre si aucun id n'a changé", async () => {
     const id = 'id-old'
 
-    titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id
-      },
-      hasChanged: false
-    }))
+    titreIdAndRelationsUpdate.default.mockImplementation(() => null)
 
-    const titresUpdated = await titreIdsUpdate({
-      id
-    })
+    const titresUpdated = await titreIdsUpdate({ id })
 
     expect(titresUpdated).toBeNull()
 
@@ -85,11 +69,8 @@ describe('id de plusieurs titres', () => {
     const id = 'id-new'
 
     titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id,
-        activites: [1]
-      },
-      hasChanged: true
+      id,
+      activites: [1]
     }))
 
     const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
@@ -112,15 +93,8 @@ describe('id de plusieurs titres', () => {
     const id = 'id-new'
 
     titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id,
-        demarches: [
-          {
-            id: 'id-new'
-          }
-        ]
-      },
-      hasChanged: true
+      id,
+      demarches: [{ id: 'id-new' }]
     }))
 
     const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
@@ -142,49 +116,13 @@ describe('id de plusieurs titres', () => {
     expect(console.log).toHaveBeenCalled()
   })
 
-  test('retourne une erreur si la base de données retourne une erreur', async () => {
-    const id = 'id-new'
-
-    titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id,
-        activites: [1]
-      },
-      hasChanged: true
-    }))
-    titresQueries.titreIdUpdate.mockRejectedValue(new Error('bim !'))
-
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
-      {
-        id: 'id-old'
-      }
-    ])
-
-    expect(titresUpdated.length).toEqual(0)
-    expect(titresUpdatedIdsIndex).toEqual({
-      'id-new': 'id-old'
-    })
-
-    expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
-    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
-    expect(console.error).toHaveBeenCalledTimes(2)
-  })
-
   test("ne met à jour aucun titre si aucun id n'a changé", async () => {
     const id = 'id-old'
 
-    titreIdAndRelationsUpdate.default.mockImplementation(() => ({
-      titreNew: {
-        id
-      },
-      hasChanged: false
-    }))
+    titreIdAndRelationsUpdate.default.mockImplementation(() => null)
 
     const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
-      {
-        id
-      }
+      { id }
     ])
 
     expect(titresUpdated.length).toEqual(0)
@@ -193,5 +131,75 @@ describe('id de plusieurs titres', () => {
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
+  })
+
+  test("ajoute un hash dans l'id si le titre est en doublon", async () => {
+    const id = 'id-old'
+
+    titreIdAndRelationsUpdate.default.mockImplementationOnce(() => ({
+      id: 'id-new'
+    }))
+    titresQueries.titreGet.mockImplementation(() => ({ id: 'id-new' }))
+    titreIdAndRelationsUpdate.default.mockImplementationOnce(() => ({
+      id: 'id-new-hash',
+      doublonTitreId: 'id-new'
+    }))
+
+    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+      { id }
+    ])
+
+    expect(titresUpdated).toEqual([
+      { doublonTitreId: 'id-new', id: 'id-new-hash' }
+    ])
+    expect(titresUpdatedIdsIndex).toEqual({ 'id-new-hash': 'id-old' })
+
+    expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalledTimes(1)
+  })
+
+  test("utilise un hash déjà existant dans l'id si le titre est en doublon", async () => {
+    titreIdAndRelationsUpdate.default.mockImplementationOnce(() => ({
+      id: 'id-old',
+      doublonTitreId: 'id-old'
+    }))
+    titresQueries.titreGet.mockImplementation(() => ({ id: 'id-old' }))
+    titreIdAndRelationsUpdate.default.mockImplementationOnce(() => ({
+      id: 'id-old-hashhash',
+      doublonTitreId: 'id-old'
+    }))
+
+    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+      { id: 'id-old-hashhash', doublonTitreId: 'id-old' }
+    ])
+
+    expect(titresUpdated).toEqual([
+      { id: 'id-old-hashhash', doublonTitreId: 'id-old' }
+    ])
+    expect(titresUpdatedIdsIndex).toEqual({})
+
+    expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
+    expect(console.log).toHaveBeenCalledTimes(1)
+  })
+
+  test('retourne une erreur si la base de données retourne une erreur', async () => {
+    const id = 'id-new'
+
+    titreIdAndRelationsUpdate.default.mockImplementation(() => ({ id }))
+    titresQueries.titreIdUpdate.mockRejectedValue(new Error('bim !'))
+
+    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+      { id: 'id-old' }
+    ])
+
+    expect(titresUpdated.length).toEqual(0)
+    expect(titresUpdatedIdsIndex).toEqual({})
+
+    expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
+    expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
+    expect(console.log).not.toHaveBeenCalled()
+    expect(console.error).toHaveBeenCalledTimes(2)
   })
 })

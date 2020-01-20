@@ -271,19 +271,12 @@ const titreAdministrationGestionnaireDelete = async (
     .where('titreId', titreId)
     .andWhere('administrationId', administrationId)
 
-const titreIdUpdate = async (titreOldId, titreNew) => {
+const titreIdUpdate = async (titreOldId, titre) => {
   const knex = Titres.knex()
 
   return transaction(knex, async tr => {
-    if (
-      titreOldId !== titreNew.id &&
-      (await titreGet(titreNew.id, { graph: null }, tr))
-    ) {
-      throw new Error(`un titre avec l'id ${titreNew.id} existe déjà`)
-    }
-
     await titreDelete(titreOldId, tr)
-    await titreUpsert(titreNew, tr)
+    await titreUpsert(titre, tr)
   })
 }
 

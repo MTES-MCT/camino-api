@@ -25,6 +25,7 @@ exports.up = knex => {
     table.string('communesTitreEtapeId', 128)
     table.string('engagementTitreEtapeId', 128)
     table.string('engagementDeviseIdTitreEtapeId', 128)
+    table.string('doublonTitreId', 128)
   })
 }
 

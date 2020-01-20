@@ -1,69 +1,107 @@
 import PQueue from 'p-queue'
+import * as cryptoRandomString from 'crypto-random-string'
+import * as slugify from '@sindresorhus/slugify'
 
-import { titreIdUpdate as titreIdUpdateQuery } from '../../database/queries/titres'
+import {
+  titreIdUpdate as titreIdUpdateQuery,
+  titreGet
+} from '../../database/queries/titres'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
+import titreIdFind from '../utils/titre-id-find'
 
-const titreIdUpdate = async (titreOld, titreNew) => {
-  await titreIdUpdateQuery(titreOld.id, titreNew)
+const titreIdHashAdd = hash => titre => slugify(`${titreIdFind(titre)}-${hash}`)
 
-  console.log(`mise à jour: titre ids: ${titreNew.id}`)
+const titreIdCheck = async (titreOldId, titre) => {
+  if (titreOldId !== titre.id) {
+    const titreWithTheSameId = await titreGet(titre.id, { graph: null })
 
-  return titreNew
+    if (titreWithTheSameId) {
+      const hash = titre.doublonTitreId
+        ? titreOldId.slice(-8)
+        : cryptoRandomString({ length: 8 })
+
+      titre.doublonTitreId = titre.id
+      titre = titreIdAndRelationsUpdate(titre, titreIdHashAdd(hash))
+    } else {
+      titre.doublonTitreId = null
+    }
+  }
+
+  return titre
+}
+
+const titreIdUpdate = async (titreOldId, titre) => {
+  titre = await titreIdCheck(titreOldId, titre)
+
+  await titreIdUpdateQuery(titreOldId, titre)
+
+  // TODO
+  // mettre à jour les documents ici
+
+  console.log(`mise à jour: titre ids: ${titre.id}`)
+
+  return titre
 }
 
 const titreIdsUpdate = async titreOld => {
-  const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
+  const titre = titreIdAndRelationsUpdate(titreOld, titreIdFind)
 
-  if (!hasChanged) {
-    return null
-  }
-
-  return titreIdUpdate(titreOld, titreNew)
+  return titre && titreIdUpdate(titreOld.id, titre)
 }
 
 const titresIdsUpdate = async titresOld => {
-  // attention : les transactions ne peuvent pas être exécutées en parallèle
+  // attention
+  // les transactions `titreIdUpdateQuery` ne peuvent pas être exécutées en parallèle
+  // donc on limite la concurrence à 1
   const queue = new PQueue({ concurrency: 1 })
 
-  // async reduce pour traiter les titres les uns après les autres
-  const { titresUpdated, titresUpdatedIdsIndex } = titresOld.reduce(
-    ({ titresUpdated, titresUpdatedIdsIndex }, titreOld) => {
-      const { titreNew, hasChanged } = titreIdAndRelationsUpdate(titreOld)
+  const queueElements = titresOld.reduce((queueElements, titreOld) => {
+    const titre = titreIdAndRelationsUpdate(titreOld, titreIdFind)
 
-      if (hasChanged) {
-        if (titreNew.id !== titreOld.id) {
-          titresUpdatedIdsIndex[titreNew.id] = titreOld.id
+    if (titre) {
+      queueElements.push(async () => {
+        try {
+          const titreUpdated = await titreIdUpdate(titreOld.id, titre)
+          const titreUpdatedIdsIndex =
+            titreUpdated.id !== titreOld.id
+              ? { [titreUpdated.id]: titreOld.id }
+              : null
+
+          return { titreUpdatedIdsIndex, titreUpdated }
+        } catch (e) {
+          console.error(`erreur: titreIdUpdate ${titreOld.id}`)
+          console.error(e)
         }
-
-        queue.add(async () => {
-          try {
-            const titreUpdated = await titreIdUpdate(titreOld, titreNew)
-
-            titresUpdated.push(titreUpdated)
-          } catch (e) {
-            console.error(`erreur: titreIdUpdate ${titreOld.id}`)
-            console.error(e)
-          }
-        })
-      }
-
-      return {
-        titresUpdated,
-        titresUpdatedIdsIndex
-      }
-    },
-    {
-      titresUpdated: [],
-      titresUpdatedIdsIndex: {}
+      })
     }
+
+    return queueElements
+  }, [])
+
+  const res = await queue.addAll(queueElements)
+
+  const { titresUpdated, titresUpdatedIdsIndex } = res.reduce(
+    (
+      { titresUpdated, titresUpdatedIdsIndex },
+      { titreUpdatedIdsIndex, titreUpdated } = {}
+    ) => {
+      if (titreUpdatedIdsIndex) {
+        titresUpdatedIdsIndex = Object.assign(
+          titresUpdatedIdsIndex,
+          titreUpdatedIdsIndex
+        )
+      }
+
+      if (titreUpdated) {
+        titresUpdated.push(titreUpdated)
+      }
+
+      return { titresUpdated, titresUpdatedIdsIndex }
+    },
+    { titresUpdated: [], titresUpdatedIdsIndex: {} }
   )
 
-  await queue.onIdle()
-
-  return {
-    titresUpdated,
-    titresUpdatedIdsIndex
-  }
+  return { titresUpdated, titresUpdatedIdsIndex }
 }
 
 export { titresIdsUpdate, titreIdsUpdate }

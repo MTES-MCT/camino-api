@@ -14,6 +14,7 @@ const titreUpdate = async titreId => {
     let titre = await titreGet(titreId, {
       graph: 'administrationsGestionnaires'
     })
+
     if (!titre) {
       console.log(`warning: le titre ${titreId} n'existe plus`)
 
