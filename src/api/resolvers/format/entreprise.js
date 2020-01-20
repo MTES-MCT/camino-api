@@ -2,7 +2,11 @@ import { titresFormat } from './titre'
 import { utilisateursFormat } from './utilisateur'
 
 const entrepriseFormat = (entreprise, user) => {
-  entreprise.titres = titresFormat(entreprise.titres, user)
+  entreprise.titresTitulaire = titresFormat(entreprise.titresTitulaire, user)
+  entreprise.titresAmodiataire = titresFormat(
+    entreprise.titresAmodiataire,
+    user
+  )
   entreprise.utilisateurs = utilisateursFormat(entreprise.utilisateurs, user)
 
   return entreprise

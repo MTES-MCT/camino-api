@@ -14,6 +14,9 @@ class RestrictionsDomaines extends Model {
   }
 
   public static idColumn = ['domaineId', 'publicLectureInterdit']
+
+  public domaineId!: string
+  public publicLectureInterdit!: boolean
 }
 
 class RestrictionsTypesStatuts extends Model {
@@ -31,6 +34,10 @@ class RestrictionsTypesStatuts extends Model {
   }
 
   public static idColumn = ['typeId', 'statutId', 'publicLectureInterdit']
+
+  public typeId!: string
+  public statutId!: string
+  public publicLectureInterdit!: boolean
 }
 
 class RestrictionsTypesAdministrations extends Model {
@@ -48,6 +55,10 @@ class RestrictionsTypesAdministrations extends Model {
   }
 
   public static idColumn = ['typeId', 'administrationId']
+
+  public typeId!: string
+  public administrationId!: string
+  public creationLectureInterdit!: boolean
 }
 
 class RestrictionsTypesStatutsAdministrations extends Model {
@@ -68,6 +79,13 @@ class RestrictionsTypesStatutsAdministrations extends Model {
   }
 
   public static idColumn = ['typeId', 'statutId', 'administrationId']
+
+  public typeId!: string
+  public statutId!: string
+  public administrationId!: string
+  public creationInterdit!: boolean
+  public lectureInterdit!: boolean
+  public modificationInterdit!: boolean
 }
 
 class RestrictionsEtapesTypes extends Model {
@@ -85,6 +103,10 @@ class RestrictionsEtapesTypes extends Model {
   }
 
   public static idColumn = ['etapeTypeId']
+
+  public etapeTypeId!: string
+  public publicLectureInterdit!: boolean
+  public entreprisesLectureInterdit!: boolean
 }
 
 class RestrictionsEtapesTypesAdministrations extends Model {
@@ -104,6 +126,12 @@ class RestrictionsEtapesTypesAdministrations extends Model {
   }
 
   public static idColumn = ['etapeTypeId', 'administrationId']
+
+  public etapeTypeId!: string
+  public administrationId!: string
+  public creationInterdit!: boolean
+  public lectureInterdit!: boolean
+  public modificationInterdit!: boolean
 }
 
 export {
