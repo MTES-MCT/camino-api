@@ -11,6 +11,13 @@
 - écrase le dossier `/srv/backups/files` avec les fichiers
 - ajoute une archive nommée `yyyymmdd_hhMMss-camino.tar.gz` contenant les deux dossiers ci-dessus
 
+### Automation
+
+La sauvegarde est executés chaque jours à 2h (tâche cron).
+
+Les tâches sont exécutées par l'utilisateur `git`.
+Le fichier cron se trouve ici: `/var/spool/cron/crontabs/git`.
+
 ## Restauration
 
 ```sh
