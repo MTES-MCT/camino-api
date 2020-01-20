@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.17](https://github.com/MTES-MCT/camino-api/compare/v0.24.16...v0.24.17) (2020-01-20)
+
+
+### Features
+
+* **activités:** calclule les permissions selon l'utilisateur ([#260](https://github.com/MTES-MCT/camino-api/issues/260)) ([ee844d3](https://github.com/MTES-MCT/camino-api/commit/ee844d3b3a908983a8528281115f203ba28f35b7))
+
+
+### Bug Fixes
+
+* corrige l'enregistrement d'une activité ([1b978a3](https://github.com/MTES-MCT/camino-api/commit/1b978a352ee41a555e3e5e35f1dfb67ec81d9824))
+* corrige la modification d'un id de titre ([4c1a7d2](https://github.com/MTES-MCT/camino-api/commit/4c1a7d29a6615a0ca7794d0b2f092835103459be))
+* corrige les permissions sur les titres d'entreprise ([cf0d8f1](https://github.com/MTES-MCT/camino-api/commit/cf0d8f1900fcce2208be4269a747fe3c1242c345))
+* **activites:** renomme le champ orBrut en orExtrait ([#254](https://github.com/MTES-MCT/camino-api/issues/254)) ([72a6e6b](https://github.com/MTES-MCT/camino-api/commit/72a6e6bed543c3ff100dbf29a1b3c8a040e98306))
+* **activités:** corrige les permissions pour les administrations ([2bdc56d](https://github.com/MTES-MCT/camino-api/commit/2bdc56d26c0d0505b91f58dc51089283be0054bf))
+* **api:** corrige la récupérations des unités ([0e32455](https://github.com/MTES-MCT/camino-api/commit/0e324555361f6e94df172b16bf5984698d563031))
+* **api:** corrige une erreur de typo ([381167d](https://github.com/MTES-MCT/camino-api/commit/381167d090204d7c6f11040aeb70d208054b52b1))
+* **database:** ajoute la colonne ordre dans le modèle des tables ([#258](https://github.com/MTES-MCT/camino-api/issues/258)) ([64b6341](https://github.com/MTES-MCT/camino-api/commit/64b6341b6b57993c025c5b280a3b3e20f2ecb071))
+* corrige le script de migration des activités pré-2018 ([#257](https://github.com/MTES-MCT/camino-api/issues/257)) ([661aaa7](https://github.com/MTES-MCT/camino-api/commit/661aaa73bf8f6b35a5dd0bdac9b28bdd2a39b6f4))
+* **api:** ordonne les activités par fréquence ([#256](https://github.com/MTES-MCT/camino-api/issues/256)) ([a074141](https://github.com/MTES-MCT/camino-api/commit/a07414182f54f7ba55bfb935d2525ada0027f528))
+* **business:** calcule une date de demande pour les demandes classées ([#249](https://github.com/MTES-MCT/camino-api/issues/249)) ([02cd8b1](https://github.com/MTES-MCT/camino-api/commit/02cd8b10d84437a9b68be0c3dfc3ec06cafb01a2))
+* **business:** dynamise les champs requis sur une activité ([#252](https://github.com/MTES-MCT/camino-api/issues/252)) ([95b8432](https://github.com/MTES-MCT/camino-api/commit/95b8432ebee2ee83f959ba55559438fc5afb1aeb))
+* **edition d'étape:** corrige l'erreur Unexpected error value: "EPSG:4624" ([#250](https://github.com/MTES-MCT/camino-api/issues/250)) ([92e8309](https://github.com/MTES-MCT/camino-api/commit/92e83096ad2c6d97ee8c57eb1cccc81c5620d8f6))
+* **entreprises:** remplit le legal_siren manquant de certaines entreprises ([#251](https://github.com/MTES-MCT/camino-api/issues/251)) ([b891b83](https://github.com/MTES-MCT/camino-api/commit/b891b83fa284853ae6f60caef0b5b057b1105488))
+* **knex:** efface le contenu des tables avant d'en insérer à nouveau ([971cbf9](https://github.com/MTES-MCT/camino-api/commit/971cbf9aefd1e76be3e041ee7a45e13be3751e9f))
+* charge les systèmes géo depuis la base de données ([#253](https://github.com/MTES-MCT/camino-api/issues/253)) ([aac5473](https://github.com/MTES-MCT/camino-api/commit/aac5473ba8fd746fe4d8aad8e21b96a636279052))
+* corrige une erreur typescript lors du build ([2f802e3](https://github.com/MTES-MCT/camino-api/commit/2f802e31575802eedad321df6ad4b07123a07419))
+
 ### [0.24.16](https://github.com/MTES-MCT/camino-api/compare/v0.24.15...v0.24.16) (2019-12-20)
 
 
