@@ -226,6 +226,7 @@ const titresUpdateFalse = [
   'activites.type.pays',
   'activites.type.types',
   'activites.type.administrations',
+  'activites.type.administrations.type',
   ...demarchesUpdateFalse.map(k => `demarches.${k}`)
 ]
 

@@ -15,17 +15,17 @@ const titrePropsEtapes = [
   'communes',
   'engagement',
   'engagementDeviseId'
-].map(prop => ({ prop, propName: `${prop}TitreEtapeId` }))
+].map(prop => ({ prop, name: `${prop}TitreEtapeId` }))
 
 const titresPropsEtapeIdsUpdate = async titres => {
   const queue = new PQueue({ concurrency: 100 })
 
   const titresUpdated = titres.reduce((titresUpdated, titre) => {
-    const props = titrePropsEtapes.reduce((props, { prop, propName }) => {
+    const props = titrePropsEtapes.reduce((props, { prop, name }) => {
       const value = titrePropEtapeIdFind(titre, prop)
 
-      if (value !== titre[propName]) {
-        props[propName] = value
+      if (value !== titre[name]) {
+        props[name] = value
       }
 
       return props
