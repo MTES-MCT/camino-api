@@ -21,7 +21,7 @@ const restrictions = {
   etapesTypesAdministrations: []
 }
 
-const init = async () => {
+const restrictionsInit = async () => {
   if (debug) return
 
   restrictions.domaines = await restrictionsDomainesGet()
@@ -56,4 +56,4 @@ const init = async () => {
 
 export default restrictions
 
-init()
+export { restrictionsInit }

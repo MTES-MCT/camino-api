@@ -5,11 +5,11 @@ const metas = {
   demarchesTypes: []
 }
 
-const init = async () => {
+const metasInit = async () => {
   metas.types = await typesGet()
   metas.demarchesTypes = await demarchesTypesGet()
 }
 
 export default metas
 
-init()
+export { metasInit }

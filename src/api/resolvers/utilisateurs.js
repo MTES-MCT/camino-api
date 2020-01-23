@@ -2,6 +2,8 @@ import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
 
+import init from '../../server/init'
+
 import { debug } from '../../config/index'
 import { emailSend } from '../../tools/emails-send'
 
@@ -12,6 +14,8 @@ import {
   utilisateurUpdate,
   utilisateurByEmailGet
 } from '../../database/queries/utilisateurs'
+
+import globales from '../../server/globales'
 
 import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
@@ -78,6 +82,11 @@ const utilisateurs = async (
 
 const moi = async (variables, context, info) => {
   try {
+    // vérifie que la base de données était remplie au démarrage du serveur
+    if (!globales.chargement) {
+      await init()
+    }
+
     return context.user ? await utilisateurGet(context.user.id) : null
   } catch (e) {
     if (debug) {

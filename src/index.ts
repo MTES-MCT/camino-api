@@ -21,10 +21,13 @@ import fileDownload from './server/file-download'
 import middlewareGraphql from './server/middleware-graphql'
 import middlewareJwt from './server/middleware-jwt'
 import middlewareUpload from './server/middleware-upload'
+import init from './server/init'
 
 import { port, url } from './config/index'
 
 import * as Sentry from '@sentry/node'
+
+init()
 
 const app = express()
 
