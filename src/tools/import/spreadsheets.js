@@ -9,6 +9,7 @@ const titresWSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_W
 const titresRepriseSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_REPRISE
 
+const globalesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_GLOBALES
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
 const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
@@ -208,6 +209,11 @@ const spreadsheets = [
       { name: 'restrictions__etapes_types' },
       { name: 'restrictions__etapes_types__administrations' }
     ]
+  },
+  {
+    name: 'globales',
+    id: globalesSpreadsheetId,
+    tables: [{ name: 'globales' }]
   }
 ]
 

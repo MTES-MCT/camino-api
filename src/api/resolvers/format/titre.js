@@ -66,6 +66,7 @@ const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
   const etapeTypeRestricted = restrictions.etapesTypes.find(
     re => re.etapeTypeId === e.typeId
   )
+
   if (!etapeTypeRestricted) return true
 
   // si l'utilisateur n'est pas connecté ou qu'il n'a pas de droit sur le titre
