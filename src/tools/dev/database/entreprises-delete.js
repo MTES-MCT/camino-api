@@ -30,7 +30,7 @@ async function main() {
     'variscan-mines'
   ]
 
-  for (let entrepriseId of entreprisesIds) {
+  for (const entrepriseId of entreprisesIds) {
     const entreprise = await entrepriseGet(entrepriseId)
 
     if (!entreprise) {
