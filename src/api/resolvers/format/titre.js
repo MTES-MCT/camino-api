@@ -80,7 +80,7 @@ const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
 
   // si l'utilisateur fait partie d'une administration
   const isAdministration =
-    permissionsCheck(user, ['admin', 'editeur']) &&
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
     user.administrations &&
     user.administrations.length
   if (isAdministration) {
@@ -131,7 +131,8 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   const userHasPermission = titrePermissionCheck(t, user, [
     'super',
     'admin',
-    'editeur'
+    'editeur',
+    'lecteur'
   ])
 
   if (!titreIsPublic && !userHasPermission) {
@@ -211,7 +212,12 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
       // si l'utilisateur n'a pas de droits de visualisation suffisants
       // alors filtre les administrations `associee`
-      administrations = !permissionsCheck(user, ['super', 'admin', 'editeur'])
+      administrations = !permissionsCheck(user, [
+        'super',
+        'admin',
+        'editeur',
+        'lecteur'
+      ])
         ? administrations.filter(a => !a.associee)
         : administrations
 
