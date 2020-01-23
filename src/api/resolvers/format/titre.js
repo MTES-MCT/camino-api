@@ -324,8 +324,14 @@ const titreEtapeFormat = (
     }
   }
 
-  if (te.documents && !userHasPermission) {
-    te.documents = te.documents.filter(ted => ted.public)
+  if (te.documents) {
+    if (!userHasPermission) {
+      te.documents = te.documents.filter(ted => ted.public)
+    } else {
+      te.documents.forEach(ted => {
+        ted.editable = te.editable
+      })
+    }
   }
 
   if (te.administrations) {
