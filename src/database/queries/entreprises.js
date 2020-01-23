@@ -26,4 +26,16 @@ const entrepriseUpsert = async entreprise =>
     .upsertGraph(entreprise, options.entreprises.update)
     .returning('*')
 
-export { entrepriseGet, entreprisesGet, entreprisesUpsert, entrepriseUpsert }
+const entrepriseDelete = async id =>
+  Entreprises.query()
+    .deleteById(id)
+    .first()
+    .returning('*')
+
+export {
+  entrepriseGet,
+  entreprisesGet,
+  entreprisesUpsert,
+  entrepriseUpsert,
+  entrepriseDelete
+}
