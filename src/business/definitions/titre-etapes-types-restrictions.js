@@ -1,9 +1,11 @@
 const titreEtapesTypesRestrictions = [
   {
     condition: { etape: { typeId: 'mfr' } },
-    obligatoireApresUne: null,
+    obligatoireApresUne: null
     // impossible après toute étape
-    impossibleApresUne: '*'
+    // note: désactivation de cette règle
+    // car le "cas par cas" est possible avant la demande
+    // impossibleApresUne: '*'
   },
   {
     condition: { etape: { typeId: 'ret' } },
@@ -23,7 +25,9 @@ const titreEtapesTypesRestrictions = [
 
   {
     condition: { etape: { typeId: 'dae' } },
-    obligatoireApresUne: { typeId: 'mdp' },
+    // note: désactivation de cette règle
+    // car le "cas par cas" est possible avant la demande
+    // obligatoireApresUne: { typeId: 'mdp' },
     impossibleApresUne: { typeId: 'mcr' }
   },
   {
