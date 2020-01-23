@@ -10,6 +10,8 @@ exports.up = knex => {
       table
         .string('entrepriseId', 64)
         .references('entreprises.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
         .notNullable()
       table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
@@ -23,6 +25,8 @@ exports.up = knex => {
       table
         .string('entrepriseId', 64)
         .references('entreprises.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
         .notNullable()
       table.boolean('operateur')
       table.primary(['titreEtapeId', 'entrepriseId'])
