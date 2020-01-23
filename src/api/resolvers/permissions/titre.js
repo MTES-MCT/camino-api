@@ -92,8 +92,8 @@ const titreEditionPermissionAdministrationsCheck = (
   user,
   administrations
 ) => {
-  // dans un premier temps, on ne vérifie l'édition que pour les ARM
-  if (titre.typeId !== 'arm') return false
+  // dans un premier temps, on ne vérifie l'édition que pour les ARM et les AEX
+  if (!['arm', 'axm'].includes(titre.typeId)) return false
 
   const titreAdministrationsGestionnaires =
     titre.administrationsGestionnaires &&
