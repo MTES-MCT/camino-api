@@ -1,3 +1,5 @@
+import { permissionsCheck } from '../permissions/permissions-check'
+
 const titreActiviteFormatFields = {
   periode: true,
   sections: true
@@ -40,7 +42,7 @@ const titreSectionsFormat = tea =>
     return sections
   }, [])
 
-const titreActiviteFormat = (ta, fields = titreActiviteFormatFields) => {
+const titreActiviteFormat = (ta, user, fields = titreActiviteFormatFields) => {
   // si
   // - le formatage de la période est requis
   // - l'activité a une périodicité
@@ -62,6 +64,10 @@ const titreActiviteFormat = (ta, fields = titreActiviteFormatFields) => {
     // - les sections qui contiennent des élements sur cette activité
     ta.sections = titreSectionsFormat(ta)
   }
+
+  ta.editable =
+    permissionsCheck(user, ['super', 'admin']) ||
+    (permissionsCheck(user, ['entreprise']) && ta.statut.id !== 'dep')
 
   return ta
 }

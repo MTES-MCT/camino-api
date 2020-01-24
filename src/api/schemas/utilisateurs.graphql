@@ -9,6 +9,17 @@ type Utilisateur {
   entreprises: [Entreprise]
   permission: Permission
   preferences: Json
+
+  editable: Boolean
+  supprimable: Boolean
+  permissionEditable: Boolean
+
+  sections: Sections
+}
+
+type Sections {
+  activites: Boolean
+  utilisateurs: Boolean
 }
 
 type UtilisateurToken {

@@ -18,6 +18,8 @@ type Entreprise {
   utilisateurs: [Utilisateur]
   titresTitulaire: [Titre]
   titresAmodiataire: [Titre]
+
+  editable: Boolean
 }
 
 type EntrepriseEtablissement {

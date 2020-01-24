@@ -142,6 +142,12 @@ const graphFormat = (fields, parent) => {
     }
   }
 
+  if (parent === 'utilisateurs' || parent === 'utilisateur') {
+    if (fields.sections) {
+      delete fields.sections
+    }
+  }
+
   return fields
 }
 

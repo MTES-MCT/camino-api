@@ -87,7 +87,23 @@ const moi = async (variables, context, info) => {
       await init()
     }
 
-    return context.user ? await utilisateurGet(context.user.id) : null
+    if (!context.user) return null
+
+    const utilisateur = await utilisateurGet(context.user.id)
+
+    return {
+      ...utilisateur,
+      sections: {
+        activites: permissionsCheck(context.user, [
+          'super',
+          'admin',
+          'editeur',
+          'lecteur',
+          'entreprise'
+        ]),
+        utilisateurs: permissionsCheck(context.user, ['super', 'admin'])
+      }
+    }
   } catch (e) {
     if (debug) {
       console.error(e)

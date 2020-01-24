@@ -187,7 +187,7 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
   if (fields.activites && t.activites && t.activites.length) {
     t.activites = t.activites.reduce((acc, ta) => {
       if (titreActivitePermissionCheck(user, t, ta)) {
-        acc.push(titreActiviteFormat(ta, fields.activites))
+        acc.push(titreActiviteFormat(ta, user, fields.activites))
       }
 
       return acc
@@ -336,6 +336,7 @@ const titreEtapeFormat = (
     } else {
       te.documents.forEach(ted => {
         ted.editable = te.editable
+        ted.supprimable = isSuper
       })
     }
   }
