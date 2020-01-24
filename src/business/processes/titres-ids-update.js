@@ -1,4 +1,3 @@
-import PQueue from 'p-queue'
 import * as cryptoRandomString from 'crypto-random-string'
 import * as slugify from '@sindresorhus/slugify'
 
