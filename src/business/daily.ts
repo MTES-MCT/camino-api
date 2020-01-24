@@ -305,15 +305,16 @@ const run = async () => {
       territoires: null,
       typeIds: null
     })
-    const { titresUpdated = [], titresUpdatedIdsIndex } = await titresIdsUpdate(
+
+    const { titresUpdated = [], titresIdsUpdatedIndex } = await titresIdsUpdate(
       titres
     )
 
     let titresActivitesUpdated = []
-    if (Object.keys(titresUpdatedIdsIndex).length) {
-      const titresOldIdsIndex = Object.keys(titresUpdatedIdsIndex).reduce(
+    if (Object.keys(titresIdsUpdatedIndex).length) {
+      const titresOldIdsIndex = Object.keys(titresIdsUpdatedIndex).reduce(
         (acc: any, titreOldId) => {
-          acc[titresUpdatedIdsIndex[titreOldId]] = titreOldId
+          acc[titresIdsUpdatedIndex[titreOldId]] = titreOldId
 
           return acc
         },
@@ -397,7 +398,7 @@ const run = async () => {
     console.log('export des activités…')
     await titreActivitesRowUpdate(
       [...titresActivitesCreated, ...titresActivitesUpdated],
-      titresUpdatedIdsIndex
+      titresIdsUpdatedIndex
     )
   } catch (e) {
     console.log('erreur:', e)

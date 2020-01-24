@@ -2,6 +2,7 @@ import idsUpdate from './ids-update'
 import titreDemarchesAscSort from './titre-demarches-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
 import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
+import titreIdFind from './titre-id-find'
 
 const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)
 
@@ -29,6 +30,7 @@ const titreEtapeIdFind = (titreEtape, titreDemarche) => {
 
 const titreRelation = {
   name: 'titre',
+  idFind: titreIdFind,
   relations: [
     {
       name: 'demarches',
@@ -83,15 +85,11 @@ const titreRelation = {
   ]
 }
 
-const titreIdAndRelationsUpdate = (titreOld, titreIdFind) => {
-  const titreRelationNew = { ...titreRelation, idFind: titreIdFind }
+const titreIdAndRelationsUpdate = (titre, titreIdFindCustom = titreIdFind) => {
+  const titreRelationNew = { ...titreRelation, titreIdFind: titreIdFindCustom }
 
-  const titre = JSON.parse(JSON.stringify(titreOld))
-
-  // met à jour les ids
-  idsUpdate(titre, titreRelationNew, { titre })
-
-  return titre
+  // met à jour les ids par effet de bord
+  return idsUpdate(titre, titreRelation, { titre })
 }
 
 export default titreIdAndRelationsUpdate

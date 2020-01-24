@@ -73,14 +73,14 @@ describe('id de plusieurs titres', () => {
       activites: [1]
     }))
 
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+    const { titresUpdated, titresIdsUpdatedIndex } = await titresIdsUpdate([
       {
         id: 'id-old'
       }
     ])
 
     expect(titresUpdated.length).toEqual(1)
-    expect(titresUpdatedIdsIndex).toEqual({
+    expect(titresIdsUpdatedIndex).toEqual({
       'id-new': 'id-old'
     })
 
@@ -97,7 +97,7 @@ describe('id de plusieurs titres', () => {
       demarches: [{ id: 'id-new' }]
     }))
 
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+    const { titresUpdated, titresIdsUpdatedIndex } = await titresIdsUpdate([
       {
         id,
         demarches: [
@@ -109,7 +109,7 @@ describe('id de plusieurs titres', () => {
     ])
 
     expect(titresUpdated.length).toEqual(1)
-    expect(titresUpdatedIdsIndex).toEqual({})
+    expect(titresIdsUpdatedIndex).toEqual({})
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -121,12 +121,12 @@ describe('id de plusieurs titres', () => {
 
     titreIdAndRelationsUpdate.default.mockImplementation(() => null)
 
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+    const { titresUpdated, titresIdsUpdatedIndex } = await titresIdsUpdate([
       { id }
     ])
 
     expect(titresUpdated.length).toEqual(0)
-    expect(titresUpdatedIdsIndex).toEqual({})
+    expect(titresIdsUpdatedIndex).toEqual({})
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).not.toHaveBeenCalled()
@@ -145,14 +145,14 @@ describe('id de plusieurs titres', () => {
       doublonTitreId: 'id-new'
     }))
 
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+    const { titresUpdated, titresIdsUpdatedIndex } = await titresIdsUpdate([
       { id }
     ])
 
     expect(titresUpdated).toEqual([
       { doublonTitreId: 'id-new', id: 'id-new-hash' }
     ])
-    expect(titresUpdatedIdsIndex).toEqual({ 'id-new-hash': 'id-old' })
+    expect(titresIdsUpdatedIndex).toEqual({ 'id-new-hash': 'id-old' })
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -170,14 +170,14 @@ describe('id de plusieurs titres', () => {
       doublonTitreId: 'id-old'
     }))
 
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+    const { titresUpdated, titresIdsUpdatedIndex } = await titresIdsUpdate([
       { id: 'id-old-hashhash', doublonTitreId: 'id-old' }
     ])
 
     expect(titresUpdated).toEqual([
       { id: 'id-old-hashhash', doublonTitreId: 'id-old' }
     ])
-    expect(titresUpdatedIdsIndex).toEqual({})
+    expect(titresIdsUpdatedIndex).toEqual({})
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()
@@ -190,12 +190,12 @@ describe('id de plusieurs titres', () => {
     titreIdAndRelationsUpdate.default.mockImplementation(() => ({ id }))
     titresQueries.titreIdUpdate.mockRejectedValue(new Error('bim !'))
 
-    const { titresUpdated, titresUpdatedIdsIndex } = await titresIdsUpdate([
+    const { titresUpdated, titresIdsUpdatedIndex } = await titresIdsUpdate([
       { id: 'id-old' }
     ])
 
     expect(titresUpdated.length).toEqual(0)
-    expect(titresUpdatedIdsIndex).toEqual({})
+    expect(titresIdsUpdatedIndex).toEqual({})
 
     expect(titreIdAndRelationsUpdate.default).toHaveBeenCalled()
     expect(titresQueries.titreIdUpdate).toHaveBeenCalled()

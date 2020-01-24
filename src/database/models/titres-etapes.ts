@@ -214,11 +214,12 @@ export default class TitresEtapes extends Model {
     this.pays = paysFormat(this.communes)
   }
 
-  public async $beforeInsert(queryContext: QueryContext) {
-    await super.$beforeInsert(queryContext)
+  public $formatDatabaseJson(json) {
     if (this.pays) {
       delete this.pays
     }
+
+    return super.$formatDatabaseJson(json)
   }
 
   public $parseJson(json: Pojo) {
