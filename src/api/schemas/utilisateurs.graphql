@@ -14,7 +14,6 @@ type Utilisateur {
 }
 
 type Sections {
-  titres: Boolean
   activites: Boolean
   utilisateurs: Boolean
 }
