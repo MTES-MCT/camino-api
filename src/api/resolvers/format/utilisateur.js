@@ -26,6 +26,12 @@ const utilisateurFormat = (utilisateur, user) => {
     return null
   }
 
+  utilisateur.editable =
+    permissionsCheck(user, ['super', 'admin']) || user.id === utilisateur.id
+  utilisateur.supprimable =
+    permissionsCheck(user, ['super', 'admin']) || user.id === utilisateur.id
+  utilisateur.permissionEditable = permissionsCheck(user, ['super', 'admin'])
+
   return utilisateur
 }
 

@@ -10,6 +10,10 @@ type Utilisateur {
   permission: Permission
   preferences: Json
 
+  editable: Boolean
+  supprimable: Boolean
+  permissionEditable: Boolean
+
   sections: Sections
 }
 
