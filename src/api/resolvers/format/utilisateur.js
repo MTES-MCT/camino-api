@@ -19,7 +19,7 @@ const utilisateurFormat = (utilisateur, user) => {
     !utilisateur ||
     !utilisateur.email ||
     (user.id !== utilisateur.id &&
-      !permissionsCheck(user, ['super']) &&
+      !permissionsCheck(user, ['super', 'admin']) &&
       !permissionUtilisateurAdministrationCheck(utilisateur, user) &&
       !permissionUtilisateurEntrepriseCheck(utilisateur, user))
   ) {
