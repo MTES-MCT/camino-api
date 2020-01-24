@@ -1,6 +1,9 @@
 const seeding = require('../seeding')
 
 exports.seed = seeding(async ({ del, insert }) => {
+  // 11
+  await del('globales')
+
   // 10
   await del('titresActivites')
 
