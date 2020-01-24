@@ -214,7 +214,7 @@ export default class TitresEtapes extends Model {
     this.pays = paysFormat(this.communes)
   }
 
-  public $formatDatabaseJson(json) {
+  public $formatDatabaseJson(json: Pojo) {
     if (this.pays) {
       delete this.pays
     }

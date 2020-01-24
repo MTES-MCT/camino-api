@@ -45,9 +45,9 @@ const titreIdsUpdate = async titre => {
   const titreOldId = titre.id
 
   // met à jour les ids par effet de bord
-  const hasChanged = titreIdAndRelationsUpdate(titre)
+  titre = titreIdAndRelationsUpdate(titre)
 
-  return hasChanged && titreIdUpdate(titreOldId, titre)
+  return titre && titreIdUpdate(titreOldId, titre)
 }
 
 const titresIdsUpdate = async titresOld => {
@@ -58,12 +58,12 @@ const titresIdsUpdate = async titresOld => {
   const titresUpdated = []
   const titresIdsUpdatedIndex = {}
 
-  for (const titre of titresOld) {
+  for (let titre of titresOld) {
     const titreOldId = titre.id
 
     // met à jour les ids par effet de bord
-    const hasChanged = titreIdAndRelationsUpdate(titre)
-    if (hasChanged) {
+    titre = titreIdAndRelationsUpdate(titre)
+    if (titre) {
       try {
         const titreUpdated = await titreIdUpdate(titreOldId, titre)
         if (titreUpdated.id !== titreOldId) {

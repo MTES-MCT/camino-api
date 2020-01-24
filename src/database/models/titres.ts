@@ -18,9 +18,6 @@ import Types from './types'
 import Unites from './unites'
 
 export default class Titres extends Model {
-  static get jsonAttributes() {
-    return []
-  }
   public static tableName = 'titres'
 
   public static jsonSchema = {
@@ -336,7 +333,7 @@ export default class Titres extends Model {
     this.pays = paysFormat(this.communes)
   }
 
-  public $formatDatabaseJson(json) {
+  public $formatDatabaseJson(json: Pojo) {
     if (this.pays) {
       delete this.pays
     }

@@ -306,15 +306,26 @@ const run = async () => {
       typeIds: null
     })
 
-    const { titresUpdated = [], titresIdsUpdatedIndex } = await titresIdsUpdate(
+    interface ITitreIdsIndex {
+      [key: string]: string
+    }
+
+    const { titresUpdated, titresIdsUpdatedIndex } = (await titresIdsUpdate(
       titres
-    )
+    )) as {
+      titresUpdated: any[]
+      titresIdsUpdatedIndex: ITitreIdsIndex
+    }
 
     let titresActivitesUpdated = []
     if (Object.keys(titresIdsUpdatedIndex).length) {
       const titresOldIdsIndex = Object.keys(titresIdsUpdatedIndex).reduce(
-        (acc: any, titreOldId) => {
-          acc[titresIdsUpdatedIndex[titreOldId]] = titreOldId
+        (acc: ITitreIdsIndex, titreOldId: string) => {
+          const titreNewId = titresIdsUpdatedIndex[titreOldId]
+
+          if (titreNewId) {
+            acc[titreNewId] = titreOldId
+          }
 
           return acc
         },

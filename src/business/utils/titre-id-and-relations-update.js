@@ -89,7 +89,9 @@ const titreIdAndRelationsUpdate = (titre, titreIdFindCustom = titreIdFind) => {
   const titreRelationNew = { ...titreRelation, titreIdFind: titreIdFindCustom }
 
   // met à jour les ids par effet de bord
-  return idsUpdate(titre, titreRelationNew, { titre })
+  const hasChanged = idsUpdate(titre, titreRelationNew, { titre })
+
+  return hasChanged ? titre : null
 }
 
 export default titreIdAndRelationsUpdate
