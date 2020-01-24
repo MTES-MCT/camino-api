@@ -9,6 +9,14 @@ type Utilisateur {
   entreprises: [Entreprise]
   permission: Permission
   preferences: Json
+
+  sections: Sections
+}
+
+type Sections {
+  titres: Boolean
+  activites: Boolean
+  utilisateurs: Boolean
 }
 
 type UtilisateurToken {

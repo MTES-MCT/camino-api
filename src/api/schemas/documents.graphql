@@ -34,6 +34,7 @@ type Document {
   public: Boolean
 
   editable: Boolean
+  supprimable: Boolean
 }
 
 input InputDocumentCreation {

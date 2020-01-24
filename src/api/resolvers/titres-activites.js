@@ -41,7 +41,7 @@ const activite = async ({ id }, context, info) => {
       throw new Error("droits insuffisants pour effectuer l'opération")
     }
 
-    return activite && titreActiviteFormat(activite)
+    return activite && titreActiviteFormat(activite, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -66,7 +66,7 @@ const activites = async ({ typeId, annee }, context, info) => {
       activites.length &&
       activites.reduce((res, activite) => {
         if (titreActivitePermissionCheck(user, activite.titre, activite)) {
-          res.push(titreActiviteFormat(activite))
+          res.push(titreActiviteFormat(activite, user))
         }
 
         return res
@@ -127,7 +127,7 @@ const activiteModifier = async ({ activite }, context, info) => {
 
     titreActivitesRowUpdate([activiteRes])
 
-    const activiteFormated = titreActiviteFormat(activiteRes)
+    const activiteFormated = titreActiviteFormat(activiteRes, user)
 
     if (activiteRes.activiteStatutId === 'dep') {
       const utilisateurs = await titreActiviteUtilisateursGet(titre, user)
