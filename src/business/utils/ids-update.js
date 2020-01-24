@@ -17,17 +17,19 @@ const idsUpdate = (
   parent = null,
   parentOldId = ''
 ) => {
+  let hasChanged = false
+
   const elementOldId = element.id
 
+  // met à jour l'id de l'élément
   if (relation.idFind) {
     const elementNewId = relation.idFind(element, parent)
     // l'id de l'élément courant n'a pas changé
-    // il n'est pas nécessaire de mettre à jour ses relations
-    if (elementNewId === elementOldId) {
-      return null
-    }
+    if (elementNewId !== elementOldId) {
+      element.id = elementNewId
 
-    element.id = elementNewId
+      hasChanged = true
+    }
   }
 
   // met à jour les propriétés
@@ -37,8 +39,7 @@ const idsUpdate = (
         const elementOldProp = element[prop]
         element[prop] = elementOldProp.replace(parentOldId, parent.id)
 
-        // TODO
-        // à déplacer dans `titreIdUpdate` après `titreIdUpdateQuery`
+        // TODO: à déplacer dans `titreIdUpdate` après `titreIdUpdateQuery`
         if (
           relation.name === 'documents' &&
           prop === 'id' &&
@@ -56,25 +57,33 @@ const idsUpdate = (
   // met à jour les relations
   if (relation.relations) {
     relation.relations.forEach(relation => {
+      // si l'id du parent n'a pas changé
+      // ou que l'id de la relation n'est pas calculé
+      // alors on ne parcourt pas les relations
+      if (!hasChanged && !relation.idFind) return
+
       const elementPointer = relation.path
         ? elementFromPathFind(relation.path, root)
         : element
 
       if (elementPointer[relation.name]) {
-        Array.isArray(elementPointer[relation.name])
-          ? elementPointer[relation.name].map(e =>
-              idsUpdate(e, relation, root, element, elementOldId)
-            )
-          : idsUpdate(
-              elementPointer[relation.name],
-              relation,
-              root,
-              element,
-              elementOldId
-            )
+        let elements = elementPointer[relation.name]
+
+        if (!Array.isArray(elements)) {
+          elements = [elements]
+        }
+
+        hasChanged =
+          elements.reduce(
+            (hasChanged, e) =>
+              idsUpdate(e, relation, root, element, elementOldId) || hasChanged,
+            false
+          ) || hasChanged
       }
     })
   }
+
+  return hasChanged
 }
 
 export default idsUpdate

@@ -305,15 +305,27 @@ const run = async () => {
       territoires: null,
       typeIds: null
     })
-    const { titresUpdated = [], titresUpdatedIdsIndex } = await titresIdsUpdate(
+
+    interface ITitreIdsIndex {
+      [key: string]: string
+    }
+
+    const { titresUpdated, titresIdsUpdatedIndex } = (await titresIdsUpdate(
       titres
-    )
+    )) as {
+      titresUpdated: any[]
+      titresIdsUpdatedIndex: ITitreIdsIndex
+    }
 
     let titresActivitesUpdated = []
-    if (Object.keys(titresUpdatedIdsIndex).length) {
-      const titresOldIdsIndex = Object.keys(titresUpdatedIdsIndex).reduce(
-        (acc: any, titreOldId) => {
-          acc[titresUpdatedIdsIndex[titreOldId]] = titreOldId
+    if (Object.keys(titresIdsUpdatedIndex).length) {
+      const titresOldIdsIndex = Object.keys(titresIdsUpdatedIndex).reduce(
+        (acc: ITitreIdsIndex, titreOldId: string) => {
+          const titreNewId = titresIdsUpdatedIndex[titreOldId]
+
+          if (titreNewId) {
+            acc[titreNewId] = titreOldId
+          }
 
           return acc
         },
@@ -397,7 +409,7 @@ const run = async () => {
     console.log('export des activités…')
     await titreActivitesRowUpdate(
       [...titresActivitesCreated, ...titresActivitesUpdated],
-      titresUpdatedIdsIndex
+      titresIdsUpdatedIndex
     )
   } catch (e) {
     console.log('erreur:', e)

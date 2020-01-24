@@ -49,11 +49,11 @@ const titreUpdate = async titreId => {
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId)
     const titreUpdated = await titreIdsUpdate(titre)
-    let titresUpdatedIdsIndex
+    let titresIdsUpdatedIndex
     if (titreUpdated && titre.id !== titreUpdated.id) {
       titresActivitesCreated = titreUpdated.activites
       titreId = titreUpdated.id
-      titresUpdatedIdsIndex = {
+      titresIdsUpdatedIndex = {
         [titreId]: titre.id
       }
     }
@@ -73,7 +73,7 @@ const titreUpdate = async titreId => {
       console.log('export des activités…')
       await titreActivitesRowUpdate(
         titresActivitesCreated,
-        titresUpdatedIdsIndex
+        titresIdsUpdatedIndex
       )
     }
 

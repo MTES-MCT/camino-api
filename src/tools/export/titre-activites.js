@@ -11,8 +11,8 @@ const table = spreadsheet.tables[0]
 
 // in:
 // - activites: (Array) titresActivites
-// - titresUpdatedIdsIndex: (Object) { titre1Id: titre1OldId, titre2Id: titre2OldId }
-const titreActivitesRowUpdate = async (activites, titresUpdatedIdsIndex) => {
+// - titresIdsUpdatedIndex: (Object) { titre1Id: titre1OldId, titre2Id: titre2OldId }
+const titreActivitesRowUpdate = async (activites, titresIdsUpdatedIndex) => {
   if (!activites.length) {
     return null
   }
@@ -35,7 +35,7 @@ const titreActivitesRowUpdate = async (activites, titresUpdatedIdsIndex) => {
     const requests = activites.map(activite => {
       const values = rowFormat(activite, table.columns, null, table.callbacks)
       const titreOldId =
-        titresUpdatedIdsIndex && titresUpdatedIdsIndex[activite.titreId]
+        titresIdsUpdatedIndex && titresIdsUpdatedIndex[activite.titreId]
 
       // si le titre a changé d'id
       // on doit remplacer la nouvelle id du titre dans l'id de l'activité

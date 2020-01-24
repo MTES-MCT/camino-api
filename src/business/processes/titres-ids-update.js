@@ -1,4 +1,3 @@
-import PQueue from 'p-queue'
 import * as cryptoRandomString from 'crypto-random-string'
 import * as slugify from '@sindresorhus/slugify'
 
@@ -35,73 +34,51 @@ const titreIdUpdate = async (titreOldId, titre) => {
 
   await titreIdUpdateQuery(titreOldId, titre)
 
-  // TODO
-  // mettre à jour les documents ici
+  // TODO: mettre à jour les documents ici
 
   console.log(`mise à jour: titre ids: ${titre.id}`)
 
   return titre
 }
 
-const titreIdsUpdate = async titreOld => {
-  const titre = titreIdAndRelationsUpdate(titreOld, titreIdFind)
+const titreIdsUpdate = async titre => {
+  const titreOldId = titre.id
 
-  return titre && titreIdUpdate(titreOld.id, titre)
+  // met à jour les ids par effet de bord
+  titre = titreIdAndRelationsUpdate(titre)
+
+  return titre && titreIdUpdate(titreOldId, titre)
 }
 
 const titresIdsUpdate = async titresOld => {
   // attention
   // les transactions `titreIdUpdateQuery` ne peuvent pas être exécutées en parallèle
-  // donc on limite la concurrence à 1
-  const queue = new PQueue({ concurrency: 1 })
+  // d'où le `for of`, pour traîter les titres un par un
 
-  const queueElements = titresOld.reduce((queueElements, titreOld) => {
-    const titre = titreIdAndRelationsUpdate(titreOld, titreIdFind)
+  const titresUpdated = []
+  const titresIdsUpdatedIndex = {}
 
+  for (let titre of titresOld) {
+    const titreOldId = titre.id
+
+    // met à jour les ids par effet de bord
+    titre = titreIdAndRelationsUpdate(titre)
     if (titre) {
-      queueElements.push(async () => {
-        try {
-          const titreUpdated = await titreIdUpdate(titreOld.id, titre)
-          const titreUpdatedIdsIndex =
-            titreUpdated.id !== titreOld.id
-              ? { [titreUpdated.id]: titreOld.id }
-              : null
-
-          return { titreUpdatedIdsIndex, titreUpdated }
-        } catch (e) {
-          console.error(`erreur: titreIdUpdate ${titreOld.id}`)
-          console.error(e)
+      try {
+        const titreUpdated = await titreIdUpdate(titreOldId, titre)
+        if (titreUpdated.id !== titreOldId) {
+          titresIdsUpdatedIndex[titreUpdated.id] = titreOldId
         }
-      })
-    }
 
-    return queueElements
-  }, [])
-
-  const res = await queue.addAll(queueElements)
-
-  const { titresUpdated, titresUpdatedIdsIndex } = res.reduce(
-    (
-      { titresUpdated, titresUpdatedIdsIndex },
-      { titreUpdatedIdsIndex, titreUpdated } = {}
-    ) => {
-      if (titreUpdatedIdsIndex) {
-        titresUpdatedIdsIndex = Object.assign(
-          titresUpdatedIdsIndex,
-          titreUpdatedIdsIndex
-        )
-      }
-
-      if (titreUpdated) {
         titresUpdated.push(titreUpdated)
+      } catch (e) {
+        console.error(`erreur: titreOldIdUpdate ${titreOldId}`)
+        console.error(e)
       }
+    }
+  }
 
-      return { titresUpdated, titresUpdatedIdsIndex }
-    },
-    { titresUpdated: [], titresUpdatedIdsIndex: {} }
-  )
-
-  return { titresUpdated, titresUpdatedIdsIndex }
+  return { titresUpdated, titresIdsUpdatedIndex }
 }
 
 export { titresIdsUpdate, titreIdsUpdate }
