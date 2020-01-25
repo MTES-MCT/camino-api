@@ -329,20 +329,15 @@ export default class Titres extends Model {
   public references?: TitresReferences[]
   public pays?: Pays[]
 
-  public $afterGet() {
+  public $parseDatabaseJson(json: Pojo) {
+    json = super.$parseDatabaseJson(json)
     this.pays = paysFormat(this.communes)
+
+    return json
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    if (this.pays) {
-      delete this.pays
-    }
-
-    return super.$formatDatabaseJson(json)
-  }
-
-  public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
+    json = super.$formatDatabaseJson(json)
 
     if (!json.id && json.domaineId && json.typeId && json.nom) {
       json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`

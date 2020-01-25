@@ -210,16 +210,21 @@ export default class TitresEtapes extends Model {
   public engagementDevise?: Devises
   public pays?: Pays[]
 
-  public $afterGet() {
+  public $parseDatabaseJson(json: Pojo) {
+    json = super.$parseDatabaseJson(json)
     this.pays = paysFormat(this.communes)
+
+    return json
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    if (this.pays) {
-      delete this.pays
+    json = super.$formatDatabaseJson(json)
+
+    if (json.pays) {
+      delete json.pays
     }
 
-    return super.$formatDatabaseJson(json)
+    return json
   }
 
   public $parseJson(json: Pojo) {
