@@ -1,9 +1,11 @@
 import { Model, Pojo } from 'objection'
 import { join } from 'path'
-import EntreprisesEtablissements from './entreprises-etablissements'
-import Titres from './titres'
 
-export default class Entreprises extends Model {
+import { IEntreprises } from '../../types'
+
+interface Entreprises extends IEntreprises {}
+
+class Entreprises extends Model {
   public static tableName = 'entreprises'
 
   public static jsonSchema = {
@@ -32,7 +34,7 @@ export default class Entreprises extends Model {
   public static relationMappings = {
     etablissements: {
       relation: Model.HasManyRelation,
-      modelClass: EntreprisesEtablissements,
+      modelClass: join(__dirname, 'entreprises-etablissements'),
       join: {
         from: 'entreprises.id',
         to: 'entreprisesEtablissements.entrepriseId'
@@ -79,25 +81,6 @@ export default class Entreprises extends Model {
     }
   }
 
-  public id!: string
-  public nom!: string
-  public paysId?: string
-  public legalSiren?: string
-  public legalEtranger?: string
-  public legalForme?: string
-  public categorie?: string
-  public dateCreation?: string
-  public adresse?: string
-  public codePostal?: string
-  public commune?: string
-  public cedex?: string
-  public email?: string
-  public telephone?: string
-  public url?: string
-  public etablissements?: EntreprisesEtablissements[]
-  public titresTitulaire?: Titres
-  public titresAmodiataire?: Titres
-
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
     if (json.id) {
@@ -114,3 +97,5 @@ export default class Entreprises extends Model {
     return json
   }
 }
+
+export default Entreprises

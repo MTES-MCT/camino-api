@@ -1,7 +1,11 @@
 import { Model, Modifiers } from 'objection'
-import EtapesStatuts from './etapes-statuts'
+import { join } from 'path'
 
-export default class EtapesTypes extends Model {
+import { IEtapesTypes } from '../../types'
+
+interface EtapesTypes extends IEtapesTypes {}
+
+class EtapesTypes extends Model {
   public static tableName = 'etapesTypes'
 
   public static jsonSchema = {
@@ -22,7 +26,7 @@ export default class EtapesTypes extends Model {
   public static relationMappings = {
     etapesStatuts: {
       relation: Model.ManyToManyRelation,
-      modelClass: EtapesStatuts,
+      modelClass: join(__dirname, 'etapes-statuts'),
       join: {
         from: 'etapesTypes.id',
         through: {
@@ -40,13 +44,6 @@ export default class EtapesTypes extends Model {
       builder.orderBy('etapesTypes.ordre', 'asc')
     }
   }
-
-  public id!: string
-  public nom!: string
-  public acceptationAuto?: boolean
-  public fondamentale?: boolean
-  public dateDebut?: string
-  public dateFin?: string
-  public sections?: any
-  public etapesStatuts?: EtapesStatuts[]
 }
+
+export default EtapesTypes

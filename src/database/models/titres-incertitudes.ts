@@ -1,6 +1,9 @@
 import { Model } from 'objection'
+import { ITitresIncertitudes } from '../../types'
 
-export default class TitresIncertitudes extends Model {
+interface TitresIncertitudes extends ITitresIncertitudes {}
+
+class TitresIncertitudes extends Model {
   public static tableName = 'titresIncertitudes'
 
   public static jsonSchema = {
@@ -25,18 +28,5 @@ export default class TitresIncertitudes extends Model {
   }
 
   public static idColumn = 'titreEtapeId'
-
-  public titreEtapeId!: string
-  public date?: boolean
-  public dateDebut?: boolean
-  public dateFin?: boolean
-  public duree?: boolean
-  public surface?: boolean
-  public volume?: boolean
-  public engagement?: boolean
-  public points?: boolean
-  public substances?: boolean
-  public titulaires?: boolean
-  public amodiataires?: boolean
-  public administrations?: boolean
 }
+export default TitresIncertitudes

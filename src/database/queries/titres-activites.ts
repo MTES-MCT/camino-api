@@ -1,9 +1,10 @@
+import { ITitresActivites } from '../../types'
 import TitreActivites from '../models/titres-activites'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
 
 const titreActiviteGet = async (
-  id,
+  id: string,
   { graph = options.titresActivites.graph } = {}
 ) =>
   TitreActivites.query()
@@ -12,7 +13,7 @@ const titreActiviteGet = async (
     .first()
 
 const titresActivitesGet = async (
-  { typeId, annee } = {},
+  { typeId, annee }: { typeId?: string; annee?: number } = {},
   { graph = options.titresActivites.graph } = {}
 ) => {
   const q = TitreActivites.query().withGraphFetched(graph)
@@ -28,12 +29,12 @@ const titresActivitesGet = async (
   return q
 }
 
-const titreActivitesUpsert = async titreActivites =>
+const titreActivitesUpsert = async (titreActivites: ITitresActivites[]) =>
   TitreActivites.query()
     .withGraphFetched(options.titresActivites.graph)
     .upsertGraph(titreActivites, { insertMissing: true })
 
-const titreActiviteUpdate = async (id, props) =>
+const titreActiviteUpdate = async (id: string, props: ITitresActivites) =>
   TitreActivites.query()
     .withGraphFetched(options.titresActivites.graph)
     .patchAndFetchById(id, props)

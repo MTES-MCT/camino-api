@@ -1,19 +1,12 @@
-import { Model, Modifiers, Pojo, QueryContext } from 'objection'
-import { paysFormat } from './_format'
-import Administrations from './administrations'
-import Communes from './communes'
-import Devises from './devises'
-import Entreprises from './entreprises'
-import EtapesStatuts from './etapes-statuts'
-import EtapesTypes from './etapes-types'
-import Pays from './pays'
-import Substances from './substances'
-import TitresDocuments from './titres-documents'
-import TitresIncertitudes from './titres-incertitudes'
-import TitresPoints from './titres-points'
-import Unites from './unites'
+import { Model, Modifiers, Pojo } from 'objection'
+import { join } from 'path'
+import { ITitresEtapes, ITitresPoints } from '../../types'
 
-export default class TitresEtapes extends Model {
+import { paysFormat } from './_format'
+
+interface TitresEtapes extends ITitresEtapes {}
+
+class TitresEtapes extends Model {
   public static tableName = 'titresEtapes'
 
   public static jsonSchema = {
@@ -42,7 +35,7 @@ export default class TitresEtapes extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: EtapesTypes,
+      modelClass: join(__dirname, 'etapes-types'),
       join: {
         from: 'titresEtapes.typeId',
         to: 'etapesTypes.id'
@@ -51,7 +44,7 @@ export default class TitresEtapes extends Model {
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: EtapesStatuts,
+      modelClass: join(__dirname, 'etapes-statuts'),
       join: {
         from: 'titresEtapes.statutId',
         to: 'etapesStatuts.id'
@@ -60,7 +53,7 @@ export default class TitresEtapes extends Model {
 
     substances: {
       relation: Model.ManyToManyRelation,
-      modelClass: Substances,
+      modelClass: join(__dirname, 'substances'),
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -74,7 +67,7 @@ export default class TitresEtapes extends Model {
 
     points: {
       relation: Model.HasManyRelation,
-      modelClass: TitresPoints,
+      modelClass: join(__dirname, 'titres-points'),
       join: {
         from: 'titresEtapes.id',
         to: 'titresPoints.titreEtapeId'
@@ -83,7 +76,7 @@ export default class TitresEtapes extends Model {
 
     titulaires: {
       relation: Model.ManyToManyRelation,
-      modelClass: Entreprises,
+      modelClass: join(__dirname, 'entreprises'),
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -97,7 +90,7 @@ export default class TitresEtapes extends Model {
 
     amodiataires: {
       relation: Model.ManyToManyRelation,
-      modelClass: Entreprises,
+      modelClass: join(__dirname, 'entreprises'),
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -111,7 +104,7 @@ export default class TitresEtapes extends Model {
 
     administrations: {
       relation: Model.ManyToManyRelation,
-      modelClass: Administrations,
+      modelClass: join(__dirname, 'administrations'),
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -125,7 +118,7 @@ export default class TitresEtapes extends Model {
 
     documents: {
       relation: Model.HasManyRelation,
-      modelClass: TitresDocuments,
+      modelClass: join(__dirname, 'titres-documents'),
       join: {
         from: 'titresEtapes.id',
         to: 'titresDocuments.titreEtapeId'
@@ -134,7 +127,7 @@ export default class TitresEtapes extends Model {
 
     communes: {
       relation: Model.ManyToManyRelation,
-      modelClass: Communes,
+      modelClass: join(__dirname, 'communes'),
       join: {
         from: 'titresEtapes.id',
         through: {
@@ -148,7 +141,7 @@ export default class TitresEtapes extends Model {
 
     incertitudes: {
       relation: Model.HasOneRelation,
-      modelClass: TitresIncertitudes,
+      modelClass: join(__dirname, 'titres-incertitudes'),
       join: {
         from: 'titresEtapes.id',
         to: 'titresIncertitudes.titreEtapeId'
@@ -157,7 +150,7 @@ export default class TitresEtapes extends Model {
 
     volumeUnite: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Unites,
+      modelClass: join(__dirname, 'unites'),
       join: {
         from: 'titresEtapes.volumeUniteId',
         to: 'unites.id'
@@ -166,7 +159,7 @@ export default class TitresEtapes extends Model {
 
     engagementDevise: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Devises,
+      modelClass: join(__dirname, 'devises'),
       join: {
         from: 'titresEtapes.engagementDeviseId',
         to: 'devises.id'
@@ -180,46 +173,21 @@ export default class TitresEtapes extends Model {
     }
   }
 
-  public id!: string
-  public titreDemarcheId!: string
-  public typeId!: string
-  public statutId!: string
-  public ordre?: number
-  public date!: string
-  public dateDebut?: string
-  public dateFin?: string
-  public duree?: number
-  public surface?: number
-  public volume?: number
-  public volumeUniteId?: string
-  public engagement?: number
-  public engagementDeviseId?: string
-  // TODO: ITitresEtapesContenus
-  public contenu?: any
-  public type!: EtapesTypes
-  public statut!: EtapesStatuts
-  public substances?: Substances
-  public points?: TitresPoints
-  public titulaires?: Entreprises
-  public amodiataires?: Entreprises
-  public administrations?: Administrations
-  public documents?: TitresDocuments
-  public communes?: Communes
-  public incertitudes?: TitresIncertitudes
-  public volumeUnite?: Unites
-  public engagementDevise?: Devises
-  public pays?: Pays[]
+  public $parseDatabaseJson(json: Pojo) {
+    json = super.$parseDatabaseJson(json)
+    json.pays = paysFormat(json.communes)
 
-  public $afterGet() {
-    this.pays = paysFormat(this.communes)
+    return json
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    if (this.pays) {
-      delete this.pays
+    json = super.$formatDatabaseJson(json)
+
+    if (json.pays) {
+      delete json.pays
     }
 
-    return super.$formatDatabaseJson(json)
+    return json
   }
 
   public $parseJson(json: Pojo) {
@@ -230,7 +198,7 @@ export default class TitresEtapes extends Model {
     }
 
     if (json.points) {
-      json.points.forEach((point: TitresPoints) => {
+      json.points.forEach((point: ITitresPoints) => {
         point.titreEtapeId = json.id
       })
     }
@@ -243,23 +211,18 @@ export default class TitresEtapes extends Model {
     }
 
     if (json.amodiatairesIds) {
-      json.amodiataires = json.amodiatairesIds.map((id: string) => ({
-        id
-      }))
+      json.amodiataires = json.amodiatairesIds.map((id: string) => ({ id }))
       delete json.amodiatairesIds
     }
 
     if (json.titulairesIds) {
-      json.titulaires = json.titulairesIds.map((id: string) => ({
-        id
-      }))
+      json.titulaires = json.titulairesIds.map((id: string) => ({ id }))
       delete json.titulairesIds
     }
 
     if (json.substancesIds) {
-      json.substances = json.substancesIds.map((id: string) => ({
-        id
-      }))
+      json.substances = json.substancesIds.map((id: string) => ({ id }))
+
       delete json.substancesIds
     }
 
@@ -273,3 +236,5 @@ export default class TitresEtapes extends Model {
     return json
   }
 }
+
+export default TitresEtapes

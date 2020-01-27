@@ -1,10 +1,10 @@
 import { Model, Pojo } from 'objection'
 import { join } from 'path'
-import Administrations from './administrations'
-import Entreprises from './entreprises'
-import Permissions from './permissions'
+import { IUtilisateurs } from '../../types'
 
-export default class Utilisateurs extends Model {
+interface Utilisateurs extends IUtilisateurs {}
+
+class Utilisateurs extends Model {
   public static tableName = 'utilisateurs'
 
   public static jsonSchema = {
@@ -31,7 +31,7 @@ export default class Utilisateurs extends Model {
   public static relationMappings = {
     permission: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Permissions,
+      modelClass: join(__dirname, 'permissions'),
       join: {
         from: 'utilisateurs.permissionId',
         to: 'permissions.id'
@@ -66,20 +66,6 @@ export default class Utilisateurs extends Model {
     }
   }
 
-  public id!: string
-  public email?: string
-  public motDePasse!: string
-  public nom?: string
-  public prenom?: string
-  public telephoneFixe?: string
-  public telephoneMobile?: string
-  public permissionId!: string
-  // TODO: définir une interface IUtilisateurPreferences ?
-  public preferences?: any
-  public permission!: Permissions
-  public administrations?: Administrations[]
-  public entreprises?: Entreprises[]
-
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
 
@@ -100,3 +86,6 @@ export default class Utilisateurs extends Model {
     return json
   }
 }
+export default Utilisateurs
+
+export { IUtilisateurs }

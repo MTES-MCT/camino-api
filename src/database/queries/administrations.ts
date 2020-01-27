@@ -1,8 +1,9 @@
+import { IAdministrations } from '../../types'
 import Administrations from '../models/administrations'
 import options from './_options'
 
 const administrationGet = async (
-  id,
+  id: string,
   { graph = options.administrations.graph } = {}
 ) =>
   Administrations.query()
@@ -10,14 +11,14 @@ const administrationGet = async (
     .withGraphFetched(graph)
 
 const administrationsGet = async (
-  args,
+  _?: any,
   { graph = options.administrations.graph } = {}
 ) =>
   Administrations.query()
     .skipUndefined()
     .withGraphFetched(graph)
 
-const administrationsUpsert = async administrations =>
+const administrationsUpsert = async (administrations: IAdministrations) =>
   Administrations.query()
     .withGraphFetched(options.administrations.graph)
     .upsertGraph(administrations, options.administrations.update)

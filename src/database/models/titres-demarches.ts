@@ -1,11 +1,10 @@
 import { Model, Modifiers, Pojo } from 'objection'
-import DemarchesStatuts from './demarches-statuts'
-import DemarchesTypes from './demarches-types'
-import TitresEtapes from './titres-etapes'
-import TitresPhases from './titres-phases'
-import Types from './types'
+import { join } from 'path'
+import { ITitresDemarches } from '../../types'
 
-export default class TitresDemarches extends Model {
+interface TitresDemarches extends ITitresDemarches {}
+
+class TitresDemarches extends Model {
   public static tableName = 'titresDemarches'
 
   public static jsonSchema = {
@@ -28,7 +27,7 @@ export default class TitresDemarches extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: DemarchesTypes,
+      modelClass: join(__dirname, 'demarches-types'),
       join: {
         from: 'titresDemarches.typeId',
         to: 'demarchesTypes.id'
@@ -37,7 +36,7 @@ export default class TitresDemarches extends Model {
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: DemarchesStatuts,
+      modelClass: join(__dirname, 'demarches-statuts'),
       join: {
         from: 'titresDemarches.statutId',
         to: 'demarchesStatuts.id'
@@ -46,7 +45,7 @@ export default class TitresDemarches extends Model {
 
     titreType: {
       relation: Model.HasOneThroughRelation,
-      modelClass: Types,
+      modelClass: join(__dirname, 'types'),
       join: {
         from: 'titresDemarches.titreId',
         through: {
@@ -59,7 +58,7 @@ export default class TitresDemarches extends Model {
 
     etapes: {
       relation: Model.HasManyRelation,
-      modelClass: TitresEtapes,
+      modelClass: join(__dirname, 'titres-etapes'),
       join: {
         from: 'titresDemarches.id',
         to: 'titresEtapes.titreDemarcheId'
@@ -68,7 +67,7 @@ export default class TitresDemarches extends Model {
 
     phase: {
       relation: Model.HasOneRelation,
-      modelClass: TitresPhases,
+      modelClass: join(__dirname, 'titres-phases'),
       join: {
         from: 'titresDemarches.id',
         to: 'titresPhases.titreDemarcheId'
@@ -77,7 +76,7 @@ export default class TitresDemarches extends Model {
 
     annulationDemarche: {
       relation: Model.BelongsToOneRelation,
-      modelClass: TitresDemarches,
+      modelClass: join(__dirname, 'titres-demarches'),
       join: {
         from: 'titresDemarches.annulationTitreDemarcheId',
         to: 'titresDemarches.id'
@@ -86,7 +85,7 @@ export default class TitresDemarches extends Model {
 
     parents: {
       relation: Model.ManyToManyRelation,
-      modelClass: TitresDemarches,
+      modelClass: join(__dirname, 'titres-demarches'),
       join: {
         from: 'titresDemarches.id',
         through: {
@@ -99,7 +98,7 @@ export default class TitresDemarches extends Model {
 
     enfants: {
       relation: Model.ManyToManyRelation,
-      modelClass: TitresDemarches,
+      modelClass: join(__dirname, 'titres-demarches'),
       join: {
         from: 'titresDemarches.id',
         through: {
@@ -117,21 +116,6 @@ export default class TitresDemarches extends Model {
     }
   }
 
-  public id!: string
-  public titreId!: string
-  public typeId!: string
-  public statutId?: string
-  public ordre?: number
-  public annulationTitreDemarcheId?: string
-  public type!: DemarchesTypes
-  public statut?: DemarchesStatuts
-  public titreType!: Types
-  public etapes?: TitresEtapes[]
-  public phase?: TitresPhases
-  public annulationDemarche?: TitresDemarches
-  public parents?: TitresDemarches[]
-  public enfants?: TitresDemarches[]
-
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
 
@@ -142,3 +126,5 @@ export default class TitresDemarches extends Model {
     return json
   }
 }
+
+export default TitresDemarches

@@ -1,6 +1,10 @@
 import { Model, Modifiers } from 'objection'
 
-export default class Permissions extends Model {
+import { IPermissions } from '../../types'
+
+interface Permissions extends IPermissions {}
+
+class Permissions extends Model {
   public static tableName = 'permissions'
 
   public static jsonSchema = {
@@ -19,8 +23,6 @@ export default class Permissions extends Model {
       builder.orderBy('ordre', 'asc')
     }
   }
-
-  public id!: string
-  public nom!: string
-  public ordre?: number
 }
+
+export default Permissions

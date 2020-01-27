@@ -1,6 +1,9 @@
 import { Model } from 'objection'
+import { ITitresAdministrationsLocales } from '../../types'
 
-export default class TitresAdministrationsLocales extends Model {
+interface TitresAdministrationsLocales extends ITitresAdministrationsLocales {}
+
+class TitresAdministrationsLocales extends Model {
   public static tableName = 'titresAdministrationsLocales'
 
   public static jsonSchema = {
@@ -16,9 +19,6 @@ export default class TitresAdministrationsLocales extends Model {
   }
 
   public static idColumn = ['administrationId', 'titreEtapeId']
-
-  public administrationId!: string
-  public titreId!: string
-  public associee?: boolean
-  public coordinateur?: boolean
 }
+
+export default TitresAdministrationsLocales

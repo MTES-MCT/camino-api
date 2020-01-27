@@ -1,8 +1,11 @@
 import { Model } from 'objection'
-import Domaines from './domaines'
-import SubstancesLegalesCodes from './substances-legales-codes'
+import { join } from 'path'
 
-export default class SubstancesLegales extends Model {
+import { ISubstancesLegales } from '../../types'
+
+interface SubstancesLegales extends ISubstancesLegales {}
+
+class SubstancesLegales extends Model {
   public static tableName = 'substancesLegales'
 
   public static jsonSchema = {
@@ -21,7 +24,7 @@ export default class SubstancesLegales extends Model {
   public static relationMappings = {
     code: {
       relation: Model.BelongsToOneRelation,
-      modelClass: SubstancesLegalesCodes,
+      modelClass: join(__dirname, 'substances-legales-codes'),
       join: {
         from: 'substancesLegales.substanceLegaleCodeId',
         to: 'substancesLegalesCodes.id'
@@ -29,19 +32,13 @@ export default class SubstancesLegales extends Model {
     },
     domaine: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Domaines,
+      modelClass: join(__dirname, 'domaines'),
       join: {
         from: 'substancesLegales.domaineId',
         to: 'domaines.id'
       }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public domaineId?: string
-  public description?: string
-  public substanceLegalCodeId?: string
-  public domaine?: Domaines
-  public code?: SubstancesLegalesCodes
 }
+
+export default SubstancesLegales

@@ -1,11 +1,11 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import AdministrationsTypes from './administrations-types'
-import Domaines from './domaines'
-import Titres from './titres'
-import Utilisateurs from './utilisateurs'
 
-export default class Administrations extends Model {
+import { IAdministrations } from '../../types'
+
+interface Administrations extends IAdministrations {}
+
+class Administrations extends Model {
   public static tableName = 'administrations'
 
   public static jsonSchema = {
@@ -34,7 +34,7 @@ export default class Administrations extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: AdministrationsTypes,
+      modelClass: join(__dirname, 'administrations-types'),
       join: {
         from: 'administrations.typeId',
         to: 'administrationsTypes.id'
@@ -43,7 +43,7 @@ export default class Administrations extends Model {
 
     domaines: {
       relation: Model.ManyToManyRelation,
-      modelClass: Domaines,
+      modelClass: join(__dirname, 'domaines'),
       join: {
         from: 'administrations.id',
         through: {
@@ -54,10 +54,6 @@ export default class Administrations extends Model {
       }
     },
 
-    // Utilisateurs est requis par Administrations
-    // Administrations est requis par Utilisateurs
-    // ce qui provoque une require loop
-    // solutions to require loops http://vincit.github.io/objection.js/#relations
     utilisateurs: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'utilisateurs'),
@@ -97,25 +93,6 @@ export default class Administrations extends Model {
       }
     }
   }
-
-  public id!: string
-  public typeId!: string
-  public nom!: string
-  public service?: string
-  public url?: string
-  public email?: string
-  public telephone?: string
-  public adresse1?: string
-  public adresse2?: string
-  public codePostal?: string
-  public commune?: string
-  public cedex?: string
-  public departementId?: string
-  public regionId?: string
-  public abreviation?: string
-  public type!: AdministrationsTypes
-  public domaines?: Domaines[]
-  public utilisateurs?: Utilisateurs[]
-  public titresAdministrationsGestionnaires?: Titres[]
-  public titresAdministrationsLocales?: Titres[]
 }
+
+export default Administrations

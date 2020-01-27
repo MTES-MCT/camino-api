@@ -1,6 +1,9 @@
 import { Model } from 'objection'
+import { IActivitesStatuts } from '../../types'
 
-export default class ActivitesStatuts extends Model {
+interface ActivitesStatuts extends IActivitesStatuts {}
+
+class ActivitesStatuts extends Model {
   public static tableName = 'activitesStatuts'
 
   public static jsonSchema = {
@@ -13,8 +16,6 @@ export default class ActivitesStatuts extends Model {
       couleur: { type: 'string', maxLength: 8 }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public couleur!: string
 }
+
+export default ActivitesStatuts

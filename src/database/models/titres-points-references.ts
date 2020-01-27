@@ -1,13 +1,10 @@
 import { Model, Modifiers, Pojo } from 'objection'
-import GeoSystemes from './geo-systemes'
-import Unites from './unites'
+import { join } from 'path'
+import { ITitresPointsReferences } from '../../types'
 
-interface ICoordonnees {
-  x: number
-  y: number
-}
+interface TitresPointsReferences extends ITitresPointsReferences {}
 
-export default class TitresPointsReferences extends Model {
+class TitresPointsReferences extends Model {
   public static tableName = 'titresPointsReferences'
 
   public static jsonSchema = {
@@ -32,7 +29,7 @@ export default class TitresPointsReferences extends Model {
   public static relationMappings = {
     geoSysteme: {
       relation: Model.BelongsToOneRelation,
-      modelClass: GeoSystemes,
+      modelClass: join(__dirname, 'geo-systemes'),
       join: {
         from: 'titresPointsReferences.geoSystemeId',
         to: 'geoSystemes.id'
@@ -41,7 +38,7 @@ export default class TitresPointsReferences extends Model {
 
     unite: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Unites,
+      modelClass: join(__dirname, 'unites'),
       join: {
         from: 'titresPointsReferences.uniteId',
         to: 'unites.id'
@@ -56,14 +53,6 @@ export default class TitresPointsReferences extends Model {
       builder.orderBy('geoSystemeId', 'asc')
     }
   }
-
-  public id!: string
-  public titrePointId!: string
-  public geoSystemeId!: string
-  public coordonnees!: ICoordonnees
-  public opposable?: boolean
-  public geoSysteme!: GeoSystemes
-  public unite!: Unites
 
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
@@ -85,3 +74,5 @@ export default class TitresPointsReferences extends Model {
     return json
   }
 }
+
+export default TitresPointsReferences

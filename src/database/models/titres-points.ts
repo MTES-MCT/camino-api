@@ -1,12 +1,10 @@
 import { Model, Modifiers, Pojo } from 'objection'
-import TitresPointsReferences from './titres-points-references'
+import { join } from 'path'
+import { ITitresPoints, ITitresPointsReferences } from '../../types'
 
-interface ICoordonnees {
-  x: number
-  y: number
-}
+interface TitresPoints extends ITitresPoints {}
 
-export default class TitresPoints extends Model {
+class TitresPoints extends Model {
   public static tableName = 'titresPoints'
 
   public static jsonSchema = {
@@ -37,7 +35,7 @@ export default class TitresPoints extends Model {
   public static relationMappings = {
     references: {
       relation: Model.HasManyRelation,
-      modelClass: TitresPointsReferences,
+      modelClass: join(__dirname, 'titres-points-references'),
       join: {
         from: 'titresPoints.id',
         to: 'titresPointsReferences.titrePointId'
@@ -54,19 +52,6 @@ export default class TitresPoints extends Model {
       ])
     }
   }
-
-  public id!: string
-  public titreEtapeId!: string
-  public nom?: string
-  public description?: string
-  public coordonnees!: ICoordonnees
-  public groupe!: number
-  public contour!: number
-  public point!: number
-  public lot?: number
-  public securite?: boolean
-  public subsidiaire?: boolean
-  public references!: TitresPointsReferences[]
 
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
@@ -86,7 +71,7 @@ export default class TitresPoints extends Model {
     }
 
     if (json.references) {
-      json.references.forEach((reference: TitresPointsReferences) => {
+      json.references.forEach((reference: ITitresPointsReferences) => {
         reference.titrePointId = json.id
       })
     }
@@ -104,3 +89,5 @@ export default class TitresPoints extends Model {
     return json
   }
 }
+
+export default TitresPoints

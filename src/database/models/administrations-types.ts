@@ -1,6 +1,10 @@
 import { Model, Modifiers } from 'objection'
 
-export default class AdministrationsTypes extends Model {
+import { IAdministrationsTypes } from '../../types'
+
+interface AdministrationsTypes extends IAdministrationsTypes {}
+
+class AdministrationsTypes extends Model {
   public static tableName = 'administrationsTypes'
 
   public static jsonSchema = {
@@ -19,8 +23,6 @@ export default class AdministrationsTypes extends Model {
       builder.orderBy('ordre', 'asc')
     }
   }
-
-  public id!: string
-  public nom!: string
-  public ordre!: number
 }
+
+export default AdministrationsTypes

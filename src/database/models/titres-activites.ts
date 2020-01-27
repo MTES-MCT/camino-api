@@ -1,10 +1,11 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
-import ActivitesStatuts from './activites-statuts'
-import ActivitesTypes from './activites-types'
-import Utilisateurs from './utilisateurs'
 
-export default class TitresActivites extends Model {
+import { ITitresActivites } from '../../types'
+
+interface TitresActivites extends ITitresActivites {}
+
+class TitresActivites extends Model {
   public static tableName = 'titresActivites'
 
   public static jsonSchema = {
@@ -35,7 +36,7 @@ export default class TitresActivites extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: ActivitesTypes,
+      modelClass: join(__dirname, 'activites-types'),
       join: {
         from: 'titresActivites.activiteTypeId',
         to: 'activitesTypes.id'
@@ -53,7 +54,7 @@ export default class TitresActivites extends Model {
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: ActivitesStatuts,
+      modelClass: join(__dirname, 'activites-statuts'),
       join: {
         from: 'titresActivites.activiteStatutId',
         to: 'activitesStatuts.id'
@@ -62,7 +63,7 @@ export default class TitresActivites extends Model {
 
     utilisateur: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Utilisateurs,
+      modelClass: join(__dirname, 'utilisateurs'),
       join: {
         from: 'titresActivites.utilisateurId',
         to: 'utilisateurs.id'
@@ -80,18 +81,6 @@ export default class TitresActivites extends Model {
     }
   }
 
-  public id!: string
-  public titreId!: string
-  public utilisateurId?: string
-  public date!: string
-  public dateSaisie?: string
-  // TODO: créer une interfaceIActiviteContenu
-  public contenu?: any
-  public activiteTypeId!: string
-  public activiteStatutId!: string
-  public frequencePeriodeId!: number
-  public annee!: number
-
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
 
@@ -105,3 +94,5 @@ export default class TitresActivites extends Model {
     return json
   }
 }
+
+export default TitresActivites

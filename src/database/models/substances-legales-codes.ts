@@ -1,6 +1,10 @@
 import { Model } from 'objection'
 
-export default class SubstancesLegalesCodes extends Model {
+import { ISubstancesLegalesCodes } from '../../types'
+
+interface SubstancesLegalesCodes extends ISubstancesLegalesCodes {}
+
+class SubstancesLegalesCodes extends Model {
   public static tableName = 'substancesLegalesCodes'
 
   public static jsonSchema = {
@@ -14,9 +18,6 @@ export default class SubstancesLegalesCodes extends Model {
       lien: { type: ['string', 'null'] }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public description?: string
-  public lien!: string
 }
+
+export default SubstancesLegalesCodes

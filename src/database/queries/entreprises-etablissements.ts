@@ -1,19 +1,24 @@
+import { IEntreprisesEtablissements } from '../../types'
 import EntrepriseEtablissements from '../models/entreprises-etablissements'
 import options from './_options'
 
-const entrepriseEtablissementGet = async id =>
+const entrepriseEtablissementGet = async (id: string) =>
   EntrepriseEtablissements.query().findById(id)
 
 const entreprisesEtablissementsGet = async () =>
   EntrepriseEtablissements.query().skipUndefined()
 
-const entreprisesEtablissementsUpsert = async entreprisesEtablissements =>
+const entreprisesEtablissementsUpsert = async (
+  entreprisesEtablissements: IEntreprisesEtablissements
+) =>
   EntrepriseEtablissements.query().upsertGraph(
     entreprisesEtablissements,
     options.entreprisesEtablissements.update
   )
 
-const entreprisesEtablissementsDelete = async entreprisesEtablissementsIds =>
+const entreprisesEtablissementsDelete = async (
+  entreprisesEtablissementsIds: string[]
+) =>
   EntrepriseEtablissements.query()
     .delete()
     .whereIn('id', entreprisesEtablissementsIds)

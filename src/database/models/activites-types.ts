@@ -1,26 +1,10 @@
 import { Model } from 'objection'
-import Administrations from './administrations'
-import Frequences from './frequences'
-import Pays from './pays'
-import Types from './types'
+import { join } from 'path'
+import { IActivitesTypes } from '../../types'
 
-interface IActivitesTypesSectionsElement {
-  id: string
-  nom: string
-  type: string
-  description?: string
-  // TODO: pour type, utiliser un enum
-  dateDebut?: string
-  dateFin?: string
-}
+interface ActivitesTypes extends IActivitesTypes {}
 
-interface IActivitesTypesSection {
-  id: string
-  nom: string
-  elements: IActivitesTypesSectionsElement[]
-}
-
-export default class ActivitesTypes extends Model {
+class ActivitesTypes extends Model {
   public static tableName = 'activitesTypes'
 
   public static jsonSchema = {
@@ -38,7 +22,7 @@ export default class ActivitesTypes extends Model {
   public static relationMappings = {
     types: {
       relation: Model.ManyToManyRelation,
-      modelClass: Types,
+      modelClass: join(__dirname, 'types'),
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -52,7 +36,7 @@ export default class ActivitesTypes extends Model {
 
     pays: {
       relation: Model.ManyToManyRelation,
-      modelClass: Pays,
+      modelClass: join(__dirname, 'pays'),
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -65,7 +49,7 @@ export default class ActivitesTypes extends Model {
 
     frequence: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Frequences,
+      modelClass: join(__dirname, 'frequences'),
       join: {
         from: 'activitesTypes.frequenceId',
         to: 'frequences.id'
@@ -74,7 +58,7 @@ export default class ActivitesTypes extends Model {
 
     administrations: {
       relation: Model.ManyToManyRelation,
-      modelClass: Administrations,
+      modelClass: join(__dirname, 'administrations'),
       join: {
         from: 'activitesTypes.id',
         through: {
@@ -85,13 +69,6 @@ export default class ActivitesTypes extends Model {
       }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public frequenceId!: string
-  public sections!: IActivitesTypesSection[]
-  public types?: Types[]
-  public pays?: Pays[]
-  public frequence!: Frequences
-  public administrations?: Administrations
 }
+
+export default ActivitesTypes

@@ -1,7 +1,11 @@
 import { Model, Modifiers } from 'objection'
 import Unites from './unites'
 
-export default class GeoSystemes extends Model {
+import { IGeoSystemes } from '../../types'
+
+interface GeoSystemes extends IGeoSystemes {}
+
+class GeoSystemes extends Model {
   public static tableName = 'geoSystemes'
 
   public static jsonSchema = {
@@ -34,11 +38,6 @@ export default class GeoSystemes extends Model {
       builder.orderBy('ordre', 'asc')
     }
   }
-
-  public id!: string
-  public definitionProj4!: string
-  public nom!: string
-  public ordre!: number
-  public uniteId?: string
-  public zone?: string
 }
+
+export default GeoSystemes

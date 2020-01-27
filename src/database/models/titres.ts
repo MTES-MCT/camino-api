@@ -17,7 +17,11 @@ import TitresReferences from './titres-references'
 import Types from './types'
 import Unites from './unites'
 
-export default class Titres extends Model {
+import { ITitres } from '../../types'
+
+interface Titres extends ITitres {}
+
+class Titres extends Model {
   public static tableName = 'titres'
 
   public static jsonSchema = {
@@ -86,37 +90,25 @@ export default class Titres extends Model {
     domaine: {
       relation: Model.BelongsToOneRelation,
       modelClass: Domaines,
-      join: {
-        from: 'titres.domaineId',
-        to: 'domaines.id'
-      }
+      join: { from: 'titres.domaineId', to: 'domaines.id' }
     },
 
     type: {
       relation: Model.BelongsToOneRelation,
       modelClass: Types,
-      join: {
-        from: 'titres.typeId',
-        to: 'types.id'
-      }
+      join: { from: 'titres.typeId', to: 'types.id' }
     },
 
     statut: {
       relation: Model.BelongsToOneRelation,
       modelClass: Statuts,
-      join: {
-        from: 'titres.statutId',
-        to: 'statuts.id'
-      }
+      join: { from: 'titres.statutId', to: 'statuts.id' }
     },
 
     demarches: {
       relation: Model.HasManyRelation,
       modelClass: TitresDemarches,
-      join: {
-        from: 'titres.id',
-        to: 'titresDemarches.titreId'
-      }
+      join: { from: 'titres.id', to: 'titresDemarches.titreId' }
     },
 
     surfaceEtape: {
@@ -271,78 +263,25 @@ export default class Titres extends Model {
     activites: {
       relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'titres-activites'),
-      join: {
-        from: 'titres.id',
-        to: 'titresActivites.titreId'
-      }
+      join: { from: 'titres.id', to: 'titresActivites.titreId' }
     },
 
     references: {
       relation: Model.HasManyRelation,
       modelClass: TitresReferences,
-      join: {
-        from: 'titres.id',
-        to: 'titresReferences.titreId'
-      }
+      join: { from: 'titres.id', to: 'titresReferences.titreId' }
     }
   })
 
-  public id!: string
-  public nom!: string
-  public domaineId!: string
-  public typeId!: string
-  public statutId?: string
-  public dateDebut?: string
-  public dateFin?: string
-  public dateDemande?: string
-  public activitesDeposees?: number
-  public activitesEnConstruction?: number
-  public activitesAbsentes?: number
-  public substancesTitreEtapeId?: string
-  public pointsTitreEtapeId?: string
-  public titulairesTitreEtapeId?: string
-  public amodiatairesTitreEtapeId?: string
-  public administrationsTitreEtapeId?: string
-  public surfaceTitreEtapeId?: string
-  public volumeTitreEtapeId?: string
-  public volumeUniteIdTitreEtapeId?: string
-  public communesTitreEtapeId?: string
-  public engagementTitreEtapeId?: string
-  public engagementDeviseIdTitreEtapeId?: string
-  public domaine!: Domaines
-  public type!: Types
-  public statut!: Statuts
-  public demarches?: TitresDemarches
-  public surfaceEtape?: TitresEtapes
-  public volumeEtape?: TitresEtapes
-  public volumeUnite?: TitresEtapes
-  public engagementEtape?: TitresEtapes
-  public engagementDevise?: Devises
-  public substances?: Substances
-  public points?: TitresPoints[]
-  public titulaires?: Entreprises[]
-  public amodiataires?: Entreprises[]
-  public administrationsGestionnaires?: Administrations[]
-  public administrationsLocales?: Administrations[]
-  public communes?: Communes[]
-  public activites?: TitresActivites[]
-  public references?: TitresReferences[]
-  public pays?: Pays[]
+  public $parseDatabaseJson(json: Pojo) {
+    json = super.$parseDatabaseJson(json)
+    json.pays = paysFormat(json.communes)
 
-  public $afterGet() {
-    this.pays = paysFormat(this.communes)
+    return json
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    if (this.pays) {
-      delete this.pays
-    }
-
-    return super.$formatDatabaseJson(json)
-  }
-
-  public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
+    json = super.$formatDatabaseJson(json)
 
     if (!json.id && json.domaineId && json.typeId && json.nom) {
       json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`
@@ -361,3 +300,5 @@ export default class Titres extends Model {
     return json
   }
 }
+
+export default Titres

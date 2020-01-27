@@ -1,8 +1,10 @@
 import { Model, Modifiers } from 'objection'
+import { join } from 'path'
+import { ITypes } from '../../types'
 
-import DemarchesTypes from './demarches-types'
+interface Types extends ITypes {}
 
-export default class Types extends Model {
+class Types extends Model {
   public static tableName = 'types'
 
   public static jsonSchema = {
@@ -19,7 +21,7 @@ export default class Types extends Model {
   public static relationMappings = {
     demarchesTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: DemarchesTypes,
+      modelClass: join(__dirname, 'demarches-types'),
       join: {
         from: 'types.id',
         through: {
@@ -46,9 +48,6 @@ export default class Types extends Model {
       builder.orderBy('ordre', 'asc')
     }
   }
-
-  public id!: string
-  public nom!: string
-  public ordre!: number
-  public demarchesTypes?: DemarchesTypes[]
 }
+
+export default Types

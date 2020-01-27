@@ -1,6 +1,9 @@
-import { Model, Modifiers } from 'objection'
+import { Model } from 'objection'
+import { IUnites } from '../../types'
 
-export default class Unites extends Model {
+interface Unites extends IUnites {}
+
+class Unites extends Model {
   public static tableName = 'unites'
 
   public static jsonSchema = {
@@ -13,8 +16,6 @@ export default class Unites extends Model {
       symbole: { type: 'string' }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public symbole!: string
 }
+
+export default Unites

@@ -1,13 +1,17 @@
+import { IEntreprises } from '../../types'
 import Entreprises from '../models/entreprises'
 import options from './_options'
 
-const entrepriseGet = async (id, { graph = options.entreprises.graph } = {}) =>
+const entrepriseGet = async (
+  id: string,
+  { graph = options.entreprises.graph } = {}
+) =>
   Entreprises.query()
     .findById(id)
     .withGraphFetched(graph)
 
 const entreprisesGet = async (
-  args,
+  _?: any,
   { graph = options.entreprises.graph } = {}
 ) =>
   Entreprises.query()
@@ -15,18 +19,18 @@ const entreprisesGet = async (
     .withGraphFetched(graph)
     .orderBy('nom')
 
-const entreprisesUpsert = async entreprises =>
+const entreprisesUpsert = async (entreprises: IEntreprises[]) =>
   Entreprises.query()
     .withGraphFetched(options.entreprises.graph)
     .upsertGraph(entreprises, options.entreprises.update)
 
-const entrepriseUpsert = async entreprise =>
+const entrepriseUpsert = async (entreprise: IEntreprises) =>
   Entreprises.query()
     .withGraphFetched(options.entreprises.graph)
     .upsertGraph(entreprise, options.entreprises.update)
     .returning('*')
 
-const entrepriseDelete = async id =>
+const entrepriseDelete = async (id: string) =>
   Entreprises.query()
     .deleteById(id)
     .first()

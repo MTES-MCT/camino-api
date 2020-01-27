@@ -1,7 +1,10 @@
 import { Model, Modifiers } from 'objection'
-import ReferencesType from './references-types'
+import { join } from 'path'
+import { ITitresReferences } from '../../types'
 
-export default class TitresReferences extends Model {
+interface TitresReferences extends ITitresReferences {}
+
+class TitresReferences extends Model {
   public static tableName = 'titresReferences'
 
   public static jsonSchema = {
@@ -20,7 +23,7 @@ export default class TitresReferences extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: ReferencesType,
+      modelClass: join(__dirname, 'references-types'),
       join: {
         from: 'titresReferences.typeId',
         to: 'referencesTypes.id'
@@ -33,9 +36,6 @@ export default class TitresReferences extends Model {
       builder.orderBy([{ column: 'typeId' }, { column: 'nom' }])
     }
   }
-
-  public titreId!: string
-  public typeId!: string
-  public nom!: string
-  public type!: ReferencesType
 }
+
+export default TitresReferences

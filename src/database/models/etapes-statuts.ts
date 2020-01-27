@@ -1,6 +1,10 @@
 import { Model } from 'objection'
 
-export default class EtapesStatuts extends Model {
+import { IEtapesStatuts } from '../../types'
+
+interface EtapesStatuts extends IEtapesStatuts {}
+
+class EtapesStatuts extends Model {
   public static tableName = 'etapesStatuts'
 
   public static jsonSchema = {
@@ -13,8 +17,6 @@ export default class EtapesStatuts extends Model {
       couleur: { type: ['string', 'null'], maxLength: 8 }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public couleur!: string
 }
+
+export default EtapesStatuts

@@ -1,6 +1,10 @@
 import { Model } from 'objection'
 
-export default class Globales extends Model {
+import { IGlobales } from '../../types'
+
+interface Globales extends IGlobales {}
+
+class Globales extends Model {
   public static tableName = 'globales'
 
   public static jsonSchema = {
@@ -12,7 +16,6 @@ export default class Globales extends Model {
       valeur: { type: 'boolean' }
     }
   }
-
-  public id!: string
-  public valeur!: boolean
 }
+
+export default Globales
