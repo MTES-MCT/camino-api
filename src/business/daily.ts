@@ -5,10 +5,11 @@ import { administrationsGet } from '../database/queries/administrations'
 import { activitesTypesGet } from '../database/queries/metas'
 import { communesGet } from '../database/queries/territoires'
 import { titresGet } from '../database/queries/titres'
+import { titresActivitesGet } from '../database/queries/titres-activites'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
 import { titresPointsGet } from '../database/queries/titres-points'
-
+import titreActivitesStatutIdsUpdate from './processes/titres-activites-statut-ids-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
 import titresDatesUpdate from './processes/titres-dates-update'
@@ -272,6 +273,14 @@ const run = async () => {
 
     // 13.
     console.log()
+    console.log(' statut des activités dont le délai est dépassé')
+    const titresActivites = await titresActivitesGet()
+    const titresActivitesStatutIdsUpdated = await titreActivitesStatutIdsUpdate(
+      titresActivites
+    )
+
+    // 14.
+    console.log()
     console.log('propriétés des titres (activités abs, enc et dep)…')
     titres = await titresGet(
       {
@@ -291,7 +300,7 @@ const run = async () => {
     )
     const titresPropsActivitesUpdated = await titresPropsActivitesUpdate(titres)
 
-    // 14.
+    // 15.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet({
@@ -396,7 +405,12 @@ const run = async () => {
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
+    console.log(
+      `mise à jour: ${titresActivitesCreated.length} activité(s) créée(s)`
+    )
+    console.log(
+      `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
+    )
     console.log(
       `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )
