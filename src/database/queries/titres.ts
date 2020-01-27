@@ -1,11 +1,12 @@
-import { transaction } from 'objection'
+import { ITitres, ITitresAdministrationsGestionnaires } from '../../types'
+import { transaction, Transaction } from 'objection'
 import Titres from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
 
-const titreGet = async (id, { graph = options.titres.graph } = {}, tr) =>
-  Titres.query(tr)
+const titreGet = async (id: string, { graph = options.titres.graph } = {}) =>
+  Titres.query()
     .findById(id)
     .withGraphFetched(graph)
 
@@ -20,6 +21,16 @@ const titresGet = async (
     entreprises,
     references,
     territoires
+  }: {
+    ids?: string[] | null
+    typeIds?: string[] | null
+    domaineIds?: string[] | null
+    statutIds?: string[] | null
+    substances?: string[] | null
+    noms?: string[] | null
+    entreprises?: string[] | null
+    references?: string[] | null
+    territoires?: string[] | null
   } = {},
   { graph = options.titres.graph } = {}
 ) => {
@@ -81,11 +92,11 @@ const titresGet = async (
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [])
+            }, [] as string[])
           )
 
           return res
-        }, [])
+        }, [] as string[])
       )
       .joinRelated('references.type')
   }
@@ -121,11 +132,11 @@ const titresGet = async (
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [])
+            }, [] as string[])
           )
 
           return res
-        }, [])
+        }, [] as string[])
       )
       .joinRelated('substances.legales')
   }
@@ -163,11 +174,11 @@ const titresGet = async (
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [])
+            }, [] as string[])
           )
 
           return res
-        }, [])
+        }, [] as string[])
       )
       .leftJoinRelated(
         '[titulaires.etablissements, amodiataires.etablissements]'
@@ -217,16 +228,16 @@ const titresGet = async (
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, []),
+            }, [] as string[]),
             ...fieldsExact.reduce((r, f) => {
               r.push(f, s.toLowerCase())
 
               return r
-            }, [])
+            }, [] as string[])
           )
 
           return res
-        }, [])
+        }, [] as string[])
       )
       .joinRelated('communes.departement.region.pays')
   }
@@ -235,43 +246,45 @@ const titresGet = async (
   return q
 }
 
-const titreCreate = async titre =>
+const titreCreate = async (titre: ITitres) =>
   Titres.query()
     .insertGraphAndFetch(titre)
     .withGraphFetched(options.titres.graph)
 
-const titreUpdate = async (id, props) =>
+const titreUpdate = async (id: string, props: ITitres) =>
   Titres.query()
     .patchAndFetchById(id, props)
     .withGraphFetched(options.titres.graph)
 
-const titreDelete = async (id, tr) =>
+const titreDelete = async (id: string, tr: Transaction) =>
   Titres.query(tr)
     .deleteById(id)
     .withGraphFetched(options.titres.graph)
     .returning('*')
 
-const titreUpsert = async (titre, tr) =>
+const titreUpsert = async (titre: ITitres, tr: Transaction) =>
   Titres.query(tr)
     .upsertGraph(titre, options.titres.update)
     .withGraphFetched(options.titres.graph)
     .returning('*')
 
-const titresAdministrationsGestionnairesCreate = async titresAdministrationsGestionnaires =>
+const titresAdministrationsGestionnairesCreate = async (
+  titresAdministrationsGestionnaires: ITitresAdministrationsGestionnaires
+) =>
   TitresAdministrationsGestionnaires.query().insert(
     titresAdministrationsGestionnaires
   )
 
 const titreAdministrationGestionnaireDelete = async (
-  titreId,
-  administrationId
+  titreId: string,
+  administrationId: string
 ) =>
   TitresAdministrationsGestionnaires.query()
     .delete()
     .where('titreId', titreId)
     .andWhere('administrationId', administrationId)
 
-const titreIdUpdate = async (titreOldId, titre) => {
+const titreIdUpdate = async (titreOldId: string, titre: ITitres) => {
   const knex = Titres.knex()
 
   return transaction(knex, async tr => {

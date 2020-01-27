@@ -1,8 +1,11 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import Regions from './regions'
 
-export default class Pays extends Model {
+import { IPays } from '../../types'
+
+interface Pays extends IPays {}
+
+class Pays extends Model {
   public static tableName = 'pays'
 
   public static jsonSchema = {
@@ -19,14 +22,9 @@ export default class Pays extends Model {
     regions: {
       relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'regions'),
-      join: {
-        from: 'pays.id',
-        to: 'regions.paysId'
-      }
+      join: { from: 'pays.id', to: 'regions.paysId' }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public regions!: Regions[]
 }
+
+export default Pays

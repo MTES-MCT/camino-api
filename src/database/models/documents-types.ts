@@ -1,6 +1,10 @@
 import { Model } from 'objection'
 
-export default class DocumentsTypes extends Model {
+import { IDocumentsTypes } from '../../types'
+
+interface DocumentsTypes extends IDocumentsTypes {}
+
+class DocumentsTypes extends Model {
   public static tableName = 'documentsTypes'
 
   public static jsonSchema = {
@@ -12,7 +16,6 @@ export default class DocumentsTypes extends Model {
       nom: { type: 'string', maxLength: 128 }
     }
   }
-
-  public id!: string
-  public nom!: string
 }
+
+export default DocumentsTypes

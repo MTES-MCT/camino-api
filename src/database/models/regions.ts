@@ -1,9 +1,11 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import Departements from './departements'
-import Pays from './pays'
 
-export default class Regions extends Model {
+import { IRegions } from '../../types'
+
+interface Regions extends IRegions {}
+
+class Regions extends Model {
   public static tableName = 'regions'
 
   public static jsonSchema = {
@@ -35,9 +37,6 @@ export default class Regions extends Model {
       }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public pays!: Pays
-  public departements!: Departements[]
 }
+
+export default Regions

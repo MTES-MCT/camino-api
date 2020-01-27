@@ -1,7 +1,9 @@
 import { Model } from 'objection'
-import DocumentsTypes from './documents-types'
+import { join } from 'path'
+import { ITitresDocuments } from '../../types'
 
-export default class TitresDocuments extends Model {
+interface TitresDocuments extends ITitresDocuments {}
+class TitresDocuments extends Model {
   public static tableName = 'titresDocuments'
 
   public static jsonSchema = {
@@ -26,24 +28,13 @@ export default class TitresDocuments extends Model {
   public static relationMappings = {
     type: {
       relation: Model.BelongsToOneRelation,
-      modelClass: DocumentsTypes,
+      modelClass: join(__dirname, 'documents-types'),
       join: {
         from: 'titresDocuments.typeId',
         to: 'documentsTypes.id'
       }
     }
   }
-
-  public id!: string
-  public titreEtapeId!: string
-  public typeId!: string
-  public jorf?: string
-  public nor?: string
-  public url?: string
-  public uri?: string
-  public nom?: string
-  public fichier?: boolean
-  public fichierTypeId?: string
-  public public?: boolean
-  public type!: DocumentsTypes
 }
+
+export default TitresDocuments

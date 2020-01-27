@@ -1,6 +1,10 @@
 import { Model, Modifiers } from 'objection'
 
-export default class EntreprisesEtablissements extends Model {
+import { IEntreprisesEtablissements } from '../../types'
+
+interface EntreprisesEtablissements extends IEntreprisesEtablissements {}
+
+class EntreprisesEtablissements extends Model {
   public static tableName = 'entreprisesEtablissements'
 
   public static jsonSchema = {
@@ -22,11 +26,6 @@ export default class EntreprisesEtablissements extends Model {
       builder.orderBy('dateDebut', 'desc')
     }
   }
-
-  public id!: string
-  public entrepriseId!: string
-  public nom?: string
-  public legalSiret?: string
-  public dateDebut!: string
-  public dateFin?: string
 }
+
+export default EntreprisesEtablissements

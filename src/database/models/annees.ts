@@ -1,8 +1,11 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import Frequences from './frequences'
 
-export default class Annees extends Model {
+import { IAnnees } from '../../types'
+
+interface Annees extends IAnnees {}
+
+class Annees extends Model {
   public static tableName = 'annees'
 
   public static jsonSchema = {
@@ -19,16 +22,13 @@ export default class Annees extends Model {
   public static relationMappings = {
     frequence: {
       relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'frequence'),
+      modelClass: join(__dirname, 'frequences'),
       join: {
         from: 'annee.frequenceId',
         to: 'frequences.id'
       }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public frequenceId!: string
-  public frequence!: Frequences
 }
+
+export default Annees

@@ -1,8 +1,11 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import Departements from './departements'
 
-export default class Communes extends Model {
+import { ICommunes } from '../../types'
+
+interface Communes extends ICommunes {}
+
+class Communes extends Model {
   public static tableName = 'communes'
 
   public static jsonSchema = {
@@ -11,7 +14,8 @@ export default class Communes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 8 },
-      nom: { type: 'string' }
+      nom: { type: 'string' },
+      surface: { type: 'integer' }
     }
   }
 
@@ -25,8 +29,6 @@ export default class Communes extends Model {
       }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public departement!: Departements
 }
+
+export default Communes

@@ -1,6 +1,10 @@
 import { Model, Modifiers } from 'objection'
 
-export default class Statuts extends Model {
+import { IStatuts } from '../../types'
+
+interface Statuts extends IStatuts {}
+
+class Statuts extends Model {
   public static tableName = 'statuts'
 
   public static jsonSchema = {
@@ -20,9 +24,6 @@ export default class Statuts extends Model {
       builder.orderBy('ordre', 'asc')
     }
   }
-
-  public id!: string
-  public nom!: string
-  public couleur!: string
-  public ordre!: number
 }
+
+export default Statuts

@@ -1,6 +1,10 @@
 import { Model } from 'objection'
 
-export default class PhasesStatuts extends Model {
+import { IPhasesStatuts } from '../../types'
+
+interface PhasesStatuts extends IPhasesStatuts {}
+
+class PhasesStatuts extends Model {
   public static tableName = 'phasesStatuts'
 
   public static jsonSchema = {
@@ -13,8 +17,6 @@ export default class PhasesStatuts extends Model {
       couleur: { type: 'string', maxLength: 8 }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public couleur!: string
 }
+
+export default PhasesStatuts

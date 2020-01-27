@@ -1,12 +1,14 @@
+import { IUtilisateurs } from '../../types'
+
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
 
-const utilisateurGet = async id =>
+const utilisateurGet = async (id: string) =>
   Utilisateurs.query()
     .findById(id)
     .withGraphFetched(options.utilisateurs.graph)
 
-const utilisateurByEmailGet = async email =>
+const utilisateurByEmailGet = async (email: string) =>
   Utilisateurs.query()
     .where('email', email)
     .withGraphFetched(options.utilisateurs.graph)
@@ -17,6 +19,11 @@ const utilisateursGet = async ({
   entrepriseIds,
   administrationIds,
   permissionIds
+}: {
+  noms?: string[]
+  entrepriseIds?: string[]
+  administrationIds?: string[]
+  permissionIds?: string[]
 }) => {
   const q = Utilisateurs.query()
     .skipUndefined()
@@ -47,19 +54,19 @@ const utilisateursGet = async ({
   return q
 }
 
-const utilisateurCreate = async utilisateur =>
+const utilisateurCreate = async (utilisateur: IUtilisateurs) =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
     .withGraphFetched(options.utilisateurs.graph)
     .first()
 
-const utilisateurDelete = async id =>
+const utilisateurDelete = async (id: string) =>
   Utilisateurs.query()
     .deleteById(id)
     .first()
     .returning('*')
 
-const utilisateurUpdate = async utilisateur =>
+const utilisateurUpdate = async (utilisateur: IUtilisateurs) =>
   Utilisateurs.query()
     .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
     .withGraphFetched(options.utilisateurs.graph)

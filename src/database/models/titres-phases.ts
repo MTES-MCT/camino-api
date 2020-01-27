@@ -1,7 +1,10 @@
 import { Model } from 'objection'
-import PhasesStatuts from './phases-statuts'
+import { join } from 'path'
+import { ITitresPhases } from '../../types'
 
-export default class TitresPhases extends Model {
+interface TitresPhases extends ITitresPhases {}
+
+class TitresPhases extends Model {
   public static tableName = 'titresPhases'
 
   public static jsonSchema = {
@@ -19,7 +22,7 @@ export default class TitresPhases extends Model {
   public static relationMappings = {
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: PhasesStatuts,
+      modelClass: join(__dirname, 'phases-statuts'),
       join: {
         from: 'titresPhases.statutId',
         to: 'phasesStatuts.id'
@@ -28,10 +31,6 @@ export default class TitresPhases extends Model {
   }
 
   public static idColumn = 'titreDemarcheId'
-
-  public titreDemarcheId!: string
-  public statutId!: string
-  public dateDebut!: string
-  public dateFin!: string
-  public statut!: PhasesStatuts
 }
+
+export default TitresPhases

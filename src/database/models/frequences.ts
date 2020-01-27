@@ -1,10 +1,11 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import Annees from './annees'
-import Mois from './mois'
-import Trimestres from './trimestres'
 
-export default class Frequences extends Model {
+import { IFrequences } from '../../types'
+
+interface Frequences extends IFrequences {}
+
+class Frequences extends Model {
   public static tableName = 'frequences'
 
   public static jsonSchema = {
@@ -46,10 +47,6 @@ export default class Frequences extends Model {
       }
     }
   }
-
-  public id!: string
-  public nom!: string
-  public annees!: Annees[]
-  public trimestres!: Trimestres[]
-  public mois!: Mois[]
 }
+
+export default Frequences

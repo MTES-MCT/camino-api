@@ -1,7 +1,12 @@
 import { Model, Modifiers } from 'objection'
-import SubstancesLegales from './substances-legales'
 
-export default class Substances extends Model {
+import { join } from 'path'
+
+import { ISubstances } from '../../types'
+
+interface Substances extends ISubstances {}
+
+class Substances extends Model {
   public static tableName = 'substances'
 
   public static jsonSchema = {
@@ -21,7 +26,7 @@ export default class Substances extends Model {
   public static relationMappings = {
     legales: {
       relation: Model.ManyToManyRelation,
-      modelClass: SubstancesLegales,
+      modelClass: join(__dirname, './substances-legales'),
       join: {
         from: 'substances.id',
         through: {
@@ -38,11 +43,6 @@ export default class Substances extends Model {
       builder.orderBy('ordre', 'asc')
     }
   }
-
-  public id!: string
-  public nom?: string
-  public symbole?: string
-  public gerep?: number
-  public description?: string
-  public substanceLegaleId!: string
 }
+
+export default Substances

@@ -1,7 +1,9 @@
-const paysFormat = communes => {
-  if (!communes || !communes.length) return []
+import { IPays, ICommunes } from '../../types'
 
-  const pays = communes.reduce((pays, commune) => {
+const paysFormat = (communes: ICommunes[]) => {
+  if (!communes) return []
+
+  const pays = communes.reduce((pays: IPays[], commune) => {
     const { departement: communeDepartement } = commune
     if (!communeDepartement) return pays
 
@@ -23,6 +25,10 @@ const paysFormat = communes => {
       pays.push(pay)
     }
 
+    if (!pay.regions) {
+      pay.regions = []
+    }
+
     let region = pay.regions.find(r => r.id === communeRegion.id)
 
     if (!region) {
@@ -32,6 +38,10 @@ const paysFormat = communes => {
         departements: []
       }
       pay.regions.push(region)
+    }
+
+    if (!region.departements) {
+      region.departements = []
     }
 
     let departement = region.departements.find(
@@ -47,6 +57,10 @@ const paysFormat = communes => {
       region.departements.push(departement)
     }
 
+    if (!departement.communes) {
+      departement.communes = []
+    }
+
     if (!departement.communes.find(c => c.id === commune.id)) {
       departement.communes.push({
         id: commune.id,
@@ -59,12 +73,18 @@ const paysFormat = communes => {
   }, [])
 
   // trie par ordre alphabétique
-  pays.sort((a, b) => a.nom > b.nom)
+  pays.sort((a, b) => (a.nom > b.nom ? 1 : a.nom < b.nom ? -1 : 0))
   pays.forEach(p => {
+    if (!p.regions) return
+
     p.regions.sort((a, b) => (a.nom > b.nom ? 1 : -1))
     p.regions.forEach(r => {
+      if (!r.departements) return
+
       r.departements.sort((a, b) => (a.nom > b.nom ? 1 : -1))
       r.departements.forEach(d => {
+        if (!d.communes) return
+
         d.communes.sort((a, b) => (a.nom > b.nom ? 1 : -1))
       })
     })

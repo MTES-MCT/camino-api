@@ -1,6 +1,10 @@
 import { Model } from 'objection'
 
-export default class ReferencesTypes extends Model {
+import { IReferencesTypes } from '../../types'
+
+interface ReferencesTypes extends IReferencesTypes {}
+
+class ReferencesTypes extends Model {
   public static tableName = 'referencesTypes'
 
   public static jsonSchema = {
@@ -12,7 +16,6 @@ export default class ReferencesTypes extends Model {
       nom: { type: 'string' }
     }
   }
-
-  public id!: string
-  public nom!: string
 }
+
+export default ReferencesTypes

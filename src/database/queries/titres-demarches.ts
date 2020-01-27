@@ -1,9 +1,13 @@
-import { transaction } from 'objection'
+import { ITitresDemarches } from '../../types'
+import { transaction, Transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 
 const titresDemarchesGet = async (
-  { demarchesIds, titresIds } = {},
+  {
+    demarchesIds,
+    titresIds
+  }: { demarchesIds?: string[] | null; titresIds?: string[] | null } = {},
   { graph = options.demarches.graph } = {}
 ) => {
   const q = TitresDemarches.query()
@@ -23,38 +27,41 @@ const titresDemarchesGet = async (
 }
 
 const titreDemarcheGet = async (
-  titreDemarcheId,
+  titreDemarcheId: string,
   { graph = options.demarches.graph } = {}
 ) =>
   TitresDemarches.query()
     .withGraphFetched(graph)
     .findById(titreDemarcheId)
 
-const titreDemarcheCreate = async demarche =>
+const titreDemarcheCreate = async (titreDemarche: ITitresDemarches) =>
   TitresDemarches.query()
-    .insertAndFetch(demarche)
+    .insertAndFetch(titreDemarche)
     .withGraphFetched(options.demarches.graph)
 
-const titreDemarcheDelete = async (id, trx) =>
+const titreDemarcheDelete = async (id: string, trx: Transaction) =>
   TitresDemarches.query(trx)
     .deleteById(id)
     .withGraphFetched(options.demarches.graph)
     .returning('*')
 
-const titreDemarcheUpdate = async (id, props) =>
+const titreDemarcheUpdate = async (id: string, props: ITitresDemarches) =>
   TitresDemarches.query()
     .withGraphFetched(options.demarches.graph)
     .patchAndFetchById(id, props)
 
-const titreDemarcheUpsert = async (demarche, trx) =>
+const titreDemarcheUpsert = async (
+  titreDemarche: ITitresDemarches,
+  trx: Transaction
+) =>
   TitresDemarches.query(trx)
-    .upsertGraph(demarche, options.demarches.update)
+    .upsertGraph(titreDemarche, options.demarches.update)
     .withGraphFetched(options.demarches.graph)
     .returning('*')
 
 const titreDemarchesIdsUpdate = async (
-  titresDemarchesIdsOld,
-  titresDemarchesNew
+  titresDemarchesIdsOld: string[],
+  titresDemarchesNew: ITitresDemarches[]
 ) => {
   const knex = TitresDemarches.knex()
 

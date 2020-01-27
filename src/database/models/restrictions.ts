@@ -1,5 +1,16 @@
 import { Model } from 'objection'
 
+import {
+  IRestrictionsDomaines,
+  IRestrictionsTypesAdministrations,
+  IRestrictionsTypesStatuts,
+  IRestrictionsTypesStatutsAdministrations,
+  IRestrictionsEtapesTypes,
+  IRestrictionsEtapesTypesAdministrations
+} from '../../types'
+
+interface RestrictionsDomaines extends IRestrictionsDomaines {}
+
 class RestrictionsDomaines extends Model {
   public static tableName = 'restrictions__domaines'
 
@@ -14,10 +25,9 @@ class RestrictionsDomaines extends Model {
   }
 
   public static idColumn = ['domaineId', 'publicLectureInterdit']
-
-  public domaineId!: string
-  public publicLectureInterdit!: boolean
 }
+
+interface RestrictionsTypesStatuts extends IRestrictionsTypesStatuts {}
 
 class RestrictionsTypesStatuts extends Model {
   public static tableName = 'restrictions__types__statuts'
@@ -34,11 +44,10 @@ class RestrictionsTypesStatuts extends Model {
   }
 
   public static idColumn = ['typeId', 'statutId', 'publicLectureInterdit']
-
-  public typeId!: string
-  public statutId!: string
-  public publicLectureInterdit!: boolean
 }
+
+interface RestrictionsTypesAdministrations
+  extends IRestrictionsTypesAdministrations {}
 
 class RestrictionsTypesAdministrations extends Model {
   public static tableName = 'restrictions__types__administrations'
@@ -55,11 +64,10 @@ class RestrictionsTypesAdministrations extends Model {
   }
 
   public static idColumn = ['typeId', 'administrationId']
-
-  public typeId!: string
-  public administrationId!: string
-  public creationLectureInterdit!: boolean
 }
+
+interface RestrictionsTypesStatutsAdministrations
+  extends IRestrictionsTypesStatutsAdministrations {}
 
 class RestrictionsTypesStatutsAdministrations extends Model {
   public static tableName = 'restrictions__types__statuts__administrations'
@@ -79,14 +87,9 @@ class RestrictionsTypesStatutsAdministrations extends Model {
   }
 
   public static idColumn = ['typeId', 'statutId', 'administrationId']
-
-  public typeId!: string
-  public statutId!: string
-  public administrationId!: string
-  public creationInterdit!: boolean
-  public lectureInterdit!: boolean
-  public modificationInterdit!: boolean
 }
+
+interface RestrictionsEtapesTypes extends IRestrictionsEtapesTypes {}
 
 class RestrictionsEtapesTypes extends Model {
   public static tableName = 'restrictions__etapesTypes'
@@ -103,11 +106,10 @@ class RestrictionsEtapesTypes extends Model {
   }
 
   public static idColumn = ['etapeTypeId']
-
-  public etapeTypeId!: string
-  public publicLectureInterdit!: boolean
-  public entreprisesLectureInterdit!: boolean
 }
+
+interface RestrictionsEtapesTypesAdministrations
+  extends IRestrictionsEtapesTypesAdministrations {}
 
 class RestrictionsEtapesTypesAdministrations extends Model {
   public static tableName = 'restrictions__etapesTypes__administrations'
@@ -126,12 +128,6 @@ class RestrictionsEtapesTypesAdministrations extends Model {
   }
 
   public static idColumn = ['etapeTypeId', 'administrationId']
-
-  public etapeTypeId!: string
-  public administrationId!: string
-  public creationInterdit!: boolean
-  public lectureInterdit!: boolean
-  public modificationInterdit!: boolean
 }
 
 export {

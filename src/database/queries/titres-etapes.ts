@@ -1,4 +1,9 @@
-import { transaction } from 'objection'
+import { transaction, Transaction } from 'objection'
+import {
+  ITitresEtapes,
+  ITitresCommunes,
+  ITitresAdministrationsLocales
+} from '../../types'
 
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
@@ -6,7 +11,15 @@ import TitresAdministrationsLocales from '../models/titres-administrations-local
 import options from './_options'
 
 const titresEtapesGet = async (
-  { etapesIds, etapesTypeIds, titresDemarchesIds } = {},
+  {
+    etapesIds,
+    etapesTypeIds,
+    titresDemarchesIds
+  }: {
+    etapesIds?: string[] | null
+    etapesTypeIds?: string[] | null
+    titresDemarchesIds?: string[] | null
+  } = {},
   { graph = options.etapes.graph } = {}
 ) => {
   const q = TitresEtapes.query()
@@ -30,58 +43,70 @@ const titresEtapesGet = async (
 }
 
 const titreEtapeGet = async (
-  titreEtapeId,
+  titreEtapeId: string,
   { graph = options.etapes.graph } = {}
 ) =>
   TitresEtapes.query()
     .withGraphFetched(graph)
     .findById(titreEtapeId)
 
-const titreEtapeCreate = async etape =>
+const titreEtapeCreate = async (titreEtape: ITitresEtapes) =>
   TitresEtapes.query()
-    .insertAndFetch(etape)
+    .insertAndFetch(titreEtape)
     .withGraphFetched(options.etapes.graph)
 
-const titreEtapeUpdate = async (id, props) =>
+const titreEtapeUpdate = async (id: string, props: ITitresEtapes) =>
   TitresEtapes.query()
     .withGraphFetched(options.etapes.graph)
     .patchAndFetchById(id, props)
 
-const titreEtapeDelete = async (id, trx) =>
+const titreEtapeDelete = async (id: string, trx: Transaction) =>
   TitresEtapes.query(trx)
     .deleteById(id)
     .withGraphFetched(options.etapes.graph)
     .returning('*')
 
-const titreEtapeUpsert = async (etape, trx) =>
+const titreEtapeUpsert = async (titreEtape: ITitresEtapes, trx: Transaction) =>
   TitresEtapes.query(trx)
-    .upsertGraph(etape, options.etapes.update)
+    .upsertGraph(titreEtape, options.etapes.update)
     .withGraphFetched(options.etapes.graph)
     .returning('*')
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
 
-const titresEtapesCommunesUpdate = async titresEtapesCommunes =>
+const titresEtapesCommunesUpdate = async (
+  titresEtapesCommunes: ITitresCommunes
+) =>
   TitresCommunes.query().upsertGraph(titresEtapesCommunes, {
     insertMissing: true
   })
 
-const titreEtapeCommuneDelete = async (titreEtapeId, communeId) =>
+const titreEtapeCommuneDelete = async (
+  titreEtapeId: string,
+  communeId: string
+) =>
   TitresCommunes.query()
     .delete()
     .where('titreEtapeId', titreEtapeId)
     .andWhere('communeId', communeId)
 
-const titresEtapesAdministrationsCreate = async titresEtapesAdministrations =>
-  TitresAdministrationsLocales.query().insert(titresEtapesAdministrations)
+const titresEtapesAdministrationsCreate = async (
+  titresEtapesAdministrations: ITitresAdministrationsLocales
+) => TitresAdministrationsLocales.query().insert(titresEtapesAdministrations)
 
-const titreEtapeAdministrationDelete = async (titreEtapeId, administrationId) =>
+const titreEtapeAdministrationDelete = async (
+  titreEtapeId: string,
+  administrationId: string
+) =>
   TitresAdministrationsLocales.query()
     .delete()
     .where('titreEtapeId', titreEtapeId)
     .andWhere('administrationId', administrationId)
 
-const titreEtapesIdsUpdate = async (titresEtapesIdsOld, titresEtapesNew) => {
+const titreEtapesIdsUpdate = async (
+  titresEtapesIdsOld: string[],
+  titresEtapesNew: ITitresEtapes[]
+) => {
   const knex = TitresEtapes.knex()
 
   return transaction(knex, async tr => {
