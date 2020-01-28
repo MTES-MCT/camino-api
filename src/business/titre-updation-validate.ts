@@ -1,4 +1,6 @@
-const titreUpdationValidate = async (titreNew, titreOld) => {
+import { ITitres } from '../types'
+
+const titreUpdationValidate = async (titreNew: ITitres, titreOld: ITitres) => {
   // vérifie
   // - si un titre contient des démarches qui ne sont pas recevables
   const errors = []

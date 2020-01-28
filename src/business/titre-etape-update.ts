@@ -23,7 +23,10 @@ import { titreIdsUpdate } from './processes/titres-ids-update'
 
 import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
-const titreEtapeUpdate = async (titreEtapeId, titreDemarcheId) => {
+const titreEtapeUpdate = async (
+  titreEtapeId: string,
+  titreDemarcheId: string
+) => {
   try {
     // 1.
     console.log('ordre des étapes…')

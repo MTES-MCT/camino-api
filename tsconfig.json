@@ -16,8 +16,8 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "target": "ES2017",
-    "types": ["node", "geojson", "node-fetch"]
+    "types": ["node", "jest"]
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["src/**/*"]
 }

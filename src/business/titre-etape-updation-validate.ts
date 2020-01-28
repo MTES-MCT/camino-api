@@ -1,3 +1,5 @@
+import { ITitresEtapes } from '../types'
+
 import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import titreEtapeTypeAndStatusCheck from './utils/titre-etape-type-and-status-check'
@@ -5,20 +7,16 @@ import titreEtapeDateCheck from './utils/titre-etape-date-check'
 import titreEtapePointsCheck from './utils/titre-etape-points-check'
 import titreEtapeNumbersCheck from './utils/titre-etape-numbers-check'
 
-const titreEtapeUpdationValidate = async titreEtape => {
+const titreEtapeUpdationValidate = async (titreEtape: ITitresEtapes) => {
   const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
 
   const titre = await titreGet(titreDemarche.titreId)
-
-  const etapeType = titreDemarche.type.etapesTypes.find(
-    et => et.id === titreEtape.typeId
-  )
 
   const errors = []
 
   // 1. le type d'étape correspond à la démarche et au type de titre
 
-  const error = titreEtapeTypeAndStatusCheck(titreEtape, titreDemarche, titre)
+  const error = titreEtapeTypeAndStatusCheck(titreEtape, titreDemarche)
 
   if (error) {
     errors.push(error)
@@ -43,11 +41,15 @@ const titreEtapeUpdationValidate = async titreEtape => {
   }
 
   // 4. les champs number ne peuvent avoir une durée négative
+  const etapeType = titreDemarche.type.etapesTypes.find(
+    et => et.id === titreEtape.typeId
+  )
+  if (etapeType && etapeType.sections) {
+    const errorNumbers = titreEtapeNumbersCheck(titreEtape, etapeType.sections)
 
-  const errorNumbers = titreEtapeNumbersCheck(titreEtape, etapeType.sections)
-
-  if (errorNumbers) {
-    errors.push(errorNumbers)
+    if (errorNumbers) {
+      errors.push(errorNumbers)
+    }
   }
 
   return errors

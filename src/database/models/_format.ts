@@ -73,19 +73,19 @@ const paysFormat = (communes: ICommunes[]) => {
   }, [])
 
   // trie par ordre alphabétique
-  pays.sort((a, b) => (a.nom > b.nom ? 1 : a.nom < b.nom ? -1 : 0))
+  pays.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
   pays.forEach(p => {
     if (!p.regions) return
 
-    p.regions.sort((a, b) => (a.nom > b.nom ? 1 : -1))
+    p.regions.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
     p.regions.forEach(r => {
       if (!r.departements) return
 
-      r.departements.sort((a, b) => (a.nom > b.nom ? 1 : -1))
+      r.departements.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
       r.departements.forEach(d => {
         if (!d.communes) return
 
-        d.communes.sort((a, b) => (a.nom > b.nom ? 1 : -1))
+        d.communes.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'))
       })
     })
   })
