@@ -396,7 +396,7 @@ interface ITitresEtapes {
   amodiataires?: IEntreprises
   administrations?: IAdministrations
   documents?: ITitresDocuments
-  communes?: ICommunes
+  communes?: ICommunes[]
   incertitudes?: ITitresIncertitudes
   volumeUnite?: IUnites
   engagementDevise?: IDevises

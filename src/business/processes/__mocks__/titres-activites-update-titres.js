@@ -29,4 +29,11 @@ const titresToutesActivites = [
   }
 ]
 
-export { titresSansActivite, titresToutesActivites }
+const titreActiviteTypeGuyane = {
+  id: 'grp',
+  dateDebut: 2018
+}
+
+const titreActivitesTypes = [titreActiviteTypeGuyane]
+
+export { titresSansActivite, titresToutesActivites, titreActivitesTypes }

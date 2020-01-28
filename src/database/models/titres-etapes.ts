@@ -173,11 +173,10 @@ class TitresEtapes extends Model {
     }
   }
 
-  public $parseDatabaseJson(json: Pojo) {
-    json = super.$parseDatabaseJson(json)
-    json.pays = paysFormat(json.communes)
+  $afterFind() {
+    this.pays = paysFormat(this.communes || [])
 
-    return json
+    return this
   }
 
   public $formatDatabaseJson(json: Pojo) {

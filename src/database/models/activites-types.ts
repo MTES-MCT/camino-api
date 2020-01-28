@@ -16,6 +16,7 @@ class ActivitesTypes extends Model {
       nom: { type: 'string' },
       sections: { type: 'json' },
       frequenceId: { type: 'string', maxLength: 3 },
+      dateDebut: { type: 'string' },
       delaiMois: { type: 'integer' }
     }
   }

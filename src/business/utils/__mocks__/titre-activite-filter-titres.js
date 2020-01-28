@@ -1,10 +1,3 @@
-const titreHCxxFra = {
-  id: 'h-cxx-saint-paul-2014',
-  domaineId: 'h',
-  typeId: 'cxx',
-  pays: [{ id: 'FRA' }]
-}
-
 const titreMAxmGuf = {
   id: 'm-axm-saint-pierre-2015',
   domaineId: 'm',
@@ -17,6 +10,12 @@ const titreGPrxFra = {
   domaineId: 'g',
   typeId: 'prx',
   pays: [{ id: 'FRA' }]
+}
+
+const titreAucunPays = {
+  id: 'm-axm-saint-jacques-2016',
+  domaineId: 'm',
+  typeId: 'axm'
 }
 
 const activiteTypeMAxmPxmGuf = {
@@ -43,13 +42,10 @@ const activiteTypeGPrxFra = {
   pays: [{ id: 'FRA' }]
 }
 
-const activitesTypes = [activiteTypeMAxmPxmGuf, activiteTypeGPrxFra]
-
 export {
-  titreHCxxFra,
+  titreAucunPays,
   titreMAxmGuf,
   titreGPrxFra,
-  activitesTypes,
   activiteTypeMAxmPxmGuf,
   activiteTypeGPrxFra
 }

@@ -36,12 +36,10 @@ const titreUpdate = async (titreId: string) => {
     console.log('activités des titres…')
     titre = await titreGet(titreId)
 
-    const annees = [2018, 2019]
     const activitesTypes = await activitesTypesGet()
     let titresActivitesCreated = await titresActivitesUpdate(
       [titre],
-      activitesTypes,
-      annees
+      activitesTypes
     )
 
     // 13.

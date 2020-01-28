@@ -128,16 +128,13 @@ const titreEtapeUpdate = async (
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
-    // pour les année 2018 et 2019 (en dur)
     console.log()
     console.log('activités des titres…')
-    const annees = [2018, 2019]
     titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
     const activitesTypes = await activitesTypesGet()
     let titresActivitesCreated = await titresActivitesUpdate(
       [titre],
-      activitesTypes,
-      annees
+      activitesTypes
     )
 
     // 13.

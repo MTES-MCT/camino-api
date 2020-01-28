@@ -6,10 +6,8 @@ import Communes from './communes'
 import Devises from './devises'
 import Domaines from './domaines'
 import Entreprises from './entreprises'
-import Pays from './pays'
 import Statuts from './statuts'
 import Substances from './substances'
-import TitresActivites from './titres-activites'
 import TitresDemarches from './titres-demarches'
 import TitresEtapes from './titres-etapes'
 import TitresPoints from './titres-points'
@@ -273,11 +271,10 @@ class Titres extends Model {
     }
   })
 
-  public $parseDatabaseJson(json: Pojo) {
-    json = super.$parseDatabaseJson(json)
-    json.pays = paysFormat(json.communes)
+  $afterFind() {
+    this.pays = paysFormat(this.communes || [])
 
-    return json
+    return this
   }
 
   public $formatDatabaseJson(json: Pojo) {
