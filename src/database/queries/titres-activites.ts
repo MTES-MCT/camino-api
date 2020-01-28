@@ -34,9 +34,13 @@ const titreActivitesUpsert = async (titreActivites: ITitresActivites[]) =>
     .withGraphFetched(options.titresActivites.graph)
     .upsertGraph(titreActivites, { insertMissing: true })
 
-const titreActiviteUpdate = async (id: string, props: ITitresActivites) =>
+const titreActiviteUpdate = async (
+  id: string,
+  props: ITitresActivites,
+  { graph = options.titresActivites.graph } = {}
+) =>
   TitreActivites.query()
-    .withGraphFetched(options.titresActivites.graph)
+    .withGraphFetched(graph)
     .patchAndFetchById(id, props)
 
 export {

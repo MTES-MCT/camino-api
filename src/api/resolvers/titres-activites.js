@@ -121,7 +121,13 @@ const activiteModifier = async ({ activite }, context, info) => {
     activite.utilisateurId = context.user.id
     activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
 
-    const activiteRes = await titreActiviteUpdateQuery(activite.id, activite)
+    const fields = graphFieldsBuild(info)
+
+    const graph = graphBuild(fields, 'activites', graphFormat)
+
+    const activiteRes = await titreActiviteUpdateQuery(activite.id, activite, {
+      graph
+    })
 
     await titreActiviteUpdate(activiteRes.id)
 
