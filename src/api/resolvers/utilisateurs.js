@@ -28,6 +28,7 @@ import {
 } from './permissions/utilisateur'
 
 import { utilisateursFormat, utilisateurFormat } from './format/utilisateur'
+import { userFormat } from './format/user'
 
 const userIdGenerate = async () => {
   const id = cryptoRandomString({ length: 6 })
@@ -91,19 +92,7 @@ const moi = async (variables, context, info) => {
 
     const utilisateur = await utilisateurGet(context.user.id)
 
-    return {
-      ...utilisateur,
-      sections: {
-        activites: permissionsCheck(context.user, [
-          'super',
-          'admin',
-          'editeur',
-          'lecteur',
-          'entreprise'
-        ]),
-        utilisateurs: permissionsCheck(context.user, ['super', 'admin'])
-      }
-    }
+    return userFormat(utilisateur)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -135,7 +124,7 @@ const utilisateurTokenCreer = async ({ email, motDePasse }, context, info) => {
 
     const token = userTokenCreate(utilisateur)
 
-    return { token, utilisateur }
+    return { token, utilisateur: userFormat(utilisateur) }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -448,7 +437,7 @@ const utilisateurMotDePasseInitialiser = async (
 
     const token = userTokenCreate(utilisateurNew)
 
-    return { token, utilisateur: utilisateurNew }
+    return { token, utilisateur: userFormat(utilisateurNew) }
   } catch (e) {
     if (debug) {
       console.error(e)
