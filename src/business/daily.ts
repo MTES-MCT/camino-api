@@ -264,11 +264,9 @@ const run = async () => {
       }
     )
     const activitesTypes = await activitesTypesGet()
-    const annees = [2018, 2019]
     let titresActivitesCreated = await titresActivitesUpdate(
       titres,
-      activitesTypes,
-      annees
+      activitesTypes
     )
 
     // 13.

@@ -8,6 +8,7 @@ exports.up = knex => {
         .string('frequenceId', 3)
         .notNullable()
         .references('frequences.id')
+      table.string('dateDebut').notNullable()
       table.integer('delaiMois')
     })
     .createTable('activitesTypes__types', table => {
