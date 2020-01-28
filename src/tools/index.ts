@@ -1,7 +1,11 @@
-const dupRemove = (key, ...arrays) =>
+interface Index {
+  [id: string]: any
+}
+
+const dupRemove = (key: string, ...arrays: Index[][]) =>
   arrays.reduce(
     (result, array) =>
-      array.reduce((res, el) => {
+      array.reduce((res: Index[], el) => {
         if (!res.find(e => !el[key] || e[key] === el[key])) {
           res.push(el)
         }
@@ -11,14 +15,14 @@ const dupRemove = (key, ...arrays) =>
     []
   )
 
-const dupFind = (key, ...arrays) =>
+const dupFind = (key: string, ...arrays: Index[][]) =>
   arrays.reduce(
-    (result, array) =>
+    (result: Index[], array) =>
       result.filter(el => array.find(e => e[key] && e[key] === el[key])),
-    arrays.pop()
+    arrays.pop() as Index[]
   )
 
-const objectsDiffer = (a, b) => {
+const objectsDiffer = (a: Index | any, b: Index | any): boolean => {
   if (typeof a !== 'object' && typeof b !== 'object') {
     return a !== b
   }
@@ -27,7 +31,7 @@ const objectsDiffer = (a, b) => {
     Object.keys(a).find(k => {
       if (a[k] && b[k]) {
         if (Array.isArray(a[k]) && Array.isArray(b[k])) {
-          return a[k].find((a, i) => objectsDiffer(a, b[k][i]))
+          return a[k].find((ak: any, i: number) => objectsDiffer(ak, b[k][i]))
         }
 
         if (typeof a[k] === 'object' && typeof b[k] === 'object' && a[k]) {
@@ -40,19 +44,25 @@ const objectsDiffer = (a, b) => {
   )
 }
 
-const objConditionMatch = (condition, obj, keys = null) => {
+// TODO: définir une interface IConditions
+
+const objConditionMatch = (
+  condition: any,
+  obj: Index,
+  keys: string[] | null = null
+) => {
   // si les conditions sont testées plusieurs fois, (dans une boucle par ex)
   // alors les clés de l'objet de condition peuvent être passées optionnellement
   // pour ne pas les recalculer à chaque fois
   const conditionKeys = keys || Object.keys(condition)
 
+  // si la condition est multiple (tableau)
+  // teste si l'objet contient au moins une des valeurs
+  // sinon, teste la valeur exacte
   return conditionKeys.every(k =>
-    // si la condition est multiple (tableau)
     Array.isArray(condition[k])
-      ? // teste si l'objet contient au moins une des valeurs
-        condition[k].includes(obj[k])
-      : // sinon, teste la valeur exacte
-        condition[k] === obj[k]
+      ? condition[k].includes(obj[k])
+      : condition[k] === obj[k]
   )
 }
 

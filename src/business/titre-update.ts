@@ -9,7 +9,7 @@ import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 import { activitesTypesGet } from '../database/queries/metas'
 
-const titreUpdate = async titreId => {
+const titreUpdate = async (titreId: string) => {
   try {
     let titre = await titreGet(titreId, {
       graph: 'administrationsGestionnaires'

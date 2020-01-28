@@ -2,7 +2,7 @@ import { titreActiviteGet } from '../database/queries/titres-activites'
 import { titreGet } from '../database/queries/titres'
 import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 
-const titreActiviteUpdate = async titreActiviteId => {
+const titreActiviteUpdate = async (titreActiviteId: string) => {
   const activite = await titreActiviteGet(titreActiviteId)
   const titre = await titreGet(activite.titreId)
 

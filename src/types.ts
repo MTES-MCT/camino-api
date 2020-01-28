@@ -90,7 +90,7 @@ interface IDemarchesTypes {
   titulaires?: boolean
   renouvelable?: boolean
   exception?: boolean
-  etapesTypes?: IEtapesTypes[]
+  etapesTypes: IEtapesTypes[]
 }
 
 interface IDepartements {
@@ -179,6 +179,7 @@ interface IGeoSystemes {
   nom: string
   ordre: number
   uniteId?: string
+  unite: IUnites
   zone?: string
 }
 
@@ -299,6 +300,10 @@ interface ISubstances {
   substanceLegale: ISubstancesLegales
 }
 
+interface ITitresActivitesContenu {
+  [id: string]: string | number | string[]
+}
+
 interface ITitresActivites {
   id: string
   titreId: string
@@ -306,8 +311,7 @@ interface ITitresActivites {
   utilisateurId?: string
   utilisateur: IUtilisateurs
   dateSaisie?: string
-  // TODO: créer une interfaceIActiviteContenu
-  contenu?: any
+  contenu?: ITitresActivitesContenu
   activiteTypeId: string
   activiteType: IActivitesTypes
   activiteStatutId: string
@@ -339,10 +343,10 @@ interface ITitresDemarches {
   id: string
   titreId: string
   typeId: string
+  type: IDemarchesTypes
   statutId?: string
   ordre?: number
   annulationTitreDemarcheId?: string
-  type: IDemarchesTypes
   statut?: IDemarchesStatuts
   titreType: ITypes
   etapes?: ITitresEtapes[]
@@ -544,10 +548,12 @@ interface IUtilisateurs {
 export {
   IActivitesStatuts,
   IActivitesTypes,
+  IActivitesTypesSection,
   IAdministrationsTypes,
   IAdministrations,
   IAnnees,
   ICommunes,
+  ICoordonnees,
   IDemarchesStatuts,
   IDemarchesTypes,
   IDepartements,
@@ -578,6 +584,7 @@ export {
   ISubstancesLegales,
   ISubstances,
   ITitresActivites,
+  ITitresActivitesContenu,
   ITitresAdministrationsGestionnaires,
   ITitresAdministrationsLocales,
   ITitresCommunes,

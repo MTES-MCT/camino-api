@@ -1,8 +1,10 @@
+import { ITitresActivitesContenu, IActivitesTypesSection } from '../types'
+
 import titreActiviteNumbersCheck from './utils/titre-activite-numbers-check'
 
 const titreActiviteUpdationValidate = (
-  titreActviteContenu,
-  activiteTypeSections
+  titreActviteContenu: ITitresActivitesContenu,
+  activiteTypeSections: IActivitesTypesSection[]
 ) => {
   const errors = []
   // les champs number ne peuvent avoir une durée négative

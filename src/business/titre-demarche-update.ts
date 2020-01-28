@@ -13,7 +13,7 @@ import { titreIdsUpdate } from './processes/titres-ids-update'
 
 import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 
-const titreDemarcheUpdate = async titreId => {
+const titreDemarcheUpdate = async (titreId: string) => {
   try {
     let titre = await titreGet(titreId, {
       graph: 'demarches(orderDesc).[etapes(orderDesc)]'
