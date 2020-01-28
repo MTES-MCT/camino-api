@@ -1,20 +1,7 @@
 import titreActiviteTypeFilter from '../utils/titre-activite-filter'
+import titreActiviteTypeAnneesFind from '../utils/titre-activite-type-annees-find'
 import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
-
-const titreActiviteTypeAnneesFind = titreActiviteType => {
-  // calcule les années qui concernent le type d'activité
-  const anneeDebut = new Date(titreActiviteType.dateDebut).getFullYear()
-  const anneeFin = new Date().getFullYear()
-
-  const annees = []
-
-  for (let annee = anneeDebut; annee < anneeFin; annee += 1) {
-    annees.push(annee)
-  }
-
-  return annees
-}
 
 const titresActivitesUpdate = async (titres, activitesTypes) => {
   const titresActivitesCreated = activitesTypes.reduce(
@@ -25,11 +12,6 @@ const titresActivitesUpdate = async (titres, activitesTypes) => {
       acc.push(
         ...titres.reduce((acc, titre) => {
           // filtre les types d'activités qui concernent le titre
-          console.log(
-            titreActiviteType.id,
-            titre.id,
-            titreActiviteTypeFilter(titre, titreActiviteType)
-          )
           if (!titreActiviteTypeFilter(titre, titreActiviteType)) return acc
 
           acc.push(...titreActivitesBuild(titre, titreActiviteType, annees))
