@@ -1,4 +1,4 @@
-import titreActivitesTypesFilter from '../utils/titre-activites-filter'
+import titreActiviteTypeFilter from '../utils/titre-activite-filter'
 import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
@@ -28,9 +28,9 @@ const titresActivitesUpdate = async (titres, activitesTypes) => {
           console.log(
             titreActiviteType.id,
             titre.id,
-            titreActivitesTypesFilter(titre, titreActiviteType)
+            titreActiviteTypeFilter(titre, titreActiviteType)
           )
-          if (!titreActivitesTypesFilter(titre, titreActiviteType)) return acc
+          if (!titreActiviteTypeFilter(titre, titreActiviteType)) return acc
 
           acc.push(...titreActivitesBuild(titre, titreActiviteType, annees))
 

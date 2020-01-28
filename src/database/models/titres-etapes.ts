@@ -175,6 +175,7 @@ class TitresEtapes extends Model {
 
   $afterFind() {
     this.pays = paysFormat(this.communes || [])
+
     return this
   }
 

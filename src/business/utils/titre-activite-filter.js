@@ -1,8 +1,8 @@
 const titreActiviteTypeFilter = (titre, { pays, types }) =>
-  types.find(
+  types.findIndex(
     type => type.domaineId === titre.domaineId && type.id === titre.typeId
-  ) &&
-  titre.pays &&
-  pays.find(pay => titre.pays.find(p => pay.id === p.id))
+  ) !== -1 &&
+  (titre.pays || []).length > 0 &&
+  pays.findIndex(pay => titre.pays.find(p => pay.id === p.id)) !== -1
 
 export default titreActiviteTypeFilter

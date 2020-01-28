@@ -273,6 +273,7 @@ class Titres extends Model {
 
   $afterFind() {
     this.pays = paysFormat(this.communes || [])
+
     return this
   }
 
