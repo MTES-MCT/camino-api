@@ -9,7 +9,7 @@ import { titresActivitesGet } from '../database/queries/titres-activites'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
 import { titresPointsGet } from '../database/queries/titres-points'
-import titreActivitesStatutIdsUpdate from './processes/titres-activites-statut-ids-update'
+import titresActivitesStatutIdsUpdate from './processes/titres-activites-statut-ids-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
 import titresDatesUpdate from './processes/titres-dates-update'
@@ -275,7 +275,7 @@ const run = async () => {
     console.log()
     console.log(' statut des activités dont le délai est dépassé')
     const titresActivites = await titresActivitesGet()
-    const titresActivitesStatutIdsUpdated = await titreActivitesStatutIdsUpdate(
+    const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate(
       titresActivites
     )
 
