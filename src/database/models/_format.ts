@@ -1,3 +1,4 @@
+import { Pojo } from 'objection'
 import { IPays, ICommunes } from '../../types'
 
 const titreInsertFormat = (json: Pojo) => {

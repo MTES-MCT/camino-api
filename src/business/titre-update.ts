@@ -45,7 +45,6 @@ const titreUpdate = async (titreId: string) => {
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId)
-    console.log('r', titre.id)
     // met à jour le ids dans le titre par effet de bord
     const titreUpdated = await titreIdsUpdate(titre)
     let titresIdsUpdatedIndex

@@ -1,4 +1,4 @@
-import { Model, Pojo, QueryContext, RelationMappings } from 'objection'
+import { Model, Pojo, RelationMappings } from 'objection'
 import { join } from 'path'
 import { paysFormat, titreInsertFormat } from './_format'
 import Administrations from './administrations'
