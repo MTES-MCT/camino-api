@@ -1,12 +1,22 @@
 // TODO: ajouter un cas si les activités ont un délai null (champ vide)
 const titreActiviteStatutIdFind = titreActivite => {
-  const dateDepot = new Date(titreActivite.date)
+  // si l'activité a un statut différent de "déposé" ou "fermé"
+  if (!['dep', 'fer'].includes(titreActivite.activiteStatutId)) {
+    const dateDepot = new Date(titreActivite.date)
 
-  const dateDelai = new Date(dateDepot)
+    const dateDelai = new Date(dateDepot)
 
-  dateDelai.setMonth(dateDepot.getMonth() + titreActivite.type.delaiMois)
+    dateDelai.setMonth(dateDepot.getMonth() + titreActivite.type.delaiMois)
 
-  return dateDelai < Date.now() ? 'fer' : titreActivite.activiteStatutId
+    // si le délai de remplissage est dépassé
+    // passe le statut de l'activité à "fermé"
+    if (Date.now() > dateDelai) {
+      return 'fer'
+    }
+  }
+
+  // sinon retourne le statut de l'activité
+  return titreActivite.activiteStatutId
 }
 
 export default titreActiviteStatutIdFind
