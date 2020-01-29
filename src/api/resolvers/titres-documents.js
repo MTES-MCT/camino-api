@@ -125,7 +125,7 @@ const documentModifier = async ({ document }, context, info) => {
         join(process.cwd(), `files/${document.id}.${document.fichierTypeId}`)
       )
 
-      document.fichier = document.id
+      document.fichier = true
     }
 
     delete document.fichierNouveau
