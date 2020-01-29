@@ -1,7 +1,7 @@
 query Titres(
-  $typeIds: [TypeId!]
-  $domaineIds: [DomaineId!]
-  $statutIds: [StatutId!]
+  $typeIds: [ID!]
+  $domaineIds: [ID!]
+  $statutIds: [ID!]
   $substances: [String!]
   $noms: [String!]
   $entreprises: [String!]
@@ -115,7 +115,6 @@ fragment etape on Etape {
     id
     nom
   }
-  sourceIndisponible
   type {
     id
     nom

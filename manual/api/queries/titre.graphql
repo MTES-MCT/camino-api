@@ -22,7 +22,7 @@ fragment titre on Titre {
   }
   references {
     type
-    valeur
+    nom
   }
   surface
   volume

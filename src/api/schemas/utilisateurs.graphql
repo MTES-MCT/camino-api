@@ -39,7 +39,7 @@ input InputUtilisateurModification {
   prenom: String!
   telephoneMobile: String
   telephoneFixe: String
-  permissionId: ID
+  permissionId: ID!
   entreprisesIds: [ID]
   administrationsIds: [ID]
   preferences: Json
@@ -52,7 +52,7 @@ input InputUtilisateurCreation {
   prenom: String!
   telephoneMobile: String
   telephoneFixe: String
-  permissionId: ID
+  permissionId: ID!
   entreprisesIds: [ID]
   administrationsIds: [ID]
   preferences: Json

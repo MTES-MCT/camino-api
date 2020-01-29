@@ -81,6 +81,7 @@ type Query {
   "Liste des substances"
   substances: [Substance]
 
+  "Metas"
   devises: [Devise]
   documentsTypes: [DocumentType]
   domaines: [Domaine]
