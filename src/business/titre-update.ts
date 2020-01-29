@@ -41,19 +41,18 @@ const titreUpdate = async (titreId: string) => {
       [titre],
       activitesTypes
     )
-
     // 13.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId)
+    console.log('r', titre.id)
+    // met à jour le ids dans le titre par effet de bord
     const titreUpdated = await titreIdsUpdate(titre)
     let titresIdsUpdatedIndex
-    if (titreUpdated && titre.id !== titreUpdated.id) {
+    if (titreUpdated && titreId !== titreUpdated.id) {
       titresActivitesCreated = titreUpdated.activites
       titreId = titreUpdated.id
-      titresIdsUpdatedIndex = {
-        [titreId]: titre.id
-      }
+      titresIdsUpdatedIndex = { [titreId]: titre.id }
     }
 
     console.log()
