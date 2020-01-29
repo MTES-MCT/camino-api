@@ -162,7 +162,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
         { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toEqual(
-      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-simple » dont le statut est « ko »."
+      "Une étape « etape-premiere » antérieure (dont le statut est « ko ») est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-simple »."
     )
   })
 
@@ -186,7 +186,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
         { typeId: 'arm', demarches: [{ etapes: [] }] }
       )
     ).toEqual(
-      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-tableau » dont le statut est « ok ou ko »."
+      "Une étape « etape-premiere » antérieure (dont le statut est « ok ou ko ») est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-tableau »."
     )
   })
 
