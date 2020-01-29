@@ -84,19 +84,17 @@ const titreEtapeTypesRestrictionsCheck = (
       )
 
       errors.push(
-        `Une étape « ${
-          titreEtapeBeforeType.nom
-        } » antérieure est nécessaire pour la création d'une étape « ${
-          titreEtapeType.nom
-        } »${
+        `Une étape « ${titreEtapeBeforeType.nom} » antérieure${
           obligatoireApresUne.statutId
-            ? ` dont le statut est « ${
+            ? ` (dont le statut est « ${
                 Array.isArray(obligatoireApresUne.statutId)
                   ? obligatoireApresUne.statutId.join(' ou ')
                   : obligatoireApresUne.statutId
-              } »`
+              } »)`
             : ''
-        }.`
+        } est nécessaire pour la création d'une étape « ${
+          titreEtapeType.nom
+        } ».`
       )
     }
   }
