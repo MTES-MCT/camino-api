@@ -1,3 +1,11 @@
-mutation Token($id: ID!, $motDePasse: String!) {
-  token(id: $id, motDePasse: $motDePasse)
+mutation Token($email: String!, $motDePasse: String!) {
+  utilisateurTokenCreer(email: $email, motDePasse: $motDePasse) {
+    utilisateur {
+      id
+      email
+      nom
+      prenom
+    }
+    token
+  }
 }

@@ -1,62 +1,75 @@
 query {
-  metas {
-    ...meta
+  types {
+    ...type
+  }
+  domaines {
+    ...domaine
+  }
+  statuts {
+    ...statut
+  }
+  devises {
+    ...devise
+  }
+  unites {
+    ...unite
+  }
+  geoSystemes {
+    ...geosysteme
   }
 }
 
-fragment meta on Metas {
-  types {
+fragment type on Type {
+  id
+  nom
+  demarchesTypes {
     id
     nom
-    demarchesTypes {
+    ordre
+    duree
+    points
+    substances
+    titulaires
+    renouvelable
+    exception
+    etapesTypes {
       id
       nom
+      acceptationAuto
       ordre
-      duree
-      points
-      substances
-      titulaires
-      renouvelable
-      exception
-      etapesTypes {
-        id
-        nom
-        acceptationAuto
-        ordre
-        typeId
-      }
+      typeId
     }
   }
+}
 
-  domaines {
+fragment domaine on Domaine {
+  id
+  nom
+}
+
+fragment statut on Statut {
+  id
+  nom
+  couleur
+}
+
+fragment devise on Devise {
+  id
+  nom
+}
+
+fragment unite on Unite {
+  id
+  nom
+}
+
+fragment geosysteme on GeoSysteme {
+  id
+  nom
+  zone
+  unite {
     id
     nom
-  }
-
-  statuts {
-    id
-    nom
-    couleur
-  }
-
-  devises {
-    id
-    nom
-  }
-
-  unites {
-    id
-    nom
-  }
-
-  geoSystemes {
-    id
-    nom
-    zone
-    unite {
-      id
-      nom
-      symbole
-    }
+    symbole
   }
 }

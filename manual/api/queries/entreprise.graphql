@@ -39,7 +39,7 @@ fragment utilisateur on Utilisateur {
   prenom
   telephoneMobile
   telephoneFixe
-  administration {
+  administrations {
     ...administration
   }
   permission {
