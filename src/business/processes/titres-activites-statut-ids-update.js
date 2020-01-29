@@ -20,7 +20,7 @@ const titreActivitesStatutIdsUpdate = async titresActivites => {
       queue.add(async () => {
         titreActivite.activiteStatutId = activiteStatutId
 
-        await titreActiviteUpdate(titreActivite.id, titreActivite)
+        await titreActiviteUpdate(titreActivite.id, { activiteStatutId })
 
         console.log(
           `mise à jour: activité ${titreActivite.id}, ${JSON.stringify({
