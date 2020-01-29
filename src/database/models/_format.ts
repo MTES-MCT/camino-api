@@ -1,5 +1,23 @@
 import { IPays, ICommunes } from '../../types'
 
+const titreInsertFormat = (json: Pojo) => {
+  if (!json.id && json.domaineId && json.typeId && json.nom) {
+    json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`
+  }
+
+  delete json.geojsonMultiPolygon
+  delete json.geojsonPoints
+  delete json.pays
+  delete json.engagement
+  delete json.surface
+  delete json.volume
+  delete json.engagementEtape
+  delete json.surfaceEtape
+  delete json.volumeEtape
+
+  return json
+}
+
 const paysFormat = (communes: ICommunes[]) => {
   if (!communes) return []
 
@@ -93,4 +111,4 @@ const paysFormat = (communes: ICommunes[]) => {
   return pays
 }
 
-export { paysFormat }
+export { paysFormat, titreInsertFormat }

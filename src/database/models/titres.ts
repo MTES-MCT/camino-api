@@ -1,6 +1,6 @@
 import { Model, Pojo, QueryContext, RelationMappings } from 'objection'
 import { join } from 'path'
-import { paysFormat } from './_format'
+import { paysFormat, titreInsertFormat } from './_format'
 import Administrations from './administrations'
 import Communes from './communes'
 import Devises from './devises'
@@ -277,22 +277,18 @@ class Titres extends Model {
     return this
   }
 
+  public $parseJson(json: Pojo) {
+    json = super.$parseJson(json)
+
+    json = titreInsertFormat(json)
+
+    return json
+  }
+
   public $formatDatabaseJson(json: Pojo) {
     json = super.$formatDatabaseJson(json)
 
-    if (!json.id && json.domaineId && json.typeId && json.nom) {
-      json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`
-    }
-
-    delete json.geojsonMultiPolygon
-    delete json.geojsonPoints
-    delete json.pays
-    delete json.engagement
-    delete json.surface
-    delete json.volume
-    delete json.engagementEtape
-    delete json.surfaceEtape
-    delete json.volumeEtape
+    json = titreInsertFormat(json)
 
     return json
   }

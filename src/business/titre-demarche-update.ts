@@ -88,7 +88,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     titre = await titreGet(titreId)
     const titreUpdated = await titreIdsUpdate(titre)
     let titresIdsUpdatedIndex
-    if (titreUpdated && titre.id !== titreUpdated.id) {
+    if (titreUpdated && titreId !== titreUpdated.id) {
       titresActivitesCreated = titreUpdated.activites
       titreId = titreUpdated.id
       titresIdsUpdatedIndex = { [titreId]: titre.id }

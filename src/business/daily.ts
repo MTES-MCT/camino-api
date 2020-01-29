@@ -271,7 +271,7 @@ const run = async () => {
 
     // 13.
     console.log()
-    console.log(' statut des activités dont le délai est dépassé')
+    console.log('statut des activités dont le délai est dépassé')
     const titresActivites = await titresActivitesGet()
     const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate(
       titresActivites

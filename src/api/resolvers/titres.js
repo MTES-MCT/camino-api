@@ -115,7 +115,7 @@ const titreCreer = async ({ titre }, context, info) => {
 
     await titreCreate(titre)
 
-    const titreRes = titreUpdateTask(titre.id)
+    const titreRes = await titreUpdateTask(titre.id)
 
     return titreFormat(titreRes, user)
   } catch (e) {
