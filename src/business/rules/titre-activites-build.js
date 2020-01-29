@@ -10,19 +10,19 @@ const titreActiviteBuild = (
 ) => {
   const frequencePeriodeId = periodeIndex + 1
 
-  const dateFin = dateFormat(
+  const periodeDateFin = dateFormat(
     new Date(annee, (periodeIndex + 1) * monthsCount, 1),
     'yyyy-mm-dd'
   )
 
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
-  if (dateFin > dateFormat(new Date(), 'yyyy-mm-dd')) return null
+  if (periodeDateFin > dateFormat(new Date(), 'yyyy-mm-dd')) return null
 
   // si le statut du titre n'est pas "modification en instance"
   // - vérifie les dates de validité
   if (titreStatutId !== 'mod') {
-    const dateDebut = dateFormat(
+    const periodeDateDebut = dateFormat(
       new Date(annee, periodeIndex * monthsCount, 1),
       'yyyy-mm-dd'
     )
@@ -30,8 +30,8 @@ const titreActiviteBuild = (
     // vérifie la validité du titre pour la période
     const titreIsValid = titreValiditePeriodeCheck(
       titreDemarches,
-      dateDebut,
-      dateFin
+      periodeDateDebut,
+      periodeDateFin
     )
 
     // le titre n'est pas valide pour cette période
@@ -43,7 +43,7 @@ const titreActiviteBuild = (
     titreId,
     // la date de début de l'activité est le premier jour du mois
     // du début de la période suivante, en fonction de la fréquence
-    date: dateFin,
+    date: periodeDateFin,
     activiteTypeId,
     // le statut de l'activité crée automatiquement
     // est 'absente'

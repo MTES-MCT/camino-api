@@ -1,8 +1,10 @@
 // TODO: ajouter un cas si les activités ont un délai null (champ vide)
 const titreActiviteStatutIdFind = titreActivite => {
-  const dateDelai =
-    new Date(titreActivite.date).getTime() +
-    new Date(0, titreActivite.type.delaiMois).getTime()
+  const dateDepot = new Date(titreActivite.date)
+
+  const dateDelai = new Date(dateDepot)
+
+  dateDelai.setMonth(dateDepot.getMonth() + titreActivite.type.delaiMois)
 
   return dateDelai < Date.now() ? 'fer' : titreActivite.activiteStatutId
 }
