@@ -14,8 +14,7 @@ class Communes extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 8 },
-      nom: { type: 'string' },
-      surface: { type: 'integer' }
+      nom: { type: 'string' }
     }
   }
 

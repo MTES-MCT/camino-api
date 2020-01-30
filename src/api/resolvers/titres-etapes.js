@@ -141,6 +141,8 @@ const etapeCreer = async ({ etape }, context, info) => {
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
+    console.log(JSON.stringify(etapeUpdated))
+
     const titreUpdated = await titreEtapeUpdateTask(
       etapeUpdated.id,
       etapeUpdated.titreDemarcheId

@@ -19,6 +19,7 @@ const titreEtapePointsCalc = async (titrePoints: ITitresPoints[]) => {
 }
 
 const pointReferenceFind = (points: ITitresPoints[]) =>
+  points.length &&
   points[0].references &&
   points[0].references.length &&
   (points[0].references.find(r => r.opposable) || points[0].references[0])

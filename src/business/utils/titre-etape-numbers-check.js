@@ -9,32 +9,29 @@ const titreEtapeNumbersCheck = (titreEtape, sections) => {
     return errors
   }, [])
 
-  // TODO
-  // prendre en compte les champs dont le type === 'number'
-  // dans les sections
+  const errorsContenu =
+    sections && titreEtape.contenu
+      ? sections.reduce(
+          (res, section) =>
+            section.elements
+              ? section.elements.reduce((res, element) => {
+                  if (
+                    element.type === 'number' &&
+                    titreEtape.contenu[section.id] &&
+                    titreEtape.contenu[section.id][element.id] &&
+                    titreEtape.contenu[section.id][element.id] < 0
+                  ) {
+                    res.push(
+                      `le champs "${element.id}" ne peut pas avoir une valeur négative`
+                    )
+                  }
 
-  const errorsContenu = sections
-    ? sections.reduce(
-        (res, section) =>
-          section.elements
-            ? section.elements.reduce((res, element) => {
-                if (
-                  element.type === 'number' &&
-                  titreEtape.contenu[section.id] &&
-                  titreEtape.contenu[section.id][element.id] &&
-                  titreEtape.contenu[section.id][element.id] < 0
-                ) {
-                  res.push(
-                    `le champs "${element.id}" ne peut pas avoir une valeur négative`
-                  )
-                }
-
-                return res
-              }, res)
-            : res,
-        []
-      )
-    : []
+                  return res
+                }, res)
+              : res,
+          []
+        )
+      : []
 
   const errors = [...errorsFondamentales, ...errorsContenu]
 
