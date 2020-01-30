@@ -1,6 +1,5 @@
 import { ITitresPoints } from '../types'
-
-// import * as rewind from 'geojson-rewind'
+import * as rewind from 'geojson-rewind'
 
 // converti des points
 // en un geojson de type 'MultiPolygon'
@@ -8,10 +7,13 @@ import { ITitresPoints } from '../types'
 const geojsonFeatureMultiPolygon = (points: ITitresPoints[]) => ({
   type: 'Feature',
   properties: { etapeId: points[0].titreEtapeId },
-  geometry: {
-    type: 'MultiPolygon',
-    coordinates: geojsonMultiPolygonCoordinates(points)
-  }
+  geometry: rewind(
+    {
+      type: 'MultiPolygon',
+      coordinates: geojsonMultiPolygonCoordinates(points)
+    },
+    false
+  )
 })
 
 // converti des points

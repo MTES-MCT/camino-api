@@ -5,7 +5,8 @@ import {
   IDemarchesTypes,
   ITitresActivites,
   IAdministrations,
-  ITitresDemarches
+  ITitresDemarches,
+  IGeoJson
 } from '../../../types'
 
 import {
@@ -178,11 +179,15 @@ const titreFormat = (
 
   if (t.points?.length) {
     if (fields.geojsonMultiPolygon) {
-      t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points)
+      t.geojsonMultiPolygon = (geojsonFeatureMultiPolygon(
+        t.points
+      ) as unknown) as IGeoJson
     }
 
     if (fields.geojsonPoints) {
-      t.geojsonPoints = geojsonFeatureCollectionPoints(t.points)
+      t.geojsonPoints = (geojsonFeatureCollectionPoints(
+        t.points
+      ) as unknown) as IGeoJson
     }
   }
 
@@ -354,11 +359,15 @@ const titreEtapeFormat = (
 
   if (te.points && te.points.length) {
     if (fields.geojsonMultiPolygon) {
-      te.geojsonMultiPolygon = geojsonFeatureMultiPolygon(te.points)
+      te.geojsonMultiPolygon = (geojsonFeatureMultiPolygon(
+        te.points
+      ) as unknown) as IGeoJson
     }
 
     if (fields.geojsonPoints) {
-      te.geojsonPoints = geojsonFeatureCollectionPoints(te.points)
+      te.geojsonPoints = (geojsonFeatureCollectionPoints(
+        te.points
+      ) as unknown) as IGeoJson
     }
   }
 
