@@ -1,3 +1,5 @@
+import { RequestContext } from '../../types'
+import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import {
   administrationGet,
@@ -13,7 +15,11 @@ import {
   administrationsFormat
 } from './format/administration'
 
-const administration = async ({ id }, context, info) => {
+const administration = async (
+  { id }: { id: string },
+  context: RequestContext,
+  info: GraphQLResolveInfo
+) => {
   try {
     const administration = await administrationGet(id, {
       graph: graphBuild(graphFieldsBuild(info), 'administration', graphFormat)
@@ -31,7 +37,11 @@ const administration = async ({ id }, context, info) => {
   }
 }
 
-const administrations = async ({ noms }, context, info) => {
+const administrations = async (
+  { noms }: { noms: string[] },
+  context: RequestContext,
+  info: GraphQLResolveInfo
+) => {
   try {
     const administrations = await administrationsGet(
       { noms },
