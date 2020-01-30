@@ -73,13 +73,13 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('demarchesTypes__types'),
     del('demarchesTypes__etapesTypes'),
     del('etapesTypes__etapesStatuts'),
-    del('statuts'),
-    del('geoSystemes'),
-    del('devises'),
-    del('unites'),
-    del('referencesTypes')
+    del('geoSystemes')
   ])
   await Promise.all([
+    del('statuts'),
+    del('devises'),
+    del('unites'),
+    del('referencesTypes'),
     del('phasesStatuts'),
     del('demarchesTypes'),
     del('etapesTypes'),
