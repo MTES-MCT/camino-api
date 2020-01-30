@@ -18,7 +18,7 @@ const administrationsGet = async (
     .skipUndefined()
     .withGraphFetched(graph)
 
-const administrationsUpsert = async (administrations: IAdministrations) =>
+const administrationsUpsert = async (administrations: IAdministrations[]) =>
   Administrations.query()
     .withGraphFetched(options.administrations.graph)
     .upsertGraph(administrations, options.administrations.update)

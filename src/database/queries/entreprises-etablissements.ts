@@ -9,7 +9,7 @@ const entreprisesEtablissementsGet = async () =>
   EntrepriseEtablissements.query().skipUndefined()
 
 const entreprisesEtablissementsUpsert = async (
-  entreprisesEtablissements: IEntreprisesEtablissements
+  entreprisesEtablissements: IEntreprisesEtablissements[]
 ) =>
   EntrepriseEtablissements.query().upsertGraph(
     entreprisesEtablissements,

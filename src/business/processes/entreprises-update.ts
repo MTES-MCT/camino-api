@@ -1,3 +1,5 @@
+import { IEntreprisesEtablissements, IEntreprises } from '../../types'
+
 import { objectsDiffer } from '../../tools'
 import { entreprisesUpsert } from '../../database/queries/entreprises'
 import {
@@ -10,43 +12,52 @@ import {
 } from '../../tools/api-insee'
 
 const entreprisesEtablissementsToUpdateBuild = (
-  entreprisesEtablissementsOld,
-  entreprisesEtablissementsNew
+  entreprisesEtablissementsOld: IEntreprisesEtablissements[],
+  entreprisesEtablissementsNew: IEntreprisesEtablissements[]
 ) =>
-  entreprisesEtablissementsNew.reduce((acc, entrepriseEtablissementNew) => {
-    const entrepriseEtablissementOld = entreprisesEtablissementsOld.find(
-      a => a && a.id === entrepriseEtablissementNew.id
-    )
+  entreprisesEtablissementsNew.reduce(
+    (acc: IEntreprisesEtablissements[], entrepriseEtablissementNew) => {
+      const entrepriseEtablissementOld = entreprisesEtablissementsOld.find(
+        a => a && a.id === entrepriseEtablissementNew.id
+      )
 
-    const updated =
-      !entrepriseEtablissementOld ||
-      objectsDiffer(entrepriseEtablissementNew, entrepriseEtablissementOld)
+      const updated =
+        !entrepriseEtablissementOld ||
+        objectsDiffer(entrepriseEtablissementNew, entrepriseEtablissementOld)
 
-    if (updated) {
-      acc.push(entrepriseEtablissementNew)
-    }
+      if (updated) {
+        acc.push(entrepriseEtablissementNew)
+      }
 
-    return acc
-  }, [])
+      return acc
+    },
+    []
+  )
 
 const entreprisesEtablissementsToDeleteBuild = (
-  entreprisesEtablissementsOld,
-  entreprisesEtablissementsNew
+  entreprisesEtablissementsOld: IEntreprisesEtablissements[],
+  entreprisesEtablissementsNew: IEntreprisesEtablissements[]
 ) =>
-  entreprisesEtablissementsOld.reduce((acc, entrepriseEtablissementOld) => {
-    const deleted = !entreprisesEtablissementsNew.find(
-      a => a && a.id === entrepriseEtablissementOld.id
-    )
+  entreprisesEtablissementsOld.reduce(
+    (acc: string[], entrepriseEtablissementOld) => {
+      const deleted = !entreprisesEtablissementsNew.find(
+        a => a && a.id === entrepriseEtablissementOld.id
+      )
 
-    if (deleted) {
-      acc.push(entrepriseEtablissementOld.id)
-    }
+      if (deleted) {
+        acc.push(entrepriseEtablissementOld.id)
+      }
 
-    return acc
-  }, [])
+      return acc
+    },
+    []
+  )
 
-const entreprisesToUpdateBuild = (entreprisesOld, entreprisesNew) =>
-  entreprisesNew.reduce((acc, entrepriseNew) => {
+const entreprisesToUpdateBuild = (
+  entreprisesOld: IEntreprises[],
+  entreprisesNew: IEntreprises[]
+) =>
+  entreprisesNew.reduce((acc: IEntreprises[], entrepriseNew) => {
     const entrepriseOld = entreprisesOld.find(
       a => a && a.id === entrepriseNew.id
     )
@@ -61,12 +72,16 @@ const entreprisesToUpdateBuild = (entreprisesOld, entreprisesNew) =>
     return acc
   }, [])
 
-const sirensFind = entreprisesOld =>
+const sirensFind = (entreprisesOld: IEntreprises[]) =>
   Object.keys(
-    entreprisesOld.reduce((acc, entrepriseOld) => {
+    entreprisesOld.reduce((acc: { [id: string]: number }, entrepriseOld) => {
       if (!entrepriseOld || !entrepriseOld.legalSiren) return acc
 
-      acc[entrepriseOld.legalSiren] = (acc[entrepriseOld.legalSiren] | 0) + 1
+      let siren = Number(acc[entrepriseOld.legalSiren])
+      siren = isNaN(siren) ? 0 : siren
+      siren += 1
+
+      acc[entrepriseOld.legalSiren] = siren
 
       // prévient s'il y a des doublons dans les sirens
       if (acc[entrepriseOld.legalSiren] > 1) {
@@ -78,8 +93,8 @@ const sirensFind = entreprisesOld =>
   )
 
 const entreprisesEtablissementsEtAdressesUpdate = async (
-  entreprisesOld,
-  entreprisesEtablissementsOld
+  entreprisesOld: IEntreprises[],
+  entreprisesEtablissementsOld: IEntreprisesEtablissements[]
 ) => {
   const sirens = sirensFind(entreprisesOld)
 
@@ -107,7 +122,7 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     entreprisesEtablissementsNew
   )
 
-  let etablissementsUpdated = []
+  let etablissementsUpdated = [] as IEntreprisesEtablissements[]
 
   if (etablissementsToUpdate.length) {
     etablissementsUpdated = await entreprisesEtablissementsUpsert(
@@ -133,7 +148,7 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
     )
   }
 
-  let entreprisesUpdated = []
+  let entreprisesUpdated = [] as IEntreprises[]
 
   if (entreprisesToUpdate.length) {
     entreprisesUpdated = await entreprisesUpsert(entreprisesToUpdate)

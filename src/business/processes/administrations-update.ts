@@ -1,3 +1,5 @@
+import { IAdministrations, IDepartements } from '../../types'
+
 import { administrationsUpsert } from '../../database/queries/administrations'
 import {
   organismeDepartementGet,
@@ -6,7 +8,8 @@ import {
 
 import { objectsDiffer } from '../../tools'
 
-const administrationsUpdatedFind = (administrationsOld, administrationsNew) =>
+
+const administrationsUpdatedFind = (administrationsOld: IAdministrations[], administrationsNew: IAdministrations[]) =>
   administrationsNew.reduce((acc, administrationNew) => {
     const administrationOld = administrationsOld.find(
       a => a.id === administrationNew.id
@@ -20,11 +23,11 @@ const administrationsUpdatedFind = (administrationsOld, administrationsNew) =>
     }
 
     return acc
-  }, [])
+  }, [] as IAdministrations[])
 
 const administrationsGetTest = () => organismeDepartementGet('01', 'prefecture')
 
-const administrationsGet = async departements => {
+const administrationsGet = async (departements: IDepartements[]) => {
   const departementsIdsNoms = departements.map(({ id: departementId }) => ({
     departementId,
     nom: departementId === '75' ? 'paris_ppp' : 'prefecture'
@@ -33,7 +36,7 @@ const administrationsGet = async departements => {
   return organismesDepartementsGet(departementsIdsNoms)
 }
 
-const administrationsUpdate = async (administrationsOld, departements) => {
+const administrationsUpdate = async (administrationsOld: IAdministrations[], departements: IDepartements[]) => {
   if (!departements || !departements.length) return []
 
   const administrationsApiTest = await administrationsGetTest()
