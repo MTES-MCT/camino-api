@@ -5,15 +5,11 @@ import { permissionsCheck } from '../permissions/permissions-check'
 const userFormat = (user: IUsers) => {
   if (!user) return null
 
+  const hasPermissions = permissionsCheck(user, ['super', 'admin', 'editeur', 'lecteur', 'entreprise'])
+
   user.sections = {
-    activites: permissionsCheck(user, [
-      'super',
-      'admin',
-      'editeur',
-      'lecteur',
-      'entreprise'
-    ]),
-    utilisateurs: permissionsCheck(user, ['super', 'admin'])
+    activites: hasPermissions,
+    utilisateurs: hasPermissions
   }
 
   return user
