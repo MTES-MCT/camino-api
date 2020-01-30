@@ -1,3 +1,12 @@
+import {
+  IRestrictionsDomaines,
+  IRestrictionsTypesAdministrations,
+  IRestrictionsTypesStatuts,
+  IRestrictionsTypesStatutsAdministrations,
+  IRestrictionsEtapesTypes,
+  IRestrictionsEtapesTypesAdministrations
+} from '../../types'
+
 import { debug } from '../../config/index'
 
 import { typesGet, statutsGet } from '../../database/queries/metas'
@@ -12,13 +21,13 @@ import {
 } from '../../database/queries/restrictions'
 
 const restrictions = {
-  domaines: [],
-  typesAdministrations: [],
-  typesStatuts: [],
-  statutIds: [],
-  typesStatutsAdministrations: [],
-  etapesTypes: [],
-  etapesTypesAdministrations: []
+  domaines: [] as IRestrictionsDomaines[],
+  typesAdministrations: [] as IRestrictionsTypesAdministrations[],
+  typesStatuts: [] as IRestrictionsTypesStatuts[],
+  statutIds: [] as string[],
+  typesStatutsAdministrations: [] as IRestrictionsTypesStatutsAdministrations[],
+  etapesTypes: [] as IRestrictionsEtapesTypes[],
+  etapesTypesAdministrations: [] as IRestrictionsEtapesTypesAdministrations[]
 }
 
 const restrictionsInit = async () => {
@@ -45,7 +54,7 @@ const restrictionsInit = async () => {
     }
 
     return statutIds
-  }, [])
+  }, [] as string[])
 
   restrictions.typesStatutsAdministrations = await restrictionsTypesStatutsAdministrationsGet()
 

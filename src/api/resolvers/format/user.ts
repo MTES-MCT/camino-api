@@ -1,6 +1,8 @@
+import { IUsers } from '../../../types'
+
 import { permissionsCheck } from '../permissions/permissions-check'
 
-const userFormat = user => {
+const userFormat = (user: IUsers) => {
   if (!user) return null
 
   user.sections = {

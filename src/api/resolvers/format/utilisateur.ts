@@ -1,10 +1,12 @@
+import { IUtilisateurs } from '../../../types'
+
 import { permissionsCheck } from '../permissions/permissions-check'
 import {
   permissionUtilisateurAdministrationCheck,
   permissionUtilisateurEntrepriseCheck
 } from '../permissions/utilisateur'
 
-const utilisateurFormat = (utilisateur, user) => {
+const utilisateurFormat = (utilisateur: IUtilisateurs, user: IUtilisateurs) => {
   // si
   // - user n'existe pas (pas d'utilisateur connecté)
   // - ou l'utilisateur n'existe pas (pas d'utilisateur avec cette id)
@@ -35,7 +37,10 @@ const utilisateurFormat = (utilisateur, user) => {
   return utilisateur
 }
 
-const utilisateursFormat = (utilisateurs, user) =>
+const utilisateursFormat = (
+  utilisateurs: IUtilisateurs[],
+  user: IUtilisateurs
+) =>
   utilisateurs &&
   utilisateurs.reduce((acc, utilisateur) => {
     const utilisateurFormated = utilisateurFormat(utilisateur, user)
@@ -45,6 +50,6 @@ const utilisateursFormat = (utilisateurs, user) =>
     }
 
     return acc
-  }, [])
+  }, [] as IUtilisateurs[])
 
 export { utilisateurFormat, utilisateursFormat }
