@@ -1,8 +1,10 @@
+import { IDemarchesTypes, ITypes } from '../../types'
+
 import { typesGet, demarchesTypesGet } from '../../database/queries/metas'
 
 const metas = {
-  types: [],
-  demarchesTypes: []
+  types: [] as ITypes[],
+  demarchesTypes: [] as IDemarchesTypes[]
 }
 
 const metasInit = async () => {

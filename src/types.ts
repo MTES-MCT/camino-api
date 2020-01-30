@@ -4,7 +4,7 @@ interface IActivitesStatuts {
   couleur: string
 }
 
-interface IActivitesTypesSectionsElement {
+interface ISectionsElement {
   id: string
   nom: string
   type: string
@@ -12,19 +12,20 @@ interface IActivitesTypesSectionsElement {
   // TODO: pour type, utiliser un enum
   dateDebut?: string
   dateFin?: string
+  frequencePeriodesIds?: number[]
 }
 
-interface IActivitesTypesSection {
+interface ISections {
   id: string
   nom: string
-  elements: IActivitesTypesSectionsElement[]
+  elements?: ISectionsElement[]
 }
 
 interface IActivitesTypes {
   id: string
   nom: string
   frequenceId: string
-  sections: IActivitesTypesSection[]
+  sections?: ISections[]
   frequence: IFrequences
   types?: ITypes[]
   pays?: IPays[]
@@ -58,14 +59,10 @@ interface IAdministrations {
   utilisateurs?: IUtilisateurs[]
   titresAdministrationsGestionnaires?: ITitres[]
   titresAdministrationsLocales?: ITitres[]
+  associee?: boolean
 }
 
-interface IAnnees {
-  id: string
-  nom: string
-  frequenceId: string
-  frequence: IFrequences
-}
+interface IAnnees extends IPeriodes {}
 
 interface ICommunes {
   id: string
@@ -91,6 +88,7 @@ interface IDemarchesTypes {
   renouvelable?: boolean
   exception?: boolean
   etapesTypes: IEtapesTypes[]
+  editable?: boolean
 }
 
 interface IDepartements {
@@ -144,8 +142,10 @@ interface IEntreprises {
   telephone?: string
   url?: string
   etablissements?: IEntreprisesEtablissements[]
-  titresTitulaire?: ITitres
-  titresAmodiataire?: ITitres
+  utilisateurs?: IUtilisateurs[]
+  titresTitulaire?: ITitres[]
+  titresAmodiataire?: ITitres[]
+  editable?: boolean
 }
 
 interface IEtapesStatuts {
@@ -163,14 +163,30 @@ interface IEtapesTypes {
   dateFin?: string
   sections?: any
   etapesStatuts?: IEtapesStatuts[]
+  editable?: boolean
+  typeId?: string
 }
 
 interface IFrequences {
   id: string
   nom: string
+  periodesNom: 'annees' | 'trimestres' | 'mois'
   annees: IAnnees[]
   trimestres: ITrimestres[]
   mois: IMois[]
+}
+
+export interface IGeoJson {
+  type: string
+  geometry?: IGeometry
+  bbox?: number[]
+  properties?: { [id: string]: string | number }
+  features?: IGeoJson[]
+}
+
+export interface IGeometry {
+  type: string
+  coordinates: number[] | number[][] | number[][][] | number[][][][]
 }
 
 interface IGeoSystemes {
@@ -188,19 +204,22 @@ interface IGlobales {
   valeur: boolean
 }
 
-interface IMois {
-  id: string
-  nom: string
+interface IMois extends IPeriodes {
   trimestreId: string
-  frequenceId: string
   trimestre: ITrimestres
-  frequence: IFrequences
 }
 
 interface IPays {
   id: string
   nom: string
   regions?: IRegions[]
+}
+
+interface IPeriodes {
+  id: number
+  nom: string
+  frequenceId: string
+  frequence: IFrequences
 }
 
 interface IPermissions {
@@ -308,16 +327,19 @@ interface ITitresActivites {
   id: string
   titreId: string
   date: string
+  activiteTypeId: string
+  type: IActivitesTypes
+  activiteStatutId: string
+  statut: IActivitesStatuts
+  frequencePeriodeId: number
+  annee: number
+  periode: IAnnees | ITrimestres | IMois
   utilisateurId?: string
   utilisateur: IUtilisateurs
   dateSaisie?: string
   contenu?: ITitresActivitesContenu
-  activiteTypeId: string
-  activiteType: IActivitesTypes
-  activiteStatutId: string
-  activiteStatut: IActivitesStatuts
-  frequencePeriodeId: number
-  annee: number
+  sections?: ISections[]
+  editable?: boolean
 }
 
 interface ITitresAdministrationsGestionnaires {
@@ -354,6 +376,8 @@ interface ITitresDemarches {
   annulationDemarche?: ITitresDemarches
   parents?: ITitresDemarches[]
   enfants?: ITitresDemarches[]
+  editable?: boolean
+  supprimable?: boolean
 }
 
 interface ITitresDocuments {
@@ -369,6 +393,8 @@ interface ITitresDocuments {
   fichier?: boolean
   fichierTypeId?: string
   public?: boolean
+  editable?: boolean
+  supprimable?: boolean
 }
 
 interface ITitresEtapes {
@@ -390,17 +416,21 @@ interface ITitresEtapes {
   engagementDeviseId?: string
   // TODO: ITitresEtapesContenus
   contenu?: any
-  substances?: ISubstances
-  points?: ITitresPoints
-  titulaires?: IEntreprises
-  amodiataires?: IEntreprises
-  administrations?: IAdministrations
-  documents?: ITitresDocuments
+  substances?: ISubstances[]
+  points?: ITitresPoints[]
+  geojsonMultiPolygon?: IGeoJson
+  geojsonPoints?: IGeoJson
+  titulaires?: IEntreprises[]
+  amodiataires?: IEntreprises[]
+  administrations?: IAdministrations[]
+  documents?: ITitresDocuments[]
   communes?: ICommunes[]
   incertitudes?: ITitresIncertitudes
   volumeUnite?: IUnites
   engagementDevise?: IDevises
   pays?: IPays[]
+  editable?: boolean
+  supprimable?: boolean
 }
 
 interface ITitresIncertitudes {
@@ -468,11 +498,12 @@ interface ITitres {
   id: string
   nom: string
   domaineId: string
-  typeId: string
   domaine: IDomaines
+  typeId: string
   type: ITypes
-  statut: IStatuts
   statutId?: string
+  statut: IStatuts
+  references?: ITitresReferences[]
   dateDebut?: string
   dateFin?: string
   dateDemande?: string
@@ -480,39 +511,42 @@ interface ITitres {
   activitesEnConstruction?: number
   activitesAbsentes?: number
   substancesTitreEtapeId?: string
-  pointsTitreEtapeId?: string
-  titulairesTitreEtapeId?: string
-  amodiatairesTitreEtapeId?: string
-  administrationsTitreEtapeId?: string
-  surfaceTitreEtapeId?: string
-  volumeTitreEtapeId?: string
-  volumeUniteIdTitreEtapeId?: string
-  communesTitreEtapeId?: string
-  engagementTitreEtapeId?: string
-  engagementDeviseIdTitreEtapeId?: string
-  demarches?: ITitresDemarches
-  surfaceEtape?: ITitresEtapes
-  volumeEtape?: ITitresEtapes
-  volumeUnite?: ITitresEtapes
-  engagementEtape?: ITitresEtapes
-  engagementDevise?: IDevises
   substances?: ISubstances
+  pointsTitreEtapeId?: string
   points?: ITitresPoints[]
+  geojsonMultiPolygon?: IGeoJson
+  geojsonPoints?: IGeoJson
+  titulairesTitreEtapeId?: string
   titulaires?: IEntreprises[]
+  amodiatairesTitreEtapeId?: string
   amodiataires?: IEntreprises[]
-  administrationsGestionnaires?: IAdministrations[]
+  administrationsTitreEtapeId?: string
   administrationsLocales?: IAdministrations[]
+  administrationsGestionnaires?: IAdministrations[]
+  administrations?: IAdministrations[]
+  surfaceTitreEtapeId?: string
+  surfaceEtape?: ITitresEtapes
+  surface?: number
+  volumeTitreEtapeId?: string
+  volumeEtape?: ITitresEtapes
+  volume?: number
+  volumeUniteIdTitreEtapeId?: string
+  volumeUnite?: IUnites
+  communesTitreEtapeId?: string
   communes?: ICommunes[]
+  engagementTitreEtapeId?: string
+  engagementEtape?: ITitresEtapes
+  engagement?: number
+  engagementDeviseIdTitreEtapeId?: string
+  engagementDevise?: IDevises
+  demarches?: ITitresDemarches[]
   activites?: ITitresActivites[]
-  references?: ITitresReferences[]
   pays?: IPays[]
+  editable?: boolean
+  supprimable?: boolean
 }
 
-interface ITrimestres {
-  id: string
-  nom: string
-  frequenceId: string
-  frequence: IFrequences
+interface ITrimestres extends IPeriodes {
   mois: IMois[]
 }
 
@@ -529,6 +563,10 @@ interface IUnites {
   symbole: string
 }
 
+interface IUsers extends IUtilisateurs {
+  sections: { [id: string]: boolean }
+}
+
 interface IUtilisateurs {
   id: string
   email?: string
@@ -543,12 +581,20 @@ interface IUtilisateurs {
   permission: IPermissions
   administrations?: IAdministrations[]
   entreprises?: IEntreprises[]
+  editable: boolean
+  supprimable: boolean
+  permissionEditable: boolean
+}
+
+interface RequestContext {
+  user: IUtilisateurs
 }
 
 export {
   IActivitesStatuts,
   IActivitesTypes,
-  IActivitesTypesSection,
+  ISections,
+  ISectionsElement,
   IAdministrationsTypes,
   IAdministrations,
   IAnnees,
@@ -570,6 +616,7 @@ export {
   IMois,
   IPays,
   IPermissions,
+  IPeriodes,
   IPhasesStatuts,
   IReferencesTypes,
   IRegions,
@@ -600,5 +647,7 @@ export {
   ITrimestres,
   ITypes,
   IUnites,
-  IUtilisateurs
+  IUsers,
+  IUtilisateurs,
+  RequestContext
 }

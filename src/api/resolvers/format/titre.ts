@@ -1,4 +1,14 @@
 import {
+  IUtilisateurs,
+  ITitres,
+  ITitresEtapes,
+  IDemarchesTypes,
+  ITitresActivites,
+  IAdministrations,
+  ITitresDemarches
+} from '../../../types'
+
+import {
   geojsonFeatureMultiPolygon,
   geojsonFeatureCollectionPoints
 } from '../../../tools/geojson'
@@ -50,8 +60,11 @@ const titreFormatFields = {
   administrations: true
 }
 
-const titresFormat = (titres, user, fields = titreFormatFields) =>
-  titres &&
+const titresFormat = (
+  titres: ITitres[],
+  user: IUtilisateurs,
+  fields = titreFormatFields
+) =>
   titres.reduce((acc, titre) => {
     const titreFormated = titreFormat(titre, user, fields)
 
@@ -60,9 +73,13 @@ const titresFormat = (titres, user, fields = titreFormatFields) =>
     }
 
     return acc
-  }, [])
+  }, [] as ITitres[])
 
-const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
+const titreEtapeRestrictionsFilter = (
+  e: ITitresEtapes,
+  user: IUtilisateurs,
+  userHasPermission: boolean
+) => {
   const etapeTypeRestricted = restrictions.etapesTypes.find(
     re => re.etapeTypeId === e.typeId
   )
@@ -81,13 +98,12 @@ const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
   // si l'utilisateur fait partie d'une administration
   const isAdministration =
     permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
-    user.administrations &&
-    user.administrations.length
+    user.administrations?.length
   if (isAdministration) {
     const etapeTypeRestrictedAdministration = restrictions.etapesTypesAdministrations.find(
       rea =>
         rea.etapeTypeId === e.typeId &&
-        user.administrations.find(ua => ua.id === rea.administrationId) &&
+        user.administrations?.find(ua => ua.id === rea.administrationId) &&
         rea.lectureInterdit
     )
 
@@ -98,7 +114,12 @@ const titreEtapeRestrictionsFilter = (e, user, userHasPermission) => {
   return false
 }
 
-const demarcheTypeFormat = (demarcheType, titre, user, { isSuper }) => {
+const demarcheTypeFormat = (
+  demarcheType: IDemarchesTypes,
+  titre: ITitres,
+  user: IUtilisateurs,
+  { isSuper }: { isSuper: boolean }
+) => {
   if (!titre.editable) {
     demarcheType.editable = false
 
@@ -126,7 +147,11 @@ const demarcheTypeFormat = (demarcheType, titre, user, { isSuper }) => {
 // remplacer le contenu de ce fichier
 // par des requêtes SQL (dans /database/queries/titres)
 // qui retournent les données directement formatées
-const titreFormat = (t, user, fields = titreFormatFields) => {
+const titreFormat = (
+  t: ITitres,
+  user: IUtilisateurs,
+  fields = titreFormatFields
+) => {
   const titreIsPublic = titreIsPublicCheck(t)
   const userHasPermission = titrePermissionCheck(t, user, [
     'super',
@@ -150,7 +175,7 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
   if (!fields) return t
 
-  if (t.points && t.points.length) {
+  if (t.points?.length) {
     if (fields.geojsonMultiPolygon) {
       t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points)
     }
@@ -184,14 +209,14 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
     t.surface = t.surfaceEtape.surface
   }
 
-  if (fields.activites && t.activites && t.activites.length) {
+  if (fields.activites && t.activites?.length) {
     t.activites = t.activites.reduce((acc, ta) => {
       if (titreActivitePermissionCheck(user, t, ta)) {
         acc.push(titreActiviteFormat(ta, user, fields.activites))
       }
 
       return acc
-    }, [])
+    }, [] as ITitresActivites[])
 
     t.activitesAbsentes = titreActiviteCalc(t.activites, 'abs')
     t.activitesDeposees = titreActiviteCalc(t.activites, 'dep')
@@ -200,15 +225,13 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 
   if (fields.administrations) {
     const hasAdministrations =
-      (t.administrationsGestionnaires &&
-        t.administrationsGestionnaires.length) ||
-      (t.administrationsLocales && t.administrationsLocales.length)
+      t.administrationsGestionnaires?.length || t.administrationsLocales?.length
     if (hasAdministrations) {
       // fusionne administrations gestionnaires et locales
       let administrations = dupRemove('id', [
-        ...(t.administrationsGestionnaires || []),
-        ...(t.administrationsLocales || [])
-      ])
+        t.administrationsGestionnaires || [],
+        t.administrationsLocales || []
+      ]) as IAdministrations[]
 
       // si l'utilisateur n'a pas de droits de visualisation suffisants
       // alors filtre les administrations `associee`
@@ -246,10 +269,14 @@ const titreFormat = (t, user, fields = titreFormatFields) => {
 }
 
 const titreDemarcheFormat = (
-  td,
-  t,
-  user,
-  { userHasPermission, isSuper, isAdmin },
+  td: ITitresDemarches,
+  t: ITitres,
+  user: IUtilisateurs,
+  {
+    userHasPermission,
+    isSuper,
+    isAdmin
+  }: { userHasPermission: boolean; isSuper: boolean; isAdmin: boolean },
   fields = titreDemarcheFormatFields
 ) => {
   if (!fields) return td
@@ -285,7 +312,7 @@ const titreDemarcheFormat = (
       titreEtapes.push(teFormatted)
 
       return titreEtapes
-    }, [])
+    }, [] as ITitresEtapes[])
 
     td.etapes = titreEtapes
   }
@@ -294,11 +321,15 @@ const titreDemarcheFormat = (
 }
 
 const titreEtapeFormat = (
-  te,
-  td,
-  t,
-  user,
-  { userHasPermission, isSuper, isAdmin },
+  te: ITitresEtapes,
+  td: ITitresDemarches,
+  t: ITitres,
+  user: IUtilisateurs,
+  {
+    userHasPermission,
+    isSuper,
+    isAdmin
+  }: { userHasPermission: boolean; isSuper: boolean; isAdmin: boolean },
   fields = titreEtapeFormatFields
 ) => {
   if (isSuper || isAdmin) {
