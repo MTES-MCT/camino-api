@@ -230,8 +230,8 @@ const titreFormat = (
     if (hasAdministrations) {
       // fusionne administrations gestionnaires et locales
       let administrations = dupRemove('id', [
-        t.administrationsGestionnaires || [],
-        t.administrationsLocales || []
+        ...(t.administrationsGestionnaires || []),
+        ...(t.administrationsLocales || [])
       ]) as IAdministrations[]
 
       // si l'utilisateur n'a pas de droits de visualisation suffisants
