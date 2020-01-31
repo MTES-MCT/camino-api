@@ -75,7 +75,7 @@ const entreprisesToUpdateBuild = (
 const sirensFind = (entreprisesOld: IEntreprises[]) =>
   Object.keys(
     entreprisesOld.reduce((acc: { [id: string]: number }, entrepriseOld) => {
-      if (!entrepriseOld || !entrepriseOld.legalSiren) return acc
+      if (!entrepriseOld.legalSiren) return acc
 
       let siren = Number(acc[entrepriseOld.legalSiren])
       siren = isNaN(siren) ? 0 : siren
@@ -92,7 +92,7 @@ const sirensFind = (entreprisesOld: IEntreprises[]) =>
     }, {})
   )
 
-const entreprisesEtablissementsEtAdressesUpdate = async (
+const entreprisesUpdate = async (
   entreprisesOld: IEntreprises[],
   entreprisesEtablissementsOld: IEntreprisesEtablissements[]
 ) => {
@@ -160,4 +160,4 @@ const entreprisesEtablissementsEtAdressesUpdate = async (
   return [entreprisesUpdated, etablissementsUpdated, etablissementsDeleted]
 }
 
-export default entreprisesEtablissementsEtAdressesUpdate
+export default entreprisesUpdate

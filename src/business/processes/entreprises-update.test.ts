@@ -1,5 +1,9 @@
+import { mocked } from 'ts-jest/utils'
 import entrepriseUpdate from './entreprises-update'
-import * as apiEntreprises from '../../tools/api-insee'
+import {
+  entreprisesGet,
+  entreprisesEtablissementsGet
+} from '../../tools/api-insee'
 
 import {
   dbEntreprisesCreees,
@@ -31,22 +35,24 @@ jest.mock('../../database/queries/entreprises-etablissements', () => ({
   entreprisesEtablissementsDelete: jest.fn()
 }))
 
+const entreprisesGetMock = mocked(entreprisesGet, true)
+
+const entreprisesEtablissementsGetMock = mocked(
+  entreprisesEtablissementsGet,
+  true
+)
+
 // 'jest.mock()' est hoisté avant l'import, le court-circuitant
 // https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../tools/api-insee', () => ({
-  entreprisesGet: jest.fn(),
-  entreprisesEtablissementsGet: jest.fn()
-}))
+jest.mock('../../tools/api-insee')
 
 console.log = jest.fn()
 console.info = jest.fn()
 
 describe('entreprises', () => {
   test("crée les entreprises si elles n'existent pas", async () => {
-    apiEntreprises.entreprisesGet.mockResolvedValue(apiEntreprisesCreees)
-    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
-      apiEntreprisesCreees
-    )
+    entreprisesGetMock.mockResolvedValue(apiEntreprisesCreees)
+    entreprisesEtablissementsGetMock.mockResolvedValue(apiEntreprisesCreees)
 
     const [
       entreprisesUpdated,
@@ -65,10 +71,8 @@ describe('entreprises', () => {
   })
 
   test('met à jour les entreprises qui ont été modifiées', async () => {
-    apiEntreprises.entreprisesGet.mockResolvedValue(apiEntreprisesModifiees)
-    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
-      apiEntreprisesModifiees
-    )
+    entreprisesGetMock.mockResolvedValue(apiEntreprisesModifiees)
+    entreprisesEtablissementsGetMock.mockResolvedValue(apiEntreprisesModifiees)
 
     const [
       entreprisesUpdated,
@@ -86,8 +90,8 @@ describe('entreprises', () => {
   })
 
   test('supprime les entreprises qui ont été supprimés', async () => {
-    apiEntreprises.entreprisesGet.mockResolvedValue(apiEntreprisesSupprimeees)
-    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
+    entreprisesGetMock.mockResolvedValue(apiEntreprisesSupprimeees)
+    entreprisesEtablissementsGetMock.mockResolvedValue(
       apiEntreprisesSupprimeees
     )
 
@@ -107,8 +111,8 @@ describe('entreprises', () => {
   })
 
   test('ne crée pas les entreprises qui existent déjà', async () => {
-    apiEntreprises.entreprisesGet.mockResolvedValue(apiEntreprisesExistantes)
-    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
+    entreprisesGetMock.mockResolvedValue(apiEntreprisesExistantes)
+    entreprisesEtablissementsGetMock.mockResolvedValue(
       entreprisesEtablissementsApiExistantes
     )
 
@@ -128,8 +132,8 @@ describe('entreprises', () => {
   })
 
   test("ne modifie pas d'entreprises si elles n'existent pas", async () => {
-    apiEntreprises.entreprisesGet.mockResolvedValue(apiEntreprisesInexistantes)
-    apiEntreprises.entreprisesEtablissementsGet.mockResolvedValue(
+    entreprisesGetMock.mockResolvedValue(apiEntreprisesInexistantes)
+    entreprisesEtablissementsGetMock.mockResolvedValue(
       apiEntreprisesInexistantes
     )
 
