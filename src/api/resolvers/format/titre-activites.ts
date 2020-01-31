@@ -22,10 +22,10 @@ const titreSectionsFormat = (
   periode: IPeriodes,
   date: string
 ) =>
-  sections.reduce((sections, s) => {
+  sections.reduce((sections: ISections[], s) => {
     const elements =
       s.elements &&
-      s.elements.reduce((elements, e) => {
+      s.elements.reduce((elements: ISectionsElement[], e) => {
         // ne conserve que les éléments dont
         // - la période (si elle existe),
         // - la date de début et la date de fin
@@ -40,7 +40,7 @@ const titreSectionsFormat = (
         }
 
         return elements
-      }, [] as ISectionsElement[])
+      }, [])
 
     const section = {
       id: s.id,
@@ -53,7 +53,7 @@ const titreSectionsFormat = (
     }
 
     return sections
-  }, [] as ISections[])
+  }, [])
 
 const titreActiviteFormat = (
   ta: ITitresActivites,

@@ -47,7 +47,7 @@ const geojsonMultiPolygonCoordinates = (points: ITitresPoints[]) =>
 // [{groupe: 1, contour: 1, point: 1, coordonnees: {x: 1.111111, y: 1.111111}}]
 // en un tableau de 'coordinates': [[[[1.11111, 1.111111]]]]
 const multiPolygonCoordinates = (points: ITitresPoints[]) =>
-  points.reduce((res, p) => {
+  points.reduce((res: number[][][][], p) => {
     res[p.groupe - 1] = res[p.groupe - 1] || []
     res[p.groupe - 1][p.contour - 1] = res[p.groupe - 1][p.contour - 1] || []
     res[p.groupe - 1][p.contour - 1][p.point - 1] = [
@@ -56,18 +56,18 @@ const multiPolygonCoordinates = (points: ITitresPoints[]) =>
     ]
 
     return res
-  }, [] as number[][][][])
+  }, [])
 
 // duplique le premier point de chaque contour
 // en fin de contour pour fermer le tracé
 const multiPolygonContoursClose = (groupes: number[][][][]) =>
   groupes.map(contours =>
-    contours.reduce((acc, points) => {
+    contours.reduce((acc: number[][][], points) => {
       points[points.length] = points[0]
       acc.push(points)
 
       return acc
-    }, [] as number[][][])
+    }, [])
   )
 
 export { geojsonFeatureMultiPolygon, geojsonFeatureCollectionPoints }

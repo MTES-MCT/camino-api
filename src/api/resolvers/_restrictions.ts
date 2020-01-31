@@ -44,7 +44,7 @@ const restrictionsInit = async () => {
 
   // calcule les statuts interdits pour tous les types
   // pour ne pas les afficher dans les filtres
-  restrictions.statutIds = statuts.reduce((statutIds, statut) => {
+  restrictions.statutIds = statuts.reduce((statutIds: string[], statut) => {
     const typesRestricted = restrictions.typesStatuts.filter(
       t => t.statutId === statut.id && t.publicLectureInterdit
     )
@@ -54,7 +54,7 @@ const restrictionsInit = async () => {
     }
 
     return statutIds
-  }, [] as string[])
+  }, [])
 
   restrictions.typesStatutsAdministrations = await restrictionsTypesStatutsAdministrationsGet()
 

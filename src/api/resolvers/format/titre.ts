@@ -67,7 +67,7 @@ const titresFormat = (
   fields = titreFormatFields
 ) =>
   titres &&
-  titres.reduce((acc, titre) => {
+  titres.reduce((acc: ITitres[], titre) => {
     const titreFormated = titreFormat(titre, user, fields)
 
     if (titreFormated) {
@@ -75,7 +75,7 @@ const titresFormat = (
     }
 
     return acc
-  }, [] as ITitres[])
+  }, [])
 
 const titreEtapeRestrictionsFilter = (
   e: ITitresEtapes,
@@ -216,13 +216,13 @@ const titreFormat = (
   }
 
   if (fields.activites && t.activites?.length) {
-    t.activites = t.activites.reduce((acc, ta) => {
+    t.activites = t.activites.reduce((acc: ITitresActivites[], ta) => {
       if (titreActivitePermissionCheck(user, t, ta)) {
         acc.push(titreActiviteFormat(ta, user, fields.activites))
       }
 
       return acc
-    }, [] as ITitresActivites[])
+    }, [])
 
     t.activitesAbsentes = titreActiviteCalc(t.activites, 'abs')
     t.activitesDeposees = titreActiviteCalc(t.activites, 'dep')
@@ -298,7 +298,7 @@ const titreDemarcheFormat = (
   if (fields.etapes && td.etapes && td.etapes.length) {
     const isSuper = permissionsCheck(user, ['super'])
 
-    const titreEtapes = td.etapes.reduce((titreEtapes, te) => {
+    const titreEtapes = td.etapes.reduce((titreEtapes: ITitresEtapes[], te) => {
       if (
         !isSuper &&
         !titreEtapeRestrictionsFilter(te, user, userHasPermission)
@@ -318,7 +318,7 @@ const titreDemarcheFormat = (
       titreEtapes.push(teFormatted)
 
       return titreEtapes
-    }, [] as ITitresEtapes[])
+    }, [])
 
     td.etapes = titreEtapes
   }

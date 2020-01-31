@@ -86,17 +86,17 @@ const titresGet = async (
               ') > 0'
           )
           .join(') or (')})`,
-        references.reduce((res, s) => {
+        references.reduce((res: string[], s) => {
           res.push(
-            ...fields.reduce((r, f) => {
+            ...fields.reduce((r: string[], f) => {
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [] as string[])
+            }, [])
           )
 
           return res
-        }, [] as string[])
+        }, [])
       )
       .joinRelated('references.type')
   }
@@ -126,17 +126,17 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        substances.reduce((res, s) => {
+        substances.reduce((res: string[], s) => {
           res.push(
-            ...fields.reduce((r, f) => {
+            ...fields.reduce((r: string[], f) => {
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [] as string[])
+            }, [])
           )
 
           return res
-        }, [] as string[])
+        }, [])
       )
       .joinRelated('substances.legales')
   }
@@ -168,17 +168,17 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        entreprises.reduce((res, s) => {
+        entreprises.reduce((res: string[], s) => {
           res.push(
-            ...fields.reduce((r, f) => {
+            ...fields.reduce((r: string[], f) => {
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [] as string[])
+            }, [])
           )
 
           return res
-        }, [] as string[])
+        }, [])
       )
       .leftJoinRelated(
         '[titulaires.etablissements, amodiataires.etablissements]'
@@ -222,22 +222,22 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        territoires.reduce((res, s) => {
+        territoires.reduce((res: string[], s) => {
           res.push(
-            ...fieldsLike.reduce((r, f) => {
+            ...fieldsLike.reduce((r: string[], f) => {
               r.push(f, `%${s.toLowerCase()}%`)
 
               return r
-            }, [] as string[]),
-            ...fieldsExact.reduce((r, f) => {
+            }, []),
+            ...fieldsExact.reduce((r: string[], f) => {
               r.push(f, s.toLowerCase())
 
               return r
-            }, [] as string[])
+            }, [])
           )
 
           return res
-        }, [] as string[])
+        }, [])
       )
       .joinRelated('communes.departement.region.pays')
   }

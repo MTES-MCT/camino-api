@@ -8,9 +8,11 @@ import {
 
 import { objectsDiffer } from '../../tools'
 
-
-const administrationsUpdatedFind = (administrationsOld: IAdministrations[], administrationsNew: IAdministrations[]) =>
-  administrationsNew.reduce((acc, administrationNew) => {
+const administrationsUpdatedFind = (
+  administrationsOld: IAdministrations[],
+  administrationsNew: IAdministrations[]
+) =>
+  administrationsNew.reduce((acc: IAdministrations[], administrationNew) => {
     const administrationOld = administrationsOld.find(
       a => a.id === administrationNew.id
     )
@@ -23,7 +25,7 @@ const administrationsUpdatedFind = (administrationsOld: IAdministrations[], admi
     }
 
     return acc
-  }, [] as IAdministrations[])
+  }, [])
 
 const administrationsGetTest = () => organismeDepartementGet('01', 'prefecture')
 
@@ -36,7 +38,10 @@ const administrationsGet = async (departements: IDepartements[]) => {
   return organismesDepartementsGet(departementsIdsNoms)
 }
 
-const administrationsUpdate = async (administrationsOld: IAdministrations[], departements: IDepartements[]) => {
+const administrationsUpdate = async (
+  administrationsOld: IAdministrations[],
+  departements: IDepartements[]
+) => {
   if (!departements || !departements.length) return []
 
   const administrationsApiTest = await administrationsGetTest()
