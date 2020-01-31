@@ -45,7 +45,10 @@ const titreDemarcheDelete = async (id: string, trx: Transaction) =>
     .withGraphFetched(options.demarches.graph)
     .returning('*')
 
-const titreDemarcheUpdate = async (id: string, props: ITitresDemarches) =>
+const titreDemarcheUpdate = async (
+  id: string,
+  props: Partial<ITitresDemarches>
+) =>
   TitresDemarches.query()
     .withGraphFetched(options.demarches.graph)
     .patchAndFetchById(id, props)

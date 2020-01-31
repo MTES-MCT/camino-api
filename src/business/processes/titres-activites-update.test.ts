@@ -1,7 +1,11 @@
+import { mocked } from 'ts-jest/utils'
+
+import { ITitres, IActivitesTypes, ITitresActivites } from '../../types'
+
 import titresActivitesTypesUpdate from './titres-activites-update'
 
-import titreActiviteTypeFilter from '../utils/titre-activite-filter'
-import titreActiviteTypeAnneesFind from '../utils/titre-activite-type-annees-find'
+import activitesTypesFilter from '../utils/activites-types-filter'
+import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
 import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
@@ -11,33 +15,37 @@ import {
   titreActivitesTypes
 } from './__mocks__/titres-activites-update-titres'
 
-jest.mock('../utils/titre-activite-filter', () => ({
+jest.mock('../utils/activites-types-filter', () => ({
   __esModule: true,
   default: jest.fn()
 }))
 
-jest.mock('../utils/titre-activite-type-annees-find', () => ({
+jest.mock('../utils/activite-type-annees-find', () => ({
   __esModule: true,
   default: jest.fn()
 }))
 
 jest.mock('../../database/queries/titres-activites', () => ({
   __esModule: true,
-  titreActivitesUpsert: jest.fn().mockResolvedValue()
+  titreActivitesUpsert: jest.fn().mockResolvedValue(true)
 }))
 
 jest.mock('../rules/titre-activites-build', () => ({
   __esModule: true,
-  default: jest.fn().mockResolvedValue()
+  default: jest.fn().mockResolvedValue(true)
 }))
+
+const activitesTypesFilterMock = mocked(activitesTypesFilter, true)
+const activiteTypeAnneesFindMock = mocked(activiteTypeAnneesFind, true)
+const titreActivitesBuildMock = mocked(titreActivitesBuild, true)
 
 console.log = jest.fn()
 
 describe("activités d'un titre", () => {
   test('met à jour un titre sans activité', async () => {
-    titreActiviteTypeFilter.mockImplementation(() => true)
-    titreActiviteTypeAnneesFind.mockImplementation(() => [2018])
-    titreActivitesBuild.mockImplementation(() => [1])
+    activitesTypesFilterMock.mockImplementation(() => true)
+    activiteTypeAnneesFindMock.mockImplementation(() => [2018])
+    titreActivitesBuildMock.mockImplementation(() => [1])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,
@@ -46,7 +54,7 @@ describe("activités d'un titre", () => {
 
     expect(titresActivitesNew.length).toEqual(1)
 
-    expect(titreActiviteTypeFilter).toHaveBeenCalledTimes(
+    expect(activitesTypesFilter).toHaveBeenCalledTimes(
       titresSansActivite.length
     )
     expect(titreActivitesUpsert).toHaveBeenCalled()
@@ -55,9 +63,9 @@ describe("activités d'un titre", () => {
   })
 
   test('ne met pas à jour un titre possédant déjà des activités', async () => {
-    titreActiviteTypeFilter.mockImplementation(() => true)
-    titreActiviteTypeAnneesFind.mockImplementation(() => [2018])
-    titreActivitesBuild.mockImplementation(() => [])
+    activitesTypesFilterMock.mockImplementation(() => true)
+    activiteTypeAnneesFindMock.mockImplementation(() => [2018])
+    titreActivitesBuildMock.mockImplementation(() => [])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresToutesActivites,
@@ -66,15 +74,15 @@ describe("activités d'un titre", () => {
 
     expect(titresActivitesNew.length).toEqual(0)
 
-    expect(titreActiviteTypeFilter).toHaveBeenCalledTimes(1)
+    expect(activitesTypesFilter).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).toHaveBeenCalled()
     expect(titreActivitesUpsert).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {
-    titreActiviteTypeFilter.mockImplementation(() => false)
-    titreActiviteTypeAnneesFind.mockImplementation(() => [2018])
+    activitesTypesFilterMock.mockImplementation(() => false)
+    activiteTypeAnneesFindMock.mockImplementation(() => [2018])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,
@@ -83,15 +91,15 @@ describe("activités d'un titre", () => {
 
     expect(titresActivitesNew.length).toEqual(0)
 
-    expect(titreActiviteTypeFilter).toHaveBeenCalledTimes(1)
+    expect(activitesTypesFilter).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).not.toHaveBeenCalled()
     expect(titreActivitesUpsert).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()
   })
 
   test('ne met pas à jour de titre si les activités ne sont valables sur aucune année', async () => {
-    titreActiviteTypeFilter.mockImplementation(() => false)
-    titreActiviteTypeAnneesFind.mockImplementation(() => [])
+    activitesTypesFilterMock.mockImplementation(() => false)
+    activiteTypeAnneesFindMock.mockImplementation(() => [])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,
@@ -100,7 +108,7 @@ describe("activités d'un titre", () => {
 
     expect(titresActivitesNew.length).toEqual(0)
 
-    expect(titreActiviteTypeFilter).not.toHaveBeenCalled()
+    expect(activitesTypesFilter).not.toHaveBeenCalled()
     expect(titreActivitesBuild).not.toHaveBeenCalled()
     expect(titreActivitesUpsert).not.toHaveBeenCalled()
     expect(console.log).not.toHaveBeenCalled()

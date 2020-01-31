@@ -19,7 +19,7 @@ const titreActiviteFormatFields = {
 // - ne conserve que les sections qui contiennent des élements
 const titreSectionsFormat = (
   sections: ISections[],
-  periode: IPeriodes,
+  periodeId: number,
   date: string
 ) =>
   sections.reduce((sections: ISections[], s) => {
@@ -32,7 +32,7 @@ const titreSectionsFormat = (
         // correspondent à l'élément
         if (
           (!e.frequencePeriodesIds ||
-            e.frequencePeriodesIds.find(id => periode && periode.id === id)) &&
+            e.frequencePeriodesIds.find(id => periodeId === id)) &&
           (!e.dateFin || e.dateFin >= date) &&
           (!e.dateDebut || e.dateDebut < date)
         ) {
@@ -68,30 +68,34 @@ const titreActiviteFormat = (
   if (
     fields.periode &&
     ta.frequencePeriodeId &&
-    ta.type.frequence &&
-    ta.type.frequence.periodesNom &&
-    ta.type.frequence[ta.type.frequence.periodesNom].length
+    ta.type?.frequence?.periodesNom &&
+    ta.type.frequence[ta.type.frequence.periodesNom] &&
+    ta.type.frequence[ta.type.frequence.periodesNom]!.length
   ) {
-    ta.periode = ta.type.frequence[ta.type.frequence.periodesNom].find(
+    ta.periode = ta.type.frequence[ta.type.frequence.periodesNom]!.find(
       p => p.id === ta.frequencePeriodeId
     ) as IAnnees | ITrimestres | IMois
-  }
 
-  // si les sections contiennent des élements sur cette activité
-  if (fields.sections && ta.type.sections) {
-    ta.sections = titreSectionsFormat(ta.type.sections, ta.periode, ta.date)
+    // si les sections contiennent des élements sur cette activité
+    if (fields.sections && ta.type?.sections) {
+      ta.sections = titreSectionsFormat(
+        ta.type.sections,
+        ta.periode.id,
+        ta.date
+      )
+    }
   }
 
   ta.editable =
     permissionsCheck(user, ['super', 'admin']) ||
-    (permissionsCheck(user, ['entreprise']) && ta.statut.id !== 'dep')
+    (permissionsCheck(user, ['entreprise']) && ta.activiteStatutId !== 'dep')
 
   return ta
 }
 
 const titreActiviteCalc = (activites: ITitresActivites[], statutId: string) =>
   activites.reduce(
-    (acc, activite) => (activite.statut.id === statutId ? ++acc : acc),
+    (acc, activite) => (activite.activiteStatutId === statutId ? ++acc : acc),
     0
   )
 

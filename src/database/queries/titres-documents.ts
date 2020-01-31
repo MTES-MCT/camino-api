@@ -9,8 +9,10 @@ const titresDocumentsGet = async () => TitresDocuments.query()
 const titreDocumentCreate = async (titreDocument: ITitresDocuments) =>
   TitresDocuments.query().insertAndFetch(titreDocument)
 
-const titreDocumentUpdate = async (id: string, props: ITitresDocuments) =>
-  TitresDocuments.query().patchAndFetchById(id, props)
+const titreDocumentUpdate = async (
+  id: string,
+  props: Partial<ITitresDocuments>
+) => TitresDocuments.query().patchAndFetchById(id, props)
 
 const titreDocumentDelete = async (id: string) =>
   TitresDocuments.query()

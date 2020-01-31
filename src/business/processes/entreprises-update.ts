@@ -58,9 +58,7 @@ const entreprisesToUpdateBuild = (
   entreprisesNew: IEntreprises[]
 ) =>
   entreprisesNew.reduce((acc: IEntreprises[], entrepriseNew) => {
-    const entrepriseOld = entreprisesOld.find(
-      a => a && a.id === entrepriseNew.id
-    )
+    const entrepriseOld = entreprisesOld.find(e => e.id === entrepriseNew.id)
 
     const updated =
       !entrepriseOld || objectsDiffer(entrepriseNew, entrepriseOld)

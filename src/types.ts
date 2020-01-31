@@ -26,10 +26,14 @@ interface IActivitesTypes {
   nom: string
   frequenceId: string
   sections?: ISections[]
-  frequence: IFrequences
-  types?: ITypes[]
+  frequence?: IFrequences
+  types: IActivitesTypesTypes[]
   pays?: IPays[]
   administrations?: IAdministrations
+}
+
+interface IActivitesTypesTypes extends ITypes {
+  domaineId: string
 }
 
 interface IAdministrationsTypes {
@@ -171,9 +175,9 @@ interface IFrequences {
   id: string
   nom: string
   periodesNom: 'annees' | 'trimestres' | 'mois'
-  annees: IAnnees[]
-  trimestres: ITrimestres[]
-  mois: IMois[]
+  annees?: IAnnees[]
+  trimestres?: ITrimestres[]
+  mois?: IMois[]
 }
 
 export interface IGeoJson {
@@ -205,8 +209,8 @@ interface IGlobales {
 }
 
 interface IMois extends IPeriodes {
-  trimestreId: string
-  trimestre: ITrimestres
+  trimestreId?: string
+  trimestre?: ITrimestres
 }
 
 interface IPays {
@@ -328,14 +332,14 @@ interface ITitresActivites {
   titreId: string
   date: string
   activiteTypeId: string
-  type: IActivitesTypes
+  type?: IActivitesTypes
   activiteStatutId: string
-  statut: IActivitesStatuts
+  statut?: IActivitesStatuts
   frequencePeriodeId: number
   annee: number
-  periode: IAnnees | ITrimestres | IMois
-  utilisateurId?: string
-  utilisateur: IUtilisateurs
+  periode?: IAnnees | ITrimestres | IMois
+  utilisateurId: string
+  utilisateur?: IUtilisateurs
   dateSaisie?: string
   contenu?: ITitresActivitesContenu
   sections?: ISections[]
@@ -382,16 +386,16 @@ interface ITitresDemarches {
 
 interface ITitresDocuments {
   id: string
-  type: IDocumentsTypes
   titreEtapeId: string
   typeId: string
+  type?: IDocumentsTypes
+  fichierTypeId: string
   jorf?: string
   nor?: string
   url?: string
   uri?: string
   nom?: string
   fichier?: boolean
-  fichierTypeId?: string
   public?: boolean
   editable?: boolean
   supprimable?: boolean
@@ -401,9 +405,9 @@ interface ITitresEtapes {
   id: string
   titreDemarcheId: string
   typeId: string
-  type: IEtapesTypes
+  type?: IEtapesTypes
   statutId: string
-  statut: IEtapesStatuts
+  statut?: IEtapesStatuts
   ordre?: number
   date: string
   dateDebut?: string
@@ -463,8 +467,7 @@ interface ITitresPointsReferences {
   geoSystemeId: string
   coordonnees: ICoordonnees
   opposable?: boolean
-  geoSysteme: IGeoSystemes
-  unite: IUnites
+  geoSysteme?: IGeoSystemes
 }
 
 interface ICoordonnees {
@@ -498,11 +501,11 @@ interface ITitres {
   id: string
   nom: string
   domaineId: string
-  domaine: IDomaines
+  domaine?: IDomaines
   typeId: string
-  type: ITypes
+  type?: ITypes
   statutId?: string
-  statut: IStatuts
+  statut?: IStatuts
   references?: ITitresReferences[]
   dateDebut?: string
   dateFin?: string
@@ -547,7 +550,7 @@ interface ITitres {
 }
 
 interface ITrimestres extends IPeriodes {
-  mois: IMois[]
+  mois?: IMois[]
 }
 
 interface ITypes {
@@ -570,7 +573,7 @@ interface IUsers extends IUtilisateurs {
 interface IUtilisateurs {
   id: string
   email?: string
-  motDePasse: string
+  motDePasse?: string
   nom?: string
   prenom?: string
   telephoneFixe?: string

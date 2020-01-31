@@ -34,15 +34,6 @@ class TitresPointsReferences extends Model {
         from: 'titresPointsReferences.geoSystemeId',
         to: 'geoSystemes.id'
       }
-    },
-
-    unite: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'unites'),
-      join: {
-        from: 'titresPointsReferences.uniteId',
-        to: 'unites.id'
-      }
     }
   }
 

@@ -35,16 +35,19 @@ jest.mock('../../database/queries/entreprises-etablissements', () => ({
   entreprisesEtablissementsDelete: jest.fn()
 }))
 
-const entreprisesGetMock = mocked(entreprisesGet, true)
+// 'jest.mock()' est hoisté avant l'import, le court-circuitant
+// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
+jest.mock('../../tools/api-insee', () => ({
+  __esModule: true,
+  entreprisesGet: jest.fn(),
+  entreprisesEtablissementsGet: jest.fn()
+}))
 
+const entreprisesGetMock = mocked(entreprisesGet, true)
 const entreprisesEtablissementsGetMock = mocked(
   entreprisesEtablissementsGet,
   true
 )
-
-// 'jest.mock()' est hoisté avant l'import, le court-circuitant
-// https://jestjs.io/docs/en/jest-object#jestdomockmodulename-factory-options
-jest.mock('../../tools/api-insee')
 
 console.log = jest.fn()
 console.info = jest.fn()

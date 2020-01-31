@@ -55,7 +55,7 @@ const titreEtapeCreate = async (titreEtape: ITitresEtapes) =>
     .insertAndFetch(titreEtape)
     .withGraphFetched(options.etapes.graph)
 
-const titreEtapeUpdate = async (id: string, props: ITitresEtapes) =>
+const titreEtapeUpdate = async (id: string, props: Partial<ITitresEtapes>) =>
   TitresEtapes.query()
     .withGraphFetched(options.etapes.graph)
     .patchAndFetchById(id, props)

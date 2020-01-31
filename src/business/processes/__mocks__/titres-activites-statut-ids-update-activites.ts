@@ -1,4 +1,6 @@
-const titresActivitesDelaiDepasse = [
+import { ITitresActivites } from '../../../types'
+
+const titresActivitesDelaiDepasse = ([
   {
     date: '1000-01-01',
     activiteStatutId: 'abs',
@@ -6,9 +8,9 @@ const titresActivitesDelaiDepasse = [
       delaiMois: 3
     }
   }
-]
+] as unknown) as ITitresActivites[]
 
-const titresActivitesDelaiNonDepasse = [
+const titresActivitesDelaiNonDepasse = ([
   {
     date: '3000-01-01',
     activiteStatutId: 'abs',
@@ -16,6 +18,6 @@ const titresActivitesDelaiNonDepasse = [
       delaiMois: 3
     }
   }
-]
+] as unknown) as ITitresActivites[]
 
 export { titresActivitesDelaiDepasse, titresActivitesDelaiNonDepasse }

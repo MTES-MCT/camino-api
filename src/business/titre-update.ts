@@ -26,10 +26,10 @@ const titreUpdate = async (titreId: string) => {
     console.log('administrations gestionnaires associées aux titres…')
 
     const administrations = await administrationsGet()
-    const [
+    const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
-    ] = await titresAdministrationsGestionnairesUpdate([titre], administrations)
+    } = await titresAdministrationsGestionnairesUpdate([titre], administrations)
 
     // 11.
     console.log()
