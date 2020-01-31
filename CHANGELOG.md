@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.18](https://github.com/MTES-MCT/camino-api/compare/v0.24.17...v0.24.18) (2020-01-31)
+
+
+### Features
+
+* **activités:** ajoute une date de début pour calculer les activités ([#274](https://github.com/MTES-MCT/camino-api/issues/274)) ([1d54984](https://github.com/MTES-MCT/camino-api/commit/1d54984ec7a3181f3ea5ba1ff80a3b097210cbd0))
+* **api:** autorise les utilisateurs administration et entreprise à voir la page Utilisateurs dans le menu ([16d61b2](https://github.com/MTES-MCT/camino-api/commit/16d61b24e57c3c27a090c9d55039f01057358c17))
+* **api:** ouvre les droits d'édition sur les AEX aux admin DEAL Guyane ([#267](https://github.com/MTES-MCT/camino-api/issues/267)) ([05bbc3a](https://github.com/MTES-MCT/camino-api/commit/05bbc3a099fbc1ee7884de9fb8f080344fabe03f))
+* **data:** ajoute un script de suppression d'entreprises ([#263](https://github.com/MTES-MCT/camino-api/issues/263)) ([0b1c451](https://github.com/MTES-MCT/camino-api/commit/0b1c451411843d96f962684e0f813b67ee9fa373))
+* **droits:** permet aux administrations de voir tous les utilisateurs ([#264](https://github.com/MTES-MCT/camino-api/issues/264)) ([f2bed22](https://github.com/MTES-MCT/camino-api/commit/f2bed222999028ee043b00ab764953a632b98ea9))
+* trace les titres en doublons ([#261](https://github.com/MTES-MCT/camino-api/issues/261)) ([3d54ada](https://github.com/MTES-MCT/camino-api/commit/3d54adab519cf6c908a2c1f9ad3def609c1009bc))
+
+
+### Bug Fixes
+
+* **étapes:** corrige l'édition ([3fac969](https://github.com/MTES-MCT/camino-api/commit/3fac9699e9b2ca18595f4463c329b55eae7455b1))
+* ajoute geojson-rewind ([11b3ac2](https://github.com/MTES-MCT/camino-api/commit/11b3ac2ed3530a9fa397871af5c93f4e134c7f05))
+* corrige l'ordre du seed ([c7809c1](https://github.com/MTES-MCT/camino-api/commit/c7809c121a9990bffb869548b56cfdd1d86adf8a))
+* corrige la création de titre ([#279](https://github.com/MTES-MCT/camino-api/issues/279)) ([effe8c4](https://github.com/MTES-MCT/camino-api/commit/effe8c404a36ae96e3e2242ba47f8fed59e00725))
+* corrige le commit précédent ([883c147](https://github.com/MTES-MCT/camino-api/commit/883c1472615ac8c4f1f49d9e72f97f2540c58125))
+* corrige une erreur lors de la modification d'un fichier ([397f942](https://github.com/MTES-MCT/camino-api/commit/397f9429c495baf538808d4b92f7c1ef23a543c9))
+* **activites:** ne ferme pas l'activité si elle a le statut 'déposé' ([#277](https://github.com/MTES-MCT/camino-api/issues/277)) ([55a44a8](https://github.com/MTES-MCT/camino-api/commit/55a44a83853a6760d40169af48815518038097e8))
+* **activités:** corrige le calcul de la date de fin ([#276](https://github.com/MTES-MCT/camino-api/issues/276)) ([2f6f301](https://github.com/MTES-MCT/camino-api/commit/2f6f30196bfd2e677f9bbc7c4296370d077eccf1))
+* **api:** affichage l'édition des documents en fonction des droits ([#265](https://github.com/MTES-MCT/camino-api/issues/265)) ([8068444](https://github.com/MTES-MCT/camino-api/commit/80684446978db9766f0fb62081e3cc7e80954634))
+* **api:** ajoute les sections a un utilisateur identifié ([#275](https://github.com/MTES-MCT/camino-api/issues/275)) ([a16e220](https://github.com/MTES-MCT/camino-api/commit/a16e220b78b0c1321e74887de20c4a18283f1841))
+* **api:** corrige les droits sur les titres pour les utilisateurs lecteurs ([#266](https://github.com/MTES-MCT/camino-api/issues/266)) ([8b29bf1](https://github.com/MTES-MCT/camino-api/commit/8b29bf1f8a3fa3eee9b2ddd7f9987bca2720d277))
+* **api:** corrige une erreur pendant la création d'un titre ([#278](https://github.com/MTES-MCT/camino-api/issues/278)) ([b7fad20](https://github.com/MTES-MCT/camino-api/commit/b7fad20418835236ae3fef77a5187faf6336d8d2))
+* **api:** requête le contenu d'une activité ([7140e25](https://github.com/MTES-MCT/camino-api/commit/7140e255d55590ec3496f4b31faad44df7c4792e))
+* **business:** corrige le nom du processus de mise à jour des activités ([bd24421](https://github.com/MTES-MCT/camino-api/commit/bd244216cf119a38235827e8c2a2db29d47c64b1))
+* **business:** corrige un problème de mémoire pendant la mise à jour des ids de titres ([#269](https://github.com/MTES-MCT/camino-api/issues/269)) ([40ae034](https://github.com/MTES-MCT/camino-api/commit/40ae034155e11cd965d03be0aa133a2b83b01275))
+* **business:** enlève les restrictions de l'étape 'cas par cas' ([#268](https://github.com/MTES-MCT/camino-api/issues/268)) ([d330d74](https://github.com/MTES-MCT/camino-api/commit/d330d74d99f8bc66b92bbb044f2712231c78d441))
+* **seed:** corrige la migration ([8bb12a5](https://github.com/MTES-MCT/camino-api/commit/8bb12a52272b74ecfbc22ea6d7a1a9bff21c29fd))
+* vérifie que l'initialisation du serveur a eu lieu ([#262](https://github.com/MTES-MCT/camino-api/issues/262)) ([266ad48](https://github.com/MTES-MCT/camino-api/commit/266ad4806fa5b6aa166d99497d4c9b3e2a062eaf))
+
 ### [0.24.17](https://github.com/MTES-MCT/camino-api/compare/v0.24.16...v0.24.17) (2020-01-20)
 
 
