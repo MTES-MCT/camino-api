@@ -7,7 +7,7 @@ import options from './_options'
 const titresPointsGet = async () =>
   TitresPoints.query().withGraphFetched(options.points.graph)
 
-const titrePointUpdate = async (id: string, props: ITitresPoints) =>
+const titrePointUpdate = async (id: string, props: Partial<ITitresPoints>) =>
   TitresPoints.query()
     .withGraphFetched(options.points.graph)
     .patchAndFetchById(id, props)

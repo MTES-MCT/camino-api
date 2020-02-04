@@ -1,20 +1,25 @@
-import titreActiviteTypeFilter from '../utils/titre-activite-filter'
-import titreActiviteTypeAnneesFind from '../utils/titre-activite-type-annees-find'
+import { ITitres, IActivitesTypes, ITitresActivites } from '../../types'
+
+import activitesTypesFilter from '../utils/activites-types-filter'
+import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
 import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
 
-const titresActivitesUpdate = async (titres, activitesTypes) => {
+const titresActivitesUpdate = async (
+  titres: ITitres[],
+  activitesTypes: IActivitesTypes[]
+) => {
   const titresActivitesCreated = activitesTypes.reduce(
-    (acc, titreActiviteType) => {
-      const annees = titreActiviteTypeAnneesFind(titreActiviteType)
+    (acc: ITitresActivites[], activiteType) => {
+      const annees = activiteTypeAnneesFind(activiteType)
       if (!annees.length) return acc
 
       acc.push(
-        ...titres.reduce((acc, titre) => {
+        ...titres.reduce((acc: ITitresActivites[], titre) => {
           // filtre les types d'activités qui concernent le titre
-          if (!titreActiviteTypeFilter(titre, titreActiviteType)) return acc
+          if (!activitesTypesFilter(titre, activiteType)) return acc
 
-          acc.push(...titreActivitesBuild(titre, titreActiviteType, annees))
+          acc.push(...titreActivitesBuild(titre, activiteType, annees))
 
           return acc
         }, [])

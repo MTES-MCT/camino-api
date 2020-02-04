@@ -189,10 +189,10 @@ const run = async () => {
       }
     )
     let administrations = await administrationsGet()
-    const [
+    const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
-    ] = await titresAdministrationsGestionnairesUpdate(titres, administrations)
+    } = await titresAdministrationsGestionnairesUpdate(titres, administrations)
 
     // 10.
     console.log()

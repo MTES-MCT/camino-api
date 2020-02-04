@@ -1,9 +1,11 @@
-const titresSansActivite = [
+import { ITitres, IActivitesTypes } from '../../../types'
+
+const titresSansActivite = ([
   {
     id: 'h-cxx-courdemanges-1988',
     activites: []
   }
-]
+] as unknown) as ITitres[]
 
 const titresToutesActivites = [
   {
@@ -27,12 +29,14 @@ const titresToutesActivites = [
       }
     ]
   }
-]
+] as ITitres[]
 
 const titreActiviteTypeGuyane = {
   id: 'grp',
-  dateDebut: 2018
-}
+  dateDebut: 2018,
+  nom: "rapport d'activité",
+  frequenceId: 'tri'
+} as unknown as IActivitesTypes
 
 const titreActivitesTypes = [titreActiviteTypeGuyane]
 

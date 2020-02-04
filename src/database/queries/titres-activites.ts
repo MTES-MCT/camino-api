@@ -36,7 +36,7 @@ const titreActivitesUpsert = async (titreActivites: ITitresActivites[]) =>
 
 const titreActiviteUpdate = async (
   id: string,
-  props: ITitresActivites,
+  props: Partial<ITitresActivites>,
   { graph = options.titresActivites.graph } = {}
 ) =>
   TitreActivites.query()

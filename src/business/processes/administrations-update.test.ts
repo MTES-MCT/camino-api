@@ -1,8 +1,13 @@
+import { mocked } from 'ts-jest/utils'
 import administrationUpdate from './administrations-update'
-import * as apiAdministrations from '../../tools/api-administrations/index'
+import {
+  organismeDepartementGet,
+  organismesDepartementsGet
+} from '../../tools/api-administrations/index'
 
 import {
   departements,
+  administrationApiTest,
   administrationsDbCreees,
   administrationsApiCreees,
   administrationsDbModifiees,
@@ -10,23 +15,35 @@ import {
   administrationsDbExistantes,
   administrationsApiExistantes
 } from './__mocks__/administrations-update'
+import { IAdministrations } from '../../types'
 
 jest.mock('../../database/queries/administrations', () => ({
-  administrationsUpsert: jest.fn().mockResolvedValue()
+  __esModule: true,
+  administrationsUpsert: jest.fn()
 }))
 
 jest.mock('../../tools/api-administrations/index', () => ({
-  organismeDepartementGet: jest.fn().mockResolvedValue(true),
+  __esModule: true,
+  organismeDepartementGet: jest.fn(),
   organismesDepartementsGet: jest.fn()
 }))
+
+// TODO: supprimer le typage de fonction quand organismeDepartementGet sera en ts
+const organismeDepartementGetMock = mocked(
+  organismeDepartementGet as (
+    departementId: string,
+    nom: string
+  ) => Promise<IAdministrations | null>,
+  true
+)
+const organismesDepartementsGetMock = mocked(organismesDepartementsGet, true)
 
 console.log = jest.fn()
 
 describe('administrations', () => {
   test("crée les administrations si elles n'existent pas", async () => {
-    apiAdministrations.organismesDepartementsGet.mockResolvedValue(
-      administrationsApiCreees
-    )
+    organismeDepartementGetMock.mockResolvedValue(administrationApiTest)
+    organismesDepartementsGetMock.mockResolvedValue(administrationsApiCreees)
 
     const administrationsUpdated = await administrationUpdate(
       administrationsDbCreees,
@@ -38,9 +55,7 @@ describe('administrations', () => {
   })
 
   test('met à jour les administrations qui ont été modifiées', async () => {
-    apiAdministrations.organismesDepartementsGet.mockResolvedValue(
-      administrationsApiModifiees
-    )
+    organismesDepartementsGetMock.mockResolvedValue(administrationsApiModifiees)
 
     const administrationsUpdated = await administrationUpdate(
       administrationsDbModifiees,
@@ -52,7 +67,8 @@ describe('administrations', () => {
   })
 
   test('ne crée pas les administrations qui existent déjà', async () => {
-    apiAdministrations.organismesDepartementsGet.mockResolvedValue(
+    organismeDepartementGetMock.mockResolvedValue(administrationApiTest)
+    organismesDepartementsGetMock.mockResolvedValue(
       administrationsApiExistantes
     )
 
@@ -76,7 +92,8 @@ describe('administrations', () => {
   })
 
   test("ne met rien à jour si le test de connexion à l'API administration n'est pas concluant", async () => {
-    apiAdministrations.organismeDepartementGet.mockResolvedValue(false)
+    organismeDepartementGetMock.mockRejectedValue(new Error('api error'))
+    organismeDepartementGetMock.mockResolvedValue(null)
 
     const administrationsUpdated = await administrationUpdate(
       administrationsDbExistantes,

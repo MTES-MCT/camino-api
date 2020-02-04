@@ -1,6 +1,6 @@
-const titreActiviteTypeAnneesFind = titreActiviteType => {
+const activiteTypeAnneesFind = activiteType => {
   // calcule les années qui concernent le type d'activité
-  const anneeDebut = new Date(titreActiviteType.dateDebut).getFullYear()
+  const anneeDebut = new Date(activiteType.dateDebut).getFullYear()
   const anneeFin = new Date().getFullYear()
 
   const annees = []
@@ -12,4 +12,4 @@ const titreActiviteTypeAnneesFind = titreActiviteType => {
   return annees
 }
 
-export default titreActiviteTypeAnneesFind
+export default activiteTypeAnneesFind

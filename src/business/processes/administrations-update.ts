@@ -27,7 +27,8 @@ const administrationsUpdatedFind = (
     return acc
   }, [])
 
-const administrationsGetTest = () => organismeDepartementGet('01', 'prefecture')
+const administrationsGetTest = async () =>
+  organismeDepartementGet('01', 'prefecture') as unknown as IAdministrations | null
 
 const administrationsGet = async (departements: IDepartements[]) => {
   const departementsIdsNoms = departements.map(({ id: departementId }) => ({

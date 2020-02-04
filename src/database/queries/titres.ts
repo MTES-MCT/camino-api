@@ -251,7 +251,7 @@ const titreCreate = async (titre: ITitres) =>
     .insertGraphAndFetch(titre)
     .withGraphFetched(options.titres.graph)
 
-const titreUpdate = async (id: string, props: ITitres) =>
+const titreUpdate = async (id: string, props: Partial<ITitres>) =>
   Titres.query()
     .patchAndFetchById(id, props)
     .withGraphFetched(options.titres.graph)
@@ -269,7 +269,7 @@ const titreUpsert = async (titre: ITitres, tr: Transaction) =>
     .returning('*')
 
 const titresAdministrationsGestionnairesCreate = async (
-  titresAdministrationsGestionnaires: ITitresAdministrationsGestionnaires
+  titresAdministrationsGestionnaires: ITitresAdministrationsGestionnaires[]
 ) =>
   TitresAdministrationsGestionnaires.query().insert(
     titresAdministrationsGestionnaires
