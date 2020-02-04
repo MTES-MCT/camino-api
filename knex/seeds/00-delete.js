@@ -41,7 +41,7 @@ exports.seed = seeding(async ({ del, insert }) => {
 
   // 07
   await del('activitesTypes__pays')
-  await del('activitesTypes__types')
+  await del('titresTypes__activitesTypes')
   await del('activitesTypes__administrations')
   await del('activitesTypes')
   await del('activitesStatuts')
@@ -69,14 +69,14 @@ exports.seed = seeding(async ({ del, insert }) => {
 
   // 03
   await Promise.all([
-    del('domaines__types'),
-    del('demarchesTypes__types'),
-    del('demarchesTypes__etapesTypes'),
+    del('titresTypesTypes'),
+    del('titresTypes__demarchesTypes'),
+    del('titresTypes__demarchesTypes__etapesTypes'),
     del('etapesTypes__etapesStatuts'),
     del('geoSystemes')
   ])
   await Promise.all([
-    del('statuts'),
+    del('titresStatuts'),
     del('devises'),
     del('unites'),
     del('referencesTypes'),
@@ -85,9 +85,10 @@ exports.seed = seeding(async ({ del, insert }) => {
     del('etapesTypes'),
     del('demarchesStatuts'),
     del('etapesStatuts'),
-    del('documentsTypes')
+    del('documentsTypes'),
+    del('titresTypes')
   ])
-  await Promise.all([del('domaines'), del('types')])
+  await Promise.all([del('domaines'), del('titresTypesTypes')])
 
   // 02
   await del('communes')

@@ -27,13 +27,9 @@ interface IActivitesTypes {
   frequenceId: string
   sections?: ISections[]
   frequence?: IFrequences
-  types: IActivitesTypesTypes[]
+  titresTypes: ITitresTypes[]
   pays?: IPays[]
   administrations?: IAdministrations
-}
-
-interface IActivitesTypesTypes extends ITypes {
-  domaineId: string
 }
 
 interface IAdministrationsTypes {
@@ -93,6 +89,7 @@ interface IDemarchesTypes {
   exception?: boolean
   etapesTypes: IEtapesTypes[]
   editable?: boolean
+  titreTypeId?: string
 }
 
 interface IDepartements {
@@ -117,7 +114,7 @@ interface IDomaines {
   id: string
   nom: string
   ordre: number
-  types: ITypes
+  titresTypes: ITitresTypes[]
 }
 
 interface IEntreprisesEtablissements {
@@ -168,7 +165,7 @@ interface IEtapesTypes {
   sections?: any
   etapesStatuts?: IEtapesStatuts[]
   editable?: boolean
-  typeId?: string
+  titreTypeId?: string
 }
 
 interface IFrequences {
@@ -289,7 +286,7 @@ interface IRestrictionsEtapesTypesAdministrations {
   modificationInterdit: boolean
 }
 
-interface IStatuts {
+interface ITitresStatuts {
   id: string
   nom: string
   couleur: string
@@ -374,7 +371,7 @@ interface ITitresDemarches {
   ordre?: number
   annulationTitreDemarcheId?: string
   statut?: IDemarchesStatuts
-  titreType: ITypes
+  titreType: ITitresTypes
   etapes?: ITitresEtapes[]
   phase?: ITitresPhases
   annulationDemarche?: ITitresDemarches
@@ -503,9 +500,9 @@ interface ITitres {
   domaineId: string
   domaine?: IDomaines
   typeId: string
-  type?: ITypes
+  type?: ITitresTypes
   statutId?: string
-  statut?: IStatuts
+  statut?: ITitresStatuts
   references?: ITitresReferences[]
   dateDebut?: string
   dateFin?: string
@@ -553,11 +550,19 @@ interface ITrimestres extends IPeriodes {
   mois?: IMois[]
 }
 
-interface ITypes {
+interface ITitresTypes {
+  id: string
+  domaineId: string
+  typeId: number
+  archive?: boolean
+  type: ITitresTypesTypes
+  demarchesTypes?: IDemarchesTypes[]
+}
+
+interface ITitresTypesTypes {
   id: string
   nom: string
   ordre: number
-  demarchesTypes?: IDemarchesTypes[]
 }
 
 interface IUnites {
@@ -629,7 +634,7 @@ export {
   IRestrictionsTypesStatutsAdministrations,
   IRestrictionsEtapesTypes,
   IRestrictionsEtapesTypesAdministrations,
-  IStatuts,
+  ITitresStatuts,
   ISubstancesLegalesCodes,
   ISubstancesLegales,
   ISubstances,
@@ -648,7 +653,8 @@ export {
   ITitresReferences,
   ITitres,
   ITrimestres,
-  ITypes,
+  ITitresTypes,
+  ITitresTypesTypes,
   IUnites,
   IUsers,
   IUtilisateurs,

@@ -32,9 +32,9 @@ class DemarchesTypes extends Model {
       join: {
         from: 'demarchesTypes.id',
         through: {
-          from: 'demarchesTypes__etapesTypes.demarcheTypeId',
-          to: 'demarchesTypes__etapesTypes.etapeTypeId',
-          extra: ['ordre', 'typeId']
+          from: 'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
+          to: 'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
+          extra: ['ordre', 'titreTypeId']
         },
         to: 'etapesTypes.id'
       }

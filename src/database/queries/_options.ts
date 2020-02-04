@@ -51,7 +51,7 @@ const pays = {
   graph: `regions.departements.communes`
 }
 
-const etapesUpdateTrue = [
+const etapesRelateTrue = [
   'type',
   'statut',
   'titulaires',
@@ -96,8 +96,8 @@ const etapes = {
   ]`,
 
   update: {
-    relate: etapesUpdateTrue,
-    unrelate: etapesUpdateTrue,
+    relate: etapesRelateTrue,
+    unrelate: etapesRelateTrue,
     insertMissing: true
   }
 }
@@ -110,20 +110,29 @@ const demarchesTypes = {
   graph: `[etapesTypes.etapesStatuts]`
 }
 
-const demarchesUpdateTrue = [
+const demarchesRelateTrue = [
   'statut',
   'type',
   'annulationDemarche',
   'enfants',
   'parents',
   'phase.statut',
-  ...etapesUpdateTrue.map(k => `etapes.${k}`)
+  ...etapesRelateTrue.map(k => `etapes.${k}`)
+]
+
+const titresTypesUpdateFalse = [
+  'type',
+  'demarchesTypes',
+  'demarchesTypes.etapesTypes',
+  'demarchesTypes.etapesTypes.etapesStatuts'
 ]
 
 const demarchesUpdateFalse = [
+  ...demarchesRelateTrue,
   'type.etapesTypes',
   'type.etapesTypes.etapesStatuts',
-  'titreType'
+  'titreType',
+  ...titresTypesUpdateFalse.map(k => `titreType.${k}`)
 ]
 
 const demarches = {
@@ -138,8 +147,8 @@ const demarches = {
   ]`,
 
   update: {
-    relate: demarchesUpdateTrue,
-    unrelate: demarchesUpdateTrue,
+    relate: demarchesRelateTrue,
+    unrelate: demarchesRelateTrue,
     noInsert: demarchesUpdateFalse,
     noUpdate: demarchesUpdateFalse,
     noDelete: demarchesUpdateFalse,
@@ -147,38 +156,50 @@ const demarches = {
   }
 }
 
+const activitesUpdateFalse = [
+  'type',
+  'statut',
+  'utilisateur',
+  'type.frequence',
+  'type.frequence.trimestres',
+  'type.frequence.trimestres.mois',
+  'type.frequence.annees',
+  'type.pays',
+  'type.titresTypes',
+  ...titresTypesUpdateFalse.map(k => `type.titresTypes.${k}`),
+  'type.administrations',
+  'type.administrations.type'
+]
+
 const activitesTypes = {
-  graph: `[pays, frequence.[mois, trimestres.mois, annees], types, administrations]`
+  graph: `[pays, frequence.[mois, trimestres.mois, annees], titresTypes, administrations]`
 }
 
 const titresActivites = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
 }
 
-const types = {
-  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}]`
+const titresTypes = {
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type]`
 }
 
 const domaines = {
-  graph: `[types(orderAsc).${types.graph}]`
+  graph: `[titresTypes.${titresTypes.graph}]`
 }
 
-const titresUpdateTrue = [
+const titresRelateTrue = [
   'type',
   'statut',
   'domaine',
   'administrationsGestionnaires',
-  ...demarchesUpdateTrue.map(k => `demarches.${k}`)
+  ...demarchesRelateTrue.map(k => `demarches.${k}`)
 ]
 
 const titresUpdateFalse = [
-  'type.demarchesTypes',
-  'type.demarchesTypes.etapesTypes',
-  'type.demarchesTypes.etapesTypes.etapesStatuts',
-  'domaine.types',
-  'domaine.types.demarchesTypes',
-  'domaine.types.demarchesTypes.etapesTypes',
-  'domaine.types.demarchesTypes.etapesTypes.etapesStatuts',
+  ...titresRelateTrue,
+  ...titresTypesUpdateFalse.map(k => `type.${k}`),
+  'domaine.titresTypes',
+  ...titresTypesUpdateFalse.map(k => `domaine.titresTypes.${k}`),
   'points',
   'points.references',
   'points.references.geoSysteme',
@@ -216,23 +237,13 @@ const titresUpdateFalse = [
   'surfaceEtape',
   'volumeUnite',
   'engagementDevise',
-  'activites.type',
-  'activites.statut',
-  'activites.utilisateur',
-  'activites.type.frequence',
-  'activites.type.frequence.trimestres',
-  'activites.type.frequence.trimestres.mois',
-  'activites.type.frequence.annees',
-  'activites.type.pays',
-  'activites.type.types',
-  'activites.type.administrations',
-  'activites.type.administrations.type',
+  ...activitesUpdateFalse.map(k => `activites.${k}`),
   ...demarchesUpdateFalse.map(k => `demarches.${k}`)
 ]
 
 const titres = {
   graph: `[
-    type.${types.graph},
+    type.${titresTypes.graph},
     domaine.${domaines.graph},
     statut,
     points(orderAsc).${points.graph},
@@ -253,8 +264,8 @@ const titres = {
   ]`,
 
   update: {
-    relate: titresUpdateTrue,
-    unrelate: titresUpdateTrue,
+    relate: titresRelateTrue,
+    unrelate: titresRelateTrue,
     noInsert: titresUpdateFalse,
     noUpdate: titresUpdateFalse,
     noDelete: titresUpdateFalse,
@@ -280,5 +291,5 @@ export default {
   pays,
   points,
   utilisateurs,
-  types
+  titresTypes
 }

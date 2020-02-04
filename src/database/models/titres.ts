@@ -6,13 +6,13 @@ import Communes from './communes'
 import Devises from './devises'
 import Domaines from './domaines'
 import Entreprises from './entreprises'
-import Statuts from './statuts'
+import TitresStatuts from './titres-statuts'
 import Substances from './substances'
 import TitresDemarches from './titres-demarches'
 import TitresEtapes from './titres-etapes'
 import TitresPoints from './titres-points'
 import TitresReferences from './titres-references'
-import Types from './types'
+import Types from './titres-types'
 import Unites from './unites'
 
 import { ITitres } from '../../types'
@@ -64,13 +64,13 @@ class Titres extends Model {
     type: {
       relation: Model.BelongsToOneRelation,
       modelClass: Types,
-      join: { from: 'titres.typeId', to: 'types.id' }
+      join: { from: 'titres.typeId', to: 'titresTypes.id' }
     },
 
     statut: {
       relation: Model.BelongsToOneRelation,
-      modelClass: Statuts,
-      join: { from: 'titres.statutId', to: 'statuts.id' }
+      modelClass: TitresStatuts,
+      join: { from: 'titres.statutId', to: 'titresStatuts.id' }
     },
 
     demarches: {

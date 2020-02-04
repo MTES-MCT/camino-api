@@ -5,12 +5,16 @@ exports.up = knex => {
       table.string('nom').notNullable()
       table.integer('ordre')
     })
-    .createTable('types', table => {
-      table.string('id', 3).primary()
+    .createTable('titresTypesTypes', table => {
+      table.string('id', 2).primary()
       table.string('nom').notNullable()
       table.integer('ordre')
     })
-    .createTable('domaines__types', table => {
+    .createTable('titresTypes', table => {
+      table
+        .string('id', 3)
+        .primary()
+        .notNullable()
       table
         .string('domaineId', 1)
         .references('domaines.id')
@@ -18,13 +22,13 @@ exports.up = knex => {
         .onDelete('CASCADE')
       table
         .string('typeId', 3)
-        .references('types.id')
+        .references('titresTypesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table.boolean('archive')
-      table.primary(['domaineId', 'typeId'])
+      table.unique(['domaineId', 'typeId'])
     })
-    .createTable('statuts', table => {
+    .createTable('titres_statuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
@@ -34,8 +38,8 @@ exports.up = knex => {
 
 exports.down = knex => {
   return knex.schema
-    .dropTable('domaines__types')
+    .dropTable('titresTypesTypes')
     .dropTable('domaines')
-    .dropTable('types')
-    .dropTable('statuts')
+    .dropTable('titresTypes')
+    .dropTable('titresStatuts')
 }

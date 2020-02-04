@@ -7,8 +7,9 @@ import EtapesTypes from '../models/etapes-types'
 import GeoSystemes from '../models/geo-systemes'
 import Permissions from '../models/permissions'
 import ReferencesTypes from '../models/references-types'
-import Statuts from '../models/statuts'
-import Types from '../models/types'
+import TitresStatuts from '../models/titres-statuts'
+import TitresTypes from '../models/titres-types'
+import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
 import options from './_options'
 
@@ -24,17 +25,17 @@ const permissionsGet = async ({ ordreMax }: IPermissionsOptions) =>
 
 const permissionGet = async (id: string) => Permissions.query().findById(id)
 
-const typesGet = async ({ graph = options.types.graph } = {}) =>
-  Types.query()
-    .withGraphFetched(graph)
-    .orderBy('ordre')
+const titresTypesGet = async ({ graph = options.titresTypes.graph } = {}) =>
+  TitresTypes.query().withGraphFetched(graph)
+
+const titresTypesTypesGet = async () => TitresTypesTypes.query()
 
 const domainesGet = async () =>
   Domaines.query()
     .withGraphFetched(options.domaines.graph)
     .orderBy('ordre')
 
-const statutsGet = async () => Statuts.query().orderBy('ordre')
+const statutsGet = async () => TitresStatuts.query().orderBy('ordre')
 
 const demarchesTypesGet = async () =>
   DemarchesTypes.query()
@@ -65,7 +66,8 @@ const activitesTypesGet = async () =>
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 export {
-  typesGet,
+  titresTypesGet,
+  titresTypesTypesGet,
   domainesGet,
   statutsGet,
   demarchesTypesGet,

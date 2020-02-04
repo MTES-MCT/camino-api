@@ -11,20 +11,16 @@ exports.up = knex => {
       table.string('dateDebut').notNullable()
       table.integer('delaiMois')
     })
-    .createTable('activitesTypes__types', table => {
+    .createTable('titresTypes__activitesTypes', table => {
       table
-        .string('domaineId', 1)
-        .references('domaines.id')
-        .notNullable()
-      table
-        .string('typeId', 3)
-        .references('types.id')
+        .string('titreTypeId', 3)
+        .references('titresTypes.id')
         .notNullable()
       table
         .string('activiteTypeId', 3)
         .references('activitesTypes.id')
         .notNullable()
-      table.primary(['domaineId', 'typeId', 'activiteTypeId'])
+      table.primary(['titreTypeId', 'activiteTypeId'])
     })
     .createTable('activitesTypes__pays', table => {
       table
@@ -60,7 +56,7 @@ exports.up = knex => {
 exports.down = knex => {
   return knex.schema
     .dropTable('activitesTypes__pays')
-    .dropTable('activitesTypes__types')
+    .dropTable('titresTypes__activitesTypes')
     .dropTable('activitesTypes__administrations')
     .dropTable('activitesTypes')
     .dropTable('activitesStatuts')

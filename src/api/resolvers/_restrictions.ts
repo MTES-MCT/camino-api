@@ -9,7 +9,7 @@ import {
 
 import { debug } from '../../config/index'
 
-import { typesGet, statutsGet } from '../../database/queries/metas'
+import { titresTypesGet, statutsGet } from '../../database/queries/metas'
 
 import {
   restrictionsDomainesGet,
@@ -39,7 +39,7 @@ const restrictionsInit = async () => {
 
   restrictions.typesStatuts = await restrictionsTypesStatutsGet()
 
-  const types = await typesGet()
+  const types = await titresTypesGet()
   const statuts = await statutsGet()
 
   // calcule les statuts interdits pour tous les types

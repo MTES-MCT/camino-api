@@ -87,8 +87,8 @@ type Query {
   domaines: [Domaine]
   geoSystemes: [GeoSysteme]
   referencesTypes: [ReferenceType]
-  statuts: [Statut]
-  types: [Type]
+  statuts: [TitreStatut]
+  types: [TitreTypeType]
   unites: [Unite]
 
   "__+__ Liste des permissions utilisateurs"

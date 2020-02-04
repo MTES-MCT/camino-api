@@ -109,18 +109,18 @@ const spreadsheets = [
     id: metasSpreadsheetId,
     tables: [
       { name: 'domaines' },
-      { name: 'types' },
-      { name: 'domaines__types' },
-      { name: 'statuts' },
+      { name: 'titres_types' },
+      { name: 'titres_types_types' },
+      { name: 'titres_statuts' },
       { name: 'demarches_types' },
       { name: 'demarches_statuts' },
-      { name: 'demarches_types__types' },
+      { name: 'titres_types__demarches_types' },
       { name: 'demarches_types__demarches_statuts' },
       { name: 'phases_statuts' },
       { name: 'etapes_types', cb: { sections: JSON.parse } },
       { name: 'etapes_statuts' },
       { name: 'etapes_types__etapes_statuts' },
-      { name: 'demarches_types__etapes_types' },
+      { name: 'titres_types__demarches_types__etapes_types' },
       { name: 'geo_systemes' },
       { name: 'devises' },
       { name: 'unites' },
@@ -187,7 +187,7 @@ const spreadsheets = [
     tables: [
       { name: 'activites_types', cb: { sections: JSON.parse } },
       { name: 'activites_statuts' },
-      { name: 'activites_types__types' },
+      { name: 'titres_types__activites_types' },
       { name: 'activites_types__pays' },
       { name: 'activites_types__administrations' }
     ]

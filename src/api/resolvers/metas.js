@@ -2,9 +2,6 @@ import { debug } from '../../config/index'
 
 import restrictions from './_restrictions'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-
 import {
   documentsTypesGet,
   domainesGet,
@@ -14,7 +11,7 @@ import {
   permissionGet,
   referencesTypesGet,
   statutsGet,
-  typesGet,
+  titresTypesTypesGet,
   unitesGet,
   activitesTypesGet
 } from '../../database/queries/metas'
@@ -91,8 +88,8 @@ const utilisateurDomaines = async (variables, context, info) => {
         const editable = domainePermissionCheck(domaine, user)
 
         if (editable) {
-          if (domaine.types) {
-            domaine.types = domaine.types.filter(t =>
+          if (domaine.titresTypes) {
+            domaine.titresTypes = domaine.titresTypes.filter(t =>
               typePermissionCheck(t.id, user)
             )
           }
@@ -116,23 +113,7 @@ const utilisateurDomaines = async (variables, context, info) => {
 
 const types = async (variables, context, info) => {
   try {
-    const fields = graphFieldsBuild(info)
-    const typesGraph = graphBuild(fields, 'types')
-    const types = await typesGet({ graph: typesGraph })
-
-    if (permissionsCheck(context.user, ['super'])) {
-      types.forEach(d => {
-        d.editable = true
-      })
-
-      return types
-    } else if (permissionsCheck(context.user, ['admin'])) {
-      const user = await utilisateurGet(context.user.id)
-
-      types.forEach(type => {
-        type.editable = typePermissionCheck(type.id, user)
-      })
-    }
+    const types = await titresTypesTypesGet()
 
     return types
   } catch (e) {
@@ -172,8 +153,7 @@ const activitesTypes = async (variables, context, info) => {
   try {
     const activitesTypes = await activitesTypesGet()
 
-    // TODO
-    // ne retourner que les types d'activités auquel l'utilisateur à accès
+    // TODO: ne retourner que les types d'activités auxquels l'utilisateur a accès
 
     return activitesTypes
   } catch (e) {

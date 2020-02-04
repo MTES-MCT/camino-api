@@ -9,19 +9,19 @@ exports.up = knex =>
     })
     .createTable('restrictions__types__statuts', table => {
       table
-        .string('typeId')
-        .references('types.id')
+        .string('titreTypeId')
+        .references('titresTypes.id')
         .notNullable()
       table
         .string('statutId')
-        .references('statuts.id')
+        .references('titresStatuts.id')
         .notNullable()
       table.boolean('publicLectureInterdit').notNullable()
     })
     .createTable('restrictions__types__administrations', table => {
       table
-        .string('typeId')
-        .references('types.id')
+        .string('titreTypeId')
+        .references('titresTypes.id')
         .notNullable()
       table
         .string('administrationId')
@@ -33,12 +33,12 @@ exports.up = knex =>
     })
     .createTable('restrictions__types__statuts__administrations', table => {
       table
-        .string('typeId')
-        .references('types.id')
+        .string('titreTypeId')
+        .references('titresTypes.id')
         .notNullable()
       table
         .string('statutId')
-        .references('statuts.id')
+        .references('titresStatuts.id')
         .notNullable()
       table
         .string('administrationId')

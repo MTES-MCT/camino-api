@@ -2,7 +2,7 @@ import { ITitres, IActivitesTypes } from '../../types'
 
 const activitesTypesFilter = (titre: ITitres, activiteType: IActivitesTypes) =>
   !!(
-    activiteType.types.some(
+    activiteType.titresTypes.some(
       type => type.domaineId === titre.domaineId && type.id === titre.typeId
     ) &&
     titre.pays &&
