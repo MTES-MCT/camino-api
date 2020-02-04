@@ -18,7 +18,6 @@ const tables = [
       'id',
       'typeId',
       'nom',
-      'abreviation',
       'service',
       'abreviation',
       'url',
