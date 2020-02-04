@@ -6,8 +6,8 @@ import {
 } from '../../tools/api-administrations/index'
 
 import {
-  departement,
   departements,
+  administrationApiTest,
   administrationsDbCreees,
   administrationsApiCreees,
   administrationsDbModifiees,
@@ -15,6 +15,7 @@ import {
   administrationsDbExistantes,
   administrationsApiExistantes
 } from './__mocks__/administrations-update'
+import { IAdministrations } from '../../types'
 
 jest.mock('../../database/queries/administrations', () => ({
   __esModule: true,
@@ -27,14 +28,21 @@ jest.mock('../../tools/api-administrations/index', () => ({
   organismesDepartementsGet: jest.fn()
 }))
 
-const organismeDepartementGetMock = mocked(organismeDepartementGet, true)
+// TODO: supprimer le typage de fonction quand organismeDepartementGet sera en ts
+const organismeDepartementGetMock = mocked(
+  organismeDepartementGet as (
+    departementId: string,
+    nom: string
+  ) => Promise<IAdministrations | null>,
+  true
+)
 const organismesDepartementsGetMock = mocked(organismesDepartementsGet, true)
 
 console.log = jest.fn()
 
 describe('administrations', () => {
   test("crée les administrations si elles n'existent pas", async () => {
-    organismeDepartementGetMock.mockResolvedValue(departement)
+    organismeDepartementGetMock.mockResolvedValue(administrationApiTest)
     organismesDepartementsGetMock.mockResolvedValue(administrationsApiCreees)
 
     const administrationsUpdated = await administrationUpdate(
@@ -59,7 +67,7 @@ describe('administrations', () => {
   })
 
   test('ne crée pas les administrations qui existent déjà', async () => {
-    organismeDepartementGetMock.mockResolvedValue(departement)
+    organismeDepartementGetMock.mockResolvedValue(administrationApiTest)
     organismesDepartementsGetMock.mockResolvedValue(
       administrationsApiExistantes
     )

@@ -1,4 +1,4 @@
-import { ITitres } from '../../../types'
+import { ITitres, IActivitesTypes } from '../../../types'
 
 const titresSansActivite = ([
   {
@@ -36,7 +36,7 @@ const titreActiviteTypeGuyane = {
   dateDebut: 2018,
   nom: "rapport d'activité",
   frequenceId: 'tri'
-}
+} as unknown as IActivitesTypes
 
 const titreActivitesTypes = [titreActiviteTypeGuyane]
 

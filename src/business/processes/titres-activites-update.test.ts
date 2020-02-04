@@ -1,7 +1,5 @@
 import { mocked } from 'ts-jest/utils'
 
-import { ITitres, IActivitesTypes, ITitresActivites } from '../../types'
-
 import titresActivitesTypesUpdate from './titres-activites-update'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
