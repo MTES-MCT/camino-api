@@ -19,8 +19,6 @@ const domainePermissionCheck = (domaine, user) => {
     ) !== undefined
   if (!isDomaineUserAdministration) return false
 
-  console.log(domaine.titresTypes)
-
   // compte le nombre de types éditables pour ce domaine
   const typesEditablesCount = domaine.titresTypes
     ? domaine.titresTypes.reduce((typesEditablesCount, type) => {
