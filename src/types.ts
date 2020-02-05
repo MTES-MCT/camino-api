@@ -166,6 +166,7 @@ interface IEtapesTypes {
   etapesStatuts?: IEtapesStatuts[]
   editable?: boolean
   titreTypeId?: string
+  customSections?: ISections[]
 }
 
 interface IFrequences {

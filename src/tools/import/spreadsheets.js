@@ -120,7 +120,10 @@ const spreadsheets = [
       { name: 'etapes_types', cb: { sections: JSON.parse } },
       { name: 'etapes_statuts' },
       { name: 'etapes_types__etapes_statuts' },
-      { name: 'titres_types__demarches_types__etapes_types' },
+      {
+        name: 'titres_types__demarches_types__etapes_types',
+        cb: { sections: JSON.parse }
+      },
       { name: 'geo_systemes' },
       { name: 'devises' },
       { name: 'unites' },

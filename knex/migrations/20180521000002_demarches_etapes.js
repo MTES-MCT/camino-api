@@ -74,6 +74,7 @@ exports.up = knex => {
         .references('etapesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
+      table.specificType('sections', 'jsonb[]')
       table.primary(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
     })
     .createTable('etapesStatuts', table => {
