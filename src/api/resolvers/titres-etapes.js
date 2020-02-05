@@ -69,7 +69,8 @@ const demarcheEtapeTypesFormat = (
       // fusion des sections par défaut de l'étape type
       // avec les sections spécifiques au type / démarche / étape
       if (et.customSections) {
-        et.sections = Object.assign({}, et.customSections, et.sections)
+        // TODO: écraser les clés en double
+        et.sections = [].concat(et.sections, et.customSections)
       }
 
       etapesTypes.push(et)
