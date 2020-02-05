@@ -15,8 +15,8 @@ const tables = [
       'date',
       'dateSaisie',
       'contenu',
-      'activiteTypeId',
-      'activiteStatutId',
+      'typeId',
+      'statutId',
       'frequencePeriodeId',
       'annee'
     ],

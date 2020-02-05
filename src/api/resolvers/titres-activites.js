@@ -135,7 +135,7 @@ const activiteModifier = async ({ activite }, context, info) => {
 
     const activiteFormated = titreActiviteFormat(activiteRes, user)
 
-    if (activiteRes.activiteStatutId === 'dep') {
+    if (activiteRes.statutId === 'dep') {
       const utilisateurs = await titreActiviteUtilisateursGet(titre, user)
 
       await titreActiviteEmailsSend(

@@ -88,14 +88,14 @@ const titreActiviteFormat = (
 
   ta.editable =
     permissionsCheck(user, ['super', 'admin']) ||
-    (permissionsCheck(user, ['entreprise']) && ta.activiteStatutId !== 'dep')
+    (permissionsCheck(user, ['entreprise']) && ta.statutId !== 'dep')
 
   return ta
 }
 
 const titreActiviteCalc = (activites: ITitresActivites[], statutId: string) =>
   activites.reduce(
-    (acc, activite) => (activite.activiteStatutId === statutId ? ++acc : acc),
+    (acc, activite) => (activite.statutId === statutId ? ++acc : acc),
     0
   )
 

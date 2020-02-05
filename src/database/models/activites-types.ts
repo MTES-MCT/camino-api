@@ -28,7 +28,7 @@ class ActivitesTypes extends Model {
       join: {
         from: 'activitesTypes.id',
         through: {
-          from: 'titresTypes__activitesTypes.activiteTypeId',
+          from: 'titresTypes__activitesTypes.typeId',
           to: 'titresTypes__activitesTypes.titreTypeId'
         },
         to: 'titresTypes.id'
@@ -41,7 +41,7 @@ class ActivitesTypes extends Model {
       join: {
         from: 'activitesTypes.id',
         through: {
-          from: 'activitesTypes__pays.activiteTypeId',
+          from: 'activitesTypes__pays.typeId',
           to: 'activitesTypes__pays.paysId'
         },
         to: 'pays.id'
@@ -63,7 +63,7 @@ class ActivitesTypes extends Model {
       join: {
         from: 'activitesTypes.id',
         through: {
-          from: 'activitesTypes__administrations.activiteTypeId',
+          from: 'activitesTypes__administrations.typeId',
           to: 'activitesTypes__administrations.administrationId'
         },
         to: 'administrations.id'

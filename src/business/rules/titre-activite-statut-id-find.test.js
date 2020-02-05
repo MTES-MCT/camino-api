@@ -9,13 +9,13 @@ import {
 describe("statut d'une activité", () => {
   test('une activité dont le statut est “fermé" garde le statut "fermé"', () => {
     expect(titreActiviteStatutIdFind(titreActiviteFermee)).toEqual(
-      titreActiviteFermee.activiteStatutId
+      titreActiviteFermee.statutId
     )
   })
 
   test('une activité dont le statut est “déposé" garde le statut "déposé"', () => {
     expect(titreActiviteStatutIdFind(titreActiviteDeposee)).toEqual(
-      titreActiviteDeposee.activiteStatutId
+      titreActiviteDeposee.statutId
     )
   })
 
@@ -28,6 +28,6 @@ describe("statut d'une activité", () => {
   test('une activité dont le statut est "enc" dont le délai n\'est pas dépassé ne change pas de statut', () => {
     expect(
       titreActiviteStatutIdFind(titreActiviteEnCoursDelaiNonDepasse)
-    ).toEqual(titreActiviteEnCoursDelaiNonDepasse.activiteStatutId)
+    ).toEqual(titreActiviteEnCoursDelaiNonDepasse.statutId)
   })
 })
