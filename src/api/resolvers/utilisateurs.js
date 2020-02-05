@@ -157,7 +157,7 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
     }
 
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
-      utilisateur.permission = { id: 'defaut' }
+      utilisateur.permissionId = 'defaut'
     }
 
     if (!permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
