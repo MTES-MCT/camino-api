@@ -50,7 +50,7 @@ const demarcheEtapesTypes = async (
 
   return demarcheType.etapesTypes.reduce((etapesTypes, et) => {
     // si le type d'étape correspond à la démarche et au titre
-    if (et.typeId !== titre.typeId) return etapesTypes
+    if (et.titreTypeId !== titre.typeId) return etapesTypes
 
     // si
     // - on ne reçoit pas de param etapeTypeId

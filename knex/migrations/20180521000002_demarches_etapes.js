@@ -12,10 +12,10 @@ exports.up = knex => {
       table.boolean('exception')
       table.boolean('auto')
     })
-    .createTable('demarchesTypes__types', table => {
+    .createTable('titresTypes__demarchesTypes', table => {
       table
-        .string('typeId', 3)
-        .references('types.id')
+        .string('titreTypeId', 3)
+        .references('titresTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
@@ -31,7 +31,7 @@ exports.up = knex => {
       table.string('legalLien')
       table.string('dateDebut', 10)
       table.string('dateFin', 10)
-      table.primary(['demarcheTypeId', 'typeId'])
+      table.primary(['titreTypeId', 'demarcheTypeId'])
     })
     .createTable('demarchesStatuts', table => {
       table.string('id', 3).primary()
@@ -57,7 +57,13 @@ exports.up = knex => {
       table.string('dateFin', 10)
       table.specificType('sections', 'jsonb[]')
     })
-    .createTable('demarchesTypes__etapesTypes', table => {
+    .createTable('titresTypes__demarchesTypes__etapesTypes', table => {
+      table
+        .string('titreTypeId', 3)
+        .references('titresTypes.id')
+        .notNullable()
+        .onDelete('CASCADE')
+      table.integer('ordre')
       table
         .string('demarcheTypeId', 7)
         .references('demarchesTypes.id')
@@ -68,13 +74,7 @@ exports.up = knex => {
         .references('etapesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
-      table
-        .string('typeId', 3)
-        .references('types.id')
-        .notNullable()
-        .onDelete('CASCADE')
-      table.integer('ordre')
-      table.primary(['demarcheTypeId', 'etapeTypeId', 'typeId'])
+      table.primary(['titreTypeId', 'demarcheTypeId', 'etapeTypeId'])
     })
     .createTable('etapesStatuts', table => {
       table.string('id', 3).primary()
@@ -105,10 +105,10 @@ exports.down = knex => {
   return knex.schema
     .dropTable('etapesTypes__etapesStatuts')
     .dropTable('etapesStatuts')
-    .dropTable('demarchesTypes__etapesTypes')
+    .dropTable('titresTypes__demarchesTypes__etapesTypes')
     .dropTable('etapesTypes')
     .dropTable('demarchesStatuts')
-    .dropTable('demarchesTypes__types')
+    .dropTable('titresTypes__demarchesTypes')
     .dropTable('demarchesTypes')
     .dropTable('phasesStatuts')
     .dropTable('documentsTypes')

@@ -19,7 +19,7 @@ const titreAucunPays = {
 }
 
 const activiteTypeMAxmPxmGuf = {
-  types: [
+  titresTypes: [
     {
       domaineId: 'm',
       id: 'axm'
@@ -33,7 +33,7 @@ const activiteTypeMAxmPxmGuf = {
 }
 
 const activiteTypeGPrxFra = {
-  types: [
+  titresTypes: [
     {
       domaineId: 'g',
       id: 'prx'

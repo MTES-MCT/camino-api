@@ -92,7 +92,7 @@ const activiteModifier = async ({ activite }, context, info) => {
     }
 
     if (
-      !activiteOld.type.types.find(
+      !activiteOld.type.titresTypes.find(
         type => type.domaineId === titre.domaineId && type.id === titre.typeId
       )
     ) {

@@ -1,11 +1,11 @@
 import { Model, Modifiers } from 'objection'
 
-import { IStatuts } from '../../types'
+import { ITitresStatuts } from '../../types'
 
-interface Statuts extends IStatuts {}
+interface TitresStatuts extends ITitresStatuts {}
 
-class Statuts extends Model {
-  public static tableName = 'statuts'
+class TitresStatuts extends Model {
+  public static tableName = 'titresStatuts'
 
   public static jsonSchema = {
     type: 'object',
@@ -26,4 +26,4 @@ class Statuts extends Model {
   }
 }
 
-export default Statuts
+export default TitresStatuts

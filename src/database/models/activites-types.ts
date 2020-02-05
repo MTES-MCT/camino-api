@@ -22,17 +22,16 @@ class ActivitesTypes extends Model {
   }
 
   public static relationMappings = {
-    types: {
+    titresTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'types'),
+      modelClass: join(__dirname, 'titres-types'),
       join: {
         from: 'activitesTypes.id',
         through: {
-          from: 'activitesTypes__types.activiteTypeId',
-          to: 'activitesTypes__types.typeId',
-          extra: ['domaineId']
+          from: 'titresTypes__activitesTypes.activiteTypeId',
+          to: 'titresTypes__activitesTypes.titreTypeId'
         },
-        to: 'types.id'
+        to: 'titresTypes.id'
       }
     },
 

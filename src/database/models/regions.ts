@@ -14,7 +14,8 @@ class Regions extends Model {
 
     properties: {
       id: { type: 'string', maxLength: 2 },
-      nom: { type: 'string' }
+      nom: { type: 'string' },
+      paysId: { type: 'string' }
     }
   }
 

@@ -35,7 +35,7 @@ const titreDemarchesTypes = async (
 
   const user = !isSuper && (await utilisateurGet(context.user.id))
 
-  const type = metas.types.find(t => t.id === titre.typeId)
+  const type = metas.titresTypes.find(t => t.id === titre.typeId)
   if (!type) throw new Error(`${titre.typeId} inexistant`)
 
   titre.editable =
@@ -52,7 +52,7 @@ const titreDemarchesTypes = async (
     if (
       (!demarcheTypeId || dt.demarcheTypeId !== demarcheTypeId) &&
       dt.unique &&
-      titre.demarches.find(e => e.typeId === dt.demarcheTypeId)
+      titre.demarches.find(d => d.typeId === dt.demarcheTypeId)
     ) {
       return demarchesTypes
     }
@@ -60,7 +60,7 @@ const titreDemarchesTypes = async (
     dt = demarcheTypeFormat(dt, titre, user, { isSuper })
 
     if (dt.editable) {
-      dt.typeId = titre.typeId
+      dt.titreTypeId = titre.typeId
       demarchesTypes.push(dt)
     }
 

@@ -12,7 +12,7 @@ type Titre {
   nom: String!
 
   "Type du titre"
-  type: Type!
+  type: TitreType!
 
   "Domaine minier auquel se rattache le titre"
   domaine: Domaine!
@@ -21,7 +21,7 @@ type Titre {
   references: [Reference]
 
   "Statut du titre"
-  statut: Statut!
+  statut: TitreStatut!
 
   "Substances concernées par le titre dans son dernier état de validité"
   substances: [TitreSubstance]

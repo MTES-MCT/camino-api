@@ -133,7 +133,7 @@ const demarcheTypeFormat = (
 
   demarcheType.editable = dt.etapesTypes.some(
     et =>
-      et.typeId === titre.typeId &&
+      et.titreTypeId === titre.typeId &&
       (isSuper ||
         titreEtapeModificationPermissionAdministrationsCheck(
           et.id,

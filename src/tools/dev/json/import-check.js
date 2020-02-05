@@ -5,11 +5,11 @@ const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w', 'reprise']
 
 const metas = [
   'domaines',
-  'types',
-  'domaines--types',
-  'statuts',
+  'titresTypes',
+  'titresTypesTypes',
+  'titresStatuts',
   'demarchesTypes',
-  'demarches-types--types',
+  'titres-types--demarches-types',
   'demarchesStatuts',
   'demarches-types--demarches-statuts',
   'etapesTypes',
@@ -82,7 +82,7 @@ const titres = titresFiles.reduce(
 const activitesMetas = [
   'activitesStatuts',
   'activitesTypes',
-  'activitesTypes--types',
+  'titres-types--activitesTypes',
   'activitesTypes--pays'
 ]
 

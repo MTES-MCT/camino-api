@@ -3,13 +3,13 @@ Meta-informations sur les titres miniers (types, domaines, statuts)
 """
 type Metas {
   "Types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
-  types: [Type]
+  types: [TitreType]
 
   "Domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)"
   domaines: [Domaine]
 
   "Statuts des titres miniers (ex: valide, demande initiale, etc.)"
-  statuts: [Statut]
+  statuts: [TitreStatut]
 
   "Systèmes géodésiques utilisés dans Camino"
   geoSystemes: [GeoSysteme]
@@ -35,29 +35,41 @@ type Domaine {
   "Nom du domaine en français"
   nom: String!
 
-  types: [Type]!
+  titresTypes: [TitreType]
 
   editable: Boolean
 }
 
 "Type de titre minier"
-type Type {
+type TitreType {
   "Id composée de trois lettres"
+  id: ID!
+
+  domaine: Domaine!
+
+  type: TitreTypeType!
+
+  "Types de démarches applicables à ce type de titre"
+  demarchesTypes: [DemarcheType]
+
+  archive: Boolean
+
+  editable: Boolean
+}
+
+"Type de titre minier"
+type TitreTypeType {
+  "Id composée de deux lettres"
   id: ID!
 
   "Nom du type en français"
   nom: String!
 
-  "Types de démarches applicables à ce type de titre"
-  demarchesTypes: [DemarcheType]
-
-  domaineId: ID
-
-  editable: Boolean
+  ordre: Int!
 }
 
 "Statut d'un titre minier"
-type Statut {
+type TitreStatut {
   "Id composée de trois lettres"
   id: ID!
 
@@ -95,6 +107,9 @@ type DemarcheType {
   renouvelable: Boolean
 
   exception: Boolean
+
+  "Type de titre pour laquelle cette démarche existe"
+  titreTypeId: ID
 
   "Types d'étapes applicables à ce type de démarche"
   etapesTypes: [EtapeType]
@@ -136,7 +151,7 @@ type EtapeType {
   nom: String!
 
   "Type de titre pour laquelle cette étape existe"
-  typeId: ID
+  titreTypeId: ID
 
   demarcheTypeId: ID
 

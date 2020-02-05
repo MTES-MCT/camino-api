@@ -45,14 +45,14 @@ class TitresDemarches extends Model {
 
     titreType: {
       relation: Model.HasOneThroughRelation,
-      modelClass: join(__dirname, 'types'),
+      modelClass: join(__dirname, 'titres-types'),
       join: {
         from: 'titresDemarches.titreId',
         through: {
           from: 'titres.id',
           to: 'titres.typeId'
         },
-        to: 'types.id'
+        to: 'titresTypes.id'
       }
     },
 

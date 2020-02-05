@@ -1,31 +1,30 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
+import { ITitresTypesTypes } from '../../types'
 
-import { IDomaines } from '../../types'
+interface TitresTypesTypes extends ITitresTypesTypes {}
 
-interface Domaines extends IDomaines {}
-
-class Domaines extends Model {
-  public static tableName = 'domaines'
+class TitresTypesTypes extends Model {
+  public static tableName = 'titresTypesTypes'
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom'],
+    required: ['id', 'nom', 'ordre'],
 
     properties: {
-      id: { type: 'string', maxLength: 1 },
+      id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
       ordre: { type: 'integer' }
     }
   }
 
   public static relationMappings = {
-    titresTypes: {
+    types: {
       relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'titres-types'),
       join: {
-        from: 'domaines.id',
-        to: 'titresTypes.domaineId'
+        from: 'titresTypesTypes.id',
+        to: 'titresTypes.typeId'
       }
     }
   }
@@ -37,4 +36,4 @@ class Domaines extends Model {
   }
 }
 
-export default Domaines
+export default TitresTypesTypes
