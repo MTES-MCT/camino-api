@@ -6,10 +6,16 @@ import {
   IUtilisateurs,
   ITrimestres,
   IMois,
-  IAnnees
+  IAnnees,
+  IEntreprises
 } from '../../../types'
 
-import { permissionsCheck } from '../permissions/permissions-check'
+import {
+  permissionsCheck,
+  permissionsAdministrationsCheck
+} from '../permissions/permissions-check'
+
+import { titreActivitePermissionCheck } from '../permissions/titre'
 
 const titreActiviteFormatFields = {
   periode: true,
@@ -93,9 +99,24 @@ const titreActiviteFormat = (
   return ta
 }
 
-const titreActiviteCalc = (activites: ITitresActivites[], statutId: string) =>
-  activites.reduce(
-    (acc, activite) => (activite.statutId === statutId ? ++acc : acc),
+const titreActiviteCalc = (
+  titresActivites: ITitresActivites[],
+  user: IUtilisateurs,
+  statutId: string,
+  titreAmodiataires: IEntreprises[] | undefined,
+  titreTitulaires: IEntreprises[] | undefined
+) =>
+  titresActivites.reduce(
+    (acc, titreActivite) =>
+      titreActivite.statutId === statutId &&
+      titreActivitePermissionCheck(
+        user,
+        titreActivite,
+        titreAmodiataires,
+        titreTitulaires
+      )
+        ? ++acc
+        : acc,
     0
   )
 

@@ -63,6 +63,7 @@ const titres = async (
 ) => {
   try {
     const fields = graphFieldsBuild(info)
+    const graph = graphBuild(fields, 'titres', graphFormat)
     const titres = await titresGet(
       {
         typeIds,
@@ -74,9 +75,7 @@ const titres = async (
         references,
         territoires
       },
-      {
-        graph: graphBuild(fields, 'titres', graphFormat)
-      }
+      { graph }
     )
 
     const user = context.user && (await utilisateurGet(context.user.id))

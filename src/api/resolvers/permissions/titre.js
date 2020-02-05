@@ -17,7 +17,12 @@ const titreIsPublicCheck = titre =>
       t.publicLectureInterdit
   )
 
-const titreEntreprisePermissionCheck = (user, titre, amodiatairePriority) => {
+const titreEntreprisePermissionCheck = (
+  user,
+  titreAmodiataires,
+  titreTitulaires,
+  amodiatairePriority
+) => {
   // si l'utilisateur n'est pas dans le groupe 'entreprise'
   // le titre est inaccessible
   if (!permissionsCheck(user, ['entreprise'])) {
@@ -30,8 +35,8 @@ const titreEntreprisePermissionCheck = (user, titre, amodiatairePriority) => {
   // si l'utilisateur est amodiataire,
   // le titre est accessible
   if (
-    titre.amodiataires &&
-    titre.amodiataires.some(t => user.entreprises.find(({ id }) => id === t.id))
+    titreAmodiataires &&
+    titreAmodiataires.some(t => user.entreprises.find(({ id }) => id === t.id))
   ) {
     return true
   }
@@ -44,11 +49,9 @@ const titreEntreprisePermissionCheck = (user, titre, amodiatairePriority) => {
   // le titre est accessible
   // sinon le titre est inaccessible
   return (
-    titre.titulaires &&
-    titre.titulaires.some(t =>
-      user.entreprises.find(({ id }) => id === t.id)
-    ) &&
-    (!amodiatairePriority || !titre.amodiataires.length)
+    titreTitulaires &&
+    titreTitulaires.some(t => user.entreprises.find(({ id }) => id === t.id)) &&
+    (!amodiatairePriority || !titreAmodiataires.length)
   )
 }
 
@@ -74,7 +77,12 @@ const titrePermissionCheck = (
     return true
   }
 
-  return titreEntreprisePermissionCheck(user, titre, amodiatairePriority)
+  return titreEntreprisePermissionCheck(
+    user,
+    titre.amodiataires,
+    titre.titulaires,
+    amodiatairePriority
+  )
 }
 
 const titrePermissionAdministrationsCheck = (titre, user) =>
@@ -148,10 +156,15 @@ const titreActivitePermissionAdministrationCheck = (user, titreActiviteType) =>
     titreActiviteType.administrations.map(({ id }) => id)
   )
 
-const titreActivitePermissionCheck = (user, titre, titreActivite) =>
+const titreActivitePermissionCheck = (
+  user,
+  titreActivite,
+  titreAmodiataires,
+  titreTitulaires
+) =>
   permissionsCheck(user, ['super']) ||
   titreActivitePermissionAdministrationCheck(user, titreActivite.type) ||
-  titreEntreprisePermissionCheck(user, titre)
+  titreEntreprisePermissionCheck(user, titreAmodiataires, titreTitulaires)
 
 const titreCreationPermissionAdministrationsCheck = (...args) =>
   titreEditionPermissionAdministrationsCheck('creation', ...args)

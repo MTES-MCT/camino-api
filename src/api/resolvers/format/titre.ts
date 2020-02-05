@@ -58,6 +58,9 @@ const titreFormatFields = {
   pays: true,
   demarches: titreDemarcheFormatFields,
   activites: titreActiviteFormatFields,
+  activitesAbsentes: true,
+  activitesDeposees: true,
+  activitesEnConstruction: true,
   administrations: true
 }
 
@@ -215,18 +218,50 @@ const titreFormat = (
     t.surface = t.surfaceEtape.surface
   }
 
-  if (fields.activites && t.activites?.length) {
-    t.activites = t.activites.reduce((acc: ITitresActivites[], ta) => {
-      if (titreActivitePermissionCheck(user, t, ta)) {
-        acc.push(titreActiviteFormat(ta, user, fields.activites))
-      }
+  if (t.activites?.length) {
+    if (fields.activitesAbsentes) {
+      t.activitesAbsentes = titreActiviteCalc(
+        t.activites,
+        user,
+        'abs',
+        t.amodiataires,
+        t.titulaires
+      )
+    }
 
-      return acc
-    }, [])
+    if (fields.activitesDeposees) {
+      t.activitesDeposees = titreActiviteCalc(
+        t.activites,
+        user,
+        'dep',
+        t.amodiataires,
+        t.titulaires
+      )
+    }
 
-    t.activitesAbsentes = titreActiviteCalc(t.activites, 'abs')
-    t.activitesDeposees = titreActiviteCalc(t.activites, 'dep')
-    t.activitesEnConstruction = titreActiviteCalc(t.activites, 'enc')
+    if (fields.activitesEnConstruction) {
+      t.activitesEnConstruction = titreActiviteCalc(
+        t.activites,
+        user,
+        'enc',
+        t.amodiataires,
+        t.titulaires
+      )
+    }
+
+    if (fields.activites) {
+      t.activites = t.activites.reduce((acc: ITitresActivites[], ta) => {
+        if (
+          titreActivitePermissionCheck(user, ta, t.amodiataires, t.titulaires)
+        ) {
+          acc.push(titreActiviteFormat(ta, user, fields.activites))
+        }
+
+        return acc
+      }, [])
+    } else {
+      delete t.activites
+    }
   }
 
   if (fields.administrations) {
