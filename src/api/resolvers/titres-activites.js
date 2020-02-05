@@ -35,13 +35,20 @@ const activite = async ({ id }, context, info) => {
 
     const graph = graphBuild(fields, 'activite', graphFormat)
 
-    const activite = await titreActiviteGet(id, { graph })
+    const titreActivite = await titreActiviteGet(id, { graph })
 
-    if (!titreActivitePermissionCheck(user, activite.titre, activite)) {
+    if (
+      !titreActivitePermissionCheck(
+        user,
+        titreActivite,
+        titreActivite.titre.amodiataires,
+        titreActivite.titre.titulaires
+      )
+    ) {
       throw new Error("droits insuffisants pour effectuer l'opération")
     }
 
-    return activite && titreActiviteFormat(activite, user)
+    return titreActivite && titreActiviteFormat(titreActivite, user)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -59,14 +66,24 @@ const activites = async ({ typeId, annee }, context, info) => {
 
     const graph = graphBuild(fields, 'activites', graphFormat)
 
-    const activites = await titresActivitesGet({ typeId, annee }, { graph })
+    const titresActivites = await titresActivitesGet(
+      { typeId, annee },
+      { graph }
+    )
 
     return (
-      activites &&
-      activites.length &&
-      activites.reduce((res, activite) => {
-        if (titreActivitePermissionCheck(user, activite.titre, activite)) {
-          res.push(titreActiviteFormat(activite, user))
+      titresActivites &&
+      titresActivites.length &&
+      titresActivites.reduce((res, titreActivite) => {
+        if (
+          titreActivitePermissionCheck(
+            user,
+            titreActivite,
+            titreActivite.titre.amodiataires,
+            titreActivite.titre.titulaires
+          )
+        ) {
+          res.push(titreActiviteFormat(titreActivite, user))
         }
 
         return res

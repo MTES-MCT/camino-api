@@ -148,6 +148,16 @@ const graphFormat = (fields, parent) => {
     }
   }
 
+  if (!fields.activites) {
+    if (
+      fields.activitesDeposees ||
+      fields.activitesEnConstruction ||
+      fields.activitesAbsentes
+    ) {
+      fields.activites = { id: {} }
+    }
+  }
+
   return fields
 }
 
