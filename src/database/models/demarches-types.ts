@@ -34,7 +34,8 @@ class DemarchesTypes extends Model {
         through: {
           from: 'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
           to: 'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
-          extra: ['ordre', 'titreTypeId']
+          // permet de donner un alias spécial aux champs extra { alias: field }
+          extra: { 'ordre': 'ordre', 'titreTypeId': 'titreTypeId', 'customSections': 'sections' }
         },
         to: 'etapesTypes.id'
       }

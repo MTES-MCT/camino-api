@@ -25,6 +25,59 @@ import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
 
+const demarcheEtapeTypesFormat = (
+  user,
+  isSuper,
+  titre,
+  demarcheTypeId,
+  titreEtapes,
+  etapesTypes,
+  etapeTypeId
+) =>
+  etapesTypes.reduce((etapesTypes, et) => {
+    // si le type d'étape correspond à la démarche et au titre
+    if (et.titreTypeId !== titre.typeId) return etapesTypes
+
+    // si
+    // - on ne reçoit pas de param etapeTypeId
+    // - ou si le param etapeTypeId correspond à un type d'étape
+    // alors on ne vérifie pas l'unicité
+    // pour pouvoir proposer le type dans le sélecteur
+    if (
+      (!etapeTypeId || et.etapeTypeId !== etapeTypeId) &&
+      // si le type d'étape est unique
+      et.unique &&
+      // et que la démarche en contient déjà un
+      titreEtapes.find(e => e.typeId === et.etapeTypeId)
+    ) {
+      // alors on ne l'ajoute pas à la liste des types disponibles pour la démarche
+      return etapesTypes
+    }
+
+    et.editable =
+      isSuper ||
+      // si un etapeTypeId est fourni au resolver
+      // alors c'est une modification d'étape
+      // sinon c'est une création d'étape dans une démarche
+      (etapeTypeId
+        ? titreEtapeModificationPermissionAdministrationsCheck
+        : titreEtapeCreationPermissionAdministrationsCheck)(et.id, titre, user)
+
+    if (et.editable) {
+      et.demarcheTypeId = demarcheTypeId
+
+      // fusion des sections par défaut de l'étape type
+      // avec les sections spécifiques au type / démarche / étape
+      if (et.customSections) {
+        et.sections = Object.assign({}, et.customSections, et.sections)
+      }
+
+      etapesTypes.push(et)
+    }
+
+    return etapesTypes
+  }, [])
+
 const demarcheEtapesTypes = async (
   { titreDemarcheId, etapeTypeId = null },
   context,
@@ -48,43 +101,15 @@ const demarcheEtapesTypes = async (
     ({ id }) => id === demarche.typeId
   )
 
-  return demarcheType.etapesTypes.reduce((etapesTypes, et) => {
-    // si le type d'étape correspond à la démarche et au titre
-    if (et.titreTypeId !== titre.typeId) return etapesTypes
-
-    // si
-    // - on ne reçoit pas de param etapeTypeId
-    // - ou si le param etapeTypeId correspond à un type d'étape
-    // alors on ne vérifie pas l'unicité
-    // pour pouvoir proposer le type dans le sélecteur
-    if (
-      (!etapeTypeId || et.etapeTypeId !== etapeTypeId) &&
-      // si le type d'étape est unique
-      et.unique &&
-      // et que la démarche en contient déjà un
-      demarche.etapes.find(e => e.typeId === et.etapeTypeId)
-    ) {
-      // alors on ne l'ajoute pas à la liste des types disponibles pour la démarche
-      return etapesTypes
-    }
-
-    et.editable =
-      isSuper ||
-      // si un etapeTypeId est fourni au resolver
-      // alors c'est une modification d'étape
-      // sinon c'est une création d'étape dans une démarche
-      (etapeTypeId
-        ? titreEtapeModificationPermissionAdministrationsCheck
-        : titreEtapeCreationPermissionAdministrationsCheck)(et.id, titre, user)
-
-    if (et.editable) {
-      et.demarcheTypeId = demarche.typeId
-
-      etapesTypes.push(et)
-    }
-
-    return etapesTypes
-  }, [])
+  return demarcheEtapeTypesFormat(
+    user,
+    isSuper,
+    titre,
+    demarche.typeId,
+    demarche.etapes,
+    demarche.etapesTypes,
+    etapeTypeId
+  )
 }
 
 const etapeCreer = async ({ etape }, context, info) => {
