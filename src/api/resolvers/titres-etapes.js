@@ -107,7 +107,7 @@ const demarcheEtapesTypes = async (
     titre,
     demarche.typeId,
     demarche.etapes,
-    demarche.etapesTypes,
+    demarcheType.etapesTypes,
     etapeTypeId
   )
 }
