@@ -1,22 +1,15 @@
-import fileCreate from '../../file-create'
-import { join } from 'path'
+const fs = require('fs')
 
-const titresActivitesPath = 'sources/titres-activites.json'
-const titresActivites = require(join('../../../..', titresActivitesPath))
+const filePath = './sources/titres-activites.json'
 
-async function main() {
-  titresActivites.forEach(ta => {
-    ta.type_id = ta.activite_type_id
-    delete ta.activite_type_id
+const titresActivites = JSON.parse(fs.readFileSync(filePath).toString())
 
-    ta.statut_id = ta.activite_statut_id
-    delete ta.activite_statut_id
-  })
+titresActivites.forEach(ta => {
+  ta.type_id = ta.activite_type_id
+  delete ta.activite_type_id
 
-  await fileCreate(
-    `${titresActivitesPath}.json`,
-    JSON.stringify(titresActivites, null, 2)
-  )
-}
+  ta.statut_id = ta.activite_statut_id
+  delete ta.activite_statut_id
+})
 
-main()
+fs.writeFileSync(`${filePath}`, JSON.stringify(titresActivites, null, 2))
