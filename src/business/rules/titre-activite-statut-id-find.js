@@ -1,7 +1,7 @@
 // TODO: ajouter un cas si les activités ont un délai null (champ vide)
 const titreActiviteStatutIdFind = titreActivite => {
   // si l'activité a un statut différent de "déposé" ou "fermé"
-  if (!['dep', 'fer'].includes(titreActivite.activiteStatutId)) {
+  if (!['dep', 'fer'].includes(titreActivite.statutId)) {
     const dateDepot = new Date(titreActivite.date)
 
     const dateDelai = new Date(dateDepot)
@@ -16,7 +16,7 @@ const titreActiviteStatutIdFind = titreActivite => {
   }
 
   // sinon retourne le statut de l'activité
-  return titreActivite.activiteStatutId
+  return titreActivite.statutId
 }
 
 export default titreActiviteStatutIdFind

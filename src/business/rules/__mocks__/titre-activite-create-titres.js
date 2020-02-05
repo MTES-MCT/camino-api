@@ -5,7 +5,7 @@ const titreModificationEnInstance = {
 }
 
 const titreAvecActivite201801 = {
-  activites: [{ activiteTypeId: 'grp', annee: 2018, frequencePeriodeId: 1 }]
+  activites: [{ typeId: 'grp', annee: 2018, frequencePeriodeId: 1 }]
 }
 
 const activiteTypeXxx = {

@@ -19,7 +19,7 @@ const titresActivitesGet = async (
   const q = TitreActivites.query().withGraphFetched(graph)
 
   if (typeId) {
-    q.where('titresActivites.activiteTypeId', typeId)
+    q.where('titresActivites.typeId', typeId)
   }
 
   if (annee) {

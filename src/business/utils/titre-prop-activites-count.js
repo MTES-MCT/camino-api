@@ -1,7 +1,6 @@
 // retourne le nombre d'activités par statut
 
-const titrePropActivitesCount = (titreActivites, activiteStatutId) =>
-  titreActivites.filter(a => a.activiteStatutId === activiteStatutId).length ||
-  null
+const titrePropActivitesCount = (titreActivites, statutId) =>
+  titreActivites.filter(a => a.statutId === statutId).length || null
 
 export default titrePropActivitesCount

@@ -3,7 +3,7 @@ import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
 const titreActiviteBuild = (
   { demarches: titreDemarches, statutId: titreStatutId, id: titreId },
-  activiteTypeId,
+  typeId,
   annee,
   periodeIndex,
   monthsCount
@@ -44,10 +44,10 @@ const titreActiviteBuild = (
     // la date de début de l'activité est le premier jour du mois
     // du début de la période suivante, en fonction de la fréquence
     date: periodeDateFin,
-    activiteTypeId,
+    typeId,
     // le statut de l'activité crée automatiquement
     // est 'absente'
-    activiteStatutId: 'abs',
+    statutId: 'abs',
     frequencePeriodeId,
     annee
   }
@@ -71,7 +71,7 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
           titreActivites &&
           titreActivites.find(
             a =>
-              a.activiteTypeId === activiteType.id &&
+              a.typeId === activiteType.id &&
               a.annee === annee &&
               a.frequencePeriodeId === periodeIndex + 1
           )

@@ -328,9 +328,9 @@ interface ITitresActivites {
   id: string
   titreId: string
   date: string
-  activiteTypeId: string
+  typeId: string
   type?: IActivitesTypes
-  activiteStatutId: string
+  statutId: string
   statut?: IActivitesStatuts
   frequencePeriodeId: number
   annee: number

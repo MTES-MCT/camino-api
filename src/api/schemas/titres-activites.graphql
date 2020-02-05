@@ -16,6 +16,6 @@ type Activite {
 
 input InputActiviteModification {
   id: ID!
-  activiteStatutId: String!
+  statutId: String!
   contenu: Json
 }

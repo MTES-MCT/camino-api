@@ -14,8 +14,8 @@ class TitresActivites extends Model {
       'id',
       'titreId',
       'date',
-      'activiteTypeId',
-      'activiteStatutId',
+      'typeId',
+      'statutId',
       'frequencePeriodeId',
       'annee'
     ],
@@ -26,8 +26,8 @@ class TitresActivites extends Model {
       date: { type: 'string' },
       dateSaisie: { type: ['string', 'null'] },
       contenu: { type: 'json' },
-      activiteTypeId: { type: 'string', maxLength: 3 },
-      activiteStatutId: { type: 'string', maxLength: 3 },
+      typeId: { type: 'string', maxLength: 3 },
+      statutId: { type: 'string', maxLength: 3 },
       frequencePeriodeId: { type: 'integer' },
       annee: { type: 'integer', maxLength: 4 }
     }
@@ -38,7 +38,7 @@ class TitresActivites extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'activites-types'),
       join: {
-        from: 'titresActivites.activiteTypeId',
+        from: 'titresActivites.typeId',
         to: 'activitesTypes.id'
       }
     },
@@ -56,7 +56,7 @@ class TitresActivites extends Model {
       relation: Model.BelongsToOneRelation,
       modelClass: join(__dirname, 'activites-statuts'),
       join: {
-        from: 'titresActivites.activiteStatutId',
+        from: 'titresActivites.statutId',
         to: 'activitesStatuts.id'
       }
     },
@@ -87,12 +87,12 @@ class TitresActivites extends Model {
     if (
       !json.id &&
       json.titreId &&
-      json.activiteTypeId &&
+      json.typeId &&
       json.frequencePeriodeId
     ) {
-      const id = `${json.titreId}-${json.activiteTypeId}-${
+      const id = `${json.titreId}-${json.typeId}-${
         json.annee
-      }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
+        }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
       json.id = id
     }
 

@@ -1,5 +1,5 @@
 const titreActiviteFermee = {
-  activiteStatutId: 'fer',
+  statutId: 'fer',
   date: '1000-01-01',
   type: {
     delaiMois: 3
@@ -7,7 +7,7 @@ const titreActiviteFermee = {
 }
 
 const titreActiviteDeposee = {
-  activiteStatutId: 'dep',
+  statutId: 'dep',
   date: '1000-01-01',
   type: {
     delaiMois: 3
@@ -15,7 +15,7 @@ const titreActiviteDeposee = {
 }
 
 const titreActiviteAbsenteDelaiDepasse = {
-  activiteStatutId: 'abs',
+  statutId: 'abs',
   date: '1000-01-01',
   type: {
     delaiMois: 3
@@ -23,7 +23,7 @@ const titreActiviteAbsenteDelaiDepasse = {
 }
 
 const titreActiviteEnCoursDelaiNonDepasse = {
-  activiteStatutId: 'enc',
+  statutId: 'enc',
   date: '3000-01-01',
   type: {
     delaiMois: 3

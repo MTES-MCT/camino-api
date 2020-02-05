@@ -15,20 +15,20 @@ const titreActivitesStatutIdsUpdate = async (
 
   const titresActivitesUpdated = titresActivites.reduce(
     (titresActivitesUpdated: string[], titreActivite) => {
-      const activiteStatutId = titreActiviteStatutIdFind(titreActivite)
+      const statutId = titreActiviteStatutIdFind(titreActivite)
 
-      if (titreActivite.activiteStatutId === activiteStatutId) {
+      if (titreActivite.statutId === statutId) {
         return titresActivitesUpdated
       }
 
       queue.add(async () => {
-        titreActivite.activiteStatutId = activiteStatutId
+        titreActivite.statutId = statutId
 
-        await titreActiviteUpdate(titreActivite.id, { activiteStatutId })
+        await titreActiviteUpdate(titreActivite.id, { statutId })
 
         console.log(
           `mise à jour: activité ${titreActivite.id}, ${JSON.stringify({
-            activiteStatutId
+            statutId
           })}`
         )
 

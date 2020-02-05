@@ -3,7 +3,7 @@ import { ITitresActivites } from '../../../types'
 const titresActivitesDelaiDepasse = ([
   {
     date: '1000-01-01',
-    activiteStatutId: 'abs',
+    statutId: 'abs',
     type: {
       delaiMois: 3
     }
@@ -13,7 +13,7 @@ const titresActivitesDelaiDepasse = ([
 const titresActivitesDelaiNonDepasse = ([
   {
     date: '3000-01-01',
-    activiteStatutId: 'abs',
+    statutId: 'abs',
     type: {
       delaiMois: 3
     }

@@ -20,13 +20,13 @@ const statistiques = async () => {
     const titresActivitesDepose = titresActivites.filter(
       titreActivite =>
         titreActivite.annee >= ACTIVITE_ANNEE_DEBUT &&
-        titreActivite.activiteStatutId === 'dep'
+        titreActivite.statutId === 'dep'
     ).length
 
     const titresActivites2018Depose = titresActivites.filter(
       titreActivite =>
         titreActivite.annee === ACTIVITE_ANNEE_DEBUT &&
-        titreActivite.activiteStatutId === 'dep'
+        titreActivite.statutId === 'dep'
     ).length
 
     const titreActivite2018Total = titresActivites.filter(
