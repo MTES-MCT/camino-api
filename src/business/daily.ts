@@ -21,7 +21,6 @@ import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPointsReferencesCreate from './processes/titres-points-references-create'
-import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 
@@ -279,27 +278,6 @@ const run = async () => {
 
     // 14.
     console.log()
-    console.log('propriétés des titres (activités abs, enc et dep)…')
-    titres = await titresGet(
-      {
-        domaineIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutIds: null,
-        substances: null,
-        territoires: null,
-        typeIds: null
-      },
-      {
-        graph: 'activites'
-      }
-    )
-    const titresPropsActivitesUpdated = await titresPropsActivitesUpdate(titres)
-
-    // 15.
-    console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet({
       domaineIds: null,
@@ -408,9 +386,6 @@ const run = async () => {
     )
     console.log(
       `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
-    )
-    console.log(
-      `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
     )
     console.log(`mise à jour: ${titresUpdated.length} titre(s) (ids)`)
 

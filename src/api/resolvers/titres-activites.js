@@ -24,7 +24,6 @@ import { titreGet } from '../../database/queries/titres'
 
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
-import titreActiviteUpdate from '../../business/titre-activite-update'
 import titreActiviteUpdationValidate from '../../business/titre-activite-updation-validate'
 
 const activite = async ({ id }, context, info) => {
@@ -145,8 +144,6 @@ const activiteModifier = async ({ activite }, context, info) => {
     const activiteRes = await titreActiviteUpdateQuery(activite.id, activite, {
       graph
     })
-
-    await titreActiviteUpdate(activiteRes.id)
 
     titreActivitesRowUpdate([activiteRes])
 
