@@ -2,7 +2,8 @@ import { debug } from '../../config/index'
 
 import metas from './_metas'
 
-import { titreFormat } from './format/titre'
+import { titreFormat } from './format/titres'
+import { etapesTypesFormat } from './format/etapes-types'
 
 import { permissionsCheck } from './permissions/permissions-check'
 import { titreModificationPermissionAdministrationsCheck } from './permissions/titre'
@@ -66,12 +67,7 @@ const demarcheEtapeTypesFormat = (
     if (et.editable) {
       et.demarcheTypeId = demarcheTypeId
 
-      // fusion des sections par défaut de l'étape type
-      // avec les sections spécifiques au type / démarche / étape
-      if (et.customSections) {
-        // TODO: écraser les clés en double
-        et.sections = [].concat(et.sections, et.customSections)
-      }
+      et = etapesTypesFormat(et)
 
       etapesTypes.push(et)
     }

@@ -1,6 +1,6 @@
 import { debug } from '../../config/index'
 import { permissionsCheck } from './permissions/permissions-check'
-import { titreFormat, titresFormat } from './format/titre'
+import { titreFormat, titresFormat } from './format/titres'
 
 import {
   titreCreationPermissionAdministrationsCheck,

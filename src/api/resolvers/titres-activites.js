@@ -6,7 +6,7 @@ import {
   titrePermissionCheck,
   titreActivitePermissionCheck
 } from './permissions/titre'
-import { titreActiviteFormat } from './format/titre-activites'
+import { titreActiviteFormat } from './format/titres-activites'
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'

@@ -29,14 +29,16 @@ import {
 
 import { titreEtapeModificationPermissionAdministrationsCheck } from '../permissions/titre-etape'
 
-import { administrationsFormat } from './administration'
-import { entreprisesFormat } from './entreprise'
+import { administrationsFormat } from './administrations'
+import { entreprisesFormat } from './entreprises'
+import { titreSectionsFormat } from './titres-sections'
+import { etapesTypesFormat } from './etapes-types'
 
 import {
   titreActiviteFormatFields,
   titreActiviteFormat,
   titreActiviteCalc
-} from './titre-activites'
+} from './titres-activites'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: true,
@@ -387,6 +389,12 @@ const titreEtapeFormat = (
 
     if (te.type) {
       te.type.editable = te.editable
+
+      te.type = etapesTypesFormat(te.type)
+
+      if (te.type.sections) {
+        te.type.sections = titreSectionsFormat(te.type.sections)
+      }
     }
   }
 

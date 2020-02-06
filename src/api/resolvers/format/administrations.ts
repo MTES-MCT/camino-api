@@ -1,7 +1,7 @@
 import { IAdministrations, IUtilisateurs } from '../../../types'
 
-import { titresFormat } from './titre'
-import { utilisateursFormat } from './utilisateur'
+import { titresFormat } from './titres'
+import { utilisateursFormat } from './utilisateurs'
 
 const administrationFormat = (
   administration: IAdministrations,

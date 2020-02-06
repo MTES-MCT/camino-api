@@ -13,7 +13,7 @@ import graphFormat from './graph/format'
 import {
   administrationFormat,
   administrationsFormat
-} from './format/administration'
+} from './format/administrations'
 
 const administration = async (
   { id }: { id: string },

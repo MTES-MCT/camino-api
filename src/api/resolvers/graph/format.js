@@ -22,23 +22,12 @@ const graphTitreAdministrationsFormat = (fields, type) => {
 
 // ajoute des propriétés requises par /database/queries/_format
 const graphFormat = (fields, parent) => {
-  if (fields.administrations) {
-    if (
-      ['titres', 'titre', 'titresAmodiataire', 'titresTitulaire'].includes(
-        parent
-      )
-    ) {
-      // ajoute la propriété `type` sur les administrations
-      graphTitreAdministrationsFormat(fields, 'Locales')
-      graphTitreAdministrationsFormat(fields, 'Gestionnaires')
-      delete fields.administrations
-    } else if (
-      !fields.administrations.type &&
-      Object.keys(fields.administrations).length !== 0
-    ) {
-      fields.administrations.type = { id: {} }
-    }
-  }
+  const isParentTitre = [
+    'titres',
+    'titre',
+    'titresAmodiataire',
+    'titresTitulaire'
+  ].includes(parent)
 
   // ajoute la propriété `titreType` sur les démarches
   if (fields.demarches && !fields.demarches.titreType) {
@@ -70,16 +59,7 @@ const graphFormat = (fields, parent) => {
     }
   })
 
-  if (
-    fields.pays &&
-    [
-      'titres',
-      'titre',
-      'etapes',
-      'titresTitulaire',
-      'titresAmodiataire'
-    ].includes(parent)
-  ) {
+  if (fields.pays && (isParentTitre || parent === 'etapes')) {
     fields.communes = { departement: { region: { pays: { id: {} } } } }
 
     delete fields.pays
@@ -95,13 +75,22 @@ const graphFormat = (fields, parent) => {
     fields.$modifier = 'orderAsc'
   }
 
+  if (fields.administrations) {
+    if (isParentTitre) {
+      // ajoute la propriété `type` sur les administrations
+      graphTitreAdministrationsFormat(fields, 'Locales')
+      graphTitreAdministrationsFormat(fields, 'Gestionnaires')
+      delete fields.administrations
+    } else if (
+      !fields.administrations.type &&
+      Object.keys(fields.administrations).length !== 0
+    ) {
+      fields.administrations.type = { id: {} }
+    }
+  }
+
   // sur les titres
-  if (
-    parent === 'titres' ||
-    parent === 'titre' ||
-    parent === 'titresAmodiataire' ||
-    parent === 'titresTitulaire'
-  ) {
+  if (isParentTitre) {
     // si les propriétés `surface`, `volume` ou `engagement` sont présentes
     // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
     titrePropsEtapesFields.forEach(key => {
@@ -118,6 +107,11 @@ const graphFormat = (fields, parent) => {
         delete fields[key]
       }
     })
+
+    // trie les types de titres
+    if (fields.type) {
+      fields.type.$modifier = 'orderAsc'
+    }
   }
 
   if (parent === 'activites' || parent === 'activite') {
@@ -148,6 +142,8 @@ const graphFormat = (fields, parent) => {
     }
   }
 
+  // on a besoin des activités si elles sont absentes
+  // pour calculer le nombre d'activités par type
   if (!fields.activites) {
     if (
       fields.activitesDeposees ||

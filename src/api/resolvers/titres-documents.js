@@ -5,7 +5,7 @@ import { debug } from '../../config/index'
 import fileDelete from '../../tools/file-delete'
 import fileStreamCreate from '../../tools/file-stream-create'
 import { permissionsCheck } from './permissions/permissions-check'
-import { titreFormat } from './format/titre'
+import { titreFormat } from './format/titres'
 
 import {
   titreDocumentGet,

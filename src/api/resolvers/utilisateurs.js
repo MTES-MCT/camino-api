@@ -27,8 +27,8 @@ import {
   utilisateurTestCheck
 } from './permissions/utilisateur'
 
-import { utilisateursFormat, utilisateurFormat } from './format/utilisateur'
-import { userFormat } from './format/user'
+import { utilisateursFormat, utilisateurFormat } from './format/utilisateurs'
+import { userFormat } from './format/users'
 
 const userIdGenerate = async () => {
   const id = cryptoRandomString({ length: 6 })

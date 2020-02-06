@@ -3,12 +3,12 @@ exports.up = knex => {
     .createTable('domaines', table => {
       table.string('id', 1).primary()
       table.string('nom').notNullable()
-      table.integer('ordre')
+      table.integer('ordre').notNullable()
     })
     .createTable('titresTypesTypes', table => {
       table.string('id', 2).primary()
       table.string('nom').notNullable()
-      table.integer('ordre')
+      table.integer('ordre').notNullable()
     })
     .createTable('titresTypes', table => {
       table

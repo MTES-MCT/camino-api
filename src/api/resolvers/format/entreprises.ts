@@ -1,7 +1,7 @@
 import { IEntreprises, IUtilisateurs } from '../../../types'
 
-import { titresFormat } from './titre'
-import { utilisateursFormat } from './utilisateur'
+import { titresFormat } from './titres'
+import { utilisateursFormat } from './utilisateurs'
 import { permissionsCheck } from '../permissions/permissions-check'
 
 const entrepriseFormat = (entreprise: IEntreprises, user: IUtilisateurs) => {

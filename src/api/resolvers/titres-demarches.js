@@ -5,7 +5,7 @@ import metas from './_metas'
 import { permissionsCheck } from './permissions/permissions-check'
 import { titreModificationPermissionAdministrationsCheck } from './permissions/titre'
 
-import { titreFormat, demarcheTypeFormat } from './format/titre'
+import { titreFormat, demarcheTypeFormat } from './format/titres'
 
 import {
   titreDemarcheGet,

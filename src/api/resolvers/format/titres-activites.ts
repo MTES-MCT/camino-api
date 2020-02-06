@@ -1,7 +1,4 @@
 import {
-  ISections,
-  ISectionsElement,
-  IPeriodes,
   ITitresActivites,
   IUtilisateurs,
   ITrimestres,
@@ -10,56 +7,16 @@ import {
   IEntreprises
 } from '../../../types'
 
-import {
-  permissionsCheck,
-  permissionsAdministrationsCheck
-} from '../permissions/permissions-check'
+import { permissionsCheck } from '../permissions/permissions-check'
 
 import { titreActivitePermissionCheck } from '../permissions/titre'
+
+import { titreSectionsFormat } from './titres-sections'
 
 const titreActiviteFormatFields = {
   periode: true,
   sections: true
 }
-
-// - ne conserve que les sections qui contiennent des élements
-const titreSectionsFormat = (
-  sections: ISections[],
-  periodeId: number,
-  date: string
-) =>
-  sections.reduce((sections: ISections[], s) => {
-    const elements =
-      s.elements &&
-      s.elements.reduce((elements: ISectionsElement[], e) => {
-        // ne conserve que les éléments dont
-        // - la période (si elle existe),
-        // - la date de début et la date de fin
-        // correspondent à l'élément
-        if (
-          (!e.frequencePeriodesIds ||
-            e.frequencePeriodesIds.find(id => periodeId === id)) &&
-          (!e.dateFin || e.dateFin >= date) &&
-          (!e.dateDebut || e.dateDebut < date)
-        ) {
-          elements.push(e)
-        }
-
-        return elements
-      }, [])
-
-    const section = {
-      id: s.id,
-      nom: s.nom,
-      elements
-    }
-
-    if (section.elements?.length) {
-      sections.push(section)
-    }
-
-    return sections
-  }, [])
 
 const titreActiviteFormat = (
   ta: ITitresActivites,
@@ -83,7 +40,7 @@ const titreActiviteFormat = (
     ) as IAnnees | ITrimestres | IMois
 
     // si les sections contiennent des élements sur cette activité
-    if (fields.sections && ta.type?.sections) {
+    if (fields.sections && ta.sections && ta.type?.sections) {
       ta.sections = titreSectionsFormat(
         ta.type.sections,
         ta.periode.id,

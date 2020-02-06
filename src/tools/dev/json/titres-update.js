@@ -16,6 +16,10 @@ domaineIds.forEach(domaineId => {
       if (t.type_id === 'pxc') {
         t.type_id = 'pcc'
       }
+
+      delete t.activites_absentes
+      delete t.activites_deposees
+      delete t.activites_en_construction
     })
 
     fs.writeFileSync(`${filePath}`, JSON.stringify(titres, null, 2))

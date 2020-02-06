@@ -61,6 +61,12 @@ class TitresTypes extends Model {
       }
     }
   }
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.joinRelated('type').orderBy('type.ordre', 'asc')
+    }
+  }
 }
 
 export default TitresTypes

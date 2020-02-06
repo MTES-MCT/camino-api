@@ -10,7 +10,7 @@ import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 
-import { entrepriseFormat, entreprisesFormat } from './format/entreprise'
+import { entrepriseFormat, entreprisesFormat } from './format/entreprises'
 
 import { permissionsCheck } from './permissions/permissions-check'
 import { emailCheck } from './permissions/utilisateur'
