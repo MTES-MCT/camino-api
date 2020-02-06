@@ -16,7 +16,6 @@ import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
-import titresPropsActivitesUpdate from './processes/titres-props-activites-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
@@ -138,14 +137,6 @@ const titreEtapeUpdate = async (
     )
 
     // 13.
-    console.log()
-    console.log('propriétés des titres (activités abs, enc et dep)…')
-    titre = await titreGet(titreId, { graph: 'activites' })
-    const titresPropsActivitesUpdated = await titresPropsActivitesUpdate([
-      titre
-    ])
-
-    // 14.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {})
     const titreUpdated = await titreIdsUpdate(titre)
@@ -194,9 +185,6 @@ const titreEtapeUpdate = async (
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
     console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
-    console.log(
-      `mise à jour: ${titresPropsActivitesUpdated.length} titre(s) (propriétés-activités)`
-    )
     console.log(`mise à jour: ${titreUpdated ? '1' : '0'} titre(s) (ids)`)
 
     if (titresActivitesCreated.length) {
