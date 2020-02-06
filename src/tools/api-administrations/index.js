@@ -143,7 +143,11 @@ const organismesDepartementsGet = async departementsIdsNoms => {
 
   const queue = new PQueue({ concurrency: 10 })
 
-  return queue.addAll(administrationsOrganismesRequests)
+  const organismesDepartements = await queue.addAll(
+    administrationsOrganismesRequests
+  )
+
+  return organismesDepartements.filter(o => o)
 }
 
 export { organismeDepartementGet, organismesDepartementsGet }
