@@ -1,15 +1,21 @@
+import { ITitres, ITitresDemarches } from '../../types'
+
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
-const titresDemarchesStatutUpdate = async titres => {
+const titresDemarchesStatutUpdate = async (titres: ITitres[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   const titresDemarchesUpdated = titres.reduce(
-    (titresDemarchesUpdated, titre) =>
-      titre.demarches.reduce((titresDemarchesUpdated, titreDemarche) => {
+    (titresDemarchesUpdated: string[], titre: ITitres) => {
+      if (!titre.demarches) {
+        return titresDemarchesUpdated
+      }
+
+      return titre.demarches.reduce((titresDemarchesUpdated, titreDemarche) => {
         titreDemarche.etapes =
           titreDemarche.etapes && titreDemarche.etapes.reverse()
 
@@ -32,7 +38,8 @@ const titresDemarchesStatutUpdate = async titres => {
         })
 
         return titresDemarchesUpdated
-      }, titresDemarchesUpdated),
+      }, titresDemarchesUpdated)
+    },
     []
   )
 
