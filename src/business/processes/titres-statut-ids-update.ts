@@ -2,11 +2,12 @@ import PQueue from 'p-queue'
 
 import { titreUpdate } from '../../database/queries/titres'
 import titreStatutIdFind from '../rules/titre-statut-id-find'
+import { ITitres } from '../../types'
 
-const titresStatutIdsUpdate = async titres => {
+const titresStatutIdsUpdate = async (titres: ITitres[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresUpdated = titres.reduce((titresUpdated, titre) => {
+  const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {
     const statutId = titreStatutIdFind(titre)
 
     if (statutId !== titre.statutId) {
