@@ -82,8 +82,7 @@ class Titres extends Model {
       join: {
         from: 'titres.surfaceTitreEtapeId',
         to: 'titresEtapes.id'
-      },
-      modify: builder => builder.select('surface')
+      }
     },
 
     volumeEtape: {
@@ -92,8 +91,7 @@ class Titres extends Model {
       join: {
         from: 'titres.volumeTitreEtapeId',
         to: 'titresEtapes.id'
-      },
-      modify: builder => builder.select('volume')
+      }
     },
 
     volumeUnite: {
@@ -115,8 +113,7 @@ class Titres extends Model {
       join: {
         from: 'titres.engagementTitreEtapeId',
         to: 'titresEtapes.id'
-      },
-      modify: builder => builder.select('engagement')
+      }
     },
 
     engagementDevise: {

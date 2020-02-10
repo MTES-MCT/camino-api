@@ -36,7 +36,6 @@ class Utilisateurs extends Model {
         from: 'utilisateurs.permissionId',
         to: 'permissions.id'
       }
-      // modify: builder => builder.select('id')
     },
 
     entreprises: {
