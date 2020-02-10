@@ -99,7 +99,7 @@ const titresGet = async (
               fields.map(() => 'lower(??) like ?').join(' or ') +
               ') > 0'
           )
-          .join(') or (')})`,
+          .join(') and (')})`,
         references.flatMap(r =>
           fields.flatMap(f => [f, `%${r.toLowerCase()}%`])
         )
