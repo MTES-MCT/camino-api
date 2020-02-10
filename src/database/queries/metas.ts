@@ -35,7 +35,7 @@ const domainesGet = async () =>
     .withGraphFetched(options.domaines.graph)
     .orderBy('ordre')
 
-const statutsGet = async () => TitresStatuts.query().orderBy('ordre')
+const titresStatutsGet = async () => TitresStatuts.query().orderBy('ordre')
 
 const demarchesTypesGet = async () =>
   DemarchesTypes.query()
@@ -69,7 +69,7 @@ export {
   titresTypesGet,
   titresTypesTypesGet,
   domainesGet,
-  statutsGet,
+  titresStatutsGet,
   demarchesTypesGet,
   etapesTypesGet,
   devisesGet,

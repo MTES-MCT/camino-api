@@ -1,28 +1,34 @@
 const seeding = require('../seeding')
 
-const restrictionsDomaines = require('../../sources/restrictions--domaines.json')
-const restrictionsTypesAdministrations = require('../../sources/restrictions--types--administrations.json')
-const restrictionsTypesStatuts = require('../../sources/restrictions--types--statuts.json')
-const restrictionsTypesStatutsAdministrations = require('../../sources/restrictions--types--statuts--administrations.json')
-const restrictionsEtapesTypes = require('../../sources/restrictions--etapes-types.json')
-const restrictionsEtapesTypesAdministrations = require('../../sources/restrictions--etapes-types--administrations.json')
+// eslint-disable-next-line camelcase
+const restrictions__domaines = require('../../sources/restrictions--domaines.json')
+// eslint-disable-next-line camelcase
+const restriction__types__administrations = require('../../sources/restrictions--types--administrations.json')
+// eslint-disable-next-line camelcase
+const restrictions_types_statuts = require('../../sources/restrictions--types--statuts.json')
+// eslint-disable-next-line camelcase
+const restrictions_types_statuts_administrations = require('../../sources/restrictions--types--statuts--administrations.json')
+// eslint-disable-next-line camelcase
+const restrictions__EtapesTypes = require('../../sources/restrictions--etapes-types.json')
+// eslint-disable-next-line camelcase
+const restrictions__EtapesTypes__administrations = require('../../sources/restrictions--etapes-types--administrations.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await Promise.all([
-    insert('restrictions__domaines', restrictionsDomaines),
+    insert('restrictions__domaines', restrictions__domaines),
     insert(
       'restrictions__types__administrations',
-      restrictionsTypesAdministrations
+      restriction__types__administrations
     ),
-    insert('restrictions__types__statuts', restrictionsTypesStatuts),
+    insert('restrictions__types__statuts', restrictions_types_statuts),
     insert(
       'restrictions__types__statuts__administrations',
-      restrictionsTypesStatutsAdministrations
+      restrictions_types_statuts_administrations
     ),
-    insert('restrictions__etapesTypes', restrictionsEtapesTypes),
+    insert('restrictions__etapesTypes', restrictions__EtapesTypes),
     insert(
       'restrictions__etapesTypes__administrations',
-      restrictionsEtapesTypesAdministrations
+      restrictions__EtapesTypes__administrations
     )
   ])
 })

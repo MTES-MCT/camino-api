@@ -34,16 +34,20 @@ class RestrictionsTypesStatuts extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['titreTypeId', 'statutId', 'publicLectureInterdit'],
+    required: ['titreTypeId', 'titreStatutId', 'publicLectureInterdit'],
 
     properties: {
       titreTypeId: { type: 'string', maxLength: 3 },
-      statutId: { type: 'string', maxLength: 3 },
+      titreStatutId: { type: 'string', maxLength: 3 },
       publicLectureInterdit: { type: 'boolean' }
     }
   }
 
-  public static idColumn = ['titreTypeId', 'statutId', 'publicLectureInterdit']
+  public static idColumn = [
+    'titreTypeId',
+    'titreStatutId',
+    'publicLectureInterdit'
+  ]
 }
 
 interface RestrictionsTypesAdministrations
@@ -74,11 +78,11 @@ class RestrictionsTypesStatutsAdministrations extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['titreTypeId', 'statutId', 'administrationId'],
+    required: ['titreTypeId', 'titreStatutId', 'administrationId'],
 
     properties: {
       titreTypeId: { type: 'string', maxLength: 3 },
-      statutId: { type: 'string', maxLength: 3 },
+      titreStatutId: { type: 'string', maxLength: 3 },
       administrationId: { type: 'string', maxLength: 64 },
       creationInterdit: { type: 'boolean' },
       lectureInterdit: { type: 'boolean' },
@@ -86,7 +90,7 @@ class RestrictionsTypesStatutsAdministrations extends Model {
     }
   }
 
-  public static idColumn = ['titreTypeId', 'statutId', 'administrationId']
+  public static idColumn = ['titreTypeId', 'titreStatutId', 'administrationId']
 }
 
 interface RestrictionsEtapesTypes extends IRestrictionsEtapesTypes {}

@@ -13,7 +13,7 @@ exports.up = knex =>
         .references('titresTypes.id')
         .notNullable()
       table
-        .string('statutId')
+        .string('titreStatutId')
         .references('titresStatuts.id')
         .notNullable()
       table.boolean('publicLectureInterdit').notNullable()
@@ -37,7 +37,7 @@ exports.up = knex =>
         .references('titresTypes.id')
         .notNullable()
       table
-        .string('statutId')
+        .string('titreStatutId')
         .references('titresStatuts.id')
         .notNullable()
       table

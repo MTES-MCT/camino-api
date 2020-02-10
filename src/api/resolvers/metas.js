@@ -10,7 +10,7 @@ import {
   permissionsGet,
   permissionGet,
   referencesTypesGet,
-  statutsGet,
+  titresStatutsGet,
   titresTypesTypesGet,
   unitesGet,
   activitesTypesGet
@@ -127,7 +127,7 @@ const types = async (variables, context, info) => {
 
 const statuts = async (variables, context, info) => {
   try {
-    let statuts = await statutsGet()
+    let statuts = await titresStatutsGet()
 
     if (!context.user) {
       statuts = statuts.filter(

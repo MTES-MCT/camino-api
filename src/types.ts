@@ -253,8 +253,8 @@ interface IRestrictionsDomaines {
 }
 
 interface IRestrictionsTypesStatuts {
-  typeId: string
-  statutId: string
+  titreTypeId: string
+  titreStatutId: string
   publicLectureInterdit: boolean
 }
 
@@ -265,8 +265,8 @@ interface IRestrictionsTypesAdministrations {
 }
 
 interface IRestrictionsTypesStatutsAdministrations {
-  typeId: string
-  statutId: string
+  titreTypeId: string
+  titreStatutId: string
   administrationId: string
   creationInterdit: boolean
   lectureInterdit: boolean

@@ -9,7 +9,7 @@ import {
 
 import { debug } from '../../config/index'
 
-import { titresTypesGet, statutsGet } from '../../database/queries/metas'
+import { titresTypesGet, titresStatutsGet } from '../../database/queries/metas'
 
 import {
   restrictionsDomainesGet,
@@ -39,22 +39,25 @@ const restrictionsInit = async () => {
 
   restrictions.typesStatuts = await restrictionsTypesStatutsGet()
 
-  const types = await titresTypesGet()
-  const statuts = await statutsGet()
+  const titresTypes = await titresTypesGet()
+  const titresStatuts = await titresStatutsGet()
 
   // calcule les statuts interdits pour tous les types
   // pour ne pas les afficher dans les filtres
-  restrictions.statutIds = statuts.reduce((statutIds: string[], statut) => {
-    const typesRestricted = restrictions.typesStatuts.filter(
-      t => t.statutId === statut.id && t.publicLectureInterdit
-    )
+  restrictions.statutIds = titresStatuts.reduce(
+    (statutIds: string[], titreStatut) => {
+      const typesRestricted = restrictions.typesStatuts.filter(
+        t => t.titreStatutId === titreStatut.id && t.publicLectureInterdit
+      )
 
-    if (typesRestricted.length === types.length) {
-      statutIds.push(statut.id)
-    }
+      if (typesRestricted.length === titresTypes.length) {
+        statutIds.push(titreStatut.id)
+      }
 
-    return statutIds
-  }, [])
+      return statutIds
+    },
+    []
+  )
 
   restrictions.typesStatutsAdministrations = await restrictionsTypesStatutsAdministrationsGet()
 

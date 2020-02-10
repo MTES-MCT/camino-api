@@ -40,7 +40,7 @@ const titreActiviteFormat = (
     ) as IAnnees | ITrimestres | IMois
 
     // si les sections contiennent des élements sur cette activité
-    if (fields.sections && ta.sections && ta.type?.sections) {
+    if (fields.sections && ta.type?.sections) {
       ta.sections = titreSectionsFormat(
         ta.type.sections,
         ta.periode.id,
