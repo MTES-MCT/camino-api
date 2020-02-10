@@ -7,6 +7,7 @@ import {
 } from '../../database/queries/titres'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import titreIdFind from '../utils/titre-id-find'
+import { titreFichiersRename } from './titre-fichiers-rename'
 
 const titreIdHashAdd = hash => titre => slugify(`${titreIdFind(titre)}-${hash}`)
 
@@ -34,7 +35,7 @@ const titreIdUpdate = async (titreOldId, titre) => {
 
   await titreIdUpdateQuery(titreOldId, titre)
 
-  // TODO: mettre à jour les documents ici
+  await titreFichiersRename(titreOldId, titre)
 
   console.log(`mise à jour: titre ids: ${titre.id}`)
 

@@ -7,6 +7,10 @@ jest.mock('../utils/titre-id-and-relations-update', () => ({
   default: jest.fn()
 }))
 
+jest.mock('./titre-fichiers-rename', () => ({
+  titreFichiersRename: jest.fn()
+}))
+
 jest.mock('../../database/queries/titres', () => ({
   titreIdUpdate: jest.fn().mockResolvedValue(),
   titreGet: jest.fn().mockResolvedValue()

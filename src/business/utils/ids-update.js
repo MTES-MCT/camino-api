@@ -1,6 +1,3 @@
-import { join } from 'path'
-import fileRename from '../../tools/file-rename'
-
 const elementFromPathFind = (path, root) =>
   path.reduce((acc, elementName) => {
     if (elementName) {
@@ -38,18 +35,6 @@ const idsUpdate = (
       if (element[prop] && element[prop].match(parentOldId)) {
         const elementOldProp = element[prop]
         element[prop] = elementOldProp.replace(parentOldId, parent.id)
-
-        // TODO: à déplacer dans `titreIdUpdate` après `titreIdUpdateQuery`
-        if (
-          relation.name === 'documents' &&
-          prop === 'id' &&
-          element.fichier === true
-        ) {
-          fileRename(
-            join(process.cwd(), `files/${elementOldProp}.pdf`),
-            join(process.cwd(), `files/${element[prop]}.pdf`)
-          )
-        }
       }
     })
   }

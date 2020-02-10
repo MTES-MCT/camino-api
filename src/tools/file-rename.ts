@@ -1,21 +1,28 @@
 import { rename } from 'fs'
-import { basename } from 'path'
+import { join, basename } from 'path'
 import errorLog from './error-log'
 
-const fileRename = async (pathOld: string, pathNew: string) =>
-  new Promise((resolve, reject) => {
-    rename(pathOld, pathNew, (err: any) => {
-      if (err) {
-        errorLog(`erreur lors du renommage: ${basename(pathOld)}`, err)
+const fileRename = async (oldFileName: string, newFileName: string) => {
+  const oldPath = join(process.cwd(), `files/${oldFileName}`)
+  const newPath = join(process.cwd(), `files/${newFileName}`)
 
-        reject(err)
+  return new Promise((resolve, reject) => {
+    rename(oldPath, newPath, (err: any) => {
+      if (err) {
+        return reject(err)
       }
 
-      console.log(
-        `fichier renommé: ${basename(pathOld)} -> ${basename(pathNew)} `
-      )
-      resolve()
+      resolve({ oldPath, newPath })
     })
   })
+    .then(res => {
+      console.log(
+        `fichier renommé: ${basename(oldPath)} -> ${basename(newPath)} `
+      )
+    })
+    .catch(err => {
+      errorLog(`fichier renommé: ${basename(oldPath)}`, err)
+    })
+}
 
 export default fileRename

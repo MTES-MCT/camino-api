@@ -1,5 +1,3 @@
-import { ITitresActivites } from '../../types'
-
 import titresActivitesStatutIdsUpdate from './titres-activites-statut-ids-update'
 
 import {
