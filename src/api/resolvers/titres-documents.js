@@ -56,7 +56,7 @@ const documentCreer = async ({ document }, context, info) => {
     })}`
 
     if (document.fichierNouveau) {
-      const { createReadStream } = await document.fichierNouveau
+      const { createReadStream } = await document.fichierNouveau.file
 
       await fileStreamCreate(
         createReadStream(),
@@ -118,7 +118,7 @@ const documentModifier = async ({ document }, context, info) => {
     }
 
     if (document.fichierNouveau) {
-      const { createReadStream } = await document.fichierNouveau
+      const { createReadStream } = await document.fichierNouveau.file
 
       await fileStreamCreate(
         createReadStream(),
