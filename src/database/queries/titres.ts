@@ -268,7 +268,8 @@ const titreIdUpdate = async (titreOldId: string, titre: ITitres) => {
 
   return transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
-    await titreUpsert(titre, tr)
+
+    return titreUpsert(titre, tr)
   })
 }
 
