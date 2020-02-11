@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.19](https://github.com/MTES-MCT/camino-api/compare/v0.24.18...v0.24.19) (2020-02-11)
+
+
+### Features
+
+* ajoute des sections aux titres-demarches-etapes ([#288](https://github.com/MTES-MCT/camino-api/issues/288)) ([e3b3bdf](https://github.com/MTES-MCT/camino-api/commit/e3b3bdf95b29fd695dac0231c9052c09ea14ee1d))
+* ajoute des types de type de titres ([#285](https://github.com/MTES-MCT/camino-api/issues/285)) ([d373142](https://github.com/MTES-MCT/camino-api/commit/d3731423700ac899d0056819415da9eed0113840))
+* modifie l'id des titres pour contenir le type sur 2 lettres ([4ebefc6](https://github.com/MTES-MCT/camino-api/commit/4ebefc6e5eee95fe87a6010b92c3e941e6645762))
+* retire 'ptmg-' des références de titres ([#293](https://github.com/MTES-MCT/camino-api/issues/293)) ([fb6107c](https://github.com/MTES-MCT/camino-api/commit/fb6107c57cc8dc6fefb0985291c8cb7811df7e3c))
+
+
+### Bug Fixes
+
+* compte le nombre d'activités selon le profil utilisateur ([#287](https://github.com/MTES-MCT/camino-api/issues/287)) ([c94a159](https://github.com/MTES-MCT/camino-api/commit/c94a159545f82cd72cecaf04c21b77fab21a8c14))
+* corrige l'affichage des sections d'étapes ([b198c8f](https://github.com/MTES-MCT/camino-api/commit/b198c8f32370ea154ef8df95af7fb4c401ea6cdb))
+* corrige l'appel à l'api administration ([6b338a1](https://github.com/MTES-MCT/camino-api/commit/6b338a110f50f08cf6b0154205e06c65f4bf2aec))
+* corrige l'upload de fichiers ([c8c8cf5](https://github.com/MTES-MCT/camino-api/commit/c8c8cf51818b7a56222d2378f46dabbd9700a0a2))
+* corrige la concaténation des sections d'étapes ([702be68](https://github.com/MTES-MCT/camino-api/commit/702be68388ba404916f844cc504492c81835603b))
+* corrige la création d'un utilisateur ([#289](https://github.com/MTES-MCT/camino-api/issues/289)) ([f15a141](https://github.com/MTES-MCT/camino-api/commit/f15a14136e3b0d7bd21dc47ab032af35db83a577))
+* corrige le calcul des propriétés d'un titre ([fd12687](https://github.com/MTES-MCT/camino-api/commit/fd1268764d89bd5e7d64ada128137122f1e08156))
+* corrige les restrictions sur les titres publics ([a4c0f33](https://github.com/MTES-MCT/camino-api/commit/a4c0f3394f36c60784e7c6ecfe2d77546fc5fdd7))
+* **export:** corrige l'export d'une colonne en double ([097e0c6](https://github.com/MTES-MCT/camino-api/commit/097e0c604b2fe0ff06c93ff8bc83a5dc7f84ae61))
+
 ### [0.24.18](https://github.com/MTES-MCT/camino-api/compare/v0.24.17...v0.24.18) (2020-01-31)
 
 
