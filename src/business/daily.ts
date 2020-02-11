@@ -23,8 +23,7 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPointsReferencesCreate from './processes/titres-points-references-create'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
-
-import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
+import { titresActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const run = async () => {
   try {
@@ -263,7 +262,7 @@ const run = async () => {
       }
     )
     const activitesTypes = await activitesTypesGet()
-    let titresActivitesCreated = await titresActivitesUpdate(
+    const titresActivitesCreated = await titresActivitesUpdate(
       titres,
       activitesTypes
     )
@@ -291,47 +290,7 @@ const run = async () => {
       typeIds: null
     })
 
-    interface ITitreIdsIndex {
-      [key: string]: string
-    }
-
-    const { titresUpdated, titresIdsUpdatedIndex } = (await titresIdsUpdate(
-      titres
-    )) as {
-      titresUpdated: any[]
-      titresIdsUpdatedIndex: ITitreIdsIndex
-    }
-
-    let titresActivitesUpdated = []
-    if (Object.keys(titresIdsUpdatedIndex).length) {
-      const titresOldIdsIndex = Object.keys(titresIdsUpdatedIndex).reduce(
-        (acc: ITitreIdsIndex, titreOldId: string) => {
-          const titreNewId = titresIdsUpdatedIndex[titreOldId]
-
-          if (titreNewId) {
-            acc[titreNewId] = titreOldId
-          }
-
-          return acc
-        },
-        {}
-      )
-
-      titresActivitesUpdated = titresUpdated.reduce(
-        (titresActivites: any, titreUpdated: any) => {
-          if (titreUpdated.activites.length) {
-            titresActivites.push(...titreUpdated.activites)
-          }
-
-          return titresActivites
-        },
-        []
-      )
-
-      titresActivitesCreated = titresActivitesCreated.filter(
-        (tac: any) => !titresOldIdsIndex[tac.titreId]
-      )
-    }
+    const titresUpdatedIndex = await titresIdsUpdate(titres)
 
     console.log()
     console.log('tâches quotidiennes exécutées:')
@@ -387,17 +346,17 @@ const run = async () => {
     console.log(
       `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
     )
-    console.log(`mise à jour: ${titresUpdated.length} titre(s) (ids)`)
+    console.log(
+      `mise à jour: ${Object.keys(titresUpdatedIndex).length} titre(s) (ids)`
+    )
 
     console.log()
     console.log('exports vers les spreadsheets')
 
     // export des activités vers la spreadsheet camino-db-titres-activites-prod
     console.log('export des activités…')
-    await titreActivitesRowUpdate(
-      [...titresActivitesCreated, ...titresActivitesUpdated],
-      titresIdsUpdatedIndex
-    )
+
+    await titresActivitesRowsUpdate(titresActivitesCreated, titresUpdatedIndex)
   } catch (e) {
     console.log('erreur:', e)
   } finally {
