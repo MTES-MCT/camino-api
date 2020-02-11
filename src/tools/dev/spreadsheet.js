@@ -4,8 +4,8 @@ import { titreActivitesRowUpdate } from '../export/titre-activites'
 
 async function main() {
   const activite = {
-    id: 'm-axm-crique-belle-helene-1-2017-2018-02',
-    titreId: 'm-axm-crique-belle-helene-1-2017',
+    id: 'm-ax-crique-belle-helene-1-2017-2018-02',
+    titreId: 'm-ax-crique-belle-helene-1-2017',
     utilisateurId: 'guillaume-levieux',
     date: '2019-01-14',
     confirmation: null,

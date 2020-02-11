@@ -16,7 +16,7 @@ describe("phases d'une démarche", () => {
         dateDebut: '2200-01-01',
         dateFin: '2202-01-01',
         statutId: 'val',
-        titreDemarcheId: 'h-cxx-courdemanges-1988-oct01'
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
       }
     ])
   })
@@ -31,7 +31,7 @@ describe("phases d'une démarche", () => {
         dateDebut: '2200-01-01',
         dateFin: '2202-01-01',
         statutId: 'val',
-        titreDemarcheId: 'h-axm-courdemanges-1988-oct01'
+        titreDemarcheId: 'h-ax-courdemanges-1988-oct01'
       }
     ])
   })
@@ -42,7 +42,7 @@ describe("phases d'une démarche", () => {
         dateDebut: '2200-01-01',
         dateFin: '2200-01-02',
         statutId: 'val',
-        titreDemarcheId: 'h-prx-courdemanges-1988-oct01'
+        titreDemarcheId: 'h-pr-courdemanges-1988-oct01'
       }
     ])
   })
@@ -53,7 +53,7 @@ describe("phases d'une démarche", () => {
         dateDebut: '2200-01-02',
         dateFin: '2202-01-02',
         statutId: 'val',
-        titreDemarcheId: 'h-cxx-courdemanges-1988-oct01'
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
       }
     ])
   })
@@ -64,13 +64,13 @@ describe("phases d'une démarche", () => {
         dateDebut: '2200-01-01',
         dateFin: '2500-01-01',
         statutId: 'val',
-        titreDemarcheId: 'h-cxx-courdemanges-1988-oct01'
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
       },
       {
         dateDebut: '2500-01-01',
         dateFin: '3000-01-01',
         statutId: 'val',
-        titreDemarcheId: 'h-cxx-courdemanges-1988-pro01'
+        titreDemarcheId: 'h-cx-courdemanges-1988-pro01'
       }
     ])
   })
@@ -81,7 +81,7 @@ describe("phases d'une démarche", () => {
         dateDebut: '2200-01-01',
         dateFin: '2019-01-02',
         statutId: 'ech',
-        titreDemarcheId: 'h-cxx-courdemanges-1988-oct01'
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
       }
     ])
   })

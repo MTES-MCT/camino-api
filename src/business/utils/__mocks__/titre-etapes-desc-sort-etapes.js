@@ -1,13 +1,13 @@
 const titreEtapesSortedAsc = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
+    id: 'h-cx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
     statutId: 'acc',
     ordre: 1,
     date: '1988-03-06'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
@@ -17,14 +17,14 @@ const titreEtapesSortedAsc = [
 
 const titreEtapesSortedDesc = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
     date: '1988-03-11'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
+    id: 'h-cx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
     statutId: 'acc',
     ordre: 1,
@@ -34,14 +34,14 @@ const titreEtapesSortedDesc = [
 
 const titreEtapesSortedDescResult = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
     date: '1988-03-11'
   },
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dex01',
+    id: 'h-cx-courdemanges-1988-oct01-dex01',
     typeId: 'dex',
     statutId: 'acc',
     ordre: 1,

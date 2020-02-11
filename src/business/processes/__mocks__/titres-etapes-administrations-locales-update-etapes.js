@@ -33,7 +33,7 @@ const titresEtapesCommunes = [
       {
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             communes: [
               {
@@ -75,8 +75,8 @@ const titresEtapesCommunesVides = [
       {
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-            titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
+            titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
@@ -96,8 +96,8 @@ const titresEtapesCommunesMemeCommune = [
       {
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-            titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
+            titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
@@ -121,7 +121,7 @@ const titresEtapesAdministrationLocalesInexistante = [
       {
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             communes: [],
             administrations: [
@@ -144,7 +144,7 @@ const titresEtapesAdministrationLocalesExistante = [
       {
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             communes: [
               { departementId: '01', departement: { regionId: '01' } }
@@ -197,8 +197,8 @@ const titresAxm = [
       {
         etapes: [
           {
-            id: 'm-axm-crique-saint-doux-oct01-men01',
-            titreDemarcheId: 'm-axm-crique-saint-doux-oct01',
+            id: 'm-ax-crique-saint-doux-oct01-men01',
+            titreDemarcheId: 'm-ax-crique-saint-doux-oct01',
             typeId: 'men',
             statutId: 'acc',
             ordre: 2,

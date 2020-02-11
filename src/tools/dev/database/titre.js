@@ -5,7 +5,7 @@ import fileCreate from '../../file-create'
 import { titreGet } from '../../../database/queries/titres'
 
 async function main() {
-  const res = await titreGet('m-prx-saint-pierre-2014')
+  const res = await titreGet('m-pr-saint-pierre-2014')
 
   await fileCreate('test-titre.json', JSON.stringify(res, null, 2))
 

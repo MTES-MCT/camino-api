@@ -2,23 +2,23 @@ const titresDemarchesStatutModifie = [
   {
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'rej',
         ordre: 1,
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-            titreDemarcheIdId: 'h-cxx-courdemanges-1988-oct01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
+            titreDemarcheIdId: 'h-cx-courdemanges-1988-oct01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
             date: '1988-03-11'
           },
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dex01',
-            titreDemarcheIdId: 'h-cxx-courdemanges-1988-oct01',
+            id: 'h-cx-courdemanges-1988-oct01-dex01',
+            titreDemarcheIdId: 'h-cx-courdemanges-1988-oct01',
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
@@ -35,23 +35,23 @@ const titresDemarchesStatutIdentique = [
   {
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-            titreDemarcheIdId: 'h-cxx-courdemanges-1988-oct01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
+            titreDemarcheIdId: 'h-cx-courdemanges-1988-oct01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
             date: '1988-03-11'
           },
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dex01',
-            titreDemarcheIdId: 'h-cxx-courdemanges-1988-oct01',
+            id: 'h-cx-courdemanges-1988-oct01-dex01',
+            titreDemarcheIdId: 'h-cx-courdemanges-1988-oct01',
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,

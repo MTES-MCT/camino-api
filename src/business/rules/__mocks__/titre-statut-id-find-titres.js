@@ -12,19 +12,19 @@ const titreDemarcheIndefini = {
 }
 
 const titreValide = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'acc',
       ordre: 1,
       annulationTitreDemarcheId: null,
       etapes: [
         {
-          id: 'm-prx-saint-pierre-2014-oct01-dex01',
-          titreDemarcheId: 'm-prx-saint-pierre-2014-oct01',
+          id: 'm-pr-saint-pierre-2014-oct01-dex01',
+          titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
           typeId: 'dex',
           statutId: 'acc',
           ordre: 1,
@@ -38,18 +38,18 @@ const titreValide = {
 }
 
 const titreEchu = {
-  id: 'm-prx-saint-pierre-1914',
+  id: 'm-pr-saint-pierre-1914',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-1914-oct01',
-      titreId: 'm-prx-saint-pierre-1914',
+      id: 'm-pr-saint-pierre-1914-oct01',
+      titreId: 'm-pr-saint-pierre-1914',
       typeId: 'oct',
       statutId: 'acc',
       ordre: 1,
       etapes: [
         {
-          id: 'm-prx-saint-pierre-2014-oct01-dex01',
-          titreDemarcheId: 'm-prx-saint-pierre-2014-oct01',
+          id: 'm-pr-saint-pierre-2014-oct01-dex01',
+          titreDemarcheId: 'm-pr-saint-pierre-2014-oct01',
           typeId: 'dex',
           statutId: 'acc',
           ordre: 1,
@@ -63,11 +63,11 @@ const titreEchu = {
 }
 
 const titreOctroiInstruction = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'ins',
       ordre: 1,
@@ -77,11 +77,11 @@ const titreOctroiInstruction = {
 }
 
 const titreOctroiDepose = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'dep',
       ordre: 1,
@@ -91,11 +91,11 @@ const titreOctroiDepose = {
 }
 
 const titreOctroiRejete = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'rej',
       ordre: 1,
@@ -105,11 +105,11 @@ const titreOctroiRejete = {
 }
 
 const titreOctroiClasse = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'cls',
       ordre: 1,
@@ -119,11 +119,11 @@ const titreOctroiClasse = {
 }
 
 const titreOctroiRetire = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'ret',
       ordre: 1,
@@ -133,19 +133,19 @@ const titreOctroiRetire = {
 }
 
 const titreDemarcheInstruction = {
-  id: 'm-prx-saint-pierre-2014',
+  id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
-      id: 'm-prx-saint-pierre-2014-mut01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-mut01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'mut',
       statutId: 'ins',
       ordre: 1,
       annulationTitreDemarcheId: null
     },
     {
-      id: 'm-prx-saint-pierre-2014-oct01',
-      titreId: 'm-prx-saint-pierre-2014',
+      id: 'm-pr-saint-pierre-2014-oct01',
+      titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'acc',
       ordre: 1,

@@ -14,9 +14,9 @@ describe("trouve l'id d'un titre", () => {
       titreIdFind({
         id: 'titre-id',
         domaineId: 'm',
-        typeId: 'aex',
+        type: { typeId: 'ae' },
         nom: 'test'
       })
-    ).toEqual('m-aex-test-2002')
+    ).toEqual('m-ae-test-2002')
   })
 })

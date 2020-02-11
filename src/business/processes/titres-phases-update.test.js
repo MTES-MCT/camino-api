@@ -51,7 +51,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesDeleted.length).toEqual(1)
 
     expect(queries.titrePhasesDelete).toHaveBeenCalledWith([
-      'h-cxx-courdemanges-1988-oct01'
+      'h-cx-courdemanges-1988-oct01'
     ])
     expect(console.log).toHaveBeenCalled()
   })

@@ -1,10 +1,10 @@
 const titresSansPhase = [
   {
-    id: 'h-cxx-courdemanges-1988',
+    id: 'h-cx-courdemanges-1988',
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
@@ -16,17 +16,17 @@ const titresSansPhase = [
 
 const titresUnePhase = [
   {
-    id: 'h-cxx-courdemanges-1988',
+    id: 'h-cx-courdemanges-1988',
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
@@ -34,7 +34,7 @@ const titresUnePhase = [
             dateFin: '2500-01-01'
           },
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dex01',
+            id: 'h-cx-courdemanges-1988-oct01-dex01',
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
@@ -49,7 +49,7 @@ const titresUnePhase = [
 
 const titrePhase = [
   {
-    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     dateFin: '2500-01-01',
     dateDebut: '2200-01-01',
     statutId: 'val'
@@ -58,23 +58,23 @@ const titrePhase = [
 
 const titresUnePhaseMiseAJour = [
   {
-    id: 'h-cxx-courdemanges-1988',
+    id: 'h-cx-courdemanges-1988',
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
         phase: {
-          titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+          titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
           dateFin: '2500-01-01',
           dateDebut: new Date('2300-01-01'),
           statutId: 'val'
         },
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
@@ -82,7 +82,7 @@ const titresUnePhaseMiseAJour = [
             dateFin: '2500-01-01'
           },
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dex01',
+            id: 'h-cx-courdemanges-1988-oct01-dex01',
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,
@@ -97,16 +97,16 @@ const titresUnePhaseMiseAJour = [
 
 const titresPhaseASupprimer = [
   {
-    id: 'h-cxx-courdemanges-1988',
+    id: 'h-cx-courdemanges-1988',
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
         phase: {
-          titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+          titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
           dateFin: '2500-01-01',
           dateDebut: '2200-01-01',
           statutId: 'val'
@@ -119,23 +119,23 @@ const titresPhaseASupprimer = [
 
 const titresUnePhaseSansChangement = [
   {
-    id: 'h-cxx-courdemanges-1988',
+    id: 'h-cx-courdemanges-1988',
     demarches: [
       {
-        id: 'h-cxx-courdemanges-1988-oct01',
-        titreId: 'h-cxx-courdemanges-1988',
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
         phase: {
-          titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+          titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
           dateFin: '2500-01-01',
           dateDebut: '2200-01-01',
           statutId: 'val'
         },
         etapes: [
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+            id: 'h-cx-courdemanges-1988-oct01-dpu01',
             typeId: 'dpu',
             statutId: 'acc',
             ordre: 2,
@@ -143,7 +143,7 @@ const titresUnePhaseSansChangement = [
             dateFin: '2500-01-01'
           },
           {
-            id: 'h-cxx-courdemanges-1988-oct01-dex01',
+            id: 'h-cx-courdemanges-1988-oct01-dex01',
             typeId: 'dex',
             statutId: 'acc',
             ordre: 1,

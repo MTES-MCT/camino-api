@@ -1,19 +1,19 @@
 const titreDemarcheSansEtapes = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: []
 }
 
 const titreDemarcheOctAnf = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-anf01',
+      id: 'h-cx-courdemanges-1988-oct01-anf01',
       typeId: 'anf',
       statutId: 'acc',
       ordre: 1
@@ -22,19 +22,19 @@ const titreDemarcheOctAnf = {
 }
 
 const titreDemarcheOctDpuAcc = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-dpu01',
+      id: 'h-cx-courdemanges-1988-oct01-dpu01',
       typeId: 'dpu',
       statutId: 'acc',
       ordre: 2
     },
     {
-      id: 'h-cxx-courdemanges-1988-oct01-dex01',
+      id: 'h-cx-courdemanges-1988-oct01-dex01',
       typeId: 'dex',
       statutId: 'acc',
       ordre: 1
@@ -43,13 +43,13 @@ const titreDemarcheOctDpuAcc = {
 }
 
 const titreAxmDemarcheOctDexAcc = {
-  id: 'h-axm-courdemanges-1988-oct01',
-  titreId: 'h-axm-courdemanges-1988',
+  id: 'h-ax-courdemanges-1988-oct01',
+  titreId: 'h-ax-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-axm-courdemanges-1988-oct01-dex01',
+      id: 'h-ax-courdemanges-1988-oct01-dex01',
       typeId: 'dex',
       statutId: 'acc',
       ordre: 1
@@ -73,13 +73,13 @@ const titreArmDemarcheOctDefAcc = {
 }
 
 const titrePrxDemarcheOctRpuAcc = {
-  id: 'h-prx-courdemanges-1988-oct01',
-  titreId: 'h-prx-courdemanges-1988',
+  id: 'h-pr-courdemanges-1988-oct01',
+  titreId: 'h-pr-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-prx-courdemanges-1988-oct01-rpu01',
+      id: 'h-pr-courdemanges-1988-oct01-rpu01',
       typeId: 'rpu',
       statutId: 'acc',
       ordre: 1
@@ -88,19 +88,19 @@ const titrePrxDemarcheOctRpuAcc = {
 }
 
 const titreDemarcheProDpuAcc = {
-  id: 'h-cxx-courdemanges-1988-pro01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-pro01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'pro',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-pro01-dpu01',
+      id: 'h-cx-courdemanges-1988-pro01-dpu01',
       typeId: 'dpu',
       statutId: 'acc',
       ordre: 2
     },
     {
-      id: 'h-cxx-courdemanges-1988-pro01-dex01',
+      id: 'h-cx-courdemanges-1988-pro01-dex01',
       typeId: 'dex',
       statutId: 'acc',
       ordre: 1
@@ -109,13 +109,13 @@ const titreDemarcheProDpuAcc = {
 }
 
 const titreDemarcheOctScoFai = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-sco01',
+      id: 'h-cx-courdemanges-1988-oct01-sco01',
       typeId: 'sco',
       statutId: 'fai',
       ordre: 1
@@ -124,13 +124,13 @@ const titreDemarcheOctScoFai = {
 }
 
 const titreDemarcheOctDexAcc = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-dex01',
+      id: 'h-cx-courdemanges-1988-oct01-dex01',
       typeId: 'dex',
       statutId: 'acc',
       ordre: 1
@@ -139,19 +139,19 @@ const titreDemarcheOctDexAcc = {
 }
 
 const titreDemarcheOctDexDpuAcc = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-dex01',
+      id: 'h-cx-courdemanges-1988-oct01-dex01',
       typeId: 'dex',
       statutId: 'acc',
       ordre: 2
     },
     {
-      id: 'h-cxx-courdemanges-1988-pro01-dpu01',
+      id: 'h-cx-courdemanges-1988-pro01-dpu01',
       typeId: 'dpu',
       statutId: 'acc',
       ordre: 1
@@ -160,13 +160,13 @@ const titreDemarcheOctDexDpuAcc = {
 }
 
 const titreDemarcheOctDexRej = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-dex01',
+      id: 'h-cx-courdemanges-1988-oct01-dex01',
       typeId: 'dex',
       statutId: 'rej',
       ordre: 1
@@ -175,13 +175,13 @@ const titreDemarcheOctDexRej = {
 }
 
 const titreDemarcheOctMenIns = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-men01',
+      id: 'h-cx-courdemanges-1988-oct01-men01',
       typeId: 'men',
       date: '1988-03-11'
     }
@@ -190,12 +190,12 @@ const titreDemarcheOctMenIns = {
 
 const titreArmDemarcheOctMdpIns = {
   id: 'h-arm-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-mdp01',
+      id: 'h-cx-courdemanges-1988-oct01-mdp01',
       typeId: 'mdp',
       date: '1988-03-11'
     }
@@ -204,64 +204,64 @@ const titreArmDemarcheOctMdpIns = {
 
 const titreArmDemarcheOctDefIns = {
   id: 'h-arm-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-def01',
+      id: 'h-cx-courdemanges-1988-oct01-def01',
       typeId: 'def'
     }
   ]
 }
 
 const titreDemarcheOctRet = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-ret01',
+      id: 'h-cx-courdemanges-1988-oct01-ret01',
       typeId: 'ret'
     }
   ]
 }
 
 const titreDemarcheOctMdp = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-mdp01',
+      id: 'h-cx-courdemanges-1988-oct01-mdp01',
       typeId: 'mdp'
     }
   ]
 }
 
 const titreDemarcheOctMfr = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-mfr01',
+      id: 'h-cx-courdemanges-1988-oct01-mfr01',
       typeId: 'mfr'
     }
   ]
 }
 
 const titreDemarcheOctMcrDef = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-mcr01',
+      id: 'h-cx-courdemanges-1988-oct01-mcr01',
       typeId: 'mcr',
       statutId: 'def'
     }
@@ -269,13 +269,13 @@ const titreDemarcheOctMcrDef = {
 }
 
 const titreDemarcheOctMcrAcc = {
-  id: 'h-cxx-courdemanges-1988-oct01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-oct01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-oct01-mcr01',
+      id: 'h-cx-courdemanges-1988-oct01-mcr01',
       typeId: 'mcr',
       statutId: 'acc',
       date: '1988-03-11'
@@ -284,13 +284,13 @@ const titreDemarcheOctMcrAcc = {
 }
 
 const titreDemarcheRetDpuFai = {
-  id: 'h-cxx-courdemanges-1988-ret01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-ret01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'ret',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-ret01-ret01',
+      id: 'h-cx-courdemanges-1988-ret01-ret01',
       typeId: 'dpu',
       statutId: 'fai'
     }
@@ -298,34 +298,34 @@ const titreDemarcheRetDpuFai = {
 }
 
 const titreDemarcheRetDpuIni = {
-  id: 'h-cxx-courdemanges-1988-ret01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-ret01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'ret',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-ret01-ret01',
+      id: 'h-cx-courdemanges-1988-ret01-ret01',
       typeId: 'dpu'
     }
   ]
 }
 
 const titreDemarcheRtd = {
-  id: 'h-cxx-courdemanges-1988-ret01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-ret01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'ret',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cxx-courdemanges-1988-ret01-rtd01',
+      id: 'h-cx-courdemanges-1988-ret01-rtd01',
       typeId: 'rtd'
     }
   ]
 }
 
 const titreDemarcheIndefinie = {
-  id: 'h-cxx-courdemanges-1988-ret01',
-  titreId: 'h-cxx-courdemanges-1988',
+  id: 'h-cx-courdemanges-1988-ret01',
+  titreId: 'h-cx-courdemanges-1988',
   typeId: 'ind',
   statutId: 'acc',
   etapes: [{ id: 'xxx', typeId: 'dpu', statutId: 'rej' }]

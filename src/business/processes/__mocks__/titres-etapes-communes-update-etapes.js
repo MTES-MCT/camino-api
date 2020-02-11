@@ -1,7 +1,7 @@
 const titresEtapesPoints = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
@@ -12,8 +12,8 @@ const titresEtapesPoints = [
 
 const titresEtapesPointsMemeCommune = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
@@ -24,8 +24,8 @@ const titresEtapesPointsMemeCommune = [
 
 const titresEtapesPointsVides = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
@@ -36,8 +36,8 @@ const titresEtapesPointsVides = [
 
 const titresEtapesPointsCommuneInexistante = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,
@@ -53,8 +53,8 @@ const titresEtapesPointsCommuneInexistante = [
 
 const titresEtapesPointsCommuneExistante = [
   {
-    id: 'h-cxx-courdemanges-1988-oct01-dpu01',
-    titreDemarcheId: 'h-cxx-courdemanges-1988-oct01',
+    id: 'h-cx-courdemanges-1988-oct01-dpu01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     typeId: 'dpu',
     statutId: 'acc',
     ordre: 2,

@@ -1,7 +1,7 @@
 const titreWithDemarchesNoChange = {
   demarches: [
     {
-      id: 'h-nom-cxx-oct01',
+      id: 'h-cx-nom-oct01',
       typeId: 'oct',
       etapes: []
     }
@@ -11,8 +11,8 @@ const titreWithDemarchesNoChange = {
 const titreWithDemarchesChanged = {
   demarches: [
     {
-      id: 'h-nom-cxx-oct01',
-      titreId: 'h-nom-cxx',
+      id: 'h-cx-nom-oct01',
+      titreId: 'h-cx-nom',
       typeId: 'mut',
       etapes: []
     }
@@ -22,29 +22,29 @@ const titreWithDemarchesChanged = {
 const titreWith2Mut = {
   demarches: [
     {
-      id: 'h-nom-cxx-oct01',
-      titreId: 'h-nom-cxx',
+      id: 'h-cx-nom-oct01',
+      titreId: 'h-cx-nom',
       typeId: 'mut',
       etapes: [
         {
-          id: 'h-nom-cxx-oct01-dex01',
+          id: 'h-cx-nom-oct01-dex01',
           typeId: 'dex',
           ordre: 1,
-          titreDemarcheId: 'h-nom-cxx-oct01',
+          titreDemarcheId: 'h-cx-nom-oct01',
           date: '2000-01-01'
         }
       ]
     },
     {
-      id: 'h-nom-cxx-mut01',
-      titreId: 'h-nom-cxx',
+      id: 'h-cx-nom-mut01',
+      titreId: 'h-cx-nom',
       typeId: 'mut',
       etapes: [
         {
-          id: 'h-nom-cxx-mut02-dex01',
+          id: 'h-cx-nom-mut02-dex01',
           typeId: 'dex',
           ordre: 1,
-          titreDemarcheId: 'h-nom-cxx-mut02',
+          titreDemarcheId: 'h-cx-nom-mut02',
           date: '3000-01-01'
         }
       ]
@@ -55,12 +55,12 @@ const titreWith2Mut = {
 const titreWithPhase = {
   demarches: [
     {
-      id: 'h-nom-cxx-oct01',
-      titreId: 'h-nom-cxx',
+      id: 'h-cx-nom-oct01',
+      titreId: 'h-cx-nom',
       typeId: 'mut',
       etapes: [],
       phase: {
-        titreDemarcheId: 'h-nom-cxx-oct01'
+        titreDemarcheId: 'h-cx-nom-oct01'
       }
     }
   ]
@@ -69,21 +69,21 @@ const titreWithPhase = {
 const titreWithSubElement = {
   demarches: [
     {
-      id: 'h-nom-cxx-oct01',
+      id: 'h-cx-nom-oct01',
       etapes: [
         {
-          id: 'h-nom-cxx-oct01-dex01',
+          id: 'h-cx-nom-oct01-dex01',
           typeId: 'dpu',
           ordre: 1,
-          titreDemarcheId: 'h-nom-cxx-oct01',
+          titreDemarcheId: 'h-cx-nom-oct01',
           points: [
             {
-              id: 'h-nom-cxx-oct01-dex01-g01-p01-c01',
-              titreEtapeId: 'h-nom-cxx-oct01-dex01',
+              id: 'h-cx-nom-oct01-dex01-g01-p01-c01',
+              titreEtapeId: 'h-cx-nom-oct01-dex01',
               references: [
                 {
-                  id: 'h-nom-cxx-oct01-dex01-g01-p01-c01-134563',
-                  titrePointId: 'h-nom-cxx-oct01-dex01-g01-p01-c01'
+                  id: 'h-cx-nom-oct01-dex01-g01-p01-c01-134563',
+                  titrePointId: 'h-cx-nom-oct01-dex01-g01-p01-c01'
                 }
               ]
             }
@@ -92,13 +92,13 @@ const titreWithSubElement = {
       ]
     },
     {
-      id: 'h-nom-cxx-oct01',
+      id: 'h-cx-nom-oct01',
       etapes: [
         {
-          id: 'h-nom-cxx-oct01-dpu01',
+          id: 'h-cx-nom-oct01-dpu01',
           ordre: 2,
           typeId: 'dpu',
-          titreDemarcheId: 'h-nom-cxx-oct01',
+          titreDemarcheId: 'h-cx-nom-oct01',
           points: []
         }
       ]
