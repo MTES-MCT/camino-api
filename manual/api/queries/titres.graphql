@@ -296,7 +296,9 @@ fragment document on Document {
 }
 
 fragment reference on Reference {
-  ...referenceType
+  type {
+    ...referenceType
+  }
   nom
 }
 
