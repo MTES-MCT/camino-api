@@ -1,17 +1,5 @@
 {
-  "typeIds": [
-    "apx",
-    "arc",
-    "arg",
-    "axm",
-    "cxx",
-    "prh",
-    "prx",
-    "pxc",
-    "pxg",
-    "pxh",
-    "pxm"
-  ],
+  "typeIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
   "domaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
   "statutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"],
   "substances": null,

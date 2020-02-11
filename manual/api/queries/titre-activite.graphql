@@ -1,5 +1,5 @@
 mutation Activite($activite: InputActiviteModification!) {
-  ActiviteModifier(activite: $activite) {
+  activiteModifier(activite: $activite) {
     ...Activite
   }
 }

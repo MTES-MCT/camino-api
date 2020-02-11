@@ -9,7 +9,9 @@ fragment titre on Titre {
   nom
   type {
     id
-    nom
+    type {
+      nom
+    }
   }
   domaine {
     id

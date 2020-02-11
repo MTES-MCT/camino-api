@@ -4,7 +4,9 @@ mutation {
     id
     type {
       id
-      nom
+      type {
+        nom
+      }
     }
     domaine {
       id
