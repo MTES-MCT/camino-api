@@ -12,8 +12,8 @@ const titreIsPublicCheck = titre =>
   ) &&
   !restrictions.typesStatuts.find(
     t =>
-      t.typeId === titre.typeId &&
-      t.statutId === titre.statutId &&
+      t.titreTypeId === titre.typeId &&
+      t.titreStatutId === titre.statutId &&
       t.publicLectureInterdit
   )
 
@@ -127,9 +127,9 @@ const titreEditionPermissionAdministrationsCheck = (
   // filtre les restrictions pour ne garder que celles qui concernent le titre
   const titreRestrictions = restrictions.typesStatutsAdministrations.filter(
     restriction =>
-      restriction.typeId === titre.typeId &&
+      restriction.titreTypeId === titre.typeId &&
       // si le titre n'a pas de statut, c'est qu'il est en train d'être créé
-      restriction.statutId === (titre.statutId || 'dmi') &&
+      restriction.titreStatutId === (titre.statutId || 'dmi') &&
       restriction[`${editionMode}Interdit`]
   )
 
