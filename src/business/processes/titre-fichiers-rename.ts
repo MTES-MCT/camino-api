@@ -19,17 +19,17 @@ const titreDocumentsFichiersNamesFind = (
     return []
   }
 
-  return titreDocuments.reduce((fileNames, titreDocument) => {
+  return titreDocuments.reduce((fichiersNames: Index[], titreDocument) => {
     if (titreDocument.fichier) {
       const oldTitreDocumentId = titreDocument.id.replace(titreId, oldTitreId)
 
-      fileNames.push({
+      fichiersNames.push({
         [`${titreDocument.id}.${titreDocument.fichierTypeId}`]: `${oldTitreDocumentId}.${titreDocument.fichierTypeId}`
       })
     }
 
-    return fileNames
-  }, [] as Index[])
+    return fichiersNames
+  }, [])
 }
 
 const titreEtapesFichiersNamesFind = (
@@ -41,17 +41,17 @@ const titreEtapesFichiersNamesFind = (
     return []
   }
 
-  return titreEtapes.reduce((fileNames, titreEtape) => {
-    const titreEtapeFileNames = titreDocumentsFichiersNamesFind(
-      titreEtape.documents,
-      titreId,
-      oldTitreId
+  return titreEtapes.reduce((fichiersNames: Index[], titreEtape) => {
+    fichiersNames.push(
+      ...titreDocumentsFichiersNamesFind(
+        titreEtape.documents,
+        titreId,
+        oldTitreId
+      )
     )
 
-    fileNames.push(...titreEtapeFileNames)
-
-    return fileNames
-  }, [] as Index[])
+    return fichiersNames
+  }, [])
 }
 
 const titreFichiersNamesFind = (
@@ -63,27 +63,23 @@ const titreFichiersNamesFind = (
     return []
   }
 
-  return titreDemarches.reduce((fileNames, titreDemarche) => {
-    const titreDemarcheFileNames = titreEtapesFichiersNamesFind(
-      titreDemarche.etapes,
-      titreId,
-      oldTitreId
+  return titreDemarches.reduce((fichiersNames: Index[], titreDemarche) => {
+    fichiersNames.push(
+      ...titreEtapesFichiersNamesFind(titreDemarche.etapes, titreId, oldTitreId)
     )
 
-    fileNames.push(...titreDemarcheFileNames)
-
-    return fileNames
-  }, [] as Index[])
+    return fichiersNames
+  }, [])
 }
 
 const titreFichiersRename = async (oldTitreId: string, titre: ITitres) => {
-  const filesNames = titreFichiersNamesFind(
+  const titreFichiersNames = titreFichiersNamesFind(
     titre.demarches,
     titre.id,
     oldTitreId
   )
 
-  filesNames.forEach(async fileNames => {
+  titreFichiersNames.forEach(async fileNames => {
     for (const [fileName, oldFileName] of Object.entries(fileNames)) {
       await fileRename(oldFileName, fileName)
     }

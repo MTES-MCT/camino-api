@@ -545,6 +545,7 @@ interface ITitres {
   pays?: IPays[]
   editable?: boolean
   supprimable?: boolean
+  doublonTitreId?: string
 }
 
 interface ITrimestres extends IPeriodes {
@@ -554,7 +555,7 @@ interface ITrimestres extends IPeriodes {
 interface ITitresTypes {
   id: string
   domaineId: string
-  typeId: number
+  typeId: string
   archive?: boolean
   type: ITitresTypesTypes
   demarchesTypes?: IDemarchesTypes[]

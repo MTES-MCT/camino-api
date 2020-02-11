@@ -158,7 +158,7 @@ const titreModifier = async ({ titre }, context, info) => {
 
     await titreUpsert(titre)
 
-    const titreRes = titreUpdateTask(titre.id)
+    const titreRes = await titreUpdateTask(titre.id)
 
     return titreFormat(titreRes, user)
   } catch (e) {

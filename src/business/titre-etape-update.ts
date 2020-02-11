@@ -1,6 +1,3 @@
-import 'dotenv/config'
-import '../database/index'
-
 import { activitesTypesGet } from '../database/queries/metas'
 import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
@@ -20,7 +17,7 @@ import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 
-import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
+import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string,
@@ -131,7 +128,7 @@ const titreEtapeUpdate = async (
     console.log('activités des titres…')
     titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
     const activitesTypes = await activitesTypesGet()
-    let titresActivitesCreated = await titresActivitesUpdate(
+    const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
       activitesTypes
     )
@@ -139,13 +136,8 @@ const titreEtapeUpdate = async (
     // 13.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {})
-    const titreUpdated = await titreIdsUpdate(titre)
-    let titresIdsUpdatedIndex
-    if (titreUpdated && titreId !== titreUpdated.id) {
-      titresActivitesCreated = titreUpdated.activites
-      titreId = titreUpdated.id
-      titresIdsUpdatedIndex = { [titreId]: titre.id }
-    }
+    const titreUpdatedIndex = await titreIdsUpdate(titre)
+    titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
     console.log(
       `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
@@ -185,15 +177,12 @@ const titreEtapeUpdate = async (
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
     console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
-    console.log(`mise à jour: ${titreUpdated ? '1' : '0'} titre(s) (ids)`)
+    console.log(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
 
+    // export des activités vers la spreadsheet camino-db-titres-activites-prod
     if (titresActivitesCreated.length) {
-      // export des activités vers la spreadsheet camino-db-titres-activites-prod
       console.log('export des activités…')
-      await titreActivitesRowUpdate(
-        titresActivitesCreated,
-        titresIdsUpdatedIndex
-      )
+      await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
     }
 
     // on récupère le titre bien formaté
