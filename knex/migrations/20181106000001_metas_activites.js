@@ -44,6 +44,7 @@ exports.up = knex => {
         .string('administrationId', 64)
         .notNullable()
         .references('administrations.id')
+        .onDelete('CASCADE')
       table.primary(['administrationId', 'activiteTypeId'])
     })
     .createTable('activitesStatuts', table => {
