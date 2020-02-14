@@ -6,7 +6,7 @@ import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
 interface ITitresEtapesIndex {
-  [key: string]: any
+  [key: string]: string
 }
 
 const titrePropEtapeIdFind = (
