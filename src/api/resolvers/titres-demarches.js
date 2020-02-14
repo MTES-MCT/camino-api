@@ -22,8 +22,7 @@ import titreDemarcheUpdationValidate from '../../business/titre-demarche-updatio
 
 const titreDemarchesTypes = async (
   { titreId, demarcheTypeId = null },
-  context,
-  info
+  context
 ) => {
   if (!context.user) return []
 
@@ -68,7 +67,7 @@ const titreDemarchesTypes = async (
   }, [])
 }
 
-const demarcheCreer = async ({ demarche }, context, info) => {
+const demarcheCreer = async ({ demarche }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -118,7 +117,7 @@ const demarcheCreer = async ({ demarche }, context, info) => {
   }
 }
 
-const demarcheModifier = async ({ demarche }, context, info) => {
+const demarcheModifier = async ({ demarche }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -168,7 +167,7 @@ const demarcheModifier = async ({ demarche }, context, info) => {
   }
 }
 
-const demarcheSupprimer = async ({ id }, context, info) => {
+const demarcheSupprimer = async ({ id }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super'])) {
       throw new Error('opération impossible')

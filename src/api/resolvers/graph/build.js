@@ -48,11 +48,7 @@ const fieldsToString = (fields, parent, format) => {
 // - format: fonction qui transforme l'objet
 // - root: nom du nœud racine
 // out: string de graph pour la requête avec objection.js
-const graphBuild = (
-  fields,
-  root = 'root',
-  format = (fields, parent) => fields
-) => {
+const graphBuild = (fields, root = 'root', format = fields => fields) => {
   fields = JSON.parse(JSON.stringify(fields))
 
   // in: AST de la requête GraphQl

@@ -4,7 +4,6 @@ import inseePays from './pays'
 import inseeCategoriesJuridiques from './categories-juridiques'
 import inseeTypesVoies from './voies'
 
-// eslint-disable-next-line jsdoc/require-description
 /**
  * @description Formate le nom d'une entreprise ou établissement.
  *

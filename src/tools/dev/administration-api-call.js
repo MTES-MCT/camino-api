@@ -101,7 +101,9 @@ const main = async () => {
 
   try {
     await Promise.all(administrations.map(administrationInsert))
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 
   const titresEtapes = await titresEtapesGet()
 

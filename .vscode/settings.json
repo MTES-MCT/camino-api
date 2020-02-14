@@ -1,27 +1,26 @@
 {
-  "eslint.alwaysShowStatus": true,
-  "eslint.autoFixOnSave": true,
-  "javascript.implicitProjectConfig.checkJs": true,
-  "tslint.autoFixOnSave": true,
-  "peacock.color": "#215732",
-  "peacock.affectStatusBar": true,
-  "peacock.affectActivityBar": true,
-  "workbench.colorCustomizations": {
-    "activityBar.background": "#2f7c47",
-    "activityBar.activeBorder": "#422c74",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#422c74",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "titleBar.activeBackground": "#215732",
-    "titleBar.inactiveBackground": "#21573299",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveForeground": "#e7e7e799",
-    "statusBar.background": "#215732",
-    "statusBarItem.hoverBackground": "#2f7c47",
-    "statusBar.foreground": "#e7e7e7"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.alwaysShowStatus": true,
+    "javascript.implicitProjectConfig.checkJs": true,
+    "peacock.affectActivityBar": true,
+    "peacock.affectStatusBar": true,
+    "peacock.color": "#215732",
+    "tslint.autoFixOnSave": true,
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#2f7c47",
+        "activityBar.activeBorder": "#422c74",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#422c74",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "titleBar.activeBackground": "#215732",
+        "titleBar.inactiveBackground": "#21573299",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveForeground": "#e7e7e799",
+        "statusBar.background": "#215732",
+        "statusBarItem.hoverBackground": "#2f7c47",
+        "statusBar.foreground": "#e7e7e7"
+    }
 }

@@ -27,7 +27,7 @@ const groupe = points =>
 async function main() {
   const titres = await titresGet()
 
-  const titresFiltered = titres.filter(({ id, points }) => {
+  const titresFiltered = titres.filter(({ points }) => {
     if (!points.length) return false
 
     const groupes = groupe(points)

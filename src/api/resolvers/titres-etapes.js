@@ -77,8 +77,7 @@ const demarcheEtapeTypesFormat = (
 
 const demarcheEtapesTypes = async (
   { titreDemarcheId, etapeTypeId = null },
-  context,
-  info
+  context
 ) => {
   if (!context.user && !debug) return []
 
@@ -109,7 +108,7 @@ const demarcheEtapesTypes = async (
   )
 }
 
-const etapeCreer = async ({ etape }, context, info) => {
+const etapeCreer = async ({ etape }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -182,7 +181,7 @@ const etapeCreer = async ({ etape }, context, info) => {
   }
 }
 
-const etapeModifier = async ({ etape }, context, info) => {
+const etapeModifier = async ({ etape }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -252,7 +251,7 @@ const etapeModifier = async ({ etape }, context, info) => {
   }
 }
 
-const etapeSupprimer = async ({ id }, context, info) => {
+const etapeSupprimer = async ({ id }, context) => {
   if (!permissionsCheck(context.user, ['super'])) {
     throw new Error('opération impossible')
   }

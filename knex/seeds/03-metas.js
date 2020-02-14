@@ -22,7 +22,7 @@ const unites = require('../../sources/unites.json')
 const documentsTypes = require('../../sources/documents-types.json')
 const referencesTypes = require('../../sources/references-types.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await Promise.all([
     insert('domaines', domaines),
     insert('titresTypesTypes', titresTypesTypes),

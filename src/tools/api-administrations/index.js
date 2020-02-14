@@ -40,7 +40,7 @@ const organismeFetch = async (departementId, nom) => {
 
   // attend quelques secondes après chaque appel
   // pour ne pas dépasser les quotas
-  await new Promise((resolve, reject) =>
+  await new Promise(resolve =>
     setTimeout(resolve, (60 / MAX_CALLS_MINUTE) * 1000)
   )
 

@@ -90,7 +90,7 @@ const titres = async (
   }
 }
 
-const titreCreer = async ({ titre }, context, info) => {
+const titreCreer = async ({ titre }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -126,7 +126,7 @@ const titreCreer = async ({ titre }, context, info) => {
   }
 }
 
-const titreModifier = async ({ titre }, context, info) => {
+const titreModifier = async ({ titre }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -170,7 +170,7 @@ const titreModifier = async ({ titre }, context, info) => {
   }
 }
 
-const titreSupprimer = async ({ id }, context, info) => {
+const titreSupprimer = async ({ id }, context) => {
   if (!permissionsCheck(context.user, ['super'])) {
     throw new Error('opération impossible')
   }

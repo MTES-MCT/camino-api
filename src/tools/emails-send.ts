@@ -1,5 +1,5 @@
 import * as nodemailer from 'nodemailer'
-import * as nodemailerHtmlToText from 'nodemailer-html-to-text'
+import { htmlToText } from 'nodemailer-html-to-text'
 import * as emailRegex from 'email-regex'
 // const smtpTransport from 'nodemailer-smtp-transport')
 
@@ -20,16 +20,16 @@ const transport = nodemailer.createTransport(smtpTransportConfig)
 // https://www.npmjs.com/package/html-to-text
 // const htmlToTextOptions = {}
 
-transport.use('compile', nodemailerHtmlToText.htmlToText())
+transport.use('compile', htmlToText())
 
-const emailSend = async (to, subject, html) => {
+const emailSend = async (to: string, subject: string, html: string) => {
   try {
     // si on est pas sur le serveur de prod
     // l'adresse email du destinataire est remplacée
     if (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') {
       subject = `${subject} | env: ${process.env.ENV} | node: ${process.env.NODE_ENV} | 
 dest: ${to}`
-      to = process.env.ADMIN_EMAIL
+      to = process.env.ADMIN_EMAIL!
     }
 
     subject = `[Camino] ${subject}`
@@ -48,7 +48,7 @@ dest: ${to}`
   }
 }
 
-const emailsSend = async (emails, subject, html) => {
+const emailsSend = async (emails: string[], subject: string, html: string) => {
   try {
     if (Array.isArray(emails)) {
       emails.forEach(email => {

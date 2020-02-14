@@ -25,12 +25,12 @@ import {
 
 const npmPackage = require('../../../package.json')
 
-const devises = async (_, context) => devisesGet()
-const geoSystemes = async (_, context) => geoSystemesGet()
-const unites = async (_, context) => unitesGet()
-const documentsTypes = async (_, context) => documentsTypesGet()
-const referencesTypes = async (_, context) => referencesTypesGet()
-const permission = async ({ id }, context) => permissionGet(id)
+const devises = async () => devisesGet()
+const geoSystemes = async () => geoSystemesGet()
+const unites = async () => unitesGet()
+const documentsTypes = async () => documentsTypesGet()
+const referencesTypes = async () => referencesTypesGet()
+const permission = async ({ id }) => permissionGet(id)
 
 const permissions = async (_, context) => {
   try {
@@ -50,7 +50,7 @@ const permissions = async (_, context) => {
   }
 }
 
-const domaines = async (variables, context, info) => {
+const domaines = async (_, context) => {
   try {
     const domaines = await domainesGet()
 
@@ -70,7 +70,7 @@ const domaines = async (variables, context, info) => {
   }
 }
 
-const utilisateurDomaines = async (variables, context, info) => {
+const utilisateurDomaines = async (_, context) => {
   try {
     if (!context.user) return []
 
@@ -111,7 +111,7 @@ const utilisateurDomaines = async (variables, context, info) => {
   }
 }
 
-const types = async (variables, context, info) => {
+const types = async () => {
   try {
     const types = await titresTypesTypesGet()
 
@@ -125,7 +125,7 @@ const types = async (variables, context, info) => {
   }
 }
 
-const statuts = async (variables, context, info) => {
+const statuts = async (_, context) => {
   try {
     let statuts = await titresStatutsGet()
 
@@ -145,11 +145,11 @@ const statuts = async (variables, context, info) => {
   }
 }
 
-const version = (variables, context, info) => {
+const version = () => {
   return npmPackage.version
 }
 
-const activitesTypes = async (variables, context, info) => {
+const activitesTypes = async () => {
   try {
     const activitesTypes = await activitesTypesGet()
 

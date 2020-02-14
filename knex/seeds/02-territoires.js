@@ -5,7 +5,7 @@ const regions = require('../../sources/regions.json')
 const departements = require('../../sources/departements.json')
 const communes = require('../../sources/communes.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await insert('pays', pays)
   await insert('regions', regions)
   await insert('departements', departements)

@@ -42,7 +42,6 @@
     "dev:monthly": "ts-node --transpile-only ./src/business/monthly.ts",
     "dev:schema": "ts-node ./src/tools/dev/api/graphql-dsl-to-query-convert.js",
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
-    "doc": "rm -rf docs && esdoc",
     "monthly": "node ./dist/business/monthly.js",
     "release": "standard-version && git push --follow-tags upstream master && conventional-github-releaser",
     "ss:export": "node ./dist/tools/export/index.js",
@@ -50,8 +49,8 @@
     "ss:activites-export": "node ./dist/tools/export/titres-activites.js",
     "ss:import": "rm -rf sources && mkdir sources && node ./dist/tools/import/index.js",
     "start": "node ./dist/index.js",
-    "test": "eslint src/ && eslint knex/ && tslint 'src/**/*.ts' && jest --verbose && codecov",
-    "test:lint": "eslint --fix src/ && eslint --fix knex/ && tslint --fix 'src/**/*.ts'",
+    "test": "eslint src/ && eslint knex/ && jest --verbose && codecov",
+    "test:lint": "eslint --fix src/ && eslint --fix knex/",
     "test:jest": "npm run test:lint && jest --verbose --watch",
     "test:cypress": "npm run db:import-public && npm run daily && npm run db:user  && npm run dev"
   },
@@ -113,20 +112,17 @@
     "typescript": "^3.7.5"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "codecov": "^3.6.5",
     "commitizen": "^4.0.3",
     "conventional-github-releaser": "^3.1.3",
     "cz-conventional-changelog": "^3.1.0",
-    "esdoc": "^1.1.0",
-    "esdoc-ecmascript-proposal-plugin": "^1.0.0",
-    "esdoc-standard-plugin": "^1.0.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.7.0",
-    "eslint-plugin-jsdoc": "^21.0.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
@@ -134,14 +130,10 @@
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "prettier-eslint": "^9.0.1",
-    "prettier-tslint": "^0.4.2",
     "sql-formatter": "^2.3.3",
     "standard-version": "^7.1.0",
     "ts-jest": "^25.2.0",
-    "ts-node": "^8.6.2",
-    "tslint": "^6.0.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-config-standard": "^9.0.0"
+    "ts-node": "^8.6.2"
   },
   "prettier": {
     "semi": false,
@@ -150,9 +142,13 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
       "standard",
       "prettier",
-      "prettier/standard"
+      "prettier/standard",
+      "prettier/@typescript-eslint"
     ],
     "env": {
       "node": true,
@@ -161,61 +157,19 @@
     "plugins": [
       "prettier",
       "jest",
-      "jsdoc"
+      "@typescript-eslint"
     ],
     "rules": {
-      "newline-before-return": 1,
-      "jsdoc/check-examples": 1,
-      "jsdoc/check-param-names": 1,
-      "jsdoc/check-tag-names": 1,
-      "jsdoc/check-types": 1,
-      "jsdoc/newline-after-description": 1,
-      "jsdoc/no-undefined-types": 1,
-      "jsdoc/require-description": 1,
-      "jsdoc/require-description-complete-sentence": 1,
-      "jsdoc/require-hyphen-before-param-description": 1,
-      "jsdoc/require-param": 1,
-      "jsdoc/require-param-description": 1,
-      "jsdoc/require-param-name": 1,
-      "jsdoc/require-param-type": 1,
-      "jsdoc/require-returns": 1,
-      "jsdoc/require-returns-description": 1,
-      "jsdoc/require-returns-type": 1,
-      "jsdoc/valid-types": 1,
-      "no-throw-literal": 0,
-      "prettier/prettier": [
-        "error"
-      ]
+      "@typescript-eslint/camelcase": 0,
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/no-use-before-define": 0,
+      "@typescript-eslint/no-var-requires": 0,
+      "newline-before-return": 1
     }
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "esdoc": {
-    "source": "./src",
-    "destination": "./docs",
-    "plugins": [
-      {
-        "name": "esdoc-standard-plugin",
-        "option": {
-          "manual": {
-            "index": "./manual/infos.md",
-            "asset": "./manual/asset",
-            "files": [
-              "./manual/docker.md"
-            ]
-          }
-        }
-      },
-      {
-        "name": "esdoc-ecmascript-proposal-plugin",
-        "option": {
-          "objectRestSpread": true,
-          "classProperties": true
-        }
-      }
-    ]
   }
 }

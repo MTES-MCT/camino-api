@@ -5,7 +5,7 @@ const substancesLegales = require('../../sources/substances-legales.json')
 const substancesLegalesCodes = require('../../sources/substances-legales-codes.json')
 const substancesSubstancesLegales = require('../../sources/substances--substances-legales.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await insert('substancesLegalesCodes', substancesLegalesCodes)
   await insert('substancesLegales', substancesLegales)
   await insert('substances', substances)

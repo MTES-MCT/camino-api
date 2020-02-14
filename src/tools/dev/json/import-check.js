@@ -107,7 +107,9 @@ const data = [
     model = !file.match(/--/)
       ? require(`../../../database/models/${decamelize(name, '-')}`).default
       : null
-  } catch (e) {}
+  } catch (e) {
+    console.log(e)
+  }
 
   let data
   try {
@@ -131,7 +133,7 @@ const data = [
   return acc
 }, {})
 
-const splitJoin = (from, to, swapIfId = false) => {
+const splitJoin = (from, to) => {
   from = from.split('.')
   const fromTable = camelize(from[0])
   const fromField = decamelize(from[1])

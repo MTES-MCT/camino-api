@@ -106,7 +106,7 @@ const titreEtapeRelationMove = (
 }
 
 const titreEtapeValueModify = (
-  { valueProp, condition, changeTo, targets },
+  { valueProp, condition, changeTo },
   titreEtapeFrom
 ) => {
   if (!titreEtapeFrom) return false
@@ -406,7 +406,7 @@ const modifs = {
   }
 }
 
-const titreEtapesModify = (modifs, { id, etapes: titreEtapes = [] } = {}) => {
+const titreEtapesModify = (modifs, { etapes: titreEtapes = [] } = {}) => {
   if (!titreEtapes.length) return false
 
   const modifications = titreEtapes.reduce((modifications, titreEtape) => {

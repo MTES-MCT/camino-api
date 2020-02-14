@@ -34,7 +34,7 @@ const documentValidate = document => {
   return errors
 }
 
-const documentCreer = async ({ document }, context, info) => {
+const documentCreer = async ({ document }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -86,7 +86,7 @@ const documentCreer = async ({ document }, context, info) => {
   }
 }
 
-const documentModifier = async ({ document }, context, info) => {
+const documentModifier = async ({ document }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')
@@ -148,7 +148,7 @@ const documentModifier = async ({ document }, context, info) => {
   }
 }
 
-const documentSupprimer = async ({ id }, context, info) => {
+const documentSupprimer = async ({ id }, context) => {
   try {
     if (!permissionsCheck(context.user, ['super', 'admin'])) {
       throw new Error('opération impossible')

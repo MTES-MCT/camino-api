@@ -43,7 +43,7 @@ const data = files.reduce((d, file) => {
   return d
 }, {})
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await insert('titres', data.titres)
   await insert('titresDemarches', data.titresDemarches)
   await insert('titresReferences', data.titresReferences)

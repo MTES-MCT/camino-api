@@ -9,7 +9,7 @@ const activitesTypes_pays = require('../../sources/activites-types--pays.json')
 // eslint-disable-next-line camelcase
 const activitesTypes_administrations = require('../../sources/activites-types--administrations.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await insert('activitesStatuts', activitesStatuts)
   await insert('activitesTypes', activitesTypes)
   await insert('titresTypes__activitesTypes', titresTypes__activitesTypes)

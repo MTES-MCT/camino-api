@@ -5,7 +5,7 @@ const annees = require('../../sources/annees.json')
 const trimestres = require('../../sources/trimestres.json')
 const mois = require('../../sources/mois.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await insert('frequences', frequences)
   await insert('trimestres', trimestres)
   await insert('annees', annees)

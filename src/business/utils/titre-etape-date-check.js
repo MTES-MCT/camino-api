@@ -52,8 +52,7 @@ const titreEtapeTypesRestrictionsCheck = (
   titreEtapeTypesRestrictions,
   titreEtape,
   titreEtapeType,
-  titreDemarche,
-  titreEtapeCurrent
+  titreDemarche
 ) => {
   const errors = []
 

@@ -40,7 +40,7 @@ const userIdGenerate = async () => {
   return id
 }
 
-const utilisateur = async ({ id }, context, info) => {
+const utilisateur = async ({ id }, context) => {
   try {
     const utilisateur = await utilisateurGet(id)
 
@@ -58,8 +58,7 @@ const utilisateur = async ({ id }, context, info) => {
 
 const utilisateurs = async (
   { entrepriseIds, administrationIds, permissionIds, noms },
-  context,
-  info
+  context
 ) => {
   try {
     const utilisateurs = await utilisateursGet({
@@ -81,7 +80,7 @@ const utilisateurs = async (
   }
 }
 
-const moi = async (variables, context, info) => {
+const moi = async (_, context) => {
   try {
     // vérifie que la base de données était remplie au démarrage du serveur
     if (!globales.chargement) {
@@ -102,7 +101,7 @@ const moi = async (variables, context, info) => {
   }
 }
 
-const utilisateurTokenCreer = async ({ email, motDePasse }, context, info) => {
+const utilisateurTokenCreer = async ({ email, motDePasse }) => {
   try {
     email = email.toLowerCase()
 
@@ -185,7 +184,7 @@ const utilisateurCreer = async ({ utilisateur }, context) => {
   }
 }
 
-const utilisateurCreationEmailEnvoyer = async ({ email }, context) => {
+const utilisateurCreationEmailEnvoyer = async ({ email }) => {
   try {
     email = email.toLowerCase()
 
@@ -362,7 +361,7 @@ const utilisateurMotDePasseModifier = async (
 }
 
 // envoie l'email avec un lien vers un formulaire de ré-init
-const utilisateurMotDePasseEmailEnvoyer = async ({ email }, context) => {
+const utilisateurMotDePasseEmailEnvoyer = async ({ email }) => {
   try {
     if (!emailCheck(email)) {
       throw new Error('adresse email invalide')

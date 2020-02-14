@@ -5,7 +5,7 @@ const utilisateursEntreprises = require('../../sources/utilisateurs--entreprises
 const utilisateursAdministrations = require('../../sources/utilisateurs--administrations.json')
 const permissions = require('../../sources/permissions.json')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await insert('permissions', permissions)
   await insert('utilisateurs', utilisateurs)
   await insert('utilisateurs__entreprises', utilisateursEntreprises)

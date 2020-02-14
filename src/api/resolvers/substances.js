@@ -1,7 +1,7 @@
 import { substanceGet, substancesGet } from '../../database/queries/substances'
 
-const substance = async ({ id }, context) => substanceGet(id)
+const substance = async ({ id }) => substanceGet(id)
 
-const substances = async (_, context) => substancesGet()
+const substances = async () => substancesGet()
 
 export { substance, substances }

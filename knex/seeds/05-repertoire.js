@@ -17,7 +17,7 @@ const findMissing = (elements, relations, field1, field2) =>
 findMissing(entreprises, entreprisesEtablissements, 'id', 'entreprise_id')
 findMissing(administrationsTypes, administrations, 'id', 'type_id')
 
-exports.seed = seeding(async ({ del, insert }) => {
+exports.seed = seeding(async ({ insert }) => {
   await Promise.all([
     insert('entreprises', entreprises),
     insert('administrationsTypes', administrationsTypes)
