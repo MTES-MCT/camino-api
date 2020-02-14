@@ -1,14 +1,15 @@
+import { ITitres } from '../../types'
 import { titreUpdate } from '../../database/queries/titres'
 import titreDateFinFind from '../rules/titre-date-fin-find'
 import titreDateDebutFind from '../rules/titre-date-debut-find'
 import titreDateDemandeFind from '../rules/titre-date-demande-find'
 import PQueue from 'p-queue'
 
-const titresDatesUpdate = async titres => {
+const titresDatesUpdate = async (titres: ITitres[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresUpdated = titres.reduce((titresUpdated, titre) => {
-    const props = {}
+  const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {
+    const props: any = {}
 
     const dateFin = titreDateFinFind(titre.demarches)
 
