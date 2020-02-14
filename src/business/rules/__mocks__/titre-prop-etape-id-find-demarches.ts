@@ -1,3 +1,5 @@
+import { ITitresDemarches } from '../../../types'
+
 const titreDemarchesOctPointsMut = {
   demarches: [
     {
@@ -47,7 +49,7 @@ const titreDemarchesOctPointsMut = {
       ]
     }
   ]
-}
+} as { demarches: ITitresDemarches[]; statutId: string }
 
 const titreDemarchesOctPointsVides = {
   demarches: [
@@ -75,7 +77,7 @@ const titreDemarchesOctPointsVides = {
       ]
     }
   ]
-}
+} as { demarches: ITitresDemarches[]; statutId: string }
 
 const titreDemarchesOctMutPoints = {
   demarches: [
@@ -126,7 +128,7 @@ const titreDemarchesOctMutPoints = {
       ]
     }
   ]
-}
+} as { demarches: ITitresDemarches[]; statutId: string }
 
 const titreDemarchesOctPointsMutInstruction = {
   demarches: [
@@ -178,7 +180,7 @@ const titreDemarchesOctPointsMutInstruction = {
       ]
     }
   ]
-}
+} as { demarches: ITitresDemarches[]; statutId: string }
 
 const titreDemarchesOctAccDpuRej = {
   demarches: [
@@ -206,9 +208,9 @@ const titreDemarchesOctAccDpuRej = {
       ]
     }
   ]
-}
+} as { demarches: ITitresDemarches[]; statutId: string }
 
-const titreDemarchesOctMfrPoints = {
+const titreDemarchesOctMfrPoints = ({
   demarches: [
     {
       id: 'h-cx-courdemanges-1983-oct01',
@@ -227,7 +229,7 @@ const titreDemarchesOctMfrPoints = {
       ]
     }
   ]
-}
+} as unknown) as { demarches: ITitresDemarches[]; statutId: string }
 
 const titreDemarchesOctAmodiatairesPassee = {
   demarches: [
@@ -249,9 +251,9 @@ const titreDemarchesOctAmodiatairesPassee = {
       ]
     }
   ]
-}
+} as { demarches: ITitresDemarches[]; statutId: string }
 
-const titreDemarchesOctAmodiatairesMod = {
+const titreDemarchesOctAmodiatairesMod = ({
   statutId: 'mod',
   demarches: [
     {
@@ -301,9 +303,9 @@ const titreDemarchesOctAmodiatairesMod = {
       ]
     }
   ]
-}
+} as unknown) as { demarches: ITitresDemarches[]; statutId: string }
 
-const titreDemarchesProPointsModPhaseEch = {
+const titreDemarchesProPointsModPhaseEch = ({
   statutId: 'mod',
   demarches: [
     {
@@ -341,9 +343,9 @@ const titreDemarchesProPointsModPhaseEch = {
       ]
     }
   ]
-}
+} as unknown) as { demarches: ITitresDemarches[]; statutId: string }
 
-const titreDemarchesProPointsModPhaseVal = {
+const titreDemarchesProPointsModPhaseVal = ({
   statutId: 'mod',
   demarches: [
     {
@@ -381,9 +383,9 @@ const titreDemarchesProPointsModPhaseVal = {
       ]
     }
   ]
-}
+} as unknown) as { demarches: ITitresDemarches[]; statutId: string }
 
-const titreDemarchesMutPointsMod = {
+const titreDemarchesMutPointsMod = ({
   statutId: 'mod',
   demarches: [
     {
@@ -421,7 +423,7 @@ const titreDemarchesMutPointsMod = {
       ]
     }
   ]
-}
+} as unknown) as { demarches: ITitresDemarches[]; statutId: string }
 
 export {
   titreDemarchesOctPointsMut,

@@ -1,17 +1,25 @@
 // retourne l'id de la dernière étape acceptée
 // de la dernière démarche acceptée
 // pour laquelle la propriété existe
+import { ITitres, ITitresDemarches } from '../../types'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
+interface ITitresEtapesIndex {
+  [key: string]: any
+}
+
 const titrePropEtapeIdFind = (
-  { demarches: titreDemarches, statutId: titreStatutId },
-  prop
+  {
+    demarches: titreDemarches,
+    statutId: titreStatutId
+  }: { demarches: ITitresDemarches[]; statutId: string },
+  prop: string
 ) =>
   titreDemarchesAscSort(titreDemarches)
     .reverse()
     // parcourt les démarches
-    .reduce((etapeId, titreDemarche) => {
+    .reduce((etapeId: string, titreDemarche: ITitresDemarches) => {
       // si une étape a déjà été trouvée
       if (etapeId) return etapeId
 
@@ -19,7 +27,7 @@ const titrePropEtapeIdFind = (
         !(
           // filtre les démarches non acceptée, non terminée ou non en instruction
           (
-            ['acc', 'ter'].includes(titreDemarche.statutId) ||
+            ['acc', 'ter'].includes(titreDemarche.statutId!) ||
             // sauf si la démarche est un octroi
             ['oct', 'vut', 'vct'].includes(titreDemarche.typeId) ||
             // ou que le titre a le statut modification en instance
@@ -39,7 +47,7 @@ const titrePropEtapeIdFind = (
       }
 
       const etape = titreEtapesDescSort(titreDemarche.etapes).find(
-        titreEtape => {
+        (titreEtape: ITitresEtapesIndex) => {
           // trouve une étape qui contient la propriété
           const isPropFound =
             titreEtape[prop] &&

@@ -1,3 +1,5 @@
+import { ITitresDemarches } from '../../../types'
+
 const titresDemarchesEtapes = [
   {
     etapes: [
@@ -5,12 +7,12 @@ const titresDemarchesEtapes = [
       { ordre: 1, date: '1988-03-08' }
     ]
   }
-]
+] as ITitresDemarches[]
 
-const titresDemarchesEtapesVides = [
+const titresDemarchesEtapesVides = ([
   {
     etapes: []
   }
-]
+] as unknown) as ITitresDemarches[]
 
 export { titresDemarchesEtapes, titresDemarchesEtapesVides }

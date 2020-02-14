@@ -1,3 +1,5 @@
+import { ITitres } from '../../../types'
+
 const titresDemarchesDesordonnees = [
   {
     demarches: [
@@ -33,7 +35,8 @@ const titresDemarchesDesordonnees = [
       }
     ]
   }
-]
+] as ITitres[]
+
 const titresDemarchesOrdonnees = [
   {
     demarches: [
@@ -69,6 +72,6 @@ const titresDemarchesOrdonnees = [
       }
     ]
   }
-]
+] as ITitres[]
 
 export { titresDemarchesDesordonnees, titresDemarchesOrdonnees }

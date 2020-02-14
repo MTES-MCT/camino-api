@@ -1,9 +1,11 @@
+import { ITitresPoints, ITitresPointsReferences } from '../../types'
+
 import PQueue from 'p-queue'
 
 import { titrePointReferenceCreate } from '../../database/queries/titres-points'
 
-const titreEtapePointsReferencesNewFind = titrePoints =>
-  titrePoints.reduce((acc, titrePoint) => {
+const titreEtapePointsReferencesNewFind = (titrePoints: ITitresPoints[]) =>
+  titrePoints.reduce((acc: ITitresPointsReferences[], titrePoint) => {
     if (!titrePoint.references || titrePoint.references.length === 0) {
       acc.push({
         id: `${titrePoint.id}-4326`,
@@ -19,7 +21,7 @@ const titreEtapePointsReferencesNewFind = titrePoints =>
     return acc
   }, [])
 
-const titresPointsReferencesCreate = async titresPoints => {
+const titresPointsReferencesCreate = async (titresPoints: ITitresPoints[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   const pointsReferencesNew = titreEtapePointsReferencesNewFind(titresPoints)
