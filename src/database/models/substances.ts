@@ -2,9 +2,9 @@ import { Model, Modifiers } from 'objection'
 
 import { join } from 'path'
 
-import { ISubstances } from '../../types'
+import { ISubstance } from '../../types'
 
-interface Substances extends ISubstances {}
+interface Substances extends ISubstance {}
 
 class Substances extends Model {
   public static tableName = 'substances'

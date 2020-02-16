@@ -1,4 +1,4 @@
-import { IUtilisateurs } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { permissionsCheck } from '../permissions/permissions-check'
 import {
@@ -6,7 +6,10 @@ import {
   permissionUtilisateurEntrepriseCheck
 } from '../permissions/utilisateur'
 
-const utilisateurFormat = (utilisateur: IUtilisateurs, user: IUtilisateurs) => {
+const utilisateurFormat = (
+  user: IUtilisateur | undefined,
+  utilisateur: IUtilisateur
+) => {
   // si
   // - user n'existe pas (pas d'utilisateur connecté)
   // - ou l'utilisateur n'existe pas (pas d'utilisateur avec cette id)
@@ -22,8 +25,8 @@ const utilisateurFormat = (utilisateur: IUtilisateurs, user: IUtilisateurs) => {
     !utilisateur.email ||
     (user.id !== utilisateur.id &&
       !permissionsCheck(user, ['super', 'admin']) &&
-      !permissionUtilisateurAdministrationCheck(utilisateur, user) &&
-      !permissionUtilisateurEntrepriseCheck(utilisateur, user))
+      !permissionUtilisateurAdministrationCheck(user, utilisateur) &&
+      !permissionUtilisateurEntrepriseCheck(user, utilisateur))
   ) {
     return null
   }
@@ -38,18 +41,18 @@ const utilisateurFormat = (utilisateur: IUtilisateurs, user: IUtilisateurs) => {
 }
 
 const utilisateursFormat = (
-  utilisateurs: IUtilisateurs[],
-  user: IUtilisateurs
+  user: IUtilisateur | undefined,
+  utilisateurs: IUtilisateur[]
 ) =>
   utilisateurs &&
-  utilisateurs.reduce((acc, utilisateur) => {
-    const utilisateurFormated = utilisateurFormat(utilisateur, user)
+  utilisateurs.reduce((acc, u) => {
+    const utilisateur = utilisateurFormat(user, u)
 
-    if (utilisateurFormated) {
-      acc.push(utilisateurFormated)
+    if (utilisateur) {
+      acc.push(utilisateur)
     }
 
     return acc
-  }, [] as IUtilisateurs[])
+  }, [] as IUtilisateur[])
 
 export { utilisateurFormat, utilisateursFormat }

@@ -1,10 +1,10 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
-import { ITitresEtapes, ITitresPoints } from '../../types'
+import { ITitreEtape, ITitrePoint } from '../../types'
 
 import { paysFormat } from './_format'
 
-interface TitresEtapes extends ITitresEtapes {}
+interface TitresEtapes extends ITitreEtape {}
 
 class TitresEtapes extends Model {
   public static tableName = 'titresEtapes'
@@ -197,7 +197,7 @@ class TitresEtapes extends Model {
     }
 
     if (json.points) {
-      json.points.forEach((point: ITitresPoints) => {
+      json.points.forEach((point: ITitrePoint) => {
         point.titreEtapeId = json.id
       })
     }

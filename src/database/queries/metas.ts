@@ -13,11 +13,7 @@ import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
 import options from './_options'
 
-interface IPermissionsOptions {
-  ordreMax: number
-}
-
-const permissionsGet = async ({ ordreMax }: IPermissionsOptions) =>
+const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
   Permissions.query()
     .skipUndefined()
     .where('ordre', '>=', ordreMax)

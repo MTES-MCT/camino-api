@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 
-import { ISubstancesLegalesCodes } from '../../types'
+import { ISubstanceLegaleCode } from '../../types'
 
-interface SubstancesLegalesCodes extends ISubstancesLegalesCodes {}
+interface SubstancesLegalesCodes extends ISubstanceLegaleCode {}
 
 class SubstancesLegalesCodes extends Model {
   public static tableName = 'substancesLegalesCodes'

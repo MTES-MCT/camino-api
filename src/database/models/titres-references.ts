@@ -1,8 +1,8 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
-import { ITitresReferences } from '../../types'
+import { ITitreReference } from '../../types'
 
-interface TitresReferences extends ITitresReferences {}
+interface TitresReferences extends ITitreReference {}
 
 class TitresReferences extends Model {
   public static tableName = 'titresReferences'

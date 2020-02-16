@@ -1,16 +1,16 @@
-import { IAdministrations, IDepartements } from '../../../types'
+import { IAdministration, IDepartement } from '../../../types'
 
-const departements = [{ id: '1' }, { id: '2' }, { id: '75' }] as IDepartements[]
+const departements = [{ id: '1' }, { id: '2' }, { id: '75' }] as IDepartement[]
 
-const administrationApiTest = ({ id: 'test-ok' } as unknown) as IAdministrations
+const administrationApiTest = ({ id: 'test-ok' } as unknown) as IAdministration
 
-const administrationsDbCreees = [] as IAdministrations[]
+const administrationsDbCreees = [] as IAdministration[]
 const administrationsApiCreees = [{ id: 'toto' }]
 
-const administrationsDbModifiees = [{ id: 'toto' }] as IAdministrations[]
+const administrationsDbModifiees = [{ id: 'toto' }] as IAdministration[]
 const administrationsApiModifiees = [{ id: 'papa' }]
 
-const administrationsDbExistantes = [{ id: 'toto' }] as IAdministrations[]
+const administrationsDbExistantes = [{ id: 'toto' }] as IAdministration[]
 const administrationsApiExistantes = [{ id: 'toto' }]
 
 export {

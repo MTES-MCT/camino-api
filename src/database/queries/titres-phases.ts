@@ -1,4 +1,4 @@
-import { ITitresPhases } from '../../types'
+import { ITitrePhase } from '../../types'
 import TitresPhases from '../models/titres-phases'
 import options from './_options'
 
@@ -7,7 +7,7 @@ const titresPhasesGet = async () =>
     .skipUndefined()
     .withGraphFetched(options.phases.graph)
 
-const titrePhasesUpsert = async (titrePhases: ITitresPhases[]) =>
+const titrePhasesUpsert = async (titrePhases: ITitrePhase[]) =>
   TitresPhases.query().upsertGraph(titrePhases, {
     insertMissing: true,
     noDelete: true

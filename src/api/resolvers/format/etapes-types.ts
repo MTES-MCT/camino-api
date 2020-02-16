@@ -1,14 +1,14 @@
+import { IEtapeType, ISection } from '../../../types'
 import { dupRemove } from '../../../tools/index'
-import { IEtapesTypes } from '../../../types'
 
-const etapesTypesFormat = (et: IEtapesTypes) => {
+const etapesTypesFormat = (et: IEtapeType) => {
   // fusion des sections par défaut de l'étape type
   // avec les sections spécifiques au type / démarche / étape
   // si deux sections ont la même id, seule la custom est conservée
-  if (et.customSections) {
+  if (et.sectionsSpecifiques) {
     et.sections = et.sections
-      ? dupRemove('id', et.customSections, et.sections)
-      : et.customSections
+      ? (dupRemove('id', et.sectionsSpecifiques, et.sections) as ISection[])
+      : et.sectionsSpecifiques
   }
 
   return et

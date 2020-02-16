@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { IDemarchesStatuts } from '../../types'
+import { IDemarcheStatut } from '../../types'
 
-interface DemarchesStatuts extends IDemarchesStatuts {}
+interface DemarchesStatuts extends IDemarcheStatut {}
 
 class DemarchesStatuts extends Model {
   public static tableName = 'demarchesStatuts'

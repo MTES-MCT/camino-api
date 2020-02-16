@@ -1,9 +1,9 @@
 import fileRename from '../../tools/file-rename'
 import {
-  ITitres,
-  ITitresDemarches,
-  ITitresEtapes,
-  ITitresDocuments
+  ITitre,
+  ITitreDemarche,
+  ITitreEtape,
+  ITitreDocument
 } from '../../types'
 
 interface Index {
@@ -11,7 +11,7 @@ interface Index {
 }
 
 const titreDocumentsFichiersNamesFind = (
-  titreDocuments: ITitresDocuments[] | undefined,
+  titreDocuments: ITitreDocument[] | undefined,
   titreId: string,
   oldTitreId: string
 ) => {
@@ -33,7 +33,7 @@ const titreDocumentsFichiersNamesFind = (
 }
 
 const titreEtapesFichiersNamesFind = (
-  titreEtapes: ITitresEtapes[] | undefined,
+  titreEtapes: ITitreEtape[] | undefined,
   titreId: string,
   oldTitreId: string
 ) => {
@@ -55,7 +55,7 @@ const titreEtapesFichiersNamesFind = (
 }
 
 const titreFichiersNamesFind = (
-  titreDemarches: ITitresDemarches[] | undefined,
+  titreDemarches: ITitreDemarche[] | undefined,
   titreId: string,
   oldTitreId: string
 ) => {
@@ -72,7 +72,7 @@ const titreFichiersNamesFind = (
   }, [])
 }
 
-const titreFichiersRename = async (oldTitreId: string, titre: ITitres) => {
+const titreFichiersRename = async (oldTitreId: string, titre: ITitre) => {
   const titreFichiersNames = titreFichiersNamesFind(
     titre.demarches,
     titre.id,

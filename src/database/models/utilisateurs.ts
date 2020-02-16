@@ -1,8 +1,8 @@
-import { Model, Pojo } from 'objection'
+import { Model } from 'objection'
 import { join } from 'path'
-import { IUtilisateurs } from '../../types'
+import { IUtilisateur } from '../../types'
 
-interface Utilisateurs extends IUtilisateurs {}
+interface Utilisateurs extends IUtilisateur {}
 
 class Utilisateurs extends Model {
   public static tableName = 'utilisateurs'
@@ -64,27 +64,7 @@ class Utilisateurs extends Model {
       }
     }
   }
-
-  public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
-    if (json.entreprisesIds) {
-      json.entreprises = json.entreprisesIds.map((id: string) => ({ id }))
-
-      delete json.entreprisesIds
-    }
-
-    if (json.administrationsIds) {
-      json.administrations = json.administrationsIds.map((id: string) => ({
-        id
-      }))
-
-      delete json.administrationsIds
-    }
-
-    return json
-  }
 }
 export default Utilisateurs
 
-export { IUtilisateurs }
+export { IUtilisateur }

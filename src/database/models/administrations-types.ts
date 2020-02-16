@@ -1,8 +1,8 @@
 import { Model, Modifiers } from 'objection'
 
-import { IAdministrationsTypes } from '../../types'
+import { IAdministrationType } from '../../types'
 
-interface AdministrationsTypes extends IAdministrationsTypes {}
+interface AdministrationsTypes extends IAdministrationType {}
 
 class AdministrationsTypes extends Model {
   public static tableName = 'administrationsTypes'

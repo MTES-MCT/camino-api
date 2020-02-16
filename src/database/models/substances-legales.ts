@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 import { join } from 'path'
 
-import { ISubstancesLegales } from '../../types'
+import { ISubstanceLegale } from '../../types'
 
-interface SubstancesLegales extends ISubstancesLegales {}
+interface SubstancesLegales extends ISubstanceLegale {}
 
 class SubstancesLegales extends Model {
   public static tableName = 'substancesLegales'

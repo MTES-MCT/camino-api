@@ -1,8 +1,4 @@
-import {
-  ITitres,
-  TitreEtapeIdPropNames,
-  TitreEtapePropNames
-} from '../../types'
+import { ITitre, TitreProp, TitreEtapeProp } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreUpdate } from '../../database/queries/titres'
@@ -24,16 +20,16 @@ const titrePropsEtapes = [
   prop,
   name: `${prop}TitreEtapeId`
 })) as {
-  prop: TitreEtapePropNames
-  name: TitreEtapeIdPropNames
+  prop: TitreEtapeProp
+  name: TitreProp
 }[]
 
-const titresPropsEtapeIdsUpdate = async (titres: ITitres[]) => {
+const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresUpdated = titres.reduce((titresUpdated: ITitres[], titre) => {
+  const titresUpdated = titres.reduce((titresUpdated: ITitre[], titre) => {
     const props = titrePropsEtapes.reduce(
-      (props: Partial<ITitres>, { prop, name }) => {
+      (props: Partial<ITitre>, { prop, name }) => {
         const value = titrePropEtapeIdFind(
           { demarches: titre.demarches!, statutId: titre.statutId! },
           prop

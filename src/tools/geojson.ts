@@ -1,10 +1,10 @@
-import { ITitresPoints } from '../types'
+import { ITitrePoint } from '../types'
 import * as rewind from 'geojson-rewind'
 
 // converti des points
 // en un geojson de type 'MultiPolygon'
 
-const geojsonFeatureMultiPolygon = (points: ITitresPoints[]) => ({
+const geojsonFeatureMultiPolygon = (points: ITitrePoint[]) => ({
   type: 'Feature',
   properties: { etapeId: points[0].titreEtapeId },
   geometry: rewind(
@@ -19,7 +19,7 @@ const geojsonFeatureMultiPolygon = (points: ITitresPoints[]) => ({
 // converti des points
 // en un geojson de type 'FeatureCollection' de 'Points'
 
-const geojsonFeatureCollectionPoints = (points: ITitresPoints[]) => ({
+const geojsonFeatureCollectionPoints = (points: ITitrePoint[]) => ({
   type: 'FeatureCollection',
   properties: { etapeId: points[0].titreEtapeId },
   features: points.map(p => ({
@@ -40,13 +40,13 @@ const geojsonFeatureCollectionPoints = (points: ITitresPoints[]) => ({
 // converti une liste de points
 // en un tableau 'coordinates' geoJson
 // (le premier et le dernier point d'un contour ont les mêmes coordonnées)
-const geojsonMultiPolygonCoordinates = (points: ITitresPoints[]) =>
+const geojsonMultiPolygonCoordinates = (points: ITitrePoint[]) =>
   multiPolygonContoursClose(multiPolygonCoordinates(points))
 
 // converti une liste de points
 // [{groupe: 1, contour: 1, point: 1, coordonnees: {x: 1.111111, y: 1.111111}}]
 // en un tableau de 'coordinates': [[[[1.11111, 1.111111]]]]
-const multiPolygonCoordinates = (points: ITitresPoints[]) =>
+const multiPolygonCoordinates = (points: ITitrePoint[]) =>
   points.reduce((res: number[][][][], p) => {
     res[p.groupe - 1] = res[p.groupe - 1] || []
     res[p.groupe - 1][p.contour - 1] = res[p.groupe - 1][p.contour - 1] || []

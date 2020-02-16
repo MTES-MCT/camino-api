@@ -1,28 +1,28 @@
-import { ITitres, IAdministrations } from '../../../types'
+import { ITitre, IAdministration } from '../../../types'
 
 const administrations = [
   { id: 'dgec' },
   { id: 'dgaln' },
   { id: 'ptmg' }
-] as IAdministrations[]
+] as IAdministration[]
 
 const titresAdministrationGestionnaireVide = [
   { id: 'titre-id', domaineId: 'm' }
-] as ITitres[]
+] as ITitre[]
 
 const titresAdministrationGestionnaireInexistante = [
   {
     id: 'titre-id',
     administrationsGestionnaires: [{ id: 'inexistante' }]
   }
-] as ITitres[]
+] as ITitre[]
 
 const titresAdministrationGestionnaireExistante = [
   {
     id: 'titre-id',
     administrationsGestionnaires: [{ id: 'dgec' }]
   }
-] as ITitres[]
+] as ITitre[]
 
 export {
   administrations,

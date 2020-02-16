@@ -1,9 +1,9 @@
 import { Model, Modifiers } from 'objection'
 import Unites from './unites'
 
-import { IGeoSystemes } from '../../types'
+import { IGeoSysteme } from '../../types'
 
-interface GeoSystemes extends IGeoSystemes {}
+interface GeoSystemes extends IGeoSysteme {}
 
 class GeoSystemes extends Model {
   public static tableName = 'geoSystemes'

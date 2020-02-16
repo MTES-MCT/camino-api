@@ -1,7 +1,7 @@
 import {
-  ITitresAdministrationsGestionnaires,
-  ITitres,
-  IAdministrations
+  ITitreAdministrationsGestionnaire,
+  ITitre,
+  IAdministration
 } from '../../types'
 
 import PQueue from 'p-queue'
@@ -15,11 +15,11 @@ import titreAdministrationsGestionnairesBuild from '../rules/titre-administratio
 
 const titreAdministrationsGestionnairesToCreatedFind = (
   titreAdministrationsGestionnairesOldIds: string[],
-  titreAdministrationsGestionnaires: ITitresAdministrationsGestionnaires[]
+  titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[]
 ) =>
   titreAdministrationsGestionnaires.reduce(
     (
-      titresAdministrationsGestionnairesToCreate: ITitresAdministrationsGestionnaires[],
+      titresAdministrationsGestionnairesToCreate: ITitreAdministrationsGestionnaire[],
       titreAdministrationGestionnaire
     ) => {
       if (
@@ -39,12 +39,12 @@ const titreAdministrationsGestionnairesToCreatedFind = (
 
 const titreAdministrationsGestionnairesToDeleteFind = (
   titreAdministrationsGestionnairesOldIds: string[],
-  titreAdministrationsGestionnaires: ITitresAdministrationsGestionnaires[],
+  titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[],
   titreId: string
 ) =>
   titreAdministrationsGestionnairesOldIds.reduce(
     (
-      titreAdministrationsGestionnairesToDelete: ITitresAdministrationsGestionnaires[],
+      titreAdministrationsGestionnairesToDelete: ITitreAdministrationsGestionnaire[],
       id
     ) => {
       if (
@@ -64,8 +64,8 @@ const titreAdministrationsGestionnairesToDeleteFind = (
   )
 
 const titresAdministrationsGestionnairesToCreateAndDeleteBuild = (
-  titres: ITitres[],
-  administrations: IAdministrations[]
+  titres: ITitre[],
+  administrations: IAdministration[]
 ) =>
   titresAdministrationsGestionnairesToUpdateBuild(
     titres,
@@ -76,8 +76,8 @@ const titresAdministrationsGestionnairesToCreateAndDeleteBuild = (
         titresAdministrationsGestionnairesToCreate,
         titresAdministrationsGestionnairesToDelete
       }: {
-        titresAdministrationsGestionnairesToCreate: ITitresAdministrationsGestionnaires[]
-        titresAdministrationsGestionnairesToDelete: ITitresAdministrationsGestionnaires[]
+        titresAdministrationsGestionnairesToCreate: ITitreAdministrationsGestionnaire[]
+        titresAdministrationsGestionnairesToDelete: ITitreAdministrationsGestionnaire[]
       },
       {
         titreAdministrationsGestionnairesOldIds,
@@ -113,13 +113,13 @@ const titresAdministrationsGestionnairesToCreateAndDeleteBuild = (
 
 interface ITitresAdministrationsGestionnairesToUpdate {
   titreAdministrationsGestionnairesOldIds: string[]
-  titreAdministrationsGestionnaires: ITitresAdministrationsGestionnaires[]
+  titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[]
   titreId: string
 }
 
 const titresAdministrationsGestionnairesToUpdateBuild = (
-  titres: ITitres[],
-  administrations: IAdministrations[]
+  titres: ITitre[],
+  administrations: IAdministration[]
 ) =>
   titres.reduce(
     (
@@ -149,8 +149,8 @@ const titresAdministrationsGestionnairesToUpdateBuild = (
   )
 
 const titresAdministrationsGestionnairesUpdate = async (
-  titres: ITitres[],
-  administrations: IAdministrations[]
+  titres: ITitre[],
+  administrations: IAdministration[]
 ) => {
   const {
     titresAdministrationsGestionnairesToCreate,
@@ -160,7 +160,7 @@ const titresAdministrationsGestionnairesUpdate = async (
     administrations
   )
 
-  let titresAdministrationsGestionnairesCreated = [] as ITitresAdministrationsGestionnaires[]
+  let titresAdministrationsGestionnairesCreated = [] as ITitreAdministrationsGestionnaire[]
   const titresAdministrationsGestionnairesDeleted = [] as string[]
 
   if (titresAdministrationsGestionnairesToCreate.length) {

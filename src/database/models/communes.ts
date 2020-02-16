@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 import { join } from 'path'
 
-import { ICommunes } from '../../types'
+import { ICommune } from '../../types'
 
-interface Communes extends ICommunes {}
+interface Communes extends ICommune {}
 
 class Communes extends Model {
   public static tableName = 'communes'

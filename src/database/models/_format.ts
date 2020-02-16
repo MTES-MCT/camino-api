@@ -1,9 +1,10 @@
+import { IPays, ICommune } from '../../types'
+import * as slugify from '@sindresorhus/slugify'
 import { Pojo } from 'objection'
-import { IPays, ICommunes } from '../../types'
 
 const titreInsertFormat = (json: Pojo) => {
   if (!json.id && json.domaineId && json.typeId && json.nom) {
-    json.id = `${json.domaineId}-${json.typeId}-${json.nom}-9999`
+    json.id = slugify(`${json.domaineId}-${json.typeId}-${json.nom}-9999`)
   }
 
   delete json.geojsonMultiPolygon
@@ -19,7 +20,7 @@ const titreInsertFormat = (json: Pojo) => {
   return json
 }
 
-const paysFormat = (communes: ICommunes[]) => {
+const paysFormat = (communes: ICommune[]) => {
   if (!communes) return []
 
   const pays = communes.reduce((pays: IPays[], commune) => {

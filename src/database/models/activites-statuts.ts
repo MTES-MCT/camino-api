@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { IActivitesStatuts } from '../../types'
+import { IActiviteStatut } from '../../types'
 
-interface ActivitesStatuts extends IActivitesStatuts {}
+interface ActivitesStatuts extends IActiviteStatut {}
 
 class ActivitesStatuts extends Model {
   public static tableName = 'activitesStatuts'

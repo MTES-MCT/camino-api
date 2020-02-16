@@ -39,50 +39,29 @@ type Document {
 
 input InputDocumentCreation {
   titreEtapeId: ID!
-
   typeId: ID!
-
   nom: String
-
   url: String
-
   uri: String
-
   fichier: Boolean
-
   fichierTypeId: ID
-
   fichierNouveau: FileUpload
-
   jorf: String
-
   nor: String
-
   public: Boolean
 }
 
 input InputDocumentModification {
   id: ID!
-
   titreEtapeId: ID!
-
   typeId: ID!
-
   nom: String
-
   url: String
-
   uri: String
-
   fichier: Boolean
-
   fichierTypeId: ID
-
   fichierNouveau: FileUpload
-
   jorf: String
-
   nor: String
-
   public: Boolean
 }

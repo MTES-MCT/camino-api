@@ -1,11 +1,11 @@
-import { ITitres } from '../../types'
+import { ITitre } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
-const titresDemarchesStatutUpdate = async (titres: ITitres[]) => {
+const titresDemarchesStatutUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   // TODO: forcer la présence des démarches sur le tritre

@@ -1,4 +1,4 @@
-import { RequestContext } from '../../types'
+import { IToken } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import {
@@ -17,17 +17,17 @@ import {
 
 const administration = async (
   { id }: { id: string },
-  context: RequestContext,
+  context: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+
     const administration = await administrationGet(id, {
       graph: graphBuild(graphFieldsBuild(info), 'administration', graphFormat)
     })
 
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    return administrationFormat(administration, user)
+    return administrationFormat(user, administration)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -39,10 +39,12 @@ const administration = async (
 
 const administrations = async (
   { noms }: { noms: string[] },
-  context: RequestContext,
+  context: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+
     const administrations = await administrationsGet(
       { noms },
       {
@@ -50,9 +52,7 @@ const administrations = async (
       }
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    return administrationsFormat(administrations, user)
+    return administrationsFormat(user, administrations)
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -1,21 +1,18 @@
-import {
-  IAdministrations,
-  ITitresAdministrationsGestionnaires
-} from '../../types'
+import { IAdministration, ITitreAdministrationsGestionnaire } from '../../types'
 
 // administrations restreintes à certains types types de titres
-const administrationsTypesRestrictions = ({
+const administrationsTypesRestrictions = {
   'ope-ptmg-973-01': ['arm'],
   'ope-onf-973-01': ['arm'],
   'dea-guyane-01': ['axm']
-} as any) as { [id: string]: string[] }
+} as { [id: string]: string[] }
 
 // administrations associees sur certains types de titres
-const administrationsTypesAssociees = ({
+const administrationsTypesAssociees = {
   'dea-guyane-01': ['arm'],
   'ope-ptmg-973-01': ['arm'],
   'min-mtes-dgaln-01': ['arm', 'axm']
-} as any) as { [id: string]: string[] }
+} as { [id: string]: string[] }
 
 const titreAdministrationsGestionnairesBuild = (
   {
@@ -23,11 +20,11 @@ const titreAdministrationsGestionnairesBuild = (
     domaineId,
     typeId
   }: { id: string; domaineId: string; typeId: string },
-  administrations: IAdministrations[]
+  administrations: IAdministration[]
 ) =>
   administrations.reduce(
     (
-      titreAdministrationsGestionnaires: ITitresAdministrationsGestionnaires[],
+      titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[],
       administration
     ) => {
       const isTitreAdministration =
@@ -52,10 +49,10 @@ const titreAdministrationsGestionnairesBuild = (
         administrationsTypesAssociees[administration.id] &&
         administrationsTypesAssociees[administration.id].includes(typeId)
 
-      const titreAdministrationGestionnaire = ({
+      const titreAdministrationGestionnaire = {
         titreId,
         administrationId: administration.id
-      } as any) as ITitresAdministrationsGestionnaires
+      } as ITitreAdministrationsGestionnaire
 
       if (associee) {
         titreAdministrationGestionnaire.associee = associee

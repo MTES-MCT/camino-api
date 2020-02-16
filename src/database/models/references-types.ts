@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 
-import { IReferencesTypes } from '../../types'
+import { IReferenceType } from '../../types'
 
-interface ReferencesTypes extends IReferencesTypes {}
+interface ReferencesTypes extends IReferenceType {}
 
 class ReferencesTypes extends Model {
   public static tableName = 'referencesTypes'

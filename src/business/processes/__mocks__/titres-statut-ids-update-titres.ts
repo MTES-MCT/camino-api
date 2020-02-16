@@ -1,4 +1,4 @@
-import { ITitres } from '../../../types'
+import { ITitre } from '../../../types'
 
 const titresValideStatutIdAJour = ([
   {
@@ -27,7 +27,7 @@ const titresValideStatutIdAJour = ([
       }
     ]
   }
-] as unknown) as ITitres[]
+] as unknown) as ITitre[]
 
 const titresEchuStatutIdObselete = ([
   {
@@ -55,6 +55,6 @@ const titresEchuStatutIdObselete = ([
       }
     ]
   }
-] as unknown) as ITitres[]
+] as unknown) as ITitre[]
 
 export { titresValideStatutIdAJour, titresEchuStatutIdObselete }

@@ -1,4 +1,4 @@
-import { IUtilisateurs } from '../../types'
+import { IUtilisateur } from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
@@ -54,7 +54,7 @@ const utilisateursGet = async ({
   return q
 }
 
-const utilisateurCreate = async (utilisateur: IUtilisateurs) =>
+const utilisateurCreate = async (utilisateur: IUtilisateur) =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
     .withGraphFetched(options.utilisateurs.graph)
@@ -66,7 +66,7 @@ const utilisateurDelete = async (id: string) =>
     .first()
     .returning('*')
 
-const utilisateurUpdate = async (utilisateur: IUtilisateurs) =>
+const utilisateurUpdate = async (utilisateur: IUtilisateur) =>
   Utilisateurs.query()
     .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
     .withGraphFetched(options.utilisateurs.graph)

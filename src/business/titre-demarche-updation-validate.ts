@@ -1,7 +1,7 @@
-import { ITitresDemarches } from '../types'
+import { ITitreDemarche } from '../types'
 
 const titreDemarcheUpdationValidate = async (
-  titreDemarcheNew: ITitresDemarches
+  titreDemarcheNew: ITitreDemarche
 ) => {
   const errors = [] as string[]
   // vérifie

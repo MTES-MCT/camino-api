@@ -1,4 +1,4 @@
-import { IEntreprisesEtablissements } from '../../types'
+import { IEntrepriseEtablissement } from '../../types'
 import EntrepriseEtablissements from '../models/entreprises-etablissements'
 import options from './_options'
 
@@ -9,7 +9,7 @@ const entreprisesEtablissementsGet = async () =>
   EntrepriseEtablissements.query().skipUndefined()
 
 const entreprisesEtablissementsUpsert = async (
-  entreprisesEtablissements: IEntreprisesEtablissements[]
+  entreprisesEtablissements: IEntrepriseEtablissement[]
 ) =>
   EntrepriseEtablissements.query().upsertGraph(
     entreprisesEtablissements,

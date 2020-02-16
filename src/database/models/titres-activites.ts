@@ -1,9 +1,9 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
 
-import { ITitresActivites } from '../../types'
+import { ITitreActivite } from '../../types'
 
-interface TitresActivites extends ITitresActivites {}
+interface TitresActivites extends ITitreActivite {}
 
 class TitresActivites extends Model {
   public static tableName = 'titresActivites'
@@ -84,15 +84,10 @@ class TitresActivites extends Model {
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)
 
-    if (
-      !json.id &&
-      json.titreId &&
-      json.typeId &&
-      json.frequencePeriodeId
-    ) {
+    if (!json.id && json.titreId && json.typeId && json.frequencePeriodeId) {
       const id = `${json.titreId}-${json.typeId}-${
         json.annee
-        }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
+      }-${json.frequencePeriodeId.toString().padStart(2, '0')}`
       json.id = id
     }
 

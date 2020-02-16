@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 import { join } from 'path'
 
-import { IAdministrations } from '../../types'
+import { IAdministration } from '../../types'
 
-interface Administrations extends IAdministrations {}
+interface Administrations extends IAdministration {}
 
 class Administrations extends Model {
   public static tableName = 'administrations'

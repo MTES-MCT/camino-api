@@ -12,13 +12,9 @@ async function main() {
     const titreOldId = titre.id
     try {
       // met à jour les ids de titre par effet de bord
-      titre = titreIdAndRelationsUpdate(titre)
+      const { hasChanged } = titreIdAndRelationsUpdate(titre)
 
-      if (!titre) {
-        console.log('null')
-
-        return null
-      }
+      if (!hasChanged) return null
 
       titre = await titreIdCheck(titreOldId, titre)
       await titreIdUpdate(titreOldId, titre)

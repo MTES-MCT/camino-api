@@ -1,4 +1,4 @@
-import { ITitres } from '../../types'
+import { ITitre } from '../../types'
 
 import * as cryptoRandomString from 'crypto-random-string'
 import * as slugify from '@sindresorhus/slugify'
@@ -8,10 +8,10 @@ import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import titreIdFind from '../utils/titre-id-find'
 import { titreFichiersRename } from './titre-fichiers-rename'
 
-const titreIdFindHashAdd = (hash: string) => (titre: ITitres) =>
+const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
   slugify(`${titreIdFind(titre)}-${hash}`)
 
-const titreIdCheck = async (titreOldId: string, titre: ITitres) => {
+const titreIdCheck = async (titreOldId: string, titre: ITitre) => {
   if (titreOldId !== titre.id) {
     const titreWithTheSameId = await titreGet(titre.id, { graph: '' })
 
@@ -32,18 +32,18 @@ const titreIdCheck = async (titreOldId: string, titre: ITitres) => {
   return titre
 }
 
-const titreIdsUpdate = async (titre: ITitres) => {
+const titreIdsUpdate = async (titre: ITitre) => {
   // les transaction en bdd ne peuvent être effectuées en parallèle
   // comment ça se passe si plusieurs utilisateurs modifient des titres en même temps ?
 
   const titreOldId = titre.id
   try {
     // met à jour les ids de titre par effet de bord
-    titre = titreIdAndRelationsUpdate(titre)
+    const update = titreIdAndRelationsUpdate(titre)
 
-    if (!titre) return null
+    if (!update.hasChanged) return null
 
-    titre = await titreIdCheck(titreOldId, titre)
+    titre = await titreIdCheck(titreOldId, update.titre)
     await titreIdUpdate(titreOldId, titre)
     await titreFichiersRename(titreOldId, titre)
 
@@ -62,7 +62,7 @@ interface ITitreIdsIndex {
   [key: string]: string
 }
 
-const titresIdsUpdate = async (titres: ITitres[]) => {
+const titresIdsUpdate = async (titres: ITitre[]) => {
   // les transactions `titreIdUpdate` ne peuvent être exécutées en parallèle
   const titresUpdatedIndex = {} as ITitreIdsIndex
 

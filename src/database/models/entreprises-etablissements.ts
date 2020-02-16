@@ -1,8 +1,8 @@
 import { Model, Modifiers } from 'objection'
 
-import { IEntreprisesEtablissements } from '../../types'
+import { IEntrepriseEtablissement } from '../../types'
 
-interface EntreprisesEtablissements extends IEntreprisesEtablissements {}
+interface EntreprisesEtablissements extends IEntrepriseEtablissement {}
 
 class EntreprisesEtablissements extends Model {
   public static tableName = 'entreprisesEtablissements'

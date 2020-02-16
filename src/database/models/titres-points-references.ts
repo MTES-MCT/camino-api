@@ -1,8 +1,8 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
-import { ITitresPointsReferences } from '../../types'
+import { ITitrePointReference } from '../../types'
 
-interface TitresPointsReferences extends ITitresPointsReferences {}
+interface TitresPointsReferences extends ITitrePointReference {}
 
 class TitresPointsReferences extends Model {
   public static tableName = 'titresPointsReferences'

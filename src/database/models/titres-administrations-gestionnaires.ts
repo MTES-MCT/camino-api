@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 
-import { ITitresAdministrationsGestionnaires } from '../../types'
+import { ITitreAdministrationsGestionnaire } from '../../types'
 
 interface TitresAdministrationsGestionnaires
-  extends ITitresAdministrationsGestionnaires {}
+  extends ITitreAdministrationsGestionnaire {}
 
 class TitresAdministrationsGestionnaires extends Model {
   public static tableName = 'titresAdministrationsGestionnaires'

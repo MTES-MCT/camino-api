@@ -1,8 +1,8 @@
 import { transaction, Transaction } from 'objection'
 import {
-  ITitresEtapes,
-  ITitresCommunes,
-  ITitresAdministrationsLocales
+  ITitreEtape,
+  ITitreCommune,
+  ITitreAdministrationLocale
 } from '../../types'
 
 import TitresEtapes from '../models/titres-etapes'
@@ -50,23 +50,23 @@ const titreEtapeGet = async (
     .withGraphFetched(graph)
     .findById(titreEtapeId)
 
-const titreEtapeCreate = async (titreEtape: ITitresEtapes) =>
+const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
   TitresEtapes.query()
     .insertAndFetch(titreEtape)
     .withGraphFetched(options.etapes.graph)
 
-const titreEtapeUpdate = async (id: string, props: Partial<ITitresEtapes>) =>
+const titreEtapeUpdate = async (id: string, props: Partial<ITitreEtape>) =>
   TitresEtapes.query()
     .withGraphFetched(options.etapes.graph)
     .patchAndFetchById(id, props)
 
-const titreEtapeDelete = async (id: string, trx: Transaction) =>
+const titreEtapeDelete = async (id: string, trx?: Transaction) =>
   TitresEtapes.query(trx)
     .deleteById(id)
     .withGraphFetched(options.etapes.graph)
     .returning('*')
 
-const titreEtapeUpsert = async (titreEtape: ITitresEtapes, trx: Transaction) =>
+const titreEtapeUpsert = async (titreEtape: ITitreEtape, trx?: Transaction) =>
   TitresEtapes.query(trx)
     .upsertGraph(titreEtape, options.etapes.update)
     .withGraphFetched(options.etapes.graph)
@@ -75,7 +75,7 @@ const titreEtapeUpsert = async (titreEtape: ITitresEtapes, trx: Transaction) =>
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
 
 const titresEtapesCommunesUpdate = async (
-  titresEtapesCommunes: ITitresCommunes
+  titresEtapesCommunes: ITitreCommune
 ) =>
   TitresCommunes.query().upsertGraph(titresEtapesCommunes, {
     insertMissing: true
@@ -91,7 +91,7 @@ const titreEtapeCommuneDelete = async (
     .andWhere('communeId', communeId)
 
 const titresEtapesAdministrationsCreate = async (
-  titresEtapesAdministrations: ITitresAdministrationsLocales
+  titresEtapesAdministrations: ITitreAdministrationLocale
 ) => TitresAdministrationsLocales.query().insert(titresEtapesAdministrations)
 
 const titreEtapeAdministrationDelete = async (
@@ -105,7 +105,7 @@ const titreEtapeAdministrationDelete = async (
 
 const titreEtapesIdsUpdate = async (
   titresEtapesIdsOld: string[],
-  titresEtapesNew: ITitresEtapes[]
+  titresEtapesNew: ITitreEtape[]
 ) => {
   const knex = TitresEtapes.knex()
 

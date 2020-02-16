@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { ITitresAdministrationsLocales } from '../../types'
+import { ITitreAdministrationLocale } from '../../types'
 
-interface TitresAdministrationsLocales extends ITitresAdministrationsLocales {}
+interface TitresAdministrationsLocales extends ITitreAdministrationLocale {}
 
 class TitresAdministrationsLocales extends Model {
   public static tableName = 'titresAdministrationsLocales'

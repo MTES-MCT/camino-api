@@ -1,8 +1,8 @@
 import { Model, Modifiers } from 'objection'
 
-import { IDevises } from '../../types'
+import { IDevise } from '../../types'
 
-interface Devises extends IDevises {}
+interface Devises extends IDevise {}
 
 class Devises extends Model {
   public static tableName = 'devises'

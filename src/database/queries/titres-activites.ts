@@ -1,4 +1,4 @@
-import { ITitresActivites } from '../../types'
+import { ITitreActivite } from '../../types'
 import TitreActivites from '../models/titres-activites'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
@@ -29,14 +29,14 @@ const titresActivitesGet = async (
   return q
 }
 
-const titreActivitesUpsert = async (titreActivites: ITitresActivites[]) =>
+const titreActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
   TitreActivites.query()
     .withGraphFetched(options.titresActivites.graph)
     .upsertGraph(titreActivites, { insertMissing: true })
 
 const titreActiviteUpdate = async (
   id: string,
-  props: Partial<ITitresActivites>,
+  props: Partial<ITitreActivite>,
   { graph = options.titresActivites.graph } = {}
 ) =>
   TitreActivites.query()

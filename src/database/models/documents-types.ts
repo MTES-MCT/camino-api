@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 
-import { IDocumentsTypes } from '../../types'
+import { IDocumentType } from '../../types'
 
-interface DocumentsTypes extends IDocumentsTypes {}
+interface DocumentsTypes extends IDocumentType {}
 
 class DocumentsTypes extends Model {
   public static tableName = 'documentsTypes'

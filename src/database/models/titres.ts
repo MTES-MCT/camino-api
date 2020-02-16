@@ -15,9 +15,9 @@ import TitresReferences from './titres-references'
 import Types from './titres-types'
 import Unites from './unites'
 
-import { ITitres } from '../../types'
+import { ITitre } from '../../types'
 
-interface Titres extends ITitres {}
+interface Titres extends ITitre {}
 
 class Titres extends Model {
   public static tableName = 'titres'

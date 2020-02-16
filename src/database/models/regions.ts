@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 import { join } from 'path'
 
-import { IRegions } from '../../types'
+import { IRegion } from '../../types'
 
-interface Regions extends IRegions {}
+interface Regions extends IRegion {}
 
 class Regions extends Model {
   public static tableName = 'regions'

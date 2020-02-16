@@ -1,9 +1,9 @@
-import { ITitresPoints, ITitresPointsReferences, ICoordonnees } from '../types'
+import { ITitrePoint, ITitrePointReference, ICoordonnees } from '../types'
 import geoConvert from '../tools/geo-convert'
-import { geoSystemeGet } from '../database/queries/metas'
+import geoSystemes from '../database/cache/geo-systemes'
 
-const titreEtapePointsCalc = async (titrePoints: ITitresPoints[]) => {
-  const uniteRatio = await uniteRatioFind(pointReferenceFind(titrePoints))
+const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
+  const uniteRatio = uniteRatioFind(pointReferenceFind(titrePoints))
 
   return titrePoints.map(point => {
     const reference =
@@ -18,18 +18,18 @@ const titreEtapePointsCalc = async (titrePoints: ITitresPoints[]) => {
   })
 }
 
-const pointReferenceFind = (points: ITitresPoints[]) =>
+const pointReferenceFind = (points: ITitrePoint[]) =>
   points.length &&
   points[0].references &&
   points[0].references.length &&
   (points[0].references.find(r => r.opposable) || points[0].references[0])
 
-const uniteRatioFind = async (pointReference: ITitresPointsReferences | 0) => {
-  if (!pointReference || !pointReference.geoSystemeId) {
-    return 1
-  }
+const uniteRatioFind = (pointReference: ITitrePointReference | 0) => {
+  if (!pointReference || !pointReference.geoSystemeId) return 1
 
-  const geoSysteme = await geoSystemeGet(pointReference.geoSystemeId)
+  const geoSysteme = geoSystemes.find(
+    ({ id }) => pointReference.geoSystemeId === id
+  )
 
   return geoSysteme && geoSysteme.unite && geoSysteme.unite.id === 'gon'
     ? 0.9

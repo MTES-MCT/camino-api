@@ -1,8 +1,8 @@
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
-import { ITitresPoints, ITitresPointsReferences } from '../../types'
+import { ITitrePoint, ITitrePointReference } from '../../types'
 
-interface TitresPoints extends ITitresPoints {}
+interface TitresPoints extends ITitrePoint {}
 
 class TitresPoints extends Model {
   public static tableName = 'titresPoints'
@@ -71,7 +71,7 @@ class TitresPoints extends Model {
     }
 
     if (json.references) {
-      json.references.forEach((reference: ITitresPointsReferences) => {
+      json.references.forEach((reference: ITitrePointReference) => {
         reference.titrePointId = json.id
       })
     }

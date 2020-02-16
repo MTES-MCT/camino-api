@@ -20,7 +20,7 @@ import { titreIdsUpdate } from './processes/titres-ids-update'
 import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const titreEtapeUpdate = async (
-  titreEtapeId: string,
+  titreEtapeId: string | null,
   titreDemarcheId: string
 ) => {
   try {
@@ -29,10 +29,9 @@ const titreEtapeUpdate = async (
     let titreDemarche = await titreDemarcheGet(titreDemarcheId, {
       graph: '[etapes, type.[etapesTypes]]'
     })
-    if (!titreDemarche) {
-      console.log(`warning: la démarche ${titreDemarche} n'existe plus`)
 
-      return null
+    if (!titreDemarche) {
+      throw new Error(`la démarche ${titreDemarche} n'existe pas`)
     }
 
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate([

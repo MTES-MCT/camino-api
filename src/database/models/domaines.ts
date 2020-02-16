@@ -1,9 +1,9 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 
-import { IDomaines } from '../../types'
+import { IDomaine } from '../../types'
 
-interface Domaines extends IDomaines {}
+interface Domaines extends IDomaine {}
 
 class Domaines extends Model {
   public static tableName = 'domaines'

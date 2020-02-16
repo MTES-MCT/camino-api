@@ -1,4 +1,4 @@
-import { ITitresActivites } from '../../types'
+import { ITitreActivite } from '../../types'
 
 import PQueue from 'p-queue'
 
@@ -7,7 +7,7 @@ import titreActiviteStatutIdFind from '../rules/titre-activite-statut-id-find'
 
 // met à jour le statut des activités d'un titre
 const titreActivitesStatutIdsUpdate = async (
-  titresActivites: ITitresActivites[]
+  titresActivites: ITitreActivite[]
 ) => {
   const queue = new PQueue({
     concurrency: 100

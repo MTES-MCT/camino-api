@@ -1,8 +1,8 @@
 import { Model, Modifiers } from 'objection'
 
-import { ITitresStatuts } from '../../types'
+import { ITitreStatut } from '../../types'
 
-interface TitresStatuts extends ITitresStatuts {}
+interface TitresStatuts extends ITitreStatut {}
 
 class TitresStatuts extends Model {
   public static tableName = 'titresStatuts'

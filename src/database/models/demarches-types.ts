@@ -1,9 +1,9 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 
-import { IDemarchesTypes } from '../../types'
+import { IDemarcheType } from '../../types'
 
-interface DemarchesTypes extends IDemarchesTypes {}
+interface DemarchesTypes extends IDemarcheType {}
 
 class DemarchesTypes extends Model {
   public static tableName = 'demarchesTypes'
@@ -35,7 +35,11 @@ class DemarchesTypes extends Model {
           from: 'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
           to: 'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
           // permet de donner un alias spécial aux champs extra { alias: field }
-          extra: { 'ordre': 'ordre', 'titreTypeId': 'titreTypeId', 'customSections': 'sections' }
+          extra: {
+            ordre: 'ordre',
+            titreTypeId: 'titreTypeId',
+            sectionsSpecifiques: 'sections'
+          }
         },
         to: 'etapesTypes.id'
       }
