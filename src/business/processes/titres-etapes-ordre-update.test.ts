@@ -7,7 +7,7 @@ import {
 } from './__mocks__/titres-etapes-ordre-update-demarches'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
-  titreEtapeUpdate: jest.fn().mockResolvedValue()
+  titreEtapeUpdate: jest.fn().mockResolvedValue(true)
 }))
 
 console.log = jest.fn()
@@ -15,8 +15,7 @@ console.log = jest.fn()
 describe('ordre des étapes', () => {
   test("met à jour l'ordre de deux étapes", async () => {
     const titresEtapesUpdated = await titresEtapesOrdreUpdate(
-      titresDemarchesEtapes,
-      []
+      titresDemarchesEtapes
     )
     expect(titresEtapesUpdated.length).toEqual(1)
     expect(titreEtapeUpdate).toHaveBeenCalled()
@@ -24,8 +23,7 @@ describe('ordre des étapes', () => {
 
   test("ne met aucun ordre d'étape à jour", async () => {
     const titresEtapesUpdated = await titresEtapesOrdreUpdate(
-      titresDemarchesEtapesVides,
-      []
+      titresDemarchesEtapesVides
     )
     expect(titresEtapesUpdated.length).toEqual(0)
     expect(titreEtapeUpdate).not.toHaveBeenCalled()

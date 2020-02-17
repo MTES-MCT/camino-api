@@ -1,8 +1,10 @@
+import { ITitresPoints } from '../../types'
+
 import titresPointsReferencesCreate from './titres-points-references-create'
 import * as queries from '../../database/queries/titres-points'
 
 jest.mock('../../database/queries/titres-points', () => ({
-  titrePointReferenceCreate: jest.fn().mockResolvedValue()
+  titrePointReferenceCreate: jest.fn().mockResolvedValue(true)
 }))
 
 console.log = jest.fn()
@@ -16,7 +18,7 @@ describe("références des points d'un titre", () => {
         coordonnees: { x: 0.1, y: 0.2 },
         references: [{}]
       }
-    ]
+    ] as ITitresPoints[]
 
     const pointsReferencesCreated = await titresPointsReferencesCreate(
       titresEtapes
@@ -34,7 +36,7 @@ describe("références des points d'un titre", () => {
   })
 
   test("ne crée pas de référence sur un titre qui n'a pas de point", async () => {
-    const titresEtapes = []
+    const titresEtapes = [] as ITitresPoints[]
 
     const pointsReferencesCreated = await titresPointsReferencesCreate(
       titresEtapes

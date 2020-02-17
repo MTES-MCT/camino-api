@@ -6,7 +6,7 @@ import {
 } from './__mocks__/titres-statut-ids-update-titres'
 
 jest.mock('../../database/queries/titres', () => ({
-  titreUpdate: jest.fn().mockResolvedValue()
+  titreUpdate: jest.fn().mockResolvedValue(true)
 }))
 
 console.log = jest.fn()

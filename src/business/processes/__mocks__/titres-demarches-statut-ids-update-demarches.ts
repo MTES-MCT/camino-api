@@ -1,4 +1,6 @@
-const titresDemarchesStatutModifie = [
+import { ITitres } from '../../../types'
+
+const titresDemarchesStatutModifie = ([
   {
     demarches: [
       {
@@ -29,9 +31,9 @@ const titresDemarchesStatutModifie = [
       }
     ]
   }
-]
+] as unknown) as ITitres[]
 
-const titresDemarchesStatutIdentique = [
+const titresDemarchesStatutIdentique = ([
   {
     demarches: [
       {
@@ -62,6 +64,6 @@ const titresDemarchesStatutIdentique = [
       }
     ]
   }
-]
+] as unknown) as ITitres[]
 
 export { titresDemarchesStatutModifie, titresDemarchesStatutIdentique }
