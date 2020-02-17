@@ -96,7 +96,7 @@
     "graphql-iso-date": "^3.6.1",
     "graphql-upload": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "0.20.9",
+    "knex": "^0.20.10",
     "knex-db-manager": "^0.5.0",
     "make-dir": "^3.0.2",
     "node-fetch": "^2.6.0",
