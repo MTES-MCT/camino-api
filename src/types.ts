@@ -600,6 +600,32 @@ interface RequestContext {
   user: IUtilisateurs
 }
 
+type TitreEtapeIdPropNames =
+  | 'pointsTitreEtapeId'
+  | 'titulairesTitreEtapeId'
+  | 'amodiatairesTitreEtapeId'
+  | 'administrationsTitreEtapeId'
+  | 'surfaceTitreEtapeId'
+  | 'volumeTitreEtapeId'
+  | 'volumeUniteIdTitreEtapeId'
+  | 'substancesTitreEtapeId'
+  | 'communesTitreEtapeId'
+  | 'engagementTitreEtapeId'
+  | 'engagementDeviseIdTitreEtapeId'
+
+type TitreEtapePropNames =
+  | 'points'
+  | 'titulaires'
+  | 'amodiataires'
+  | 'administrations'
+  | 'surface'
+  | 'volume'
+  | 'volumeUniteId'
+  | 'substances'
+  | 'communes'
+  | 'engagement'
+  | 'engagementDeviseId'
+
 export {
   IActivitesStatuts,
   IActivitesTypes,
@@ -660,5 +686,7 @@ export {
   IUnites,
   IUsers,
   IUtilisateurs,
-  RequestContext
+  RequestContext,
+  TitreEtapeIdPropNames,
+  TitreEtapePropNames
 }

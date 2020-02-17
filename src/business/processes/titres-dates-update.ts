@@ -9,7 +9,7 @@ const titresDatesUpdate = async (titres: ITitres[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {
-    const props: any = {}
+    const props: Partial<ITitres> = {}
 
     const dateFin = titreDateFinFind(titre.demarches)
 

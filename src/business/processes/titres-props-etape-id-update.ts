@@ -1,47 +1,12 @@
 import {
   ITitres,
-  IDomaines,
-  ITitresActivites,
-  IAdministrations,
-  IDevises,
-  IEntreprises,
-  ITitresDemarches,
-  ITitresEtapes,
-  IGeoJson,
-  ITitresPoints,
-  ITitresReferences,
-  ISubstances,
-  ITitresTypes,
-  IUnites
+  TitreEtapeIdPropNames,
+  TitreEtapePropNames
 } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreUpdate } from '../../database/queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
-
-interface ITitresIndex extends ITitres {
-  [key: string]:
-    | string
-    | number
-    | boolean
-    | ITitresActivites[]
-    | IDomaines
-    | IAdministrations[]
-    | IDevises
-    | IEntreprises[]
-    | ITitresDemarches[]
-    | ITitresEtapes
-    | IGeoJson
-    | ITitresPoints[]
-    | ITitresReferences[]
-    | ISubstances
-    | ITitresTypes
-    | IUnites
-    | undefined
-}
-interface IPropsIndex {
-  [key: string]: string
-}
 
 const titrePropsEtapes = [
   'points',
@@ -55,24 +20,33 @@ const titrePropsEtapes = [
   'communes',
   'engagement',
   'engagementDeviseId'
-].map(prop => ({ prop, name: `${prop}TitreEtapeId` })) as IPropsIndex[]
+].map(prop => ({
+  prop,
+  name: `${prop}TitreEtapeId`
+})) as {
+  prop: TitreEtapePropNames
+  name: TitreEtapeIdPropNames
+}[]
 
-const titresPropsEtapeIdsUpdate = async (titres: ITitresIndex[]) => {
+const titresPropsEtapeIdsUpdate = async (titres: ITitres[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   const titresUpdated = titres.reduce((titresUpdated: ITitres[], titre) => {
-    const props = titrePropsEtapes.reduce((props, { prop, name }) => {
-      const value = titrePropEtapeIdFind(
-        { demarches: titre.demarches!, statutId: titre.statutId! },
-        prop
-      )
+    const props = titrePropsEtapes.reduce(
+      (props: Partial<ITitres>, { prop, name }) => {
+        const value = titrePropEtapeIdFind(
+          { demarches: titre.demarches!, statutId: titre.statutId! },
+          prop
+        )
 
-      if (value !== titre[name]) {
-        props[name] = value
-      }
+        if (value !== titre[name]) {
+          props[name] = value
+        }
 
-      return props
-    }, {})
+        return props
+      },
+      {}
+    )
 
     if (Object.keys(props).length) {
       queue.add(async () => {
