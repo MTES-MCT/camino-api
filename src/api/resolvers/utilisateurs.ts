@@ -1,10 +1,4 @@
-import {
-  IToken,
-  IUtilisateur,
-  IUtilisateurInput,
-  IEntreprise,
-  IAdministration
-} from '../../types'
+import { IToken, IUtilisateur } from '../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -46,25 +40,6 @@ const userIdGenerate = async (): Promise<string> => {
 
   return id
 }
-
-const utilisateurInputConvert = (utilisateurInput: IUtilisateurInput) =>
-  ({
-    id: utilisateurInput.id,
-    email: utilisateurInput.email.toLowerCase(),
-    motDePasse: utilisateurInput.motDePasse,
-    nom: utilisateurInput.nom,
-    prenom: utilisateurInput.prenom,
-    telephoneFixe: utilisateurInput.telephoneFixe,
-    telephoneMobile: utilisateurInput.telephoneMobile,
-    permissionId: utilisateurInput.permissionId,
-    preferences: utilisateurInput.preferences,
-    entreprises: utilisateurInput.entreprisesIds?.map((id: string) => ({
-      id
-    })) as IEntreprise[],
-    administrations: utilisateurInput.administrationsIds?.map((id: string) => ({
-      id
-    })) as IAdministration[]
-  } as IUtilisateur)
 
 const utilisateur = async ({ id }: { id: string }, context: IToken) => {
   try {
@@ -174,7 +149,7 @@ const utilisateurTokenCreer = async ({
 }
 
 const utilisateurCreer = async (
-  { utilisateur: utilisateurInput }: { utilisateur: IUtilisateurInput },
+  { utilisateur }: { utilisateur: IUtilisateur },
   context: IToken
 ) => {
   try {
@@ -186,7 +161,7 @@ const utilisateurCreer = async (
       ? await utilisateurGet(context.user.id)
       : undefined
 
-    const utilisateur = utilisateurInputConvert(utilisateurInput)
+    utilisateur.email = utilisateur.email!.toLowerCase()
 
     const errors = utilisateurEditionCheck(utilisateur)
 
@@ -295,13 +270,13 @@ const utilisateurCreationEmailEnvoyer = async ({
 }
 
 const utilisateurModifier = async (
-  { utilisateur: utilisateurInput }: { utilisateur: IUtilisateurInput },
+  { utilisateur }: { utilisateur: IUtilisateur },
   context: IToken
 ) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
-    const utilisateur = utilisateurInputConvert(utilisateurInput)
+    utilisateur.email = utilisateur.email!.toLowerCase()
 
     if (
       !user ||

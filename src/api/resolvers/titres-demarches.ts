@@ -1,9 +1,4 @@
-import {
-  IToken,
-  IDemarcheType,
-  ITitreDemarche,
-  ITitreDemarcheInput
-} from '../../types'
+import { IToken, IDemarcheType, ITitreDemarche } from '../../types'
 import { debug } from '../../config/index'
 
 import metas from '../../database/cache/metas'
@@ -24,13 +19,6 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
-
-const demarcheInputConvert = (demarcheInput: ITitreDemarcheInput) =>
-  ({
-    id: demarcheInput.id,
-    typeId: demarcheInput.typeId,
-    titreId: demarcheInput.titreId
-  } as ITitreDemarche)
 
 const titreDemarchesTypes = async (
   {
@@ -93,7 +81,7 @@ const titreDemarchesTypes = async (
 }
 
 const demarcheCreer = async (
-  { demarche: demarcheInput }: { demarche: ITitreDemarcheInput },
+  { demarche }: { demarche: ITitreDemarche },
   context: IToken
 ) => {
   try {
@@ -104,7 +92,7 @@ const demarcheCreer = async (
     }
 
     if (permissionsCheck(user, ['admin'])) {
-      const titre = await titreGet(demarcheInput.titreId, { graph: '' })
+      const titre = await titreGet(demarche.titreId, { graph: '' })
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
@@ -120,8 +108,6 @@ const demarcheCreer = async (
         throw new Error('droits insuffisants pour créer cette démarche')
       }
     }
-
-    const demarche = demarcheInputConvert(demarcheInput)
 
     const rulesErrors = await titreDemarcheUpdationValidate(demarche)
 
@@ -143,7 +129,7 @@ const demarcheCreer = async (
 }
 
 const demarcheModifier = async (
-  { demarche: demarcheInput }: { demarche: ITitreDemarcheInput },
+  { demarche }: { demarche: ITitreDemarche },
   context: IToken
 ) => {
   try {
@@ -154,7 +140,7 @@ const demarcheModifier = async (
     }
 
     if (permissionsCheck(user, ['admin'])) {
-      const titre = await titreGet(demarcheInput.titreId, { graph: '' })
+      const titre = await titreGet(demarche.titreId, { graph: '' })
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
@@ -170,8 +156,6 @@ const demarcheModifier = async (
         throw new Error('droits insuffisants pour modifier cette démarche')
       }
     }
-
-    const demarche = demarcheInputConvert(demarcheInput)
 
     const rulesErrors = await titreDemarcheUpdationValidate(demarche)
 

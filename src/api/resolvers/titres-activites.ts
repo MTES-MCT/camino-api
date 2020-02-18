@@ -1,10 +1,4 @@
-import {
-  IToken,
-  ITitreActivite,
-  ITitre,
-  IUtilisateur,
-  ITitreActiviteInput
-} from '../../types'
+import { IToken, ITitreActivite, ITitre, IUtilisateur } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
@@ -33,13 +27,6 @@ import { titreGet } from '../../database/queries/titres'
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
 import titreActiviteUpdationValidate from '../../business/titre-activite-updation-validate'
-
-const activiteInputConvert = (activiteInput: ITitreActiviteInput) =>
-  ({
-    id: activiteInput.id,
-    statutId: activiteInput.statutId,
-    contenu: activiteInput.contenu
-  } as ITitreActivite)
 
 const activite = async (
   { id }: { id: string },
@@ -121,7 +108,7 @@ const activites = async (
 }
 
 const activiteModifier = async (
-  { activite: activiteInput }: { activite: ITitreActiviteInput },
+  { activite }: { activite: ITitreActivite },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -132,7 +119,7 @@ const activiteModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    const activiteOld = await titreActiviteGet(activiteInput.id)
+    const activiteOld = await titreActiviteGet(activite.id)
     const titre = await titreGet(activiteOld.titreId)
 
     if (!titrePermissionCheck(user, ['super', 'admin'], titre, true)) {
@@ -160,8 +147,6 @@ const activiteModifier = async (
         'cette activité a été validée et ne peux plus être modifiée'
       )
     }
-
-    const activite = activiteInputConvert(activiteInput)
 
     const validationErrors = titreActiviteUpdationValidate(
       activite.contenu,

@@ -298,11 +298,11 @@ input InputEtapeCreation {
   volumeUniteId: ID
   engagement: Float
   engagementDeviseId: ID
-  substancesIds: [ID!]
+  substances: [InputId!]
   points: [InputPoint]
-  titulairesIds: [ID!]
-  amodiatairesIds: [ID!]
-  administrationsIds: [ID!]
+  titulaires: [InputId!]
+  amodiataires: [InputId!]
+  administrations: [InputId!]
   incertitudes: InputIncertitudes
   contenu: Json
 }
@@ -322,11 +322,11 @@ input InputEtapeModification {
   volumeUniteId: ID
   engagement: Float
   engagementDeviseId: ID
-  substancesIds: [ID!]
+  substances: [InputId!]
   points: [InputPoint]
-  titulairesIds: [ID!]
-  amodiatairesIds: [ID!]
-  administrationsIds: [ID!]
+  titulaires: [InputId!]
+  amodiataires: [InputId!]
+  administrations: [InputId!]
   incertitudes: InputIncertitudes
   contenu: Json
 }

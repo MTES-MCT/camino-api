@@ -3,12 +3,7 @@ import {
   IUtilisateur,
   ITitre,
   ITitreEtape,
-  IEtapeType,
-  ITitreEtapeInput,
-  ITitreIncertitudes,
-  ISubstance,
-  ITitrePointInput,
-  ITitrePoint
+  IEtapeType
 } from '../../types'
 
 import { debug } from '../../config/index'
@@ -34,53 +29,6 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
-
-const pointInputConvert = (pointInput: ITitrePointInput) =>
-  ({
-    nom: pointInput.nom,
-    groupe: pointInput.groupe,
-    contour: pointInput.contour,
-    point: pointInput.point,
-    references: pointInput.references,
-    lot: pointInput.lot,
-    description: pointInput.description,
-    securite: pointInput.securite,
-    subsidiaire: pointInput.subsidiaire
-  } as ITitrePoint)
-
-const etapeInputConvert = (etapeInput: ITitreEtapeInput) =>
-  ({
-    id: etapeInput.id,
-    typeId: etapeInput.typeId,
-    statutId: etapeInput.statutId,
-    titreDemarcheId: etapeInput.titreDemarcheId,
-    date: etapeInput.date,
-    ordre: etapeInput.ordre,
-    duree: etapeInput.duree,
-    dateDebut: etapeInput.dateDebut,
-    dateFin: etapeInput.dateFin,
-    surface: etapeInput.surface,
-    volume: etapeInput.volume,
-    volumeUniteId: etapeInput.volumeUniteId,
-    engagement: etapeInput.engagement,
-    engagementDeviseId: etapeInput.engagementDeviseId,
-    substances:
-      etapeInput.substancesIds &&
-      (etapeInput.substancesIds.map(id => ({ id })) as ISubstance[]),
-    points:
-      etapeInput.points &&
-      titreEtapePointsCalc(etapeInput.points.map(p => pointInputConvert(p))),
-    titulaires:
-      etapeInput.titulairesIds && etapeInput.titulairesIds.map(id => ({ id })),
-    amodiataires:
-      etapeInput.amodiatairesIds &&
-      etapeInput.amodiatairesIds.map(id => ({ id })),
-    administrations:
-      etapeInput.administrationsIds &&
-      etapeInput.administrationsIds.map(id => ({ id })),
-    incertitudes: etapeInput.incertitudes as ITitreIncertitudes,
-    contenu: etapeInput.contenu
-  } as ITitreEtape)
 
 const demarcheEtapeTypesFormat = (
   user: IUtilisateur | undefined,
@@ -177,7 +125,7 @@ const demarcheEtapesTypes = async (
 }
 
 const etapeCreer = async (
-  { etape: etapeInput }: { etape: ITitreEtapeInput },
+  { etape }: { etape: ITitreEtape },
   context: IToken
 ) => {
   try {
@@ -190,7 +138,7 @@ const etapeCreer = async (
     const isSuper = permissionsCheck(user, ['super'])
 
     if (!isSuper) {
-      const demarche = await titreDemarcheGet(etapeInput.titreDemarcheId, {
+      const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
         graph: ''
       })
 
@@ -214,7 +162,7 @@ const etapeCreer = async (
         !titreEtapePermissionAdministrationsCheck(
           user,
           'creation',
-          etapeInput.typeId,
+          etape.typeId,
           titre.typeId,
           titre.administrationsGestionnaires,
           titre.administrationsLocales
@@ -224,12 +172,14 @@ const etapeCreer = async (
       }
     }
 
-    const etape = etapeInputConvert(etapeInput)
-
     const rulesErrors = await titreEtapeUpdationValidate(etape)
 
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
+    }
+
+    if (etape.points) {
+      etape.points = titreEtapePointsCalc(etape.points)
     }
 
     const etapeUpdated = await titreEtapeUpsert(etape)
@@ -250,7 +200,7 @@ const etapeCreer = async (
 }
 
 const etapeModifier = async (
-  { etape: etapeInput }: { etape: ITitreEtapeInput },
+  { etape }: { etape: ITitreEtape },
   context: IToken
 ) => {
   try {
@@ -261,7 +211,7 @@ const etapeModifier = async (
     }
 
     if (!permissionsCheck(user, ['super'])) {
-      const demarche = await titreDemarcheGet(etapeInput.titreDemarcheId, {
+      const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
         graph: ''
       })
 
@@ -284,7 +234,7 @@ const etapeModifier = async (
         !titreEtapePermissionAdministrationsCheck(
           user,
           'modification',
-          etapeInput.typeId,
+          etape.typeId,
           titre.typeId,
           titre.administrationsGestionnaires,
           titre.administrationsLocales
@@ -294,12 +244,14 @@ const etapeModifier = async (
       }
     }
 
-    const etape = etapeInputConvert(etapeInput)
-
     const rulesErrors = await titreEtapeUpdationValidate(etape)
 
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
+    }
+
+    if (etape.points) {
+      etape.points = titreEtapePointsCalc(etape.points)
     }
 
     const etapeUpdated = await titreEtapeUpsert(etape)
