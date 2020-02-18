@@ -1,44 +1,43 @@
-import { ITitres, ITitresDemarches } from '../../types'
+import { ITitre, ITitreDemarche } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 
-const titresDemarchesOrdreUpdate = async (titres: ITitres[]) => {
+const titresDemarchesOrdreUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresDemarchesUpdated = titres.reduce(
-    (titresDemarchesUpdated, titre) =>
+  const titresDemarchesIdsUpdated = titres.reduce(
+    (titresDemarchesIdsUpdated: string[], titre) =>
       titreDemarchesAscSort(titre.demarches!.slice().reverse()).reduce(
         (
-          titresDemarchesUpdated: string[],
-          titreDemarche: ITitresDemarches,
+          titresDemarchesIdsUpdated: string[],
+          titreDemarche: ITitreDemarche,
           index: number
         ) => {
-          if (titreDemarche.ordre === index + 1) return titresDemarchesUpdated
+          if (titreDemarche.ordre === index + 1)
+            return titresDemarchesIdsUpdated
 
           queue.add(async () => {
             await titreDemarcheUpdate(titreDemarche.id, { ordre: index + 1 })
 
             console.log(
-              `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
-                ordre: index + 1
-              })}`
+              `mise à jour: démarche ${titreDemarche.id}, ordre: ${index + 1}`
             )
 
-            titresDemarchesUpdated.push(titreDemarche.id)
+            titresDemarchesIdsUpdated.push(titreDemarche.id)
           })
 
-          return titresDemarchesUpdated
+          return titresDemarchesIdsUpdated
         },
-        titresDemarchesUpdated
+        titresDemarchesIdsUpdated
       ),
     []
   )
 
   await queue.onIdle()
 
-  return titresDemarchesUpdated
+  return titresDemarchesIdsUpdated
 }
 
 export default titresDemarchesOrdreUpdate

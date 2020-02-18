@@ -1,8 +1,8 @@
 import { Model, Modifiers } from 'objection'
 
-import { IPermissions } from '../../types'
+import { IPermission } from '../../types'
 
-interface Permissions extends IPermissions {}
+interface Permissions extends IPermission {}
 
 class Permissions extends Model {
   public static tableName = 'permissions'

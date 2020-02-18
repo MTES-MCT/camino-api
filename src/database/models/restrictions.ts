@@ -1,15 +1,15 @@
 import { Model } from 'objection'
 
 import {
-  IRestrictionsDomaines,
-  IRestrictionsTypesAdministrations,
-  IRestrictionsTypesStatuts,
-  IRestrictionsTypesStatutsAdministrations,
-  IRestrictionsEtapesTypes,
-  IRestrictionsEtapesTypesAdministrations
+  IRestrictionDomaine,
+  IRestrictionTypeAdministration,
+  IRestrictionTypeStatut,
+  IRestrictionTypeStatutAdministration,
+  IRestrictionEtapeType,
+  IRestrictionEtapeTypeAdministration
 } from '../../types'
 
-interface RestrictionsDomaines extends IRestrictionsDomaines {}
+interface RestrictionsDomaines extends IRestrictionDomaine {}
 
 class RestrictionsDomaines extends Model {
   public static tableName = 'restrictions__domaines'
@@ -27,7 +27,7 @@ class RestrictionsDomaines extends Model {
   public static idColumn = ['domaineId', 'publicLectureInterdit']
 }
 
-interface RestrictionsTypesStatuts extends IRestrictionsTypesStatuts {}
+interface RestrictionsTypesStatuts extends IRestrictionTypeStatut {}
 
 class RestrictionsTypesStatuts extends Model {
   public static tableName = 'restrictions__types__statuts'
@@ -51,7 +51,7 @@ class RestrictionsTypesStatuts extends Model {
 }
 
 interface RestrictionsTypesAdministrations
-  extends IRestrictionsTypesAdministrations {}
+  extends IRestrictionTypeAdministration {}
 
 class RestrictionsTypesAdministrations extends Model {
   public static tableName = 'restrictions__types__administrations'
@@ -63,7 +63,7 @@ class RestrictionsTypesAdministrations extends Model {
     properties: {
       titreTypeId: { type: 'string', maxLength: 3 },
       administrationId: { type: 'string', maxLength: 64 },
-      creationLectureInterdit: { type: 'boolean' }
+      creationInterdit: { type: 'boolean' }
     }
   }
 
@@ -71,7 +71,7 @@ class RestrictionsTypesAdministrations extends Model {
 }
 
 interface RestrictionsTypesStatutsAdministrations
-  extends IRestrictionsTypesStatutsAdministrations {}
+  extends IRestrictionTypeStatutAdministration {}
 
 class RestrictionsTypesStatutsAdministrations extends Model {
   public static tableName = 'restrictions__types__statuts__administrations'
@@ -93,7 +93,7 @@ class RestrictionsTypesStatutsAdministrations extends Model {
   public static idColumn = ['titreTypeId', 'titreStatutId', 'administrationId']
 }
 
-interface RestrictionsEtapesTypes extends IRestrictionsEtapesTypes {}
+interface RestrictionsEtapesTypes extends IRestrictionEtapeType {}
 
 class RestrictionsEtapesTypes extends Model {
   public static tableName = 'restrictions__etapesTypes'
@@ -113,7 +113,7 @@ class RestrictionsEtapesTypes extends Model {
 }
 
 interface RestrictionsEtapesTypesAdministrations
-  extends IRestrictionsEtapesTypesAdministrations {}
+  extends IRestrictionEtapeTypeAdministration {}
 
 class RestrictionsEtapesTypesAdministrations extends Model {
   public static tableName = 'restrictions__etapesTypes__administrations'

@@ -15,7 +15,7 @@ import {
   administrationsDbExistantes,
   administrationsApiExistantes
 } from './__mocks__/administrations-update'
-import { IAdministrations } from '../../types'
+import { IAdministration } from '../../types'
 
 jest.mock('../../database/queries/administrations', () => ({
   __esModule: true,
@@ -33,7 +33,7 @@ const organismeDepartementGetMock = mocked(
   organismeDepartementGet as (
     departementId: string,
     nom: string
-  ) => Promise<IAdministrations | null>,
+  ) => Promise<IAdministration | null>,
   true
 )
 const organismesDepartementsGetMock = mocked(organismesDepartementsGet, true)

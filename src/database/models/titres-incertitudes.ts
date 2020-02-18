@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { ITitresIncertitudes } from '../../types'
+import { ITitreIncertitudes } from '../../types'
 
-interface TitresIncertitudes extends ITitresIncertitudes {}
+interface TitresIncertitudes extends ITitreIncertitudes {}
 
 class TitresIncertitudes extends Model {
   public static tableName = 'titresIncertitudes'

@@ -1,33 +1,33 @@
-import { IAdministrations, IUtilisateurs } from '../../../types'
+import { IAdministration, IUtilisateur } from '../../../types'
 
 import { titresFormat } from './titres'
 import { utilisateursFormat } from './utilisateurs'
 
 const administrationFormat = (
-  administration: IAdministrations,
-  user: IUtilisateurs
+  user: IUtilisateur | undefined,
+  administration: IAdministration
 ) => {
   administration.titresAdministrationsGestionnaires =
     administration.titresAdministrationsGestionnaires &&
-    titresFormat(administration.titresAdministrationsGestionnaires, user)
+    titresFormat(user, administration.titresAdministrationsGestionnaires)
 
   administration.titresAdministrationsLocales =
     administration.titresAdministrationsLocales &&
-    titresFormat(administration.titresAdministrationsLocales, user)
+    titresFormat(user, administration.titresAdministrationsLocales)
 
   administration.utilisateurs =
     administration.utilisateurs &&
-    utilisateursFormat(administration.utilisateurs, user)
+    utilisateursFormat(user, administration.utilisateurs)
 
   return administration
 }
 
 const administrationsFormat = (
-  administrations: IAdministrations[],
-  user: IUtilisateurs
+  user: IUtilisateur | undefined,
+  administrations: IAdministration[]
 ) =>
   administrations.map(administration =>
-    administrationFormat(administration, user)
+    administrationFormat(user, administration)
   )
 
 export { administrationFormat, administrationsFormat }

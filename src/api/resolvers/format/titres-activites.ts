@@ -1,10 +1,10 @@
 import {
-  ITitresActivites,
-  IUtilisateurs,
-  ITrimestres,
+  ITitreActivite,
+  IUtilisateur,
+  ITrimestre,
   IMois,
-  IAnnees,
-  IEntreprises
+  IAnnee,
+  IEntreprise
 } from '../../../types'
 
 import { permissionsCheck } from '../permissions/permissions-check'
@@ -19,8 +19,8 @@ const titreActiviteFormatFields = {
 }
 
 const titreActiviteFormat = (
-  ta: ITitresActivites,
-  user: IUtilisateurs,
+  user: IUtilisateur | undefined,
+  ta: ITitreActivite,
   fields = titreActiviteFormatFields
 ) => {
   // si
@@ -37,7 +37,7 @@ const titreActiviteFormat = (
   ) {
     ta.periode = ta.type.frequence[ta.type.frequence.periodesNom]!.find(
       p => p.id === ta.frequencePeriodeId
-    ) as IAnnees | ITrimestres | IMois
+    ) as IAnnee | ITrimestre | IMois
 
     // si les sections contiennent des élements sur cette activité
     if (fields.sections && ta.type?.sections) {
@@ -57,18 +57,18 @@ const titreActiviteFormat = (
 }
 
 const titreActiviteCalc = (
-  titresActivites: ITitresActivites[],
-  user: IUtilisateurs,
+  user: IUtilisateur | undefined,
+  titresActivites: ITitreActivite[],
   statutId: string,
-  titreAmodiataires: IEntreprises[] | undefined,
-  titreTitulaires: IEntreprises[] | undefined
+  titreAmodiataires: IEntreprise[] | undefined,
+  titreTitulaires: IEntreprise[] | undefined
 ) =>
   titresActivites.reduce(
     (acc, titreActivite) =>
       titreActivite.statutId === statutId &&
       titreActivitePermissionCheck(
         user,
-        titreActivite,
+        titreActivite.type?.administrations,
         titreAmodiataires,
         titreTitulaires
       )

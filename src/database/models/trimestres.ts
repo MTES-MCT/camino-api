@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 import { join } from 'path'
 
-import { ITrimestres } from '../../types'
+import { ITrimestre } from '../../types'
 
-interface Trimestres extends ITrimestres {}
+interface Trimestres extends ITrimestre {}
 
 class Trimestres extends Model {
   public static tableName = 'trimestres'

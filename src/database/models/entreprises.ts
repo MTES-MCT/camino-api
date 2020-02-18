@@ -1,9 +1,9 @@
 import { Model, Pojo } from 'objection'
 import { join } from 'path'
 
-import { IEntreprises } from '../../types'
+import { IEntreprise } from '../../types'
 
-interface Entreprises extends IEntreprises {}
+interface Entreprises extends IEntreprise {}
 
 class Entreprises extends Model {
   public static tableName = 'entreprises'
@@ -91,6 +91,7 @@ class Entreprises extends Model {
       json.utilisateurs = json.utilisateursIds.map((id: string) => ({
         id
       }))
+
       delete json.utilisateursIds
     }
 

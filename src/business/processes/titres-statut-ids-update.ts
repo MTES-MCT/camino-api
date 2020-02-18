@@ -1,10 +1,10 @@
-import { ITitres } from '../../types'
+import { ITitre } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreUpdate } from '../../database/queries/titres'
 import titreStatutIdFind from '../rules/titre-statut-id-find'
 
-const titresStatutIdsUpdate = async (titres: ITitres[]) => {
+const titresStatutIdsUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {

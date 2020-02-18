@@ -1,11 +1,19 @@
-import { IUsers } from '../../../types'
+import { IUtilisateur, IUser } from '../../../types'
 
 import { permissionsCheck } from '../permissions/permissions-check'
 
-const userFormat = (user: IUsers) => {
-  if (!user) return null
+const userFormat = (utilisateur: IUtilisateur | undefined) => {
+  if (!utilisateur) return null
 
-  const hasPermissions = permissionsCheck(user, ['super', 'admin', 'editeur', 'lecteur', 'entreprise'])
+  const user = utilisateur as IUser
+
+  const hasPermissions = permissionsCheck(user, [
+    'super',
+    'admin',
+    'editeur',
+    'lecteur',
+    'entreprise'
+  ])
 
   user.sections = {
     activites: hasPermissions,

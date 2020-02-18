@@ -1,4 +1,4 @@
-import { IEntreprisesEtablissements, IEntreprises } from '../../types'
+import { IEntrepriseEtablissement, IEntreprise } from '../../types'
 
 import { objectsDiffer } from '../../tools'
 import { entreprisesUpsert } from '../../database/queries/entreprises'
@@ -12,11 +12,11 @@ import {
 } from '../../tools/api-insee'
 
 const entreprisesEtablissementsToUpdateBuild = (
-  entreprisesEtablissementsOld: IEntreprisesEtablissements[],
-  entreprisesEtablissementsNew: IEntreprisesEtablissements[]
+  entreprisesEtablissementsOld: IEntrepriseEtablissement[],
+  entreprisesEtablissementsNew: IEntrepriseEtablissement[]
 ) =>
   entreprisesEtablissementsNew.reduce(
-    (acc: IEntreprisesEtablissements[], entrepriseEtablissementNew) => {
+    (acc: IEntrepriseEtablissement[], entrepriseEtablissementNew) => {
       const entrepriseEtablissementOld = entreprisesEtablissementsOld.find(
         a => a && a.id === entrepriseEtablissementNew.id
       )
@@ -35,8 +35,8 @@ const entreprisesEtablissementsToUpdateBuild = (
   )
 
 const entreprisesEtablissementsToDeleteBuild = (
-  entreprisesEtablissementsOld: IEntreprisesEtablissements[],
-  entreprisesEtablissementsNew: IEntreprisesEtablissements[]
+  entreprisesEtablissementsOld: IEntrepriseEtablissement[],
+  entreprisesEtablissementsNew: IEntrepriseEtablissement[]
 ) =>
   entreprisesEtablissementsOld.reduce(
     (acc: string[], entrepriseEtablissementOld) => {
@@ -54,10 +54,10 @@ const entreprisesEtablissementsToDeleteBuild = (
   )
 
 const entreprisesToUpdateBuild = (
-  entreprisesOld: IEntreprises[],
-  entreprisesNew: IEntreprises[]
+  entreprisesOld: IEntreprise[],
+  entreprisesNew: IEntreprise[]
 ) =>
-  entreprisesNew.reduce((acc: IEntreprises[], entrepriseNew) => {
+  entreprisesNew.reduce((acc: IEntreprise[], entrepriseNew) => {
     const entrepriseOld = entreprisesOld.find(e => e.id === entrepriseNew.id)
 
     const updated =
@@ -70,7 +70,7 @@ const entreprisesToUpdateBuild = (
     return acc
   }, [])
 
-const sirensFind = (entreprisesOld: IEntreprises[]) =>
+const sirensFind = (entreprisesOld: IEntreprise[]) =>
   Object.keys(
     entreprisesOld.reduce((acc: { [id: string]: number }, entrepriseOld) => {
       if (!entrepriseOld.legalSiren) return acc
@@ -91,8 +91,8 @@ const sirensFind = (entreprisesOld: IEntreprises[]) =>
   )
 
 const entreprisesUpdate = async (
-  entreprisesOld: IEntreprises[],
-  entreprisesEtablissementsOld: IEntreprisesEtablissements[]
+  entreprisesOld: IEntreprise[],
+  entreprisesEtablissementsOld: IEntrepriseEtablissement[]
 ) => {
   const sirens = sirensFind(entreprisesOld)
 
@@ -120,7 +120,7 @@ const entreprisesUpdate = async (
     entreprisesEtablissementsNew
   )
 
-  let etablissementsUpdated = [] as IEntreprisesEtablissements[]
+  let etablissementsUpdated = [] as IEntrepriseEtablissement[]
 
   if (etablissementsToUpdate.length) {
     etablissementsUpdated = await entreprisesEtablissementsUpsert(
@@ -146,7 +146,7 @@ const entreprisesUpdate = async (
     )
   }
 
-  let entreprisesUpdated = [] as IEntreprises[]
+  let entreprisesUpdated = [] as IEntreprise[]
 
   if (entreprisesToUpdate.length) {
     entreprisesUpdated = await entreprisesUpsert(entreprisesToUpdate)

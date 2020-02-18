@@ -1,6 +1,6 @@
-import { ITitres, IActivitesTypes } from '../../types'
+import { ITitre, IActiviteType } from '../../types'
 
-const activitesTypesFilter = (titre: ITitres, activiteType: IActivitesTypes) =>
+const activitesTypesFilter = (titre: ITitre, activiteType: IActiviteType) =>
   !!(
     activiteType.titresTypes.some(
       type => type.domaineId === titre.domaineId && type.id === titre.typeId

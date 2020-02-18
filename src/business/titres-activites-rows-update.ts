@@ -1,4 +1,4 @@
-import { ITitresActivites } from '../types'
+import { ITitreActivite } from '../types'
 
 import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
 import { titresGet, titreGet } from '../database/queries/titres'
@@ -8,7 +8,7 @@ interface ITitreIndex {
 }
 
 const titreActivitesRowsUpdate = async (
-  titresActivitesCreated: ITitresActivites[],
+  titresActivitesCreated: ITitreActivite[],
   titreUpdatedIndex: ITitreIndex | null
 ) => {
   let titresIdsUpdatedIndex
@@ -30,7 +30,7 @@ const titreActivitesRowsUpdate = async (
 }
 
 const titresActivitesRowsUpdate = async (
-  titresActivitesCreated: ITitresActivites[],
+  titresActivitesCreated: ITitreActivite[],
   titresUpdatedIndex: ITitreIndex
 ) => {
   // ne filtre que les titres dont les ids ont changé
@@ -50,7 +50,7 @@ const titresActivitesRowsUpdate = async (
   })
 
   const titresActivitesUpdated = titres.reduce(
-    (titresActivites: ITitresActivites[], titre) => {
+    (titresActivites: ITitreActivite[], titre) => {
       if (titre.activites?.length) {
         titresActivites.push(...titre.activites)
       }
@@ -75,7 +75,7 @@ const titresActivitesRowsUpdate = async (
     )
 
     titresActivitesCreated = titresActivitesCreated.filter(
-      (tac: ITitresActivites) => !titresOldIdsIndex[tac.titreId]
+      (tac: ITitreActivite) => !titresOldIdsIndex[tac.titreId]
     )
   }
 

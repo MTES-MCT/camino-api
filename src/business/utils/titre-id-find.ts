@@ -1,8 +1,8 @@
-import { ITitres } from '../../types'
+import { ITitre } from '../../types'
 import * as slugify from '@sindresorhus/slugify'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 
-const titreIdFind = (titre: ITitres) => {
+const titreIdFind = (titre: ITitre) => {
   const { domaineId, type, nom } = titre
 
   const demarcheOctroiDateDebut = titreDemarcheOctroiDateDebutFind(

@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import { IActivitesTypes } from '../../types'
+import { IActiviteType } from '../../types'
 
-interface ActivitesTypes extends IActivitesTypes {}
+interface ActivitesTypes extends IActiviteType {}
 
 class ActivitesTypes extends Model {
   public static tableName = 'activitesTypes'

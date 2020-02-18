@@ -1,4 +1,4 @@
-import { ITitresDemarches } from '../../types'
+import { ITitreDemarche } from '../../types'
 import { transaction, Transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
@@ -34,12 +34,12 @@ const titreDemarcheGet = async (
     .withGraphFetched(graph)
     .findById(titreDemarcheId)
 
-const titreDemarcheCreate = async (titreDemarche: ITitresDemarches) =>
+const titreDemarcheCreate = async (titreDemarche: ITitreDemarche) =>
   TitresDemarches.query()
     .insertAndFetch(titreDemarche)
     .withGraphFetched(options.demarches.graph)
 
-const titreDemarcheDelete = async (id: string, trx: Transaction) =>
+const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
   TitresDemarches.query(trx)
     .deleteById(id)
     .withGraphFetched(options.demarches.graph)
@@ -47,14 +47,14 @@ const titreDemarcheDelete = async (id: string, trx: Transaction) =>
 
 const titreDemarcheUpdate = async (
   id: string,
-  props: Partial<ITitresDemarches>
+  props: Partial<ITitreDemarche>
 ) =>
   TitresDemarches.query()
     .withGraphFetched(options.demarches.graph)
     .patchAndFetchById(id, props)
 
 const titreDemarcheUpsert = async (
-  titreDemarche: ITitresDemarches,
+  titreDemarche: ITitreDemarche,
   trx: Transaction
 ) =>
   TitresDemarches.query(trx)
@@ -64,7 +64,7 @@ const titreDemarcheUpsert = async (
 
 const titreDemarchesIdsUpdate = async (
   titresDemarchesIdsOld: string[],
-  titresDemarchesNew: ITitresDemarches[]
+  titresDemarchesNew: ITitreDemarche[]
 ) => {
   const knex = TitresDemarches.knex()
 

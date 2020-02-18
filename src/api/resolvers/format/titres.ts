@@ -1,12 +1,12 @@
 import {
-  IUtilisateurs,
-  ITitres,
-  ITitresEtapes,
-  IDemarchesTypes,
-  ITitresActivites,
-  IAdministrations,
-  ITitresDemarches,
-  IGeoJson
+  ITitre,
+  ITitreEtape,
+  IDemarcheType,
+  ITitreActivite,
+  IAdministration,
+  ITitreDemarche,
+  IGeoJson,
+  IUtilisateur
 } from '../../../types'
 
 import {
@@ -16,18 +16,18 @@ import {
 
 import { dupRemove } from '../../../tools/index'
 
-import metas from '../_metas'
+import metas from '../../../database/cache/metas'
 
-import restrictions from '../_restrictions'
+import restrictions from '../../../database/cache/restrictions'
 import { permissionsCheck } from '../permissions/permissions-check'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
-  titreModificationPermissionAdministrationsCheck,
+  titrePermissionAdministrationsCheck,
   titreActivitePermissionCheck
 } from '../permissions/titre'
 
-import { titreEtapeModificationPermissionAdministrationsCheck } from '../permissions/titre-etape'
+import titreEtapePermissionAdministrationsCheck from '../permissions/titre-etape'
 
 import { administrationsFormat } from './administrations'
 import { entreprisesFormat } from './entreprises'
@@ -66,26 +66,10 @@ const titreFormatFields = {
   administrations: true
 }
 
-const titresFormat = (
-  titres: ITitres[],
-  user: IUtilisateurs,
-  fields = titreFormatFields
-) =>
-  titres &&
-  titres.reduce((acc: ITitres[], titre) => {
-    const titreFormated = titreFormat(titre, user, fields)
-
-    if (titreFormated) {
-      acc.push(titreFormated)
-    }
-
-    return acc
-  }, [])
-
 const titreEtapeRestrictionsFilter = (
-  e: ITitresEtapes,
-  user: IUtilisateurs,
-  userHasPermission: boolean
+  user: IUtilisateur | undefined,
+  e: ITitreEtape,
+  userHasPermission?: boolean
 ) => {
   const etapeTypeRestricted = restrictions.etapesTypes.find(
     re => re.etapeTypeId === e.typeId
@@ -122,9 +106,9 @@ const titreEtapeRestrictionsFilter = (
 }
 
 const demarcheTypeFormat = (
-  demarcheType: IDemarchesTypes,
-  titre: ITitres,
-  user: IUtilisateurs,
+  user: IUtilisateur | undefined,
+  demarcheType: IDemarcheType,
+  titre: ITitre,
   { isSuper }: { isSuper: boolean }
 ) => {
   if (!titre.editable) {
@@ -140,10 +124,13 @@ const demarcheTypeFormat = (
     et =>
       et.titreTypeId === titre.typeId &&
       (isSuper ||
-        titreEtapeModificationPermissionAdministrationsCheck(
+        titreEtapePermissionAdministrationsCheck(
+          user,
+          'modification',
           et.id,
-          titre,
-          user
+          titre.typeId,
+          titre.administrationsGestionnaires,
+          titre.administrationsLocales
         ))
   )
 
@@ -155,17 +142,16 @@ const demarcheTypeFormat = (
 // par des requêtes SQL (dans /database/queries/titres)
 // qui retournent les données directement formatées
 const titreFormat = (
-  t: ITitres,
-  user: IUtilisateurs,
+  user: IUtilisateur | undefined,
+  t: ITitre,
   fields = titreFormatFields
 ) => {
   const titreIsPublic = titreIsPublicCheck(t)
-  const userHasPermission = titrePermissionCheck(t, user, [
-    'super',
-    'admin',
-    'editeur',
-    'lecteur'
-  ])
+  const userHasPermission = titrePermissionCheck(
+    user,
+    ['super', 'admin', 'editeur', 'lecteur'],
+    t
+  )
 
   if (!titreIsPublic && !userHasPermission) {
     return null
@@ -176,7 +162,15 @@ const titreFormat = (
 
   if (isSuper || isAdmin) {
     t.editable =
-      isSuper || titreModificationPermissionAdministrationsCheck(t, user)
+      isSuper ||
+      titrePermissionAdministrationsCheck(
+        user,
+        'modification',
+        t.typeId,
+        t.statutId!,
+        t.administrationsGestionnaires,
+        t.administrationsLocales
+      )
     t.supprimable = isSuper
   }
 
@@ -199,9 +193,9 @@ const titreFormat = (
   if (fields.demarches && t.demarches && t.demarches.length) {
     t.demarches = t.demarches.map(td =>
       titreDemarcheFormat(
+        user,
         td,
         t,
-        user,
         { userHasPermission, isSuper, isAdmin },
         fields.demarches
       )
@@ -223,8 +217,8 @@ const titreFormat = (
   if (t.activites?.length) {
     if (fields.activitesAbsentes) {
       t.activitesAbsentes = titreActiviteCalc(
-        t.activites,
         user,
+        t.activites,
         'abs',
         t.amodiataires,
         t.titulaires
@@ -233,8 +227,8 @@ const titreFormat = (
 
     if (fields.activitesDeposees) {
       t.activitesDeposees = titreActiviteCalc(
-        t.activites,
         user,
+        t.activites,
         'dep',
         t.amodiataires,
         t.titulaires
@@ -243,8 +237,8 @@ const titreFormat = (
 
     if (fields.activitesEnConstruction) {
       t.activitesEnConstruction = titreActiviteCalc(
-        t.activites,
         user,
+        t.activites,
         'enc',
         t.amodiataires,
         t.titulaires
@@ -252,11 +246,16 @@ const titreFormat = (
     }
 
     if (fields.activites) {
-      t.activites = t.activites.reduce((acc: ITitresActivites[], ta) => {
+      t.activites = t.activites.reduce((acc: ITitreActivite[], ta) => {
         if (
-          titreActivitePermissionCheck(user, ta, t.amodiataires, t.titulaires)
+          titreActivitePermissionCheck(
+            user,
+            ta.type?.administrations,
+            t.amodiataires,
+            t.titulaires
+          )
         ) {
-          acc.push(titreActiviteFormat(ta, user, fields.activites))
+          acc.push(titreActiviteFormat(user, ta, fields.activites))
         }
 
         return acc
@@ -274,7 +273,7 @@ const titreFormat = (
       let administrations = dupRemove('id', [
         ...(t.administrationsGestionnaires || []),
         ...(t.administrationsLocales || [])
-      ]) as IAdministrations[]
+      ]) as IAdministration[]
 
       // si l'utilisateur n'a pas de droits de visualisation suffisants
       // alors filtre les administrations `associee`
@@ -291,7 +290,7 @@ const titreFormat = (
         (a, b) => a.type.ordre - b.type.ordre
       )
 
-      t.administrations = administrationsFormat(t.administrations, user)
+      t.administrations = administrationsFormat(user, t.administrations)
 
       delete t.administrationsGestionnaires
       delete t.administrationsLocales
@@ -301,25 +300,41 @@ const titreFormat = (
   }
 
   if (t.titulaires) {
-    t.titulaires = entreprisesFormat(t.titulaires, user)
+    t.titulaires = entreprisesFormat(user, t.titulaires)
   }
 
   if (t.amodiataires) {
-    t.amodiataires = entreprisesFormat(t.amodiataires, user)
+    t.amodiataires = entreprisesFormat(user, t.amodiataires)
   }
 
   return t
 }
 
+const titresFormat = (
+  user: IUtilisateur | undefined,
+  titres: ITitre[],
+  fields = titreFormatFields
+) =>
+  titres &&
+  titres.reduce((acc: ITitre[], titre) => {
+    const titreFormated = titreFormat(user, titre, fields)
+
+    if (titreFormated) {
+      acc.push(titreFormated)
+    }
+
+    return acc
+  }, [])
+
 const titreDemarcheFormat = (
-  td: ITitresDemarches,
-  t: ITitres,
-  user: IUtilisateurs,
+  user: IUtilisateur | undefined,
+  td: ITitreDemarche,
+  t: ITitre,
   {
     userHasPermission,
     isSuper,
     isAdmin
-  }: { userHasPermission: boolean; isSuper: boolean; isAdmin: boolean },
+  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
   fields = titreDemarcheFormatFields
 ) => {
   if (!fields) return td
@@ -327,27 +342,27 @@ const titreDemarcheFormat = (
   td.editable = isSuper || t.editable
   td.supprimable = isSuper
 
-  if (td.titreType.id && td.type) {
+  if (td.titreType?.id && td.type) {
     // cherche le statut `editable` dans le type de démarche du titre
-    td.type = demarcheTypeFormat(td.type, t, user, { isSuper })
+    td.type = demarcheTypeFormat(user, td.type, t, { isSuper })
   }
 
   if (fields.etapes && td.etapes && td.etapes.length) {
     const isSuper = permissionsCheck(user, ['super'])
 
-    const titreEtapes = td.etapes.reduce((titreEtapes: ITitresEtapes[], te) => {
+    const titreEtapes = td.etapes.reduce((titreEtapes: ITitreEtape[], te) => {
       if (
         !isSuper &&
-        !titreEtapeRestrictionsFilter(te, user, userHasPermission)
+        !titreEtapeRestrictionsFilter(user, te, userHasPermission)
       ) {
         return titreEtapes
       }
 
       const teFormatted = titreEtapeFormat(
+        user,
         te,
         td,
         t,
-        user,
         { userHasPermission, isSuper, isAdmin },
         fields.etapes
       )
@@ -364,25 +379,28 @@ const titreDemarcheFormat = (
 }
 
 const titreEtapeFormat = (
-  te: ITitresEtapes,
-  td: ITitresDemarches,
-  t: ITitres,
-  user: IUtilisateurs,
+  user: IUtilisateur | undefined,
+  te: ITitreEtape,
+  td: ITitreDemarche,
+  t: ITitre,
   {
     userHasPermission,
     isSuper,
     isAdmin
-  }: { userHasPermission: boolean; isSuper: boolean; isAdmin: boolean },
+  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
   fields = titreEtapeFormatFields
 ) => {
   if (isSuper || isAdmin) {
     te.editable =
       isSuper ||
       (td.editable &&
-        titreEtapeModificationPermissionAdministrationsCheck(
+        titreEtapePermissionAdministrationsCheck(
+          user,
+          'modification',
           te.typeId,
-          t,
-          user
+          t.typeId,
+          t.administrationsGestionnaires,
+          t.administrationsLocales
         ))
 
     te.supprimable = isSuper
@@ -426,15 +444,15 @@ const titreEtapeFormat = (
   }
 
   if (te.administrations) {
-    te.administrations = administrationsFormat(te.administrations, user)
+    te.administrations = administrationsFormat(user, te.administrations)
   }
 
   if (te.titulaires) {
-    te.titulaires = entreprisesFormat(te.titulaires, user)
+    te.titulaires = entreprisesFormat(user, te.titulaires)
   }
 
   if (te.amodiataires) {
-    te.amodiataires = entreprisesFormat(te.amodiataires, user)
+    te.amodiataires = entreprisesFormat(user, te.amodiataires)
   }
 
   return te

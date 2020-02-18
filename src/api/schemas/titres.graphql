@@ -248,11 +248,8 @@ type Incertitudes {
 "Titre minier"
 input InputTitreCreation {
   nom: String!
-
   typeId: ID!
-
   domaineId: ID!
-
   references: [InputReference]
 }
 
@@ -265,13 +262,9 @@ input InputTitreModification {
   - de l'année d'octroi
   """
   id: ID!
-
   nom: String!
-
   typeId: ID!
-
   domaineId: ID!
-
   references: [InputReference]
 }
 
@@ -282,106 +275,60 @@ input InputReference {
 
 input InputDemarcheCreation {
   typeId: ID!
-
   titreId: ID!
 }
 
 input InputDemarcheModification {
   id: ID!
-
   typeId: ID!
-
   titreId: ID!
 }
 
 input InputEtapeCreation {
   typeId: ID!
-
   statutId: ID!
-
   titreDemarcheId: ID!
-
   date: String!
-
   ordre: Int
-
   duree: Int
-
   dateDebut: String
-
   dateFin: String
-
   surface: Float
-
   volume: Float
-
   volumeUniteId: ID
-
   engagement: Float
-
   engagementDeviseId: ID
-
   substancesIds: [ID!]
-
   points: [InputPoint]
-
   titulairesIds: [ID!]
-
   amodiatairesIds: [ID!]
-
   administrationsIds: [ID!]
-
   incertitudes: InputIncertitudes
-
   contenu: Json
 }
 
 input InputEtapeModification {
   id: ID!
-
   typeId: ID!
-
   statutId: ID!
-
   titreDemarcheId: ID!
-
   date: String!
-
   ordre: Int
-
   duree: Int
-
   dateDebut: String
-
   dateFin: String
-
   surface: Float
-
   volume: Float
-
   volumeUniteId: ID
-
   engagement: Float
-
   engagementDeviseId: ID
-
   substancesIds: [ID!]
-
   points: [InputPoint]
-
   titulairesIds: [ID!]
-
   amodiatairesIds: [ID!]
-
   administrationsIds: [ID!]
-
   incertitudes: InputIncertitudes
-
   contenu: Json
-}
-
-input InputEtapeId {
-  etapeId: ID!
 }
 
 input InputIncertitudes {

@@ -1,9 +1,9 @@
 import { Model } from 'objection'
 import { join } from 'path'
 
-import { IFrequences } from '../../types'
+import { IFrequence } from '../../types'
 
-interface Frequences extends IFrequences {}
+interface Frequences extends IFrequence {}
 
 class Frequences extends Model {
   public static tableName = 'frequences'

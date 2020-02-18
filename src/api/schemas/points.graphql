@@ -66,35 +66,24 @@ type PointReference {
 }
 
 input InputPoint {
-  groupe: Int
-
-  contour: Int
-
-  point: Int
-
+  groupe: Int!
+  contour: Int!
+  point: Int!
   nom: String
-
   description: String
-
   securite: Boolean
-
   subsidiaire: Boolean
-
   lot: Int
-
-  references: [InputPointReference]
+  references: [InputPointReference]!
 }
 
 input InputPointReference {
   geoSystemeId: ID!
-
-  coordonnees: InputCoordonnees
-
+  coordonnees: InputCoordonnees!
   opposable: Boolean
 }
 
 input InputCoordonnees {
-  x: Float
-
-  y: Float
+  x: Float!
+  y: Float!
 }

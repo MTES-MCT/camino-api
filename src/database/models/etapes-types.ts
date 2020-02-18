@@ -1,9 +1,9 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 
-import { IEtapesTypes } from '../../types'
+import { IEtapeType } from '../../types'
 
-interface EtapesTypes extends IEtapesTypes {}
+interface EtapesTypes extends IEtapeType {}
 
 class EtapesTypes extends Model {
   public static tableName = 'etapesTypes'

@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 
-import { IGlobales } from '../../types'
+import { IGlobale } from '../../types'
 
-interface Globales extends IGlobales {}
+interface Globales extends IGlobale {}
 
 class Globales extends Model {
   public static tableName = 'globales'

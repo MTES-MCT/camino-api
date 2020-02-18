@@ -1,4 +1,4 @@
-import { IAdministrations, IDepartements } from '../../types'
+import { IAdministration, IDepartement } from '../../types'
 
 import { administrationsUpsert } from '../../database/queries/administrations'
 import {
@@ -9,10 +9,10 @@ import {
 import { objectsDiffer } from '../../tools'
 
 const administrationsUpdatedFind = (
-  administrationsOld: IAdministrations[],
-  administrationsNew: IAdministrations[]
+  administrationsOld: IAdministration[],
+  administrationsNew: IAdministration[]
 ) =>
-  administrationsNew.reduce((acc: IAdministrations[], administrationNew) => {
+  administrationsNew.reduce((acc: IAdministration[], administrationNew) => {
     const administrationOld = administrationsOld.find(
       a => a.id === administrationNew.id
     )
@@ -31,9 +31,9 @@ const administrationsGetTest = async () =>
   (organismeDepartementGet(
     '01',
     'prefecture'
-  ) as unknown) as IAdministrations | null
+  ) as unknown) as IAdministration | null
 
-const administrationsGet = async (departements: IDepartements[]) => {
+const administrationsGet = async (departements: IDepartement[]) => {
   const departementsIdsNoms = departements.map(({ id: departementId }) => ({
     departementId,
     nom: departementId === '75' ? 'paris_ppp' : 'prefecture'
@@ -43,8 +43,8 @@ const administrationsGet = async (departements: IDepartements[]) => {
 }
 
 const administrationsUpdate = async (
-  administrationsOld: IAdministrations[],
-  departements: IDepartements[]
+  administrationsOld: IAdministration[],
+  departements: IDepartement[]
 ) => {
   if (!departements || !departements.length) return []
 

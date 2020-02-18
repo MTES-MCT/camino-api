@@ -1,4 +1,4 @@
-import { ITitresActivites } from '../../../types'
+import { ITitreActivite } from '../../../types'
 
 const titresActivitesDelaiDepasse = ([
   {
@@ -8,7 +8,7 @@ const titresActivitesDelaiDepasse = ([
       delaiMois: 3
     }
   }
-] as unknown) as ITitresActivites[]
+] as unknown) as ITitreActivite[]
 
 const titresActivitesDelaiNonDepasse = ([
   {
@@ -18,6 +18,6 @@ const titresActivitesDelaiNonDepasse = ([
       delaiMois: 3
     }
   }
-] as unknown) as ITitresActivites[]
+] as unknown) as ITitreActivite[]
 
 export { titresActivitesDelaiDepasse, titresActivitesDelaiNonDepasse }

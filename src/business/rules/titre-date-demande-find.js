@@ -5,7 +5,7 @@ const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
   // si
   // - le statut du titre n'est ni "demande initiale", ni "demande classée"
   // alors retourne null
-  if (!['dmi', 'dmc'].includes(titreStatutId)) return null
+  if (!['dmi', 'dmc'].includes(titreStatutId)) return undefined
 
   // sinon
   // trouve la première démarche d'octroi
@@ -18,7 +18,7 @@ const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
   // - il n'y a pas de démarche d'octroi
   // - la démarche d'octroi n'a pas d'étapes
   // alors retourne null
-  if (!titreDemarche || !titreDemarche.etapes.length) return null
+  if (!titreDemarche || !titreDemarche.etapes.length) return undefined
 
   // trouve la première étape de dépôt ou d'enregistrement de la demande
   const titreEtapesAscSorted = titreEtapesAscSort(titreDemarche.etapes)
@@ -30,7 +30,7 @@ const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
   // - il n'y a pas d'étape de dépôt ou d'enregistrement de la demande
   // - l'étape n'a pas de date
   // alors retourne null
-  if (!titreEtapeMen || !titreEtapeMen.date) return null
+  if (!titreEtapeMen || !titreEtapeMen.date) return undefined
 
   // sinon
   // retourne la date de l'étape

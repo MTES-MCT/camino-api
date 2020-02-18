@@ -1,48 +1,50 @@
-interface IActivitesStatuts {
+import { FileUpload } from 'graphql-upload'
+
+interface IActiviteStatut {
   id: string
   nom: string
   couleur: string
 }
 
-interface ISectionsElement {
+interface ISection {
+  id: string
+  nom: string
+  elements?: ISectionElement[]
+}
+
+interface ISectionElement {
   id: string
   nom: string
   type: string
   description?: string
-  // TODO: pour type, utiliser un enum
   dateDebut?: string
   dateFin?: string
   frequencePeriodesIds?: number[]
+  valeurs?: { [id: string]: string }
 }
 
-interface ISections {
-  id: string
-  nom: string
-  elements?: ISectionsElement[]
-}
-
-interface IActivitesTypes {
+interface IActiviteType {
   id: string
   nom: string
   frequenceId: string
-  sections?: ISections[]
-  frequence?: IFrequences
-  titresTypes: ITitresTypes[]
+  sections?: ISection[]
+  frequence?: IFrequence
+  titresTypes: ITitreType[]
   pays?: IPays[]
-  administrations?: IAdministrations
+  administrations?: IAdministration[]
 }
 
-interface IAdministrationsTypes {
+interface IAdministrationType {
   id: string
   nom: string
   ordre: number
 }
 
-interface IAdministrations {
+interface IAdministration {
   id: string
   typeId: string
   nom: string
-  type: IAdministrationsTypes
+  type: IAdministrationType
   service?: string
   url?: string
   email?: string
@@ -55,29 +57,44 @@ interface IAdministrations {
   departementId?: string
   regionId?: string
   abreviation?: string
-  domaines?: IDomaines[]
-  utilisateurs?: IUtilisateurs[]
-  titresAdministrationsGestionnaires?: ITitres[]
-  titresAdministrationsLocales?: ITitres[]
+  domaines?: IDomaine[]
+  utilisateurs?: IUtilisateur[]
+  titresAdministrationsGestionnaires?: ITitre[]
+  titresAdministrationsLocales?: ITitre[]
   associee?: boolean
 }
 
-interface IAnnees extends IPeriodes {}
+interface IAnnee extends IPeriode {}
 
-interface ICommunes {
+interface ICommune {
   id: string
   nom: string
-  departement?: IDepartements
+  departement?: IDepartement
   surface?: number
 }
 
-interface IDemarchesStatuts {
+type IContenuValeur = string | number | string[] | boolean
+
+interface IContenu {
+  [id: string]: IContenuElement
+}
+
+interface IContenuElement {
+  [id: string]: IContenuValeur
+}
+
+interface ICoordonnees {
+  x: number
+  y: number
+}
+
+interface IDemarcheStatut {
   id: string
   nom: string
   couleur: string
 }
 
-interface IDemarchesTypes {
+interface IDemarcheType {
   id: string
   nom: string
   ordre?: number
@@ -87,37 +104,38 @@ interface IDemarchesTypes {
   titulaires?: boolean
   renouvelable?: boolean
   exception?: boolean
-  etapesTypes: IEtapesTypes[]
-  editable?: boolean
+  etapesTypes: IEtapeType[]
   titreTypeId?: string
+  editable?: boolean
+  unique?: boolean
 }
 
-interface IDepartements {
+interface IDepartement {
   id: string
   nom: string
-  region?: IRegions
-  communes?: ICommunes[]
+  region?: IRegion
+  communes?: ICommune[]
 }
 
-interface IDevises {
-  id: string
-  nom: string
-  ordre: number
-}
-
-interface IDocumentsTypes {
-  id: string
-  nom: string
-}
-
-interface IDomaines {
+interface IDevise {
   id: string
   nom: string
   ordre: number
-  titresTypes: ITitresTypes[]
 }
 
-interface IEntreprisesEtablissements {
+interface IDocumentType {
+  id: string
+  nom: string
+}
+
+interface IDomaine {
+  id: string
+  nom: string
+  ordre: number
+  titresTypes: ITitreType[]
+}
+
+interface IEntrepriseEtablissement {
   id: string
   entrepriseId: string
   dateDebut: string
@@ -126,7 +144,7 @@ interface IEntreprisesEtablissements {
   dateFin?: string
 }
 
-interface IEntreprises {
+interface IEntreprise {
   id: string
   nom: string
   paysId?: string
@@ -142,39 +160,41 @@ interface IEntreprises {
   email?: string
   telephone?: string
   url?: string
-  etablissements?: IEntreprisesEtablissements[]
-  utilisateurs?: IUtilisateurs[]
-  titresTitulaire?: ITitres[]
-  titresAmodiataire?: ITitres[]
+  etablissements?: IEntrepriseEtablissement[]
+  utilisateurs?: IUtilisateur[]
+  titresTitulaire?: ITitre[]
+  titresAmodiataire?: ITitre[]
   editable?: boolean
 }
 
-interface IEtapesStatuts {
+interface IEtapeStatut {
   id: string
   nom: string
   couleur: string
 }
 
-interface IEtapesTypes {
+interface IEtapeType {
   id: string
   nom: string
   acceptationAuto?: boolean
   fondamentale?: boolean
   dateDebut?: string
   dateFin?: string
-  sections?: any
-  etapesStatuts?: IEtapesStatuts[]
-  editable?: boolean
+  sections?: ISection[]
+  sectionsSpecifiques?: ISection[]
+  etapesStatuts?: IEtapeStatut[]
   titreTypeId?: string
-  customSections?: ISections[]
+  demarcheTypeId?: string
+  editable?: boolean
+  unique?: boolean
 }
 
-interface IFrequences {
+interface IFrequence {
   id: string
   nom: string
   periodesNom: 'annees' | 'trimestres' | 'mois'
-  annees?: IAnnees[]
-  trimestres?: ITrimestres[]
+  annees?: IAnnee[]
+  trimestres?: ITrimestre[]
   mois?: IMois[]
 }
 
@@ -191,80 +211,80 @@ export interface IGeometry {
   coordinates: number[] | number[][] | number[][][] | number[][][][]
 }
 
-interface IGeoSystemes {
+interface IGeoSysteme {
   id: string
   definitionProj4: string
   nom: string
   ordre: number
   uniteId?: string
-  unite: IUnites
+  unite: IUnite
   zone?: string
 }
 
-interface IGlobales {
+interface IGlobale {
   id: string
   valeur: boolean
 }
 
-interface IMois extends IPeriodes {
+interface IMois extends IPeriode {
   trimestreId?: string
-  trimestre?: ITrimestres
+  trimestre?: ITrimestre
 }
 
 interface IPays {
   id: string
   nom: string
-  regions?: IRegions[]
+  regions?: IRegion[]
 }
 
-interface IPeriodes {
+interface IPeriode {
   id: number
   nom: string
   frequenceId: string
-  frequence: IFrequences
+  frequence: IFrequence
 }
 
-interface IPermissions {
+interface IPermission {
   id: string
   nom: string
-  ordre?: number
+  ordre: number
 }
 
-interface IPhasesStatuts {
+interface IPhaseStatut {
   id: string
   nom: string
   couleur: string
 }
 
-interface IReferencesTypes {
+interface IReferenceType {
   id: string
   nom: string
 }
 
-interface IRegions {
+interface IRegion {
   id: string
   nom: string
   pays?: IPays
-  departements?: IDepartements[]
+  departements?: IDepartement[]
 }
-interface IRestrictionsDomaines {
+interface IRestrictionDomaine {
   domaineId: string
   publicLectureInterdit: boolean
 }
 
-interface IRestrictionsTypesStatuts {
+interface IRestrictionTypeStatut {
   titreTypeId: string
   titreStatutId: string
   publicLectureInterdit: boolean
 }
 
-interface IRestrictionsTypesAdministrations {
+interface IRestrictionTypeAdministration {
   typeId: string
   administrationId: string
-  creationLectureInterdit: boolean
+  creationInterdit: boolean
 }
 
-interface IRestrictionsTypesStatutsAdministrations {
+interface IRestrictionTypeStatutAdministration {
   titreTypeId: string
   titreStatutId: string
   administrationId: string
@@ -273,13 +293,13 @@ interface IRestrictionsTypesStatutsAdministrations {
   modificationInterdit: boolean
 }
 
-interface IRestrictionsEtapesTypes {
+interface IRestrictionEtapeType {
   etapeTypeId: string
   publicLectureInterdit: boolean
   entreprisesLectureInterdit: boolean
 }
 
-interface IRestrictionsEtapesTypesAdministrations {
+interface IRestrictionEtapeTypeAdministration {
   etapeTypeId: string
   administrationId: string
   creationInterdit: boolean
@@ -287,125 +307,196 @@ interface IRestrictionsEtapesTypesAdministrations {
   modificationInterdit: boolean
 }
 
-interface ITitresStatuts {
+interface ITitreStatut {
   id: string
   nom: string
   couleur: string
   ordre: number
 }
 
-interface ISubstancesLegalesCodes {
+interface ISubstanceLegaleCode {
   id: string
   nom: string
   description?: string
   lien: string
 }
 
-interface ISubstancesLegales {
+interface ISubstanceLegale {
   id: string
   nom: string
   domaineId?: string
   description?: string
   substanceLegalCodeId?: string
-  domaine?: IDomaines
-  code?: ISubstancesLegalesCodes
+  domaine?: IDomaine
+  code?: ISubstanceLegaleCode
 }
 
-interface ISubstances {
+interface ISubstance {
   id: string
   nom?: string
   symbole?: string
   gerep?: number
   description?: string
   substanceLegaleId: string
-  substanceLegale: ISubstancesLegales
+  substanceLegale: ISubstanceLegale
 }
 
-interface ITitresActivitesContenu {
-  [id: string]: string | number | string[]
+interface ITitre {
+  id: string
+  nom: string
+  domaineId: string
+  domaine?: IDomaine
+  typeId: string
+  type?: ITitreType
+  statutId?: string
+  statut?: ITitreStatut
+  references?: ITitreReference[]
+  dateDebut?: string
+  dateFin?: string
+  dateDemande?: string
+  activitesDeposees?: number
+  activitesEnConstruction?: number
+  activitesAbsentes?: number
+  substancesTitreEtapeId?: string
+  substances?: ISubstance
+  pointsTitreEtapeId?: string
+  points?: ITitrePoint[]
+  geojsonMultiPolygon?: IGeoJson
+  geojsonPoints?: IGeoJson
+  titulairesTitreEtapeId?: string
+  titulaires?: IEntreprise[]
+  amodiatairesTitreEtapeId?: string
+  amodiataires?: IEntreprise[]
+  administrationsTitreEtapeId?: string
+  administrationsLocales?: IAdministration[]
+  administrationsGestionnaires?: IAdministration[]
+  administrations?: IAdministration[]
+  surfaceTitreEtapeId?: string
+  surfaceEtape?: ITitreEtape
+  surface?: number
+  volumeTitreEtapeId?: string
+  volumeEtape?: ITitreEtape
+  volume?: number
+  volumeUniteIdTitreEtapeId?: string
+  volumeUnite?: IUnite
+  communesTitreEtapeId?: string
+  communes?: ICommune[]
+  engagementTitreEtapeId?: string
+  engagementEtape?: ITitreEtape
+  engagement?: number
+  engagementDeviseIdTitreEtapeId?: string
+  engagementDevise?: IDevise
+  demarches?: ITitreDemarche[]
+  activites?: ITitreActivite[]
+  pays?: IPays[]
+  editable?: boolean
+  supprimable?: boolean
+  doublonTitreId?: string
 }
 
-interface ITitresActivites {
+interface ITitreInput {
+  id?: string
+  nom: string
+  typeId: string
+  domaineId: string
+  references: ITitreReferenceInput[]
+}
+
+interface ITitreActivite {
   id: string
   titreId: string
+  titre?: ITitre
   date: string
   typeId: string
-  type?: IActivitesTypes
+  type?: IActiviteType
   statutId: string
-  statut?: IActivitesStatuts
+  statut?: IActiviteStatut
   frequencePeriodeId: number
   annee: number
-  periode?: IAnnees | ITrimestres | IMois
+  periode?: IAnnee | ITrimestre | IMois
   utilisateurId: string
-  utilisateur?: IUtilisateurs
+  utilisateur?: IUtilisateur
   dateSaisie?: string
-  contenu?: ITitresActivitesContenu
-  sections?: ISections[]
+  contenu?: IContenu
+  sections?: ISection[]
   editable?: boolean
 }
 
-interface ITitresAdministrationsGestionnaires {
+interface ITitreActiviteInput {
+  id: string
+  statutId: string
+  contenu?: IContenu
+}
+
+interface ITitreAdministrationsGestionnaire {
   administrationId: string
   titreId: string
   associee?: boolean
 }
 
-interface ITitresAdministrationsLocales {
+interface ITitreAdministrationLocale {
   administrationId: string
   titreId: string
   associee?: boolean
   coordinateur?: boolean
 }
 
-interface ITitresCommunes {
+interface ITitreCommune {
   communeId: string
   titreEtapeId: string
   surface?: number
 }
 
-interface ITitresDemarches {
+interface ITitreDemarche {
   id: string
   titreId: string
   typeId: string
-  type: IDemarchesTypes
+  type?: IDemarcheType
   statutId?: string
+  statut?: IDemarcheStatut
   ordre?: number
   annulationTitreDemarcheId?: string
-  statut?: IDemarchesStatuts
-  titreType: ITitresTypes
-  etapes?: ITitresEtapes[]
-  phase?: ITitresPhases
-  annulationDemarche?: ITitresDemarches
-  parents?: ITitresDemarches[]
-  enfants?: ITitresDemarches[]
+  titreType?: ITitreType
+  etapes?: ITitreEtape[]
+  phase?: ITitrePhase
+  annulationDemarche?: ITitreDemarche
+  parents?: ITitreDemarche[]
+  enfants?: ITitreDemarche[]
   editable?: boolean
   supprimable?: boolean
 }
 
-interface ITitresDocuments {
+interface ITitreDemarcheInput {
+  id?: string
+  typeId: string
+  titreId: string
+}
+
+interface ITitreDocument {
   id: string
   titreEtapeId: string
   typeId: string
-  type?: IDocumentsTypes
-  fichierTypeId: string
+  type?: IDocumentType
   jorf?: string
   nor?: string
   url?: string
   uri?: string
   nom?: string
   fichier?: boolean
+  fichierTypeId?: string
+  fichierNouveau?: { file: FileUpload }
   public?: boolean
   editable?: boolean
   supprimable?: boolean
 }
 
-interface ITitresEtapes {
+interface ITitreEtape {
   id: string
   titreDemarcheId: string
   typeId: string
-  type?: IEtapesTypes
+  type?: IEtapeType
   statutId: string
-  statut?: IEtapesStatuts
+  statut?: IEtapeStatut
   ordre?: number
   date: string
   dateDebut?: string
@@ -416,26 +507,49 @@ interface ITitresEtapes {
   volumeUniteId?: string
   engagement?: number
   engagementDeviseId?: string
-  // TODO: ITitresEtapesContenus
-  contenu?: any
-  substances?: ISubstances[]
-  points?: ITitresPoints[]
+  contenu?: IContenu
+  substances?: ISubstance[]
+  points?: ITitrePoint[]
   geojsonMultiPolygon?: IGeoJson
   geojsonPoints?: IGeoJson
-  titulaires?: IEntreprises[]
-  amodiataires?: IEntreprises[]
-  administrations?: IAdministrations[]
-  documents?: ITitresDocuments[]
-  communes?: ICommunes[]
-  incertitudes?: ITitresIncertitudes
-  volumeUnite?: IUnites
-  engagementDevise?: IDevises
+  titulaires?: IEntreprise[]
+  amodiataires?: IEntreprise[]
+  administrations?: IAdministration[]
+  documents?: ITitreDocument[]
+  communes?: ICommune[]
+  incertitudes?: ITitreIncertitudes
+  volumeUnite?: IUnite
+  engagementDevise?: IDevise
   pays?: IPays[]
   editable?: boolean
   supprimable?: boolean
 }
 
-interface ITitresIncertitudes {
+interface ITitreEtapeInput {
+  id: string
+  typeId: string
+  statutId: string
+  titreDemarcheId: string
+  date: string
+  ordre: number
+  duree: number
+  dateDebut: string
+  dateFin: string
+  surface: number
+  volume: number
+  volumeUniteId: string
+  engagement: number
+  engagementDeviseId: string
+  substancesIds: string[]
+  points: ITitrePointInput[]
+  titulairesIds: string[]
+  amodiatairesIds: string[]
+  administrationsIds: string[]
+  incertitudes: ITitreIncertitudesInput
+  contenu: IContenu
+}
+
+interface ITitreIncertitudes {
   titreEtapeId: string
   date?: boolean
   dateDebut?: boolean
@@ -451,133 +565,114 @@ interface ITitresIncertitudes {
   administrations?: boolean
 }
 
-interface ITitresPhases {
+interface ITitreIncertitudesInput {
+  date?: boolean
+  dateDebut?: boolean
+  dateFin?: boolean
+  duree?: boolean
+  surface?: boolean
+  volume?: boolean
+  engagement?: boolean
+  points?: boolean
+  substances?: boolean
+  titulaires?: boolean
+  amodiataires?: boolean
+  administrations?: boolean
+}
+
+interface ITitrePhase {
   titreDemarcheId: string
   statutId: string
   dateDebut: string
   dateFin: string
-  statut: IPhasesStatuts
+  statut: IPhaseStatut
 }
 
-interface ITitresPointsReferences {
-  id: string
-  titrePointId: string
-  geoSystemeId: string
-  coordonnees: ICoordonnees
-  opposable?: boolean
-  geoSysteme?: IGeoSystemes
-}
-
-interface ICoordonnees {
-  x: number
-  y: number
-}
-
-interface ITitresPoints {
+interface ITitrePoint {
   id: string
   titreEtapeId: string
   nom?: string
   description?: string
-  coordonnees: ICoordonnees
   groupe: number
   contour: number
   point: number
+  references: ITitrePointReference[]
+  coordonnees: ICoordonnees
   lot?: number
   securite?: boolean
   subsidiaire?: boolean
-  references: ITitresPointsReferences[]
 }
 
-interface ITitresReferences {
+interface ITitrePointInput {
+  nom?: string
+  groupe: number
+  contour: number
+  point: number
+  references: ITitrePointReferenceInput[]
+  lot?: number
+  description?: string
+  securite?: boolean
+  subsidiaire?: boolean
+}
+
+interface ITitrePointReference {
+  id: string
+  titrePointId: string
+  geoSystemeId: string
+  geoSysteme?: IGeoSysteme
+  coordonnees: ICoordonnees
+  opposable?: boolean
+}
+
+interface ITitrePointReferenceInput {
+  geoSystemeId: string
+  coordonnees: ICoordonnees
+  opposable?: boolean
+}
+
+interface ITitreReference {
   titreId: string
   typeId: string
   nom: string
-  type: IReferencesTypes
+  type?: IReferenceType
 }
 
-interface ITitres {
-  id: string
-  nom: string
-  domaineId: string
-  domaine?: IDomaines
+interface ITitreReferenceInput {
   typeId: string
-  type?: ITitresTypes
-  statutId?: string
-  statut?: ITitresStatuts
-  references?: ITitresReferences[]
-  dateDebut?: string
-  dateFin?: string
-  dateDemande?: string
-  activitesDeposees?: number
-  activitesEnConstruction?: number
-  activitesAbsentes?: number
-  substancesTitreEtapeId?: string
-  substances?: ISubstances
-  pointsTitreEtapeId?: string
-  points?: ITitresPoints[]
-  geojsonMultiPolygon?: IGeoJson
-  geojsonPoints?: IGeoJson
-  titulairesTitreEtapeId?: string
-  titulaires?: IEntreprises[]
-  amodiatairesTitreEtapeId?: string
-  amodiataires?: IEntreprises[]
-  administrationsTitreEtapeId?: string
-  administrationsLocales?: IAdministrations[]
-  administrationsGestionnaires?: IAdministrations[]
-  administrations?: IAdministrations[]
-  surfaceTitreEtapeId?: string
-  surfaceEtape?: ITitresEtapes
-  surface?: number
-  volumeTitreEtapeId?: string
-  volumeEtape?: ITitresEtapes
-  volume?: number
-  volumeUniteIdTitreEtapeId?: string
-  volumeUnite?: IUnites
-  communesTitreEtapeId?: string
-  communes?: ICommunes[]
-  engagementTitreEtapeId?: string
-  engagementEtape?: ITitresEtapes
-  engagement?: number
-  engagementDeviseIdTitreEtapeId?: string
-  engagementDevise?: IDevises
-  demarches?: ITitresDemarches[]
-  activites?: ITitresActivites[]
-  pays?: IPays[]
-  editable?: boolean
-  supprimable?: boolean
-  doublonTitreId?: string
+  nom: string
 }
 
-interface ITrimestres extends IPeriodes {
+interface ITrimestre extends IPeriode {
   mois?: IMois[]
 }
 
-interface ITitresTypes {
+interface ITitreType {
   id: string
   domaineId: string
   typeId: string
   archive?: boolean
-  type: ITitresTypesTypes
-  demarchesTypes?: IDemarchesTypes[]
+  type: ITitreTypeType
+  demarchesTypes?: IDemarcheType[]
+  editable?: boolean
 }
 
-interface ITitresTypesTypes {
+interface ITitreTypeType {
   id: string
   nom: string
   ordre: number
 }
 
-interface IUnites {
+interface IUnite {
   id: string
   nom: string
   symbole: string
 }
 
-interface IUsers extends IUtilisateurs {
+interface IUser extends IUtilisateur {
   sections: { [id: string]: boolean }
 }
 
-interface IUtilisateurs {
+interface IUtilisateur {
   id: string
   email?: string
   motDePasse?: string
@@ -586,21 +681,41 @@ interface IUtilisateurs {
   telephoneFixe?: string
   telephoneMobile?: string
   permissionId: string
-  // TODO: définir une interface IUtilisateurPreferences ?
+  // TODO: définir une interface IUtilisateurPreferences
   preferences?: any
-  permission: IPermissions
-  administrations?: IAdministrations[]
-  entreprises?: IEntreprises[]
-  editable: boolean
-  supprimable: boolean
-  permissionEditable: boolean
+  permission: IPermission
+  administrations?: IAdministration[]
+  entreprises?: IEntreprise[]
+  editable?: boolean
+  supprimable?: boolean
+  permissionEditable?: boolean
 }
 
-interface RequestContext {
-  user: IUtilisateurs
+interface IUtilisateurInput {
+  id?: string
+  email: string
+  motDePasse?: string
+  nom: string
+  prenom: string
+  telephoneFixe?: string
+  telephoneMobile?: string
+  permissionId: string
+  administrationsIds?: string[]
+  entreprisesIds?: string[]
+  preferences?: any
 }
 
-type TitreEtapeIdPropNames =
+interface IToken {
+  user?: ITokenUser
+}
+
+interface ITokenUser {
+  id: string
+  email: string
+  iat: number
+}
+
+type TitreProp =
   | 'pointsTitreEtapeId'
   | 'titulairesTitreEtapeId'
   | 'amodiatairesTitreEtapeId'
@@ -613,7 +728,7 @@ type TitreEtapeIdPropNames =
   | 'engagementTitreEtapeId'
   | 'engagementDeviseIdTitreEtapeId'
 
-type TitreEtapePropNames =
+type TitreEtapeProp =
   | 'points'
   | 'titulaires'
   | 'amodiataires'
@@ -627,66 +742,75 @@ type TitreEtapePropNames =
   | 'engagementDeviseId'
 
 export {
-  IActivitesStatuts,
-  IActivitesTypes,
-  ISections,
-  ISectionsElement,
-  IAdministrationsTypes,
-  IAdministrations,
-  IAnnees,
-  ICommunes,
+  IActiviteStatut,
+  IActiviteType,
+  ISection,
+  ISectionElement,
+  IAdministration,
+  IAdministrationType,
+  IAnnee,
+  ICommune,
+  IContenu,
+  IContenuElement,
+  IContenuValeur,
   ICoordonnees,
-  IDemarchesStatuts,
-  IDemarchesTypes,
-  IDepartements,
-  IDevises,
-  IDocumentsTypes,
-  IDomaines,
-  IEntreprisesEtablissements,
-  IEntreprises,
-  IEtapesStatuts,
-  IEtapesTypes,
-  IFrequences,
-  IGeoSystemes,
-  IGlobales,
+  IDemarcheStatut,
+  IDemarcheType,
+  IDepartement,
+  IDevise,
+  IDocumentType,
+  IDomaine,
+  IEntreprise,
+  IEntrepriseEtablissement,
+  IEtapeStatut,
+  IEtapeType,
+  IFrequence,
+  IGeoSysteme,
+  IGlobale,
   IMois,
   IPays,
-  IPermissions,
-  IPeriodes,
-  IPhasesStatuts,
-  IReferencesTypes,
-  IRegions,
-  IRestrictionsDomaines,
-  IRestrictionsTypesAdministrations,
-  IRestrictionsTypesStatuts,
-  IRestrictionsTypesStatutsAdministrations,
-  IRestrictionsEtapesTypes,
-  IRestrictionsEtapesTypesAdministrations,
-  ITitresStatuts,
-  ISubstancesLegalesCodes,
-  ISubstancesLegales,
-  ISubstances,
-  ITitresActivites,
-  ITitresActivitesContenu,
-  ITitresAdministrationsGestionnaires,
-  ITitresAdministrationsLocales,
-  ITitresCommunes,
-  ITitresDemarches,
-  ITitresDocuments,
-  ITitresEtapes,
-  ITitresIncertitudes,
-  ITitresPhases,
-  ITitresPointsReferences,
-  ITitresPoints,
-  ITitresReferences,
-  ITitres,
-  ITrimestres,
-  ITitresTypes,
-  ITitresTypesTypes,
-  IUnites,
-  IUsers,
-  IUtilisateurs,
-  RequestContext,
-  TitreEtapeIdPropNames,
-  TitreEtapePropNames
+  IPermission,
+  IPeriode,
+  IPhaseStatut,
+  IReferenceType,
+  IRegion,
+  IRestrictionDomaine,
+  IRestrictionTypeAdministration,
+  IRestrictionTypeStatut,
+  IRestrictionTypeStatutAdministration,
+  IRestrictionEtapeType,
+  IRestrictionEtapeTypeAdministration,
+  ITitreStatut,
+  ISubstance,
+  ISubstanceLegale,
+  ISubstanceLegaleCode,
+  ITitre,
+  ITitreActivite,
+  ITitreAdministrationsGestionnaire,
+  ITitreAdministrationLocale,
+  ITitreCommune,
+  ITitreDemarche,
+  ITitreDocument,
+  ITitreEtape,
+  ITitreIncertitudes,
+  ITitrePhase,
+  ITitrePoint,
+  ITitrePointReference,
+  ITitreReference,
+  ITitreType,
+  ITitreTypeType,
+  ITrimestre,
+  IUnite,
+  IUser,
+  IUtilisateur,
+  TitreProp,
+  TitreEtapeProp,
+  IToken,
+  ITokenUser,
+  IUtilisateurInput,
+  ITitreInput,
+  ITitreDemarcheInput,
+  ITitreEtapeInput,
+  ITitrePointInput,
+  ITitreActiviteInput
 }

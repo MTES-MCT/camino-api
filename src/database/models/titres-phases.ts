@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 import { join } from 'path'
-import { ITitresPhases } from '../../types'
+import { ITitrePhase } from '../../types'
 
-interface TitresPhases extends ITitresPhases {}
+interface TitresPhases extends ITitrePhase {}
 
 class TitresPhases extends Model {
   public static tableName = 'titresPhases'

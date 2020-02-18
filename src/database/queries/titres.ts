@@ -1,4 +1,4 @@
-import { ITitres, ITitresAdministrationsGestionnaires } from '../../types'
+import { ITitre, ITitreAdministrationsGestionnaire } from '../../types'
 import { transaction, Transaction } from 'objection'
 import Titres from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
@@ -225,30 +225,30 @@ const titresGet = async (
   return q
 }
 
-const titreCreate = async (titre: ITitres) =>
+const titreCreate = async (titre: ITitre) =>
   Titres.query()
     .insertGraphAndFetch(titre)
     .withGraphFetched(options.titres.graph)
 
-const titreUpdate = async (id: string, props: Partial<ITitres>) =>
+const titreUpdate = async (id: string, props: Partial<ITitre>) =>
   Titres.query()
     .patchAndFetchById(id, props)
     .withGraphFetched(options.titres.graph)
 
-const titreDelete = async (id: string, tr: Transaction) =>
+const titreDelete = async (id: string, tr?: Transaction) =>
   Titres.query(tr)
     .deleteById(id)
     .withGraphFetched(options.titres.graph)
     .returning('*')
 
-const titreUpsert = async (titre: ITitres, tr: Transaction) =>
+const titreUpsert = async (titre: ITitre, tr?: Transaction) =>
   Titres.query(tr)
     .upsertGraph(titre, options.titres.update)
     .withGraphFetched(options.titres.graph)
     .returning('*')
 
 const titresAdministrationsGestionnairesCreate = async (
-  titresAdministrationsGestionnaires: ITitresAdministrationsGestionnaires[]
+  titresAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[]
 ) =>
   TitresAdministrationsGestionnaires.query().insert(
     titresAdministrationsGestionnaires
@@ -263,7 +263,7 @@ const titreAdministrationGestionnaireDelete = async (
     .where('titreId', titreId)
     .andWhere('administrationId', administrationId)
 
-const titreIdUpdate = async (titreOldId: string, titre: ITitres) => {
+const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
   const knex = Titres.knex()
 
   return transaction(knex, async tr => {

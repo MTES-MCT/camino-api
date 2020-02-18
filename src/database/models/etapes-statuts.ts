@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 
-import { IEtapesStatuts } from '../../types'
+import { IEtapeStatut } from '../../types'
 
-interface EtapesStatuts extends IEtapesStatuts {}
+interface EtapesStatuts extends IEtapeStatut {}
 
 class EtapesStatuts extends Model {
   public static tableName = 'etapesStatuts'

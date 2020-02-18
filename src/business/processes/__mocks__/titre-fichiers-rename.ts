@@ -1,4 +1,4 @@
-import { ITitres } from '../../../types'
+import { ITitre } from '../../../types'
 
 const titreNew = {
   id: 'new-titre-id',
@@ -27,41 +27,29 @@ const titreNew = {
       ]
     }
   ]
-} as ITitres
+} as ITitre
 
-const titreNewSansDemarches = ({
-  id: 'new-titre-id'
-} as unknown) as ITitres
+const titreNewSansDemarches = { id: 'new-titre-id' } as ITitre
 
 const titreNewDemarchesVides = ({
   id: 'new-titre-id',
   demarches: []
-} as unknown) as ITitres
+} as unknown) as ITitre
 
-const titreNewSansEtapes = ({
+const titreNewSansEtapes = {
   id: 'new-titre-id',
   demarches: [
-    {
-      id: 'new-titre-id-demarche-01',
-      etapes: []
-    },
-    {
-      id: 'new-titre-id-demarche-02'
-    },
+    { id: 'new-titre-id-demarche-01', etapes: [] },
+    { id: 'new-titre-id-demarche-02' },
     {
       id: 'new-titre-id-demarche-03',
       etapes: [
-        {
-          id: 'new-titre-id-demarche-03-etape-01',
-          documents: []
-        },
-        {
-          id: 'new-titre-id-demarche-03-etape-02'
-        }
+        { id: 'new-titre-id-demarche-03-etape-01', documents: [] },
+        { id: 'new-titre-id-demarche-03-etape-02' }
       ]
     }
   ]
-} as unknown) as ITitres
+} as ITitre
 
 export {
   titreNew,

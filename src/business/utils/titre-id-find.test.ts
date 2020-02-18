@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 import titreIdFind from './titre-id-find'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
-import { ITitres } from '../../types'
+import { ITitre } from '../../types'
 
 jest.mock('../rules/titre-demarche-octroi-date-debut-find', () => ({
   __esModules: true,
@@ -22,7 +22,7 @@ describe("trouve l'id d'un titre", () => {
         domaineId: 'm',
         type: { typeId: 'ae' },
         nom: 'test'
-      } as ITitres)
+      } as ITitre)
     ).toEqual('m-ae-test-2002')
   })
 })

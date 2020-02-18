@@ -1,15 +1,15 @@
-import { ISections, ISectionsElement } from '../../../types'
+import { ISection, ISectionElement } from '../../../types'
 
 // - ne conserve que les sections qui contiennent des élements
 const titreSectionsFormat = (
-  sections: ISections[],
+  sections: ISection[],
   periodeId: number | undefined = undefined,
   date: string | undefined = undefined
 ) =>
-  sections.reduce((sections: ISections[], s) => {
+  sections.reduce((sections: ISection[], s) => {
     const elements =
       s.elements &&
-      s.elements.reduce((elements: ISectionsElement[], e) => {
+      s.elements.reduce((elements: ISectionElement[], e) => {
         // ne conserve que les éléments dont
         // - la période (si elle existe),
         // - la date de début et la date de fin

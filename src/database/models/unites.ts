@@ -1,7 +1,7 @@
 import { Model } from 'objection'
-import { IUnites } from '../../types'
+import { IUnite } from '../../types'
 
-interface Unites extends IUnites {}
+interface Unites extends IUnite {}
 
 class Unites extends Model {
   public static tableName = 'unites'

@@ -1,8 +1,8 @@
 import { Model } from 'objection'
 
-import { IPhasesStatuts } from '../../types'
+import { IPhaseStatut } from '../../types'
 
-interface PhasesStatuts extends IPhasesStatuts {}
+interface PhasesStatuts extends IPhaseStatut {}
 
 class PhasesStatuts extends Model {
   public static tableName = 'phasesStatuts'
