@@ -20,12 +20,13 @@ import globales from '../../database/cache/globales'
 
 import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionsCheck, permissionsAdministrationsCheck } from './permissions/permissions-check'
 
 import {
   emailCheck,
   utilisateurEditionCheck,
-  utilisateurTestCheck
+  utilisateurTestCheck,
+  permissionUtilisateurAdministrationCheck
 } from './permissions/utilisateur'
 
 import { utilisateursFormat, utilisateurFormat } from './format/utilisateurs'
@@ -269,6 +270,109 @@ const utilisateurCreationEmailEnvoyer = async ({
   }
 }
 
+interface IAdministrationIdsIndex {
+  [key: string]: number
+}
+
+const administrationsIdsDiffFind = (
+  userOld: IUtilisateur,
+  user: IUtilisateur
+) => {
+  if (!userOld || !user) {
+    return []
+  }
+
+  const administrationsAll = [
+    ...(userOld.administrations || []),
+    ...(user.administrations || [])
+  ]
+
+  if (!administrationsAll.length) return []
+
+  const administrationsIdsCountIndex = administrationsAll.reduce(
+    (administrationsIdsCountIndex: IAdministrationIdsIndex, a) => {
+      if (!administrationsIdsCountIndex[a.id]) {
+        administrationsIdsCountIndex[a.id] = 0
+      }
+
+      administrationsIdsCountIndex[a.id] += 1
+
+      return administrationsIdsCountIndex
+    },
+    {}
+  )
+
+  // ne garde que les administrations qui ne sont pas communes (count === 1)
+  return Object
+    .keys(administrationsIdsCountIndex)
+    .reduce((administrationsIdsDiff: string[], id) => {
+      if (administrationsIdsCountIndex[id] === 1) {
+        administrationsIdsDiff.push(id)
+      }
+
+      return administrationsIdsDiff
+    }, [])
+}
+
+const permissionsModificationsCheck = async (
+  user: IUtilisateur,
+  utilisateur: IUtilisateur,
+  isAdmin: Boolean
+) => {
+  const utilisateurOld = await utilisateurGet(utilisateur.id!)
+
+  // récupère la liste des administrations modifiées (suppression et ajout)
+  const administrationsIdsDiff = administrationsIdsDiffFind(
+    utilisateurOld,
+    utilisateur
+  )
+
+  // si le user n'est pas admin
+  if (!isAdmin) {
+    // alors il n'a le droit de modifier
+    //   ni les permissions
+    if (utilisateurOld.permissionId !== utilisateur.permissionId) {
+      return 'droits insuffisants pour modifier les permissions'
+    }
+
+    //   ni les administrations
+    if (administrationsIdsDiff.length) {
+      return 'droits insuffisants pour modifier les administrations'
+    }
+
+    return null
+  }
+
+  // sinon, le user est admin
+
+  // si le user modifie les administrations de l'utilisateur
+  if (administrationsIdsDiff.length) {
+    // si le user n'a pas les droits sur toutes ces administrations
+    if (
+      !administrationsIdsDiff.every(administrationId =>
+        permissionsAdministrationsCheck(user, [administrationId])
+      )
+    ) {
+      // alors il ne peut modifier les administrations
+      return 'droits admin insuffisants pour modifier les administrations'
+    }
+    // sinon, si le user modifie les permissions de l'utilisateur
+  } else if (utilisateurOld.permissionId !== utilisateur.permissionId) {
+    // et qu'il n'a pas les droits sur toutes les administrations de ce dernier
+    if (
+      utilisateur.administrations &&
+      !utilisateur.administrations.every(({ id }) =>
+        permissionsAdministrationsCheck(user, [id])
+      )
+    ) {
+      // alors il ne peut modifier les permissions
+      return 'droits admin insuffisants pour modifier les permissions'
+    }
+  }
+
+  return null
+}
+
 const utilisateurModifier = async (
   { utilisateur }: { utilisateur: IUtilisateur },
   context: IToken
@@ -278,39 +382,31 @@ const utilisateurModifier = async (
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
-    if (
-      !user ||
-      (!permissionsCheck(user, ['super', 'admin']) &&
-        user.id !== utilisateur.id)
-    ) {
+    const isSuper = permissionsCheck(user, ['super'])
+    const isAdmin = permissionsCheck(user, ['admin'])
+
+    if (!user || (!isSuper && !isAdmin && user.id !== utilisateur.id)) {
       throw new Error('droits insuffisants pour modifier cet utilisateur')
     }
 
     const errors = utilisateurEditionCheck(utilisateur)
 
-    if (
-      !permissionsCheck(user, ['super']) &&
-      utilisateur.permissionId === 'super'
-    ) {
+    if (!isSuper && permissionsCheck(utilisateur, ['super'])) {
       errors.push(
         'droits insuffisants pour affecter ces permissions à cet utilisateur'
       )
     }
 
-    if (
-      !permissionsCheck(user, ['super', 'admin']) &&
-      user.email !== utilisateur.email
-    ) {
+    if (!isSuper && !isAdmin && user.email !== utilisateur.email) {
       errors.push(
         "droits insuffisants pour modifier l'adresse email de cet utilisateur"
       )
     }
 
-    if (!permissionsCheck(user, ['super', 'admin'])) {
-      const utilisateurOld = await utilisateurGet(utilisateur.id!)
-
-      if (utilisateurOld.permissionId !== utilisateur.permissionId) {
-        errors.push('droits insuffisants pour modifier les permissions')
+    if (!isSuper) {
+      const error = await permissionsModificationsCheck(user, utilisateur, isAdmin)
+      if (error) {
+        errors.push(error)
       }
     }
 
