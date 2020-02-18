@@ -234,3 +234,7 @@ enum Couleur {
   success
   warning
 }
+
+input InputId {
+  id: ID!
+}

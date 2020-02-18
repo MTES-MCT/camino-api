@@ -1,4 +1,4 @@
-import { IToken, IAdministration, ITitre, ITitreInput } from '../../types'
+import { IToken, IAdministration, ITitre } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import { permissionsCheck } from './permissions/permissions-check'
@@ -25,15 +25,6 @@ import titreUpdateTask from '../../business/titre-update'
 import titreUpdationValidate from '../../business/titre-updation-validate'
 
 import titreAdministrationsGestionnairesBuild from '../../business/rules/titre-administrations-gestionnaires-build'
-
-const titreInputConvert = (titreInput: ITitreInput) =>
-  ({
-    id: titreInput.id,
-    nom: titreInput.nom,
-    typeId: titreInput.typeId,
-    domaineId: titreInput.domaineId,
-    references: titreInput.references
-  } as ITitre)
 
 const titresAdministrationsGestionnairesFind = (
   { id, domaineId, typeId }: { id: string; domaineId: string; typeId: string },
@@ -137,10 +128,7 @@ const titres = async (
   }
 }
 
-const titreCreer = async (
-  { titre: titreInput }: { titre: ITitreInput },
-  context: IToken
-) => {
+const titreCreer = async ({ titre }: { titre: ITitre }, context: IToken) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
@@ -154,8 +142,8 @@ const titreCreer = async (
       const titreAdministrationsGestionnaires = titresAdministrationsGestionnairesFind(
         {
           id: 'id-tmp',
-          domaineId: titreInput.domaineId,
-          typeId: titreInput.typeId
+          domaineId: titre.domaineId,
+          typeId: titre.typeId
         },
         administrations
       )
@@ -164,7 +152,7 @@ const titreCreer = async (
         titrePermissionAdministrationsCheck(
           user,
           'creation',
-          titreInput.typeId,
+          titre.typeId,
           'dmi',
           titreAdministrationsGestionnaires
         )
@@ -172,8 +160,6 @@ const titreCreer = async (
         throw new Error('droits insuffisants pour créer ce type de titre')
       }
     }
-
-    const titre = titreInputConvert(titreInput)
 
     // insert le titre dans la base
     // ajoute l'id par effet de bord
@@ -191,10 +177,7 @@ const titreCreer = async (
   }
 }
 
-const titreModifier = async (
-  { titre: titreInput }: { titre: ITitreInput },
-  context: IToken
-) => {
+const titreModifier = async ({ titre }: { titre: ITitre }, context: IToken) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
@@ -208,9 +191,9 @@ const titreModifier = async (
 
       const titreAdministrationsGestionnaires = titresAdministrationsGestionnairesFind(
         {
-          id: titreInput.id!,
-          domaineId: titreInput.domaineId,
-          typeId: titreInput.typeId
+          id: titre.id!,
+          domaineId: titre.domaineId,
+          typeId: titre.typeId
         },
         administrations
       )
@@ -219,7 +202,7 @@ const titreModifier = async (
         !titrePermissionAdministrationsCheck(
           user,
           'modification',
-          titreInput.typeId,
+          titre.typeId,
           'dmi',
           titreAdministrationsGestionnaires
         )
@@ -227,8 +210,6 @@ const titreModifier = async (
         throw new Error('droits insuffisants pour modifier ce titre')
       }
     }
-
-    const titre = titreInputConvert(titreInput)
 
     const titreOld = await titreGet(titre.id)
 

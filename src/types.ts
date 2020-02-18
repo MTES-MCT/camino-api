@@ -394,14 +394,6 @@ interface ITitre {
   doublonTitreId?: string
 }
 
-interface ITitreInput {
-  id?: string
-  nom: string
-  typeId: string
-  domaineId: string
-  references: ITitreReferenceInput[]
-}
-
 interface ITitreActivite {
   id: string
   titreId: string
@@ -525,47 +517,8 @@ interface ITitreEtape {
   supprimable?: boolean
 }
 
-interface ITitreEtapeInput {
-  id: string
-  typeId: string
-  statutId: string
-  titreDemarcheId: string
-  date: string
-  ordre: number
-  duree: number
-  dateDebut: string
-  dateFin: string
-  surface: number
-  volume: number
-  volumeUniteId: string
-  engagement: number
-  engagementDeviseId: string
-  substancesIds: string[]
-  points: ITitrePointInput[]
-  titulairesIds: string[]
-  amodiatairesIds: string[]
-  administrationsIds: string[]
-  incertitudes: ITitreIncertitudesInput
-  contenu: IContenu
-}
-
 interface ITitreIncertitudes {
   titreEtapeId: string
-  date?: boolean
-  dateDebut?: boolean
-  dateFin?: boolean
-  duree?: boolean
-  surface?: boolean
-  volume?: boolean
-  engagement?: boolean
-  points?: boolean
-  substances?: boolean
-  titulaires?: boolean
-  amodiataires?: boolean
-  administrations?: boolean
-}
-
-interface ITitreIncertitudesInput {
   date?: boolean
   dateDebut?: boolean
   dateFin?: boolean
@@ -603,18 +556,6 @@ interface ITitrePoint {
   subsidiaire?: boolean
 }
 
-interface ITitrePointInput {
-  nom?: string
-  groupe: number
-  contour: number
-  point: number
-  references: ITitrePointReferenceInput[]
-  lot?: number
-  description?: string
-  securite?: boolean
-  subsidiaire?: boolean
-}
-
 interface ITitrePointReference {
   id: string
   titrePointId: string
@@ -624,22 +565,11 @@ interface ITitrePointReference {
   opposable?: boolean
 }
 
-interface ITitrePointReferenceInput {
-  geoSystemeId: string
-  coordonnees: ICoordonnees
-  opposable?: boolean
-}
-
 interface ITitreReference {
   titreId: string
   typeId: string
   nom: string
   type?: IReferenceType
-}
-
-interface ITitreReferenceInput {
-  typeId: string
-  nom: string
 }
 
 interface ITrimestre extends IPeriode {
@@ -689,20 +619,6 @@ interface IUtilisateur {
   editable?: boolean
   supprimable?: boolean
   permissionEditable?: boolean
-}
-
-interface IUtilisateurInput {
-  id?: string
-  email: string
-  motDePasse?: string
-  nom: string
-  prenom: string
-  telephoneFixe?: string
-  telephoneMobile?: string
-  permissionId: string
-  administrationsIds?: string[]
-  entreprisesIds?: string[]
-  preferences?: any
 }
 
 interface IToken {
@@ -806,11 +722,5 @@ export {
   TitreProp,
   TitreEtapeProp,
   IToken,
-  ITokenUser,
-  IUtilisateurInput,
-  ITitreInput,
-  ITitreDemarcheInput,
-  ITitreEtapeInput,
-  ITitrePointInput,
-  ITitreActiviteInput
+  ITokenUser
 }

@@ -40,8 +40,8 @@ input InputUtilisateurModification {
   telephoneMobile: String
   telephoneFixe: String
   permissionId: ID!
-  entreprisesIds: [ID]
-  administrationsIds: [ID]
+  entreprises: [InputId]
+  administrations: [InputId]
   preferences: Json
 }
 
@@ -53,7 +53,7 @@ input InputUtilisateurCreation {
   telephoneMobile: String
   telephoneFixe: String
   permissionId: ID!
-  entreprisesIds: [ID]
-  administrationsIds: [ID]
+  entreprises: [InputId]
+  administrations: [InputId]
   preferences: Json
 }
