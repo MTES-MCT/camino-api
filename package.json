@@ -38,7 +38,7 @@
     "dev:export": "ts-node --transpile-only ./src/tools/export/index.js",
     "dev:import": "ts-node --transpile-only ./src/tools/import/index.js",
     "dev:import-check": "ts-node --transpile-only ./src/tools/dev/json/import-check.js",
-    "dev:documents-check": "ts-node --transpile-only ./dev/database/documents-check.js",
+    "dev:documents-check": "ts-node --transpile-only ./dev/database/documents-check.ts",
     "dev:monthly": "ts-node --transpile-only ./src/business/monthly.ts",
     "dev:schema": "node dev/api/graphql-dsl-to-query-convert.js",
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
