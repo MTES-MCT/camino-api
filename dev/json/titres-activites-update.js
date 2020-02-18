@@ -1,4 +1,4 @@
-import fileCreate from '../../file-create'
+import fileCreate from '../../src/tools/file-create'
 import { join } from 'path'
 
 const titresActivitesPath = 'sources/titres-activites.json'

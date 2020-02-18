@@ -1,6 +1,6 @@
 import 'dotenv/config'
-import '../../database/index'
-import { titreActivitesRowUpdate } from '../export/titre-activites'
+import '../../src/database/index'
+import { titreActivitesRowUpdate } from '../src/tools/export/titre-activites'
 
 async function main() {
   const activite = {

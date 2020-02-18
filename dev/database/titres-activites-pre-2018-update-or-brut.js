@@ -1,10 +1,10 @@
 import 'dotenv/config'
-import '../../../database/index'
+import '../../src/database/index'
 
 import {
   titresActivitesGet,
   titreActivitesUpsert
-} from '../../../database/queries/titres-activites'
+} from '../../src/database/queries/titres-activites'
 
 async function main() {
   const titresActivites = await titresActivitesGet()

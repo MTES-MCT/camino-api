@@ -1,19 +1,19 @@
 import 'dotenv/config'
 
-import '../../database/index'
-import fileCreate from '../file-create'
+import '../src/database/index'
+import fileCreate from '../src/tools/file-create'
 
-// import { titresGet } from '../../database/queries/titres'
+// import { titresGet } from '../src/database/queries/titres'
 import {
   titresEtapesGet,
   titreEtapeAdministrationInsert
-} from '../../database/queries/titres-etapes'
-import { departementsGet } from '../../database/queries/territoires'
-import { administrationInsert } from '../../database/queries/administrations'
+} from '../src/database/queries/titres-etapes'
+import { departementsGet } from '../src/database/queries/territoires'
+import { administrationInsert } from '../src/database/queries/administrations'
 
 // import { geojsonFeatureMultiPolygon } from '../geojson'
 
-import { organismeGet } from '../api-administrations/index'
+import { organismeGet } from '../src/tools/api-administrations/index'
 // import { departementChefGeojsonGet } from '../api-communes/index'
 
 // const multiDepartements = async () => {

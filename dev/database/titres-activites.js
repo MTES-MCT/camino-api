@@ -1,18 +1,17 @@
 import 'dotenv/config'
-import '../../../database/index'
+import '../../src/database/index'
 
-import { titresGet } from '../../../database/queries/titres'
+import { titresGet } from '../../src/database/queries/titres'
 
-import titresActivitesTypesUpdate from '../../../business/processes/titres-activites-update'
-import { activitesTypesGet } from '../../../database/queries/metas'
+import titresActivitesTypesUpdate from '../../src/business/processes/titres-activites-update'
+import { activitesTypesGet } from '../../src/database/queries/metas'
 
 async function main() {
   const titres = await titresGet()
   const activitesTypes = await activitesTypesGet()
   const titresActivitesUpdated = await titresActivitesTypesUpdate(
     titres,
-    activitesTypes,
-    [2018]
+    activitesTypes
   )
 
   console.log(titresActivitesUpdated)

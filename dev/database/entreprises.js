@@ -1,10 +1,10 @@
 import 'dotenv/config'
-import '../../../database/index'
+import '../../src/database/index'
 
 import {
   entreprisesGet,
   entreprisesUpsert
-} from '../../../database/queries/entreprises'
+} from '../../src/database/queries/entreprises'
 
 async function main() {
   const entreprises = await entreprisesGet()

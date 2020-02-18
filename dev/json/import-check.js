@@ -105,7 +105,7 @@ const data = [
   let model
   try {
     model = !file.match(/--/)
-      ? require(`../../../database/models/${decamelize(name, '-')}`).default
+      ? require(`../../src/database/models/${decamelize(name, '-')}`).default
       : null
   } catch (e) {
     console.log(e)
@@ -113,7 +113,7 @@ const data = [
 
   let data
   try {
-    data = require(`../../../../sources/${decamelize(file, '-')}.json`)
+    data = require(`./sources/${decamelize(file, '-')}.json`)
   } catch (e) {
     data = []
   }
@@ -167,9 +167,7 @@ const mappingRelationsGet = (file, mappings) => {
       return relations
     }
 
-    relations.push(
-      Object.assign({ file, name }, splitJoin(join.from, join.to, true))
-    )
+    relations.push(Object.assign({ file, name }, splitJoin(join.from, join.to)))
 
     return relations
   }, [])
