@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import '../../../database/index'
+import '../../src/database/index'
 
-import { titresGet } from '../../../database/queries/titres'
+import { titresGet } from '../../src/database/queries/titres'
 
 async function main() {
   const titres = await titresGet({

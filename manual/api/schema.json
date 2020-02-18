@@ -11,11 +11,11 @@
       {
         "kind": "OBJECT",
         "name": "Query",
-        "description": "# Query\n## _Requêtes en lecture_\n\n- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)\n\n_Query_ un type _racine_ (_root_) de GraphQL.\n\nCertaines requêtes sont __publiques__.\n\nCertaines requêtes sont __protégées__ et nécessitent une authentification par token (jwt). Elles sont signalées par une étoile __*__.\n\nEnfin, certaines requêtes sont __semi-publiques__ et retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié. Elles sont signalées par un plus __+__.",
+        "description": "# Query\n## _Requêtes en lecture_\n\n- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)\n\n_Query_ un type _racine_ de GraphQL.\n\nCertaines requêtes sont __publiques__.\n\nCertaines requêtes sont __protégées__ et nécessitent une authentification par token (jwt). Elles sont signalées par une étoile __*__.\n\nEnfin, certaines requêtes sont __semi-publiques__ et retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié. Elles sont signalées par un plus __+__.",
         "fields": [
           {
             "name": "version",
-            "description": "Retourne la version de l'API",
+            "description": "Version de l'API",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -26,12 +26,12 @@
             "deprecationReason": null
           },
           {
-            "name": "metas",
-            "description": "Retourne les meta-informations sur les titres miniers (types, domaines, statuts)",
+            "name": "moi",
+            "description": "__*__ Utilisateur en fonction du token",
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Metas",
+              "name": "Utilisateur",
               "ofType": null
             },
             "isDeprecated": false,
@@ -39,7 +39,7 @@
           },
           {
             "name": "titre",
-            "description": "__+__ Retourne un titre minier en fonction de son id",
+            "description": "__+__ Titre minier en fonction de son id",
             "args": [
               {
                 "name": "id",
@@ -66,7 +66,7 @@
           },
           {
             "name": "titres",
-            "description": "__+__ Retourne une liste de titres miniers, en fonction d'arguments (optionnels)",
+            "description": "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)",
             "args": [
               {
                 "name": "typeIds",
@@ -194,8 +194,88 @@
             "deprecationReason": null
           },
           {
+            "name": "activite",
+            "description": "__*__ Activité en fonction de son id",
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Activite",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activites",
+            "description": "Liste des activités",
+            "args": [
+              {
+                "name": "typeId",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "annee",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Activite",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesTypes",
+            "description": "Types d'activités",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ActiviteType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "utilisateur",
-            "description": "__*__ Retourne un utilisateur en fonction de son id",
+            "description": "__*__ Utilisateur en fonction de son id",
             "args": [
               {
                 "name": "id",
@@ -222,7 +302,7 @@
           },
           {
             "name": "utilisateurs",
-            "description": "__*__ Retourne une liste d'utilisateurs en fonction d'arguments (optionnels)",
+            "description": "__*__ Liste d'utilisateurs en fonction d'arguments (optionnels)",
             "args": [
               {
                 "name": "entrepriseIds",
@@ -295,7 +375,7 @@
           },
           {
             "name": "substance",
-            "description": "Retourne une substance en fonction de son id",
+            "description": "Substance en fonction de son id",
             "args": [
               {
                 "name": "id",
@@ -322,7 +402,7 @@
           },
           {
             "name": "substances",
-            "description": "Retourne la liste des substances",
+            "description": "Liste des substances",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -337,20 +417,136 @@
             "deprecationReason": null
           },
           {
-            "name": "utilisateurIdentifier",
-            "description": "__*__ Retourne un utilisateur et son token en fonction du token",
+            "name": "devises",
+            "description": "Metas",
             "args": [],
             "type": {
-              "kind": "OBJECT",
-              "name": "UtilisateurToken",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Devise",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "documentsTypes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DocumentType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "domaines",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Domaine",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "geoSystemes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "GeoSysteme",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "referencesTypes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ReferenceType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "statuts",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreStatut",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "types",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreTypeType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "unites",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Unite",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "permissions",
-            "description": "__+__ Retourne la liste des permissions utilisateurs",
+            "description": "__+__ Liste des permissions utilisateurs",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -366,7 +562,7 @@
           },
           {
             "name": "entreprise",
-            "description": "__*__ Retourne une entreprise en fonction de son id",
+            "description": "Entreprise en fonction de son id",
             "args": [
               {
                 "name": "id",
@@ -393,7 +589,7 @@
           },
           {
             "name": "entreprises",
-            "description": "__*__ Retourne la liste des entreprises",
+            "description": "Liste des entreprises",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -408,13 +604,154 @@
             "deprecationReason": null
           },
           {
+            "name": "administration",
+            "description": "Administration en fonction de son id",
+            "args": [
+              {
+                "name": "id",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Administration",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "administrations",
+            "description": "Liste des administrations",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Administration",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "statistiques",
-            "description": "__*__ Retourne les statistiques",
+            "description": "Statistiques",
             "args": [],
             "type": {
               "kind": "OBJECT",
               "name": "Statistiques",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "utilisateurDomaines",
+            "description": "__+__ Domaines disponibles pour un utilisateur",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Domaine",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titreDemarchesTypes",
+            "description": "__+__ Types de démarches disponibles dans un titre",
+            "args": [
+              {
+                "name": "titreId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "demarcheTypeId",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DemarcheType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "demarcheEtapesTypes",
+            "description": "__+__ Types d'étapes disponibles dans une démarche",
+            "args": [
+              {
+                "name": "titreDemarcheId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "ID",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "etapeTypeId",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EtapeType",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -437,135 +774,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Metas",
-        "description": "Meta-informations sur les titres miniers (types, domaines, statuts)",
-        "fields": [
-          {
-            "name": "types",
-            "description": "Types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Type",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "domaines",
-            "description": "Domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Domaine",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "statuts",
-            "description": "Statuts des titres miniers (ex: valide, demande initiale, etc.)",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Statut",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "geoSystemes",
-            "description": "Systèmes géodésiques utilisés dans Camino",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "GeoSysteme",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "devises",
-            "description": "Devises utilisées dans Camino",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Devise",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "unites",
-            "description": "Unités de volume utilisées dans Camino",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Unite",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "documentsTypes",
-            "description": "Types de documents",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "DocumentType",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Type",
-        "description": "Le type de titre minier",
+        "name": "Utilisateur",
+        "description": null,
         "fields": [
           {
             "name": "id",
-            "description": "L'id composée de trois lettres",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -580,15 +794,75 @@
             "deprecationReason": null
           },
           {
-            "name": "nom",
-            "description": "Le nom du type en français",
+            "name": "email",
+            "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prenom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "telephoneMobile",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "telephoneFixe",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "administrations",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "OBJECT",
+                "name": "Administration",
                 "ofType": null
               }
             },
@@ -596,17 +870,89 @@
             "deprecationReason": null
           },
           {
-            "name": "demarchesTypes",
-            "description": "Les types de démarches applicables à ce type de titre",
+            "name": "entreprises",
+            "description": null,
             "args": [],
             "type": {
               "kind": "LIST",
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "DemarcheType",
+                "name": "Entreprise",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permission",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permission",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "preferences",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Json",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "supprimable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permissionEditable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "sections",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Sections",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -629,12 +975,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "DemarcheType",
-        "description": "Le type de démarche applicable à un titre minier",
+        "name": "Administration",
+        "description": null,
         "fields": [
           {
             "name": "id",
-            "description": "L'id composée de trois lettres",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -650,7 +996,1135 @@
           },
           {
             "name": "nom",
-            "description": "Le nom en français",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "abreviation",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "service",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "email",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "telephone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "adresse1",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "adresse2",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "codePostal",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "commune",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "cedex",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "utilisateurs",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Utilisateur",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Entreprise",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "paysId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "legalSiren",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "legalEtranger",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "legalForme",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "categorie",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateCreation",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "adresse",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "codePostal",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "commune",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "cedex",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "telephone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "email",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "etablissements",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EntrepriseEtablissement",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "utilisateurs",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Utilisateur",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titresTitulaire",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Titre",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titresAmodiataire",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Titre",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EntrepriseEtablissement",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateDebut",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateFin",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "legalSiret",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Titre",
+        "description": "Titre minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Id composée de la concaténation:\n- du type en 3 lettres\n- du slug du nom du titre\n- de l'année d'octroi",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Nom du titre",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "Type du titre",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "domaine",
+            "description": "Domaine minier auquel se rattache le titre",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Domaine",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "references",
+            "description": "Références métier du titre",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Reference",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "statut",
+            "description": "Statut du titre",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreStatut",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "substances",
+            "description": "Substances concernées par le titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreSubstance",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "points",
+            "description": "Coordonnées des points du périmètre géographique du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Point",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "geojsonMultiPolygon",
+            "description": "Geojson du contour du périmètre géographique du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "GeojsonMultiPolygon",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "geojsonPoints",
+            "description": "Geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "GeojsonPoints",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titulaires",
+            "description": "Titualires du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Entreprise",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "amodiataires",
+            "description": "Amodiataires du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Entreprise",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "administrations",
+            "description": "Administrations en charge du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Administration",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pays",
+            "description": "Territoires du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Pays",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateDebut",
+            "description": "Date de début d'un titre",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateFin",
+            "description": "Date de fin d'un titre",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dateDemande",
+            "description": "Date de demande initiale d'un titre",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "demarches",
+            "description": "Démarches effectuées sur le titre",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Demarche",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "surface",
+            "description": "Surface en Km² du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "volume",
+            "description": "Volume du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "volumeUnite",
+            "description": "Unité du volume du titre dans son dernier état de validité",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Unite",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "engagement",
+            "description": "Montant de l'engagement financier du titulaire",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "engagementDevise",
+            "description": "Devise de l'engagement financier du titulaire",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Devise",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activites",
+            "description": "Activités sur un titre",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Activite",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesDeposees",
+            "description": "Nombre d'activités déposées",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesEnConstruction",
+            "description": "Nombre d'activités en construction",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "activitesAbsentes",
+            "description": "Nombre d'activités absentes",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "supprimable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "doublonTitreId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TitreType",
+        "description": "Type de titre minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Id composée de trois lettres",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "domaine",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Domaine",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreTypeType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "demarchesTypes",
+            "description": "Types de démarches applicables à ce type de titre",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DemarcheType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "archive",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Domaine",
+        "description": "Domaine minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Id composée d'une seule lettre",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Nom du domaine en français",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titresTypes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TitreType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "description": "The `Boolean` scalar type represents `true` or `false`.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TitreTypeType",
+        "description": "Type de titre minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Id composée de deux lettres",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Nom du type en français",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -666,7 +2140,76 @@
           },
           {
             "name": "ordre",
-            "description": "L'ordre de ce type de démarche",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Int",
+        "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DemarcheType",
+        "description": "Type de démarche applicable à un titre minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Id composée de trois lettres",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Nom en français",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ordre",
+            "description": "Ordre de ce type de démarche",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -749,8 +2292,20 @@
             "deprecationReason": null
           },
           {
+            "name": "titreTypeId",
+            "description": "Type de titre pour laquelle cette démarche existe",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "etapesTypes",
-            "description": "Les types d'étapes applicables à ce type de démarche",
+            "description": "Types d'étapes applicables à ce type de démarche",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -763,6 +2318,34 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "etapesTypeIds",
+            "description": "Ids des types d'étape déjà présents sur cette démarche",
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -771,33 +2354,13 @@
         "possibleTypes": null
       },
       {
-        "kind": "SCALAR",
-        "name": "Int",
-        "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "SCALAR",
-        "name": "Boolean",
-        "description": "The `Boolean` scalar type represents `true` or `false`.",
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
         "kind": "OBJECT",
         "name": "EtapeType",
-        "description": "Le type d'étape d'une démarche de titre minier",
+        "description": "Type d'étape d'une démarche de titre minier",
         "fields": [
           {
             "name": "id",
-            "description": "L'id composée de trois lettres",
+            "description": "Id composée de trois lettres",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -813,7 +2376,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom en français",
+            "description": "Nom en français",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -828,8 +2391,20 @@
             "deprecationReason": null
           },
           {
-            "name": "typeId",
+            "name": "titreTypeId",
             "description": "Type de titre pour laquelle cette étape existe",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "demarcheTypeId",
+            "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -880,6 +2455,18 @@
             "deprecationReason": null
           },
           {
+            "name": "unique",
+            "description": "Si ce type d'étape est unique au sein de la démarche",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "etapesStatuts",
             "description": null,
             "args": [],
@@ -906,6 +2493,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -916,11 +2515,11 @@
       {
         "kind": "OBJECT",
         "name": "EtapeStatut",
-        "description": "Le statut d'une étape de démarche de titre minier",
+        "description": "Statut d'une étape de démarche de titre minier",
         "fields": [
           {
             "name": "id",
-            "description": "L'id du statut d'étape est composé de trois lettres",
+            "description": "Id du statut d'étape est composé de trois lettres",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -936,7 +2535,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom du domaine en français",
+            "description": "Nom du domaine en français",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -975,7 +2574,7 @@
       {
         "kind": "ENUM",
         "name": "Couleur",
-        "description": "Une liste de couleurs génériques",
+        "description": "Liste de couleurs génériques",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1016,7 +2615,7 @@
       {
         "kind": "SCALAR",
         "name": "Json",
-        "description": null,
+        "description": "__*__ Type du contenu json",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -1025,28 +2624,24 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Domaine",
-        "description": "Le domaine minier",
+        "name": "Reference",
+        "description": "Références métier d'un titre minier",
         "fields": [
           {
-            "name": "id",
-            "description": "L'id composée d'une seule lettre",
+            "name": "type",
+            "description": "Type de références",
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
+              "kind": "OBJECT",
+              "name": "ReferenceType",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "nom",
-            "description": "Le nom du domaine en français",
+            "description": "Nom de la référence",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1055,26 +2650,6 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "types",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Type",
-                  "ofType": null
-                }
               }
             },
             "isDeprecated": false,
@@ -1088,12 +2663,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Statut",
-        "description": "Le statut d'un titre minier",
+        "name": "ReferenceType",
+        "description": "Référence métier",
         "fields": [
           {
             "name": "id",
-            "description": "L'id composée de trois lettres",
+            "description": "Id du type de références en 3 lettres",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1109,7 +2684,46 @@
           },
           {
             "name": "nom",
-            "description": "Le nom du statut en français",
+            "description": "Nom de la référence",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TitreStatut",
+        "description": "Statut d'un titre minier",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Id composée de trois lettres",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Nom du statut en français",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1125,7 +2739,7 @@
           },
           {
             "name": "couleur",
-            "description": "La couleur associé au statut",
+            "description": "Couleur associé au statut",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1133,656 +2747,6 @@
               "ofType": {
                 "kind": "ENUM",
                 "name": "Couleur",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "GeoSysteme",
-        "description": "Système géographique",
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "zone",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "unite",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Unite",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Unite",
-        "description": "Unité",
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "symbole",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Devise",
-        "description": "Devise",
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "DocumentType",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Titre",
-        "description": "Titre minier",
-        "fields": [
-          {
-            "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- du type en 3 lettres\n- du slug du nom du titre\n- de l'année d'octroi",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": "Le nom du titre",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "type",
-            "description": "Le type du titre",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Type",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "domaine",
-            "description": "Le domaine minier auquel se rattache le titre",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Domaine",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "references",
-            "description": "Les références métier du titre",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Reference",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "statut",
-            "description": "Le statut du titre",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Statut",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "substances",
-            "description": "Les substances concernées par le titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "TitreSubstance",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "points",
-            "description": "Les coordonnées des points du périmètre géographique du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Point",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "geojsonMultiPolygon",
-            "description": "Le geojson du contour du périmètre géographique du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "GeojsonMultiPolygon",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "geojsonPoints",
-            "description": "Le geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "GeojsonPoints",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "titulaires",
-            "description": "Les titualires du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Entreprise",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "amodiataires",
-            "description": "Les amodiataires du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Entreprise",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "administrations",
-            "description": "Les administrations en charge du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Administration",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "pays",
-            "description": "Les communes du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Pays",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dateDebut",
-            "description": "La date de début d'un titre",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dateFin",
-            "description": "La date de fin d'un titre",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dateDemande",
-            "description": "La date de demande initiale d'un titre",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "demarches",
-            "description": "Les démarches effectuées sur le titre",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Demarche",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "surface",
-            "description": "La surface en Km² du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "volume",
-            "description": "Le volume du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "volumeUnite",
-            "description": "L'unité du volume du titre dans son dernier état de validité",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Unite",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "engagement",
-            "description": "Le montant de l'engagement financier du titulaire",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "engagementDevise",
-            "description": "La devise de l'engagement financier du titulaire",
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Devise",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "activites",
-            "description": "Les activités sur un titre",
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "TitreActivite",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "activitesDeposees",
-            "description": "le nombre d'activités déposées",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "activitesEnConstruction",
-            "description": "le nombre d'activités en construction",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "activitesAbsentes",
-            "description": "le nombre d'activités absentes",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Reference",
-        "description": "Références métier d'un titre minier",
-        "fields": [
-          {
-            "name": "type",
-            "description": "Le type est une chaine de caractère qui défini le référentiel (par exemple: DEB, DGEC, etc.",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "valeur",
-            "description": "La référence du titre dans le référentiel",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
                 "ofType": null
               }
             },
@@ -2083,7 +3047,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- de l'id de l'étape\n- du groupe (lettre 'g' suivie de 2 chiffres)\n- du contour (lettre 'c' suivie de 2 chiffres)\n- du point (lettre 'p' suivie de 3 chiffres)",
+            "description": "Id composée de la concaténation:\n- de l'id de l'étape\n- du groupe (lettre 'g' suivie de 2 chiffres)\n- du contour (lettre 'c' suivie de 2 chiffres)\n- du point (lettre 'p' suivie de 3 chiffres)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2099,7 +3063,7 @@
           },
           {
             "name": "coordonnees",
-            "description": "Les coordonnées du point dans le système WGS 84",
+            "description": "Coordonnées du point dans le système WGS 84",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -2111,7 +3075,7 @@
           },
           {
             "name": "groupe",
-            "description": "Le groupe de contours auquel appartient le point composé d'un nombre entier commençant à 1",
+            "description": "Groupe de contours auquel appartient le point composé d'un nombre entier commençant à 1",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2123,7 +3087,7 @@
           },
           {
             "name": "contour",
-            "description": "Le contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre.",
+            "description": "Contour auquel appartient le point composé d'un nombre entier commençant à 1. Le premier contour forme le périmètre. Les contours suivant forment des trous dans ce périmètre.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2135,7 +3099,7 @@
           },
           {
             "name": "point",
-            "description": "Le numéro du point dans le contour",
+            "description": "Numéro du point dans le contour",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2147,7 +3111,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom du point tel que stipulé dans les documents officiels",
+            "description": "Nom du point tel que stipulé dans les documents officiels",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2159,7 +3123,7 @@
           },
           {
             "name": "description",
-            "description": "La description du point telle que stipulée dans les documents officiels",
+            "description": "Description du point telle que stipulée dans les documents officiels",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2234,7 +3198,7 @@
         "fields": [
           {
             "name": "x",
-            "description": "La valeur des coordonnées en X sous forme d'un nombre décimal",
+            "description": "Valeur des coordonnées en X sous forme d'un nombre décimal",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2246,7 +3210,7 @@
           },
           {
             "name": "y",
-            "description": "La valeur des coordonnées en Y sous forme d'un nombre décimal",
+            "description": "Valeur des coordonnées en Y sous forme d'un nombre décimal",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -2279,7 +3243,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- de l'id du point\n- du système",
+            "description": "Id composée de la concaténation:\n- de l'id du point\n- du système",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -2295,7 +3259,7 @@
           },
           {
             "name": "geoSysteme",
-            "description": "Le code du système de référence géodésique",
+            "description": "Code du système de référence géodésique",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -2307,7 +3271,7 @@
           },
           {
             "name": "coordonnees",
-            "description": "Les coordonnées du point dans le système géodésique",
+            "description": "Coordonnées du point dans le système géodésique",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -2325,6 +3289,140 @@
               "kind": "SCALAR",
               "name": "Boolean",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "GeoSysteme",
+        "description": "Système géographique",
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "zone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "unite",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Unite",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Unite",
+        "description": "Unité",
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "symbole",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -2806,687 +3904,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Entreprise",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "paysId",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "legalSiren",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "legalEtranger",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "legalForme",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "categorie",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dateCreation",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "adresse",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "codePostal",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "commune",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "cedex",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "url",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "telephone",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "email",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "etablissements",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "EntrepriseEtablissement",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "utilisateurs",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Utilisateur",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "titresTitulaire",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Titre",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "titresAmodiataire",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Titre",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "EntrepriseEtablissement",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dateDebut",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "dateFin",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "legalSiret",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Utilisateur",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "email",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "prenom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "telephoneMobile",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "telephoneFixe",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "administration",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Administration",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "entreprises",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Entreprise",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "permission",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Permission",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "preferences",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Json",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Administration",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "service",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "url",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "email",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "telephone",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "adresse1",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "adresse2",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "codePostal",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "commune",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "cedex",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "utilisateurs",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "Utilisateur",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
-        "name": "Permission",
-        "description": null,
-        "fields": [
-          {
-            "name": "id",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "nom",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "Pays",
         "description": "Pays",
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ du pays composé de 3 lettres (code INSEE)",
+            "description": "Id du pays composé de 3 lettres (code INSEE)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3502,7 +3925,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom du pays",
+            "description": "Nom du pays",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3518,7 +3941,7 @@
           },
           {
             "name": "regions",
-            "description": "La liste des régions",
+            "description": "Liste des régions",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -3545,7 +3968,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ de la région composé de 2 chiffres (code INSEE)",
+            "description": "Id de la région composé de 2 chiffres (code INSEE)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3561,7 +3984,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom de la région",
+            "description": "Nom de la région",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3577,7 +4000,7 @@
           },
           {
             "name": "departements",
-            "description": "La liste des départements",
+            "description": "Liste des départements",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -3604,7 +4027,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ du département composé de 2 ou 3 chiffres (code INSEE)",
+            "description": "Id du département composé de 2 ou 3 chiffres (code INSEE)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3620,7 +4043,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom du département",
+            "description": "Nom du département",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3636,7 +4059,7 @@
           },
           {
             "name": "communes",
-            "description": "La liste des communes",
+            "description": "Liste des communes",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -3663,7 +4086,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ de la commune composée de 5 chiffres (code INSEE)",
+            "description": "Id de la commune composée de 5 chiffres (code INSEE)",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3679,7 +4102,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom de la commune",
+            "description": "Nom de la commune",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3689,6 +4112,18 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "surface",
+            "description": "Surface couverte par le titre",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3706,7 +4141,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- de l'id du titre\n- du type de la démarche",
+            "description": "Id composée de la concaténation:\n- de l'id du titre\n- du type de la démarche",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3722,7 +4157,7 @@
           },
           {
             "name": "type",
-            "description": "Le type de la démarche composé de trois lettres",
+            "description": "Type de la démarche composé de trois lettres",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3738,7 +4173,7 @@
           },
           {
             "name": "ordre",
-            "description": "L'ordre chronologique de la démarche",
+            "description": "Ordre chronologique de la démarche",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3754,7 +4189,7 @@
           },
           {
             "name": "statut",
-            "description": "Le statut de la démarche",
+            "description": "Statut de la démarche",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3770,7 +4205,7 @@
           },
           {
             "name": "phase",
-            "description": "La phase, si la démarche donne lieu à une phase",
+            "description": "Phase, si la démarche donne lieu à une phase",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -3782,7 +4217,7 @@
           },
           {
             "name": "etapes",
-            "description": "Les étapes effectuées sur la démarche",
+            "description": "Étapes effectuées sur la démarche",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -3798,7 +4233,7 @@
           },
           {
             "name": "enfants",
-            "description": "Les démarches liées",
+            "description": "Démarches liées",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -3814,7 +4249,7 @@
           },
           {
             "name": "parents",
-            "description": "Les démarches liées",
+            "description": "Démarches liées",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -3824,6 +4259,30 @@
                 "name": "Demarche",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "supprimable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -3837,11 +4296,11 @@
       {
         "kind": "OBJECT",
         "name": "DemarcheStatut",
-        "description": "Le statut d'une démarche applicable à un titre minier",
+        "description": "Statut d'une démarche applicable à un titre minier",
         "fields": [
           {
             "name": "id",
-            "description": "L'id composée de trois lettres",
+            "description": "Id composée de trois lettres",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3857,7 +4316,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom en français",
+            "description": "Nom en français",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3900,7 +4359,7 @@
         "fields": [
           {
             "name": "statut",
-            "description": "Le statut d'une phase",
+            "description": "Statut d'une phase",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3916,7 +4375,7 @@
           },
           {
             "name": "dateDebut",
-            "description": "La date de début d'une phase",
+            "description": "Date de début d'une phase",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -3928,7 +4387,7 @@
           },
           {
             "name": "dateFin",
-            "description": "La date de fin d'une phase",
+            "description": "Date de fin d'une phase",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -3947,11 +4406,11 @@
       {
         "kind": "OBJECT",
         "name": "PhaseStatut",
-        "description": "Le statut d'une phase de titre minier",
+        "description": "Statut d'une phase de titre minier",
         "fields": [
           {
             "name": "id",
-            "description": "Le statut d'une phase de titre minier est composé de trois lettres",
+            "description": "Statut d'une phase de titre minier est composé de trois lettres",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -3967,7 +4426,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom d'une phase de titre minier en français",
+            "description": "Nom d'une phase de titre minier en français",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4010,7 +4469,7 @@
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- de l'id de la démarche\n- du type de l'étape",
+            "description": "Id composée de la concaténation:\n- de l'id de la démarche\n- du type de l'étape",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4026,7 +4485,7 @@
           },
           {
             "name": "type",
-            "description": "Le type de l'étape",
+            "description": "Type de l'étape",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4042,7 +4501,7 @@
           },
           {
             "name": "statut",
-            "description": "Le statut de l'étape",
+            "description": "Statut de l'étape",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4058,7 +4517,7 @@
           },
           {
             "name": "ordre",
-            "description": "L'ordre chronologique de l'étape",
+            "description": "Ordre chronologique de l'étape",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4074,7 +4533,7 @@
           },
           {
             "name": "date",
-            "description": "La date de l'étape",
+            "description": "Date de l'étape",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4090,7 +4549,7 @@
           },
           {
             "name": "duree",
-            "description": "La durée de la démarche",
+            "description": "Durée de la démarche",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4102,7 +4561,7 @@
           },
           {
             "name": "dateDebut",
-            "description": "La date de début de la démarche",
+            "description": "Date de début de la démarche",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4114,7 +4573,7 @@
           },
           {
             "name": "dateFin",
-            "description": "La date de fin de la démarche",
+            "description": "Date de fin de la démarche",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4126,7 +4585,7 @@
           },
           {
             "name": "surface",
-            "description": "La surface en Km² du titre",
+            "description": "Surface en Km² du titre",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4138,7 +4597,7 @@
           },
           {
             "name": "volume",
-            "description": "Le volume du titre",
+            "description": "Volume du titre",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4150,7 +4609,7 @@
           },
           {
             "name": "volumeUnite",
-            "description": "L'unité de volume du titre",
+            "description": "Unité de volume du titre",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4162,7 +4621,7 @@
           },
           {
             "name": "engagement",
-            "description": "Le montant de l'engagement financier du titulaire",
+            "description": "Montant de l'engagement financier du titulaire",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4174,7 +4633,7 @@
           },
           {
             "name": "engagementDevise",
-            "description": "La devise de l'engagement financier du titulaire",
+            "description": "Devise de l'engagement financier du titulaire",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4186,7 +4645,7 @@
           },
           {
             "name": "substances",
-            "description": "Les substances concernées par le titre",
+            "description": "Substances concernées par le titre",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4202,7 +4661,7 @@
           },
           {
             "name": "points",
-            "description": "Les coordonnées des points du périmètre géographique du titre",
+            "description": "Coordonnées des points du périmètre géographique du titre",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4218,7 +4677,7 @@
           },
           {
             "name": "geojsonMultiPolygon",
-            "description": "Le geojson du contour du périmètre géographique du titre",
+            "description": "Geojson du contour du périmètre géographique du titre",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4230,7 +4689,7 @@
           },
           {
             "name": "geojsonPoints",
-            "description": "Le geojson de la liste de points du périmètre géographique du titre",
+            "description": "Geojson de la liste de points du périmètre géographique du titre",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4242,7 +4701,7 @@
           },
           {
             "name": "titulaires",
-            "description": "Les titualires du titre dans son dernier état de validité",
+            "description": "Titualires du titre dans son dernier état de validité",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4258,7 +4717,7 @@
           },
           {
             "name": "amodiataires",
-            "description": "Les amodiataires du titre dans son dernier état de validité",
+            "description": "Amodiataires du titre dans son dernier état de validité",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4274,7 +4733,7 @@
           },
           {
             "name": "administrations",
-            "description": "Les administrations en charge du titre",
+            "description": "Administrations en charge du titre",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4290,7 +4749,7 @@
           },
           {
             "name": "pays",
-            "description": "Les communes du titre",
+            "description": "Territoires du titre",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4306,7 +4765,7 @@
           },
           {
             "name": "documents",
-            "description": "Les documents relatifs à l'étape",
+            "description": "Documents relatifs à l'étape",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -4343,6 +4802,30 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "supprimable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -4352,12 +4835,12 @@
       },
       {
         "kind": "OBJECT",
-        "name": "Document",
-        "description": "Document attaché à une étape de démarche",
+        "name": "Devise",
+        "description": "Devise",
         "fields": [
           {
             "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- de l'id de l'étape\n- du type du document",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4373,7 +4856,7 @@
           },
           {
             "name": "nom",
-            "description": "Le nom du document",
+            "description": null,
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -4386,10 +4869,49 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Document",
+        "description": "Document attaché à une étape de démarche",
+        "fields": [
+          {
+            "name": "id",
+            "description": "__Id__ composée de la concaténation:\n- de l'id de l'étape\n- du type du document",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": "Nom du document",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           },
           {
             "name": "type",
-            "description": "Le type de document (arrêté, décret, etc.)",
+            "description": "Type de document (arrêté, décret, etc.)",
             "args": [],
             "type": {
               "kind": "OBJECT",
@@ -4401,7 +4923,7 @@
           },
           {
             "name": "url",
-            "description": "L'url du document",
+            "description": "Url du document",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4413,7 +4935,7 @@
           },
           {
             "name": "uri",
-            "description": "L'uri du document",
+            "description": "Uri du document",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4425,11 +4947,23 @@
           },
           {
             "name": "fichier",
-            "description": "Le type de fichier",
+            "description": "Fichier est hébergé sur camino",
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "String",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "fichierTypeId",
+            "description": "Extension du fichier",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4437,7 +4971,7 @@
           },
           {
             "name": "jorf",
-            "description": "La référence au Journal Officiel",
+            "description": "Référence au Journal Officiel",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4449,7 +4983,7 @@
           },
           {
             "name": "nor",
-            "description": "La référence Nor",
+            "description": "Référence Nor",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -4467,6 +5001,73 @@
               "kind": "SCALAR",
               "name": "Boolean",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "supprimable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DocumentType",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4634,7 +5235,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "TitreActivite",
+        "name": "Activite",
         "description": null,
         "fields": [
           {
@@ -4665,6 +5266,18 @@
                 "name": "ActiviteType",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "titre",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Titre",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -4756,6 +5369,30 @@
             "type": {
               "kind": "SCALAR",
               "name": "Json",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencePeriodeId",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "editable",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -4900,6 +5537,22 @@
             "deprecationReason": null
           },
           {
+            "name": "annees",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Annee",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "trimestres",
             "description": null,
             "args": [],
@@ -4925,6 +5578,49 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "Mois",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Annee",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               }
             },
@@ -5100,6 +5796,80 @@
       },
       {
         "kind": "OBJECT",
+        "name": "Permission",
+        "description": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nom",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Sections",
+        "description": null,
+        "fields": [
+          {
+            "name": "activites",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "utilisateurs",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Substance",
         "description": null,
         "fields": [
@@ -5203,41 +5973,6 @@
       },
       {
         "kind": "OBJECT",
-        "name": "UtilisateurToken",
-        "description": null,
-        "fields": [
-          {
-            "name": "utilisateur",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "Utilisateur",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "token",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "Statistiques",
         "description": "Statistiques",
         "fields": [
@@ -5322,10 +6057,10 @@
       {
         "kind": "OBJECT",
         "name": "Mutation",
-        "description": "# Mutation\n## _Requêtes en écriture_\n\n- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)\n\n_Mutation_ un type natif de GraphQL.\n\nCes requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.",
+        "description": "# Mutation\n## _Requêtes en écriture_\n\n- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)\n\n_Mutation_ un type _racine_ de GraphQL.\n\nCes requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.",
         "fields": [
           {
-            "name": "utilisateurConnecter",
+            "name": "utilisateurTokenCreer",
             "description": "__*__ Connecte l'utilisateur en fonction de ses identifiants",
             "args": [
               {
@@ -5603,8 +6338,8 @@
               }
             ],
             "type": {
-              "kind": "SCALAR",
-              "name": "String",
+              "kind": "OBJECT",
+              "name": "UtilisateurToken",
               "ofType": null
             },
             "isDeprecated": false,
@@ -5612,7 +6347,7 @@
           },
           {
             "name": "titreCreer",
-            "description": "__*__ Créé un titre minier",
+            "description": "__*__ Crée un titre minier",
             "args": [
               {
                 "name": "titre",
@@ -5692,8 +6427,8 @@
             "deprecationReason": null
           },
           {
-            "name": "titreDemarcheCreer",
-            "description": "__*__ Créé une démarche et met à jour le titre minier",
+            "name": "demarcheCreer",
+            "description": "__*__ Crée une démarche et met à jour le titre minier",
             "args": [
               {
                 "name": "demarche",
@@ -5719,7 +6454,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreDemarcheModifier",
+            "name": "demarcheModifier",
             "description": "__*__ Modifie une démarche et met à jour le titre minier",
             "args": [
               {
@@ -5746,7 +6481,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreDemarcheSupprimer",
+            "name": "demarcheSupprimer",
             "description": "__*__ Supprime une démarche et met à jour le titre minier",
             "args": [
               {
@@ -5773,8 +6508,8 @@
             "deprecationReason": null
           },
           {
-            "name": "titreEtapeCreer",
-            "description": "__*__ Créé une étape et met à jour le titre minier",
+            "name": "etapeCreer",
+            "description": "__*__ Crée une étape et met à jour le titre minier",
             "args": [
               {
                 "name": "etape",
@@ -5800,7 +6535,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreEtapeModifier",
+            "name": "etapeModifier",
             "description": "__*__ Modifie une étape et met à jour le titre minier",
             "args": [
               {
@@ -5827,7 +6562,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreEtapeSupprimer",
+            "name": "etapeSupprimer",
             "description": "__*__ Supprime une étape et met à jour le titre minier",
             "args": [
               {
@@ -5854,8 +6589,8 @@
             "deprecationReason": null
           },
           {
-            "name": "titreDocumentCreer",
-            "description": "__*__ Créé un document et met à jour le titre minier",
+            "name": "documentCreer",
+            "description": "__*__ Crée un document et met à jour le titre minier",
             "args": [
               {
                 "name": "document",
@@ -5881,7 +6616,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreDocumentModifier",
+            "name": "documentModifier",
             "description": "__*__ Modifie un document et met à jour le titre minier",
             "args": [
               {
@@ -5908,7 +6643,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreDocumentSupprimer",
+            "name": "documentSupprimer",
             "description": "__*__ Supprime un document et met à jour le titre minier",
             "args": [
               {
@@ -5935,7 +6670,7 @@
             "deprecationReason": null
           },
           {
-            "name": "titreActiviteModifier",
+            "name": "activiteModifier",
             "description": "__*__ Crée ou modifie une activité",
             "args": [
               {
@@ -5946,7 +6681,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "InputTitreActiviteModification",
+                    "name": "InputActiviteModification",
                     "ofType": null
                   }
                 },
@@ -5955,7 +6690,96 @@
             ],
             "type": {
               "kind": "OBJECT",
-              "name": "TitreActivite",
+              "name": "Activite",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entrepriseCreer",
+            "description": "__*__ Crée une entreprise",
+            "args": [
+              {
+                "name": "entreprise",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "InputEntrepriseCreation",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Entreprise",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entrepriseModifier",
+            "description": "__*__ Modifie une entreprise",
+            "args": [
+              {
+                "name": "entreprise",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "InputEntrepriseModification",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Entreprise",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UtilisateurToken",
+        "description": null,
+        "fields": [
+          {
+            "name": "utilisateur",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Utilisateur",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "token",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -6053,9 +6877,13 @@
             "name": "permissionId",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6074,12 +6902,16 @@
             "defaultValue": null
           },
           {
-            "name": "administrationId",
+            "name": "administrationsIds",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6184,9 +7016,13 @@
             "name": "permissionId",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6205,12 +7041,16 @@
             "defaultValue": null
           },
           {
-            "name": "administrationId",
+            "name": "administrationsIds",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "ID",
-              "ofType": null
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6303,21 +7143,21 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "type",
+            "name": "typeId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "SCALAR",
-                "name": "String",
+                "name": "ID",
                 "ofType": null
               }
             },
             "defaultValue": null
           },
           {
-            "name": "valeur",
+            "name": "nom",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -6343,7 +7183,7 @@
         "inputFields": [
           {
             "name": "id",
-            "description": "L'__id__ composée de la concaténation:\n- du type en 3 lettres\n- du slug du nom du titre\n- de l'année d'octroi",
+            "description": "Id composée de la concaténation:\n- du type en 3 lettres\n- du slug du nom du titre\n- de l'année d'octroi",
             "type": {
               "kind": "NON_NULL",
               "name": null,
@@ -6781,9 +7621,13 @@
             "name": "groupe",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6791,9 +7635,13 @@
             "name": "contour",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6801,9 +7649,13 @@
             "name": "point",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "Int",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6861,12 +7713,16 @@
             "name": "references",
             "description": null,
             "type": {
-              "kind": "LIST",
+              "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "INPUT_OBJECT",
-                "name": "InputPointReference",
-                "ofType": null
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "InputPointReference",
+                  "ofType": null
+                }
               }
             },
             "defaultValue": null
@@ -6900,9 +7756,13 @@
             "name": "coordonnees",
             "description": null,
             "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "InputCoordonnees",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INPUT_OBJECT",
+                "name": "InputCoordonnees",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6931,9 +7791,13 @@
             "name": "x",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
             },
             "defaultValue": null
           },
@@ -6941,9 +7805,13 @@
             "name": "y",
             "description": null,
             "type": {
-              "kind": "SCALAR",
-              "name": "Float",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
             },
             "defaultValue": null
           }
@@ -7398,13 +8266,9 @@
             "name": "nom",
             "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "defaultValue": null
           },
@@ -7433,7 +8297,27 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Upload",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fichierTypeId",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fichierNouveau",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "FileUpload",
               "ofType": null
             },
             "defaultValue": null
@@ -7475,8 +8359,8 @@
       },
       {
         "kind": "SCALAR",
-        "name": "Upload",
-        "description": null,
+        "name": "FileUpload",
+        "description": "__*__ Type du fichier",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -7535,13 +8419,9 @@
             "name": "nom",
             "description": null,
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "defaultValue": null
           },
@@ -7570,7 +8450,27 @@
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Upload",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fichierTypeId",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "fichierNouveau",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "FileUpload",
               "ofType": null
             },
             "defaultValue": null
@@ -7612,7 +8512,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "InputTitreActiviteModification",
+        "name": "InputActiviteModification",
         "description": null,
         "fields": null,
         "inputFields": [
@@ -7631,7 +8531,7 @@
             "defaultValue": null
           },
           {
-            "name": "activiteStatutId",
+            "name": "statutId",
             "description": null,
             "type": {
               "kind": "NON_NULL",
@@ -7650,6 +8550,100 @@
             "type": {
               "kind": "SCALAR",
               "name": "Json",
+              "ofType": null
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InputEntrepriseCreation",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "paysId",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "legalSiren",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "InputEntrepriseModification",
+        "description": null,
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "id",
+            "description": null,
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "url",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "telephone",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "email",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null
@@ -8460,7 +9454,11 @@
       {
         "name": "skip",
         "description": "Directs the executor to skip this field or fragment when the `if` argument is true.",
-        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+        "locations": [
+          "FIELD",
+          "FRAGMENT_SPREAD",
+          "INLINE_FRAGMENT"
+        ],
         "args": [
           {
             "name": "if",
@@ -8481,7 +9479,11 @@
       {
         "name": "include",
         "description": "Directs the executor to include this field or fragment only when the `if` argument is true.",
-        "locations": ["FIELD", "FRAGMENT_SPREAD", "INLINE_FRAGMENT"],
+        "locations": [
+          "FIELD",
+          "FRAGMENT_SPREAD",
+          "INLINE_FRAGMENT"
+        ],
         "args": [
           {
             "name": "if",
@@ -8502,7 +9504,10 @@
       {
         "name": "deprecated",
         "description": "Marks an element of a GraphQL schema as no longer supported.",
-        "locations": ["FIELD_DEFINITION", "ENUM_VALUE"],
+        "locations": [
+          "FIELD_DEFINITION",
+          "ENUM_VALUE"
+        ],
         "args": [
           {
             "name": "reason",

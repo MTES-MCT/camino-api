@@ -1,14 +1,14 @@
 import 'dotenv/config'
-import '../../../database/index'
+import '../../src/database/index'
 
 import { transaction } from 'objection'
 
-import { titresGet } from '../../../database/queries/titres'
+import { titresGet } from '../../src/database/queries/titres'
 import {
   titreDemarcheUpsert,
   titreDemarcheDelete
-} from '../../../database/queries/titres-demarches'
-import TitresDemarches from '../../../database/models/titres-demarches'
+} from '../../src/database/queries/titres-demarches'
+import TitresDemarches from '../../src/database/models/titres-demarches'
 
 const valueExists = a => a !== undefined && a !== null
 

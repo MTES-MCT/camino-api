@@ -1,8 +1,8 @@
 import 'dotenv/config'
-import '../../../database/index'
-import fileCreate from '../../file-create'
+import '../../src/database/index'
+import fileCreate from '../../src/tools/file-create'
 
-import { titreGet } from '../../../database/queries/titres'
+import { titreGet } from '../../src/database/queries/titres'
 
 async function main() {
   const res = await titreGet('m-pr-saint-pierre-2014')

@@ -2,9 +2,9 @@ import { readdirSync } from 'fs'
 import { basename, extname } from 'path'
 
 import 'dotenv/config'
-import '../../../database/index'
+import '../../src/database/index'
 
-import { titresDocumentsGet } from '../../../database/queries/titres-documents'
+import { titresDocumentsGet } from '../../src/database/queries/titres-documents'
 
 async function main() {
   const titresDocuments = await titresDocumentsGet()

@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import '../../database/index'
+import '../../src/database/index'
 
-import { titresDemarchesGet } from '../../../database/queries/titres-demarches'
+import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 
 async function main() {
   let res = await titresDemarchesGet({ demarchesIds: ['abr', 'ren', 'ret'] })
