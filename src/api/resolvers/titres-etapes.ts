@@ -73,8 +73,8 @@ const demarcheEtapeTypesFormat = (
       titreEtapePermissionAdministrationsCheck(
         user,
         etapeTypeId ? 'modification' : 'creation',
-        titre.typeId,
         et.id,
+        titre.typeId,
         titre.administrationsGestionnaires,
         titre.administrationsLocales
       )

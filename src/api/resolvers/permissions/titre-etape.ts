@@ -46,7 +46,7 @@ const titreEtapePermissionAdministrationsCheck = (
   titreAdministrationsGestionnaires: IAdministration[] | undefined | null,
   titreAdministrationsLocales: IAdministration[] | undefined | null
 ) => {
-  if (['arm', 'axm'].includes(titreTypeId)) return false
+  if (!['arm', 'axm'].includes(titreTypeId)) return false
 
   const titreEtapeEditionAdministrationsIds = titreEtapeEditionAdministrationsIdsFind(
     mode,
