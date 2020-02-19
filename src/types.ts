@@ -1,5 +1,9 @@
 import { FileUpload } from 'graphql-upload'
 
+interface Index {
+  [id: string]: any
+}
+
 interface IActiviteStatut {
   id: string
   nom: string
@@ -62,6 +66,7 @@ interface IAdministration {
   titresAdministrationsGestionnaires?: ITitre[]
   titresAdministrationsLocales?: ITitre[]
   associee?: boolean
+  membre?: boolean
 }
 
 interface IAnnee extends IPeriode {}
@@ -658,6 +663,7 @@ type TitreEtapeProp =
   | 'engagementDeviseId'
 
 export {
+  Index,
   IActiviteStatut,
   IActiviteType,
   ISection,

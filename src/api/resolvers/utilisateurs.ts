@@ -18,6 +18,8 @@ import {
 
 import globales from '../../database/cache/globales'
 
+import utilisateurUpdationValidate from '../../business/utilisateur-updation-validate'
+
 import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
 import { permissionsCheck } from './permissions/permissions-check'
@@ -278,39 +280,36 @@ const utilisateurModifier = async (
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
-    if (
-      !user ||
-      (!permissionsCheck(user, ['super', 'admin']) &&
-        user.id !== utilisateur.id)
-    ) {
+    const isSuper = permissionsCheck(user, ['super'])
+    const isAdmin = permissionsCheck(user, ['admin'])
+
+    if (!user || (!isSuper && !isAdmin && user.id !== utilisateur.id)) {
       throw new Error('droits insuffisants pour modifier cet utilisateur')
     }
 
     const errors = utilisateurEditionCheck(utilisateur)
 
-    if (
-      !permissionsCheck(user, ['super']) &&
-      utilisateur.permissionId === 'super'
-    ) {
+    if (!isSuper && permissionsCheck(utilisateur, ['super'])) {
       errors.push(
         'droits insuffisants pour affecter ces permissions à cet utilisateur'
       )
     }
 
-    if (
-      !permissionsCheck(user, ['super', 'admin']) &&
-      user.email !== utilisateur.email
-    ) {
+    if (!isSuper && !isAdmin && user.email !== utilisateur.email) {
       errors.push(
         "droits insuffisants pour modifier l'adresse email de cet utilisateur"
       )
     }
 
-    if (!permissionsCheck(user, ['super', 'admin'])) {
-      const utilisateurOld = await utilisateurGet(utilisateur.id!)
+    if (!isSuper) {
+      const errorsValidate = await utilisateurUpdationValidate(
+        user,
+        utilisateur,
+        isAdmin
+      )
 
-      if (utilisateurOld.permissionId !== utilisateur.permissionId) {
-        errors.push('droits insuffisants pour modifier les permissions')
+      if (errorsValidate.length) {
+        errors.push(...errorsValidate)
       }
     }
 
