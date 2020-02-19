@@ -12,6 +12,7 @@ RUN cd /tmp && npm install --production && cp -a /tmp/node_modules $dir/
 COPY package*.json ./
 COPY tsconfig.json ./
 COPY src src/
+COPY dev dev/
 COPY knex knex/
 
 RUN npm run build
