@@ -7,8 +7,8 @@ type ModeName = 'creationInterdit' | 'modificationInterdit'
 const titreEtapeEditionAdministrationsIdsFind = (
   mode: 'modification' | 'creation',
   etapeTypeId: string | undefined,
-  titreAdministrationsGestionnaires: IAdministration[] | undefined,
-  titreAdministrationsLocales: IAdministration[] | undefined
+  titreAdministrationsGestionnaires: IAdministration[] | undefined | null,
+  titreAdministrationsLocales: IAdministration[] | undefined | null
 ) => {
   const titreAdministrations = []
 
@@ -43,8 +43,8 @@ const titreEtapePermissionAdministrationsCheck = (
   mode: 'modification' | 'creation',
   etapeTypeId: string | undefined,
   titreTypeId: string,
-  titreAdministrationsGestionnaires: IAdministration[] | undefined,
-  titreAdministrationsLocales: IAdministration[] | undefined
+  titreAdministrationsGestionnaires: IAdministration[] | undefined | null,
+  titreAdministrationsLocales: IAdministration[] | undefined | null
 ) => {
   if (['arm', 'axm'].includes(titreTypeId)) return false
 

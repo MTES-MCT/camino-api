@@ -80,7 +80,7 @@ const titrePropEtapeIdFind = (
 ) =>
   titreDemarchesAscSort(titreDemarches)
     .reverse()
-    .reduce((etapeId: string | undefined, titreDemarche: ITitreDemarche) => {
+    .reduce((etapeId: string | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
       if (etapeId) return etapeId
 
@@ -105,7 +105,7 @@ const titrePropEtapeIdFind = (
       // si l'étape existe,
       // retourne son id
       // sinon retourne `null`
-      return (etape && etape.id) || undefined
-    }, undefined)
+      return (etape && etape.id) || null
+    }, null)
 
 export default titrePropEtapeIdFind

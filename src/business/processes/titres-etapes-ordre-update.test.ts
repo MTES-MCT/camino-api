@@ -1,3 +1,4 @@
+import { ITitreDemarche } from '../../types'
 import titresEtapesOrdreUpdate from './titres-etapes-ordre-update'
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 
@@ -25,6 +26,14 @@ describe('ordre des étapes', () => {
     const titresEtapesUpdated = await titresEtapesOrdreUpdate(
       titresDemarchesEtapesVides
     )
+    expect(titresEtapesUpdated.length).toEqual(0)
+    expect(titreEtapeUpdate).not.toHaveBeenCalled()
+  })
+
+  test("ne met aucun ordre d'étape à jour (démarche sans étape)", async () => {
+    const titresEtapesUpdated = await titresEtapesOrdreUpdate([
+      ({} as unknown) as ITitreDemarche
+    ])
     expect(titresEtapesUpdated.length).toEqual(0)
     expect(titreEtapeUpdate).not.toHaveBeenCalled()
   })

@@ -20,9 +20,9 @@ console.log = jest.fn()
 
 describe("dates d'un titre", () => {
   test("met à jour les dates d'un titre", async () => {
-    titreDateFinFindMock.mockImplementation(() => '2019-01-01')
-    titreDateDebutFindMock.mockImplementation(() => '2018-01-01')
-    titreDateDemandeFindMock.mockImplementation(() => '2017-01-01')
+    titreDateFinFindMock.mockReturnValue('2019-01-01')
+    titreDateDebutFindMock.mockReturnValue('2018-01-01')
+    titreDateDemandeFindMock.mockReturnValue('2017-01-01')
 
     const titresDatesUpdated = await titresDatesUpdate([
       { id: 'titre-id' }
@@ -33,16 +33,16 @@ describe("dates d'un titre", () => {
   })
 
   test('ne met à jour aucun titre', async () => {
-    titreDateFinFindMock.mockImplementation(() => '2019-01-01')
-    titreDateDebutFindMock.mockImplementation(() => undefined)
-    titreDateDemandeFindMock.mockImplementation(() => undefined)
+    titreDateFinFindMock.mockReturnValue('2019-01-01')
+    titreDateDebutFindMock.mockReturnValue(null)
+    titreDateDemandeFindMock.mockReturnValue(null)
 
     const titresDatesUpdated = await titresDatesUpdate(([
       {
         id: 'titre-type-id',
         dateFin: '2019-01-01',
-        dateDebut: undefined,
-        dateDemande: undefined
+        dateDebut: null,
+        dateDemande: null
       }
     ] as unknown) as ITitre[])
 

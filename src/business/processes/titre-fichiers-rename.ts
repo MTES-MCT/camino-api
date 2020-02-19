@@ -11,7 +11,7 @@ interface Index {
 }
 
 const titreDocumentsFichiersNamesFind = (
-  titreDocuments: ITitreDocument[] | undefined,
+  titreDocuments: ITitreDocument[] | undefined | null,
   titreId: string,
   oldTitreId: string
 ) => {
@@ -33,7 +33,7 @@ const titreDocumentsFichiersNamesFind = (
 }
 
 const titreEtapesFichiersNamesFind = (
-  titreEtapes: ITitreEtape[] | undefined,
+  titreEtapes: ITitreEtape[] | undefined | null,
   titreId: string,
   oldTitreId: string
 ) => {
@@ -55,7 +55,7 @@ const titreEtapesFichiersNamesFind = (
 }
 
 const titreFichiersNamesFind = (
-  titreDemarches: ITitreDemarche[] | undefined,
+  titreDemarches: ITitreDemarche[] | undefined | null,
   titreId: string,
   oldTitreId: string
 ) => {

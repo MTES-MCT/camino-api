@@ -26,8 +26,8 @@ const titreIsPublicCheck = (titre: ITitre) =>
 
 const titrePermissionEntrepriseCheck = (
   user: IUtilisateur | undefined,
-  titreAmodiataires?: IEntreprise[],
-  titreTitulaires?: IEntreprise[],
+  titreAmodiataires: IEntreprise[] | undefined | null,
+  titreTitulaires: IEntreprise[] | undefined | null,
   amodiatairePriority?: boolean
 ) => {
   // si l'utilisateur n'est pas dans le groupe 'entreprise'
@@ -93,9 +93,9 @@ const titrePermissionCheck = (
 const titreEditionAdministrationsIdsFind = (
   mode: 'modification' | 'creation',
   titreTypeId: string,
-  titreStatutId?: string,
-  titreAdministrationsGestionnaires?: IAdministration[],
-  titreAdministrationsLocales?: IAdministration[]
+  titreStatutId: string | undefined,
+  titreAdministrationsGestionnaires: IAdministration[] | undefined | null,
+  titreAdministrationsLocales?: IAdministration[] | null
 ) => {
   const titreAdministrations = []
 
@@ -135,8 +135,8 @@ const titrePermissionAdministrationsCheck = (
   mode: 'modification' | 'creation',
   titreTypeId: string,
   titreStatutId: string,
-  titreAdministrationsGestionnaires?: IAdministration[],
-  titreAdministrationsLocales?: IAdministration[]
+  titreAdministrationsGestionnaires: IAdministration[] | undefined | null,
+  titreAdministrationsLocales?: IAdministration[] | null
 ) => {
   // actuellement, on ne peut éditer que pour les ARM et les AEX
   if (!['arm', 'axm'].includes(titreTypeId)) return false
@@ -155,7 +155,7 @@ const titrePermissionAdministrationsCheck = (
 
 const titreActivitePermissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
-  administrations?: IAdministration[]
+  administrations: IAdministration[] | undefined | null
 ) =>
   !!(
     permissionsCheck(user, ['admin', 'editeur']) &&
@@ -169,9 +169,9 @@ const titreActivitePermissionAdministrationsCheck = (
 
 const titreActivitePermissionCheck = (
   user: IUtilisateur | undefined,
-  titreAdministrations?: IAdministration[],
-  titreAmodiataires?: IEntreprise[],
-  titreTitulaires?: IEntreprise[]
+  titreAdministrations: IAdministration[] | undefined | null,
+  titreAmodiataires: IEntreprise[] | undefined | null,
+  titreTitulaires: IEntreprise[] | undefined | null
 ) =>
   permissionsCheck(user, ['super']) ||
   titreActivitePermissionAdministrationsCheck(user, titreAdministrations) ||

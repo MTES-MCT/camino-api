@@ -11,6 +11,7 @@ import {
   titreEtapesMemesDatesMemeOrdreAscResult,
   etapesTypes
 } from './__mocks__/titre-etapes-asc-sort-by-date-etapes'
+import { IDemarcheType } from '../../types'
 
 describe('trie les étapes', () => {
   test('des étapes organisées par date décroissante sont triées par date croissante', () => {
@@ -35,7 +36,7 @@ describe('trie les étapes', () => {
     expect(
       titreEtapesAscSortByDate(titreEtapesMemesDatesOrdreEtapesTypesDesc, {
         etapesTypes
-      })
+      } as IDemarcheType)
     ).toMatchObject(titreEtapesMemesDatesOrdreEtapesTypesAscResult)
   })
 
@@ -43,7 +44,7 @@ describe('trie les étapes', () => {
     expect(
       titreEtapesAscSortByDate(titreEtapesMemesDatesMemeOrdreDesc, {
         etapesTypes
-      })
+      } as IDemarcheType)
     ).toMatchObject(titreEtapesMemesDatesMemeOrdreAscResult)
   })
 })

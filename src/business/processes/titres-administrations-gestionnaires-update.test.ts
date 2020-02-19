@@ -48,13 +48,10 @@ console.log = jest.fn()
 
 describe("administrations d'une étape", () => {
   test("ajoute les administrations gestionnaires si elles n'existent pas dans l'étape", async () => {
-    titreAdministrationsGestionnairesBuildMock.mockImplementation(
-      () =>
-        [
-          { administrationId: 'ptmg' },
-          { administrationId: 'dgaln' }
-        ] as ITitreAdministrationsGestionnaire[]
-    )
+    titreAdministrationsGestionnairesBuildMock.mockReturnValue([
+      { administrationId: 'ptmg' },
+      { administrationId: 'dgaln' }
+    ] as ITitreAdministrationsGestionnaire[])
 
     const {
       titresAdministrationsGestionnairesCreated,
@@ -72,10 +69,9 @@ describe("administrations d'une étape", () => {
   })
 
   test("n'ajoute pas d'administration gestionnaire si elle existe déjà dans l'étape", async () => {
-    titreAdministrationsGestionnairesBuildMock.mockImplementation(
-      () =>
-        [{ administrationId: 'dgec' }] as ITitreAdministrationsGestionnaire[]
-    )
+    titreAdministrationsGestionnairesBuildMock.mockReturnValue([
+      { administrationId: 'dgec' }
+    ] as ITitreAdministrationsGestionnaire[])
 
     const {
       titresAdministrationsGestionnairesCreated,
@@ -92,7 +88,7 @@ describe("administrations d'une étape", () => {
   })
 
   test("supprime une administration gestionnaire si l'étape ne la contient plus dans ses communes", async () => {
-    titreAdministrationsGestionnairesBuildMock.mockImplementation(() => [])
+    titreAdministrationsGestionnairesBuildMock.mockReturnValue([])
 
     const {
       titresAdministrationsGestionnairesCreated,

@@ -13,29 +13,29 @@ interface IActiviteStatut {
 interface ISection {
   id: string
   nom: string
-  elements?: ISectionElement[]
+  elements?: ISectionElement[] | null
 }
 
 interface ISectionElement {
   id: string
   nom: string
   type: string
-  description?: string
-  dateDebut?: string
-  dateFin?: string
-  frequencePeriodesIds?: number[]
-  valeurs?: { [id: string]: string }
+  description?: string | null
+  dateDebut?: string | null
+  dateFin?: string | null
+  frequencePeriodesIds?: number[] | null
+  valeurs?: { [id: string]: string } | null
 }
 
 interface IActiviteType {
   id: string
   nom: string
   frequenceId: string
-  sections?: ISection[]
-  frequence?: IFrequence
   titresTypes: ITitreType[]
-  pays?: IPays[]
-  administrations?: IAdministration[]
+  sections?: ISection[] | null
+  frequence?: IFrequence | null
+  pays?: IPays[] | null
+  administrations?: IAdministration[] | null
 }
 
 interface IAdministrationType {
@@ -49,23 +49,23 @@ interface IAdministration {
   typeId: string
   nom: string
   type: IAdministrationType
-  service?: string
-  url?: string
-  email?: string
-  telephone?: string
-  adresse1?: string
-  adresse2?: string
-  codePostal?: string
-  commune?: string
-  cedex?: string
-  departementId?: string
-  regionId?: string
-  abreviation?: string
-  domaines?: IDomaine[]
-  utilisateurs?: IUtilisateur[]
-  titresAdministrationsGestionnaires?: ITitre[]
-  titresAdministrationsLocales?: ITitre[]
-  associee?: boolean
+  service?: string | null
+  url?: string | null
+  email?: string | null
+  telephone?: string | null
+  adresse1?: string | null
+  adresse2?: string | null
+  codePostal?: string | null
+  commune?: string | null
+  cedex?: string | null
+  departementId?: string | null
+  regionId?: string | null
+  abreviation?: string | null
+  domaines?: IDomaine[] | null
+  utilisateurs?: IUtilisateur[] | null
+  titresAdministrationsGestionnaires?: ITitre[] | null
+  titresAdministrationsLocales?: ITitre[] | null
+  associee?: boolean | null
   membre?: boolean
 }
 
@@ -74,8 +74,8 @@ interface IAnnee extends IPeriode {}
 interface ICommune {
   id: string
   nom: string
-  departement?: IDepartement
-  surface?: number
+  departement?: IDepartement | null
+  surface?: number | null
 }
 
 type IContenuValeur = string | number | string[] | boolean
@@ -102,24 +102,24 @@ interface IDemarcheStatut {
 interface IDemarcheType {
   id: string
   nom: string
-  ordre?: number
-  duree?: boolean
-  points?: boolean
-  substances?: boolean
-  titulaires?: boolean
-  renouvelable?: boolean
-  exception?: boolean
+  ordre: number
+  duree?: boolean | null
+  points?: boolean | null
+  substances?: boolean | null
+  titulaires?: boolean | null
+  renouvelable?: boolean | null
+  exception?: boolean | null
   etapesTypes: IEtapeType[]
-  titreTypeId?: string
-  editable?: boolean
-  unique?: boolean
+  titreTypeId?: string | null
+  editable?: boolean | null
+  unique?: boolean | null
 }
 
 interface IDepartement {
   id: string
   nom: string
-  region?: IRegion
-  communes?: ICommune[]
+  region?: IRegion | null
+  communes?: ICommune[] | null
 }
 
 interface IDevise {
@@ -144,32 +144,32 @@ interface IEntrepriseEtablissement {
   id: string
   entrepriseId: string
   dateDebut: string
-  nom?: string
-  legalSiret?: string
-  dateFin?: string
+  nom?: string | null
+  legalSiret?: string | null
+  dateFin?: string | null
 }
 
 interface IEntreprise {
   id: string
   nom: string
-  paysId?: string
-  legalSiren?: string
-  legalEtranger?: string
-  legalForme?: string
-  categorie?: string
-  dateCreation?: string
-  adresse?: string
-  codePostal?: string
-  commune?: string
-  cedex?: string
-  email?: string
-  telephone?: string
-  url?: string
-  etablissements?: IEntrepriseEtablissement[]
-  utilisateurs?: IUtilisateur[]
-  titresTitulaire?: ITitre[]
-  titresAmodiataire?: ITitre[]
-  editable?: boolean
+  paysId?: string | null
+  legalSiren?: string | null
+  legalEtranger?: string | null
+  legalForme?: string | null
+  categorie?: string | null
+  dateCreation?: string | null
+  adresse?: string | null
+  codePostal?: string | null
+  commune?: string | null
+  cedex?: string | null
+  email?: string | null
+  telephone?: string | null
+  url?: string | null
+  etablissements?: IEntrepriseEtablissement[] | null
+  utilisateurs?: IUtilisateur[] | null
+  titresTitulaire?: ITitre[] | null
+  titresAmodiataire?: ITitre[] | null
+  editable?: boolean | null
 }
 
 interface IEtapeStatut {
@@ -181,34 +181,35 @@ interface IEtapeStatut {
 interface IEtapeType {
   id: string
   nom: string
-  acceptationAuto?: boolean
-  fondamentale?: boolean
-  dateDebut?: string
-  dateFin?: string
-  sections?: ISection[]
-  sectionsSpecifiques?: ISection[]
-  etapesStatuts?: IEtapeStatut[]
-  titreTypeId?: string
-  demarcheTypeId?: string
-  editable?: boolean
-  unique?: boolean
+  ordre: number
+  acceptationAuto?: boolean | null
+  fondamentale?: boolean | null
+  dateDebut?: string | null
+  dateFin?: string | null
+  sections?: ISection[] | null
+  sectionsSpecifiques?: ISection[] | null
+  etapesStatuts?: IEtapeStatut[] | null
+  titreTypeId?: string | null
+  demarcheTypeId?: string | null
+  editable?: boolean | null
+  unique?: boolean | null
 }
 
 interface IFrequence {
   id: string
   nom: string
   periodesNom: 'annees' | 'trimestres' | 'mois'
-  annees?: IAnnee[]
-  trimestres?: ITrimestre[]
-  mois?: IMois[]
+  annees?: IAnnee[] | null
+  trimestres?: ITrimestre[] | null
+  mois?: IMois[] | null
 }
 
 export interface IGeoJson {
   type: string
-  geometry?: IGeometry
-  bbox?: number[]
-  properties?: { [id: string]: string | number }
-  features?: IGeoJson[]
+  geometry?: IGeometry | null
+  bbox?: number[] | null
+  properties?: { [id: string]: string | number } | null
+  features?: IGeoJson[] | null
 }
 
 export interface IGeometry {
@@ -221,9 +222,9 @@ interface IGeoSysteme {
   definitionProj4: string
   nom: string
   ordre: number
-  uniteId?: string
+  uniteId?: string | null
   unite: IUnite
-  zone?: string
+  zone?: string | null
 }
 
 interface IGlobale {
@@ -232,14 +233,14 @@ interface IGlobale {
 }
 
 interface IMois extends IPeriode {
-  trimestreId?: string
-  trimestre?: ITrimestre
+  trimestreId?: string | null
+  trimestre?: ITrimestre | null
 }
 
 interface IPays {
   id: string
   nom: string
-  regions?: IRegion[]
+  regions?: IRegion[] | null
 }
 
 interface IPeriode {
@@ -269,8 +270,8 @@ interface IReferenceType {
 interface IRegion {
   id: string
   nom: string
-  pays?: IPays
-  departements?: IDepartement[]
+  pays?: IPays | null
+  departements?: IDepartement[] | null
 }
 interface IRestrictionDomaine {
   domaineId: string
@@ -322,26 +323,26 @@ interface ITitreStatut {
 interface ISubstanceLegaleCode {
   id: string
   nom: string
-  description?: string
+  description?: string | null
   lien: string
 }
 
 interface ISubstanceLegale {
   id: string
   nom: string
-  domaineId?: string
-  description?: string
-  substanceLegalCodeId?: string
-  domaine?: IDomaine
-  code?: ISubstanceLegaleCode
+  domaineId?: string | null
+  description?: string | null
+  substanceLegalCodeId?: string | null
+  domaine?: IDomaine | null
+  code?: ISubstanceLegaleCode | null
 }
 
 interface ISubstance {
   id: string
-  nom?: string
-  symbole?: string
-  gerep?: number
-  description?: string
+  nom?: string | null
+  symbole?: string | null
+  gerep?: number | null
+  description?: string | null
   substanceLegaleId: string
   substanceLegale: ISubstanceLegale
 }
@@ -350,192 +351,180 @@ interface ITitre {
   id: string
   nom: string
   domaineId: string
-  domaine?: IDomaine
+  domaine?: IDomaine | null
   typeId: string
-  type?: ITitreType
-  statutId?: string
-  statut?: ITitreStatut
-  references?: ITitreReference[]
-  dateDebut?: string
-  dateFin?: string
-  dateDemande?: string
-  activitesDeposees?: number
-  activitesEnConstruction?: number
-  activitesAbsentes?: number
-  substancesTitreEtapeId?: string
-  substances?: ISubstance
-  pointsTitreEtapeId?: string
-  points?: ITitrePoint[]
-  geojsonMultiPolygon?: IGeoJson
-  geojsonPoints?: IGeoJson
-  titulairesTitreEtapeId?: string
-  titulaires?: IEntreprise[]
-  amodiatairesTitreEtapeId?: string
-  amodiataires?: IEntreprise[]
-  administrationsTitreEtapeId?: string
-  administrationsLocales?: IAdministration[]
-  administrationsGestionnaires?: IAdministration[]
-  administrations?: IAdministration[]
-  surfaceTitreEtapeId?: string
-  surfaceEtape?: ITitreEtape
-  surface?: number
-  volumeTitreEtapeId?: string
-  volumeEtape?: ITitreEtape
-  volume?: number
-  volumeUniteIdTitreEtapeId?: string
-  volumeUnite?: IUnite
-  communesTitreEtapeId?: string
-  communes?: ICommune[]
-  engagementTitreEtapeId?: string
-  engagementEtape?: ITitreEtape
-  engagement?: number
-  engagementDeviseIdTitreEtapeId?: string
-  engagementDevise?: IDevise
-  demarches?: ITitreDemarche[]
-  activites?: ITitreActivite[]
-  pays?: IPays[]
-  editable?: boolean
-  supprimable?: boolean
-  doublonTitreId?: string
+  type?: ITitreType | null
+  statutId?: string | null
+  statut?: ITitreStatut | null
+  references?: ITitreReference[] | null
+  dateDebut?: string | null
+  dateFin?: string | null
+  dateDemande?: string | null
+  activitesDeposees?: number | null
+  activitesEnConstruction?: number | null
+  activitesAbsentes?: number | null
+  substancesTitreEtapeId?: string | null
+  substances?: ISubstance | null
+  pointsTitreEtapeId?: string | null
+  points?: ITitrePoint[] | null
+  geojsonMultiPolygon?: IGeoJson | null
+  geojsonPoints?: IGeoJson | null
+  titulairesTitreEtapeId?: string | null
+  titulaires?: IEntreprise[] | null
+  amodiatairesTitreEtapeId?: string | null
+  amodiataires?: IEntreprise[] | null
+  administrationsTitreEtapeId?: string | null
+  administrationsLocales?: IAdministration[] | null
+  administrationsGestionnaires?: IAdministration[] | null
+  administrations?: IAdministration[] | null
+  surfaceTitreEtapeId?: string | null
+  surfaceEtape?: ITitreEtape | null
+  surface?: number | null
+  volumeTitreEtapeId?: string | null
+  volumeEtape?: ITitreEtape | null
+  volume?: number | null
+  volumeUniteIdTitreEtapeId?: string | null
+  volumeUnite?: IUnite | null
+  communesTitreEtapeId?: string | null
+  communes?: ICommune[] | null
+  engagementTitreEtapeId?: string | null
+  engagementEtape?: ITitreEtape | null
+  engagement?: number | null
+  engagementDeviseIdTitreEtapeId?: string | null
+  engagementDevise?: IDevise | null
+  demarches?: ITitreDemarche[] | null
+  activites?: ITitreActivite[] | null
+  pays?: IPays[] | null
+  editable?: boolean | null
+  supprimable?: boolean | null
+  doublonTitreId?: string | null
 }
 
 interface ITitreActivite {
   id: string
   titreId: string
-  titre?: ITitre
+  titre?: ITitre | null
   date: string
   typeId: string
-  type?: IActiviteType
+  type?: IActiviteType | null
   statutId: string
-  statut?: IActiviteStatut
+  statut?: IActiviteStatut | null
   frequencePeriodeId: number
   annee: number
-  periode?: IAnnee | ITrimestre | IMois
+  periode?: IAnnee | ITrimestre | IMois | null
   utilisateurId: string
-  utilisateur?: IUtilisateur
+  utilisateur?: IUtilisateur | null
   dateSaisie?: string
-  contenu?: IContenu
-  sections?: ISection[]
-  editable?: boolean
-}
-
-interface ITitreActiviteInput {
-  id: string
-  statutId: string
-  contenu?: IContenu
+  contenu?: IContenu | null
+  sections?: ISection[] | null
+  editable?: boolean | null
 }
 
 interface ITitreAdministrationsGestionnaire {
   administrationId: string
   titreId: string
-  associee?: boolean
+  associee?: boolean | null
 }
 
 interface ITitreAdministrationLocale {
   administrationId: string
   titreId: string
-  associee?: boolean
-  coordinateur?: boolean
+  associee?: boolean | null
+  coordinateur?: boolean | null
 }
 
 interface ITitreCommune {
   communeId: string
   titreEtapeId: string
-  surface?: number
+  surface?: number | null
 }
 
 interface ITitreDemarche {
   id: string
   titreId: string
   typeId: string
-  type?: IDemarcheType
-  statutId?: string
-  statut?: IDemarcheStatut
-  ordre?: number
-  annulationTitreDemarcheId?: string
-  titreType?: ITitreType
-  etapes?: ITitreEtape[]
-  phase?: ITitrePhase
-  annulationDemarche?: ITitreDemarche
-  parents?: ITitreDemarche[]
-  enfants?: ITitreDemarche[]
-  editable?: boolean
-  supprimable?: boolean
-}
-
-interface ITitreDemarcheInput {
-  id?: string
-  typeId: string
-  titreId: string
+  type?: IDemarcheType | null
+  statutId?: string | null
+  statut?: IDemarcheStatut | null
+  ordre?: number | null
+  annulationTitreDemarcheId?: string | null
+  titreType?: ITitreType | null
+  etapes?: ITitreEtape[] | null
+  phase?: ITitrePhase | null
+  annulationDemarche?: ITitreDemarche | null
+  parents?: ITitreDemarche[] | null
+  enfants?: ITitreDemarche[] | null
+  editable?: boolean | null
+  supprimable?: boolean | null
 }
 
 interface ITitreDocument {
   id: string
   titreEtapeId: string
   typeId: string
-  type?: IDocumentType
-  jorf?: string
-  nor?: string
-  url?: string
-  uri?: string
-  nom?: string
-  fichier?: boolean
-  fichierTypeId?: string
-  fichierNouveau?: { file: FileUpload }
-  public?: boolean
-  editable?: boolean
-  supprimable?: boolean
+  type?: IDocumentType | null
+  jorf?: string | null
+  nor?: string | null
+  url?: string | null
+  uri?: string | null
+  nom?: string | null
+  fichier?: boolean | null
+  fichierTypeId?: string | null
+  fichierNouveau?: { file: FileUpload } | null
+  public?: boolean | null
+  editable?: boolean | null
+  supprimable?: boolean | null
 }
 
 interface ITitreEtape {
   id: string
   titreDemarcheId: string
   typeId: string
-  type?: IEtapeType
+  type?: IEtapeType | null
   statutId: string
-  statut?: IEtapeStatut
-  ordre?: number
+  statut?: IEtapeStatut | null
+  ordre?: number | null
   date: string
-  dateDebut?: string
-  dateFin?: string
-  duree?: number
-  surface?: number
-  volume?: number
-  volumeUniteId?: string
-  engagement?: number
-  engagementDeviseId?: string
-  contenu?: IContenu
-  substances?: ISubstance[]
-  points?: ITitrePoint[]
-  geojsonMultiPolygon?: IGeoJson
-  geojsonPoints?: IGeoJson
-  titulaires?: IEntreprise[]
-  amodiataires?: IEntreprise[]
-  administrations?: IAdministration[]
-  documents?: ITitreDocument[]
-  communes?: ICommune[]
-  incertitudes?: ITitreIncertitudes
-  volumeUnite?: IUnite
-  engagementDevise?: IDevise
-  pays?: IPays[]
-  editable?: boolean
-  supprimable?: boolean
+  dateDebut?: string | null
+  dateFin?: string | null
+  duree?: number | null
+  surface?: number | null
+  volume?: number | null
+  volumeUniteId?: string | null
+  engagement?: number | null
+  engagementDeviseId?: string | null
+  contenu?: IContenu | null
+  substances?: ISubstance[] | null
+  points?: ITitrePoint[] | null
+  geojsonMultiPolygon?: IGeoJson | null
+  geojsonPoints?: IGeoJson | null
+  titulaires?: IEntreprise[] | null
+  amodiataires?: IEntreprise[] | null
+  administrations?: IAdministration[] | null
+  documents?: ITitreDocument[] | null
+  communes?: ICommune[] | null
+  incertitudes?: ITitreIncertitudes | null
+  volumeUnite?: IUnite | null
+  engagementDevise?: IDevise | null
+  pays?: IPays[] | null
+  editable?: boolean | null
+  supprimable?: boolean | null
 }
 
 interface ITitreIncertitudes {
   titreEtapeId: string
-  date?: boolean
-  dateDebut?: boolean
-  dateFin?: boolean
-  duree?: boolean
-  surface?: boolean
-  volume?: boolean
-  engagement?: boolean
-  points?: boolean
-  substances?: boolean
-  titulaires?: boolean
-  amodiataires?: boolean
-  administrations?: boolean
+  date?: boolean | null
+  dateDebut?: boolean | null
+  dateFin?: boolean | null
+  duree?: boolean | null
+  surface?: boolean | null
+  volume?: boolean | null
+  engagement?: boolean | null
+  points?: boolean | null
+  substances?: boolean | null
+  titulaires?: boolean | null
+  amodiataires?: boolean | null
+  administrations?: boolean | null
 }
 
 interface ITitrePhase {
@@ -549,32 +538,32 @@ interface ITitrePhase {
 interface ITitrePoint {
   id: string
   titreEtapeId: string
-  nom?: string
-  description?: string
+  nom?: string | null
+  description?: string | null
   groupe: number
   contour: number
   point: number
   references: ITitrePointReference[]
   coordonnees: ICoordonnees
-  lot?: number
-  securite?: boolean
-  subsidiaire?: boolean
+  lot?: number | null
+  securite?: boolean | null
+  subsidiaire?: boolean | null
 }
 
 interface ITitrePointReference {
   id: string
   titrePointId: string
   geoSystemeId: string
-  geoSysteme?: IGeoSysteme
+  geoSysteme?: IGeoSysteme | null
   coordonnees: ICoordonnees
-  opposable?: boolean
+  opposable?: boolean | null
 }
 
 interface ITitreReference {
   titreId: string
   typeId: string
   nom: string
-  type?: IReferenceType
+  type?: IReferenceType | null
 }
 
 interface ITrimestre extends IPeriode {
@@ -585,10 +574,10 @@ interface ITitreType {
   id: string
   domaineId: string
   typeId: string
-  archive?: boolean
+  archive?: boolean | null
   type: ITitreTypeType
-  demarchesTypes?: IDemarcheType[]
-  editable?: boolean
+  demarchesTypes?: IDemarcheType[] | null
+  editable?: boolean | null
 }
 
 interface ITitreTypeType {
@@ -609,21 +598,21 @@ interface IUser extends IUtilisateur {
 
 interface IUtilisateur {
   id: string
-  email?: string
-  motDePasse?: string
-  nom?: string
-  prenom?: string
-  telephoneFixe?: string
-  telephoneMobile?: string
+  email?: string | null
+  motDePasse?: string | null
+  nom?: string | null
+  prenom?: string | null
+  telephoneFixe?: string | null
+  telephoneMobile?: string | null
   permissionId: string
   // TODO: définir une interface IUtilisateurPreferences
-  preferences?: any
+  preferences?: any | null
   permission: IPermission
-  administrations?: IAdministration[]
-  entreprises?: IEntreprise[]
-  editable?: boolean
-  supprimable?: boolean
-  permissionEditable?: boolean
+  administrations?: IAdministration[] | null
+  entreprises?: IEntreprise[] | null
+  editable?: boolean | null
+  supprimable?: boolean | null
+  permissionEditable?: boolean | null
 }
 
 interface IToken {

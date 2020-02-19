@@ -60,8 +60,8 @@ const titreActiviteCalc = (
   user: IUtilisateur | undefined,
   titresActivites: ITitreActivite[],
   statutId: string,
-  titreAmodiataires: IEntreprise[] | undefined,
-  titreTitulaires: IEntreprise[] | undefined
+  titreAmodiataires: IEntreprise[] | undefined | null,
+  titreTitulaires: IEntreprise[] | undefined | null
 ) =>
   titresActivites.reduce(
     (acc, titreActivite) =>

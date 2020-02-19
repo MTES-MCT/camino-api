@@ -24,12 +24,13 @@ const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
     titreDemarche.etapes
   ).find(te => titreEtapePublicationFilter(te, titreTypeId))
 
-  // si la démarche n'a pas d'étape de publication, ou que l'étape n'a pas de date
-  if (!titreEtapePublicationFirst || !titreEtapePublicationFirst.date)
-    return undefined
+  // si la démarche n'a pas d'étape de publication
+  if (!titreEtapePublicationFirst) {
+    return null
+  }
 
   // sinon la date de début est égale à la date de la première étape de publication
-  return titreEtapePublicationFirst.date
+  return titreEtapePublicationFirst.date || null
 }
 
 const titreDateDebutFind = (titreDemarches, titreTypeId) => {
@@ -41,7 +42,7 @@ const titreDateDebutFind = (titreDemarches, titreTypeId) => {
       ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
   )
 
-  if (!titreDemarche) return undefined
+  if (!titreDemarche) return null
 
   return titreDemarcheDateDebutFind(titreDemarche, titreTypeId)
 }
