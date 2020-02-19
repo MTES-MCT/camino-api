@@ -1,5 +1,9 @@
 import { FileUpload } from 'graphql-upload'
 
+interface Index {
+  [id: string]: any
+}
+
 interface IActiviteStatut {
   id: string
   nom: string
@@ -659,6 +663,7 @@ type TitreEtapeProp =
   | 'engagementDeviseId'
 
 export {
+  Index,
   IActiviteStatut,
   IActiviteType,
   ISection,
