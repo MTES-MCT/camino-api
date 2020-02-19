@@ -8,7 +8,7 @@ const chalk = require('chalk')
 const dbManager = require('knex-db-manager').databaseManagerFactory(config)
 const { knexSnakeCaseMappers } = require('objection')
 
-const titresIds = process.env.DUMP_TITRES_IDS.split(',')
+const titresIds = process.env.PUBLIC_TITRES_IDS.split(',')
 
 const run = async () => {
   try {
