@@ -4,7 +4,7 @@ import restrictions from '../../../database/cache/restrictions'
 const titreTypePermissionCheck = (user: IUtilisateur, titreTypeId: string) =>
   !restrictions.typesAdministrations.find(
     rta =>
-      rta.typeId === titreTypeId &&
+      rta.titreTypeId === titreTypeId &&
       rta.creationInterdit &&
       user.administrations &&
       user.administrations.find(a => a.id === rta.administrationId)

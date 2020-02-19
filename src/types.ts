@@ -285,7 +285,7 @@ interface IRestrictionTypeStatut {
 }
 
 interface IRestrictionTypeAdministration {
-  typeId: string
+  titreTypeId: string
   administrationId: string
   creationInterdit: boolean
 }
