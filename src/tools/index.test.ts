@@ -1,4 +1,4 @@
-import { objectsDiffer, dupRemove, dupFind } from './index'
+import { objectsDiffer, dupRemove, dupFind, diffFind } from './index'
 
 describe('comparaison entre des objets', () => {
   test('retourne false si les objets sont identiques (dates)', () => {
@@ -73,5 +73,21 @@ describe('comparaison entre des tableaux', () => {
     )
 
     expect(res).toEqual([{ id: 1, nom: 'nom-1-bis' }])
+  })
+
+  test('retourne un seul tableau d\'éléments uniques à chaque tableau', () => {
+    const res = diffFind(
+      'id',
+      [
+        { id: 1, nom: 'nom-1' },
+        { id: 2, nom: 'nom-2' }
+      ],
+      [
+        { id: 1, nom: 'nom-1-bis' },
+        { id: 3, nom: 'nom-3' }
+      ]
+    )
+
+    expect(res).toEqual([{ id: 2, nom: 'nom-2' }, { id: 3, nom: 'nom-3' }])
   })
 })
