@@ -47,6 +47,7 @@ const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
     if (Object.keys(props).length) {
       queue.add(async () => {
         const titreUpdated = await titreUpdate(titre.id, props)
+
         console.log(
           `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
         )

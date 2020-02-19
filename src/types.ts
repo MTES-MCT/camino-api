@@ -62,6 +62,7 @@ interface IAdministration {
   titresAdministrationsGestionnaires?: ITitre[]
   titresAdministrationsLocales?: ITitre[]
   associee?: boolean
+  membre?: boolean
 }
 
 interface IAnnee extends IPeriode {}

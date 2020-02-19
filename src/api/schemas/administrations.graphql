@@ -12,6 +12,7 @@ type Administration {
   commune: String
   cedex: String
   utilisateurs: [Utilisateur]
+  membre: Boolean
 }
 
 input InputAdministration {

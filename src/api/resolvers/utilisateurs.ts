@@ -25,8 +25,7 @@ import { permissionsCheck, permissionsAdministrationsCheck } from './permissions
 import {
   emailCheck,
   utilisateurEditionCheck,
-  utilisateurTestCheck,
-  permissionUtilisateurAdministrationCheck
+  utilisateurTestCheck
 } from './permissions/utilisateur'
 
 import { utilisateursFormat, utilisateurFormat } from './format/utilisateurs'
