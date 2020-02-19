@@ -15,6 +15,7 @@
 
 ## Technologies
 
+- [TypeScript](https://typescriptlang.org/)
 - [Node.js](https://nodejs.org/)
 - [Express.js](http://expressjs.com)
 - [PostgreSQL](https://www.postgresql.org/)
@@ -143,6 +144,7 @@ La documentation [est disponible ici](https://github.com/MTES-MCT/camino-api/tre
 ```bash
 .
 │
+├── dev                  # `scripts de développement`
 ├── knex                 # `scripts de création et d'import de la base de données (npm run migrate)
 │   ├── migrations       # `création de la base de données`
 │   └── seeds            # `import depuis les fichier /sources vers la base de données`
@@ -174,7 +176,6 @@ La documentation [est disponible ici](https://github.com/MTES-MCT/camino-api/tre
     │   └── monthly      # `scripts de mise à jour mensuels (npm run monthly)`
     │
     └── tools            # `outils`
-        ├── dev          # `outils de développement`
         ├── export       # `exportation de la base de données vers des spreadsheets (npm run export)`
         ├── import       # `import de spreadsheets vers des fichiers json dans /sources (npm run import)`
         ├── api-...      # `connexion aux api externes`
@@ -206,8 +207,9 @@ Voir [contributing.md](contributing.md) (en anglais) pour plus d'infos.
 
 - Guillaume Levieux, intrapreneur
 - Joeffrey Arruyer, coach
-- [François Romain](http://francoisromain.com), développeur
+- [François Romain](https://francoisromain.com), développeur
 - [Adrien Risser](https://github.com/risseraka), développeur
+- [Nicolas Petitot](https://github.com/NeoBahamut), développeur
 
 ---
 
