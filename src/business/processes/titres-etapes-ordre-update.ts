@@ -8,38 +8,42 @@ import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 const titresEtapesOrdreUpdate = async (titresDemarches: ITitreDemarche[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresEtapesUpdated = titresDemarches.reduce(
-    (titresEtapesUpdated, titreDemarche) =>
-      titreEtapesAscSortByDate(titreDemarche.etapes, titreDemarche.type).reduce(
+  const titresEtapesIdsUpdated = titresDemarches.reduce(
+    (titresEtapesIdsUpdated: string[], titreDemarche) => {
+      if (!titreDemarche.etapes) return titresEtapesIdsUpdated
+
+      return titreEtapesAscSortByDate(
+        titreDemarche.etapes,
+        titreDemarche.type
+      ).reduce(
         (
-          titresEtapesUpdated: string[],
+          titresEtapesIdsUpdated: string[],
           titreEtape: ITitreEtape,
           index: number
         ) => {
-          if (titreEtape.ordre === index + 1) return titresEtapesUpdated
+          if (titreEtape.ordre === index + 1) return titresEtapesIdsUpdated
 
           queue.add(async () => {
             await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
             console.log(
-              `mise à jour: étape ${titreEtape.id}, ${JSON.stringify({
-                ordre: index + 1
-              })}`
+              `mise à jour: étape ${titreEtape.id}, ordre: ${index + 1}`
             )
 
-            titresEtapesUpdated.push(titreEtape.id)
+            titresEtapesIdsUpdated.push(titreEtape.id)
           })
 
-          return titresEtapesUpdated
+          return titresEtapesIdsUpdated
         },
-        titresEtapesUpdated
-      ),
+        titresEtapesIdsUpdated
+      )
+    },
     []
   )
 
   await queue.onIdle()
 
-  return titresEtapesUpdated
+  return titresEtapesIdsUpdated
 }
 
 export default titresEtapesOrdreUpdate

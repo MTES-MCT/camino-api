@@ -3,10 +3,15 @@ import { IContenu, ISection } from '../types'
 import titreActiviteNumbersCheck from './utils/titre-activite-numbers-check'
 
 const titreActiviteUpdationValidate = (
-  titreActviteContenu: IContenu | undefined,
-  activiteTypeSections: ISection[] | undefined
+  titreActviteContenu: IContenu | undefined | null,
+  activiteTypeSections: ISection[] | undefined | null
 ) => {
   const errors = []
+
+  if (!activiteTypeSections) {
+    errors.push('sections manquantes')
+  }
+
   // les champs number ne peuvent avoir une durée négative
 
   const errorNumbers = titreActiviteNumbersCheck(

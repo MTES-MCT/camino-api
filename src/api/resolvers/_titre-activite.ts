@@ -30,7 +30,7 @@ const elementHtmlBuild = (
 
 const elementsHtmlBuild = (
   sectionId: string,
-  elements: ISectionElement[] | undefined,
+  elements: ISectionElement[],
   contenu: IContenu
 ) =>
   elements
@@ -50,11 +50,15 @@ const sectionHtmlBuild = (
 ) => {
   const sectionNomHtml = nom ? `<h2>${nom}</h2>` : ''
 
+  const listHtml = elements
+    ? `<ul>
+  ${elementsHtmlBuild(id, elements, contenu)}
+</ul>`
+    : ''
+
   return `
 ${sectionNomHtml}
-<ul>
-  ${elementsHtmlBuild(id, elements, contenu)}
-</ul>
+${listHtml}
     `
 }
 

@@ -35,7 +35,11 @@ const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
           prop
         )
 
-        if (value !== titre[name]) {
+        // si
+        // - la valeur de la prop est différente de celle du titre
+        // - la valeur existe ou elle existe dans le titre
+
+        if (value !== titre[name] && (titre[name] || value)) {
           props[name] = value
         }
 

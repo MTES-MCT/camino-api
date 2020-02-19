@@ -41,9 +41,9 @@ console.log = jest.fn()
 
 describe("activités d'un titre", () => {
   test('met à jour un titre sans activité', async () => {
-    activitesTypesFilterMock.mockImplementation(() => true)
-    activiteTypeAnneesFindMock.mockImplementation(() => [2018])
-    titreActivitesBuildMock.mockImplementation(() => [1])
+    activitesTypesFilterMock.mockReturnValue(true)
+    activiteTypeAnneesFindMock.mockReturnValue([2018])
+    titreActivitesBuildMock.mockReturnValue([1])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,
@@ -61,9 +61,9 @@ describe("activités d'un titre", () => {
   })
 
   test('ne met pas à jour un titre possédant déjà des activités', async () => {
-    activitesTypesFilterMock.mockImplementation(() => true)
-    activiteTypeAnneesFindMock.mockImplementation(() => [2018])
-    titreActivitesBuildMock.mockImplementation(() => [])
+    activitesTypesFilterMock.mockReturnValue(true)
+    activiteTypeAnneesFindMock.mockReturnValue([2018])
+    titreActivitesBuildMock.mockReturnValue([])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresToutesActivites,
@@ -79,8 +79,8 @@ describe("activités d'un titre", () => {
   })
 
   test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {
-    activitesTypesFilterMock.mockImplementation(() => false)
-    activiteTypeAnneesFindMock.mockImplementation(() => [2018])
+    activitesTypesFilterMock.mockReturnValue(false)
+    activiteTypeAnneesFindMock.mockReturnValue([2018])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,
@@ -96,8 +96,8 @@ describe("activités d'un titre", () => {
   })
 
   test('ne met pas à jour de titre si les activités ne sont valables sur aucune année', async () => {
-    activitesTypesFilterMock.mockImplementation(() => false)
-    activiteTypeAnneesFindMock.mockImplementation(() => [])
+    activitesTypesFilterMock.mockReturnValue(false)
+    activiteTypeAnneesFindMock.mockReturnValue([])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,

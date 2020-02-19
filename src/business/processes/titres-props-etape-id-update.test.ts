@@ -1,3 +1,4 @@
+import { ITitre } from '../../types'
 import { mocked } from 'ts-jest/utils'
 import titresPropsEtapeIdUpdate from './titres-props-etape-id-update'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
@@ -16,9 +17,9 @@ console.log = jest.fn()
 
 describe("propriétés (étape) d'un titre", () => {
   test('trouve 8 propriétés dans les étapes', async () => {
-    titrePropEtapeIdFindMock.mockImplementation(() => 'etape-id')
+    titrePropEtapeIdFindMock.mockReturnValue('etape-id')
     const titresUpdatedRequests = await titresPropsEtapeIdUpdate([
-      { id: '', nom: '', domaineId: '', typeId: '' }
+      ({ titulairesTitreEtapeId: null } as unknown) as ITitre
     ])
 
     expect(titresUpdatedRequests.length).toEqual(1)
@@ -26,9 +27,9 @@ describe("propriétés (étape) d'un titre", () => {
   })
 
   test('ne trouve pas de propriétés dans les étapes', async () => {
-    titrePropEtapeIdFindMock.mockImplementation(() => undefined)
+    titrePropEtapeIdFindMock.mockReturnValue(null)
     const titresUpdatedRequests = await titresPropsEtapeIdUpdate([
-      { id: '', nom: '', domaineId: '', typeId: '' }
+      ({ titulairesTitreEtapeId: null } as unknown) as ITitre
     ])
 
     expect(titresUpdatedRequests.length).toEqual(0)

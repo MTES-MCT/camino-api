@@ -1,3 +1,5 @@
+import { ITitreEtape, IEtapeType } from '../../../types'
+
 const titreEtapesSortedAsc = [
   {
     typeId: 'dex',
@@ -9,7 +11,7 @@ const titreEtapesSortedAsc = [
     ordre: 2,
     date: '1988-03-11'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesSortedDesc = [
   {
@@ -22,7 +24,7 @@ const titreEtapesSortedDesc = [
     ordre: 1,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesSortedAscResult = [
   {
@@ -35,7 +37,7 @@ const titreEtapesSortedAscResult = [
     ordre: 2,
     date: '1988-03-11'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesMemesDatesOrdreDesc = [
   {
@@ -48,7 +50,7 @@ const titreEtapesMemesDatesOrdreDesc = [
     ordre: 1,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesMemesDatesOrdreAscResult = [
   {
@@ -61,7 +63,7 @@ const titreEtapesMemesDatesOrdreAscResult = [
     ordre: 2,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesMemesDatesOrdreEtapesTypesDesc = [
   {
@@ -79,7 +81,7 @@ const titreEtapesMemesDatesOrdreEtapesTypesDesc = [
     ordre: 2,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesMemesDatesOrdreEtapesTypesAscResult = [
   {
@@ -97,7 +99,7 @@ const titreEtapesMemesDatesOrdreEtapesTypesAscResult = [
     ordre: 2,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesMemesDatesMemeOrdreDesc = [
   {
@@ -110,7 +112,7 @@ const titreEtapesMemesDatesMemeOrdreDesc = [
     ordre: 1,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const titreEtapesMemesDatesMemeOrdreAscResult = [
   {
@@ -123,12 +125,12 @@ const titreEtapesMemesDatesMemeOrdreAscResult = [
     ordre: 2,
     date: '1988-03-06'
   }
-]
+] as ITitreEtape[]
 
 const etapesTypes = [
-  { id: 'dex', ordre: 100 },
-  { id: 'dpu', ordre: 200 }
-]
+  { id: 'dex', nom: 'dex', ordre: 100 },
+  { id: 'dpu', nom: 'dpu', ordre: 200 }
+] as IEtapeType[]
 
 export {
   titreEtapesSortedAsc,

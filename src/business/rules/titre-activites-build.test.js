@@ -10,7 +10,7 @@ import {
 } from './__mocks__/titre-activite-create-titres'
 
 jest.mock('../../database/queries/titres-activites', () => ({
-  titreActiviteInsert: jest.fn().mockImplementation(() => Promise.resolve())
+  titreActiviteInsert: jest.fn().mockReturnValue(Promise.resolve())
 }))
 
 jest.mock('../utils/titre-validite-periode-check', () => ({
@@ -19,7 +19,7 @@ jest.mock('../utils/titre-validite-periode-check', () => ({
 
 describe("construction des activités d'un titre", () => {
   test("ne crée pas d'activité si la fin de la période est dans le futur", () => {
-    titreValiditePeriodeCheck.default.mockImplementation(() => true)
+    titreValiditePeriodeCheck.default.mockReturnValue(true)
 
     const res = titreActivitesBuild(titreVide, activiteTypeGrp, [2300])
 
@@ -28,7 +28,7 @@ describe("construction des activités d'un titre", () => {
   })
 
   test('crée quatre activités si le titre est valide pour la période', () => {
-    titreValiditePeriodeCheck.default.mockImplementation(() => true)
+    titreValiditePeriodeCheck.default.mockReturnValue(true)
 
     const res = titreActivitesBuild(titreAvecActivite201801, activiteTypeXxx, [
       2018
@@ -39,7 +39,7 @@ describe("construction des activités d'un titre", () => {
   })
 
   test('crée trois activités si le titre est valide pour la période et possède déja une activité', () => {
-    titreValiditePeriodeCheck.default.mockImplementation(() => true)
+    titreValiditePeriodeCheck.default.mockReturnValue(true)
 
     const res = titreActivitesBuild(titreAvecActivite201801, activiteTypeGrp, [
       2018
@@ -50,7 +50,7 @@ describe("construction des activités d'un titre", () => {
   })
 
   test("ne crée pas d'activité si le titre n'est pas valide pour la période", () => {
-    titreValiditePeriodeCheck.default.mockImplementation(() => false)
+    titreValiditePeriodeCheck.default.mockReturnValue(false)
 
     const res = titreActivitesBuild(titreVide, activiteTypeGrp, [2018])
 
@@ -59,7 +59,7 @@ describe("construction des activités d'un titre", () => {
   })
 
   test("crée une activité si le titre a le statut 'modification en instance'", () => {
-    titreValiditePeriodeCheck.default.mockImplementation(() => false)
+    titreValiditePeriodeCheck.default.mockReturnValue(false)
 
     const res = titreActivitesBuild(
       titreModificationEnInstance,
