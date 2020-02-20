@@ -1,4 +1,4 @@
-import titreEtapeDateCheck from './titre-etape-date-check'
+import titreEtapeDateValidate from './titre-etape-date-validate'
 
 jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
   default: [
@@ -86,12 +86,12 @@ const type = {
 
 describe("vérifie la date d'une étape pour une démarche en fonction des autres étapes d'une démarche", () => {
   test("un titre de type autre que ARM n'est pas validé", () => {
-    expect(titreEtapeDateCheck({}, {}, { typeId: 'autre' })).toBeNull()
+    expect(titreEtapeDateValidate({}, {}, { typeId: 'autre' })).toBeNull()
   })
 
   test("une étape historique dont la date est antérieure au 31 octobre 2019 n'est pas validée", () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         { date: '2000-01-01' },
         {},
         { typeId: 'arm', demarches: [{ etapes: [] }] }
@@ -101,7 +101,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('parametre invalide', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {},
         { etapes: [{}, null] },
         { typeId: 'arm', demarches: [{ etapes: [] }] }
@@ -111,7 +111,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('aucune restriction', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         { typeId: 'etape-aucune-restriction' },
         { etapes: [{}, null] },
         { typeId: 'arm', demarches: [{ etapes: [] }] }
@@ -121,7 +121,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('avant la premiere', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-milieu-obligatoire-apres',
           date: '3000-01-01'
@@ -144,7 +144,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('avant la premiere avec condition simple', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-milieu-obligatoire-apres-cond-simple',
           date: '3000-01-01'
@@ -168,7 +168,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('avant la premiere avec condition tableau', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-milieu-obligatoire-apres-cond-tableau',
           date: '3000-01-01'
@@ -192,7 +192,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('après la premiere', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-milieu-obligatoire-apres',
           date: '5000-01-01'
@@ -214,7 +214,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('après la dernière', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-milieu-impossible-apres',
           date: '5000-01-01'
@@ -237,7 +237,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('avant la dernière', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-milieu-impossible-apres',
           date: '3000-01-01'
@@ -258,7 +258,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('dernière avant une autre', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-derniere',
           date: '3000-01-01'
@@ -281,7 +281,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('dernière après une autre', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-derniere',
           date: '5000-01-01'
@@ -302,7 +302,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('première après une autre étape', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-premiere',
           date: '5000-01-01'
@@ -325,7 +325,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('premiere avant une autre étape', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-premiere',
           date: '3000-01-01'
@@ -346,7 +346,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test('mecanisee', () => {
     expect(
-      titreEtapeDateCheck(
+      titreEtapeDateValidate(
         {
           typeId: 'etape-mecanisee',
           date: '2020-01-01'

@@ -2,10 +2,10 @@ import { ITitreEtape } from '../types'
 
 import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
-import titreEtapeTypeAndStatusCheck from './utils/titre-etape-type-and-status-check'
-import titreEtapeDateCheck from './utils/titre-etape-date-check'
-import titreEtapePointsCheck from './utils/titre-etape-points-check'
-import titreEtapeNumbersCheck from './utils/titre-etape-numbers-check'
+import titreEtapeTypeAndStatusValidate from './utils/titre-etape-type-and-status-validate'
+import titreEtapeDateValidate from './utils/titre-etape-date-validate'
+import titreEtapePointsValidate from './utils/titre-etape-points-validate'
+import titreEtapeNumbersValidate from './utils/titre-etape-numbers-validate'
 
 const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
   const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
@@ -16,7 +16,7 @@ const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
 
   // 1. le type d'étape correspond à la démarche et au type de titre
 
-  const error = titreEtapeTypeAndStatusCheck(titreEtape, titreDemarche)
+  const error = titreEtapeTypeAndStatusValidate(titreEtape, titreDemarche)
 
   if (error) {
     errors.push(error)
@@ -25,7 +25,7 @@ const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
   // 2. la date de l'étape est possible en fonction de l'ordre des types d'étapes
 
   if (titreEtape.date) {
-    const error = titreEtapeDateCheck(titreEtape, titreDemarche, titre)
+    const error = titreEtapeDateValidate(titreEtape, titreDemarche, titre)
     if (error) {
       errors.push(error)
     }
@@ -34,7 +34,7 @@ const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
   // 3. les références de points sont bien renseignées
 
   if (titreEtape.points) {
-    const error = titreEtapePointsCheck(titreEtape.points)
+    const error = titreEtapePointsValidate(titreEtape.points)
     if (error) {
       errors.push(error)
     }
@@ -46,7 +46,10 @@ const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
   )
 
   if (etapeType && etapeType.sections) {
-    const errorNumbers = titreEtapeNumbersCheck(titreEtape, etapeType.sections)
+    const errorNumbers = titreEtapeNumbersValidate(
+      titreEtape,
+      etapeType.sections
+    )
 
     if (errorNumbers) {
       errors.push(errorNumbers)

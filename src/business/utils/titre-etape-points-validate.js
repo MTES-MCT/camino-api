@@ -1,4 +1,4 @@
-const titreEtapePointsCheck = titrePoints => {
+const titreEtapePointsValidate = titrePoints => {
   const errors = titrePoints.reduce((errors, point) => {
     if (
       !point.references.every(
@@ -24,4 +24,4 @@ const titreEtapePointsCheck = titrePoints => {
   return null
 }
 
-export default titreEtapePointsCheck
+export default titreEtapePointsValidate

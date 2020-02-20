@@ -182,7 +182,7 @@ const titreMecanisationCheck = titreDemarches => {
   return mecanisation !== undefined
 }
 
-const titreEtapeDateCheck = (titreEtape, titreDemarche, titre) => {
+const titreEtapeDateValidate = (titreEtape, titreDemarche, titre) => {
   // pas de validation pour les titres autres qu'ARM
   if (titre.typeId !== 'arm') return null
 
@@ -218,4 +218,4 @@ const titreEtapeDateCheck = (titreEtape, titreDemarche, titre) => {
   return titreEtapesDateErrors.length ? titreEtapesDateErrors.join('\n') : null
 }
 
-export default titreEtapeDateCheck
+export default titreEtapeDateValidate

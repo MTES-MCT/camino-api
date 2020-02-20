@@ -2,7 +2,7 @@
 // et du type de démarche
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
 
-const titreEtapeTypeAndStatusCheck = (titreEtape, titreDemarche) => {
+const titreEtapeTypeAndStatusValidate = (titreEtape, titreDemarche) => {
   try {
     const titreDemarcheEtapeType = titreEtapeDemarcheEtapeTypeFind(
       titreDemarche.type,
@@ -25,4 +25,4 @@ const titreEtapeTypeAndStatusCheck = (titreEtape, titreDemarche) => {
   }
 }
 
-export default titreEtapeTypeAndStatusCheck
+export default titreEtapeTypeAndStatusValidate
