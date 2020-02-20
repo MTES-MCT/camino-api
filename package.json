@@ -29,7 +29,7 @@
     "db:recreate": "dropdb --username=postgres --host=localhost camino && createdb --username=postgres --host=localhost camino",
     "db:rollback": "knex --knexfile ./knex/config-cli.js migrate:rollback",
     "db:seed": "knex --knexfile ./knex/config-cli.js seed:run",
-    "db:test-push": "npm run db:dump-public && scp backups/camino-public.sql $u@test.camino.beta.gouv.fr:/srv/backups/camino.sql",
+    "db:test-push": "scp backups/camino-public.sql $u@test.camino.beta.gouv.fr:/srv/backups/camino.sql",
     "db:user": "node ./knex/user-add.js",
     "dev": "nodemon",
     "dev:daily": "ts-node --transpile-only ./src/business/daily.ts",
@@ -52,7 +52,7 @@
     "test": "eslint src/ && eslint knex/ && jest --verbose && codecov",
     "test:lint": "eslint --fix src/ && eslint --fix knex/",
     "test:jest": "npm run test:lint && jest --verbose --watch",
-    "test:cypress": "npm run db:import-public && npm run daily && npm run db:user  && npm run dev"
+    "test:cypress": "npm run db:public-import && npm run daily && npm run db:user  && npm run dev"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
