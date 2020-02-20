@@ -355,10 +355,10 @@ const utilisateurSupprimer = async (
 
     const utilisateur = await utilisateurGet(id)
 
-    utilisateur.email = undefined
+    utilisateur.email = ''
     utilisateur.motDePasse = 'suppression'
-    utilisateur.telephoneFixe = undefined
-    utilisateur.telephoneMobile = undefined
+    utilisateur.telephoneFixe = ''
+    utilisateur.telephoneMobile = ''
     utilisateur.permissionId = 'defaut'
     utilisateur.entreprises = []
     utilisateur.administrations = []
