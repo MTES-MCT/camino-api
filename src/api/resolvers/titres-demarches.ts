@@ -92,7 +92,7 @@ const demarcheCreer = async (
     }
 
     if (permissionsCheck(user, ['admin'])) {
-      const titre = await titreGet(demarche.titreId, { graph: '' })
+      const titre = await titreGet(demarche.titreId, { graph: undefined })
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
@@ -140,7 +140,7 @@ const demarcheModifier = async (
     }
 
     if (permissionsCheck(user, ['admin'])) {
-      const titre = await titreGet(demarche.titreId, { graph: '' })
+      const titre = await titreGet(demarche.titreId, { graph: undefined })
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (

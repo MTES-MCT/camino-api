@@ -139,7 +139,7 @@ const etapeCreer = async (
 
     if (!isSuper) {
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
-        graph: ''
+        graph: undefined
       })
 
       if (!demarche) throw new Error("la démarche n'existe pas")
@@ -212,7 +212,7 @@ const etapeModifier = async (
 
     if (!permissionsCheck(user, ['super'])) {
       const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
-        graph: ''
+        graph: undefined
       })
 
       if (!demarche) throw new Error("la démarche n'existe pas")
