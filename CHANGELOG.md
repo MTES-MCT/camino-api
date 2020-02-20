@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.20](https://github.com/MTES-MCT/camino-api/compare/v0.24.19...v0.24.20) (2020-02-20)
+
+
+### Features
+
+* **api:** limite les changements de permissions aux utilisateurs d'une administration ([#303](https://github.com/MTES-MCT/camino-api/issues/303)) ([7823561](https://github.com/MTES-MCT/camino-api/commit/782356108d2bbedef7299cdf12ba104fc5ddb0f9))
+
+
+### Bug Fixes
+
+* ne formatte pas un utilisateur qui vient d'être crée ([f9a6142](https://github.com/MTES-MCT/camino-api/commit/f9a614283e5db04311b30c7db7da16b1fddaeeb7))
+* **api:** corrige la création de démarches sur les titres ([65b72c6](https://github.com/MTES-MCT/camino-api/commit/65b72c60f17158c7dd8f5e68345f2aaddd983969))
+* **api:** corrige les restriction des types de titre pour les administrations ([8c2030c](https://github.com/MTES-MCT/camino-api/commit/8c2030cf0e55a44ef1c4f2e6622c93e2ad744784))
+* **api:** corrige les restrictions pour les types d'étapes pour les administrations ([92adb33](https://github.com/MTES-MCT/camino-api/commit/92adb33516db703910df7561c7f81020b93883c6))
+* corrige les définitions de types qui peuvent être null ([#304](https://github.com/MTES-MCT/camino-api/issues/304)) ([18f37de](https://github.com/MTES-MCT/camino-api/commit/18f37de658b5a02e14751e6676cd7ab2c392c935))
+* **data:** crée une étape de demande pour les ARM classées ([#300](https://github.com/MTES-MCT/camino-api/issues/300)) ([8f75425](https://github.com/MTES-MCT/camino-api/commit/8f75425822da32903885c09d7ee31e061bb54f30))
+* **migrate:** corrige une erreur de config dûe à une montée de version de knex ([9624437](https://github.com/MTES-MCT/camino-api/commit/9624437f8d6d4e6def6e0d3754e0a4908bd0d9a8))
+* ajoute une liaison `cascade` sur les administrations ([375e6f5](https://github.com/MTES-MCT/camino-api/commit/375e6f585c4ca97d5f86cde53def4020a3a2ad5f))
+
 ### [0.24.19](https://github.com/MTES-MCT/camino-api/compare/v0.24.18...v0.24.19) (2020-02-11)
 
 
