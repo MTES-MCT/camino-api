@@ -1,8 +1,6 @@
 import { IAdministration, IUtilisateur, Index } from '../types'
 
-import {
-  utilisateurGet,
-} from '../database/queries/utilisateurs'
+import { utilisateurGet } from '../database/queries/utilisateurs'
 
 import { permissionsAdministrationsCheck } from '../api/resolvers/permissions/permissions-check'
 

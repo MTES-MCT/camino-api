@@ -75,7 +75,7 @@ describe('comparaison entre des tableaux', () => {
     expect(res).toEqual([{ id: 1, nom: 'nom-1-bis' }])
   })
 
-  test('retourne un seul tableau d\'éléments uniques à chaque tableau', () => {
+  test("retourne un seul tableau d'éléments uniques à chaque tableau", () => {
     const res = diffFind(
       'id',
       [

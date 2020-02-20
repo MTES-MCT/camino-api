@@ -8,36 +8,46 @@ interface ITitreIndex {
 }
 
 const titreActivitesRowsUpdate = async (
-  titresActivitesCreated: ITitreActivite[],
+  titreActivitesCreated: ITitreActivite[],
   titreUpdatedIndex: ITitreIndex | null
 ) => {
   let titresIdsUpdatedIndex
+
+  let titreActivitesToUpdate = titreActivitesCreated
+
+  // vérifie si le titre a changé d'id
   if (titreUpdatedIndex) {
     const titreId = Object.keys(titreUpdatedIndex)[0]
     const titre = await titreGet(titreId)
 
+    // si le titre existe
+    // - et qu'il a changé d'id
+    // - et qu'il a des activités
+    // alors on met à jour toutes ses activités dans la spreadsheet
     if (
       titre &&
       titreId !== titreUpdatedIndex[titreId] &&
       titre.activites?.length
     ) {
-      titresActivitesCreated = titre.activites
+      titreActivitesToUpdate = titre.activites
       titresIdsUpdatedIndex = { [titreId]: titre.id }
     }
   }
 
-  await titreActivitesRowUpdate(titresActivitesCreated, titresIdsUpdatedIndex)
+  await titreActivitesRowUpdate(titreActivitesToUpdate, titresIdsUpdatedIndex)
 }
 
 const titresActivitesRowsUpdate = async (
   titresActivitesCreated: ITitreActivite[],
-  titresUpdatedIndex: ITitreIndex
+  titresUpdatedOldIdsIndex: ITitreIndex
 ) => {
-  // ne filtre que les titres dont les ids ont changé
-  const titresIdsUpdatedIndex = Object.keys(titresUpdatedIndex).reduce(
+  // filtre les ids de titres qui ont changé
+  const titresIdsUpdatedIndex = Object.keys(titresUpdatedOldIdsIndex).reduce(
     (titresIdsUpdatedIndex, titreId) => {
-      if (titresUpdatedIndex[titreId] !== titreId) {
-        titresIdsUpdatedIndex[titreId] = titresUpdatedIndex[titreId]
+      const titreOldId = titresUpdatedOldIdsIndex[titreId]
+
+      if (titreOldId !== titreId) {
+        titresIdsUpdatedIndex[titreId] = titreOldId
       }
 
       return titresIdsUpdatedIndex
@@ -45,23 +55,28 @@ const titresActivitesRowsUpdate = async (
     {} as ITitreIndex
   )
 
-  const titres = await titresGet({
-    ids: Object.keys(titresIdsUpdatedIndex)
-  })
+  let titresActivitesUpdated = [] as ITitreActivite[]
 
-  const titresActivitesUpdated = titres.reduce(
-    (titresActivites: ITitreActivite[], titre) => {
-      if (titre.activites?.length) {
-        titresActivites.push(...titre.activites)
-      }
+  const ids = Object.keys(titresIdsUpdatedIndex)
 
-      return titresActivites
-    },
-    []
-  )
+  // si des titres ont changé d'id
+  if (ids.length) {
+    const titres = await titresGet({ ids })
 
-  if (Object.keys(titresIdsUpdatedIndex).length) {
-    const titresOldIdsIndex = Object.keys(titresIdsUpdatedIndex).reduce(
+    // compile la liste des activités dont le titre a changé d'id
+    // à mettre à jour dans les spreadsheets
+    titresActivitesUpdated = titres.reduce(
+      (titresActivites: ITitreActivite[], titre) => {
+        if (titre.activites?.length) {
+          titresActivites.push(...titre.activites)
+        }
+
+        return titresActivites
+      },
+      []
+    )
+
+    const titresOldIdsIndex = ids.reduce(
       (acc: ITitreIndex, titreOldId: string) => {
         const titreNewId = titresIdsUpdatedIndex[titreOldId]
 
@@ -74,15 +89,19 @@ const titresActivitesRowsUpdate = async (
       {}
     )
 
+    // supprime les activités crées dont l'id de titre a changé
+    // elles seront mises à jour grâce à `titresActivitesUpdated`
     titresActivitesCreated = titresActivitesCreated.filter(
       (tac: ITitreActivite) => !titresOldIdsIndex[tac.titreId]
     )
   }
 
-  await titreActivitesRowUpdate(
-    [...titresActivitesCreated, ...titresActivitesUpdated],
-    titresIdsUpdatedIndex
-  )
+  const titresActivitesToUpdate = [
+    ...titresActivitesCreated,
+    ...titresActivitesUpdated
+  ]
+
+  await titreActivitesRowUpdate(titresActivitesToUpdate, titresIdsUpdatedIndex)
 }
 
 export { titresActivitesRowsUpdate, titreActivitesRowsUpdate }

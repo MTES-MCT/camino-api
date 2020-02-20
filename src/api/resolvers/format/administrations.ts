@@ -20,10 +20,7 @@ const administrationFormat = (
     administration.utilisateurs &&
     utilisateursFormat(user, administration.utilisateurs)
 
-  const isMembre = permissionsAdministrationsCheck(
-    user,
-    [administration.id]
-  )
+  const isMembre = permissionsAdministrationsCheck(user, [administration.id])
   if (isMembre) {
     administration.membre = isMembre
   }
