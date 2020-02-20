@@ -52,7 +52,7 @@
 npm install
 
 # importe les données depuis /database/camino-public.sql
-npm run db:import-public
+npm run db:public-import
 
 # crée un utilisateur admin
 npm run db:user
