@@ -45,14 +45,17 @@ const utilisateursFormat = (
   utilisateurs: IUtilisateur[]
 ) =>
   utilisateurs &&
-  utilisateurs.reduce((acc, u) => {
-    const utilisateur = utilisateurFormat(user, u)
+  utilisateurs.reduce(
+    (acc, u) => {
+      const utilisateur = utilisateurFormat(user, u)
 
-    if (utilisateur) {
-      acc.push(utilisateur)
-    }
+      if (utilisateur) {
+        acc.push(utilisateur)
+      }
 
-    return acc
-  }, [] as IUtilisateur[])
+      return acc
+    },
+    [] as IUtilisateur[]
+  )
 
 export { utilisateurFormat, utilisateursFormat }

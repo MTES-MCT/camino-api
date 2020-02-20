@@ -18,11 +18,8 @@ const requestsBuild = (elements, tables) =>
       // retourne une ou plusieurs lignes de spreadsheet à insérer
       // si il s'agit d'une table de jointure, il y a plusieurs lignes
       // et toutes les lignes ont le même id = `rows[0][0]`
-      const rows = rowsCreate(
-        elements,
-        parents
-      ).map(({ element: row, parent }) =>
-        rowFormat(row, columns, parent, callbacks)
+      const rows = rowsCreate(elements, parents).map(
+        ({ element: row, parent }) => rowFormat(row, columns, parent, callbacks)
       )
 
       // construit les requêtes de suppression et d'ajout de rows

@@ -25,31 +25,29 @@ interface IIndexCount {
 }
 
 const diffFind = (key: string, ...arrays: Index[][]) => {
-  const indexCount = arrays.reduce((indexCount: IIndexCount, array: Index[]) =>
-    array.reduce((indexCount, index) => {
-      if (!indexCount[index[key]]) {
-        indexCount[index[key]] = []
-      }
+  const indexCount = arrays.reduce(
+    (indexCount: IIndexCount, array: Index[]) =>
+      array.reduce((indexCount, index) => {
+        if (!indexCount[index[key]]) {
+          indexCount[index[key]] = []
+        }
 
-      indexCount[index[key]].push(index)
+        indexCount[index[key]].push(index)
 
-      return indexCount
-    }, indexCount),
+        return indexCount
+      }, indexCount),
     {}
   )
 
-  return Object
-    .keys(indexCount)
-    .reduce((arrayDiff: Index[], key) => {
-      // on ne garde que les éléments uniques
-      if (indexCount[key].length === 1) {
-        arrayDiff.push(indexCount[key][0])
-      }
+  return Object.keys(indexCount).reduce((arrayDiff: Index[], key) => {
+    // on ne garde que les éléments uniques
+    if (indexCount[key].length === 1) {
+      arrayDiff.push(indexCount[key][0])
+    }
 
-      return arrayDiff
-    }, [])
+    return arrayDiff
+  }, [])
 }
-
 
 const objectsDiffer = (a: Index | any, b: Index | any): boolean => {
   if (typeof a !== 'object' && typeof b !== 'object') {
