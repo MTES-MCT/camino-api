@@ -8,6 +8,13 @@ const chalk = require('chalk')
 const dbManager = require('knex-db-manager').databaseManagerFactory(config)
 const { knexSnakeCaseMappers } = require('objection')
 
+if (!process.env.PUBLIC_TITRES_IDS) {
+  console.error(
+    "La variable d'environnement PUBLIC_TITRES_IDS n'est pas définie"
+  )
+  process.exit(1)
+}
+
 const titresIds = process.env.PUBLIC_TITRES_IDS.split(',')
 
 const run = async () => {
