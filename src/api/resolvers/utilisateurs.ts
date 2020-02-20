@@ -216,7 +216,7 @@ const utilisateurCreer = async (
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
-    return utilisateurFormat(user, utilisateurUpdated)
+    return utilisateurUpdated
   } catch (e) {
     if (debug) {
       console.error(e)
