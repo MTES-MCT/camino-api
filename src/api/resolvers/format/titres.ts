@@ -18,16 +18,18 @@ import { dupRemove } from '../../../tools/index'
 
 import metas from '../../../database/cache/metas'
 
-import restrictions from '../../../database/cache/restrictions'
+import autorisations from '../../../database/cache/autorisations'
 import { permissionsCheck } from '../permissions/permissions-check'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
-  titrePermissionAdministrationsCheck,
   titreActivitePermissionCheck
 } from '../permissions/titre'
-
-import titreEtapePermissionAdministrationsCheck from '../permissions/titre-etape'
+import {
+  titrePermissionAdministrationsCheck,
+  titreDemarchePermissionAdministrationsCheck,
+  titreEtapePermissionAdministrationsCheck
+} from '../permissions/titre-edition'
 
 import { administrationsFormat } from './administrations'
 import { entreprisesFormat } from './entreprises'
@@ -66,39 +68,44 @@ const titreFormatFields = {
   administrations: true
 }
 
-const titreEtapeRestrictionsFilter = (
+const titreEtapeLectureAutorisationFilter = (
   user: IUtilisateur | undefined,
-  e: ITitreEtape,
+  etapeTypeId: string,
   userHasPermission?: boolean
 ) => {
-  const etapeTypeRestricted = restrictions.etapesTypes.find(
-    re => re.etapeTypeId === e.typeId
+  const etapeTypeAutorisation = autorisations.etapesTypes.find(
+    re => re.etapeTypeId === etapeTypeId
   )
+  if (!etapeTypeAutorisation) return false
 
-  if (!etapeTypeRestricted) return true
-
-  // si l'utilisateur n'est pas connecté ou qu'il n'a pas de droit sur le titre
+  // si l'utilisateur n'est pas connecté
+  // ou qu'il n'a pas de droit sur le titre
   if (!user || !userHasPermission) {
-    return !etapeTypeRestricted.publicLectureInterdit
+    return etapeTypeAutorisation.publicLecture
   }
 
   // si l'utilisateur est titulaire ou amodiataire
   const isEntreprise = permissionsCheck(user, ['entreprise'])
-  if (isEntreprise) return !etapeTypeRestricted.entreprisesLectureInterdit
+  if (isEntreprise) return etapeTypeAutorisation.entreprisesLecture
 
-  // si l'utilisateur fait partie d'une administration
+  // si l'utilisateur fait partie d'au moins une administration
   const isAdministration =
     permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
     user.administrations?.length
   if (isAdministration) {
-    const etapeTypeRestrictedAdministration = restrictions.etapesTypesAdministrations.find(
-      rea =>
-        rea.etapeTypeId === e.typeId &&
-        user.administrations?.find(ua => ua.id === rea.administrationId) &&
-        rea.lectureInterdit
-    )
+    // cherche si le type d'étape fait l'objet de restriction
+    // pour toutes les administrations de l'utilisateur
+    const isEtapeTypeAdministrationRestricted =
+      user.administrations?.every(({ id: administrationId }) =>
+        autorisations.titresTypesEtapesTypesAdministrations.some(
+          rea =>
+            administrationId === rea.administrationId &&
+            rea.etapeTypeId === etapeTypeId &&
+            rea.lectureInterdit
+        )
+      )
 
-    return !etapeTypeRestrictedAdministration
+    return !isEtapeTypeAdministrationRestricted
   }
 
   // ne devrait pas arriver jusqu'ici
@@ -108,30 +115,16 @@ const titreEtapeRestrictionsFilter = (
 const demarcheTypeFormat = (
   user: IUtilisateur | undefined,
   demarcheType: IDemarcheType,
-  titre: ITitre,
-  { isSuper }: { isSuper: boolean }
+  titreTypeId: string,
+  titreStatutId: string
 ) => {
-  if (!titre.editable) {
-    demarcheType.editable = false
-
-    return demarcheType
-  }
-
   const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
   if (!dt) throw new Error(`${demarcheType.id} inexistant`)
 
-  demarcheType.editable = dt.etapesTypes.some(
-    et =>
-      et.titreTypeId === titre.typeId &&
-      (isSuper ||
-        titreEtapePermissionAdministrationsCheck(
-          user,
-          'modification',
-          et.id,
-          titre.typeId,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
-        ))
+  demarcheType.editable = titreDemarchePermissionAdministrationsCheck(
+    user,
+    titreTypeId,
+    titreStatutId
   )
 
   return demarcheType
@@ -165,11 +158,8 @@ const titreFormat = (
       isSuper ||
       titrePermissionAdministrationsCheck(
         user,
-        'modification',
         t.typeId,
-        t.statutId!,
-        t.administrationsGestionnaires,
-        t.administrationsLocales
+        t.statutId!
       )
     t.supprimable = isSuper
   }
@@ -339,12 +329,37 @@ const titreDemarcheFormat = (
 ) => {
   if (!fields) return td
 
-  td.editable = isSuper || t.editable
+  td.editable =
+    isSuper ||
+    titreDemarchePermissionAdministrationsCheck(user, t.typeId, t.statutId!)
   td.supprimable = isSuper
 
-  if (td.titreType?.id && td.type) {
-    // cherche le statut `editable` dans le type de démarche du titre
-    td.type = demarcheTypeFormat(user, td.type, t, { isSuper })
+  const dt = metas.demarchesTypes.find(dt => dt.id === td.typeId)
+  if (!dt) throw new Error(`${td.typeId} inexistant`)
+
+  // si au moins un type d'étape est éditable pour le type de démarche
+  // alors on peut ajouter des étapes à la démarche
+  td.etapesEditable =
+    isSuper ||
+    dt.etapesTypes.some(
+      et =>
+        et.titreTypeId === t.typeId &&
+        titreEtapePermissionAdministrationsCheck(
+          user,
+          t.typeId,
+          t.statutId!,
+          et.id,
+          'modification'
+        )
+    )
+
+  if (td.type) {
+    td.type = demarcheTypeFormat(
+      user,
+      td.type,
+      t.typeId,
+      t.statutId!
+    )
   }
 
   if (fields.etapes && td.etapes && td.etapes.length) {
@@ -353,7 +368,7 @@ const titreDemarcheFormat = (
     const titreEtapes = td.etapes.reduce((titreEtapes: ITitreEtape[], te) => {
       if (
         !isSuper &&
-        !titreEtapeRestrictionsFilter(user, te, userHasPermission)
+        !titreEtapeLectureAutorisationFilter(user, te.typeId, userHasPermission)
       ) {
         return titreEtapes
       }
@@ -361,7 +376,6 @@ const titreDemarcheFormat = (
       const teFormatted = titreEtapeFormat(
         user,
         te,
-        td,
         t,
         { userHasPermission, isSuper, isAdmin },
         fields.etapes
@@ -381,7 +395,6 @@ const titreDemarcheFormat = (
 const titreEtapeFormat = (
   user: IUtilisateur | undefined,
   te: ITitreEtape,
-  td: ITitreDemarche,
   t: ITitre,
   {
     userHasPermission,
@@ -393,16 +406,13 @@ const titreEtapeFormat = (
   if (isSuper || isAdmin) {
     te.editable =
       isSuper ||
-      (td.editable &&
-        titreEtapePermissionAdministrationsCheck(
-          user,
-          'modification',
-          te.typeId,
-          t.typeId,
-          t.administrationsGestionnaires,
-          t.administrationsLocales
-        ))
-
+      titreEtapePermissionAdministrationsCheck(
+        user,
+        t.typeId,
+        t.statutId!,
+        te.typeId,
+        'modification'
+      )
     te.supprimable = isSuper
 
     if (te.type) {

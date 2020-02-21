@@ -4,7 +4,7 @@ import { debug } from '../../config/index'
 import metas from '../../database/cache/metas'
 
 import { permissionsCheck } from './permissions/permissions-check'
-import { titrePermissionAdministrationsCheck } from './permissions/titre'
+import { titreDemarchePermissionAdministrationsCheck } from './permissions/titre-edition'
 
 import { titreFormat, demarcheTypeFormat } from './format/titres'
 
@@ -29,47 +29,30 @@ const titreDemarchesTypes = async (
 ) => {
   if (!context.user) throw new Error('droits insuffisants')
 
-  const titre = await titreGet(titreId, {
-    graph: '[administrationsGestionnaires, administrationsLocales, demarches]'
-  })
+  const titre = await titreGet(titreId, { graph: '[demarches]' })
 
-  const type = metas.titresTypes.find(t => t.id === titre.typeId)
-
-  if (!type) throw new Error(`${titre.typeId} inexistant`)
+  const titreType = metas.titresTypes.find(t => t.id === titre.typeId)
+  if (!titreType) throw new Error(`${titre.typeId} inexistant`)
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  const isSuper = permissionsCheck(user, ['super'])
-
-  titre.editable =
-    isSuper ||
-    titrePermissionAdministrationsCheck(
-      user,
-      'modification',
-      titre.typeId,
-      titre.statutId!,
-      titre.administrationsGestionnaires,
-      titre.administrationsLocales
-    )
-
-  return type.demarchesTypes!.reduce((demarchesTypes: IDemarcheType[], dt) => {
+  return titreType.demarchesTypes!.reduce((demarchesTypes: IDemarcheType[], dt) => {
     // si
     // - le param demarcheTypeId n'existe pas (-> création d'une démarche)
-    //   ou si ce param est différent de celui du type de démarche
-    // - le type démarche est unique
+    //   ou ce param est différent de celui du type de démarche et
+    // - le type démarche est unique et
     // - une autre démarche du même type existe au sein du titre
     // alors
     // - on ne l'ajoute pas à la liste des types de démarches disponibles
     if (
       (!demarcheTypeId || dt.id !== demarcheTypeId) &&
       dt.unique &&
-      titre.demarches &&
-      titre.demarches.find(d => d.typeId === dt.id)
+      titre.demarches?.find(d => d.typeId === dt.id)
     ) {
       return demarchesTypes
     }
 
-    dt = demarcheTypeFormat(user, dt, titre, { isSuper })
+    dt = demarcheTypeFormat(user, dt, titre.typeId, titre.statutId!)
 
     if (dt.editable) {
       dt.titreTypeId = titre.typeId
@@ -96,13 +79,10 @@ const demarcheCreer = async (
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
-        !titrePermissionAdministrationsCheck(
+        !titreDemarchePermissionAdministrationsCheck(
           user,
-          'modification',
           titre.typeId,
-          titre.statutId!,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
+          titre.statutId!
         )
       ) {
         throw new Error('droits insuffisants pour créer cette démarche')
@@ -144,13 +124,10 @@ const demarcheModifier = async (
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
-        !titrePermissionAdministrationsCheck(
+        !titreDemarchePermissionAdministrationsCheck(
           user,
-          'modification',
           titre.typeId,
-          titre.statutId!,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
+          titre.statutId!
         )
       ) {
         throw new Error('droits insuffisants pour modifier cette démarche')

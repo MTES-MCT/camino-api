@@ -1,11 +1,11 @@
 import { metasInit } from '../database/cache/metas'
-import { restrictionsInit } from '../database/cache/restrictions'
+import { autorisationsInit } from '../database/cache/autorisations'
 import { geoConvertInit } from '../tools/geo-convert'
 import { globalesInit } from '../database/cache/globales'
 import { geoSystemesInit } from '../database/cache/geo-systemes'
 
 const init = async () => {
-  await restrictionsInit()
+  await autorisationsInit()
   await metasInit()
   await geoConvertInit()
   await geoSystemesInit()

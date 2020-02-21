@@ -7,7 +7,8 @@ import {
   titreDemarchesRpuDateDebut,
   titreDemarchesDexDateDebut,
   titreDemarchesSansOctroi,
-  titreDemarchesSansDateDebut
+  titreDemarchesSansDateDebut,
+  titreDemarchesDateUndefined
 } from './__mocks__/titre-date-debut-find-demarches'
 
 describe("date de début d'une démarche", () => {
@@ -35,11 +36,15 @@ describe("date de début d'une démarche", () => {
     )
   })
 
-  test("retourne undefined si il n'y a pas de démarche d'octroi", () => {
+  test("retourne null si il n'y a pas de démarche d'octroi", () => {
     expect(titreDateDebutFind(titreDemarchesSansOctroi, 'ddd')).toBeNull()
   })
 
-  test("retourne undefined si la démarche d'octroi ne contient pas d'étape qui remplit les conditions", () => {
+  test("retourne null si la démarche d'octroi ne contient pas d'étape qui remplit les conditions", () => {
     expect(titreDateDebutFind(titreDemarchesSansDateDebut, 'ddd')).toBeNull()
+  })
+
+  test("retourne null si l'étape de la démarche d'octroi qui remplit les conditions ne contient pas de date", () => {
+    expect(titreDateDebutFind(titreDemarchesDateUndefined, 'axm')).toBeNull()
   })
 })
