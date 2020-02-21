@@ -1,0 +1,7 @@
+{
+  "pages": 20,
+  "page": 1,
+  "titreTypeIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
+  "titreDomaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
+  "titreStatutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"]
+}

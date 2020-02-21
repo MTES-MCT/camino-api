@@ -55,6 +55,19 @@ type Query {
     territoires: [String]
   ): [Titre]
 
+  "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
+  demarches(
+    pages: Int
+    page: Int
+    titreTypeIds: [ID]
+    titreDomaineIds: [ID]
+    titreStatutIds: [ID]
+    typeIds: [ID]
+    statutIds: [ID]
+    etapesInclues: [InputEtapeFiltre]
+    etapesExclues: [InputEtapeFiltre]
+  ): [Demarche]
+
   "__*__ Activité en fonction de son id"
   activite(id: ID!): Activite
 

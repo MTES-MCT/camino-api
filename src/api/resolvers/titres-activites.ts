@@ -2,6 +2,7 @@ import { IToken, ITitreActivite, ITitre, IUtilisateur } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
+
 import { titreActiviteEmailsSend } from './_titre-activite'
 import { permissionsCheck } from './permissions/permissions-check'
 import {
@@ -9,9 +10,11 @@ import {
   titreActivitePermissionCheck
 } from './permissions/titre'
 import { titreActiviteFormat } from './format/titres-activites'
+
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
+import { titreFieldsAdd } from './graph/titre-fields-add'
 
 import {
   titreActiviteGet,
@@ -36,7 +39,8 @@ const activite = async (
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
-    const fields = graphFieldsBuild(info)
+    let fields = graphFieldsBuild(info)
+    fields = titreFieldsAdd(fields)
 
     const graph = graphBuild(fields, 'activite', graphFormat)
 
@@ -71,7 +75,8 @@ const activites = async (
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
-    const fields = graphFieldsBuild(info)
+    let fields = graphFieldsBuild(info)
+    fields = titreFieldsAdd(fields)
 
     const graph = graphBuild(fields, 'activites', graphFormat)
 

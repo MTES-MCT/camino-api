@@ -1,13 +1,30 @@
-import { ITitreDemarche } from '../../types'
+import { ITitreDemarche, ITitreEtape } from '../../types'
 import { transaction, Transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 
 const titresDemarchesGet = async (
   {
-    demarchesIds,
-    titresIds
-  }: { demarchesIds?: string[] | null; titresIds?: string[] | null } = {},
+    pages,
+    page,
+    typeIds,
+    statutIds,
+    titreTypeIds,
+    titreDomaineIds,
+    titreStatutIds,
+    etapesInclues,
+    etapesExclues
+  }: {
+    pages?: number | null
+    page?: number | null
+    typeIds?: string[] | null
+    statutIds?: string[] | null
+    titreTypeIds?: string[] | null
+    titreDomaineIds?: string[] | null
+    titreStatutIds?: string[] | null
+    etapesInclues?: Partial<ITitreEtape>[] | null
+    etapesExclues?: Partial<ITitreEtape>[] | null
+  } = {},
   { graph = options.demarches.graph } = {}
 ) => {
   const q = TitresDemarches.query()
@@ -15,12 +32,16 @@ const titresDemarchesGet = async (
     .withGraphFetched(graph)
     .orderBy('ordre')
 
-  if (demarchesIds) {
-    q.whereIn('titresDemarches.typeId', demarchesIds)
+  if (pages) {
+    q.limit(pages)
   }
 
-  if (titresIds) {
-    q.whereIn('titresDemarches.titreId', titresIds)
+  if (page) {
+    q.offset(page)
+  }
+
+  if (typeIds) {
+    q.whereIn('titresDemarches.typeId', typeIds)
   }
 
   return q

@@ -32,7 +32,7 @@ const run = async () => {
     console.log()
     console.log('ordre des étapes…')
     const titresDemarches = await titresDemarchesGet(
-      { demarchesIds: null, titresIds: null },
+      {},
       { graph: '[etapes, type.[etapesTypes]]' }
     )
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(

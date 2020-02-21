@@ -1,12 +1,10 @@
 import {
   ITitre,
-  ITitreEtape,
-  IDemarcheType,
   ITitreActivite,
   IAdministration,
-  ITitreDemarche,
   IGeoJson,
-  IUtilisateur
+  IUtilisateur,
+  IFields
 } from '../../../types'
 
 import {
@@ -16,25 +14,16 @@ import {
 
 import { dupRemove } from '../../../tools/index'
 
-import metas from '../../../database/cache/metas'
-
-import { autorisations, restrictions } from '../../../database/cache/autorisations'
 import { permissionsCheck } from '../permissions/permissions-check'
 import {
   titreIsPublicCheck,
   titrePermissionCheck,
   titreActivitePermissionCheck
 } from '../permissions/titre'
-import {
-  titrePermissionAdministrationsCheck,
-  titreDemarchePermissionAdministrationsCheck,
-  titreEtapePermissionAdministrationsCheck
-} from '../permissions/titre-edition'
+import { titrePermissionAdministrationsCheck } from '../permissions/titre-edition'
 
 import { administrationsFormat } from './administrations'
 import { entreprisesFormat } from './entreprises'
-import { titreSectionsFormat } from './titres-sections'
-import { etapesTypesFormat } from './etapes-types'
 
 import {
   titreActiviteFormatFields,
@@ -42,93 +31,25 @@ import {
   titreActiviteCalc
 } from './titres-activites'
 
-const titreEtapeFormatFields = {
-  geojsonMultiPolygon: true,
-  geojsonPoints: true,
-  pays: true,
-  sections: true
-}
-
-const titreDemarcheFormatFields = {
-  etapes: titreEtapeFormatFields
-}
+import {
+  titreDemarcheFormatFields,
+  titreDemarcheFormat
+} from './titres-demarches'
 
 const titreFormatFields = {
-  surface: true,
-  engagement: true,
-  volume: true,
-  geojsonMultiPolygon: true,
-  geojsonPoints: true,
-  pays: true,
+  surface: {},
+  engagement: {},
+  volume: {},
+  geojsonMultiPolygon: {},
+  geojsonPoints: {},
+  pays: {},
   demarches: titreDemarcheFormatFields,
   activites: titreActiviteFormatFields,
-  activitesAbsentes: true,
-  activitesDeposees: true,
-  activitesEnConstruction: true,
-  administrations: true
-}
-
-const titreEtapeAutorisationLectureFilter = (
-  user: IUtilisateur | undefined,
-  etapeTypeId: string,
-  userHasPermission?: boolean
-) => {
-  const etapeTypeAutorisation = autorisations.etapesTypes.find(
-    re => re.etapeTypeId === etapeTypeId
-  )
-  if (!etapeTypeAutorisation) return false
-
-  // si l'utilisateur n'est pas connecté
-  // ou qu'il n'a pas de droit sur le titre
-  if (!user || !userHasPermission) {
-    return etapeTypeAutorisation.publicLecture
-  }
-
-  // si l'utilisateur est titulaire ou amodiataire
-  const isEntreprise = permissionsCheck(user, ['entreprise'])
-  if (isEntreprise) return etapeTypeAutorisation.entreprisesLecture
-
-  // si l'utilisateur fait partie d'au moins une administration
-  const isAdministration =
-    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
-    user.administrations?.length
-  if (isAdministration) {
-    // cherche si le type d'étape fait l'objet de restriction
-    // pour toutes les administrations de l'utilisateur
-    const isEtapeTypeAdministrationRestricted =
-      user.administrations?.every(({ id: administrationId }) =>
-        restrictions.titresTypesEtapesTypesAdministrations.some(
-          rea =>
-            administrationId === rea.administrationId &&
-            rea.etapeTypeId === etapeTypeId &&
-            rea.lectureInterdit
-        )
-      )
-
-    return !isEtapeTypeAdministrationRestricted
-  }
-
-  // ne devrait pas arriver jusqu'ici
-  return false
-}
-
-const demarcheTypeFormat = (
-  user: IUtilisateur | undefined,
-  demarcheType: IDemarcheType,
-  titreTypeId: string,
-  titreStatutId: string
-) => {
-  const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
-  if (!dt) throw new Error(`${demarcheType.id} inexistant`)
-
-  demarcheType.editable = titreDemarchePermissionAdministrationsCheck(
-    user,
-    titreTypeId,
-    titreStatutId
-  )
-
-  return demarcheType
-}
+  activitesAbsentes: {},
+  activitesDeposees: {},
+  activitesEnConstruction: {},
+  administrations: {}
+} as IFields
 
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier
@@ -137,7 +58,7 @@ const demarcheTypeFormat = (
 const titreFormat = (
   user: IUtilisateur | undefined,
   t: ITitre,
-  fields = titreFormatFields
+  fields: IFields = titreFormatFields
 ) => {
   const titreIsPublic = titreIsPublicCheck(t)
   const userHasPermission = titrePermissionCheck(
@@ -156,11 +77,7 @@ const titreFormat = (
   if (isSuper || isAdmin) {
     t.editable =
       isSuper ||
-      titrePermissionAdministrationsCheck(
-        user,
-        t.typeId,
-        t.statutId!
-      )
+      titrePermissionAdministrationsCheck(user, t.typeId, t.statutId!)
     t.supprimable = isSuper
   }
 
@@ -185,7 +102,8 @@ const titreFormat = (
       titreDemarcheFormat(
         user,
         td,
-        t,
+        t.typeId,
+        t.statutId!,
         { userHasPermission, isSuper, isAdmin },
         fields.demarches
       )
@@ -316,156 +234,4 @@ const titresFormat = (
     return acc
   }, [])
 
-const titreDemarcheFormat = (
-  user: IUtilisateur | undefined,
-  td: ITitreDemarche,
-  t: ITitre,
-  {
-    userHasPermission,
-    isSuper,
-    isAdmin
-  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
-  fields = titreDemarcheFormatFields
-) => {
-  if (!fields) return td
-
-  td.editable =
-    isSuper ||
-    titreDemarchePermissionAdministrationsCheck(user, t.typeId, t.statutId!)
-  td.supprimable = isSuper
-
-  const dt = metas.demarchesTypes.find(dt => dt.id === td.typeId)
-  if (!dt) throw new Error(`${td.typeId} inexistant`)
-
-  // si au moins un type d'étape est éditable pour le type de démarche
-  // alors on peut ajouter des étapes à la démarche
-  td.etapesEditable =
-    isSuper ||
-    dt.etapesTypes.some(
-      et =>
-        et.titreTypeId === t.typeId &&
-        titreEtapePermissionAdministrationsCheck(
-          user,
-          t.typeId,
-          t.statutId!,
-          et.id,
-          'modification'
-        )
-    )
-
-  if (td.type) {
-    td.type = demarcheTypeFormat(
-      user,
-      td.type,
-      t.typeId,
-      t.statutId!
-    )
-  }
-
-  if (fields.etapes && td.etapes && td.etapes.length) {
-    const isSuper = permissionsCheck(user, ['super'])
-
-    const titreEtapes = td.etapes.reduce((titreEtapes: ITitreEtape[], te) => {
-      if (
-        !isSuper &&
-        !titreEtapeAutorisationLectureFilter(user, te.typeId, userHasPermission)
-      ) {
-        return titreEtapes
-      }
-
-      const teFormatted = titreEtapeFormat(
-        user,
-        te,
-        t,
-        { userHasPermission, isSuper, isAdmin },
-        fields.etapes
-      )
-
-      titreEtapes.push(teFormatted)
-
-      return titreEtapes
-    }, [])
-
-    td.etapes = titreEtapes
-  }
-
-  return td
-}
-
-const titreEtapeFormat = (
-  user: IUtilisateur | undefined,
-  te: ITitreEtape,
-  t: ITitre,
-  {
-    userHasPermission,
-    isSuper,
-    isAdmin
-  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
-  fields = titreEtapeFormatFields
-) => {
-  if (isSuper || isAdmin) {
-    te.editable =
-      isSuper ||
-      titreEtapePermissionAdministrationsCheck(
-        user,
-        t.typeId,
-        t.statutId!,
-        te.typeId,
-        'modification'
-      )
-    te.supprimable = isSuper
-
-    if (te.type) {
-      te.type.editable = te.editable
-
-      te.type = etapesTypesFormat(te.type)
-
-      if (te.type.sections) {
-        te.type.sections = titreSectionsFormat(te.type.sections)
-      }
-    }
-  }
-
-  if (!fields) return te
-
-  if (te.points && te.points.length) {
-    if (fields.geojsonMultiPolygon) {
-      te.geojsonMultiPolygon = (geojsonFeatureMultiPolygon(
-        te.points
-      ) as unknown) as IGeoJson
-    }
-
-    if (fields.geojsonPoints) {
-      te.geojsonPoints = (geojsonFeatureCollectionPoints(
-        te.points
-      ) as unknown) as IGeoJson
-    }
-  }
-
-  if (te.documents) {
-    if (!userHasPermission) {
-      te.documents = te.documents.filter(ted => ted.public)
-    } else {
-      te.documents.forEach(ted => {
-        ted.editable = te.editable
-        ted.supprimable = isSuper
-      })
-    }
-  }
-
-  if (te.administrations) {
-    te.administrations = administrationsFormat(user, te.administrations)
-  }
-
-  if (te.titulaires) {
-    te.titulaires = entreprisesFormat(user, te.titulaires)
-  }
-
-  if (te.amodiataires) {
-    te.amodiataires = entreprisesFormat(user, te.amodiataires)
-  }
-
-  return te
-}
-
-export { titreFormat, titresFormat, demarcheTypeFormat }
+export { titreFormatFields, titreFormat, titresFormat }
