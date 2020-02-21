@@ -1,3 +1,5 @@
+import { IAdministration, ITitre } from '../../../types'
+
 const administrations = [
   {
     id: 'gestionnaire',
@@ -23,7 +25,7 @@ const administrations = [
     id: 'xxxx',
     departementId: 'xxxx'
   }
-]
+] as IAdministration[]
 
 const titresEtapesCommunes = [
   {
@@ -66,9 +68,9 @@ const titresEtapesCommunes = [
       }
     ]
   }
-]
+] as ITitre[]
 
-const titresEtapesCommunesVides = [
+const titresEtapesCommunesVides = ([
   {
     id: 'titre-id',
     demarches: [
@@ -87,7 +89,7 @@ const titresEtapesCommunesVides = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
 const titresEtapesCommunesMemeCommune = [
   {
@@ -111,9 +113,9 @@ const titresEtapesCommunesMemeCommune = [
       }
     ]
   }
-]
+] as ITitre[]
 
-const titresEtapesAdministrationLocalesInexistante = [
+const titresEtapesAdministrationLocalesInexistante = ([
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -134,7 +136,7 @@ const titresEtapesAdministrationLocalesInexistante = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
 const titresEtapesAdministrationLocalesExistante = [
   {
@@ -159,7 +161,7 @@ const titresEtapesAdministrationLocalesExistante = [
       }
     ]
   }
-]
+] as ITitre[]
 
 const titresArm = [
   {
@@ -186,7 +188,7 @@ const titresArm = [
       }
     ]
   }
-]
+] as ITitre[]
 
 const titresAxm = [
   {
@@ -213,7 +215,7 @@ const titresAxm = [
       }
     ]
   }
-]
+] as ITitre[]
 
 export {
   administrations,

@@ -74,6 +74,7 @@ interface IAnnee extends IPeriode {}
 interface ICommune {
   id: string
   nom: string
+  departementId?: string | null
   departement?: IDepartement | null
   surface?: number | null
 }
@@ -118,6 +119,7 @@ interface IDemarcheType {
 interface IDepartement {
   id: string
   nom: string
+  regionId?: string | null
   region?: IRegion | null
   communes?: ICommune[] | null
 }
@@ -428,7 +430,7 @@ interface ITitreAdministrationsGestionnaire {
 
 interface ITitreAdministrationLocale {
   administrationId: string
-  titreId: string
+  titreEtapeId: string
   associee?: boolean | null
   coordinateur?: boolean | null
 }

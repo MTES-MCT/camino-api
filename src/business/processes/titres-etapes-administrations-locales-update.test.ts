@@ -1,3 +1,5 @@
+import { ITitreAdministrationLocale, IAdministration } from '../../types'
+
 import titresEtapeAdministrationsLocalesUpdate from './titres-etapes-administrations-locales-update'
 
 import * as titreEtapes from '../../database/queries/titres-etapes'
@@ -89,7 +91,7 @@ describe("administrations d'une étape", () => {
       titresEtapesAdministrationsLocalesDeleted
     ] = await titresEtapeAdministrationsLocalesUpdate(
       titresEtapesAdministrationLocalesInexistante,
-      [{ id: 0 }]
+      [{ id: '0' }] as IAdministration[]
     )
 
     expect(titresEtapesAdministrationsCreated.length).toEqual(0)
@@ -101,17 +103,18 @@ describe("administrations d'une étape", () => {
     const [
       titresEtapesAdministrationsCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
+    ] = (await titresEtapeAdministrationsLocalesUpdate(
       titresArm,
       administrations
-    )
+    )) as [ITitreAdministrationLocale[], string[]]
 
     expect(titresEtapesAdministrationsCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
     expect(
       titresEtapesAdministrationsCreated.find(
-        ({ administrationId }) => administrationId === 'dea-guyane-01'
-      ).associee
+        (titreAdministrationLocale: ITitreAdministrationLocale) =>
+          titreAdministrationLocale.administrationId === 'dea-guyane-01'
+      )!.associee
     ).toBeTruthy()
     expect(console.log).toHaveBeenCalled()
   })
