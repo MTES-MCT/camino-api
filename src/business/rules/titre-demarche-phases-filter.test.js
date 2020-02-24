@@ -9,8 +9,8 @@ import {
   titreDemarcheOctDpuRej,
   titreAxmDemarcheOctDexAcc,
   titreAxmDemarcheOctDexRej,
-  titrePrxDemarcheOctRpuAcc,
-  titrePrxDemarcheOctRpuRej,
+  titrePrmDemarcheOctRpuAcc,
+  titrePrmDemarcheOctRpuRej,
   titreDemarcheProDpuAcc,
   titreDemarchePro1DpuAcc,
   titreDemarchePro2DpuAcc,
@@ -60,15 +60,15 @@ describe('retourne si la démarche donne lieu à une étape ou non', () => {
     ).toBeFalsy()
   })
 
-  test("une démarche d'octroi dont l'étape de rpu est acceptée pour un titre PRX donne lieu à une phase", () => {
+  test("une démarche d'octroi dont l'étape de rpu est acceptée pour un titre PRM donne lieu à une phase", () => {
     expect(
-      titreDemarchePhasesFilter(titrePrxDemarcheOctRpuAcc, 'prx')
+      titreDemarchePhasesFilter(titrePrmDemarcheOctRpuAcc, 'prm')
     ).toBeTruthy()
   })
 
-  test("une démarche d'octroi dont l'étape de rpu n'est pas acceptée pour un titre PRX ne donne pas lieu à une phase", () => {
+  test("une démarche d'octroi dont l'étape de rpu n'est pas acceptée pour un titre PRM ne donne pas lieu à une phase", () => {
     expect(
-      titreDemarchePhasesFilter(titrePrxDemarcheOctRpuRej, 'prx')
+      titreDemarchePhasesFilter(titrePrmDemarcheOctRpuRej, 'prm')
     ).toBeFalsy()
   })
 

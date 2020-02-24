@@ -27,7 +27,7 @@ const administrations = [
 
 const titreH = {
   id: 'titre-id',
-  typeId: 'cxx',
+  typeId: 'cxh',
   domaineId: 'h'
 }
 

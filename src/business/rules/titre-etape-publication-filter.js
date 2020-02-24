@@ -1,7 +1,7 @@
 const demarcheEtapesTypesPublication = {
   arm: ['def', 'sco', 'aco'],
   axm: ['dex', 'rpu'],
-  prx: ['rpu']
+  prm: ['rpu']
 }
 
 // retourne l'étape de publication de la démarche si elle existe
