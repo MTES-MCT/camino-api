@@ -8,11 +8,11 @@ const autorisations_titresTypes_titresStatuts = require('../../sources/autorisat
 const autorisations__etapesTypes = require('../../sources/autorisations--etapes-types.json')
 
 // eslint-disable-next-line camelcase
-const administrations__titresTypes = require('../../sources/administrations--titres-types.json')
+const administrations__titresTypes = require('../../sources/a--titres-types--administrations.json')
 // eslint-disable-next-line camelcase
-const administrations__titresTypes__titresStatuts = require('../../sources/administrations--titres-types--titres-statuts.json')
+const administrations__titresTypes__titresStatuts = require('../../sources/r--titres-types--titres-statuts--administrations.json')
 // eslint-disable-next-line camelcase
-const administrations__titresTypes__etapesTypes = require('../../sources/administrations--titres-types--etapes-types.json')
+const administrations__titresTypes__etapesTypes = require('../../sources/r--titres-types--etapes-types--administrations.json')
 
 exports.seed = seeding(async ({ insert }) => {
   await Promise.all([
@@ -23,13 +23,16 @@ exports.seed = seeding(async ({ insert }) => {
     ),
     insert('autorisations__etapesTypes', autorisations__etapesTypes),
 
-    insert('administrations__titresTypes', administrations__titresTypes),
     insert(
-      'administrations__titresTypes__titresStatuts',
+      'autorisations__titresTypes__administrations',
+      administrations__titresTypes
+    ),
+    insert(
+      'restrictions__titresTypes__titresStatuts__administrations',
       administrations__titresTypes__titresStatuts
     ),
     insert(
-      'administrations__titresTypes__etapesTypes',
+      'restrictions__titresTypes__etapesTypes__administrations',
       administrations__titresTypes__etapesTypes
     )
   ])

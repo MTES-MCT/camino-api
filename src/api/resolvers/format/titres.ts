@@ -68,7 +68,7 @@ const titreFormatFields = {
   administrations: true
 }
 
-const titreEtapeLectureAutorisationFilter = (
+const titreEtapeAutorisationLectureFilter = (
   user: IUtilisateur | undefined,
   etapeTypeId: string,
   userHasPermission?: boolean
@@ -368,7 +368,7 @@ const titreDemarcheFormat = (
     const titreEtapes = td.etapes.reduce((titreEtapes: ITitreEtape[], te) => {
       if (
         !isSuper &&
-        !titreEtapeLectureAutorisationFilter(user, te.typeId, userHasPermission)
+        !titreEtapeAutorisationLectureFilter(user, te.typeId, userHasPermission)
       ) {
         return titreEtapes
       }

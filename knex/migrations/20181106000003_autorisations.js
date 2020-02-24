@@ -23,7 +23,7 @@ exports.up = knex =>
       table.boolean('publicLecture')
       table.boolean('entreprisesLecture')
     })
-    .createTable('administrations__titresTypes', table => {
+    .createTable('autorisations__titresTypes__administrations', table => {
       table
         .string('administrationId')
         .references('administrations.id')
@@ -37,44 +37,50 @@ exports.up = knex =>
       table.boolean('gestionnaire').notNullable()
       table.boolean('associee').notNullable()
     })
-    .createTable('administrations__titresTypes__titresStatuts', table => {
-      table
-        .string('administrationId')
-        .references('administrations.id')
-        .notNullable()
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-      table
-        .string('titreTypeId')
-        .references('titresTypes.id')
-        .notNullable()
-      table
-        .string('titreStatutId')
-        .references('titresStatuts.id')
-        .notNullable()
-      table.boolean('titresModificationInterdit').notNullable()
-      table.boolean('demarchesModificationInterdit').notNullable()
-      table.boolean('etapesModificationInterdit').notNullable()
-    })
-    .createTable('administrations__titresTypes__etapesTypes', table => {
-      table
-        .string('administrationId')
-        .references('administrations.id')
-        .notNullable()
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-      table
-        .string('titreTypeId')
-        .references('titresTypes.id')
-        .notNullable()
-      table
-        .string('etapeTypeId')
-        .references('etapesTypes.id')
-        .notNullable()
-      table.boolean('lectureInterdit').notNullable()
-      table.boolean('creationInterdit').notNullable()
-      table.boolean('modificationInterdit').notNullable()
-    })
+    .createTable(
+      'restrictions__titresTypes__titresStatuts__administrations',
+      table => {
+        table
+          .string('administrationId')
+          .references('administrations.id')
+          .notNullable()
+          .onUpdate('CASCADE')
+          .onDelete('CASCADE')
+        table
+          .string('titreTypeId')
+          .references('titresTypes.id')
+          .notNullable()
+        table
+          .string('titreStatutId')
+          .references('titresStatuts.id')
+          .notNullable()
+        table.boolean('titresModificationInterdit').notNullable()
+        table.boolean('demarchesModificationInterdit').notNullable()
+        table.boolean('etapesModificationInterdit').notNullable()
+      }
+    )
+    .createTable(
+      'restrictions__titresTypes__etapesTypes__administrations',
+      table => {
+        table
+          .string('administrationId')
+          .references('administrations.id')
+          .notNullable()
+          .onUpdate('CASCADE')
+          .onDelete('CASCADE')
+        table
+          .string('titreTypeId')
+          .references('titresTypes.id')
+          .notNullable()
+        table
+          .string('etapeTypeId')
+          .references('etapesTypes.id')
+          .notNullable()
+        table.boolean('lectureInterdit').notNullable()
+        table.boolean('creationInterdit').notNullable()
+        table.boolean('modificationInterdit').notNullable()
+      }
+    )
 
 exports.down = knex =>
   knex.schema

@@ -67,10 +67,10 @@ class AutorisationsEtapesTypes extends Model {
 }
 
 interface AutorisationsTitresTypesAdministrations
-  extends IAutorisationTitreTypeAdministration {}
+  extends IAutorisationTitreTypeAdministration { }
 
 class AutorisationsTitresTypesAdministrations extends Model {
-  public static tableName = 'administrations__titresTypes'
+  public static tableName = 'autorisations__titresTypes__administrations'
 
   public static jsonSchema = {
     type: 'object',
@@ -91,7 +91,7 @@ interface AutorisationsTitresTypesTitresStatutsAdministrations
   extends IAutorisationTitreTypeTitreStatutAdministration {}
 
 class AutorisationsTitresTypesTitresStatutsAdministrations extends Model {
-  public static tableName = 'administrations__titresTypes__titresStatuts'
+  public static tableName = 'restrictions__titresTypes__titresStatuts__administrations'
 
   public static jsonSchema = {
     type: 'object',
@@ -121,7 +121,7 @@ interface AutorisationsTitresTypesEtapesTypesAdministrations
   extends IAutorisationTitreTypeEtapeTypeAdministration {}
 
 class AutorisationsTitresTypesEtapesTypesAdministrations extends Model {
-  public static tableName = 'administrations__titresTypes__etapesTypes'
+  public static tableName = 'restrictions__titresTypes__etapesTypes__administrations'
 
   public static jsonSchema = {
     type: 'object',
