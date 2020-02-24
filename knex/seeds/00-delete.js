@@ -31,12 +31,13 @@ exports.seed = seeding(async ({ del }) => {
 
   // 08
   await Promise.all([
-    del('restrictions__domaines'),
-    del('restrictions__types__administrations'),
-    del('restrictions__types__statuts'),
-    del('restrictions__types__statuts__administrations'),
-    del('restrictions__etapesTypes'),
-    del('restrictions__etapesTypes__administrations')
+    del('autorisations__domaines'),
+    del('autorisations__titresTypes__titresStatuts'),
+    del('autorisations__etapesTypes'),
+
+    del('administrations__titres_types'),
+    del('administrations__titres_types__titres_statuts'),
+    del('administrations__titres_types__etapes_types')
   ])
 
   // 07
@@ -55,11 +56,7 @@ exports.seed = seeding(async ({ del }) => {
   // 05
   await Promise.all([del('entreprisesEtablissements'), del('administrations')])
 
-  await Promise.all([
-    del('entreprises'),
-    del('administrationsTypes'),
-    del('administrations__domaines')
-  ])
+  await Promise.all([del('entreprises'), del('administrationsTypes')])
 
   // 04
   await del('substances')

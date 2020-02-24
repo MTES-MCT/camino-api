@@ -1,7 +1,7 @@
 import { IToken, IDomaine } from '../../types'
 import { debug } from '../../config/index'
 
-import restrictions from '../../database/cache/restrictions'
+import autorisations from '../../database/cache/autorisations'
 
 import {
   documentsTypesGet,
@@ -20,9 +20,9 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import { permissionsCheck } from './permissions/permissions-check'
 import {
-  titreTypePermissionCheck,
-  domainePermissionCheck
-} from './permissions/metas'
+  domainePermissionAdministrationCheck,
+  titreTypePermissionAdministrationCheck
+} from './permissions/titre-edition'
 
 const npmPackage = require('../../../package.json')
 
@@ -58,8 +58,10 @@ const domaines = async (_: unknown, context: IToken) => {
     const domaines = await domainesGet()
 
     if (!permissionsCheck(user, ['super', 'admin'])) {
-      return domaines.filter(
-        domaine => !restrictions.domaines.find(d => d.domaineId === domaine.id)
+      return domaines.filter(domaine =>
+        autorisations.domaines.find(
+          d => d.domaineId === domaine.id && d.publicLecture
+        )
       )
     }
 
@@ -88,12 +90,12 @@ const utilisateurDomaines = async (_: unknown, context: IToken) => {
 
     if (isAdmin) {
       domaines = domaines.reduce((domaines: IDomaine[], domaine) => {
-        const editable = domainePermissionCheck(user, domaine)
+        const editable = domainePermissionAdministrationCheck(user, domaine.id)
 
         if (editable) {
           if (domaine.titresTypes) {
             domaine.titresTypes = domaine.titresTypes.filter(tt =>
-              titreTypePermissionCheck(user, tt.id)
+              titreTypePermissionAdministrationCheck(user, tt.id)
             )
           }
 
@@ -133,8 +135,8 @@ const statuts = async (_: unknown, context: IToken) => {
     let statuts = await titresStatutsGet()
 
     if (!context.user) {
-      statuts = statuts.filter(
-        statut => !restrictions.statutIds.find(d => d === statut.id)
+      statuts = statuts.filter(statut =>
+        autorisations.statutIds.includes(statut.id)
       )
     }
 

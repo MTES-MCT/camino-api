@@ -9,6 +9,7 @@ import { titresActivitesGet } from '../database/queries/titres-activites'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
 import { titresEtapesGet } from '../database/queries/titres-etapes'
 import { titresPointsGet } from '../database/queries/titres-points'
+
 import titresActivitesStatutIdsUpdate from './processes/titres-activites-statut-ids-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'

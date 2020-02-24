@@ -2,32 +2,35 @@ const administrations = [
   {
     id: 'dgec',
     departementId: 1,
-    domaines: [{ id: 'h' }]
+    titresTypes: [{ id: 'cxh', domaineId: 'h', gestionnaire: true }]
   },
   {
     id: 'dgaln',
-    domaines: [{ id: 'm' }]
+    titresTypes: [
+      { id: 'arm', domaineId: 'm', gestionnaire: true, associee: true }
+    ]
   },
   {
     id: 'ope-ptmg-973-01',
-    domaines: [{ id: 'm' }]
+    titresTypes: [{ id: 'arm', domaineId: 'm', gestionnaire: true }]
   },
   {
     id: 'ope-onf-973-01',
-    departementId: '973'
+    departementId: '973',
+    titresTypes: [{ id: 'axm', domaineId: 'm', gestionnaire: false }]
   },
   {
-    id: 'domaines-empty',
-    domaines: []
+    id: 'titresTypes-empty',
+    titresTypes: []
   },
   {
-    id: 'no-domaines'
+    id: 'no-titresTypes'
   }
 ]
 
 const titreH = {
   id: 'titre-id',
-  typeId: 'cxx',
+  typeId: 'cxh',
   domaineId: 'h'
 }
 

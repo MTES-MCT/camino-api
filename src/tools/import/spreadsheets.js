@@ -18,9 +18,12 @@ const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
+const administrationsAutorisationsSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS_AUTORISATIONS
 const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
 
-const restrictionsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_RESTRICTIONS
+const autorisationsSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_AUTORISATIONS
 
 const metasActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_METAS_ACTIVITES
@@ -46,178 +49,222 @@ const titresTables = [
   { name: 'titres_incertitudes' }
 ]
 
-const spreadsheets = [
-  {
-    name: 'titres-c',
-    id: titresCSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-f',
-    id: titresFSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-g',
-    id: titresGSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-h',
-    id: titresHSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-m',
-    id: titresMSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-r',
-    id: titresRSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-s',
-    id: titresSSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
-  {
-    name: 'titres-w',
-    id: titresWSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  },
+const titresC = {
+  name: 'titres-c',
+  id: titresCSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
 
+const titresF = {
+  name: 'titres-f',
+  id: titresFSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresG = {
+  name: 'titres-g',
+  id: titresGSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresH = {
+  name: 'titres-h',
+  id: titresHSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresM = {
+  name: 'titres-m',
+  id: titresMSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresR = {
+  name: 'titres-r',
+  id: titresRSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresS = {
+  name: 'titres-s',
+  id: titresSSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresW = {
+  name: 'titres-w',
+  id: titresWSpreadsheetId,
+  tables: titresTables,
+  prefixFileName: true
+}
+
+const titresReprise =
   // feuille optionnelle pour la reprise de données
   {
     name: 'titres-reprise',
     id: titresRepriseSpreadsheetId,
     tables: titresTables,
     prefixFileName: true
-  },
-
-  {
-    name: 'metas',
-    id: metasSpreadsheetId,
-    tables: [
-      { name: 'domaines' },
-      { name: 'titres_types' },
-      { name: 'titres_types_types' },
-      { name: 'titres_statuts' },
-      { name: 'demarches_types' },
-      { name: 'demarches_statuts' },
-      { name: 'titres_types__demarches_types' },
-      { name: 'demarches_types__demarches_statuts' },
-      { name: 'phases_statuts' },
-      { name: 'etapes_types', cb: { sections: JSON.parse } },
-      { name: 'etapes_statuts' },
-      { name: 'etapes_types__etapes_statuts' },
-      {
-        name: 'titres_types__demarches_types__etapes_types',
-        cb: { sections: JSON.parse }
-      },
-      { name: 'geo_systemes' },
-      { name: 'devises' },
-      { name: 'unites' },
-      { name: 'administrations_types' },
-      { name: 'permissions' },
-      { name: 'documents_types' },
-      { name: 'references_types' }
-    ]
-  },
-  {
-    name: 'substances',
-    id: substancesSpreadsheetId,
-    tables: [
-      { name: 'substances' },
-      { name: 'substances_legales' },
-      { name: 'substances_legales_codes' },
-      { name: 'substances__substances_legales' }
-    ]
-  },
-  {
-    name: 'territoires',
-    id: territoiresSpreadsheetId,
-    tables: [
-      { name: 'pays' },
-      { name: 'regions' },
-      { name: 'departements' },
-      { name: 'communes' }
-    ]
-  },
-  {
-    name: 'calendrier',
-    id: calendrierSpreadsheetId,
-    tables: [
-      { name: 'frequences' },
-      { name: 'annees' },
-      { name: 'trimestres' },
-      { name: 'mois' }
-    ]
-  },
-
-  {
-    name: 'entreprises',
-    id: entreprisesSpreadsheetId,
-    tables: [{ name: 'entreprises' }, { name: 'entreprises_etablissements' }]
-  },
-  {
-    name: 'administrations',
-    id: administrationsSpreadsheetId,
-    tables: [{ name: 'administrations' }, { name: 'administrations__domaines' }]
-  },
-  {
-    name: 'utilisateurs',
-    id: utilisateursSpreadsheetId,
-    tables: [
-      { name: 'utilisateurs', cb: { preferences: JSON.parse } },
-      { name: 'utilisateurs__entreprises' },
-      { name: 'utilisateurs__administrations' }
-    ]
-  },
-
-  {
-    name: 'metas-activites',
-    id: metasActivitesSpreadsheetId,
-    tables: [
-      { name: 'activites_types', cb: { sections: JSON.parse } },
-      { name: 'activites_statuts' },
-      { name: 'titres_types__activites_types' },
-      { name: 'activites_types__pays' },
-      { name: 'activites_types__administrations' }
-    ]
-  },
-  {
-    name: 'titres-activites',
-    id: titresActivitesSpreadsheetId,
-    tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
-  },
-
-  {
-    name: 'restrictions',
-    id: restrictionsSpreadsheetId,
-    tables: [
-      { name: 'restrictions__domaines' },
-      { name: 'restrictions__types__administrations' },
-      { name: 'restrictions__types__statuts' },
-      { name: 'restrictions__types__statuts__administrations' },
-      { name: 'restrictions__etapes_types' },
-      { name: 'restrictions__etapes_types__administrations' }
-    ]
-  },
-  {
-    name: 'globales',
-    id: globalesSpreadsheetId,
-    tables: [{ name: 'globales' }]
   }
+
+const metas = {
+  name: 'metas',
+  id: metasSpreadsheetId,
+  tables: [
+    { name: 'domaines' },
+    { name: 'titres_types' },
+    { name: 'titres_types_types' },
+    { name: 'titres_statuts' },
+    { name: 'demarches_types' },
+    { name: 'demarches_statuts' },
+    { name: 'titres_types__demarches_types' },
+    { name: 'demarches_types__demarches_statuts' },
+    { name: 'phases_statuts' },
+    { name: 'etapes_types', cb: { sections: JSON.parse } },
+    { name: 'etapes_statuts' },
+    { name: 'etapes_types__etapes_statuts' },
+    {
+      name: 'titres_types__demarches_types__etapes_types',
+      cb: { sections: JSON.parse }
+    },
+    { name: 'geo_systemes' },
+    { name: 'devises' },
+    { name: 'unites' },
+    { name: 'administrations_types' },
+    { name: 'permissions' },
+    { name: 'documents_types' },
+    { name: 'references_types' }
+  ]
+}
+
+const substances = {
+  name: 'substances',
+  id: substancesSpreadsheetId,
+  tables: [
+    { name: 'substances' },
+    { name: 'substances_legales' },
+    { name: 'substances_legales_codes' },
+    { name: 'substances__substances_legales' }
+  ]
+}
+
+const territoires = {
+  name: 'territoires',
+  id: territoiresSpreadsheetId,
+  tables: [
+    { name: 'pays' },
+    { name: 'regions' },
+    { name: 'departements' },
+    { name: 'communes' }
+  ]
+}
+
+const calendrier = {
+  name: 'calendrier',
+  id: calendrierSpreadsheetId,
+  tables: [
+    { name: 'frequences' },
+    { name: 'annees' },
+    { name: 'trimestres' },
+    { name: 'mois' }
+  ]
+}
+
+const entreprises = {
+  name: 'entreprises',
+  id: entreprisesSpreadsheetId,
+  tables: [{ name: 'entreprises' }, { name: 'entreprises_etablissements' }]
+}
+
+const administrations = {
+  name: 'administrations',
+  id: administrationsSpreadsheetId,
+  tables: [{ name: 'administrations' }]
+}
+
+const administrationsAutorisations = {
+  name: 'administrations-autorisations',
+  id: administrationsAutorisationsSpreadsheetId,
+  tables: [
+    { name: 'autorisations__titres_types__administrations' },
+    { name: 'restrictions__titres_types__titres_statuts__administrations' },
+    { name: 'restrictions__titres_types__etapes_types__administrations' }
+  ]
+}
+
+const utilisateurs = {
+  name: 'utilisateurs',
+  id: utilisateursSpreadsheetId,
+  tables: [
+    { name: 'utilisateurs', cb: { preferences: JSON.parse } },
+    { name: 'utilisateurs__entreprises' },
+    { name: 'utilisateurs__administrations' }
+  ]
+}
+
+const metasActivites = {
+  name: 'metas-activites',
+  id: metasActivitesSpreadsheetId,
+  tables: [
+    { name: 'activites_types', cb: { sections: JSON.parse } },
+    { name: 'activites_statuts' },
+    { name: 'titres_types__activites_types' },
+    { name: 'activites_types__pays' },
+    { name: 'activites_types__administrations' }
+  ]
+}
+
+const titresActivites = {
+  name: 'titres-activites',
+  id: titresActivitesSpreadsheetId,
+  tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
+}
+
+const autorisations = {
+  name: 'autorisations',
+  id: autorisationsSpreadsheetId,
+  tables: [
+    { name: 'autorisations__domaines' },
+    { name: 'autorisations__titres_types__titres_statuts' },
+    { name: 'autorisations__etapes_types' }
+  ]
+}
+
+const globales = {
+  name: 'globales',
+  id: globalesSpreadsheetId,
+  tables: [{ name: 'globales' }]
+}
+
+const spreadsheets = [
+  titresC,
+  titresF,
+  titresG,
+  titresH,
+  titresM,
+  titresR,
+  titresS,
+  titresW,
+  titresReprise,
+  metas,
+  substances,
+  territoires,
+  calendrier,
+  entreprises,
+  administrations,
+  administrationsAutorisations,
+  utilisateurs,
+  metasActivites,
+  titresActivites,
+  autorisations,
+  globales
 ]
 
 export default spreadsheets

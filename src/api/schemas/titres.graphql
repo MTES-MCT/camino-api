@@ -131,6 +131,7 @@ type Demarche {
   parents: [Demarche]
 
   editable: Boolean
+  etapesEditable: Boolean
   supprimable: Boolean
 }
 

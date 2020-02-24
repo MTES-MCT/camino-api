@@ -5,7 +5,6 @@ const entreprisesEtablissements = require(`../../sources/entreprises-etablisseme
 
 const administrations = require('../../sources/administrations.json')
 const administrationsTypes = require('../../sources/administrations-types.json')
-const administrationsDomaines = require('../../sources/administrations--domaines.json')
 
 const findMissing = (elements, relations, field1, field2) =>
   relations.forEach(r => {
@@ -23,6 +22,5 @@ exports.seed = seeding(async ({ insert }) => {
     insert('administrationsTypes', administrationsTypes)
   ])
   await insert('administrations', administrations)
-  await insert('administrations__domaines', administrationsDomaines)
   await insert('entreprisesEtablissements', entreprisesEtablissements)
 })
