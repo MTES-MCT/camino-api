@@ -41,16 +41,17 @@ class Administrations extends Model {
       }
     },
 
-    domaines: {
+    titresTypes: {
       relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'domaines'),
+      modelClass: join(__dirname, 'titres-types'),
       join: {
         from: 'administrations.id',
         through: {
-          from: 'administrations__domaines.administrationId',
-          to: 'administrations__domaines.domaineId'
+          from: 'administrations__titresTypes.administrationId',
+          to: 'administrations__titresTypes.titreTypeId',
+          extra: ['gestionnaire', 'associee']
         },
-        to: 'domaines.id'
+        to: 'titresTypes.id'
       }
     },
 

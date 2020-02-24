@@ -14,8 +14,7 @@ import { titreFormat } from './format/titres'
 import { etapesTypesFormat } from './format/etapes-types'
 
 import { permissionsCheck } from './permissions/permissions-check'
-import { titrePermissionAdministrationsCheck } from './permissions/titre'
-import titreEtapePermissionAdministrationsCheck from './permissions/titre-etape'
+import { titreEtapePermissionAdministrationsCheck } from './permissions/titre-edition'
 
 import {
   titreEtapeGet,
@@ -45,8 +44,6 @@ const demarcheEtapeTypesFormat = (
 
   if (!etapesTypes) return []
 
-  const isSuper = permissionsCheck(user, ['super'])
-
   return etapesTypes.reduce((etapesTypes: IEtapeType[], et) => {
     // si
     // - le type d'étape ne correspond pas au type de titre
@@ -67,16 +64,13 @@ const demarcheEtapeTypesFormat = (
       return etapesTypes
     }
 
-    // actuellement, on ne peut éditer que les ARM et les AEX
     et.editable =
-      isSuper ||
       titreEtapePermissionAdministrationsCheck(
         user,
-        etapeTypeId ? 'modification' : 'creation',
-        et.id,
         titre.typeId,
-        titre.administrationsGestionnaires,
-        titre.administrationsLocales
+        titre.statutId!,
+        et.id,
+        etapeTypeId ? 'modification' : 'creation'
       )
 
     if (et.editable) {
@@ -111,9 +105,7 @@ const demarcheEtapesTypes = async (
 
   if (!demarche.etapes) return []
 
-  const titre = await titreGet(demarche.titreId, {
-    graph: '[administrationsGestionnaires, administrationsLocales]'
-  })
+  const titre = await titreGet(demarche.titreId, { graph: undefined })
 
   return demarcheEtapeTypesFormat(
     user,
@@ -151,21 +143,12 @@ const etapeCreer = async (
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
-        !titrePermissionAdministrationsCheck(
-          user,
-          'modification',
-          titre.typeId,
-          titre.statutId!,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
-        ) ||
         !titreEtapePermissionAdministrationsCheck(
           user,
-          'creation',
-          etape.typeId,
           titre.typeId,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
+          titre.statutId!,
+          etape.typeId,
+          'creation'
         )
       ) {
         throw new Error('droits insuffisants pour créer cette étape')
@@ -173,7 +156,6 @@ const etapeCreer = async (
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(etape)
-
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -223,21 +205,12 @@ const etapeModifier = async (
       if (!titre) throw new Error("le titre n'existe pas")
 
       if (
-        !titrePermissionAdministrationsCheck(
-          user,
-          'modification',
-          titre.typeId,
-          titre.statutId!,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
-        ) ||
         !titreEtapePermissionAdministrationsCheck(
           user,
-          'modification',
-          etape.typeId,
           titre.typeId,
-          titre.administrationsGestionnaires,
-          titre.administrationsLocales
+          titre.statutId!,
+          etape.typeId,
+          'modification'
         )
       ) {
         throw new Error('droits insuffisants pour modifier cette étape')

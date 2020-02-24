@@ -54,18 +54,6 @@ exports.up = knex =>
       table.string('departementId').references('departements.id')
       table.string('regionId').references('regions.id')
     })
-    .createTable('administrations__domaines', table => {
-      table
-        .string('domaineId', 1)
-        .references('domaines.id')
-        .notNullable()
-      table
-        .string('administrationId')
-        .references('administrations.id')
-        .notNullable()
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-    })
     .createTable('permissions', table => {
       table.string('id', 12).primary()
       table.string('nom').notNullable()

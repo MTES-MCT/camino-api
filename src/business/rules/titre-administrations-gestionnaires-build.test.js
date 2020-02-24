@@ -7,7 +7,7 @@ import {
 } from './__mocks__/titre-administrations-gestionnaires-build-titres'
 
 describe("construction des activités d'un titre", () => {
-  test("ajoute l'ONF comme gestionnaire à un titre de type ARM", async () => {
+  test("ajoute l'ONF et la DGALN comme gestionnaire à un titre de type ARM", async () => {
     const titreAdministrationsGestionnaires = await titreAdministrationsGestionnairesBuild(
       titreArm,
       administrations

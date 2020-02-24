@@ -61,7 +61,7 @@ interface IAdministration {
   departementId?: string | null
   regionId?: string | null
   abreviation?: string | null
-  domaines?: IDomaine[] | null
+  titresTypes?: ITitreType[] | null
   utilisateurs?: IUtilisateur[] | null
   titresAdministrationsGestionnaires?: ITitre[] | null
   titresAdministrationsLocales?: ITitre[] | null
@@ -112,8 +112,8 @@ interface IDemarcheType {
   exception?: boolean | null
   etapesTypes: IEtapeType[]
   titreTypeId?: string | null
-  editable?: boolean | null
   unique?: boolean | null
+  editable?: boolean | null
 }
 
 interface IDepartement {
@@ -275,41 +275,44 @@ interface IRegion {
   pays?: IPays | null
   departements?: IDepartement[] | null
 }
-interface IRestrictionDomaine {
+
+interface IAutorisationDomaine {
   domaineId: string
-  publicLectureInterdit: boolean
+  publicLecture: boolean
 }
 
-interface IRestrictionTypeStatut {
+interface IAutorisationEtapeType {
+  etapeTypeId: string
+  publicLecture: boolean
+  entreprisesLecture: boolean
+}
+
+interface IAutorisationTitreTypeTitreStatut {
   titreTypeId: string
   titreStatutId: string
-  publicLectureInterdit: boolean
+  publicLecture: boolean
 }
 
-interface IRestrictionTypeAdministration {
-  titreTypeId: string
+interface IAutorisationTitreTypeAdministration {
   administrationId: string
-  creationInterdit: boolean
+  titreTypeId: string
+  gestionnaire: boolean
+  associee: boolean
 }
 
-interface IRestrictionTypeStatutAdministration {
+interface IAutorisationTitreTypeTitreStatutAdministration {
+  administrationId: string
   titreTypeId: string
   titreStatutId: string
-  administrationId: string
-  creationInterdit: boolean
-  lectureInterdit: boolean
-  modificationInterdit: boolean
+  titresModificationInterdit: boolean
+  demarchesModificationInterdit: boolean
+  etapesModificationInterdit: boolean
 }
 
-interface IRestrictionEtapeType {
-  etapeTypeId: string
-  publicLectureInterdit: boolean
-  entreprisesLectureInterdit: boolean
-}
-
-interface IRestrictionEtapeTypeAdministration {
-  etapeTypeId: string
+interface IAutorisationTitreTypeEtapeTypeAdministration {
   administrationId: string
+  titreTypeId: string
+  etapeTypeId: string
   creationInterdit: boolean
   lectureInterdit: boolean
   modificationInterdit: boolean
@@ -457,6 +460,7 @@ interface ITitreDemarche {
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
   editable?: boolean | null
+  etapesEditable?: boolean | null
   supprimable?: boolean | null
 }
 
@@ -579,6 +583,8 @@ interface ITitreType {
   archive?: boolean | null
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
+  gestionnaire?: boolean | null
+  associee?: boolean | null
   editable?: boolean | null
 }
 
@@ -687,12 +693,12 @@ export {
   IPhaseStatut,
   IReferenceType,
   IRegion,
-  IRestrictionDomaine,
-  IRestrictionTypeAdministration,
-  IRestrictionTypeStatut,
-  IRestrictionTypeStatutAdministration,
-  IRestrictionEtapeType,
-  IRestrictionEtapeTypeAdministration,
+  IAutorisationDomaine,
+  IAutorisationTitreTypeTitreStatut,
+  IAutorisationEtapeType,
+  IAutorisationTitreTypeAdministration,
+  IAutorisationTitreTypeTitreStatutAdministration,
+  IAutorisationTitreTypeEtapeTypeAdministration,
   ITitreStatut,
   ISubstance,
   ISubstanceLegale,

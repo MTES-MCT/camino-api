@@ -130,6 +130,25 @@ const titreDemarchesSansDateDebut = [
   }
 ]
 
+const titreDemarchesDateUndefined = [
+  {
+    id: 'h-cx-courdemanges-1988-oct01',
+    titreId: 'h-cx-courdemanges-1988',
+    typeId: 'oct',
+    statutId: 'acc',
+    ordre: 1,
+    etapes: [
+      {
+        id: 'h-cx-courdemanges-1988-oct01-dpu01',
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
+        typeId: 'dpu',
+        statutId: 'acc',
+        ordre: 1
+      }
+    ]
+  }
+]
+
 export {
   titreDemarchesDpu,
   titreDemarchesDex,
@@ -137,5 +156,6 @@ export {
   titreDemarchesRpuDateDebut,
   titreDemarchesDexDateDebut,
   titreDemarchesSansOctroi,
-  titreDemarchesSansDateDebut
+  titreDemarchesSansDateDebut,
+  titreDemarchesDateUndefined
 }

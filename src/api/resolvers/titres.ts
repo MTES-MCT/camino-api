@@ -1,10 +1,10 @@
-import { IToken, IAdministration, ITitre } from '../../types'
+import { IToken, ITitre } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import { permissionsCheck } from './permissions/permissions-check'
 import { titreFormat, titresFormat } from './format/titres'
 
-import { titrePermissionAdministrationsCheck } from './permissions/titre'
+import { titrePermissionAdministrationsCheck } from './permissions/titre-edition'
 
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
@@ -17,40 +17,11 @@ import {
   titresGet,
   titreUpsert
 } from '../../database/queries/titres'
-import { administrationsGet } from '../../database/queries/administrations'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreUpdateTask from '../../business/titre-update'
 
 import titreUpdationValidate from '../../business/titre-updation-validate'
-
-import titreAdministrationsGestionnairesBuild from '../../business/rules/titre-administrations-gestionnaires-build'
-
-const titresAdministrationsGestionnairesFind = (
-  { id, domaineId, typeId }: { id: string; domaineId: string; typeId: string },
-  administrations: IAdministration[]
-) => {
-  // calcule les administrations gestionnaires pour le titre
-  const administrationsGestionnaires = titreAdministrationsGestionnairesBuild(
-    { id, domaineId, typeId },
-    administrations
-  )
-
-  return administrationsGestionnaires.reduce(
-    (administrations: IAdministration[], { administrationId }) => {
-      const administration = administrations.find(
-        ({ id }) => id === administrationId
-      )
-
-      if (administration) {
-        administrations.push(administration)
-      }
-
-      return administrations
-    },
-    []
-  )
-}
 
 const titre = async (
   { id }: { id: string },
@@ -136,29 +107,11 @@ const titreCreer = async ({ titre }: { titre: ITitre }, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    if (permissionsCheck(user, ['admin'])) {
-      const administrations = await administrationsGet()
-
-      const titreAdministrationsGestionnaires = titresAdministrationsGestionnairesFind(
-        {
-          id: 'id-tmp',
-          domaineId: titre.domaineId,
-          typeId: titre.typeId
-        },
-        administrations
-      )
-
-      if (
-        titrePermissionAdministrationsCheck(
-          user,
-          'creation',
-          titre.typeId,
-          'dmi',
-          titreAdministrationsGestionnaires
-        )
-      ) {
-        throw new Error('droits insuffisants pour créer ce type de titre')
-      }
+    if (
+      permissionsCheck(user, ['admin']) &&
+      !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
+    ) {
+      throw new Error('droits insuffisants pour créer ce type de titre')
     }
 
     // insert le titre dans la base
@@ -185,30 +138,11 @@ const titreModifier = async ({ titre }: { titre: ITitre }, context: IToken) => {
       throw new Error('droits insuffisants')
     }
 
-    if (permissionsCheck(user, ['admin'])) {
-      // calcule les administrations gestionnaires pour le titre
-      const administrations = await administrationsGet()
-
-      const titreAdministrationsGestionnaires = titresAdministrationsGestionnairesFind(
-        {
-          id: titre.id!,
-          domaineId: titre.domaineId,
-          typeId: titre.typeId
-        },
-        administrations
-      )
-
-      if (
-        !titrePermissionAdministrationsCheck(
-          user,
-          'modification',
-          titre.typeId,
-          'dmi',
-          titreAdministrationsGestionnaires
-        )
-      ) {
-        throw new Error('droits insuffisants pour modifier ce titre')
-      }
+    if (
+      permissionsCheck(user, ['admin']) &&
+      !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
+    ) {
+      throw new Error('droits insuffisants pour modifier ce titre')
     }
 
     const titreOld = await titreGet(titre.id)

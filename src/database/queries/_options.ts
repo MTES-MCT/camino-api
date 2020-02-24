@@ -1,5 +1,6 @@
 const utilisateurs = {
-  graph: '[permission, administrations.[domaines], entreprises.etablissements]',
+  graph:
+    '[permission, administrations.[titresTypes], entreprises.etablissements]',
   update: {
     relate: ['permission', 'administrations', 'entreprises'],
     unrelate: ['permission', 'administrations', 'entreprises'],
@@ -8,7 +9,7 @@ const utilisateurs = {
 }
 
 const administrations = {
-  graph: `[utilisateurs.permission, domaines, type]`,
+  graph: `[utilisateurs.permission, titresTypes, type]`,
   update: {
     insertMissing: true,
     relate: ['administrationsTypes'],
@@ -63,7 +64,7 @@ const etapesRelateTrue = [
   'amodiataires.utilisateurs',
   'amodiataires.utilisateurs.permission',
   'administrations',
-  'administrations.domaines',
+  'administrations.titresTypes',
   'administrations.type',
   'administrations.utilisateurs',
   'administrations.utilisateurs.permission',
@@ -223,12 +224,12 @@ const titresUpdateFalse = [
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
   'amodiataires.utilisateurs.permission',
-  'administrationsGestionnaires.domaines',
+  'administrationsGestionnaires.titresTypes',
   'administrationsGestionnaires.type',
   'administrationsGestionnaires.utilisateurs',
   'administrationsGestionnaires.utilisateurs.permission',
   'administrationsLocales',
-  'administrationsLocales.domaines',
+  'administrationsLocales.titresTypes',
   'administrationsLocales.type',
   'administrationsLocales.utilisateurs',
   'administrationsLocales.utilisateurs.permission',
