@@ -1,9 +1,9 @@
 query Demarches(
   $pages: Int
   $page: Int
-  $titreTypeIds: [ID]
-  $titreDomaineIds: [ID]
-  $titreStatutIds: [ID]
+  $titresTypeIds: [ID]
+  $titresDomaineIds: [ID]
+  $titresStatutIds: [ID]
   $typeIds: [ID]
   $statutIds: [ID]
   $etapesInclues: [InputEtapeFiltre]
@@ -12,9 +12,9 @@ query Demarches(
   demarches(
     pages: $pages
     page: $page
-    titreTypeIds: $titreTypeIds
-    titreDomaineIds: $titreDomaineIds
-    titreStatutIds: $titreStatutIds
+    titresTypeIds: $titresTypeIds
+    titresDomaineIds: $titresDomaineIds
+    titresStatutIds: $titresStatutIds
     typeIds: $typeIds
     statutIds: $statutIds
     etapesInclues: $etapesInclues

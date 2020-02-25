@@ -2,6 +2,7 @@ import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
 import Devises from '../models/devises'
 import DocumentsTypes from '../models/documents-types'
+import DemarchesStatuts from '../models/demarches-statuts'
 import Domaines from '../models/domaines'
 import EtapesTypes from '../models/etapes-types'
 import GeoSystemes from '../models/geo-systemes'
@@ -38,6 +39,9 @@ const demarchesTypesGet = async () =>
     .withGraphFetched(options.demarchesTypes.graph)
     .orderBy('ordre')
 
+const demarchesStatutsGet = async () =>
+  DemarchesStatuts.query().orderBy('ordre')
+
 const etapesTypesGet = async () => EtapesTypes.query().orderBy('nom')
 
 const devisesGet = async () => Devises.query().orderBy('nom')
@@ -67,6 +71,7 @@ export {
   domainesGet,
   titresStatutsGet,
   demarchesTypesGet,
+  demarchesStatutsGet,
   etapesTypesGet,
   devisesGet,
   documentsTypesGet,

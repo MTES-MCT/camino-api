@@ -37,7 +37,7 @@ exports.up = knex => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
       table.string('couleur', 16).notNullable()
-      table.integer('ordre')
+      table.integer('ordre').notNullable()
     })
     .createTable('phasesStatuts', table => {
       table.string('id', 3).primary()
