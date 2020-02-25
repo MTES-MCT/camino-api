@@ -3,14 +3,32 @@ import { transaction, Transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 
+const idsBuild = (etapesIds: Partial<ITitreEtape>[]) => etapesIds.reduce(
+  ({ etapesTypeIds, etapesStatutIds }, { typeId, statutId }) => {
+    if (typeId) {
+      etapesTypeIds.push(typeId)
+    }
+    if (statutId) {
+      etapesStatutIds.push(statutId)
+    }
+
+    return { etapesTypeIds, etapesStatutIds }
+  }, {
+    etapesTypeIds: [],
+    etapesStatutIds: []
+  } as {
+    etapesTypeIds: string[],
+    etapesStatutIds: string[]
+  })
+
 const titresDemarchesGet = async (
   {
     pages,
     page,
     typeIds,
     statutIds,
-    titreTypeIds,
     titreDomaineIds,
+    titreTypeIds,
     titreStatutIds,
     etapesInclues,
     etapesExclues
@@ -19,8 +37,8 @@ const titresDemarchesGet = async (
     page?: number | null
     typeIds?: string[] | null
     statutIds?: string[] | null
-    titreTypeIds?: string[] | null
     titreDomaineIds?: string[] | null
+    titreTypeIds?: string[] | null
     titreStatutIds?: string[] | null
     etapesInclues?: Partial<ITitreEtape>[] | null
     etapesExclues?: Partial<ITitreEtape>[] | null
@@ -42,6 +60,58 @@ const titresDemarchesGet = async (
 
   if (typeIds) {
     q.whereIn('titresDemarches.typeId', typeIds)
+  }
+
+  if (statutIds) {
+    q.whereIn('titresDemarches.statutId', statutIds)
+  }
+
+  if (titreDomaineIds) {
+    q.joinRelated('titre')
+      .whereIn('titre.domaineId', titreDomaineIds)
+
+  }
+
+  if (titreTypeIds) {
+    q.joinRelated('titre.type')
+      .whereIn('titre:type.typeId', titreTypeIds)
+  }
+
+  if (titreStatutIds) {
+    q.joinRelated('titre')
+      .whereIn('titre.statutId', titreStatutIds)
+  }
+
+  if (etapesInclues) {
+    const { etapesTypeIds, etapesStatutIds } = idsBuild(etapesInclues)
+
+    if (etapesTypeIds.length || etapesStatutIds.length) {
+      q.joinRelated('etapes')
+
+      if (etapesTypeIds.length) {
+        q.whereIn('etapes.typeId', etapesTypeIds)
+      }
+
+      if (etapesStatutIds.length) {
+        q.whereIn('etapes.statutId', etapesStatutIds)
+      }
+    }
+  }
+
+  if (etapesExclues) {
+    const { etapesTypeIds, etapesStatutIds } = idsBuild(etapesExclues)
+
+    if (etapesTypeIds.length || etapesStatutIds.length) {
+      q.joinRelated('etapes')
+
+      if (etapesTypeIds.length) {
+        q.whereNotIn('etapes.typeId', etapesTypeIds)
+      }
+
+      if (etapesStatutIds.length) {
+        q.whereNotIn('etapes.statutId', etapesStatutIds)
+      }
+    }
   }
 
   return q

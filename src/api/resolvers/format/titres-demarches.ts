@@ -19,7 +19,7 @@ import {
   titreDemarchePermissionAdministrationsCheck,
   titreEtapePermissionAdministrationsCheck
 } from '../permissions/titre-edition'
-import { titrePermissionCheck } from '../permissions/titre'
+import { titreIsPublicCheck, titrePermissionCheck } from '../permissions/titre'
 
 const titreDemarcheFormatFields = {
   etapes: titreEtapeFormatFields,
@@ -177,27 +177,31 @@ const titresDemarchesFormat = (
     (titresDemarches: ITitreDemarche[], titreDemarche) => {
       if (!titreDemarche.titre) return titresDemarches
 
-      const userHasPermission = titrePermissionCheck(
-        user,
-        ['super', 'admin', 'editeur', 'lecteur'],
-        titreDemarche.titre
-      )
+      const titreIsPublic = titreIsPublicCheck(titreDemarche.titre)
 
-      const titreDemarcheFormated = titreDemarcheFormat(
-        user,
-        titreDemarche,
-        titreDemarche.titre.typeId,
-        titreDemarche.titre.statutId!,
-        {
-          userHasPermission,
-          isSuper,
-          isAdmin
-        },
-        fields
-      )
+      if (titreIsPublic) {
+        const userHasPermission = titrePermissionCheck(
+          user,
+          ['super', 'admin', 'editeur', 'lecteur'],
+          titreDemarche.titre
+        )
 
-      if (titreDemarcheFormated) {
-        titresDemarches.push(titreDemarcheFormated)
+        const titreDemarcheFormated = titreDemarcheFormat(
+          user,
+          titreDemarche,
+          titreDemarche.titre.typeId,
+          titreDemarche.titre.statutId!,
+          {
+            userHasPermission,
+            isSuper,
+            isAdmin
+          },
+          fields
+        )
+
+        if (titreDemarcheFormated) {
+          titresDemarches.push(titreDemarcheFormated)
+        }
       }
 
       return titresDemarches

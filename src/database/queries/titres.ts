@@ -43,21 +43,8 @@ const titresGet = async (
   }
 
   if (typeIds) {
-    const field = 'type.typeId'
-
-    q.where(b => {
-      typeIds.forEach(s => {
-        b.orWhereRaw(`?? = ?`, [field, s])
-      })
-    })
-      .groupBy('titres.id')
-      .havingRaw(
-        `(${typeIds
-          .map(() => 'count(*) filter (where ?? = ?) > 0')
-          .join(') or (')})`,
-        typeIds.flatMap(t => [field, t])
-      )
-      .joinRelated('type')
+    q.joinRelated('type')
+      .whereIn('type.typeId', typeIds)
   }
 
   if (domaineIds) {
@@ -91,6 +78,7 @@ const titresGet = async (
       })
     })
       .groupBy('titres.id')
+      .joinRelated('references.type')
       .havingRaw(
         `(${references
           .map(
@@ -104,7 +92,6 @@ const titresGet = async (
           fields.flatMap(f => [f, `%${r.toLowerCase()}%`])
         )
       )
-      .joinRelated('references.type')
   }
 
   if (substances) {
@@ -123,6 +110,7 @@ const titresGet = async (
       })
     })
       .groupBy('titres.id')
+      .joinRelated('substances.legales')
       .havingRaw(
         `(${substances
           .map(
@@ -136,7 +124,6 @@ const titresGet = async (
           fields.flatMap(f => [f, `%${s.toLowerCase()}%`])
         )
       )
-      .joinRelated('substances.legales')
   }
 
   if (entreprises) {
@@ -157,7 +144,9 @@ const titresGet = async (
       })
     })
       .groupBy('titres.id')
-      .havingRaw(
+      .leftJoinRelated(
+        '[titulaires.etablissements, amodiataires.etablissements]'
+      ).havingRaw(
         `(${entreprises
           .map(
             () =>
@@ -169,9 +158,6 @@ const titresGet = async (
         entreprises.flatMap(e =>
           fields.flatMap(f => [f, `%${e.toLowerCase()}%`])
         )
-      )
-      .leftJoinRelated(
-        '[titulaires.etablissements, amodiataires.etablissements]'
       )
   }
 
@@ -200,6 +186,7 @@ const titresGet = async (
       })
     })
       .groupBy('titres.id')
+      .joinRelated('communes.departement.region')
       .havingRaw(
         `(${territoires
           .map(
@@ -217,7 +204,6 @@ const titresGet = async (
           ...fieldsExact.flatMap(f => [f, t.toLowerCase()])
         ])
       )
-      .joinRelated('communes.departement.region')
   }
 
   // console.log(sqlFormatter.format(q))
