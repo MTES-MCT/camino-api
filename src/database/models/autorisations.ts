@@ -5,14 +5,14 @@ import {
   IAutorisationTitreTypeTitreStatut,
   IAutorisationEtapeType,
   IAutorisationTitreTypeAdministration,
-  IAutorisationTitreTypeTitreStatutAdministration,
-  IAutorisationTitreTypeEtapeTypeAdministration
+  IRestrictionTitreTypeTitreStatutAdministration,
+  IRestrictionTitreTypeEtapeTypeAdministration
 } from '../../types'
 
 interface AutorisationsDomaines extends IAutorisationDomaine {}
 
 class AutorisationsDomaines extends Model {
-  public static tableName = 'autorisations__domaines'
+  public static tableName = 'a__domaines'
 
   public static jsonSchema = {
     type: 'object',
@@ -31,7 +31,7 @@ interface AutorisationsTitresTypesTitresStatuts
   extends IAutorisationTitreTypeTitreStatut {}
 
 class AutorisationsTitresTypesTitresStatuts extends Model {
-  public static tableName = 'autorisations__titresTypes__titresStatuts'
+  public static tableName = 'a__titresTypes__titresStatuts'
 
   public static jsonSchema = {
     type: 'object',
@@ -50,7 +50,7 @@ class AutorisationsTitresTypesTitresStatuts extends Model {
 interface AutorisationsEtapesTypes extends IAutorisationEtapeType {}
 
 class AutorisationsEtapesTypes extends Model {
-  public static tableName = 'autorisations__etapesTypes'
+  public static tableName = 'a__etapesTypes'
 
   public static jsonSchema = {
     type: 'object',
@@ -67,10 +67,10 @@ class AutorisationsEtapesTypes extends Model {
 }
 
 interface AutorisationsTitresTypesAdministrations
-  extends IAutorisationTitreTypeAdministration { }
+  extends IAutorisationTitreTypeAdministration {}
 
 class AutorisationsTitresTypesAdministrations extends Model {
-  public static tableName = 'autorisations__titresTypes__administrations'
+  public static tableName = 'a__titresTypes__administrations'
 
   public static jsonSchema = {
     type: 'object',
@@ -87,11 +87,11 @@ class AutorisationsTitresTypesAdministrations extends Model {
   public static idColumn = ['administrationId', 'titreTypeId']
 }
 
-interface AutorisationsTitresTypesTitresStatutsAdministrations
-  extends IAutorisationTitreTypeTitreStatutAdministration {}
+interface RestrictionsTitresTypesTitresStatutsAdministrations
+  extends IRestrictionTitreTypeTitreStatutAdministration {}
 
-class AutorisationsTitresTypesTitresStatutsAdministrations extends Model {
-  public static tableName = 'restrictions__titresTypes__titresStatuts__administrations'
+class RestrictionsTitresTypesTitresStatutsAdministrations extends Model {
+  public static tableName = 'r__titresTypes__titresStatuts__administrations'
 
   public static jsonSchema = {
     type: 'object',
@@ -117,11 +117,11 @@ class AutorisationsTitresTypesTitresStatutsAdministrations extends Model {
   public static idColumn = ['administrationId', 'titreTypeId', 'titreStatutId']
 }
 
-interface AutorisationsTitresTypesEtapesTypesAdministrations
-  extends IAutorisationTitreTypeEtapeTypeAdministration {}
+interface RestrictionsTitresTypesEtapesTypesAdministrations
+  extends IRestrictionTitreTypeEtapeTypeAdministration {}
 
-class AutorisationsTitresTypesEtapesTypesAdministrations extends Model {
-  public static tableName = 'restrictions__titresTypes__etapesTypes__administrations'
+class RestrictionsTitresTypesEtapesTypesAdministrations extends Model {
+  public static tableName = 'r__titresTypes__etapesTypes__administrations'
 
   public static jsonSchema = {
     type: 'object',
@@ -150,8 +150,8 @@ class AutorisationsTitresTypesEtapesTypesAdministrations extends Model {
 export {
   AutorisationsDomaines,
   AutorisationsEtapesTypes,
-  AutorisationsTitresTypesAdministrations,
-  AutorisationsTitresTypesEtapesTypesAdministrations,
   AutorisationsTitresTypesTitresStatuts,
-  AutorisationsTitresTypesTitresStatutsAdministrations
+  AutorisationsTitresTypesAdministrations,
+  RestrictionsTitresTypesTitresStatutsAdministrations,
+  RestrictionsTitresTypesEtapesTypesAdministrations
 }

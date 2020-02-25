@@ -2,9 +2,9 @@ import {
   AutorisationsDomaines,
   AutorisationsEtapesTypes,
   AutorisationsTitresTypesAdministrations,
-  AutorisationsTitresTypesEtapesTypesAdministrations,
+  RestrictionsTitresTypesEtapesTypesAdministrations,
   AutorisationsTitresTypesTitresStatuts,
-  AutorisationsTitresTypesTitresStatutsAdministrations
+  RestrictionsTitresTypesTitresStatutsAdministrations
 } from '../models/autorisations'
 
 const autorisationsDomainesGet = async () => AutorisationsDomaines.query()
@@ -17,17 +17,17 @@ const autorisationsTitresTypesTitresStatutsGet = async () =>
 const autorisationsTitresTypesAdministrationsGet = async () =>
   AutorisationsTitresTypesAdministrations.query()
 
-const autorisationsTitresTypesTitresStatutsAdministrationsGet = async () =>
-  AutorisationsTitresTypesTitresStatutsAdministrations.query()
+const restrictionsTitresTypesTitresStatutsAdministrationsGet = async () =>
+  RestrictionsTitresTypesTitresStatutsAdministrations.query()
 
-const autorisationsTitresTypesEtapesTypesAdministrationsGet = async () =>
-  AutorisationsTitresTypesEtapesTypesAdministrations.query()
+const restrictionsTitresTypesEtapesTypesAdministrationsGet = async () =>
+  RestrictionsTitresTypesEtapesTypesAdministrations.query()
 
 export {
   autorisationsDomainesGet,
   autorisationsEtapesTypesGet,
-  autorisationsTitresTypesAdministrationsGet,
-  autorisationsTitresTypesEtapesTypesAdministrationsGet,
   autorisationsTitresTypesTitresStatutsGet,
-  autorisationsTitresTypesTitresStatutsAdministrationsGet
+  autorisationsTitresTypesAdministrationsGet,
+  restrictionsTitresTypesTitresStatutsAdministrationsGet,
+  restrictionsTitresTypesEtapesTypesAdministrationsGet
 }

@@ -18,7 +18,7 @@ import { dupRemove } from '../../../tools/index'
 
 import metas from '../../../database/cache/metas'
 
-import autorisations from '../../../database/cache/autorisations'
+import { autorisations, restrictions } from '../../../database/cache/autorisations'
 import { permissionsCheck } from '../permissions/permissions-check'
 import {
   titreIsPublicCheck,
@@ -97,7 +97,7 @@ const titreEtapeAutorisationLectureFilter = (
     // pour toutes les administrations de l'utilisateur
     const isEtapeTypeAdministrationRestricted =
       user.administrations?.every(({ id: administrationId }) =>
-        autorisations.titresTypesEtapesTypesAdministrations.some(
+        restrictions.titresTypesEtapesTypesAdministrations.some(
           rea =>
             administrationId === rea.administrationId &&
             rea.etapeTypeId === etapeTypeId &&

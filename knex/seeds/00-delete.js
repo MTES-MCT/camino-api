@@ -31,13 +31,13 @@ exports.seed = seeding(async ({ del }) => {
 
   // 08
   await Promise.all([
-    del('autorisations__domaines'),
-    del('autorisations__titresTypes__titresStatuts'),
-    del('autorisations__etapesTypes'),
+    del('a__domaines'),
+    del('a__titresTypes__titresStatuts'),
+    del('a__etapesTypes'),
 
-    del('administrations__titres_types'),
-    del('administrations__titres_types__titres_statuts'),
-    del('administrations__titres_types__etapes_types')
+    del('a__titres_types__administrations'),
+    del('r__titres_types__titres_statuts__administrations'),
+    del('r__titres_types__etapes_types__administrations')
   ])
 
   // 07
