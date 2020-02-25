@@ -1,4 +1,4 @@
-import { IToken, ITitreDemarche, ITitreEtape } from '../../types'
+import { IToken, ITitreDemarche, ITitreEtapeFiltre } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 
@@ -49,8 +49,8 @@ const demarches = async (
     titresTypeIds?: string[] | null
     titresDomaineIds?: string[] | null
     titresStatutIds?: string[] | null
-    etapesInclues?: Partial<ITitreEtape>[] | null
-    etapesExclues?: Partial<ITitreEtape>[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
   },
   context: IToken,
   info: GraphQLResolveInfo
