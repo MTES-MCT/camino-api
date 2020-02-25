@@ -1,7 +1,7 @@
 {
   "pages": 20,
   "page": 1,
-  "titreTypeIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
-  "titreDomaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
-  "titreStatutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"]
+  "titresTypeIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
+  "titresDomaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
+  "titresStatutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"]
 }

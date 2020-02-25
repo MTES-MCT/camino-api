@@ -4,9 +4,12 @@ import { debug } from '../../config/index'
 import { autorisations } from '../../database/cache/autorisations'
 
 import {
+  demarchesTypesGet,
+  demarchesStatutsGet,
   documentsTypesGet,
   domainesGet,
   devisesGet,
+  etapesTypesGet,
   geoSystemesGet,
   permissionsGet,
   permissionGet,
@@ -150,6 +153,48 @@ const statuts = async (_: unknown, context: IToken) => {
   }
 }
 
+const demarchesTypes = async () => {
+  try {
+    const demarchesTypes = await demarchesTypesGet()
+
+    return demarchesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const demarchesStatuts = async () => {
+  try {
+    const demarchesStatuts = await demarchesStatutsGet()
+
+    return demarchesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapesTypes = async () => {
+  try {
+    const etapesTypes = await etapesTypesGet()
+
+    return etapesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const version = () => {
   return npmPackage.version
 }
@@ -172,8 +217,11 @@ const activitesTypes = async () => {
 
 export {
   devises,
+  demarchesTypes,
+  demarchesStatuts,
   documentsTypes,
   domaines,
+  etapesTypes,
   geoSystemes,
   permission,
   permissions,

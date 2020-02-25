@@ -9,9 +9,9 @@ const titresDemarchesGet = async (
     page,
     typeIds,
     statutIds,
-    titreDomaineIds,
-    titreTypeIds,
-    titreStatutIds,
+    titresDomaineIds,
+    titresTypeIds,
+    titresStatutIds,
     etapesInclues,
     etapesExclues
   }: {
@@ -19,9 +19,9 @@ const titresDemarchesGet = async (
     page?: number | null
     typeIds?: string[] | null
     statutIds?: string[] | null
-    titreDomaineIds?: string[] | null
-    titreTypeIds?: string[] | null
-    titreStatutIds?: string[] | null
+    titresDomaineIds?: string[] | null
+    titresTypeIds?: string[] | null
+    titresStatutIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
@@ -48,22 +48,20 @@ const titresDemarchesGet = async (
     q.whereIn('titresDemarches.statutId', statutIds)
   }
 
-  if (titreDomaineIds) {
-    q.joinRelated('titre').whereIn('titre.domaineId', titreDomaineIds)
+  if (titresDomaineIds) {
+    q.joinRelated('titre').whereIn('titre.domaineId', titresDomaineIds)
   }
 
-  if (titreTypeIds) {
-    q.joinRelated('titre.type').whereIn('titre:type.typeId', titreTypeIds)
+  if (titresTypeIds) {
+    q.joinRelated('titre.type').whereIn('titre:type.typeId', titresTypeIds)
   }
 
-  if (titreStatutIds) {
-    q.joinRelated('titre').whereIn('titre.statutId', titreStatutIds)
+  if (titresStatutIds) {
+    q.joinRelated('titre').whereIn('titre.statutId', titresStatutIds)
   }
 
   if (etapesInclues?.length || etapesExclues?.length) {
-    q
-      .joinRelated('etapes')
-      .groupBy('titresDemarches.id')
+    q.joinRelated('etapes').groupBy('titresDemarches.id')
 
     if (etapesInclues?.length) {
       const raw = etapesInclues
@@ -97,26 +95,24 @@ const titresDemarchesGet = async (
     }
 
     if (etapesExclues?.length) {
-      const raw = etapesExclues
-        .map(({ statutId }) => {
-          const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
+      const raw = etapesExclues.map(({ statutId }) => {
+        const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
 
-          return `count(*) filter (where etapes.type_id = ? ${statutCond}) = 0`
+        return `count(*) filter (where etapes.type_id = ? ${statutCond}) = 0`
+      })
+
+      q.havingRaw(
+        `(${raw})`,
+        etapesExclues.flatMap(({ typeId, statutId }) => {
+          const values = [typeId]
+
+          if (statutId) {
+            values.push(statutId)
+          }
+
+          return values
         })
-
-      q
-        .havingRaw(
-          `(${raw})`,
-          etapesExclues.flatMap(({ typeId, statutId }) => {
-            const values = [typeId]
-
-            if (statutId) {
-              values.push(statutId)
-            }
-
-            return values
-          })
-        )
+      )
     }
   }
 

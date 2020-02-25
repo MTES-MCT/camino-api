@@ -59,9 +59,9 @@ type Query {
   demarches(
     pages: Int
     page: Int
-    titreTypeIds: [ID]
-    titreDomaineIds: [ID]
-    titreStatutIds: [ID]
+    titresTypeIds: [ID]
+    titresDomaineIds: [ID]
+    titresStatutIds: [ID]
     typeIds: [ID]
     statutIds: [ID]
     etapesInclues: [InputEtapeFiltre]
@@ -76,6 +76,15 @@ type Query {
 
   "Types d'activités"
   activitesTypes: [ActiviteType]
+
+  "Types de démarches"
+  demarchesTypes: [DemarcheType]
+
+  "Statuts de démarches"
+  demarchesStatuts: [DemarcheStatut]
+
+  "Types d'étapes"
+  etapesTypes: [EtapeType]
 
   "__*__ Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur

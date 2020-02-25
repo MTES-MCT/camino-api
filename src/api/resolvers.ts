@@ -46,8 +46,11 @@ import {
 
 import {
   devises,
+  demarchesTypes,
+  demarchesStatuts,
   documentsTypes,
   domaines,
+  etapesTypes,
   geoSystemes,
   permission,
   permissions,
@@ -59,6 +62,7 @@ import {
   utilisateurDomaines,
   activitesTypes
 } from './resolvers/metas'
+
 import { substance, substances } from './resolvers/substances'
 import {
   entreprise,
@@ -81,6 +85,9 @@ export default {
 
   //  queries
   demarches,
+  demarchesTypes,
+  demarchesStatuts,
+  etapesTypes,
   devises,
   documentsTypes,
   domaines,

@@ -36,9 +36,9 @@ const demarches = async (
     page,
     typeIds,
     statutIds,
-    titreTypeIds,
-    titreDomaineIds,
-    titreStatutIds,
+    titresTypeIds,
+    titresDomaineIds,
+    titresStatutIds,
     etapesInclues,
     etapesExclues
   }: {
@@ -46,9 +46,9 @@ const demarches = async (
     page?: number | null
     typeIds?: string[] | null
     statutIds?: string[] | null
-    titreTypeIds?: string[] | null
-    titreDomaineIds?: string[] | null
-    titreStatutIds?: string[] | null
+    titresTypeIds?: string[] | null
+    titresDomaineIds?: string[] | null
+    titresStatutIds?: string[] | null
     etapesInclues?: Partial<ITitreEtape>[] | null
     etapesExclues?: Partial<ITitreEtape>[] | null
   },
@@ -74,9 +74,9 @@ const demarches = async (
       page,
       typeIds,
       statutIds,
-      titreTypeIds,
-      titreDomaineIds,
-      titreStatutIds,
+      titresTypeIds,
+      titresDomaineIds,
+      titresStatutIds,
       etapesInclues,
       etapesExclues
     },

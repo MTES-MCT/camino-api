@@ -13,7 +13,8 @@ class DemarchesStatuts extends Model {
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
-      couleur: { type: 'string', maxLength: 8 }
+      couleur: { type: 'string', maxLength: 8 },
+      ordre: { type: 'number' }
     }
   }
 }

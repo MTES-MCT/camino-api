@@ -43,8 +43,7 @@ const titresGet = async (
   }
 
   if (typeIds) {
-    q.joinRelated('type')
-      .whereIn('type.typeId', typeIds)
+    q.joinRelated('type').whereIn('type.typeId', typeIds)
   }
 
   if (domaineIds) {
