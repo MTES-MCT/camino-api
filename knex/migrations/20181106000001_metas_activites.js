@@ -1,5 +1,5 @@
-exports.up = knex => {
-  return knex.schema
+exports.up = knex =>
+  knex.schema
     .createTable('activitesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
@@ -52,13 +52,11 @@ exports.up = knex => {
       table.string('nom').notNullable()
       table.string('couleur', 16).notNullable()
     })
-}
 
-exports.down = knex => {
-  return knex.schema
+exports.down = knex =>
+  knex.schema
     .dropTable('activitesTypes__pays')
     .dropTable('titresTypes__activitesTypes')
     .dropTable('activitesTypes__administrations')
     .dropTable('activitesTypes')
     .dropTable('activitesStatuts')
-}

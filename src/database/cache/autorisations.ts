@@ -2,9 +2,9 @@ import {
   IAutorisationDomaine,
   IAutorisationTitreTypeAdministration,
   IAutorisationTitreTypeTitreStatut,
-  IAutorisationTitreTypeTitreStatutAdministration,
+  IRestrictionTitreTypeTitreStatutAdministration,
   IAutorisationEtapeType,
-  IAutorisationTitreTypeEtapeTypeAdministration
+  IRestrictionTitreTypeEtapeTypeAdministration
 } from '../../types'
 
 import { debug } from '../../config/index'
@@ -13,9 +13,9 @@ import {
   autorisationsDomainesGet,
   autorisationsTitresTypesAdministrationsGet,
   autorisationsTitresTypesTitresStatutsGet,
-  autorisationsTitresTypesTitresStatutsAdministrationsGet,
+  restrictionsTitresTypesTitresStatutsAdministrationsGet,
   autorisationsEtapesTypesGet,
-  autorisationsTitresTypesEtapesTypesAdministrationsGet
+  restrictionsTitresTypesEtapesTypesAdministrationsGet
 } from '../queries/autorisations'
 
 const autorisations = {
@@ -24,8 +24,11 @@ const autorisations = {
   statutIds: [] as string[],
   typesStatuts: [] as IAutorisationTitreTypeTitreStatut[],
   titresTypesAdministrations: [] as IAutorisationTitreTypeAdministration[],
-  titresTypesTitresStatutsAdministrations: [] as IAutorisationTitreTypeTitreStatutAdministration[],
-  titresTypesEtapesTypesAdministrations: [] as IAutorisationTitreTypeEtapeTypeAdministration[]
+}
+
+const restrictions = {
+  titresTypesTitresStatutsAdministrations: [] as IRestrictionTitreTypeTitreStatutAdministration[],
+  titresTypesEtapesTypesAdministrations: [] as IRestrictionTitreTypeEtapeTypeAdministration[]
 }
 
 const autorisationsInit = async () => {
@@ -51,11 +54,9 @@ const autorisationsInit = async () => {
 
   autorisations.titresTypesAdministrations = await autorisationsTitresTypesAdministrationsGet()
 
-  autorisations.titresTypesTitresStatutsAdministrations = await autorisationsTitresTypesTitresStatutsAdministrationsGet()
+  restrictions.titresTypesTitresStatutsAdministrations = await restrictionsTitresTypesTitresStatutsAdministrationsGet()
 
-  autorisations.titresTypesEtapesTypesAdministrations = await autorisationsTitresTypesEtapesTypesAdministrationsGet()
+  restrictions.titresTypesEtapesTypesAdministrations = await restrictionsTitresTypesEtapesTypesAdministrationsGet()
 }
 
-export default autorisations
-
-export { autorisationsInit }
+export { autorisations, restrictions, autorisationsInit }

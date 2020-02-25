@@ -5,7 +5,7 @@ import {
   IAdministration
 } from '../../../types'
 
-import autorisations from '../../../database/cache/autorisations'
+import { autorisations } from '../../../database/cache/autorisations'
 
 import {
   permissionsCheck,

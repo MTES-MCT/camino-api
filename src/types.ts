@@ -300,7 +300,7 @@ interface IAutorisationTitreTypeAdministration {
   associee: boolean
 }
 
-interface IAutorisationTitreTypeTitreStatutAdministration {
+interface IRestrictionTitreTypeTitreStatutAdministration {
   administrationId: string
   titreTypeId: string
   titreStatutId: string
@@ -309,7 +309,7 @@ interface IAutorisationTitreTypeTitreStatutAdministration {
   etapesModificationInterdit: boolean
 }
 
-interface IAutorisationTitreTypeEtapeTypeAdministration {
+interface IRestrictionTitreTypeEtapeTypeAdministration {
   administrationId: string
   titreTypeId: string
   etapeTypeId: string
@@ -697,8 +697,8 @@ export {
   IAutorisationTitreTypeTitreStatut,
   IAutorisationEtapeType,
   IAutorisationTitreTypeAdministration,
-  IAutorisationTitreTypeTitreStatutAdministration,
-  IAutorisationTitreTypeEtapeTypeAdministration,
+  IRestrictionTitreTypeTitreStatutAdministration,
+  IRestrictionTitreTypeEtapeTypeAdministration,
   ITitreStatut,
   ISubstance,
   ISubstanceLegale,

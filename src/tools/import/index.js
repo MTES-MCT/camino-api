@@ -52,29 +52,31 @@ const spreadsheetToJsonFiles = async ({ id, name, tables, prefixFileName }) => {
       row.values ? rowsToJson(row.values.shift(), row.values) : []
     )
 
-    filesList.forEach(({ path, cb }, i) => {
-      // applique le callback si il existe
-      const json = cb
-        ? jsons[i].map(row =>
-            Object.keys(cb).reduce((row, col) => {
-              const value = row[col]
-              if (!(col in row) || !value) return row
+    await Promise.all(
+      filesList.map(({ path, cb }, i) => {
+        // applique le callback si il existe
+        const json = cb
+          ? jsons[i].map(row =>
+              Object.keys(cb).reduce((row, col) => {
+                const value = row[col]
+                if (!(col in row) || !value) return row
 
-              try {
-                row[col] = cb[col](value)
+                try {
+                  row[col] = cb[col](value)
 
-                return row
-              } catch (e) {
-                throw new Error(
-                  `Could not parse field ${path}, ${col} = ${value}: ${e.message}`
-                )
-              }
-            }, row)
-          )
-        : jsons[i]
+                  return row
+                } catch (e) {
+                  throw new Error(
+                    `Could not parse field ${path}, ${col} = ${value}: ${e.message}`
+                  )
+                }
+              }, row)
+            )
+          : jsons[i]
 
-      fileCreate(path, JSON.stringify(json, null, 2))
-    })
+        return fileCreate(path, JSON.stringify(json, null, 2))
+      })
+    )
   } catch (error) {
     errorLog(error)
   }

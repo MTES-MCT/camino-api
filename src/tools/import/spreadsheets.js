@@ -193,9 +193,9 @@ const administrationsAutorisations = {
   name: 'administrations-autorisations',
   id: administrationsAutorisationsSpreadsheetId,
   tables: [
-    { name: 'autorisations__titres_types__administrations' },
-    { name: 'restrictions__titres_types__titres_statuts__administrations' },
-    { name: 'restrictions__titres_types__etapes_types__administrations' }
+    { name: 'a__titres_types__administrations' },
+    { name: 'r__titres_types__titres_statuts__administrations' },
+    { name: 'r__titres_types__etapes_types__administrations' }
   ]
 }
 
@@ -231,9 +231,9 @@ const autorisations = {
   name: 'autorisations',
   id: autorisationsSpreadsheetId,
   tables: [
-    { name: 'autorisations__domaines' },
-    { name: 'autorisations__titres_types__titres_statuts' },
-    { name: 'autorisations__etapes_types' }
+    { name: 'a__domaines' },
+    { name: 'a__titres_types__titres_statuts' },
+    { name: 'a__etapes_types' }
   ]
 }
 
