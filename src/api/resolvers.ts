@@ -24,6 +24,7 @@ import {
 
 import {
   titreDemarchesTypes,
+  demarches,
   demarcheCreer,
   demarcheModifier,
   demarcheSupprimer
@@ -79,6 +80,7 @@ export default {
   FileUpload: GraphQLUpload,
 
   //  queries
+  demarches,
   devises,
   documentsTypes,
   domaines,

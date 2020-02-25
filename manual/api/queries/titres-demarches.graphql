@@ -1,0 +1,93 @@
+query Demarches(
+  $pages: Int
+  $page: Int
+  $titreTypeIds: [ID]
+  $titreDomaineIds: [ID]
+  $titreStatutIds: [ID]
+  $typeIds: [ID]
+  $statutIds: [ID]
+  $etapesInclues: [InputEtapeFiltre]
+  $etapesExclues: [InputEtapeFiltre]
+) {
+  demarches(
+    pages: $pages
+    page: $page
+    titreTypeIds: $titreTypeIds
+    titreDomaineIds: $titreDomaineIds
+    titreStatutIds: $titreStatutIds
+    typeIds: $typeIds
+    statutIds: $statutIds
+    etapesInclues: $etapesInclues
+    etapesExclues: $etapesExclues
+  ) {
+    ...demarche
+  }
+}
+
+fragment demarche on Demarche {
+  id
+  ordre
+  type {
+    id
+    nom
+  }
+  statut {
+    id
+    nom
+    couleur
+  }
+  phase {
+    dateDebut
+    dateFin
+    statut {
+      id
+      nom
+      couleur
+    }
+  }
+  titre {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  id
+  nom
+  type {
+    id
+    type {
+      id
+      nom
+    }
+  }
+  domaine {
+    id
+    nom
+  }
+  statut {
+    id
+    nom
+    couleur
+  }
+  references {
+    ...reference
+  }
+  volume
+  surface
+  volumeUnite {
+    id
+    nom
+  }
+}
+
+fragment reference on Reference {
+  type {
+    ...referenceType
+  }
+  nom
+}
+
+fragment referenceType on ReferenceType {
+  id
+  nom
+}

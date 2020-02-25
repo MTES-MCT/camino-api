@@ -4,7 +4,7 @@ import '../../src/database/index'
 import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 
 async function main() {
-  let res = await titresDemarchesGet({ demarchesIds: ['abr', 'ren', 'ret'] })
+  let res = await titresDemarchesGet({ typeIds: ['abr', 'ren', 'ret'] })
 
   res = res.filter(({ typeId, etapes }) => {
     if (typeId === 'ren') {

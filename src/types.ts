@@ -1,5 +1,9 @@
 import { FileUpload } from 'graphql-upload'
 
+interface IFields {
+  [key: string]: IFields
+}
+
 interface Index {
   [id: string]: any
 }
@@ -447,6 +451,7 @@ interface ITitreCommune {
 interface ITitreDemarche {
   id: string
   titreId: string
+  titre?: ITitre | null
   typeId: string
   type?: IDemarcheType | null
   statutId?: string | null
@@ -661,6 +666,7 @@ type TitreEtapeProp =
 
 export {
   Index,
+  IFields,
   IActiviteStatut,
   IActiviteType,
   ISection,

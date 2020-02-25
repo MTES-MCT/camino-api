@@ -1,15 +1,25 @@
-import { IToken, IDemarcheType, ITitreDemarche } from '../../types'
+import { IToken, ITitreDemarche, ITitreEtape } from '../../types'
+import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
+
+import graphFieldsBuild from './graph/fields-build'
+import graphBuild from './graph/build'
+import graphFormat from './graph/format'
+import { titreFieldsAdd } from './graph/titre-fields-add'
 
 import metas from '../../database/cache/metas'
 
 import { permissionsCheck } from './permissions/permissions-check'
 import { titreDemarchePermissionAdministrationsCheck } from './permissions/titre-edition'
 
-import { titreFormat, demarcheTypeFormat } from './format/titres'
+import { titreFormat } from './format/titres'
+
+import { demarchesTypesFormat } from './format/demarches-types'
+import { titresDemarchesFormat } from './format/titres-demarches'
 
 import {
   titreDemarcheGet,
+  titresDemarchesGet,
   titreDemarcheCreate,
   titreDemarcheUpdate,
   titreDemarcheDelete
@@ -19,6 +29,72 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
+
+const demarches = async (
+  {
+    pages,
+    page,
+    typeIds,
+    statutIds,
+    titreTypeIds,
+    titreDomaineIds,
+    titreStatutIds,
+    etapesInclues,
+    etapesExclues
+  }: {
+    pages?: number | null
+    page?: number | null
+    typeIds?: string[] | null
+    statutIds?: string[] | null
+    titreTypeIds?: string[] | null
+    titreDomaineIds?: string[] | null
+    titreStatutIds?: string[] | null
+    etapesInclues?: Partial<ITitreEtape>[] | null
+    etapesExclues?: Partial<ITitreEtape>[] | null
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  let fields = graphFieldsBuild(info)
+  fields = titreFieldsAdd(fields)
+
+  if (!pages) {
+    pages = 200
+  }
+
+  if (!page) {
+    page = 1
+  }
+
+  const graph = graphBuild(fields, 'titre', graphFormat)
+
+  const titresDemarches = await titresDemarchesGet(
+    {
+      pages,
+      page,
+      typeIds,
+      statutIds,
+      titreTypeIds,
+      titreDomaineIds,
+      titreStatutIds,
+      etapesInclues,
+      etapesExclues
+    },
+    { graph }
+  )
+
+  const user = context.user && (await utilisateurGet(context.user.id))
+
+  const isSuper = permissionsCheck(user, ['super'])
+  const isAdmin = permissionsCheck(user, ['admin'])
+
+  return titresDemarchesFormat(
+    user,
+    titresDemarches,
+    { isSuper, isAdmin },
+    fields
+  )
+}
 
 const titreDemarchesTypes = async (
   {
@@ -30,37 +106,18 @@ const titreDemarchesTypes = async (
   if (!context.user) throw new Error('droits insuffisants')
 
   const titre = await titreGet(titreId, { graph: '[demarches]' })
-
   const titreType = metas.titresTypes.find(t => t.id === titre.typeId)
-  if (!titreType) throw new Error(`${titre.typeId} inexistant`)
+  if (!titreType || !titreType.demarchesTypes)
+    throw new Error(`${titre.typeId} inexistant`)
 
   const user = context.user && (await utilisateurGet(context.user.id))
 
-  return titreType.demarchesTypes!.reduce((demarchesTypes: IDemarcheType[], dt) => {
-    // si
-    // - le param demarcheTypeId n'existe pas (-> création d'une démarche)
-    //   ou ce param est différent de celui du type de démarche et
-    // - le type démarche est unique et
-    // - une autre démarche du même type existe au sein du titre
-    // alors
-    // - on ne l'ajoute pas à la liste des types de démarches disponibles
-    if (
-      (!demarcheTypeId || dt.id !== demarcheTypeId) &&
-      dt.unique &&
-      titre.demarches?.find(d => d.typeId === dt.id)
-    ) {
-      return demarchesTypes
-    }
-
-    dt = demarcheTypeFormat(user, dt, titre.typeId, titre.statutId!)
-
-    if (dt.editable) {
-      dt.titreTypeId = titre.typeId
-      demarchesTypes.push(dt)
-    }
-
-    return demarchesTypes
-  }, [])
+  return demarchesTypesFormat(
+    user,
+    titreType.demarchesTypes,
+    demarcheTypeId,
+    titre
+  )
 }
 
 const demarcheCreer = async (
@@ -182,6 +239,7 @@ const demarcheSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
 export {
   titreDemarchesTypes,
+  demarches,
   demarcheCreer,
   demarcheModifier,
   demarcheSupprimer

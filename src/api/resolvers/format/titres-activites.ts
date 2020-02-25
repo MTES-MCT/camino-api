@@ -4,7 +4,8 @@ import {
   ITrimestre,
   IMois,
   IAnnee,
-  IEntreprise
+  IEntreprise,
+  IFields
 } from '../../../types'
 
 import { permissionsCheck } from '../permissions/permissions-check'
@@ -14,14 +15,14 @@ import { titreActivitePermissionCheck } from '../permissions/titre'
 import { titreSectionsFormat } from './titres-sections'
 
 const titreActiviteFormatFields = {
-  periode: true,
-  sections: true
-}
+  periode: {},
+  sections: {}
+} as IFields
 
 const titreActiviteFormat = (
   user: IUtilisateur | undefined,
   ta: ITitreActivite,
-  fields = titreActiviteFormatFields
+  fields: IFields = titreActiviteFormatFields
 ) => {
   // si
   // - le formatage de la période est requis

@@ -121,6 +121,8 @@ type Demarche {
   "Phase, si la démarche donne lieu à une phase"
   phase: Phase
 
+  titre: Titre
+
   "Étapes effectuées sur la démarche"
   etapes: [Etape]
 
@@ -330,6 +332,11 @@ input InputEtapeModification {
   administrations: [InputId!]
   incertitudes: InputIncertitudes
   contenu: Json
+}
+
+input InputEtapeFiltre {
+  typeId: ID
+  statutId: ID
 }
 
 input InputIncertitudes {

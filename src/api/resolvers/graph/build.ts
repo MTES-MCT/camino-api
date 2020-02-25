@@ -1,6 +1,4 @@
-interface IFields {
-  [key: string]: IFields
-}
+import { IFields } from '../../../types'
 
 interface IFieldsFormat {
   (fields: IFields, parent: string): IFields
