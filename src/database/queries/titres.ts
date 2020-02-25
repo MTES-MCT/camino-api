@@ -77,8 +77,8 @@ const titresGet = async (
         })
       })
     })
-      .groupBy('titres.id')
       .joinRelated('references.type')
+      .groupBy('titres.id')
       .havingRaw(
         `(${references
           .map(
@@ -109,8 +109,8 @@ const titresGet = async (
         })
       })
     })
-      .groupBy('titres.id')
       .joinRelated('substances.legales')
+      .groupBy('titres.id')
       .havingRaw(
         `(${substances
           .map(
@@ -143,10 +143,11 @@ const titresGet = async (
         })
       })
     })
-      .groupBy('titres.id')
       .leftJoinRelated(
         '[titulaires.etablissements, amodiataires.etablissements]'
-      ).havingRaw(
+      )
+      .groupBy('titres.id')
+      .havingRaw(
         `(${entreprises
           .map(
             () =>
@@ -185,8 +186,8 @@ const titresGet = async (
         })
       })
     })
-      .groupBy('titres.id')
       .joinRelated('communes.departement.region')
+      .groupBy('titres.id')
       .havingRaw(
         `(${territoires
           .map(

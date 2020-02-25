@@ -179,13 +179,13 @@ const titresDemarchesFormat = (
 
       const titreIsPublic = titreIsPublicCheck(titreDemarche.titre)
 
-      if (titreIsPublic) {
-        const userHasPermission = titrePermissionCheck(
-          user,
-          ['super', 'admin', 'editeur', 'lecteur'],
-          titreDemarche.titre
-        )
+      const userHasPermission = titrePermissionCheck(
+        user,
+        ['super', 'admin', 'editeur', 'lecteur'],
+        titreDemarche.titre
+      )
 
+      if (titreIsPublic || userHasPermission) {
         const titreDemarcheFormated = titreDemarcheFormat(
           user,
           titreDemarche,
