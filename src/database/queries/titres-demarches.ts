@@ -9,8 +9,8 @@ const titresDemarchesGet = async (
     page,
     typeIds,
     statutIds,
-    titreTypeIds,
     titreDomaineIds,
+    titreTypeIds,
     titreStatutIds,
     etapesInclues,
     etapesExclues
@@ -19,8 +19,8 @@ const titresDemarchesGet = async (
     page?: number | null
     typeIds?: string[] | null
     statutIds?: string[] | null
-    titreTypeIds?: string[] | null
     titreDomaineIds?: string[] | null
+    titreTypeIds?: string[] | null
     titreStatutIds?: string[] | null
     etapesInclues?: Partial<ITitreEtape>[] | null
     etapesExclues?: Partial<ITitreEtape>[] | null
@@ -42,6 +42,74 @@ const titresDemarchesGet = async (
 
   if (typeIds) {
     q.whereIn('titresDemarches.typeId', typeIds)
+  }
+
+  if (statutIds) {
+    q.whereIn('titresDemarches.statutId', statutIds)
+  }
+
+  if (titreDomaineIds) {
+    q.joinRelated('titre').whereIn('titre.domaineId', titreDomaineIds)
+  }
+
+  if (titreTypeIds) {
+    q.joinRelated('titre.type').whereIn('titre:type.typeId', titreTypeIds)
+  }
+
+  if (titreStatutIds) {
+    q.joinRelated('titre').whereIn('titre.statutId', titreStatutIds)
+  }
+
+  if (etapesInclues?.length || etapesExclues?.length) {
+    q
+      .joinRelated('etapes')
+      .groupBy('titresDemarches.id')
+
+    if (etapesInclues?.length) {
+      const raw = etapesInclues
+        .map(({ statutId }) => {
+          const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
+
+          return `count(*) filter (where etapes.type_id = ? ${statutCond}) > 0`
+        })
+        .join(') and (')
+
+      q.havingRaw(
+        `(${raw})`,
+        etapesInclues.flatMap(({ typeId, statutId }) => {
+          const values = [typeId]
+
+          if (statutId) {
+            values.push(statutId)
+          }
+
+          return values
+        })
+      )
+    }
+
+    if (etapesExclues?.length) {
+      const raw = etapesExclues
+        .map(({ statutId }) => {
+          const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
+
+          return `count(*) filter (where etapes.type_id = ? ${statutCond}) = 0`
+        })
+
+      q
+        .havingRaw(
+          `(${raw})`,
+          etapesExclues.flatMap(({ typeId, statutId }) => {
+            const values = [typeId]
+
+            if (statutId) {
+              values.push(statutId)
+            }
+
+            return values
+          })
+        )
+    }
   }
 
   return q
