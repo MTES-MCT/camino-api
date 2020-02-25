@@ -335,8 +335,10 @@ input InputEtapeModification {
 }
 
 input InputEtapeFiltre {
-  typeId: ID
+  typeId: ID!
   statutId: ID
+  dateDebut: String
+  dateFin: String
 }
 
 input InputIncertitudes {

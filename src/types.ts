@@ -520,6 +520,13 @@ interface ITitreEtape {
   supprimable?: boolean | null
 }
 
+interface ITitreEtapeFiltre {
+  typeId: string
+  statutId?: string
+  dateDebut?: string
+  dateFin?: string
+}
+
 interface ITitreIncertitudes {
   titreEtapeId: string
   date?: boolean | null
@@ -715,6 +722,7 @@ export {
   ITitreDemarche,
   ITitreDocument,
   ITitreEtape,
+  ITitreEtapeFiltre,
   ITitreIncertitudes,
   ITitrePhase,
   ITitrePoint,
