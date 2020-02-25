@@ -1,39 +1,33 @@
 const seeding = require('../seeding')
 
 // eslint-disable-next-line camelcase
-const autorisations__domaines = require('../../sources/autorisations--domaines.json')
+const a__domaines = require('../../sources/a--domaines.json')
 // eslint-disable-next-line camelcase
-const autorisations_titresTypes_titresStatuts = require('../../sources/autorisations--titres-types--titres-statuts.json')
+const a_titresTypes_titresStatuts = require('../../sources/a--titres-types--titres-statuts.json')
 // eslint-disable-next-line camelcase
-const autorisations__etapesTypes = require('../../sources/autorisations--etapes-types.json')
+const a__etapesTypes = require('../../sources/a--etapes-types.json')
 
 // eslint-disable-next-line camelcase
-const administrations__titresTypes = require('../../sources/a--titres-types--administrations.json')
+const a__titresTypes__administrations = require('../../sources/a--titres-types--administrations.json')
 // eslint-disable-next-line camelcase
-const administrations__titresTypes__titresStatuts = require('../../sources/r--titres-types--titres-statuts--administrations.json')
+const r__titresTypes__titresStatuts__administrations = require('../../sources/r--titres-types--titres-statuts--administrations.json')
 // eslint-disable-next-line camelcase
-const administrations__titresTypes__etapesTypes = require('../../sources/r--titres-types--etapes-types--administrations.json')
+const r__titresTypes__etapesTypes__administrations = require('../../sources/r--titres-types--etapes-types--administrations.json')
 
 exports.seed = seeding(async ({ insert }) => {
   await Promise.all([
-    insert('autorisations__domaines', autorisations__domaines),
-    insert(
-      'autorisations__titresTypes__titresStatuts',
-      autorisations_titresTypes_titresStatuts
-    ),
-    insert('autorisations__etapesTypes', autorisations__etapesTypes),
+    insert('a__domaines', a__domaines),
+    insert('a__titresTypes__titresStatuts', a_titresTypes_titresStatuts),
+    insert('a__etapesTypes', a__etapesTypes),
 
+    insert('a__titresTypes__administrations', a__titresTypes__administrations),
     insert(
-      'autorisations__titresTypes__administrations',
-      administrations__titresTypes
+      'r__titresTypes__titresStatuts__administrations',
+      r__titresTypes__titresStatuts__administrations
     ),
     insert(
-      'restrictions__titresTypes__titresStatuts__administrations',
-      administrations__titresTypes__titresStatuts
-    ),
-    insert(
-      'restrictions__titresTypes__etapesTypes__administrations',
-      administrations__titresTypes__etapesTypes
+      'r__titresTypes__etapesTypes__administrations',
+      r__titresTypes__etapesTypes__administrations
     )
   ])
 })

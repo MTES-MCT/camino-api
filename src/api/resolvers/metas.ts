@@ -1,7 +1,7 @@
 import { IToken, IDomaine } from '../../types'
 import { debug } from '../../config/index'
 
-import autorisations from '../../database/cache/autorisations'
+import { autorisations } from '../../database/cache/autorisations'
 
 import {
   documentsTypesGet,

@@ -47,8 +47,8 @@ class Administrations extends Model {
       join: {
         from: 'administrations.id',
         through: {
-          from: 'administrations__titresTypes.administrationId',
-          to: 'administrations__titresTypes.titreTypeId',
+          from: 'a__titresTypes__administrations.administrationId',
+          to: 'a__titresTypes__administrations.titreTypeId',
           extra: ['gestionnaire', 'associee']
         },
         to: 'titresTypes.id'

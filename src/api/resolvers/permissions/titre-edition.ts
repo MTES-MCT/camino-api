@@ -1,6 +1,6 @@
 import { IUtilisateur } from '../../../types'
 
-import autorisations from '../../../database/cache/autorisations'
+import { autorisations, restrictions } from '../../../database/cache/autorisations'
 
 import { permissionsCheck } from './permissions-check'
 
@@ -46,7 +46,7 @@ const titreTypeStatutPermissionAdministrationCheck = (
   titreTypePermissionAdministrationIdCheck(administrationId, titreTypeId) &&
   // vérifie que l'administration n'a pas de restriction
   // sur le type donné au statut donné
-  !autorisations.titresTypesTitresStatutsAdministrations.some(
+  !restrictions.titresTypesTitresStatutsAdministrations.some(
     restriction =>
       restriction.administrationId === administrationId &&
       restriction.titreTypeId === titreTypeId &&
@@ -73,7 +73,7 @@ const titreEtapePermissionAdministrationCheck = (
   ) &&
   // vérifie que l'administration n'a pas de restriction
   // sur le type d'étape pour le titre au mode d'édition donné
-  !autorisations.titresTypesEtapesTypesAdministrations.some(
+  !restrictions.titresTypesEtapesTypesAdministrations.some(
     restriction =>
       restriction.administrationId === administrationId &&
       restriction.titreTypeId === titreTypeId &&
