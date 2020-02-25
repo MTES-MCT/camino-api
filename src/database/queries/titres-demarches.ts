@@ -1,4 +1,4 @@
-import { ITitreDemarche, ITitreEtape } from '../../types'
+import { ITitreDemarche, ITitreEtapeFiltre } from '../../types'
 import { transaction, Transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
@@ -22,8 +22,8 @@ const titresDemarchesGet = async (
     titreDomaineIds?: string[] | null
     titreTypeIds?: string[] | null
     titreStatutIds?: string[] | null
-    etapesInclues?: Partial<ITitreEtape>[] | null
-    etapesExclues?: Partial<ITitreEtape>[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
   { graph = options.demarches.graph } = {}
 ) => {
@@ -67,20 +67,28 @@ const titresDemarchesGet = async (
 
     if (etapesInclues?.length) {
       const raw = etapesInclues
-        .map(({ statutId }) => {
+        .map(({ statutId, dateDebut, dateFin }) => {
           const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
+          const dateDebutCond = dateDebut ? 'and etapes.date >= ?' : ''
+          const dateFinCond = dateFin ? 'and etapes.date <= ?' : ''
 
-          return `count(*) filter (where etapes.type_id = ? ${statutCond}) > 0`
+          return `count(*) filter (where etapes.type_id = ? ${statutCond} ${dateDebutCond} ${dateFinCond}) > 0`
         })
         .join(') and (')
 
       q.havingRaw(
         `(${raw})`,
-        etapesInclues.flatMap(({ typeId, statutId }) => {
+        etapesInclues.flatMap(({ typeId, statutId, dateDebut, dateFin }) => {
           const values = [typeId]
 
           if (statutId) {
             values.push(statutId)
+          }
+          if (dateDebut) {
+            values.push(dateDebut)
+          }
+          if (dateFin) {
+            values.push(dateFin)
           }
 
           return values
