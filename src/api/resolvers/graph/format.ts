@@ -117,9 +117,11 @@ const graphFormat = (fields: IFields, parent: string) => {
     if (fields.type) {
       fields.type.$modifier = ('orderAsc' as unknown) as IFields
     }
+
+    // ajouter titulaires et amodiataires
   }
 
-  if (parent === 'activites' || parent === 'activite') {
+  if (['activites', 'activite'].includes(parent)) {
     if (!fields.type) {
       fields.type = { id: {} }
     }
@@ -127,21 +129,9 @@ const graphFormat = (fields: IFields, parent: string) => {
     if (!fields.type.administrations) {
       fields.type.administrations = { id: {} }
     }
-
-    if (!fields.titre) {
-      fields.titre = { id: {} }
-    }
-
-    if (!fields.titre.titulaires) {
-      fields.titre.titulaires = { id: {} }
-    }
-
-    if (!fields.titre.amodiataires) {
-      fields.titre.amodiataires = { id: {} }
-    }
   }
 
-  if (parent === 'utilisateurs' || parent === 'utilisateur') {
+  if (['utilisateurs', 'utilisateur'].includes(parent)) {
     if (fields.sections) {
       delete fields.sections
     }
