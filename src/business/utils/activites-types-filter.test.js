@@ -2,10 +2,11 @@ import activitesTypesFilter from './activites-types-filter'
 import {
   titreAucunPays,
   titreMAxmGuf,
-  titreGPrxFra,
+  titreMPrmFra,
   activiteTypeMAxmPxmGuf,
-  activiteTypeGPrxFra
-} from './__mocks__/titre-activite-filter-titres'
+  activiteTypeMPrmFra,
+  activiteSansPays
+} from './__mocks__/activites-types-filter-titres'
 
 describe("filtre les types d'activités", () => {
   test("ne retourne aucun type d'activité sur un titre sans pays", () => {
@@ -21,20 +22,18 @@ describe("filtre les types d'activités", () => {
   })
 
   test("retourne un type d'activité sur un titre AXM de métropole", () => {
-    expect(activitesTypesFilter(titreGPrxFra, activiteTypeGPrxFra)).toEqual(
+    expect(activitesTypesFilter(titreMPrmFra, activiteTypeMPrmFra)).toEqual(
       true
     )
   })
 
   test("ne retourne aucun type d'activité de titre AXM Guyane sur un titre AXM de métropole", () => {
-    expect(activitesTypesFilter(titreGPrxFra, activiteTypeMAxmPxmGuf)).toEqual(
+    expect(activitesTypesFilter(titreMPrmFra, activiteTypeMAxmPxmGuf)).toEqual(
       false
     )
   })
 
-  test("ne retourne aucun type d'activité sur un titre qui n'a pas de pays", () => {
-    expect(activitesTypesFilter(titreGPrxFra, activiteTypeMAxmPxmGuf)).toEqual(
-      false
-    )
+  test("ne retourne aucun type d'activité sur une activité qui n'a pas de pays", () => {
+    expect(activitesTypesFilter(titreMPrmFra, activiteSansPays)).toEqual(false)
   })
 })

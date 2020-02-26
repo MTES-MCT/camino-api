@@ -5,10 +5,10 @@ const titreMAxmGuf = {
   pays: [{ id: 'GUF' }]
 }
 
-const titreGPrxFra = {
-  id: 'g-pr-saint-jean-2016',
-  domaineId: 'g',
-  typeId: 'prx',
+const titreMPrmFra = {
+  id: 'm-pr-saint-jean-2016',
+  domaineId: 'm',
+  typeId: 'prm',
   pays: [{ id: 'FRA' }]
 }
 
@@ -32,20 +32,30 @@ const activiteTypeMAxmPxmGuf = {
   pays: [{ id: 'GUF' }]
 }
 
-const activiteTypeGPrxFra = {
+const activiteTypeMPrmFra = {
   titresTypes: [
     {
-      domaineId: 'g',
-      id: 'prx'
+      domaineId: 'm',
+      id: 'prm'
     }
   ],
   pays: [{ id: 'FRA' }]
 }
 
+const activiteSansPays = {
+  titresTypes: [
+    {
+      domaineId: 'm',
+      id: 'prm'
+    }
+  ]
+}
+
 export {
   titreAucunPays,
   titreMAxmGuf,
-  titreGPrxFra,
+  titreMPrmFra,
   activiteTypeMAxmPxmGuf,
-  activiteTypeGPrxFra
+  activiteTypeMPrmFra,
+  activiteSansPays
 }

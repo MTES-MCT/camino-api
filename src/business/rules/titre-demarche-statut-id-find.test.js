@@ -5,7 +5,7 @@ import {
   titreDemarcheOctDpuAcc,
   titreAxmDemarcheOctDexAcc,
   titreArmDemarcheOctDefAcc,
-  titrePrxDemarcheOctRpuAcc,
+  titrePrmDemarcheOctRpuAcc,
   titreDemarcheProDpuAcc,
   titreDemarcheOctScoFai,
   titreDemarcheOctDexAcc,
@@ -50,8 +50,8 @@ describe("statut d'une démarche", () => {
     )
   })
 
-  test("une démarche d'octroi d'un titre PRX dont l'étape de rpu la plus récente est acceptée a le statut “acceptée”", () => {
-    expect(titreDemarcheStatutIdFind(titrePrxDemarcheOctRpuAcc, 'prx')).toEqual(
+  test("une démarche d'octroi d'un titre PRM dont l'étape de rpu la plus récente est acceptée a le statut “acceptée”", () => {
+    expect(titreDemarcheStatutIdFind(titrePrmDemarcheOctRpuAcc, 'prm')).toEqual(
       'acc'
     )
   })
