@@ -21,9 +21,9 @@ import {
 const autorisations = {
   domaines: [] as IAutorisationDomaine[],
   etapesTypes: [] as IAutorisationEtapeType[],
-  statutIds: [] as string[],
+  statutsIds: [] as string[],
   typesStatuts: [] as IAutorisationTitreTypeTitreStatut[],
-  titresTypesAdministrations: [] as IAutorisationTitreTypeAdministration[],
+  titresTypesAdministrations: [] as IAutorisationTitreTypeAdministration[]
 }
 
 const restrictions = {
@@ -32,8 +32,6 @@ const restrictions = {
 }
 
 const autorisationsInit = async () => {
-  if (debug) return
-
   autorisations.domaines = await autorisationsDomainesGet()
 
   autorisations.typesStatuts = await autorisationsTitresTypesTitresStatutsGet()
@@ -41,18 +39,21 @@ const autorisationsInit = async () => {
   autorisations.etapesTypes = await autorisationsEtapesTypesGet()
 
   // filtre les statuts non-autorisés à la lecture en public
-  autorisations.statutIds = autorisations.typesStatuts.reduce(
-    (statutIds: string[], ts) => {
-      if (ts.publicLecture && !statutIds.includes(ts.titreStatutId)) {
-        statutIds.push(ts.titreStatutId)
+  autorisations.statutsIds = autorisations.typesStatuts.reduce(
+    (statutsIds: string[], ts) => {
+      if (ts.publicLecture && !statutsIds.includes(ts.titreStatutId)) {
+        statutsIds.push(ts.titreStatutId)
       }
 
-      return statutIds
+      return statutsIds
     },
     []
   )
 
   autorisations.titresTypesAdministrations = await autorisationsTitresTypesAdministrationsGet()
+
+  // si on est en mode debug, ne charge pas les restrictions
+  if (debug) return
 
   restrictions.titresTypesTitresStatutsAdministrations = await restrictionsTitresTypesTitresStatutsAdministrationsGet()
 

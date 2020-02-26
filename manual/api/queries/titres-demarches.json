@@ -1,7 +1,9 @@
 {
-  "pages": 20,
+  "intervalle": 100,
   "page": 1,
-  "titresTypeIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
-  "titresDomaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
-  "titresStatutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"]
+  "colonne": "titreStatut",
+  "ordre": "desc",
+  "titresTypesIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
+  "titresDomainesIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
+  "titresStatutsIds": ["dmc", "dmi", "ech", "ind", "mod", "val"]
 }

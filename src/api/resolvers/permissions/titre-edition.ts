@@ -1,21 +1,24 @@
 import { IUtilisateur } from '../../../types'
 
-import { autorisations, restrictions } from '../../../database/cache/autorisations'
+import {
+  autorisations,
+  restrictions
+} from '../../../database/cache/autorisations'
 
 import { permissionsCheck } from './permissions-check'
 
 type TypeName =
-  'titresModificationInterdit' |
-  'demarchesModificationInterdit' |
-  'etapesModificationInterdit'
+  | 'titresModificationInterdit'
+  | 'demarchesModificationInterdit'
+  | 'etapesModificationInterdit'
 type ModeName = 'creationInterdit' | 'modificationInterdit'
 
 const domainePermissionAdministrationCheck = (
   user: IUtilisateur | undefined,
   domaineId: string
 ) =>
-  user?.administrations?.some(
-    a => a.titresTypes?.some(tt => tt.domaineId === domaineId)
+  user?.administrations?.some(a =>
+    a.titresTypes?.some(tt => tt.domaineId === domaineId)
   )
 
 const titreTypePermissionAdministrationIdCheck = (
@@ -103,8 +106,7 @@ const titrePermissionAdministrationsCheck = (
   titreStatutId: string
 ) =>
   user &&
-  (
-    permissionsCheck(user, ['super']) ||
+  (permissionsCheck(user, ['super']) ||
     // vérifie qu'au moins une administration a les droits d'édition
     // sur le type de titre pour un statut donné
     user.administrations!.some(administration =>
@@ -114,8 +116,7 @@ const titrePermissionAdministrationsCheck = (
         titreStatutId,
         'titres'
       )
-    )
-  )
+    ))
 
 const titreDemarchePermissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
@@ -123,8 +124,7 @@ const titreDemarchePermissionAdministrationsCheck = (
   titreStatutId: string
 ) =>
   user &&
-  (
-    permissionsCheck(user, ['super']) ||
+  (permissionsCheck(user, ['super']) ||
     // vérifie qu'au moins une administration a les droits d'édition
     // sur les démarches du titre au statut donné
     user.administrations!.some(administration =>
@@ -134,8 +134,7 @@ const titreDemarchePermissionAdministrationsCheck = (
         titreStatutId,
         'demarches'
       )
-    )
-  )
+    ))
 
 const titreEtapePermissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
@@ -145,8 +144,7 @@ const titreEtapePermissionAdministrationsCheck = (
   mode: 'creation' | 'modification'
 ) =>
   user &&
-  (
-    permissionsCheck(user, ['super']) ||
+  (permissionsCheck(user, ['super']) ||
     user.administrations!.some(administration =>
       // vérifie qu'au moins une administration a les droits d'édition
       // sur le type de démarche au statut donné
@@ -157,8 +155,7 @@ const titreEtapePermissionAdministrationsCheck = (
         etapeTypeId,
         mode
       )
-    )
-  )
+    ))
 
 export {
   domainePermissionAdministrationCheck,

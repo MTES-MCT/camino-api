@@ -1,6 +1,6 @@
 import * as express from 'express'
 import { join } from 'path'
-import { documentNameGet } from '../api/resolvers/documents'
+import { fileNameGet } from '../api/rest/files'
 
 // bug de typage de express-jwt
 // https://github.com/auth0/express-jwt/issues/215
@@ -18,7 +18,7 @@ const fileGet = async (
   try {
     const userId = req.user && req.user.id
     const { titreDocumentId } = req.params
-    const documentName = await documentNameGet(userId, titreDocumentId)
+    const documentName = await fileNameGet(userId, titreDocumentId)
 
     const options = {
       dotfiles: 'deny',

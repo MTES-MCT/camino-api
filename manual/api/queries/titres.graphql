@@ -1,17 +1,17 @@
 query Titres(
-  $typeIds: [ID!]
-  $domaineIds: [ID!]
-  $statutIds: [ID!]
-  $substances: [String!]
-  $noms: [String!]
-  $entreprises: [String!]
-  $references: [String!]
-  $territoires: [String!]
+  $domainesIds: [ID!]
+  $typesIds: [ID!]
+  $statutsIds: [ID!]
+  $substances: String
+  $noms: String
+  $entreprises: String
+  $references: String
+  $territoires: String
 ) {
   titres(
-    typeIds: $typeIds
-    domaineIds: $domaineIds
-    statutIds: $statutIds
+    domainesIds: $domainesIds
+    typesIds: $typesIds
+    statutsIds: $statutsIds
     substances: $substances
     noms: $noms
     entreprises: $entreprises

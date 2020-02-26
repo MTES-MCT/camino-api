@@ -5,14 +5,14 @@ import { titresGet } from '../../src/database/queries/titres'
 
 async function main() {
   const titres = await titresGet({
-    typeIds: ['cxx', 'pxm', 'axm'],
-    domaineIds: ['m'],
-    statutIds: undefined,
+    typesIds: ['cxx', 'pxm', 'axm'],
+    domainesIds: ['m'],
+    statutsIds: undefined,
     substances: undefined,
     noms: undefined,
     entreprises: undefined,
     references: undefined,
-    territoires: ['guyane']
+    territoires: 'guyane'
   })
 
   const titresFiltered = titres.filter(t => {

@@ -1,8 +1,9 @@
-import { IToken, ITitre } from '../../types'
+import { IToken, ITitre, ITitreColonneInput } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import { permissionsCheck } from './permissions/permissions-check'
 import { titreFormat, titresFormat } from './format/titres'
+import { titresSortAndLimit } from './sort/titres'
 
 import { titrePermissionAdministrationsCheck } from './permissions/titre-edition'
 
@@ -50,23 +51,31 @@ const titre = async (
 
 const titres = async (
   {
-    typeIds,
-    domaineIds,
-    statutIds,
+    intervalle,
+    page,
+    colonne,
+    ordre,
+    typesIds,
+    domainesIds,
+    statutsIds,
     substances,
     noms,
     entreprises,
     references,
     territoires
   }: {
-    typeIds: string[]
-    domaineIds: string[]
-    statutIds: string[]
-    substances: string[]
-    noms: string[]
-    entreprises: string[]
-    references: string[]
-    territoires: string[]
+    intervalle?: number | null
+    page?: number | null
+    ordre?: 'asc' | 'desc' | null
+    colonne?: ITitreColonneInput | 'activitesTotal' | null
+    typesIds: string[]
+    domainesIds: string[]
+    statutsIds: string[]
+    substances: string
+    noms: string
+    entreprises: string
+    references: string
+    territoires: string
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -75,11 +84,27 @@ const titres = async (
     const user = context.user && (await utilisateurGet(context.user.id))
     const fields = graphFieldsBuild(info)
     const graph = graphBuild(fields, 'titres', graphFormat)
+
+    let activitesSortParams = null
+
+    if (colonne === 'activitesTotal') {
+      activitesSortParams = { intervalle, page, ordre }
+
+      colonne = null
+      intervalle = null
+      page = null
+      ordre = null
+    }
+
     const titres = await titresGet(
       {
-        typeIds,
-        domaineIds,
-        statutIds,
+        intervalle,
+        page,
+        ordre,
+        colonne,
+        typesIds,
+        domainesIds,
+        statutsIds,
         substances,
         noms,
         entreprises,
@@ -89,7 +114,11 @@ const titres = async (
       { graph }
     )
 
-    return titres && titresFormat(user, titres, fields)
+    const titresFormatted = titres && titresFormat(user, titres, fields)
+
+    return titresFormatted && activitesSortParams
+      ? titresSortAndLimit(titresFormatted, activitesSortParams)
+      : titresFormatted
   } catch (e) {
     if (debug) {
       console.error(e)

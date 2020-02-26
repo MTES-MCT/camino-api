@@ -3,7 +3,7 @@ const decamelize = require('decamelize')
 
 const seeding = require('../seeding')
 
-const domaineIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w', 'reprise']
+const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w', 'reprise']
 
 const files = [
   'titres',
@@ -25,7 +25,7 @@ const files = [
 ]
 
 const data = files.reduce((d, file) => {
-  d[file] = domaineIds.reduce((res, domaineId) => {
+  d[file] = domainesIds.reduce((res, domaineId) => {
     const fileName = decamelize(`titres-${domaineId}-${file}`, '-')
 
     let content

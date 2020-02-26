@@ -195,7 +195,7 @@ const ids = null && [
 
 const options = {
   ids,
-  typeIds: ['arm']
+  typesIds: ['arm']
 }
 
 titresContenuMigrate(options, modifs)

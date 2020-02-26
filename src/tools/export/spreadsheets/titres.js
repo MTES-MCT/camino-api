@@ -22,9 +22,9 @@ const titresIdsFilter = process.env.GOOGLE_EXPORT_TITRES_IDS
 
 const get = async domaineId => {
   const titres = await titresGet({
-    typeIds: undefined,
-    domaineIds: [domaineId],
-    statutIds: undefined,
+    typesIds: undefined,
+    domainesIds: [domaineId],
+    statutsIds: undefined,
     substances: undefined,
     noms: undefined
   })
