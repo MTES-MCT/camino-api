@@ -3,7 +3,7 @@ import {
   titreDemarcheOctDpuAcc,
   titreDemarcheOctDpuInexistante,
   titreAxmDemarcheOctDexAcc,
-  titrePrxDemarcheOctRpuAcc,
+  titrePrmDemarcheOctRpuAcc,
   titreDemarcheOctDpuDateDebut,
   titreDemarchesOctProlongation,
   titreDemarchesOctAnnulation
@@ -36,13 +36,13 @@ describe("phases d'une démarche", () => {
     ])
   })
 
-  test("un titre PRX qui a une démarche d'octroi avec une rpu a une phase", () => {
-    expect(titrePhasesFind([titrePrxDemarcheOctRpuAcc], 'prx')).toEqual([
+  test("un titre PRM qui a une démarche d'octroi avec une rpu a une phase", () => {
+    expect(titrePhasesFind([titrePrmDemarcheOctRpuAcc], 'prm')).toEqual([
       {
         dateDebut: '2200-01-01',
         dateFin: '2200-01-02',
         statutId: 'val',
-        titreDemarcheId: 'h-pr-courdemanges-1988-oct01'
+        titreDemarcheId: 'm-pr-courdemanges-1988-oct01'
       }
     ])
   })

@@ -21,11 +21,11 @@ describe("date de début d'une démarche", () => {
   })
 
   test("retourne la date de la première étape d'octroi d'une rpu dont le statut est acceptée", () => {
-    expect(titreDateDebutFind(titreDemarchesRpu, 'prx')).toBe('1988-03-11')
+    expect(titreDateDebutFind(titreDemarchesRpu, 'prm')).toBe('1988-03-11')
   })
 
   test('retourne la date de début de la première étape de rpu dont le statut est acceptée', () => {
-    expect(titreDateDebutFind(titreDemarchesRpuDateDebut, 'prx')).toBe(
+    expect(titreDateDebutFind(titreDemarchesRpuDateDebut, 'prm')).toBe(
       '1988-03-15'
     )
   })

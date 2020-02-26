@@ -48,14 +48,14 @@ const titreAxmDemarcheOctDexAcc = {
   ]
 }
 
-const titrePrxDemarcheOctRpuAcc = {
-  id: 'h-pr-courdemanges-1988-oct01',
-  titreId: 'h-pr-courdemanges-1988',
+const titrePrmDemarcheOctRpuAcc = {
+  id: 'm-pr-courdemanges-1988-oct01',
+  titreId: 'm-pr-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-pr-courdemanges-1988-oct01-rpu01',
+      id: 'm-pr-courdemanges-1988-oct01-rpu01',
       typeId: 'rpu',
       statutId: 'acc',
       ordre: 1,
@@ -199,7 +199,7 @@ export {
   titreDemarcheOctDpuAcc,
   titreDemarcheOctDpuInexistante,
   titreAxmDemarcheOctDexAcc,
-  titrePrxDemarcheOctRpuAcc,
+  titrePrmDemarcheOctRpuAcc,
   titreDemarcheOctDpuDateDebut,
   titreDemarchesOctProlongation,
   titreDemarchesOctAnnulation
