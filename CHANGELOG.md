@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.21](https://github.com/MTES-MCT/camino-api/compare/v0.24.20...v0.24.21) (2020-02-27)
+
+
+### Features
+
+* **api:** ajoute les requêtes pour les filtres de démarches ([#312](https://github.com/MTES-MCT/camino-api/issues/312)) ([f0d7702](https://github.com/MTES-MCT/camino-api/commit/f0d770274a82ff0c83ab6801be5176fcf9558278))
+* **api:** ajoute un filtre sur les dates des étapes pour la vue des démarches ([#313](https://github.com/MTES-MCT/camino-api/issues/313)) ([5fcb4d8](https://github.com/MTES-MCT/camino-api/commit/5fcb4d8e26666bf190a7e01a8b614e9e9994d334))
+* affiche une liste de démarches ([#308](https://github.com/MTES-MCT/camino-api/issues/308)) ([d515b47](https://github.com/MTES-MCT/camino-api/commit/d515b47ac8a96b5fa1099e807d83b84902e39a97))
+* **api:** autorise l'édition sur tous les types de titres ([#306](https://github.com/MTES-MCT/camino-api/issues/306)) ([66070c2](https://github.com/MTES-MCT/camino-api/commit/66070c29f03bab8fc4cda64c2abda33a68563e49))
+
+
+### Bug Fixes
+
+* ne renomme pas les fichiers si leur nom est identique ([563f491](https://github.com/MTES-MCT/camino-api/commit/563f491fd65662728c7dab0bf822305edb7353e7))
+* **api:** corrige le bouton d'édition des étapes ([69c5b20](https://github.com/MTES-MCT/camino-api/commit/69c5b2030be19724f42a4ea7f49af6b0379451b9))
+* **api:** restreint la liste des types qu'une administration gestionnaire peut créer ([0290ed7](https://github.com/MTES-MCT/camino-api/commit/0290ed7be5eeb79c561601c602d3c56bd714ef5c))
+* **business:** corrige la calcul des étapes de publications des PRM ([#309](https://github.com/MTES-MCT/camino-api/issues/309)) ([02f2336](https://github.com/MTES-MCT/camino-api/commit/02f2336f2995e9aac06591e93ce957e466ce4e65))
+* corrige les noms des autorisations dans les imports et les migrations ([#311](https://github.com/MTES-MCT/camino-api/issues/311)) ([34d9288](https://github.com/MTES-MCT/camino-api/commit/34d9288b226b07e9899bb040b7050f64aaa16706))
+* corrige une erreur typescript ([1016b5d](https://github.com/MTES-MCT/camino-api/commit/1016b5d2b957bc6f3ce7540bc71d6d1b31a56a35))
+* supprime les infos personnelles lors de la suppression d'un utilisateur ([f950e82](https://github.com/MTES-MCT/camino-api/commit/f950e828add16082d6ef06ba895df98bd821bd8f))
+* **dump-public:** vérifie que la variable d'environnement est bien définie ([3d32cc6](https://github.com/MTES-MCT/camino-api/commit/3d32cc6dd2e44398a03ce4ddf95512b0ddd9ef30))
+
 ### [0.24.20](https://github.com/MTES-MCT/camino-api/compare/v0.24.19...v0.24.20) (2020-02-20)
 
 
