@@ -98,7 +98,7 @@ const utilisateurDomaines = async (_: unknown, context: IToken) => {
         if (editable) {
           if (domaine.titresTypes) {
             domaine.titresTypes = domaine.titresTypes.filter(tt =>
-              titreTypePermissionAdministrationCheck(user, tt.id)
+              titreTypePermissionAdministrationCheck(user, tt.id, 'creation')
             )
           }
 
