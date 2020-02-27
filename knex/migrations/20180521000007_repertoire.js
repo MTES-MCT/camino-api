@@ -104,6 +104,5 @@ exports.down = knex =>
     .dropTable('utilisateurs')
     .dropTable('permissions')
     .dropTable('entreprises')
-    .dropTable('administrations__domaines')
     .dropTable('administrations')
     .dropTable('administrationsTypes')

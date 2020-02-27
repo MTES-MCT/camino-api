@@ -30,6 +30,8 @@ exports.up = knex =>
       table
         .string('administrationId')
         .references('administrations.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
         .notNullable()
       table
         .string('titreTypeId')
@@ -43,6 +45,8 @@ exports.up = knex =>
       table
         .string('administrationId')
         .references('administrations.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
         .notNullable()
       table
         .string('titreTypeId')
@@ -61,6 +65,8 @@ exports.up = knex =>
       table
         .string('administrationId')
         .references('administrations.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
         .notNullable()
       table
         .string('titreTypeId')
