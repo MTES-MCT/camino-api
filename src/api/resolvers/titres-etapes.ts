@@ -64,14 +64,13 @@ const demarcheEtapeTypesFormat = (
       return etapesTypes
     }
 
-    et.editable =
-      titreEtapePermissionAdministrationsCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        et.id,
-        etapeTypeId ? 'modification' : 'creation'
-      )
+    et.editable = titreEtapePermissionAdministrationsCheck(
+      user,
+      titre.typeId,
+      titre.statutId!,
+      et.id,
+      etapeTypeId ? 'modification' : 'creation'
+    )
 
     if (et.editable) {
       et.demarcheTypeId = demarcheTypeId
@@ -102,6 +101,8 @@ const demarcheEtapesTypes = async (
   const demarche = await titreDemarcheGet(titreDemarcheId, {
     graph: '[etapes, type.etapesTypes(orderAsc).etapesStatuts]'
   })
+
+  if (!demarche) throw new Error("la démarche n'existe pas")
 
   if (!demarche.etapes) return []
 
