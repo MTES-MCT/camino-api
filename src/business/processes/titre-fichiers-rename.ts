@@ -79,11 +79,13 @@ const titreFichiersRename = async (oldTitreId: string, titre: ITitre) => {
     oldTitreId
   )
 
-  titreFichiersNames.forEach(async fileNames => {
+  for (const fileNames of titreFichiersNames) {
     for (const [fileName, oldFileName] of Object.entries(fileNames)) {
-      await fileRename(oldFileName, fileName)
+      if (fileName !== oldFileName) {
+        await fileRename(oldFileName, fileName)
+      }
     }
-  })
+  }
 }
 
 export { titreFichiersRename }
