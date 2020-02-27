@@ -26,7 +26,6 @@ const titreEtapeFormatFields = {
 const titreEtapeFormat = (
   user: IUtilisateur | undefined,
   titreEtape: ITitreEtape,
-  titreDemarche: ITitreDemarche,
   titreTypeId: string,
   titreStatutId: string,
   {
@@ -39,14 +38,13 @@ const titreEtapeFormat = (
   if (isSuper || isAdmin) {
     titreEtape.editable =
       isSuper ||
-      (titreDemarche.editable &&
-        titreEtapePermissionAdministrationsCheck(
-          user,
-          titreTypeId,
-          titreStatutId,
-          titreEtape.typeId,
-          'modification'
-        ))
+      titreEtapePermissionAdministrationsCheck(
+        user,
+        titreTypeId,
+        titreStatutId,
+        titreEtape.typeId,
+        'modification'
+      )
 
     titreEtape.supprimable = isSuper
 

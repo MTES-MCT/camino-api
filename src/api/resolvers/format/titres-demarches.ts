@@ -147,7 +147,6 @@ const titreDemarcheFormat = (
         const teFormatted = titreEtapeFormat(
           user,
           te,
-          titreDemarche,
           titreTypeId,
           titreStatutId,
           { userHasPermission, isSuper, isAdmin },
