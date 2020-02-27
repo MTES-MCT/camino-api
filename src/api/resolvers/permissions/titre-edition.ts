@@ -20,20 +20,28 @@ const domainePermissionAdministrationCheck = (
 
 const titreTypePermissionAdministrationIdCheck = (
   administrationId: string,
-  titreTypeId: string
+  titreTypeId: string,
+  mode: 'creation' | 'modification'
 ) =>
   autorisations.titresTypesAdministrations.some(
     tta =>
       administrationId === tta.administrationId &&
-      tta.titreTypeId === titreTypeId
+      tta.titreTypeId === titreTypeId &&
+      // seule une administration gestionnaire peut créer un titre de ce type
+      (mode === 'creation' ? tta.gestionnaire : true)
   )
 
 const titreTypePermissionAdministrationCheck = (
   user: IUtilisateur | undefined,
-  titreTypeId: string
+  titreTypeId: string,
+  mode: 'creation' | 'modification'
 ) =>
   user?.administrations?.some(administration =>
-    titreTypePermissionAdministrationIdCheck(administration.id, titreTypeId)
+    titreTypePermissionAdministrationIdCheck(
+      administration.id,
+      titreTypeId,
+      mode
+    )
   )
 
 const titreTypeStatutPermissionAdministrationCheck = (
@@ -43,7 +51,11 @@ const titreTypeStatutPermissionAdministrationCheck = (
   type: 'titres' | 'demarches' | 'etapes'
 ) =>
   // vérifie que le type de titre est éditable par l'administration
-  titreTypePermissionAdministrationIdCheck(administrationId, titreTypeId) &&
+  titreTypePermissionAdministrationIdCheck(
+    administrationId,
+    titreTypeId,
+    'modification'
+  ) &&
   // vérifie que l'administration n'a pas de restriction
   // sur le type donné au statut donné
   !restrictions.titresTypesTitresStatutsAdministrations.some(
@@ -59,10 +71,14 @@ const titreEtapePermissionAdministrationCheck = (
   titreTypeId: string,
   titreStatutId: string,
   etapeTypeId: string,
-  mode: 'modification' | 'creation'
+  mode: 'creation' | 'modification'
 ) =>
   // vérifie que le type de titre est éditable par l'administration
-  titreTypePermissionAdministrationIdCheck(administrationId, titreTypeId) &&
+  titreTypePermissionAdministrationIdCheck(
+    administrationId,
+    titreTypeId,
+    'modification'
+  ) &&
   // vérifie que l'administration a les droits d'édition
   // sur les étapes du titre au statut donné
   titreTypeStatutPermissionAdministrationCheck(
@@ -126,7 +142,7 @@ const titreEtapePermissionAdministrationsCheck = (
   titreTypeId: string,
   titreStatutId: string,
   etapeTypeId: string,
-  mode: 'modification' | 'creation'
+  mode: 'creation' | 'modification'
 ) =>
   user &&
   (
