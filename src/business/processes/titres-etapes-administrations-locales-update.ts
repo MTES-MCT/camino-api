@@ -15,6 +15,7 @@ import {
 
 // administrations associees sur certains types de titres
 // (ces administrations seront associees pour ces types de titres)
+// donc cachées au public dans la liste des administrations du titre
 interface IAdministrationsTypesAssocieesIndex {
   [key: string]: string[]
 }
