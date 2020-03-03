@@ -115,14 +115,12 @@ const titreDemarcheFormat = (
         )
     )
 
-  if (titreDemarche.type) {
-    titreDemarche.type = demarcheTypeFormat(
-      user,
-      titreDemarche.type,
-      titreTypeId,
-      titreStatutId!
-    )
-  }
+  titreDemarche.type = demarcheTypeFormat(
+    user,
+    titreDemarche.type!,
+    titreTypeId,
+    titreStatutId!
+  )
 
   if (fields.titre && titreDemarche.titre) {
     titreDemarche.titre = titreFormat(user, titreDemarche.titre, fields.titre)
@@ -149,7 +147,7 @@ const titreDemarcheFormat = (
           te,
           titreTypeId,
           titreStatutId,
-          titreDemarche.type,
+          titreDemarche.type!,
           { userHasPermission, isSuper, isAdmin },
           fields.etapes
         )

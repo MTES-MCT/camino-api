@@ -52,7 +52,7 @@ const titreEtapeFormat = (
 
   if (titreEtape.type) {
     const etapeType = titreDemarcheType.etapesTypes.find(
-      et => et.id === titreEtape.type.id
+      et => et.id === titreEtape.type!.id
     )
     if (!etapeType) {
       throw new Error(`${titreEtape.type.id} inexistant`)
@@ -61,9 +61,9 @@ const titreEtapeFormat = (
     // crée une copie du type d'étape pour ne pas modifier le cache applicatif
     titreEtape.type = JSON.parse(JSON.stringify(etapeType))
 
-    titreEtape.type.editable = titreEtape.editable
+    titreEtape.type!.editable = titreEtape.editable
 
-    titreEtape.type = etapesTypesFormat(titreEtape.type)
+    titreEtape.type = etapesTypesFormat(titreEtape.type!)
 
     if (titreEtape.type.sections) {
       titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)
