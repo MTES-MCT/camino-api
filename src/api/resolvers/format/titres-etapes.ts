@@ -1,6 +1,6 @@
 import {
   ITitreEtape,
-  ITitreDemarche,
+  IDemarcheType,
   IGeoJson,
   IUtilisateur,
   IFields
@@ -28,6 +28,7 @@ const titreEtapeFormat = (
   titreEtape: ITitreEtape,
   titreTypeId: string,
   titreStatutId: string,
+  titreDemarcheType: IDemarcheType,
   {
     userHasPermission,
     isSuper,
@@ -47,15 +48,25 @@ const titreEtapeFormat = (
       )
 
     titreEtape.supprimable = isSuper
+  }
 
-    if (titreEtape.type) {
-      titreEtape.type.editable = titreEtape.editable
+  if (titreEtape.type) {
+    const etapeType = titreDemarcheType.etapesTypes.find(
+      et => et.id === titreEtape.type.id
+    )
+    if (!etapeType) {
+      throw new Error(`${titreEtape.type.id} inexistant`)
+    }
 
-      titreEtape.type = etapesTypesFormat(titreEtape.type)
+    // crée une copie du type d'étape pour ne pas modifier le cache applicatif
+    titreEtape.type = JSON.parse(JSON.stringify(etapeType))
 
-      if (titreEtape.type.sections) {
-        titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)
-      }
+    titreEtape.type.editable = titreEtape.editable
+
+    titreEtape.type = etapesTypesFormat(titreEtape.type)
+
+    if (titreEtape.type.sections) {
+      titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)
     }
   }
 

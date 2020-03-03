@@ -38,6 +38,22 @@ const graphFormat = (fields: IFields, parent: string) => {
     fields.demarches.titreType = { id: {} }
   }
 
+  // ajoute la propriété `type` sur les démarches
+  // pour pouvoir récupérer les types d'étapes spécifiques
+  if (fields.demarches && !fields.demarches.type) {
+    fields.demarches.type = { id: {} }
+  }
+
+  // ajoute la propriété `etapesTypes` sur les démarches
+  // pour pouvoir récupérer les types spécifiques
+  if (
+    fields.demarches &&
+    fields.demarches.type &&
+    !fields.demarches.type.etapesTypes
+  ) {
+    fields.demarches.type.etapesTypes = { id: {} }
+  }
+
   // ajoute la propriété `type` sur les activités
   if (fields.activites && !fields.activites.type) {
     fields.activites.type = { id: {}, administrations: { id: {} } }

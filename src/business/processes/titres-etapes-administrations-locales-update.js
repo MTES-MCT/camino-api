@@ -7,6 +7,7 @@ import {
 
 // administrations associees sur certains types de titres
 // (ces administrations seront associees pour ces types de titres)
+// donc cachées au public dans la liste des administrations du titre
 const administrationsTypesAssociees = {
   'dea-guyane-01': ['arm'],
   'prefecture-97302-01': ['arm']
