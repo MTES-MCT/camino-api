@@ -23,6 +23,7 @@ import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPointsReferencesCreate from './processes/titres-points-references-create'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import { titresActivitesRowsUpdate } from './titres-activites-rows-update'
 
@@ -244,6 +245,27 @@ const run = async () => {
 
     // 12.
     console.log()
+    console.log('propriétés des titres (contenu)…')
+    titres = await titresGet(
+      {
+        domainesIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutsIds: null,
+        substances: null,
+        territoires: null,
+        typesIds: null
+      },
+      {
+        graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
+      }
+    )
+    const titresPropsContenuUpdated = await titresPropsContenuUpdate(titres)
+
+    // 13.
+    console.log()
     console.log('activités des titres…')
     titres = await titresGet(
       {
@@ -268,7 +290,7 @@ const run = async () => {
       activitesTypes
     )
 
-    // 13.
+    // 14.
     console.log()
     console.log('statut des activités dont le délai est dépassé')
     const titresActivites = await titresActivitesGet()
@@ -276,7 +298,7 @@ const run = async () => {
       titresActivites
     )
 
-    // 14.
+    // 15.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet({
@@ -340,6 +362,9 @@ const run = async () => {
     )
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+    )
+    console.log(
+      `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
     console.log(
       `mise à jour: ${titresActivitesCreated.length} activité(s) créée(s)`

@@ -10,12 +10,13 @@ const titreInsertFormat = (json: Pojo) => {
   delete json.geojsonMultiPolygon
   delete json.geojsonPoints
   delete json.pays
-  delete json.engagement
   delete json.surface
-  delete json.volume
-  delete json.engagementEtape
   delete json.surfaceEtape
-  delete json.volumeEtape
+  delete json.contenu
+
+  if (json.type) {
+    delete json.type.sections
+  }
 
   return json
 }

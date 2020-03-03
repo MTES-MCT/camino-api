@@ -24,10 +24,6 @@ class TitresEtapes extends Model {
       dateFin: { type: ['string', 'null'] },
       duree: { type: ['integer', 'null'] },
       surface: { type: ['number', 'null'] },
-      volume: { type: ['number', 'null'] },
-      volumeUniteId: { type: ['string', 'null'] },
-      engagement: { type: ['number', 'null'] },
-      engagementDeviseId: { type: ['string', 'null'] },
       contenu: { type: 'json' }
     }
   }
@@ -145,24 +141,6 @@ class TitresEtapes extends Model {
       join: {
         from: 'titresEtapes.id',
         to: 'titresIncertitudes.titreEtapeId'
-      }
-    },
-
-    volumeUnite: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'unites'),
-      join: {
-        from: 'titresEtapes.volumeUniteId',
-        to: 'unites.id'
-      }
-    },
-
-    engagementDevise: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'devises'),
-      join: {
-        from: 'titresEtapes.engagementDeviseId',
-        to: 'devises.id'
       }
     }
   }

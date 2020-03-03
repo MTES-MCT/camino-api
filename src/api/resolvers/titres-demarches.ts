@@ -10,7 +10,7 @@ import { debug } from '../../config/index'
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
-import { titreFieldsAdd } from './graph/titre-fields-add'
+import { titreDemarcheFieldsAdd } from './graph/titre-fields-add'
 
 import metas from '../../database/cache/metas'
 
@@ -65,7 +65,7 @@ const demarches = async (
   info: GraphQLResolveInfo
 ) => {
   let fields = graphFieldsBuild(info)
-  fields = titreFieldsAdd(fields)
+  fields = titreDemarcheFieldsAdd(fields)
 
   if (!intervalle) {
     intervalle = 200

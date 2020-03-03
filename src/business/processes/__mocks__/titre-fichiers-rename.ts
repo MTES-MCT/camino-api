@@ -51,9 +51,39 @@ const titreNewSansEtapes = {
   ]
 } as ITitre
 
+const titreNewDemarchesSansChangement = {
+  id: 'new-titre-id',
+  demarches: [
+    {
+      id: 'new-titre-id-demarche-01',
+      etapes: [
+        {
+          id: 'old-titre-id-demarche-01-etape-01',
+          documents: [
+            {
+              id: 'new-titre-id-demarche-01-etape-01-document-01',
+              fichier: true,
+              fichierTypeId: 'pdf'
+            },
+            {
+              id: 'new-titre-id-demarche-01-etape-01-document-02'
+            },
+            {
+              id: 'new-titre-id-demarche-01-etape-01-document-03',
+              fichier: true,
+              fichierTypeId: 'pdf'
+            }
+          ]
+        }
+      ]
+    }
+  ]
+} as ITitre
+
 export {
   titreNew,
   titreNewSansDemarches,
   titreNewDemarchesVides,
-  titreNewSansEtapes
+  titreNewSansEtapes,
+  titreNewDemarchesSansChangement
 }

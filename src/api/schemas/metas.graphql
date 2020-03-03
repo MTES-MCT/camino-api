@@ -52,6 +52,8 @@ type TitreType {
   "Types de démarches applicables à ce type de titre"
   demarchesTypes: [DemarcheType]
 
+  sections: Json
+
   archive: Boolean
 
   editable: Boolean

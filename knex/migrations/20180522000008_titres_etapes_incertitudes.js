@@ -11,8 +11,6 @@ exports.up = knex => {
     table.boolean('dateFin')
     table.boolean('duree')
     table.boolean('surface')
-    table.boolean('volume')
-    table.boolean('engagement')
     table.boolean('points')
     table.boolean('substances')
     table.boolean('titulaires')

@@ -1,6 +1,6 @@
 import { IFields } from '../../../types'
 
-const titreFieldsAdd = (fields: IFields) => {
+const titreDemarcheFieldsAdd = (fields: IFields) => {
   if (!fields.titre) {
     fields.titre = {
       id: {},
@@ -23,4 +23,29 @@ const titreFieldsAdd = (fields: IFields) => {
   return fields
 }
 
-export { titreFieldsAdd }
+const titreFieldsAdd = (fields: IFields) => {
+  // pour accéder au contenu des titres
+  // on récupère les démarches et ses étapes
+  if (fields.contenu) {
+    if (!fields.type) {
+      fields.type = { id: {} }
+    }
+
+    if (!fields.demarches) {
+      fields.demarches = { id: {} }
+    }
+
+    if (!fields.demarches.etapes) {
+      fields.demarches.etapes = { id: {} }
+    }
+
+    // permet d'avoir accès aux sections des étapes
+    if (!fields.demarches.etapes.type) {
+      fields.demarches.etapes.type = { id: {} }
+    }
+  }
+
+  return fields
+}
+
+export { titreDemarcheFieldsAdd, titreFieldsAdd }

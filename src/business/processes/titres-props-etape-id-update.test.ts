@@ -18,6 +18,7 @@ console.log = jest.fn()
 describe("propriétés (étape) d'un titre", () => {
   test('trouve 8 propriétés dans les étapes', async () => {
     titrePropEtapeIdFindMock.mockReturnValue('etape-id')
+
     const titresUpdatedRequests = await titresPropsEtapeIdUpdate([
       ({ titulairesTitreEtapeId: null } as unknown) as ITitre
     ])
@@ -28,6 +29,7 @@ describe("propriétés (étape) d'un titre", () => {
 
   test('ne trouve pas de propriétés dans les étapes', async () => {
     titrePropEtapeIdFindMock.mockReturnValue(null)
+
     const titresUpdatedRequests = await titresPropsEtapeIdUpdate([
       ({ titulairesTitreEtapeId: null } as unknown) as ITitre
     ])

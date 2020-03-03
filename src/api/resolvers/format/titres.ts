@@ -3,7 +3,8 @@ import {
   IAdministration,
   IGeoJson,
   IUtilisateur,
-  IFields
+  IFields,
+  ITitrePropsTitreEtapes
 } from '../../../types'
 
 import {
@@ -33,8 +34,6 @@ import {
 
 const titreFormatFields = {
   surface: {},
-  engagement: {},
-  volume: {},
   geojsonMultiPolygon: {},
   geojsonPoints: {},
   pays: {},
@@ -45,6 +44,84 @@ const titreFormatFields = {
   activitesEnConstruction: {},
   administrations: {}
 } as IFields
+
+const titreContenuTitreEtapesFormat = (t: ITitre) => {
+  if (!t.propsTitreEtapesIds) return null
+
+  return Object.keys(t.propsTitreEtapesIds).reduce(
+    (contenu: ITitrePropsTitreEtapes, sectionId) =>
+      Object.keys(t.propsTitreEtapesIds![sectionId])
+        .reduce((contenu, elementId) => {
+          if (
+            !t.propsTitreEtapesIds ||
+            !t.propsTitreEtapesIds[sectionId] ||
+            !t.propsTitreEtapesIds[sectionId][elementId]
+          ) {
+            return contenu
+          }
+
+          t.demarches!.some((d) => d.etapes!.some(e => {
+            // si l'étape n'est pas celle dans le contenu du titre
+            // ou l'étape n'a ni contenu ni section ni l'élément qui nous intéresse
+            if (
+              e.id !== t.propsTitreEtapesIds![sectionId][elementId] ||
+              !e.contenu ||
+              !e.contenu[sectionId] ||
+              e.contenu[sectionId][elementId] === undefined
+            ) {
+              return false
+            }
+
+            // initialise la section dans le contenu du titre si besoin
+            if (!contenu[sectionId]) {
+              contenu[sectionId] = {}
+            }
+
+            // récupère le contenu de l'étape et assigne au contenu du titre
+            contenu[sectionId][elementId] = e.contenu[sectionId][elementId]
+
+            if (!e.type || !e.type.sections) return true
+
+            const etapeSection = e.type.sections.find(s => s.id === sectionId)
+            if (!etapeSection || !etapeSection.elements) return true
+
+            const etapeElement = etapeSection.elements.find(e => e.id === elementId)
+            if (!etapeElement) return true
+
+            if (!t.type) return true
+
+            // initialise les sections dans le titre si besoin
+            if (!t.type.sections) {
+              t.type.sections = []
+            }
+
+            // ajoute la section dans le titre si elle n'existe pas encore
+            let titreSection = t.type.sections.find(s => s.id === sectionId)
+            if (!titreSection) {
+              titreSection = {
+                ...etapeSection,
+                elements: []
+              }
+              t.type.sections.push(titreSection)
+            }
+            if (!titreSection.elements) {
+              titreSection.elements = []
+            }
+
+            // ajoute l'élément dans les sections du titre s'il n'existe pas encore
+            let titreElement = titreSection.elements.find(e => e.id === elementId)
+            if (!titreElement) {
+              titreSection.elements.push(etapeElement)
+            }
+
+            return true
+          }))
+
+          return contenu
+        }, contenu),
+    {}
+  )
+}
 
 // optimisation possible pour un expert SQL
 // remplacer le contenu de ce fichier
@@ -105,12 +182,8 @@ const titreFormat = (
     )
   }
 
-  if (fields.volume && t.volumeEtape) {
-    t.volume = t.volumeEtape.volume
-  }
-
-  if (fields.engagement && t.engagementEtape) {
-    t.engagement = t.engagementEtape.engagement
+  if (fields.contenu && t.propsTitreEtapesIds) {
+    t.contenu = titreContenuTitreEtapesFormat(t)
   }
 
   if (fields.surface && t.surfaceEtape) {

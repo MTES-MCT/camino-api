@@ -50,6 +50,11 @@ interface ISectionElement {
   valeurs?: { [id: string]: string } | null
 }
 
+interface ITitreSection {
+  sectionId: string
+  elementId: string
+}
+
 interface IActiviteType {
   id: string
   nom: string
@@ -109,6 +114,22 @@ interface IContenu {
 
 interface IContenuElement {
   [id: string]: IContenuValeur
+}
+
+interface ITitrePropsTitreEtapesIdsValeur {
+  [elementId: string]: IContenuValeur | null
+}
+
+interface ITitrePropsTitreEtapesIds {
+  [sectionId: string]: ITitrePropsTitreEtapesIdsValeur
+}
+
+interface ITitrePropsTitreEtapesValeur {
+  [elementId: string]: IContenuValeur
+}
+
+interface ITitrePropsTitreEtapes {
+  [sectionId: string]: ITitrePropsTitreEtapesValeur
 }
 
 interface ICoordonnees {
@@ -406,24 +427,16 @@ interface ITitre {
   surfaceTitreEtapeId?: string | null
   surfaceEtape?: ITitreEtape | null
   surface?: number | null
-  volumeTitreEtapeId?: string | null
-  volumeEtape?: ITitreEtape | null
-  volume?: number | null
-  volumeUniteIdTitreEtapeId?: string | null
-  volumeUnite?: IUnite | null
   communesTitreEtapeId?: string | null
   communes?: ICommune[] | null
-  engagementTitreEtapeId?: string | null
-  engagementEtape?: ITitreEtape | null
-  engagement?: number | null
-  engagementDeviseIdTitreEtapeId?: string | null
-  engagementDevise?: IDevise | null
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
   pays?: IPays[] | null
   editable?: boolean | null
   supprimable?: boolean | null
   doublonTitreId?: string | null
+  propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
+  contenu?: ITitrePropsTitreEtapes | null
 }
 
 interface ITitreActivite {
@@ -517,10 +530,6 @@ interface ITitreEtape {
   dateFin?: string | null
   duree?: number | null
   surface?: number | null
-  volume?: number | null
-  volumeUniteId?: string | null
-  engagement?: number | null
-  engagementDeviseId?: string | null
   contenu?: IContenu | null
   substances?: ISubstance[] | null
   points?: ITitrePoint[] | null
@@ -532,8 +541,6 @@ interface ITitreEtape {
   documents?: ITitreDocument[] | null
   communes?: ICommune[] | null
   incertitudes?: ITitreIncertitudes | null
-  volumeUnite?: IUnite | null
-  engagementDevise?: IDevise | null
   pays?: IPays[] | null
   editable?: boolean | null
   supprimable?: boolean | null
@@ -553,8 +560,6 @@ interface ITitreIncertitudes {
   dateFin?: boolean | null
   duree?: boolean | null
   surface?: boolean | null
-  volume?: boolean | null
-  engagement?: boolean | null
   points?: boolean | null
   substances?: boolean | null
   titulaires?: boolean | null
@@ -612,6 +617,8 @@ interface ITitreType {
   archive?: boolean | null
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
+  propsEtapesTypes?: ITitreSection[] | null
+  sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
   editable?: boolean | null
@@ -667,26 +674,18 @@ type TitreProp =
   | 'titulairesTitreEtapeId'
   | 'amodiatairesTitreEtapeId'
   | 'administrationsTitreEtapeId'
-  | 'surfaceTitreEtapeId'
-  | 'volumeTitreEtapeId'
-  | 'volumeUniteIdTitreEtapeId'
   | 'substancesTitreEtapeId'
   | 'communesTitreEtapeId'
-  | 'engagementTitreEtapeId'
-  | 'engagementDeviseIdTitreEtapeId'
+  | 'surfaceTitreEtapeId'
 
 type TitreEtapeProp =
   | 'points'
   | 'titulaires'
   | 'amodiataires'
   | 'administrations'
-  | 'surface'
-  | 'volume'
-  | 'volumeUniteId'
   | 'substances'
   | 'communes'
-  | 'engagement'
-  | 'engagementDeviseId'
+  | 'surface'
 
 export {
   Index,
@@ -702,6 +701,8 @@ export {
   IContenu,
   IContenuElement,
   IContenuValeur,
+  ITitrePropsTitreEtapesIds,
+  ITitrePropsTitreEtapes,
   ICoordonnees,
   IDemarcheStatut,
   IDemarcheType,

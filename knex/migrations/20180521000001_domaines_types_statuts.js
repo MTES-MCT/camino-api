@@ -1,5 +1,5 @@
-exports.up = knex => {
-  return knex.schema
+exports.up = knex =>
+  knex.schema
     .createTable('domaines', table => {
       table.string('id', 1).primary()
       table.string('nom').notNullable()
@@ -27,6 +27,7 @@ exports.up = knex => {
         .references('titresTypesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
+      table.specificType('props_etapes_types', 'jsonb[]')
       table.boolean('archive')
       table.unique(['domaineId', 'typeId'])
     })
@@ -37,12 +38,10 @@ exports.up = knex => {
       table.string('couleur', 16).notNullable()
       table.integer('ordre')
     })
-}
 
-exports.down = knex => {
-  return knex.schema
+exports.down = knex =>
+  knex.schema
     .dropTable('titresTypesTypes')
     .dropTable('domaines')
     .dropTable('titresTypes')
     .dropTable('titresStatuts')
-}

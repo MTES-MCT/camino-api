@@ -51,23 +51,13 @@ const tables = [
       'titulairesTitreEtapeId',
       'amodiatairesTitreEtapeId',
       'administrationsTitreEtapeId',
-      'surfaceTitreEtapeId',
-      'volumeTitreEtapeId',
-      'volumeUniteIdTitreEtapeId',
       'substancesTitreEtapeId',
       'communesTitreEtapeId',
-      'engagementTitreEtapeId',
-      'engagementDeviseIdTitreEtapeId'
+      'surfaceTitreEtapeId',
+      'propsTitreEtapesIds'
     ],
     callbacks: {
-      references: v =>
-        JSON.stringify(
-          v.reduce((r, { type, valeur }) => {
-            r[type] = valeur
-
-            return r
-          }, {})
-        )
+      propsTitreEtapesIds: v => JSON.stringify(v)
     }
   },
   {
@@ -118,10 +108,6 @@ const tables = [
       'dateFin',
       'duree',
       'surface',
-      'volume',
-      'volumeUniteId',
-      'engagement',
-      'engagementDeviseId',
       'contenu'
     ],
     parents: ['demarches', 'etapes'],
@@ -264,8 +250,6 @@ const tables = [
       'dateFin',
       'duree',
       'surface',
-      'volume',
-      'engagement',
       'points',
       'substances',
       'titulaires',
