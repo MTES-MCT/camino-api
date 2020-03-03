@@ -13,6 +13,12 @@ const demarcheTypeFormat = (
   const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
   if (!dt) throw new Error(`${demarcheType.id} inexistant`)
 
+  if (demarcheType.etapesTypes) {
+    demarcheType.etapesTypes = demarcheType.etapesTypes.filter(
+      et => et.titreTypeId === titreTypeId
+    )
+  }
+
   demarcheType.editable = titreDemarchePermissionAdministrationsCheck(
     user,
     titreTypeId,

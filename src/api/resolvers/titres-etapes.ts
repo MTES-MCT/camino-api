@@ -39,10 +39,11 @@ const demarcheEtapeTypesFormat = (
   const demarcheType = metas.demarchesTypes.find(
     ({ id }) => id === demarcheTypeId
   )
+  if (!demarcheType || !demarcheType.etapesTypes) {
+    throw new Error(`${demarcheTypeId} inexistant`)
+  }
 
-  const etapesTypes = demarcheType?.etapesTypes
-
-  if (!etapesTypes) return []
+  const etapesTypes = demarcheType.etapesTypes
 
   return etapesTypes.reduce((etapesTypes: IEtapeType[], et) => {
     // si

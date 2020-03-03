@@ -149,6 +149,7 @@ const titreDemarcheFormat = (
           te,
           titreTypeId,
           titreStatutId,
+          titreDemarche.type,
           { userHasPermission, isSuper, isAdmin },
           fields.etapes
         )
