@@ -17,7 +17,7 @@ const titresActivitesUpdate = async (
       acc.push(
         ...titres.reduce((acc: ITitreActivite[], titre) => {
           // filtre les types d'activités qui concernent le titre
-          if (!activitesTypesFilter(titre, activiteType)) return acc
+          if (!activitesTypesFilter(activiteType, titre)) return acc
 
           acc.push(...titreActivitesBuild(titre, activiteType, annees))
 
