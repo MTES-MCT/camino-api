@@ -1,61 +1,52 @@
-const titreMAxmGuf = {
+const activiteTypeMAxmPxmGuyane = {
+  titresTypes: [{ id: 'axm' }, { id: 'pxm' }],
+  pays: [{ id: 'GF' }]
+}
+
+const activiteTypeMPrmMetropole = {
+  titresTypes: [{ id: 'prm' }],
+  pays: [{ id: 'FR' }]
+}
+
+const activiteTypeWPrwSansPays = {
+  titresTypes: [{ id: 'prw' }]
+}
+
+const titreMAxmGuyane = {
   id: 'm-ax-saint-pierre-2015',
-  domaineId: 'm',
   typeId: 'axm',
-  pays: [{ id: 'GUF' }]
+  pays: [{ id: 'GF' }]
 }
 
-const titreMPrmFra = {
+const titreMAxmMetropole = {
+  id: 'm-ax-ile-de-france-2015',
+  typeId: 'axm',
+  pays: [{ id: 'FR' }]
+}
+
+const titreMPrmMetropole = {
   id: 'm-pr-saint-jean-2016',
-  domaineId: 'm',
   typeId: 'prm',
-  pays: [{ id: 'FRA' }]
+  pays: [{ id: 'FR' }]
 }
 
-const titreAucunPays = {
+const titreSansPays = {
   id: 'm-ax-saint-jacques-2016',
-  domaineId: 'm',
   typeId: 'axm'
 }
 
-const activiteTypeMAxmPxmGuf = {
-  titresTypes: [
-    {
-      domaineId: 'm',
-      id: 'axm'
-    },
-    {
-      domaineId: 'm',
-      id: 'pxm'
-    }
-  ],
-  pays: [{ id: 'GUF' }]
-}
-
-const activiteTypeMPrmFra = {
-  titresTypes: [
-    {
-      domaineId: 'm',
-      id: 'prm'
-    }
-  ],
-  pays: [{ id: 'FRA' }]
-}
-
-const activiteSansPays = {
-  titresTypes: [
-    {
-      domaineId: 'm',
-      id: 'prm'
-    }
-  ]
+const titrePrwSansPays = {
+  id: 'w-pr-grande-normandie-2018',
+  typeId: 'prw'
 }
 
 export {
-  titreAucunPays,
-  titreMAxmGuf,
-  titreMPrmFra,
-  activiteTypeMAxmPxmGuf,
-  activiteTypeMPrmFra,
-  activiteSansPays
+  activiteTypeMAxmPxmGuyane,
+  activiteTypeMPrmMetropole,
+  activiteTypeWPrwSansPays,
+  titreSansPays,
+  titreMAxmGuyane,
+  titreMAxmMetropole,
+  titreMPrmMetropole,
+  titrePrwSansPays
 }
