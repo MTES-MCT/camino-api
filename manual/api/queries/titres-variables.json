@@ -1,10 +1,14 @@
 {
-  "typeIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
-  "domaineIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
-  "statutIds": ["dmc", "dmi", "ech", "ind", "mod", "val"],
+  "intervalle": 100,
+  "page": 1,
+  "colonne": "activitesTotal",
+  "ordre": "desc",
+  "domainesIds": ["c", "f", "g", "h", "m", "r", "s", "w"],
+  "typesIds": ["ap", "ar", "ax", "cx", "pc", "pr", "px"],
+  "statutsIds": ["dmc", "dmi", "ech", "ind", "mod", "val"],
   "substances": null,
   "noms": null,
   "entreprises": null,
   "references": null,
-  "territoires": ["77"]
+  "territoires": "77"
 }

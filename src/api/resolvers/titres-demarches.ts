@@ -1,4 +1,9 @@
-import { IToken, ITitreDemarche, ITitreEtapeFiltre } from '../../types'
+import {
+  IToken,
+  ITitreDemarche,
+  ITitreEtapeFiltre,
+  ITitreDemarcheColonneInput
+} from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 
@@ -32,23 +37,27 @@ import titreDemarcheUpdationValidate from '../../business/titre-demarche-updatio
 
 const demarches = async (
   {
-    pages,
     page,
-    typeIds,
-    statutIds,
-    titresTypeIds,
-    titresDomaineIds,
-    titresStatutIds,
+    intervalle,
+    ordre,
+    colonne,
+    typesIds,
+    statutsIds,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds,
     etapesInclues,
     etapesExclues
   }: {
-    pages?: number | null
     page?: number | null
-    typeIds?: string[] | null
-    statutIds?: string[] | null
-    titresTypeIds?: string[] | null
-    titresDomaineIds?: string[] | null
-    titresStatutIds?: string[] | null
+    intervalle?: number | null
+    ordre?: 'asc' | 'desc' | null
+    colonne?: ITitreDemarcheColonneInput | null
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   },
@@ -58,8 +67,8 @@ const demarches = async (
   let fields = graphFieldsBuild(info)
   fields = titreFieldsAdd(fields)
 
-  if (!pages) {
-    pages = 200
+  if (!intervalle) {
+    intervalle = 200
   }
 
   if (!page) {
@@ -70,13 +79,15 @@ const demarches = async (
 
   const titresDemarches = await titresDemarchesGet(
     {
-      pages,
+      intervalle,
       page,
-      typeIds,
-      statutIds,
-      titresTypeIds,
-      titresDomaineIds,
-      titresStatutIds,
+      ordre,
+      colonne,
+      typesIds,
+      statutsIds,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds,
       etapesInclues,
       etapesExclues
     },

@@ -23,7 +23,7 @@ const titreIsPublicCheck = (titre: ITitre) =>
       t.publicLecture
   )
 
-const titrePermissionEntrepriseCheck = (
+const titrePermissionEntreprisesCheck = (
   user: IUtilisateur | undefined,
   titreAmodiataires: IEntreprise[] | undefined | null,
   titreTitulaires: IEntreprise[] | undefined | null,
@@ -81,7 +81,7 @@ const titrePermissionCheck = (
   // le titre est accessible
   if (permissionsCheck(user, permissions)) return true
 
-  return titrePermissionEntrepriseCheck(
+  return titrePermissionEntreprisesCheck(
     user,
     titre.amodiataires,
     titre.titulaires,
@@ -111,7 +111,7 @@ const titreActivitePermissionCheck = (
 ) =>
   permissionsCheck(user, ['super']) ||
   titreActivitePermissionAdministrationsCheck(user, titreAdministrations) ||
-  titrePermissionEntrepriseCheck(user, titreAmodiataires, titreTitulaires)
+  titrePermissionEntreprisesCheck(user, titreAmodiataires, titreTitulaires)
 
 export {
   titreIsPublicCheck,

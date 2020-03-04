@@ -4,7 +4,7 @@ import '../../src/database/index'
 import { titresGet } from '../../src/database/queries/titres'
 
 const titresWithoutPointsList = async () => {
-  const titres = await titresGet({ domaineIds: ['g'] })
+  const titres = await titresGet({ domainesIds: ['g'] })
 
   const list = titres.filter(
     titre =>

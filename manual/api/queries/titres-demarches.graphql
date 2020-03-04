@@ -1,22 +1,26 @@
 query Demarches(
-  $pages: Int
+  $intervalle: Int
   $page: Int
-  $titresTypeIds: [ID]
-  $titresDomaineIds: [ID]
-  $titresStatutIds: [ID]
-  $typeIds: [ID]
-  $statutIds: [ID]
+  $colonne: String
+  $ordre: String
+  $titresTypesIds: [ID]
+  $titresDomainesIds: [ID]
+  $titresStatutsIds: [ID]
+  $typesIds: [ID]
+  $statutsIds: [ID]
   $etapesInclues: [InputEtapeFiltre]
   $etapesExclues: [InputEtapeFiltre]
 ) {
   demarches(
-    pages: $pages
+    intervalle: $intervalle
     page: $page
-    titresTypeIds: $titresTypeIds
-    titresDomaineIds: $titresDomaineIds
-    titresStatutIds: $titresStatutIds
-    typeIds: $typeIds
-    statutIds: $statutIds
+    colonne: $colonne
+    ordre: $ordre
+    titresTypesIds: $titresTypesIds
+    titresDomainesIds: $titresDomainesIds
+    titresStatutsIds: $titresStatutsIds
+    typesIds: $typesIds
+    statutsIds: $statutsIds
     etapesInclues: $etapesInclues
     etapesExclues: $etapesExclues
   ) {

@@ -139,7 +139,7 @@ const statuts = async (_: unknown, context: IToken) => {
 
     if (!context.user) {
       statuts = statuts.filter(statut =>
-        autorisations.statutIds.includes(statut.id)
+        autorisations.statutsIds.includes(statut.id)
       )
     }
 

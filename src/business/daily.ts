@@ -44,15 +44,15 @@ const run = async () => {
     console.log('statut des démarches…')
     let titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       { graph: 'demarches(orderDesc).[etapes(orderDesc)]' }
     )
@@ -65,15 +65,15 @@ const run = async () => {
     console.log('ordre des démarches…')
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       {
         graph: 'demarches(orderDesc).[etapes(orderDesc)]'
@@ -86,15 +86,15 @@ const run = async () => {
     console.log('statut des titres…')
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
     )
@@ -105,15 +105,15 @@ const run = async () => {
     console.log('phases des titres…')
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       { graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]' }
     )
@@ -127,15 +127,15 @@ const run = async () => {
     console.log('date de début, de fin et de demande initiale des titres…')
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
     )
@@ -155,7 +155,7 @@ const run = async () => {
     const titresEtapes = await titresEtapesGet(
       {
         etapesIds: null,
-        etapesTypeIds: null,
+        etapesTypesIds: null,
         titresDemarchesIds: null
       },
       { graph: '[points, communes]' }
@@ -173,15 +173,15 @@ const run = async () => {
 
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       {
         graph: 'administrationsGestionnaires'
@@ -199,15 +199,15 @@ const run = async () => {
 
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       {
         graph:
@@ -225,15 +225,15 @@ const run = async () => {
     console.log('propriétés des titres (liens vers les étapes)…')
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       {
         graph:
@@ -247,15 +247,15 @@ const run = async () => {
     console.log('activités des titres…')
     titres = await titresGet(
       {
-        domaineIds: null,
+        domainesIds: null,
         entreprises: null,
         ids: null,
         noms: null,
         references: null,
-        statutIds: null,
+        statutsIds: null,
         substances: null,
         territoires: null,
-        typeIds: null
+        typesIds: null
       },
       {
         graph:
@@ -280,15 +280,15 @@ const run = async () => {
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titres = await titresGet({
-      domaineIds: null,
+      domainesIds: null,
       entreprises: null,
       ids: null,
       noms: null,
       references: null,
-      statutIds: null,
+      statutsIds: null,
       substances: null,
       territoires: null,
-      typeIds: null
+      typesIds: null
     })
 
     const titresUpdatedIndex = await titresIdsUpdate(titres)

@@ -57,6 +57,28 @@ const titreActiviteFormat = (
   return ta
 }
 
+const titresActivitesFormat = (
+  user: IUtilisateur | undefined,
+  titresActivites: ITitreActivite[],
+  titreAmodiataires: IEntreprise[] | undefined | null,
+  titreTitulaires: IEntreprise[] | undefined | null,
+  fields: IFields = titreActiviteFormatFields
+) =>
+  titresActivites.reduce((acc: ITitreActivite[], ta) => {
+    if (
+      titreActivitePermissionCheck(
+        user,
+        ta.type?.administrations,
+        titreAmodiataires,
+        titreTitulaires
+      )
+    ) {
+      acc.push(titreActiviteFormat(user, ta, fields))
+    }
+
+    return acc
+  }, [])
+
 const titreActiviteCalc = (
   user: IUtilisateur | undefined,
   titresActivites: ITitreActivite[],
@@ -78,4 +100,9 @@ const titreActiviteCalc = (
     0
   )
 
-export { titreActiviteFormatFields, titreActiviteFormat, titreActiviteCalc }
+export {
+  titreActiviteFormatFields,
+  titreActiviteFormat,
+  titresActivitesFormat,
+  titreActiviteCalc
+}

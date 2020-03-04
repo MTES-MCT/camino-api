@@ -1,6 +1,5 @@
 import {
   ITitre,
-  ITitreActivite,
   IAdministration,
   IGeoJson,
   IUtilisateur,
@@ -15,11 +14,7 @@ import {
 import { dupRemove } from '../../../tools/index'
 
 import { permissionsCheck } from '../permissions/permissions-check'
-import {
-  titreIsPublicCheck,
-  titrePermissionCheck,
-  titreActivitePermissionCheck
-} from '../permissions/titre'
+import { titreIsPublicCheck, titrePermissionCheck } from '../permissions/titre'
 import { titrePermissionAdministrationsCheck } from '../permissions/titre-edition'
 
 import { administrationsFormat } from './administrations'
@@ -27,7 +22,7 @@ import { entreprisesFormat } from './entreprises'
 
 import {
   titreActiviteFormatFields,
-  titreActiviteFormat,
+  titresActivitesFormat,
   titreActiviteCalc
 } from './titres-activites'
 
@@ -123,54 +118,51 @@ const titreFormat = (
   }
 
   if (t.activites?.length) {
-    if (fields.activitesAbsentes) {
-      t.activitesAbsentes = titreActiviteCalc(
-        user,
-        t.activites,
-        'abs',
-        t.amodiataires,
-        t.titulaires
-      )
-    }
+    t.activitesAbsentes = fields.activitesAbsentes
+      ? titreActiviteCalc(
+          user,
+          t.activites,
+          'abs',
+          t.amodiataires,
+          t.titulaires
+        )
+      : 0
 
-    if (fields.activitesDeposees) {
-      t.activitesDeposees = titreActiviteCalc(
-        user,
-        t.activites,
-        'dep',
-        t.amodiataires,
-        t.titulaires
-      )
-    }
+    t.activitesDeposees = fields.activitesDeposees
+      ? titreActiviteCalc(
+          user,
+          t.activites,
+          'dep',
+          t.amodiataires,
+          t.titulaires
+        )
+      : 0
 
-    if (fields.activitesEnConstruction) {
-      t.activitesEnConstruction = titreActiviteCalc(
-        user,
-        t.activites,
-        'enc',
-        t.amodiataires,
-        t.titulaires
-      )
-    }
+    t.activitesEnConstruction = fields.activitesEnConstruction
+      ? titreActiviteCalc(
+          user,
+          t.activites,
+          'enc',
+          t.amodiataires,
+          t.titulaires
+        )
+      : 0
 
     if (fields.activites) {
-      t.activites = t.activites.reduce((acc: ITitreActivite[], ta) => {
-        if (
-          titreActivitePermissionCheck(
-            user,
-            ta.type?.administrations,
-            t.amodiataires,
-            t.titulaires
-          )
-        ) {
-          acc.push(titreActiviteFormat(user, ta, fields.activites))
-        }
-
-        return acc
-      }, [])
-    } else {
-      delete t.activites
+      t.activites = titresActivitesFormat(
+        user,
+        t.activites,
+        t.amodiataires,
+        t.titulaires,
+        fields.activites
+      )
     }
+  } else {
+    t.activitesAbsentes = 0
+    t.activitesDeposees = 0
+    t.activitesEnConstruction = 0
+
+    t.activites = []
   }
 
   if (fields.administrations) {

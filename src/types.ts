@@ -8,6 +8,25 @@ interface Index {
   [id: string]: any
 }
 
+interface IColonne {
+  id: string
+  relation?: string
+}
+
+interface IColonnes {
+  [key: string]: IColonne
+}
+
+type ITitreColonneInput = 'nom' | 'domaine' | 'type' | 'statut'
+
+type ITitreDemarcheColonneInput =
+  | 'titreNom'
+  | 'titreDomaine'
+  | 'titreType'
+  | 'titreStatut'
+  | 'type'
+  | 'statut'
+
 interface IActiviteStatut {
   id: string
   nom: string
@@ -737,5 +756,9 @@ export {
   TitreProp,
   TitreEtapeProp,
   IToken,
-  ITokenUser
+  ITokenUser,
+  ITitreColonneInput,
+  ITitreDemarcheColonneInput,
+  IColonne,
+  IColonnes
 }

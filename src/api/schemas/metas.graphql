@@ -115,7 +115,7 @@ type DemarcheType {
   etapesTypes: [EtapeType]
 
   "Ids des types d'étape déjà présents sur cette démarche"
-  etapesTypeIds: [ID]
+  etapesTypesIds: [ID]
 
   editable: Boolean
 }

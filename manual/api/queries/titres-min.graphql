@@ -1,17 +1,25 @@
 query Titres(
-  $typeIds: [ID!]
-  $domaineIds: [ID!]
-  $statutIds: [ID!]
-  $substances: [String!]
-  $noms: [String!]
-  $entreprises: [String!]
-  $references: [String!]
-  $territoires: [String!]
+  $intervalle: Int
+  $page: Int
+  $colonne: String
+  $ordre: String
+  $typesIds: [ID!]
+  $domainesIds: [ID!]
+  $statutsIds: [ID!]
+  $substances: String
+  $noms: String
+  $entreprises: String
+  $references: String
+  $territoires: String
 ) {
   titres(
-    typeIds: $typeIds
-    domaineIds: $domaineIds
-    statutIds: $statutIds
+    intervalle: $intervalle
+    page: $page
+    colonne: $colonne
+    ordre: $ordre
+    typesIds: $typesIds
+    domainesIds: $domainesIds
+    statutsIds: $statutsIds
     substances: $substances
     noms: $noms
     entreprises: $entreprises
