@@ -2,9 +2,9 @@ const fs = require('fs')
 const chalk = require('chalk')
 const decamelize = require('decamelize')
 
-const domaineIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
+const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
-domaineIds.forEach(domaineId => {
+domainesIds.forEach(domaineId => {
   const fileName = decamelize(`titres-${domaineId}-titres.json`, '-')
 
   try {

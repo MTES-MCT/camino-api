@@ -67,7 +67,7 @@ const ids = null && [
 const options = {
   ids, // : ['m-ar-apatou-2003'],
   dotitresContenuMigrateeIds: ['m'],
-  typeIds: ['ar']
+  typesIds: ['ar']
 }
 
 titresContenuMigrate(options, modifs)

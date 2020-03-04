@@ -1,12 +1,12 @@
 import { debug } from '../../config/index'
-import { titrePermissionCheck } from './permissions/titre'
+import { titrePermissionCheck } from '../resolvers/permissions/titre'
 import { titreDocumentGet } from '../../database/queries/titres-documents'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 import { titreGet } from '../../database/queries/titres'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-const documentNameGet = async (
+const fileNameGet = async (
   userId: string | undefined,
   titreDocumentId: string
 ) => {
@@ -54,4 +54,4 @@ const documentNameGet = async (
   }
 }
 
-export { documentNameGet }
+export { fileNameGet }

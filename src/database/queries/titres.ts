@@ -1,9 +1,26 @@
-import { ITitre, ITitreAdministrationsGestionnaire } from '../../types'
+import {
+  ITitre,
+  ITitreAdministrationsGestionnaire,
+  ITitreColonneInput,
+  IColonnes
+} from '../../types'
 import { transaction, Transaction } from 'objection'
 import Titres from '../models/titres'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
+
+const stringSplit = (string: string) =>
+  string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []
+
+const titresColonnes = {
+  nom: { id: 'nom' },
+  domaine: { id: 'domaineId' },
+  type: { id: 'type.type.nom', relation: 'type' },
+  statut: { id: 'statutId' },
+  substances: { id: 'substances.nom', relation: 'substances' },
+  titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
+} as IColonnes
 
 const titreGet = async (id: string, { graph = options.titres.graph } = {}) =>
   Titres.query()
@@ -12,25 +29,33 @@ const titreGet = async (id: string, { graph = options.titres.graph } = {}) =>
 
 const titresGet = async (
   {
+    intervalle,
+    page,
+    ordre,
+    colonne,
     ids,
-    typeIds,
-    domaineIds,
-    statutIds,
+    domainesIds,
+    typesIds,
+    statutsIds,
     substances,
     noms,
     entreprises,
     references,
     territoires
   }: {
+    intervalle?: number | null
+    page?: number | null
+    ordre?: 'asc' | 'desc' | null
+    colonne?: ITitreColonneInput | null
     ids?: string[] | null
-    typeIds?: string[] | null
-    domaineIds?: string[] | null
-    statutIds?: string[] | null
-    substances?: string[] | null
-    noms?: string[] | null
-    entreprises?: string[] | null
-    references?: string[] | null
-    territoires?: string[] | null
+    domainesIds?: string[] | null
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    substances?: string | null
+    noms?: string | null
+    entreprises?: string | null
+    references?: string | null
+    territoires?: string | null
   } = {},
   { graph = options.titres.graph } = {}
 ) => {
@@ -38,39 +63,58 @@ const titresGet = async (
     .skipUndefined()
     .withGraphFetched(graph)
 
+  if (colonne) {
+    if (titresColonnes[colonne].relation) {
+      q.joinRelated(titresColonnes[colonne].relation!)
+    }
+    q.orderBy(titresColonnes[colonne].id, ordre || undefined)
+  } else {
+    q.orderBy('titres.nom')
+  }
+
+  if (page && intervalle) {
+    q.offset((page - 1) * intervalle)
+  }
+
+  if (intervalle) {
+    q.limit(intervalle)
+  }
+
   if (ids) {
     q.whereIn('titres.id', ids)
   }
 
-  if (typeIds) {
-    q.joinRelated('type').whereIn('type.typeId', typeIds)
+  if (typesIds) {
+    q.joinRelated('type').whereIn('type.typeId', typesIds)
   }
 
-  if (domaineIds) {
-    q.whereIn('titres.domaineId', domaineIds)
+  if (domainesIds) {
+    q.whereIn('titres.domaineId', domainesIds)
   }
 
-  if (statutIds) {
-    q.whereIn('titres.statutId', statutIds)
+  if (statutsIds) {
+    q.whereIn('titres.statutId', statutsIds)
   }
 
   if (noms) {
+    const nomsArray = stringSplit(noms)
     q.where(b => {
       b.whereRaw(`?? ~* ?`, [
         'titres.nom',
-        noms.map(n => `(?=.*?(${n}))`).join('')
+        nomsArray.map(n => `(?=.*?(${n}))`).join('')
       ]).orWhereRaw(`?? ~* ?`, [
         'titres.id',
-        noms.map(n => `(?=.*?(${n}))`).join('')
+        nomsArray.map(n => `(?=.*?(${n}))`).join('')
       ])
     })
   }
 
   if (references) {
+    const referencesArray = stringSplit(references)
     const fields = ['references.nom', 'references:type.nom']
 
     q.where(b => {
-      references.forEach(s => {
+      referencesArray.forEach(s => {
         fields.forEach(f => {
           b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
         })
@@ -79,7 +123,7 @@ const titresGet = async (
       .joinRelated('references.type')
       .groupBy('titres.id')
       .havingRaw(
-        `(${references
+        `(${referencesArray
           .map(
             () =>
               'count(*) filter (where ' +
@@ -87,13 +131,14 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        references.flatMap(r =>
+        referencesArray.flatMap(r =>
           fields.flatMap(f => [f, `%${r.toLowerCase()}%`])
         )
       )
   }
 
   if (substances) {
+    const substancesArray = stringSplit(substances)
     const fields = [
       'substances.nom',
       'substances.id',
@@ -102,7 +147,7 @@ const titresGet = async (
     ]
 
     q.where(b => {
-      substances.forEach(s => {
+      substancesArray.forEach(s => {
         fields.forEach(f => {
           b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
         })
@@ -111,7 +156,7 @@ const titresGet = async (
       .joinRelated('substances.legales')
       .groupBy('titres.id')
       .havingRaw(
-        `(${substances
+        `(${substancesArray
           .map(
             () =>
               'count(*) filter (where ' +
@@ -119,13 +164,14 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        substances.flatMap(s =>
+        substancesArray.flatMap(s =>
           fields.flatMap(f => [f, `%${s.toLowerCase()}%`])
         )
       )
   }
 
   if (entreprises) {
+    const entreprisesArray = stringSplit(entreprises)
     const fields = [
       'titulaires:etablissements.nom',
       'titulaires.nom',
@@ -136,7 +182,7 @@ const titresGet = async (
     ]
 
     q.where(b => {
-      entreprises.forEach(s => {
+      entreprisesArray.forEach(s => {
         fields.forEach(f => {
           b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
         })
@@ -147,7 +193,7 @@ const titresGet = async (
       )
       .groupBy('titres.id')
       .havingRaw(
-        `(${entreprises
+        `(${entreprisesArray
           .map(
             () =>
               'count(*) filter (where ' +
@@ -155,13 +201,15 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        entreprises.flatMap(e =>
+        entreprisesArray.flatMap(e =>
           fields.flatMap(f => [f, `%${e.toLowerCase()}%`])
         )
       )
   }
 
   if (territoires) {
+    const territoiresArray = stringSplit(territoires)
+
     const fieldsLike = [
       'communes:departement:region.nom',
       'communes:departement.nom',
@@ -175,7 +223,7 @@ const titresGet = async (
     ]
 
     q.where(b => {
-      territoires.forEach(t => {
+      territoiresArray.forEach(t => {
         fieldsLike.forEach(f => {
           b.orWhereRaw(`lower(??) like ?`, [f, `%${t.toLowerCase()}%`])
         })
@@ -188,7 +236,7 @@ const titresGet = async (
       .joinRelated('communes.departement.region')
       .groupBy('titres.id')
       .havingRaw(
-        `(${territoires
+        `(${territoiresArray
           .map(
             () =>
               'count(*) filter (where ' +
@@ -199,7 +247,7 @@ const titresGet = async (
               ') > 0'
           )
           .join(') and (')})`,
-        territoires.flatMap(t => [
+        territoiresArray.flatMap(t => [
           ...fieldsLike.flatMap(f => [f, `%${t.toLowerCase()}%`]),
           ...fieldsExact.flatMap(f => [f, t.toLowerCase()])
         ])

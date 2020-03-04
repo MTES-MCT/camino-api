@@ -13,11 +13,11 @@ import options from './_options'
 const titresEtapesGet = async (
   {
     etapesIds,
-    etapesTypeIds,
+    etapesTypesIds,
     titresDemarchesIds
   }: {
     etapesIds?: string[] | null
-    etapesTypeIds?: string[] | null
+    etapesTypesIds?: string[] | null
     titresDemarchesIds?: string[] | null
   } = {},
   { graph = options.etapes.graph } = {}
@@ -31,8 +31,8 @@ const titresEtapesGet = async (
     q.whereIn('titresEtapes.id', etapesIds)
   }
 
-  if (etapesTypeIds) {
-    q.whereIn('titresEtapes.typeId', etapesTypeIds)
+  if (etapesTypesIds) {
+    q.whereIn('titresEtapes.typeId', etapesTypesIds)
   }
 
   if (titresDemarchesIds) {

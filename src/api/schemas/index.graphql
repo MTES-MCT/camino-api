@@ -45,25 +45,31 @@ type Query {
 
   "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
   titres(
-    typeIds: [ID]
-    domaineIds: [ID]
-    statutIds: [ID]
-    substances: [String]
-    noms: [String]
-    entreprises: [String]
-    references: [String]
-    territoires: [String]
+    intervalle: Int
+    page: Int
+    colonne: String
+    ordre: String
+    typesIds: [ID]
+    domainesIds: [ID]
+    statutsIds: [ID]
+    substances: String
+    noms: String
+    entreprises: String
+    references: String
+    territoires: String
   ): [Titre]
 
   "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
   demarches(
-    pages: Int
+    intervalle: Int
     page: Int
-    titresTypeIds: [ID]
-    titresDomaineIds: [ID]
-    titresStatutIds: [ID]
-    typeIds: [ID]
-    statutIds: [ID]
+    colonne: String
+    ordre: String
+    titresTypesIds: [ID]
+    titresDomainesIds: [ID]
+    titresStatutsIds: [ID]
+    typesIds: [ID]
+    statutsIds: [ID]
     etapesInclues: [InputEtapeFiltre]
     etapesExclues: [InputEtapeFiltre]
   ): [Demarche]
