@@ -65,6 +65,22 @@ const titreEtapeCopy = ({ props, condition }, titreEtapeFrom, titreEtapes) => {
   return true
 }
 
+const titreEtapeDelete = ({ condition }, titreEtapeFrom, titreEtapes) => {
+  if (
+    condition &&
+    typeof condition === 'function' &&
+    !condition(titreEtapeFrom, titreEtapes)
+  ) {
+    return false
+  }
+
+  const etapeIndex = titreEtapes.findIndex(e => e.id === titreEtapeFrom.id)
+
+  titreEtapes.splice(etapeIndex, 1)
+
+  return true
+}
+
 const titreEtapeRelationMove = (
   { relation, condition, targets },
   titreEtapeFrom,
@@ -140,7 +156,7 @@ const titreEtapeRelationMove = (
 }
 
 const titreEtapeValueModify = (
-  { valueProp, condition, changeTo },
+  { valueProp, condition, changeTo, deleteProp },
   titreEtapeFrom
 ) => {
   if (!titreEtapeFrom) return false
@@ -155,6 +171,16 @@ const titreEtapeValueModify = (
       : valueFrom === condition)
   ) {
     return false
+  }
+
+  if (deleteProp) {
+    console.info(
+      `\t from "${titreEtapeFrom.typeId}" : ${valueProp} "${valueFrom}" = "${condition}", set to "${changeTo}"`
+    )
+
+    objectValueDelete(titreEtapeFrom, valueProp)
+
+    return true
   }
 
   console.info(
@@ -250,6 +276,8 @@ const titreEtapeModify = (modifs, titreEtape, titreEtapes) =>
       modification = titreEtapeRelationMove(modif, titreEtape, titreEtapes)
     } else if (modif.copy) {
       modification = titreEtapeCopy(modif, titreEtape, titreEtapes)
+    } else if (modif.delete) {
+      modification = titreEtapeDelete(modif, titreEtape, titreEtapes)
     } else {
       throw new Error(`unknown modification ${JSON.stringify(modif)}`)
     }
