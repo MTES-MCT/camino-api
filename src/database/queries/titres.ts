@@ -11,7 +11,9 @@ import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
 
 const stringSplit = (string: string) =>
-  string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []
+  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
+    e.replace(/^"(.*)"$/, '$1')
+  )
 
 const titresColonnes = {
   nom: { id: 'nom' },
