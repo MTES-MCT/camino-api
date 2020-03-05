@@ -108,7 +108,8 @@ const relationsMove = [
   'substances',
   'titulaires',
   'administrations',
-  'communes'
+  'communes',
+  'documents'
 ].reduce((r, relation) => {
   r[relation] = {
     relation,
