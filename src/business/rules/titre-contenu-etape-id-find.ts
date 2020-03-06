@@ -43,7 +43,7 @@ const etapeContenuFind = (
 // - ou le titre a le statut modification en instance
 //   - et la démarche est une prolongation ou une demande de titre
 //   - et la démarche n'a aucune phase valide
-const etapeEligibleCheck = (
+const demarcheEligibleCheck = (
   titreDemarcheStatutId: string,
   titreDemarcheTypeId: string,
   titreStatutId: string,
@@ -71,7 +71,7 @@ const titreContenuEtapeIdFind = (
       if (etapeId) return etapeId
 
       if (
-        !etapeEligibleCheck(
+        !demarcheEligibleCheck(
           titreDemarche.statutId!,
           titreDemarche.typeId,
           titreStatutId,

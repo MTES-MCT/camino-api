@@ -11,12 +11,11 @@ Object.keys(titresTypesEtapesTypesRestrictions).forEach(typeId => {
     titresTypesEtapesTypesRestrictions[typeId]
 
   titreTypeEtapesTypesRestrictions.forEach(titreTypeEtapesTypesRestriction => {
-    if (
-      !titreTypeEtapesTypesRestriction ||
-      titreTypeEtapesTypesRestriction.impossibleAvant === '*'
-    ) {
+    if (!titreTypeEtapesTypesRestriction) {
       return false
     }
+
+    const { impossibleAvant = [] } = titreTypeEtapesTypesRestriction
 
     const { condition } = titreTypeEtapesTypesRestriction
     if (!condition || !condition.etape) return false
@@ -40,7 +39,7 @@ Object.keys(titresTypesEtapesTypesRestrictions).forEach(typeId => {
 
         return impossibleAvant
       },
-      []
+      impossibleAvant
     )
   })
 })
@@ -48,8 +47,10 @@ Object.keys(titresTypesEtapesTypesRestrictions).forEach(typeId => {
 const sameContenuCheck = (conditionTitre, titre) =>
   conditionTitre.contenu &&
   titre.contenu &&
-  Object.keys(conditionTitre.contenu).every(key =>
-    objConditionMatch(conditionTitre.contenu[key], titre.contenu[key])
+  Object.keys(conditionTitre.contenu).every(
+    key =>
+      titre.contenu[key] &&
+      objConditionMatch(conditionTitre.contenu[key], titre.contenu[key])
   )
 
 const titreEtapeTypesRestrictionsFind = (
@@ -57,7 +58,7 @@ const titreEtapeTypesRestrictionsFind = (
   titreEtape,
   titre
 ) =>
-  titreTypeEtapesTypesRestrictions.find(restrictions => {
+  titreTypeEtapesTypesRestrictions.filter(restrictions => {
     if (!restrictions) return false
 
     const { condition } = restrictions
@@ -196,68 +197,67 @@ const titreEtapeTypesRestrictionsCheck = (
   titreEtape,
   titreEtapeType,
   titreDemarche
-) => {
-  const errors = []
-
-  const {
-    condition,
-    impossible,
-    obligatoireApres,
-    impossibleApres,
-    impossibleAvant
-  } = titreEtapeTypesRestrictions
-
-  if (impossible) {
-    const statutId = condition.etape && condition.etape.statutId
-
-    errors.push(
-      `L'étape « ${titreEtapeType.nom} »${
-        statutId ? ` avec un statut « ${statutId} »` : ''
-      } est impossible.`
-    )
-  }
-
-  // l'étape nécessite une étape antérieure pour pouvoir exister
-  if (obligatoireApres) {
-    const errorsObligatoire = obligatoireApresFind(
-      titreDemarche,
-      titreEtapeType,
-      titreEtape.date,
-      obligatoireApres
-    )
-
-    if (errorsObligatoire.length) {
-      errors.push(...errorsObligatoire)
-    }
-  }
-
-  // l'étape ne peut se trouver après une étape postérieure
-  if (impossibleApres) {
-    const errorsApres = impossibleApresFind(
-      titreDemarche,
-      titreEtapeType,
-      titreEtape.date,
-      impossibleApres
-    )
-    if (errorsApres.length) {
-      errors.push(...errorsApres)
-    }
-  }
-
-  if (impossibleAvant && impossibleAvant.length > 0) {
-    const errorsAvant = impossibleAvantFind(
-      titreDemarche,
-      titreEtapeType,
-      titreEtape.date,
+) =>
+  titreEtapeTypesRestrictions.reduce((errors, titreEtapeTypesRestrictions) => {
+    const {
+      condition,
+      impossible,
+      obligatoireApres,
+      impossibleApres,
       impossibleAvant
-    )
-    if (errorsAvant.length) {
-      errors.push(...errorsAvant)
-    }
-  }
+    } = titreEtapeTypesRestrictions
 
-  return errors
-}
+    if (impossible) {
+      const statutId = condition.etape && condition.etape.statutId
+
+      errors.push(
+        `L'étape « ${titreEtapeType.nom} »${
+          statutId ? ` avec un statut « ${statutId} »` : ''
+        } est impossible.`
+      )
+    }
+
+    // l'étape nécessite une étape antérieure pour pouvoir exister
+    if (obligatoireApres) {
+      const errorsObligatoire = obligatoireApresFind(
+        titreDemarche,
+        titreEtapeType,
+        titreEtape.date,
+        obligatoireApres
+      )
+
+      if (errorsObligatoire.length) {
+        errors.push(...errorsObligatoire)
+      }
+    }
+
+    // l'étape ne peut se trouver après une étape postérieure
+    if (impossibleApres) {
+      const errorsApres = impossibleApresFind(
+        titreDemarche,
+        titreEtapeType,
+        titreEtape.date,
+        impossibleApres
+      )
+      if (errorsApres.length) {
+        errors.push(...errorsApres)
+      }
+    }
+
+    if (impossibleAvant && impossibleAvant.length > 0) {
+      const errorsAvant = impossibleAvantFind(
+        titreDemarche,
+        titreEtapeType,
+        titreEtape.date,
+        impossibleAvant
+      )
+      if (errorsAvant.length) {
+        errors.push(...errorsAvant)
+      }
+    }
+
+    return errors
+  }, [])
 
 const titreEtapeDateValidate = (titreEtape, titreDemarche, titre) => {
   // pas de validation pour les titres qui n'ont pas d'arbre de restrictions
@@ -276,7 +276,7 @@ const titreEtapeDateValidate = (titreEtape, titreDemarche, titre) => {
   )
 
   // l'étape à vérifier ne fait l'objet d'aucune restriction
-  if (!titreEtapeTypesRestrictions) return null
+  if (!titreEtapeTypesRestrictions.length) return null
 
   const titreEtapeType = titreEtapeDemarcheEtapeTypeFind(
     titreDemarche.type,

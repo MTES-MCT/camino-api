@@ -2,13 +2,12 @@ import {
   IToken,
   IUtilisateur,
   ITitre,
+  ITitreDemarche,
   ITitreEtape,
   IEtapeType
 } from '../../types'
 
 import { debug } from '../../config/index'
-
-import metas from '../../database/cache/metas'
 
 import { titreFormat } from './format/titres'
 import { etapesTypesFormat } from './format/etapes-types'
@@ -28,61 +27,106 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
+import titreEtapeDateValidate from '../../business/utils/titre-etape-date-validate'
+
+const demarcheTypeEtapeTypeFormat = (
+  user: IUtilisateur | undefined,
+  et: IEtapeType,
+  titre: ITitre,
+  demarche: ITitreDemarche,
+  etapeTypeId: string | null
+) => {
+  const { typeId: demarcheTypeId, etapes: titreEtapes } = demarche
+
+  // si
+  // - le type d'étape ne correspond pas au type de titre
+  // ou
+  // - il s'agit d'une creation d'étape (etapeTypeId absent)
+  //   - ou il s'agit d'une modification d'étape (etapeTypeId présent)
+  //   - et le type d'étape ne correspond pas à celui de l'étape éditée
+  // - le type d'étape est unique
+  // - la démarche contient déjà ce type d'étape
+  // alors on n'ajoute pas ce type d'étape à ceux disponibles pour cette démarche
+  if (
+    et.titreTypeId !== titre.typeId ||
+    ((!etapeTypeId || et.id !== etapeTypeId) &&
+      et.unique &&
+      titreEtapes &&
+      titreEtapes.find(e => e.typeId === et.id))
+  ) {
+    return null
+  }
+
+  const isSuper = permissionsCheck(user, ['super'])
+
+  if (!isSuper) {
+    // TODO : filtrer les types d'étapes avec type.dateFin
+    // en fonction de la date du titre
+
+    // restreint la liste des types d'étapes en fonction
+    // de la possibilité de les créer
+    et.etapesStatuts = et.etapesStatuts!.filter(es => {
+      const error = !titreEtapeDateValidate(
+        { typeId: et.id, date: '3000-01-01', statutId: es.id },
+        demarche,
+        titre
+      )
+
+      return error
+    })
+
+    // si il n'est possible de crééer le type d'étape pour aucun statut
+    // alors on ne retourne pas ce type d'étape pendant l'édition
+    if (!et.etapesStatuts.length) return null
+  }
+
+  et.editable = titreEtapePermissionAdministrationsCheck(
+    user,
+    titre.typeId,
+    titre.statutId!,
+    et.id,
+    etapeTypeId ? 'modification' : 'creation'
+  )
+
+  if (!et.editable) {
+    return null
+  }
+
+  et.demarcheTypeId = demarcheTypeId
+
+  et = etapesTypesFormat(et)
+
+  return et
+}
 
 const demarcheEtapeTypesFormat = (
   user: IUtilisateur | undefined,
   titre: ITitre,
-  demarcheTypeId: string,
-  titreEtapes: ITitreEtape[] | undefined,
+  demarche: ITitreDemarche,
   etapeTypeId: string | null
 ) => {
-  const demarcheType = metas.demarchesTypes.find(
-    ({ id }) => id === demarcheTypeId
-  )
+  const { typeId: demarcheTypeId, type: demarcheType } = demarche
+
   if (!demarcheType || !demarcheType.etapesTypes) {
     throw new Error(`${demarcheTypeId} inexistant`)
   }
 
-  const etapesTypes = demarcheType.etapesTypes
+  return demarcheType.etapesTypes.sort((a, b) => a.ordre - b.ordre)
+    .reduce((etapesTypes: IEtapeType[], et) => {
+      const etapeType = demarcheTypeEtapeTypeFormat(
+        user,
+        et,
+        titre,
+        demarche,
+        etapeTypeId
+      )
 
-  return etapesTypes.reduce((etapesTypes: IEtapeType[], et) => {
-    // si
-    // - le type d'étape ne correspond pas au type de titre
-    // ou
-    // - il s'agit d'une creation d'étape (etapeTypeId absent)
-    //   - ou il s'agit d'une modification d'étape (etapeTypeId présent)
-    //   - et le type d'étape ne correspond pas à celui de l'étape éditée
-    // - le type d'étape est unique
-    // - la démarche contient déjà ce type d'étape
-    // alors on n'ajoute pas ce type d'étape à ceux disponibles pour cette démarche
-    if (
-      et.titreTypeId !== titre.typeId ||
-      ((!etapeTypeId || et.id !== etapeTypeId) &&
-        et.unique &&
-        titreEtapes &&
-        titreEtapes.find(e => e.typeId === et.id))
-    ) {
+      if (etapeType) {
+        etapesTypes.push(etapeType)
+      }
+
       return etapesTypes
-    }
-
-    et.editable = titreEtapePermissionAdministrationsCheck(
-      user,
-      titre.typeId,
-      titre.statutId!,
-      et.id,
-      etapeTypeId ? 'modification' : 'creation'
-    )
-
-    if (et.editable) {
-      et.demarcheTypeId = demarcheTypeId
-
-      et = etapesTypesFormat(et)
-
-      etapesTypes.push(et)
-    }
-
-    return etapesTypes
-  }, [])
+    }, [])
 }
 
 // si etapeTypeId existe
@@ -112,8 +156,7 @@ const demarcheEtapesTypes = async (
   return demarcheEtapeTypesFormat(
     user,
     titre,
-    demarche.typeId,
-    demarche.etapes,
+    demarche,
     etapeTypeId
   )
 }

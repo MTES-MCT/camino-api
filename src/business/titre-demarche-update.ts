@@ -4,6 +4,7 @@ import { activitesTypesGet } from '../database/queries/metas'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
@@ -53,7 +54,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     })
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
-    // 10.
+    // 11.
     console.log('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(titreId, {
       graph:
@@ -61,7 +62,14 @@ const titreDemarcheUpdate = async (titreId: string) => {
     })
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
-    // 11.
+    // 12.
+    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
+    titre = await titreGet(titreId, {
+      graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
+    })
+    const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
+
+    // 13.
     // pour les année 2018 et 2019 (en dur)
     console.log()
     console.log('activités des titres…')
@@ -73,7 +81,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
       activitesTypes
     )
 
-    // 12.
+    // 14.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId)
     const titreUpdatedIndex = await titreIdsUpdate(titre)
@@ -96,6 +104,9 @@ const titreDemarcheUpdate = async (titreId: string) => {
     )
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+    )
+    console.log(
+      `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
     console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
     console.log(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
