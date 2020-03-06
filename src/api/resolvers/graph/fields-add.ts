@@ -34,13 +34,9 @@ const fieldTitreAdd = (fields: IFields) => {
 }
 
 // ajoute les démarches et les étapes sur une requête de titre
-// pour calculer le contenu en fonction des sections du type de titre
+// pour calculer ses sections en fonction des sections des étapes
 const titresFieldsAdd = (fields: IFields) => {
-  if (fields.contenu) {
-    if (!fields.type) {
-      fields.type = { id: {} }
-    }
-
+  if (fields.type && fields.type.sections) {
     if (!fields.demarches) {
       fields.demarches = { id: {} }
     }

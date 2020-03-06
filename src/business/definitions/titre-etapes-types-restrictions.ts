@@ -90,7 +90,7 @@ const titreEtapesTypesRestrictions = [
 
   {
     condition: {
-      titre: { contenu: { onf: { mecanisee: false } } },
+      titre: { contenu: { arm: { mecanise: false } } },
       etape: { typeId: 'mno' }
     },
     obligatoireApresUne: { typeId: 'aca', statutId: 'fav' },
@@ -98,7 +98,7 @@ const titreEtapesTypesRestrictions = [
   },
   {
     condition: {
-      titre: { contenu: { onf: { mecanisee: false } } },
+      titre: { contenu: { arm: { mecanise: false } } },
       etape: { typeId: 'sco' }
     },
     obligatoireApresUne: { typeId: 'mno' },
@@ -106,7 +106,7 @@ const titreEtapesTypesRestrictions = [
   },
   {
     condition: {
-      titre: { contenu: { onf: { mecanisee: true } } },
+      titre: { contenu: { arm: { mecanise: true } } },
       etape: { typeId: 'mno' }
     },
     obligatoireApresUne: { typeId: 'aca' },
@@ -114,7 +114,7 @@ const titreEtapesTypesRestrictions = [
   },
   {
     condition: {
-      titre: { contenu: { onf: { mecanisee: true } } },
+      titre: { contenu: { arm: { mecanise: true } } },
       etape: { typeId: 'pfc' }
     },
     obligatoireApresUne: { typeId: 'mno' },
@@ -122,7 +122,7 @@ const titreEtapesTypesRestrictions = [
   },
   {
     condition: {
-      titre: { contenu: { onf: { mecanisee: true } } },
+      titre: { contenu: { arm: { mecanise: true } } },
       etape: { typeId: 'sco' }
     },
     obligatoireApresUne: { typeId: 'pfc' },

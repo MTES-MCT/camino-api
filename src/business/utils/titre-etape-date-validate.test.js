@@ -42,8 +42,8 @@ jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
     },
     {
       condition: {
-        etape: { typeId: 'etape-mecanisee' },
-        titre: { contenu: { onf: { mecanisee: true } } }
+        etape: { typeId: 'etape-mecanise' },
+        titre: { contenu: { arm: { mecanise: true } } }
       },
       obligatoireApresUne: null,
       impossibleApresUne: { propArray: [1, 2] }
@@ -78,8 +78,8 @@ const type = {
       nom: 'etape-derniere'
     },
     {
-      id: 'etape-mecanisee',
-      nom: 'etape-mecanisee'
+      id: 'etape-mecanise',
+      nom: 'etape-mecanise'
     }
   ]
 }
@@ -344,23 +344,23 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
     ).toBeNull()
   })
 
-  test('mecanisee', () => {
+  test('mecanise', () => {
     expect(
       titreEtapeDateValidate(
         {
-          typeId: 'etape-mecanisee',
+          typeId: 'etape-mecanise',
           date: '2020-01-01'
         },
         {
           type,
-          etapes: [{ contenu: { onf: { mecanisee: true } } }]
+          etapes: [{ contenu: { arm: { mecanise: true } } }]
         },
         {
           typeId: 'arm',
           demarches: [
             {
               type,
-              etapes: [{ contenu: { onf: { mecanisee: true } } }]
+              etapes: [{ contenu: { arm: { mecanise: true } } }]
             }
           ]
         }

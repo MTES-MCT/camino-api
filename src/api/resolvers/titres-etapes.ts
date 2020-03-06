@@ -219,7 +219,7 @@ const etapeModifier = async (
       }
     }
 
-    const rulesErrors = await titreEtapeUpdationValidate(etape)
+    const rulesErrors = await titreEtapeUpdationValidate(user, etape)
 
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))

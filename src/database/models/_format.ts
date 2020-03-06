@@ -1,6 +1,79 @@
-import { IPays, ICommune } from '../../types'
+import {
+  IPays,
+  ICommune,
+  ITitreEtape,
+  IContenu,
+  ITitrePropsTitreEtapesIds
+} from '../../types'
 import * as slugify from '@sindresorhus/slugify'
 import { Pojo } from 'objection'
+
+import TitresEtapes from './titres-etapes'
+
+// récupère les contenus des étapes pour les assigner dans le titre
+const titreContenuFormat = async (
+  propsTitreEtapesIds: ITitrePropsTitreEtapesIds
+) => {
+  if (!propsTitreEtapesIds) return {}
+
+  const etapesIds = Object.keys(propsTitreEtapesIds).reduce(
+    (etapesIds: string[], sectionId) =>
+      Object.keys(propsTitreEtapesIds![sectionId])
+        .reduce((etapesIds, elementId) => {
+          const etapeId = propsTitreEtapesIds![sectionId][elementId]
+
+          if (etapeId) {
+            etapesIds.push(etapeId)
+          }
+
+          return etapesIds
+        }, etapesIds),
+    []
+  )
+
+  if (!etapesIds.length) {
+    return {}
+  }
+
+  const etapes = await TitresEtapes.query()
+    .whereIn('titresEtapes.id', etapesIds)
+
+  const etapesIndex = etapes.reduce(
+    (etapesIndex: { [id: string]: ITitreEtape }, etape) => {
+      if (!etapesIndex[etape.id]) {
+        etapesIndex[etape.id] = etape
+      }
+      return etapesIndex
+    },
+    {}
+  )
+
+  return Object.keys(propsTitreEtapesIds).reduce(
+    (contenu: IContenu, sectionId: string) =>
+      Object.keys(propsTitreEtapesIds![sectionId])
+        .reduce((contenu, elementId) => {
+          const etapeId = propsTitreEtapesIds![sectionId][elementId]
+
+          if (etapeId) {
+            const etape = etapesIndex[etapeId]
+
+            if (
+              etape &&
+              etape.contenu &&
+              etape.contenu[sectionId] &&
+              etape.contenu[sectionId][elementId]
+            ) {
+              if (!contenu[sectionId]) {
+                contenu[sectionId] = {}
+              }
+
+              contenu[sectionId][elementId] = etape.contenu[sectionId][elementId]
+            }
+          }
+
+          return contenu
+        }, contenu), {})
+}
 
 const titreInsertFormat = (json: Pojo) => {
   if (!json.id && json.domaineId && json.typeId && json.nom) {
@@ -114,4 +187,4 @@ const paysFormat = (communes: ICommune[]) => {
   return pays
 }
 
-export { paysFormat, titreInsertFormat }
+export { paysFormat, titreInsertFormat, titreContenuFormat }
