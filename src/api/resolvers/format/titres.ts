@@ -183,8 +183,8 @@ const titreFormat = (
     )
   }
 
-  if (fields.type && fields.type.sections) {
-    t.type.sections = titreTypeSectionsFormat(t)
+  if (fields.type?.sections) {
+    t.type!.sections = titreTypeSectionsFormat(t)
   }
 
   if (fields.surface && t.surfaceEtape) {

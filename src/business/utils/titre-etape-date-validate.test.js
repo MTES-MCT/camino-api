@@ -1,54 +1,92 @@
 import titreEtapeDateValidate from './titre-etape-date-validate'
 
-jest.mock('../definitions/titre-etapes-types-restrictions', () => ({
-  default: [
-    null,
-    {},
-    { condition: null },
-    { condition: {} },
-    {
-      condition: { etape: { typeId: 'etape-premiere' } },
-      obligatoireApresUne: null,
-      impossibleApresUne: '*'
-    },
-    {
-      condition: { etape: { typeId: 'etape-milieu-obligatoire-apres' } },
-      obligatoireApresUne: { typeId: 'etape-premiere' },
-      impossibleApresUne: null
-    },
-    {
-      condition: {
-        etape: { typeId: 'etape-milieu-obligatoire-apres-cond-simple' }
+jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
+  default: {
+    arm: [
+      null,
+      {},
+      { condition: null },
+      { condition: {} },
+      {
+        condition: { etape: { typeId: 'etape-impossible' } },
+        impossible: true
       },
-      obligatoireApresUne: { typeId: 'etape-premiere', statutId: 'ko' },
-      impossibleApresUne: null
-    },
-    {
-      condition: {
-        etape: { typeId: 'etape-milieu-obligatoire-apres-cond-tableau' }
+      {
+        condition: {
+          etape: { typeId: 'etape-impossible-statut', statutId: 'acc' }
+        },
+        impossible: true
       },
-      obligatoireApresUne: { typeId: 'etape-premiere', statutId: ['ok', 'ko'] },
-      impossibleApresUne: null
-    },
-    {
-      condition: { etape: { typeId: 'etape-milieu-impossible-apres' } },
-      obligatoireApresUne: null,
-      impossibleApresUne: { typeId: 'etape-derniere' }
-    },
-    {
-      condition: { etape: { typeId: 'etape-derniere' } },
-      obligatoireApresUne: null,
-      impossibleApresUne: null
-    },
-    {
-      condition: {
-        etape: { typeId: 'etape-mecanise' },
-        titre: { contenu: { arm: { mecanise: true } } }
+      {
+        condition: { etape: { typeId: 'etape-premiere' } },
+        obligatoireApres: null,
+        impossibleApres: ['*']
       },
-      obligatoireApresUne: null,
-      impossibleApresUne: { propArray: [1, 2] }
-    }
-  ]
+      {
+        condition: { etape: { typeId: 'etape-milieu-obligatoire-apres' } },
+        obligatoireApres: [{ typeId: 'etape-premiere' }],
+        impossibleApres: null
+      },
+      {
+        obligatoireApres: [
+          {
+            typeId: 'etape-premiere',
+            statutId: ['ok', 'ko']
+          }
+        ],
+        impossibleApres: null
+      },
+      {
+        condition: { etape: { typeId: 'etape-milieu-impossible-apres' } },
+        obligatoireApres: null,
+        impossibleApres: [{ typeId: 'etape-derniere' }]
+      },
+      {
+        condition: { etape: { typeId: 'etape-derniere' } },
+        obligatoireApres: null,
+        impossibleApres: null
+      },
+      {
+        condition: {
+          etape: { typeId: 'etape-mecanise' },
+          titre: { contenu: { arm: { mecanise: true } } }
+        },
+        obligatoireApres: [{ typeId: 'etape-premiere' }]
+      },
+      {
+        condition: {
+          etape: { typeId: 'etape-milieu-obligatoire-apres-cond-simple' }
+        },
+        obligatoireApres: [{ typeId: 'etape-premiere', statutId: 'ko' }],
+        impossibleApres: null
+      },
+      {
+        condition: {
+          etape: { typeId: 'etape-milieu-obligatoire-apres-cond-tableau' }
+        },
+        obligatoireApres: [
+          {
+            typeId: 'etape-premiere',
+            statutId: ['ok', 'ko']
+          }
+        ],
+        impossibleApres: null
+      },
+      {
+        condition: { etape: { typeId: 'etape-derniere' } },
+        obligatoireApres: null,
+        impossibleApres: null
+      },
+      {
+        condition: {
+          etape: { typeId: 'etape-mecanisee' },
+          titre: { contenu: { arm: { mecanisee: true } } }
+        },
+        obligatoireApres: null,
+        impossibleApres: [{ propArray: [1, 2] }]
+      }
+    ]
+  }
 }))
 
 const type = {
@@ -56,6 +94,14 @@ const type = {
     {
       id: 'etape-premiere',
       nom: 'etape-premiere'
+    },
+    {
+      id: 'etape-impossible',
+      nom: 'etape-impossible'
+    },
+    {
+      id: 'etape-impossible-statut',
+      nom: 'etape-impossible-statut'
     },
     {
       id: 'etape-milieu-obligatoire-apres',
@@ -91,21 +137,13 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
 
   test("une étape historique dont la date est antérieure au 31 octobre 2019 n'est pas validée", () => {
     expect(
-      titreEtapeDateValidate(
-        { date: '2000-01-01' },
-        {},
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
-      )
+      titreEtapeDateValidate({ date: '2000-01-01' }, {}, { typeId: 'arm' })
     ).toBeNull()
   })
 
   test('parametre invalide', () => {
     expect(
-      titreEtapeDateValidate(
-        {},
-        { etapes: [{}, null] },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
-      )
+      titreEtapeDateValidate({}, { etapes: [{}, null] }, { typeId: 'arm' })
     ).toBeNull()
   })
 
@@ -114,9 +152,44 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
       titreEtapeDateValidate(
         { typeId: 'etape-aucune-restriction' },
         { etapes: [{}, null] },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toBeNull()
+  })
+
+  test('impossible', () => {
+    expect(
+      titreEtapeDateValidate(
+        {
+          typeId: 'etape-impossible',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: []
+        },
+        { typeId: 'arm' }
+      )
+    ).toEqual("L'étape « etape-impossible » est impossible.")
+  })
+
+  test('impossible avec statut', () => {
+    expect(
+      titreEtapeDateValidate(
+        {
+          typeId: 'etape-impossible-statut',
+          statutId: 'acc',
+          date: '3000-01-01'
+        },
+        {
+          type,
+          etapes: []
+        },
+        { typeId: 'arm' }
+      )
+    ).toEqual(
+      "L'étape « etape-impossible-statut » avec un statut « acc » est impossible."
+    )
   })
 
   test('avant la premiere', () => {
@@ -135,7 +208,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toEqual(
       "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres »."
@@ -159,7 +232,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toEqual(
       "Une étape « etape-premiere » antérieure (dont le statut est « ko ») est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-simple »."
@@ -183,7 +256,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toEqual(
       "Une étape « etape-premiere » antérieure (dont le statut est « ok ou ko ») est nécessaire pour la création d'une étape « etape-milieu-obligatoire-apres-cond-tableau »."
@@ -207,7 +280,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toBeNull()
   })
@@ -228,7 +301,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toEqual(
       'Une étape « etape-milieu-impossible-apres » ne peut être créée après une étape « etape-derniere ».'
@@ -251,7 +324,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toBeNull()
   })
@@ -272,7 +345,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toEqual(
       'Une étape « etape-derniere » ne peut être créée avant une étape « etape-milieu-impossible-apres ».'
@@ -295,7 +368,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toBeNull()
   })
@@ -316,7 +389,7 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toEqual(
       'Une étape « etape-premiere » ne peut être créée après aucune autre étape.'
@@ -339,12 +412,12 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
             }
           ]
         },
-        { typeId: 'arm', demarches: [{ etapes: [] }] }
+        { typeId: 'arm' }
       )
     ).toBeNull()
   })
 
-  test('mecanise', () => {
+  test('etape mecanise sur titre mecanise sans etape obligatoire', () => {
     expect(
       titreEtapeDateValidate(
         {
@@ -353,16 +426,32 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
         },
         {
           type,
-          etapes: [{ contenu: { arm: { mecanise: true } } }]
+          etapes: [{}]
         },
         {
           typeId: 'arm',
-          demarches: [
-            {
-              type,
-              etapes: [{ contenu: { arm: { mecanise: true } } }]
-            }
-          ]
+          contenu: { arm: { mecanise: true } }
+        }
+      )
+    ).toEqual(
+      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-mecanise »."
+    )
+  })
+
+  test('etape mecanise sur titre mecanise avec etape obligatoire', () => {
+    expect(
+      titreEtapeDateValidate(
+        {
+          typeId: 'etape-mecanise',
+          date: '2020-01-01'
+        },
+        {
+          type,
+          etapes: [{ typeId: 'etape-premiere', date: '2000-01-01' }]
+        },
+        {
+          typeId: 'arm',
+          contenu: { arm: { mecanise: true } }
         }
       )
     ).toBeNull()
