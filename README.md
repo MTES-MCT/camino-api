@@ -159,7 +159,7 @@ La documentation [est disponible ici](https://github.com/MTES-MCT/camino-api/tre
 
 ---
 
-## PostgreSQL
+## Base de données
 
 ![camino database schema](manual/database/camino-db.svg)
 
