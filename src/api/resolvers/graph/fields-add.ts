@@ -1,21 +1,31 @@
 import { IFields } from '../../../types'
 
-const titreDemarcheFieldsAdd = (fields: IFields) => {
+// ajoute les champs nécessaire pour requêter le sous-objet titre
+// pour vérifier si l'utilisateur a les droits sur les titres
+const fieldTitreAdd = (fields: IFields) => {
   if (!fields.titre) {
     fields.titre = {
       id: {},
-      nom: {},
-      type: { id: {}, type: { nom: {} } },
-      domaine: { id: {}, nom: {} },
-      statut: { id: {}, nom: {}, couleur: {} }
+      nom: {}
     }
   }
 
-  // on récupère les titulaires et les amodiataires
-  // pour vérifier si l'utilisateur a les droits sur les titres
+  if (!fields.titre.type) {
+    fields.titre.type = { id: {}, type: { nom: {} } }
+  }
+
+  if (!fields.titre.domaine) {
+    fields.titre.domaine = { id: {}, nom: {} }
+  }
+
+  if (!fields.titre.statut) {
+    fields.titre.statut = { id: {}, nom: {} }
+  }
+
   if (!fields.titre.titulaires) {
     fields.titre.titulaires = {}
   }
+
   if (!fields.titre.amodiataires) {
     fields.titre.amodiataires = {}
   }
@@ -23,9 +33,9 @@ const titreDemarcheFieldsAdd = (fields: IFields) => {
   return fields
 }
 
-const titreFieldsAdd = (fields: IFields) => {
-  // pour accéder au contenu des titres
-  // on récupère les démarches et ses étapes
+// ajoute les démarches et les étapes sur une requête de titre
+// pour calculer le contenu en fonction des sections du type de titre
+const titresFieldsAdd = (fields: IFields) => {
   if (fields.contenu) {
     if (!fields.type) {
       fields.type = { id: {} }
@@ -48,4 +58,4 @@ const titreFieldsAdd = (fields: IFields) => {
   return fields
 }
 
-export { titreDemarcheFieldsAdd, titreFieldsAdd }
+export { fieldTitreAdd, titresFieldsAdd }

@@ -39,15 +39,28 @@ interface ISection {
   elements?: ISectionElement[] | null
 }
 
+type IValeurMetasNom = 'devises' | 'unites'
+
+type ISectionElementType =
+  | 'number'
+  | 'text'
+  | 'date'
+  | 'textarea'
+  | 'checkbox'
+  | 'checkboxes'
+  | 'select'
+  | 'radio'
+
 interface ISectionElement {
   id: string
   nom: string
-  type: string
+  type: ISectionElementType
   description?: string | null
   dateDebut?: string | null
   dateFin?: string | null
   frequencePeriodesIds?: number[] | null
-  valeurs?: { [id: string]: string } | null
+  valeurs?: { id: string; nom: string }[] | null
+  valeursMetasNom?: IValeurMetasNom
 }
 
 interface ITitreSection {
@@ -117,19 +130,11 @@ interface IContenuElement {
 }
 
 interface ITitrePropsTitreEtapesIdsValeur {
-  [elementId: string]: IContenuValeur | null
+  [elementId: string]: string
 }
 
 interface ITitrePropsTitreEtapesIds {
   [sectionId: string]: ITitrePropsTitreEtapesIdsValeur
-}
-
-interface ITitrePropsTitreEtapesValeur {
-  [elementId: string]: IContenuValeur
-}
-
-interface ITitrePropsTitreEtapes {
-  [sectionId: string]: ITitrePropsTitreEtapesValeur
 }
 
 interface ICoordonnees {
@@ -436,7 +441,7 @@ interface ITitre {
   supprimable?: boolean | null
   doublonTitreId?: string | null
   propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
-  contenu?: ITitrePropsTitreEtapes | null
+  contenu?: IContenu | null
 }
 
 interface ITitreActivite {
@@ -702,7 +707,6 @@ export {
   IContenuElement,
   IContenuValeur,
   ITitrePropsTitreEtapesIds,
-  ITitrePropsTitreEtapes,
   ICoordonnees,
   IDemarcheStatut,
   IDemarcheType,

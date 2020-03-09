@@ -10,8 +10,11 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
   const titresUpdated = titres.reduce((titresUpdated: ITitre[], titre) => {
     if (!titre.type?.propsEtapesTypes) return titresUpdated
 
-    const props = titre.type.propsEtapesTypes.reduce(
-      (props: ITitrePropsTitreEtapesIds, { sectionId, elementId }) => {
+    const propsTitreEtapesIds = titre.type.propsEtapesTypes.reduce(
+      (
+        propsTitreEtapesIds: ITitrePropsTitreEtapesIds,
+        { sectionId, elementId }
+      ) => {
         const titreEtapeId = titreContenuEtapeIdFind(
           titre.demarches!,
           titre.statutId!,
@@ -26,38 +29,37 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
           (!titre.propsTitreEtapesIds ||
             !titre.propsTitreEtapesIds[sectionId] ||
             titreEtapeId !== titre.propsTitreEtapesIds[sectionId][elementId]) &&
-          (titre.propsTitreEtapesIds &&
+          ((titre.propsTitreEtapesIds &&
             titre.propsTitreEtapesIds[sectionId] &&
-            titre.propsTitreEtapesIds[sectionId][elementId] ||
+            titre.propsTitreEtapesIds[sectionId][elementId]) ||
             titreEtapeId)
         ) {
-          if (!props[sectionId]) {
-            props[sectionId] = {}
+          if (!propsTitreEtapesIds[sectionId]) {
+            propsTitreEtapesIds[sectionId] = {}
           }
 
-          props[sectionId][elementId] = titreEtapeId
+          if (titreEtapeId) {
+            propsTitreEtapesIds[sectionId][elementId] = titreEtapeId
+          } else {
+            delete propsTitreEtapesIds[sectionId][elementId]
+          }
         }
 
-        return props
+        return propsTitreEtapesIds
       },
       {}
     )
 
-    if (Object.keys(props).length) {
-      if (!titre.propsTitreEtapesIds) {
-        titre.propsTitreEtapesIds = {}
-      }
-
-      const propsTitreEtapesIds = { ...titre.propsTitreEtapesIds, ...props }
-
+    if (Object.keys(propsTitreEtapesIds).length) {
       queue.add(async () => {
-        const titreUpdated = await titreUpdate(
-          titre.id,
-          { propsTitreEtapesIds }
-        )
+        const titreUpdated = await titreUpdate(titre.id, {
+          propsTitreEtapesIds
+        })
 
         console.log(
-          `mise à jour: titre ${titre.id} contenu: ${JSON.stringify(propsTitreEtapesIds)}`
+          `mise à jour: titre ${titre.id} contenu: ${JSON.stringify(
+            propsTitreEtapesIds
+          )}`
         )
 
         titresUpdated.push(titreUpdated)

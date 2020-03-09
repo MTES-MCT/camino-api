@@ -1,15 +1,25 @@
-import { IDemarcheType, ITitreType } from '../../types'
+import { IDemarcheType, ITitreType, IDevise, IUnite } from '../../types'
 
-import { titresTypesGet, demarchesTypesGet } from '../queries/metas'
+import {
+  titresTypesGet,
+  demarchesTypesGet,
+  devisesGet,
+  unitesGet
+} from '../queries/metas'
 
 const metas = {
   titresTypes: [] as ITitreType[],
-  demarchesTypes: [] as IDemarcheType[]
+  demarchesTypes: [] as IDemarcheType[],
+  devises: [] as IDevise[],
+  unites: [] as IUnite[]
 }
 
 const metasInit = async () => {
   metas.titresTypes = await titresTypesGet()
   metas.demarchesTypes = await demarchesTypesGet()
+
+  metas.devises = await devisesGet()
+  metas.unites = await unitesGet()
 }
 
 export default metas

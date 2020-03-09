@@ -10,7 +10,7 @@ import { titrePermissionAdministrationsCheck } from './permissions/titre-edition
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
-import { titreFieldsAdd } from './graph/titre-fields-add'
+import { titresFieldsAdd } from './graph/fields-add'
 
 import {
   titreCreate,
@@ -33,7 +33,7 @@ const titre = async (
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
     let fields = graphFieldsBuild(info)
-    fields = titreFieldsAdd(fields)
+    fields = titresFieldsAdd(fields)
 
     const graph = graphBuild(fields, 'titre', graphFormat)
 
