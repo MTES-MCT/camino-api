@@ -91,7 +91,7 @@ const titreEtapeCommuneDelete = async (
     .andWhere('communeId', communeId)
 
 const titresEtapesAdministrationsCreate = async (
-  titresEtapesAdministrations: ITitreAdministrationLocale
+  titresEtapesAdministrations: ITitreAdministrationLocale[]
 ) => TitresAdministrationsLocales.query().insert(titresEtapesAdministrations)
 
 const titreEtapeAdministrationDelete = async (

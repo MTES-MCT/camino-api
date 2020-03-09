@@ -472,7 +472,7 @@ interface ITitreAdministrationsGestionnaire {
 
 interface ITitreAdministrationLocale {
   administrationId: string
-  titreId: string
+  titreEtapeId: string
   associee?: boolean | null
   coordinateur?: boolean | null
 }

@@ -1,3 +1,5 @@
+import { IAdministration, ITitre } from '../../../types'
+
 const administrations = [
   {
     id: 'gestionnaire',
