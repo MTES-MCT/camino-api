@@ -113,7 +113,7 @@ const titreEtapeRelationMove = (
     typeof condition === 'function' &&
     !condition(titreEtapeTo, titreEtapeFrom)
   ) {
-    console.log(
+    console.info(
       'condition non remplie',
       condition.toString(),
       condition(titreEtapeFrom)
@@ -125,11 +125,11 @@ const titreEtapeRelationMove = (
   if (move === true) {
     titreEtapeTo[relation] = titreEtapeFrom[relation]
 
-    console.log(
+    console.info(
       `\t from "${titreEtapeFrom.typeId}" => "${titreEtapeTo.typeId}" : move ${relation}`
     )
   } else {
-    console.log(
+    console.info(
       `\t from "${titreEtapeFrom.typeId}" => "${titreEtapeTo.typeId}" : delete ${relation}`
     )
   }
@@ -157,7 +157,7 @@ const titreEtapeValueModify = (
     return false
   }
 
-  console.log(
+  console.info(
     `\t from "${titreEtapeFrom.typeId}" : ${valueProp} "${valueFrom}" = "${condition}", set to "${changeTo}"`
   )
 
@@ -209,7 +209,10 @@ const titreEtapePropModify = (
 
         valueFrom = valueTo
       }
-    } else if (titreEtapeFrom.typeId === titreEtapeTo.typeId) {
+    } else if (
+      titreEtapeFrom.typeId === titreEtapeTo.typeId &&
+      propFrom === propTo
+    ) {
       // si les valeurs sont les mêmes
       // et si le type d'étape est identique
       // alors il n'y a rien à faire
@@ -217,7 +220,7 @@ const titreEtapePropModify = (
     }
   }
 
-  console.log(
+  console.info(
     `\t from "${titreEtapeFrom.typeId}" => "${titreEtapeTo.typeId}" : ${propFrom} => ${propTo} (${valueFrom})`
   )
 
@@ -262,13 +265,23 @@ const titreEtapesModify = (modifs, { etapes: titreEtapes = [] } = {}) => {
   const modifications = titreEtapes.reduce((modifications, titreEtape) => {
     const { typeId } = titreEtape
 
-    if (!modifs[typeId]) return modifications
+    if (!modifs[typeId] && !modifs['*']) return modifications
 
-    modifications[typeId] = titreEtapeModify(
-      modifs[typeId],
-      titreEtape,
-      titreEtapes
-    )
+    if (modifs[typeId]) {
+      modifications[typeId] = titreEtapeModify(
+        modifs[typeId],
+        titreEtape,
+        titreEtapes
+      )
+    }
+
+    if (modifs['*']) {
+      modifications[`${typeId}_*`] = titreEtapeModify(
+        modifs['*'],
+        titreEtape,
+        titreEtapes
+      )
+    }
 
     return modifications
   }, {})
@@ -290,7 +303,7 @@ const titresDemarchesModifiesSave = async titresDemarchesModifiees =>
   titresDemarchesModifiees.reduce(async (promise, demarche) => {
     await promise
 
-    console.log('save:', demarche.id)
+    console.info('save:', demarche.id)
 
     const knex = TitresDemarches.knex()
 
@@ -303,7 +316,7 @@ const titresDemarchesModifiesSave = async titresDemarchesModifiees =>
 
 const titresDemarchesModifieesGet = (modifs, titres) =>
   titres.reduce((titresDemarchesModifiees, titre) => {
-    console.log(titre.id)
+    console.info(titre.id)
 
     const titreDemarchesModifiees = titre.demarches.filter(d =>
       titreEtapesModify(modifs, d)
@@ -320,11 +333,11 @@ async function titresContenuMigrate(options, modifs) {
   try {
     const titres = await titresGet(options)
 
-    console.log('titres à traîter :', titres.length)
+    console.info('titres à traîter :', titres.length)
 
     const titresDemarchesModifiees = titresDemarchesModifieesGet(modifs, titres)
 
-    console.log('demarches modifiees :', titresDemarchesModifiees.length)
+    console.info('demarches modifiees :', titresDemarchesModifiees.length)
 
     await titresDemarchesModifiesSave(titresDemarchesModifiees)
   } catch (error) {

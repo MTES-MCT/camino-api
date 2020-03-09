@@ -17,8 +17,6 @@ class TitresIncertitudes extends Model {
       dateFin: { type: ['null', 'boolean'] },
       duree: { type: ['null', 'boolean'] },
       surface: { type: ['null', 'boolean'] },
-      volume: { type: ['null', 'boolean'] },
-      engagement: { type: ['null', 'boolean'] },
       points: { type: ['null', 'boolean'] },
       substances: { type: ['null', 'boolean'] },
       titulaires: { type: ['null', 'boolean'] },

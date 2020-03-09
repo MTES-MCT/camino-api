@@ -1,4 +1,4 @@
-const numberProps = ['duree', 'engagement', 'surface', 'volume']
+const numberProps = ['duree', 'surface']
 
 const contenuNumbersValidate = (sections, contenu) => {
   if (!sections || !contenu) return []

@@ -9,13 +9,9 @@ const titrePropsEtapes = [
   'titulaires',
   'amodiataires',
   'administrations',
-  'surface',
-  'volume',
-  'volumeUniteId',
   'substances',
   'communes',
-  'engagement',
-  'engagementDeviseId'
+  'surface'
 ].map(prop => ({
   prop,
   name: `${prop}TitreEtapeId`
@@ -31,14 +27,14 @@ const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
     const props = titrePropsEtapes.reduce(
       (props: Partial<ITitre>, { prop, name }) => {
         const value = titrePropEtapeIdFind(
-          { demarches: titre.demarches!, statutId: titre.statutId! },
+          titre.demarches!,
+          titre.statutId!,
           prop
         )
 
         // si
         // - la valeur de la prop est différente de celle du titre
         // - la valeur existe ou elle existe dans le titre
-
         if (value !== titre[name] && (titre[name] || value)) {
           props[name] = value
         }

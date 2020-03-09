@@ -3,7 +3,6 @@ import { join } from 'path'
 import { paysFormat, titreInsertFormat } from './_format'
 import Administrations from './administrations'
 import Communes from './communes'
-import Devises from './devises'
 import Domaines from './domaines'
 import Entreprises from './entreprises'
 import TitresStatuts from './titres-statuts'
@@ -13,7 +12,6 @@ import TitresEtapes from './titres-etapes'
 import TitresPoints from './titres-points'
 import TitresReferences from './titres-references'
 import Types from './titres-types'
-import Unites from './unites'
 
 import { ITitre } from '../../types'
 
@@ -40,14 +38,8 @@ class Titres extends Model {
       amodiatairesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       administrationsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      volumeTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      volumeUniteIdTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      engagementTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      engagementDeviseIdTitreEtapeId: {
-        type: ['string', 'null'],
-        maxLength: 128
-      }
+      contenu: { type: 'json' }
     }
   }
 
@@ -82,50 +74,6 @@ class Titres extends Model {
       join: {
         from: 'titres.surfaceTitreEtapeId',
         to: 'titresEtapes.id'
-      }
-    },
-
-    volumeEtape: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: TitresEtapes,
-      join: {
-        from: 'titres.volumeTitreEtapeId',
-        to: 'titresEtapes.id'
-      }
-    },
-
-    volumeUnite: {
-      relation: Model.HasOneThroughRelation,
-      modelClass: Unites,
-      join: {
-        from: 'titres.volumeUniteIdTitreEtapeId',
-        through: {
-          from: 'titresEtapes.id',
-          to: 'titresEtapes.volumeUniteId'
-        },
-        to: 'unites.id'
-      }
-    },
-
-    engagementEtape: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: TitresEtapes,
-      join: {
-        from: 'titres.engagementTitreEtapeId',
-        to: 'titresEtapes.id'
-      }
-    },
-
-    engagementDevise: {
-      relation: Model.HasOneThroughRelation,
-      modelClass: Devises,
-      join: {
-        from: 'titres.engagementDeviseIdTitreEtapeId',
-        through: {
-          from: 'titresEtapes.id',
-          to: 'titresEtapes.engagementDeviseId'
-        },
-        to: 'devises.id'
       }
     },
 

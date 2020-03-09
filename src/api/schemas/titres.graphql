@@ -62,17 +62,8 @@ type Titre {
   "Surface en Km² du titre dans son dernier état de validité"
   surface: Float
 
-  "Volume du titre dans son dernier état de validité"
-  volume: Float
-
-  "Unité du volume du titre dans son dernier état de validité"
-  volumeUnite: Unite
-
-  "Montant de l'engagement financier du titulaire"
-  engagement: Float
-
-  "Devise de l'engagement financier du titulaire"
-  engagementDevise: Devise
+  "Propriétés spécifiques au titre"
+  contenu: Json
 
   "Activités sur un titre"
   activites: [Activite]
@@ -182,18 +173,6 @@ type Etape {
   "Surface en Km² du titre"
   surface: Float
 
-  "Volume du titre"
-  volume: Float
-
-  "Unité de volume du titre"
-  volumeUnite: Unite
-
-  "Montant de l'engagement financier du titulaire"
-  engagement: Float
-
-  "Devise de l'engagement financier du titulaire"
-  engagementDevise: Devise
-
   "Substances concernées par le titre"
   substances: [TitreSubstance]
 
@@ -239,8 +218,6 @@ type Incertitudes {
   dateFin: Boolean
   duree: Boolean
   surface: Boolean
-  volume: Boolean
-  engagement: Boolean
   points: Boolean
   substances: Boolean
   titulaires: Boolean
@@ -297,10 +274,6 @@ input InputEtapeCreation {
   dateDebut: String
   dateFin: String
   surface: Float
-  volume: Float
-  volumeUniteId: ID
-  engagement: Float
-  engagementDeviseId: ID
   substances: [InputId!]
   points: [InputPoint]
   titulaires: [InputId!]
@@ -321,10 +294,6 @@ input InputEtapeModification {
   dateDebut: String
   dateFin: String
   surface: Float
-  volume: Float
-  volumeUniteId: ID
-  engagement: Float
-  engagementDeviseId: ID
   substances: [InputId!]
   points: [InputPoint]
   titulaires: [InputId!]
@@ -347,8 +316,6 @@ input InputIncertitudes {
   dateFin: Boolean
   duree: Boolean
   surface: Boolean
-  volume: Boolean
-  engagement: Boolean
   points: Boolean
   substances: Boolean
   titulaires: Boolean

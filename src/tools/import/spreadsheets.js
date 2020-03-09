@@ -31,7 +31,7 @@ const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
 
 const titresTables = [
-  { name: 'titres', cb: { references: JSON.parse } },
+  { name: 'titres', cb: { props_titre_etapes_ids: JSON.parse } },
   { name: 'titres_references' },
   { name: 'titres_demarches' },
   { name: 'titres_demarches_liens' },
@@ -105,6 +105,17 @@ const titresW = {
   prefixFileName: true
 }
 
+const titres = [
+  titresC,
+  titresF,
+  titresG,
+  titresH,
+  titresM,
+  titresR,
+  titresS,
+  titresW
+]
+
 const titresReprise =
   // feuille optionnelle pour la reprise de données
   {
@@ -119,7 +130,7 @@ const metas = {
   id: metasSpreadsheetId,
   tables: [
     { name: 'domaines' },
-    { name: 'titres_types' },
+    { name: 'titres_types', cb: { props_etapes_types: JSON.parse } },
     { name: 'titres_types_types' },
     { name: 'titres_statuts' },
     { name: 'demarches_types' },
@@ -244,14 +255,7 @@ const globales = {
 }
 
 const spreadsheets = [
-  titresC,
-  titresF,
-  titresG,
-  titresH,
-  titresM,
-  titresR,
-  titresS,
-  titresW,
+  ...titres,
   titresReprise,
   metas,
   substances,

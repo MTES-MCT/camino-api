@@ -14,7 +14,7 @@ import { titreActiviteFormat } from './format/titres-activites'
 import graphFieldsBuild from './graph/fields-build'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
-import { titreFieldsAdd } from './graph/titre-fields-add'
+import { fieldTitreAdd } from './graph/fields-add'
 
 import {
   titreActiviteGet,
@@ -40,11 +40,12 @@ const activite = async (
     const user = context.user && (await utilisateurGet(context.user.id))
 
     let fields = graphFieldsBuild(info)
-    fields = titreFieldsAdd(fields)
+    fields = fieldTitreAdd(fields)
 
     const graph = graphBuild(fields, 'activite', graphFormat)
 
     const titreActivite = await titreActiviteGet(id, { graph })
+    if (!titreActivite) return null
 
     if (
       !titreActivitePermissionCheck(
@@ -76,7 +77,7 @@ const activites = async (
     const user = context.user && (await utilisateurGet(context.user.id))
 
     let fields = graphFieldsBuild(info)
-    fields = titreFieldsAdd(fields)
+    fields = fieldTitreAdd(fields)
 
     const graph = graphBuild(fields, 'activites', graphFormat)
 

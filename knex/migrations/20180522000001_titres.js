@@ -1,5 +1,5 @@
-exports.up = knex => {
-  return knex.schema.createTable('titres', table => {
+exports.up = knex =>
+  knex.schema.createTable('titres', table => {
     table.string('id', 128).primary()
     table.string('nom').notNullable()
     table
@@ -23,16 +23,10 @@ exports.up = knex => {
     table.string('amodiatairesTitreEtapeId', 128)
     table.string('administrationsTitreEtapeId', 128)
     table.string('surfaceTitreEtapeId', 128)
-    table.string('volumeTitreEtapeId', 128)
-    table.string('volumeUniteIdTitreEtapeId', 128)
     table.string('substancesTitreEtapeId', 128)
     table.string('communesTitreEtapeId', 128)
-    table.string('engagementTitreEtapeId', 128)
-    table.string('engagementDeviseIdTitreEtapeId', 128)
     table.string('doublonTitreId', 128)
+    table.jsonb('propsTitreEtapesIds')
   })
-}
 
-exports.down = knex => {
-  return knex.schema.dropTable('titres')
-}
+exports.down = knex => knex.schema.dropTable('titres')

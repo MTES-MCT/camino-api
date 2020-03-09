@@ -1,6 +1,7 @@
 import { ITitreDemarche } from '../../../types'
 
 const titreDemarchesOctPointsMut = {
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1989-oct01',
@@ -52,6 +53,7 @@ const titreDemarchesOctPointsMut = {
 } as { demarches: ITitreDemarche[]; statutId: string }
 
 const titreDemarchesOctPointsVides = {
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1988-oct01',
@@ -80,6 +82,7 @@ const titreDemarchesOctPointsVides = {
 } as { demarches: ITitreDemarche[]; statutId: string }
 
 const titreDemarchesOctMutPoints = {
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1986-oct01',
@@ -131,6 +134,7 @@ const titreDemarchesOctMutPoints = {
 } as { demarches: ITitreDemarche[]; statutId: string }
 
 const titreDemarchesOctPointsMutInstruction = {
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1985-mut01',
@@ -183,6 +187,7 @@ const titreDemarchesOctPointsMutInstruction = {
 } as { demarches: ITitreDemarche[]; statutId: string }
 
 const titreDemarchesOctAccDpuRej = {
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1984-oct01',
@@ -211,6 +216,7 @@ const titreDemarchesOctAccDpuRej = {
 } as { demarches: ITitreDemarche[]; statutId: string }
 
 const titreDemarchesOctMfrPoints = ({
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1983-oct01',
@@ -232,6 +238,7 @@ const titreDemarchesOctMfrPoints = ({
 } as unknown) as { demarches: ITitreDemarche[]; statutId: string }
 
 const titreDemarchesOctAmodiatairesPassee = {
+  statutId: 'val',
   demarches: [
     {
       id: 'h-cx-courdemanges-1982-oct01',
@@ -246,6 +253,29 @@ const titreDemarchesOctAmodiatairesPassee = {
           statutId: 'acc',
           ordre: 1,
           dateFin: '2018-12-31',
+          amodiataires: [{ id: 'fr-123456789' }]
+        }
+      ]
+    }
+  ]
+} as { demarches: ITitreDemarche[]; statutId: string }
+
+const titreDemarchesOctAmodiatairesValide = {
+  statutId: 'mod',
+  demarches: [
+    {
+      id: 'h-cx-courdemanges-1982-oct01',
+      titreId: 'h-cx-courdemanges-1982',
+      typeId: 'oct',
+      statutId: 'acc',
+      etapes: [
+        {
+          id: 'h-cx-courdemanges-1982-oct01-dpu01',
+          titreDemarcheId: 'h-cx-courdemanges-1982-oct01',
+          typeId: 'dpu',
+          statutId: 'acc',
+          ordre: 1,
+          dateFin: '4018-12-31',
           amodiataires: [{ id: 'fr-123456789' }]
         }
       ]
@@ -433,6 +463,7 @@ export {
   titreDemarchesOctAccDpuRej,
   titreDemarchesOctMfrPoints,
   titreDemarchesOctAmodiatairesPassee,
+  titreDemarchesOctAmodiatairesValide,
   titreDemarchesOctAmodiatairesMod,
   titreDemarchesProPointsModPhaseEch,
   titreDemarchesProPointsModPhaseVal,

@@ -22,7 +22,7 @@ const elementHtmlBuild = (
     ? `<li>${element.nom ? element.nom + ' : ' : ''}${
         element.type === 'checkboxes'
           ? (contenu[sectionId][element.id] as string[])
-              .map(id => element.valeurs![id])
+              .map(id => element.valeurs!.find(v => v.id === id))
               .join(', ')
           : contenu[sectionId][element.id]
       }</li>`

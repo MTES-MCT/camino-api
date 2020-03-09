@@ -70,8 +70,6 @@ const etapesRelateTrue = [
   'administrations.utilisateurs.permission',
   'substances',
   'substances.legales',
-  'engagementDevise',
-  'volumeUnite',
   'points.references.geoSysteme',
   'points.references.geoSysteme.unite',
   'communes',
@@ -90,8 +88,6 @@ const etapes = {
     titulaires.${entreprises.graph},
     amodiataires.${entreprises.graph},
     administrations.${administrations.graph},
-    engagementDevise,
-    volumeUnite,
     communes.${communes.graph},
     incertitudes
   ]`,
@@ -233,11 +229,7 @@ const titresUpdateFalse = [
   'administrationsLocales.type',
   'administrationsLocales.utilisateurs',
   'administrationsLocales.utilisateurs.permission',
-  'volumeEtape',
-  'engagementEtape',
   'surfaceEtape',
-  'volumeUnite',
-  'engagementDevise',
   ...activitesUpdateFalse.map(k => `activites.${k}`),
   ...demarchesUpdateFalse.map(k => `demarches.${k}`)
 ]
@@ -255,10 +247,6 @@ const titres = {
     administrationsLocales.${administrations.graph},
     demarches(orderDesc).${demarches.graph},
     surfaceEtape,
-    volumeEtape,
-    volumeUnite,
-    engagementEtape,
-    engagementDevise,
     communes.${communes.graph},
     activites(orderDesc).${titresActivites.graph},
     references(orderAsc)

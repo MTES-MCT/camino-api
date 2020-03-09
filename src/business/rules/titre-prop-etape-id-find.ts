@@ -5,13 +5,58 @@ import { ITitreDemarche, ITitreEtape, TitreEtapeProp } from '../../types'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
+const etapeAmodiataireFind = (
+  titreEtape: ITitreEtape,
+  titreStatutId: string
+) => {
+  const { dateFin } = titreEtape
+
+  // si la date de fin de l'étape est passée
+  // l'amodiataire n'est plus valide
+  if (dateFin && new Date(dateFin) < new Date()) return false
+
+  // sinon, si le titre a le statut modification en instance
+  // l'amodiataire est encore valide (survie provisoire)
+  // ou, si le titre a le statut échu
+  // on affiche le dernier amodiataire
+  return ['mod', 'ech'].includes(titreStatutId)
+}
+
+const etapeValideCheck =
+  (
+    titreEtape: ITitreEtape,
+    titreDemarcheTypeId: string,
+    titreStatutId: string,
+    prop: TitreEtapeProp
+  ) =>
+    // filtre les étapes acceptation, fait ou favorable
+    // Si la démarche est un octroi (demande initiale)
+    // on prend en compte n'importe quelle étape
+    // ou si on cherche le périmètre
+    // et que le titre est en modification en instance
+    // sinon, on ne prend en compte que les étapes de décision
+    ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
+    (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
+      (prop.match('point') && titreStatutId === 'mod') ||
+      ['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(
+        titreEtape.typeId
+      ))
+
 const etapePropFind = (
   titreDemarcheEtapes: ITitreEtape[],
-  prop: TitreEtapeProp,
   titreDemarcheTypeId: string,
-  titreStatutId: string
+  titreStatutId: string,
+  prop: TitreEtapeProp
 ) =>
   titreEtapesDescSort(titreDemarcheEtapes).find((titreEtape: ITitreEtape) => {
+    const isEtapeValide = etapeValideCheck(
+      titreEtape,
+      titreDemarcheTypeId,
+      titreStatutId,
+      prop
+    )
+    if (!isEtapeValide) return false
+
     // trouve une étape qui contient la propriété
     const isPropFound =
       titreEtape[prop] &&
@@ -20,34 +65,8 @@ const etapePropFind = (
         (titreEtape[prop] as []).length)
     if (!isPropFound) return false
 
-    // filtre les étapes acceptation, fait ou favorable
-    // Si la démarche est un octroi (demande initiale)
-    // on prend en compte n'importe quelle étape
-    // ou si on cherche le périmètre
-    // et que le titre est en modification en instance
-    // sinon, on ne prend en compte que les étapes de décision
-    const isEtapeValide =
-      ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
-      (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
-        (prop.match('point') && titreStatutId === 'mod') ||
-        ['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(
-          titreEtape.typeId
-        ))
-
-    if (!isEtapeValide) return false
-
     if (prop.match('amodiataires')) {
-      const { dateFin } = titreEtape
-
-      // si la date de fin de l'étape est passée
-      // l'amodiataire n'est plus valide
-      if (dateFin && new Date(dateFin) < new Date()) return false
-
-      // sinon, si le titre a le statut modification en instance
-      // l'amodiataire est encore valide (survie provisoire)
-      // ou, si le titre a le statut échu
-      // on affiche le dernier amodiataire
-      return ['mod', 'ech'].includes(titreStatutId)
+      return etapeAmodiataireFind(titreEtape, titreStatutId)
     }
 
     return true
@@ -72,15 +91,16 @@ const etapeEligibleCheck = (
     !titreDemarches.find(td => td.phase && td.phase.statutId === 'val'))
 
 const titrePropEtapeIdFind = (
-  {
-    demarches: titreDemarches,
-    statutId: titreStatutId
-  }: { demarches: ITitreDemarche[]; statutId: string },
+  titreDemarches: ITitreDemarche[],
+  titreStatutId: string,
   prop: TitreEtapeProp
 ) =>
   titreDemarchesAscSort(titreDemarches)
     .reverse()
-    .reduce((etapeId: string | null, titreDemarche: ITitreDemarche) => {
+    .reduce((
+      etapeId: string | null,
+      titreDemarche: ITitreDemarche
+    ) => {
       // si une étape a déjà été trouvée
       if (etapeId) return etapeId
 
@@ -97,9 +117,9 @@ const titrePropEtapeIdFind = (
 
       const etape = etapePropFind(
         titreDemarche.etapes!,
-        prop,
         titreDemarche.typeId,
-        titreStatutId
+        titreStatutId,
+        prop
       )
 
       // si l'étape existe,

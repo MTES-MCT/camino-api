@@ -3,7 +3,7 @@ const fieldsOrderAsc = ['points', 'substances', 'references']
 const fieldsToRemove = ['coordonnees']
 const titreFieldsToRemove = [] as string[]
 const geoFieldsToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
-const titrePropsEtapesFields = ['surface', 'volume', 'engagement']
+const titrePropsEtapesFields = ['surface']
 
 interface IFields {
   [key: string]: IFields
@@ -112,8 +112,8 @@ const graphFormat = (fields: IFields, parent: string) => {
 
   // sur les titres
   if (isParentTitre) {
-    // si les propriétés `surface`, `volume` ou `engagement` sont présentes
-    // - les remplace par `surfaceEtape`, `volumeEtape` ou `engagementEtape`
+    // si la propriété `surface` est présente
+    // - la remplace par `surfaceEtape`
     titrePropsEtapesFields.forEach(key => {
       if (fields[key]) {
         fields[`${key}Etape`] = { id: {} }

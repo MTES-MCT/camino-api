@@ -15,6 +15,7 @@ class TitresTypes extends Model {
       id: { type: 'string', maxLength: 3 },
       typeId: { type: 'string', maxLength: 3 },
       domaineId: { type: 'string', maxLength: 3 },
+      sections: { type: 'json' },
       archive: { type: ['boolean', 'null'] }
     }
   }
