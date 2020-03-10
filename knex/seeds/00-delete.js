@@ -107,6 +107,7 @@ const seed = seeding(async ({ del }) => {
   await Promise.all([del('domaines'), del('titresTypesTypes')])
 
   // 02
+  await del('forets')
   await del('departements')
   await del('regions')
   await del('pays')
