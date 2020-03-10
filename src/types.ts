@@ -116,6 +116,7 @@ interface ICommune {
   id: string
   nom: string
   departement?: IDepartement | null
+  departementId?: string | null
   surface?: number | null
 }
 
@@ -168,6 +169,7 @@ interface IDepartement {
   id: string
   nom: string
   region?: IRegion | null
+  regionId?: string | null
   communes?: ICommune[] | null
 }
 
@@ -472,7 +474,7 @@ interface ITitreAdministrationsGestionnaire {
 
 interface ITitreAdministrationLocale {
   administrationId: string
-  titreId: string
+  titreEtapeId: string
   associee?: boolean | null
   coordinateur?: boolean | null
 }

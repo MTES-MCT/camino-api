@@ -1,3 +1,5 @@
+import { IAdministration, ITitre } from '../../../types'
+
 const administrations = [
   {
     id: 'gestionnaire',
@@ -23,9 +25,9 @@ const administrations = [
     id: 'xxxx',
     departementId: 'xxxx'
   }
-]
+] as IAdministration[]
 
-const titresEtapesCommunes = [
+const titresEtapesCommunes = ([
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -66,9 +68,9 @@ const titresEtapesCommunes = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
-const titresEtapesCommunesVides = [
+const titresEtapesCommunesVides = ([
   {
     id: 'titre-id',
     demarches: [
@@ -87,9 +89,9 @@ const titresEtapesCommunesVides = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
-const titresEtapesCommunesMemeCommune = [
+const titresEtapesCommunesMemeCommune = ([
   {
     id: 'titre-id',
     demarches: [
@@ -111,9 +113,9 @@ const titresEtapesCommunesMemeCommune = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
-const titresEtapesAdministrationLocalesInexistante = [
+const titresEtapesAdministrationLocalesInexistante = ([
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -134,9 +136,9 @@ const titresEtapesAdministrationLocalesInexistante = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
-const titresEtapesAdministrationLocalesExistante = [
+const titresEtapesAdministrationLocalesExistante = ([
   {
     id: 'titre-id',
     domaineId: 'h',
@@ -159,9 +161,9 @@ const titresEtapesAdministrationLocalesExistante = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
-const titresArm = [
+const titresArm = ([
   {
     id: 'titre-id',
     typeId: 'arm',
@@ -186,9 +188,9 @@ const titresArm = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
-const titresAxm = [
+const titresAxm = ([
   {
     id: 'titre-id',
     typeId: 'axm',
@@ -213,7 +215,7 @@ const titresAxm = [
       }
     ]
   }
-]
+] as unknown) as ITitre[]
 
 export {
   administrations,

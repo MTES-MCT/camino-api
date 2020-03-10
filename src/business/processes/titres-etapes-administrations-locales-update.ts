@@ -1,3 +1,11 @@
+import {
+  ITitre,
+  IAdministration,
+  ITitreAdministrationLocale,
+  ITitreEtape,
+  ICommune
+} from '../../types'
+
 import PQueue from 'p-queue'
 
 import {
@@ -8,17 +16,24 @@ import {
 // administrations associees sur certains types de titres
 // (ces administrations seront associees pour ces types de titres)
 // donc cachées au public dans la liste des administrations du titre
+interface IAdministrationsTypesAssocieesIndex {
+  [key: string]: string[]
+}
+
 const administrationsTypesAssociees = {
   'dea-guyane-01': ['arm'],
   'prefecture-97302-01': ['arm']
-}
+} as IAdministrationsTypesAssocieesIndex
 
 const titreEtapeAdministrationsLocalesCreatedBuild = (
-  titreEtapeAdministrationsLocalesOld,
-  titreEtapeAdministrationsLocales
+  titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined,
+  titreEtapeAdministrationsLocales: ITitreAdministrationLocale[]
 ) =>
   titreEtapeAdministrationsLocales.reduce(
-    (queries, titreEtapeAdministrationGestionnaire) => {
+    (
+      queries: ITitreAdministrationLocale[],
+      titreEtapeAdministrationGestionnaire
+    ) => {
       if (
         !titreEtapeAdministrationsLocalesOld ||
         !titreEtapeAdministrationsLocalesOld.find(
@@ -34,34 +49,53 @@ const titreEtapeAdministrationsLocalesCreatedBuild = (
     []
   )
 
+interface IEtapeAdministrationLocaleToDelete {
+  titreEtapeId: string
+  administrationId: string
+}
+
 const titreEtapeAdministrationsLocalesToDeleteBuild = (
-  titreEtapeAdministrationsLocalesOld,
-  titreEtapeAdministrationsLocales,
-  titreEtapeId
+  titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined,
+  titreEtapeAdministrationsLocales: ITitreAdministrationLocale[],
+  titreEtapeId: string
 ) =>
   titreEtapeAdministrationsLocalesOld
-    ? titreEtapeAdministrationsLocalesOld.reduce((queries, { id: idOld }) => {
-        if (
-          !titreEtapeAdministrationsLocales.find(
-            ({ administrationId: idNew }) => idNew === idOld
-          )
-        ) {
-          queries.push({
-            titreEtapeId,
-            administrationId: idOld
-          })
-        }
+    ? titreEtapeAdministrationsLocalesOld.reduce(
+        (queries: IEtapeAdministrationLocaleToDelete[], { id: idOld }) => {
+          if (
+            !titreEtapeAdministrationsLocales.find(
+              ({ administrationId: idNew }) => idNew === idOld
+            )
+          ) {
+            queries.push({
+              titreEtapeId,
+              administrationId: idOld
+            })
+          }
 
-        return queries
-      }, [])
+          return queries
+        },
+        []
+      )
     : []
 
-const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = titresEtapesAdministrationsLocales =>
+interface ITitreEtapeAdministrationLocale {
+  titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined
+  titreEtapeAdministrationsLocales: ITitreAdministrationLocale[]
+  titreEtapeId: string
+}
+
+const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = (
+  titresEtapesAdministrationsLocales: ITitreEtapeAdministrationLocale[]
+) =>
   Object.values(titresEtapesAdministrationsLocales).reduce(
     (
       {
         titresEtapesAdministrationsLocalesToCreate,
         titresEtapesAdministrationsLocalesToDelete
+      }: {
+        titresEtapesAdministrationsLocalesToCreate: ITitreAdministrationLocale[]
+        titresEtapesAdministrationsLocalesToDelete: IEtapeAdministrationLocaleToDelete[]
       },
       {
         titreEtapeAdministrationsLocalesOld,
@@ -96,7 +130,9 @@ const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = titresEtapesAdm
   )
 
 // calcule tous les départements et les régions d'une étape
-const titreEtapeAdministrationsRegionsAndDepartementsBuild = ({ communes }) =>
+const titreEtapeAdministrationsRegionsAndDepartementsBuild = (
+  communes: ICommune[]
+) =>
   communes.reduce(
     ({ titreDepartementsIds, titreRegionsIds }, commune) => {
       if (commune.departementId) {
@@ -116,58 +152,71 @@ const titreEtapeAdministrationsRegionsAndDepartementsBuild = ({ communes }) =>
   )
 
 const titreEtapeAdministrationsLocalesBuild = (
-  titreTypeId,
-  titreEtape,
-  administrations
+  titreTypeId: string,
+  titreEtape: ITitreEtape,
+  administrations: IAdministration[]
 ) => {
   if (!titreEtape.communes || !titreEtape.communes.length) return []
 
   const {
     titreDepartementsIds,
     titreRegionsIds
-  } = titreEtapeAdministrationsRegionsAndDepartementsBuild(titreEtape)
+  } = titreEtapeAdministrationsRegionsAndDepartementsBuild(titreEtape.communes)
 
   // calcule toutes les administrations qui couvrent ces départements et régions
-  return administrations.reduce((titreEtapeAdministrations, administration) => {
-    // si le département ou la région de l'administration ne fait pas partie de ceux de l'étape
-    const isAdministrationLocale =
-      (administration.departementId &&
-        titreDepartementsIds.has(administration.departementId)) ||
-      (administration.regionId && titreRegionsIds.has(administration.regionId))
-    // alors l'administration n'est pas rattachée à l'étape
-    if (!isAdministrationLocale) return titreEtapeAdministrations
+  return administrations.reduce(
+    (
+      titreEtapeAdministrations: ITitreAdministrationLocale[],
+      administration: IAdministration
+    ) => {
+      // si le département ou la région de l'administration ne fait pas partie de ceux de l'étape
+      const isAdministrationLocale =
+        (administration.departementId &&
+          titreDepartementsIds.has(administration.departementId)) ||
+        (administration.regionId &&
+          titreRegionsIds.has(administration.regionId))
+      // alors l'administration n'est pas rattachée à l'étape
+      if (!isAdministrationLocale) return titreEtapeAdministrations
 
-    const titreEtapeAdministration = {
-      titreEtapeId: titreEtape.id,
-      administrationId: administration.id
-    }
+      const titreEtapeAdministration = {
+        titreEtapeId: titreEtape.id,
+        administrationId: administration.id
+      } as ITitreAdministrationLocale
 
-    const associee =
-      administrationsTypesAssociees[administration.id] &&
-      administrationsTypesAssociees[administration.id].includes(titreTypeId)
+      const associee =
+        administrationsTypesAssociees[administration.id] &&
+        administrationsTypesAssociees[administration.id].includes(titreTypeId)
 
-    if (associee) {
-      titreEtapeAdministration.associee = associee
-    }
+      if (associee) {
+        titreEtapeAdministration.associee = associee
+      }
 
-    titreEtapeAdministrations.push(titreEtapeAdministration)
+      titreEtapeAdministrations.push(titreEtapeAdministration)
 
-    return titreEtapeAdministrations
-  }, [])
+      return titreEtapeAdministrations
+    },
+    []
+  )
 }
 
-const titresEtapesAdministrationsLocalesBuild = (titres, administrations) =>
+const titresEtapesAdministrationsLocalesBuild = (
+  titres: ITitre[],
+  administrations: IAdministration[]
+) =>
   titres.reduce(
-    (titresEtapesAdministrationsLocales, titre) =>
-      titre.demarches.reduce(
+    (
+      titresEtapesAdministrationsLocales: ITitreEtapeAdministrationLocale[],
+      titre
+    ) =>
+      titre.demarches!.reduce(
         (titresEtapesAdministrationsLocales, titreDemarche) =>
-          titreDemarche.etapes.reduce(
+          titreDemarche.etapes!.reduce(
             (titresEtapesAdministrationsLocales, titreEtape) => {
               const titreEtapeAdministrationsLocales = titreEtapeAdministrationsLocalesBuild(
                 titre.typeId,
                 titreEtape,
                 administrations
-              )
+              ) as ITitreAdministrationLocale[]
 
               titresEtapesAdministrationsLocales.push({
                 titreEtapeAdministrationsLocalesOld: titreEtape.administrations,
@@ -185,8 +234,8 @@ const titresEtapesAdministrationsLocalesBuild = (titres, administrations) =>
   )
 
 const titresEtapesAdministrationsLocalesUpdate = async (
-  titres,
-  administrations
+  titres: ITitre[],
+  administrations: IAdministration[]
 ) => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
@@ -202,8 +251,8 @@ const titresEtapesAdministrationsLocalesUpdate = async (
     titresEtapesAdministrationsLocales
   )
 
-  let titresEtapesAdministrationsLocalesCreated = []
-  const titresEtapesAdministrationsLocalesDeleted = []
+  let titresEtapesAdministrationsLocalesCreated = [] as ITitreAdministrationLocale[]
+  const titresEtapesAdministrationsLocalesDeleted = [] as string[]
 
   if (titresEtapesAdministrationsLocalesToCreate.length) {
     titresEtapesAdministrationsLocalesCreated = await titresEtapesAdministrationsCreate(
