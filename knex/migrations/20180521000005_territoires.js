@@ -27,6 +27,10 @@ exports.up = knex => {
         .references('departements.id')
       table.integer('surface')
     })
+    .createTable('forets', table => {
+      table.string('id', 30).primary()
+      table.string('nom').notNullable()
+    })
 }
 
 exports.down = knex => {
@@ -35,4 +39,5 @@ exports.down = knex => {
     .dropTable('departements')
     .dropTable('regions')
     .dropTable('pays')
+    .dropTable('forets')
 }

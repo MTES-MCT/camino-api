@@ -283,6 +283,11 @@ interface IEtapeType {
   unique?: boolean | null
 }
 
+interface IForet {
+  id: string
+  nom: string
+}
+
 interface IFrequence {
   id: string
   nom: string
@@ -882,6 +887,7 @@ export {
   IEntrepriseEtablissement,
   IEtapeStatut,
   IEtapeType,
+  IForet,
   IFrequence,
   IGeoJson,
   IApiGeoCommuneResult,

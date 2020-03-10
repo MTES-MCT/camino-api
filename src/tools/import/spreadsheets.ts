@@ -191,7 +191,8 @@ const territoires = {
     { name: 'pays' },
     { name: 'regions' },
     { name: 'departements' },
-    { name: 'communes' }
+    { name: 'communes' },
+    { name: 'forets' }
   ]
 } as ISpreadsheet
 
