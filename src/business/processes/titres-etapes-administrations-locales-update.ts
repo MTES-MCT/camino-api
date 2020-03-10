@@ -135,16 +135,12 @@ const titreEtapeAdministrationsRegionsAndDepartementsBuild = (
 ) =>
   communes.reduce(
     ({ titreDepartementsIds, titreRegionsIds }, commune) => {
-      if (commune.departement && commune.departement.id) {
-        titreDepartementsIds.add(commune.departement.id)
+      if (commune.departementId) {
+        titreDepartementsIds.add(commune.departementId)
       }
 
-      if (
-        commune.departement &&
-        commune.departement.region &&
-        commune.departement.region.id
-      ) {
-        titreRegionsIds.add(commune.departement.region.id)
+      if (commune.departement && commune.departement.regionId) {
+        titreRegionsIds.add(commune.departement.regionId)
       }
 
       return {

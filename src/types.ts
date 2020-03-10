@@ -116,6 +116,7 @@ interface ICommune {
   id: string
   nom: string
   departement?: IDepartement | null
+  departementId?: string | null
   surface?: number | null
 }
 
@@ -168,6 +169,7 @@ interface IDepartement {
   id: string
   nom: string
   region?: IRegion | null
+  regionId?: string | null
   communes?: ICommune[] | null
 }
 
