@@ -40,10 +40,10 @@ const titreEtapeTypesRestrictionsFind = (titreEtape, titreDemarche, titre) =>
     const isSameMecanisation =
       !condition.titre ||
       (titre.contenu &&
-        titre.contenu.onf &&
+        titre.contenu.arm &&
         condition.titre.contenu &&
-        condition.titre.contenu.onf &&
-        condition.titre.contenu.onf.mecanisee === titre.contenu.onf.mecanisee)
+        condition.titre.contenu.arm &&
+        condition.titre.contenu.arm.mecanise === titre.contenu.arm.mecanise)
 
     return isSameEtapeType && isSameMecanisation
   })
@@ -168,20 +168,6 @@ const titreEtapeTypesRestrictionsCheck = (
   return errors
 }
 
-// TODO: remonter le paramètre dans le titre et supprimer
-const titreMecanisationCheck = titreDemarches => {
-  // TODO: attention, façon simpliste de chercher la mécanisation
-  // TODO: gérer la démarche de mécanisation (?)
-  const mecanisation = titreDemarches.find(d =>
-    d.etapes
-      .slice()
-      .reverse()
-      .find(e => e.contenu && e.contenu.onf && e.contenu.onf.mecanisee)
-  )
-
-  return mecanisation !== undefined
-}
-
 const titreEtapeDateValidate = (titreEtape, titreDemarche, titre) => {
   // pas de validation pour les titres autres qu'ARM
   if (titre.typeId !== 'arm') return null
@@ -189,10 +175,6 @@ const titreEtapeDateValidate = (titreEtape, titreDemarche, titre) => {
   // pas de validation si l'étape est antérieure au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
   if (titreEtape.date < '2019-10-31') return null
-
-  // TODO: remonter le paramètre dans le titre et supprimer
-  const mecanisee = titreMecanisationCheck(titre.demarches)
-  titre.contenu = { onf: { mecanisee } }
 
   const titreEtapeTypesRestrictions = titreEtapeTypesRestrictionsFind(
     titreEtape,

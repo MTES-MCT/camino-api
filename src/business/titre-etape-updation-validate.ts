@@ -14,6 +14,11 @@ const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
 
   const errors = []
 
+  if (!titre) {
+    errors.push('le titre n\'exite pas')
+    return errors
+  }
+
   // 1. le type d'étape correspond à la démarche et au type de titre
 
   const error = titreEtapeTypeAndStatusValidate(titreEtape, titreDemarche)

@@ -4,7 +4,7 @@ import {
   IGeoJson,
   IUtilisateur,
   IFields,
-  IContenu
+  ISection
 } from '../../../types'
 
 import {
@@ -45,43 +45,41 @@ const titreFormatFields = {
   administrations: {}
 } as IFields
 
-const titreContenuFormat = (t: ITitre) => {
+const titreTypeSectionsFormat = (t: ITitre) => {
   if (!t.propsTitreEtapesIds) return null
 
   return Object.keys(t.propsTitreEtapesIds).reduce(
-    (contenu: IContenu, sectionId) =>
+    (sections: ISection[], sectionId) =>
       Object.keys(t.propsTitreEtapesIds![sectionId]).reduce(
-        (contenu, elementId) => {
+        (sections, elementId) => {
           if (
             !t.propsTitreEtapesIds ||
             !t.propsTitreEtapesIds[sectionId] ||
             !t.propsTitreEtapesIds[sectionId][elementId]
           ) {
-            return contenu
+            return sections
           }
+
+          const etapeId = t.propsTitreEtapesIds![sectionId][elementId]
 
           t.demarches!.some(d =>
             d.etapes!.some(e => {
-              // si l'étape n'est pas celle dans le contenu du titre
-              // ou l'étape n'a ni contenu ni section ni l'élément qui nous intéresse
-              if (
-                e.id !== t.propsTitreEtapesIds![sectionId][elementId] ||
-                !e.contenu ||
-                !e.contenu[sectionId] ||
-                e.contenu[sectionId][elementId] === undefined
-              ) {
+              // si l'étape n'est pas celle dans le sections du titre
+              if (e.id !== etapeId) {
                 return false
               }
 
-              // initialise la section dans le contenu du titre si besoin
-              if (!contenu[sectionId]) {
-                contenu[sectionId] = {}
+              // sinon, si l'étape correspond à l'id de `propsTitreEtapesIds`
+              // et que l'étape n'a ni contenu ni section ni l'élément qui nous intéresse
+              // on ne cherche pas plus loin
+              if (
+                !e.contenu ||
+                !e.contenu[sectionId] ||
+                e.contenu[sectionId][elementId] === undefined ||
+                !e.type?.sections
+              ) {
+                return true
               }
-
-              // récupère le contenu de l'étape et assigne au contenu du titre
-              contenu[sectionId][elementId] = e.contenu[sectionId][elementId]
-
-              if (!e.type || !e.type.sections) return true
 
               const etapeSection = e.type.sections.find(s => s.id === sectionId)
               if (!etapeSection || !etapeSection.elements) return true
@@ -93,41 +91,36 @@ const titreContenuFormat = (t: ITitre) => {
 
               if (!t.type) return true
 
-              // initialise les sections dans le titre si besoin
-              if (!t.type.sections) {
-                t.type.sections = []
-              }
-
               // ajoute la section dans le titre si elle n'existe pas encore
-              let titreSection = t.type.sections.find(s => s.id === sectionId)
-              if (!titreSection) {
-                titreSection = {
+              let titreTypeSection = sections.find(s => s.id === sectionId)
+              if (!titreTypeSection) {
+                titreTypeSection = {
                   ...etapeSection,
                   elements: []
                 }
-                t.type.sections.push(titreSection)
+                sections.push(titreTypeSection)
               }
-              if (!titreSection.elements) {
-                titreSection.elements = []
+              if (!titreTypeSection.elements) {
+                titreTypeSection.elements = []
               }
 
               // ajoute l'élément dans les sections du titre s'il n'existe pas encore
-              const titreElement = titreSection.elements.find(
+              const titreElement = titreTypeSection.elements.find(
                 e => e.id === elementId
               )
               if (!titreElement) {
-                titreSection.elements.push(etapeElement)
+                titreTypeSection.elements.push(etapeElement)
               }
 
               return true
             })
           )
 
-          return contenu
+          return sections
         },
-        contenu
+        sections
       ),
-    {}
+    []
   )
 }
 
@@ -190,8 +183,8 @@ const titreFormat = (
     )
   }
 
-  if (fields.contenu && t.propsTitreEtapesIds) {
-    t.contenu = titreContenuFormat(t)
+  if (fields.type && fields.type.sections) {
+    t.type.sections = titreTypeSectionsFormat(t)
   }
 
   if (fields.surface && t.surfaceEtape) {
