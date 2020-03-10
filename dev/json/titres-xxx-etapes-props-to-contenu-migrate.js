@@ -4,8 +4,6 @@ const decamelize = require('decamelize')
 
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
-const sectionId = 'titre'
-
 const deleteTitresIncertides = domaineId => {
   const fileName = decamelize(
     `titres-${domaineId}-titres-incertitudes.json`,
@@ -33,16 +31,17 @@ const deleteTitresIncertides = domaineId => {
     })
 
     if (count > 0) {
-      console.log(`${domaineId}: incertitudes modifiées ${count}`)
+      console.info(`${domaineId}: incertitudes modifiées ${count}`)
 
       fs.writeFileSync(filePath, JSON.stringify(incertitudes, null, 2))
 
-      console.log(`${domaineId}: ${filePath} modifié`)
+      console.info(`${domaineId}: ${filePath} modifié`)
     } else {
-      console.log(`${domaineId}: aucune modification de incertitudes`)
+      console.info(`${domaineId}: aucune modification de incertitudes`)
     }
   } catch (e) {
-    console.log(chalk.red(e.message.split('\n')[0]))
+    console.info(chalk.red(e.message.split('\n')[0]))
+    console.error(e.stack)
   }
 }
 
@@ -56,6 +55,10 @@ const migrateTitresEtapesIds = domaineId => {
     let count = 0
 
     titres.forEach(t => {
+      let { type_id: typeId } = t
+
+      const sectionId = typeId !== 'ar' ? typeId.replace(/.$/, 'x') : 'arm'
+
       if (
         t.engagement_titre_etape_id ||
         t.engagement_devise_id_titre_etape_id ||
@@ -63,9 +66,11 @@ const migrateTitresEtapesIds = domaineId => {
         t.volume_unite_id_titre_etape_id
       ) {
         if (!t.props_titre_etapes_ids) {
-          t.props_titre_etapes_ids = {
-            titre: {}
-          }
+          t.props_titre_etapes_ids = {}
+        }
+
+        if (!t.props_titre_etapes_ids[sectionId]) {
+          t.props_titre_etapes_ids[sectionId] = {}
         }
 
         if (t.engagement_titre_etape_id) {
@@ -96,16 +101,17 @@ const migrateTitresEtapesIds = domaineId => {
     })
 
     if (count > 0) {
-      console.log(`${domaineId}: titres modifiées ${count}`)
+      console.info(`${domaineId}: titres modifiées ${count}`)
 
       fs.writeFileSync(filePath, JSON.stringify(titres, null, 2))
 
-      console.log(`${domaineId}: ${filePath} modifié`)
+      console.info(`${domaineId}: ${filePath} modifié`)
     } else {
-      console.log(`${domaineId}: aucune modification de titres`)
+      console.info(`${domaineId}: aucune modification de titres`)
     }
   } catch (e) {
-    console.log(chalk.red(e.message.split('\n')[0]))
+    console.info(chalk.red(e.message.split('\n')[0]))
+    console.error(e.stack)
   }
 }
 
@@ -119,6 +125,14 @@ const migrateEtapesContenu = domaineId => {
     let count = 0
 
     titresEtapes.forEach(te => {
+      let { id } = te
+
+      const [, typeId] = id.match(/^.-(..)/)
+
+      const sectionId = typeId !== 'ar' ? `${typeId}x` : 'arm'
+
+      let modif = false
+
       if (
         te.engagement !== undefined ||
         te.engagement_devise_id !== undefined ||
@@ -152,21 +166,44 @@ const migrateEtapesContenu = domaineId => {
           delete te.volume_unite_id
         }
 
+        modif = true
+      }
+
+      if (te.contenu) {
+        Object.keys(te.contenu).forEach(s => {
+          // supprime les sections sans élément
+          if (Object.keys(te.contenu[s]).length === 0) {
+            delete te.contenu[s]
+
+            modif = true
+          }
+        })
+
+        // supprime le contenu sans section
+        if (Object.keys(te.contenu).length === 0) {
+          delete te.contenu
+
+          modif = true
+        }
+      }
+
+      if (modif) {
         count += 1
       }
     })
 
     if (count > 0) {
-      console.log(`${domaineId}: étapes modifiées ${count}`)
+      console.info(`${domaineId}: étapes modifiées ${count}`)
 
       fs.writeFileSync(filePath, JSON.stringify(titresEtapes, null, 2))
 
-      console.log(`${domaineId}: ${filePath} modifié`)
+      console.info(`${domaineId}: ${filePath} modifié`)
     } else {
-      console.log(`${domaineId}: aucune modification d'étapes`)
+      console.info(`${domaineId}: aucune modification d'étapes`)
     }
   } catch (e) {
-    console.log(chalk.red(e.message.split('\n')[0]))
+    console.info(chalk.red(e.message.split('\n')[0]))
+    console.error(e.stack)
   }
 }
 
