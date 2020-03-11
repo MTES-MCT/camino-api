@@ -18,27 +18,28 @@ const relationsMove = [
   return r
 }, {})
 
-const defCopyToMfr = {
+const mdpCopyToMfr = {
   copy: true,
-  // ne crée une copie de la def vers une étape de demande
-  // seulement si le statut de la def est rejeté
-  // et qu'il n'existe pas encore d'étape de demande
-  condition: (e, etapes) =>
-    e.statutId === 'rej' && !etapes.find(ee => ee.typeId === 'mfr'),
+  // ne crée une copie de la mdp vers une `mfr`
+  // seulement s'il n'en existe pas encore une
+  condition: (e, etapes) => !etapes.find(ee => ee.typeId === 'mfr'),
   props: {
-    id: e => e.id.replace('def', 'mfr'),
+    id: e => e.id.replace('mdp', 'mfr'),
     typeId: 'mfr',
     type: null,
-    statutId: 'fai',
-    statut: null,
-    // récupère la date non incertaine de l'étape la plus ancienne
-    date: (e, etapes) =>
-      etapes.reduce((a, b) =>
-        a.date < b.date && !(a.incertitudes && a.incertitudes.date) ? a : b
-      ).date,
-    incertitudes: {
+    contenu: e => {
+      const { contenu } = e
+
+      // supprime le contenu de la `mdp` pour le mettre dans la `mfr`
+      e.contenu = null
+
+      return contenu
+    },
+    incertitudes: e => ({
+      titreEtapeId: e.id.replace('mdp', 'mfr'),
+      ...e.incertitudes,
       date: true
-    }
+    })
   }
 }
 
@@ -52,8 +53,8 @@ const incertitudesMove = {
 }
 
 const modifs = {
-  def: {
-    defCopyToMfr,
+  mdp: {
+    mdpCopyToMfr,
     ...relationsMove,
     incertitudesMove
   }
@@ -66,9 +67,9 @@ const ids = null && [
 ]
 
 const options = {
-  ids, // : ['m-ar-apatou-2003'],
-  titresIds: ['m'],
-  typesIds: ['ar']
+  ids // : ['m-ar-apatou-2003'],
+  // titreIds: ['m'],
+  // typesIds: ['ar']
 }
 
 titresContenuMigrate(options, modifs)
