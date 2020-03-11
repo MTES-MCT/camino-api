@@ -5,14 +5,15 @@ export default [
     // impossible après toute étape
     // note: désactivation de cette règle
     // car le "cas par cas" est possible avant la demande
-    // impossibleApres: '*'
+    // impossibleApres: ['*']
   },
 
   {
     condition: { etape: { typeId: 'ret' } },
     obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'sco' }],
-    impossibleAvant: '*'
+    // TODO: implementer cette règle
+    seulePossibleApres: ['mno']
   },
 
   {
@@ -197,17 +198,11 @@ export default [
     obligatoireApres: [{ typeId: 'mno' }]
   },
   {
-    condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
-      etape: { typeId: 'pfc' }
-    },
+    condition: { etape: { typeId: 'pfc' } },
     impossibleApres: [{ typeId: 'vfc' }]
   },
   {
-    condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
-      etape: { typeId: 'vfc' }
-    },
+    condition: { etape: { typeId: 'vfc' } },
     obligatoireApres: [{ typeId: 'pfc' }],
     impossibleApres: [{ typeId: 'sco' }]
   },

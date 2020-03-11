@@ -15,6 +15,7 @@ import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 
 import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
@@ -123,6 +124,13 @@ const titreEtapeUpdate = async (
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
+    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
+    titre = await titreGet(titreId, {
+      graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
+    })
+    const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
+
+    // 13.
     console.log()
     console.log('activités des titres…')
     titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
@@ -132,7 +140,7 @@ const titreEtapeUpdate = async (
       activitesTypes
     )
 
-    // 13.
+    // 14.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {})
     const titreUpdatedIndex = await titreIdsUpdate(titre)
@@ -174,6 +182,9 @@ const titreEtapeUpdate = async (
     )
     console.log(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+    )
+    console.log(
+      `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
     console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
     console.log(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)

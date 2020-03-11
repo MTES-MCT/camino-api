@@ -73,11 +73,6 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
         impossibleApres: null
       },
       {
-        condition: { etape: { typeId: 'etape-derniere' } },
-        obligatoireApres: null,
-        impossibleApres: null
-      },
-      {
         condition: {
           etape: { typeId: 'etape-mecanisee' },
           titre: { contenu: { arm: { mecanise: true } } }

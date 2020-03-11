@@ -245,7 +245,7 @@ const run = async () => {
 
     // 12.
     console.log()
-    console.log('propriétés des titres (contenu)…')
+    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titres = await titresGet(
       {
         domainesIds: null,

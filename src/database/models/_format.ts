@@ -61,7 +61,7 @@ const titreContenuFormat = async (
               etape &&
               etape.contenu &&
               etape.contenu[sectionId] &&
-              etape.contenu[sectionId][elementId]
+              etape.contenu[sectionId][elementId] !== undefined
             ) {
               if (!contenu[sectionId]) {
                 contenu[sectionId] = {}
