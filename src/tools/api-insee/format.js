@@ -1,8 +1,8 @@
 import * as dateFormat from 'dateformat'
 
-import inseePays from './pays'
-import inseeCategoriesJuridiques from './categories-juridiques'
-import inseeTypesVoies from './voies'
+import inseePays from './definitions/pays'
+import inseeCategoriesJuridiques from './definitions/categories-juridiques'
+import inseeTypesVoies from './definitions/voies'
 
 /**
  * @description Formate le nom d'une entreprise ou établissement.
