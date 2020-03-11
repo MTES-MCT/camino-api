@@ -11,7 +11,12 @@ Object.keys(titresTypesEtapesTypesRestrictions).forEach(typeId => {
     titresTypesEtapesTypesRestrictions[typeId]
 
   titreTypeEtapesTypesRestrictions.forEach(titreTypeEtapesTypesRestriction => {
-    if (!titreTypeEtapesTypesRestriction) return false
+    if (
+      !titreTypeEtapesTypesRestriction ||
+      titreTypeEtapesTypesRestriction.impossibleAvant === '*'
+    ) {
+      return false
+    }
 
     const { condition } = titreTypeEtapesTypesRestriction
     if (!condition || !condition.etape) return false
