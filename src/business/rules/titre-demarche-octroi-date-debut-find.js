@@ -24,7 +24,17 @@ const titreDemarcheOctroiDateDebutFind = titreDemarches => {
   const etapeOctroi =
     etapes.find(
       ({ typeId }) =>
-        (['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(typeId) &&
+        ([
+          'dpu',
+          'dup',
+          'rpu',
+          'dex',
+          'dux',
+          'dim',
+          'def',
+          'sco',
+          'aco'
+        ].includes(typeId) &&
           demarcheOctroi.statutId === 'acc') ||
         typeId === 'mfr'
     ) ||
