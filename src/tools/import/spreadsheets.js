@@ -29,6 +29,8 @@ const metasActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_METAS_ACTIVITES
 const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
+const titresActivitesRepriseSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES_REPRISE
 
 const titresTables = [
   { name: 'titres', cb: { props_titre_etapes_ids: JSON.parse } },
@@ -238,6 +240,13 @@ const titresActivites = {
   tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
 }
 
+const titresActivitesReprise = {
+  name: 'titres-activites-reprise',
+  id: titresActivitesRepriseSpreadsheetId,
+  tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }],
+  prefixFileName: true
+}
+
 const autorisations = {
   name: 'autorisations',
   id: autorisationsSpreadsheetId,
@@ -267,6 +276,7 @@ const spreadsheets = [
   utilisateurs,
   metasActivites,
   titresActivites,
+  titresActivitesReprise,
   autorisations,
   globales
 ]
