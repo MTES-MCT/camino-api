@@ -24,6 +24,7 @@ import { titresDemarchesFormat } from './format/titres-demarches'
 
 import {
   titreDemarcheGet,
+  titresDemarchesCount,
   titresDemarchesGet,
   titreDemarcheCreate,
   titreDemarcheUpdate,
@@ -64,47 +65,72 @@ const demarches = async (
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
-  let fields = graphFieldsBuild(info)
-  fields = fieldTitreAdd(fields)
+  try {
+    let fields = graphFieldsBuild(info)
 
-  if (!intervalle) {
-    intervalle = 200
+    fields = fieldTitreAdd(fields.demarches)
+
+    if (!intervalle) {
+      intervalle = 200
+    }
+
+    if (!page) {
+      page = 1
+    }
+
+    const graph = graphBuild(fields, 'titre', graphFormat)
+
+    const titresDemarches = await titresDemarchesGet(
+      {
+        intervalle,
+        page,
+        ordre,
+        colonne,
+        typesIds,
+        statutsIds,
+        titresTypesIds,
+        titresDomainesIds,
+        titresStatutsIds,
+        etapesInclues,
+        etapesExclues
+      },
+      { graph }
+    )
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    const isSuper = permissionsCheck(user, ['super'])
+    const isAdmin = permissionsCheck(user, ['admin'])
+
+    const total = await titresDemarchesCount(
+      {
+        typesIds,
+        statutsIds,
+        titresTypesIds,
+        titresDomainesIds,
+        titresStatutsIds,
+        etapesInclues,
+        etapesExclues
+      },
+      { graph }
+    )
+
+    return {
+      demarches: titresDemarchesFormat(
+        user,
+        titresDemarches,
+        { isSuper, isAdmin },
+        fields
+      ),
+      total
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
   }
-
-  if (!page) {
-    page = 1
-  }
-
-  const graph = graphBuild(fields, 'titre', graphFormat)
-
-  const titresDemarches = await titresDemarchesGet(
-    {
-      intervalle,
-      page,
-      ordre,
-      colonne,
-      typesIds,
-      statutsIds,
-      titresTypesIds,
-      titresDomainesIds,
-      titresStatutsIds,
-      etapesInclues,
-      etapesExclues
-    },
-    { graph }
-  )
-
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  const isSuper = permissionsCheck(user, ['super'])
-  const isAdmin = permissionsCheck(user, ['admin'])
-
-  return titresDemarchesFormat(
-    user,
-    titresDemarches,
-    { isSuper, isAdmin },
-    fields
-  )
 }
 
 const titreDemarchesTypes = async (
