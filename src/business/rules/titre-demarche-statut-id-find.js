@@ -11,6 +11,7 @@ const titreEtapesDecisivesTypes = [
   'mcr',
   'dim',
   'dex',
+  'dux',
   'aca',
   'def',
   'sco',
@@ -18,6 +19,7 @@ const titreEtapesDecisivesTypes = [
   'apu',
   'rpu',
   'dpu',
+  'dup',
   'rtd',
   'abd',
   'and'
@@ -116,7 +118,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est décision expresse (dex)
     //  - et le statut de l’étape est rejetée (rej)
     if (
-      titreEtapeRecent.typeId === 'dex' &&
+      ['dex', 'dux'].includes(titreEtapeRecent.typeId) &&
       titreEtapeRecent.statutId === 'rej'
     ) {
       //  - le statut de la démarche est rejetée (rej)
@@ -148,7 +150,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     //  - le type de l’étape est avis de la commission ARM (aca) (non défavorable)
     //  - le type de l’étape est décision de l'ONF (def) (non défavorable)
     if (
-      ['mcr', 'men', 'dex'].includes(titreEtapeRecent.typeId) ||
+      ['mcr', 'men', 'dex', 'dux'].includes(titreEtapeRecent.typeId) ||
       (titreTypeId === 'arm' &&
         ['mdp', 'meo', 'def', 'aca'].includes(titreEtapeRecent.typeId))
     ) {
@@ -179,7 +181,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     // - le type de l’étape est publication au JO
     // - et le statut de l’étape est terminée
     if (
-      titreEtapeRecent.typeId === 'dpu' &&
+      ['dpu', 'dup'].includes(titreEtapeRecent.typeId) &&
       titreEtapeRecent.statutId === 'fai'
     ) {
       // - le statut de la démarche est terminée

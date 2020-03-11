@@ -38,7 +38,7 @@ const etapeValideCheck =
     ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
     (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
       (prop.match('point') && titreStatutId === 'mod') ||
-      ['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(
+     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
         titreEtape.typeId
       ))
 

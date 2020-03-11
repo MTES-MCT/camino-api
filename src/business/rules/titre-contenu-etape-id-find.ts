@@ -16,7 +16,7 @@ const etapeValideCheck = (
   // sinon, on ne prend en compte que les étapes de décision
   ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
   (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
-    ['dpu', 'rpu', 'dex', 'dim', 'def', 'sco', 'aco'].includes(
+    ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId
     ))
 
