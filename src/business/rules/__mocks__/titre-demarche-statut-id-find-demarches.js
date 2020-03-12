@@ -291,7 +291,7 @@ const titreDemarcheRetDpuFai = {
   etapes: [
     {
       id: 'h-cx-courdemanges-1988-ret01-ret01',
-      typeId: 'dpu',
+      typeId: 'dup',
       statutId: 'fai'
     }
   ]

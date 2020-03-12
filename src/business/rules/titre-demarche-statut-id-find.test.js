@@ -118,7 +118,7 @@ describe("statut d'une démarche", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheOctMcrAcc)).toEqual('ins')
   })
 
-  test("une démarche de retrait dont l'étape la plus récente de dpu a été faite a le statut “indéfinie”", () => {
+  test("une démarche de retrait dont l'étape la plus récente de dpu a été faite a le statut “terminée”", () => {
     expect(titreDemarcheStatutIdFind(titreDemarcheRetDpuFai)).toEqual('ter')
   })
 

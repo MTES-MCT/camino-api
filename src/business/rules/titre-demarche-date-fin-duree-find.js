@@ -85,7 +85,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   const titreEtapesDescSorted =
     titreDemarcheEtapes && titreEtapesDescSort(titreDemarcheEtapes)
 
-  // chercher dans les dex, dpu et rpu s'il y a une date de debut
+  // chercher dans les étapes de publication et décisives s'il y a une date de debut
   const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
     te =>
       ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
@@ -98,7 +98,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   }
 
   // sinon, la date de fin est calculée
-  // en ajoutant la durée cumulée à la date de la première dpu ou ens
+  // en ajoutant la durée cumulée à la date de la première étape de publication
   const titreEtapeDpuFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
     titreEtape =>
       ['dpu', 'dup', 'sco', 'def', 'aco'].includes(titreEtape.typeId)
@@ -109,7 +109,7 @@ const titreDemarcheOctroiDateFinFind = (duree, titreDemarcheEtapes) => {
   }
 
   // si on ne trouve pas de dpu, la date de fin est calculée
-  // en ajoutant la date de la première dex
+  // en ajoutant la date de la première étape décisive
   const titreEtapeDexFirst = titreEtapesAscSort(titreDemarcheEtapes).find(
     titreEtape =>
       ['dex', 'dux', 'def', 'sco', 'aco'].includes(titreEtape.typeId)
@@ -143,9 +143,9 @@ const titreDemarcheOctroiDateFinAndDureeFind = (
 
 // trouve la date de fin d'une démarche d'annulation
 const titreDemarcheAnnulationDateFinFind = titreDemarcheEtapes => {
-  // la dernière étape dex qui contient une date de fin
+  // la dernière étape dex ou dux qui contient une date de fin
   const etapeDexHasDateFin = titreEtapesDescSort(titreDemarcheEtapes).find(
-    te => te.typeId === 'dex' && te.dateFin
+    te => ['dex', 'dux'].includes(te.typeId) && te.dateFin
   )
 
   // si la démarche contient une date de fin
@@ -154,9 +154,9 @@ const titreDemarcheAnnulationDateFinFind = titreDemarcheEtapes => {
   }
 
   // sinon,
-  // trouve la première étape de décision expresse (dex)
-  const etapeDex = titreEtapesAscSort(titreDemarcheEtapes).find(
-    te => te.typeId === 'dex'
+  // trouve la première étape de décision expresse (dex) ou unilatérale (dux)
+  const etapeDex = titreEtapesAscSort(titreDemarcheEtapes).find(te =>
+    ['dex', 'dux'].includes(te.typeId)
   )
 
   // la date de fin est la date de l'étape

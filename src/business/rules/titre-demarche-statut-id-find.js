@@ -178,10 +178,11 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
   //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
   //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
   if (['ret', 'abr', 'prr', 'dec'].includes(titreDemarche.typeId)) {
-    // - le type de l’étape est publication au JO
+    // - le type de l’étape est publication au JO unilatérale
+    // - ou le type de l’étape est décision unilatérale
     // - et le statut de l’étape est terminée
     if (
-      ['dpu', 'dup'].includes(titreEtapeRecent.typeId) &&
+      ['dup', 'dux'].includes(titreEtapeRecent.typeId) &&
       titreEtapeRecent.statutId === 'fai'
     ) {
       // - le statut de la démarche est terminée
