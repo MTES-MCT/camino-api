@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.22](https://github.com/MTES-MCT/camino-api/compare/v0.24.21...v0.24.22) (2020-03-12)
+
+
+### Features
+
+* **administration:** renomme la DEAL Guyane en DGTM ([#317](https://github.com/MTES-MCT/camino-api/issues/317)) ([536f7b8](https://github.com/MTES-MCT/camino-api/commit/536f7b8ae8f88dc13fbc95ee362f9edaa7167817))
+* **api:** ajoute les restrictions pour les permis de recherche M ([#321](https://github.com/MTES-MCT/camino-api/issues/321)) ([019ff66](https://github.com/MTES-MCT/camino-api/commit/019ff6636e98264b129b7df65fd9c624ef6ec017))
+* **api:** expose la pagination sur les démarches ([#333](https://github.com/MTES-MCT/camino-api/issues/333)) ([68dc44b](https://github.com/MTES-MCT/camino-api/commit/68dc44b6a2a66cacd9bc8f5e28f1e9ef6ff30585))
+* **api:** remonte des données spécifiques à la racine du titre ([#318](https://github.com/MTES-MCT/camino-api/issues/318)) ([f55fe18](https://github.com/MTES-MCT/camino-api/commit/f55fe18dbfc4a7c61eace413df1d5b809ea46bd1))
+* **business:** prends en compte les dup et dux dans les règles métier ([#331](https://github.com/MTES-MCT/camino-api/issues/331)) ([962f7e4](https://github.com/MTES-MCT/camino-api/commit/962f7e4d49d5ff72feb63de73efc9f2d8d413d5b))
+* **data:** copie le dépôt de la demande vers une étape de demande si elle n'existe pas ([#327](https://github.com/MTES-MCT/camino-api/issues/327)) ([5653ddc](https://github.com/MTES-MCT/camino-api/commit/5653ddca2db27e678d7277e89f36d2e00615ae2a))
+* **data:** migre les étapes de recevabilité des ARM vers la complétude de dossier ([#323](https://github.com/MTES-MCT/camino-api/issues/323)) ([1fd314d](https://github.com/MTES-MCT/camino-api/commit/1fd314df7aeb1f1e31d4380e87a02dacce254121))
+* **data:** migre les étapes dpu et dex vers les étapes dup et dux ([#328](https://github.com/MTES-MCT/camino-api/issues/328)) ([5cff85d](https://github.com/MTES-MCT/camino-api/commit/5cff85dbf0f8269bc11b9ba8ec0c5112a725e0bb))
+* **descriptions:** ajoute des descriptions pour le vocabulaire de Camino ([#319](https://github.com/MTES-MCT/camino-api/issues/319)) ([614bf24](https://github.com/MTES-MCT/camino-api/commit/614bf24b1768cdd44e6d07c69e3bda243e2e06ec))
+* **etapes:** limite les types d'étapes disponibles pendant l'édition ([#322](https://github.com/MTES-MCT/camino-api/issues/322)) ([b88efb6](https://github.com/MTES-MCT/camino-api/commit/b88efb6a5450d438f9f82a670a9a0dd9542d7aed))
+* **import:** ajoute une feuille de reprise pour les activités de titres ([#332](https://github.com/MTES-MCT/camino-api/issues/332)) ([ee4eb70](https://github.com/MTES-MCT/camino-api/commit/ee4eb70b546f34c675f34b17bc56132fa2081cd2))
+* **rapports:** permet à un type d'activité de ne pas être lié à des pays ([#315](https://github.com/MTES-MCT/camino-api/issues/315)) ([e355679](https://github.com/MTES-MCT/camino-api/commit/e355679b8397153893c0f722a8105039e929b9c4))
+
+
+### Bug Fixes
+
+* corrige le calcule du statut des démarches de retrait ([#335](https://github.com/MTES-MCT/camino-api/issues/335)) ([4750642](https://github.com/MTES-MCT/camino-api/commit/475064255d187bb77234e68950c989b41bc02109))
+* **api:** corrige la séparation des paramètres en tableaux contenant des guillemets ([#320](https://github.com/MTES-MCT/camino-api/issues/320)) ([9f52ec6](https://github.com/MTES-MCT/camino-api/commit/9f52ec650218124153ce5353a04cabeddac9d82c))
+* **api:** enlève l'exception de filtrage des types d'étapes pour les super utilisateurs ([#334](https://github.com/MTES-MCT/camino-api/issues/334)) ([4f9f7d6](https://github.com/MTES-MCT/camino-api/commit/4f9f7d603a5e7ed9cf778f9609ef27c0b20c6e9c))
+* **data:** corrige les noms de sections des migrations et supprime les contenus vides des étapes ([#326](https://github.com/MTES-MCT/camino-api/issues/326)) ([d911d40](https://github.com/MTES-MCT/camino-api/commit/d911d40d678f6d5c4722ec3dfd352ff1398c3c37))
+* **etapes:** corrige l'affichage du contenu d'étapes avec sections spécifiques ([#316](https://github.com/MTES-MCT/camino-api/issues/316)) ([0dd6d35](https://github.com/MTES-MCT/camino-api/commit/0dd6d3580f095f4e4b7b878ea7b45edf86548b1b))
+* **etapes:** corrige les restrictions d'ordre des étapes mécanisées ([57fd198](https://github.com/MTES-MCT/camino-api/commit/57fd1983763342252ea61ef5deecd5a44d21813f))
+* **etapes:** mets à jour les restrictions d'ordre des étapes pour les ARM ([#330](https://github.com/MTES-MCT/camino-api/issues/330)) ([8e3f2e6](https://github.com/MTES-MCT/camino-api/commit/8e3f2e6b5e46476a2b1e360f5c535eaa9dcc6477))
+* corrige l'export public ([514291d](https://github.com/MTES-MCT/camino-api/commit/514291d899eadf739fecbc932ff8e55e522f12ac))
+* corrige une erreur TypeScript ([d3a8678](https://github.com/MTES-MCT/camino-api/commit/d3a86788c38ee62c4ae38c1ac151f5881c51f1ff))
+
 ### [0.24.21](https://github.com/MTES-MCT/camino-api/compare/v0.24.20...v0.24.21) (2020-02-27)
 
 
