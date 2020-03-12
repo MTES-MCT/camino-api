@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.23](https://github.com/MTES-MCT/camino-api/compare/v0.24.22...v0.24.23) (2020-03-12)
+
+
+### Bug Fixes
+
+* **etapes:** corrige le caractère cumulatif des restrictions ([4af9d8a](https://github.com/MTES-MCT/camino-api/commit/4af9d8ad428816a9eec79cecac6e125b643e1fb9))
+* désactive sentry qui bug lors du build ([f5cafca](https://github.com/MTES-MCT/camino-api/commit/f5cafca5f9ddd98297be05b2fc06c7de49f48566))
+
 ### [0.24.22](https://github.com/MTES-MCT/camino-api/compare/v0.24.21...v0.24.22) (2020-03-12)
 
 
