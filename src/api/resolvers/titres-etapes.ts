@@ -57,28 +57,24 @@ const demarcheTypeEtapeTypeFormat = (
     return null
   }
 
-  const isSuper = permissionsCheck(user, ['super'])
+  // TODO : filtrer les types d'étapes avec type.dateFin
+  // en fonction de la date du titre
 
-  if (!isSuper) {
-    // TODO : filtrer les types d'étapes avec type.dateFin
-    // en fonction de la date du titre
+  // restreint la liste des types d'étapes en fonction
+  // de la possibilité de les créer
+  et.etapesStatuts = et.etapesStatuts!.filter(es => {
+    const error = !titreEtapeDateValidate(
+      { typeId: et.id, date: '3000-01-01', statutId: es.id },
+      demarche,
+      titre
+    )
 
-    // restreint la liste des types d'étapes en fonction
-    // de la possibilité de les créer
-    et.etapesStatuts = et.etapesStatuts!.filter(es => {
-      const error = !titreEtapeDateValidate(
-        { typeId: et.id, date: '3000-01-01', statutId: es.id },
-        demarche,
-        titre
-      )
+    return error
+  })
 
-      return error
-    })
-
-    // si il n'est possible de crééer le type d'étape pour aucun statut
-    // alors on ne retourne pas ce type d'étape pendant l'édition
-    if (!et.etapesStatuts.length) return null
-  }
+  // si il n'est possible de crééer le type d'étape pour aucun statut
+  // alors on ne retourne pas ce type d'étape pendant l'édition
+  if (!et.etapesStatuts.length) return null
 
   et.editable = titreEtapePermissionAdministrationsCheck(
     user,
