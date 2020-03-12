@@ -108,8 +108,8 @@ const impossibleApresFind = (
   titreEtapeType,
   titreEtapeDate,
   impossibleApres
-) =>
-  impossibleApres.reduce((errors, impossibleApresUne) => {
+) => {
+  const errors = impossibleApres.reduce((errors, impossibleApresUne) => {
     // si l'étape doit être la première de la démarche
     if (impossibleApresUne === '*') {
       const titreEtapeAfter = titreDemarche.etapes.find(
@@ -149,13 +149,16 @@ const impossibleApresFind = (
     return errors
   }, [])
 
+  return errors.length === impossibleApres.length ? errors : []
+}
+
 const obligatoireApresFind = (
   titreDemarche,
   titreEtapeType,
   titreEtapeDate,
   obligatoireApres
-) =>
-  obligatoireApres.reduce((errors, obligatoireApresUne) => {
+) => {
+  const errors = obligatoireApres.reduce((errors, obligatoireApresUne) => {
     const obligatoireApresUneEtapeKeys = Object.keys(obligatoireApresUne)
 
     const titreEtapeBefore = titreDemarche.etapes.find(
@@ -191,6 +194,9 @@ const obligatoireApresFind = (
 
     return errors
   }, [])
+
+  return errors.length === obligatoireApres.length ? errors : []
+}
 
 const titreEtapeTypesRestrictionsCheck = (
   titreEtapeTypesRestrictions,

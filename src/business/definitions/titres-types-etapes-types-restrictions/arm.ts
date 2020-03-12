@@ -89,7 +89,10 @@ export default [
 
   {
     condition: { etape: { typeId: 'css' } },
-    obligatoireApres: [{ typeId: 'mcp', statutId: 'def' }],
+    obligatoireApres: [
+      { typeId: 'mcp', statutId: 'def' },
+      { typeId: 'aca', statutId: 'def' }
+    ],
     impossibleApres: [{ typeId: 'mno' }],
     seulePossibleApres: [{ typeId: 'mno' }]
   },
