@@ -25,29 +25,29 @@ import init from './server/init'
 
 import { port, url } from './config/index'
 
-import * as Sentry from '@sentry/node'
+// import * as Sentry from '@sentry/node'
 
 init()
 
 const app = express()
 
-if (process.env.SENTRY_DSN) {
-  Sentry.init({ dsn: process.env.SENTRY_DSN })
-  app.use(Sentry.Handlers.requestHandler())
-}
+// if (process.env.SENTRY_DSN) {
+//   Sentry.init({ dsn: process.env.SENTRY_DSN })
+//   app.use(Sentry.Handlers.requestHandler())
+// }
 
 app.use(cors({ credentials: true }), compression(), middlewareJwt)
 app.get('/documents/:titreDocumentId', fileDownload)
 app.use('/', middlewareUpload, middlewareGraphql)
 
-if (process.env.SENTRY_DSN) {
-  // test sentry
-  // app.get('/', (req, res) => {
-  //   console.log('broke')
-  //   throw new Error('Broke!')
-  // })
-  app.use(Sentry.Handlers.errorHandler())
-}
+// if (process.env.SENTRY_DSN) {
+//   // test sentry
+//   // app.get('/', (req, res) => {
+//   //   console.log('broke')
+//   //   throw new Error('Broke!')
+//   // })
+//   app.use(Sentry.Handlers.errorHandler())
+// }
 
 app.listen(port, () => {
   console.log(' ')
