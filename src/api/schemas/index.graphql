@@ -10,6 +10,8 @@
 # import * from 'substances.graphql'
 # import * from 'territoires.graphql'
 # import * from 'titres-activites.graphql'
+# import * from 'titres-demarches.graphql'
+# import * from 'titres-etapes.graphql'
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
 
@@ -72,7 +74,7 @@ type Query {
     statutsIds: [ID]
     etapesInclues: [InputEtapeFiltre]
     etapesExclues: [InputEtapeFiltre]
-  ): [Demarche]
+  ): Demarches
 
   "__*__ Activité en fonction de son id"
   activite(id: ID!): Activite

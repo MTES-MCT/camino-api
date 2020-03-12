@@ -1,0 +1,143 @@
+"Étape d'une démarche effectuée sur un titre minier"
+type Etape {
+  """
+  Id composée de la concaténation:
+  - de l'id de la démarche
+  - du type de l'étape
+  """
+  id: ID!
+
+  "Type de l'étape"
+  type: EtapeType!
+
+  "Statut de l'étape"
+  statut: EtapeStatut!
+
+  "Ordre chronologique de l'étape"
+  ordre: Int!
+
+  "Date de l'étape"
+  date: String!
+
+  "Durée de la démarche"
+  duree: Int
+
+  "Date de début de la démarche"
+  dateDebut: String
+
+  "Date de fin de la démarche"
+  dateFin: String
+
+  "Surface en Km² du titre"
+  surface: Float
+
+  "Substances concernées par le titre"
+  substances: [TitreSubstance]
+
+  "Coordonnées des points du périmètre géographique du titre"
+  points: [Point]
+
+  "Geojson du contour du périmètre géographique du titre"
+  geojsonMultiPolygon: GeojsonMultiPolygon
+
+  "Geojson de la liste de points du périmètre géographique du titre"
+  geojsonPoints: GeojsonPoints
+
+  "Titualires du titre dans son dernier état de validité"
+  titulaires: [Entreprise]
+
+  "Amodiataires du titre dans son dernier état de validité"
+  amodiataires: [Entreprise]
+
+  "Administrations en charge du titre"
+  administrations: [Administration]
+
+  "Territoires du titre"
+  pays: [Pays]
+
+  "Documents relatifs à l'étape"
+  documents: [Document]
+
+  incertitudes: Incertitudes
+
+  contenu: Json
+
+  editable: Boolean
+  supprimable: Boolean
+}
+
+type EtapeId {
+  etapeId: ID!
+}
+
+type Incertitudes {
+  date: Boolean
+  dateDebut: Boolean
+  dateFin: Boolean
+  duree: Boolean
+  surface: Boolean
+  points: Boolean
+  substances: Boolean
+  titulaires: Boolean
+  amodiataires: Boolean
+  administrations: Boolean
+}
+
+input InputEtapeCreation {
+  typeId: ID!
+  statutId: ID!
+  titreDemarcheId: ID!
+  date: String!
+  ordre: Int
+  duree: Int
+  dateDebut: String
+  dateFin: String
+  surface: Float
+  substances: [InputId!]
+  points: [InputPoint]
+  titulaires: [InputId!]
+  amodiataires: [InputId!]
+  administrations: [InputId!]
+  incertitudes: InputIncertitudes
+  contenu: Json
+}
+
+input InputEtapeModification {
+  id: ID!
+  typeId: ID!
+  statutId: ID!
+  titreDemarcheId: ID!
+  date: String!
+  ordre: Int
+  duree: Int
+  dateDebut: String
+  dateFin: String
+  surface: Float
+  substances: [InputId!]
+  points: [InputPoint]
+  titulaires: [InputId!]
+  amodiataires: [InputId!]
+  administrations: [InputId!]
+  incertitudes: InputIncertitudes
+  contenu: Json
+}
+
+input InputEtapeFiltre {
+  typeId: ID!
+  statutId: ID
+  dateDebut: String
+  dateFin: String
+}
+
+input InputIncertitudes {
+  date: Boolean
+  dateDebut: Boolean
+  dateFin: Boolean
+  duree: Boolean
+  surface: Boolean
+  points: Boolean
+  substances: Boolean
+  titulaires: Boolean
+  amodiataires: Boolean
+  administrations: Boolean
+}

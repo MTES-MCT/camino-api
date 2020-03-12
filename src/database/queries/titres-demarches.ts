@@ -4,25 +4,22 @@ import {
   ITitreDemarcheColonneInput,
   IColonnes
 } from '../../types'
-import { transaction, Transaction } from 'objection'
+import { transaction, Transaction, QueryBuilder } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
 
 const titresDemarchesColonnes = {
   titreNom: { id: 'titre.nom', relation: 'titre' },
   titreDomaine: { id: 'titre.domaineId', relation: 'titre' },
-  titreType: { id: 'titre.type.type.nom', relation: 'titre.type' },
+  titreType: { id: 'titre:type:type.nom', relation: 'titre.type.type' },
   titreStatut: { id: 'titre.statutId', relation: 'titre' },
   type: { id: 'typeId' },
   statut: { id: 'statutId' }
 } as IColonnes
 
-const titresDemarchesGet = async (
+const titresDemarchesQueryBuild = (
+  q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
   {
-    intervalle,
-    page,
-    colonne,
-    ordre,
     typesIds,
     statutsIds,
     titresDomainesIds,
@@ -31,10 +28,6 @@ const titresDemarchesGet = async (
     etapesInclues,
     etapesExclues
   }: {
-    intervalle?: number | null
-    page?: number | null
-    colonne?: ITitreDemarcheColonneInput | null
-    ordre?: 'asc' | 'desc' | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
     titresDomainesIds?: string[] | null
@@ -42,30 +35,8 @@ const titresDemarchesGet = async (
     titresStatutsIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
-  } = {},
-  { graph = options.demarches.graph } = {}
+  } = {}
 ) => {
-  const q = TitresDemarches.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
-
-  if (colonne) {
-    if (titresDemarchesColonnes[colonne].relation) {
-      q.joinRelated(titresDemarchesColonnes[colonne].relation!)
-    }
-    q.orderBy(titresDemarchesColonnes[colonne].id, ordre || undefined)
-  } else {
-    q.orderBy('titresDemarches.ordre')
-  }
-
-  if (page && intervalle) {
-    q.offset((page - 1) * intervalle)
-  }
-
-  if (intervalle) {
-    q.limit(intervalle)
-  }
-
   if (typesIds) {
     q.whereIn('titresDemarches.typeId', typesIds)
   }
@@ -141,6 +112,106 @@ const titresDemarchesGet = async (
       )
     }
   }
+}
+
+const titresDemarchesCount = async (
+  {
+    typesIds,
+    statutsIds,
+    titresDomainesIds,
+    titresTypesIds,
+    titresStatutsIds,
+    etapesInclues,
+    etapesExclues
+  }: {
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresTypesIds?: string[] | null
+    titresStatutsIds?: string[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
+  } = {},
+  { graph = options.demarches.graph } = {}
+) => {
+  const q = TitresDemarches.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
+    .count('titresDemarches.*', { as: 'total' })
+
+  titresDemarchesQueryBuild(q, {
+    typesIds,
+    statutsIds,
+    titresDomainesIds,
+    titresTypesIds,
+    titresStatutsIds,
+    etapesInclues,
+    etapesExclues
+  })
+
+  const titresDemarches = ((await q) as unknown) as { total: number }[]
+
+  return titresDemarches[0].total
+}
+
+const titresDemarchesGet = async (
+  {
+    intervalle,
+    page,
+    colonne,
+    ordre,
+    typesIds,
+    statutsIds,
+    titresDomainesIds,
+    titresTypesIds,
+    titresStatutsIds,
+    etapesInclues,
+    etapesExclues
+  }: {
+    intervalle?: number | null
+    page?: number | null
+    colonne?: ITitreDemarcheColonneInput | null
+    ordre?: 'asc' | 'desc' | null
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresTypesIds?: string[] | null
+    titresStatutsIds?: string[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
+  } = {},
+  { graph = options.demarches.graph } = {}
+) => {
+  const q = TitresDemarches.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
+
+  if (colonne) {
+    if (titresDemarchesColonnes[colonne].relation) {
+      q.joinRelated(titresDemarchesColonnes[colonne].relation!)
+    }
+    q.orderBy(titresDemarchesColonnes[colonne].id, ordre || undefined)
+  } else {
+    q.orderBy('titresDemarches.ordre')
+  }
+
+  if (page && intervalle) {
+    q.offset((page - 1) * intervalle)
+  }
+
+  if (intervalle) {
+    q.limit(intervalle)
+  }
+
+  titresDemarchesQueryBuild(q, {
+    typesIds,
+    statutsIds,
+    titresDomainesIds,
+    titresTypesIds,
+    titresStatutsIds,
+    etapesInclues,
+    etapesExclues
+  })
 
   return q
 }
@@ -203,6 +274,7 @@ const titreDemarchesIdsUpdate = async (
 
 export {
   titresDemarchesGet,
+  titresDemarchesCount,
   titreDemarcheGet,
   titreDemarcheCreate,
   titreDemarcheUpdate,

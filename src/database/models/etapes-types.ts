@@ -17,8 +17,8 @@ class EtapesTypes extends Model {
       nom: { type: ['string', 'null'], maxLength: 128 },
       acceptationAuto: { type: ['boolean', 'null'] },
       fondamentale: { type: ['boolean', 'null'] },
-      dateDebut: { type: ['date', 'null'] },
-      dateFin: { type: ['date', 'null'] },
+      dateDebut: { type: ['string', 'null'] },
+      dateFin: { type: ['string', 'null'] },
       sections: { type: 'json' }
     }
   }
