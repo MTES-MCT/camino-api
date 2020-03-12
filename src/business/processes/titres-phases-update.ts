@@ -1,4 +1,4 @@
-import PQueue from 'p-queue'
+import { ITitre, ITitrePhase } from '../../types'
 
 import {
   titrePhasesUpsert,
@@ -6,28 +6,41 @@ import {
 } from '../../database/queries/titres-phases'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titrePhasesFind from '../rules/titre-phases-find'
+import PQueue from 'p-queue'
 
 // retourne une phase parmi les titrePhases en fonction de son id
-const titrePhaseEqualFind = (titreDemarcheId, titrePhases) =>
+const titrePhaseEqualFind = (titreDemarcheId: string, titrePhases: ITitrePhase[]) =>
   titrePhases.find(tp => tp.titreDemarcheId === titreDemarcheId)
+
+type TitrePhaseKey = keyof ITitrePhase
+type TitrePhaseValeur = ITitrePhase[TitrePhaseKey]
+
+type IPhasePropChange = { [id: string]: [TitrePhaseValeur, TitrePhaseValeur] }
 
 // retourne les propriétés de la phase existante
 // qui sont différentes de la nouvelle phase
-const titrePhasePropsChangedFind = (titrePhase, titrePhaseOld) =>
-  Object.keys(titrePhase).reduce((res, key) => {
-    const valueOld = titrePhaseOld[key]
-    const valueNew = titrePhase[key]
+const titrePhasePropsChangedFind = (
+  titrePhase: ITitrePhase,
+  titrePhaseOld: ITitrePhase
+) =>
+  Object.keys(titrePhase).reduce(
+    (
+      res: IPhasePropChange,
+      key: string
+    ) => {
+      const valueOld = titrePhaseOld[key as TitrePhaseKey]
+      const valueNew = titrePhase[key as TitrePhaseKey]
 
-    // met la prop à jour si les variables sont différentes
-    if (valueNew !== valueOld) {
-      res[key] = [valueOld, valueNew]
-    }
+      // met la prop à jour si les variables sont différentes
+      if (valueNew !== valueOld) {
+        res[key] = [valueOld, valueNew]
+      }
 
-    return res
-  }, {})
+      return res
+    }, {} as IPhasePropChange)
 
-const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
-  titrePhases.reduce((res, titrePhase) => {
+const titrePhasesUpdatedFind = (titresPhasesOld: ITitrePhase[], titrePhases: ITitrePhase[]) =>
+  titrePhases.reduce((res: ITitrePhase[], titrePhase) => {
     const titrePhaseOld = titrePhaseEqualFind(
       titrePhase.titreDemarcheId,
       titresPhasesOld
@@ -54,8 +67,11 @@ const titrePhasesUpdatedFind = (titresPhasesOld, titrePhases) =>
     return res
   }, [])
 
-const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
-  titrePhasesOld.reduce((res, titrePhaseOld) => {
+const titrePhasesIdDeletedFind = (
+  titrePhasesOld: ITitrePhase[],
+  titresPhases: ITitrePhase[]
+) =>
+  titrePhasesOld.reduce((res: string[], titrePhaseOld) => {
     const titrePhase = titrePhaseEqualFind(
       titrePhaseOld.titreDemarcheId,
       titresPhases
@@ -68,17 +84,23 @@ const titrePhasesDeletedFind = (titrePhasesOld, titresPhases) =>
     return res
   }, [])
 
-const titresPhasesUpdate = async titres => {
+const titresPhasesUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const { titresPhasesUpdated, titresPhasesDeleted } = titres.reduce(
-    ({ titresPhasesUpdated, titresPhasesDeleted }, titre) => {
+  const { titresPhasesIdsUpdated, titresPhasesIdsDeleted } = titres.reduce(
+    (
+      res: {
+        titresPhasesIdsUpdated: string[],
+        titresPhasesIdsDeleted: string[]
+      },
+      titre
+    ) => {
       // met les démarches d'un titre dans le sens croissant avec `reverse()` :
       // les démarches données part `titresGet` sont dans l'ordre décroissant
-      const demarches = titreDemarchesAscSort(titre.demarches.reverse())
+      const demarches = titreDemarchesAscSort(titre.demarches!.reverse())
 
       // retourne les phases enregistrées en base
-      const titrePhasesOld = demarches.reduce((res, td) => {
+      const titrePhasesOld = demarches.reduce((res: ITitrePhase[], td) => {
         if (td.phase) {
           res.push(td.phase)
         }
@@ -103,13 +125,13 @@ const titresPhasesUpdate = async titres => {
             `mise à jour: phases ${JSON.stringify(titrePhasesToUpdate)}`
           )
 
-          titresPhasesUpdated.push(
+          res.titresPhasesIdsUpdated.push(
             ...titrePhasesToUpdate.map(p => p.titreDemarcheId)
           )
         })
       }
 
-      const titrePhasesToDeleteIds = titrePhasesDeletedFind(
+      const titrePhasesToDeleteIds = titrePhasesIdDeletedFind(
         titrePhasesOld,
         titrePhases
       )
@@ -122,24 +144,21 @@ const titresPhasesUpdate = async titres => {
             `suppression: phases ${titrePhasesToDeleteIds.join(', ')}`
           )
 
-          titresPhasesDeleted.push(...titrePhasesToDeleteIds)
+          res.titresPhasesIdsDeleted.push(...titrePhasesToDeleteIds)
         })
       }
 
-      return {
-        titresPhasesUpdated,
-        titresPhasesDeleted
-      }
+      return res
     },
     {
-      titresPhasesUpdated: [],
-      titresPhasesDeleted: []
+      titresPhasesIdsUpdated: [] as string[],
+      titresPhasesIdsDeleted: [] as string[]
     }
   )
 
   await queue.onIdle()
 
-  return [titresPhasesUpdated, titresPhasesDeleted]
+  return [titresPhasesIdsUpdated, titresPhasesIdsDeleted]
 }
 
 export default titresPhasesUpdate

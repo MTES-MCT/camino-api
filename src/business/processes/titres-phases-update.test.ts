@@ -11,8 +11,8 @@ import {
 } from './__mocks__/titres-phases-update-titres'
 
 jest.mock('../../database/queries/titres-phases', () => ({
-  titrePhasesUpsert: jest.fn().mockResolvedValue(),
-  titrePhasesDelete: jest.fn().mockResolvedValue()
+  titrePhasesUpsert: jest.fn().mockResolvedValue(true),
+  titrePhasesDelete: jest.fn().mockResolvedValue(true)
 }))
 
 console.log = jest.fn()

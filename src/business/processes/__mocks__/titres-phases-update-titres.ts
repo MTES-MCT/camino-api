@@ -1,3 +1,5 @@
+import { ITitre } from '../../../types'
+
 const titresSansPhase = [
   {
     id: 'h-cx-courdemanges-1988',
@@ -12,7 +14,7 @@ const titresSansPhase = [
       }
     ]
   }
-]
+] as unknown as ITitre[]
 
 const titresUnePhase = [
   {
@@ -45,7 +47,7 @@ const titresUnePhase = [
       }
     ]
   }
-]
+] as unknown as ITitre[]
 
 const titrePhase = [
   {
@@ -54,7 +56,7 @@ const titrePhase = [
     dateDebut: '2200-01-01',
     statutId: 'val'
   }
-]
+] as unknown as ITitre[]
 
 const titresUnePhaseMiseAJour = [
   {
@@ -93,7 +95,7 @@ const titresUnePhaseMiseAJour = [
       }
     ]
   }
-]
+] as unknown as ITitre[]
 
 const titresPhaseASupprimer = [
   {
@@ -115,7 +117,7 @@ const titresPhaseASupprimer = [
       }
     ]
   }
-]
+] as unknown as ITitre[]
 
 const titresUnePhaseSansChangement = [
   {
@@ -154,7 +156,7 @@ const titresUnePhaseSansChangement = [
       }
     ]
   }
-]
+] as unknown as ITitre[]
 
 export {
   titresSansPhase,
