@@ -72,6 +72,7 @@ interface IActiviteType {
   id: string
   nom: string
   frequenceId: string
+  dateDebut: string
   titresTypes: ITitreType[]
   sections?: ISection[] | null
   frequence?: IFrequence | null
