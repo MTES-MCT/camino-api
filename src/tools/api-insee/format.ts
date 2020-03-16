@@ -1,53 +1,69 @@
+import {
+  IApiSirenEtablissement,
+  IApiSirenUniteLegalePeriode,
+  IApiSirenUnionUniteLegalePeriodeEtablissmentUnite,
+  IApiSirenUnionUniteLegaleEtablissmentUnite,
+  IApiSirenUniteLegale
+} from './types'
+
 import * as dateFormat from 'dateformat'
 
 import inseePays from './definitions/pays'
 import inseeCategoriesJuridiques from './definitions/categories-juridiques'
 import inseeTypesVoies from './definitions/voies'
+import { IEntrepriseEtablissement, IEntreprise } from '../../types'
 
-/**
- * @description Formate le nom d'une entreprise ou établissement.
- *
- * @param {object} e - L'entité à formater.
- * @param {boolean} usuel - Récupère le nom usuel ou non
- *     si usuel est `true` et que l'entité est une personne
- *     alors format le nom comme une entreprise.
- * @returns {string} Le nom de l'entreprise.
- *
- */
-const nomFormat = (e, usuel) =>
-  e.nomUniteLegale && !usuel
-    ? nomIndividuFormat(e)
-    : nomEntrepriseFormat(e) || nomIndividuFormat(e)
+interface IApiSirenNomFormat
+  extends IApiSirenUnionUniteLegalePeriodeEtablissmentUnite,
+    IApiSirenUnionUniteLegaleEtablissmentUnite {}
 
-const entrepriseEtablissementFormat = (entreprise, periodeUniteLegale) => {
+const nomFormat = (
+  {
+    denominationUniteLegale,
+    denominationUsuelle1UniteLegale,
+    nomUniteLegale,
+    prenomUsuelUniteLegale,
+    sexeUniteLegale,
+    sigleUniteLegale
+  }: Partial<IApiSirenNomFormat>,
+  usuel?: boolean
+) =>
+  nomUniteLegale && sexeUniteLegale && prenomUsuelUniteLegale && !usuel
+    ? nomIndividuFormat(sexeUniteLegale, prenomUsuelUniteLegale, nomUniteLegale)
+    : nomEntrepriseFormat(
+        denominationUniteLegale,
+        denominationUsuelle1UniteLegale,
+        sigleUniteLegale
+      )
+// TODO: peut-on supprimer cette ligne ?
+// sinon, il faut tester si les arguments sont définis dans la fonction
+// || nomIndividuFormat(sexeUniteLegale, prenomUsuelUniteLegale, nomUniteLegale)
+
+const entrepriseEtablissementFormat = (
+  entreprise: IApiSirenUniteLegale,
+  uniteLegalePeriode: IApiSirenUniteLegalePeriode
+) => {
   const entrepriseId = `fr-${entreprise.siren}`
-
-  const nic = periodeUniteLegale.nicSiegeUniteLegale || 'xxxxx'
-
-  const dateDebut = dateFormat(periodeUniteLegale.dateDebut, 'yyyy-mm-dd')
-
-  const nom = nomFormat({ ...entreprise, ...periodeUniteLegale })
-
+  const nic = uniteLegalePeriode.nicSiegeUniteLegale || 'xxxxx'
+  const dateDebut = dateFormat(uniteLegalePeriode.dateDebut, 'yyyy-mm-dd')
+  const nom = nomFormat(Object.assign({}, entreprise, uniteLegalePeriode))
   const legalSiret = `${entreprise.siren}${nic}`
-
   const etablissement = {
     id: `${entrepriseId}-${nic}-${dateDebut}`,
     entrepriseId,
     nom,
     dateDebut,
     legalSiret
-  }
+  } as IEntrepriseEtablissement
 
-  if (periodeUniteLegale.dateFin) {
-    etablissement.dateFin = dateFormat(periodeUniteLegale.dateFin, 'yyyy-mm-dd')
+  if (uniteLegalePeriode.dateFin) {
+    etablissement.dateFin = dateFormat(uniteLegalePeriode.dateFin, 'yyyy-mm-dd')
   }
 
   return etablissement
 }
 
-const entrepriseEtablissementsFormat = entreprise => {
-  if (!entreprise) return null
-
+const entrepriseEtablissementsFormat = (entreprise: IApiSirenUniteLegale) => {
   // periodesUniteLegale est un tableau
   // classé par ordre de fin chronologique décroissant
   if (
@@ -58,16 +74,14 @@ const entrepriseEtablissementsFormat = entreprise => {
   }
 
   const entrepriseEtablissements = entreprise.periodesUniteLegale.map(
-    periodeUniteLegale =>
-      entrepriseEtablissementFormat(entreprise, periodeUniteLegale)
+    uniteLegalePeriode =>
+      entrepriseEtablissementFormat(entreprise, uniteLegalePeriode)
   )
 
   return entrepriseEtablissements
 }
 
-const entrepriseFormat = e => {
-  if (!e) return null
-
+const entrepriseFormat = (e: IApiSirenEtablissement) => {
   const { uniteLegale: unite, adresseEtablissement: adresse } = e
 
   const id = `fr-${e.siren}`
@@ -75,7 +89,7 @@ const entrepriseFormat = e => {
   const entreprise = {
     id,
     legalSiren: e.siren
-  }
+  } as IEntreprise
 
   const nom = nomFormat(Object.assign({}, e, unite), true)
   if (nom) {
@@ -169,15 +183,17 @@ const entrepriseFormat = e => {
   return entreprise
 }
 
-const nomEntrepriseFormat = e => {
-  const denomination =
-    e.denominationUniteLegale && e.denominationUniteLegale.trim()
+const nomEntrepriseFormat = (
+  denominationUniteLegale?: string | null,
+  denominationUsuelle1UniteLegale?: string | null,
+  sigleUniteLegale?: string | null
+) => {
+  const denomination = denominationUniteLegale && denominationUniteLegale.trim()
 
   const denominationUsuelle =
-    e.denominationUsuelle1UniteLegale &&
-    e.denominationUsuelle1UniteLegale.trim()
+    denominationUsuelle1UniteLegale && denominationUsuelle1UniteLegale.trim()
 
-  const sigle = e.sigleUniteLegale && e.sigleUniteLegale.trim()
+  const sigle = sigleUniteLegale && sigleUniteLegale.trim()
 
   // priorise la dénomination officielle
   // par rapport à la dénomination usuelle
@@ -198,9 +214,13 @@ const nomEntrepriseFormat = e => {
   return nom
 }
 
-const nomIndividuFormat = e =>
-  `${e.sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'} ${
-    e.prenomUsuelUniteLegale
-  } ${e.nomUniteLegale}`
+const nomIndividuFormat = (
+  sexeUniteLegale: 'F' | 'M' | null,
+  prenomUsuelUniteLegale: string,
+  nomUniteLegale: string
+) =>
+  `${
+    sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'
+  } ${prenomUsuelUniteLegale} ${nomUniteLegale}`
 
 export { entrepriseEtablissementsFormat, entrepriseFormat }

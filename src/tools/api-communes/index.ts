@@ -1,8 +1,9 @@
-import * as fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import * as geojsonhint from '@mapbox/geojsonhint'
 import errorLog from '../error-log'
+import { IGeoJson, ICommune, IDepartement } from '../../types'
 
-const communesGeojsonFetch = async (path, geojson) => {
+const communesGeojsonFetch = async (path: string, geojson: IGeoJson) => {
   const properties = JSON.stringify(geojson.properties)
 
   try {
@@ -25,7 +26,7 @@ const communesGeojsonFetch = async (path, geojson) => {
       body: JSON.stringify(geojson)
     })
 
-    const result = await response.json()
+    const result = (await response.json()) as IGeoJson
 
     if (response.status >= 400) {
       throw result
@@ -34,31 +35,36 @@ const communesGeojsonFetch = async (path, geojson) => {
     return result
   } catch (e) {
     errorLog(`communesGeojsonGet ${properties}`, e.error || e.message || e)
+
+    return null
   }
 }
 
-const communeFormat = geojson => ({
-  id: geojson.properties.code,
-  nom: geojson.properties.nom,
-  departementId: geojson.properties.departement,
-  surface: geojson.properties.surface
-})
+const communeFormat = (geojson: IGeoJson) =>
+  ({
+    id: geojson.properties.code,
+    nom: geojson.properties.nom,
+    departementId: geojson.properties.departement,
+    surface: geojson.properties.surface
+  } as ICommune)
 
-const departementFormat = geojson => ({
-  id: geojson.properties.code,
-  nom: geojson.properties.nom,
-  regionId: geojson.properties.region
-})
+const departementFormat = (geojson: IGeoJson) =>
+  ({
+    id: geojson.properties.code,
+    nom: geojson.properties.nom,
+    regionId: geojson.properties.region
+  } as IDepartement)
 
-const communesGeojsonGet = async geojson => {
+const communesGeojsonGet = async (geojson: IGeoJson) => {
   const communesGeojson = await communesGeojsonFetch('/', geojson)
   if (!communesGeojson || !Array.isArray(communesGeojson)) return null
 
   return communesGeojson.map(communeFormat)
 }
 
-const departementChefGeojsonGet = async geojson => {
+const departementChefGeojsonGet = async (geojson: IGeoJson) => {
   const chef = await communesGeojsonFetch('/departement-chef', geojson)
+  if (!chef) return null
 
   return departementFormat(chef)
 }

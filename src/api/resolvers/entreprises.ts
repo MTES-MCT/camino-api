@@ -99,7 +99,7 @@ const entrepriseCreer = async (
     }
 
     const entrepriseInsee = await entrepriseAndEtablissementsGet(
-      entreprise.legalSiren
+      entreprise.legalSiren!
     )
 
     if (!entrepriseInsee) {

@@ -1,8 +1,8 @@
+import { IAdministration } from '../../types'
 // https://etablissements-publics.api.gouv.fr
 import PQueue from 'p-queue'
 import { join } from 'path'
-
-import * as fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import * as makeDir from 'make-dir'
 
 import errorLog from '../error-log'
@@ -13,7 +13,25 @@ const MAX_CALLS_MINUTE = 200
 
 const { ADMINISTRATION_API_URL } = process.env
 
-const organismeFetch = async (departementId, nom) => {
+interface IOrganisme {
+  features: {
+    properties: {
+      id: string
+      pivotLocal: string
+      nom: string
+      telephone: string
+      email: string
+      url: string
+      adresses: {
+        lignes: string[]
+        codePostal: string
+        commune: string
+      }[]
+    }
+  }[]
+}
+
+const organismeFetch = async (departementId: string, nom: string) => {
   if (!ADMINISTRATION_API_URL) {
     throw new Error(
       "impossible de se connecter à l'API administration car la variable d'environnement est absente"
@@ -36,7 +54,7 @@ const organismeFetch = async (departementId, nom) => {
     throw response.statusText
   }
 
-  const result = await response.json()
+  const result = (await response.json()) as IOrganisme
 
   // attend quelques secondes après chaque appel
   // pour ne pas dépasser les quotas
@@ -47,7 +65,7 @@ const organismeFetch = async (departementId, nom) => {
   return result
 }
 
-const organismeDepartementCall = async (departementId, nom) => {
+const organismeDepartementCall = async (departementId: string, nom: string) => {
   try {
     let result
 
@@ -59,7 +77,7 @@ const organismeDepartementCall = async (departementId, nom) => {
       )
 
       try {
-        result = require(`../../../${cacheFilePath}`)
+        result = require(`../../../${cacheFilePath}`) as IOrganisme
         console.info(
           `API Administration: lecture de l'organisme depuis le cache, département: ${departementId}, type: ${nom}`
         )
@@ -80,10 +98,12 @@ const organismeDepartementCall = async (departementId, nom) => {
   } catch (err) {
     const error = err.error ? `${err.error}: ${err.error_description}` : err
     errorLog(`API administrations ${departementId} ${nom}:`, error)
+
+    return null
   }
 }
 
-const organismeFormat = (e, departementId) => {
+const organismeFormat = (e: IOrganisme, departementId: string) => {
   if (!e.features.length) return null
 
   const { properties: p } = e.features[0]
@@ -91,10 +111,10 @@ const organismeFormat = (e, departementId) => {
 
   let organisme
   try {
-    let [adresse1, adresse2] = adresses
+    const [adresseA, adresseB] = adresses
 
-    adresse1 = adresse1.lignes
-      .reduce((acc, line) => {
+    const adresse1 = adresseA.lignes
+      .reduce((acc: string[], line) => {
         if (line.length <= 100) {
           acc.push(line)
         }
@@ -103,7 +123,7 @@ const organismeFormat = (e, departementId) => {
       }, [])
       .join(', ')
 
-    adresse2 = adresse2 ? adresse2.lignes.join(', ') : null
+    const adresse2 = adresseB ? adresseB.lignes.join(', ') : null
 
     organisme = {
       id: p.id.replace(/prefecture|paris_ppp/, 'pre'),
@@ -117,7 +137,7 @@ const organismeFormat = (e, departementId) => {
       email: p.email && p.email.match('@') ? p.email : null,
       url: p.url || null,
       departementId
-    }
+    } as IAdministration
   } catch (error) {
     console.error(p, organisme)
     throw error
@@ -126,16 +146,15 @@ const organismeFormat = (e, departementId) => {
   return organisme
 }
 
-const organismeDepartementGet = async (departementId, nom) => {
-  if (!departementId || !nom) return null
-
+const organismeDepartementGet = async (departementId: string, nom: string) => {
   const organisme = await organismeDepartementCall(departementId, nom)
 
-  //  return organisme
   return organisme ? organismeFormat(organisme, departementId) : null
 }
 
-const organismesDepartementsGet = async departementsIdsNoms => {
+const organismesDepartementsGet = async (
+  departementsIdsNoms: { departementId: string; nom: string }[]
+) => {
   const administrationsOrganismesRequests = departementsIdsNoms.map(
     ({ departementId, nom }) => () =>
       organismeDepartementGet(departementId, nom)
@@ -147,7 +166,7 @@ const organismesDepartementsGet = async departementsIdsNoms => {
     administrationsOrganismesRequests
   )
 
-  return organismesDepartements.filter(o => o)
+  return organismesDepartements.filter(o => o) as IAdministration[]
 }
 
 export { organismeDepartementGet, organismesDepartementsGet }
