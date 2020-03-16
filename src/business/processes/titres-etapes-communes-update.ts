@@ -1,3 +1,5 @@
+import { ITitreEtape, ITitreCommune, ICommune } from '../../types'
+
 import PQueue from 'p-queue'
 
 import { communesUpsert } from '../../database/queries/territoires'
@@ -8,57 +10,85 @@ import {
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import communesGeojsonGet from '../../tools/api-communes/index'
 
-const titreEtapesCommunesUpdateBuild = (titreEtape, communesEtape) =>
-  communesEtape.reduce((queries, { id: communeId, surface }) => {
+interface ITitreEtapesCommunesIndex {
+  [id: string]: {
+    titreEtape: ITitreEtape,
+    titreEtapeCommunes: ICommune[]
+  }
+}
+interface ICommunesIndex { [id: string]: boolean }
+
+const titreEtapesCommunesUpdateBuild = (
+  titreEtape: ITitreEtape,
+  communesEtape: ICommune[]
+) =>
+  communesEtape.reduce((
+    titreEtapesCommunes: ITitreCommune[],
+    commune: ICommune
+  ) => {
     const titreEtapeCommune =
       titreEtape.communes &&
-      titreEtape.communes.find(communeOld => communeOld.id === communeId)
+      titreEtape.communes.find(communeOld => communeOld.id === commune.id)
 
-    if (!titreEtapeCommune || titreEtapeCommune.surface !== surface) {
-      queries.push({
+    if (
+      (!titreEtapeCommune || titreEtapeCommune.surface !== commune.surface) &&
+      !titreEtapesCommunes.find(tec => tec.communeId === commune.id)
+    ) {
+      titreEtapesCommunes.push({
         titreEtapeId: titreEtape.id,
-        communeId,
-        surface
+        communeId: commune.id,
+        surface: commune.surface
       })
     }
 
-    return queries
+    return titreEtapesCommunes
   }, [])
 
-const titreEtapesCommunesDeleteBuild = (titreEtape, communesEtape) =>
+const titreEtapesCommunesDeleteBuild = (
+  titreEtape: ITitreEtape,
+  communesEtape: ICommune[]
+) =>
   titreEtape.communes
-    ? titreEtape.communes.reduce((queries, communeOld) => {
-        if (
-          !communesEtape.find(communeEtape => communeEtape.id === communeOld.id)
-        ) {
-          queries.push({
-            titreEtapeId: titreEtape.id,
-            communeId: communeOld.id
-          })
-        }
+    ? titreEtape.communes.reduce((
+      titreEtapesCommunes: ITitreCommune[],
+      communeOld
+    ) => {
+      if (
+        !communesEtape.find(communeEtape => communeEtape.id === communeOld.id)
+      ) {
+        titreEtapesCommunes.push({
+          titreEtapeId: titreEtape.id,
+          communeId: communeOld.id
+        })
+      }
 
-        return queries
-      }, [])
+      return titreEtapesCommunes
+    }, [])
     : []
 
 const titresEtapesCommunesToUpdateAndDeleteBuild = (
-  titresEtapes,
-  titresEtapesCommunes
+  titresEtapesCommunesIndex: ITitreEtapesCommunesIndex
 ) =>
-  Object.keys(titresEtapesCommunes).reduce(
+  Object.keys(titresEtapesCommunesIndex).reduce(
     (
-      { titresEtapesCommunesToUpdate, titresEtapesCommunesToDelete },
+      { titresEtapesCommunesToUpdate, titresEtapesCommunesToDelete }:
+        {
+          titresEtapesCommunesToUpdate: ITitreCommune[],
+          titresEtapesCommunesToDelete: ITitreCommune[]
+        },
       titreEtapeId
     ) => {
-      const titreEtape = titresEtapes.find(te => te.id === titreEtapeId)
-      const communesEtape = titresEtapesCommunes[titreEtapeId]
+      const {
+        titreEtape,
+        titreEtapeCommunes
+      } = titresEtapesCommunesIndex[titreEtapeId]
 
       titresEtapesCommunesToUpdate.push(
-        ...titreEtapesCommunesUpdateBuild(titreEtape, communesEtape)
+        ...titreEtapesCommunesUpdateBuild(titreEtape, titreEtapeCommunes)
       )
 
       titresEtapesCommunesToDelete.push(
-        ...titreEtapesCommunesDeleteBuild(titreEtape, communesEtape)
+        ...titreEtapesCommunesDeleteBuild(titreEtape, titreEtapeCommunes)
       )
 
       return {
@@ -72,9 +102,12 @@ const titresEtapesCommunesToUpdateAndDeleteBuild = (
     }
   )
 
-const communesBuild = (communesOld, titresEtapesCommunes) => {
+const communesBuild = (
+  communesOld: ICommune[],
+  titresEtapesCommunesIndex: ITitreEtapesCommunesIndex
+) => {
   const communesOldIndex = communesOld.reduce(
-    (communesOldIndex, communeOld) => {
+    (communesOldIndex: ICommunesIndex, communeOld) => {
       communesOldIndex[communeOld.id] = true
 
       return communesOldIndex
@@ -82,10 +115,16 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
     {}
   )
 
-  const { communesNew } = Object.keys(titresEtapesCommunes).reduce(
-    (acc, titreEtapeId) =>
-      titresEtapesCommunes[titreEtapeId].reduce(
-        ({ communesIndex, communesNew }, { id, nom, departementId }) => {
+  const { communesNew } = Object.keys(titresEtapesCommunesIndex).reduce(
+    (
+      acc: { communesIndex: ICommunesIndex, communesNew: ICommune[] },
+      titreEtapeId
+    ) =>
+      titresEtapesCommunesIndex[titreEtapeId].titreEtapeCommunes.reduce(
+        (
+          { communesIndex, communesNew },
+          { id, nom, departementId }
+        ) => {
           // Ajoute la commune
           // - si elle n'est pas déjà présente dans l'accumulateur
           // - si elle n'est pas présente dans communesOld
@@ -104,7 +143,7 @@ const communesBuild = (communesOld, titresEtapesCommunes) => {
   return communesNew
 }
 
-const titresEtapesCommunesGet = async titresEtapes => {
+const titresEtapesCommunesGet = async (titresEtapes: ITitreEtape[]) => {
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API geocommunes
@@ -114,28 +153,34 @@ const titresEtapesCommunesGet = async titresEtapes => {
     //    intervalCap: 10
   })
 
-  const titresEtapesCommunes = titresEtapes.reduce(
-    (titresEtapesCommunes, titreEtape) => {
+  const titresEtapesCommunesIndex = titresEtapes.reduce(
+    (
+      titresEtapesCommunesIndex: ITitreEtapesCommunesIndex,
+      titreEtape: ITitreEtape
+    ) => {
       queue.add(async () => {
         let titreEtapeCommunes
 
-        if (titreEtape.points.length) {
+        if (titreEtape.points?.length) {
           const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
           titreEtapeCommunes = await communesGeojsonGet(geojson)
         }
 
-        titresEtapesCommunes[titreEtape.id] = titreEtapeCommunes || []
+        titresEtapesCommunesIndex[titreEtape.id] = {
+          titreEtape,
+          titreEtapeCommunes: titreEtapeCommunes || []
+        }
       })
 
-      return titresEtapesCommunes
+      return titresEtapesCommunesIndex
     },
     {}
   )
 
   await queue.onIdle()
 
-  return titresEtapesCommunes
+  return titresEtapesCommunesIndex
 }
 
 const communesGeojsonTest = () => {
@@ -159,7 +204,10 @@ const communesGeojsonTest = () => {
   return communesGeojsonGet(geojson)
 }
 
-const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
+const titresEtapesCommunesUpdate = async (
+  titresEtapes: ITitreEtape[],
+  communesOld: ICommune[]
+) => {
   // teste l'API geo-communes-api
   const geoCommunesApiTest = await communesGeojsonTest()
   // si la connexion à l'API échoue, retourne
@@ -171,10 +219,11 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
 
   const communesToUpdate = communesBuild(communesOld, titresEtapesCommunes)
 
-  let communesUpdated = []
+  let communesUpdated = [] as ICommune[]
 
   if (communesToUpdate.length) {
     communesUpdated = await communesUpsert(communesToUpdate)
+
     console.log(
       `mise à jour: communes, ${communesToUpdate
         .map(commune => commune.id)
@@ -186,18 +235,17 @@ const titresEtapesCommunesUpdate = async (titresEtapes, communesOld) => {
     titresEtapesCommunesToUpdate,
     titresEtapesCommunesToDelete
   } = titresEtapesCommunesToUpdateAndDeleteBuild(
-    titresEtapes,
     titresEtapesCommunes
   )
 
-  const titresEtapesCommunesUpdated = []
-  const titresEtapesCommunesDeleted = []
+  const titresEtapesCommunesUpdated = [] as string[]
+  const titresEtapesCommunesDeleted = [] as string[]
 
   if (titresEtapesCommunesToUpdate.length) {
     const queue = new PQueue({ concurrency: 100 })
 
     titresEtapesCommunesToUpdate.reduce(
-      (titresEtapesCommunesUpdated, titreEtapeCommune) => {
+      (titresEtapesCommunesUpdated: string[], titreEtapeCommune) => {
         queue.add(async () => {
           await titresEtapesCommunesUpdateQuery(titreEtapeCommune)
 
