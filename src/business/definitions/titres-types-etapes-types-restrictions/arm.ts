@@ -13,7 +13,7 @@ export default [
     obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'sco' }],
     // TODO: implementer cette règle
-    seulePossibleApres: ['mno']
+    // seulePossibleApres: ['mno']
   },
 
   {

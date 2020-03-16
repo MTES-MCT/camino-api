@@ -1,4 +1,10 @@
-const titreValiditePeriodeCheck = (titreDemarches, dateDebut, dateFin) =>
+import { ITitreDemarche } from '../../types'
+
+const titreValiditePeriodeCheck = (
+  titreDemarches: ITitreDemarche[],
+  dateDebut: string,
+  dateFin: string
+) =>
   titreDemarches &&
   titreDemarches.some(
     ({ phase }) =>

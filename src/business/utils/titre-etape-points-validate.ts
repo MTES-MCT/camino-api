@@ -1,5 +1,7 @@
-const titreEtapePointsValidate = titrePoints => {
-  const errors = titrePoints.reduce((errors, point) => {
+import { ITitrePoint } from '../../types'
+
+const titreEtapePointsValidate = (titrePoints: ITitrePoint[]) => {
+  const errors = titrePoints.reduce((errors: string[], point) => {
     if (
       !point.references.every(
         ref => ref.coordonnees && ref.coordonnees.x && ref.coordonnees.y

@@ -1,4 +1,9 @@
-const titreEtapeDemarcheEtapeTypeFind = (demarcheType, titreEtapeTypeId) => {
+import { IDemarcheType } from '../../types'
+
+const titreEtapeDemarcheEtapeTypeFind = (
+  demarcheType: IDemarcheType,
+  titreEtapeTypeId: string
+) => {
   const {
     etapesTypes: titreDemarcheEtapesTypes,
     nom: titreDemarcheTypeNom
