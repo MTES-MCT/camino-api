@@ -1,7 +1,12 @@
-const titreActiviteNumbersCheck = (titreActiviteContenu, sections) => {
+import { ISection, IContenu } from '../../types'
+
+const titreActiviteNumbersCheck = (
+  titreActiviteContenu: IContenu,
+  sections: ISection[]
+) => {
   const errors = sections.reduce(
-    (res, section) =>
-      section.elements.reduce((res, element) => {
+    (res: string[], section) =>
+      section.elements!.reduce((res, element) => {
         if (
           element.type === 'number' &&
           titreActiviteContenu[section.id] &&

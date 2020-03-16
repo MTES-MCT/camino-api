@@ -1,3 +1,5 @@
+import { IDemarcheType } from '../../../types'
+
 const demarcheType = {
   etapesTypes: [
     {
@@ -5,6 +7,6 @@ const demarcheType = {
     }
   ],
   nom: 'demarche'
-}
+} as IDemarcheType
 
 export { demarcheType }
