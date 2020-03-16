@@ -1,14 +1,14 @@
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
 import { demarcheType } from './__mocks__/titre-etape-demarche-etape-type-find-types'
 
-describe("vérifie la validité du contenu d'une activité", () => {
-  test('une champs de section dont le type est un nombre et qui a une valeur positive est validée', () => {
-    expect(titreEtapeDemarcheEtapeTypeFind(demarcheType, 'etape')).toEqual({
-      id: 'etape'
+describe("retourne le type d'étape provenant des types d'étapes d'un type de démarche", () => {
+  test("le titre d'étape est retourné", () => {
+    expect(titreEtapeDemarcheEtapeTypeFind(demarcheType, 'xxx')).toEqual({
+      id: 'xxx'
     })
   })
 
-  test('une champs de section dont le type est un nombre et qui a une valeur négative retourne une erreur', () => {
+  test('une erreur est retournée', () => {
     expect(() =>
       titreEtapeDemarcheEtapeTypeFind(demarcheType, 'introuvable')
     ).toThrow(/étape "introuvable" invalide pour une démarche "demarche"/)

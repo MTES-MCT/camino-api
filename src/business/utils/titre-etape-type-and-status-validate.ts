@@ -1,16 +1,21 @@
+import { ITitreEtape, ITitreDemarche } from '../../types'
+
 // valide le type et le statut de l'étape en fonction du type de titre
 // et du type de démarche
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
 
-const titreEtapeTypeAndStatusValidate = (titreEtape, titreDemarche) => {
+const titreEtapeTypeAndStatusValidate = (
+  titreEtape: ITitreEtape,
+  titreDemarche: ITitreDemarche
+) => {
   try {
     const titreDemarcheEtapeType = titreEtapeDemarcheEtapeTypeFind(
-      titreDemarche.type,
+      titreDemarche.type!,
       titreEtape.typeId
     )
 
     const { statutId: titreEtapeStatutId } = titreEtape
-    const titreEtapeStatut = titreDemarcheEtapeType.etapesStatuts.find(
+    const titreEtapeStatut = titreDemarcheEtapeType.etapesStatuts!.find(
       etapeStatut => etapeStatut.id === titreEtapeStatutId
     )
     if (!titreEtapeStatut) {
