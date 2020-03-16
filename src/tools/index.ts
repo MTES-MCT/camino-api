@@ -83,14 +83,7 @@ const objConditionMatch = (
   // pour ne pas les recalculer à chaque fois
   const conditionKeys = keys || Object.keys(condition)
 
-  // si la condition est multiple (tableau)
-  // teste si l'objet contient au moins une des valeurs
-  // sinon, teste la valeur exacte
-  return conditionKeys.every(k =>
-    Array.isArray(condition[k])
-      ? condition[k].includes(obj[k])
-      : condition[k] === obj[k]
-  )
+  return conditionKeys.every(k => condition[k] === obj[k])
 }
 
 export { dupRemove, dupFind, diffFind, objectsDiffer, objConditionMatch }

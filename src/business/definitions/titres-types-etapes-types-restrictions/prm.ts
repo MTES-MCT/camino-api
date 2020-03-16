@@ -1,10 +1,5 @@
 export default [
   {
-    condition: { etape: { typeId: 'mfr' } },
-    obligatoireApres: null
-  },
-
-  {
     condition: { etape: { typeId: 'mdp' } },
     obligatoireApres: [{ typeId: 'mfr' }],
     impossibleApres: [{ typeId: 'spp' }]
@@ -51,11 +46,7 @@ export default [
   {
     condition: { etape: { typeId: 'mcr' } },
     obligatoireApres: [{ typeId: 'spp' }],
-    impossibleApres: [
-      { typeId: 'ssr' },
-      { typeId: 'scl' },
-      { typeId: 'ppu' }
-    ]
+    impossibleApres: [{ typeId: 'ssr' }, { typeId: 'scl' }, { typeId: 'ppu' }]
   },
 
   {
@@ -273,10 +264,7 @@ export default [
 
   {
     condition: { etape: { typeId: 'and' } },
-    obligatoireApres: [
-      { typeId: 'dex' },
-      { typeId: 'dim', statutId: 'rej' }
-    ],
+    obligatoireApres: [{ typeId: 'dex' }, { typeId: 'dim', statutId: 'rej' }],
     impossibleApres: null
   }
 ]

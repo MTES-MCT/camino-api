@@ -1,19 +1,10 @@
 export default [
   {
-    condition: { etape: { typeId: 'mfr' } },
-    obligatoireApres: null
-    // impossible après toute étape
-    // note: désactivation de cette règle
-    // car le "cas par cas" est possible avant la demande
-    // impossibleApres: ['*']
-  },
-
-  {
     condition: { etape: { typeId: 'ret' } },
     obligatoireApres: [{ typeId: 'mdp' }],
-    impossibleApres: [{ typeId: 'sco' }],
+    impossibleApres: [{ typeId: 'sco' }]
     // TODO: implementer cette règle
-    seulePossibleApres: ['mno']
+    // seulePossibleApres: ['mno']
   },
 
   {
@@ -76,15 +67,15 @@ export default [
 
   {
     condition: { etape: { typeId: 'mcp' } },
-    obligatoireApres: [{ typeId: 'mdp' }],
+    obligatoireApres: [{ typeId: 'mdp' }]
   },
   {
     condition: { etape: { typeId: 'mcp' } },
-    obligatoireApres: [{ typeId: 'pfd' }],
+    obligatoireApres: [{ typeId: 'pfd' }]
   },
   {
     condition: { etape: { typeId: 'mcp' } },
-    impossibleApres: [{ typeId: 'mcp', statutId: 'fav' }],
+    impossibleApres: [{ typeId: 'mcp', statutId: 'fav' }]
   },
 
   {
@@ -108,26 +99,23 @@ export default [
       titre: { contenu: { arm: { mecanise: true } } },
       etape: { typeId: 'mcr' }
     },
-    obligatoireApres: [{ typeId: 'rde' }],
+    obligatoireApres: [{ typeId: 'rde' }]
   },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: true } } },
       etape: { typeId: 'mcr' }
     },
-    obligatoireApres: [{ typeId: 'dae' }],
+    obligatoireApres: [{ typeId: 'dae' }]
   },
 
   {
     condition: { etape: { typeId: 'mcr' } },
-    obligatoireApres: [{ typeId: 'vfd' }],
+    obligatoireApres: [{ typeId: 'vfd' }]
   },
   {
     condition: { etape: { typeId: 'mcr' } },
-    impossibleApres: [
-      { typeId: 'mcr', statutId: 'fav' },
-      { typeId: 'eof' }
-    ]
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }, { typeId: 'eof' }]
   },
 
   {
@@ -172,10 +160,7 @@ export default [
 
   {
     condition: { etape: { typeId: 'mno' } },
-    obligatoireApres: [
-      { typeId: 'aca', statutId: 'fav' },
-      { typeId: 'css' }
-    ]
+    obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }, { typeId: 'css' }]
   },
 
   {
@@ -222,14 +207,14 @@ export default [
       titre: { contenu: { arm: { mecanise: false } } },
       etape: { typeId: 'sco' }
     },
-    obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }],
+    obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
   },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: false } } },
       etape: { typeId: 'sco' }
     },
-    obligatoireApres: [{ typeId: 'mno' }],
+    obligatoireApres: [{ typeId: 'mno' }]
   },
 
   {

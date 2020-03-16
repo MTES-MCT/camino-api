@@ -1,9 +1,17 @@
-import arm from './titres-types-etapes-types-restrictions/arm'
-import prm from './titres-types-etapes-types-restrictions/prm'
+import { ITitreTypeEtapeTypeRestriction } from '../../types'
 
-const titreEtapesTypesRestrictions = {
-  arm,
-  prm
-}
+import restrictionsArm from './titres-types-etapes-types-restrictions/arm'
+import restrictionsPrm from './titres-types-etapes-types-restrictions/prm'
+
+const titreEtapesTypesRestrictions = [
+  {
+    typeId: 'arm',
+    restrictions: restrictionsArm as ITitreTypeEtapeTypeRestriction[]
+  },
+  {
+    typeId: 'prm',
+    restrictions: restrictionsPrm as ITitreTypeEtapeTypeRestriction[]
+  }
+]
 
 export default titreEtapesTypesRestrictions
