@@ -1,3 +1,5 @@
+import { ITitreDemarche, ITitrePhase } from '../../types'
+
 import * as dateFormat from 'dateformat'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 import titreDemarchePhasesFilter from './titre-demarche-phases-filter'
@@ -6,25 +8,35 @@ import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
 // retourne un tableau contenant les phases d'un titre
-const titrePhasesFind = (titreDemarches, titreTypeId) => {
+const titrePhasesFind = (
+  titreDemarches: ITitreDemarche[],
+  titreTypeId?: string
+) => {
   // filtre les démarches qui donnent lieu à des phases
   const titreDemarchesFiltered = titreDemarches.filter(titreDemarche =>
     titreDemarchePhasesFilter(titreDemarche, titreTypeId)
   )
 
-  return titreDemarchesFiltered.reduce((titrePhases, titreDemarche, index) => {
+  return titreDemarchesFiltered.reduce((
+    titrePhases: ITitrePhase[],
+    titreDemarche,
+    index
+  ) => {
     const dateFin = titrePhaseDateFinFind(
       titreDemarches,
       titreDemarchesFiltered,
       titreDemarche
-    )
+    ) as string
 
     const dateDebut = titrePhaseDateDebutFind(
       titreDemarche,
       titrePhases,
       index,
       titreTypeId
-    )
+    ) as string
+
+    // dateFin et dateDebut ne seront jamais `null`
+    // car les démarches sont pré-filtrées
 
     // si
     // - la date du jour est plus récente que la date de fin
@@ -46,24 +58,26 @@ const titrePhasesFind = (titreDemarches, titreTypeId) => {
 }
 
 const titrePhaseDateDebutFind = (
-  titreDemarche,
-  titrePhases,
-  index,
-  titreTypeId
+  titreDemarche: ITitreDemarche,
+  titrePhases: ITitrePhase[],
+  index: number,
+  titreTypeId?: string
 ) => {
   // si
   // - la démarche est un octroi
-  if (['oct', 'vut', 'vct'].includes(titreDemarche.typeId)) {
+  if (
+    ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
+  ) {
     // retourne une étape de publication si celle-ci possède une date de début
     const etapePublicationHasDateDebut = titreEtapesDescSort(
-      titreDemarche.etapes
+      titreDemarche.etapes!
     ).find(
       titreEtape =>
-        titreEtapePublicationFilter(titreEtape, titreTypeId) &&
+        titreEtapePublicationFilter(titreEtape.typeId, titreTypeId) &&
         titreEtape.dateDebut
     )
 
-    if (etapePublicationHasDateDebut) {
+    if (etapePublicationHasDateDebut?.dateDebut) {
       // la date de début est égale à la date de début de l'étape de publication
       return etapePublicationHasDateDebut.dateDebut
     }
@@ -80,11 +94,11 @@ const titrePhaseDateDebutFind = (
 
   // retourne la première étape de publication de la démarche
   const titreEtapePublicationFirst = titreEtapesAscSort(
-    titreDemarche.etapes
-  ).find(te => titreEtapePublicationFilter(te, titreTypeId))
+    titreDemarche.etapes!
+  ).find(te => titreEtapePublicationFilter(te.typeId, titreTypeId))
 
   // sinon la date de début est égale à la date de la première étape de publication
-  return titreEtapePublicationFirst.date
+  return titreEtapePublicationFirst?.date
 }
 
 // trouve la date de fin d'une phase
@@ -96,38 +110,37 @@ const titrePhaseDateDebutFind = (
 // - titreDemarche: la démarche dont on cherche la date de fin
 
 const titrePhaseDateFinFind = (
-  titreDemarches,
-  titreDemarchesFiltered,
-  titreDemarche
+  titreDemarches: ITitreDemarche[],
+  titreDemarchesFiltered: ITitreDemarche[],
+  titreDemarche: ITitreDemarche
 ) => {
   // trouve une démarche d'annulation si elle existe
-  const titreDemarcheAnnulation = demarcheAnnulationFind(
-    titreDemarches,
-    titreDemarche.annulationTitreDemarcheId
-  )
+  if (titreDemarche.annulationTitreDemarcheId) {
+    const titreDemarcheAnnulation = demarcheAnnulationFind(
+      titreDemarches,
+      titreDemarche.annulationTitreDemarcheId
+    )
 
-  // si il y a une démarche d'annulation
-  // retourne sa date de fin
-  if (titreDemarcheAnnulation) {
-    return titreDemarcheDateFinAndDureeFind(
-      titreDemarches.slice().reverse(),
-      titreDemarcheAnnulation.ordre
-    ).dateFin
+    // si il y a une démarche d'annulation
+    // retourne sa date de fin
+    if (titreDemarcheAnnulation) {
+      return titreDemarcheDateFinAndDureeFind(
+        titreDemarches.slice().reverse(),
+        titreDemarcheAnnulation.ordre!
+      ).dateFin
+    }
   }
 
   // sinon, calcule la date de fin en fonction des démarches
   return titreDemarcheDateFinAndDureeFind(
     titreDemarchesFiltered.slice().reverse(),
-    titreDemarche.ordre
+    titreDemarche.ordre!
   ).dateFin
 }
 
-const demarcheAnnulationFind = (titreDemarches, annulationTitreDemarcheId) => {
-  if (!annulationTitreDemarcheId) {
-    return null
-  }
-
-  return titreDemarches.find(t => t.id === annulationTitreDemarcheId)
-}
+const demarcheAnnulationFind = (
+  titreDemarches: ITitreDemarche[],
+  annulationTitreDemarcheId: string
+) => titreDemarches.find(t => t.id === annulationTitreDemarcheId)
 
 export default titrePhasesFind

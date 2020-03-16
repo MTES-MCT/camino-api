@@ -1,3 +1,5 @@
+import { ITitreDemarche } from '../../types'
+
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
@@ -12,10 +14,13 @@ const demarchesTypesPhases = ['oct', 'pro', 'pr1', 'pr2', 'pre', 'vut', 'vct']
 // - la démarche a une étape de publication
 // - le statut de l'étape de publication est acceptée
 
-const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
+const titreDemarchePhasesFilter = (
+  titreDemarche: ITitreDemarche,
+  titreTypeId?: string
+) => {
   if (
     !demarchesTypesPhases.includes(titreDemarche.typeId) &&
-    !titreDemarche.etapes.find(e => e.dateFin || e.duree)
+    !titreDemarche.etapes!.find(e => e.dateFin || e.duree)
   ) {
     return false
   }
@@ -28,8 +33,8 @@ const titreDemarchePhasesFilter = (titreDemarche, titreTypeId) => {
   // il existe une étape de publication et une étape rectificative,
   // on prend alors en compte l'originale
   const etapePublicationFirst = titreEtapesAscSort(
-    titreDemarche.etapes.slice()
-  ).find(etape => titreEtapePublicationFilter(etape, titreTypeId))
+    titreDemarche.etapes!.slice()
+  ).find(etape => titreEtapePublicationFilter(etape.typeId, titreTypeId))
 
   return etapePublicationFirst
     ? ['acc', 'fai'].includes(etapePublicationFirst.statutId)

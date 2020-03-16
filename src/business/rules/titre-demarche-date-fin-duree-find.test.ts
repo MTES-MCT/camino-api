@@ -1,4 +1,5 @@
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
+
 import {
   titreDemarchesOctDateFin,
   titreDemarchesOctDateDebut,
@@ -9,6 +10,7 @@ import {
   titreDemarchesOctProDuree,
   titreDemarchesOctAbrDateFin,
   titreDemarchesOctAbrDate,
+  titreDemarchesOctAbrNoDex,
   titreDemarchesRenPoints,
   titreDemarchesRenPointsVideDpu,
   titreDemarchesRenPointsVideDex,
@@ -88,12 +90,21 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     })
   })
 
-  test("la date de fin d'une démarche d'abrogation est la date de l'étape si aucune date de fin n'est renseignée", () => {
+  test("la date de fin d'une démarche d'abrogation est la date de l'étape dex si aucune date de fin n'est renseignée", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrDate, 5)
     ).toEqual({
       dateFin: '2013-05-21',
       duree: 0
+    })
+  })
+
+  test("la date de fin d'une démarche d'abrogation est la date de fin de la démarche suivante si aucune dex n'existe", () => {
+    expect(
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrNoDex, 5)
+    ).toEqual({
+      dateFin: '2013-03-11',
+      duree: 25 * 12
     })
   })
 

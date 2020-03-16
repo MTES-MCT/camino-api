@@ -1,4 +1,6 @@
-const titreDemarchesProAccOctAcc = [
+import { ITitreDemarche } from '../../../types'
+
+const titreDemarchesProAccOctAcc = ([
   {
     id: 'h-cx-courdemanges-1988-pro01',
     titreId: 'h-cx-courdemanges-1988',
@@ -44,9 +46,9 @@ const titreDemarchesProAccOctAcc = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesProTerOctAcc = [
+const titreDemarchesProTerOctAcc = ([
   {
     id: 'h-cx-courdemanges-1988-pro01',
     titreId: 'h-cx-courdemanges-1988',
@@ -92,9 +94,9 @@ const titreDemarchesProTerOctAcc = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesProRejOctAcc = [
+const titreDemarchesProRejOctAcc = ([
   {
     id: 'h-cx-courdemanges-1988-pro01',
     titreId: 'h-cx-courdemanges-1988',
@@ -128,9 +130,9 @@ const titreDemarchesProRejOctAcc = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesProRejOctRej = [
+const titreDemarchesProRejOctRej = ([
   {
     id: 'h-cx-courdemanges-1988-pro01',
     titreId: 'h-cx-courdemanges-1988',
@@ -145,7 +147,7 @@ const titreDemarchesProRejOctRej = [
     statutId: 'rej',
     ordre: 1
   }
-]
+] as unknown) as ITitreDemarche[]
 
 export {
   titreDemarchesProAccOctAcc,

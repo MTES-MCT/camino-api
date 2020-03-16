@@ -1,4 +1,4 @@
-import { ITitre } from '../../../types'
+import { ITitre, ITitrePhase } from '../../../types'
 
 const titresSansPhase = [
   {
@@ -56,7 +56,7 @@ const titrePhase = [
     dateDebut: '2200-01-01',
     statutId: 'val'
   }
-] as unknown as ITitre[]
+] as unknown as ITitrePhase[]
 
 const titresUnePhaseMiseAJour = [
   {

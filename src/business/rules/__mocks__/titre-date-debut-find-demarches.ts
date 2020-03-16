@@ -1,4 +1,6 @@
-const titreDemarchesDpu = [
+import { ITitreDemarche } from '../../../types'
+
+const titreDemarchesDpu = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -16,9 +18,9 @@ const titreDemarchesDpu = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesRpu = [
+const titreDemarchesRpu = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -36,9 +38,9 @@ const titreDemarchesRpu = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesDex = [
+const titreDemarchesDex = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -56,9 +58,9 @@ const titreDemarchesDex = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesRpuDateDebut = [
+const titreDemarchesRpuDateDebut = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -77,9 +79,9 @@ const titreDemarchesRpuDateDebut = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesDexDateDebut = [
+const titreDemarchesDexDateDebut = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -98,9 +100,9 @@ const titreDemarchesDexDateDebut = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesSansOctroi = [
+const titreDemarchesSansOctroi = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -108,9 +110,9 @@ const titreDemarchesSansOctroi = [
     statutId: 'acc',
     ordre: 1
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesSansDateDebut = [
+const titreDemarchesSansDateDebut = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -128,9 +130,9 @@ const titreDemarchesSansDateDebut = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarchesDateUndefined = [
+const titreDemarchesDateUndefined = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -147,7 +149,7 @@ const titreDemarchesDateUndefined = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
 export {
   titreDemarchesDpu,
