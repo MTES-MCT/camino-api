@@ -1,3 +1,5 @@
+import { ISection } from '../../../types'
+
 const titreActiviteContenuNumber = {
   section: {
     number: 123
@@ -20,6 +22,6 @@ const sections = [
       }
     ]
   }
-]
+] as ISection[]
 
 export { titreActiviteContenuNumber, titreActiviteContenuNumberNeg, sections }

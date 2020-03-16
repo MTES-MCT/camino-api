@@ -72,6 +72,7 @@ interface IActiviteType {
   id: string
   nom: string
   frequenceId: string
+  dateDebut: string
   titresTypes: ITitreType[]
   sections?: ISection[] | null
   frequence?: IFrequence | null
@@ -676,6 +677,29 @@ interface ITokenUser {
   iat: number
 }
 
+interface ITitreEtapeCondition {
+  typeId: string
+  statutId?: string
+}
+
+interface ITitreCondition {
+  statutId?: string
+  contenu: IContenu
+}
+
+interface ICondition {
+  etape: ITitreEtapeCondition
+  titre?: ITitreCondition
+}
+
+interface ITitreTypeEtapeTypeRestriction {
+  condition: ICondition
+  obligatoireApres?: ITitreEtapeCondition[]
+  impossibleAvant?: ITitreEtapeCondition[]
+  impossibleApres?: ITitreEtapeCondition[]
+  impossible?: true
+}
+
 type TitreProp =
   | 'pointsTitreEtapeId'
   | 'titulairesTitreEtapeId'
@@ -767,5 +791,8 @@ export {
   ITitreColonneInput,
   ITitreDemarcheColonneInput,
   IColonne,
-  IColonnes
+  IColonnes,
+  ITitreTypeEtapeTypeRestriction,
+  ITitreEtapeCondition,
+  ITitreCondition
 }
