@@ -427,7 +427,7 @@ const utilisateurMotDePasseModifier = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasseNouveau1, 10)
 
-    const utilisateurUpdated = utilisateurUpdate({
+    const utilisateurUpdated = await utilisateurUpdate({
       id,
       motDePasse: utilisateur.motDePasse
     } as IUtilisateur)

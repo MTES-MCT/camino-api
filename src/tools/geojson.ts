@@ -1,7 +1,7 @@
 import { ITitrePoint, IGeometry } from '../types'
 import * as rewind from 'geojson-rewind'
 
-// converti des points
+// convertit des points
 // en un geojson de type 'MultiPolygon'
 
 const geojsonFeatureMultiPolygon = (points: ITitrePoint[]) => ({
@@ -16,7 +16,7 @@ const geojsonFeatureMultiPolygon = (points: ITitrePoint[]) => ({
   ) as IGeometry
 })
 
-// converti des points
+// convertit des points
 // en un geojson de type 'FeatureCollection' de 'Points'
 
 const geojsonFeatureCollectionPoints = (points: ITitrePoint[]) => ({
@@ -37,13 +37,13 @@ const geojsonFeatureCollectionPoints = (points: ITitrePoint[]) => ({
   }))
 })
 
-// converti une liste de points
+// convertit une liste de points
 // en un tableau 'coordinates' geoJson
 // (le premier et le dernier point d'un contour ont les mêmes coordonnées)
 const geojsonMultiPolygonCoordinates = (points: ITitrePoint[]) =>
   multiPolygonContoursClose(multiPolygonCoordinates(points))
 
-// converti une liste de points
+// convertit une liste de points
 // [{groupe: 1, contour: 1, point: 1, coordonnees: {x: 1.111111, y: 1.111111}}]
 // en un tableau de 'coordinates': [[[[1.11111, 1.111111]]]]
 const multiPolygonCoordinates = (points: ITitrePoint[]) =>

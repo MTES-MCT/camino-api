@@ -1,3 +1,5 @@
+import { ISpreadsheet } from './types'
+
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_C
 const titresFSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_F
 const titresGSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TITRES_G
@@ -56,56 +58,56 @@ const titresC = {
   id: titresCSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresF = {
   name: 'titres-f',
   id: titresFSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresG = {
   name: 'titres-g',
   id: titresGSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresH = {
   name: 'titres-h',
   id: titresHSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresM = {
   name: 'titres-m',
   id: titresMSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresR = {
   name: 'titres-r',
   id: titresRSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresS = {
   name: 'titres-s',
   id: titresSSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titresW = {
   name: 'titres-w',
   id: titresWSpreadsheetId,
   tables: titresTables,
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const titres = [
   titresC,
@@ -118,14 +120,13 @@ const titres = [
   titresW
 ]
 
-const titresReprise =
-  // feuille optionnelle pour la reprise de données
-  {
-    name: 'titres-reprise',
-    id: titresRepriseSpreadsheetId,
-    tables: titresTables,
-    prefixFileName: true
-  }
+// feuille optionnelle pour la reprise de données
+const titresReprise = {
+  id: titresRepriseSpreadsheetId,
+  name: 'titres-reprise',
+  tables: titresTables,
+  prefixFileName: true
+} as ISpreadsheet
 
 const metas = {
   name: 'metas',
@@ -155,7 +156,7 @@ const metas = {
     { name: 'documents_types' },
     { name: 'references_types' }
   ]
-}
+} as ISpreadsheet
 
 const substances = {
   name: 'substances',
@@ -166,7 +167,7 @@ const substances = {
     { name: 'substances_legales_codes' },
     { name: 'substances__substances_legales' }
   ]
-}
+} as ISpreadsheet
 
 const territoires = {
   name: 'territoires',
@@ -177,7 +178,7 @@ const territoires = {
     { name: 'departements' },
     { name: 'communes' }
   ]
-}
+} as ISpreadsheet
 
 const calendrier = {
   name: 'calendrier',
@@ -188,19 +189,19 @@ const calendrier = {
     { name: 'trimestres' },
     { name: 'mois' }
   ]
-}
+} as ISpreadsheet
 
 const entreprises = {
   name: 'entreprises',
   id: entreprisesSpreadsheetId,
   tables: [{ name: 'entreprises' }, { name: 'entreprises_etablissements' }]
-}
+} as ISpreadsheet
 
 const administrations = {
   name: 'administrations',
   id: administrationsSpreadsheetId,
   tables: [{ name: 'administrations' }]
-}
+} as ISpreadsheet
 
 const administrationsAutorisations = {
   name: 'administrations-autorisations',
@@ -210,7 +211,7 @@ const administrationsAutorisations = {
     { name: 'r__titres_types__titres_statuts__administrations' },
     { name: 'r__titres_types__etapes_types__administrations' }
   ]
-}
+} as ISpreadsheet
 
 const utilisateurs = {
   name: 'utilisateurs',
@@ -220,7 +221,7 @@ const utilisateurs = {
     { name: 'utilisateurs__entreprises' },
     { name: 'utilisateurs__administrations' }
   ]
-}
+} as ISpreadsheet
 
 const metasActivites = {
   name: 'metas-activites',
@@ -232,20 +233,20 @@ const metasActivites = {
     { name: 'activites_types__pays' },
     { name: 'activites_types__administrations' }
   ]
-}
+} as ISpreadsheet
 
 const titresActivites = {
   name: 'titres-activites',
   id: titresActivitesSpreadsheetId,
   tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
-}
+} as ISpreadsheet
 
 const titresActivitesReprise = {
   name: 'titres-activites-reprise',
   id: titresActivitesRepriseSpreadsheetId,
   tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }],
   prefixFileName: true
-}
+} as ISpreadsheet
 
 const autorisations = {
   name: 'autorisations',
@@ -255,13 +256,13 @@ const autorisations = {
     { name: 'a__titres_types__titres_statuts' },
     { name: 'a__etapes_types' }
   ]
-}
+} as ISpreadsheet
 
 const globales = {
   name: 'globales',
   id: globalesSpreadsheetId,
   tables: [{ name: 'globales' }]
-}
+} as ISpreadsheet
 
 const spreadsheets = [
   ...titres,

@@ -1,3 +1,5 @@
+import { IEntreprise } from '../../../types'
+import { ISpreadsheet } from '../types'
 import { entreprisesGet } from '../../../database/queries/entreprises'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES
@@ -31,7 +33,7 @@ const tables = [
     name: 'entreprises_etablissements',
     columns: [
       'id',
-      { key: 'parent.id', value: 'entrepriseId' },
+      { id: 'entrepriseId', parentKey: 'parent.id' },
       'nom',
       'legalSiret',
       'dateDebut',
@@ -46,6 +48,6 @@ const spreadsheet = {
   name: 'entreprises',
   get,
   tables
-}
+} as ISpreadsheet<IEntreprise>
 
 export default spreadsheet

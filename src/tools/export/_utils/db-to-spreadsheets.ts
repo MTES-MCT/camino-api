@@ -1,7 +1,11 @@
 // exporte des tables de la base de données
 // vers des google spreadsheets
 
-import * as decamelize from 'decamelize'
+// eslint-disable-next-line camelcase
+import { sheets_v4 } from 'googleapis'
+import { ISpreadsheet, ITable } from '../types'
+
+import decamelize from '../../decamelize'
 import credentials from '../credentials'
 import rowFormat from './row-format'
 import rowsCreate from './rows-create'
@@ -11,7 +15,12 @@ import {
   spreadsheetBatchUpdate
 } from '../../api-google-spreadsheets/index'
 
-const dbToSpreadsheets = async ({ name, id, get, tables }) => {
+const dbToSpreadsheets = async <T>({
+  name,
+  id,
+  get,
+  tables
+}: ISpreadsheet<T>) => {
   if (!id) {
     console.log(`spreadsheet: ${name}, id de la spreadsheet manquant`)
 
@@ -23,20 +32,29 @@ const dbToSpreadsheets = async ({ name, id, get, tables }) => {
 
   // obtient les infos sur la spreadsheet
   const infos = await spreadsheetGet(credentials, id)
-  const requests = requestsBuild(infos.sheets, tables, elements)
+  const requests = requestsBuild<T>(infos.sheets, tables, elements)
 
   await spreadsheetBatchUpdate(credentials, id, requests)
   console.log(`export: ${elements.length} ${name}`)
 }
 
-const requestsBuild = (sheets, tables, elements) => {
+const requestsBuild = <T>(
+  // eslint-disable-next-line camelcase
+  sheets: sheets_v4.Schema$Sheet[] | undefined,
+  tables: ITable[],
+  elements: T[]
+) => {
+  if (!sheets) {
+    throw new Error('worksheet manquante')
+  }
+
   const requests = []
 
   // il est impossible de supprimer tous les onglets dans une spreadsheet,
   // donc on crée un onglet `tmp` vide, le temps de faire le ménage
 
   const worksheetTmpExists = sheets.find(
-    ({ properties }) => properties.title === 'camino-api-tmp'
+    ({ properties }) => properties?.title === 'camino-api-tmp'
   )
 
   if (!worksheetTmpExists) {
@@ -47,11 +65,11 @@ const requestsBuild = (sheets, tables, elements) => {
 
   // requêtes pour supprimer tous les onglets sauf `tmp`
   sheets
-    .filter(({ properties }) => properties.title !== 'camino-api-tmp')
+    .filter(({ properties }) => properties?.title !== 'camino-api-tmp')
     .forEach(({ properties }) => {
-      requests.push({
-        deleteSheet: { sheetId: properties.sheetId }
-      })
+      if (properties) {
+        requests.push({ deleteSheet: { sheetId: properties.sheetId } })
+      }
     })
 
   tables.forEach(({ id, name, columns, parents, callbacks }) => {
@@ -74,10 +92,12 @@ const requestsBuild = (sheets, tables, elements) => {
     const rows = [
       {
         values: columns.map(h => ({
-          userEnteredValue: { stringValue: decamelize(h.value || h) }
+          userEnteredValue: {
+            stringValue: decamelize(typeof h === 'object' ? h.id : h)
+          }
         }))
       },
-      ...rowsToRowData({ columns, parents, callbacks }, elements)
+      ...rowsToRowData<T>({ columns, parents, callbacks } as ITable, elements)
     ]
 
     // requêtes pour ajouter le contenu de chaque onglet
@@ -98,11 +118,18 @@ const requestsBuild = (sheets, tables, elements) => {
   return requests
 }
 
-const rowsToRowData = ({ columns, parents, callbacks }, elements) =>
-  rowsCreate(elements, parents).map(({ element: row, parent }) => ({
-    values: rowFormat(row, columns, parent, callbacks).map(r => ({
-      userEnteredValue: { stringValue: r }
-    }))
-  }))
+const rowsToRowData = <T>(
+  { columns, parents, callbacks }: ITable,
+  elements: T[]
+) =>
+  rowsCreate(elements, parents).map(
+    ({ element: row, parent }: { element: any; parent: any }) => ({
+      values: (rowFormat(row, columns, parent, callbacks) as string[]).map(
+        r => ({
+          userEnteredValue: { stringValue: r }
+        })
+      )
+    })
+  )
 
 export default dbToSpreadsheets

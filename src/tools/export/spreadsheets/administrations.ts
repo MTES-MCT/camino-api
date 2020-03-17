@@ -1,3 +1,5 @@
+import { ISpreadsheet } from '../types'
+import { IAdministration } from '../../../types'
 import { administrationsGet } from '../../../database/queries/administrations'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ADMINISTRATIONS
@@ -39,6 +41,6 @@ const spreadsheet = {
   name: 'administrations',
   get,
   tables
-}
+} as ISpreadsheet<IAdministration>
 
 export default spreadsheet
