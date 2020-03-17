@@ -1,7 +1,12 @@
+import { ITitreDemarche } from '../../types'
+
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 
-const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
+const titreDateDemandeFind = (
+  titreDemarches: ITitreDemarche[],
+  titreStatutId: string
+) => {
   // si
   // - le statut du titre n'est ni "demande initiale", ni "demande classée"
   // alors retourne null
@@ -18,10 +23,10 @@ const titreDateDemandeFind = (titreDemarches, titreStatutId) => {
   // - il n'y a pas de démarche d'octroi
   // - la démarche d'octroi n'a pas d'étapes
   // alors retourne null
-  if (!titreDemarche || !titreDemarche.etapes.length) return null
+  if (!titreDemarche || !titreDemarche.etapes!.length) return null
 
   // trouve la première étape de dépôt ou d'enregistrement de la demande
-  const titreEtapesAscSorted = titreEtapesAscSort(titreDemarche.etapes)
+  const titreEtapesAscSorted = titreEtapesAscSort(titreDemarche.etapes!)
   const titreEtapeMen = titreEtapesAscSorted.find(te =>
     ['mdp', 'men'].includes(te.typeId)
   )

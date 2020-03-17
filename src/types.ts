@@ -73,6 +73,7 @@ interface IActiviteType {
   nom: string
   frequenceId: string
   dateDebut: string
+  delaiMois: number
   titresTypes: ITitreType[]
   sections?: ISection[] | null
   frequence?: IFrequence | null
@@ -580,7 +581,7 @@ interface ITitrePhase {
   statutId: string
   dateDebut: string
   dateFin: string
-  statut: IPhaseStatut
+  statut?: IPhaseStatut
 }
 
 interface ITitrePoint {

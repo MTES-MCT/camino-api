@@ -1,4 +1,6 @@
-const titreDemarcheOctEtapeMen = [
+import { ITitreDemarche } from '../../../types'
+
+const titreDemarcheOctEtapeMen = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -16,9 +18,9 @@ const titreDemarcheOctEtapeMen = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarcheOctSansEtapes = [
+const titreDemarcheOctSansEtapes = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -27,9 +29,9 @@ const titreDemarcheOctSansEtapes = [
     ordre: 1,
     etapes: []
   }
-]
+] as unknown) as ITitreDemarche[]
 
-const titreDemarcheOctSansEtapeMen = [
+const titreDemarcheOctSansEtapeMen = ([
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -47,7 +49,7 @@ const titreDemarcheOctSansEtapeMen = [
       }
     ]
   }
-]
+] as unknown) as ITitreDemarche[]
 
 export {
   titreDemarcheOctEtapeMen,

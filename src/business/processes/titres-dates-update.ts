@@ -11,19 +11,19 @@ const titresDatesUpdate = async (titres: ITitre[]) => {
   const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {
     const props: Partial<ITitre> = {}
 
-    const dateFin = titreDateFinFind(titre.demarches)
+    const dateFin = titreDateFinFind(titre.demarches!)
 
     if (titre.dateFin !== dateFin) {
       props.dateFin = dateFin
     }
 
-    const dateDebut = titreDateDebutFind(titre.demarches, titre.typeId)
+    const dateDebut = titreDateDebutFind(titre.demarches!, titre.typeId)
 
     if (titre.dateDebut !== dateDebut) {
       props.dateDebut = dateDebut
     }
 
-    const dateDemande = titreDateDemandeFind(titre.demarches, titre.statutId)
+    const dateDemande = titreDateDemandeFind(titre.demarches!, titre.statutId!)
 
     if (titre.dateDemande !== dateDemande) {
       props.dateDemande = dateDemande

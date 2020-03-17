@@ -44,7 +44,7 @@ const titreActiviteFormat = (
     if (fields.sections && ta.type?.sections) {
       ta.sections = titreSectionsFormat(
         ta.type.sections,
-        ta.periode.id,
+        ta.periode?.id,
         ta.date
       )
     }

@@ -1,3 +1,4 @@
+import { ITitreActivite } from '../../types'
 import { mocked } from 'ts-jest/utils'
 
 import titresActivitesTypesUpdate from './titres-activites-update'
@@ -43,7 +44,7 @@ describe("activités d'un titre", () => {
   test('met à jour un titre sans activité', async () => {
     activitesTypesFilterMock.mockReturnValue(true)
     activiteTypeAnneesFindMock.mockReturnValue([2018])
-    titreActivitesBuildMock.mockReturnValue([1])
+    titreActivitesBuildMock.mockReturnValue([{}] as ITitreActivite[])
 
     const titresActivitesNew = await titresActivitesTypesUpdate(
       titresSansActivite,

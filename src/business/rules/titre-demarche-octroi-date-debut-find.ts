@@ -1,7 +1,11 @@
+import { ITitreDemarche } from '../../types'
+
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
-const titreDemarcheOctroiDateDebutFind = titreDemarches => {
+const titreDemarcheOctroiDateDebutFind = (
+  titreDemarches: ITitreDemarche[] | null | undefined
+) => {
   if (!titreDemarches || !titreDemarches.length) return '0000'
 
   // récupère la démarche d'octroi (naturelle ou virtuelle)

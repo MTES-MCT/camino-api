@@ -1,12 +1,21 @@
+import {
+  ITitre,
+  ITitreDemarche,
+  IActiviteType,
+  ITitreActivite
+} from '../../types'
+
 import * as dateFormat from 'dateformat'
 import titreValiditePeriodeCheck from '../utils/titre-validite-periode-check'
 
 const titreActiviteBuild = (
-  { demarches: titreDemarches, statutId: titreStatutId, id: titreId },
-  typeId,
-  annee,
-  periodeIndex,
-  monthsCount
+  titreDemarches: ITitreDemarche[],
+  titreStatutId: string,
+  titreId: string,
+  typeId: string,
+  annee: number,
+  periodeIndex: number,
+  monthsCount: number
 ) => {
   const frequencePeriodeId = periodeIndex + 1
 
@@ -50,22 +59,28 @@ const titreActiviteBuild = (
     statutId: 'abs',
     frequencePeriodeId,
     annee
-  }
+  } as ITitreActivite
 
   return titreActivite
 }
 
-const titreActivitesBuild = (titre, activiteType, annees) => {
-  const { frequence } = activiteType
-
-  const periods = activiteType.frequence[frequence.periodesNom]
+const titreActivitesBuild = (
+  titre: ITitre,
+  activiteType: IActiviteType,
+  annees: number[]
+) => {
+  const periods = activiteType.frequence![
+    activiteType.frequence!.periodesNom!
+  ]!
   const monthsCount = 12 / periods.length
 
   const { activites: titreActivites } = titre
 
+  const periodsIndices = [...new Array(periods.length)]
+
   return annees.reduce(
-    (acc, annee) =>
-      periods.reduce((acc, e, periodeIndex) => {
+    (titreActivitesNew: ITitreActivite[], annee) =>
+      periodsIndices.reduce((titreActivitesNew, e, periodeIndex) => {
         // cherche si l'activité existe déjà dans le titre
         let titreActivite =
           titreActivites &&
@@ -78,10 +93,12 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
 
         // la ligne d'activité existe déjà pour le titre
         // il n'est pas nécessaire de la créer
-        if (titreActivite) return acc
+        if (titreActivite) return titreActivitesNew
 
         titreActivite = titreActiviteBuild(
-          titre,
+          titre.demarches!,
+          titre.statutId!,
+          titre.id,
           activiteType.id,
           annee,
           periodeIndex,
@@ -89,11 +106,11 @@ const titreActivitesBuild = (titre, activiteType, annees) => {
         )
 
         if (titreActivite) {
-          acc.push(titreActivite)
+          titreActivitesNew.push(titreActivite)
         }
 
-        return acc
-      }, acc),
+        return titreActivitesNew
+      }, titreActivitesNew),
     []
   )
 }

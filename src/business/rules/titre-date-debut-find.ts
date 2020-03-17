@@ -1,15 +1,20 @@
+import { ITitreDemarche } from '../../types'
+
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
-const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
+const titreDemarcheDateDebutFind = (
+  titreDemarche: ITitreDemarche,
+  titreTypeId?: string
+) => {
   // retourne la dernière étape de publication si celle-ci possède une date de début
   const etapePublicationHasDateDebut = titreEtapesDescSort(
-    titreDemarche.etapes
+    titreDemarche.etapes!
   ).find(
     titreEtape =>
-      titreEtapePublicationFilter(titreEtape, titreTypeId) &&
+      titreEtapePublicationFilter(titreEtape.typeId, titreTypeId) &&
       titreEtape.dateDebut
   )
 
@@ -21,8 +26,8 @@ const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
 
   // retourne la première étape de publication de la démarche
   const titreEtapePublicationFirst = titreEtapesAscSort(
-    titreDemarche.etapes
-  ).find(te => titreEtapePublicationFilter(te, titreTypeId))
+    titreDemarche.etapes!
+  ).find(te => titreEtapePublicationFilter(te.typeId, titreTypeId))
 
   // si la démarche n'a pas d'étape de publication
   if (!titreEtapePublicationFirst) {
@@ -33,12 +38,15 @@ const titreDemarcheDateDebutFind = (titreDemarche, titreTypeId) => {
   return titreEtapePublicationFirst.date || null
 }
 
-const titreDateDebutFind = (titreDemarches, titreTypeId) => {
+const titreDateDebutFind = (
+  titreDemarches: ITitreDemarche[],
+  titreTypeId?: string
+) => {
   // la première démarche d'octroi dont le statut est acceptée ou terminée
   const titreDemarchesAscSorted = titreDemarchesAscSort(titreDemarches)
   const titreDemarche = titreDemarchesAscSorted.find(
     titreDemarche =>
-      ['acc', 'ter'].includes(titreDemarche.statutId) &&
+      ['acc', 'ter'].includes(titreDemarche.statutId!) &&
       ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
   )
 

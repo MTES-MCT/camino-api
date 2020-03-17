@@ -64,7 +64,7 @@ const demarcheTypeEtapeTypeFormat = (
   // de la possibilité de les créer
   et.etapesStatuts = et.etapesStatuts!.filter(es => {
     const error = !titreEtapeDateValidate(
-      { typeId: et.id, date: '3000-01-01', statutId: es.id },
+      { typeId: et.id, date: '3000-01-01', statutId: es.id } as ITitreEtape,
       demarche,
       titre
     )

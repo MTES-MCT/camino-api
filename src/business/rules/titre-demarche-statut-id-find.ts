@@ -1,3 +1,5 @@
+import { ITitreDemarche } from '../../types'
+
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
@@ -46,7 +48,10 @@ const titreDemarchesDemandesTypes = [
   'vct'
 ]
 
-const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
+const titreDemarcheStatutIdFind = (
+  titreDemarche: ITitreDemarche,
+  titreTypeId?: string
+) => {
   // si la démarche ne contient pas d'étapes
   // le statut est indétrminé
   if (!titreDemarche.etapes || !titreDemarche.etapes.length) return 'ind'
@@ -83,7 +88,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
     if (
       ['acc', 'rej'].includes(titreEtapeRecent.statutId) &&
       (titreEtapeRecent.typeId === 'dim' ||
-        titreEtapePublicationFilter(titreEtapeRecent, titreTypeId))
+        titreEtapePublicationFilter(titreEtapeRecent.typeId, titreTypeId))
     ) {
       //  - le statut de la démarche est égal au statut de l’étape:
       // accepté (acc) ou rejeté(rej)
@@ -92,7 +97,7 @@ const titreDemarcheStatutIdFind = (titreDemarche, titreTypeId) => {
 
     // l'étape de publication la plus récente
     const titreEtapePublicationRecent = titreEtapesDecisives.filter(te =>
-      titreEtapePublicationFilter(te, titreTypeId)
+      titreEtapePublicationFilter(te.typeId, titreTypeId)
     )[0]
 
     // s'il existe une étape de publication antérieure à l'étape

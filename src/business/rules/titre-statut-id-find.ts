@@ -1,7 +1,9 @@
+import { ITitre } from '../../types'
+
 import * as dateFormat from 'dateformat'
 import titreDateFinFind from './titre-date-fin-find'
 
-const titreStatutIdFind = titre => {
+const titreStatutIdFind = (titre: ITitre) => {
   if (!titre.demarches || !titre.demarches.length) return 'ind'
 
   // si toutes les démarches du titre ont le statut `indéfini`
@@ -13,11 +15,11 @@ const titreStatutIdFind = titre => {
     titre.demarches.length === 1 &&
     ['oct', 'vut', 'vct'].includes(titre.demarches[0].typeId) &&
     ['eco', 'ins', 'dep', 'rej', 'cls', 'ret'].includes(
-      titre.demarches[0].statutId
+      titre.demarches[0].statutId!
     )
   ) {
     // le statut de la démarche est en instruction ou déposée
-    if (['eco', 'ins', 'dep'].includes(titre.demarches[0].statutId)) {
+    if (['eco', 'ins', 'dep'].includes(titre.demarches[0].statutId!)) {
       // le statut du titre est demande initiale
       return 'dmi'
     }
@@ -34,8 +36,9 @@ const titreStatutIdFind = titre => {
   }
 
   // la date du jour est inférieure à la date d’échéance
+  const dateFin = titreDateFinFind(titre.demarches)
   const today = dateFormat(new Date(), 'yyyy-mm-dd')
-  if (today < titreDateFinFind(titre.demarches)) {
+  if (dateFin && today < dateFin) {
     // le statut du titre est valide
     return 'val'
   }

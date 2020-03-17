@@ -1,4 +1,5 @@
 import titreActiviteStatutIdFind from './titre-activite-statut-id-find'
+
 import {
   titreActiviteFermee,
   titreActiviteDeposee,
