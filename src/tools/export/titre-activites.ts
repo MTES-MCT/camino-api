@@ -1,4 +1,7 @@
-import * as decamelize from 'decamelize'
+// eslint-disable-next-line camelcase
+import { sheets_v4 } from 'googleapis'
+import { ITitreActivite } from '../../types'
+import decamelize from '../decamelize'
 import credentials from './credentials'
 import {
   spreadsheetValuesGet,
@@ -7,17 +10,19 @@ import {
 import rowFormat from './_utils/row-format'
 import spreadsheet from './spreadsheets/titres-activites'
 
+interface ITitreIdsIndex {
+  [id: string]: string
+}
+
 const table = spreadsheet.tables[0]
 
-// in:
-// - activites: (Array) titresActivites
-// - titresIdsUpdatedIndex: (Object) { titre1Id: titre1OldId, titre2Id: titre2OldId }
-const titreActivitesRowUpdate = async (activites, titresIdsUpdatedIndex) => {
-  if (!activites.length) {
-    return null
-  }
-
+const titreActivitesRowUpdate = async (
+  activites: ITitreActivite[],
+  titresIdsUpdatedIndex?: ITitreIdsIndex
+) => {
   try {
+    if (!activites.length) return null
+
     // l'API Google ne permet pas de mettre à jour une ligne
     // en fonction de la valeur d'une de ses cellules (id)
     // on est obligé de faire 2 requêtes:
@@ -33,7 +38,13 @@ const titreActivitesRowUpdate = async (activites, titresIdsUpdatedIndex) => {
     )
 
     const requests = activites.map(activite => {
-      const values = rowFormat(activite, table.columns, null, table.callbacks)
+      const values = rowFormat(
+        activite,
+        table.columns,
+        null,
+        table.callbacks
+      ) as string[]
+
       const titreOldId =
         titresIdsUpdatedIndex && titresIdsUpdatedIndex[activite.titreId]
 
@@ -47,13 +58,11 @@ const titreActivitesRowUpdate = async (activites, titresIdsUpdatedIndex) => {
       const sheetId = table.id
 
       const rows = [
-        {
-          values: values.map(v => ({ userEnteredValue: { stringValue: v } }))
-        }
+        { values: values.map(v => ({ userEnteredValue: { stringValue: v } })) }
       ]
       const fields = '*'
 
-      return rowIndex > 0 // si l'activité existe déjà, on la met à jour
+      return rowIndex >= 0 // si l'activité existe déjà, on la met à jour
         ? {
             updateCells: {
               start: { sheetId, rowIndex, columnIndex: 0 },
@@ -61,19 +70,26 @@ const titreActivitesRowUpdate = async (activites, titresIdsUpdatedIndex) => {
               fields
             }
           } // sinon on la créée
-        : {
-            appendCells: { sheetId, rows, fields }
-          }
+        : { appendCells: { sheetId, rows, fields } }
     })
 
     await spreadsheetBatchUpdate(credentials, spreadsheet.id, requests)
+
+    return null
   } catch (e) {
     console.log("erreur: ajout d'une ligne dans la spreasheet activités", e)
+
+    return null
   }
 }
 
-const rowIndexFind = (worksheet, titreActiviteId) => {
-  return worksheet.values.findIndex(([rowId]) => rowId === titreActiviteId)
-}
+const rowIndexFind = (
+  // eslint-disable-next-line camelcase
+  worksheet: sheets_v4.Schema$ValueRange,
+  titreActiviteId: string
+) =>
+  worksheet.values
+    ? worksheet.values.findIndex(([rowId]) => rowId === titreActiviteId)
+    : -1
 
 export { titreActivitesRowUpdate }

@@ -1,4 +1,6 @@
+import { ISpreadsheet } from '../types'
 import { utilisateursGet } from '../../../database/queries/utilisateurs'
+import { IUtilisateur, Index } from '../../../types'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_UTILISATEURS
 
@@ -26,15 +28,15 @@ const tables = [
       'preferences'
     ],
     callbacks: {
-      preferences: v => JSON.stringify(v)
+      preferences: (v: Index) => JSON.stringify(v)
     }
   },
   {
     id: 2,
     name: 'utilisateurs__entreprises',
     columns: [
-      { key: 'parent.id', value: 'utilisateurId' },
-      { key: 'id', value: 'entrepriseId' }
+      { id: 'utilisateurId', parentKey: 'id' },
+      { id: 'entrepriseId', key: 'id' }
     ],
     parents: ['entreprises']
   },
@@ -42,8 +44,8 @@ const tables = [
     id: 3,
     name: 'utilisateurs__administrations',
     columns: [
-      { key: 'parent.id', value: 'utilisateurId' },
-      { key: 'id', value: 'administrationId' }
+      { id: 'utilisateurId', parentKey: 'id' },
+      { id: 'administrationId', key: 'id' }
     ],
     parents: ['administrations']
   }
@@ -54,6 +56,6 @@ const spreadsheet = {
   name: 'utilisateurs',
   get,
   tables
-}
+} as ISpreadsheet<IUtilisateur>
 
 export default spreadsheet

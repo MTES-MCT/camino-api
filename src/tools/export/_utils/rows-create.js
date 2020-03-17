@@ -8,28 +8,34 @@
 // - parents: un tableau avec le nom des ancêtres ['grandParents', 'parents', 'elements']
 // out
 // - un tableau avec les éléments à convertir en 'rows'
-const rowsCreate = (elements, parents, parentElement) =>
-  // si il existe au moins un parent
-  parents && parents.length
-    ? // parcourt la liste d'éléments
-      elements.reduce((rows, element) => {
-        // si il existe un element dont le nom correspond au premier parent
-        if (element[parents[0]]) {
-          // recursion sur rowsCreate avec cet élément
-          // et la liste de parents moins le premier
-          rows.push(
-            ...rowsCreate(element[parents[0]], parents.slice(1), element)
-          )
-        }
 
-        return rows
-      }, [])
-    : // si il n'y a pas de parent
+const rowsCreate = (elements, parents, parentElement) => {
+  // si il n'y a pas de parent
+  if (!parents || !parents.length) {
     // si elements est un tableau
-    Array.isArray(elements)
-    ? // le retourne tel quel
-      elements.map(element => ({ element, parent: parentElement }))
-    : // sinon, l'insère dans un tableau
-      [{ element: elements, parent: parentElement }]
+    // on le retourne tel quel
+    // sinon, on l'insère dans un tableau
+    return Array.isArray(elements)
+      ? elements.map(element => ({ element, parent: parentElement }))
+      : [{ element: elements, parent: parentElement }]
+  }
+
+  // si il existe au moins un parent
+  // parcourt la liste d'éléments
+  return elements.reduce((rows, element) => {
+    // si il existe un element dont le nom correspond au premier parent
+    const elementKey = parents[0]
+
+    if (element[elementKey]) {
+      // recursion sur rowsCreate avec cet élément
+      // et la liste de parents moins le premier
+
+      const childrenElements = element[elementKey]
+      rows.push(...rowsCreate(childrenElements, parents.slice(1), element))
+    }
+
+    return rows
+  }, [])
+}
 
 export default rowsCreate

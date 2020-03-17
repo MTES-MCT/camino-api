@@ -1,8 +1,10 @@
+import { IPays } from '../../../types'
+import { ISpreadsheet } from '../types'
 import { paysGet } from '../../../database/queries/territoires'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TERRITOIRES
 
-const get = () => paysGet({})
+const get = () => paysGet()
 
 const tables = [
   {
@@ -35,6 +37,6 @@ const spreadsheet = {
   name: 'territoires',
   get,
   tables
-}
+} as ISpreadsheet<IPays>
 
 export default spreadsheet

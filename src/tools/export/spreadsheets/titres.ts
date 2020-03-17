@@ -1,3 +1,10 @@
+import {
+  ITitre,
+  ICoordonnees,
+  IContenu,
+  ITitrePropsTitreEtapesIds
+} from '../../../types'
+import { ISpreadsheet } from '../types'
 import { titresGet } from '../../../database/queries/titres'
 
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_C
@@ -20,7 +27,7 @@ const titresIdsFilter = process.env.GOOGLE_EXPORT_TITRES_IDS
 // const substancesSpreadsheetId =
 //   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_SUBSTANCES
 
-const get = async domaineId => {
+const get = async (domaineId: string) => {
   const titres = await titresGet({
     typesIds: undefined,
     domainesIds: [domaineId],
@@ -57,7 +64,7 @@ const tables = [
       'propsTitreEtapesIds'
     ],
     callbacks: {
-      propsTitreEtapesIds: v => JSON.stringify(v)
+      propsTitreEtapesIds: (v: ITitrePropsTitreEtapesIds) => JSON.stringify(v)
     }
   },
   {
@@ -83,8 +90,8 @@ const tables = [
     id: 4,
     name: 'titresDemarchesLiens',
     columns: [
-      { key: 'parent.id', value: 'parentTitreDemarcheId' },
-      { key: 'id', value: 'enfantTitreDemarcheId' }
+      { id: 'parentTitreDemarcheId', parentKey: 'id' },
+      { id: 'enfantTitreDemarcheId', key: 'id' }
     ],
     parents: ['demarches', 'parents']
   },
@@ -112,7 +119,7 @@ const tables = [
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {
-      contenu: v => JSON.stringify(v)
+      contenu: (v: IContenu) => JSON.stringify(v)
     }
   },
   {
@@ -132,7 +139,7 @@ const tables = [
     ],
     parents: ['demarches', 'etapes', 'points'],
     callbacks: {
-      coordonnees: v => `${v.x},${v.y}`
+      coordonnees: (v: ICoordonnees) => `${v.x},${v.y}`
     }
   },
   {
@@ -148,7 +155,7 @@ const tables = [
     ],
     parents: ['demarches', 'etapes', 'points', 'references'],
     callbacks: {
-      coordonnees: v => `${v.x},${v.y}`
+      coordonnees: (v: ICoordonnees) => `${v.x},${v.y}`
     }
   },
   {
@@ -172,20 +179,15 @@ const tables = [
   {
     id: 10,
     name: 'titresSubstances',
-    columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'substanceId' },
-      'ordre',
-      'connexe'
-    ],
+    columns: [{ id: 'titreEtapeId', parentKey: 'id' }, 'ordre', 'connexe'],
     parents: ['demarches', 'etapes', 'substances']
   },
   {
     id: 11,
     name: 'titresTitulaires',
     columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'entrepriseId' },
+      { id: 'titreEtapeId', parentKey: 'id' },
+      { id: 'entrepriseId', key: 'id' },
       'operateur'
     ],
     parents: ['demarches', 'etapes', 'titulaires']
@@ -194,8 +196,8 @@ const tables = [
     id: 12,
     name: 'titresAmodiataires',
     columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'entrepriseId' },
+      { id: 'titreEtapeId', parentKey: 'id' },
+      { id: 'entrepriseId', key: 'id' },
       'operateur'
     ],
     parents: ['demarches', 'etapes', 'amodiataires']
@@ -204,8 +206,8 @@ const tables = [
     id: 13,
     name: 'titresAdministrationsGestionnaires',
     columns: [
-      { key: 'parent.id', value: 'titreId' },
-      { key: 'id', value: 'administrationId' },
+      { id: 'titreId', parentKey: 'id' },
+      { id: 'administrationId', key: 'id' },
       'associee'
     ],
     parents: ['administrationsGestionnaires']
@@ -214,8 +216,8 @@ const tables = [
     id: 14,
     name: 'titresAdministrationsLocales',
     columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'administrationId' },
+      { id: 'titreEtapeId', parentKey: 'id' },
+      { id: 'administrationId', key: 'id' },
       'associee',
       'coordinateur'
     ],
@@ -225,8 +227,8 @@ const tables = [
     id: 15,
     name: 'titresUtilisateurs',
     columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'utilisateurId' }
+      { id: 'titreEtapeId', parentKey: 'id' },
+      { id: 'utilisateurId', key: 'id' }
     ],
     parents: ['demarches', 'etapes', 'utilisateurs']
   },
@@ -234,8 +236,8 @@ const tables = [
     id: 16,
     name: 'titresCommunes',
     columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
-      { key: 'id', value: 'communeId' },
+      { id: 'titreEtapeId', parentKey: 'id' },
+      { id: 'communeId', key: 'id' },
       'surface'
     ],
     parents: ['demarches', 'etapes', 'communes']
@@ -244,7 +246,7 @@ const tables = [
     id: 17,
     name: 'titresIncertitudes',
     columns: [
-      { key: 'parent.id', value: 'titreEtapeId' },
+      { id: 'titreEtapeId', parentKey: 'id' },
       'date',
       'dateDebut',
       'dateFin',
@@ -309,6 +311,6 @@ const spreadsheets = [
     get: async () => get('w'),
     tables
   }
-]
+] as ISpreadsheet<ITitre>[]
 
 export default spreadsheets
