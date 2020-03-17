@@ -1,21 +1,21 @@
 declare module 'geojson-rewind' {
-  interface IGeoJsonRewind {
-    type: string
-    geometry?: IGeometryRewind
+  interface IGeoJson {
+    type: 'Feature' | 'FeatureCollection'
+    geometry?: IGeometry
     bbox?: number[]
-    properties?: { [id: string]: string | number }
-    features?: IGeoJsonRewind[]
+    properties: { [id: string]: string | number }
+    features?: IGeoJson[]
   }
 
-  interface IGeometryRewind {
-    type: string
+  interface IGeometry {
+    type: 'Polygon' | 'MultiPolygon'
     coordinates: number[] | number[][] | number[][][] | number[][][][]
   }
 
   function rewind(
-    gj: IGeoJsonRewind | IGeometryRewind,
+    gj: IGeoJson | IGeometry,
     outer?: boolean
-  ): IGeoJsonRewind
+  ): IGeoJson | IGeometry
   namespace rewind {}
   export = rewind
 }

@@ -1,4 +1,4 @@
-import { ITitrePoint } from '../types'
+import { ITitrePoint, IGeometry } from '../types'
 import * as rewind from 'geojson-rewind'
 
 // converti des points
@@ -13,7 +13,7 @@ const geojsonFeatureMultiPolygon = (points: ITitrePoint[]) => ({
       coordinates: geojsonMultiPolygonCoordinates(points)
     },
     false
-  )
+  ) as IGeometry
 })
 
 // converti des points

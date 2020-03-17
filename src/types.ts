@@ -257,15 +257,15 @@ interface IFrequence {
   mois?: IMois[] | null
 }
 
-export interface IGeoJson {
+interface IGeoJson {
   type: string
   geometry?: IGeometry | null
   bbox?: number[] | null
-  properties?: { [id: string]: string | number } | null
+  properties: { [id: string]: string | number }
   features?: IGeoJson[] | null
 }
 
-export interface IGeometry {
+interface IGeometry {
   type: string
   coordinates: number[] | number[][] | number[][][] | number[][][][]
 }
@@ -746,6 +746,8 @@ export {
   IEtapeStatut,
   IEtapeType,
   IFrequence,
+  IGeoJson,
+  IGeometry,
   IGeoSysteme,
   IGlobale,
   IMois,

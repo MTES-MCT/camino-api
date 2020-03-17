@@ -27,7 +27,7 @@ const administrationsUpdatedFind = (
     return acc
   }, [])
 
-const administrationsGetTest = async () =>
+const administrationGetTest = async () =>
   (organismeDepartementGet(
     '01',
     'prefecture'
@@ -46,15 +46,16 @@ const administrationsUpdate = async (
   administrationsOld: IAdministration[],
   departements: IDepartement[]
 ) => {
-  if (!departements || !departements.length) return []
+  if (!departements.length) return []
 
-  const administrationsApiTest = await administrationsGetTest()
+  const administrationsApiTest = await administrationGetTest()
   if (!administrationsApiTest) return []
 
   const administrationsNew = await administrationsGet(departements)
 
-  // TODO: si aucune administration est retournée,
-  // effacer les administrations correspondantes dans la base
+  // si aucune administration n'est retournée,
+  // on n'efface pas les administrations correspondantes de la base
+  // pour éviter de perdre des données en base
 
   const administrationsUpdated = administrationsUpdatedFind(
     administrationsOld,

@@ -1,10 +1,15 @@
-import errorLog from '../../tools/error-log'
+import errorLog from '../error-log'
 import { entrepriseEtablissementsFormat, entrepriseFormat } from './format'
-import { typeBatchFetch, tokenInitialize } from './fetch'
+import {
+  entreprisesFetch,
+  entreprisesEtablissementsFetch,
+  tokenInitialize
+} from './fetch'
+import { IEntreprise, IEntrepriseEtablissement } from '../../types'
 
 // cherche les établissements des entreprises
 // retourne des objets du modèle EntrepriseEtablissements
-const entreprisesEtablissementsGet = async sirenIds => {
+const entreprisesEtablissementsGet = async (sirenIds: string[]) => {
   if (!sirenIds.length) return []
 
   const token = await tokenInitialize()
@@ -15,18 +20,11 @@ const entreprisesEtablissementsGet = async sirenIds => {
     return []
   }
 
-  const entreprisesEtablissements = await typeBatchFetch(
-    'siren',
-    'unitesLegales',
-    sirenIds,
-    idsBatch => idsBatch.map(s => `siren:${s}`).join(' OR ')
-  )
+  const entreprises = await entreprisesEtablissementsFetch(sirenIds)
 
-  if (!entreprisesEtablissements || !Array.isArray(entreprisesEtablissements)) {
-    return []
-  }
+  if (!entreprises || !Array.isArray(entreprises)) return []
 
-  return entreprisesEtablissements.reduce((acc, e) => {
+  return entreprises.reduce((acc: IEntrepriseEtablissement[], e) => {
     if (e) {
       acc.push(...entrepriseEtablissementsFormat(e))
     }
@@ -37,7 +35,7 @@ const entreprisesEtablissementsGet = async sirenIds => {
 
 // cherche les adresses des entreprises
 // retourne des objets du modèle Entreprise
-const entreprisesGet = async sirenIds => {
+const entreprisesGet = async (sirenIds: string[]) => {
   const token = await tokenInitialize()
 
   if (!token) {
@@ -46,22 +44,13 @@ const entreprisesGet = async sirenIds => {
     return []
   }
 
-  const entreprises = await typeBatchFetch(
-    'siret',
-    'etablissements',
-    sirenIds,
-    idsBatch => {
-      const ids = idsBatch.map(s => `siren:${s}`).join(' OR ')
-
-      return `(${ids}) AND etablissementSiege:true`
-    }
-  )
+  const entreprises = await entreprisesFetch(sirenIds)
 
   if (!entreprises || !Array.isArray(entreprises)) {
     return []
   }
 
-  return entreprises.reduce((acc, e) => {
+  return entreprises.reduce((acc: IEntreprise[], e) => {
     if (e) {
       acc.push(entrepriseFormat(e))
     }
@@ -70,7 +59,7 @@ const entreprisesGet = async sirenIds => {
   }, [])
 }
 
-const entrepriseAndEtablissementsGet = async sirenId => {
+const entrepriseAndEtablissementsGet = async (sirenId: string) => {
   const token = await tokenInitialize()
 
   if (!token) {

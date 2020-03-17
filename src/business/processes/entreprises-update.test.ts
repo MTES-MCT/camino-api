@@ -18,10 +18,14 @@ import {
   dbEntreprisesExistantes,
   dbEntreprisesEtablissementsExistants,
   apiEntreprisesExistantes,
-  entreprisesEtablissementsApiExistantes,
   dbEntreprisesInexistantes,
   dbEntreprisesEtablissementsInexistants,
-  apiEntreprisesInexistantes
+  apiEntreprisesInexistantes,
+  apiEntreprisesEtablissmentsInexistantes,
+  apiEntreprisesEtablissementsExistantes,
+  apiEntreprisesEtablissementsCreees,
+  apiEntreprisesEtablissementsModifiees,
+  apiEntreprisesEtablissementsSupprimeees
 } from './__mocks__/entreprises-update'
 
 // 'jest.mock()` est hoisté avant l'import, le court-circuitant
@@ -55,7 +59,9 @@ console.info = jest.fn()
 describe('entreprises', () => {
   test("crée les entreprises si elles n'existent pas", async () => {
     entreprisesGetMock.mockResolvedValue(apiEntreprisesCreees)
-    entreprisesEtablissementsGetMock.mockResolvedValue(apiEntreprisesCreees)
+    entreprisesEtablissementsGetMock.mockResolvedValue(
+      apiEntreprisesEtablissementsCreees
+    )
 
     const [
       entreprisesUpdated,
@@ -66,16 +72,21 @@ describe('entreprises', () => {
       dbEntreprisesEtablissementsCreees
     )
 
-    expect(etablissementsUpdated.length).toEqual(1)
+    expect(etablissementsUpdated).toEqual([
+      { id: 'pipo', nom: 'pipo' },
+      { id: 'toto', nom: 'toto' }
+    ])
     expect(etablissementsDeleted.length).toEqual(0)
-    expect(entreprisesUpdated.length).toEqual(1)
+    expect(entreprisesUpdated).toEqual([{ id: 'papa', legalSiren: 'toto' }])
     expect(console.log).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour les entreprises qui ont été modifiées', async () => {
     entreprisesGetMock.mockResolvedValue(apiEntreprisesModifiees)
-    entreprisesEtablissementsGetMock.mockResolvedValue(apiEntreprisesModifiees)
+    entreprisesEtablissementsGetMock.mockResolvedValue(
+      apiEntreprisesEtablissementsModifiees
+    )
 
     const [
       entreprisesUpdated,
@@ -86,16 +97,16 @@ describe('entreprises', () => {
       dbEntreprisesEtablissementsModifies
     )
 
-    expect(etablissementsUpdated.length).toEqual(1)
+    expect(etablissementsUpdated).toEqual([{ id: 'toto', nom: 'tutu' }])
     expect(etablissementsDeleted.length).toEqual(0)
-    expect(entreprisesUpdated.length).toEqual(1)
+    expect(entreprisesUpdated).toEqual([{ id: 'toto', legalSiren: 'papa' }])
     expect(console.log).toHaveBeenCalled()
   })
 
   test('supprime les entreprises qui ont été supprimés', async () => {
     entreprisesGetMock.mockResolvedValue(apiEntreprisesSupprimeees)
     entreprisesEtablissementsGetMock.mockResolvedValue(
-      apiEntreprisesSupprimeees
+      apiEntreprisesEtablissementsSupprimeees
     )
 
     const [
@@ -116,7 +127,7 @@ describe('entreprises', () => {
   test('ne crée pas les entreprises qui existent déjà', async () => {
     entreprisesGetMock.mockResolvedValue(apiEntreprisesExistantes)
     entreprisesEtablissementsGetMock.mockResolvedValue(
-      entreprisesEtablissementsApiExistantes
+      apiEntreprisesEtablissementsExistantes
     )
 
     const [
@@ -128,16 +139,16 @@ describe('entreprises', () => {
       dbEntreprisesEtablissementsExistants
     )
 
-    expect(entreprisesUpdated.length).toEqual(0)
+    expect(entreprisesUpdated).toEqual([])
     expect(etablissementsDeleted.length).toEqual(0)
-    expect(etablissementsUpdated.length).toEqual(0)
+    expect(etablissementsUpdated).toEqual([])
     expect(console.log).not.toHaveBeenCalled()
   })
 
   test("ne modifie pas d'entreprises si elles n'existent pas", async () => {
     entreprisesGetMock.mockResolvedValue(apiEntreprisesInexistantes)
     entreprisesEtablissementsGetMock.mockResolvedValue(
-      apiEntreprisesInexistantes
+      apiEntreprisesEtablissmentsInexistantes
     )
 
     const [

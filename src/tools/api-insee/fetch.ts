@@ -1,7 +1,14 @@
 // https://api.insee.fr/catalogue/site/themes/wso2/subthemes/insee/pages/item-info.jag?name=Sirene&version=V3&provider=insee
 
+import {
+  IApiSirenQueryTypes,
+  IApiSirenQueryToken,
+  IApiSirenEtablissement,
+  IApiSirenUniteLegale
+} from './types'
+
 import { join } from 'path'
-import * as fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import PQueue from 'p-queue'
 import * as makeDir from 'make-dir'
 
@@ -13,8 +20,8 @@ const MAX_CALLS_MINUTE = 30
 const MAX_RESULTS = 20
 
 // token local au fichier
-// utiliser `initializeToken` pour l'initialiser
-let apiToken
+// utilise `tokenInitialize` pour l'initialiser
+let apiToken = ''
 
 const { INSEE_API_URL, INSEE_API_KEY, INSEE_API_SECRET } = process.env
 
@@ -55,6 +62,8 @@ const tokenInitialize = async () => {
         e.message ||
         e
     )
+
+    return null
   }
 }
 
@@ -84,7 +93,8 @@ const tokenFetch = async () => {
       }
     })
 
-    const result = await response.json()
+    const result = (await response.json()) as IApiSirenQueryToken
+
     if (response.status >= 400 || result.error) {
       throw result
     }
@@ -103,6 +113,8 @@ const tokenFetch = async () => {
         e.message ||
         e
     )
+
+    return null
   }
 }
 
@@ -141,7 +153,7 @@ const tokenFetchDev = async () => {
   }
 }
 
-const typeFetch = async (type, q) => {
+const typeFetch = async (type: 'siren' | 'siret', q: string) => {
   try {
     if (!INSEE_API_URL) {
       throw new Error(
@@ -154,7 +166,6 @@ const typeFetch = async (type, q) => {
     const response = await fetch(
       `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`,
       {
-        credentials: 'include',
         method: 'GET',
         headers: {
           Accept: 'application/json',
@@ -163,7 +174,7 @@ const typeFetch = async (type, q) => {
       }
     )
 
-    const result = await response.json()
+    const result = (await response.json()) as IApiSirenQueryTypes
 
     if (
       response.status >= 400 ||
@@ -192,19 +203,26 @@ const typeFetch = async (type, q) => {
         e.message ||
         e
     )
+
+    return null
   }
 }
 
-const typeFetchDev = async (type, q, field, ids) => {
+const typeFetchDev = async (
+  type: 'siren' | 'siret',
+  q: string,
+  field: 'etablissements' | 'unitesLegales',
+  ids: string[]
+) => {
   await makeDir(CACHE_DIR)
 
   const cacheFilePath = join(
     CACHE_DIR,
-    `insee-${field}-${ids.map(i => i.slice(-1)[0]).join('-')}.json`
+    `insee-${field}-${ids.map(id => id.slice(-1)[0]).join('-')}.json`
   )
 
   try {
-    const result = require(`../../../${cacheFilePath}`)
+    const result = require(`../../../${cacheFilePath}`) as IApiSirenQueryTypes
 
     console.info(`API Insee: lecture de ${type} depuis le cache, ids: ${ids}`)
 
@@ -222,7 +240,12 @@ const typeFetchDev = async (type, q, field, ids) => {
   }
 }
 
-const typeMultiFetch = async (type, field, ids, q) => {
+const typeMultiFetch = async (
+  type: 'siren' | 'siret',
+  field: 'etablissements' | 'unitesLegales',
+  ids: string[],
+  q: string
+) => {
   try {
     const result =
       process.env.NODE_ENV === 'development'
@@ -241,35 +264,89 @@ const typeMultiFetch = async (type, field, ids, q) => {
           e
       )
     )
+
+    return null
   }
 }
 
-const typeBatchFetch = async (type, field, ids, queryFormat) => {
-  let batches = [ids]
+const batchesBuild = (ids: string[]) => {
+  if (ids.length <= MAX_RESULTS) return [ids]
 
-  if (ids.length > MAX_RESULTS) {
-    const count = Math.ceil(ids.length / MAX_RESULTS)
+  const count = Math.ceil(ids.length / MAX_RESULTS)
 
-    batches = [...new Array(count)].map((e, i) =>
-      ids.slice(i * MAX_RESULTS, (i + 1) * MAX_RESULTS)
-    )
-  }
+  return [...new Array(count)].map((e, i) =>
+    ids.slice(i * MAX_RESULTS, (i + 1) * MAX_RESULTS)
+  )
+}
 
-  const batchesQueries = batches.reduce((acc, batch) => {
-    acc.push(() => typeMultiFetch(type, field, batch, queryFormat(batch)))
+const entreprisesEtablissementsFetch = async (ids: string[]) => {
+  const batches = batchesBuild(ids)
 
-    return acc
-  }, [])
+  const queryFormat = (idsBatch: string[]) =>
+    idsBatch.map(batch => `siren:${batch}`).join(' OR ')
+
+  const batchesQueries = batches.reduce(
+    (acc: (() => Promise<IApiSirenUniteLegale[] | null>)[], batch) => {
+      acc.push(
+        () =>
+          typeMultiFetch(
+            'siren',
+            'unitesLegales',
+            batch,
+            queryFormat(batch)
+          ) as Promise<IApiSirenUniteLegale[] | null>
+      )
+
+      return acc
+    },
+    []
+  )
 
   const queue = new PQueue({ concurrency: 1 })
 
   const batchesResults = await queue.addAll(batchesQueries)
 
-  return batchesResults.reduce((r, p) => {
-    r.push(...p)
+  return batchesResults.reduce((r: IApiSirenUniteLegale[], p) => {
+    if (p) r.push(...p)
 
     return r
   }, [])
 }
 
-export { typeBatchFetch, tokenInitialize }
+const entreprisesFetch = async (ids: string[]) => {
+  const batches = batchesBuild(ids)
+
+  const queryFormat = (idsBatch: string[]) => {
+    const ids = idsBatch.map(batch => `siren:${batch}`).join(' OR ')
+
+    return `(${ids}) AND etablissementSiege:true`
+  }
+
+  const batchesQueries = batches.reduce(
+    (acc: (() => Promise<IApiSirenEtablissement[] | null>)[], batch) => {
+      acc.push(
+        () =>
+          typeMultiFetch(
+            'siret',
+            'etablissements',
+            batch,
+            queryFormat(batch)
+          ) as Promise<IApiSirenEtablissement[] | null>
+      )
+
+      return acc
+    },
+    []
+  )
+
+  const queue = new PQueue({ concurrency: 1 })
+  const batchesResults = await queue.addAll(batchesQueries)
+
+  return batchesResults.reduce((r: IApiSirenEtablissement[], p) => {
+    if (p) r.push(...p)
+
+    return r
+  }, [])
+}
+
+export { entreprisesFetch, entreprisesEtablissementsFetch, tokenInitialize }
