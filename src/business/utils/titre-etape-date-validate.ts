@@ -272,7 +272,8 @@ const titreEtapeDateValidate = (
 ) => {
   // pas de validation pour les titres qui n'ont pas d'arbre de restrictions
   const titreTypeEtapesTypesRestrictions = titresTypesEtapesTypesRestrictions.find(
-    r => r.typeId === titre.typeId
+    r => r.typeId === titre.typeId &&
+      r.demarcheTypeId === titreDemarche.typeId
   )
   if (!titreTypeEtapesTypesRestrictions) return null
 
