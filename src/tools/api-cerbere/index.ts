@@ -10,7 +10,7 @@ const config = {
 
 const CerbereClient = new Cerbere({ url: config.cerbereUrl })
 
-interface ICerbereProfile {
+interface ICerbereUtilisateur {
   id?: string
   prenom?: string
   nom?: string
@@ -20,7 +20,7 @@ interface ICerbereProfile {
   entrepriseLegalSiren?: string
 }
 
-const cerbereProfileProperties = {
+const cerbereUtilisateurProperties = {
   id: 'UTILISATEUR.ID',
   prenom: 'UTILISATEUR.PRENOM',
   nom: 'UTILISATEUR.NOM',
@@ -28,48 +28,31 @@ const cerbereProfileProperties = {
   telephone: 'UTILISATEUR.TEL_FIXE',
   unite: 'UTILISATEUR.UNITE',
   entrepriseLegalSiren: 'ENTREPRISE.SIREN'
-} as ICerbereProfile
+} as ICerbereUtilisateur
 
-const cerbereProfileFormat = (attributes: { [key: string]: string }) =>
-  (Object.keys(cerbereProfileProperties) as (keyof ICerbereProfile)[]).reduce(
-    (cerbereProfile: ICerbereProfile, key) => {
-      const profileKey = cerbereProfileProperties[key]!
+const cerbereUtilisateurFormat = (attributes: { [key: string]: string }) =>
+  (Object.keys(
+    cerbereUtilisateurProperties
+  ) as (keyof ICerbereUtilisateur)[]).reduce(
+    (cerbereUtilisateur: ICerbereUtilisateur, key) => {
+      const profileKey = cerbereUtilisateurProperties[key]!
 
       const profileValue = attributes[profileKey]
 
       if (profileValue) {
-        cerbereProfile[key] = profileValue
+        cerbereUtilisateur[key] = profileValue
       }
 
-      return cerbereProfile
+      return cerbereUtilisateur
     },
     {}
   )
-
-const utilisateurFormat = (attributes: Index<string>) => {
-  const cerbereProfile = cerbereProfileFormat(attributes)
-
-  // TODO:
-  // consolider l'administration et/ou l'entreprise du profil avec la base
-  const utilisateur = ({
-    email: cerbereProfile.email,
-    prenom: cerbereProfile.prenom,
-    nom: cerbereProfile.nom,
-    telephone: cerbereProfile.telephone,
-    // on génère un mot de passe aléatoire
-    motDePasse: cryptoRandomString({ length: 8 })
-  } as unknown) as IUtilisateur
-
-  return utilisateur
-}
 
 const login = async (ticket: string) => {
   try {
     const { extended } = await CerbereClient.validate(ticket, config.serviceUrl)
 
-    const utilisateur = utilisateurFormat(extended.attributes)
-
-    return utilisateur
+    return cerbereUtilisateurFormat(extended.attributes)
   } catch (err) {
     err.message = `Cerbère: echec de l'authentification ${err.message}`
 
