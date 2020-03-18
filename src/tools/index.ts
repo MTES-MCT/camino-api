@@ -1,9 +1,9 @@
 import { Index } from '../types'
 
-const dupRemove = (key: string, ...arrays: Index[][]) =>
+const dupRemove = (key: string, ...arrays: Index<any>[][]) =>
   arrays.reduce(
     (result, array) =>
-      array.reduce((res: Index[], el) => {
+      array.reduce((res: Index<any>[], el) => {
         if (!res.find(e => !el[key] || e[key] === el[key])) {
           res.push(el)
         }
@@ -13,20 +13,20 @@ const dupRemove = (key: string, ...arrays: Index[][]) =>
     []
   )
 
-const dupFind = (key: string, ...arrays: Index[][]) =>
+const dupFind = (key: string, ...arrays: Index<any>[][]) =>
   arrays.reduce(
-    (result: Index[], array) =>
+    (result: Index<any>[], array) =>
       result.filter(el => array.find(e => e[key] && e[key] === el[key])),
-    arrays.pop() as Index[]
+    arrays.pop() as Index<any>[]
   )
 
 interface IIndexCount {
-  [key: string]: Index[]
+  [key: string]: Index<any>[]
 }
 
-const diffFind = (key: string, ...arrays: Index[][]) => {
+const diffFind = (key: string, ...arrays: Index<any>[][]) => {
   const indexCount = arrays.reduce(
-    (indexCount: IIndexCount, array: Index[]) =>
+    (indexCount: IIndexCount, array: Index<any>[]) =>
       array.reduce((indexCount, index) => {
         if (!indexCount[index[key]]) {
           indexCount[index[key]] = []
@@ -39,7 +39,7 @@ const diffFind = (key: string, ...arrays: Index[][]) => {
     {}
   )
 
-  return Object.keys(indexCount).reduce((arrayDiff: Index[], key) => {
+  return Object.keys(indexCount).reduce((arrayDiff: Index<any>[], key) => {
     // on ne garde que les éléments uniques
     if (indexCount[key].length === 1) {
       arrayDiff.push(indexCount[key][0])
@@ -49,7 +49,7 @@ const diffFind = (key: string, ...arrays: Index[][]) => {
   }, [])
 }
 
-const objectsDiffer = (a: Index | any, b: Index | any): boolean => {
+const objectsDiffer = (a: Index<any> | any, b: Index<any> | any): boolean => {
   if (typeof a !== 'object' && typeof b !== 'object') {
     return a !== b
   }
@@ -75,7 +75,7 @@ const objectsDiffer = (a: Index | any, b: Index | any): boolean => {
 
 const objConditionMatch = (
   condition: any,
-  obj: Index,
+  obj: Index<any>,
   keys: string[] | null = null
 ) => {
   // si les conditions sont testées plusieurs fois, (dans une boucle par ex)

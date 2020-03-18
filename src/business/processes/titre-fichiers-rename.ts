@@ -3,12 +3,9 @@ import {
   ITitre,
   ITitreDemarche,
   ITitreEtape,
-  ITitreDocument
+  ITitreDocument,
+  Index
 } from '../../types'
-
-interface Index {
-  [id: string]: any
-}
 
 const titreDocumentsFichiersNamesFind = (
   titreDocuments: ITitreDocument[] | undefined | null,
@@ -19,17 +16,20 @@ const titreDocumentsFichiersNamesFind = (
     return []
   }
 
-  return titreDocuments.reduce((fichiersNames: Index[], titreDocument) => {
-    if (titreDocument.fichier) {
-      const oldTitreDocumentId = titreDocument.id.replace(titreId, oldTitreId)
+  return titreDocuments.reduce(
+    (fichiersNames: Index<string>[], titreDocument) => {
+      if (titreDocument.fichier) {
+        const oldTitreDocumentId = titreDocument.id.replace(titreId, oldTitreId)
+        const newFichierName = `${titreDocument.id}.${titreDocument.fichierTypeId}`
+        const oldFichierName = `${oldTitreDocumentId}.${titreDocument.fichierTypeId}`
 
-      fichiersNames.push({
-        [`${titreDocument.id}.${titreDocument.fichierTypeId}`]: `${oldTitreDocumentId}.${titreDocument.fichierTypeId}`
-      })
-    }
+        fichiersNames.push({ [newFichierName]: oldFichierName })
+      }
 
-    return fichiersNames
-  }, [])
+      return fichiersNames
+    },
+    []
+  )
 }
 
 const titreEtapesFichiersNamesFind = (
@@ -41,7 +41,7 @@ const titreEtapesFichiersNamesFind = (
     return []
   }
 
-  return titreEtapes.reduce((fichiersNames: Index[], titreEtape) => {
+  return titreEtapes.reduce((fichiersNames: Index<string>[], titreEtape) => {
     fichiersNames.push(
       ...titreDocumentsFichiersNamesFind(
         titreEtape.documents,
@@ -63,13 +63,20 @@ const titreFichiersNamesFind = (
     return []
   }
 
-  return titreDemarches.reduce((fichiersNames: Index[], titreDemarche) => {
-    fichiersNames.push(
-      ...titreEtapesFichiersNamesFind(titreDemarche.etapes, titreId, oldTitreId)
-    )
+  return titreDemarches.reduce(
+    (fichiersNames: Index<string>[], titreDemarche) => {
+      fichiersNames.push(
+        ...titreEtapesFichiersNamesFind(
+          titreDemarche.etapes,
+          titreId,
+          oldTitreId
+        )
+      )
 
-    return fichiersNames
-  }, [])
+      return fichiersNames
+    },
+    []
+  )
 }
 
 const titreFichiersRename = async (oldTitreId: string, titre: ITitre) => {

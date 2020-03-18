@@ -2,6 +2,7 @@ import { IToken, IUtilisateur } from '../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
+import { login as cerbereLogin } from '../../tools/api-cerbere'
 
 import init from '../../server/init'
 
@@ -136,6 +137,34 @@ const utilisateurTokenCreer = async ({
 
     if (!valid) {
       throw new Error('mot de passe incorrect')
+    }
+
+    const token = userTokenCreate(utilisateur)
+
+    return { token, utilisateur: userFormat(utilisateur) }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
+  try {
+    // authentification cerbere et récuperation de l'utilisateur
+    const utilisateurCerbere = await cerbereLogin(ticket)
+    if (!utilisateurCerbere) {
+      throw new Error('aucun utilisateur sur Cerbère')
+    }
+
+    let utilisateur = await utilisateurByEmailGet(utilisateurCerbere.email!)
+    if (!utilisateur) {
+      utilisateur = await utilisateurCreer(
+        { utilisateur: utilisateurCerbere },
+        ({ user: { email: utilisateurCerbere.email } } as unknown) as IToken
+      )
     }
 
     const token = userTokenCreate(utilisateur)
@@ -542,6 +571,7 @@ export {
   utilisateurs,
   moi,
   utilisateurTokenCreer,
+  utilisateurCerbereTokenCreer,
   utilisateurCreer,
   utilisateurCreationEmailEnvoyer,
   utilisateurModifier,

@@ -163,6 +163,9 @@ type Mutation {
   "__*__ Connecte l'utilisateur en fonction de ses identifiants"
   utilisateurTokenCreer(email: String!, motDePasse: String!): UtilisateurToken
 
+  "__*__ Connecte l'utilisateur en fonction du ticket Cerbère"
+  utilisateurCerbereTokenCreer(ticket: String!): UtilisateurToken
+
   "__*__ Crée un utilisateur"
   utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur
 
