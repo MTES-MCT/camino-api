@@ -144,41 +144,39 @@ class Cerbere {
             const elemResponse = jsonResponse.Envelope.Body.Response
             const elemStatusCode = elemResponse.Status.StatusCode
 
-            if (!elemStatusCode['@_Value'].includes('Success')) {
+            if (['ns2:Success'].includes(elemStatusCode['@_Value'])) {
+              const elemAttributeStatement =
+                elemResponse.Assertion[0].AttributeStatement
+
+              const userId =
+                elemAttributeStatement.Subject.NameIdentifier['#text']
+
+              if (!userId) {
+                //  This should never happen
+                reject(new Error('No userId?'))
+              }
+
+              // Look for optional attributes
+              const attributes = parseAttributes(
+                elemAttributeStatement.Attribute
+              )
+
+              resolve({
+                username: userId,
+                extended: {
+                  username: userId,
+                  attributes: attributes,
+                  ticket: ticket
+                }
+              })
+            } else {
               const code = elemStatusCode['@_Value']
               const codeText = elemStatusCode['#text']
 
               const message = `Validation failed [${code}]: ${codeText}`
 
               reject(new Error(message))
-
-              return
             }
-
-            const elemAttributeStatement =
-              elemResponse.Assertion[0].AttributeStatement
-
-            const userId =
-              elemAttributeStatement.Subject.NameIdentifier['#text']
-
-            if (!userId) {
-              //  This should never happen
-              reject(new Error('No userId?'))
-
-              return
-            }
-
-            // Look for optional attributes
-            const attributes = parseAttributes(elemAttributeStatement.Attribute)
-
-            resolve({
-              username: userId,
-              extended: {
-                username: userId,
-                attributes: attributes,
-                ticket: ticket
-              }
-            })
           })
         }
       )

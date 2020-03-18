@@ -154,17 +154,25 @@ const utilisateurTokenCreer = async ({
 const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
   try {
     // authentification cerbere et récuperation de l'utilisateur
-    const utilisateurCerbere = await cerbereLogin(ticket)
-    if (!utilisateurCerbere) {
+    const cerbereUtilisateur = await cerbereLogin(ticket)
+    if (!cerbereUtilisateur) {
       throw new Error('aucun utilisateur sur Cerbère')
     }
 
-    let utilisateur = await utilisateurByEmailGet(utilisateurCerbere.email!)
+    let utilisateur = await utilisateurByEmailGet(cerbereUtilisateur.email!)
+
     if (!utilisateur) {
-      utilisateur = await utilisateurCreer(
-        { utilisateur: utilisateurCerbere },
-        ({ user: { email: utilisateurCerbere.email } } as unknown) as IToken
-      )
+      const utilisateurNew = ({
+        email: cerbereUtilisateur.email,
+        prenom: cerbereUtilisateur.prenom,
+        nom: cerbereUtilisateur.nom,
+        telephone: cerbereUtilisateur.telephone,
+        motDePasse: cryptoRandomString({ length: 8 })
+      } as unknown) as IUtilisateur
+
+      utilisateur = await utilisateurCreer({ utilisateur: utilisateurNew }, ({
+        user: { email: cerbereUtilisateur.email }
+      } as unknown) as IToken)
     }
 
     const token = userTokenCreate(utilisateur)
