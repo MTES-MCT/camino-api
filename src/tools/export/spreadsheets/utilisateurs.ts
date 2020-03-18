@@ -28,7 +28,7 @@ const tables = [
       'preferences'
     ],
     callbacks: {
-      preferences: (v: Index) => JSON.stringify(v)
+      preferences: (v: Index<any>) => JSON.stringify(v)
     }
   },
   {

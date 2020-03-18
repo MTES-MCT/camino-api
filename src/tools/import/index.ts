@@ -85,9 +85,13 @@ const spreadsheetToJsonFiles = async ({
   }
 }
 
-const jsonParse = (json: Index[], cb: { [id: string]: ICb }, path: string) =>
+const jsonParse = (
+  json: Index<any>[],
+  cb: { [id: string]: ICb },
+  path: string
+) =>
   json.map(row =>
-    Object.keys(cb).reduce((row: Index, col) => {
+    Object.keys(cb).reduce((row: Index<any>, col) => {
       const value = row[col]
 
       if (!(col in row) || !value) return row
@@ -115,7 +119,7 @@ const filesListBuild = ({ name, tables, prefixFileName }: ISpreadsheet) =>
 
 const rowsToJson = (columns: string[], rows: string[][]) =>
   rows.map(row =>
-    columns.reduce((acc: Index, column, index) => {
+    columns.reduce((acc: Index<any>, column, index) => {
       if (row[index]) {
         acc[column] = row[index]
       }

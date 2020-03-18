@@ -1,4 +1,4 @@
-import { IAdministration, IUtilisateur, Index } from '../types'
+import { IAdministration, IUtilisateur } from '../types'
 
 import { utilisateurGet } from '../database/queries/utilisateurs'
 
@@ -9,15 +9,15 @@ import { diffFind } from '../tools'
 const utilisateurUpdationValidate = async (
   user: IUtilisateur,
   utilisateur: IUtilisateur,
-  isAdmin: Boolean
+  isAdmin: boolean
 ) => {
   const utilisateurOld = await utilisateurGet(utilisateur.id!)
 
   // récupère la liste des administrations modifiées (suppression et ajout)
   const administrationsIdsDiff = diffFind(
     'id',
-    utilisateurOld!.administrations as Index[],
-    utilisateur.administrations as Index[]
+    utilisateurOld!.administrations as Partial<IAdministration>[],
+    utilisateur.administrations as Partial<IAdministration>[]
   ) as IAdministration[]
 
   // si le user n'est pas admin

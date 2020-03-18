@@ -4,8 +4,8 @@ interface IFields {
   [key: string]: IFields
 }
 
-interface Index {
-  [id: string]: any
+interface Index<T> {
+  [id: string]: T
 }
 
 interface IColonne {
