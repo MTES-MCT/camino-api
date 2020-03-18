@@ -67,6 +67,9 @@ type TitreTypeType {
   "Nom du type en français"
   nom: String!
 
+  "Nature du type exploitation/exploration"
+  exploitation: Boolean
+
   ordre: Int!
 }
 
