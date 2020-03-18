@@ -1,5 +1,3 @@
-import { Index, IUtilisateur } from '../../types'
-import * as cryptoRandomString from 'crypto-random-string'
 import Cerbere = require('./cerbere-nodejs')
 
 const config = {
@@ -34,13 +32,12 @@ const cerbereUtilisateurFormat = (attributes: { [key: string]: string }) =>
   (Object.keys(
     cerbereUtilisateurProperties
   ) as (keyof ICerbereUtilisateur)[]).reduce(
-    (cerbereUtilisateur: ICerbereUtilisateur, key) => {
-      const profileKey = cerbereUtilisateurProperties[key]!
+    (cerbereUtilisateur: ICerbereUtilisateur, id) => {
+      const key = cerbereUtilisateurProperties[id]!
+      const value = attributes[key]
 
-      const profileValue = attributes[profileKey]
-
-      if (profileValue) {
-        cerbereUtilisateur[key] = profileValue
+      if (value) {
+        cerbereUtilisateur[id] = value
       }
 
       return cerbereUtilisateur
@@ -50,7 +47,7 @@ const cerbereUtilisateurFormat = (attributes: { [key: string]: string }) =>
 
 const login = async (ticket: string) => {
   try {
-    const { extended } = await CerbereClient.validate(ticket, config.serviceUrl)
+    const { extended } = await CerbereClient.login(ticket, config.serviceUrl)
 
     return cerbereUtilisateurFormat(extended.attributes)
   } catch (err) {

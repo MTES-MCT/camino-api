@@ -73,7 +73,7 @@ class Cerbere {
    *     the `service` option was already specified during initialization.
    * @api public
    */
-  validate(ticket, service) {
+  login(ticket, service) {
     return new Promise((resolve, reject) => {
       // CAS 2.0 with SAML 1.1 to get attributes
       const validatePath = '/samlValidate'

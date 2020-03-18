@@ -1,7 +1,7 @@
 declare class Cerbere {
   constructor(options: { url: string })
 
-  validate: (
+  login: (
     ticket: string,
     service: string
   ) => Promise<{
