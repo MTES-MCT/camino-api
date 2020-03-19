@@ -75,7 +75,6 @@ interface IActiviteType {
   dateDebut: string
   delaiMois: number
   titresTypes: ITitreType[]
-  delaiMois: number
   sections?: ISection[] | null
   frequence?: IFrequence | null
   pays?: IPays[] | null
