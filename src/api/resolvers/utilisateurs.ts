@@ -139,9 +139,22 @@ const utilisateurTokenCreer = async ({
       throw new Error('mot de passe incorrect')
     }
 
-    const token = userTokenCreate(utilisateur)
+    return {
+      token: userTokenCreate(utilisateur),
+      utilisateur: userFormat(utilisateur)
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
 
-    return { token, utilisateur: userFormat(utilisateur) }
+    throw e
+  }
+}
+
+const utilisateurCerbereUrlObtenir = async ({ url }: { url: string }) => {
+  try {
+    return `${process.env.API_CERBERE}?service=${url}`
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -155,29 +168,30 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
   try {
     // authentification cerbere et récuperation de l'utilisateur
     const cerbereUtilisateur = await cerbereLogin(ticket)
+
     if (!cerbereUtilisateur) {
       throw new Error('aucun utilisateur sur Cerbère')
     }
 
     let utilisateur = await utilisateurByEmailGet(cerbereUtilisateur.email!)
 
+    // si l'utilisateur n'existe pas encore en base
+    // alors on le crée en lui générant un mot de passe aléatoire
     if (!utilisateur) {
-      const utilisateurNew = ({
-        email: cerbereUtilisateur.email,
-        prenom: cerbereUtilisateur.prenom,
-        nom: cerbereUtilisateur.nom,
-        telephone: cerbereUtilisateur.telephone,
-        motDePasse: cryptoRandomString({ length: 8 })
-      } as unknown) as IUtilisateur
+      cerbereUtilisateur.motDePasse = cryptoRandomString({ length: 16 })
 
-      utilisateur = await utilisateurCreer({ utilisateur: utilisateurNew }, ({
-        user: { email: cerbereUtilisateur.email }
-      } as unknown) as IToken)
+      utilisateur = await utilisateurCreer(
+        { utilisateur: cerbereUtilisateur },
+        ({
+          user: { email: cerbereUtilisateur.email }
+        } as unknown) as IToken
+      )
     }
 
-    const token = userTokenCreate(utilisateur)
-
-    return { token, utilisateur: userFormat(utilisateur) }
+    return {
+      token: userTokenCreate(utilisateur),
+      utilisateur: userFormat(utilisateur)
+    }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -559,9 +573,10 @@ const utilisateurMotDePasseInitialiser = async (
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
-    const token = userTokenCreate(utilisateurUpdated)
-
-    return { token, utilisateur: userFormat(utilisateurUpdated) }
+    return {
+      token: userTokenCreate(utilisateurUpdated),
+      utilisateur: userFormat(utilisateurUpdated)
+    }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -579,6 +594,7 @@ export {
   utilisateurs,
   moi,
   utilisateurTokenCreer,
+  utilisateurCerbereUrlObtenir,
   utilisateurCerbereTokenCreer,
   utilisateurCreer,
   utilisateurCreationEmailEnvoyer,

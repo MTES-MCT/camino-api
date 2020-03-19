@@ -1,16 +1,14 @@
 declare class Cerbere {
   constructor(options: { url: string })
 
-  login: (
-    ticket: string,
-    service: string
+  login: (service: string) => string
+
+  validate: (
+    ticket: string
   ) => Promise<{
-    username: string
-    extended: {
-      username: string
-      attributes: { [key: string]: string }
-      ticket: string
-    }
+    userId: string
+    attributes: { [key: string]: string }
+    ticket: string
   }>
 
   logout: (returnUrl: string, doRedirect: boolean) => string
