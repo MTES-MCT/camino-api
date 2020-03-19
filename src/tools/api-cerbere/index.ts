@@ -14,7 +14,7 @@ interface ICerbereProfile {
   prenom?: string
   nom?: string
   email?: string
-  telephone?: string
+  telephoneFixe?: string
   unite?: string
   entrepriseLegalSiren?: string
 }
@@ -24,7 +24,7 @@ const cerbereProfileProperties = {
   prenom: 'UTILISATEUR.PRENOM',
   nom: 'UTILISATEUR.NOM',
   email: 'UTILISATEUR.MEL',
-  telephone: 'UTILISATEUR.TEL_FIXE',
+  telephoneFixe: 'UTILISATEUR.TEL_FIXE',
   unite: 'UTILISATEUR.UNITE',
   entrepriseLegalSiren: 'ENTREPRISE.SIREN'
 } as ICerbereProfile
@@ -54,7 +54,7 @@ const login = async (ticket: string) => {
       email: cerbereProfile.email,
       prenom: cerbereProfile.prenom,
       nom: cerbereProfile.nom,
-      telephone: cerbereProfile.telephone
+      telephoneFixe: cerbereProfile.telephoneFixe
     } as unknown) as IUtilisateur
 
     return cerbereUtilisateur
