@@ -166,6 +166,9 @@ type Mutation {
   "__*__ Connecte l'utilisateur en fonction du ticket Cerbère"
   utilisateurCerbereTokenCreer(ticket: String!): UtilisateurToken
 
+  "__*__ Connecte l'utilisateur en fonction du ticket Cerbère"
+  utilisateurCerbereUrlObtenir(url: String!): String
+
   "__*__ Crée un utilisateur"
   utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur
 

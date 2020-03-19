@@ -1,3 +1,4 @@
+import { IUtilisateur } from '../../types'
 import Cerbere = require('./cerbere-nodejs')
 
 const config = {
@@ -6,9 +7,9 @@ const config = {
   serviceUrl: 'camino.beta.gouv.fr'
 }
 
-const CerbereClient = new Cerbere({ url: config.cerbereUrl })
+const cerbereClient = new Cerbere({ url: config.cerbereUrl })
 
-interface ICerbereUtilisateur {
+interface ICerbereProfile {
   id?: string
   prenom?: string
   nom?: string
@@ -18,7 +19,7 @@ interface ICerbereUtilisateur {
   entrepriseLegalSiren?: string
 }
 
-const cerbereUtilisateurProperties = {
+const cerbereProfileProperties = {
   id: 'UTILISATEUR.ID',
   prenom: 'UTILISATEUR.PRENOM',
   nom: 'UTILISATEUR.NOM',
@@ -26,30 +27,37 @@ const cerbereUtilisateurProperties = {
   telephone: 'UTILISATEUR.TEL_FIXE',
   unite: 'UTILISATEUR.UNITE',
   entrepriseLegalSiren: 'ENTREPRISE.SIREN'
-} as ICerbereUtilisateur
+} as ICerbereProfile
 
-const cerbereUtilisateurFormat = (attributes: { [key: string]: string }) =>
-  (Object.keys(
-    cerbereUtilisateurProperties
-  ) as (keyof ICerbereUtilisateur)[]).reduce(
-    (cerbereUtilisateur: ICerbereUtilisateur, id) => {
-      const key = cerbereUtilisateurProperties[id]!
+const cerbereProfileFormat = (attributes: { [key: string]: string }) =>
+  (Object.keys(cerbereProfileProperties) as (keyof ICerbereProfile)[]).reduce(
+    (cerbereProfile: ICerbereProfile, id) => {
+      const key = cerbereProfileProperties[id]!
       const value = attributes[key]
 
       if (value) {
-        cerbereUtilisateur[id] = value
+        cerbereProfile[id] = value
       }
 
-      return cerbereUtilisateur
+      return cerbereProfile
     },
     {}
   )
 
 const login = async (ticket: string) => {
   try {
-    const { extended } = await CerbereClient.login(ticket, config.serviceUrl)
+    const { attributes } = await cerbereClient.validate(ticket)
 
-    return cerbereUtilisateurFormat(extended.attributes)
+    const cerbereProfile = cerbereProfileFormat(attributes)
+
+    const cerbereUtilisateur = ({
+      email: cerbereProfile.email,
+      prenom: cerbereProfile.prenom,
+      nom: cerbereProfile.nom,
+      telephone: cerbereProfile.telephone
+    } as unknown) as IUtilisateur
+
+    return cerbereUtilisateur
   } catch (err) {
     err.message = `Cerbère: echec de l'authentification ${err.message}`
 
@@ -57,6 +65,6 @@ const login = async (ticket: string) => {
   }
 }
 
-const logout = (returnUrl: string) => CerbereClient.logout(returnUrl, true)
+const logout = (returnUrl: string) => cerbereClient.logout(returnUrl, true)
 
 export { login, logout }
