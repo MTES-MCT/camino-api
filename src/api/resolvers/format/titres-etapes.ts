@@ -55,7 +55,9 @@ const titreEtapeFormat = (
       et => et.id === titreEtape.type!.id
     )
     if (!etapeType) {
-      throw new Error(`${titreEtape.type.id} inexistant`)
+      throw new Error(
+        `« ${titreEtape.type.nom} » inexistant pour une démarche « ${titreDemarcheType.nom} » pour un titre « ${titreTypeId} »`
+      )
     }
 
     // crée une copie du type d'étape pour ne pas modifier le cache applicatif

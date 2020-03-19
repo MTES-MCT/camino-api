@@ -144,8 +144,9 @@ const titreDemarchesTypes = async (
 
   const titre = await titreGet(titreId, { graph: '[demarches]' })
   const titreType = metas.titresTypes.find(t => t.id === titre.typeId)
-  if (!titreType || !titreType.demarchesTypes)
+  if (!titreType || !titreType.demarchesTypes) {
     throw new Error(`${titre.typeId} inexistant`)
+  }
 
   const user = context.user && (await utilisateurGet(context.user.id))
 

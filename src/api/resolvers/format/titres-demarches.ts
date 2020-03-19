@@ -97,7 +97,9 @@ const titreDemarcheFormat = (
     demarcheType => demarcheType.id === titreDemarche.typeId
   )
 
-  if (!demarcheType) throw new Error(`${titreDemarche.typeId} inexistant`)
+  if (!demarcheType) {
+    throw new Error(`${titreDemarche.type!.nom} inexistant pour un titre ${titreTypeId}`)
+  }
 
   // si au moins un type d'étape est éditable pour le type de démarche
   // alors on peut ajouter des étapes à la démarche

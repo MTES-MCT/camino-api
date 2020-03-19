@@ -11,7 +11,9 @@ const demarcheTypeFormat = (
   titreStatutId: string
 ) => {
   const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
-  if (!dt) throw new Error(`${demarcheType.id} inexistant`)
+  if (!dt) {
+    throw new Error(`${demarcheType.nom} inexistant pour un titre ${titreTypeId}`)
+  }
 
   if (demarcheType.etapesTypes) {
     demarcheType.etapesTypes = demarcheType.etapesTypes.filter(
