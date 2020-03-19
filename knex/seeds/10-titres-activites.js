@@ -4,7 +4,7 @@ const titresActivites = require('../../sources/titres-activites.json')
 
 let titresActivitesReprise
 try {
-  titresActivitesReprise = require('../../sources/titres-activites-reprise-titers-activites.json')
+  titresActivitesReprise = require('../../sources/titres-activites-reprise-titres-activites.json')
 } catch (e) {
   titresActivitesReprise = []
 }
