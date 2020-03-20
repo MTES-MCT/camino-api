@@ -7,10 +7,7 @@ import { titresSortAndLimit } from './sort/titres'
 
 import { titrePermissionAdministrationsCheck } from './permissions/titre-edition'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-import graphFormat from './graph/format'
-import { titresFieldsAdd } from './graph/fields-add'
+import fieldsBuild from './_fields-build'
 
 import {
   titreCreate,
@@ -31,15 +28,12 @@ const titre = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-    let fields = graphFieldsBuild(info)
-    fields = titresFieldsAdd(fields)
+    const fields = fieldsBuild(info)
 
-    const graph = graphBuild(fields, 'titre', graphFormat)
-
-    const titre = await titreGet(id, { graph })
-
+    const titre = await titreGet(id, { fields }, context.user?.id)
     if (!titre) return null
+
+    const user = context.user && (await utilisateurGet(context.user.id))
 
     return titreFormat(user, titre, fields)
   } catch (e) {
@@ -83,9 +77,7 @@ const titres = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-    const fields = graphFieldsBuild(info)
-    const graph = graphBuild(fields, 'titres', graphFormat)
+    const fields = fieldsBuild(info)
 
     let activitesSortParams = null
 
@@ -113,9 +105,11 @@ const titres = async (
         references,
         territoires
       },
-      { graph }
+      { fields },
+      context.user?.id
     )
 
+    const user = context.user && (await utilisateurGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)
 
     return titresFormatted && activitesSortParams
@@ -130,7 +124,11 @@ const titres = async (
   }
 }
 
-const titreCreer = async ({ titre }: { titre: ITitre }, context: IToken) => {
+const titreCreer = async (
+  { titre }: { titre: ITitre },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
@@ -149,7 +147,11 @@ const titreCreer = async ({ titre }: { titre: ITitre }, context: IToken) => {
     // ajoute l'id par effet de bord
     await titreCreate(titre)
 
-    const titreUpdated = await titreUpdateTask(titre.id)
+    const titreUpdatedId = await titreUpdateTask(titre.id)
+
+    const fields = fieldsBuild(info)
+
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {
@@ -161,7 +163,11 @@ const titreCreer = async ({ titre }: { titre: ITitre }, context: IToken) => {
   }
 }
 
-const titreModifier = async ({ titre }: { titre: ITitre }, context: IToken) => {
+const titreModifier = async (
+  { titre }: { titre: ITitre },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
@@ -176,7 +182,7 @@ const titreModifier = async ({ titre }: { titre: ITitre }, context: IToken) => {
       throw new Error('droits insuffisants pour modifier ce titre')
     }
 
-    const titreOld = await titreGet(titre.id)
+    const titreOld = await titreGet(titre.id, {}, user.id)
 
     const rulesErrors = await titreUpdationValidate(titre, titreOld)
 
@@ -186,7 +192,11 @@ const titreModifier = async ({ titre }: { titre: ITitre }, context: IToken) => {
 
     await titreUpsert(titre)
 
-    const titreUpdated = await titreUpdateTask(titre.id)
+    const titreUpdatedId = await titreUpdateTask(titre.id)
+
+    const fields = fieldsBuild(info)
+
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {

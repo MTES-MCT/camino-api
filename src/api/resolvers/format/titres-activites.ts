@@ -51,7 +51,8 @@ const titreActiviteFormat = (
   }
 
   ta.editable =
-    permissionsCheck(user, ['super', 'admin']) ||
+    !!ta.isSuper ||
+    !!ta.isAdmin ||
     (permissionsCheck(user, ['entreprise']) && ta.statutId !== 'dep')
 
   return ta

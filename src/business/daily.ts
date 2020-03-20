@@ -34,7 +34,14 @@ const run = async () => {
     console.log('ordre des étapes…')
     const titresDemarches = await titresDemarchesGet(
       {},
-      { graph: '[etapes, type.[etapesTypes]]' }
+      {
+        fields: {
+          etapes: { id: {} },
+          type: {
+            etapesTypes: { id: {} }
+          }
+        }
+      }
     )
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
       titresDemarches
@@ -55,7 +62,8 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[etapes(orderDesc)]' }
+      { fields: { demarches: { etapes: { id: {} } } } },
+      'super'
     )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
       titres
@@ -76,9 +84,8 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        graph: 'demarches(orderDesc).[etapes(orderDesc)]'
-      }
+      { fields: { demarches: { etapes: { id: {} } } } },
+      'super'
     )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
 
@@ -97,7 +104,12 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
 
@@ -116,7 +128,12 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]' }
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
     )
     const [
       titresPhasesUpdated = [],
@@ -138,7 +155,12 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
     )
     const titresDatesUpdated = await titresDatesUpdate(titres)
 
@@ -185,8 +207,9 @@ const run = async () => {
         typesIds: null
       },
       {
-        graph: 'administrationsGestionnaires'
-      }
+        fields: { administrationsGestionnaires: { id: {} } }
+      },
+      'super'
     )
     let administrations = await administrationsGet()
     const {
@@ -211,9 +234,16 @@ const run = async () => {
         typesIds: null
       },
       {
-        graph:
-          'demarches(orderDesc).etapes(orderDesc).[administrations, communes.[departement]]'
-      }
+        fields: {
+          demarches: {
+            etapes: {
+              administrations: { id: {} },
+              communes: { departements: { id: {} } }
+            }
+          }
+        }
+      },
+      'super'
     )
     administrations = await administrationsGet()
     const [
@@ -237,9 +267,20 @@ const run = async () => {
         typesIds: null
       },
       {
-        graph:
-          'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
-      }
+        fields: {
+          demarches: {
+            etapes: {
+              points: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              administrations: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} }
+            }
+          }
+        }
+      },
+      'super'
     )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
 
@@ -258,9 +299,8 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
-      }
+      { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
+      'super'
     )
     const titresPropsContenuUpdated = await titresPropsContenuUpdate(titres)
 
@@ -279,10 +319,8 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        graph:
-          '[activites, demarches(orderDesc).[phase], communes.departement.region.pays]'
-      }
+      { fields: { demarches: { phase: { id: {} } } } },
+      'super'
     )
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(
@@ -301,17 +339,21 @@ const run = async () => {
     // 15.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titres = await titresGet({
-      domainesIds: null,
-      entreprises: null,
-      ids: null,
-      noms: null,
-      references: null,
-      statutsIds: null,
-      substances: null,
-      territoires: null,
-      typesIds: null
-    })
+    titres = await titresGet(
+      {
+        domainesIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutsIds: null,
+        substances: null,
+        territoires: null,
+        typesIds: null
+      },
+      {},
+      'super'
+    )
 
     const titresUpdatedIndex = await titresIdsUpdate(titres)
 

@@ -1,24 +1,83 @@
+import knex from '../index'
+
 import {
   ITitreDemarche,
   ITitreEtapeFiltre,
   ITitreDemarcheColonneInput,
-  IColonnes
+  IColonne,
+  IFields,
+  Index
 } from '../../types'
 import { transaction, Transaction, QueryBuilder } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import options from './_options'
+import graphFormat from './graph/format'
+import graphBuild from './graph/build'
+import { fieldTitreAdd } from './graph/fields-add'
 
-const titresDemarchesColonnes = {
-  titreNom: { id: 'titre.nom', relation: 'titre' },
-  titreDomaine: { id: 'titre.domaineId', relation: 'titre' },
-  titreType: { id: 'titre:type:type.nom', relation: 'titre.type.type' },
-  titreStatut: { id: 'titre.statutId', relation: 'titre' },
-  type: { id: 'typeId' },
-  statut: { id: 'statutId' }
-} as IColonnes
+const titreDemarchePermissionQueryBuild = (
+  q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
+  userId = ''
+) => {
+  if (userId === 'super') {
+    return q
+  }
+
+  q.select('titresDemarches.*')
+
+  if (userId) {
+    // isSuper
+    q.leftJoin('utilisateurs AS us', b => {
+      b.on('us.permissionId', '=', knex.raw('?', 'super'))
+      b.on('us.id', '=', knex.raw('?', userId))
+    })
+    q.select('us.id as isSuper')
+    q.groupBy('isSuper')
+
+    // titulaires et amodiataires
+    q.leftJoinRelated(
+      'titre.[titulaires.utilisateurs, amodiataires.utilisateurs]'
+    )
+
+    // isAdmin
+    q.leftJoin('utilisateurs AS ua', b => {
+      b.onIn('ua.permissionId', ['admin', 'editeur', 'lecteur'])
+      b.on('ua.id', '=', knex.raw('?', userId))
+    })
+    q.select('ua.id as isAdmin')
+    q.groupBy('isAdmin')
+  }
+
+  q.leftJoinRelated(
+    'titre.[type.autorisationsTitresStatuts, domaine.autorisation]'
+  )
+
+  q.andWhere(b => {
+    if (userId) {
+      b.orWhereNotNull('us.id')
+      b.orWhereNotNull('ua.id')
+
+      b.orWhereRaw('?? = ?', [
+        'titre:titulaires:utilisateurs.id',
+        userId
+      ]).orWhereRaw('?? = ?', ['titre:amodiataires:utilisateurs.id', userId])
+    }
+
+    b.whereRaw('?? = ?', ['titre:domaine:autorisation.publicLecture', true])
+      .whereRaw('?? = ??', [
+        'titre:type:autorisationsTitresStatuts.titreStatutId',
+        'titre.statutId'
+      ])
+      .whereRaw('?? = ?', [
+        'titre:type:autorisationsTitresStatuts.publicLecture',
+        true
+      ])
+  })
+
+  return q
+}
 
 const titresDemarchesQueryBuild = (
-  q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
   {
     typesIds,
     statutsIds,
@@ -35,8 +94,20 @@ const titresDemarchesQueryBuild = (
     titresStatutsIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
-  } = {}
+  } = {},
+  fields: IFields,
+  userId?: string
 ) => {
+  fields = fieldTitreAdd(fields)
+  const graph = graphBuild(fields, 'titre', graphFormat)
+
+  const q = TitresDemarches.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
+    .groupBy('titresDemarches.id')
+
+  titreDemarchePermissionQueryBuild(q, userId)
+
   if (typesIds) {
     q.whereIn('titresDemarches.typeId', typesIds)
   }
@@ -112,6 +183,8 @@ const titresDemarchesQueryBuild = (
       )
     }
   }
+
+  return q
 }
 
 const titresDemarchesCount = async (
@@ -132,27 +205,36 @@ const titresDemarchesCount = async (
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
-  { graph = options.demarches.graph } = {}
+  { fields }: { fields: IFields },
+  userId?: string
 ) => {
-  const q = TitresDemarches.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
-    .count('titresDemarches.*', { as: 'total' })
-
-  titresDemarchesQueryBuild(q, {
-    typesIds,
-    statutsIds,
-    titresDomainesIds,
-    titresTypesIds,
-    titresStatutsIds,
-    etapesInclues,
-    etapesExclues
-  })
+  const q = titresDemarchesQueryBuild(
+    {
+      typesIds,
+      statutsIds,
+      titresDomainesIds,
+      titresTypesIds,
+      titresStatutsIds,
+      etapesInclues,
+      etapesExclues
+    },
+    fields,
+    userId
+  )
 
   const titresDemarches = ((await q) as unknown) as { total: number }[]
 
-  return titresDemarches[0].total
+  return titresDemarches.length
 }
+
+const titresDemarchesColonnes = {
+  titreNom: { id: 'titre.nom', relation: 'titre' },
+  titreDomaine: { id: 'titre.domaineId', relation: 'titre' },
+  titreType: { id: 'titre:type:type.nom', relation: 'titre.type.type' },
+  titreStatut: { id: 'titre.statutId', relation: 'titre' },
+  type: { id: 'typeId' },
+  statut: { id: 'statutId' }
+} as Index<IColonne>
 
 const titresDemarchesGet = async (
   {
@@ -180,15 +262,28 @@ const titresDemarchesGet = async (
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
-  { graph = options.demarches.graph } = {}
+  { fields }: { fields: IFields },
+  userId?: string
 ) => {
-  const q = TitresDemarches.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
+  const q = titresDemarchesQueryBuild(
+    {
+      typesIds,
+      statutsIds,
+      titresDomainesIds,
+      titresTypesIds,
+      titresStatutsIds,
+      etapesInclues,
+      etapesExclues
+    },
+    fields,
+    userId
+  )
 
   if (colonne) {
     if (titresDemarchesColonnes[colonne].relation) {
-      q.joinRelated(titresDemarchesColonnes[colonne].relation!)
+      q.leftJoinRelated(titresDemarchesColonnes[colonne].relation!).groupBy(
+        titresDemarchesColonnes[colonne].id!
+      )
     }
     q.orderBy(titresDemarchesColonnes[colonne].id, ordre || undefined)
   } else {
@@ -203,26 +298,26 @@ const titresDemarchesGet = async (
     q.limit(intervalle)
   }
 
-  titresDemarchesQueryBuild(q, {
-    typesIds,
-    statutsIds,
-    titresDomainesIds,
-    titresTypesIds,
-    titresStatutsIds,
-    etapesInclues,
-    etapesExclues
-  })
-
   return q
 }
 
 const titreDemarcheGet = async (
   titreDemarcheId: string,
-  { graph = options.demarches.graph } = {}
-) =>
-  TitresDemarches.query()
+  { fields }: { fields?: IFields } = {},
+  userId?: string
+) => {
+  const graph = fields
+    ? graphBuild(fieldTitreAdd(fields), 'titre', graphFormat)
+    : options.demarches.graph
+
+  const q = TitresDemarches.query()
     .withGraphFetched(graph)
     .findById(titreDemarcheId)
+
+  titreDemarchePermissionQueryBuild(q, userId)
+
+  return q
+}
 
 const titreDemarcheCreate = async (titreDemarche: ITitreDemarche) =>
   TitresDemarches.query()

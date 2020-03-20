@@ -13,7 +13,7 @@ const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
 
 const titreIdCheck = async (titreOldId: string, titre: ITitre) => {
   if (titreOldId !== titre.id) {
-    const titreWithTheSameId = await titreGet(titre.id, { graph: undefined })
+    const titreWithTheSameId = await titreGet(titre.id, {}, 'super')
 
     if (titreWithTheSameId) {
       const hash = titre.doublonTitreId

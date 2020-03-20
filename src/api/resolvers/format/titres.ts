@@ -16,7 +16,6 @@ import {
 import { dupRemove } from '../../../tools/index'
 
 import { permissionsCheck } from '../permissions/permissions-check'
-import { titreIsPublicCheck, titrePermissionCheck } from '../permissions/titre'
 import { titrePermissionAdministrationsCheck } from '../permissions/titre-edition'
 
 import { administrationsFormat } from './administrations'
@@ -134,17 +133,6 @@ const titreFormat = (
   t: ITitre,
   fields: IFields = titreFormatFields
 ) => {
-  const titreIsPublic = titreIsPublicCheck(t)
-  const userHasPermission = titrePermissionCheck(
-    user,
-    ['super', 'admin', 'editeur', 'lecteur'],
-    t
-  )
-
-  if (!titreIsPublic && !userHasPermission) {
-    return null
-  }
-
   const isSuper = permissionsCheck(user, ['super'])
   const isAdmin = permissionsCheck(user, ['admin'])
 
@@ -178,7 +166,7 @@ const titreFormat = (
         td,
         t.typeId,
         t.statutId!,
-        { userHasPermission, isSuper, isAdmin },
+        { isSuper, isAdmin },
         fields.demarches
       )
 

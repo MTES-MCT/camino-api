@@ -9,14 +9,16 @@ import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const titreUpdate = async (titreId: string) => {
   try {
-    let titre = await titreGet(titreId, {
-      graph: 'administrationsGestionnaires'
-    })
+    let titre = await titreGet(
+      titreId,
+      {
+        fields: { administrationsGestionnaires: { id: {} } }
+      },
+      'super'
+    )
 
     if (!titre) {
-      console.log(`warning: le titre ${titreId} n'existe plus`)
-
-      return null
+      throw new Error(`warning: le titre ${titreId} n'existe plus`)
     }
 
     // 9.
@@ -32,7 +34,7 @@ const titreUpdate = async (titreId: string) => {
     // 11.
     console.log()
     console.log('activités des titres…')
-    titre = await titreGet(titreId)
+    titre = await titreGet(titreId, {}, 'super')
 
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(
@@ -42,7 +44,7 @@ const titreUpdate = async (titreId: string) => {
     // 13.
     console.log()
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId)
+    titre = await titreGet(titreId, {}, 'super')
     // met à jour le ids dans le titre par effet de bord
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
@@ -63,7 +65,7 @@ const titreUpdate = async (titreId: string) => {
       await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
     }
 
-    return titreGet(titreId)
+    return titreId
   } catch (e) {
     console.error(`erreur: titreUpdate ${titreId}`)
     console.error(e)

@@ -28,6 +28,8 @@ import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
 import titreEtapeDateValidate from '../../business/utils/titre-etape-date-validate'
+import { GraphQLResolveInfo } from 'graphql'
+import fieldsBuild from './_fields-build'
 
 const demarcheTypeEtapeTypeFormat = (
   user: IUtilisateur | undefined,
@@ -112,7 +114,8 @@ const demarcheEtapeTypesFormat = (
     throw new Error(`${demarcheTypeId} inexistant`)
   }
 
-  return demarcheType.etapesTypes.sort((a, b) => a.ordre - b.ordre)
+  return demarcheType.etapesTypes
+    .sort((a, b) => a.ordre - b.ordre)
     .reduce((etapesTypes: IEtapeType[], et) => {
       const etapeType = demarcheTypeEtapeTypeFormat(
         user,
@@ -141,30 +144,20 @@ const demarcheEtapesTypes = async (
   context: IToken
 ) => {
   const user = context.user && (await utilisateurGet(context.user.id))
+  if (!user) return []
 
-  if (!user && !debug) return []
-
-  const demarche = await titreDemarcheGet(titreDemarcheId, {
-    graph: '[etapes, type.etapesTypes(orderAsc).etapesStatuts]'
-  })
-
+  const demarche = await titreDemarcheGet(titreDemarcheId, {}, user && user.id)
   if (!demarche) throw new Error("la démarche n'existe pas")
 
-  if (!demarche.etapes) return []
+  const titre = await titreGet(demarche.titreId, {}, user.id)
 
-  const titre = await titreGet(demarche.titreId, { graph: undefined })
-
-  return demarcheEtapeTypesFormat(
-    user,
-    titre,
-    demarche,
-    etapeTypeId
-  )
+  return demarcheEtapeTypesFormat(user, titre, demarche, etapeTypeId)
 }
 
 const etapeCreer = async (
   { etape }: { etape: ITitreEtape },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
@@ -173,35 +166,41 @@ const etapeCreer = async (
       throw new Error('droits insuffisants')
     }
 
-    const isSuper = permissionsCheck(user, ['super'])
+    const demarche = await titreDemarcheGet(
+      etape.titreDemarcheId,
+      {},
+      user && user.id
+    )
 
-    if (!isSuper) {
-      const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
-        graph: undefined
-      })
+    if (!demarche) throw new Error("la démarche n'existe pas")
 
-      if (!demarche) throw new Error("la démarche n'existe pas")
+    const titre = await titreGet(
+      demarche.titreId,
+      {
+        fields: {
+          administrationsGestionnaires: { id: {} },
+          administrationsLocales: { id: {} }
+        }
+      },
+      user.id
+    )
 
-      const titre = await titreGet(demarche.titreId, {
-        graph: '[administrationsGestionnaires, administrationsLocales]'
-      })
+    if (!titre) throw new Error("le titre n'existe pas")
 
-      if (!titre) throw new Error("le titre n'existe pas")
-
-      if (
-        !titreEtapePermissionAdministrationsCheck(
-          user,
-          titre.typeId,
-          titre.statutId!,
-          etape.typeId,
-          'creation'
-        )
-      ) {
-        throw new Error('droits insuffisants pour créer cette étape')
-      }
+    if (
+      !titreEtapePermissionAdministrationsCheck(
+        user,
+        titre.typeId,
+        titre.statutId!,
+        etape.typeId,
+        'creation'
+      )
+    ) {
+      throw new Error('droits insuffisants pour créer cette étape')
     }
 
-    const rulesErrors = await titreEtapeUpdationValidate(etape)
+    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -212,10 +211,13 @@ const etapeCreer = async (
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
-    const titreUpdated = await titreEtapeUpdateTask(
+    const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
       etapeUpdated.titreDemarcheId
     )
+
+    const fields = fieldsBuild(info)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
     return titreFormat(user, titreUpdated)
   } catch (e) {
@@ -229,7 +231,8 @@ const etapeCreer = async (
 
 const etapeModifier = async (
   { etape }: { etape: ITitreEtape },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
@@ -238,32 +241,39 @@ const etapeModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    if (!permissionsCheck(user, ['super'])) {
-      const demarche = await titreDemarcheGet(etape.titreDemarcheId, {
-        graph: undefined
-      })
+    const demarche = await titreDemarcheGet(
+      etape.titreDemarcheId,
+      {},
+      user && user.id
+    )
 
-      if (!demarche) throw new Error("la démarche n'existe pas")
+    if (!demarche) throw new Error("la démarche n'existe pas")
 
-      const titre = await titreGet(demarche.titreId, {
-        graph: '[administrationsGestionnaires, administrationsLocales]'
-      })
-      if (!titre) throw new Error("le titre n'existe pas")
+    const titre = await titreGet(
+      demarche.titreId,
+      {
+        fields: {
+          administrationsGestionnaires: { id: {} },
+          administrationsLocales: { id: {} }
+        }
+      },
+      user.id
+    )
+    if (!titre) throw new Error("le titre n'existe pas")
 
-      if (
-        !titreEtapePermissionAdministrationsCheck(
-          user,
-          titre.typeId,
-          titre.statutId!,
-          etape.typeId,
-          'modification'
-        )
-      ) {
-        throw new Error('droits insuffisants pour modifier cette étape')
-      }
+    if (
+      !titreEtapePermissionAdministrationsCheck(
+        user,
+        titre.typeId,
+        titre.statutId!,
+        etape.typeId,
+        'modification'
+      )
+    ) {
+      throw new Error('droits insuffisants pour modifier cette étape')
     }
 
-    const rulesErrors = await titreEtapeUpdationValidate(etape)
+    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -274,10 +284,13 @@ const etapeModifier = async (
 
     const etapeUpdated = await titreEtapeUpsert(etape)
 
-    const titreUpdated = await titreEtapeUpdateTask(
+    const titreUpdatedId = await titreEtapeUpdateTask(
       etapeUpdated.id,
       etapeUpdated.titreDemarcheId
     )
+
+    const fields = fieldsBuild(info)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
     return titreFormat(user, titreUpdated)
   } catch (e) {
@@ -289,7 +302,11 @@ const etapeModifier = async (
   }
 }
 
-const etapeSupprimer = async ({ id }: { id: string }, context: IToken) => {
+const etapeSupprimer = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
@@ -302,10 +319,14 @@ const etapeSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
     await titreEtapeDelete(id)
 
-    const titreUpdated = await titreEtapeUpdateTask(
+    const titreUpdatedId = await titreEtapeUpdateTask(
       null,
       etapeOld.titreDemarcheId
     )
+
+    const fields = fieldsBuild(info)
+
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
     return titreFormat(user, titreUpdated)
   } catch (e) {

@@ -13,10 +13,6 @@ interface IColonne {
   relation?: string
 }
 
-interface IColonnes {
-  [key: string]: IColonne
-}
-
 type ITitreColonneInput = 'nom' | 'domaine' | 'type' | 'statut'
 
 type ITitreDemarcheColonneInput =
@@ -794,7 +790,6 @@ export {
   ITitreColonneInput,
   ITitreDemarcheColonneInput,
   IColonne,
-  IColonnes,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,
   ITitreCondition

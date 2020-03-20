@@ -2,10 +2,19 @@ import {
   ITitre,
   ITitreAdministrationsGestionnaire,
   ITitreColonneInput,
-  IColonnes
+  IColonne,
+  Index,
+  IFields
 } from '../../types'
-import { transaction, Transaction } from 'objection'
+import { transaction, Transaction, QueryBuilder } from 'objection'
+import knex from '../index'
+
 import Titres from '../models/titres'
+
+import graphBuild from './graph/build'
+import graphFormat from './graph/format'
+import { titresFieldsAdd } from './graph/fields-add'
+
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
 // import * as sqlFormatter from 'sql-formatter'
@@ -15,6 +24,75 @@ const stringSplit = (string: string) =>
     e.replace(/^"(.*)"$/, '$1')
   )
 
+const titrePermissionQueryBuild = (
+  q: QueryBuilder<Titres, Titres | Titres[]>,
+  userId = ''
+) => {
+  if (userId === 'super') {
+    return q
+  }
+
+  q.select('titres.*')
+
+  if (userId) {
+    // isSuper
+    q.leftJoin('utilisateurs AS us', b => {
+      b.on('us.permissionId', '=', knex.raw('?', 'super'))
+      b.on('us.id', '=', knex.raw('?', userId))
+    })
+    q.select('us.id as isSuper')
+    q.groupBy('isSuper')
+
+    // titulaires et amodiataires
+    q.leftJoinRelated('[titulaires.utilisateurs, amodiataires.utilisateurs]')
+
+    // isAdmin
+    q.leftJoin('utilisateurs AS ua', b => {
+      b.onIn('ua.permissionId', ['admin', 'editeur', 'lecteur'])
+      b.on('ua.id', '=', knex.raw('?', userId))
+    })
+    q.select('ua.id as isAdmin')
+    q.groupBy('isAdmin')
+
+    // administrations gestionnaires et locales
+    q.leftJoinRelated(
+      '[administrationsGestionnaires.utilisateurs, administrationsLocales.utilisateurs]'
+    )
+  }
+
+  q.leftJoinRelated('[type.autorisationsTitresStatuts, domaine.autorisation]')
+
+  q.andWhere(b => {
+    if (userId) {
+      b.orWhereNotNull('us.id')
+      b.orWhereNotNull('ua.id')
+
+      b.orWhereRaw('?? = ?', ['titulaires:utilisateurs.id', userId])
+        .orWhereRaw('?? = ?', ['amodiataires:utilisateurs.id', userId])
+        .orWhereRaw('?? = ?', [
+          'administrationsGestionnaires:utilisateurs.id',
+          userId
+        ])
+        .orWhereRaw('?? = ?', [
+          'administrationsLocales:utilisateurs.id',
+          userId
+        ])
+    }
+
+    b.whereRaw('?? = ?', ['domaine:autorisation.publicLecture', true])
+      .whereRaw('?? = ??', [
+        'type:autorisationsTitresStatuts.titreStatutId',
+        'titres.statutId'
+      ])
+      .whereRaw('?? = ?', [
+        'type:autorisationsTitresStatuts.publicLecture',
+        true
+      ])
+  })
+
+  return q
+}
+
 const titresColonnes = {
   nom: { id: 'nom' },
   domaine: { id: 'domaineId' },
@@ -22,12 +100,27 @@ const titresColonnes = {
   statut: { id: 'statutId' },
   substances: { id: 'substances.nom', relation: 'substances' },
   titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
-} as IColonnes
+} as Index<IColonne>
 
-const titreGet = async (id: string, { graph = options.titres.graph } = {}) =>
-  Titres.query()
+const titreGet = async (
+  id: string,
+  { fields = {} }: { fields?: IFields },
+  userId?: string
+) => {
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
+    : options.titres.graph
+
+  const q = Titres.query()
     .findById(id)
     .withGraphFetched(graph)
+
+  titrePermissionQueryBuild(q, userId)
+
+  q.groupBy('titres.id')
+
+  return q
+}
 
 const titresGet = async (
   {
@@ -59,11 +152,20 @@ const titresGet = async (
     references?: string | null
     territoires?: string | null
   } = {},
-  { graph = options.titres.graph } = {}
+  { fields }: { fields?: IFields },
+  userId?: string
 ) => {
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
+    : options.titres.graph
+
   const q = Titres.query()
     .skipUndefined()
     .withGraphFetched(graph)
+
+  titrePermissionQueryBuild(q, userId)
+
+  q.groupBy('titres.id')
 
   if (colonne) {
     if (titresColonnes[colonne].relation) {
@@ -115,14 +217,15 @@ const titresGet = async (
     const referencesArray = stringSplit(references)
     const fields = ['references.nom', 'references:type.nom']
 
-    q.where(b => {
-      referencesArray.forEach(s => {
-        fields.forEach(f => {
-          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+    q.joinRelated('references.type')
+      .where(b => {
+        referencesArray.forEach(s => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
         })
       })
-    })
-      .joinRelated('references.type')
+
       .groupBy('titres.id')
       .havingRaw(
         `(${referencesArray
@@ -148,14 +251,15 @@ const titresGet = async (
       'substances:legales.id'
     ]
 
-    q.where(b => {
-      substancesArray.forEach(s => {
-        fields.forEach(f => {
-          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+    q.joinRelated('substances.legales')
+      .where(b => {
+        substancesArray.forEach(s => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
         })
       })
-    })
-      .joinRelated('substances.legales')
+
       .groupBy('titres.id')
       .havingRaw(
         `(${substancesArray
@@ -183,16 +287,16 @@ const titresGet = async (
       'amodiataires.id'
     ]
 
-    q.where(b => {
-      entreprisesArray.forEach(s => {
-        fields.forEach(f => {
-          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+    q.leftJoinRelated(
+      '[titulaires.etablissements, amodiataires.etablissements]'
+    )
+      .where(b => {
+        entreprisesArray.forEach(s => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
         })
       })
-    })
-      .leftJoinRelated(
-        '[titulaires.etablissements, amodiataires.etablissements]'
-      )
       .groupBy('titres.id')
       .havingRaw(
         `(${entreprisesArray
@@ -224,18 +328,19 @@ const titresGet = async (
       'communes.id'
     ]
 
-    q.where(b => {
-      territoiresArray.forEach(t => {
-        fieldsLike.forEach(f => {
-          b.orWhereRaw(`lower(??) like ?`, [f, `%${t.toLowerCase()}%`])
-        })
+    q.joinRelated('communes.departement.region')
+      .where(b => {
+        territoiresArray.forEach(t => {
+          fieldsLike.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${t.toLowerCase()}%`])
+          })
 
-        fieldsExact.forEach(f => {
-          b.orWhereRaw(`?? = ?`, [f, t])
+          fieldsExact.forEach(f => {
+            b.orWhereRaw(`?? = ?`, [f, t])
+          })
         })
       })
-    })
-      .joinRelated('communes.departement.region')
+
       .groupBy('titres.id')
       .havingRaw(
         `(${territoiresArray

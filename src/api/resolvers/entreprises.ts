@@ -9,9 +9,9 @@ import {
 } from '../../database/queries/entreprises'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import fieldsBuild from './_fields-build'
+import graphBuild from '../../database/queries/graph/build'
+import graphFormat from '../../database/queries/graph/format'
 
 import { entrepriseFormat, entreprisesFormat } from './format/entreprises'
 
@@ -28,7 +28,7 @@ const entreprise = async (
   try {
     const user = context.user && (await utilisateurGet(context.user.id))
 
-    const graph = graphBuild(graphFieldsBuild(info), 'entreprise', graphFormat)
+    const graph = graphBuild(fieldsBuild(info), 'entreprise', graphFormat)
     const entreprise = await entrepriseGet(id, { graph })
 
     if (!entreprise) {
@@ -55,7 +55,7 @@ const entreprises = async (
     const entreprises = await entreprisesGet(
       { noms },
       {
-        graph: graphBuild(graphFieldsBuild(info), 'entreprise', graphFormat)
+        graph: graphBuild(fieldsBuild(info), 'entreprise', graphFormat)
       }
     )
 

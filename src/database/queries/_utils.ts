@@ -1,6 +1,7 @@
-import { IFields } from '../../../types'
-
 // ajoute les champs nécessaire pour requêter le sous-objet titre
+
+import { IFields } from '../../types'
+
 // pour vérifier si l'utilisateur a les droits sur les titres
 const fieldTitreAdd = (fields: IFields) => {
   if (!fields.titre) {
@@ -33,25 +34,4 @@ const fieldTitreAdd = (fields: IFields) => {
   return fields
 }
 
-// ajoute les démarches et les étapes sur une requête de titre
-// pour calculer ses sections en fonction des sections des étapes
-const titresFieldsAdd = (fields: IFields) => {
-  if (fields.type && fields.type.sections) {
-    if (!fields.demarches) {
-      fields.demarches = { id: {} }
-    }
-
-    if (!fields.demarches.etapes) {
-      fields.demarches.etapes = { id: {} }
-    }
-
-    // permet d'avoir accès aux sections des étapes
-    if (!fields.demarches.etapes.type) {
-      fields.demarches.etapes.type = { id: {} }
-    }
-  }
-
-  return fields
-}
-
-export { fieldTitreAdd, titresFieldsAdd }
+export { fieldTitreAdd }

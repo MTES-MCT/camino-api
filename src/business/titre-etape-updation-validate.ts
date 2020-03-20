@@ -1,28 +1,19 @@
-import { ITitreEtape } from '../types'
-
-import { titreGet } from '../database/queries/titres'
-import { titreDemarcheGet } from '../database/queries/titres-demarches'
+import { ITitreEtape, ITitreDemarche, ITitre } from '../types'
 import titreEtapeTypeAndStatusValidate from './utils/titre-etape-type-and-status-validate'
 import titreEtapeDateValidate from './utils/titre-etape-date-validate'
 import titreEtapePointsValidate from './utils/titre-etape-points-validate'
 import titreEtapeNumbersValidate from './utils/titre-etape-numbers-validate'
 
-const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
-  const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
-
-  const titre = await titreGet(titreDemarche.titreId)
-
+const titreEtapeUpdationValidate = async (
+  titreEtape: ITitreEtape,
+  titreDemarche: ITitreDemarche,
+  titre: ITitre
+) => {
   const errors = []
-
-  if (!titre) {
-    errors.push('le titre n\'exite pas')
-    return errors
-  }
 
   // 1. le type d'étape correspond à la démarche et au type de titre
 
   const error = titreEtapeTypeAndStatusValidate(titreEtape, titreDemarche)
-
   if (error) {
     errors.push(error)
   }
@@ -55,7 +46,6 @@ const titreEtapeUpdationValidate = async (titreEtape: ITitreEtape) => {
       titreEtape,
       etapeType.sections
     )
-
     if (errorNumbers) {
       errors.push(errorNumbers)
     }

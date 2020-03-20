@@ -15,12 +15,10 @@ import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 const titreDemarcheUpdate = async (titreId: string) => {
   try {
     let titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc)]'
+      fields: { demarches: { etapes: { id: {} } } }
     })
     if (!titre) {
-      console.log(`warning: le titre ${titreId} n'existe plus`)
-
-      return null
+      throw new Error(`warning: le titre ${titreId} n'existe plus`)
     }
 
     // 3.
@@ -33,14 +31,14 @@ const titreDemarcheUpdate = async (titreId: string) => {
     // 4.
     console.log('statut des titres…')
     titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
+      fields: { demarches: { etapes: { points: { id: {} } } } }
     })
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
     console.log('phases des titres…')
     titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]'
+      fields: { demarches: { etapes: { points: { id: {} } } } }
     })
     const [
       titresPhasesUpdated = [],
@@ -50,23 +48,37 @@ const titreDemarcheUpdate = async (titreId: string) => {
     // 6.
     console.log('date de début, de fin et de demande initiale des titres…')
     titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
+      fields: { demarches: { etapes: { points: { id: {} } } } }
     })
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 11.
     console.log('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(titreId, {
-      graph:
-        'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
+      fields: {
+        demarches: {
+          etapes: {
+            points: { id: {} },
+            titulaires: { id: {} },
+            amodiataires: { id: {} },
+            administrations: { id: {} },
+            substances: { id: {} },
+            communes: { id: {} }
+          }
+        }
+      }
     })
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
     console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
-    titre = await titreGet(titreId, {
-      graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { id: {} } } }
+      },
+      'super'
+    )
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
 
     // 13.
@@ -74,7 +86,11 @@ const titreDemarcheUpdate = async (titreId: string) => {
     console.log()
     console.log('activités des titres…')
 
-    titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
+    titre = await titreGet(
+      titreId,
+      { fields: { demarches: { phase: { id: {} } } } },
+      'super'
+    )
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
@@ -83,7 +99,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
 
     // 14.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId)
+    titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
@@ -118,7 +134,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     }
 
     // on retourne le titre bien formaté
-    return titreGet(titreId)
+    return titreId
   } catch (e) {
     console.error(`erreur: titreDemarcheUpdate ${titreId}`)
     console.error(e)

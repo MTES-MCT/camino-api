@@ -19,7 +19,7 @@ import {
   titreDemarchePermissionAdministrationsCheck,
   titreEtapePermissionAdministrationsCheck
 } from '../permissions/titre-edition'
-import { titreIsPublicCheck, titrePermissionCheck } from '../permissions/titre'
+import { titrePermissionCheck } from '../permissions/titre'
 
 const titreDemarcheFormatFields = {
   etapes: titreEtapeFormatFields,
@@ -75,11 +75,7 @@ const titreDemarcheFormat = (
   titreDemarche: ITitreDemarche,
   titreTypeId: string,
   titreStatutId: string,
-  {
-    userHasPermission,
-    isSuper,
-    isAdmin
-  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
+  { isSuper, isAdmin }: { isSuper: boolean; isAdmin: boolean },
   fields: IFields = titreDemarcheFormatFields
 ) => {
   // visibilité des démarches non publiques
@@ -101,6 +97,12 @@ const titreDemarcheFormat = (
 
   if (!fields) return titreDemarche
 
+  const userHasPermission = titrePermissionCheck(
+    user,
+    ['super', 'admin', 'editeur', 'lecteur'],
+    titreDemarche.titre!
+  )
+
   titreDemarche.editable =
     isSuper ||
     titreDemarchePermissionAdministrationsCheck(
@@ -115,7 +117,9 @@ const titreDemarcheFormat = (
   )
 
   if (!demarcheType) {
-    throw new Error(`${titreDemarche.type!.nom} inexistant pour un titre ${titreTypeId}`)
+    throw new Error(
+      `${titreDemarche.type!.nom} inexistant pour un titre ${titreTypeId}`
+    )
   }
 
   // si au moins un type d'étape est éditable pour le type de démarche
@@ -194,31 +198,20 @@ const titresDemarchesFormat = (
     (titresDemarches: ITitreDemarche[], titreDemarche) => {
       if (!titreDemarche.titre) return titresDemarches
 
-      const titreIsPublic = titreIsPublicCheck(titreDemarche.titre)
-
-      const userHasPermission = titrePermissionCheck(
+      const titreDemarcheFormated = titreDemarcheFormat(
         user,
-        ['super', 'admin', 'editeur', 'lecteur'],
-        titreDemarche.titre
+        titreDemarche,
+        titreDemarche.titre.typeId,
+        titreDemarche.titre.statutId!,
+        {
+          isSuper,
+          isAdmin
+        },
+        fields
       )
 
-      if (titreIsPublic || userHasPermission) {
-        const titreDemarcheFormated = titreDemarcheFormat(
-          user,
-          titreDemarche,
-          titreDemarche.titre.typeId,
-          titreDemarche.titre.statutId!,
-          {
-            userHasPermission,
-            isSuper,
-            isAdmin
-          },
-          fields
-        )
-
-        if (titreDemarcheFormated) {
-          titresDemarches.push(titreDemarcheFormated)
-        }
+      if (titreDemarcheFormated) {
+        titresDemarches.push(titreDemarcheFormated)
       }
 
       return titresDemarches

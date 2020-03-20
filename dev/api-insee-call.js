@@ -1,9 +1,9 @@
 import 'dotenv/config'
 
 import '../../src/database/index'
-import fileCreate from '../file-create'
+import fileCreate from '../src/tools/file-create'
 
-import { inseeSirenGet, inseeSiretGet } from '../api-insee'
+import { inseeSirenGet, inseeSiretGet } from '../src/tools/api-insee'
 
 const siret1 = '57219916400045'
 const siret2 = '48486050700017'

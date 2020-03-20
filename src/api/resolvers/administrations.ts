@@ -7,9 +7,9 @@ import {
 } from '../../database/queries/administrations'
 import { utilisateurGet } from '../../database/queries/utilisateurs'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import fieldsBuild from './_fields-build'
+import graphBuild from '../../database/queries/graph/build'
+import graphFormat from '../../database/queries/graph/format'
 import {
   administrationFormat,
   administrationsFormat
@@ -24,7 +24,7 @@ const administration = async (
     const user = context.user && (await utilisateurGet(context.user.id))
 
     const administration = await administrationGet(id, {
-      graph: graphBuild(graphFieldsBuild(info), 'administration', graphFormat)
+      graph: graphBuild(fieldsBuild(info), 'administration', graphFormat)
     })
 
     return administrationFormat(user, administration)
@@ -48,7 +48,7 @@ const administrations = async (
     const administrations = await administrationsGet(
       { noms },
       {
-        graph: graphBuild(graphFieldsBuild(info), 'administration', graphFormat)
+        graph: graphBuild(fieldsBuild(info), 'administration', graphFormat)
       }
     )
 

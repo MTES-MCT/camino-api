@@ -28,13 +28,17 @@ const titresIdsFilter = process.env.GOOGLE_EXPORT_TITRES_IDS
 //   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_SUBSTANCES
 
 const get = async (domaineId: string) => {
-  const titres = await titresGet({
-    typesIds: undefined,
-    domainesIds: [domaineId],
-    statutsIds: undefined,
-    substances: undefined,
-    noms: undefined
-  })
+  const titres = await titresGet(
+    {
+      typesIds: undefined,
+      domainesIds: [domaineId],
+      statutsIds: undefined,
+      substances: undefined,
+      noms: undefined
+    },
+    {},
+    'super'
+  )
 
   return titresIdsFilter.length > 0
     ? titres.filter(t => titresIdsFilter.includes(t.id))

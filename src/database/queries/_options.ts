@@ -177,11 +177,11 @@ const titresActivites = {
 }
 
 const titresTypes = {
-  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type]`
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
 }
 
 const domaines = {
-  graph: `[titresTypes(orderAsc).${titresTypes.graph}]`
+  graph: `[titresTypes(orderAsc).${titresTypes.graph}, autorisation]`
 }
 
 const titresRelateTrue = [

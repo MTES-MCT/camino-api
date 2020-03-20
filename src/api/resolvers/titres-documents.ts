@@ -20,6 +20,8 @@ import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 import titreDocumentUpdationValidate from '../../business/titre-document-updation-validate'
 import { ITitreDocument, IToken } from '../../types'
+import { GraphQLResolveInfo } from 'graphql'
+import fieldsBuild from './_fields-build'
 
 const documentValidate = (document: ITitreDocument) => {
   const errors = []
@@ -37,9 +39,11 @@ const documentValidate = (document: ITitreDocument) => {
 
 const documentCreer = async (
   { document }: { document: ITitreDocument },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
+    const fields = fieldsBuild(info)
     const user = context.user && (await utilisateurGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
@@ -76,8 +80,11 @@ const documentCreer = async (
 
     const documentUpdated = await titreDocumentCreate(document)
 
+    // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
-      documentUpdated.titreEtapeId.slice(0, -12)
+      documentUpdated.titreEtapeId.slice(0, -12),
+      { fields },
+      user.id
     )
 
     return titreFormat(user, titreUpdated)
@@ -92,9 +99,11 @@ const documentCreer = async (
 
 const documentModifier = async (
   { document }: { document: ITitreDocument },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
+    const fields = fieldsBuild(info)
     const user = context.user && (await utilisateurGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
@@ -147,8 +156,11 @@ const documentModifier = async (
 
     const documentUpdated = await titreDocumentUpdate(document.id, document)
 
+    // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
-      documentUpdated.titreEtapeId.slice(0, -12)
+      documentUpdated.titreEtapeId.slice(0, -12),
+      { fields },
+      user.id
     )
 
     return titreFormat(user, titreUpdated)
@@ -161,8 +173,13 @@ const documentModifier = async (
   }
 }
 
-const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
+const documentSupprimer = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
+    const fields = fieldsBuild(info)
     const user = context.user && (await utilisateurGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
@@ -192,7 +209,12 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
     await titreDocumentDelete(id)
 
-    const titreUpdated = await titreGet(documentOld.titreEtapeId.slice(0, -12))
+    // todo: récupérer le titre autrement qu'en SLICANT l'id
+    const titreUpdated = await titreGet(
+      documentOld.titreEtapeId.slice(0, -12),
+      { fields },
+      user.id
+    )
 
     return titreFormat(user, titreUpdated)
   } catch (e) {

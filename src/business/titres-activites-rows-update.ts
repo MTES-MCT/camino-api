@@ -18,7 +18,11 @@ const titreActivitesRowsUpdate = async (
   // vérifie si le titre a changé d'id
   if (titreUpdatedIndex) {
     const titreId = Object.keys(titreUpdatedIndex)[0]
-    const titre = await titreGet(titreId)
+    const titre = await titreGet(
+      titreId,
+      { fields: { activites: { id: {} } } },
+      'super'
+    )
 
     // si le titre existe
     // - et qu'il a changé d'id
@@ -61,7 +65,11 @@ const titresActivitesRowsUpdate = async (
 
   // si des titres ont changé d'id
   if (ids.length) {
-    const titres = await titresGet({ ids })
+    const titres = await titresGet(
+      { ids },
+      { fields: { activites: { id: {} } } },
+      'super'
+    )
 
     // compile la liste des activités dont le titre a changé d'id
     // à mettre à jour dans les spreadsheets

@@ -27,9 +27,16 @@ const titreEtapeUpdate = async (
   try {
     // 1.
     console.log('ordre des étapes…')
-    let titreDemarche = await titreDemarcheGet(titreDemarcheId, {
-      graph: '[etapes, type.[etapesTypes]]'
-    })
+    let titreDemarche = await titreDemarcheGet(
+      titreDemarcheId,
+      {
+        fields: {
+          etapes: { id: {} },
+          type: { etapesTypes: { id: {} } }
+        }
+      },
+      'super'
+    )
 
     if (!titreDemarche) {
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
@@ -41,38 +48,54 @@ const titreEtapeUpdate = async (
 
     // 2.
     console.log('statut des démarches…')
-    titreDemarche = await titreDemarcheGet(titreDemarcheId, {
-      graph: 'etapes'
-    })
+    titreDemarche = await titreDemarcheGet(
+      titreDemarcheId,
+      { fields: { etapes: { id: {} } } },
+      'super'
+    )
     let { titreId } = titreDemarche
-    let titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc)]'
-    })
+    let titre = await titreGet(
+      titreId,
+      { fields: { demarches: { etapes: { id: {} } } } },
+      'super'
+    )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
       titre
     ])
 
     // 3.
     console.log('ordre des démarches…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc)]'
-    })
+    titre = await titreGet(
+      titreId,
+      { fields: { demarches: { etapes: { points: { id: {} } } } } },
+      'super'
+    )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
       titre
     ])
 
     // 4.
     console.log('statut des titres…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { id: {} } } }
+      },
+      'super'
+    )
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
     console.log('phases des titres…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]'
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
+    )
     const [
       titresPhasesUpdated = [],
       titresPhasesDeleted = []
@@ -80,9 +103,13 @@ const titreEtapeUpdate = async (
 
     // 6.
     console.log('date de début, de fin et de demande initiale des titres…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { points: { id: {} } } } }
+      },
+      'super'
+    )
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 8.
@@ -105,10 +132,20 @@ const titreEtapeUpdate = async (
     // 10.
     console.log('administrations locales associées aux étapes…')
     let administrations = await administrationsGet()
-    titre = await titreGet(titreId, {
-      graph:
-        'demarches(orderDesc).etapes(orderDesc).[administrations,communes.[departement]]'
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              administrations: { id: {} },
+              communes: { departements: { id: {} } }
+            }
+          }
+        }
+      },
+      'super'
+    )
     administrations = await administrationsGet()
     const [
       titresEtapesAdministrationsLocalesCreated = [],
@@ -117,23 +154,43 @@ const titreEtapeUpdate = async (
 
     // 11.
     console.log('propriétés des titres (liens vers les étapes)…')
-    titre = await titreGet(titreId, {
-      graph:
-        'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              points: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              administrations: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} }
+            }
+          }
+        }
+      },
+      'super'
+    )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
     console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
-    titre = await titreGet(titreId, {
-      graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
-    })
+    titre = await titreGet(
+      titreId,
+      { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
+      'super'
+    )
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
 
     // 13.
     console.log()
     console.log('activités des titres…')
-    titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
+    titre = await titreGet(
+      titreId,
+      { fields: { demarches: { phase: { id: {} } } } },
+      'super'
+    )
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
@@ -195,8 +252,8 @@ const titreEtapeUpdate = async (
       await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
     }
 
-    // on récupère le titre bien formaté
-    return titreGet(titreId)
+    // on récupère le titre
+    return titreId
   } catch (e) {
     console.error(`erreur: titreEtapeUpdate ${titreEtapeId}`)
     console.error(e)
