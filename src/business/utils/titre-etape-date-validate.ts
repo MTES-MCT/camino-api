@@ -108,8 +108,8 @@ const impossibleApresFind = (
   titreEtapeType: IEtapeType,
   titreEtapeDate: string,
   impossibleApres: ITitreEtapeCondition[]
-) => {
-  const errors = impossibleApres.reduce(
+) =>
+  impossibleApres.reduce(
     (errors: string[], impossibleApresUne) => {
       const impossibleApresUneEtapeKeys = Object.keys(impossibleApresUne)
 
@@ -147,8 +147,6 @@ const impossibleApresFind = (
     []
   )
 
-  return errors.length === impossibleApres.length ? errors : []
-}
 
 const obligatoireApresFind = (
   titreDemarche: ITitreDemarche,
