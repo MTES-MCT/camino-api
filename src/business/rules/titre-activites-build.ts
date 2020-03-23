@@ -24,9 +24,11 @@ const titreActiviteBuild = (
     'yyyy-mm-dd'
   )
 
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+
   // si la date de fin de l'activité n'est pas passée
   // on ne crée pas l'activité
-  if (periodeDateFin > dateFormat(new Date(), 'yyyy-mm-dd')) return null
+  if (periodeDateFin > aujourdhui) return null
 
   // si le statut du titre n'est pas "modification en instance"
   // - vérifie les dates de validité

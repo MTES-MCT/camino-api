@@ -1,6 +1,9 @@
 // retourne l'id de la dernière étape acceptée
 // de la dernière démarche acceptée
 // pour laquelle la propriété existe
+
+import * as dateFormat from 'dateformat'
+
 import { ITitreDemarche, ITitreEtape, TitreEtapeProp } from '../../types'
 import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
@@ -11,9 +14,11 @@ const etapeAmodiataireFind = (
 ) => {
   const { dateFin } = titreEtape
 
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+
   // si la date de fin de l'étape est passée
   // l'amodiataire n'est plus valide
-  if (dateFin && new Date(dateFin) < new Date()) return false
+  if (dateFin && dateFin < aujourdhui) return false
 
   // sinon, si le titre a le statut modification en instance
   // l'amodiataire est encore valide (survie provisoire)

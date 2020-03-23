@@ -71,7 +71,7 @@ const titresUnePhaseMiseAJour = [
         phase: {
           titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
           dateFin: '2500-01-01',
-          dateDebut: new Date('2300-01-01'),
+          dateDebut: '2300-01-01',
           statutId: 'val'
         },
         etapes: [

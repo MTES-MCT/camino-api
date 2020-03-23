@@ -35,13 +35,15 @@ const titrePhasesFind = (
       // dateFin et dateDebut ne seront jamais `null`
       // car les démarches sont pré-filtrées
 
+      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+
       // si
       // - la date du jour est plus récente que la date de fin
       // le statut est valide
       // sinon,
       // - le statut est échu
       const statutId =
-        dateFormat(new Date(), 'yyyy-mm-dd') > dateFin ? 'ech' : 'val'
+        dateFin < aujourdhui ? 'ech' : 'val'
 
       titrePhases.push({
         titreDemarcheId: titreDemarche.id,
