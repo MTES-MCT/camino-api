@@ -33,7 +33,7 @@ const tables = [
     name: 'entreprises_etablissements',
     columns: [
       'id',
-      { id: 'entrepriseId', parentKey: 'parent.id' },
+      { id: 'entrepriseId', parentKey: 'id' },
       'nom',
       'legalSiret',
       'dateDebut',
