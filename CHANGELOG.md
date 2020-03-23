@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.25](https://github.com/MTES-MCT/camino-api/compare/v0.24.24...v0.24.25) (2020-03-23)
+
+
+### Bug Fixes
+
+* **database:** utilise le format 'text' de PostgreSQL pour les champs 'description' ([72f42cc](https://github.com/MTES-MCT/camino-api/commit/72f42ccbb80a41536898b6710d82ecac109ec5e6))
+
 ### [0.24.24](https://github.com/MTES-MCT/camino-api/compare/v0.24.23...v0.24.24) (2020-03-23)
 
 
