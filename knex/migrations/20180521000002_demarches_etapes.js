@@ -3,7 +3,7 @@ exports.up = knex => {
     .createTable('demarchesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
-      table.string('description')
+      table.text('description')
       table.integer('ordre')
       table.boolean('duree')
       table.boolean('points')
@@ -37,7 +37,7 @@ exports.up = knex => {
     .createTable('demarchesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
-      table.string('description')
+      table.text('description')
       table.string('couleur', 16).notNullable()
       table.integer('ordre').notNullable()
     })
@@ -49,7 +49,7 @@ exports.up = knex => {
     .createTable('etapesTypes', table => {
       table.string('id', 3).primary()
       table.string('nom', 128)
-      table.string('description')
+      table.text('description')
       table.integer('ordre')
       table.boolean('fondamentale')
       table.boolean('unique')
@@ -83,7 +83,7 @@ exports.up = knex => {
     .createTable('etapesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom', 32).notNullable()
-      table.string('description')
+      table.text('description')
       table.string('couleur', 16).notNullable()
     })
     .createTable('etapesTypes__etapesStatuts', table => {

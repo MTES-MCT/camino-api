@@ -3,7 +3,7 @@ exports.up = knex => {
     .createTable('substancesLegalesCodes', table => {
       table.string('id').primary()
       table.string('nom').notNullable()
-      table.string('description')
+      table.text('description')
       table.string('lien').notNullable()
     })
     .createTable('substancesLegales', table => {
@@ -13,7 +13,7 @@ exports.up = knex => {
         .string('domaineId', 1)
         .notNullable()
         .references('domaines.id')
-      table.string('description')
+      table.text('description')
       table
         .string('substanceLegaleCodeId')
         .references('substancesLegalesCodes.id')

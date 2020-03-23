@@ -13,7 +13,7 @@ exports.up = knex => {
       table.integer('contour').notNullable()
       table.integer('point').notNullable()
       table.string('nom')
-      table.string('description', 1023)
+      table.text('description')
       table.boolean('securite')
       table.boolean('subsidiaire')
       table.integer('lot')
