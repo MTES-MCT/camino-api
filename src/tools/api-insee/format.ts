@@ -17,171 +17,14 @@ interface IApiSirenNomFormat
   extends IApiSirenUnionUniteLegalePeriodeEtablissmentUnite,
     IApiSirenUnionUniteLegaleEtablissmentUnite {}
 
-const nomFormat = (
-  {
-    denominationUniteLegale,
-    denominationUsuelle1UniteLegale,
-    nomUniteLegale,
-    prenomUsuelUniteLegale,
-    sexeUniteLegale,
-    sigleUniteLegale
-  }: Partial<IApiSirenNomFormat>,
-  usuel?: boolean
+const nomIndividuFormat = (
+  nomUniteLegale: string,
+  prenomUsuelUniteLegale?: string | null,
+  sexeUniteLegale?: 'F' | 'M' | null
 ) =>
-  nomUniteLegale && sexeUniteLegale && prenomUsuelUniteLegale && !usuel
-    ? nomIndividuFormat(sexeUniteLegale, prenomUsuelUniteLegale, nomUniteLegale)
-    : nomEntrepriseFormat(
-        denominationUniteLegale,
-        denominationUsuelle1UniteLegale,
-        sigleUniteLegale
-      )
-// TODO: peut-on supprimer cette ligne ?
-// sinon, il faut tester si les arguments sont définis dans la fonction
-// || nomIndividuFormat(sexeUniteLegale, prenomUsuelUniteLegale, nomUniteLegale)
-
-const entrepriseEtablissementFormat = (
-  entreprise: IApiSirenUniteLegale,
-  uniteLegalePeriode: IApiSirenUniteLegalePeriode
-) => {
-  const entrepriseId = `fr-${entreprise.siren}`
-  const nic = uniteLegalePeriode.nicSiegeUniteLegale || 'xxxxx'
-  const dateDebut = dateFormat(uniteLegalePeriode.dateDebut, 'yyyy-mm-dd')
-  const nom = nomFormat(Object.assign({}, entreprise, uniteLegalePeriode))
-  const legalSiret = `${entreprise.siren}${nic}`
-  const etablissement = {
-    id: `${entrepriseId}-${nic}-${dateDebut}`,
-    entrepriseId,
-    nom,
-    dateDebut,
-    legalSiret
-  } as IEntrepriseEtablissement
-
-  if (uniteLegalePeriode.dateFin) {
-    etablissement.dateFin = dateFormat(uniteLegalePeriode.dateFin, 'yyyy-mm-dd')
-  }
-
-  return etablissement
-}
-
-const entrepriseEtablissementsFormat = (entreprise: IApiSirenUniteLegale) => {
-  // periodesUniteLegale est un tableau
-  // classé par ordre de fin chronologique décroissant
-  if (
-    !entreprise.periodesUniteLegale ||
-    !entreprise.periodesUniteLegale.length
-  ) {
-    return []
-  }
-
-  const entrepriseEtablissements = entreprise.periodesUniteLegale.map(
-    uniteLegalePeriode =>
-      entrepriseEtablissementFormat(entreprise, uniteLegalePeriode)
-  )
-
-  return entrepriseEtablissements
-}
-
-const entrepriseFormat = (e: IApiSirenEtablissement) => {
-  const { uniteLegale: unite, adresseEtablissement: adresse } = e
-
-  const id = `fr-${e.siren}`
-
-  const entreprise = {
-    id,
-    legalSiren: e.siren
-  } as IEntreprise
-
-  const nom = nomFormat(Object.assign({}, e, unite), true)
-  if (nom) {
-    entreprise.nom = nom
-  }
-
-  if (unite.categorieEntreprise) {
-    entreprise.categorie = unite.categorieEntreprise
-  }
-
-  if (adresse.codeCedexEtablissement) {
-    entreprise.cedex = adresse.codeCedexEtablissement
-  }
-
-  entreprise.adresse = ''
-
-  if (adresse.numeroVoieEtablissement) {
-    entreprise.adresse += `${adresse.numeroVoieEtablissement} `
-  }
-
-  if (adresse.indiceRepetitionEtablissement) {
-    entreprise.adresse += `${adresse.indiceRepetitionEtablissement} `
-  }
-
-  if (adresse.typeVoieEtablissement) {
-    const typeVoie = inseeTypesVoies.find(
-      t => t.id === adresse.typeVoieEtablissement
-    )
-    if (typeVoie) {
-      entreprise.adresse += `${typeVoie.nom} `
-    }
-  }
-
-  if (adresse.libelleVoieEtablissement) {
-    entreprise.adresse += `${adresse.libelleVoieEtablissement} `
-  }
-
-  // permet de ne pas avoir de comparaisons entre chaîne vide
-  // et null lors des tâches business
-  if (!entreprise.adresse) {
-    entreprise.adresse = null
-  }
-
-  if (adresse.codePostalEtablissement) {
-    entreprise.codePostal = adresse.codePostalEtablissement
-  }
-
-  const commune =
-    adresse.libelleCommuneEtablissement ||
-    adresse.libelleCommuneEtrangerEtablissement
-
-  if (commune) {
-    entreprise.commune = commune
-  }
-
-  if (unite.categorieJuridiqueUniteLegale) {
-    const categorie = inseeCategoriesJuridiques.find(
-      c => c.code === unite.categorieJuridiqueUniteLegale
-    )
-    if (categorie) {
-      entreprise.legalForme = categorie.nom
-    } else {
-      console.error(
-        `API Insee: catégorie juridique introuvable : ${unite.categorieJuridiqueUniteLegale}`
-      )
-    }
-  }
-
-  if (adresse.codePaysEtrangerEtablissement) {
-    const pays = inseePays.find(
-      p => p.cog === adresse.codePaysEtrangerEtablissement
-    )
-    if (pays) {
-      entreprise.paysId = pays.codeiso2
-    } else {
-      console.error(
-        `API Insee: code pays introuvable: ${adresse.codePaysEtrangerEtablissement}`
-      )
-    }
-  } else {
-    entreprise.paysId = 'FR'
-  }
-
-  if (unite.dateCreationUniteLegale) {
-    entreprise.dateCreation = dateFormat(
-      unite.dateCreationUniteLegale,
-      'yyyy-mm-dd'
-    )
-  }
-
-  return entreprise
-}
+  `${
+    sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'
+  } ${prenomUsuelUniteLegale || ''} ${nomUniteLegale}`
 
 const nomEntrepriseFormat = (
   denominationUniteLegale?: string | null,
@@ -214,13 +57,176 @@ const nomEntrepriseFormat = (
   return nom
 }
 
-const nomIndividuFormat = (
-  sexeUniteLegale: 'F' | 'M' | null,
-  prenomUsuelUniteLegale: string,
-  nomUniteLegale: string
+const nomFormat = (
+  {
+    denominationUniteLegale,
+    denominationUsuelle1UniteLegale,
+    nomUniteLegale,
+    prenomUsuelUniteLegale,
+    sexeUniteLegale,
+    sigleUniteLegale
+  }: Partial<IApiSirenNomFormat>,
+  nomEntrepriseUsuel?: boolean
 ) =>
-  `${
-    sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'
-  } ${prenomUsuelUniteLegale} ${nomUniteLegale}`
+  (nomUniteLegale &&
+  (!nomEntrepriseUsuel ||
+    (!denominationUniteLegale &&
+      !denominationUsuelle1UniteLegale &&
+      !sigleUniteLegale))
+    ? nomIndividuFormat(
+        nomUniteLegale!,
+        prenomUsuelUniteLegale,
+        sexeUniteLegale
+      )
+    : nomEntrepriseFormat(
+        denominationUniteLegale,
+        denominationUsuelle1UniteLegale,
+        sigleUniteLegale
+      )) || 'Indéfini'
+
+const entrepriseEtablissementFormat = (
+  uniteLegale: IApiSirenUniteLegale,
+  uniteLegalePeriode: IApiSirenUniteLegalePeriode
+) => {
+  const entrepriseId = `fr-${uniteLegale.siren}`
+  const nic = uniteLegalePeriode.nicSiegeUniteLegale || 'xxxxx'
+  const dateDebut = dateFormat(uniteLegalePeriode.dateDebut, 'yyyy-mm-dd')
+
+  const nom = nomFormat(Object.assign({}, uniteLegale, uniteLegalePeriode))
+  const legalSiret = `${uniteLegale.siren}${nic}`
+  const etablissement = {
+    id: `${entrepriseId}-${nic}-${dateDebut}`,
+    entrepriseId,
+    nom,
+    dateDebut,
+    legalSiret
+  } as IEntrepriseEtablissement
+
+  if (uniteLegalePeriode.dateFin) {
+    etablissement.dateFin = dateFormat(uniteLegalePeriode.dateFin, 'yyyy-mm-dd')
+  }
+
+  return etablissement
+}
+
+const entrepriseEtablissementsFormat = (uniteLegale: IApiSirenUniteLegale) => {
+  // periodesUniteLegale est un tableau
+  // classé par ordre de fin chronologique décroissant
+  if (
+    !uniteLegale.periodesUniteLegale ||
+    !uniteLegale.periodesUniteLegale.length
+  ) {
+    return []
+  }
+
+  const entrepriseEtablissements = uniteLegale.periodesUniteLegale.map(
+    uniteLegalePeriode =>
+      entrepriseEtablissementFormat(uniteLegale, uniteLegalePeriode)
+  )
+
+  return entrepriseEtablissements
+}
+
+const entrepriseFormat = ({
+  uniteLegale,
+  adresseEtablissement: adresse,
+  siren
+}: IApiSirenEtablissement) => {
+  const id = `fr-${siren}`
+
+  const entreprise = {
+    id,
+    legalSiren: siren
+  } as IEntreprise
+
+  const nom = nomFormat(uniteLegale, true)
+  if (nom) {
+    entreprise.nom = nom
+  }
+
+  if (uniteLegale.categorieEntreprise) {
+    entreprise.categorie = uniteLegale.categorieEntreprise
+  }
+
+  if (adresse.codeCedexEtablissement) {
+    entreprise.cedex = adresse.codeCedexEtablissement
+  }
+
+  entreprise.adresse = ''
+
+  if (adresse.numeroVoieEtablissement) {
+    entreprise.adresse += `${adresse.numeroVoieEtablissement} `
+  }
+
+  if (adresse.indiceRepetitionEtablissement) {
+    entreprise.adresse += `${adresse.indiceRepetitionEtablissement} `
+  }
+
+  if (adresse.typeVoieEtablissement) {
+    const typeVoie = inseeTypesVoies.find(
+      t => t.id === adresse.typeVoieEtablissement
+    )
+    if (typeVoie) {
+      entreprise.adresse += `${typeVoie.nom} `
+    }
+  }
+
+  if (adresse.libelleVoieEtablissement) {
+    entreprise.adresse += `${adresse.libelleVoieEtablissement} `
+  }
+
+  // permet de ne pas avoir de comparaisons entre chaîne vide
+  // et null lors des tâches business
+  entreprise.adresse = entreprise.adresse ? entreprise.adresse.trim() : null
+
+  if (adresse.codePostalEtablissement) {
+    entreprise.codePostal = adresse.codePostalEtablissement
+  }
+
+  const commune =
+    adresse.libelleCommuneEtablissement ||
+    adresse.libelleCommuneEtrangerEtablissement
+
+  if (commune) {
+    entreprise.commune = commune
+  }
+
+  if (uniteLegale.categorieJuridiqueUniteLegale) {
+    const categorie = inseeCategoriesJuridiques.find(
+      c => c.code === uniteLegale.categorieJuridiqueUniteLegale
+    )
+    if (categorie) {
+      entreprise.legalForme = categorie.nom
+    } else {
+      console.error(
+        `API Insee: catégorie juridique introuvable : ${uniteLegale.categorieJuridiqueUniteLegale}`
+      )
+    }
+  }
+
+  if (adresse.codePaysEtrangerEtablissement) {
+    const pays = inseePays.find(
+      p => p.cog === adresse.codePaysEtrangerEtablissement
+    )
+    if (pays) {
+      entreprise.paysId = pays.codeiso2
+    } else {
+      console.error(
+        `API Insee: code pays introuvable: ${adresse.codePaysEtrangerEtablissement}`
+      )
+    }
+  } else {
+    entreprise.paysId = 'FR'
+  }
+
+  if (uniteLegale.dateCreationUniteLegale) {
+    entreprise.dateCreation = dateFormat(
+      uniteLegale.dateCreationUniteLegale,
+      'yyyy-mm-dd'
+    )
+  }
+
+  return entreprise
+}
 
 export { entrepriseEtablissementsFormat, entrepriseFormat }
