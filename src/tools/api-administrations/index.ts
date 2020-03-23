@@ -11,7 +11,7 @@ import fileCreate from '../file-create'
 const CACHE_DIR = 'api-cache/administration/'
 const MAX_CALLS_MINUTE = 200
 
-const { ADMINISTRATION_API_URL } = process.env
+const { API_ADMINISTRATION_URL } = process.env
 
 interface IOrganisme {
   features: {
@@ -32,7 +32,7 @@ interface IOrganisme {
 }
 
 const organismeFetch = async (departementId: string, nom: string) => {
-  if (!ADMINISTRATION_API_URL) {
+  if (!API_ADMINISTRATION_URL) {
     throw new Error(
       "impossible de se connecter à l'API administration car la variable d'environnement est absente"
     )
@@ -41,7 +41,7 @@ const organismeFetch = async (departementId: string, nom: string) => {
   console.info(`API administration: requête ${departementId}, ${nom}`)
 
   const response = await fetch(
-    `${ADMINISTRATION_API_URL}/v3/departements/${departementId}/${nom}`,
+    `${API_ADMINISTRATION_URL}/v3/departements/${departementId}/${nom}`,
     {
       method: 'GET',
       headers: {

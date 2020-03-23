@@ -7,7 +7,7 @@ const communesGeojsonFetch = async (path: string, geojson: IGeoJson) => {
   const properties = JSON.stringify(geojson.properties)
 
   try {
-    if (!process.env.GEO_API_URL) {
+    if (!process.env.API_GEO_URL) {
       throw new Error(
         "impossible de se connecter à l'API Géo Commune car la variable d'environnement est absente"
       )
@@ -18,7 +18,7 @@ const communesGeojsonFetch = async (path: string, geojson: IGeoJson) => {
       throw new Error(geojsonErrors.map(e => e.message).join('\n'))
     }
 
-    const response = await fetch(process.env.GEO_API_URL + path, {
+    const response = await fetch(process.env.API_GEO_URL + path, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'

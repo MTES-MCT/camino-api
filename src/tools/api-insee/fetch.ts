@@ -23,7 +23,7 @@ const MAX_RESULTS = 20
 // utilise `tokenInitialize` pour l'initialiser
 let apiToken = ''
 
-const { INSEE_API_URL, INSEE_API_KEY, INSEE_API_SECRET } = process.env
+const { API_INSEE_URL, API_INSEE_KEY, API_INSEE_SECRET } = process.env
 
 const TEST_SIREN_ID = '805296415'
 
@@ -69,21 +69,21 @@ const tokenInitialize = async () => {
 
 const tokenFetch = async () => {
   try {
-    if (!INSEE_API_URL) {
+    if (!API_INSEE_URL) {
       throw new Error(
         "impossible de se connecter car la variable d'environnement est absente"
       )
     }
 
     console.info(
-      `API Insee: récupération du token ${INSEE_API_KEY}:${INSEE_API_SECRET}`
+      `API Insee: récupération du token ${API_INSEE_KEY}:${API_INSEE_SECRET}`
     )
 
-    const auth = Buffer.from(`${INSEE_API_KEY}:${INSEE_API_SECRET}`).toString(
+    const auth = Buffer.from(`${API_INSEE_KEY}:${API_INSEE_SECRET}`).toString(
       'base64'
     )
 
-    const response = await fetch(`${INSEE_API_URL}/token`, {
+    const response = await fetch(`${API_INSEE_URL}/token`, {
       method: 'POST',
       body: 'grant_type=client_credentials',
       headers: {
@@ -155,7 +155,7 @@ const tokenFetchDev = async () => {
 
 const typeFetch = async (type: 'siren' | 'siret', q: string) => {
   try {
-    if (!INSEE_API_URL) {
+    if (!API_INSEE_URL) {
       throw new Error(
         "API Insee: impossible de se connecter car la variable d'environnement est absente"
       )
@@ -164,7 +164,7 @@ const typeFetch = async (type: 'siren' | 'siret', q: string) => {
     console.info(`API Insee: requête ${type}, ids: ${q}`)
 
     const response = await fetch(
-      `${INSEE_API_URL}/entreprises/sirene/V3/${type}/?q=${q}`,
+      `${API_INSEE_URL}/entreprises/sirene/V3/${type}/?q=${q}`,
       {
         method: 'GET',
         headers: {
