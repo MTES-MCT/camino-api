@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.26](https://github.com/MTES-MCT/camino-api/compare/v0.24.25...v0.24.26) (2020-03-23)
+
+
+### Bug Fixes
+
+* corrige l'export de la spreadsheet entreprise ([9344cbc](https://github.com/MTES-MCT/camino-api/commit/9344cbce68b19380a79af2b857b9b7deb6d4b826))
+
 ### [0.24.25](https://github.com/MTES-MCT/camino-api/compare/v0.24.24...v0.24.25) (2020-03-23)
 
 
