@@ -6,7 +6,7 @@ const { request: httpsRequest } = require('https')
 const { URL, format: urlFormat } = require('url')
 const { format } = require('util')
 const { parse } = require('fast-xml-parser')
-const { v4 } = require('node-uuid')
+const { v4 } = require('uuid')
 
 /**
  * Parse a Cerbere (JSONed SOAP response) attributes JSON object.
