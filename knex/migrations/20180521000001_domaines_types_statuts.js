@@ -10,6 +10,7 @@ exports.up = knex =>
       table.string('id', 2).primary()
       table.string('nom').notNullable()
       table.text('description')
+      table.boolean('exploitation')
       table.integer('ordre').notNullable()
     })
     .createTable('titresTypes', table => {
