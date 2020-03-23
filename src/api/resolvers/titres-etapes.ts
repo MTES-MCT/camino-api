@@ -63,6 +63,11 @@ const demarcheTypeEtapeTypeFormat = (
   // restreint la liste des types d'étapes en fonction
   // de la possibilité de les créer
   et.etapesStatuts = et.etapesStatuts!.filter(es => {
+    // si le type d'étape courant est celui de l'étape dont l'éditione est en cours
+    // alors on ne procède pas à la vérification car elle existe déjà
+    if (et.id === etapeTypeId) return true
+
+    // todo: utiliser la date de l'étape éditée
     const error = !titreEtapeDateValidate(
       { typeId: et.id, date: '3000-01-01', statutId: es.id } as ITitreEtape,
       demarche,
@@ -259,7 +264,6 @@ const etapeModifier = async (
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(etape)
-
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }

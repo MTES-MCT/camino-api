@@ -190,6 +190,8 @@ const obligatoireApresFind = (
     []
   )
 
+  // si il n'y a pas au moins une étape parmis les étapes obligatoire possibles
+  // alors on ne peut pas créer l'étape
   return errors.length === obligatoireApres.length ? errors : []
 }
 
