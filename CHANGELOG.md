@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.24](https://github.com/MTES-MCT/camino-api/compare/v0.24.23...v0.24.24) (2020-03-23)
+
+
+### Features
+
+* **etapes:** ajoute les restrictions d'étapes pour la démarche de mécanisation des ARM ([#344](https://github.com/MTES-MCT/camino-api/issues/344)) ([22d2463](https://github.com/MTES-MCT/camino-api/commit/22d24636a43e6647a217f6b2091dccdbccc60f4c))
+* ajoute l'authentification Cerbère ([#345](https://github.com/MTES-MCT/camino-api/issues/345)) ([0e43543](https://github.com/MTES-MCT/camino-api/commit/0e435433e8e0500e7b7043dfbf15b6bd3cd20318))
+* ajoute une méthode pour retourner l'url Cerbère ([#347](https://github.com/MTES-MCT/camino-api/issues/347)) ([d0f5239](https://github.com/MTES-MCT/camino-api/commit/d0f52396834dc0e723cb4a4830e238a50ddc4742))
+* **etapes:** ajoute des restrictions d'étapes en fonction des démarches ([#343](https://github.com/MTES-MCT/camino-api/issues/343)) ([81beade](https://github.com/MTES-MCT/camino-api/commit/81beadea9de61e7047cdb6c51db7c09d9f0dab1d))
+
+
+### Bug Fixes
+
+* corrige le format des noms et adresses d'entreprises ([1ceab05](https://github.com/MTES-MCT/camino-api/commit/1ceab05b1624067f2229dfd291e7f1ce3cd396da))
+* **import:** corrige le chemin d'import du fichier de reprise des activités ([05ee125](https://github.com/MTES-MCT/camino-api/commit/05ee1257563c6cc30020303c90331297fcfee84d))
+* corrige une typo sur les types ([3c64039](https://github.com/MTES-MCT/camino-api/commit/3c6403914a3cdb53e60711b31d585f527d404017))
+* enrichit les messages d'erreurs de configuration des titres démarches étapes ([b578eb6](https://github.com/MTES-MCT/camino-api/commit/b578eb6fe1344bb98591a18bd4a4a0e4c7f48adb))
+* **api:** corrige la validation Cerbère ([#346](https://github.com/MTES-MCT/camino-api/issues/346)) ([95c31c6](https://github.com/MTES-MCT/camino-api/commit/95c31c642aea9bd5fc7fc1b6147a5cff977f07a9))
+* **auth:** corrige l'enregistrement d'un nouvel utilisateur depuis Cerbere ([eb2c6e9](https://github.com/MTES-MCT/camino-api/commit/eb2c6e9fd204e7f817d5568a1eafd150159160f4))
+
 ### [0.24.23](https://github.com/MTES-MCT/camino-api/compare/v0.24.22...v0.24.23) (2020-03-12)
 
 
