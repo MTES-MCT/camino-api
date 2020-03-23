@@ -37,8 +37,8 @@ const titreStatutIdFind = (titre: ITitre) => {
 
   // la date du jour est inférieure à la date d’échéance
   const dateFin = titreDateFinFind(titre.demarches)
-  const today = dateFormat(new Date(), 'yyyy-mm-dd')
-  if (dateFin && today < dateFin) {
+  const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+  if (dateFin && aujourdhui < dateFin) {
     // le statut du titre est valide
     return 'val'
   }

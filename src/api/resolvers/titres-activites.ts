@@ -164,7 +164,9 @@ const activiteModifier = async (
     }
 
     activite.utilisateurId = user.id
-    activite.dateSaisie = dateFormat(new Date(), 'yyyy-mm-dd')
+
+    const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+    activite.dateSaisie = aujourdhui
 
     const fields = graphFieldsBuild(info)
 
