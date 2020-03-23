@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.27](https://github.com/MTES-MCT/camino-api/compare/v0.24.26...v0.24.27) (2020-03-23)
+
+
+### Bug Fixes
+
+* corrige l'export des substances ([7ce8722](https://github.com/MTES-MCT/camino-api/commit/7ce8722f67df3be562b3e776ea77c621fb22d7e8))
+* **etapes:** corrige les restrictions 'etape impossible apres' ([#349](https://github.com/MTES-MCT/camino-api/issues/349)) ([53fdc48](https://github.com/MTES-MCT/camino-api/commit/53fdc4872abb3d91a0c73f76855653553e19357a))
+
 ### [0.24.26](https://github.com/MTES-MCT/camino-api/compare/v0.24.25...v0.24.26) (2020-03-23)
 
 
