@@ -139,7 +139,7 @@ const titreEtapeUpdate = async (
           demarches: {
             etapes: {
               administrations: { id: {} },
-              communes: { departements: { id: {} } }
+              communes: { departement: { id: {} } }
             }
           }
         }
@@ -199,7 +199,7 @@ const titreEtapeUpdate = async (
 
     // 14.
     console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId, {})
+    titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 

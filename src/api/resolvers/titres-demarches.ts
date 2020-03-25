@@ -135,28 +135,36 @@ const titreDemarchesTypes = async (
   }: { titreId: string; demarcheTypeId: string | null },
   context: IToken
 ) => {
-  if (!context.user) throw new Error('droits insuffisants')
+  try {
+    if (!context.user) throw new Error('droits insuffisants')
 
-  const titre = await titreGet(
-    titreId,
-    { fields: { demarches: { id: {} } } },
-    context.user?.id
-  )
-  if (!titre) return []
+    const titre = await titreGet(
+      titreId,
+      { fields: { demarches: { id: {} } } },
+      context.user?.id
+    )
+    if (!titre) return []
 
-  const titreType = metas.titresTypes.find(t => t.id === titre.typeId)
-  if (!titreType || !titreType.demarchesTypes) {
-    throw new Error(`${titre.typeId} inexistant`)
+    const titreType = metas.titresTypes.find(t => t.id === titre.typeId)
+    if (!titreType || !titreType.demarchesTypes) {
+      throw new Error(`${titre.typeId} inexistant`)
+    }
+
+    const user = context.user && (await utilisateurGet(context.user.id))
+
+    return demarchesTypesFormat(
+      user,
+      titreType.demarchesTypes,
+      demarcheTypeId,
+      titre
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
   }
-
-  const user = context.user && (await utilisateurGet(context.user.id))
-
-  return demarchesTypesFormat(
-    user,
-    titreType.demarchesTypes,
-    demarcheTypeId,
-    titre
-  )
 }
 
 const demarcheCreer = async (

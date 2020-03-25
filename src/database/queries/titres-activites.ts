@@ -13,10 +13,6 @@ const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   userId: string
 ) => {
-  if (userId === 'super') {
-    return q
-  }
-
   q.select('titresActivites.*')
 
   // isSuper
@@ -26,6 +22,10 @@ const titreActivitePermissionQueryBuild = (
   })
   q.select('us.id as isSuper')
   q.groupBy('isSuper')
+
+  if (userId === 'super') {
+    return q
+  }
 
   // titulaires et amodiataires
   q.leftJoinRelated(
@@ -70,22 +70,20 @@ const titreActivitePermissionQueryBuild = (
 
 const titreActiviteGet = async (
   id: string,
-  { fields = {} }: { fields?: IFields } = {},
+  { fields }: { fields?: IFields },
   userId?: string
 ) => {
   if (!userId) return null
 
-  fields = fieldTitreAdd(fields)
-  const graph = graphBuild(fields, 'activite', graphFormat)
+  const graph = fields
+    ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
+    : options.titresActivites.graph
 
   const q = TitresActivites.query()
     .withGraphFetched(graph)
-    .where('titresActivites.id', '=', id)
-    .first()
+    .findById(id)
 
   titreActivitePermissionQueryBuild(q, userId)
-
-  q.debug()
 
   q.groupBy('titresActivites.id')
 
@@ -94,7 +92,7 @@ const titreActiviteGet = async (
 
 const titresActivitesGet = async (
   { typeId, annee }: { typeId?: string; annee?: number } = {},
-  { fields = {} }: { fields?: IFields } = {},
+  { fields }: { fields?: IFields },
   userId?: string
 ) => {
   if (!userId) return []
@@ -128,7 +126,7 @@ const titreActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
 const titreActiviteUpdate = async (
   id: string,
   props: Partial<ITitreActivite>,
-  { fields = {} }: { fields?: IFields } = {}
+  { fields }: { fields?: IFields }
 ) => {
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)

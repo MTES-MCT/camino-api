@@ -143,15 +143,27 @@ const demarcheEtapesTypes = async (
   }: { titreDemarcheId: string; etapeTypeId: string | null },
   context: IToken
 ) => {
-  const user = context.user && (await utilisateurGet(context.user.id))
-  if (!user) return []
+  try {
+    const user = context.user && (await utilisateurGet(context.user.id))
+    if (!user) return []
 
-  const demarche = await titreDemarcheGet(titreDemarcheId, {}, user && user.id)
-  if (!demarche) throw new Error("la démarche n'existe pas")
+    const demarche = await titreDemarcheGet(
+      titreDemarcheId,
+      {},
+      user && user.id
+    )
+    if (!demarche) throw new Error("la démarche n'existe pas")
 
-  const titre = await titreGet(demarche.titreId, {}, user.id)
+    const titre = await titreGet(demarche.titreId, {}, user.id)
 
-  return demarcheEtapeTypesFormat(user, titre, demarche, etapeTypeId)
+    return demarcheEtapeTypesFormat(user, titre, demarche, etapeTypeId)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const etapeCreer = async (

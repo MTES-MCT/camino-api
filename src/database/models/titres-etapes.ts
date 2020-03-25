@@ -47,6 +47,15 @@ class TitresEtapes extends Model {
       }
     },
 
+    demarche: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'titres-demarches'),
+      join: {
+        from: 'titresEtapes.titreDemarcheId',
+        to: 'titresDemarches.id'
+      }
+    },
+
     substances: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'substances'),

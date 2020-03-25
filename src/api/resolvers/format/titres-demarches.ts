@@ -26,7 +26,7 @@ const titreDemarcheFormatFields = {
   titre: titreFormatFields
 } as IFields
 
-const titreEtapeAutorisationLectureFilter = (
+const titreEtapeAutorisationLectureCheck = (
   user: IUtilisateur | undefined,
   etapeTypeId: string,
   userHasPermission?: boolean
@@ -156,7 +156,7 @@ const titreDemarcheFormat = (
       (titreEtapes: ITitreEtape[], te) => {
         if (
           !isSuper &&
-          !titreEtapeAutorisationLectureFilter(
+          !titreEtapeAutorisationLectureCheck(
             user,
             te.typeId,
             userHasPermission

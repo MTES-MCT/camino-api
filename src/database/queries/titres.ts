@@ -104,7 +104,7 @@ const titresColonnes = {
 
 const titreGet = async (
   id: string,
-  { fields = {} }: { fields?: IFields },
+  { fields }: { fields?: IFields },
   userId?: string
 ) => {
   const graph = fields
