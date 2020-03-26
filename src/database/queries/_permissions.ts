@@ -11,6 +11,8 @@ const titreEtapesPermissionQueryBuild = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user?: IUtilisateur
 ) => {
+  q.select('titresEtapes.*')
+
   if (user?.permissionId === 'super') {
     return q
   }
@@ -78,11 +80,11 @@ const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   user?: IUtilisateur
 ) => {
+  q.select('titresDemarches.*')
+
   if (user?.permissionId === 'super') {
     return q
   }
-
-  q.select('titresDemarches.*')
 
   q.whereExists(
     titrePermissionQueryBuild(TitresDemarches.relatedQuery('titre'), user)
@@ -102,11 +104,15 @@ const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user: IUtilisateur
 ) => {
+  q.select('titresActivites.*')
+
   if (user.permissionId === 'super') {
+    q.select(raw('? as ??', [true, 'isSuper']))
+
+    console.log('activites query:', q.toKnexQuery().toString())
+
     return q
   }
-
-  q.select('titresActivites.*')
 
   q.whereExists(
     titrePermissionQueryBuild(TitresDemarches.relatedQuery('titre'), user)
@@ -140,6 +146,8 @@ const titrePermissionQueryBuild = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   user?: IUtilisateur
 ) => {
+  q.select('titres.*')
+
   if (user?.permissionId === 'super') {
     return q
   }

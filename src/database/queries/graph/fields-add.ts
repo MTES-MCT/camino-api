@@ -46,8 +46,6 @@ const fieldTitreAdd = (fields: IFields) => {
 const titresFieldsAdd = (fields: IFields) => {
   // const etapesBesoin = fields.demarches?.etapes
 
-  console.log('????????????? sections dans les fields ', fields.type?.sections)
-
   if (fields.type?.sections) {
     if (!fields.demarches) {
       fields.demarches = { id: {} }
@@ -62,8 +60,6 @@ const titresFieldsAdd = (fields: IFields) => {
       fields.demarches.etapes.type = { id: {} }
     }
   }
-
-  console.log('!!!!!!!!! FIELDS YOUHOUUUU', JSON.stringify(fields))
 
   return fields
 }

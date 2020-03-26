@@ -64,26 +64,14 @@ const activites = async (
       { fields },
       context.user?.id
     )
+
     if (!titresActivites.length) return []
 
     // si on récupère des activités, l'utilisateur existe forcément
     // car il a les droits
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
-    return titresActivites.reduce((res: ITitreActivite[], titreActivite) => {
-      if (
-        titreActivitePermissionCheck(
-          user,
-          titreActivite.type?.administrations,
-          titreActivite.titre?.amodiataires,
-          titreActivite.titre?.titulaires
-        )
-      ) {
-        res.push(titreActiviteFormat(user, titreActivite, fields))
-      }
-
-      return res
-    }, [])
+    return titresActivites.map(ta => titreActiviteFormat(user, ta, fields))
   } catch (e) {
     if (debug) {
       console.error(e)

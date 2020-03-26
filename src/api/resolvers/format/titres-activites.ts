@@ -50,8 +50,6 @@ const titreActiviteFormat = (
     }
   }
 
-  console.log('isSuper:', ta.isSuper)
-
   ta.editable =
     !!ta.isSuper ||
     !!ta.isAdmin ||
