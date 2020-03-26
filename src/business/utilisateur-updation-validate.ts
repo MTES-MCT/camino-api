@@ -1,6 +1,6 @@
 import { IAdministration, IUtilisateur } from '../types'
 
-import { utilisateurGet } from '../database/queries/utilisateurs'
+import { userGet } from '../database/queries/utilisateurs'
 
 import { permissionsAdministrationsCheck } from '../api/resolvers/permissions/permissions-check'
 
@@ -11,12 +11,13 @@ const utilisateurUpdationValidate = async (
   utilisateur: IUtilisateur,
   isAdmin: boolean
 ) => {
-  const utilisateurOld = await utilisateurGet(utilisateur.id!)
+  const utilisateurOld = await userGet(utilisateur.id!)
+  if (!utilisateurOld) return ["l'utilisateur n'existe pas"]
 
   // récupère la liste des administrations modifiées (suppression et ajout)
   const administrationsIdsDiff = diffFind(
     'id',
-    utilisateurOld!.administrations as Partial<IAdministration>[],
+    utilisateurOld.administrations as Partial<IAdministration>[],
     utilisateur.administrations as Partial<IAdministration>[]
   ) as IAdministration[]
 

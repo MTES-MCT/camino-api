@@ -5,7 +5,7 @@ import {
   administrationGet,
   administrationsGet
 } from '../../database/queries/administrations'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
 import graphBuild from '../../database/queries/graph/build'
@@ -21,7 +21,7 @@ const administration = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     const administration = await administrationGet(id, {
       graph: graphBuild(fieldsBuild(info), 'administration', graphFormat)
@@ -43,7 +43,7 @@ const administrations = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     const administrations = await administrationsGet(
       { noms },

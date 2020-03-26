@@ -66,5 +66,3 @@ class Utilisateurs extends Model {
   }
 }
 export default Utilisateurs
-
-export { IUtilisateur }

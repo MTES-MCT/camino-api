@@ -1,6 +1,4 @@
-import { ITitreActivite, IFields } from '../../types'
-import { QueryBuilder } from 'objection'
-import knex from '../index'
+import { ITitreActivite, IFields, IUtilisateur } from '../../types'
 
 import graphFormat from './graph/format'
 import { fieldTitreAdd } from './graph/fields-add'
@@ -8,62 +6,35 @@ import graphBuild from './graph/build'
 
 import TitresActivites from '../models/titres-activites'
 import options from './_options'
+import { titreActivitePermissionQueryBuild } from './_permissions'
+import { userGet } from './utilisateurs'
 
-const titreActivitePermissionQueryBuild = (
-  q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  userId: string
+const titreActivitesQueryBuild = (
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
-  q.select('titresActivites.*')
+  if (!user?.permissionId) return null
 
-  // isSuper
-  q.leftJoin('utilisateurs AS us', b => {
-    b.on('us.permissionId', '=', knex.raw('?', 'super'))
-    b.on('us.id', '=', knex.raw('?', userId))
-  })
-  q.select('us.id as isSuper')
-  q.groupBy('isSuper')
-
-  if (userId === 'super') {
-    return q
+  // seuls les utilisateurs titulaires/amodiataires
+  // et les administrations rattachées aux titrex des activités
+  // ont accès aux activités
+  if (
+    !['super', 'admin', 'editeur', 'lecteur', 'entreprise'].includes(
+      user.permissionId
+    )
+  ) {
+    return null
   }
 
-  // titulaires et amodiataires
-  q.leftJoinRelated(
-    'titre.[titulaires.utilisateurs, amodiataires.utilisateurs]'
-  )
+  const graph = fields
+    ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
+    : options.titresActivites.graph
 
-  // isAdmin
-  q.leftJoin('utilisateurs AS ua', b => {
-    b.onIn('ua.permissionId', ['admin', 'editeur', 'lecteur'])
-    b.on('ua.id', '=', knex.raw('?', userId))
-  })
-  q.select('ua.id as isAdmin')
-  q.groupBy('isAdmin')
+  const q = TitresActivites.query().withGraphFetched(graph)
 
-  // administrations gestionnaires et locales
-  q.leftJoinRelated(
-    'titre.[administrationsGestionnaires.utilisateurs, administrationsLocales.utilisateurs]'
-  )
+  titreActivitePermissionQueryBuild(q, user)
 
-  q.andWhere(b => {
-    // isSuper
-    b.orWhereNotNull('us.id')
-
-    // administrations
-    b.orWhereRaw('?? = ?', [
-      'titre:administrationsGestionnaires:utilisateurs.id',
-      userId
-    ]).orWhereRaw('?? = ?', [
-      'titre:administrationsLocales:utilisateurs.id',
-      userId
-    ])
-
-    // titulaires et amodiataires
-    b.orWhereRaw('?? = ?', [
-      'titre:titulaires:utilisateurs.id',
-      userId
-    ]).orWhereRaw('?? = ?', ['titre:amodiataires:utilisateurs.id', userId])
-  })
+  q.groupBy('titresActivites.id')
 
   return q
 }
@@ -73,39 +44,25 @@ const titreActiviteGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  if (!userId) return null
+  if (!userId) return undefined
 
-  const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
-    : options.titresActivites.graph
+  const user = await userGet(userId)
+  const q = titreActivitesQueryBuild({ fields }, user)
+  if (!q) return undefined
 
-  const q = TitresActivites.query()
-    .withGraphFetched(graph)
-    .findById(id)
-
-  titreActivitePermissionQueryBuild(q, userId)
-
-  q.groupBy('titresActivites.id')
-
-  return q
+  return (await q.findById(id)) as ITitreActivite
 }
 
 const titresActivitesGet = async (
-  { typeId, annee }: { typeId?: string; annee?: number } = {},
+  { typeId, annee }: { typeId?: string; annee?: number },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
   if (!userId) return []
 
-  const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
-    : options.titresActivites.graph
-
-  const q = TitresActivites.query().withGraphFetched(graph)
-
-  titreActivitePermissionQueryBuild(q, userId)
-
-  q.groupBy('titresActivites.id')
+  const user = await userGet(userId)
+  const q = titreActivitesQueryBuild({ fields }, user)
+  if (!q) return []
 
   if (typeId) {
     q.where('titresActivites.typeId', typeId)

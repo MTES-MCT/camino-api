@@ -15,10 +15,7 @@ import {
   titresActivitesGet,
   titreActiviteUpdate as titreActiviteUpdateQuery
 } from '../../database/queries/titres-activites'
-import {
-  utilisateurGet,
-  utilisateursGet
-} from '../../database/queries/utilisateurs'
+import { userGet, utilisateursGet } from '../../database/queries/utilisateurs'
 
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
@@ -42,7 +39,7 @@ const activite = async (
 
     // si on récupère une activité, l'utilisateur existe forcément
     // car il a les droits
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     return titreActivite && titreActiviteFormat(user!, titreActivite, fields)
   } catch (e) {
@@ -71,7 +68,7 @@ const activites = async (
 
     // si on récupère des activités, l'utilisateur existe forcément
     // car il a les droits
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     return titresActivites.reduce((res: ITitreActivite[], titreActivite) => {
       if (
@@ -120,7 +117,7 @@ const activiteModifier = async (
       throw new Error("ce titre ne peut pas recevoir d'activité")
     }
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
     if (!user) return null
 
     if (

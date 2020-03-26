@@ -1,41 +1,70 @@
-import { IUtilisateur } from '../../types'
+import { IUtilisateur, IFields } from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
 
-const utilisateurGet = async (id?: string) => {
-  if (!id) return undefined
+import graphBuild from './graph/build'
+import graphFormat from './graph/format'
 
-  if (id === 'super') {
+const userGet = async (userId?: string) => {
+  if (!userId) return undefined
+
+  if (userId === 'super') {
     return ({ permissionId: 'super' } as unknown) as IUtilisateur
   }
 
-  return Utilisateurs.query()
-    .findById(id)
-    .withGraphFetched(options.utilisateurs.graph)
+  return Utilisateurs.query().findById(userId)
 }
 
-const utilisateurByEmailGet = async (email: string) =>
+const utilisateursQueryBuild = (
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'utilisateur', graphFormat)
+    : options.titresActivites.graph
+
+  return Utilisateurs.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
+}
+
+const utilisateurGet = async (
+  id: string,
+  { fields }: { fields?: IFields } = {},
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const q = utilisateursQueryBuild({ fields }, user)
+
+  return (await q.findById(id)) as IUtilisateur
+}
+
+const userByEmailGet = async (email: string) =>
   Utilisateurs.query()
     .where('email', email)
-    .withGraphFetched(options.utilisateurs.graph)
     .first()
 
-const utilisateursGet = async ({
-  noms,
-  entrepriseIds,
-  administrationIds,
-  permissionIds
-}: {
-  noms?: string[]
-  entrepriseIds?: string[]
-  administrationIds?: string[]
-  permissionIds?: string[]
-}) => {
-  const q = Utilisateurs.query()
-    .skipUndefined()
-    .withGraphFetched(options.utilisateurs.graph)
-    .orderBy('nom')
+const utilisateursGet = async (
+  {
+    noms,
+    entrepriseIds,
+    administrationIds,
+    permissionIds
+  }: {
+    noms?: string[]
+    entrepriseIds?: string[]
+    administrationIds?: string[]
+    permissionIds?: string[]
+  },
+  { fields }: { fields?: IFields } = {},
+  userId?: string
+) => {
+  const user = await userGet(userId)
+  const q = utilisateursQueryBuild({ fields }, user)
+
+  q.orderBy('nom')
 
   if (administrationIds) {
     q.whereIn('administrations.id', administrationIds).joinRelated(
@@ -67,22 +96,16 @@ const utilisateurCreate = async (utilisateur: IUtilisateur) =>
     .withGraphFetched(options.utilisateurs.graph)
     .first()
 
-const utilisateurDelete = async (id: string) =>
-  Utilisateurs.query()
-    .deleteById(id)
-    .first()
-    .returning('*')
-
 const utilisateurUpdate = async (utilisateur: IUtilisateur) =>
   Utilisateurs.query()
     .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
     .withGraphFetched(options.utilisateurs.graph)
 
 export {
+  userGet,
   utilisateurGet,
-  utilisateurByEmailGet,
+  userByEmailGet,
   utilisateursGet,
   utilisateurCreate,
-  utilisateurDelete,
   utilisateurUpdate
 }

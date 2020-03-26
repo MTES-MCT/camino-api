@@ -7,11 +7,12 @@ import {
   IFields,
   IUtilisateur
 } from '../../types'
-import { transaction, raw, QueryBuilder, Transaction } from 'objection'
+import { transaction, Transaction } from 'objection'
 
 import Titres from '../models/titres'
+import { titrePermissionQueryBuild } from './_permissions'
 
-import { utilisateurGet } from './utilisateurs'
+import { userGet } from './utilisateurs'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
@@ -26,160 +27,8 @@ const stringSplit = (string: string) =>
     e.replace(/^"(.*)"$/, '$1')
   )
 
-const titrePermissionQueryBuild = (
-  q: QueryBuilder<Titres, Titres | Titres[]>,
-  utilisateur?: IUtilisateur
-) => {
-  if (utilisateur?.permissionId === 'super') {
-    return q
-  }
-
-  q.select('titres.*')
-
-  if (
-    !utilisateur ||
-    ['defaut', 'entreprise'].includes(utilisateur.permissionId)
-  ) {
-    q.leftJoinRelated('[type.autorisationsTitresStatuts, domaine.autorisation]')
-
-    if (!utilisateur) {
-      // visibilité des etapes publiques
-      q.modifyGraph('demarches.etapes', b => {
-        b.where('type:autorisations.publicLecture', true)
-      })
-    } else {
-      if (utilisateur.permissionId === 'entreprise') {
-        // titulaires et amodiataires
-        q.leftJoinRelated('[titulaires, amodiataires]')
-
-        // visibilité des etapes en tant que titulaire
-        q.modifyGraph('demarches.etapes', b => {
-          b.where('type:autorisations.entreprisesLecture', true)
-        })
-      }
-    }
-
-    q.where(b => {
-      // titres publics
-      b.where({
-        'domaine:autorisation.publicLecture': true,
-        'type:autorisationsTitresStatuts.publicLecture': true
-      }).andWhereRaw('?? = ??', [
-        'type:autorisationsTitresStatuts.titreStatutId',
-        'statutId'
-      ])
-
-      // si l'utilisateur est `entreprise`,
-      // titres dont il est titulaire ou amodiataire
-      if (utilisateur?.permissionId === 'entreprise') {
-        const entreprisesIds = utilisateur.entreprises?.map(e => e.id)
-
-        if (entreprisesIds) {
-          b.orWhereIn('titulaires.id', entreprisesIds)
-          b.orWhereIn('amodiataires.id', entreprisesIds)
-        }
-      }
-    })
-  } else if (
-    ['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)
-  ) {
-    // visibilité des étapes en tant qu'administrations
-    q.modifyGraph('demarches.etapes', b => {
-      const administrationsIds =
-        utilisateur.administrations?.map(a => a.id) || []
-
-      b.leftJoinRelated('[demarche.titre, type]')
-
-      // si l'utilisateur admin n'appartient à aucune administration
-      // alors il ne peut pas voir les étapes faisant l'objet de restriction
-      // peut importe l'administration
-      if (administrationsIds.length === 0) {
-        b.leftJoinRelated('[type.restrictionsAdministrations]')
-
-        b.whereNot({
-          'type:restrictionsAdministrations.lectureInterdit': true
-        }).andWhereRaw('?? = ??', [
-          'type:restrictionsAdministrations.titreTypeId',
-          'demarche:titre.typeId'
-        ])
-      } else {
-        // il faut le faire avant le join du graph
-        b.leftJoin(
-          'administrations',
-          raw(`?? in (${administrationsIds.map(() => '?').join(',')})`, [
-            'administrations.id',
-            ...administrationsIds
-          ])
-        )
-
-        // le leftJoinRelated sur les restrictions enlève trop de lignes
-        // car il fait le join sur l'id des etapes-types
-        // il manque les ids admins + types de titres
-        // on n'a donc plus les lignes `null`
-
-        b.leftJoin(
-          'r__titresTypes__etapesTypes__administrations as type:restrictionsAdministrations',
-          raw('?? = ?? AND ?? = ?? AND ?? = ??', [
-            'type:restrictionsAdministrations.etapeTypeId',
-            'titresEtapes.typeId',
-            'type:restrictionsAdministrations.administrationId',
-            'administrations.id',
-            'type:restrictionsAdministrations.titreTypeId',
-            'demarche:titre.typeId'
-          ])
-        )
-
-        b.whereRaw('?? is not true', [
-          'type:restrictionsAdministrations.lectureInterdit'
-        ])
-      }
-    })
-  }
-
-  return q
-}
-
-const titreGet = async (
-  id: string,
-  { fields }: { fields?: IFields },
-  userId?: string
-) => {
-  const utilisateur = await utilisateurGet(userId)
-
-  const graph = fields
-    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
-    : options.titres.graph
-
-  const q = Titres.query()
-    .findById(id)
-    .withGraphFetched(graph)
-
-  titrePermissionQueryBuild(q, utilisateur)
-
-  q.groupBy('titres.id')
-
-  q.debug()
-
-  console.log('-------q:', q.toKnexQuery().toString())
-
-  return q
-}
-
-const titresColonnes = {
-  nom: { id: 'nom' },
-  domaine: { id: 'domaineId' },
-  type: { id: 'type.type.nom', relation: 'type' },
-  statut: { id: 'statutId' },
-  substances: { id: 'substances.nom', relation: 'substances' },
-  titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
-} as Index<IColonne>
-
-const titresGet = async (
+const titresQueryBuild = (
   {
-    intervalle,
-    page,
-    ordre,
-    colonne,
     ids,
     domainesIds,
     typesIds,
@@ -190,10 +39,6 @@ const titresGet = async (
     references,
     territoires
   }: {
-    intervalle?: number | null
-    page?: number | null
-    ordre?: 'asc' | 'desc' | null
-    colonne?: ITitreColonneInput | null
     ids?: string[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null
@@ -205,37 +50,17 @@ const titresGet = async (
     territoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
-  userId?: string
+  user?: IUtilisateur
 ) => {
-  const utilisateur = await utilisateurGet(userId)
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
     : options.titres.graph
 
-  const q = Titres.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
+  const q = Titres.query().withGraphFetched(graph)
 
-  titrePermissionQueryBuild(q, utilisateur)
+  titrePermissionQueryBuild(q, user)
 
   q.groupBy('titres.id')
-
-  if (colonne) {
-    if (titresColonnes[colonne].relation) {
-      q.leftJoinRelated(titresColonnes[colonne].relation!)
-    }
-    q.orderBy(titresColonnes[colonne].id, ordre || undefined)
-  } else {
-    q.orderBy('titres.nom')
-  }
-
-  if (page && intervalle) {
-    q.offset((page - 1) * intervalle)
-  }
-
-  if (intervalle) {
-    q.limit(intervalle)
-  }
 
   if (ids) {
     q.whereIn('titres.id', ids)
@@ -414,7 +239,95 @@ const titresGet = async (
       )
   }
 
-  // console.log(sqlFormatter.format(q))
+  return q
+}
+
+const titreGet = async (
+  id: string,
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+  const q = titresQueryBuild({}, { fields }, user)
+
+  return (await q.findById(id)) as ITitre
+}
+
+const titresColonnes = {
+  nom: { id: 'nom' },
+  domaine: { id: 'domaineId' },
+  type: { id: 'type.type.nom', relation: 'type' },
+  statut: { id: 'statutId' },
+  substances: { id: 'substances.nom', relation: 'substances' },
+  titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
+} as Index<IColonne>
+
+const titresGet = async (
+  {
+    intervalle,
+    page,
+    ordre,
+    colonne,
+    ids,
+    domainesIds,
+    typesIds,
+    statutsIds,
+    substances,
+    noms,
+    entreprises,
+    references,
+    territoires
+  }: {
+    intervalle?: number | null
+    page?: number | null
+    ordre?: 'asc' | 'desc' | null
+    colonne?: ITitreColonneInput | null
+    ids?: string[] | null
+    domainesIds?: string[] | null
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    substances?: string | null
+    noms?: string | null
+    entreprises?: string | null
+    references?: string | null
+    territoires?: string | null
+  } = {},
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = userId ? await userGet(userId) : undefined
+  const q = titresQueryBuild(
+    {
+      ids,
+      domainesIds,
+      typesIds,
+      statutsIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    },
+    { fields },
+    user
+  )
+
+  if (colonne) {
+    if (titresColonnes[colonne].relation) {
+      q.leftJoinRelated(titresColonnes[colonne].relation!)
+    }
+    q.orderBy(titresColonnes[colonne].id, ordre || undefined)
+  } else {
+    q.orderBy('titres.nom')
+  }
+
+  if (page && intervalle) {
+    q.offset((page - 1) * intervalle)
+  }
+
+  if (intervalle) {
+    q.limit(intervalle)
+  }
 
   return q
 }

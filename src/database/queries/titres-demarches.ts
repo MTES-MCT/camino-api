@@ -7,36 +7,15 @@ import {
   Index,
   IUtilisateur
 } from '../../types'
-import { transaction, Transaction, QueryBuilder, raw } from 'objection'
+import { transaction, Transaction } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
-import { utilisateurGet } from './utilisateurs'
+import { userGet } from './utilisateurs'
 import options from './_options'
 import graphFormat from './graph/format'
 import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
-const titreDemarchePermissionQueryBuild = (
-  q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
-  utilisateur?: IUtilisateur
-) => {
-  if (utilisateur?.permissionId === 'super') {
-    return q
-  }
-
-  q.select('titresDemarches.*')
-
-  q.modifyGraph('titre', t => {
-    titrePermissionQueryBuild(t, utilisateur)
-  })
-
-  q.modifyGraph('etapes', te => {
-    titreEtapePermissionQueryBuild(te, utilisateur)
-  })
-
-  q.whereRaw('?? is not null', 'titre.id')
-
-  return q
-}
+import { titreDemarchePermissionQueryBuild } from './_permissions'
 
 const titresDemarchesQueryBuild = (
   {
@@ -56,17 +35,18 @@ const titresDemarchesQueryBuild = (
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
-  fields: IFields,
-  utilisateur?: IUtilisateur
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
-  fields = fieldTitreAdd(fields)
-  const graph = graphBuild(fields, 'titre', graphFormat)
+  const graph = fields
+    ? graphBuild(fieldTitreAdd(fields), 'titre', graphFormat)
+    : options.demarches.graph
 
   const q = TitresDemarches.query()
     .skipUndefined()
     .withGraphFetched(graph)
 
-  titreDemarchePermissionQueryBuild(q, utilisateur)
+  titreDemarchePermissionQueryBuild(q, user)
 
   q.groupBy('titresDemarches.id')
 
@@ -167,9 +147,11 @@ const titresDemarchesCount = async (
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
-  { fields }: { fields: IFields },
+  { fields }: { fields?: IFields },
   userId?: string
 ) => {
+  const user = await userGet(userId)
+
   const q = titresDemarchesQueryBuild(
     {
       typesIds,
@@ -180,8 +162,8 @@ const titresDemarchesCount = async (
       etapesInclues,
       etapesExclues
     },
-    fields,
-    userId
+    { fields },
+    user
   )
 
   const titresDemarches = ((await q) as unknown) as { total: number }[]
@@ -224,11 +206,10 @@ const titresDemarchesGet = async (
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
-  { fields }: { fields: IFields },
+  { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const utilisateur = await utilisateurGet(userId)
-
+  const user = await userGet(userId)
   const q = titresDemarchesQueryBuild(
     {
       typesIds,
@@ -239,8 +220,8 @@ const titresDemarchesGet = async (
       etapesInclues,
       etapesExclues
     },
-    fields,
-    userId
+    { fields },
+    user
   )
 
   if (colonne) {
@@ -270,21 +251,11 @@ const titreDemarcheGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const utilisateur = await utilisateurGet(userId)
+  const user = await userGet(userId)
 
-  const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'titre', graphFormat)
-    : options.demarches.graph
+  const q = titresDemarchesQueryBuild({}, { fields }, user)
 
-  const q = TitresDemarches.query()
-    .withGraphFetched(graph)
-    .findById(titreDemarcheId)
-
-  titreDemarchePermissionQueryBuild(q, utilisateur)
-
-  q.groupBy('titresDemarches.id')
-
-  return q
+  return (await q.findById(titreDemarcheId)) as ITitreDemarche
 }
 
 const titreDemarcheCreate = async (titreDemarche: ITitreDemarche) =>

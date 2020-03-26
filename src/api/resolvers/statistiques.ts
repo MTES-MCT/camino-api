@@ -15,7 +15,7 @@ const statistiques = async () => {
       return titreIsPublic ? titre : null
     }).length
 
-    const titresActivites = await titresActivitesGet()
+    const titresActivites = await titresActivitesGet({}, {}, 'super')
 
     const titresActivitesDepose = titresActivites.filter(
       titreActivite =>

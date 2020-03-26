@@ -10,6 +10,16 @@ import TitresCommunes from '../models/titres-communes'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
 import options from './_options'
 
+// utilisé dans le daily et le résolver des documents uniquement
+const titreEtapeGet = async (
+  titreEtapeId: string,
+  { graph = options.etapes.graph } = {}
+) =>
+  TitresEtapes.query()
+    .withGraphFetched(graph)
+    .findById(titreEtapeId)
+
+// utilisé dans le daily uniquement
 const titresEtapesGet = async (
   {
     etapesIds,
@@ -41,14 +51,6 @@ const titresEtapesGet = async (
 
   return q
 }
-
-const titreEtapeGet = async (
-  titreEtapeId: string,
-  { graph = options.etapes.graph } = {}
-) =>
-  TitresEtapes.query()
-    .withGraphFetched(graph)
-    .findById(titreEtapeId)
 
 const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
   TitresEtapes.query()

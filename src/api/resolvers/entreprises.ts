@@ -7,7 +7,7 @@ import {
   entreprisesGet,
   entrepriseUpsert
 } from '../../database/queries/entreprises'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
 import graphBuild from '../../database/queries/graph/build'
@@ -26,7 +26,7 @@ const entreprise = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     const graph = graphBuild(fieldsBuild(info), 'entreprise', graphFormat)
     const entreprise = await entrepriseGet(id, { graph })
@@ -51,7 +51,7 @@ const entreprises = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
     const entreprises = await entreprisesGet(
       { noms },
       {
@@ -74,7 +74,7 @@ const entrepriseCreer = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
@@ -123,7 +123,7 @@ const entrepriseModifier = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')

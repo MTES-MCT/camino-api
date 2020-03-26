@@ -16,7 +16,7 @@ import {
   titresGet,
   titreUpsert
 } from '../../database/queries/titres'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import titreUpdateTask from '../../business/titre-update'
 
@@ -33,7 +33,7 @@ const titre = async (
     const titre = await titreGet(id, { fields }, context.user?.id)
     if (!titre) return null
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     return titreFormat(user, titre, fields)
   } catch (e) {
@@ -109,7 +109,7 @@ const titres = async (
       context.user?.id
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)
 
     return titresFormatted && activitesSortParams
@@ -130,7 +130,7 @@ const titreCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -169,7 +169,7 @@ const titreModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -209,7 +209,7 @@ const titreModifier = async (
 }
 
 const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
-  const user = context.user && (await utilisateurGet(context.user.id))
+  const user = context.user && (await userGet(context.user.id))
 
   if (!user || !permissionsCheck(user, ['super'])) {
     throw new Error('droits insuffisants')

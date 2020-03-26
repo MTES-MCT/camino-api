@@ -22,7 +22,7 @@ import {
 } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 import { titreGet } from '../../database/queries/titres'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
@@ -144,7 +144,7 @@ const demarcheEtapesTypes = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
     if (!user) return []
 
     const demarche = await titreDemarcheGet(
@@ -172,7 +172,7 @@ const etapeCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -247,7 +247,7 @@ const etapeModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -320,7 +320,7 @@ const etapeSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super'])) {
       throw new Error('droits insuffisants')

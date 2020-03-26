@@ -1,3 +1,4 @@
+import { GraphQLResolveInfo } from 'graphql'
 import { IToken, IUtilisateur } from '../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
@@ -8,13 +9,15 @@ import init from '../../server/init'
 
 import { debug } from '../../config/index'
 import { emailSend } from '../../tools/emails-send'
+import fieldsBuild from './_fields-build'
 
 import {
+  userGet,
   utilisateurGet,
   utilisateursGet,
   utilisateurCreate,
   utilisateurUpdate,
-  utilisateurByEmailGet
+  userByEmailGet
 } from '../../database/queries/utilisateurs'
 
 import globales from '../../database/cache/globales'
@@ -36,7 +39,7 @@ import { userFormat } from './format/users'
 
 const userIdGenerate = async (): Promise<string> => {
   const id = cryptoRandomString({ length: 6 })
-  const utilisateurWithTheSameId = await utilisateurGet(id)
+  const utilisateurWithTheSameId = await userGet(id)
   if (utilisateurWithTheSameId) {
     return userIdGenerate()
   }
@@ -44,11 +47,16 @@ const userIdGenerate = async (): Promise<string> => {
   return id
 }
 
-const utilisateur = async ({ id }: { id: string }, context: IToken) => {
+const utilisateur = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
-    const utilisateur = await utilisateurGet(id)
+    const fields = fieldsBuild(info)
+    const utilisateur = await utilisateurGet(id, { fields }, context.user?.id)
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     return utilisateur && utilisateurFormat(user, utilisateur)
   } catch (e) {
@@ -72,17 +80,23 @@ const utilisateurs = async (
     permissionIds: string[]
     noms: string[]
   },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
-    const utilisateurs = await utilisateursGet({
-      noms,
-      entrepriseIds,
-      administrationIds,
-      permissionIds
-    })
+    const fields = fieldsBuild(info)
+    const utilisateurs = await utilisateursGet(
+      {
+        noms,
+        entrepriseIds,
+        administrationIds,
+        permissionIds
+      },
+      { fields },
+      context.user?.id
+    )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     return utilisateursFormat(user, utilisateurs)
   } catch (e) {
@@ -101,7 +115,7 @@ const moi = async (_: unknown, context: IToken) => {
       await init()
     }
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     return userFormat(user)
   } catch (e) {
@@ -122,26 +136,23 @@ const utilisateurTokenCreer = async ({
 }) => {
   try {
     email = email.toLowerCase()
-
     if (!emailCheck(email)) {
       throw new Error('adresse email invalide')
     }
 
-    const utilisateur = await utilisateurByEmailGet(email)
-
-    if (!utilisateur) {
+    const user = await userByEmailGet(email)
+    if (!user) {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
 
-    const valid = bcrypt.compareSync(motDePasse, utilisateur.motDePasse!)
-
+    const valid = bcrypt.compareSync(motDePasse, user.motDePasse!)
     if (!valid) {
       throw new Error('mot de passe incorrect')
     }
 
     return {
-      token: userTokenCreate(utilisateur),
-      utilisateur: userFormat(utilisateur)
+      token: userTokenCreate(user),
+      utilisateur: userFormat(user)
     }
   } catch (e) {
     if (debug) {
@@ -173,7 +184,7 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
       throw new Error('aucun utilisateur sur Cerbère')
     }
 
-    let utilisateur = await utilisateurByEmailGet(cerbereUtilisateur.email!)
+    let utilisateur = await userByEmailGet(cerbereUtilisateur.email!)
 
     // si l'utilisateur n'existe pas encore en base
     // alors on le crée en lui générant un mot de passe aléatoire
@@ -210,9 +221,7 @@ const utilisateurCreer = async (
       throw new Error('droits insuffisants pour créer un utilisateur')
     }
 
-    const user = context.user.id
-      ? await utilisateurGet(context.user.id)
-      : undefined
+    const user = await userGet(context.user?.id)
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
@@ -236,9 +245,7 @@ const utilisateurCreer = async (
       errors.push('le mot de passe doit contenir au moins 8 caractères')
     }
 
-    const utilisateurWithTheSameEmail = await utilisateurByEmailGet(
-      utilisateur.email!
-    )
+    const utilisateurWithTheSameEmail = await userByEmailGet(utilisateur.email!)
 
     if (utilisateurWithTheSameEmail) {
       errors.push('un utilisateur avec cet email existe déjà')
@@ -289,9 +296,9 @@ const utilisateurCreationEmailEnvoyer = async ({
       throw new Error('adresse email invalide')
     }
 
-    const utilisateur = await utilisateurByEmailGet(email)
+    const user = await userByEmailGet(email)
 
-    if (utilisateur) {
+    if (user) {
       throw new Error(
         'un utilisateur est déjà enregistré avec cette adresse email'
       )
@@ -324,10 +331,11 @@ const utilisateurCreationEmailEnvoyer = async ({
 
 const utilisateurModifier = async (
   { utilisateur }: { utilisateur: IUtilisateur },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
@@ -395,16 +403,18 @@ const utilisateurSupprimer = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
+    const user = await userGet(context.user?.id)
     if (
       !user ||
-      (!permissionsCheck(user, ['super', 'admin']) && user.id !== id)
+      (!['super', 'admin'].includes(user.permissionId) && user.id !== id)
     ) {
-      throw new Error('droits insuffisants pour supprimer cet utilisateur')
+      throw new Error('droits insuffisants pour mettre à jour cet utilisateur')
     }
 
     const utilisateur = await utilisateurGet(id)
+    if (!utilisateur) {
+      throw new Error('aucun utilisateur avec cet id')
+    }
 
     utilisateur.email = ''
     utilisateur.motDePasse = 'suppression'
@@ -443,7 +453,7 @@ const utilisateurMotDePasseModifier = async (
   context: IToken
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = await userGet(context.user?.id)
 
     if (
       !user ||
@@ -506,7 +516,7 @@ const utilisateurMotDePasseEmailEnvoyer = async ({
       throw new Error('adresse email invalide')
     }
 
-    const utilisateur = await utilisateurByEmailGet(email)
+    const utilisateur = await userByEmailGet(email)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')

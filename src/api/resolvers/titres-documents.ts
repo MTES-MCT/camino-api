@@ -16,7 +16,7 @@ import {
 
 import { titreGet } from '../../database/queries/titres'
 
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import titreDocumentUpdationValidate from '../../business/titre-document-updation-validate'
 import { ITitreDocument, IToken } from '../../types'
@@ -44,7 +44,7 @@ const documentCreer = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -104,7 +104,7 @@ const documentModifier = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -180,7 +180,7 @@ const documentSupprimer = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')

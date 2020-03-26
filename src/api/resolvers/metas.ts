@@ -19,7 +19,7 @@ import {
   unitesGet,
   activitesTypesGet
 } from '../../database/queries/metas'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import { permissionsCheck } from './permissions/permissions-check'
 import {
@@ -38,7 +38,7 @@ const permission = async ({ id }: { id: string }) => permissionGet(id)
 
 const permissions = async (_: unknown, context: IToken) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       return null
     }
@@ -57,7 +57,7 @@ const permissions = async (_: unknown, context: IToken) => {
 
 const domaines = async (_: unknown, context: IToken) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
     const domaines = await domainesGet()
 
     if (!permissionsCheck(user, ['super', 'admin'])) {
@@ -82,7 +82,7 @@ const utilisateurDomaines = async (_: unknown, context: IToken) => {
   try {
     if (!context.user) return []
 
-    const user = await utilisateurGet(context.user.id)
+    const user = await userGet(context.user.id)
 
     const isSuper = permissionsCheck(user, ['super'])
     const isAdmin = permissionsCheck(user, ['admin'])

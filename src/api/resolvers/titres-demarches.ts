@@ -27,7 +27,7 @@ import {
   titreDemarcheDelete
 } from '../../database/queries/titres-demarches'
 import { titreGet } from '../../database/queries/titres'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../business/titre-demarche-update'
 import titreDemarcheUpdationValidate from '../../business/titre-demarche-updation-validate'
@@ -105,7 +105,7 @@ const demarches = async (
       userId
     )
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     const isSuper = permissionsCheck(user, ['super'])
     const isAdmin = permissionsCheck(user, ['admin'])
@@ -150,7 +150,7 @@ const titreDemarchesTypes = async (
       throw new Error(`${titre.typeId} inexistant`)
     }
 
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     return demarchesTypesFormat(
       user,
@@ -173,7 +173,7 @@ const demarcheCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -225,7 +225,7 @@ const demarcheModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
@@ -277,7 +277,7 @@ const demarcheSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super'])) {
       throw new Error('droits insuffisants')
