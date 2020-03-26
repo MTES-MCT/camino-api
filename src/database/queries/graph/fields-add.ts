@@ -44,7 +44,11 @@ const fieldTitreAdd = (fields: IFields) => {
 // ajoute les démarches et les étapes sur une requête de titre
 // pour calculer ses sections en fonction des sections des étapes
 const titresFieldsAdd = (fields: IFields) => {
-  if (fields.type && fields.type.sections) {
+  // const etapesBesoin = fields.demarches?.etapes
+
+  console.log('????????????? sections dans les fields ', fields.type?.sections)
+
+  if (fields.type?.sections) {
     if (!fields.demarches) {
       fields.demarches = { id: {} }
     }
@@ -58,6 +62,8 @@ const titresFieldsAdd = (fields: IFields) => {
       fields.demarches.etapes.type = { id: {} }
     }
   }
+
+  console.log('!!!!!!!!! FIELDS YOUHOUUUU', JSON.stringify(fields))
 
   return fields
 }

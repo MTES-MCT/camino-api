@@ -8,10 +8,10 @@ async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  // const userId = 'f5922d'
+  const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
-  const userId = 'f455dd'
+  // const userId = 'f455dd'
 
   // entreprise titulaire sainte-helene
   // const userId = 'd343f9'
@@ -23,14 +23,14 @@ async function main() {
   // const userId = undefined
 
   // titre echu public
-  // const titreDemarcheId = 'm-ar-sainte-helene-2019-oct01'
+  // const id = 'm-ar-sainte-helene-2019'
 
   // titre non-public
-  const titreDemarcheId =
-    'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019-oct01'
+  const titreId =
+    'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
 
   const res = await titreDemarcheGet(
-    titreDemarcheId,
+    `${titreId}-oct01`,
     {
       fields: {
         etapes: {

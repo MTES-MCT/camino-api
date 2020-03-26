@@ -51,7 +51,7 @@ class EtapesTypes extends Model {
       }
     },
 
-    restrictionsTitresTypesAdministrations: {
+    restrictionsAdministrations: {
       relation: Model.HasManyRelation,
       modelClass: RestrictionsTitresTypesEtapesTypesAdministrations,
       join: {

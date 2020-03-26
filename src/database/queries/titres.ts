@@ -4,12 +4,14 @@ import {
   ITitreColonneInput,
   IColonne,
   Index,
-  IFields
+  IFields,
+  IUtilisateur
 } from '../../types'
-import { transaction, Transaction, QueryBuilder } from 'objection'
-import knex from '../index'
+import { transaction, raw, QueryBuilder, Transaction } from 'objection'
 
 import Titres from '../models/titres'
+
+import { utilisateurGet } from './utilisateurs'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
@@ -26,69 +28,139 @@ const stringSplit = (string: string) =>
 
 const titrePermissionQueryBuild = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
-  userId = ''
+  utilisateur?: IUtilisateur
 ) => {
-  if (userId === 'super') {
+  if (utilisateur?.permissionId === 'super') {
     return q
   }
 
   q.select('titres.*')
 
-  if (userId) {
-    // isSuper
-    q.leftJoin('utilisateurs AS us', b => {
-      b.on('us.permissionId', '=', knex.raw('?', 'super'))
-      b.on('us.id', '=', knex.raw('?', userId))
-    })
-    q.select('us.id as isSuper')
-    q.groupBy('isSuper')
+  if (
+    !utilisateur ||
+    ['defaut', 'entreprise'].includes(utilisateur.permissionId)
+  ) {
+    q.leftJoinRelated('[type.autorisationsTitresStatuts, domaine.autorisation]')
 
-    // titulaires et amodiataires
-    q.leftJoinRelated('[titulaires.utilisateurs, amodiataires.utilisateurs]')
+    if (!utilisateur) {
+      // visibilité des etapes publiques
+      q.modifyGraph('demarches.etapes', b => {
+        b.where('type:autorisations.publicLecture', true)
+      })
+    } else {
+      if (utilisateur.permissionId === 'entreprise') {
+        // titulaires et amodiataires
+        q.leftJoinRelated('[titulaires, amodiataires]')
 
-    // isAdmin
-    q.leftJoin('utilisateurs AS ua', b => {
-      b.onIn('ua.permissionId', ['admin', 'editeur', 'lecteur'])
-      b.on('ua.id', '=', knex.raw('?', userId))
-    })
-    q.select('ua.id as isAdmin')
-    q.groupBy('isAdmin')
-
-    // administrations gestionnaires et locales
-    q.leftJoinRelated(
-      '[administrationsGestionnaires.utilisateurs, administrationsLocales.utilisateurs]'
-    )
-  }
-
-  q.leftJoinRelated('[type.autorisationsTitresStatuts, domaine.autorisation]')
-
-  q.andWhere(b => {
-    if (userId) {
-      b.orWhereNotNull('us.id')
-      b.orWhereNotNull('ua.id')
-
-      b.orWhereRaw('?? = ?', ['titulaires:utilisateurs.id', userId])
-        .orWhereRaw('?? = ?', ['amodiataires:utilisateurs.id', userId])
-        .orWhereRaw('?? = ?', [
-          'administrationsGestionnaires:utilisateurs.id',
-          userId
-        ])
-        .orWhereRaw('?? = ?', [
-          'administrationsLocales:utilisateurs.id',
-          userId
-        ])
+        // visibilité des etapes en tant que titulaire
+        q.modifyGraph('demarches.etapes', b => {
+          b.where('type:autorisations.entreprisesLecture', true)
+        })
+      }
     }
 
-    b.whereRaw('?? = ?', ['domaine:autorisation.publicLecture', true])
-      .whereRaw('?? = ??', [
+    q.where(b => {
+      // titres publics
+      b.where({
+        'domaine:autorisation.publicLecture': true,
+        'type:autorisationsTitresStatuts.publicLecture': true
+      }).andWhereRaw('?? = ??', [
         'type:autorisationsTitresStatuts.titreStatutId',
-        'titres.statutId'
+        'statutId'
       ])
-      .whereRaw('?? = ?', [
-        'type:autorisationsTitresStatuts.publicLecture',
-        true
-      ])
-  })
+
+      // si l'utilisateur est `entreprise`,
+      // titres dont il est titulaire ou amodiataire
+      if (utilisateur?.permissionId === 'entreprise') {
+        const entreprisesIds = utilisateur.entreprises?.map(e => e.id)
+
+        if (entreprisesIds) {
+          b.orWhereIn('titulaires.id', entreprisesIds)
+          b.orWhereIn('amodiataires.id', entreprisesIds)
+        }
+      }
+    })
+  } else if (
+    ['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)
+  ) {
+    // visibilité des étapes en tant qu'administrations
+    q.modifyGraph('demarches.etapes', b => {
+      const administrationsIds =
+        utilisateur.administrations?.map(a => a.id) || []
+
+      b.leftJoinRelated('[demarche.titre, type]')
+
+      // si l'utilisateur admin n'appartient à aucune administration
+      // alors il ne peut pas voir les étapes faisant l'objet de restriction
+      // peut importe l'administration
+      if (administrationsIds.length === 0) {
+        b.leftJoinRelated('[type.restrictionsAdministrations]')
+
+        b.whereNot({
+          'type:restrictionsAdministrations.lectureInterdit': true
+        }).andWhereRaw('?? = ??', [
+          'type:restrictionsAdministrations.titreTypeId',
+          'demarche:titre.typeId'
+        ])
+      } else {
+        // il faut le faire avant le join du graph
+        b.leftJoin(
+          'administrations',
+          raw(`?? in (${administrationsIds.map(() => '?').join(',')})`, [
+            'administrations.id',
+            ...administrationsIds
+          ])
+        )
+
+        // le leftJoinRelated sur les restrictions enlève trop de lignes
+        // car il fait le join sur l'id des etapes-types
+        // il manque les ids admins + types de titres
+        // on n'a donc plus les lignes `null`
+
+        b.leftJoin(
+          'r__titresTypes__etapesTypes__administrations as type:restrictionsAdministrations',
+          raw('?? = ?? AND ?? = ?? AND ?? = ??', [
+            'type:restrictionsAdministrations.etapeTypeId',
+            'titresEtapes.typeId',
+            'type:restrictionsAdministrations.administrationId',
+            'administrations.id',
+            'type:restrictionsAdministrations.titreTypeId',
+            'demarche:titre.typeId'
+          ])
+        )
+
+        b.whereRaw('?? is not true', [
+          'type:restrictionsAdministrations.lectureInterdit'
+        ])
+      }
+    })
+  }
+
+  return q
+}
+
+const titreGet = async (
+  id: string,
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const utilisateur = await utilisateurGet(userId)
+
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
+    : options.titres.graph
+
+  const q = Titres.query()
+    .findById(id)
+    .withGraphFetched(graph)
+
+  titrePermissionQueryBuild(q, utilisateur)
+
+  q.groupBy('titres.id')
+
+  q.debug()
+
+  console.log('-------q:', q.toKnexQuery().toString())
 
   return q
 }
@@ -101,26 +173,6 @@ const titresColonnes = {
   substances: { id: 'substances.nom', relation: 'substances' },
   titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
 } as Index<IColonne>
-
-const titreGet = async (
-  id: string,
-  { fields }: { fields?: IFields },
-  userId?: string
-) => {
-  const graph = fields
-    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
-    : options.titres.graph
-
-  const q = Titres.query()
-    .findById(id)
-    .withGraphFetched(graph)
-
-  titrePermissionQueryBuild(q, userId)
-
-  q.groupBy('titres.id')
-
-  return q
-}
 
 const titresGet = async (
   {
@@ -155,6 +207,7 @@ const titresGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
+  const utilisateur = await utilisateurGet(userId)
   const graph = fields
     ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
     : options.titres.graph
@@ -163,13 +216,13 @@ const titresGet = async (
     .skipUndefined()
     .withGraphFetched(graph)
 
-  titrePermissionQueryBuild(q, userId)
+  titrePermissionQueryBuild(q, utilisateur)
 
   q.groupBy('titres.id')
 
   if (colonne) {
     if (titresColonnes[colonne].relation) {
-      q.joinRelated(titresColonnes[colonne].relation!)
+      q.leftJoinRelated(titresColonnes[colonne].relation!)
     }
     q.orderBy(titresColonnes[colonne].id, ordre || undefined)
   } else {
@@ -189,7 +242,7 @@ const titresGet = async (
   }
 
   if (typesIds) {
-    q.joinRelated('type').whereIn('type.typeId', typesIds)
+    q.leftJoinRelated('type').whereIn('type.typeId', typesIds)
   }
 
   if (domainesIds) {
@@ -251,7 +304,7 @@ const titresGet = async (
       'substances:legales.id'
     ]
 
-    q.joinRelated('substances.legales')
+    q.leftJoinRelated('substances.legales')
       .where(b => {
         substancesArray.forEach(s => {
           fields.forEach(f => {

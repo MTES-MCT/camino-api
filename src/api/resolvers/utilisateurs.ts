@@ -50,7 +50,7 @@ const utilisateur = async ({ id }: { id: string }, context: IToken) => {
 
     const user = context.user && (await utilisateurGet(context.user.id))
 
-    return utilisateurFormat(user, utilisateur)
+    return utilisateur && utilisateurFormat(user, utilisateur)
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -13,12 +13,6 @@ const fileNameGet = async (
       throw new Error('droits insuffisants')
     }
 
-    const user = await utilisateurGet(userId)
-
-    if (!user) {
-      throw new Error('utilisateur inexistant')
-    }
-
     if (!titreDocumentId) {
       throw new Error('id du document absent')
     }
@@ -38,7 +32,7 @@ const fileNameGet = async (
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
       { fields: {} },
-      user && user.id
+      userId
     )
 
     if (!titreDemarche) {

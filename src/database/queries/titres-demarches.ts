@@ -25,102 +25,15 @@ const titreDemarchePermissionQueryBuild = (
 
   q.select('titresDemarches.*')
 
-  q.leftJoinRelated(
-    'titre.[type.autorisationsTitresStatuts, domaine.autorisation]'
-  )
+  q.modifyGraph('titre', t => {
+    titrePermissionQueryBuild(t, utilisateur)
+  })
 
-  if (!utilisateur) {
-    // visibilité des etapes en utilisateur public
-    q.modifyGraph('etapes', b => {
-      b.leftJoinRelated('type.autorisations')
-      b.where('type:autorisations.publicLecture', true)
-    })
-  } else {
-    if (utilisateur.permissionId === 'entreprise') {
-      // titulaires et amodiataires
-      q.leftJoinRelated('titre.[titulaires, amodiataires]')
+  q.modifyGraph('etapes', te => {
+    titreEtapePermissionQueryBuild(te, utilisateur)
+  })
 
-      // visibilité des etapes en tant que titulaire
-      q.modifyGraph('etapes', b => {
-        b.leftJoinRelated('type.autorisations')
-        b.where('type:autorisations.entreprisesLecture', true)
-      })
-    } else if (
-      ['admin', 'editeur', 'lecteur'].includes(utilisateur.permissionId)
-    ) {
-      // visibilité des étapes en tant qu'administrations
-      q.modifyGraph('etapes', b => {
-        const administrationsIds =
-          utilisateur.administrations?.map(a => a.id) || []
-
-        // si l'utilisateur admin n'appartient à aucune administration
-        // alors il ne peut pas voir les étapes faisant l'objet de restriction
-        // peut importe l'administration
-        if (!administrationsIds.length) {
-          b.leftJoinRelated(
-            '[type.restrictionsTitresTypesAdministrations, demarche.titre]'
-          )
-
-          b.whereNot({
-            'type:restrictionsTitresTypesAdministrations.lectureInterdit': true
-          }).andWhereRaw('?? = ??', [
-            'type:restrictionsTitresTypesAdministrations.titreTypeId',
-            'demarche:titre.typeId'
-          ])
-        } else {
-          b.leftJoinRelated('demarche.titre')
-
-          b.leftJoin(
-            'administrations',
-            raw('?? IN (?)', ['administrations.id', administrationsIds])
-          )
-          b.leftJoin(
-            'r__titresTypes__etapesTypes__administrations as type:restrictionsTitresTypesAdministrations',
-            raw('?? = ?? AND ?? = ?? AND ?? = ??', [
-              'titresEtapes.typeId',
-              'type:restrictionsTitresTypesAdministrations.etapeTypeId',
-              'type:restrictionsTitresTypesAdministrations.administrationId',
-              'administrations.id',
-              'type:restrictionsTitresTypesAdministrations.titreTypeId',
-              'demarche:titre.typeId'
-            ])
-          )
-
-          b.whereRaw('?? is not true', [
-            'type:restrictionsTitresTypesAdministrations.lectureInterdit'
-          ])
-        }
-      })
-    }
-  }
-
-  // démarches des titres publics et entreprises
-  if (
-    !utilisateur ||
-    ['defaut', 'entreprise'].includes(utilisateur.permissionId)
-  ) {
-    // démarches des titres publics
-    q.andWhere(b => {
-      b.where({
-        'titre:domaine:autorisation.publicLecture': true,
-        'titre:type:autorisationsTitresStatuts.publicLecture': true
-      }).andWhereRaw('?? = ??', [
-        'titre:type:autorisationsTitresStatuts.titreStatutId',
-        'titre.statutId'
-      ])
-
-      // si l'utilisateur est `entreprise`,
-      // démarches des titres dont il est titulaire ou amodiataire
-      if (utilisateur?.permissionId === 'entreprise') {
-        const entreprisesIds = utilisateur.entreprises?.map(e => e.id)
-
-        if (entreprisesIds) {
-          b.orWhereIn('titre:titulaires.id', entreprisesIds)
-          b.orWhereIn('titre:amodiataires.id', entreprisesIds)
-        }
-      }
-    })
-  }
+  q.whereRaw('?? is not null', 'titre.id')
 
   return q
 }
@@ -144,7 +57,7 @@ const titresDemarchesQueryBuild = (
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
   fields: IFields,
-  userId?: string
+  utilisateur?: IUtilisateur
 ) => {
   fields = fieldTitreAdd(fields)
   const graph = graphBuild(fields, 'titre', graphFormat)
@@ -153,7 +66,7 @@ const titresDemarchesQueryBuild = (
     .skipUndefined()
     .withGraphFetched(graph)
 
-  titreDemarchePermissionQueryBuild(q, userId)
+  titreDemarchePermissionQueryBuild(q, utilisateur)
 
   q.groupBy('titresDemarches.id')
 
@@ -166,19 +79,19 @@ const titresDemarchesQueryBuild = (
   }
 
   if (titresDomainesIds) {
-    q.joinRelated('titre').whereIn('titre.domaineId', titresDomainesIds)
+    q.leftJoinRelated('titre').whereIn('titre.domaineId', titresDomainesIds)
   }
 
   if (titresTypesIds) {
-    q.joinRelated('titre.type').whereIn('titre:type.typeId', titresTypesIds)
+    q.leftJoinRelated('titre.type').whereIn('titre:type.typeId', titresTypesIds)
   }
 
   if (titresStatutsIds) {
-    q.joinRelated('titre').whereIn('titre.statutId', titresStatutsIds)
+    q.leftJoinRelated('titre').whereIn('titre.statutId', titresStatutsIds)
   }
 
   if (etapesInclues?.length || etapesExclues?.length) {
-    q.joinRelated('etapes').groupBy('titresDemarches.id')
+    q.leftJoinRelated('etapes').groupBy('titresDemarches.id')
 
     if (etapesInclues?.length) {
       const raw = etapesInclues
@@ -314,6 +227,8 @@ const titresDemarchesGet = async (
   { fields }: { fields: IFields },
   userId?: string
 ) => {
+  const utilisateur = await utilisateurGet(userId)
+
   const q = titresDemarchesQueryBuild(
     {
       typesIds,
@@ -355,14 +270,7 @@ const titreDemarcheGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  let utilisateur
-
-  if (userId) {
-    utilisateur =
-      userId === 'super'
-        ? (({ permissionId: 'super' } as unknown) as IUtilisateur)
-        : await utilisateurGet(userId)
-  }
+  const utilisateur = await utilisateurGet(userId)
 
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'titre', graphFormat)

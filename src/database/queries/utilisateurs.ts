@@ -3,10 +3,17 @@ import { IUtilisateur } from '../../types'
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
 
-const utilisateurGet = async (id: string) =>
-  Utilisateurs.query()
+const utilisateurGet = async (id?: string) => {
+  if (!id) return undefined
+
+  if (id === 'super') {
+    return ({ permissionId: 'super' } as unknown) as IUtilisateur
+  }
+
+  return Utilisateurs.query()
     .findById(id)
     .withGraphFetched(options.utilisateurs.graph)
+}
 
 const utilisateurByEmailGet = async (email: string) =>
   Utilisateurs.query()
