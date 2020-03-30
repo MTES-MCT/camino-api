@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.28](https://github.com/MTES-MCT/camino-api/compare/v0.24.27...v0.24.28) (2020-03-30)
+
+
+### Features
+
+* **filtre:** caractérise les types de titres: exploitation ou exploration ([#342](https://github.com/MTES-MCT/camino-api/issues/342)) ([9c15da1](https://github.com/MTES-MCT/camino-api/commit/9c15da1b358445717e12583d127371301f7fca56))
+
+
+### Bug Fixes
+
+* **documents:** corrige des ids de documents et renomme les fichiers manquants ([#351](https://github.com/MTES-MCT/camino-api/issues/351)) ([630919c](https://github.com/MTES-MCT/camino-api/commit/630919cff7ebd79417522192879a579dd13dba74))
+
 ### [0.24.27](https://github.com/MTES-MCT/camino-api/compare/v0.24.26...v0.24.27) (2020-03-23)
 
 
