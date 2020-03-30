@@ -15,7 +15,7 @@ const run = async () => {
     console.log()
     console.log('entreprises (API INSEE)…')
 
-    const entreprises = await entreprisesGet()
+    const entreprises = await entreprisesGet({}, {}, 'super')
     const entreprisesEtablissements = await entreprisesEtablissementsGet()
 
     const [
@@ -28,7 +28,7 @@ const run = async () => {
     // mise à jour des administrations grâce à l'API Administration
 
     const departements = await departementsGet()
-    const administrations = await administrationsGet()
+    const administrations = await administrationsGet({}, {}, 'super')
     const administrationsUpdated = await administrationsUpdate(
       administrations,
       departements

@@ -211,7 +211,7 @@ const run = async () => {
       },
       'super'
     )
-    let administrations = await administrationsGet()
+    let administrations = await administrationsGet({}, {}, 'super')
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
@@ -245,7 +245,7 @@ const run = async () => {
       },
       'super'
     )
-    administrations = await administrationsGet()
+    administrations = await administrationsGet({}, {}, 'super')
     const [
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []

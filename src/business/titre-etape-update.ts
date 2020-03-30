@@ -131,7 +131,7 @@ const titreEtapeUpdate = async (
 
     // 10.
     console.log('administrations locales associées aux étapes…')
-    let administrations = await administrationsGet()
+    let administrations = await administrationsGet({}, {}, 'super')
     titre = await titreGet(
       titreId,
       {
@@ -146,7 +146,7 @@ const titreEtapeUpdate = async (
       },
       'super'
     )
-    administrations = await administrationsGet()
+    administrations = await administrationsGet({}, {}, 'super')
     const [
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []

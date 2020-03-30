@@ -43,9 +43,7 @@ const documentCreer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
-
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
@@ -80,6 +78,7 @@ const documentCreer = async (
 
     const documentUpdated = await titreDocumentCreate(document)
 
+    const fields = fieldsBuild(info)
     // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
       documentUpdated.titreEtapeId.slice(0, -12),
@@ -103,7 +102,6 @@ const documentModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
@@ -156,6 +154,7 @@ const documentModifier = async (
 
     const documentUpdated = await titreDocumentUpdate(document.id, document)
 
+    const fields = fieldsBuild(info)
     // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
       documentUpdated.titreEtapeId.slice(0, -12),
@@ -179,7 +178,6 @@ const documentSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super', 'admin'])) {
@@ -209,6 +207,7 @@ const documentSupprimer = async (
 
     await titreDocumentDelete(id)
 
+    const fields = fieldsBuild(info)
     // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
       documentOld.titreEtapeId.slice(0, -12),

@@ -102,9 +102,18 @@ const titreDemarchePermissionQueryBuild = (
 
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  user: IUtilisateur
+  user?: IUtilisateur
 ) => {
   q.select('titresActivites.*')
+
+  q.debug()
+
+  if (!user) {
+    // les utilisateurs non identifiés ne peuvent voir aucune activité
+    q.limit(0)
+
+    return q
+  }
 
   if (user.permissionId === 'super') {
     q.select(raw('? as ??', [true, 'isSuper']))
@@ -112,30 +121,67 @@ const titreActivitePermissionQueryBuild = (
     return q
   }
 
-  q.whereExists(
-    titrePermissionQueryBuild(TitresDemarches.relatedQuery('titre'), user)
-  )
+  const titreQuery = TitresActivites.relatedQuery('titre') as QueryBuilder<
+    Titres,
+    Titres | Titres[]
+  >
 
-  // administrations gestionnaires et locales
-  q.leftJoinRelated(
-    'titre.[administrationsGestionnaires, administrationsLocales]'
-  )
+  // vérifie que l'utilisateur a les permissions sur les titres
+  q.whereExists(titreActivitesTitrePermissionQueryBuild(titreQuery, user))
 
-  // l'utilisateur fait partie d'une administrations qui a les droits sur le titre
-  q.andWhere(b => {
-    const administrationsIds = user.administrations?.map(a => a.id) || []
-    const administrationsIdsReplace = administrationsIds
-      .map(() => '?')
-      .join(',')
+  return q
+}
 
-    b.orWhereRaw(`?? in (${administrationsIdsReplace})`, [
-      'titre:administrationsGestionnaires.administrationId',
-      ...administrationsIds
-    ]).orWhereRaw(`?? in (${administrationsIdsReplace})`, [
-      'titre:administrationsLocales.administrationId',
-      ...administrationsIds
-    ])
-  })
+const titreActivitesTitrePermissionQueryBuild = (
+  q: QueryBuilder<Titres, Titres | Titres[]>,
+  user: IUtilisateur
+) => {
+  q.select('titre.*')
+
+  if (user.permissionId === 'super') {
+    return q
+  }
+
+  if (['defaut', 'entreprise'].includes(user.permissionId)) {
+    if (user.permissionId === 'entreprise') {
+      // titulaires et amodiataires
+      q.leftJoinRelated('[titulaires, amodiataires]')
+    }
+
+    q.where(b => {
+      // si l'utilisateur est `entreprise`,
+      // titres dont il est titulaire ou amodiataire
+      if (user?.permissionId === 'entreprise') {
+        const entreprisesIds = user.entreprises?.map(e => e.id)
+
+        if (entreprisesIds) {
+          b.orWhereIn('titulaires.id', entreprisesIds)
+          b.orWhereIn('amodiataires.id', entreprisesIds)
+        }
+      }
+    })
+  } else if (user.administrations?.length) {
+    // administrations gestionnaires et locales
+    q.leftJoinRelated(
+      'titre.[administrationsGestionnaires, administrationsLocales]'
+    )
+
+    // l'utilisateur fait partie d'une administrations qui a les droits sur le titre
+    q.andWhere(b => {
+      const administrationsIds = user.administrations?.map(a => a.id) || []
+      const administrationsIdsReplace = administrationsIds
+        .map(() => '?')
+        .join(',')
+
+      b.orWhereRaw(`?? in (${administrationsIdsReplace})`, [
+        'titre:administrationsGestionnaires.id',
+        ...administrationsIds
+      ]).orWhereRaw(`?? in (${administrationsIdsReplace})`, [
+        'titre:administrationsLocales.id',
+        ...administrationsIds
+      ])
+    })
+  }
 
   return q
 }
@@ -185,6 +231,14 @@ const titrePermissionQueryBuild = (
   q.modifyGraph('demarches.etapes', b => {
     titreEtapesPermissionQueryBuild(
       b as QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
+      user
+    )
+  })
+
+  // visibilité des activités
+  q.modifyGraph('activites', b => {
+    titreActivitePermissionQueryBuild(
+      b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
   })

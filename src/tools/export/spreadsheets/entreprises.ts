@@ -4,7 +4,7 @@ import { entreprisesGet } from '../../../database/queries/entreprises'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES
 
-const get = () => entreprisesGet({})
+const get = () => entreprisesGet({}, {}, 'super')
 
 const tables = [
   {

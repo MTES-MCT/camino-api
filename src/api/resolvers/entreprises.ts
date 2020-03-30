@@ -10,8 +10,6 @@ import {
 import { userGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
-import graphBuild from '../../database/queries/graph/build'
-import graphFormat from '../../database/queries/graph/format'
 
 import { entrepriseFormat, entreprisesFormat } from './format/entreprises'
 
@@ -26,14 +24,15 @@ const entreprise = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const fields = fieldsBuild(info)
 
-    const graph = graphBuild(fieldsBuild(info), 'entreprise', graphFormat)
-    const entreprise = await entrepriseGet(id, { graph })
+    const entreprise = await entrepriseGet(id, { fields }, context.user?.id)
 
     if (!entreprise) {
       throw new Error('aucune entreprise référencée avec cet identifiant')
     }
+
+    const user = context.user && (await userGet(context.user.id))
 
     return entrepriseFormat(user, entreprise)
   } catch (e) {
@@ -51,13 +50,15 @@ const entreprises = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const fields = fieldsBuild(info)
+
     const entreprises = await entreprisesGet(
       { noms },
-      {
-        graph: graphBuild(fieldsBuild(info), 'entreprise', graphFormat)
-      }
+      { fields },
+      context.user?.id
     )
+
+    const user = context.user && (await userGet(context.user.id))
 
     return entreprisesFormat(user, entreprises)
   } catch (e) {
@@ -71,7 +72,8 @@ const entreprises = async (
 
 const entrepriseCreer = async (
   { entreprise }: { entreprise: IEntreprise },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
@@ -86,8 +88,12 @@ const entrepriseCreer = async (
       errors.push('impossible de créer une entreprise étrangère')
     }
 
+    const fields = fieldsBuild(info)
+
     const entrepriseOld = await entrepriseGet(
-      `${entreprise.paysId}-${entreprise.legalSiren}`
+      `${entreprise.paysId}-${entreprise.legalSiren}`,
+      { fields },
+      context.user?.id
     )
 
     if (entrepriseOld) {
@@ -120,7 +126,8 @@ const entrepriseCreer = async (
 
 const entrepriseModifier = async (
   { entreprise }: { entreprise: IEntreprise },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))

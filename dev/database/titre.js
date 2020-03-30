@@ -8,7 +8,7 @@ async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  const userId = 'f5922d'
+  // const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
   // const userId = 'f455dd'
@@ -19,6 +19,9 @@ async function main() {
   // entreprise titulaire boeuf mort
   // const userId = '8e8a19'
 
+  // entreprise titulaire d'auror
+  const userId = 'd6378e'
+
   // non-logué
   // const userId = undefined
 
@@ -26,23 +29,28 @@ async function main() {
   // const titreId = 'm-ar-sainte-helene-2019'
 
   // titre non-public
-  const titreId =
-    'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
+  // const titreId =
+  //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
+
+  // titre avec activités
+  const titreId = 'm-ax-auror-2018'
 
   const res = await titreGet(
     titreId,
     {
       fields: {
-        demarches: { etapes: { id: {} } }
+        demarches: { etapes: { id: {} } },
+        activites: { id: {} }
       }
     },
     userId
   )
 
-  console.log(
-    'etapes:\n',
-    res.demarches.flatMap(d => d.etapes.map(e => e.id)).join('\n')
-  )
+  console.log('etapes:')
+  console.log(res.demarches.flatMap(d => d.etapes.map(e => e.id)).join('\n'))
+
+  console.log('activites:')
+  console.log(res.activites.map(e => e.id).join('\n'))
 
   await fileCreate('test-titre.json', JSON.stringify(res, null, 2))
 

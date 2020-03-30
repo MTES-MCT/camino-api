@@ -13,7 +13,9 @@ const userGet = async (userId?: string) => {
     return ({ permissionId: 'super' } as unknown) as IUtilisateur
   }
 
-  return Utilisateurs.query().findById(userId)
+  return Utilisateurs.query()
+    .withGraphFetched(options.utilisateurs.graph)
+    .findById(userId)
 }
 
 const utilisateursQueryBuild = (
@@ -22,7 +24,7 @@ const utilisateursQueryBuild = (
 ) => {
   const graph = fields
     ? graphBuild(fields, 'utilisateur', graphFormat)
-    : options.titresActivites.graph
+    : options.utilisateurs.graph
 
   return Utilisateurs.query()
     .skipUndefined()
