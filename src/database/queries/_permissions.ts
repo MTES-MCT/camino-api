@@ -109,8 +109,6 @@ const titreActivitePermissionQueryBuild = (
   if (user.permissionId === 'super') {
     q.select(raw('? as ??', [true, 'isSuper']))
 
-    console.log('activites query:', q.toKnexQuery().toString())
-
     return q
   }
 
