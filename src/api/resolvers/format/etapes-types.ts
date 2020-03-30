@@ -1,6 +1,6 @@
 import {
   ITitre,
-  ITitreDemarche,
+  IDemarcheType,
   ITitreEtape,
   IEtapeType,
   ISection
@@ -47,45 +47,76 @@ const etapeTypeSectionsFormat = (
   return etapeType
 }
 
-const etapeTypeFormat = (
+const etapeTypeEtapesStatutsFormat = (
   etapeType: IEtapeType,
   titre: ITitre,
-  demarche: ITitreDemarche,
-  etapeTypeId?: string
-) => {
-  // TODO: filtrer les types d'étapes avec type.dateFin
-  // en fonction de la date du titre
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[],
+  etapeTypeId?: string,
+  etapeStatutId?: string
+) =>
+  // restreint la liste des statuts disponibles pour le type d'étape
+  etapeType.etapesStatuts!.filter(etapeStatut => {
+    // si on est en train d'éditer une étape
+    // et le type d'étape courant est celui de l'étape dont l'édition est en cours
+    if (etapeTypeId && etapeType.id === etapeTypeId) {
+      // si le statut du type d'étape est celui de l'étape dont l'édition est en cours
+      // on le propose dans la liste des statuts de type d'étape
+      if (etapeStatutId && etapeStatut.id === etapeStatutId) return true
 
-  // restreint la liste des types d'étapes en fonction
-  // de la possibilité de les créer
-  etapeType.etapesStatuts = etapeType.etapesStatuts!.filter(es => {
-    // si le type d'étape courant est celui de l'étape dont l'édition est en cours
-    // alors on ne procède pas à la vérification car elle existe déjà
-    if (etapeType.id === etapeTypeId) return true
+      // sinon,
+      // (le statut d'étape courant est différent de celui de l'étape dont l'édition est en cours)
+      // alors on filtre les étapes de type différent au sein de la démarche
+      // car la fonction de validation peut retourner une erreur
+      // si des étapes de ce type existent déjà
+      titreDemarcheEtapes = titreDemarcheEtapes.filter(
+        e => e.typeId !== etapeTypeId
+      )
+    }
 
     // TODO: utiliser la date de l'étape éditée
-    const error = !titreEtapeDateValidate(
-      {
-        typeId: etapeType.id,
-        date: '3000-01-01',
-        statutId: es.id
-      } as ITitreEtape,
-      demarche,
+    const isValid = !titreEtapeDateValidate(
+      etapeType.id,
+      etapeStatut.id,
+      // TODO: filtrer les types d'étapes avec type.dateFin
+      // en fonction de la date du titre
+      '3000-01-01',
+      demarcheType,
+      titreDemarcheEtapes,
       titre
     )
 
-    return error
+    return isValid
   })
 
-  // si il n'est possible de créer le type d'étape pour aucun statut
-  // alors on ne retourne pas ce type d'étape pendant l'édition
-  if (!etapeType.etapesStatuts.length) return null
 
-  etapeType.demarcheTypeId = demarche.typeId
+const etapeTypeFormat = (
+  etapeType: IEtapeType,
+  titre: ITitre,
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[],
+  etapeTypeId?: string,
+  etapeStatutId?: string
+) => {
+  const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
+    etapeType,
+    titre,
+    demarcheType,
+    titreDemarcheEtapes,
+    etapeTypeId,
+    etapeStatutId
+  )
+  // si aucun statut n'est disponible pour ce type d'étape
+  // alors on ne retourne pas ce type d'étape pendant l'édition
+  if (!etapesStatutsFormatted.length) return null
+
+  etapeType.etapesStatuts = etapesStatutsFormatted
+
+  etapeType.demarcheTypeId = demarcheType.id
 
   return etapeTypeSectionsFormat(
     etapeType,
-    demarche.type!.etapesTypes,
+    demarcheType.etapesTypes,
     titre.typeId
   )
 }

@@ -1,21 +1,17 @@
-import { IDemarcheType } from '../../types'
+import { IEtapeType } from '../../types'
 
 const titreEtapeDemarcheEtapeTypeFind = (
-  demarcheType: IDemarcheType,
-  titreEtapeTypeId: string
+  etapeTypeId: string,
+  etapesTypes: IEtapeType[],
+  demarcheTypeNom: string
 ) => {
-  const {
-    etapesTypes: titreDemarcheEtapesTypes,
-    nom: titreDemarcheTypeNom
-  } = demarcheType
-
-  const titreDemarcheEtapeType = titreDemarcheEtapesTypes.find(
-    ({ id }) => id === titreEtapeTypeId
+  const titreDemarcheEtapeType = etapesTypes.find(
+    ({ id }) => id === etapeTypeId
   )
 
   if (!titreDemarcheEtapeType) {
     throw new Error(
-      `étape "${titreEtapeTypeId}" invalide pour une démarche "${titreDemarcheTypeNom}"`
+      `étape "${etapeTypeId}" invalide pour une démarche "${demarcheTypeNom}"`
     )
   }
 
