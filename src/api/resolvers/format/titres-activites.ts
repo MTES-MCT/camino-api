@@ -8,8 +8,6 @@ import {
   IFields
 } from '../../../types'
 
-import { permissionsCheck } from '../permissions/permissions-check'
-
 import { titreActivitePermissionCheck } from '../permissions/titre'
 
 import { titreSectionsFormat } from './titres-sections'
@@ -20,7 +18,6 @@ const titreActiviteFormatFields = {
 } as IFields
 
 const titreActiviteFormat = (
-  user: IUtilisateur | undefined,
   ta: ITitreActivite,
   fields: IFields = titreActiviteFormatFields
 ) => {
@@ -50,35 +47,8 @@ const titreActiviteFormat = (
     }
   }
 
-  ta.editable =
-    !!ta.isSuper ||
-    !!ta.isAdmin ||
-    (permissionsCheck(user, ['entreprise']) && ta.statutId !== 'dep')
-
   return ta
 }
-
-const titresActivitesFormat = (
-  user: IUtilisateur | undefined,
-  titresActivites: ITitreActivite[],
-  titreAmodiataires: IEntreprise[] | undefined | null,
-  titreTitulaires: IEntreprise[] | undefined | null,
-  fields: IFields = titreActiviteFormatFields
-) =>
-  titresActivites.reduce((acc: ITitreActivite[], ta) => {
-    if (
-      titreActivitePermissionCheck(
-        user,
-        ta.type?.administrations,
-        titreAmodiataires,
-        titreTitulaires
-      )
-    ) {
-      acc.push(titreActiviteFormat(user, ta, fields))
-    }
-
-    return acc
-  }, [])
 
 const titreActiviteCalc = (
   user: IUtilisateur | undefined,
@@ -101,9 +71,4 @@ const titreActiviteCalc = (
     0
   )
 
-export {
-  titreActiviteFormatFields,
-  titreActiviteFormat,
-  titresActivitesFormat,
-  titreActiviteCalc
-}
+export { titreActiviteFormatFields, titreActiviteFormat, titreActiviteCalc }

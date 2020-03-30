@@ -23,7 +23,7 @@ import { entreprisesFormat } from './entreprises'
 
 import {
   titreActiviteFormatFields,
-  titresActivitesFormat,
+  titreActiviteFormat,
   titreActiviteCalc
 } from './titres-activites'
 
@@ -218,13 +218,7 @@ const titreFormat = (
       : 0
 
     if (fields.activites) {
-      t.activites = titresActivitesFormat(
-        user,
-        t.activites,
-        t.amodiataires,
-        t.titulaires,
-        fields.activites
-      )
+      t.activites = t.activites.map(ta => titreActiviteFormat(ta, fields))
     }
   } else {
     t.activitesAbsentes = 0

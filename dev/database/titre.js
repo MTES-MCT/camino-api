@@ -8,10 +8,16 @@ async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  // const userId = 'f5922d'
+  const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
   // const userId = 'f455dd'
+
+  // admin onf uniquement
+  // const userId = '5c0d2b'
+
+  // admin dgpr
+  // const userId = '80dcfd'
 
   // entreprise titulaire sainte-helene
   // const userId = 'd343f9'
@@ -20,7 +26,7 @@ async function main() {
   // const userId = '8e8a19'
 
   // entreprise titulaire d'auror
-  const userId = 'd6378e'
+  // const userId = 'd6378e'
 
   // non-logué
   // const userId = undefined
@@ -50,11 +56,13 @@ async function main() {
   console.log(res.demarches.flatMap(d => d.etapes.map(e => e.id)).join('\n'))
 
   console.log('activites:')
-  console.log(res.activites.map(e => e.id).join('\n'))
+  console.log(
+    res.activites.map(e => `id: ${e.id}, editable: ${e.editable}`).join('\n')
+  )
 
   await fileCreate('test-titre.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }
 
-main()
+main().catch(console.error)

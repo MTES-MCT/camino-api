@@ -37,11 +37,7 @@ const activite = async (
 
     if (!titreActivite) return null
 
-    // si on récupère une activité, l'utilisateur existe forcément
-    // car il a les droits
-    const user = context.user && (await userGet(context.user.id))
-
-    return titreActivite && titreActiviteFormat(user!, titreActivite, fields)
+    return titreActivite && titreActiviteFormat(titreActivite, fields)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -67,11 +63,7 @@ const activites = async (
 
     if (!titresActivites.length) return []
 
-    // si on récupère des activités, l'utilisateur existe forcément
-    // car il a les droits
-    const user = await userGet(context.user?.id)
-
-    return titresActivites.map(ta => titreActiviteFormat(user, ta, fields))
+    return titresActivites.map(ta => titreActiviteFormat(ta, fields))
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -139,7 +131,7 @@ const activiteModifier = async (
 
     titreActivitesRowUpdate([activiteRes])
 
-    const activiteFormated = titreActiviteFormat(user, activiteRes, fields)
+    const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
     if (activiteRes.statutId === 'dep') {
       const utilisateurs = await titreActiviteUtilisateursGet(

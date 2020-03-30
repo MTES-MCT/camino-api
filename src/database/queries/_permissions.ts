@@ -14,6 +14,8 @@ const titreEtapesPermissionQueryBuild = (
   q.select('titresEtapes.*')
 
   if (user?.permissionId === 'super') {
+    q.select('true as "editable"')
+
     return q
   }
 
@@ -83,6 +85,8 @@ const titreDemarchePermissionQueryBuild = (
   q.select('titresDemarches.*')
 
   if (user?.permissionId === 'super') {
+    q.select('true as "editable"')
+
     return q
   }
 
@@ -100,6 +104,7 @@ const titreDemarchePermissionQueryBuild = (
   return q
 }
 
+// droits d'édition d'une activité
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur
@@ -121,6 +126,15 @@ const titreActivitePermissionQueryBuild = (
     return q
   }
 
+  q.select(
+    raw('(case when ?? is not null then ? else ? end) as ??', [
+      'utilisateurs.id',
+      true,
+      false,
+      'editable'
+    ])
+  )
+
   const titreQuery = TitresActivites.relatedQuery('titre') as QueryBuilder<
     Titres,
     Titres | Titres[]
@@ -128,6 +142,18 @@ const titreActivitePermissionQueryBuild = (
 
   // vérifie que l'utilisateur a les permissions sur les titres
   q.whereExists(titreActivitesTitrePermissionQueryBuild(titreQuery, user))
+
+  // vérifie que l'utiliateur a les droits d'édition sur l'activité
+  q.leftJoin(raw('utilisateurs on ?? = ?', ['utilisateurs.id', user.id]))
+  q.andWhere(b => {
+    b.whereIn('permissionId', ['admin', 'editeur', 'lecteur'])
+    b.orWhere(c => {
+      c.where('permissionId', 'entreprise')
+      c.andWhereRaw('?? <> ?', ['titresActivites.statutId', 'dep'])
+    })
+  })
+
+  console.log(q.toKnexQuery().toString())
 
   return q
 }
@@ -139,6 +165,8 @@ const titreActivitesTitrePermissionQueryBuild = (
   q.select('titre.*')
 
   if (user.permissionId === 'super') {
+    q.select('true as "editable"')
+
     return q
   }
 
@@ -162,9 +190,7 @@ const titreActivitesTitrePermissionQueryBuild = (
     })
   } else if (user.administrations?.length) {
     // administrations gestionnaires et locales
-    q.leftJoinRelated(
-      'titre.[administrationsGestionnaires, administrationsLocales]'
-    )
+    q.leftJoinRelated('[administrationsGestionnaires, administrationsLocales]')
 
     // l'utilisateur fait partie d'une administrations qui a les droits sur le titre
     q.andWhere(b => {
@@ -174,10 +200,10 @@ const titreActivitesTitrePermissionQueryBuild = (
         .join(',')
 
       b.orWhereRaw(`?? in (${administrationsIdsReplace})`, [
-        'titre:administrationsGestionnaires.id',
+        'administrationsGestionnaires.id',
         ...administrationsIds
       ]).orWhereRaw(`?? in (${administrationsIdsReplace})`, [
-        'titre:administrationsLocales.id',
+        'administrationsLocales.id',
         ...administrationsIds
       ])
     })
@@ -193,6 +219,8 @@ const titrePermissionQueryBuild = (
   q.select('titres.*')
 
   if (user?.permissionId === 'super') {
+    q.select('true as "editable"')
+
     return q
   }
 
