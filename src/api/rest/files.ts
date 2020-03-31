@@ -2,7 +2,6 @@ import { debug } from '../../config/index'
 import { titreDocumentGet } from '../../database/queries/titres-documents'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 const fileNameGet = async (
   userId: string | undefined,
@@ -28,7 +27,11 @@ const fileNameGet = async (
       return titreDocumentFileName
     }
 
-    const titreEtape = await titreEtapeGet(titreDocument.titreEtapeId)
+    const titreEtape = await titreEtapeGet(
+      titreDocument.titreEtapeId,
+      {},
+      userId
+    )
     const titreDemarche = await titreDemarcheGet(
       titreEtape.titreDemarcheId,
       { fields: {} },

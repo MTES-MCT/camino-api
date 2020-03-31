@@ -2,25 +2,25 @@ import 'dotenv/config'
 import '../../src/database/index'
 import fileCreate from '../../src/tools/file-create'
 
-import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
+import { titreEtapeGet } from '../../src/database/queries/titres-etapes'
 
 async function main() {
-  const userId = 'super'
+  // const userId = 'super'
 
   // admin dea-guyane-01
   // const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
-  // const userId = 'f455dd'
+  //   const userId = 'f455dd'
 
   // admin onf uniquement
-  // const userId = '5c0d2b'
+  //   const userId = '5c0d2b'
 
   // admin ptmg uniquement
-  // const userId = '1ee94a'
+  const userId = '1ee94a'
 
   // admin dgpr
-  // const userId = '80dcfd'
+  //   const userId = '80dcfd'
 
   // entreprise titulaire sainte-helene
   // const userId = 'd343f9'
@@ -44,31 +44,24 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  try {
-    console.log({ userId })
+  console.log({ userId, titreId })
 
-    const res = await titresDemarchesGet(
-      { titresDomainesIds: ['m'], titresStatutsIds: ['ech'] },
-      {
-        fields: {
-          etapes: {
-            type: { autorisations: { id: {} } },
-            titulaires: { utilisateurs: { id: {} } }
-          }
-        }
-      },
-      userId
-    )
+  const res = await titreEtapeGet(
+    `${titreId}-oct01-sco01`,
+    {
+      fields: {
+        type: { autorisations: { id: {} } },
+        titulaires: { utilisateurs: { id: {} } }
+      }
+    },
+    userId
+  )
 
-    console.log('demarches.length', res && res.length)
+  console.log(res && res.editable)
 
-    await fileCreate('test-titre-demarche.json', JSON.stringify(res, null, 2))
+  await fileCreate('test-titre-etape.json', JSON.stringify(res, null, 2))
 
-    process.exit(0)
-  } catch (e) {
-    console.error(e)
-    process.exit(1)
-  }
+  process.exit(0)
 }
 
 main()

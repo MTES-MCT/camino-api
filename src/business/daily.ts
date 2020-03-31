@@ -181,7 +181,8 @@ const run = async () => {
         etapesTypesIds: null,
         titresDemarchesIds: null
       },
-      { graph: '[points, communes]' }
+      { fields: { points: { id: {} }, communes: { id: {} } } },
+      'super'
     )
     const communes = await communesGet()
     const [

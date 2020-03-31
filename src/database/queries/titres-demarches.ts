@@ -39,7 +39,7 @@ const titresDemarchesQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'titre', graphFormat)
+    ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
     : options.demarches.graph
 
   const q = TitresDemarches.query()
@@ -48,7 +48,7 @@ const titresDemarchesQueryBuild = (
 
   titreDemarchePermissionQueryBuild(q, user)
 
-  q.groupBy('titresDemarches.id')
+  // q.groupBy('titresDemarches.id')
 
   if (typesIds) {
     q.whereIn('titresDemarches.typeId', typesIds)
@@ -226,9 +226,7 @@ const titresDemarchesGet = async (
 
   if (colonne) {
     if (titresDemarchesColonnes[colonne].relation) {
-      q.leftJoinRelated(titresDemarchesColonnes[colonne].relation!).groupBy(
-        titresDemarchesColonnes[colonne].id!
-      )
+      q.leftJoinRelated(titresDemarchesColonnes[colonne].relation!)
     }
     q.orderBy(titresDemarchesColonnes[colonne].id, ordre || undefined)
   } else {

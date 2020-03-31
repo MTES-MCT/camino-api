@@ -320,13 +320,14 @@ const etapeSupprimer = async (
   info: GraphQLResolveInfo
 ) => {
   try {
+    const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionsCheck(user, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
-    const etapeOld = await titreEtapeGet(id)
+    const etapeOld = await titreEtapeGet(id, { fields }, context.user?.id)
     if (!etapeOld) throw new Error("l'étape n'existe pas")
 
     await titreEtapeDelete(id)
@@ -335,8 +336,6 @@ const etapeSupprimer = async (
       null,
       etapeOld.titreDemarcheId
     )
-
-    const fields = fieldsBuild(info)
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 

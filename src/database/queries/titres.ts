@@ -60,7 +60,8 @@ const titresQueryBuild = (
 
   titrePermissionQueryBuild(q, user)
 
-  q.groupBy('titres.id')
+  // pourquoi ?
+  // q.groupBy('titres.id')
 
   if (ids) {
     q.whereIn('titres.id', ids)
@@ -105,6 +106,7 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
+      .groupBy('titresEditable.id')
       .havingRaw(
         `(${referencesArray
           .map(
@@ -139,6 +141,7 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
+      .groupBy('titresEditable.id')
       .havingRaw(
         `(${substancesArray
           .map(
@@ -176,6 +179,7 @@ const titresQueryBuild = (
         })
       })
       .groupBy('titres.id')
+      .groupBy('titresEditable.id')
       .havingRaw(
         `(${entreprisesArray
           .map(
@@ -220,6 +224,7 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
+      .groupBy('titresEditable.id')
       .havingRaw(
         `(${territoiresArray
           .map(

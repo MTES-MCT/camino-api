@@ -119,9 +119,11 @@ const titreEtapeUpdate = async (
     let titresEtapesCommunesDeleted = []
     // si l'étape est supprimée, pas de mise à jour
     if (titreEtapeId) {
-      const titreEtape = await titreEtapeGet(titreEtapeId, {
-        graph: '[points(orderAsc), communes]'
-      })
+      const titreEtape = await titreEtapeGet(
+        titreEtapeId,
+        { fields: { points: { id: {} }, communes: { id: {} } } },
+        'super'
+      )
       const communes = await communesGet()
       const result = await titresEtapeCommunesUpdate([titreEtape], communes)
       titreCommunesUpdated = result[0]
