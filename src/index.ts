@@ -56,5 +56,11 @@ app.listen(port, () => {
   console.log(
     chalk.bgWhiteBright.black.bold('> NODE_ENV: ' + process.env.NODE_ENV + ' ')
   )
+
+  if (process.env.NODE_DEBUG === 'true') {
+    console.log(
+      chalk.bgRed.black.bold('> NODE_DEBUG: ' + process.env.NODE_DEBUG + ' ')
+    )
+  }
   console.log(' ')
 })

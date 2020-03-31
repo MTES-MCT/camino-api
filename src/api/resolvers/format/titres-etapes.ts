@@ -3,7 +3,8 @@ import {
   IDemarcheType,
   IGeoJson,
   IUtilisateur,
-  IFields
+  IFields,
+  IEntreprise
 } from '../../../types'
 
 import {
@@ -14,7 +15,7 @@ import { titreSectionsFormat } from './titres-sections'
 import { etapesTypesFormat } from './etapes-types'
 import { administrationsFormat } from './administrations'
 import { entreprisesFormat } from './entreprises'
-import { titreEtapePermissionAdministrationsCheck } from '../permissions/titre-edition'
+import { titrePermissionCheck } from '../permissions/titre'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: {},
@@ -27,29 +28,12 @@ const titreEtapeFormat = (
   user: IUtilisateur | undefined,
   titreEtape: ITitreEtape,
   titreTypeId: string,
-  titreStatutId: string,
   titreDemarcheType: IDemarcheType,
-  {
-    userHasPermission,
-    isSuper,
-    isAdmin
-  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
+  titreAmodiataires: IEntreprise[],
+  titreTitulaires: IEntreprise[],
+  { isSuper }: { isSuper: boolean },
   fields = titreEtapeFormatFields
 ) => {
-  if (isSuper || isAdmin) {
-    titreEtape.editable =
-      isSuper ||
-      titreEtapePermissionAdministrationsCheck(
-        user,
-        titreTypeId,
-        titreStatutId,
-        titreEtape.typeId,
-        'modification'
-      )
-
-    titreEtape.supprimable = isSuper
-  }
-
   if (titreEtape.type) {
     const etapeType = titreDemarcheType.etapesTypes.find(
       et => et.id === titreEtape.type!.id
@@ -89,6 +73,13 @@ const titreEtapeFormat = (
   }
 
   if (titreEtape.documents) {
+    const userHasPermission = titrePermissionCheck(
+      user,
+      ['super', 'admin', 'editeur', 'lecteur'],
+      titreAmodiataires,
+      titreTitulaires
+    )
+
     if (!userHasPermission) {
       titreEtape.documents = titreEtape.documents.filter(
         titreDocument => titreDocument.public

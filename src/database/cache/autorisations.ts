@@ -52,9 +52,6 @@ const autorisationsInit = async () => {
 
   autorisations.titresTypesAdministrations = await autorisationsTitresTypesAdministrationsGet()
 
-  // si on est en mode debug, ne charge pas les restrictions
-  if (debug) return
-
   restrictions.titresTypesTitresStatutsAdministrations = await restrictionsTitresTypesTitresStatutsAdministrationsGet()
 
   restrictions.titresTypesEtapesTypesAdministrations = await restrictionsTitresTypesEtapesTypesAdministrationsGet()

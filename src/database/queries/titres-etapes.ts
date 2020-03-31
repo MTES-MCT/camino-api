@@ -37,8 +37,6 @@ const titresEtapesQueryBuild = (
     .skipUndefined()
     .withGraphFetched(graph)
 
-  q.debug()
-
   titreEtapesPermissionQueryBuild(q, user)
 
   if (etapesIds) {

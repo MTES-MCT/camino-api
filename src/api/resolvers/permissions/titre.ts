@@ -68,7 +68,9 @@ const titrePermissionEntreprisesCheck = (
 const titrePermissionCheck = (
   user: IUtilisateur | undefined,
   permissions: string[],
-  titre: ITitre,
+  titreAmodiataires: IEntreprise[],
+  titreTitulaires: IEntreprise[],
+
   amodiatairePriority?: boolean
 ) => {
   if (!user) return false
@@ -83,8 +85,8 @@ const titrePermissionCheck = (
 
   return titrePermissionEntreprisesCheck(
     user,
-    titre.amodiataires,
-    titre.titulaires,
+    titreAmodiataires,
+    titreTitulaires,
     amodiatairePriority
   )
 }

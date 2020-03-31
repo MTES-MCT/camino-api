@@ -16,7 +16,7 @@ import { titreDemarchePermissionAdministrationsCheck } from './permissions/titre
 import { titreFormat } from './format/titres'
 
 import { demarchesTypesFormat } from './format/demarches-types'
-import { titresDemarchesFormat } from './format/titres-demarches'
+import { titreDemarcheFormat } from './format/titres-demarches'
 
 import {
   titreDemarcheGet,
@@ -108,14 +108,19 @@ const demarches = async (
     const user = context.user && (await userGet(context.user.id))
 
     const isSuper = permissionsCheck(user, ['super'])
-    const isAdmin = permissionsCheck(user, ['admin'])
 
     return {
-      demarches: titresDemarchesFormat(
-        user,
-        titresDemarches,
-        { isSuper, isAdmin },
-        fields
+      demarches: titresDemarches.map(titreDemarche =>
+        titreDemarcheFormat(
+          user,
+          titreDemarche,
+          titreDemarche.titre!.typeId,
+          titreDemarche.titre!.statutId!,
+          titreDemarche.titre!.amodiataires!,
+          titreDemarche.titre!.titulaires!,
+          { isSuper },
+          fields
+        )
       ),
       total
     }
