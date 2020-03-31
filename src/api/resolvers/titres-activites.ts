@@ -5,7 +5,6 @@ import * as dateFormat from 'dateformat'
 
 import { titreActiviteEmailsSend } from './_titre-activite'
 import { permissionsCheck } from './permissions/permissions-check'
-import { titreActivitePermissionCheck } from './permissions/titre'
 import { titreActiviteFormat } from './format/titres-activites'
 
 import fieldsBuild from './_fields-build'

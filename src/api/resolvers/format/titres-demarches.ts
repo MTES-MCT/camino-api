@@ -1,9 +1,4 @@
-import {
-  ITitreDemarche,
-  IUtilisateur,
-  IFields,
-  IEntreprise
-} from '../../../types'
+import { ITitreDemarche, IUtilisateur, IFields } from '../../../types'
 
 import metas from '../../../database/cache/metas'
 
@@ -22,8 +17,6 @@ const titreDemarcheFormat = (
   titreDemarche: ITitreDemarche,
   titreTypeId: string,
   titreStatutId: string,
-  titreAmodiataires: IEntreprise[],
-  titreTitulaires: IEntreprise[],
   { isSuper }: { isSuper: boolean },
   fields: IFields = titreDemarcheFormatFields
 ) => {
@@ -90,9 +83,6 @@ const titreDemarcheFormat = (
         te,
         titreTypeId,
         titreDemarche.type!,
-        titreAmodiataires,
-        titreTitulaires,
-        { isSuper },
         fields.etapes
       )
     )

@@ -157,8 +157,6 @@ const titreFormat = (
         td,
         t.typeId,
         t.statutId!,
-        t.amodiataires,
-        t.titulaires,
         { isSuper },
         fields.demarches
       )

@@ -116,8 +116,6 @@ const demarches = async (
           titreDemarche,
           titreDemarche.titre!.typeId,
           titreDemarche.titre!.statutId!,
-          titreDemarche.titre!.amodiataires!,
-          titreDemarche.titre!.titulaires!,
           { isSuper },
           fields
         )

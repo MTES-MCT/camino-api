@@ -65,32 +65,6 @@ const titrePermissionEntreprisesCheck = (
   )
 }
 
-const titrePermissionCheck = (
-  user: IUtilisateur | undefined,
-  permissions: string[],
-  titreAmodiataires: IEntreprise[],
-  titreTitulaires: IEntreprise[],
-
-  amodiatairePriority?: boolean
-) => {
-  if (!user) return false
-
-  // si l'utilisateur est un super admin
-  // alors le titre est accessible
-  if (permissionsCheck(user, ['super'])) return true
-
-  // si l'utilisateur a les permissions
-  // le titre est accessible
-  if (permissionsCheck(user, permissions)) return true
-
-  return titrePermissionEntreprisesCheck(
-    user,
-    titreAmodiataires,
-    titreTitulaires,
-    amodiatairePriority
-  )
-}
-
 const titreActivitePermissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
   administrations: IAdministration[] | undefined | null
@@ -115,8 +89,4 @@ const titreActivitePermissionCheck = (
   titreActivitePermissionAdministrationsCheck(user, titreAdministrations) ||
   titrePermissionEntreprisesCheck(user, titreAmodiataires, titreTitulaires)
 
-export {
-  titreIsPublicCheck,
-  titrePermissionCheck,
-  titreActivitePermissionCheck
-}
+export { titreIsPublicCheck, titreActivitePermissionCheck }

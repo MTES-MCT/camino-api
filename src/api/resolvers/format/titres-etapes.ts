@@ -3,8 +3,7 @@ import {
   IDemarcheType,
   IGeoJson,
   IUtilisateur,
-  IFields,
-  IEntreprise
+  IFields
 } from '../../../types'
 
 import {
@@ -15,7 +14,6 @@ import { titreSectionsFormat } from './titres-sections'
 import { etapesTypesFormat } from './etapes-types'
 import { administrationsFormat } from './administrations'
 import { entreprisesFormat } from './entreprises'
-import { titrePermissionCheck } from '../permissions/titre'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: {},
@@ -29,9 +27,6 @@ const titreEtapeFormat = (
   titreEtape: ITitreEtape,
   titreTypeId: string,
   titreDemarcheType: IDemarcheType,
-  titreAmodiataires: IEntreprise[],
-  titreTitulaires: IEntreprise[],
-  { isSuper }: { isSuper: boolean },
   fields = titreEtapeFormatFields
 ) => {
   if (titreEtape.type) {
@@ -69,26 +64,6 @@ const titreEtapeFormat = (
       titreEtape.geojsonPoints = (geojsonFeatureCollectionPoints(
         titreEtape.points
       ) as unknown) as IGeoJson
-    }
-  }
-
-  if (titreEtape.documents) {
-    const userHasPermission = titrePermissionCheck(
-      user,
-      ['super', 'admin', 'editeur', 'lecteur'],
-      titreAmodiataires,
-      titreTitulaires
-    )
-
-    if (!userHasPermission) {
-      titreEtape.documents = titreEtape.documents.filter(
-        titreDocument => titreDocument.public
-      )
-    } else {
-      titreEtape.documents.forEach(titreDocument => {
-        titreDocument.editable = titreEtape.editable
-        titreDocument.supprimable = isSuper
-      })
     }
   }
 
