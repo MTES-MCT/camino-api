@@ -8,13 +8,16 @@ async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  const userId = 'f5922d'
+  // const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
   // const userId = 'f455dd'
 
   // admin onf uniquement
   // const userId = '5c0d2b'
+
+  // admin ptmg uniquement
+  const userId = '1ee94a'
 
   // admin dgpr
   // const userId = '80dcfd'
@@ -32,14 +35,14 @@ async function main() {
   // const userId = undefined
 
   // titre echu public
-  // const titreId = 'm-ar-sainte-helene-2019'
+  const titreId = 'm-ar-sainte-helene-2019'
 
   // titre non-public
   // const titreId =
   //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
 
   // titre avec activités
-  const titreId = 'm-ax-auror-2018'
+  // const titreId = 'm-ax-auror-2018'
 
   const res = await titreGet(
     titreId,
@@ -53,12 +56,18 @@ async function main() {
   )
 
   console.log('etapes:')
-  console.log(res.demarches.flatMap(d => d.etapes.map(e => e.id)).join('\n'))
+  console.log(
+    res.demarches.flatMap(d => d.etapes.map(e => `etape.${e.id}`)).join('\n')
+  )
 
   console.log('activites:')
   console.log(
-    res.activites.map(e => `id: ${e.id}, editable: ${e.editable}`).join('\n')
+    res.activites
+      .map(e => `activite.id: ${e.id}, editable: ${e.editable}`)
+      .join('\n')
   )
+
+  console.log('titre.editable:', res.editable)
 
   await fileCreate('test-titre.json', JSON.stringify(res, null, 2))
 

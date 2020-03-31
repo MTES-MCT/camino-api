@@ -6,6 +6,10 @@ import Titres from '../models/titres'
 import TitresDemarches from '../models/titres-demarches'
 import TitresEtapes from '../models/titres-etapes'
 import TitresActivites from '../models/titres-activites'
+import {
+  AutorisationsTitresTypesAdministrations,
+  RestrictionsTitresTypesTitresStatutsAdministrations
+} from '../models/autorisations'
 
 const titreEtapesPermissionQueryBuild = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
@@ -14,7 +18,7 @@ const titreEtapesPermissionQueryBuild = (
   q.select('titresEtapes.*')
 
   if (user?.permissionId === 'super') {
-    q.select('true as "editable"')
+    q.select(raw('? as ??', [true, 'editable']))
 
     return q
   }
@@ -85,7 +89,7 @@ const titreDemarchePermissionQueryBuild = (
   q.select('titresDemarches.*')
 
   if (user?.permissionId === 'super') {
-    q.select('true as "editable"')
+    q.select(raw('? as ??', [true, 'editable']))
 
     return q
   }
@@ -144,7 +148,7 @@ const titreActivitePermissionQueryBuild = (
   q.whereExists(titreActivitesTitrePermissionQueryBuild(titreQuery, user))
 
   // vérifie que l'utiliateur a les droits d'édition sur l'activité
-  q.leftJoin(raw('utilisateurs on ?? = ?', ['utilisateurs.id', user.id]))
+  q.leftJoin('utilisateurs', raw('?? = ?', ['utilisateurs.id', user.id]))
   q.andWhere(b => {
     b.whereIn('permissionId', ['admin', 'editeur', 'lecteur'])
     b.orWhere(c => {
@@ -165,7 +169,7 @@ const titreActivitesTitrePermissionQueryBuild = (
   q.select('titre.*')
 
   if (user.permissionId === 'super') {
-    q.select('true as "editable"')
+    q.select(raw('? as ??', [true, 'editable']))
 
     return q
   }
@@ -219,7 +223,7 @@ const titrePermissionQueryBuild = (
   q.select('titres.*')
 
   if (user?.permissionId === 'super') {
-    q.select('true as "editable"')
+    q.select(raw('? as ??', [true, 'editable']))
 
     return q
   }
@@ -270,6 +274,68 @@ const titrePermissionQueryBuild = (
       user
     )
   })
+
+  // édition du titre
+  if (user?.administrations?.length) {
+    q.select(
+      raw('(case when ?? is not null then ? else ? end) as ??', [
+        'titresEditable.id',
+        true,
+        false,
+        'editable'
+      ])
+    )
+
+    const administrationsIds = user.administrations.map(a => a.id) || []
+    const administrationsIdsReplace = administrationsIds
+      .map(() => '?')
+      .join(',')
+
+    const titresEditableQuery = Titres.query()
+      .alias('titresEditable')
+      .select('titresEditable.id')
+      // l'utilisateur fait partie d'une administrations
+      // qui a les droits sur le type de titre
+      .whereExists(
+        AutorisationsTitresTypesAdministrations.query()
+          .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            'a__titresTypes__administrations.administrationId',
+            ...administrationsIds
+          ])
+          .andWhereRaw(`?? = ??`, [
+            'a__titresTypes__administrations.titreTypeId',
+            'titresEditable.typeId'
+          ])
+      )
+      .whereNotExists(
+        RestrictionsTitresTypesTitresStatutsAdministrations.query()
+          .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            'r__titresTypes__titresStatuts__administrations.administrationId',
+            ...administrationsIds
+          ])
+          .andWhereRaw(`?? = ??`, [
+            'r__titresTypes__titresStatuts__administrations.titreTypeId',
+            'titresEditable.typeId'
+          ])
+          .andWhereRaw(`?? = ??`, [
+            'r__titresTypes__titresStatuts__administrations.titreStatutId',
+            'titresEditable.statutId'
+          ])
+          .andWhereRaw(`?? = ?`, [
+            'r__titresTypes__titresStatuts__administrations.titresModificationInterdit',
+            true
+          ])
+      )
+
+    q.leftJoin(
+      titresEditableQuery.as('titresEditable'),
+      raw('?? = ??', ['titresEditable.id', 'titres.id'])
+    )
+
+    q.groupBy('titresEditable.id')
+  } else {
+    q.select(raw('? as ??', [false, 'editable']))
+  }
 
   return q
 }
