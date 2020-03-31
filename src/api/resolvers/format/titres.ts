@@ -133,16 +133,6 @@ const titreFormat = (
   t: ITitre,
   fields: IFields = titreFormatFields
 ) => {
-  const isSuper = permissionsCheck(user, ['super'])
-  const isAdmin = permissionsCheck(user, ['admin'])
-
-  if (isSuper || isAdmin) {
-    t.editable =
-      isSuper ||
-      titrePermissionAdministrationsCheck(user, t.typeId, t.statutId!)
-    t.supprimable = isSuper
-  }
-
   if (!fields) return t
 
   if (t.points?.length) {
@@ -160,8 +150,11 @@ const titreFormat = (
   }
 
   if (fields.demarches && t.demarches && t.demarches.length) {
-    t.demarches = t.demarches.reduce((demarches: ITitreDemarche[], td) => {
-      const titreDemarcheFormatted = titreDemarcheFormat(
+    const isSuper = permissionsCheck(user, ['super'])
+    const isAdmin = permissionsCheck(user, ['admin'])
+
+    t.demarches = t.demarches?.map(td =>
+      titreDemarcheFormat(
         user,
         td,
         t.typeId,
@@ -169,13 +162,7 @@ const titreFormat = (
         { isSuper, isAdmin },
         fields.demarches
       )
-
-      if (titreDemarcheFormatted) {
-        demarches.push(titreDemarcheFormatted)
-      }
-
-      return demarches
-    }, [])
+    )
   }
 
   if (fields.type?.sections) {

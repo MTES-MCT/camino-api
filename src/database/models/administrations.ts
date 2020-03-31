@@ -3,8 +3,6 @@ import { join } from 'path'
 
 import { IAdministration } from '../../types'
 
-import { AutorisationsTitresTypesAdministrations } from './autorisations'
-
 interface Administrations extends IAdministration {}
 
 class Administrations extends Model {
@@ -93,15 +91,6 @@ class Administrations extends Model {
           to: 'titresAdministrationsLocales.titreEtapeId'
         },
         to: 'titres.administrationsTitreEtapeId'
-      }
-    },
-
-    autorisations: {
-      relation: Model.HasManyRelation,
-      modelClass: AutorisationsTitresTypesAdministrations,
-      join: {
-        from: 'administrations.id',
-        to: 'a__titresTypes__administrations.administrationId'
       }
     }
   }
