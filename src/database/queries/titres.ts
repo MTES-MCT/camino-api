@@ -253,6 +253,7 @@ const titreGet = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
+
   const q = titresQueryBuild({}, { fields }, user)
 
   return (await q.findById(id)) as ITitre

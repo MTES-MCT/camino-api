@@ -5,7 +5,7 @@ import fileCreate from '../../src/tools/file-create'
 import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 
 async function main() {
-  const userId = 'super'
+  // const userId = 'super'
 
   // admin dea-guyane-01
   // const userId = 'f5922d'
@@ -29,13 +29,13 @@ async function main() {
   // const userId = '8e8a19'
 
   // entreprise titulaire d'auror
-  // const userId = 'd6378e'
+  const userId = 'd6378e'
 
   // non-logué
   // const userId = undefined
 
   // titre echu public
-  const titreId = 'm-ar-sainte-helene-2019'
+  // const titreId = 'm-ar-sainte-helene-2019'
 
   // titre non-public
   // const titreId =
@@ -45,20 +45,19 @@ async function main() {
   // const titreId = 'm-ax-auror-2018'
 
   try {
+    console.time('demarches')
+
     console.log({ userId })
 
     const res = await titresDemarchesGet(
       { titresDomainesIds: ['m'], titresStatutsIds: ['ech'] },
       {
-        fields: {
-          etapes: {
-            type: { autorisations: { id: {} } },
-            titulaires: { utilisateurs: { id: {} } }
-          }
-        }
+        fields: { id: {} }
       },
       userId
     )
+
+    console.timeEnd('demarches')
 
     console.log('demarches.length', res && res.length)
 

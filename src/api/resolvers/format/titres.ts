@@ -22,8 +22,7 @@ import { entreprisesFormat } from './entreprises'
 
 import {
   titreActiviteFormatFields,
-  titreActiviteFormat,
-  titreActiviteCalc
+  titreActiviteFormat
 } from './titres-activites'
 
 import {
@@ -38,9 +37,6 @@ const titreFormatFields = {
   pays: {},
   demarches: titreDemarcheFormatFields,
   activites: titreActiviteFormatFields,
-  activitesAbsentes: {},
-  activitesDeposees: {},
-  activitesEnConstruction: {},
   administrations: {}
 } as IFields
 
@@ -171,46 +167,10 @@ const titreFormat = (
     t.surface = t.surfaceEtape.surface
   }
 
-  if (t.activites?.length) {
-    t.activitesAbsentes = fields.activitesAbsentes
-      ? titreActiviteCalc(
-          user,
-          t.activites,
-          'abs',
-          t.amodiataires,
-          t.titulaires
-        )
-      : 0
-
-    t.activitesDeposees = fields.activitesDeposees
-      ? titreActiviteCalc(
-          user,
-          t.activites,
-          'dep',
-          t.amodiataires,
-          t.titulaires
-        )
-      : 0
-
-    t.activitesEnConstruction = fields.activitesEnConstruction
-      ? titreActiviteCalc(
-          user,
-          t.activites,
-          'enc',
-          t.amodiataires,
-          t.titulaires
-        )
-      : 0
-
-    if (fields.activites) {
-      t.activites = t.activites.map(ta => titreActiviteFormat(ta, fields))
-    }
-  } else {
-    t.activitesAbsentes = 0
-    t.activitesDeposees = 0
-    t.activitesEnConstruction = 0
-
-    t.activites = []
+  if (fields.activites && t.activites?.length) {
+    t.activites = t.activites.map(ta =>
+      titreActiviteFormat(ta, fields.activites)
+    )
   }
 
   if (fields.administrations) {

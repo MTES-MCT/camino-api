@@ -1,14 +1,10 @@
 import {
   ITitreActivite,
-  IUtilisateur,
   ITrimestre,
   IMois,
   IAnnee,
-  IEntreprise,
   IFields
 } from '../../../types'
-
-import { titreActivitePermissionCheck } from '../permissions/titre'
 
 import { titreSectionsFormat } from './titres-sections'
 
@@ -50,25 +46,4 @@ const titreActiviteFormat = (
   return ta
 }
 
-const titreActiviteCalc = (
-  user: IUtilisateur | undefined,
-  titresActivites: ITitreActivite[],
-  statutId: string,
-  titreAmodiataires: IEntreprise[] | undefined | null,
-  titreTitulaires: IEntreprise[] | undefined | null
-) =>
-  titresActivites.reduce(
-    (acc, titreActivite) =>
-      titreActivite.statutId === statutId &&
-      titreActivitePermissionCheck(
-        user,
-        titreActivite.type?.administrations,
-        titreAmodiataires,
-        titreTitulaires
-      )
-        ? ++acc
-        : acc,
-    0
-  )
-
-export { titreActiviteFormatFields, titreActiviteFormat, titreActiviteCalc }
+export { titreActiviteFormatFields, titreActiviteFormat }

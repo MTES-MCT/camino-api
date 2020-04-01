@@ -61,6 +61,16 @@ const titresFieldsAdd = (fields: IFields) => {
     }
   }
 
+  if (fields.activites) {
+    if (!fields.activites.type) {
+      fields.activites.type = { id: {} }
+    }
+
+    if (!fields.activites.type.frequence) {
+      fields.activites.type.frequence = { id: {} }
+    }
+  }
+
   return fields
 }
 
