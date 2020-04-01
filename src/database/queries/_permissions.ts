@@ -1,4 +1,4 @@
-import { IUtilisateur } from '../../types'
+import { IUtilisateur, IPermissionId } from '../../types'
 
 import { raw, QueryBuilder } from 'objection'
 
@@ -14,27 +14,29 @@ import {
   RestrictionsTitresTypesEtapesTypesAdministrations
 } from '../models/autorisations'
 
+const permissionsCheck = (
+  user: IUtilisateur | undefined,
+  permissions: IPermissionId[]
+) => !!(user && permissions.includes(user?.permissionId))
+
 const titreDocumentsPermissionQueryBuild = (
   q: QueryBuilder<TitresDocuments, TitresDocuments | TitresDocuments[]>,
   user?: IUtilisateur
 ) => {
   q.select('titresDocuments.*')
 
-  if (
-    user &&
-    ['super', 'admin', 'editeur', 'lecteur'].includes(user.permissionId)
-  ) {
+  if (permissionsCheck(user, ['super', 'admin', 'editeur', 'lecteur'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
   } else {
-    if (user && user.permissionId === 'entreprise') {
+    if (permissionsCheck(user, ['entreprise'])) {
       // faire les join related ou pas
       q.leftJoinRelated('etape.demarche.titre.[titulaires, amodiataires]')
 
       q.where(b => {
         // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
-        const entreprisesIds = user.entreprises?.map(e => e.id)
+        const entreprisesIds = user!.entreprises?.map(e => e.id)
 
         console.log({ entreprisesIds })
 
@@ -58,14 +60,11 @@ const titreEtapesPermissionQueryBuild = (
 ) => {
   q.select('titresEtapes.*')
 
-  if (user?.permissionId === 'super') {
+  if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (
-    user &&
-    ['admin', 'editeur', 'lecteur'].includes(user.permissionId)
-  ) {
-    const administrationsIds = user.administrations?.map(a => a.id) || []
+  } else if (permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
+    const administrationsIds = user!.administrations?.map(a => a.id) || []
 
     q.leftJoinRelated('[demarche.titre, type]')
 
@@ -119,10 +118,6 @@ const titreEtapesPermissionQueryBuild = (
         ])
       )
 
-      const administrationsIdsReplace = administrationsIds
-        .map(() => '?')
-        .join(',')
-
       const titresEditableQuery = TitresEtapes.query()
         .joinRelated('demarche.titre')
         .select('demarche:titre.id')
@@ -130,10 +125,10 @@ const titreEtapesPermissionQueryBuild = (
         // qui a les droits sur le type de titre
         .whereExists(
           AutorisationsTitresTypesAdministrations.query()
-            .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            .whereIn(
               'a__titresTypes__administrations.administrationId',
-              ...administrationsIds
-            ])
+              administrationsIds
+            )
             .andWhereRaw(`?? = ??`, [
               'a__titresTypes__administrations.titreTypeId',
               'demarche:titre.typeId'
@@ -141,10 +136,10 @@ const titreEtapesPermissionQueryBuild = (
         )
         .whereNotExists(
           RestrictionsTitresTypesTitresStatutsAdministrations.query()
-            .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            .whereIn(
               'r__titresTypes__titresStatuts__administrations.administrationId',
-              ...administrationsIds
-            ])
+              administrationsIds
+            )
             .andWhereRaw(`?? = ??`, [
               'r__titresTypes__titresStatuts__administrations.titreTypeId',
               'demarche:titre.typeId'
@@ -153,17 +148,17 @@ const titreEtapesPermissionQueryBuild = (
               'r__titresTypes__titresStatuts__administrations.titreStatutId',
               'demarche:titre.statutId'
             ])
-            .andWhereRaw(`?? = ?`, [
+            .andWhere(
               'r__titresTypes__titresStatuts__administrations.etapesModificationInterdit',
               true
-            ])
+            )
         )
         .whereNotExists(
           RestrictionsTitresTypesEtapesTypesAdministrations.query()
-            .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            .whereIn(
               'r__titresTypes__etapesTypes__administrations.administrationId',
-              ...administrationsIds
-            ])
+              administrationsIds
+            )
             .andWhereRaw(`?? = ??`, [
               'r__titresTypes__etapesTypes__administrations.titreTypeId',
               'demarche:titre.typeId'
@@ -172,10 +167,10 @@ const titreEtapesPermissionQueryBuild = (
               'r__titresTypes__etapesTypes__administrations.etapeTypeId',
               'titresEtapes.typeId'
             ])
-            .andWhereRaw(`?? = ?`, [
+            .andWhere(
               'r__titresTypes__etapesTypes__administrations.modificationInterdit',
               true
-            ])
+            )
         )
 
       q.leftJoin(
@@ -187,7 +182,7 @@ const titreEtapesPermissionQueryBuild = (
       q.groupBy('titresEditable.id')
     }
   } else {
-    if (!user || ['defaut', 'entreprise'].includes(user.permissionId)) {
+    if (!user || permissionsCheck(user, ['defaut', 'entreprise'])) {
       q.leftJoinRelated('type.autorisations')
 
       if (!user || user.permissionId === 'defaut') {
@@ -219,15 +214,12 @@ const titreDemarchePermissionQueryBuild = (
 ) => {
   q.select('titresDemarches.*')
 
-  if (user?.permissionId === 'super') {
+  if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (
-    user &&
-    ['admin', 'editeur', 'lecteur'].includes(user.permissionId)
-  ) {
+  } else if (permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
     // édition du titre
-    if (user.administrations?.length) {
+    if (user!.administrations?.length) {
       q.select(
         raw('(case when ?? is not null then true else false end) as ??', [
           'titresEditable.id',
@@ -235,10 +227,7 @@ const titreDemarchePermissionQueryBuild = (
         ])
       )
 
-      const administrationsIds = user.administrations.map(a => a.id) || []
-      const administrationsIdsReplace = administrationsIds
-        .map(() => '?')
-        .join(',')
+      const administrationsIds = user!.administrations.map(a => a.id) || []
 
       const titresEditableQuery = Titres.query()
         .alias('titresEditable')
@@ -247,10 +236,10 @@ const titreDemarchePermissionQueryBuild = (
         // qui a les droits sur le type de titre
         .whereExists(
           AutorisationsTitresTypesAdministrations.query()
-            .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            .whereIn(
               'a__titresTypes__administrations.administrationId',
-              ...administrationsIds
-            ])
+              administrationsIds
+            )
             .andWhereRaw(`?? = ??`, [
               'a__titresTypes__administrations.titreTypeId',
               'titresEditable.typeId'
@@ -258,10 +247,10 @@ const titreDemarchePermissionQueryBuild = (
         )
         .whereNotExists(
           RestrictionsTitresTypesTitresStatutsAdministrations.query()
-            .whereRaw(`?? in (${administrationsIdsReplace})`, [
+            .whereIn(
               'r__titresTypes__titresStatuts__administrations.administrationId',
-              ...administrationsIds
-            ])
+              administrationsIds
+            )
             .andWhereRaw(`?? = ??`, [
               'r__titresTypes__titresStatuts__administrations.titreTypeId',
               'titresEditable.typeId'
@@ -270,10 +259,10 @@ const titreDemarchePermissionQueryBuild = (
               'r__titresTypes__titresStatuts__administrations.titreStatutId',
               'titresEditable.statutId'
             ])
-            .andWhereRaw(`?? = ?`, [
+            .andWhere(
               'r__titresTypes__titresStatuts__administrations.demarchesModificationInterdit',
               true
-            ])
+            )
         )
 
       q.leftJoin(
@@ -318,9 +307,13 @@ const titreActivitePermissionQueryBuild = (
 
   if (
     !user ||
-    !['super', 'admin', 'editeur', 'lecteur', 'entreprise'].includes(
-      user.permissionId
-    )
+    !permissionsCheck(user, [
+      'super',
+      'admin',
+      'editeur',
+      'lecteur',
+      'entreprise'
+    ])
   ) {
     // les utilisateurs non identifiés ne peuvent voir aucune activité
     q.limit(0)
@@ -328,36 +321,51 @@ const titreActivitePermissionQueryBuild = (
     return q
   }
 
-  if (user.permissionId === 'super') {
-    q.select(raw('? as ??', [true, 'isSuper']))
+  if (permissionsCheck(user, ['super'])) {
+    q.select(raw('true as ??', ['editable']))
+  } else if (
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user!.administrations?.length
+  ) {
+    if (!permissionsCheck(user, ['lecteur'])) {
+      q.select(raw('true as ??', ['editable']))
+    } else {
+      q.select(raw('false as ??', ['editable']))
+    }
 
-    return q
-  }
+    // administrations gestionnaires et locales
+    q.leftJoin(
+      'activitesTypes__administrations as type:administrations',
+      'type:administrations.activiteTypeId',
+      'type.id'
+    )
 
-  q.select(
-    raw('(case when ?? is not null then true else false end) as ??', [
-      'utilisateurs.id',
-      'editable'
-    ])
-  )
+    // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
+    q.andWhere(b => {
+      const administrationsIds = user!.administrations?.map(a => a.id) || []
 
-  const titreQuery = TitresActivites.relatedQuery('titre') as QueryBuilder<
-    Titres,
-    Titres | Titres[]
-  >
-
-  // vérifie que l'utilisateur a les permissions sur les titres
-  q.whereExists(titreActivitesTitrePermissionQueryBuild(titreQuery, user))
-
-  // vérifie que l'utiliateur a les droits d'édition sur l'activité
-  q.leftJoin('utilisateurs', raw('?? = ?', ['utilisateurs.id', user.id]))
-  q.andWhere(b => {
-    b.whereIn('permissionId', ['admin', 'editeur', 'lecteur'])
-    b.orWhere(c => {
-      c.where('permissionId', 'entreprise')
-      c.andWhereRaw('?? <> ?', ['titresActivites.statutId', 'dep'])
+      b.whereIn('type:administrations.administrationId', administrationsIds)
     })
-  })
+  } else {
+    // vérifie que l'utilisateur a les droits d'édition sur l'activité
+    // l'activité doit avoir un statut `absente ou `en cours`
+    q.select(
+      raw('(case when ?? in (?, ?) then true else false end) as ??', [
+        'titresActivites.statutId',
+        'abs',
+        'enc',
+        'editable'
+      ])
+    )
+
+    const titreQuery = TitresActivites.relatedQuery('titre') as QueryBuilder<
+      Titres,
+      Titres | Titres[]
+    >
+
+    // vérifie que l'utilisateur a les permissions sur les titres
+    q.whereExists(titreActivitesTitrePermissionQueryBuild(titreQuery, user))
+  }
 
   return q
 }
@@ -368,32 +376,7 @@ const titreActivitesTitrePermissionQueryBuild = (
 ) => {
   q.select('titre.*')
 
-  if (user.permissionId === 'super') {
-    q.select(raw('? as ??', [true, 'editable']))
-    q.select(raw('? as ??', [true, 'supprimable']))
-  } else if (
-    ['admin', 'editeur', 'lecteur'].includes(user.permissionId) &&
-    user.administrations?.length
-  ) {
-    // administrations gestionnaires et locales
-    q.leftJoinRelated('[administrationsGestionnaires, administrationsLocales]')
-
-    // l'utilisateur fait partie d'une administrations qui a les droits sur le titre
-    q.andWhere(b => {
-      const administrationsIds = user.administrations?.map(a => a.id) || []
-      const administrationsIdsReplace = administrationsIds
-        .map(() => '?')
-        .join(',')
-
-      b.orWhereRaw(`?? in (${administrationsIdsReplace})`, [
-        'administrationsGestionnaires.id',
-        ...administrationsIds
-      ]).orWhereRaw(`?? in (${administrationsIdsReplace})`, [
-        'administrationsLocales.id',
-        ...administrationsIds
-      ])
-    })
-  } else if (user.permissionId === 'entreprise') {
+  if (permissionsCheck(user, ['entreprise'])) {
     // titulaires et amodiataires
     q.leftJoinRelated('[titulaires, amodiataires]')
 
@@ -418,13 +401,10 @@ const titrePermissionQueryBuild = (
 ) => {
   q.select('titres.*')
 
-  if (user?.permissionId === 'super') {
+  if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (
-    user &&
-    ['super', 'admin', 'editeur', 'lecteur'].includes(user.permissionId)
-  ) {
+  } else if (user && permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
     q.select(
       raw('(case when ?? is not null then true else false end) as ??', [
         'titresEditable.id',
@@ -432,10 +412,7 @@ const titrePermissionQueryBuild = (
       ])
     )
 
-    const administrationsIds = user.administrations.map(a => a.id) || []
-    const administrationsIdsReplace = administrationsIds
-      .map(() => '?')
-      .join(',')
+    const administrationsIds = user.administrations?.map(a => a.id) || []
 
     const titresEditableQuery = Titres.query()
       .alias('titresEditable')
@@ -444,10 +421,10 @@ const titrePermissionQueryBuild = (
       // qui a les droits sur le type de titre
       .whereExists(
         AutorisationsTitresTypesAdministrations.query()
-          .whereRaw(`?? in (${administrationsIdsReplace})`, [
+          .whereIn(
             'a__titresTypes__administrations.administrationId',
-            ...administrationsIds
-          ])
+            administrationsIds
+          )
           .andWhereRaw(`?? = ??`, [
             'a__titresTypes__administrations.titreTypeId',
             'titresEditable.typeId'
@@ -455,10 +432,10 @@ const titrePermissionQueryBuild = (
       )
       .whereNotExists(
         RestrictionsTitresTypesTitresStatutsAdministrations.query()
-          .whereRaw(`?? in (${administrationsIdsReplace})`, [
+          .whereIn(
             'r__titresTypes__titresStatuts__administrations.administrationId',
-            ...administrationsIds
-          ])
+            administrationsIds
+          )
           .andWhereRaw(`?? = ??`, [
             'r__titresTypes__titresStatuts__administrations.titreTypeId',
             'titresEditable.typeId'
@@ -467,10 +444,10 @@ const titrePermissionQueryBuild = (
             'r__titresTypes__titresStatuts__administrations.titreStatutId',
             'titresEditable.statutId'
           ])
-          .andWhereRaw(`?? = ?`, [
+          .andWhere(
             'r__titresTypes__titresStatuts__administrations.titresModificationInterdit',
             true
-          ])
+          )
       )
 
     q.leftJoin(

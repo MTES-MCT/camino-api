@@ -299,8 +299,16 @@ interface IPeriode {
   frequence: IFrequence
 }
 
+type IPermissionId =
+  | 'super'
+  | 'admin'
+  | 'editeur'
+  | 'lecteur'
+  | 'entreprise'
+  | 'defaut'
+
 interface IPermission {
-  id: string
+  id: IPermissionId
   nom: string
   ordre: number
 }
@@ -653,7 +661,7 @@ interface IUtilisateur {
   prenom?: string | null
   telephoneFixe?: string | null
   telephoneMobile?: string | null
-  permissionId: string
+  permissionId: IPermissionId
   // TODO: définir une interface IUtilisateurPreferences
   preferences?: any | null
   permission: IPermission
@@ -749,6 +757,7 @@ export {
   IMois,
   IPays,
   IPermission,
+  IPermissionId,
   IPeriode,
   IPhaseStatut,
   IReferenceType,

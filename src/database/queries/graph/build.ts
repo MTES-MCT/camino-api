@@ -58,6 +58,8 @@ const fieldsToString = (
 // - format: fonction qui transforme l'objet
 // - root: nom du nœud racine
 // out: string de graph pour la requête avec objection.js
+
+// TODO: à refactoriser. est-ce que le paramètre root sert encore à quelque chose ?
 const graphBuild = (
   fields: IFields,
   root = 'root',
