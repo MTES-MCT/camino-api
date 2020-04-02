@@ -1,7 +1,7 @@
 import { IAdministration, IUtilisateur } from '../../../types'
 
 import { titresFormat } from './titres'
-import { utilisateursFormat } from './utilisateurs'
+import { utilisateurFormat } from './utilisateurs'
 import { permissionsAdministrationsCheck } from '../permissions/permissions-check'
 
 const administrationFormat = (
@@ -16,9 +16,9 @@ const administrationFormat = (
     administration.titresAdministrationsLocales &&
     titresFormat(user, administration.titresAdministrationsLocales)
 
-  administration.utilisateurs =
-    administration.utilisateurs &&
-    utilisateursFormat(user, administration.utilisateurs)
+  administration.utilisateurs = administration.utilisateurs?.map(
+    utilisateurFormat
+  )
 
   const isMembre = permissionsAdministrationsCheck(user, [administration.id])
   if (isMembre) {
@@ -28,12 +28,4 @@ const administrationFormat = (
   return administration
 }
 
-const administrationsFormat = (
-  user: IUtilisateur | undefined,
-  administrations: IAdministration[]
-) =>
-  administrations.map(administration =>
-    administrationFormat(user, administration)
-  )
-
-export { administrationFormat, administrationsFormat }
+export { administrationFormat }

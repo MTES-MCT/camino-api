@@ -1,7 +1,7 @@
 import { IUtilisateur, IPermissionId } from '../../types'
 
 import fileCreate from '../../tools/file-create'
-import sqlFormatter from 'sql-formatter'
+import * as sqlFormatter from 'sql-formatter'
 
 import { raw, QueryBuilder } from 'objection'
 
@@ -12,38 +12,181 @@ import TitresActivites from '../models/titres-activites'
 import TitresDocuments from '../models/titres-documents'
 
 import {
+  AutorisationsDomaines,
+  AutorisationsTitresTypesTitresStatuts,
   AutorisationsTitresTypesAdministrations,
   RestrictionsTitresTypesTitresStatutsAdministrations,
   RestrictionsTitresTypesEtapesTypesAdministrations
 } from '../models/autorisations'
 import Entreprises from '../models/entreprises'
 import Administrations from '../models/administrations'
+import Utilisateurs from '../models/utilisateurs'
 
 const permissionsCheck = (
   user: IUtilisateur | undefined,
   permissions: IPermissionId[]
 ) => !!(user && permissions.includes(user?.permissionId))
 
+const utilisateursPermissionQueryBuild = (
+  q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
+  user?: IUtilisateur
+) => {
+  q.select('utilisateurs.*')
+
+  if (permissionsCheck(user, ['super', 'admin'])) {
+    q.select(raw('true as ??', ['editable']))
+    q.select(raw('true as ??', ['supprimable']))
+    q.select(raw('true as ??', ['permissionEditable']))
+  } else if (
+    permissionsCheck(user, ['editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    // un utilisateur administration editeur ou lecteur
+    // ne voit que les utilisateurs de son administration
+    const administrationsIds = user.administrations.map(e => e.id)
+
+    q.whereExists(
+      (Utilisateurs.relatedQuery('administrations') as QueryBuilder<
+        Administrations,
+        Administrations | Administrations[]
+      >).whereIn('administrations.id', administrationsIds)
+    )
+
+    q.select(raw('false as ??', ['editable']))
+    q.select(raw('false as ??', ['supprimable']))
+    q.select(raw('false as ??', ['permissionEditable']))
+  } else {
+    if (permissionsCheck(user, ['entreprise']) && user?.entreprises?.length) {
+      // un utilisateur entreprise
+      // ne voit que les utilisateurs de son entreprise
+      const entreprisesIds = user.entreprises.map(e => e.id)
+
+      q.whereExists(
+        (Utilisateurs.relatedQuery('entreprises') as QueryBuilder<
+          Entreprises,
+          Entreprises | Entreprises[]
+        >).whereIn('entreprises.id', entreprisesIds)
+      )
+    } else if (user && permissionsCheck(user, ['defaut'])) {
+      // un utilisateur "defaut" ne voit que son propre profil
+      q.where('id', user.id)
+    } else {
+      // un utilisateur non-authentifié ne voit aucun utilisateur
+      q.limit(0)
+    }
+
+    q.select(raw('false as ??', ['editable']))
+    q.select(raw('false as ??', ['supprimable']))
+    q.select(raw('false as ??', ['permissionEditable']))
+  }
+
+  // console.log(q.toKnexQuery().toString())
+
+  return q
+}
+
+const entreprisePermissionQueryBuild = (
+  q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+  user?: IUtilisateur
+) => {
+  q.select('entreprises.*')
+
+  if (permissionsCheck(user, ['super', 'admin', 'editeur'])) {
+    q.select(raw('true as ??', ['editable']))
+  } else {
+    q.select(raw('false as ??', ['editable']))
+
+    if (!user || permissionsCheck(user, ['entreprise', 'defaut'])) {
+      // visibilité des titres de l'entreprise titulaire
+      q.modifyGraph('titresTitulaires', a =>
+        titrePermissionQueryBuild(
+          a as QueryBuilder<Titres, Titres | Titres[]>,
+          user
+        )
+      )
+
+      // visibilité des titres de l'entreprise amodiataire
+      q.modifyGraph('titresAmodiataires', a =>
+        titrePermissionQueryBuild(
+          a as QueryBuilder<Titres, Titres | Titres[]>,
+          user
+        )
+      )
+    }
+  }
+
+  if (
+    !user ||
+    permissionsCheck(user, ['editeur', 'lecteur', 'entreprise', 'defaut'])
+  ) {
+    // visibilité des utilisateurs de l'entreprise
+    q.modifyGraph('utilisateurs', u =>
+      utilisateursPermissionQueryBuild(
+        u as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
+        user
+      )
+    )
+  }
+
+  // console.log(q.toKnexQuery().toString())
+
+  return q
+}
+
 const administrationsPermissionQueryBuild = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   user?: IUtilisateur
 ) => {
-  // if (permissionsCheck(user, ['super'])) {
-  //   console.log(object);
-  // } else if (permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
-  // const administrationsIds = user!.administrations?.map(a => a.id) || []
-  // const administrationsIdsReplace = administrationsIds
-  //   .map(() => '?')
-  //   .join(',')
-  // q.select(
-  //   raw(
-  //     `(case when ?? in (${administrationsIdsReplace}) then true else false end) as ??`,
-  //     ['administrations.id', ...administrationsIds, 'membre']
-  //   )
-  // )
-  // } else {
-  //   q.limit(0)
-  // }
+  q.select('administrations.*')
+
+  if (permissionsCheck(user, ['super'])) {
+    q.select(raw('true as ??', ['editable']))
+    q.select(raw('true as ??', ['supprimable']))
+  } else if (
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    // propriété 'membre'
+
+    const administrationsIds = user.administrations.map(a => a.id) || []
+    const administrationsIdsReplace = administrationsIds.map(() => '?')
+
+    q.select(
+      raw(
+        `(case when ?? in (${administrationsIdsReplace}) then true else false end) as ??`,
+        ['administrations.id', ...administrationsIds, 'membre']
+      )
+    )
+  } else {
+    // visibilité des titres des administrations gestionnaires
+    q.modifyGraph('titresAdministrationsGestionnaires', a =>
+      titrePermissionQueryBuild(
+        a as QueryBuilder<Titres, Titres | Titres[]>,
+        user
+      )
+    )
+
+    // visibilité des titres des administrations locales
+    q.modifyGraph('titresAdministrationsLocales', a =>
+      titrePermissionQueryBuild(
+        a as QueryBuilder<Titres, Titres | Titres[]>,
+        user
+      )
+    )
+  }
+
+  if (
+    !user ||
+    permissionsCheck(user, ['editeur', 'lecteur', 'entreprise', 'defaut'])
+  ) {
+    // visibilité des utilisateurs de l'entreprise
+    q.modifyGraph('utilisateurs', u =>
+      utilisateursPermissionQueryBuild(
+        u as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
+        user
+      )
+    )
+  }
 
   return q
 }
@@ -58,14 +201,14 @@ const titreDocumentsPermissionQueryBuild = (
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
   } else {
-    if (permissionsCheck(user, ['entreprise'])) {
+    if (user?.entreprises?.length && permissionsCheck(user, ['entreprise'])) {
       // faire les join related ou pas
       q.leftJoinRelated('etape.demarche.titre.[titulaires, amodiataires]')
 
       q.where(b => {
         // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
-        const entreprisesIds = user!.entreprises?.map(e => e.id)
+        const entreprisesIds = user.entreprises?.map(e => e.id)
 
         if (entreprisesIds) {
           b.orWhereIn('etape:demarche:titre:titulaires.id', entreprisesIds)
@@ -90,14 +233,17 @@ const titreEtapesPermissionQueryBuild = (
   if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
-    const administrationsIds = user!.administrations?.map(a => a.id) || []
+  } else if (
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    const administrationsIds = user.administrations.map(a => a.id) || []
 
     q.leftJoinRelated('[demarche.titre, type]')
 
     // si l'utilisateur admin n'appartient à aucune administration
     // alors il ne peut pas voir les étapes faisant l'objet de restriction
-    // peut importe l'administration
+    // peu importe l'administration
     if (administrationsIds.length === 0) {
       q.leftJoinRelated('type.restrictionsAdministrations')
 
@@ -243,59 +389,60 @@ const titreDemarchePermissionQueryBuild = (
   if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
-    // édition du titre
-    if (user!.administrations?.length) {
-      q.select(
-        raw('(case when ?? is not null then true else false end) as ??', [
-          'titresEditable.id',
-          'editable'
-        ])
+  } else if (
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    // propriété 'editable'
+    q.select(
+      raw('(case when ?? is not null then true else false end) as ??', [
+        'titresEditable.id',
+        'editable'
+      ])
+    )
+
+    const administrationsIds = user.administrations.map(a => a.id) || []
+
+    const titresEditableQuery = Titres.query()
+      .alias('titresEditable')
+      .select('titresEditable.id')
+      // l'utilisateur fait partie d'une administrations
+      // qui a les droits sur le type de titre
+      .whereExists(
+        AutorisationsTitresTypesAdministrations.query()
+          .whereIn(
+            'a__titresTypes__administrations.administrationId',
+            administrationsIds
+          )
+          .andWhereRaw(`?? = ??`, [
+            'a__titresTypes__administrations.titreTypeId',
+            'titresEditable.typeId'
+          ])
+      )
+      .whereNotExists(
+        RestrictionsTitresTypesTitresStatutsAdministrations.query()
+          .whereIn(
+            'r__titresTypes__titresStatuts__administrations.administrationId',
+            administrationsIds
+          )
+          .andWhereRaw(`?? = ??`, [
+            'r__titresTypes__titresStatuts__administrations.titreTypeId',
+            'titresEditable.typeId'
+          ])
+          .andWhereRaw(`?? = ??`, [
+            'r__titresTypes__titresStatuts__administrations.titreStatutId',
+            'titresEditable.statutId'
+          ])
+          .andWhere(
+            'r__titresTypes__titresStatuts__administrations.demarchesModificationInterdit',
+            true
+          )
       )
 
-      const administrationsIds = user!.administrations.map(a => a.id) || []
-
-      const titresEditableQuery = Titres.query()
-        .alias('titresEditable')
-        .select('titresEditable.id')
-        // l'utilisateur fait partie d'une administrations
-        // qui a les droits sur le type de titre
-        .whereExists(
-          AutorisationsTitresTypesAdministrations.query()
-            .whereIn(
-              'a__titresTypes__administrations.administrationId',
-              administrationsIds
-            )
-            .andWhereRaw(`?? = ??`, [
-              'a__titresTypes__administrations.titreTypeId',
-              'titresEditable.typeId'
-            ])
-        )
-        .whereNotExists(
-          RestrictionsTitresTypesTitresStatutsAdministrations.query()
-            .whereIn(
-              'r__titresTypes__titresStatuts__administrations.administrationId',
-              administrationsIds
-            )
-            .andWhereRaw(`?? = ??`, [
-              'r__titresTypes__titresStatuts__administrations.titreTypeId',
-              'titresEditable.typeId'
-            ])
-            .andWhereRaw(`?? = ??`, [
-              'r__titresTypes__titresStatuts__administrations.titreStatutId',
-              'titresEditable.statutId'
-            ])
-            .andWhere(
-              'r__titresTypes__titresStatuts__administrations.demarchesModificationInterdit',
-              true
-            )
-        )
-
-      q.leftJoin(
-        titresEditableQuery.as('titresEditable'),
-        raw('?? = ??', ['titresEditable.id', 'titresDemarches.titreId'])
-      )
-    }
+    q.leftJoin(
+      titresEditableQuery.as('titresEditable'),
+      raw('?? = ??', ['titresEditable.id', 'titresDemarches.titreId'])
+    )
   } else {
     // visibilité du titre de la démarche
     q.whereExists(
@@ -331,7 +478,10 @@ const titreDemarcheTitrePermissionQueryBuild = (
   if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (user && permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
+  } else if (
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
     q.select(
       raw('(case when ?? is not null then true else false end) as ??', [
         'titresEditable.id',
@@ -339,7 +489,7 @@ const titreDemarcheTitrePermissionQueryBuild = (
       ])
     )
 
-    const administrationsIds = user.administrations?.map(a => a.id) || []
+    const administrationsIds = user.administrations.map(a => a.id) || []
 
     const titresEditableQuery = Titres.query()
       .alias('titresEditable')
@@ -394,24 +544,24 @@ const titreDemarcheTitrePermissionQueryBuild = (
         'titres.statutId'
       ])
 
-      if (permissionsCheck(user, ['entreprise']) && user!.entreprises?.length) {
+      if (permissionsCheck(user, ['entreprise']) && user?.entreprises?.length) {
         // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
         const entreprisesIds = user!.entreprises?.map(e => e.id)
 
-        const titulairesQuery = Titres.relatedQuery(
-          'titulaires'
-        ) as QueryBuilder<Entreprises, Entreprises | Entreprises[]>
-        titulairesQuery.whereIn('titulaires.id', entreprisesIds)
-
-        const amodiatairesQuery = Titres.relatedQuery(
-          'amodiataires'
-        ) as QueryBuilder<Entreprises, Entreprises | Entreprises[]>
-        amodiatairesQuery.whereIn('amodiataires.id', entreprisesIds)
-
         b.orWhere(c => {
-          c.orWhereExists(titulairesQuery)
-          c.orWhereExists(amodiatairesQuery)
+          c.orWhereExists(
+            (Titres.relatedQuery('titulaires') as QueryBuilder<
+              Entreprises,
+              Entreprises | Entreprises[]
+            >).whereIn('titulaires.id', entreprisesIds)
+          )
+          c.orWhereExists(
+            (Titres.relatedQuery('amodiataires') as QueryBuilder<
+              Entreprises,
+              Entreprises | Entreprises[]
+            >).whereIn('amodiataires.id', entreprisesIds)
+          )
         })
       }
     })
@@ -423,14 +573,12 @@ const titreDemarcheTitrePermissionQueryBuild = (
   return q
 }
 
-// droits d'édition d'une activité
+// édition d'une activité
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur
 ) => {
   q.select('titresActivites.*')
-
-  console.log('modifying le graph des activites')
 
   if (
     !user ||
@@ -452,7 +600,7 @@ const titreActivitePermissionQueryBuild = (
     q.select(raw('true as ??', ['editable']))
   } else if (
     permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
-    user!.administrations?.length
+    user?.administrations?.length
   ) {
     if (!permissionsCheck(user, ['lecteur'])) {
       q.select(raw('true as ??', ['editable']))
@@ -494,7 +642,7 @@ const titreActivitePermissionQueryBuild = (
     q.whereExists(titreActivitesTitrePermissionQueryBuild(titreQuery, user))
   }
 
-  console.log(q.toKnexQuery().toString())
+  // console.log(q.toKnexQuery().toString())
 
   return q
 }
@@ -541,7 +689,9 @@ const titreActivitesCalc = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   user?: IUtilisateur
 ) => {
-  // les utiliateurs non-authentifiés ou défaut ne peuvent voir aucune activité
+  // console.log('titreActivitesCalcing')
+
+  // les utilisateurs non-authentifiés ou défaut ne peuvent voir aucune activité
   if (!user || permissionsCheck(user, ['defaut'])) {
     activiteStatuts.forEach(({ name }) => {
       q.select(raw('0 as ??', [name]))
@@ -569,9 +719,9 @@ const titreActivitesCalc = (
 
   if (
     permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
-    user!.administrations?.length
+    user?.administrations?.length
   ) {
-    const administrationsIds = user!.administrations.map(e => e.id)
+    const administrationsIds = user.administrations.map(e => e.id)
 
     titresActivitesCountQuery
       .leftJoinRelated('type.administrations')
@@ -598,9 +748,9 @@ const titreActivitesCalc = (
     raw('?? = ??', ['activitesCountJoin.titreId', 'titres.id'])
   )
 
-  console.log(titresActivitesCountQuery.toKnexQuery().toString())
+  // console.log(titresActivitesCountQuery.toKnexQuery().toString())
 
-  console.log(q.toKnexQuery().toString())
+  // console.log(q.toKnexQuery().toString())
 
   return q
 }
@@ -614,7 +764,10 @@ const titrePermissionQueryBuild = (
   if (permissionsCheck(user, ['super'])) {
     q.select(raw('true as ??', ['editable']))
     q.select(raw('true as ??', ['supprimable']))
-  } else if (user && permissionsCheck(user, ['admin', 'editeur', 'lecteur'])) {
+  } else if (
+    permissionsCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
     q.select(
       raw('(case when ?? is not null then true else false end) as ??', [
         'titresEditable.id',
@@ -622,7 +775,7 @@ const titrePermissionQueryBuild = (
       ])
     )
 
-    const administrationsIds = user.administrations?.map(a => a.id) || []
+    const administrationsIds = user.administrations.map(a => a.id) || []
 
     const titresEditableQuery = Titres.query()
       .alias('titresEditable')
@@ -665,36 +818,51 @@ const titrePermissionQueryBuild = (
       raw('?? = ??', ['titresEditable.id', 'titres.id'])
     )
   } else {
-    q.leftJoinRelated('[type.autorisationsTitresStatuts, domaine.autorisation]')
-
     q.where(b => {
-      // titres publics
-      b.where({
-        'domaine:autorisation.publicLecture': true,
-        'type:autorisationsTitresStatuts.publicLecture': true
-      }).andWhereRaw('?? = ??', [
-        'type:autorisationsTitresStatuts.titreStatutId',
-        'titres.statutId'
-      ])
+      b.orWhere(c => {
+        // titres publics
+        c.whereExists(
+          AutorisationsDomaines.query().whereRaw('?? = ?? and ?? = ?', [
+            'a__domaines.domaineId',
+            'titres.domaineId',
+            'a__domaines.publicLecture',
+            true
+          ])
+        )
 
-      if (permissionsCheck(user, ['entreprise']) && user!.entreprises?.length) {
+        c.whereExists(
+          AutorisationsTitresTypesTitresStatuts.query().whereRaw(
+            '?? = ?? and ?? = ?? and ?? = ?',
+            [
+              'a__titresTypes__titresStatuts.titreTypeId',
+              'titres.typeId',
+              'a__titresTypes__titresStatuts.titreStatutId',
+              'titres.statutId',
+              'a__titresTypes__titresStatuts.publicLecture',
+              true
+            ]
+          )
+        )
+      })
+
+      if (permissionsCheck(user, ['entreprise']) && user?.entreprises?.length) {
         // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
-        const entreprisesIds = user!.entreprises?.map(e => e.id)
-
-        const titulairesQuery = Titres.relatedQuery(
-          'titulaires'
-        ) as QueryBuilder<Entreprises, Entreprises | Entreprises[]>
-        titulairesQuery.whereIn('titulaires.id', entreprisesIds)
-
-        const amodiatairesQuery = Titres.relatedQuery(
-          'amodiataires'
-        ) as QueryBuilder<Entreprises, Entreprises | Entreprises[]>
-        amodiatairesQuery.whereIn('amodiataires.id', entreprisesIds)
+        const entreprisesIds = user.entreprises.map(e => e.id)
 
         b.orWhere(c => {
-          c.orWhereExists(titulairesQuery)
-          c.orWhereExists(amodiatairesQuery)
+          c.orWhereExists(
+            (Titres.relatedQuery('titulaires') as QueryBuilder<
+              Entreprises,
+              Entreprises | Entreprises[]
+            >).whereIn('titulaires.id', entreprisesIds)
+          )
+          c.orWhereExists(
+            (Titres.relatedQuery('amodiataires') as QueryBuilder<
+              Entreprises,
+              Entreprises | Entreprises[]
+            >).whereIn('amodiataires.id', entreprisesIds)
+          )
         })
       }
     })
@@ -731,5 +899,7 @@ export {
   titreDemarchePermissionQueryBuild,
   titreActivitePermissionQueryBuild,
   titreEtapesPermissionQueryBuild,
-  administrationsPermissionQueryBuild
+  administrationsPermissionQueryBuild,
+  entreprisePermissionQueryBuild,
+  utilisateursPermissionQueryBuild
 }

@@ -2,6 +2,7 @@ import { IUtilisateur, IFields } from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
+import { utilisateursPermissionQueryBuild } from './_permissions'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
@@ -26,9 +27,13 @@ const utilisateursQueryBuild = (
     ? graphBuild(fields, 'utilisateur', graphFormat)
     : options.utilisateurs.graph
 
-  return Utilisateurs.query()
+  const q = Utilisateurs.query()
     .skipUndefined()
     .withGraphFetched(graph)
+
+  utilisateursPermissionQueryBuild(q, user)
+
+  return q
 }
 
 const utilisateurGet = async (
@@ -66,7 +71,7 @@ const utilisateursGet = async (
   const user = await userGet(userId)
   const q = utilisateursQueryBuild({ fields }, user)
 
-  q.orderBy('nom')
+  q.orderBy('utilisateurs.nom')
 
   if (administrationIds) {
     q.whereIn('administrations.id', administrationIds).joinRelated(

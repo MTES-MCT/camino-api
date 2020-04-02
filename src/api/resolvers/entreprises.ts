@@ -11,7 +11,7 @@ import { userGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
 
-import { entrepriseFormat, entreprisesFormat } from './format/entreprises'
+import { entrepriseFormat } from './format/entreprises'
 
 import { permissionsCheck } from './permissions/permissions-check'
 import { emailCheck } from './permissions/utilisateur'
@@ -60,7 +60,7 @@ const entreprises = async (
 
     const user = context.user && (await userGet(context.user.id))
 
-    return entreprisesFormat(user, entreprises)
+    return entreprises.map(e => entrepriseFormat(user, e))
   } catch (e) {
     if (debug) {
       console.error(e)

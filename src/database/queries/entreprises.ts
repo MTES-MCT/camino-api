@@ -1,25 +1,40 @@
-import { IEntreprise, IFields } from '../../types'
+import { IEntreprise, IFields, IUtilisateur } from '../../types'
 import Entreprises from '../models/entreprises'
 import options from './_options'
+import { entreprisePermissionQueryBuild } from './_permissions'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
+import { userGet } from './utilisateurs'
 
 // import { userGet } from './utilisateurs'
+
+const entreprisesQueryBuild = (
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'entreprises', graphFormat)
+    : options.entreprises.graph
+
+  const q = Entreprises.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
+
+  entreprisePermissionQueryBuild(q, user)
+
+  return q
+}
 
 const entrepriseGet = async (
   id: string,
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  // const user = userId && (await userGet(userId))
+  const user = userId ? await userGet(userId) : undefined
 
-  const graph = fields
-    ? graphBuild(fields, 'entreprises', graphFormat)
-    : options.entreprises.graph
+  const q = entreprisesQueryBuild({ fields }, user)
 
-  return Entreprises.query()
-    .findById(id)
-    .withGraphFetched(graph)
+  return (await q.findById(id)) as IEntreprise
 }
 
 const entreprisesGet = async (
@@ -27,16 +42,13 @@ const entreprisesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  // const user = userId && (await userGet(userId))
+  const user = userId ? await userGet(userId) : undefined
 
-  const graph = fields
-    ? graphBuild(fields, 'entreprises', graphFormat)
-    : options.entreprises.graph
+  const q = entreprisesQueryBuild({ fields }, user)
 
-  return Entreprises.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
-    .orderBy('nom')
+  q.orderBy('nom')
+
+  return q
 }
 
 const entreprisesUpsert = async (entreprises: IEntreprise[]) =>

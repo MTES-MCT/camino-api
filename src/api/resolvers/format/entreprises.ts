@@ -1,8 +1,7 @@
 import { IEntreprise, IUtilisateur } from '../../../types'
 
 import { titresFormat } from './titres'
-import { utilisateursFormat } from './utilisateurs'
-import { permissionsCheck } from '../permissions/permissions-check'
+import { utilisateurFormat } from './utilisateurs'
 
 const entrepriseFormat = (
   user: IUtilisateur | undefined,
@@ -15,17 +14,9 @@ const entrepriseFormat = (
     entreprise.titresAmodiataire &&
     titresFormat(user, entreprise.titresAmodiataire)
 
-  entreprise.utilisateurs =
-    entreprise.utilisateurs && utilisateursFormat(user, entreprise.utilisateurs)
-
-  entreprise.editable = permissionsCheck(user, ['super', 'admin', 'editeur'])
+  entreprise.utilisateurs = entreprise.utilisateurs?.map(utilisateurFormat)
 
   return entreprise
 }
 
-const entreprisesFormat = (
-  user: IUtilisateur | undefined,
-  entreprises: IEntreprise[]
-) => entreprises.map(entreprise => entrepriseFormat(user, entreprise))
-
-export { entrepriseFormat, entreprisesFormat }
+export { entrepriseFormat }

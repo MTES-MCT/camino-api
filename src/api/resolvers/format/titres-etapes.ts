@@ -12,8 +12,8 @@ import {
 } from '../../../tools/geojson'
 import { titreSectionsFormat } from './titres-sections'
 import { etapesTypesFormat } from './etapes-types'
-import { administrationsFormat } from './administrations'
-import { entreprisesFormat } from './entreprises'
+import { administrationFormat } from './administrations'
+import { entrepriseFormat } from './entreprises'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: {},
@@ -67,20 +67,17 @@ const titreEtapeFormat = (
     }
   }
 
-  if (titreEtape.administrations) {
-    titreEtape.administrations = administrationsFormat(
-      user,
-      titreEtape.administrations
-    )
-  }
+  titreEtape.administrations = titreEtape.administrations?.map(a =>
+    administrationFormat(user, a)
+  )
 
-  if (titreEtape.titulaires) {
-    titreEtape.titulaires = entreprisesFormat(user, titreEtape.titulaires)
-  }
+  titreEtape.titulaires = titreEtape.titulaires?.map(e =>
+    entrepriseFormat(user, e)
+  )
 
-  if (titreEtape.amodiataires) {
-    titreEtape.amodiataires = entreprisesFormat(user, titreEtape.amodiataires)
-  }
+  titreEtape.amodiataires = titreEtape.amodiataires?.map(e =>
+    entrepriseFormat(user, e)
+  )
 
   return titreEtape
 }

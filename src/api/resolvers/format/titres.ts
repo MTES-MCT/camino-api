@@ -17,8 +17,8 @@ import { dupRemove } from '../../../tools/index'
 
 import { permissionsCheck } from '../permissions/permissions-check'
 
-import { administrationsFormat } from './administrations'
-import { entreprisesFormat } from './entreprises'
+import { administrationFormat } from './administrations'
+import { entrepriseFormat } from './entreprises'
 
 import {
   titreActiviteFormatFields,
@@ -198,7 +198,9 @@ const titreFormat = (
         (a, b) => a.type.ordre - b.type.ordre
       )
 
-      t.administrations = administrationsFormat(user, t.administrations)
+      t.administrations = t.administrations.map(a =>
+        administrationFormat(user, a)
+      )
 
       delete t.administrationsGestionnaires
       delete t.administrationsLocales
@@ -207,13 +209,9 @@ const titreFormat = (
     }
   }
 
-  if (t.titulaires) {
-    t.titulaires = entreprisesFormat(user, t.titulaires)
-  }
+  t.titulaires = t.titulaires?.map(e => entrepriseFormat(user, e))
 
-  if (t.amodiataires) {
-    t.amodiataires = entreprisesFormat(user, t.amodiataires)
-  }
+  t.amodiataires = t.amodiataires?.map(e => entrepriseFormat(user, e))
 
   return t
 }

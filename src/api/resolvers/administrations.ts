@@ -9,10 +9,7 @@ import { userGet } from '../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
 
-import {
-  administrationFormat,
-  administrationsFormat
-} from './format/administrations'
+import { administrationFormat } from './format/administrations'
 
 const administration = async (
   { id }: { id: string },
@@ -24,9 +21,7 @@ const administration = async (
     const fields = fieldsBuild(info)
     const administration = await administrationGet(
       id,
-      {
-        fields
-      },
+      { fields },
       context.user?.id
     )
 
@@ -54,7 +49,7 @@ const administrations = async (
       context.user?.id
     )
 
-    return administrationsFormat(user, administrations)
+    return administrations.map(a => administrationFormat(user, a))
   } catch (e) {
     if (debug) {
       console.error(e)

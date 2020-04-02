@@ -8,7 +8,7 @@ async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  const userId = 'f5922d'
+  // const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
   // const userId = 'f455dd'
@@ -29,7 +29,7 @@ async function main() {
   // const userId = '8e8a19'
 
   // entreprise titulaire d'auror
-  // const userId = 'd6378e'
+  const userId = 'd6378e'
 
   // non-logué
   // const userId = undefined

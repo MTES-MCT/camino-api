@@ -34,7 +34,7 @@ import {
   utilisateurTestCheck
 } from './permissions/utilisateur'
 
-import { utilisateursFormat, utilisateurFormat } from './format/utilisateurs'
+import { utilisateurFormat } from './format/utilisateurs'
 import { userFormat } from './format/users'
 
 const userIdGenerate = async (): Promise<string> => {
@@ -56,9 +56,7 @@ const utilisateur = async (
     const fields = fieldsBuild(info)
     const utilisateur = await utilisateurGet(id, { fields }, context.user?.id)
 
-    const user = await userGet(context.user?.id)
-
-    return utilisateur && utilisateurFormat(user, utilisateur)
+    return utilisateur && utilisateurFormat(utilisateur)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -96,9 +94,7 @@ const utilisateurs = async (
       context.user?.id
     )
 
-    const user = await userGet(context.user?.id)
-
-    return utilisateursFormat(user, utilisateurs)
+    return utilisateurs.map(utilisateurFormat)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -388,7 +384,7 @@ const utilisateurModifier = async (
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
-    return utilisateurFormat(user, utilisateurUpdated)
+    return utilisateurFormat(utilisateurUpdated)
   } catch (e) {
     if (debug) {
       console.error(e)
