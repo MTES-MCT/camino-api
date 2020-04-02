@@ -2,28 +2,22 @@ import { IAdministration, IUtilisateur } from '../../../types'
 
 import { titresFormat } from './titres'
 import { utilisateurFormat } from './utilisateurs'
-import { permissionsAdministrationsCheck } from '../permissions/permissions-check'
 
 const administrationFormat = (
   user: IUtilisateur | undefined,
   administration: IAdministration
 ) => {
-  administration.titresAdministrationsGestionnaires =
-    administration.titresAdministrationsGestionnaires &&
-    titresFormat(user, administration.titresAdministrationsGestionnaires)
+  administration.titresAdministrationGestionnaire =
+    administration.titresAdministrationGestionnaire &&
+    titresFormat(user, administration.titresAdministrationGestionnaire)
 
-  administration.titresAdministrationsLocales =
-    administration.titresAdministrationsLocales &&
-    titresFormat(user, administration.titresAdministrationsLocales)
+  administration.titresAdministrationLocale =
+    administration.titresAdministrationLocale &&
+    titresFormat(user, administration.titresAdministrationLocale)
 
   administration.utilisateurs = administration.utilisateurs?.map(
     utilisateurFormat
   )
-
-  const isMembre = permissionsAdministrationsCheck(user, [administration.id])
-  if (isMembre) {
-    administration.membre = isMembre
-  }
 
   return administration
 }

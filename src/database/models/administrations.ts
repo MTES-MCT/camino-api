@@ -68,7 +68,7 @@ class Administrations extends Model {
       }
     },
 
-    titresAdministrationsGestionnaires: {
+    titresAdministrationGestionnaire: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres'),
       join: {
@@ -81,7 +81,7 @@ class Administrations extends Model {
       }
     },
 
-    titresAdministrationsLocales: {
+    titresAdministrationLocale: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres'),
       join: {

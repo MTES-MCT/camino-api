@@ -178,21 +178,10 @@ const titreFormat = (
       t.administrationsGestionnaires?.length || t.administrationsLocales?.length
     if (hasAdministrations) {
       // fusionne administrations gestionnaires et locales
-      let administrations = dupRemove('id', [
+      const administrations = dupRemove('id', [
         ...(t.administrationsGestionnaires || []),
         ...(t.administrationsLocales || [])
       ]) as IAdministration[]
-
-      // si l'utilisateur n'a pas de droits de visualisation suffisants
-      // alors filtre les administrations `associee`
-      administrations = !permissionsCheck(user, [
-        'super',
-        'admin',
-        'editeur',
-        'lecteur'
-      ])
-        ? administrations.filter(a => !a.associee)
-        : administrations
 
       t.administrations = administrations.sort(
         (a, b) => a.type.ordre - b.type.ordre

@@ -102,8 +102,8 @@ interface IAdministration {
   abreviation?: string | null
   titresTypes?: ITitreType[] | null
   utilisateurs?: IUtilisateur[] | null
-  titresAdministrationsGestionnaires?: ITitre[] | null
-  titresAdministrationsLocales?: ITitre[] | null
+  titresAdministrationGestionnaire?: ITitre[] | null
+  titresAdministrationLocale?: ITitre[] | null
   associee?: boolean | null
   membre?: boolean
 }

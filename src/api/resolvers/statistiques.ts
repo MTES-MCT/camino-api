@@ -1,7 +1,6 @@
 import { debug } from '../../config/index'
 import { titresGet } from '../../database/queries/titres'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
-import { titreIsPublicCheck } from './permissions/titre'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiques = async () => {
@@ -9,11 +8,7 @@ const statistiques = async () => {
     const titres = await titresGet({}, { fields: {} }, 'super')
     const titresTotal = titres.length
 
-    const titresValide = titres.filter(titre => {
-      const titreIsPublic = titreIsPublicCheck(titre)
-
-      return titreIsPublic ? titre : null
-    }).length
+    const titresValide = (await titresGet({}, { fields: {} })).length
 
     const titresActivites = await titresActivitesGet({}, {}, 'super')
 
