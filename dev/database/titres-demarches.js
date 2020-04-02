@@ -29,7 +29,7 @@ async function main() {
   // const userId = '8e8a19'
 
   // entreprise titulaire d'auror
-  const userId = 'd6378e'
+  // const userId = 'd6378e'
 
   // non-logué
   // const userId = undefined
@@ -61,7 +61,10 @@ async function main() {
 
     console.log('demarches.length', res && res.length)
 
-    await fileCreate('test-titre-demarche.json', JSON.stringify(res, null, 2))
+    await fileCreate(
+      'tmp/test-titre-demarche.json',
+      JSON.stringify(res, null, 2)
+    )
 
     process.exit(0)
   } catch (e) {

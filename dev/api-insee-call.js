@@ -27,7 +27,10 @@ async function main() {
 
     console.log(result.length)
 
-    await fileCreate('test-entreprises.json', JSON.stringify(result, null, 2))
+    await fileCreate(
+      'tmp/test-entreprises.json',
+      JSON.stringify(result, null, 2)
+    )
   }
 
   if (!test) {

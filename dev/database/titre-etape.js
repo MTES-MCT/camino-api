@@ -57,9 +57,9 @@ async function main() {
     userId
   )
 
-  console.log(res && res.editable)
+  console.log(res && res.modification)
 
-  await fileCreate('test-titre-etape.json', JSON.stringify(res, null, 2))
+  await fileCreate('tmp/test-titre-etape.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }

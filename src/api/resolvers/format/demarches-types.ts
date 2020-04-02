@@ -12,7 +12,9 @@ const demarcheTypeFormat = (
 ) => {
   const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
   if (!dt) {
-    throw new Error(`${demarcheType.nom} inexistant pour un titre ${titreTypeId}`)
+    throw new Error(
+      `${demarcheType.nom} inexistant pour un titre ${titreTypeId}`
+    )
   }
 
   if (demarcheType.etapesTypes) {
@@ -21,7 +23,7 @@ const demarcheTypeFormat = (
     )
   }
 
-  demarcheType.editable = titreDemarchePermissionAdministrationsCheck(
+  demarcheType.modification = titreDemarchePermissionAdministrationsCheck(
     user,
     titreTypeId,
     titreStatutId
@@ -54,7 +56,7 @@ const demarchesTypesFormat = (
 
     dt = demarcheTypeFormat(user, dt, titre.typeId, titre.statutId!)
 
-    if (dt.editable) {
+    if (dt.modification) {
       dt.titreTypeId = titre.typeId
       demarchesTypes.push(dt)
     }

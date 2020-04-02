@@ -107,8 +107,6 @@ const demarches = async (
 
     const user = context.user && (await userGet(context.user.id))
 
-    const isSuper = permissionsCheck(user, ['super'])
-
     return {
       demarches: titresDemarches.map(titreDemarche =>
         titreDemarcheFormat(
@@ -116,7 +114,6 @@ const demarches = async (
           titreDemarche,
           titreDemarche.titre!.typeId,
           titreDemarche.titre!.statutId!,
-          { isSuper },
           fields
         )
       ),

@@ -160,7 +160,7 @@ interface IDemarcheType {
   etapesTypes: IEtapeType[]
   titreTypeId?: string | null
   unique?: boolean | null
-  editable?: boolean | null
+  modification?: boolean | null
 }
 
 interface IDepartement {
@@ -218,7 +218,7 @@ interface IEntreprise {
   utilisateurs?: IUtilisateur[] | null
   titresTitulaire?: ITitre[] | null
   titresAmodiataire?: ITitre[] | null
-  editable?: boolean | null
+  modification?: boolean | null
 }
 
 interface IEtapeStatut {
@@ -240,7 +240,7 @@ interface IEtapeType {
   etapesStatuts?: IEtapeStatut[] | null
   titreTypeId?: string | null
   demarcheTypeId?: string | null
-  editable?: boolean | null
+  modification?: boolean | null
   unique?: boolean | null
 }
 
@@ -445,8 +445,8 @@ interface ITitre {
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
   pays?: IPays[] | null
-  editable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
   doublonTitreId?: string | null
   propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
   contenu?: IContenu | null
@@ -469,7 +469,7 @@ interface ITitreActivite {
   dateSaisie?: string
   contenu?: IContenu | null
   sections?: ISection[] | null
-  editable?: boolean | null
+  modification?: boolean | null
 }
 
 interface ITitreAdministrationsGestionnaire {
@@ -507,9 +507,9 @@ interface ITitreDemarche {
   annulationDemarche?: ITitreDemarche | null
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
-  editable?: boolean | null
-  etapesEditable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  etapesCreation?: boolean | null
+  suppression?: boolean | null
 }
 
 interface ITitreDocument {
@@ -526,8 +526,8 @@ interface ITitreDocument {
   fichierTypeId?: string | null
   fichierNouveau?: { file: FileUpload } | null
   public?: boolean | null
-  editable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
 }
 
 interface ITitreEtape {
@@ -555,8 +555,8 @@ interface ITitreEtape {
   communes?: ICommune[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
-  editable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
 }
 
 interface ITitreEtapeFiltre {
@@ -634,7 +634,7 @@ interface ITitreType {
   sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
-  editable?: boolean | null
+  modification?: boolean | null
 }
 
 interface ITitreTypeType {
@@ -667,9 +667,9 @@ interface IUtilisateur {
   permission: IPermission
   administrations?: IAdministration[] | null
   entreprises?: IEntreprise[] | null
-  editable?: boolean | null
-  supprimable?: boolean | null
-  permissionEditable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
+  permissionModification?: boolean | null
 }
 
 interface IToken {

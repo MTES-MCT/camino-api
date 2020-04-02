@@ -8,13 +8,13 @@ async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  // const userId = 'f5922d'
+  const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
   // const userId = 'f455dd'
 
   // admin onf uniquement
-  const userId = '5c0d2b'
+  // const userId = '5c0d2b'
 
   // admin ptmg uniquement
   // const userId = '1ee94a'
@@ -35,7 +35,10 @@ async function main() {
   // const userId = undefined
 
   // titre echu public
-  const titreId = 'm-ar-sainte-helene-2019'
+  // const titreId = 'm-ar-sainte-helene-2019'
+
+  // titre ARM echu dmi
+  const titreId = 'm-ar-crique-grand-moussinga-2019'
 
   // titre non-public
   // const titreId =
@@ -59,9 +62,10 @@ async function main() {
     userId
   )
 
-  console.log(res.editable)
+  console.log('demarche.modification:', res.modification)
+  console.log('demarche.etapesCreation:', res.etapesCreation)
 
-  await fileCreate('test-titre-demarche.json', JSON.stringify(res, null, 2))
+  await fileCreate('tmp/test-titre-demarche.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }

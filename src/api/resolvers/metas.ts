@@ -93,9 +93,12 @@ const utilisateurDomaines = async (_: unknown, context: IToken) => {
 
     if (isAdmin) {
       domaines = domaines.reduce((domaines: IDomaine[], domaine) => {
-        const editable = domainePermissionAdministrationCheck(user, domaine.id)
+        const modification = domainePermissionAdministrationCheck(
+          user,
+          domaine.id
+        )
 
-        if (editable) {
+        if (modification) {
           if (domaine.titresTypes) {
             domaine.titresTypes = domaine.titresTypes.filter(tt =>
               titreTypePermissionAdministrationCheck(user, tt.id, 'creation')

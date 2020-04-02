@@ -83,7 +83,7 @@ const demarcheTypeEtapeTypeFormat = (
   // alors on ne retourne pas ce type d'étape pendant l'édition
   if (!et.etapesStatuts.length) return null
 
-  et.editable = titreEtapePermissionAdministrationsCheck(
+  et.modification = titreEtapePermissionAdministrationsCheck(
     user,
     titre.typeId,
     titre.statutId!,
@@ -91,7 +91,7 @@ const demarcheTypeEtapeTypeFormat = (
     etapeTypeId ? 'modification' : 'creation'
   )
 
-  if (!et.editable) {
+  if (!et.modification) {
     return null
   }
 

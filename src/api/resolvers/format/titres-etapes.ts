@@ -42,7 +42,7 @@ const titreEtapeFormat = (
     // crée une copie du type d'étape pour ne pas modifier le cache applicatif
     titreEtape.type = JSON.parse(JSON.stringify(etapeType))
 
-    titreEtape.type!.editable = titreEtape.editable
+    titreEtape.type!.modification = titreEtape.modification
 
     titreEtape.type = etapesTypesFormat(titreEtape.type!)
 

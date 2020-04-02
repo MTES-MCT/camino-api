@@ -85,18 +85,18 @@ async function main() {
     res.activites
       .map(
         e =>
-          `activite.id: ${e.id}, statut: ${e.statutId}, editable: ${e.editable}`
+          `activite.id: ${e.id}, statut: ${e.statutId}, modification: ${e.modification}`
       )
       .join('\n')
   )
 
-  console.log('titre.editable:', res.editable)
+  console.log('titre.modification:', res.modification)
 
   console.log('titre.activitesAbsentes:', res.activitesAbsentes)
   console.log('titre.activitesEnConstruction:', res.activitesEnConstruction)
   console.log('titre.activitesDeposees:', res.activitesDeposees)
 
-  await fileCreate('test-titre.json', JSON.stringify(res, null, 2))
+  await fileCreate('tmp/test-titre.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }

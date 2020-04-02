@@ -62,8 +62,8 @@ type Etape {
 
   contenu: Json
 
-  editable: Boolean
-  supprimable: Boolean
+  modification: Boolean
+  suppression: Boolean
 }
 
 type EtapeId {

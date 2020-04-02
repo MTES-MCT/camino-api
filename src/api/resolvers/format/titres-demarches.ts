@@ -5,7 +5,6 @@ import metas from '../../../database/cache/metas'
 import { demarcheTypeFormat } from './demarches-types'
 import { titreEtapeFormatFields, titreEtapeFormat } from './titres-etapes'
 import { titreFormatFields, titreFormat } from './titres'
-import { titreEtapePermissionAdministrationsCheck } from '../permissions/titre-edition'
 
 const titreDemarcheFormatFields = {
   etapes: titreEtapeFormatFields,
@@ -17,7 +16,6 @@ const titreDemarcheFormat = (
   titreDemarche: ITitreDemarche,
   titreTypeId: string,
   titreStatutId: string,
-  { isSuper }: { isSuper: boolean },
   fields: IFields = titreDemarcheFormatFields
 ) => {
   // visibilité des démarches non publiques
@@ -48,22 +46,6 @@ const titreDemarcheFormat = (
       `${titreDemarche.type!.nom} inexistant pour un titre ${titreTypeId}`
     )
   }
-
-  // si au moins un type d'étape est éditable pour le type de démarche
-  // alors on peut ajouter des étapes à la démarche
-  titreDemarche.etapesEditable =
-    isSuper ||
-    demarcheType.etapesTypes.some(
-      et =>
-        et.titreTypeId === titreTypeId &&
-        titreEtapePermissionAdministrationsCheck(
-          user,
-          titreTypeId,
-          titreStatutId!,
-          et.id,
-          'modification'
-        )
-    )
 
   titreDemarche.type = demarcheTypeFormat(
     user,

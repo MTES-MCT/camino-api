@@ -106,7 +106,7 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
-      .groupBy('titresEditable.id')
+      .groupBy('titresModification.id')
       .havingRaw(
         `(${referencesArray
           .map(
@@ -141,7 +141,7 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
-      .groupBy('titresEditable.id')
+      .groupBy('titresModification.id')
       .havingRaw(
         `(${substancesArray
           .map(
@@ -179,7 +179,7 @@ const titresQueryBuild = (
         })
       })
       .groupBy('titres.id')
-      .groupBy('titresEditable.id')
+      .groupBy('titresModification.id')
       .havingRaw(
         `(${entreprisesArray
           .map(
@@ -224,7 +224,7 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
-      .groupBy('titresEditable.id')
+      .groupBy('titresModification.id')
       .havingRaw(
         `(${territoiresArray
           .map(

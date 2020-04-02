@@ -15,8 +15,6 @@ import {
 
 import { dupRemove } from '../../../tools/index'
 
-import { permissionsCheck } from '../permissions/permissions-check'
-
 import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
 
@@ -145,17 +143,8 @@ const titreFormat = (
   }
 
   if (fields.demarches && t.demarches && t.demarches.length) {
-    const isSuper = permissionsCheck(user, ['super'])
-
-    t.demarches = t.demarches?.map(td =>
-      titreDemarcheFormat(
-        user,
-        td,
-        t.typeId,
-        t.statutId!,
-        { isSuper },
-        fields.demarches
-      )
+    t.demarches = t.demarches.map(td =>
+      titreDemarcheFormat(user, td, t.typeId, t.statutId!, fields.demarches)
     )
   }
 
