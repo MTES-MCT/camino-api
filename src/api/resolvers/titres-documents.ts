@@ -117,12 +117,18 @@ const documentModifier = async (
       }
 
       if (documentOld.fichier) {
-        await fileDelete(
-          join(
-            process.cwd(),
-            `files/${documentOld.id}.${documentOld.fichierTypeId}`
+        const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
+
+        try {
+          await fileDelete(
+            join(
+              process.cwd(),
+              documentOldPath
+            )
           )
-        )
+        } catch (e) {
+          console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
+        }
       }
     }
 
@@ -170,12 +176,18 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     }
 
     if (documentOld.fichier) {
-      await fileDelete(
-        join(
-          process.cwd(),
-          `files/${documentOld.id}.${documentOld.fichierTypeId}`
+      const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
+
+      try {
+        await fileDelete(
+          join(
+            process.cwd(),
+            documentOldPath
+          )
         )
-      )
+      } catch (e) {
+        console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
+      }
     }
 
     await titreDocumentDelete(id)
