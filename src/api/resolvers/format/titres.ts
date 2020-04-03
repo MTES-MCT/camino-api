@@ -1,5 +1,6 @@
 import {
   ITitre,
+  ITitreDemarche,
   IAdministration,
   IGeoJson,
   IUtilisateur,
@@ -171,8 +172,8 @@ const titreFormat = (
   }
 
   if (fields.demarches && t.demarches && t.demarches.length) {
-    t.demarches = t.demarches.map(td =>
-      titreDemarcheFormat(
+    t.demarches = t.demarches.reduce((demarches: ITitreDemarche[], td) => {
+      const titreDemarcheFormatted = titreDemarcheFormat(
         user,
         td,
         t.typeId,
@@ -180,7 +181,13 @@ const titreFormat = (
         { userHasPermission, isSuper, isAdmin },
         fields.demarches
       )
-    )
+
+      if (titreDemarcheFormatted) {
+        demarches.push(titreDemarcheFormatted)
+      }
+
+      return demarches
+    }, [])
   }
 
   if (fields.type?.sections) {

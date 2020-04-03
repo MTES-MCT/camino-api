@@ -82,6 +82,23 @@ const titreDemarcheFormat = (
   }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
   fields: IFields = titreDemarcheFormatFields
 ) => {
+  // visibilité des démarches non publiques
+  if (
+    !(
+      // si l'utilisateur a les permissions
+      userHasPermission ||
+      // sinon, les démarches visibles au public
+      // ont le statut `acc` ou `ter`
+      ['acc', 'ter'].includes(titreDemarche.statutId!) ||
+      // sauf pour les AXM et ARM
+      // dont les démarches `rej` sont aussi visibles
+      (['axm', 'arm'].includes(titreTypeId) &&
+        titreDemarche.statutId! === 'rej')
+    )
+  ) {
+    return undefined
+  }
+
   if (!fields) return titreDemarche
 
   titreDemarche.editable =
