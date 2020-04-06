@@ -13,14 +13,6 @@ type TypeName =
   | 'etapesModificationInterdit'
 type ModeName = 'creationInterdit' | 'modificationInterdit'
 
-const domainePermissionAdministrationCheck = (
-  user: IUtilisateur | undefined,
-  domaineId: string
-) =>
-  user?.administrations?.some(a =>
-    a.titresTypes?.some(tt => tt.domaineId === domaineId)
-  )
-
 const titreTypePermissionAdministrationIdCheck = (
   administrationId: string,
   titreTypeId: string,
@@ -32,19 +24,6 @@ const titreTypePermissionAdministrationIdCheck = (
       tta.titreTypeId === titreTypeId &&
       // seule une administration gestionnaire peut créer un titre de ce type
       (mode === 'creation' ? tta.gestionnaire : true)
-  )
-
-const titreTypePermissionAdministrationCheck = (
-  user: IUtilisateur | undefined,
-  titreTypeId: string,
-  mode: 'creation' | 'modification'
-) =>
-  user?.administrations?.some(administration =>
-    titreTypePermissionAdministrationIdCheck(
-      administration.id,
-      titreTypeId,
-      mode
-    )
   )
 
 const titreTypeStatutPermissionAdministrationCheck = (
@@ -158,8 +137,6 @@ const titreEtapePermissionAdministrationsCheck = (
     ))
 
 export {
-  domainePermissionAdministrationCheck,
-  titreTypePermissionAdministrationCheck,
   titrePermissionAdministrationsCheck,
   titreDemarchePermissionAdministrationsCheck,
   titreEtapePermissionAdministrationsCheck

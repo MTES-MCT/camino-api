@@ -59,7 +59,6 @@ import {
   types,
   unites,
   version,
-  utilisateurDomaines,
   activitesTypes
 } from './resolvers/metas'
 
@@ -111,7 +110,6 @@ export default {
   utilisateur,
   utilisateurs,
   statistiques,
-  utilisateurDomaines,
   activite,
   activites,
   activitesTypes,

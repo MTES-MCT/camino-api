@@ -10,14 +10,14 @@ import GeoSystemes from '../models/geo-systemes'
 import Permissions from '../models/permissions'
 import ReferencesTypes from '../models/references-types'
 import TitresStatuts from '../models/titres-statuts'
-import TitresTypes from '../models/titres-types'
 import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
 import options from './_options'
 import { userGet } from './utilisateurs'
 import {
   demarchesTypesPermissionQueryBuild,
-  etapesTypesPermissionQueryBuild
+  etapesTypesPermissionQueryBuild,
+  domainesPermissionQueryBuild
 } from './_permissions'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
@@ -30,15 +30,27 @@ const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
 
 const permissionGet = async (id: string) => Permissions.query().findById(id)
 
-const titresTypesGet = async ({ graph = options.titresTypes.graph } = {}) =>
-  TitresTypes.query().withGraphFetched(graph)
-
 const titresTypesTypesGet = async () => TitresTypesTypes.query()
 
-const domainesGet = async () =>
-  Domaines.query()
-    .withGraphFetched(options.domaines.graph)
+const domainesGet = async (
+  _: any,
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = userId ? await userGet(userId) : undefined
+
+  const graph = fields
+    ? graphBuild(fields, 'titre', graphFormat)
+    : options.demarchesTypes.graph
+
+  const q = Domaines.query()
+    .withGraphFetched(graph)
     .orderBy('ordre')
+
+  domainesPermissionQueryBuild(q, user)
+
+  return q
+}
 
 const titresStatutsGet = async () => TitresStatuts.query().orderBy('ordre')
 
@@ -47,10 +59,10 @@ const demarchesTypesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const user = await userGet(userId)
+  const user = userId ? await userGet(userId) : undefined
 
   const graph = fields
-    ? graphBuild(fields, 'titre', graphFormat)
+    ? graphBuild(fields, 'demarchesTypes', graphFormat)
     : options.demarchesTypes.graph
 
   const q = DemarchesTypes.query()
@@ -73,10 +85,10 @@ const etapesTypesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const user = await userGet(userId)
+  const user = userId ? await userGet(userId) : undefined
 
   const graph = fields
-    ? graphBuild(fields, 'titre', graphFormat)
+    ? graphBuild(fields, 'etapesTypes', graphFormat)
     : options.etapesTypes.graph
 
   const q = EtapesTypes.query()
@@ -110,7 +122,6 @@ const activitesTypesGet = async () =>
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 export {
-  titresTypesGet,
   titresTypesTypesGet,
   domainesGet,
   titresStatutsGet,

@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IDomaine, IEtapeType } from '../../types'
+import { IToken, IEtapeType } from '../../types'
 import { debug } from '../../config/index'
 
 import { autorisations } from '../../database/cache/autorisations'
@@ -23,13 +23,8 @@ import {
 import { userGet } from '../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../tools/permission'
-import {
-  domainePermissionAdministrationCheck,
-  titreTypePermissionAdministrationCheck
-} from './permissions/titre-edition'
 import fieldsBuild from './_fields-build'
 import { etapeTypeFormat } from './format/etapes-types'
-import { titreGet } from '../../database/queries/titres'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 
@@ -61,62 +56,15 @@ const permissions = async (_: unknown, context: IToken) => {
   }
 }
 
-const domaines = async (_: unknown, context: IToken) => {
+const domaines = async (
+  _: unknown,
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
-    const domaines = await domainesGet()
+    const fields = fieldsBuild(info)
 
-    if (!permissionCheck(user, ['super', 'admin'])) {
-      return domaines.filter(domaine =>
-        autorisations.domaines.find(
-          d => d.domaineId === domaine.id && d.publicLecture
-        )
-      )
-    }
-
-    return domaines
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const utilisateurDomaines = async (_: unknown, context: IToken) => {
-  try {
-    if (!context.user) return []
-
-    const user = await userGet(context.user.id)
-
-    const isSuper = permissionCheck(user, ['super'])
-    const isAdmin = permissionCheck(user, ['admin'])
-
-    if (!isSuper && !isAdmin) return []
-
-    let domaines = (await domainesGet()) as IDomaine[]
-
-    if (isAdmin) {
-      domaines = domaines.reduce((domaines: IDomaine[], domaine) => {
-        const modification = domainePermissionAdministrationCheck(
-          user,
-          domaine.id
-        )
-
-        if (modification) {
-          if (domaine.titresTypes) {
-            domaine.titresTypes = domaine.titresTypes.filter(tt =>
-              titreTypePermissionAdministrationCheck(user, tt.id, 'creation')
-            )
-          }
-
-          domaines.push(domaine)
-        }
-
-        return domaines
-      }, [])
-    }
+    const domaines = await domainesGet({}, { fields }, context.user?.id)
 
     return domaines
   } catch (e) {
@@ -339,6 +287,5 @@ export {
   types,
   unites,
   version,
-  utilisateurDomaines,
   activitesTypes
 }

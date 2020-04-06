@@ -187,6 +187,7 @@ interface IDomaine {
   nom: string
   ordre: number
   titresTypes: ITitreType[]
+  titresModification: boolean
 }
 
 interface IEntrepriseEtablissement {
@@ -634,7 +635,7 @@ interface ITitreType {
   sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
-  modification?: boolean | null
+  titresModification?: boolean | null
 }
 
 interface ITitreTypeType {

@@ -138,9 +138,6 @@ type Query {
 
   "Statistiques"
   statistiques: Statistiques
-
-  "__+__ Domaines disponibles pour un utilisateur"
-  utilisateurDomaines: [Domaine]
 }
 
 """
