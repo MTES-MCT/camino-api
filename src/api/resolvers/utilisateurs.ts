@@ -26,7 +26,7 @@ import utilisateurUpdationValidate from '../../business/utilisateur-updation-val
 
 import { utilisateurRowUpdate } from '../../tools/export/utilisateur'
 
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 
 import {
   emailCheck,
@@ -224,14 +224,14 @@ const utilisateurCreer = async (
     const errors = utilisateurEditionCheck(utilisateur)
 
     if (
-      !permissionsCheck(user, ['super']) &&
+      !permissionCheck(user, ['super']) &&
       utilisateur.permissionId === 'super'
     ) {
       errors.push('droits insuffisants créer un super utilisateur')
     }
 
     if (
-      !permissionsCheck(user, ['super', 'admin']) &&
+      !permissionCheck(user, ['super', 'admin']) &&
       context.user.email !== utilisateur.email
     ) {
       errors.push('droits insuffisants pour créer un utilisateur')
@@ -251,15 +251,15 @@ const utilisateurCreer = async (
       throw new Error(errors.join(', '))
     }
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       utilisateur.permissionId = 'defaut'
     }
 
-    if (!permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
+    if (!permissionCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
       utilisateur.administrations = []
     }
 
-    if (!permissionsCheck(utilisateur, ['entreprise'])) {
+    if (!permissionCheck(utilisateur, ['entreprise'])) {
       utilisateur.entreprises = []
     }
 
@@ -335,8 +335,8 @@ const utilisateurModifier = async (
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
-    const isSuper = permissionsCheck(user, ['super'])
-    const isAdmin = permissionsCheck(user, ['admin'])
+    const isSuper = permissionCheck(user, ['super'])
+    const isAdmin = permissionCheck(user, ['admin'])
 
     if (!user || (!isSuper && !isAdmin && user.id !== utilisateur.id)) {
       throw new Error('droits insuffisants pour modifier cet utilisateur')
@@ -344,7 +344,7 @@ const utilisateurModifier = async (
 
     const errors = utilisateurEditionCheck(utilisateur)
 
-    if (!isSuper && permissionsCheck(utilisateur, ['super'])) {
+    if (!isSuper && permissionCheck(utilisateur, ['super'])) {
       errors.push(
         'droits insuffisants pour affecter ces permissions à cet utilisateur'
       )
@@ -372,11 +372,11 @@ const utilisateurModifier = async (
       throw new Error(errors.join(', '))
     }
 
-    if (!permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
+    if (!permissionCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
       utilisateur.administrations = []
     }
 
-    if (!permissionsCheck(utilisateur, ['entreprise'])) {
+    if (!permissionCheck(utilisateur, ['entreprise'])) {
       utilisateur.entreprises = []
     }
 
@@ -453,7 +453,7 @@ const utilisateurMotDePasseModifier = async (
 
     if (
       !user ||
-      (!permissionsCheck(user, ['super', 'admin']) && user.id !== id)
+      (!permissionCheck(user, ['super', 'admin']) && user.id !== id)
     ) {
       throw new Error('droits insuffisants')
     }
@@ -474,7 +474,7 @@ const utilisateurMotDePasseModifier = async (
       throw new Error('aucun utilisateur enregistré avec cet id')
     }
 
-    if (!permissionsCheck(user, ['super'])) {
+    if (!permissionCheck(user, ['super'])) {
       const valid = bcrypt.compareSync(motDePasse, utilisateur.motDePasse!)
 
       if (!valid) {

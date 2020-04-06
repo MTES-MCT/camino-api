@@ -1,3 +1,4 @@
+import { IFields } from '../../types'
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
 import Devises from '../models/devises'
@@ -13,6 +14,13 @@ import TitresTypes from '../models/titres-types'
 import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
 import options from './_options'
+import { userGet } from './utilisateurs'
+import {
+  demarchesTypesPermissionQueryBuild,
+  etapesTypesPermissionQueryBuild
+} from './_permissions'
+import graphBuild from './graph/build'
+import graphFormat from './graph/format'
 
 const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
   Permissions.query()
@@ -34,15 +42,51 @@ const domainesGet = async () =>
 
 const titresStatutsGet = async () => TitresStatuts.query().orderBy('ordre')
 
-const demarchesTypesGet = async () =>
-  DemarchesTypes.query()
-    .withGraphFetched(options.demarchesTypes.graph)
+const demarchesTypesGet = async (
+  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const graph = fields
+    ? graphBuild(fields, 'titre', graphFormat)
+    : options.demarchesTypes.graph
+
+  const q = DemarchesTypes.query()
+    .withGraphFetched(graph)
     .orderBy('ordre')
+
+  demarchesTypesPermissionQueryBuild(q, user, { titreId, titreDemarcheId })
+
+  return q
+}
 
 const demarchesStatutsGet = async () =>
   DemarchesStatuts.query().orderBy('ordre')
 
-const etapesTypesGet = async () => EtapesTypes.query().orderBy('nom')
+const etapesTypesGet = async (
+  {
+    titreDemarcheId,
+    titreEtapeId
+  }: { titreDemarcheId?: string; titreEtapeId?: string },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const graph = fields
+    ? graphBuild(fields, 'titre', graphFormat)
+    : options.etapesTypes.graph
+
+  const q = EtapesTypes.query()
+    .withGraphFetched(graph)
+    .orderBy('ordre')
+
+  etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
+
+  return q
+}
 
 const devisesGet = async () => Devises.query().orderBy('nom')
 

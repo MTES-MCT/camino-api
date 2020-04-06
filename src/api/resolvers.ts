@@ -10,7 +10,6 @@ import {
 } from './resolvers/titres'
 
 import {
-  demarcheEtapesTypes,
   etapeCreer,
   etapeModifier,
   etapeSupprimer
@@ -23,7 +22,6 @@ import {
 } from './resolvers/titres-documents'
 
 import {
-  titreDemarchesTypes,
   demarches,
   demarcheCreer,
   demarcheModifier,
@@ -113,8 +111,6 @@ export default {
   utilisateur,
   utilisateurs,
   statistiques,
-  titreDemarchesTypes,
-  demarcheEtapesTypes,
   utilisateurDomaines,
   activite,
   activites,

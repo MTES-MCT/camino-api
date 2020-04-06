@@ -2,22 +2,22 @@ import 'dotenv/config'
 import '../../src/database/index'
 import fileCreate from '../../src/tools/file-create'
 
-import { titreDemarcheGet } from '../../src/database/queries/titres-demarches'
+import { etapesTypesGet } from '../../src/database/queries/metas'
 
 async function main() {
   // const userId = 'super'
 
   // admin dea-guyane-01
-  const userId = 'f5922d'
+  // const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
-  // const userId = 'f455dd'
+  //   const userId = 'f455dd'
 
   // admin onf uniquement
-  // const userId = '5c0d2b'
+  const userId = '5c0d2b'
 
   // admin ptmg uniquement
-  // const userId = '1ee94a'
+  //   const userId = '1ee94a'
 
   // admin dgpr
   // const userId = '80dcfd'
@@ -40,6 +40,9 @@ async function main() {
   // titre ARM echu dmi
   const titreId = 'm-ar-crique-grand-moussinga-2019'
 
+  // titre ARM val
+  // const titreId = 'm-ar-adolphe-crique-centrale-2019'
+
   // titre non-public
   // const titreId =
   //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
@@ -49,26 +52,22 @@ async function main() {
 
   console.log({ userId, titreId })
 
-  const res = await titreDemarcheGet(
-    `${titreId}-oct01`,
+  const res = await etapesTypesGet(
     {
-      fields: {
-        type: { id: {} },
-        etapes: {
-          type: { autorisations: { id: {} } },
-          titulaires: { utilisateurs: { id: {} } }
-        }
-      }
+      titreDemarcheId: `${titreId}-oct01`,
+      titreEtapeId: `${titreId}-oct01-mfr01`
     },
+    { fields: { id: {} } },
     userId
   )
 
-  console.log('demarche.modification:', res.modification)
-  console.log('demarche.etapesCreation:', res.etapesCreation)
+  res.forEach(et => {
+    console.log('etapeType.id:', et.id)
 
-  console.log('demarche.type:', res.type)
+    console.log('etapeType.modification:', et.modification)
+  })
 
-  await fileCreate('tmp/test-titre-demarche.json', JSON.stringify(res, null, 2))
+  await fileCreate('tmp/test-etapes-types.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }

@@ -11,7 +11,7 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../../tools/geojson'
 import { titreSectionsFormat } from './titres-sections'
-import { etapesTypesFormat } from './etapes-types'
+import { etapeTypeSectionsFormat } from './etapes-types'
 import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
 
@@ -30,21 +30,7 @@ const titreEtapeFormat = (
   fields = titreEtapeFormatFields
 ) => {
   if (titreEtape.type) {
-    const etapeType = titreDemarcheType.etapesTypes.find(
-      et => et.id === titreEtape.type!.id
-    )
-    if (!etapeType) {
-      throw new Error(
-        `« ${titreEtape.type.nom} » inexistant pour une démarche « ${titreDemarcheType.nom} » pour un titre « ${titreTypeId} »`
-      )
-    }
-
-    // crée une copie du type d'étape pour ne pas modifier le cache applicatif
-    titreEtape.type = JSON.parse(JSON.stringify(etapeType))
-
-    titreEtape.type!.modification = titreEtape.modification
-
-    titreEtape.type = etapesTypesFormat(titreEtape.type!)
+    titreEtape.type = etapeTypeSectionsFormat(titreEtape.type)
 
     if (titreEtape.type.sections) {
       titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)

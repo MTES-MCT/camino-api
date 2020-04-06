@@ -1,13 +1,13 @@
 import { IUtilisateur, IUser } from '../../../types'
 
-import { permissionsCheck } from '../permissions/permissions-check'
+import { permissionCheck } from '../../../tools/permission'
 
 const userFormat = (utilisateur: IUtilisateur | undefined) => {
   if (!utilisateur) return null
 
   const user = utilisateur as IUser
 
-  const hasPermissions = permissionsCheck(user, [
+  const hasPermissions = permissionCheck(user, [
     'super',
     'admin',
     'editeur',

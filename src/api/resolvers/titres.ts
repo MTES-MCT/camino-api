@@ -1,7 +1,7 @@
 import { IToken, ITitre, ITitreColonneInput } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { titreFormat, titresFormat } from './format/titres'
 import { titresSortAndLimit } from './sort/titres'
 
@@ -136,12 +136,12 @@ const titreCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
     if (
-      permissionsCheck(user, ['admin']) &&
+      permissionCheck(user, ['admin']) &&
       !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
     ) {
       throw new Error('droits insuffisants pour créer ce type de titre')
@@ -175,12 +175,12 @@ const titreModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
     if (
-      permissionsCheck(user, ['admin']) &&
+      permissionCheck(user, ['admin']) &&
       !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
     ) {
       throw new Error('droits insuffisants pour modifier ce titre')
@@ -215,7 +215,7 @@ const titreModifier = async (
 const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   const user = context.user && (await userGet(context.user.id))
 
-  if (!user || !permissionsCheck(user, ['super'])) {
+  if (!user || !permissionCheck(user, ['super'])) {
     throw new Error('droits insuffisants')
   }
 

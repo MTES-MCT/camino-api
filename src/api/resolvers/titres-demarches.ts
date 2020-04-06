@@ -8,14 +8,12 @@ import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 
 import fieldsBuild from './_fields-build'
-import metas from '../../database/cache/metas'
 
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { titreDemarchePermissionAdministrationsCheck } from './permissions/titre-edition'
 
 import { titreFormat } from './format/titres'
 
-import { demarchesTypesFormat } from './format/demarches-types'
 import { titreDemarcheFormat } from './format/titres-demarches'
 
 import {
@@ -26,6 +24,7 @@ import {
   titreDemarcheUpdate,
   titreDemarcheDelete
 } from '../../database/queries/titres-demarches'
+
 import { titreGet } from '../../database/queries/titres'
 import { userGet } from '../../database/queries/utilisateurs'
 
@@ -128,45 +127,6 @@ const demarches = async (
   }
 }
 
-const titreDemarchesTypes = async (
-  {
-    titreId,
-    demarcheTypeId = null
-  }: { titreId: string; demarcheTypeId: string | null },
-  context: IToken
-) => {
-  try {
-    if (!context.user) throw new Error('droits insuffisants')
-
-    const titre = await titreGet(
-      titreId,
-      { fields: { demarches: { id: {} } } },
-      context.user?.id
-    )
-    if (!titre) return []
-
-    const titreType = metas.titresTypes.find(t => t.id === titre.typeId)
-    if (!titreType || !titreType.demarchesTypes) {
-      throw new Error(`${titre.typeId} inexistant`)
-    }
-
-    const user = context.user && (await userGet(context.user.id))
-
-    return demarchesTypesFormat(
-      user,
-      titreType.demarchesTypes,
-      demarcheTypeId,
-      titre
-    )
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
 const demarcheCreer = async (
   { demarche }: { demarche: ITitreDemarche },
   context: IToken,
@@ -175,11 +135,11 @@ const demarcheCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
-    if (permissionsCheck(user, ['admin'])) {
+    if (permissionCheck(user, ['admin'])) {
       const titre = await titreGet(demarche.titreId, {}, user.id)
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -227,11 +187,11 @@ const demarcheModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
-    if (permissionsCheck(user, ['admin'])) {
+    if (permissionCheck(user, ['admin'])) {
       const titre = await titreGet(demarche.titreId, {}, user.id)
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -279,7 +239,7 @@ const demarcheSupprimer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super'])) {
+    if (!user || !permissionCheck(user, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -310,10 +270,4 @@ const demarcheSupprimer = async (
   }
 }
 
-export {
-  titreDemarchesTypes,
-  demarches,
-  demarcheCreer,
-  demarcheModifier,
-  demarcheSupprimer
-}
+export { demarches, demarcheCreer, demarcheModifier, demarcheSupprimer }

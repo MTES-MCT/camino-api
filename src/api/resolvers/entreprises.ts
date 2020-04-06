@@ -13,7 +13,7 @@ import fieldsBuild from './_fields-build'
 
 import { entrepriseFormat } from './format/entreprises'
 
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { emailCheck } from './permissions/utilisateur'
 
 import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
@@ -78,7 +78,7 @@ const entrepriseCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 
@@ -132,7 +132,7 @@ const entrepriseModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 

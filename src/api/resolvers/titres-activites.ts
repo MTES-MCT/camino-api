@@ -4,7 +4,7 @@ import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
 
 import { titreActiviteEmailsSend } from './_titre-activite'
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { titreActiviteFormat } from './format/titres-activites'
 
 import fieldsBuild from './_fields-build'
@@ -100,7 +100,7 @@ const activiteModifier = async (
     if (!user) return null
 
     if (
-      !permissionsCheck(user, ['super', 'admin']) &&
+      !permissionCheck(user, ['super', 'admin']) &&
       activiteOld?.statutId === 'dep'
     ) {
       throw new Error(

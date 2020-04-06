@@ -1,4 +1,5 @@
-import { IToken, IDomaine } from '../../types'
+import { GraphQLResolveInfo } from 'graphql'
+import { IToken, IDomaine, IEtapeType } from '../../types'
 import { debug } from '../../config/index'
 
 import { autorisations } from '../../database/cache/autorisations'
@@ -21,11 +22,16 @@ import {
 } from '../../database/queries/metas'
 import { userGet } from '../../database/queries/utilisateurs'
 
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import {
   domainePermissionAdministrationCheck,
   titreTypePermissionAdministrationCheck
 } from './permissions/titre-edition'
+import fieldsBuild from './_fields-build'
+import { etapeTypeFormat } from './format/etapes-types'
+import { titreGet } from '../../database/queries/titres'
+import { titreDemarcheGet } from '../../database/queries/titres-demarches'
+import { titreEtapeGet } from '../../database/queries/titres-etapes'
 
 const npmPackage = require('../../../package.json')
 
@@ -39,7 +45,7 @@ const permission = async ({ id }: { id: string }) => permissionGet(id)
 const permissions = async (_: unknown, context: IToken) => {
   try {
     const user = context.user && (await userGet(context.user.id))
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       return null
     }
 
@@ -60,7 +66,7 @@ const domaines = async (_: unknown, context: IToken) => {
     const user = context.user && (await userGet(context.user.id))
     const domaines = await domainesGet()
 
-    if (!permissionsCheck(user, ['super', 'admin'])) {
+    if (!permissionCheck(user, ['super', 'admin'])) {
       return domaines.filter(domaine =>
         autorisations.domaines.find(
           d => d.domaineId === domaine.id && d.publicLecture
@@ -84,8 +90,8 @@ const utilisateurDomaines = async (_: unknown, context: IToken) => {
 
     const user = await userGet(context.user.id)
 
-    const isSuper = permissionsCheck(user, ['super'])
-    const isAdmin = permissionsCheck(user, ['admin'])
+    const isSuper = permissionCheck(user, ['super'])
+    const isAdmin = permissionCheck(user, ['admin'])
 
     if (!isSuper && !isAdmin) return []
 
@@ -156,9 +162,19 @@ const statuts = async (_: unknown, context: IToken) => {
   }
 }
 
-const demarchesTypes = async () => {
+const demarchesTypes = async (
+  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
-    const demarchesTypes = await demarchesTypesGet()
+    const fields = fieldsBuild(info)
+
+    const demarchesTypes = await demarchesTypesGet(
+      { titreId, titreDemarcheId },
+      { fields },
+      context.user?.id
+    )
 
     return demarchesTypes
   } catch (e) {
@@ -184,9 +200,99 @@ const demarchesStatuts = async () => {
   }
 }
 
-const etapesTypes = async () => {
+const etapesTypes = async (
+  {
+    titreDemarcheId,
+    titreEtapeId
+  }: { titreDemarcheId?: string; titreEtapeId?: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
-    const etapesTypes = await etapesTypesGet()
+    const fields = fieldsBuild(info)
+
+    console.log({ titreDemarcheId, titreEtapeId })
+
+    const etapesTypes = await etapesTypesGet(
+      { titreDemarcheId, titreEtapeId },
+      { fields },
+      context.user?.id
+    )
+
+    if (titreDemarcheId && context.user?.id) {
+      const user = await userGet(context.user.id)
+
+      const titreDemarche = await titreDemarcheGet(
+        titreDemarcheId,
+        {
+          fields: {
+            type: {
+              etapesTypes: { id: {} }
+            },
+            titre: { type: { demarchesTypes: { id: {} } } },
+            etapes: { id: {} }
+          }
+        },
+        user?.id
+      )
+      if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+      const titre = titreDemarche.titre!
+
+      const demarcheType = titre.type!.demarchesTypes!.find(
+        demarcheType => demarcheType.id === titreDemarche.typeId
+      )
+
+      if (!demarcheType) {
+        throw new Error(
+          `Démarche « ${titreDemarche.type!.nom} » inexistante pour un titre ${
+            titre.typeId
+          }.`
+        )
+      }
+
+      const titreEtape = titreEtapeId
+        ? await titreEtapeGet(titreEtapeId, {}, user?.id)
+        : null
+
+      if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
+
+      if (titreEtape) {
+        const etapeType = titreDemarche.type!.etapesTypes.find(
+          et => et.id === titreEtape.type!.id
+        )
+        if (!etapeType) {
+          throw new Error(
+            `Etape « ${
+              titreEtape.type!.nom
+            } » inexistante pour une démarche « ${
+              titreDemarche.type!.nom
+            } » pour un titre « ${titre.typeId} ».`
+          )
+        }
+      }
+
+      const etapesTypesFormatted = etapesTypes.reduce(
+        (etapesTypes: IEtapeType[], etapeType) => {
+          const etapeTypeFormatted = etapeTypeFormat(
+            etapeType,
+            titre,
+            titreDemarche,
+            titreEtape?.typeId
+          )
+
+          if (etapeTypeFormatted) {
+            etapesTypes.push(etapeTypeFormatted)
+          }
+
+          return etapesTypes
+        },
+
+        []
+      )
+
+      return etapesTypesFormatted
+    }
 
     return etapesTypes
   } catch (e) {

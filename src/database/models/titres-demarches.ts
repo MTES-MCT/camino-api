@@ -30,7 +30,8 @@ class TitresDemarches extends Model {
       modelClass: join(__dirname, 'demarches-types'),
       join: {
         from: 'titresDemarches.typeId',
-        to: 'demarchesTypes.id'
+        to: 'demarchesTypes.id',
+        extra: { titreId: 'titresDemarches.titreId' }
       }
     },
 

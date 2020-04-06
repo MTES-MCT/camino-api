@@ -2,7 +2,7 @@ import { IAdministration, IUtilisateur } from '../types'
 
 import { userGet } from '../database/queries/utilisateurs'
 
-import { permissionsAdministrationsCheck } from '../api/resolvers/permissions/permissions-check'
+import { permissionAdministrationsCheck } from '../tools/permission'
 
 import { diffFind } from '../tools'
 
@@ -44,7 +44,7 @@ const utilisateurUpdationValidate = async (
     // si le user n'a pas les droits sur toutes ces administrations
     if (
       !administrationsIdsDiff.every(administration =>
-        permissionsAdministrationsCheck(user, [administration.id])
+        permissionAdministrationsCheck(user, [administration.id])
       )
     ) {
       // alors il ne peut modifier les administrations
@@ -56,7 +56,7 @@ const utilisateurUpdationValidate = async (
     if (
       utilisateur.administrations &&
       !utilisateur.administrations.every(({ id }) =>
-        permissionsAdministrationsCheck(user, [id])
+        permissionAdministrationsCheck(user, [id])
       )
     ) {
       // alors il ne peut modifier les permissions

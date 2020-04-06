@@ -1,67 +1,35 @@
-import { ITitre, IDemarcheType, IUtilisateur } from '../../../types'
+import {
+  ITitre,
+  ITitreDemarche,
+  IEtapeType,
+  IUtilisateur
+} from '../../../types'
 
-import metas from '../../../database/cache/metas'
+import { etapeTypeFormat } from './etapes-types'
 
-import { titreDemarchePermissionAdministrationsCheck } from '../permissions/titre-edition'
-
-const demarcheTypeFormat = (
+const etapeTypesFormat = (
   user: IUtilisateur | undefined,
-  demarcheType: IDemarcheType,
-  titreTypeId: string,
-  titreStatutId: string
+  titre: ITitre,
+  demarche: ITitreDemarche,
+  etapeTypeId?: string
 ) => {
-  const dt = metas.demarchesTypes.find(dt => dt.id === demarcheType.id)
-  if (!dt) {
-    throw new Error(
-      `${demarcheType.nom} inexistant pour un titre ${titreTypeId}`
-    )
+  const { typeId: demarcheTypeId, type: demarcheType } = demarche
+
+  if (!demarcheType || !demarcheType.etapesTypes) {
+    throw new Error(`${demarcheTypeId} inexistant`)
   }
 
-  if (demarcheType.etapesTypes) {
-    demarcheType.etapesTypes = demarcheType.etapesTypes.filter(
-      et => et.titreTypeId === titreTypeId
-    )
-  }
+  return demarcheType.etapesTypes
+    .sort((a, b) => a.ordre - b.ordre)
+    .reduce((etapesTypes: IEtapeType[], et) => {
+      const etapeType = etapeTypeFormat(et, titre, demarche, etapeTypeId)
 
-  demarcheType.modification = titreDemarchePermissionAdministrationsCheck(
-    user,
-    titreTypeId,
-    titreStatutId
-  )
+      if (etapeType) {
+        etapesTypes.push(etapeType)
+      }
 
-  return demarcheType
+      return etapesTypes
+    }, [])
 }
 
-const demarchesTypesFormat = (
-  user: IUtilisateur | undefined,
-  demarchesTypes: IDemarcheType[],
-  demarcheTypeId: string | null,
-  titre: ITitre
-) =>
-  demarchesTypes.reduce((demarchesTypes: IDemarcheType[], dt) => {
-    // si
-    // - le param demarcheTypeId n'existe pas (-> création d'une démarche)
-    //   ou ce param est différent de celui du type de démarche et
-    // - le type démarche est unique et
-    // - une autre démarche du même type existe au sein du titre
-    // alors
-    // - on ne l'ajoute pas à la liste des types de démarches disponibles
-    if (
-      (!demarcheTypeId || dt.id !== demarcheTypeId) &&
-      dt.unique &&
-      titre.demarches?.find(d => d.typeId === dt.id)
-    ) {
-      return demarchesTypes
-    }
-
-    dt = demarcheTypeFormat(user, dt, titre.typeId, titre.statutId!)
-
-    if (dt.modification) {
-      dt.titreTypeId = titre.typeId
-      demarchesTypes.push(dt)
-    }
-
-    return demarchesTypes
-  }, [])
-
-export { demarcheTypeFormat, demarchesTypesFormat }
+export { etapeTypesFormat }

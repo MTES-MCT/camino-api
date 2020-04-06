@@ -1,7 +1,7 @@
-import { IUtilisateur, IPermissionId } from '../../types'
+import { IUtilisateur } from '../../types'
 
-// import fileCreate from '../../tools/file-create'
-// import * as sqlFormatter from 'sql-formatter'
+import fileCreate from '../../tools/file-create'
+import * as sqlFormatter from 'sql-formatter'
 
 import { raw, QueryBuilder } from 'objection'
 
@@ -10,6 +10,7 @@ import TitresDemarches from '../models/titres-demarches'
 import TitresEtapes from '../models/titres-etapes'
 import TitresActivites from '../models/titres-activites'
 import TitresDocuments from '../models/titres-documents'
+import DemarchesTypes from '../models/demarches-types'
 
 import {
   AutorisationsDomaines,
@@ -20,11 +21,8 @@ import {
 import Entreprises from '../models/entreprises'
 import Administrations from '../models/administrations'
 import Utilisateurs from '../models/utilisateurs'
-
-const permissionCheck = (
-  user: IUtilisateur | undefined,
-  permissions: IPermissionId[]
-) => !!(user && permissions.includes(user?.permissionId))
+import { permissionCheck } from '../../tools/permission'
+import EtapesTypes from '../models/etapes-types'
 
 const utilisateursPermissionQueryBuild = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
@@ -76,9 +74,9 @@ const utilisateursPermissionQueryBuild = (
     q.select(raw('true').as('permissionModification'))
   } else if (user) {
     q.select(
-      raw('(case utilisateurs.id = ? then true else false end)', [user.id]).as(
-        'modification'
-      )
+      raw('(case when utilisateurs.id = ? then true else false end)', [
+        user.id
+      ]).as('modification')
     )
     q.select(raw('false').as('suppression'))
     q.select(raw('false').as('permissionModification'))
@@ -217,6 +215,174 @@ const titreDocumentsPermissionQueryBuild = (
   }
 }
 
+const etapesTypesPermissionQueryBuild = (
+  q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
+  user?: IUtilisateur,
+  {
+    titreDemarcheId,
+    titreEtapeId
+  }: { titreDemarcheId?: string; titreEtapeId?: string } = {}
+) => {
+  q.select('etapesTypes.*')
+
+  console.log('modifying les types de etapes')
+
+  q.debug()
+
+  // récupère tous les types d'étapes
+  // si titreId:
+  // -> restreint aux types d'étapes du type de titre
+  // si le type de l'étape est unique et qu'elle n'existe pas dans le titre mais titreDemarcheId
+  // -> affiche le type de l'étape
+
+  // ajouter une propriété 'modification' en fonction du profil de l'utilisateur
+  // r_titresTypes__titresStatuts__administrations
+  //
+  // q.join('titres', 'id', titreId)
+
+  // TODO: ajouter et gérer la propriété unique
+
+  // si DemarcheId existe
+  // -> filtre les types d'étapes correspondants au type de la démarche
+  // -> filtre en fonction de la propriété 'unique'
+  if (titreDemarcheId) {
+    q.whereExists(
+      TitresDemarches.query()
+        .findById(titreDemarcheId)
+        .joinRelated('titre')
+        .join(
+          'titresTypes__demarchesTypes__etapesTypes as tde',
+          raw('?? = ?? and ?? = ?? and ?? = ??', [
+            'tde.etapeTypeId',
+            'etapesTypes.id',
+            'tde.demarcheTypeId',
+            'titresDemarches.typeId',
+            'tde.titreTypeId',
+            'titre.typeId'
+          ])
+        )
+    )
+
+    // si
+    // - l'étape a la propriété 'unique'
+    // - ou si
+    //   - il n'y a aucune étape du même type au sein de la démarche
+    //   - l'id de l'étape est différente de l'étape éditée
+    // -> s'affiche
+    q.where(b => {
+      b.where('unique', false)
+      b.orWhere(c => {
+        const d = TitresEtapes.query()
+          .where({ titreDemarcheId })
+          .whereRaw('?? = ??', ['typeId', 'etapesTypes.id'])
+
+        if (titreEtapeId) {
+          d.whereNot('id', titreEtapeId)
+        }
+
+        c.whereNotExists(d)
+      })
+    })
+  }
+
+  // ajoute la propriété 'modification'
+  if (permissionCheck(user, ['super'])) {
+    q.select(raw('true').as('modification'))
+  } else if (
+    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    if (titreDemarcheId) {
+      q.select(
+        raw('(case when ?? is not null then true else false end)', [
+          'etapeTypeModification.etapeTypeId'
+        ]).as('modification')
+      )
+
+      const administrationsIds = user.administrations.map(a => a.id) || []
+
+      const etapeTypeModificationQuery = TitresDemarches.query()
+        .findById(titreDemarcheId)
+        .select('tde.etapeTypeId')
+        .joinRelated('titre')
+        .join(
+          'titresTypes__demarchesTypes__etapesTypes as tde',
+          raw('?? = ?? and ?? = ??', [
+            'tde.titreTypeId',
+            'titre.typeId',
+            'tde.demarcheTypeId',
+            'titresDemarches.typeId'
+          ])
+        )
+        // l'utilisateur fait partie d'une administrations
+        // qui a les droits sur le type de titre
+        .whereExists(
+          AutorisationsTitresTypesAdministrations.query()
+            .whereIn(
+              'a__titresTypes__administrations.administrationId',
+              administrationsIds
+            )
+            .andWhereRaw(`?? = ??`, [
+              'a__titresTypes__administrations.titreTypeId',
+              'titre.typeId'
+            ])
+        )
+        // l'utilisateur est dans au moins une administration
+        // qui n'a pas de restriction 'etapesModificationInterdit' sur ce type / statut de titre
+        .whereExists(
+          Administrations.query()
+            .leftJoin(
+              'r__titresTypes__titresStatuts__administrations as rtsa',
+              raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
+                'rtsa.administrationId',
+                'administrations.id',
+                'rtsa.titreTypeId',
+                'titre.typeId',
+                'rtsa.titreStatutId',
+                'titre.statutId',
+                'rtsa.etapesModificationInterdit'
+              ])
+            )
+            .whereIn('administrations.id', administrationsIds)
+            .whereNull('rtsa.administrationId')
+        )
+        // l'utilisateur est dans au moins une administration
+        // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
+        .whereExists(
+          Administrations.query()
+            .leftJoin(
+              'r__titresTypes__etapesTypes__administrations as rtea',
+              raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
+                'rtea.administrationId',
+                'administrations.id',
+                'rtea.titreTypeId',
+                'titre.typeId',
+                'rtea.etapeTypeId',
+                'tde.etapeTypeId',
+                `rtea.${titreEtapeId ? 'modification' : 'creation'}Interdit`
+              ])
+            )
+            .whereIn('administrations.id', administrationsIds)
+            .whereNull('rtea.administrationId')
+        )
+
+      q.leftJoin(
+        etapeTypeModificationQuery.as('etapeTypeModification'),
+        raw('?? = ??', ['etapeTypeModification.etapeTypeId', 'etapesTypes.id'])
+      )
+    }
+  } else {
+    q.select(raw('false').as('modification'))
+  }
+
+  console.log(q.toKnexQuery().toString())
+
+  fileCreate(
+    'tmp/etapes-types.sql',
+    sqlFormatter.format(q.toKnexQuery().toString())
+  )
+}
+
 const titreEtapesPermissionQueryBuild = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user?: IUtilisateur
@@ -231,7 +397,7 @@ const titreEtapesPermissionQueryBuild = (
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
-    q.leftJoinRelated('[demarche.titre, type]')
+    q.joinRelated('[demarche.titre, type]')
 
     // si l'utilisateur admin n'appartient à aucune administration
     // alors il ne peut pas voir les étapes faisant l'objet de restriction
@@ -396,13 +562,122 @@ const titreEtapesPermissionQueryBuild = (
   return q
 }
 
+const demarchesTypesPermissionQueryBuild = (
+  q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
+  user?: IUtilisateur,
+  {
+    titreId,
+    titreDemarcheId
+  }: { titreId?: string; titreDemarcheId?: string } = {}
+) => {
+  q.select('demarchesTypes.*')
+
+  console.log('modifying les types de demarches')
+
+  q.debug()
+
+  // récupère tous les types de démarches
+  // si titreId:
+  // -> restreint aux types de démarches du type de titre
+  // si le type démarche est unique et qu'elle n'existe pas dans le titre mais titreDemarcheId
+  // -> affiche le type de la démarche
+
+  // ajouter une propriété 'modification' en fonction du profil de l'utilisateur
+  // r_titresTypes__titresStatuts__administrations
+  //
+  // q.join('titres', 'id', titreId)
+
+  // TODO: ajouter et gérer la propriété unique
+
+  if (titreId) {
+    q.whereExists(
+      Titres.query()
+        .findById(titreId)
+        .joinRelated('type.demarchesTypes')
+        .whereRaw('?? = ??', ['type:demarchesTypes.id', 'demarchesTypes.id'])
+    )
+  }
+
+  if (permissionCheck(user, ['super'])) {
+    q.select(raw('true').as('modification'))
+  } else if (
+    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    if (titreId) {
+      // propriété 'modification'
+      q.select(
+        raw('(case when ?? is not null then true else false end)', [
+          'demarcheTypeModification.id'
+        ]).as('modification')
+      )
+
+      const administrationsIds = user.administrations.map(a => a.id) || []
+
+      const demarcheTypeModificationQuery = Titres.query()
+        .findById(titreId)
+        .alias('demarcheTypeModification')
+        .select('type:demarchesTypes.id')
+        .joinRelated('type.demarchesTypes')
+        // l'utilisateur fait partie d'une administrations
+        // qui a les droits sur le type de titre
+        .whereExists(
+          AutorisationsTitresTypesAdministrations.query()
+            .whereIn(
+              'a__titresTypes__administrations.administrationId',
+              administrationsIds
+            )
+            .andWhereRaw(`?? = ??`, [
+              'a__titresTypes__administrations.titreTypeId',
+              'demarcheTypeModification.typeId'
+            ])
+        )
+        // l'utilisateur est dans au moins une administration
+        // qui n'a pas de restriction 'demarchesModificationInterdit' sur ce type / statut de titre
+        .whereExists(
+          Administrations.query()
+            .leftJoin(
+              'r__titresTypes__titresStatuts__administrations',
+              raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
+                'r__titresTypes__titresStatuts__administrations.administrationId',
+                'administrations.id',
+                'r__titresTypes__titresStatuts__administrations.titreTypeId',
+                'demarcheTypeModification.typeId',
+                'r__titresTypes__titresStatuts__administrations.titreStatutId',
+                'demarcheTypeModification.statutId',
+                'r__titresTypes__titresStatuts__administrations.demarchesModificationInterdit'
+              ])
+            )
+            .whereIn('administrations.id', administrationsIds)
+            .whereNull(
+              'r__titresTypes__titresStatuts__administrations.administrationId'
+            )
+        )
+
+      q.leftJoin(
+        demarcheTypeModificationQuery.as('demarcheTypeModification'),
+        raw('?? = ??', ['demarcheTypeModification.id', 'demarchesTypes.id'])
+      )
+    }
+  } else {
+    q.select(raw('false').as('modification'))
+  }
+
+  console.log(q.toKnexQuery().toString())
+
+  fileCreate(
+    'tmp/demarches-types.sql',
+    sqlFormatter.format(q.toKnexQuery().toString())
+  )
+}
+
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   user?: IUtilisateur
 ) => {
   q.select('titresDemarches.*')
 
-  console.log('titreDemarchePermissionQueryBuild')
+  console.log('modifying les demarches')
 
   if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
     // visibilité du titre de la démarche
@@ -415,6 +690,54 @@ const titreDemarchePermissionQueryBuild = (
         user
       )
     )
+
+    // visibilité de la démarche en fonction de son statut et du type de titre
+    q.where(b => {
+      // sinon, les démarches visibles au public
+      // ont le statut `acc` ou `ter`
+      b.whereIn('titresDemarches.statutId', ['acc', 'ter'])
+
+      // sauf pour les AXM et ARM
+      // dont les démarches `rej` sont aussi visibles
+      b.orWhere(c => {
+        c.where('titresDemarches.statutId', 'rej')
+        c.whereExists(
+          (TitresDemarches.relatedQuery('titre') as QueryBuilder<
+            Titres,
+            Titres | Titres[]
+          >).whereIn('titre.typeId', ['axm', 'arm'])
+        )
+      })
+
+      // les entreprises peuvent voir toutes les démarches
+      // des titres pour lesquelles elles sont titulaires ou amodiataires
+      if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
+        const entreprisesIds = user.entreprises.map(e => e.id)
+
+        b.orWhere(c => {
+          c.whereExists(
+            Titres.query()
+              .alias('titresTitulaires')
+              .joinRelated('titulaires')
+              .whereRaw('?? = ??', [
+                'titresTitulaires.id',
+                'titresDemarches.titreId'
+              ])
+              .whereIn('titulaires.id', entreprisesIds)
+          )
+          c.orWhereExists(
+            Titres.query()
+              .alias('titresAmodiataires')
+              .joinRelated('amodiataires')
+              .whereRaw('?? = ??', [
+                'titresAmodiataires.id',
+                'titresDemarches.titreId'
+              ])
+              .whereIn('amodiataires.id', entreprisesIds)
+          )
+        })
+      }
+    })
   }
 
   if (permissionCheck(user, ['super'])) {
@@ -571,6 +894,15 @@ const titreDemarchePermissionQueryBuild = (
       user
     )
   })
+
+  // q.modifyGraph('type', (te, ...args) => {
+  //   console.log({ args })
+
+  //   demarchesTypesPermissionQueryBuild(
+  //     te as QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
+  //     user
+  //   )
+  // })
 
   // fileCreate(
   //   'tmp/titres-demarches.sql',
@@ -931,6 +1263,8 @@ const titrePermissionQueryBuild = (
 export {
   titrePermissionQueryBuild,
   titreDemarchePermissionQueryBuild,
+  demarchesTypesPermissionQueryBuild,
+  etapesTypesPermissionQueryBuild,
   titreActivitePermissionQueryBuild,
   titreEtapesPermissionQueryBuild,
   administrationsPermissionQueryBuild,

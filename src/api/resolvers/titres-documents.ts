@@ -4,7 +4,7 @@ import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import fileDelete from '../../tools/file-delete'
 import fileStreamCreate from '../../tools/file-stream-create'
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { titreFormat } from './format/titres'
 
 import {
@@ -44,7 +44,7 @@ const documentCreer = async (
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -104,7 +104,7 @@ const documentModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -127,12 +127,7 @@ const documentModifier = async (
         const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
 
         try {
-          await fileDelete(
-            join(
-              process.cwd(),
-              documentOldPath
-            )
-          )
+          await fileDelete(join(process.cwd(), documentOldPath))
         } catch (e) {
           console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
         }
@@ -180,7 +175,7 @@ const documentSupprimer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -194,12 +189,7 @@ const documentSupprimer = async (
       const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
 
       try {
-        await fileDelete(
-          join(
-            process.cwd(),
-            documentOldPath
-          )
-        )
+        await fileDelete(join(process.cwd(), documentOldPath))
       } catch (e) {
         console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
       }
