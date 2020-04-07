@@ -9,9 +9,7 @@ import TitresActivites from '../../models/titres-activites'
 
 import {
   AutorisationsDomaines,
-  AutorisationsTitresTypesTitresStatuts,
-  AutorisationsTitresTypesAdministrations,
-  RestrictionsTitresTypesTitresStatutsAdministrations
+  AutorisationsTitresTypesTitresStatuts
 } from '../../models/autorisations'
 import Entreprises from '../../models/entreprises'
 
@@ -20,13 +18,12 @@ import {
   titreActivitePermissionQueryBuild
 } from './titres-activites'
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
+import { titresModificationQueryBuild } from './metas'
 
 const titrePermissionQueryBuild = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
   user?: IUtilisateur
 ) => {
-  console.log('titrePermissionQueryBuild')
-
   q.select('titres.*')
 
   if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
@@ -34,26 +31,27 @@ const titrePermissionQueryBuild = (
       b.orWhere(c => {
         // titres publics
         c.whereExists(
-          AutorisationsDomaines.query().whereRaw('?? = ?? and ?? = ?', [
-            'a__domaines.domaineId',
-            'titres.domaineId',
-            'a__domaines.publicLecture',
-            true
-          ])
+          AutorisationsDomaines.query()
+            .alias('ad')
+            .whereRaw('?? = ?? and ?? = ?', [
+              'ad.domaineId',
+              'titres.domaineId',
+              'ad.publicLecture',
+              true
+            ])
         )
 
         c.whereExists(
-          AutorisationsTitresTypesTitresStatuts.query().whereRaw(
-            '?? = ?? and ?? = ?? and ?? = ?',
-            [
-              'a__titresTypes__titresStatuts.titreTypeId',
+          AutorisationsTitresTypesTitresStatuts.query()
+            .alias('att')
+            .whereRaw('?? = ?? and ?? = ?? and ?? = ?', [
+              'att.titreTypeId',
               'titres.typeId',
-              'a__titresTypes__titresStatuts.titreStatutId',
+              'att.titreStatutId',
               'titres.statutId',
-              'a__titresTypes__titresStatuts.publicLecture',
+              'att.publicLecture',
               true
-            ]
-          )
+            ])
         )
       })
 
@@ -87,54 +85,12 @@ const titrePermissionQueryBuild = (
     permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
-    q.select(
-      raw('(case when ?? is not null then true else false end)', [
-        'titresModification.id'
-      ]).as('modification')
-    )
+    const titresModificationQuery = titresModificationQueryBuild(
+      user.administrations,
+      'titres'
+    ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
 
-    const administrationsIds = user.administrations.map(a => a.id) || []
-
-    const titresModificationQuery = Titres.query()
-      .alias('titresModification')
-      .select('titresModification.id')
-      // l'utilisateur fait partie d'une administrations
-      // qui a les droits sur le type de titre
-      .whereExists(
-        AutorisationsTitresTypesAdministrations.query()
-          .whereIn(
-            'a__titresTypes__administrations.administrationId',
-            administrationsIds
-          )
-          .andWhereRaw(`?? = ??`, [
-            'a__titresTypes__administrations.titreTypeId',
-            'titresModification.typeId'
-          ])
-      )
-      .whereNotExists(
-        RestrictionsTitresTypesTitresStatutsAdministrations.query()
-          .whereIn(
-            'r__titresTypes__titresStatuts__administrations.administrationId',
-            administrationsIds
-          )
-          .andWhereRaw(`?? = ??`, [
-            'r__titresTypes__titresStatuts__administrations.titreTypeId',
-            'titresModification.typeId'
-          ])
-          .andWhereRaw(`?? = ??`, [
-            'r__titresTypes__titresStatuts__administrations.titreStatutId',
-            'titresModification.statutId'
-          ])
-          .andWhere(
-            'r__titresTypes__titresStatuts__administrations.titresModificationInterdit',
-            true
-          )
-      )
-
-    q.leftJoin(
-      titresModificationQuery.as('titresModification'),
-      raw('?? = ??', ['titresModification.id', 'titres.id'])
-    )
+    q.select(titresModificationQuery.as('modification'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
@@ -166,8 +122,6 @@ const titrePermissionQueryBuild = (
   q.modifyGraph('administrationsLocales', b => {
     b.whereRaw('?? is not true', ['associee'])
   })
-
-  // fileCreate('tmp/titres.sql', sqlFormatter.format(q.toKnexQuery().toString()))
 
   return q
 }

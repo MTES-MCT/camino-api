@@ -14,8 +14,6 @@ const entreprisePermissionQueryBuild = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
   user?: IUtilisateur
 ) => {
-  console.log('entreprisePermissionQueryBuild')
-
   q.select('entreprises.*')
 
   if (permissionCheck(user, ['super', 'admin', 'editeur'])) {

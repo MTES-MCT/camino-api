@@ -90,8 +90,6 @@ const titres = async (
       ordre = null
     }
 
-    console.time('titres')
-
     const titres = await titresGet(
       {
         intervalle,
@@ -110,8 +108,6 @@ const titres = async (
       { fields },
       context.user?.id
     )
-
-    console.timeEnd('titres')
 
     const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)

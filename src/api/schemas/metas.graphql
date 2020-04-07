@@ -37,7 +37,7 @@ type Domaine {
 
   titresTypes: [TitreType]
 
-  titresModification: Boolean
+  titresCreation: Boolean
 }
 
 "Type de titre minier"
@@ -56,7 +56,7 @@ type TitreType {
 
   archive: Boolean
 
-  titresModification: Boolean
+  titresCreation: Boolean
 }
 
 "Type de titre minier"
@@ -122,7 +122,7 @@ type DemarcheType {
   "Ids des types d'étape déjà présents sur cette démarche"
   etapesTypesIds: [ID]
 
-  modification: Boolean
+  demarchesCreation: Boolean
 }
 
 "Statut d'une démarche applicable à un titre minier"
@@ -173,7 +173,7 @@ type EtapeType {
 
   sections: Json
 
-  modification: Boolean
+  etapesCreation: Boolean
 }
 
 "Statut d'une étape de démarche de titre minier"

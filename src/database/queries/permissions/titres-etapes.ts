@@ -3,33 +3,54 @@ import { IUtilisateur } from '../../../types'
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
-import { AutorisationsTitresTypesAdministrations } from '../../models/autorisations'
-import Administrations from '../../models/administrations'
 import TitresDocuments from '../../models/titres-documents'
 import TitresEtapes from '../../models/titres-etapes'
 
 import { titreDocumentsPermissionQueryBuild } from './titres-documents'
+import { etapesTypesModificationQueryBuild } from './metas'
 
 const titreEtapesPermissionQueryBuild = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user?: IUtilisateur
 ) => {
-  console.log('titreEtapePermissionQueryBuild')
-
   q.select('titresEtapes.*')
 
-  if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
-    user?.administrations?.length
-  ) {
-    const administrationsIds = user.administrations.map(a => a.id) || []
-
+  if (user && permissionCheck(user, ['admin', 'editeur', 'lecteur'])) {
     q.joinRelated('[demarche.titre, type]')
 
     // si l'utilisateur admin n'appartient à aucune administration
     // alors il ne peut pas voir les étapes faisant l'objet de restriction
     // peu importe l'administration
-    if (administrationsIds.length === 0) {
+    if (user.administrations?.length) {
+      const administrationsIds = user.administrations.map(a => a.id)
+      const administrationsIdsReplace = administrationsIds.map(() => '?')
+
+      // il faut le faire avant le join du graph
+      // pour avoir autant de lignes que d'administrations de l'utilisateur
+      q.leftJoin(
+        'administrations',
+        raw(`?? in (${administrationsIdsReplace})`, [
+          'administrations.id',
+          ...administrationsIds
+        ])
+      )
+
+      q.leftJoin(
+        'r__titresTypes__etapesTypes__administrations as r_t_e_a',
+        raw('?? = ?? AND ?? = ?? AND ?? = ??', [
+          'r_t_e_a.etapeTypeId',
+          'titresEtapes.typeId',
+          'r_t_e_a.administrationId',
+          'administrations.id',
+          'r_t_e_a.titreTypeId',
+          'demarche:titre.typeId'
+        ])
+      )
+
+      q.whereRaw('?? is not true', ['r_t_e_a.lectureInterdit'])
+
+      q.groupBy('titresEtapes.id')
+    } else {
       q.leftJoinRelated('type.restrictionsAdministrations')
 
       q.whereNot({
@@ -38,34 +59,6 @@ const titreEtapesPermissionQueryBuild = (
         'type:restrictionsAdministrations.titreTypeId',
         'demarche:titre.typeId'
       ])
-    } else {
-      // il faut le faire avant le join du graph
-      // pour avoir autant de lignes que d'administrations de l'utilisateur
-      q.leftJoin(
-        'administrations',
-        raw(`?? in (${administrationsIds.map(() => '?').join(',')})`, [
-          'administrations.id',
-          ...administrationsIds
-        ])
-      )
-
-      q.leftJoin(
-        'r__titresTypes__etapesTypes__administrations as type:restrictionsAdministrations',
-        raw('?? = ?? AND ?? = ?? AND ?? = ??', [
-          'type:restrictionsAdministrations.etapeTypeId',
-          'titresEtapes.typeId',
-          'type:restrictionsAdministrations.administrationId',
-          'administrations.id',
-          'type:restrictionsAdministrations.titreTypeId',
-          'demarche:titre.typeId'
-        ])
-      )
-
-      q.whereRaw('?? is not true', [
-        'type:restrictionsAdministrations.lectureInterdit'
-      ])
-
-      q.groupBy('titresEtapes.id')
     }
   } else {
     if (!user || permissionCheck(user, ['defaut', 'entreprise'])) {
@@ -90,85 +83,23 @@ const titreEtapesPermissionQueryBuild = (
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
 
-    // si l'utilisateur admin n'appartient à aucune administration
-    // il ne peut pas modifier / supprimer les étapes
-    if (administrationsIds.length === 0) {
-      q.select(raw('false').as('modification'))
-      q.select(raw('false').as('suppression'))
-    } else {
+    if (administrationsIds.length) {
       // édition du titre
-      q.select(
-        raw('(case when ?? is not null then true else false end)', [
-          'titresModification.id'
-        ]).as('modification')
-      )
 
-      const titresModificationQuery = TitresEtapes.query()
-        .joinRelated('demarche.titre')
-        .select('demarche:titre.id')
-        // l'utilisateur fait partie d'une administrations
-        // qui a les droits sur le type de titre
-        .whereExists(
-          AutorisationsTitresTypesAdministrations.query()
-            .whereIn(
-              'a__titresTypes__administrations.administrationId',
-              administrationsIds
-            )
-            .andWhereRaw(`?? = ??`, [
-              'a__titresTypes__administrations.titreTypeId',
-              'demarche:titre.typeId'
-            ])
-        )
-        // l'utilisateur est dans au moins une administration
-        // qui n'a pas de restriction 'demarchesModificationInterdit' sur ce type / statut de titre
-        .whereExists(
-          Administrations.query()
-            .leftJoin(
-              'r__titresTypes__titresStatuts__administrations',
-              raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
-                'r__titresTypes__titresStatuts__administrations.administrationId',
-                'administrations.id',
-                'r__titresTypes__titresStatuts__administrations.titreTypeId',
-                'demarche:titre.typeId',
-                'r__titresTypes__titresStatuts__administrations.titreStatutId',
-                'demarche:titre.statutId',
-                'r__titresTypes__titresStatuts__administrations.demarchesModificationInterdit'
-              ])
-            )
-            .whereIn('administrations.id', administrationsIds)
-            .whereNull(
-              'r__titresTypes__titresStatuts__administrations.administrationId'
-            )
-        )
-        // l'utilisateur est dans au moins une administration
-        // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
-        .whereExists(
-          Administrations.query()
-            .leftJoin(
-              'r__titresTypes__etapesTypes__administrations',
-              raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
-                'r__titresTypes__etapesTypes__administrations.administrationId',
-                'administrations.id',
-                'r__titresTypes__etapesTypes__administrations.titreTypeId',
-                'demarche:titre.typeId',
-                'r__titresTypes__etapesTypes__administrations.etapeTypeId',
-                'titresEtapes.id',
-                'r__titresTypes__etapesTypes__administrations.creationInterdit'
-              ])
-            )
-            .whereIn('administrations.id', administrationsIds)
-            .whereNull(
-              'r__titresTypes__etapesTypes__administrations.administrationId'
-            )
-        )
+      // propriété 'modification'
+      const etapeModificataionQuery = etapesTypesModificationQueryBuild(
+        user.administrations,
+        true
+      ).whereRaw('?? = ??', ['etapesModification.id', 'titresEtapes.id'])
 
-      q.leftJoin(
-        titresModificationQuery.as('titresModification'),
-        raw('?? = ??', ['titresModification.id', 'demarche.titreId'])
-      )
-
-      q.groupBy('titresModification.id')
+      // TODO: conditionner aux fields
+      q.select(etapeModificataionQuery.as('modification'))
+    } else {
+      // si l'utilisateur admin n'appartient à aucune administration
+      // il ne peut pas modifier / supprimer les étapes
+      q.select(raw('false').as('modification'))
     }
+    q.select(raw('false').as('suppression'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
@@ -180,11 +111,6 @@ const titreEtapesPermissionQueryBuild = (
       user
     )
   })
-
-  // fileCreate(
-  //   'tmp/titres-etapes.sql',
-  //   sqlFormatter.format(q.toKnexQuery().toString())
-  // )
 
   return q
 }

@@ -86,13 +86,13 @@ type Query {
   activitesTypes: [ActiviteType]
 
   "Types de démarches"
-  demarchesTypes(titreId: ID!, titreDemarcheId: ID): [DemarcheType]
+  demarchesTypes(titreId: ID, titreDemarcheId: ID): [DemarcheType]
 
   "Statuts de démarches"
   demarchesStatuts: [DemarcheStatut]
 
   "Types d'étapes"
-  etapesTypes(titreDemarcheId: ID!, titreEtapeId: ID): [EtapeType]
+  etapesTypes(titreDemarcheId: ID, titreEtapeId: ID): [EtapeType]
 
   "__*__ Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur

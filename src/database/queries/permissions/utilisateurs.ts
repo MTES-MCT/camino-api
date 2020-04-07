@@ -4,7 +4,6 @@ import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 import Utilisateurs from '../../models/utilisateurs'
 
-
 import Administrations from '../../models/administrations'
 import Entreprises from '../../models/entreprises'
 
@@ -12,8 +11,6 @@ const utilisateursPermissionQueryBuild = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
   user?: IUtilisateur
 ) => {
-  console.log('utilisateursPermissionQueryBuild')
-
   q.select('utilisateurs.*')
 
   if (

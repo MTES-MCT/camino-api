@@ -9,8 +9,6 @@ const titreDocumentsPermissionQueryBuild = (
   q: QueryBuilder<TitresDocuments, TitresDocuments | TitresDocuments[]>,
   user?: IUtilisateur
 ) => {
-  console.log('titreDocumentPermissionQueryBuild')
-
   q.select('titresDocuments.*')
 
   if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {

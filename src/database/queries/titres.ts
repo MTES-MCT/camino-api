@@ -20,7 +20,6 @@ import { titresFieldsAdd } from './graph/fields-add'
 
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
-// import * as sqlFormatter from 'sql-formatter'
 
 const stringSplit = (string: string) =>
   (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
@@ -106,7 +105,6 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
-      .groupBy('titresModification.id')
       .havingRaw(
         `(${referencesArray
           .map(
@@ -141,7 +139,6 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
-      .groupBy('titresModification.id')
       .havingRaw(
         `(${substancesArray
           .map(
@@ -179,7 +176,6 @@ const titresQueryBuild = (
         })
       })
       .groupBy('titres.id')
-      .groupBy('titresModification.id')
       .havingRaw(
         `(${entreprisesArray
           .map(
@@ -224,7 +220,6 @@ const titresQueryBuild = (
       })
 
       .groupBy('titres.id')
-      .groupBy('titresModification.id')
       .havingRaw(
         `(${territoiresArray
           .map(
@@ -256,7 +251,9 @@ const titreGet = async (
 
   const q = titresQueryBuild({}, { fields }, user)
 
-  return (await q.findById(id)) as ITitre
+  const titre = (await q.findById(id)) as ITitre
+
+  return titre
 }
 
 const titresColonnes = {

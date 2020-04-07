@@ -160,7 +160,7 @@ interface IDemarcheType {
   etapesTypes: IEtapeType[]
   titreTypeId?: string | null
   unique?: boolean | null
-  modification?: boolean | null
+  demarchesCreation?: boolean | null
 }
 
 interface IDepartement {
@@ -187,7 +187,7 @@ interface IDomaine {
   nom: string
   ordre: number
   titresTypes: ITitreType[]
-  titresModification: boolean
+  titresCreation: boolean
 }
 
 interface IEntrepriseEtablissement {
@@ -241,7 +241,7 @@ interface IEtapeType {
   etapesStatuts?: IEtapeStatut[] | null
   titreTypeId?: string | null
   demarcheTypeId?: string | null
-  modification?: boolean | null
+  etapesCreation?: boolean | null
   unique?: boolean | null
 }
 
@@ -635,7 +635,7 @@ interface ITitreType {
   sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
-  titresModification?: boolean | null
+  titresCreation?: boolean | null
 }
 
 interface ITitreTypeType {

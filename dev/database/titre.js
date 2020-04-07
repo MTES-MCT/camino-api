@@ -14,7 +14,7 @@ async function main() {
   // const userId = 'f455dd'
 
   // admin onf uniquement
-  // const userId = '5c0d2b'
+  const userId = '5c0d2b'
 
   // admin ptmg uniquement
   // const userId = '1ee94a'
@@ -29,7 +29,7 @@ async function main() {
   // const userId = '8e8a19'
 
   // entreprise titulaire d'auror
-  const userId = 'd6378e'
+  // const userId = 'd6378e'
 
   // non-logué
   // const userId = undefined
@@ -38,11 +38,11 @@ async function main() {
   // const titreId = 'm-ar-sainte-helene-2019'
 
   // titre non-public
-  // const titreId =
-  //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
+  const titreId =
+    'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
 
   // titre avec activités
-  const titreId = 'm-ax-auror-2018'
+  // const titreId = 'm-ax-auror-2018'
 
   //
   // const titreId = 'm-ax-crique-marie-hilaire-2018'
@@ -75,9 +75,16 @@ async function main() {
     userId
   )
 
+  console.log('type:', res.typeId)
+  console.log('statut:', res.statutId)
+
   console.log('etapes:')
   console.log(
-    res.demarches.flatMap(d => d.etapes.map(e => `etape.${e.id}`)).join('\n')
+    res.demarches
+      .flatMap(d =>
+        d.etapes.map(e => `etape.${e.id}, modification: ${e.modification}`)
+      )
+      .join('\n')
   )
 
   console.log('activites:')
@@ -92,9 +99,9 @@ async function main() {
 
   console.log('titre.modification:', res.modification)
 
-  console.log('titre.activitesAbsentes:', res.activitesAbsentes)
-  console.log('titre.activitesEnConstruction:', res.activitesEnConstruction)
-  console.log('titre.activitesDeposees:', res.activitesDeposees)
+  // console.log('titre.activitesAbsentes:', res.activitesAbsentes)
+  // console.log('titre.activitesEnConstruction:', res.activitesEnConstruction)
+  // console.log('titre.activitesDeposees:', res.activitesDeposees)
 
   await fileCreate('tmp/test-titre.json', JSON.stringify(res, null, 2))
 

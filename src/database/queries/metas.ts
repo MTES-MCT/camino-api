@@ -20,9 +20,11 @@ import graphFormat from './graph/format'
 
 import { userGet } from './utilisateurs'
 
-import { domainesPermissionQueryBuild } from './permissions/metas'
-import { etapesTypesPermissionQueryBuild } from './permissions/etapes'
-import { demarchesTypesPermissionQueryBuild } from './permissions/demarches'
+import {
+  domainesPermissionQueryBuild,
+  etapesTypesPermissionQueryBuild,
+  demarchesTypesPermissionQueryBuild
+} from './permissions/metas'
 
 const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
   Permissions.query()

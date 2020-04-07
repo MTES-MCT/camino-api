@@ -159,8 +159,6 @@ const etapesTypes = async (
   try {
     const fields = fieldsBuild(info)
 
-    console.log({ titreDemarcheId, titreEtapeId })
-
     const etapesTypes = await etapesTypesGet(
       { titreDemarcheId, titreEtapeId },
       { fields },

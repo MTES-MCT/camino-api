@@ -14,8 +14,6 @@ const administrationsPermissionQueryBuild = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
   user?: IUtilisateur
 ) => {
-  console.log('administrationPermissionQueryBuild')
-
   q.select('administrations.*')
 
   if (
