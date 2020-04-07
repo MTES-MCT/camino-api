@@ -49,10 +49,32 @@ const utilisateursPermissionQueryBuild = (
     q.limit(0)
   }
 
-  if (permissionCheck(user, ['super', 'admin'])) {
+  if (permissionCheck(user, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('permissionModification'))
+  } else if (permissionCheck(user, ['admin'])) {
+    const permissionsIds = ['editeur', 'lecteur', 'entreprise']
+    const permissionsIdsReplace = permissionsIds.map(() => '?')
+
+    q.select(
+      raw(
+        `case when utilisateurs.permissionId in (${permissionsIdsReplace}) then true else false end`,
+        ...permissionsIds
+      ).as('modification')
+    )
+    q.select(
+      raw(
+        `case when utilisateurs.permissionId in (${permissionsIdsReplace}) then true else false end`,
+        ...permissionsIds
+      ).as('suppression')
+    )
+    q.select(
+      raw(
+        `case when utilisateurs.permissionId in (${permissionsIdsReplace}) then true else false end`,
+        ...permissionsIds
+      ).as('permissionModification')
+    )
   } else if (user) {
     q.select(
       raw('(case when utilisateurs.id = ? then true else false end)', [
