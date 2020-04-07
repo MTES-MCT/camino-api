@@ -1,7 +1,7 @@
 import { IEntreprise, IFields, IUtilisateur } from '../../types'
 import Entreprises from '../models/entreprises'
 import options from './_options'
-import { entreprisePermissionQueryBuild } from './_permissions'
+import { entreprisePermissionQueryBuild } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'

@@ -15,7 +15,7 @@ import graphFormat from './graph/format'
 import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
-import { titreDemarchePermissionQueryBuild } from './_permissions'
+import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
 
 const titresDemarchesQueryBuild = (
   {

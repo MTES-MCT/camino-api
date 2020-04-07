@@ -2,7 +2,7 @@ import { IUtilisateur, IFields } from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
-import { utilisateursPermissionQueryBuild } from './_permissions'
+import { utilisateursPermissionQueryBuild } from './permissions/utilisateurs'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'

@@ -6,7 +6,7 @@ import graphBuild from './graph/build'
 
 import TitresActivites from '../models/titres-activites'
 import options from './_options'
-import { titreActivitePermissionQueryBuild } from './_permissions'
+import { titreActivitePermissionQueryBuild } from './permissions/titres-activites'
 import { userGet } from './utilisateurs'
 
 const titreActivitesQueryBuild = (

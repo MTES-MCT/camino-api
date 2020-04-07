@@ -1,4 +1,5 @@
 import { IFields } from '../../types'
+
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
 import Devises from '../models/devises'
@@ -12,15 +13,16 @@ import ReferencesTypes from '../models/references-types'
 import TitresStatuts from '../models/titres-statuts'
 import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
+
 import options from './_options'
-import { userGet } from './utilisateurs'
-import {
-  demarchesTypesPermissionQueryBuild,
-  etapesTypesPermissionQueryBuild,
-  domainesPermissionQueryBuild
-} from './_permissions'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
+
+import { userGet } from './utilisateurs'
+
+import { domainesPermissionQueryBuild } from './permissions/metas'
+import { etapesTypesPermissionQueryBuild } from './permissions/etapes'
+import { demarchesTypesPermissionQueryBuild } from './permissions/demarches'
 
 const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
   Permissions.query()

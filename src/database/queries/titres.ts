@@ -10,7 +10,7 @@ import {
 import { transaction, Transaction } from 'objection'
 
 import Titres from '../models/titres'
-import { titrePermissionQueryBuild } from './_permissions'
+import { titrePermissionQueryBuild } from './permissions/titres'
 
 import { userGet } from './utilisateurs'
 

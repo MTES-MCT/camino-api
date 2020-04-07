@@ -1,7 +1,7 @@
 import { IAdministration, IFields, IUtilisateur } from '../../types'
 import Administrations from '../models/administrations'
 import options from './_options'
-import { administrationsPermissionQueryBuild } from './_permissions'
+import { administrationsPermissionQueryBuild } from './permissions/administrations'
 
 import { userGet } from './utilisateurs'
 
