@@ -14,9 +14,11 @@ const titreActivitePermissionQueryBuild = (
   q.select('titresActivites.*')
 
   if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
+    // TODO: autoriser les admins 'lecteur' pour les cas particuliers
+
     const administrationsIds = user.administrations!.map(a => a.id) || []
 
     // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
@@ -59,6 +61,9 @@ const titreActivitePermissionQueryBuild = (
           .whereIn('titre:amodiataires.id', entreprisesIds)
       )
     })
+  } else {
+    // sinon, aucune activité n'est visible
+    q.limit(0)
   }
 
   if (permissionCheck(user, ['super'])) {

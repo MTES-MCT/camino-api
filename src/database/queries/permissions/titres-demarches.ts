@@ -17,6 +17,7 @@ const titreDemarchePermissionQueryBuild = (
 ) => {
   q.select('titresDemarches.*')
 
+  // démarches publiques
   if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
     // visibilité du titre de la démarche
     q.whereExists(
@@ -94,13 +95,14 @@ const titreDemarchePermissionQueryBuild = (
       'demarches'
     ).whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
 
-    q.select(titresModificationQuery.as('titresModification'))
+    q.select(titresModificationQuery.as('modification'))
 
     // propriété 'etapesCreation'
     const etapesCreationQuery = etapesCreationQueryBuild(user.administrations)
 
     // propriété 'etapesCreation'
     q.select(etapesCreationQuery.as('etapesCreation'))
+    q.select(raw('false').as('suppression'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))

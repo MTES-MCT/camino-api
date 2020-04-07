@@ -1,4 +1,6 @@
 import { IUtilisateur, IAdministration } from '../../../types'
+// import fileCreate from '../../../tools/file-create'
+// import { format } from 'sql-formatter'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -16,7 +18,7 @@ import TitresDemarches from '../../models/titres-demarches'
 import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
 
-const restrictionsAdministrationsQueryBuild = (
+const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
   type: 'titres' | 'demarches' | 'etapes'
 ) => {
@@ -67,26 +69,17 @@ const etapesTypesModificationQueryBuild = (
       'titresDemarches as demarchesModification',
       raw('?? = ??', ['demarchesModification.titreId', 'titresModification.id'])
     )
-    .join(
-      'titresEtapes as etapesModification',
-      raw('?? = ??', [
-        'etapesModification.titreDemarcheId',
-        'demarchesModification.id'
-      ])
-    )
-    .join(
+    .leftJoin(
       'titresTypes__demarchesTypes__etapesTypes as t_d_e',
-      raw('?? = ?? and ?? = ?? and ?? = ??', [
+      raw('?? = ?? and ?? = ??', [
         't_d_e.titreTypeId',
         'titresModification.typeId',
         't_d_e.demarcheTypeId',
-        'demarchesModification.typeId',
-        't_d_e.etapeTypeId',
-        'etapesModification.typeId'
+        'demarchesModification.typeId'
       ])
     )
     .whereExists(
-      restrictionsAdministrationsQueryBuild(administrations, 'etapes')
+      titresRestrictionsAdministrationQueryBuild(administrations, 'etapes')
         // l'utilisateur est dans au moins une administration
         // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
         .leftJoin(
@@ -95,7 +88,7 @@ const etapesTypesModificationQueryBuild = (
             'r_t_e_a.administrationId',
             'administrations.id',
             'r_t_e_a.titreTypeId',
-            'etapesModification.typeId',
+            't_d_e.titreTypeId',
             'r_t_e_a.etapeTypeId',
             't_d_e.etapeTypeId',
             `r_t_e_a.${modification ? 'modification' : 'creation'}Interdit`
@@ -122,7 +115,7 @@ const etapesCreationQueryBuild = (administrations: IAdministration[]) =>
       ])
     )
     .whereExists(
-      restrictionsAdministrationsQueryBuild(administrations, 'etapes')
+      titresRestrictionsAdministrationQueryBuild(administrations, 'etapes')
         // l'utilisateur est dans au moins une administration
         // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
         .leftJoin(
@@ -149,7 +142,9 @@ const titresModificationQueryBuild = (
   Titres.query()
     .alias('titresModification')
     .select(raw('true'))
-    .whereExists(restrictionsAdministrationsQueryBuild(administrations, type))
+    .whereExists(
+      titresRestrictionsAdministrationQueryBuild(administrations, type)
+    )
 
 const titresTypesPermissionsQueryBuild = (
   q: QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
@@ -319,8 +314,8 @@ const etapesTypesPermissionQueryBuild = (
         user.administrations,
         !!titreEtapeId
       )
-        .where('etapesModification.titreDemarcheId', titreDemarcheId)
-        .whereRaw('?? = ??', ['etapesModification.typeId', 'etapesTypes.id'])
+        .where('demarchesModification.id', titreDemarcheId)
+        .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'etapesTypes.id'])
 
       // TODO: conditionner aux fields
       q.select(etapesCreationQuery.as('etapesCreation'))
@@ -330,6 +325,8 @@ const etapesTypesPermissionQueryBuild = (
   } else {
     q.select(raw('false').as('etapesCreation'))
   }
+
+  // fileCreate('tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
 
 const demarchesTypesPermissionQueryBuild = (

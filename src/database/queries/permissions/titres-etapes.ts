@@ -15,6 +15,7 @@ const titreEtapesPermissionQueryBuild = (
 ) => {
   q.select('titresEtapes.*')
 
+  // étapes visibles pour les admins
   if (user && permissionCheck(user, ['admin', 'editeur', 'lecteur'])) {
     q.joinRelated('[demarche.titre, type]')
 
@@ -60,25 +61,25 @@ const titreEtapesPermissionQueryBuild = (
         'demarche:titre.typeId'
       ])
     }
-  } else {
-    if (!user || permissionCheck(user, ['defaut', 'entreprise'])) {
-      q.leftJoinRelated('type.autorisations')
+  } else if (!user || permissionCheck(user, ['defaut', 'entreprise'])) {
+    // étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
 
-      if (permissionCheck(user, ['entreprise'])) {
-        // visibilité des étapes en tant que titulaire ou amodiataire
-        q.where('type:autorisations.entreprisesLecture', true)
-      } else {
-        // visibilité des étapes publiques
-        q.where('type:autorisations.publicLecture', true)
-      }
+    q.leftJoinRelated('type.autorisations')
+
+    // visibilité des étapes en tant que titulaire ou amodiataire
+    if (permissionCheck(user, ['entreprise'])) {
+      q.where('type:autorisations.entreprisesLecture', true)
     }
+
+    // visibilité des étapes publiques
+    q.where('type:autorisations.publicLecture', true)
   }
 
   if (permissionCheck(user, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
@@ -87,13 +88,15 @@ const titreEtapesPermissionQueryBuild = (
       // édition du titre
 
       // propriété 'modification'
-      const etapeModificataionQuery = etapesTypesModificationQueryBuild(
+      const etapeModificationQuery = etapesTypesModificationQueryBuild(
         user.administrations,
         true
-      ).whereRaw('?? = ??', ['etapesModification.id', 'titresEtapes.id'])
+      )
+        .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
+        .groupBy('t_d_e.etapeTypeId')
 
       // TODO: conditionner aux fields
-      q.select(etapeModificataionQuery.as('modification'))
+      q.select(etapeModificationQuery.as('modification'))
     } else {
       // si l'utilisateur admin n'appartient à aucune administration
       // il ne peut pas modifier / supprimer les étapes

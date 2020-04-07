@@ -10,7 +10,7 @@ async function main() {
   // admin dea-guyane-01
   // const userId = 'f5922d'
 
-  // admin dea-guyane-01 et ONF
+  // admin dgaln
   // const userId = 'f455dd'
 
   // admin onf uniquement
@@ -18,6 +18,9 @@ async function main() {
 
   // admin ptmg uniquement
   // const userId = '1ee94a'
+
+  // admin dgpr
+  // const userId = '80dcfd'
 
   // admin dgpr
   // const userId = '80dcfd'
@@ -34,12 +37,15 @@ async function main() {
   // non-logué
   // const userId = undefined
 
+  // titre ARM echu mod
+  const titreId = 'm-ar-crique-grand-moussinga-2019'
+
   // titre echu public
   // const titreId = 'm-ar-sainte-helene-2019'
 
   // titre non-public
-  const titreId =
-    'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
+  // const titreId =
+  //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
 
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
@@ -79,13 +85,18 @@ async function main() {
   console.log('statut:', res.statutId)
 
   console.log('etapes:')
-  console.log(
-    res.demarches
-      .flatMap(d =>
-        d.etapes.map(e => `etape.${e.id}, modification: ${e.modification}`)
-      )
-      .join('\n')
-  )
+
+  res.demarches.forEach(d => {
+    console.log(
+      'demarche:',
+      d.id,
+      `modification: ${d.modification}, etapesCreation: ${d.etapesCreation}`
+    )
+
+    d.etapes.forEach(e => {
+      console.log(`etape.${e.id}, modification: ${e.modification}`)
+    })
+  })
 
   console.log('activites:')
   console.log(

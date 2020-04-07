@@ -15,17 +15,6 @@ const titreActivitesQueryBuild = (
 ) => {
   if (!user?.permissionId) return null
 
-  // seuls les utilisateurs titulaires/amodiataires
-  // et les administrations rattachées aux titrex des activités
-  // ont accès aux activités
-  if (
-    !['super', 'admin', 'editeur', 'lecteur', 'entreprise'].includes(
-      user.permissionId
-    )
-  ) {
-    return null
-  }
-
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
     : options.titresActivites.graph
@@ -44,9 +33,8 @@ const titreActiviteGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  if (!userId) return undefined
-
   const user = await userGet(userId)
+
   const q = titreActivitesQueryBuild({ fields }, user)
   if (!q) return undefined
 
@@ -58,9 +46,8 @@ const titresActivitesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  if (!userId) return []
-
   const user = await userGet(userId)
+
   const q = titreActivitesQueryBuild({ fields }, user)
   if (!q) return []
 

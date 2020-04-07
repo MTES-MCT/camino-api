@@ -3,6 +3,8 @@ import '../../src/database/index'
 import fileCreate from '../../src/tools/file-create'
 
 import { etapesTypesGet } from '../../src/database/queries/metas'
+import { titreGet } from '../../src/database/queries/titres'
+import { userGet } from '../../src/database/queries/utilisateurs'
 
 async function main() {
   // const userId = 'super'
@@ -11,10 +13,10 @@ async function main() {
   // const userId = 'f5922d'
 
   // admin dea-guyane-01 et ONF
-  //   const userId = 'f455dd'
+  const userId = 'f455dd'
 
   // admin onf uniquement
-  const userId = '5c0d2b'
+  // const userId = '5c0d2b'
 
   // admin ptmg uniquement
   //   const userId = '1ee94a'
@@ -37,7 +39,7 @@ async function main() {
   // titre echu public
   // const titreId = 'm-ar-sainte-helene-2019'
 
-  // titre ARM echu dmi
+  // titre ARM echu mod
   const titreId = 'm-ar-crique-grand-moussinga-2019'
 
   // titre ARM val
@@ -52,10 +54,22 @@ async function main() {
 
   console.log({ userId, titreId })
 
+  const user = await userGet(userId)
+
+  console.log(
+    'user.administrations',
+    user.administrations?.map(a => a.id).join(', ')
+  )
+
+  const titre = await titreGet(titreId, { fields: {} }, userId)
+
+  console.log('type:', titre.typeId)
+  console.log('statut:', titre.statutId)
+
   const res = await etapesTypesGet(
     {
-      titreDemarcheId: `${titreId}-oct01`,
-      titreEtapeId: `${titreId}-oct01-mfr01`
+      titreDemarcheId: `${titreId}-oct01`
+      // titreEtapeId: `${titreId}-oct01-mfr01`
     },
     { fields: { id: {} } },
     userId
@@ -64,7 +78,7 @@ async function main() {
   res.forEach(et => {
     console.log('etapeType.id:', et.id)
 
-    console.log('etapeType.modification:', et.modification)
+    console.log('etapeType.etapesCreation:', et.etapesCreation)
   })
 
   await fileCreate('tmp/test-etapes-types.json', JSON.stringify(res, null, 2))

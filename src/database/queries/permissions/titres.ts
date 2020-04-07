@@ -26,10 +26,10 @@ const titrePermissionQueryBuild = (
 ) => {
   q.select('titres.*')
 
+  // titres publics
   if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
     q.where(b => {
       b.orWhere(c => {
-        // titres publics
         c.whereExists(
           AutorisationsDomaines.query()
             .alias('ad')
@@ -55,6 +55,7 @@ const titrePermissionQueryBuild = (
         )
       })
 
+      // titre de l'entreprise
       if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
         // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
@@ -96,7 +97,6 @@ const titrePermissionQueryBuild = (
     q.select(raw('false').as('suppression'))
   }
 
-  // TODO: conditionner aux fields
   titreActivitesCalc(q, user)
 
   // visibilité des étapes
