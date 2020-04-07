@@ -14,9 +14,14 @@ import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const titreDemarcheUpdate = async (titreId: string) => {
   try {
-    let titre = await titreGet(titreId, {
-      fields: { demarches: { etapes: { id: {} } } }
-    })
+    let titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { id: {} } } }
+      },
+      'super'
+    )
+
     if (!titre) {
       throw new Error(`warning: le titre ${titreId} n'existe plus`)
     }
@@ -30,16 +35,24 @@ const titreDemarcheUpdate = async (titreId: string) => {
 
     // 4.
     console.log('statut des titres…')
-    titre = await titreGet(titreId, {
-      fields: { demarches: { etapes: { points: { id: {} } } } }
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { points: { id: {} } } } }
+      },
+      'super'
+    )
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
     console.log('phases des titres…')
-    titre = await titreGet(titreId, {
-      fields: { demarches: { etapes: { points: { id: {} } } } }
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { points: { id: {} } } } }
+      },
+      'super'
+    )
     const [
       titresPhasesUpdated = [],
       titresPhasesDeleted = []
@@ -47,27 +60,35 @@ const titreDemarcheUpdate = async (titreId: string) => {
 
     // 6.
     console.log('date de début, de fin et de demande initiale des titres…')
-    titre = await titreGet(titreId, {
-      fields: { demarches: { etapes: { points: { id: {} } } } }
-    })
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { points: { id: {} } } } }
+      },
+      'super'
+    )
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 11.
     console.log('propriétés des titres (liens vers les étapes)…')
-    titre = await titreGet(titreId, {
-      fields: {
-        demarches: {
-          etapes: {
-            points: { id: {} },
-            titulaires: { id: {} },
-            amodiataires: { id: {} },
-            administrations: { id: {} },
-            substances: { id: {} },
-            communes: { id: {} }
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              points: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              administrations: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} }
+            }
           }
         }
-      }
-    })
+      },
+      'super'
+    )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
