@@ -11,8 +11,14 @@ const utilisateurUpdationValidate = async (
   utilisateur: IUtilisateur,
   isAdmin: boolean
 ) => {
-  const utilisateurOld = await userGet(utilisateur.id!)
+  const utilisateurOld = await userGet(utilisateur.id)
   if (!utilisateurOld) return ["l'utilisateur n'existe pas"]
+
+  if (utilisateur.administrations && utilisateur.administrations.length > 1) {
+    return [
+      "un utilisateur ne peut être affectué qu'à une seule administration"
+    ]
+  }
 
   // récupère la liste des administrations modifiées (suppression et ajout)
   const administrationsIdsDiff = diffFind(

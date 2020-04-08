@@ -53,26 +53,45 @@ const utilisateursPermissionQueryBuild = (
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('permissionModification'))
-  } else if (permissionCheck(user, ['admin'])) {
-    const permissionsIds = ['editeur', 'lecteur', 'entreprise']
+  } else if (user && permissionCheck(user, ['admin'])) {
+    // restreint le droit d'édition d'un utilisateur
+    // aux permissions inférieures d'admin
+    const permissionsIds = ['editeur', 'lecteur', 'entreprise', 'defaut']
     const permissionsIdsReplace = permissionsIds.map(() => '?')
 
     q.select(
       raw(
-        `case when ?? in (${permissionsIdsReplace}) then true else false end`,
-        ['utilisateurs.permissionId', ...permissionsIds]
+        `case when ?? = ? or ?? in (${permissionsIdsReplace}) then true else false end`,
+        [
+          'utilisateurs.id',
+          user.id,
+          'utilisateurs.permissionId',
+          ...permissionsIds
+        ]
       ).as('modification')
     )
+
     q.select(
       raw(
-        `case when ?? in (${permissionsIdsReplace}) then true else false end`,
-        ['utilisateurs.permissionId', ...permissionsIds]
+        `case when ?? = ? or ?? in (${permissionsIdsReplace}) then true else false end`,
+        [
+          'utilisateurs.id',
+          user.id,
+          'utilisateurs.permissionId',
+          ...permissionsIds
+        ]
       ).as('suppression')
     )
+
     q.select(
       raw(
-        `case when ?? in (${permissionsIdsReplace}) then true else false end`,
-        ['utilisateurs.permissionId', ...permissionsIds]
+        `case when ?? = ? or ?? in (${permissionsIdsReplace}) then true else false end`,
+        [
+          'utilisateurs.id',
+          user.id,
+          'utilisateurs.permissionId',
+          ...permissionsIds
+        ]
       ).as('permissionModification')
     )
   } else if (user) {
