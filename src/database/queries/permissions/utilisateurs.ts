@@ -59,25 +59,26 @@ const utilisateursPermissionQueryBuild = (
 
     q.select(
       raw(
-        `case when utilisateurs.permissionId in (${permissionsIdsReplace}) then true else false end`,
-        ...permissionsIds
+        `case when ?? in (${permissionsIdsReplace}) then true else false end`,
+        ['utilisateurs.permissionId', ...permissionsIds]
       ).as('modification')
     )
     q.select(
       raw(
-        `case when utilisateurs.permissionId in (${permissionsIdsReplace}) then true else false end`,
-        ...permissionsIds
+        `case when ?? in (${permissionsIdsReplace}) then true else false end`,
+        ['utilisateurs.permissionId', ...permissionsIds]
       ).as('suppression')
     )
     q.select(
       raw(
-        `case when utilisateurs.permissionId in (${permissionsIdsReplace}) then true else false end`,
-        ...permissionsIds
+        `case when ?? in (${permissionsIdsReplace}) then true else false end`,
+        ['utilisateurs.permissionId', ...permissionsIds]
       ).as('permissionModification')
     )
   } else if (user) {
     q.select(
-      raw('(case when utilisateurs.id = ? then true else false end)', [
+      raw('(case when ?? = ? then true else false end)', [
+        'utilisateurs.id',
         user.id
       ]).as('modification')
     )

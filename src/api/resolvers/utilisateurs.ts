@@ -407,7 +407,7 @@ const utilisateurSupprimer = async (
       throw new Error('droits insuffisants pour mettre à jour cet utilisateur')
     }
 
-    const utilisateur = await utilisateurGet(id)
+    const utilisateur = await utilisateurGet(id, {}, context.user?.id)
     if (!utilisateur) {
       throw new Error('aucun utilisateur avec cet id')
     }
@@ -468,7 +468,7 @@ const utilisateurMotDePasseModifier = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(id)
+    const utilisateur = await utilisateurGet(id, {}, context.user?.id)
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
@@ -564,7 +564,11 @@ const utilisateurMotDePasseInitialiser = async (
       )
     }
 
-    const utilisateur = await utilisateurGet(context.user.id)
+    const utilisateur = await utilisateurGet(
+      context.user.id,
+      {},
+      context.user?.id
+    )
 
     if (!utilisateur) {
       throw new Error('aucun utilisateur enregistré avec cet id')
