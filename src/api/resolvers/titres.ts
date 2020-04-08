@@ -3,7 +3,6 @@ import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import { permissionCheck } from '../../tools/permission'
 import { titreFormat, titresFormat } from './format/titres'
-import { titresSortAndLimit } from './sort/titres'
 
 import { titrePermissionAdministrationsCheck } from './permissions/titre-edition'
 
@@ -63,7 +62,7 @@ const titres = async (
     intervalle?: number | null
     page?: number | null
     ordre?: 'asc' | 'desc' | null
-    colonne?: ITitreColonneInput | 'activitesTotal' | null
+    colonne?: ITitreColonneInput | null
     typesIds: string[]
     domainesIds: string[]
     statutsIds: string[]
@@ -78,17 +77,6 @@ const titres = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-
-    let activitesSortParams = null
-
-    if (colonne === 'activitesTotal') {
-      activitesSortParams = { intervalle, page, ordre }
-
-      colonne = null
-      intervalle = null
-      page = null
-      ordre = null
-    }
 
     const titres = await titresGet(
       {
@@ -112,9 +100,7 @@ const titres = async (
     const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)
 
-    return titresFormatted && activitesSortParams
-      ? titresSortAndLimit(titresFormatted, activitesSortParams)
-      : titresFormatted
+    return titresFormatted
   } catch (e) {
     if (debug) {
       console.error(e)

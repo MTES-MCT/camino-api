@@ -263,6 +263,7 @@ const titresColonnes = {
   statut: { id: 'statutId' },
   substances: { id: 'substances.nom', relation: 'substances' },
   titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
+  // activitesTotal: { id: 'activitesAbsentes + activitesEnCours + activitesDeposees' }
 } as Index<IColonne>
 
 const titresGet = async (
@@ -314,6 +315,11 @@ const titresGet = async (
     { fields },
     user
   )
+
+  // TODO: ajouter le sort des activités en SQL
+  // if (colonne === 'activitesTotal') {
+  //   activitesSortParams = { intervalle, page, ordre }
+  // }
 
   if (colonne) {
     if (titresColonnes[colonne].relation) {

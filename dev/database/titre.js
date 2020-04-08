@@ -2,16 +2,17 @@ import 'dotenv/config'
 import '../../src/database/index'
 import fileCreate from '../../src/tools/file-create'
 
+import { userGet } from '../../src/database/queries/utilisateurs'
 import { titreGet, titresGet } from '../../src/database/queries/titres'
 
 async function main() {
-  const userId = 'super'
+  // const userId = 'super'
 
   // admin dea-guyane-01
   // const userId = 'f5922d'
 
   // admin dgaln
-  // const userId = 'f455dd'
+  const userId = '511478'
 
   // admin onf uniquement
   // const userId = '5c0d2b'
@@ -48,7 +49,10 @@ async function main() {
   //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
 
   // titre avec activités
-  const titreId = 'm-ax-auror-2018'
+  // const titreId = 'm-ax-auror-2018'
+
+  // titre
+  const titreId = 'm-cx-bon-espoir-2016'
 
   //
   // const titreId = 'm-ax-crique-marie-hilaire-2018'
@@ -70,6 +74,17 @@ async function main() {
 
   // process.exit(0)
 
+  const user = await userGet(userId)
+
+  console.info(
+    'user:',
+    user.id,
+    'permission:',
+    user.permissionId,
+    'admin:',
+    user.administrations?.map(a => a.id).join(', ')
+  )
+
   const res = await titreGet(
     titreId,
     {
@@ -81,29 +96,23 @@ async function main() {
     userId
   )
 
-  console.info('type:', res.typeId)
-  console.info('statut:', res.statutId)
-
-  console.info('etapes:')
+  console.info(`titre: ${res.id}, type: ${res.typeId}, statut: ${res.statutId}`)
 
   res.demarches.forEach(d => {
     console.info(
-      'demarche:',
-      d.id,
-      `modification: ${d.modification}, etapesCreation: ${d.etapesCreation}`
+      `demarche: ${d.id}, modification: ${d.modification}, etapesCreation: ${d.etapesCreation}`
     )
 
     d.etapes.forEach(e => {
-      console.info(`etape.${e.id}, modification: ${e.modification}`)
+      console.info(`etape: ${e.id}, modification: ${e.modification}`)
     })
   })
 
-  console.info('activites:')
   console.info(
     res.activites
       .map(
         e =>
-          `activite.id: ${e.id}, statut: ${e.statutId}, modification: ${e.modification}`
+          `activite: ${e.id}, statut: ${e.statutId}, modification: ${e.modification}`
       )
       .join('\n')
   )

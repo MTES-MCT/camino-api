@@ -88,12 +88,19 @@ const titreEtapesPermissionQueryBuild = (
       // édition du titre
 
       // propriété 'modification'
+      // types d'étape autorisés pour tous les titres et démarches
+      // sur lesquels l'utilisateur a des droits
       const etapeModificationQuery = etapesTypesModificationQueryBuild(
         user.administrations,
         true
       )
+        // filtre selon la démarche
+        .whereRaw('?? = ??', [
+          'demarchesModification.id',
+          'titresEtapes.titreDemarcheId'
+        ])
+        // filtre selon le type de l'étape
         .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
-        .groupBy('t_d_e.etapeTypeId')
 
       // TODO: conditionner aux fields
       q.select(etapeModificationQuery.as('modification'))

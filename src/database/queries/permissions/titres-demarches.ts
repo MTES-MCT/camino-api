@@ -9,7 +9,10 @@ import TitresDemarches from '../../models/titres-demarches'
 
 import { titreEtapesPermissionQueryBuild } from './titres-etapes'
 import { titrePermissionQueryBuild } from './titres'
-import { etapesCreationQueryBuild, titresModificationQueryBuild } from './metas'
+import {
+  titresModificationQueryBuild,
+  etapesTypesModificationQueryBuild
+} from './metas'
 
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
@@ -97,8 +100,16 @@ const titreDemarchePermissionQueryBuild = (
 
     q.select(titresModificationQuery.as('modification'))
 
-    // propriété 'etapesCreation'
-    const etapesCreationQuery = etapesCreationQueryBuild(user.administrations)
+    // propriété 'modification'
+    // récupère les types d'étape autorisés
+    // pour tous les titres et démarches sur lesquels l'utilisateur a des droits
+    const etapesCreationQuery = etapesTypesModificationQueryBuild(
+      user.administrations,
+      false
+    )
+      // filtre selon la démarche
+      .whereRaw('?? = ??', ['demarchesModification.id', 'titresDemarches.id'])
+      .groupBy('demarchesModification.id')
 
     // propriété 'etapesCreation'
     q.select(etapesCreationQuery.as('etapesCreation'))

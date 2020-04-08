@@ -13,7 +13,12 @@ interface IColonne {
   relation?: string
 }
 
-type ITitreColonneInput = 'nom' | 'domaine' | 'type' | 'statut'
+type ITitreColonneInput =
+  | 'nom'
+  | 'domaine'
+  | 'type'
+  | 'statut'
+  | 'activitesTotal'
 
 type ITitreDemarcheColonneInput =
   | 'titreNom'
@@ -644,6 +649,15 @@ interface ITitreTypeType {
   ordre: number
 }
 
+interface ITitreTypeDemarcheTypeEtapeType {
+  titreTypeId: string
+  demarcheTypeId: string
+  etapeTypeId: string
+
+  sections?: ISection[] | null
+  ordre: number
+}
+
 interface IUnite {
   id: string
   nom: string
@@ -789,6 +803,7 @@ export {
   ITitreReference,
   ITitreType,
   ITitreTypeType,
+  ITitreTypeDemarcheTypeEtapeType,
   ITrimestre,
   IUnite,
   IUser,

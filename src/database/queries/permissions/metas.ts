@@ -17,6 +17,7 @@ import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
 import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
+import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
 
 const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
@@ -58,24 +59,31 @@ const titresRestrictionsAdministrationQueryBuild = (
   return restrictionsQuery
 }
 
+// récupère les types d'étapes qui ont
+// - les autorisations sur le titre
+// - pas de restrictions sur le type d'étape
+// -> retourne un booléen pour chaque ligne contenant :
+// - 'titresModification.id': id du titre sur lequel l'utilisateur a des droits
+// - 'demarchesModification.id': id de la démarche
+// - 't_d_e.etapeTypeId': id du type d'étape'
 const etapesTypesModificationQueryBuild = (
   administrations: IAdministration[],
   modification: boolean
 ) =>
-  Titres.query()
-    .alias('titresModification')
+  TitresTypesDemarchesTypesEtapesTypes.query()
+    .alias('t_d_e')
     .select(raw('true'))
-    .join(
-      'titresDemarches as demarchesModification',
-      raw('?? = ??', ['demarchesModification.titreId', 'titresModification.id'])
+    .leftJoin(
+      'titres as titresModification',
+      raw('?? = ??', ['t_d_e.titreTypeId', 'titresModification.typeId'])
     )
     .leftJoin(
-      'titresTypes__demarchesTypes__etapesTypes as t_d_e',
+      'titresDemarches as demarchesModification',
       raw('?? = ?? and ?? = ??', [
-        't_d_e.titreTypeId',
-        'titresModification.typeId',
+        'demarchesModification.typeId',
         't_d_e.demarcheTypeId',
-        'demarchesModification.typeId'
+        'demarchesModification.titreId',
+        'titresModification.id'
       ])
     )
     .whereExists(
@@ -96,44 +104,6 @@ const etapesTypesModificationQueryBuild = (
         )
         .whereNull('r_t_e_a.administrationId')
     )
-
-const etapesCreationQueryBuild = (administrations: IAdministration[]) =>
-  Titres.query()
-    .alias('titresModification')
-    .select(raw('true'))
-    .join(
-      'titresDemarches as demarchesModification',
-      raw('?? = ??', ['demarchesModification.id', 'titresDemarches.id'])
-    )
-    .join(
-      'titresTypes__demarchesTypes__etapesTypes as t_d_e',
-      raw('?? = ?? and ?? = ??', [
-        't_d_e.titreTypeId',
-        'titresModification.typeId',
-        't_d_e.demarcheTypeId',
-        'titresDemarches.typeId'
-      ])
-    )
-    .whereExists(
-      titresRestrictionsAdministrationQueryBuild(administrations, 'etapes')
-        // l'utilisateur est dans au moins une administration
-        // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
-        .leftJoin(
-          'r__titresTypes__etapesTypes__administrations as r_t_e_a',
-          raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
-            'r_t_e_a.administrationId',
-            'administrations.id',
-            'r_t_e_a.titreTypeId',
-            'titresModification.typeId',
-            'r_t_e_a.etapeTypeId',
-            't_d_e.etapeTypeId',
-            'r_t_e_a.creationInterdit'
-          ])
-        )
-        .whereNull('r_t_e_a.administrationId')
-    )
-    .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
-    .groupBy('demarchesModification.id')
 
 const titresModificationQueryBuild = (
   administrations: IAdministration[],
@@ -383,7 +353,6 @@ export {
   titresTypesPermissionsQueryBuild,
   etapesTypesPermissionQueryBuild,
   etapesTypesModificationQueryBuild,
-  etapesCreationQueryBuild,
   titresModificationQueryBuild,
   demarchesTypesPermissionQueryBuild
 }
