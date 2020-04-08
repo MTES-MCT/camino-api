@@ -131,8 +131,22 @@ class TitresDemarches extends Model {
     json = super.$parseJson(json)
 
     if (!json.id && json.titreId && json.typeId) {
-      json.id = `${json.titreId}-${json.typeId}99`
+      json.id = `${json.titreId}-${json.typeId}`
     }
+
+    delete json.modification
+    delete json.suppression
+    delete json.etapesCreation
+
+    return json
+  }
+
+  public $formatDatabaseJson(json: Pojo) {
+    json = super.$formatDatabaseJson(json)
+
+    delete json.modification
+    delete json.suppression
+    delete json.etapesCreation
 
     return json
   }

@@ -26,6 +26,7 @@ const titreEtapeUpdate = async (
 ) => {
   try {
     // 1.
+    console.info()
     console.info('ordre des étapes…')
     let titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
@@ -48,6 +49,7 @@ const titreEtapeUpdate = async (
     ])
 
     // 2.
+    console.info()
     console.info('statut des démarches…')
     titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
@@ -65,6 +67,7 @@ const titreEtapeUpdate = async (
     ])
 
     // 3.
+    console.info()
     console.info('ordre des démarches…')
     titre = await titreGet(
       titreId,
@@ -76,6 +79,7 @@ const titreEtapeUpdate = async (
     ])
 
     // 4.
+    console.info()
     console.info('statut des titres…')
     titre = await titreGet(
       titreId,
@@ -87,6 +91,7 @@ const titreEtapeUpdate = async (
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
+    console.info()
     console.info('phases des titres…')
     titre = await titreGet(
       titreId,
@@ -103,6 +108,7 @@ const titreEtapeUpdate = async (
     ] = await titresPhasesUpdate([titre])
 
     // 6.
+    console.info()
     console.info('date de début, de fin et de demande initiale des titres…')
     titre = await titreGet(
       titreId,
@@ -114,6 +120,7 @@ const titreEtapeUpdate = async (
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 8.
+    console.info()
     console.info('communes associées aux étapes…')
     let titreCommunesUpdated = []
     let titresEtapesCommunesCreated = []
@@ -133,6 +140,7 @@ const titreEtapeUpdate = async (
     }
 
     // 10.
+    console.info()
     console.info('administrations locales associées aux étapes…')
     let administrations = await administrationsGet({}, {}, 'super')
     titre = await titreGet(
@@ -156,6 +164,7 @@ const titreEtapeUpdate = async (
     ] = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
 
     // 11.
+    console.info()
     console.info('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(
       titreId,
@@ -178,6 +187,7 @@ const titreEtapeUpdate = async (
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
+    console.info()
     console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titre = await titreGet(
       titreId,
@@ -191,7 +201,13 @@ const titreEtapeUpdate = async (
     console.info('activités des titres…')
     titre = await titreGet(
       titreId,
-      { fields: { demarches: { phase: { id: {} } } } },
+      {
+        fields: {
+          demarches: { phase: { id: {} } },
+          communes: { departement: { region: { pays: { id: {} } } } },
+          activites: { id: {} }
+        }
+      },
       'super'
     )
     const activitesTypes = await activitesTypesGet()
@@ -201,6 +217,7 @@ const titreEtapeUpdate = async (
     )
 
     // 14.
+    console.info()
     console.info('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)

@@ -95,6 +95,8 @@ class Entreprises extends Model {
       delete json.utilisateursIds
     }
 
+    delete json.modification
+
     return json
   }
 }

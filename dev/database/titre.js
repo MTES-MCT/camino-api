@@ -12,7 +12,7 @@ async function main() {
   // const userId = 'f5922d'
 
   // admin dgaln
-  const userId = '511478'
+  // const userId = '511478'
 
   // admin onf uniquement
   // const userId = '5c0d2b'
@@ -35,6 +35,9 @@ async function main() {
   // entreprise titulaire d'auror
   // const userId = 'd6378e'
 
+  // entreprise AMAZON RESSOURCE titulaire de crique mousse
+  const userId = '0eea48'
+
   // non-logué
   // const userId = undefined
 
@@ -48,31 +51,19 @@ async function main() {
   // const titreId =
   //   'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019'
 
+  // titre avec pfd
+  const titreId = 'm-ar-crique-mousse-2019'
+
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
   // titre
-  const titreId = 'm-cx-bon-espoir-2016'
+  // const titreId = 'm-cx-bon-espoir-2016'
 
   //
   // const titreId = 'm-ax-crique-marie-hilaire-2018'
 
   console.info({ userId, titreId })
-
-  // console.time('titres')
-  // const titres = await titresGet(
-  //   {},
-  //   {
-  //     fields: {
-  //       demarches: { etapes: { id: {} } },
-  //       activites: { id: {} }
-  //     }
-  //   },
-  //   userId
-  // )
-  // console.timeEnd('titres')
-
-  // process.exit(0)
 
   const user = await userGet(userId)
 

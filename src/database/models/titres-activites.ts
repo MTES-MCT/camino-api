@@ -91,6 +91,16 @@ class TitresActivites extends Model {
       json.id = id
     }
 
+    delete json.modification
+
+    return json
+  }
+
+  public $formatDatabaseJson(json: Pojo) {
+    json = super.$formatDatabaseJson(json)
+
+    delete json.modification
+
     return json
   }
 }

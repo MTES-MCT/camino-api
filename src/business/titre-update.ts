@@ -34,7 +34,17 @@ const titreUpdate = async (titreId: string) => {
     // 11.
     console.info()
     console.info('activités des titres…')
-    titre = await titreGet(titreId, {}, 'super')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: { phase: { id: {} } },
+          communes: { departement: { region: { pays: { id: {} } } } },
+          activites: { id: {} }
+        }
+      },
+      'super'
+    )
 
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(

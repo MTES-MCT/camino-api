@@ -66,13 +66,15 @@ const titreEtapesPermissionQueryBuild = (
 
     q.leftJoinRelated('type.autorisations')
 
-    // visibilité des étapes en tant que titulaire ou amodiataire
-    if (permissionCheck(user, ['entreprise'])) {
-      q.where('type:autorisations.entreprisesLecture', true)
-    }
+    q.where(b => {
+      // visibilité des étapes en tant que titulaire ou amodiataire
+      if (permissionCheck(user, ['entreprise'])) {
+        b.orWhere('type:autorisations.entreprisesLecture', true)
+      }
 
-    // visibilité des étapes publiques
-    q.where('type:autorisations.publicLecture', true)
+      // visibilité des étapes publiques
+      b.orWhere('type:autorisations.publicLecture', true)
+    })
   }
 
   if (permissionCheck(user, ['super'])) {

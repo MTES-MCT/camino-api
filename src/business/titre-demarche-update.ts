@@ -109,7 +109,13 @@ const titreDemarcheUpdate = async (titreId: string) => {
 
     titre = await titreGet(
       titreId,
-      { fields: { demarches: { phase: { id: {} } } } },
+      {
+        fields: {
+          demarches: { phase: { id: {} } },
+          communes: { departement: { region: { pays: { id: {} } } } },
+          activites: { id: {} }
+        }
+      },
       'super'
     )
     const activitesTypes = await activitesTypesGet()

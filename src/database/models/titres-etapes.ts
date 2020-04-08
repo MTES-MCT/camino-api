@@ -173,6 +173,9 @@ class TitresEtapes extends Model {
       delete json.pays
     }
 
+    delete json.modification
+    delete json.suppression
+
     return json
   }
 
@@ -218,6 +221,8 @@ class TitresEtapes extends Model {
 
     delete json.geojsonMultiPolygon
     delete json.geojsonPoints
+    delete json.modification
+    delete json.suppression
 
     return json
   }
