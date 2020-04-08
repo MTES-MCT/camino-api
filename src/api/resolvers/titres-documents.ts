@@ -129,7 +129,7 @@ const documentModifier = async (
         try {
           await fileDelete(join(process.cwd(), documentOldPath))
         } catch (e) {
-          console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
+          console.info(`impossible de supprimer le fichier: ${documentOldPath}`)
         }
       }
     }
@@ -191,7 +191,7 @@ const documentSupprimer = async (
       try {
         await fileDelete(join(process.cwd(), documentOldPath))
       } catch (e) {
-        console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
+        console.info(`impossible de supprimer le fichier: ${documentOldPath}`)
       }
     }
 

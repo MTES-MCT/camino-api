@@ -53,7 +53,7 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  console.log({ userId, titreId })
+  console.info({ userId, titreId })
 
   const res = await domainesGet(
     {},
@@ -62,11 +62,11 @@ async function main() {
   )
 
   res.forEach(d => {
-    console.log('domaine.id:', d.id)
+    console.info('domaine.id:', d.id)
 
-    console.log('domaine.titresModification:', d.titresModification)
+    console.info('domaine.titresModification:', d.titresModification)
 
-    console.log(
+    console.info(
       d.titresTypes
         .map(
           t =>

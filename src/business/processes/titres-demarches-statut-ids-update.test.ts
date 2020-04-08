@@ -9,7 +9,7 @@ jest.mock('../../database/queries/titres-demarches', () => ({
   titreDemarcheUpdate: jest.fn().mockResolvedValue(true)
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("statut des démarches d'un titre", () => {
   test("met à jour le statut d'une démarche", async () => {
@@ -18,7 +18,7 @@ describe("statut des démarches d'un titre", () => {
     )
 
     expect(titresDemarchesStatutUpdated.length).toEqual(1)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met pas à jour le statut d'une démarche", async () => {
@@ -27,6 +27,6 @@ describe("statut des démarches d'un titre", () => {
     )
 
     expect(titresDemarchesStatutUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

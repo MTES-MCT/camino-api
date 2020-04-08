@@ -16,7 +16,7 @@ const fileRename = async (oldFileName: string, newFileName: string) => {
     })
   })
     .then(res => {
-      console.log(
+      console.info(
         `fichier renommé: ${basename(oldPath)} -> ${basename(newPath)} `
       )
     })

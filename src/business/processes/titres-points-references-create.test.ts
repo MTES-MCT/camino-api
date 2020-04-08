@@ -7,7 +7,7 @@ jest.mock('../../database/queries/titres-points', () => ({
   titrePointReferenceCreate: jest.fn().mockResolvedValue(true)
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("références des points d'un titre", () => {
   test('crée une référence sur un point si elle est absente', async () => {
@@ -32,7 +32,7 @@ describe("références des points d'un titre", () => {
       titrePointId: 'point-id',
       geoSystemeId: '4326'
     })
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne crée pas de référence sur un titre qui n'a pas de point", async () => {
@@ -45,6 +45,6 @@ describe("références des points d'un titre", () => {
     expect(pointsReferencesCreated.length).toEqual(0)
 
     expect(queries.titrePointReferenceCreate).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

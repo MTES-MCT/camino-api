@@ -56,7 +56,7 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
           propsTitreEtapesIds
         })
 
-        console.log(
+        console.info(
           `mise à jour: titre ${titre.id} contenu: ${JSON.stringify(
             propsTitreEtapesIds
           )}`

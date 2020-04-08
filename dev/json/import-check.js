@@ -108,7 +108,7 @@ const data = [
       ? require(`../../src/database/models/${decamelize(name, '-')}`).default
       : null
   } catch (e) {
-    console.log(e)
+    console.info(e)
   }
 
   let data
@@ -190,7 +190,7 @@ const findMissing = relations =>
       const found = data[toTable].data.find(t => t[toField] === f[fromField])
 
       if (!found) {
-        console.log(
+        console.info(
           `${file}.${name}: ${fromTable}.${fromField} (${f[fromField]}) manquant dans ${toTable}`
         )
         console.error(f)

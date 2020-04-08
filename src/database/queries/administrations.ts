@@ -44,7 +44,7 @@ const administrationsGet = async (
 
   const q = administrationsQueryBuild({ fields }, user)
 
-  return q
+  return q.skipUndefined()
 }
 
 const administrationsUpsert = async (administrations: IAdministration[]) =>

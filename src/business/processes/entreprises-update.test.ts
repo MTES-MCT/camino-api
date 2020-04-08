@@ -53,7 +53,7 @@ const entreprisesEtablissementsGetMock = mocked(
   true
 )
 
-console.log = jest.fn()
+console.info = jest.fn()
 console.info = jest.fn()
 
 describe('entreprises', () => {
@@ -78,7 +78,7 @@ describe('entreprises', () => {
     ])
     expect(etablissementsDeleted.length).toEqual(0)
     expect(entreprisesUpdated).toEqual([{ id: 'papa', legalSiren: 'toto' }])
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalled()
   })
 
@@ -100,7 +100,7 @@ describe('entreprises', () => {
     expect(etablissementsUpdated).toEqual([{ id: 'toto', nom: 'tutu' }])
     expect(etablissementsDeleted.length).toEqual(0)
     expect(entreprisesUpdated).toEqual([{ id: 'toto', legalSiren: 'papa' }])
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('supprime les entreprises qui ont été supprimés', async () => {
@@ -121,7 +121,7 @@ describe('entreprises', () => {
     expect(etablissementsUpdated.length).toEqual(0)
     expect(etablissementsDeleted.length).toEqual(1)
     expect(entreprisesUpdated.length).toEqual(0)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('ne crée pas les entreprises qui existent déjà', async () => {
@@ -142,7 +142,7 @@ describe('entreprises', () => {
     expect(entreprisesUpdated).toEqual([])
     expect(etablissementsDeleted.length).toEqual(0)
     expect(etablissementsUpdated).toEqual([])
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ne modifie pas d'entreprises si elles n'existent pas", async () => {
@@ -163,6 +163,6 @@ describe('entreprises', () => {
     expect(etablissementsUpdated.length).toEqual(0)
     expect(etablissementsDeleted.length).toEqual(0)
     expect(entreprisesUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

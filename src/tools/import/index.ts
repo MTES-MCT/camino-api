@@ -43,7 +43,7 @@ const spreadsheetToJsonFiles = async ({
   tables,
   prefixFileName
 }: ISpreadsheet) => {
-  console.log(`spreadheet: ${name}`)
+  console.info(`spreadheet: ${name}`)
 
   try {
     // construit la liste avec un fichier par table

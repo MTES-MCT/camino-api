@@ -259,7 +259,7 @@ const titresEtapesAdministrationsLocalesUpdate = async (
       titresEtapesAdministrationsLocalesToCreate
     )
 
-    console.log(
+    console.info(
       `mise à jour: étape administrations ${titresEtapesAdministrationsLocalesCreated
         .map(tea => JSON.stringify(tea))
         .join(', ')}`
@@ -277,7 +277,7 @@ const titresEtapesAdministrationsLocalesUpdate = async (
         queue.add(async () => {
           await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
 
-          console.log(
+          console.info(
             `suppression: étape ${titreEtapeId}, administration ${administrationId}`
           )
 

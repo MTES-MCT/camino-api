@@ -13,139 +13,105 @@ import {
 
 import titreAdministrationsGestionnairesBuild from '../rules/titre-administrations-gestionnaires-build'
 
-const titreAdministrationsGestionnairesToCreatedFind = (
-  titreAdministrationsGestionnairesOldIds: string[],
-  titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[]
+const titreAsGsToCreatedFind = (
+  titreAsGsOldIds: string[],
+  titreAsGs: ITitreAdministrationsGestionnaire[]
 ) =>
-  titreAdministrationsGestionnaires.reduce(
+  titreAsGs.reduce(
     (
-      titresAdministrationsGestionnairesToCreate: ITitreAdministrationsGestionnaire[],
+      titresAsGsToCreate: ITitreAdministrationsGestionnaire[],
       titreAdministrationGestionnaire
     ) => {
       if (
-        !titreAdministrationsGestionnairesOldIds.some(
+        !titreAsGsOldIds.some(
           id => id === titreAdministrationGestionnaire.administrationId
         )
       ) {
-        titresAdministrationsGestionnairesToCreate.push(
-          titreAdministrationGestionnaire
-        )
+        titresAsGsToCreate.push(titreAdministrationGestionnaire)
       }
 
-      return titresAdministrationsGestionnairesToCreate
+      return titresAsGsToCreate
     },
     []
   )
 
-const titreAdministrationsGestionnairesToDeleteFind = (
-  titreAdministrationsGestionnairesOldIds: string[],
-  titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[],
+const titreAsGsToDeleteFind = (
+  titreAsGsOldIds: string[],
+  titreAsGs: ITitreAdministrationsGestionnaire[],
   titreId: string
 ) =>
-  titreAdministrationsGestionnairesOldIds.reduce(
-    (
-      titreAdministrationsGestionnairesToDelete: ITitreAdministrationsGestionnaire[],
-      id
-    ) => {
-      if (
-        !titreAdministrationsGestionnaires.find(
-          ({ administrationId }) => administrationId === id
-        )
-      ) {
-        titreAdministrationsGestionnairesToDelete.push({
+  titreAsGsOldIds.reduce(
+    (titreAsGsToDelete: ITitreAdministrationsGestionnaire[], id) => {
+      if (!titreAsGs.find(({ administrationId }) => administrationId === id)) {
+        titreAsGsToDelete.push({
           titreId,
           administrationId: id
         })
       }
 
-      return titreAdministrationsGestionnairesToDelete
+      return titreAsGsToDelete
     },
     []
   )
 
-const titresAdministrationsGestionnairesToCreateAndDeleteBuild = (
-  titres: ITitre[],
-  administrations: IAdministration[]
-) =>
-  titresAdministrationsGestionnairesToUpdateBuild(
-    titres,
-    administrations
-  ).reduce(
-    (
-      {
-        titresAdministrationsGestionnairesToCreate,
-        titresAdministrationsGestionnairesToDelete
-      }: {
-        titresAdministrationsGestionnairesToCreate: ITitreAdministrationsGestionnaire[]
-        titresAdministrationsGestionnairesToDelete: ITitreAdministrationsGestionnaire[]
-      },
-      {
-        titreAdministrationsGestionnairesOldIds,
-        titreAdministrationsGestionnaires,
-        titreId
-      }
-    ) => {
-      titresAdministrationsGestionnairesToCreate.push(
-        ...titreAdministrationsGestionnairesToCreatedFind(
-          titreAdministrationsGestionnairesOldIds,
-          titreAdministrationsGestionnaires
-        )
-      )
-
-      titresAdministrationsGestionnairesToDelete.push(
-        ...titreAdministrationsGestionnairesToDeleteFind(
-          titreAdministrationsGestionnairesOldIds,
-          titreAdministrationsGestionnaires,
-          titreId
-        )
-      )
-
-      return {
-        titresAdministrationsGestionnairesToCreate,
-        titresAdministrationsGestionnairesToDelete
-      }
-    },
-    {
-      titresAdministrationsGestionnairesToCreate: [],
-      titresAdministrationsGestionnairesToDelete: []
-    }
-  )
-
-interface ITitresAdministrationsGestionnairesToUpdate {
-  titreAdministrationsGestionnairesOldIds: string[]
-  titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[]
+interface ITitresAsGsToUpdate {
+  titreAsGsOldIds: string[]
+  titreAsGs: ITitreAdministrationsGestionnaire[]
   titreId: string
 }
 
-const titresAdministrationsGestionnairesToUpdateBuild = (
+const titresAsGsToUpdateBuild = (
   titres: ITitre[],
   administrations: IAdministration[]
 ) =>
-  titres.reduce(
+  titres.reduce((titresAsGsToUpdate: ITitresAsGsToUpdate[], titre) => {
+    const titreAsGs = titreAdministrationsGestionnairesBuild(
+      titre,
+      administrations
+    )
+
+    const titreAsGsToUpdate = {
+      titreAsGsOldIds: titre.administrationsGestionnaires
+        ? titre.administrationsGestionnaires.map(({ id }) => id)
+        : [],
+      titreAsGs,
+      titreId: titre.id
+    }
+
+    titresAsGsToUpdate.push(titreAsGsToUpdate)
+
+    return titresAsGsToUpdate
+  }, [])
+
+const titresAsGsToCreateAndDeleteBuild = (
+  titres: ITitre[],
+  administrations: IAdministration[]
+) =>
+  titresAsGsToUpdateBuild(titres, administrations).reduce(
     (
-      titresAdministrationsGestionnairesToUpdate: ITitresAdministrationsGestionnairesToUpdate[],
-      titre
+      {
+        titresAsGsToCreate,
+        titresAsGsToDelete
+      }: {
+        titresAsGsToCreate: ITitreAdministrationsGestionnaire[]
+        titresAsGsToDelete: ITitreAdministrationsGestionnaire[]
+      },
+      { titreAsGsOldIds, titreAsGs, titreId }
     ) => {
-      const titreAdministrationsGestionnaires = titreAdministrationsGestionnairesBuild(
-        titre,
-        administrations
+      titresAsGsToCreate.push(
+        ...titreAsGsToCreatedFind(titreAsGsOldIds, titreAsGs)
       )
 
-      const titreAdministrationsGestionnairesToUpdate = {
-        titreAdministrationsGestionnairesOldIds: titre.administrationsGestionnaires
-          ? titre.administrationsGestionnaires.map(({ id }) => id)
-          : [],
-        titreAdministrationsGestionnaires,
-        titreId: titre.id
-      }
-
-      titresAdministrationsGestionnairesToUpdate.push(
-        titreAdministrationsGestionnairesToUpdate
+      titresAsGsToDelete.push(
+        ...titreAsGsToDeleteFind(titreAsGsOldIds, titreAsGs, titreId)
       )
 
-      return titresAdministrationsGestionnairesToUpdate
+      return { titresAsGsToCreate, titresAsGsToDelete }
     },
-    []
+    {
+      titresAsGsToCreate: [],
+      titresAsGsToDelete: []
+    }
   )
 
 const titresAdministrationsGestionnairesUpdate = async (
@@ -153,57 +119,51 @@ const titresAdministrationsGestionnairesUpdate = async (
   administrations: IAdministration[]
 ) => {
   const {
-    titresAdministrationsGestionnairesToCreate,
-    titresAdministrationsGestionnairesToDelete
-  } = titresAdministrationsGestionnairesToCreateAndDeleteBuild(
-    titres,
-    administrations
-  )
+    titresAsGsToCreate,
+    titresAsGsToDelete
+  } = titresAsGsToCreateAndDeleteBuild(titres, administrations)
 
-  let titresAdministrationsGestionnairesCreated = [] as ITitreAdministrationsGestionnaire[]
-  const titresAdministrationsGestionnairesDeleted = [] as string[]
+  let titresAsGsCreated = [] as ITitreAdministrationsGestionnaire[]
+  const titresAsGsDeleted = [] as string[]
 
-  if (titresAdministrationsGestionnairesToCreate.length) {
-    titresAdministrationsGestionnairesCreated = await titresAdministrationsGestionnairesCreate(
-      titresAdministrationsGestionnairesToCreate
+  if (titresAsGsToCreate.length) {
+    titresAsGsCreated = await titresAdministrationsGestionnairesCreate(
+      titresAsGsToCreate
     )
 
-    console.log(
-      `mise à jour: étape administrations ${titresAdministrationsGestionnairesCreated
+    console.info(
+      `mise à jour: étape administrations ${titresAsGsCreated
         .map(tea => JSON.stringify(tea))
         .join(', ')}`
     )
   }
 
-  if (titresAdministrationsGestionnairesToDelete.length) {
+  if (titresAsGsToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresAdministrationsGestionnairesToDelete.reduce(
-      (
-        titresAdministrationsGestionnairesDeleted: string[],
-        { titreId, administrationId }
-      ) => {
+    titresAsGsToDelete.reduce(
+      (titresAsGsDeleted: string[], { titreId, administrationId }) => {
         queue.add(async () => {
           await titreAdministrationGestionnaireDelete(titreId, administrationId)
 
-          console.log(
+          console.info(
             `suppression: étape ${titreId}, administration ${administrationId}`
           )
 
-          titresAdministrationsGestionnairesDeleted.push(titreId)
+          titresAsGsDeleted.push(titreId)
         })
 
-        return titresAdministrationsGestionnairesDeleted
+        return titresAsGsDeleted
       },
-      titresAdministrationsGestionnairesDeleted
+      titresAsGsDeleted
     )
 
     await queue.onIdle()
   }
 
   return {
-    titresAdministrationsGestionnairesCreated,
-    titresAdministrationsGestionnairesDeleted
+    titresAdministrationsGestionnairesCreated: titresAsGsCreated,
+    titresAdministrationsGestionnairesDeleted: titresAsGsDeleted
   }
 }
 

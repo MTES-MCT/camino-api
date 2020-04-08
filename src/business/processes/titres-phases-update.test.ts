@@ -15,7 +15,7 @@ jest.mock('../../database/queries/titres-phases', () => ({
   titrePhasesDelete: jest.fn().mockResolvedValue(true)
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("phases d'un titre", () => {
   test('met à jour un titre dont une phase est créée', async () => {
@@ -27,7 +27,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesDeleted.length).toEqual(0)
 
     expect(queries.titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour un titre dont une phase est modifiée', async () => {
@@ -39,7 +39,7 @@ describe("phases d'un titre", () => {
     expect(titresPhasesDeleted.length).toEqual(0)
 
     expect(queries.titrePhasesUpsert).toHaveBeenCalledWith(titrePhase)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour un titre dont une phase est supprimée', async () => {
@@ -53,7 +53,7 @@ describe("phases d'un titre", () => {
     expect(queries.titrePhasesDelete).toHaveBeenCalledWith([
       'h-cx-courdemanges-1988-oct01'
     ])
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre si aucune phase n'est modifiée", async () => {
@@ -66,7 +66,7 @@ describe("phases d'un titre", () => {
 
     expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
     expect(queries.titrePhasesUpsert).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre si aucune phase n'existe", async () => {
@@ -79,6 +79,6 @@ describe("phases d'un titre", () => {
 
     expect(queries.titrePhasesDelete).not.toHaveBeenCalled()
     expect(queries.titrePhasesUpsert).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

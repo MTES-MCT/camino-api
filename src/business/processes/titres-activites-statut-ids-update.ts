@@ -26,7 +26,7 @@ const titreActivitesStatutIdsUpdate = async (
 
         await titreActiviteUpdate(titreActivite.id, { statutId }, {})
 
-        console.log(
+        console.info(
           `mise à jour: activité ${titreActivite.id}, ${JSON.stringify({
             statutId
           })}`

@@ -26,13 +26,14 @@ const titreEtapeUpdate = async (
 ) => {
   try {
     // 1.
-    console.log('ordre des étapes…')
+    console.info('ordre des étapes…')
     let titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       {
         fields: {
           etapes: { id: {} },
-          type: { etapesTypes: { id: {} } }
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} }
         }
       },
       'super'
@@ -47,7 +48,7 @@ const titreEtapeUpdate = async (
     ])
 
     // 2.
-    console.log('statut des démarches…')
+    console.info('statut des démarches…')
     titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       { fields: { etapes: { id: {} } } },
@@ -64,7 +65,7 @@ const titreEtapeUpdate = async (
     ])
 
     // 3.
-    console.log('ordre des démarches…')
+    console.info('ordre des démarches…')
     titre = await titreGet(
       titreId,
       { fields: { demarches: { etapes: { points: { id: {} } } } } },
@@ -75,7 +76,7 @@ const titreEtapeUpdate = async (
     ])
 
     // 4.
-    console.log('statut des titres…')
+    console.info('statut des titres…')
     titre = await titreGet(
       titreId,
       {
@@ -86,7 +87,7 @@ const titreEtapeUpdate = async (
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
-    console.log('phases des titres…')
+    console.info('phases des titres…')
     titre = await titreGet(
       titreId,
       {
@@ -102,7 +103,7 @@ const titreEtapeUpdate = async (
     ] = await titresPhasesUpdate([titre])
 
     // 6.
-    console.log('date de début, de fin et de demande initiale des titres…')
+    console.info('date de début, de fin et de demande initiale des titres…')
     titre = await titreGet(
       titreId,
       {
@@ -113,7 +114,7 @@ const titreEtapeUpdate = async (
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 8.
-    console.log('communes associées aux étapes…')
+    console.info('communes associées aux étapes…')
     let titreCommunesUpdated = []
     let titresEtapesCommunesCreated = []
     let titresEtapesCommunesDeleted = []
@@ -132,7 +133,7 @@ const titreEtapeUpdate = async (
     }
 
     // 10.
-    console.log('administrations locales associées aux étapes…')
+    console.info('administrations locales associées aux étapes…')
     let administrations = await administrationsGet({}, {}, 'super')
     titre = await titreGet(
       titreId,
@@ -155,7 +156,7 @@ const titreEtapeUpdate = async (
     ] = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
 
     // 11.
-    console.log('propriétés des titres (liens vers les étapes)…')
+    console.info('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(
       titreId,
       {
@@ -177,7 +178,7 @@ const titreEtapeUpdate = async (
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
-    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
+    console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titre = await titreGet(
       titreId,
       { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
@@ -186,8 +187,8 @@ const titreEtapeUpdate = async (
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
 
     // 13.
-    console.log()
-    console.log('activités des titres…')
+    console.info()
+    console.info('activités des titres…')
     titre = await titreGet(
       titreId,
       { fields: { demarches: { phase: { id: {} } } } },
@@ -200,57 +201,57 @@ const titreEtapeUpdate = async (
     )
 
     // 14.
-    console.log('ids de titres, démarches, étapes et sous-éléments…')
+    console.info('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
     )
-    console.log(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
-    console.log(
+    console.info(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
+    console.info(
       `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesAdministrationsLocalesDeleted.length} administration(s) locale(s) supprimée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
-    console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
-    console.log(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
+    console.info(`mise à jour: ${titresActivitesCreated.length} activités`)
+    console.info(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
 
     // export des activités vers la spreadsheet camino-db-titres-activites-prod
     if (titresActivitesCreated.length) {
-      console.log('export des activités…')
+      console.info('export des activités…')
       await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
     }
 

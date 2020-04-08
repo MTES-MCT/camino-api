@@ -115,13 +115,18 @@ const titrePermissionQueryBuild = (
     )
   })
 
-  q.modifyGraph('administrationsGestionnaires', b => {
-    b.whereRaw('?? is not true', ['associee'])
-  })
+  if (
+    !user ||
+    !permissionCheck(user, ['super', 'admin', 'editeur', 'lecteur'])
+  ) {
+    q.modifyGraph('administrationsGestionnaires', b => {
+      b.whereRaw('?? is not true', ['associee'])
+    })
 
-  q.modifyGraph('administrationsLocales', b => {
-    b.whereRaw('?? is not true', ['associee'])
-  })
+    q.modifyGraph('administrationsLocales', b => {
+      b.whereRaw('?? is not true', ['associee'])
+    })
+  }
 
   return q
 }

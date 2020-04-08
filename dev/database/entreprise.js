@@ -44,7 +44,7 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  console.log({ userId, titreId })
+  console.info({ userId, titreId })
 
   const res = await titreDemarcheGet(
     `${titreId}-oct01`,
@@ -59,7 +59,7 @@ async function main() {
     userId
   )
 
-  console.log(res.modification)
+  console.info(res.modification)
 
   await fileCreate('tmp/test-titre-demarche.json', JSON.stringify(res, null, 2))
 

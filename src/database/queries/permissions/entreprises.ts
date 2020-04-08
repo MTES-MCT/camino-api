@@ -43,7 +43,7 @@ const entreprisePermissionQueryBuild = (
     )
   )
 
-  // console.log(q.toKnexQuery().toString())
+  // console.info(q.toKnexQuery().toString())
 
   return q
 }

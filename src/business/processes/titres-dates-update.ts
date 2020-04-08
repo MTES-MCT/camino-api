@@ -33,7 +33,7 @@ const titresDatesUpdate = async (titres: ITitre[]) => {
       queue.add(async () => {
         await titreUpdate(titre.id, props)
 
-        console.log(
+        console.info(
           `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
         )
 

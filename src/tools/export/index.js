@@ -11,7 +11,7 @@ import spreadsheetEntreprises from './spreadsheets/entreprises'
 import spreadsheetTerritoires from './spreadsheets/territoires'
 
 const run = async () => {
-  console.log('Export en cours…')
+  console.info('Export en cours…')
 
   // construit un tableau de promesses avec
   // - les requête en base de données
@@ -47,7 +47,7 @@ const run = async () => {
     process.exit(1)
   }
 
-  console.log('Export terminé')
+  console.info('Export terminé')
   process.exit()
 }
 

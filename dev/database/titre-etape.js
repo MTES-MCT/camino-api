@@ -44,7 +44,7 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  console.log({ userId, titreId })
+  console.info({ userId, titreId })
 
   const res = await titreEtapeGet(
     `${titreId}-oct01-sco01`,
@@ -57,7 +57,7 @@ async function main() {
     userId
   )
 
-  console.log(res && res.modification)
+  console.info(res && res.modification)
 
   await fileCreate('tmp/test-titre-etape.json', JSON.stringify(res, null, 2))
 

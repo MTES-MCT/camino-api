@@ -47,7 +47,7 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  console.log({ userId, titreId })
+  console.info({ userId, titreId })
 
   const res = await demarchesTypesGet(
     {
@@ -59,9 +59,9 @@ async function main() {
   )
 
   res.forEach(dt => {
-    console.log('demarcheType.id:', dt.id)
+    console.info('demarcheType.id:', dt.id)
 
-    console.log('demarcheType.modification:', dt.modification)
+    console.info('demarcheType.modification:', dt.modification)
   })
 
   await fileCreate(

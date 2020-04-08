@@ -29,7 +29,7 @@ const titresDemarchesStatutUpdate = async (titres: ITitre[]) => {
               statutId
             })
 
-            console.log(
+            console.info(
               `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
                 statutId
               })}`

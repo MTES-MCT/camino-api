@@ -41,9 +41,9 @@ dest: ${to}`
     const res = await transport.sendMail({ from, to, subject, html })
     transport.close()
 
-    console.log(`Message sent: ${to}, ${subject}, ${res.response}`)
+    console.info(`Message sent: ${to}, ${subject}, ${res.response}`)
   } catch (e) {
-    console.log('erreur: emailsSend', e)
+    console.info('erreur: emailsSend', e)
     throw new Error(e)
   }
 }
@@ -58,7 +58,7 @@ const emailsSend = async (emails: string[], subject: string, html: string) => {
       throw new Error(`un tableau d'emails est attendu ${emails}`)
     }
   } catch (e) {
-    console.log('erreur: emailsSend', e)
+    console.info('erreur: emailsSend', e)
     throw new Error(e)
   }
 }

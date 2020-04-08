@@ -89,7 +89,7 @@ const utilisateursPermissionQueryBuild = (
     q.select(raw('false').as('permissionModification'))
   }
 
-  // console.log(q.toKnexQuery().toString())
+  // console.info(q.toKnexQuery().toString())
 
   return q
 }

@@ -18,14 +18,14 @@ const entreprises = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
   .map(e => e.legal_siren)
   .slice(0, 19)
 
-console.log(entreprises.length)
+console.info(entreprises.length)
 
 async function main() {
   const test = true
   if (test) {
     const result = await inseeSirenGet(entreprises)
 
-    console.log(result.length)
+    console.info(result.length)
 
     await fileCreate(
       'tmp/test-entreprises.json',
@@ -36,7 +36,7 @@ async function main() {
   if (!test) {
     const etablissements = await inseeSiretGet([siret1, siret2])
 
-    console.log(etablissements)
+    console.info(etablissements)
 
     await fileCreate(
       'test-etablissements.json',

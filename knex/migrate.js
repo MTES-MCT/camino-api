@@ -5,14 +5,14 @@ const chalk = require('chalk')
 
 const run = async () => {
   try {
-    console.log('rollback…')
+    console.info('rollback…')
     const [rollBackBatchNo, rollbackLog] = await knex.migrate.rollback()
 
     if (rollbackLog.length === 0) {
-      console.log(chalk.cyan('already at the base migration'))
+      console.info(chalk.cyan('already at the base migration'))
     }
 
-    console.log(
+    console.info(
       chalk.green(
         `batch ${rollBackBatchNo} rolled back: ${rollbackLog.length} migrations \n`
       ) +
@@ -20,13 +20,13 @@ const run = async () => {
         '\n'
     )
 
-    console.log('migrate…')
+    console.info('migrate…')
     const [latestBatchNo, latestLog] = await knex.migrate.latest()
     if (latestLog.length === 0) {
-      console.log(chalk.cyan(`already up to date\n`))
+      console.info(chalk.cyan(`already up to date\n`))
     }
 
-    console.log(
+    console.info(
       chalk.green(
         `batch ${latestBatchNo} run: ${latestLog.length} migrations \n`
       ) +
@@ -34,20 +34,20 @@ const run = async () => {
         '\n'
     )
 
-    console.log('seed…')
+    console.info('seed…')
     const [seedLog] = await knex.seed.run()
     if (seedLog.length === 0) {
-      console.log(chalk.cyan('no seed files exist') + '\n')
+      console.info(chalk.cyan('no seed files exist') + '\n')
     }
 
-    console.log(
+    console.info(
       chalk.green(
         `ran ${seedLog.length} seed files \n${chalk.cyan(seedLog.join('\n'))}` +
           '\n'
       )
     )
 
-    console.log('migrations terminées')
+    console.info('migrations terminées')
     process.exit()
   } catch (e) {
     if (e instanceof Error) {

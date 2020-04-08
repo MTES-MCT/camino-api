@@ -42,7 +42,7 @@ const geojson = {
 async function main() {
   const communes = await api(geojson)
 
-  console.log(communes)
+  console.info(communes)
 
   process.exit()
 }

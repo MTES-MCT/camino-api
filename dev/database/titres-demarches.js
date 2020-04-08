@@ -47,7 +47,7 @@ async function main() {
   try {
     console.time('demarches')
 
-    console.log({ userId })
+    console.info({ userId })
 
     const res = await titresDemarchesGet(
       { titresDomainesIds: ['m'], titresStatutsIds: ['ech'] },
@@ -59,7 +59,7 @@ async function main() {
 
     console.timeEnd('demarches')
 
-    console.log('demarches.length', res && res.length)
+    console.info('demarches.length', res && res.length)
 
     await fileCreate(
       'tmp/test-titre-demarche.json',

@@ -34,7 +34,7 @@ const data = files.reduce((d, file) => {
 
       return res.concat(content)
     } catch (e) {
-      console.log(chalk.red(e.message.split('\n')[0]))
+      console.info(chalk.red(e.message.split('\n')[0]))
     }
 
     return res

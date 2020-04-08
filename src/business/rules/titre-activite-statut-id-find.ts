@@ -3,6 +3,7 @@ import { ITitreActivite } from '../../types'
 // TODO: ajouter un cas si les activités ont un délai null (champ vide)
 const titreActiviteStatutIdFind = (titreActivite: ITitreActivite) => {
   // si l'activité a un statut différent de "déposé" ou "fermé"
+
   if (!['dep', 'fer'].includes(titreActivite.statutId)) {
     const dateDepot = new Date(titreActivite.date)
 

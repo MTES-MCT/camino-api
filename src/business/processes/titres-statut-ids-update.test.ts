@@ -9,7 +9,7 @@ jest.mock('../../database/queries/titres', () => ({
   titreUpdate: jest.fn().mockResolvedValue(true)
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("statut d'un titre", () => {
   test('met à jour un titre si son statut est obsolète', async () => {
@@ -17,7 +17,7 @@ describe("statut d'un titre", () => {
       titresEchuStatutIdObselete
     )
     expect(titresUpdatedRequests.length).toEqual(1)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met pas à jour le statut d'un titre", async () => {
@@ -25,6 +25,6 @@ describe("statut d'un titre", () => {
       titresValideStatutIdAJour
     )
     expect(titresUpdatedRequests.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

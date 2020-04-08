@@ -11,7 +11,7 @@ jest.mock('../../database/queries/titres-etapes', () => ({
   titreEtapeUpdate: jest.fn().mockResolvedValue(true)
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe('ordre des étapes', () => {
   test("met à jour l'ordre de deux étapes", async () => {

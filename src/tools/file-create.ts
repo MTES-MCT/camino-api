@@ -9,7 +9,7 @@ const fileCreate = async (name: string, content: string) =>
         reject(err)
       }
 
-      console.log('fichier:', name)
+      console.info('fichier:', name)
       resolve()
     })
   })

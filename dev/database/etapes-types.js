@@ -52,19 +52,19 @@ async function main() {
   // titre avec activités
   // const titreId = 'm-ax-auror-2018'
 
-  console.log({ userId, titreId })
+  console.info({ userId, titreId })
 
   const user = await userGet(userId)
 
-  console.log(
+  console.info(
     'user.administrations',
     user.administrations?.map(a => a.id).join(', ')
   )
 
   const titre = await titreGet(titreId, { fields: {} }, userId)
 
-  console.log('type:', titre.typeId)
-  console.log('statut:', titre.statutId)
+  console.info('type:', titre.typeId)
+  console.info('statut:', titre.statutId)
 
   const res = await etapesTypesGet(
     {
@@ -76,9 +76,9 @@ async function main() {
   )
 
   res.forEach(et => {
-    console.log('etapeType.id:', et.id)
+    console.info('etapeType.id:', et.id)
 
-    console.log('etapeType.etapesCreation:', et.etapesCreation)
+    console.info('etapeType.etapesCreation:', et.etapesCreation)
   })
 
   await fileCreate('tmp/test-etapes-types.json', JSON.stringify(res, null, 2))

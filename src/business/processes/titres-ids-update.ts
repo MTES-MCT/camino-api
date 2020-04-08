@@ -47,7 +47,7 @@ const titreIdsUpdate = async (titre: ITitre) => {
     await titreIdUpdate(titreOldId, titre)
     await titreFichiersRename(titreOldId, titre)
 
-    console.log(`mise à jour: titre ids: ${titre.id}`)
+    console.info(`mise à jour: titre ids: ${titre.id}`)
 
     return { [titre.id]: titreOldId }
   } catch (e) {

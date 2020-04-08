@@ -38,7 +38,7 @@ const titreGetMock = mocked(titreGet, true)
 const titreIdUpdateMock = mocked(titreIdUpdate, true)
 const titreIdFindMock = mocked(titreIdFind, true)
 
-console.log = jest.fn()
+console.info = jest.fn()
 console.error = jest.fn()
 
 const titre = { id: 'id-old' } as ITitre
@@ -69,7 +69,7 @@ describe("mise à jour de l'id d'un titre", () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour les activités du titre si son id a changé', async () => {
@@ -87,7 +87,7 @@ describe("mise à jour de l'id d'un titre", () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met pas à jour le titre si aucun id n'a changé", async () => {
@@ -102,7 +102,7 @@ describe("mise à jour de l'id d'un titre", () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })
 
@@ -124,7 +124,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour les démarches si leur id a changé', async () => {
@@ -147,7 +147,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met à jour aucun titre si aucun id n'a changé", async () => {
@@ -163,7 +163,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ajoute un hash dans l'id si le titre est en doublon", async () => {
@@ -188,7 +188,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.info).toHaveBeenCalledTimes(1)
   })
 
   test("utilise un hash déjà existant dans l'id si le titre est en doublon", async () => {
@@ -218,7 +218,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.info).toHaveBeenCalledTimes(1)
   })
 
   test("supprime le hash dans l'id si le titre n'est plus en doublon", async () => {
@@ -241,7 +241,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.info).toHaveBeenCalledTimes(1)
   })
 
   test('retourne une erreur si la base de données retourne une erreur', async () => {
@@ -260,7 +260,7 @@ describe('id de plusieurs titres', () => {
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
     expect(console.error).toHaveBeenCalledTimes(2)
   })
 })

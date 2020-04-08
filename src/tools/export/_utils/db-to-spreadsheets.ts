@@ -22,12 +22,12 @@ const dbToSpreadsheets = async <T>({
   tables
 }: ISpreadsheet<T>) => {
   if (!id) {
-    console.log(`spreadsheet: ${name}, id de la spreadsheet manquant`)
+    console.info(`spreadsheet: ${name}, id de la spreadsheet manquant`)
 
     return
   }
 
-  console.log(`spreadsheet: ${name}`)
+  console.info(`spreadsheet: ${name}`)
   const elements = await get()
 
   // obtient les infos sur la spreadsheet
@@ -35,7 +35,7 @@ const dbToSpreadsheets = async <T>({
   const requests = requestsBuild<T>(infos.sheets, tables, elements)
 
   await spreadsheetBatchUpdate(credentials, id, requests)
-  console.log(`export: ${elements.length} ${name}`)
+  console.info(`export: ${elements.length} ${name}`)
 }
 
 const requestsBuild = <T>(

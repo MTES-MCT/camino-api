@@ -19,11 +19,11 @@ const titresIds = process.env.PUBLIC_TITRES_IDS.split(',')
 
 const run = async () => {
   try {
-    console.log('Copie de la base de données…')
+    console.info('Copie de la base de données…')
     await dbManager.dropDb('camino_public')
     await dbManager.copyDb(config.knex.connection.database, 'camino_public')
 
-    console.log('Suppression des informations confidentielles…')
+    console.info('Suppression des informations confidentielles…')
 
     const connection = {
       host: process.env.PGHOST,
@@ -45,15 +45,17 @@ const run = async () => {
       .whereNotIn('id', titresIds)
       .del()
 
-    console.log(`${titresDeleted} titres supprimés de la base de données`)
+    console.info(`${titresDeleted} titres supprimés de la base de données`)
 
     const activitesDeleted = await knex('titresActivites').del()
 
-    console.log(`${activitesDeleted} activités supprimés de la base de données`)
+    console.info(
+      `${activitesDeleted} activités supprimés de la base de données`
+    )
 
     const utilisateursDeleted = await knex('utilisateurs').del()
 
-    console.log(
+    console.info(
       `${utilisateursDeleted} utilisateurs supprimés de la base de données`
     )
 
@@ -75,7 +77,7 @@ const run = async () => {
       .whereNotIn('id', Object.keys(entreprisesIdsIndex))
       .del()
 
-    console.log(
+    console.info(
       `${entreprisesDeleted} entreprises supprimées de la base de données`
     )
 
@@ -97,7 +99,7 @@ const run = async () => {
       .whereNotIn('id', Object.keys(administrationsIdsIndex))
       .del()
 
-    console.log(
+    console.info(
       `${administrationsDeleted} administrations supprimées de la base de données`
     )
 
@@ -116,7 +118,7 @@ const run = async () => {
       .whereNotIn('id', Object.keys(communesIdsIndex))
       .del()
 
-    console.log(`${communesDeleted} communes supprimées de la base de données`)
+    console.info(`${communesDeleted} communes supprimées de la base de données`)
 
     const titresSubstances = await knex('titres_substances')
 
@@ -133,7 +135,7 @@ const run = async () => {
       .whereNotIn('id', Object.keys(substancesIdsIndex))
       .del()
 
-    console.log(
+    console.info(
       `${substancesDeleted} substances supprimées de la base de données`
     )
 

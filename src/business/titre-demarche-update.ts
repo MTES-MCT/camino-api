@@ -27,14 +27,14 @@ const titreDemarcheUpdate = async (titreId: string) => {
     }
 
     // 3.
-    console.log('ordre des démarches…')
+    console.info('ordre des démarches…')
 
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
       titre
     ])
 
     // 4.
-    console.log('statut des titres…')
+    console.info('statut des titres…')
     titre = await titreGet(
       titreId,
       {
@@ -45,7 +45,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
-    console.log('phases des titres…')
+    console.info('phases des titres…')
     titre = await titreGet(
       titreId,
       {
@@ -59,7 +59,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     ] = await titresPhasesUpdate([titre])
 
     // 6.
-    console.log('date de début, de fin et de demande initiale des titres…')
+    console.info('date de début, de fin et de demande initiale des titres…')
     titre = await titreGet(
       titreId,
       {
@@ -70,7 +70,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 11.
-    console.log('propriétés des titres (liens vers les étapes)…')
+    console.info('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(
       titreId,
       {
@@ -92,7 +92,7 @@ const titreDemarcheUpdate = async (titreId: string) => {
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
-    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
+    console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titre = await titreGet(
       titreId,
       {
@@ -104,8 +104,8 @@ const titreDemarcheUpdate = async (titreId: string) => {
 
     // 13.
     // pour les année 2018 et 2019 (en dur)
-    console.log()
-    console.log('activités des titres…')
+    console.info()
+    console.info('activités des titres…')
 
     titre = await titreGet(
       titreId,
@@ -119,38 +119,38 @@ const titreDemarcheUpdate = async (titreId: string) => {
     )
 
     // 14.
-    console.log('ids de titres, démarches, étapes et sous-éléments…')
+    console.info('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
-    console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
-    console.log(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
+    console.info(`mise à jour: ${titresActivitesCreated.length} activités`)
+    console.info(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
 
     if (titresActivitesCreated.length) {
       // export des activités vers la spreadsheet camino-db-titres-activites-prod
-      console.log('export des activités…')
+      console.info('export des activités…')
       await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
     }
 

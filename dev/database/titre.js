@@ -53,7 +53,7 @@ async function main() {
   //
   // const titreId = 'm-ax-crique-marie-hilaire-2018'
 
-  console.log({ userId, titreId })
+  console.info({ userId, titreId })
 
   // console.time('titres')
   // const titres = await titresGet(
@@ -81,25 +81,25 @@ async function main() {
     userId
   )
 
-  console.log('type:', res.typeId)
-  console.log('statut:', res.statutId)
+  console.info('type:', res.typeId)
+  console.info('statut:', res.statutId)
 
-  console.log('etapes:')
+  console.info('etapes:')
 
   res.demarches.forEach(d => {
-    console.log(
+    console.info(
       'demarche:',
       d.id,
       `modification: ${d.modification}, etapesCreation: ${d.etapesCreation}`
     )
 
     d.etapes.forEach(e => {
-      console.log(`etape.${e.id}, modification: ${e.modification}`)
+      console.info(`etape.${e.id}, modification: ${e.modification}`)
     })
   })
 
-  console.log('activites:')
-  console.log(
+  console.info('activites:')
+  console.info(
     res.activites
       .map(
         e =>
@@ -108,11 +108,11 @@ async function main() {
       .join('\n')
   )
 
-  console.log('titre.modification:', res.modification)
+  console.info('titre.modification:', res.modification)
 
-  console.log('titre.activitesAbsentes:', res.activitesAbsentes)
-  console.log('titre.activitesEnConstruction:', res.activitesEnConstruction)
-  console.log('titre.activitesDeposees:', res.activitesDeposees)
+  console.info('titre.activitesAbsentes:', res.activitesAbsentes)
+  console.info('titre.activitesEnConstruction:', res.activitesEnConstruction)
+  console.info('titre.activitesDeposees:', res.activitesDeposees)
 
   await fileCreate('tmp/test-titre.json', JSON.stringify(res, null, 2))
 

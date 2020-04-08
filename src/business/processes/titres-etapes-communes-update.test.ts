@@ -38,12 +38,9 @@ jest.mock('../../tools/api-communes/index', () => ({
   default: jest.fn()
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
-const apiCommunesMocked = mocked(
-  apiCommunes,
-  true
-)
+const apiCommunesMocked = mocked(apiCommunes, true)
 
 describe("communes et communes d'étapes", () => {
   test('ajoute 2 communes dans une étape et dans la liste de communes', async () => {
@@ -58,7 +55,7 @@ describe("communes et communes d'étapes", () => {
     expect(titreCommunesUpdated.length).toEqual(2)
     expect(titresEtapesCommunesUpdated.length).toEqual(2)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).toHaveBeenCalledTimes(3)
+    expect(console.info).toHaveBeenCalledTimes(3)
   })
 
   test("n'ajoute qu'une seule fois une commune en doublon", async () => {
@@ -73,7 +70,7 @@ describe("communes et communes d'étapes", () => {
     expect(titreCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.info).toHaveBeenCalledTimes(2)
   })
 
   test("n'ajoute aucune commune dans l'étape ni dans la liste de communes", async () => {
@@ -88,7 +85,7 @@ describe("communes et communes d'étapes", () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas de commune si l'étape n'a pas de périmètre", async () => {
@@ -103,7 +100,7 @@ describe("communes et communes d'étapes", () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas de commune si l'étape n'a pas de la propriété `points`", async () => {
@@ -118,7 +115,7 @@ describe("communes et communes d'étapes", () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas de commune si elle existe déjà dans l'étape", async () => {
@@ -128,15 +125,14 @@ describe("communes et communes d'étapes", () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(
-      titresEtapesPointsCommuneExistante,
-      [commune1]
-    )
+    ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneExistante, [
+      commune1
+    ])
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("met à jour la commune dans l'étape si sa surface couverte a changé", async () => {
@@ -146,15 +142,14 @@ describe("communes et communes d'étapes", () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(
-      titresEtapesPointsCommuneExistante,
-      [commune1SurfaceChangee]
-    )
+    ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneExistante, [
+      commune1SurfaceChangee
+    ])
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("supprime une commune si l'étape ne la contient plus dans son périmètre", async () => {
@@ -164,12 +159,15 @@ describe("communes et communes d'étapes", () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneInexistante, [])
+    ] = await titresEtapeCommunesUpdate(
+      titresEtapesPointsCommuneInexistante,
+      []
+    )
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(1)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("retourne un message d'erreur si l'API Géo communes ne répond pas", async () => {
@@ -185,6 +183,6 @@ describe("communes et communes d'étapes", () => {
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(apiCommunesMocked).toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

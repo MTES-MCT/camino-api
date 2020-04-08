@@ -9,7 +9,7 @@ jest.mock('../../database/queries/titres-demarches', () => ({
   titreDemarcheUpdate: jest.fn().mockResolvedValue(true)
 }))
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe('ordre des démarches', () => {
   test("met à jour l'ordre de deux démarches", async () => {
@@ -17,7 +17,7 @@ describe('ordre des démarches', () => {
       titresDemarchesDesordonnees
     )
     expect(titresDemarchesOrdreUpdated.length).toEqual(2)
-    expect(console.log).toHaveBeenCalledTimes(2)
+    expect(console.info).toHaveBeenCalledTimes(2)
   })
 
   test('ne met à jour aucune démarche', async () => {
@@ -25,6 +25,6 @@ describe('ordre des démarches', () => {
       titresDemarchesOrdonnees
     )
     expect(titresDemarchesOrdreUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })
