@@ -15,17 +15,12 @@ import {
 
 import { dupRemove } from '../../../tools/index'
 
-import { permissionsCheck } from '../permissions/permissions-check'
-import { titreIsPublicCheck, titrePermissionCheck } from '../permissions/titre'
-import { titrePermissionAdministrationsCheck } from '../permissions/titre-edition'
-
-import { administrationsFormat } from './administrations'
-import { entreprisesFormat } from './entreprises'
+import { administrationFormat } from './administrations'
+import { entrepriseFormat } from './entreprises'
 
 import {
   titreActiviteFormatFields,
-  titresActivitesFormat,
-  titreActiviteCalc
+  titreActiviteFormat
 } from './titres-activites'
 
 import {
@@ -40,9 +35,6 @@ const titreFormatFields = {
   pays: {},
   demarches: titreDemarcheFormatFields,
   activites: titreActiviteFormatFields,
-  activitesAbsentes: {},
-  activitesDeposees: {},
-  activitesEnConstruction: {},
   administrations: {}
 } as IFields
 
@@ -134,27 +126,6 @@ const titreFormat = (
   t: ITitre,
   fields: IFields = titreFormatFields
 ) => {
-  const titreIsPublic = titreIsPublicCheck(t)
-  const userHasPermission = titrePermissionCheck(
-    user,
-    ['super', 'admin', 'editeur', 'lecteur'],
-    t
-  )
-
-  if (!titreIsPublic && !userHasPermission) {
-    return null
-  }
-
-  const isSuper = permissionsCheck(user, ['super'])
-  const isAdmin = permissionsCheck(user, ['admin'])
-
-  if (isSuper || isAdmin) {
-    t.editable =
-      isSuper ||
-      titrePermissionAdministrationsCheck(user, t.typeId, t.statutId!)
-    t.supprimable = isSuper
-  }
-
   if (!fields) return t
 
   if (t.points?.length) {
@@ -171,23 +142,10 @@ const titreFormat = (
     }
   }
 
-  if (fields.demarches && t.demarches && t.demarches.length) {
-    t.demarches = t.demarches.reduce((demarches: ITitreDemarche[], td) => {
-      const titreDemarcheFormatted = titreDemarcheFormat(
-        user,
-        td,
-        t.typeId,
-        t.statutId!,
-        { userHasPermission, isSuper, isAdmin },
-        fields.demarches
-      )
-
-      if (titreDemarcheFormatted) {
-        demarches.push(titreDemarcheFormatted)
-      }
-
-      return demarches
-    }, [])
+  if (fields.demarches && t.demarches?.length) {
+    t.demarches = t.demarches.map(td =>
+      titreDemarcheFormat(user, td, t.typeId, t.statutId!, fields.demarches)
+    )
   }
 
   if (fields.type?.sections) {
@@ -198,52 +156,10 @@ const titreFormat = (
     t.surface = t.surfaceEtape.surface
   }
 
-  if (t.activites?.length) {
-    t.activitesAbsentes = fields.activitesAbsentes
-      ? titreActiviteCalc(
-          user,
-          t.activites,
-          'abs',
-          t.amodiataires,
-          t.titulaires
-        )
-      : 0
-
-    t.activitesDeposees = fields.activitesDeposees
-      ? titreActiviteCalc(
-          user,
-          t.activites,
-          'dep',
-          t.amodiataires,
-          t.titulaires
-        )
-      : 0
-
-    t.activitesEnConstruction = fields.activitesEnConstruction
-      ? titreActiviteCalc(
-          user,
-          t.activites,
-          'enc',
-          t.amodiataires,
-          t.titulaires
-        )
-      : 0
-
-    if (fields.activites) {
-      t.activites = titresActivitesFormat(
-        user,
-        t.activites,
-        t.amodiataires,
-        t.titulaires,
-        fields.activites
-      )
-    }
-  } else {
-    t.activitesAbsentes = 0
-    t.activitesDeposees = 0
-    t.activitesEnConstruction = 0
-
-    t.activites = []
+  if (fields.activites && t.activites?.length) {
+    t.activites = t.activites.map(ta =>
+      titreActiviteFormat(ta, fields.activites)
+    )
   }
 
   if (fields.administrations) {
@@ -251,27 +167,18 @@ const titreFormat = (
       t.administrationsGestionnaires?.length || t.administrationsLocales?.length
     if (hasAdministrations) {
       // fusionne administrations gestionnaires et locales
-      let administrations = dupRemove('id', [
+      const administrations = dupRemove('id', [
         ...(t.administrationsGestionnaires || []),
         ...(t.administrationsLocales || [])
       ]) as IAdministration[]
-
-      // si l'utilisateur n'a pas de droits de visualisation suffisants
-      // alors filtre les administrations `associee`
-      administrations = !permissionsCheck(user, [
-        'super',
-        'admin',
-        'editeur',
-        'lecteur'
-      ])
-        ? administrations.filter(a => !a.associee)
-        : administrations
 
       t.administrations = administrations.sort(
         (a, b) => a.type.ordre - b.type.ordre
       )
 
-      t.administrations = administrationsFormat(user, t.administrations)
+      t.administrations = t.administrations.map(a =>
+        administrationFormat(user, a)
+      )
 
       delete t.administrationsGestionnaires
       delete t.administrationsLocales
@@ -280,13 +187,9 @@ const titreFormat = (
     }
   }
 
-  if (t.titulaires) {
-    t.titulaires = entreprisesFormat(user, t.titulaires)
-  }
+  t.titulaires = t.titulaires?.map(e => entrepriseFormat(user, e))
 
-  if (t.amodiataires) {
-    t.amodiataires = entreprisesFormat(user, t.amodiataires)
-  }
+  t.amodiataires = t.amodiataires?.map(e => entrepriseFormat(user, e))
 
   return t
 }

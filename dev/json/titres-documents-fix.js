@@ -80,7 +80,7 @@ const titresDocumentsFilesMove = domaineId => {
           try {
             rename(pathNameOld, pathNameNew)
 
-            console.log(`${pathNameOld} => ${pathNameNew}`)
+            console.info(`${pathNameOld} => ${pathNameNew}`)
 
             count += 1
           } catch (e) {
@@ -103,7 +103,7 @@ const titresDocumentsFilesMove = domaineId => {
 
             rename(pathNameOld, pathNameNew)
 
-            console.log(`${pathNameOld} => ${pathNameNew}`)
+            console.info(`${pathNameOld} => ${pathNameNew}`)
 
             count += 1
           } catch (e) {

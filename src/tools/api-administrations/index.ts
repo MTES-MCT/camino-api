@@ -82,7 +82,7 @@ const organismeDepartementCall = async (departementId: string, nom: string) => {
           `API Administration: lecture de l'organisme depuis le cache, département: ${departementId}, type: ${nom}`
         )
       } catch (e) {
-        console.log(
+        console.info(
           `API Administration: pas de fichier de cache ${cacheFilePath}`
         )
 

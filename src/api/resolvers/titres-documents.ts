@@ -4,7 +4,7 @@ import * as cryptoRandomString from 'crypto-random-string'
 import { debug } from '../../config/index'
 import fileDelete from '../../tools/file-delete'
 import fileStreamCreate from '../../tools/file-stream-create'
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { titreFormat } from './format/titres'
 
 import {
@@ -16,10 +16,12 @@ import {
 
 import { titreGet } from '../../database/queries/titres'
 
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import titreDocumentUpdationValidate from '../../business/titre-document-updation-validate'
 import { ITitreDocument, IToken } from '../../types'
+import { GraphQLResolveInfo } from 'graphql'
+import fieldsBuild from './_fields-build'
 
 const documentValidate = (document: ITitreDocument) => {
   const errors = []
@@ -37,12 +39,12 @@ const documentValidate = (document: ITitreDocument) => {
 
 const documentCreer = async (
   { document }: { document: ITitreDocument },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    const user = context.user && (await userGet(context.user.id))
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -76,8 +78,12 @@ const documentCreer = async (
 
     const documentUpdated = await titreDocumentCreate(document)
 
+    const fields = fieldsBuild(info)
+    // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
-      documentUpdated.titreEtapeId.slice(0, -12)
+      documentUpdated.titreEtapeId.slice(0, -12),
+      { fields },
+      user.id
     )
 
     return titreFormat(user, titreUpdated)
@@ -92,12 +98,13 @@ const documentCreer = async (
 
 const documentModifier = async (
   { document }: { document: ITitreDocument },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -120,14 +127,9 @@ const documentModifier = async (
         const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
 
         try {
-          await fileDelete(
-            join(
-              process.cwd(),
-              documentOldPath
-            )
-          )
+          await fileDelete(join(process.cwd(), documentOldPath))
         } catch (e) {
-          console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
+          console.info(`impossible de supprimer le fichier: ${documentOldPath}`)
         }
       }
     }
@@ -147,8 +149,12 @@ const documentModifier = async (
 
     const documentUpdated = await titreDocumentUpdate(document.id, document)
 
+    const fields = fieldsBuild(info)
+    // todo: récupérer le titre autrement qu'en SLICANT l'id
     const titreUpdated = await titreGet(
-      documentUpdated.titreEtapeId.slice(0, -12)
+      documentUpdated.titreEtapeId.slice(0, -12),
+      { fields },
+      user.id
     )
 
     return titreFormat(user, titreUpdated)
@@ -161,11 +167,15 @@ const documentModifier = async (
   }
 }
 
-const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
+const documentSupprimer = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionsCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -179,20 +189,21 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
       const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
 
       try {
-        await fileDelete(
-          join(
-            process.cwd(),
-            documentOldPath
-          )
-        )
+        await fileDelete(join(process.cwd(), documentOldPath))
       } catch (e) {
-        console.log(`impossible de supprimer le fichier: ${documentOldPath}`)
+        console.info(`impossible de supprimer le fichier: ${documentOldPath}`)
       }
     }
 
     await titreDocumentDelete(id)
 
-    const titreUpdated = await titreGet(documentOld.titreEtapeId.slice(0, -12))
+    const fields = fieldsBuild(info)
+    // todo: récupérer le titre autrement qu'en SLICANT l'id
+    const titreUpdated = await titreGet(
+      documentOld.titreEtapeId.slice(0, -12),
+      { fields },
+      user.id
+    )
 
     return titreFormat(user, titreUpdated)
   } catch (e) {

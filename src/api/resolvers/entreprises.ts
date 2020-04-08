@@ -7,15 +7,13 @@ import {
   entreprisesGet,
   entrepriseUpsert
 } from '../../database/queries/entreprises'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-import graphFormat from './graph/format'
+import fieldsBuild from './_fields-build'
 
-import { entrepriseFormat, entreprisesFormat } from './format/entreprises'
+import { entrepriseFormat } from './format/entreprises'
 
-import { permissionsCheck } from './permissions/permissions-check'
+import { permissionCheck } from '../../tools/permission'
 import { emailCheck } from './permissions/utilisateur'
 
 import { entrepriseAndEtablissementsGet } from '../../tools/api-insee/index'
@@ -26,14 +24,15 @@ const entreprise = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const fields = fieldsBuild(info)
 
-    const graph = graphBuild(graphFieldsBuild(info), 'entreprise', graphFormat)
-    const entreprise = await entrepriseGet(id, { graph })
+    const entreprise = await entrepriseGet(id, { fields }, context.user?.id)
 
     if (!entreprise) {
       throw new Error('aucune entreprise référencée avec cet identifiant')
     }
+
+    const user = context.user && (await userGet(context.user.id))
 
     return entrepriseFormat(user, entreprise)
   } catch (e) {
@@ -51,15 +50,17 @@ const entreprises = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const fields = fieldsBuild(info)
+
     const entreprises = await entreprisesGet(
       { noms },
-      {
-        graph: graphBuild(graphFieldsBuild(info), 'entreprise', graphFormat)
-      }
+      { fields },
+      context.user?.id
     )
 
-    return entreprisesFormat(user, entreprises)
+    const user = context.user && (await userGet(context.user.id))
+
+    return entreprises.map(e => entrepriseFormat(user, e))
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -71,12 +72,13 @@ const entreprises = async (
 
 const entrepriseCreer = async (
   { entreprise }: { entreprise: IEntreprise },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 
@@ -86,8 +88,12 @@ const entrepriseCreer = async (
       errors.push('impossible de créer une entreprise étrangère')
     }
 
+    const fields = fieldsBuild(info)
+
     const entrepriseOld = await entrepriseGet(
-      `${entreprise.paysId}-${entreprise.legalSiren}`
+      `${entreprise.paysId}-${entreprise.legalSiren}`,
+      { fields },
+      context.user?.id
     )
 
     if (entrepriseOld) {
@@ -120,12 +126,13 @@ const entrepriseCreer = async (
 
 const entrepriseModifier = async (
   { entreprise }: { entreprise: IEntreprise },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionsCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 

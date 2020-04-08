@@ -2,6 +2,10 @@ import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 
 import { IEtapeType } from '../../types'
+import {
+  AutorisationsEtapesTypes,
+  RestrictionsTitresTypesEtapesTypesAdministrations
+} from './autorisations'
 
 interface EtapesTypes extends IEtapeType {}
 
@@ -35,6 +39,24 @@ class EtapesTypes extends Model {
           extra: ['ordre']
         },
         to: 'etapesStatuts.id'
+      }
+    },
+
+    autorisations: {
+      relation: Model.HasOneRelation,
+      modelClass: AutorisationsEtapesTypes,
+      join: {
+        from: 'etapesTypes.id',
+        to: 'a__etapesTypes.etapeTypeId'
+      }
+    },
+
+    restrictionsAdministrations: {
+      relation: Model.HasManyRelation,
+      modelClass: RestrictionsTitresTypesEtapesTypesAdministrations,
+      join: {
+        from: 'etapesTypes.id',
+        to: 'r__titresTypes__etapesTypes__administrations.etapeTypeId'
       }
     }
   }

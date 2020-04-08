@@ -29,7 +29,7 @@ const titresPointsReferencesCreate = async (titresPoints: ITitrePoint[]) => {
     queue.add(async () => {
       await titrePointReferenceCreate(r)
 
-      console.log(`création: référence du point ${JSON.stringify(r.id)}`)
+      console.info(`création: référence du point ${JSON.stringify(r.id)}`)
     })
   )
 

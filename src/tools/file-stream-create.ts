@@ -18,7 +18,7 @@ const fileStreamCreate = async (stream: any, path: string) =>
         })
       })
       .on('finish', () => {
-        console.log(`fichier ajouté: ${path}`)
+        console.info(`fichier ajouté: ${path}`)
         resolve()
       })
   })

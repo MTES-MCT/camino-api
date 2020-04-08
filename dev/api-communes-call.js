@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import api from '../api-communes/index'
+import api from '../src/tools/api-communes'
 
 const geojson = {
   type: 'Feature',
@@ -42,7 +42,7 @@ const geojson = {
 async function main() {
   const communes = await api(geojson)
 
-  console.log(communes)
+  console.info(communes)
 
   process.exit()
 }

@@ -13,10 +13,6 @@ interface IColonne {
   relation?: string
 }
 
-interface IColonnes {
-  [key: string]: IColonne
-}
-
 type ITitreColonneInput = 'nom' | 'domaine' | 'type' | 'statut'
 
 type ITitreDemarcheColonneInput =
@@ -106,8 +102,8 @@ interface IAdministration {
   abreviation?: string | null
   titresTypes?: ITitreType[] | null
   utilisateurs?: IUtilisateur[] | null
-  titresAdministrationsGestionnaires?: ITitre[] | null
-  titresAdministrationsLocales?: ITitre[] | null
+  titresAdministrationGestionnaire?: ITitre[] | null
+  titresAdministrationLocale?: ITitre[] | null
   associee?: boolean | null
   membre?: boolean
 }
@@ -164,7 +160,7 @@ interface IDemarcheType {
   etapesTypes: IEtapeType[]
   titreTypeId?: string | null
   unique?: boolean | null
-  editable?: boolean | null
+  demarchesCreation?: boolean | null
 }
 
 interface IDepartement {
@@ -191,6 +187,7 @@ interface IDomaine {
   nom: string
   ordre: number
   titresTypes: ITitreType[]
+  titresCreation: boolean
 }
 
 interface IEntrepriseEtablissement {
@@ -222,7 +219,7 @@ interface IEntreprise {
   utilisateurs?: IUtilisateur[] | null
   titresTitulaire?: ITitre[] | null
   titresAmodiataire?: ITitre[] | null
-  editable?: boolean | null
+  modification?: boolean | null
 }
 
 interface IEtapeStatut {
@@ -244,7 +241,7 @@ interface IEtapeType {
   etapesStatuts?: IEtapeStatut[] | null
   titreTypeId?: string | null
   demarcheTypeId?: string | null
-  editable?: boolean | null
+  etapesCreation?: boolean | null
   unique?: boolean | null
 }
 
@@ -303,8 +300,16 @@ interface IPeriode {
   frequence: IFrequence
 }
 
+type IPermissionId =
+  | 'super'
+  | 'admin'
+  | 'editeur'
+  | 'lecteur'
+  | 'entreprise'
+  | 'defaut'
+
 interface IPermission {
-  id: string
+  id: IPermissionId
   nom: string
   ordre: number
 }
@@ -441,8 +446,8 @@ interface ITitre {
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
   pays?: IPays[] | null
-  editable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
   doublonTitreId?: string | null
   propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
   contenu?: IContenu | null
@@ -465,7 +470,7 @@ interface ITitreActivite {
   dateSaisie?: string
   contenu?: IContenu | null
   sections?: ISection[] | null
-  editable?: boolean | null
+  modification?: boolean | null
 }
 
 interface ITitreAdministrationsGestionnaire {
@@ -503,9 +508,9 @@ interface ITitreDemarche {
   annulationDemarche?: ITitreDemarche | null
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
-  editable?: boolean | null
-  etapesEditable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  etapesCreation?: boolean | null
+  suppression?: boolean | null
 }
 
 interface ITitreDocument {
@@ -522,8 +527,8 @@ interface ITitreDocument {
   fichierTypeId?: string | null
   fichierNouveau?: { file: FileUpload } | null
   public?: boolean | null
-  editable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
 }
 
 interface ITitreEtape {
@@ -551,8 +556,8 @@ interface ITitreEtape {
   communes?: ICommune[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
-  editable?: boolean | null
-  supprimable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
 }
 
 interface ITitreEtapeFiltre {
@@ -630,7 +635,7 @@ interface ITitreType {
   sections?: ISection[] | null
   gestionnaire?: boolean | null
   associee?: boolean | null
-  editable?: boolean | null
+  titresCreation?: boolean | null
 }
 
 interface ITitreTypeType {
@@ -657,15 +662,15 @@ interface IUtilisateur {
   prenom?: string | null
   telephoneFixe?: string | null
   telephoneMobile?: string | null
-  permissionId: string
+  permissionId: IPermissionId
   // TODO: définir une interface IUtilisateurPreferences
   preferences?: any | null
   permission: IPermission
   administrations?: IAdministration[] | null
   entreprises?: IEntreprise[] | null
-  editable?: boolean | null
-  supprimable?: boolean | null
-  permissionEditable?: boolean | null
+  modification?: boolean | null
+  suppression?: boolean | null
+  permissionModification?: boolean | null
 }
 
 interface IToken {
@@ -753,6 +758,7 @@ export {
   IMois,
   IPays,
   IPermission,
+  IPermissionId,
   IPeriode,
   IPhaseStatut,
   IReferenceType,
@@ -794,7 +800,6 @@ export {
   ITitreColonneInput,
   ITitreDemarcheColonneInput,
   IColonne,
-  IColonnes,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,
   ITitreCondition

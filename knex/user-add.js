@@ -31,9 +31,9 @@ const run = async () => {
   if (!errors.length) {
     utilisateur.motDePasse = bcrypt.hashSync(password, 10)
     await knex('utilisateurs').insert(utilisateur)
-    console.log('Utilisateur créé')
+    console.info('Utilisateur créé')
   } else {
-    console.log('Aucun utilisateur créé:', errors.join(', '))
+    console.info('Aucun utilisateur créé:', errors.join(', '))
   }
 
   process.exit()

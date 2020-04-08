@@ -19,7 +19,7 @@ type Entreprise {
   titresTitulaire: [Titre]
   titresAmodiataire: [Titre]
 
-  editable: Boolean
+  modification: Boolean
 }
 
 type EntrepriseEtablissement {

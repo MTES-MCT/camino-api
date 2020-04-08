@@ -77,7 +77,7 @@ const titreActivitesRowUpdate = async (
 
     return null
   } catch (e) {
-    console.log("erreur: ajout d'une ligne dans la spreasheet activités", e)
+    console.info("erreur: ajout d'une ligne dans la spreasheet activités", e)
 
     return null
   }

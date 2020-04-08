@@ -1,10 +1,7 @@
 import { debug } from '../../config/index'
-import { titrePermissionCheck } from '../resolvers/permissions/titre'
 import { titreDocumentGet } from '../../database/queries/titres-documents'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
-import { titreGet } from '../../database/queries/titres'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
 
 const fileNameGet = async (
   userId: string | undefined,
@@ -13,12 +10,6 @@ const fileNameGet = async (
   try {
     if (!userId) {
       throw new Error('droits insuffisants')
-    }
-
-    const user = await utilisateurGet(userId)
-
-    if (!user) {
-      throw new Error('utilisateur inexistant')
     }
 
     if (!titreDocumentId) {
@@ -36,11 +27,18 @@ const fileNameGet = async (
       return titreDocumentFileName
     }
 
-    const titreEtape = await titreEtapeGet(titreDocument.titreEtapeId)
-    const titreDemarche = await titreDemarcheGet(titreEtape.titreDemarcheId)
-    const titre = await titreGet(titreDemarche.titreId)
+    const titreEtape = await titreEtapeGet(
+      titreDocument.titreEtapeId,
+      {},
+      userId
+    )
+    const titreDemarche = await titreDemarcheGet(
+      titreEtape.titreDemarcheId,
+      { fields: {} },
+      userId
+    )
 
-    if (!titrePermissionCheck(user, ['super', 'admin', 'editeur'], titre)) {
+    if (!titreDemarche) {
       throw new Error('droits insuffisants')
     }
 

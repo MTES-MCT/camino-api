@@ -11,10 +11,9 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../../tools/geojson'
 import { titreSectionsFormat } from './titres-sections'
-import { etapesTypesFormat } from './etapes-types'
-import { administrationsFormat } from './administrations'
-import { entreprisesFormat } from './entreprises'
-import { titreEtapePermissionAdministrationsCheck } from '../permissions/titre-edition'
+import { etapeTypeSectionsFormat } from './etapes-types'
+import { administrationFormat } from './administrations'
+import { entrepriseFormat } from './entreprises'
 
 const titreEtapeFormatFields = {
   geojsonMultiPolygon: {},
@@ -27,45 +26,11 @@ const titreEtapeFormat = (
   user: IUtilisateur | undefined,
   titreEtape: ITitreEtape,
   titreTypeId: string,
-  titreStatutId: string,
   titreDemarcheType: IDemarcheType,
-  {
-    userHasPermission,
-    isSuper,
-    isAdmin
-  }: { userHasPermission?: boolean; isSuper: boolean; isAdmin: boolean },
   fields = titreEtapeFormatFields
 ) => {
-  if (isSuper || isAdmin) {
-    titreEtape.editable =
-      isSuper ||
-      titreEtapePermissionAdministrationsCheck(
-        user,
-        titreTypeId,
-        titreStatutId,
-        titreEtape.typeId,
-        'modification'
-      )
-
-    titreEtape.supprimable = isSuper
-  }
-
   if (titreEtape.type) {
-    const etapeType = titreDemarcheType.etapesTypes.find(
-      et => et.id === titreEtape.type!.id
-    )
-    if (!etapeType) {
-      throw new Error(
-        `« ${titreEtape.type.nom} » inexistant pour une démarche « ${titreDemarcheType.nom} » pour un titre « ${titreTypeId} »`
-      )
-    }
-
-    // crée une copie du type d'étape pour ne pas modifier le cache applicatif
-    titreEtape.type = JSON.parse(JSON.stringify(etapeType))
-
-    titreEtape.type!.editable = titreEtape.editable
-
-    titreEtape.type = etapesTypesFormat(titreEtape.type!)
+    titreEtape.type = etapeTypeSectionsFormat(titreEtape.type)
 
     if (titreEtape.type.sections) {
       titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)
@@ -88,33 +53,17 @@ const titreEtapeFormat = (
     }
   }
 
-  if (titreEtape.documents) {
-    if (!userHasPermission) {
-      titreEtape.documents = titreEtape.documents.filter(
-        titreDocument => titreDocument.public
-      )
-    } else {
-      titreEtape.documents.forEach(titreDocument => {
-        titreDocument.editable = titreEtape.editable
-        titreDocument.supprimable = isSuper
-      })
-    }
-  }
+  titreEtape.administrations = titreEtape.administrations?.map(a =>
+    administrationFormat(user, a)
+  )
 
-  if (titreEtape.administrations) {
-    titreEtape.administrations = administrationsFormat(
-      user,
-      titreEtape.administrations
-    )
-  }
+  titreEtape.titulaires = titreEtape.titulaires?.map(e =>
+    entrepriseFormat(user, e)
+  )
 
-  if (titreEtape.titulaires) {
-    titreEtape.titulaires = entreprisesFormat(user, titreEtape.titulaires)
-  }
-
-  if (titreEtape.amodiataires) {
-    titreEtape.amodiataires = entreprisesFormat(user, titreEtape.amodiataires)
-  }
+  titreEtape.amodiataires = titreEtape.amodiataires?.map(e =>
+    entrepriseFormat(user, e)
+  )
 
   return titreEtape
 }

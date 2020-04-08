@@ -64,7 +64,7 @@ const administrationsUpdate = async (
 
   if (administrationsUpdated.length) {
     await administrationsUpsert(administrationsUpdated)
-    console.log(
+    console.info(
       `mise à jour: administrations ${administrationsUpdated
         .map(a => a.id)
         .join(', ')}`

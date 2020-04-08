@@ -33,6 +33,15 @@ class TitresDocuments extends Model {
         from: 'titresDocuments.typeId',
         to: 'documentsTypes.id'
       }
+    },
+
+    etape: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'titres-etapes'),
+      join: {
+        from: 'titresDocuments.titreEtapeId',
+        to: 'titresEtapes.id'
+      }
     }
   }
 }

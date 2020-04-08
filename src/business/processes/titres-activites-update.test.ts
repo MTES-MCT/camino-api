@@ -38,7 +38,7 @@ const activitesTypesFilterMock = mocked(activitesTypesFilter, true)
 const activiteTypeAnneesFindMock = mocked(activiteTypeAnneesFind, true)
 const titreActivitesBuildMock = mocked(titreActivitesBuild, true)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("activités d'un titre", () => {
   test('met à jour un titre sans activité', async () => {
@@ -58,7 +58,7 @@ describe("activités d'un titre", () => {
     )
     expect(titreActivitesUpsert).toHaveBeenCalled()
     expect(titreActivitesBuild).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('ne met pas à jour un titre possédant déjà des activités', async () => {
@@ -76,7 +76,7 @@ describe("activités d'un titre", () => {
     expect(activitesTypesFilter).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).toHaveBeenCalled()
     expect(titreActivitesUpsert).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour un titre ne correspondant à aucun type d'activité", async () => {
@@ -93,7 +93,7 @@ describe("activités d'un titre", () => {
     expect(activitesTypesFilter).toHaveBeenCalledTimes(1)
     expect(titreActivitesBuild).not.toHaveBeenCalled()
     expect(titreActivitesUpsert).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test('ne met pas à jour de titre si les activités ne sont valables sur aucune année', async () => {
@@ -110,6 +110,6 @@ describe("activités d'un titre", () => {
     expect(activitesTypesFilter).not.toHaveBeenCalled()
     expect(titreActivitesBuild).not.toHaveBeenCalled()
     expect(titreActivitesUpsert).not.toHaveBeenCalled()
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

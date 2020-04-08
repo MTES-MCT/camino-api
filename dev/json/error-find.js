@@ -39,12 +39,12 @@ const titulaires = [
 
 // demarches.forEach(d => {
 //   const ti = titres.find(t => t.id === d.titre_id)
-//   if (!ti) console.log(d.titre_id)
+//   if (!ti) console.info(d.titre_id)
 // })
 
 titulaires.forEach(t => {
   const d = entreprises.find(e => e.id === t.entreprise_id)
   if (!d) {
-    console.log(t.titre_etape_id, t.entreprise_id)
+    console.info(t.titre_etape_id, t.entreprise_id)
   }
 })

@@ -39,9 +39,9 @@ type Demarche {
   "Démarches liées"
   parents: [Demarche]
 
-  editable: Boolean
-  etapesEditable: Boolean
-  supprimable: Boolean
+  modification: Boolean
+  etapesCreation: Boolean
+  suppression: Boolean
   total: Int
 }
 

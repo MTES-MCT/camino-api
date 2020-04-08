@@ -1,21 +1,16 @@
 import { debug } from '../../config/index'
 import { titresGet } from '../../database/queries/titres'
 import { titresActivitesGet } from '../../database/queries/titres-activites'
-import { titreIsPublicCheck } from './permissions/titre'
 const ACTIVITE_ANNEE_DEBUT = 2018
 
 const statistiques = async () => {
   try {
-    const titres = await titresGet({}, { graph: undefined })
+    const titres = await titresGet({}, { fields: {} }, 'super')
     const titresTotal = titres.length
 
-    const titresValide = titres.filter(titre => {
-      const titreIsPublic = titreIsPublicCheck(titre)
+    const titresValide = (await titresGet({}, { fields: {} })).length
 
-      return titreIsPublic ? titre : null
-    }).length
-
-    const titresActivites = await titresActivitesGet()
+    const titresActivites = await titresActivitesGet({}, {}, 'super')
 
     const titresActivitesDepose = titresActivites.filter(
       titreActivite =>

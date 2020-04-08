@@ -43,18 +43,26 @@ app.use('/', middlewareUpload, middlewareGraphql)
 if (process.env.SENTRY_DSN) {
   // test sentry
   // app.get('/', (req, res) => {
-  //   console.log('broke')
+  //   console.info('broke')
   //   throw new Error('Broke!')
   // })
   app.use(Sentry.Handlers.errorHandler())
 }
 
 app.listen(port, () => {
-  console.log(' ')
-  console.log(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
-  console.log(chalk.bgWhiteBright.black.bold('> ENV: ' + process.env.ENV + ' '))
-  console.log(
+  console.info(' ')
+  console.info(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
+  console.info(
+    chalk.bgWhiteBright.black.bold('> ENV: ' + process.env.ENV + ' ')
+  )
+  console.info(
     chalk.bgWhiteBright.black.bold('> NODE_ENV: ' + process.env.NODE_ENV + ' ')
   )
-  console.log(' ')
+
+  if (process.env.NODE_DEBUG === 'true') {
+    console.info(
+      chalk.bgRed.black.bold('> NODE_DEBUG: ' + process.env.NODE_DEBUG + ' ')
+    )
+  }
+  console.info(' ')
 })

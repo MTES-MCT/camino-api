@@ -34,28 +34,28 @@ async function main() {
   )
 
   if (filesMissing.length === 0) {
-    console.log(
+    console.info(
       'Tous les fichiers correspondent à des documents dans la base de données'
     )
   } else {
-    console.log(
+    console.info(
       `${filesMissing.length} fichiers ne correspondent a aucun document dans la base de données`
     )
-    console.log(filesMissing.map(file => `- ${file}`).join('\n'))
+    console.info(filesMissing.map(file => `- ${file}`).join('\n'))
   }
 
   const titreDocumentsFichiersMissing = Object.keys(
     titresDocumentsIndex
   ).filter(titresDocumentsName => !filesIndex[titresDocumentsName])
   if (titreDocumentsFichiersMissing.length === 0) {
-    console.log(
+    console.info(
       'Tous les documents en base de données ont des fichiers correspondants'
     )
   } else {
-    console.log(
+    console.info(
       `${titreDocumentsFichiersMissing.length} documents en base de données n'ont pas de fichiers correspondants`
     )
-    console.log(
+    console.info(
       titreDocumentsFichiersMissing.map(titres => `- ${titres}`).join('\n')
     )
   }

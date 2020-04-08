@@ -103,8 +103,12 @@ const phases = {
   graph: 'statut'
 }
 
+const etapesTypes = {
+  graph: `[etapesStatuts, autorisations]`
+}
+
 const demarchesTypes = {
-  graph: `[etapesTypes.etapesStatuts]`
+  graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
 const demarchesRelateTrue = [
@@ -121,13 +125,15 @@ const titresTypesUpdateFalse = [
   'type',
   'demarchesTypes',
   'demarchesTypes.etapesTypes',
-  'demarchesTypes.etapesTypes.etapesStatuts'
+  'demarchesTypes.etapesTypes.etapesStatuts',
+  'demarchesTypes.etapesTypes.autorisations'
 ]
 
 const demarchesUpdateFalse = [
   ...demarchesRelateTrue,
   'type.etapesTypes',
   'type.etapesTypes.etapesStatuts',
+  'type.etapesTypes.autorisations',
   'titreType',
   ...titresTypesUpdateFalse.map(k => `titreType.${k}`)
 ]
@@ -177,11 +183,11 @@ const titresActivites = {
 }
 
 const titresTypes = {
-  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type]`
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
 }
 
 const domaines = {
-  graph: `[titresTypes(orderAsc).${titresTypes.graph}]`
+  graph: `[titresTypes(orderAsc).${titresTypes.graph}, autorisation]`
 }
 
 const titresRelateTrue = [
@@ -270,6 +276,7 @@ export default {
   entreprises,
   entreprisesEtablissements,
   etapes,
+  etapesTypes,
   demarchesTypes,
   domaines,
   geoSystemes,

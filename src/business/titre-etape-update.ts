@@ -26,10 +26,18 @@ const titreEtapeUpdate = async (
 ) => {
   try {
     // 1.
-    console.log('ordre des étapes…')
-    let titreDemarche = await titreDemarcheGet(titreDemarcheId, {
-      graph: '[etapes, type.[etapesTypes]]'
-    })
+    console.info('ordre des étapes…')
+    let titreDemarche = await titreDemarcheGet(
+      titreDemarcheId,
+      {
+        fields: {
+          etapes: { id: {} },
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} }
+        }
+      },
+      'super'
+    )
 
     if (!titreDemarche) {
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
@@ -40,61 +48,83 @@ const titreEtapeUpdate = async (
     ])
 
     // 2.
-    console.log('statut des démarches…')
-    titreDemarche = await titreDemarcheGet(titreDemarcheId, {
-      graph: 'etapes'
-    })
+    console.info('statut des démarches…')
+    titreDemarche = await titreDemarcheGet(
+      titreDemarcheId,
+      { fields: { etapes: { id: {} } } },
+      'super'
+    )
     let { titreId } = titreDemarche
-    let titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc)]'
-    })
+    let titre = await titreGet(
+      titreId,
+      { fields: { demarches: { etapes: { id: {} } } } },
+      'super'
+    )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
       titre
     ])
 
     // 3.
-    console.log('ordre des démarches…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc)]'
-    })
+    console.info('ordre des démarches…')
+    titre = await titreGet(
+      titreId,
+      { fields: { demarches: { etapes: { points: { id: {} } } } } },
+      'super'
+    )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
       titre
     ])
 
     // 4.
-    console.log('statut des titres…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
-    })
+    console.info('statut des titres…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { id: {} } } }
+      },
+      'super'
+    )
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
     // 5.
-    console.log('phases des titres…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]'
-    })
+    console.info('phases des titres…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
+    )
     const [
       titresPhasesUpdated = [],
       titresPhasesDeleted = []
     ] = await titresPhasesUpdate([titre])
 
     // 6.
-    console.log('date de début, de fin et de demande initiale des titres…')
-    titre = await titreGet(titreId, {
-      graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]'
-    })
+    console.info('date de début, de fin et de demande initiale des titres…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: { demarches: { etapes: { points: { id: {} } } } }
+      },
+      'super'
+    )
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     // 8.
-    console.log('communes associées aux étapes…')
+    console.info('communes associées aux étapes…')
     let titreCommunesUpdated = []
     let titresEtapesCommunesCreated = []
     let titresEtapesCommunesDeleted = []
     // si l'étape est supprimée, pas de mise à jour
     if (titreEtapeId) {
-      const titreEtape = await titreEtapeGet(titreEtapeId, {
-        graph: '[points(orderAsc), communes]'
-      })
+      const titreEtape = await titreEtapeGet(
+        titreEtapeId,
+        { fields: { points: { id: {} }, communes: { id: {} } } },
+        'super'
+      )
       const communes = await communesGet()
       const result = await titresEtapeCommunesUpdate([titreEtape], communes)
       titreCommunesUpdated = result[0]
@@ -103,37 +133,67 @@ const titreEtapeUpdate = async (
     }
 
     // 10.
-    console.log('administrations locales associées aux étapes…')
-    let administrations = await administrationsGet()
-    titre = await titreGet(titreId, {
-      graph:
-        'demarches(orderDesc).etapes(orderDesc).[administrations,communes.[departement]]'
-    })
-    administrations = await administrationsGet()
+    console.info('administrations locales associées aux étapes…')
+    let administrations = await administrationsGet({}, {}, 'super')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              administrations: { id: {} },
+              communes: { departement: { id: {} } }
+            }
+          }
+        }
+      },
+      'super'
+    )
+    administrations = await administrationsGet({}, {}, 'super')
     const [
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
     ] = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
 
     // 11.
-    console.log('propriétés des titres (liens vers les étapes)…')
-    titre = await titreGet(titreId, {
-      graph:
-        'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
-    })
+    console.info('propriétés des titres (liens vers les étapes)…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              points: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              administrations: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} }
+            }
+          }
+        }
+      },
+      'super'
+    )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
     // 12.
-    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
-    titre = await titreGet(titreId, {
-      graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
-    })
+    console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
+    titre = await titreGet(
+      titreId,
+      { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
+      'super'
+    )
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
 
     // 13.
-    console.log()
-    console.log('activités des titres…')
-    titre = await titreGet(titreId, { graph: 'demarches(orderDesc).[phase]' })
+    console.info()
+    console.info('activités des titres…')
+    titre = await titreGet(
+      titreId,
+      { fields: { demarches: { phase: { id: {} } } } },
+      'super'
+    )
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
@@ -141,62 +201,62 @@ const titreEtapeUpdate = async (
     )
 
     // 14.
-    console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId, {})
+    console.info('ids de titres, démarches, étapes et sous-éléments…')
+    titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
     )
-    console.log(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
-    console.log(
+    console.info(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
+    console.info(
       `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) ajoutée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesAdministrationsLocalesDeleted.length} administration(s) locale(s) supprimée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
-    console.log(`mise à jour: ${titresActivitesCreated.length} activités`)
-    console.log(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
+    console.info(`mise à jour: ${titresActivitesCreated.length} activités`)
+    console.info(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
 
     // export des activités vers la spreadsheet camino-db-titres-activites-prod
     if (titresActivitesCreated.length) {
-      console.log('export des activités…')
+      console.info('export des activités…')
       await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
     }
 
-    // on récupère le titre bien formaté
-    return titreGet(titreId)
+    // on récupère le titre
+    return titreId
   } catch (e) {
     console.error(`erreur: titreEtapeUpdate ${titreEtapeId}`)
     console.error(e)

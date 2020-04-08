@@ -16,7 +16,7 @@ const titreDateFinFindMock = mocked(titreDateFinFind, true)
 const titreDateDebutFindMock = mocked(titreDateDebutFind, true)
 const titreDateDemandeFindMock = mocked(titreDateDemandeFind, true)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("dates d'un titre", () => {
   test("met à jour les dates d'un titre", async () => {
@@ -29,7 +29,7 @@ describe("dates d'un titre", () => {
     ] as ITitre[])
 
     expect(titresDatesUpdated.length).toEqual(1)
-    expect(console.log).toHaveBeenCalledTimes(1)
+    expect(console.info).toHaveBeenCalledTimes(1)
   })
 
   test('ne met à jour aucun titre', async () => {
@@ -47,6 +47,6 @@ describe("dates d'un titre", () => {
     ] as unknown) as ITitre[])
 
     expect(titresDatesUpdated.length).toEqual(0)
-    expect(console.log).toHaveBeenCalledTimes(0)
+    expect(console.info).toHaveBeenCalledTimes(0)
   })
 })

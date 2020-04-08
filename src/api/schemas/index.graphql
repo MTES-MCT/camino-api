@@ -86,13 +86,13 @@ type Query {
   activitesTypes: [ActiviteType]
 
   "Types de démarches"
-  demarchesTypes: [DemarcheType]
+  demarchesTypes(titreId: ID, titreDemarcheId: ID): [DemarcheType]
 
   "Statuts de démarches"
   demarchesStatuts: [DemarcheStatut]
 
   "Types d'étapes"
-  etapesTypes: [EtapeType]
+  etapesTypes(titreDemarcheId: ID, titreEtapeId: ID): [EtapeType]
 
   "__*__ Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
@@ -138,15 +138,6 @@ type Query {
 
   "Statistiques"
   statistiques: Statistiques
-
-  "__+__ Domaines disponibles pour un utilisateur"
-  utilisateurDomaines: [Domaine]
-
-  "__+__ Types de démarches disponibles dans un titre"
-  titreDemarchesTypes(titreId: ID!, demarcheTypeId: ID): [DemarcheType]
-
-  "__+__ Types d'étapes disponibles dans une démarche"
-  demarcheEtapesTypes(titreDemarcheId: ID!, etapeTypeId: ID): [EtapeType]
 }
 
 """

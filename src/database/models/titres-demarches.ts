@@ -30,7 +30,8 @@ class TitresDemarches extends Model {
       modelClass: join(__dirname, 'demarches-types'),
       join: {
         from: 'titresDemarches.typeId',
-        to: 'demarchesTypes.id'
+        to: 'demarchesTypes.id',
+        extra: { titreId: 'titresDemarches.titreId' }
       }
     },
 
@@ -43,6 +44,7 @@ class TitresDemarches extends Model {
       }
     },
 
+    // todo: pourquoi ne pas utiliser la relation `titre` ?
     titreType: {
       relation: Model.HasOneThroughRelation,
       modelClass: join(__dirname, 'titres-types'),

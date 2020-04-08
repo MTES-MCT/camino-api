@@ -13,7 +13,7 @@ jest.mock('../rules/titre-prop-etape-id-find', () => ({
 
 const titrePropEtapeIdFindMock = mocked(titrePropEtapeIdFind, true)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("propriétés (étape) d'un titre", () => {
   test('trouve 8 propriétés dans les étapes', async () => {
@@ -24,7 +24,7 @@ describe("propriétés (étape) d'un titre", () => {
     ])
 
     expect(titresUpdatedRequests.length).toEqual(1)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('ne trouve pas de propriétés dans les étapes', async () => {

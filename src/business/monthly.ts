@@ -12,10 +12,10 @@ import entreprisesUpdate from './processes/entreprises-update'
 const run = async () => {
   try {
     // 1.
-    console.log()
-    console.log('entreprises (API INSEE)…')
+    console.info()
+    console.info('entreprises (API INSEE)…')
 
-    const entreprises = await entreprisesGet()
+    const entreprises = await entreprisesGet({}, {}, 'super')
     const entreprisesEtablissements = await entreprisesEtablissementsGet()
 
     const [
@@ -28,29 +28,29 @@ const run = async () => {
     // mise à jour des administrations grâce à l'API Administration
 
     const departements = await departementsGet()
-    const administrations = await administrationsGet()
+    const administrations = await administrationsGet({}, {}, 'super')
     const administrationsUpdated = await administrationsUpdate(
       administrations,
       departements
     )
 
-    console.log()
-    console.log('tâches mensuelles exécutées:')
+    console.info()
+    console.info('tâches mensuelles exécutées:')
 
-    console.log(
+    console.info(
       `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`
     )
-    console.log(
+    console.info(
       `suppression: ${etablissementsDeleted.length} établissement(s) d'entreprise(s)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${administrationsUpdated.length} administration(s)`
     )
   } catch (e) {
-    console.log('erreur:', e)
+    console.info('erreur:', e)
   } finally {
     process.exit()
   }

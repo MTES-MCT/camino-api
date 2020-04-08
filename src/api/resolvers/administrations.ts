@@ -5,15 +5,11 @@ import {
   administrationGet,
   administrationsGet
 } from '../../database/queries/administrations'
-import { utilisateurGet } from '../../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-import graphFormat from './graph/format'
-import {
-  administrationFormat,
-  administrationsFormat
-} from './format/administrations'
+import fieldsBuild from './_fields-build'
+
+import { administrationFormat } from './format/administrations'
 
 const administration = async (
   { id }: { id: string },
@@ -21,11 +17,13 @@ const administration = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    const administration = await administrationGet(id, {
-      graph: graphBuild(graphFieldsBuild(info), 'administration', graphFormat)
-    })
+    const user = context.user && (await userGet(context.user.id))
+    const fields = fieldsBuild(info)
+    const administration = await administrationGet(
+      id,
+      { fields },
+      context.user?.id
+    )
 
     return administrationFormat(user, administration)
   } catch (e) {
@@ -43,16 +41,15 @@ const administrations = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
+    const user = context.user && (await userGet(context.user.id))
+    const fields = fieldsBuild(info)
     const administrations = await administrationsGet(
       { noms },
-      {
-        graph: graphBuild(graphFieldsBuild(info), 'administration', graphFormat)
-      }
+      { fields },
+      context.user?.id
     )
 
-    return administrationsFormat(user, administrations)
+    return administrations.map(a => administrationFormat(user, a))
   } catch (e) {
     if (debug) {
       console.error(e)

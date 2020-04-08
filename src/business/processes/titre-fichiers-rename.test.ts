@@ -17,7 +17,7 @@ jest.mock('../../tools/file-rename', () => ({
 
 const fileRenameMock = mocked(fileRename, true)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("renomme les fichiers d'un titre", () => {
   test("renomme les fichiers d'un titre", async () => {

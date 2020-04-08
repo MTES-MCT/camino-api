@@ -4,28 +4,17 @@ import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
 
 import { titreActiviteEmailsSend } from './_titre-activite'
-import { permissionsCheck } from './permissions/permissions-check'
-import {
-  titrePermissionCheck,
-  titreActivitePermissionCheck
-} from './permissions/titre'
+import { permissionCheck } from '../../tools/permission'
 import { titreActiviteFormat } from './format/titres-activites'
 
-import graphFieldsBuild from './graph/fields-build'
-import graphBuild from './graph/build'
-import graphFormat from './graph/format'
-import { fieldTitreAdd } from './graph/fields-add'
+import fieldsBuild from './_fields-build'
 
 import {
   titreActiviteGet,
   titresActivitesGet,
   titreActiviteUpdate as titreActiviteUpdateQuery
 } from '../../database/queries/titres-activites'
-import {
-  utilisateurGet,
-  utilisateursGet
-} from '../../database/queries/utilisateurs'
-import { titreGet } from '../../database/queries/titres'
+import { userGet, utilisateursGet } from '../../database/queries/utilisateurs'
 
 import { titreActivitesRowUpdate } from '../../tools/export/titre-activites'
 
@@ -37,28 +26,17 @@ const activite = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const fields = fieldsBuild(info)
 
-    let fields = graphFieldsBuild(info)
-    fields = fieldTitreAdd(fields)
+    const titreActivite = await titreActiviteGet(
+      id,
+      { fields },
+      context.user?.id
+    )
 
-    const graph = graphBuild(fields, 'activite', graphFormat)
-
-    const titreActivite = await titreActiviteGet(id, { graph })
     if (!titreActivite) return null
 
-    if (
-      !titreActivitePermissionCheck(
-        user,
-        titreActivite.type?.administrations,
-        titreActivite.titre?.amodiataires,
-        titreActivite.titre?.titulaires
-      )
-    ) {
-      throw new Error('droits insuffisants')
-    }
-
-    return titreActivite && titreActiviteFormat(user, titreActivite)
+    return titreActivite && titreActiviteFormat(titreActivite, fields)
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -74,36 +52,17 @@ const activites = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
-
-    let fields = graphFieldsBuild(info)
-    fields = fieldTitreAdd(fields)
-
-    const graph = graphBuild(fields, 'activites', graphFormat)
+    const fields = fieldsBuild(info)
 
     const titresActivites = await titresActivitesGet(
       { typeId, annee },
-      { graph }
+      { fields },
+      context.user?.id
     )
 
-    return (
-      titresActivites &&
-      titresActivites.length &&
-      titresActivites.reduce((res: ITitreActivite[], titreActivite) => {
-        if (
-          titreActivitePermissionCheck(
-            user,
-            titreActivite.type?.administrations,
-            titreActivite.titre?.amodiataires,
-            titreActivite.titre?.titulaires
-          )
-        ) {
-          res.push(titreActiviteFormat(user, titreActivite))
-        }
+    if (!titresActivites.length) return []
 
-        return res
-      }, [])
-    )
+    return titresActivites.map(ta => titreActiviteFormat(ta, fields))
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -119,35 +78,30 @@ const activiteModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await utilisateurGet(context.user.id))
+    const activiteOld = await titreActiviteGet(
+      activite.id,
+      { fields: { type: { titresTypes: { id: {} } }, titre: { id: {} } } },
+      context.user?.id
+    )
 
-    if (!user) {
-      throw new Error('droits insuffisants')
-    }
-
-    const activiteOld = await titreActiviteGet(activite.id)
-    const titre = await titreGet(activiteOld.titreId)
-
-    if (!titrePermissionCheck(user, ['super', 'admin'], titre, true)) {
-      throw new Error('droits insuffisants')
-    }
-
-    if (!activiteOld) {
-      throw new Error("cette activité n'existe pas")
-    }
+    if (!activiteOld) return null
 
     if (
       !activiteOld.type!.titresTypes.find(
-        type => type.domaineId === titre.domaineId && type.id === titre.typeId
+        type =>
+          type.domaineId === activiteOld.titre!.domaineId &&
+          type.id === activiteOld.titre!.typeId
       )
     ) {
       throw new Error("ce titre ne peut pas recevoir d'activité")
     }
 
+    const user = context.user && (await userGet(context.user.id))
+    if (!user) return null
+
     if (
-      !permissionsCheck(user, ['super', 'admin']) &&
-      activiteOld &&
-      activiteOld.statutId === 'dep'
+      !permissionCheck(user, ['super', 'admin']) &&
+      activiteOld?.statutId === 'dep'
     ) {
       throw new Error(
         'cette activité a été validée et ne peux plus être modifiée'
@@ -168,24 +122,25 @@ const activiteModifier = async (
     const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
     activite.dateSaisie = aujourdhui
 
-    const fields = graphFieldsBuild(info)
-
-    const graph = graphBuild(fields, 'activites', graphFormat)
+    const fields = fieldsBuild(info)
 
     const activiteRes = await titreActiviteUpdateQuery(activite.id, activite, {
-      graph
+      fields
     })
 
     titreActivitesRowUpdate([activiteRes])
 
-    const activiteFormated = titreActiviteFormat(user, activiteRes)
+    const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
     if (activiteRes.statutId === 'dep') {
-      const utilisateurs = await titreActiviteUtilisateursGet(titre, user)
+      const utilisateurs = await titreActiviteUtilisateursGet(
+        activiteFormated.titre!,
+        user
+      )
 
       await titreActiviteEmailsSend(
         activiteFormated,
-        titre.nom,
+        activiteFormated.titre!.nom,
         user,
         utilisateurs
       )

@@ -127,7 +127,7 @@ const entreprisesUpdate = async (
       etablissementsToUpdate
     )
 
-    console.log(
+    console.info(
       `mise à jour: entreprisesEtablissements ${etablissementsUpdated
         .map(e => e.id)
         .join(', ')}`
@@ -139,7 +139,7 @@ const entreprisesUpdate = async (
   if (etablissementsToDelete.length) {
     await entreprisesEtablissementsDelete(etablissementsToDelete)
 
-    console.log(
+    console.info(
       `suppression: entreprisesEtablissements ${etablissementsToDelete.join(
         ', '
       )}`
@@ -150,7 +150,7 @@ const entreprisesUpdate = async (
 
   if (entreprisesToUpdate.length) {
     entreprisesUpdated = await entreprisesUpsert(entreprisesToUpdate)
-    console.log(
+    console.info(
       `mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
     )
   }

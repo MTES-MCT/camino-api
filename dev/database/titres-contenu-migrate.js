@@ -271,7 +271,7 @@ const titreEtapeModify = (modifs, titreEtape, titreEtapes) =>
     if (modif.prop) {
       modification = titreEtapePropModify(modif, titreEtape, titreEtapes)
     } else if (modif.valueProp) {
-      modification = titreEtapeValueModify(modif, titreEtape, titreEtapes)
+      modification = titreEtapeValueModify(modif, titreEtape)
     } else if (modif.relation) {
       modification = titreEtapeRelationMove(modif, titreEtape, titreEtapes)
     } else if (modif.copy) {
@@ -359,7 +359,7 @@ const titresDemarchesModifieesGet = (modifs, titres) =>
 
 async function titresContenuMigrate(options, modifs) {
   try {
-    const titres = await titresGet(options)
+    const titres = await titresGet(options, {}, 'super')
 
     console.info('titres à traîter :', titres.length)
 

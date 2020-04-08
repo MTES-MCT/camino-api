@@ -9,8 +9,10 @@ import titrePhasesFind from '../rules/titre-phases-find'
 import PQueue from 'p-queue'
 
 // retourne une phase parmi les titrePhases en fonction de son id
-const titrePhaseEqualFind = (titreDemarcheId: string, titrePhases: ITitrePhase[]) =>
-  titrePhases.find(tp => tp.titreDemarcheId === titreDemarcheId)
+const titrePhaseEqualFind = (
+  titreDemarcheId: string,
+  titrePhases: ITitrePhase[]
+) => titrePhases.find(tp => tp.titreDemarcheId === titreDemarcheId)
 
 type TitrePhaseKey = keyof ITitrePhase
 type TitrePhaseValeur = ITitrePhase[TitrePhaseKey]
@@ -23,23 +25,22 @@ const titrePhasePropsChangedFind = (
   titrePhase: ITitrePhase,
   titrePhaseOld: ITitrePhase
 ) =>
-  Object.keys(titrePhase).reduce(
-    (
-      res: IPhasePropChange,
-      key: string
-    ) => {
-      const valueOld = titrePhaseOld[key as TitrePhaseKey]
-      const valueNew = titrePhase[key as TitrePhaseKey]
+  Object.keys(titrePhase).reduce((res: IPhasePropChange, key: string) => {
+    const valueOld = titrePhaseOld[key as TitrePhaseKey]
+    const valueNew = titrePhase[key as TitrePhaseKey]
 
-      // met la prop à jour si les variables sont différentes
-      if (valueNew !== valueOld) {
-        res[key] = [valueOld, valueNew]
-      }
+    // met la prop à jour si les variables sont différentes
+    if (valueNew !== valueOld) {
+      res[key] = [valueOld, valueNew]
+    }
 
-      return res
-    }, {} as IPhasePropChange)
+    return res
+  }, {} as IPhasePropChange)
 
-const titrePhasesUpdatedFind = (titresPhasesOld: ITitrePhase[], titrePhases: ITitrePhase[]) =>
+const titrePhasesUpdatedFind = (
+  titresPhasesOld: ITitrePhase[],
+  titrePhases: ITitrePhase[]
+) =>
   titrePhases.reduce((res: ITitrePhase[], titrePhase) => {
     const titrePhaseOld = titrePhaseEqualFind(
       titrePhase.titreDemarcheId,
@@ -90,7 +91,7 @@ const titresPhasesUpdate = async (titres: ITitre[]) => {
   const { titresPhasesIdsUpdated, titresPhasesIdsDeleted } = titres.reduce(
     (
       res: {
-        titresPhasesIdsUpdated: string[],
+        titresPhasesIdsUpdated: string[]
         titresPhasesIdsDeleted: string[]
       },
       titre
@@ -121,7 +122,7 @@ const titresPhasesUpdate = async (titres: ITitre[]) => {
         queue.add(async () => {
           await titrePhasesUpsert(titrePhasesToUpdate)
 
-          console.log(
+          console.info(
             `mise à jour: phases ${JSON.stringify(titrePhasesToUpdate)}`
           )
 
@@ -140,7 +141,7 @@ const titresPhasesUpdate = async (titres: ITitre[]) => {
         queue.add(async () => {
           await titrePhasesDelete(titrePhasesToDeleteIds)
 
-          console.log(
+          console.info(
             `suppression: phases ${titrePhasesToDeleteIds.join(', ')}`
           )
 

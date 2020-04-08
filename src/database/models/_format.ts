@@ -18,8 +18,8 @@ const titreContenuFormat = async (
 
   const etapesIds = Object.keys(propsTitreEtapesIds).reduce(
     (etapesIds: string[], sectionId) =>
-      Object.keys(propsTitreEtapesIds![sectionId])
-        .reduce((etapesIds, elementId) => {
+      Object.keys(propsTitreEtapesIds![sectionId]).reduce(
+        (etapesIds, elementId) => {
           const etapeId = propsTitreEtapesIds![sectionId][elementId]
 
           if (etapeId) {
@@ -27,7 +27,9 @@ const titreContenuFormat = async (
           }
 
           return etapesIds
-        }, etapesIds),
+        },
+        etapesIds
+      ),
     []
   )
 
@@ -35,14 +37,17 @@ const titreContenuFormat = async (
     return {}
   }
 
-  const etapes = await TitresEtapes.query()
-    .whereIn('titresEtapes.id', etapesIds)
+  const etapes = await TitresEtapes.query().whereIn(
+    'titresEtapes.id',
+    etapesIds
+  )
 
   const etapesIndex = etapes.reduce(
     (etapesIndex: { [id: string]: ITitreEtape }, etape) => {
       if (!etapesIndex[etape.id]) {
         etapesIndex[etape.id] = etape
       }
+
       return etapesIndex
     },
     {}
@@ -50,8 +55,8 @@ const titreContenuFormat = async (
 
   return Object.keys(propsTitreEtapesIds).reduce(
     (contenu: IContenu, sectionId: string) =>
-      Object.keys(propsTitreEtapesIds![sectionId])
-        .reduce((contenu, elementId) => {
+      Object.keys(propsTitreEtapesIds![sectionId]).reduce(
+        (contenu, elementId) => {
           const etapeId = propsTitreEtapesIds![sectionId][elementId]
 
           if (etapeId) {
@@ -67,12 +72,17 @@ const titreContenuFormat = async (
                 contenu[sectionId] = {}
               }
 
-              contenu[sectionId][elementId] = etape.contenu[sectionId][elementId]
+              contenu[sectionId][elementId] =
+                etape.contenu[sectionId][elementId]
             }
           }
 
           return contenu
-        }, contenu), {})
+        },
+        contenu
+      ),
+    {}
+  )
 }
 
 const titreInsertFormat = (json: Pojo) => {

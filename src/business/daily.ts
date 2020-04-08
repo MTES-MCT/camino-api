@@ -29,21 +29,30 @@ import { titresActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const run = async () => {
   try {
+    let titres
+
     // 1.
-    console.log()
-    console.log('ordre des étapes…')
+    console.info()
+    console.info('ordre des étapes…')
     const titresDemarches = await titresDemarchesGet(
       {},
-      { graph: '[etapes, type.[etapesTypes]]' }
+      {
+        fields: {
+          etapes: { id: {} },
+          type: { etapesTypes: { id: {} } },
+          titre: { id: {} }
+        }
+      },
+      'super'
     )
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
       titresDemarches
     )
 
     // 2.
-    console.log()
-    console.log('statut des démarches…')
-    let titres = await titresGet(
+    console.info()
+    console.info('statut des démarches…')
+    titres = await titresGet(
       {
         domainesIds: null,
         entreprises: null,
@@ -55,15 +64,16 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[etapes(orderDesc)]' }
+      { fields: { demarches: { etapes: { id: {} } } } },
+      'super'
     )
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
       titres
     )
 
     // 3.
-    console.log()
-    console.log('ordre des démarches…')
+    console.info()
+    console.info('ordre des démarches…')
     titres = await titresGet(
       {
         domainesIds: null,
@@ -76,15 +86,14 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        graph: 'demarches(orderDesc).[etapes(orderDesc)]'
-      }
+      { fields: { demarches: { etapes: { id: {} } } } },
+      'super'
     )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
 
     // 4.
-    console.log()
-    console.log('statut des titres…')
+    console.info()
+    console.info('statut des titres…')
     titres = await titresGet(
       {
         domainesIds: null,
@@ -97,13 +106,18 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
 
     // 5.
-    console.log()
-    console.log('phases des titres…')
+    console.info()
+    console.info('phases des titres…')
     titres = await titresGet(
       {
         domainesIds: null,
@@ -116,7 +130,12 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[phase,etapes(orderDesc).[points]]' }
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
     )
     const [
       titresPhasesUpdated = [],
@@ -124,8 +143,8 @@ const run = async () => {
     ] = await titresPhasesUpdate(titres)
 
     // 6.
-    console.log()
-    console.log('date de début, de fin et de demande initiale des titres…')
+    console.info()
+    console.info('date de début, de fin et de demande initiale des titres…')
     titres = await titresGet(
       {
         domainesIds: null,
@@ -138,28 +157,34 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      { graph: 'demarches(orderDesc).[etapes(orderDesc).[points]]' }
+      {
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
     )
     const titresDatesUpdated = await titresDatesUpdate(titres)
 
     // 7.
-    console.log()
-    console.log('références des points…')
+    console.info()
+    console.info('références des points…')
     const titresPoints = await titresPointsGet()
     const pointsReferencesCreated = await titresPointsReferencesCreate(
       titresPoints
     )
 
     // 8.
-    console.log()
-    console.log('communes associées aux étapes…')
+    console.info()
+    console.info('communes associées aux étapes…')
     const titresEtapes = await titresEtapesGet(
       {
         etapesIds: null,
         etapesTypesIds: null,
         titresDemarchesIds: null
       },
-      { graph: '[points, communes]' }
+      { fields: { points: { id: {} }, communes: { id: {} } } },
+      'super'
     )
     const communes = await communesGet()
     const [
@@ -169,8 +194,8 @@ const run = async () => {
     ] = await titresEtapesCommunesUpdate(titresEtapes, communes)
 
     // 9.
-    console.log()
-    console.log('administrations gestionnaires associées aux titres…')
+    console.info()
+    console.info('administrations gestionnaires associées aux titres…')
 
     titres = await titresGet(
       {
@@ -184,19 +209,21 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        graph: 'administrationsGestionnaires'
-      }
+      { fields: { administrationsGestionnaires: { id: {} } } },
+      'super'
     )
-    let administrations = await administrationsGet()
+
+    let administrations
+
+    administrations = await administrationsGet({}, {}, 'super')
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate(titres, administrations)
 
     // 10.
-    console.log()
-    console.log('administrations locales associées aux étapes…')
+    console.info()
+    console.info('administrations locales associées aux étapes…')
 
     titres = await titresGet(
       {
@@ -211,19 +238,26 @@ const run = async () => {
         typesIds: null
       },
       {
-        graph:
-          'demarches(orderDesc).etapes(orderDesc).[administrations, communes.[departement]]'
-      }
+        fields: {
+          demarches: {
+            etapes: {
+              administrations: { id: {} },
+              communes: { departement: { id: {} } }
+            }
+          }
+        }
+      },
+      'super'
     )
-    administrations = await administrationsGet()
+    administrations = await administrationsGet({}, {}, 'super')
     const [
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
     ] = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
 
     // 11.
-    console.log()
-    console.log('propriétés des titres (liens vers les étapes)…')
+    console.info()
+    console.info('propriétés des titres (liens vers les étapes)…')
     titres = await titresGet(
       {
         domainesIds: null,
@@ -237,15 +271,26 @@ const run = async () => {
         typesIds: null
       },
       {
-        graph:
-          'demarches(orderDesc).[etapes(orderDesc).[points, titulaires, amodiataires, administrations, substances, communes]]'
-      }
+        fields: {
+          demarches: {
+            etapes: {
+              points: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              administrations: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} }
+            }
+          }
+        }
+      },
+      'super'
     )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
 
     // 12.
-    console.log()
-    console.log(`propriétés des titres (liens vers les contenus d'étapes)…`)
+    console.info()
+    console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titres = await titresGet(
       {
         domainesIds: null,
@@ -258,15 +303,14 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        graph: '[type, demarches(orderDesc).[etapes(orderDesc)]]'
-      }
+      { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
+      'super'
     )
     const titresPropsContenuUpdated = await titresPropsContenuUpdate(titres)
 
     // 13.
-    console.log()
-    console.log('activités des titres…')
+    console.info()
+    console.info('activités des titres…')
     titres = await titresGet(
       {
         domainesIds: null,
@@ -280,9 +324,13 @@ const run = async () => {
         typesIds: null
       },
       {
-        graph:
-          '[activites, demarches(orderDesc).[phase], communes.departement.region.pays]'
-      }
+        fields: {
+          demarches: { phase: { id: {} } },
+          communes: { departement: { region: { pays: { id: {} } } } },
+          activites: { id: {} }
+        }
+      },
+      'super'
     )
     const activitesTypes = await activitesTypesGet()
     const titresActivitesCreated = await titresActivitesUpdate(
@@ -291,100 +339,104 @@ const run = async () => {
     )
 
     // 14.
-    console.log()
-    console.log('statut des activités dont le délai est dépassé')
-    const titresActivites = await titresActivitesGet()
+    console.info()
+    console.info('statut des activités dont le délai est dépassé')
+    const titresActivites = await titresActivitesGet({}, {}, 'super')
     const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate(
       titresActivites
     )
 
     // 15.
-    console.log()
-    console.log('ids de titres, démarches, étapes et sous-éléments…')
-    titres = await titresGet({
-      domainesIds: null,
-      entreprises: null,
-      ids: null,
-      noms: null,
-      references: null,
-      statutsIds: null,
-      substances: null,
-      territoires: null,
-      typesIds: null
-    })
+    console.info()
+    console.info('ids de titres, démarches, étapes et sous-éléments…')
+    titres = await titresGet(
+      {
+        domainesIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutsIds: null,
+        substances: null,
+        territoires: null,
+        typesIds: null
+      },
+      {},
+      'super'
+    )
 
     const titresUpdatedIndex = await titresIdsUpdate(titres)
 
-    console.log()
-    console.log('tâches quotidiennes exécutées:')
-    console.log(
+    console.info()
+    console.info('tâches quotidiennes exécutées:')
+    console.info(
       `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
     )
-    console.log(
+    console.info(
       `création: ${pointsReferencesCreated.length} référence(s) de points`
     )
-    console.log(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
-    console.log(
+    console.info(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
+    console.info(
       `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) mise(s) à jour dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresEtapesAdministrationsLocalesDeleted.length} administration(s) locale(s) supprimée(s) dans des étapes`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresActivitesCreated.length} activité(s) créée(s)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
     )
-    console.log(
+    console.info(
       `mise à jour: ${Object.keys(titresUpdatedIndex).length} titre(s) (ids)`
     )
 
-    console.log()
-    console.log('exports vers les spreadsheets')
+    console.info()
+    console.info('exports vers les spreadsheets')
 
     // export des activités vers la spreadsheet camino-db-titres-activites-prod
-    console.log('export des activités…')
+    console.info('export des activités…')
 
     await titresActivitesRowsUpdate(titresActivitesCreated, titresUpdatedIndex)
   } catch (e) {
-    console.log('erreur:', e)
+    console.info('erreur:', e)
   } finally {
     process.exit()
   }

@@ -24,6 +24,6 @@ domainesIds.forEach(domaineId => {
 
     fs.writeFileSync(`${filePath}`, JSON.stringify(titres, null, 2))
   } catch (e) {
-    console.log(chalk.red(e.message.split('\n')[0]))
+    console.info(chalk.red(e.message.split('\n')[0]))
   }
 })

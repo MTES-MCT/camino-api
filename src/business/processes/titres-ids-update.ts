@@ -13,7 +13,7 @@ const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
 
 const titreIdCheck = async (titreOldId: string, titre: ITitre) => {
   if (titreOldId !== titre.id) {
-    const titreWithTheSameId = await titreGet(titre.id, { graph: undefined })
+    const titreWithTheSameId = await titreGet(titre.id, {}, 'super')
 
     if (titreWithTheSameId) {
       const hash = titre.doublonTitreId
@@ -47,7 +47,7 @@ const titreIdsUpdate = async (titre: ITitre) => {
     await titreIdUpdate(titreOldId, titre)
     await titreFichiersRename(titreOldId, titre)
 
-    console.log(`mise à jour: titre ids: ${titre.id}`)
+    console.info(`mise à jour: titre ids: ${titre.id}`)
 
     return { [titre.id]: titreOldId }
   } catch (e) {

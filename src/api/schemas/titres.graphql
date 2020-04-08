@@ -77,8 +77,8 @@ type Titre {
   "Nombre d'activités absentes"
   activitesAbsentes: Int
 
-  editable: Boolean
-  supprimable: Boolean
+  modification: Boolean
+  suppression: Boolean
   doublonTitreId: ID
 }
 

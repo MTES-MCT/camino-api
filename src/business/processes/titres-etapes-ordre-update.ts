@@ -14,7 +14,8 @@ const titresEtapesOrdreUpdate = async (titresDemarches: ITitreDemarche[]) => {
 
       return titreEtapesAscSortByDate(
         titreDemarche.etapes,
-        titreDemarche.type
+        titreDemarche.type,
+        titreDemarche.titre?.typeId
       ).reduce(
         (
           titresEtapesIdsUpdated: string[],
@@ -26,7 +27,7 @@ const titresEtapesOrdreUpdate = async (titresDemarches: ITitreDemarche[]) => {
           queue.add(async () => {
             await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
-            console.log(
+            console.info(
               `mise à jour: étape ${titreEtape.id}, ordre: ${index + 1}`
             )
 

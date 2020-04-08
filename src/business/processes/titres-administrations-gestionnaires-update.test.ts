@@ -44,7 +44,7 @@ const titreAdministrationGestionnaireDeleteMock = mocked(
   true
 )
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe("administrations d'une étape", () => {
   test("ajoute les administrations gestionnaires si elles n'existent pas dans l'étape", async () => {
@@ -65,7 +65,7 @@ describe("administrations d'une étape", () => {
     expect(titresAdministrationsGestionnairesDeleted.length).toEqual(0)
 
     expect(titresAdministrationsGestionnairesCreateMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test("n'ajoute pas d'administration gestionnaire si elle existe déjà dans l'étape", async () => {
@@ -84,7 +84,7 @@ describe("administrations d'une étape", () => {
     expect(titresAdministrationsGestionnairesCreated.length).toEqual(0)
     expect(titresAdministrationsGestionnairesDeleted.length).toEqual(0)
 
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("supprime une administration gestionnaire si l'étape ne la contient plus dans ses communes", async () => {
@@ -102,6 +102,6 @@ describe("administrations d'une étape", () => {
     expect(titresAdministrationsGestionnairesDeleted.length).toEqual(1)
 
     expect(titreAdministrationGestionnaireDeleteMock).toHaveBeenCalled()
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 })

@@ -38,7 +38,7 @@ const organismeDepartementGetMock = mocked(
 )
 const organismesDepartementsGetMock = mocked(organismesDepartementsGet, true)
 
-console.log = jest.fn()
+console.info = jest.fn()
 
 describe('administrations', () => {
   test("crée les administrations si elles n'existent pas", async () => {
@@ -51,7 +51,7 @@ describe('administrations', () => {
     )
 
     expect(administrationsUpdated.length).toEqual(1)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('met à jour les administrations qui ont été modifiées', async () => {
@@ -63,7 +63,7 @@ describe('administrations', () => {
     )
 
     expect(administrationsUpdated.length).toEqual(1)
-    expect(console.log).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
   })
 
   test('ne crée pas les administrations qui existent déjà', async () => {
@@ -78,7 +78,7 @@ describe('administrations', () => {
     )
 
     expect(administrationsUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ne met rien à jour si aucun département n'est fourni", async () => {
@@ -88,7 +88,7 @@ describe('administrations', () => {
     )
 
     expect(administrationsUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ne met rien à jour si le test de connexion à l'API administration n'est pas concluant", async () => {
@@ -101,6 +101,6 @@ describe('administrations', () => {
     )
 
     expect(administrationsUpdated.length).toEqual(0)
-    expect(console.log).not.toHaveBeenCalled()
+    expect(console.info).not.toHaveBeenCalled()
   })
 })

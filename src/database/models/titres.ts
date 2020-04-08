@@ -15,7 +15,7 @@ import Types from './titres-types'
 
 import { ITitre } from '../../types'
 
-interface Titres extends ITitre { }
+interface Titres extends ITitre {}
 
 class Titres extends Model {
   public static tableName = 'titres'

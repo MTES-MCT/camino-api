@@ -1,39 +1,25 @@
 import { IAdministration, IUtilisateur } from '../../../types'
 
 import { titresFormat } from './titres'
-import { utilisateursFormat } from './utilisateurs'
-import { permissionsAdministrationsCheck } from '../permissions/permissions-check'
+import { utilisateurFormat } from './utilisateurs'
 
 const administrationFormat = (
   user: IUtilisateur | undefined,
   administration: IAdministration
 ) => {
-  administration.titresAdministrationsGestionnaires =
-    administration.titresAdministrationsGestionnaires &&
-    titresFormat(user, administration.titresAdministrationsGestionnaires)
+  administration.titresAdministrationGestionnaire =
+    administration.titresAdministrationGestionnaire &&
+    titresFormat(user, administration.titresAdministrationGestionnaire)
 
-  administration.titresAdministrationsLocales =
-    administration.titresAdministrationsLocales &&
-    titresFormat(user, administration.titresAdministrationsLocales)
+  administration.titresAdministrationLocale =
+    administration.titresAdministrationLocale &&
+    titresFormat(user, administration.titresAdministrationLocale)
 
-  administration.utilisateurs =
-    administration.utilisateurs &&
-    utilisateursFormat(user, administration.utilisateurs)
-
-  const isMembre = permissionsAdministrationsCheck(user, [administration.id])
-  if (isMembre) {
-    administration.membre = isMembre
-  }
+  administration.utilisateurs = administration.utilisateurs?.map(
+    utilisateurFormat
+  )
 
   return administration
 }
 
-const administrationsFormat = (
-  user: IUtilisateur | undefined,
-  administrations: IAdministration[]
-) =>
-  administrations.map(administration =>
-    administrationFormat(user, administration)
-  )
-
-export { administrationFormat, administrationsFormat }
+export { administrationFormat }

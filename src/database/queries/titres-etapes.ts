@@ -2,15 +2,21 @@ import { transaction, Transaction } from 'objection'
 import {
   ITitreEtape,
   ITitreCommune,
-  ITitreAdministrationLocale
+  ITitreAdministrationLocale,
+  IFields,
+  IUtilisateur
 } from '../../types'
 
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
 import options from './_options'
+import { titreEtapesPermissionQueryBuild } from './permissions/titres-etapes'
+import graphBuild from './graph/build'
+import graphFormat from './graph/format'
+import { userGet } from './utilisateurs'
 
-const titresEtapesGet = async (
+const titresEtapesQueryBuild = (
   {
     etapesIds,
     etapesTypesIds,
@@ -20,12 +26,18 @@ const titresEtapesGet = async (
     etapesTypesIds?: string[] | null
     titresDemarchesIds?: string[] | null
   } = {},
-  { graph = options.etapes.graph } = {}
+  { fields }: { fields?: IFields },
+  user?: IUtilisateur
 ) => {
+  const graph = fields
+    ? graphBuild(fields, 'etapes', graphFormat)
+    : options.etapes.graph
+
   const q = TitresEtapes.query()
     .skipUndefined()
     .withGraphFetched(graph)
-    .orderBy('ordre')
+
+  titreEtapesPermissionQueryBuild(q, user)
 
   if (etapesIds) {
     q.whereIn('titresEtapes.id', etapesIds)
@@ -39,16 +51,50 @@ const titresEtapesGet = async (
     q.whereIn('titresEtapes.titreDemarcheId', titresDemarchesIds)
   }
 
+  // console.info(q.toKnexQuery().toString())
+
   return q
 }
 
+// utilisé dans le daily et le résolver des documents uniquement
 const titreEtapeGet = async (
   titreEtapeId: string,
-  { graph = options.etapes.graph } = {}
-) =>
-  TitresEtapes.query()
-    .withGraphFetched(graph)
-    .findById(titreEtapeId)
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = userId ? await userGet(userId) : undefined
+
+  const q = titresEtapesQueryBuild({}, { fields }, user)
+
+  return (await q.findById(titreEtapeId)) as ITitreEtape
+}
+
+// utilisé dans le daily uniquement
+const titresEtapesGet = async (
+  {
+    etapesIds,
+    etapesTypesIds,
+    titresDemarchesIds
+  }: {
+    etapesIds?: string[] | null
+    etapesTypesIds?: string[] | null
+    titresDemarchesIds?: string[] | null
+  } = {},
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = userId ? await userGet(userId) : undefined
+
+  const q = titresEtapesQueryBuild(
+    { etapesIds, etapesTypesIds, titresDemarchesIds },
+    { fields },
+    user
+  )
+
+  q.orderBy('ordre')
+
+  return q
+}
 
 const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
   TitresEtapes.query()
