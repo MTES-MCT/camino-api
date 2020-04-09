@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.30](https://github.com/MTES-MCT/camino-api/compare/v0.24.29...v0.24.30) (2020-04-09)
+
+
+### Bug Fixes
+
+* corrige l'export de la spreadsheet utilisateur ([81404e2](https://github.com/MTES-MCT/camino-api/commit/81404e2d7d003be3307d2ba129d53100f2d6f3f6))
+* corrige la suppression d'une activité ([51a127d](https://github.com/MTES-MCT/camino-api/commit/51a127d7049e641bb3ec9dda6ccacb13b79f4849))
+
 ### [0.24.29](https://github.com/MTES-MCT/camino-api/compare/v0.24.28...v0.24.29) (2020-04-09)
 
 
