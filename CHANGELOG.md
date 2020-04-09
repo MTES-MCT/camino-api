@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.29](https://github.com/MTES-MCT/camino-api/compare/v0.24.28...v0.24.29) (2020-04-09)
+
+
+### Bug Fixes
+
+* corrige les permissions sur les utilisateurs ([806d563](https://github.com/MTES-MCT/camino-api/commit/806d563c565bdd86d2b8730818e97140749d95b1))
+* **api:** corrige le filtrage des titres ([d174d80](https://github.com/MTES-MCT/camino-api/commit/d174d807e44b311fb6320c6b6e0ee54e35f9d2f8))
+* **demarches:** masque les démarches non publiques ([#353](https://github.com/MTES-MCT/camino-api/issues/353)) ([b0826af](https://github.com/MTES-MCT/camino-api/commit/b0826af9c8f2c5121ee7de5663980fc5e59235b0))
+* **entreprises:** corrige le calcul du nombre d'activité pour les titres des entreprises ([78c2415](https://github.com/MTES-MCT/camino-api/commit/78c2415e1c105adb3822693a92aba638bec9c373))
+* corrige le renommage des titres lors de la création ([c5db155](https://github.com/MTES-MCT/camino-api/commit/c5db1554ae4accc9de029bf5e83902679291aa98))
+* **utilisateurs:** corrige les permissions d'édition sur son propre compte ([1077aea](https://github.com/MTES-MCT/camino-api/commit/1077aeabad0fc6d153e5977e45c29f9bf2a23c41))
+* corrige les permissions sur l'édition des étapes pour les admins ([4e551a9](https://github.com/MTES-MCT/camino-api/commit/4e551a960653d3426f1a13d02c3bc4b4c39f250a))
+* **api:** corrige des bugs sur la liste des utilisateurs ([1dbd611](https://github.com/MTES-MCT/camino-api/commit/1dbd6118b051b82caf9b84aa672f4b6edd0a9b90))
+* **document:** corrige la modification/suppression de document si aucun fichier n'existe sur le disque ([19ad653](https://github.com/MTES-MCT/camino-api/commit/19ad6531b8241f9ebd92887f238a0e20318d91c5))
+
 ### [0.24.28](https://github.com/MTES-MCT/camino-api/compare/v0.24.27...v0.24.28) (2020-03-30)
 
 
