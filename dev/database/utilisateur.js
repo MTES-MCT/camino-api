@@ -91,7 +91,7 @@ async function main() {
   )
 
   await fileCreate(
-    'tmp/test-utilisateur.json',
+    'dev/tmp/test-utilisateur.json',
     JSON.stringify(utilisateur, null, 2)
   )
 

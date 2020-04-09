@@ -61,7 +61,10 @@ async function main() {
 
   console.info(res.modification)
 
-  await fileCreate('tmp/test-titre-demarche.json', JSON.stringify(res, null, 2))
+  await fileCreate(
+    'dev/tmp/test-titre-demarche.json',
+    JSON.stringify(res, null, 2)
+  )
 
   process.exit(0)
 }

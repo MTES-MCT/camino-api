@@ -207,7 +207,7 @@ const titreActivitePermissionQueryBuild = (
     )
   }
 
-  // fileCreate('tmp/titres-activites.sql', format(q.toKnexQuery().toString()))
+  // fileCreate('dev/tmp/titres-activites.sql', format(q.toKnexQuery().toString()))
 
   return q
 }

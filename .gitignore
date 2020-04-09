@@ -12,4 +12,4 @@ node_modules
 /api-cache
 /files
 /docs
-/tmp
+/dev/tmp

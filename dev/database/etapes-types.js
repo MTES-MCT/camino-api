@@ -81,7 +81,10 @@ async function main() {
     console.info('etapeType.etapesCreation:', et.etapesCreation)
   })
 
-  await fileCreate('tmp/test-etapes-types.json', JSON.stringify(res, null, 2))
+  await fileCreate(
+    'dev/tmp/test-etapes-types.json',
+    JSON.stringify(res, null, 2)
+  )
 
   process.exit(0)
 }

@@ -77,7 +77,7 @@ async function main() {
   })
 
   await fileCreate(
-    'tmp/test-demarches-types.json',
+    'dev/tmp/test-demarches-types.json',
     JSON.stringify(res, null, 2)
   )
 

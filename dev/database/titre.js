@@ -114,7 +114,7 @@ async function main() {
   console.info('titre.activitesEnConstruction:', res.activitesEnConstruction)
   console.info('titre.activitesDeposees:', res.activitesDeposees)
 
-  await fileCreate('tmp/test-titre.json', JSON.stringify(res, null, 2))
+  await fileCreate('dev/tmp/test-titre.json', JSON.stringify(res, null, 2))
 
   process.exit(0)
 }
