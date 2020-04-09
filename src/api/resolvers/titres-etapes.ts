@@ -3,7 +3,6 @@ import { IToken, ITitreEtape } from '../../types'
 import { debug } from '../../config/index'
 
 import { titreFormat } from './format/titres'
-import { etapeTypesFormat } from './format/demarches-types'
 
 import { permissionCheck } from '../../tools/permission'
 import { titreEtapePermissionAdministrationsCheck } from './permissions/titre-edition'
@@ -184,7 +183,7 @@ const etapeSupprimer = async (
       throw new Error('droits insuffisants')
     }
 
-    const etapeOld = await titreEtapeGet(id, { fields }, context.user?.id)
+    const etapeOld = await titreEtapeGet(id, {}, context.user?.id)
     if (!etapeOld) throw new Error("l'étape n'existe pas")
 
     await titreEtapeDelete(id)
