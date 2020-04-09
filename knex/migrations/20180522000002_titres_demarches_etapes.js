@@ -2,7 +2,10 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresDemarches', table => {
       table.string('id', 128).primary()
-      table.string('titreId', 128).notNullable().index()
+      table
+        .string('titreId', 128)
+        .notNullable()
+        .index()
       table
         .foreign('titreId')
         .references('titres.id')
@@ -21,6 +24,10 @@ exports.up = knex => {
         .defaultTo('ind')
       table.boolean('publicLecture').defaultTo(false)
       table.boolean('entreprisesLecture').defaultTo(false)
+      table
+        .string('titreTypeId', 3)
+        .notNullable()
+        .references('titresTypes.id')
       table.integer('ordre').defaultTo('0')
     })
     .createTable('titresDemarchesLiens', table => {
@@ -45,13 +52,19 @@ exports.up = knex => {
         .references('titresDemarches.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('statutId', 3).notNullable().references('phasesStatuts.id')
+      table
+        .string('statutId', 3)
+        .notNullable()
+        .references('phasesStatuts.id')
       table.string('dateDebut', 10)
       table.string('dateFin', 10)
     })
     .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
-      table.string('titreDemarcheId', 128).notNullable().index()
+      table
+        .string('titreDemarcheId', 128)
+        .notNullable()
+        .index()
       table
         .foreign('titreDemarcheId')
         .references('titresDemarches.id')
@@ -67,6 +80,14 @@ exports.up = knex => {
         .notNullable()
         .index()
         .references('etapesStatuts.id')
+      table
+        .string('demarcheTypeId', 3)
+        .notNullable()
+        .references('demarchesTypes.id')
+      table
+        .string('titreTypeId', 3)
+        .notNullable()
+        .references('titresTypes.id')
       table.integer('ordre')
       table.string('date', 10).notNullable()
       table.string('dateDebut', 10)

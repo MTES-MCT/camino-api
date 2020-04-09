@@ -19,6 +19,8 @@ class TitresEtapes extends Model {
       date: { type: ['string', 'null'] },
       typeId: { type: 'string', maxLength: 3 },
       statutId: { type: 'string', maxLength: 3 },
+      demarcheTypeId: { type: 'string', maxLength: 3 },
+      titreTypeId: { type: 'string', maxLength: 3 },
       ordre: { type: 'integer' },
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
@@ -30,10 +32,28 @@ class TitresEtapes extends Model {
 
   public static relationMappings = {
     type: {
-      relation: Model.BelongsToOneRelation,
+      relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'etapes-types'),
       join: {
-        from: 'titresEtapes.typeId',
+        from: [
+          'titresEtapes.typeId',
+          'titresEtapes.demarcheTypeId',
+          'titresEtapes.titreTypeId'
+        ],
+        through: {
+          from: [
+            'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
+            'titresTypes__demarchesTypes__etapesTypes.demarcheTypeId',
+            'titresTypes__demarchesTypes__etapesTypes.titreTypeId'
+          ],
+          to: 'titresTypes__demarchesTypes__etapesTypes.etapeTypeId',
+          // permet de donner un alias spécial aux champs extra { alias: field }
+          extra: {
+            ordre: 'ordre',
+            titreTypeId: 'titreTypeId',
+            sectionsSpecifiques: 'sections'
+          }
+        },
         to: 'etapesTypes.id'
       }
     },
@@ -175,6 +195,10 @@ class TitresEtapes extends Model {
 
   $afterFind() {
     this.pays = paysFormat(this.communes || [])
+
+    if (this.type) {
+      this.type = this.type[0]
+    }
 
     return this
   }
