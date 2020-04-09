@@ -116,6 +116,12 @@ const titreActivitesCalc = (
     })
   }
 
+  q.groupBy('titres.id')
+
+  activiteStatuts.forEach(({ name }) => {
+    q.groupBy(name)
+  })
+
   return q
 }
 
