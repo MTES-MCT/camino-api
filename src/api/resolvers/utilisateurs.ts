@@ -123,20 +123,25 @@ const moi = async (_: unknown, context: IToken) => {
   }
 }
 
-const utilisateurTokenCreer = async ({
-  email,
-  motDePasse
-}: {
-  email: string
-  motDePasse: string
-}) => {
+const utilisateurTokenCreer = async (
+  {
+    email,
+    motDePasse
+  }: {
+    email: string
+    motDePasse: string
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
+    const fields = fieldsBuild(info)
     email = email.toLowerCase()
     if (!emailCheck(email)) {
       throw new Error('adresse email invalide')
     }
 
-    const user = await userByEmailGet(email)
+    const user = await userByEmailGet(email, { fields: fields.utilisateur })
     if (!user) {
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }

@@ -36,6 +36,20 @@ const utilisateursQueryBuild = (
   return q
 }
 
+const userByEmailGet = async (
+  email: string,
+  { fields }: { fields?: IFields } = {}
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'utilisateur', graphFormat)
+    : options.utilisateurs.graph
+
+  return Utilisateurs.query()
+    .withGraphFetched(graph)
+    .where('email', email)
+    .first()
+}
+
 const utilisateurGet = async (
   id: string,
   { fields }: { fields?: IFields } = {},
@@ -47,11 +61,6 @@ const utilisateurGet = async (
 
   return (await q.findById(id)) as IUtilisateur
 }
-
-const userByEmailGet = async (email: string) =>
-  Utilisateurs.query()
-    .where('email', email)
-    .first()
 
 const utilisateursGet = async (
   {

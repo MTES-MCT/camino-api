@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Pojo } from 'objection'
 import { join } from 'path'
 import { IUtilisateur } from '../../types'
 
@@ -63,6 +63,26 @@ class Utilisateurs extends Model {
         to: 'administrations.id'
       }
     }
+  }
+
+  public $parseJson(json: Pojo) {
+    json = super.$parseJson(json)
+
+    delete json.modification
+    delete json.suppression
+    delete json.permissionModification
+
+    return json
+  }
+
+  public $formatDatabaseJson(json: Pojo) {
+    json = super.$formatDatabaseJson(json)
+
+    delete json.modification
+    delete json.suppression
+    delete json.permissionModification
+
+    return json
   }
 }
 export default Utilisateurs
