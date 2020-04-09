@@ -26,14 +26,14 @@ const entreprisePermissionQueryBuild = (
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       user
-    )
+    ).groupBy('titresTitulaires.entrepriseId')
   )
 
   q.modifyGraph('titresAmodiataire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       user
-    )
+    ).groupBy('titresAmodiataires.entrepriseId')
   )
 
   q.modifyGraph('utilisateurs', u =>

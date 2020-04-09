@@ -70,7 +70,8 @@ const demarches = async (
     if (!page) {
       page = 1
     }
-    const userId = context.user && context.user.id
+
+    const userId = context.user?.id
 
     const titresDemarches = await titresDemarchesGet(
       {
