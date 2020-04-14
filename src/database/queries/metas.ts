@@ -23,7 +23,8 @@ import { userGet } from './utilisateurs'
 import {
   domainesPermissionQueryBuild,
   etapesTypesPermissionQueryBuild,
-  demarchesTypesPermissionQueryBuild
+  demarchesTypesPermissionQueryBuild,
+  activitesTypesPermissionQueryBuild
 } from './permissions/metas'
 
 const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
@@ -41,7 +42,7 @@ const domainesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
 
   const graph = fields
     ? graphBuild(fields, 'titre', graphFormat)
@@ -63,7 +64,7 @@ const demarchesTypesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
 
   const graph = fields
     ? graphBuild(fields, 'demarchesTypes', graphFormat)
@@ -89,7 +90,7 @@ const etapesTypesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
 
   const graph = fields
     ? graphBuild(fields, 'etapesTypes', graphFormat)
@@ -120,8 +121,22 @@ const geoSystemeGet = async (id: string) =>
 
 const unitesGet = async () => unites.query()
 
-const activitesTypesGet = async () =>
-  ActivitesTypes.query().withGraphFetched(options.activitesTypes.graph)
+const activitesTypesGet = async (
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const graph = fields
+    ? graphBuild(fields, 'activitesTypes', graphFormat)
+    : options.activitesTypes.graph
+
+  const q = ActivitesTypes.query().withGraphFetched(graph)
+
+  activitesTypesPermissionQueryBuild(q, user)
+
+  return q
+}
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 

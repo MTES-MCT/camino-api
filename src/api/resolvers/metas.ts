@@ -254,9 +254,15 @@ const version = () => {
   return npmPackage.version
 }
 
-const activitesTypes = async () => {
+const activitesTypes = async (
+  _: unknown,
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   try {
-    const activitesTypes = await activitesTypesGet()
+    const fields = fieldsBuild(info)
+
+    const activitesTypes = await activitesTypesGet({ fields }, context.user?.id)
 
     // TODO: ne retourner que les types d'activités auxquels l'utilisateur a accès
 
