@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Pojo } from 'objection'
 import { join } from 'path'
 import { ITitreDocument } from '../../types'
 
@@ -43,6 +43,25 @@ class TitresDocuments extends Model {
         to: 'titresEtapes.id'
       }
     }
+  }
+
+  public $formatDatabaseJson(json: Pojo) {
+    json = super.$formatDatabaseJson(json)
+
+    delete json.modification
+    delete json.suppression
+
+    return json
+  }
+
+
+  public $parseJson(json: Pojo) {
+    json = super.$parseJson(json)
+
+    delete json.modification
+    delete json.suppression
+
+    return json
   }
 }
 
