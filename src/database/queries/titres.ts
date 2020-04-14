@@ -1,7 +1,7 @@
 import {
   ITitre,
   ITitreAdministrationsGestionnaire,
-  ITitreColonneInput,
+  ITitreColonneId,
   IColonne,
   Index,
   IFields,
@@ -285,7 +285,7 @@ const titresGet = async (
     intervalle?: number | null
     page?: number | null
     ordre?: 'asc' | 'desc' | null
-    colonne?: ITitreColonneInput | null
+    colonne?: ITitreColonneId | null
     ids?: string[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null

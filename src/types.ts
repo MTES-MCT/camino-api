@@ -13,14 +13,9 @@ interface IColonne {
   relation?: string
 }
 
-type ITitreColonneInput =
-  | 'nom'
-  | 'domaine'
-  | 'type'
-  | 'statut'
-  | 'activitesTotal'
+type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activitesTotal'
 
-type ITitreDemarcheColonneInput =
+type ITitreDemarcheColonneId =
   | 'titreNom'
   | 'titreDomaine'
   | 'titreType'
@@ -812,8 +807,8 @@ export {
   TitreEtapeProp,
   IToken,
   ITokenUser,
-  ITitreColonneInput,
-  ITitreDemarcheColonneInput,
+  ITitreColonneId,
+  ITitreDemarcheColonneId,
   IColonne,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,

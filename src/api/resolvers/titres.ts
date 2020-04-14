@@ -1,4 +1,4 @@
-import { IToken, ITitre, ITitreColonneInput } from '../../types'
+import { IToken, ITitre, ITitreColonneId } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import { permissionCheck } from '../../tools/permission'
@@ -62,7 +62,7 @@ const titres = async (
     intervalle?: number | null
     page?: number | null
     ordre?: 'asc' | 'desc' | null
-    colonne?: ITitreColonneInput | null
+    colonne?: ITitreColonneId | null
     typesIds: string[]
     domainesIds: string[]
     statutsIds: string[]

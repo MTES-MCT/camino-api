@@ -2,7 +2,7 @@ import {
   IToken,
   ITitreDemarche,
   ITitreEtapeFiltre,
-  ITitreDemarcheColonneInput
+  ITitreDemarcheColonneId
 } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
@@ -48,7 +48,7 @@ const demarches = async (
     page?: number | null
     intervalle?: number | null
     ordre?: 'asc' | 'desc' | null
-    colonne?: ITitreDemarcheColonneInput | null
+    colonne?: ITitreDemarcheColonneId | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
     titresTypesIds?: string[] | null

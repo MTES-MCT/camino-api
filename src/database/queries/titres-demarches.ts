@@ -1,7 +1,7 @@
 import {
   ITitreDemarche,
   ITitreEtapeFiltre,
-  ITitreDemarcheColonneInput,
+  ITitreDemarcheColonneId,
   IColonne,
   IFields,
   Index,
@@ -196,7 +196,7 @@ const titresDemarchesGet = async (
   }: {
     intervalle?: number | null
     page?: number | null
-    colonne?: ITitreDemarcheColonneInput | null
+    colonne?: ITitreDemarcheColonneId | null
     ordre?: 'asc' | 'desc' | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
