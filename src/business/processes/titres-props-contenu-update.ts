@@ -10,9 +10,12 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
   const titresUpdated = titres.reduce((titresUpdated: ITitre[], titre) => {
     if (!titre.type?.propsEtapesTypes) return titresUpdated
 
-    const propsTitreEtapesIds = titre.type.propsEtapesTypes.reduce(
+    const { propsTitreEtapesIds, hasChanged } = titre.type.propsEtapesTypes.reduce(
       (
-        propsTitreEtapesIds: ITitrePropsTitreEtapesIds,
+        { propsTitreEtapesIds, hasChanged }: {
+          propsTitreEtapesIds: ITitrePropsTitreEtapesIds | null;
+          hasChanged: boolean
+        },
         { sectionId, elementId }
       ) => {
         const titreEtapeId = titreContenuEtapeIdFind(
@@ -22,35 +25,60 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
           elementId
         )
 
-        // si
-        // - la valeur de la prop est différente de celle du titre
-        // - la valeur existe ou elle existe dans le titre
-        if (
-          (!titre.propsTitreEtapesIds ||
-            !titre.propsTitreEtapesIds[sectionId] ||
-            titreEtapeId !== titre.propsTitreEtapesIds[sectionId][elementId]) &&
-          ((titre.propsTitreEtapesIds &&
-            titre.propsTitreEtapesIds[sectionId] &&
-            titre.propsTitreEtapesIds[sectionId][elementId]) ||
-            titreEtapeId)
-        ) {
+        // si une étape est trouvée
+        // et qu'elle est différente de la valeur dans le titre
+        // alors on la sauvegarde dans les propriétés
+        if (titreEtapeId && !(
+          titre.propsTitreEtapesIds &&
+          titre.propsTitreEtapesIds[sectionId] &&
+          titre.propsTitreEtapesIds[sectionId][elementId] === titreEtapeId
+        )) {
+          if (!propsTitreEtapesIds) {
+            propsTitreEtapesIds = {}
+          }
+
           if (!propsTitreEtapesIds[sectionId]) {
             propsTitreEtapesIds[sectionId] = {}
           }
 
-          if (titreEtapeId) {
-            propsTitreEtapesIds[sectionId][elementId] = titreEtapeId
-          } else {
-            delete propsTitreEtapesIds[sectionId][elementId]
+          propsTitreEtapesIds[sectionId][elementId] = titreEtapeId
+
+          hasChanged = true
+        } else if (
+          // sinon, si aucune étape n'est trouvée
+          // et qu'une valeur existe dans les propriétés du titre
+          // alors on supprime la valeur des propriétés
+          !titreEtapeId &&
+          titre.propsTitreEtapesIds &&
+          titre.propsTitreEtapesIds[sectionId] &&
+          titre.propsTitreEtapesIds[sectionId][elementId]
+        ) {
+          delete titre.propsTitreEtapesIds[sectionId][elementId]
+
+          // si la section ne contient plus aucun élément
+          // alors on la supprime des propriétés
+          if (!Object.keys(titre.propsTitreEtapesIds[sectionId]).length) {
+            delete titre.propsTitreEtapesIds[sectionId]
           }
+
+          // si le titre ne contient plus aucune section
+          // alors on supprime l'objet du titre
+          if (!Object.keys(titre.propsTitreEtapesIds).length) {
+            propsTitreEtapesIds = null
+          }
+
+          hasChanged = true
         }
 
-        return propsTitreEtapesIds
+        return { propsTitreEtapesIds, hasChanged }
       },
-      {}
+      {
+        propsTitreEtapesIds: titre.propsTitreEtapesIds || null,
+        hasChanged: false
+      }
     )
 
-    if (Object.keys(propsTitreEtapesIds).length) {
+    if (hasChanged) {
       queue.add(async () => {
         const titreUpdated = await titreUpdate(titre.id, {
           propsTitreEtapesIds
