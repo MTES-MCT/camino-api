@@ -19,6 +19,7 @@ import { userGet } from '../../database/queries/utilisateurs'
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
+
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 

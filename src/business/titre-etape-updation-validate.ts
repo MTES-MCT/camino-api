@@ -13,15 +13,28 @@ const titreEtapeUpdationValidate = async (
 
   // 1. le type d'étape correspond à la démarche et au type de titre
 
-  const error = titreEtapeTypeAndStatusValidate(titreEtape, titreDemarche)
+  const error = titreEtapeTypeAndStatusValidate(
+    titreEtape.typeId,
+    titreEtape.statutId,
+    titreDemarche.type!.etapesTypes,
+    titreDemarche.type!.nom
+  )
   if (error) {
     errors.push(error)
   }
 
-  // 2. la date de l'étape est possible en fonction de l'ordre des types d'étapes
+  // 2. la date de l'étape est possible
+  // en fonction de l'ordre des types d'étapes de la démarche
 
   if (titreEtape.date) {
-    const error = titreEtapeDateValidate(titreEtape, titreDemarche, titre)
+    const error = titreEtapeDateValidate(
+      titreEtape.typeId,
+      titreEtape.statutId,
+      titreEtape.date,
+      titreDemarche.type!,
+      titreDemarche.etapes!,
+      titre
+    )
     if (error) {
       errors.push(error)
     }

@@ -3,14 +3,22 @@ import { demarcheType } from './__mocks__/titre-etape-demarche-etape-type-find-t
 
 describe("retourne le type d'étape provenant des types d'étapes d'un type de démarche", () => {
   test("le titre d'étape est retourné", () => {
-    expect(titreEtapeDemarcheEtapeTypeFind(demarcheType, 'xxx')).toEqual({
+    expect(titreEtapeDemarcheEtapeTypeFind(
+      'xxx',
+      demarcheType.etapesTypes,
+      demarcheType.nom
+    )).toEqual({
       id: 'xxx'
     })
   })
 
   test('une erreur est retournée', () => {
     expect(() =>
-      titreEtapeDemarcheEtapeTypeFind(demarcheType, 'introuvable')
+      titreEtapeDemarcheEtapeTypeFind(
+        'introuvable',
+        demarcheType.etapesTypes,
+        demarcheType.nom
+      )
     ).toThrow(/étape "introuvable" invalide pour une démarche "demarche"/)
   })
 })

@@ -1,26 +1,28 @@
-import { ITitreEtape, ITitreDemarche } from '../../types'
+import { IEtapeType } from '../../types'
 
-// valide le type et le statut de l'étape en fonction du type de titre
-// et du type de démarche
+// valide le type et le statut de l'étape en fonction des type d'étapes d'une démarche
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
 
 const titreEtapeTypeAndStatusValidate = (
-  titreEtape: ITitreEtape,
-  titreDemarche: ITitreDemarche
+  etapeTypeId: string,
+  etapeStatutId: string,
+  etapesTypes: IEtapeType[],
+  demarcheTypeNom: string
 ) => {
   try {
-    const titreDemarcheEtapeType = titreEtapeDemarcheEtapeTypeFind(
-      titreDemarche.type!,
-      titreEtape.typeId
+    const etapeType = titreEtapeDemarcheEtapeTypeFind(
+      etapeTypeId,
+      etapesTypes,
+      demarcheTypeNom
     )
 
-    const { statutId: titreEtapeStatutId } = titreEtape
-    const titreEtapeStatut = titreDemarcheEtapeType.etapesStatuts!.find(
-      etapeStatut => etapeStatut.id === titreEtapeStatutId
+    const titreEtapeStatut = etapeType.etapesStatuts!.find(
+      etapeStatut => etapeStatut.id === etapeStatutId
     )
+
     if (!titreEtapeStatut) {
       throw new Error(
-        `statut de l'étape "${titreEtapeStatutId}" invalide pour une type d'étape de type ${titreDemarcheEtapeType.nom}`
+        `statut de l'étape "${etapeStatutId}" invalide pour une type d'étape ${etapeTypeId} pour une démarche de type ${demarcheTypeNom}`
       )
     }
 

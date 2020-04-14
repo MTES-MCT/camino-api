@@ -1,9 +1,9 @@
 // valide la date et la position de l'étape en fonction des autres étapes
 import {
   ITitre,
-  ITitreDemarche,
   ITitreEtape,
   IEtapeType,
+  IDemarcheType,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,
   ITitreCondition
@@ -59,13 +59,17 @@ const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
 
 const titreEtapeTypesRestrictionsFind = (
   titreTypeEtapesTypesRestrictions: ITitreTypeEtapeTypeRestriction[],
-  titreEtape: ITitreEtape,
+  etapeTypeId: string,
+  etapeStatutId: string,
   titre: ITitre
 ) =>
   titreTypeEtapesTypesRestrictions.filter(restrictions => {
     const { condition } = restrictions
 
-    const isSameEtapeType = objConditionMatch(condition.etape, titreEtape)
+    const isSameEtapeType = objConditionMatch(condition.etape, {
+      typeId: etapeTypeId,
+      statutId: etapeStatutId
+    })
 
     const isSameContenu =
       !condition.titre || sameContenuCheck(condition.titre, titre)
@@ -74,29 +78,31 @@ const titreEtapeTypesRestrictionsFind = (
   })
 
 const impossibleAvantFind = (
-  titreDemarche: ITitreDemarche,
-  titreEtapeType: IEtapeType,
-  titreEtapeDate: string,
+  etapeType: IEtapeType,
+  date: string,
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[],
   impossibleAvant: ITitreEtapeCondition[]
 ) =>
   impossibleAvant.reduce((errors: string[], impossibleAvantUne) => {
     const impossibleAvantUneEtapeKeys = Object.keys(impossibleAvantUne)
 
-    const titreEtapeBefore = titreDemarche.etapes!.find(
+    const titreEtapeBefore = titreDemarcheEtapes.find(
       e =>
         objConditionMatch(impossibleAvantUne, e, impossibleAvantUneEtapeKeys) &&
-        titreEtapeDate < e.date
+        date < e.date
     )
 
     // si on trouve une étape avant, alors c'est une erreur
     if (titreEtapeBefore) {
       const titreEtapeBeforeType = titreEtapeDemarcheEtapeTypeFind(
-        titreDemarche.type!,
-        impossibleAvantUne.typeId
+        impossibleAvantUne.typeId,
+        demarcheType.etapesTypes,
+        demarcheType.nom
       )
 
       errors.push(
-        `Une étape « ${titreEtapeType.nom} » ne peut être créée avant une étape « ${titreEtapeBeforeType.nom} ».`
+        `Une étape « ${etapeType.nom} » ne peut être créée avant une étape « ${titreEtapeBeforeType.nom} ».`
       )
     }
 
@@ -104,34 +110,36 @@ const impossibleAvantFind = (
   }, [])
 
 const impossibleApresFind = (
-  titreDemarche: ITitreDemarche,
-  titreEtapeType: IEtapeType,
-  titreEtapeDate: string,
+  etapeType: IEtapeType,
+  date: string,
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[],
   impossibleApres: ITitreEtapeCondition[]
 ) =>
   impossibleApres.reduce((errors: string[], impossibleApresUne) => {
     const impossibleApresUneEtapeKeys = Object.keys(impossibleApresUne)
 
-    const titreEtapeAfter = titreDemarche.etapes!.find(
+    const titreEtapeAfter = titreDemarcheEtapes.find(
       e =>
         objConditionMatch(impossibleApresUne, e, impossibleApresUneEtapeKeys) &&
-        e.date < titreEtapeDate
+        e.date < date
     )
 
     // si on trouve une étape après, alors c'est une erreur
     if (titreEtapeAfter) {
       const titreEtapeAfterType = titreEtapeDemarcheEtapeTypeFind(
-        titreDemarche.type!,
-        impossibleApresUne.typeId
+        impossibleApresUne.typeId,
+        demarcheType.etapesTypes,
+        demarcheType.nom
       )
 
       errors.push(
         `Une étape « ${
-          titreEtapeType.nom
+        etapeType.nom
         } » ne peut être créée après une étape « ${titreEtapeAfterType.nom} »${
-          impossibleApresUne.statutId
-            ? ` (dont le statut est « ${impossibleApresUne.statutId} »)`
-            : ''
+        impossibleApresUne.statutId
+          ? ` (dont le statut est « ${impossibleApresUne.statutId} »)`
+          : ''
         }.`
       )
     }
@@ -140,38 +148,40 @@ const impossibleApresFind = (
   }, [])
 
 const obligatoireApresFind = (
-  titreDemarche: ITitreDemarche,
-  titreEtapeType: IEtapeType,
-  titreEtapeDate: string,
+  etapeType: IEtapeType,
+  date: string,
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[],
   obligatoireApres: ITitreEtapeCondition[]
 ) => {
   const errors = obligatoireApres.reduce(
     (errors: string[], obligatoireApresUne) => {
       const obligatoireApresUneEtapeKeys = Object.keys(obligatoireApresUne)
 
-      const titreEtapeBefore = titreDemarche.etapes!.find(
+      const titreEtapeBefore = titreDemarcheEtapes.find(
         e =>
           objConditionMatch(
             obligatoireApresUne,
             e,
             obligatoireApresUneEtapeKeys
-          ) && e.date <= titreEtapeDate
+          ) && e.date <= date
       )
 
       if (!titreEtapeBefore) {
         // si on ne trouve pas l'étape nécessaire, alors c'est une erreur
         const titreEtapeBeforeType = titreEtapeDemarcheEtapeTypeFind(
-          titreDemarche.type!,
-          obligatoireApresUne.typeId
+          obligatoireApresUne.typeId,
+          demarcheType.etapesTypes,
+          demarcheType.nom
         )
 
         errors.push(
           `Une étape « ${titreEtapeBeforeType.nom} » antérieure${
-            obligatoireApresUne.statutId
-              ? ` (dont le statut est « ${obligatoireApresUne.statutId} »)`
-              : ''
+          obligatoireApresUne.statutId
+            ? ` (dont le statut est « ${obligatoireApresUne.statutId} »)`
+            : ''
           } est nécessaire pour la création d'une étape « ${
-            titreEtapeType.nom
+          etapeType.nom
           } ».`
         )
       }
@@ -188,9 +198,10 @@ const obligatoireApresFind = (
 
 const titreEtapeTypesRestrictionsCheck = (
   titreEtapeTypesRestrictions: ITitreTypeEtapeTypeRestriction[],
-  titreEtape: ITitreEtape,
-  titreEtapeType: IEtapeType,
-  titreDemarche: ITitreDemarche
+  etapeType: IEtapeType,
+  date: string,
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[]
 ) =>
   titreEtapeTypesRestrictions.reduce(
     (errors: string[], titreEtapeTypesRestrictions) => {
@@ -206,8 +217,8 @@ const titreEtapeTypesRestrictionsCheck = (
         const statutId = condition.etape && condition.etape.statutId
 
         errors.push(
-          `L'étape « ${titreEtapeType.nom} »${
-            statutId ? ` avec un statut « ${statutId} »` : ''
+          `L'étape « ${etapeType.nom} »${
+          statutId ? ` avec un statut « ${statutId} »` : ''
           } est impossible.`
         )
       }
@@ -215,9 +226,10 @@ const titreEtapeTypesRestrictionsCheck = (
       // l'étape nécessite une étape antérieure pour pouvoir exister
       if (obligatoireApres) {
         const errorsObligatoire = obligatoireApresFind(
-          titreDemarche,
-          titreEtapeType,
-          titreEtape.date,
+          etapeType,
+          date,
+          demarcheType,
+          titreDemarcheEtapes,
           obligatoireApres
         )
 
@@ -229,9 +241,10 @@ const titreEtapeTypesRestrictionsCheck = (
       // l'étape ne peut se trouver après une étape postérieure
       if (impossibleApres) {
         const errorsApres = impossibleApresFind(
-          titreDemarche,
-          titreEtapeType,
-          titreEtape.date,
+          etapeType,
+          date,
+          demarcheType,
+          titreDemarcheEtapes,
           impossibleApres
         )
         if (errorsApres.length) {
@@ -241,9 +254,10 @@ const titreEtapeTypesRestrictionsCheck = (
 
       if (impossibleAvant) {
         const errorsAvant = impossibleAvantFind(
-          titreDemarche,
-          titreEtapeType,
-          titreEtape.date,
+          etapeType,
+          date,
+          demarcheType,
+          titreDemarcheEtapes,
           impossibleAvant
         )
         if (errorsAvant.length) {
@@ -257,39 +271,45 @@ const titreEtapeTypesRestrictionsCheck = (
   )
 
 const titreEtapeDateValidate = (
-  titreEtape: ITitreEtape,
-  titreDemarche: ITitreDemarche,
+  etapeTypeId: string,
+  etapeStatutId: string,
+  date: string,
+  demarcheType: IDemarcheType,
+  titreDemarcheEtapes: ITitreEtape[],
   titre: ITitre
 ) => {
   // pas de validation pour les titres qui n'ont pas d'arbre de restrictions
   const titreTypeEtapesTypesRestrictions = titresTypesEtapesTypesRestrictions.find(
-    r => r.typeId === titre.typeId && r.demarcheTypeId === titreDemarche.typeId
+    r => r.typeId === titre.typeId && r.demarcheTypeId === demarcheType.id
   )
   if (!titreTypeEtapesTypesRestrictions) return null
 
   // pas de validation si l'étape est antérieure au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
-  if (titreEtape.date < '2019-10-31') return null
+  if (date < '2019-10-31') return null
 
   const titreEtapeTypesRestrictions = titreEtapeTypesRestrictionsFind(
     titreTypeEtapesTypesRestrictions.restrictions,
-    titreEtape,
+    etapeTypeId,
+    etapeStatutId,
     titre
   )
 
   // l'étape à vérifier ne fait l'objet d'aucune restriction
   if (!titreEtapeTypesRestrictions.length) return null
 
-  const titreEtapeType = titreEtapeDemarcheEtapeTypeFind(
-    titreDemarche.type!,
-    titreEtape.typeId
+  const etapeType = titreEtapeDemarcheEtapeTypeFind(
+    etapeTypeId,
+    demarcheType.etapesTypes,
+    demarcheType.nom
   )
 
   const titreEtapesDateErrors = titreEtapeTypesRestrictionsCheck(
     titreEtapeTypesRestrictions,
-    titreEtape,
-    titreEtapeType,
-    titreDemarche
+    etapeType,
+    date,
+    demarcheType,
+    titreDemarcheEtapes
   )
 
   return titreEtapesDateErrors.length ? titreEtapesDateErrors.join('\n') : null

@@ -174,7 +174,7 @@ const etapesTypes = async (
           fields: {
             type: { etapesTypes: { etapesStatuts: { id: {} } } },
             titre: { type: { demarchesTypes: { id: {} } } },
-            etapes: { id: {} }
+            etapes: { type: { id: {} } }
           }
         },
         user?.id
@@ -221,8 +221,10 @@ const etapesTypes = async (
           const etapeTypeFormatted = etapeTypeFormat(
             etapeType,
             titre,
-            titreDemarche,
-            titreEtape?.typeId
+            titreDemarche.type!,
+            titreDemarche.etapes!,
+            titreEtape?.typeId,
+            titreEtape?.statutId
           )
 
           if (etapeTypeFormatted) {

@@ -1,4 +1,4 @@
-import { ITitreEtape, ITitreDemarche, ITitre } from '../../types'
+import { ITitreEtape, IDemarcheType, ITitre } from '../../types'
 
 import titreEtapeDateValidate from './titre-etape-date-validate'
 
@@ -75,7 +75,7 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
   ]
 }))
 
-const type = {
+const demarcheType = {
   etapesTypes: [
     {
       id: 'etape-premiere',
@@ -116,14 +116,17 @@ const type = {
       nom: 'etape-mecanise'
     }
   ]
-}
+} as IDemarcheType
 
 describe("vérifie la date d'une étape pour une démarche en fonction des autres étapes d'une démarche", () => {
   test("un titre de type autre que ARM n'est pas validé", () => {
     expect(
       titreEtapeDateValidate(
-        ({} as unknown) as ITitreEtape,
-        ({} as unknown) as ITitreDemarche,
+        '',
+        '',
+        '',
+        {} as IDemarcheType,
+        [],
         ({ typeId: 'autre' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -132,8 +135,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test("une étape historique dont la date est antérieure au 31 octobre 2019 n'est pas validée", () => {
     expect(
       titreEtapeDateValidate(
-        ({ date: '2000-01-01' } as unknown) as ITitreEtape,
-        ({} as unknown) as ITitreDemarche,
+        '',
+        '',
+        '2000-01-01',
+        {} as IDemarcheType,
+        [],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -142,8 +148,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('parametre invalide', () => {
     expect(
       titreEtapeDateValidate(
-        ({} as unknown) as ITitreEtape,
-        ({ etapes: [{}, null] } as unknown) as ITitreDemarche,
+        '',
+        '',
+        '',
+        {} as IDemarcheType,
+        [],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -152,8 +161,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('aucune restriction', () => {
     expect(
       titreEtapeDateValidate(
-        ({ typeId: 'etape-aucune-restriction' } as unknown) as ITitreEtape,
-        ({ etapes: [{}, null] } as unknown) as ITitreDemarche,
+        'etape-aucune-restriction',
+        '',
+        '3000-01-01',
+        {} as IDemarcheType,
+        [{}, null] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -162,14 +174,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('impossible = true', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-impossible',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: []
-        } as unknown) as ITitreDemarche,
+        'etape-impossible',
+        '',
+        '3000-01-01',
+        demarcheType,
+        [],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual("L'étape « etape-impossible » est impossible.")
@@ -178,15 +187,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('impossible = true avec statut', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-impossible-statut',
-          statutId: 'acc',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: []
-        } as unknown) as ITitreDemarche,
+        'etape-impossible-statut',
+        'acc',
+        '3000-01-01',
+        demarcheType,
+        [],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -197,20 +202,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('obligatoireApres, sans étape obligatoire postérieure dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId:
-            'etape-milieu-obligatoire-apres-etape-premiere-et-impossible-apres-etape-derniere',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-obligatoire-apres-etape-premiere-et-impossible-apres-etape-derniere',
+        '',
+        '3000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -221,20 +222,17 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('obligatoireApres, sans étape obligatoire postérieure avec un statut obligatoire dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01',
-              statutId: 'ko'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
+        '',
+        '3000-01-01'
+        , demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01',
+            statutId: 'ko'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -245,21 +243,17 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test("obligatoireApres, avec étape obligatoire antérieure dans la démarche ne retourne pas d'erreur", () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId:
-            'etape-milieu-obligatoire-apres-etape-premiere-et-impossible-apres-etape-derniere',
-          date: '5000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01',
-              statutId: 'ok'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-obligatoire-apres-etape-premiere-et-impossible-apres-etape-derniere',
+        '',
+        '5000-01-01'
+        , demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01',
+            statutId: 'ok'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -268,20 +262,17 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test("obligatoireApres, avec étape obligatoire antérieur dont le statut obligatoire est correct dans la démarche ne retourne pas d'erreur", () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
-          date: '5000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01',
-              statutId: 'ko'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
+        '',
+        '5000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01',
+            statutId: 'ko'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -290,20 +281,17 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('obligatoireApres, avec étape obligatoire antérieure dont le statut obligatoire est incorrect dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
-          date: '5000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01',
-              statutId: 'ok'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
+        '',
+        '5000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01',
+            statutId: 'ok'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -314,19 +302,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('impossibleApres, avec étape interdite antérieure dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-impossible-apres-etape-derniere',
-          date: '5000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-derniere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-impossible-apres-etape-derniere',
+        '',
+        '5000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-derniere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -337,19 +322,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test("impossibleApres, avec étape interdite postérieure dans la démarche ne retourne pas d'erreur", () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-impossible-apres-etape-derniere',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-derniere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-impossible-apres-etape-derniere',
+        '',
+        '3000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-derniere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -358,19 +340,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('impossibleAvant, avec étape interdite antérieure dans la démarche ne retourne pas une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-impossible-avant-etape-premiere',
-          date: '5000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-impossible-avant-etape-premiere',
+        '',
+        '5000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -379,19 +358,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('impossibleAvant, avec étape interdite postérieure dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-milieu-impossible-avant-etape-premiere',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-premiere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-milieu-impossible-avant-etape-premiere',
+        '',
+        '3000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-premiere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -402,19 +378,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test("impossibleAvant compilé, avec étape interdite antérieure dans la démarche ne retourne pas d'erreur", () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-derniere',
-          date: '5000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-milieu-impossible-apres-etape-derniere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-derniere',
+        '',
+        '5000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-milieu-impossible-apres-etape-derniere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toBeNull()
@@ -423,19 +396,16 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('impossibleAvant compilé, avec étape interdite postérieure dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-derniere',
-          date: '3000-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [
-            {
-              typeId: 'etape-milieu-impossible-apres-etape-derniere',
-              date: '4000-01-01'
-            }
-          ]
-        } as unknown) as ITitreDemarche,
+        'etape-derniere',
+        '',
+        '3000-01-01',
+        demarcheType,
+        [
+          {
+            typeId: 'etape-milieu-impossible-apres-etape-derniere',
+            date: '4000-01-01'
+          }
+        ] as ITitreEtape[],
         ({ typeId: 'arm' } as unknown) as ITitre
       )
     ).toEqual(
@@ -446,14 +416,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test('obligatoireApres, sans étape obligatoire antérieure pour un titre avec contenu obligatoire dans la démarche retourne une erreur', () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-mecanise',
-          date: '2020-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [{}]
-        } as unknown) as ITitreDemarche,
+        'etape-mecanise',
+        '',
+        '2020-01-01',
+        demarcheType,
+        [{}] as ITitreEtape[],
         ({
           typeId: 'arm',
           contenu: { arm: { mecanise: true } }
@@ -467,14 +434,11 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
   test("obligatoireApres, avec étape obligatoire antérieure pour un titre avec contenu obligatoire dans la démarche ne retourne pas d'erreur", () => {
     expect(
       titreEtapeDateValidate(
-        ({
-          typeId: 'etape-mecanise',
-          date: '2020-01-01'
-        } as unknown) as ITitreEtape,
-        ({
-          type,
-          etapes: [{ typeId: 'etape-premiere', date: '2000-01-01' }]
-        } as unknown) as ITitreDemarche,
+        'etape-mecanise',
+        '',
+        '2020-01-01',
+        demarcheType,
+        [{ typeId: 'etape-premiere', date: '2000-01-01' }] as ITitreEtape[],
         ({
           typeId: 'arm',
           contenu: { arm: { mecanise: true } }
