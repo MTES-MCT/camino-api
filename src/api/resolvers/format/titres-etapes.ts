@@ -30,7 +30,11 @@ const titreEtapeFormat = (
   fields = titreEtapeFormatFields
 ) => {
   if (titreEtape.type) {
-    titreEtape.type = etapeTypeSectionsFormat(titreEtape.type)
+    titreEtape.type = etapeTypeSectionsFormat(
+      titreEtape.type,
+      titreDemarcheType.etapesTypes,
+      titreTypeId
+    )
 
     if (titreEtape.type.sections) {
       titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)

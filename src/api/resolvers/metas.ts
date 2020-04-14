@@ -172,9 +172,7 @@ const etapesTypes = async (
         titreDemarcheId,
         {
           fields: {
-            type: {
-              etapesTypes: { id: {} }
-            },
+            type: { etapesTypes: { etapesStatuts: { id: {} } } },
             titre: { type: { demarchesTypes: { id: {} } } },
             etapes: { id: {} }
           }
