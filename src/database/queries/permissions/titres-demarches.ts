@@ -35,14 +35,13 @@ const titreDemarchePermissionQueryBuild = (
 
     // visibilité de la démarche en fonction de son statut et du type de titre
     q.where(b => {
-      // sinon, les démarches visibles au public
-      // ont le statut `acc` ou `ter`
+      // les démarches ayant le statut `acc` ou `ter` sont visibles au public
       b.whereIn('titresDemarches.statutId', ['acc', 'ter'])
 
-      // sauf pour les AXM et ARM
-      // dont les démarches `rej` sont aussi visibles
+      // pour les AXM et ARM
+      // les démarches `cls`, `rej` et `ret` sont aussi visibles
       b.orWhere(c => {
-        c.where('titresDemarches.statutId', 'rej')
+        c.whereIn('titresDemarches.statutId', ['cls', 'rej', 'ret'])
         c.whereExists(
           (TitresDemarches.relatedQuery('titre') as QueryBuilder<
             Titres,
