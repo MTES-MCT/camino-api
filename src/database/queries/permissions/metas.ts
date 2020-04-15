@@ -18,6 +18,7 @@ import TitresDemarches from '../../models/titres-demarches'
 import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
 import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
+import TitresActivites from '../../models/titres-activites'
 
 const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
@@ -299,6 +300,51 @@ const etapesTypesPermissionQueryBuild = (
   // fileCreate('dev/tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
 
+const activitesTypesPermissionQueryBuild = (
+  q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
+  user?: IUtilisateur
+) => {
+  if (
+    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
+  ) {
+    const administrationsIds = user.administrations.map(e => e.id)
+
+    q.joinRelated('administrations')
+    q.whereIn('administrations.id', administrationsIds)
+  } else if (
+    permissionCheck(user, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
+    const entreprisesIds = user.entreprises.map(e => e.id)
+
+    q.where(b => {
+      b.whereExists(
+        TitresActivites.query()
+          .alias('titresActivitesTitulaires')
+          .joinRelated('titre.titulaires')
+          .whereRaw('?? = ??', [
+            'titresActivitesTitulaires.typeId',
+            'activitesTypes.id'
+          ])
+          .whereIn('titre:titulaires.id', entreprisesIds)
+      )
+      b.orWhereExists(
+        TitresActivites.query()
+          .alias('titresActivitesAmodiataires')
+          .joinRelated('titre.amodiataires')
+          .whereRaw('?? = ??', [
+            'titresActivitesAmodiataires.typeId',
+            'activitesTypes.id'
+          ])
+          .whereIn('titre:amodiataires.id', entreprisesIds)
+      )
+    })
+  } else if (!permissionCheck(user, ['super'])) {
+    q.limit(0)
+  }
+}
+
 const demarchesTypesPermissionQueryBuild = (
   q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
   user?: IUtilisateur,
@@ -349,6 +395,7 @@ const demarchesTypesPermissionQueryBuild = (
 }
 
 export {
+  activitesTypesPermissionQueryBuild,
   domainesPermissionQueryBuild,
   titresTypesPermissionsQueryBuild,
   etapesTypesPermissionQueryBuild,
