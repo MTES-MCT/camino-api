@@ -332,11 +332,6 @@ interface IRegion {
   departements?: IDepartement[] | null
 }
 
-interface IAutorisationDomaine {
-  domaineId: string
-  publicLecture: boolean
-}
-
 interface IAutorisationEtapeType {
   etapeTypeId: string
   publicLecture: boolean
@@ -772,7 +767,6 @@ export {
   IPhaseStatut,
   IReferenceType,
   IRegion,
-  IAutorisationDomaine,
   IAutorisationTitreTypeTitreStatut,
   IAutorisationEtapeType,
   IAutorisationTitreTypeAdministration,

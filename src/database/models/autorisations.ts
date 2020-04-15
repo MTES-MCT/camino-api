@@ -1,31 +1,12 @@
 import { Model } from 'objection'
 
 import {
-  IAutorisationDomaine,
   IAutorisationTitreTypeTitreStatut,
   IAutorisationEtapeType,
   IAutorisationTitreTypeAdministration,
   IRestrictionTitreTypeTitreStatutAdministration,
   IRestrictionTitreTypeEtapeTypeAdministration
 } from '../../types'
-
-interface AutorisationsDomaines extends IAutorisationDomaine {}
-
-class AutorisationsDomaines extends Model {
-  public static tableName = 'a__domaines'
-
-  public static jsonSchema = {
-    type: 'object',
-    required: ['domaineId', 'publicLecture'],
-
-    properties: {
-      domaineId: { type: 'string', maxLength: 1 },
-      publicLecture: { type: 'boolean' }
-    }
-  }
-
-  public static idColumn = ['domaineId']
-}
 
 interface AutorisationsTitresTypesTitresStatuts
   extends IAutorisationTitreTypeTitreStatut {}
@@ -148,7 +129,6 @@ class RestrictionsTitresTypesEtapesTypesAdministrations extends Model {
 }
 
 export {
-  AutorisationsDomaines,
   AutorisationsEtapesTypes,
   AutorisationsTitresTypesTitresStatuts,
   AutorisationsTitresTypesAdministrations,

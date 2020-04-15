@@ -1,7 +1,6 @@
 import { IDomaine } from '../../types'
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
-import { AutorisationsDomaines } from './autorisations'
 
 interface Domaines extends IDomaine {}
 
@@ -26,15 +25,6 @@ class Domaines extends Model {
       join: {
         from: 'domaines.id',
         to: 'titresTypes.domaineId'
-      }
-    },
-
-    autorisation: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: AutorisationsDomaines,
-      join: {
-        from: 'domaines.id',
-        to: 'a__domaines.domaineId'
       }
     }
   }

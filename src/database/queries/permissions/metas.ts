@@ -5,10 +5,7 @@ import { IUtilisateur, IAdministration } from '../../../types'
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
-import {
-  AutorisationsDomaines,
-  AutorisationsTitresTypesAdministrations
-} from '../../models/autorisations'
+import { AutorisationsTitresTypesAdministrations } from '../../models/autorisations'
 import Domaines from '../../models/domaines'
 import TitresTypes from '../../models/titres-types'
 import DemarchesTypes from '../../models/demarches-types'
@@ -165,17 +162,6 @@ const domainesPermissionQueryBuild = (
   user?: IUtilisateur
 ) => {
   q.select('domaines.*')
-
-  if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
-    q.whereExists(
-      (Domaines.relatedQuery('autorisation') as QueryBuilder<
-        AutorisationsDomaines,
-        AutorisationsDomaines | AutorisationsDomaines[]
-      >).where({
-        publicLecture: true
-      })
-    )
-  }
 
   if (permissionCheck(user, ['super'])) {
     q.select(raw('true').as('titresCreation'))

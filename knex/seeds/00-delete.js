@@ -31,7 +31,6 @@ exports.seed = seeding(async ({ del }) => {
 
   // 08
   await Promise.all([
-    del('a__domaines'),
     del('a__titresTypes__titresStatuts'),
     del('a__etapesTypes'),
 

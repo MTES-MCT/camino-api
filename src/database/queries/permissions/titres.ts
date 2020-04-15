@@ -7,10 +7,7 @@ import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
 import TitresActivites from '../../models/titres-activites'
 
-import {
-  AutorisationsDomaines,
-  AutorisationsTitresTypesTitresStatuts
-} from '../../models/autorisations'
+import { AutorisationsTitresTypesTitresStatuts } from '../../models/autorisations'
 import Entreprises from '../../models/entreprises'
 
 import {
@@ -29,31 +26,18 @@ const titrePermissionQueryBuild = (
   // titres publics
   if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
     q.where(b => {
-      b.orWhere(c => {
-        c.whereExists(
-          AutorisationsDomaines.query()
-            .alias('ad')
-            .whereRaw('?? = ?? and ?? = ?', [
-              'ad.domaineId',
-              'titres.domaineId',
-              'ad.publicLecture',
-              true
-            ])
-        )
-
-        c.whereExists(
-          AutorisationsTitresTypesTitresStatuts.query()
-            .alias('att')
-            .whereRaw('?? = ?? and ?? = ?? and ?? = ?', [
-              'att.titreTypeId',
-              'titres.typeId',
-              'att.titreStatutId',
-              'titres.statutId',
-              'att.publicLecture',
-              true
-            ])
-        )
-      })
+      b.orWhereExists(
+        AutorisationsTitresTypesTitresStatuts.query()
+          .alias('att')
+          .whereRaw('?? = ?? and ?? = ?? and ?? = ?', [
+            'att.titreTypeId',
+            'titres.typeId',
+            'att.titreStatutId',
+            'titres.statutId',
+            'att.publicLecture',
+            true
+          ])
+      )
 
       // titre de l'entreprise
       if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {

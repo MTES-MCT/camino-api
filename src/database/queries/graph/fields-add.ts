@@ -22,10 +22,6 @@ const fieldTitreAdd = (fields: IFields) => {
     fields.titre.domaine = { id: {}, nom: {} }
   }
 
-  if (!fields.titre.domaine.autorisation) {
-    fields.titre.domaine.autorisation = { id: {} }
-  }
-
   if (!fields.titre.statut) {
     fields.titre.statut = { id: {}, nom: {} }
   }
