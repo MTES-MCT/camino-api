@@ -210,7 +210,7 @@ const titreEtapeUpdate = async (
       },
       'super'
     )
-    const activitesTypes = await activitesTypesGet()
+    const activitesTypes = await activitesTypesGet({}, 'super')
     const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
       activitesTypes
