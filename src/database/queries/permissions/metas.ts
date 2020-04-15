@@ -19,6 +19,7 @@ import TitresEtapes from '../../models/titres-etapes'
 import Administrations from '../../models/administrations'
 import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
 import TitresActivites from '../../models/titres-activites'
+import ActivitesTypes from '../../models/activites-types'
 
 const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
@@ -301,7 +302,7 @@ const etapesTypesPermissionQueryBuild = (
 }
 
 const activitesTypesPermissionQueryBuild = (
-  q: QueryBuilder<DemarchesTypes, DemarchesTypes | DemarchesTypes[]>,
+  q: QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
   user?: IUtilisateur
 ) => {
   if (

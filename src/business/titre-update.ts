@@ -46,7 +46,7 @@ const titreUpdate = async (titreId: string) => {
       'super'
     )
 
-    const activitesTypes = await activitesTypesGet()
+    const activitesTypes = await activitesTypesGet({}, 'super')
     const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
       activitesTypes
