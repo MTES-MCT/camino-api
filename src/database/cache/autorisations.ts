@@ -1,5 +1,4 @@
 import {
-  IAutorisationDomaine,
   IAutorisationTitreTypeAdministration,
   IAutorisationTitreTypeTitreStatut,
   IRestrictionTitreTypeTitreStatutAdministration,
@@ -7,10 +6,7 @@ import {
   IRestrictionTitreTypeEtapeTypeAdministration
 } from '../../types'
 
-import { debug } from '../../config/index'
-
 import {
-  autorisationsDomainesGet,
   autorisationsTitresTypesAdministrationsGet,
   autorisationsTitresTypesTitresStatutsGet,
   restrictionsTitresTypesTitresStatutsAdministrationsGet,
@@ -19,7 +15,6 @@ import {
 } from '../queries/autorisations'
 
 const autorisations = {
-  domaines: [] as IAutorisationDomaine[],
   etapesTypes: [] as IAutorisationEtapeType[],
   statutsIds: [] as string[],
   typesStatuts: [] as IAutorisationTitreTypeTitreStatut[],
@@ -32,8 +27,6 @@ const restrictions = {
 }
 
 const autorisationsInit = async () => {
-  autorisations.domaines = await autorisationsDomainesGet()
-
   autorisations.typesStatuts = await autorisationsTitresTypesTitresStatutsGet()
 
   autorisations.etapesTypes = await autorisationsEtapesTypesGet()

@@ -187,7 +187,7 @@ const titresTypes = {
 }
 
 const domaines = {
-  graph: `[titresTypes(orderAsc).${titresTypes.graph}, autorisation]`
+  graph: `[titresTypes(orderAsc).${titresTypes.graph}]`
 }
 
 const titresRelateTrue = [

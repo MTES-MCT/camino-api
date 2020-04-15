@@ -252,7 +252,6 @@ const autorisations = {
   name: 'autorisations',
   id: autorisationsSpreadsheetId,
   tables: [
-    { name: 'a__domaines' },
     { name: 'a__titres_types__titres_statuts' },
     { name: 'a__etapes_types' }
   ]

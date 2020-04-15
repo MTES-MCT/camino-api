@@ -1,8 +1,6 @@
 const seeding = require('../seeding')
 
 // eslint-disable-next-line camelcase
-const a__domaines = require('../../sources/a--domaines.json')
-// eslint-disable-next-line camelcase
 const a_titresTypes_titresStatuts = require('../../sources/a--titres-types--titres-statuts.json')
 // eslint-disable-next-line camelcase
 const a__etapesTypes = require('../../sources/a--etapes-types.json')
@@ -16,7 +14,6 @@ const r__titresTypes__etapesTypes__administrations = require('../../sources/r--t
 
 exports.seed = seeding(async ({ insert }) => {
   await Promise.all([
-    insert('a__domaines', a__domaines),
     insert('a__titresTypes__titresStatuts', a_titresTypes_titresStatuts),
     insert('a__etapesTypes', a__etapesTypes),
 

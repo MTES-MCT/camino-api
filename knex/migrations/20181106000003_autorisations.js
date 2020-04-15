@@ -1,13 +1,5 @@
 exports.up = knex =>
   knex.schema
-    .createTable('a__domaines', table => {
-      table
-        .string('domaineId')
-        .primary()
-        .references('domaines.id')
-        .notNullable()
-      table.boolean('publicLecture').notNullable()
-    })
     .createTable('a__titresTypes__titresStatuts', table => {
       table
         .string('titreTypeId')
@@ -84,7 +76,6 @@ exports.up = knex =>
 
 exports.down = knex =>
   knex.schema
-    .dropTable('a__domaines')
     .dropTable('a__titresTypes__titresStatuts')
     .dropTable('a__etapesTypes')
 
