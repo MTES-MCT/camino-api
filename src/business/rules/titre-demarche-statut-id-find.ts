@@ -43,7 +43,6 @@ const titreDemarchesDemandesTypes = [
   'res',
   'ces',
   'dep',
-  'mec',
   'vus',
   'vct'
 ]

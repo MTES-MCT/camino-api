@@ -1,5 +1,6 @@
 import { ITitre } from '../../types'
 import { mocked } from 'ts-jest/utils'
+
 import titresPropsContenuUpdate from './titres-props-contenu-update'
 import titreContenuEtapeIdFind from '../rules/titre-contenu-etape-id-find'
 
