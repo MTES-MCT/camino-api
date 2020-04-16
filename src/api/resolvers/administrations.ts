@@ -17,8 +17,10 @@ const administration = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
+
     const fields = fieldsBuild(info)
+
     const administration = await administrationGet(
       id,
       { fields },
@@ -41,7 +43,8 @@ const administrations = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const user = context.user && (await userGet(context.user.id))
+    const user = await userGet(context.user?.id)
+
     const fields = fieldsBuild(info)
     const administrations = await administrationsGet(
       { noms },
