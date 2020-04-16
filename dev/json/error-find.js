@@ -1,23 +1,41 @@
-const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
+const fs = require('fs')
 
-const errorFind = (a, b, join) => {
-  const elementsA = domainesIds.flatMap(domaineId =>
-    require(`../../sources/titres-${domaineId}-titres-${a}.json`)
-  )
+const errorFind = (a, b, pivot) => {
+  let fileA
+  let fileB
 
-  const elementsB = domainesIds.flatMap(domaineId =>
-    require(`../../sources/titres-${domaineId}-titres-${b}.json`)
-  )
+  try {
+    fileA = JSON.parse(fs.readFileSync(a).toString())
+  } catch (e) {
+    console.error('no such file:', a)
 
-  elementsB.reduce((index, r) => {
-    const p = elementsA.find(p => p.id === r[join])
+    process.exit(1)
+  }
 
-    if (!p) {
-      console.log(r)
+  try {
+    fileB = JSON.parse(fs.readFileSync(b).toString())
+  } catch (e) {
+    console.error('no such file:', b)
+
+    process.exit(1)
+  }
+
+  fileB.forEach(b => {
+    const a = fileA.find(a => a.id === b[pivot])
+
+    if (!a) {
+      console.error(b)
     }
-
-    return index
-  }, {})
+  })
 }
 
-errorFind('etapes', 'documents', 'titre_etape_id')
+const [a, b, pivot] = process.argv.slice(2)
+
+if (!a || !b || !pivot) {
+  console.error(
+    'usage: node error-find ./path/to/file-a ./path/to/file-b pivot-from-b-to-a'
+  )
+  process.exit(1)
+}
+
+errorFind(a, b, pivot)
