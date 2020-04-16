@@ -53,47 +53,55 @@ const utilisateursPermissionQueryBuild = (
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('permissionModification'))
-  } else if (user && permissionCheck(user, ['admin'])) {
+  } else if (
+    user && permissionCheck(user, ['admin']) &&
+    user.administrations?.length
+  ) {
     // restreint le droit d'édition d'un utilisateur
     // aux permissions inférieures d'admin
-    const permissionsIds = ['editeur', 'lecteur', 'entreprise', 'defaut']
-    const permissionsIdsReplace = permissionsIds.map(() => '?')
+    const permissionsIdsPublic = ['entreprise', 'defaut']
+    const permissionsIdsPublicReplace = permissionsIdsPublic.map(() => '?')
 
-    q.select(
+    // permissions des administrations
+    const permissionsIdsAdmin = ['editeur', 'lecteur']
+    const permissionsIdsAdminReplace = permissionsIdsAdmin.map(() => '?')
+
+    const administrationsIds = user.administrations.map(e => e.id)
+    const administrationsIdsReplace = user.administrations.map(() => '?')
+
+    q.leftJoin(
+      'utilisateurs__administrations as u_a',
       raw(
-        `case when ?? = ? or ?? in (${permissionsIdsReplace}) then true else false end`,
-        [
-          'utilisateurs.id',
-          user.id,
-          'utilisateurs.permissionId',
-          ...permissionsIds
-        ]
-      ).as('modification')
+        `?? = ?? and ?? in (${administrationsIdsReplace})`,
+        ['u_a.utilisateur_id', 'utilisateurs.id', 'u_a.administration_id', ...administrationsIds]
+      )
     )
 
-    q.select(
-      raw(
-        `case when ?? = ? or ?? in (${permissionsIdsReplace}) then true else false end`,
-        [
-          'utilisateurs.id',
-          user.id,
-          'utilisateurs.permissionId',
-          ...permissionsIds
-        ]
-      ).as('suppression')
-    )
+    const permissionModificationSuppression = (alias: string) =>
+      q.select(
+        raw(
+          `case when
+           ?? = ?
+           or ?? in (${permissionsIdsPublicReplace})
+           or (?? in (${permissionsIdsAdminReplace}) and ?? is not null)
+          then true else false end`,
+          [
+            'utilisateurs.id',
+            user.id,
+            'utilisateurs.permissionId',
+            ...permissionsIdsPublic,
+            'utilisateurs.permissionId',
+            ...permissionsIdsAdmin,
+            'u_a.administration_id'
+          ]
+        ).as(alias)
+      )
 
-    q.select(
-      raw(
-        `case when ?? = ? or ?? in (${permissionsIdsReplace}) then true else false end`,
-        [
-          'utilisateurs.id',
-          user.id,
-          'utilisateurs.permissionId',
-          ...permissionsIds
-        ]
-      ).as('permissionModification')
-    )
+    permissionModificationSuppression('modification')
+
+    permissionModificationSuppression('suppression')
+
+    permissionModificationSuppression('permissionModification')
   } else if (user) {
     q.select(
       raw('(case when ?? = ? then true else false end)', [
