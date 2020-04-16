@@ -337,8 +337,12 @@ const utilisateurModifier = async (
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
+  console.log({ utilisateur, user: context.user?.id })
+
   try {
     const user = await userGet(context.user?.id)
+
+    console.log({ user })
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 

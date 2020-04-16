@@ -1,6 +1,6 @@
 const Knex = require('knex')
-const config = require('./config-api')
-const knex = Knex(config.knex)
+const configDbManager = require('./config-db-manager')
+const knex = Knex(configDbManager.knex)
 const chalk = require('chalk')
 
 const run = async () => {

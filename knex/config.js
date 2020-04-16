@@ -3,13 +3,13 @@ const { knexSnakeCaseMappers } = require('objection')
 
 const connection = {
   host: process.env.PGHOST,
-  port: process.env.PGPORT,
+  port: Number(process.env.PGPORT),
   database: process.env.PGDATABASE,
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD
 }
 
-const knexConfig = {
+const knex = {
   client: 'pg',
   connection,
   migrations: {
@@ -21,4 +21,4 @@ const knexConfig = {
   ...knexSnakeCaseMappers()
 }
 
-module.exports = knexConfig
+module.exports = knex
