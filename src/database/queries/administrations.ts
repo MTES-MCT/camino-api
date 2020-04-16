@@ -44,6 +44,8 @@ const administrationsGet = async (
 
   const q = administrationsQueryBuild({ fields }, user)
 
+  q.orderBy('nom')
+
   return q.skipUndefined()
 }
 
