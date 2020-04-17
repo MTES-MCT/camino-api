@@ -66,4 +66,23 @@ const titresDemarchesStatutIdentique = ([
   }
 ] as unknown) as ITitre[]
 
-export { titresDemarchesStatutModifie, titresDemarchesStatutIdentique }
+const titresDemarchesSansEtape = ([
+  {
+    demarches: [
+      {
+        id: 'h-cx-courdemanges-1988-oct01',
+        titreId: 'h-cx-courdemanges-1988',
+        typeId: 'oct',
+        statutId: 'ind',
+        ordre: 1,
+        etapes: []
+      }
+    ]
+  }
+] as unknown) as ITitre[]
+
+export {
+  titresDemarchesStatutModifie,
+  titresDemarchesStatutIdentique,
+  titresDemarchesSansEtape
+}

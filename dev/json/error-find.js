@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const errorFind = (a, b, pivot) => {
+const errorFind = (a, b, pivotA, pivotB = 'id') => {
   let fileA
   let fileB
 
@@ -21,7 +21,7 @@ const errorFind = (a, b, pivot) => {
   }
 
   fileB.forEach(b => {
-    const a = fileA.find(a => a.id === b[pivot])
+    const a = fileA.find(a => a[pivotB] === b[pivotA])
 
     if (!a) {
       console.error(b)
@@ -33,7 +33,7 @@ const [a, b, pivot] = process.argv.slice(2)
 
 if (!a || !b || !pivot) {
   console.error(
-    'usage: node error-find ./path/to/file-a ./path/to/file-b pivot-from-b-to-a'
+    'usage: node error-find ./path/to/file-a ./path/to/file-b pivot-from-b-to-a [pivot-from-a-t-b]'
   )
   process.exit(1)
 }
