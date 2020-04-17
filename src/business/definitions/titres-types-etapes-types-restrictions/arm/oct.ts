@@ -1,6 +1,6 @@
 export default [
   {
-    condition: { etape: { typeId: 'ret' } },
+    condition: { etape: { typeId: 'des' } },
     obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'sco' }]
     // TODO: implementer cette règle

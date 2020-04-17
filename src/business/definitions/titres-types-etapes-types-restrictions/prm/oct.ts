@@ -6,7 +6,7 @@ export default [
   },
 
   {
-    condition: { etape: { typeId: 'ret' } },
+    condition: { etape: { typeId: 'des' } },
     obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'dex' }]
   },
@@ -202,13 +202,13 @@ export default [
   {
     condition: { etape: { typeId: 'dex' } },
     obligatoireApres: [{ typeId: 'sas' }],
-    impossibleApres: [{ typeId: 'ret' }]
+    impossibleApres: [{ typeId: 'des' }]
   },
 
   {
     condition: { etape: { typeId: 'dpu', statutId: 'acc' } },
     obligatoireApres: [{ typeId: 'dex', statutId: 'acc' }],
-    impossibleApres: [{ typeId: 'ret' }]
+    impossibleApres: [{ typeId: 'des' }]
   },
   {
     condition: { etape: { typeId: 'dpu', statutId: 'rej' } },

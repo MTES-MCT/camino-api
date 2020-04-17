@@ -14,7 +14,7 @@ import {
   titreDemarcheOctMenIns,
   titreArmDemarcheOctMdpIns,
   titreArmDemarcheOctDefIns,
-  titreDemarcheOctRet,
+  titreDemarcheOctDes,
   titreDemarcheOctMdp,
   titreDemarcheOctMfr,
   titreDemarcheOctMcrDef,
@@ -98,8 +98,8 @@ describe("statut d'une démarche", () => {
     )
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente est ret a le statut “retirée”", () => {
-    expect(titreDemarcheStatutIdFind(titreDemarcheOctRet)).toEqual('ret')
+  test("une démarche d'octroi dont l'étape la plus récente est des a le statut “désisté”", () => {
+    expect(titreDemarcheStatutIdFind(titreDemarcheOctDes)).toEqual('des')
   })
 
   test("une démarche d'octroi dont l'étape la plus récente est mdp a le statut “déposée”", () => {

@@ -127,7 +127,7 @@ const titreOctroiRetire = ({
       id: 'm-pr-saint-pierre-2014-oct01',
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
-      statutId: 'ret',
+      statutId: 'des',
       ordre: 1,
       annulationTitreDemarcheId: null
     }

@@ -9,7 +9,7 @@ const titreEtapesDecisivesTypes = [
   'men',
   'meo',
   'ide',
-  'ret',
+  'des',
   'mcr',
   'dim',
   'dex',
@@ -129,10 +129,10 @@ const titreDemarcheStatutIdFind = (
       return 'rej'
     }
 
-    //  - le type de l’étape est retrait de la demande (ret)
-    if (titreEtapeRecent.typeId === 'ret') {
-      //  - le statut de la démarche est “retirée”
-      return 'ret'
+    //  - le type de l’étape est désistement du demandeur (des)
+    if (titreEtapeRecent.typeId === 'des') {
+      //  - le statut de la démarche est “désisté”
+      return 'des'
     }
 
     //  - le type de l’étape est recevabilité de la demande (mcr)
