@@ -14,11 +14,11 @@ const titresDemarchesStatutUpdate = async (titres: ITitre[]) => {
     (titresDemarchesUpdated: string[], titre) =>
       titre.demarches!.reduce(
         (titresDemarchesUpdated: string[], titreDemarche) => {
-          titreDemarche.etapes =
-            titreDemarche.etapes && titreDemarche.etapes.reverse()
+          const titreDemarcheEtapes = titreDemarche.etapes?.reverse() || []
 
           const statutId = titreDemarcheStatutIdFind(
-            titreDemarche,
+            titreDemarche.typeId,
+            titreDemarcheEtapes,
             titre.typeId
           )
 

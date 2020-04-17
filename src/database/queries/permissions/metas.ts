@@ -239,13 +239,13 @@ const etapesTypesPermissionQueryBuild = (
     )
 
     // si
-    // - l'étape a la propriété 'unique'
+    // - l'étape n'est pas unique
     // - ou si
     //   - il n'y a aucune étape du même type au sein de la démarche
     //   - l'id de l'étape est différente de l'étape éditée
     // -> affiche le type d'étape
     q.where(b => {
-      b.where('unique', false)
+      b.whereRaw('?? is not true', ['etapesTypes.unique'])
       b.orWhere(c => {
         const d = TitresEtapes.query()
           .where({ titreDemarcheId })
