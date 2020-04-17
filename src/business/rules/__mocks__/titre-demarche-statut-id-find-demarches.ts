@@ -217,15 +217,15 @@ const titreArmDemarcheOctDefIns = ({
   ]
 } as unknown) as ITitreDemarche
 
-const titreDemarcheOctRet = ({
+const titreDemarcheOctDes = ({
   id: 'h-cx-courdemanges-1988-oct01',
   titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cx-courdemanges-1988-oct01-ret01',
-      typeId: 'ret'
+      id: 'h-cx-courdemanges-1988-oct01-des01',
+      typeId: 'des'
     }
   ]
 } as unknown) as ITitreDemarche
@@ -292,7 +292,7 @@ const titreDemarcheRetDpuFai = ({
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cx-courdemanges-1988-ret01-ret01',
+      id: 'h-cx-courdemanges-1988-ret01-dpu01',
       typeId: 'dup',
       statutId: 'fai'
     }
@@ -306,7 +306,7 @@ const titreDemarcheRetDpuIni = ({
   statutId: 'acc',
   etapes: [
     {
-      id: 'h-cx-courdemanges-1988-ret01-ret01',
+      id: 'h-cx-courdemanges-1988-ret01-dpu01',
       typeId: 'dpu'
     }
   ]
@@ -326,7 +326,7 @@ const titreDemarcheRtd = ({
 } as unknown) as ITitreDemarche
 
 const titreDemarcheIndefinie = ({
-  id: 'h-cx-courdemanges-1988-ret01',
+  id: 'h-cx-courdemanges-1988-des01',
   titreId: 'h-cx-courdemanges-1988',
   typeId: 'ind',
   statutId: 'acc',
@@ -348,7 +348,7 @@ export {
   titreDemarcheOctMenIns,
   titreArmDemarcheOctMdpIns,
   titreArmDemarcheOctDefIns,
-  titreDemarcheOctRet,
+  titreDemarcheOctDes,
   titreDemarcheOctMdp,
   titreDemarcheOctMfr,
   titreDemarcheOctMcrDef,

@@ -39,9 +39,9 @@ const titreDemarchePermissionQueryBuild = (
       b.whereIn('titresDemarches.statutId', ['acc', 'ter'])
 
       // pour les AXM et ARM
-      // les démarches `cls`, `rej` et `ret` sont aussi visibles
+      // les démarches `cls`, `rej` et `des` sont aussi visibles
       b.orWhere(c => {
-        c.whereIn('titresDemarches.statutId', ['cls', 'rej', 'ret'])
+        c.whereIn('titresDemarches.statutId', ['cls', 'rej', 'des'])
         c.whereExists(
           (TitresDemarches.relatedQuery('titre') as QueryBuilder<
             Titres,

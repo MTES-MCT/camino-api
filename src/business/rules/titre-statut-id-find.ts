@@ -14,7 +14,7 @@ const titreStatutIdFind = (titre: ITitre) => {
   if (
     titre.demarches.length === 1 &&
     ['oct', 'vut', 'vct'].includes(titre.demarches[0].typeId) &&
-    ['eco', 'ins', 'dep', 'rej', 'cls', 'ret'].includes(
+    ['eco', 'ins', 'dep', 'rej', 'cls', 'des'].includes(
       titre.demarches[0].statutId!
     )
   ) {
@@ -24,7 +24,7 @@ const titreStatutIdFind = (titre: ITitre) => {
       return 'dmi'
     }
 
-    // le statut de la démarche est rejetée ou classée sans suite ou retirée
+    // le statut de la démarche est rejeté ou classé sans suite ou désisté
     // le statut du titre est demande classée
     return 'dmc'
   }
