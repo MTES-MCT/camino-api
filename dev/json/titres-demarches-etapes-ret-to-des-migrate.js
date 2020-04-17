@@ -39,5 +39,5 @@ domainesIds.forEach(domaineId => {
 
   modify(domaineId, 'demarche', 'statut_id')
 
-  console.log('')
+  console.info('')
 })

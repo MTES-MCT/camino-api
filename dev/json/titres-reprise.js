@@ -25,7 +25,7 @@ const indexify = (arr, propGet = i => i) =>
 async function main() {
   const entreprisesCamino = await entreprisesGet()
 
-  console.log('camino entreprises:', entreprisesCamino.length)
+  console.info('camino entreprises:', entreprisesCamino.length)
 
   const entreprisesCaminoIndex = indexify(entreprisesCamino, a => a.id)
 
@@ -35,16 +35,17 @@ async function main() {
     { graph: '[references]' }
   )
 
-  console.log('camino titres:', titresCamino.length)
+  console.info('camino titres:', titresCamino.length)
 
   const titresCaminoIndexId = indexify(
     titresCamino,
-    a => console.log('camino, id:', a.id) || a.id
+    a => console.info('camino, id:', a.id) || a.id
   )
 
   const titresCaminoIndexDeal = indexify(
     titresCamino,
-    a => console.log('camino, ref:', a.references[0].nom) || a.references[0].nom
+    a =>
+      console.info('camino, ref:', a.references[0].nom) || a.references[0].nom
   )
 
   // process.exit(0)
@@ -59,8 +60,8 @@ async function main() {
     titres: titresReprise
   } = require(filePath)
 
-  console.log('reprise n entreprises:', entreprisesReprise.length)
-  console.log('reprise n titres:', titresReprise.length)
+  console.info('reprise n entreprises:', entreprisesReprise.length)
+  console.info('reprise n titres:', titresReprise.length)
 
   titresReprise.reduce((titresIds, titre) => {
     titre.demarches.forEach(titreDemarche => {
@@ -68,14 +69,14 @@ async function main() {
 
       const statutId = titreDemarcheStatutIdFind(titreDemarche, titre.typeId)
 
-      console.log(titreDemarche.id, statutId)
+      console.info(titreDemarche.id, statutId)
 
       titreDemarche.statutId = statutId
     })
 
     const idNew = titreIdFind(titre)
     if (idNew !== titre.id) {
-      console.log(`${titre.id} => ${idNew}`)
+      console.info(`${titre.id} => ${idNew}`)
 
       titre.id = idNew
     }
@@ -87,20 +88,20 @@ async function main() {
 
   const titresRepriseIndexId = indexify(
     titresReprise,
-    a => console.log('reprise, id:', a.id) || a.id
+    a => console.info('reprise, id:', a.id) || a.id
   )
 
   if (false) {
     // verification de doublons dans les ids générés sur google sheets
     const ids = Object.keys(titresRepriseIndexId).sort()
 
-    console.log(ids.join('\n'))
+    console.info(ids.join('\n'))
 
     ids.forEach(id => {
       if (titresRepriseIndexId[id].length < 2) return
 
-      console.log(id)
-      console.log(titresRepriseIndexId[id].map(e => e.references[0]))
+      console.info(id)
+      console.info(titresRepriseIndexId[id].map(e => e.references[0]))
     })
 
     process.exit(0)
@@ -119,7 +120,7 @@ async function main() {
   // process.exit(0)
 
   for (const titre of titresReprise) {
-    console.log('reperise:', titre.id, titre.references[0].nom)
+    console.info('reperise:', titre.id, titre.references[0].nom)
 
     if (titresRepriseIndexId[titre.id].length > 1) {
       console.warn(`id [${titre.id}] dupliquée !`)
@@ -150,7 +151,7 @@ async function main() {
   }
 
   for (const titre of titresReprise) {
-    console.log(titre.id, titre.references[0].nom)
+    console.info(titre.id, titre.references[0].nom)
 
     await titreUpsert(titre)
   }
@@ -161,6 +162,6 @@ async function main() {
 }
 
 main().catch(e => {
-  console.log(e)
+  console.info(e)
   process.exit(1)
 })

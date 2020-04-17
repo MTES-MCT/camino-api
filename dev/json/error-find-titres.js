@@ -13,7 +13,7 @@ const errorFind = (a, b, join) => {
     const p = elementsA.find(p => p.id === r[join])
 
     if (!p) {
-      console.log(r)
+      console.info(r)
     }
   })
 }
