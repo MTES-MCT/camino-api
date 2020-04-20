@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.31](https://github.com/MTES-MCT/camino-api/compare/v0.24.30...v0.24.31) (2020-04-20)
+
+
+### Features
+
+* **data:** migre les données du formulaire ([#365](https://github.com/MTES-MCT/camino-api/issues/365)) ([25a70f9](https://github.com/MTES-MCT/camino-api/commit/25a70f93a7891cfe8af43362896ec48e96ce47b2))
+* **étapes:** renomme l'étape "retrait de la demande" en "désistement du demandeur" ([#370](https://github.com/MTES-MCT/camino-api/issues/370)) ([ed998f6](https://github.com/MTES-MCT/camino-api/commit/ed998f629ab4736c914e60ebaf1db11d345a189c))
+
+
+### Bug Fixes
+
+* **activites:** rouvre les rapports annuels de production d'or pour l'annee 2019 ([b67a124](https://github.com/MTES-MCT/camino-api/commit/b67a124e30e05994c7c69a7258a0161992e589d9))
+* **activités:** restreint les types d'activités aux utilisateurs habilités ([#358](https://github.com/MTES-MCT/camino-api/issues/358)) ([2fbfeba](https://github.com/MTES-MCT/camino-api/commit/2fbfebab8e00245d94864702876e609fafa012c2))
+* **api:** corrige les sections specifiques des étapes ([#355](https://github.com/MTES-MCT/camino-api/issues/355)) ([69eefcd](https://github.com/MTES-MCT/camino-api/commit/69eefcdaae552077ee0e645ec24c4ce9e82b95d7))
+* **api:** filtre la liste des étapes en fonction du statut pendant l'édition ([#352](https://github.com/MTES-MCT/camino-api/issues/352)) ([acae4f4](https://github.com/MTES-MCT/camino-api/commit/acae4f460f5fec32f3f75be50eca919d14eee4aa))
+* **api:** ordonne les administrations par nom croissant ([#367](https://github.com/MTES-MCT/camino-api/issues/367)) ([2d905f5](https://github.com/MTES-MCT/camino-api/commit/2d905f5d1051ca6fce948536b60f6a62d9e85a5b))
+* **api:** restreint l'édition aux utilisateurs de la même administration ([#369](https://github.com/MTES-MCT/camino-api/issues/369)) ([ab37a42](https://github.com/MTES-MCT/camino-api/commit/ab37a4296259d022ff6718def244e3e190717ecd))
+* **api:** restreint les permissions des admins à éditeur et en dessous ([#368](https://github.com/MTES-MCT/camino-api/issues/368)) ([b836684](https://github.com/MTES-MCT/camino-api/commit/b836684ffc59d044f5382b8d37ac44ebbe5604f5))
+* **business:** corrige le calcul des contenus de titre ([#357](https://github.com/MTES-MCT/camino-api/issues/357)) ([f75a49f](https://github.com/MTES-MCT/camino-api/commit/f75a49f29b90747cd131ebfe15207c8361f2f244))
+* **data:** corrige les ids de sous-éléments de titres ([#362](https://github.com/MTES-MCT/camino-api/issues/362)) ([ece78b7](https://github.com/MTES-MCT/camino-api/commit/ece78b77ab61f69b6524064aeaf0359e1c3728d7))
+* **démarche:** complète et corrige le calcul du statut des démarches ([#371](https://github.com/MTES-MCT/camino-api/issues/371)) ([625a3fe](https://github.com/MTES-MCT/camino-api/commit/625a3fe793ead4fa53e1cb2927d28985a585d6dc))
+* **demarches:** supprime la démarche de mécanisation ([#366](https://github.com/MTES-MCT/camino-api/issues/366)) ([baa98c2](https://github.com/MTES-MCT/camino-api/commit/baa98c24cc3b9dd70d88e91fd6276da256d613b9))
+* **démarches:** publie les démarches aux statuts rejeté et classé sans suite pour les ARM et AXM ([#361](https://github.com/MTES-MCT/camino-api/issues/361)) ([fd0dc75](https://github.com/MTES-MCT/camino-api/commit/fd0dc75bd6a5cd09fea9267c9498a0fcf714cbee))
+* corrige le build ([#359](https://github.com/MTES-MCT/camino-api/issues/359)) ([f96e443](https://github.com/MTES-MCT/camino-api/commit/f96e443a9382f255e8a3b19d189b4ae4ec2ab94c))
+* **documents:** corrige l'enregistrement de documents ([#356](https://github.com/MTES-MCT/camino-api/issues/356)) ([0782990](https://github.com/MTES-MCT/camino-api/commit/0782990c10f47109dd9c739daecb8ac22d55ef7b))
+
 ### [0.24.30](https://github.com/MTES-MCT/camino-api/compare/v0.24.29...v0.24.30) (2020-04-09)
 
 
