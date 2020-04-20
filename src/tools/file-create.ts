@@ -1,16 +1,21 @@
 import { writeFile } from 'fs'
+
 import errorLog from './error-log'
 
 const fileCreate = async (name: string, content: string) =>
   new Promise((resolve, reject) => {
     writeFile(name, content, (err: any) => {
       if (err) {
-        errorLog(`fichier: ${name}`, err)
-        reject(err)
+        errorLog(`fichier non créé: ${name}`, err)
+
+        return reject(err)
       }
 
-      console.info('fichier:', name)
-      resolve()
+      const log = `fichier créé: ${name}`
+
+      console.info(log)
+
+      resolve(log)
     })
   })
 

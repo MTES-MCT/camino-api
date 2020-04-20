@@ -5,12 +5,15 @@ import {
   ITitreDemarcheColonneId
 } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
+
 import { debug } from '../../config/index'
 
 import fieldsBuild from './_fields-build'
 
 import { permissionCheck } from '../../tools/permission'
 import { titreDemarchePermissionAdministrationsCheck } from './permissions/titre-edition'
+
+import { titreDemarcheDocumentsDelete } from './_titre-document'
 
 import { titreFormat } from './format/titres'
 
@@ -249,14 +252,12 @@ const demarcheSupprimer = async (
 
     // TODO: ajouter une validation ?
 
-    const demarcheOld = await titreDemarcheGet(
-      id,
-      { fields: {} },
-      user && user.id
-    )
+    const demarcheOld = await titreDemarcheGet(id, {}, user.id)
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
 
     await titreDemarcheDelete(id)
+
+    await titreDemarcheDocumentsDelete(demarcheOld)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(null, demarcheOld.titreId)
 
