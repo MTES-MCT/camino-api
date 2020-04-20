@@ -14,8 +14,6 @@ import middlewareJwt from '../src/server/middleware-jwt'
 import * as knexConfig from '../knex/config'
 import * as userAdd from '../knex/user-add'
 
-process.env.JWT_SECRET = 'secret-tests'
-
 const knex = Knex(knexConfig)
 
 Model.knex(knex)
@@ -38,44 +36,27 @@ beforeAll(async () => {
     }
   })
 
-  try {
-    await dbManager.createDb()
-  } catch (e) {
-    console.info('database already exists')
-  }
-
   await dbManager.createDbOwnerIfNotExist()
+
+  await dbManager.dropDb(knexConfig.connection.database)
+  await dbManager.createDb(knexConfig.connection.database)
+
+  await knex.migrate.latest()
 })
 
 beforeEach(async () => {
+  console.log('beforeEach global')
+
   await dbManager.truncateDb()
-
-  try {
-    await knex.schema.dropTable('utilisateurs')
-  } catch (e) {}
-
-  await knex.schema.createTable('utilisateurs', table => {
-    table.string('id').primary()
-    table.string('email')
-    table.string('motDePasse').notNullable()
-    table.string('nom')
-    table.string('prenom')
-    table.string('telephoneFixe')
-    table.string('telephoneMobile')
-    table.string('permissionId', 12).notNullable()
-    table.json('preferences')
-  })
 })
 
-const utilisateursModifierQuery = fs.readFileSync(
+const utilisateurModifierQuery = fs.readFileSync(
   path.join(__dirname, './queries/utilisateur-modifier.graphql')
 )
 
 describe('utilisateursModifier', () => {
   beforeEach(async () => {
     console.log('beforeEach utilisateursModifier')
-
-    await knex('utilisateurs').truncate()
 
     await userAdd({
       id: 'test',
@@ -89,7 +70,7 @@ describe('utilisateursModifier', () => {
 
   test("en tant qu'utilisateur anonyme, un utilisateur n'est pas modifié", async () => {
     const res = await request(app).post(
-      `/?query=${utilisateursModifierQuery}&variables=${JSON.stringify({
+      `/?query=${utilisateurModifierQuery}&variables=${JSON.stringify({
         utilisateur: {
           id: 'test',
           prenom: 'toto-updated',
@@ -103,12 +84,12 @@ describe('utilisateursModifier', () => {
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
-  test("en tant que l'utilisateur, un utilisateur est modifié", async () => {
+  test.only("en tant que l'utilisateur, un utilisateur est modifié", async () => {
     const token = jwt.sign({ id: 'test' }, process.env.JWT_SECRET as string)
 
     const res = await request(app)
       .post(
-        `/?query=${utilisateursModifierQuery}&variables=${JSON.stringify({
+        `/?query=${utilisateurModifierQuery}&variables=${JSON.stringify({
           utilisateur: {
             id: 'test',
             prenom: 'toto-updated',
@@ -120,6 +101,7 @@ describe('utilisateursModifier', () => {
       )
       .set('Authorization', `Bearer ${token}`)
 
+    expect(res.status).toEqual(200)
     expect(res.body).toMatchObject({
       id: 'test'
     })
