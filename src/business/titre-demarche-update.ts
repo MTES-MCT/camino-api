@@ -1,6 +1,8 @@
 import { titreGet } from '../database/queries/titres'
+import { titreDemarcheGet } from '../database/queries/titres-demarches'
 
 import { activitesTypesGet } from '../database/queries/metas'
+import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
@@ -12,9 +14,15 @@ import { titreIdsUpdate } from './processes/titres-ids-update'
 
 import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
-const titreDemarcheUpdate = async (titreId: string) => {
+const titreDemarcheUpdate = async (
+  titreDemarcheId: string | null,
+  titreId: string
+) => {
   try {
-    let titre = await titreGet(
+    let titre
+    let titreDemarche
+
+    titre = await titreGet(
       titreId,
       {
         fields: { demarches: { etapes: { id: {} } } }
@@ -26,14 +34,39 @@ const titreDemarcheUpdate = async (titreId: string) => {
       throw new Error(`warning: le titre ${titreId} n'existe plus`)
     }
 
-    // 3.
+    let titresDemarchesPublicUpdated
+
+    if (titreDemarcheId) {
+      console.info()
+      console.info('publicité des démarches…')
+      titreDemarche = await titreDemarcheGet(
+        titreDemarcheId,
+        { fields: { etapes: { id: {} } } },
+        'super'
+      )
+      titre = await titreGet(
+        titreId,
+        {
+          fields: {
+            demarches: {
+              type: { etapesTypes: { id: {} } },
+              etapes: { id: {} }
+            }
+          }
+        },
+        'super'
+      )
+      titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate([
+        titre
+      ])
+    }
+
     console.info('ordre des démarches…')
 
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
       titre
     ])
 
-    // 4.
     console.info('statut des titres…')
     titre = await titreGet(
       titreId,
@@ -44,7 +77,6 @@ const titreDemarcheUpdate = async (titreId: string) => {
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
 
-    // 5.
     console.info('phases des titres…')
     titre = await titreGet(
       titreId,
@@ -58,7 +90,6 @@ const titreDemarcheUpdate = async (titreId: string) => {
       titresPhasesDeleted = []
     ] = await titresPhasesUpdate([titre])
 
-    // 6.
     console.info('date de début, de fin et de demande initiale des titres…')
     titre = await titreGet(
       titreId,
@@ -69,7 +100,6 @@ const titreDemarcheUpdate = async (titreId: string) => {
     )
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
-    // 11.
     console.info('propriétés des titres (liens vers les étapes)…')
     titre = await titreGet(
       titreId,
@@ -91,7 +121,6 @@ const titreDemarcheUpdate = async (titreId: string) => {
     )
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
 
-    // 12.
     console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titre = await titreGet(
       titreId,
@@ -102,8 +131,6 @@ const titreDemarcheUpdate = async (titreId: string) => {
     )
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
 
-    // 13.
-    // pour les année 2018 et 2019 (en dur)
     console.info()
     console.info('activités des titres…')
 
@@ -124,12 +151,16 @@ const titreDemarcheUpdate = async (titreId: string) => {
       activitesTypes
     )
 
-    // 14.
     console.info('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {}, 'super')
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
+    if (titresDemarchesPublicUpdated) {
+      console.info(
+        `mise à jour: ${titresDemarchesPublicUpdated.length} démarche(s) (publicicité)`
+      )
+    }
     console.info(
       `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
     )
