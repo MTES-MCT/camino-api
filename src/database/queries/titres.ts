@@ -264,7 +264,7 @@ const titresColonnes = {
   substances: { id: 'substances.nom', relation: 'substances' },
   titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
   // activitesTotal: { id: 'activitesAbsentes + activitesEnCours + activitesDeposees' }
-} as Index<IColonne>
+} as Index<IColonne<string>>
 
 const titresGet = async (
   {

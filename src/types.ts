@@ -8,9 +8,10 @@ interface Index<T> {
   [id: string]: T
 }
 
-interface IColonne {
-  id: string
+interface IColonne<T> {
+  id: T
   relation?: string
+  groupBy?: boolean
 }
 
 type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activitesTotal'
@@ -22,6 +23,8 @@ type ITitreDemarcheColonneId =
   | 'titreStatut'
   | 'type'
   | 'statut'
+
+type ITitreActiviteColonneId = 'titreNom' | 'titulaire' | 'periode' | 'statut'
 
 interface IActiviteStatut {
   id: string
@@ -808,6 +811,7 @@ export {
   ITokenUser,
   ITitreColonneId,
   ITitreDemarcheColonneId,
+  ITitreActiviteColonneId,
   IColonne,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,

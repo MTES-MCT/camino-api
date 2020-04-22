@@ -1,4 +1,4 @@
-import { IToken, ITitreActivite, ITitre, IUtilisateur } from '../../types'
+import { IToken, ITitreActivite, ITitreActiviteColonneId } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../config/index'
 import * as dateFormat from 'dateformat'
@@ -11,7 +11,9 @@ import fieldsBuild from './_fields-build'
 
 import {
   titreActiviteGet,
+  titresActivitesCount,
   titresActivitesGet,
+  activitesAnneesGet,
   titreActiviteUpdate as titreActiviteUpdateQuery
 } from '../../database/queries/titres-activites'
 import { userGet, utilisateursGet } from '../../database/queries/utilisateurs'
@@ -47,22 +49,78 @@ const activite = async (
 }
 
 const activites = async (
-  { typeId, annee }: { typeId: string; annee: number },
+  {
+    page,
+    intervalle,
+    ordre,
+    colonne,
+    typesIds,
+    annees
+  }: {
+    page?: number | null
+    intervalle?: number | null
+    ordre?: 'asc' | 'desc' | null
+    colonne?: ITitreActiviteColonneId | null
+    typesIds?: string[] | null
+    annees?: number[] | null
+  },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
     const fields = fieldsBuild(info)
 
+    if (!intervalle) {
+      intervalle = 200
+    }
+
+    if (!page) {
+      page = 1
+    }
+
     const titresActivites = await titresActivitesGet(
-      { typeId, annee },
-      { fields },
+      {
+        intervalle,
+        page,
+        ordre,
+        colonne,
+        typesIds,
+        annees
+      },
+      { fields: fields.activites },
+      context.user?.id
+    )
+
+    const total = await titresActivitesCount(
+      { typesIds, annees },
+      { fields: fields.activites },
       context.user?.id
     )
 
     if (!titresActivites.length) return []
 
-    return titresActivites.map(ta => titreActiviteFormat(ta, fields))
+    return {
+      activites: titresActivites.map(ta =>
+        titreActiviteFormat(ta, fields.activites)
+      ),
+      total
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const activitesAnnees = async (_: unknown, context: IToken) => {
+  try {
+    const annees = await activitesAnneesGet(context.user?.id)
+
+    if (!annees || !annees.length) return []
+
+    return annees
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -171,4 +229,4 @@ const activiteModifier = async (
   }
 }
 
-export { activite, activites, activiteModifier }
+export { activite, activites, activitesAnnees, activiteModifier }

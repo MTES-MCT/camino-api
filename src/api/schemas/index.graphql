@@ -80,7 +80,17 @@ type Query {
   activite(id: ID!): Activite
 
   "Liste des activités"
-  activites(typeId: ID, annee: Int): [Activite]
+  activites(
+    intervalle: Int
+    page: Int
+    colonne: String
+    ordre: String
+    typesIds: [ID]
+    annees: [Int]
+  ): Activites
+
+  "Années des activités"
+  activitesAnnees: [Int]
 
   "Types d'activités"
   activitesTypes: [ActiviteType]
