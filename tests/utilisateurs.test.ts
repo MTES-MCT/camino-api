@@ -44,8 +44,14 @@ beforeAll(async () => {
   await knex.migrate.latest()
 })
 
+afterAll(async () => {
+  await knex.destroy()
+})
+
 beforeEach(async () => {
   console.log('beforeEach global')
+
+  console.log('truncate db')
 
   await dbManager.truncateDb()
 })
@@ -57,6 +63,15 @@ const utilisateurModifierQuery = fs.readFileSync(
 describe('utilisateursModifier', () => {
   beforeEach(async () => {
     console.log('beforeEach utilisateursModifier')
+
+    console.log('insert permissions')
+
+    await knex('permissions').insert({
+      id: 'defaut',
+      nom: 'defaut'
+    })
+
+    console.log('user add')
 
     await userAdd({
       id: 'test',
@@ -84,7 +99,7 @@ describe('utilisateursModifier', () => {
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
-  test.only("en tant que l'utilisateur, un utilisateur est modifié", async () => {
+  test("en tant que l'utilisateur, un utilisateur est modifié", async () => {
     const token = jwt.sign({ id: 'test' }, process.env.JWT_SECRET as string)
 
     const res = await request(app)
@@ -94,7 +109,7 @@ describe('utilisateursModifier', () => {
             id: 'test',
             prenom: 'toto-updated',
             nom: 'test-updated',
-            email: 'test-updated@example.com',
+            email: 'test@camino.local',
             permissionId: 'defaut'
           }
         })}`
@@ -103,7 +118,11 @@ describe('utilisateursModifier', () => {
 
     expect(res.status).toEqual(200)
     expect(res.body).toMatchObject({
-      id: 'test'
+      data: {
+        utilisateurModifier: {
+          id: 'test'
+        }
+      }
     })
   })
 })

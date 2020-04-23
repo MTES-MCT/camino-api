@@ -27,15 +27,17 @@ interface IIndexCount {
 const diffFind = (key: string, ...arrays: Index<any>[][]) => {
   const indexCount = arrays.reduce(
     (indexCount: IIndexCount, array: Index<any>[]) =>
-      array.reduce((indexCount, index) => {
-        if (!indexCount[index[key]]) {
-          indexCount[index[key]] = []
-        }
+      array
+        ? array.reduce((indexCount, index) => {
+          if (!indexCount[index[key]]) {
+            indexCount[index[key]] = []
+          }
 
-        indexCount[index[key]].push(index)
+          indexCount[index[key]].push(index)
 
-        return indexCount
-      }, indexCount),
+          return indexCount
+        }, indexCount)
+        : indexCount,
     {}
   )
 
