@@ -1,6 +1,8 @@
 import { IToken, ITitre, ITitreColonneId } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
+
 import { debug } from '../../config/index'
+
 import { permissionCheck } from '../../tools/permission'
 import { titreFormat, titresFormat } from './format/titres'
 
@@ -16,6 +18,8 @@ import {
   titreUpsert
 } from '../../database/queries/titres'
 import { userGet } from '../../database/queries/utilisateurs'
+
+import { titreDocumentsDelete } from './_titre-document'
 
 import titreUpdateTask from '../../business/titre-update'
 
@@ -200,6 +204,10 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   if (!user || !permissionCheck(user, ['super'])) {
     throw new Error('droits insuffisants')
   }
+
+  const titreOld = await titreGet(id, {}, user.id)
+
+  await titreDocumentsDelete(titreOld)
 
   return titreDelete(id)
 }

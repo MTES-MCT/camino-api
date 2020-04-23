@@ -1,134 +1,172 @@
-const fs = require('fs')
 const chalk = require('chalk')
 const decamelize = require('decamelize')
 
-const { renameSync: rename, existsSync: exists } = require('fs')
+const {
+  renameSync: rename,
+  existsSync: exists,
+  readdirSync: readdir,
+  readFileSync: readFile,
+  writeFileSync: writeFile
+} = require('fs')
 
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
-const dups = [
-  'm-cx-dieu-merci-1891-dec01-dup01-d19bcf04',
-  'm-cx-la-victoire-1891-dec01-dup01-cc32d49b',
-  'm-cx-numero-135-1933-dec02-dup01-fc334344',
-  'm-cx-numero-135-1933-dec01-dup01-7aa86305',
-  'm-cx-numero-32-devez-1924-dec02-dup01-8586d675',
-  'm-cx-numero-32-devez-1924-dec01-dup01-a5a766de',
-  'm-cx-numero-651-central-bief-1908-dec02-dup01-b8c2f735',
-  'm-cx-numero-651-central-bief-1908-dec01-dup01-fdcb591f',
-  'm-cx-numero-86-devez-1930-dec02-dup01-fd957be1',
-  'm-cx-numero-86-devez-1930-dec01-dup01-ac9154a6',
-  'm-cx-renaissance-1889-dec01-dup01-19841ddf',
-  'm-cx-saint-elie-1889-dec01-dup01-d9f661ac',
-  'h-px-grandville-est-1990-prr01-dup01-b1c1c93c',
-  'h-px-saucede-ledeuix-1985-prr01-dup01-451b173b',
-  'h-px-vulaines-1988-prr01-dup01-750dc5f6'
+const ignoreList = [
+  // démarches diff, à vérifier
+  'm-cx-escaro-1962',
+  'm-pr-loc-envel-2015',
+  'm-pr-merleac-2014',
+  'm-cx-oraas-1844',
+  'm-ar-crique-mousse-2018',
+  'm-ar-crique-amadis-aval-2019',
+  'm-ar-crique-amadis-centre-2019',
+  // même hash, à renommer
+  'm-ax-crique-petit-inini-2014',
+  'm-ax-crique-bois-bande-1-2016',
+  // même hash, à renommer
+  'm-ar-crique-kounamari-5-2018',
+  'm-ar-crique-kounamari-6-2018'
 ]
 
-const titresDocumentsIdsRename = domaineId => {
+const targets = []
+
+const files = readdir('./files').map(file => file.split('.pdf')[0])
+
+const hashGet = str => str.split('-').pop()
+
+const matchFuzzy = (name, array, partGet = hashGet) => {
+  const hash = name.split('-').pop()
+
+  return array.reduce((r, key) => {
+    // on ne garde pas les matches entiers pendant un fuzzy
+    if (key === name) {
+      return r
+    }
+
+    const part = partGet(key)
+
+    if (part === hash) {
+      r.push(key)
+    }
+
+    return r
+  }, [])
+}
+
+const titresDocumentsIdsRename = async domaineId => {
   const fileName = decamelize(`titres-${domaineId}-titres-documents.json`, '-')
   const filePath = `./sources/${fileName}`
 
-  try {
-    const documents = JSON.parse(fs.readFileSync(filePath).toString())
+  const documents = JSON.parse(readFile(filePath).toString())
 
-    let count = 0
+  let count = 0
 
-    documents.forEach(d => {
-      // si l'id du document contient encore un type sur 3 caractères
-      // alors on enlève le dernier caractère
-      if (d.id.match(/^.-...-/)) {
-        d.id = d.id.replace(/(.-..).-/, '$1-')
+  await Promise.all(
+    documents.map(async d => {
+      if (!d.fichier) return
 
-        count += 1
+      if (!d.id.match(d.type_id)) {
+        const parts = d.id.split('-')
+
+        const hash = parts.pop()
+        const etape = parts.join('-')
+
+        const idOld = d.id
+        const idNew = `${etape}-${d.type_id}-${hash}`
+
+        console.info('<-', idOld)
+        console.info('->', idNew)
+
+        const pathNameOld = `./files/${idOld}.pdf`
+        const pathNameNew = `./files/${idNew}.pdf`
+
+        try {
+          await rename(pathNameOld, pathNameNew)
+
+          d.id = idNew
+
+          count += 1
+        } catch (e) {
+          console.info('no such file', `${idOld}.pdf`)
+        }
       }
+
+      return
     })
+  )
 
-    if (count > 0) {
-      console.info(`${domaineId}: documents modifiées ${count}`)
+  if (count > 0) {
+    console.info(
+      `${domaineId}: id(s) de document(s) modifié(s) et fichier(s) renommé(s) ${count}`
+    )
 
-      fs.writeFileSync(filePath, JSON.stringify(documents, null, 2))
+    writeFile(filePath, JSON.stringify(documents, null, 2))
 
-      console.info(`${domaineId}: ${filePath} modifié`)
-    } else {
-      console.info(`${domaineId}: aucune modification de documents`)
-    }
-  } catch (e) {
-    console.info(chalk.red(e.message.split('\n')[0]))
-    console.error(e.stack)
+    console.info(`${domaineId}: ${filePath} modifié`)
+  } else {
+    console.info(`${domaineId}: aucune modification de documents`)
   }
 }
 
-const titresDocumentsFilesMove = domaineId => {
+const titresDocumentsNoFileRename = async domaineId => {
   const fileName = decamelize(`titres-${domaineId}-titres-documents.json`, '-')
   const filePath = `./sources/${fileName}`
 
-  try {
-    const documents = JSON.parse(fs.readFileSync(filePath).toString())
+  const documents = JSON.parse(readFile(filePath).toString())
 
-    let count = 0
+  let count = 0
 
-    documents.forEach(d => {
-      // si le document est une dpu non renommée en dup
-      // alors on renomme le fichier en `dup`
-      if (dups.includes(d.id)) {
-        const documentNameOld = d.id.replace('dup01', 'dpu01')
+  await Promise.all(
+    documents.map(async d => {
+      if (!d.fichier) return
 
-        const pathNameOld = `./files/${documentNameOld}.pdf`
-        const pathNameNew = `./files/${d.id}.pdf`
+      const pathNameDoc = `./files/${d.id}.pdf`
+      const oldExists = exists(pathNameDoc)
 
-        if (exists(pathNameOld)) {
-          try {
-            rename(pathNameOld, pathNameNew)
+      // le fichier existe, on ne fait rien
+      if (oldExists) return
 
-            console.info(`${pathNameOld} => ${pathNameNew}`)
+      // cherche un fichier avec le même hash que le document
+      const matches = matchFuzzy(d.id, files)
 
-            count += 1
-          } catch (e) {
-            console.info(chalk.red(e.message.split('\n')[0]))
-          }
-        }
+      if (!matches) {
+        console.error('aucun fichier pour', d.id)
+        return
       }
 
-      // si le document est une `mcp`
-      // et que le fichieren `mcr` existe
-      // alors on renomme le fichier de `mcr` en `mcp`
-      if (d.id.match(/-mcp/)) {
-        const documentNameOld = d.id.replace('mcp01', 'mcr01')
-
-        const pathNameOld = `./files/${documentNameOld}.pdf`
-
-        if (exists(pathNameOld)) {
-          try {
-            const pathNameNew = `./files/${d.id}.pdf`
-
-            rename(pathNameOld, pathNameNew)
-
-            console.info(`${pathNameOld} => ${pathNameNew}`)
-
-            count += 1
-          } catch (e) {
-            console.info(chalk.red(e.message.split('\n')[0]))
-          }
-        }
+      if (matches.length > 1) {
+        console.error(
+          'plusieurs fichiers pour',
+          d.id,
+          ', impossible de décider seul'
+        )
+        console.error(matches.join('\n'))
+        return
       }
+
+      const pathNameOld = `./files/${matches[0]}.pdf`
+
+      await rename(pathNameOld, pathNameDoc)
+
+      count += 1
+
+      return
     })
+  )
 
-    if (count > 0) {
-      console.info(`${domaineId}: documents renommés ${count}`)
-
-      fs.writeFileSync(filePath, JSON.stringify(documents, null, 2))
-
-      console.info(`${domaineId}: ${filePath} modifié`)
-    } else {
-      console.info(`${domaineId}: aucun renommage de documents`)
-    }
-  } catch (e) {
-    console.info(chalk.red(e.message.split('\n')[0]))
-    console.error(e.stack)
+  if (count > 0) {
+    console.info(`${domaineId}: fichier(s) renommé(s) ${count}`)
+  } else {
+    console.info(`${domaineId}: aucun renommage de document`)
   }
 }
 
-domainesIds.forEach(domaineId => {
-  titresDocumentsIdsRename(domaineId)
-  titresDocumentsFilesMove(domaineId)
+Promise.all(
+  domainesIds.map(async domaineId => {
+    await titresDocumentsNoFileRename(domaineId)
+    await titresDocumentsIdsRename(domaineId)
+  })
+).catch(e => {
+  console.info(chalk.red(e.message.split('\n')[0]))
+  console.error(e.stack)
 })

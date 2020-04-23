@@ -16,6 +16,8 @@ import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 import { titreGet } from '../../database/queries/titres'
 import { userGet } from '../../database/queries/utilisateurs'
 
+import { titreEtapeDocumentsDelete } from './_titre-document'
+
 import titreEtapeUpdateTask from '../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../business/titre-etape-points-calc'
 import titreEtapeUpdationValidate from '../../business/titre-etape-updation-validate'
@@ -188,6 +190,8 @@ const etapeSupprimer = async (
     if (!etapeOld) throw new Error("l'étape n'existe pas")
 
     await titreEtapeDelete(id)
+
+    await titreEtapeDocumentsDelete(etapeOld)
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       null,
