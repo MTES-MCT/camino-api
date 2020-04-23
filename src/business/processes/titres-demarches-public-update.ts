@@ -6,7 +6,7 @@ import titreDemarchePublicFind from '../rules/titre-demarche-public-find'
 
 type IPublicUpdate = { publicLecture: boolean, entrepriseLecture: boolean }
 
-// met à jour le public des démarches d'un titre
+// met à jour la publicité des démarches d'un titre
 const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 

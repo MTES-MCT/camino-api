@@ -26,18 +26,7 @@ const titrePermissionQueryBuild = (
   // titres publics
   if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
     q.where(b => {
-      b.orWhereExists(
-        AutorisationsTitresTypesTitresStatuts.query()
-          .alias('att')
-          .whereRaw('?? = ?? and ?? = ?? and ?? = ?', [
-            'att.titreTypeId',
-            'titres.typeId',
-            'att.titreStatutId',
-            'titres.statutId',
-            'att.publicLecture',
-            true
-          ])
-      )
+      b.where('titres.publicLecture', true)
 
       // titre de l'entreprise
       if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
@@ -46,18 +35,22 @@ const titrePermissionQueryBuild = (
         const entreprisesIds = user.entreprises.map(e => e.id)
 
         b.orWhere(c => {
-          c.orWhereExists(
-            (Titres.relatedQuery('titulaires') as QueryBuilder<
-              Entreprises,
-              Entreprises | Entreprises[]
-            >).whereIn('titulaires.id', entreprisesIds)
-          )
-          c.orWhereExists(
-            (Titres.relatedQuery('amodiataires') as QueryBuilder<
-              Entreprises,
-              Entreprises | Entreprises[]
-            >).whereIn('amodiataires.id', entreprisesIds)
-          )
+          c.where('titres.entrepriseLecture', true)
+
+          c.where(d => {
+            d.orWhereExists(
+              (Titres.relatedQuery('titulaires') as QueryBuilder<
+                Entreprises,
+                Entreprises | Entreprises[]
+              >).whereIn('titulaires.id', entreprisesIds)
+            )
+            d.orWhereExists(
+              (Titres.relatedQuery('amodiataires') as QueryBuilder<
+                Entreprises,
+                Entreprises | Entreprises[]
+              >).whereIn('amodiataires.id', entreprisesIds)
+            )
+          })
         })
       }
     })
