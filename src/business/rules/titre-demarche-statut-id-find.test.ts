@@ -223,6 +223,12 @@ describe("statut d'une démarche", () => {
     ).toEqual('ins')
   })
 
+  test("une démarche de retrait sans aucune étape décisive a le statut “indéterminé”", () => {
+    expect(
+      titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'xxx' }]))
+    ).toEqual('ind')
+  })
+
   test("une démarche de retrait dont l'étape la plus récente de dup a été faite a le statut “terminé”", () => {
     expect(
       titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'dup', statutId: 'fai' }]))
@@ -239,6 +245,18 @@ describe("statut d'une démarche", () => {
     expect(
       titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'spp' }]))
     ).toEqual('ins')
+  })
+
+  test("une démarche de retrait dont l'étape la plus récente de dup a été faite a le statut “terminé”", () => {
+    expect(
+      titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'css' }]))
+    ).toEqual('cls')
+  })
+
+  test("une démarche de demande dont l'étape la plus récente est spp ne change pas de statut", () => {
+    expect(
+      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'spp' }]))
+    ).toEqual('ind')
   })
 
   test("une démarche dont l'étape la plus récente est de type “retrait de la décision” a le statut “en instruction”", () => {
