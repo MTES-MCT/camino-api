@@ -36,46 +36,39 @@ const titreDemarchePermissionQueryBuild = (
     // visibilité de la démarche en fonction de son statut et du type de titre
     q.where(b => {
       // les démarches ayant le statut `acc` ou `ter` sont visibles au public
-      b.whereIn('titresDemarches.statutId', ['acc', 'ter'])
-
-      // pour les AXM et ARM
-      // les démarches `cls`, `rej` et `des` sont aussi visibles
-      b.orWhere(c => {
-        c.whereIn('titresDemarches.statutId', ['cls', 'rej', 'des'])
-        c.whereExists(
-          (TitresDemarches.relatedQuery('titre') as QueryBuilder<
-            Titres,
-            Titres | Titres[]
-          >).whereIn('titre.typeId', ['axm', 'arm'])
-        )
-      })
+      b.where('titresDemarches.publicLecture', true)
 
       // les entreprises peuvent voir toutes les démarches
       // des titres pour lesquelles elles sont titulaires ou amodiataires
+      // si elles sont visibles aux entreprisees
       if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
         const entreprisesIds = user.entreprises.map(e => e.id)
 
         b.orWhere(c => {
-          c.whereExists(
-            Titres.query()
-              .alias('titresTitulaires')
-              .joinRelated('titulaires')
-              .whereRaw('?? = ??', [
-                'titresTitulaires.id',
-                'titresDemarches.titreId'
-              ])
-              .whereIn('titulaires.id', entreprisesIds)
-          )
-          c.orWhereExists(
-            Titres.query()
-              .alias('titresAmodiataires')
-              .joinRelated('amodiataires')
-              .whereRaw('?? = ??', [
-                'titresAmodiataires.id',
-                'titresDemarches.titreId'
-              ])
-              .whereIn('amodiataires.id', entreprisesIds)
-          )
+          c.where('titresDemarches.entrepriseLecture', true)
+
+          c.where(d => {
+            d.whereExists(
+              Titres.query()
+                .alias('titresTitulaires')
+                .joinRelated('titulaires')
+                .whereRaw('?? = ??', [
+                  'titresTitulaires.id',
+                  'titresDemarches.titreId'
+                ])
+                .whereIn('titulaires.id', entreprisesIds)
+            )
+            d.orWhereExists(
+              Titres.query()
+                .alias('titresAmodiataires')
+                .joinRelated('amodiataires')
+                .whereRaw('?? = ??', [
+                  'titresAmodiataires.id',
+                  'titresDemarches.titreId'
+                ])
+                .whereIn('amodiataires.id', entreprisesIds)
+            )
+          })
         })
       }
     })

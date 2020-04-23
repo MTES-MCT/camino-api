@@ -164,6 +164,7 @@ const demarcheCreer = async (
     const demarcheUpdated = await titreDemarcheCreate(demarche)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
+      demarcheUpdated.id,
       demarcheUpdated.titreId
     )
 
@@ -216,6 +217,7 @@ const demarcheModifier = async (
 
     const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
     const titreUpdatedId = await titreDemarcheUpdateTask(
+      demarcheUpdated.id,
       demarcheUpdated.titreId
     )
 
@@ -256,7 +258,7 @@ const demarcheSupprimer = async (
 
     await titreDemarcheDelete(id)
 
-    const titreUpdatedId = await titreDemarcheUpdateTask(demarcheOld.titreId)
+    const titreUpdatedId = await titreDemarcheUpdateTask(null, demarcheOld.titreId)
 
     const fields = fieldsBuild(info)
 

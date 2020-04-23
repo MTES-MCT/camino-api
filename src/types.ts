@@ -503,6 +503,8 @@ interface ITitreDemarche {
   annulationDemarche?: ITitreDemarche | null
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
+  publicLecture?: boolean | null
+  entrepriseLecture?: boolean | null
   modification?: boolean | null
   etapesCreation?: boolean | null
   suppression?: boolean | null

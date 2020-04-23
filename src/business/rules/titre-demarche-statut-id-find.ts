@@ -27,7 +27,7 @@ const titreEtapesDecisivesTypes = [
   'rtd',
   'abd',
   'and',
-  'ssp'
+  'spp'
 ]
 
 const titreDemarchesTypesDemandes = [
@@ -64,7 +64,7 @@ const titreDemarcheUnilateralStatutIdFind = (
   }
 
   // - le type de l’étape est saisine du préfet
-  if (titreEtapeRecent.typeId === 'ssp') {
+  if (titreEtapeRecent.typeId === 'spp') {
     //  - le statut de la démarche est “en instruction”
     return 'ins'
   }
@@ -164,7 +164,6 @@ const titreDemarcheStatutIdFind = (
 
   //  - le type de l’étape est retrait de la décision (rtd)
   //  - le type de l’étape est abrogation de la décision (abd)
-  //  - le type de l’étape est annulation de la décision (and)
   if (['rtd', 'abd'].includes(titreEtapeRecent.typeId)) {
     //  - le statut de la démarche repasse en “instruction”
     return 'ins'

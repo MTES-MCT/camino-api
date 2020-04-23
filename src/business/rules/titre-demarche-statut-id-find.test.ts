@@ -16,7 +16,7 @@ describe("statut d'une démarche", () => {
     expect(titreDemarcheStatutIdFind('oct', [])).toEqual('ind')
   })
 
-  test("une démarche d'octroi dont aucune étape n'est décisive a le statut “indéfini”", () => {
+  test("une démarche d'octroi sans étape décisive a le statut “indéfini”", () => {
     expect(
       titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'anf' }]))
     ).toEqual('ind')
@@ -235,9 +235,9 @@ describe("statut d'une démarche", () => {
     ).toEqual('ini')
   })
 
-  test("une démarche de retrait dont l'étape la plus récente est ssp a le statut “initié”", () => {
+  test("une démarche de retrait dont l'étape la plus récente est spp a le statut “initié”", () => {
     expect(
-      titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'ssp' }]))
+      titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'spp' }]))
     ).toEqual('ins')
   })
 

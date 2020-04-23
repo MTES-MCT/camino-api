@@ -21,7 +21,6 @@ const titreUpdate = async (titreId: string) => {
       throw new Error(`warning: le titre ${titreId} n'existe plus`)
     }
 
-    // 9.
     console.info()
     console.info('administrations gestionnaires associées aux titres…')
 
@@ -31,7 +30,6 @@ const titreUpdate = async (titreId: string) => {
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate([titre], administrations)
 
-    // 11.
     console.info()
     console.info('activités des titres…')
     titre = await titreGet(
@@ -45,13 +43,12 @@ const titreUpdate = async (titreId: string) => {
       },
       'super'
     )
-
     const activitesTypes = await activitesTypesGet({}, 'super')
     const titresActivitesCreated = await titresActivitesUpdate(
       [titre],
       activitesTypes
     )
-    // 13.
+
     console.info()
     console.info('ids de titres, démarches, étapes et sous-éléments…')
     titre = await titreGet(titreId, {}, 'super')
