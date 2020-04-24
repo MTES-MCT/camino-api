@@ -160,7 +160,7 @@ export default [
 
   {
     condition: { etape: { typeId: 'mno' } },
-    obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }, { typeId: 'css' }]
+    obligatoireApres: [{ typeId: 'aca' }, { typeId: 'css' }]
   },
 
   {
