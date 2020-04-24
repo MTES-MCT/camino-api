@@ -444,6 +444,8 @@ interface ITitre {
   modification?: boolean | null
   suppression?: boolean | null
   doublonTitreId?: string | null
+  publicLecture?: boolean | null
+  entrepriseLecture?: boolean | null
   propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
   contenu?: IContenu | null
 }
@@ -628,6 +630,7 @@ interface ITitreType {
   archive?: boolean | null
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
+  autorisationsTitresStatuts?: IAutorisationTitreTypeTitreStatut[] | null
   propsEtapesTypes?: ITitreSection[] | null
   sections?: ISection[] | null
   gestionnaire?: boolean | null

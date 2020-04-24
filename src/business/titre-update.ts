@@ -3,13 +3,30 @@ import { titreGet } from '../database/queries/titres'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
+import titresPublicUpdate from './processes/titres-public-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 import { activitesTypesGet } from '../database/queries/metas'
 import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const titreUpdate = async (titreId: string) => {
   try {
-    let titre = await titreGet(
+    let titre
+
+    console.info()
+    console.info('publicité des titres…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          type: { autorisationsTitresStatuts: { id: {} } },
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
+    )
+    const titresPublicUpdated = await titresPublicUpdate([titre])
+
+    titre = await titreGet(
       titreId,
       {
         fields: { administrationsGestionnaires: { id: {} } }
@@ -58,6 +75,9 @@ const titreUpdate = async (titreId: string) => {
 
     console.info()
     console.info('tâches métiers exécutées:')
+    console.info(
+      `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
+    )
     console.info(
       `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
     )

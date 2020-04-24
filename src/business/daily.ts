@@ -23,6 +23,7 @@ import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPointsReferencesCreate from './processes/titres-points-references-create'
+import titresPublicUpdate from './processes/titres-public-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
@@ -139,6 +140,30 @@ const run = async () => {
       'super'
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
+
+    console.info()
+    console.info('publicité des titres…')
+    titres = await titresGet(
+      {
+        domainesIds: null,
+        entreprises: null,
+        ids: null,
+        noms: null,
+        references: null,
+        statutsIds: null,
+        substances: null,
+        territoires: null,
+        typesIds: null
+      },
+      {
+        fields: {
+          type: { autorisationsTitresStatuts: { id: {} } },
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
+    )
+    const titresPublicUpdated = await titresPublicUpdate(titres)
 
     console.info()
     console.info('phases des titres…')
@@ -397,6 +422,9 @@ const run = async () => {
     )
     console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
+    )
+    console.info(
+      `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
     )
     console.info(
       `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`

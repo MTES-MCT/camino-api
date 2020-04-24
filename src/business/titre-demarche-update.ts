@@ -10,6 +10,7 @@ import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
+import titresPublicUpdate from './processes/titres-public-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 
 import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
@@ -20,7 +21,6 @@ const titreDemarcheUpdate = async (
 ) => {
   try {
     let titre
-    let titreDemarche
 
     titre = await titreGet(
       titreId,
@@ -39,11 +39,6 @@ const titreDemarcheUpdate = async (
     if (titreDemarcheId) {
       console.info()
       console.info('publicité des démarches…')
-      titreDemarche = await titreDemarcheGet(
-        titreDemarcheId,
-        { fields: { etapes: { id: {} } } },
-        'super'
-      )
       titre = await titreGet(
         titreId,
         {
@@ -76,6 +71,20 @@ const titreDemarcheUpdate = async (
       'super'
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
+
+    console.info()
+    console.info('publicité des titres…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          type: { autorisationsTitresStatuts: { id: {} } },
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
+      },
+      'super'
+    )
+    const titresPublicUpdated = await titresPublicUpdate([titre])
 
     console.info('phases des titres…')
     titre = await titreGet(
@@ -166,6 +175,9 @@ const titreDemarcheUpdate = async (
     )
     console.info(
       `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
+    )
+    console.info(
+      `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
     )
     console.info(
       `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`

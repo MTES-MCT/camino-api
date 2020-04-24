@@ -81,7 +81,18 @@ const titreDemarchePublicLectureFind = (
   // alors la démarche est publique
   if (
     titreTypeId === 'arm' &&
-    (titreEtape.typeId === 'sca' || ['aca', 'def'].includes(titreEtape.typeId))
+    ['sca', 'aca', 'def'].includes(titreEtape.typeId)
+  ) {
+    publicLecture = true
+  }
+
+  // si le type de titre est ARM ou AXM
+  // et que le type d'étape est désistement du demandeur
+  // alors la démarche est publique
+  if (
+    titreTypeId &&
+    ['arm', 'axm'].includes(titreTypeId) &&
+    titreEtape.typeId === 'des'
   ) {
     publicLecture = true
   }
@@ -89,14 +100,14 @@ const titreDemarchePublicLectureFind = (
   // si le type d'étape est décision implicite
   //    ou décision de l'adminisrtation
   // et que le statut est rejeté
-  // et que le type de titre n'est pas AXM
-  // alors la démarche n'est pas (plus) publique
   if (
     ['dim', 'dex'].includes(titreEtape.typeId) &&
-    titreEtape.statutId === 'rej' &&
-    (!titreTypeId || !['axm'].includes(titreTypeId))
+    titreEtape.statutId === 'rej'
   ) {
-    publicLecture = false
+    //   si le type de titre est AXM
+    //   alors la démarche est publique
+    //   sinon la démarche n'est pas (plus) publique
+    publicLecture = titreTypeId === 'axm'
   }
 
   // si le type d'étape est décision implicite
@@ -119,7 +130,7 @@ const titreDemarchePublicLectureFind = (
     publicLecture = true
   }
 
-  // si le type de titre est ARM
+  // si le type de titre est ARM ou AXM
   // et que le type d'étape est signature de l'autorisation de recherche minière
   //    ou signature de l'avenant à l'autorisation de recherche minière
   // alors la démarche est publique

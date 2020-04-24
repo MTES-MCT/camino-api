@@ -25,25 +25,25 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: false, entrepriseLecture: false })
   })
 
-  test("une démarche de retrait dont l'étape la plus récente est une saisine du préfet est publique", () => {
+  test("une démarche de retrait dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'spp' }]))
     ).toMatchObject({ publicLecture: false, entrepriseLecture: false })
   })
 
-  test("une démarche de retrait dont l'étape la plus récente est une saisine du préfet est publique", () => {
+  test("une démarche de retrait dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
       titreDemarchePublicFind('ret', [], etapesBuild([{ typeId: 'spp' }]))
     ).toMatchObject({ publicLecture: true, entrepriseLecture: true })
   })
 
-  test("une démarche de déchéance dont l'étape la plus récente est une saisine du préfet est publique", () => {
+  test("une démarche de déchéance dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
       titreDemarchePublicFind('dec', [], etapesBuild([{ typeId: 'spp' }]))
     ).toMatchObject({ publicLecture: true, entrepriseLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une demande est visible par l'entreprise", () => {
+  test("une démarche dont l'étape la plus récente est demande est visible par l'entreprise", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mfr' }]))
     ).toMatchObject({ publicLecture: false, entrepriseLecture: true })
@@ -81,13 +81,35 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche ne pouvant pas faire l'objet d'une mise en concurrence dont l'étape la plus récente est une recevabilité est publique", () => {
+  test("une démarche d'un titre ARM dont l'étape la plus récente est désistement du demandeur est publique", () => {
+    expect(
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'des' }]),
+        'arm'
+      )
+    ).toMatchObject({ publicLecture: true })
+  })
+
+  test("une démarche d'un titre AXM dont l'étape la plus récente est désistement du demandeur est publique", () => {
+    expect(
+      titreDemarchePublicFind(
+        'oct',
+        [],
+        etapesBuild([{ typeId: 'des' }]),
+        'axm'
+      )
+    ).toMatchObject({ publicLecture: true })
+  })
+
+  test("une démarche ne pouvant pas faire l'objet d'une mise en concurrence dont l'étape la plus récente est recevabilité est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mcr' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre ARM ne pouvant pas faire l'objet d'une mise en concurrence dont l'étape la plus récente est une recevabilité n'est pas publique", () => {
+  test("une démarche d'un titre ARM ne pouvant pas faire l'objet d'une mise en concurrence dont l'étape la plus récente est recevabilité n'est pas publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -98,7 +120,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
-  test("une démarche pouvant faire l'objet d'une mise en concurrence dont l'étape la plus récente est une recevabilité n'est pas publique", () => {
+  test("une démarche pouvant faire l'objet d'une mise en concurrence dont l'étape la plus récente est recevabilité n'est pas publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -108,31 +130,31 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
-  test("une démarche dont l'étape la plus récente est une mise en concurrence au JORF est publique", () => {
+  test("une démarche dont l'étape la plus récente est mise en concurrence au JORF est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'anf' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une publication de l'avis de décision implicite (historique) est publique", () => {
+  test("une démarche dont l'étape la plus récente est publication de l'avis de décision implicite (historique) est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'apu' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une mise en concurrence au JOUE est publique", () => {
+  test("une démarche dont l'étape la plus récente est mise en concurrence au JOUE est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'ane' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une participation du public est publique", () => {
+  test("une démarche dont l'étape la plus récente est participation du public est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'ppu' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre ARM dont l'étape la plus récente est une décision de l'ONF peu importe son statut (historique) est publique", () => {
+  test("une démarche d'un titre ARM dont l'étape la plus récente est décision de l'ONF peu importe son statut (historique) est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -143,7 +165,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre ARM dont l'étape la plus récente est une commission ARM peu importe son statut (historique) est publique", () => {
+  test("une démarche d'un titre ARM dont l'étape la plus récente est commission ARM peu importe son statut (historique) est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -154,7 +176,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre ARM dont l'étape la plus récente est une saisine de la commission ARM est publique", () => {
+  test("une démarche d'un titre ARM dont l'étape la plus récente est saisine de la commission ARM est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -165,7 +187,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une décision implicite au statut accepté est publique", () => {
+  test("une démarche dont l'étape la plus récente est décision implicite au statut accepté est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -175,7 +197,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une décision implicite au statut rejeté n'est pas publique", () => {
+  test("une démarche dont l'étape la plus récente est décision implicite au statut rejeté n'est pas publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -185,7 +207,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
-  test("une démarche d'un titre non AXM dont l'étape la plus récente est une décision de l'administration au statut rejeté n'est pas publique", () => {
+  test("une démarche d'un titre non AXM dont l'étape la plus récente est décision de l'administration au statut rejeté n'est pas publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -195,7 +217,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
-  test("une démarche d'un titre AXM dont l'étape la plus récente est une décision de l'administration au statut rejeté est publique", () => {
+  test("une démarche d'un titre AXM dont l'étape la plus récente est décision de l'administration au statut rejeté est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -206,7 +228,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre AXM dont l'étape la plus récente est une décision de l'administration au statut accepté est publique", () => {
+  test("une démarche d'un titre AXM dont l'étape la plus récente est décision de l'administration au statut accepté est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -217,7 +239,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une publication de décision au JORF au statut au statut accepté publique", () => {
+  test("une démarche dont l'étape la plus récente est publication de décision au JORF au statut au statut accepté publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -227,25 +249,25 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une décision unilatérale est publique", () => {
+  test("une démarche dont l'étape la plus récente est décision unilatérale est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dux' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une publication de décision unilatérale est publique", () => {
+  test("une démarche dont l'étape la plus récente est publication de décision unilatérale est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dup' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une publication de décision au recueil des actes administratifs est publique", () => {
+  test("une démarche dont l'étape la plus récente est publication de décision au recueil des actes administratifs est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'rpu' }]))
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre ARM dont l'étape la plus récente est une signature de l'autorisation de recherche minière est publique", () => {
+  test("une démarche d'un titre ARM dont l'étape la plus récente est signature de l'autorisation de recherche minière est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -256,7 +278,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche d'un titre ARM dont l'étape la plus récente est une signature de l'avenant à l'autorisation de recherche minière est publique", () => {
+  test("une démarche d'un titre ARM dont l'étape la plus récente est signature de l'avenant à l'autorisation de recherche minière est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -267,7 +289,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une décision d'annulation par le juge administratif est publique", () => {
+  test("une démarche dont l'étape la plus récente est décision d'annulation par le juge administratif est publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
@@ -277,7 +299,7 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est une décision d'annulation par le juge administratif au statut fait n'est pas publique", () => {
+  test("une démarche dont l'étape la plus récente est décision d'annulation par le juge administratif au statut fait n'est pas publique", () => {
     expect(
       titreDemarchePublicFind(
         'oct',
