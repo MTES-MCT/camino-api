@@ -133,9 +133,24 @@ const activiteModifier = async (
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
     if (activiteRes.statutId === 'dep') {
-      const utilisateurs = await titreActiviteUtilisateursGet(
-        activiteFormated.titre!,
-        user
+      const titre = activiteFormated.titre!
+
+      const isAmodiataire = titre.amodiataires?.some(t =>
+        user.entreprises?.some(e => e.id === t.id)
+      )
+      const entrepriseIds = isAmodiataire
+        ? titre.amodiataires?.map(t => t.id)
+        : titre.titulaires?.map(t => t.id)
+
+      const utilisateurs = await utilisateursGet(
+        {
+          entrepriseIds,
+          noms: undefined,
+          administrationIds: undefined,
+          permissionIds: undefined
+        },
+        {},
+        'super'
       )
 
       await titreActiviteEmailsSend(
@@ -147,33 +162,6 @@ const activiteModifier = async (
     }
 
     return activiteFormated
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titreActiviteUtilisateursGet = (
-  titre: ITitre,
-  utilisateur: IUtilisateur
-) => {
-  try {
-    const isAmodiataire = titre.amodiataires?.some(t =>
-      utilisateur.entreprises?.some(e => e.id === t.id)
-    )
-    const entrepriseIds = isAmodiataire
-      ? titre.amodiataires?.map(t => t.id)
-      : titre.titulaires?.map(t => t.id)
-
-    return utilisateursGet({
-      entrepriseIds,
-      noms: undefined,
-      administrationIds: undefined,
-      permissionIds: undefined
-    })
   } catch (e) {
     if (debug) {
       console.error(e)
