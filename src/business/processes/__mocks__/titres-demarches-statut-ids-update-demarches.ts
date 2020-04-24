@@ -75,7 +75,7 @@ const titresDemarchesSansEtape = ([
         typeId: 'oct',
         statutId: 'ind',
         ordre: 1,
-        etapes: []
+        etapes: null
       }
     ]
   }
