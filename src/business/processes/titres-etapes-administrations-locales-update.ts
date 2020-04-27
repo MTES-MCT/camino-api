@@ -13,18 +13,6 @@ import {
   titreEtapeAdministrationDelete
 } from '../../database/queries/titres-etapes'
 
-// administrations associees sur certains types de titres
-// (ces administrations seront associees pour ces types de titres)
-// donc cachées au public dans la liste des administrations du titre
-interface IAdministrationsTypesAssocieesIndex {
-  [key: string]: string[]
-}
-
-const administrationsTypesAssociees = {
-  'dea-guyane-01': ['arm'],
-  'prefecture-97302-01': ['arm']
-} as IAdministrationsTypesAssocieesIndex
-
 const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined,
   titreEtapeAdministrationsLocales: ITitreAdministrationLocale[]
@@ -37,8 +25,9 @@ const titreEtapeAdministrationsLocalesCreatedBuild = (
       if (
         !titreEtapeAdministrationsLocalesOld ||
         !titreEtapeAdministrationsLocalesOld.find(
-          ({ id: idOld }) =>
-            idOld === titreEtapeAdministrationGestionnaire.administrationId
+          ({ id: idOld, associee }) =>
+            idOld === titreEtapeAdministrationGestionnaire.administrationId &&
+            associee === titreEtapeAdministrationGestionnaire.associee
         )
       ) {
         queries.push(titreEtapeAdministrationGestionnaire)
@@ -61,22 +50,26 @@ const titreEtapeAdministrationsLocalesToDeleteBuild = (
 ) =>
   titreEtapeAdministrationsLocalesOld
     ? titreEtapeAdministrationsLocalesOld.reduce(
-        (queries: IEtapeAdministrationLocaleToDelete[], { id: idOld }) => {
-          if (
-            !titreEtapeAdministrationsLocales.find(
-              ({ administrationId: idNew }) => idNew === idOld
-            )
-          ) {
-            queries.push({
-              titreEtapeId,
-              administrationId: idOld
-            })
-          }
+      (
+        queries: IEtapeAdministrationLocaleToDelete[],
+        { id: idOld, associee: associeeOld }
+      ) => {
+        if (
+          !titreEtapeAdministrationsLocales.find(
+            ({ administrationId: idNew, associee: associeeNew }) =>
+              idNew === idOld && associeeOld === associeeNew
+          )
+        ) {
+          queries.push({
+            titreEtapeId,
+            administrationId: idOld
+          })
+        }
 
-          return queries
-        },
-        []
-      )
+        return queries
+      },
+      []
+    )
     : []
 
 interface ITitreEtapeAdministrationLocale {
@@ -183,13 +176,10 @@ const titreEtapeAdministrationsLocalesBuild = (
         administrationId: administration.id
       } as ITitreAdministrationLocale
 
-      const associee =
-        administrationsTypesAssociees[administration.id] &&
-        administrationsTypesAssociees[administration.id].includes(titreTypeId)
-
-      if (associee) {
-        titreEtapeAdministration.associee = associee
-      }
+      const associee = administration.titresTypes!.find(
+        t => t.id === titreTypeId && t.associee
+      )
+      titreEtapeAdministration.associee = associee ? true : null
 
       titreEtapeAdministrations.push(titreEtapeAdministration)
 
@@ -254,18 +244,6 @@ const titresEtapesAdministrationsLocalesUpdate = async (
   let titresEtapesAdministrationsLocalesCreated = [] as ITitreAdministrationLocale[]
   const titresEtapesAdministrationsLocalesDeleted = [] as string[]
 
-  if (titresEtapesAdministrationsLocalesToCreate.length) {
-    titresEtapesAdministrationsLocalesCreated = await titresEtapesAdministrationsCreate(
-      titresEtapesAdministrationsLocalesToCreate
-    )
-
-    console.info(
-      `mise à jour: étape administrations ${titresEtapesAdministrationsLocalesCreated
-        .map(tea => JSON.stringify(tea))
-        .join(', ')}`
-    )
-  }
-
   if (titresEtapesAdministrationsLocalesToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
@@ -290,6 +268,18 @@ const titresEtapesAdministrationsLocalesUpdate = async (
     )
 
     await queue.onIdle()
+  }
+
+  if (titresEtapesAdministrationsLocalesToCreate.length) {
+    titresEtapesAdministrationsLocalesCreated = await titresEtapesAdministrationsCreate(
+      titresEtapesAdministrationsLocalesToCreate
+    )
+
+    console.info(
+      `mise à jour: étape administrations ${titresEtapesAdministrationsLocalesCreated
+        .map(tea => JSON.stringify(tea))
+        .join(', ')}`
+    )
   }
 
   return [
