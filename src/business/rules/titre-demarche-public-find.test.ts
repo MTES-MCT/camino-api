@@ -15,44 +15,44 @@ describe("public d'une démarche", () => {
   test("une démarche sans étape n'est pas publique", () => {
     expect(titreDemarchePublicFind('oct', [], [])).toMatchObject({
       publicLecture: false,
-      entrepriseLecture: false
+      entreprisesLecture: false
     })
   })
 
   test("une démarche d'octroi sans étape décisive n'est pas publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mdp' }]))
-    ).toMatchObject({ publicLecture: false, entrepriseLecture: false })
+    ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
   test("une démarche de retrait dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'spp' }]))
-    ).toMatchObject({ publicLecture: false, entrepriseLecture: false })
+    ).toMatchObject({ publicLecture: false, entreprisesLecture: false })
   })
 
   test("une démarche de retrait dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
       titreDemarchePublicFind('ret', [], etapesBuild([{ typeId: 'spp' }]))
-    ).toMatchObject({ publicLecture: true, entrepriseLecture: true })
+    ).toMatchObject({ publicLecture: true, entreprisesLecture: true })
   })
 
   test("une démarche de déchéance dont l'étape la plus récente est saisine du préfet est publique", () => {
     expect(
       titreDemarchePublicFind('dec', [], etapesBuild([{ typeId: 'spp' }]))
-    ).toMatchObject({ publicLecture: true, entrepriseLecture: true })
+    ).toMatchObject({ publicLecture: true, entreprisesLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est demande est visible uniquement par l'entreprise", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mfr' }]))
-    ).toMatchObject({ publicLecture: false, entrepriseLecture: true })
+    ).toMatchObject({ publicLecture: false, entreprisesLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est décision de l'administration est visible uniquement par l'entreprise", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dex' }]))
-    ).toMatchObject({ publicLecture: false, entrepriseLecture: true })
+    ).toMatchObject({ publicLecture: false, entreprisesLecture: true })
   })
 
   test("une démarche dont l'étape la plus récente est classement sans suite n'est pas publique", () => {

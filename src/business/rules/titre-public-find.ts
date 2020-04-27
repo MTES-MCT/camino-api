@@ -1,7 +1,4 @@
-import {
-  ITitreDemarche,
-  IAutorisationTitreTypeTitreStatut
-} from '../../types'
+import { ITitreDemarche, IAutorisationTitreTypeTitreStatut } from '../../types'
 
 const titrePublicFind = (
   titreTypeId: string,
@@ -9,10 +6,12 @@ const titrePublicFind = (
   autorisationsTitresStatuts: IAutorisationTitreTypeTitreStatut[],
   titreDemarches: ITitreDemarche[]
 ) => {
-  const entrepriseLecture = true
+  const entreprisesLecture = true
   let publicLecture = false
 
-  const autorisation = autorisationsTitresStatuts.find(a => a.titreStatutId === titreStatutId)
+  const autorisation = autorisationsTitresStatuts.find(
+    a => a.titreStatutId === titreStatutId
+  )
 
   // si une autorisation existe
   // et la démarche d'octroi est publique
@@ -25,7 +24,7 @@ const titrePublicFind = (
     }
   }
 
-  return { publicLecture, entrepriseLecture }
+  return { publicLecture, entreprisesLecture }
 }
 
 export default titrePublicFind

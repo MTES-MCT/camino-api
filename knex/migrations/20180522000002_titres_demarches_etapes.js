@@ -18,7 +18,7 @@ exports.up = knex => {
         .references('demarchesStatuts.id')
         .defaultTo('ind')
       table.boolean('publicLecture').defaultTo(false)
-      table.boolean('entrepriseLecture').defaultTo(false)
+      table.boolean('entreprisesLecture').defaultTo(false)
       table.integer('ordre').defaultTo('0')
       table.string('annulationTitreDemarcheId', 128).references('id')
     })

@@ -45,7 +45,7 @@ const titreDemarchePermissionQueryBuild = (
         const entreprisesIds = user.entreprises.map(e => e.id)
 
         b.orWhere(c => {
-          c.where('titresDemarches.entrepriseLecture', true)
+          c.where('titresDemarches.entreprisesLecture', true)
 
           c.where(d => {
             d.whereExists(

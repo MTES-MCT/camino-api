@@ -8,7 +8,7 @@ const titresPublicModifie = ([
     },
     demarches: [],
     publicLecture: true,
-    entrepriseLecture: false
+    entreprisesLecture: false
   }
 ] as unknown) as ITitre[]
 
@@ -20,7 +20,7 @@ const titresPublicIdentique = ([
     },
     demarches: null,
     publicLecture: false,
-    entrepriseLecture: true
+    entreprisesLecture: true
   }
 ] as unknown) as ITitre[]
 

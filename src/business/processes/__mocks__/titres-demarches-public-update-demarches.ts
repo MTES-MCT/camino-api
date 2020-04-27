@@ -12,7 +12,7 @@ const titresDemarchesPublicModifie = ([
         ordre: 1,
         type: { etapesTypes: [{ id: 'dpu', titreTypeId: 'cxh' }] },
         publicLecture: true,
-        entrepriseLecture: true
+        entreprisesLecture: true
       }
     ]
   }
@@ -41,13 +41,10 @@ const titresDemarchesPublicIdentique = ([
           }
         ],
         publicLecture: false,
-        entrepriseLecture: true
+        entreprisesLecture: true
       }
     ]
   }
 ] as unknown) as ITitre[]
 
-export {
-  titresDemarchesPublicModifie,
-  titresDemarchesPublicIdentique
-}
+export { titresDemarchesPublicModifie, titresDemarchesPublicIdentique }

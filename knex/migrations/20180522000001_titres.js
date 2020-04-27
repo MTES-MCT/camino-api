@@ -19,7 +19,7 @@ exports.up = knex =>
     table.string('dateFin', 10)
     table.string('dateDemande', 10)
     table.boolean('publicLecture').defaultTo(false)
-    table.boolean('entrepriseLecture').defaultTo(false)
+    table.boolean('entreprisesLecture').defaultTo(false)
     table.string('pointsTitreEtapeId', 128)
     table.string('titulairesTitreEtapeId', 128)
     table.string('amodiatairesTitreEtapeId', 128)

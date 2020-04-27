@@ -65,7 +65,9 @@ const tables = [
       'substancesTitreEtapeId',
       'communesTitreEtapeId',
       'surfaceTitreEtapeId',
-      'propsTitreEtapesIds'
+      'propsTitreEtapesIds',
+      'publicLecture',
+      'entreprisesLecture'
     ],
     callbacks: {
       propsTitreEtapesIds: (v: ITitrePropsTitreEtapesIds) => JSON.stringify(v)
@@ -86,7 +88,9 @@ const tables = [
       'titreId',
       'statutId',
       'ordre',
-      'annulationTitreDemarcheId'
+      'annulationTitreDemarcheId',
+      'publicLecture',
+      'entreprisesLecture'
     ],
     parents: ['demarches']
   },

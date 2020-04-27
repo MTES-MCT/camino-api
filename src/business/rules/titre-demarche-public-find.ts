@@ -1,9 +1,7 @@
 import { ITitreEtape, IEtapeType } from '../../types'
 
-import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
-
 const titreDemarcheEntrepriseLectureFind = (
-  entrepriseLecture: boolean,
+  entreprisesLecture: boolean,
   demarcheTypeId: string,
   demarcheTypeEtapesTypes: IEtapeType[],
   titreEtape: ITitreEtape,
@@ -12,18 +10,18 @@ const titreDemarcheEntrepriseLectureFind = (
   // si le type d'étape est une demande
   // alors la démarche est visible pour les entreprises
   if (titreEtape.typeId === 'mfr') {
-    entrepriseLecture = true
+    entreprisesLecture = true
   }
 
   // si le type d'étape est une décision de l'adminisrtation unilatérale ou non
   // alors la démarche est visible pour les entreprises
   if (['dex', 'dux'].includes(titreEtape.typeId)) {
-    entrepriseLecture = true
+    entreprisesLecture = true
   }
 
   // les autres cas sont couverts par la visibilité au public
 
-  return entrepriseLecture
+  return entreprisesLecture
 }
 
 const titreDemarchePublicLectureFind = (
@@ -56,8 +54,8 @@ const titreDemarchePublicLectureFind = (
   // alors la démarche est publique
   if (
     titreEtape.typeId === 'mcr' &&
-    ((!titreTypeId || titreTypeId !== 'arm') &&
-      !demarcheTypeEtapesTypes.find(et => ['anf', 'ane'].includes(et.id)))
+    (!titreTypeId || titreTypeId !== 'arm') &&
+      !demarcheTypeEtapesTypes.find(et => ['anf', 'ane'].includes(et.id))
   ) {
     publicLecture = true
   }
@@ -164,7 +162,7 @@ const titreDemarchePublicFind = (
   // pour calculer la visibilité de la démarche
   // en fonction de l'historique
   titreDemarcheEtapes.reduce(
-    ({ publicLecture, entrepriseLecture }, titreEtape) => {
+    ({ publicLecture, entreprisesLecture }, titreEtape) => {
       // on calcule la visibilité au public
       publicLecture = titreDemarchePublicLectureFind(
         publicLecture,
@@ -176,19 +174,19 @@ const titreDemarchePublicFind = (
 
       // si la démarche n'est pas visible au public
       // alors on calcule la visibilité spéciale pour les entreprises
-      entrepriseLecture =
+      entreprisesLecture =
         publicLecture ||
         titreDemarcheEntrepriseLectureFind(
-          entrepriseLecture,
+          entreprisesLecture,
           demarcheTypeId,
           demarcheTypeEtapesTypes,
           titreEtape,
           titreTypeId
         )
 
-      return { publicLecture, entrepriseLecture }
+      return { publicLecture, entreprisesLecture }
     },
-    { publicLecture: false, entrepriseLecture: false }
+    { publicLecture: false, entreprisesLecture: false }
   )
 
 export default titreDemarchePublicFind

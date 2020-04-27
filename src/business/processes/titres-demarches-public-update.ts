@@ -4,7 +4,7 @@ import PQueue from 'p-queue'
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarchePublicFind from '../rules/titre-demarche-public-find'
 
-type IPublicUpdate = { publicLecture: boolean, entrepriseLecture: boolean }
+type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }
 
 // met à jour la publicité des démarches d'un titre
 const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
@@ -22,7 +22,7 @@ const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
             et => et.titreTypeId === titre.typeId
           )
 
-          const { publicLecture, entrepriseLecture } = titreDemarchePublicFind(
+          const { publicLecture, entreprisesLecture } = titreDemarchePublicFind(
             titreDemarche.typeId,
             demarcheTypeEtapesTypes,
             titreDemarcheEtapes,
@@ -31,16 +31,12 @@ const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
 
           const publicUpdate = {} as IPublicUpdate
 
-          if (
-            titreDemarche.publicLecture !== publicLecture
-          ) {
+          if (titreDemarche.publicLecture !== publicLecture) {
             publicUpdate.publicLecture = publicLecture
           }
 
-          if (
-            titreDemarche.entrepriseLecture !== entrepriseLecture
-          ) {
-            publicUpdate.entrepriseLecture = entrepriseLecture
+          if (titreDemarche.entreprisesLecture !== entreprisesLecture) {
+            publicUpdate.entreprisesLecture = entreprisesLecture
           }
 
           if (Object.keys(publicUpdate).length) {
@@ -48,7 +44,9 @@ const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
               await titreDemarcheUpdate(titreDemarche.id, publicUpdate)
 
               console.info(
-                `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify(publicUpdate)}`
+                `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify(
+                  publicUpdate
+                )}`
               )
 
               titresDemarchesUpdated.push(titreDemarche.id)

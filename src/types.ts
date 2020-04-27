@@ -445,7 +445,7 @@ interface ITitre {
   suppression?: boolean | null
   doublonTitreId?: string | null
   publicLecture?: boolean | null
-  entrepriseLecture?: boolean | null
+  entreprisesLecture?: boolean | null
   propsTitreEtapesIds?: ITitrePropsTitreEtapesIds | null
   contenu?: IContenu | null
 }
@@ -506,7 +506,7 @@ interface ITitreDemarche {
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
   publicLecture?: boolean | null
-  entrepriseLecture?: boolean | null
+  entreprisesLecture?: boolean | null
   modification?: boolean | null
   etapesCreation?: boolean | null
   suppression?: boolean | null

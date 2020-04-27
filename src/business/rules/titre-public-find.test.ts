@@ -14,7 +14,7 @@ const demarchesBuild = (etapesProps: Partial<ITitreDemarche>[]) =>
 describe("public d'un titre", () => {
   test('un titre est toujours visible par son demandeur ou titulaire', () => {
     expect(titrePublicFind('prm', 'dmi', [], [])).toMatchObject({
-      entrepriseLecture: true
+      entreprisesLecture: true
     })
   })
 
