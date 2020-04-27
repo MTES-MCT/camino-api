@@ -99,6 +99,27 @@ describe("propriétés (contenu) d'un titre", () => {
     expect(console.info).toHaveBeenCalled()
   })
 
+  test('efface 1 section dans les props du titre', async () => {
+    titreContenuEtapeIdFindMock.mockReturnValue(null)
+
+    const titresUpdatedRequests = await titresPropsContenuUpdate([
+      ({
+        type: {
+          propsEtapesTypes: [{ sectionId: 'arm', elementId: 'mecanise' }]
+        },
+        propsTitreEtapesIds: {
+          arm: {
+            mecanise: 'etape-id',
+            xxx: { facture: 'etape-id' }
+          }
+        }
+      } as unknown) as ITitre
+    ])
+
+    expect(titresUpdatedRequests.length).toEqual(1)
+    expect(console.info).toHaveBeenCalled()
+  })
+
   test("ne met pas à jour un titre qui n'a pas de configuration de props", async () => {
     titreContenuEtapeIdFindMock.mockReturnValue(null)
 
