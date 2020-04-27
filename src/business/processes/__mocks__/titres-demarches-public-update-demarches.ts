@@ -41,7 +41,7 @@ const titresDemarchesPublicIdentique = ([
           }
         ],
         publicLecture: false,
-        entrepriseLecture: false
+        entrepriseLecture: true
       }
     ]
   }

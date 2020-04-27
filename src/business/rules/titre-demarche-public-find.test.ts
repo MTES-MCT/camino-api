@@ -43,9 +43,15 @@ describe("public d'une démarche", () => {
     ).toMatchObject({ publicLecture: true, entrepriseLecture: true })
   })
 
-  test("une démarche dont l'étape la plus récente est demande est visible par l'entreprise", () => {
+  test("une démarche dont l'étape la plus récente est demande est visible uniquement par l'entreprise", () => {
     expect(
       titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'mfr' }]))
+    ).toMatchObject({ publicLecture: false, entrepriseLecture: true })
+  })
+
+  test("une démarche dont l'étape la plus récente est décision de l'administration est visible uniquement par l'entreprise", () => {
+    expect(
+      titreDemarchePublicFind('oct', [], etapesBuild([{ typeId: 'dex' }]))
     ).toMatchObject({ publicLecture: false, entrepriseLecture: true })
   })
 

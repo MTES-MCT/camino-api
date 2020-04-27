@@ -15,6 +15,12 @@ const titreDemarcheEntrepriseLectureFind = (
     entrepriseLecture = true
   }
 
+  // si le type d'étape est une décision de l'adminisrtation unilatérale ou non
+  // alors la démarche est visible pour les entreprises
+  if (['dex', 'dux'].includes(titreEtape.typeId)) {
+    entrepriseLecture = true
+  }
+
   // les autres cas sont couverts par la visibilité au public
 
   return entrepriseLecture
