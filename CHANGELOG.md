@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.32](https://github.com/MTES-MCT/camino-api/compare/v0.24.31...v0.24.32) (2020-04-27)
+
+
+### Features
+
+* **business:** calcule la publicité d'un titre pendant le daily ([#377](https://github.com/MTES-MCT/camino-api/issues/377)) ([b4007e0](https://github.com/MTES-MCT/camino-api/commit/b4007e0220e7c0530f21ca37426bee0e57f4d29e))
+* **demarches:** calcule un statut de publicité ([#374](https://github.com/MTES-MCT/camino-api/issues/374)) ([c7747e9](https://github.com/MTES-MCT/camino-api/commit/c7747e9fa541e801422ecf04349a41e4e06e5037))
+* **documents:** supprime les fichiers quand on supprime une étape, une démarche ou un titre ([#373](https://github.com/MTES-MCT/camino-api/issues/373)) ([9347f8e](https://github.com/MTES-MCT/camino-api/commit/9347f8e7f4dd149da4e7745e3cb7cffc93f7e2fd))
+
+
+### Bug Fixes
+
+* **activités:** corrige l'envoi d'email lors de la validation d'une activité ([#379](https://github.com/MTES-MCT/camino-api/issues/379)) ([0942a98](https://github.com/MTES-MCT/camino-api/commit/0942a9830ad00c98a18b4ded4e2b899a3fbed149))
+* **business:** corrige le calcul du statut des démarches dans le cas des saisines du préfet ([#376](https://github.com/MTES-MCT/camino-api/issues/376)) ([9cf9280](https://github.com/MTES-MCT/camino-api/commit/9cf92800a6367b15a0777ff6fa0c1946c2e03c33))
+* **business:** permet une notification au demandeur après une commission ([#378](https://github.com/MTES-MCT/camino-api/issues/378)) ([59b6685](https://github.com/MTES-MCT/camino-api/commit/59b668545e4e29dde53928643edcb6630cead10b))
+* **business:** rend visible aux entreprises les démarches ayant une décision de l'administration ([#380](https://github.com/MTES-MCT/camino-api/issues/380)) ([449edf5](https://github.com/MTES-MCT/camino-api/commit/449edf52ac2d53a93d9e4a6161cf8ec21ae9cd0c))
+
 ### [0.24.31](https://github.com/MTES-MCT/camino-api/compare/v0.24.30...v0.24.31) (2020-04-20)
 
 
