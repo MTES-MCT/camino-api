@@ -260,6 +260,22 @@ const etapesTypesPermissionQueryBuild = (
     })
   }
 
+  if (!user || permissionCheck(user, ['defaut', 'entreprise'])) {
+    // types d'étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
+
+    q.leftJoinRelated('autorisations')
+
+    q.where(b => {
+      // visibilité des types d'étapes en tant que titulaire ou amodiataire
+      if (permissionCheck(user, ['entreprise'])) {
+        b.orWhere('autorisations.entreprisesLecture', true)
+      }
+
+      // visibilité des types d'étapes publiques
+      b.orWhere('autorisations.publicLecture', true)
+    })
+  }
+
   // propriété 'etapesCreation' en fonction du profil de l'utilisateur
   if (permissionCheck(user, ['super'])) {
     q.select(raw('true').as('etapesCreation'))
