@@ -3,27 +3,38 @@ import { IAdministration, ITitre } from '../../../types'
 const administrations = [
   {
     id: 'gestionnaire',
-    domaines: [{ id: 'm' }]
+    domaines: [{ id: 'm' }],
+    titresTypes: []
   },
   {
     id: 'deal-01',
-    departementId: '01'
+    departementId: '01',
+    titresTypes: []
   },
   {
     id: 'deal-02',
-    regionId: '02'
+    regionId: '02',
+    titresTypes: []
   },
   {
     id: 'dea-guyane-01',
-    departementId: '973'
+    departementId: '973',
+    titresTypes: [
+      {
+        id: 'arm',
+        associee: true
+      }
+    ]
   },
   {
     id: 'ope-onf-973-01',
-    departementId: '973'
+    departementId: '973',
+    titresTypes: []
   },
   {
     id: 'xxxx',
-    departementId: 'xxxx'
+    departementId: 'xxxx',
+    titresTypes: []
   }
 ] as IAdministration[]
 
@@ -128,7 +139,8 @@ const titresEtapesAdministrationLocalesInexistante = ([
             communes: [],
             administrations: [
               {
-                id: 'xxx'
+                id: 'xxx',
+                associee: null
               }
             ]
           }
@@ -153,7 +165,8 @@ const titresEtapesAdministrationLocalesExistante = ([
             ],
             administrations: [
               {
-                id: 'deal-01'
+                id: 'deal-01',
+                associee: null
               }
             ]
           }

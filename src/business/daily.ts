@@ -285,7 +285,7 @@ const run = async () => {
         fields: {
           demarches: {
             etapes: {
-              administrations: { id: {} },
+              administrations: { titresTypes: { id: {} } },
               communes: { departement: { id: {} } }
             }
           }

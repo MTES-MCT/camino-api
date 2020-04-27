@@ -1,5 +1,4 @@
 import { titreGet } from '../database/queries/titres'
-import { titreDemarcheGet } from '../database/queries/titres-demarches'
 
 import { activitesTypesGet } from '../database/queries/metas'
 import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
