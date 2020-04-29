@@ -108,7 +108,9 @@ const titreEtapeUpdate = async (
     titre = await titreGet(
       titreId,
       {
-        fields: { demarches: { etapes: { id: {} } } }
+        fields: {
+          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        }
       },
       'super'
     )
