@@ -130,8 +130,6 @@ const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
   user?: IUtilisateur
 ) => {
-  q.select('titresActivites.*')
-
   if (!permissionCheck(user, ['super'])) {
     if (
       permissionCheck(user, ['admin', 'editeur']) &&
@@ -187,6 +185,15 @@ const titreActivitePermissionQueryBuild = (
     }
   }
 
+  return q
+}
+
+const titreActiviteQueryPropsBuild = (
+  q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
+  user?: IUtilisateur
+) => {
+  q.select('titresActivites.*')
+
   if (permissionCheck(user, ['super'])) {
     q.select(raw('true').as('modification'))
   } else if (permissionCheck(user, ['admin', 'editeur', 'lecteur'])) {
@@ -212,4 +219,8 @@ const titreActivitePermissionQueryBuild = (
   return q
 }
 
-export { titreActivitePermissionQueryBuild, titreActivitesCalc }
+export {
+  titreActivitePermissionQueryBuild,
+  titreActiviteQueryPropsBuild,
+  titreActivitesCalc
+}

@@ -1,3 +1,12 @@
+type Activites {
+  activites: [Activite]
+  page: Int
+  intervalle: Int
+  ordre: String
+  colonne: String
+  total: Int
+}
+
 type Activite {
   id: ID!
   type: ActiviteType!

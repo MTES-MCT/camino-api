@@ -73,6 +73,7 @@ import { administration, administrations } from './resolvers/administrations'
 import {
   activite,
   activites,
+  activitesAnnees,
   activiteModifier
 } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
@@ -112,6 +113,7 @@ export default {
   statistiques,
   activite,
   activites,
+  activitesAnnees,
   activitesTypes,
 
   // mutations
