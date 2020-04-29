@@ -14,6 +14,11 @@ import middlewareJwt from '../src/server/middleware-jwt'
 import * as knexConfig from '../knex/config'
 import * as userAdd from '../knex/user-add'
 
+jest.mock('../src/tools/export/utilisateur', () => ({
+  __esModule: true,
+  utilisateurRowUpdate: jest.fn()
+}))
+
 const knex = Knex(knexConfig)
 
 Model.knex(knex)
@@ -45,31 +50,39 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  await knex.destroy()
+  console.log('===AFTER ALLLL===')
+
+  await Model.knex().destroy()
+
+  await dbManager.closeKnex()
+  await dbManager.close()
+
+  console.log('===AFTER ALLLL TERMINEEEEEEEEEEE===')
 })
 
-beforeEach(async () => {
-  console.log('beforeEach global')
-
-  console.log('truncate db')
-
-  await dbManager.truncateDb()
-})
-
-const utilisateurModifierQuery = fs.readFileSync(
-  path.join(__dirname, './queries/utilisateur-modifier.graphql')
-)
+const utilisateurModifierQuery = fs
+  .readFileSync(path.join(__dirname, './queries/utilisateur-modifier.graphql'))
+  // important pour transformer le buffer en string
+  .toString()
 
 describe('utilisateursModifier', () => {
   beforeEach(async () => {
     console.log('beforeEach utilisateursModifier')
 
+    console.log('truncate db')
+
+    await dbManager.truncateDb()
+
     console.log('insert permissions')
 
-    await knex('permissions').insert({
-      id: 'defaut',
-      nom: 'defaut'
-    })
+    try {
+      await knex('permissions').insert({
+        id: 'defaut',
+        nom: 'defaut'
+      })
+    } catch (e) {
+      console.error(e)
+    }
 
     console.log('user add')
 
@@ -84,17 +97,20 @@ describe('utilisateursModifier', () => {
   })
 
   test("en tant qu'utilisateur anonyme, un utilisateur n'est pas modifié", async () => {
-    const res = await request(app).post(
-      `/?query=${utilisateurModifierQuery}&variables=${JSON.stringify({
-        utilisateur: {
-          id: 'test',
-          prenom: 'toto-updated',
-          nom: 'test-updated',
-          email: 'test-updated@example.com',
-          permissionId: 'defaut'
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurModifierQuery,
+        variables: {
+          utilisateur: {
+            id: 'test',
+            prenom: 'toto-updated',
+            nom: 'test-updated',
+            email: 'test@camino.local',
+            permissionId: 'defaut'
+          }
         }
-      })}`
-    )
+      })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
@@ -103,8 +119,10 @@ describe('utilisateursModifier', () => {
     const token = jwt.sign({ id: 'test' }, process.env.JWT_SECRET as string)
 
     const res = await request(app)
-      .post(
-        `/?query=${utilisateurModifierQuery}&variables=${JSON.stringify({
+      .post('/')
+      .send({
+        query: utilisateurModifierQuery,
+        variables: {
           utilisateur: {
             id: 'test',
             prenom: 'toto-updated',
@@ -112,8 +130,8 @@ describe('utilisateursModifier', () => {
             email: 'test@camino.local',
             permissionId: 'defaut'
           }
-        })}`
-      )
+        }
+      })
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
