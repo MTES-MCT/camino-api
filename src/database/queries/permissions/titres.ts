@@ -7,12 +7,12 @@ import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
 import TitresActivites from '../../models/titres-activites'
 
-import { AutorisationsTitresTypesTitresStatuts } from '../../models/autorisations'
 import Entreprises from '../../models/entreprises'
 
 import {
   titreActivitesCalc,
-  titreActivitePermissionQueryBuild
+  titreActivitePermissionQueryBuild,
+  titreActiviteQueryPropsBuild
 } from './titres-activites'
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titresModificationQueryBuild } from './metas'
@@ -90,6 +90,11 @@ const titrePermissionQueryBuild = (
       b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
+    titreActiviteQueryPropsBuild(
+      b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
+      user
+    )
+
   })
 
   if (
