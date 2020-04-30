@@ -54,6 +54,17 @@ describe("public d'un titre", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
+  test("un titre dont l'autorisation pour son statut est mise à `true` et dont la démarche de mutation virtuelle n'est pas publique n'est pas public", () => {
+    expect(
+      titrePublicFind(
+        'prm',
+        'dmi',
+        [{ titreTypeId: 'prm', titreStatutId: 'dmi', publicLecture: true }],
+        demarchesBuild([{ typeId: 'vut', publicLecture: false }])
+      )
+    ).toMatchObject({ publicLecture: false })
+  })
+
   test("un titre dont l'autorisation pour son statut est mise à `true` et qui n'a pas de démarche d'octroi n'est pas public", () => {
     expect(
       titrePublicFind(
@@ -72,6 +83,17 @@ describe("public d'un titre", () => {
         'dmi',
         [{ titreTypeId: 'prm', titreStatutId: 'dmi', publicLecture: true }],
         demarchesBuild([{ typeId: 'oct', publicLecture: true }])
+      )
+    ).toMatchObject({ publicLecture: true })
+  })
+
+  test("un titre dont l'autorisation pour son statut est mise à `true` et dont la mutation partielle est publique est public", () => {
+    expect(
+      titrePublicFind(
+        'prm',
+        'dmi',
+        [{ titreTypeId: 'prm', titreStatutId: 'dmi', publicLecture: true }],
+        demarchesBuild([{ typeId: 'vut', publicLecture: true }])
       )
     ).toMatchObject({ publicLecture: true })
   })

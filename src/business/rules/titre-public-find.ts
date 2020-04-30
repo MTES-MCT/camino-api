@@ -14,12 +14,14 @@ const titrePublicFind = (
   )
 
   // si une autorisation existe
-  // et la démarche d'octroi est publique
+  // et la démarche d'octroi (virtuelle ou non) est publique
   // alors le titre est public
   if (autorisation?.publicLecture) {
-    const titreDemarcheOctroi = titreDemarches.find(d => d.typeId === 'oct')
+    const titreDemarcheOctroi = titreDemarches.find(
+      d => ['oct', 'vut'].includes(d.typeId) && d.publicLecture
+    )
 
-    if (titreDemarcheOctroi?.publicLecture) {
+    if (titreDemarcheOctroi) {
       publicLecture = true
     }
   }
