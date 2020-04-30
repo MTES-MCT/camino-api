@@ -16,6 +16,12 @@ import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
 import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
+import { writeFileSync } from 'fs'
+
+const stringSplit = (string: string) =>
+  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
+    e.replace(/^"(.*)"$/, '$1')
+  )
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -61,6 +67,11 @@ const titresDemarchesQueryBuild = (
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
+    noms,
+    entreprises,
+    substances,
+    references,
+    territoires,
     etapesInclues,
     etapesExclues
   }: {
@@ -69,6 +80,11 @@ const titresDemarchesQueryBuild = (
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
+    noms?: string | null
+    entreprises?: string | null
+    substances?: string | null
+    references?: string | null
+    territoires?: string | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
@@ -107,6 +123,19 @@ const titresDemarchesQueryBuild = (
     q.leftJoinRelated('titre').whereIn('titre.statutId', titresStatutsIds)
   }
 
+  if (noms) {
+    const nomsArray = stringSplit(noms)
+    q.leftJoinRelated('titre').where(b => {
+      b.whereRaw(`?? ~* ?`, [
+        'titre.nom',
+        nomsArray.map(n => `(?=.*?(${n}))`).join('')
+      ]).orWhereRaw(`?? ~* ?`, [
+        'titre.id',
+        nomsArray.map(n => `(?=.*?(${n}))`).join('')
+      ])
+    })
+  }
+
   if (etapesInclues?.length || etapesExclues?.length) {
     q.leftJoinRelated('etapes').groupBy('titresDemarches.id')
 
@@ -119,6 +148,11 @@ const titresDemarchesQueryBuild = (
     }
   }
 
+  writeFileSync(
+    'src/database/queries/testDemarches.sql',
+    q.toKnexQuery().toString()
+  )
+
   return q
 }
 
@@ -129,6 +163,11 @@ const titresDemarchesCount = async (
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
+    noms,
+    entreprises,
+    substances,
+    references,
+    territoires,
     etapesInclues,
     etapesExclues
   }: {
@@ -137,6 +176,11 @@ const titresDemarchesCount = async (
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
+    noms?: string | null
+    entreprises?: string | null
+    substances?: string | null
+    references?: string | null
+    territoires?: string | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
@@ -152,6 +196,11 @@ const titresDemarchesCount = async (
       titresDomainesIds,
       titresTypesIds,
       titresStatutsIds,
+      noms,
+      entreprises,
+      substances,
+      references,
+      territoires,
       etapesInclues,
       etapesExclues
     },
@@ -184,6 +233,11 @@ const titresDemarchesGet = async (
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
+    noms,
+    entreprises,
+    substances,
+    references,
+    territoires,
     etapesInclues,
     etapesExclues
   }: {
@@ -196,6 +250,11 @@ const titresDemarchesGet = async (
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
+    noms?: string | null
+    entreprises?: string | null
+    substances?: string | null
+    references?: string | null
+    territoires?: string | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   } = {},
@@ -210,6 +269,11 @@ const titresDemarchesGet = async (
       titresDomainesIds,
       titresTypesIds,
       titresStatutsIds,
+      noms,
+      entreprises,
+      substances,
+      references,
+      territoires,
       etapesInclues,
       etapesExclues
     },
