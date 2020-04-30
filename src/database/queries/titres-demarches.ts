@@ -7,7 +7,7 @@ import {
   Index,
   IUtilisateur
 } from '../../types'
-import { transaction, Transaction } from 'objection'
+import { transaction, Transaction, QueryBuilder } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
 import { userGet } from './utilisateurs'
 import options from './_options'
@@ -16,6 +16,43 @@ import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
 import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
+
+const etapesIncluesExcluesBuild = (
+  q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
+  etapes: ITitreEtapeFiltre[],
+  mode: 'etapesInclues' | 'etapesExclues'
+) => {
+  const raw = etapes
+    .map(({ statutId, dateDebut, dateFin }) => {
+      const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
+      const dateDebutCond = dateDebut ? 'and etapes.date >= ?' : ''
+      const dateFinCond = dateFin ? 'and etapes.date <= ?' : ''
+
+      const condition = mode === 'etapesInclues' ? '> 0' : '= 0'
+
+      return `count(*) filter (where etapes.type_id = ? ${statutCond} ${dateDebutCond} ${dateFinCond}) ${condition}`
+    })
+    .join(') and (')
+
+  q.havingRaw(
+    `(${raw})`,
+    etapes.flatMap(({ typeId, statutId, dateDebut, dateFin }) => {
+      const values = [typeId]
+
+      if (statutId) {
+        values.push(statutId)
+      }
+      if (dateDebut) {
+        values.push(dateDebut)
+      }
+      if (dateFin) {
+        values.push(dateFin)
+      }
+
+      return values
+    })
+  )
+}
 
 const titresDemarchesQueryBuild = (
   {
@@ -74,55 +111,11 @@ const titresDemarchesQueryBuild = (
     q.leftJoinRelated('etapes').groupBy('titresDemarches.id')
 
     if (etapesInclues?.length) {
-      const raw = etapesInclues
-        .map(({ statutId, dateDebut, dateFin }) => {
-          const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
-          const dateDebutCond = dateDebut ? 'and etapes.date >= ?' : ''
-          const dateFinCond = dateFin ? 'and etapes.date <= ?' : ''
-
-          return `count(*) filter (where etapes.type_id = ? ${statutCond} ${dateDebutCond} ${dateFinCond}) > 0`
-        })
-        .join(') and (')
-
-      q.havingRaw(
-        `(${raw})`,
-        etapesInclues.flatMap(({ typeId, statutId, dateDebut, dateFin }) => {
-          const values = [typeId]
-
-          if (statutId) {
-            values.push(statutId)
-          }
-          if (dateDebut) {
-            values.push(dateDebut)
-          }
-          if (dateFin) {
-            values.push(dateFin)
-          }
-
-          return values
-        })
-      )
+      etapesIncluesExcluesBuild(q, etapesInclues, 'etapesInclues')
     }
 
     if (etapesExclues?.length) {
-      const raw = etapesExclues.map(({ statutId }) => {
-        const statutCond = statutId ? 'and etapes.statut_id = ?' : ''
-
-        return `count(*) filter (where etapes.type_id = ? ${statutCond}) = 0`
-      })
-
-      q.havingRaw(
-        `(${raw})`,
-        etapesExclues.flatMap(({ typeId, statutId }) => {
-          const values = [typeId]
-
-          if (statutId) {
-            values.push(statutId)
-          }
-
-          return values
-        })
-      )
+      etapesIncluesExcluesBuild(q, etapesExclues, 'etapesExclues')
     }
   }
 
