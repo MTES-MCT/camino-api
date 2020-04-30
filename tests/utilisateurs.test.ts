@@ -33,9 +33,11 @@ app.use('/', middlewareGraphql)
 let dbManager: knexDbManager.KnexDbManager
 
 beforeAll(async () => {
+  // knexConfig.seeds.directory = '../knex/seeds'
   dbManager = knexDbManager.databaseManagerFactory({
     knex: knexConfig,
     dbManager: {
+      populatePathPattern: '03-*',
       superUser: knexConfig.connection.user,
       superPassword: knexConfig.connection.password
     }
@@ -47,6 +49,9 @@ beforeAll(async () => {
   await dbManager.createDb(knexConfig.connection.database)
 
   await knex.migrate.latest()
+
+  //  marche mais on préférerait utiliser dbManager
+  // await knex.seed.run()
 })
 
 afterAll(async () => {
@@ -71,18 +76,17 @@ describe('utilisateursModifier', () => {
 
     console.log('truncate db')
 
-    await dbManager.truncateDb()
+    // await dbManager.truncateDb()
 
-    console.log('insert permissions')
+    console.log('populate db')
+    // pourquoi  marche pas ????????????
+    await dbManager.populateDb()
 
-    try {
-      await knex('permissions').insert({
-        id: 'defaut',
-        nom: 'defaut'
-      })
-    } catch (e) {
-      console.error(e)
-    }
+    process.exit(0)
+
+    const permissions = await knex.select('*').from('permissions')
+
+    console.log('permissions:', permissions)
 
     console.log('user add')
 
