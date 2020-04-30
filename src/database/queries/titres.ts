@@ -20,11 +20,7 @@ import { titresFieldsAdd } from './graph/fields-add'
 
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
-
-const stringSplit = (string: string) =>
-  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
-    e.replace(/^"(.*)"$/, '$1')
-  )
+import { stringSplit } from './_utils'
 
 const titresQueryBuild = (
   {
