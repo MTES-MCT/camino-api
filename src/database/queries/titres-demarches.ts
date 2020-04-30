@@ -16,12 +16,7 @@ import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
 import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
-import { writeFileSync } from 'fs'
-
-const stringSplit = (string: string) =>
-  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
-    e.replace(/^"(.*)"$/, '$1')
-  )
+import { stringSplit } from './_utils'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -136,6 +131,154 @@ const titresDemarchesQueryBuild = (
     })
   }
 
+  if (entreprises) {
+    const entreprisesArray = stringSplit(entreprises)
+    const fields = [
+      'titre:titulaires:etablissements.nom',
+      'titre:titulaires.nom',
+      'titre:titulaires.id',
+      'titre:amodiataires:etablissements.nom',
+      'titre:amodiataires.nom',
+      'titre:amodiataires.id'
+    ]
+
+    q.leftJoinRelated(
+      '[titre.[titulaires.etablissements, amodiataires.etablissements]]'
+    )
+      .where(b => {
+        entreprisesArray.forEach(s => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
+        })
+      })
+      .groupBy('titresDemarches.id')
+      .havingRaw(
+        `(${entreprisesArray
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              fields.map(() => 'lower(??) like ?').join(' or ') +
+              ') > 0'
+          )
+          .join(') and (')})`,
+        entreprisesArray.flatMap(e =>
+          fields.flatMap(f => [f, `%${e.toLowerCase()}%`])
+        )
+      )
+  }
+
+  if (substances) {
+    const substancesArray = stringSplit(substances)
+    const fields = [
+      'titre:substances.nom',
+      'titre:substances.id',
+      'titre:substances:legales.nom',
+      'titre:substances:legales.id'
+    ]
+
+    q.leftJoinRelated('titre.substances.legales')
+      .where(b => {
+        substancesArray.forEach(s => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
+        })
+      })
+
+      .groupBy('titresDemarches.id')
+      .havingRaw(
+        `(${substancesArray
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              fields.map(() => 'lower(??) like ?').join(' or ') +
+              ') > 0'
+          )
+          .join(') and (')})`,
+        substancesArray.flatMap(s =>
+          fields.flatMap(f => [f, `%${s.toLowerCase()}%`])
+        )
+      )
+  }
+
+  if (references) {
+    const referencesArray = stringSplit(references)
+    const fields = ['titre:references.nom', 'titre:references:type.nom']
+
+    q.leftJoinRelated('titre.references.type')
+      .where(b => {
+        referencesArray.forEach(s => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
+        })
+      })
+
+      .groupBy('titresDemarches.id')
+      .havingRaw(
+        `(${referencesArray
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              fields.map(() => 'lower(??) like ?').join(' or ') +
+              ') > 0'
+          )
+          .join(') and (')})`,
+        referencesArray.flatMap(r =>
+          fields.flatMap(f => [f, `%${r.toLowerCase()}%`])
+        )
+      )
+  }
+
+  if (territoires) {
+    const territoiresArray = stringSplit(territoires)
+
+    const fieldsLike = [
+      'titre:communes:departement:region.nom',
+      'titre:communes:departement.nom',
+      'titre:communes.nom'
+    ]
+
+    const fieldsExact = [
+      'titre:communes:departement:region.paysId',
+      'titre:communes.departementId',
+      'titre:communes.id'
+    ]
+
+    q.leftJoinRelated('titre.communes.departement.region')
+      .where(b => {
+        territoiresArray.forEach(t => {
+          fieldsLike.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${t.toLowerCase()}%`])
+          })
+
+          fieldsExact.forEach(f => {
+            b.orWhereRaw(`?? = ?`, [f, t])
+          })
+        })
+      })
+
+      .groupBy('titresDemarches.id')
+      .havingRaw(
+        `(${territoiresArray
+          .map(
+            () =>
+              'count(*) filter (where ' +
+              [
+                ...fieldsLike.map(() => 'lower(??) like ?'),
+                ...fieldsExact.map(() => `lower(??) = ?`)
+              ].join(' or ') +
+              ') > 0'
+          )
+          .join(') and (')})`,
+        territoiresArray.flatMap(t => [
+          ...fieldsLike.flatMap(f => [f, `%${t.toLowerCase()}%`]),
+          ...fieldsExact.flatMap(f => [f, t.toLowerCase()])
+        ])
+      )
+  }
+
   if (etapesInclues?.length || etapesExclues?.length) {
     q.leftJoinRelated('etapes').groupBy('titresDemarches.id')
 
@@ -147,11 +290,6 @@ const titresDemarchesQueryBuild = (
       etapesIncluesExcluesBuild(q, etapesExclues, 'etapesExclues')
     }
   }
-
-  writeFileSync(
-    'src/database/queries/testDemarches.sql',
-    q.toKnexQuery().toString()
-  )
 
   return q
 }
