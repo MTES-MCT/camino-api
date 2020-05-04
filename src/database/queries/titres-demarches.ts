@@ -118,7 +118,8 @@ const titresDemarchesQueryBuild = (
       territoires
     },
     q,
-    'titre'
+    'titre',
+    'titresDemarches'
   )
 
   if (etapesInclues?.length || etapesExclues?.length) {
