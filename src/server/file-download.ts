@@ -12,8 +12,8 @@ interface IAuthRequest extends express.Request {
 
 const fileGet = async (
   req: IAuthRequest,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
+  // next: express.NextFunction
 ) => {
   try {
     const userId = req.user && req.user.id

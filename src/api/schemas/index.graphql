@@ -14,6 +14,7 @@
 # import * from 'titres-etapes.graphql'
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
+# import * from 'telechargements.graphql'
 
 "__*__ Type du contenu json"
 scalar Json
@@ -59,7 +60,8 @@ type Query {
     entreprises: String
     references: String
     territoires: String
-  ): [Titre]
+    format: String
+  ): Titres
 
   "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
   demarches(
@@ -79,6 +81,7 @@ type Query {
     territoires: String
     etapesInclues: [InputEtapeFiltre]
     etapesExclues: [InputEtapeFiltre]
+    format: String
   ): Demarches
 
   "__*__ Activité en fonction de son id"
@@ -92,6 +95,7 @@ type Query {
     ordre: String
     typesIds: [ID]
     annees: [Int]
+    format: String
   ): Activites
 
   "Années des activités"
@@ -118,6 +122,7 @@ type Query {
     administrationIds: [ID]
     permissionIds: [ID]
     noms: [String]
+    format: String
   ): [Utilisateur]
 
   "Substance en fonction de son id"

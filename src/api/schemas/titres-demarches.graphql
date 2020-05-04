@@ -1,5 +1,5 @@
 type Demarches {
-  demarches: [Demarche]
+  elements: [Demarche]
   page: Int
   intervalle: Int
   ordre: String

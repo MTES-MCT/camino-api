@@ -1,4 +1,4 @@
-import { IToken, ITitre, ITitreColonneId } from '../../types'
+import { IToken, ITitre, ITitreColonneId, IFormat } from '../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../config/index'
@@ -9,6 +9,7 @@ import { titreFormat, titresFormat } from './format/titres'
 import { titrePermissionAdministrationsCheck } from './permissions/titre-edition'
 
 import fieldsBuild from './_fields-build'
+import { convert } from './_convert'
 
 import {
   titreCreate,
@@ -61,7 +62,8 @@ const titres = async (
     noms,
     entreprises,
     references,
-    territoires
+    territoires,
+    format
   }: {
     intervalle?: number | null
     page?: number | null
@@ -75,12 +77,18 @@ const titres = async (
     entreprises: string
     references: string
     territoires: string
+    format?: IFormat
   },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
-    const fields = fieldsBuild(info)
+    const fields = fieldsBuild(info).titres
+
+    if (format) {
+      page = null
+      intervalle = null
+    }
 
     const titres = await titresGet(
       {
@@ -104,7 +112,17 @@ const titres = async (
     const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)
 
-    return titresFormatted
+    const res = format
+      ? convert('titres', titresFormatted, format)
+      : {
+          __typename: 'TitresListe',
+          elements: titresFormatted,
+          total: null
+        }
+
+    // console.log({ format, res })
+
+    return res
   } catch (e) {
     if (debug) {
       console.error(e)

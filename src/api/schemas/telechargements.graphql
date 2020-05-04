@@ -1,0 +1,9 @@
+type Telechargement {
+  contenu: String
+  nom: String
+  taille: String
+  type: String
+  ordre: String
+  colonne: String
+  total: Int
+}

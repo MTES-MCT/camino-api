@@ -130,16 +130,18 @@ const demarches = async (
 
     const user = context.user && (await userGet(context.user.id))
 
+    const demarchesFormatted = titresDemarches.map(titreDemarche =>
+      titreDemarcheFormat(
+        user,
+        titreDemarche,
+        titreDemarche.titre!.typeId,
+        titreDemarche.titre!.statutId!,
+        fields
+      )
+    )
+
     return {
-      demarches: titresDemarches.map(titreDemarche =>
-        titreDemarcheFormat(
-          user,
-          titreDemarche,
-          titreDemarche.titre!.typeId,
-          titreDemarche.titre!.statutId!,
-          fields
-        )
-      ),
+      elements: demarchesFormatted,
       total
     }
   } catch (e) {

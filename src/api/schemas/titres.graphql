@@ -1,3 +1,14 @@
+type TitresListe {
+  elements: [Titre]
+  page: Int
+  intervalle: Int
+  ordre: String
+  colonne: String
+  total: Int
+}
+
+union Titres = TitresListe | Telechargement
+
 "Titre minier"
 type Titre {
   """
