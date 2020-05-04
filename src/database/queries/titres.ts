@@ -20,7 +20,7 @@ import { titresFieldsAdd } from './graph/fields-add'
 
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
-import { titresFieldsQueryBuild } from './_titres-fields'
+import { titresFiltersQueryBuild } from './_titres-filters'
 
 const titresQueryBuild = (
   {
@@ -62,7 +62,7 @@ const titresQueryBuild = (
     q.whereIn('titres.id', ids)
   }
 
-  titresFieldsQueryBuild(
+  titresFiltersQueryBuild(
     {
       domainesIds,
       typesIds,
@@ -73,8 +73,7 @@ const titresQueryBuild = (
       references,
       territoires
     },
-    q,
-    'titres'
+    q
   )
 
   return q

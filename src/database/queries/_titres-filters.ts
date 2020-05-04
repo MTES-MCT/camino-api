@@ -3,9 +3,14 @@ import Titres from '../models/titres'
 import TitresDemarches from '../models/titres-demarches'
 import { QueryBuilder } from 'objection'
 
+type ITitreTableName = 'titres' | 'titre'
 type ITitreRootName = 'titres' | 'titresDemarches'
 
-const titresFieldsQueryBuild = (
+// name: nom de la table ou de la relation sur laquelle s'effectue la requête
+// - 'titres' depuis la table 'titres'
+// - 'titre' depuis la table 'titresDemarches'
+// root: nom de la table de base
+const titresFiltersQueryBuild = (
   {
     domainesIds,
     typesIds,
@@ -28,33 +33,33 @@ const titresFieldsQueryBuild = (
   q:
     | QueryBuilder<Titres, Titres[]>
     | QueryBuilder<TitresDemarches, TitresDemarches[]>,
-  titreTableAlias: string,
-  tableRootName: ITitreRootName = 'titres'
+  name: ITitreTableName = 'titres',
+  root: ITitreRootName = 'titres'
 ) => {
   if (domainesIds) {
-    if (titreTableAlias === 'titre') {
+    if (name === 'titre') {
       q.leftJoinRelated('titre')
     }
 
-    q.whereIn(`${titreTableAlias}.domaineId`, domainesIds)
+    q.whereIn(`${name}.domaineId`, domainesIds)
   }
 
   if (typesIds) {
-    q.leftJoinRelated(jointureFormat(titreTableAlias, 'type'))
+    q.leftJoinRelated(jointureFormat(name, 'type'))
 
-    q.whereIn(fieldFormat(titreTableAlias, 'type.typeId'), typesIds)
+    q.whereIn(fieldFormat(name, 'type.typeId'), typesIds)
   }
 
   if (statutsIds) {
-    if (titreTableAlias === 'titre') {
+    if (name === 'titre') {
       q.leftJoinRelated('titre')
     }
 
-    q.whereIn(`${titreTableAlias}.statutId`, statutsIds)
+    q.whereIn(`${name}.statutId`, statutsIds)
   }
 
   if (noms) {
-    if (titreTableAlias === 'titre') {
+    if (name === 'titre') {
       q.leftJoinRelated('titre')
     }
 
@@ -62,10 +67,10 @@ const titresFieldsQueryBuild = (
 
     q.where(b => {
       b.whereRaw(`?? ~* ?`, [
-        `${titreTableAlias}.nom`,
+        `${name}.nom`,
         nomsArray.map(n => `(?=.*?(${n}))`).join('')
       ]).orWhereRaw(`?? ~* ?`, [
-        `${titreTableAlias}.id`,
+        `${name}.id`,
         nomsArray.map(n => `(?=.*?(${n}))`).join('')
       ])
     })
@@ -83,13 +88,13 @@ const titresFieldsQueryBuild = (
       'amodiataires.id'
     ]
 
-    if (titreTableAlias === 'titre') {
-      fields = fields.map(field => fieldFormat(titreTableAlias, field))
+    if (name === 'titre') {
+      fields = fields.map(field => fieldFormat(name, field))
     }
 
     q.leftJoinRelated(
       jointureFormat(
-        titreTableAlias,
+        name,
         '[titulaires.etablissements, amodiataires.etablissements]'
       )
     )
@@ -100,7 +105,7 @@ const titresFieldsQueryBuild = (
           })
         })
       })
-      .groupBy(`${tableRootName}.id`)
+      .groupBy(`${root}.id`)
       .havingRaw(
         `(${entreprisesArray
           .map(
@@ -126,11 +131,11 @@ const titresFieldsQueryBuild = (
       'substances:legales.id'
     ]
 
-    if (titreTableAlias === 'titre') {
-      fields = fields.map(field => fieldFormat(titreTableAlias, field))
+    if (name === 'titre') {
+      fields = fields.map(field => fieldFormat(name, field))
     }
 
-    q.leftJoinRelated(jointureFormat(titreTableAlias, 'substances.legales'))
+    q.leftJoinRelated(jointureFormat(name, 'substances.legales'))
       .where(b => {
         substancesArray.forEach(s => {
           fields.forEach(f => {
@@ -138,7 +143,7 @@ const titresFieldsQueryBuild = (
           })
         })
       })
-      .groupBy(`${tableRootName}.id`)
+      .groupBy(`${root}.id`)
       .havingRaw(
         `(${substancesArray
           .map(
@@ -159,11 +164,11 @@ const titresFieldsQueryBuild = (
 
     let fields = ['references.nom', 'references:type.nom']
 
-    if (titreTableAlias === 'titre') {
-      fields = fields.map(field => fieldFormat(titreTableAlias, field))
+    if (name === 'titre') {
+      fields = fields.map(field => fieldFormat(name, field))
     }
 
-    q.leftJoinRelated(jointureFormat(titreTableAlias, 'references.type'))
+    q.leftJoinRelated(jointureFormat(name, 'references.type'))
       .where(b => {
         referencesArray.forEach(s => {
           fields.forEach(f => {
@@ -171,7 +176,7 @@ const titresFieldsQueryBuild = (
           })
         })
       })
-      .groupBy(`${tableRootName}.id`)
+      .groupBy(`${root}.id`)
       .havingRaw(
         `(${referencesArray
           .map(
@@ -195,8 +200,8 @@ const titresFieldsQueryBuild = (
       'communes.nom'
     ]
 
-    if (titreTableAlias === 'titre') {
-      fieldsLike = fieldsLike.map(field => fieldFormat(titreTableAlias, field))
+    if (name === 'titre') {
+      fieldsLike = fieldsLike.map(field => fieldFormat(name, field))
     }
 
     let fieldsExact = [
@@ -204,15 +209,11 @@ const titresFieldsQueryBuild = (
       'communes.departementId',
       'communes.id'
     ]
-    if (titreTableAlias === 'titre') {
-      fieldsExact = fieldsExact.map(field =>
-        fieldFormat(titreTableAlias, field)
-      )
+    if (name === 'titre') {
+      fieldsExact = fieldsExact.map(field => fieldFormat(name, field))
     }
 
-    q.leftJoinRelated(
-      jointureFormat(titreTableAlias, 'communes.departement.region')
-    )
+    q.leftJoinRelated(jointureFormat(name, 'communes.departement.region'))
       .where(b => {
         territoiresArray.forEach(t => {
           fieldsLike.forEach(f => {
@@ -225,7 +226,7 @@ const titresFieldsQueryBuild = (
         })
       })
 
-      .groupBy(`${tableRootName}.id`)
+      .groupBy(`${root}.id`)
       .havingRaw(
         `(${territoiresArray
           .map(
@@ -246,10 +247,10 @@ const titresFieldsQueryBuild = (
   }
 }
 
-const jointureFormat = (titreTableAlias: string, jointure: string) =>
-  titreTableAlias === 'titre' ? `titre.${jointure}` : jointure
+const jointureFormat = (name: string, jointure: string) =>
+  name === 'titre' ? `titre.${jointure}` : jointure
 
-const fieldFormat = (titreTableAlias: string, field: string) =>
-  titreTableAlias === 'titre' ? `titre:${field}` : field
+const fieldFormat = (name: string, field: string) =>
+  name === 'titre' ? `titre:${field}` : field
 
-export { titresFieldsQueryBuild }
+export { titresFiltersQueryBuild }

@@ -16,7 +16,7 @@ import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
 import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
-import { titresFieldsQueryBuild } from './_titres-fields'
+import { titresFiltersQueryBuild } from './_titres-filters'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -106,7 +106,7 @@ const titresDemarchesQueryBuild = (
     q.whereIn('titresDemarches.statutId', statutsIds)
   }
 
-  titresFieldsQueryBuild(
+  titresFiltersQueryBuild(
     {
       domainesIds: titresDomainesIds,
       typesIds: titresTypesIds,
