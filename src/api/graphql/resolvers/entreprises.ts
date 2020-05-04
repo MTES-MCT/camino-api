@@ -1,11 +1,12 @@
-import { IToken, IEntreprise } from '../../../types'
+import { IToken, IEntreprise, IEntrepriseColonneId } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
 import {
   entrepriseGet,
   entreprisesGet,
-  entrepriseUpsert
+  entrepriseUpsert,
+  entreprisesCount
 } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -45,7 +46,19 @@ const entreprise = async (
 }
 
 const entreprises = async (
-  { noms }: { noms: string[] },
+  {
+    page,
+    intervalle,
+    ordre,
+    colonne,
+    nomSiren
+  }: {
+    page?: number | null
+    intervalle?: number | null
+    ordre?: 'asc' | 'desc' | null
+    colonne?: IEntrepriseColonneId | null
+    nomSiren?: string | null
+  },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -53,14 +66,33 @@ const entreprises = async (
     const fields = fieldsBuild(info)
 
     const entreprises = await entreprisesGet(
-      { noms },
-      { fields },
+      {
+        page,
+        intervalle,
+        ordre,
+        colonne,
+        nomSiren
+      },
+      { fields: fields.entreprises },
       context.user?.id
     )
 
+    const total = await entreprisesCount(
+      {
+        nomSiren
+      },
+      { fields: fields.activites },
+      context.user?.id
+    )
+
+    if (!entreprises.length) return { entreprises: [], total: 0 }
+
     const user = context.user && (await userGet(context.user.id))
 
-    return entreprises.map(e => entrepriseFormat(user, e))
+    return {
+      entreprises: entreprises.map(e => entrepriseFormat(user, e)),
+      total
+    }
   } catch (e) {
     if (debug) {
       console.error(e)

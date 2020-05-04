@@ -1,3 +1,13 @@
+type Entreprises {
+  entreprises: [Entreprise]
+  intervalle: Int
+  page: Int
+  colonne: String
+  ordre: String
+  nomSiren: String
+  total: Int
+}
+
 type Entreprise {
   id: ID!
   nom: String
