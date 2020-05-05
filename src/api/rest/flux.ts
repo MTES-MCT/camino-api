@@ -40,66 +40,71 @@ const titres = async (
   res: express.Response,
   next: express.NextFunction
 ) => {
-  const userId = req.user?.id
+  try {
+    const userId = req.user?.id
 
-  const {
-    format = 'csv',
-    ordre,
-    colonne,
-    typesIds,
-    domainesIds,
-    statutsIds,
-    substances,
-    noms,
-    entreprises,
-    references,
-    territoires
-  } = req.query as ITitresQueryInput
-
-  const titres = await titresGet(
-    {
+    const {
+      format = 'csv',
       ordre,
       colonne,
-      typesIds: typesIds?.split(','),
-      domainesIds: domainesIds?.split(','),
-      statutsIds: statutsIds?.split(','),
+      typesIds,
+      domainesIds,
+      statutsIds,
       substances,
       noms,
       entreprises,
       references,
       territoires
-    },
-    {},
-    userId
-  )
+    } = req.query as ITitresQueryInput
 
-  const user = userId ? await userGet(userId) : undefined
-  const titresFormatted = titresFormat(user, titres)
+    const titres = await titresGet(
+      {
+        ordre,
+        colonne,
+        typesIds: typesIds?.split(','),
+        domainesIds: domainesIds?.split(','),
+        statutsIds: statutsIds?.split(','),
+        substances,
+        noms,
+        entreprises,
+        references,
+        territoires
+      },
+      {},
+      userId
+    )
 
-  let contenu
+    const user = userId ? await userGet(userId) : undefined
+    const titresFormatted = titresFormat(user, titres)
 
-  if (format === 'geojson') {
-    const elements = titresFormatGeojson(titresFormatted)
+    let contenu
 
-    contenu = JSON.stringify(elements, null, 2)
-  } else if (['csv', 'xlsx', 'ods'].includes(format)) {
-    const elements = titresFormatTable(titresFormatted)
+    if (format === 'geojson') {
+      const elements = titresFormatGeojson(titresFormatted)
 
-    contenu = tableConvert('titres', elements, format)
+      contenu = JSON.stringify(elements, null, 2)
+    } else if (['csv', 'xlsx', 'ods'].includes(format)) {
+      const elements = titresFormatTable(titresFormatted)
+
+      contenu = tableConvert('titres', elements, format)
+    }
+
+    if (contenu) {
+      const nom = fileNameCreate('titres', format)
+
+      res.header('Content-disposition', `attachment; filename=${nom}`)
+      res.header('Content-Type', contentTypeCreate(format))
+
+      res.send(contenu)
+
+      return
+    }
+
+    next()
+  } catch (e) {
+    console.error(e)
+    next(e)
   }
-
-  if (contenu) {
-    const nom = fileNameCreate('titres', format)
-
-    res.header('Content-disposition', `attachment; filename=${nom}`)
-    res.header('Content-Type', contentTypeCreate(format))
-
-    res.send(contenu)
-
-    return
-  }
-
-  next()
 }
 
 const demarches = async (

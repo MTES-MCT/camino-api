@@ -37,7 +37,11 @@ if (process.env.SENTRY_DSN) {
   app.use(Sentry.Handlers.requestHandler())
 }
 
-app.use(cors({ credentials: true }), compression(), jwt)
+app.use(
+  cors({ credentials: true, exposedHeaders: ['Content-disposition'] }),
+  compression(),
+  jwt
+)
 app.get('/documents/:fileName', download)
 app.use(rest)
 app.use('/', upload, graphql)
