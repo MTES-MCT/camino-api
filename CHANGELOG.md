@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.35](https://github.com/MTES-MCT/camino-api/compare/v0.24.34...v0.24.35) (2020-05-05)
+
+
+### Features
+
+* **activités:** gère les paramètres d'url ([#375](https://github.com/MTES-MCT/camino-api/issues/375)) ([dfc6adf](https://github.com/MTES-MCT/camino-api/commit/dfc6adf2eaee8d41981df1a4c33e66f983cf36ec))
+* **démarches:** limite les types d'étapes selon les utilisateurs ([#382](https://github.com/MTES-MCT/camino-api/issues/382)) ([017520d](https://github.com/MTES-MCT/camino-api/commit/017520df23734f603e06ef0bbe3b99c12a63f2f9))
+
+
+### Bug Fixes
+
+* **activites:** affiche 0 résultat en mode déconnecté ([#384](https://github.com/MTES-MCT/camino-api/issues/384)) ([4961568](https://github.com/MTES-MCT/camino-api/commit/496156814c6525e83453689357875a1ed681691b))
+* **activites:** corrige les paramètres d'édition ([ff9fc7b](https://github.com/MTES-MCT/camino-api/commit/ff9fc7b80ccdd658a52c45e9bcf32e606f21df5f))
+* **api:** corrige la création d'étape pour les renonciations ([6a2bda1](https://github.com/MTES-MCT/camino-api/commit/6a2bda1830d91413388d268ae139a276d0e5b75c))
+* **business:** prend en compte les démarches virtuelles pour le calcul de la publicité d'un titre ([925efdf](https://github.com/MTES-MCT/camino-api/commit/925efdf6a5adab16d341a12ff4cf41cb90ffb1c3))
+* **demarches:** corrige les requêtes avec plusieurs étapes exclues ([cd506e5](https://github.com/MTES-MCT/camino-api/commit/cd506e56f2d8304ce26f24e02c10859829f22231))
+
 ### [0.24.34](https://github.com/MTES-MCT/camino-api/compare/v0.24.33...v0.24.34) (2020-04-27)
 
 
