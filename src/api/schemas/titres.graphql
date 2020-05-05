@@ -1,4 +1,4 @@
-type TitresListe {
+type Titres {
   elements: [Titre]
   page: Int
   intervalle: Int
@@ -6,8 +6,6 @@ type TitresListe {
   colonne: String
   total: Int
 }
-
-union Titres = TitresListe | Telechargement
 
 "Titre minier"
 type Titre {

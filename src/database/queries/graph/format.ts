@@ -112,6 +112,10 @@ const graphFormat = (fields: IFields, parent: string) => {
 
   // sur les titres
   if (isParentTitre) {
+    if (fields.references && !fields.references.type) {
+      fields.references.type = { id: {} }
+    }
+
     // si la propriété `surface` est présente
     // - la remplace par `surfaceEtape`
     titrePropsEtapesFields.forEach(key => {

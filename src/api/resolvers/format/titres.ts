@@ -165,6 +165,7 @@ const titreFormat = (
   if (fields.administrations) {
     const hasAdministrations =
       t.administrationsGestionnaires?.length || t.administrationsLocales?.length
+
     if (hasAdministrations) {
       // fusionne administrations gestionnaires et locales
       const administrations = dupRemove('id', [

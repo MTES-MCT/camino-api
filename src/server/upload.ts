@@ -1,8 +1,8 @@
 import { graphqlUploadExpress } from 'graphql-upload'
 
-const middlewareUpload = graphqlUploadExpress({
+const upload = graphqlUploadExpress({
   maxFileSize: 10000000,
   maxFiles: 10
 })
 
-export default middlewareUpload
+export default upload

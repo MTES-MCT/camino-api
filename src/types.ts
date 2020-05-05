@@ -441,7 +441,7 @@ interface ITitre {
   activitesEnConstruction?: number | null
   activitesAbsentes?: number | null
   substancesTitreEtapeId?: string | null
-  substances?: ISubstance | null
+  substances?: ISubstance[] | null
   pointsTitreEtapeId?: string | null
   points?: ITitrePoint[] | null
   geojsonMultiPolygon?: IGeoJson | null
@@ -663,6 +663,7 @@ interface ITitreTypeType {
   id: string
   nom: string
   ordre: number
+  exploitation?: boolean | null
 }
 
 interface ITitreTypeDemarcheTypeEtapeType {
@@ -736,7 +737,7 @@ interface ITitreTypeEtapeTypeRestriction {
   impossible?: true
 }
 
-type IFormat = 'xlsx' | 'csv' | 'ods'
+type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson'
 
 interface ITelechargement {
   __typename: 'Telechargement'

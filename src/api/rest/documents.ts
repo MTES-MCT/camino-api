@@ -3,7 +3,7 @@ import { titreDocumentGet } from '../../database/queries/titres-documents'
 import { titreEtapeGet } from '../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../database/queries/titres-demarches'
 
-const fileNameGet = async (
+const documentNameGet = async (
   userId: string | undefined,
   titreDocumentId: string
 ) => {
@@ -52,4 +52,4 @@ const fileNameGet = async (
   }
 }
 
-export { fileNameGet }
+export { documentNameGet }

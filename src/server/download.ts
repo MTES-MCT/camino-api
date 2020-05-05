@@ -1,6 +1,6 @@
 import * as express from 'express'
-import { join } from 'path'
-import { fileNameGet } from '../api/rest/files'
+import { join, parse } from 'path'
+import { documentNameGet } from '../api/rest/documents'
 
 // bug de typage de express-jwt
 // https://github.com/auth0/express-jwt/issues/215
@@ -10,15 +10,15 @@ interface IAuthRequest extends express.Request {
   }
 }
 
-const fileGet = async (
+const download = async (
   req: IAuthRequest,
   res: express.Response
   // next: express.NextFunction
 ) => {
   try {
     const userId = req.user && req.user.id
-    const { titreDocumentId } = req.params
-    const documentName = await fileNameGet(userId, titreDocumentId)
+    const titreDocumentId = parse(req.params.fileName).name
+    const documentName = await documentNameGet(userId, titreDocumentId)
 
     const options = {
       dotfiles: 'deny',
@@ -39,4 +39,4 @@ const fileGet = async (
   }
 }
 
-export default fileGet
+export default download

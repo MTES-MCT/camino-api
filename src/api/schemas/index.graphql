@@ -14,7 +14,6 @@
 # import * from 'titres-etapes.graphql'
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
-# import * from 'telechargements.graphql'
 
 "__*__ Type du contenu json"
 scalar Json

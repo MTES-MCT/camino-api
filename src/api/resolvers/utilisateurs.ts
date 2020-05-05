@@ -5,7 +5,7 @@ import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
 import { login as cerbereLogin } from '../../tools/api-cerbere'
 
-import init from '../../server/init'
+import init from '../../database/init'
 
 import { debug } from '../../config/index'
 import { emailSend } from '../../tools/emails-send'
@@ -106,7 +106,9 @@ const utilisateurs = async (
 
 const moi = async (_: unknown, context: IToken) => {
   try {
-    // vérifie que la base de données était remplie au démarrage du serveur
+    // vérifie que la base de données est remplie au démarrage du serveur
+    // TODO:
+    // mettre ça dans un middleware à la racine de l'app express
     if (!globales.chargement) {
       await init()
     }

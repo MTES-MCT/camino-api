@@ -9,7 +9,6 @@ import { titreFormat, titresFormat } from './format/titres'
 import { titrePermissionAdministrationsCheck } from './permissions/titre-edition'
 
 import fieldsBuild from './_fields-build'
-import { convert } from './_convert'
 
 import {
   titreCreate,
@@ -83,7 +82,7 @@ const titres = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    const fields = fieldsBuild(info).titres
+    const fields = fieldsBuild(info).elements
 
     if (format) {
       page = null
@@ -112,17 +111,10 @@ const titres = async (
     const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)
 
-    const res = format
-      ? convert('titres', titresFormatted, format)
-      : {
-          __typename: 'TitresListe',
-          elements: titresFormatted,
-          total: null
-        }
-
-    // console.log({ format, res })
-
-    return res
+    return {
+      elements: titresFormatted,
+      total: null
+    }
   } catch (e) {
     if (debug) {
       console.error(e)
