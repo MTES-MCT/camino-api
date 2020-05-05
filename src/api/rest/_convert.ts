@@ -18,12 +18,12 @@ const tableConvert = (
 
   if (format === 'csv') {
     contenu = xlsx.utils.sheet_to_csv(sheet)
-  } else if (format === 'xlsx') {
+  } else if (format === 'xlsx' || format === 'ods') {
     const wb = xlsx.utils.book_new()
 
     xlsx.utils.book_append_sheet(wb, sheet, section)
 
-    contenu = xlsx.write(wb, { type: 'string' })
+    contenu = xlsx.write(wb, { type: 'buffer', bookType: format })
   }
 
   return contenu

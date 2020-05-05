@@ -1,4 +1,11 @@
-const activiteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
+import {
+  ITitreActivite,
+  IContenu,
+  ISection,
+  Index
+} from '../../../types'
+
+const titreActiviteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
   sections.reduce((resSections: Index<string>, section) => {
     const r = section.elements!.reduce(
       (resElements: Index<string>, element) => {
@@ -25,11 +32,11 @@ const activiteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
     return Object.assign(resSections, r)
   }, {})
 
-const activitesFormatTable = (activites: ITitreActivite[]) =>
+const titresActivitesFormatTable = (activites: ITitreActivite[]) =>
   activites.map(activite => {
     const contenu =
       activite.contenu && activite.type?.sections
-        ? activiteContenuFormat(activite.contenu, activite.type.sections)
+        ? titreActiviteContenuFormat(activite.contenu, activite.type.sections)
         : {}
 
     return {
@@ -44,4 +51,4 @@ const activitesFormatTable = (activites: ITitreActivite[]) =>
     }
   })
 
-export { activitesFormatTable }
+export { titresActivitesFormatTable }
