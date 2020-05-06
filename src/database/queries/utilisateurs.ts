@@ -36,7 +36,7 @@ const utilisateursQueryBuild = (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
@@ -231,8 +231,8 @@ const utilisateursGet = async (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string[] | null
-    prenoms?: string[] | null
+    noms?: string | null
+    prenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
