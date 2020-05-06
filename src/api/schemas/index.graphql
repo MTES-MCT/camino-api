@@ -72,6 +72,11 @@ type Query {
     titresStatutsIds: [ID]
     typesIds: [ID]
     statutsIds: [ID]
+    noms: String
+    entreprises: String
+    substances: String
+    references: String
+    territoires: String
     etapesInclues: [InputEtapeFiltre]
     etapesExclues: [InputEtapeFiltre]
   ): Demarches

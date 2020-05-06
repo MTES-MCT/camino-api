@@ -20,11 +20,7 @@ import { titresFieldsAdd } from './graph/fields-add'
 
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
-
-const stringSplit = (string: string) =>
-  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
-    e.replace(/^"(.*)"$/, '$1')
-  )
+import { titresFiltersQueryBuild } from './_titres-filters'
 
 const titresQueryBuild = (
   {
@@ -66,178 +62,19 @@ const titresQueryBuild = (
     q.whereIn('titres.id', ids)
   }
 
-  if (typesIds) {
-    q.leftJoinRelated('type').whereIn('type.typeId', typesIds)
-  }
-
-  if (domainesIds) {
-    q.whereIn('titres.domaineId', domainesIds)
-  }
-
-  if (statutsIds) {
-    q.whereIn('titres.statutId', statutsIds)
-  }
-
-  if (noms) {
-    const nomsArray = stringSplit(noms)
-    q.where(b => {
-      b.whereRaw(`?? ~* ?`, [
-        'titres.nom',
-        nomsArray.map(n => `(?=.*?(${n}))`).join('')
-      ]).orWhereRaw(`?? ~* ?`, [
-        'titres.id',
-        nomsArray.map(n => `(?=.*?(${n}))`).join('')
-      ])
-    })
-  }
-
-  if (references) {
-    const referencesArray = stringSplit(references)
-    const fields = ['references.nom', 'references:type.nom']
-
-    q.joinRelated('references.type')
-      .where(b => {
-        referencesArray.forEach(s => {
-          fields.forEach(f => {
-            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
-          })
-        })
-      })
-
-      .groupBy('titres.id')
-      .havingRaw(
-        `(${referencesArray
-          .map(
-            () =>
-              'count(*) filter (where ' +
-              fields.map(() => 'lower(??) like ?').join(' or ') +
-              ') > 0'
-          )
-          .join(') and (')})`,
-        referencesArray.flatMap(r =>
-          fields.flatMap(f => [f, `%${r.toLowerCase()}%`])
-        )
-      )
-  }
-
-  if (substances) {
-    const substancesArray = stringSplit(substances)
-    const fields = [
-      'substances.nom',
-      'substances.id',
-      'substances:legales.nom',
-      'substances:legales.id'
-    ]
-
-    q.leftJoinRelated('substances.legales')
-      .where(b => {
-        substancesArray.forEach(s => {
-          fields.forEach(f => {
-            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
-          })
-        })
-      })
-
-      .groupBy('titres.id')
-      .havingRaw(
-        `(${substancesArray
-          .map(
-            () =>
-              'count(*) filter (where ' +
-              fields.map(() => 'lower(??) like ?').join(' or ') +
-              ') > 0'
-          )
-          .join(') and (')})`,
-        substancesArray.flatMap(s =>
-          fields.flatMap(f => [f, `%${s.toLowerCase()}%`])
-        )
-      )
-  }
-
-  if (entreprises) {
-    const entreprisesArray = stringSplit(entreprises)
-    const fields = [
-      'titulaires:etablissements.nom',
-      'titulaires.nom',
-      'titulaires.id',
-      'amodiataires:etablissements.nom',
-      'amodiataires.nom',
-      'amodiataires.id'
-    ]
-
-    q.leftJoinRelated(
-      '[titulaires.etablissements, amodiataires.etablissements]'
-    )
-      .where(b => {
-        entreprisesArray.forEach(s => {
-          fields.forEach(f => {
-            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
-          })
-        })
-      })
-      .groupBy('titres.id')
-      .havingRaw(
-        `(${entreprisesArray
-          .map(
-            () =>
-              'count(*) filter (where ' +
-              fields.map(() => 'lower(??) like ?').join(' or ') +
-              ') > 0'
-          )
-          .join(') and (')})`,
-        entreprisesArray.flatMap(e =>
-          fields.flatMap(f => [f, `%${e.toLowerCase()}%`])
-        )
-      )
-  }
-
-  if (territoires) {
-    const territoiresArray = stringSplit(territoires)
-
-    const fieldsLike = [
-      'communes:departement:region.nom',
-      'communes:departement.nom',
-      'communes.nom'
-    ]
-
-    const fieldsExact = [
-      'communes:departement:region.paysId',
-      'communes.departementId',
-      'communes.id'
-    ]
-
-    q.joinRelated('communes.departement.region')
-      .where(b => {
-        territoiresArray.forEach(t => {
-          fieldsLike.forEach(f => {
-            b.orWhereRaw(`lower(??) like ?`, [f, `%${t.toLowerCase()}%`])
-          })
-
-          fieldsExact.forEach(f => {
-            b.orWhereRaw(`?? = ?`, [f, t])
-          })
-        })
-      })
-
-      .groupBy('titres.id')
-      .havingRaw(
-        `(${territoiresArray
-          .map(
-            () =>
-              'count(*) filter (where ' +
-              [
-                ...fieldsLike.map(() => 'lower(??) like ?'),
-                ...fieldsExact.map(() => `lower(??) = ?`)
-              ].join(' or ') +
-              ') > 0'
-          )
-          .join(') and (')})`,
-        territoiresArray.flatMap(t => [
-          ...fieldsLike.flatMap(f => [f, `%${t.toLowerCase()}%`]),
-          ...fieldsExact.flatMap(f => [f, t.toLowerCase()])
-        ])
-      )
-  }
+  titresFiltersQueryBuild(
+    {
+      domainesIds,
+      typesIds,
+      statutsIds,
+      noms,
+      entreprises,
+      substances,
+      references,
+      territoires
+    },
+    q
+  )
 
   return q
 }

@@ -45,6 +45,11 @@ const demarches = async (
     titresTypesIds,
     titresDomainesIds,
     titresStatutsIds,
+    noms,
+    entreprises,
+    substances,
+    references,
+    territoires,
     etapesInclues,
     etapesExclues
   }: {
@@ -57,6 +62,11 @@ const demarches = async (
     titresTypesIds?: string[] | null
     titresDomainesIds?: string[] | null
     titresStatutsIds?: string[] | null
+    noms?: string | null
+    entreprises?: string | null
+    substances?: string | null
+    references?: string | null
+    territoires?: string | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
   },
@@ -87,6 +97,11 @@ const demarches = async (
         titresTypesIds,
         titresDomainesIds,
         titresStatutsIds,
+        noms,
+        entreprises,
+        substances,
+        references,
+        territoires,
         etapesInclues,
         etapesExclues
       },
@@ -101,6 +116,11 @@ const demarches = async (
         titresTypesIds,
         titresDomainesIds,
         titresStatutsIds,
+        noms,
+        entreprises,
+        substances,
+        references,
+        territoires,
         etapesInclues,
         etapesExclues
       },
@@ -259,7 +279,10 @@ const demarcheSupprimer = async (
 
     await titreDemarcheDocumentsDelete(demarcheOld)
 
-    const titreUpdatedId = await titreDemarcheUpdateTask(null, demarcheOld.titreId)
+    const titreUpdatedId = await titreDemarcheUpdateTask(
+      null,
+      demarcheOld.titreId
+    )
 
     const fields = fieldsBuild(info)
 

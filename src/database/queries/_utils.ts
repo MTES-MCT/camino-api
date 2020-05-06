@@ -34,4 +34,9 @@ const fieldTitreAdd = (fields: IFields) => {
   return fields
 }
 
-export { fieldTitreAdd }
+const stringSplit = (string: string) =>
+  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
+    e.replace(/^"(.*)"$/, '$1')
+  )
+
+export { fieldTitreAdd, stringSplit }
