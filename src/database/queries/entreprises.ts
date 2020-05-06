@@ -20,6 +20,11 @@ const stringSplit = (string: string) =>
   )
 
 const entreprisesQueryBuild = (
+  {
+    nomSiren
+  }: {
+    nomSiren?: string | null
+  },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
 ) => {
@@ -33,17 +38,6 @@ const entreprisesQueryBuild = (
 
   entreprisePermissionQueryBuild(q, user)
 
-  return q
-}
-
-const entreprisesParamsQueryBuild = (
-  {
-    nomSiren
-  }: {
-    nomSiren?: string | null
-  },
-  q: Objection.QueryBuilder<Entreprises, Entreprises[]>
-) => {
   if (nomSiren) {
     const nomSirenArray = stringSplit(nomSiren)
     const fields = ['entreprises.id', 'entreprises.nom']
@@ -70,10 +64,8 @@ const entreprisesCount = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = entreprisesQueryBuild({ fields }, user)
+  const q = entreprisesQueryBuild({ nomSiren }, { fields }, user)
   if (!q) return 0
-
-  entreprisesParamsQueryBuild({ nomSiren }, q)
 
   const entreprises = ((await q) as unknown) as { total: number }[]
 
@@ -87,7 +79,7 @@ const entrepriseGet = async (
 ) => {
   const user = userId ? await userGet(userId) : undefined
 
-  const q = entreprisesQueryBuild({ fields }, user)
+  const q = entreprisesQueryBuild({}, { fields }, user)
 
   return (await q.findById(id)) as IEntreprise
 }
@@ -112,7 +104,7 @@ const entreprisesGet = async (
 ) => {
   const user = userId ? await userGet(userId) : undefined
 
-  const q = entreprisesQueryBuild({ fields }, user)
+  const q = entreprisesQueryBuild({ nomSiren }, { fields }, user)
   if (!q) return []
 
   if (noms) {
