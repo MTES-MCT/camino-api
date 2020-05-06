@@ -44,6 +44,8 @@ type ITitreDemarcheColonneId =
 
 type ITitreActiviteColonneId = 'titreNom' | 'titulaire' | 'periode' | 'statut'
 
+type IUtilisateursColonneId = 'nom' | 'prenom' | 'email' | 'permission' | 'lien'
+
 interface IActiviteStatut {
   id: string
   nom: string
@@ -827,6 +829,7 @@ export {
   ITitreColonneId,
   ITitreDemarcheColonneId,
   ITitreActiviteColonneId,
+  IUtilisateursColonneId,
   IColonne,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,
