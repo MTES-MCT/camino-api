@@ -10,6 +10,7 @@ import { entreprisePermissionQueryBuild } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
+import Objection = require('objection')
 // import { stringSplit } from './_utils'
 
 // TODO : import de la fonction après merge des démarches
@@ -48,7 +49,7 @@ const entreprisesParamsQueryBuild = (
     const fields = ['entreprises.id', 'entreprises.nom']
 
     nomSirenArray.forEach(s => {
-      q.where(b => {
+      q.where((b: Objection.QueryBuilder<Entreprises, Entreprises[]>) => {
         fields.forEach(f => {
           b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
         })
