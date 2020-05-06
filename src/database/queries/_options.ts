@@ -255,7 +255,7 @@ const titres = {
     surfaceEtape,
     communes.${communes.graph},
     activites(orderDesc).${titresActivites.graph},
-    references(orderAsc)
+    references(orderAsc).type
   ]`,
 
   update: {

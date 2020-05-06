@@ -14,6 +14,24 @@ interface IColonne<T> {
   groupBy?: boolean
 }
 
+type TitreProp =
+  | 'pointsTitreEtapeId'
+  | 'titulairesTitreEtapeId'
+  | 'amodiatairesTitreEtapeId'
+  | 'administrationsTitreEtapeId'
+  | 'substancesTitreEtapeId'
+  | 'communesTitreEtapeId'
+  | 'surfaceTitreEtapeId'
+
+type TitreEtapeProp =
+  | 'points'
+  | 'titulaires'
+  | 'amodiataires'
+  | 'administrations'
+  | 'substances'
+  | 'communes'
+  | 'surface'
+
 type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activitesTotal'
 
 type ITitreDemarcheColonneId =
@@ -423,7 +441,7 @@ interface ITitre {
   activitesEnConstruction?: number | null
   activitesAbsentes?: number | null
   substancesTitreEtapeId?: string | null
-  substances?: ISubstance | null
+  substances?: ISubstance[] | null
   pointsTitreEtapeId?: string | null
   points?: ITitrePoint[] | null
   geojsonMultiPolygon?: IGeoJson | null
@@ -645,6 +663,7 @@ interface ITitreTypeType {
   id: string
   nom: string
   ordre: number
+  exploitation?: boolean | null
 }
 
 interface ITitreTypeDemarcheTypeEtapeType {
@@ -718,27 +737,23 @@ interface ITitreTypeEtapeTypeRestriction {
   impossible?: true
 }
 
-type TitreProp =
-  | 'pointsTitreEtapeId'
-  | 'titulairesTitreEtapeId'
-  | 'amodiatairesTitreEtapeId'
-  | 'administrationsTitreEtapeId'
-  | 'substancesTitreEtapeId'
-  | 'communesTitreEtapeId'
-  | 'surfaceTitreEtapeId'
+type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json'
 
-type TitreEtapeProp =
-  | 'points'
-  | 'titulaires'
-  | 'amodiataires'
-  | 'administrations'
-  | 'substances'
-  | 'communes'
-  | 'surface'
+interface ITelechargement {
+  __typename: 'Telechargement'
+  contenu: string
+  nom: string
+  taille: number
+  type: string
+  ordre: string
+  colonne: string
+  total: number
+}
 
 export {
   Index,
   IFields,
+  IFormat,
   IActiviteStatut,
   IActiviteType,
   ISection,
@@ -815,5 +830,6 @@ export {
   IColonne,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,
-  ITitreCondition
+  ITitreCondition,
+  ITelechargement
 }

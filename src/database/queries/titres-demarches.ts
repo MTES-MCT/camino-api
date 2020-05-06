@@ -59,29 +59,29 @@ const titresDemarchesQueryBuild = (
   {
     typesIds,
     statutsIds,
+    etapesInclues,
+    etapesExclues,
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
-    noms,
-    entreprises,
-    substances,
-    references,
-    territoires,
-    etapesInclues,
-    etapesExclues
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
-    noms?: string | null
-    entreprises?: string | null
-    substances?: string | null
-    references?: string | null
-    territoires?: string | null
-    etapesInclues?: ITitreEtapeFiltre[] | null
-    etapesExclues?: ITitreEtapeFiltre[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -111,11 +111,11 @@ const titresDemarchesQueryBuild = (
       domainesIds: titresDomainesIds,
       typesIds: titresTypesIds,
       statutsIds: titresStatutsIds,
-      noms,
-      entreprises,
-      substances,
-      references,
-      territoires
+      noms: titresNoms,
+      entreprises: titresEntreprises,
+      substances: titresSubstances,
+      references: titresReferences,
+      territoires: titresTerritoires
     },
     q,
     'titre',
@@ -141,29 +141,29 @@ const titresDemarchesCount = async (
   {
     typesIds,
     statutsIds,
+    etapesInclues,
+    etapesExclues,
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
-    noms,
-    entreprises,
-    substances,
-    references,
-    territoires,
-    etapesInclues,
-    etapesExclues
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
-    noms?: string | null
-    entreprises?: string | null
-    substances?: string | null
-    references?: string | null
-    territoires?: string | null
-    etapesInclues?: ITitreEtapeFiltre[] | null
-    etapesExclues?: ITitreEtapeFiltre[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
   userId?: string
@@ -174,16 +174,16 @@ const titresDemarchesCount = async (
     {
       typesIds,
       statutsIds,
+      etapesInclues,
+      etapesExclues,
       titresDomainesIds,
       titresTypesIds,
       titresStatutsIds,
-      noms,
-      entreprises,
-      substances,
-      references,
-      territoires,
-      etapesInclues,
-      etapesExclues
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires
     },
     { fields },
     user
@@ -211,16 +211,16 @@ const titresDemarchesGet = async (
     ordre,
     typesIds,
     statutsIds,
+    etapesInclues,
+    etapesExclues,
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
-    noms,
-    entreprises,
-    substances,
-    references,
-    territoires,
-    etapesInclues,
-    etapesExclues
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     intervalle?: number | null
     page?: number | null
@@ -228,16 +228,16 @@ const titresDemarchesGet = async (
     ordre?: 'asc' | 'desc' | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
-    noms?: string | null
-    entreprises?: string | null
-    substances?: string | null
-    references?: string | null
-    territoires?: string | null
-    etapesInclues?: ITitreEtapeFiltre[] | null
-    etapesExclues?: ITitreEtapeFiltre[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   } = {},
   { fields }: { fields?: IFields },
   userId?: string
@@ -247,16 +247,16 @@ const titresDemarchesGet = async (
     {
       typesIds,
       statutsIds,
+      etapesInclues,
+      etapesExclues,
       titresDomainesIds,
       titresTypesIds,
       titresStatutsIds,
-      noms,
-      entreprises,
-      substances,
-      references,
-      territoires,
-      etapesInclues,
-      etapesExclues
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires
     },
     { fields },
     user
