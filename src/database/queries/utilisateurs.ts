@@ -146,7 +146,7 @@ const utilisateursColonnes = {
   }
 } as Index<IColonne<string | Objection.RawBuilder>>
 
-const utilisateursGet = async (
+const utilisateursParamsQueryBuild = (
   {
     intervalle,
     page,
@@ -242,7 +242,7 @@ const utilisateursGet = async (
   const user = await userGet(userId)
   const q = utilisateursQueryBuild({ fields }, user)
 
-  utilisateursParamQueryBuild(
+  utilisateursParamsQueryBuild(
     {
       entrepriseIds,
       administrationIds,
@@ -297,7 +297,9 @@ const utilisateursCount = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = utilisateursQueryBuild(
+  const q = utilisateursQueryBuild({ fields }, user)
+
+  utilisateursParamsQueryBuild(
     {
       entrepriseIds,
       administrationIds,
