@@ -12,6 +12,7 @@ import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
 // import { stringSplit } from './_utils'
 
+// TODO : import de la fonction après merge des démarches
 const stringSplit = (string: string) =>
   (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
     e.replace(/^"(.*)"$/, '$1')
@@ -34,22 +35,14 @@ const entreprisesQueryBuild = (
   return q
 }
 
-const entreprisesCount = async (
+const entreprisesParamsQueryBuild = (
   {
-    nomSiren,
-    legalSiren
+    nomSiren
   }: {
     nomSiren?: string | null
-    legalSiren?: string | null
   },
-  { fields }: { fields?: IFields },
-  userId?: string
+  q: Objection.QueryBuilder<Entreprises, Entreprises[]>
 ) => {
-  const user = await userGet(userId)
-
-  const q = entreprisesQueryBuild({ fields }, user)
-  if (!q) return 0
-
   if (nomSiren) {
     const nomSirenArray = stringSplit(nomSiren)
     const fields = ['entreprises.id', 'entreprises.nom']
@@ -63,13 +56,27 @@ const entreprisesCount = async (
     })
   }
 
-  if (legalSiren) {
-    q.where('entreprises.legalSiren', legalSiren)
-  }
+  return q
+}
 
-  const titresActivites = ((await q) as unknown) as { total: number }[]
+const entreprisesCount = async (
+  {
+    nomSiren
+  }: {
+    nomSiren?: string | null
+  },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+  const q = entreprisesQueryBuild({ fields }, user)
+  if (!q) return 0
 
-  return titresActivites.length
+  entreprisesParamsQueryBuild({ nomSiren }, q)
+
+  const entreprises = ((await q) as unknown) as { total: number }[]
+
+  return entreprises.length
 }
 
 const entrepriseGet = async (
@@ -119,6 +126,7 @@ const entreprisesGet = async (
       })
     })
   }
+  // entreprisesParamsQueryBuild({ nomSiren }, q)
 
   if (colonne) {
     q.orderBy(`entreprises.${colonne}`, ordre || 'asc')
