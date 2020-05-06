@@ -360,10 +360,11 @@ const utilisateurs = async (
 
 interface IEntreprisesQueryInput {
   format?: IFormat
+  nomSiren?: string | null
 }
 
 const entreprises = async (
-  { format = 'json' }: IEntreprisesQueryInput,
+  { format = 'json', nomSiren }: IEntreprisesQueryInput,
   userId?: string
 ) => {
   formatCheck(['json', 'csv', 'xlsx', 'ods'], format)

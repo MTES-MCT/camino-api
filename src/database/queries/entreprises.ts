@@ -10,14 +10,8 @@ import { entreprisePermissionQueryBuild } from './permissions/entreprises'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
+import { stringSplit } from './_utils'
 import Objection = require('objection')
-// import { stringSplit } from './_utils'
-
-// TODO : import de la fonction après merge des démarches
-const stringSplit = (string: string) =>
-  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
-    e.replace(/^"(.*)"$/, '$1')
-  )
 
 const entreprisesQueryBuild = (
   {
