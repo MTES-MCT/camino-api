@@ -346,7 +346,6 @@ const utilisateurs = async (
 
     const utilisateursFormatted = utilisateurs.map(utilisateurFormat)
 
-
     let contenu
 
     if (['csv', 'xlsx', 'ods'].includes(format)) {

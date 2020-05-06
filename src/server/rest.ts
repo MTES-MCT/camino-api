@@ -1,5 +1,7 @@
 import * as express from 'express'
 
+import { auth } from './auth'
+
 import {
   titres,
   demarches,
@@ -9,6 +11,8 @@ import {
 } from '../api/rest/flux'
 
 const fichiers = express.Router()
+
+fichiers.use(auth)
 
 fichiers.get('/titres', titres)
 fichiers.get('/demarches', demarches)
