@@ -12,6 +12,7 @@ import { utilisateursPermissionQueryBuild } from './permissions/utilisateurs'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
+import { raw } from 'objection'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -27,6 +28,21 @@ const userGet = async (userId?: string) => {
 }
 
 const utilisateursQueryBuild = (
+  {
+    entrepriseIds,
+    administrationIds,
+    permissionIds,
+    noms,
+    prenoms,
+    email
+  }: {
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
+    noms?: string[] | null
+    prenoms?: string[] | null
+    email?: string | null
+  },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
 ) => {
@@ -40,68 +56,6 @@ const utilisateursQueryBuild = (
 
   utilisateursPermissionQueryBuild(q, user)
 
-  return q
-}
-
-const userByEmailGet = async (
-  email: string,
-  { fields }: { fields?: IFields } = {}
-) => {
-  const graph = fields
-    ? graphBuild(fields, 'utilisateur', graphFormat)
-    : options.utilisateurs.graph
-
-  return Utilisateurs.query()
-    .withGraphFetched(graph)
-    .where('email', email)
-    .first()
-}
-
-const utilisateurGet = async (
-  id: string,
-  { fields }: { fields?: IFields } = {},
-  userId?: string
-) => {
-  const user = await userGet(userId)
-
-  const q = utilisateursQueryBuild({ fields }, user)
-
-  return (await q.findById(id)) as IUtilisateur
-}
-
-const utilisateursColonnes = {
-  nom: {
-    id: 'nom'
-  },
-  prenom: {
-    id: 'prenom'
-  },
-  email: {
-    id: 'email'
-  },
-  permission: { id: 'permissionId' },
-  // TODO : relation sur les liens
-  lien: { id: '' }
-} as Index<IColonne<string>>
-
-const utilisateursParamsQueryBuild = (
-  {
-    entrepriseIds,
-    administrationIds,
-    permissionIds,
-    noms,
-    prenoms,
-    email
-  }: {
-    entrepriseIds: string[] | undefined
-    administrationIds: string[] | undefined
-    permissionIds: string[] | undefined
-    noms?: string[] | null
-    prenoms?: string[] | null
-    email?: string | null
-  },
-  q: Objection.QueryBuilder<Utilisateurs, Utilisateurs[]>
-) => {
   if (administrationIds) {
     q.whereIn('administrations.id', administrationIds).joinRelated(
       'administrations'
@@ -140,6 +94,56 @@ const utilisateursParamsQueryBuild = (
   return q
 }
 
+const userByEmailGet = async (
+  email: string,
+  { fields }: { fields?: IFields } = {}
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'utilisateur', graphFormat)
+    : options.utilisateurs.graph
+
+  return Utilisateurs.query()
+    .withGraphFetched(graph)
+    .where('email', email)
+    .first()
+}
+
+const utilisateurGet = async (
+  id: string,
+  { fields }: { fields?: IFields } = {},
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const q = utilisateursQueryBuild({}, { fields }, user)
+
+  return (await q.findById(id)) as IUtilisateur
+}
+
+const utilisateursColonnes = {
+  nom: {
+    id: 'nom'
+  },
+  prenom: {
+    id: 'prenom'
+  },
+  email: {
+    id: 'email'
+  },
+  permissions: { id: 'permissionId' },
+  lien: {
+    id: raw(`CONCAT(STRING_AGG (
+    "administrations"."nom",
+    ';'
+    order by "administrations"."nom"),STRING_AGG (
+    "entreprises"."nom",
+    ';'
+    order by "entreprises"."nom"))`),
+    relation: '[administrations,entreprises]',
+    groupBy: 'utilisateurs.id'
+  }
+} as Index<IColonne<string | Objection.RawBuilder>>
+
 const utilisateursGet = async (
   {
     intervalle,
@@ -157,9 +161,9 @@ const utilisateursGet = async (
     page?: number | null
     colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
-    entrepriseIds: string[] | undefined
-    administrationIds: string[] | undefined
-    permissionIds: string[] | undefined
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
     noms?: string[] | null
     prenoms?: string[] | null
     email?: string | null
@@ -168,9 +172,7 @@ const utilisateursGet = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = utilisateursQueryBuild({ fields }, user)
-
-  utilisateursParamsQueryBuild(
+  const q = utilisateursQueryBuild(
     {
       entrepriseIds,
       administrationIds,
@@ -179,14 +181,15 @@ const utilisateursGet = async (
       prenoms,
       email
     },
-    q
+    { fields },
+    user
   )
 
   if (colonne) {
     if (utilisateursColonnes[colonne].relation) {
       q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
       if (utilisateursColonnes[colonne].groupBy) {
-        q.groupBy(utilisateursColonnes[colonne].id)
+        q.groupBy(utilisateursColonnes[colonne].groupBy as string)
       }
     }
     q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
@@ -225,9 +228,7 @@ const utilisateursCount = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = utilisateursQueryBuild({ fields }, user)
-
-  utilisateursParamsQueryBuild(
+  const q = utilisateursQueryBuild(
     {
       entrepriseIds,
       administrationIds,
@@ -236,7 +237,8 @@ const utilisateursCount = async (
       prenoms,
       email
     },
-    q
+    { fields },
+    user
   )
 
   const utilisateurs = ((await q) as unknown) as { total: number }[]

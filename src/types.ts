@@ -11,7 +11,7 @@ interface Index<T> {
 interface IColonne<T> {
   id: T
   relation?: string
-  groupBy?: boolean
+  groupBy?: boolean | T
 }
 
 type TitreProp =
