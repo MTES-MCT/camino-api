@@ -737,7 +737,7 @@ interface ITitreTypeEtapeTypeRestriction {
   impossible?: true
 }
 
-type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson'
+type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json'
 
 interface ITelechargement {
   __typename: 'Telechargement'

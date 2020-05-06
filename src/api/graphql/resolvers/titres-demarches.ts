@@ -42,16 +42,16 @@ const demarches = async (
     colonne,
     typesIds,
     statutsIds,
+    etapesInclues,
+    etapesExclues,
     titresTypesIds,
     titresDomainesIds,
     titresStatutsIds,
-    noms,
-    entreprises,
-    substances,
-    references,
-    territoires,
-    etapesInclues,
-    etapesExclues
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     page?: number | null
     intervalle?: number | null
@@ -59,16 +59,16 @@ const demarches = async (
     colonne?: ITitreDemarcheColonneId | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
+    etapesInclues?: ITitreEtapeFiltre[] | null
+    etapesExclues?: ITitreEtapeFiltre[] | null
     titresTypesIds?: string[] | null
     titresDomainesIds?: string[] | null
     titresStatutsIds?: string[] | null
-    noms?: string | null
-    entreprises?: string | null
-    substances?: string | null
-    references?: string | null
-    territoires?: string | null
-    etapesInclues?: ITitreEtapeFiltre[] | null
-    etapesExclues?: ITitreEtapeFiltre[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -94,18 +94,18 @@ const demarches = async (
         colonne,
         typesIds,
         statutsIds,
+        etapesInclues,
+        etapesExclues,
         titresTypesIds,
         titresDomainesIds,
         titresStatutsIds,
-        noms,
-        entreprises,
-        substances,
-        references,
-        territoires,
-        etapesInclues,
-        etapesExclues
+        titresNoms,
+        titresEntreprises,
+        titresSubstances,
+        titresReferences,
+        titresTerritoires
       },
-      { fields: fields.demarches },
+      { fields: fields.elements },
       userId
     )
 
@@ -113,18 +113,18 @@ const demarches = async (
       {
         typesIds,
         statutsIds,
+        etapesInclues,
+        etapesExclues,
         titresTypesIds,
         titresDomainesIds,
         titresStatutsIds,
-        noms,
-        entreprises,
-        substances,
-        references,
-        territoires,
-        etapesInclues,
-        etapesExclues
+        titresNoms,
+        titresEntreprises,
+        titresSubstances,
+        titresReferences,
+        titresTerritoires
       },
-      { fields: fields.demarches },
+      { fields: fields.elements },
       userId
     )
 
@@ -136,7 +136,7 @@ const demarches = async (
         titreDemarche,
         titreDemarche.titre!.typeId,
         titreDemarche.titre!.statutId!,
-        fields
+        fields.elements
       )
     )
 

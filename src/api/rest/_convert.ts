@@ -1,7 +1,5 @@
 import * as xlsx from 'xlsx'
-import { Index } from '../../types'
-
-type IFormat = 'csv' | 'xlsx' | 'ods' | 'geojson'
+import { IFormat, Index } from '../../types'
 
 const tableConvert = (
   section:
@@ -14,6 +12,7 @@ const tableConvert = (
   format: IFormat
 ) => {
   let contenu = ''
+
   const sheet = xlsx.utils.json_to_sheet(elements as Index<any>[])
 
   if (format === 'csv') {

@@ -18,13 +18,19 @@ import { utilisateurFormat } from '../_format/utilisateurs'
 import { entrepriseFormat } from '../_format/entreprises'
 
 import { tableConvert } from './_convert'
-import { fileNameCreate } from '../../tools/telechargement/file-name-create'
+import { fileNameCreate } from '../../tools/file-name-create'
 
 import { titresFormatGeojson, titresFormatTable } from './format/titres'
 import { titresDemarchesFormatTable } from './format/titres-demarches'
 import { titresActivitesFormatTable } from './format/titres-activites'
 import { utilisateursFormatTable } from './format/utilisateurs'
 import { entreprisesFormatTable } from './format/entreprises'
+
+const formatCheck = (formats: string[], format: string) => {
+  if (!formats.includes(format)) {
+    throw new Error(`Format « ${format} » non supporté.`)
+  }
+}
 
 interface ITitresQueryInput {
   format?: IFormat
@@ -42,7 +48,7 @@ interface ITitresQueryInput {
 
 const titres = async (
   {
-    format = 'csv',
+    format = 'json',
     ordre,
     colonne,
     typesIds,
@@ -56,6 +62,8 @@ const titres = async (
   }: ITitresQueryInput,
   userId?: string
 ) => {
+  formatCheck(['json', 'xlsx', 'csv', 'ods', 'geojson'], format)
+
   const titres = await titresGet(
     {
       ordre,
@@ -86,11 +94,13 @@ const titres = async (
     const elements = titresFormatTable(titresFormatted)
 
     contenu = tableConvert('titres', elements, format)
+  } else {
+    contenu = JSON.stringify(titresFormatted)
   }
 
   return contenu
     ? {
-        nom: fileNameCreate('titres', format),
+        nom: fileNameCreate(`titres-${titres.length}`, format),
         format,
         contenu
       }
@@ -103,39 +113,56 @@ interface ITitresDemarchesQueryInput {
   colonne?: ITitreDemarcheColonneId | null
   typesIds?: string | null
   statutsIds?: string | null
+  etapesInclues?: string | null
+  etapesExclues?: string | null
   titresTypesIds?: string | null
   titresDomainesIds?: string | null
   titresStatutsIds?: string | null
-  etapesInclues?: string | null
-  etapesExclues?: string | null
+  titresNoms?: string | null
+  titresEntreprises?: string | null
+  titresSubstances?: string | null
+  titresReferences?: string | null
+  titresTerritoires?: string | null
 }
 
 const demarches = async (
   {
-    format = 'csv',
+    format = 'json',
     ordre,
     colonne,
     typesIds,
+    etapesInclues,
+    etapesExclues,
     statutsIds,
     titresTypesIds,
     titresDomainesIds,
     titresStatutsIds,
-    etapesInclues,
-    etapesExclues
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: ITitresDemarchesQueryInput,
   userId?: string
 ) => {
+  formatCheck(['json', 'csv', 'ods', 'xlsx'], format)
+
   const titresDemarches = await titresDemarchesGet(
     {
       ordre,
       colonne,
       typesIds: typesIds?.split(','),
       statutsIds: statutsIds?.split(','),
+      etapesInclues: etapesInclues ? JSON.parse(etapesInclues) : null,
+      etapesExclues: etapesExclues ? JSON.parse(etapesExclues) : null,
       titresTypesIds: titresTypesIds?.split(','),
       titresDomainesIds: titresDomainesIds?.split(','),
       titresStatutsIds: titresStatutsIds?.split(','),
-      etapesInclues: etapesInclues ? JSON.parse(etapesInclues) : null,
-      etapesExclues: etapesExclues ? JSON.parse(etapesExclues) : null
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires
     },
     {
       fields: {
@@ -158,17 +185,19 @@ const demarches = async (
     )
   )
 
-  let contenu
+  let contenu = ''
 
   if (['csv', 'xlsx', 'ods'].includes(format)) {
     const elements = titresDemarchesFormatTable(demarchesFormatted)
 
     contenu = tableConvert('demarches', elements, format)
+  } else {
+    contenu = JSON.stringify(demarchesFormatted)
   }
 
   return contenu
     ? {
-        nom: fileNameCreate('demarches', format),
+        nom: fileNameCreate(`demarches-${titresDemarches.length}`, format),
         format,
         contenu
       }
@@ -185,7 +214,7 @@ interface ITitresActivitesQueryInput {
 
 const activites = async (
   {
-    format = 'csv',
+    format = 'json',
     ordre,
     colonne,
     typesIds,
@@ -193,6 +222,8 @@ const activites = async (
   }: ITitresActivitesQueryInput,
   userId?: string
 ) => {
+  formatCheck(['json', 'xlsx', 'csv', 'ods'], format)
+
   const titresActivites = await titresActivitesGet(
     {
       ordre,
@@ -226,11 +257,13 @@ const activites = async (
     const elements = titresActivitesFormatTable(titresActivitesFormatted)
 
     contenu = tableConvert('activites', elements, format)
+  } else {
+    contenu = JSON.stringify(titresActivitesFormatted)
   }
 
   return contenu
     ? {
-        nom: fileNameCreate('activites', format),
+        nom: fileNameCreate(`activites-${titresActivites.length}`, format),
         format,
         contenu
       }
@@ -247,7 +280,7 @@ interface IUtilisateursQueryInput {
 
 const utilisateurs = async (
   {
-    format = 'csv',
+    format = 'json',
     entrepriseIds,
     administrationIds,
     permissionIds,
@@ -255,6 +288,8 @@ const utilisateurs = async (
   }: IUtilisateursQueryInput,
   userId?: string
 ) => {
+  formatCheck(['json', 'csv', 'ods'], format)
+
   const utilisateurs = await utilisateursGet(
     {
       noms: noms?.split(' '),
@@ -274,11 +309,13 @@ const utilisateurs = async (
     const elements = utilisateursFormatTable(utilisateursFormatted)
 
     contenu = tableConvert('utilisateurs', elements, format)
+  } else {
+    contenu = JSON.stringify(utilisateursFormatted)
   }
 
   return contenu
     ? {
-        nom: fileNameCreate('utilisateurs', format),
+        nom: fileNameCreate(`utilisateurs-${utilisateurs.length}`, format),
         format,
         contenu
       }
@@ -290,9 +327,11 @@ interface IEntreprisesQueryInput {
 }
 
 const entreprises = async (
-  { format = 'csv' }: IEntreprisesQueryInput,
+  { format = 'json' }: IEntreprisesQueryInput,
   userId?: string
 ) => {
+  formatCheck(['json', 'csv', 'xlsx', 'ods'], format)
+
   const entreprises = await entreprisesGet(null, {}, userId)
 
   const user = userId ? await userGet(userId) : undefined
@@ -305,11 +344,13 @@ const entreprises = async (
     const elements = entreprisesFormatTable(entreprisesFormatted)
 
     contenu = tableConvert('entreprises', elements, format)
+  } else {
+    contenu = JSON.stringify(entreprisesFormatted)
   }
 
   return contenu
     ? {
-        nom: fileNameCreate('entreprises', format),
+        nom: fileNameCreate(`entreprises-${entreprises.length}`, format),
         format,
         contenu
       }
