@@ -43,7 +43,7 @@ const utilisateursQueryBuild = (
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -88,10 +88,11 @@ const utilisateursQueryBuild = (
     ])
   }
 
-  if (email) {
-    q.whereRaw(`lower(??) like ?`, [
+  if (emails) {
+    const emailsArray = stringSplit(emails)
+    q.whereRaw(`lower(??) ~* ?`, [
       'utilisateurs.email',
-      `%${email.toLowerCase()}%`
+      emailsArray.map(n => n.toLowerCase()).join('|')
     ])
   }
 
@@ -208,9 +209,7 @@ const utilisateursParamsQueryBuild = (
   if (intervalle) {
     q.limit(intervalle)
   }
-
-  return q
-}
+} as Index<IColonne<string | Objection.RawBuilder>>
 
 const utilisateursGet = async (
   {
@@ -229,9 +228,9 @@ const utilisateursGet = async (
     page?: number | null
     colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
-    entrepriseIds: string[] | undefined
-    administrationIds: string[] | undefined
-    permissionIds: string[] | undefined
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
     noms?: string[] | null
     prenoms?: string[] | null
     emails?: string | null
@@ -240,9 +239,7 @@ const utilisateursGet = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = utilisateursQueryBuild({ fields }, user)
-
-  utilisateursParamsQueryBuild(
+  const q = utilisateursQueryBuild(
     {
       entrepriseIds,
       administrationIds,
@@ -251,14 +248,15 @@ const utilisateursGet = async (
       prenoms,
       emails
     },
-    q
+    { fields },
+    user
   )
 
   if (colonne) {
     if (utilisateursColonnes[colonne].relation) {
       q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
       if (utilisateursColonnes[colonne].groupBy) {
-        q.groupBy(utilisateursColonnes[colonne].id)
+        q.groupBy(utilisateursColonnes[colonne].groupBy as string)
       }
     }
     q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
@@ -297,9 +295,7 @@ const utilisateursCount = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = utilisateursQueryBuild({ fields }, user)
-
-  utilisateursParamsQueryBuild(
+  const q = utilisateursQueryBuild(
     {
       entrepriseIds,
       administrationIds,
