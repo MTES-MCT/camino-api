@@ -2,7 +2,8 @@ import {
   IFormat,
   ITitreColonneId,
   ITitreDemarcheColonneId,
-  ITitreActiviteColonneId
+  ITitreActiviteColonneId,
+  IUtilisateursColonneId
 } from '../../types'
 
 import { titresGet } from '../../database/queries/titres'
@@ -272,10 +273,12 @@ const activites = async (
 
 interface IUtilisateursQueryInput {
   format?: IFormat
-  entrepriseIds?: string
-  administrationIds?: string
-  permissionIds?: string
-  noms?: string
+  entrepriseIds?: string | undefined
+  administrationIds?: string | undefined
+  permissionIds?: string | undefined
+  noms?: string | null
+  prenoms?: string | null
+  email?: string | null
 }
 
 const utilisateurs = async (
@@ -284,7 +287,9 @@ const utilisateurs = async (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    noms
+    noms,
+    prenoms,
+    email
   }: IUtilisateursQueryInput,
   userId?: string
 ) => {
@@ -292,7 +297,9 @@ const utilisateurs = async (
 
   const utilisateurs = await utilisateursGet(
     {
-      noms: noms?.split(' '),
+      noms,
+      prenoms,
+      email,
       entrepriseIds: entrepriseIds?.split(','),
       administrationIds: administrationIds?.split(','),
       permissionIds: permissionIds?.split(',')
