@@ -1,14 +1,7 @@
 import * as express from 'express'
 import { join, parse } from 'path'
 import { documentNameGet } from '../api/rest/documents'
-
-// bug de typage de express-jwt
-// https://github.com/auth0/express-jwt/issues/215
-interface IAuthRequest extends express.Request {
-  user?: {
-    [id: string]: string
-  }
-}
+import { IAuthRequest } from './_types'
 
 const download = async (
   req: IAuthRequest,
@@ -39,4 +32,4 @@ const download = async (
   }
 }
 
-export default download
+export { download }

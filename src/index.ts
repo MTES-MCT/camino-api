@@ -17,11 +17,13 @@ import * as express from 'express'
 
 import './database/index'
 
-import download from './server/download'
-import rest from './server/rest'
-import graphql from './server/graphql'
-import jwt from './server/jwt'
-import upload from './server/upload'
+import { download } from './server/download'
+import { rest } from './server/rest'
+import { graphql } from './server/graphql'
+import { authJwt } from './server/auth-jwt'
+import { authBasic } from './server/auth-basic'
+import { upload } from './server/upload'
+
 import init from './database/init'
 
 import { port, url } from './config/index'
@@ -40,7 +42,8 @@ if (process.env.SENTRY_DSN) {
 app.use(
   cors({ credentials: true, exposedHeaders: ['Content-disposition'] }),
   compression(),
-  jwt
+  authJwt,
+  authBasic
 )
 app.get('/documents/:fileName', download)
 app.use(rest)

@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "bim": "npm i && npm run build && npm run db:recreate && npm run db:import",
-    "build": "rm -rf dist && tsc && cp -r ./src/api/schemas ./dist/api",
+    "build": "rm -rf dist && tsc && mkdir ./dist/graphql && cp -r ./src/api/graphql/schemas ./dist/graphql/api",
     "commit": "git-cz",
     "daily": "node ./dist/business/daily.js",
     "db:dump": "pg_dump --clean --dbname=camino --username=postgres --host=localhost --file=./backups/camino.sql",

@@ -5,4 +5,4 @@ const upload = graphqlUploadExpress({
   maxFiles: 10
 })
 
-export default upload
+export { upload }
