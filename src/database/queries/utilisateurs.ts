@@ -13,6 +13,8 @@ import { utilisateursPermissionQueryBuild } from './permissions/utilisateurs'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
+
+import { stringSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -39,8 +41,8 @@ const utilisateursQueryBuild = (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string[] | null
-    prenoms?: string[] | null
+    noms?: string | null
+    prenoms?: string | null
     email?: string | null
   },
   { fields }: { fields?: IFields },
@@ -71,16 +73,18 @@ const utilisateursQueryBuild = (
   }
 
   if (noms) {
+    const nomsArray = stringSplit(noms)
     q.whereRaw(`lower(??) ~* ?`, [
       'utilisateurs.nom',
-      noms.map(n => n.toLowerCase()).join('|')
+      nomsArray.map(n => n.toLowerCase()).join('|')
     ])
   }
 
   if (prenoms) {
+    const prenomsArray = stringSplit(prenoms)
     q.whereRaw(`lower(??) ~* ?`, [
       'utilisateurs.prenom',
-      prenoms.map(n => n.toLowerCase()).join('|')
+      prenomsArray.map(n => n.toLowerCase()).join('|')
     ])
   }
 
@@ -164,8 +168,8 @@ const utilisateursGet = async (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string[] | null
-    prenoms?: string[] | null
+    noms?: string | null
+    prenoms?: string | null
     email?: string | null
   },
   { fields }: { fields?: IFields } = {},
@@ -220,8 +224,8 @@ const utilisateursCount = async (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string[] | null
-    prenoms?: string[] | null
+    noms?: string | null
+    prenoms?: string | null
     email?: string | null
   },
   { fields }: { fields?: IFields },

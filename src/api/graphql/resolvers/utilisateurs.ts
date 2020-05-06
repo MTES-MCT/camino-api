@@ -87,8 +87,8 @@ const utilisateurs = async (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string[] | null
-    prenoms?: string[] | null
+    noms?: string | null
+    prenoms?: string | null
     email?: string | null
   },
   context: IToken,

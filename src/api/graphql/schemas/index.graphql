@@ -121,8 +121,8 @@ type Query {
     entrepriseIds: [ID]
     administrationIds: [ID]
     permissionIds: [ID]
-    noms: [String]
-    prenoms: [String]
+    noms: String
+    prenoms: String
     email: String
   ): Utilisateurs
 
