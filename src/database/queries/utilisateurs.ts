@@ -84,7 +84,7 @@ const utilisateursColonnes = {
   lien: { id: '' }
 } as Index<IColonne<string>>
 
-const utilisateursParamQueryBuild = (
+const utilisateursParamsQueryBuild = (
   {
     entrepriseIds,
     administrationIds,
@@ -170,7 +170,7 @@ const utilisateursGet = async (
   const user = await userGet(userId)
   const q = utilisateursQueryBuild({ fields }, user)
 
-  utilisateursParamQueryBuild(
+  utilisateursParamsQueryBuild(
     {
       entrepriseIds,
       administrationIds,
@@ -227,7 +227,7 @@ const utilisateursCount = async (
   const user = await userGet(userId)
   const q = utilisateursQueryBuild({ fields }, user)
 
-  utilisateursParamQueryBuild(
+  utilisateursParamsQueryBuild(
     {
       entrepriseIds,
       administrationIds,
