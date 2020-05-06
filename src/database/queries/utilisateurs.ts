@@ -157,7 +157,7 @@ const utilisateursGet = async (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     intervalle?: number | null
     page?: number | null
@@ -168,10 +168,9 @@ const utilisateursGet = async (
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
-  { fields }: { fields?: IFields } = {},
-  userId?: string
+  q: Objection.QueryBuilder<Utilisateurs, Utilisateurs[]>
 ) => {
   const user = await userGet(userId)
   const q = utilisateursQueryBuild(
@@ -181,7 +180,7 @@ const utilisateursGet = async (
       permissionIds,
       noms,
       prenoms,
-      email
+      emails
     },
     { fields },
     user
@@ -213,6 +212,71 @@ const utilisateursGet = async (
   return q
 }
 
+const utilisateursGet = async (
+  {
+    intervalle,
+    page,
+    colonne,
+    ordre,
+    entrepriseIds,
+    administrationIds,
+    permissionIds,
+    noms,
+    prenoms,
+    emails
+  }: {
+    intervalle?: number | null
+    page?: number | null
+    colonne?: IUtilisateursColonneId | null
+    ordre?: 'asc' | 'desc' | null
+    entrepriseIds: string[] | undefined
+    administrationIds: string[] | undefined
+    permissionIds: string[] | undefined
+    noms?: string[] | null
+    prenoms?: string[] | null
+    emails?: string | null
+  },
+  { fields }: { fields?: IFields } = {},
+  userId?: string
+) => {
+  const user = await userGet(userId)
+  const q = utilisateursQueryBuild({ fields }, user)
+
+  utilisateursParamQueryBuild(
+    {
+      entrepriseIds,
+      administrationIds,
+      permissionIds,
+      noms,
+      prenoms,
+      emails
+    },
+    q
+  )
+
+  if (colonne) {
+    if (utilisateursColonnes[colonne].relation) {
+      q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
+      if (utilisateursColonnes[colonne].groupBy) {
+        q.groupBy(utilisateursColonnes[colonne].id)
+      }
+    }
+    q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
+  } else {
+    q.orderBy('utilisateurs.nom', 'asc')
+  }
+
+  if (page && intervalle) {
+    q.offset((page - 1) * intervalle)
+  }
+
+  if (intervalle) {
+    q.limit(intervalle)
+  }
+
+  return q
+}
+
 const utilisateursCount = async (
   {
     entrepriseIds,
@@ -220,14 +284,14 @@ const utilisateursCount = async (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -240,7 +304,7 @@ const utilisateursCount = async (
       permissionIds,
       noms,
       prenoms,
-      email
+      emails
     },
     { fields },
     user
