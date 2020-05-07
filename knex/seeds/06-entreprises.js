@@ -12,7 +12,11 @@ const findMissing = (elements, relations, field1, field2) =>
 
 findMissing(entreprises, entreprisesEtablissements, 'id', 'entreprise_id')
 
-exports.seed = seeding(async ({ insert }) => {
+const seed = seeding(async ({ insert }) => {
   await insert('entreprises', entreprises)
   await insert('entreprisesEtablissements', entreprisesEtablissements)
 })
+
+module.exports = seed
+
+module.exports.seed = seed

@@ -23,7 +23,7 @@ const documentsTypes = require('../../sources/documents-types.json')
 const referencesTypes = require('../../sources/references-types.json')
 const permissions = require('../../sources/permissions.json')
 
-exports.seed = seeding(async ({ insert }) => {
+const seed = (module.exports = seeding(async ({ insert }) => {
   await Promise.all([
     insert('domaines', domaines),
     insert('titresTypesTypes', titresTypesTypes),
@@ -51,4 +51,8 @@ exports.seed = seeding(async ({ insert }) => {
     ),
     insert('etapesTypes__etapesStatuts', etapesTypes_etapesStatuts)
   ])
-})
+}))
+
+module.exports = seed
+
+module.exports.seed = seed

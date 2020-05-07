@@ -8,8 +8,8 @@ import * as Knex from 'knex'
 import * as jwt from 'jsonwebtoken'
 import { Model } from 'objection'
 
-import middlewareGraphql from '../src/server/middleware-graphql'
-import middlewareJwt from '../src/server/middleware-jwt'
+import { graphql } from '../src/server/graphql'
+import { authJwt } from '../src/server/auth-jwt'
 
 import * as knexConfig from '../knex/config'
 import * as userAdd from '../knex/user-add'
@@ -19,27 +19,29 @@ jest.mock('../src/tools/export/utilisateur', () => ({
   utilisateurRowUpdate: jest.fn()
 }))
 
+console.info = jest.fn()
+console.error = jest.fn()
+
 const knex = Knex(knexConfig)
 
 Model.knex(knex)
 
 const app = express()
 
-app.use(middlewareJwt)
-app.use('/', middlewareGraphql)
+app.use(authJwt)
+app.use('/', graphql)
 
 // https://github.com/graphql/express-graphql/issues/122
 
 let dbManager: knexDbManager.KnexDbManager
 
 beforeAll(async () => {
-  // knexConfig.seeds.directory = '../knex/seeds'
   dbManager = knexDbManager.databaseManagerFactory({
     knex: knexConfig,
     dbManager: {
-      populatePathPattern: '03-*',
       superUser: knexConfig.connection.user,
-      superPassword: knexConfig.connection.password
+      superPassword: knexConfig.connection.password,
+      populatePathPattern: path.join(__dirname, '../knex/seeds', '03-*')
     }
   })
 
@@ -55,14 +57,9 @@ beforeAll(async () => {
 })
 
 afterAll(async () => {
-  console.log('===AFTER ALLLL===')
-
   await Model.knex().destroy()
-
   await dbManager.closeKnex()
   await dbManager.close()
-
-  console.log('===AFTER ALLLL TERMINEEEEEEEEEEE===')
 })
 
 const utilisateurModifierQuery = fs
@@ -72,21 +69,11 @@ const utilisateurModifierQuery = fs
 
 describe('utilisateursModifier', () => {
   beforeEach(async () => {
-    console.log('beforeEach utilisateursModifier')
+    await dbManager.truncateDb()
 
-    console.log('truncate db')
-
-    // await dbManager.truncateDb()
-
-    console.log('populate db')
-    // pourquoi  marche pas ????????????
     await dbManager.populateDb()
 
-    const permissions = await knex.select('*').from('permissions')
-
-    console.log('permissions:', permissions)
-
-    console.log('user add')
+    // const permissions = await knex.select('*').from('permissions')
 
     await userAdd({
       id: 'test',
@@ -117,7 +104,7 @@ describe('utilisateursModifier', () => {
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
-  test("en tant que l'utilisateur, un utilisateur est modifié", async () => {
+  test("en tant qu'utilisateur, un utilisateur est modifié", async () => {
     const token = jwt.sign({ id: 'test' }, process.env.JWT_SECRET as string)
 
     const res = await request(app)
@@ -134,7 +121,7 @@ describe('utilisateursModifier', () => {
           }
         }
       })
-      .set('Authorization', `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`) //
 
     expect(res.status).toEqual(200)
     expect(res.body).toMatchObject({

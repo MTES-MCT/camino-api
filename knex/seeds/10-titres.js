@@ -43,7 +43,7 @@ const data = files.reduce((d, file) => {
   return d
 }, {})
 
-exports.seed = seeding(async ({ insert }) => {
+const seed = seeding(async ({ insert }) => {
   await insert('titres', data.titres)
 
   await Promise.all([
@@ -74,4 +74,6 @@ exports.seed = seeding(async ({ insert }) => {
   await insert('titresPointsReferences', data.titresPointsReferences)
 })
 
-exports.data = data
+module.exports = seed
+
+module.exports.seed = seed

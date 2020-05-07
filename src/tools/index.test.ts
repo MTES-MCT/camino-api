@@ -85,9 +85,13 @@ describe('comparaison entre des tableaux', () => {
       [
         { id: 1, nom: 'nom-1-bis' },
         { id: 3, nom: 'nom-3' }
-      ]
+      ],
+      null
     )
 
-    expect(res).toEqual([{ id: 2, nom: 'nom-2' }, { id: 3, nom: 'nom-3' }])
+    expect(res).toEqual([
+      { id: 2, nom: 'nom-2' },
+      { id: 3, nom: 'nom-3' }
+    ])
   })
 })
