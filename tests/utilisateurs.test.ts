@@ -82,8 +82,6 @@ describe('utilisateursModifier', () => {
     // pourquoi  marche pas ????????????
     await dbManager.populateDb()
 
-    process.exit(0)
-
     const permissions = await knex.select('*').from('permissions')
 
     console.log('permissions:', permissions)
