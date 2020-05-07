@@ -34,7 +34,15 @@ const entreprisesQueryBuild = (
 
   if (nomSiren) {
     const nomSirenArray = stringSplit(nomSiren)
-    const fields = ['entreprises.id', 'entreprises.nom']
+    const fields = [
+      'entreprises.id',
+      'entreprises.nom',
+      'etablissements.nom',
+      'etablissements.legalSiret'
+    ]
+
+    q.leftJoinRelated('etablissements')
+    q.groupBy('entreprises.id')
 
     nomSirenArray.forEach(s => {
       q.where((b: Objection.QueryBuilder<Entreprises, Entreprises[]>) => {
