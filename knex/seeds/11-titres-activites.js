@@ -9,9 +9,13 @@ try {
   titresActivitesReprise = []
 }
 
-exports.seed = seeding(async ({ insert }) => {
+const seed = seeding(async ({ insert }) => {
   await insert(
     'titresActivites',
     titresActivites.concat(titresActivitesReprise)
   )
 })
+
+module.exports = seed
+
+module.exports.seed = seed

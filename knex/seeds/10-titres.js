@@ -43,29 +43,37 @@ const data = files.reduce((d, file) => {
   return d
 }, {})
 
-exports.seed = seeding(async ({ insert }) => {
+const seed = seeding(async ({ insert }) => {
   await insert('titres', data.titres)
-  await insert('titresDemarches', data.titresDemarches)
-  await insert('titresReferences', data.titresReferences)
-  await insert('titresEtapes', data.titresEtapes)
-  await insert('titresPhases', data.titresPhases)
-  await insert('titresDemarchesLiens', data.titresDemarchesLiens)
-  await insert(
-    'titresAdministrationsGestionnaires',
-    data.titresAdministrationsGestionnaires
-  )
-  await insert(
-    'titresAdministrationsLocales',
-    data.titresAdministrationsLocales
-  )
-  await insert('titresAmodiataires', data.titresAmodiataires)
-  await insert('titresIncertitudes', data.titresIncertitudes)
-  await insert('titresDocuments', data.titresDocuments)
-  await insert('titresSubstances', data.titresSubstances)
-  await insert('titresPoints', data.titresPoints)
-  await insert('titresTitulaires', data.titresTitulaires)
-  await insert('titresCommunes', data.titresCommunes)
+
+  await Promise.all([
+    insert('titresDemarches', data.titresDemarches),
+    insert('titresReferences', data.titresReferences)
+  ])
+
+  await Promise.all([
+    insert('titresEtapes', data.titresEtapes),
+    insert('titresPhases', data.titresPhases),
+    insert('titresDemarchesLiens', data.titresDemarchesLiens)
+  ])
+
+  await Promise.all([
+    insert(
+      'titresAdministrationsGestionnaires',
+      data.titresAdministrationsGestionnaires
+    ),
+    insert('titresAdministrationsLocales', data.titresAdministrationsLocales),
+    insert('titresAmodiataires', data.titresAmodiataires),
+    insert('titresIncertitudes', data.titresIncertitudes),
+    insert('titresDocuments', data.titresDocuments),
+    insert('titresSubstances', data.titresSubstances),
+    insert('titresTitulaires', data.titresTitulaires),
+    insert('titresCommunes', data.titresCommunes),
+    insert('titresPoints', data.titresPoints)
+  ])
   await insert('titresPointsReferences', data.titresPointsReferences)
 })
 
-exports.data = data
+module.exports = seed
+
+module.exports.seed = seed

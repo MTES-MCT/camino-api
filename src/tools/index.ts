@@ -24,18 +24,20 @@ interface IIndexCount {
   [key: string]: Index<any>[]
 }
 
-const diffFind = (key: string, ...arrays: Index<any>[][]) => {
+const diffFind = (key: string, ...arrays: (Index<any>[] | null)[]) => {
   const indexCount = arrays.reduce(
-    (indexCount: IIndexCount, array: Index<any>[]) =>
-      array.reduce((indexCount, index) => {
-        if (!indexCount[index[key]]) {
-          indexCount[index[key]] = []
-        }
+    (indexCount: IIndexCount, array: Index<any>[] | null) =>
+      array
+        ? array.reduce((indexCount, index) => {
+            if (!indexCount[index[key]]) {
+              indexCount[index[key]] = []
+            }
 
-        indexCount[index[key]].push(index)
+            indexCount[index[key]].push(index)
 
-        return indexCount
-      }, indexCount),
+            return indexCount
+          }, indexCount)
+        : indexCount,
     {}
   )
 

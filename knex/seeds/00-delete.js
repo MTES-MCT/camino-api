@@ -1,13 +1,13 @@
 const seeding = require('../seeding')
 
-exports.seed = seeding(async ({ del }) => {
-  // 11
+const seed = seeding(async ({ del }) => {
+  // 12
   await del('globales')
 
-  // 10
+  // 11
   await del('titresActivites')
 
-  // 09
+  // 10
   await Promise.all([
     del('titresSubstances'),
     del('titresPointsReferences'),
@@ -29,7 +29,7 @@ exports.seed = seeding(async ({ del }) => {
   await del('titresDemarches')
   await del('titres')
 
-  // 08
+  // 09
   await Promise.all([
     del('a__titresTypes__titresStatuts'),
     del('a__etapesTypes'),
@@ -39,23 +39,25 @@ exports.seed = seeding(async ({ del }) => {
     del('r__titres_types__etapes_types__administrations')
   ])
 
-  // 07
+  // 08
   await del('activitesTypes__pays')
   await del('titresTypes__activitesTypes')
   await del('activitesTypes__administrations')
   await del('activitesTypes')
   await del('activitesStatuts')
 
-  // 06
+  // 07
   await del('utilisateurs__administrations')
   await del('utilisateurs__entreprises')
   await del('utilisateurs')
-  await del('permissions')
+
+  // 06
+  await del('entreprisesEtablissements')
+  await del('entreprises')
 
   // 05
-  await Promise.all([del('entreprisesEtablissements'), del('administrations')])
-
-  await Promise.all([del('entreprises'), del('administrationsTypes')])
+  await del('administrations')
+  await del('administrationsTypes')
 
   // 04
   await del('substances')
@@ -65,6 +67,7 @@ exports.seed = seeding(async ({ del }) => {
 
   // 03
   await Promise.all([
+    del('permissions'),
     del('titresTypesTypes'),
     del('titresTypes__demarchesTypes'),
     del('titresTypes__demarchesTypes__etapesTypes'),
@@ -98,3 +101,7 @@ exports.seed = seeding(async ({ del }) => {
   await del('annees')
   await del('frequences')
 })
+
+module.exports = seed
+
+module.exports.seed = seed

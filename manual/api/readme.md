@@ -8,7 +8,7 @@ _GraphiQL_ est une application qui permet de tester une API GraphQL dans un navi
 
 _GraphiQL_ expose une documentation de l'API qui est accessible en cliquant sur le bouton `Docs` (en haut à droite).
 
-Des exemples de requêtes se trouvent dans [ce dossier](https://github.com/MTES-MCT/camino-api/blob/master/manual/api/queries/).
+Des exemples de requêtes se trouvent dans [ce dossier](https://github.com/MTES-MCT/camino-api/blob/master/tests/queries/).
 
 ### Requêtes simples
 

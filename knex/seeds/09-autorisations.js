@@ -12,7 +12,7 @@ const r__titresTypes__titresStatuts__administrations = require('../../sources/r-
 // eslint-disable-next-line camelcase
 const r__titresTypes__etapesTypes__administrations = require('../../sources/r--titres-types--etapes-types--administrations.json')
 
-exports.seed = seeding(async ({ insert }) => {
+const seed = seeding(async ({ insert }) => {
   await Promise.all([
     insert('a__titresTypes__titresStatuts', a_titresTypes_titresStatuts),
     insert('a__etapesTypes', a__etapesTypes),
@@ -28,3 +28,7 @@ exports.seed = seeding(async ({ insert }) => {
     )
   ])
 })
+
+module.exports = seed
+
+module.exports.seed = seed
