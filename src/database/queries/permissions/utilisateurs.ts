@@ -15,7 +15,7 @@ const utilisateursPermissionQueryBuild = (
   q.select('utilisateurs.*')
 
   if (
-    permissionCheck(user, ['editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     // un utilisateur 'editeur' ou 'lecteur'
@@ -29,7 +29,7 @@ const utilisateursPermissionQueryBuild = (
       >).whereIn('administrations.id', administrationsIds)
     )
   } else if (
-    permissionCheck(user, ['entreprise']) &&
+    permissionCheck(user?.permissionId, ['entreprise']) &&
     user?.entreprises?.length
   ) {
     // un utilisateur entreprise
@@ -42,7 +42,7 @@ const utilisateursPermissionQueryBuild = (
         Entreprises | Entreprises[]
       >).whereIn('entreprises.id', entreprisesIds)
     )
-  } else if (user && permissionCheck(user, ['defaut'])) {
+  } else if (user && permissionCheck(user?.permissionId, ['defaut'])) {
     // un utilisateur "defaut" ne voit que son propre profil
     q.where('id', user.id)
   } else if (!user) {
@@ -50,13 +50,13 @@ const utilisateursPermissionQueryBuild = (
     q.where(false)
   }
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('permissionModification'))
   } else if (
     user &&
-    permissionCheck(user, ['admin']) &&
+    permissionCheck(user?.permissionId, ['admin']) &&
     user.administrations?.length
   ) {
     // restreint le droit d'édition d'un utilisateur

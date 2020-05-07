@@ -136,12 +136,12 @@ const titreCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
     if (
-      permissionCheck(user, ['admin']) &&
+      permissionCheck(user?.permissionId, ['admin']) &&
       !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
     ) {
       throw new Error('droits insuffisants pour créer ce type de titre')
@@ -175,12 +175,12 @@ const titreModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
     if (
-      permissionCheck(user, ['admin']) &&
+      permissionCheck(user?.permissionId, ['admin']) &&
       !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
     ) {
       throw new Error('droits insuffisants pour modifier ce titre')
@@ -215,7 +215,7 @@ const titreModifier = async (
 const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   const user = context.user && (await userGet(context.user.id))
 
-  if (!user || !permissionCheck(user, ['super'])) {
+  if (!user || !permissionCheck(user?.permissionId, ['super'])) {
     throw new Error('droits insuffisants')
   }
 

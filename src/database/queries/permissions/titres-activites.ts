@@ -31,7 +31,7 @@ const titreActivitesCalc = (
   user?: IUtilisateur
 ) => {
   if (
-    permissionCheck(user, [
+    permissionCheck(user?.permissionId, [
       'super',
       'admin',
       'editeur',
@@ -55,9 +55,9 @@ const titreActivitesCalc = (
       )
     })
 
-    if (!permissionCheck(user, ['super'])) {
+    if (!permissionCheck(user?.permissionId, ['super'])) {
       if (
-        permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+        permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
         user?.administrations?.length
       ) {
         const administrationsIds = user.administrations.map(e => e.id)
@@ -74,7 +74,7 @@ const titreActivitesCalc = (
             .whereIn('type:administrations.id', administrationsIds)
         )
       } else if (
-        permissionCheck(user, ['entreprise']) &&
+        permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
         const entreprisesIds = user.entreprises.map(e => e.id)
@@ -112,7 +112,7 @@ const titreActivitesCalc = (
       titresActivitesCountQuery.as('activitesCountJoin'),
       raw('?? = ??', ['activitesCountJoin.titreId', 'titres.id'])
     )
-  } else if (!user || permissionCheck(user, ['defaut'])) {
+  } else if (!user || permissionCheck(user?.permissionId, ['defaut'])) {
     // les utilisateurs non-authentifiés ou défaut ne peuvent voir aucune activité
     activiteStatuts.forEach(({ name }) => {
       q.select(raw('0').as(name))
@@ -134,9 +134,9 @@ const titreActivitePermissionQueryBuild = (
   user?: IUtilisateur,
   grouped = false
 ) => {
-  if (!permissionCheck(user, ['super'])) {
+  if (!permissionCheck(user?.permissionId, ['super'])) {
     if (
-      permissionCheck(user, ['admin', 'editeur']) &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
       user?.administrations?.length
     ) {
       // TODO: autoriser les admins 'lecteur' pour les cas particuliers
@@ -155,7 +155,7 @@ const titreActivitePermissionQueryBuild = (
       // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
       q.whereExists(administrationPermissionQuery)
     } else if (
-      permissionCheck(user, ['entreprise']) &&
+      permissionCheck(user?.permissionId, ['entreprise']) &&
       user?.entreprises?.length
     ) {
       // vérifie que l'utilisateur a les permissions sur les titres
@@ -221,15 +221,17 @@ const titreActiviteQueryPropsBuild = (
 ) => {
   q.select('titresActivites.*')
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
-  } else if (permissionCheck(user, ['admin', 'editeur', 'lecteur'])) {
-    if (permissionCheck(user, ['admin', 'editeur'])) {
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+  ) {
+    if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
       q.select(raw('true').as('modification'))
     } else {
       q.select(raw('false').as('modification'))
     }
-  } else if (permissionCheck(user, ['entreprise'])) {
+  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
     // vérifie que l'utilisateur a les droits d'édition sur l'activité
     // l'activité doit avoir un statut `absente ou `en cours`
     q.select(

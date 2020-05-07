@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IUtilisateur, IUtilisateursColonneId } from '../../../types'
+import { IToken, IUtilisateur, IUtilisateurCreation } from '../../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -18,7 +18,7 @@ import {
   utilisateurCreate,
   utilisateurUpdate,
   userByEmailGet,
-  utilisateursCount
+  utilisateursCount,
 } from '../../../database/queries/utilisateurs'
 
 import globales from '../../../database/cache/globales'
@@ -30,10 +30,7 @@ import { utilisateurRowUpdate } from '../../../tools/export/utilisateur'
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
 
-import {
-  utilisateurEditionCheck,
-  utilisateurTestCheck
-} from '../../_permissions/utilisateur'
+import { utilisateurEditionCheck } from '../../_permissions/utilisateur'
 
 import { utilisateurFormat } from '../../_format/utilisateurs'
 import { userFormat } from '../../_format/users'
@@ -78,11 +75,11 @@ const utilisateurs = async (
     permissionIds,
     noms,
     prenoms,
-    emails
+    emails,
   }: {
     intervalle?: number | null
     page?: number | null
-    colonne?: IUtilisateursColonneId | null
+    colonne?: IUtilisateurCreation | null
     ordre?: 'asc' | 'desc' | null
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
@@ -107,7 +104,7 @@ const utilisateurs = async (
         permissionIds,
         noms,
         prenoms,
-        emails
+        emails,
       },
       { fields: fields.elements },
       context.user?.id
@@ -120,7 +117,7 @@ const utilisateurs = async (
         permissionIds,
         noms,
         prenoms,
-        emails
+        emails,
       },
       { fields: fields.elements },
       context.user?.id
@@ -132,7 +129,7 @@ const utilisateurs = async (
       intervalle,
       ordre,
       colonne,
-      total
+      total,
     }
   } catch (e) {
     if (debug) {
@@ -167,7 +164,7 @@ const moi = async (_: never, context: IToken) => {
 const utilisateurTokenCreer = async (
   {
     email,
-    motDePasse
+    motDePasse,
   }: {
     email: string
     motDePasse: string
@@ -194,7 +191,7 @@ const utilisateurTokenCreer = async (
 
     return {
       token: userTokenCreate(user),
-      utilisateur: userFormat(user)
+      utilisateur: userFormat(user),
     }
   } catch (e) {
     if (debug) {
@@ -236,14 +233,14 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
       utilisateur = await utilisateurCreer(
         { utilisateur: cerbereUtilisateur },
         ({
-          user: { email: cerbereUtilisateur.email }
+          user: { email: cerbereUtilisateur.email },
         } as unknown) as IToken
       )
     }
 
     return {
       token: userTokenCreate(utilisateur),
-      utilisateur: userFormat(utilisateur)
+      utilisateur: userFormat(utilisateur),
     }
   } catch (e) {
     if (debug) {
@@ -255,7 +252,7 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
 }
 
 const utilisateurCreer = async (
-  { utilisateur }: { utilisateur: IUtilisateur },
+  { utilisateur }: { utilisateur: IUtilisateurCreation },
   context: IToken
 ) => {
   try {
@@ -270,14 +267,14 @@ const utilisateurCreer = async (
     const errors = utilisateurEditionCheck(utilisateur)
 
     if (
-      !permissionCheck(user, ['super']) &&
+      !permissionCheck(user?.permissionId, ['super']) &&
       utilisateur.permissionId === 'super'
     ) {
-      errors.push('droits insuffisants créer un super utilisateur')
+      errors.push('droits insuffisants pour créer un super utilisateur')
     }
 
     if (
-      !permissionCheck(user, ['super', 'admin']) &&
+      !permissionCheck(user?.permissionId, ['super', 'admin']) &&
       context.user.email !== utilisateur.email
     ) {
       errors.push('droits insuffisants pour créer un utilisateur')
@@ -297,20 +294,25 @@ const utilisateurCreer = async (
       throw new Error(errors.join(', '))
     }
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       utilisateur.permissionId = 'defaut'
     }
 
-    if (!permissionCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
+    if (
+      !permissionCheck(utilisateur?.permissionId, [
+        'admin',
+        'editeur',
+        'lecteur',
+      ])
+    ) {
       utilisateur.administrations = []
     }
 
-    if (!permissionCheck(utilisateur, ['entreprise'])) {
+    if (!permissionCheck(utilisateur?.permissionId, ['entreprise'])) {
       utilisateur.entreprises = []
     }
 
     utilisateur.motDePasse = bcrypt.hashSync(utilisateur.motDePasse!, 10)
-    utilisateur.id = await userIdGenerate()
 
     const utilisateurUpdated = await utilisateurCreate(utilisateur, {})
 
@@ -327,7 +329,7 @@ const utilisateurCreer = async (
 }
 
 const utilisateurCreationEmailEnvoyer = async ({
-  email
+  email,
 }: {
   email: string
 }) => {
@@ -355,6 +357,10 @@ const utilisateurCreationEmailEnvoyer = async ({
     const subject = `Création de votre compte utilisateur`
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
 
+    const utilisateurTestCheck = (email: string) =>
+      (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') &&
+      email === 'test@camino.local'
+
     if (utilisateurTestCheck(email)) {
       return url
     }
@@ -381,8 +387,8 @@ const utilisateurModifier = async (
 
     utilisateur.email = utilisateur.email!.toLowerCase()
 
-    const isSuper = permissionCheck(user, ['super'])
-    const isAdmin = permissionCheck(user, ['admin'])
+    const isSuper = permissionCheck(user?.permissionId, ['super'])
+    const isAdmin = permissionCheck(user?.permissionId, ['admin'])
 
     if (!user || (!isSuper && !isAdmin && user.id !== utilisateur.id)) {
       throw new Error('droits insuffisants pour modifier cet utilisateur')
@@ -390,7 +396,7 @@ const utilisateurModifier = async (
 
     const errors = utilisateurEditionCheck(utilisateur)
 
-    if (!isSuper && permissionCheck(utilisateur, ['super'])) {
+    if (!isSuper && permissionCheck(utilisateur?.permissionId, ['super'])) {
       errors.push(
         'droits insuffisants pour affecter ces permissions à cet utilisateur'
       )
@@ -418,11 +424,17 @@ const utilisateurModifier = async (
       throw new Error(errors.join(', '))
     }
 
-    if (!permissionCheck(utilisateur, ['admin', 'editeur', 'lecteur'])) {
+    if (
+      !permissionCheck(utilisateur?.permissionId, [
+        'admin',
+        'editeur',
+        'lecteur',
+      ])
+    ) {
       utilisateur.administrations = []
     }
 
-    if (!permissionCheck(utilisateur, ['entreprise'])) {
+    if (!permissionCheck(utilisateur?.permissionId, ['entreprise'])) {
       utilisateur.entreprises = []
     }
 
@@ -487,7 +499,7 @@ const utilisateurMotDePasseModifier = async (
     id,
     motDePasse,
     motDePasseNouveau1,
-    motDePasseNouveau2
+    motDePasseNouveau2,
   }: {
     id: string
     motDePasse: string
@@ -501,7 +513,8 @@ const utilisateurMotDePasseModifier = async (
 
     if (
       !user ||
-      (!permissionCheck(user, ['super', 'admin']) && user.id !== id)
+      (!permissionCheck(user?.permissionId, ['super', 'admin']) &&
+        user.id !== id)
     ) {
       throw new Error('droits insuffisants')
     }
@@ -522,7 +535,7 @@ const utilisateurMotDePasseModifier = async (
       throw new Error('aucun utilisateur enregistré avec cet id')
     }
 
-    if (!permissionCheck(user, ['super'])) {
+    if (!permissionCheck(user?.permissionId, ['super'])) {
       const valid = bcrypt.compareSync(motDePasse, utilisateur.motDePasse!)
 
       if (!valid) {
@@ -535,7 +548,7 @@ const utilisateurMotDePasseModifier = async (
     const utilisateurUpdated = await utilisateurUpdate(
       {
         id,
-        motDePasse: utilisateur.motDePasse
+        motDePasse: utilisateur.motDePasse,
       } as IUtilisateur,
       {}
     )
@@ -554,7 +567,7 @@ const utilisateurMotDePasseModifier = async (
 
 // envoie l'email avec un lien vers un formulaire de ré-init
 const utilisateurMotDePasseEmailEnvoyer = async ({
-  email
+  email,
 }: {
   email: string
 }) => {
@@ -630,7 +643,7 @@ const utilisateurMotDePasseInitialiser = async (
     const utilisateurUpdated = await utilisateurUpdate(
       {
         id: context.user.id,
-        motDePasse: utilisateur.motDePasse
+        motDePasse: utilisateur.motDePasse,
       } as IUtilisateur,
       {}
     )
@@ -639,7 +652,7 @@ const utilisateurMotDePasseInitialiser = async (
 
     return {
       token: userTokenCreate(utilisateurUpdated),
-      utilisateur: userFormat(utilisateurUpdated)
+      utilisateur: userFormat(utilisateurUpdated),
     }
   } catch (e) {
     if (debug) {
@@ -666,5 +679,5 @@ export {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseEmailEnvoyer,
-  utilisateurMotDePasseInitialiser
+  utilisateurMotDePasseInitialiser,
 }

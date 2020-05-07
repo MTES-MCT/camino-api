@@ -1,9 +1,9 @@
 import { IUtilisateur, IPermissionId } from '../types'
 
 const permissionCheck = (
-  user: IUtilisateur | undefined,
+  permissionId: IPermissionId | null | undefined,
   permissions: IPermissionId[]
-) => !!(user && permissions.includes(user?.permissionId))
+) => !!(permissionId && permissions.includes(permissionId))
 
 const permissionAdministrationsCheck = (
   user: IUtilisateur | undefined,

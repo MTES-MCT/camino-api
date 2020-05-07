@@ -17,7 +17,7 @@ const administrationsPermissionQueryBuild = (
   q.select('administrations.*')
 
   if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     // propriété 'membre'

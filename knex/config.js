@@ -1,6 +1,7 @@
-require('dotenv').config({ path: '../.env' })
-const { knexSnakeCaseMappers } = require('objection')
 const { join } = require('path')
+require('dotenv').config({ path: join(__dirname, '..', '.env') })
+
+const { knexSnakeCaseMappers } = require('objection')
 
 const connection = {
   host: process.env.PGHOST,

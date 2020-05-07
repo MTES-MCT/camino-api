@@ -201,7 +201,7 @@ const entrepriseCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 
@@ -255,7 +255,7 @@ const entrepriseModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 

@@ -724,6 +724,8 @@ interface IUtilisateur {
   permissionModification?: boolean | null
 }
 
+type IUtilisateurCreation = Omit<IUtilisateur, 'id'>
+
 interface IToken {
   user?: ITokenUser
 }
@@ -851,6 +853,7 @@ export {
   IUnite,
   IUser,
   IUtilisateur,
+  IUtilisateurCreation,
   TitreProp,
   TitreEtapeProp,
   IToken,

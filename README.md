@@ -129,7 +129,7 @@ La documentation [est disponible ici](https://github.com/MTES-MCT/camino-api/tre
     ├── index            # `point d'entrée`
     │
     ├── api              # `APIs`
-    │   ├── graphql      # `API GraphQL`
+    │   ├── graphql      # `API Graphql`
     │   └── rest         # `API Rest`
     │
     ├── config           #

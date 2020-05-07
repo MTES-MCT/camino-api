@@ -1,11 +1,7 @@
-const Knex = require('knex')
-const configDbManager = require('./config-db-manager')
-const knex = Knex(configDbManager.knex)
-
 const emailRegex = require('email-regex')
 const bcrypt = require('bcryptjs')
 
-const userAdd = async user => {
+const userAdd = async (knex, user) => {
   const errors = []
 
   if (!user.email) {
@@ -29,29 +25,6 @@ const userAdd = async user => {
   } else {
     console.info('Aucun user créé:', errors.join(', '))
   }
-}
-
-const run = async () => {
-  const user = {
-    id: 'admin',
-    email: process.env.ADMIN_EMAIL,
-    permissionId: 'super',
-    motDePasse: process.env.ADMIN_PASSWORD
-  }
-
-  try {
-    await userAdd(user)
-
-    // arrête le script proprement s'il est appelé directement
-    process.exit(0)
-  } catch (e) {
-    console.error(e)
-    process.exit(0)
-  }
-}
-
-if (!module.parent) {
-  run()
 }
 
 module.exports = userAdd

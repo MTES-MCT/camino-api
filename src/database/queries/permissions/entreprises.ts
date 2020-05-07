@@ -18,7 +18,7 @@ const entreprisePermissionQueryBuild = (
 ) => {
   q.select('entreprises.*')
 
-  if (permissionCheck(user, ['super', 'admin', 'editeur'])) {
+  if (permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
     q.select(raw('true').as('modification'))
   } else if (
     permissionCheck(user, ['entreprise']) &&

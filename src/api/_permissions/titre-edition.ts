@@ -2,7 +2,7 @@ import { IUtilisateur } from '../../types'
 
 import { autorisations, restrictions } from '../../database/cache/autorisations'
 
-import { permissionsCheck } from './permissions-check'
+import { permissionCheck } from '../../tools/permission'
 
 type TypeName =
   | 'titresModificationInterdit'
@@ -82,7 +82,7 @@ const titrePermissionAdministrationsCheck = (
   titreStatutId: string
 ) =>
   user &&
-  (permissionsCheck(user, ['super']) ||
+  (permissionCheck(user?.permissionId, ['super']) ||
     // vérifie qu'au moins une administration a les droits d'édition
     // sur le type de titre pour un statut donné
     user.administrations!.some(administration =>
@@ -100,7 +100,7 @@ const titreDemarchePermissionAdministrationsCheck = (
   titreStatutId: string
 ) =>
   user &&
-  (permissionsCheck(user, ['super']) ||
+  (permissionCheck(user?.permissionId, ['super']) ||
     // vérifie qu'au moins une administration a les droits d'édition
     // sur les démarches du titre au statut donné
     user.administrations!.some(administration =>
@@ -120,7 +120,7 @@ const titreEtapePermissionAdministrationsCheck = (
   mode: 'creation' | 'modification'
 ) =>
   user &&
-  (permissionsCheck(user, ['super']) ||
+  (permissionCheck(user?.permissionId, ['super']) ||
     user.administrations!.some(administration =>
       // vérifie qu'au moins une administration a les droits d'édition
       // sur le type de démarche au statut donné

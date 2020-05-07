@@ -21,7 +21,7 @@ const titreDemarchePermissionQueryBuild = (
   q.select('titresDemarches.*')
 
   // démarches publiques
-  if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
+  if (!user || permissionCheck(user?.permissionId, ['entreprise', 'defaut'])) {
     // visibilité du titre de la démarche
     q.whereExists(
       titrePermissionQueryBuild(
@@ -41,7 +41,10 @@ const titreDemarchePermissionQueryBuild = (
       // les entreprises peuvent voir toutes les démarches
       // des titres pour lesquelles elles sont titulaires ou amodiataires
       // si elles sont visibles aux entreprisees
-      if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
+      if (
+        permissionCheck(user?.permissionId, ['entreprise']) &&
+        user?.entreprises?.length
+      ) {
         const entreprisesIds = user.entreprises.map(e => e.id)
 
         b.orWhere(c => {
@@ -74,12 +77,12 @@ const titreDemarchePermissionQueryBuild = (
     })
   }
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('etapesCreation'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     // TODO: conditionner aux fields

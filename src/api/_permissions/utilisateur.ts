@@ -1,8 +1,10 @@
-import { IUtilisateur } from '../../types'
-import { permissionsCheck } from './permissions-check'
+import { IUtilisateur, IUtilisateurCreation } from '../../types'
+import { permissionCheck } from '../../tools/permission'
 import { emailCheck } from '../../tools/email-check'
 
-const utilisateurEditionCheck = (utilisateur: IUtilisateur) => {
+const utilisateurEditionCheck = (
+  utilisateur: IUtilisateur | IUtilisateurCreation
+) => {
   const errors = []
 
   if (utilisateur.email && !emailCheck(utilisateur.email)) {
@@ -10,7 +12,11 @@ const utilisateurEditionCheck = (utilisateur: IUtilisateur) => {
   }
 
   if (
-    !permissionsCheck(utilisateur, ['admin', 'editeur', 'lecteur']) &&
+    !permissionCheck(utilisateur?.permissionId, [
+      'admin',
+      'editeur',
+      'lecteur'
+    ]) &&
     utilisateur.administrations &&
     utilisateur.administrations.length
   ) {
@@ -20,7 +26,7 @@ const utilisateurEditionCheck = (utilisateur: IUtilisateur) => {
   }
 
   if (
-    !permissionsCheck(utilisateur, ['entreprise']) &&
+    !permissionCheck(utilisateur?.permissionId, ['entreprise']) &&
     utilisateur.entreprises &&
     utilisateur.entreprises.length
   ) {
@@ -32,8 +38,4 @@ const utilisateurEditionCheck = (utilisateur: IUtilisateur) => {
   return errors
 }
 
-const utilisateurTestCheck = (email: string) =>
-  (process.env.NODE_ENV !== 'production' || process.env.ENV !== 'prod') &&
-  email === 'test@camino.local'
-
-export { emailCheck, utilisateurEditionCheck, utilisateurTestCheck }
+export { utilisateurEditionCheck }

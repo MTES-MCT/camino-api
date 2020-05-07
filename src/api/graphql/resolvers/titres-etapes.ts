@@ -35,7 +35,7 @@ const etapeCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -110,7 +110,7 @@ const etapeModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -183,7 +183,7 @@ const etapeSupprimer = async (
     const fields = fieldsBuild(info)
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
