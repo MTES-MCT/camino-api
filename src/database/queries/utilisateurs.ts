@@ -250,6 +250,43 @@ const utilisateursCount = async (
   return utilisateurs.length
 }
 
+const utilisateursAdministrationsGet = async (userId?: string) => {
+  const user = await userGet(userId)
+
+  if (!user?.permissionId) return []
+
+  const q = Utilisateurs.query()
+
+  utilisateursPermissionQueryBuild(q, user, false)
+
+  q.select('administrations.*')
+  q.joinRelated('administrations')
+  q.groupBy('administrations.id')
+
+  const utilisateursAdministrations = await q
+  console.log('utilisateursAdministrations', utilisateursAdministrations)
+
+  return utilisateursAdministrations
+}
+
+const utilisateursEntreprisesGet = async (userId?: string) => {
+  const user = await userGet(userId)
+
+  if (!user?.permissionId) return []
+
+  const q = Utilisateurs.query()
+
+  utilisateursPermissionQueryBuild(q, user, false)
+
+  q.select('entreprises.*')
+  q.joinRelated('entreprises')
+  q.groupBy('entreprises.id')
+
+  const utilisateursEntreprises = await q
+
+  return utilisateursEntreprises
+}
+
 const utilisateurCreate = async (utilisateur: IUtilisateur) =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
@@ -266,6 +303,8 @@ export {
   utilisateurGet,
   userByEmailGet,
   utilisateursGet,
+  utilisateursAdministrationsGet,
+  utilisateursEntreprisesGet,
   utilisateursCount,
   utilisateurCreate,
   utilisateurUpdate

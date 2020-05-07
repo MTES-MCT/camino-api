@@ -15,6 +15,8 @@ import {
   userGet,
   utilisateurGet,
   utilisateursGet,
+  utilisateursAdministrationsGet,
+  utilisateursEntreprisesGet,
   utilisateurCreate,
   utilisateurUpdate,
   userByEmailGet,
@@ -129,6 +131,43 @@ const utilisateurs = async (
     if (!utilisateurs.length) return { utilisateurs: [], total: 0 }
 
     return { utilisateurs: utilisateurs.map(utilisateurFormat), total }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const utilisateursAdministrations = async (_: unknown, context: IToken) => {
+  try {
+    const utilisateursAdministrations = await utilisateursAdministrationsGet(
+      context.user?.id
+    )
+
+    if (!utilisateursAdministrations || !utilisateursAdministrations.length)
+      return []
+
+    return utilisateursAdministrations
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const utilisateursEntreprises = async (_: unknown, context: IToken) => {
+  try {
+    const utilisateursEntreprises = await utilisateursEntreprisesGet(
+      context.user?.id
+    )
+
+    if (!utilisateursEntreprises || !utilisateursEntreprises.length) return []
+
+    return utilisateursEntreprises
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -642,6 +681,8 @@ const userTokenCreate = ({ id, email }: IUtilisateur) =>
 export {
   utilisateur,
   utilisateurs,
+  utilisateursAdministrations,
+  utilisateursEntreprises,
   moi,
   utilisateurTokenCreer,
   utilisateurCerbereUrlObtenir,

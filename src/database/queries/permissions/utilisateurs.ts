@@ -9,9 +9,12 @@ import Entreprises from '../../models/entreprises'
 
 const utilisateursPermissionQueryBuild = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-  user?: IUtilisateur
+  user?: IUtilisateur,
+  rootTable = true
 ) => {
-  q.select('utilisateurs.*')
+  if (rootTable) {
+    q.select('utilisateurs.*')
+  }
 
   if (
     permissionCheck(user, ['editeur', 'lecteur']) &&
@@ -54,7 +57,8 @@ const utilisateursPermissionQueryBuild = (
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('permissionModification'))
   } else if (
-    user && permissionCheck(user, ['admin']) &&
+    user &&
+    permissionCheck(user, ['admin']) &&
     user.administrations?.length
   ) {
     // restreint le droit d'édition d'un utilisateur
@@ -71,10 +75,12 @@ const utilisateursPermissionQueryBuild = (
 
     q.leftJoin(
       'utilisateurs__administrations as u_a',
-      raw(
-        `?? = ?? and ?? in (${administrationsIdsReplace})`,
-        ['u_a.utilisateur_id', 'utilisateurs.id', 'u_a.administration_id', ...administrationsIds]
-      )
+      raw(`?? = ?? and ?? in (${administrationsIdsReplace})`, [
+        'u_a.utilisateur_id',
+        'utilisateurs.id',
+        'u_a.administration_id',
+        ...administrationsIds
+      ])
     )
 
     const permissionModificationSuppression = (alias: string) =>
