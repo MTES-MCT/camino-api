@@ -263,6 +263,10 @@ const titresDemarchesGet = async (
   )
 
   if (colonne) {
+    if (!titresDemarchesColonnes[colonne]) {
+      throw new Error(`Colonne « ${colonne} » inconnue`)
+    }
+
     if (titresDemarchesColonnes[colonne].relation) {
       q.leftJoinRelated(titresDemarchesColonnes[colonne].relation!)
     }

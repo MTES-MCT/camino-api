@@ -1,4 +1,20 @@
-import { ITitre, Index } from '../../../types'
+import { ITitre, Index, IContenuValeur } from '../../../types'
+
+import decamelize from '../../../tools/decamelize'
+
+const titreContenuFormat = (titre: ITitre) => titre.contenu
+  ? Object.keys(titre.contenu).reduce((props: Index<IContenuValeur>, section) =>
+    titre.contenu && titre.contenu[section]
+      ? Object.keys(titre.contenu[section]).reduce((props, element) => {
+        if (titre.contenu && titre.contenu[section][element]) {
+          props[decamelize(element).replace('_id', '')] = titre.contenu[section][element]
+        }
+
+        return props
+      }, props)
+      : props
+    , {})
+  : {}
 
 const titresFormatTable = (titres: ITitre[]) =>
   titres.map(titre => {
@@ -109,9 +125,9 @@ const titresFormatTable = (titres: ITitre[]) =>
       amodiataires_legal: titre
         .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
         .join(';'),
-      geojson: titre.geojsonMultiPolygon,
-      ...titreReferences
-      // TODO: gérer les props qui viennent des étapes
+      geojson: JSON.stringify(titre.geojsonMultiPolygon),
+      ...titreReferences,
+      ...titreContenuFormat(titre)
     }
 
     return titreNew
@@ -145,12 +161,12 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
         titre
           .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
           .join(', ') || null,
-      // todo : gérer les props qui viennent des étapes
       references:
         titre.references &&
         titre.references
           .map(reference => `${reference.type!.nom}: ${reference.nom}`)
-          .join(', ')
+          .join(', '),
+      ...titreContenuFormat(titre)
     }
   }))
 })
