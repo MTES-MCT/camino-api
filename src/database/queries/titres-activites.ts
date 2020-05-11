@@ -22,6 +22,13 @@ import { raw } from 'objection'
 import Objection = require('objection')
 
 const titreActivitesQueryBuild = (
+  {
+    typesIds,
+    annees
+  }: {
+    typesIds?: string[] | null
+    annees?: number[] | null
+  },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
 ) => {
@@ -38,25 +45,6 @@ const titreActivitesQueryBuild = (
 
   q.groupBy('titresActivites.id')
 
-  return q
-}
-
-const titresActivitesCount = async (
-  {
-    typesIds,
-    annees
-  }: {
-    typesIds?: string[] | null
-    annees?: number[] | null
-  },
-  { fields }: { fields?: IFields },
-  userId?: string
-) => {
-  const user = await userGet(userId)
-
-  const q = titreActivitesQueryBuild({ fields }, user)
-  if (!q) return 0
-
   if (typesIds) {
     q.whereIn('titresActivites.typeId', typesIds)
   }
@@ -65,9 +53,7 @@ const titresActivitesCount = async (
     q.whereIn('titresActivites.annee', annees)
   }
 
-  const titresActivites = ((await q) as unknown) as { total: number }[]
-
-  return titresActivites.length
+  return q
 }
 
 const titreActiviteGet = async (
@@ -77,7 +63,7 @@ const titreActiviteGet = async (
 ) => {
   const user = await userGet(userId)
 
-  const q = titreActivitesQueryBuild({ fields }, user)
+  const q = titreActivitesQueryBuild({}, { fields }, user)
   if (!q) return undefined
 
   return (await q.findById(id)) as ITitreActivite
@@ -142,16 +128,8 @@ const titresActivitesGet = async (
 ) => {
   const user = await userGet(userId)
 
-  const q = titreActivitesQueryBuild({ fields }, user)
+  const q = titreActivitesQueryBuild({ typesIds, annees }, { fields }, user)
   if (!q) return []
-
-  if (typesIds) {
-    q.whereIn('titresActivites.typeId', typesIds)
-  }
-
-  if (annees) {
-    q.whereIn('titresActivites.annee', annees)
-  }
 
   if (colonne) {
     if (titresActivitesColonnes[colonne].relation) {
@@ -174,6 +152,27 @@ const titresActivitesGet = async (
   }
 
   return q
+}
+
+const titresActivitesCount = async (
+  {
+    typesIds,
+    annees
+  }: {
+    typesIds?: string[] | null
+    annees?: number[] | null
+  },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const q = titreActivitesQueryBuild({ typesIds, annees }, { fields }, user)
+  if (!q) return 0
+
+  const titresActivites = ((await q) as unknown) as { total: number }[]
+
+  return titresActivites.length
 }
 
 const titreActivitesUpsert = async (titreActivites: ITitreActivite[]) =>
