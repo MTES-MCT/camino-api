@@ -208,8 +208,8 @@ interface ITitresActivitesQueryInput {
   format?: IFormat
   ordre?: 'asc' | 'desc' | null
   colonne?: ITitreActiviteColonneId | null
-  typesIds?: string[] | null
-  annees?: number[] | null
+  typesIds?: string | null
+  annees?: string | null
 }
 
 const activites = async (
@@ -228,8 +228,8 @@ const activites = async (
     {
       ordre,
       colonne,
-      typesIds,
-      annees
+      typesIds: typesIds?.split(','),
+      annees: annees?.split(',').map(a => Number(a))
     },
     {
       fields: {
