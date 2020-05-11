@@ -5,6 +5,7 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
     const titre = titreDemarche.titre!
 
     const titreDemarcheNew = {
+      titre_id: titre.id,
       titre_nom: titre.nom,
       titre_domaine: titre.domaine!.nom,
       titre_type: titre.type!.type.nom,
