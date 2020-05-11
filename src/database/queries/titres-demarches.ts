@@ -199,8 +199,8 @@ const titresDemarchesColonnes = {
   titreDomaine: { id: 'titre.domaineId', relation: 'titre' },
   titreType: { id: 'titre:type:type.nom', relation: 'titre.type.type' },
   titreStatut: { id: 'titre.statutId', relation: 'titre' },
-  type: { id: 'typeId' },
-  statut: { id: 'statutId' }
+  type: { id: 'titresDemarches.typeId' },
+  statut: { id: 'titresDemarches.statutId' }
 } as Index<IColonne<string>>
 
 const titresDemarchesGet = async (
@@ -271,6 +271,7 @@ const titresDemarchesGet = async (
       q.leftJoinRelated(titresDemarchesColonnes[colonne].relation!)
     }
     q.orderBy(titresDemarchesColonnes[colonne].id, ordre || 'asc')
+    q.groupBy(titresDemarchesColonnes[colonne].id)
   } else {
     q.orderBy('titresDemarches.ordre')
   }
