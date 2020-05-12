@@ -288,7 +288,7 @@ const utilisateurs = async (
   }: IUtilisateursQueryInput,
   userId?: string
 ) => {
-  formatCheck(['json', 'csv', 'ods'], format)
+  formatCheck(['json', 'csv', 'ods', 'xlsx'], format)
 
   const utilisateurs = await utilisateursGet(
     {
