@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.36](https://github.com/MTES-MCT/camino-api/compare/v0.24.35...v0.24.36) (2020-05-12)
+
+
+### Features
+
+* **api:** expose le téléchargement des données ([#387](https://github.com/MTES-MCT/camino-api/issues/387)) ([e922d08](https://github.com/MTES-MCT/camino-api/commit/e922d087c67eb9724239e64ae7f8d7ef0f48e1f0))
+* **démarches:** filtre les démarches par nom de titres, titulaires, substances, etc. ([#385](https://github.com/MTES-MCT/camino-api/issues/385)) ([d24e553](https://github.com/MTES-MCT/camino-api/commit/d24e553659a2ab0cc2e323aa8494878751d4d6b4))
+
+
+### Bug Fixes
+
+* **activites:** corrige l'export avec des paramètres de types et d'années ([#391](https://github.com/MTES-MCT/camino-api/issues/391)) ([986eb4d](https://github.com/MTES-MCT/camino-api/commit/986eb4da9913cd7617965f19c98bbf534e1844ef))
+* **demarches:** corrige le tri des démarches ([#392](https://github.com/MTES-MCT/camino-api/issues/392)) ([eca74be](https://github.com/MTES-MCT/camino-api/commit/eca74bebd45915e93e37f8393aae6faec6021584))
+* **export:** corrige les exports xls, ods, csv et geojson ([#390](https://github.com/MTES-MCT/camino-api/issues/390)) ([f6149c7](https://github.com/MTES-MCT/camino-api/commit/f6149c794c86a87ce696ffb73e291e9fa332bf80))
+
 ### [0.24.35](https://github.com/MTES-MCT/camino-api/compare/v0.24.34...v0.24.35) (2020-05-05)
 
 
