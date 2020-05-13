@@ -12,6 +12,7 @@ const utilisateursPermissionQueryBuild = (
   user?: IUtilisateur,
   rootTable = true
 ) => {
+  // Si la requête est utilisée sur une autre table que la table de base, il n'est pas forcément utile de sélectionner les éléments de la table de base
   if (rootTable) {
     q.select('utilisateurs.*')
   }

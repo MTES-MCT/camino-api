@@ -58,14 +58,14 @@ const utilisateursQueryBuild = (
 
   utilisateursPermissionQueryBuild(q, user)
 
+  if (permissionIds) {
+    q.whereIn('permissionId', permissionIds)
+  }
+
   if (administrationIds) {
     q.whereIn('administrations.id', administrationIds).joinRelated(
       'administrations'
     )
-  }
-
-  if (permissionIds) {
-    q.whereIn('permissionId', permissionIds)
   }
 
   if (entrepriseIds) {
@@ -124,6 +124,7 @@ const utilisateurGet = async (
   return (await q.findById(id)) as IUtilisateur
 }
 
+// lien = administration ou entreprise(s) en relation avec l'utilisateur : on trie sur la concaténation du nom de l'administration avec l'aggrégation ordonnée(STRING_AGG) des noms des entreprises
 const utilisateursColonnes = {
   nom: {
     id: 'nom'
@@ -136,15 +137,12 @@ const utilisateursColonnes = {
   },
   permissions: { id: 'permissionId' },
   lien: {
-    id: raw(`CONCAT(STRING_AGG (
-    "administrations"."nom",
-    ';'
-    order by "administrations"."nom"),STRING_AGG (
-    "entreprises"."nom",
-    ';'
-    order by "entreprises"."nom"))`),
+    id: raw(`CONCAT(
+      "administrations"."nom",
+      STRING_AGG ("entreprises"."nom",';' order by "entreprises"."nom")
+      )`),
     relation: '[administrations,entreprises]',
-    groupBy: 'utilisateurs.id'
+    groupBy: ['utilisateurs.id', 'administrations.id']
   }
 } as Index<IColonne<string | Objection.RawBuilder>>
 
@@ -193,7 +191,9 @@ const utilisateursGet = async (
     if (utilisateursColonnes[colonne].relation) {
       q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
       if (utilisateursColonnes[colonne].groupBy) {
-        q.groupBy(utilisateursColonnes[colonne].groupBy as string)
+        utilisateursColonnes[colonne].groupBy.forEach(gb => {
+          q.groupBy(gb as string)
+        })
       }
     }
     q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
