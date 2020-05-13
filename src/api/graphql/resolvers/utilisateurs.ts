@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IUtilisateur } from '../../../types'
+import { IToken, IUtilisateur, IUtilisateursColonneId } from '../../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -17,7 +17,8 @@ import {
   utilisateursGet,
   utilisateurCreate,
   utilisateurUpdate,
-  userByEmailGet
+  userByEmailGet,
+  utilisateursCount
 } from '../../../database/queries/utilisateurs'
 
 import globales from '../../../database/cache/globales'
@@ -68,15 +69,27 @@ const utilisateur = async (
 
 const utilisateurs = async (
   {
+    intervalle,
+    page,
+    colonne,
+    ordre,
     entrepriseIds,
     administrationIds,
     permissionIds,
-    noms
+    noms,
+    prenoms,
+    email
   }: {
-    entrepriseIds: string[]
-    administrationIds: string[]
-    permissionIds: string[]
-    noms: string[]
+    intervalle?: number | null
+    page?: number | null
+    colonne?: IUtilisateursColonneId | null
+    ordre?: 'asc' | 'desc' | null
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
+    noms?: string | null
+    prenoms?: string | null
+    email?: string | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -85,16 +98,37 @@ const utilisateurs = async (
     const fields = fieldsBuild(info)
     const utilisateurs = await utilisateursGet(
       {
-        noms,
+        intervalle,
+        page,
+        colonne,
+        ordre,
         entrepriseIds,
         administrationIds,
-        permissionIds
+        permissionIds,
+        noms,
+        prenoms,
+        email
       },
-      { fields },
+      { fields: fields.utilisateurs },
       context.user?.id
     )
 
-    return utilisateurs.map(utilisateurFormat)
+    const total = await utilisateursCount(
+      {
+        entrepriseIds,
+        administrationIds,
+        permissionIds,
+        noms,
+        prenoms,
+        email
+      },
+      { fields: fields.utilisateurs },
+      context.user?.id
+    )
+
+    if (!utilisateurs.length) return { utilisateurs: [], total: 0 }
+
+    return { utilisateurs: utilisateurs.map(utilisateurFormat), total }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -334,8 +368,7 @@ const utilisateurCreationEmailEnvoyer = async ({
 
 const utilisateurModifier = async (
   { utilisateur }: { utilisateur: IUtilisateur },
-  context: IToken,
-  info: GraphQLResolveInfo
+  context: IToken
 ) => {
   try {
     const user = await userGet(context.user?.id)

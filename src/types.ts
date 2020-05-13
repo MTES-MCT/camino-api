@@ -11,7 +11,7 @@ interface Index<T> {
 interface IColonne<T> {
   id: T
   relation?: string
-  groupBy?: boolean
+  groupBy?: boolean | T | T[]
 }
 
 type TitreProp =
@@ -43,6 +43,8 @@ type ITitreDemarcheColonneId =
   | 'statut'
 
 type ITitreActiviteColonneId = 'titreNom' | 'titulaire' | 'periode' | 'statut'
+
+type IUtilisateursColonneId = 'nom' | 'prenom' | 'email' | 'permission' | 'lien'
 
 interface IActiviteStatut {
   id: string
@@ -827,6 +829,7 @@ export {
   ITitreColonneId,
   ITitreDemarcheColonneId,
   ITitreActiviteColonneId,
+  IUtilisateursColonneId,
   IColonne,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,

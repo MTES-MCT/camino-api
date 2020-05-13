@@ -114,11 +114,17 @@ type Query {
 
   "__*__ Liste d'utilisateurs en fonction d'arguments (optionnels)"
   utilisateurs(
+    intervalle: Int
+    page: Int
+    colonne: String
+    ordre: String
     entrepriseIds: [ID]
     administrationIds: [ID]
     permissionIds: [ID]
-    noms: [String]
-  ): [Utilisateur]
+    noms: String
+    prenoms: String
+    email: String
+  ): Utilisateurs
 
   "Substance en fonction de son id"
   substance(id: ID!): Substance

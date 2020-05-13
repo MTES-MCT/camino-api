@@ -1,3 +1,8 @@
+type Utilisateurs {
+  utilisateurs: [Utilisateur]
+  total: Int
+}
+
 type Utilisateur {
   id: ID!
   email: String

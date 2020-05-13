@@ -1,4 +1,10 @@
-import { IUtilisateur, IFields } from '../../types'
+import {
+  IUtilisateur,
+  IFields,
+  IUtilisateursColonneId,
+  Index,
+  IColonne
+} from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
 import options from './_options'
@@ -6,6 +12,10 @@ import { utilisateursPermissionQueryBuild } from './permissions/utilisateurs'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
+import { raw } from 'objection'
+
+import { stringSplit } from './_utils'
+import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
   if (!userId) return undefined
@@ -20,6 +30,21 @@ const userGet = async (userId?: string) => {
 }
 
 const utilisateursQueryBuild = (
+  {
+    entrepriseIds,
+    administrationIds,
+    permissionIds,
+    noms,
+    prenoms,
+    email
+  }: {
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
+    noms?: string | null
+    prenoms?: string | null
+    email?: string | null
+  },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
 ) => {
@@ -32,6 +57,43 @@ const utilisateursQueryBuild = (
     .withGraphFetched(graph)
 
   utilisateursPermissionQueryBuild(q, user)
+
+  if (permissionIds) {
+    q.whereIn('permissionId', permissionIds)
+  }
+
+  if (administrationIds) {
+    q.whereIn('administrations.id', administrationIds).leftJoinRelated(
+      'administrations'
+    )
+  }
+
+  if (entrepriseIds) {
+    q.whereIn('entreprises.id', entrepriseIds).leftJoinRelated('entreprises')
+  }
+
+  if (noms) {
+    const nomsArray = stringSplit(noms)
+    q.whereRaw(`lower(??) ~* ?`, [
+      'utilisateurs.nom',
+      nomsArray.map(n => n.toLowerCase()).join('|')
+    ])
+  }
+
+  if (prenoms) {
+    const prenomsArray = stringSplit(prenoms)
+    q.whereRaw(`lower(??) ~* ?`, [
+      'utilisateurs.prenom',
+      prenomsArray.map(n => n.toLowerCase()).join('|')
+    ])
+  }
+
+  if (email) {
+    q.whereRaw(`lower(??) like ?`, [
+      'utilisateurs.email',
+      `%${email.toLowerCase()}%`
+    ])
+  }
 
   return q
 }
@@ -57,53 +119,136 @@ const utilisateurGet = async (
 ) => {
   const user = await userGet(userId)
 
-  const q = utilisateursQueryBuild({ fields }, user)
+  const q = utilisateursQueryBuild({}, { fields }, user)
 
   return (await q.findById(id)) as IUtilisateur
 }
 
+// lien = administration ou entreprise(s) en relation avec l'utilisateur : on trie sur la concaténation du nom de l'administration avec l'aggrégation ordonnée(STRING_AGG) des noms des entreprises
+const utilisateursColonnes = {
+  nom: {
+    id: 'nom'
+  },
+  prenom: {
+    id: 'prenom'
+  },
+  email: {
+    id: 'email'
+  },
+  permissions: { id: 'permissionId' },
+  lien: {
+    id: raw(`CONCAT(
+      "administrations"."nom",
+      STRING_AGG ("entreprises"."nom",';' order by "entreprises"."nom")
+      )`),
+    relation: '[administrations,entreprises]',
+    groupBy: ['utilisateurs.id', 'administrations.id']
+  }
+} as Index<IColonne<string | Objection.RawBuilder>>
+
 const utilisateursGet = async (
   {
-    noms,
+    intervalle,
+    page,
+    colonne,
+    ordre,
     entrepriseIds,
     administrationIds,
-    permissionIds
+    permissionIds,
+    noms,
+    prenoms,
+    email
   }: {
-    noms?: string[]
-    entrepriseIds?: string[]
-    administrationIds?: string[]
-    permissionIds?: string[]
+    intervalle?: number | null
+    page?: number | null
+    colonne?: IUtilisateursColonneId | null
+    ordre?: 'asc' | 'desc' | null
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
+    noms?: string | null
+    prenoms?: string | null
+    email?: string | null
   },
   { fields }: { fields?: IFields } = {},
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = utilisateursQueryBuild({ fields }, user)
+  const q = utilisateursQueryBuild(
+    {
+      entrepriseIds,
+      administrationIds,
+      permissionIds,
+      noms,
+      prenoms,
+      email
+    },
+    { fields },
+    user
+  )
 
-  q.orderBy('utilisateurs.nom')
-
-  if (administrationIds) {
-    q.whereIn('administrations.id', administrationIds).joinRelated(
-      'administrations'
-    )
+  if (colonne) {
+    if (utilisateursColonnes[colonne].relation) {
+      q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
+      const groupBy = utilisateursColonnes[colonne].groupBy as string[]
+      if (groupBy) {
+        groupBy.forEach(gb => {
+          q.groupBy(gb as string)
+        })
+      }
+    }
+    q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
+  } else {
+    q.orderBy('utilisateurs.nom', 'asc')
   }
 
-  if (permissionIds) {
-    q.whereIn('permissionId', permissionIds)
+  if (page && intervalle) {
+    q.offset((page - 1) * intervalle)
   }
 
-  if (entrepriseIds) {
-    q.whereIn('entreprises.id', entrepriseIds).joinRelated('entreprises')
-  }
-
-  if (noms) {
-    q.whereRaw(`lower(??) ~* ${noms.map(n => '?').join('|')}`, [
-      'utilisateurs.nom',
-      ...noms.map(n => n.toLowerCase())
-    ])
+  if (intervalle) {
+    q.limit(intervalle)
   }
 
   return q
+}
+
+const utilisateursCount = async (
+  {
+    entrepriseIds,
+    administrationIds,
+    permissionIds,
+    noms,
+    prenoms,
+    email
+  }: {
+    entrepriseIds?: string[] | undefined
+    administrationIds?: string[] | undefined
+    permissionIds?: string[] | undefined
+    noms?: string | null
+    prenoms?: string | null
+    email?: string | null
+  },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+  const q = utilisateursQueryBuild(
+    {
+      entrepriseIds,
+      administrationIds,
+      permissionIds,
+      noms,
+      prenoms,
+      email
+    },
+    { fields },
+    user
+  )
+
+  const utilisateurs = ((await q) as unknown) as { total: number }[]
+
+  return utilisateurs.length
 }
 
 const utilisateurCreate = async (utilisateur: IUtilisateur) =>
@@ -122,6 +267,7 @@ export {
   utilisateurGet,
   userByEmailGet,
   utilisateursGet,
+  utilisateursCount,
   utilisateurCreate,
   utilisateurUpdate
 }
