@@ -63,13 +63,13 @@ const utilisateursQueryBuild = (
   }
 
   if (administrationIds) {
-    q.whereIn('administrations.id', administrationIds).joinRelated(
+    q.whereIn('administrations.id', administrationIds).leftJoinRelated(
       'administrations'
     )
   }
 
   if (entrepriseIds) {
-    q.whereIn('entreprises.id', entrepriseIds).joinRelated('entreprises')
+    q.whereIn('entreprises.id', entrepriseIds).leftJoinRelated('entreprises')
   }
 
   if (noms) {
@@ -190,8 +190,9 @@ const utilisateursGet = async (
   if (colonne) {
     if (utilisateursColonnes[colonne].relation) {
       q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
-      if (utilisateursColonnes[colonne].groupBy) {
-        utilisateursColonnes[colonne].groupBy.forEach(gb => {
+      const groupBy = utilisateursColonnes[colonne].groupBy as string[]
+      if (groupBy) {
+        groupBy.forEach(gb => {
           q.groupBy(gb as string)
         })
       }
@@ -250,43 +251,6 @@ const utilisateursCount = async (
   return utilisateurs.length
 }
 
-const utilisateursAdministrationsGet = async (userId?: string) => {
-  const user = await userGet(userId)
-
-  if (!user?.permissionId) return []
-
-  const q = Utilisateurs.query()
-
-  utilisateursPermissionQueryBuild(q, user, false)
-
-  q.select('administrations.*')
-  q.joinRelated('administrations')
-  q.groupBy('administrations.id')
-
-  const utilisateursAdministrations = await q
-  console.log('utilisateursAdministrations', utilisateursAdministrations)
-
-  return utilisateursAdministrations
-}
-
-const utilisateursEntreprisesGet = async (userId?: string) => {
-  const user = await userGet(userId)
-
-  if (!user?.permissionId) return []
-
-  const q = Utilisateurs.query()
-
-  utilisateursPermissionQueryBuild(q, user, false)
-
-  q.select('entreprises.*')
-  q.joinRelated('entreprises')
-  q.groupBy('entreprises.id')
-
-  const utilisateursEntreprises = await q
-
-  return utilisateursEntreprises
-}
-
 const utilisateurCreate = async (utilisateur: IUtilisateur) =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
@@ -303,8 +267,6 @@ export {
   utilisateurGet,
   userByEmailGet,
   utilisateursGet,
-  utilisateursAdministrationsGet,
-  utilisateursEntreprisesGet,
   utilisateursCount,
   utilisateurCreate,
   utilisateurUpdate

@@ -126,10 +126,6 @@ type Query {
     email: String
   ): Utilisateurs
 
-  utilisateursAdministrations: [Administration]
-
-  utilisateursEntreprises: [Entreprise]
-
   "Substance en fonction de son id"
   substance(id: ID!): Substance
 
