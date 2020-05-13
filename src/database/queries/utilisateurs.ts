@@ -147,70 +147,6 @@ const utilisateursColonnes = {
   }
 } as Index<IColonne<string | Objection.RawBuilder>>
 
-const utilisateursParamsQueryBuild = (
-  {
-    intervalle,
-    page,
-    colonne,
-    ordre,
-    entrepriseIds,
-    administrationIds,
-    permissionIds,
-    noms,
-    prenoms,
-    emails
-  }: {
-    intervalle?: number | null
-    page?: number | null
-    colonne?: IUtilisateursColonneId | null
-    ordre?: 'asc' | 'desc' | null
-    entrepriseIds?: string[] | undefined
-    administrationIds?: string[] | undefined
-    permissionIds?: string[] | undefined
-    noms?: string | null
-    prenoms?: string | null
-    emails?: string | null
-  },
-  q: Objection.QueryBuilder<Utilisateurs, Utilisateurs[]>
-) => {
-  const user = await userGet(userId)
-  const q = utilisateursQueryBuild(
-    {
-      entrepriseIds,
-      administrationIds,
-      permissionIds,
-      noms,
-      prenoms,
-      emails
-    },
-    { fields },
-    user
-  )
-
-  if (colonne) {
-    if (utilisateursColonnes[colonne].relation) {
-      q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
-      const groupBy = utilisateursColonnes[colonne].groupBy as string[]
-      if (groupBy) {
-        groupBy.forEach(gb => {
-          q.groupBy(gb as string)
-        })
-      }
-    }
-    q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
-  } else {
-    q.orderBy('utilisateurs.nom', 'asc')
-  }
-
-  if (page && intervalle) {
-    q.offset((page - 1) * intervalle)
-  }
-
-  if (intervalle) {
-    q.limit(intervalle)
-  }
-} as Index<IColonne<string | Objection.RawBuilder>>
-
 const utilisateursGet = async (
   {
     intervalle,
@@ -256,7 +192,9 @@ const utilisateursGet = async (
     if (utilisateursColonnes[colonne].relation) {
       q.leftJoinRelated(utilisateursColonnes[colonne].relation!)
       if (utilisateursColonnes[colonne].groupBy) {
-        q.groupBy(utilisateursColonnes[colonne].groupBy as string)
+        utilisateursColonnes[colonne].groupBy.forEach(gb => {
+          q.groupBy(gb as string)
+        })
       }
     }
     q.orderBy(utilisateursColonnes[colonne].id, ordre || 'asc')
