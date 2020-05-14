@@ -706,6 +706,14 @@ interface IUtilisateur {
   permissionModification?: boolean | null
 }
 
+interface IUtilisateurAdministrationFiltre {
+  administrationId: string
+}
+
+interface IUtilisateurEntrepriseFiltre {
+  entrepriseId: string
+}
+
 interface IToken {
   user?: ITokenUser
 }
@@ -822,6 +830,8 @@ export {
   IUnite,
   IUser,
   IUtilisateur,
+  IUtilisateurAdministrationFiltre,
+  IUtilisateurEntrepriseFiltre,
   TitreProp,
   TitreEtapeProp,
   IToken,

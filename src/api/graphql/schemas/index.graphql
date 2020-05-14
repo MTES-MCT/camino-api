@@ -119,7 +119,9 @@ type Query {
     colonne: String
     ordre: String
     entrepriseIds: [ID]
+    entrepriseFiltreIds: [InputEntrepriseFiltre]
     administrationIds: [ID]
+    administrationFiltreIds: [InputAdministrationFiltre]
     permissionIds: [ID]
     noms: String
     prenoms: String

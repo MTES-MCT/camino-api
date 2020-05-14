@@ -62,3 +62,11 @@ input InputUtilisateurCreation {
   administrations: [InputId]
   preferences: Json
 }
+
+input InputAdministrationFiltre {
+  administrationId: ID!
+}
+
+input InputEntrepriseFiltre {
+  entrepriseId: ID!
+}

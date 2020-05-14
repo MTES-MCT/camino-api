@@ -3,7 +3,9 @@ import {
   IFields,
   IUtilisateursColonneId,
   Index,
-  IColonne
+  IColonne,
+  IUtilisateurEntrepriseFiltre,
+  IUtilisateurAdministrationFiltre
 } from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
@@ -32,14 +34,18 @@ const userGet = async (userId?: string) => {
 const utilisateursQueryBuild = (
   {
     entrepriseIds,
+    entrepriseFiltreIds,
     administrationIds,
+    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
+    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
+    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -62,14 +68,28 @@ const utilisateursQueryBuild = (
     q.whereIn('permissionId', permissionIds)
   }
 
-  if (administrationIds) {
-    q.whereIn('administrations.id', administrationIds).leftJoinRelated(
+  if (administrationIds || administrationFiltreIds) {
+    const administrationsIds = administrationIds || ([] as string[])
+
+    if (administrationFiltreIds) {
+      administrationsIds.push(
+        ...administrationFiltreIds.map(e => e.administrationId)
+      )
+    }
+
+    q.whereIn('administrations.id', administrationsIds).leftJoinRelated(
       'administrations'
     )
   }
 
-  if (entrepriseIds) {
-    q.whereIn('entreprises.id', entrepriseIds).leftJoinRelated('entreprises')
+  if (entrepriseIds || entrepriseFiltreIds) {
+    const entreprisesIds = entrepriseIds || ([] as string[])
+
+    if (entrepriseFiltreIds) {
+      entreprisesIds.push(...entrepriseFiltreIds.map(e => e.entrepriseId))
+    }
+
+    q.whereIn('entreprises.id', entreprisesIds).leftJoinRelated('entreprises')
   }
 
   if (noms) {
@@ -154,7 +174,9 @@ const utilisateursGet = async (
     colonne,
     ordre,
     entrepriseIds,
+    entrepriseFiltreIds,
     administrationIds,
+    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
@@ -165,7 +187,9 @@ const utilisateursGet = async (
     colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
     entrepriseIds?: string[] | undefined
+    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
+    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -178,7 +202,9 @@ const utilisateursGet = async (
   const q = utilisateursQueryBuild(
     {
       entrepriseIds,
+      entrepriseFiltreIds,
       administrationIds,
+      administrationFiltreIds,
       permissionIds,
       noms,
       prenoms,
@@ -217,14 +243,18 @@ const utilisateursGet = async (
 const utilisateursCount = async (
   {
     entrepriseIds,
+    entrepriseFiltreIds,
     administrationIds,
+    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
+    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
+    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -237,7 +267,9 @@ const utilisateursCount = async (
   const q = utilisateursQueryBuild(
     {
       entrepriseIds,
+      entrepriseFiltreIds,
       administrationIds,
+      administrationFiltreIds,
       permissionIds,
       noms,
       prenoms,
