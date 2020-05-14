@@ -1,11 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import {
-  IToken,
-  IUtilisateur,
-  IUtilisateursColonneId,
-  IUtilisateurAdministrationFiltre,
-  IUtilisateurEntrepriseFiltre
-} from '../../../types'
+import { IToken, IUtilisateur, IUtilisateursColonneId } from '../../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -80,9 +74,7 @@ const utilisateurs = async (
     colonne,
     ordre,
     entrepriseIds,
-    entrepriseFiltreIds,
     administrationIds,
-    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
@@ -93,9 +85,7 @@ const utilisateurs = async (
     colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
     entrepriseIds?: string[] | undefined
-    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
-    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -113,9 +103,7 @@ const utilisateurs = async (
         colonne,
         ordre,
         entrepriseIds,
-        entrepriseFiltreIds,
         administrationIds,
-        administrationFiltreIds,
         permissionIds,
         noms,
         prenoms,
@@ -128,9 +116,7 @@ const utilisateurs = async (
     const total = await utilisateursCount(
       {
         entrepriseIds,
-        entrepriseFiltreIds,
         administrationIds,
-        administrationFiltreIds,
         permissionIds,
         noms,
         prenoms,

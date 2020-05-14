@@ -273,8 +273,8 @@ const activites = async (
 
 interface IUtilisateursQueryInput {
   format?: IFormat
-  entrepriseFiltreIds?: string | undefined
-  administrationFiltreIds?: string | undefined
+  entrepriseIds?: string | undefined
+  administrationIds?: string | undefined
   permissionIds?: string | undefined
   noms?: string | null
   prenoms?: string | null
@@ -284,8 +284,8 @@ interface IUtilisateursQueryInput {
 const utilisateurs = async (
   {
     format = 'json',
-    entrepriseFiltreIds,
-    administrationFiltreIds,
+    entrepriseIds,
+    administrationIds,
     permissionIds,
     noms,
     prenoms,
@@ -300,12 +300,8 @@ const utilisateurs = async (
       noms,
       prenoms,
       emails,
-      entrepriseFiltreIds: entrepriseFiltreIds
-        ? JSON.parse(entrepriseFiltreIds)
-        : null,
-      administrationFiltreIds: administrationFiltreIds
-        ? JSON.parse(administrationFiltreIds)
-        : null,
+      entrepriseIds: entrepriseIds?.split(','),
+      administrationIds: administrationIds?.split(','),
       permissionIds: permissionIds?.split(',')
     },
     {},

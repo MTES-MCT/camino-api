@@ -3,9 +3,7 @@ import {
   IFields,
   IUtilisateursColonneId,
   Index,
-  IColonne,
-  IUtilisateurEntrepriseFiltre,
-  IUtilisateurAdministrationFiltre
+  IColonne
 } from '../../types'
 
 import Utilisateurs from '../models/utilisateurs'
@@ -16,7 +14,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
 
-import { stringSplit } from './_utils'
+import { stringSplit, emailsSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -34,18 +32,14 @@ const userGet = async (userId?: string) => {
 const utilisateursQueryBuild = (
   {
     entrepriseIds,
-    entrepriseFiltreIds,
     administrationIds,
-    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
-    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
-    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -68,28 +62,14 @@ const utilisateursQueryBuild = (
     q.whereIn('permissionId', permissionIds)
   }
 
-  if (administrationIds || administrationFiltreIds) {
-    const administrationsIds = administrationIds || ([] as string[])
-
-    if (administrationFiltreIds) {
-      administrationsIds.push(
-        ...administrationFiltreIds.map(e => e.administrationId)
-      )
-    }
-
-    q.whereIn('administrations.id', administrationsIds).leftJoinRelated(
+  if (administrationIds) {
+    q.whereIn('administrations.id', administrationIds).leftJoinRelated(
       'administrations'
     )
   }
 
-  if (entrepriseIds || entrepriseFiltreIds) {
-    const entreprisesIds = entrepriseIds || ([] as string[])
-
-    if (entrepriseFiltreIds) {
-      entreprisesIds.push(...entrepriseFiltreIds.map(e => e.entrepriseId))
-    }
-
-    q.whereIn('entreprises.id', entreprisesIds).leftJoinRelated('entreprises')
+  if (entrepriseIds) {
+    q.whereIn('entreprises.id', entrepriseIds).leftJoinRelated('entreprises')
   }
 
   if (noms) {
@@ -109,7 +89,7 @@ const utilisateursQueryBuild = (
   }
 
   if (emails) {
-    const emailsArray = stringSplit(emails)
+    const emailsArray = emailsSplit(emails)
     q.whereRaw(`lower(??) ~* ?`, [
       'utilisateurs.email',
       emailsArray.map(n => n.toLowerCase()).join('|')
@@ -145,7 +125,9 @@ const utilisateurGet = async (
   return (await q.findById(id)) as IUtilisateur
 }
 
-// lien = administration ou entreprise(s) en relation avec l'utilisateur : on trie sur la concaténation du nom de l'administration avec l'aggrégation ordonnée(STRING_AGG) des noms des entreprises
+// lien = administration ou entreprise(s) en relation avec l'utilisateur :
+// on trie sur la concaténation du nom de l'administration
+// avec l'aggrégation ordonnée(STRING_AGG) des noms des entreprises
 const utilisateursColonnes = {
   nom: {
     id: 'nom'
@@ -160,9 +142,13 @@ const utilisateursColonnes = {
   lien: {
     id: raw(`CONCAT(
       "administrations"."nom",
-      STRING_AGG ("entreprises"."nom",';' order by "entreprises"."nom")
-      )`),
-    relation: '[administrations,entreprises]',
+      STRING_AGG(
+        "entreprises"."nom",
+        ' ; '
+        order by "entreprises"."nom"
+      )
+    )`),
+    relation: '[administrations, entreprises]',
     groupBy: ['utilisateurs.id', 'administrations.id']
   }
 } as Index<IColonne<string | Objection.RawBuilder>>
@@ -174,9 +160,7 @@ const utilisateursGet = async (
     colonne,
     ordre,
     entrepriseIds,
-    entrepriseFiltreIds,
     administrationIds,
-    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
@@ -187,9 +171,7 @@ const utilisateursGet = async (
     colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
     entrepriseIds?: string[] | undefined
-    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
-    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -202,9 +184,7 @@ const utilisateursGet = async (
   const q = utilisateursQueryBuild(
     {
       entrepriseIds,
-      entrepriseFiltreIds,
       administrationIds,
-      administrationFiltreIds,
       permissionIds,
       noms,
       prenoms,
@@ -243,18 +223,14 @@ const utilisateursGet = async (
 const utilisateursCount = async (
   {
     entrepriseIds,
-    entrepriseFiltreIds,
     administrationIds,
-    administrationFiltreIds,
     permissionIds,
     noms,
     prenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
-    entrepriseFiltreIds?: IUtilisateurEntrepriseFiltre[] | undefined
     administrationIds?: string[] | undefined
-    administrationFiltreIds?: IUtilisateurAdministrationFiltre[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
@@ -267,9 +243,7 @@ const utilisateursCount = async (
   const q = utilisateursQueryBuild(
     {
       entrepriseIds,
-      entrepriseFiltreIds,
       administrationIds,
-      administrationFiltreIds,
       permissionIds,
       noms,
       prenoms,
