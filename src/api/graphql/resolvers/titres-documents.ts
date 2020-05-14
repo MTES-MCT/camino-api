@@ -79,12 +79,19 @@ const documentCreer = async (
     const documentUpdated = await titreDocumentCreate(document)
 
     const fields = fieldsBuild(info)
+
     // todo: récupérer le titre autrement qu'en SLICANT l'id
+    const titreId = documentUpdated.titreEtapeId.slice(0, -12)
+
     const titreUpdated = await titreGet(
-      documentUpdated.titreEtapeId.slice(0, -12),
+      titreId,
       { fields },
       user.id
     )
+
+    if (!titreUpdated) {
+      throw new Error(`Le titre ${titreId} n'existe plus`)
+    }
 
     return titreFormat(user, titreUpdated)
   } catch (e) {
@@ -150,9 +157,12 @@ const documentModifier = async (
     const documentUpdated = await titreDocumentUpdate(document.id, document)
 
     const fields = fieldsBuild(info)
+
     // todo: récupérer le titre autrement qu'en SLICANT l'id
+    const titreId = documentUpdated.titreEtapeId.slice(0, -12)
+
     const titreUpdated = await titreGet(
-      documentUpdated.titreEtapeId.slice(0, -12),
+      titreId,
       { fields },
       user.id
     )
@@ -198,9 +208,12 @@ const documentSupprimer = async (
     await titreDocumentDelete(id)
 
     const fields = fieldsBuild(info)
+
     // todo: récupérer le titre autrement qu'en SLICANT l'id
+    const titreId = documentOld.titreEtapeId.slice(0, -12)
+
     const titreUpdated = await titreGet(
-      documentOld.titreEtapeId.slice(0, -12),
+      titreId,
       { fields },
       user.id
     )

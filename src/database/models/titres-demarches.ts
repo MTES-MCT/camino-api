@@ -131,7 +131,7 @@ class TitresDemarches extends Model {
     json = super.$parseJson(json)
 
     if (!json.id && json.titreId && json.typeId) {
-      json.id = `${json.titreId}-${json.typeId}`
+      json.id = `${json.titreId}-${json.typeId}99`
     }
 
     delete json.modification
