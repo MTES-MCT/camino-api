@@ -128,6 +128,7 @@ const titresActivitesColonnes = {
     relation: 'titre.titulaires',
     groupBy: false
   },
+  annee: { id: 'annee' },
   periode: { id: 'frequencePeriodeId' },
   statut: { id: 'statutId' }
 } as Index<IColonne<string | Objection.RawBuilder>>
