@@ -14,7 +14,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
 
-import { stringSplit } from './_utils'
+import { stringSplit, emailsSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -36,14 +36,14 @@ const utilisateursQueryBuild = (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -88,10 +88,11 @@ const utilisateursQueryBuild = (
     ])
   }
 
-  if (email) {
-    q.whereRaw(`lower(??) like ?`, [
+  if (emails) {
+    const emailsArray = emailsSplit(emails)
+    q.whereRaw(`lower(??) ~* ?`, [
       'utilisateurs.email',
-      `%${email.toLowerCase()}%`
+      emailsArray.map(n => n.toLowerCase()).join('|')
     ])
   }
 
@@ -124,7 +125,9 @@ const utilisateurGet = async (
   return (await q.findById(id)) as IUtilisateur
 }
 
-// lien = administration ou entreprise(s) en relation avec l'utilisateur : on trie sur la concaténation du nom de l'administration avec l'aggrégation ordonnée(STRING_AGG) des noms des entreprises
+// lien = administration ou entreprise(s) en relation avec l'utilisateur :
+// on trie sur la concaténation du nom de l'administration
+// avec l'aggrégation ordonnée(STRING_AGG) des noms des entreprises
 const utilisateursColonnes = {
   nom: {
     id: 'nom'
@@ -139,9 +142,13 @@ const utilisateursColonnes = {
   lien: {
     id: raw(`CONCAT(
       "administrations"."nom",
-      STRING_AGG ("entreprises"."nom",';' order by "entreprises"."nom")
-      )`),
-    relation: '[administrations,entreprises]',
+      STRING_AGG(
+        "entreprises"."nom",
+        ' ; '
+        order by "entreprises"."nom"
+      )
+    )`),
+    relation: '[administrations, entreprises]',
     groupBy: ['utilisateurs.id', 'administrations.id']
   }
 } as Index<IColonne<string | Objection.RawBuilder>>
@@ -157,7 +164,7 @@ const utilisateursGet = async (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     intervalle?: number | null
     page?: number | null
@@ -168,7 +175,7 @@ const utilisateursGet = async (
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
   userId?: string
@@ -181,7 +188,7 @@ const utilisateursGet = async (
       permissionIds,
       noms,
       prenoms,
-      email
+      emails
     },
     { fields },
     user
@@ -220,14 +227,14 @@ const utilisateursCount = async (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -240,7 +247,7 @@ const utilisateursCount = async (
       permissionIds,
       noms,
       prenoms,
-      email
+      emails
     },
     { fields },
     user

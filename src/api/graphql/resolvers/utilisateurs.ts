@@ -78,7 +78,7 @@ const utilisateurs = async (
     permissionIds,
     noms,
     prenoms,
-    email
+    emails
   }: {
     intervalle?: number | null
     page?: number | null
@@ -89,7 +89,7 @@ const utilisateurs = async (
     permissionIds?: string[] | undefined
     noms?: string | null
     prenoms?: string | null
-    email?: string | null
+    emails?: string | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -107,7 +107,7 @@ const utilisateurs = async (
         permissionIds,
         noms,
         prenoms,
-        email
+        emails
       },
       { fields: fields.utilisateurs },
       context.user?.id
@@ -120,7 +120,7 @@ const utilisateurs = async (
         permissionIds,
         noms,
         prenoms,
-        email
+        emails
       },
       { fields: fields.utilisateurs },
       context.user?.id

@@ -9,13 +9,9 @@ import Entreprises from '../../models/entreprises'
 
 const utilisateursPermissionQueryBuild = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
-  user?: IUtilisateur,
-  rootTable = true
+  user?: IUtilisateur
 ) => {
-  // Si la requête est utilisée sur une autre table que la table de base, il n'est pas forcément utile de sélectionner les éléments de la table de base
-  if (rootTable) {
-    q.select('utilisateurs.*')
-  }
+  q.select('utilisateurs.*')
 
   if (
     permissionCheck(user, ['editeur', 'lecteur']) &&

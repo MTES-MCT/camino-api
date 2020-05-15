@@ -39,4 +39,7 @@ const stringSplit = (string: string) =>
     e.replace(/^"(.*)"$/, '$1')
   )
 
-export { fieldTitreAdd, stringSplit }
+const emailsSplit = (string: string) =>
+  string.match(/\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+/g) || []
+
+export { fieldTitreAdd, stringSplit, emailsSplit }
