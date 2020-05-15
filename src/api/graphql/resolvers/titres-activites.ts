@@ -58,7 +58,12 @@ const activites = async (
     ordre,
     colonne,
     typesIds,
-    annees
+    annees,
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     page?: number | null
     intervalle?: number | null
@@ -66,6 +71,11 @@ const activites = async (
     colonne?: ITitreActiviteColonneId | null
     typesIds?: string[] | null
     annees?: number[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -88,14 +98,27 @@ const activites = async (
         ordre,
         colonne,
         typesIds,
-        annees
+        annees,
+        titresNoms,
+        titresEntreprises,
+        titresSubstances,
+        titresReferences,
+        titresTerritoires
       },
       { fields: fields.activites },
       context.user?.id
     )
 
     const total = await titresActivitesCount(
-      { typesIds, annees },
+      {
+        typesIds,
+        annees,
+        titresNoms,
+        titresEntreprises,
+        titresSubstances,
+        titresReferences,
+        titresTerritoires
+      },
       { fields: fields.activites },
       context.user?.id
     )

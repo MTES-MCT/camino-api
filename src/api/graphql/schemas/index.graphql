@@ -92,6 +92,11 @@ type Query {
     ordre: String
     typesIds: [ID]
     annees: [Int]
+    titresNoms: String
+    titresEntreprises: String
+    titresSubstances: String
+    titresReferences: String
+    titresTerritoires: String
   ): Activites
 
   "Années des activités"

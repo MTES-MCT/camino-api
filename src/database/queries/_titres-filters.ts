@@ -1,10 +1,11 @@
 import { stringSplit } from './_utils'
 import Titres from '../models/titres'
 import TitresDemarches from '../models/titres-demarches'
+import TitresActivites from '../models/titres-activites'
 import { QueryBuilder } from 'objection'
 
 type ITitreTableName = 'titres' | 'titre'
-type ITitreRootName = 'titres' | 'titresDemarches'
+type ITitreRootName = 'titres' | 'titresDemarches' | 'titresActivites'
 
 // name: nom de la table ou de la relation sur laquelle s'effectue la requête
 // - 'titres' depuis la table 'titres'
@@ -32,7 +33,8 @@ const titresFiltersQueryBuild = (
   } = {},
   q:
     | QueryBuilder<Titres, Titres[]>
-    | QueryBuilder<TitresDemarches, TitresDemarches[]>,
+    | QueryBuilder<TitresDemarches, TitresDemarches[]>
+    | QueryBuilder<TitresActivites, TitresActivites[]>,
   name: ITitreTableName = 'titres',
   root: ITitreRootName = 'titres'
 ) => {
