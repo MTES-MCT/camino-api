@@ -11,6 +11,9 @@ const titreDocumentsPermissionQueryBuild = (
 ) => {
   q.select('titresDocuments.*')
 
+  // TODO: décommenter le code et gérer les permissions
+  // des documents visibles pour les entreprises
+  /*
   if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
     // faire les join related ou pas
     q.leftJoinRelated('etape.demarche.titre.[titulaires, amodiataires]')
@@ -25,7 +28,14 @@ const titreDocumentsPermissionQueryBuild = (
         b.orWhereIn('etape:demarche:titre:amodiataires.id', entreprisesIds)
       }
     })
-  } else if (!user || permissionCheck(user, ['defaut'])) {
+  }
+    */
+
+  if (
+    !user ||
+    permissionCheck(user, ['defaut']) ||
+    permissionCheck(user, ['entreprise'])
+  ) {
     q.where('public', true)
   }
 
