@@ -1,0 +1,1 @@
+select "entreprises".*, true as "modification" from "entreprises" order by "entreprises"."legal_siren" asc limit 50

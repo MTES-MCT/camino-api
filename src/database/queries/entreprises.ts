@@ -11,6 +11,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
 import { stringSplit } from './_utils'
+import { writeFileSync } from 'fs'
 import Objection = require('objection')
 
 const entreprisesQueryBuild = (
@@ -104,6 +105,13 @@ const entreprisesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
+  console.log('params', {
+    page,
+    intervalle,
+    ordre,
+    colonne,
+    nomSiren
+  })
   const user = userId ? await userGet(userId) : undefined
 
   const q = entreprisesQueryBuild({ nomSiren }, { fields }, user)
@@ -136,6 +144,11 @@ const entreprisesGet = async (
   if (intervalle) {
     q.limit(intervalle)
   }
+
+  writeFileSync(
+    'src/database/queries/testEntreprises.sql',
+    q.toKnexQuery().toString()
+  )
 
   return q
 }
