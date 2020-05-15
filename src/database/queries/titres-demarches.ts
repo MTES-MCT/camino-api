@@ -272,6 +272,7 @@ const titresDemarchesGet = async (
     }
     q.orderBy(titresDemarchesColonnes[colonne].id, ordre || 'asc')
     q.groupBy(titresDemarchesColonnes[colonne].id)
+    q.groupBy('titresDemarches.id')
   } else {
     q.orderBy('titresDemarches.ordre')
   }
