@@ -353,6 +353,7 @@ const demarchesTypesPermissionQueryBuild = (
   user?: IUtilisateur,
   {
     titreId,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     titreDemarcheId
   }: { titreId?: string; titreDemarcheId?: string } = {}
 ) => {

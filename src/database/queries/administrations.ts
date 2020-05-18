@@ -36,7 +36,8 @@ const administrationGet = async (
 }
 
 const administrationsGet = async (
-  _: any,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  { noms }: { noms?: string[] },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {

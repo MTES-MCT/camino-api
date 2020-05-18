@@ -1,4 +1,5 @@
-type ICb = (text: string) => any
+/* eslint-disable no-undef */
+type ICb = (text: string) => unknown
 
 interface ITable {
   name: string

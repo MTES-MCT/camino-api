@@ -32,7 +32,7 @@ const tables = [
       'preferences'
     ],
     callbacks: {
-      preferences: (v: Index<any>) => JSON.stringify(v)
+      preferences: (v: Index<unknown>) => JSON.stringify(v)
     }
   },
   {

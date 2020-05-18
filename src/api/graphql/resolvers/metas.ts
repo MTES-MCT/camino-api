@@ -37,7 +37,7 @@ const documentsTypes = async () => documentsTypesGet()
 const referencesTypes = async () => referencesTypesGet()
 const permission = async ({ id }: { id: string }) => permissionGet(id)
 
-const permissions = async (_: unknown, context: IToken) => {
+const permissions = async (_: never, context: IToken) => {
   try {
     const user = await userGet(context.user?.id)
 
@@ -62,14 +62,18 @@ const permissions = async (_: unknown, context: IToken) => {
 }
 
 const domaines = async (
-  _: unknown,
+  _: never,
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
     const fields = fieldsBuild(info)
 
-    const domaines = await domainesGet({}, { fields }, context.user?.id)
+    const domaines = await domainesGet(
+      null as never,
+      { fields },
+      context.user?.id
+    )
 
     return domaines
   } catch (e) {
@@ -95,7 +99,7 @@ const types = async () => {
   }
 }
 
-const statuts = async (_: unknown, context: IToken) => {
+const statuts = async (_: never, context: IToken) => {
   try {
     let statuts = await titresStatutsGet()
 
@@ -260,7 +264,7 @@ const version = () => {
 }
 
 const activitesTypes = async (
-  _: unknown,
+  _: never,
   context: IToken,
   info: GraphQLResolveInfo
 ) => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 interface ICredentials {
   // eslint-disable-next-line camelcase
   private_key: string

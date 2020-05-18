@@ -126,8 +126,7 @@ const entrepriseCreer = async (
 
 const entrepriseModifier = async (
   { entreprise }: { entreprise: IEntreprise },
-  context: IToken,
-  info: GraphQLResolveInfo
+  context: IToken
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))

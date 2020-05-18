@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { FileUpload } from 'graphql-upload'
 
 interface IFields {

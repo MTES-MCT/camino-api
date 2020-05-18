@@ -2,8 +2,7 @@ import {
   IFormat,
   ITitreColonneId,
   ITitreDemarcheColonneId,
-  ITitreActiviteColonneId,
-  IUtilisateursColonneId
+  ITitreActiviteColonneId
 } from '../../types'
 
 import { titresGet } from '../../database/queries/titres'
@@ -339,7 +338,7 @@ const entreprises = async (
 ) => {
   formatCheck(['json', 'csv', 'xlsx', 'ods'], format)
 
-  const entreprises = await entreprisesGet(null, {}, userId)
+  const entreprises = await entreprisesGet({}, {}, userId)
 
   const user = userId ? await userGet(userId) : undefined
 

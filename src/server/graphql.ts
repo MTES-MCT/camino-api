@@ -10,7 +10,7 @@ interface IAuthRequestHttp extends http.IncomingMessage {
   }
 }
 
-const graphql = expressGraphql((req: IAuthRequestHttp, res, graphQLParams) => ({
+const graphql = expressGraphql((req: IAuthRequestHttp) => ({
   context: { user: req.user },
   customFormatErrorFn: err => ({
     locations: err.locations,

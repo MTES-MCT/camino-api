@@ -2,10 +2,7 @@ import { ITitreEtape, IEtapeType } from '../../types'
 
 const titreDemarcheEntrepriseLectureFind = (
   entreprisesLecture: boolean,
-  demarcheTypeId: string,
-  demarcheTypeEtapesTypes: IEtapeType[],
-  titreEtape: ITitreEtape,
-  titreTypeId?: string
+  titreEtape: ITitreEtape
 ) => {
   // si le type d'étape est une demande
   // alors la démarche est visible pour les entreprises
@@ -55,7 +52,7 @@ const titreDemarchePublicLectureFind = (
   if (
     titreEtape.typeId === 'mcr' &&
     (!titreTypeId || titreTypeId !== 'arm') &&
-      !demarcheTypeEtapesTypes.find(et => ['anf', 'ane'].includes(et.id))
+    !demarcheTypeEtapesTypes.find(et => ['anf', 'ane'].includes(et.id))
   ) {
     publicLecture = true
   }
@@ -176,13 +173,7 @@ const titreDemarchePublicFind = (
       // alors on calcule la visibilité spéciale pour les entreprises
       entreprisesLecture =
         publicLecture ||
-        titreDemarcheEntrepriseLectureFind(
-          entreprisesLecture,
-          demarcheTypeId,
-          demarcheTypeEtapesTypes,
-          titreEtape,
-          titreTypeId
-        )
+        titreDemarcheEntrepriseLectureFind(entreprisesLecture, titreEtape)
 
       return { publicLecture, entreprisesLecture }
     },

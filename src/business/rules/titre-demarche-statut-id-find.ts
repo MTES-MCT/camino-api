@@ -56,10 +56,7 @@ const titreEtapesDecisivesUnilateralesTypes = [
 
 const titreDemarchesUnilateralesTypes = ['ret', 'prr', 'dec']
 
-const titresDemarcheCommunesStatutIdFind = (
-  titreEtapeRecent: ITitreEtape,
-  titreTypeId?: string
-) => {
+const titresDemarcheCommunesStatutIdFind = (titreEtapeRecent: ITitreEtape) => {
   //  - le type de l’étape est classement sans suite (css)
   //  - le titre est une ARM
   //    - et le type de l’étape est avis de la commission ARM (aca)
@@ -91,8 +88,7 @@ const titresDemarcheCommunesStatutIdFind = (
 }
 
 const titreDemarcheUnilateralStatutIdFind = (
-  titreDemarcheEtapes: ITitreEtape[],
-  titreTypeId?: string
+  titreDemarcheEtapes: ITitreEtape[]
 ) => {
   // filtre les types d'étapes qui ont un impact
   // sur le statut de la démarche de demande
@@ -111,10 +107,7 @@ const titreDemarcheUnilateralStatutIdFind = (
   )[0]
 
   // calcule le statut de démarche pour les étapes communes
-  const statutId = titresDemarcheCommunesStatutIdFind(
-    titreEtapeRecent,
-    titreTypeId
-  )
+  const statutId = titresDemarcheCommunesStatutIdFind(titreEtapeRecent)
   if (statutId) return statutId
 
   // - le type de l’étape est publication au JO unilatérale
@@ -153,10 +146,7 @@ const titreDemarcheDemandeStatutIdFind = (
   const titreEtapeRecent = titreEtapesDescSort(titreEtapesDecisivesDemande)[0]
 
   // calcule le statut de démarche pour les étapes communes
-  const statutId = titresDemarcheCommunesStatutIdFind(
-    titreEtapeRecent,
-    titreTypeId
-  )
+  const statutId = titresDemarcheCommunesStatutIdFind(titreEtapeRecent)
   if (statutId) return statutId
 
   const titreEtapesPublication = titreDemarcheEtapes.filter(
@@ -264,7 +254,7 @@ const titreDemarcheStatutIdFind = (
     //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
     //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
 
-    return titreDemarcheUnilateralStatutIdFind(titreDemarcheEtapes, titreTypeId)
+    return titreDemarcheUnilateralStatutIdFind(titreDemarcheEtapes)
   }
 
   //  3. sinon, le statut est indéterminé

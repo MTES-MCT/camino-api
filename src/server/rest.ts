@@ -27,7 +27,7 @@ interface IRestResolverResult {
 }
 
 type IRestResolver = (
-  params: Index<any>,
+  params: Index<unknown>,
   userId?: string
 ) => Promise<IRestResolverResult | null>
 
@@ -66,20 +66,22 @@ rest.get('/activites', restify(activites))
 rest.get('/utilisateurs', restify(utilisateurs))
 rest.get('/entreprises', restify(entreprises))
 
-rest.use((
-  err: Error,
-  req: IAuthRequest,
-  res: express.Response,
-  next: express.NextFunction
-) => {
-  if (err) {
-    res.status(500)
-    res.send({ error: err.message })
+rest.use(
+  (
+    err: Error,
+    req: IAuthRequest,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    if (err) {
+      res.status(500)
+      res.send({ error: err.message })
 
-    return
+      return
+    }
+
+    next()
   }
-
-  next()
-})
+)
 
 export { rest }

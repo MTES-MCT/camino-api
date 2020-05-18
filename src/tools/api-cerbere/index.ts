@@ -1,5 +1,5 @@
 import { IUtilisateur } from '../../types'
-import Cerbere = require('./cerbere-nodejs')
+import Cerbere = require('cerbere')
 
 const config = {
   cerbereUrl:

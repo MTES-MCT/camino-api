@@ -1,6 +1,7 @@
 import { ITitreDemarche } from '../types'
 
 const titreDemarcheUpdationValidate = async (
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   titreDemarcheNew: ITitreDemarche
 ) => {
   const errors = [] as string[]

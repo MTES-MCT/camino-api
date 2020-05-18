@@ -38,7 +38,7 @@ const permissionGet = async (id: string) => Permissions.query().findById(id)
 const titresTypesTypesGet = async () => TitresTypesTypes.query()
 
 const domainesGet = async (
-  _: any,
+  _: never,
   { fields }: { fields?: IFields },
   userId?: string
 ) => {

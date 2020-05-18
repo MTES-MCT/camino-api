@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 interface IApiSirenUniteLegalePeriode
   extends IApiSirenUnionUniteLegalePeriodeEtablissmentUnite {
   dateDebut: Date

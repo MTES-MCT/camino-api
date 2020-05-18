@@ -138,7 +138,7 @@ const utilisateurs = async (
   }
 }
 
-const moi = async (_: unknown, context: IToken) => {
+const moi = async (_: never, context: IToken) => {
   try {
     // vérifie que la base de données est remplie au démarrage du serveur
     // TODO:

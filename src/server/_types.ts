@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as express from 'express'
 
 // bug de typage de express-jwt

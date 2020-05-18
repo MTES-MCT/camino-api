@@ -38,7 +38,8 @@ const entrepriseGet = async (
 }
 
 const entreprisesGet = async (
-  _: any,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  { noms }: { noms?: string[] },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {

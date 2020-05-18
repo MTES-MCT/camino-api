@@ -40,6 +40,6 @@ const stringSplit = (string: string) =>
   )
 
 const emailsSplit = (string: string) =>
-  string.match(/\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+/g) || []
+  string.match(/\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+/g) || []
 
 export { fieldTitreAdd, stringSplit, emailsSplit }

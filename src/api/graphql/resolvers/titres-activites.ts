@@ -117,7 +117,7 @@ const activites = async (
   }
 }
 
-const activitesAnnees = async (_: unknown, context: IToken) => {
+const activitesAnnees = async (_: never, context: IToken) => {
   try {
     const annees = await activitesAnneesGet(context.user?.id)
 
