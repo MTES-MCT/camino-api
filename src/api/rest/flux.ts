@@ -77,7 +77,21 @@ const titres = async (
       references,
       territoires
     },
-    {},
+    {
+      fields: {
+        type: { type: { id: {} } },
+        domaine: { id: {} },
+        statut: { id: {} },
+        references: { type: { id: {} } },
+        substances: { legales: { id: {} } },
+        titulaires: { etablissements: { id: {} } },
+        amodiataires: { etablissements: { id: {} } },
+        points: { id: {} },
+        communes: { departement: { region: { pays: { id: {} } } } },
+        administrationsLocales: { type: { id: {} } },
+        administrationsGestionnaires: { type: { id: {} } }
+      }
+    },
     userId
   )
 
