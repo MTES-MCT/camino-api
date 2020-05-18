@@ -195,6 +195,7 @@ const titresRelateTrue = [
   'statut',
   'domaine',
   'administrationsGestionnaires',
+  'references.type',
   ...demarchesRelateTrue.map(k => `demarches.${k}`)
 ]
 
