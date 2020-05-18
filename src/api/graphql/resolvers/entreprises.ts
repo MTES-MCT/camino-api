@@ -51,13 +51,13 @@ const entreprises = async (
     intervalle,
     ordre,
     colonne,
-    nomSiren
+    noms
   }: {
     page?: number | null
     intervalle?: number | null
     ordre?: 'asc' | 'desc' | null
     colonne?: IEntrepriseColonneId | null
-    nomSiren?: string | null
+    noms?: string | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -71,7 +71,7 @@ const entreprises = async (
         intervalle,
         ordre,
         colonne,
-        nomSiren
+        noms
       },
       { fields: fields.entreprises },
       context.user?.id
@@ -79,7 +79,7 @@ const entreprises = async (
 
     const total = await entreprisesCount(
       {
-        nomSiren
+        noms
       },
       { fields: fields.activites },
       context.user?.id

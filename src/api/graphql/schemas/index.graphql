@@ -159,7 +159,7 @@ type Query {
     page: Int
     colonne: String
     ordre: String
-    nomSiren: String
+    noms: String
   ): Entreprises
 
   "Administration en fonction de son id"

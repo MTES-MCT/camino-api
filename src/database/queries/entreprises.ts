@@ -11,14 +11,14 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
 import { stringSplit } from './_utils'
-import { writeFileSync } from 'fs'
+
 import Objection = require('objection')
 
 const entreprisesQueryBuild = (
   {
-    nomSiren
+    noms
   }: {
-    nomSiren?: string | null
+    noms?: string | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -33,25 +33,28 @@ const entreprisesQueryBuild = (
 
   entreprisePermissionQueryBuild(q, user)
 
-  if (nomSiren) {
-    const nomSirenArray = stringSplit(nomSiren)
-    const fields = [
-      'entreprises.id',
-      'entreprises.nom',
-      'etablissements.nom',
-      'etablissements.legalSiret'
-    ]
+  if (noms) {
+    const nomsArray = stringSplit(noms)
 
-    q.leftJoinRelated('etablissements')
-    q.groupBy('entreprises.id')
+    if (nomsArray) {
+      const fields = [
+        'entreprises.id',
+        'entreprises.nom',
+        'etablissements.nom',
+        'etablissements.legalSiret'
+      ]
 
-    nomSirenArray.forEach(s => {
-      q.where((b: Objection.QueryBuilder<Entreprises, Entreprises[]>) => {
-        fields.forEach(f => {
-          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+      q.leftJoinRelated('etablissements')
+      q.groupBy('entreprises.id')
+
+      nomsArray.forEach(s => {
+        q.where((b: Objection.QueryBuilder<Entreprises, Entreprises[]>) => {
+          fields.forEach(f => {
+            b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+          })
         })
       })
-    })
+    }
   }
 
   return q
@@ -59,15 +62,15 @@ const entreprisesQueryBuild = (
 
 const entreprisesCount = async (
   {
-    nomSiren
+    noms
   }: {
-    nomSiren?: string | null
+    noms?: string | null
   },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = entreprisesQueryBuild({ nomSiren }, { fields }, user)
+  const q = entreprisesQueryBuild({ noms }, { fields }, user)
   if (!q) return 0
 
   const entreprises = ((await q) as unknown) as { total: number }[]
@@ -100,7 +103,7 @@ const entreprisesGet = async (
     intervalle?: number | null
     ordre?: 'asc' | 'desc' | null
     colonne?: IEntrepriseColonneId | null
-    noms?: string[] | null
+    noms?: string | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -110,26 +113,24 @@ const entreprisesGet = async (
     intervalle,
     ordre,
     colonne,
-    nomSiren
+    noms
   })
   const user = userId ? await userGet(userId) : undefined
 
-  const q = entreprisesQueryBuild({ nomSiren }, { fields }, user)
+  const q = entreprisesQueryBuild({ noms }, { fields }, user)
   if (!q) return []
 
-  if (noms) {
-    // const nomSirenArray = stringSplit(noms)
-    const fields = ['entreprises.id', 'entreprises.nom']
+  // if (noms) {
+  //   const fields = ['entreprises.id', 'entreprises.nom']
 
-    noms.forEach(s => {
-      q.where(b => {
-        fields.forEach(f => {
-          b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
-        })
-      })
-    })
-  }
-  // entreprisesParamsQueryBuild({ nomSiren }, q)
+  //   noms.forEach(s => {
+  //     q.where(b => {
+  //       fields.forEach(f => {
+  //         b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
+  //       })
+  //     })
+  //   })
+  // }
 
   if (colonne) {
     q.orderBy(`entreprises.${colonne}`, ordre || 'asc')
@@ -144,11 +145,6 @@ const entreprisesGet = async (
   if (intervalle) {
     q.limit(intervalle)
   }
-
-  writeFileSync(
-    'src/database/queries/testEntreprises.sql',
-    q.toKnexQuery().toString()
-  )
 
   return q
 }
