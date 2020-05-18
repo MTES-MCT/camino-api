@@ -400,10 +400,23 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {},
+      {
+        fields: {
+          type: { id: {} },
+          demarches: {
+            etapes: {
+              points: { references: { id: {} } },
+              incertitudes: { id: {} }
+            },
+            phase: { id: {} },
+          },
+          activites: { id: {} }
+        }
+      },
       'super'
     )
 
+    // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate(titres)
 
     console.info()
