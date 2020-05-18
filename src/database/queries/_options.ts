@@ -253,11 +253,13 @@ const titres = {
     administrationsGestionnaires.${administrations.graph},
     administrationsLocales.${administrations.graph},
     demarches(orderDesc).${demarches.graph},
-    surfaceEtape,
     communes.${communes.graph},
     activites(orderDesc).${titresActivites.graph},
     references(orderAsc).type
-  ]`,
+   ]`,
+  // ne pas récupèrer la relation `surfaceEtape`
+  // car dans le cas d'une mise à jour d'id
+  // cette relation écrase `surfaceTitreEtapeId` contenu dans le titre mis à jour
 
   update: {
     relate: titresRelateTrue,

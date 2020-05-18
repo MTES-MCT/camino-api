@@ -400,19 +400,7 @@ const run = async () => {
         territoires: null,
         typesIds: null
       },
-      {
-        fields: {
-          type: { id: {} },
-          demarches: {
-            etapes: {
-              points: { references: { id: {} } },
-              incertitudes: { id: {} }
-            },
-            phase: { id: {} },
-          },
-          activites: { id: {} }
-        }
-      },
+      {},
       'super'
     )
 

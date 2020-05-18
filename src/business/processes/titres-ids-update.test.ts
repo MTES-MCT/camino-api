@@ -12,6 +12,7 @@ import {
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreIdUpdate, titreGet } from '../../database/queries/titres'
 import titreIdFind from '../utils/titre-id-find'
+import { titreFichiersRename } from './titre-fichiers-rename'
 
 jest.mock('../utils/titre-id-and-relations-update', () => ({
   __esModule: true,
@@ -37,6 +38,7 @@ const titreIdAndRelationsUpdateMock = mocked(titreIdAndRelationsUpdate, true)
 const titreGetMock = mocked(titreGet, true)
 const titreIdUpdateMock = mocked(titreIdUpdate, true)
 const titreIdFindMock = mocked(titreIdFind, true)
+const titreFichiersRenameMock = mocked(titreFichiersRename, true)
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -242,6 +244,28 @@ describe('id de plusieurs titres', () => {
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
     expect(console.info).toHaveBeenCalledTimes(1)
+  })
+
+  test('continue le processus si le renommage de fichiers retourne une erreur', async () => {
+    const id = 'id-new-fichier'
+
+    titreIdAndRelationsUpdateMock.mockReturnValue({
+      hasChanged: true,
+      titre: { id } as ITitre
+    })
+    titreFichiersRenameMock.mockRejectedValue(new Error('bim !'))
+
+    const titresIdsUpdatedIndex = await titresIdsUpdate([
+      { id, demarches: [{ id: 'id-old' }] }
+    ] as ITitre[])
+
+    expect(Object.keys(titresIdsUpdatedIndex).length).toEqual(1)
+    expect(titresIdsUpdatedIndex).toEqual({ 'id-new-fichier': 'id-new-fichier' })
+
+    expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
+    expect(titreIdUpdateMock).toHaveBeenCalled()
+    expect(console.info).toHaveBeenCalled()
+    expect(console.error).toHaveBeenCalled()
   })
 
   test('retourne une erreur si la base de données retourne une erreur', async () => {
