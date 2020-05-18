@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.37](https://github.com/MTES-MCT/camino-api/compare/v0.24.34...v0.24.37) (2020-05-18)
+
+
+### Features
+
+* **activités:** gère les paramètres d'url ([#375](https://github.com/MTES-MCT/camino-api/issues/375)) ([dfc6adf](https://github.com/MTES-MCT/camino-api/commit/dfc6adf2eaee8d41981df1a4c33e66f983cf36ec))
+* **api:** expose le téléchargement des données ([#387](https://github.com/MTES-MCT/camino-api/issues/387)) ([e922d08](https://github.com/MTES-MCT/camino-api/commit/e922d087c67eb9724239e64ae7f8d7ef0f48e1f0))
+* **démarches:** filtre les démarches par nom de titres, titulaires, substances, etc. ([#385](https://github.com/MTES-MCT/camino-api/issues/385)) ([d24e553](https://github.com/MTES-MCT/camino-api/commit/d24e553659a2ab0cc2e323aa8494878751d4d6b4))
+* **démarches:** limite les types d'étapes selon les utilisateurs ([#382](https://github.com/MTES-MCT/camino-api/issues/382)) ([017520d](https://github.com/MTES-MCT/camino-api/commit/017520df23734f603e06ef0bbe3b99c12a63f2f9))
+* **documents:** masque temporairement aux entreprises les documents non publics ([#397](https://github.com/MTES-MCT/camino-api/issues/397)) ([12d2d3b](https://github.com/MTES-MCT/camino-api/commit/12d2d3b383cd084769b3d64c362424bb93eb594d))
+* **utilisateurs:** gère les paramètres d'url ([#388](https://github.com/MTES-MCT/camino-api/issues/388)) ([8547460](https://github.com/MTES-MCT/camino-api/commit/85474607e7b3b28d64d106c20227c423b93505e1))
+* **utilisateurs:** gère plusieurs emails dans les paramètres de filtrage ([#394](https://github.com/MTES-MCT/camino-api/issues/394)) ([8fbbeb1](https://github.com/MTES-MCT/camino-api/commit/8fbbeb16b7fdf5690cf4585a81de1ff063f68d75))
+
+
+### Bug Fixes
+
+* **activites:** affiche 0 résultat en mode déconnecté ([#384](https://github.com/MTES-MCT/camino-api/issues/384)) ([4961568](https://github.com/MTES-MCT/camino-api/commit/496156814c6525e83453689357875a1ed681691b))
+* **activites:** corrige l'export avec des paramètres de types et d'années ([#391](https://github.com/MTES-MCT/camino-api/issues/391)) ([986eb4d](https://github.com/MTES-MCT/camino-api/commit/986eb4da9913cd7617965f19c98bbf534e1844ef))
+* **activites:** corrige les paramètres d'édition ([ff9fc7b](https://github.com/MTES-MCT/camino-api/commit/ff9fc7b80ccdd658a52c45e9bcf32e606f21df5f))
+* **api:** corrige la création d'étape pour les renonciations ([6a2bda1](https://github.com/MTES-MCT/camino-api/commit/6a2bda1830d91413388d268ae139a276d0e5b75c))
+* **business:** prend en compte les démarches virtuelles pour le calcul de la publicité d'un titre ([925efdf](https://github.com/MTES-MCT/camino-api/commit/925efdf6a5adab16d341a12ff4cf41cb90ffb1c3))
+* **demarches:** corrige le bug sur le tri ([#396](https://github.com/MTES-MCT/camino-api/issues/396)) ([f86fad8](https://github.com/MTES-MCT/camino-api/commit/f86fad8ef0567677cf9f5b3c18d2c5900af667e8))
+* **demarches:** corrige le tri des démarches ([#392](https://github.com/MTES-MCT/camino-api/issues/392)) ([eca74be](https://github.com/MTES-MCT/camino-api/commit/eca74bebd45915e93e37f8393aae6faec6021584))
+* **demarches:** corrige les requêtes avec plusieurs étapes exclues ([cd506e5](https://github.com/MTES-MCT/camino-api/commit/cd506e56f2d8304ce26f24e02c10859829f22231))
+* **documents:** corrige l'enregistrement et la suppression de documents ([#395](https://github.com/MTES-MCT/camino-api/issues/395)) ([42bf1b3](https://github.com/MTES-MCT/camino-api/commit/42bf1b36cad789fe6ced89a2dc2b1d5d18ce7167))
+* **export:** corrige les exports xls, ods, csv et geojson ([#390](https://github.com/MTES-MCT/camino-api/issues/390)) ([f6149c7](https://github.com/MTES-MCT/camino-api/commit/f6149c794c86a87ce696ffb73e291e9fa332bf80))
+* **utilisateurs:** corrige le téléchargement xlsx ([#393](https://github.com/MTES-MCT/camino-api/issues/393)) ([9a39b64](https://github.com/MTES-MCT/camino-api/commit/9a39b649262b02a4d6e444157ef0e80dd7a5b502))
+
 ### [0.24.36](https://github.com/MTES-MCT/camino-api/compare/v0.24.35...v0.24.36) (2020-05-12)
 
 
