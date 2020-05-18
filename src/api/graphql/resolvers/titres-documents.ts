@@ -1,3 +1,5 @@
+import { ITitreDocument, IToken } from '../../../types'
+
 import { join } from 'path'
 import * as cryptoRandomString from 'crypto-random-string'
 
@@ -14,12 +16,11 @@ import {
   titreDocumentDelete
 } from '../../../database/queries/titres-documents'
 
-import { titreGet } from '../../../database/queries/titres'
+import { titreFromIdGet } from '../../../database/queries/titres'
 
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import titreDocumentUpdationValidate from '../../../business/titre-document-updation-validate'
-import { ITitreDocument, IToken } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 
@@ -80,17 +81,15 @@ const documentCreer = async (
 
     const fields = fieldsBuild(info)
 
-    // todo: récupérer le titre autrement qu'en SLICANT l'id
-    const titreId = documentUpdated.titreEtapeId.slice(0, -12)
-
-    const titreUpdated = await titreGet(
-      titreId,
-      { fields },
+    const titreUpdated = await titreFromIdGet(
+      documentUpdated.titreEtapeId,
+      'etape',
+      fields,
       user.id
     )
 
     if (!titreUpdated) {
-      throw new Error(`Le titre ${titreId} n'existe plus`)
+      throw new Error(`Erreur pour récupérer le titre du document`)
     }
 
     return titreFormat(user, titreUpdated)
@@ -158,14 +157,16 @@ const documentModifier = async (
 
     const fields = fieldsBuild(info)
 
-    // todo: récupérer le titre autrement qu'en SLICANT l'id
-    const titreId = documentUpdated.titreEtapeId.slice(0, -12)
-
-    const titreUpdated = await titreGet(
-      titreId,
-      { fields },
+    const titreUpdated = await titreFromIdGet(
+      documentUpdated.titreEtapeId,
+      'etape',
+      fields,
       user.id
     )
+
+    if (!titreUpdated) {
+      throw new Error(`Erreur pour récupérer le titre du document`)
+    }
 
     return titreFormat(user, titreUpdated)
   } catch (e) {
@@ -209,14 +210,16 @@ const documentSupprimer = async (
 
     const fields = fieldsBuild(info)
 
-    // todo: récupérer le titre autrement qu'en SLICANT l'id
-    const titreId = documentOld.titreEtapeId.slice(0, -12)
-
-    const titreUpdated = await titreGet(
-      titreId,
-      { fields },
+    const titreUpdated = await titreFromIdGet(
+      documentOld.titreEtapeId,
+      'etape',
+      fields,
       user.id
     )
+
+    if (!titreUpdated) {
+      throw new Error(`Erreur pour récupérer le titre du document`)
+    }
 
     return titreFormat(user, titreUpdated)
   } catch (e) {

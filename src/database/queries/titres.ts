@@ -93,6 +93,26 @@ const titreGet = async (
   return titre
 }
 
+const titreFromIdGet = async (
+  id: string,
+  element: 'etape',
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const q = titresQueryBuild({}, { fields }, user)
+
+  if (element === 'etape') {
+    q.joinRelated('demarches.etapes')
+    q.where('demarches:etapes.id', id)
+  }
+
+  const titre = (await q.first()) as ITitre
+
+  return titre
+}
+
 const titresColonnes = {
   nom: { id: 'nom' },
   domaine: { id: 'domaineId' },
@@ -228,6 +248,7 @@ const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
 
 export {
   titreGet,
+  titreFromIdGet,
   titresGet,
   titreUpdate,
   titreCreate,
