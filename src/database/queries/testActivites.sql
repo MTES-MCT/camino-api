@@ -1,1 +1,0 @@
-select "titres_activites".*, true as "modification" from "titres_activites" group by "titres_activites"."id" order by "titres_activites"."titre_id" asc limit 200

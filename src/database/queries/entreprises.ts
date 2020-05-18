@@ -91,7 +91,6 @@ const entrepriseGet = async (
 }
 
 const entreprisesGet = async (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   {
     page,
     intervalle,
@@ -108,32 +107,19 @@ const entreprisesGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  console.log('params', {
-    page,
-    intervalle,
-    ordre,
-    colonne,
-    noms
-  })
   const user = userId ? await userGet(userId) : undefined
 
   const q = entreprisesQueryBuild({ noms }, { fields }, user)
   if (!q) return []
 
-  // if (noms) {
-  //   const fields = ['entreprises.id', 'entreprises.nom']
-
-  //   noms.forEach(s => {
-  //     q.where(b => {
-  //       fields.forEach(f => {
-  //         b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
-  //       })
-  //     })
-  //   })
-  // }
-
-  if (colonne) {
-    q.orderBy(`entreprises.${colonne}`, ordre || 'asc')
+  // le tri sur la colonne 'siren' s'effectue sur le legal_siren ET le legal_etranger
+  if (colonne && colonne === 'siren') {
+    q.orderBy(
+      Objection.raw(
+        `CONCAT("entreprises"."legal_siren","entreprises"."legal_etranger")`
+      ),
+      ordre || 'asc'
+    )
   } else {
     q.orderBy('entreprises.nom', ordre || 'asc')
   }
