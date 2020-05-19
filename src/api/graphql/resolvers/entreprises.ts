@@ -78,9 +78,7 @@ const entreprises = async (
     )
 
     const total = await entreprisesCount(
-      {
-        noms
-      },
+      { noms },
       { fields: fields.activites },
       context.user?.id
     )
