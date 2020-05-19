@@ -44,8 +44,15 @@ const titreIdsUpdate = async (titre: ITitre) => {
     if (!update.hasChanged) return null
 
     titre = await titreIdCheck(titreOldId, update.titre)
+
     await titreIdUpdate(titreOldId, titre)
-    await titreFichiersRename(titreOldId, titre)
+
+    // on catch l'erreur pour ne pas interrompre le processus
+    try {
+      await titreFichiersRename(titreOldId, titre)
+    } catch (e) {
+      console.error(`erreur: renommage de fichiers ${titreOldId} -> ${titre.id}`)
+    }
 
     console.info(`mise à jour: titre ids: ${titre.id}`)
 

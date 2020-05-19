@@ -86,6 +86,7 @@ const titres = async (
         substances: { legales: { id: {} } },
         titulaires: { etablissements: { id: {} } },
         amodiataires: { etablissements: { id: {} } },
+        surfaceEtape: { id: {} },
         points: { id: {} },
         communes: { departement: { region: { pays: { id: {} } } } },
         administrationsLocales: { type: { id: {} } },

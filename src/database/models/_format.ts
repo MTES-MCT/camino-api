@@ -94,7 +94,6 @@ const titreInsertFormat = (json: Pojo) => {
   delete json.geojsonPoints
   delete json.pays
   delete json.surface
-  delete json.surfaceEtape
   delete json.contenu
   delete json.modification
   delete json.suppression
