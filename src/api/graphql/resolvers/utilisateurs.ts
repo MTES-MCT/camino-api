@@ -109,7 +109,7 @@ const utilisateurs = async (
         prenoms,
         emails
       },
-      { fields: fields.elements },
+      { fields: fields.utilisateurs },
       context.user?.id
     )
 
@@ -122,7 +122,7 @@ const utilisateurs = async (
         prenoms,
         emails
       },
-      { fields: fields.elements },
+      { fields: fields.utilisateurs },
       context.user?.id
     )
 
