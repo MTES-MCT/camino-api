@@ -14,11 +14,7 @@ import { stringSplit } from './_utils'
 import { raw } from 'objection'
 
 const entreprisesQueryBuild = (
-  {
-    noms
-  }: {
-    noms?: string | null
-  },
+  { noms }: { noms?: string | null },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
 ) => {
@@ -60,11 +56,7 @@ const entreprisesQueryBuild = (
 }
 
 const entreprisesCount = async (
-  {
-    noms
-  }: {
-    noms?: string | null
-  },
+  { noms }: { noms?: string | null },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
@@ -114,7 +106,10 @@ const entreprisesGet = async (
   // le tri sur la colonne 'siren' s'effectue sur le legal_siren ET le legal_etranger
   if (colonne && colonne === 'siren') {
     q.orderBy(
-      raw(`CONCAT("entreprises"."legal_siren","entreprises"."legal_etranger")`),
+      raw(`CONCAT(
+      "entreprises"."legal_siren",
+      "entreprises"."legal_etranger"
+      )`),
       ordre || 'asc'
     )
   } else {
