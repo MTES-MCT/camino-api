@@ -19,15 +19,27 @@ import {
 } from './permissions/titres-activites'
 import { userGet } from './utilisateurs'
 import { raw } from 'objection'
+import { titresFiltersQueryBuild } from './_titres-filters'
+
 import Objection = require('objection')
 
 const titreActivitesQueryBuild = (
   {
     typesIds,
-    annees
+    annees,
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     typesIds?: string[] | null
     annees?: number[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -52,6 +64,19 @@ const titreActivitesQueryBuild = (
   if (annees) {
     q.whereIn('titresActivites.annee', annees)
   }
+
+  titresFiltersQueryBuild(
+    {
+      noms: titresNoms,
+      entreprises: titresEntreprises,
+      substances: titresSubstances,
+      references: titresReferences,
+      territoires: titresTerritoires
+    },
+    q,
+    'titre',
+    'titresActivites'
+  )
 
   return q
 }
@@ -103,6 +128,7 @@ const titresActivitesColonnes = {
     relation: 'titre.titulaires',
     groupBy: false
   },
+  annee: { id: 'annee' },
   periode: { id: 'frequencePeriodeId' },
   statut: { id: 'statutId' }
 } as Index<IColonne<string | Objection.RawBuilder>>
@@ -114,7 +140,12 @@ const titresActivitesGet = async (
     ordre,
     colonne,
     typesIds,
-    annees
+    annees,
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     page?: number | null
     intervalle?: number | null
@@ -122,13 +153,30 @@ const titresActivitesGet = async (
     colonne?: ITitreActiviteColonneId | null
     typesIds?: string[] | null
     annees?: number[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
   const user = await userGet(userId)
 
-  const q = titreActivitesQueryBuild({ typesIds, annees }, { fields }, user)
+  const q = titreActivitesQueryBuild(
+    {
+      typesIds,
+      annees,
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires
+    },
+    { fields },
+    user
+  )
   if (!q) return []
 
   if (colonne) {
@@ -157,17 +205,39 @@ const titresActivitesGet = async (
 const titresActivitesCount = async (
   {
     typesIds,
-    annees
+    annees,
+    titresNoms,
+    titresEntreprises,
+    titresSubstances,
+    titresReferences,
+    titresTerritoires
   }: {
     typesIds?: string[] | null
     annees?: number[] | null
+    titresNoms?: string | null
+    titresEntreprises?: string | null
+    titresSubstances?: string | null
+    titresReferences?: string | null
+    titresTerritoires?: string | null
   },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
   const user = await userGet(userId)
 
-  const q = titreActivitesQueryBuild({ typesIds, annees }, { fields }, user)
+  const q = titreActivitesQueryBuild(
+    {
+      typesIds,
+      annees,
+      titresNoms,
+      titresEntreprises,
+      titresSubstances,
+      titresReferences,
+      titresTerritoires
+    },
+    { fields },
+    user
+  )
   if (!q) return 0
 
   const titresActivites = ((await q) as unknown) as { total: number }[]
