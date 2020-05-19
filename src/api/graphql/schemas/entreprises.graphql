@@ -4,7 +4,6 @@ type Entreprises {
   page: Int
   colonne: String
   ordre: String
-  noms: String
   total: Int
 }
 

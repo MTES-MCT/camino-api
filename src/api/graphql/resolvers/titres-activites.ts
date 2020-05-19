@@ -132,6 +132,7 @@ const activites = async (
       page,
       intervalle,
       ordre,
+      colonne,
       total
     }
   } catch (e) {

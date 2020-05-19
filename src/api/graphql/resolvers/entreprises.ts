@@ -93,7 +93,6 @@ const entreprises = async (
       intervalle,
       ordre,
       colonne,
-      noms,
       total
     }
   } catch (e) {
