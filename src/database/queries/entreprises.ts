@@ -48,7 +48,7 @@ const entreprisesQueryBuild = (
       q.groupBy('entreprises.id')
 
       nomsArray.forEach(s => {
-        q.where((b: Objection.QueryBuilder<Entreprises, Entreprises[]>) => {
+        q.where(b => {
           fields.forEach(f => {
             b.orWhereRaw(`lower(??) like ?`, [f, `%${s.toLowerCase()}%`])
           })
