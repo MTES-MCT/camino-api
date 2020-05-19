@@ -107,8 +107,8 @@ const entreprisesGet = async (
   if (colonne && colonne === 'siren') {
     q.orderBy(
       raw(`CONCAT(
-      "entreprises"."legal_siren",
-      "entreprises"."legal_etranger"
+        "entreprises"."legal_siren",
+        "entreprises"."legal_etranger"
       )`),
       ordre || 'asc'
     )
