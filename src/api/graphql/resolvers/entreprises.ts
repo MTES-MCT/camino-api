@@ -90,7 +90,7 @@ const entreprises = async (
     const user = context.user && (await userGet(context.user.id))
 
     return {
-      entreprises: entreprises.map(e => entrepriseFormat(user, e)),
+      elements: entreprises.map(e => entrepriseFormat(user, e)),
       total
     }
   } catch (e) {

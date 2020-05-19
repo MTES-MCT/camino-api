@@ -126,7 +126,7 @@ const activites = async (
     if (!titresActivites.length) return { activites: [], total: 0 }
 
     return {
-      activites: titresActivites.map(ta =>
+      elements: titresActivites.map(ta =>
         titreActiviteFormat(ta, fields.activites)
       ),
       total
