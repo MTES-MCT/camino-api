@@ -105,7 +105,7 @@ const activites = async (
         titresReferences,
         titresTerritoires
       },
-      { fields: fields.activites },
+      { fields: fields.elements },
       context.user?.id
     )
 
@@ -119,7 +119,7 @@ const activites = async (
         titresReferences,
         titresTerritoires
       },
-      { fields: fields.activites },
+      { fields: fields.elements },
       context.user?.id
     )
 
