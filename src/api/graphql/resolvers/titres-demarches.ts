@@ -142,6 +142,10 @@ const demarches = async (
 
     return {
       elements: demarchesFormatted,
+      page,
+      intervalle,
+      ordre,
+      colonne,
       total
     }
   } catch (e) {

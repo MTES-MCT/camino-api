@@ -360,15 +360,16 @@ const utilisateurs = async (
 
 interface IEntreprisesQueryInput {
   format?: IFormat
+  noms?: string | null
 }
 
 const entreprises = async (
-  { format = 'json' }: IEntreprisesQueryInput,
+  { format = 'json', noms }: IEntreprisesQueryInput,
   userId?: string
 ) => {
   formatCheck(['json', 'csv', 'xlsx', 'ods'], format)
 
-  const entreprises = await entreprisesGet({}, {}, userId)
+  const entreprises = await entreprisesGet({ noms }, {}, userId)
 
   const user = userId ? await userGet(userId) : undefined
 

@@ -126,9 +126,14 @@ const utilisateurs = async (
       context.user?.id
     )
 
-    if (!utilisateurs.length) return { utilisateurs: [], total: 0 }
-
-    return { utilisateurs: utilisateurs.map(utilisateurFormat), total }
+    return {
+      elements: utilisateurs.map(utilisateurFormat),
+      page,
+      intervalle,
+      ordre,
+      colonne,
+      total
+    }
   } catch (e) {
     if (debug) {
       console.error(e)

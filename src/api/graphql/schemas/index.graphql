@@ -154,7 +154,13 @@ type Query {
   entreprise(id: ID!): Entreprise
 
   "Liste des entreprises"
-  entreprises: [Entreprise]
+  entreprises(
+    intervalle: Int
+    page: Int
+    colonne: String
+    ordre: String
+    noms: String
+  ): Entreprises
 
   "Administration en fonction de son id"
   administration(id: ID!): Administration

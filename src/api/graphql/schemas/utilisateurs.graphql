@@ -1,5 +1,9 @@
 type Utilisateurs {
-  utilisateurs: [Utilisateur]
+  elements: [Utilisateur]
+  intervalle: Int
+  page: Int
+  colonne: String
+  ordre: String
   total: Int
 }
 
