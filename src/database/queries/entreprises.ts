@@ -11,8 +11,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
 import { stringSplit } from './_utils'
-
-import Objection = require('objection')
+import { raw } from 'objection'
 
 const entreprisesQueryBuild = (
   {
@@ -115,9 +114,7 @@ const entreprisesGet = async (
   // le tri sur la colonne 'siren' s'effectue sur le legal_siren ET le legal_etranger
   if (colonne && colonne === 'siren') {
     q.orderBy(
-      Objection.raw(
-        `CONCAT("entreprises"."legal_siren","entreprises"."legal_etranger")`
-      ),
+      raw(`CONCAT("entreprises"."legal_siren","entreprises"."legal_etranger")`),
       ordre || 'asc'
     )
   } else {
