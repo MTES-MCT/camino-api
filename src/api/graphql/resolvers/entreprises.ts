@@ -91,6 +91,11 @@ const entreprises = async (
 
     return {
       elements: entreprises.map(e => entrepriseFormat(user, e)),
+      page,
+      intervalle,
+      ordre,
+      colonne,
+      noms,
       total
     }
   } catch (e) {

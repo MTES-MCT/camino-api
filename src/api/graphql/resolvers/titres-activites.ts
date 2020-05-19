@@ -129,6 +129,9 @@ const activites = async (
       elements: titresActivites.map(ta =>
         titreActiviteFormat(ta, fields.activites)
       ),
+      page,
+      intervalle,
+      ordre,
       total
     }
   } catch (e) {
