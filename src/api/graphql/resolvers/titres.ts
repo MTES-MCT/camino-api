@@ -113,6 +113,10 @@ const titres = async (
 
     return {
       elements: titresFormatted,
+      page,
+      intervalle,
+      ordre,
+      colonne,
       total: null
     }
   } catch (e) {
