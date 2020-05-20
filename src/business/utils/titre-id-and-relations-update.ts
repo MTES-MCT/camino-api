@@ -52,6 +52,11 @@ const titreRelation = {
               path: []
             },
             {
+              name: 'titre',
+              contenus: ['propsTitreEtapesIds'],
+              path: []
+            },
+            {
               name: 'points',
               props: ['id', 'titreEtapeId'],
               relations: [

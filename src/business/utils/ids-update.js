@@ -32,10 +32,34 @@ const idsUpdate = (
   // met à jour les propriétés
   if (relation.props && parent) {
     relation.props.forEach(prop => {
-      if (element[prop] && element[prop].match(parentOldId)) {
-        const elementOldProp = element[prop]
-        element[prop] = elementOldProp.replace(parentOldId, parent.id)
-      }
+      const elementPropOld = element[prop]
+
+      if (!elementPropOld || !elementPropOld.match(parentOldId)) return
+
+      const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
+
+      element[prop] = elementPropNew
+    })
+  }
+
+  // met à jour les contenus s'ils font référence à des ids
+  if (relation.contenus && parent) {
+    relation.contenus.forEach(prop => {
+      if (!element[prop]) return
+
+      Object.keys(element[prop]).forEach(section => {
+        if (!element[prop][section]) return
+
+        Object.keys(element[prop][section]).forEach(elementId => {
+          const elementPropOld = element[prop][section][elementId]
+
+          if (!elementPropOld || !elementPropOld.match(parentOldId)) return
+
+          const elementPropNew = elementPropOld.replace(parentOldId, parent.id)
+
+          element[prop][section][elementId] = elementPropNew
+        })
+      })
     })
   }
 
