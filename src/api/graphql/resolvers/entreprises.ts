@@ -160,7 +160,8 @@ const entrepriseCreer = async (
 
 const entrepriseModifier = async (
   { entreprise }: { entreprise: IEntreprise },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
@@ -179,7 +180,15 @@ const entrepriseModifier = async (
       throw new Error(errors.join(', '))
     }
 
-    const entrepriseNew = await entrepriseUpsert(entreprise)
+    const entrepriseUpserted = await entrepriseUpsert(entreprise)
+
+    const fields = fieldsBuild(info)
+
+    const entrepriseNew = await entrepriseGet(
+      entrepriseUpserted.id,
+      { fields },
+      context.user?.id
+    )
 
     return entrepriseNew
   } catch (e) {
