@@ -123,7 +123,7 @@ const activites = async (
       context.user?.id
     )
 
-    if (!titresActivites.length) return { activites: [], total: 0 }
+    if (!titresActivites.length) return { elements: [], total: 0 }
 
     return {
       elements: titresActivites.map(ta =>

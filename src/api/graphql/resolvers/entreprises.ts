@@ -83,7 +83,7 @@ const entreprises = async (
       context.user?.id
     )
 
-    if (!entreprises.length) return { entreprises: [], total: 0 }
+    if (!entreprises.length) return { elements: [], total: 0 }
 
     const user = context.user && (await userGet(context.user.id))
 
