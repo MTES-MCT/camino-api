@@ -344,7 +344,7 @@ const activitesTypesPermissionQueryBuild = (
       )
     })
   } else if (!permissionCheck(user, ['super'])) {
-    q.limit(0)
+    q.where(false)
   }
 }
 

@@ -46,7 +46,7 @@ const utilisateursPermissionQueryBuild = (
     q.where('id', user.id)
   } else if (!user) {
     // un utilisateur non-authentifié ne voit aucun utilisateur
-    q.limit(0)
+    q.where(false)
   }
 
   if (permissionCheck(user, ['super'])) {
