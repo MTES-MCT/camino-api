@@ -1,28 +1,27 @@
 import {
   ITitreActivite,
   IContenu,
+  IContenuValeur,
   ISection,
   Index
 } from '../../../types'
 
 const titreActiviteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
-  sections.reduce((resSections: Index<string>, section) => {
+  sections.reduce((resSections: Index<IContenuValeur>, section) => {
     const r = section.elements!.reduce(
-      (resElements: Index<string>, element) => {
-        if (
-          !contenu[section.id] ||
-          contenu[section.id][element.id] === undefined
-        ) {
-          resElements[`${section.id}_${element.id}`] = ''
+      (resElements: Index<IContenuValeur>, element) => {
+        const key = `${section.id}_${element.id}`
+        const value = contenu[section.id]
+          ? contenu[section.id][element.id]
+          : undefined
 
-          return resElements
+        if (value === undefined) {
+          resElements[key] = element.type === 'number' ? 0 : ''
+        } else {
+          resElements[key] = Array.isArray(value)
+            ? (value as string[]).join(';')
+            : value
         }
-
-        resElements[`${section.id}_${element.id}`] = Array.isArray(
-          contenu[section.id][element.id]
-        )
-          ? (contenu[section.id][element.id] as string[]).join(';')
-          : JSON.stringify(contenu[section.id][element.id])
 
         return resElements
       },
