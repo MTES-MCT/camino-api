@@ -99,7 +99,7 @@ const titreActivitesCalc = (
           )
         })
       } else {
-        titresActivitesCountQuery.limit(0)
+        titresActivitesCountQuery.where(false)
       }
     }
 
@@ -181,7 +181,7 @@ const titreActivitePermissionQueryBuild = (
       })
     } else {
       // sinon, aucune activité n'est visible
-      q.limit(0)
+      q.where(false)
     }
   }
 
