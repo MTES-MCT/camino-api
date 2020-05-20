@@ -128,10 +128,9 @@ La documentation [est disponible ici](https://github.com/MTES-MCT/camino-api/tre
 └── src                  # `fichiers sources. Transformés avec npm run build.`
     ├── index            # `point d'entrée`
     │
-    ├── api              # `API graphql`
-    │   ├── resolvers    # `liens entre l'API et la base de données`
-    │   ├── schemas      # `description des nœuds de l'API`
-    │   └── types        # `types graphQl customs`
+    ├── api              # `APIs`
+    │   ├── graphql      # `API GraphQL`
+    │   └── rest         # `API Rest`
     │
     ├── config           #
     │   ├── index        # `variables globales`

@@ -9,7 +9,7 @@ import {
   activites,
   utilisateurs,
   entreprises
-} from '../api/rest/flux'
+} from '../api/rest'
 import { IAuthRequest } from './_types'
 
 const contentTypeCreate = (format: IFormat) => {
