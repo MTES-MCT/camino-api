@@ -175,7 +175,7 @@ const tables = [
       'typeId',
       'jorf',
       'nor',
-      'nom',
+      'description',
       'url',
       'uri',
       'fichier',

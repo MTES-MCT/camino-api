@@ -40,7 +40,7 @@ type Document {
 input InputDocumentCreation {
   titreEtapeId: ID!
   typeId: ID!
-  nom: String
+  description: String
   url: String
   uri: String
   fichier: Boolean
@@ -55,7 +55,7 @@ input InputDocumentModification {
   id: ID!
   titreEtapeId: ID!
   typeId: ID!
-  nom: String
+  description: String
   url: String
   uri: String
   fichier: Boolean
