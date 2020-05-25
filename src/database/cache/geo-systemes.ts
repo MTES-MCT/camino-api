@@ -1,12 +1,14 @@
 import { IGeoSysteme } from '../../types'
 import { geoSystemesGet } from '../queries/metas'
 
-let geoSystemes = [] as IGeoSysteme[]
-
-const geoSystemesInit = async () => {
-  geoSystemes = await geoSystemesGet()
+const geo = {
+  systemes: [] as IGeoSysteme[]
 }
 
-export default geoSystemes
+const geoSystemesInit = async () => {
+  geo.systemes = await geoSystemesGet()
+}
+
+export default geo
 
 export { geoSystemesInit }
