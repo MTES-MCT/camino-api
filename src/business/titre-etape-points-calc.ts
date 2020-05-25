@@ -1,6 +1,6 @@
 import { ITitrePoint, ITitrePointReference, ICoordonnees } from '../types'
 import geoConvert from '../tools/geo-convert'
-import geoSystemes from '../database/cache/geo-systemes'
+import geo from '../database/cache/geo-systemes'
 
 const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
   const uniteRatio = uniteRatioFind(pointReferenceFind(titrePoints))
@@ -27,7 +27,7 @@ const pointReferenceFind = (points: ITitrePoint[]) =>
 const uniteRatioFind = (pointReference: ITitrePointReference | 0) => {
   if (!pointReference || !pointReference.geoSystemeId) return 1
 
-  const geoSysteme = geoSystemes.find(
+  const geoSysteme = geo.systemes.find(
     ({ id }) => pointReference.geoSystemeId === id
   )
 

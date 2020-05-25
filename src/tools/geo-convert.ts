@@ -1,12 +1,10 @@
 // converti les coordoonnées géo
 import * as proj4 from 'proj4'
-import { geoSystemesGet } from '../database/queries/metas'
+import geo from '../database/cache/geo-systemes'
 
 const geoConvertInit = async () => {
-  const geoSystemes = await geoSystemesGet()
-
   proj4.defs(
-    geoSystemes.map(geoSysteme => [
+    geo.systemes.map(geoSysteme => [
       `EPSG:${geoSysteme.id}`,
       geoSysteme.definitionProj4
     ])
