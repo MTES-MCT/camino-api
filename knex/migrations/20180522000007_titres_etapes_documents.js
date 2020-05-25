@@ -11,7 +11,7 @@ exports.up = knex => {
       .string('typeId', 3)
       .references('documentsTypes.id')
       .notNullable()
-    table.string('nom', 1024)
+    table.string('description', 1024)
     table.boolean('fichier')
     table.string('fichierTypeId', 3)
     table.string('jorf', 32)

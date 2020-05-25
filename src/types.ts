@@ -546,7 +546,7 @@ interface ITitreDocument {
   nor?: string | null
   url?: string | null
   uri?: string | null
-  nom?: string | null
+  description?: string | null
   fichier?: boolean | null
   fichierTypeId?: string | null
   fichierNouveau?: { file: FileUpload } | null

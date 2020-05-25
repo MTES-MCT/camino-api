@@ -18,7 +18,7 @@ class TitresDocuments extends Model {
       nor: { type: ['string', 'null'] },
       url: { type: ['string', 'null'] },
       uri: { type: ['string', 'null'] },
-      nom: { type: ['string', 'null'] },
+      description: { type: ['string', 'null'] },
       fichier: { type: ['boolean', 'null'] },
       fichierTypeId: { type: ['string', 'null'] },
       public: { type: ['boolean', 'null'] }
@@ -53,7 +53,6 @@ class TitresDocuments extends Model {
 
     return json
   }
-
 
   public $parseJson(json: Pojo) {
     json = super.$parseJson(json)

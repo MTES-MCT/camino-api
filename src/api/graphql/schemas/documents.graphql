@@ -7,8 +7,8 @@ type Document {
   """
   id: ID!
 
-  "Nom du document"
-  nom: String
+  "Description du document"
+  description: String
 
   "Type de document (arrêté, décret, etc.)"
   type: DocumentType
