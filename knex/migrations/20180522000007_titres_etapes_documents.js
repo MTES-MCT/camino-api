@@ -16,8 +16,8 @@ exports.up = knex => {
     table.string('fichierTypeId', 3)
     table.string('jorf', 32)
     table.string('nor', 32)
-    table.string('url')
-    table.string('uri')
+    table.string('url', 1024)
+    table.string('uri', 1024)
     table.boolean('public')
   })
 }
