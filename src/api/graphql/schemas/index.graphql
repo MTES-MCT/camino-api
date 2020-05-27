@@ -178,6 +178,9 @@ type Query {
   statistiques: Statistiques
 
   documents(entreprisesIds: [ID!]): [Document]
+
+  "Définitions et descriptions"
+  definitions: [Definition]
 }
 
 """

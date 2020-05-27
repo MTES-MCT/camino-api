@@ -206,6 +206,16 @@ type DocumentVisibilite {
   nom: String!
 }
 
+"Définitions et descriptions"
+type Definition {
+  id: ID!
+  nom: String!
+  table: String
+  description: String
+  couleur: String
+  elements: [Definition]
+}
+
 """
 Liste de couleurs génériques
 """

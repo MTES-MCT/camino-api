@@ -20,6 +20,8 @@ import {
   unitesGet,
   activitesTypesGet,
   activitesStatutsGet
+  definitionsGet,
+  etapesStatutsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -349,6 +351,57 @@ const activitesStatuts = async () => {
 
     throw e
   }
+const definitions = async (context: IToken) => {
+  const definitions = await definitionsGet()
+
+  const definitionsFormated = definitions.map(async d => {
+    if (d.table) {
+      let elements
+
+      if (d.table === 'domaines') {
+        elements = await domainesGet(
+          null as never,
+          { fields: { id: {} } },
+          context.user?.id
+        )
+      }
+      if (d.table === 'titres_types_types') {
+        elements = await titresTypesTypesGet()
+      }
+      if (d.table === 'titres_statuts') {
+        elements = await titresStatutsGet()
+      }
+      if (d.table === 'demarches_types') {
+        elements = await demarchesTypesGet(
+          { titreId: undefined, titreDemarcheId: undefined },
+          { fields: { id: {} } },
+          context.user?.id
+        )
+      }
+      if (d.table === 'demarches_statuts') {
+        elements = await demarchesStatutsGet()
+      }
+      if (d.table === 'etapes_types') {
+        elements = await etapesTypesGet(
+          {
+            titreDemarcheId: undefined,
+            titreEtapeId: undefined
+          },
+          { fields: { id: {} } },
+          context.user?.id
+        )
+      }
+      if (d.table === 'etapes_statuts') {
+        elements = await etapesStatutsGet()
+      }
+
+      d.elements = elements
+    }
+
+    return d
+  })
+
+  return definitionsFormated
 }
 
 export {
@@ -368,5 +421,6 @@ export {
   unites,
   version,
   activitesTypes,
-  activitesStatuts
+  activitesStatuts,
+  definitions
 }

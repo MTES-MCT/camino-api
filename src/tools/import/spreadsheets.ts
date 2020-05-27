@@ -134,6 +134,7 @@ const metas = {
   name: 'metas',
   id: metasSpreadsheetId,
   tables: [
+    { name: 'definitions' },
     { name: 'domaines' },
     { name: 'titres_types', cb: { props_etapes_types: JSON.parse } },
     { name: 'titres_types_types' },
