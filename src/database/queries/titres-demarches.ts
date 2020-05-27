@@ -321,7 +321,7 @@ const titreDemarcheUpdate = async (
 
 const titreDemarcheUpsert = async (
   titreDemarche: ITitreDemarche,
-  trx: Transaction
+  trx?: Transaction
 ) =>
   TitresDemarches.query(trx)
     .upsertGraph(titreDemarche, options.demarches.update)
