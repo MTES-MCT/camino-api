@@ -92,6 +92,7 @@ type Query {
     ordre: String
     typesIds: [ID]
     annees: [Int]
+    statutsIds: [ID]
     titresNoms: String
     titresEntreprises: String
     titresSubstances: String
@@ -104,6 +105,9 @@ type Query {
 
   "Types d'activités"
   activitesTypes: [ActiviteType]
+
+  "Statuts des rapports d'activités"
+  activitesStatuts: [ActiviteStatut]
 
   "Types de démarches"
   demarchesTypes(titreId: ID, titreDemarcheId: ID): [DemarcheType]

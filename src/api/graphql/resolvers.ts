@@ -59,7 +59,8 @@ import {
   types,
   unites,
   version,
-  activitesTypes
+  activitesTypes,
+  activitesStatuts
 } from './resolvers/metas'
 
 import { substance, substances } from './resolvers/substances'
@@ -115,6 +116,7 @@ export default {
   activites,
   activitesAnnees,
   activitesTypes,
+  activitesStatuts,
 
   // mutations
   titreCreer,

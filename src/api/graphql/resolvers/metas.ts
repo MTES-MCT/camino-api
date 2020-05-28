@@ -18,7 +18,8 @@ import {
   titresStatutsGet,
   titresTypesTypesGet,
   unitesGet,
-  activitesTypesGet
+  activitesTypesGet,
+  activitesStatutsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -285,6 +286,29 @@ const activitesTypes = async (
   }
 }
 
+const activitesStatuts = async (
+  _: never,
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const fields = fieldsBuild(info)
+
+    const activitesStatuts = await activitesStatutsGet(
+      { fields },
+      context.user?.id
+    )
+
+    return activitesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -300,5 +324,6 @@ export {
   types,
   unites,
   version,
-  activitesTypes
+  activitesTypes,
+  activitesStatuts
 }

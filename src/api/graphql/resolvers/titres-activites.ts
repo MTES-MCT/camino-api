@@ -63,7 +63,8 @@ const activites = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    statutsIds
   }: {
     page?: number | null
     intervalle?: number | null
@@ -76,6 +77,7 @@ const activites = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    statutsIds?: string[] | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -103,7 +105,8 @@ const activites = async (
         titresEntreprises,
         titresSubstances,
         titresReferences,
-        titresTerritoires
+        titresTerritoires,
+        statutsIds
       },
       { fields: fields.elements },
       context.user?.id
@@ -117,7 +120,8 @@ const activites = async (
         titresEntreprises,
         titresSubstances,
         titresReferences,
-        titresTerritoires
+        titresTerritoires,
+        statutsIds
       },
       { fields: fields.elements },
       context.user?.id

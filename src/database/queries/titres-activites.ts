@@ -31,7 +31,8 @@ const titreActivitesQueryBuild = (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    statutsIds
   }: {
     typesIds?: string[] | null
     annees?: number[] | null
@@ -40,6 +41,7 @@ const titreActivitesQueryBuild = (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    statutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -63,6 +65,10 @@ const titreActivitesQueryBuild = (
 
   if (annees) {
     q.whereIn('titresActivites.annee', annees)
+  }
+
+  if (statutsIds) {
+    q.whereIn('titresActivites.statutId', statutsIds)
   }
 
   titresFiltersQueryBuild(
@@ -145,7 +151,8 @@ const titresActivitesGet = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    statutsIds
   }: {
     page?: number | null
     intervalle?: number | null
@@ -158,6 +165,7 @@ const titresActivitesGet = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    statutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -172,7 +180,8 @@ const titresActivitesGet = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      statutsIds
     },
     { fields },
     user
@@ -210,7 +219,8 @@ const titresActivitesCount = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    statutsIds
   }: {
     typesIds?: string[] | null
     annees?: number[] | null
@@ -219,6 +229,7 @@ const titresActivitesCount = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    statutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -233,7 +244,8 @@ const titresActivitesCount = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      statutsIds
     },
     { fields },
     user
