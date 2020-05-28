@@ -17,7 +17,6 @@ import * as express from 'express'
 
 import './database/index'
 
-import { download } from './server/download'
 import { rest } from './server/rest'
 import { graphql } from './server/graphql'
 import { authJwt } from './server/auth-jwt'
@@ -45,7 +44,6 @@ app.use(
   authJwt,
   authBasic
 )
-app.get('/documents/:fileName', download)
 app.use(rest)
 app.use('/', upload, graphql)
 

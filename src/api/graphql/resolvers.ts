@@ -19,7 +19,7 @@ import {
   documentCreer,
   documentModifier,
   documentSupprimer
-} from './resolvers/titres-documents'
+} from './resolvers/documents'
 
 import {
   demarches,

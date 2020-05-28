@@ -1,4 +1,4 @@
-import { ITitreDocument, IToken } from '../../../types'
+import { IDocument, IToken } from '../../../types'
 
 import { join } from 'path'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -10,21 +10,21 @@ import { permissionCheck } from '../../../tools/permission'
 import { titreFormat } from '../../_format/titres'
 
 import {
-  titreDocumentGet,
-  titreDocumentCreate,
-  titreDocumentUpdate,
-  titreDocumentDelete
-} from '../../../database/queries/titres-documents'
+  documentGet,
+  documentCreate,
+  documentUpdate,
+  documentDelete
+} from '../../../database/queries/documents'
 
 import { titreFromIdGet } from '../../../database/queries/titres'
 
 import { userGet } from '../../../database/queries/utilisateurs'
 
-import titreDocumentUpdationValidate from '../../../business/titre-document-updation-validate'
+import DocumentUpdationValidate from '../../../business/titre-document-updation-validate'
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 
-const documentValidate = (document: ITitreDocument) => {
+const documentValidate = (document: IDocument) => {
   const errors = []
 
   if (!document.typeId) {
@@ -39,7 +39,7 @@ const documentValidate = (document: ITitreDocument) => {
 }
 
 const documentCreer = async (
-  { document }: { document: ITitreDocument },
+  { document }: { document: IDocument },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -51,7 +51,7 @@ const documentCreer = async (
 
     const errors = documentValidate(document)
 
-    const rulesErrors = await titreDocumentUpdationValidate(document)
+    const rulesErrors = await DocumentUpdationValidate(document)
 
     if (errors.length || rulesErrors.length) {
       const e = errors.concat(rulesErrors)
@@ -77,7 +77,7 @@ const documentCreer = async (
 
     delete document.fichierNouveau
 
-    const documentUpdated = await titreDocumentCreate(document)
+    const documentUpdated = await documentCreate(document)
 
     const fields = fieldsBuild(info)
 
@@ -103,7 +103,7 @@ const documentCreer = async (
 }
 
 const documentModifier = async (
-  { document }: { document: ITitreDocument },
+  { document }: { document: IDocument },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -115,7 +115,7 @@ const documentModifier = async (
     }
 
     const errors = documentValidate(document)
-    const rulesErrors = await titreDocumentUpdationValidate(document)
+    const rulesErrors = await DocumentUpdationValidate(document)
 
     if (errors.length || rulesErrors.length) {
       const e = errors.concat(rulesErrors)
@@ -123,7 +123,7 @@ const documentModifier = async (
     }
 
     if (document.fichierNouveau || !document.fichier) {
-      const documentOld = await titreDocumentGet(document.id)
+      const documentOld = await documentGet(document.id, {}, user.id)
 
       if (!documentOld) {
         throw new Error('aucun document avec cette id')
@@ -153,7 +153,7 @@ const documentModifier = async (
 
     delete document.fichierNouveau
 
-    const documentUpdated = await titreDocumentUpdate(document.id, document)
+    const documentUpdated = await documentUpdate(document.id, document)
 
     const fields = fieldsBuild(info)
 
@@ -190,7 +190,7 @@ const documentSupprimer = async (
       throw new Error('droits insuffisants')
     }
 
-    const documentOld = await titreDocumentGet(id)
+    const documentOld = await documentGet(id)
 
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
@@ -206,7 +206,7 @@ const documentSupprimer = async (
       }
     }
 
-    await titreDocumentDelete(id)
+    await documentDelete(id)
 
     const fields = fieldsBuild(info)
 

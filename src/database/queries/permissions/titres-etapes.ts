@@ -3,10 +3,10 @@ import { IUtilisateur } from '../../../types'
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
-import TitresDocuments from '../../models/titres-documents'
+import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
 
-import { titreDocumentsPermissionQueryBuild } from './titres-documents'
+import { documentsPermissionQueryBuild } from './documents'
 import { etapesTypesModificationQueryBuild } from './metas'
 
 const titreEtapesPermissionQueryBuild = (
@@ -117,9 +117,16 @@ const titreEtapesPermissionQueryBuild = (
     q.select(raw('false').as('suppression'))
   }
 
-  q.modifyGraph('documents', td => {
-    titreDocumentsPermissionQueryBuild(
-      td as QueryBuilder<TitresDocuments, TitresDocuments | TitresDocuments[]>,
+  q.modifyGraph('documents', ed => {
+    documentsPermissionQueryBuild(
+      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      user
+    )
+  })
+
+  q.modifyGraph('justificatifs', ed => {
+    documentsPermissionQueryBuild(
+      ed as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })

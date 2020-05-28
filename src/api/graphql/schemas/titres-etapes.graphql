@@ -58,6 +58,9 @@ type Etape {
   "Documents relatifs à l'étape"
   documents: [Document]
 
+  "Justificatifs d'entreprises relatifs à l'étape"
+  justificatifs: [Document]
+
   incertitudes: Incertitudes
 
   contenu: Json

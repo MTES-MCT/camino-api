@@ -168,7 +168,7 @@ const tables = [
   },
   {
     id: 9,
-    name: 'titresDocuments',
+    name: 'titresEtapesJustificatifs',
     columns: [
       'id',
       'titreEtapeId',
@@ -182,7 +182,7 @@ const tables = [
       'fichierTypeId',
       'public'
     ],
-    parents: ['demarches', 'etapes', 'documents']
+    parents: ['demarches', 'etapes', 'justificatifs']
   },
   {
     id: 10,

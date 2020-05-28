@@ -78,6 +78,19 @@ class Entreprises extends Model {
         },
         to: 'titres.amodiatairesTitreEtapeId'
       }
+    },
+
+    documents: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'documents'),
+      join: {
+        from: 'entreprises.id',
+        through: {
+          from: 'entreprisesDocuments.entrepriseId',
+          to: 'entreprisesDocuments.documentId'
+        },
+        to: 'documents.id'
+      }
     }
   }
 

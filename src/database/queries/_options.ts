@@ -78,12 +78,16 @@ const etapesRelateTrue = [
   'communes.departement.region.pays'
 ]
 
+const documents = {
+  graph: 'type'
+}
+
 const etapes = {
   graph: `[
     points(orderAsc).${points.graph},
     type,
     statut,
-    documents,
+    documents.${documents.graph},
     substances(orderAsc).${substances.graph},
     titulaires.${entreprises.graph},
     amodiataires.${entreprises.graph},
@@ -276,6 +280,7 @@ export default {
   administrations,
   communes,
   demarches,
+  documents,
   entreprises,
   entreprisesEtablissements,
   etapes,

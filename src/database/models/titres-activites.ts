@@ -68,6 +68,15 @@ class TitresActivites extends Model {
         from: 'titresActivites.utilisateurId',
         to: 'utilisateurs.id'
       }
+    },
+
+    documents: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'documents'),
+      join: {
+        from: 'titresActivites.id',
+        to: 'documents.titreActiviteId'
+      }
     }
   }
 
