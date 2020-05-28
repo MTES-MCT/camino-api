@@ -395,7 +395,11 @@ const definitions = async (context: IToken) => {
         elements = await etapesStatutsGet()
       }
 
-      d.elements = elements
+      d.elements = elements?.map(e => {
+        e.nom = e.nom[0].toUpperCase() + e.nom.slice(1)
+
+        return e
+      })
     }
 
     return d

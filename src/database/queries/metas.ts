@@ -175,7 +175,7 @@ const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 const etapesStatutsGet = async () => EtapesStatuts.query()
 
-const definitionsGet = async () => Definitions.query()
+const definitionsGet = async () => Definitions.query().orderBy('nom')
 
 export {
   titresTypesTypesGet,
