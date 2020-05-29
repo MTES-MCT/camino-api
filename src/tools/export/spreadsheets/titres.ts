@@ -19,14 +19,6 @@ const titresIdsFilter = process.env.GOOGLE_EXPORT_TITRES_IDS
   ? process.env.GOOGLE_EXPORT_TITRES_IDS.split(',')
   : []
 
-// const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_METAS
-// const entreprisesSpreadsheetId =
-//   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES
-// const administrationsSpreadsheetId =
-//   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ADMINISTRATIONS
-// const substancesSpreadsheetId =
-//   process.env.GOOGLE_SPREADSHEET_ID_EXPORT_SUBSTANCES
-
 const get = async (domaineId: string) => {
   const titres = await titresGet(
     {
@@ -170,17 +162,8 @@ const tables = [
     id: 9,
     name: 'titresEtapesJustificatifs',
     columns: [
-      'id',
-      'titreEtapeId',
-      'typeId',
-      'jorf',
-      'nor',
-      'description',
-      'url',
-      'uri',
-      'fichier',
-      'fichierTypeId',
-      'public'
+      { id: 'titreEtapeId', parentKey: 'id' },
+      { id: 'documentId', key: 'id' }
     ],
     parents: ['demarches', 'etapes', 'justificatifs']
   },

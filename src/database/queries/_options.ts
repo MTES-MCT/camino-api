@@ -88,6 +88,7 @@ const etapes = {
     type,
     statut,
     documents.${documents.graph},
+    justificatifs.${documents.graph},
     substances(orderAsc).${substances.graph},
     titulaires.${entreprises.graph},
     amodiataires.${entreprises.graph},

@@ -13,6 +13,17 @@ const documentsPermissionQueryBuild = (
 
   q.joinRelated('type')
 
+  if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
+    // repertoire = etapes
+    q.leftJoinRelated('etape.demarche.titre.[titulaires, amodiataires]')
+
+    // repertoire = activites
+    q.leftJoinRelated('activite.titre.[titulaires, amodiataires]')
+
+    // repertoire = entreprises
+    q.leftJoinRelated('entreprise')
+  }
+
   if (
     !user ||
     permissionCheck(user, ['defaut']) ||
@@ -22,15 +33,6 @@ const documentsPermissionQueryBuild = (
       b.orWhere('documents.publicLecture', true)
 
       if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
-        // repertoire = etapes
-        q.leftJoinRelated('etape.demarche.titre.[titulaires, amodiataires]')
-
-        // repertoire = activites
-        q.leftJoinRelated('activite.titre.[titulaires, amodiataires]')
-
-        // repertoire = entreprises
-        q.leftJoinRelated('entreprise')
-
         b.orWhere(c => {
           c.where('documents.entreprisesLecture', true)
 

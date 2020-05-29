@@ -111,6 +111,41 @@ const documentFichierMoveAndRename = (
   errors.push({ type: 'move', message })
 }
 
+// les documents de ces types d'étapes sont visibles par les entreprises
+const etapesDocsEntreprisesLecture = [
+  'mfr',
+  'mdp',
+  'des',
+  'pfd',
+  'mod',
+  'mco',
+  'rco',
+  'mif',
+  'rif',
+  'mcp',
+  'apu',
+  'rde',
+  'vfd',
+  'anf',
+  'ane',
+  'ppu',
+  'epu',
+  'dim',
+  'dex',
+  'dpu',
+  'dux',
+  'dup',
+  'rpu',
+  'rtd',
+  'abd',
+  'and',
+  'mno',
+  'pfc',
+  'vfc',
+  'sco',
+  'aco'
+]
+
 const documentBuild = (etapeDocument, domaineId, titreEtape, entrepriseId) => {
   const hash = cryptoRandomString({ length: 8 })
 
@@ -133,8 +168,14 @@ const documentBuild = (etapeDocument, domaineId, titreEtape, entrepriseId) => {
     // la date est celle de l'étape
     date: titreEtape.date,
     public_lecture: etapeDocument.public,
-    // par défaut, on met la même visibilité entreprise que pour le public
-    entreprises_lecture: !!entrepriseId || etapeDocument.public
+    entreprises_lecture:
+      // par défaut, on met la même visibilité entreprise que pour le public
+      etapeDocument.public ||
+      // sinon, si c'est un document associé à une entreprise
+      !!entrepriseId ||
+      // sinon, si le document est dans une étape
+      // dont les documents sont toujours visibles par l'entreprise
+      etapesDocsEntreprisesLecture.includes(titreEtape.type_id)
   }
 
   if (entrepriseId) {
@@ -312,12 +353,12 @@ errors.forEach(e => {
 // - modifier upload
 
 // import
-// - importer depuis documents au lieu de etape-documents
-// - importer la tables de jointure titre-etapes-justificatifs
+// x importer depuis documents au lieu de etape-documents
+// x importer la tables de jointure titre-etapes-justificatifs
 
 // export
-// - exporter vers documents au lieu de titres-documents
-// - exporter les tables de jointure titre-etapes-justificatifs
+// x exporter vers documents au lieu de titres-documents
+// x exporter les tables de jointure titre-etapes-justificatifs
 
 // API activités
 // - ajout de fichier dans les activités

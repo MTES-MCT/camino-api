@@ -14,6 +14,9 @@ class Document extends Model {
       id: { type: 'string' },
       typeId: { type: 'string' },
       date: { type: 'string' },
+      titreEtapeId: { type: ['string', 'null'] },
+      titreActiviteId: { type: ['string', 'null'] },
+      entrepriseId: { type: ['string', 'null'] },
       description: { type: ['string', 'null'] },
       fichier: { type: ['boolean', 'null'] },
       fichierTypeId: { type: ['string', 'null'] },
@@ -78,7 +81,7 @@ class Document extends Model {
     }
   }
 
-  public $formatDatabaseJson(json: Pojo) {
+  public $formatDatabaseJson(json: Pojo): Pojo {
     json = super.$formatDatabaseJson(json)
 
     delete json.modification
@@ -87,7 +90,7 @@ class Document extends Model {
     return json
   }
 
-  public $parseJson(json: Pojo) {
+  public $parseJson(json: Pojo): Pojo {
     json = super.$parseJson(json)
 
     delete json.modification

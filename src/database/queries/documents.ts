@@ -27,6 +27,8 @@ const documentGet = async (
   return (await q.findById(documentId)) as IDocument
 }
 
+const documentsGet = async () => Document.query()
+
 const documentCreate = async (document: IDocument) =>
   Document.query().insertAndFetch(document)
 
@@ -38,4 +40,10 @@ const documentDelete = async (id: string) =>
     .deleteById(id)
     .returning('*')
 
-export { documentGet, documentCreate, documentUpdate, documentDelete }
+export {
+  documentGet,
+  documentsGet,
+  documentCreate,
+  documentUpdate,
+  documentDelete
+}
