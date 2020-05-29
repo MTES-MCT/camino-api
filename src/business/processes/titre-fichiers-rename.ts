@@ -3,12 +3,12 @@ import {
   ITitre,
   ITitreDemarche,
   ITitreEtape,
-  ITitreDocument,
+  IDocument,
   Index
 } from '../../types'
 
 const titreDocumentsFichiersNamesFind = (
-  titreDocuments: ITitreDocument[] | undefined | null,
+  titreDocuments: IDocument[] | undefined | null,
   titreId: string,
   oldTitreId: string
 ) => {

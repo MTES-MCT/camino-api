@@ -19,7 +19,7 @@ import {
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentTypeGet } from '../../../database/queries/metas'
 
-import DocumentUpdationValidate from '../../../business/titre-document-updation-validate'
+import documentUpdationValidate from '../../../business/document-updation-validate'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -60,7 +60,7 @@ const documentCreer = async (
 
     const errors = documentValidate(document)
 
-    const rulesErrors = await DocumentUpdationValidate(document)
+    const rulesErrors = await documentUpdationValidate(document)
 
     if (errors.length || rulesErrors.length) {
       throw new Error(errors.concat(rulesErrors).join(', '))
@@ -122,7 +122,7 @@ const documentModifier = async (
     }
 
     const errors = documentValidate(document)
-    const rulesErrors = await DocumentUpdationValidate(document)
+    const rulesErrors = await documentUpdationValidate(document)
 
     if (errors.length || rulesErrors.length) {
       const e = errors.concat(rulesErrors)
