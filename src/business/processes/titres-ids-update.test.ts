@@ -12,7 +12,7 @@ import {
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import { titreIdUpdate, titreGet } from '../../database/queries/titres'
 import titreIdFind from '../utils/titre-id-find'
-import { titreFichiersRename } from './titre-fichiers-rename'
+import { titreFilePathsRename } from './titre-fichiers-rename'
 
 jest.mock('../utils/titre-id-and-relations-update', () => ({
   __esModule: true,
@@ -20,7 +20,7 @@ jest.mock('../utils/titre-id-and-relations-update', () => ({
 }))
 
 jest.mock('./titre-fichiers-rename', () => ({
-  titreFichiersRename: jest.fn()
+  titreFilePathsRename: jest.fn()
 }))
 
 jest.mock('../utils/titre-id-find', () => ({
@@ -38,12 +38,14 @@ const titreIdAndRelationsUpdateMock = mocked(titreIdAndRelationsUpdate, true)
 const titreGetMock = mocked(titreGet, true)
 const titreIdUpdateMock = mocked(titreIdUpdate, true)
 const titreIdFindMock = mocked(titreIdFind, true)
-const titreFichiersRenameMock = mocked(titreFichiersRename, true)
+const titreFilePathsRenameMock = mocked(titreFilePathsRename, true)
 
 console.info = jest.fn()
 console.error = jest.fn()
 
 const titre = { id: 'id-old' } as ITitre
+
+const relationsIdsChangedIndex = {}
 
 describe('ajoute un hash à une id de titre', () => {
   test('ajoute un hash à une id', async () => {
@@ -61,7 +63,8 @@ describe("mise à jour de l'id d'un titre", () => {
 
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: true,
-      titre: { id } as ITitre
+      titre: { id } as ITitre,
+      relationsIdsChangedIndex
     })
 
     const titresUpdatedIndex = await titreIdsUpdate(titre)
@@ -79,7 +82,8 @@ describe("mise à jour de l'id d'un titre", () => {
 
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: true,
-      titre: { id } as ITitre
+      titre: { id } as ITitre,
+      relationsIdsChangedIndex
     })
 
     const titresUpdatedIndex = await titreIdsUpdate(titre)
@@ -95,7 +99,8 @@ describe("mise à jour de l'id d'un titre", () => {
   test("ne met pas à jour le titre si aucun id n'a changé", async () => {
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: false,
-      titre
+      titre,
+      relationsIdsChangedIndex
     })
 
     const titresUpdatedIndex = await titreIdsUpdate(titre)
@@ -114,7 +119,8 @@ describe('id de plusieurs titres', () => {
 
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: true,
-      titre: { id } as ITitre
+      titre: { id } as ITitre,
+      relationsIdsChangedIndex
     })
 
     const titresIdsUpdatedIndex = await titresIdsUpdate([titre])
@@ -137,7 +143,8 @@ describe('id de plusieurs titres', () => {
       titre: {
         id,
         demarches: [{ id: 'id-new' }]
-      } as ITitre
+      } as ITitre,
+      relationsIdsChangedIndex
     })
 
     const titresIdsUpdatedIndex = await titresIdsUpdate([
@@ -155,7 +162,8 @@ describe('id de plusieurs titres', () => {
   test("ne met à jour aucun titre si aucun id n'a changé", async () => {
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: false,
-      titre
+      titre,
+      relationsIdsChangedIndex
     })
 
     const titresIdsUpdatedIndex = await titresIdsUpdate([titre] as ITitre[])
@@ -173,7 +181,8 @@ describe('id de plusieurs titres', () => {
       hasChanged: true,
       titre: {
         id: 'id-new'
-      } as ITitre
+      } as ITitre,
+      relationsIdsChangedIndex
     })
     titreGetMock.mockResolvedValue({ id: 'id-new' } as Titres)
     titreIdAndRelationsUpdateMock.mockReturnValue({
@@ -181,7 +190,8 @@ describe('id de plusieurs titres', () => {
       titre: {
         id: 'id-new-hash',
         doublonTitreId: 'id-new'
-      } as ITitre
+      } as ITitre,
+      relationsIdsChangedIndex
     })
 
     const titresIdsUpdatedIndex = await titresIdsUpdate([titre] as ITitre[])
@@ -199,7 +209,8 @@ describe('id de plusieurs titres', () => {
       titre: {
         id: 'id-old',
         doublonTitreId: 'id-old'
-      } as ITitre
+      } as ITitre,
+      relationsIdsChangedIndex
     })
     titreGetMock.mockResolvedValue(titre as Titres)
     titreIdAndRelationsUpdateMock.mockReturnValue({
@@ -207,7 +218,8 @@ describe('id de plusieurs titres', () => {
       titre: {
         id: 'id-old-hashhash',
         doublonTitreId: 'id-old'
-      } as ITitre
+      } as ITitre,
+      relationsIdsChangedIndex
     })
 
     const titresIdsUpdatedIndex = await titresIdsUpdate([
@@ -229,7 +241,8 @@ describe('id de plusieurs titres', () => {
       titre: {
         id: 'id-old',
         doublonTitreId: 'id-old'
-      } as ITitre
+      } as ITitre,
+      relationsIdsChangedIndex
     })
     titreGetMock.mockResolvedValue((null as unknown) as Titres)
 
@@ -251,16 +264,19 @@ describe('id de plusieurs titres', () => {
 
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: true,
-      titre: { id } as ITitre
+      titre: { id } as ITitre,
+      relationsIdsChangedIndex
     })
-    titreFichiersRenameMock.mockRejectedValue(new Error('bim !'))
+    titreFilePathsRenameMock.mockRejectedValue(new Error('bim !'))
 
     const titresIdsUpdatedIndex = await titresIdsUpdate([
       { id, demarches: [{ id: 'id-old' }] }
     ] as ITitre[])
 
     expect(Object.keys(titresIdsUpdatedIndex).length).toEqual(1)
-    expect(titresIdsUpdatedIndex).toEqual({ 'id-new-fichier': 'id-new-fichier' })
+    expect(titresIdsUpdatedIndex).toEqual({
+      'id-new-fichier': 'id-new-fichier'
+    })
 
     expect(titreIdAndRelationsUpdate).toHaveBeenCalled()
     expect(titreIdUpdateMock).toHaveBeenCalled()
@@ -273,7 +289,8 @@ describe('id de plusieurs titres', () => {
 
     titreIdAndRelationsUpdateMock.mockReturnValue({
       hasChanged: true,
-      titre: { id } as ITitre
+      titre: { id } as ITitre,
+      relationsIdsChangedIndex
     })
     titreIdUpdateMock.mockRejectedValue(new Error('bim !'))
 

@@ -32,7 +32,7 @@ const tables = [
 const spreadsheet = {
   name: 'documents',
   id: documentsSpreadsheetId,
-  get: documentsGet,
+  get: () => documentsGet({}, {}, 'super'),
   tables
 } as ISpreadsheet<IDocument>
 

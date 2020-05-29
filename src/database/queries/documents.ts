@@ -27,10 +27,36 @@ const documentGet = async (
   return (await q.findById(documentId)) as IDocument
 }
 
-const documentsGet = async () => Document.query()
+const documentsGet = async (
+  { entreprisesIds }: { entreprisesIds?: string[] },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'etapes', graphFormat)
+    : options.documents.graph
+
+  const user = await userGet(userId)
+
+  const q = Document.query().withGraphFetched(graph)
+
+  console.log('query.entreprisesIds', entreprisesIds)
+
+  if (entreprisesIds?.length) {
+    q.whereIn('entrepriseId', entreprisesIds)
+  }
+
+  documentsPermissionQueryBuild(q, user)
+
+  console.log(q.toKnexQuery().toString())
+
+  return q
+}
 
 const documentCreate = async (document: IDocument) =>
-  Document.query().insertAndFetch(document)
+  Document.query()
+    .withGraphFetched(options.documents.graph)
+    .insertAndFetch(document)
 
 const documentUpdate = async (id: string, props: Partial<IDocument>) =>
   Document.query()
@@ -40,6 +66,7 @@ const documentUpdate = async (id: string, props: Partial<IDocument>) =>
 const documentDelete = async (id: string) =>
   Document.query()
     .deleteById(id)
+    .withGraphFetched(options.documents.graph)
     .returning('*')
 
 export {

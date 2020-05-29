@@ -100,11 +100,17 @@ const titreIdAndRelationsUpdate = (
 ) => {
   titreRelation.idFind = titreIdFindCustom
 
+  // permet de référencer tous les changements d'ids par type de relation
+  // un index nom de relations => (index noueaux ids => anciens ids)
+  const relationsIdsChangedIndex = {}
+
   // met à jour les ids par effet de bord
   // retourne true si un id a changé
-  const hasChanged = idsUpdate(titre, titreRelation, { titre })
+  const hasChanged = idsUpdate(relationsIdsChangedIndex, titre, titreRelation, {
+    titre
+  })
 
-  return { titre, hasChanged }
+  return { titre, hasChanged, relationsIdsChangedIndex }
 }
 
 export default titreIdAndRelationsUpdate

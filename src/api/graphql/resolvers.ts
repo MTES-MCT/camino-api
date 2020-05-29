@@ -12,10 +12,12 @@ import {
 import {
   etapeCreer,
   etapeModifier,
-  etapeSupprimer
+  etapeSupprimer,
+  etapeJustificatifsModifier
 } from './resolvers/titres-etapes'
 
 import {
+  documents,
   documentCreer,
   documentModifier,
   documentSupprimer
@@ -89,6 +91,7 @@ export default {
   demarchesStatuts,
   etapesTypes,
   devises,
+  documents,
   documentsTypes,
   domaines,
   geoSystemes,
@@ -126,6 +129,7 @@ export default {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
+  etapeJustificatifsModifier,
   documentCreer,
   documentModifier,
   documentSupprimer,

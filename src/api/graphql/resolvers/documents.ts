@@ -10,6 +10,7 @@ import { permissionCheck } from '../../../tools/permission'
 import dirCreate from '../../../tools/dir-create'
 
 import {
+  documentsGet,
   documentGet,
   documentCreate,
   documentUpdate,
@@ -20,6 +21,8 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { documentTypeGet } from '../../../database/queries/metas'
 
 import documentUpdationValidate from '../../../business/document-updation-validate'
+import fieldsBuild from './_fields-build'
+import { GraphQLResolveInfo } from 'graphql-upload/node_modules/graphql'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -33,6 +36,39 @@ const documentValidate = (document: IDocument) => {
   }
 
   return errors
+}
+
+const documents = async (
+  { entreprisesIds }: { entreprisesIds?: string[] },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    console.log(`ici ou la `)
+    const user = context.user && (await userGet(context.user.id))
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    console.log('resolver.entreprisesIds', { entreprisesIds })
+
+    const fields = fieldsBuild(info)
+    const documents = await documentsGet(
+      { entreprisesIds },
+      { fields },
+      user.id
+    )
+
+    console.log('-->', documents.length)
+
+    return documents
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
 }
 
 const documentCreer = async (
@@ -231,4 +267,4 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   }
 }
 
-export { documentCreer, documentModifier, documentSupprimer }
+export { documents, documentCreer, documentModifier, documentSupprimer }

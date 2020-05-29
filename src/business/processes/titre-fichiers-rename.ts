@@ -1,98 +1,77 @@
 import fileRename from '../../tools/file-rename'
-import {
-  ITitre,
-  ITitreDemarche,
-  ITitreEtape,
-  IDocument,
-  Index
-} from '../../types'
+import { ITitre, ITitreDemarche, ITitreEtape, Index } from '../../types'
 
-const titreDocumentsFichiersNamesFind = (
-  titreDocuments: IDocument[] | undefined | null,
-  titreId: string,
-  oldTitreId: string
-) => {
-  if (!titreDocuments || !titreDocuments.length) {
-    return []
-  }
+const titreEtapeFilePathPathBuild = (titreEtapeId: string) =>
+  `etapes/${titreEtapeId}`
 
-  return titreDocuments.reduce(
-    (fichiersNames: Index<string>[], titreDocument) => {
-      if (titreDocument.fichier) {
-        const oldTitreDocumentId = titreDocument.id.replace(titreId, oldTitreId)
-        const newFichierName = `${titreDocument.id}.${titreDocument.fichierTypeId}`
-        const oldFichierName = `${oldTitreDocumentId}.${titreDocument.fichierTypeId}`
-
-        fichiersNames.push({ [newFichierName]: oldFichierName })
-      }
-
-      return fichiersNames
-    },
-    []
-  )
-}
-
-const titreEtapesFichiersNamesFind = (
+const titreEtapesFilePathsNamesFind = (
+  fichiersNames: Index<string>,
   titreEtapes: ITitreEtape[] | undefined | null,
   titreId: string,
-  oldTitreId: string
+  relationsIdsChangedIndex: Index<Index<string>>
 ) => {
   if (!titreEtapes || !titreEtapes.length) {
-    return []
+    return fichiersNames
   }
 
-  return titreEtapes.reduce((fichiersNames: Index<string>[], titreEtape) => {
-    fichiersNames.push(
-      ...titreDocumentsFichiersNamesFind(
-        titreEtape.documents,
-        titreId,
-        oldTitreId
-      )
-    )
+  return titreEtapes.reduce((fichiersNames: Index<string>, titreEtape) => {
+    const titreEtapeOldId = relationsIdsChangedIndex.etapes[titreEtape.id]
+
+    if (titreEtapeOldId) {
+      const hasDocumentsWithFiles = titreEtape.documents?.find(d => d.fichier)
+
+      if (hasDocumentsWithFiles) {
+        const filePathPathOld = titreEtapeFilePathPathBuild(titreEtapeOldId)
+        const filePathPathNew = titreEtapeFilePathPathBuild(titreEtape.id)
+
+        fichiersNames[filePathPathOld] = filePathPathNew
+      }
+    }
 
     return fichiersNames
-  }, [])
+  }, fichiersNames)
 }
 
-const titreFichiersNamesFind = (
+const titreFilePathsNamesFind = (
   titreDemarches: ITitreDemarche[] | undefined | null,
   titreId: string,
-  oldTitreId: string
+  relationsIdsChangedIndex: Index<Index<string>>
 ) => {
   if (!titreDemarches || !titreDemarches.length) {
-    return []
+    return {}
   }
 
   return titreDemarches.reduce(
-    (fichiersNames: Index<string>[], titreDemarche) => {
-      fichiersNames.push(
-        ...titreEtapesFichiersNamesFind(
-          titreDemarche.etapes,
-          titreId,
-          oldTitreId
-        )
-      )
-
-      return fichiersNames
-    },
-    []
+    (fichiersNames: Index<string>, titreDemarche) =>
+      titreEtapesFilePathsNamesFind(
+        fichiersNames,
+        titreDemarche.etapes,
+        titreId,
+        relationsIdsChangedIndex
+      ),
+    {}
   )
 }
 
-const titreFichiersRename = async (oldTitreId: string, titre: ITitre) => {
-  const titreFichiersNames = titreFichiersNamesFind(
+const titreFilePathsRename = async (
+  relationsIdsChangedIndex: Index<Index<string>>,
+  titre: ITitre
+) => {
+  if (!relationsIdsChangedIndex.etapes) return
+
+  const titreFilePathsNames = titreFilePathsNamesFind(
     titre.demarches,
     titre.id,
-    oldTitreId
+    relationsIdsChangedIndex
   )
 
-  for (const fileNames of titreFichiersNames) {
-    for (const [fileName, oldFileName] of Object.entries(fileNames)) {
-      if (fileName !== oldFileName) {
-        await fileRename(oldFileName, fileName)
-      }
+  for (const filePathNameOld of Object.keys(titreFilePathsNames)) {
+    const filePathNameNew = titreFilePathsNames[filePathNameOld]
+
+    if (filePathNameNew !== filePathNameOld) {
+      await fileRename(filePathNameOld, filePathNameNew)
     }
   }
 }
 
-export { titreFichiersRename }
+export { titreFilePathsRename }

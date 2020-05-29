@@ -1,4 +1,4 @@
-import { IToken, ITitreEtape } from '../../../types'
+import { IToken, ITitreEtape, ITitreEtapeJustificatif } from '../../../types'
 
 import { debug } from '../../../config/index'
 
@@ -10,7 +10,9 @@ import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/tit
 import {
   titreEtapeGet,
   titreEtapeUpsert,
-  titreEtapeDelete
+  titreEtapeDelete,
+  titreEtapeJustificatifsDelete,
+  titresEtapesJustificatifsUpsert
 } from '../../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
@@ -210,4 +212,85 @@ const etapeSupprimer = async (
   }
 }
 
-export { etapeCreer, etapeModifier, etapeSupprimer }
+const etapeJustificatifsModifier = async (
+  { id, documentsIds }: { id: string; documentsIds: string[] },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    console.log('resolver.documentsIds', { id, documentsIds })
+
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const etape = await titreEtapeGet(
+      id,
+      { fields: { justificatifs: { id: {} } } },
+      context.user?.id
+    )
+    if (!etape) throw new Error("l'étape n'existe pas")
+
+    const demarche = await titreDemarcheGet(
+      etape.titreDemarcheId,
+      {},
+      user && user.id
+    )
+
+    if (!demarche) throw new Error("la démarche n'existe pas")
+
+    const titre = await titreGet(
+      demarche.titreId,
+      {
+        fields: {
+          administrationsGestionnaires: { id: {} },
+          administrationsLocales: { id: {} }
+        }
+      },
+      user.id
+    )
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    if (
+      !titreEtapePermissionAdministrationsCheck(
+        user,
+        titre.typeId,
+        titre.statutId!,
+        etape.typeId,
+        'modification'
+      )
+    ) {
+      throw new Error('droits insuffisants pour modifier cette étape')
+    }
+
+    await titreEtapeJustificatifsDelete(etape.id)
+
+    const titreEtapeId = etape.id
+
+    if (documentsIds.length) {
+      await titresEtapesJustificatifsUpsert(
+        documentsIds.map(
+          documentId =>
+            ({
+              documentId,
+              titreEtapeId
+            } as ITitreEtapeJustificatif)
+        )
+      )
+    }
+
+    const fields = fieldsBuild(info)
+
+    const titreUpdated = await titreGet(titre.id, { fields }, user.id)
+
+    return titreFormat(user, titreUpdated)
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+  }
+}
+
+export { etapeCreer, etapeModifier, etapeSupprimer, etapeJustificatifsModifier }

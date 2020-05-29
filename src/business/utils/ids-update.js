@@ -8,6 +8,7 @@ const elementFromPathFind = (path, root) =>
   }, root)
 
 const idsUpdate = (
+  relationsIdsChangedIndex,
   element,
   relation,
   root,
@@ -26,6 +27,12 @@ const idsUpdate = (
       element.id = elementNewId
 
       hasChanged = true
+
+      if (!relationsIdsChangedIndex[relation.name]) {
+        relationsIdsChangedIndex[relation.name] = {}
+      }
+
+      relationsIdsChangedIndex[relation.name][elementNewId] = elementOldId
     }
   }
 
@@ -85,7 +92,14 @@ const idsUpdate = (
         hasChanged =
           elements.reduce(
             (hasChanged, e) =>
-              idsUpdate(e, relation, root, element, elementOldId) || hasChanged,
+              idsUpdate(
+                relationsIdsChangedIndex,
+                e,
+                relation,
+                root,
+                element,
+                elementOldId
+              ) || hasChanged,
             false
           ) || hasChanged
       }

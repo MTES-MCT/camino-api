@@ -517,6 +517,11 @@ interface ITitreCommune {
   surface?: number | null
 }
 
+interface ITitreEtapeJustificatif {
+  documentId: string
+  titreEtapeId: string
+}
+
 interface ITitreDemarche {
   id: string
   titreId: string
@@ -587,6 +592,7 @@ interface ITitreEtape {
   amodiataires?: IEntreprise[] | null
   administrations?: IAdministration[] | null
   documents?: IDocument[] | null
+  justificatifs?: IDocument[] | null
   communes?: ICommune[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
@@ -821,6 +827,7 @@ export {
   ITitreDemarche,
   IDocument,
   ITitreEtape,
+  ITitreEtapeJustificatif,
   ITitreEtapeFiltre,
   ITitreIncertitudes,
   ITitrePhase,

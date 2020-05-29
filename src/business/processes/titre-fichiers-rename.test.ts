@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 
-import { titreFichiersRename } from './titre-fichiers-rename'
+import { titreFilePathsRename } from './titre-fichiers-rename'
 import fileRename from '../../tools/file-rename'
 
 import {
@@ -21,7 +21,7 @@ console.info = jest.fn()
 
 describe("renomme les fichiers d'un titre", () => {
   test("renomme les fichiers d'un titre", async () => {
-    await titreFichiersRename('old-titre-id', titreNew)
+    await titreFilePathsRename('old-titre-id', titreNew)
 
     expect(fileRenameMock).toHaveBeenNthCalledWith(
       1,
@@ -36,15 +36,15 @@ describe("renomme les fichiers d'un titre", () => {
   })
 
   test("ne renomme aucun fichier si un titre n'a pas de démarches", async () => {
-    await titreFichiersRename('old-titre-id', titreNewSansDemarches)
-    await titreFichiersRename('old-titre-id', titreNewDemarchesVides)
-    await titreFichiersRename('old-titre-id', titreNewSansEtapes)
+    await titreFilePathsRename('old-titre-id', titreNewSansDemarches)
+    await titreFilePathsRename('old-titre-id', titreNewDemarchesVides)
+    await titreFilePathsRename('old-titre-id', titreNewSansEtapes)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })
 
   test("ne renomme aucun fichier si le nom n'a pas changé", async () => {
-    await titreFichiersRename('new-titre-id', titreNewDemarchesSansChangement)
+    await titreFilePathsRename('new-titre-id', titreNewDemarchesSansChangement)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })

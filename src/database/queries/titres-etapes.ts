@@ -4,11 +4,13 @@ import {
   ITitreCommune,
   ITitreAdministrationLocale,
   IFields,
-  IUtilisateur
+  IUtilisateur,
+  ITitreEtapeJustificatif
 } from '../../types'
 
 import TitresEtapes from '../models/titres-etapes'
 import TitresCommunes from '../models/titres-communes'
+import TitresEtapesJustificatifs from '../models/titres-etapes-justificatifs'
 import TitresAdministrationsLocales from '../models/titres-administrations-locales'
 import options from './_options'
 import { titreEtapesPermissionQueryBuild } from './permissions/titres-etapes'
@@ -136,6 +138,18 @@ const titreEtapeCommuneDelete = async (
     .where('titreEtapeId', titreEtapeId)
     .andWhere('communeId', communeId)
 
+const titresEtapesJustificatifsUpsert = async (
+  titresEtapesJustificatifs: ITitreEtapeJustificatif[]
+) =>
+  TitresEtapesJustificatifs.query().upsertGraph(titresEtapesJustificatifs, {
+    insertMissing: true
+  })
+
+const titreEtapeJustificatifsDelete = async (titreEtapeId: string) =>
+  TitresEtapesJustificatifs.query()
+    .delete()
+    .where('titreEtapeId', titreEtapeId)
+
 const titresEtapesAdministrationsCreate = async (
   titresEtapesAdministrations: ITitreAdministrationLocale[]
 ) => TitresAdministrationsLocales.query().insert(titresEtapesAdministrations)
@@ -174,6 +188,8 @@ export {
   titresEtapesCommunesUpdate,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
+  titresEtapesJustificatifsUpsert,
+  titreEtapeJustificatifsDelete,
   titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete,
   titreEtapesIdsUpdate,

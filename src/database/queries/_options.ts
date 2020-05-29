@@ -75,7 +75,10 @@ const etapesRelateTrue = [
   'communes',
   'communes.departement',
   'communes.departement.region',
-  'communes.departement.region.pays'
+  'communes.departement.region.pays',
+  'documents.type',
+  'justificatifs',
+  'justificatifs.type'
 ]
 
 const documents = {

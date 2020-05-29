@@ -6,10 +6,6 @@ const fichier = async (
   { documentId }: { documentId?: string },
   userId?: string | undefined
 ) => {
-  if (!userId) {
-    throw new Error('droits insuffisants')
-  }
-
   if (!documentId) {
     throw new Error('id du document absent')
   }
