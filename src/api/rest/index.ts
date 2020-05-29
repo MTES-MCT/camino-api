@@ -230,6 +230,7 @@ interface ITitresActivitesQueryInput {
   titresSubstances?: string | null
   titresReferences?: string | null
   titresTerritoires?: string | null
+  statutsIds?: string | null
 }
 
 const activites = async (
@@ -243,7 +244,8 @@ const activites = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    statutsIds
   }: ITitresActivitesQueryInput,
   userId?: string
 ) => {
@@ -259,7 +261,8 @@ const activites = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      statutsIds: statutsIds?.split(',')
     },
     {
       fields: {
