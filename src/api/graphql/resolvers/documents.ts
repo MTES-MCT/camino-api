@@ -7,6 +7,7 @@ import { debug } from '../../../config/index'
 import fileDelete from '../../../tools/file-delete'
 import fileStreamCreate from '../../../tools/file-stream-create'
 import { permissionCheck } from '../../../tools/permission'
+import dirCreate from '../../../tools/dir-create'
 
 import {
   documentGet,
@@ -19,7 +20,6 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { documentTypeGet } from '../../../database/queries/metas'
 
 import DocumentUpdationValidate from '../../../business/titre-document-updation-validate'
-import dirCreate from '../../../tools/dir-create'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -80,15 +80,13 @@ const documentCreer = async (
 
       const repertoire = documentType.repertoire
 
-      await dirCreate(`${repertoire}/${dossier}`)
+      const dirPath = `files/${repertoire}/${dossier}`
 
-      await fileStreamCreate(
-        createReadStream(),
-        join(
-          process.cwd(),
-          `files/${repertoire}/${dossier}/${document.id}.${document.fichierTypeId}`
-        )
-      )
+      await dirCreate(dirPath)
+
+      const filePath = `${dirPath}/${document.id}.${document.fichierTypeId}`
+
+      await fileStreamCreate(createReadStream(), join(process.cwd(), filePath))
 
       document.fichier = true
     }
@@ -118,6 +116,11 @@ const documentModifier = async (
       throw new Error('droits insuffisants')
     }
 
+    const documentType = await documentTypeGet(document.typeId)
+    if (!documentType) {
+      throw new Error('type de document incorrect')
+    }
+
     const errors = documentValidate(document)
     const rulesErrors = await DocumentUpdationValidate(document)
 
@@ -134,7 +137,14 @@ const documentModifier = async (
       }
 
       if (documentOld.fichier) {
-        const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
+        const dossier =
+          documentOld.titreEtapeId ||
+          documentOld.titreActiviteId ||
+          documentOld.entrepriseId
+
+        const dirPath = `files/${documentOld.type!.repertoire}/${dossier}`
+
+        const documentOldPath = `${dirPath}/${documentOld.id}.${documentOld.fichierTypeId}`
 
         try {
           await fileDelete(join(process.cwd(), documentOldPath))
@@ -145,11 +155,20 @@ const documentModifier = async (
     }
 
     if (document.fichierNouveau) {
+      const dossier =
+        document.titreEtapeId ||
+        document.titreActiviteId ||
+        document.entrepriseId
+
+      const dirPath = `files/${documentType!.repertoire}/${dossier}`
+
       const { createReadStream } = await document.fichierNouveau.file
+
+      const documentPath = `${dirPath}/${document.id}.${document.fichierTypeId}`
 
       await fileStreamCreate(
         createReadStream(),
-        join(process.cwd(), `files/${document.id}.${document.fichierTypeId}`)
+        join(process.cwd(), documentPath)
       )
 
       document.fichier = true
@@ -184,7 +203,14 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     }
 
     if (documentOld.fichier) {
-      const documentOldPath = `files/${documentOld.id}.${documentOld.fichierTypeId}`
+      const dossier =
+        documentOld.titreEtapeId ||
+        documentOld.titreActiviteId ||
+        documentOld.entrepriseId
+
+      const dirPath = `files/${documentOld.type!.repertoire}/${dossier}`
+
+      const documentOldPath = `${dirPath}/${documentOld.id}.${documentOld.fichierTypeId}`
 
       try {
         await fileDelete(join(process.cwd(), documentOldPath))
@@ -195,7 +221,7 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
     await documentDelete(id)
 
-    return null
+    return true
   } catch (e) {
     if (debug) {
       console.error(e)

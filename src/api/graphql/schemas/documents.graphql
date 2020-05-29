@@ -7,11 +7,14 @@ type Document {
   """
   id: ID!
 
+  "Type de document (arrêté, décret, etc.)"
+  type: DocumentType!
+
+  "Date du document"
+  date: String!
+
   "Description du document"
   description: String
-
-  "Type de document (arrêté, décret, etc.)"
-  type: DocumentType
 
   "Fichier est hébergé sur camino"
   fichier: Boolean

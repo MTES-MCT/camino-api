@@ -1,17 +1,21 @@
-import { writeFile } from 'fs'
+import { mkdir } from 'fs'
 
 import errorLog from './error-log'
 
-const dirCreate = async (name: string, content: string) =>
+const dirCreate = async (name: string) =>
   new Promise((resolve, reject) => {
-    writeFile(name, content, (err: any) => {
+    mkdir(name, (err: any) => {
       if (err) {
-        errorLog(`fichier non créé: ${name}`, err)
+        if (err.message.match('EEXIST')) {
+          return resolve(`dossier déjà existant ${name}`)
+        }
+
+        errorLog(`dossier non créé: ${name}`, err)
 
         return reject(err)
       }
 
-      const log = `fichier créé: ${name}`
+      const log = `dossier créé: ${name}`
 
       console.info(log)
 

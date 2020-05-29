@@ -255,7 +255,7 @@ type Mutation {
   documentModifier(document: InputDocumentModification!): Document
 
   "__*__ Supprime un document et met à jour le titre minier"
-  documentSupprimer(id: ID!): Titre
+  documentSupprimer(id: ID!): Boolean
 
   "__*__ Crée ou modifie une activité"
   activiteModifier(activite: InputActiviteModification!): Activite

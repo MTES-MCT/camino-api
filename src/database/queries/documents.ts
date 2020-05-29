@@ -33,7 +33,9 @@ const documentCreate = async (document: IDocument) =>
   Document.query().insertAndFetch(document)
 
 const documentUpdate = async (id: string, props: Partial<IDocument>) =>
-  Document.query().patchAndFetchById(id, props)
+  Document.query()
+    .withGraphFetched(options.documents.graph)
+    .patchAndFetchById(id, props)
 
 const documentDelete = async (id: string) =>
   Document.query()
