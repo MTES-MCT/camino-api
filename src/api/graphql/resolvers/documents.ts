@@ -7,7 +7,6 @@ import { debug } from '../../../config/index'
 import fileDelete from '../../../tools/file-delete'
 import fileStreamCreate from '../../../tools/file-stream-create'
 import { permissionCheck } from '../../../tools/permission'
-import { titreFormat } from '../../_format/titres'
 
 import {
   documentGet,
@@ -16,13 +15,11 @@ import {
   documentDelete
 } from '../../../database/queries/documents'
 
-import { titreFromIdGet } from '../../../database/queries/titres'
-
 import { userGet } from '../../../database/queries/utilisateurs'
+import { documentTypeGet } from '../../../database/queries/metas'
 
 import DocumentUpdationValidate from '../../../business/titre-document-updation-validate'
-import { GraphQLResolveInfo } from 'graphql'
-import fieldsBuild from './_fields-build'
+import dirCreate from '../../../tools/dir-create'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -40,8 +37,7 @@ const documentValidate = (document: IDocument) => {
 
 const documentCreer = async (
   { document }: { document: IDocument },
-  context: IToken,
-  info: GraphQLResolveInfo
+  context: IToken
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
@@ -49,27 +45,49 @@ const documentCreer = async (
       throw new Error('droits insuffisants')
     }
 
+    if (
+      !document.titreEtapeId &&
+      !document.titreActiviteId &&
+      !document.entrepriseId
+    ) {
+      throw new Error("id d'étape, d'activité ou d'entreprise manquant")
+    }
+
+    const documentType = await documentTypeGet(document.typeId)
+    if (!documentType) {
+      throw new Error('type de document incorrect')
+    }
+
     const errors = documentValidate(document)
 
     const rulesErrors = await DocumentUpdationValidate(document)
 
     if (errors.length || rulesErrors.length) {
-      const e = errors.concat(rulesErrors)
-      throw new Error(e.join(', '))
+      throw new Error(errors.concat(rulesErrors).join(', '))
     }
 
-    document.id = `${document.titreEtapeId}-${
-      document.typeId
-    }-${cryptoRandomString({
-      length: 8
-    })}`
+    const hash = cryptoRandomString({ length: 8 })
+
+    document.id = `${document.date}-${document.typeId}-${hash}`
 
     if (document.fichierNouveau) {
       const { createReadStream } = await document.fichierNouveau.file
 
+      const dossier =
+        document.titreEtapeId ||
+        document.titreActiviteId ||
+        document.entrepriseId
+
+      const repertoire = documentType.repertoire
+
+      await dirCreate(`${repertoire}/${dossier}`)
+
       await fileStreamCreate(
         createReadStream(),
-        join(process.cwd(), `files/${document.id}.${document.fichierTypeId}`)
+        join(
+          process.cwd(),
+          `files/${repertoire}/${dossier}/${document.id}.${document.fichierTypeId}`
+        )
       )
 
       document.fichier = true
@@ -79,20 +97,7 @@ const documentCreer = async (
 
     const documentUpdated = await documentCreate(document)
 
-    const fields = fieldsBuild(info)
-
-    const titreUpdated = await titreFromIdGet(
-      documentUpdated.titreEtapeId,
-      'etape',
-      fields,
-      user.id
-    )
-
-    if (!titreUpdated) {
-      throw new Error(`Erreur pour récupérer le titre du document`)
-    }
-
-    return titreFormat(user, titreUpdated)
+    return documentUpdated
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -104,8 +109,7 @@ const documentCreer = async (
 
 const documentModifier = async (
   { document }: { document: IDocument },
-  context: IToken,
-  info: GraphQLResolveInfo
+  context: IToken
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
@@ -155,20 +159,7 @@ const documentModifier = async (
 
     const documentUpdated = await documentUpdate(document.id, document)
 
-    const fields = fieldsBuild(info)
-
-    const titreUpdated = await titreFromIdGet(
-      documentUpdated.titreEtapeId,
-      'etape',
-      fields,
-      user.id
-    )
-
-    if (!titreUpdated) {
-      throw new Error(`Erreur pour récupérer le titre du document`)
-    }
-
-    return titreFormat(user, titreUpdated)
+    return documentUpdated
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -178,11 +169,7 @@ const documentModifier = async (
   }
 }
 
-const documentSupprimer = async (
-  { id }: { id: string },
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
+const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   try {
     const user = context.user && (await userGet(context.user.id))
 
@@ -190,7 +177,7 @@ const documentSupprimer = async (
       throw new Error('droits insuffisants')
     }
 
-    const documentOld = await documentGet(id)
+    const documentOld = await documentGet(id, {}, user.id)
 
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
@@ -208,20 +195,7 @@ const documentSupprimer = async (
 
     await documentDelete(id)
 
-    const fields = fieldsBuild(info)
-
-    const titreUpdated = await titreFromIdGet(
-      documentOld.titreEtapeId,
-      'etape',
-      fields,
-      user.id
-    )
-
-    if (!titreUpdated) {
-      throw new Error(`Erreur pour récupérer le titre du document`)
-    }
-
-    return titreFormat(user, titreUpdated)
+    return null
   } catch (e) {
     if (debug) {
       console.error(e)

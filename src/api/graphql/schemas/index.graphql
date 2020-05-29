@@ -249,10 +249,10 @@ type Mutation {
   etapeSupprimer(id: ID!): Titre
 
   "__*__ Crée un document et met à jour le titre minier"
-  documentCreer(document: InputDocumentCreation!): Titre
+  documentCreer(document: InputDocumentCreation!): Document
 
   "__*__ Modifie un document et met à jour le titre minier"
-  documentModifier(document: InputDocumentModification!): Titre
+  documentModifier(document: InputDocumentModification!): Document
 
   "__*__ Supprime un document et met à jour le titre minier"
   documentSupprimer(id: ID!): Titre

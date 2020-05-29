@@ -109,6 +109,9 @@ const devisesGet = async () => Devises.query().orderBy('nom')
 
 const documentsTypesGet = async () => DocumentsTypes.query().orderBy('nom')
 
+const documentTypeGet = async (id: string) =>
+  DocumentsTypes.query().findById(id)
+
 const geoSystemesGet = async () =>
   GeoSystemes.query()
     .withGraphFetched(options.geoSystemes.graph)
@@ -149,6 +152,7 @@ export {
   etapesTypesGet,
   devisesGet,
   documentsTypesGet,
+  documentTypeGet,
   geoSystemesGet,
   geoSystemeGet,
   unitesGet,
