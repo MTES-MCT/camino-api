@@ -28,7 +28,7 @@ interface IRestResolverResult {
   nom: string
   format: IFormat
   contenu?: string
-  file?: boolean
+  filePath?: string
 }
 
 type IRestResolver = (
@@ -50,12 +50,12 @@ const restify = (resolver: IRestResolver) => async (
       throw new Error('Erreur technique: mauvais retour dans le resolver')
     }
 
-    const { nom, format, contenu, file } = result
+    const { nom, format, contenu, filePath } = result
 
     res.header('Content-disposition', `attachment; filename=${nom}`)
     res.header('Content-Type', contentTypes[format])
 
-    if (file) {
+    if (filePath) {
       const options = {
         dotfiles: 'deny',
         headers: {
@@ -65,7 +65,7 @@ const restify = (resolver: IRestResolver) => async (
         root: join(process.cwd(), 'files')
       }
 
-      res.sendFile(nom, options, err => {
+      res.sendFile(filePath, options, err => {
         if (err) {
           res.status(404).send('fichier introuvable')
         }

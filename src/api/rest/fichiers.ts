@@ -19,7 +19,7 @@ const fichier = async (
     {
       fields: {
         type: { id: {} },
-        etapes: { id: {} },
+        etape: { id: {} },
         activite: { id: {} },
         entreprise: { id: {} }
       }
@@ -35,6 +35,8 @@ const fichier = async (
 
   const repertoire = document.type!.repertoire
 
+  const format = 'pdf' as IFormat
+
   if (repertoire === 'etapes') {
     dossier = document.etape!.id
   } else if (repertoire === 'activites') {
@@ -43,13 +45,14 @@ const fichier = async (
     dossier = document.entreprise!.id
   }
 
-  const nom = `${repertoire}/${dossier}/${document.id}.${document.fichierTypeId}`
-  const format = 'pdf' as IFormat
+  const nom = `${document.date}-${dossier}-${document.typeId}.${format}`
+
+  const filePath = `${repertoire}/${dossier}/${document.id}.${document.fichierTypeId}`
 
   return {
     nom,
     format,
-    file: true
+    filePath
   }
 }
 

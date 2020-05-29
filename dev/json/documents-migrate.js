@@ -347,11 +347,6 @@ errors.forEach(e => {
 
 // X modifier les seed
 
-// API étapes
-// x modifier permissions d'affichage des documents
-// x modifier permissions téléchargement
-// - modifier upload
-
 // import
 // x importer depuis documents au lieu de etape-documents
 // x importer la tables de jointure titre-etapes-justificatifs
@@ -359,6 +354,11 @@ errors.forEach(e => {
 // export
 // x exporter vers documents au lieu de titres-documents
 // x exporter les tables de jointure titre-etapes-justificatifs
+
+// API étapes
+// x modifier permissions d'affichage des documents
+// x modifier permissions téléchargement
+// - modifier upload
 
 // API activités
 // - ajout de fichier dans les activités
