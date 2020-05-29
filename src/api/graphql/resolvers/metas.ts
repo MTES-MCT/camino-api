@@ -397,7 +397,7 @@ const definitions = async (context: IToken) => {
         }
 
         d.elements = elements?.map(e => {
-          e.nom = e.nom[0].toUpperCase() + e.nom.slice(1)
+          e.table = d.table
 
           return e
         })
