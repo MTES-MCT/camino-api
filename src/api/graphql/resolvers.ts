@@ -69,7 +69,8 @@ import {
   entreprise,
   entreprises,
   entrepriseCreer,
-  entrepriseModifier
+  entrepriseModifier,
+  etapeEntreprises
 } from './resolvers/entreprises'
 import { administration, administrations } from './resolvers/administrations'
 import {
@@ -89,11 +90,12 @@ export default {
   demarches,
   demarchesTypes,
   demarchesStatuts,
-  etapesTypes,
   devises,
   documents,
   documentsTypes,
   domaines,
+  etapeEntreprises,
+  etapesTypes,
   geoSystemes,
   permission,
   permissions,

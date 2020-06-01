@@ -172,6 +172,8 @@ type Query {
   statistiques: Statistiques
 
   documents(entreprisesIds: [ID!]): [Document]
+
+  etapeEntreprises(id: ID!): [Entreprise]
 }
 
 """

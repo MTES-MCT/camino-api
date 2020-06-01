@@ -431,7 +431,7 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>1650.00</x>
-            <y>2125.00</y>
+            <y>1600.00</y>
         </location>
         <size>
             <width>400.00</width>
@@ -440,7 +440,7 @@
         <zorder>77</zorder>
         <commentTitle><![CDATA[documents]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
         <uid><![CDATA[2291734A-200D-4898-A5B3-4FAF45DC7FA1]]></uid>
     </SQLCanvasArea>
     <SQLTable>
@@ -488,7 +488,7 @@
             <uid><![CDATA[ABC00A38-DAD2-4B6B-B266-39D58B581ACF]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[titresDomaines_pkey]]></PK_KEY_NAME>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[23FED673-71FD-42B5-AC5B-40F523901D2D]]></uid>
@@ -498,7 +498,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1625.00</y>
+            <y>1650.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -791,12 +791,12 @@
         </location>
         <size>
             <width>1200.00</width>
-            <height>1025.00</height>
+            <height>1050.00</height>
         </size>
         <zorder>74</zorder>
         <commentTitle><![CDATA[droits miniers]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[7]]></labelWindowIndex>
         <uid><![CDATA[340E6AE3-85AE-4D35-BF40-1A515FCC9F00]]></uid>
     </SQLCanvasArea>
     <SQLTable>
@@ -1095,7 +1095,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2125.00</x>
-            <y>2275.00</y>
+            <y>2250.00</y>
         </location>
         <size>
             <width>325.00</width>
@@ -1474,10 +1474,10 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>2175.00</y>
+            <y>1650.00</y>
         </location>
         <size>
-            <width>315.00</width>
+            <width>300.00</width>
             <height>300.00</height>
         </size>
         <zorder>73</zorder>
@@ -2066,7 +2066,7 @@
             <uid><![CDATA[7D86A175-921B-4373-8F51-2B1DCEE79FB1]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[68FF9922-BC9D-4CCD-8DFD-14A6AC2D0596]]></uid>
     </SQLTable>
@@ -2123,7 +2123,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2525.00</x>
-            <y>2275.00</y>
+            <y>2250.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2162,7 +2162,7 @@
             <uid><![CDATA[14E21955-E95E-4257-BAFC-41CC09DE0C66]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.252792,1,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[73183D55-CF41-41AA-97F4-26CB28C8C1D0]]></uid>
     </SQLTable>
@@ -2492,7 +2492,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2525.00</x>
-            <y>2375.00</y>
+            <y>2350.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2825,7 +2825,7 @@
             <uid><![CDATA[17871C8F-E087-46B7-A008-91EFA7B377A4]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[8EA15BE0-4D97-44BB-A03A-4699CDFAB4F0]]></uid>
     </SQLTable>
@@ -3028,7 +3028,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2525.00</x>
-            <y>1950.00</y>
+            <y>1925.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3154,7 +3154,7 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>2075.00</x>
-            <y>1900.00</y>
+            <y>1875.00</y>
         </location>
         <size>
             <width>800.00</width>
@@ -3163,7 +3163,7 @@
         <zorder>75</zorder>
         <commentTitle><![CDATA[utilisateurs]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[6]]></labelWindowIndex>
         <uid><![CDATA[AA367D52-D71B-4452-954C-BDB38ACBB2E5]]></uid>
     </SQLCanvasArea>
     <SQLCanvasArea>
@@ -3175,7 +3175,7 @@
         </location>
         <size>
             <width>800.00</width>
-            <height>425.00</height>
+            <height>400.00</height>
         </size>
         <zorder>50</zorder>
         <commentTitle><![CDATA[entreprises]]></commentTitle>
@@ -3344,7 +3344,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1925.00</y>
+            <y>1950.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3440,10 +3440,10 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>850.00</x>
-            <y>1575.00</y>
+            <y>1600.00</y>
         </location>
         <size>
-            <width>1200.00</width>
+            <width>775.00</width>
             <height>275.00</height>
         </size>
         <zorder>55</zorder>
@@ -3675,7 +3675,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2125.00</x>
-            <y>1950.00</y>
+            <y>1925.00</y>
         </location>
         <size>
             <width>327.00</width>
@@ -3888,7 +3888,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>2525.00</x>
-            <y>2475.00</y>
+            <y>2450.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -4188,10 +4188,10 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>850.00</x>
-            <y>1875.00</y>
+            <y>1900.00</y>
         </location>
         <size>
-            <width>1200.00</width>
+            <width>775.00</width>
             <height>225.00</height>
         </size>
         <zorder>58</zorder>
@@ -4291,11 +4291,11 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>2075.00</x>
-            <y>2225.00</y>
+            <y>2200.00</y>
         </location>
         <size>
             <width>800.00</width>
-            <height>350.00</height>
+            <height>375.00</height>
         </size>
         <zorder>76</zorder>
         <commentTitle><![CDATA[administrations]]></commentTitle>
@@ -4326,9 +4326,9 @@
         <SQLEditorFileFormatVersion><![CDATA[4]]></SQLEditorFileFormatVersion>
         <uid><![CDATA[67709206-52A1-4046-83B9-A12E9C651AE4]]></uid>
         <windowHeight><![CDATA[1418.000000]]></windowHeight>
-        <windowLocationX><![CDATA[-0.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[-0.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{346, 243}]]></windowScrollOrigin>
+        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[0.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{731, 179}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

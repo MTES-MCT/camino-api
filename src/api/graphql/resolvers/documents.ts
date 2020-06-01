@@ -44,13 +44,10 @@ const documents = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    console.log(`ici ou la `)
     const user = context.user && (await userGet(context.user.id))
     if (!user || !permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
-
-    console.log('resolver.entreprisesIds', { entreprisesIds })
 
     const fields = fieldsBuild(info)
     const documents = await documentsGet(

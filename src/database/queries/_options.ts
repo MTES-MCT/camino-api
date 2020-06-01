@@ -1,3 +1,7 @@
+const documents = {
+  graph: 'type'
+}
+
 const utilisateurs = {
   graph:
     '[permission, administrations.[titresTypes], entreprises.etablissements]',
@@ -24,7 +28,7 @@ const entreprisesEtablissements = {
 }
 
 const entreprises = {
-  graph: `[utilisateurs.permission, etablissements(orderDesc)]`,
+  graph: `[utilisateurs.permission, etablissements(orderDesc), documents.${documents.graph}]`,
   update: {
     insertMissing: true,
     relate: false,
@@ -80,10 +84,6 @@ const etapesRelateTrue = [
   'justificatifs',
   'justificatifs.type'
 ]
-
-const documents = {
-  graph: 'type'
-}
 
 const etapes = {
   graph: `[

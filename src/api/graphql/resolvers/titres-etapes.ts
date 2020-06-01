@@ -290,6 +290,8 @@ const etapeJustificatifsModifier = async (
     if (debug) {
       console.error(e)
     }
+
+    throw e
   }
 }
 

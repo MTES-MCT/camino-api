@@ -16,8 +16,8 @@ import { entrepriseFormat } from '../../_format/entreprises'
 
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
-
 import { entrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
+import titreEtapeEntreprisesFind from '../../../business/titre-etape-entreprises-find'
 
 const entreprise = async (
   { id }: { id: string },
@@ -95,6 +95,36 @@ const entreprises = async (
       colonne,
       total
     }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeEntreprises = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    const entreprises = await titreEtapeEntreprisesFind(id, fields)
+
+    if (!entreprises.length) {
+      return []
+    }
+
+    return entreprises
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -200,4 +230,10 @@ const entrepriseModifier = async (
   }
 }
 
-export { entreprise, entreprises, entrepriseCreer, entrepriseModifier }
+export {
+  entreprise,
+  entreprises,
+  entrepriseCreer,
+  entrepriseModifier,
+  etapeEntreprises
+}
