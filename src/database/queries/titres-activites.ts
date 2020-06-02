@@ -26,22 +26,22 @@ import Objection = require('objection')
 const titreActivitesQueryBuild = (
   {
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires,
-    statutsIds
+    titresTerritoires
   }: {
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
-    statutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -146,26 +146,26 @@ const titresActivitesGet = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires,
-    statutsIds
+    titresTerritoires
   }: {
     page?: number | null
     intervalle?: number | null
     ordre?: 'asc' | 'desc' | null
     colonne?: ITitreActiviteColonneId | null
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
-    statutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -175,13 +175,13 @@ const titresActivitesGet = async (
   const q = titreActivitesQueryBuild(
     {
       typesIds,
+      statutsIds,
       annees,
       titresNoms,
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires,
-      statutsIds
+      titresTerritoires
     },
     { fields },
     user
@@ -214,22 +214,22 @@ const titresActivitesGet = async (
 const titresActivitesCount = async (
   {
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires,
-    statutsIds
+    titresTerritoires
   }: {
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
-    statutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -239,13 +239,13 @@ const titresActivitesCount = async (
   const q = titreActivitesQueryBuild(
     {
       typesIds,
+      statutsIds,
       annees,
       titresNoms,
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires,
-      statutsIds
+      titresTerritoires
     },
     { fields },
     user

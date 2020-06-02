@@ -224,13 +224,13 @@ interface ITitresActivitesQueryInput {
   ordre?: 'asc' | 'desc' | null
   colonne?: ITitreActiviteColonneId | null
   typesIds?: string | null
+  statutsIds?: string | null
   annees?: string | null
   titresNoms?: string | null
   titresEntreprises?: string | null
   titresSubstances?: string | null
   titresReferences?: string | null
   titresTerritoires?: string | null
-  statutsIds?: string | null
 }
 
 const activites = async (
@@ -239,13 +239,13 @@ const activites = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires,
-    statutsIds
+    titresTerritoires
   }: ITitresActivitesQueryInput,
   userId?: string
 ) => {
@@ -256,13 +256,13 @@ const activites = async (
       ordre,
       colonne,
       typesIds: typesIds?.split(','),
+      statutsIds: statutsIds?.split(','),
       annees: annees?.split(',').map(a => Number(a)),
       titresNoms,
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires,
-      statutsIds: statutsIds?.split(',')
+      titresTerritoires
     },
     {
       fields: {

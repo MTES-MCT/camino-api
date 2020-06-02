@@ -58,26 +58,26 @@ const activites = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires,
-    statutsIds
+    titresTerritoires
   }: {
     page?: number | null
     intervalle?: number | null
     ordre?: 'asc' | 'desc' | null
     colonne?: ITitreActiviteColonneId | null
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
-    statutsIds?: string[] | null
   },
   context: IToken,
   info: GraphQLResolveInfo
