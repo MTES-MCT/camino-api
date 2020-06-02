@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.40](https://github.com/MTES-MCT/camino-api/compare/v0.24.38...v0.24.40) (2020-06-02)
+
+
+### Features
+
+* **activités:** ajoute les filtres des titres ([#398](https://github.com/MTES-MCT/camino-api/issues/398)) ([4b12e68](https://github.com/MTES-MCT/camino-api/commit/4b12e68d37534b94f33c1c6bdf1e4b1d0c14f113))
+* **entreprises:** ajout les filtres et la pagination sur les entreprises ([#386](https://github.com/MTES-MCT/camino-api/issues/386)) ([d3169b8](https://github.com/MTES-MCT/camino-api/commit/d3169b845c7376aa9570a941019a1c845102194d))
+
+
+### Bug Fixes
+
+* **activites:** respecte le format de données des champs pour les téléchargements ([#406](https://github.com/MTES-MCT/camino-api/issues/406)) ([1dca9b3](https://github.com/MTES-MCT/camino-api/commit/1dca9b3cdda2c3c6a8504b094647beb7a46167c7))
+* **api:** corrige le nom du retour pour les listes vides d'activités et entreprises ([#408](https://github.com/MTES-MCT/camino-api/issues/408)) ([de06f47](https://github.com/MTES-MCT/camino-api/commit/de06f4761a6696a8c637c164f2384ce5eec16bc0))
+* **api:** corrige les listes de données sensibles en mode déconnecté ([#407](https://github.com/MTES-MCT/camino-api/issues/407)) ([391b2fc](https://github.com/MTES-MCT/camino-api/commit/391b2fc10b6e092d6b797de4a7c1b140f2ffa4e0))
+* **business:** améliore les performances de la requête de titre(s) avant le changement d'id(s) ([#403](https://github.com/MTES-MCT/camino-api/issues/403)) ([32ed6d3](https://github.com/MTES-MCT/camino-api/commit/32ed6d3df25a347eaf0393f4b0d9a11daa086f03))
+* **business:** corrige la mise à jour d'ids de titres ([#402](https://github.com/MTES-MCT/camino-api/issues/402)) ([aeef412](https://github.com/MTES-MCT/camino-api/commit/aeef412a5ca225feb5e21e8b06e9f949f1c5876b))
+* **business:** mets à jour les id d'étapes dans les contenus de titre ([#410](https://github.com/MTES-MCT/camino-api/issues/410)) ([a541e86](https://github.com/MTES-MCT/camino-api/commit/a541e86f027489c23077c82f167b569611c6ef76))
+* **database:** augmente la taille limite des urls en base ([#413](https://github.com/MTES-MCT/camino-api/issues/413)) ([615fac2](https://github.com/MTES-MCT/camino-api/commit/615fac2633abd3044a6f4ad4f0fb06705376cea4))
+* **documents:** corrige la suppression et modification d'un document si le titre n'existe plus ([#404](https://github.com/MTES-MCT/camino-api/issues/404)) ([2fd8691](https://github.com/MTES-MCT/camino-api/commit/2fd86911d9d7064f9c1d8c24cf732a9a1fd62db8))
+* **entreprises:** corrige la mise à jour des entreprises ([9f72973](https://github.com/MTES-MCT/camino-api/commit/9f72973b938b08f6582ca5cb5c467c2e28126e67))
+* **etapes:** corrige le type de données pour les volumes et engagement ([#409](https://github.com/MTES-MCT/camino-api/issues/409)) ([8c6cf8e](https://github.com/MTES-MCT/camino-api/commit/8c6cf8ec165339f2fa062b4b0e8b042ea231b701))
+* **périmètres:** corrige la conversion des projections ([#411](https://github.com/MTES-MCT/camino-api/issues/411)) ([4d8e042](https://github.com/MTES-MCT/camino-api/commit/4d8e04255a23a903896bbcc241e70d4707bab7f1))
+* **rest:** corrige le graph de la requête de titres ([#401](https://github.com/MTES-MCT/camino-api/issues/401)) ([ae668f0](https://github.com/MTES-MCT/camino-api/commit/ae668f033f4d2cf7247eb8a306578c6e99ee4683))
+
 ### [0.24.39](https://github.com/MTES-MCT/camino-api/compare/v0.24.38...v0.24.39) (2020-05-20)
 
 
