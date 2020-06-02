@@ -40,15 +40,11 @@ const documentsGet = async (
 
   const q = Document.query().withGraphFetched(graph)
 
-  console.log('query.entreprisesIds', entreprisesIds)
-
   if (entreprisesIds?.length) {
     q.whereIn('entrepriseId', entreprisesIds)
   }
 
   documentsPermissionQueryBuild(q, user)
-
-  console.log(q.toKnexQuery().toString())
 
   return q
 }

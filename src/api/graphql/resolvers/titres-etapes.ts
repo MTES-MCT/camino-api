@@ -218,8 +218,6 @@ const etapeJustificatifsModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    console.log('resolver.documentsIds', { id, documentsIds })
-
     const user = context.user && (await userGet(context.user.id))
 
     if (!user || !permissionCheck(user, ['super', 'admin'])) {

@@ -67,6 +67,7 @@ type Etape {
 
   modification: Boolean
   suppression: Boolean
+  justificatifsModification: Boolean
 }
 
 type EtapeId {

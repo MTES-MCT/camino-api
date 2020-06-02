@@ -1,4 +1,4 @@
-import { IFields } from '../../types'
+import { IFields, IDocumentRepertoire } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
@@ -107,7 +107,19 @@ const etapesTypesGet = async (
 
 const devisesGet = async () => Devises.query().orderBy('nom')
 
-const documentsTypesGet = async () => DocumentsTypes.query().orderBy('nom')
+const documentsTypesGet = async ({
+  repertoire
+}: {
+  repertoire: IDocumentRepertoire
+}) => {
+  const q = DocumentsTypes.query().orderBy('nom')
+
+  if (repertoire) {
+    q.where({ repertoire })
+  }
+
+  return q
+}
 
 const documentTypeGet = async (id: string) =>
   DocumentsTypes.query().findById(id)

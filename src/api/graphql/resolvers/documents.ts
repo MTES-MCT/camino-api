@@ -56,8 +56,6 @@ const documents = async (
       user.id
     )
 
-    console.log('-->', documents.length)
-
     return documents
   } catch (e) {
     if (debug) {

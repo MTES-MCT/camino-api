@@ -139,7 +139,7 @@ type Query {
 
   "Metas"
   devises: [Devise]
-  documentsTypes: [DocumentType]
+  documentsTypes(repertoire: String): [DocumentType]
   domaines: [Domaine]
   geoSystemes: [GeoSysteme]
   referencesTypes: [ReferenceType]
@@ -160,6 +160,7 @@ type Query {
     colonne: String
     ordre: String
     noms: String
+    etapeId: ID
   ): Entreprises
 
   "Administration en fonction de son id"
@@ -172,8 +173,6 @@ type Query {
   statistiques: Statistiques
 
   documents(entreprisesIds: [ID!]): [Document]
-
-  etapeEntreprises(id: ID!): [Entreprise]
 }
 
 """

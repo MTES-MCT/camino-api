@@ -46,9 +46,9 @@ type Document {
 input InputDocumentCreation {
   typeId: ID!
   date: String!
+  titreEtapeId: ID
   titreActiviteId: ID
   entrepriseId: ID
-  titreEtapeId: ID
   description: String
   fichier: Boolean
   fichierTypeId: ID

@@ -792,6 +792,7 @@ export {
   IDepartement,
   IDevise,
   IDocumentType,
+  IDocumentRepertoire,
   IDomaine,
   IEntreprise,
   IEntrepriseEtablissement,

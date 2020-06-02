@@ -81,15 +81,11 @@ class Entreprises extends Model {
     },
 
     documents: {
-      relation: Model.ManyToManyRelation,
+      relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'documents'),
       join: {
         from: 'entreprises.id',
-        through: {
-          from: 'entreprisesDocuments.entrepriseId',
-          to: 'entreprisesDocuments.documentId'
-        },
-        to: 'documents.id'
+        to: 'documents.entrepriseId'
       }
     }
   }

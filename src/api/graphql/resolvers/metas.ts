@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IEtapeType } from '../../../types'
+import { IToken, IEtapeType, IDocumentRepertoire } from '../../../types'
 import { debug } from '../../../config/index'
 
 import { autorisations } from '../../../database/cache/autorisations'
@@ -33,7 +33,13 @@ const npmPackage = require('../../../../package.json')
 const devises = async () => devisesGet()
 const geoSystemes = async () => geoSystemesGet()
 const unites = async () => unitesGet()
-const documentsTypes = async () => documentsTypesGet()
+
+const documentsTypes = async ({
+  repertoire
+}: {
+  repertoire: IDocumentRepertoire
+}) => documentsTypesGet({ repertoire })
+
 const referencesTypes = async () => referencesTypesGet()
 const permission = async ({ id }: { id: string }) => permissionGet(id)
 

@@ -358,7 +358,9 @@ errors.forEach(e => {
 // API étapes
 // x modifier permissions d'affichage des documents
 // x modifier permissions téléchargement
-// - modifier upload
+// x modifier upload
+
+// - renommer le fichier lors du changement de date
 
 // API activités
 // - ajout de fichier dans les activités

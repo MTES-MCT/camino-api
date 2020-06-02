@@ -8,7 +8,7 @@ class Document extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'typeId', 'titreEtapeId'],
+    required: ['id', 'typeId', 'date'],
 
     properties: {
       id: { type: 'string' },

@@ -10,7 +10,7 @@ const titreEtapesFilePathsNamesFind = (
   titreId: string,
   relationsIdsChangedIndex: Index<Index<string>>
 ) => {
-  if (!titreEtapes || !titreEtapes.length) {
+  if (!titreEtapes?.length) {
     return fichiersNames
   }
 
@@ -37,7 +37,7 @@ const titreFilePathsNamesFind = (
   titreId: string,
   relationsIdsChangedIndex: Index<Index<string>>
 ) => {
-  if (!titreDemarches || !titreDemarches.length) {
+  if (!titreDemarches?.length) {
     return {}
   }
 

@@ -69,8 +69,7 @@ import {
   entreprise,
   entreprises,
   entrepriseCreer,
-  entrepriseModifier,
-  etapeEntreprises
+  entrepriseModifier
 } from './resolvers/entreprises'
 import { administration, administrations } from './resolvers/administrations'
 import {
@@ -94,7 +93,6 @@ export default {
   documents,
   documentsTypes,
   domaines,
-  etapeEntreprises,
   etapesTypes,
   geoSystemes,
   permission,
