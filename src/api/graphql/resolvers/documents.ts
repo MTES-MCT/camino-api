@@ -1,4 +1,5 @@
-import { IDocument, IToken } from '../../../types'
+import { IDocument, IToken, IDocumentRepertoire } from '../../../types'
+import { FileUpload } from 'graphql-upload'
 
 import { join } from 'path'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -14,7 +15,8 @@ import {
   documentGet,
   documentCreate,
   documentUpdate,
-  documentDelete
+  documentDelete,
+  documentIdUpdate
 } from '../../../database/queries/documents'
 
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -23,6 +25,7 @@ import { documentTypeGet } from '../../../database/queries/metas'
 import documentUpdationValidate from '../../../business/document-updation-validate'
 import fieldsBuild from './_fields-build'
 import { GraphQLResolveInfo } from 'graphql-upload/node_modules/graphql'
+import fileRename from '../../../tools/file-rename'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -36,6 +39,35 @@ const documentValidate = (document: IDocument) => {
   }
 
   return errors
+}
+
+const documentFileDirPathFind = (
+  document: IDocument,
+  repertoire: IDocumentRepertoire
+) =>
+  `files/${repertoire}/${document.titreEtapeId ||
+    document.titreActiviteId ||
+    document.entrepriseId}`
+
+const documentFilePathFind = (document: IDocument, dirPath: string) =>
+  `${dirPath}/${document.id}.${document.fichierTypeId}`
+
+const documentFileCreate = async (
+  document: IDocument,
+  repertoire: IDocumentRepertoire,
+  fileUpload: FileUpload
+) => {
+  const dirPath = documentFileDirPathFind(document, repertoire)
+
+  await dirCreate(dirPath)
+
+  const documentFilePath = documentFilePathFind(document, dirPath)
+  const { createReadStream } = await fileUpload
+
+  await fileStreamCreate(
+    createReadStream(),
+    join(process.cwd(), documentFilePath)
+  )
 }
 
 const documents = async (
@@ -85,7 +117,7 @@ const documentCreer = async (
     }
 
     const documentType = await documentTypeGet(document.typeId)
-    if (!documentType) {
+    if (!documentType.repertoire) {
       throw new Error('type de document incorrect')
     }
 
@@ -102,24 +134,13 @@ const documentCreer = async (
     document.id = `${document.date}-${document.typeId}-${hash}`
 
     if (document.fichierNouveau) {
-      const { createReadStream } = await document.fichierNouveau.file
-
-      const dossier =
-        document.titreEtapeId ||
-        document.titreActiviteId ||
-        document.entrepriseId
-
-      const repertoire = documentType.repertoire
-
-      const dirPath = `files/${repertoire}/${dossier}`
-
-      await dirCreate(dirPath)
-
-      const filePath = `${dirPath}/${document.id}.${document.fichierTypeId}`
-
-      await fileStreamCreate(createReadStream(), join(process.cwd(), filePath))
-
       document.fichier = true
+
+      await documentFileCreate(
+        document,
+        documentType.repertoire,
+        document.fichierNouveau.file
+      )
     }
 
     delete document.fichierNouveau
@@ -147,8 +168,13 @@ const documentModifier = async (
       throw new Error('droits insuffisants')
     }
 
+    const documentOld = await documentGet(document.id, {}, user.id)
+    if (!documentOld) {
+      throw new Error('aucun document avec cette id')
+    }
+
     const documentType = await documentTypeGet(document.typeId)
-    if (!documentType) {
+    if (!documentType.repertoire) {
       throw new Error('type de document incorrect')
     }
 
@@ -160,54 +186,69 @@ const documentModifier = async (
       throw new Error(e.join(', '))
     }
 
-    if (document.fichierNouveau || !document.fichier) {
-      const documentOld = await documentGet(document.id, {}, user.id)
+    const documentFichierNouveau = document.fichierNouveau
 
-      if (!documentOld) {
-        throw new Error('aucun document avec cette id')
-      }
+    document.fichier = !!document.fichierNouveau
 
-      if (documentOld.fichier) {
-        const dossier =
-          documentOld.titreEtapeId ||
-          documentOld.titreActiviteId ||
-          documentOld.entrepriseId
-
-        const dirPath = `files/${documentOld.type!.repertoire}/${dossier}`
-
-        const documentOldPath = `${dirPath}/${documentOld.id}.${documentOld.fichierTypeId}`
-
-        try {
-          await fileDelete(join(process.cwd(), documentOldPath))
-        } catch (e) {
-          console.info(`impossible de supprimer le fichier: ${documentOldPath}`)
-        }
-      }
-    }
-
-    if (document.fichierNouveau) {
-      const dossier =
-        document.titreEtapeId ||
-        document.titreActiviteId ||
-        document.entrepriseId
-
-      const dirPath = `files/${documentType!.repertoire}/${dossier}`
-
-      const { createReadStream } = await document.fichierNouveau.file
-
-      const documentPath = `${dirPath}/${document.id}.${document.fichierTypeId}`
-
-      await fileStreamCreate(
-        createReadStream(),
-        join(process.cwd(), documentPath)
-      )
-
-      document.fichier = true
-    }
-
+    // cette propriété qui vient du front n'existe pas en base
     delete document.fichierNouveau
 
     const documentUpdated = await documentUpdate(document.id, document)
+
+    // si la date ou le type de fichier ont changé
+    // alors on change l'id et renomme le fichier s'il y en a un
+    if (
+      document.date !== documentOld.date ||
+      document.typeId !== documentOld.typeId
+    ) {
+      const hash = documentOld.id.split('-').pop()
+      const documentIdNew = `${documentUpdated.date}-${documentUpdated.typeId}-${hash}`
+
+      documentUpdated.id = documentIdNew
+
+      await documentIdUpdate(documentOld.id, documentUpdated)
+
+      if (!documentFichierNouveau && document.fichier && documentOld.fichier) {
+        const dirPath = documentFileDirPathFind(
+          documentUpdated,
+          documentType.repertoire
+        )
+
+        const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
+        const documentFilePath = documentFilePathFind(documentUpdated, dirPath)
+
+        await fileRename(documentOldFilePath, documentFilePath)
+      }
+    }
+
+    // supprime de l'ancien fichier
+    if (
+      (documentFichierNouveau || !documentUpdated.fichier) &&
+      documentOld.fichier
+    ) {
+      const dirPath = documentFileDirPathFind(
+        documentOld,
+        documentType.repertoire
+      )
+      const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
+
+      try {
+        await fileDelete(join(process.cwd(), documentOldFilePath))
+      } catch (e) {
+        console.info(
+          `impossible de supprimer le fichier: ${documentOldFilePath}`
+        )
+      }
+    }
+
+    // enregistre du nouveau fichier
+    if (documentFichierNouveau) {
+      await documentFileCreate(
+        documentUpdated,
+        documentType.repertoire,
+        documentFichierNouveau.file
+      )
+    }
 
     return documentUpdated
   } catch (e) {
@@ -234,19 +275,18 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     }
 
     if (documentOld.fichier) {
-      const dossier =
-        documentOld.titreEtapeId ||
-        documentOld.titreActiviteId ||
-        documentOld.entrepriseId
-
-      const dirPath = `files/${documentOld.type!.repertoire}/${dossier}`
-
-      const documentOldPath = `${dirPath}/${documentOld.id}.${documentOld.fichierTypeId}`
+      const dirPath = documentFileDirPathFind(
+        documentOld,
+        documentOld.type!.repertoire
+      )
+      const documentOldFilePath = documentFilePathFind(documentOld, dirPath)
 
       try {
-        await fileDelete(join(process.cwd(), documentOldPath))
+        await fileDelete(join(process.cwd(), documentOldFilePath))
       } catch (e) {
-        console.info(`impossible de supprimer le fichier: ${documentOldPath}`)
+        console.info(
+          `impossible de supprimer le fichier: ${documentOldFilePath}`
+        )
       }
     }
 

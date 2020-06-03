@@ -1,5 +1,7 @@
 import { IDocument, IFields } from '../../types'
 
+import { transaction, Transaction } from 'objection'
+
 import Document from '../models/documents'
 import { userGet } from './utilisateurs'
 import graphBuild from './graph/build'
@@ -49,26 +51,43 @@ const documentsGet = async (
   return q
 }
 
-const documentCreate = async (document: IDocument) =>
-  Document.query()
+const documentCreate = async (document: IDocument, tr?: Transaction) =>
+  Document.query(tr)
     .withGraphFetched(options.documents.graph)
     .insertAndFetch(document)
+
+const documentUpsert = async (document: IDocument, tr?: Transaction) =>
+  Document.query(tr)
+    .upsertGraph(document, options.documents.update)
+    .withGraphFetched(options.documents.graph)
+    .returning('*')
 
 const documentUpdate = async (id: string, props: Partial<IDocument>) =>
   Document.query()
     .withGraphFetched(options.documents.graph)
     .patchAndFetchById(id, props)
 
-const documentDelete = async (id: string) =>
-  Document.query()
+const documentDelete = async (id: string, tr?: Transaction) =>
+  Document.query(tr)
     .deleteById(id)
     .withGraphFetched(options.documents.graph)
     .returning('*')
+
+const documentIdUpdate = async (documentOldId: string, document: IDocument) => {
+  const knex = Document.knex()
+
+  return transaction(knex, async tr => {
+    await documentDelete(documentOldId, tr)
+
+    return documentUpsert(document, tr)
+  })
+}
 
 export {
   documentGet,
   documentsGet,
   documentCreate,
   documentUpdate,
-  documentDelete
+  documentDelete,
+  documentIdUpdate
 }

@@ -1,5 +1,10 @@
 const documents = {
-  graph: 'type'
+  graph: 'type',
+  update: {
+    insertMissing: true,
+    relate: ['type'],
+    unrelate: ['type']
+  }
 }
 
 const utilisateurs = {
