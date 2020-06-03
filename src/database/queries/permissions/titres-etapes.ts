@@ -134,8 +134,6 @@ const titreEtapesPermissionQueryBuild = (
     )
   })
 
-  console.log(q.toKnexQuery().toString())
-
   return q
 }
 

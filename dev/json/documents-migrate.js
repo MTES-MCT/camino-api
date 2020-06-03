@@ -235,6 +235,10 @@ mkdir('files/etapes')
 
 mkdir('files/entreprises')
 
+mkdir('files/activites')
+
+mkdir('files/travaux')
+
 // pour déterminer le répertoire du document en fonction du type
 const documentsTypes = elementsLoad(`documents-types`)
 

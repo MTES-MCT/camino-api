@@ -1,6 +1,6 @@
 import { IUtilisateur } from '../../../types'
 
-import { raw, QueryBuilder } from 'objection'
+import { QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
@@ -72,16 +72,6 @@ const documentsPermissionQueryBuild = (
       }
     })
   }
-
-  if (permissionCheck(user, ['super', 'admin', 'editeur', 'lecteur'])) {
-    q.select(raw('true').as('modification'))
-    q.select(raw('true').as('suppression'))
-  } else {
-    q.select(raw('false').as('modification'))
-    q.select(raw('false').as('suppression'))
-  }
-
-  q.select(raw('false').as('documentCreation'))
 }
 
 export { documentsPermissionQueryBuild }

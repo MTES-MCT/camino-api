@@ -239,7 +239,8 @@ const metasActivites = {
     { name: 'activites_statuts' },
     { name: 'titres_types__activites_types' },
     { name: 'activites_types__pays' },
-    { name: 'activites_types__administrations' }
+    { name: 'activites_types__administrations' },
+    { name: 'activites_types__documents_types' }
   ]
 } as ISpreadsheet
 

@@ -35,10 +35,22 @@ const geoSystemes = async () => geoSystemesGet()
 const unites = async () => unitesGet()
 
 const documentsTypes = async ({
-  repertoire
+  repertoire,
+  typeId
 }: {
   repertoire: IDocumentRepertoire
-}) => documentsTypesGet({ repertoire })
+  typeId?: string
+}) => {
+  try {
+    return await documentsTypesGet({ repertoire, typeId })
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
 
 const referencesTypes = async () => referencesTypesGet()
 const permission = async ({ id }: { id: string }) => permissionGet(id)

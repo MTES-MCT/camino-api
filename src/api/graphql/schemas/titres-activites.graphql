@@ -19,9 +19,10 @@ type Activite {
   sections: Json
   contenu: Json
   frequencePeriodeId: Int
+  documents: [Document]
 
   modification: Boolean
-  documentCreation: Boolean
+  documentsCreation: Boolean
 }
 
 input InputActiviteModification {

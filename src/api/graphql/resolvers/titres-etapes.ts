@@ -119,7 +119,6 @@ const etapeModifier = async (
       {},
       user && user.id
     )
-
     if (!demarche) throw new Error("la démarche n'existe pas")
 
     const titre = await titreGet(

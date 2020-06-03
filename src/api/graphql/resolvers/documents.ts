@@ -1,4 +1,9 @@
-import { IDocument, IToken, IDocumentRepertoire } from '../../../types'
+import {
+  IDocument,
+  IToken,
+  IDocumentRepertoire,
+  IUtilisateur
+} from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
 import { join } from 'path'
@@ -26,6 +31,10 @@ import documentUpdationValidate from '../../../business/document-updation-valida
 import fieldsBuild from './_fields-build'
 import { GraphQLResolveInfo } from 'graphql-upload/node_modules/graphql'
 import fileRename from '../../../tools/file-rename'
+import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
+import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
+import { titreGet } from '../../../database/queries/titres'
+import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -98,23 +107,76 @@ const documents = async (
   }
 }
 
+const documentPermisssionsCheck = async (
+  document: IDocument,
+  user?: IUtilisateur
+) => {
+  if (
+    !document.titreEtapeId &&
+    !document.titreActiviteId &&
+    !document.entrepriseId
+  ) {
+    throw new Error("id d'étape, d'activité ou d'entreprise manquant")
+  }
+
+  if (document.titreEtapeId) {
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const etape = await titreEtapeGet(
+      document.titreEtapeId,
+      {},
+      user && user.id
+    )
+    if (!etape) throw new Error("la démarche n'existe pas")
+
+    const demarche = await titreDemarcheGet(
+      etape.titreDemarcheId,
+      {},
+      user && user.id
+    )
+    if (!demarche) throw new Error("la démarche n'existe pas")
+
+    const titre = await titreGet(
+      demarche.titreId,
+      {
+        fields: {
+          administrationsGestionnaires: { id: {} },
+          administrationsLocales: { id: {} }
+        }
+      },
+      user.id
+    )
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    if (
+      !titreEtapePermissionAdministrationsCheck(
+        user,
+        titre.typeId,
+        titre.statutId!,
+        etape.typeId,
+        'modification'
+      )
+    ) {
+      throw new Error('droits insuffisants pour modifier ce document')
+    }
+  } else if (
+    (document.entrepriseId && !user) ||
+    !permissionCheck(user, ['super', 'admin', 'editeur'])
+  ) {
+    throw new Error('droits insuffisants pour modifier ce document')
+  }
+}
+
 const documentCreer = async (
   { document }: { document: IDocument },
   context: IToken
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
 
-    if (
-      !document.titreEtapeId &&
-      !document.titreActiviteId &&
-      !document.entrepriseId
-    ) {
-      throw new Error("id d'étape, d'activité ou d'entreprise manquant")
-    }
+    await documentPermisssionsCheck(document, user)
 
     const documentType = await documentTypeGet(document.typeId)
     if (!documentType.repertoire) {
@@ -164,11 +226,9 @@ const documentModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
+    await documentPermisssionsCheck(document, user)
 
-    const documentOld = await documentGet(document.id, {}, user.id)
+    const documentOld = await documentGet(document.id, {}, user!.id)
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
     }
@@ -264,15 +324,13 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const documentOld = await documentGet(id, {}, user.id)
+    const documentOld = await documentGet(id, {}, user!.id)
 
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
     }
+
+    await documentPermisssionsCheck(documentOld, user)
 
     if (documentOld.fichier) {
       const dirPath = documentFileDirPathFind(

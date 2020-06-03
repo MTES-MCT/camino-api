@@ -5,6 +5,7 @@ import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'
 import TitresActivites from '../../models/titres-activites'
+import DocumentsTypes from '../../models/documents-types'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
@@ -139,17 +140,17 @@ const titreActivitePermissionQueryBuild = (
 
       const administrationsIds = user.administrations!.map(a => a.id) || []
 
+      const administrationPermissionQuery = TitresActivites.query()
+        .alias('titresActivitesAdministrations')
+        .joinRelated('type.administrations')
+        .whereRaw('?? = ??', [
+          'titresActivitesAdministrations.id',
+          'titresActivites.id'
+        ])
+        .whereIn('type:administrations.id', administrationsIds)
+
       // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
-      q.whereExists(
-        TitresActivites.query()
-          .alias('titresActivitesAdministrations')
-          .joinRelated('type.administrations')
-          .whereRaw('?? = ??', [
-            'titresActivitesAdministrations.id',
-            'titresActivites.id'
-          ])
-          .whereIn('type:administrations.id', administrationsIds)
-      )
+      q.whereExists(administrationPermissionQuery)
     } else if (
       permissionCheck(user, ['entreprise']) &&
       user?.entreprises?.length
@@ -158,31 +159,44 @@ const titreActivitePermissionQueryBuild = (
       const entreprisesIds = user.entreprises.map(e => e.id)
 
       q.where(b => {
-        b.whereExists(
-          TitresActivites.query()
-            .alias('titresActivitesTitulaires')
-            .joinRelated('titre.titulaires')
-            .whereRaw('?? = ??', [
-              'titresActivitesTitulaires.id',
-              'titresActivites.id'
-            ])
-            .whereIn('titre:titulaires.id', entreprisesIds)
-        )
-        b.orWhereExists(
-          TitresActivites.query()
-            .alias('titresActivitesAmodiataires')
-            .joinRelated('titre.amodiataires')
-            .whereRaw('?? = ??', [
-              'titresActivitesAmodiataires.id',
-              'titresActivites.id'
-            ])
-            .whereIn('titre:amodiataires.id', entreprisesIds)
-        )
+        const titulairesPermissionQuery = TitresActivites.query()
+          .alias('titresActivitesTitulaires')
+          .joinRelated('titre.titulaires')
+          .whereRaw('?? = ??', [
+            'titresActivitesTitulaires.id',
+            'titresActivites.id'
+          ])
+          .whereIn('titre:titulaires.id', entreprisesIds)
+
+        const amodiatairesPermissionQuery = TitresActivites.query()
+          .alias('titresActivitesAmodiataires')
+          .joinRelated('titre.amodiataires')
+          .whereRaw('?? = ??', [
+            'titresActivitesAmodiataires.id',
+            'titresActivites.id'
+          ])
+          .whereIn('titre:amodiataires.id', entreprisesIds)
+
+        b.whereExists(titulairesPermissionQuery)
+        b.orWhereExists(amodiatairesPermissionQuery)
       })
     } else {
       // sinon, aucune activité n'est visible
       q.where(false)
     }
+  }
+
+  if (permissionCheck(user, ['super', 'admin', 'entreprise'])) {
+    const documentsTypesQuery = DocumentsTypes.query()
+      .alias('documentsTypesQuery')
+      .select(raw('true'))
+      .joinRelated('activitesTypes')
+      .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
+      .groupBy('documentsTypesQuery.id')
+
+    q.select(documentsTypesQuery.as('documentsCreation'))
+  } else {
+    q.select(raw('false').as('documentsCreation'))
   }
 
   return q

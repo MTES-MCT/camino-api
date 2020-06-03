@@ -40,9 +40,6 @@ type Document {
 
   publicLecture: Boolean
   entreprisesLecture: Boolean
-
-  modification: Boolean
-  suppression: Boolean
 }
 
 input InputDocumentCreation {

@@ -139,7 +139,7 @@ type Query {
 
   "Metas"
   devises: [Devise]
-  documentsTypes(repertoire: String): [DocumentType]
+  documentsTypes(repertoire: ID, typeId: ID): [DocumentType]
   domaines: [Domaine]
   geoSystemes: [GeoSysteme]
   referencesTypes: [ReferenceType]

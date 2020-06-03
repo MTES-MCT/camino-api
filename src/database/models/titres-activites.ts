@@ -1,7 +1,7 @@
+import { ITitreActivite } from '../../types'
+
 import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
-
-import { ITitreActivite } from '../../types'
 
 interface TitresActivites extends ITitreActivite {}
 
@@ -67,6 +67,15 @@ class TitresActivites extends Model {
       join: {
         from: 'titresActivites.utilisateurId',
         to: 'utilisateurs.id'
+      }
+    },
+
+    documentsTypes: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'documents-types'),
+      join: {
+        from: 'titresActivites.typeId',
+        to: 'activitesTypes__documentsTypes.activiteTypeId'
       }
     },
 

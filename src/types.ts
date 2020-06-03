@@ -567,8 +567,6 @@ interface IDocument {
   entrepriseId?: string | null
   entreprise?: IEntreprise | null
   etapesAssociees?: ITitreEtape[] | null
-  modification?: boolean | null
-  suppression?: boolean | null
 }
 
 interface ITitreEtape {
