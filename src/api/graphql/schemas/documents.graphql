@@ -36,6 +36,8 @@ type Document {
 
   entreprise: Entreprise
 
+  etapesAssociees: [Etape]
+
   publicLecture: Boolean
   entreprisesLecture: Boolean
 

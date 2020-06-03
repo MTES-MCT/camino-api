@@ -6,9 +6,11 @@ import { permissionCheck } from '../../../tools/permission'
 import Entreprises from '../../models/entreprises'
 import Utilisateurs from '../../models/utilisateurs'
 import Titres from '../../models/titres'
+import Documents from '../../models/documents'
 
 import { titrePermissionQueryBuild } from './titres'
 import { utilisateursPermissionQueryBuild } from './utilisateurs'
+import { documentsPermissionQueryBuild } from './documents'
 
 const entreprisePermissionQueryBuild = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
@@ -39,6 +41,13 @@ const entreprisePermissionQueryBuild = (
   q.modifyGraph('utilisateurs', u =>
     utilisateursPermissionQueryBuild(
       u as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
+      user
+    )
+  )
+
+  q.modifyGraph('documents', u =>
+    documentsPermissionQueryBuild(
+      u as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   )

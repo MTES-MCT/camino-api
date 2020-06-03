@@ -47,6 +47,17 @@ exports.up = knex =>
         .onDelete('CASCADE')
       table.primary(['administrationId', 'activiteTypeId'])
     })
+    .createTable('activitesTypes__documentsTypes', table => {
+      table
+        .string('activiteTypeId', 3)
+        .references('activitesTypes.id')
+        .notNullable()
+      table
+        .string('documentTypeId', 3)
+        .references('documentsTypes.id')
+        .notNullable()
+      table.primary(['activiteTypeId', 'documentTypeId'])
+    })
     .createTable('activitesStatuts', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
@@ -56,6 +67,7 @@ exports.up = knex =>
 exports.down = knex =>
   knex.schema
     .dropTable('activitesTypes__pays')
+    .dropTable('activitesTypes__documentsTypes')
     .dropTable('titresTypes__activitesTypes')
     .dropTable('activitesTypes__administrations')
     .dropTable('activitesTypes')

@@ -21,10 +21,14 @@ type Activite {
   frequencePeriodeId: Int
 
   modification: Boolean
+  documentCreation: Boolean
 }
 
 input InputActiviteModification {
   id: ID!
   statutId: String!
   contenu: Json
+  fichier: Boolean
+  fichierTypeId: ID
+  fichierNouveau: FileUpload
 }

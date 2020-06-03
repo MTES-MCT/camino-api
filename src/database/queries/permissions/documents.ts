@@ -80,6 +80,8 @@ const documentsPermissionQueryBuild = (
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
   }
+
+  q.select(raw('false').as('documentCreation'))
 }
 
 export { documentsPermissionQueryBuild }

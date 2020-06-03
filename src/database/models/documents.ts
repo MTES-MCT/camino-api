@@ -67,7 +67,7 @@ class Document extends Model {
     },
 
     // justificatifs
-    etapes: {
+    etapesAssociees: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres-etapes'),
       join: {
