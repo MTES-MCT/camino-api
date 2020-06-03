@@ -8,6 +8,8 @@ import {
   titreNewSansDemarches,
   titreNewDemarchesVides,
   titreNewSansEtapes,
+  titreSansDocuments,
+  titreDocumentsVide,
   titreNewDemarchesSansChangement
 } from './__mocks__/titre-fichiers-rename'
 
@@ -38,34 +40,22 @@ describe("renomme les fichiers d'un titre", () => {
     )
   })
 
-  test("ne renomme aucun fichier si un titre n'a pas de démarches", async () => {
-    await titreFilePathsRename(
-      {
-        etapes: {
-          'new-titre-id-demarche-01-etape-01':
-            'old-titre-id-demarche-01-etape-01'
-        }
-      },
-      titreNewSansDemarches
-    )
-    await titreFilePathsRename(
-      {
-        etapes: {
-          'new-titre-id-demarche-01-etape-01':
-            'old-titre-id-demarche-01-etape-01'
-        }
-      },
-      titreNewDemarchesVides
-    )
-    await titreFilePathsRename(
-      {
-        etapes: {
-          'new-titre-id-demarche-01-etape-01':
-            'old-titre-id-demarche-01-etape-01'
-        }
-      },
-      titreNewSansEtapes
-    )
+  test('ne renomme aucun fichier si un titre ne possède pas de fichiers', async () => {
+    const relationsIdsChangedIndex = {
+      etapes: {
+        'new-titre-id-demarche-01-etape-01': 'old-titre-id-demarche-01-etape-01'
+      }
+    }
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreNewSansDemarches)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreNewDemarchesVides)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreNewSansEtapes)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreSansDocuments)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreDocumentsVide)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })
@@ -80,6 +70,12 @@ describe("renomme les fichiers d'un titre", () => {
       },
       titreNewDemarchesSansChangement
     )
+
+    expect(fileRenameMock).not.toHaveBeenCalled()
+  })
+
+  test("ne renomme aucun fichier si aucun nom n'a changé", async () => {
+    await titreFilePathsRename({}, titreNewDemarchesSansChangement)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })

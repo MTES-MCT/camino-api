@@ -13,7 +13,7 @@ import {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeJustificatifsModifier
+  etapeJustificatifsAssocier
 } from './resolvers/titres-etapes'
 
 import {
@@ -129,7 +129,7 @@ export default {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
-  etapeJustificatifsModifier,
+  etapeJustificatifsAssocier,
   documentCreer,
   documentModifier,
   documentSupprimer,

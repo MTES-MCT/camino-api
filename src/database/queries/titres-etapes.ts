@@ -145,10 +145,18 @@ const titresEtapesJustificatifsUpsert = async (
     insertMissing: true
   })
 
-const titreEtapeJustificatifsDelete = async (titreEtapeId: string) =>
-  TitresEtapesJustificatifs.query()
-    .delete()
-    .where('titreEtapeId', titreEtapeId)
+const titreEtapeJustificatifsDelete = async (
+  titreEtapeId: string,
+  documentId?: string
+) => {
+  const q = TitresEtapesJustificatifs.query().where({ titreEtapeId })
+
+  if (documentId) {
+    q.where({ documentId })
+  }
+
+  return q.delete()
+}
 
 const titresEtapesAdministrationsCreate = async (
   titresEtapesAdministrations: ITitreAdministrationLocale[]

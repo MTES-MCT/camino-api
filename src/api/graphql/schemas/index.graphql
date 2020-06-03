@@ -251,7 +251,9 @@ type Mutation {
   "__*__ Supprime une étape et met à jour le titre minier"
   etapeSupprimer(id: ID!): Titre
 
-  etapeJustificatifsModifier(id: ID!, documentsIds: [ID]!): Titre
+  etapeJustificatifsAssocier(id: ID!, documentsIds: [ID]!): Titre
+
+  etapeJustificatifDissocier(id: ID!, documentId: ID): Titre
 
   "__*__ Crée un document et met à jour le titre minier"
   documentCreer(document: InputDocumentCreation!): Document
