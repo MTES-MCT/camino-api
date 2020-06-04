@@ -43,6 +43,7 @@ const seed = seeding(async ({ del }) => {
   ])
 
   // 08
+  await del('activitesTypes__documentsTypes')
   await del('activitesTypes__pays')
   await del('titresTypes__activitesTypes')
   await del('activitesTypes__administrations')

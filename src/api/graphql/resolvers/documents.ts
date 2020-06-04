@@ -107,6 +107,19 @@ const documents = async (
   }
 }
 
+const documentRepertoireCheck = (
+  repertoire: IDocumentRepertoire,
+  document: IDocument
+) => {
+  if (
+    (repertoire === 'activites' && !document.titreActiviteId) ||
+    (repertoire === 'etapes' && !document.titreEtapeId) ||
+    (repertoire === 'entreprises' && !document.entrepriseId)
+  ) {
+    throw new Error('type de document incorrect')
+  }
+}
+
 const documentPermisssionsCheck = async (
   document: IDocument,
   user?: IUtilisateur
@@ -166,6 +179,11 @@ const documentPermisssionsCheck = async (
     !permissionCheck(user, ['super', 'admin', 'editeur'])
   ) {
     throw new Error('droits insuffisants pour modifier ce document')
+  } else if (
+    (document.titreActiviteId && !user) ||
+    !permissionCheck(user, ['super', 'admin', 'editeur'])
+  ) {
+    throw new Error('droits insuffisants pour modifier ce document')
   }
 }
 
@@ -179,9 +197,8 @@ const documentCreer = async (
     await documentPermisssionsCheck(document, user)
 
     const documentType = await documentTypeGet(document.typeId)
-    if (!documentType.repertoire) {
-      throw new Error('type de document incorrect')
-    }
+
+    documentRepertoireCheck(documentType.repertoire, document)
 
     const errors = documentValidate(document)
 
@@ -234,9 +251,8 @@ const documentModifier = async (
     }
 
     const documentType = await documentTypeGet(document.typeId)
-    if (!documentType.repertoire) {
-      throw new Error('type de document incorrect')
-    }
+
+    documentRepertoireCheck(documentType.repertoire, document)
 
     const errors = documentValidate(document)
     const rulesErrors = await documentUpdationValidate(document)
