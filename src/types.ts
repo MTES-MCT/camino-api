@@ -202,9 +202,12 @@ interface IDevise {
   ordre: number
 }
 
+type IDocumentRepertoire = 'etapes' | 'activites' | 'entreprises'
+
 interface IDocumentType {
   id: string
   nom: string
+  repertoire: IDocumentRepertoire
 }
 
 interface IDomaine {
@@ -514,6 +517,11 @@ interface ITitreCommune {
   surface?: number | null
 }
 
+interface ITitreEtapeJustificatif {
+  documentId: string
+  titreEtapeId: string
+}
+
 interface ITitreDemarche {
   id: string
   titreId: string
@@ -537,22 +545,28 @@ interface ITitreDemarche {
   suppression?: boolean | null
 }
 
-interface ITitreDocument {
+interface IDocument {
   id: string
-  titreEtapeId: string
   typeId: string
-  type?: IDocumentType | null
-  jorf?: string | null
-  nor?: string | null
-  url?: string | null
-  uri?: string | null
+  date: string
   description?: string | null
+  type?: IDocumentType | null
   fichier?: boolean | null
   fichierTypeId?: string | null
   fichierNouveau?: { file: FileUpload } | null
-  public?: boolean | null
-  modification?: boolean | null
-  suppression?: boolean | null
+  url?: string | null
+  uri?: string | null
+  jorf?: string | null
+  nor?: string | null
+  publicLecture?: boolean | null
+  entreprisesLecture?: boolean | null
+  titreEtapeId?: string | null
+  etape?: ITitreEtape | null
+  titreActiviteId?: string | null
+  activite?: ITitreActivite | null
+  entrepriseId?: string | null
+  entreprise?: IEntreprise | null
+  etapesAssociees?: ITitreEtape[] | null
 }
 
 interface ITitreEtape {
@@ -576,7 +590,8 @@ interface ITitreEtape {
   titulaires?: IEntreprise[] | null
   amodiataires?: IEntreprise[] | null
   administrations?: IAdministration[] | null
-  documents?: ITitreDocument[] | null
+  documents?: IDocument[] | null
+  justificatifs?: IDocument[] | null
   communes?: ICommune[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
@@ -741,7 +756,7 @@ interface ITitreTypeEtapeTypeRestriction {
   impossible?: true
 }
 
-type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json'
+type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
 
 interface ITelechargement {
   __typename: 'Telechargement'
@@ -776,6 +791,7 @@ export {
   IDepartement,
   IDevise,
   IDocumentType,
+  IDocumentRepertoire,
   IDomaine,
   IEntreprise,
   IEntrepriseEtablissement,
@@ -809,8 +825,9 @@ export {
   ITitreAdministrationLocale,
   ITitreCommune,
   ITitreDemarche,
-  ITitreDocument,
+  IDocument,
   ITitreEtape,
+  ITitreEtapeJustificatif,
   ITitreEtapeFiltre,
   ITitreIncertitudes,
   ITitrePhase,

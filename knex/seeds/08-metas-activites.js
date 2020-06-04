@@ -8,6 +8,8 @@ const titresTypes__activitesTypes = require('../../sources/titres-types--activit
 const activitesTypes_pays = require('../../sources/activites-types--pays.json')
 // eslint-disable-next-line camelcase
 const activitesTypes_administrations = require('../../sources/activites-types--administrations.json')
+// eslint-disable-next-line camelcase
+const activitesTypes_documentsTypes = require('../../sources/activites-types--documents-types.json')
 
 const seed = seeding(async ({ insert }) => {
   await insert('activitesStatuts', activitesStatuts)
@@ -18,6 +20,7 @@ const seed = seeding(async ({ insert }) => {
     'activitesTypes__administrations',
     activitesTypes_administrations
   )
+  await insert('activitesTypes__documentsTypes', activitesTypes_documentsTypes)
 })
 
 module.exports = seed

@@ -171,8 +171,19 @@ const activiteModifier = async (
       { fields: { type: { titresTypes: { id: {} } }, titre: { id: {} } } },
       context.user?.id
     )
+    if (!activiteOld) throw new Error("l'activité n'existe pas")
 
-    if (!activiteOld) return null
+    const user = context.user && (await userGet(context.user.id))
+    if (!user) throw new Error("droits insuffisants modifier l'activité")
+
+    if (
+      !permissionCheck(user, ['super', 'admin']) &&
+      activiteOld?.statutId === 'dep'
+    ) {
+      throw new Error(
+        'cette activité a été validée et ne peux plus être modifiée'
+      )
+    }
 
     if (
       !activiteOld.type!.titresTypes.find(
@@ -182,18 +193,6 @@ const activiteModifier = async (
       )
     ) {
       throw new Error("ce titre ne peut pas recevoir d'activité")
-    }
-
-    const user = context.user && (await userGet(context.user.id))
-    if (!user) return null
-
-    if (
-      !permissionCheck(user, ['super', 'admin']) &&
-      activiteOld?.statutId === 'dep'
-    ) {
-      throw new Error(
-        'cette activité a été validée et ne peux plus être modifiée'
-      )
     }
 
     const validationErrors = titreActiviteUpdationValidate(

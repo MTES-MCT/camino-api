@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IEtapeType } from '../../../types'
+import { IToken, IEtapeType, IDocumentRepertoire } from '../../../types'
 import { debug } from '../../../config/index'
 
 import { autorisations } from '../../../database/cache/autorisations'
@@ -33,7 +33,58 @@ const npmPackage = require('../../../../package.json')
 const devises = async () => devisesGet()
 const geoSystemes = async () => geoSystemesGet()
 const unites = async () => unitesGet()
-const documentsTypes = async () => documentsTypesGet()
+
+const documentsTypes = async ({
+  repertoire,
+  typeId
+}: {
+  repertoire: IDocumentRepertoire
+  typeId?: string
+}) => {
+  try {
+    return await documentsTypesGet({ repertoire, typeId })
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const documentsVisibilites = async (_: never, context: IToken) => {
+  const user = await userGet(context.user?.id)
+  if (!user) return []
+
+  if (permissionCheck(user, ['super', 'admin', 'editeur'])) {
+    return [
+      {
+        id: 'admin',
+        nom: 'Administrations uniquement'
+      },
+      {
+        id: 'entreprise',
+        nom: 'Administrations et entreprises titulaires'
+      },
+      {
+        id: 'public',
+        nom: 'Public'
+      }
+    ]
+  }
+
+  if (permissionCheck(user, ['entreprise'])) {
+    return [
+      {
+        id: 'entreprise',
+        nom: 'Administrations et entreprises titulaires'
+      }
+    ]
+  }
+
+  return []
+}
+
 const referencesTypes = async () => referencesTypesGet()
 const permission = async ({ id }: { id: string }) => permissionGet(id)
 
@@ -290,6 +341,7 @@ export {
   demarchesTypes,
   demarchesStatuts,
   documentsTypes,
+  documentsVisibilites,
   domaines,
   etapesTypes,
   geoSystemes,

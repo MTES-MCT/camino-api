@@ -1,4 +1,4 @@
-import { IFields } from '../../types'
+import { IFields, IDocumentRepertoire } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
@@ -107,7 +107,31 @@ const etapesTypesGet = async (
 
 const devisesGet = async () => Devises.query().orderBy('nom')
 
-const documentsTypesGet = async () => DocumentsTypes.query().orderBy('nom')
+const documentsTypesGet = async ({
+  repertoire,
+  typeId
+}: {
+  repertoire: IDocumentRepertoire
+  typeId?: string
+}) => {
+  const q = DocumentsTypes.query().orderBy('nom')
+
+  if (repertoire) {
+    q.where({ repertoire })
+
+    // restreint les types de documents à ceux liés aux activités
+    if (repertoire === 'activites' && typeId) {
+      q.joinRelated('activitesTypes')
+
+      q.where('activitesTypes.id', typeId)
+    }
+  }
+
+  return q
+}
+
+const documentTypeGet = async (id: string) =>
+  DocumentsTypes.query().findById(id)
 
 const geoSystemesGet = async () =>
   GeoSystemes.query()
@@ -149,6 +173,7 @@ export {
   etapesTypesGet,
   devisesGet,
   documentsTypesGet,
+  documentTypeGet,
   geoSystemesGet,
   geoSystemeGet,
   unitesGet,

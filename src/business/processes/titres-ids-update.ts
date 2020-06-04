@@ -6,7 +6,7 @@ import * as slugify from '@sindresorhus/slugify'
 import { titreIdUpdate, titreGet } from '../../database/queries/titres'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import titreIdFind from '../utils/titre-id-find'
-import { titreFichiersRename } from './titre-fichiers-rename'
+import { titreFilePathsRename } from './titre-fichiers-rename'
 
 const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
   slugify(`${titreIdFind(titre)}-${hash}`)
@@ -32,31 +32,37 @@ const titreIdCheck = async (titreOldId: string, titre: ITitre) => {
   return titre
 }
 
-const titreIdsUpdate = async (titre: ITitre) => {
+const titreIdsUpdate = async (titreOld: ITitre) => {
   // les transaction en bdd ne peuvent être effectuées en parallèle
   // comment ça se passe si plusieurs utilisateurs modifient des titres en même temps ?
 
-  const titreOldId = titre.id
+  const titreOldId = titreOld.id
   try {
     // met à jour les ids de titre par effet de bord
-    const update = titreIdAndRelationsUpdate(titre)
+    const {
+      titre,
+      hasChanged,
+      relationsIdsChangedIndex
+    } = titreIdAndRelationsUpdate(titreOld)
 
-    if (!update.hasChanged) return null
+    if (!hasChanged) return null
 
-    titre = await titreIdCheck(titreOldId, update.titre)
+    const titreNew = await titreIdCheck(titreOldId, titre)
 
-    await titreIdUpdate(titreOldId, titre)
+    await titreIdUpdate(titreOldId, titreNew)
 
     // on catch l'erreur pour ne pas interrompre le processus
     try {
-      await titreFichiersRename(titreOldId, titre)
+      await titreFilePathsRename(relationsIdsChangedIndex, titreNew)
     } catch (e) {
-      console.error(`erreur: renommage de fichiers ${titreOldId} -> ${titre.id}`)
+      console.error(
+        `erreur: renommage de fichiers ${titreOldId} -> ${titreNew.id}`
+      )
     }
 
-    console.info(`mise à jour: titre ids: ${titre.id}`)
+    console.info(`mise à jour: titre ids: ${titreNew.id}`)
 
-    return { [titre.id]: titreOldId }
+    return { [titreNew.id]: titreOldId }
   } catch (e) {
     console.error(`erreur: titreIdsUpdate ${titreOldId}`)
     console.error(e)

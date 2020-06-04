@@ -1,5 +1,7 @@
-import * as express from 'express'
 import { IFormat, Index } from '../types'
+
+import * as express from 'express'
+import { join } from 'path'
 
 import { debug } from '../config/index'
 
@@ -10,20 +12,23 @@ import {
   utilisateurs,
   entreprises
 } from '../api/rest'
+
+import { fichier } from '../api/rest/fichiers'
+
 import { IAuthRequest } from './_types'
 
-const contentTypeCreate = (format: IFormat) => {
-  if (format === 'csv') return 'text/csv'
-  if (format === 'geojson') return 'application/geojson'
-  if (format === 'xlsx') return 'application/xlsx'
-
-  return ''
-}
+const contentTypes = {
+  csv: 'text/csv',
+  geojson: 'application/geojson',
+  xlsx: 'application/xlsx',
+  pdf: 'application/pdf'
+} as Index<string>
 
 interface IRestResolverResult {
   nom: string
   format: IFormat
-  contenu: string
+  contenu?: string
+  filePath?: string
 }
 
 type IRestResolver = (
@@ -39,18 +44,35 @@ const restify = (resolver: IRestResolver) => async (
   next: express.NextFunction
 ) => {
   try {
-    const result = await resolver(req.query, req.user?.id)
+    const result = await resolver({ ...req.query, ...req.params }, req.user?.id)
 
     if (!result) {
       throw new Error('Erreur technique: mauvais retour dans le resolver')
     }
 
-    const { nom, format, contenu } = result
+    const { nom, format, contenu, filePath } = result
 
     res.header('Content-disposition', `attachment; filename=${nom}`)
-    res.header('Content-Type', contentTypeCreate(format))
+    res.header('Content-Type', contentTypes[format])
 
-    res.send(contenu)
+    if (filePath) {
+      const options = {
+        dotfiles: 'deny',
+        headers: {
+          'x-sent': true,
+          'x-timestamp': Date.now()
+        },
+        root: join(process.cwd(), 'files')
+      }
+
+      res.sendFile(filePath, options, err => {
+        if (err) {
+          res.status(404).send('fichier introuvable')
+        }
+      })
+    } else {
+      res.send(contenu)
+    }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -65,6 +87,7 @@ rest.get('/demarches', restify(demarches))
 rest.get('/activites', restify(activites))
 rest.get('/utilisateurs', restify(utilisateurs))
 rest.get('/entreprises', restify(entreprises))
+rest.get('/fichiers/:documentId', restify(fichier))
 
 rest.use(
   (

@@ -4,7 +4,7 @@ import { basename, extname } from 'path'
 import 'dotenv/config'
 import '../../src/database/index'
 
-import { titresDocumentsGet } from '../../src/database/queries/titres-documents'
+import { documentsGet } from '../../src/database/queries/documents'
 
 type Index = { [id: string]: string }
 
@@ -153,7 +153,7 @@ const documentsNoFileCheck = (documentsIndex: Index, filesIndex: Index) => {
 }
 
 const main = async () => {
-  const documents = await titresDocumentsGet()
+  const documents = await documentsGet({}, {}, 'super')
 
   const documentsIndex = documents.reduce((res, document) => {
     if (document.fichier) {

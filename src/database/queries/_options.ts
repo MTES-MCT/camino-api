@@ -1,3 +1,12 @@
+const documents = {
+  graph: 'type',
+  update: {
+    insertMissing: true,
+    relate: ['type'],
+    unrelate: ['type']
+  }
+}
+
 const utilisateurs = {
   graph:
     '[permission, administrations.[titresTypes], entreprises.etablissements]',
@@ -24,7 +33,7 @@ const entreprisesEtablissements = {
 }
 
 const entreprises = {
-  graph: `[utilisateurs.permission, etablissements(orderDesc)]`,
+  graph: `[utilisateurs.permission, etablissements(orderDesc), documents.${documents.graph}]`,
   update: {
     insertMissing: true,
     relate: false,
@@ -75,7 +84,10 @@ const etapesRelateTrue = [
   'communes',
   'communes.departement',
   'communes.departement.region',
-  'communes.departement.region.pays'
+  'communes.departement.region.pays',
+  'documents.type',
+  'justificatifs',
+  'justificatifs.type'
 ]
 
 const etapes = {
@@ -83,7 +95,8 @@ const etapes = {
     points(orderAsc).${points.graph},
     type,
     statut,
-    documents,
+    documents.${documents.graph},
+    justificatifs.${documents.graph},
     substances(orderAsc).${substances.graph},
     titulaires.${entreprises.graph},
     amodiataires.${entreprises.graph},
@@ -276,6 +289,7 @@ export default {
   administrations,
   communes,
   demarches,
+  documents,
   entreprises,
   entreprisesEtablissements,
   etapes,

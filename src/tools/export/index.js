@@ -4,6 +4,7 @@ import PQueue from 'p-queue'
 
 import dbToSpreadsheet from './_utils/db-to-spreadsheets'
 import spreadsheetsTitres from './spreadsheets/titres'
+import spreadsheetDocuments from './spreadsheets/documents'
 import spreadsheetUtilisateurs from './spreadsheets/utilisateurs'
 import spreadsheetActivites from './spreadsheets/titres-activites'
 import spreadsheetAdministrations from './spreadsheets/administrations'
@@ -18,6 +19,7 @@ const run = async () => {
   // - les appels à l'API Google Sheets
   const spreadsheetsPromises = [
     ...spreadsheetsTitres,
+    spreadsheetDocuments,
     spreadsheetUtilisateurs,
     spreadsheetActivites,
     spreadsheetAdministrations,

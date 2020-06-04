@@ -17,6 +17,8 @@ const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
 
+const documentsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_DOCUMENTS
+
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
@@ -43,7 +45,7 @@ const titresTables = [
   { name: 'titres_etapes', cb: { contenu: JSON.parse } },
   { name: 'titres_points' },
   { name: 'titres_points_references' },
-  { name: 'titres_documents' },
+  { name: 'titres_etapes_justificatifs' },
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
   { name: 'titres_communes' },
@@ -169,6 +171,12 @@ const substances = {
   ]
 } as ISpreadsheet
 
+const documents = {
+  name: 'documents',
+  id: documentsSpreadsheetId,
+  tables: [{ name: 'documents' }]
+} as ISpreadsheet
+
 const territoires = {
   name: 'territoires',
   id: territoiresSpreadsheetId,
@@ -231,7 +239,8 @@ const metasActivites = {
     { name: 'activites_statuts' },
     { name: 'titres_types__activites_types' },
     { name: 'activites_types__pays' },
-    { name: 'activites_types__administrations' }
+    { name: 'activites_types__administrations' },
+    { name: 'activites_types__documents_types' }
   ]
 } as ISpreadsheet
 
@@ -268,6 +277,7 @@ const spreadsheets = [
   titresReprise,
   metas,
   substances,
+  documents,
   territoires,
   calendrier,
   entreprises,

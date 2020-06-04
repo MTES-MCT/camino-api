@@ -3,10 +3,10 @@ import { IUtilisateur } from '../../../types'
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
-import TitresDocuments from '../../models/titres-documents'
+import Documents from '../../models/documents'
 import TitresEtapes from '../../models/titres-etapes'
 
-import { titreDocumentsPermissionQueryBuild } from './titres-documents'
+import { documentsPermissionQueryBuild } from './documents'
 import { etapesTypesModificationQueryBuild } from './metas'
 
 const titreEtapesPermissionQueryBuild = (
@@ -80,46 +80,56 @@ const titreEtapesPermissionQueryBuild = (
   if (permissionCheck(user, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
+
+    q.joinRelated('type')
+    q.select(raw('type.fondamentale').as('justificatifsAssociation'))
   } else if (
     permissionCheck(user, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
-    const administrationsIds = user.administrations.map(a => a.id) || []
+    // édition de l'étape
 
-    if (administrationsIds.length) {
-      // édition du titre
+    // propriété 'modification'
+    // types d'étape autorisés pour tous les titres et démarches
+    // sur lesquels l'utilisateur a des droits
+    const etapeModificationQuery = etapesTypesModificationQueryBuild(
+      user.administrations,
+      true
+    )
+      // filtre selon la démarche
+      .whereRaw('?? = ??', [
+        'demarchesModification.id',
+        'titresEtapes.titreDemarcheId'
+      ])
+      // filtre selon le type de l'étape
+      .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
 
-      // propriété 'modification'
-      // types d'étape autorisés pour tous les titres et démarches
-      // sur lesquels l'utilisateur a des droits
-      const etapeModificationQuery = etapesTypesModificationQueryBuild(
-        user.administrations,
-        true
-      )
-        // filtre selon la démarche
-        .whereRaw('?? = ??', [
-          'demarchesModification.id',
-          'titresEtapes.titreDemarcheId'
-        ])
-        // filtre selon le type de l'étape
-        .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'titresEtapes.typeId'])
-
-      // TODO: conditionner aux fields
-      q.select(etapeModificationQuery.as('modification'))
-    } else {
-      // si l'utilisateur admin n'appartient à aucune administration
-      // il ne peut pas modifier / supprimer les étapes
-      q.select(raw('false').as('modification'))
-    }
+    // TODO: conditionner aux fields
+    q.select(etapeModificationQuery.as('modification'))
     q.select(raw('false').as('suppression'))
+
+    const justificatifsAssociationQuery = etapeModificationQuery.clone()
+
+    q.joinRelated('type')
+    justificatifsAssociationQuery.where(raw('type.fondamentale is true'))
+
+    q.select(justificatifsAssociationQuery.as('justificatifsAssociation'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
+    q.select(raw('false').as('justificatifsAssociation'))
   }
 
-  q.modifyGraph('documents', td => {
-    titreDocumentsPermissionQueryBuild(
-      td as QueryBuilder<TitresDocuments, TitresDocuments | TitresDocuments[]>,
+  q.modifyGraph('documents', ed => {
+    documentsPermissionQueryBuild(
+      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      user
+    )
+  })
+
+  q.modifyGraph('justificatifs', ed => {
+    documentsPermissionQueryBuild(
+      ed as QueryBuilder<Documents, Documents | Documents[]>,
       user
     )
   })

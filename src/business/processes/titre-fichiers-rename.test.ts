@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 
-import { titreFichiersRename } from './titre-fichiers-rename'
+import { titreFilePathsRename } from './titre-fichiers-rename'
 import fileRename from '../../tools/file-rename'
 
 import {
@@ -8,6 +8,8 @@ import {
   titreNewSansDemarches,
   titreNewDemarchesVides,
   titreNewSansEtapes,
+  titreSansDocuments,
+  titreDocumentsVide,
   titreNewDemarchesSansChangement
 } from './__mocks__/titre-fichiers-rename'
 
@@ -21,30 +23,59 @@ console.info = jest.fn()
 
 describe("renomme les fichiers d'un titre", () => {
   test("renomme les fichiers d'un titre", async () => {
-    await titreFichiersRename('old-titre-id', titreNew)
+    await titreFilePathsRename(
+      {
+        etapes: {
+          'new-titre-id-demarche-01-etape-01':
+            'old-titre-id-demarche-01-etape-01'
+        }
+      },
+      titreNew
+    )
 
     expect(fileRenameMock).toHaveBeenNthCalledWith(
       1,
-      'old-titre-id-demarche-01-etape-01-document-01.pdf',
-      'new-titre-id-demarche-01-etape-01-document-01.pdf'
-    )
-    expect(fileRenameMock).toHaveBeenNthCalledWith(
-      2,
-      'old-titre-id-demarche-01-etape-01-document-03.pdf',
-      'new-titre-id-demarche-01-etape-01-document-03.pdf'
+      'files/etapes/old-titre-id-demarche-01-etape-01',
+      'files/etapes/new-titre-id-demarche-01-etape-01'
     )
   })
 
-  test("ne renomme aucun fichier si un titre n'a pas de démarches", async () => {
-    await titreFichiersRename('old-titre-id', titreNewSansDemarches)
-    await titreFichiersRename('old-titre-id', titreNewDemarchesVides)
-    await titreFichiersRename('old-titre-id', titreNewSansEtapes)
+  test('ne renomme aucun fichier si un titre ne possède pas de fichiers', async () => {
+    const relationsIdsChangedIndex = {
+      etapes: {
+        'new-titre-id-demarche-01-etape-01': 'old-titre-id-demarche-01-etape-01'
+      }
+    }
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreNewSansDemarches)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreNewDemarchesVides)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreNewSansEtapes)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreSansDocuments)
+
+    await titreFilePathsRename(relationsIdsChangedIndex, titreDocumentsVide)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })
 
   test("ne renomme aucun fichier si le nom n'a pas changé", async () => {
-    await titreFichiersRename('new-titre-id', titreNewDemarchesSansChangement)
+    await titreFilePathsRename(
+      {
+        etapes: {
+          'old-titre-id-demarche-01-etape-01':
+            'old-titre-id-demarche-01-etape-01'
+        }
+      },
+      titreNewDemarchesSansChangement
+    )
+
+    expect(fileRenameMock).not.toHaveBeenCalled()
+  })
+
+  test("ne renomme aucun fichier si aucun nom n'a changé", async () => {
+    await titreFilePathsRename({}, titreNewDemarchesSansChangement)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })

@@ -123,13 +123,20 @@ const rowsToRowData = <T>(
   elements: T[]
 ) =>
   rowsCreate(elements, parents).map(
-    ({ element: row, parent }: { element: any; parent: any }) => ({
-      values: (rowFormat(row, columns, parent, callbacks) as string[]).map(
-        r => ({
-          userEnteredValue: { stringValue: r }
-        })
-      )
-    })
+    ({ element: row, parent }: { element: any; parent: any }) => {
+      const rowFormatted = rowFormat(
+        row,
+        columns,
+        parent,
+        callbacks
+      ) as string[]
+
+      const values = rowFormatted.map(r => ({
+        userEnteredValue: { stringValue: r }
+      }))
+
+      return { values }
+    }
   )
 
 export default dbToSpreadsheets

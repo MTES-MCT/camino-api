@@ -78,6 +78,15 @@ class Entreprises extends Model {
         },
         to: 'titres.amodiatairesTitreEtapeId'
       }
+    },
+
+    documents: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'documents'),
+      join: {
+        from: 'entreprises.id',
+        to: 'documents.entrepriseId'
+      }
     }
   }
 

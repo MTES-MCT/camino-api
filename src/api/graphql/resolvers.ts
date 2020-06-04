@@ -12,14 +12,17 @@ import {
 import {
   etapeCreer,
   etapeModifier,
-  etapeSupprimer
+  etapeSupprimer,
+  etapeJustificatifsAssocier,
+  etapeJustificatifDissocier
 } from './resolvers/titres-etapes'
 
 import {
+  documents,
   documentCreer,
   documentModifier,
   documentSupprimer
-} from './resolvers/titres-documents'
+} from './resolvers/documents'
 
 import {
   demarches,
@@ -49,6 +52,7 @@ import {
   demarchesTypes,
   demarchesStatuts,
   documentsTypes,
+  documentsVisibilites,
   domaines,
   etapesTypes,
   geoSystemes,
@@ -87,10 +91,12 @@ export default {
   demarches,
   demarchesTypes,
   demarchesStatuts,
-  etapesTypes,
   devises,
+  documents,
   documentsTypes,
+  documentsVisibilites,
   domaines,
+  etapesTypes,
   geoSystemes,
   permission,
   permissions,
@@ -126,6 +132,8 @@ export default {
   etapeCreer,
   etapeModifier,
   etapeSupprimer,
+  etapeJustificatifsAssocier,
+  etapeJustificatifDissocier,
   documentCreer,
   documentModifier,
   documentSupprimer,

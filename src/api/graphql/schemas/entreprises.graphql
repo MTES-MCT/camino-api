@@ -27,6 +27,7 @@ type Entreprise {
   utilisateurs: [Utilisateur]
   titresTitulaire: [Titre]
   titresAmodiataire: [Titre]
+  documents: [Document]
 
   modification: Boolean
 }

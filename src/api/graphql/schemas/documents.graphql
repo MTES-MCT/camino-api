@@ -7,17 +7,14 @@ type Document {
   """
   id: ID!
 
+  "Type de document (arrêté, décret, etc.)"
+  type: DocumentType!
+
+  "Date du document"
+  date: String!
+
   "Description du document"
   description: String
-
-  "Type de document (arrêté, décret, etc.)"
-  type: DocumentType
-
-  "Url du document"
-  url: String
-
-  "Uri du document"
-  uri: String
 
   "Fichier est hébergé sur camino"
   fichier: Boolean
@@ -25,43 +22,59 @@ type Document {
   "Extension du fichier"
   fichierTypeId: ID
 
+  "Url du document"
+  url: String
+
+  "Uri du document"
+  uri: String
+
   "Référence au Journal Officiel"
   jorf: String
 
   "Référence Nor"
   nor: String
 
-  public: Boolean
+  entreprise: Entreprise
 
-  modification: Boolean
-  suppression: Boolean
+  etapesAssociees: [Etape]
+
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
 }
 
 input InputDocumentCreation {
-  titreEtapeId: ID!
   typeId: ID!
+  date: String!
+  titreEtapeId: ID
+  titreActiviteId: ID
+  entrepriseId: ID
   description: String
-  url: String
-  uri: String
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
+  url: String
+  uri: String
   jorf: String
   nor: String
-  public: Boolean
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
 }
 
 input InputDocumentModification {
   id: ID!
-  titreEtapeId: ID!
   typeId: ID!
+  date: String!
+  titreActiviteId: ID
+  entrepriseId: ID
+  titreEtapeId: ID
   description: String
-  url: String
-  uri: String
   fichier: Boolean
   fichierTypeId: ID
   fichierNouveau: FileUpload
+  url: String
+  uri: String
   jorf: String
   nor: String
-  public: Boolean
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
 }

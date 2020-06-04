@@ -123,10 +123,23 @@ class TitresEtapes extends Model {
 
     documents: {
       relation: Model.HasManyRelation,
-      modelClass: join(__dirname, 'titres-documents'),
+      modelClass: join(__dirname, 'documents'),
       join: {
         from: 'titresEtapes.id',
-        to: 'titresDocuments.titreEtapeId'
+        to: 'documents.titreEtapeId'
+      }
+    },
+
+    justificatifs: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'documents'),
+      join: {
+        from: 'titresEtapes.id',
+        through: {
+          from: 'titresEtapesJustificatifs.titreEtapeId',
+          to: 'titresEtapesJustificatifs.documentId'
+        },
+        to: 'documents.id'
       }
     },
 

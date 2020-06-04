@@ -9,15 +9,18 @@ import {
   entreprisesCount
 } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
+import { titreEtapeGet } from '../../../database/queries/titres-etapes'
+import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
+import { titreGet } from '../../../database/queries/titres'
 
 import fieldsBuild from './_fields-build'
 
 import { entrepriseFormat } from '../../_format/entreprises'
-
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
-
 import { entrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
+
+import titreEtapePropFind from '../../../business/rules/titre-etape-prop-find'
 
 const entreprise = async (
   { id }: { id: string },
@@ -45,14 +48,96 @@ const entreprise = async (
   }
 }
 
+const etapeEntreprises = async (
+  { etapeId }: { etapeId: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    const titreEtape = await titreEtapeGet(
+      etapeId,
+      { fields: { id: {} } },
+      'super'
+    )
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
+
+    const titreDemarche = await titreDemarcheGet(
+      titreEtape.titreDemarcheId,
+      { fields: { etapes: { id: {} } } },
+      'super'
+    )
+
+    if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+    const titre = await titreGet(
+      titreDemarche.titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              titulaires: fields.elements,
+              amodiataires: fields.elements
+            }
+          }
+        }
+      },
+      'super'
+    )
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    let entreprises = [] as IEntreprise[]
+
+    if (titreDemarche.etapes) {
+      const titulaires =
+        (titreEtapePropFind(
+          'titulaires',
+          titreEtape,
+          titreDemarche.etapes,
+          titre
+        ) as IEntreprise[] | null) || []
+
+      const amodiataires =
+        (titreEtapePropFind(
+          'amodiataires',
+          titreEtape,
+          titreDemarche.etapes,
+          titre
+        ) as IEntreprise[] | null) || []
+
+      entreprises = [...titulaires, ...amodiataires]
+    }
+
+    return {
+      elements: entreprises,
+      total: entreprises.length
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const entreprises = async (
   {
+    etapeId,
     page,
     intervalle,
     ordre,
     colonne,
     noms
   }: {
+    etapeId?: string | null
     page?: number | null
     intervalle?: number | null
     ordre?: 'asc' | 'desc' | null
@@ -62,6 +147,10 @@ const entreprises = async (
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
+  if (etapeId) {
+    return etapeEntreprises({ etapeId }, context, info)
+  }
+
   try {
     const fields = fieldsBuild(info)
 

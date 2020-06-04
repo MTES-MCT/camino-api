@@ -139,7 +139,8 @@ type Query {
 
   "Metas"
   devises: [Devise]
-  documentsTypes: [DocumentType]
+  documentsTypes(repertoire: ID, typeId: ID): [DocumentType]
+  documentsVisibilites: [DocumentVisibilite]
   domaines: [Domaine]
   geoSystemes: [GeoSysteme]
   referencesTypes: [ReferenceType]
@@ -160,6 +161,7 @@ type Query {
     colonne: String
     ordre: String
     noms: String
+    etapeId: ID
   ): Entreprises
 
   "Administration en fonction de son id"
@@ -170,6 +172,8 @@ type Query {
 
   "Statistiques"
   statistiques: Statistiques
+
+  documents(entreprisesIds: [ID!]): [Document]
 }
 
 """
@@ -248,14 +252,18 @@ type Mutation {
   "__*__ Supprime une étape et met à jour le titre minier"
   etapeSupprimer(id: ID!): Titre
 
+  etapeJustificatifsAssocier(id: ID!, documentsIds: [ID]!): Titre
+
+  etapeJustificatifDissocier(id: ID!, documentId: ID): Titre
+
   "__*__ Crée un document et met à jour le titre minier"
-  documentCreer(document: InputDocumentCreation!): Titre
+  documentCreer(document: InputDocumentCreation!): Document
 
   "__*__ Modifie un document et met à jour le titre minier"
-  documentModifier(document: InputDocumentModification!): Titre
+  documentModifier(document: InputDocumentModification!): Document
 
   "__*__ Supprime un document et met à jour le titre minier"
-  documentSupprimer(id: ID!): Titre
+  documentSupprimer(id: ID!): Boolean
 
   "__*__ Crée ou modifie une activité"
   activiteModifier(activite: InputActiviteModification!): Activite

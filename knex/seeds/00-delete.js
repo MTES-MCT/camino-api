@@ -1,8 +1,11 @@
 const seeding = require('../seeding')
 
 const seed = seeding(async ({ del }) => {
-  // 12
+  // 13
   await del('globales')
+
+  // 12
+  await del('documents')
 
   // 11
   await del('titresActivites')
@@ -17,7 +20,7 @@ const seed = seeding(async ({ del }) => {
     del('titresAdministrationsLocales'),
     del('titresAmodiataires'),
     del('titresIncertitudes'),
-    del('titresDocuments')
+    del('titresEtapesJustificatifs')
   ])
   await del('titresPoints')
   await Promise.all([
@@ -40,6 +43,7 @@ const seed = seeding(async ({ del }) => {
   ])
 
   // 08
+  await del('activitesTypes__documentsTypes')
   await del('activitesTypes__pays')
   await del('titresTypes__activitesTypes')
   await del('activitesTypes__administrations')
