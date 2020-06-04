@@ -2,7 +2,8 @@ import {
   IDocument,
   IToken,
   IDocumentRepertoire,
-  IUtilisateur
+  IUtilisateur,
+  IDocumentType
 } from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
@@ -35,6 +36,7 @@ import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/tit
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
+import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
 const documentValidate = (document: IDocument) => {
   const errors = []
@@ -108,15 +110,19 @@ const documents = async (
 }
 
 const documentRepertoireCheck = (
-  repertoire: IDocumentRepertoire,
+  documentType: IDocumentType | undefined,
   document: IDocument
 ) => {
-  if (
-    (repertoire === 'activites' && !document.titreActiviteId) ||
-    (repertoire === 'etapes' && !document.titreEtapeId) ||
-    (repertoire === 'entreprises' && !document.entrepriseId)
-  ) {
+  if (!documentType) {
     throw new Error('type de document incorrect')
+  }
+
+  if (
+    (documentType.repertoire === 'activites' && !document.titreActiviteId) ||
+    (documentType.repertoire === 'etapes' && !document.titreEtapeId) ||
+    (documentType.repertoire === 'entreprises' && !document.entrepriseId)
+  ) {
+    throw new Error("le répertoire et l'élément lié ne correspondent pas")
   }
 }
 
@@ -132,8 +138,10 @@ const documentPermisssionsCheck = async (
     throw new Error("id d'étape, d'activité ou d'entreprise manquant")
   }
 
+  if (!user) throw new Error('droits insuffisants')
+
   if (document.titreEtapeId) {
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!permissionCheck(user, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -175,15 +183,28 @@ const documentPermisssionsCheck = async (
       throw new Error('droits insuffisants pour modifier ce document')
     }
   } else if (
-    (document.entrepriseId && !user) ||
+    document.entrepriseId &&
     !permissionCheck(user, ['super', 'admin', 'editeur'])
   ) {
     throw new Error('droits insuffisants pour modifier ce document')
-  } else if (
-    (document.titreActiviteId && !user) ||
-    !permissionCheck(user, ['super', 'admin', 'editeur'])
-  ) {
-    throw new Error('droits insuffisants pour modifier ce document')
+  } else if (document.titreActiviteId) {
+    // si l'activité est récupérée depuis la base
+    // alors on a le droit de la visualiser, donc de l'éditer
+    const activite = await titreActiviteGet(
+      document.titreActiviteId,
+      { fields: { type: { titresTypes: { id: {} } }, titre: { id: {} } } },
+      user.id
+    )
+    if (!activite) throw new Error("l'activité n'existe pas")
+
+    if (
+      !permissionCheck(user, ['super', 'admin']) &&
+      activite.statutId === 'dep'
+    ) {
+      throw new Error(
+        'cette activité a été validée et ne peux plus être modifiée'
+      )
+    }
   }
 }
 
@@ -198,7 +219,7 @@ const documentCreer = async (
 
     const documentType = await documentTypeGet(document.typeId)
 
-    documentRepertoireCheck(documentType.repertoire, document)
+    documentRepertoireCheck(documentType, document)
 
     const errors = documentValidate(document)
 
@@ -252,7 +273,7 @@ const documentModifier = async (
 
     const documentType = await documentTypeGet(document.typeId)
 
-    documentRepertoireCheck(documentType.repertoire, document)
+    documentRepertoireCheck(documentType, document)
 
     const errors = documentValidate(document)
     const rulesErrors = await documentUpdationValidate(document)
