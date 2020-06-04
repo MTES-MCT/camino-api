@@ -19,9 +19,6 @@ const documentsPermissionQueryBuild = (
 
     // repertoire = activites
     q.leftJoinRelated('activite.titre.[titulaires, amodiataires]')
-
-    // repertoire = entreprises
-    q.leftJoinRelated('entreprise')
   }
 
   if (
@@ -65,7 +62,7 @@ const documentsPermissionQueryBuild = (
 
             d.orWhere(e => {
               e.where('type.repertoire', 'entreprises')
-              e.whereIn('entreprise.id', entreprisesIds)
+              e.whereIn('documents.entrepriseId', entreprisesIds)
             })
           })
         })

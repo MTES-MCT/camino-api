@@ -26,7 +26,9 @@ const documentGet = async (
 
   documentsPermissionQueryBuild(q, user)
 
-  return (await q.findById(documentId)) as IDocument
+  const document = await q.findById(documentId)
+
+  return document as IDocument
 }
 
 const documentsGet = async (

@@ -1,32 +1,3 @@
-"""
-Meta-informations sur les titres miniers (types, domaines, statuts)
-"""
-type Metas {
-  "Types de titres miniers (ex: permis exclusif de recherches, autorisation d'exploitation, etc.)"
-  types: [TitreType]
-
-  "Domaines miniers (ex: substances énergétiques, minéraux et métaux, etc.)"
-  domaines: [Domaine]
-
-  "Statuts des titres miniers (ex: valide, demande initiale, etc.)"
-  statuts: [TitreStatut]
-
-  "Systèmes géodésiques utilisés dans Camino"
-  geoSystemes: [GeoSysteme]
-
-  "Devises utilisées dans Camino"
-  devises: [Devise]
-
-  "Unités de volume utilisées dans Camino"
-  unites: [Unite]
-
-  "Types de documents"
-  documentsTypes: [DocumentType]
-
-  "Types de references"
-  referencesTypes: [ReferenceType]
-}
-
 "Domaine minier"
 type Domaine {
   "Id composée d'une seule lettre"
@@ -224,6 +195,12 @@ type GeoSysteme {
 }
 
 type DocumentType {
+  id: ID!
+
+  nom: String!
+}
+
+type DocumentVisibilite {
   id: ID!
 
   nom: String!

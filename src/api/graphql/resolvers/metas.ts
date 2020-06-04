@@ -52,6 +52,39 @@ const documentsTypes = async ({
   }
 }
 
+const documentsVisibilites = async (_: never, context: IToken) => {
+  const user = await userGet(context.user?.id)
+  if (!user) return []
+
+  if (permissionCheck(user, ['super', 'admin', 'editeur'])) {
+    return [
+      {
+        id: 'admin',
+        nom: 'Administrations uniquement'
+      },
+      {
+        id: 'entreprise',
+        nom: 'Administrations et entreprises titulaires'
+      },
+      {
+        id: 'public',
+        nom: 'Public'
+      }
+    ]
+  }
+
+  if (permissionCheck(user, ['entreprise'])) {
+    return [
+      {
+        id: 'entreprise',
+        nom: 'Administrations et entreprises titulaires'
+      }
+    ]
+  }
+
+  return []
+}
+
 const referencesTypes = async () => referencesTypesGet()
 const permission = async ({ id }: { id: string }) => permissionGet(id)
 
@@ -308,6 +341,7 @@ export {
   demarchesTypes,
   demarchesStatuts,
   documentsTypes,
+  documentsVisibilites,
   domaines,
   etapesTypes,
   geoSystemes,

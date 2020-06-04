@@ -362,7 +362,6 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
     const user = context.user && (await userGet(context.user.id))
 
     const documentOld = await documentGet(id, {}, user!.id)
-
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
     }

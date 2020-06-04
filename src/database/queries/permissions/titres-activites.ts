@@ -4,8 +4,10 @@ import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'
+import Documents from '../../models/documents'
 import TitresActivites from '../../models/titres-activites'
 import DocumentsTypes from '../../models/documents-types'
+import { documentsPermissionQueryBuild } from './documents'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
@@ -198,6 +200,13 @@ const titreActivitePermissionQueryBuild = (
   } else {
     q.select(raw('false').as('documentsCreation'))
   }
+
+  q.modifyGraph('documents', ed => {
+    documentsPermissionQueryBuild(
+      ed as QueryBuilder<Documents, Documents | Documents[]>,
+      user
+    )
+  })
 
   return q
 }
