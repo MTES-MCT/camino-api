@@ -87,7 +87,7 @@ const titreActiviteEmailFormat = (
 <hr>
 `
 
-  const body =
+  let body =
     sections && contenu
       ? sections.reduce(
           (res, section) => `
@@ -98,6 +98,10 @@ ${sectionHtmlBuild(section, contenu)}
           ''
         )
       : ''
+  body += `<hr><a
+        href="https://voxusagers.numerique.gouv.fr/Demarches/2467?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511"
+      >Je donne mon avis sur cette démarche
+      </a>`
 
   return `
 ${header}
