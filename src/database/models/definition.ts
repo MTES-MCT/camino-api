@@ -1,5 +1,5 @@
 import { IDefinition } from '../../types'
-import { Model, Modifiers } from 'objection'
+import { Model } from 'objection'
 
 interface Definitions extends IDefinition {}
 
