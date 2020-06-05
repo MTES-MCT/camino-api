@@ -178,10 +178,6 @@ const activitesTypes = {
   graph: `[pays, frequence.[mois, trimestres.mois, annees], titresTypes, administrations]`
 }
 
-const activitesStatuts = {
-  graph: `[pays, frequence.[mois, trimestres.mois, annees], titresTypes, administrations]`
-}
-
 const titresActivites = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
 }
@@ -277,7 +273,6 @@ const titres = {
 
 export default {
   activitesTypes,
-  activitesStatuts,
   administrations,
   communes,
   demarches,

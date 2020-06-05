@@ -286,18 +286,9 @@ const activitesTypes = async (
   }
 }
 
-const activitesStatuts = async (
-  _: never,
-  context: IToken,
-  info: GraphQLResolveInfo
-) => {
+const activitesStatuts = async () => {
   try {
-    const fields = fieldsBuild(info)
-
-    const activitesStatuts = await activitesStatutsGet(
-      { fields },
-      context.user?.id
-    )
+    const activitesStatuts = await activitesStatutsGet()
 
     return activitesStatuts
   } catch (e) {

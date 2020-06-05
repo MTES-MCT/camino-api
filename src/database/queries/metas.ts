@@ -139,15 +139,8 @@ const activitesTypesGet = async (
   return q
 }
 
-const activitesStatutsGet = async (
-  { fields }: { fields?: IFields },
-  userId?: string
-) => {
-  const graph = fields
-    ? graphBuild(fields, 'activiteStatut', graphFormat)
-    : options.activitesStatuts.graph
-
-  const q = ActivitesStatuts.query().withGraphFetched(graph)
+const activitesStatutsGet = async () => {
+  const q = ActivitesStatuts.query()
 
   return q
 }
