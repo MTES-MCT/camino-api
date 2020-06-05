@@ -1,1 +1,0 @@
-select "utilisateurs".*, true as "modification", true as "suppression", true as "permission_modification" from "utilisateurs" where lower("utilisateurs"."email") ~* 'alain' order by "utilisateurs"."nom" asc
