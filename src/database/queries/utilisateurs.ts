@@ -14,7 +14,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
 
-import { stringSplit, emailsSplit } from './_utils'
+import { stringSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -74,26 +74,32 @@ const utilisateursQueryBuild = (
 
   if (noms) {
     const nomsArray = stringSplit(noms)
-    q.whereRaw(`lower(??) ~* ?`, [
-      'utilisateurs.nom',
-      nomsArray.map(n => n.toLowerCase()).join('|')
-    ])
+    q.where(b => {
+      b.whereRaw(`?? ~* ?`, [
+        'utilisateurs.nom',
+        nomsArray.map(n => `(?=.*?(${n}))`).join('')
+      ])
+    })
   }
 
   if (prenoms) {
     const prenomsArray = stringSplit(prenoms)
-    q.whereRaw(`lower(??) ~* ?`, [
-      'utilisateurs.prenom',
-      prenomsArray.map(n => n.toLowerCase()).join('|')
-    ])
+    q.where(b => {
+      b.whereRaw(`?? ~* ?`, [
+        'utilisateurs.prenom',
+        prenomsArray.map(n => `(?=.*?(${n}))`).join('')
+      ])
+    })
   }
 
   if (emails) {
-    const emailsArray = emailsSplit(emails)
-    q.whereRaw(`lower(??) ~* ?`, [
-      'utilisateurs.email',
-      emailsArray.map(n => n.toLowerCase()).join('|')
-    ])
+    const emailsArray = stringSplit(emails)
+    q.where(b => {
+      b.whereRaw(`?? ~* ?`, [
+        'utilisateurs.email',
+        emailsArray.map(n => `(?=.*?(${n}))`).join('')
+      ])
+    })
   }
 
   return q
