@@ -15,6 +15,7 @@ import graphFormat from './graph/format'
 import { raw } from 'objection'
 
 import { stringSplit, emailsSplit } from './_utils'
+import { writeFileSync } from 'fs'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -89,7 +90,8 @@ const utilisateursQueryBuild = (
   }
 
   if (emails) {
-    const emailsArray = emailsSplit(emails)
+    // const emailsArray = emailsSplit(emails)
+    const emailsArray = stringSplit(emails)
     q.whereRaw(`lower(??) ~* ?`, [
       'utilisateurs.email',
       emailsArray.map(n => n.toLowerCase()).join('|')
@@ -216,6 +218,8 @@ const utilisateursGet = async (
   if (intervalle) {
     q.limit(intervalle)
   }
+
+  writeFileSync('src/database/queries/test.sql', q.toKnexQuery().toString())
 
   return q
 }
