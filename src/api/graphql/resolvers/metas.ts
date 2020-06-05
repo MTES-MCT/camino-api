@@ -1,5 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IEtapeType, IDocumentRepertoire, IDefinition } from '../../../types'
+import {
+  IToken,
+  IEtapeType,
+  IDocumentRepertoire,
+  IDefinition
+} from '../../../types'
 import { debug } from '../../../config/index'
 
 import { autorisations } from '../../../database/cache/autorisations'
@@ -351,6 +356,8 @@ const activitesStatuts = async () => {
 
     throw e
   }
+}
+
 const definitions = async (context: IToken) => {
   try {
     const definitions = await definitionsGet()
