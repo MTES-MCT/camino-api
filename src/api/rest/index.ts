@@ -224,6 +224,7 @@ interface ITitresActivitesQueryInput {
   ordre?: 'asc' | 'desc' | null
   colonne?: ITitreActiviteColonneId | null
   typesIds?: string | null
+  statutsIds?: string | null
   annees?: string | null
   titresNoms?: string | null
   titresEntreprises?: string | null
@@ -238,6 +239,7 @@ const activites = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
@@ -254,6 +256,7 @@ const activites = async (
       ordre,
       colonne,
       typesIds: typesIds?.split(','),
+      statutsIds: statutsIds?.split(','),
       annees: annees?.split(',').map(a => Number(a)),
       titresNoms,
       titresEntreprises,

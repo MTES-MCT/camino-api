@@ -18,7 +18,8 @@ import {
   titresStatutsGet,
   titresTypesTypesGet,
   unitesGet,
-  activitesTypesGet
+  activitesTypesGet,
+  activitesStatutsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -336,6 +337,20 @@ const activitesTypes = async (
   }
 }
 
+const activitesStatuts = async () => {
+  try {
+    const activitesStatuts = await activitesStatutsGet()
+
+    return activitesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -352,5 +367,6 @@ export {
   types,
   unites,
   version,
-  activitesTypes
+  activitesTypes,
+  activitesStatuts
 }

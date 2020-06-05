@@ -58,6 +58,7 @@ const activites = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
@@ -70,6 +71,7 @@ const activites = async (
     ordre?: 'asc' | 'desc' | null
     colonne?: ITitreActiviteColonneId | null
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
@@ -103,7 +105,8 @@ const activites = async (
         titresEntreprises,
         titresSubstances,
         titresReferences,
-        titresTerritoires
+        titresTerritoires,
+        statutsIds
       },
       { fields: fields.elements },
       context.user?.id
@@ -117,7 +120,8 @@ const activites = async (
         titresEntreprises,
         titresSubstances,
         titresReferences,
-        titresTerritoires
+        titresTerritoires,
+        statutsIds
       },
       { fields: fields.elements },
       context.user?.id

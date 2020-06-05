@@ -13,6 +13,7 @@ import ReferencesTypes from '../models/references-types'
 import TitresStatuts from '../models/titres-statuts'
 import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
+import ActivitesStatuts from '../models/activites-statuts'
 
 import options from './_options'
 import graphBuild from './graph/build'
@@ -162,6 +163,12 @@ const activitesTypesGet = async (
   return q
 }
 
+const activitesStatutsGet = async () => {
+  const q = ActivitesStatuts.query()
+
+  return q
+}
+
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 export {
@@ -178,6 +185,7 @@ export {
   geoSystemeGet,
   unitesGet,
   activitesTypesGet,
+  activitesStatutsGet,
   referencesTypesGet,
   permissionsGet,
   permissionGet

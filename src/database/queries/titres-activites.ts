@@ -26,6 +26,7 @@ import Objection = require('objection')
 const titreActivitesQueryBuild = (
   {
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
@@ -34,6 +35,7 @@ const titreActivitesQueryBuild = (
     titresTerritoires
   }: {
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
@@ -63,6 +65,10 @@ const titreActivitesQueryBuild = (
 
   if (annees) {
     q.whereIn('titresActivites.annee', annees)
+  }
+
+  if (statutsIds) {
+    q.whereIn('titresActivites.statutId', statutsIds)
   }
 
   titresFiltersQueryBuild(
@@ -140,6 +146,7 @@ const titresActivitesGet = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
@@ -152,6 +159,7 @@ const titresActivitesGet = async (
     ordre?: 'asc' | 'desc' | null
     colonne?: ITitreActiviteColonneId | null
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
@@ -167,6 +175,7 @@ const titresActivitesGet = async (
   const q = titreActivitesQueryBuild(
     {
       typesIds,
+      statutsIds,
       annees,
       titresNoms,
       titresEntreprises,
@@ -205,6 +214,7 @@ const titresActivitesGet = async (
 const titresActivitesCount = async (
   {
     typesIds,
+    statutsIds,
     annees,
     titresNoms,
     titresEntreprises,
@@ -213,6 +223,7 @@ const titresActivitesCount = async (
     titresTerritoires
   }: {
     typesIds?: string[] | null
+    statutsIds?: string[] | null
     annees?: number[] | null
     titresNoms?: string | null
     titresEntreprises?: string | null
@@ -228,6 +239,7 @@ const titresActivitesCount = async (
   const q = titreActivitesQueryBuild(
     {
       typesIds,
+      statutsIds,
       annees,
       titresNoms,
       titresEntreprises,
