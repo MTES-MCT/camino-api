@@ -14,6 +14,8 @@ import TitresStatuts from '../models/titres-statuts'
 import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
 import ActivitesStatuts from '../models/activites-statuts'
+import EtapesStatuts from '../models/etapes-statuts'
+import Definitions from '../models/definition'
 
 import options from './_options'
 import graphBuild from './graph/build'
@@ -171,6 +173,10 @@ const activitesStatutsGet = async () => {
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
+const etapesStatutsGet = async () => EtapesStatuts.query()
+
+const definitionsGet = async () => Definitions.query().orderBy('nom')
+
 export {
   titresTypesTypesGet,
   domainesGet,
@@ -188,5 +194,7 @@ export {
   activitesStatutsGet,
   referencesTypesGet,
   permissionsGet,
-  permissionGet
+  permissionGet,
+  etapesStatutsGet,
+  definitionsGet
 }

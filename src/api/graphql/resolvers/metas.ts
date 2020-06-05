@@ -1,5 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IEtapeType, IDocumentRepertoire } from '../../../types'
+import {
+  IToken,
+  IEtapeType,
+  IDocumentRepertoire,
+  IDefinition
+} from '../../../types'
 import { debug } from '../../../config/index'
 
 import { autorisations } from '../../../database/cache/autorisations'
@@ -19,7 +24,9 @@ import {
   titresTypesTypesGet,
   unitesGet,
   activitesTypesGet,
-  activitesStatutsGet
+  activitesStatutsGet,
+  definitionsGet,
+  etapesStatutsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -351,6 +358,71 @@ const activitesStatuts = async () => {
   }
 }
 
+const definitions = async (context: IToken) => {
+  try {
+    const definitions = await definitionsGet()
+
+    const definitionsFormated = definitions.map(async d => {
+      if (d.table) {
+        let elements: IDefinition[] = []
+
+        if (d.table === 'domaines') {
+          elements = await domainesGet(
+            null as never,
+            { fields: { id: {} } },
+            context.user?.id
+          )
+        }
+        if (d.table === 'titres_types_types') {
+          elements = await titresTypesTypesGet()
+        }
+        if (d.table === 'titres_statuts') {
+          elements = await titresStatutsGet()
+        }
+        if (d.table === 'demarches_types') {
+          elements = await demarchesTypesGet(
+            { titreId: undefined, titreDemarcheId: undefined },
+            { fields: { id: {} } },
+            context.user?.id
+          )
+        }
+        if (d.table === 'demarches_statuts') {
+          elements = await demarchesStatutsGet()
+        }
+        if (d.table === 'etapes_types') {
+          elements = await etapesTypesGet(
+            {
+              titreDemarcheId: undefined,
+              titreEtapeId: undefined
+            },
+            { fields: { id: {} } },
+            context.user?.id
+          )
+        }
+        if (d.table === 'etapes_statuts') {
+          elements = await etapesStatutsGet()
+        }
+
+        d.elements = elements?.map(e => {
+          e.table = d.table
+
+          return e
+        })
+      }
+
+      return d
+    })
+
+    return definitionsFormated
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -368,5 +440,6 @@ export {
   unites,
   version,
   activitesTypes,
-  activitesStatuts
+  activitesStatuts,
+  definitions
 }

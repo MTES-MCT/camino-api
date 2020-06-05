@@ -1,5 +1,6 @@
 const seeding = require('../seeding')
 
+const definitions = require('../../sources/definitions.json')
 const domaines = require('../../sources/domaines.json')
 const titresTypesTypes = require('../../sources/titres-types-types.json')
 // eslint-disable-next-line camelcase
@@ -25,6 +26,7 @@ const permissions = require('../../sources/permissions.json')
 
 const seed = (module.exports = seeding(async ({ insert }) => {
   await Promise.all([
+    insert('definitions', definitions),
     insert('domaines', domaines),
     insert('titresTypesTypes', titresTypesTypes),
     insert('titresStatuts', titresStatuts),

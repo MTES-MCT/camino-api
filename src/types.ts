@@ -769,6 +769,15 @@ interface ITelechargement {
   total: number
 }
 
+interface IDefinition {
+  id: string
+  nom: string
+  table?: string
+  description?: string
+  couleur?: string
+  elements?: IDefinition[]
+}
+
 export {
   Index,
   IFields,
@@ -854,5 +863,6 @@ export {
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,
   ITitreCondition,
-  ITelechargement
+  ITelechargement,
+  IDefinition
 }
