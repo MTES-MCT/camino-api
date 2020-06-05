@@ -147,7 +147,11 @@ const etapesDocsEntreprisesLecture = [
 ]
 
 const documentBuild = (etapeDocument, domaineId, titreEtape, entrepriseId) => {
-  const hash = cryptoRandomString({ length: 8 })
+  let hash = etapeDocument.id.split('-').pop()
+
+  if (!hash) {
+    hash = cryptoRandomString({ length: 8 })
+  }
 
   // créer l'id du document
   const documentId = slugify(

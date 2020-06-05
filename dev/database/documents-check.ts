@@ -1,5 +1,6 @@
 import { readdirSync } from 'fs'
 import { basename, extname } from 'path'
+import { execSync } from 'child_process'
 
 import 'dotenv/config'
 import '../../src/database/index'
@@ -152,6 +153,15 @@ const documentsNoFileCheck = (documentsIndex: Index, filesIndex: Index) => {
   }
 }
 
+const filesNamesFind = () => {
+  const files = execSync('find ./files | grep pdf')
+    .toString()
+    .split('\n')
+    .map(filePath => basename(filePath.split('/').pop(), '.pdf'))
+
+  return files
+}
+
 const main = async () => {
   const documents = await documentsGet({}, {}, 'super')
 
@@ -163,10 +173,7 @@ const main = async () => {
     return res
   }, {})
 
-  const files = readdirSync('./files')
-  const filesNames = files
-    .filter(file => extname(file) === '.pdf')
-    .map(file => basename(file, '.pdf'))
+  const filesNames = filesNamesFind()
 
   const filesIndex = filesNames.reduce((res, fileName) => {
     if (fileName) {
