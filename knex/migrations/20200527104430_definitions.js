@@ -3,6 +3,7 @@ exports.up = knex =>
     table.string('id', 3).primary()
     table.string('nom').notNullable()
     table.string('table')
+    table.integer('ordre').notNullable()
     table.text('description')
   })
 

@@ -8,13 +8,14 @@ class Definitions extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom'],
+    required: ['id', 'nom', 'ordre'],
 
     properties: {
       id: { type: 'string', maxLength: 3 },
       nom: { type: 'string' },
       table: { type: ['string', 'null'] },
-      description: { type: ['string', 'null'], maxLength: 2048 }
+      description: { type: ['string', 'null'], maxLength: 2048 },
+      ordre: { type: 'integer' }
     }
   }
 }
