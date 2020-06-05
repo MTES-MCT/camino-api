@@ -55,9 +55,6 @@ const titresQueryBuild = (
 
   titrePermissionQueryBuild(q, user)
 
-  // pourquoi ?
-  // q.groupBy('titres.id')
-
   if (ids) {
     q.whereIn('titres.id', ids)
   }

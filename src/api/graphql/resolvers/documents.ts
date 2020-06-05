@@ -30,7 +30,7 @@ import { documentTypeGet } from '../../../database/queries/metas'
 
 import documentUpdationValidate from '../../../business/document-updation-validate'
 import fieldsBuild from './_fields-build'
-import { GraphQLResolveInfo } from 'graphql-upload/node_modules/graphql'
+import { GraphQLResolveInfo } from 'graphql'
 import fileRename from '../../../tools/file-rename'
 import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
