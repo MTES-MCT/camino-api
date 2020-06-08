@@ -312,7 +312,7 @@ const utilisateurCreer = async (
     utilisateur.motDePasse = bcrypt.hashSync(utilisateur.motDePasse!, 10)
     utilisateur.id = await userIdGenerate()
 
-    const utilisateurUpdated = await utilisateurCreate(utilisateur)
+    const utilisateurUpdated = await utilisateurCreate(utilisateur, {})
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
@@ -373,7 +373,8 @@ const utilisateurCreationEmailEnvoyer = async ({
 
 const utilisateurModifier = async (
   { utilisateur }: { utilisateur: IUtilisateur },
-  context: IToken
+  context: IToken,
+  info: GraphQLResolveInfo
 ) => {
   try {
     const user = await userGet(context.user?.id)
@@ -425,7 +426,9 @@ const utilisateurModifier = async (
       utilisateur.entreprises = []
     }
 
-    const utilisateurUpdated = await utilisateurUpdate(utilisateur)
+    const fields = fieldsBuild(info)
+
+    const utilisateurUpdated = await utilisateurUpdate(utilisateur, { fields })
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
@@ -465,7 +468,7 @@ const utilisateurSupprimer = async (
     utilisateur.entreprises = []
     utilisateur.administrations = []
 
-    const utilisateurUpdated = await utilisateurUpdate(utilisateur)
+    const utilisateurUpdated = await utilisateurUpdate(utilisateur, {})
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
@@ -529,10 +532,13 @@ const utilisateurMotDePasseModifier = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasseNouveau1, 10)
 
-    const utilisateurUpdated = await utilisateurUpdate({
-      id,
-      motDePasse: utilisateur.motDePasse
-    } as IUtilisateur)
+    const utilisateurUpdated = await utilisateurUpdate(
+      {
+        id,
+        motDePasse: utilisateur.motDePasse
+      } as IUtilisateur,
+      {}
+    )
 
     await utilisateurRowUpdate(utilisateurUpdated)
 
@@ -621,10 +627,13 @@ const utilisateurMotDePasseInitialiser = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasse1, 10)
 
-    const utilisateurUpdated = await utilisateurUpdate({
-      id: context.user.id,
-      motDePasse: utilisateur.motDePasse
-    } as IUtilisateur)
+    const utilisateurUpdated = await utilisateurUpdate(
+      {
+        id: context.user.id,
+        motDePasse: utilisateur.motDePasse
+      } as IUtilisateur,
+      {}
+    )
 
     await utilisateurRowUpdate(utilisateurUpdated)
 

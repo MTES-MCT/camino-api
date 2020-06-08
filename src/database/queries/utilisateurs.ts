@@ -264,16 +264,30 @@ const utilisateursCount = async (
   return utilisateurs.length
 }
 
-const utilisateurCreate = async (utilisateur: IUtilisateur) =>
+const utilisateurCreate = async (
+  utilisateur: IUtilisateur,
+  { fields }: { fields?: IFields }
+) =>
   Utilisateurs.query()
     .insertGraph(utilisateur, options.utilisateurs.update)
-    .withGraphFetched(options.utilisateurs.graph)
+    .withGraphFetched(
+      fields
+        ? graphBuild(fields, 'utilisateur', graphFormat)
+        : options.utilisateurs.graph
+    )
     .first()
 
-const utilisateurUpdate = async (utilisateur: IUtilisateur) =>
+const utilisateurUpdate = async (
+  utilisateur: IUtilisateur,
+  { fields }: { fields?: IFields }
+) =>
   Utilisateurs.query()
     .upsertGraphAndFetch(utilisateur, options.utilisateurs.update)
-    .withGraphFetched(options.utilisateurs.graph)
+    .withGraphFetched(
+      fields
+        ? graphBuild(fields, 'utilisateur', graphFormat)
+        : options.utilisateurs.graph
+    )
 
 export {
   userGet,

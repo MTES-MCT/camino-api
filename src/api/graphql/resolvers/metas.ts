@@ -98,19 +98,7 @@ const permission = async ({ id }: { id: string }) => permissionGet(id)
 
 const permissions = async (_: never, context: IToken) => {
   try {
-    const user = await userGet(context.user?.id)
-
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
-      return null
-    }
-
-    // l'ordre des super est 0
-    // si on a un ordre différent
-    // alors c'est celui du role admin
-    // et on retourne les permissions à partir de l'ordre suivant (éditeur)
-    const ordreMax = user.permission.ordre ? user.permission.ordre + 1 : 0
-
-    return permissionsGet({ ordreMax })
+    return permissionsGet(null as never, null as never, context.user?.id)
   } catch (e) {
     if (debug) {
       console.error(e)

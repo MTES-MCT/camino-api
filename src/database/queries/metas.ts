@@ -27,14 +27,21 @@ import {
   domainesPermissionQueryBuild,
   etapesTypesPermissionQueryBuild,
   demarchesTypesPermissionQueryBuild,
-  activitesTypesPermissionQueryBuild
+  activitesTypesPermissionQueryBuild,
+  permissionsPermissionQueryBuild
 } from './permissions/metas'
 
-const permissionsGet = async ({ ordreMax }: { ordreMax: number }) =>
-  Permissions.query()
+const permissionsGet = async (_a: never, _b: never, userId?: string) => {
+  const user = await userGet(userId)
+
+  const q = Permissions.query()
     .skipUndefined()
-    .where('ordre', '>=', ordreMax)
     .orderBy('ordre')
+
+  permissionsPermissionQueryBuild(q, user)
+
+  return q
+}
 
 const permissionGet = async (id: string) => Permissions.query().findById(id)
 

@@ -17,6 +17,8 @@ import Administrations from '../../models/administrations'
 import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
 import TitresActivites from '../../models/titres-activites'
 import ActivitesTypes from '../../models/activites-types'
+import Permissions from '../../models/permissions'
+import { permissionsCheck } from '../../../api/_permissions/permissions-check'
 
 const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
@@ -398,12 +400,31 @@ const demarchesTypesPermissionQueryBuild = (
   }
 }
 
+const permissionsPermissionQueryBuild = (
+  q: QueryBuilder<Permissions, Permissions | Permissions[]>,
+  user?: IUtilisateur
+) => {
+  // le super peut voir toutes les permissions sans restriction
+  if (permissionsCheck(user, ['super'])) {
+    return q
+  }
+
+  // on retourne les permissions à partir de l'ordre suivant (éditeur)
+  if (permissionsCheck(user, ['admin'])) {
+    return q.where('ordre', '>=', user!.permission.ordre + 1)
+  }
+
+  // un utilisateur ni super ni admin nepeut voir aucune permission
+  return q.where(false)
+}
+
 export {
   activitesTypesPermissionQueryBuild,
+  demarchesTypesPermissionQueryBuild,
   domainesPermissionQueryBuild,
-  titresTypesPermissionsQueryBuild,
-  etapesTypesPermissionQueryBuild,
   etapesTypesModificationQueryBuild,
+  etapesTypesPermissionQueryBuild,
+  permissionsPermissionQueryBuild,
   titresModificationQueryBuild,
-  demarchesTypesPermissionQueryBuild
+  titresTypesPermissionsQueryBuild
 }
