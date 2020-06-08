@@ -110,6 +110,7 @@ class TitresActivites extends Model {
     }
 
     delete json.modification
+    delete json.documentsCreation
 
     return json
   }
@@ -118,6 +119,7 @@ class TitresActivites extends Model {
     json = super.$formatDatabaseJson(json)
 
     delete json.modification
+    delete json.documentsCreation
 
     return json
   }

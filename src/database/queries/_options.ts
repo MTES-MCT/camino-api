@@ -7,16 +7,6 @@ const documents = {
   }
 }
 
-const utilisateurs = {
-  graph:
-    '[permission, administrations.[titresTypes], entreprises.etablissements]',
-  update: {
-    relate: ['permission', 'administrations', 'entreprises'],
-    unrelate: ['permission', 'administrations', 'entreprises'],
-    noDelete: ['permission', 'administrations', 'entreprises']
-  }
-}
-
 const administrations = {
   graph: `[utilisateurs.permission, titresTypes, type]`,
   update: {
@@ -36,8 +26,32 @@ const entreprises = {
   graph: `[utilisateurs.permission, etablissements(orderDesc), documents.${documents.graph}]`,
   update: {
     insertMissing: true,
-    relate: false,
-    unrelate: false
+    relate: [...documents.update.relate.map(k => `documents.${k}`)],
+    unrelate: [...documents.update.unrelate.map(k => `documents.${k}`)]
+  }
+}
+
+const utilisateurs = {
+  graph: `[permission, administrations.[titresTypes], entreprises.etablissements]`,
+  update: {
+    relate: [
+      'permission',
+      'administrations',
+      'entreprises',
+      ...entreprises.update.relate.map(k => `entreprises.${k}`)
+    ],
+    unrelate: [
+      'permission',
+      'administrations',
+      'entreprises',
+      ...entreprises.update.unrelate.map(k => `entreprises.${k}`)
+    ],
+    noDelete: [
+      'permission',
+      'administrations',
+      'entreprises',
+      ...entreprises.update.relate
+    ]
   }
 }
 
@@ -68,6 +82,8 @@ const etapesRelateTrue = [
   'titulaires.etablissements',
   'titulaires.utilisateurs',
   'titulaires.utilisateurs.permission',
+  'titulaires.documents',
+  'titulaires.documents.type',
   'amodiataires',
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
@@ -85,9 +101,9 @@ const etapesRelateTrue = [
   'communes.departement',
   'communes.departement.region',
   'communes.departement.region.pays',
-  'documents.type',
+  ...documents.update.relate.map(k => `documents.${k}`),
   'justificatifs',
-  'justificatifs.type'
+  ...documents.update.relate.map(k => `justificatifs.${k}`)
 ]
 
 const etapes = {
@@ -184,7 +200,8 @@ const activitesUpdateFalse = [
   'type.titresTypes',
   ...titresTypesUpdateFalse.map(k => `type.titresTypes.${k}`),
   'type.administrations',
-  'type.administrations.type'
+  'type.administrations.type',
+  ...documents.update.relate.map(k => `documents.${k}`)
 ]
 
 const activitesTypes = {
@@ -236,6 +253,8 @@ const titresUpdateFalse = [
   'titulaires.etablissements',
   'titulaires.utilisateurs',
   'titulaires.utilisateurs.permission',
+  'titulaires.documents',
+  'titulaires.documents.type',
   'amodiataires',
   'amodiataires.etablissements',
   'amodiataires.utilisateurs',
