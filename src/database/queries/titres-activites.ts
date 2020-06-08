@@ -107,7 +107,7 @@ const activitesAnneesGet = async (userId?: string) => {
 
   const q = TitresActivites.query()
 
-  titreActivitePermissionQueryBuild(q, user)
+  titreActivitePermissionQueryBuild(q, user, true)
 
   q.select('annee')
   q.groupBy('annee')

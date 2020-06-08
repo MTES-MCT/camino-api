@@ -131,7 +131,8 @@ const titreActivitesCalc = (
 // édition d'une activité
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
-  user?: IUtilisateur
+  user?: IUtilisateur,
+  grouped = false
 ) => {
   if (!permissionCheck(user, ['super'])) {
     if (
@@ -188,17 +189,20 @@ const titreActivitePermissionQueryBuild = (
     }
   }
 
-  if (permissionCheck(user, ['super', 'admin', 'entreprise'])) {
-    const documentsTypesQuery = DocumentsTypes.query()
-      .alias('documentsTypesQuery')
-      .select(raw('true'))
-      .joinRelated('activitesTypes')
-      .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
-      .groupBy('documentsTypesQuery.id')
+  // TODO: séparer en permissions / propriétés
+  if (!grouped) {
+    if (permissionCheck(user, ['super', 'admin', 'entreprise'])) {
+      const documentsTypesQuery = DocumentsTypes.query()
+        .alias('documentsTypesQuery')
+        .select(raw('true'))
+        .joinRelated('activitesTypes')
+        .whereRaw('?? = ??', ['activitesTypes.id', 'titresActivites.typeId'])
+        .groupBy('documentsTypesQuery.id')
 
-    q.select(documentsTypesQuery.as('documentsCreation'))
-  } else {
-    q.select(raw('false').as('documentsCreation'))
+      q.select(documentsTypesQuery.as('documentsCreation'))
+    } else {
+      q.select(raw('false').as('documentsCreation'))
+    }
   }
 
   q.modifyGraph('documents', ed => {
