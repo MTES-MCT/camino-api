@@ -285,7 +285,7 @@ const documentModifier = async (
 
     const documentFichierNouveau = document.fichierNouveau
 
-    document.fichier = !!document.fichierNouveau
+    document.fichier = !!document.fichierNouveau || document.fichier
 
     // cette propriété qui vient du front n'existe pas en base
     delete document.fichierNouveau
@@ -338,7 +338,7 @@ const documentModifier = async (
       }
     }
 
-    // enregistre du nouveau fichier
+    // enregistre le nouveau fichier
     if (documentFichierNouveau) {
       await documentFileCreate(
         documentUpdated,
