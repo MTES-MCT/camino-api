@@ -6,6 +6,7 @@ import Utilisateurs from '../../models/utilisateurs'
 
 import Administrations from '../../models/administrations'
 import Entreprises from '../../models/entreprises'
+import { entreprisePermissionQueryBuild } from './entreprises'
 
 const utilisateursPermissionQueryBuild = (
   q: QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
@@ -119,6 +120,13 @@ const utilisateursPermissionQueryBuild = (
     q.select(raw('false').as('suppression'))
     q.select(raw('false').as('permissionModification'))
   }
+
+  q.modifyGraph('entreprises', u =>
+    entreprisePermissionQueryBuild(
+      u as QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+      user
+    )
+  )
 
   // console.info(q.toKnexQuery().toString())
 

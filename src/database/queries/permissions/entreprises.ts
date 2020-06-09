@@ -27,11 +27,19 @@ const entreprisePermissionQueryBuild = (
   ) {
     q.select(raw('false').as('modification'))
 
-    q.leftJoinRelated('utilisateurs')
+    q.leftJoin(
+      'utilisateurs__entreprises as u_e',
+      raw('?? = ?? and ?? = ?', [
+        'u_e.entrepriseId',
+        'entreprises.id',
+        'u_e.utilisateurId',
+        user.id
+      ])
+    )
 
     q.select(
       raw('(case when ?? = ? then true else false end)', [
-        'utilisateurs.id',
+        'u_e.utilisateurId',
         user.id
       ]).as('documentsCreation')
     )
