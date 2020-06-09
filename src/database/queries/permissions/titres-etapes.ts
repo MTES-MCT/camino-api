@@ -111,7 +111,11 @@ const titreEtapesPermissionQueryBuild = (
     const justificatifsAssociationQuery = etapeModificationQuery.clone()
 
     q.joinRelated('type')
-    justificatifsAssociationQuery.where(raw('type.fondamentale is true'))
+    justificatifsAssociationQuery.where(
+      raw('?? is true', ['type.fondamentale'])
+    )
+
+    q.groupBy('type.fondamentale')
 
     q.select(justificatifsAssociationQuery.as('justificatifsAssociation'))
   } else {
