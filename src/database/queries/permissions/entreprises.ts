@@ -20,8 +20,24 @@ const entreprisePermissionQueryBuild = (
 
   if (permissionCheck(user, ['super', 'admin', 'editeur'])) {
     q.select(raw('true').as('modification'))
+    q.select(raw('true').as('documentsCreation'))
+  } else if (
+    permissionCheck(user, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
+    q.select(raw('false').as('modification'))
+
+    q.leftJoinRelated('utilisateurs')
+
+    q.select(
+      raw('(case when ?? = ? then true else false end)', [
+        'utilisateurs.id',
+        user.id
+      ]).as('documentsCreation')
+    )
   } else {
     q.select(raw('false').as('modification'))
+    q.select(raw('false').as('documentsCreation'))
   }
 
   q.modifyGraph('titresTitulaire', a =>
