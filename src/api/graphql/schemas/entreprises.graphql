@@ -30,7 +30,6 @@ type Entreprise {
   documents: [Document]
 
   modification: Boolean
-  documentsCreation: Boolean
 }
 
 type EntrepriseEtablissement {

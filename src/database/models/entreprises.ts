@@ -105,7 +105,6 @@ class Entreprises extends Model {
     }
 
     delete json.modification
-    delete json.documentsCreation
 
     return json
   }

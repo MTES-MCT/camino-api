@@ -248,7 +248,6 @@ interface IEntreprise {
   titresTitulaire?: ITitre[] | null
   titresAmodiataire?: ITitre[] | null
   modification?: boolean | null
-  documentsCreation?: boolean | null
 }
 
 interface IEtapeStatut {
@@ -497,6 +496,7 @@ interface ITitreActivite {
   contenu?: IContenu | null
   sections?: ISection[] | null
   modification?: boolean | null
+  documentsCreation?: boolean | null
 }
 
 interface ITitreAdministrationsGestionnaire {
