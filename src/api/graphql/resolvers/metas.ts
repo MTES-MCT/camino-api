@@ -204,6 +204,88 @@ const demarchesStatuts = async () => {
   }
 }
 
+const demarcheEtapesTypesGet = async (
+  etapesTypes: IEtapeType[],
+  titreDemarcheId: string,
+  titreEtapeId?: string,
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const titreDemarche = await titreDemarcheGet(
+    titreDemarcheId,
+    {
+      fields: {
+        type: { etapesTypes: { etapesStatuts: { id: {} } } },
+        titre: {
+          type: { demarchesTypes: { id: {} } },
+          demarches: { etapes: { id: {} } }
+        },
+        etapes: { type: { id: {} } }
+      }
+    },
+    user?.id
+  )
+  if (!titreDemarche) throw new Error("la démarche n'existe pas")
+
+  const titre = titreDemarche.titre!
+
+  const demarcheType = titre.type!.demarchesTypes!.find(
+    demarcheType => demarcheType.id === titreDemarche.typeId
+  )
+
+  if (!demarcheType) {
+    throw new Error(
+      `Démarche « ${titreDemarche.type!.nom} » inexistante pour un titre ${
+      titre.typeId
+      }.`
+    )
+  }
+
+  const titreEtape = titreEtapeId
+    ? await titreEtapeGet(titreEtapeId, {}, user?.id)
+    : null
+
+  if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
+
+  if (titreEtape) {
+    const etapeType = titreDemarche.type!.etapesTypes.find(
+      et => et.id === titreEtape.type!.id
+    )
+    if (!etapeType) {
+      throw new Error(
+        `Etape « ${
+        titreEtape.type!.nom
+        } » inexistante pour une démarche « ${
+        titreDemarche.type!.nom
+        } » pour un titre « ${titre.typeId} ».`
+      )
+    }
+  }
+
+  const etapesTypesFormatted = etapesTypes.reduce(
+    (etapesTypes: IEtapeType[], etapeType) => {
+      const etapeTypeFormatted = etapeTypeFormat(
+        etapeType,
+        titre,
+        titreDemarche.type!,
+        titreDemarche.etapes!,
+        titreEtape?.typeId,
+        titreEtape?.statutId
+      )
+
+      if (etapeTypeFormatted) {
+        etapesTypes.push(etapeTypeFormatted)
+      }
+
+      return etapesTypes
+    },
+    []
+  )
+
+  return etapesTypesFormatted
+}
+
 const etapesTypes = async (
   {
     titreDemarcheId,
@@ -222,78 +304,12 @@ const etapesTypes = async (
     )
 
     if (titreDemarcheId && context.user?.id) {
-      const user = await userGet(context.user.id)
-
-      const titreDemarche = await titreDemarcheGet(
+      return await demarcheEtapesTypesGet(
+        etapesTypes,
         titreDemarcheId,
-        {
-          fields: {
-            type: { etapesTypes: { etapesStatuts: { id: {} } } },
-            titre: { type: { demarchesTypes: { id: {} } } },
-            etapes: { type: { id: {} } }
-          }
-        },
-        user?.id
+        titreEtapeId,
+        context.user.id
       )
-      if (!titreDemarche) throw new Error("la démarche n'existe pas")
-
-      const titre = titreDemarche.titre!
-
-      const demarcheType = titre.type!.demarchesTypes!.find(
-        demarcheType => demarcheType.id === titreDemarche.typeId
-      )
-
-      if (!demarcheType) {
-        throw new Error(
-          `Démarche « ${titreDemarche.type!.nom} » inexistante pour un titre ${
-            titre.typeId
-          }.`
-        )
-      }
-
-      const titreEtape = titreEtapeId
-        ? await titreEtapeGet(titreEtapeId, {}, user?.id)
-        : null
-
-      if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
-
-      if (titreEtape) {
-        const etapeType = titreDemarche.type!.etapesTypes.find(
-          et => et.id === titreEtape.type!.id
-        )
-        if (!etapeType) {
-          throw new Error(
-            `Etape « ${
-              titreEtape.type!.nom
-            } » inexistante pour une démarche « ${
-              titreDemarche.type!.nom
-            } » pour un titre « ${titre.typeId} ».`
-          )
-        }
-      }
-
-      const etapesTypesFormatted = etapesTypes.reduce(
-        (etapesTypes: IEtapeType[], etapeType) => {
-          const etapeTypeFormatted = etapeTypeFormat(
-            etapeType,
-            titre,
-            titreDemarche.type!,
-            titreDemarche.etapes!,
-            titreEtape?.typeId,
-            titreEtape?.statutId
-          )
-
-          if (etapeTypeFormatted) {
-            etapesTypes.push(etapeTypeFormatted)
-          }
-
-          return etapesTypes
-        },
-
-        []
-      )
-
-      return etapesTypesFormatted
     }
 
     return etapesTypes

@@ -1,12 +1,14 @@
 import {
   ITitre,
   IDemarcheType,
+  ITitreDemarche,
   ITitreEtape,
   IEtapeType,
   ISection
 } from '../../types'
 
 import titreEtapeDateValidate from '../../business/utils/titre-etape-date-validate'
+import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
@@ -88,6 +90,18 @@ const etapeTypeEtapesStatutsFormat = (
     return isValid
   })
 
+const etapeTypeDateFinCheck = (
+  etapeType: IEtapeType,
+  titreDemarches: ITitreDemarche[],
+  titreStatutId: string
+) => {
+  if (!etapeType.dateFin) return true
+
+  const dateDemande = titreDateDemandeFind(titreDemarches, titreStatutId)
+
+  return dateDemande ? dateDemande < etapeType.dateFin : true
+}
+
 const etapeTypeFormat = (
   etapeType: IEtapeType,
   titre: ITitre,
@@ -96,6 +110,13 @@ const etapeTypeFormat = (
   etapeTypeId?: string,
   etapeStatutId?: string
 ) => {
+  const isDateFinValid = etapeTypeDateFinCheck(
+    etapeType,
+    titre.demarches!,
+    titre.statutId!
+  )
+  if (!isDateFinValid) return null
+
   const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
     etapeType,
     titre,
