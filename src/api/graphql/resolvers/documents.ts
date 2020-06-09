@@ -180,13 +180,18 @@ const documentPermisssionsCheck = async (
         'modification'
       )
     ) {
-      throw new Error('droits insuffisants pour modifier ce document')
+      throw new Error('droits insuffisants pour modifier ce document d\'étape')
     }
-  } else if (
-    document.entrepriseId &&
-    !permissionCheck(user, ['super', 'admin', 'editeur'])
-  ) {
-    throw new Error('droits insuffisants pour modifier ce document')
+  } else if (document.entrepriseId) {
+    if (
+      !permissionCheck(user, ['super', 'admin', 'editeur']) &&
+      (
+        permissionCheck(user, ['entreprise']) &&
+        !user.entreprises?.find(e => e.id === document.entrepriseId)
+      )
+    ) {
+      throw new Error('droits insuffisants pour modifier ce document d\'entreprise')
+    }
   } else if (document.titreActiviteId) {
     // si l'activité est récupérée depuis la base
     // alors on a le droit de la visualiser, donc de l'éditer
