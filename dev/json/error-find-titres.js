@@ -5,11 +5,11 @@ const errorFind = (a, b, join) => {
     require(`../../sources/titres-${domaineId}-titres-${a}.json`)
   )
 
-  const elementsB = domainesIds.flatMap(domaineId =>
-    require(`../../sources/titres-${domaineId}-titres-${b}.json`)
-  )
+  const elementsB = require(`../../sources/${b}.json`)
 
   elementsB.forEach(r => {
+    if (!r[join]) return
+
     const p = elementsA.find(p => p.id === r[join])
 
     if (!p) {
