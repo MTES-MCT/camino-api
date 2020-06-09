@@ -67,7 +67,7 @@ const restify = (resolver: IRestResolver) => async (
 
       res.sendFile(filePath, options, err => {
         if (err) {
-          res.status(404).send('fichier introuvable')
+          res.status(404).send({ error: 'fichier introuvable' })
         }
       })
     } else {
