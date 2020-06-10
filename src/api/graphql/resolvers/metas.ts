@@ -64,7 +64,7 @@ const documentsVisibilites = async (_: never, context: IToken) => {
   const user = await userGet(context.user?.id)
   if (!user) return []
 
-  if (permissionCheck(user, ['super', 'admin', 'editeur'])) {
+  if (permissionCheck(user.permissionId, ['super', 'admin', 'editeur'])) {
     return [
       {
         id: 'admin',
@@ -81,7 +81,7 @@ const documentsVisibilites = async (_: never, context: IToken) => {
     ]
   }
 
-  if (permissionCheck(user, ['entreprise'])) {
+  if (permissionCheck(user.permissionId, ['entreprise'])) {
     return [
       {
         id: 'entreprise',

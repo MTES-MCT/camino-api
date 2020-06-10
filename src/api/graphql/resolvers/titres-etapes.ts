@@ -12,7 +12,7 @@ import {
   titreEtapeUpsert,
   titreEtapeDelete,
   titreEtapeJustificatifsDelete,
-  titresEtapesJustificatifsUpsert
+  titresEtapesJustificatifsUpsert,
 } from '../../../database/queries/titres-etapes'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
@@ -52,8 +52,8 @@ const etapeCreer = async (
       {
         fields: {
           administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
+          administrationsLocales: { id: {} },
+        },
       },
       user.id
     )
@@ -126,8 +126,8 @@ const etapeModifier = async (
       {
         fields: {
           administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
+          administrationsLocales: { id: {} },
+        },
       },
       user.id
     )
@@ -219,7 +219,7 @@ const etapeJustificatifsAssocier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -243,8 +243,8 @@ const etapeJustificatifsAssocier = async (
       {
         fields: {
           administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
+          administrationsLocales: { id: {} },
+        },
       },
       user.id
     )
@@ -269,7 +269,7 @@ const etapeJustificatifsAssocier = async (
     if (documentsIds.length) {
       await titresEtapesJustificatifsUpsert(
         documentsIds.map(
-          documentId =>
+          (documentId) =>
             ({ documentId, titreEtapeId } as ITitreEtapeJustificatif)
         )
       )
@@ -297,7 +297,7 @@ const etapeJustificatifDissocier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -322,8 +322,8 @@ const etapeJustificatifDissocier = async (
       {
         fields: {
           administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
+          administrationsLocales: { id: {} },
+        },
       },
       user.id
     )
@@ -363,5 +363,5 @@ export {
   etapeModifier,
   etapeSupprimer,
   etapeJustificatifsAssocier,
-  etapeJustificatifDissocier
+  etapeJustificatifDissocier,
 }

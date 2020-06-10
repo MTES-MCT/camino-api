@@ -1,5 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IUtilisateur, IUtilisateurCreation } from '../../../types'
+import {
+  IToken,
+  IUtilisateur,
+  IUtilisateurCreation,
+  IUtilisateursColonneId,
+} from '../../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
 import * as cryptoRandomString from 'crypto-random-string'
@@ -79,7 +84,7 @@ const utilisateurs = async (
   }: {
     intervalle?: number | null
     page?: number | null
-    colonne?: IUtilisateurCreation | null
+    colonne?: IUtilisateursColonneId | null
     ordre?: 'asc' | 'desc' | null
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
@@ -314,7 +319,13 @@ const utilisateurCreer = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(utilisateur.motDePasse!, 10)
 
-    const utilisateurUpdated = await utilisateurCreate(utilisateur, {})
+    const utilisateurUpdated = await utilisateurCreate(
+      {
+        id: await userIdGenerate(),
+        ...utilisateur,
+      },
+      {}
+    )
 
     await utilisateurRowUpdate(utilisateurUpdated)
 

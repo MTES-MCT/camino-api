@@ -14,16 +14,16 @@ import { documentsPermissionQueryBuild } from './documents'
 const activiteStatuts = [
   {
     id: 'abs',
-    name: 'activitesAbsentes'
+    name: 'activitesAbsentes',
   },
   {
     id: 'enc',
-    name: 'activitesEnConstruction'
+    name: 'activitesEnConstruction',
   },
   {
     id: 'dep',
-    name: 'activitesDeposees'
-  }
+    name: 'activitesDeposees',
+  },
 ]
 
 const titreActivitesCalc = (
@@ -36,7 +36,7 @@ const titreActivitesCalc = (
       'admin',
       'editeur',
       'lecteur',
-      'entreprise'
+      'entreprise',
     ])
   ) {
     const titresActivitesCountQuery = TitresActivites.query()
@@ -50,7 +50,7 @@ const titreActivitesCalc = (
         raw('count(??) FILTER (WHERE ?? = ?)', [
           'activitesCount.statutId',
           'activitesCount.statutId',
-          id
+          id,
         ]).as(name)
       )
     })
@@ -60,7 +60,7 @@ const titreActivitesCalc = (
         permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
         user?.administrations?.length
       ) {
-        const administrationsIds = user.administrations.map(e => e.id)
+        const administrationsIds = user.administrations.map((e) => e.id)
 
         // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
         titresActivitesCountQuery.whereExists(
@@ -69,7 +69,7 @@ const titreActivitesCalc = (
             .joinRelated('type.administrations')
             .whereRaw('?? = ??', [
               'titresActivitesAdministrations.id',
-              'activitesCount.id'
+              'activitesCount.id',
             ])
             .whereIn('type:administrations.id', administrationsIds)
         )
@@ -77,16 +77,16 @@ const titreActivitesCalc = (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
-        const entreprisesIds = user.entreprises.map(e => e.id)
+        const entreprisesIds = user.entreprises.map((e) => e.id)
 
-        titresActivitesCountQuery.where(b => {
+        titresActivitesCountQuery.where((b) => {
           b.whereExists(
             TitresActivites.query()
               .alias('titresActivitesTitulaires')
               .joinRelated('titre.titulaires')
               .whereRaw('?? = ??', [
                 'titresActivitesTitulaires.id',
-                'activitesCount.id'
+                'activitesCount.id',
               ])
               .whereIn('titre:titulaires.id', entreprisesIds)
           )
@@ -96,7 +96,7 @@ const titreActivitesCalc = (
               .joinRelated('titre.amodiataires')
               .whereRaw('?? = ??', [
                 'titresActivitesAmodiataires.id',
-                'activitesCount.id'
+                'activitesCount.id',
               ])
               .whereIn('titre:amodiataires.id', entreprisesIds)
           )
@@ -141,14 +141,14 @@ const titreActivitePermissionQueryBuild = (
     ) {
       // TODO: autoriser les admins 'lecteur' pour les cas particuliers
 
-      const administrationsIds = user.administrations!.map(a => a.id) || []
+      const administrationsIds = user.administrations!.map((a) => a.id) || []
 
       const administrationPermissionQuery = TitresActivites.query()
         .alias('titresActivitesAdministrations')
         .joinRelated('type.administrations')
         .whereRaw('?? = ??', [
           'titresActivitesAdministrations.id',
-          'titresActivites.id'
+          'titresActivites.id',
         ])
         .whereIn('type:administrations.id', administrationsIds)
 
@@ -159,15 +159,15 @@ const titreActivitePermissionQueryBuild = (
       user?.entreprises?.length
     ) {
       // vérifie que l'utilisateur a les permissions sur les titres
-      const entreprisesIds = user.entreprises.map(e => e.id)
+      const entreprisesIds = user.entreprises.map((e) => e.id)
 
-      q.where(b => {
+      q.where((b) => {
         const titulairesPermissionQuery = TitresActivites.query()
           .alias('titresActivitesTitulaires')
           .joinRelated('titre.titulaires')
           .whereRaw('?? = ??', [
             'titresActivitesTitulaires.id',
-            'titresActivites.id'
+            'titresActivites.id',
           ])
           .whereIn('titre:titulaires.id', entreprisesIds)
 
@@ -176,7 +176,7 @@ const titreActivitePermissionQueryBuild = (
           .joinRelated('titre.amodiataires')
           .whereRaw('?? = ??', [
             'titresActivitesAmodiataires.id',
-            'titresActivites.id'
+            'titresActivites.id',
           ])
           .whereIn('titre:amodiataires.id', entreprisesIds)
 
@@ -191,7 +191,7 @@ const titreActivitePermissionQueryBuild = (
 
   // TODO: séparer en permissions / propriétés
   if (!grouped) {
-    if (permissionCheck(user, ['super', 'admin', 'entreprise'])) {
+    if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
       const documentsTypesQuery = DocumentsTypes.query()
         .alias('documentsTypesQuery')
         .select(raw('true'))
@@ -205,7 +205,7 @@ const titreActivitePermissionQueryBuild = (
     }
   }
 
-  q.modifyGraph('documents', ed => {
+  q.modifyGraph('documents', (ed) => {
     documentsPermissionQueryBuild(
       ed as QueryBuilder<Documents, Documents | Documents[]>,
       user
@@ -238,7 +238,7 @@ const titreActiviteQueryPropsBuild = (
       raw('(case when ?? in (?, ?) then true else false end)', [
         'titresActivites.statutId',
         'abs',
-        'enc'
+        'enc',
       ]).as('modification')
     )
   }
@@ -251,5 +251,5 @@ const titreActiviteQueryPropsBuild = (
 export {
   titreActivitePermissionQueryBuild,
   titreActiviteQueryPropsBuild,
-  titreActivitesCalc
+  titreActivitesCalc,
 }

@@ -3,7 +3,7 @@ import {
   IToken,
   IDocumentRepertoire,
   IUtilisateur,
-  IDocumentType
+  IDocumentType,
 } from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
@@ -22,7 +22,7 @@ import {
   documentCreate,
   documentUpdate,
   documentDelete,
-  documentIdUpdate
+  documentIdUpdate,
 } from '../../../database/queries/documents'
 
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -56,9 +56,9 @@ const documentFileDirPathFind = (
   document: IDocument,
   repertoire: IDocumentRepertoire
 ) =>
-  `files/${repertoire}/${document.titreEtapeId ||
-    document.titreActiviteId ||
-    document.entrepriseId}`
+  `files/${repertoire}/${
+    document.titreEtapeId || document.titreActiviteId || document.entrepriseId
+  }`
 
 const documentFilePathFind = (document: IDocument, dirPath: string) =>
   `${dirPath}/${document.id}.${document.fichierTypeId}`
@@ -88,7 +88,7 @@ const documents = async (
 ) => {
   try {
     const user = context.user && (await userGet(context.user.id))
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -141,7 +141,7 @@ const documentPermisssionsCheck = async (
   if (!user) throw new Error('droits insuffisants')
 
   if (document.titreEtapeId) {
-    if (!permissionCheck(user, ['super', 'admin'])) {
+    if (!permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -164,8 +164,8 @@ const documentPermisssionsCheck = async (
       {
         fields: {
           administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} }
-        }
+          administrationsLocales: { id: {} },
+        },
       },
       user.id
     )
@@ -180,17 +180,17 @@ const documentPermisssionsCheck = async (
         'modification'
       )
     ) {
-      throw new Error('droits insuffisants pour modifier ce document d\'étape')
+      throw new Error("droits insuffisants pour modifier ce document d'étape")
     }
   } else if (document.entrepriseId) {
     if (
-      !permissionCheck(user, ['super', 'admin', 'editeur']) &&
-      (
-        permissionCheck(user, ['entreprise']) &&
-        !user.entreprises?.find(e => e.id === document.entrepriseId)
-      )
+      !permissionCheck(user?.permissionId, ['super', 'admin', 'editeur']) &&
+      permissionCheck(user?.permissionId, ['entreprise']) &&
+      !user.entreprises?.find((e) => e.id === document.entrepriseId)
     ) {
-      throw new Error('droits insuffisants pour modifier ce document d\'entreprise')
+      throw new Error(
+        "droits insuffisants pour modifier ce document d'entreprise"
+      )
     }
   } else if (document.titreActiviteId) {
     // si l'activité est récupérée depuis la base
@@ -203,7 +203,7 @@ const documentPermisssionsCheck = async (
     if (!activite) throw new Error("l'activité n'existe pas")
 
     if (
-      !permissionCheck(user, ['super', 'admin']) &&
+      !permissionCheck(user?.permissionId, ['super', 'admin']) &&
       activite.statutId === 'dep'
     ) {
       throw new Error(

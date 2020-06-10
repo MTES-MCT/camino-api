@@ -344,7 +344,7 @@ const activitesTypesPermissionQueryBuild = (
           .whereIn('titre:amodiataires.id', entreprisesIds)
       )
     })
-  } else if (!permissionCheck(user, ['super'])) {
+  } else if (!permissionCheck(user?.permissionId, ['super'])) {
     q.where(false)
   }
 }
@@ -404,12 +404,12 @@ const permissionsPermissionQueryBuild = (
   user?: IUtilisateur
 ) => {
   // le super peut voir toutes les permissions sans restriction
-  if (permissionsCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     return q
   }
 
   // on retourne les permissions à partir de l'ordre suivant (éditeur)
-  if (permissionsCheck(user, ['admin'])) {
+  if (permissionCheck(user?.permissionId, ['admin'])) {
     return q.where('ordre', '>=', user!.permission.ordre + 1)
   }
 
