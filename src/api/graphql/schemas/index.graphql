@@ -14,12 +14,7 @@
 # import * from 'titres-etapes.graphql'
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
-
-"__*__ Type du contenu json"
-scalar Json
-
-"__*__ Type du fichier"
-scalar FileUpload
+# import * from 'scalars.graphql'
 
 """
 # Query

@@ -1,3 +1,7 @@
+# import * from 'scalars.graphql'
+# import * from 'territoires.graphql'
+# import * from 'calendrier.graphql'
+
 type ActiviteStatut {
   id: ID!
   nom: String!

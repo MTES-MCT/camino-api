@@ -1,9 +1,9 @@
-import { buildSchema } from 'graphql'
-import { importSchema } from 'graphql-import'
+import { loadSchemaSync } from '@graphql-tools/load'
+import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { join } from 'path'
 
-const index = importSchema(join(__dirname, 'schemas/index.graphql'))
-
-const schema = buildSchema(index)
+const schema = loadSchemaSync(join(__dirname, './schemas/index.graphql'), {
+  loaders: [new GraphQLFileLoader()],
+})
 
 export default schema

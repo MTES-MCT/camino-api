@@ -1,3 +1,20 @@
+# import * from 'metas.graphql'
+
+type SubstanceLegaleCode {
+  id: ID!
+  nom: String!
+  description: String
+  lien: String!
+}
+
+type SubstanceLegale {
+  id: ID!
+  nom: String!
+  domaine: Domaine
+  description: String
+  code: SubstanceLegaleCode!
+}
+
 type Substance {
   id: ID!
   nom: String!
@@ -16,19 +33,4 @@ type TitreSubstance {
   legales: [SubstanceLegale!]!
   connexe: Boolean
   ordre: Int
-}
-
-type SubstanceLegale {
-  id: ID!
-  nom: String!
-  domaine: Domaine
-  description: String
-  code: SubstanceLegaleCode!
-}
-
-type SubstanceLegaleCode {
-  id: ID!
-  nom: String!
-  description: String
-  lien: String!
 }

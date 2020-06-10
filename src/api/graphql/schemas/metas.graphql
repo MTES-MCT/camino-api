@@ -1,3 +1,5 @@
+# import * from 'scalars.graphql'
+
 "Domaine minier"
 type Domaine {
   "Id composée d'une seule lettre"

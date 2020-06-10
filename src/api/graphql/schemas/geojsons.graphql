@@ -1,18 +1,19 @@
-type GeojsonMultiPolygon {
-  type: FeatureType!
-  properties: EtapeId!
-  geometry: GeometryMultiPolygon!
+# import * from 'points.graphql'
+
+enum FeatureCollectionType {
+  FeatureCollection
 }
 
-type GeometryMultiPolygon {
-  type: GeometryTypeMultipolygon!
-  coordinates: [[[[Float]]]]
+enum FeatureType {
+  Feature
 }
 
-type GeojsonPoints {
-  type: FeatureCollectionType!
-  properties: EtapeId!
-  features: [FeaturePoint]
+enum GeometryTypeMultipolygon {
+  MultiPolygon
+}
+
+enum GeometryTypePoint {
+  Point
 }
 
 type FeaturePoint {
@@ -36,23 +37,23 @@ type GeometryPoints {
   coordinates: [Float]
 }
 
-enum FeatureCollectionType {
-  FeatureCollection
+type GeojsonPropertiesEtape {
+  etapeId: ID!
 }
 
-enum FeatureType {
-  Feature
+type GeojsonMultiPolygon {
+  type: FeatureType!
+  properties: GeojsonPropertiesEtape!
+  geometry: GeometryMultiPolygon!
 }
 
-enum GeometryType {
-  MultiPolygon
-  Point
+type GeometryMultiPolygon {
+  type: GeometryTypeMultipolygon!
+  coordinates: [[[[Float]]]]
 }
 
-enum GeometryTypeMultipolygon {
-  MultiPolygon
-}
-
-enum GeometryTypePoint {
-  Point
+type GeojsonPoints {
+  type: FeatureCollectionType!
+  properties: GeojsonPropertiesEtape!
+  features: [FeaturePoint]
 }

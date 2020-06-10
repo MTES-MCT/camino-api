@@ -1,25 +1,13 @@
-"Pays"
-type Pays {
-  "Id du pays composé de 3 lettres (code INSEE)"
+"Commune"
+type Commune {
+  "Id de la commune composée de 5 chiffres (code INSEE)"
   id: ID!
 
-  "Nom du pays"
+  "Nom de la commune"
   nom: String!
 
-  "Liste des régions"
-  regions: [Region]
-}
-
-"Région"
-type Region {
-  "Id de la région composé de 2 chiffres (code INSEE)"
-  id: ID!
-
-  "Nom de la région"
-  nom: String!
-
-  "Liste des départements"
-  departements: [Departement]
+  "Surface couverte par le titre"
+  surface: Int
 }
 
 "Département"
@@ -34,14 +22,26 @@ type Departement {
   communes: [Commune]
 }
 
-"Commune"
-type Commune {
-  "Id de la commune composée de 5 chiffres (code INSEE)"
+"Région"
+type Region {
+  "Id de la région composé de 2 chiffres (code INSEE)"
   id: ID!
 
-  "Nom de la commune"
+  "Nom de la région"
   nom: String!
 
-  "Surface couverte par le titre"
-  surface: Int
+  "Liste des départements"
+  departements: [Departement]
+}
+
+"Pays"
+type Pays {
+  "Id du pays composé de 3 lettres (code INSEE)"
+  id: ID!
+
+  "Nom du pays"
+  nom: String!
+
+  "Liste des régions"
+  regions: [Region]
 }

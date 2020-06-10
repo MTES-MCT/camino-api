@@ -1,3 +1,13 @@
+# import * from 'scalars.graphql'
+# import * from 'entreprises.graphql'
+# import * from 'administrations.graphql'
+# import * from 'substances.graphql'
+# import * from 'points.graphql'
+# import * from 'geojsons.graphql'
+# import * from 'territoires.graphql'
+# import * from 'metas.graphql'
+# import * from 'documents.graphql'
+
 "Étape d'une démarche effectuée sur un titre minier"
 type Etape {
   """
@@ -68,10 +78,6 @@ type Etape {
   modification: Boolean
   suppression: Boolean
   justificatifsAssociation: Boolean
-}
-
-type EtapeId {
-  etapeId: ID!
 }
 
 type Incertitudes {

@@ -1,3 +1,5 @@
+# import * from 'metas.graphql'
+
 "Paire de coordonnées géographiques"
 type Coordonnees {
   "Valeur des coordonnées en X sous forme d'un nombre décimal"
