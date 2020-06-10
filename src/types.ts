@@ -724,7 +724,9 @@ interface IUtilisateur {
   permissionModification?: boolean | null
 }
 
-type IUtilisateurCreation = Omit<IUtilisateur, 'id'>
+type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+
+type IUtilisateurCreation = PartialBy<Omit<IUtilisateur, 'id'>, 'permissionId'>
 
 interface IToken {
   user?: ITokenUser
@@ -868,5 +870,5 @@ export {
   ITitreEtapeCondition,
   ITitreCondition,
   ITelechargement,
-  IDefinition
+  IDefinition,
 }

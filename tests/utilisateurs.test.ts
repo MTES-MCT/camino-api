@@ -25,7 +25,7 @@ afterAll(async () => {
   dbManager.closeKnex()
 })
 
-describe('utilisateursModifier', () => {
+describe('utilisateurModifier', () => {
   const utilisateurModifierQuery = queryImport('utilisateur-modifier')
 
   test('ne peut pas modifier un compte (utilisateur anonyme)', async () => {
@@ -39,7 +39,6 @@ describe('utilisateursModifier', () => {
             prenom: 'toto-updated',
             nom: 'test-updated',
             email: 'test@camino.local',
-            permissionId: 'defaut',
           },
         },
       })
@@ -69,7 +68,6 @@ describe('utilisateursModifier', () => {
             prenom: 'toto-updated',
             nom: 'test-updated',
             email: 'test@camino.local',
-            permissionId: 'defaut',
           },
         },
       })
@@ -100,7 +98,6 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'defaut',
           },
         },
       })
@@ -110,7 +107,7 @@ describe('utilisateursCreer', () => {
     )
   })
 
-  test('crée son compte si le token contient son email', async () => {
+  test('crée un compte utilisateur si le token contient son email', async () => {
     const token = tokenCreate({ email: 'test@camino.local' })
 
     const res = await request(app)
@@ -123,7 +120,6 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'defaut',
           },
         },
       })
@@ -139,7 +135,7 @@ describe('utilisateursCreer', () => {
     })
   })
 
-  test("ne peut pas créer de compte 'super' (utilisateur 'defaut')", async () => {
+  test("en tant que 'defaut', ne peut pas créer de compte 'super'", async () => {
     const token = tokenCreate({ id: 'defaut', email: 'test@camino.local' })
 
     const res = await request(app)
@@ -163,7 +159,30 @@ describe('utilisateursCreer', () => {
     )
   })
 
-  test("peut créer un compte 'super' (utilisateur 'super')", async () => {
+  test("en tant que 'defaut', ne peut pas créer de compte avec un email différent", async () => {
+    const token = tokenCreate({ id: 'defaut', email: 'test@camino.local' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'autre@camino.local',
+            motDePasse: 'mot-de-passe',
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer un utilisateur/
+    )
+  })
+
+  test("en tant que 'super', peut créer un compte utilisateur 'super'", async () => {
     await userAdd(knex, {
       id: 'super-user',
       prenom: 'super',
@@ -201,7 +220,7 @@ describe('utilisateursCreer', () => {
     })
   })
 
-  test("ne peut pas être associé à une administration (utilisateur 'defaut')", async () => {
+  test("en tant que 'defaut', ne peut pas être associé à une administration", async () => {
     await userAdd(knex, {
       id: 'super-user',
       prenom: 'super',
@@ -223,7 +242,6 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'defaut',
             administrations: [{ id: 'administration' }],
           },
         },
@@ -235,7 +253,7 @@ describe('utilisateursCreer', () => {
     )
   })
 
-  test("est associé à une administrations (utilisateur 'admin')", async () => {
+  test("en tant qu''admin', peut être associé à une administrations", async () => {
     await userAdd(knex, {
       id: 'super-user',
       prenom: 'super',
@@ -308,7 +326,6 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'defaut',
             entreprises: [{ id: 'entreprise' }],
           },
         },

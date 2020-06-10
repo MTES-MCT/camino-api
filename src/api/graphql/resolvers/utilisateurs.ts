@@ -299,7 +299,11 @@ const utilisateurCreer = async (
       throw new Error(errors.join(', '))
     }
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+    if (
+      !utilisateur.permissionId ||
+      !user ||
+      !permissionCheck(user?.permissionId, ['super', 'admin'])
+    ) {
       utilisateur.permissionId = 'defaut'
     }
 
@@ -323,7 +327,7 @@ const utilisateurCreer = async (
       {
         id: await userIdGenerate(),
         ...utilisateur,
-      },
+      } as IUtilisateur,
       {}
     )
 
@@ -407,7 +411,12 @@ const utilisateurModifier = async (
 
     const errors = utilisateurEditionCheck(utilisateur)
 
-    if (!isSuper && permissionCheck(utilisateur?.permissionId, ['super'])) {
+    if (
+      utilisateur.permissionId &&
+      !isSuper &&
+      (!isAdmin ||
+        permissionCheck(utilisateur.permissionId, ['super', 'admin']))
+    ) {
       errors.push(
         'droits insuffisants pour affecter ces permissions à cet utilisateur'
       )
