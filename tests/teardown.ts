@@ -1,7 +1,9 @@
 import { dbManager } from './init'
 
+import * as knexConfig from '../knex/config'
+
 export default async () => {
-  // TODO: les tests ne passent pas lorsqu'on watch
-  // la connection à la bdd ne semble pas fermée correctement
-  await dbManager.close()
+  if (process.env.TESTS_INTEGRATION) {
+    await dbManager.dropDb(knexConfig.connection.database)
+  }
 }

@@ -53,7 +53,7 @@
     "test:lint": "eslint --fix src/ && eslint --fix knex/",
     "test:jest": "npm run test:lint && jest --verbose --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
-    "test:integration": "PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --verbose --coverage=false --roots=tests --rootDir=./ --runInBand --detectOpenHandles --watch"
+    "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --verbose --coverage=false --roots=tests --runInBand --detectOpenHandles --watch"
   },
   "@comment dependencies": {
     "graphql-import": "bloqué à 0.7.1: https://github.com/ardatan/graphql-import/issues/537",

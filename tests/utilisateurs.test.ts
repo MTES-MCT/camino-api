@@ -7,7 +7,7 @@ import * as userAdd from '../knex/user-add'
 
 jest.mock('../src/tools/export/utilisateur', () => ({
   __esModule: true,
-  utilisateurRowUpdate: jest.fn()
+  utilisateurRowUpdate: jest.fn(),
 }))
 
 console.info = jest.fn()
@@ -19,6 +19,10 @@ beforeEach(async () => {
 
 afterEach(async () => {
   await dbManager.truncateDb()
+})
+
+afterAll(async () => {
+  dbManager.closeKnex()
 })
 
 describe('utilisateursModifier', () => {
@@ -35,9 +39,9 @@ describe('utilisateursModifier', () => {
             prenom: 'toto-updated',
             nom: 'test-updated',
             email: 'test@camino.local',
-            permissionId: 'defaut'
-          }
-        }
+            permissionId: 'defaut',
+          },
+        },
       })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
@@ -50,7 +54,7 @@ describe('utilisateursModifier', () => {
       nom: 'test',
       email: 'test@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'defaut'
+      permissionId: 'defaut',
     })
 
     const token = tokenCreate({ id: 'test' })
@@ -65,9 +69,9 @@ describe('utilisateursModifier', () => {
             prenom: 'toto-updated',
             nom: 'test-updated',
             email: 'test@camino.local',
-            permissionId: 'defaut'
-          }
-        }
+            permissionId: 'defaut',
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -75,9 +79,9 @@ describe('utilisateursModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         utilisateurModifier: {
-          id: 'test'
-        }
-      }
+          id: 'test',
+        },
+      },
     })
   })
 })
@@ -96,9 +100,9 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'defaut'
-          }
-        }
+            permissionId: 'defaut',
+          },
+        },
       })
 
     expect(res.body.errors[0].message).toMatch(
@@ -119,9 +123,9 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'defaut'
-          }
-        }
+            permissionId: 'defaut',
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -129,9 +133,9 @@ describe('utilisateursCreer', () => {
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+          prenom: 'toto',
+        },
+      },
     })
   })
 
@@ -148,9 +152,9 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'super'
-          }
-        }
+            permissionId: 'super',
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -166,7 +170,7 @@ describe('utilisateursCreer', () => {
       nom: 'super',
       email: 'super@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'super'
+      permissionId: 'super',
     })
 
     const token = tokenCreate({ id: 'super-user' })
@@ -181,9 +185,9 @@ describe('utilisateursCreer', () => {
             nom: 'test',
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
-            permissionId: 'super'
-          }
-        }
+            permissionId: 'super',
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -191,9 +195,9 @@ describe('utilisateursCreer', () => {
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+          prenom: 'toto',
+        },
+      },
     })
   })
 
@@ -204,7 +208,7 @@ describe('utilisateursCreer', () => {
       nom: 'super',
       email: 'super@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'super'
+      permissionId: 'super',
     })
 
     const token = tokenCreate({ id: 'super-user' })
@@ -220,9 +224,9 @@ describe('utilisateursCreer', () => {
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
             permissionId: 'defaut',
-            administrations: [{ id: 'administration' }]
-          }
-        }
+            administrations: [{ id: 'administration' }],
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -238,19 +242,19 @@ describe('utilisateursCreer', () => {
       nom: 'super',
       email: 'super@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'super'
+      permissionId: 'super',
     })
 
     await knex('administrations_types').insert({
       id: 'adm',
       nom: 'admin',
-      ordre: 1
+      ordre: 1,
     })
 
     await knex('administrations').insert({
       id: 'administration',
       nom: 'admin',
-      typeId: 'adm'
+      typeId: 'adm',
     })
 
     const token = tokenCreate({ id: 'super-user' })
@@ -266,9 +270,9 @@ describe('utilisateursCreer', () => {
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
             permissionId: 'admin',
-            administrations: [{ id: 'administration' }]
-          }
-        }
+            administrations: [{ id: 'administration' }],
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -276,11 +280,12 @@ describe('utilisateursCreer', () => {
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+          prenom: 'toto',
+        },
+      },
     })
   })
+
   test("ne peut pas être associé à une entreprise (utilisateur 'defaut')", async () => {
     await userAdd(knex, {
       id: 'super-user',
@@ -288,7 +293,7 @@ describe('utilisateursCreer', () => {
       nom: 'super',
       email: 'super@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'super'
+      permissionId: 'super',
     })
 
     const token = tokenCreate({ id: 'super-user' })
@@ -304,9 +309,9 @@ describe('utilisateursCreer', () => {
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
             permissionId: 'defaut',
-            entreprises: [{ id: 'entreprise' }]
-          }
-        }
+            entreprises: [{ id: 'entreprise' }],
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -322,12 +327,12 @@ describe('utilisateursCreer', () => {
       nom: 'super',
       email: 'super@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'super'
+      permissionId: 'super',
     })
 
     await knex('entreprises').insert({
       id: 'entreprise',
-      nom: 'entre'
+      nom: 'entre',
     })
 
     const token = tokenCreate({ id: 'super-user' })
@@ -343,9 +348,9 @@ describe('utilisateursCreer', () => {
             email: 'test@camino.local',
             motDePasse: 'mot-de-passe',
             permissionId: 'entreprise',
-            entreprises: [{ id: 'entreprise' }]
-          }
-        }
+            entreprises: [{ id: 'entreprise' }],
+          },
+        },
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -353,9 +358,9 @@ describe('utilisateursCreer', () => {
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+          prenom: 'toto',
+        },
+      },
     })
   })
 })
