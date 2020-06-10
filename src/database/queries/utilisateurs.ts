@@ -14,7 +14,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
 
-import { stringSplit } from './_utils'
+import { stringSplit, nomPrenomSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -35,15 +35,13 @@ const utilisateursQueryBuild = (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    noms,
-    prenoms,
+    nomsPrenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string | null
-    prenoms?: string | null
+    nomsPrenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields },
@@ -73,23 +71,18 @@ const utilisateursQueryBuild = (
     q.whereIn('entreprises.id', entrepriseIds).leftJoinRelated('entreprises')
   }
 
-  if (noms) {
-    const nomsArray = stringSplit(noms)
+  if (nomsPrenoms) {
+    const nomsPrenomsArray = nomPrenomSplit(nomsPrenoms)
     q.where(b => {
-      b.whereRaw(`?? ~* ?`, [
-        'utilisateurs.nom',
-        nomsArray.map(n => `(?=.*?(${n}))`).join('')
-      ])
-    })
-  }
-
-  if (prenoms) {
-    const prenomsArray = stringSplit(prenoms)
-    q.where(b => {
-      b.whereRaw(`?? ~* ?`, [
-        'utilisateurs.prenom',
-        prenomsArray.map(n => `(?=.*?(${n}))`).join('')
-      ])
+      nomsPrenomsArray.forEach(n => {
+        b.orWhereRaw(`lower(??) like ?`, [
+          'utilisateurs.nom',
+          `%${n.toLowerCase()}%`
+        ]).orWhereRaw(`lower(??) like ?`, [
+          'utilisateurs.prenom',
+          `%${n.toLowerCase()}%`
+        ])
+      })
     })
   }
 
@@ -169,8 +162,7 @@ const utilisateursGet = async (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    noms,
-    prenoms,
+    nomsPrenoms,
     emails
   }: {
     intervalle?: number | null
@@ -180,8 +172,7 @@ const utilisateursGet = async (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string | null
-    prenoms?: string | null
+    nomsPrenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
@@ -193,8 +184,7 @@ const utilisateursGet = async (
       entrepriseIds,
       administrationIds,
       permissionIds,
-      noms,
-      prenoms,
+      nomsPrenoms,
       emails
     },
     { fields },
@@ -232,15 +222,13 @@ const utilisateursCount = async (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    noms,
-    prenoms,
+    nomsPrenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    noms?: string | null
-    prenoms?: string | null
+    nomsPrenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields },
@@ -252,8 +240,7 @@ const utilisateursCount = async (
       entrepriseIds,
       administrationIds,
       permissionIds,
-      noms,
-      prenoms,
+      nomsPrenoms,
       emails
     },
     { fields },

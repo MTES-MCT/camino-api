@@ -3,7 +3,7 @@ import {
   IToken,
   IUtilisateur,
   IUtilisateurCreation,
-  IUtilisateursColonneId,
+  IUtilisateursColonneId
 } from '../../../types'
 import * as bcrypt from 'bcryptjs'
 import * as jwt from 'jsonwebtoken'
@@ -23,7 +23,7 @@ import {
   utilisateurCreate,
   utilisateurUpdate,
   userByEmailGet,
-  utilisateursCount,
+  utilisateursCount
 } from '../../../database/queries/utilisateurs'
 
 import globales from '../../../database/cache/globales'
@@ -79,8 +79,7 @@ const utilisateurs = async (
     administrationIds,
     permissionIds,
     noms,
-    prenoms,
-    emails,
+    emails
   }: {
     intervalle?: number | null
     page?: number | null
@@ -90,7 +89,6 @@ const utilisateurs = async (
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
-    prenoms?: string | null
     emails?: string | null
   },
   context: IToken,
@@ -108,8 +106,7 @@ const utilisateurs = async (
         administrationIds,
         permissionIds,
         noms,
-        prenoms,
-        emails,
+        emails
       },
       { fields: fields.elements },
       context.user?.id
@@ -121,8 +118,7 @@ const utilisateurs = async (
         administrationIds,
         permissionIds,
         noms,
-        prenoms,
-        emails,
+        emails
       },
       { fields: fields.elements },
       context.user?.id
@@ -134,7 +130,7 @@ const utilisateurs = async (
       intervalle,
       ordre,
       colonne,
-      total,
+      total
     }
   } catch (e) {
     if (debug) {
@@ -169,7 +165,7 @@ const moi = async (_: never, context: IToken) => {
 const utilisateurTokenCreer = async (
   {
     email,
-    motDePasse,
+    motDePasse
   }: {
     email: string
     motDePasse: string
@@ -196,7 +192,7 @@ const utilisateurTokenCreer = async (
 
     return {
       token: userTokenCreate(user),
-      utilisateur: userFormat(user),
+      utilisateur: userFormat(user)
     }
   } catch (e) {
     if (debug) {
@@ -238,14 +234,14 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
       utilisateur = await utilisateurCreer(
         { utilisateur: cerbereUtilisateur },
         ({
-          user: { email: cerbereUtilisateur.email },
+          user: { email: cerbereUtilisateur.email }
         } as unknown) as IToken
       )
     }
 
     return {
       token: userTokenCreate(utilisateur),
-      utilisateur: userFormat(utilisateur),
+      utilisateur: userFormat(utilisateur)
     }
   } catch (e) {
     if (debug) {
@@ -311,7 +307,7 @@ const utilisateurCreer = async (
       !permissionCheck(utilisateur?.permissionId, [
         'admin',
         'editeur',
-        'lecteur',
+        'lecteur'
       ])
     ) {
       utilisateur.administrations = []
@@ -326,7 +322,7 @@ const utilisateurCreer = async (
     const utilisateurUpdated = await utilisateurCreate(
       {
         id: await userIdGenerate(),
-        ...utilisateur,
+        ...utilisateur
       } as IUtilisateur,
       {}
     )
@@ -344,7 +340,7 @@ const utilisateurCreer = async (
 }
 
 const utilisateurCreationEmailEnvoyer = async ({
-  email,
+  email
 }: {
   email: string
 }) => {
@@ -448,7 +444,7 @@ const utilisateurModifier = async (
       !permissionCheck(utilisateur?.permissionId, [
         'admin',
         'editeur',
-        'lecteur',
+        'lecteur'
       ])
     ) {
       utilisateur.administrations = []
@@ -519,7 +515,7 @@ const utilisateurMotDePasseModifier = async (
     id,
     motDePasse,
     motDePasseNouveau1,
-    motDePasseNouveau2,
+    motDePasseNouveau2
   }: {
     id: string
     motDePasse: string
@@ -568,7 +564,7 @@ const utilisateurMotDePasseModifier = async (
     const utilisateurUpdated = await utilisateurUpdate(
       {
         id,
-        motDePasse: utilisateur.motDePasse,
+        motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
       {}
     )
@@ -587,7 +583,7 @@ const utilisateurMotDePasseModifier = async (
 
 // envoie l'email avec un lien vers un formulaire de ré-init
 const utilisateurMotDePasseEmailEnvoyer = async ({
-  email,
+  email
 }: {
   email: string
 }) => {
@@ -663,7 +659,7 @@ const utilisateurMotDePasseInitialiser = async (
     const utilisateurUpdated = await utilisateurUpdate(
       {
         id: context.user.id,
-        motDePasse: utilisateur.motDePasse,
+        motDePasse: utilisateur.motDePasse
       } as IUtilisateur,
       {}
     )
@@ -672,7 +668,7 @@ const utilisateurMotDePasseInitialiser = async (
 
     return {
       token: userTokenCreate(utilisateurUpdated),
-      utilisateur: userFormat(utilisateurUpdated),
+      utilisateur: userFormat(utilisateurUpdated)
     }
   } catch (e) {
     if (debug) {
@@ -699,5 +695,5 @@ export {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseEmailEnvoyer,
-  utilisateurMotDePasseInitialiser,
+  utilisateurMotDePasseInitialiser
 }

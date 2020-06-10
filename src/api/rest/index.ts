@@ -308,8 +308,7 @@ interface IUtilisateursQueryInput {
   entrepriseIds?: string | undefined
   administrationIds?: string | undefined
   permissionIds?: string | undefined
-  noms?: string | null
-  prenoms?: string | null
+  nomsPrenoms?: string | null
   emails?: string | null
 }
 
@@ -319,8 +318,7 @@ const utilisateurs = async (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    noms,
-    prenoms,
+    nomsPrenoms,
     emails
   }: IUtilisateursQueryInput,
   userId?: string
@@ -329,8 +327,7 @@ const utilisateurs = async (
 
   const utilisateurs = await utilisateursGet(
     {
-      noms,
-      prenoms,
+      nomsPrenoms,
       emails,
       entrepriseIds: entrepriseIds?.split(','),
       administrationIds: administrationIds?.split(','),
