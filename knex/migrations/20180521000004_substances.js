@@ -2,7 +2,8 @@ exports.up = knex => {
   return knex.schema
     .createTable('substancesLegalesCodes', table => {
       table.string('id').primary()
-      table.string('nom').notNullable()
+      table.string('nom')
+      table.string('code').notNullable()
       table.text('description')
       table.string('lien').notNullable()
     })
