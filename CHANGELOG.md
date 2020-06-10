@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.41](https://github.com/MTES-MCT/camino-api/compare/v0.24.40...v0.24.41) (2020-06-10)
+
+
+### Features
+
+* **activites:** ajoute le filtre par statut de rapport d'activité ([#415](https://github.com/MTES-MCT/camino-api/issues/415)) ([37ca7af](https://github.com/MTES-MCT/camino-api/commit/37ca7af08865981c14f82d04daacc0815f0244ed))
+* **activités:** ajoute un lien "Je donne mon avis" dans l'email de confirmation ([#417](https://github.com/MTES-MCT/camino-api/issues/417)) ([c4ddfe4](https://github.com/MTES-MCT/camino-api/commit/c4ddfe406331b737df406cc654cfa5b684348cca))
+* **api:** expose les définitions ([#414](https://github.com/MTES-MCT/camino-api/issues/414)) ([13f9601](https://github.com/MTES-MCT/camino-api/commit/13f96013c4c1b7ae8b28fef7e7e3fc951d8e0ff8))
+* **étapes:** filtre les types d'étapes en fonction de leur date de fin ([#420](https://github.com/MTES-MCT/camino-api/issues/420)) ([7899648](https://github.com/MTES-MCT/camino-api/commit/7899648455d2d18047e1abc1ce8a8adb8cae8c1f))
+* **substances:** ajoute une colonne ([820e896](https://github.com/MTES-MCT/camino-api/commit/820e896161c0618b67888a55b764075612322df4))
+* crée des documents spécifiques (étapes, activtés, entreprises) ([#416](https://github.com/MTES-MCT/camino-api/issues/416)) ([34d84d7](https://github.com/MTES-MCT/camino-api/commit/34d84d7cfa5486b2e786500e171226ac8de867b9))
+
+
+### Bug Fixes
+
+* corrige la requête sur les titres ([db6d1d9](https://github.com/MTES-MCT/camino-api/commit/db6d1d982191fb445d6eb42ee16f359714a74e25))
+* permet aux utilisateurs entreprise de modifier leur documents ([ff1e90c](https://github.com/MTES-MCT/camino-api/commit/ff1e90c9e1512716c9825598c5e7feef7e068d7a))
+* **documents:** autorise les entreprises à modifier leurs documents ([2d37b67](https://github.com/MTES-MCT/camino-api/commit/2d37b676c70b06fe3e573760795e902129858a47))
+* **documents:** corrige la disparition de fichier à l'enregistrement ([b755864](https://github.com/MTES-MCT/camino-api/commit/b7558648256b1d60e5f14d82bd5da2fa3a8c8d61))
+* affiche le bouton d'ajout de document pour un utilisateur entreprise ([24dfbbe](https://github.com/MTES-MCT/camino-api/commit/24dfbbee423bf917bf4dd505a4330e806efa5fb7))
+* **entreprises:** ajoute un paramètre de création de documents ([6ea0322](https://github.com/MTES-MCT/camino-api/commit/6ea0322d97e567eca9a209cbf86159469c335a83))
+* **fichiers:** corrige le retour d'erreur en cas de fichier introuvable ([c1c8927](https://github.com/MTES-MCT/camino-api/commit/c1c8927eabfb0dfc33cbb0946ba6b12b345f28e5))
+* corrige les permissions utilisateur ([6d5842c](https://github.com/MTES-MCT/camino-api/commit/6d5842c25a00fee9bb3897ea6c8fd6689addc1e9))
+* **activites:** corrige la requête de récupération des années ([a54fe8c](https://github.com/MTES-MCT/camino-api/commit/a54fe8c24b46ac086b6e4b94089357312da112f2))
+* **daily:** ajoute les options d'insertion pour les documents des titulaires ([#419](https://github.com/MTES-MCT/camino-api/issues/419)) ([012452f](https://github.com/MTES-MCT/camino-api/commit/012452f63c4f0ebb7a3f3d35391538c044393934))
+* **migrate:** garde le hash du document pendant la migration ([f42d8c0](https://github.com/MTES-MCT/camino-api/commit/f42d8c0e0bd1af6b1b3973aa7147d4d6cb6c94ac))
+* **utilisateurs:** corrige le filtre email ([#418](https://github.com/MTES-MCT/camino-api/issues/418)) ([36ea532](https://github.com/MTES-MCT/camino-api/commit/36ea532669d61fcebc3e457922872a865995eeab))
+* ajoute une colonne ordre ([a27de09](https://github.com/MTES-MCT/camino-api/commit/a27de09e5ea03d514c7fb6d547da53a4ffea78d7))
+* corrige l'import de GraphQLResolve ([d01e91f](https://github.com/MTES-MCT/camino-api/commit/d01e91fb7ff9410ef20a761a234dffa60fd271dd))
+
 ### [0.24.40](https://github.com/MTES-MCT/camino-api/compare/v0.24.38...v0.24.40) (2020-06-02)
 
 
