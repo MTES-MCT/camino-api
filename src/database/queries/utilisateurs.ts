@@ -14,7 +14,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
 
-import { stringSplit } from './_utils'
+import { stringSplit, nomPrenomSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -51,7 +51,9 @@ const utilisateursQueryBuild = (
     ? graphBuild(fields, 'utilisateur', graphFormat)
     : options.utilisateurs.graph
 
-  const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
+  const q = Utilisateurs.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
 
   utilisateursPermissionQueryBuild(q, user)
 
@@ -70,7 +72,7 @@ const utilisateursQueryBuild = (
   }
 
   if (noms) {
-    const nomsArray = stringSplit(noms)
+    const nomsPrenomsArray = nomPrenomSplit(noms)
     q.where(b => {
       nomsArray.forEach(n => {
         b.orWhereRaw(`lower(??) like ?`, [

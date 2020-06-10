@@ -241,7 +241,7 @@ const activiteModifier = async (
       const utilisateurs = await utilisateursGet(
         {
           entrepriseIds,
-          noms: undefined,
+          nomsPrenoms: undefined,
           administrationIds: undefined,
           permissionIds: undefined
         },

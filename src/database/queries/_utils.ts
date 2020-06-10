@@ -39,4 +39,9 @@ const stringSplit = (string: string) =>
     e.replace(/^"(.*)"$/, '$1')
   )
 
-export { fieldTitreAdd, stringSplit }
+const nomPrenomSplit = (string: string) =>
+  (string.match(/[a-zéèëçî]+|"(?:\\"|[^"])+"/g) || []).map(e =>
+    e.replace(/^"(.*)"$/, '$1')
+  )
+
+export { fieldTitreAdd, stringSplit, nomPrenomSplit }

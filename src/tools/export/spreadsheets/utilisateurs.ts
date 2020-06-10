@@ -7,7 +7,7 @@ const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_UTILISATEURS
 const get = () =>
   utilisateursGet(
     {
-      noms: undefined,
+      nomsPrenoms: undefined,
       entrepriseIds: undefined,
       administrationIds: undefined,
       permissionIds: undefined
