@@ -130,7 +130,7 @@ type Query {
     entrepriseIds: [ID]
     administrationIds: [ID]
     permissionIds: [ID]
-    nomsPrenoms: String
+    noms: String
     emails: String
   ): Utilisateurs
 

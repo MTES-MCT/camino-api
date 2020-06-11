@@ -35,13 +35,13 @@ const utilisateursQueryBuild = (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    nomsPrenoms,
+    noms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    nomsPrenoms?: string | null
+    noms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields },
@@ -71,8 +71,8 @@ const utilisateursQueryBuild = (
     q.whereIn('entreprises.id', entrepriseIds).leftJoinRelated('entreprises')
   }
 
-  if (nomsPrenoms) {
-    const nomsPrenomsArray = nomPrenomSplit(nomsPrenoms)
+  if (noms) {
+    const nomsPrenomsArray = nomPrenomSplit(noms)
     q.where(b => {
       nomsPrenomsArray.forEach(n => {
         b.orWhereRaw(`lower(??) like ?`, [
@@ -162,7 +162,7 @@ const utilisateursGet = async (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    nomsPrenoms,
+    noms,
     emails
   }: {
     intervalle?: number | null
@@ -172,7 +172,7 @@ const utilisateursGet = async (
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    nomsPrenoms?: string | null
+    noms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
@@ -184,7 +184,7 @@ const utilisateursGet = async (
       entrepriseIds,
       administrationIds,
       permissionIds,
-      nomsPrenoms,
+      noms,
       emails
     },
     { fields },
@@ -222,13 +222,13 @@ const utilisateursCount = async (
     entrepriseIds,
     administrationIds,
     permissionIds,
-    nomsPrenoms,
+    noms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
-    nomsPrenoms?: string | null
+    noms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields },
@@ -240,7 +240,7 @@ const utilisateursCount = async (
       entrepriseIds,
       administrationIds,
       permissionIds,
-      nomsPrenoms,
+      noms,
       emails
     },
     { fields },
