@@ -55,7 +55,7 @@ const migrateTitresEtapesIds = domaineId => {
     let count = 0
 
     titres.forEach(t => {
-      let { type_id: typeId } = t
+      const { type_id: typeId } = t
 
       const sectionId = typeId !== 'ar' ? typeId.replace(/.$/, 'x') : 'arm'
 
@@ -125,7 +125,7 @@ const migrateEtapesContenu = domaineId => {
     let count = 0
 
     titresEtapes.forEach(te => {
-      let { id } = te
+      const { id } = te
 
       const [, typeId] = id.match(/^.-(..)/)
 

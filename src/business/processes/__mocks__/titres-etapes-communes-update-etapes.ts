@@ -21,7 +21,7 @@ const commune2 = {
   surface: 4
 }
 
-const titresEtapesSansPoints = [
+const titresEtapesSansPoints = ([
   {
     id: 'h-cx-courdemanges-1988-oct01-dpu01',
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
@@ -30,9 +30,9 @@ const titresEtapesSansPoints = [
     ordre: 2,
     date: '1988-03-11'
   }
-] as unknown as ITitreEtape[]
+] as unknown) as ITitreEtape[]
 
-const titresEtapesPoints = [
+const titresEtapesPoints = ([
   {
     id: 'h-cx-courdemanges-1988-oct01-dpu01',
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
@@ -42,9 +42,9 @@ const titresEtapesPoints = [
     date: '1988-03-11',
     points: [1, 2]
   }
-] as unknown as ITitreEtape[]
+] as unknown) as ITitreEtape[]
 
-const titresEtapesPointsMemeCommune = [
+const titresEtapesPointsMemeCommune = ([
   {
     id: 'h-cx-courdemanges-1988-oct01-dpu01',
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
@@ -54,9 +54,9 @@ const titresEtapesPointsMemeCommune = [
     date: '1988-03-11',
     points: [1, 2]
   }
-] as unknown as ITitreEtape[]
+] as unknown) as ITitreEtape[]
 
-const titresEtapesPointsVides = [
+const titresEtapesPointsVides = ([
   {
     id: 'h-cx-courdemanges-1988-oct01-dpu01',
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
@@ -66,9 +66,9 @@ const titresEtapesPointsVides = [
     date: '1988-03-11',
     points: []
   }
-] as unknown as ITitreEtape[]
+] as unknown) as ITitreEtape[]
 
-const titresEtapesPointsCommuneInexistante = [
+const titresEtapesPointsCommuneInexistante = ([
   {
     id: 'h-cx-courdemanges-1988-oct01-dpu01',
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
@@ -79,9 +79,9 @@ const titresEtapesPointsCommuneInexistante = [
     points: [],
     communes: [commune1]
   }
-] as unknown as ITitreEtape[]
+] as unknown) as ITitreEtape[]
 
-const titresEtapesPointsCommuneExistante = [
+const titresEtapesPointsCommuneExistante = ([
   {
     id: 'h-cx-courdemanges-1988-oct01-dpu01',
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
@@ -92,7 +92,7 @@ const titresEtapesPointsCommuneExistante = [
     points: [1, 2],
     communes: [commune1]
   }
-] as unknown as ITitreEtape[]
+] as unknown) as ITitreEtape[]
 
 export {
   commune1,

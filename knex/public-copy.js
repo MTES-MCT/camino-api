@@ -30,9 +30,7 @@ const run = async () => {
     console.info('Suppression des informations confidentielles…')
 
     const knex = Knex(configDbManager.knex)
-    const titresDeleted = await knex('titres')
-      .whereNotIn('id', titresIds)
-      .del()
+    const titresDeleted = await knex('titres').whereNotIn('id', titresIds).del()
 
     console.info(`${titresDeleted} titres supprimés de la base de données`)
 

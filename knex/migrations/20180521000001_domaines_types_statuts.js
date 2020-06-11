@@ -14,10 +14,7 @@ exports.up = knex =>
       table.integer('ordre').notNullable()
     })
     .createTable('titresTypes', table => {
-      table
-        .string('id', 3)
-        .primary()
-        .notNullable()
+      table.string('id', 3).primary().notNullable()
       table
         .string('domaineId', 1)
         .references('domaines.id')

@@ -74,10 +74,7 @@ domainesIds.forEach(domaineId => {
 
     etapes.forEach(t => {
       if (t.type_id === 'mcp') {
-        const titreId = t.id
-          .split('-')
-          .slice(0, -2)
-          .join('-')
+        const titreId = t.id.split('-').slice(0, -2).join('-')
 
         if (t.statut_id === 'fai') {
           console.info('modification du statut `fai` en `fav`:', titreId)

@@ -29,24 +29,24 @@ const documentsPermissionQueryBuild = (
     permissionCheck(user?.permissionId, ['defaut']) ||
     permissionCheck(user?.permissionId, ['entreprise'])
   ) {
-    q.where((b) => {
+    q.where(b => {
       b.orWhere('documents.publicLecture', true)
 
       if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
-        b.orWhere((c) => {
+        b.orWhere(c => {
           c.where('documents.entreprisesLecture', true)
 
           // si l'utilisateur est `entreprise`,
           // titres dont il est titulaire ou amodiataire
-          const entreprisesIds = user.entreprises!.map((e) => e.id)
+          const entreprisesIds = user.entreprises!.map(e => e.id)
 
-          c.where((d) => {
-            d.orWhere((e) => {
+          c.where(d => {
+            d.orWhere(e => {
               e.where('type.repertoire', 'etapes')
-              e.where((f) => {
+              e.where(f => {
                 f.orWhereIn(
                   'etape:demarche:titre:titulaires.id',
                   entreprisesIds
@@ -58,15 +58,15 @@ const documentsPermissionQueryBuild = (
               })
             })
 
-            d.orWhere((e) => {
+            d.orWhere(e => {
               e.where('type.repertoire', 'activites')
-              e.where((f) => {
+              e.where(f => {
                 f.orWhereIn('activite:titre:titulaires.id', entreprisesIds)
                 f.orWhereIn('activite:titre:amodiataires.id', entreprisesIds)
               })
             })
 
-            d.orWhere((e) => {
+            d.orWhere(e => {
               e.where('type.repertoire', 'entreprises')
               e.whereIn('documents.entrepriseId', entreprisesIds)
             })

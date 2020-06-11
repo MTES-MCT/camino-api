@@ -5,7 +5,7 @@ import fileCreate from '../../src/tools/file-create'
 import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 
 async function main() {
-  // const userId = 'super'
+  const userId = 'super'
 
   // admin dea-guyane-01
   // const userId = 'f5922d'
@@ -51,9 +51,7 @@ async function main() {
 
     const res = await titresDemarchesGet(
       { titresDomainesIds: ['m'], titresStatutsIds: ['ech'] },
-      {
-        fields: { id: {} }
-      },
+      { fields: { id: {} } },
       userId
     )
 

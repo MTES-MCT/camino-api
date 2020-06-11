@@ -152,7 +152,9 @@
   },
   "prettier": {
     "semi": false,
-    "singleQuote": true
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid"
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -175,6 +177,7 @@
       "@typescript-eslint"
     ],
     "rules": {
+      "prettier/prettier": "error",
       "@typescript-eslint/camelcase": 0,
       "@typescript-eslint/explicit-function-return-type": 0,
       "@typescript-eslint/explicit-module-boundary-types": 0,

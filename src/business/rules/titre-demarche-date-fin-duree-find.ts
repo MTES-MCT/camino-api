@@ -16,7 +16,7 @@ const titreDemarcheDateFinAndDureeFind = (
 ) =>
   titreDemarches.reduce(
     (
-      { duree, dateFin }: { duree: number, dateFin: string | null | undefined },
+      { duree, dateFin }: { duree: number; dateFin: string | null | undefined },
       titreDemarche
     ) => {
       if (!titreDemarche.etapes) return { duree, dateFin }
@@ -95,8 +95,7 @@ const titreDemarcheOctroiDateFinFind = (
     return '2018-12-31'
   }
 
-  const titreEtapesDescSorted =
-    titreEtapes && titreEtapesDescSort(titreEtapes)
+  const titreEtapesDescSorted = titreEtapes && titreEtapesDescSort(titreEtapes)
 
   // chercher dans les étapes de publication et décisives s'il y a une date de debut
   const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
@@ -112,9 +111,8 @@ const titreDemarcheOctroiDateFinFind = (
 
   // sinon, la date de fin est calculée
   // en ajoutant la durée cumulée à la date de la première étape de publication
-  const titreEtapeDpuFirst = titreEtapesAscSort(titreEtapes).find(
-    titreEtape =>
-      ['dpu', 'dup', 'sco', 'def', 'aco'].includes(titreEtape.typeId)
+  const titreEtapeDpuFirst = titreEtapesAscSort(titreEtapes).find(titreEtape =>
+    ['dpu', 'dup', 'sco', 'def', 'aco'].includes(titreEtape.typeId)
   )
 
   if (titreEtapeDpuFirst) {
@@ -123,9 +121,8 @@ const titreDemarcheOctroiDateFinFind = (
 
   // si on ne trouve pas de dpu, la date de fin est calculée
   // en ajoutant la date de la première étape décisive
-  const titreEtapeDexFirst = titreEtapesAscSort(titreEtapes).find(
-    titreEtape =>
-      ['dex', 'dux', 'def', 'sco', 'aco'].includes(titreEtape.typeId)
+  const titreEtapeDexFirst = titreEtapesAscSort(titreEtapes).find(titreEtape =>
+    ['dex', 'dux', 'def', 'sco', 'aco'].includes(titreEtape.typeId)
   )
 
   return titreEtapeDexFirst
@@ -145,8 +142,7 @@ const titreDemarcheOctroiDateFinAndDureeFind = (
     titreEtapes
   )
 
-  dateFin =
-    dateFin || titreDemarcheOctroiDateFinFind(duree, titreEtapes)
+  dateFin = dateFin || titreDemarcheOctroiDateFinFind(duree, titreEtapes)
 
   return {
     duree,

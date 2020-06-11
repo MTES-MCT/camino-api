@@ -13,18 +13,14 @@ console.info = jest.fn()
 
 describe("public des titres d'un titre", () => {
   test("met à jour la publicité d'un titre", async () => {
-    const titresPublicUpdated = await titresPublicUpdate(
-      titresPublicModifie
-    )
+    const titresPublicUpdated = await titresPublicUpdate(titresPublicModifie)
 
     expect(titresPublicUpdated.length).toEqual(1)
     expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met pas à jour la publicité d'un titre", async () => {
-    const titresPublicUpdated = await titresPublicUpdate(
-      titresPublicIdentique
-    )
+    const titresPublicUpdated = await titresPublicUpdate(titresPublicIdentique)
 
     expect(titresPublicUpdated.length).toEqual(0)
     expect(console.info).not.toHaveBeenCalled()

@@ -3,11 +3,13 @@ import { demarcheType } from './__mocks__/titre-etape-demarche-etape-type-find-t
 
 describe("retourne le type d'étape provenant des types d'étapes d'un type de démarche", () => {
   test("le titre d'étape est retourné", () => {
-    expect(titreEtapeDemarcheEtapeTypeFind(
-      'xxx',
-      demarcheType.etapesTypes,
-      demarcheType.nom
-    )).toEqual({
+    expect(
+      titreEtapeDemarcheEtapeTypeFind(
+        'xxx',
+        demarcheType.etapesTypes,
+        demarcheType.nom
+      )
+    ).toEqual({
       id: 'xxx'
     })
   })

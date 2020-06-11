@@ -3,7 +3,7 @@ import {
   IToken,
   IEtapeType,
   IDocumentRepertoire,
-  IDefinition,
+  IDefinition
 } from '../../../types'
 import { debug } from '../../../config/index'
 
@@ -26,7 +26,7 @@ import {
   activitesTypesGet,
   activitesStatutsGet,
   definitionsGet,
-  etapesStatutsGet,
+  etapesStatutsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -44,7 +44,7 @@ const unites = async () => unitesGet()
 
 const documentsTypes = async ({
   repertoire,
-  typeId,
+  typeId
 }: {
   repertoire: IDocumentRepertoire
   typeId?: string
@@ -68,16 +68,16 @@ const documentsVisibilites = async (_: never, context: IToken) => {
     return [
       {
         id: 'admin',
-        nom: 'Administrations uniquement',
+        nom: 'Administrations uniquement'
       },
       {
         id: 'entreprise',
-        nom: 'Administrations et entreprises titulaires',
+        nom: 'Administrations et entreprises titulaires'
       },
       {
         id: 'public',
-        nom: 'Public',
-      },
+        nom: 'Public'
+      }
     ]
   }
 
@@ -85,8 +85,8 @@ const documentsVisibilites = async (_: never, context: IToken) => {
     return [
       {
         id: 'entreprise',
-        nom: 'Administrations et entreprises titulaires',
-      },
+        nom: 'Administrations et entreprises titulaires'
+      }
     ]
   }
 
@@ -151,7 +151,7 @@ const statuts = async (_: never, context: IToken) => {
     let statuts = await titresStatutsGet()
 
     if (!context.user) {
-      statuts = statuts.filter((statut) =>
+      statuts = statuts.filter(statut =>
         autorisations.statutsIds.includes(statut.id)
       )
     }
@@ -219,10 +219,10 @@ const demarcheEtapesTypesGet = async (
         type: { etapesTypes: { etapesStatuts: { id: {} } } },
         titre: {
           type: { demarchesTypes: { id: {} } },
-          demarches: { etapes: { id: {} } },
+          demarches: { etapes: { id: {} } }
         },
-        etapes: { type: { id: {} } },
-      },
+        etapes: { type: { id: {} } }
+      }
     },
     user?.id
   )
@@ -231,7 +231,7 @@ const demarcheEtapesTypesGet = async (
   const titre = titreDemarche.titre!
 
   const demarcheType = titre.type!.demarchesTypes!.find(
-    (demarcheType) => demarcheType.id === titreDemarche.typeId
+    demarcheType => demarcheType.id === titreDemarche.typeId
   )
 
   if (!demarcheType) {
@@ -250,7 +250,7 @@ const demarcheEtapesTypesGet = async (
 
   if (titreEtape) {
     const etapeType = titreDemarche.type!.etapesTypes.find(
-      (et) => et.id === titreEtape.type!.id
+      et => et.id === titreEtape.type!.id
     )
     if (!etapeType) {
       throw new Error(
@@ -287,7 +287,7 @@ const demarcheEtapesTypesGet = async (
 const etapesTypes = async (
   {
     titreDemarcheId,
-    titreEtapeId,
+    titreEtapeId
   }: { titreDemarcheId?: string; titreEtapeId?: string },
   context: IToken,
   info: GraphQLResolveInfo
@@ -364,7 +364,7 @@ const definitions = async (context: IToken) => {
   try {
     const definitions = await definitionsGet()
 
-    const definitionsFormated = definitions.map(async (d) => {
+    const definitionsFormated = definitions.map(async d => {
       if (d.table) {
         let elements: IDefinition[] = []
 
@@ -395,7 +395,7 @@ const definitions = async (context: IToken) => {
           elements = await etapesTypesGet(
             {
               titreDemarcheId: undefined,
-              titreEtapeId: undefined,
+              titreEtapeId: undefined
             },
             { fields: { id: {} } },
             context.user?.id
@@ -405,7 +405,7 @@ const definitions = async (context: IToken) => {
           elements = await etapesStatutsGet()
         }
 
-        d.elements = elements?.map((e) => {
+        d.elements = elements?.map(e => {
           e.table = d.table
 
           return e
@@ -443,5 +443,5 @@ export {
   version,
   activitesTypes,
   activitesStatuts,
-  definitions,
+  definitions
 }

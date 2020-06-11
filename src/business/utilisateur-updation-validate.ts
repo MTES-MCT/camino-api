@@ -15,9 +15,7 @@ const utilisateurUpdationValidate = async (
   if (!utilisateurOld) return ["l'utilisateur n'existe pas"]
 
   if (utilisateur.administrations && utilisateur.administrations.length > 1) {
-    return [
-      "un utilisateur ne peut être affectué qu'à une seule administration",
-    ]
+    return ["un utilisateur ne peut être affecté qu'à une seule administration"]
   }
 
   // récupère la liste des administrations modifiées (suppression et ajout)
@@ -43,7 +41,7 @@ const utilisateurUpdationValidate = async (
   if (administrationsIdsDiff.length) {
     // si le user n'a pas les droits sur toutes ces administrations
     if (
-      !administrationsIdsDiff.every((administration) =>
+      !administrationsIdsDiff.every(administration =>
         permissionAdministrationsCheck(user, [administration.id])
       )
     ) {

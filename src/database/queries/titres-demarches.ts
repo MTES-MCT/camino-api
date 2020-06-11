@@ -90,9 +90,7 @@ const titresDemarchesQueryBuild = (
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
     : options.demarches.graph
 
-  const q = TitresDemarches.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
+  const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
 
   titreDemarchePermissionQueryBuild(q, user)
 

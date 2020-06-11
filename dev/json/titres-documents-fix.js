@@ -11,24 +11,24 @@ const {
 
 const domainesIds = ['c', 'f', 'g', 'h', 'm', 'r', 's', 'w']
 
-const ignoreList = [
-  // démarches diff, à vérifier
-  'm-cx-escaro-1962',
-  'm-pr-loc-envel-2015',
-  'm-pr-merleac-2014',
-  'm-cx-oraas-1844',
-  'm-ar-crique-mousse-2018',
-  'm-ar-crique-amadis-aval-2019',
-  'm-ar-crique-amadis-centre-2019',
-  // même hash, à renommer
-  'm-ax-crique-petit-inini-2014',
-  'm-ax-crique-bois-bande-1-2016',
-  // même hash, à renommer
-  'm-ar-crique-kounamari-5-2018',
-  'm-ar-crique-kounamari-6-2018'
-]
+// const ignoreList = [
+//   // démarches diff, à vérifier
+//   'm-cx-escaro-1962',
+//   'm-pr-loc-envel-2015',
+//   'm-pr-merleac-2014',
+//   'm-cx-oraas-1844',
+//   'm-ar-crique-mousse-2018',
+//   'm-ar-crique-amadis-aval-2019',
+//   'm-ar-crique-amadis-centre-2019',
+//   // même hash, à renommer
+//   'm-ax-crique-petit-inini-2014',
+//   'm-ax-crique-bois-bande-1-2016',
+//   // même hash, à renommer
+//   'm-ar-crique-kounamari-5-2018',
+//   'm-ar-crique-kounamari-6-2018'
+// ]
 
-const targets = []
+// const targets = []
 
 const files = readdir('./files').map(file => file.split('.pdf')[0])
 
@@ -90,8 +90,6 @@ const titresDocumentsIdsRename = async domaineId => {
           console.info('no such file', `${idOld}.pdf`)
         }
       }
-
-      return
     })
   )
 
@@ -131,6 +129,7 @@ const titresDocumentsNoFileRename = async domaineId => {
 
       if (!matches) {
         console.error('aucun fichier pour', d.id)
+
         return
       }
 
@@ -141,6 +140,7 @@ const titresDocumentsNoFileRename = async domaineId => {
           ', impossible de décider seul'
         )
         console.error(matches.join('\n'))
+
         return
       }
 
@@ -149,8 +149,6 @@ const titresDocumentsNoFileRename = async domaineId => {
       await rename(pathNameOld, pathNameDoc)
 
       count += 1
-
-      return
     })
   )
 

@@ -50,26 +50,26 @@ const titreEtapeAdministrationsLocalesToDeleteBuild = (
 ) =>
   titreEtapeAdministrationsLocalesOld
     ? titreEtapeAdministrationsLocalesOld.reduce(
-      (
-        queries: IEtapeAdministrationLocaleToDelete[],
-        { id: idOld, associee: associeeOld }
-      ) => {
-        if (
-          !titreEtapeAdministrationsLocales.find(
-            ({ administrationId: idNew, associee: associeeNew }) =>
-              idNew === idOld && associeeOld === associeeNew
-          )
-        ) {
-          queries.push({
-            titreEtapeId,
-            administrationId: idOld
-          })
-        }
+        (
+          queries: IEtapeAdministrationLocaleToDelete[],
+          { id: idOld, associee: associeeOld }
+        ) => {
+          if (
+            !titreEtapeAdministrationsLocales.find(
+              ({ administrationId: idNew, associee: associeeNew }) =>
+                idNew === idOld && associeeOld === associeeNew
+            )
+          ) {
+            queries.push({
+              titreEtapeId,
+              administrationId: idOld
+            })
+          }
 
-        return queries
-      },
-      []
-    )
+          return queries
+        },
+        []
+      )
     : []
 
 interface ITitreEtapeAdministrationLocale {

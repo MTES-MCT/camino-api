@@ -33,7 +33,7 @@ const titreEtapeNumbersValidate = (
   sections: ISection[]
 ) => {
   const errorsFondamentales = numberProps.reduce((errors: string[], prop) => {
-    if (titreEtape[prop] && titreEtape[prop] as number < 0) {
+    if (titreEtape[prop] && (titreEtape[prop] as number) < 0) {
       errors.push(`le champ "${prop}" ne peut pas avoir une valeur négative`)
     }
 

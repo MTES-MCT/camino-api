@@ -26,15 +26,13 @@ const etapeContenuFind = (
   sectionId: string,
   elementId: string
 ) =>
-  titreEtapesDescSort(titreDemarcheEtapes).find(titreEtape =>
-    etapeValideCheck(
-      titreEtape,
-      titreDemarcheTypeId
-    ) &&
-    // détermine si l'étape contient la section et l'élément
-    titreEtape.contenu &&
-    titreEtape.contenu[sectionId] &&
-    titreEtape.contenu[sectionId][elementId] !== undefined
+  titreEtapesDescSort(titreDemarcheEtapes).find(
+    titreEtape =>
+      etapeValideCheck(titreEtape, titreDemarcheTypeId) &&
+      // détermine si l'étape contient la section et l'élément
+      titreEtape.contenu &&
+      titreEtape.contenu[sectionId] &&
+      titreEtape.contenu[sectionId][elementId] !== undefined
   )
 
 // si
@@ -63,10 +61,7 @@ const titreContenuEtapeIdFind = (
 ) =>
   titreDemarchesAscSort(titreDemarches)
     .reverse()
-    .reduce((
-      etapeId: string | null,
-      titreDemarche: ITitreDemarche
-    ) => {
+    .reduce((etapeId: string | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
       if (etapeId) return etapeId
 

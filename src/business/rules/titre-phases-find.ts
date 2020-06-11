@@ -42,8 +42,7 @@ const titrePhasesFind = (
       // le statut est valide
       // sinon,
       // - le statut est échu
-      const statutId =
-        dateFin < aujourdhui ? 'ech' : 'val'
+      const statutId = dateFin < aujourdhui ? 'ech' : 'val'
 
       titrePhases.push({
         titreDemarcheId: titreDemarche.id,

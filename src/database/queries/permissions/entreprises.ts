@@ -30,42 +30,42 @@ const entreprisePermissionQueryBuild = (
         'u_e.entrepriseId',
         'entreprises.id',
         'u_e.utilisateurId',
-        user.id,
+        user.id
       ])
     )
 
     q.select(
       raw('(case when ?? = ? then true else false end)', [
         'u_e.utilisateurId',
-        user.id,
+        user.id
       ]).as('modification')
     )
   } else {
     q.select(raw('false').as('modification'))
   }
 
-  q.modifyGraph('titresTitulaire', (a) =>
+  q.modifyGraph('titresTitulaire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       user
     ).groupBy('titresTitulaires.entrepriseId')
   )
 
-  q.modifyGraph('titresAmodiataire', (a) =>
+  q.modifyGraph('titresAmodiataire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       user
     ).groupBy('titresAmodiataires.entrepriseId')
   )
 
-  q.modifyGraph('utilisateurs', (u) =>
+  q.modifyGraph('utilisateurs', u =>
     utilisateursPermissionQueryBuild(
       u as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
       user
     )
   )
 
-  q.modifyGraph('documents', (u) =>
+  q.modifyGraph('documents', u =>
     documentsPermissionQueryBuild(
       u as QueryBuilder<Documents, Documents | Documents[]>,
       user

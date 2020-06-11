@@ -16,14 +16,15 @@ describe("vérifie la validité des propriétés dont le type est nombre d'une �
   })
 
   test("le type d'étape n'a pas de sections", () => {
-    expect(
-      titreEtapeNumbersValidate(titreEtapeSansContenu, [])
-    ).toEqual(null)
+    expect(titreEtapeNumbersValidate(titreEtapeSansContenu, [])).toEqual(null)
   })
 
   test("la sections n'a pas d'éléments", () => {
     expect(
-      titreEtapeNumbersValidate(titreEtapeNombresValides, titreEtapesSectionsSansElement)
+      titreEtapeNumbersValidate(
+        titreEtapeNombresValides,
+        titreEtapesSectionsSansElement
+      )
     ).toEqual(null)
   })
 
@@ -33,7 +34,7 @@ describe("vérifie la validité des propriétés dont le type est nombre d'une �
     ).toEqual(null)
   })
 
-  test('les numbers n\'ont pas de coordonnées de référence', () => {
+  test("les numbers n'ont pas de coordonnées de référence", () => {
     expect(
       titreEtapeNumbersValidate(titreEtapeNombresNegatifs, titreEtapesSections)
     ).toBe(

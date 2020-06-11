@@ -2,19 +2,23 @@ import { ITitre, Index, IContenuValeur } from '../../../types'
 
 import decamelize from '../../../tools/decamelize'
 
-const titreContenuFormat = (titre: ITitre) => titre.contenu
-  ? Object.keys(titre.contenu).reduce((props: Index<IContenuValeur>, section) =>
-    titre.contenu && titre.contenu[section]
-      ? Object.keys(titre.contenu[section]).reduce((props, element) => {
-        if (titre.contenu && titre.contenu[section][element]) {
-          props[decamelize(element).replace('_id', '')] = titre.contenu[section][element]
-        }
+const titreContenuFormat = (titre: ITitre) =>
+  titre.contenu
+    ? Object.keys(titre.contenu).reduce(
+        (props: Index<IContenuValeur>, section) =>
+          titre.contenu && titre.contenu[section]
+            ? Object.keys(titre.contenu[section]).reduce((props, element) => {
+                if (titre.contenu && titre.contenu[section][element]) {
+                  props[decamelize(element).replace('_id', '')] =
+                    titre.contenu[section][element]
+                }
 
-        return props
-      }, props)
-      : props
-    , {})
-  : {}
+                return props
+              }, props)
+            : props,
+        {}
+      )
+    : {}
 
 const titresFormatTable = (titres: ITitre[]) =>
   titres.map(titre => {
@@ -59,8 +63,9 @@ const titresFormatTable = (titres: ITitre[]) =>
                 regionCommunes.push(
                   ...departement.communes!.map(
                     commune =>
-                      `${commune.nom} (${Math.round(commune.surface! / 100) /
-                        10000})`
+                      `${commune.nom} (${
+                        Math.round(commune.surface! / 100) / 10000
+                      })`
                   )
                 )
 

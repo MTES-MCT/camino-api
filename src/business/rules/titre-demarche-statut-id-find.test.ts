@@ -223,7 +223,7 @@ describe("statut d'une démarche", () => {
     ).toEqual('ins')
   })
 
-  test("une démarche de retrait sans aucune étape décisive a le statut “indéterminé”", () => {
+  test('une démarche de retrait sans aucune étape décisive a le statut “indéterminé”', () => {
     expect(
       titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'xxx' }]))
     ).toEqual('ind')
@@ -231,7 +231,10 @@ describe("statut d'une démarche", () => {
 
   test("une démarche de retrait dont l'étape la plus récente de dup a été faite a le statut “terminé”", () => {
     expect(
-      titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'dup', statutId: 'fai' }]))
+      titreDemarcheStatutIdFind(
+        'ret',
+        etapesBuild([{ typeId: 'dup', statutId: 'fai' }])
+      )
     ).toEqual('ter')
   })
 
@@ -273,19 +276,28 @@ describe("statut d'une démarche", () => {
 
   test("une démarche dont l'étape la plus récente d'annulation de la décision est favorable a le statut “en instruction”", () => {
     expect(
-      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'and', statutId: 'fai' }]))
+      titreDemarcheStatutIdFind(
+        'oct',
+        etapesBuild([{ typeId: 'and', statutId: 'fai' }])
+      )
     ).toEqual('ins')
   })
 
   test("une démarche dont l'étape la plus récente d'annulation de la décision est favorable a le statut “accepté”", () => {
     expect(
-      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'and', statutId: 'acc' }]))
+      titreDemarcheStatutIdFind(
+        'oct',
+        etapesBuild([{ typeId: 'and', statutId: 'acc' }])
+      )
     ).toEqual('acc')
   })
 
   test("une démarche dont l'étape la plus récente d'annulation de la décision est favorable a le statut “rejeté”", () => {
     expect(
-      titreDemarcheStatutIdFind('oct', etapesBuild([{ typeId: 'and', statutId: 'rej' }]))
+      titreDemarcheStatutIdFind(
+        'oct',
+        etapesBuild([{ typeId: 'and', statutId: 'rej' }])
+      )
     ).toEqual('rej')
   })
 

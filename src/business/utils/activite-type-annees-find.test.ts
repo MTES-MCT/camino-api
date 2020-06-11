@@ -5,8 +5,8 @@ import activiteTypeAnneesFind from './activite-type-annees-find'
 
 describe('calcule les années que couvre une activité', () => {
   test("retourne un tableau d'années que couvre une activité", () => {
-      const anneeEnCours = new Date().getFullYear()
-      const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
+    const anneeEnCours = new Date().getFullYear()
+    const aujourdhui = dateFormat(new Date(), 'yyyy-mm-dd')
 
     expect(
       activiteTypeAnneesFind(({

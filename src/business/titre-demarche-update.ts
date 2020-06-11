@@ -50,9 +50,7 @@ const titreDemarcheUpdate = async (
         },
         'super'
       )
-      titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate([
-        titre
-      ])
+      titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate([titre])
     }
 
     console.info('ordre des démarches…')

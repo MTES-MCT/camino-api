@@ -15,10 +15,8 @@ const titreEtapePublicationFilter = (
 ) =>
   !!(
     ['dpu', 'dup'].includes(etapeTypeId) ||
-    (
-      titreTypeId &&
-      demarcheEtapesTypesPublication[titreTypeId]?.includes(etapeTypeId)
-    )
+    (titreTypeId &&
+      demarcheEtapesTypesPublication[titreTypeId]?.includes(etapeTypeId))
   )
 
 export default titreEtapePublicationFilter

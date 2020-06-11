@@ -10,10 +10,16 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
   const titresUpdated = titres.reduce((titresUpdated: ITitre[], titre) => {
     if (!titre.type?.propsEtapesTypes) return titresUpdated
 
-    const { propsTitreEtapesIds, hasChanged } = titre.type.propsEtapesTypes.reduce(
+    const {
+      propsTitreEtapesIds,
+      hasChanged
+    } = titre.type.propsEtapesTypes.reduce(
       (
-        { propsTitreEtapesIds, hasChanged }: {
-          propsTitreEtapesIds: ITitrePropsTitreEtapesIds | null;
+        {
+          propsTitreEtapesIds,
+          hasChanged
+        }: {
+          propsTitreEtapesIds: ITitrePropsTitreEtapesIds | null
           hasChanged: boolean
         },
         { sectionId, elementId }
@@ -28,11 +34,14 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
         // si une étape est trouvée
         // et qu'elle est différente de la valeur dans le titre
         // alors on la sauvegarde dans les propriétés
-        if (titreEtapeId && !(
-          titre.propsTitreEtapesIds &&
-          titre.propsTitreEtapesIds[sectionId] &&
-          titre.propsTitreEtapesIds[sectionId][elementId] === titreEtapeId
-        )) {
+        if (
+          titreEtapeId &&
+          !(
+            titre.propsTitreEtapesIds &&
+            titre.propsTitreEtapesIds[sectionId] &&
+            titre.propsTitreEtapesIds[sectionId][elementId] === titreEtapeId
+          )
+        ) {
           if (!propsTitreEtapesIds) {
             propsTitreEtapesIds = {}
           }

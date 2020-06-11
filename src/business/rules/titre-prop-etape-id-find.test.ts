@@ -31,7 +31,6 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
         titreDemarchesOctPointsVides.demarches,
         titreDemarchesOctPointsVides.statutId,
         'points'
-
       )
     ).toBeNull()
   })

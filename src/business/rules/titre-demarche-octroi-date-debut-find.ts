@@ -9,9 +9,9 @@ const titreDemarcheOctroiDateDebutFind = (
   if (!titreDemarches || !titreDemarches.length) return '0000'
 
   // récupère la démarche d'octroi (naturelle ou virtuelle)
-  const demarcheOctroi = titreDemarchesAscSort(titreDemarches).find(
-    ({ typeId }) => ['oct', 'vut'].includes(typeId)
-  )
+  const demarcheOctroi = titreDemarchesAscSort(
+    titreDemarches
+  ).find(({ typeId }) => ['oct', 'vut'].includes(typeId))
 
   if (
     !demarcheOctroi ||

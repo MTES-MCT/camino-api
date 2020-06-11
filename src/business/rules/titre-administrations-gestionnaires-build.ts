@@ -1,7 +1,4 @@
-import {
-  IAdministration,
-  ITitreAdministrationsGestionnaire
-} from '../../types'
+import { IAdministration, ITitreAdministrationsGestionnaire } from '../../types'
 
 const titreAdministrationsGestionnairesBuild = (
   { id: titreId, typeId }: { id: string; typeId: string },

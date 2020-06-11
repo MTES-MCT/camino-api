@@ -91,21 +91,21 @@ async function main() {
     a => console.info('reprise, id:', a.id) || a.id
   )
 
-  if (false) {
-    // verification de doublons dans les ids générés sur google sheets
-    const ids = Object.keys(titresRepriseIndexId).sort()
+  // if (false) {
+  //   // verification de doublons dans les ids générés sur google sheets
+  //   const ids = Object.keys(titresRepriseIndexId).sort()
 
-    console.info(ids.join('\n'))
+  //   console.info(ids.join('\n'))
 
-    ids.forEach(id => {
-      if (titresRepriseIndexId[id].length < 2) return
+  //   ids.forEach(id => {
+  //     if (titresRepriseIndexId[id].length < 2) return
 
-      console.info(id)
-      console.info(titresRepriseIndexId[id].map(e => e.references[0]))
-    })
+  //     console.info(id)
+  //     console.info(titresRepriseIndexId[id].map(e => e.references[0]))
+  //   })
 
-    process.exit(0)
-  }
+  //   process.exit(0)
+  // }
 
   for (const entreprise of entreprisesReprise) {
     if (!entreprisesCaminoIndex[entreprise.id]) {

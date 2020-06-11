@@ -22,9 +22,9 @@ const nomIndividuFormat = (
   prenomUsuelUniteLegale?: string | null,
   sexeUniteLegale?: 'F' | 'M' | null
 ) =>
-  `${
-    sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'
-  } ${prenomUsuelUniteLegale || ''} ${nomUniteLegale}`
+  `${sexeUniteLegale === 'F' ? 'MADAME' : 'MONSIEUR'} ${
+    prenomUsuelUniteLegale || ''
+  } ${nomUniteLegale}`
 
 const nomEntrepriseFormat = (
   denominationUniteLegale?: string | null,

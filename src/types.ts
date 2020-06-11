@@ -870,5 +870,5 @@ export {
   ITitreEtapeCondition,
   ITitreCondition,
   ITelechargement,
-  IDefinition,
+  IDefinition
 }

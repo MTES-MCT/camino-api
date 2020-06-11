@@ -134,12 +134,12 @@ const impossibleApresFind = (
       )
 
       errors.push(
-        `Une étape « ${
-        etapeType.nom
-        } » ne peut être créée après une étape « ${titreEtapeAfterType.nom} »${
-        impossibleApresUne.statutId
-          ? ` (dont le statut est « ${impossibleApresUne.statutId} »)`
-          : ''
+        `Une étape « ${etapeType.nom} » ne peut être créée après une étape « ${
+          titreEtapeAfterType.nom
+        } »${
+          impossibleApresUne.statutId
+            ? ` (dont le statut est « ${impossibleApresUne.statutId} »)`
+            : ''
         }.`
       )
     }
@@ -177,12 +177,10 @@ const obligatoireApresFind = (
 
         errors.push(
           `Une étape « ${titreEtapeBeforeType.nom} » antérieure${
-          obligatoireApresUne.statutId
-            ? ` (dont le statut est « ${obligatoireApresUne.statutId} »)`
-            : ''
-          } est nécessaire pour la création d'une étape « ${
-          etapeType.nom
-          } ».`
+            obligatoireApresUne.statutId
+              ? ` (dont le statut est « ${obligatoireApresUne.statutId} »)`
+              : ''
+          } est nécessaire pour la création d'une étape « ${etapeType.nom} ».`
         )
       }
 
@@ -218,7 +216,7 @@ const titreEtapeTypesRestrictionsCheck = (
 
         errors.push(
           `L'étape « ${etapeType.nom} »${
-          statutId ? ` avec un statut « ${statutId} »` : ''
+            statutId ? ` avec un statut « ${statutId} »` : ''
           } est impossible.`
         )
       }

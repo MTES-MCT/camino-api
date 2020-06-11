@@ -71,9 +71,7 @@ const titreActivitesBuild = (
   activiteType: IActiviteType,
   annees: number[]
 ) => {
-  const periods = activiteType.frequence![
-    activiteType.frequence!.periodesNom!
-  ]!
+  const periods = activiteType.frequence![activiteType.frequence!.periodesNom!]!
   const monthsCount = 12 / periods.length
 
   const { activites: titreActivites } = titre

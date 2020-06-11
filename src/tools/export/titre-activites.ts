@@ -58,7 +58,9 @@ const titreActivitesRowUpdate = async (
       const sheetId = table.id
 
       const rows = [
-        { values: values.map(v => ({ userEnteredValue: { stringValue: v } })) }
+        {
+          values: values.map(v => ({ userEnteredValue: { stringValue: v } }))
+        }
       ]
       const fields = '*'
 

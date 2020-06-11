@@ -9,10 +9,12 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
       titre_nom: titre.nom,
       titre_domaine: titre.domaine!.nom,
       titre_type: titre.type!.type.nom,
-      titre_nature: titre.type!.type.exploitation ? 'exploitation' : 'exploration',
+      titre_nature: titre.type!.type.exploitation
+        ? 'exploitation'
+        : 'exploration',
       titre_statut: titre.statut!.nom,
       type: titreDemarche.type!.nom,
-      statut: titreDemarche.statut!.nom,
+      statut: titreDemarche.statut!.nom
     }
 
     return titreDemarcheNew

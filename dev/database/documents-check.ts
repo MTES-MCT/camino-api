@@ -1,5 +1,4 @@
-import { readdirSync } from 'fs'
-import { basename, extname } from 'path'
+import { basename } from 'path'
 import { execSync } from 'child_process'
 
 import 'dotenv/config'
@@ -9,11 +8,7 @@ import { documentsGet } from '../../src/database/queries/documents'
 
 type Index = { [id: string]: string }
 
-const etapeGet = (str: string) =>
-  str
-    .split('-')
-    .slice(0, -1)
-    .join('-')
+const etapeGet = (str: string) => str.split('-').slice(0, -1).join('-')
 
 const hashGet = (str: string) => str.split('-').pop()
 

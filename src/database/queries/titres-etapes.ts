@@ -35,9 +35,7 @@ const titresEtapesQueryBuild = (
     ? graphBuild(fields, 'etapes', graphFormat)
     : options.etapes.graph
 
-  const q = TitresEtapes.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
+  const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)
 
   titreEtapesPermissionQueryBuild(q, user)
 

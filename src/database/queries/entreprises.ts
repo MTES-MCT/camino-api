@@ -22,9 +22,7 @@ const entreprisesQueryBuild = (
     ? graphBuild(fields, 'entreprises', graphFormat)
     : options.entreprises.graph
 
-  const q = Entreprises.query()
-    .skipUndefined()
-    .withGraphFetched(graph)
+  const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
 
   entreprisePermissionQueryBuild(q, user)
 
@@ -139,10 +137,7 @@ const entrepriseUpsert = async (entreprise: IEntreprise) =>
     .returning('*')
 
 const entrepriseDelete = async (id: string) =>
-  Entreprises.query()
-    .deleteById(id)
-    .first()
-    .returning('*')
+  Entreprises.query().deleteById(id).first().returning('*')
 
 export {
   entrepriseGet,

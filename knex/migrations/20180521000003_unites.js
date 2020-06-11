@@ -14,10 +14,7 @@ exports.up = knex =>
       table.string('id', 5).primary()
       table.string('nom').notNullable()
       table.integer('ordre')
-      table
-        .string('uniteId', 3)
-        .references('unites.id')
-        .notNullable()
+      table.string('uniteId', 3).references('unites.id').notNullable()
       table.string('zone')
       table.string('definitionProj4')
     })

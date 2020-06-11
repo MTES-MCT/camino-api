@@ -121,40 +121,25 @@ const demarcheType = {
 describe("vérifie la date d'une étape pour une démarche en fonction des autres étapes d'une démarche", () => {
   test("un titre de type autre que ARM n'est pas validé", () => {
     expect(
-      titreEtapeDateValidate(
-        '',
-        '',
-        '',
-        {} as IDemarcheType,
-        [],
-        ({ typeId: 'autre' } as unknown) as ITitre
-      )
+      titreEtapeDateValidate('', '', '', {} as IDemarcheType, [], ({
+        typeId: 'autre'
+      } as unknown) as ITitre)
     ).toBeNull()
   })
 
   test("une étape historique dont la date est antérieure au 31 octobre 2019 n'est pas validée", () => {
     expect(
-      titreEtapeDateValidate(
-        '',
-        '',
-        '2000-01-01',
-        {} as IDemarcheType,
-        [],
-        ({ typeId: 'arm' } as unknown) as ITitre
-      )
+      titreEtapeDateValidate('', '', '2000-01-01', {} as IDemarcheType, [], ({
+        typeId: 'arm'
+      } as unknown) as ITitre)
     ).toBeNull()
   })
 
   test('parametre invalide', () => {
     expect(
-      titreEtapeDateValidate(
-        '',
-        '',
-        '',
-        {} as IDemarcheType,
-        [],
-        ({ typeId: 'arm' } as unknown) as ITitre
-      )
+      titreEtapeDateValidate('', '', '', {} as IDemarcheType, [], ({
+        typeId: 'arm'
+      } as unknown) as ITitre)
     ).toBeNull()
   })
 
@@ -224,8 +209,8 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
       titreEtapeDateValidate(
         'etape-milieu-obligatoire-apres-etape-premiere-cond-simple',
         '',
-        '3000-01-01'
-        , demarcheType,
+        '3000-01-01',
+        demarcheType,
         [
           {
             typeId: 'etape-premiere',
@@ -245,8 +230,8 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
       titreEtapeDateValidate(
         'etape-milieu-obligatoire-apres-etape-premiere-et-impossible-apres-etape-derniere',
         '',
-        '5000-01-01'
-        , demarcheType,
+        '5000-01-01',
+        demarcheType,
         [
           {
             typeId: 'etape-premiere',

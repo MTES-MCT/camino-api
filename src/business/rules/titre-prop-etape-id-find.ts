@@ -27,25 +27,24 @@ const etapeAmodiataireFind = (
   return ['mod', 'ech'].includes(titreStatutId)
 }
 
-const etapeValideCheck =
-  (
-    titreEtape: ITitreEtape,
-    titreDemarcheTypeId: string,
-    titreStatutId: string,
-    prop: TitreEtapeProp
-  ) =>
-    // filtre les étapes acceptation, fait ou favorable
-    // Si la démarche est un octroi (demande initiale)
-    // on prend en compte n'importe quelle étape
-    // ou si on cherche le périmètre
-    // et que le titre est en modification en instance
-    // sinon, on ne prend en compte que les étapes de décision
-    ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
-    (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
-      (prop.match('point') && titreStatutId === 'mod') ||
-     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
-        titreEtape.typeId
-      ))
+const etapeValideCheck = (
+  titreEtape: ITitreEtape,
+  titreDemarcheTypeId: string,
+  titreStatutId: string,
+  prop: TitreEtapeProp
+) =>
+  // filtre les étapes acceptation, fait ou favorable
+  // Si la démarche est un octroi (demande initiale)
+  // on prend en compte n'importe quelle étape
+  // ou si on cherche le périmètre
+  // et que le titre est en modification en instance
+  // sinon, on ne prend en compte que les étapes de décision
+  ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
+  (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
+    (prop.match('point') && titreStatutId === 'mod') ||
+    ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
+      titreEtape.typeId
+    ))
 
 const etapePropFind = (
   titreDemarcheEtapes: ITitreEtape[],
@@ -102,10 +101,7 @@ const titrePropEtapeIdFind = (
 ) =>
   titreDemarchesAscSort(titreDemarches)
     .reverse()
-    .reduce((
-      etapeId: string | null,
-      titreDemarche: ITitreDemarche
-    ) => {
+    .reduce((etapeId: string | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
       if (etapeId) return etapeId
 

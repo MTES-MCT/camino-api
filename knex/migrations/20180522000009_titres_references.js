@@ -6,10 +6,7 @@ exports.up = knex => {
       .references('titres.id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE')
-    table
-      .string('typeId', 3)
-      .references('referencesTypes.id')
-      .notNullable()
+    table.string('typeId', 3).references('referencesTypes.id').notNullable()
     table.string('nom')
     table.primary(['titreId', 'typeId', 'nom'])
   })

@@ -3,7 +3,7 @@ import {
   IToken,
   IDocumentRepertoire,
   IUtilisateur,
-  IDocumentType,
+  IDocumentType
 } from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
@@ -22,7 +22,7 @@ import {
   documentCreate,
   documentUpdate,
   documentDelete,
-  documentIdUpdate,
+  documentIdUpdate
 } from '../../../database/queries/documents'
 
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -164,8 +164,8 @@ const documentPermisssionsCheck = async (
       {
         fields: {
           administrationsGestionnaires: { id: {} },
-          administrationsLocales: { id: {} },
-        },
+          administrationsLocales: { id: {} }
+        }
       },
       user.id
     )
@@ -186,7 +186,7 @@ const documentPermisssionsCheck = async (
     if (
       !permissionCheck(user?.permissionId, ['super', 'admin', 'editeur']) &&
       permissionCheck(user?.permissionId, ['entreprise']) &&
-      !user.entreprises?.find((e) => e.id === document.entrepriseId)
+      !user.entreprises?.find(e => e.id === document.entrepriseId)
     ) {
       throw new Error(
         "droits insuffisants pour modifier ce document d'entreprise"

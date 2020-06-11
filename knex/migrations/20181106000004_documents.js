@@ -2,10 +2,7 @@ exports.up = knex =>
   knex.schema
     .createTable('documents', table => {
       table.string('id').primary()
-      table
-        .string('typeId', 3)
-        .references('documentsTypes.id')
-        .notNullable()
+      table.string('typeId', 3).references('documentsTypes.id').notNullable()
       table.string('date', 10).notNullable()
       table.string('entrepriseId', 64)
       table

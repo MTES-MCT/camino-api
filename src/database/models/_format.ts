@@ -87,7 +87,9 @@ const titreContenuFormat = async (
 
 const titreInsertFormat = (json: Pojo) => {
   if (!json.id && json.domaineId && json.typeId && json.nom) {
-    json.id = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(json.nom)}-9999`
+    json.id = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
+      json.nom
+    )}-9999`
   }
 
   delete json.geojsonMultiPolygon

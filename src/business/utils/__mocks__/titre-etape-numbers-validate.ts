@@ -1,20 +1,27 @@
 import { ITitreEtape, ISection } from '../../../types'
 
-const titreEtapesSections = [{
-  id: 'section',
-  elements: [{
-    id: 'nombre',
-    type: 'number'
-  }, {
-    id: 'mot',
-    type: 'string'
-  }]
-}] as ISection[]
+const titreEtapesSections = [
+  {
+    id: 'section',
+    elements: [
+      {
+        id: 'nombre',
+        type: 'number'
+      },
+      {
+        id: 'mot',
+        type: 'string'
+      }
+    ]
+  }
+] as ISection[]
 
-const titreEtapesSectionsSansElement = [{
-  id: 'section-sans-elements',
-  elements: null
-}] as ISection[]
+const titreEtapesSectionsSansElement = [
+  {
+    id: 'section-sans-elements',
+    elements: null
+  }
+] as ISection[]
 
 const titreEtapeSansContenu = ({
   duree: 1,

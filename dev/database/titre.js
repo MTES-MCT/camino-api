@@ -3,7 +3,7 @@ import '../../src/database/index'
 import fileCreate from '../../src/tools/file-create'
 
 import { userGet } from '../../src/database/queries/utilisateurs'
-import { titreGet, titresGet } from '../../src/database/queries/titres'
+import { titreGet } from '../../src/database/queries/titres'
 
 async function main() {
   // const userId = 'super'

@@ -10,10 +10,7 @@ exports.up = knex => {
     .createTable('substancesLegales', table => {
       table.string('id').primary()
       table.string('nom').notNullable()
-      table
-        .string('domaineId', 1)
-        .notNullable()
-        .references('domaines.id')
+      table.string('domaineId', 1).notNullable().references('domaines.id')
       table.text('description')
       table
         .string('substanceLegaleCodeId')

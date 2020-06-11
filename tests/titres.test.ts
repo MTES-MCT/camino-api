@@ -31,8 +31,8 @@ describe('titreCreer', () => {
       .send({
         query: titreCreerQuery,
         variables: {
-          titre: { nom: 'titre', typeId: 'aph', domaineId: 'h' },
-        },
+          titre: { nom: 'titre', typeId: 'aph', domaineId: 'h' }
+        }
       })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
@@ -47,7 +47,7 @@ describe('titreCreer', () => {
       nom: 'test',
       email: 'test@camino.local',
       motDePasse: 'mot-de-passe',
-      permissionId: 'super',
+      permissionId: 'super'
     })
 
     const token = tokenCreate({ id: 'super-user' })
@@ -57,8 +57,8 @@ describe('titreCreer', () => {
       .send({
         query: titreCreerQuery,
         variables: {
-          titre: { nom: 'titre', typeId: 'aph', domaineId: 'h' },
-        },
+          titre: { nom: 'titre', typeId: 'aph', domaineId: 'h' }
+        }
       })
       .set('Authorization', `Bearer ${token}`)
 
@@ -67,9 +67,9 @@ describe('titreCreer', () => {
       data: {
         titreCreer: {
           id: 'h-ap-titre-0000',
-          nom: 'titre',
-        },
-      },
+          nom: 'titre'
+        }
+      }
     })
   })
 })

@@ -36,10 +36,7 @@ exports.up = knex =>
     })
     .createTable('administrations', table => {
       table.string('id', 64).primary()
-      table
-        .string('typeId')
-        .references('administrationsTypes.id')
-        .notNullable()
+      table.string('typeId').references('administrationsTypes.id').notNullable()
       table.string('nom').notNullable()
       table.string('abreviation', 255)
       table.string('service')

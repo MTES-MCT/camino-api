@@ -9,20 +9,20 @@ describe("trouve la date d'octroi d'un titre", () => {
   })
 
   test("retourne 0000 si les démarches ne contiennent pas d'octroi ou de mutation partielle", () => {
-    expect(titreDemarcheOctroiDateDebutFind(
-      ([{ typeId: 'rnd' }] as unknown) as ITitreDemarche[]
-    )).toEqual(
-      '0000'
-    )
-    expect(titreDemarcheOctroiDateDebutFind(
-      ([{ typeId: 'oct' }] as unknown) as ITitreDemarche[]
-    )).toEqual(
-      '0000'
-    )
     expect(
-      titreDemarcheOctroiDateDebutFind(
-        ([{ typeId: 'oct', etapes: [] }] as unknown) as ITitreDemarche[]
-      )
+      titreDemarcheOctroiDateDebutFind(([
+        { typeId: 'rnd' }
+      ] as unknown) as ITitreDemarche[])
+    ).toEqual('0000')
+    expect(
+      titreDemarcheOctroiDateDebutFind(([
+        { typeId: 'oct' }
+      ] as unknown) as ITitreDemarche[])
+    ).toEqual('0000')
+    expect(
+      titreDemarcheOctroiDateDebutFind(([
+        { typeId: 'oct', etapes: [] }
+      ] as unknown) as ITitreDemarche[])
     ).toEqual('0000')
   })
 

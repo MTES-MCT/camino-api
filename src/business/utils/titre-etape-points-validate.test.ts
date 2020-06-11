@@ -7,12 +7,10 @@ import {
 
 describe("vérifie la validité des coordonnées des points d'une étape", () => {
   test('les points ont des coordonnées de référence', () => {
-    expect(
-      titreEtapePointsValidate(titreEtapePointsValides)
-    ).toEqual(null)
+    expect(titreEtapePointsValidate(titreEtapePointsValides)).toEqual(null)
   })
 
-  test('les points n\'ont pas de coordonnées de référence', () => {
+  test("les points n'ont pas de coordonnées de référence", () => {
     expect(
       titreEtapePointsValidate(titreEtapePointsReferenceManquante)
     ).toMatch(

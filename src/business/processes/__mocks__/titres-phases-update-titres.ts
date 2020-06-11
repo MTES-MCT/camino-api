@@ -1,6 +1,6 @@
 import { ITitre, ITitrePhase } from '../../../types'
 
-const titresSansPhase = [
+const titresSansPhase = ([
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -14,9 +14,9 @@ const titresSansPhase = [
       }
     ]
   }
-] as unknown as ITitre[]
+] as unknown) as ITitre[]
 
-const titresUnePhase = [
+const titresUnePhase = ([
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -47,18 +47,18 @@ const titresUnePhase = [
       }
     ]
   }
-] as unknown as ITitre[]
+] as unknown) as ITitre[]
 
-const titrePhase = [
+const titrePhase = ([
   {
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     dateFin: '2500-01-01',
     dateDebut: '2200-01-01',
     statutId: 'val'
   }
-] as unknown as ITitrePhase[]
+] as unknown) as ITitrePhase[]
 
-const titresUnePhaseMiseAJour = [
+const titresUnePhaseMiseAJour = ([
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -95,9 +95,9 @@ const titresUnePhaseMiseAJour = [
       }
     ]
   }
-] as unknown as ITitre[]
+] as unknown) as ITitre[]
 
-const titresPhaseASupprimer = [
+const titresPhaseASupprimer = ([
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -117,9 +117,9 @@ const titresPhaseASupprimer = [
       }
     ]
   }
-] as unknown as ITitre[]
+] as unknown) as ITitre[]
 
-const titresUnePhaseSansChangement = [
+const titresUnePhaseSansChangement = ([
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -156,7 +156,7 @@ const titresUnePhaseSansChangement = [
       }
     ]
   }
-] as unknown as ITitre[]
+] as unknown) as ITitre[]
 
 export {
   titresSansPhase,
