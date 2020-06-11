@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../database/index'
+import '../init'
 
 import { administrationsGet } from '../database/queries/administrations'
 import { entreprisesGet } from '../database/queries/entreprises'

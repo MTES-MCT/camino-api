@@ -24,12 +24,15 @@ const titrePermissionQueryBuild = (
   q.select('titres.*')
 
   // titres publics
-  if (!user || permissionCheck(user, ['entreprise', 'defaut'])) {
+  if (!user || permissionCheck(user?.permissionId, ['entreprise', 'defaut'])) {
     q.where(b => {
       b.where('titres.publicLecture', true)
 
       // titre de l'entreprise
-      if (permissionCheck(user, ['entreprise']) && user?.entreprises?.length) {
+      if (
+        permissionCheck(user?.permissionId, ['entreprise']) &&
+        user?.entreprises?.length
+      ) {
         // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
         const entreprisesIds = user.entreprises.map(e => e.id)
@@ -56,11 +59,11 @@ const titrePermissionQueryBuild = (
     })
   }
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     const titresModificationQuery = titresModificationQueryBuild(
@@ -94,12 +97,16 @@ const titrePermissionQueryBuild = (
       b as QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
       user
     )
-
   })
 
   if (
     !user ||
-    !permissionCheck(user, ['super', 'admin', 'editeur', 'lecteur'])
+    !permissionCheck(user?.permissionId, [
+      'super',
+      'admin',
+      'editeur',
+      'lecteur'
+    ])
   ) {
     q.modifyGraph('administrationsGestionnaires', b => {
       b.whereRaw('?? is not true', ['associee'])

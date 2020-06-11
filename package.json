@@ -30,7 +30,7 @@
     "db:rollback": "knex --knexfile ./knex/config.js migrate:rollback",
     "db:seed": "knex --knexfile ./knex/config.js seed:run",
     "db:test-push": "scp backups/camino-public.sql $u@test.camino.beta.gouv.fr:/srv/backups/camino.sql",
-    "db:user": "node ./knex/user-add.js",
+    "db:user": "node ./knex/user-add-cli.js",
     "dev": "nodemon",
     "dev:daily": "ts-node --transpile-only ./src/business/daily.ts",
     "dev:daily-debug": "node -r ts-node/register --inspect-brk=8080 ./src/business/daily.ts",
@@ -53,7 +53,7 @@
     "test:lint": "eslint --fix src/ && eslint --fix knex/",
     "test:jest": "npm run test:lint && jest --verbose --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
-    "test:integration": "PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --verbose --watch --testNamePattern=utilisateurs --coverage=false --roots=tests --rootDir=./ --runInBand"
+    "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --verbose --roots=tests --runInBand --detectOpenHandles --watch"
   },
   "@comment dependencies": {
     "graphql-import": "bloqué à 0.7.1: https://github.com/ardatan/graphql-import/issues/537",

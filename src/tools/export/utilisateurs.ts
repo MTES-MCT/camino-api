@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../database/index'
+import '../../init'
 import dbToSpreadsheets from './_utils/db-to-spreadsheets'
 import spreadsheet from './spreadsheets/utilisateurs'
 import { IUtilisateur } from '../../types'

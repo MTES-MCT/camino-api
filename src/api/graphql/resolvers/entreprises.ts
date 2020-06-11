@@ -6,7 +6,7 @@ import {
   entrepriseGet,
   entreprisesGet,
   entrepriseUpsert,
-  entreprisesCount
+  entreprisesCount,
 } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
@@ -56,7 +56,7 @@ const etapeEntreprises = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
@@ -84,10 +84,10 @@ const etapeEntreprises = async (
           demarches: {
             etapes: {
               titulaires: fields.elements,
-              amodiataires: fields.elements
-            }
-          }
-        }
+              amodiataires: fields.elements,
+            },
+          },
+        },
       },
       'super'
     )
@@ -117,7 +117,7 @@ const etapeEntreprises = async (
 
     return {
       elements: entreprises,
-      total: entreprises.length
+      total: entreprises.length,
     }
   } catch (e) {
     if (debug) {
@@ -135,7 +135,7 @@ const entreprises = async (
     intervalle,
     ordre,
     colonne,
-    noms
+    noms,
   }: {
     etapeId?: string | null
     page?: number | null
@@ -160,7 +160,7 @@ const entreprises = async (
         intervalle,
         ordre,
         colonne,
-        noms
+        noms,
       },
       { fields: fields.elements },
       context.user?.id
@@ -177,12 +177,12 @@ const entreprises = async (
     const user = context.user && (await userGet(context.user.id))
 
     return {
-      elements: entreprises.map(e => entrepriseFormat(user, e)),
+      elements: entreprises.map((e) => entrepriseFormat(user, e)),
       page,
       intervalle,
       ordre,
       colonne,
-      total
+      total,
     }
   } catch (e) {
     if (debug) {
@@ -201,7 +201,7 @@ const entrepriseCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 
@@ -255,7 +255,7 @@ const entrepriseModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!permissionCheck(user, ['super', 'admin', 'editeur'])) {
+    if (!permissionCheck(user?.permissionId, ['super', 'admin', 'editeur'])) {
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 

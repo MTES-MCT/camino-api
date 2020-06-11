@@ -16,7 +16,7 @@ const utilisateurUpdationValidate = async (
 
   if (utilisateur.administrations && utilisateur.administrations.length > 1) {
     return [
-      "un utilisateur ne peut être affectué qu'à une seule administration"
+      "un utilisateur ne peut être affectué qu'à une seule administration",
     ]
   }
 
@@ -29,12 +29,6 @@ const utilisateurUpdationValidate = async (
 
   // si le user n'est pas admin
   if (!isAdmin) {
-    // alors il n'a le droit de modifier
-    //   ni les permissions
-    if (utilisateurOld.permissionId !== utilisateur.permissionId) {
-      return ['droits insuffisants pour modifier les permissions']
-    }
-
     //   ni les administrations
     if (administrationsIdsDiff.length) {
       return ['droits insuffisants pour modifier les administrations']
@@ -49,7 +43,7 @@ const utilisateurUpdationValidate = async (
   if (administrationsIdsDiff.length) {
     // si le user n'a pas les droits sur toutes ces administrations
     if (
-      !administrationsIdsDiff.every(administration =>
+      !administrationsIdsDiff.every((administration) =>
         permissionAdministrationsCheck(user, [administration.id])
       )
     ) {

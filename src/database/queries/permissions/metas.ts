@@ -18,13 +18,12 @@ import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--dem
 import TitresActivites from '../../models/titres-activites'
 import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
-import { permissionsCheck } from '../../../api/_permissions/permissions-check'
 
 const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
   type: 'titres' | 'demarches' | 'etapes'
 ) => {
-  const administrationsIds = administrations.map(a => a.id) || []
+  const administrationsIds = administrations.map((a) => a.id) || []
   const administrationsIdsReplace = administrationsIds.map(() => '?')
 
   const restrictionsQuery = Administrations.query()
@@ -38,7 +37,7 @@ const titresRestrictionsAdministrationQueryBuild = (
         'a_t_a.titreTypeId',
         'titresModification.typeId',
         'administrations.id',
-        ...administrationsIds
+        ...administrationsIds,
       ])
     )
     // l'utilisateur est dans au moins une administration
@@ -52,7 +51,7 @@ const titresRestrictionsAdministrationQueryBuild = (
         'titresModification.typeId',
         'r_t_s_a.titreStatutId',
         'titresModification.statutId',
-        `r_t_s_a.${type}ModificationInterdit`
+        `r_t_s_a.${type}ModificationInterdit`,
       ])
     )
     .whereNull('r_t_s_a.administrationId')
@@ -84,7 +83,7 @@ const etapesTypesModificationQueryBuild = (
         'demarchesModification.typeId',
         't_d_e.demarcheTypeId',
         'demarchesModification.titreId',
-        'titresModification.id'
+        'titresModification.id',
       ])
     )
     .whereExists(
@@ -100,7 +99,7 @@ const etapesTypesModificationQueryBuild = (
             't_d_e.titreTypeId',
             'r_t_e_a.etapeTypeId',
             't_d_e.etapeTypeId',
-            `r_t_e_a.${modification ? 'modification' : 'creation'}Interdit`
+            `r_t_e_a.${modification ? 'modification' : 'creation'}Interdit`,
           ])
         )
         .whereNull('r_t_e_a.administrationId')
@@ -123,19 +122,19 @@ const titresTypesPermissionsQueryBuild = (
 ) => {
   q.select('titresTypes.*')
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('titresCreation'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     q.select(
       raw('(case when ?? is not null then true else false end)', [
-        'titresCreation.id'
+        'titresCreation.id',
       ]).as('titresCreation')
     )
 
-    const administrationsIds = user.administrations.map(e => e.id)
+    const administrationsIds = user.administrations.map((e) => e.id)
 
     const titresCreationQuery = TitresTypes.query()
       .select('titresTypes.id')
@@ -165,19 +164,19 @@ const domainesPermissionQueryBuild = (
 ) => {
   q.select('domaines.*')
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('titresCreation'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     q.select(
       raw('(case when ?? is not null then true else false end)', [
-        'domainesModification.domaineId'
+        'domainesModification.domaineId',
       ]).as('titresCreation')
     )
 
-    const administrationsIds = user.administrations.map(e => e.id)
+    const administrationsIds = user.administrations.map((e) => e.id)
 
     const titresCreationQuery = TitresTypes.query()
       .select('titresTypes.domaineId')
@@ -201,7 +200,7 @@ const domainesPermissionQueryBuild = (
     q.select(raw('false').as('titresCreation'))
   }
 
-  q.modifyGraph('titresTypes', b => {
+  q.modifyGraph('titresTypes', (b) => {
     titresTypesPermissionsQueryBuild(
       b as QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,
       user
@@ -214,7 +213,7 @@ const etapesTypesPermissionQueryBuild = (
   user?: IUtilisateur,
   {
     titreDemarcheId,
-    titreEtapeId
+    titreEtapeId,
   }: { titreDemarcheId?: string; titreEtapeId?: string } = {}
 ) => {
   q.select('etapesTypes.*')
@@ -235,7 +234,7 @@ const etapesTypesPermissionQueryBuild = (
             'tde.demarcheTypeId',
             'titresDemarches.typeId',
             'tde.titreTypeId',
-            'titre.typeId'
+            'titre.typeId',
           ])
         )
     )
@@ -246,9 +245,9 @@ const etapesTypesPermissionQueryBuild = (
     //   - il n'y a aucune étape du même type au sein de la démarche
     //   - l'id de l'étape est différente de l'étape éditée
     // -> affiche le type d'étape
-    q.where(b => {
+    q.where((b) => {
       b.whereRaw('?? is not true', ['etapesTypes.unique'])
-      b.orWhere(c => {
+      b.orWhere((c) => {
         const d = TitresEtapes.query()
           .where({ titreDemarcheId })
           .whereRaw('?? = ??', ['typeId', 'etapesTypes.id'])
@@ -262,14 +261,14 @@ const etapesTypesPermissionQueryBuild = (
     })
   }
 
-  if (!user || permissionCheck(user, ['defaut', 'entreprise'])) {
+  if (!user || permissionCheck(user?.permissionId, ['defaut', 'entreprise'])) {
     // types d'étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
 
     q.leftJoinRelated('autorisations')
 
-    q.where(b => {
+    q.where((b) => {
       // visibilité des types d'étapes en tant que titulaire ou amodiataire
-      if (permissionCheck(user, ['entreprise'])) {
+      if (permissionCheck(user?.permissionId, ['entreprise'])) {
         b.orWhere('autorisations.entreprisesLecture', true)
       }
 
@@ -279,10 +278,10 @@ const etapesTypesPermissionQueryBuild = (
   }
 
   // propriété 'etapesCreation' en fonction du profil de l'utilisateur
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('etapesCreation'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     if (titreDemarcheId) {
@@ -310,27 +309,27 @@ const activitesTypesPermissionQueryBuild = (
   user?: IUtilisateur
 ) => {
   if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
-    const administrationsIds = user.administrations.map(e => e.id)
+    const administrationsIds = user.administrations.map((e) => e.id)
 
     q.joinRelated('administrations')
     q.whereIn('administrations.id', administrationsIds)
   } else if (
-    permissionCheck(user, ['entreprise']) &&
+    permissionCheck(user?.permissionId, ['entreprise']) &&
     user?.entreprises?.length
   ) {
-    const entreprisesIds = user.entreprises.map(e => e.id)
+    const entreprisesIds = user.entreprises.map((e) => e.id)
 
-    q.where(b => {
+    q.where((b) => {
       b.whereExists(
         TitresActivites.query()
           .alias('titresActivitesTitulaires')
           .joinRelated('titre.titulaires')
           .whereRaw('?? = ??', [
             'titresActivitesTitulaires.typeId',
-            'activitesTypes.id'
+            'activitesTypes.id',
           ])
           .whereIn('titre:titulaires.id', entreprisesIds)
       )
@@ -340,12 +339,12 @@ const activitesTypesPermissionQueryBuild = (
           .joinRelated('titre.amodiataires')
           .whereRaw('?? = ??', [
             'titresActivitesAmodiataires.typeId',
-            'activitesTypes.id'
+            'activitesTypes.id',
           ])
           .whereIn('titre:amodiataires.id', entreprisesIds)
       )
     })
-  } else if (!permissionCheck(user, ['super'])) {
+  } else if (!permissionCheck(user?.permissionId, ['super'])) {
     q.where(false)
   }
 }
@@ -356,7 +355,7 @@ const demarchesTypesPermissionQueryBuild = (
   {
     titreId,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreDemarcheId
+    titreDemarcheId,
   }: { titreId?: string; titreDemarcheId?: string } = {}
 ) => {
   q.select('demarchesTypes.*')
@@ -381,10 +380,10 @@ const demarchesTypesPermissionQueryBuild = (
   }
 
   // propriété 'demarchesCreation' selon le profil de l'utilisateur
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('demarchesCreation'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
     if (titreId) {
@@ -405,12 +404,12 @@ const permissionsPermissionQueryBuild = (
   user?: IUtilisateur
 ) => {
   // le super peut voir toutes les permissions sans restriction
-  if (permissionsCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     return q
   }
 
   // on retourne les permissions à partir de l'ordre suivant (éditeur)
-  if (permissionsCheck(user, ['admin'])) {
+  if (permissionCheck(user?.permissionId, ['admin'])) {
     return q.where('ordre', '>=', user!.permission.ordre + 1)
   }
 
@@ -426,5 +425,5 @@ export {
   etapesTypesPermissionQueryBuild,
   permissionsPermissionQueryBuild,
   titresModificationQueryBuild,
-  titresTypesPermissionsQueryBuild
+  titresTypesPermissionsQueryBuild,
 }

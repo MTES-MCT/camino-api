@@ -1,91 +1,34 @@
 import 'dotenv/config'
-import * as fs from 'fs'
-import * as path from 'path'
-import * as express from 'express'
-import * as knexDbManager from 'knex-db-manager'
 import * as request from 'supertest'
-import * as Knex from 'knex'
-import * as jwt from 'jsonwebtoken'
-import { Model } from 'objection'
 
-import { graphql } from '../src/server/graphql'
-import { authJwt } from '../src/server/auth-jwt'
-
-import * as knexConfig from '../knex/config'
+import { knex, dbManager, app } from './init'
+import { queryImport, tokenCreate } from './_utils'
 import * as userAdd from '../knex/user-add'
 
 jest.mock('../src/tools/export/utilisateur', () => ({
   __esModule: true,
-  utilisateurRowUpdate: jest.fn()
+  utilisateurRowUpdate: jest.fn(),
 }))
 
 console.info = jest.fn()
 console.error = jest.fn()
 
-const knex = Knex(knexConfig)
+beforeEach(async () => {
+  await dbManager.populateDb()
+})
 
-Model.knex(knex)
-
-const app = express()
-
-app.use(authJwt)
-app.use('/', graphql)
-
-// https://github.com/graphql/express-graphql/issues/122
-
-let dbManager: knexDbManager.KnexDbManager
-
-beforeAll(async () => {
-  dbManager = knexDbManager.databaseManagerFactory({
-    knex: knexConfig,
-    dbManager: {
-      superUser: knexConfig.connection.user,
-      superPassword: knexConfig.connection.password,
-      populatePathPattern: path.join(__dirname, '../knex/seeds', '03-*')
-    }
-  })
-
-  await dbManager.createDbOwnerIfNotExist()
-
-  await dbManager.dropDb(knexConfig.connection.database)
-  await dbManager.createDb(knexConfig.connection.database)
-
-  await knex.migrate.latest()
-
-  //  marche mais on préférerait utiliser dbManager
-  // await knex.seed.run()
+afterEach(async () => {
+  await dbManager.truncateDb()
 })
 
 afterAll(async () => {
-  await Model.knex().destroy()
-  await dbManager.closeKnex()
-  await dbManager.close()
+  dbManager.closeKnex()
 })
 
-const utilisateurModifierQuery = fs
-  .readFileSync(path.join(__dirname, './queries/utilisateur-modifier.graphql'))
-  // important pour transformer le buffer en string
-  .toString()
+describe('utilisateurModifier', () => {
+  const utilisateurModifierQuery = queryImport('utilisateur-modifier')
 
-describe('utilisateursModifier', () => {
-  beforeEach(async () => {
-    await dbManager.truncateDb()
-
-    await dbManager.populateDb()
-
-    // const permissions = await knex.select('*').from('permissions')
-
-    await userAdd({
-      id: 'test',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'defaut'
-    })
-  })
-
-  test("en tant qu'utilisateur anonyme, un utilisateur n'est pas modifié", async () => {
+  test('ne peut pas modifier un compte (utilisateur anonyme)', async () => {
     const res = await request(app)
       .post('/')
       .send({
@@ -96,16 +39,24 @@ describe('utilisateursModifier', () => {
             prenom: 'toto-updated',
             nom: 'test-updated',
             email: 'test@camino.local',
-            permissionId: 'defaut'
-          }
-        }
+          },
+        },
       })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
-  test("en tant qu'utilisateur, un utilisateur est modifié", async () => {
-    const token = jwt.sign({ id: 'test' }, process.env.JWT_SECRET as string)
+  test('peut modifier son compte utilisateur', async () => {
+    await userAdd(knex, {
+      id: 'test',
+      prenom: 'toto',
+      nom: 'test',
+      email: 'test@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'defaut',
+    })
+
+    const token = tokenCreate({ id: 'test' })
 
     const res = await request(app)
       .post('/')
@@ -117,19 +68,316 @@ describe('utilisateursModifier', () => {
             prenom: 'toto-updated',
             nom: 'test-updated',
             email: 'test@camino.local',
-            permissionId: 'defaut'
-          }
-        }
+          },
+        },
       })
-      .set('Authorization', `Bearer ${token}`) //
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toMatchObject({
       data: {
         utilisateurModifier: {
-          id: 'test'
-        }
-      }
+          id: 'test',
+        },
+      },
+    })
+  })
+})
+
+describe('utilisateursCreer', () => {
+  const utilisateurCreerQuery = queryImport('utilisateur-creer')
+
+  test("ne peut pas créer de compte sans token ou si le token ne contient pas d'email", async () => {
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+          },
+        },
+      })
+
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer un utilisateur/
+    )
+  })
+
+  test('crée un compte utilisateur si le token contient son email', async () => {
+    const token = tokenCreate({ email: 'test@camino.local' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toMatchObject({
+      data: {
+        utilisateurCreer: {
+          prenom: 'toto',
+        },
+      },
+    })
+  })
+
+  test("en tant que 'defaut', ne peut pas créer de compte 'super'", async () => {
+    const token = tokenCreate({ id: 'defaut', email: 'test@camino.local' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+            permissionId: 'super',
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer un super utilisateur/
+    )
+  })
+
+  test("en tant que 'defaut', ne peut pas créer de compte avec un email différent", async () => {
+    const token = tokenCreate({ id: 'defaut', email: 'test@camino.local' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'autre@camino.local',
+            motDePasse: 'mot-de-passe',
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer un utilisateur/
+    )
+  })
+
+  test("en tant que 'super', peut créer un compte utilisateur 'super'", async () => {
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'super',
+      nom: 'super',
+      email: 'super@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super',
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+            permissionId: 'super',
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toMatchObject({
+      data: {
+        utilisateurCreer: {
+          prenom: 'toto',
+        },
+      },
+    })
+  })
+
+  test("en tant que 'defaut', ne peut pas être associé à une administration", async () => {
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'super',
+      nom: 'super',
+      email: 'super@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super',
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+            administrations: [{ id: 'administration' }],
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.errors[0].message).toMatch(
+      /les permissions de cet utilisateur ne permettent pas de l'associer à une administration/
+    )
+  })
+
+  test("en tant qu''admin', peut être associé à une administrations", async () => {
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'super',
+      nom: 'super',
+      email: 'super@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super',
+    })
+
+    await knex('administrations_types').insert({
+      id: 'adm',
+      nom: 'admin',
+      ordre: 1,
+    })
+
+    await knex('administrations').insert({
+      id: 'administration',
+      nom: 'admin',
+      typeId: 'adm',
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+            permissionId: 'admin',
+            administrations: [{ id: 'administration' }],
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toMatchObject({
+      data: {
+        utilisateurCreer: {
+          prenom: 'toto',
+        },
+      },
+    })
+  })
+
+  test("ne peut pas être associé à une entreprise (utilisateur 'defaut')", async () => {
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'super',
+      nom: 'super',
+      email: 'super@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super',
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+            entreprises: [{ id: 'entreprise' }],
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.errors[0].message).toMatch(
+      /les permissions de cet utilisateur ne permettent pas de l'associer à une entreprise/
+    )
+  })
+
+  test("peut être associé à une entreprise (utilisateur 'entreprise')", async () => {
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'super',
+      nom: 'super',
+      email: 'super@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super',
+    })
+
+    await knex('entreprises').insert({
+      id: 'entreprise',
+      nom: 'entre',
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe',
+            permissionId: 'entreprise',
+            entreprises: [{ id: 'entreprise' }],
+          },
+        },
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toMatchObject({
+      data: {
+        utilisateurCreer: {
+          prenom: 'toto',
+        },
+      },
     })
   })
 })

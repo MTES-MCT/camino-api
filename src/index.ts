@@ -15,7 +15,7 @@ import * as compression from 'compression'
 import * as cors from 'cors'
 import * as express from 'express'
 
-import './database/index'
+import './init'
 
 import { rest } from './server/rest'
 import { graphql } from './server/graphql'

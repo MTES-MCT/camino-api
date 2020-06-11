@@ -7,7 +7,7 @@ const userFormat = (utilisateur: IUtilisateur | undefined) => {
 
   const user = utilisateur as IUser
 
-  const hasPermissions = permissionCheck(user, [
+  const hasPermissions = permissionCheck(user?.permissionId, [
     'super',
     'admin',
     'editeur',

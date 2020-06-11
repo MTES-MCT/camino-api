@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../database/index'
+import '../../init'
 import dbToSpreadsheet from './_utils/db-to-spreadsheets'
 import spreadsheet from './spreadsheets/titres-activites'
 

@@ -181,7 +181,7 @@ const activiteModifier = async (
     if (!user) throw new Error("droits insuffisants modifier l'activité")
 
     if (
-      !permissionCheck(user, ['super', 'admin']) &&
+      !permissionCheck(user?.permissionId, ['super', 'admin']) &&
       activiteOld?.statutId === 'dep'
     ) {
       throw new Error(

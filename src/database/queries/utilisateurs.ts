@@ -20,6 +20,7 @@ import Objection = require('objection')
 const userGet = async (userId?: string) => {
   if (!userId) return undefined
 
+  // utilisé en interne (daily, monthly, etc.)
   if (userId === 'super') {
     return ({ permissionId: 'super' } as unknown) as IUtilisateur
   }

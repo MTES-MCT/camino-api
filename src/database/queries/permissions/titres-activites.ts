@@ -14,16 +14,16 @@ import { documentsPermissionQueryBuild } from './documents'
 const activiteStatuts = [
   {
     id: 'abs',
-    name: 'activitesAbsentes'
+    name: 'activitesAbsentes',
   },
   {
     id: 'enc',
-    name: 'activitesEnConstruction'
+    name: 'activitesEnConstruction',
   },
   {
     id: 'dep',
-    name: 'activitesDeposees'
-  }
+    name: 'activitesDeposees',
+  },
 ]
 
 const titreActivitesCalc = (
@@ -31,12 +31,12 @@ const titreActivitesCalc = (
   user?: IUtilisateur
 ) => {
   if (
-    permissionCheck(user, [
+    permissionCheck(user?.permissionId, [
       'super',
       'admin',
       'editeur',
       'lecteur',
-      'entreprise'
+      'entreprise',
     ])
   ) {
     const titresActivitesCountQuery = TitresActivites.query()
@@ -50,17 +50,17 @@ const titreActivitesCalc = (
         raw('count(??) FILTER (WHERE ?? = ?)', [
           'activitesCount.statutId',
           'activitesCount.statutId',
-          id
+          id,
         ]).as(name)
       )
     })
 
-    if (!permissionCheck(user, ['super'])) {
+    if (!permissionCheck(user?.permissionId, ['super'])) {
       if (
-        permissionCheck(user, ['admin', 'editeur', 'lecteur']) &&
+        permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
         user?.administrations?.length
       ) {
-        const administrationsIds = user.administrations.map(e => e.id)
+        const administrationsIds = user.administrations.map((e) => e.id)
 
         // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
         titresActivitesCountQuery.whereExists(
@@ -69,24 +69,24 @@ const titreActivitesCalc = (
             .joinRelated('type.administrations')
             .whereRaw('?? = ??', [
               'titresActivitesAdministrations.id',
-              'activitesCount.id'
+              'activitesCount.id',
             ])
             .whereIn('type:administrations.id', administrationsIds)
         )
       } else if (
-        permissionCheck(user, ['entreprise']) &&
+        permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
-        const entreprisesIds = user.entreprises.map(e => e.id)
+        const entreprisesIds = user.entreprises.map((e) => e.id)
 
-        titresActivitesCountQuery.where(b => {
+        titresActivitesCountQuery.where((b) => {
           b.whereExists(
             TitresActivites.query()
               .alias('titresActivitesTitulaires')
               .joinRelated('titre.titulaires')
               .whereRaw('?? = ??', [
                 'titresActivitesTitulaires.id',
-                'activitesCount.id'
+                'activitesCount.id',
               ])
               .whereIn('titre:titulaires.id', entreprisesIds)
           )
@@ -96,7 +96,7 @@ const titreActivitesCalc = (
               .joinRelated('titre.amodiataires')
               .whereRaw('?? = ??', [
                 'titresActivitesAmodiataires.id',
-                'activitesCount.id'
+                'activitesCount.id',
               ])
               .whereIn('titre:amodiataires.id', entreprisesIds)
           )
@@ -112,7 +112,7 @@ const titreActivitesCalc = (
       titresActivitesCountQuery.as('activitesCountJoin'),
       raw('?? = ??', ['activitesCountJoin.titreId', 'titres.id'])
     )
-  } else if (!user || permissionCheck(user, ['defaut'])) {
+  } else if (!user || permissionCheck(user?.permissionId, ['defaut'])) {
     // les utilisateurs non-authentifiés ou défaut ne peuvent voir aucune activité
     activiteStatuts.forEach(({ name }) => {
       q.select(raw('0').as(name))
@@ -134,40 +134,40 @@ const titreActivitePermissionQueryBuild = (
   user?: IUtilisateur,
   grouped = false
 ) => {
-  if (!permissionCheck(user, ['super'])) {
+  if (!permissionCheck(user?.permissionId, ['super'])) {
     if (
-      permissionCheck(user, ['admin', 'editeur']) &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
       user?.administrations?.length
     ) {
       // TODO: autoriser les admins 'lecteur' pour les cas particuliers
 
-      const administrationsIds = user.administrations!.map(a => a.id) || []
+      const administrationsIds = user.administrations!.map((a) => a.id) || []
 
       const administrationPermissionQuery = TitresActivites.query()
         .alias('titresActivitesAdministrations')
         .joinRelated('type.administrations')
         .whereRaw('?? = ??', [
           'titresActivitesAdministrations.id',
-          'titresActivites.id'
+          'titresActivites.id',
         ])
         .whereIn('type:administrations.id', administrationsIds)
 
       // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
       q.whereExists(administrationPermissionQuery)
     } else if (
-      permissionCheck(user, ['entreprise']) &&
+      permissionCheck(user?.permissionId, ['entreprise']) &&
       user?.entreprises?.length
     ) {
       // vérifie que l'utilisateur a les permissions sur les titres
-      const entreprisesIds = user.entreprises.map(e => e.id)
+      const entreprisesIds = user.entreprises.map((e) => e.id)
 
-      q.where(b => {
+      q.where((b) => {
         const titulairesPermissionQuery = TitresActivites.query()
           .alias('titresActivitesTitulaires')
           .joinRelated('titre.titulaires')
           .whereRaw('?? = ??', [
             'titresActivitesTitulaires.id',
-            'titresActivites.id'
+            'titresActivites.id',
           ])
           .whereIn('titre:titulaires.id', entreprisesIds)
 
@@ -176,7 +176,7 @@ const titreActivitePermissionQueryBuild = (
           .joinRelated('titre.amodiataires')
           .whereRaw('?? = ??', [
             'titresActivitesAmodiataires.id',
-            'titresActivites.id'
+            'titresActivites.id',
           ])
           .whereIn('titre:amodiataires.id', entreprisesIds)
 
@@ -191,7 +191,7 @@ const titreActivitePermissionQueryBuild = (
 
   // TODO: séparer en permissions / propriétés
   if (!grouped) {
-    if (permissionCheck(user, ['super', 'admin', 'entreprise'])) {
+    if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
       const documentsTypesQuery = DocumentsTypes.query()
         .alias('documentsTypesQuery')
         .select(raw('true'))
@@ -205,7 +205,7 @@ const titreActivitePermissionQueryBuild = (
     }
   }
 
-  q.modifyGraph('documents', ed => {
+  q.modifyGraph('documents', (ed) => {
     documentsPermissionQueryBuild(
       ed as QueryBuilder<Documents, Documents | Documents[]>,
       user
@@ -221,22 +221,24 @@ const titreActiviteQueryPropsBuild = (
 ) => {
   q.select('titresActivites.*')
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
-  } else if (permissionCheck(user, ['admin', 'editeur', 'lecteur'])) {
-    if (permissionCheck(user, ['admin', 'editeur'])) {
+  } else if (
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+  ) {
+    if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
       q.select(raw('true').as('modification'))
     } else {
       q.select(raw('false').as('modification'))
     }
-  } else if (permissionCheck(user, ['entreprise'])) {
+  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
     // vérifie que l'utilisateur a les droits d'édition sur l'activité
     // l'activité doit avoir un statut `absente ou `en cours`
     q.select(
       raw('(case when ?? in (?, ?) then true else false end)', [
         'titresActivites.statutId',
         'abs',
-        'enc'
+        'enc',
       ]).as('modification')
     )
   }
@@ -249,5 +251,5 @@ const titreActiviteQueryPropsBuild = (
 export {
   titreActivitePermissionQueryBuild,
   titreActiviteQueryPropsBuild,
-  titreActivitesCalc
+  titreActivitesCalc,
 }

@@ -16,7 +16,10 @@ const titreEtapesPermissionQueryBuild = (
   q.select('titresEtapes.*')
 
   // étapes visibles pour les admins
-  if (user && permissionCheck(user, ['admin', 'editeur', 'lecteur'])) {
+  if (
+    user &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+  ) {
     q.joinRelated('[demarche.titre, type]')
 
     // si l'utilisateur admin n'appartient à aucune administration
@@ -61,14 +64,17 @@ const titreEtapesPermissionQueryBuild = (
         'demarche:titre.typeId'
       ])
     }
-  } else if (!user || permissionCheck(user, ['defaut', 'entreprise'])) {
+  } else if (
+    !user ||
+    permissionCheck(user?.permissionId, ['defaut', 'entreprise'])
+  ) {
     // étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
 
     q.leftJoinRelated('type.autorisations')
 
     q.where(b => {
       // visibilité des étapes en tant que titulaire ou amodiataire
-      if (permissionCheck(user, ['entreprise'])) {
+      if (permissionCheck(user?.permissionId, ['entreprise'])) {
         b.orWhere('type:autorisations.entreprisesLecture', true)
       }
 
@@ -77,14 +83,14 @@ const titreEtapesPermissionQueryBuild = (
     })
   }
 
-  if (permissionCheck(user, ['super'])) {
+  if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
 
     q.joinRelated('type')
     q.select(raw('type.fondamentale').as('justificatifsAssociation'))
   } else if (
-    permissionCheck(user, ['admin', 'editeur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
     // édition de l'étape

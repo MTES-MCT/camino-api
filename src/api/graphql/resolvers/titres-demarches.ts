@@ -165,11 +165,11 @@ const demarcheCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
-    if (permissionCheck(user, ['admin'])) {
+    if (permissionCheck(user?.permissionId, ['admin'])) {
       const titre = await titreGet(demarche.titreId, {}, user.id)
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -219,11 +219,11 @@ const demarcheModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
-    if (permissionCheck(user, ['admin'])) {
+    if (permissionCheck(user?.permissionId, ['admin'])) {
       const titre = await titreGet(demarche.titreId, {}, user.id)
       if (!titre) throw new Error("le titre n'existe pas")
 
@@ -272,7 +272,7 @@ const demarcheSupprimer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user, ['super'])) {
+    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
 
