@@ -14,6 +14,7 @@ import {
   titreCreate,
   titreDelete,
   titreGet,
+  titresCount,
   titresGet,
   titreUpsert
 } from '../../../database/queries/titres'
@@ -89,6 +90,8 @@ const titres = async (
       intervalle = null
     }
 
+    const userId = context.user?.id
+
     const titres = await titresGet(
       {
         intervalle,
@@ -105,7 +108,22 @@ const titres = async (
         territoires
       },
       { fields },
-      context.user?.id
+      userId
+    )
+
+    const total = await titresCount(
+      {
+        typesIds,
+        domainesIds,
+        statutsIds,
+        substances,
+        noms,
+        entreprises,
+        references,
+        territoires
+      },
+      { fields },
+      userId
     )
 
     const user = context.user && (await userGet(context.user.id))
@@ -117,7 +135,7 @@ const titres = async (
       intervalle,
       ordre,
       colonne,
-      total: null
+      total
     }
   } catch (e) {
     if (debug) {

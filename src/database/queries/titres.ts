@@ -198,6 +198,51 @@ const titresGet = async (
   return q
 }
 
+const titresCount = async (
+  {
+    domainesIds,
+    typesIds,
+    statutsIds,
+    substances,
+    noms,
+    entreprises,
+    references,
+    territoires
+  }: {
+    domainesIds?: string[] | null
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    substances?: string | null
+    noms?: string | null
+    entreprises?: string | null
+    references?: string | null
+    territoires?: string | null
+  } = {},
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const q = titresQueryBuild(
+    {
+      domainesIds,
+      typesIds,
+      statutsIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    },
+    { fields },
+    user
+  )
+
+  const titres = ((await q) as unknown) as { total: number }[]
+
+  return titres.length
+}
+
 type ICount = {
   count: string
 }
@@ -280,6 +325,7 @@ export {
   titreGet,
   titreFromIdGet,
   titresGet,
+  titresCount,
   titreUpdate,
   titreCreate,
   titreDelete,
