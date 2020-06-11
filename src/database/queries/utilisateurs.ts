@@ -72,9 +72,9 @@ const utilisateursQueryBuild = (
   }
 
   if (noms) {
-    const nomsPrenomsArray = stringSplit(noms)
+    const nomsArray = stringSplit(noms)
     q.where(b => {
-      nomsPrenomsArray.forEach(n => {
+      nomsArray.forEach(n => {
         b.orWhereRaw(`lower(??) like ?`, [
           'utilisateurs.nom',
           `%${n.toLowerCase()}%`
