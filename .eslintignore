@@ -1,1 +1,9 @@
+/api-cache
+/backups
+/coverage
 /dist
+/docs
+/files
+/manual
+/node_modules
+/sources
