@@ -36,14 +36,12 @@ const utilisateursQueryBuild = (
     administrationIds,
     permissionIds,
     noms,
-    prenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
-    prenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields },
@@ -76,20 +74,15 @@ const utilisateursQueryBuild = (
   if (noms) {
     const nomsArray = stringSplit(noms)
     q.where(b => {
-      b.whereRaw(`?? ~* ?`, [
-        'utilisateurs.nom',
-        nomsArray.map(n => `(?=.*?(${n}))`).join('')
-      ])
-    })
-  }
-
-  if (prenoms) {
-    const prenomsArray = stringSplit(prenoms)
-    q.where(b => {
-      b.whereRaw(`?? ~* ?`, [
-        'utilisateurs.prenom',
-        prenomsArray.map(n => `(?=.*?(${n}))`).join('')
-      ])
+      nomsArray.forEach(n => {
+        b.orWhereRaw(`lower(??) like ?`, [
+          'utilisateurs.nom',
+          `%${n.toLowerCase()}%`
+        ]).orWhereRaw(`lower(??) like ?`, [
+          'utilisateurs.prenom',
+          `%${n.toLowerCase()}%`
+        ])
+      })
     })
   }
 
@@ -170,7 +163,6 @@ const utilisateursGet = async (
     administrationIds,
     permissionIds,
     noms,
-    prenoms,
     emails
   }: {
     intervalle?: number | null
@@ -181,7 +173,6 @@ const utilisateursGet = async (
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
-    prenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields } = {},
@@ -194,7 +185,6 @@ const utilisateursGet = async (
       administrationIds,
       permissionIds,
       noms,
-      prenoms,
       emails
     },
     { fields },
@@ -233,14 +223,12 @@ const utilisateursCount = async (
     administrationIds,
     permissionIds,
     noms,
-    prenoms,
     emails
   }: {
     entrepriseIds?: string[] | undefined
     administrationIds?: string[] | undefined
     permissionIds?: string[] | undefined
     noms?: string | null
-    prenoms?: string | null
     emails?: string | null
   },
   { fields }: { fields?: IFields },
@@ -253,7 +241,6 @@ const utilisateursCount = async (
       administrationIds,
       permissionIds,
       noms,
-      prenoms,
       emails
     },
     { fields },

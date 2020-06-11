@@ -131,7 +131,6 @@ type Query {
     administrationIds: [ID]
     permissionIds: [ID]
     noms: String
-    prenoms: String
     emails: String
   ): Utilisateurs
 
