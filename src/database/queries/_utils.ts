@@ -35,7 +35,7 @@ const fieldTitreAdd = (fields: IFields) => {
 }
 
 const stringSplit = (string: string) =>
-  (string.match(/[a-zéèëçî]+|"(?:\\"|[^"])+"/gi) || []).map(e =>
+  (string.match(/[a-zA-Z0-9À-ž]+|"(?:\\"|[^"])+"/g) || []).map(e =>
     e.replace(/^"(.*)"$/, '$1')
   )
 
