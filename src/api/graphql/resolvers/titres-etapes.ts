@@ -22,6 +22,7 @@ import { titreEtapeDocumentsDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
+import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
 import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
@@ -72,8 +73,12 @@ const etapeCreer = async (
       throw new Error('droits insuffisants pour créer cette étape')
     }
 
-    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+    const inputErrors = await titreEtapeInputValidate(etape, demarche)
+    if (inputErrors.length) {
+      throw new Error(inputErrors.join(', '))
+    }
 
+    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
     if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
@@ -143,6 +148,11 @@ const etapeModifier = async (
       )
     ) {
       throw new Error('droits insuffisants pour modifier cette étape')
+    }
+
+    const inputErrors = await titreEtapeInputValidate(etape, demarche)
+    if (inputErrors.length) {
+      throw new Error(inputErrors.join(', '))
     }
 
     const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)

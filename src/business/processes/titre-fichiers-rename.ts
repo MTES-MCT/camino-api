@@ -69,7 +69,9 @@ const titreFilePathsRename = async (
     const filePathNameNew = titreFilePathsNames[filePathNameOld]
 
     if (filePathNameNew !== filePathNameOld) {
-      await fileRename(`files/${filePathNameOld}`, `files/${filePathNameNew}`)
+      const pathOld = `files/${filePathNameOld}`
+
+      await fileRename(pathOld, `files/${filePathNameNew}`)
     }
   }
 }

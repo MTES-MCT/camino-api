@@ -23,6 +23,7 @@ import {
 
 import { titreActivitesRowUpdate } from '../../../tools/export/titre-activites'
 
+import titreActiviteInputValidate from '../../_validate/titre-activite-input-validate'
 import titreActiviteUpdationValidate from '../../../business/titre-activite-updation-validate'
 
 const activite = async (
@@ -199,13 +200,17 @@ const activiteModifier = async (
       throw new Error("ce titre ne peut pas recevoir d'activité")
     }
 
-    const validationErrors = titreActiviteUpdationValidate(
-      activite.contenu,
+    const inputErrors = titreActiviteInputValidate(
+      activite,
       activiteOld.type?.sections
     )
+    if (inputErrors.length) {
+      throw new Error(inputErrors.join(', '))
+    }
 
-    if (validationErrors.length) {
-      throw new Error(validationErrors.join(', '))
+    const rulesErrors = titreActiviteUpdationValidate(activite)
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
     }
 
     activite.utilisateurId = user.id

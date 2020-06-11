@@ -1,8 +1,8 @@
 import { ITitreEtape, ITitreDemarche, ITitre } from '../types'
+
 import titreEtapeTypeAndStatusValidate from './utils/titre-etape-type-and-status-validate'
-import titreEtapeDateValidate from './utils/titre-etape-date-validate'
 import titreEtapePointsValidate from './utils/titre-etape-points-validate'
-import titreEtapeNumbersValidate from './utils/titre-etape-numbers-validate'
+import titreEtapeDateValidate from './utils/titre-etape-date-validate'
 
 const titreEtapeUpdationValidate = async (
   titreEtape: ITitreEtape,
@@ -12,7 +12,6 @@ const titreEtapeUpdationValidate = async (
   const errors = []
 
   // 1. le type d'étape correspond à la démarche et au type de titre
-
   const error = titreEtapeTypeAndStatusValidate(
     titreEtape.typeId,
     titreEtape.statutId,
@@ -25,7 +24,6 @@ const titreEtapeUpdationValidate = async (
 
   // 2. la date de l'étape est possible
   // en fonction de l'ordre des types d'étapes de la démarche
-
   if (titreEtape.date) {
     const error = titreEtapeDateValidate(
       titreEtape.typeId,
@@ -41,26 +39,10 @@ const titreEtapeUpdationValidate = async (
   }
 
   // 3. les références de points sont bien renseignées
-
   if (titreEtape.points) {
     const error = titreEtapePointsValidate(titreEtape.points)
     if (error) {
       errors.push(error)
-    }
-  }
-
-  // 4. les champs number ne peuvent avoir une durée négative
-  const etapeType = titreDemarche.type?.etapesTypes.find(
-    et => et.id === titreEtape.typeId
-  )
-
-  if (etapeType && etapeType.sections) {
-    const errorNumbers = titreEtapeNumbersValidate(
-      titreEtape,
-      etapeType.sections
-    )
-    if (errorNumbers) {
-      errors.push(errorNumbers)
     }
   }
 

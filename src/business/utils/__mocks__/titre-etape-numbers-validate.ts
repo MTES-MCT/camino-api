@@ -31,7 +31,9 @@ const titreEtapeSansContenu = ({
 const titreEtapeNombresValides = ({
   duree: 1,
   contenu: {
-    nombre: 1
+    section: {
+      nombre: 1
+    }
   }
 } as unknown) as ITitreEtape
 

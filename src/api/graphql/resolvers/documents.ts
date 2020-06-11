@@ -28,7 +28,6 @@ import {
 import { userGet } from '../../../database/queries/utilisateurs'
 import { documentTypeGet } from '../../../database/queries/metas'
 
-import documentUpdationValidate from '../../../business/document-updation-validate'
 import fieldsBuild from './_fields-build'
 import { GraphQLResolveInfo } from 'graphql'
 import fileRename from '../../../tools/file-rename'
@@ -38,19 +37,8 @@ import { titreGet } from '../../../database/queries/titres'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
-const documentValidate = (document: IDocument) => {
-  const errors = []
-
-  if (!document.typeId) {
-    errors.push('type de fichier manquant')
-  }
-
-  if (document.fichierNouveau && !document.fichierTypeId) {
-    errors.push('extension du fichier manquante')
-  }
-
-  return errors
-}
+import documentInputValidate from '../../_validate/document-input-validate'
+import documentUpdationValidate from '../../../business/document-updation-validate'
 
 const documentFileDirPathFind = (
   document: IDocument,
@@ -226,7 +214,7 @@ const documentCreer = async (
 
     documentRepertoireCheck(documentType, document)
 
-    const errors = documentValidate(document)
+    const errors = await documentInputValidate(document)
 
     const rulesErrors = await documentUpdationValidate(document)
 
@@ -280,7 +268,7 @@ const documentModifier = async (
 
     documentRepertoireCheck(documentType, document)
 
-    const errors = documentValidate(document)
+    const errors = await documentInputValidate(document)
     const rulesErrors = await documentUpdationValidate(document)
 
     if (errors.length || rulesErrors.length) {

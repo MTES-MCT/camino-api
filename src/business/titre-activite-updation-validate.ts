@@ -1,30 +1,10 @@
-import { IContenu, ISection } from '../types'
-
-import titreActiviteNumbersCheck from './utils/titre-activite-numbers-check'
+import { ITitreActivite } from '../types'
 
 const titreActiviteUpdationValidate = (
-  titreActiviteContenu: IContenu | undefined | null,
-  activiteTypeSections: ISection[] | undefined | null
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  titreActivite: ITitreActivite
 ) => {
-  const errors = []
-
-  if (activiteTypeSections) {
-    if (titreActiviteContenu) {
-      // les champs number ne peuvent avoir une durée négative
-      const errorNumbers = titreActiviteNumbersCheck(
-        titreActiviteContenu,
-        activiteTypeSections
-      )
-
-      if (errorNumbers) {
-        errors.push(errorNumbers)
-      }
-    }
-  } else {
-    errors.push('sections manquantes pour cette activité')
-  }
-
-  return errors
+  return []
 }
 
 export default titreActiviteUpdationValidate
