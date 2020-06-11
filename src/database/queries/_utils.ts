@@ -35,13 +35,8 @@ const fieldTitreAdd = (fields: IFields) => {
 }
 
 const stringSplit = (string: string) =>
-  (string.match(/[\w-/]+|"(?:\\"|[^"])+"/g) || []).map(e =>
+  (string.match(/[a-zéèëçî]+|"(?:\\"|[^"])+"/gi) || []).map(e =>
     e.replace(/^"(.*)"$/, '$1')
   )
 
-const nomPrenomSplit = (string: string) =>
-  (string.match(/[a-zéèëçî]+|"(?:\\"|[^"])+"/g) || []).map(e =>
-    e.replace(/^"(.*)"$/, '$1')
-  )
-
-export { fieldTitreAdd, stringSplit, nomPrenomSplit }
+export { fieldTitreAdd, stringSplit }

@@ -14,7 +14,7 @@ import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { raw } from 'objection'
 
-import { stringSplit, nomPrenomSplit } from './_utils'
+import { stringSplit } from './_utils'
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
@@ -72,7 +72,7 @@ const utilisateursQueryBuild = (
   }
 
   if (noms) {
-    const nomsPrenomsArray = nomPrenomSplit(noms)
+    const nomsPrenomsArray = stringSplit(noms)
     q.where(b => {
       nomsPrenomsArray.forEach(n => {
         b.orWhereRaw(`lower(??) like ?`, [
