@@ -210,6 +210,7 @@ const titresGet = async (
     }
 
     // Utilise orderByRaw pour intégrer la chaîne 'nulls first/last'
+    // dans le tri sur les activités
     // sinon les résultats 'null' apparaissent toujours en premier quelqesoit l'ordre
     const orderBy = titresColonnes[colonne].orderBy as string
     if (orderBy) {
