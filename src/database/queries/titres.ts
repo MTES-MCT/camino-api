@@ -217,7 +217,7 @@ const titresGet = async (
         !ordre || ordre === 'asc'
           ? `${ordre} nulls first`
           : `${ordre} nulls last`
-      q.orderByRaw(raw(`${orderBy} ${_ordre}`))
+      q.orderByRaw(`${orderBy} ${_ordre}`)
     } else {
       q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
     }
