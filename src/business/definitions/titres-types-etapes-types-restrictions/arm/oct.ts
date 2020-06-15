@@ -3,43 +3,18 @@ export default [
     condition: { etape: { typeId: 'des' } },
     obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'sco' }]
-    // TODO: implementer cette règle
-    // seulePossibleApres: ['mno']
   },
-
   {
     condition: { etape: { typeId: 'mdp' } },
     obligatoireApres: [{ typeId: 'mfr' }],
     impossibleApres: [{ typeId: 'mcp' }]
   },
-
-  /*
-{
-  condition: { etape: { typeId: 'rae' } },
-  obligatoireApres: [{ typeId: 'mdp' }],
-  impossibleApres: [{ typeId: 'dae', statutId: 'fav' }]
-},
-*/
   {
     condition: { etape: { typeId: 'dae' } },
-    // note: désactivation de cette règle
-    // car le "cas par cas" est possible avant la demande
-    // obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
-
-  /*
-{
-  condition: { etape: { typeId: 'rae' } },
-  obligatoireApres: [{ typeId: 'mdp' }],
-  impossibleApres: [{ typeId: 'rde', statutId: 'fav' }]
-},
-*/
   {
     condition: { etape: { typeId: 'rde' } },
-    // note: désactivation de cette règle
-    // car le "récépissé loi sur l'eau" est possible avant la demande
-    // obligatoireApres: [{ typeId: 'mdp' }],
     impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
 
@@ -84,8 +59,7 @@ export default [
       { typeId: 'mcp', statutId: 'def' },
       { typeId: 'aca', statutId: 'def' }
     ],
-    impossibleApres: [{ typeId: 'mno' }],
-    seulePossibleApres: [{ typeId: 'mno' }]
+    impossibleApres: [{ typeId: 'mno' }]
   },
 
   {
