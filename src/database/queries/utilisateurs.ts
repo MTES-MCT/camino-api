@@ -15,7 +15,6 @@ import graphFormat from './graph/format'
 import { raw } from 'objection'
 
 import { stringSplit } from './_utils'
-
 import Objection = require('objection')
 
 const userGet = async (userId?: string) => {
