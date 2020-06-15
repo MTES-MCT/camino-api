@@ -7,7 +7,7 @@ import {
   IFields,
   IUtilisateur
 } from '../../types'
-import { transaction, Transaction } from 'objection'
+import { transaction, Transaction, raw } from 'objection'
 
 import Titres from '../models/titres'
 import { titrePermissionQueryBuild } from './permissions/titres'
@@ -23,6 +23,8 @@ import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
 import { permissionCheck } from '../../tools/permission'
 import { AutorisationsTitresTypesAdministrations } from '../models/autorisations'
+
+import Objection = require('objection')
 
 const titresQueryBuild = (
   {
@@ -115,12 +117,32 @@ const titreFromIdGet = async (
 const titresColonnes = {
   nom: { id: 'nom' },
   domaine: { id: 'domaineId' },
-  type: { id: 'type.type.nom', relation: 'type' },
+  type: { id: 'type:type.nom', relation: 'type.type' },
   statut: { id: 'statutId' },
-  substances: { id: 'substances.nom', relation: 'substances' },
-  titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
-  // activitesTotal: { id: 'activitesAbsentes + activitesEnCours + activitesDeposees' }
-} as Index<IColonne<string>>
+  activites: {
+    id: 'activites',
+    groupBy: [],
+    orderBy: `"activites_absentes" + "activites_en_construction"`
+  },
+  substances: {
+    id: raw(`STRING_AGG(
+        "substances"."nom",
+        ' ; '
+        order by "substances"."nom"
+      )`),
+    relation: 'substances',
+    groupBy: []
+  },
+  titulaires: {
+    id: raw(`STRING_AGG(
+        "titulaires"."nom",
+        ' ; '
+        order by "titulaires"."nom"
+      )`),
+    relation: 'titulaires',
+    groupBy: []
+  }
+} as Index<IColonne<string | Objection.RawBuilder>>
 
 const titresGet = async (
   {
@@ -173,16 +195,32 @@ const titresGet = async (
     user
   )
 
-  // TODO: ajouter le sort des activités en SQL
-  // if (colonne === 'activitesTotal') {
-  //   activitesSortParams = { intervalle, page, ordre }
-  // }
-
   if (colonne) {
     if (titresColonnes[colonne].relation) {
       q.leftJoinRelated(titresColonnes[colonne].relation!)
     }
-    q.orderBy(titresColonnes[colonne].id, ordre || undefined)
+
+    const groupBy = titresColonnes[colonne].groupBy as string[]
+    if (groupBy) {
+      groupBy.forEach(gb => {
+        q.groupBy(gb as string)
+      })
+    } else {
+      q.groupBy(titresColonnes[colonne].id)
+    }
+
+    // Utilise orderByRaw pour intégrer la chaîne 'nulls first/last'
+    // sinon les résultats 'null' apparaissent toujours en premier quelqesoit l'ordre
+    const orderBy = titresColonnes[colonne].orderBy as string
+    if (orderBy) {
+      const _ordre =
+        !ordre || ordre === 'asc'
+          ? `${ordre} nulls first`
+          : `${ordre} nulls last`
+      q.orderByRaw(raw(`${orderBy} ${_ordre}`))
+    } else {
+      q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
+    }
   } else {
     q.orderBy('titres.nom')
   }
