@@ -71,15 +71,16 @@ const utilisateursQueryBuild = (
 
   if (noms) {
     const nomsArray = stringSplit(noms)
-    q.where(b => {
-      nomsArray.forEach(n => {
-        b.orWhereRaw(`lower(??) like ?`, [
-          'utilisateurs.nom',
-          `%${n.toLowerCase()}%`
-        ]).orWhereRaw(`lower(??) like ?`, [
-          'utilisateurs.prenom',
-          `%${n.toLowerCase()}%`
-        ])
+    const fields = ['nom', 'prenom']
+
+    nomsArray.forEach(s => {
+      q.where(b => {
+        fields.forEach(f => {
+          b.orWhereRaw(`lower(??) like ?`, [
+            `utilisateurs.${f}`,
+            `%${s.toLowerCase()}%`
+          ])
+        })
       })
     })
   }
