@@ -18,7 +18,7 @@ Le chargement s’effectue à partir du Gestionnaire des sources de données | V
 -- Type : GeoJSON
 -- URI : https://api.camino.beta.gouv.fr/titres?format=geojson
 
-img
+![qgis data sources manager screenshot](qgis-data-sources-manager-screenshot.png)
 
 Sans authentification, l’import n’est possible que sur les flux publiques, c’est à dire ceux proposés par Camino hors connexion.
 
