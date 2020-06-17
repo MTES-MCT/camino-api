@@ -20,7 +20,7 @@ Dans QGIS, menu 'Préférences' >> 'Options' >> onglet 'Réseau',
   * Port : __8080__
 * cliquer sur __OK__
 
-![qgis proxy screenshot](qgis-proxy-screenshot.png)
+![qgis proxy screenshot](flux_screenshot/qgis-proxy-screenshot.png)
 
 Il est nécessaire de fermer et redémarrer QGIS afin que ce  changement de configuration soit pris en compte.
 
@@ -28,7 +28,7 @@ Il est nécessaire de fermer et redémarrer QGIS afin que ce  changement de conf
 
 Ce plugin reprend le concept des filtres sur les titres de Camino et permet l'import et le chargement sous forme de couche dans QGIS des flux geojson.
 
-![camino plugin screenshot](camino-plugin-screenshot.png)
+![camino plugin screenshot](flux_screenshot/camino-plugin-screenshot.png)
 
 Il est disponible pour les versions 3.x de QGIS.
 
@@ -46,7 +46,7 @@ Le chargement s’effectue à partir du Gestionnaire des sources de données | V
   - Type : GeoJSON
   - URI : https://api.camino.beta.gouv.fr/titres?format=geojson
 
-![qgis plugin screenshot](qgis-data-sources-screenshot.png)
+![qgis plugin screenshot](flux_screenshot/qgis-data-sources-screenshot.png)
 
 Sans authentification, l’import n’est possible que sur les flux publiques, c’est à dire ceux proposés par Camino hors connexion.
 
@@ -55,7 +55,7 @@ Sans authentification, l’import n’est possible que sur les flux publiques, c
 L’authentification permet un accès restreint à certains flux.
 Les éléments d’authentification attendus sont ceux de la connexion à Camino, au détail près que le @ de l’email doit être remplacé par la chaine de caractère %40.
 
-![camino connexion screenshot](camino-connexion-screenshot.png)
+![camino connexion screenshot](flux_screenshot/camino-connexion-screenshot.png)
 
 soit, dans cet exemple :
 Email : prenom.nom%40domaine
@@ -71,28 +71,28 @@ Saisir les éléments suivants :
 Nom d’utilisateur : prenom.nom%40domaine
 Mot de passe : mdp
 
-![qgis authentification base screenshot](qgis-authentification-base-screenshot.png)
+![qgis authentification base screenshot](flux_screenshot/qgis-authentification-base-screenshot.png)
 
 #### Authentification par configuration
 
 Depuis l’authentification De base, il est possible de choisir de Convertir en configuration.
 Il faut cependant choisir un mot de passe, enregistré dans la base interne de QGIS, afin d’accéder à l’édition de la configuration.
 
-![qgis conversion configuration screenshot](qgis-conversion-configuration-screenshot.png)
+![qgis conversion configuration screenshot](flux_screenshot/qgis-conversion-configuration-screenshot.png)
 
 La configuration ainsi créée, située dans l’onglet Configurations, porte le nom Configuration convertie le + la date de création.
 
-![qgis authentification configuration screenshot](qgis-authentification-configuration-screenshot.png)
+![qgis authentification configuration screenshot](flux_screenshot/qgis-authentification-configuration-screenshot.png)
 
-Le nom est modifiable en éditant la configuration via le bouton ![qgis crayon screenshot](qgis-crayon-screenshot.png)
+Le nom est modifiable en éditant la configuration via le bouton ![qgis crayon screenshot](flux_screenshot/qgis-crayon-screenshot.png)
 
-![qgis edit configuration screenshot](qgis-edit-configuration-screenshot.png)
+![qgis edit configuration screenshot](flux_screenshot/qgis-edit-configuration-screenshot.png)
 
 Il est également possible de modifier les éléments d’authentification email et mot de passe.
 
-Une configuration peut également être créée ex nihilo via la boîte de dialogue accessible par le bouton ![qgis plus configuration screenshot](qgis-plus-configuration-screenshot.png)
+Une configuration peut également être créée ex nihilo via la boîte de dialogue accessible par le bouton ![qgis plus configuration screenshot](flux_screenshot/qgis-plus-configuration-screenshot.png)
 
-Les configurations sont supprimables via le bouton ![qgis moins configuration screenshot](qgis-moins-configuration-screenshot.png)
+Les configurations sont supprimables via le bouton ![qgis moins configuration screenshot](flux_screenshot/qgis-moins-configuration-screenshot.png)
 
 Le choix de l’utilisation d’une configuration se fait en sélectionnant cette configuration dans la liste déroulante. 
 L’onglet Configuration est prioritaire sur l’onglet De base, c’est à dire que ce sont les éléments saisi dans la configuration qui seront utilisés dans le cas où les deux onglets sont remplis.
@@ -102,7 +102,7 @@ Ce mode d’authentification est valable pour toutes les version de QGIS, mais e
 
 Pour l’utiliser, il suffit d’effectuer la procédure d’import classique en saisissant dans la partie URI la chaîne suivante :
 
-![qgis url api camino screenshot](qgis-url-api-camino-screenshot.png)
+![qgis url api camino screenshot](flux_screenshot/qgis-url-api-camino-screenshot.png)
 
 Point d’attention :
 - les __:__ entre l’email et le mot de passe
@@ -112,7 +112,7 @@ Point d’attention :
 Il est possible d’ajouter des paramètres à l’URI afin de filtrer la requête et le geojson généré.
 1. Effectuer une recherche filtrée à partir de Camino
 
-![camino filtre screenshot](camino-filtre-screenshot.png)
+![camino filtre screenshot](flux_screenshot/camino-filtre-screenshot.png)
 
 2. Copier l’url ainsi mise à jour
 
@@ -127,6 +127,6 @@ ou
 
 https://__api.__camino.beta.gouv.fr/titres?__format=geosjson__
 
-![qgis camino layer screenshot](qgis-camino-layer-screenshot.png)
+![qgis camino layer screenshot](flux_screenshot/qgis-camino-layer-screenshot.png)
 
 L’utilisation des filtres et l'utilisation de l’authentification sont bien entendu cumulables.
