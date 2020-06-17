@@ -6,9 +6,38 @@ Les flux geojsons sont exclusivement disponibles dynamiquement au travers de l'A
 
 L’ensemble des flux geojson est accessible depuis l’url https://api.camino.beta.gouv.fr/titres?format=geojson
 
-## Import de flux geojson depuis QGIS
+## Import de flux geojson dans QGIS
 
-### Import sans authentification
+### Pré-requis
+
+Via le réseau interministériel de l'Etat (RIE), il est nécessaire d'utiliser le proxy __pfrie-std.proxy.e2.rie.gouv.fr__
+
+Dans QGIS, menu 'Préférences' >> 'Options' >> onglet 'Réseau',
+* choisir __Utiliser un proxy pour l'accès Internet
+* saisir les éléments suivants:
+  * Type de proxy : __HttpProxy__
+  * Hôte : __pfrie-std.proxy.e2.rie.gouv.fr__
+  * Port : __8080__
+* cliquer sur __OK__
+
+![qgis proxy screenshot](qgis-proxy-screenshot.png)
+
+Il est nécessaire de fermer et redémarrer QGIS afin que ce  changement de configuration soit pris en compte.
+
+### Import au travers du plugin camino-flux-QGIS
+
+Ce plugin reprend le concept des filtres sur les titres de Camino et permet l'import et le chargement sous forme de couche dans QGIS des flux geojson de Camino
+
+![camino plugin screenshot](camino-plugin-screenshot.png)
+
+Il est disponible pour les versions 3.x de QGIS.
+
+Les informations d'installation et d'utilisation sont disponibles sur le lien github [https://github.com/MTES-MCT/camino-flux-QGIS](https://github.com/MTES-MCT/camino-flux-QGIS)
+
+La documentation utilisateur au format pdf est disponible dans le plugin et également ici
+https://github.com/MTES-MCT/camino-flux-QGIS/blob/master/doc/camino_doc.pdf
+
+### Import hors plugin sans authentification
 
 Le chargement s’effectue à partir du Gestionnaire des sources de données | Vecteur : 
 
@@ -18,11 +47,11 @@ Le chargement s’effectue à partir du Gestionnaire des sources de données | V
   - Type : GeoJSON
   - URI : https://api.camino.beta.gouv.fr/titres?format=geojson
 
-![qgis data sources manager screenshot](qgis-data-sources-manager-screenshot.png)
+![qgis plugin screenshot](qgis-data-sources-screenshot.png)
 
 Sans authentification, l’import n’est possible que sur les flux publiques, c’est à dire ceux proposés par Camino hors connexion.
 
-### Import avec authentification
+### Import hors plugin avec authentification
 
 L’authentification permet un accès restreint à certains flux.
 Les éléments d’authentification attendus sont ceux de la connexion à Camino, au détail près que le @ de l’email doit être remplacé par la chaine de caractère %40.
