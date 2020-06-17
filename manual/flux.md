@@ -73,7 +73,8 @@ L’onglet Configuration est prioritaire sur l’onglet De base, c’est à dire
 Ce mode d’authentification est valable pour toutes les version de QGIS, mais est particulièrement utiles pour les versions antérieures à la 3.2 à partir de laquelle la partie Authentification est apparue dans le Gestionnaire des sources de données.
 
 Pour l’utiliser, il suffit d’effectuer la procédure d’import classique en saisissant dans la partie URI la chaîne suivante :
-Une configuration peut également être créée ex nihilo via la boîte de dialogue accessible par le bouton ![qgis url api camino screenshot](qgis-url-api-camino-screenshot.png)
+
+![qgis url api camino screenshot](qgis-url-api-camino-screenshot.png)
 
 Point d’attention :
 - les __:__ entre l’email et le mot de passe
