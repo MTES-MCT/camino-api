@@ -26,7 +26,7 @@ Il est nécessaire de fermer et redémarrer QGIS afin que ce  changement de conf
 
 ### Import au travers du plugin camino-flux-QGIS
 
-Ce plugin reprend le concept des filtres sur les titres de Camino et permet l'import et le chargement sous forme de couche dans QGIS des flux geojson de Camino
+Ce plugin reprend le concept des filtres sur les titres de Camino et permet l'import et le chargement sous forme de couche dans QGIS des flux geojson.
 
 ![camino plugin screenshot](camino-plugin-screenshot.png)
 
@@ -34,8 +34,7 @@ Il est disponible pour les versions 3.x de QGIS.
 
 Les informations d'installation et d'utilisation sont disponibles sur le lien github [https://github.com/MTES-MCT/camino-flux-QGIS](https://github.com/MTES-MCT/camino-flux-QGIS)
 
-La documentation utilisateur au format pdf est disponible dans le plugin et également ici
-https://github.com/MTES-MCT/camino-flux-QGIS/blob/master/doc/camino_doc.pdf
+La documentation utilisateur au format pdf est disponible dans le plugin et également [ici](https://github.com/MTES-MCT/camino-flux-QGIS/blob/master/doc/camino_doc.pdf)
 
 ### Import hors plugin sans authentification
 
