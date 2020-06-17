@@ -10,10 +10,10 @@ L’ensemble des flux geojson est accessible depuis l’url https://api.camino.b
 
 ### Pré-requis
 
-Via le réseau interministériel de l'Etat (RIE), il est nécessaire d'utiliser le proxy __pfrie-std.proxy.e2.rie.gouv.fr__
+Via le réseau interministériel de l'Etat (__RIE__), il est nécessaire d'utiliser le proxy __pfrie-std.proxy.e2.rie.gouv.fr__
 
 Dans QGIS, menu 'Préférences' >> 'Options' >> onglet 'Réseau',
-* choisir __Utiliser un proxy pour l'accès Internet
+* choisir __Utiliser un proxy pour l'accès Internet__
 * saisir les éléments suivants:
   * Type de proxy : __HttpProxy__
   * Hôte : __pfrie-std.proxy.e2.rie.gouv.fr__
