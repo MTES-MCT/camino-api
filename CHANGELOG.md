@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.42](https://github.com/MTES-MCT/camino-api/compare/v0.24.41...v0.24.42) (2020-06-17)
+
+
+### Features
+
+* **api:** valide les dates envoyées par les clients de l'API ([#421](https://github.com/MTES-MCT/camino-api/issues/421)) ([c032cb2](https://github.com/MTES-MCT/camino-api/commit/c032cb291c27a7baac2b71bbd1d97d2d502c4713))
+* **utilisateurs:** rassemble les champs 'noms' et 'prénoms' du filtre en un seul champ ([#422](https://github.com/MTES-MCT/camino-api/issues/422)) ([16eb9a3](https://github.com/MTES-MCT/camino-api/commit/16eb9a383eb4d6ec58c01046472c8be5ab9d79de))
+* **utils:** gère les caractères spéciaux dans stringSplit ([#425](https://github.com/MTES-MCT/camino-api/issues/425)) ([143b1c7](https://github.com/MTES-MCT/camino-api/commit/143b1c7317bc3fde64c4d7f8c6c8be2f1952da52))
+
+
+### Bug Fixes
+
+* **utilisateurs:** prend en compte tous les mots recherchés dans le champ nom ([#427](https://github.com/MTES-MCT/camino-api/issues/427)) ([c3e7261](https://github.com/MTES-MCT/camino-api/commit/c3e7261d7c5638919cbc28fdaddad0c8c5d4c1dd))
+
 ### [0.24.41](https://github.com/MTES-MCT/camino-api/compare/v0.24.40...v0.24.41) (2020-06-10)
 
 
