@@ -76,8 +76,8 @@ Pour l’utiliser, il suffit d’effectuer la procédure d’import classique en
 Une configuration peut également être créée ex nihilo via la boîte de dialogue accessible par le bouton ![qgis url api camino screenshot](qgis-url-api-camino-screenshot.png)
 
 Point d’attention :
-- les : entre l’email et le mot de passe
-- le caractère @ (tel quel) après le mot de passe
+- les __:__ entre l’email et le mot de passe
+- le caractère __@__ après le mot de passe
 
 ### Import avec filtre
 Il est possible d’ajouter des paramètres à l’URI afin de filtrer la requête et le geojson généré.
@@ -92,11 +92,11 @@ https://camino.beta.gouv.fr/titres?vueId=carte&domainesIds=h&statutsIds=val&type
 3. Coller l’url dans la partie URI du Gestionnaire des sources de données | Vecteur de QGIS en ajoutant __api.__ devant camino, et __&format=geojson__ en bout de chaîne.
 Il est également possible d'indiquer uniquement __?format=geojson__ juste après __/titres__ dans le cas où il n'y a aucun paramètre de sélectionné.
 
-https://__api.__camino.beta.gouv.fr/titres?vueId=carte&domainesIds=h&statutsIds=val&typesIds=cx&zoom=8&centre=48.87555444355432,4.246215820312501__&format=geosjson__
+https://__api.__camino.beta.gouv.fr/titres?vueId=carte&domainesIds=h&statutsIds=val&typesIds=cx&zoom=8&centre=48.87555444355432,4.246215820312501&__format=geosjson__
 
 ou
 
-https://__api.__camino.beta.gouv.fr/titres__?format=geosjson__
+https://__api.__camino.beta.gouv.fr/titres?__format=geosjson__
 
 ![qgis camino layer screenshot](qgis-camino-layer-screenshot.png)
 
