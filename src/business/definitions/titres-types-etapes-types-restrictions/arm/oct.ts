@@ -1,10 +1,8 @@
 export default [
   {
     condition: { etape: { typeId: 'des' } },
-    obligatoireApres: [{ typeId: 'mdp' }],
-    impossibleApres: [{ typeId: 'sco' }]
-    // TODO: implementer cette règle
-    // seulePossibleApres: ['mno']
+    obligatoireApres: [{ typeId: 'mdp' }, { typeId: 'pfd' }],
+    impossibleApres: [{ typeId: 'sco' }, { typeId: 'mno' }]
   },
 
   {
@@ -12,52 +10,19 @@ export default [
     obligatoireApres: [{ typeId: 'mfr' }],
     impossibleApres: [{ typeId: 'mcp' }]
   },
-
-  /*
-{
-  condition: { etape: { typeId: 'rae' } },
-  obligatoireApres: [{ typeId: 'mdp' }],
-  impossibleApres: [{ typeId: 'dae', statutId: 'fav' }]
-},
-*/
   {
     condition: { etape: { typeId: 'dae' } },
-    // note: désactivation de cette règle
-    // car le "cas par cas" est possible avant la demande
-    // obligatoireApres: [{ typeId: 'mdp' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    impossibleApres: [{ typeId: 'mcp' }]
   },
-
-  /*
-{
-  condition: { etape: { typeId: 'rae' } },
-  obligatoireApres: [{ typeId: 'mdp' }],
-  impossibleApres: [{ typeId: 'rde', statutId: 'fav' }]
-},
-*/
   {
     condition: { etape: { typeId: 'rde' } },
-    // note: désactivation de cette règle
-    // car le "récépissé loi sur l'eau" est possible avant la demande
-    // obligatoireApres: [{ typeId: 'mdp' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    impossibleApres: [{ typeId: 'mcp' }]
   },
 
   {
     condition: { etape: { typeId: 'mod' } },
-    obligatoireApres: [{ typeId: 'mdp' }],
-    impossibleApres: [{ typeId: 'aca' }]
-  },
-
-  {
-    condition: { etape: { typeId: 'mco' } },
-    obligatoireApres: [{ typeId: 'mdp' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
-  },
-  {
-    condition: { etape: { typeId: 'rco' } },
-    obligatoireApres: [{ typeId: 'mco' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    obligatoireApres: [{ typeId: 'mdp' }, { typeId: 'rde' }, { typeId: 'dae' }],
+    impossibleApres: [{ typeId: 'sca' }]
   },
 
   {
@@ -73,60 +38,68 @@ export default [
     condition: { etape: { typeId: 'mcp' } },
     obligatoireApres: [{ typeId: 'pfd' }]
   },
-  {
-    condition: { etape: { typeId: 'mcp' } },
-    impossibleApres: [{ typeId: 'mcp', statutId: 'fav' }]
-  },
 
-  {
-    condition: { etape: { typeId: 'css' } },
-    obligatoireApres: [
-      { typeId: 'mcp', statutId: 'def' },
-      { typeId: 'aca', statutId: 'def' }
-    ],
-    impossibleApres: [{ typeId: 'mno' }],
-    seulePossibleApres: [{ typeId: 'mno' }]
-  },
-
-  {
-    condition: { etape: { typeId: 'vfd' } },
-    obligatoireApres: [{ typeId: 'mcp', statutId: 'fav' }],
-    impossibleApres: [{ typeId: 'mcr' }]
-  },
-
+  // titres mécanisés
   {
     condition: {
       titre: { contenu: { arm: { mecanise: true } } },
-      etape: { typeId: 'mcr' }
+      etape: { typeId: 'mcp' }
     },
     obligatoireApres: [{ typeId: 'rde' }]
   },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: true } } },
-      etape: { typeId: 'mcr' }
+      etape: { typeId: 'mcp' }
     },
     obligatoireApres: [{ typeId: 'dae' }]
   },
 
   {
-    condition: { etape: { typeId: 'mcr' } },
-    obligatoireApres: [{ typeId: 'vfd' }]
+    condition: { etape: { typeId: 'mcp' } },
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+  },
+
+  // cycle de compléments de la complétude
+  {
+    condition: { etape: { typeId: 'mco' } },
+    obligatoireApres: [{ typeId: 'mcp', statutId: 'def' }],
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
   {
-    condition: { etape: { typeId: 'mcr' } },
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }, { typeId: 'eof' }]
+    condition: { etape: { typeId: 'rco' } },
+    obligatoireApres: [{ typeId: 'mco' }],
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
 
   {
+    condition: { etape: { typeId: 'css' } },
+    obligatoireApres: [{ typeId: 'mcp', statutId: 'def' }],
+    impossibleApres: [{ typeId: 'mno' }]
+  },
+
+  {
+    condition: { etape: { typeId: 'vfd' } },
+    obligatoireApres: [{ typeId: 'mcp', statutId: 'fav' }],
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+  },
+
+  {
+    condition: { etape: { typeId: 'mcr' } },
+    obligatoireApres: [{ typeId: 'vfd' }],
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+  },
+
+  // cycle d'informations
+  {
     condition: { etape: { typeId: 'mif' } },
     obligatoireApres: [{ typeId: 'mcr' }],
-    impossibleApres: [{ typeId: 'aca' }]
+    impossibleApres: [{ typeId: 'sca' }]
   },
   {
     condition: { etape: { typeId: 'rif' } },
     obligatoireApres: [{ typeId: 'mif' }],
-    impossibleApres: [{ typeId: 'aca' }]
+    impossibleApres: [{ typeId: 'sca' }]
   },
 
   {
@@ -142,20 +115,26 @@ export default [
 
   {
     condition: { etape: { typeId: 'eof' } },
-    obligatoireApres: [{ typeId: 'mcr' }],
+    obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
     impossibleApres: [{ typeId: 'aof' }]
   },
 
   {
     condition: { etape: { typeId: 'aof' } },
     obligatoireApres: [{ typeId: 'eof' }],
+    impossibleApres: [{ typeId: 'sca' }]
+  },
+
+  {
+    condition: { etape: { typeId: 'sca' } },
+    obligatoireApres: [{ typeId: 'aof' }],
     impossibleApres: [{ typeId: 'aca' }]
   },
 
   {
     condition: { etape: { typeId: 'aca' } },
-    obligatoireApres: [{ typeId: 'aof' }],
-    impossibleApres: [{ typeId: 'mno' }]
+    obligatoireApres: [{ typeId: 'sca' }],
+    impossibleApres: [{ typeId: 'css' }, { typeId: 'des' }]
   },
 
   {
@@ -171,6 +150,7 @@ export default [
     impossible: true
   },
 
+  // paiement des frais de dossier titre mécanisé
   {
     condition: {
       titre: { contenu: { arm: { mecanise: true } } },
@@ -189,6 +169,7 @@ export default [
     condition: { etape: { typeId: 'pfc' } },
     impossibleApres: [{ typeId: 'vfc' }]
   },
+  // validation des frais de dossier titre mécanisé
   {
     condition: { etape: { typeId: 'vfc' } },
     obligatoireApres: [{ typeId: 'pfc' }],
@@ -224,7 +205,10 @@ export default [
 
   {
     condition: { etape: { typeId: 'aco' } },
-    obligatoireApres: [{ typeId: 'sco' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'sco' }]
+  },
+  {
+    condition: { etape: { typeId: 'aco' } },
+    obligatoireApres: [{ typeId: 'mno' }]
   }
 ]
