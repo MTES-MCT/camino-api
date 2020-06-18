@@ -163,22 +163,30 @@ const titreModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user!.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
     const titreOld = await titreGet(titre.id, {}, user.id)
+    if (!titreOld) throw new Error("le titre n'existe pas")
 
     if (
       permissionCheck(user?.permissionId, ['admin']) &&
-      !titrePermissionAdministrationsCheck(
+      (!titrePermissionAdministrationsCheck(
         user,
-        titre.typeId,
+        titreOld.typeId,
         titreOld.statutId!,
         'modification'
-      )
+      ) ||
+        (titreOld.typeId !== titre.typeId &&
+          !titrePermissionAdministrationsCheck(
+            user,
+            titre.typeId,
+            titreOld.statutId!,
+            'modification'
+          )))
     ) {
-      throw new Error('droits insuffisants pour modifier ce titre')
+      throw new Error('droits insuffisants pour modifier ce type de titre')
     }
 
     const rulesErrors = await titreUpdationValidate(titre, titreOld)
