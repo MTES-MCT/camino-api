@@ -136,26 +136,14 @@ const titreCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    if (
-      permissionCheck(user?.permissionId, ['admin']) &&
-      !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
-    ) {
-      throw new Error('droits insuffisants pour créer ce type de titre')
-    }
-
     // insert le titre dans la base
-    // ajoute l'id par effet de bord
-    await titreCreate(titre)
+    titre = await titreCreate(titre, {}, user?.id)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {
@@ -179,14 +167,19 @@ const titreModifier = async (
       throw new Error('droits insuffisants')
     }
 
+    const titreOld = await titreGet(titre.id, {}, user.id)
+
     if (
       permissionCheck(user?.permissionId, ['admin']) &&
-      !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
+      !titrePermissionAdministrationsCheck(
+        user,
+        titre.typeId,
+        titreOld.statutId!,
+        'modification'
+      )
     ) {
       throw new Error('droits insuffisants pour modifier ce titre')
     }
-
-    const titreOld = await titreGet(titre.id, {}, user.id)
 
     const rulesErrors = await titreUpdationValidate(titre, titreOld)
 
