@@ -8,6 +8,9 @@ L’ensemble des flux geojson est accessible depuis l’url https://api.camino.b
 
 ## Import de flux geojson dans QGIS
 
+L'import et l'intégration de flux geojson dans un projet QGIS au travers de l'API les rend dynamique.
+Ainsi, à chaque ré-ouverture du projet, les donnés de la couche concernée sont automatiquement mises à jour. 
+
 ### Pré-requis
 
 Via le réseau interministériel de l'Etat (__RIE__), il est nécessaire d'utiliser le proxy __pfrie-std.proxy.e2.rie.gouv.fr__
