@@ -1,5 +1,6 @@
 type Titres {
   elements: [Titre]
+  elementsCarte: [Titre]
   page: Int
   intervalle: Int
   ordre: String

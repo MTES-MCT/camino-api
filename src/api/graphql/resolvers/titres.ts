@@ -111,6 +111,21 @@ const titres = async (
       userId
     )
 
+    const titresCarte = await titresGet(
+      {
+        typesIds,
+        domainesIds,
+        statutsIds,
+        substances,
+        noms,
+        entreprises,
+        references,
+        territoires
+      },
+      { fields },
+      userId
+    )
+
     const total = await titresCount(
       {
         typesIds,
@@ -128,9 +143,12 @@ const titres = async (
 
     const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)
+    const titresCarteFormatted =
+      titresCarte && titresFormat(user, titresCarte, fields)
 
     return {
       elements: titresFormatted,
+      elementsCarte: titresCarteFormatted,
       page,
       intervalle,
       ordre,
