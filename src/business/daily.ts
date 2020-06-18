@@ -53,17 +53,7 @@ const run = async () => {
     console.info()
     console.info('statut des démarches…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       { fields: { demarches: { etapes: { id: {} } } } },
       'super'
     )
@@ -74,17 +64,7 @@ const run = async () => {
     console.info()
     console.info('publicité des démarches…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: {
@@ -102,17 +82,7 @@ const run = async () => {
     console.info()
     console.info('ordre des démarches…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       { fields: { demarches: { etapes: { id: {} } } } },
       'super'
     )
@@ -121,17 +91,7 @@ const run = async () => {
     console.info()
     console.info('statut des titres…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
@@ -144,17 +104,7 @@ const run = async () => {
     console.info()
     console.info('publicité des titres…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           type: { autorisationsTitresStatuts: { id: {} } },
@@ -168,17 +118,7 @@ const run = async () => {
     console.info()
     console.info('phases des titres…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
@@ -194,17 +134,7 @@ const run = async () => {
     console.info()
     console.info('date de début, de fin et de demande initiale des titres…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
@@ -243,17 +173,7 @@ const run = async () => {
     console.info('administrations gestionnaires associées aux titres…')
 
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       { fields: { administrationsGestionnaires: { id: {} } } },
       'super'
     )
@@ -270,17 +190,7 @@ const run = async () => {
     console.info('administrations locales associées aux étapes…')
 
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: {
@@ -302,17 +212,7 @@ const run = async () => {
     console.info()
     console.info('propriétés des titres (liens vers les étapes)…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: {
@@ -334,17 +234,7 @@ const run = async () => {
     console.info()
     console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
       'super'
     )
@@ -353,17 +243,7 @@ const run = async () => {
     console.info()
     console.info('activités des titres…')
     titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
+      {},
       {
         fields: {
           demarches: { phase: { id: {} } },
@@ -388,21 +268,7 @@ const run = async () => {
 
     console.info()
     console.info('ids de titres, démarches, étapes et sous-éléments…')
-    titres = await titresGet(
-      {
-        domainesIds: null,
-        entreprises: null,
-        ids: null,
-        noms: null,
-        references: null,
-        statutsIds: null,
-        substances: null,
-        territoires: null,
-        typesIds: null
-      },
-      {},
-      'super'
-    )
+    titres = await titresGet({}, {}, 'super')
 
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate(titres)
