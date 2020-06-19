@@ -1,4 +1,4 @@
-# Sauvegardes et restaurations de la base de données et des fichiers
+# Sauvegardes et restaurations
 
 ## Sauvegarde
 

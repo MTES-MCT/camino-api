@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  app:
+    image: caminofr/camino-api-docs
+    environment:
+      VIRTUAL_HOST: ${URL}
+      VIRTUAL_PORT: ${PORT}
+      LETSENCRYPT_HOST: ${URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      NGINX_PORT: ${PORT}
+    expose:
+      - ${PORT}
+    restart: always
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

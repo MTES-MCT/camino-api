@@ -11,7 +11,7 @@ fetch(url, {
   .then(res => res.json())
   .then(res =>
     fs.writeFileSync(
-      'manual/api/schema.json',
+      'docs-sources/api/schema.json',
       JSON.stringify(res.data, null, 2)
     )
   )

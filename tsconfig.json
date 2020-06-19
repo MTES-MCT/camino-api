@@ -19,5 +19,89 @@
     "types": ["node", "jest"]
   },
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts", "**/__mocks__/*"],
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs",
+    "exclude": ["**/*+(.test|.spec|.e2e).ts", "**/__mocks__/**/*"],
+    "includeVersion": true,
+    "pages": {
+      "groups": [
+        {
+          "title": "Utilisation",
+          "pages": [
+            {
+              "title": "Introduction",
+              "source": "./docs-sources/01-utilisation/01-introduction.md"
+            },
+            {
+              "title": "API GraphQL",
+              "source": "./docs-sources/01-utilisation/02-graphql.md"
+            },
+            {
+              "title": "API Rest",
+              "source": "./docs-sources/01-utilisation/03-rest.md"
+            },
+            {
+              "title": "Flux GeoJson",
+              "source": "./docs-sources/01-utilisation/04-flux.md"
+            }
+          ]
+        },
+
+        {
+          "title": "Developpement",
+          "pages": [
+            {
+              "title": "Introduction",
+              "source": "./docs-sources/02-developpement/01-introduction.md"
+            },
+            {
+              "title": "Base de données",
+              "source": "./docs-sources/02-developpement/02-base-de-donnees.md"
+            }
+          ]
+        },
+        {
+          "title": "Architecture",
+          "pages": [
+            {
+              "title": "Introduction",
+              "source": "./docs-sources/03-architecture/01-introduction.md"
+            },
+            {
+              "title": "Docker",
+              "source": "./docs-sources/03-architecture/02-docker.md"
+            },
+            {
+              "title": "Scripts de sauvegarde et restauration",
+              "source": "./docs-sources/03-architecture/03-scripts-sauvegarde-restaurations.md"
+            }
+          ]
+        },
+        {
+          "title": "Deploiement",
+          "pages": [
+            {
+              "title": "Introduction",
+              "source": "./docs-sources/04-deploiement/01-introduction.md"
+            },
+            {
+              "title": "Sauvegarde et restauration",
+              "source": "./docs-sources/04-deploiement/02-sauvegarde-restauration.md"
+            },
+            {
+              "title": "Base de données",
+              "source": "./docs-sources/04-deploiement/03-base-de-donnees.md"
+            },
+            {
+              "title": "Fichiers",
+              "source": "./docs-sources/04-deploiement/04-fichiers.md"
+            }
+          ]
+        }
+      ]
+    },
+    "theme": "pages-plugin"
+  }
 }
