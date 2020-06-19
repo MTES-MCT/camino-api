@@ -2,7 +2,7 @@
 
 L'Api Camino fonctionne avec une base de données PostgreSQL.
 
-![camino database schema](https://github.com/MTES-MCT/camino-api/tree/master/docs-sources/assets/database/camino-db.svg)
+![camino database schema](https://raw.githubusercontent.com/MTES-MCT/camino-api/master/docs-sources/assets/database/camino-db.svg)
 
 ```sh
 # faire un dump depuis la base de données locale
