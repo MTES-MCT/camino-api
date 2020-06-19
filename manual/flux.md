@@ -74,7 +74,7 @@ La documentation utilisateur au format pdf est disponible dans le plugin et éga
 
 ![qgis data sources manager screenshot](flux_screenshot/qgis-data-sources-manager-screenshot.png)
 
-### Sur le réseau interministériel de l'Etat (__RIE__)
+## Sur le réseau interministériel de l'Etat (__RIE__)
 
 Les éléments de configuration du le proxy sont :
 
