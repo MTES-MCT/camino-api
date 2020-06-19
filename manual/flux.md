@@ -1,37 +1,29 @@
 # Flux
 
-Les flux geojsons sont exclusivement disponibles dynamiquement au travers de l'API
+Les flux géographiques de Camino fournissent au format geojson les données spatiales des périmètres des titres miniers ainsi que les données non spatiales suivantes :
+- l'identifiant, le nom, le type, la nature (exploitation ou exploration) le domaine, et le statut du titre,
+- la date de la demande, ainsi que les dates de début et de fin d'octroi,
+- la surface (en km²) du périmètre du titre,
+- les administrations concernées par le titre, ainsi que ses références,
+- les titulaires et amodiataires, ainsi que leur n°siren
+- l'engagement financier,
+- les substances qui font l'objet du titre,
+- le volume
 
-## Mode d'accessibilité
+## URL
 
-L’ensemble des flux geojson est accessible depuis l’url https://api.camino.beta.gouv.fr/titres?format=geojson
+L’url d'accès aux flux de camino est du type https://api.camino.beta.gouv.fr/titres?format=geojson
+__format=geojson__ étant un paramètre obligatoire de la requête.
 
 ## Import de flux geojson dans QGIS
 
 L'import et l'intégration de flux geojson dans un projet QGIS au travers de l'API les rend dynamique.
 Ainsi, lors de la ré-ouverture du projet ou à chaque rafraîssement, les donnés de la couche concernée sont automatiquement mises à jour. 
 
-### Pré-requis
-
-Via le réseau interministériel de l'Etat (__RIE__), il est nécessaire d'utiliser le proxy __pfrie-std.proxy.e2.rie.gouv.fr__
-
-Dans QGIS, menu 'Préférences' >> 'Options' >> onglet 'Réseau',
-* choisir __Utiliser un proxy pour l'accès Internet__
-* saisir les éléments suivants:
-  * Type de proxy : __HttpProxy__
-  * Hôte : __pfrie-std.proxy.e2.rie.gouv.fr__
-  * Port : __8080__
-* cliquer sur __OK__
-
-![qgis proxy screenshot](flux_screenshot/qgis-proxy-screenshot.png)
-
-Il est nécessaire de fermer et redémarrer QGIS afin que ce  changement de configuration soit pris en compte.
 
 ### Import au travers du plugin camino-flux-QGIS
 
-Ce plugin reprend le concept des filtres sur les titres de Camino et permet l'import et le chargement sous forme de couche dans QGIS des flux geojson.
-
-![camino plugin screenshot](flux_screenshot/camino-plugin-screenshot.png)
+Camino dispose de son propre plugin permettant de façon simplifiée l'import et le chargement sous forme de couche dans QGIS des flux geojson.
 
 Il est disponible pour les versions 3.x de QGIS.
 
@@ -133,3 +125,10 @@ https://__api.__camino.beta.gouv.fr/titres?__format=geosjson__
 ![qgis camino layer screenshot](flux_screenshot/qgis-camino-layer-screenshot.png)
 
 L’utilisation des filtres et l'utilisation de l’authentification sont bien entendu cumulables.
+
+### Sur le réseau interministériel de l'Etat (__RIE__)
+
+Les éléments de configuration du le proxy sont :
+
+  * Hôte : __pfrie-std.proxy.e2.rie.gouv.fr__
+  * Port : __8080__
