@@ -19,6 +19,8 @@ L’url d'accès aux flux de camino est du type https://api.camino.beta.gouv.fr/
 
 ## Import de flux geojson
 
+Sans authentification, l’import n’est possible que sur les flux publiques, c’est à dire ceux proposés par Camino hors connexion.
+
 ### Mode authentifié
 
 S'effectue en ajoutant __'compte_camino':'mot_de_passe'@__ dans l'url comme indiqué ici 
@@ -40,7 +42,7 @@ https://camino.beta.gouv.fr/titres?vueId=carte&domainesIds=h&statutsIds=val&type
 
 3. Ajouter __api.__ devant camino, et __&format=geojson__ en bout de chaîne.
 
-https://__api.__camino.beta.gouv.fr/titres?vueId=carte&domainesIds=h&statutsIds=val&typesIds=cx&zoom=8&centre=48.87555444355432,4.246215820312501&__format=geosjson__
+https://**api.**camino.beta.gouv.fr/titres?vueId=carte&domainesIds=h&statutsIds=val&typesIds=cx&zoom=8&centre=48.87555444355432,4.246215820312501&__format=geosjson__
 
 L’utilisation des filtres est bien entendu cumulable avec le mode authentifié.
 
@@ -48,6 +50,7 @@ L’utilisation des filtres est bien entendu cumulable avec le mode authentifié
 ## Import de flux geojson dans QGIS
 
 L'import et l'intégration de flux geojson dans un projet QGIS au travers de l'API les rend dynamique.
+
 Ainsi, lors de la ré-ouverture du projet ou à chaque rafraîssement, les donnés de la couche concernée sont automatiquement mises à jour. 
 
 
@@ -61,9 +64,7 @@ Les informations d'installation et d'utilisation sont disponibles sur le lien gi
 
 La documentation utilisateur au format pdf est disponible dans le plugin et également [ici](https://github.com/MTES-MCT/camino-flux-QGIS/blob/master/doc/camino_doc.pdf)
 
-### Import sans authentification
-
-Le chargement s’effectue à partir du Gestionnaire des sources de données | Vecteur : 
+### Import à partir du Gestionnaire des sources de données | Vecteur
 
 - type de source : Protocole : HTTP(S), cloud, etc. 
 - encodage : UTF-8
@@ -72,31 +73,6 @@ Le chargement s’effectue à partir du Gestionnaire des sources de données | V
   - URI : https://api.camino.beta.gouv.fr/titres?format=geojson
 
 ![qgis data sources manager screenshot](flux_screenshot/qgis-data-sources-manager-screenshot.png)
-
-Sans authentification, l’import n’est possible que sur les flux publiques, c’est à dire ceux proposés par Camino hors connexion.
-
-### Import avec authentification
-
-L’authentification permet un accès restreint à certains flux.
-Les éléments d’authentification attendus sont ceux de la connexion à Camino, au détail près que le @ de l’email doit être remplacé par la chaine de caractère %40.
-
-![camino connexion screenshot](flux_screenshot/camino-connexion-screenshot.png)
-
-soit, dans cet exemple :
-Email : prenom.nom%40domaine
-Mot de passe : mdp
-
-Sous QGIS, l’accès aux flux avec authentification est possible selon trois possibilités.
-
-#### Authentification de base
-
-Dans la partie Authentification du Gestionnaire des sources de données | Vecteur , onglet De base.
-
-Saisir les éléments suivants :
-Nom d’utilisateur : prenom.nom%40domaine
-Mot de passe : mdp
-
-![qgis authentification base screenshot](flux_screenshot/qgis-authentification-base-screenshot.png)
 
 ### Sur le réseau interministériel de l'Etat (__RIE__)
 
