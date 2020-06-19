@@ -15,37 +15,36 @@
 # import * from 'titres.graphql'
 # import * from 'utilisateurs.graphql'
 
-"__*__ Type du contenu json"
+"Type du contenu json"
 scalar Json
 
-"__*__ Type du fichier"
+"Type du fichier"
 scalar FileUpload
 
 """
-# Query
-## _Requêtes en lecture_
+# API de Camino
 
-- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)
+> [Documentation](https://docs.camino.beta.gouv.fr)
 
-_Query_ un type _racine_ de GraphQL.
+## Lecture
 
-Certaines requêtes sont __publiques__.
+Certaines requêtes sont publiques.
 
-Certaines requêtes sont __protégées__ et nécessitent une authentification par token (jwt). Elles sont signalées par une étoile __*__.
+Certaines requêtes sont protégées et nécessitent une authentification par token (jwt).
 
-Enfin, certaines requêtes sont __semi-publiques__ et retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié. Elles sont signalées par un plus __+__.
+Enfin, certaines requêtes retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié.
 """
 type Query {
   "Version de l'API"
   version: String
 
-  "__*__ Utilisateur en fonction du token"
+  "Utilisateur en fonction du token"
   moi: Utilisateur
 
-  "__+__ Titre minier en fonction de son id"
+  "Titre minier en fonction de son id"
   titre(id: ID!): Titre
 
-  "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
+  "Liste de titres miniers, en fonction d'arguments (optionnels)"
   titres(
     intervalle: Int
     page: Int
@@ -61,7 +60,7 @@ type Query {
     territoires: String
   ): Titres
 
-  "__+__ Liste de titres miniers, en fonction d'arguments (optionnels)"
+  "Liste de titres miniers, en fonction d'arguments (optionnels)"
   demarches(
     intervalle: Int
     page: Int
@@ -81,7 +80,7 @@ type Query {
     titresTerritoires: String
   ): Demarches
 
-  "__*__ Activité en fonction de son id"
+  "Activité en fonction de son id"
   activite(id: ID!): Activite
 
   "Liste des activités"
@@ -118,10 +117,10 @@ type Query {
   "Types d'étapes"
   etapesTypes(titreDemarcheId: ID, titreEtapeId: ID): [EtapeType]
 
-  "__*__ Utilisateur en fonction de son id"
+  "Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 
-  "__*__ Liste d'utilisateurs en fonction d'arguments (optionnels)"
+  "Liste d'utilisateurs en fonction d'arguments (optionnels)"
   utilisateurs(
     intervalle: Int
     page: Int
@@ -151,7 +150,7 @@ type Query {
   types: [TitreTypeType]
   unites: [Unite]
 
-  "__+__ Liste des permissions utilisateurs"
+  "Liste des permissions utilisateurs"
   permissions: [Permission]
 
   "Entreprise en fonction de son id"
@@ -183,35 +182,30 @@ type Query {
 }
 
 """
-# Mutation
-## _Requêtes en écriture_
+## Écriture
 
-- [Comment tester l'API Camino ?](https://github.com/MTES-MCT/camino-api/tree/master/manual/api)
-
-_Mutation_ un type _racine_ de GraphQL.
-
-Ces requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant. Elle sont signalées par une étoile __*__.
+Ces requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant.
 """
 type Mutation {
-  "__*__ Connecte l'utilisateur en fonction de ses identifiants"
+  "Connecte l'utilisateur en fonction de ses identifiants"
   utilisateurTokenCreer(email: String!, motDePasse: String!): UtilisateurToken
 
-  "__*__ Connecte l'utilisateur en fonction du ticket Cerbère"
+  "Connecte l'utilisateur en fonction du ticket Cerbère"
   utilisateurCerbereTokenCreer(ticket: String!): UtilisateurToken
 
-  "__*__ Connecte l'utilisateur en fonction du ticket Cerbère"
+  "Connecte l'utilisateur en fonction du ticket Cerbère"
   utilisateurCerbereUrlObtenir(url: String!): String
 
-  "__*__ Crée un utilisateur"
+  "Crée un utilisateur"
   utilisateurCreer(utilisateur: InputUtilisateurCreation!): Utilisateur
 
-  "__*__ Modifie un utilisateur"
+  "Modifie un utilisateur"
   utilisateurModifier(utilisateur: InputUtilisateurModification!): Utilisateur
 
-  "__*__ Supprime un utilisateur"
+  "Supprime un utilisateur"
   utilisateurSupprimer(id: ID!): Utilisateur
 
-  "__*__ Modifie le mot de passe d'un utilisateur"
+  "Modifie le mot de passe d'un utilisateur"
   utilisateurMotDePasseModifier(
     id: ID!
     motDePasse: String!
@@ -219,64 +213,64 @@ type Mutation {
     motDePasseNouveau2: String!
   ): Utilisateur
 
-  "__*__ Envoie un email à un utilisateur contenant une url pour modifier son mot de passe"
+  "Envoie un email à un utilisateur contenant une url pour modifier son mot de passe"
   utilisateurMotDePasseEmailEnvoyer(email: String!): String
 
-  "__*__ Envoie un email à un utilisateur contenant une url pour créer son compte"
+  "Envoie un email à un utilisateur contenant une url pour créer son compte"
   utilisateurCreationEmailEnvoyer(email: String!): String
 
-  "__*__ Initialise un mot de passe utilisateur"
+  "Initialise un mot de passe utilisateur"
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
   ): UtilisateurToken
 
-  "__*__ Crée un titre minier"
+  "Crée un titre minier"
   titreCreer(titre: InputTitreCreation!): Titre
 
-  "__*__ Modifie un titre minier"
+  "Modifie un titre minier"
   titreModifier(titre: InputTitreModification!): Titre
 
-  "__*__ Supprime un titre minier"
+  "Supprime un titre minier"
   titreSupprimer(id: ID!): Titre
 
-  "__*__ Crée une démarche et met à jour le titre minier"
+  "Crée une démarche et met à jour le titre minier"
   demarcheCreer(demarche: InputDemarcheCreation!): Titre
 
-  "__*__ Modifie une démarche et met à jour le titre minier"
+  "Modifie une démarche et met à jour le titre minier"
   demarcheModifier(demarche: InputDemarcheModification!): Titre
 
-  "__*__ Supprime une démarche et met à jour le titre minier"
+  "Supprime une démarche et met à jour le titre minier"
   demarcheSupprimer(id: ID!): Titre
 
-  "__*__ Crée une étape et met à jour le titre minier"
+  "Crée une étape et met à jour le titre minier"
   etapeCreer(etape: InputEtapeCreation!): Titre
 
-  "__*__ Modifie une étape et met à jour le titre minier"
+  "Modifie une étape et met à jour le titre minier"
   etapeModifier(etape: InputEtapeModification!): Titre
 
-  "__*__ Supprime une étape et met à jour le titre minier"
+  "Supprime une étape et met à jour le titre minier"
   etapeSupprimer(id: ID!): Titre
 
   etapeJustificatifsAssocier(id: ID!, documentsIds: [ID]!): Titre
 
   etapeJustificatifDissocier(id: ID!, documentId: ID): Titre
 
-  "__*__ Crée un document et met à jour le titre minier"
+  "Crée un document et met à jour le titre minier"
   documentCreer(document: InputDocumentCreation!): Document
 
-  "__*__ Modifie un document et met à jour le titre minier"
+  "Modifie un document et met à jour le titre minier"
   documentModifier(document: InputDocumentModification!): Document
 
-  "__*__ Supprime un document et met à jour le titre minier"
+  "Supprime un document et met à jour le titre minier"
   documentSupprimer(id: ID!): Boolean
 
-  "__*__ Crée ou modifie une activité"
+  "Crée ou modifie une activité"
   activiteModifier(activite: InputActiviteModification!): Activite
 
-  "__*__ Crée une entreprise"
+  "Crée une entreprise"
   entrepriseCreer(entreprise: InputEntrepriseCreation!): Entreprise
 
-  "__*__ Modifie une entreprise"
+  "Modifie une entreprise"
   entrepriseModifier(entreprise: InputEntrepriseModification!): Entreprise
 }

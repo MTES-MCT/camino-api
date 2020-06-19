@@ -42,6 +42,7 @@
     "dev:monthly": "ts-node --transpile-only ./src/business/monthly.ts",
     "dev:schema": "node dev/api/graphql-dsl-to-query-convert.js",
     "dev:update": "npm-check-updates -u && npm install && npm audit fix",
+    "docs": "rm -rf docs && typedoc src --sourcefile-url-prefix \"https://github.com/MTES-MCT/camino-api/blob/master/\"",
     "lint": "eslint --fix .",
     "monthly": "node ./dist/business/monthly.js",
     "release": "standard-version && git push --follow-tags upstream master && conventional-github-releaser",
@@ -140,6 +141,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-tsdoc": "^0.2.5",
     "jest": "^26.0.1",
     "nodemon": "^2.0.4",
     "pg-escape": "^0.2.0",
@@ -148,7 +150,11 @@
     "standard-version": "^8.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "^26.1.0",
-    "ts-node": "^8.10.2"
+    "ts-node": "^8.10.2",
+    "typedoc": "^0.17.7",
+    "typedoc-plugin-external-module-name": "^4.0.3",
+    "typedoc-plugin-pages": "^1.0.1",
+    "typedoc-plugin-sourcefile-url": "^1.0.6"
   },
   "prettier": {
     "semi": false,
@@ -161,6 +167,7 @@
     "extends": [
       "eslint:recommended",
       "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended",
       "standard",
       "prettier",

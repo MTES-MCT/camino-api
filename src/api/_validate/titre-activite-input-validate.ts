@@ -4,7 +4,7 @@ import contenuNumbersCheck from './utils/contenu-numbers-check'
 import propsDatesCheck from './utils/props-dates-check'
 import contenuDatesCheck from './utils/contenu-dates-check'
 
-const dateProps = (['date'] as unknown) as [keyof ITitreActivite]
+const datePropsNames = (['date'] as unknown) as [keyof ITitreActivite]
 
 const titreActiviteInputValidate = (
   titreActivite: ITitreActivite,
@@ -18,7 +18,7 @@ const titreActiviteInputValidate = (
   }
 
   // 1. le format des dates est correct
-  const errorsDates = propsDatesCheck(dateProps, titreActivite)
+  const errorsDates = propsDatesCheck(datePropsNames, titreActivite)
   if (errorsDates) {
     errors.push(errorsDates)
   }
