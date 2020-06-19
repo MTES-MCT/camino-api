@@ -136,26 +136,14 @@ const titreCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    if (
-      permissionCheck(user?.permissionId, ['admin']) &&
-      !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
-    ) {
-      throw new Error('droits insuffisants pour créer ce type de titre')
-    }
-
     // insert le titre dans la base
-    // ajoute l'id par effet de bord
-    await titreCreate(titre)
+    titre = await titreCreate(titre, {}, user?.id)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {
@@ -175,18 +163,31 @@ const titreModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+    if (!user || !permissionCheck(user!.permissionId, ['super', 'admin'])) {
       throw new Error('droits insuffisants')
     }
 
+    const titreOld = await titreGet(titre.id, {}, user.id)
+    if (!titreOld) throw new Error("le titre n'existe pas")
+
     if (
       permissionCheck(user?.permissionId, ['admin']) &&
-      !titrePermissionAdministrationsCheck(user, titre.typeId, 'dmi')
+      (!titrePermissionAdministrationsCheck(
+        user,
+        titreOld.typeId,
+        titreOld.statutId!,
+        'modification'
+      ) ||
+        (titreOld.typeId !== titre.typeId &&
+          !titrePermissionAdministrationsCheck(
+            user,
+            titre.typeId,
+            titreOld.statutId!,
+            'modification'
+          )))
     ) {
-      throw new Error('droits insuffisants pour modifier ce titre')
+      throw new Error('droits insuffisants pour modifier ce type de titre')
     }
-
-    const titreOld = await titreGet(titre.id, {}, user.id)
 
     const rulesErrors = await titreUpdationValidate(titre, titreOld)
 

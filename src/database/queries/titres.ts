@@ -21,6 +21,8 @@ import { titresFieldsAdd } from './graph/fields-add'
 import TitresAdministrationsGestionnaires from '../models/titres-administrations-gestionnaires'
 import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
+import { permissionCheck } from '../../tools/permission'
+import { AutorisationsTitresTypesAdministrations } from '../models/autorisations'
 
 const titresQueryBuild = (
   {
@@ -153,7 +155,8 @@ const titresGet = async (
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
+
   const q = titresQueryBuild(
     {
       ids,
@@ -195,10 +198,40 @@ const titresGet = async (
   return q
 }
 
-const titreCreate = async (titre: ITitre) =>
-  Titres.query()
-    .insertGraphAndFetch(titre)
+type ICount = {
+  count: string
+}
+
+const titreCreate = async (
+  titre: ITitre,
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+  if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+    throw new Error('droits insuffisants')
+  }
+
+  if (permissionCheck(user.permissionId, ['admin'])) {
+    // vérifie qu'au moins une administration est gestionnaire sur le type de titre
+    const res = ((await AutorisationsTitresTypesAdministrations.query()
+      .whereIn(
+        'administrationId',
+        user.administrations!.map(administration => administration.id)
+      )
+      .where('titreTypeId', titre.typeId)
+      .where('gestionnaire', true)
+      .count('administrationId')) as unknown) as ICount[]
+
+    if (!res.length || res[0].count === '0') {
+      throw new Error('droits insuffisants pour créer ce type de titre')
+    }
+  }
+
+  return Titres.query()
+    .insertGraph(titre)
     .withGraphFetched(options.titres.graph)
+}
 
 const titreUpdate = async (id: string, props: Partial<ITitre>) =>
   Titres.query()

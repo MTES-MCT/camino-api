@@ -10,30 +10,34 @@ type TypeName =
   | 'etapesModificationInterdit'
 type ModeName = 'creationInterdit' | 'modificationInterdit'
 
+type EditionType = 'titres' | 'demarches' | 'etapes'
+type EditionMode = 'creation' | 'modification'
+
 const titreTypePermissionAdministrationIdCheck = (
   administrationId: string,
   titreTypeId: string,
-  mode: 'creation' | 'modification'
+  titreMode: EditionMode
 ) =>
   autorisations.titresTypesAdministrations.some(
     tta =>
       administrationId === tta.administrationId &&
       tta.titreTypeId === titreTypeId &&
       // seule une administration gestionnaire peut créer un titre de ce type
-      (mode === 'creation' ? tta.gestionnaire : true)
+      (titreMode === 'creation' ? tta.gestionnaire : true)
   )
 
 const titreTypeStatutPermissionAdministrationCheck = (
   administrationId: string,
   titreTypeId: string,
   titreStatutId: string,
-  type: 'titres' | 'demarches' | 'etapes'
+  type: EditionType,
+  titreMode: EditionMode
 ) =>
   // vérifie que le type de titre est éditable par l'administration
   titreTypePermissionAdministrationIdCheck(
     administrationId,
     titreTypeId,
-    'modification'
+    titreMode
   ) &&
   // vérifie que l'administration n'a pas de restriction
   // sur le type donné au statut donné
@@ -50,7 +54,7 @@ const titreEtapePermissionAdministrationCheck = (
   titreTypeId: string,
   titreStatutId: string,
   etapeTypeId: string,
-  mode: 'creation' | 'modification'
+  etapeMode: EditionMode
 ) =>
   // vérifie que le type de titre est éditable par l'administration
   titreTypePermissionAdministrationIdCheck(
@@ -64,7 +68,8 @@ const titreEtapePermissionAdministrationCheck = (
     administrationId,
     titreTypeId,
     titreStatutId,
-    'etapes'
+    'etapes',
+    'modification'
   ) &&
   // vérifie que l'administration n'a pas de restriction
   // sur le type d'étape pour le titre au mode d'édition donné
@@ -73,26 +78,26 @@ const titreEtapePermissionAdministrationCheck = (
       restriction.administrationId === administrationId &&
       restriction.titreTypeId === titreTypeId &&
       restriction.etapeTypeId === etapeTypeId &&
-      restriction[`${mode}Interdit` as ModeName]
+      restriction[`${etapeMode}Interdit` as ModeName]
   )
 
 const titrePermissionAdministrationsCheck = (
-  user: IUtilisateur | undefined,
+  user: IUtilisateur,
   titreTypeId: string,
-  titreStatutId: string
+  titreStatutId: string,
+  titreMode: EditionMode
 ) =>
-  user &&
-  (permissionCheck(user?.permissionId, ['super']) ||
-    // vérifie qu'au moins une administration a les droits d'édition
-    // sur le type de titre pour un statut donné
-    user.administrations!.some(administration =>
-      titreTypeStatutPermissionAdministrationCheck(
-        administration.id,
-        titreTypeId,
-        titreStatutId,
-        'titres'
-      )
-    ))
+  // vérifie qu'au moins une administration a les droits d'édition
+  // sur le type de titre pour un statut donné
+  user.administrations!.some(administration =>
+    titreTypeStatutPermissionAdministrationCheck(
+      administration.id,
+      titreTypeId,
+      titreStatutId,
+      'titres',
+      titreMode
+    )
+  )
 
 const titreDemarchePermissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
@@ -108,7 +113,8 @@ const titreDemarchePermissionAdministrationsCheck = (
         administration.id,
         titreTypeId,
         titreStatutId,
-        'demarches'
+        'demarches',
+        'modification'
       )
     ))
 
@@ -117,7 +123,7 @@ const titreEtapePermissionAdministrationsCheck = (
   titreTypeId: string,
   titreStatutId: string,
   etapeTypeId: string,
-  mode: 'creation' | 'modification'
+  etapeMode: EditionMode
 ) =>
   user &&
   (permissionCheck(user?.permissionId, ['super']) ||
@@ -129,7 +135,7 @@ const titreEtapePermissionAdministrationsCheck = (
         titreTypeId,
         titreStatutId,
         etapeTypeId,
-        mode
+        etapeMode
       )
     ))
 

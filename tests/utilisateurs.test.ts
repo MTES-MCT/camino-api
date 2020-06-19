@@ -253,7 +253,7 @@ describe('utilisateursCreer', () => {
     )
   })
 
-  test("en tant qu''admin', peut être associé à une administrations", async () => {
+  test("en tant qu'admin', peut être associé à une administrations", async () => {
     await userAdd(knex, {
       id: 'super-user',
       prenom: 'super',
