@@ -51,7 +51,9 @@ const utilisateursQueryBuild = (
     ? graphBuild(fields, 'utilisateur', graphFormat)
     : options.utilisateurs.graph
 
-  const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
+  const q = Utilisateurs.query()
+    .skipUndefined()
+    .withGraphFetched(graph)
 
   utilisateursPermissionQueryBuild(q, user)
 
