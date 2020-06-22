@@ -1,10 +1,11 @@
-import { IDevise, IUnite } from '../../types'
+import { IDevise, IUnite, IEtapeType } from '../../types'
 
-import { devisesGet, unitesGet } from '../queries/metas'
+import { devisesGet, unitesGet, etapesTypesGet } from '../queries/metas'
 
 const metas = {
   devises: [] as IDevise[],
-  unites: [] as IUnite[]
+  unites: [] as IUnite[],
+  etapesTypes: [] as IEtapeType[]
 }
 
 const metasInit = async () => {
@@ -12,6 +13,11 @@ const metasInit = async () => {
   // /src/api/resolvers/format/titres-sections.ts
   metas.devises = await devisesGet()
   metas.unites = await unitesGet()
+  metas.etapesTypes = await etapesTypesGet(
+    {},
+    { fields: { etapesStatuts: { id: {} } } },
+    'super'
+  )
 }
 
 export default metas

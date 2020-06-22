@@ -96,7 +96,7 @@ const titres = async (
     userId
   )
 
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
   const titresFormatted = titresFormat(user, titres)
 
   let contenu
@@ -181,15 +181,16 @@ const demarches = async (
     },
     {
       fields: {
-        type: { id: {} },
+        type: { etapesTypes: { etapesStatuts: { id: {} } } },
         statut: { id: {} },
-        titre: { id: {} }
+        titre: { id: {} },
+        etapes: { type: { etapesStatuts: { id: {} } } }
       }
     },
     userId
   )
 
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
 
   const demarchesFormatted = titresDemarches.map(titreDemarche =>
     titreDemarcheFormat(
@@ -371,7 +372,7 @@ const entreprises = async (
 
   const entreprises = await entreprisesGet({ noms }, {}, userId)
 
-  const user = userId ? await userGet(userId) : undefined
+  const user = await userGet(userId)
 
   const entreprisesFormatted = entreprises.map(e => entrepriseFormat(user, e))
 
