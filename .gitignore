@@ -9,7 +9,11 @@ node_modules
 !/backups/infos.md
 /src/tools/sources/**/*.json
 /dist
-/sources
+/sources/titres-*.json
+/sources/utilisateurs*.json
+/sources/entreprises*.json
+/sources/documents.json
+/sources/communes.json
 /coverage
 /api-cache
 /files

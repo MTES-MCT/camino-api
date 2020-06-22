@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ech",
+    "nom": "échu",
+    "couleur": "neutral"
+  },
+  {
+    "id": "val",
+    "nom": "valide",
+    "couleur": "success"
+  }
+]

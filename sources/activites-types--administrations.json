@@ -1,0 +1,46 @@
+[
+  {
+    "activite_type_id": "grp",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "gra",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "grp",
+    "administration_id": "dea-guyane-01"
+  },
+  {
+    "activite_type_id": "gra",
+    "administration_id": "dea-guyane-01"
+  },
+  {
+    "activite_type_id": "grp",
+    "administration_id": "pre-97302-01"
+  },
+  {
+    "activite_type_id": "gra",
+    "administration_id": "pre-97302-01"
+  },
+  {
+    "activite_type_id": "wrp",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "wrp",
+    "administration_id": "dre-bretagne-01"
+  },
+  {
+    "activite_type_id": "wrp",
+    "administration_id": "dre-normandie-01"
+  },
+  {
+    "activite_type_id": "wrp",
+    "administration_id": "dre-nouvelle-aquitaine-01"
+  },
+  {
+    "activite_type_id": "wrp",
+    "administration_id": "dre-pays-de-la-loire-01"
+  }
+]

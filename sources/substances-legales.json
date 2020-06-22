@@ -1,0 +1,415 @@
+[
+  {
+    "id": "carx",
+    "nom": "substances de carrière",
+    "domaine_id": "c",
+    "substance_legale_code_id": "l100_2"
+  },
+  {
+    "id": "cfxx",
+    "nom": "combustibles fossiles solides",
+    "domaine_id": "f",
+    "description": "A l'exeption de la tourbe",
+    "substance_legale_code_id": "l111_1-1"
+  },
+  {
+    "id": "geob",
+    "nom": "géothermie basse température",
+    "domaine_id": "g",
+    "substance_legale_code_id": "l112_2"
+  },
+  {
+    "id": "geoh",
+    "nom": "géothermie haute température",
+    "domaine_id": "g",
+    "substance_legale_code_id": "l212_2"
+  },
+  {
+    "id": "geom",
+    "nom": "géothermie de minime importance",
+    "domaine_id": "g",
+    "substance_legale_code_id": "l112_3"
+  },
+  {
+    "id": "coox",
+    "nom": "gaz carbonique",
+    "domaine_id": "m",
+    "description": "A l'exception du gaz naturellement contenu dans les eaux qui sont ou qui viendraient à être utilisées pour l'alimentation humaine ou à des fins thérapeutiques",
+    "substance_legale_code_id": "l111_1-13"
+  },
+  {
+    "id": "hydx",
+    "nom": "hydrocarbures liquides ou gazeux",
+    "domaine_id": "h",
+    "description": "A l'exeption de la tourbe",
+    "substance_legale_code_id": "l111_1-1"
+  },
+  {
+    "id": "aloh",
+    "nom": "bauxite",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-4"
+  },
+  {
+    "id": "anti",
+    "nom": "antimoine",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-12"
+  },
+  {
+    "id": "arge",
+    "nom": "argent",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-9"
+  },
+  {
+    "id": "arse",
+    "nom": "arsenic",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-12"
+  },
+  {
+    "id": "auru",
+    "nom": "or",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-9"
+  },
+  {
+    "id": "bery",
+    "nom": "béryllium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-15"
+  },
+  {
+    "id": "bism",
+    "nom": "bismuth",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-12"
+  },
+  {
+    "id": "cadm",
+    "nom": "cadmium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "ceri",
+    "nom": "cérium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-7"
+  },
+  {
+    "id": "chro",
+    "nom": "chrome",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "coba",
+    "nom": "cobalt",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "cuiv",
+    "nom": "cuivre",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "diam",
+    "nom": "diamant",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-1"
+  },
+  {
+    "id": "etai",
+    "nom": "étain",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "ferx",
+    "nom": "fer",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "fluo",
+    "nom": "fluorine",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-4"
+  },
+  {
+    "id": "gall",
+    "nom": "gallium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-15"
+  },
+  {
+    "id": "germ",
+    "nom": "germanium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "grap",
+    "nom": "graphite",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-1"
+  },
+  {
+    "id": "hafn",
+    "nom": "hafnium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "heli",
+    "nom": "hélium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "indi",
+    "nom": "indium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "kals",
+    "nom": "alun",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-3"
+  },
+  {
+    "id": "kclx",
+    "nom": "sels de potassium",
+    "domaine_id": "m",
+    "description": "A l'état solide ou en dissolution, à l'exception de ceux contenus dans les eaux salées utilisées à des fins thérapeutiques ou de loisirs",
+    "substance_legale_code_id": "l111_1-2"
+  },
+  {
+    "id": "lith",
+    "nom": "lithium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "mang",
+    "nom": "manganèse",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "merc",
+    "nom": "mercure",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-9"
+  },
+  {
+    "id": "moly",
+    "nom": "molybdène",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "nacl",
+    "nom": "sels de sodium",
+    "domaine_id": "m",
+    "description": "A l'état solide ou en dissolution, à l'exception de ceux contenus dans les eaux salées utilisées à des fins thérapeutiques ou de loisirs",
+    "substance_legale_code_id": "l111_1-2"
+  },
+  {
+    "id": "nick",
+    "nom": "nickel",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "niob",
+    "nom": "niobium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-8"
+  },
+  {
+    "id": "oooo",
+    "nom": "non précisé(e)s",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l100_2"
+  },
+  {
+    "id": "phos",
+    "nom": "phosphates",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-14"
+  },
+  {
+    "id": "plat",
+    "nom": "platine",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-9"
+  },
+  {
+    "id": "plax",
+    "nom": "métaux de la mine du platine",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-9"
+  },
+  {
+    "id": "plom",
+    "nom": "plomb",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "rhen",
+    "nom": "rhénium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "rubi",
+    "nom": "rubidium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "scan",
+    "nom": "scandium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-7"
+  },
+  {
+    "id": "sele",
+    "nom": "sélénium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-11"
+  },
+  {
+    "id": "souf",
+    "nom": "soufre",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-11"
+  },
+  {
+    "id": "soxx",
+    "nom": "sulfates non alcalino-terreux",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-3"
+  },
+  {
+    "id": "suco",
+    "nom": "substances connexes",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l100_2"
+  },
+  {
+    "id": "tant",
+    "nom": "tantale",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-8"
+  },
+  {
+    "id": "tell",
+    "nom": "tellure",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-11"
+  },
+  {
+    "id": "thal",
+    "nom": "thallium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-15"
+  },
+  {
+    "id": "tita",
+    "nom": "titane",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "trxx",
+    "nom": "autres éléments des terres rares",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-7"
+  },
+  {
+    "id": "vana",
+    "nom": "vanadium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "wolf",
+    "nom": "tungstène",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "zinc",
+    "nom": "zinc",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-6"
+  },
+  {
+    "id": "zirc",
+    "nom": "zirconium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-5"
+  },
+  {
+    "id": "cesi",
+    "nom": "césium",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "radi",
+    "nom": "radium",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "rxxx",
+    "nom": "autres éléments radioactifs",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "thor",
+    "nom": "thorium",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "uran",
+    "nom": "uranium",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l111_1-10"
+  },
+  {
+    "id": "skst",
+    "nom": "stockage souterrain",
+    "domaine_id": "s",
+    "substance_legale_code_id": "l211_1"
+  },
+  {
+    "id": "grma",
+    "nom": "granulats marins",
+    "domaine_id": "w",
+    "substance_legale_code_id": "l100_2"
+  },
+  {
+    "id": "hydm",
+    "nom": "hydrocarbures solides",
+    "domaine_id": "m",
+    "substance_legale_code_id": "l111_1-1"
+  },
+  {
+    "id": "scor",
+    "nom": "substances connexes",
+    "domaine_id": "r",
+    "substance_legale_code_id": "l100_2"
+  }
+]

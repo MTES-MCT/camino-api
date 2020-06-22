@@ -1,0 +1,59 @@
+[
+  {
+    "id": "GP",
+    "nom": "Département de la Guadeloupe"
+  },
+  {
+    "id": "MQ",
+    "nom": "Département de la Martinique"
+  },
+  {
+    "id": "NC",
+    "nom": "Nouvelle-Calédonie"
+  },
+  {
+    "id": "PF",
+    "nom": "Polynésie Française"
+  },
+  {
+    "id": "XX",
+    "nom": "Clipperton (Île)"
+  },
+  {
+    "id": "PM",
+    "nom": "Collectivité Territoriale de Saint-Pierre-et-Miquelon"
+  },
+  {
+    "id": "TF",
+    "nom": "Terres Australes Françaises"
+  },
+  {
+    "id": "WF",
+    "nom": "Wallis-et-Futuna"
+  },
+  {
+    "id": "YT",
+    "nom": "Département de Mayotte"
+  },
+  {
+    "id": "BL",
+    "nom": "Collectivité d'outre-mer de Saint-Barthélemy"
+  },
+  {
+    "id": "MF",
+    "nom": "Collectivité d'outre-mer de Saint-Martin"
+  },
+  {
+    "id": "RE",
+    "nom": "Département de La Réunion"
+  },
+  {
+    "id": "FR",
+    "nom": "République Française",
+    "timezone": "Europe/Paris"
+  },
+  {
+    "id": "GF",
+    "nom": "Département de la Guyane"
+  }
+]

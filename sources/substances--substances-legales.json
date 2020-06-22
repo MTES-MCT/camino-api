@@ -1,0 +1,858 @@
+[
+  {
+    "substance_id": "acti",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "aloh",
+    "substance_legale_id": "aloh"
+  },
+  {
+    "substance_id": "amph",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "anda",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "ande",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "anhy",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "anti",
+    "substance_legale_id": "anti"
+  },
+  {
+    "substance_id": "ardo",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "argc",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "arge",
+    "substance_legale_id": "arge"
+  },
+  {
+    "substance_id": "argf",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "argk",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "args",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "arse",
+    "substance_legale_id": "arse"
+  },
+  {
+    "substance_id": "asta",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "auru",
+    "substance_legale_id": "auru"
+  },
+  {
+    "substance_id": "bary",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "basa",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "bery",
+    "substance_legale_id": "bery"
+  },
+  {
+    "substance_id": "bism",
+    "substance_legale_id": "bism"
+  },
+  {
+    "substance_id": "buta",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "cadm",
+    "substance_legale_id": "cadm"
+  },
+  {
+    "substance_id": "calc",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "caci",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "cals",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "cend",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "ceri",
+    "substance_legale_id": "ceri"
+  },
+  {
+    "substance_id": "cesi",
+    "substance_legale_id": "cesi"
+  },
+  {
+    "substance_id": "cfan",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "cfch",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "cfho",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "cfli",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "cfxx",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "chro",
+    "substance_legale_id": "chro"
+  },
+  {
+    "substance_id": "coba",
+    "substance_legale_id": "coba"
+  },
+  {
+    "substance_id": "coox",
+    "substance_legale_id": "coox"
+  },
+  {
+    "substance_id": "corn",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "crai",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "cuiv",
+    "substance_legale_id": "cuiv"
+  },
+  {
+    "substance_id": "daci",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "diab",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "diam",
+    "substance_legale_id": "diam"
+  },
+  {
+    "substance_id": "diat",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "dior",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "dole",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "dolo",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "dysp",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "erbi",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "etai",
+    "substance_legale_id": "etai"
+  },
+  {
+    "substance_id": "ethy",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "euro",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "falu",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "feld",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "ferx",
+    "substance_legale_id": "ferx"
+  },
+  {
+    "substance_id": "fluo",
+    "substance_legale_id": "fluo"
+  },
+  {
+    "substance_id": "gabb",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "gado",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "gall",
+    "substance_legale_id": "gall"
+  },
+  {
+    "substance_id": "galt",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "gazn",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "geob",
+    "substance_legale_id": "geob"
+  },
+  {
+    "substance_id": "geoh",
+    "substance_legale_id": "geoh"
+  },
+  {
+    "substance_id": "geom",
+    "substance_legale_id": "geom"
+  },
+  {
+    "substance_id": "germ",
+    "substance_legale_id": "germ"
+  },
+  {
+    "substance_id": "glac",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "gnei",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "grai",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "grao",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "grap",
+    "substance_legale_id": "grap"
+  },
+  {
+    "substance_id": "gref",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "gres",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "grma",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "grsi",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "gyps",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "hafn",
+    "substance_legale_id": "hafn"
+  },
+  {
+    "substance_id": "heli",
+    "substance_legale_id": "heli"
+  },
+  {
+    "substance_id": "holm",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "hyda",
+    "substance_legale_id": "hydx"
+  },
+  {
+    "substance_id": "hydc",
+    "substance_legale_id": "hydx"
+  },
+  {
+    "substance_id": "hydg",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "hydl",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "hydo",
+    "substance_legale_id": "hydx"
+  },
+  {
+    "substance_id": "hydr",
+    "substance_legale_id": "hydx"
+  },
+  {
+    "substance_id": "hydx",
+    "substance_legale_id": "hydx"
+  },
+  {
+    "substance_id": "indi",
+    "substance_legale_id": "indi"
+  },
+  {
+    "substance_id": "irid",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "kals",
+    "substance_legale_id": "kals"
+  },
+  {
+    "substance_id": "kaol",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "kclx",
+    "substance_legale_id": "kclx"
+  },
+  {
+    "substance_id": "lant",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "lept",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "lith",
+    "substance_legale_id": "lith"
+  },
+  {
+    "substance_id": "lute",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "maer",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "mais",
+    "substance_legale_id": "suco"
+  },
+  {
+    "substance_id": "mang",
+    "substance_legale_id": "mang"
+  },
+  {
+    "substance_id": "marb",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "marn",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "ferx"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "mang"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "chro"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "aloh"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "cuiv"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "plom"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "zinc"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "etai"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "tita"
+  },
+  {
+    "substance_id": "meba",
+    "substance_legale_id": "nick"
+  },
+  {
+    "substance_id": "meco",
+    "substance_legale_id": "suco"
+  },
+  {
+    "substance_id": "mepr",
+    "substance_legale_id": "arge"
+  },
+  {
+    "substance_id": "mepr",
+    "substance_legale_id": "auru"
+  },
+  {
+    "substance_id": "mepr",
+    "substance_legale_id": "plat"
+  },
+  {
+    "substance_id": "mepr",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "merc",
+    "substance_legale_id": "merc"
+  },
+  {
+    "substance_id": "mica",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "mics",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "migm",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "moly",
+    "substance_legale_id": "moly"
+  },
+  {
+    "substance_id": "mylo",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "nacl",
+    "substance_legale_id": "nacl"
+  },
+  {
+    "substance_id": "neod",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "nick",
+    "substance_legale_id": "nick"
+  },
+  {
+    "substance_id": "niob",
+    "substance_legale_id": "niob"
+  },
+  {
+    "substance_id": "ocre",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "oooo",
+    "substance_legale_id": "oooo"
+  },
+  {
+    "substance_id": "ophi",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "osmi",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "pall",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "perl",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "phon",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "phos",
+    "substance_legale_id": "phos"
+  },
+  {
+    "substance_id": "pipe",
+    "substance_legale_id": "diam"
+  },
+  {
+    "substance_id": "plat",
+    "substance_legale_id": "plat"
+  },
+  {
+    "substance_id": "plax",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "plom",
+    "substance_legale_id": "plom"
+  },
+  {
+    "substance_id": "polo",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "porp",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "pouz",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "pras",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "prom",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "prot",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "prpa",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "prpy",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "quar",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "quat",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "radi",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "rado",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "rard",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "rdet",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "rhen",
+    "substance_legale_id": "rhen"
+  },
+  {
+    "substance_id": "rhod",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "rhyo",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "rubi",
+    "substance_legale_id": "rubi"
+  },
+  {
+    "substance_id": "ruth",
+    "substance_legale_id": "plax"
+  },
+  {
+    "substance_id": "rxxx",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "saco",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "sama",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "samg",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "sasi",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "scan",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "scbi",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "schi",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "sele",
+    "substance_legale_id": "sele"
+  },
+  {
+    "substance_id": "sels",
+    "substance_legale_id": "kclx"
+  },
+  {
+    "substance_id": "sels",
+    "substance_legale_id": "nacl"
+  },
+  {
+    "substance_id": "selx",
+    "substance_legale_id": "nacl"
+  },
+  {
+    "substance_id": "serp",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "sexs",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "sgra",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "sgrm",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "sgsc",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "sgsm",
+    "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "sili",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "silx",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "skst",
+    "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "smil",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "souf",
+    "substance_legale_id": "souf"
+  },
+  {
+    "substance_id": "soxx",
+    "substance_legale_id": "soxx"
+  },
+  {
+    "substance_id": "sssc",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "stex",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "suco"
+  },
+  {
+    "substance_id": "syen",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "talc",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "tant",
+    "substance_legale_id": "tant"
+  },
+  {
+    "substance_id": "tech",
+    "substance_legale_id": "rxxx"
+  },
+  {
+    "substance_id": "tell",
+    "substance_legale_id": "tell"
+  },
+  {
+    "substance_id": "terb",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "terv",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "thal",
+    "substance_legale_id": "thal"
+  },
+  {
+    "substance_id": "thor",
+    "substance_legale_id": "thor"
+  },
+  {
+    "substance_id": "thul",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "tita",
+    "substance_legale_id": "tita"
+  },
+  {
+    "substance_id": "tmas",
+    "substance_legale_id": "suco"
+  },
+  {
+    "substance_id": "tour",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "trac",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "trxx",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "tufo",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "uran",
+    "substance_legale_id": "uran"
+  },
+  {
+    "substance_id": "vana",
+    "substance_legale_id": "vana"
+  },
+  {
+    "substance_id": "wolf",
+    "substance_legale_id": "wolf"
+  },
+  {
+    "substance_id": "ytri",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "ytte",
+    "substance_legale_id": "trxx"
+  },
+  {
+    "substance_id": "zinc",
+    "substance_legale_id": "zinc"
+  },
+  {
+    "substance_id": "zirc",
+    "substance_legale_id": "zirc"
+  },
+  {
+    "substance_id": "selg",
+    "substance_legale_id": "kclx"
+  },
+  {
+    "substance_id": "selg",
+    "substance_legale_id": "nacl"
+  },
+  {
+    "substance_id": "selp",
+    "substance_legale_id": "kclx"
+  },
+  {
+    "substance_id": "selp",
+    "substance_legale_id": "nacl"
+  },
+  {
+    "substance_id": "pyri",
+    "substance_legale_id": "ferx"
+  },
+  {
+    "substance_id": "bitu",
+    "substance_legale_id": "cfxx"
+  },
+  {
+    "substance_id": "bitm",
+    "substance_legale_id": "hydm"
+  },
+  {
+    "substance_id": "scor",
+    "substance_legale_id": "scor"
+  },
+  {
+    "substance_id": "silc",
+    "substance_legale_id": "carx"
+  },
+  {
+    "substance_id": "sgin",
+    "substance_legale_id": "carx"
+  }
+]

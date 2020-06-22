@@ -1,0 +1,17 @@
+[
+  {
+    "id": "tri",
+    "nom": "trimestriel",
+    "periodes_nom": "trimestres"
+  },
+  {
+    "id": "men",
+    "nom": "mensuel",
+    "periodes_nom": "mois"
+  },
+  {
+    "id": "ann",
+    "nom": "annuel",
+    "periodes_nom": "annees"
+  }
+]

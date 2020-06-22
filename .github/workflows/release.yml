@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [12.x]
+
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -29,6 +33,36 @@ jobs:
         run: |
           docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
           docker push caminofr/camino-api
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+  docs:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Generate docs
+        run: |
+          npm ci
+          npm run docs
+        env:
+          CI: true
+      - name: Build Docker image
+        run: docker build -f Dockerfile.docs . --tag caminofr/camino-api-docs
+      - name: Push Docker image to the Docker Hub
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker push caminofr/camino-api-docs
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

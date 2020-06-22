@@ -1,0 +1,110 @@
+[
+  {
+    "id": "01",
+    "nom": "Guadeloupe",
+    "pays_id": "GP",
+    "cheflieu_id": "97105"
+  },
+  {
+    "id": "02",
+    "nom": "Martinique",
+    "pays_id": "MQ",
+    "cheflieu_id": "97209"
+  },
+  {
+    "id": "06",
+    "nom": "Mayotte",
+    "pays_id": "YT",
+    "cheflieu_id": "97608"
+  },
+  {
+    "id": "04",
+    "nom": "La Réunion",
+    "pays_id": "RE",
+    "cheflieu_id": "97411"
+  },
+  {
+    "id": "28",
+    "nom": "Normandie",
+    "pays_id": "FR",
+    "cheflieu_id": "76540"
+  },
+  {
+    "id": "52",
+    "nom": "Pays de la Loire",
+    "pays_id": "FR",
+    "cheflieu_id": "44109"
+  },
+  {
+    "id": "53",
+    "nom": "Bretagne",
+    "pays_id": "FR",
+    "cheflieu_id": "35238"
+  },
+  {
+    "id": "93",
+    "nom": "Provence-Alpes-Côte d'Azur",
+    "pays_id": "FR",
+    "cheflieu_id": "13055"
+  },
+  {
+    "id": "94",
+    "nom": "Corse",
+    "pays_id": "FR",
+    "cheflieu_id": "2A004"
+  },
+  {
+    "id": "44",
+    "nom": "Grand Est",
+    "pays_id": "FR",
+    "cheflieu_id": "67482"
+  },
+  {
+    "id": "76",
+    "nom": "Occitanie",
+    "pays_id": "FR",
+    "cheflieu_id": "31555"
+  },
+  {
+    "id": "75",
+    "nom": "Nouvelle-Aquitaine",
+    "pays_id": "FR",
+    "cheflieu_id": "33063"
+  },
+  {
+    "id": "84",
+    "nom": "Auvergne-Rhône-Alpes",
+    "pays_id": "FR",
+    "cheflieu_id": "69123"
+  },
+  {
+    "id": "27",
+    "nom": "Bourgogne-Franche-Comté",
+    "pays_id": "FR",
+    "cheflieu_id": "21231"
+  },
+  {
+    "id": "11",
+    "nom": "Île-de-France",
+    "pays_id": "FR",
+    "cheflieu_id": "75056"
+  },
+  {
+    "id": "32",
+    "nom": "Hauts-de-France",
+    "pays_id": "FR",
+    "cheflieu_id": "59350"
+  },
+  {
+    "id": "24",
+    "nom": "Centre-Val de Loire",
+    "pays_id": "FR",
+    "cheflieu_id": "45234"
+  },
+  {
+    "id": "03",
+    "nom": "Guyane",
+    "pays_id": "GF",
+    "cheflieu_id": "97302"
+  }
+]

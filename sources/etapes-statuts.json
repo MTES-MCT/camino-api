@@ -1,0 +1,62 @@
+[
+  {
+    "id": "acc",
+    "nom": "accepté",
+    "couleur": "success"
+  },
+  {
+    "id": "def",
+    "nom": "défavorable",
+    "couleur": "error"
+  },
+  {
+    "id": "dre",
+    "nom": "défavorable avec réserves",
+    "couleur": "warning"
+  },
+  {
+    "id": "fav",
+    "nom": "favorable",
+    "couleur": "success"
+  },
+  {
+    "id": "fre",
+    "nom": "favorable avec réserves",
+    "couleur": "warning"
+  },
+  {
+    "id": "nul",
+    "nom": "non applicable",
+    "couleur": "neutral"
+  },
+  {
+    "id": "rej",
+    "nom": "rejeté",
+    "couleur": "error"
+  },
+  {
+    "id": "fai",
+    "nom": "fait",
+    "couleur": "success"
+  },
+  {
+    "id": "ajo",
+    "nom": "ajourné",
+    "couleur": "warning"
+  },
+  {
+    "id": "pro",
+    "nom": "programmé",
+    "couleur": "warning"
+  },
+  {
+    "id": "enc",
+    "nom": "en cours",
+    "couleur": "success"
+  },
+  {
+    "id": "ter",
+    "nom": "terminé",
+    "couleur": "neutral"
+  }
+]

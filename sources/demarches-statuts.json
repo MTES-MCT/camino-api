@@ -1,0 +1,62 @@
+[
+  {
+    "id": "eco",
+    "nom": "en construction",
+    "couleur": "warning",
+    "ordre": "1"
+  },
+  {
+    "id": "dep",
+    "nom": "déposé",
+    "couleur": "warning",
+    "ordre": "2"
+  },
+  {
+    "id": "ini",
+    "nom": "initié",
+    "couleur": "warning",
+    "ordre": "3"
+  },
+  {
+    "id": "ins",
+    "nom": "en instruction",
+    "couleur": "warning",
+    "ordre": "4"
+  },
+  {
+    "id": "cls",
+    "nom": "classé sans suite",
+    "couleur": "neutral",
+    "ordre": "5"
+  },
+  {
+    "id": "acc",
+    "nom": "accepté",
+    "couleur": "success",
+    "ordre": "6"
+  },
+  {
+    "id": "rej",
+    "nom": "rejeté",
+    "couleur": "error",
+    "ordre": "7"
+  },
+  {
+    "id": "des",
+    "nom": "désisté",
+    "couleur": "neutral",
+    "ordre": "8"
+  },
+  {
+    "id": "ter",
+    "nom": "terminé",
+    "couleur": "success",
+    "ordre": "9"
+  },
+  {
+    "id": "ind",
+    "nom": "indéterminé",
+    "couleur": "warning",
+    "ordre": "10"
+  }
+]

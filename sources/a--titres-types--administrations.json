@@ -1,0 +1,266 @@
+[
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "axm",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-bretagne-01",
+    "titre_type_id": "cxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-bretagne-01",
+    "titre_type_id": "pxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-normandie-01",
+    "titre_type_id": "cxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-normandie-01",
+    "titre_type_id": "pxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-nouvelle-aquitaine-01",
+    "titre_type_id": "cxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-nouvelle-aquitaine-01",
+    "titre_type_id": "pxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-pays-de-la-loire-01",
+    "titre_type_id": "cxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-pays-de-la-loire-01",
+    "titre_type_id": "pxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "apc",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "apm",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "apw",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "arc",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "TRUE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "axm",
+    "gestionnaire": "TRUE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "cxw",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "pcc",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "prw",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "pxm",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgaln-01",
+    "titre_type_id": "pxw",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "aph",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "arg",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "cxf",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "cxg",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "cxh",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "cxr",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "cxs",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "prf",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "prg",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "prh",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "prr",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "prs",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "pxg",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "pxh",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-mtes-dgec-01",
+    "titre_type_id": "pxr",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "TRUE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "pre-97302-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "aut-mrae-01",
+    "titre_type_id": "arm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  }
+]

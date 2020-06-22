@@ -1,0 +1,22 @@
+[
+  {
+    "id": "abs",
+    "nom": "absent",
+    "couleur": "error"
+  },
+  {
+    "id": "enc",
+    "nom": "en construction",
+    "couleur": "warning"
+  },
+  {
+    "id": "dep",
+    "nom": "déposé",
+    "couleur": "success"
+  },
+  {
+    "id": "fer",
+    "nom": "cloturé",
+    "couleur": "neutral"
+  }
+]

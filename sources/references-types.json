@@ -1,0 +1,38 @@
+[
+  {
+    "id": "brg",
+    "nom": "BRGM"
+  },
+  {
+    "id": "dea",
+    "nom": "DEAL"
+  },
+  {
+    "id": "deb",
+    "nom": "DEB"
+  },
+  {
+    "id": "dge",
+    "nom": "DGEC"
+  },
+  {
+    "id": "ifr",
+    "nom": "Ifremer"
+  },
+  {
+    "id": "irs",
+    "nom": "IRSN"
+  },
+  {
+    "id": "onf",
+    "nom": "ONF"
+  },
+  {
+    "id": "ptm",
+    "nom": "PTMG"
+  },
+  {
+    "id": "rnt",
+    "nom": "RNTM"
+  }
+]

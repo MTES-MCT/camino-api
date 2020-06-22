@@ -1,0 +1,177 @@
+[
+  {
+    "id": "oct",
+    "nom": "octroi",
+    "description": "Démarche à l’initiative d’une personne physique ou morale en vue de l’obtention d’une autorisation ou d’un titre minier pour une période de validité définie.",
+    "ordre": "1",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "substances": "TRUE",
+    "titulaires": "TRUE"
+  },
+  {
+    "id": "pro",
+    "nom": "prolongation",
+    "description": "Démarche concernant l’autorisation ou le titre minier qui a fait l’objet d’un octroi initial. Des prolongations sans limitation sont applicables aux concessions pour des durées maximales successives de 25 ans, aux permis d'exploitation de géothermie pour des durées maximales successives de 15 ans, aux permis exclusifs de carrières pour des durées maximales successives de 10 ans et aux autorisation de recherches de carrières  pour des durée maximales successives de 3 ans. ",
+    "ordre": "2",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "pr1",
+    "nom": "prolongation 1",
+    "description": "Démarche concernant une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.\nUne prolongation unique est applicable aux autorisation de recherches et aux  autorisations d'exploitation de minéraux et métaux en Guyane pour respectivement 4 mois et 4 ans maximum.",
+    "ordre": "3",
+    "duree": "TRUE",
+    "points": "TRUE"
+  },
+  {
+    "id": "pr2",
+    "nom": "prolongation 2",
+    "description": "Démarche concernant une autorisation ou un titre minier qui a fait l’objet d’une première prolongation. Elle prolonge sa durée de validité. Une seconde prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Seules 2 prolongations successives sont admises pour ces titres, à l’exception des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux qui peuvent faire l’objet d’une prolongation exceptionnelle. Pour ces derniers, la seconde prolongation s’accompagne obligatoirement d’une réduction de 25% de la surface du titre.",
+    "ordre": "4",
+    "duree": "TRUE",
+    "points": "TRUE"
+  },
+  {
+    "id": "pre",
+    "nom": "prolongation exceptionnelle",
+    "description": "Démarche concernant un permis exclusifs de recherches d’hydrocarbures liquides ou gazeux qui prolonge la durée de validité du titre minier de trois ans maximum.",
+    "ordre": "5",
+    "duree": "TRUE",
+    "exception": "TRUE"
+  },
+  {
+    "id": "exp",
+    "nom": "extension de périmètre",
+    "description": "Démarche concernant un titre minier qui étend son périmètre. Elle est applicable aux permis exclusifs de recherches, aux permis d'exploitation de minéraux et métaux, et aux concessions.",
+    "ordre": "7",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "dep",
+    "nom": "déplacement de périmètre",
+    "description": "Démarche concernant une autorisation d’exploitation de minéraux et métaux qui permet de déplacer le centre du périmètre de celle-ci dans la limite de 200 mètres. Les zones déjà exploitées doivent être maintenues à l’intérieur du périmètre déplacé.",
+    "ordre": "8",
+    "points": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "fus",
+    "nom": "fusion",
+    "description": "Démarche concernant des permis exclusifs de recherches contigus. Elle conduit à la création d’un nouveau titre à partir de la fusion des périmètres de plusieurs permis exclusifs de recherches qui se trouvent dans la même période de validité (octroi, 1ère ou 2nde prolongation).",
+    "ordre": "9",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "exs",
+    "nom": "extension de substance",
+    "description": "Démarche concernant une autorisation ou un titre minier. Elle est applicable aux autorisations d'exploitation et aux permis exclusifs de recherches de minéraux et métaux. Elle étend la liste des substances non connexes autorisées à la prospection. Elle s’applique aux concessions de géothermie qui peuvent être étendues à des substances de mines non connexes.",
+    "ordre": "10",
+    "duree": "TRUE",
+    "substances": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "con",
+    "nom": "conversion",
+    "description": "Démarcheconcernant un titre d’exploitation d’hydrocarbures liquides ou gazeux. Elle permet de substituer les substances initiales par d’autres substances de mines connexes ou bien par un autre usage du sous-sol. La demande de conversion peut être réalisée au plus tard 4 ans avant l’échéance de son titre. Elle doit de surcroît démontrer la rentabilité économique de la poursuite de l’exploitation du gisement, mais ne fait pas l’objet d’une mise en concurrence.",
+    "ordre": "11",
+    "substances": "TRUE"
+  },
+  {
+    "id": "amo",
+    "nom": "amodiation",
+    "description": "Démarche co-initiée par le titulaire de certains titres miniers d’exploitation et l’entreprise souhaitant devenir amodiataire du titre. C'est une location de l’exploitation d’un gisement à un tiers par le titulaire du titre en contrepartie d’un loyer ou / et du versement d’une quantité donnée des substances extraites. L’amodiation donne lieu à un contrat entre le titulaire du titre et l’amodiataire pour une durée fixée. Afin d'en bénéficier, l’intéressé doit satisfaire aux critères d’attribution exigés par les détenteurs du titre minier équivalent.",
+    "ordre": "12",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "res",
+    "nom": "résiliation anticipée d'amodiation",
+    "description": "Démarche co-initiée par le titulaire de certains titres miniers d’exploitation et l’entreprise amodiataire du titre. Elle conduit à une fin anticipée du contrat d’amodiation sur l’accord des deux parties sans affecter le statut du titre minier.",
+    "ordre": "13",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "mut",
+    "nom": "mutation",
+    "description": "Démarche co-initiée par le titulaire du titre minier et l’entreprise souhaitant devenir titulaire ou co-titulaire du titre. Il s’agit de la cession d’un titre minier en cours de validité par son détenteur à un tiers. Elle peut porter sur la totalité du périmètre du titre initial ou sur une partie de celui-ci. Le titulaire initial conserve ses droits sur la partie restante. Afin de  bénéficier d’une mutation, l’intéressé doit satisfaire aux critères d’attribution exigés pour les détenteurs du titre minier équivalent.  La décision du ministre ne préjuge en aucun cas des conditions financières fixées entre  les deux parties.",
+    "ordre": "14",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "vut",
+    "nom": "mutation partielle",
+    "description": "Démarche virtuelle d’une démarche de mutation portant sur une partie d’un titre minier. Cette démarche a pour effet de créer un nouveau titre minier sans qu’une démarche d’octroi en soit le fait générateur.",
+    "ordre": "15",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE",
+    "auto": "TRUE"
+  },
+  {
+    "id": "ces",
+    "nom": "cession",
+    "description": "Démarche obsolète. Démarche co-initiée par le titulaire du titre minier et l’entreprise souhaitant devenir titulaire ou co-titulaire. La démarche de mutation remplit une fonction proche de la cession dans le code minier actuel.",
+    "ordre": "16",
+    "titulaires": "TRUE"
+  },
+  {
+    "id": "prr",
+    "nom": "prorogation",
+    "description": "Démarche initiée par l’autorité administrative. Elle proroge la durée de validité d’un titre d’exploration, de droit et sans formalité, jusqu’à l’intervention d’une décision sur une demande de titre d’exploitation portant sur ce titre d’exploration visé. Le code minier actuel prévoit un régime de “survie provisoire” de fait dans l’attente.",
+    "ordre": "17",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "vct",
+    "nom": "demande de titre d'exploitation",
+    "description": "(Démarche virtuelle au sens de Camino)\nTransformation des permis exclusifs de recherches en concession ou en permis d’exploitation en Outre-mer\nDémarche virtuelle dans Camino liée à une démarche de mutation portant sur une partie d’un titre minier. Cette démarche a pour effet de créer un nouveau titre minier sans qu’une démarche d’octroi en soit le fait générateur.\n",
+    "ordre": "18",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "substances": "TRUE",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE",
+    "auto": "TRUE"
+  },
+  {
+    "id": "ren",
+    "nom": "renonciation",
+    "description": "Démarche concernant une autorisation ou un titre minier qui peut anticiper l’échéance en sollicitant une renonciation totale ou partielle du périmètre de son titre ou de son autorisation. Cela est possible sous réserve d’avoir procédé aux mesures de remise en état dont le préfet lui aura a donné acte définitivement. La renonciation a pour effet de replacer le gisement dans la catégorie de ceux ouverts aux recherches.",
+    "ordre": "19",
+    "duree": "TRUE",
+    "points": "TRUE",
+    "titulaires": "TRUE",
+    "renouvelable": "TRUE"
+  },
+  {
+    "id": "ret",
+    "nom": "retrait",
+    "description": "Démarche initiée par l’autorité administrative. Le ministre chargé des mines pour les titres et le préfet pour les autorisations d’exploitation, peuvent retirer les autorisations et les titres miniers en cours de validité si l’intéressé ne remplit plus certaines prescriptions légales. Le retrait a pour effet de replacer le gisement dans la situation de ceux ouverts aux recherches.",
+    "ordre": "20",
+    "duree": "TRUE"
+  },
+  {
+    "id": "dec",
+    "nom": "déchéance",
+    "description": "Démarche obsolète. L’autorité administrative pouvait retirer les droits liés aux autorisations et titres miniers en cours de validité si le titulaire ne remplissait plus certaines prescriptions légales. La déchéance avait pour effet de permettre à l’Etat de réattribuer le titre ou l’autorisation lors d’un appel d’offre.",
+    "ordre": "21",
+    "titulaires": "TRUE"
+  }
+]

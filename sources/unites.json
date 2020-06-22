@@ -1,0 +1,37 @@
+[
+  {
+    "id": "m3x",
+    "symbole": "m³",
+    "nom": "mètre cube"
+  },
+  {
+    "id": "km3",
+    "symbole": "km³",
+    "nom": "kilomètre cube"
+  },
+  {
+    "id": "m3a",
+    "symbole": "m³ / an",
+    "nom": "mètre cube par an"
+  },
+  {
+    "id": "txa",
+    "symbole": "t / an",
+    "nom": "tonnes par an"
+  },
+  {
+    "id": "met",
+    "symbole": "m",
+    "nom": "mètre"
+  },
+  {
+    "id": "deg",
+    "symbole": "º",
+    "nom": "degré"
+  },
+  {
+    "id": "gon",
+    "symbole": "gon",
+    "nom": "grade"
+  }
+]
