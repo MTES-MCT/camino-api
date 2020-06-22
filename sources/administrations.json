@@ -293,6 +293,20 @@
     "cedex": "Cedex"
   },
   {
+    "id": "aut-mrae-01",
+    "type_id": "aut",
+    "nom": "Mission régionnale autorité environnementale",
+    "abreviation": "Mission régionnale autorité environnementale",
+    "url": "http://www.mrae.developpement-durable.gouv.fr/guyane-r27.html",
+    "telephone": "+594 5 94 39 80 00",
+    "adresse1": "Route du Vieux-Port\n97300 Cayenne",
+    "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
+    "code_postal": "97300",
+    "commune": "Cayenne",
+    "cedex": "Cedex",
+    "region_id": "03"
+  },
+  {
     "id": "ope-onf-973-01",
     "type_id": "ope",
     "nom": "Office national des forêts",
@@ -1605,19 +1619,5 @@
     "adresse2": "4179 route de Montabo",
     "code_postal": "97307",
     "commune": "Cayenne"
-  },
-  {
-    "id": "aut-mrae-01",
-    "type_id": "aut",
-    "nom": "Mission régionnale autorité environnementale",
-    "abreviation": "Mission régionnale autorité environnementale",
-    "url": "http://www.mrae.developpement-durable.gouv.fr/guyane-r27.html",
-    "telephone": "+594 5 94 39 80 00",
-    "adresse1": "Route du Vieux-Port\n97300 Cayenne",
-    "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
-    "code_postal": "97300",
-    "commune": "Cayenne",
-    "cedex": "Cedex",
-    "region_id": "03"
   }
 ]
