@@ -92,39 +92,40 @@ const titres = async (
 
     const userId = context.user?.id
 
-    const titres = await titresGet(
-      {
-        intervalle,
-        page,
-        ordre,
-        colonne,
-        typesIds,
-        domainesIds,
-        statutsIds,
-        substances,
-        noms,
-        entreprises,
-        references,
-        territoires
-      },
-      { fields },
-      userId
-    )
-
-    const total = await titresCount(
-      {
-        typesIds,
-        domainesIds,
-        statutsIds,
-        substances,
-        noms,
-        entreprises,
-        references,
-        territoires
-      },
-      { fields },
-      userId
-    )
+    const [titres, total] = await Promise.all([
+      titresGet(
+        {
+          intervalle,
+          page,
+          ordre,
+          colonne,
+          typesIds,
+          domainesIds,
+          statutsIds,
+          substances,
+          noms,
+          entreprises,
+          references,
+          territoires
+        },
+        { fields },
+        userId
+      ),
+      titresCount(
+        {
+          typesIds,
+          domainesIds,
+          statutsIds,
+          substances,
+          noms,
+          entreprises,
+          references,
+          territoires
+        },
+        { fields },
+        userId
+      )
+    ])
 
     const user = context.user && (await userGet(context.user.id))
     const titresFormatted = titres && titresFormat(user, titres, fields)

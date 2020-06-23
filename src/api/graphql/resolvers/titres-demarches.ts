@@ -86,47 +86,48 @@ const demarches = async (
 
     const userId = context.user?.id
 
-    const titresDemarches = await titresDemarchesGet(
-      {
-        intervalle,
-        page,
-        ordre,
-        colonne,
-        typesIds,
-        statutsIds,
-        etapesInclues,
-        etapesExclues,
-        titresTypesIds,
-        titresDomainesIds,
-        titresStatutsIds,
-        titresNoms,
-        titresEntreprises,
-        titresSubstances,
-        titresReferences,
-        titresTerritoires
-      },
-      { fields: fields.elements },
-      userId
-    )
-
-    const total = await titresDemarchesCount(
-      {
-        typesIds,
-        statutsIds,
-        etapesInclues,
-        etapesExclues,
-        titresTypesIds,
-        titresDomainesIds,
-        titresStatutsIds,
-        titresNoms,
-        titresEntreprises,
-        titresSubstances,
-        titresReferences,
-        titresTerritoires
-      },
-      { fields: fields.elements },
-      userId
-    )
+    const [titresDemarches, total] = await Promise.all([
+      titresDemarchesGet(
+        {
+          intervalle,
+          page,
+          ordre,
+          colonne,
+          typesIds,
+          statutsIds,
+          etapesInclues,
+          etapesExclues,
+          titresTypesIds,
+          titresDomainesIds,
+          titresStatutsIds,
+          titresNoms,
+          titresEntreprises,
+          titresSubstances,
+          titresReferences,
+          titresTerritoires
+        },
+        { fields: fields.elements },
+        userId
+      ),
+      titresDemarchesCount(
+        {
+          typesIds,
+          statutsIds,
+          etapesInclues,
+          etapesExclues,
+          titresTypesIds,
+          titresDomainesIds,
+          titresStatutsIds,
+          titresNoms,
+          titresEntreprises,
+          titresSubstances,
+          titresReferences,
+          titresTerritoires
+        },
+        { fields: fields.elements },
+        userId
+      )
+    ])
 
     const user = context.user && (await userGet(context.user.id))
 

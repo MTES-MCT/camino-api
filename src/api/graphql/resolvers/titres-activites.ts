@@ -94,39 +94,40 @@ const activites = async (
       page = 1
     }
 
-    const titresActivites = await titresActivitesGet(
-      {
-        intervalle,
-        page,
-        ordre,
-        colonne,
-        typesIds,
-        annees,
-        titresNoms,
-        titresEntreprises,
-        titresSubstances,
-        titresReferences,
-        titresTerritoires,
-        statutsIds
-      },
-      { fields: fields.elements },
-      context.user?.id
-    )
-
-    const total = await titresActivitesCount(
-      {
-        typesIds,
-        annees,
-        titresNoms,
-        titresEntreprises,
-        titresSubstances,
-        titresReferences,
-        titresTerritoires,
-        statutsIds
-      },
-      { fields: fields.elements },
-      context.user?.id
-    )
+    const [titresActivites, total] = await Promise.all([
+      titresActivitesGet(
+        {
+          intervalle,
+          page,
+          ordre,
+          colonne,
+          typesIds,
+          annees,
+          titresNoms,
+          titresEntreprises,
+          titresSubstances,
+          titresReferences,
+          titresTerritoires,
+          statutsIds
+        },
+        { fields: fields.elements },
+        context.user?.id
+      ),
+      titresActivitesCount(
+        {
+          typesIds,
+          annees,
+          titresNoms,
+          titresEntreprises,
+          titresSubstances,
+          titresReferences,
+          titresTerritoires,
+          statutsIds
+        },
+        { fields: fields.elements },
+        context.user?.id
+      )
+    ])
 
     if (!titresActivites.length) return { elements: [], total: 0 }
 

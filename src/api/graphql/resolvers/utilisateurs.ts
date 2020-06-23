@@ -96,33 +96,35 @@ const utilisateurs = async (
 ) => {
   try {
     const fields = fieldsBuild(info)
-    const utilisateurs = await utilisateursGet(
-      {
-        intervalle,
-        page,
-        colonne,
-        ordre,
-        entrepriseIds,
-        administrationIds,
-        permissionIds,
-        noms,
-        emails
-      },
-      { fields: fields.elements },
-      context.user?.id
-    )
 
-    const total = await utilisateursCount(
-      {
-        entrepriseIds,
-        administrationIds,
-        permissionIds,
-        noms,
-        emails
-      },
-      { fields: fields.elements },
-      context.user?.id
-    )
+    const [utilisateurs, total] = await Promise.all([
+      utilisateursGet(
+        {
+          intervalle,
+          page,
+          colonne,
+          ordre,
+          entrepriseIds,
+          administrationIds,
+          permissionIds,
+          noms,
+          emails
+        },
+        { fields: fields.elements },
+        context.user?.id
+      ),
+      utilisateursCount(
+        {
+          entrepriseIds,
+          administrationIds,
+          permissionIds,
+          noms,
+          emails
+        },
+        { fields: fields.elements },
+        context.user?.id
+      )
+    ])
 
     return {
       elements: utilisateurs.map(utilisateurFormat),
