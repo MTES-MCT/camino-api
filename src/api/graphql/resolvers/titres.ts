@@ -1,4 +1,4 @@
-import { IToken, ITitre, ITitreColonneId, IFormat } from '../../../types'
+import { IToken, ITitre, ITitreColonneId } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
@@ -55,6 +55,7 @@ const titres = async (
     page,
     colonne,
     ordre,
+    perimetre,
     typesIds,
     domainesIds,
     statutsIds,
@@ -62,13 +63,13 @@ const titres = async (
     noms,
     entreprises,
     references,
-    territoires,
-    format
+    territoires
   }: {
     intervalle?: number | null
     page?: number | null
-    ordre?: 'asc' | 'desc' | null
     colonne?: ITitreColonneId | null
+    ordre?: 'asc' | 'desc' | null
+    perimetre?: number[] | null
     typesIds: string[]
     domainesIds: string[]
     statutsIds: string[]
@@ -77,18 +78,12 @@ const titres = async (
     entreprises: string
     references: string
     territoires: string
-    format?: IFormat
   },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
   try {
     const fields = fieldsBuild(info).elements
-
-    if (format) {
-      page = null
-      intervalle = null
-    }
 
     const userId = context.user?.id
 
@@ -97,8 +92,9 @@ const titres = async (
         {
           intervalle,
           page,
-          ordre,
           colonne,
+          ordre,
+          perimetre,
           typesIds,
           domainesIds,
           statutsIds,

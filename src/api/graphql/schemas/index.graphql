@@ -50,6 +50,7 @@ type Query {
     page: Int
     colonne: String
     ordre: String
+    perimetre: [Float!]
     typesIds: [ID]
     domainesIds: [ID]
     statutsIds: [ID]
@@ -182,6 +183,10 @@ type Query {
 }
 
 """
+# API de Camino
+
+> [Documentation](https://docs.camino.beta.gouv.fr)
+
 ## Écriture
 
 Ces requêtes sont __protégées__. Elles nécessitent une authentification par token (jwt) et un niveau de permission suffisant.
