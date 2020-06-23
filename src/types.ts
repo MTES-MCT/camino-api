@@ -13,7 +13,6 @@ interface IColonne<T> {
   id: T
   relation?: string
   groupBy?: boolean | T | T[]
-  orderBy?: string
 }
 
 type TitreProp =

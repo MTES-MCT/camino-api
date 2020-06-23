@@ -121,8 +121,7 @@ const titresColonnes = {
   statut: { id: 'statutId' },
   activites: {
     id: 'activites',
-    groupBy: [],
-    orderBy: `"activites_absentes" + "activites_en_construction"`
+    groupBy: []
   },
   substances: {
     id: raw(`STRING_AGG(
@@ -211,14 +210,13 @@ const titresGet = async (
 
     // Utilise orderByRaw pour intégrer la chaîne 'nulls first/last'
     // dans le tri sur les activités
-    // sinon les résultats 'null' apparaissent toujours en premier quelqesoit l'ordre
-    const orderBy = titresColonnes[colonne].orderBy as string
-    if (orderBy) {
-      const _ordre =
-        !ordre || ordre === 'asc'
-          ? `${ordre} nulls first`
-          : `${ordre} nulls last`
-      q.orderByRaw(`${orderBy} ${_ordre}`)
+    // sinon les résultats 'null' apparaissent toujours en premier quelquesoit l'ordre
+    if (colonne === 'activites') {
+      q.orderByRaw(
+        `"activites_absentes" + "activites_en_construction" ${
+          ordre === 'asc' ? 'asc nulls first' : 'desc nulls last'
+        }`
+      )
     } else {
       q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
     }
