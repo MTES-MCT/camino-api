@@ -58,7 +58,7 @@ exports.up = knex =>
     })
     .createTable('utilisateurs', table => {
       table.string('id').primary()
-      table.string('email')
+      table.string('email').unique()
       table.string('motDePasse').notNullable()
       table.string('nom')
       table.string('prenom')

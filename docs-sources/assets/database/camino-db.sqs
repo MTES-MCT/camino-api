@@ -74,7 +74,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>825.00</y>
+            <y>700.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -175,7 +175,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1300.00</y>
+            <y>1175.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -332,7 +332,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>1825.00</y>
+            <y>1700.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -372,7 +372,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1575.00</y>
+            <y>1450.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -431,13 +431,13 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>1650.00</x>
-            <y>2350.00</y>
+            <y>2100.00</y>
         </location>
         <size>
             <width>400.00</width>
             <height>425.00</height>
         </size>
-        <zorder>77</zorder>
+        <zorder>76</zorder>
         <commentTitle><![CDATA[documents]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[12]]></labelWindowIndex>
@@ -448,13 +448,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1825.00</y>
+            <y>1700.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>80.00</height>
         </size>
-        <zorder>79</zorder>
+        <zorder>78</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -498,7 +498,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>2725.00</y>
+            <y>2475.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -597,7 +597,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2675.00</y>
+            <y>2550.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -640,11 +640,11 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>850.00</x>
-            <y>775.00</y>
+            <y>425.00</y>
         </location>
         <size>
             <width>1200.00</width>
-            <height>475.00</height>
+            <height>500.00</height>
         </size>
         <zorder>52</zorder>
         <commentTitle><![CDATA[titres miniers]]></commentTitle>
@@ -657,7 +657,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>1150.00</y>
+            <y>1025.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -730,13 +730,13 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>25.00</x>
-            <y>2325.00</y>
+            <y>2200.00</y>
         </location>
         <size>
             <width>800.00</width>
             <height>500.00</height>
         </size>
-        <zorder>70</zorder>
+        <zorder>69</zorder>
         <commentTitle><![CDATA[metas activités]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[19]]></labelWindowIndex>
@@ -747,13 +747,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>2400.00</y>
+            <y>2150.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>150.00</height>
         </size>
-        <zorder>83</zorder>
+        <zorder>82</zorder>
         <SQLField>
             <name><![CDATA[titre_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -828,7 +828,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>1375.00</y>
+            <y>1250.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -868,13 +868,13 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>850.00</x>
-            <y>1275.00</y>
+            <y>950.00</y>
         </location>
         <size>
             <width>1200.00</width>
-            <height>1050.00</height>
+            <height>1125.00</height>
         </size>
-        <zorder>74</zorder>
+        <zorder>73</zorder>
         <commentTitle><![CDATA[droits miniers]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[14]]></labelWindowIndex>
@@ -885,11 +885,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>825.00</y>
+            <y>475.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>360.00</height>
+            <height>400.00</height>
         </size>
         <zorder>8</zorder>
         <SQLField>
@@ -1067,6 +1067,16 @@
             <type><![CDATA[JSONB]]></type>
             <uid><![CDATA[123E1C2E-3FAC-4B14-A2AE-6CB26A9674EF]]></uid>
         </SQLField>
+        <SQLField>
+            <name><![CDATA[public_lecture]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[22F30391-B75A-424B-BD0E-F22176E936FC]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[entreprises_lecture]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[544EBFCD-178F-40FC-B9A6-67F63483C12A]]></uid>
+        </SQLField>
         <labelWindowIndex><![CDATA[86]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[titres_pkey]]></PK_KEY_NAME>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1122,7 +1132,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1425.00</y>
+            <y>1100.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1287,7 +1297,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1575.00</y>
+            <y>1250.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1501,7 +1511,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1525.00</y>
+            <y>1200.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -1555,13 +1565,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>2400.00</y>
+            <y>2150.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>325.00</height>
         </size>
-        <zorder>73</zorder>
+        <zorder>72</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(255)]]></type>
@@ -1610,7 +1620,7 @@
         </SQLField>
         <SQLField>
             <name><![CDATA[fichier]]></name>
-            <type><![CDATA[CHARACTER VARYING(255)]]></type>
+            <type><![CDATA[BOOLEAN]]></type>
             <autoIncrement><![CDATA[0]]></autoIncrement>
             <forcedUnique><![CDATA[0]]></forcedUnique>
             <notNull><![CDATA[0]]></notNull>
@@ -1622,7 +1632,7 @@
             <uid><![CDATA[EFBFB730-FBD0-42D6-934D-53A5A12733DE]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[entreprise_lecture]]></name>
+            <name><![CDATA[entreprises_lecture]]></name>
             <type><![CDATA[BOOLEAN]]></type>
             <uid><![CDATA[2C680042-6226-4A2F-A341-94E4C873FF20]]></uid>
         </SQLField>
@@ -1654,12 +1664,6 @@
             <uid><![CDATA[229D294C-3F64-4B81-B354-7157B3E49F16]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[titre_activite_id]]></name>
-            <type><![CDATA[CHARACTER VARYING]]></type>
-            <forcedUnique><![CDATA[1]]></forcedUnique>
-            <uid><![CDATA[ADF247F0-AF91-4AEF-9BA5-F498364DFD4B]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[entreprise_id]]></name>
             <type><![CDATA[CHARACTER VARYING(64)]]></type>
             <forcedUnique><![CDATA[1]]></forcedUnique>
@@ -1679,6 +1683,12 @@
             <forcedUnique><![CDATA[1]]></forcedUnique>
             <uid><![CDATA[7028445C-8CAF-4908-AE52-54F971E6AC85]]></uid>
         </SQLField>
+        <SQLField>
+            <name><![CDATA[titre_activite_id]]></name>
+            <type><![CDATA[CHARACTER VARYING]]></type>
+            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <uid><![CDATA[ADF247F0-AF91-4AEF-9BA5-F498364DFD4B]]></uid>
+        </SQLField>
         <labelColor><![CDATA[{0.999424,0.985554,0,1}]]></labelColor>
         <labelWindowIndex><![CDATA[15]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1689,13 +1699,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>2025.00</y>
+            <y>1900.00</y>
         </location>
         <size>
             <width>325.00</width>
             <height>80.00</height>
         </size>
-        <zorder>87</zorder>
+        <zorder>86</zorder>
         <SQLField>
             <name><![CDATA[travaux_demarche_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -1750,11 +1760,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1975.00</y>
+            <y>1700.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>100.00</height>
+            <height>125.00</height>
         </size>
         <zorder>15</zorder>
         <SQLField>
@@ -1796,6 +1806,11 @@
             <name><![CDATA[coordonnees]]></name>
             <type><![CDATA[POINT(2)]]></type>
             <uid><![CDATA[411B52F4-0E3F-4670-BCA4-3F52CC2C7208]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[opposable]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[0BC47E71-7CE4-4E2D-83F0-58D762624CAC]]></uid>
         </SQLField>
         <labelWindowIndex><![CDATA[74]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1911,11 +1926,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1300.00</x>
-            <y>1575.00</y>
+            <y>1250.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>260.00</height>
+            <height>250.00</height>
         </size>
         <zorder>11</zorder>
         <SQLField>
@@ -1996,11 +2011,6 @@
             <uid><![CDATA[38E7F145-7646-4E07-A195-5B39A1B9284B]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[visas]]></name>
-            <type><![CDATA[CHARACTER VARYING(size)]]></type>
-            <uid><![CDATA[61C152D8-9EA8-4335-95C0-3D496863F11C]]></uid>
-        </SQLField>
-        <SQLField>
             <name><![CDATA[surface]]></name>
             <type><![CDATA[REAL]]></type>
             <uid><![CDATA[B0DD99EB-14BC-4464-98EF-C4C6D8D87FAF]]></uid>
@@ -2019,7 +2029,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>2375.00</y>
+            <y>2250.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2127,7 +2137,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>2500.00</y>
+            <y>2375.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2181,13 +2191,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1700.00</y>
+            <y>1575.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>81</zorder>
+        <zorder>80</zorder>
         <SQLField>
             <name><![CDATA[etape_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -2231,13 +2241,13 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>25.00</x>
-            <y>1975.00</y>
+            <y>1850.00</y>
         </location>
         <size>
             <width>800.00</width>
             <height>325.00</height>
         </size>
-        <zorder>85</zorder>
+        <zorder>84</zorder>
         <commentTitle><![CDATA[metas travaux]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
@@ -2248,7 +2258,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1300.00</x>
-            <y>1475.00</y>
+            <y>1150.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2302,7 +2312,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>78</zorder>
+        <zorder>77</zorder>
         <SQLField>
             <name><![CDATA[utilisateur_id]]></name>
             <type><![CDATA[CHARACTER VARYING(64)]]></type>
@@ -2404,9 +2414,9 @@
         </location>
         <size>
             <width>800.00</width>
-            <height>325.00</height>
+            <height>200.00</height>
         </size>
-        <zorder>71</zorder>
+        <zorder>70</zorder>
         <commentTitle><![CDATA[autorisations]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[18]]></labelWindowIndex>
@@ -2474,7 +2484,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>2100.00</y>
+            <y>1850.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2611,7 +2621,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1325.00</y>
+            <y>1000.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2716,7 +2726,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>1625.00</y>
+            <y>1500.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2771,7 +2781,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>2200.00</y>
+            <y>1950.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2903,7 +2913,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1300.00</x>
-            <y>1325.00</y>
+            <y>1000.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -2957,13 +2967,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2375.00</y>
+            <y>2250.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>75.00</height>
         </size>
-        <zorder>80</zorder>
+        <zorder>79</zorder>
         <SQLField>
             <name><![CDATA[activite_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3024,7 +3034,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>875.00</y>
+            <y>750.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3095,7 +3105,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1625.00</y>
+            <y>1300.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3157,46 +3167,6 @@
         <uid><![CDATA[9EA61901-60D6-4557-BF34-94F1AFB14553]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[a__domaines]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>75.00</x>
-            <y>475.00</y>
-        </location>
-        <size>
-            <width>300.00</width>
-            <height>100.00</height>
-        </size>
-        <zorder>67</zorder>
-        <SQLField>
-            <name><![CDATA[domaine_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(1)]]></type>
-            <referencesField>id</referencesField>
-            <referencesTable>domaines</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[domaines]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[1D3B9DB1-5CF1-43A1-97BC-C44958175C11]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[019E6549-52FF-4F0D-AC95-DAC6CD16ED56]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <notNull><![CDATA[0]]></notNull>
-            <uid><![CDATA[3A95E19A-C407-43C2-99EB-D5732DC6F7DA]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[public_lecture]]></name>
-            <type><![CDATA[BOOLEAN]]></type>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <forcedUnique><![CDATA[0]]></forcedUnique>
-            <notNull><![CDATA[0]]></notNull>
-            <uid><![CDATA[F3E9BDCA-AD4F-42A8-BDA9-692477AEB70E]]></uid>
-        </SQLField>
-        <labelColor><![CDATA[{1,0.149131,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[22]]></labelWindowIndex>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[9F5A1999-9986-48B2-A91D-8C21D2431F84]]></uid>
-    </SQLTable>
-    <SQLTable>
         <name><![CDATA[permissions]]></name>
         <schema><![CDATA[]]></schema>
         <location>
@@ -3238,11 +3208,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
-            <y>1325.00</y>
+            <y>1000.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>175.00</height>
+            <height>180.00</height>
         </size>
         <zorder>4</zorder>
         <SQLField>
@@ -3317,6 +3287,16 @@
             <referencesTableUID><![CDATA[A8AC6C3C-BEF3-47F5-9BD6-018222E08D22]]></referencesTableUID>
             <uid><![CDATA[58C41051-2340-4091-95BE-5BEAF4CA7866]]></uid>
         </SQLField>
+        <SQLField>
+            <name><![CDATA[public_lecture]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[BB87AA28-3574-433D-A868-0A946B750CFA]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[entreprises_lecture]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[D35EC0C2-EFBF-4AC8-8539-FC3305610460]]></uid>
+        </SQLField>
         <labelWindowIndex><![CDATA[82]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[titresPhases_pkey]]></PK_KEY_NAME>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -3333,7 +3313,7 @@
             <width>800.00</width>
             <height>300.00</height>
         </size>
-        <zorder>75</zorder>
+        <zorder>74</zorder>
         <commentTitle><![CDATA[utilisateurs]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[13]]></labelWindowIndex>
@@ -3367,7 +3347,7 @@
             <width>300.00</width>
             <height>80.00</height>
         </size>
-        <zorder>69</zorder>
+        <zorder>68</zorder>
         <SQLField>
             <name><![CDATA[etape_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3461,13 +3441,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>2150.00</y>
+            <y>2025.00</y>
         </location>
         <size>
             <width>325.00</width>
             <height>100.00</height>
         </size>
-        <zorder>88</zorder>
+        <zorder>87</zorder>
         <SQLField>
             <name><![CDATA[travaux_demarche_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3521,7 +3501,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2500.00</y>
+            <y>2375.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3577,7 +3557,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1325.00</x>
-            <y>575.00</y>
+            <y>225.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3634,7 +3614,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>925.00</y>
+            <y>800.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -3673,7 +3653,7 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>850.00</x>
-            <y>2675.00</y>
+            <y>2425.00</y>
         </location>
         <size>
             <width>775.00</width>
@@ -3690,13 +3670,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2025.00</y>
+            <y>1900.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>125.00</height>
         </size>
-        <zorder>86</zorder>
+        <zorder>85</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3742,7 +3722,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1050.00</y>
+            <y>925.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -4048,13 +4028,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1300.00</x>
-            <y>2400.00</y>
+            <y>2150.00</y>
         </location>
         <size>
             <width>275.00</width>
             <height>200.00</height>
         </size>
-        <zorder>84</zorder>
+        <zorder>83</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -4155,7 +4135,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>1025.00</y>
+            <y>900.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -4195,11 +4175,11 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>1700.00</x>
-            <y>1750.00</y>
+            <y>1425.00</y>
         </location>
         <size>
             <width>300.00</width>
-            <height>200.00</height>
+            <height>240.00</height>
         </size>
         <zorder>5</zorder>
         <SQLField>
@@ -4270,6 +4250,16 @@
             <type><![CDATA[BOOLEAN]]></type>
             <uid><![CDATA[847268C3-8C87-43F2-A6B0-C98906920CBA]]></uid>
         </SQLField>
+        <SQLField>
+            <name><![CDATA[subsidiaire]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[85C5E3A7-142D-48D7-BEA1-0559682CFC48]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[lot]]></name>
+            <type><![CDATA[BOOLEAN]]></type>
+            <uid><![CDATA[BCB402C5-A942-4585-ACA4-54167A4A178E]]></uid>
+        </SQLField>
         <labelWindowIndex><![CDATA[83]]></labelWindowIndex>
         <PK_KEY_NAME><![CDATA[titresGeoPoints_pkey]]></PK_KEY_NAME>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -4315,7 +4305,7 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>25.00</x>
-            <y>775.00</y>
+            <y>650.00</y>
         </location>
         <size>
             <width>800.00</width>
@@ -4332,7 +4322,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>1500.00</y>
+            <y>1375.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -4372,13 +4362,13 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>850.00</x>
-            <y>2350.00</y>
+            <y>2100.00</y>
         </location>
         <size>
             <width>775.00</width>
             <height>300.00</height>
         </size>
-        <zorder>82</zorder>
+        <zorder>81</zorder>
         <commentTitle><![CDATA[travaux]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
@@ -4421,7 +4411,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1425.00</y>
+            <y>1300.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -4533,7 +4523,7 @@
             <width>800.00</width>
             <height>375.00</height>
         </size>
-        <zorder>72</zorder>
+        <zorder>71</zorder>
         <commentTitle><![CDATA[restrictions administrations]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[17]]></labelWindowIndex>
@@ -4544,13 +4534,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>600.00</y>
+            <y>475.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>68</zorder>
+        <zorder>67</zorder>
         <SQLField>
             <name><![CDATA[titre_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4597,7 +4587,7 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>1275.00</x>
-            <y>525.00</y>
+            <y>175.00</y>
         </location>
         <size>
             <width>775.00</width>
@@ -4706,7 +4696,7 @@
             <width>800.00</width>
             <height>375.00</height>
         </size>
-        <zorder>76</zorder>
+        <zorder>75</zorder>
         <commentTitle><![CDATA[administrations]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
@@ -4716,7 +4706,7 @@
         <encodedPrintInfo><![CDATA[BAtzdHJlYW10eXBlZIHoA4QBQISEhAtOU1ByaW50SW5mbwGEhAhOU09iamVjdACFkoSEhBNOU011dGFibGVEaWN0aW9uYXJ5AISEDE5TRGljdGlvbmFyeQCUhAFpDZKEhIQITlNTdHJpbmcBlIQBKw5OU1BNUGFnZUZvcm1hdIaShISEDU5TTXV0YWJsZURhdGEAhIQGTlNEYXRhAJSXgZ0bhAdbNzA2OWNdPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1Ib3Jpem9udGFsUmVzPC9rZXk+Cgk8ZGljdD4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQk8YXJyYXk+CgkJCTxkaWN0PgoJCQkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFnZUZvcm1hdC5QTUhvcml6b250YWxSZXM8L2tleT4KCQkJCTxyZWFsPjcyPC9yZWFsPgoJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJPC9kaWN0PgoJCTwvYXJyYXk+Cgk8L2RpY3Q+Cgk8a2V5PmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0LlBNT3JpZW50YXRpb248L2tleT4KCTxkaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCTxhcnJheT4KCQkJPGRpY3Q+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0LlBNT3JpZW50YXRpb248L2tleT4KCQkJCTxpbnRlZ2VyPjE8L2ludGVnZXI+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQk8L2RpY3Q+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1TY2FsaW5nPC9rZXk+Cgk8ZGljdD4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQk8YXJyYXk+CgkJCTxkaWN0PgoJCQkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFnZUZvcm1hdC5QTVNjYWxpbmc8L2tleT4KCQkJCTxyZWFsPjE8L3JlYWw+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQk8L2RpY3Q+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1WZXJ0aWNhbFJlczwva2V5PgoJPGRpY3Q+CgkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQk8c3RyaW5nPmNvbS5hcHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJPGFycmF5PgoJCQk8ZGljdD4KCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1WZXJ0aWNhbFJlczwva2V5PgoJCQkJPHJlYWw+NzI8L3JlYWw+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQk8L2RpY3Q+CgkJPC9hcnJheT4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1WZXJ0aWNhbFNjYWxpbmc8L2tleT4KCTxkaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCTxhcnJheT4KCQkJPGRpY3Q+CgkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0LlBNVmVydGljYWxTY2FsaW5nPC9rZXk+CgkJCQk8cmVhbD4xPC9yZWFsPgoJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJPC9kaWN0PgoJCTwvYXJyYXk+Cgk8L2RpY3Q+Cgk8a2V5PmNvbS5hcHBsZS5wcmludC5zdWJUaWNrZXQucGFwZXJfaW5mb190aWNrZXQ8L2tleT4KCTxkaWN0PgoJCTxrZXk+UE1QUERQYXBlckNvZGVOYW1lPC9rZXk+CgkJPGRpY3Q+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJCTxhcnJheT4KCQkJCTxkaWN0PgoJCQkJCTxrZXk+UE1QUERQYXBlckNvZGVOYW1lPC9rZXk+CgkJCQkJPHN0cmluZz5BNDwvc3RyaW5nPgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5PlBNUFBEVHJhbnNsYXRpb25TdHJpbmdQYXBlck5hbWU8L2tleT4KCQk8ZGljdD4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQkJPGFycmF5PgoJCQkJPGRpY3Q+CgkJCQkJPGtleT5QTVBQRFRyYW5zbGF0aW9uU3RyaW5nUGFwZXJOYW1lPC9rZXk+CgkJCQkJPHN0cmluZz5BNDwvc3RyaW5nPgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5PlBNVGlvZ2FQYXBlck5hbWU8L2tleT4KCQk8ZGljdD4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQkJPGFycmF5PgoJCQkJPGRpY3Q+CgkJCQkJPGtleT5QTVRpb2dhUGFwZXJOYW1lPC9rZXk+CgkJCQkJPHN0cmluZz5pc28tYTQ8L3N0cmluZz4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJCTwvZGljdD4KCQkJPC9hcnJheT4KCQk8L2RpY3Q+CgkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFnZUZvcm1hdC5QTUFkanVzdGVkUGFnZVJlY3Q8L2tleT4KCQk8ZGljdD4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQkJPGFycmF5PgoJCQkJPGRpY3Q+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFnZUZvcm1hdC5QTUFkanVzdGVkUGFnZVJlY3Q8L2tleT4KCQkJCQk8YXJyYXk+CgkJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQkJCTxyZWFsPjc4MzwvcmVhbD4KCQkJCQkJPHJlYWw+NTU5PC9yZWFsPgoJCQkJCTwvYXJyYXk+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQk8L2RpY3Q+CgkJCTwvYXJyYXk+CgkJPC9kaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhZ2VGb3JtYXQuUE1BZGp1c3RlZFBhcGVyUmVjdDwva2V5PgoJCTxkaWN0PgoJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCQk8c3RyaW5nPmNvbS5hcHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCQk8YXJyYXk+CgkJCQk8ZGljdD4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYWdlRm9ybWF0LlBNQWRqdXN0ZWRQYXBlclJlY3Q8L2tleT4KCQkJCQk8YXJyYXk+CgkJCQkJCTxyZWFsPi0xODwvcmVhbD4KCQkJCQkJPHJlYWw+LTE4PC9yZWFsPgoJCQkJCQk8cmVhbD44MjQ8L3JlYWw+CgkJCQkJCTxyZWFsPjU3NzwvcmVhbD4KCQkJCQk8L2FycmF5PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5zdGF0ZUZsYWc8L2tleT4KCQkJCQk8aW50ZWdlcj4wPC9pbnRlZ2VyPgoJCQkJPC9kaWN0PgoJCQk8L2FycmF5PgoJCTwvZGljdD4KCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYXBlckluZm8uUE1QUERQYXBlckRpbWVuc2lvbjwva2V5PgoJCTxkaWN0PgoJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCQk8c3RyaW5nPmNvbS5hcHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCQk8YXJyYXk+CgkJCQk8ZGljdD4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYXBlckluZm8uUE1QUERQYXBlckRpbWVuc2lvbjwva2V5PgoJCQkJCTxhcnJheT4KCQkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJCQkJPHJlYWw+NTk1PC9yZWFsPgoJCQkJCQk8cmVhbD44NDI8L3JlYWw+CgkJCQkJPC9hcnJheT4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJCTwvZGljdD4KCQkJPC9hcnJheT4KCQk8L2RpY3Q+CgkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFwZXJJbmZvLlBNUGFwZXJOYW1lPC9rZXk+CgkJPGRpY3Q+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5jcmVhdG9yPC9rZXk+CgkJCTxzdHJpbmc+Y29tLmFwcGxlLmpvYnRpY2tldDwvc3RyaW5nPgoJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuaXRlbUFycmF5PC9rZXk+CgkJCTxhcnJheT4KCQkJCTxkaWN0PgoJCQkJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhcGVySW5mby5QTVBhcGVyTmFtZTwva2V5PgoJCQkJCTxzdHJpbmc+aXNvLWE0PC9zdHJpbmc+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQk8L2RpY3Q+CgkJCTwvYXJyYXk+CgkJPC9kaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhcGVySW5mby5QTVVuYWRqdXN0ZWRQYWdlUmVjdDwva2V5PgoJCTxkaWN0PgoJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuY3JlYXRvcjwva2V5PgoJCQk8c3RyaW5nPmNvbS5hcHBsZS5qb2J0aWNrZXQ8L3N0cmluZz4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0Lml0ZW1BcnJheTwva2V5PgoJCQk8YXJyYXk+CgkJCQk8ZGljdD4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC5QYXBlckluZm8uUE1VbmFkanVzdGVkUGFnZVJlY3Q8L2tleT4KCQkJCQk8YXJyYXk+CgkJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQkJCTxyZWFsPjc4MzwvcmVhbD4KCQkJCQkJPHJlYWw+NTU5PC9yZWFsPgoJCQkJCTwvYXJyYXk+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQk8L2RpY3Q+CgkJCTwvYXJyYXk+CgkJPC9kaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhcGVySW5mby5QTVVuYWRqdXN0ZWRQYXBlclJlY3Q8L2tleT4KCQk8ZGljdD4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQkJPGFycmF5PgoJCQkJPGRpY3Q+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFwZXJJbmZvLlBNVW5hZGp1c3RlZFBhcGVyUmVjdDwva2V5PgoJCQkJCTxhcnJheT4KCQkJCQkJPHJlYWw+LTE4PC9yZWFsPgoJCQkJCQk8cmVhbD4tMTg8L3JlYWw+CgkJCQkJCTxyZWFsPjgyNDwvcmVhbD4KCQkJCQkJPHJlYWw+NTc3PC9yZWFsPgoJCQkJCTwvYXJyYXk+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnN0YXRlRmxhZzwva2V5PgoJCQkJCTxpbnRlZ2VyPjA8L2ludGVnZXI+CgkJCQk8L2RpY3Q+CgkJCTwvYXJyYXk+CgkJPC9kaWN0PgoJCTxrZXk+Y29tLmFwcGxlLnByaW50LlBhcGVySW5mby5wcGQuUE1QYXBlck5hbWU8L2tleT4KCQk8ZGljdD4KCQkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LmNyZWF0b3I8L2tleT4KCQkJPHN0cmluZz5jb20uYXBwbGUuam9idGlja2V0PC9zdHJpbmc+CgkJCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5pdGVtQXJyYXk8L2tleT4KCQkJPGFycmF5PgoJCQkJPGRpY3Q+CgkJCQkJPGtleT5jb20uYXBwbGUucHJpbnQuUGFwZXJJbmZvLnBwZC5QTVBhcGVyTmFtZTwva2V5PgoJCQkJCTxzdHJpbmc+QTQ8L3N0cmluZz4KCQkJCQk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQuc3RhdGVGbGFnPC9rZXk+CgkJCQkJPGludGVnZXI+MDwvaW50ZWdlcj4KCQkJCTwvZGljdD4KCQkJPC9hcnJheT4KCQk8L2RpY3Q+CgkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LkFQSVZlcnNpb248L2tleT4KCQk8c3RyaW5nPjAwLjIwPC9zdHJpbmc+CgkJPGtleT5jb20uYXBwbGUucHJpbnQudGlja2V0LnR5cGU8L2tleT4KCQk8c3RyaW5nPmNvbS5hcHBsZS5wcmludC5QYXBlckluZm9UaWNrZXQ8L3N0cmluZz4KCTwvZGljdD4KCTxrZXk+Y29tLmFwcGxlLnByaW50LnRpY2tldC5BUElWZXJzaW9uPC9rZXk+Cgk8c3RyaW5nPjAwLjIwPC9zdHJpbmc+Cgk8a2V5PmNvbS5hcHBsZS5wcmludC50aWNrZXQudHlwZTwva2V5PgoJPHN0cmluZz5jb20uYXBwbGUucHJpbnQuUGFnZUZvcm1hdFRpY2tldDwvc3RyaW5nPgo8L2RpY3Q+CjwvcGxpc3Q+CoaShJmZC05TUGFwZXJTaXplhpKEhIQHTlNWYWx1ZQCUhAEqhIQLe0NHU2l6ZT1kZH2fgVMCgUoDhpKEmZkWTlNIb3Jpem9udGFsbHlDZW50ZXJlZIaShISECE5TTnVtYmVyAJ+ehIQBY6EBhpKEmZkUTlNWZXJ0aWNhbGx5Q2VudGVyZWSGkqKShJmZDE5TTGVmdE1hcmdpboaShKOehIQBZKIShpKEmZkNTlNSaWdodE1hcmdpboaSp5KEmZkLTlNUb3BNYXJnaW6GkoSjnqiiHoaShJmZDU5TT3JpZW50YXRpb26GkoSjnoSEAXGjAIaShJmZFU5TSG9yaXpvbmFsUGFnaW5hdGlvboaSrZKEmZkUTlNWZXJ0aWNhbFBhZ2luYXRpb26Gkq2ShJmZDk5TQm90dG9tTWFyZ2luhpKEo56oojWGkoSZmQtOU1BhcGVyTmFtZYaShJmZBmlzby1hNIaShJmZD05TU2NhbGluZ0ZhY3RvcoaShKOeqKIBhoaG]]></encodedPrintInfo>
         <autoSizeTablesOption><![CDATA[0]]></autoSizeTablesOption>
         <cardinalityNotationStyle><![CDATA[0]]></cardinalityNotationStyle>
-        <documentScaleFactor><![CDATA[0.45]]></documentScaleFactor>
+        <documentScaleFactor><![CDATA[0.65]]></documentScaleFactor>
         <dropTableOption><![CDATA[0]]></dropTableOption>
         <exportDialect><![CDATA[postgres]]></exportDialect>
         <fileversion><![CDATA[4]]></fileversion>
@@ -4737,7 +4727,7 @@
         <windowHeight><![CDATA[1418.000000]]></windowHeight>
         <windowLocationX><![CDATA[0.000000]]></windowLocationX>
         <windowLocationY><![CDATA[0.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{0, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 590}]]></windowScrollOrigin>
         <windowWidth><![CDATA[2560.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
