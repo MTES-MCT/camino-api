@@ -33,7 +33,7 @@ Le résultat de la requête peut être filtré en ajoutant des paramètres à l�
 
 ### Authentification
 
-Certains titres miniers et autorisations nécessitent d'être identifié pour être consulté. Vous devez avoir un compte sur Camino pour effectuer cette requête. 
+Certains titres miniers et autorisations nécessitent d'être identifiés pour être consultés. Vous devez avoir un compte sur Camino pour effectuer cette requête. 
 
 #### Comment construire une requête avec authentification ?
 
@@ -54,7 +54,7 @@ Les donnés importées sont automatiquement mises à jour à chaque ouverture ou
 
 Camino dispose d'un plugin dédié pour simplifier l'utilisation des flux GeoJSON. 
 
-Les instructions sont disponible sur cette page : [https://github.com/MTES-MCT/camino-flux-QGIS](https://github.com/MTES-MCT/camino-flux-QGIS).
+Les instructions sont disponibles sur cette page : [https://github.com/MTES-MCT/camino-flux-QGIS](https://github.com/MTES-MCT/camino-flux-QGIS).
 
 
 ### Import sans plugin
@@ -67,7 +67,7 @@ Les instructions sont disponible sur cette page : [https://github.com/MTES-MCT/c
     - Type : `GeoJSON`
     - URI : `https://api.camino.beta.gouv.fr/titres?format=geojson`
 
-![qgis data sources manager screenshot](https://raw.githubusercontent.com/MTES-MCT/camino-api/master/docs-sources/assets/flux/camino-qgis-data-sources-manager.png)
+![camino qgis data sources manager](https://raw.githubusercontent.com/MTES-MCT/camino-api/master/docs-sources/assets/flux/camino-qgis-data-sources-manager.jpg)
 
 
 
