@@ -236,6 +236,10 @@ const documentCreer = async (
       )
     }
 
+    if (document.publicLecture) {
+      document.entreprisesLecture = true
+    }
+
     delete document.fichierNouveau
 
     const documentUpdated = await documentCreate(document)
@@ -274,6 +278,10 @@ const documentModifier = async (
     if (errors.length || rulesErrors.length) {
       const e = errors.concat(rulesErrors)
       throw new Error(e.join(', '))
+    }
+
+    if (document.publicLecture) {
+      document.entreprisesLecture = true
     }
 
     const documentFichierNouveau = document.fichierNouveau
