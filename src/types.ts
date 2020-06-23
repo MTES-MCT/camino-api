@@ -33,7 +33,7 @@ type TitreEtapeProp =
   | 'communes'
   | 'surface'
 
-type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activitesTotal'
+type ITitreColonneId = 'nom' | 'domaine' | 'type' | 'statut' | 'activites'
 
 type ITitreDemarcheColonneId =
   | 'titreNom'
