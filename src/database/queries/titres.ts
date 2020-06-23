@@ -7,7 +7,7 @@ import {
   IFields,
   IUtilisateur
 } from '../../types'
-import { transaction, Transaction, raw } from 'objection'
+import { transaction, Transaction, raw, RawBuilder } from 'objection'
 
 import Titres from '../models/titres'
 import { titrePermissionQueryBuild } from './permissions/titres'
@@ -23,8 +23,6 @@ import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
 import { permissionCheck } from '../../tools/permission'
 import { AutorisationsTitresTypesAdministrations } from '../models/autorisations'
-
-import Objection = require('objection')
 
 const titresQueryBuild = (
   {
@@ -139,7 +137,7 @@ const titresColonnes = {
     relation: 'titulaires',
     groupBy: []
   }
-} as Index<IColonne<string | Objection.RawBuilder>>
+} as Index<IColonne<string | RawBuilder>>
 
 const titresGet = async (
   {
