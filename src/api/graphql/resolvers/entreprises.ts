@@ -154,23 +154,20 @@ const entreprises = async (
   try {
     const fields = fieldsBuild(info)
 
-    const entreprises = await entreprisesGet(
-      {
-        page,
-        intervalle,
-        ordre,
-        colonne,
-        noms
-      },
-      { fields: fields.elements },
-      context.user?.id
-    )
-
-    const total = await entreprisesCount(
-      { noms },
-      { fields: fields.elements },
-      context.user?.id
-    )
+    const [entreprises, total] = await Promise.all([
+      entreprisesGet(
+        {
+          page,
+          intervalle,
+          ordre,
+          colonne,
+          noms
+        },
+        { fields: fields.elements },
+        context.user?.id
+      ),
+      entreprisesCount({ noms }, { fields: fields.elements }, context.user?.id)
+    ])
 
     if (!entreprises.length) return { elements: [], total: 0 }
 
