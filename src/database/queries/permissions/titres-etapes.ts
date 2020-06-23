@@ -20,7 +20,7 @@ const titreEtapesPermissionQueryBuild = (
     user &&
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
   ) {
-    q.joinRelated('[demarche.titre, type]')
+    q.leftJoinRelated('[demarche.titre, type]')
 
     // si l'utilisateur admin n'appartient à aucune administration
     // alors il ne peut pas voir les étapes faisant l'objet de restriction
@@ -87,7 +87,7 @@ const titreEtapesPermissionQueryBuild = (
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
 
-    q.joinRelated('type')
+    q.leftJoinRelated('type')
     q.select(raw('type.fondamentale').as('justificatifsAssociation'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
@@ -116,7 +116,7 @@ const titreEtapesPermissionQueryBuild = (
 
     const justificatifsAssociationQuery = etapeModificationQuery.clone()
 
-    q.joinRelated('type')
+    q.leftJoinRelated('type')
     justificatifsAssociationQuery.where(
       raw('?? is true', ['type.fondamentale'])
     )
