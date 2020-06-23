@@ -1,9 +1,7 @@
 import { IDocument } from '../types'
 
-const documentUpdationValidate = async (
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  document: IDocument
-) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const documentUpdationValidate = async (document: IDocument) => {
   return []
 }
 
