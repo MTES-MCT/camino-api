@@ -282,7 +282,7 @@ type ICount = {
 
 const titreCreate = async (
   titre: ITitre,
-  { fields }: { fields?: IFields },
+  { fields }: { fields?: IFields }, // eslint-disable-line @typescript-eslint/no-unused-vars
   userId?: string
 ) => {
   const user = await userGet(userId)
