@@ -7,7 +7,7 @@ import {
   IFields,
   IUtilisateur
 } from '../../types'
-import { transaction, Transaction } from 'objection'
+import { transaction, Transaction, raw } from 'objection'
 
 import Titres from '../models/titres'
 import { titrePermissionQueryBuild } from './permissions/titres'
@@ -23,6 +23,8 @@ import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
 import { permissionCheck } from '../../tools/permission'
 import { AutorisationsTitresTypesAdministrations } from '../models/autorisations'
+
+import Objection = require('objection')
 
 const titresQueryBuild = (
   {
@@ -115,12 +117,29 @@ const titreFromIdGet = async (
 const titresColonnes = {
   nom: { id: 'nom' },
   domaine: { id: 'domaineId' },
-  type: { id: 'type.type.nom', relation: 'type' },
+  type: { id: 'type:type.nom', relation: 'type.type' },
   statut: { id: 'statutId' },
-  substances: { id: 'substances.nom', relation: 'substances' },
-  titulaires: { id: 'titulaires.nom', relation: 'titulaires' }
-  // activitesTotal: { id: 'activitesAbsentes + activitesEnCours + activitesDeposees' }
-} as Index<IColonne<string>>
+  activites: {
+    id: 'activites',
+    groupBy: []
+  },
+  substances: {
+    id: raw(`STRING_AGG(
+        "substances"."nom",
+        ' ; '
+      )`),
+    relation: 'substances',
+    groupBy: []
+  },
+  titulaires: {
+    id: raw(`STRING_AGG(
+        "titulaires"."nom",
+        ' ; '
+      )`),
+    relation: 'titulaires',
+    groupBy: []
+  }
+} as Index<IColonne<string | Objection.RawBuilder>>
 
 const titresGet = async (
   {
@@ -173,16 +192,32 @@ const titresGet = async (
     user
   )
 
-  // TODO: ajouter le sort des activités en SQL
-  // if (colonne === 'activitesTotal') {
-  //   activitesSortParams = { intervalle, page, ordre }
-  // }
-
   if (colonne) {
     if (titresColonnes[colonne].relation) {
       q.leftJoinRelated(titresColonnes[colonne].relation!)
     }
-    q.orderBy(titresColonnes[colonne].id, ordre || undefined)
+
+    const groupBy = titresColonnes[colonne].groupBy as string[]
+    if (groupBy) {
+      groupBy.forEach(gb => {
+        q.groupBy(gb as string)
+      })
+    } else {
+      q.groupBy(titresColonnes[colonne].id)
+    }
+
+    // Utilise orderByRaw pour intégrer la chaîne 'nulls first/last'
+    // dans le tri sur les activités
+    // sinon les résultats 'null' apparaissent toujours en premier quelquesoit l'ordre
+    if (colonne === 'activites') {
+      q.orderByRaw(
+        `"activites_absentes" + "activites_en_construction" ${
+          ordre === 'asc' ? 'asc nulls first' : 'desc nulls last'
+        }`
+      )
+    } else {
+      q.orderBy(titresColonnes[colonne].id, ordre || 'asc')
+    }
   } else {
     q.orderBy('titres.nom')
   }
@@ -196,6 +231,51 @@ const titresGet = async (
   }
 
   return q
+}
+
+const titresCount = async (
+  {
+    domainesIds,
+    typesIds,
+    statutsIds,
+    substances,
+    noms,
+    entreprises,
+    references,
+    territoires
+  }: {
+    domainesIds?: string[] | null
+    typesIds?: string[] | null
+    statutsIds?: string[] | null
+    substances?: string | null
+    noms?: string | null
+    entreprises?: string | null
+    references?: string | null
+    territoires?: string | null
+  } = {},
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const q = titresQueryBuild(
+    {
+      domainesIds,
+      typesIds,
+      statutsIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    },
+    { fields },
+    user
+  )
+
+  const titres = ((await q) as unknown) as { total: number }[]
+
+  return titres.length
 }
 
 type ICount = {
@@ -280,6 +360,7 @@ export {
   titreGet,
   titreFromIdGet,
   titresGet,
+  titresCount,
   titreUpdate,
   titreCreate,
   titreDelete,
