@@ -127,7 +127,6 @@ const titresColonnes = {
     id: raw(`STRING_AGG(
         "substances"."nom",
         ' ; '
-        order by "substances"."nom"
       )`),
     relation: 'substances',
     groupBy: []
@@ -136,7 +135,6 @@ const titresColonnes = {
     id: raw(`STRING_AGG(
         "titulaires"."nom",
         ' ; '
-        order by "titulaires"."nom"
       )`),
     relation: 'titulaires',
     groupBy: []
