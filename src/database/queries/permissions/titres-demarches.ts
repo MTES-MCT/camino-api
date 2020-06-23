@@ -1,4 +1,4 @@
-import { IUtilisateur } from '../../../types'
+import { IFields, IUtilisateur } from '../../../types'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -16,6 +16,7 @@ import {
 
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
+  fields?: IFields,
   user?: IUtilisateur
 ) => {
   q.select('titresDemarches.*')
@@ -29,6 +30,7 @@ const titreDemarchePermissionQueryBuild = (
           Titres,
           Titres | Titres[]
         >).alias('titres'),
+        fields,
         user
       )
     )

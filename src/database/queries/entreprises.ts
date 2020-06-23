@@ -24,7 +24,7 @@ const entreprisesQueryBuild = (
 
   const q = Entreprises.query().skipUndefined().withGraphFetched(graph)
 
-  entreprisePermissionQueryBuild(q, user)
+  entreprisePermissionQueryBuild(q, fields, user)
 
   if (noms) {
     const nomsArray = stringSplit(noms)

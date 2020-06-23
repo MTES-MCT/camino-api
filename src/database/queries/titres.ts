@@ -55,7 +55,7 @@ const titresQueryBuild = (
 
   const q = Titres.query().withGraphFetched(graph)
 
-  titrePermissionQueryBuild(q, user)
+  titrePermissionQueryBuild(q, fields, user)
 
   if (ids) {
     q.whereIn('titres.id', ids)

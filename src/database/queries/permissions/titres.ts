@@ -1,4 +1,4 @@
-import { IUtilisateur } from '../../../types'
+import { IUtilisateur, IFields } from '../../../types'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -19,6 +19,7 @@ import { titresModificationQueryBuild } from './metas'
 
 const titrePermissionQueryBuild = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
+  fields?: IFields,
   user?: IUtilisateur
 ) => {
   q.select('titres.*')
@@ -77,12 +78,13 @@ const titrePermissionQueryBuild = (
     q.select(raw('false').as('suppression'))
   }
 
-  titreActivitesCalc(q, user)
+  titreActivitesCalc(q, fields, user)
 
   // visibilité des étapes
   q.modifyGraph('demarches', b => {
     titreDemarchePermissionQueryBuild(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
+      fields,
       user
     )
   })

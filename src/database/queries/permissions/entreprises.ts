@@ -1,4 +1,4 @@
-import { IUtilisateur } from '../../../types'
+import { IFields, IUtilisateur } from '../../../types'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -14,6 +14,7 @@ import { documentsPermissionQueryBuild } from './documents'
 
 const entreprisePermissionQueryBuild = (
   q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+  fields?: IFields,
   user?: IUtilisateur
 ) => {
   q.select('entreprises.*')
@@ -47,6 +48,7 @@ const entreprisePermissionQueryBuild = (
   q.modifyGraph('titresTitulaire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
+      fields,
       user
     ).groupBy('titresTitulaires.entrepriseId')
   )
@@ -54,6 +56,7 @@ const entreprisePermissionQueryBuild = (
   q.modifyGraph('titresAmodiataire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
+      fields,
       user
     ).groupBy('titresAmodiataires.entrepriseId')
   )
@@ -61,6 +64,7 @@ const entreprisePermissionQueryBuild = (
   q.modifyGraph('utilisateurs', u =>
     utilisateursPermissionQueryBuild(
       u as QueryBuilder<Utilisateurs, Utilisateurs | Utilisateurs[]>,
+      fields,
       user
     )
   )

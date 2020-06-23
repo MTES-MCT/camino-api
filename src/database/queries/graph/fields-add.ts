@@ -40,9 +40,7 @@ const fieldTitreAdd = (fields: IFields) => {
 // ajoute les démarches et les étapes sur une requête de titre
 // pour calculer ses sections en fonction des sections des étapes
 const titresFieldsAdd = (fields: IFields) => {
-  // const etapesBesoin = fields.demarches?.etapes
-
-  if (fields.type?.sections) {
+  if (fields.type?.sections || fields.contenu) {
     if (!fields.demarches) {
       fields.demarches = { id: {} }
     }
@@ -54,6 +52,20 @@ const titresFieldsAdd = (fields: IFields) => {
     // permet d'avoir accès aux sections des étapes
     if (!fields.demarches.etapes.type) {
       fields.demarches.etapes.type = { id: {} }
+    }
+
+    // permet d'avoir accès aux sections des étapes des démarches
+    if (!fields.demarches.type) {
+      fields.demarches.type = { id: {} }
+    }
+
+    // permet d'avoir accès aux sections des étapes des démarches
+    if (!fields.demarches.type.etapesTypes) {
+      fields.demarches.type.etapesTypes = { id: {} }
+    }
+
+    if (!fields.propsTitreEtapesIds && fields.contenu) {
+      fields.propsTitreEtapesIds = {}
     }
   }
 
