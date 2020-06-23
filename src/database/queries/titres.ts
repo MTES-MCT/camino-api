@@ -143,8 +143,9 @@ const titresGet = async (
   {
     intervalle,
     page,
-    ordre,
     colonne,
+    ordre,
+    perimetre,
     ids,
     domainesIds,
     typesIds,
@@ -157,8 +158,9 @@ const titresGet = async (
   }: {
     intervalle?: number | null
     page?: number | null
-    ordre?: 'asc' | 'desc' | null
     colonne?: ITitreColonneId | null
+    ordre?: 'asc' | 'desc' | null
+    perimetre?: number[] | null
     ids?: string[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null
@@ -226,6 +228,12 @@ const titresGet = async (
 
   if (intervalle) {
     q.limit(intervalle)
+  }
+
+  if (perimetre) {
+    // TODO: restreindre aux titre dont au moins un point
+    // est inclus dans le périmètre
+    // console.log(perimetre)
   }
 
   return q

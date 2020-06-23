@@ -193,6 +193,7 @@ const titresFiltersQueryBuild = (
         )
       )
   }
+
   if (territoires) {
     const territoiresArray = stringSplit(territoires)
 
