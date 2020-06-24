@@ -53,7 +53,7 @@ const utilisateursQueryBuild = (
 
   const q = Utilisateurs.query().skipUndefined().withGraphFetched(graph)
 
-  utilisateursPermissionQueryBuild(q, user)
+  utilisateursPermissionQueryBuild(q, fields, user)
 
   if (permissionIds) {
     q.whereIn('permissionId', permissionIds)

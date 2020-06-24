@@ -1,4 +1,4 @@
-import { IUtilisateur } from '../../../types'
+import { IUtilisateur, IFields } from '../../../types'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -28,8 +28,16 @@ const activiteStatuts = [
 
 const titreActivitesCalc = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
+  fields?: { fields?: IFields },
   user?: IUtilisateur
 ) => {
+  const activiteStatutsRequested = activiteStatuts.filter(
+    activiteStatut =>
+      fields && Object.keys(fields).includes(activiteStatut.name)
+  )
+
+  if (activiteStatutsRequested.length === 0) return q
+
   if (
     permissionCheck(user?.permissionId, [
       'super',
@@ -43,7 +51,7 @@ const titreActivitesCalc = (
       .alias('activitesCount')
       .select('activitesCount.titreId')
 
-    activiteStatuts.forEach(({ id, name }) => {
+    activiteStatutsRequested.forEach(({ id, name }) => {
       q.select(`activitesCountJoin.${name}`)
 
       titresActivitesCountQuery.select(
@@ -114,7 +122,7 @@ const titreActivitesCalc = (
     )
   } else if (!user || permissionCheck(user?.permissionId, ['defaut'])) {
     // les utilisateurs non-authentifiés ou défaut ne peuvent voir aucune activité
-    activiteStatuts.forEach(({ name }) => {
+    activiteStatutsRequested.forEach(({ name }) => {
       q.select(raw('0').as(name))
     })
   }

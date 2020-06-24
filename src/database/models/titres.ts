@@ -39,7 +39,7 @@ class Titres extends Model {
       administrationsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      contenu: { type: 'json' }
+      propsTitreEtapesIds: { type: 'json' }
     }
   }
 
@@ -187,7 +187,10 @@ class Titres extends Model {
     this.pays = paysFormat(this.communes || [])
 
     if (this.propsTitreEtapesIds) {
-      this.contenu = await titreContenuFormat(this.propsTitreEtapesIds)
+      this.contenu = await titreContenuFormat(
+        this.propsTitreEtapesIds,
+        this.demarches
+      )
     }
 
     return this

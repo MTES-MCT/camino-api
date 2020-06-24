@@ -92,7 +92,7 @@ const titresDemarchesQueryBuild = (
 
   const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
 
-  titreDemarchePermissionQueryBuild(q, user)
+  titreDemarchePermissionQueryBuild(q, fields, user)
 
   // q.groupBy('titresDemarches.id')
 

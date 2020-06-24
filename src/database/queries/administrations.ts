@@ -18,7 +18,7 @@ const administrationsQueryBuild = (
 
   const q = Administrations.query().withGraphFetched(graph)
 
-  administrationsPermissionQueryBuild(q, user)
+  administrationsPermissionQueryBuild(q, fields, user)
 
   return q
 }

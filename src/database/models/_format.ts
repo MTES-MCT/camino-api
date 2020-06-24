@@ -3,53 +3,33 @@ import {
   ICommune,
   ITitreEtape,
   IContenu,
-  ITitrePropsTitreEtapesIds
+  ITitrePropsTitreEtapesIds,
+  ITitreDemarche
 } from '../../types'
 import * as slugify from '@sindresorhus/slugify'
 import { Pojo } from 'objection'
 
-import TitresEtapes from './titres-etapes'
-
 // récupère les contenus des étapes pour les assigner dans le titre
 const titreContenuFormat = async (
-  propsTitreEtapesIds: ITitrePropsTitreEtapesIds
+  propsTitreEtapesIds: ITitrePropsTitreEtapesIds,
+  titreDemarches?: ITitreDemarche[] | undefined | null
 ) => {
-  if (!propsTitreEtapesIds) return {}
+  if (!propsTitreEtapesIds || !titreDemarches?.length) return {}
 
-  const etapesIds = Object.keys(propsTitreEtapesIds).reduce(
-    (etapesIds: string[], sectionId) =>
-      Object.keys(propsTitreEtapesIds![sectionId]).reduce(
-        (etapesIds, elementId) => {
-          const etapeId = propsTitreEtapesIds![sectionId][elementId]
+  const etapesIndex = titreDemarches.reduce(
+    (
+      etapesIndex: { [id: string]: ITitreEtape },
+      titreDemarche: ITitreDemarche
+    ) =>
+      titreDemarche.etapes
+        ? titreDemarche.etapes.reduce((etapesIndex, etape) => {
+            if (!etapesIndex[etape.id]) {
+              etapesIndex[etape.id] = etape
+            }
 
-          if (etapeId) {
-            etapesIds.push(etapeId)
-          }
-
-          return etapesIds
-        },
-        etapesIds
-      ),
-    []
-  )
-
-  if (!etapesIds.length) {
-    return {}
-  }
-
-  const etapes = await TitresEtapes.query().whereIn(
-    'titresEtapes.id',
-    etapesIds
-  )
-
-  const etapesIndex = etapes.reduce(
-    (etapesIndex: { [id: string]: ITitreEtape }, etape) => {
-      if (!etapesIndex[etape.id]) {
-        etapesIndex[etape.id] = etape
-      }
-
-      return etapesIndex
-    },
+            return etapesIndex
+          }, etapesIndex)
+        : etapesIndex,
     {}
   )
 
