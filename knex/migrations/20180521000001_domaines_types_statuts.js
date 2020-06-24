@@ -17,11 +17,13 @@ exports.up = knex =>
       table.string('id', 3).primary().notNullable()
       table
         .string('domaineId', 1)
+        .index()
         .references('domaines.id')
         .notNullable()
         .onDelete('CASCADE')
       table
         .string('typeId', 3)
+        .index()
         .references('titresTypesTypes.id')
         .notNullable()
         .onDelete('CASCADE')

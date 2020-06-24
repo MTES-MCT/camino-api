@@ -4,22 +4,32 @@ exports.up = knex =>
       table.string('id', 3).primary()
       table.string('nom').notNullable()
       table.specificType('sections', 'jsonb[]').notNullable()
-      table.string('frequenceId', 3).notNullable().references('frequences.id')
+      table
+        .string('frequenceId', 3)
+        .notNullable()
+        .index()
+        .references('frequences.id')
       table.string('dateDebut').notNullable()
       table.integer('delaiMois')
     })
     .createTable('titresTypes__activitesTypes', table => {
-      table.string('titreTypeId', 3).references('titresTypes.id').notNullable()
+      table
+        .string('titreTypeId', 3)
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
       table
         .string('activiteTypeId', 3)
+        .index()
         .references('activitesTypes.id')
         .notNullable()
       table.primary(['titreTypeId', 'activiteTypeId'])
     })
     .createTable('activitesTypes__pays', table => {
-      table.string('paysId', 3).notNullable().references('pays.id')
+      table.string('paysId', 3).notNullable().index().references('pays.id')
       table
         .string('activiteTypeId', 3)
+        .index()
         .references('activitesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
@@ -28,12 +38,14 @@ exports.up = knex =>
     .createTable('activitesTypes__administrations', table => {
       table
         .string('activiteTypeId', 3)
+        .index()
         .references('activitesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
         .string('administrationId', 64)
         .notNullable()
+        .index()
         .references('administrations.id')
         .onDelete('CASCADE')
       table.primary(['administrationId', 'activiteTypeId'])
@@ -41,10 +53,12 @@ exports.up = knex =>
     .createTable('activitesTypes__documentsTypes', table => {
       table
         .string('activiteTypeId', 3)
+        .index()
         .references('activitesTypes.id')
         .notNullable()
       table
         .string('documentTypeId', 3)
+        .index()
         .references('documentsTypes.id')
         .notNullable()
       table.primary(['activiteTypeId', 'documentTypeId'])

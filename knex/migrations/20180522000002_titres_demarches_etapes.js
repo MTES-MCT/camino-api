@@ -2,31 +2,36 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresDemarches', table => {
       table.string('id', 128).primary()
-      table.string('titreId', 128).notNullable()
+      table.string('titreId', 128).notNullable().index()
       table
         .foreign('titreId')
         .references('titres.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('typeId', 3).notNullable().references('demarchesTypes.id')
+      table
+        .string('typeId', 3)
+        .notNullable()
+        .index()
+        .references('demarchesTypes.id')
       table
         .string('statutId', 3)
         .notNullable()
+        .index()
         .references('demarchesStatuts.id')
         .defaultTo('ind')
       table.boolean('publicLecture').defaultTo(false)
       table.boolean('entreprisesLecture').defaultTo(false)
       table.integer('ordre').defaultTo('0')
-      table.string('annulationTitreDemarcheId', 128).references('id')
+      table.string('annulationTitreDemarcheId', 128).index().references('id')
     })
     .createTable('titresDemarchesLiens', table => {
-      table.string('enfantTitreDemarcheId', 128)
+      table.string('enfantTitreDemarcheId', 128).index()
       table
         .foreign('enfantTitreDemarcheId')
         .references('titresDemarches.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('parentTitreDemarcheId', 128)
+      table.string('parentTitreDemarcheId', 128).index()
       table
         .foreign('parentTitreDemarcheId')
         .references('titresDemarches.id')
@@ -47,14 +52,22 @@ exports.up = knex => {
     })
     .createTable('titresEtapes', table => {
       table.string('id', 128).primary()
-      table.string('titreDemarcheId', 128).notNullable()
+      table.string('titreDemarcheId', 128).notNullable().index()
       table
         .foreign('titreDemarcheId')
         .references('titresDemarches.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('typeId', 3).notNullable().references('etapesTypes.id')
-      table.string('statutId', 3).notNullable().references('etapesStatuts.id')
+      table
+        .string('typeId', 3)
+        .notNullable()
+        .index()
+        .references('etapesTypes.id')
+      table
+        .string('statutId', 3)
+        .notNullable()
+        .index()
+        .references('etapesStatuts.id')
       table.integer('ordre')
       table.string('date', 10).notNullable()
       table.string('dateDebut', 10)

@@ -8,18 +8,18 @@ exports.up = knex => {
     .createTable('annees', table => {
       table.integer('id', 1).primary()
       table.string('nom').notNullable()
-      table.string('frequenceId', 3).references('frequences.id')
+      table.string('frequenceId', 3).index().references('frequences.id')
     })
     .createTable('trimestres', table => {
       table.integer('id', 1).primary()
       table.string('nom').notNullable()
-      table.string('frequenceId', 3).references('frequences.id')
+      table.string('frequenceId', 3).index().references('frequences.id')
     })
     .createTable('mois', table => {
       table.integer('id', 2).primary()
       table.string('nom').notNullable()
-      table.string('frequenceId', 3).references('frequences.id')
-      table.integer('trimestreId', 1).references('trimestres.id')
+      table.string('frequenceId', 3).index().references('frequences.id')
+      table.integer('trimestreId', 1).index().references('trimestres.id')
     })
 }
 

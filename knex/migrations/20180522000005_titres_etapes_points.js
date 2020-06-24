@@ -2,7 +2,7 @@ exports.up = knex => {
   return knex.schema
     .createTable('titresPoints', table => {
       table.string('id').primary()
-      table.string('titreEtapeId', 128).notNullable()
+      table.string('titreEtapeId', 128).notNullable().index()
       table
         .foreign('titreEtapeId')
         .references('titresEtapes.id')
@@ -22,6 +22,7 @@ exports.up = knex => {
       table.string('id').primary()
       table
         .string('titrePointId')
+        .index()
         .references('titresPoints.id')
         .onDelete('CASCADE')
       table.string('geoSystemeId', 5).notNullable()

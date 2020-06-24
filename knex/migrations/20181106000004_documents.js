@@ -2,22 +2,26 @@ exports.up = knex =>
   knex.schema
     .createTable('documents', table => {
       table.string('id').primary()
-      table.string('typeId', 3).references('documentsTypes.id').notNullable()
+      table
+        .string('typeId', 3)
+        .index()
+        .references('documentsTypes.id')
+        .notNullable()
       table.string('date', 10).notNullable()
-      table.string('entrepriseId', 64)
+      table.string('entrepriseId', 64).index()
       table
         .foreign('entrepriseId')
         .references('entreprises.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-      table.string('titreEtapeId', 128)
+      table.string('titreEtapeId', 128).index()
       table
         .foreign('titreEtapeId')
         .references('titresEtapes.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.string('description', 1024)
-      table.string('titreActiviteId', 128)
+      table.string('titreActiviteId', 128).index()
       table
         .foreign('titreActiviteId')
         .references('titresActivites.id')
@@ -33,7 +37,7 @@ exports.up = knex =>
       table.boolean('entreprises_lecture')
     })
     .createTable('titresEtapesJustificatifs', table => {
-      table.string('titreEtapeId', 128)
+      table.string('titreEtapeId', 128).index()
       table
         .foreign('titreEtapeId')
         .references('titresEtapes.id')
@@ -41,6 +45,7 @@ exports.up = knex =>
         .onDelete('CASCADE')
       table
         .string('documentId')
+        .index()
         .references('documents.id')
         .notNullable()
         .onUpdate('CASCADE')

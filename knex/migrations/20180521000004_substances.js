@@ -10,10 +10,15 @@ exports.up = knex => {
     .createTable('substancesLegales', table => {
       table.string('id').primary()
       table.string('nom').notNullable()
-      table.string('domaineId', 1).notNullable().references('domaines.id')
+      table
+        .string('domaineId', 1)
+        .notNullable()
+        .index()
+        .references('domaines.id')
       table.text('description')
       table
         .string('substanceLegaleCodeId')
+        .index()
         .references('substancesLegalesCodes.id')
         .notNullable()
     })
@@ -27,11 +32,13 @@ exports.up = knex => {
     .createTable('substances__substancesLegales', table => {
       table
         .string('substanceId')
+        .index()
         .references('substances.id')
         .notNullable()
         .onDelete('CASCADE')
       table
         .string('substanceLegaleId')
+        .index()
         .references('substancesLegales.id')
         .notNullable()
       table.primary(['substanceId', 'substanceLegaleId'])
