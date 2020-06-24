@@ -7,12 +7,19 @@ import { QueryBuilder } from 'objection'
 type ITitreTableName = 'titres' | 'titre'
 type ITitreRootName = 'titres' | 'titresDemarches' | 'titresActivites'
 
+const jointureFormat = (name: string, jointure: string) =>
+  name === 'titre' ? `titre.${jointure}` : jointure
+
+const fieldFormat = (name: string, field: string) =>
+  name === 'titre' ? `titre:${field}` : field
+
 // name: nom de la table ou de la relation sur laquelle s'effectue la requête
 // - 'titres' depuis la table 'titres'
 // - 'titre' depuis la table 'titresDemarches'
 // root: nom de la table de base
 const titresFiltersQueryBuild = (
   {
+    perimetre,
     domainesIds,
     typesIds,
     statutsIds,
@@ -22,6 +29,7 @@ const titresFiltersQueryBuild = (
     references,
     territoires
   }: {
+    perimetre?: number[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -38,6 +46,15 @@ const titresFiltersQueryBuild = (
   name: ITitreTableName = 'titres',
   root: ITitreRootName = 'titres'
 ) => {
+  if (perimetre?.length) {
+    q.leftJoinRelated(jointureFormat(name, 'points'))
+    q.whereRaw(
+      `('(' || ? || ',' || ? || '),(' || ? || ',' || ? || ')')::box @> ?? `,
+      [...perimetre, 'points.coordonnees']
+    )
+    q.groupBy('titres.id')
+  }
+
   if (domainesIds) {
     if (name === 'titre') {
       q.leftJoinRelated('titre')
@@ -249,11 +266,5 @@ const titresFiltersQueryBuild = (
       )
   }
 }
-
-const jointureFormat = (name: string, jointure: string) =>
-  name === 'titre' ? `titre.${jointure}` : jointure
-
-const fieldFormat = (name: string, field: string) =>
-  name === 'titre' ? `titre:${field}` : field
 
 export { titresFiltersQueryBuild }

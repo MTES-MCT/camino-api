@@ -26,6 +26,7 @@ import { AutorisationsTitresTypesAdministrations } from '../models/autorisations
 
 const titresQueryBuild = (
   {
+    perimetre,
     ids,
     domainesIds,
     typesIds,
@@ -36,6 +37,7 @@ const titresQueryBuild = (
     references,
     territoires
   }: {
+    perimetre?: number[] | null
     ids?: string[] | null
     domainesIds?: string[] | null
     typesIds?: string[] | null
@@ -63,6 +65,7 @@ const titresQueryBuild = (
 
   titresFiltersQueryBuild(
     {
+      perimetre,
       domainesIds,
       typesIds,
       statutsIds,
@@ -178,6 +181,7 @@ const titresGet = async (
 
   const q = titresQueryBuild(
     {
+      perimetre,
       ids,
       domainesIds,
       typesIds,
