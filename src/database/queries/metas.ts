@@ -34,7 +34,9 @@ import {
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
   const user = await userGet(userId)
 
-  const q = Permissions.query().skipUndefined().orderBy('ordre')
+  const q = Permissions.query()
+    .skipUndefined()
+    .orderBy('ordre')
 
   permissionsPermissionQueryBuild(q, user)
 
@@ -56,7 +58,9 @@ const domainesGet = async (
     ? graphBuild(fields, 'titre', graphFormat)
     : options.demarchesTypes.graph
 
-  const q = Domaines.query().withGraphFetched(graph).orderBy('ordre')
+  const q = Domaines.query()
+    .withGraphFetched(graph)
+    .orderBy('ordre')
 
   domainesPermissionQueryBuild(q, user)
 
@@ -76,7 +80,9 @@ const demarchesTypesGet = async (
     ? graphBuild(fields, 'demarchesTypes', graphFormat)
     : options.demarchesTypes.graph
 
-  const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
+  const q = DemarchesTypes.query()
+    .withGraphFetched(graph)
+    .orderBy('ordre')
 
   demarchesTypesPermissionQueryBuild(q, user, { titreId, titreDemarcheId })
 
@@ -100,7 +106,9 @@ const etapesTypesGet = async (
     ? graphBuild(fields, 'etapesTypes', graphFormat)
     : options.etapesTypes.graph
 
-  const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')
+  const q = EtapesTypes.query()
+    .withGraphFetched(graph)
+    .orderBy('ordre')
 
   etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
 
@@ -141,7 +149,9 @@ const geoSystemesGet = async () =>
     .orderBy('ordre')
 
 const geoSystemeGet = async (id: string) =>
-  GeoSystemes.query().findById(id).withGraphFetched(options.geoSystemes.graph)
+  GeoSystemes.query()
+    .findById(id)
+    .withGraphFetched(options.geoSystemes.graph)
 
 const unitesGet = async () => unites.query()
 
@@ -172,7 +182,7 @@ const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 const etapesStatutsGet = async () => EtapesStatuts.query()
 
-const definitionsGet = async () => Definitions.query().orderBy('nom')
+const definitionsGet = async () => Definitions.query().orderBy('ordre')
 
 export {
   titresTypesTypesGet,
