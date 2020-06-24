@@ -8,13 +8,13 @@ exports.up = knex => {
     .createTable('regions', table => {
       table.string('id', 2).primary()
       table.string('nom')
-      table.string('paysId', 3).notNullable().references('pays.id')
+      table.string('paysId', 3).notNullable().index().references('pays.id')
       table.string('cheflieuId', 5)
     })
     .createTable('departements', table => {
       table.string('id', 3).primary()
       table.string('nom').notNullable()
-      table.string('regionId', 2).notNullable().references('regions.id')
+      table.string('regionId', 2).notNullable().index().references('regions.id')
       table.string('cheflieuId', 5)
     })
     .createTable('communes', table => {
@@ -23,6 +23,7 @@ exports.up = knex => {
       table
         .string('departementId', 3)
         .notNullable()
+        .index()
         .references('departements.id')
       table.integer('surface')
     })

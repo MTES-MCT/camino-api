@@ -21,6 +21,7 @@ exports.up = knex =>
       table.string('id', 64).primary()
       table
         .string('entrepriseId', 64)
+        .index()
         .references('entreprises.id')
         .notNullable()
         .onDelete('CASCADE')
@@ -36,7 +37,11 @@ exports.up = knex =>
     })
     .createTable('administrations', table => {
       table.string('id', 64).primary()
-      table.string('typeId').references('administrationsTypes.id').notNullable()
+      table
+        .string('typeId')
+        .index()
+        .references('administrationsTypes.id')
+        .notNullable()
       table.string('nom').notNullable()
       table.string('abreviation', 255)
       table.string('service')
@@ -48,8 +53,8 @@ exports.up = knex =>
       table.string('codePostal')
       table.string('commune')
       table.string('cedex')
-      table.string('departementId').references('departements.id')
-      table.string('regionId').references('regions.id')
+      table.string('departementId').index().references('departements.id')
+      table.string('regionId').index().references('regions.id')
     })
     .createTable('permissions', table => {
       table.string('id', 12).primary()
@@ -66,6 +71,7 @@ exports.up = knex =>
       table.string('telephoneMobile')
       table
         .string('permissionId', 12)
+        .index()
         .references('permissions.id')
         .notNullable()
         .onDelete('CASCADE')
@@ -74,20 +80,24 @@ exports.up = knex =>
     .createTable('utilisateurs__entreprises', table => {
       table
         .string('utilisateurId', 64)
+        .index()
         .references('utilisateurs.id')
         .onDelete('CASCADE')
       table
         .string('entrepriseId', 64)
+        .index()
         .references('entreprises.id')
         .onDelete('CASCADE')
     })
     .createTable('utilisateurs__administrations', table => {
       table
         .string('utilisateurId', 64)
+        .index()
         .references('utilisateurs.id')
         .onDelete('CASCADE')
       table
         .string('administrationId', 64)
+        .index()
         .references('administrations.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')

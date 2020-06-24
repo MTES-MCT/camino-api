@@ -1,8 +1,16 @@
 exports.up = knex =>
   knex.schema
     .createTable('a__titresTypes__titresStatuts', table => {
-      table.string('titreTypeId').references('titresTypes.id').notNullable()
-      table.string('titreStatutId').references('titresStatuts.id').notNullable()
+      table
+        .string('titreTypeId')
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
+      table
+        .string('titreStatutId')
+        .index()
+        .references('titresStatuts.id')
+        .notNullable()
       table.boolean('publicLecture').notNullable()
       table.primary(['titreTypeId', 'titreStatutId'])
     })
@@ -15,11 +23,16 @@ exports.up = knex =>
     .createTable('a__titresTypes__administrations', table => {
       table
         .string('administrationId')
+        .index()
         .references('administrations.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
         .notNullable()
-      table.string('titreTypeId').references('titresTypes.id').notNullable()
+      table
+        .string('titreTypeId')
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
       table.boolean('gestionnaire').notNullable()
       table.boolean('associee').notNullable()
       table.primary(['administrationId', 'titreTypeId'])
@@ -27,12 +40,21 @@ exports.up = knex =>
     .createTable('r__titresTypes__titresStatuts__administrations', table => {
       table
         .string('administrationId')
+        .index()
         .references('administrations.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
         .notNullable()
-      table.string('titreTypeId').references('titresTypes.id').notNullable()
-      table.string('titreStatutId').references('titresStatuts.id').notNullable()
+      table
+        .string('titreTypeId')
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
+      table
+        .string('titreStatutId')
+        .index()
+        .references('titresStatuts.id')
+        .notNullable()
       table.boolean('titresModificationInterdit').notNullable()
       table.boolean('demarchesModificationInterdit').notNullable()
       table.boolean('etapesModificationInterdit').notNullable()
@@ -41,12 +63,21 @@ exports.up = knex =>
     .createTable('r__titresTypes__etapesTypes__administrations', table => {
       table
         .string('administrationId')
+        .index()
         .references('administrations.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
         .notNullable()
-      table.string('titreTypeId').references('titresTypes.id').notNullable()
-      table.string('etapeTypeId').references('etapesTypes.id').notNullable()
+      table
+        .string('titreTypeId')
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
+      table
+        .string('etapeTypeId')
+        .index()
+        .references('etapesTypes.id')
+        .notNullable()
       table.boolean('lectureInterdit').notNullable()
       table.boolean('creationInterdit').notNullable()
       table.boolean('modificationInterdit').notNullable()

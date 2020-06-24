@@ -2,10 +2,11 @@ exports.up = knex =>
   knex.schema.createTable('titres', table => {
     table.string('id', 128).primary()
     table.string('nom').notNullable()
-    table.string('typeId', 3).references('titresTypes.id').notNullable()
-    table.string('domaineId', 1).references('domaines.id').notNullable()
+    table.string('typeId', 3).index().references('titresTypes.id').notNullable()
+    table.string('domaineId', 1).index().references('domaines.id').notNullable()
     table
       .string('statutId', 3)
+      .index()
       .references('titresStatuts.id')
       .notNullable()
       .defaultTo('ind')

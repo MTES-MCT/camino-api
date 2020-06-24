@@ -16,11 +16,13 @@ exports.up = knex => {
     .createTable('titresTypes__demarchesTypes', table => {
       table
         .string('titreTypeId', 3)
+        .index()
         .references('titresTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
         .string('demarcheTypeId', 3)
+        .index()
         .references('demarchesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
@@ -63,17 +65,20 @@ exports.up = knex => {
     .createTable('titresTypes__demarchesTypes__etapesTypes', table => {
       table
         .string('titreTypeId', 3)
+        .index()
         .references('titresTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table.integer('ordre')
       table
         .string('demarcheTypeId', 7)
+        .index()
         .references('demarchesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
         .string('etapeTypeId', 3)
+        .index()
         .references('etapesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
@@ -89,11 +94,13 @@ exports.up = knex => {
     .createTable('etapesTypes__etapesStatuts', table => {
       table
         .string('etapeTypeId', 7)
+        .index()
         .references('etapesTypes.id')
         .notNullable()
         .onDelete('CASCADE')
       table
         .string('etapeStatutId', 3)
+        .index()
         .references('etapesStatuts.id')
         .notNullable()
         .onDelete('CASCADE')
