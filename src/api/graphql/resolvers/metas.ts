@@ -362,10 +362,10 @@ const activitesStatuts = async () => {
 }
 
 /**
- * Retourne les descriptions des éléments de vocabulaire utilisés dans camino sous forme de définitions
+ * Retourne les définitions
  *
- * @param context - le contexte utilisateur
- * @returns un tableau de définitions formatées
+ * @param context - contient le token
+ * @returns un tableau de définitions
  */
 const definitions = async (context: IToken) => {
   try {
