@@ -778,7 +778,7 @@ interface IDefinition {
   id: string
   nom: string
   table?: string
-  description?: string
+  description?: string | null
   couleur?: string
   elements?: IDefinition[]
 }

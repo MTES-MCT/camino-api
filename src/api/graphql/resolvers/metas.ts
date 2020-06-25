@@ -26,7 +26,8 @@ import {
   activitesTypesGet,
   activitesStatutsGet,
   definitionsGet,
-  etapesStatutsGet
+  etapesStatutsGet,
+  substancesLegalesCodesGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -403,6 +404,9 @@ const definitions = async (context: IToken) => {
         }
         if (d.table === 'etapes_statuts') {
           elements = await etapesStatutsGet()
+        }
+        if (d.table === 'substances_legales_codes') {
+          elements = await substancesLegalesCodesGet()
         }
 
         d.elements = elements?.map(e => {
