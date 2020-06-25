@@ -116,10 +116,10 @@ const titreFromIdGet = async (
 }
 
 const titresColonnes = {
-  nom: { id: 'nom' },
-  domaine: { id: 'domaineId' },
+  nom: { id: 'nom', groupBy: ['titres.nom'] },
+  domaine: { id: 'domaineId', groupBy: ['titres.domaineId'] },
   type: { id: 'type:type.nom', relation: 'type.type' },
-  statut: { id: 'statutId' },
+  statut: { id: 'statutId', groupBy: ['titres.statutId'] },
   activites: {
     id: 'activites',
     groupBy: []
