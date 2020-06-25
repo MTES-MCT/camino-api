@@ -361,6 +361,12 @@ const activitesStatuts = async () => {
   }
 }
 
+/**
+ * Retourne les descriptions des éléments de vocabulaire utilisés dans camino sous forme de définitions
+ *
+ * @param context - le contexte utilisateur
+ * @returns un tableau de définitions formatées
+ */
 const definitions = async (context: IToken) => {
   try {
     const definitions = await definitionsGet()
