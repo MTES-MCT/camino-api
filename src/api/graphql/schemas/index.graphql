@@ -118,6 +118,9 @@ type Query {
   "Types d'étapes"
   etapesTypes(titreDemarcheId: ID, titreEtapeId: ID): [EtapeType]
 
+  "Status d'étapes"
+  etapesStatuts: [EtapeStatut]
+
   "Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 

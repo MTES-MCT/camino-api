@@ -6,6 +6,10 @@ type Domaine {
   "Nom du domaine en français"
   nom: String!
 
+  description: String
+
+  ordre: Int
+
   titresTypes: [TitreType]
 
   titresCreation: Boolean
@@ -41,6 +45,8 @@ type TitreTypeType {
   "Nature du type exploitation/exploration"
   exploitation: Boolean
 
+  description: String
+
   ordre: Int!
 }
 
@@ -54,6 +60,10 @@ type TitreStatut {
 
   "Couleur associé au statut"
   couleur: Couleur!
+
+  description: String
+
+  ordre: Int
 }
 
 "Type de démarche applicable à un titre minier"
@@ -63,6 +73,8 @@ type DemarcheType {
 
   "Nom en français"
   nom: String!
+
+  description: String
 
   "Ordre de ce type de démarche"
   ordre: Int
@@ -105,6 +117,10 @@ type DemarcheStatut {
   nom: String!
 
   couleur: Couleur!
+
+  description: String
+
+  ordre: Int
 }
 
 "Statut d'une phase de titre minier"
@@ -131,6 +147,8 @@ type EtapeType {
 
   demarcheTypeId: ID
 
+  description: String
+
   ordre: Int!
 
   fondamentale: Boolean
@@ -156,6 +174,8 @@ type EtapeStatut {
   nom: String!
 
   couleur: Couleur!
+
+  description: String
 }
 
 "Référence métier"
