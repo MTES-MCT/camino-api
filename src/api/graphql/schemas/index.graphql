@@ -143,6 +143,9 @@ type Query {
   "Liste des substances"
   substances: [Substance]
 
+  "Liste des substances"
+  substancesLegales: [SubstanceLegale]
+
   "Metas"
   devises: [Devise]
   documentsTypes(repertoire: ID, typeId: ID): [DocumentType]

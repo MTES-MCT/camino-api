@@ -1,4 +1,5 @@
 import Substances from '../models/substances'
+import SubstancesLegales from '../models/substances-legales'
 import options from './_options'
 
 const substancesGet = async () =>
@@ -7,4 +8,6 @@ const substancesGet = async () =>
 const substanceGet = async (id: string) =>
   Substances.query().findById(id).withGraphFetched(options.substances.graph)
 
-export { substancesGet, substanceGet }
+const substancesLegalesGet = async () => SubstancesLegales.query()
+
+export { substancesGet, substanceGet, substancesLegalesGet }
