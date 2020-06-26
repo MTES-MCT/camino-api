@@ -114,7 +114,7 @@
     "graphql-upload": "^11.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
-    "knex-db-manager": "git://github.com/Vincit/knex-db-manager.git#afb48be58f35c0907f328dbe33d6f786cfb4fb8b",
+    "knex-db-manager": "^0.6.1",
     "make-dir": "^3.1.0",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.10",
