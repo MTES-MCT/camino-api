@@ -1,14 +1,65 @@
-name: Release
-
+name: CI
 on:
+  push:
+  pull_request:
   release:
     branches:
       - master
-
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: camino_tests
+          PGUSER: postgres
+          PGPASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+    strategy:
+      matrix:
+        node-version: [12.x]
 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Npm install
+        run: |
+          npm ci
+          npm run build
+        env:
+          CI: true
+      - name: Unit tests
+        run: npm run ci:test-unit
+      - name: Integration tests
+        run: npm run ci:test-integration
+        env:
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: password
+      - name: Code coverage
+        run: npm run ci:codecov
+        env:
+          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
+
+  build:
+    if: github.event_name == 'release'
+    needs: test
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x]
@@ -23,10 +74,7 @@ jobs:
       - name: Npm install and test
         run: |
           npm ci
-          npm test
-        env:
-          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
-          CI: true
+          npm run build
       - name: Build Docker image
         run: docker build . --tag caminofr/camino-api
       - name: Push Docker image to the Docker Hub
@@ -38,8 +86,9 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   docs:
+    if: github.event_name == 'release'
+    needs: test
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]

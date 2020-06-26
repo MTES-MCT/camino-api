@@ -51,14 +51,19 @@
     "ss:activites-export": "node ./dist/tools/export/titres-activites.js",
     "ss:import": "rm -rf sources && mkdir sources && node ./dist/tools/import/index.js",
     "start": "node ./dist/index.js",
-    "test": "eslint . && npm run build && jest --verbose && codecov",
-    "test:jest": "npm run lint && jest --verbose --watch",
+    "test": "eslint . && npm run build && jest --testPathIgnorePatterns=tests --ci && codecov",
+    "test:jest": "npm run lint && jest --testPathIgnorePatterns=tests --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
-    "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --verbose --roots=tests --runInBand --detectOpenHandles --watch"
+    "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch",
+    "ci:lint": "eslint .",
+    "ci:test-unit": "jest --testPathIgnorePatterns=tests --ci",
+    "ci:test-integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit",
+    "ci:codecov": "codecov"
   },
   "@comment dependencies": {
     "graphql-import": "bloqué à 0.7.1: https://github.com/ardatan/graphql-import/issues/537",
-    "graphql": "bloqué à 14.6.0 à cause d'une erreur de type de graphql-fields"
+    "graphql": "bloqué à 14.6.0 à cause d'une erreur de type de graphql-fields",
+    "knex-db-manager": "en attente de la prochaine release qui contient la migration séquentielle"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
@@ -109,7 +114,7 @@
     "graphql-upload": "^11.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
-    "knex-db-manager": "^0.6.1",
+    "knex-db-manager": "git://github.com/Vincit/knex-db-manager.git#afb48be58f35c0907f328dbe33d6f786cfb4fb8b",
     "make-dir": "^3.1.0",
     "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.10",

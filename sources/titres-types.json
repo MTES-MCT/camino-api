@@ -1,0 +1,248 @@
+[
+  {
+    "id": "apc",
+    "domaine_id": "c",
+    "type_id": "ap"
+  },
+  {
+    "id": "aph",
+    "domaine_id": "h",
+    "type_id": "ap"
+  },
+  {
+    "id": "apm",
+    "domaine_id": "m",
+    "type_id": "ap"
+  },
+  {
+    "id": "apw",
+    "domaine_id": "w",
+    "type_id": "ap"
+  },
+  {
+    "id": "arc",
+    "domaine_id": "c",
+    "type_id": "ar"
+  },
+  {
+    "id": "arg",
+    "domaine_id": "g",
+    "type_id": "ar"
+  },
+  {
+    "id": "arm",
+    "domaine_id": "m",
+    "type_id": "ar",
+    "props_etapes_types": [
+      {
+        "sectionId": "arm",
+        "elementId": "mecanise"
+      }
+    ]
+  },
+  {
+    "id": "axm",
+    "domaine_id": "m",
+    "type_id": "ax"
+  },
+  {
+    "id": "cxf",
+    "domaine_id": "f",
+    "type_id": "cx"
+  },
+  {
+    "id": "cxg",
+    "domaine_id": "g",
+    "type_id": "cx"
+  },
+  {
+    "id": "cxh",
+    "domaine_id": "h",
+    "type_id": "cx"
+  },
+  {
+    "id": "cxm",
+    "domaine_id": "m",
+    "type_id": "cx"
+  },
+  {
+    "id": "cxr",
+    "domaine_id": "r",
+    "type_id": "cx"
+  },
+  {
+    "id": "cxs",
+    "domaine_id": "s",
+    "type_id": "cx",
+    "props_etapes_types": [
+      {
+        "sectionId": "cxx",
+        "elementId": "volume"
+      },
+      {
+        "sectionId": "cxx",
+        "elementId": "volumeUniteId"
+      }
+    ]
+  },
+  {
+    "id": "cxw",
+    "domaine_id": "w",
+    "type_id": "cx",
+    "props_etapes_types": [
+      {
+        "sectionId": "cxx",
+        "elementId": "volume"
+      },
+      {
+        "sectionId": "cxx",
+        "elementId": "volumeUniteId"
+      }
+    ]
+  },
+  {
+    "id": "pcc",
+    "domaine_id": "c",
+    "type_id": "pc"
+  },
+  {
+    "id": "prf",
+    "domaine_id": "f",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "prg",
+    "domaine_id": "g",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "prh",
+    "domaine_id": "h",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "prm",
+    "domaine_id": "m",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "prr",
+    "domaine_id": "r",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "prs",
+    "domaine_id": "s",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "prw",
+    "domaine_id": "w",
+    "type_id": "pr",
+    "props_etapes_types": [
+      {
+        "sectionId": "prx",
+        "elementId": "engagement"
+      },
+      {
+        "sectionId": "prx",
+        "elementId": "engagementDeviseId"
+      }
+    ]
+  },
+  {
+    "id": "pxg",
+    "domaine_id": "g",
+    "type_id": "px"
+  },
+  {
+    "id": "pxh",
+    "domaine_id": "h",
+    "type_id": "px"
+  },
+  {
+    "id": "pxm",
+    "domaine_id": "m",
+    "type_id": "px"
+  },
+  {
+    "id": "pxr",
+    "domaine_id": "r",
+    "type_id": "px"
+  },
+  {
+    "id": "pxw",
+    "domaine_id": "w",
+    "type_id": "px",
+    "props_etapes_types": [
+      {
+        "sectionId": "pxx",
+        "elementId": "volume"
+      },
+      {
+        "sectionId": "pxx",
+        "elementId": "volumeUniteId"
+      }
+    ]
+  }
+]

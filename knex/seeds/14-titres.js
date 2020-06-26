@@ -1,5 +1,6 @@
 const chalk = require('chalk')
 const decamelize = require('decamelize')
+const communes = require('../../sources/communes.json')
 
 const seeding = require('../seeding')
 
@@ -43,6 +44,7 @@ const data = files.reduce((d, file) => {
 }, {})
 
 const seed = seeding(async ({ insert }) => {
+  await insert('communes', communes)
   await insert('titres', data.titres)
 
   await Promise.all([

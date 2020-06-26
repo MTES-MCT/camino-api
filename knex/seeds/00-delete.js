@@ -1,16 +1,16 @@
 const seeding = require('../seeding')
 
 const seed = seeding(async ({ del }) => {
-  // 13
+  // 17
   await del('globales')
 
-  // 12
+  // 16
   await del('documents')
 
-  // 11
+  // 15
   await del('titresActivites')
 
-  // 10
+  // 14
   await Promise.all([
     del('titresSubstances'),
     del('titresPointsReferences'),
@@ -20,7 +20,8 @@ const seed = seeding(async ({ del }) => {
     del('titresAdministrationsLocales'),
     del('titresAmodiataires'),
     del('titresIncertitudes'),
-    del('titresEtapesJustificatifs')
+    del('titresEtapesJustificatifs'),
+    del('communes')
   ])
   await del('titresPoints')
   await Promise.all([
@@ -32,7 +33,24 @@ const seed = seeding(async ({ del }) => {
   await del('titresDemarches')
   await del('titres')
 
-  // 09
+  // 12
+  await del('activitesTypes__documentsTypes')
+  await del('activitesTypes__pays')
+  await del('titresTypes__activitesTypes')
+  await del('activitesTypes__administrations')
+  await del('activitesTypes')
+  await del('activitesStatuts')
+
+  // 11
+  await del('utilisateurs__administrations')
+  await del('utilisateurs__entreprises')
+  await del('utilisateurs')
+
+  // 10
+  await del('entreprisesEtablissements')
+  await del('entreprises')
+
+  // 06
   await Promise.all([
     del('a__titresTypes__titresStatuts'),
     del('a__etapesTypes'),
@@ -41,23 +59,6 @@ const seed = seeding(async ({ del }) => {
     del('r__titres_types__titres_statuts__administrations'),
     del('r__titres_types__etapes_types__administrations')
   ])
-
-  // 08
-  await del('activitesTypes__documentsTypes')
-  await del('activitesTypes__pays')
-  await del('titresTypes__activitesTypes')
-  await del('activitesTypes__administrations')
-  await del('activitesTypes')
-  await del('activitesStatuts')
-
-  // 07
-  await del('utilisateurs__administrations')
-  await del('utilisateurs__entreprises')
-  await del('utilisateurs')
-
-  // 06
-  await del('entreprisesEtablissements')
-  await del('entreprises')
 
   // 05
   await del('administrations')
@@ -95,7 +96,6 @@ const seed = seeding(async ({ del }) => {
   await Promise.all([del('domaines'), del('titresTypesTypes')])
 
   // 02
-  await del('communes')
   await del('departements')
   await del('regions')
   await del('pays')
