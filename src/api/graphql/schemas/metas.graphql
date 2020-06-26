@@ -230,7 +230,7 @@ type DocumentVisibilite {
 type Definition {
   id: ID!
   nom: String!
-  table: String
+  slug: String!
   description: String
   couleur: String
   elements: [Definition]
