@@ -202,6 +202,7 @@ const titresGet = async (
     }
 
     const groupBy = titresColonnes[colonne].groupBy as string[]
+    q.groupBy('titres.id')
     if (groupBy) {
       groupBy.forEach(gb => {
         q.groupBy(gb as string)
