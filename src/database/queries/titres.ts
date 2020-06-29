@@ -235,12 +235,6 @@ const titresGet = async (
     q.limit(intervalle)
   }
 
-  if (perimetre) {
-    // TODO: restreindre aux titre dont au moins un point
-    // est inclus dans le périmètre
-    // console.log(perimetre)
-  }
-
   return q
 }
 

@@ -124,6 +124,17 @@ const titreDemarchePermissionQueryBuild = (
     )
   })
 
+  q.modifyGraph('titre', a =>
+    titrePermissionQueryBuild(
+      a as QueryBuilder<Titres, Titres | Titres[]>,
+      fields,
+      user
+    )
+      // on group by titreId au cas où il y a une aggrégation
+      // dans la requête de titre (ex : calc activités)
+      .groupBy('titres.id')
+  )
+
   return q
 }
 

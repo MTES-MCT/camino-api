@@ -40,6 +40,12 @@ const administrationsPermissionQueryBuild = (
       fields,
       user
     )
+      // on group by administrationId au cas où il y a une aggrégation
+      // dans la requête de titre (ex : calc activités)
+      .groupBy(
+        'titres.id',
+        'titresAdministrationsGestionnaires.administrationId'
+      )
   )
 
   q.modifyGraph('titresAdministrationLocale', a =>
@@ -48,6 +54,9 @@ const administrationsPermissionQueryBuild = (
       fields,
       user
     )
+      // on group by administrationId au cas où il y a une aggrégation
+      // dans la requête de titre (ex : calc activités)
+      .groupBy('titres.id', 'titresAdministrationsLocales.administrationId')
   )
 
   q.modifyGraph('utilisateurs', u =>

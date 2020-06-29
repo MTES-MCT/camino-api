@@ -36,6 +36,8 @@ const titreActivitesCalc = (
       fields && Object.keys(fields).includes(activiteStatut.name)
   )
 
+  q.groupBy('titres.id')
+
   if (activiteStatutsRequested.length === 0) return q
 
   if (
@@ -126,8 +128,6 @@ const titreActivitesCalc = (
       q.select(raw('0').as(name))
     })
   }
-
-  q.groupBy('titres.id')
 
   activiteStatuts.forEach(({ name }) => {
     q.groupBy(name)
