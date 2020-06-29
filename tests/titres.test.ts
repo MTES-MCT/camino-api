@@ -209,7 +209,7 @@ describe('titreModifier', () => {
         }
       })
 
-    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
+    expect(res.body.errors[0].message).toMatch(/le titre n'existe pas/)
   })
 
   test("ne peut pas modifier un titre (un utilisateur 'entreprise')", async () => {
@@ -236,7 +236,7 @@ describe('titreModifier', () => {
       })
       .set('Authorization', `Bearer ${token}`)
 
-    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
+    expect(res.body.errors[0].message).toMatch(/le titre n'existe pas/)
   })
 
   test("modifie un titre (un utilisateur 'super')", async () => {
