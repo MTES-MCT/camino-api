@@ -1,8 +1,77 @@
-import { ITitreDemarche } from '../../../types'
+import { ITitreDemarche, Index } from '../../../types'
+
+import metas from '../../../database/cache/metas'
+
+import titreEtapesAscSortByDate from '../../../business/utils/titre-etapes-asc-sort-by-date'
+
+const etapesTypesIds = [
+  'mdp',
+  'spp',
+  'mcp',
+  'mcr',
+  'anf',
+  'ane',
+  'ppu',
+  'epu',
+  'eof',
+  'aof',
+  'apd',
+  'spo',
+  'apo',
+  'sca',
+  'aca',
+  'app',
+  'scg',
+  'acg',
+  'spe',
+  'ape',
+  'sas',
+  'dim',
+  'css',
+  'dex',
+  'dpu',
+  'dux',
+  'dup',
+  'npp',
+  'mno',
+  'sco'
+]
+
+const etapesDatesStatutsBuild = (titreDemarche: ITitreDemarche) => {
+  if (!titreDemarche.etapes?.length) return null
+
+  const etapes = titreEtapesAscSortByDate(titreDemarche.etapes).reverse()
+
+  // initialise l'objet selon tous les types d'étapes intéressants pour l'instruction
+  return etapesTypesIds.reduce((etapesDatesStatuts, typeId) => {
+    const type = metas.etapesTypes.find(et => et.id === typeId)
+    if (!type) return etapesDatesStatuts
+
+    // cherche l'étape la plus récente de ce type
+    const etape = etapes.find(e => e.typeId === typeId)
+
+    etapesDatesStatuts[type.nom] = etape?.date || ''
+
+    // si le type d'étape a plus d'un statut possible
+    // (ex : fav/def ou acc/rej)
+    // alors on exporte aussi le statut
+    if (type.etapesStatuts!.length > 1) {
+      const statut = etape?.type!.etapesStatuts!.find(
+        s => s.id === etape.statutId
+      )
+
+      etapesDatesStatuts[`${type.nom}_statut`] = statut?.nom || ''
+    }
+
+    return etapesDatesStatuts
+  }, {} as Index<string>)
+}
 
 const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
   titresDemarches.map(titreDemarche => {
     const titre = titreDemarche.titre!
+
+    const etapesTypesStatuts = etapesDatesStatutsBuild(titreDemarche)
 
     const titreDemarcheNew = {
       titre_id: titre.id,
@@ -14,7 +83,8 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
         : 'exploration',
       titre_statut: titre.statut!.nom,
       type: titreDemarche.type!.nom,
-      statut: titreDemarche.statut!.nom
+      statut: titreDemarche.statut!.nom,
+      ...etapesTypesStatuts
     }
 
     return titreDemarcheNew
