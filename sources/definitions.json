@@ -9,14 +9,14 @@
   },
   {
     "id": "tmi",
-    "nom": "Titre minier",
+    "nom": "Titres miniers",
     "slug": "titre-minier",
     "description": "Cet Acte administratif individuel confère des droits miniers exclusifs, pour des substances de mines ou des usages du sous-sol, pour une durée et un périmètre fixés. L’autorité décisionnaire est le ministre chargée des mines. Le titre n’inclue pas d’autorisation de travaux miniers.",
     "ordre": "2"
   },
   {
     "id": "tma",
-    "nom": "Autorisation minière",
+    "nom": "Autorisations minières",
     "slug": "autorisation-miniere",
     "description": "Cet Acte administratif individuel confère des droits miniers exclusifs, pour des substances de mines ou des usages du sous-sol, pour une durée et  un périmètre fixés. Selon les cas, l’autorité décisionnaire est le ministre chargée des mines, le préfet ou l’Office national des forêts, (mandataire de l'État pour l'administration et la gestion des autorisations de recherches minières pour l’or en Guyane.)",
     "ordre": "3"
@@ -30,7 +30,7 @@
   },
   {
     "id": "tst",
-    "nom": "Statut des autorisations et titres miniers",
+    "nom": "Statuts des autorisations et titres miniers",
     "slug": "titres-statuts",
     "table": "titres_statuts",
     "description": "Ce statut caractérise l’état d’avancement du projet minier.\nIl indique l’état de disponibilité du domaine minier pour les substances ou les usages visés par le titre ou l’autorisation.\n",
@@ -38,14 +38,14 @@
   },
   {
     "id": "dty",
-    "nom": "Types de démarche",
+    "nom": "Types de démarches",
     "slug": "demarches-types",
     "table": "demarches_types",
     "ordre": "6"
   },
   {
     "id": "dst",
-    "nom": "Statuts de démarche",
+    "nom": "Statuts de démarches",
     "slug": "demarches-statuts",
     "table": "demarches_statuts",
     "ordre": "7"

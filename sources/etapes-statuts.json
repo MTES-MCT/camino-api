@@ -2,61 +2,73 @@
   {
     "id": "acc",
     "nom": "accepté",
-    "couleur": "success"
+    "couleur": "success",
+    "ordre": "1"
   },
   {
     "id": "def",
     "nom": "défavorable",
-    "couleur": "error"
+    "couleur": "error",
+    "ordre": "2"
   },
   {
     "id": "dre",
     "nom": "défavorable avec réserves",
-    "couleur": "warning"
+    "couleur": "warning",
+    "ordre": "3"
   },
   {
     "id": "fav",
     "nom": "favorable",
-    "couleur": "success"
+    "couleur": "success",
+    "ordre": "4"
   },
   {
     "id": "fre",
     "nom": "favorable avec réserves",
-    "couleur": "warning"
+    "couleur": "warning",
+    "ordre": "5"
   },
   {
     "id": "nul",
     "nom": "non applicable",
-    "couleur": "neutral"
+    "couleur": "neutral",
+    "ordre": "6"
   },
   {
     "id": "rej",
     "nom": "rejeté",
-    "couleur": "error"
+    "couleur": "error",
+    "ordre": "7"
   },
   {
     "id": "fai",
     "nom": "fait",
-    "couleur": "success"
+    "couleur": "success",
+    "ordre": "8"
   },
   {
     "id": "ajo",
     "nom": "ajourné",
-    "couleur": "warning"
+    "couleur": "warning",
+    "ordre": "9"
   },
   {
     "id": "pro",
     "nom": "programmé",
-    "couleur": "warning"
+    "couleur": "warning",
+    "ordre": "10"
   },
   {
     "id": "enc",
     "nom": "en cours",
-    "couleur": "success"
+    "couleur": "success",
+    "ordre": "11"
   },
   {
     "id": "ter",
     "nom": "terminé",
-    "couleur": "neutral"
+    "couleur": "neutral",
+    "ordre": "12"
   }
 ]
