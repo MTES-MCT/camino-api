@@ -15,6 +15,7 @@ import TitresTypesTypes from '../models/titres-types-types'
 import unites from '../models/unites'
 import ActivitesStatuts from '../models/activites-statuts'
 import EtapesStatuts from '../models/etapes-statuts'
+import SubstancesLegalesCodes from '../models/substances-legales-codes'
 import Definitions from '../models/definition'
 
 import options from './_options'
@@ -170,9 +171,12 @@ const activitesStatutsGet = async () => {
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
-const etapesStatutsGet = async () => EtapesStatuts.query()
+const etapesStatutsGet = async () => EtapesStatuts.query().orderBy('ordre')
 
-const definitionsGet = async () => Definitions.query().orderBy('nom')
+const substancesLegalesCodesGet = async () =>
+  SubstancesLegalesCodes.query().orderBy('ordre')
+
+const definitionsGet = async () => Definitions.query().orderBy('ordre')
 
 export {
   titresTypesTypesGet,
@@ -193,5 +197,6 @@ export {
   permissionsGet,
   permissionGet,
   etapesStatutsGet,
+  substancesLegalesCodesGet,
   definitionsGet
 }

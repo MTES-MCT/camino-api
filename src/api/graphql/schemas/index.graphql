@@ -118,6 +118,9 @@ type Query {
   "Types d'étapes"
   etapesTypes(titreDemarcheId: ID, titreEtapeId: ID): [EtapeType]
 
+  "Status d'étapes"
+  etapesStatuts: [EtapeStatut]
+
   "Utilisateur en fonction de son id"
   utilisateur(id: ID!): Utilisateur
 
@@ -139,6 +142,9 @@ type Query {
 
   "Liste des substances"
   substances: [Substance]
+
+  "Liste des substances"
+  substancesLegales: [SubstanceLegale]
 
   "Metas"
   devises: [Devise]

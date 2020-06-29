@@ -777,8 +777,9 @@ interface ITelechargement {
 interface IDefinition {
   id: string
   nom: string
+  slug: string
   table?: string
-  description?: string
+  description?: string | null
   couleur?: string
   elements?: IDefinition[]
 }

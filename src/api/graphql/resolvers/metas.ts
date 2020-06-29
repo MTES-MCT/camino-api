@@ -1,10 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import {
-  IToken,
-  IEtapeType,
-  IDocumentRepertoire,
-  IDefinition
-} from '../../../types'
+import { IToken, IEtapeType, IDocumentRepertoire } from '../../../types'
 import { debug } from '../../../config/index'
 
 import { autorisations } from '../../../database/cache/autorisations'
@@ -16,6 +11,7 @@ import {
   domainesGet,
   devisesGet,
   etapesTypesGet,
+  etapesStatutsGet,
   geoSystemesGet,
   permissionsGet,
   permissionGet,
@@ -25,8 +21,7 @@ import {
   unitesGet,
   activitesTypesGet,
   activitesStatutsGet,
-  definitionsGet,
-  etapesStatutsGet
+  definitionsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -320,6 +315,20 @@ const etapesTypes = async (
   }
 }
 
+const etapesStatuts = async () => {
+  try {
+    const etapesStatuts = await etapesStatutsGet()
+
+    return etapesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const version = () => {
   return npmPackage.version
 }
@@ -360,62 +369,16 @@ const activitesStatuts = async () => {
   }
 }
 
-const definitions = async (context: IToken) => {
+/**
+ * Retourne les définitions
+ *
+ * @returns un tableau de définitions
+ */
+const definitions = async () => {
   try {
     const definitions = await definitionsGet()
 
-    const definitionsFormated = definitions.map(async d => {
-      if (d.table) {
-        let elements: IDefinition[] = []
-
-        if (d.table === 'domaines') {
-          elements = await domainesGet(
-            null as never,
-            { fields: { id: {} } },
-            context.user?.id
-          )
-        }
-        if (d.table === 'titres_types_types') {
-          elements = await titresTypesTypesGet()
-        }
-        if (d.table === 'titres_statuts') {
-          elements = await titresStatutsGet()
-        }
-        if (d.table === 'demarches_types') {
-          elements = await demarchesTypesGet(
-            { titreId: undefined, titreDemarcheId: undefined },
-            { fields: { id: {} } },
-            context.user?.id
-          )
-        }
-        if (d.table === 'demarches_statuts') {
-          elements = await demarchesStatutsGet()
-        }
-        if (d.table === 'etapes_types') {
-          elements = await etapesTypesGet(
-            {
-              titreDemarcheId: undefined,
-              titreEtapeId: undefined
-            },
-            { fields: { id: {} } },
-            context.user?.id
-          )
-        }
-        if (d.table === 'etapes_statuts') {
-          elements = await etapesStatutsGet()
-        }
-
-        d.elements = elements?.map(e => {
-          e.table = d.table
-
-          return e
-        })
-      }
-
-      return d
-    })
-
-    return definitionsFormated
+    return definitions
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -433,6 +396,7 @@ export {
   documentsVisibilites,
   domaines,
   etapesTypes,
+  etapesStatuts,
   geoSystemes,
   permission,
   permissions,

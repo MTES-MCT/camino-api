@@ -55,6 +55,7 @@ import {
   documentsVisibilites,
   domaines,
   etapesTypes,
+  etapesStatuts,
   geoSystemes,
   permission,
   permissions,
@@ -68,7 +69,11 @@ import {
   definitions
 } from './resolvers/metas'
 
-import { substance, substances } from './resolvers/substances'
+import {
+  substance,
+  substances,
+  substancesLegales
+} from './resolvers/substances'
 import {
   entreprise,
   entreprises,
@@ -99,6 +104,7 @@ export default {
   documentsVisibilites,
   domaines,
   etapesTypes,
+  etapesStatuts,
   geoSystemes,
   permission,
   permissions,
@@ -111,6 +117,7 @@ export default {
   titres,
   substance,
   substances,
+  substancesLegales,
   moi,
   entreprise,
   entreprises,

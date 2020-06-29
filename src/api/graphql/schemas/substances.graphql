@@ -24,6 +24,7 @@ type SubstanceLegale {
   domaine: Domaine
   description: String
   code: SubstanceLegaleCode!
+  ordre: Int
 }
 
 type SubstanceLegaleCode {
