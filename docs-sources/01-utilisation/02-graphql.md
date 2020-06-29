@@ -1,6 +1,14 @@
-# Api GraphQL de Camino
+# API GraphQL de Camino
 
-L'API GraphQl de Camino est accessible à cette url: [api.camino.beta.gouv.fr/](https://api.camino.beta.gouv.fr/).
+L'API GraphQL de Camino permet d'accéder aux données et de les modifier.
+
+## Format
+
+Les données sont retournées au format JSON.
+
+## URL
+
+L'API GraphQl de Camino est accessible à cette url : [api.camino.beta.gouv.fr/](https://api.camino.beta.gouv.fr/).
 
 La documentation de cette API est consultable dans l'onglets `Docs` (en haut à droite) de l'application _GraphiQL_.
 
