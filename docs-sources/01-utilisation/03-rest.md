@@ -4,7 +4,7 @@ L'API REST de Camino permet d'accéder aux données en lecture seule dans diffé
 
 ## Formats
 
-Les données sont disponibles au formats :
+Les données sont disponibles aux formats :
 
 - [JSON](https://www.json.org) : tableau d'objets JavaScript
 - [CSV](https://fr.wikipedia.org/wiki/Comma-separated_values) : valeurs séparées par des virgules
@@ -14,7 +14,7 @@ Les données sont disponibles au formats :
 
 ## URL
 
-L'API REST de Camino est accessible à cette url : [api.camino.beta.gouv.fr/<ressource>](https://api.camino.beta.gouv.fr/).
+L'API est accessible à cette url : [api.camino.beta.gouv.fr/<ressource>](https://api.camino.beta.gouv.fr/).
 
 ## Méthode
 
@@ -40,7 +40,7 @@ Retourne la liste des titres.
 - `references` : références métier de titres
 - `territoires` : territoires géographiques
 
-## `/demarches`
+### `/demarches`
 
 Retourne la liste des démarches.
 
@@ -62,7 +62,7 @@ Retourne la liste des démarches.
 - `titresReferences` : références métier de titres
 - `titresTerritoires` : territoires géographiques
 
-### /activites
+### `/activites`
 
 Retourne la liste des activités.
 
@@ -83,7 +83,7 @@ Retourne la liste des activités.
 - `titresReferences` : références métier de titres
 - `titresTerritoires` : territoires géographiques
 
-### /utilisateurs
+### `/utilisateurs`
 
 Retourne la liste des utilisateurs
 
@@ -98,7 +98,7 @@ Retourne la liste des utilisateurs
 - `noms` : noms des utilisateurs
 - `emails` : emails des utilisateurs
 
-### /entreprises
+### `/entreprises`
 
 Retourne la liste des entreprises.
 
@@ -120,7 +120,9 @@ L'identifiant peut être ajouté dans l'URL, le navigateur va le convertir en ba
 
 - `https://mon-email%40domaine.tld:mon-mot-depasse@<URL>`
 
-Pour plus d'informations, voir la [documentation développeur Mozilla](https://developer.mozilla.org/fr/docs/Web/HTTP/Authentication).
+Dans l'url, le signe `@` de l'adresse email doit être converti en `%40`.
+
+Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozilla.org/fr/docs/Web/HTTP/Authentication).
 
 ## Exemples
 
@@ -137,6 +139,6 @@ Pour plus d'informations, voir la [documentation développeur Mozilla](https://d
 
 - la liste des activités
 - de l'entreprise `mon-entreprise`
-- pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`. Dans l'url, le signe `@` de l'adresse email doit être converti en `%20`.
+- pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`.
 
 `https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites`
