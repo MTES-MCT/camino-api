@@ -21,8 +21,9 @@ const contentTypes = {
   csv: 'text/csv',
   geojson: 'application/geojson',
   xlsx: 'application/xlsx',
-  pdf: 'application/pdf'
-} as Index<string>
+  pdf: 'application/pdf',
+  json: 'application/json'
+} as { [id in IFormat]: string }
 
 interface IRestResolverResult {
   nom: string
