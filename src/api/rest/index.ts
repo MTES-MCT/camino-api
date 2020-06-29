@@ -2,7 +2,8 @@ import {
   IFormat,
   ITitreColonneId,
   ITitreDemarcheColonneId,
-  ITitreActiviteColonneId
+  ITitreActiviteColonneId,
+  IUtilisateursColonneId
 } from '../../types'
 
 import { titresGet } from '../../database/queries/titres'
@@ -146,9 +147,9 @@ const demarches = async (
     ordre,
     colonne,
     typesIds,
+    statutsIds,
     etapesInclues,
     etapesExclues,
-    statutsIds,
     titresTypesIds,
     titresDomainesIds,
     titresStatutsIds,
@@ -306,6 +307,8 @@ const activites = async (
 
 interface IUtilisateursQueryInput {
   format?: IFormat
+  colonne?: IUtilisateursColonneId | null
+  ordre?: 'asc' | 'desc' | null
   entrepriseIds?: string | undefined
   administrationIds?: string | undefined
   permissionIds?: string | undefined
@@ -316,6 +319,8 @@ interface IUtilisateursQueryInput {
 const utilisateurs = async (
   {
     format = 'json',
+    colonne,
+    ordre,
     entrepriseIds,
     administrationIds,
     permissionIds,
@@ -328,11 +333,13 @@ const utilisateurs = async (
 
   const utilisateurs = await utilisateursGet(
     {
-      noms,
-      emails,
+      colonne,
+      ordre,
       entrepriseIds: entrepriseIds?.split(','),
       administrationIds: administrationIds?.split(','),
-      permissionIds: permissionIds?.split(',')
+      permissionIds: permissionIds?.split(','),
+      noms,
+      emails
     },
     {},
     userId
