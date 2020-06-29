@@ -176,6 +176,8 @@ type EtapeStatut {
   couleur: Couleur!
 
   description: String
+
+  ordre: Int
 }
 
 "Référence métier"

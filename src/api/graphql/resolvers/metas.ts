@@ -1,10 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql'
-import {
-  IToken,
-  IEtapeType,
-  IDocumentRepertoire,
-  IDefinition
-} from '../../../types'
+import { IToken, IEtapeType, IDocumentRepertoire } from '../../../types'
 import { debug } from '../../../config/index'
 
 import { autorisations } from '../../../database/cache/autorisations'
@@ -16,6 +11,7 @@ import {
   domainesGet,
   devisesGet,
   etapesTypesGet,
+  etapesStatutsGet,
   geoSystemesGet,
   permissionsGet,
   permissionGet,
@@ -25,9 +21,7 @@ import {
   unitesGet,
   activitesTypesGet,
   activitesStatutsGet,
-  definitionsGet,
-  etapesStatutsGet,
-  substancesLegalesCodesGet
+  definitionsGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -321,6 +315,20 @@ const etapesTypes = async (
   }
 }
 
+const etapesStatuts = async () => {
+  try {
+    const etapesStatuts = await etapesStatutsGet()
+
+    return etapesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const version = () => {
   return npmPackage.version
 }
@@ -388,6 +396,7 @@ export {
   documentsVisibilites,
   domaines,
   etapesTypes,
+  etapesStatuts,
   geoSystemes,
   permission,
   permissions,

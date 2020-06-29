@@ -6,6 +6,7 @@ exports.up = knex => {
       table.string('code').notNullable()
       table.text('description')
       table.string('lien').notNullable()
+      table.integer('ordre').notNullable()
     })
     .createTable('substancesLegales', table => {
       table.string('id').primary()

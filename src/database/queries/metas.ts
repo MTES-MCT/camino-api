@@ -171,9 +171,10 @@ const activitesStatutsGet = async () => {
 
 const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
-const etapesStatutsGet = async () => EtapesStatuts.query()
+const etapesStatutsGet = async () => EtapesStatuts.query().orderBy('ordre')
 
-const substancesLegalesCodesGet = async () => SubstancesLegalesCodes.query()
+const substancesLegalesCodesGet = async () =>
+  SubstancesLegalesCodes.query().orderBy('ordre')
 
 const definitionsGet = async () => Definitions.query().orderBy('ordre')
 
