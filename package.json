@@ -62,8 +62,7 @@
   },
   "@comment dependencies": {
     "graphql-import": "bloqué à 0.7.1: https://github.com/ardatan/graphql-import/issues/537",
-    "graphql": "bloqué à 14.6.0 à cause d'une erreur de type de graphql-fields",
-    "knex-db-manager": "en attente de la prochaine release qui contient la migration séquentielle"
+    "graphql": "bloqué à 14.6.0 à cause d'une erreur de type de graphql-fields"
   },
   "dependencies": {
     "@mapbox/geojsonhint": "^3.0.0",
