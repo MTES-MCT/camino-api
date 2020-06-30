@@ -141,4 +141,4 @@ Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozi
 - de l'entreprise `mon-entreprise`
 - pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`.
 
-`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites`
+`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise`
