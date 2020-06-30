@@ -426,16 +426,15 @@ const utilisateurModifier = async (
       )
     }
 
-    if (!isSuper) {
-      const errorsValidate = await utilisateurUpdationValidate(
-        user,
-        utilisateur,
-        isAdmin
-      )
+    const errorsValidate = await utilisateurUpdationValidate(
+      user,
+      utilisateur,
+      isAdmin,
+      isSuper
+    )
 
-      if (errorsValidate.length) {
-        errors.push(...errorsValidate)
-      }
+    if (errorsValidate.length) {
+      errors.push(...errorsValidate)
     }
 
     if (errors.length) {
@@ -443,7 +442,7 @@ const utilisateurModifier = async (
     }
 
     if (
-      !permissionCheck(utilisateur?.permissionId, [
+      !permissionCheck(utilisateur.permissionId, [
         'admin',
         'editeur',
         'lecteur'
