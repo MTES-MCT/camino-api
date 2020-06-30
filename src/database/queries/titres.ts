@@ -30,10 +30,10 @@ import {
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
  *
- * @param filters - Les filtres à appliquer
- * @param fields - Les champs que l’on souhaite retourner
- * @param user - L’utilisateur qui fait l’action
- * @returns la requête qui permet de récupérer certains champs de titres filtrés
+ * @param filters - filtres à appliquer
+ * @param fields - propriétés demandées sur le titre
+ * @param user - utilisateur
+ * @returns la requête
  *
  */
 const titresQueryBuild = (
@@ -94,12 +94,12 @@ const titresQueryBuild = (
 }
 
 /**
- * Récupère un titre en fonction de son id
+ * Retourne un titre en fonction de son id
  *
- * @param id - L’id du titre souhaité
- * @param fields - Les champs que l’on souhaite retourner
- * @param userId - L’id de l’utilisateur qui fait l’action
- * @returns certains champs du titre souhaité
+ * @param id - id du titre
+ * @param fields - propriétés demandées sur le titre
+ * @param userId - id de l’utilisateur
+ * @returns un titre
  *
  */
 const titreGet = async (
@@ -164,12 +164,12 @@ const titresColonnes = {
 } as Index<IColonne<string | RawBuilder>>
 
 /**
- * Récupére certains champs de titres filtrés
+ * Retourne des titres en fonction de filtres
  *
- * @param filters - Les filtres à appliquer
- * @param fields - Les champs que l’on souhaite retourner
- * @param user - L’utilisateur qui fait l’action
- * @returns certains champs de titres filtrés
+ * @param filters - filtres à appliquer
+ * @param fields - propriétés demandées
+ * @param user - utilisateur
+ * @returns une liste de titres
  *
  */
 const titresGet = async (
@@ -269,12 +269,12 @@ const titresGet = async (
 }
 
 /**
- * Récupére le nombre de titres filtrés
+ * Retourne le nombre de titres filtrés
  *
- * @param filters - Les filtres à appliquer
- * @param fields - Les champs que l’on souhaite retourner
- * @param user - L’utilisateur qui fait l’action
- * @returns le nombre de titres filtrés
+ * @param filters - filtres
+ * @param fields - propriétés demandées
+ * @param user - utilisateur
+ * @returns le nombre de titres
  *
  */
 const titresCount = async (
@@ -327,11 +327,11 @@ type ICount = {
 }
 
 /**
- * Créer un nouveau titre
+ * Crée un nouveau titre
  *
- * @param titre - Le nouveau titre à créer
+ * @param titre - titre à créer
  * @param fields - Non utilisés
- * @param user - L’utilisateur qui fait l’action
+ * @param user - utilisateur
  * @returns le nouveau titre
  *
  */
@@ -433,12 +433,12 @@ const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
 }
 
 /**
- * Vérifie qu'au moins une administration est gestionnaire sur le type de titre
+ * Vérifie que l'utilisateur fait partie d'au moins une administration gestionnaire sur le type de titre
  *
- * @param titre - Le titre en cours de manipulation
- * @param user - L’utilisateur qui fait l’action
- * @param titreMode - Mode d’édition
- * @returns si l’utilisateur à la permission de créer/modifier ce type de titre
+ * @param titre - titre en cours de manipulation
+ * @param user - utilisateur
+ * @param titreMode - mode d’édition
+ * @returns si l’utilisateur a la permission ou non
  *
  */
 const titreTypePermissionAdministrationIdCheck = async (
@@ -466,13 +466,13 @@ type EditionType = 'titres' | 'demarches' | 'etapes'
 type EditionMode = 'creation' | 'modification'
 
 /**
- * Vérifie qu'au moins une administration est gestionnaire sur le type de titre et n’est pas restreinte sur l’édition
+ * Vérifie que l'utilisateur fait partie d'au moins une administration gestionnaire sur le type de titre et qui n’est pas restreinte sur l’édition
  *
- * @param titre - Le titre en cours de manipulation
- * @param titreStatutId - Le statut actuel du titre
- * @param user - L’utilisateur qui fait l’action
- * @param type - Le type qu’on souhaite modifier
- * @returns si l’utilisateur à la permission de modifier ce type de titre
+ * @param titre - titre en cours de manipulation
+ * @param titreStatutId - statut actuel du titre
+ * @param user - utilisateur qui fait l’action
+ * @param type - type qu’on souhaite modifier
+ * @returns si l’utilisateur a la permission ou non
  *
  */
 const titreTypeStatutPermissionAdministrationCheck = async (

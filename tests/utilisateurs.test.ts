@@ -381,3 +381,120 @@ describe('utilisateursCreer', () => {
     })
   })
 })
+
+describe('utilisateurSupprimer', () => {
+  const utilisateurSupprimerQuery = queryImport('utilisateur-supprimer')
+
+  test('ne peut pas supprimer un compte (utilisateur anonyme)', async () => {
+    const res = await request(app)
+        .post('/')
+        .send({
+          query: utilisateurSupprimerQuery,
+          variables: {
+              id: 'test'
+          }
+        })
+
+    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
+  })
+
+  test('peut supprimer son compte utilisateur', async () => {
+    await userAdd(knex, {
+      id: 'test',
+      prenom: 'toto',
+      nom: 'test',
+      email: 'test@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'defaut'
+    })
+
+    const token = tokenCreate({ id: 'test' })
+
+    const res = await request(app)
+        .post('/')
+        .send({
+          query: utilisateurSupprimerQuery,
+          variables: {
+              id: 'test'
+          }
+        })
+        .set('Authorization', `Bearer ${token}`)
+
+    expect(res.status).toEqual(200)
+    expect(res.body).toMatchObject({
+      data: {
+        utilisateurSupprimer: {
+          id: 'test'
+        }
+      }
+    })
+  })
+
+  test('peut supprimer un utilisateur (utilisateur super)', async () => {
+    jest.setTimeout(20000)
+
+    const id = 'user-todelete'
+    await userAdd(knex, {
+      id,
+      prenom: 'userToDelete',
+      nom: 'test',
+      email: 'user-to-delete@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'defaut'
+    })
+
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'toto',
+      nom: 'test',
+      email: 'test@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super'
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+    const res = await request(app)
+        .post('/')
+        .send({
+          query: utilisateurSupprimerQuery,
+          variables: {
+            id
+          }
+        })
+        .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body).toMatchObject({
+      data: {
+        utilisateurSupprimer: {
+          id
+        }
+      }
+    })
+  })
+
+  test('ne peut pas supprimer un utilisateur inexistant (utilisateur super)', async () => {
+    jest.setTimeout(20000)
+
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'toto',
+      nom: 'test',
+      email: 'test@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super'
+    })
+
+    const token = tokenCreate({ id: 'super-user' })
+    const res = await request(app)
+        .post('/')
+        .send({
+          query: utilisateurSupprimerQuery,
+          variables: {
+            id: "toto"
+          }
+        })
+        .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.errors[0].message).toMatch(/aucun utilisateur avec cet id/)
+  })
+})
