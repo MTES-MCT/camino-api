@@ -9,6 +9,13 @@ import TitresEtapes from '../../models/titres-etapes'
 import { documentsPermissionQueryBuild } from './documents'
 import { etapesTypesModificationQueryBuild } from './metas'
 
+/**
+ * Modifie la requête d'étape(s) pour prendre en compte les permissions de l'utilisateur connecté
+ *
+ * @params q - requête d'étape(s)
+ * @params user - utilisateur connecté
+ * @returns une requête d'étape(s)
+ */
 const titreEtapesPermissionQueryBuild = (
   q: QueryBuilder<TitresEtapes, TitresEtapes | TitresEtapes[]>,
   user?: IUtilisateur
@@ -18,7 +25,7 @@ const titreEtapesPermissionQueryBuild = (
   // étapes visibles pour les admins
   if (
     user &&
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+    permissionCheck(user.permissionId, ['admin', 'editeur', 'lecteur'])
   ) {
     q.leftJoinRelated('[demarche.titre, type]')
 
@@ -52,8 +59,6 @@ const titreEtapesPermissionQueryBuild = (
       )
 
       q.whereRaw('?? is not true', ['r_t_e_a.lectureInterdit'])
-
-      q.groupBy('titresEtapes.id')
     } else {
       q.leftJoinRelated('type.restrictionsAdministrations')
 
@@ -64,6 +69,9 @@ const titreEtapesPermissionQueryBuild = (
         'demarche:titre.typeId'
       ])
     }
+
+    // le group by permet de réduire les doublons causés par les left join
+    q.groupBy('titresEtapes.id')
   } else if (
     !user ||
     permissionCheck(user?.permissionId, ['defaut', 'entreprise'])
