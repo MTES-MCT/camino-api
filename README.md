@@ -11,7 +11,11 @@
 
 > API de Camino, le cadastre minier numérique ouvert: [api.camino.beta.gouv.fr](https://api.camino.beta.gouv.fr)
 
-L'API de Camino expose les caractéristiques des titres et autorisations du domaine minier français. Elle permet aux utilisateurs autorisés de gérer ces titres et autorisations. Pour plus de détail sur le périmètre de l'application, voir [cette page](https://camino.beta.gouv.fr/a-propos).
+L'API de Camino expose les propriétés des titres et autorisations du domaine minier français. Les utilisateurs autorisés peuvent les modifier.
+
+Cette API est utilisée par l'application [Camino](https://camino.beta.gouv.fr).
+
+Pour plus de détail sur le périmètre de l'API, voir [cette page](https://camino.beta.gouv.fr/a-propos).
 
 ---
 
