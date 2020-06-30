@@ -129,16 +129,18 @@ Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozi
 ### Requête sans authentification
 
 - la liste des titres
+- au format csv
 - du domaine minier M
 - dont le type est un permis d'exploitation
 - localisés en Guyane
 
-`https://api.camino.beta.gouv.fr/titres?domainesIds=m&typesIds=ax&territoires=guyane`
+`https://api.camino.beta.gouv.fr/titres?domainesIds=m&typesIds=ax&territoires=guyane&format=csv`
 
 ### Requête avec authentification
 
 - la liste des activités
+- au format csv
 - de l'entreprise `mon-entreprise`
 - pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`.
 
-`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise`
+`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise&format=csv`
