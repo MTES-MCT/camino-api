@@ -109,20 +109,16 @@ Retourne la liste des entreprises.
 
 ## Authentification
 
-L'API REST est accessible avec un identifiant Camino.
+Les utilisateurs ayant un compte Camino peuvent s'identifier sur l'API REST et ainsi accéder à des informations confidentielles.
 
-L'identifiant doit être injecté dans le header HTTP `Authentication` avec une des valeurs suivantes :
+Pour identifier l'utilisateur, le header `Authentication` de la requête HTTP doit contenir une des valeurs suivantes :
 
-- `Basic <IDENTIFIANT>`. `IDENTIFIANT` est `mon-email%40domaine.tld:mon-mot-depasse` encodé en base 64.
-- `Bearer <TOKEN>`. `TOKEN` reçu après authentification sur le site Camino.
+- `Basic <IDENTIFIANT>`. `IDENTIFIANT` est `mon-email@mon-domaine.tld:mon-mot-de-passe` encodé en base 64.
+- `Bearer <TOKEN>`. `TOKEN` obtenu après authentification sur le site Camino.
 
-L'identifiant peut être ajouté dans l'URL, le navigateur va le convertir en base 64 et l'injecter dans le header :
+L'identifiant peut aussi être ajouté dans l'URL. Dans ce cas, le signe `@` de l'adresse email doit être converti en `%40` :
 
-- `https://mon-email%40domaine.tld:mon-mot-depasse@<URL>`
-
-Dans l'url, le signe `@` de l'adresse email doit être converti en `%40`.
-
-Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozilla.org/fr/docs/Web/HTTP/Authentication).
+- `https://mon-email%40mon-domaine.tld:mon-mot-de-passe@<URL>`
 
 ## Exemples
 
@@ -130,8 +126,9 @@ Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozi
 
 - la liste des titres
 - du domaine minier M
-- dont le type est un permis d'exploitation
+- dont le type est permis d'exploitation
 - localisés en Guyane
+- au format `.json` (par défaut)
 
 `https://api.camino.beta.gouv.fr/titres?domainesIds=m&typesIds=ax&territoires=guyane`
 
@@ -139,7 +136,7 @@ Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozi
 
 - la liste des activités
 - de l'entreprise `mon-entreprise`
-- pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`
+- pour l'utilisateur avec l'identifiant `mon-email@mon-domaine.tld` et le mot de passe: `mon-mot-de-passe`
 - au format `.csv`
 
-`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise&format=csv`
+`https://mon-email%40mon-domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise&format=csv`
