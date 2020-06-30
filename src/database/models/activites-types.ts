@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 import { IActiviteType } from '../../types'
 
