@@ -211,6 +211,9 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   }
 
   const titreOld = await titreGet(id, {}, user.id)
+  if (!titreOld) {
+    throw new Error('aucun titre avec cet id')
+  }
 
   await titreDocumentsDelete(titreOld)
 
