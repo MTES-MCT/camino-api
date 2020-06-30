@@ -6,10 +6,10 @@ L'API REST de Camino permet d'accéder aux données en lecture seule dans diffé
 
 Les données sont disponibles aux formats :
 
-- [JSON](https://www.json.org) : tableau d'objets JavaScript
+- [JSON](https://www.json.org) (par défaut): tableau d'objets JavaScript
 - [CSV](https://fr.wikipedia.org/wiki/Comma-separated_values) : valeurs séparées par des virgules
 - [XLSx](https://fr.wikipedia.org/wiki/XLSX) : Microsoft Excel
-- [ODS](https://www.openoffice.org/) : Apache OpenOffice
+- [ODS](https://www.openoffice.org/) : OpenOffice
 - [GeoJSON](https://geojson.org/) (pour certaines ressources uniquement) : JSON Géographique
 
 ## URL
@@ -139,6 +139,7 @@ Pour plus d'informations, voir la [documentation Mozilla](https://developer.mozi
 
 - la liste des activités
 - de l'entreprise `mon-entreprise`
-- pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`.
+- pour l'utilisateur avec l'identifiant `mon-email@domaine.tld` et le mot de passe: `mon-mot-de-passe`
+- au format `.csv`
 
-`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise`
+`https://mon-email%40domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/activites?titresEntreprises=mon-entreprise&format=csv`

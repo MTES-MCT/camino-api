@@ -1,17 +1,21 @@
 # Flux GeoJSON
 
-Les flux géographiques de Camino exposent les informations sur les titres miniers et autorisations au format GeoJSON. En plus des périmètres géographiques, les propriétés suivantes sont disponibles :
+Les flux géographiques de Camino exposent les informations sur les titres miniers et autorisations au format GeoJSON.
 
-- l'identifiant, le nom, le type, la nature, le domaine minier, et le statut
-- les dates de demande, début et fin
-- la surface (en km²) du périmètre
-- les administrations concernées
-- les titulaires et amodiataires et leur numéro de Siren
-- l'engagement financier
-- les substances
-- le volume
+Chaque titre minier contient les périmètres géographiques ainsi que les propriétés suivantes :
+
+- identifiant, nom, type, nature, domaine minier, et statut
+- dates de demande, début et fin
+- surface (en km²) du périmètre
+- administrations concernées
+- titulaires et amodiataires avec leur numéro de Siren
+- engagement financier
+- substances
+- volume
 
 ## Utilisation
+
+Ces flux sont générés via l'[API Rest de Camino](https://docs.camino.beta.gouv.fr/pages/Utilisation/03-rest.html). La documentation de celle-ci est valide dans le cas particulier des flux.
 
 ### URL
 
@@ -19,13 +23,13 @@ L’url d'accès aux flux de camino est du type : `https://api.camino.beta.gouv.
 
 ### Paramètres
 
-Le paramètre `format=geojson` est obligatoire.
+Le paramètre `format=geojson` définit le format des données.
 
 Le résultat de la requête peut être filtré en ajoutant des paramètres à l’url. Les noms et valeurs de ces paramètres sont les mêmes que ceux utilisés dans les filtres sur le site [camino](https://camino.beta.gouv.fr).
 
 #### Construire une requête filtrée avec des paramètres
 
-1. Effectuer une recherche filtrée sur le site [camino](https://camino.beta.gouv.fr). Par exemple, pour n'afficher que les titres de type _concessions_ du domaine _hydrocarbures_ avec un statut _valide_ l'url est : `https://camino.beta.gouv.fr/titres?domainesIds=h&statutsIds=val&typesIds=cx`.
+1. Effectuer une recherche filtrée sur le site [Camino](https://camino.beta.gouv.fr). Par exemple, pour n'afficher que les titres de type _concessions_ du domaine _hydrocarbures_ avec un statut _valide_ l'url est : `https://camino.beta.gouv.fr/titres?domainesIds=h&statutsIds=val&typesIds=cx`.
 
 2. Modifier cette url en ajoutant `api.` après `https://`, et `&format=geojson` en fin de chaîne. L'url modifiée est : `https://api.camino.beta.gouv.fr/titres?domainesIds=h&statutsIds=val&typesIds=cx&format=geosjson`.
 
@@ -33,11 +37,11 @@ Le résultat de la requête peut être filtré en ajoutant des paramètres à l�
 
 ### Authentification
 
-Certains titres miniers et autorisations nécessitent d'être identifiés pour être consultés. Vous devez avoir un compte sur Camino pour effectuer cette requête.
+Certains titres miniers et autorisations nécessitent d'être identifiés pour être consultés. Un compte sur Camino est requis pour effectuer cette requête.
 
 #### Construire une requête avec authentification
 
-Ajouter vos identifiants Camino dans l'url. L'identifiant à Camino est un email, pour l'utiliser dans l'url, il faut remplacer le caratère `@` par `%40`. Le caractère `@` est ajouté après le mot de passe.
+Ajouter les identifiants Camino dans l'url. L'identifiant à Camino est un email, pour l'utiliser dans l'url, il faut remplacer le caratère `@` par `%40`. Le caractère `@` est ajouté après le mot de passe.
 
 Exemple: `https://mon-email%40mon-domaine.tld:mon-mot-de-passe@api.camino.beta.gouv.fr/titres?format=geosjson`.
 
@@ -50,7 +54,7 @@ Exemple: `https://mon-email%40mon-domaine.tld:mon-mot-de-passe@api.camino.beta.g
 
 Les flux GeoJSON de Camino peuvent être affichés dans [QGIS](https://www.qgis.org) sous forme de couche.
 
-Les donnés importées sont automatiquement mises à jour à chaque ouverture ou rafraîssement du projet.
+Les donnés importées sont automatiquement mises à jour à chaque ouverture ou rafraîchissement du projet.
 
 ### Import avec le plugin dédié camino-flux-QGIS
 
@@ -61,12 +65,12 @@ Les instructions sont disponibles sur cette page : [https://github.com/MTES-MCT/
 ### Import sans plugin
 
 1. Dans le menu _Couches_, sélectionner _Gestionnaire des sources de données_, puis choisir l'option _Vecteur_.
-2. Dans la popup, utiliser les réglages suivants:
+2. Dans la popup, utiliser les réglages suivants :
 
 - type de source : `Protocole : HTTP(S), cloud, etc.`
 - encodage : `UTF-8`
 - Protocole :
   - Type : `GeoJSON`
-  - URI : `https://api.camino.beta.gouv.fr/titres?format=geojson`
+  - URI : `https://api.camino.beta.gouv.fr/titres?format=geojson` (ou une URL plus spécifique, selon les instructions ci-dessus)
 
 ![camino qgis data sources manager](https://raw.githubusercontent.com/MTES-MCT/camino-api/master/docs-sources/assets/flux/camino-qgis-data-source-manager.jpg)
