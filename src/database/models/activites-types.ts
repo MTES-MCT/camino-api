@@ -71,6 +71,12 @@ class ActivitesTypes extends Model {
       }
     }
   }
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('activitesTypes.ordre', 'asc')
+    }
+  }
 }
 
 export default ActivitesTypes
