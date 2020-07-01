@@ -8,23 +8,23 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # services:
-    #   postgres:
-    #     image: postgres:12
-    #     env:
-    #       POSTGRES_USER: postgres
-    #       POSTGRES_PASSWORD: password
-    #       POSTGRES_DB: camino_tests
-    #       PGUSER: postgres
-    #       PGPASSWORD: password
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
-    #     ports:
-    #       # Maps tcp port 5432 on service container to the host
-    #       - 5432:5432
+    services:
+      postgres:
+        image: postgres:12
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: camino_tests
+          PGUSER: postgres
+          PGPASSWORD: password
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
     strategy:
       matrix:
         node-version: [12.x]
@@ -44,17 +44,24 @@ jobs:
           CI: true
       - name: Unit tests
         run: npm run ci:test-unit
-      # - name: Integration tests
-      #   run: npm run ci:test-integration
-      #   env:
-      #     PGHOST: localhost
-      #     PGPORT: 5432
-      #     PGUSER: postgres
-      #     PGPASSWORD: password
       - name: Code coverage
         run: npm run ci:codecov
         env:
           CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
+      - name: Integration tests
+        #Installation d’une version de knex-db-manager qui seed la bdd séquentiellement
+        run: |
+          npm i knex-db-manager@git://github.com/Vincit/knex-db-manager.git#afb48be58f35c0907f328dbe33d6f786cfb4fb8b --save
+          npm run ci:test-integration
+        env:
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: postgres
+          PGPASSWORD: password
+#      - name: Code coverage
+#        run: npm run ci:codecov
+#        env:
+#          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
 
   build:
     if: github.event_name == 'release'
