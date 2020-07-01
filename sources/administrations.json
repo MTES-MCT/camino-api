@@ -293,12 +293,12 @@
     "cedex": "Cedex"
   },
   {
-    "id": "aut-mrae-01",
+    "id": "aut-mrae-guyane-01",
     "type_id": "aut",
-    "nom": "Mission régionnale autorité environnementale",
-    "abreviation": "Mission régionnale autorité environnementale",
+    "nom": "Mission régionnale autorité environnementale de Guyane",
+    "abreviation": "MRAE Guyane",
     "url": "http://www.mrae.developpement-durable.gouv.fr/guyane-r27.html",
-    "telephone": "+594 5 94 39 80 00",
+    "telephone": "+594 (0)5 94 39 80 00",
     "adresse1": "Route du Vieux-Port\n97300 Cayenne",
     "adresse2": "Adresse postale\nRoute du Vieux-Port\nCS 76003\n97306 Cayenne",
     "code_postal": "97300",

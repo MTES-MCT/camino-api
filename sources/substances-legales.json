@@ -3,6 +3,7 @@
     "id": "carx",
     "nom": "substances de carrière",
     "domaine_id": "c",
+    "description": "Substance minérale ou fossile qui n’est pas qualifiée de substance de mine par l’article L.111-1 du code minier. Certaines d’entres elles sont ajoutées ou retirées de la liste des substances de mine selon leur utilisation dans l’économie.",
     "substance_legale_code_id": "l100_2"
   },
   {
@@ -410,6 +411,7 @@
     "id": "scor",
     "nom": "substances connexes",
     "domaine_id": "r",
-    "substance_legale_code_id": "l100_2"
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
   }
 ]
