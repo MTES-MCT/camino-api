@@ -1,12 +1,12 @@
-import { IToken, IEntreprise, IEntrepriseColonneId } from '../../../types'
+import { IEntreprise, IEntrepriseColonneId, IToken } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
 import {
   entrepriseGet,
+  entreprisesCount,
   entreprisesGet,
-  entrepriseUpsert,
-  entreprisesCount
+  entrepriseUpsert
 } from '../../../database/queries/entreprises'
 import { userGet } from '../../../database/queries/utilisateurs'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
@@ -191,7 +191,7 @@ const entreprises = async (
 }
 
 const entrepriseCreer = async (
-  { entreprise }: { entreprise: IEntreprise },
+  { entreprise }: { entreprise: { legalSiren: string; paysId: string } },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -245,7 +245,11 @@ const entrepriseCreer = async (
 }
 
 const entrepriseModifier = async (
-  { entreprise }: { entreprise: IEntreprise },
+  {
+    entreprise
+  }: {
+    entreprise: { id: string; url?: string; telephone?: string; email?: string }
+  },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -262,21 +266,30 @@ const entrepriseModifier = async (
       errors.push('adresse email invalide')
     }
 
+    const fields = fieldsBuild(info)
+    const entrepriseOld = await entrepriseGet(
+      entreprise.id,
+      { fields },
+      context.user?.id
+    )
+    if (!entrepriseOld) {
+      errors.push('entreprise inconnue')
+    }
+
     if (errors.length) {
       throw new Error(errors.join(', '))
     }
 
-    const entrepriseUpserted = await entrepriseUpsert(entreprise)
+    const entrepriseUpserted = await entrepriseUpsert({
+      ...entrepriseOld,
+      ...entreprise
+    })
 
-    const fields = fieldsBuild(info)
-
-    const entrepriseNew = await entrepriseGet(
+    return await entrepriseGet(
       entrepriseUpserted.id,
       { fields },
       context.user?.id
     )
-
-    return entrepriseNew
   } catch (e) {
     if (debug) {
       console.error(e)

@@ -1,11 +1,14 @@
 import 'dotenv/config'
-import * as request from 'supertest'
 
 import { IAdministration, IUtilisateur } from '../src/types'
 
-import { knex, dbManager, app } from './init'
-import { queryImport, tokenCreate } from './_utils'
-import * as userAdd from '../knex/user-add'
+import { dbManager } from './init'
+import {
+  graphQLCall,
+  queryImport,
+  tokenCreate,
+  tokenUserGenerate
+} from './_utils'
 import { utilisateurCreate } from '../src/database/queries/utilisateurs'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
@@ -32,68 +35,35 @@ describe('titreCreer', () => {
   const titreCreerQuery = queryImport('titre-creer')
 
   test('ne peut pas créer un titre (utilisateur anonyme)', async () => {
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreCreerQuery,
-        variables: {
-          titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-        }
-      })
+    const res = await graphQLCall(titreCreerQuery, {
+      titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
+    })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test("ne peut pas créer un titre (un utilisateur 'entreprise')", async () => {
-    jest.setTimeout(20000)
-
-    await userAdd(knex, {
-      id: 'entreprise-user',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'entreprise'
-    })
-
-    const token = tokenCreate({ id: 'entreprise-user' })
-
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreCreerQuery,
-        variables: {
-          titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const token = await tokenUserGenerate('entreprise')
+    const res = await graphQLCall(
+      titreCreerQuery,
+      {
+        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test("crée un titre (un utilisateur 'super')", async () => {
-    jest.setTimeout(20000)
-
-    await userAdd(knex, {
-      id: 'super-user',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'super'
-    })
-
-    const token = tokenCreate({ id: 'super-user' })
-
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreCreerQuery,
-        variables: {
-          titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const token = await tokenUserGenerate('super')
+    const res = await graphQLCall(
+      titreCreerQuery,
+      {
+        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body).toMatchObject({
       data: {
@@ -106,8 +76,6 @@ describe('titreCreer', () => {
   })
 
   test("ne peut pas créer un titre AXM (un utilisateur 'admin' PTMG)", async () => {
-    jest.setTimeout(20000)
-
     await utilisateurCreate(
       ({
         id: 'admin-user',
@@ -125,15 +93,13 @@ describe('titreCreer', () => {
 
     const token = tokenCreate({ id: 'admin-user' })
 
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreCreerQuery,
-        variables: {
-          titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const res = await graphQLCall(
+      titreCreerQuery,
+      {
+        titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body.errors[0].message).toMatch(
       /droits insuffisants pour créer ce type de titre/
@@ -141,8 +107,6 @@ describe('titreCreer', () => {
   })
 
   test("crée un titre ARM (un utilisateur 'admin' PTMG)", async () => {
-    jest.setTimeout(20000)
-
     await utilisateurCreate(
       ({
         id: 'admin-user',
@@ -160,15 +124,13 @@ describe('titreCreer', () => {
 
     const token = tokenCreate({ id: 'admin-user' })
 
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreCreerQuery,
-        variables: {
-          titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const res = await graphQLCall(
+      titreCreerQuery,
+      {
+        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body).toMatchObject({
       data: {
@@ -200,68 +162,35 @@ describe('titreModifier', () => {
   })
 
   test('ne peut pas modifier un titre (utilisateur anonyme)', async () => {
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreModifierQuery,
-        variables: {
-          titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
-        }
-      })
+    const res = await graphQLCall(titreModifierQuery, {
+      titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
+    })
 
     expect(res.body.errors[0].message).toMatch(/le titre n'existe pas/)
   })
 
   test("ne peut pas modifier un titre (un utilisateur 'entreprise')", async () => {
-    jest.setTimeout(20000)
-
-    await userAdd(knex, {
-      id: 'entreprise-user',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'entreprise'
-    })
-
-    const token = tokenCreate({ id: 'entreprise-user' })
-
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreModifierQuery,
-        variables: {
-          titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const token = await tokenUserGenerate('entreprise')
+    const res = await graphQLCall(
+      titreModifierQuery,
+      {
+        titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body.errors[0].message).toMatch(/le titre n'existe pas/)
   })
 
   test("modifie un titre (un utilisateur 'super')", async () => {
-    jest.setTimeout(20000)
-
-    await userAdd(knex, {
-      id: 'super-user',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'super'
-    })
-
-    const token = tokenCreate({ id: 'super-user' })
-
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreModifierQuery,
-        variables: {
-          titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const token = await tokenUserGenerate('super')
+    const res = await graphQLCall(
+      titreModifierQuery,
+      {
+        titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body).toMatchObject({
       data: {
@@ -274,8 +203,6 @@ describe('titreModifier', () => {
   })
 
   test("modifie un titre ARM (un utilisateur 'admin' PTMG)", async () => {
-    jest.setTimeout(20000)
-
     await utilisateurCreate(
       ({
         id: 'admin-user',
@@ -293,15 +220,13 @@ describe('titreModifier', () => {
 
     const token = tokenCreate({ id: 'admin-user' })
 
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreModifierQuery,
-        variables: {
-          titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const res = await graphQLCall(
+      titreModifierQuery,
+      {
+        titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body).toMatchObject({
       data: {
@@ -314,8 +239,6 @@ describe('titreModifier', () => {
   })
 
   test("ne peut pas modifier un titre ARM échu (un utilisateur 'admin' PTMG)", async () => {
-    jest.setTimeout(20000)
-
     await titreCreate(
       {
         id: 'titre-arm-echu',
@@ -345,20 +268,18 @@ describe('titreModifier', () => {
 
     const token = tokenCreate({ id: 'admin-user' })
 
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreModifierQuery,
-        variables: {
-          titre: {
-            id: 'titre-arm-echu',
-            nom: 'mon titre échu modifié',
-            typeId: 'arm',
-            domaineId: 'm'
-          }
+    const res = await graphQLCall(
+      titreModifierQuery,
+      {
+        titre: {
+          id: 'titre-arm-echu',
+          nom: 'mon titre échu modifié',
+          typeId: 'arm',
+          domaineId: 'm'
         }
-      })
-      .set('Authorization', `Bearer ${token}`)
+      },
+      token
+    )
 
     expect(res.body.errors[0].message).toMatch(
       /droits insuffisants pour modifier ce type de titre/
@@ -366,8 +287,6 @@ describe('titreModifier', () => {
   })
 
   test("ne peut pas modifier un titre ARM (un utilisateur 'admin' DGTM)", async () => {
-    jest.setTimeout(20000)
-
     await utilisateurCreate(
       ({
         id: 'admin-user',
@@ -385,15 +304,13 @@ describe('titreModifier', () => {
 
     const token = tokenCreate({ id: 'admin-user' })
 
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreModifierQuery,
-        variables: {
-          titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const res = await graphQLCall(
+      titreModifierQuery,
+      {
+        titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
+      },
+      token
+    )
 
     expect(res.body.errors[0].message).toMatch(
       /droits insuffisants pour modifier ce type de titre/
@@ -420,39 +337,21 @@ describe('titreSupprimer', () => {
   })
 
   test('ne peut pas supprimer un titre (utilisateur anonyme)', async () => {
-    jest.setTimeout(20000)
-    const res = await request(app).post('/').send({
-      query: titreSupprimerQuery,
-      variables: {
-        id
-      }
+    const res = await graphQLCall(titreSupprimerQuery, {
+      id
     })
-
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test('peut supprimer un titre (utilisateur super)', async () => {
-    jest.setTimeout(20000)
-
-    await userAdd(knex, {
-      id: 'super-user',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'super'
-    })
-
-    const token = tokenCreate({ id: 'super-user' })
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreSupprimerQuery,
-        variables: {
-          id
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const token = await tokenUserGenerate('super')
+    const res = await graphQLCall(
+      titreSupprimerQuery,
+      {
+        id
+      },
+      token
+    )
 
     expect(res.body).toMatchObject({
       data: {
@@ -464,27 +363,14 @@ describe('titreSupprimer', () => {
   })
 
   test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {
-    jest.setTimeout(20000)
-
-    await userAdd(knex, {
-      id: 'super-user',
-      prenom: 'toto',
-      nom: 'test',
-      email: 'test@camino.local',
-      motDePasse: 'mot-de-passe',
-      permissionId: 'super'
-    })
-
-    const token = tokenCreate({ id: 'super-user' })
-    const res = await request(app)
-      .post('/')
-      .send({
-        query: titreSupprimerQuery,
-        variables: {
-          id: 'toto'
-        }
-      })
-      .set('Authorization', `Bearer ${token}`)
+    const token = await tokenUserGenerate('super')
+    const res = await graphQLCall(
+      titreSupprimerQuery,
+      {
+        id: 'toto'
+      },
+      token
+    )
 
     expect(res.body.errors[0].message).toMatch(/aucun titre avec cet id/)
   })
