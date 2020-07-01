@@ -10,7 +10,8 @@ const authJwt = expressJwt({
 
     return type === 'Bearer' && token !== 'null' ? token : null
   },
-  secret: process.env.JWT_SECRET || 'jwtSecret should be declared in .env'
+  secret: process.env.JWT_SECRET || 'jwtSecret should be declared in .env',
+  algorithms: ['HS256']
 })
 
 export { authJwt }
