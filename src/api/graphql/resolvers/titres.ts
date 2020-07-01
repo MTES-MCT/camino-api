@@ -6,8 +6,6 @@ import { debug } from '../../../config/index'
 import { permissionCheck } from '../../../tools/permission'
 import { titreFormat, titresFormat } from '../../_format/titres'
 
-import { titrePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
-
 import fieldsBuild from './_fields-build'
 
 import {
@@ -178,31 +176,8 @@ const titreModifier = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user!.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const titreOld = await titreGet(titre.id, {}, user.id)
+    const titreOld = await titreGet(titre.id, {}, user?.id)
     if (!titreOld) throw new Error("le titre n'existe pas")
-
-    if (
-      permissionCheck(user?.permissionId, ['admin']) &&
-      (!titrePermissionAdministrationsCheck(
-        user,
-        titreOld.typeId,
-        titreOld.statutId!,
-        'modification'
-      ) ||
-        (titreOld.typeId !== titre.typeId &&
-          !titrePermissionAdministrationsCheck(
-            user,
-            titre.typeId,
-            titreOld.statutId!,
-            'modification'
-          )))
-    ) {
-      throw new Error('droits insuffisants pour modifier ce type de titre')
-    }
 
     const rulesErrors = await titreUpdationValidate(titre, titreOld)
 
@@ -210,13 +185,13 @@ const titreModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    await titreUpsert(titre)
+    const fields = fieldsBuild(info)
+
+    await titreUpsert(titre, { fields }, titreOld, user?.id)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
-    const fields = fieldsBuild(info)
-
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {
@@ -236,6 +211,9 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   }
 
   const titreOld = await titreGet(id, {}, user.id)
+  if (!titreOld) {
+    throw new Error('aucun titre avec cet id')
+  }
 
   await titreDocumentsDelete(titreOld)
 
