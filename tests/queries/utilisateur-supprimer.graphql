@@ -1,5 +1,0 @@
-mutation UtilisateurSuprrimer($id: ID!) {
-  utilisateurSupprimer(id: $id){
-    id
-  }
-}
