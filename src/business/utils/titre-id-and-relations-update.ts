@@ -82,7 +82,6 @@ const titreRelation = {
         },
         {
           name: 'demarches',
-          props: ['annulationTitreDemarcheId'],
           path: ['titre']
         }
       ]

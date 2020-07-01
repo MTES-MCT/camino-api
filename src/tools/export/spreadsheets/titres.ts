@@ -80,7 +80,6 @@ const tables = [
       'titreId',
       'statutId',
       'ordre',
-      'annulationTitreDemarcheId',
       'publicLecture',
       'entreprisesLecture'
     ],

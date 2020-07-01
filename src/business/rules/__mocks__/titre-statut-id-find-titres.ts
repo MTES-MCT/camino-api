@@ -22,7 +22,6 @@ const titreValide = ({
       typeId: 'oct',
       statutId: 'acc',
       ordre: 1,
-      annulationTitreDemarcheId: null,
       etapes: [
         {
           id: 'm-pr-saint-pierre-2014-oct01-dex01',
@@ -72,8 +71,7 @@ const titreOctroiInstruction = ({
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'ins',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     }
   ]
 } as unknown) as ITitre
@@ -86,8 +84,7 @@ const titreOctroiDepose = ({
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'dep',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     }
   ]
 } as unknown) as ITitre
@@ -100,8 +97,7 @@ const titreOctroiRejete = ({
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'rej',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     }
   ]
 } as unknown) as ITitre
@@ -114,8 +110,7 @@ const titreOctroiClasse = ({
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'cls',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     }
   ]
 } as unknown) as ITitre
@@ -128,8 +123,7 @@ const titreOctroiRetire = ({
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'des',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     }
   ]
 } as unknown) as ITitre
@@ -142,16 +136,14 @@ const titreDemarcheInstruction = ({
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'mut',
       statutId: 'ins',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     },
     {
       id: 'm-pr-saint-pierre-2014-oct01',
       titreId: 'm-pr-saint-pierre-2014',
       typeId: 'oct',
       statutId: 'acc',
-      ordre: 1,
-      annulationTitreDemarcheId: null
+      ordre: 1
     }
   ]
 } as unknown) as ITitre

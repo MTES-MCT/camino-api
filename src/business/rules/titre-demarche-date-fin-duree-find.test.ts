@@ -8,11 +8,10 @@ import {
   titreDemarchesOctDpuFirst,
   titreDemarchesOctNiDpuNiDex,
   titreDemarchesOctProDuree,
-  titreDemarchesOctAbrDateFin,
-  titreDemarchesOctAbrDate,
-  titreDemarchesOctAbrNoDex,
+  titreDemarchesOctRetDateFin,
+  titreDemarchesOctRetDate,
+  titreDemarchesOctRetNoDex,
   titreDemarchesRenPoints,
-  titreDemarchesRenPointsVideDpu,
   titreDemarchesRenPointsVideDex,
   titreDemarchesRenPointsVideNiDpuNiDex
 } from './__mocks__/titre-demarche-date-fin-duree-find-demarches'
@@ -83,7 +82,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'abrogation est celle de l'étape dont la date de fin est renseignée", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrDateFin, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetDateFin, 5)
     ).toEqual({
       dateFin: '2200-03-11',
       duree: 0
@@ -92,7 +91,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'abrogation est la date de l'étape dex si aucune date de fin n'est renseignée", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrDate, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetDate, 5)
     ).toEqual({
       dateFin: '2013-05-21',
       duree: 0
@@ -101,7 +100,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'abrogation est la date de fin de la démarche suivante si aucune dex n'existe", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctAbrNoDex, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetNoDex, 5)
     ).toEqual({
       dateFin: '2013-03-11',
       duree: 25 * 12
@@ -114,15 +113,6 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     ).toEqual({
       dateFin: '2013-03-11',
       duree: 25 * 12
-    })
-  })
-
-  test("la date de fin d'une démarche de renonciation est la date de l'étape de dpu si celle-ci ne possède pas de périmètre géographique", () => {
-    expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideDpu, 5)
-    ).toEqual({
-      dateFin: '1988-06-17',
-      duree: 0
     })
   })
 

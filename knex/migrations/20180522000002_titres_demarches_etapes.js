@@ -22,7 +22,6 @@ exports.up = knex => {
       table.boolean('publicLecture').defaultTo(false)
       table.boolean('entreprisesLecture').defaultTo(false)
       table.integer('ordre').defaultTo('0')
-      table.string('annulationTitreDemarcheId', 128).index().references('id')
     })
     .createTable('titresDemarchesLiens', table => {
       table.string('enfantTitreDemarcheId', 128).index()

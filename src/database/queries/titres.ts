@@ -400,9 +400,13 @@ const titreUpsert = async (
     throw new Error('droits insuffisants pour modifier ce type de titre')
   }
 
+  const graph = fields
+    ? graphBuild(titresFieldsAdd(fields), 'titre', graphFormat)
+    : options.titres.graph
+
   return Titres.query(tr)
     .upsertGraph(titre, options.titres.update)
-    .withGraphFetched(options.titres.graph)
+    .withGraphFetched(graph)
     .returning('*')
 }
 
