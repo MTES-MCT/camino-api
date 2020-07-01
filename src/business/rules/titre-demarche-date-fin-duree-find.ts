@@ -4,6 +4,8 @@ import * as dateFormat from 'dateformat'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
+import { titreDemarcheAnnulationDateFinFind } from './titre-demarche-annulation-date-fin-find'
+
 // entrée
 // - les démarches d'un titre
 // - l'ordre d'une démarche dont on cherche la date de fin et la durée
@@ -45,26 +47,18 @@ const titreDemarcheDateFinAndDureeFind = (
 
       // si
       // - la démarche est une abrogation ou retrait
+      // - ou c'est une renonciation
+      //   - et ce n'est pas une renonciation partielle
+      //   (= ne contient pas d'étape avec des infos géo (points)
       // retourne la date de fin d'une démarche d'annulation
-      if (['abr', 'ret'].includes(titreDemarche.typeId)) {
-        return {
-          duree: 0,
-          dateFin: titreDemarcheAnnulationDateFinFind(titreDemarche.etapes)
-        }
-      }
-
-      // si
-      // - c'est une renonciation
-      // - ça n'est pas une renonciation partielle
-      // (= ne contient pas d'étape avec des infos géo (points)
-      // retourne la date de fin d'une démarche de renonciation
       if (
-        titreDemarche.typeId === 'ren' &&
-        !titreDemarche.etapes.find(te => te.points!.length)
+        titreDemarche.typeId === 'ret' ||
+        (titreDemarche.typeId === 'ren' &&
+          !titreDemarche.etapes.find(te => te.points?.length))
       ) {
         return {
           duree: 0,
-          dateFin: titreDemarcheRenonciationDateFinFind(titreDemarche.etapes)
+          dateFin: titreDemarcheAnnulationDateFinFind(titreDemarche.etapes)
         }
       }
 
@@ -148,47 +142,6 @@ const titreDemarcheOctroiDateFinAndDureeFind = (
     duree,
     dateFin
   }
-}
-
-// trouve la date de fin d'une démarche d'annulation
-const titreDemarcheAnnulationDateFinFind = (titreEtapes: ITitreEtape[]) => {
-  // la dernière étape dex ou dux qui contient une date de fin
-  const etapeDexHasDateFin = titreEtapesDescSort(titreEtapes).find(
-    te => ['dex', 'dux'].includes(te.typeId) && te.dateFin
-  )
-
-  // si la démarche contient une date de fin
-  if (etapeDexHasDateFin) {
-    return etapeDexHasDateFin.dateFin
-  }
-
-  // sinon,
-  // trouve la première étape de décision expresse (dex) ou unilatérale (dux)
-  const etapeDex = titreEtapesAscSort(titreEtapes).find(te =>
-    ['dex', 'dux'].includes(te.typeId)
-  )
-
-  // la date de fin est la date de l'étape
-  return etapeDex?.date ? etapeDex.date : null
-}
-
-// trouve la date de fin d'une démarche de renonciation
-const titreDemarcheRenonciationDateFinFind = (titreEtapes: ITitreEtape[]) => {
-  // la dernière étape de dpu
-
-  const etapeDpu = titreEtapesDescSort(titreEtapes).find(
-    te =>
-      ['dpu', 'dup'].includes(te.typeId) ||
-      // ATTENTION ! l'étape de DEX n'est valide que pour les AXM
-      // or, le type de titre n'est pas passé à la fonction
-      // TODO: deux solutions :
-      // 1- ajout d'un paramètre `titreTypeId` partout où nécessaire
-      // 2- création d'une nouvelle étape DEP pour les AXM
-      ['dex', 'dux'].includes(te.typeId)
-  )
-
-  // la date de fin est la date de l'étape
-  return etapeDpu && etapeDpu.date ? etapeDpu.date : null
 }
 
 // entrées:

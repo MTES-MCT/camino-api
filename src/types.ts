@@ -532,11 +532,9 @@ interface ITitreDemarche {
   statutId?: string | null
   statut?: IDemarcheStatut | null
   ordre?: number | null
-  annulationTitreDemarcheId?: string | null
   titreType?: ITitreType | null
   etapes?: ITitreEtape[] | null
   phase?: ITitrePhase | null
-  annulationDemarche?: ITitreDemarche | null
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
   publicLecture?: boolean | null

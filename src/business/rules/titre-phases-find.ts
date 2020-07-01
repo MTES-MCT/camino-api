@@ -7,6 +7,17 @@ import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
+import { titreDemarcheAnnulationDateFinFind } from './titre-demarche-annulation-date-fin-find'
+
+const titreDemarcheAnnulationFind = (titreDemarches: ITitreDemarche[]) =>
+  titreDemarches.find(
+    titreDemarche =>
+      ['acc', 'ter'].includes(titreDemarche.statutId!) &&
+      (titreDemarche.typeId === 'ret' ||
+        (titreDemarche.typeId === 'ren' &&
+          !titreDemarche.etapes!.find(te => te.points?.length)))
+  )
+
 // retourne un tableau contenant les phases d'un titre
 const titrePhasesFind = (
   titreDemarches: ITitreDemarche[],
@@ -17,13 +28,28 @@ const titrePhasesFind = (
     titreDemarchePhasesFilter(titreDemarche, titreTypeId)
   )
 
+  const titreDemarcheAnnulation = titreDemarcheAnnulationFind(titreDemarches)
+  const titreDemarcheAnnulationDate =
+    titreDemarcheAnnulation?.etapes?.length &&
+    titreDemarcheAnnulationDateFinFind(titreDemarcheAnnulation.etapes)
+
   return titreDemarchesFiltered.reduce(
     (titrePhases: ITitrePhase[], titreDemarche, index) => {
-      const dateFin = titrePhaseDateFinFind(
+      let dateFin = titrePhaseDateFinFind(
         titreDemarches,
         titreDemarchesFiltered,
         titreDemarche
       ) as string
+
+      // si le titre contient une démarche d'annulation valide
+      // et la date de fin de la phase est postérieure à la date d'annulation
+      // alors la date de fin de la phase est la date d'annulation
+      if (
+        titreDemarcheAnnulationDate &&
+        titreDemarcheAnnulationDate < dateFin
+      ) {
+        dateFin = titreDemarcheAnnulationDate
+      }
 
       const dateDebut = titrePhaseDateDebutFind(
         titreDemarche,
@@ -43,6 +69,10 @@ const titrePhasesFind = (
       // sinon,
       // - le statut est échu
       const statutId = dateFin < aujourdhui ? 'ech' : 'val'
+
+      // TODO:
+      // est ce qu'on doit vérifier si une date de début
+      // est postérieure a une date d'annulation avant d'ajouter la phase ?
 
       titrePhases.push({
         titreDemarcheId: titreDemarche.id,
@@ -111,33 +141,11 @@ const titrePhaseDateFinFind = (
   titreDemarches: ITitreDemarche[],
   titreDemarchesFiltered: ITitreDemarche[],
   titreDemarche: ITitreDemarche
-) => {
-  // trouve une démarche d'annulation si elle existe
-  if (titreDemarche.annulationTitreDemarcheId) {
-    // TODO: devrait-on faire une relation plutôt que d'aller chercher la démarche liée ?
-    const titreDemarcheAnnulation = demarcheAnnulationFind(
-      titreDemarches,
-      titreDemarche.annulationTitreDemarcheId
-    )
-
-    // si il y a une démarche d'annulation
-    // retourne sa date de fin
-    return titreDemarcheDateFinAndDureeFind(
-      titreDemarches.slice().reverse(),
-      titreDemarcheAnnulation.ordre!
-    ).dateFin
-  }
-
+) =>
   // sinon, calcule la date de fin en fonction des démarches
-  return titreDemarcheDateFinAndDureeFind(
+  titreDemarcheDateFinAndDureeFind(
     titreDemarchesFiltered.slice().reverse(),
     titreDemarche.ordre!
   ).dateFin
-}
-
-const demarcheAnnulationFind = (
-  titreDemarches: ITitreDemarche[],
-  annulationTitreDemarcheId: string
-) => titreDemarches.find(t => t.id === annulationTitreDemarcheId)!
 
 export default titrePhasesFind

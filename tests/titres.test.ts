@@ -402,93 +402,90 @@ describe('titreModifier', () => {
 })
 
 describe('titreSupprimer', () => {
-    const titreSupprimerQuery = queryImport('titre-supprimer')
+  const titreSupprimerQuery = queryImport('titre-supprimer')
 
-    const id = 'titre-arm'
+  const id = 'titre-arm'
 
-    beforeEach(async () => {
-        await titreCreate(
-            {
-                id,
-                nom: 'mon titre',
-                domaineId: 'm',
-                typeId: 'arm'
-            },
-            {},
-            'super'
-        )
+  beforeEach(async () => {
+    await titreCreate(
+      {
+        id,
+        nom: 'mon titre',
+        domaineId: 'm',
+        typeId: 'arm'
+      },
+      {},
+      'super'
+    )
+  })
+
+  test('ne peut pas supprimer un titre (utilisateur anonyme)', async () => {
+    jest.setTimeout(20000)
+    const res = await request(app).post('/').send({
+      query: titreSupprimerQuery,
+      variables: {
+        id
+      }
     })
 
-    test('ne peut pas supprimer un titre (utilisateur anonyme)', async () => {
-        jest.setTimeout(20000)
-        const res = await request(app)
-            .post('/')
-            .send({
-                query: titreSupprimerQuery,
-                variables: {
-                    id
-                }
-            })
+    expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
+  })
 
-        expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
+  test('peut supprimer un titre (utilisateur super)', async () => {
+    jest.setTimeout(20000)
+
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'toto',
+      nom: 'test',
+      email: 'test@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super'
     })
 
-    test('peut supprimer un titre (utilisateur super)', async () => {
-        jest.setTimeout(20000)
+    const token = tokenCreate({ id: 'super-user' })
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: titreSupprimerQuery,
+        variables: {
+          id
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
 
-        await userAdd(knex, {
-            id: 'super-user',
-            prenom: 'toto',
-            nom: 'test',
-            email: 'test@camino.local',
-            motDePasse: 'mot-de-passe',
-            permissionId: 'super'
-        })
+    expect(res.body).toMatchObject({
+      data: {
+        titreSupprimer: {
+          id
+        }
+      }
+    })
+  })
 
-        const token = tokenCreate({ id: 'super-user' })
-        const res = await request(app)
-            .post('/')
-            .send({
-                query: titreSupprimerQuery,
-                variables: {
-                    id
-                }
-            })
-            .set('Authorization', `Bearer ${token}`)
+  test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {
+    jest.setTimeout(20000)
 
-        expect(res.body).toMatchObject({
-            data: {
-                titreSupprimer: {
-                    id
-                }
-            }
-        })
+    await userAdd(knex, {
+      id: 'super-user',
+      prenom: 'toto',
+      nom: 'test',
+      email: 'test@camino.local',
+      motDePasse: 'mot-de-passe',
+      permissionId: 'super'
     })
 
-    test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {
-        jest.setTimeout(20000)
+    const token = tokenCreate({ id: 'super-user' })
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: titreSupprimerQuery,
+        variables: {
+          id: 'toto'
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
 
-        await userAdd(knex, {
-            id: 'super-user',
-            prenom: 'toto',
-            nom: 'test',
-            email: 'test@camino.local',
-            motDePasse: 'mot-de-passe',
-            permissionId: 'super'
-        })
-
-        const token = tokenCreate({ id: 'super-user' })
-        const res = await request(app)
-            .post('/')
-            .send({
-                query: titreSupprimerQuery,
-                variables: {
-                    id: "toto"
-                }
-            })
-            .set('Authorization', `Bearer ${token}`)
-
-        expect(res.body.errors[0].message).toMatch(/aucun titre avec cet id/)
-    })
-
+    expect(res.body.errors[0].message).toMatch(/aucun titre avec cet id/)
+  })
 })

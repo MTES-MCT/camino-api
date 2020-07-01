@@ -143,7 +143,6 @@ const demarchesTypes = {
 const demarchesRelateTrue = [
   'statut',
   'type',
-  'annulationDemarche',
   'enfants',
   'parents',
   'phase.statut',

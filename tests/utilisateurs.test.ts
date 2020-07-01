@@ -387,13 +387,13 @@ describe('utilisateurSupprimer', () => {
 
   test('ne peut pas supprimer un compte (utilisateur anonyme)', async () => {
     const res = await request(app)
-        .post('/')
-        .send({
-          query: utilisateurSupprimerQuery,
-          variables: {
-              id: 'test'
-          }
-        })
+      .post('/')
+      .send({
+        query: utilisateurSupprimerQuery,
+        variables: {
+          id: 'test'
+        }
+      })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
@@ -411,14 +411,14 @@ describe('utilisateurSupprimer', () => {
     const token = tokenCreate({ id: 'test' })
 
     const res = await request(app)
-        .post('/')
-        .send({
-          query: utilisateurSupprimerQuery,
-          variables: {
-              id: 'test'
-          }
-        })
-        .set('Authorization', `Bearer ${token}`)
+      .post('/')
+      .send({
+        query: utilisateurSupprimerQuery,
+        variables: {
+          id: 'test'
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.status).toEqual(200)
     expect(res.body).toMatchObject({
@@ -454,14 +454,14 @@ describe('utilisateurSupprimer', () => {
 
     const token = tokenCreate({ id: 'super-user' })
     const res = await request(app)
-        .post('/')
-        .send({
-          query: utilisateurSupprimerQuery,
-          variables: {
-            id
-          }
-        })
-        .set('Authorization', `Bearer ${token}`)
+      .post('/')
+      .send({
+        query: utilisateurSupprimerQuery,
+        variables: {
+          id
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.body).toMatchObject({
       data: {
@@ -486,14 +486,14 @@ describe('utilisateurSupprimer', () => {
 
     const token = tokenCreate({ id: 'super-user' })
     const res = await request(app)
-        .post('/')
-        .send({
-          query: utilisateurSupprimerQuery,
-          variables: {
-            id: "toto"
-          }
-        })
-        .set('Authorization', `Bearer ${token}`)
+      .post('/')
+      .send({
+        query: utilisateurSupprimerQuery,
+        variables: {
+          id: 'toto'
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.body.errors[0].message).toMatch(/aucun utilisateur avec cet id/)
   })

@@ -153,7 +153,6 @@ const titreDemarchesOctAnnulation = ([
     titreId: 'h-cx-courdemanges-1988',
     typeId: 'oct',
     statutId: 'acc',
-    annulationTitreDemarcheId: 'h-cx-courdemanges-1988-ret01',
     ordre: 1,
     etapes: [
       {
@@ -161,37 +160,91 @@ const titreDemarchesOctAnnulation = ([
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '2200-01-01'
+        date: '2000-01-02',
+        duree: 20 * 12
       },
       {
         id: 'h-cx-courdemanges-1988-oct01-dex01',
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
-        date: '2200-01-01'
+        date: '2000-01-01',
+        duree: 20 * 12
       }
     ]
   },
   {
-    id: 'h-cx-courdemanges-1988-ret01',
+    id: 'h-cx-courdemanges-1988-ren01',
     titreId: 'h-cx-courdemanges-1988',
-    typeId: 'ret',
+    typeId: 'ren',
     statutId: 'acc',
     ordre: 2,
     etapes: [
       {
-        id: 'h-cx-courdemanges-1988-ret01-dpu01',
+        id: 'h-cx-courdemanges-1988-ren01-dpu01',
         typeId: 'dpu',
         statutId: 'acc',
         ordre: 2,
-        date: '2019-01-02'
+        date: '2019-01-03'
       },
       {
-        id: 'h-cx-courdemanges-1988-ret01-dex01',
+        id: 'h-cx-courdemanges-1988-ren01-dex01',
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
         date: '2019-01-02'
+      }
+    ]
+  }
+] as unknown) as ITitreDemarche[]
+
+const titreDemarchesOctAnnulationSansPoints = ([
+  {
+    id: 'h-cx-courdemanges-1988-oct01',
+    titreId: 'h-cx-courdemanges-1988',
+    typeId: 'oct',
+    statutId: 'acc',
+    ordre: 1,
+    etapes: [
+      {
+        id: 'h-cx-courdemanges-1988-oct01-dpu01',
+        typeId: 'dpu',
+        statutId: 'acc',
+        ordre: 2,
+        date: '2000-01-02',
+        duree: 20 * 12
+      },
+      {
+        id: 'h-cx-courdemanges-1988-oct01-dex01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '2000-01-01',
+        duree: 20 * 12
+      }
+    ]
+  },
+  {
+    id: 'h-cx-courdemanges-1988-ren01',
+    titreId: 'h-cx-courdemanges-1988',
+    typeId: 'ren',
+    statutId: 'acc',
+    ordre: 2,
+    etapes: [
+      {
+        id: 'h-cx-courdemanges-1988-ren01-dpu01',
+        typeId: 'dpu',
+        statutId: 'acc',
+        ordre: 2,
+        date: '2019-01-03'
+      },
+      {
+        id: 'h-cx-courdemanges-1988-ren01-dex01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '2019-01-02',
+        points: [{ id: 'point' }]
       }
     ]
   }
@@ -204,5 +257,6 @@ export {
   titrePrmDemarcheOctRpuAcc,
   titreDemarcheOctDpuDateDebut,
   titreDemarchesOctProlongation,
-  titreDemarchesOctAnnulation
+  titreDemarchesOctAnnulation,
+  titreDemarchesOctAnnulationSansPoints
 }

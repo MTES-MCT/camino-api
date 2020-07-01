@@ -6,7 +6,8 @@ import {
   titrePrmDemarcheOctRpuAcc,
   titreDemarcheOctDpuDateDebut,
   titreDemarchesOctProlongation,
-  titreDemarchesOctAnnulation
+  titreDemarchesOctAnnulation,
+  titreDemarchesOctAnnulationSansPoints
 } from './__mocks__/titre-phases-find-demarches'
 
 describe("phases d'une démarche", () => {
@@ -78,8 +79,19 @@ describe("phases d'une démarche", () => {
   test("la phase d'un titre concernée par une démarche d'annulation a une date de fin qui est celle de cette démarche d'annulation", () => {
     expect(titrePhasesFind(titreDemarchesOctAnnulation)).toEqual([
       {
-        dateDebut: '2200-01-01',
+        dateDebut: '2000-01-02',
         dateFin: '2019-01-02',
+        statutId: 'ech',
+        titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
+      }
+    ])
+  })
+
+  test("la phase d'un titre concernée par une démarche de renonciation partielle n'est pas affectée par la renonciation", () => {
+    expect(titrePhasesFind(titreDemarchesOctAnnulationSansPoints)).toEqual([
+      {
+        dateDebut: '2000-01-02',
+        dateFin: '2020-01-02',
         statutId: 'ech',
         titreDemarcheId: 'h-cx-courdemanges-1988-oct01'
       }

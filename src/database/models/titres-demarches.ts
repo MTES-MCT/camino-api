@@ -16,11 +16,7 @@ class TitresDemarches extends Model {
       titreId: { type: 'string', maxLength: 128 },
       typeId: { type: 'string', maxLength: 8 },
       statutId: { type: 'string', maxLength: 3 },
-      ordre: { type: 'integer' },
-      annulationTitreDemarcheId: {
-        type: ['string', 'null'],
-        maxLength: 128
-      }
+      ordre: { type: 'integer' }
     }
   }
 
@@ -82,15 +78,6 @@ class TitresDemarches extends Model {
       join: {
         from: 'titresDemarches.id',
         to: 'titresPhases.titreDemarcheId'
-      }
-    },
-
-    annulationDemarche: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: join(__dirname, 'titres-demarches'),
-      join: {
-        from: 'titresDemarches.annulationTitreDemarcheId',
-        to: 'titresDemarches.id'
       }
     },
 

@@ -11,7 +11,6 @@ const titresValideStatutIdAJour = ([
         typeId: 'oct',
         statutId: 'acc',
         ordre: 1,
-        annulationTitreDemarcheId: null,
         etapes: [
           {
             id: 'm-pr-saint-pierre-2014-oct01-dex01',
