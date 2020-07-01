@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.43](https://github.com/MTES-MCT/camino-api/compare/v0.24.42...v0.24.43) (2020-07-01)
+
+
+### Features
+
+* **définitions:** expose les descriptions ([#444](https://github.com/MTES-MCT/camino-api/issues/444)) ([8380b62](https://github.com/MTES-MCT/camino-api/commit/8380b62dc6f9c9b8b2814b62c4e89b0f98a868fb))
+* **étapes:** met à jour la cohérence de l'arbre d'instruction de l'octroi d'ARM ([#428](https://github.com/MTES-MCT/camino-api/issues/428)) ([6fe11e7](https://github.com/MTES-MCT/camino-api/commit/6fe11e763b9e0230316d76b9ff8d95d9881227bc))
+* **export:** ajoute les dates et statuts des étapes d'instruction ([#434](https://github.com/MTES-MCT/camino-api/issues/434)) ([fa3ea20](https://github.com/MTES-MCT/camino-api/commit/fa3ea204aa57bb877827d9141e2c8e9bf9ba123d))
+* **metas:** met à jour des définitions ([#463](https://github.com/MTES-MCT/camino-api/issues/463)) ([c2f5e4c](https://github.com/MTES-MCT/camino-api/commit/c2f5e4cd4d743e0453e47d982055b0daac705ae3))
+* **titres:** ajoute la pagination sur les titres ([#426](https://github.com/MTES-MCT/camino-api/issues/426)) ([580ab9c](https://github.com/MTES-MCT/camino-api/commit/580ab9cd077082959861ad7627cf83b786e96887))
+* **titres:** ajoute un paramètre `périmetre` ([#441](https://github.com/MTES-MCT/camino-api/issues/441)) ([49ce2aa](https://github.com/MTES-MCT/camino-api/commit/49ce2aabf737d6a90787592cefbfaf4a21d23874))
+* **titres:** retourne les titres en fonction d'un périmètre ([#442](https://github.com/MTES-MCT/camino-api/issues/442)) ([23255cf](https://github.com/MTES-MCT/camino-api/commit/23255cf167306756626c5cc7685d9c1000099f15))
+
+
+### Bug Fixes
+
+* **api:** corrige la requête des étapes en cas d'utilisateur d'une administration sans lien vers une administration ([5013bc7](https://github.com/MTES-MCT/camino-api/commit/5013bc76f1419229a01b449fd3c962d59c160335))
+* **documents:** ajoute la propriété `entreprisesLecture` si `publicLecture` est `true` ([#438](https://github.com/MTES-MCT/camino-api/issues/438)) ([da93662](https://github.com/MTES-MCT/camino-api/commit/da93662e248dfbabaaa7cbcea1e5ab0384df5a57))
+* **download:** corrige le téléchargement des titres au format CSV ([#449](https://github.com/MTES-MCT/camino-api/issues/449)) ([11666c9](https://github.com/MTES-MCT/camino-api/commit/11666c9b5b89c926d36b9f74e58d082e47357978))
+* **entreprise:** corrige la récupération des titres ([#448](https://github.com/MTES-MCT/camino-api/issues/448)) ([ba49b7b](https://github.com/MTES-MCT/camino-api/commit/ba49b7b6d8c71feedbb5dae30d3ffba1d4cda5fe))
+* **étapes:** corrige l'affichage de doublons pour les éditeurs ([#459](https://github.com/MTES-MCT/camino-api/issues/459)) ([953dfe1](https://github.com/MTES-MCT/camino-api/commit/953dfe1da5eff500a27d492524bd91ed87a3468a))
+* **rest:** corrige le type de retour pour le format JSON ([#452](https://github.com/MTES-MCT/camino-api/issues/452)) ([1c2d862](https://github.com/MTES-MCT/camino-api/commit/1c2d862e0bf776b66392b9a51a33241f07e4cfb3))
+* **titres:** corrige la requête de tri par nom ([#447](https://github.com/MTES-MCT/camino-api/issues/447)) ([c0a051d](https://github.com/MTES-MCT/camino-api/commit/c0a051dad1b6fc5b9a7afe8602d266c0ad89a6b8))
+* **titres:** corrige la requête sur les titres ([#450](https://github.com/MTES-MCT/camino-api/issues/450)) ([fd6c23a](https://github.com/MTES-MCT/camino-api/commit/fd6c23a9a82698e13677225d06e8b81a1d8ef455))
+* **utilisateur:** oblige un admin, editeur ou lecteur à être attaché à une administration ([#458](https://github.com/MTES-MCT/camino-api/issues/458)) ([e48f501](https://github.com/MTES-MCT/camino-api/commit/e48f501a9fe8a5eebfbab959dd521a223797db4d))
+
 ### [0.24.42](https://github.com/MTES-MCT/camino-api/compare/v0.24.41...v0.24.42) (2020-06-17)
 
 
