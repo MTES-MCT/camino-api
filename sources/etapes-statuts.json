@@ -1,20 +1,20 @@
 [
   {
-    "id": "acc",
-    "nom": "accepté",
+    "id": "fai",
+    "nom": "fait",
     "couleur": "success",
     "ordre": "1"
   },
   {
-    "id": "def",
-    "nom": "défavorable",
-    "couleur": "error",
+    "id": "acc",
+    "nom": "accepté",
+    "couleur": "success",
     "ordre": "2"
   },
   {
-    "id": "dre",
-    "nom": "défavorable avec réserves",
-    "couleur": "warning",
+    "id": "rej",
+    "nom": "rejeté",
+    "couleur": "error",
     "ordre": "3"
   },
   {
@@ -30,44 +30,44 @@
     "ordre": "5"
   },
   {
-    "id": "nul",
-    "nom": "non applicable",
-    "couleur": "neutral",
+    "id": "def",
+    "nom": "défavorable",
+    "couleur": "error",
     "ordre": "6"
   },
   {
-    "id": "rej",
-    "nom": "rejeté",
-    "couleur": "error",
-    "ordre": "7"
-  },
-  {
-    "id": "fai",
-    "nom": "fait",
-    "couleur": "success",
-    "ordre": "8"
-  },
-  {
-    "id": "ajo",
-    "nom": "ajourné",
+    "id": "dre",
+    "nom": "défavorable avec réserves",
     "couleur": "warning",
-    "ordre": "9"
+    "ordre": "7"
   },
   {
     "id": "pro",
     "nom": "programmé",
     "couleur": "warning",
-    "ordre": "10"
+    "ordre": "8"
   },
   {
     "id": "enc",
     "nom": "en cours",
     "couleur": "success",
-    "ordre": "11"
+    "ordre": "9"
+  },
+  {
+    "id": "ajo",
+    "nom": "ajourné",
+    "couleur": "warning",
+    "ordre": "10"
   },
   {
     "id": "ter",
     "nom": "terminé",
+    "couleur": "neutral",
+    "ordre": "11"
+  },
+  {
+    "id": "nul",
+    "nom": "non applicable",
     "couleur": "neutral",
     "ordre": "12"
   }
