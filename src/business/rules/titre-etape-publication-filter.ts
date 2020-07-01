@@ -14,7 +14,7 @@ const titreEtapePublicationFilter = (
   titreTypeId?: string
 ) =>
   !!(
-    ['dpu', 'dup'].includes(etapeTypeId) ||
+    ['dpu', 'dup', 'ihi'].includes(etapeTypeId) ||
     (titreTypeId &&
       demarcheEtapesTypesPublication[titreTypeId]?.includes(etapeTypeId))
   )

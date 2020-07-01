@@ -23,6 +23,7 @@ const titreEtapesDecisivesDemandesTypes = [
   'apu',
   'rpu',
   'dpu',
+  'ihi',
   ...titreEtapesDecisivesCommunesTypes
 ]
 
@@ -151,9 +152,11 @@ const titreDemarcheDemandeStatutIdFind = (
 
   const titreEtapesPublication = titreDemarcheEtapes.filter(
     titreEtape =>
-      //  - le type de l’étape est une publication ou une décision implicite (dim)
+      //  - le type de l’étape est une publication
+      //  - ou une décision implicite (dim)
+      //  - ou des informations historiques incomplètes
       titreEtapePublicationFilter(titreEtape.typeId, titreTypeId) ||
-      titreEtape.typeId === 'dim'
+      ['dim', 'ihi'].includes(titreEtape.typeId)
   )
 
   if (titreEtapesPublication.length) {
