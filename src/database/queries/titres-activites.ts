@@ -32,7 +32,10 @@ const titreActivitesQueryBuild = (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -42,6 +45,9 @@ const titreActivitesQueryBuild = (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -73,6 +79,9 @@ const titreActivitesQueryBuild = (
 
   titresFiltersQueryBuild(
     {
+      domainesIds: titresDomainesIds,
+      typesIds: titresTypesIds,
+      statutsIds: titresStatutsIds,
       noms: titresNoms,
       entreprises: titresEntreprises,
       substances: titresSubstances,
@@ -152,7 +161,10 @@ const titresActivitesGet = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     page?: number | null
     intervalle?: number | null
@@ -166,6 +178,9 @@ const titresActivitesGet = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -181,7 +196,10 @@ const titresActivitesGet = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds
     },
     { fields },
     user
@@ -220,7 +238,10 @@ const titresActivitesCount = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -230,6 +251,9 @@ const titresActivitesCount = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -245,7 +269,10 @@ const titresActivitesCount = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds
     },
     { fields },
     user

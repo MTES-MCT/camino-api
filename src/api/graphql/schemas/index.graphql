@@ -93,6 +93,9 @@ type Query {
     typesIds: [ID]
     annees: [Int]
     statutsIds: [ID]
+    titresTypesIds: [ID]
+    titresDomainesIds: [ID]
+    titresStatutsIds: [ID]
     titresNoms: String
     titresEntreprises: String
     titresSubstances: String
