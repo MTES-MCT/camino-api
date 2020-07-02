@@ -54,10 +54,10 @@
     "test": "eslint . && npm run build && jest --testPathIgnorePatterns=tests --ci && codecov",
     "test:unit": "npm run lint && jest --testPathIgnorePatterns=tests --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
-    "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch",
+    "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch --testTimeout=20000",
     "ci:lint": "eslint .",
     "ci:test-unit": "jest --testPathIgnorePatterns=tests --ci",
-    "ci:test-integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit",
+    "ci:test-integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit --testTimeout=20000",
     "ci:codecov": "codecov"
   },
   "@comment dependencies": {
