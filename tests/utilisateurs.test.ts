@@ -1,13 +1,9 @@
 import 'dotenv/config'
 
-import { knex, dbManager } from './init'
-import {
-  graphQLCall,
-  queryImport,
-  tokenCreate,
-  tokenUserGenerate
-} from './_utils'
+import { knex, dbManager, app } from './init'
+import { graphQLCall, queryImport, tokenCreate } from './_utils'
 import * as userAdd from '../knex/user-add'
+import * as request from 'supertest'
 
 jest.mock('../src/tools/export/utilisateur', () => ({
   __esModule: true,
@@ -57,20 +53,22 @@ describe('utilisateurModifier', () => {
 
     const token = tokenCreate({ id: 'test' })
 
-    const res = await graphQLCall(
-      utilisateurModifierQuery,
-      {
-        utilisateur: {
-          id: 'test',
-          prenom: 'toto-updated',
-          nom: 'test-updated',
-          email: 'test@camino.local'
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurModifierQuery,
+        variables: {
+          utilisateur: {
+            id: 'test',
+            prenom: 'toto-updated',
+            nom: 'test-updated',
+            email: 'test@camino.local'
+          }
         }
-      },
-      token
-    )
+      })
+      .set('Authorization', `Bearer ${token}`)
 
-    expect(res.status).toEqual(200)
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         utilisateurModifier: {
@@ -102,20 +100,22 @@ describe('utilisateursCreer', () => {
   test('crée un compte utilisateur si le token contient son email', async () => {
     const token = tokenCreate({ email: 'test@camino.local' })
 
-    const res = await graphQLCall(
-      utilisateurCreerQuery,
-      {
-        utilisateur: {
-          prenom: 'toto',
-          nom: 'test',
-          email: 'test@camino.local',
-          motDePasse: 'mot-de-passe'
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'test@camino.local',
+            motDePasse: 'mot-de-passe'
+          }
         }
-      },
-      token
-    )
+      })
+      .set('Authorization', `Bearer ${token}`)
 
-    expect(res.status).toEqual(200)
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
@@ -126,8 +126,6 @@ describe('utilisateursCreer', () => {
   })
 
   test("en tant que 'defaut', ne peut pas créer de compte 'super'", async () => {
-    const token = tokenCreate({ id: 'defaut', email: 'test@camino.local' })
-
     const res = await graphQLCall(
       utilisateurCreerQuery,
       {
@@ -139,7 +137,7 @@ describe('utilisateursCreer', () => {
           permissionId: 'super'
         }
       },
-      token
+      'defaut'
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -150,18 +148,20 @@ describe('utilisateursCreer', () => {
   test("en tant que 'defaut', ne peut pas créer de compte avec un email différent", async () => {
     const token = tokenCreate({ id: 'defaut', email: 'test@camino.local' })
 
-    const res = await graphQLCall(
-      utilisateurCreerQuery,
-      {
-        utilisateur: {
-          prenom: 'toto',
-          nom: 'test',
-          email: 'autre@camino.local',
-          motDePasse: 'mot-de-passe'
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurCreerQuery,
+        variables: {
+          utilisateur: {
+            prenom: 'toto',
+            nom: 'test',
+            email: 'autre@camino.local',
+            motDePasse: 'mot-de-passe'
+          }
         }
-      },
-      token
-    )
+      })
+      .set('Authorization', `Bearer ${token}`)
 
     expect(res.body.errors[0].message).toMatch(
       /droits insuffisants pour créer un utilisateur/
@@ -169,8 +169,6 @@ describe('utilisateursCreer', () => {
   })
 
   test("en tant que 'super', peut créer un compte utilisateur 'super'", async () => {
-    const token = await tokenUserGenerate('super')
-
     const res = await graphQLCall(
       utilisateurCreerQuery,
       {
@@ -182,10 +180,10 @@ describe('utilisateursCreer', () => {
           permissionId: 'super'
         }
       },
-      token
+      'super'
     )
 
-    expect(res.status).toEqual(200)
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
@@ -196,8 +194,6 @@ describe('utilisateursCreer', () => {
   })
 
   test("en tant que 'defaut', ne peut pas être associé à une administration", async () => {
-    const token = await tokenUserGenerate('super')
-
     const res = await graphQLCall(
       utilisateurCreerQuery,
       {
@@ -209,7 +205,7 @@ describe('utilisateursCreer', () => {
           administrations: [{ id: 'administration' }]
         }
       },
-      token
+      'defaut'
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -218,8 +214,6 @@ describe('utilisateursCreer', () => {
   })
 
   test("en tant qu'admin', peut être associé à une administrations", async () => {
-    const token = await tokenUserGenerate('super')
-
     await knex('administrations_types').insert({
       id: 'adm',
       nom: 'admin',
@@ -236,7 +230,7 @@ describe('utilisateursCreer', () => {
       utilisateurCreerQuery,
       {
         utilisateur: {
-          prenom: 'toto',
+          prenom: 'test',
           nom: 'test',
           email: 'test@camino.local',
           motDePasse: 'mot-de-passe',
@@ -244,22 +238,20 @@ describe('utilisateursCreer', () => {
           administrations: [{ id: 'administration' }]
         }
       },
-      token
+      'super'
     )
 
-    expect(res.status).toEqual(200)
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
-          prenom: 'toto'
+          prenom: 'test'
         }
       }
     })
   })
 
   test("ne peut pas être associé à une entreprise (utilisateur 'defaut')", async () => {
-    const token = await tokenUserGenerate('super')
-
     const res = await graphQLCall(
       utilisateurCreerQuery,
       {
@@ -271,7 +263,7 @@ describe('utilisateursCreer', () => {
           entreprises: [{ id: 'entreprise' }]
         }
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -280,8 +272,6 @@ describe('utilisateursCreer', () => {
   })
 
   test("peut être associé à une entreprise (utilisateur 'entreprise')", async () => {
-    const token = await tokenUserGenerate('super')
-
     await knex('entreprises').insert({
       id: 'entreprise',
       nom: 'entre'
@@ -299,10 +289,10 @@ describe('utilisateursCreer', () => {
           entreprises: [{ id: 'entreprise' }]
         }
       },
-      token
+      'super'
     )
 
-    expect(res.status).toEqual(200)
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         utilisateurCreer: {
@@ -336,15 +326,17 @@ describe('utilisateurSupprimer', () => {
 
     const token = tokenCreate({ id: 'test' })
 
-    const res = await graphQLCall(
-      utilisateurSupprimerQuery,
-      {
-        id: 'test'
-      },
-      token
-    )
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurSupprimerQuery,
+        variables: {
+          id: 'test'
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
 
-    expect(res.status).toEqual(200)
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         utilisateurSupprimer: {
@@ -365,13 +357,12 @@ describe('utilisateurSupprimer', () => {
       permissionId: 'defaut'
     })
 
-    const token = await tokenUserGenerate('super')
     const res = await graphQLCall(
       utilisateurSupprimerQuery,
       {
         id
       },
-      token
+      'super'
     )
 
     expect(res.body).toMatchObject({
@@ -384,13 +375,12 @@ describe('utilisateurSupprimer', () => {
   })
 
   test('ne peut pas supprimer un utilisateur inexistant (utilisateur super)', async () => {
-    const token = await tokenUserGenerate('super')
     const res = await graphQLCall(
       utilisateurSupprimerQuery,
       {
         id: 'toto'
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toMatch(/aucun utilisateur avec cet id/)

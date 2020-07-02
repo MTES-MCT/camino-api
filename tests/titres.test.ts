@@ -1,15 +1,7 @@
 import 'dotenv/config'
 
-import { IAdministration, IUtilisateur } from '../src/types'
-
 import { dbManager } from './init'
-import {
-  graphQLCall,
-  queryImport,
-  tokenCreate,
-  tokenUserGenerate
-} from './_utils'
-import { utilisateurCreate } from '../src/database/queries/utilisateurs'
+import { graphQLCall, queryImport } from './_utils'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
 
@@ -43,28 +35,27 @@ describe('titreCreer', () => {
   })
 
   test("ne peut pas créer un titre (un utilisateur 'entreprise')", async () => {
-    const token = await tokenUserGenerate('entreprise')
     const res = await graphQLCall(
       titreCreerQuery,
       {
         titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'entreprise'
     )
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test("crée un titre (un utilisateur 'super')", async () => {
-    const token = await tokenUserGenerate('super')
     const res = await graphQLCall(
       titreCreerQuery,
       {
         titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'super'
     )
 
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         titreCreer: {
@@ -76,29 +67,13 @@ describe('titreCreer', () => {
   })
 
   test("ne peut pas créer un titre AXM (un utilisateur 'admin' PTMG)", async () => {
-    await utilisateurCreate(
-      ({
-        id: 'admin-user',
-        prenom: 'toto',
-        nom: 'test',
-        email: 'test@camino.local',
-        motDePasse: 'mot-de-passe',
-        permissionId: 'admin',
-        administrations: [
-          ({ id: 'ope-ptmg-973-01' } as unknown) as IAdministration
-        ]
-      } as unknown) as IUtilisateur,
-      {}
-    )
-
-    const token = tokenCreate({ id: 'admin-user' })
-
     const res = await graphQLCall(
       titreCreerQuery,
       {
         titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' }
       },
-      token
+      'admin',
+      'ope-ptmg-973-01'
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -107,31 +82,16 @@ describe('titreCreer', () => {
   })
 
   test("crée un titre ARM (un utilisateur 'admin' PTMG)", async () => {
-    await utilisateurCreate(
-      ({
-        id: 'admin-user',
-        prenom: 'toto',
-        nom: 'test',
-        email: 'test@camino.local',
-        motDePasse: 'mot-de-passe',
-        permissionId: 'admin',
-        administrations: [
-          ({ id: 'ope-ptmg-973-01' } as unknown) as IAdministration
-        ]
-      } as unknown) as IUtilisateur,
-      {}
-    )
-
-    const token = tokenCreate({ id: 'admin-user' })
-
     const res = await graphQLCall(
       titreCreerQuery,
       {
         titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'admin',
+      'ope-ptmg-973-01'
     )
 
+    expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
       data: {
         titreCreer: {
@@ -170,26 +130,24 @@ describe('titreModifier', () => {
   })
 
   test("ne peut pas modifier un titre (un utilisateur 'entreprise')", async () => {
-    const token = await tokenUserGenerate('entreprise')
     const res = await graphQLCall(
       titreModifierQuery,
       {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'entreprise'
     )
 
     expect(res.body.errors[0].message).toMatch(/le titre n'existe pas/)
   })
 
   test("modifie un titre (un utilisateur 'super')", async () => {
-    const token = await tokenUserGenerate('super')
     const res = await graphQLCall(
       titreModifierQuery,
       {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'super'
     )
 
     expect(res.body).toMatchObject({
@@ -203,29 +161,13 @@ describe('titreModifier', () => {
   })
 
   test("modifie un titre ARM (un utilisateur 'admin' PTMG)", async () => {
-    await utilisateurCreate(
-      ({
-        id: 'admin-user',
-        prenom: 'toto',
-        nom: 'test',
-        email: 'test@camino.local',
-        motDePasse: 'mot-de-passe',
-        permissionId: 'admin',
-        administrations: [
-          ({ id: 'ope-ptmg-973-01' } as unknown) as IAdministration
-        ]
-      } as unknown) as IUtilisateur,
-      {}
-    )
-
-    const token = tokenCreate({ id: 'admin-user' })
-
     const res = await graphQLCall(
       titreModifierQuery,
       {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'admin',
+      'ope-ptmg-973-01'
     )
 
     expect(res.body).toMatchObject({
@@ -251,23 +193,6 @@ describe('titreModifier', () => {
       'super'
     )
 
-    await utilisateurCreate(
-      ({
-        id: 'admin-user',
-        prenom: 'toto',
-        nom: 'test',
-        email: 'test@camino.local',
-        motDePasse: 'mot-de-passe',
-        permissionId: 'admin',
-        administrations: [
-          ({ id: 'ope-ptmg-973-01' } as unknown) as IAdministration
-        ]
-      } as unknown) as IUtilisateur,
-      {}
-    )
-
-    const token = tokenCreate({ id: 'admin-user' })
-
     const res = await graphQLCall(
       titreModifierQuery,
       {
@@ -278,7 +203,8 @@ describe('titreModifier', () => {
           domaineId: 'm'
         }
       },
-      token
+      'admin',
+      'ope-ptmg-973-01'
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -287,29 +213,13 @@ describe('titreModifier', () => {
   })
 
   test("ne peut pas modifier un titre ARM (un utilisateur 'admin' DGTM)", async () => {
-    await utilisateurCreate(
-      ({
-        id: 'admin-user',
-        prenom: 'toto',
-        nom: 'test',
-        email: 'test@camino.local',
-        motDePasse: 'mot-de-passe',
-        permissionId: 'admin',
-        administrations: [
-          ({ id: 'dea-guyane-01' } as unknown) as IAdministration
-        ]
-      } as unknown) as IUtilisateur,
-      {}
-    )
-
-    const token = tokenCreate({ id: 'admin-user' })
-
     const res = await graphQLCall(
       titreModifierQuery,
       {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
-      token
+      'admin',
+      'dea-guyane-01'
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -344,13 +254,12 @@ describe('titreSupprimer', () => {
   })
 
   test('peut supprimer un titre (utilisateur super)', async () => {
-    const token = await tokenUserGenerate('super')
     const res = await graphQLCall(
       titreSupprimerQuery,
       {
         id
       },
-      token
+      'super'
     )
 
     expect(res.body).toMatchObject({
@@ -363,13 +272,12 @@ describe('titreSupprimer', () => {
   })
 
   test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {
-    const token = await tokenUserGenerate('super')
     const res = await graphQLCall(
       titreSupprimerQuery,
       {
         id: 'toto'
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toMatch(/aucun titre avec cet id/)

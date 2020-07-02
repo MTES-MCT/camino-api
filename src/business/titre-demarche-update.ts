@@ -160,20 +160,23 @@ const titreDemarcheUpdate = async (
     )
 
     console.info('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId, {
-      fields: {
-        type: { type: { id: {} } },
-        demarches: {
-          etapes: {
-            points: { references: { id: {} } },
-            documents: { id: {} },
-            incertitudes: { id: {} }
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          demarches: {
+            etapes: {
+              points: { references: { id: {} } },
+              documents: { id: {} },
+              incertitudes: { id: {} }
+            },
+            phase: { id: {} }
           },
-          phase: { id: {} }
-        },
-        activites: { id: {} }
-      }
-    }, 'super')
+          activites: { id: {} }
+        }
+      },
+      'super'
+    )
 
     // met à jour l'id dans le titre par effet de bord
     const titreUpdatedIndex = await titreIdsUpdate(titre)

@@ -1,0 +1,16 @@
+mutation DemarcheCreer($demarche: InputDemarcheCreation!) {
+  demarcheCreer(demarche: $demarche) {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  nom
+  id
+  demarches {
+    id
+  }
+}
+
+
+

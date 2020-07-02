@@ -7,18 +7,4 @@ mutation TitreCreer($titre: InputTitreCreation!) {
 fragment titre on Titre {
   nom
   id
-  type {
-    id
-    type {
-      nom
-    }
-  }
-  domaine {
-    id
-    nom
-  }
-  statut {
-    id
-    nom
-  }
 }

@@ -1,0 +1,18 @@
+mutation DemarcheModifier($demarche: InputDemarcheModification!) {
+  demarcheModifier(demarche: $demarche) {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  nom
+  id
+  demarches{
+    id
+    type{
+      id
+    }
+  }
+}
+
+

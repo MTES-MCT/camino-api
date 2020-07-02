@@ -154,7 +154,8 @@ const titresTypesUpdateFalse = [
   'demarchesTypes',
   'demarchesTypes.etapesTypes',
   'demarchesTypes.etapesTypes.etapesStatuts',
-  'demarchesTypes.etapesTypes.autorisations'
+  'demarchesTypes.etapesTypes.autorisations',
+  'autorisationsTitresStatuts'
 ]
 
 const demarchesUpdateFalse = [
