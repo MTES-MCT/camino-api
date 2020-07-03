@@ -171,6 +171,13 @@ const titresActivitesColonnes = {
     relation: 'titre',
     groupBy: true
   },
+  titreDomaine: { id: 'titre.domaineId', relation: 'titre', groupBy: true },
+  titreType: {
+    id: 'titre:type:type.nom',
+    relation: 'titre.type.type',
+    groupBy: true
+  },
+  titreStatut: { id: 'titre.statutId', relation: 'titre', groupBy: true },
   titulaires: {
     // trie par concaténation des titulaires du titre de l'activité
     id: raw(`STRING_AGG (
