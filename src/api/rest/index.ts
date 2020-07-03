@@ -233,9 +233,9 @@ interface ITitresActivitesQueryInput {
   titresSubstances?: string | null
   titresReferences?: string | null
   titresTerritoires?: string | null
-  titresTypesIds?: string[] | null
-  titresDomainesIds?: string[] | null
-  titresStatutsIds?: string[] | null
+  titresTypesIds?: string | null
+  titresDomainesIds?: string | null
+  titresStatutsIds?: string | null
 }
 
 const activites = async (
