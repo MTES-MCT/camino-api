@@ -233,6 +233,9 @@ interface ITitresActivitesQueryInput {
   titresSubstances?: string | null
   titresReferences?: string | null
   titresTerritoires?: string | null
+  titresTypesIds?: string[] | null
+  titresDomainesIds?: string[] | null
+  titresStatutsIds?: string[] | null
 }
 
 const activites = async (
@@ -247,7 +250,10 @@ const activites = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: ITitresActivitesQueryInput,
   userId?: string
 ) => {
@@ -264,7 +270,10 @@ const activites = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      titresTypesIds: titresTypesIds?.split(','),
+      titresDomainesIds: titresDomainesIds?.split(','),
+      titresStatutsIds: titresStatutsIds?.split(',')
     },
     {
       fields: {
