@@ -9,8 +9,6 @@ import { ITitreType } from '../src/types'
 console.info = jest.fn()
 console.error = jest.fn()
 
-// https://github.com/graphql/express-graphql/issues/122
-
 beforeEach(async () => {
   await dbManager.populateDb()
   await autorisationsInit()

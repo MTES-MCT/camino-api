@@ -1,0 +1,13 @@
+mutation EtapeCreer($etape: InputEtapeCreation!) {
+  etapeCreer(etape: $etape) {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  nom
+  id
+}
+
+
+
