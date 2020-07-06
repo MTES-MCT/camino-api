@@ -48,7 +48,7 @@ const entreprisePermissionQueryBuild = (
   q.modifyGraph('titresTitulaire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields!.titresTitulaire,
+      fields?.titresTitulaire,
       user
     )
       // on group by entrepriseId au cas où il y a une aggrégation
@@ -59,7 +59,7 @@ const entreprisePermissionQueryBuild = (
   q.modifyGraph('titresAmodiataire', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
-      fields!.titresAmodiataire,
+      fields?.titresAmodiataire,
       user
     )
       // on group by entrepriseId au cas où il y a une aggrégation
