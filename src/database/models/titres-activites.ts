@@ -94,7 +94,7 @@ class TitresActivites extends Model {
       builder
         .joinRelated('type')
         .orderByRaw(
-          "date desc, array_position(array['ann','tri','men']::varchar[], type.frequence_id)"
+          "date desc, array_position(array['ann','tri','men']::varchar[], type.frequence_id), type.ordre"
         )
     }
   }
