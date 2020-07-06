@@ -204,7 +204,7 @@ const titresFiltersQueryBuild = (
               fields.map(() => 'lower(??) like ?').join(' or ') +
               ') > 0'
           )
-          .join(') or (')})`,
+          .join(') and (')})`,
         referencesArray.flatMap(r =>
           fields.flatMap(f => [f, `%${r.toLowerCase()}%`])
         )
