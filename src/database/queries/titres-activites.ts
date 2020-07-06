@@ -39,7 +39,7 @@ import Objection = require('objection')
  * @param titresStatutsIds - tableau de statut(s) de titre
  * @param fields - propriétés demandées
  * @param userId - utilisateur
- * @returns un constructeur de requêtes
+ * @returns une requête d'activités
  *
  */
 
