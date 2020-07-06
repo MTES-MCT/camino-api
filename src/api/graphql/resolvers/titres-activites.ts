@@ -26,6 +26,16 @@ import { titreActivitesRowUpdate } from '../../../tools/export/titre-activites'
 import titreActiviteInputValidate from '../../_validate/titre-activite-input-validate'
 import titreActiviteUpdationValidate from '../../../business/titre-activite-updation-validate'
 
+/**
+ * Retourne une activité
+ *
+ * @param id - id de l'activité
+ * @param context - contexte utilisateur
+ * @param info - objet contenant les propriétés de la requête graphQl
+ * @returns une activité
+ *
+ */
+
 const activite = async (
   { id }: { id: string },
   context: IToken,
@@ -52,6 +62,30 @@ const activite = async (
   }
 }
 
+/**
+ * Retourne les activités
+ *
+ * @param page - numéro de page
+ * @param intervalle - nombre d'éléments par page
+ * @param ordre - ordre de tri
+ * @param colonne - colonne de tri
+ * @param typesIds - tableau de type(s) d'activité
+ * @param statutsIds - tableau de statut(s) d'activité
+ * @param annees - année de l'activité
+ * @param titresNoms - chaîne de nom(s) de titre
+ * @param titresEntreprises - chaîne de nom(s) d'entreprise titulaire ou amodiataire d'un titre
+ * @param titresSubstances - chaîne de substance(s) se rapportant à un titre
+ * @param titresReferences - chaîne de référence(s) se rapportant à un titre
+ * @param titresTerritoires - chaîne de territoire(s) se rapportant à un titre
+ * @param titresTypesIds - tableau de type(s) de titre
+ * @param titresDomainesIds - tableau de domaine(s)
+ * @param titresStatutsIds - tableau de statut(s) de titre
+ * @param context - contexte utilisateur
+ * @param info - objet contenant les propriétés de la requête graphQl
+ * @returns une liste d'activités
+ *
+ */
+
 const activites = async (
   {
     page,
@@ -65,7 +99,10 @@ const activites = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     page?: number | null
     intervalle?: number | null
@@ -79,6 +116,9 @@ const activites = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -108,7 +148,10 @@ const activites = async (
           titresSubstances,
           titresReferences,
           titresTerritoires,
-          statutsIds
+          statutsIds,
+          titresTypesIds,
+          titresDomainesIds,
+          titresStatutsIds
         },
         { fields: fields.elements },
         context.user?.id
@@ -122,7 +165,10 @@ const activites = async (
           titresSubstances,
           titresReferences,
           titresTerritoires,
-          statutsIds
+          statutsIds,
+          titresTypesIds,
+          titresDomainesIds,
+          titresStatutsIds
         },
         { fields: fields.elements },
         context.user?.id
@@ -149,6 +195,14 @@ const activites = async (
     throw e
   }
 }
+
+/**
+ * Retourne les années des activités
+ *
+ * @param context - contexte utilisateur
+ * @returns une liste d'année(s)
+ *
+ */
 
 const activitesAnnees = async (_: never, context: IToken) => {
   try {

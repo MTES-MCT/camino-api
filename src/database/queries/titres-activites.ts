@@ -23,6 +23,26 @@ import { titresFiltersQueryBuild } from './_titres-filters'
 
 import Objection = require('objection')
 
+/**
+ * Construit le corps de la requête sur les activités (hors paramètres de pagination)
+ *
+ * @param typesIds - tableau de type(s) d'activité
+ * @param statutsIds - tableau de statut(s) d'activité
+ * @param annees - année de l'activité
+ * @param titresNoms - chaîne de nom(s) de titre
+ * @param titresEntreprises - chaîne de nom(s) d'entreprise titulaire ou amodiataire d'un titre
+ * @param titresSubstances - chaîne de substance(s) se rapportant à un titre
+ * @param titresReferences - chaîne de référence(s) se rapportant à un titre
+ * @param titresTerritoires - chaîne de territoire(s) se rapportant à un titre
+ * @param titresTypesIds - tableau de type(s) de titre
+ * @param titresDomainesIds - tableau de domaine(s)
+ * @param titresStatutsIds - tableau de statut(s) de titre
+ * @param fields - propriétés demandées
+ * @param userId - utilisateur
+ * @returns une requête d'activités
+ *
+ */
+
 const titreActivitesQueryBuild = (
   {
     typesIds,
@@ -32,7 +52,10 @@ const titreActivitesQueryBuild = (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -42,6 +65,9 @@ const titreActivitesQueryBuild = (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
@@ -73,6 +99,9 @@ const titreActivitesQueryBuild = (
 
   titresFiltersQueryBuild(
     {
+      domainesIds: titresDomainesIds,
+      typesIds: titresTypesIds,
+      statutsIds: titresStatutsIds,
       noms: titresNoms,
       entreprises: titresEntreprises,
       substances: titresSubstances,
@@ -87,6 +116,16 @@ const titreActivitesQueryBuild = (
   return q
 }
 
+/**
+ * Retourne une activité au resolver
+ *
+ * @param id - id de l'activité
+ * @param fields - propriétés demandées
+ * @param userId - utilisateur
+ * @returns une activité
+ *
+ */
+
 const titreActiviteGet = async (
   id: string,
   { fields }: { fields?: IFields },
@@ -99,6 +138,14 @@ const titreActiviteGet = async (
 
   return (await q.findById(id)) as ITitreActivite
 }
+
+/**
+ * Retourne les années des activités au resolver
+ *
+ * @param userId - utilisateur
+ * @returns une liste d'année(s)
+ *
+ */
 
 const activitesAnneesGet = async (userId?: string) => {
   const user = await userGet(userId)
@@ -124,6 +171,13 @@ const titresActivitesColonnes = {
     relation: 'titre',
     groupBy: true
   },
+  titreDomaine: { id: 'titre.domaineId', relation: 'titre', groupBy: true },
+  titreType: {
+    id: 'titre:type:type.nom',
+    relation: 'titre.type.type',
+    groupBy: true
+  },
+  titreStatut: { id: 'titre.statutId', relation: 'titre', groupBy: true },
   titulaires: {
     // trie par concaténation des titulaires du titre de l'activité
     id: raw(`STRING_AGG (
@@ -139,6 +193,30 @@ const titresActivitesColonnes = {
   statut: { id: 'statutId' }
 } as Index<IColonne<string | Objection.RawBuilder>>
 
+/**
+ * Retourne les activités au resolver
+ *
+ * @param page - numéro de page
+ * @param intervalle - nombre d'éléments par page
+ * @param ordre - ordre de tri
+ * @param colonne - colonne de tri
+ * @param typesIds - tableau de type(s) d'activité
+ * @param statutsIds - tableau de statut(s) d'activité
+ * @param annees - année de l'activité
+ * @param titresNoms - chaîne de nom(s) de titre
+ * @param titresEntreprises - chaîne de nom(s) d'entreprise titulaire ou amodiataire d'un titre
+ * @param titresSubstances - chaîne de substance(s) se rapportant à un titre
+ * @param titresReferences - chaîne de référence(s) se rapportant à un titre
+ * @param titresTerritoires - chaîne de territoire(s) se rapportant à un titre
+ * @param titresTypesIds - tableau de type(s) de titre
+ * @param titresDomainesIds - tableau de domaine(s)
+ * @param titresStatutsIds - tableau de statut(s) de titre
+ * @param fields - propriétés demandées
+ * @param userId - utilisateur
+ * @returns une liste d'activités
+ *
+ */
+
 const titresActivitesGet = async (
   {
     page,
@@ -152,7 +230,10 @@ const titresActivitesGet = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     page?: number | null
     intervalle?: number | null
@@ -166,6 +247,9 @@ const titresActivitesGet = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -181,7 +265,10 @@ const titresActivitesGet = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds
     },
     { fields },
     user
@@ -211,6 +298,26 @@ const titresActivitesGet = async (
   return q
 }
 
+/**
+ * Retourne un total d'activités au resolver
+ *
+ * @param typesIds - tableau de type(s) d'activité
+ * @param statutsIds - tableau de statut(s) d'activité
+ * @param annees - année de l'activité
+ * @param titresNoms - chaîne de nom(s) de titre
+ * @param titresEntreprises - chaîne de nom(s) d'entreprise titulaire ou amodiataire d'un titre
+ * @param titresSubstances - chaîne de substance(s) se rapportant à un titre
+ * @param titresReferences - chaîne de référence(s) se rapportant à un titre
+ * @param titresTerritoires - chaîne de territoire(s) se rapportant à un titre
+ * @param titresTypesIds - tableau de type(s) de titre
+ * @param titresDomainesIds - tableau de domaine(s)
+ * @param titresStatutsIds - tableau de statut(s) de titre
+ * @param fields - propriétés demandées
+ * @param userId - utilisateur
+ * @returns un entier
+ *
+ */
+
 const titresActivitesCount = async (
   {
     typesIds,
@@ -220,7 +327,10 @@ const titresActivitesCount = async (
     titresEntreprises,
     titresSubstances,
     titresReferences,
-    titresTerritoires
+    titresTerritoires,
+    titresTypesIds,
+    titresDomainesIds,
+    titresStatutsIds
   }: {
     typesIds?: string[] | null
     statutsIds?: string[] | null
@@ -230,6 +340,9 @@ const titresActivitesCount = async (
     titresSubstances?: string | null
     titresReferences?: string | null
     titresTerritoires?: string | null
+    titresTypesIds?: string[] | null
+    titresDomainesIds?: string[] | null
+    titresStatutsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
@@ -245,7 +358,10 @@ const titresActivitesCount = async (
       titresEntreprises,
       titresSubstances,
       titresReferences,
-      titresTerritoires
+      titresTerritoires,
+      titresTypesIds,
+      titresDomainesIds,
+      titresStatutsIds
     },
     { fields },
     user
