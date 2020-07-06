@@ -156,7 +156,7 @@ const activitesTypesGet = async (
     ? graphBuild(fields, 'activitesTypes', graphFormat)
     : options.activitesTypes.graph
 
-  const q = ActivitesTypes.query().withGraphFetched(graph)
+  const q = ActivitesTypes.query().withGraphFetched(graph).modify('orderAsc')
 
   activitesTypesPermissionQueryBuild(q, user)
 

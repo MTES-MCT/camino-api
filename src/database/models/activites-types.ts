@@ -1,4 +1,4 @@
-import { Model } from 'objection'
+import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 import { IActiviteType } from '../../types'
 
@@ -17,7 +17,8 @@ class ActivitesTypes extends Model {
       sections: { type: 'json' },
       frequenceId: { type: 'string', maxLength: 3 },
       dateDebut: { type: 'string' },
-      delaiMois: { type: 'integer' }
+      delaiMois: { type: 'integer' },
+      ordre: { type: 'integer' }
     }
   }
 
@@ -68,6 +69,12 @@ class ActivitesTypes extends Model {
         },
         to: 'administrations.id'
       }
+    }
+  }
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder.orderBy('activitesTypes.ordre', 'asc')
     }
   }
 }
