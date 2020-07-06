@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, tokenUserGenerate, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { mocked } from 'ts-jest/utils'
 import {
@@ -49,12 +49,6 @@ afterAll(async () => {
 describe('entrepriseCreer', () => {
   const entrepriseCreerQuery = queryImport('entreprise-creer')
 
-  let token: string
-
-  beforeEach(async () => {
-    token = await tokenUserGenerate('super')
-  })
-
   test('ne peut pas créer une entreprise (utilisateur anonyme)', async () => {
     const res = await graphQLCall(entrepriseCreerQuery, {
       entreprise: { legalSiren: 'test', paysId: 'fr' }
@@ -77,7 +71,7 @@ describe('entrepriseCreer', () => {
       {
         entreprise: { legalSiren: '729800706', paysId: 'fr' }
       },
-      token
+      'super'
     )
 
     expect(res.body).toMatchObject({
@@ -96,7 +90,7 @@ describe('entrepriseCreer', () => {
       {
         entreprise: { legalSiren: '729800706', paysId: 'fr' }
       },
-      token
+      'super'
     )
 
     const res = await graphQLCall(
@@ -104,7 +98,7 @@ describe('entrepriseCreer', () => {
       {
         entreprise: { legalSiren: '729800706', paysId: 'fr' }
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -121,7 +115,7 @@ describe('entrepriseCreer', () => {
       {
         entreprise: { legalSiren: 'invalid', paysId: 'fr' }
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -135,7 +129,7 @@ describe('entrepriseCreer', () => {
       {
         entreprise: { legalSiren: '729800706', paysId: 'en' }
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -147,12 +141,9 @@ describe('entrepriseCreer', () => {
 describe('entrepriseModifier', () => {
   const entrepriseModifierQuery = queryImport('entreprise-modifier')
 
-  let token: string
   let entrepriseId: string
 
   beforeEach(async () => {
-    token = await tokenUserGenerate('super')
-
     tokenInitializeMock.mockResolvedValue('token')
     entrepriseFetchMock.mockResolvedValue([entreprise])
     entreprisesEtablissementsFetchMock.mockResolvedValue([
@@ -164,7 +155,7 @@ describe('entrepriseModifier', () => {
       {
         entreprise: { legalSiren: '729800706', paysId: 'fr' }
       },
-      token
+      'super'
     )
 
     entrepriseId = res.body.data.entrepriseCreer.id
@@ -186,7 +177,7 @@ describe('entrepriseModifier', () => {
       {
         entreprise: { id: entrepriseId, email: 'toto@gmail.com' }
       },
-      token
+      'super'
     )
 
     expect(res.body).toMatchObject({
@@ -205,7 +196,7 @@ describe('entrepriseModifier', () => {
       {
         entreprise: { id: entrepriseId, email: 'totogmail.com' }
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toBe('adresse email invalide')
@@ -217,7 +208,7 @@ describe('entrepriseModifier', () => {
       {
         entreprise: { id: 'id-inconnu' }
       },
-      token
+      'super'
     )
 
     expect(res.body.errors[0].message).toBe('entreprise inconnue')

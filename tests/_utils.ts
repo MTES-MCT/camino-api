@@ -2,10 +2,10 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as jwt from 'jsonwebtoken'
 
-import { IPermissionId, IUtilisateur } from '../src/types'
+import { IAdministration, IPermissionId, IUtilisateur } from '../src/types'
 import * as request from 'supertest'
-import { app, knex } from './init'
-import userAdd = require('../knex/user-add')
+import { app } from './init'
+import { utilisateurCreate } from '../src/database/queries/utilisateurs'
 
 const queryImport = (nom: string) =>
   fs
@@ -16,7 +16,17 @@ const queryImport = (nom: string) =>
 const tokenCreate = (user: Partial<IUtilisateur>) =>
   jwt.sign(user, process.env.JWT_SECRET as string)
 
-const graphQLCall = async (query: string, variables: {}, token?: string) => {
+const graphQLCall = async (
+  query: string,
+  variables: {},
+  permissionId?: IPermissionId,
+  administrationId?: string
+) => {
+  let token = undefined
+  if (permissionId) {
+    token = await tokenUserGenerate(permissionId, administrationId)
+  }
+
   const req = request(app).post('/').send({
     query,
     variables
@@ -29,17 +39,32 @@ const graphQLCall = async (query: string, variables: {}, token?: string) => {
   return req
 }
 
-const tokenUserGenerate = async (permissionId: IPermissionId) => {
-  const id = `${permissionId}-user`
-  await userAdd(knex, {
-    id,
-    prenom: 'toto',
-    nom: 'test',
-    email: `test-${permissionId}@camino.local`,
-    motDePasse: 'mot-de-passe',
-    permissionId
-  })
+const tokenUserGenerate = async (
+  permissionId: IPermissionId,
+  administrationId?: string
+) => {
+  const id = permissionId !== 'super' ? `${permissionId}-user` : 'super'
+  try {
+    const administrations = []
+    if (administrationId) {
+      administrations.push(({
+        id: administrationId
+      } as unknown) as IAdministration)
+    }
 
+    await utilisateurCreate(
+      ({
+        id,
+        prenom: `prenom-${permissionId}`,
+        nom: `nom-${permissionId}`,
+        email: `test-${permissionId}@camino.local`,
+        motDePasse: 'mot-de-passe',
+        permissionId,
+        administrations
+      } as unknown) as IUtilisateur,
+      {}
+    )
+  } catch (e) {}
   return tokenCreate({ id })
 }
 

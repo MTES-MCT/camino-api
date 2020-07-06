@@ -191,7 +191,9 @@ const demarcheCreer = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    const demarcheUpdated = await titreDemarcheCreate(demarche)
+    const demarcheUpdated = await titreDemarcheCreate(demarche, {
+      fields: { id: {} }
+    })
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       demarcheUpdated.id,
@@ -224,10 +226,14 @@ const demarcheModifier = async (
       throw new Error('droits insuffisants')
     }
 
-    if (permissionCheck(user?.permissionId, ['admin'])) {
-      const titre = await titreGet(demarche.titreId, {}, user.id)
-      if (!titre) throw new Error("le titre n'existe pas")
+    const titre = await titreGet(
+      demarche.titreId,
+      { fields: { id: {} } },
+      user.id
+    )
+    if (!titre) throw new Error("le titre n'existe pas")
 
+    if (permissionCheck(user?.permissionId, ['admin'])) {
       if (
         !titreDemarchePermissionAdministrationsCheck(
           user,
@@ -245,7 +251,10 @@ const demarcheModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche)
+    const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche, {
+      fields: { id: {} }
+    })
+
     const titreUpdatedId = await titreDemarcheUpdateTask(
       demarcheUpdated.id,
       demarcheUpdated.titreId
