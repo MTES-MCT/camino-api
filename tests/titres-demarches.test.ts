@@ -4,7 +4,6 @@ import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
-import { ITitreType } from '../src/types'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -268,6 +267,56 @@ describe('demarcheModifier', () => {
     expect(res.body.errors[0].message).toBe(
       'droits insuffisants pour modifier cette démarche'
     )
+  })
+})
+
+describe('demarcheSupprimer', () => {
+  const demarcheSupprimerQuery = queryImport('titres-demarches-supprimer')
+
+  test('ne peut pas supprimer une démarche (utilisateur anonyme)', async () => {
+    const res = await graphQLCall(demarcheSupprimerQuery, {
+      id: 'toto'
+    })
+
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
+  })
+
+  test('ne peut pas supprimer une démarche (utilisateur admin)', async () => {
+    const res = await graphQLCall(
+      demarcheSupprimerQuery,
+      {
+        id: 'toto'
+      },
+      'admin'
+    )
+
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
+  })
+
+  test('ne peut pas supprimer une démarche inexistante (utilisateur super)', async () => {
+    const res = await graphQLCall(
+      demarcheSupprimerQuery,
+      {
+        id: 'toto'
+      },
+      'super'
+    )
+
+    expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
+  })
+
+  test('peut supprimer une démarche (utilisateur super)', async () => {
+    const { demarcheId } = await demarcheCreate()
+    const res = await graphQLCall(
+      demarcheSupprimerQuery,
+      {
+        id: demarcheId
+      },
+      'super'
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data.demarcheSupprimer.demarches.length).toBe(0)
   })
 })
 

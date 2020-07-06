@@ -1,0 +1,8 @@
+mutation demarcheSupprimer($id: ID!) {
+  demarcheSupprimer(id: $id){
+    id
+    demarches{
+      id
+    }
+  }
+}
