@@ -1,0 +1,13 @@
+mutation EtapeModifier($etape: InputEtapeModification!) {
+  etapeModifier(etape: $etape) {
+    ...titre
+  }
+}
+
+fragment titre on Titre {
+  nom
+  id
+}
+
+
+
