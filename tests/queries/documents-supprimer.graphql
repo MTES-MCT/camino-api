@@ -1,0 +1,3 @@
+mutation DocumentSupprimer($id: ID!) {
+  documentSupprimer(id: $id)
+}

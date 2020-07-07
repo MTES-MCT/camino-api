@@ -3,7 +3,8 @@ import {
   IToken,
   IDocumentRepertoire,
   IUtilisateur,
-  IDocumentType
+  IDocumentType,
+  ITitreEtape
 } from '../../../types'
 import { FileUpload } from 'graphql-upload'
 
@@ -50,6 +51,14 @@ const documentFileDirPathFind = (
 
 const documentFilePathFind = (document: IDocument, dirPath: string) =>
   `${dirPath}/${document.id}.${document.fichierTypeId}`
+
+const errorEtapesAssocieesUpdate = (
+  etapesAssociees: ITitreEtape[],
+  action: 'supprimer' | 'modifier'
+) =>
+  `impossible de ${action} ce document lié ${
+    etapesAssociees.length > 1 ? 'aux étapes' : 'à l’étape'
+  } ${etapesAssociees.map(e => e.id).join(', ')}`
 
 const documentFileCreate = async (
   document: IDocument,
@@ -135,14 +144,14 @@ const documentPermisssionsCheck = async (
 
     const etape = await titreEtapeGet(
       document.titreEtapeId,
-      {},
+      { fields: {} },
       user && user.id
     )
-    if (!etape) throw new Error("la démarche n'existe pas")
+    if (!etape) throw new Error("l’étape n'existe pas")
 
     const demarche = await titreDemarcheGet(
       etape.titreDemarcheId,
-      {},
+      { fields: {} },
       user && user.id
     )
     if (!demarche) throw new Error("la démarche n'existe pas")
@@ -268,6 +277,12 @@ const documentModifier = async (
       throw new Error('aucun document avec cette id')
     }
 
+    if (documentOld.etapesAssociees && documentOld.etapesAssociees.length > 0) {
+      throw new Error(
+        errorEtapesAssocieesUpdate(documentOld.etapesAssociees, 'modifier')
+      )
+    }
+
     const documentType = await documentTypeGet(document.typeId)
 
     documentRepertoireCheck(documentType, document)
@@ -362,9 +377,19 @@ const documentSupprimer = async ({ id }: { id: string }, context: IToken) => {
   try {
     const user = context.user && (await userGet(context.user.id))
 
+    if (!user) {
+      throw new Error('droits insuffisants')
+    }
+
     const documentOld = await documentGet(id, {}, user!.id)
     if (!documentOld) {
       throw new Error('aucun document avec cette id')
+    }
+
+    if (documentOld.etapesAssociees && documentOld.etapesAssociees.length > 0) {
+      throw new Error(
+        errorEtapesAssocieesUpdate(documentOld.etapesAssociees, 'supprimer')
+      )
     }
 
     await documentPermisssionsCheck(documentOld, user)

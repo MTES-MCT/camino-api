@@ -1,5 +1,5 @@
 const documents = {
-  graph: 'type',
+  graph: `[type, etapesAssociees]`,
   update: {
     insertMissing: true,
     relate: ['type'],
