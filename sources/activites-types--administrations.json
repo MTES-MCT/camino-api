@@ -1,26 +1,58 @@
 [
   {
-    "activite_type_id": "grp",
-    "administration_id": "min-mtes-dgaln-01"
-  },
-  {
     "activite_type_id": "gra",
-    "administration_id": "min-mtes-dgaln-01"
+    "administration_id": "dea-guyane-01"
   },
   {
     "activite_type_id": "grp",
     "administration_id": "dea-guyane-01"
   },
   {
-    "activite_type_id": "gra",
+    "activite_type_id": "pma",
     "administration_id": "dea-guyane-01"
   },
   {
+    "activite_type_id": "pmb",
+    "administration_id": "dea-guyane-01"
+  },
+  {
+    "activite_type_id": "pmc",
+    "administration_id": "dea-guyane-01"
+  },
+  {
+    "activite_type_id": "pmd",
+    "administration_id": "dea-guyane-01"
+  },
+  {
+    "activite_type_id": "gra",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
     "activite_type_id": "grp",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "pma",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "pmb",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "pmc",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "pmd",
+    "administration_id": "min-mtes-dgaln-01"
+  },
+  {
+    "activite_type_id": "gra",
     "administration_id": "pre-97302-01"
   },
   {
-    "activite_type_id": "gra",
+    "activite_type_id": "grp",
     "administration_id": "pre-97302-01"
   },
   {

@@ -476,7 +476,8 @@
           }
         ]
       }
-    ]
+    ],
+    "ordre": "1"
   },
   {
     "id": "gra",
@@ -510,7 +511,1013 @@
           }
         ]
       }
-    ]
+    ],
+    "ordre": "2"
+  },
+  {
+    "id": "pma",
+    "nom": "rapport d’intensité d’exploration",
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": "4",
+    "sections": [
+      {
+        "id": "levesTopographiques",
+        "nom": "Levés topographiques",
+        "elements": [
+          {
+            "id": "typeLevesTopo",
+            "nom": "Types de levés ",
+            "description": "Exemples : LIDAR, géomètre…",
+            "type": "text",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "surfaceLevesTopo",
+            "nom": "Surface des levés(km²)",
+            "description": "Surface du titre couverte par des levés topographiques",
+            "type": "number",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementLevesTopo",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les levés topographiques",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "cartographieGeologique",
+        "nom": "Cartographie géologique",
+        "elements": [
+          {
+            "id": "surfaceCartographieGeologique",
+            "nom": "Surface cartographiée (km²)",
+            "description": "Surface du titre dont la cartographie géologique a été effectuée au cours de l'année",
+            "type": "number",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementCartographie",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les activités de cartographie",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "levesGeochimiques",
+        "nom": "Levés géochimiques",
+        "elements": [
+          {
+            "id": "surfaceLevesGeochimie",
+            "nom": "Surface des levés(km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre couverte par des levés géochimiques",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesGeochimie",
+            "nom": "Longueur de levés (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon couverte par des levés géochimiques",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementLevesGeochimie",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les levés géochimiques",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "levesGeophysiques",
+        "nom": "Levés géophysiques",
+        "elements": [
+          {
+            "id": "surfaceLevesMagnetisme",
+            "nom": "Surface des levés de magnétisme (km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre en kilomètre carré couverte par des levés de magnétisme ",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesMagnetisme",
+            "nom": "Longueur des levés de magnétisme (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon en kilomètre couverte par des levés de magnétisme",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "typeLevesMagnetisme",
+            "nom": "Type de levés de magnétisme",
+            "valeurs": [
+              {
+                "id": "auSol",
+                "nom": "au sol"
+              },
+              {
+                "id": "aeroporte",
+                "nom": "aéroporté"
+              }
+            ],
+            "type": "checkboxes",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "surfaceLevesSpectrometrie",
+            "nom": "Surface des levés de spectrométrie (km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre en kilomètre carré couverte par des levés de spectrométrie",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesSpectrometrie",
+            "nom": "Longueur des levés de spectrométrie (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon en kilomètre couverte par des levés de spectrométrie",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "typeLevesSpectrometrie",
+            "nom": "Type de levés de spectrométrie ",
+            "valeurs": [
+              {
+                "id": "auSol",
+                "nom": "au sol"
+              },
+              {
+                "id": "aeroporte",
+                "nom": "aéroporté"
+              }
+            ],
+            "type": "checkboxes",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "surfaceLevesPolarisationProvoquee",
+            "nom": "Surface des levés de polarisation provoquée (km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre en kilomètre carré couverte par des levés de polarisation provoquée",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesPolarisationProvoquee",
+            "nom": "Longueur des levés de polarisation provoquée (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon en kilomètre couverte par des levés de polarisation provoquée",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "typeLevesPolarisationProvoquee",
+            "nom": "Type de levés de polarisation provoquée ",
+            "valeurs": [
+              {
+                "id": "auSol",
+                "nom": "au sol"
+              },
+              {
+                "id": "aeroporte",
+                "nom": "aéroporté"
+              }
+            ],
+            "type": "checkboxes",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "surfaceLevesSismiques",
+            "nom": "Surface des levés sismiques (km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre en kilomètre carré couverte par des levés sismiques",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesSismiques",
+            "nom": "Longueur des levés sismiques (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon en kilomètre couverte par des levés sismiques",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "typeLevesSismiques",
+            "nom": "Type de levés sismiques",
+            "valeurs": [
+              {
+                "id": "auSol",
+                "nom": "au sol"
+              },
+              {
+                "id": "aeroporte",
+                "nom": "aéroporté"
+              }
+            ],
+            "type": "checkboxes",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "surfaceLevesConductivite",
+            "nom": "Surface des levés de conductivité (km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre en kilomètre carré couverte par des levés de conductivité",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesConductivite",
+            "nom": "Longueur des levés de conductivité (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon en kilomètre couverte par des levés de conductivité",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "typeLevesConductivite",
+            "nom": "Type de levés de conductivité",
+            "valeurs": [
+              {
+                "id": "auSol",
+                "nom": "au sol"
+              },
+              {
+                "id": "aeroporte",
+                "nom": "aéroporté"
+              }
+            ],
+            "type": "checkboxes",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "surfaceLevesAutre",
+            "nom": "Surface des levés par d'autres méthodes (km²)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Surface du titre en kilomètre carré couverte par des levés par d'autres méthodes",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireLevesAutre",
+            "nom": "Longueur des levés par d'autres méthodes (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de layon en kilomètre couverte par des levés par d'autres méthodes",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "typeLevesAutre",
+            "nom": "Type de levés par d'autres méthodes",
+            "valeurs": [
+              {
+                "id": "auSol",
+                "nom": "au sol"
+              },
+              {
+                "id": "aeroporte",
+                "nom": "aéroporté"
+              }
+            ],
+            "type": "checkboxes",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementLevesGeochimie",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les levés géophysique",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "trancheesPuits",
+        "nom": "Tranchées et puits",
+        "elements": [
+          {
+            "id": "puits",
+            "nom": "Nombre de puits",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre de puits forés",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireTranchees",
+            "nom": "Longueur de tranchée (km)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur de tranchée de prospection ouverte",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementTrancheesPuits",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les tranchées et puits",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "sondages",
+        "nom": "Sondages",
+        "elements": [
+          {
+            "id": "nombreSondagesTariere",
+            "nom": "Nombre de sondages tarière",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre de sondages effectués à l'aide d'une tarière",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "profondeurMaxSondagesTariere",
+            "nom": "Profondeur maximale des sondages tarière (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Profondeur maximale atteinte par les sondages tarière",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "profondeurMoySondagesTariere",
+            "nom": "Profondeur moyenne de sondages tarière (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Profondeur moyenne atteinte par les sondages tarière",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireSondagesTarieres",
+            "nom": "Longueur sondages tarière (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur du linéaire de sondages tarière",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "nombreSondagesDestructifs",
+            "nom": "Nombre de sondages destructifs",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre de sondages effectués à l'aide d'une destructifs",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "profondeurMaxSondagesDestructifs",
+            "nom": "Profondeur maximale des sondages destructifs (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Profondeur maximale atteinte par les sondages destructifs",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "profondeurMoySondagesDestructifs",
+            "nom": "Profondeur moyenne de sondages destructifs (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Profondeur moyenne atteinte par les sondages destructifs",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireSondagesDestructifss",
+            "nom": "Longueur sondages destructifs (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur du linéaire de sondages destructifs",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "nombreSondagesCarottes",
+            "nom": "Nombre de sondages carottés",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre de sondages effectués à l'aide d'une carottés",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "profondeurMaxSondagesCarottes",
+            "nom": "Profondeur maximale des sondages carottés (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Profondeur maximale atteinte par les sondages carottés",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "profondeurMoySondagesCarottes",
+            "nom": "Profondeur moyenne de sondages carottés (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Profondeur moyenne atteinte par les sondages carottés",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "lineaireSondagesCarottes",
+            "nom": "Longueur sondages carottés (m)",
+            "type": "number",
+            "optionnel": true,
+            "description": "Longueur du linéaire de sondages carottés",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementSondages",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les sondages",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "Analyses",
+        "nom": "Analyses",
+        "elements": [
+          {
+            "id": "nombreAnalysesMultiElements",
+            "nom": "Nombre d'analyses multi-éléments",
+            "type": "number",
+            "optionnel": true,
+            "description": "Nombre d'analyses multi-éléments",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "listeAnalysesMultiElements",
+            "nom": "Liste des éléments analysés",
+            "description": "Précisions sur les éléments analysés et méthodes analytiques utilisées",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "listeTraitementMineralurgiques",
+            "nom": "Nature des traitements minéralurgiques",
+            "type": "checkboxes",
+            "optionnel": true,
+            "valeurs": [
+              {
+                "id": "analyseGranulometrie",
+                "nom": "analyse granulométrique"
+              },
+              {
+                "id": "concassage",
+                "nom": "concassage"
+              },
+              {
+                "id": "broyage",
+                "nom": "broyage"
+              },
+              {
+                "id": "separationGravimetrique",
+                "nom": "séparation gravimétrique"
+              },
+              {
+                "id": "flottation",
+                "nom": "flottation"
+              },
+              {
+                "id": "cyanuration",
+                "nom": "cyanuration"
+              },
+              {
+                "id": "testLixiviation",
+                "nom": "test de lixiviation"
+              },
+              {
+                "id": "autre",
+                "nom": "autres"
+              }
+            ]
+          },
+          {
+            "id": "complementAnalyses",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les analyses (volumes traités, nombre de tests...)",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "etudes",
+        "nom": "Etudes",
+        "elements": [
+          {
+            "id": "listeEtudes",
+            "nom": "Nature des études effectués",
+            "type": "checkboxes",
+            "optionnel": true,
+            "valeurs": [
+              {
+                "id": "environnementale",
+                "nom": "environnementale"
+              },
+              {
+                "id": "economiquePreliminaire",
+                "nom": "économique préliminaire"
+              },
+              {
+                "id": "economiquePreFaisabilite",
+                "nom": "économique pré-faisabilité"
+              },
+              {
+                "id": "economiqueFaisabilité",
+                "nom": "économique faisabilité"
+              },
+              {
+                "id": "sociale",
+                "nom": "sociale"
+              },
+              {
+                "id": "autre",
+                "nom": "autres"
+              }
+            ],
+            "description": "Nature des études effectuées",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "complementEtudes",
+            "nom": "Informations complémentaires",
+            "description": "Toute information complémentaire sur les études effectuées",
+            "type": "textarea",
+            "optionnel": true,
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      }
+    ],
+    "ordre": "4"
+  },
+  {
+    "id": "pmb",
+    "nom": "rapport financier d'exploration",
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": "4",
+    "sections": [
+      {
+        "id": "indicateursFinanciersDepensesTotales",
+        "nom": "Indicateur financier global",
+        "elements": [
+          {
+            "id": "depensesTotales",
+            "nom": "Dépenses totales de prospection",
+            "description": "Montant en euros de l'ensemble des dépenses effectuées au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersLevesTopographiques",
+        "nom": "Levés topographiques",
+        "elements": [
+          {
+            "id": "depensesLevesTopographiques",
+            "nom": "Dépenses de levés topographiques (euros)",
+            "description": "Montant en euros des dépenses de levés topographiques au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersCartographieGeologique",
+        "nom": "Cartographie géologique",
+        "elements": [
+          {
+            "id": "depensesCartographie",
+            "nom": "Dépenses de cartographie géologique (euros)",
+            "description": "Montant en euros des dépenses de cartographie géologique au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersLevesGeochimie",
+        "nom": "Levés géochimiques",
+        "elements": [
+          {
+            "id": "depensesLevesGeochimie",
+            "nom": "Dépenses de levés géochimiques (euros)",
+            "description": "Montant en euros des dépenses de levés géochimiques au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersLevesGeophysique",
+        "nom": "Levés géophysique",
+        "elements": [
+          {
+            "id": "depensesLevesGeophysique",
+            "nom": "Dépenses de levés géophysique (euros)",
+            "description": "Montant en euros des dépenses de levés géophysique au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersLevesTrancheesPuits",
+        "nom": "Tranchées et puits",
+        "elements": [
+          {
+            "id": "depensesLevesTrancheesPuits",
+            "nom": "Dépenses de tranchées et puits (euros)",
+            "description": "Montant en euros des dépenses de tranchées et puits au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersSondages",
+        "nom": "Sondages",
+        "elements": [
+          {
+            "id": "depensesLevesSondagesTarieres",
+            "nom": "Dépenses de sondages tarières (euros)",
+            "description": "Montant en euros des dépenses de sondages tarières au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesLevesSondagesDestructifs",
+            "nom": "Dépenses de sondages destructifs (euros)",
+            "description": "Montant en euros des dépenses de sondages destructifs au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesLevesSondagesCarottés",
+            "nom": "Dépenses de sondages carottés (euros)",
+            "description": "Montant en euros des dépenses de sondages carottés au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersAnalysesMultiElements",
+        "nom": "Analyses",
+        "elements": [
+          {
+            "id": "depensesAnalysesMultiElements",
+            "nom": "Dépenses d'analyses multi-éléments (euros)",
+            "description": "Montant en euros des dépenses d'analyses multi-éléments au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesTraitementMineralurgiques",
+            "nom": "Dépenses de traitements minéralurgiques (euros)",
+            "description": "Montant en euros des dépenses de traitements minéralurgiques au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersEtudes",
+        "nom": "Etudes",
+        "elements": [
+          {
+            "id": "depensesEtudeEnvironnementale",
+            "nom": "Dépenses d'étude environnementale (euros)",
+            "description": "Montant en euros des dépenses d'études environnementales au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesEtudeEconomiquePreliminaire",
+            "nom": "Dépenses d'étude économique préliminaire (euros)",
+            "description": "Montant en euros des dépenses d'étude économique préliminaire au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesEtudeEconomiquePreFaisabilite",
+            "nom": "Dépenses d'étude économique pré-faisabilité (euros)",
+            "description": "Montant en euros des dépenses d'étude économique pré-faisabilité au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesEtudeEconomiqueFaisabilité",
+            "nom": "Dépenses d'étude économique faisabilité (euros)",
+            "description": "Montant en euros des dépenses d'étude économique faisabilité au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesEtudeSociale",
+            "nom": "Dépenses d'étude sociale (euros)",
+            "description": "Montant en euros des dépenses d'étude environnementales au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "depensesEtudessautres",
+            "nom": "Dépenses d'études autres (euros)",
+            "description": "Montant en euros des dépenses d'études autres au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersEnvironnement",
+        "nom": "Environnement",
+        "elements": [
+          {
+            "id": "environnement",
+            "nom": "Dépenses relatives à la protection de l’environnement (euros)",
+            "description": "Montant en euros des investissements consentis au cours de l'année listés à l’<a href=\"https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000021850940&cidTexte=LEGITEXT000006069569\" target=\"_blank\" rel=\"noopener noreferrer\">article 318 C de l’annexe II du code général des impôts</a>. Afin de bénéficier des déductions fiscales afférentes, les justificatifs attestant de la réalisation effective des investissements sont susceptibles de vous être demandés par l’administration.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursFinanciersCommunication",
+        "nom": "Communication",
+        "elements": [
+          {
+            "id": "depensesCommunication",
+            "nom": "Dépenses de communication et d'information du public (euros)",
+            "description": "Montant en euros des dépenses de communication et frais d'organisation de réunions publiques au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "complementFinancier",
+        "nom": "Informations complémentaires",
+        "elements": [
+          {
+            "id": "depensesAutres",
+            "nom": "Autres dépenses (euros)",
+            "description": "Montant en euros des autres dépenses au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "texte",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "Toute information sur les événements financiers marquants de l'année.",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      }
+    ],
+    "ordre": "3"
+  },
+  {
+    "id": "pmc",
+    "nom": "rapport environnemental d'exploration",
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": "4",
+    "sections": [
+      {
+        "id": "indicateursEnvironnement",
+        "nom": "Indicateurs environnementaux",
+        "elements": [
+          {
+            "id": "carburantDetaxe",
+            "nom": "Carburant détaxé (l)",
+            "description": "Volume total en litre de carburant détaxé consommé au cours de l'année par les travaux réalisés sur le chantier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "carburantConventionnel",
+            "nom": "Carburant conventionnel (l)",
+            "description": "Volume total en litre de carburant conventionnel consommé au cours de l'année par les travaux réalisés sur le chantier.",
+            "type": "number"
+          },
+          {
+            "id": "pompes",
+            "nom": "Pompes actives",
+            "description": "<b>Dans le cas d'un chantier alluvionnaire</b>, nombre d'heure de fonctionnement de pompes au cours de l'année sur le chantier (pompe à gravier, pompe de relevage…).",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "pelles",
+            "nom": "Pelles actives",
+            "description": "<b>Dans le cas d'un chantier alluvionnaire</b>, nombre d'heure de fonctionnement de pelles mécaniques au cours de l'année sur le chantier (aménagement, exploitation, réhabilitation).",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "mercure",
+            "nom": "Mercure récupéré (g)",
+            "description": "<b>En Guyane</b>, masse en gramme de l’ensemble des produits contaminés au mercure envoyés en traitement au cours de l'année.",
+            "type": "number"
+          },
+          {
+            "id": "surfaceDeforestee",
+            "nom": "Surface déforestée (km²)",
+            "description": "Surface déforestée en kilomètre carré au cours de l'année.",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "id": "complementEnvironnement",
+        "nom": "Informations complémentaires",
+        "elements": [
+          {
+            "id": "texte",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "Toute information sur les événements marquants l'année en matière de protection de l'environnement dont les actions entreprises pour réduire l'empreinte environnementale du projet.",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      }
+    ],
+    "ordre": "5"
+  },
+  {
+    "id": "pmd",
+    "nom": "rapport social et économique d'exploration",
+    "frequence_id": "ann",
+    "date_debut": "2019-01-01",
+    "delai_mois": "3",
+    "sections": [
+      {
+        "id": "indicateursSocialEconomiqueDirect",
+        "nom": "Indicateurs sociaux et économiques sur les emplois directs",
+        "elements": [
+          {
+            "id": "emploisDirectsTotal",
+            "nom": "Emplois directs salariés",
+            "description": "Nombre total de salariés de l'entreprise affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "etpDirectsTotal",
+            "nom": "Equivalents temps plein salariés",
+            "description": "Nombre total d'équivalents temps plein salariés de l'entreprise affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "emploisDirectsResidents",
+            "nom": "Emplois directs salariés occupés par des résidents du département",
+            "description": "Nombre de salariés de l'entreprise, <b>français ou étrangers, résidant fiscalement dans le département</b>, affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "etpDirectsResidents",
+            "nom": "Equivalents temps plein salariés occupés par des résidents du département",
+            "description": "Nombre d'équivalents temps plein salariés de l'entreprise, occupés par des <b>français ou étrangers, résidant fiscalement dans le département</b>, affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "emploisDirectsFr",
+            "nom": "Emplois directs salariés de nationalité française",
+            "description": "Nombre d'employés de <b>nationalité française</b> salariés de l'entreprise affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "etpDirectsFr",
+            "nom": "Equivalents temps plein salariés de nationalité française",
+            "description": "Nombre d'équivalents temps plein salariés de l'entreprise occupés par des personnes de <b>nationalité française</b> affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursSocialEconomiqueInirects",
+        "nom": "Indicateurs sociaux et économiques sur la sous-traitance",
+        "elements": [
+          {
+            "id": "emploisIndirectsTotal",
+            "nom": "Emplois salariés des sous-traitants",
+            "description": "Nombre total d'emplois salariés des sous-traitants et prestataires affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "etpIndirectsTotal",
+            "nom": "Equivalents temps plein salariés des sous-traitants",
+            "description": "Nombre total d'équivalents temps plein salariés des sous-traitants et prestataires, affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "emploisIndirectsResidents",
+            "nom": "Emplois salariés résidents du département des sous-traitants",
+            "description": "Nombre de salariés des sous-traitants et prestataires, <b>résidant fiscalement dans le département</b>, affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "etpIndirectsResidents",
+            "nom": "Equivalents temps plein des salariés des sous-traitants résidents du département",
+            "description": "Nombre d'équivalents temps plein des sous-traitants et prestataires, <b>résidant fiscalement dans le département</b>, affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "emploisIndirectsFr",
+            "nom": "Emplois salariés de nationalité française des sous-traitants",
+            "description": "Nombre d'employés de <b>nationalité française</b> salariés des sous-traitants et prestataires de l'entreprise, affectés aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "etpIndirectsFr",
+            "nom": "Equivalents temps plein salariés de nationalité française des sous-traitants",
+            "description": "Nombre d'équivalents temps plein occupés par des personnes de <b>nationalité française</b> salariées des sous-traitants et prestataires de l'entreprise, affectées aux activités sur le titre minier.",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "indicateursConcertationAcceptabilite",
+        "nom": "Indicateurs de concertation et d'acceptabilité du projet",
+        "elements": [
+          {
+            "id": "reunionPublique",
+            "nom": "Réunions publiques",
+            "description": "Nombre de réunions publiques consacrées aux projets sur le titre minier organisées au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "priseContact",
+            "nom": "Rendez-vous",
+            "description": "Nombre de rendez-vous avec les parties prenantes concernées par le titre minier organisés au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          },
+          {
+            "id": "communicationLocale",
+            "nom": "Actions de communication à destination du public",
+            "description": "Nombre d'actions de communication menées par le titulaire du titre à destination du public (hors publication et communication à destination des marchés) au cours de l'année",
+            "type": "number",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      },
+      {
+        "id": "complementSocialEconomique",
+        "nom": "Informations complémentaires",
+        "elements": [
+          {
+            "id": "texte",
+            "type": "textarea",
+            "optionnel": true,
+            "description": "Toute information sur les événements marquants de nature sociale ou économique de l'année.",
+            "dateDebut": "2019-01-01"
+          }
+        ]
+      }
+    ],
+    "ordre": "6"
   },
   {
     "id": "wrp",
@@ -549,6 +1556,7 @@
           }
         ]
       }
-    ]
+    ],
+    "ordre": "7"
   }
 ]

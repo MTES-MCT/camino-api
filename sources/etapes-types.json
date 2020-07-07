@@ -627,5 +627,13 @@
     "nom": "signature de l'avenant à l’autorisation de recherche minière",
     "ordre": "75",
     "fondamentale": "TRUE"
+  },
+  {
+    "id": "ihi",
+    "nom": "informations historiques incomplètes",
+    "ordre": "76",
+    "fondamentale": "TRUE",
+    "unique": "TRUE",
+    "date_fin": "2018-12-31"
   }
 ]
