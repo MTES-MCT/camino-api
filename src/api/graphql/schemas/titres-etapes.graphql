@@ -97,7 +97,7 @@ input InputEtapeCreation {
   dateDebut: String
   dateFin: String
   surface: Float
-  substances: [InputId!]
+  substances: [InputSubstances!]
   points: [InputPoint]
   titulaires: [InputId!]
   amodiataires: [InputId!]
@@ -117,7 +117,7 @@ input InputEtapeModification {
   dateDebut: String
   dateFin: String
   surface: Float
-  substances: [InputId!]
+  substances: [InputSubstances!]
   points: [InputPoint]
   titulaires: [InputId!]
   amodiataires: [InputId!]
@@ -144,4 +144,9 @@ input InputIncertitudes {
   titulaires: Boolean
   amodiataires: Boolean
   administrations: Boolean
+}
+
+input InputSubstances {
+  id: ID!
+  ordre: Int
 }
