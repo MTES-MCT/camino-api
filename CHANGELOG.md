@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.44](https://github.com/MTES-MCT/camino-api/compare/v0.24.43...v0.24.44) (2020-07-15)
+
+
+### Features
+
+* **activités:**  définit un ordre de présentation ([#455](https://github.com/MTES-MCT/camino-api/issues/455)) ([ce877e5](https://github.com/MTES-MCT/camino-api/commit/ce877e595bab519449b2f33c66ad12ca168ab9dc))
+* **activités:** ajoute des filtres ([#467](https://github.com/MTES-MCT/camino-api/issues/467)) ([310dc58](https://github.com/MTES-MCT/camino-api/commit/310dc583a086adf797e9f6c854450761396a8fa4))
+* **documents:** gère la permission des suppressions pour les entreprises ([#474](https://github.com/MTES-MCT/camino-api/issues/474)) ([6ad8c8c](https://github.com/MTES-MCT/camino-api/commit/6ad8c8c4f4243c2ccc97c91ce64c58cca01780f8))
+
+
+### Bug Fixes
+
+* **démarches:** corrige le calcul des démarches d'annulation ([#465](https://github.com/MTES-MCT/camino-api/issues/465)) ([14ca9b6](https://github.com/MTES-MCT/camino-api/commit/14ca9b64052a34c16275065a1153d0a8a9e938e0))
+* **entreprises:** expose le décompte des activités ([#469](https://github.com/MTES-MCT/camino-api/issues/469)) ([957856b](https://github.com/MTES-MCT/camino-api/commit/957856b28a0d27b1ca3ede2374f731342e9cd241))
+* **filtres:** ne sépare pas les mots qui contiennent un `-` ([#470](https://github.com/MTES-MCT/camino-api/issues/470)) ([f405db7](https://github.com/MTES-MCT/camino-api/commit/f405db7646d8b29f0d144fc30b9f7dba5b3ceb8d))
+
 ### [0.24.43](https://github.com/MTES-MCT/camino-api/compare/v0.24.42...v0.24.43) (2020-07-01)
 
 
