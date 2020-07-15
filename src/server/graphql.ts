@@ -1,4 +1,4 @@
-import * as expressGraphql from 'express-graphql'
+import { graphqlHTTP } from 'express-graphql'
 import * as http from 'http'
 
 import rootValue from '../api/graphql/resolvers'
@@ -10,7 +10,7 @@ interface IAuthRequestHttp extends http.IncomingMessage {
   }
 }
 
-const graphql = expressGraphql((req: IAuthRequestHttp) => ({
+const graphql = graphqlHTTP((req: IAuthRequestHttp) => ({
   context: { user: req.user },
   customFormatErrorFn: err => ({
     locations: err.locations,
