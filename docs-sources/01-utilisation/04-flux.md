@@ -2,6 +2,8 @@
 
 Les flux géographiques de Camino exposent les informations sur les titres miniers et autorisations au format GeoJSON.
 
+Ces flux sont générés via l'[API Rest de Camino](https://docs.camino.beta.gouv.fr/pages/Utilisation/03-rest.html).
+
 Chaque titre minier contient les périmètres géographiques ainsi que les propriétés suivantes :
 
 - identifiant, nom, type, nature, domaine minier, et statut
@@ -14,8 +16,6 @@ Chaque titre minier contient les périmètres géographiques ainsi que les propr
 - volume
 
 ## Utilisation
-
-Ces flux sont générés via l'[API Rest de Camino](https://docs.camino.beta.gouv.fr/pages/Utilisation/03-rest.html). La documentation de celle-ci est valide dans le cas particulier des flux.
 
 ### URL
 
