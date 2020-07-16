@@ -58,13 +58,13 @@ jobs:
           PGPORT: 5432
           PGUSER: postgres
           PGPASSWORD: password
-#      - name: Code coverage
-#        run: npm run ci:codecov
-#        env:
-#          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
+  #      - name: Code coverage
+  #        run: npm run ci:codecov
+  #        env:
+  #          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
 
   build:
-    if: github.event_name == 'release'
+    if: github.ref == 'refs/heads/master'
     needs: test
     runs-on: ubuntu-latest
     strategy:
@@ -74,23 +74,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Npm install and test
-        run: |
-          npm ci
-          npm run build
       - name: Build Docker image
-        run: docker build . --tag caminofr/camino-api
+        run: docker build . --tag caminofr/camino-api:master
       - name: Push Docker image to the Docker Hub
         run: |
           docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
-          docker push caminofr/camino-api
+          docker push caminofr/camino-api:master
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    #   - name: Redeploy dev
+    #     run : |
+    #       ssh dev
+    #       /srv/script/api-deploy
+
+  release:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Add the release tag
+        run: |
+          docker login --username "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
+          docker pull caminofr/camino-api:master
+          docker tag caminofr/camino-api:master caminofr/camino-api:$VERSION
+          docker push caminofr/camino-api:$VERSION
+          docker tag caminofr/camino-api:master caminofr/camino-api:latest
+          docker push caminofr/camino-api:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          VERSION: ${{ github.event.release.tag_name }}
 
   docs:
     if: github.event_name == 'release'

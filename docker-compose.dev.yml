@@ -4,20 +4,23 @@ services:
   app:
     build: .
     depends_on:
-      - postgres
+      - db
     environment:
       VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${NODE_PORT}
       LETSENCRYPT_HOST: ${URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      PGHOST: postgres
+      PGHOST: db
     expose:
       - ${NODE_PORT}
     volumes:
       - files:/app/files
       - ./.env:/app/.env
+    networks:
+      - default
+      - nginx-proxy
 
-  postgres:
+  db:
     image: postgres:12-alpine
     environment:
       PGUSER: ${PGUSER}
@@ -25,12 +28,13 @@ services:
       - ${PGPORT}
     volumes:
       - data:/var/lib/postgresql/data
+    networks:
+      - default
 
 volumes:
   data: {}
   files:
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  nginx-proxy:
+    external: true

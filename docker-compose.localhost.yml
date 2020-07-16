@@ -7,14 +7,14 @@ services:
       - ./:/app
     working_dir: /app
     depends_on:
-      - postgres
+      - db
     environment:
-      PGHOST: postgres
+      PGHOST: db
     ports:
       - ${NODE_PORT}:${NODE_PORT}
     command: npm run dev
 
-  postgres:
+  db:
     image: postgres:12-alpine
     environment:
       PGUSER: ${PGUSER}
