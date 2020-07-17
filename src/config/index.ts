@@ -4,10 +4,7 @@
 
 const debug = process.env.NODE_DEBUG === 'true'
 const virtualHost = process.env.VIRTUAL_HOST
-const protocol = virtualHost ? 'https' : 'http'
 const port = Number(process.env.NODE_PORT)
-const url = virtualHost
-  ? `${protocol}://${virtualHost}/`
-  : `${protocol}://localhost:${port}/`
+const url = virtualHost ? `http://${virtualHost}/` : `http://localhost:${port}/`
 
 export { port, url, debug }

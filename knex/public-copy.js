@@ -2,11 +2,12 @@
 // ce script copie la base de données
 // et supprime les informations confidentielles
 
-const Knex = require('knex')
-const configDbManager = require('./config-db-manager')
 const chalk = require('chalk')
+const Knex = require('knex')
+const { knexSnakeCaseMappers } = require('objection')
+const dbManagerConfig = require('./config-db-manager')
 const dbManager = require('knex-db-manager').databaseManagerFactory(
-  configDbManager
+  dbManagerConfig
 )
 
 if (!process.env.PUBLIC_TITRES_IDS) {
@@ -18,18 +19,32 @@ if (!process.env.PUBLIC_TITRES_IDS) {
 
 const titresIds = process.env.PUBLIC_TITRES_IDS.split(',')
 
+const dbPublicName = 'camino_public'
+
+const dbPublicKnexConfig = {
+  client: 'pg',
+  connection: {
+    host: dbManagerConfig.knex.connection.host,
+    port: dbManagerConfig.knex.connection.port,
+    database: dbPublicName,
+    user: dbManagerConfig.knex.connection.user,
+    password: dbManagerConfig.knex.connection.password
+  },
+  ...knexSnakeCaseMappers()
+}
+
 const run = async () => {
   try {
     console.info('Copie de la base de données…')
-    await dbManager.dropDb('camino_public')
+    await dbManager.dropDb(dbPublicName)
     await dbManager.copyDb(
-      configDbManager.knex.connection.database,
-      'camino_public'
+      dbManagerConfig.knex.connection.database,
+      dbPublicName
     )
 
     console.info('Suppression des informations confidentielles…')
 
-    const knex = Knex(configDbManager.knex)
+    const knex = Knex(dbPublicKnexConfig)
     const titresDeleted = await knex('titres').whereNotIn('id', titresIds).del()
 
     console.info(`${titresDeleted} titres supprimés de la base de données`)

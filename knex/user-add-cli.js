@@ -1,8 +1,10 @@
 const Knex = require('knex')
-const configDbManager = require('./config-db-manager')
+const config = require('./config')
 const userAdd = require('./user-add')
 
-const run = async knex => {
+const knex = Knex(config)
+
+const run = async () => {
   const user = {
     id: 'admin',
     email: process.env.ADMIN_EMAIL,
@@ -19,6 +21,4 @@ const run = async knex => {
   }
 }
 
-const knex = Knex(configDbManager.knex)
-
-run(knex)
+run()
