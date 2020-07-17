@@ -11,9 +11,11 @@ services:
       NGINX_PORT: ${PORT}
     expose:
       - ${PORT}
+    networks:
+      - default
+      - nginx-proxy
     restart: always
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  nginx-proxy:
+    external: true

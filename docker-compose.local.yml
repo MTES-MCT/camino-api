@@ -4,23 +4,29 @@ services:
   app:
     build: .
     depends_on:
-      - postgres
+      - db
     environment:
-      VIRTUAL_HOST: api.camino.local
+      VIRTUAL_HOST: ${URL}
       VIRTUAL_PORT: ${NODE_PORT}
-      PGHOST: postgres
+      PGHOST: db
     expose:
       - ${NODE_PORT}
+    networks:
+      - default
+      - nginx-proxy
     volumes:
       - files:/app/files
       - ./.env:/app/.env
 
-  postgres:
+  db:
     image: postgres:12-alpine
     environment:
       PGUSER: ${PGUSER}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
     expose:
       - ${PGPORT}
+    networks:
+      - default
     volumes:
       - data:/var/lib/postgresql/data
 
@@ -29,6 +35,5 @@ volumes:
   files:
 
 networks:
-  default:
-    external:
-      name: nginx-proxy
+  nginx-proxy:
+    external: true
