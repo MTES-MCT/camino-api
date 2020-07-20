@@ -2,6 +2,7 @@ version: '3'
 
 services:
   app:
+    container_name: camino_api_app
     build: .
     depends_on:
       - db
@@ -21,6 +22,7 @@ services:
       - nginx-proxy
 
   db:
+    container_name: camino_api_db
     image: postgres:12-alpine
     environment:
       PGUSER: ${PGUSER}
