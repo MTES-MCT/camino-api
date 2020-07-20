@@ -1,4 +1,6 @@
-export default [
+import { ITitreTypeEtapeTypeRestriction } from '../../../../types'
+
+const ren_pro: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'mdp' } },
     obligatoireApres: [{ typeId: 'mfr' }],
@@ -91,3 +93,5 @@ export default [
     ]
   }
 ]
+
+export default ren_pro

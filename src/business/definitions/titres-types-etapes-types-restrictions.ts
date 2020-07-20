@@ -1,31 +1,31 @@
 import { ITitreTypeEtapeTypeRestriction } from '../../types'
 
 import restrictionsArmOct from './titres-types-etapes-types-restrictions/arm/oct'
-import restrictionsArmRen from './titres-types-etapes-types-restrictions/arm/ren'
+import restrictionsArmRenPro from './titres-types-etapes-types-restrictions/arm/ren_pro'
 import restrictionsPrmOct from './titres-types-etapes-types-restrictions/prm/oct'
 
 interface ITitreEtapesTypesRestrictions {
   typeId: string
-  demarcheTypeId: string
+  demarcheTypeIds: string[]
   restrictions: ITitreTypeEtapeTypeRestriction[]
 }
 
-const titreEtapesTypesRestrictions = [
+const titreEtapesTypesRestrictions: ITitreEtapesTypesRestrictions[] = [
   {
     typeId: 'arm',
-    demarcheTypeId: 'oct',
-    restrictions: restrictionsArmOct as ITitreTypeEtapeTypeRestriction[]
+    demarcheTypeIds: ['oct'],
+    restrictions: restrictionsArmOct
   },
   {
     typeId: 'arm',
-    demarcheTypeId: 'ren',
-    restrictions: restrictionsArmRen as ITitreTypeEtapeTypeRestriction[]
+    demarcheTypeIds: ['ren', 'pro'],
+    restrictions: restrictionsArmRenPro
   },
   {
     typeId: 'prm',
-    demarcheTypeId: 'oct',
-    restrictions: restrictionsPrmOct as ITitreTypeEtapeTypeRestriction[]
+    demarcheTypeIds: ['oct'],
+    restrictions: restrictionsPrmOct
   }
-] as ITitreEtapesTypesRestrictions[]
+]
 
 export default titreEtapesTypesRestrictions

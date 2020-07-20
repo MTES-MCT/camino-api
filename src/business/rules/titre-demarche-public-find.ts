@@ -150,7 +150,7 @@ const titreDemarchePublicLectureFind = (
   // et que l’expertise de l’onf est cours, ou si la démarche a été désistée ou si classée sans suite
   if (
     titreTypeId === 'arm' &&
-    demarcheTypeId === 'ren' &&
+    ['ren', 'pro'].includes(demarcheTypeId) &&
     ['eof', 'css', 'des'].includes(titreEtape.typeId)
   ) {
     publicLecture = true
