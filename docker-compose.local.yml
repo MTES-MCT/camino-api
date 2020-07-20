@@ -8,10 +8,10 @@ services:
       - db
     environment:
       VIRTUAL_HOST: ${URL}
-      VIRTUAL_PORT: ${NODE_PORT}
+      VIRTUAL_PORT: ${PORT}
       PGHOST: db
     expose:
-      - ${NODE_PORT}
+      - ${PORT}
     networks:
       - default
       - nginx-proxy

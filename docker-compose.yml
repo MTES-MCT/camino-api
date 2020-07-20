@@ -8,12 +8,12 @@ services:
       - db
     environment:
       VIRTUAL_HOST: ${URL}
-      VIRTUAL_PORT: ${NODE_PORT}
+      VIRTUAL_PORT: ${PORT}
       LETSENCRYPT_HOST: ${URL}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       PGHOST: db
     expose:
-      - ${NODE_PORT}
+      - ${PORT}
     volumes:
       - files:/app/files
       - ./.env:/app/.env

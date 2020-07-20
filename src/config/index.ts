@@ -4,7 +4,7 @@
 
 const debug = process.env.NODE_DEBUG === 'true'
 const virtualHost = process.env.VIRTUAL_HOST
-const port = Number(process.env.NODE_PORT)
+const port = Number(process.env.PORT)
 const url = virtualHost ? `http://${virtualHost}/` : `http://localhost:${port}/`
 
 export { port, url, debug }

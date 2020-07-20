@@ -12,7 +12,7 @@ services:
     environment:
       PGHOST: db
     ports:
-      - ${NODE_PORT}:${NODE_PORT}
+      - ${PORT}:${PORT}
     command: npm run dev
 
   db:
