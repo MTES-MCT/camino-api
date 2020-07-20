@@ -40,13 +40,15 @@ export default [
   },
 
   // titres mécanisés
-  {
-    condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
-      etape: { typeId: 'mcp' }
-    },
-    obligatoireApres: [{ typeId: 'rde' }]
-  },
+
+  // TODO pour cette étape la condition porte sur le franchissement d'un cours d'eau ou non, elle n'est pas sur la mécanisation.
+  // {
+  //   condition: {
+  //     titre: { contenu: { arm: { mecanise: true } } },
+  //     etape: { typeId: 'mcp' }
+  //   },
+  //   obligatoireApres: [{ typeId: 'rde' }]
+  // },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: true } } },
