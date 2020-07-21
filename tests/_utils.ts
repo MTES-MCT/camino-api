@@ -18,11 +18,11 @@ const tokenCreate = (user: Partial<IUtilisateur>) =>
 
 const graphQLCall = async (
   query: string,
-  variables: {},
+  variables: unknown,
   permissionId?: IPermissionId,
   administrationId?: string
 ) => {
-  let token = undefined
+  let token
   if (permissionId) {
     token = await tokenUserGenerate(permissionId, administrationId)
   }
@@ -64,7 +64,10 @@ const tokenUserGenerate = async (
       } as unknown) as IUtilisateur,
       {}
     )
-  } catch (e) {}
+  } catch (e) {
+    console.debug(e)
+  }
+
   return tokenCreate({ id })
 }
 
