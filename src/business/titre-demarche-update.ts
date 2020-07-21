@@ -12,8 +12,6 @@ import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-updat
 import titresPublicUpdate from './processes/titres-public-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 
-import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
-
 const titreDemarcheUpdate = async (
   titreDemarcheId: string | null,
   titreId: string
@@ -160,14 +158,24 @@ const titreDemarcheUpdate = async (
     )
 
     console.info('ids de titres, démarches, étapes et sous-éléments…')
+    // si l'id du titre change il est effacé puis re-créé entièrement
+    // on doit donc récupérer toutes ses relations
     titre = await titreGet(
       titreId,
       {
         fields: {
+          type: { type: { id: {} } },
+          administrationsGestionnaires: { id: {} },
           demarches: {
             etapes: {
               points: { references: { id: {} } },
               documents: { id: {} },
+              administrations: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} },
+              justificatifs: { id: {} },
               incertitudes: { id: {} }
             },
             phase: { id: {} }
@@ -182,45 +190,68 @@ const titreDemarcheUpdate = async (
     const titreUpdatedIndex = await titreIdsUpdate(titre)
     titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
 
-    if (titresDemarchesPublicUpdated) {
+    if (titresDemarchesPublicUpdated && titresDemarchesPublicUpdated.length) {
       console.info(
         `mise à jour: ${titresDemarchesPublicUpdated.length} démarche(s) (publicicité)`
       )
     }
-    console.info(
-      `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
-    )
-    console.info(
-      `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
-    )
-    console.info(
-      `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
-    )
-    console.info(
-      `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
-    )
-    console.info(
-      `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
-    )
-    console.info(
-      `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
-    )
-    console.info(
-      `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
-    )
-    console.info(
-      `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
-    )
-    console.info(`mise à jour: ${titresActivitesCreated.length} activités`)
-    console.info(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
 
-    if (titresActivitesCreated.length) {
-      // export des activités vers la spreadsheet camino-db-titres-activites-prod
-      console.info('export des activités…')
-      await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
+    if (titresDemarchesOrdreUpdated.length) {
+      console.info(
+        `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
+      )
     }
 
-    // on retourne le titre bien formaté
+    if (titresStatutIdUpdated.length) {
+      console.info(
+        `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
+      )
+    }
+
+    if (titresPublicUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
+      )
+    }
+
+    if (titresPhasesUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
+      )
+    }
+
+    if (titresPhasesDeleted.length) {
+      console.info(
+        `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
+      )
+    }
+
+    if (titresDatesUpdated.length) {
+      console.info(
+        `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
+      )
+    }
+
+    if (titresPropsEtapeIdUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+      )
+    }
+
+    if (titresPropsContenuUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
+      )
+    }
+
+    if (titresActivitesCreated.length) {
+      console.info(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
+    }
+
+    if (titreUpdatedIndex) {
+      console.info(`mise à jour: 1 titre (id)`)
+    }
+
     return titreId
   } catch (e) {
     console.error(`erreur: titreDemarcheUpdate ${titreId}`)

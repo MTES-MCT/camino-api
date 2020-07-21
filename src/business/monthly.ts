@@ -37,18 +37,29 @@ const run = async () => {
     console.info()
     console.info('tâches mensuelles exécutées:')
 
-    console.info(
-      `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
-    )
-    console.info(
-      `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`
-    )
-    console.info(
-      `suppression: ${etablissementsDeleted.length} établissement(s) d'entreprise(s)`
-    )
-    console.info(
-      `mise à jour: ${administrationsUpdated.length} administration(s)`
-    )
+    if (entreprisesUpdated.length) {
+      console.info(
+        `mise à jour: ${entreprisesUpdated.length} adresse(s) d'entreprise(s)`
+      )
+    }
+
+    if (etablissementsUpdated.length) {
+      console.info(
+        `mise à jour: ${etablissementsUpdated.length} établissement(s) d'entreprise(s)`
+      )
+    }
+
+    if (etablissementsDeleted.length) {
+      console.info(
+        `suppression: ${etablissementsDeleted.length} établissement(s) d'entreprise(s)`
+      )
+    }
+
+    if (administrationsUpdated.length) {
+      console.info(
+        `mise à jour: ${administrationsUpdated.length} administration(s)`
+      )
+    }
   } catch (e) {
     console.info('erreur:', e)
   } finally {
