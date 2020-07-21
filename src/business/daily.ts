@@ -27,7 +27,6 @@ import titresPublicUpdate from './processes/titres-public-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
-import { titresActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const run = async () => {
   try {
@@ -268,98 +267,168 @@ const run = async () => {
 
     console.info()
     console.info('ids de titres, démarches, étapes et sous-éléments…')
-    titres = await titresGet({}, {
-      fields: {
-        type: { type: { id: {} } },
-        demarches: {
-          etapes: {
-            points: { references: { id: {} } },
-            documents: { id: {} },
-            incertitudes: { id: {} }
+    // si l'id du titre change il est effacé puis re-créé entièrement
+    // on doit donc récupérer toutes ses relations
+    titres = await titresGet(
+      {},
+      {
+        fields: {
+          type: { type: { id: {} } },
+          administrationsGestionnaires: { id: {} },
+          demarches: {
+            etapes: {
+              points: { references: { id: {} } },
+              documents: { id: {} },
+              administrations: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} },
+              justificatifs: { id: {} },
+              incertitudes: { id: {} }
+            },
+            phase: { id: {} }
           },
-          phase: { id: {} }
-        },
-        activites: { id: {} }
-      }
-    }, 'super')
+          activites: { id: {} }
+        }
+      },
+      'super'
+    )
 
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate(titres)
 
     console.info()
     console.info('tâches quotidiennes exécutées:')
-    console.info(
-      `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
-    )
-    console.info(
-      `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
-    )
-    console.info(
-      `mise à jour: ${titresDemarchesPublicUpdated.length} démarche(s) (publicité)`
-    )
-    console.info(
-      `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
-    )
-    console.info(
-      `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
-    )
-    console.info(
-      `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
-    )
-    console.info(
-      `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
-    )
-    console.info(
-      `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
-    )
-    console.info(
-      `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
-    )
-    console.info(
-      `création: ${pointsReferencesCreated.length} référence(s) de points`
-    )
-    console.info(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
-    console.info(
-      `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) mise(s) à jour dans des étapes`
-    )
-    console.info(
-      `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
-    )
-    console.info(
-      `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
-    )
-    console.info(
-      `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
-    )
-    console.info(
-      `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
-    )
-    console.info(
-      `mise à jour: ${titresEtapesAdministrationsLocalesDeleted.length} administration(s) locale(s) supprimée(s) dans des étapes`
-    )
-    console.info(
-      `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
-    )
-    console.info(
-      `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
-    )
-    console.info(
-      `mise à jour: ${titresActivitesCreated.length} activité(s) créée(s)`
-    )
-    console.info(
-      `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
-    )
-    console.info(
-      `mise à jour: ${Object.keys(titresUpdatedIndex).length} titre(s) (ids)`
-    )
+    if (titresEtapesOrdreUpdated.length) {
+      console.info(
+        `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
+      )
+    }
 
-    console.info()
-    console.info('exports vers les spreadsheets')
+    if (titresDemarchesStatutUpdated.length) {
+      console.info(
+        `mise à jour: ${titresDemarchesStatutUpdated.length} démarche(s) (statut)`
+      )
+    }
 
-    // export des activités vers la spreadsheet camino-db-titres-activites-prod
-    console.info('export des activités…')
+    if (titresDemarchesPublicUpdated.length) {
+      console.info(
+        `mise à jour: ${titresDemarchesPublicUpdated.length} démarche(s) (publicité)`
+      )
+    }
 
-    await titresActivitesRowsUpdate(titresActivitesCreated, titresUpdatedIndex)
+    if (titresDemarchesOrdreUpdated.length) {
+      console.info(
+        `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
+      )
+    }
+
+    if (titresStatutIdUpdated.length) {
+      console.info(
+        `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
+      )
+    }
+
+    if (titresPublicUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
+      )
+    }
+
+    if (titresPhasesUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
+      )
+    }
+
+    if (titresPhasesDeleted.length) {
+      console.info(
+        `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
+      )
+    }
+
+    if (titresDatesUpdated.length) {
+      console.info(
+        `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
+      )
+    }
+
+    if (pointsReferencesCreated.length) {
+      console.info(
+        `création: ${pointsReferencesCreated.length} référence(s) de points`
+      )
+    }
+
+    if (titreCommunesUpdated.length) {
+      console.info(`mise à jour: ${titreCommunesUpdated.length} commune(s)`)
+    }
+
+    if (titresEtapesCommunesCreated.length) {
+      console.info(
+        `mise à jour: ${titresEtapesCommunesCreated.length} commune(s) mise(s) à jour dans des étapes`
+      )
+    }
+
+    if (titresEtapesCommunesDeleted.length) {
+      console.info(
+        `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
+      )
+    }
+
+    if (titresAdministrationsGestionnairesCreated.length) {
+      console.info(
+        `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
+      )
+    }
+
+    if (titresAdministrationsGestionnairesDeleted.length) {
+      console.info(
+        `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
+      )
+    }
+
+    if (titresEtapesAdministrationsLocalesCreated.length) {
+      console.info(
+        `mise à jour: ${titresEtapesAdministrationsLocalesCreated.length} administration(s) locale(s) ajoutée(s) dans des étapes`
+      )
+    }
+
+    if (titresEtapesAdministrationsLocalesDeleted.length) {
+      console.info(
+        `mise à jour: ${titresEtapesAdministrationsLocalesDeleted.length} administration(s) locale(s) supprimée(s) dans des étapes`
+      )
+    }
+
+    if (titresPropsEtapeIdUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+      )
+    }
+
+    if (titresPropsContenuUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
+      )
+    }
+
+    if (titresActivitesCreated.length) {
+      console.info(
+        `mise à jour: ${titresActivitesCreated.length} activité(s) créée(s)`
+      )
+    }
+
+    if (titresActivitesStatutIdsUpdated.length) {
+      console.info(
+        `mise à jour: ${titresActivitesStatutIdsUpdated.length} activité(s) fermée(s)`
+      )
+    }
+
+    if (Object.keys(titresUpdatedIndex).length) {
+      console.info(
+        `mise à jour: ${Object.keys(titresUpdatedIndex).length} titre(s) (ids)`
+      )
+    }
   } catch (e) {
     console.info('erreur:', e)
   } finally {

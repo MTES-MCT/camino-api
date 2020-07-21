@@ -3,18 +3,10 @@ import 'dotenv/config'
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { autorisationsInit } from '../src/database/cache/autorisations'
-import {
-  IPermissionId,
-  ITitreEtape,
-  ITitreEtapeJustificatif
-} from '../src/types'
+import { IPermissionId, ITitreEtapeJustificatif } from '../src/types'
 import { documentCreate, documentGet } from '../src/database/queries/documents'
-import { entrepriseCreer } from '../src/api/graphql/resolvers/entreprises'
-import {
-  entrepriseUpsert,
-  entrepriseGet
-} from '../src/database/queries/entreprises'
-import { titreCreate, titreFromIdGet } from '../src/database/queries/titres'
+import { entrepriseUpsert } from '../src/database/queries/entreprises'
+import { titreCreate } from '../src/database/queries/titres'
 import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
 const each = require('jest-each').default
 

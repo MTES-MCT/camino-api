@@ -231,6 +231,7 @@ const demarcheModifier = async (
       { fields: { id: {} } },
       user.id
     )
+
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (permissionCheck(user?.permissionId, ['admin'])) {

@@ -194,6 +194,7 @@ describe('demarcheModifier', () => {
 
   test('peut modifier une démarche (utilisateur super)', async () => {
     const { demarcheId, titreId } = await demarcheCreate()
+
     const res = await graphQLCall(
       demarcheModifierQuery,
       {
@@ -322,7 +323,7 @@ const demarcheCreate = async () => {
   const titreId = 'titre-arm-id'
   await titreCreate(
     {
-      id: 'titre-arm-id',
+      id: titreId,
       nom: 'mon titre',
       domaineId: 'm',
       typeId: 'arm'
@@ -345,7 +346,7 @@ const demarcheCreate = async () => {
   expect(resDemarchesCreer.body.errors).toBeUndefined()
 
   return {
-    titreId,
+    titreId: resDemarchesCreer.body.data.demarcheCreer.id,
     demarcheId: resDemarchesCreer.body.data.demarcheCreer.demarches[0].id
   }
 }

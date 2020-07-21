@@ -6,7 +6,6 @@ import titresAdministrationsGestionnairesUpdate from './processes/titres-adminis
 import titresPublicUpdate from './processes/titres-public-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
 import { activitesTypesGet } from '../database/queries/metas'
-import { titreActivitesRowsUpdate } from './titres-activites-rows-update'
 
 const titreUpdate = async (titreId: string) => {
   try {
@@ -68,20 +67,33 @@ const titreUpdate = async (titreId: string) => {
 
     console.info()
     console.info('ids de titres, démarches, étapes et sous-éléments…')
-    titre = await titreGet(titreId, {
-      fields: {
-        type: { type: { id: {} } },
-        demarches: {
-          etapes: {
-            points: { references: { id: {} } },
-            documents: { id: {} },
-            incertitudes: { id: {} }
+    // si l'id du titre change il est effacé puis re-créé entièrement
+    // on doit donc récupérer toutes ses relations
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          type: { type: { id: {} } },
+          administrationsGestionnaires: { id: {} },
+          demarches: {
+            etapes: {
+              points: { references: { id: {} } },
+              documents: { id: {} },
+              administrations: { id: {} },
+              titulaires: { id: {} },
+              amodiataires: { id: {} },
+              substances: { id: {} },
+              communes: { id: {} },
+              justificatifs: { id: {} },
+              incertitudes: { id: {} }
+            },
+            phase: { id: {} }
           },
-          phase: { id: {} }
-        },
-        activites: { id: {} }
-      }
-    }, 'super')
+          activites: { id: {} }
+        }
+      },
+      'super'
+    )
 
     // met à jour l'id dans le titre par effet de bord
     const titreUpdatedIndex = await titreIdsUpdate(titre)
@@ -89,21 +101,30 @@ const titreUpdate = async (titreId: string) => {
 
     console.info()
     console.info('tâches métiers exécutées:')
-    console.info(
-      `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
-    )
-    console.info(
-      `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
-    )
-    console.info(
-      `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
-    )
-    console.info(`mise à jour: ${titreUpdatedIndex ? '1' : '0'} titre(s) (ids)`)
+    if (titresPublicUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
+      )
+    }
 
-    // export des activités vers la spreadsheet camino-db-titres-activites-prod
+    if (titresAdministrationsGestionnairesCreated.length) {
+      console.info(
+        `mise à jour: ${titresAdministrationsGestionnairesCreated.length} administration(s) gestionnaire(s) ajoutée(s) dans des titres`
+      )
+    }
+
+    if (titresAdministrationsGestionnairesDeleted.length) {
+      console.info(
+        `mise à jour: ${titresAdministrationsGestionnairesDeleted.length} administration(s) gestionnaire(s) supprimée(s) dans des titres`
+      )
+    }
+
     if (titresActivitesCreated.length) {
-      console.info('export des activités…')
-      await titreActivitesRowsUpdate(titresActivitesCreated, titreUpdatedIndex)
+      console.info(`mise à jour: ${titresActivitesCreated.length} activités`)
+    }
+
+    if (titreUpdatedIndex) {
+      console.info(`mise à jour: 1 titre (id)`)
     }
 
     return titreId

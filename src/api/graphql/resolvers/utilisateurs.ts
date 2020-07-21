@@ -30,8 +30,6 @@ import globales from '../../../database/cache/globales'
 
 import utilisateurUpdationValidate from '../../../business/utilisateur-updation-validate'
 
-import { utilisateurRowUpdate } from '../../../tools/export/utilisateur'
-
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
 
@@ -329,8 +327,6 @@ const utilisateurCreer = async (
       {}
     )
 
-    await utilisateurRowUpdate(utilisateurUpdated)
-
     return utilisateurUpdated
   } catch (e) {
     if (debug) {
@@ -459,8 +455,6 @@ const utilisateurModifier = async (
 
     const utilisateurUpdated = await utilisateurUpdate(utilisateur, { fields })
 
-    await utilisateurRowUpdate(utilisateurUpdated)
-
     return utilisateurFormat(utilisateurUpdated)
   } catch (e) {
     if (debug) {
@@ -498,8 +492,6 @@ const utilisateurSupprimer = async (
     utilisateur.administrations = []
 
     const utilisateurUpdated = await utilisateurUpdate(utilisateur, {})
-
-    await utilisateurRowUpdate(utilisateurUpdated)
 
     return utilisateurUpdated
   } catch (e) {
@@ -569,8 +561,6 @@ const utilisateurMotDePasseModifier = async (
       } as IUtilisateur,
       {}
     )
-
-    await utilisateurRowUpdate(utilisateurUpdated)
 
     return utilisateurUpdated
   } catch (e) {
@@ -664,8 +654,6 @@ const utilisateurMotDePasseInitialiser = async (
       } as IUtilisateur,
       {}
     )
-
-    await utilisateurRowUpdate(utilisateurUpdated)
 
     return {
       token: userTokenCreate(utilisateurUpdated),

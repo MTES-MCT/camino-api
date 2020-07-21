@@ -23,20 +23,12 @@ fragment titre on Titre {
     couleur
   }
   references {
-    type
+    type {
+      id
+    }
     nom
   }
   surface
-  volume
-  volumeUnite {
-    id
-    nom
-  }
-  engagement
-  engagementDevise {
-    id
-    nom
-  }
   substances {
     ...titreSubstance
   }
@@ -111,13 +103,6 @@ fragment etape on Etape {
   date
   duree
   surface
-  volume
-  volumeUnite
-  engagement
-  engagementDevise {
-    id
-    nom
-  }
   type {
     id
     nom
@@ -237,7 +222,9 @@ fragment pointReference on PointReference {
     id
     nom
     zone
-    unite
+    unite {
+      id
+    }
   }
   coordonnees {
     x
@@ -289,8 +276,6 @@ fragment titreSubstance on TitreSubstance {
 
 fragment document on Document {
   id
-  nom
-  type
   url
   uri
   fichier

@@ -21,8 +21,6 @@ import {
   utilisateursGet
 } from '../../../database/queries/utilisateurs'
 
-import { titreActivitesRowUpdate } from '../../../tools/export/titre-activites'
-
 import titreActiviteInputValidate from '../../_validate/titre-activite-input-validate'
 import titreActiviteUpdationValidate from '../../../business/titre-activite-updation-validate'
 
@@ -278,8 +276,6 @@ const activiteModifier = async (
     const activiteRes = await titreActiviteUpdateQuery(activite.id, activite, {
       fields
     })
-
-    titreActivitesRowUpdate([activiteRes])
 
     const activiteFormated = titreActiviteFormat(activiteRes, fields)
 
