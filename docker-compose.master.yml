@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  app:
+    container_name: camino_api_app
+    image: caminofr/camino-api:master
+    depends_on:
+      - db
+    environment:
+      VIRTUAL_HOST: ${URL}
+      VIRTUAL_PORT: ${PORT}
+      LETSENCRYPT_HOST: ${URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      PGHOST: db
+    expose:
+      - ${PORT}
+    volumes:
+      - files:/app/files
+      - ./.env:/app/.env
+    networks:
+      - default
+      - nginx-proxy
+
+  db:
+    container_name: camino_api_db
+    image: postgres:12-alpine
+    environment:
+      PGUSER: ${PGUSER}
+    expose:
+      - ${PGPORT}
+    volumes:
+      - data:/var/lib/postgresql/data
+    networks:
+      - default
+
+volumes:
+  data: {}
+  files:
+
+networks:
+  nginx-proxy:
+    external: true
