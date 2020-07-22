@@ -64,7 +64,7 @@ jobs:
   #          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
 
   build:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || github.event_name == 'release'
     needs: test
     runs-on: ubuntu-latest
     strategy:
