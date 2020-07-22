@@ -3,8 +3,13 @@ import { ITitreTypeEtapeTypeRestriction } from '../../../../types'
 const oct: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'des' } },
-    obligatoireApres: [{ typeId: 'mdp' }, { typeId: 'pfd' }],
-    impossibleApres: [{ typeId: 'sco' }, { typeId: 'mno' }]
+    obligatoireApres: [
+      { typeId: 'mdp' },
+      { typeId: 'pfd' },
+      { typeId: 'rde' },
+      { typeId: 'dae' }
+    ],
+    impossibleApres: [{ typeId: 'sca' }]
   },
 
   {
@@ -16,14 +21,10 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
     condition: { etape: { typeId: 'dae' } },
     impossibleApres: [{ typeId: 'mcp' }]
   },
-
-  // TODO:
-  // Désactivation temporaire de cette contrainte pour qu’on puisse ajouter les RDE sur les ARM déjà existantes en production
-  // {
-  //   condition: { etape: { typeId: 'rde' } },
-  //   impossibleApres: [{ typeId: 'mcp' }]
-  // },
-
+  {
+    condition: { etape: { typeId: 'rde' } },
+    impossibleApres: [{ typeId: 'mcp' }]
+  },
   {
     condition: { etape: { typeId: 'mod' } },
     obligatoireApres: [{ typeId: 'mdp' }, { typeId: 'rde' }, { typeId: 'dae' }],
@@ -45,18 +46,11 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
   },
 
   // titres mécanisés
-
-  // TODO pour cette étape la condition porte sur le franchissement d'un cours d'eau ou non, elle n'est pas sur la mécanisation.
-  // {
-  //   condition: {
-  //     titre: { contenu: { arm: { mecanise: true } } },
-  //     etape: { typeId: 'mcp' }
-  //   },
-  //   obligatoireApres: [{ typeId: 'rde' }]
-  // },
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
+      titre: {
+        contenu: { arm: { mecanise: { valeur: true } } }
+      },
       etape: { typeId: 'mcp' }
     },
     obligatoireApres: [{ typeId: 'dae' }]
@@ -70,7 +64,7 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
   // cycle de compléments de la complétude
   {
     condition: { etape: { typeId: 'mco' } },
-    obligatoireApres: [{ typeId: 'mcp', statutId: 'def' }],
+    obligatoireApres: [{ typeId: 'mcp' }, { typeId: 'rde' }],
     impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
   {
@@ -81,8 +75,17 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
 
   {
     condition: { etape: { typeId: 'css' } },
-    obligatoireApres: [{ typeId: 'mcp', statutId: 'def' }],
-    impossibleApres: [{ typeId: 'mno' }]
+    obligatoireApres: [
+      { typeId: 'mdp' },
+      { typeId: 'pfd' },
+      { typeId: 'rde' },
+      { typeId: 'dae' }
+    ],
+    impossibleApres: [
+      { typeId: 'sco' },
+      { typeId: 'des' },
+      { typeId: 'aca', statutId: 'def' }
+    ]
   },
 
   {
@@ -138,6 +141,22 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
     impossibleApres: [{ typeId: 'aca' }]
   },
 
+  // titres avec franchissement d'eau
+  {
+    condition: {
+      etape: { typeId: 'sca' },
+      titre: {
+        contenu: {
+          arm: {
+            franchissements: { valeur: 0, operation: 'NOT_EQUAL' }
+          }
+        }
+      }
+    },
+    obligatoireApres: [{ typeId: 'rde' }, { typeId: 'aof' }],
+    impossibleApres: [{ typeId: 'aca' }]
+  },
+
   {
     condition: { etape: { typeId: 'aca' } },
     obligatoireApres: [{ typeId: 'sca' }],
@@ -146,12 +165,12 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
 
   {
     condition: { etape: { typeId: 'mno' } },
-    obligatoireApres: [{ typeId: 'aca' }, { typeId: 'css' }]
+    obligatoireApres: [{ typeId: 'aca' }, { typeId: 'css' }, { typeId: 'aco' }]
   },
 
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: false } } },
+      titre: { contenu: { arm: { mecanise: { valeur: false } } } },
       etape: { typeId: 'pfc' }
     },
     impossible: true
@@ -160,14 +179,14 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
   // paiement des frais de dossier titre mécanisé
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
+      titre: { contenu: { arm: { mecanise: { valeur: true } } } },
       etape: { typeId: 'pfc' }
     },
     obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
   },
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
+      titre: { contenu: { arm: { mecanise: { valeur: true } } } },
       etape: { typeId: 'pfc' }
     },
     obligatoireApres: [{ typeId: 'mno' }]
@@ -184,7 +203,7 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
   },
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: true } } },
+      titre: { contenu: { arm: { mecanise: { valeur: true } } } },
       etape: { typeId: 'sco' }
     },
     obligatoireApres: [{ typeId: 'vfc' }]
@@ -192,14 +211,14 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
 
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: false } } },
+      titre: { contenu: { arm: { mecanise: { valeur: false } } } },
       etape: { typeId: 'sco' }
     },
     obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
   },
   {
     condition: {
-      titre: { contenu: { arm: { mecanise: false } } },
+      titre: { contenu: { arm: { mecanise: { valeur: false } } } },
       etape: { typeId: 'sco' }
     },
     obligatoireApres: [{ typeId: 'mno' }]
@@ -213,10 +232,6 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'aco' } },
     obligatoireApres: [{ typeId: 'sco' }]
-  },
-  {
-    condition: { etape: { typeId: 'aco' } },
-    obligatoireApres: [{ typeId: 'mno' }]
   }
 ]
 
