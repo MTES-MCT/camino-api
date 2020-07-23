@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.47](https://github.com/MTES-MCT/camino-api/compare/v0.24.45...v0.24.47) (2020-07-23)
+
+
+### Features
+
+* enregistre l'ordre des substances ([#476](https://github.com/MTES-MCT/camino-api/issues/476)) ([a123629](https://github.com/MTES-MCT/camino-api/commit/a12362973ab9391bbacc98dbb62767c3e53b50c1))
+
 ### [0.24.46](https://github.com/MTES-MCT/camino-api/compare/v0.24.45...v0.24.46) (2020-07-22)
 
 ### [0.24.45](https://github.com/MTES-MCT/camino-api/compare/v0.24.43...v0.24.45) (2020-07-22)
