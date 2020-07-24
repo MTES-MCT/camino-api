@@ -32,9 +32,7 @@ const entreprise = async (
 
     const entreprise = await entrepriseGet(id, { fields }, context.user?.id)
 
-    if (!entreprise) {
-      throw new Error('aucune entreprise référencée avec cet identifiant')
-    }
+    if (!entreprise) return null
 
     const user = context.user && (await userGet(context.user.id))
 
