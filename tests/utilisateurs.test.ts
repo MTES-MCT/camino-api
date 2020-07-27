@@ -5,11 +5,6 @@ import { graphQLCall, queryImport, tokenCreate } from './_utils'
 import * as userAdd from '../knex/user-add'
 import * as request from 'supertest'
 
-jest.mock('../src/tools/export/utilisateur', () => ({
-  __esModule: true,
-  utilisateurRowUpdate: jest.fn()
-}))
-
 console.info = jest.fn()
 console.error = jest.fn()
 
