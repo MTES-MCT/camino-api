@@ -125,7 +125,7 @@ const titresTypesPermissionsQueryBuild = (
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('titresCreation'))
   } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin']) &&
     user?.administrations?.length
   ) {
     q.select(
