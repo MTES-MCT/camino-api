@@ -215,6 +215,9 @@ type Mutation {
   "Connecte l'utilisateur en fonction de ses identifiants"
   utilisateurTokenCreer(email: String!, motDePasse: String!): UtilisateurToken
 
+  "Rafraichit le token de l'utilisateur connecté"
+  utilisateurTokenRafraichir(refreshToken: String!): UtilisateurToken
+
   "Connecte l'utilisateur en fonction du ticket Cerbère"
   utilisateurCerbereTokenCreer(ticket: String!): UtilisateurToken
 

@@ -754,6 +754,7 @@ interface IUtilisateur {
   modification?: boolean | null
   suppression?: boolean | null
   permissionModification?: boolean | null
+  refreshToken?: string | null
 }
 
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
