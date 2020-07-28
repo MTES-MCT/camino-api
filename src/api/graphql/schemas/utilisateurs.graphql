@@ -33,7 +33,8 @@ type Sections {
 
 type UtilisateurToken {
   utilisateur: Utilisateur
-  token: String
+  accessToken: String
+  refreshToken: String
 }
 
 type Permission {

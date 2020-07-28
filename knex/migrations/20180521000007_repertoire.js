@@ -69,6 +69,7 @@ exports.up = knex =>
       table.string('prenom')
       table.string('telephoneFixe')
       table.string('telephoneMobile')
+      table.string('refreshToken')
       table
         .string('permissionId', 12)
         .index()
