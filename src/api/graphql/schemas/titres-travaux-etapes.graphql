@@ -1,0 +1,35 @@
+type TravauxEtape {
+  id: ID!
+  type: EtapeType!
+  statut: EtapeStatut!
+  ordre: Int!
+  date: String!
+  duree: Int
+  surface: Float
+  documents: [Document]
+  contenu: Json
+  modification: Boolean
+  suppression: Boolean
+}
+
+input InputTravauxEtapeCreation {
+  typeId: ID!
+  statutId: ID!
+  titreTravauxId: ID!
+  date: String!
+  ordre: Int
+  duree: Int
+  surface: Float
+  contenu: Json
+}
+
+input InputTravauxEtapeModification {
+  id: ID!
+  typeId: ID!
+  statutId: ID!
+  titreTravauxId: ID!
+  date: String!
+  ordre: Int
+  duree: Int
+  contenu: Json
+}

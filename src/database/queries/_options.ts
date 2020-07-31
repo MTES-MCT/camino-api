@@ -128,6 +128,26 @@ const etapes = {
   }
 }
 
+const titresTravauxEtapesRelateTrue = [
+  'type',
+  'statut',
+  ...documents.update.relate.map(k => `documents.${k}`)
+]
+
+const titresTravauxEtapes = {
+  graph: `[
+    type,
+    statut,
+    documents.${documents.graph}
+  ]`,
+
+  update: {
+    relate: titresTravauxEtapesRelateTrue,
+    unrelate: titresTravauxEtapesRelateTrue,
+    insertMissing: true
+  }
+}
+
 const phases = {
   graph: 'statut'
 }
@@ -137,6 +157,10 @@ const etapesTypes = {
 }
 
 const demarchesTypes = {
+  graph: `[etapesTypes.${etapesTypes.graph}]`
+}
+
+const travauxTypes = {
   graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
@@ -210,6 +234,11 @@ const activitesTypes = {
 
 const titresActivites = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
+}
+
+const titresTravaux = {
+  graph: `[type.${travauxTypes.graph}, statut, 
+     etapes(orderDesc).${titresTravauxEtapes.graph},]`
 }
 
 const titresTypes = {
@@ -420,6 +449,7 @@ const titres = {
     demarches(orderDesc).${demarches.graph},
     communes.${communes.graph},
     activites(orderDesc).${titresActivites.graph},
+    travaux(orderDesc).${titresTravaux.graph},
     references(orderAsc).type
    ]`,
   // ne pas récupèrer la relation `surfaceEtape`

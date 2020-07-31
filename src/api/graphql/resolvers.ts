@@ -51,6 +51,7 @@ import {
   devises,
   demarchesTypes,
   demarchesStatuts,
+  travauxTypes,
   documentsTypes,
   documentsVisibilites,
   domaines,
@@ -89,6 +90,18 @@ import {
 } from './resolvers/titres-activites'
 import { statistiques } from './resolvers/statistiques'
 
+import {
+  travauxCreer,
+  travauxModifier,
+  travauxSupprimer
+} from './resolvers/titres-travaux'
+
+import {
+  travauxEtapeCreer,
+  travauxEtapeModifier,
+  travauxEtapeSupprimer
+} from './resolvers/titres-travaux-etapes'
+
 export default {
   //  types
   Json: GraphQLJSON,
@@ -98,6 +111,7 @@ export default {
   demarches,
   demarchesTypes,
   demarchesStatuts,
+  travauxTypes,
   devises,
   documents,
   documentsTypes,
@@ -160,5 +174,11 @@ export default {
   utilisateurMotDePasseEmailEnvoyer,
   utilisateurCreationEmailEnvoyer,
   entrepriseCreer,
-  entrepriseModifier
+  entrepriseModifier,
+  travauxCreer,
+  travauxModifier,
+  travauxSupprimer,
+  travauxEtapeCreer,
+  travauxEtapeModifier,
+  travauxEtapeSupprimer
 }

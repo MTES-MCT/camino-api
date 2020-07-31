@@ -6,6 +6,7 @@ import { autorisations } from '../../../database/cache/autorisations'
 
 import {
   demarchesTypesGet,
+  travauxTypesGet,
   demarchesStatutsGet,
   documentsTypesGet,
   domainesGet,
@@ -176,6 +177,30 @@ const demarchesTypes = async (
     )
 
     return demarchesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const travauxTypes = async (
+  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const fields = fieldsBuild(info)
+
+    const travauxTypes = await travauxTypesGet(
+      { titreId, titreDemarcheId },
+      { fields },
+      context.user?.id
+    )
+
+    return travauxTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -392,6 +417,7 @@ export {
   devises,
   demarchesTypes,
   demarchesStatuts,
+  travauxTypes,
   documentsTypes,
   documentsVisibilites,
   domaines,

@@ -1,0 +1,147 @@
+[
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "eco",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "dep",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "ins",
+    "ordre": "3"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "cls",
+    "ordre": "4"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "acc",
+    "ordre": "5"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "rej",
+    "ordre": "6"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "des",
+    "ordre": "7"
+  },
+  {
+    "travaux_type_id": "dom",
+    "demarche_statut_id": "ind",
+    "ordre": "8"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "eco",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "dep",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "ins",
+    "ordre": "3"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "cls",
+    "ordre": "4"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "acc",
+    "ordre": "5"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "rej",
+    "ordre": "6"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "des",
+    "ordre": "7"
+  },
+  {
+    "travaux_type_id": "dam",
+    "demarche_statut_id": "ind",
+    "ordre": "8"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "eco",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "dep",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "ins",
+    "ordre": "3"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "cls",
+    "ordre": "4"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "acc",
+    "ordre": "5"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "rej",
+    "ordre": "6"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "des",
+    "ordre": "7"
+  },
+  {
+    "travaux_type_id": "aom",
+    "demarche_statut_id": "ind",
+    "ordre": "8"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "demarche_statut_id": "eco",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "demarche_statut_id": "ini",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "demarche_statut_id": "cls",
+    "ordre": "3"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "demarche_statut_id": "ter",
+    "ordre": "4"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "demarche_statut_id": "ind",
+    "ordre": "5"
+  }
+]

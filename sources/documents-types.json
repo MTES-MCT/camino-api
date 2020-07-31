@@ -1,77 +1,17 @@
 [
   {
-    "id": "rie",
-    "nom": "Rapport d’intensité d’exploration",
-    "repertoire": "activites"
-  },
-  {
-    "id": "rfe",
-    "nom": "Rapport financier d'exploration",
-    "repertoire": "activites"
-  },
-  {
-    "id": "ree",
-    "nom": "Rapport environnemental d'exploration",
-    "repertoire": "activites"
-  },
-  {
-    "id": "rse",
-    "nom": "Rapport social et économique d'exploration",
-    "repertoire": "activites"
-  },
-  {
-    "id": "rwp",
-    "nom": "Rapport annuel de production de granulats marins",
-    "repertoire": "activites"
-  },
-  {
-    "id": "atf",
-    "nom": "Attestation fiscale",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "cur",
-    "nom": "Curriculum vitae",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "idm",
-    "nom": "Identification de matériel",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "jid",
-    "nom": "Justificatif d'identité",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "jcf",
-    "nom": "Justificatif des capacités financières",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "jct",
-    "nom": "Justificatif des capacités techniques",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "kbi",
-    "nom": "Kbis",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "cnt",
-    "nom": "Contrat",
+    "id": "aac",
+    "nom": "Avis d'un service de l'administration centrale",
     "repertoire": "etapes"
   },
   {
-    "id": "doe",
-    "nom": "Dossier \"Loi sur l'eau\"",
+    "id": "acd",
+    "nom": "Avis de la  la commission départementale des mines",
     "repertoire": "etapes"
   },
   {
-    "id": "rec",
-    "nom": "Récépissé \"Loi sur l'eau\"",
+    "id": "acm",
+    "nom": "Avis des services civils et militaires",
     "repertoire": "etapes"
   },
   {
@@ -80,9 +20,34 @@
     "repertoire": "etapes"
   },
   {
-    "id": "arr",
-    "nom": "Arrêté",
+    "id": "adr",
+    "nom": "Avis du directeur régional chargé des mines",
     "repertoire": "etapes"
+  },
+  {
+    "id": "aep",
+    "nom": "Avis d'enquête publique",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "aot",
+    "nom": "Arrêté autorisant l'ouverture de travaux miniers",
+    "repertoire": "travaux"
+  },
+  {
+    "id": "apd",
+    "nom": "AP2",
+    "repertoire": "travaux"
+  },
+  {
+    "id": "apf",
+    "nom": "Avis du préfet",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "apu",
+    "nom": "AP1",
+    "repertoire": "travaux"
   },
   {
     "id": "arm",
@@ -95,24 +60,14 @@
     "repertoire": "etapes"
   },
   {
-    "id": "avi",
-    "nom": "Avis",
+    "id": "arr",
+    "nom": "Arrêté",
     "repertoire": "etapes"
   },
   {
-    "id": "aep",
-    "nom": "Avis d'enquête publique",
-    "repertoire": "etapes"
-  },
-  {
-    "id": "aac",
-    "nom": "Avis d'un service de l'administration centrale",
-    "repertoire": "etapes"
-  },
-  {
-    "id": "acd",
-    "nom": "Avis de la  la commission départementale des mines",
-    "repertoire": "etapes"
+    "id": "atf",
+    "nom": "Attestation fiscale",
+    "repertoire": "entreprises"
   },
   {
     "id": "avc",
@@ -120,18 +75,23 @@
     "repertoire": "etapes"
   },
   {
-    "id": "acm",
-    "nom": "Avis des services civils et militaires",
+    "id": "ave",
+    "nom": "Avenant",
     "repertoire": "etapes"
   },
   {
-    "id": "adr",
-    "nom": "Avis du directeur régional chargé des mines",
+    "id": "avi",
+    "nom": "Avis",
     "repertoire": "etapes"
   },
   {
-    "id": "apf",
-    "nom": "Avis du préfet",
+    "id": "car",
+    "nom": "Carte",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "cco",
+    "nom": "Courrier de demande de compléments",
     "repertoire": "etapes"
   },
   {
@@ -140,8 +100,13 @@
     "repertoire": "etapes"
   },
   {
-    "id": "car",
-    "nom": "Carte",
+    "id": "cnr",
+    "nom": "Courrier de notification de la recevabilité",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "cnt",
+    "nom": "Contrat",
     "repertoire": "etapes"
   },
   {
@@ -155,13 +120,13 @@
     "repertoire": "etapes"
   },
   {
-    "id": "cco",
-    "nom": "Courrier de demande de compléments",
-    "repertoire": "etapes"
+    "id": "cur",
+    "nom": "Curriculum vitae",
+    "repertoire": "entreprises"
   },
   {
-    "id": "cnr",
-    "nom": "Courrier de notification de la recevabilité",
+    "id": "dec",
+    "nom": "Décret",
     "repertoire": "etapes"
   },
   {
@@ -175,18 +140,18 @@
     "repertoire": "etapes"
   },
   {
-    "id": "dec",
-    "nom": "Décret",
-    "repertoire": "etapes"
-  },
-  {
-    "id": "dos",
-    "nom": "Dossier",
+    "id": "doe",
+    "nom": "Dossier \"Loi sur l'eau\"",
     "repertoire": "etapes"
   },
   {
     "id": "dom",
     "nom": "Dossier de demande",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "dos",
+    "nom": "Dossier",
     "repertoire": "etapes"
   },
   {
@@ -215,24 +180,34 @@
     "repertoire": "etapes"
   },
   {
+    "id": "idm",
+    "nom": "Identification de matériel",
+    "repertoire": "entreprises"
+  },
+  {
+    "id": "jcf",
+    "nom": "Justificatif des capacités financières",
+    "repertoire": "entreprises"
+  },
+  {
+    "id": "jct",
+    "nom": "Justificatif des capacités techniques",
+    "repertoire": "entreprises"
+  },
+  {
+    "id": "jid",
+    "nom": "Justificatif d'identité",
+    "repertoire": "entreprises"
+  },
+  {
     "id": "jpa",
     "nom": "Justificatif de paiement",
     "repertoire": "etapes"
   },
   {
-    "id": "let",
-    "nom": "Lettre",
-    "repertoire": "etapes"
-  },
-  {
-    "id": "lem",
-    "nom": "Lettre de demande",
-    "repertoire": "etapes"
-  },
-  {
-    "id": "lcm",
-    "nom": "Lettre de saisine des services civils et militaires",
-    "repertoire": "etapes"
+    "id": "kbi",
+    "nom": "Kbis",
+    "repertoire": "entreprises"
   },
   {
     "id": "lac",
@@ -247,6 +222,21 @@
   {
     "id": "lcg",
     "nom": "Lettre de saisine du conseil général chargé des mines",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "lcm",
+    "nom": "Lettre de saisine des services civils et militaires",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "lem",
+    "nom": "Lettre de demande",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "let",
+    "nom": "Lettre",
     "repertoire": "etapes"
   },
   {
@@ -265,13 +255,8 @@
     "repertoire": "etapes"
   },
   {
-    "id": "not",
-    "nom": "Notes",
-    "repertoire": "etapes"
-  },
-  {
-    "id": "noi",
-    "nom": "Notice d'incidence",
+    "id": "ndc",
+    "nom": "Notification de demande concurrente",
     "repertoire": "etapes"
   },
   {
@@ -280,13 +265,18 @@
     "repertoire": "etapes"
   },
   {
-    "id": "ndc",
-    "nom": "Notification de demande concurrente",
+    "id": "noi",
+    "nom": "Notice d'incidence",
     "repertoire": "etapes"
   },
   {
-    "id": "ord",
-    "nom": "Ordonnance",
+    "id": "not",
+    "nom": "Notes",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "ocd",
+    "nom": "Ordre du jour de la commission départementale des mines",
     "repertoire": "etapes"
   },
   {
@@ -295,8 +285,8 @@
     "repertoire": "etapes"
   },
   {
-    "id": "ocd",
-    "nom": "Ordre du jour de la commission départementale des mines",
+    "id": "ord",
+    "nom": "Ordonnance",
     "repertoire": "etapes"
   },
   {
@@ -310,11 +300,6 @@
     "repertoire": "etapes"
   },
   {
-    "id": "rdr",
-    "nom": "Rapport de la direction régionale chargée des mines",
-    "repertoire": "etapes"
-  },
-  {
     "id": "rce",
     "nom": "Rapport du commissaire enquêteur",
     "repertoire": "etapes"
@@ -325,29 +310,14 @@
     "repertoire": "etapes"
   },
   {
-    "id": "ave",
-    "nom": "Avenant",
+    "id": "rda",
+    "nom": "Récépissé de déclaration d'arret des travaux miniers",
+    "repertoire": "travaux"
+  },
+  {
+    "id": "rdr",
+    "nom": "Rapport de la direction régionale chargée des mines",
     "repertoire": "etapes"
-  },
-  {
-    "id": "sir",
-    "nom": "Avis de situation au répertoire Sirene",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "aot",
-    "nom": "Arrêté autorisant l'ouverture de travaux miniers",
-    "repertoire": "travaux"
-  },
-  {
-    "id": "apu",
-    "nom": "AP1",
-    "repertoire": "travaux"
-  },
-  {
-    "id": "apd",
-    "nom": "AP2",
-    "repertoire": "travaux"
   },
   {
     "id": "rdt",
@@ -355,8 +325,43 @@
     "repertoire": "travaux"
   },
   {
-    "id": "rda",
-    "nom": "Récépissé de déclaration d'arret des travaux miniers",
-    "repertoire": "travaux"
+    "id": "rec",
+    "nom": "Récépissé \"Loi sur l'eau\"",
+    "repertoire": "etapes"
+  },
+  {
+    "id": "ree",
+    "nom": "Rapport environnemental d'exploration",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rfe",
+    "nom": "Rapport financier d'exploration",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rie",
+    "nom": "Rapport d’intensité d’exploration",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rgr",
+    "nom": "Rapport annuel de production d'or en Guyane",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rse",
+    "nom": "Rapport social et économique d'exploration",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rwp",
+    "nom": "Rapport annuel de production de granulats marins",
+    "repertoire": "activites"
+  },
+  {
+    "id": "sir",
+    "nom": "Avis de situation au répertoire Sirene",
+    "repertoire": "entreprises"
   }
 ]

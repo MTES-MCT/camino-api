@@ -2,6 +2,7 @@ import { IFields, IDocumentRepertoire } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
+import TravauxTypes from '../models/travaux-types'
 import Devises from '../models/devises'
 import DocumentsTypes from '../models/documents-types'
 import DemarchesStatuts from '../models/demarches-statuts'
@@ -29,7 +30,8 @@ import {
   etapesTypesPermissionQueryBuild,
   demarchesTypesPermissionQueryBuild,
   activitesTypesPermissionQueryBuild,
-  permissionsPermissionQueryBuild
+  permissionsPermissionQueryBuild,
+  travauxTypesPermissionQueryBuild
 } from './permissions/metas'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
@@ -80,6 +82,27 @@ const demarchesTypesGet = async (
   const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
   demarchesTypesPermissionQueryBuild(q, user, { titreId, titreDemarcheId })
+
+  return q
+}
+
+const travauxTypesGet = async (
+  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const graph = fields
+    ? graphBuild(fields, 'travauxTypes', graphFormat)
+    : options.demarchesTypes.graph
+
+  const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
+
+  travauxTypesPermissionQueryBuild(q, user, {
+    titreId,
+    titreDemarcheId
+  })
 
   return q
 }
@@ -185,6 +208,7 @@ export {
   demarchesTypesGet,
   demarchesStatutsGet,
   etapesTypesGet,
+  travauxTypesGet,
   devisesGet,
   documentsTypesGet,
   documentTypeGet,

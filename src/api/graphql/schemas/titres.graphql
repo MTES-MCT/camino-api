@@ -74,8 +74,11 @@ type Titre {
   "Propriétés spécifiques au titre"
   contenu: Json
 
-  "Activités sur un titre"
+  "Activités"
   activites: [Activite]
+
+  "Travaux"
+  travaux: [Travail]
 
   "Nombre d'activités déposées"
   activitesDeposees: Int
@@ -88,6 +91,8 @@ type Titre {
 
   modification: Boolean
   suppression: Boolean
+
+  travauxCreation: Boolean
   doublonTitreId: ID
 }
 

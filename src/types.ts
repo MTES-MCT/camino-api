@@ -360,6 +360,14 @@ interface IRegion {
   departements?: IDepartement[] | null
 }
 
+interface ITravauxType {
+  id: string
+  nom: string
+  ordre: number
+  description?: string
+  travauxCreation?: boolean | null
+}
+
 interface IAutorisationEtapeType {
   etapeTypeId: string
   publicLecture: boolean
@@ -468,6 +476,7 @@ interface ITitre {
   communes?: ICommune[] | null
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
+  travaux?: ITitreTravaux[] | null
   pays?: IPays[] | null
   modification?: boolean | null
   suppression?: boolean | null
@@ -662,6 +671,28 @@ interface ITrimestre extends IPeriode {
   mois?: IMois[]
 }
 
+interface ITitreTravaux {
+  id: string
+  titreId: string
+  typeId: string
+  type: ITravauxType
+  statutId: string
+  statut: IDemarcheStatut
+  ordre?: number | null
+}
+
+interface ITitreTravauxEtape {
+  id: string
+  titreTravauxId: string
+  typeId: string
+  statutId: string
+  ordre?: number | null
+  date: string
+  duree?: number | null
+  surface?: number | null
+  contenu?: IContenu | null
+}
+
 interface ITitreType {
   id: string
   domaineId: string
@@ -847,9 +878,12 @@ export {
   ITitrePoint,
   ITitrePointReference,
   ITitreReference,
+  ITitreTravaux,
+  ITitreTravauxEtape,
   ITitreType,
   ITitreTypeType,
   ITitreTypeDemarcheTypeEtapeType,
+  ITravauxType,
   ITrimestre,
   IUnite,
   IUser,

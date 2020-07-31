@@ -1,0 +1,47 @@
+[
+  {
+    "travaux_type_id": "aom",
+    "etape_type_id": "dex",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "aom",
+    "etape_type_id": "rpu",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "dam",
+    "etape_type_id": "dex",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "dam",
+    "etape_type_id": "rpu",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "dom",
+    "etape_type_id": "rdt",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "dom",
+    "etape_type_id": "dex",
+    "ordre": "2"
+  },
+  {
+    "travaux_type_id": "dom",
+    "etape_type_id": "rpu",
+    "ordre": "3"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "etape_type_id": "dex",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "mpm",
+    "etape_type_id": "rpu",
+    "ordre": "2"
+  }
+]

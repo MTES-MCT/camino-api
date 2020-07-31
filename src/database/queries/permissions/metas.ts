@@ -9,6 +9,7 @@ import { AutorisationsTitresTypesAdministrations } from '../../models/autorisati
 import Domaines from '../../models/domaines'
 import TitresTypes from '../../models/titres-types'
 import DemarchesTypes from '../../models/demarches-types'
+import TravauxTypes from '../../models/travaux-types'
 import EtapesTypes from '../../models/etapes-types'
 import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
@@ -399,6 +400,25 @@ const demarchesTypesPermissionQueryBuild = (
   }
 }
 
+const travauxTypesPermissionQueryBuild = (
+  q: QueryBuilder<TravauxTypes, TravauxTypes | TravauxTypes[]>,
+  user?: IUtilisateur,
+  {
+    titreId,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    titreDemarcheId
+  }: { titreId?: string; titreDemarcheId?: string } = {}
+) => {
+  q.select('travauxTypes.*')
+
+  // propriété 'travauxCreation' selon le profil de l'utilisateur
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    q.select(raw('true').as('travauxCreation'))
+  } else {
+    q.select(raw('false').as('travauxCreation'))
+  }
+}
+
 const permissionsPermissionQueryBuild = (
   q: QueryBuilder<Permissions, Permissions | Permissions[]>,
   user?: IUtilisateur
@@ -425,5 +445,6 @@ export {
   etapesTypesPermissionQueryBuild,
   permissionsPermissionQueryBuild,
   titresModificationQueryBuild,
-  titresTypesPermissionsQueryBuild
+  titresTypesPermissionsQueryBuild,
+  travauxTypesPermissionQueryBuild
 }
