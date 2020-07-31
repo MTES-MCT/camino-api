@@ -14,10 +14,12 @@ export default [
     condition: { etape: { typeId: 'dae' } },
     impossibleApres: [{ typeId: 'mcp' }]
   },
-  {
-    condition: { etape: { typeId: 'rde' } },
-    impossibleApres: [{ typeId: 'mcp' }]
-  },
+
+  //TODO Désactivation temporaire de cette contrainte pour qu’on puisse ajouter les RDE sur les ARM déjà existantes en production
+  // {
+  //   condition: { etape: { typeId: 'rde' } },
+  //   impossibleApres: [{ typeId: 'mcp' }]
+  // },
 
   {
     condition: { etape: { typeId: 'mod' } },
