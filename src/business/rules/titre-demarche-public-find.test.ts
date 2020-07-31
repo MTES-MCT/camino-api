@@ -11,7 +11,7 @@ const etapesBuild = (etapesProps: Partial<ITitreEtape>[]) =>
       } as unknown) as ITitreEtape)
   )
 
-describe("public d'une démarche", () => {
+describe("publicité d'une démarche", () => {
   test("une démarche sans étape n'est pas publique", () => {
     expect(titreDemarchePublicFind('oct', [], [])).toMatchObject({
       publicLecture: false,

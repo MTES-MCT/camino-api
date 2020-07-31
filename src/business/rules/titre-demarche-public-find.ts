@@ -5,13 +5,13 @@ const titreDemarcheEntrepriseLectureFind = (
   titreEtape: ITitreEtape
 ) => {
   // si le type d'étape est une demande
-  // alors la démarche est visible pour les entreprises
+  // alors la démarche est visible pour les entreprises titulaires ou amodiataires
   if (titreEtape.typeId === 'mfr') {
     entreprisesLecture = true
   }
 
-  // si le type d'étape est une décision de l'adminisrtation unilatérale ou non
-  // alors la démarche est visible pour les entreprises
+  // si le type d'étape est une décision de l'administration unilatérale ou non
+  // alors la démarche est visible pour les entreprises titulaires ou amodiataires
   if (['dex', 'dux'].includes(titreEtape.typeId)) {
     entreprisesLecture = true
   }
@@ -170,7 +170,7 @@ const titreDemarchePublicFind = (
       )
 
       // si la démarche n'est pas visible au public
-      // alors on calcule la visibilité spéciale pour les entreprises
+      // alors on calcule la visibilité spéciale pour les entreprises titulaires ou amodiataires
       entreprisesLecture =
         publicLecture ||
         titreDemarcheEntrepriseLectureFind(entreprisesLecture, titreEtape)
