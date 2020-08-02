@@ -1,11 +1,13 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 
 const titreDateFinFind = (titreDemarches: ITitreDemarche[]) => {
   // la dernière démarche dont le statut est acceptée ou terminée
-  const titreDemarche = titreDemarchesAscSort(titreDemarches)
+  const titreDemarche = (titreDemarchesAscSort(
+    titreDemarches
+  ) as ITitreDemarche[])
     .reverse()
     .find(titreDemarche => ['acc', 'ter'].includes(titreDemarche.statutId!))
 

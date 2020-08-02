@@ -87,7 +87,7 @@ const demarchesTypesGet = async (
 }
 
 const travauxTypesGet = async (
-  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
@@ -101,7 +101,7 @@ const travauxTypesGet = async (
 
   travauxTypesPermissionQueryBuild(q, user, {
     titreId,
-    titreDemarcheId
+    titreTravauxId
   })
 
   return q

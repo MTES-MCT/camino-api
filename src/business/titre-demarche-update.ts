@@ -33,6 +33,8 @@ const titreDemarcheUpdate = async (
 
     let titresDemarchesPublicUpdated
 
+    // si c'est une création ou modification
+    // pas une suppression
     if (titreDemarcheId) {
       console.info()
       console.info('publicité des démarches…')
@@ -180,6 +182,7 @@ const titreDemarcheUpdate = async (
             },
             phase: { id: {} }
           },
+          travaux: { etapes: { id: {} } },
           activites: { id: {} }
         }
       },

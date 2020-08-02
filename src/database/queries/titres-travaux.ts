@@ -12,11 +12,25 @@ const titreTravauxCreate = async (
 ) => {
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'travaux', graphFormat)
-    : options.demarches.graph
+    : options.titresTravaux.graph
 
   return TitresTravaux.query()
     .insertAndFetch(titreTravaux)
     .withGraphFetched(graph)
 }
 
-export { titreTravauxCreate }
+const titreTravauxUpdate = async (
+  id: string,
+  props: Partial<ITitreTravaux>,
+  { fields }: { fields?: IFields }
+) => {
+  const graph = fields
+    ? graphBuild(fieldTitreAdd(fields), 'travaux', graphFormat)
+    : options.titresTravaux.graph
+
+  return TitresTravaux.query()
+    .patchAndFetchById(id, props)
+    .withGraphFetched(graph)
+}
+
+export { titreTravauxCreate, titreTravauxUpdate }

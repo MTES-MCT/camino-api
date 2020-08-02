@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
 const titreDemarcheOctroiDateDebutFind = (

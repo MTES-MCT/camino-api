@@ -6,6 +6,7 @@ import { permissionCheck } from '../../../tools/permission'
 import { titreGet } from '../../../database/queries/titres'
 import { debug } from '../../../config/index'
 import { titreFormat } from '../../_format/titres'
+import titreTravauxUpdateTask from '../../../business/titre-travaux-update'
 
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -21,46 +22,15 @@ const travauxCreer = async (
       throw new Error('droits insuffisants')
     }
 
-    // TODO: à effectuer après l'insertion de la démarche
-    // dans la fonction titreTravauxUpdateTask --->
-    const titre = await titreGet(
-      travaux.titreId,
-      {
-        fields: {
-          travaux: { etapes: { id: {} }, type: { id: {} }, statut: { id: {} } }
-        }
-      },
-      'super'
-    )
-
-    if (!titre) {
-      throw new Error(`warning: le titre ${travaux.titreId} n'existe plus`)
-    }
-
-    const titreTravauxWithTheSameType = titre.travaux?.filter(
-      tt => tt.type.id === travaux.typeId
-    )
-
-    travaux.statutId = 'eco'
-    travaux.ordre = titreTravauxWithTheSameType?.length
-      ? titreTravauxWithTheSameType?.length + 1
-      : 1
-    travaux.id = `${travaux.titreId}-${
-      travaux.typeId
-    }${travaux.ordre.toString().padStart(2, '0')}`
-    // <----- fin du bricolage
-
-    await titreTravauxCreate(travaux, {
+    const travauxUpdated = await titreTravauxCreate(travaux, {
       fields: { id: {} }
     })
 
-    // const titreUpdatedId = await titreTravauxUpdateTask(
-    //   travauxUpdated.id,
-    //   travauxUpdated.titreId
-    // )
+    const titreUpdatedId = await titreTravauxUpdateTask(travauxUpdated.titreId)
 
     const fields = fieldsBuild(info)
-    const titreUpdated = await titreGet(travaux.titreId, { fields }, user.id)
+
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {
@@ -72,7 +42,11 @@ const travauxCreer = async (
   }
 }
 
-const travauxModifier = () => {}
-const travauxSupprimer = () => {}
+const travauxModifier = () => {
+  console.log('travauxModifier')
+}
+const travauxSupprimer = () => {
+  console.log('travauxSupprimer')
+}
 
 export { travauxCreer, travauxModifier, travauxSupprimer }

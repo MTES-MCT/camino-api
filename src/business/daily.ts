@@ -27,6 +27,7 @@ import titresPublicUpdate from './processes/titres-public-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
+import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
 
 const run = async () => {
   try {
@@ -240,6 +241,15 @@ const run = async () => {
     const titresPropsContenuUpdated = await titresPropsContenuUpdate(titres)
 
     console.info()
+    console.info(`ordre des travaux…`)
+    titres = await titresGet(
+      {},
+      { fields: { travaux: { etapes: { id: {} } } } },
+      'super'
+    )
+    const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate(titres)
+
+    console.info()
     console.info('activités des titres…')
     titres = await titresGet(
       {},
@@ -289,6 +299,7 @@ const run = async () => {
             },
             phase: { id: {} }
           },
+          travaux: { etapes: { id: {} } },
           activites: { id: {} }
         }
       },
@@ -409,6 +420,12 @@ const run = async () => {
     if (titresPropsContenuUpdated.length) {
       console.info(
         `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
+      )
+    }
+
+    if (titresTravauxOrdreUpdated.length) {
+      console.info(
+        `mise à jour: ${titresTravauxOrdreUpdated.length} travaux (ordre)`
       )
     }
 

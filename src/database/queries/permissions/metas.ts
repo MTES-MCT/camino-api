@@ -404,10 +404,11 @@ const travauxTypesPermissionQueryBuild = (
   q: QueryBuilder<TravauxTypes, TravauxTypes | TravauxTypes[]>,
   user?: IUtilisateur,
   {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     titreId,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    titreDemarcheId
-  }: { titreId?: string; titreDemarcheId?: string } = {}
+    titreTravauxId
+  }: { titreId?: string; titreTravauxId?: string } = {}
 ) => {
   q.select('travauxTypes.*')
 

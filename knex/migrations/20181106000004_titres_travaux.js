@@ -8,7 +8,11 @@ exports.up = knex =>
         .references('titres.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
-      table.string('statutId', 3).index().references('demarchesStatuts.id')
+      table
+        .string('statutId', 3)
+        .index()
+        .references('demarchesStatuts.id')
+        .defaultTo('ind')
       table.string('typeId', 3).index().references('travauxTypes.id')
       table.integer('ordre')
     })

@@ -187,7 +187,7 @@ const demarchesTypes = async (
 }
 
 const travauxTypes = async (
-  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -195,7 +195,7 @@ const travauxTypes = async (
     const fields = fieldsBuild(info)
 
     const travauxTypes = await travauxTypesGet(
-      { titreId, titreDemarcheId },
+      { titreId, titreTravauxId },
       { fields },
       context.user?.id
     )

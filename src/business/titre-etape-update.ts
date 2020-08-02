@@ -257,6 +257,7 @@ const titreEtapeUpdate = async (
             },
             phase: { id: {} }
           },
+          travaux: { etapes: { id: {} } },
           activites: { id: {} }
         }
       },
