@@ -1,9 +1,9 @@
-import { ITitreEtape, IDemarcheType } from '../../types'
+import { ITitreEtape, IDemarcheType, ITravauxType } from '../../types'
 
 // classe les étapes selon leur dates, ordre et etapesTypes.ordre le cas échéant
 const titreEtapesAscSortByDate = (
   titreEtapes: ITitreEtape[],
-  demarcheType?: IDemarcheType | null,
+  demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
   titreTypeId?: string
 ) =>
   titreEtapes.sort((a, b) => {
@@ -16,14 +16,14 @@ const titreEtapesAscSortByDate = (
     // si les deux étapes ont la même date
     // on utilise l'ordre du type d'étape
 
-    if (!demarcheType?.etapesTypes?.length) {
+    if (!demarcheOrTravauxType?.etapesTypes?.length) {
       return a.ordre! - b.ordre!
     }
 
-    const aType = demarcheType.etapesTypes.find(
+    const aType = demarcheOrTravauxType.etapesTypes.find(
       et => et.id === a.typeId && et.titreTypeId === titreTypeId
     )
-    const bType = demarcheType.etapesTypes.find(
+    const bType = demarcheOrTravauxType.etapesTypes.find(
       et => et.id === b.typeId && et.titreTypeId === titreTypeId
     )
 

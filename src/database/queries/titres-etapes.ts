@@ -1,4 +1,4 @@
-import { transaction, Transaction } from 'objection'
+import { Transaction } from 'objection'
 import {
   ITitreEtape,
   ITitreCommune,
@@ -33,7 +33,7 @@ const titresEtapesQueryBuild = (
 ) => {
   const graph = fields
     ? graphBuild(fields, 'etapes', graphFormat)
-    : options.etapes.graph
+    : options.titresDemarchesEtapes.graph
 
   const q = TitresEtapes.query().skipUndefined().withGraphFetched(graph)
 
@@ -99,23 +99,23 @@ const titresEtapesGet = async (
 const titreEtapeCreate = async (titreEtape: ITitreEtape) =>
   TitresEtapes.query()
     .insertAndFetch(titreEtape)
-    .withGraphFetched(options.etapes.graph)
+    .withGraphFetched(options.titresDemarchesEtapes.graph)
 
 const titreEtapeUpdate = async (id: string, props: Partial<ITitreEtape>) =>
   TitresEtapes.query()
-    .withGraphFetched(options.etapes.graph)
+    .withGraphFetched(options.titresDemarchesEtapes.graph)
     .patchAndFetchById(id, props)
 
 const titreEtapeDelete = async (id: string, trx?: Transaction) =>
   TitresEtapes.query(trx)
     .deleteById(id)
-    .withGraphFetched(options.etapes.graph)
+    .withGraphFetched(options.titresDemarchesEtapes.graph)
     .returning('*')
 
 const titreEtapeUpsert = async (titreEtape: ITitreEtape, trx?: Transaction) =>
   TitresEtapes.query(trx)
-    .upsertGraph(titreEtape, options.etapes.update)
-    .withGraphFetched(options.etapes.graph)
+    .upsertGraph(titreEtape, options.titresDemarchesEtapes.update)
+    .withGraphFetched(options.titresDemarchesEtapes.graph)
     .returning('*')
 
 const titresEtapesCommunesGet = async () => TitresCommunes.query()
@@ -169,22 +169,6 @@ const titreEtapeAdministrationDelete = async (
     .where('titreEtapeId', titreEtapeId)
     .andWhere('administrationId', administrationId)
 
-const titreEtapesIdsUpdate = async (
-  titresEtapesIdsOld: string[],
-  titresEtapesNew: ITitreEtape[]
-) => {
-  const knex = TitresEtapes.knex()
-
-  return transaction(knex, async tr => {
-    await Promise.all(
-      titresEtapesIdsOld.map(titreEtapeId => titreEtapeDelete(titreEtapeId, tr))
-    )
-    await Promise.all(
-      titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, tr))
-    )
-  })
-}
-
 export {
   titresEtapesGet,
   titreEtapeGet,
@@ -198,6 +182,5 @@ export {
   titreEtapeJustificatifsDelete,
   titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete,
-  titreEtapesIdsUpdate,
   titreEtapeDelete
 }

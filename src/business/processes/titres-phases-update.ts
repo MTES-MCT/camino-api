@@ -1,10 +1,10 @@
-import { ITitre, ITitrePhase } from '../../types'
+import { ITitre, ITitrePhase, ITitreDemarche } from '../../types'
 
 import {
   titrePhasesUpsert,
   titrePhasesDelete
 } from '../../database/queries/titres-phases'
-import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 import titrePhasesFind from '../rules/titre-phases-find'
 import PQueue from 'p-queue'
 
@@ -98,7 +98,9 @@ const titresPhasesUpdate = async (titres: ITitre[]) => {
     ) => {
       // met les démarches d'un titre dans le sens croissant avec `reverse()` :
       // les démarches données part `titresGet` sont dans l'ordre décroissant
-      const demarches = titreDemarchesAscSort(titre.demarches!.reverse())
+      const demarches = titreDemarchesAscSort(
+        titre.demarches!.reverse()
+      ) as ITitreDemarche[]
 
       // retourne les phases enregistrées en base
       const titrePhasesOld = demarches.reduce((res: ITitrePhase[], td) => {

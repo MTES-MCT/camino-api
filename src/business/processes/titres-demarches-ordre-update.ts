@@ -2,14 +2,16 @@ import { ITitre, ITitreDemarche } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
-import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 
 const titresDemarchesOrdreUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
   const titresDemarchesIdsUpdated = titres.reduce(
     (titresDemarchesIdsUpdated: string[], titre) =>
-      titreDemarchesAscSort(titre.demarches!.slice().reverse()).reduce(
+      (titreDemarchesAscSort(
+        titre.demarches!.slice().reverse()
+      ) as ITitreDemarche[]).reduce(
         (
           titresDemarchesIdsUpdated: string[],
           titreDemarche: ITitreDemarche,

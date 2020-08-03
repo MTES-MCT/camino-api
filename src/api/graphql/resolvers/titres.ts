@@ -18,7 +18,7 @@ import {
 } from '../../../database/queries/titres'
 import { userGet } from '../../../database/queries/utilisateurs'
 
-import { titreDocumentsDelete } from './_titre-document'
+import { titreFichiersDelete } from './_titre-document'
 
 import titreUpdateTask from '../../../business/titre-update'
 
@@ -210,12 +210,22 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
     throw new Error('droits insuffisants')
   }
 
-  const titreOld = await titreGet(id, {}, user.id)
+  const titreOld = await titreGet(
+    id,
+    {
+      fields: {
+        demarches: { etapes: { documents: { type: { id: {} } } } },
+        travaux: { etapes: { documents: { type: { id: {} } } } },
+        activites: { documents: { type: { id: {} } } }
+      }
+    },
+    user.id
+  )
   if (!titreOld) {
     throw new Error('aucun titre avec cet id')
   }
 
-  await titreDocumentsDelete(titreOld)
+  await titreFichiersDelete(titreOld)
 
   return titreDelete(id)
 }

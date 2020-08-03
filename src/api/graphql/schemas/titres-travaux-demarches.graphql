@@ -1,0 +1,31 @@
+type Travaux {
+  elements: [Travail]
+  page: Int
+  intervalle: Int
+  ordre: String
+  colonne: String
+  total: Int
+}
+
+type Travail {
+  id: ID!
+  type: TravauxType!
+  ordre: Int!
+  statut: DemarcheStatut!
+  titre: Titre
+  etapes: [TravauxEtape]
+  modification: Boolean
+  etapesCreation: Boolean
+  suppression: Boolean
+}
+
+input InputTravauxCreation {
+  typeId: ID!
+  titreId: ID!
+}
+
+input InputTravauxModification {
+  id: ID!
+  typeId: ID!
+  titreId: ID!
+}

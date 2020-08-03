@@ -88,7 +88,7 @@ const titresDemarchesQueryBuild = (
 ) => {
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
-    : options.demarches.graph
+    : options.titresDemarches.graph
 
   const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
 
@@ -304,7 +304,7 @@ const titreDemarcheCreate = async (
 ) => {
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
-    : options.demarches.graph
+    : options.titresDemarches.graph
 
   return TitresDemarches.query()
     .insertAndFetch(titreDemarche)
@@ -314,7 +314,7 @@ const titreDemarcheCreate = async (
 const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
   TitresDemarches.query(trx)
     .deleteById(id)
-    .withGraphFetched(options.demarches.graph)
+    .withGraphFetched(options.titresDemarches.graph)
     .returning('*')
 
 const titreDemarcheUpdate = async (
@@ -324,7 +324,7 @@ const titreDemarcheUpdate = async (
 ) => {
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
-    : options.demarches.graph
+    : options.titresDemarches.graph
 
   return TitresDemarches.query()
     .patchAndFetchById(id, props)
@@ -336,8 +336,8 @@ const titreDemarcheUpsert = async (
   trx?: Transaction
 ) =>
   TitresDemarches.query(trx)
-    .upsertGraph(titreDemarche, options.demarches.update)
-    .withGraphFetched(options.demarches.graph)
+    .upsertGraph(titreDemarche, options.titresDemarches.update)
+    .withGraphFetched(options.titresDemarches.graph)
     .returning('*')
 
 const titreDemarchesIdsUpdate = async (

@@ -45,7 +45,7 @@ const documentsPermissionQueryBuild = (
 
           c.where(d => {
             d.orWhere(e => {
-              e.where('type.repertoire', 'etapes')
+              e.where('type.repertoire', 'demarches')
               e.where(f => {
                 f.orWhereIn(
                   'etape:demarche:titre:titulaires.id',

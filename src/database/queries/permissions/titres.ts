@@ -5,6 +5,7 @@ import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
+import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
 
 import Entreprises from '../../models/entreprises'
@@ -15,6 +16,7 @@ import {
   titreActiviteQueryPropsBuild
 } from './titres-activites'
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
+import { titreTravauxPermissionQueryBuild } from './titres-travaux'
 import { titresModificationQueryBuild } from './metas'
 
 const titrePermissionQueryBuild = (
@@ -63,6 +65,7 @@ const titrePermissionQueryBuild = (
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
+    q.select(raw('true').as('travauxCreation'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
@@ -76,6 +79,7 @@ const titrePermissionQueryBuild = (
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
+    q.select(raw('false').as('travauxCreation'))
   }
 
   titreActivitesCalc(q, fields, user)
@@ -84,6 +88,15 @@ const titrePermissionQueryBuild = (
   q.modifyGraph('demarches', b => {
     titreDemarchePermissionQueryBuild(
       b as QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
+      fields,
+      user
+    )
+  })
+
+  // visibilité des travaux
+  q.modifyGraph('travaux', b => {
+    titreTravauxPermissionQueryBuild(
+      b as QueryBuilder<TitresTravaux, TitresTravaux | TitresTravaux[]>,
       fields,
       user
     )

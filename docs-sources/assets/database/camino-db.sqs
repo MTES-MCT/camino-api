@@ -743,7 +743,7 @@
         <uid><![CDATA[2E4C3768-B294-4542-A28F-E7657C9DAC7E]]></uid>
     </SQLCanvasArea>
     <SQLTable>
-        <name><![CDATA[titres_travaux_demarches]]></name>
+        <name><![CDATA[titres_travaux]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>900.00</x>
@@ -800,9 +800,9 @@
             <name><![CDATA[type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>travaux_demarches_types</referencesTable>
+            <referencesTable>travaux_types</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[travaux_demarches_types]]></referencesTable>
+            <referencesTable><![CDATA[travaux_types]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[D902653A-C83E-43AC-8B55-E1877BE88BEB]]></referencesFieldUID>
@@ -1703,25 +1703,25 @@
         <uid><![CDATA[5076CFBB-6492-4CDB-8E76-FC37FF65AA5C]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[travaux_demarches_types__demarches_statuts]]></name>
+        <name><![CDATA[travaux_types__demarches_statuts]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
             <y>1900.00</y>
         </location>
         <size>
-            <width>325.00</width>
+            <width>300.00</width>
             <height>80.00</height>
         </size>
         <zorder>86</zorder>
         <SQLField>
-            <name><![CDATA[travaux_demarche_type_id]]></name>
+            <name><![CDATA[travaux_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <primaryKey>1</primaryKey>
             <referencesField>id</referencesField>
-            <referencesTable>travaux_demarches_types</referencesTable>
+            <referencesTable>travaux_types</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[travaux_demarches_types]]></referencesTable>
+            <referencesTable><![CDATA[travaux_types]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[D902653A-C83E-43AC-8B55-E1877BE88BEB]]></referencesFieldUID>
@@ -3455,25 +3455,43 @@
         <uid><![CDATA[AEDB5AB0-51CF-4CF9-A829-1248893107D9]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[travaux_demarches_types__etapes_types]]></name>
+        <name><![CDATA[travaux_types__etapes_types]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
             <y>2025.00</y>
         </location>
         <size>
-            <width>325.00</width>
+            <width>300.00</width>
             <height>100.00</height>
         </size>
         <zorder>87</zorder>
         <SQLField>
-            <name><![CDATA[travaux_demarche_type_id]]></name>
+            <name><![CDATA[etape_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
             <primaryKey>1</primaryKey>
             <referencesField>id</referencesField>
-            <referencesTable>travaux_demarches_types</referencesTable>
+            <referencesTable>etapes_types</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[travaux_demarches_types]]></referencesTable>
+            <referencesTable><![CDATA[etapes_types]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[4E0EB8CE-A69A-4C6B-A8BE-ECB63E3E80B5]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[85081038-711D-4859-B83D-2A73209B9BB3]]></referencesTableUID>
+            <autoIncrement><![CDATA[0]]></autoIncrement>
+            <foreignKeyName><![CDATA[titresdomainestypes_typeid_foreign]]></foreignKeyName>
+            <notNull><![CDATA[0]]></notNull>
+            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
+            <uid><![CDATA[2573C64B-76E2-41CB-9007-2CF769B08F1B]]></uid>
+        </SQLField>
+        <SQLField>
+            <name><![CDATA[travaux_type_id]]></name>
+            <type><![CDATA[CHARACTER VARYING(3)]]></type>
+            <primaryKey>1</primaryKey>
+            <referencesField>id</referencesField>
+            <referencesTable>travaux_types</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[travaux_types]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[D902653A-C83E-43AC-8B55-E1877BE88BEB]]></referencesFieldUID>
@@ -3483,16 +3501,6 @@
             <notNull><![CDATA[0]]></notNull>
             <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
             <uid><![CDATA[668B3D85-F62D-4A8B-AF64-7870163600A8]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[etape_type_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <foreignKeyName><![CDATA[titresdomainestypes_typeid_foreign]]></foreignKeyName>
-            <notNull><![CDATA[0]]></notNull>
-            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
-            <uid><![CDATA[2573C64B-76E2-41CB-9007-2CF769B08F1B]]></uid>
         </SQLField>
         <SQLField>
             <name><![CDATA[ordre]]></name>
@@ -3684,7 +3692,7 @@
         <uid><![CDATA[B574384A-9F27-4B49-96E4-3066D92FF769]]></uid>
     </SQLCanvasArea>
     <SQLTable>
-        <name><![CDATA[travaux_demarches_types]]></name>
+        <name><![CDATA[travaux_types]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
@@ -4110,12 +4118,12 @@
             <unique><![CDATA[0]]></unique>
         </SQLField>
         <SQLField>
-            <name><![CDATA[titre_travaux_demarche_id]]></name>
+            <name><![CDATA[titre_travaux_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>titres_travaux_demarches</referencesTable>
+            <referencesTable>titres_travaux</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[titres_travaux_demarches]]></referencesTable>
+            <referencesTable><![CDATA[titres_travaux]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
             <referencesFieldUID><![CDATA[E279DAAD-910C-4ECD-92E2-A1199C2D7C05]]></referencesFieldUID>
@@ -4782,16 +4790,16 @@
         <overviewPanelHidden><![CDATA[0]]></overviewPanelHidden>
         <pageBoundariesVisible><![CDATA[0]]></pageBoundariesVisible>
         <PageGridVisible><![CDATA[1]]></PageGridVisible>
-        <RightSidebarWidth><![CDATA[1003.000000]]></RightSidebarWidth>
+        <RightSidebarWidth><![CDATA[1279.000000]]></RightSidebarWidth>
         <sidebarIndex><![CDATA[5]]></sidebarIndex>
         <snapToGrid><![CDATA[1]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[0.000000]]></SourceSidebarWidth>
         <SQLEditorFileFormatVersion><![CDATA[4]]></SQLEditorFileFormatVersion>
         <uid><![CDATA[67709206-52A1-4046-83B9-A12E9C651AE4]]></uid>
         <windowHeight><![CDATA[1418.000000]]></windowHeight>
-        <windowLocationX><![CDATA[-0.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[-0.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{331, 176}]]></windowScrollOrigin>
+        <windowLocationX><![CDATA[0.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[0.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{0, 372}]]></windowScrollOrigin>
         <windowWidth><![CDATA[1280.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

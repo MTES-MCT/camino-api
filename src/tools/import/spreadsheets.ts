@@ -33,6 +33,8 @@ const metasActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_METAS_ACTIVITES
 const titresActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES
+const titresTravauxSpreadsheetId =
+  process.env.GOOGLE_SPREADSHEET_ID_TITRES_TRAVAUX
 const titresActivitesRepriseSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_TITRES_ACTIVITES_REPRISE
 
@@ -151,6 +153,10 @@ const metas = {
       name: 'titres_types__demarches_types__etapes_types',
       cb: { sections: JSON.parse }
     },
+
+    { name: 'travaux_types' },
+    { name: 'travaux_types__demarches_statuts' },
+    { name: 'travaux_types__etapes_types' },
     { name: 'geo_systemes' },
     { name: 'devises' },
     { name: 'unites' },
@@ -251,6 +257,15 @@ const titresActivites = {
   tables: [{ name: 'titres_activites', cb: { contenu: JSON.parse } }]
 } as ISpreadsheet
 
+const titresTravaux = {
+  name: 'titres-travaux',
+  id: titresTravauxSpreadsheetId,
+  tables: [
+    { name: 'titres_travaux' },
+    { name: 'titres_travaux_etapes', cb: { contenu: JSON.parse } }
+  ]
+} as ISpreadsheet
+
 const titresActivitesReprise = {
   name: 'titres-activites-reprise',
   id: titresActivitesRepriseSpreadsheetId,
@@ -287,6 +302,7 @@ const spreadsheets = [
   utilisateurs,
   metasActivites,
   titresActivites,
+  titresTravaux,
   titresActivitesReprise,
   autorisations,
   globales

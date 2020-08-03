@@ -519,7 +519,7 @@
     "nom": "rapport d’intensité d’exploration",
     "frequence_id": "ann",
     "date_debut": "2019-01-01",
-    "delai_mois": "4",
+    "delai_mois": "12",
     "sections": [
       {
         "id": "levesTopographiques",
@@ -1081,7 +1081,7 @@
     "nom": "rapport financier d'exploration",
     "frequence_id": "ann",
     "date_debut": "2019-01-01",
-    "delai_mois": "4",
+    "delai_mois": "12",
     "sections": [
       {
         "id": "indicateursFinanciersDepensesTotales",
@@ -1310,7 +1310,7 @@
     "nom": "rapport environnemental d'exploration",
     "frequence_id": "ann",
     "date_debut": "2019-01-01",
-    "delai_mois": "4",
+    "delai_mois": "12",
     "sections": [
       {
         "id": "indicateursEnvironnement",
@@ -1378,7 +1378,7 @@
     "nom": "rapport social et économique d'exploration",
     "frequence_id": "ann",
     "date_debut": "2019-01-01",
-    "delai_mois": "3",
+    "delai_mois": "12",
     "sections": [
       {
         "id": "indicateursSocialEconomiqueDirect",

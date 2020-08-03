@@ -17,7 +17,7 @@ const documentGet = async (
   userId?: string
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'etapes', graphFormat)
+    ? graphBuild(fields, 'documents', graphFormat)
     : options.documents.graph
 
   const user = await userGet(userId)
@@ -37,7 +37,7 @@ const documentsGet = async (
   userId?: string
 ) => {
   const graph = fields
-    ? graphBuild(fields, 'etapes', graphFormat)
+    ? graphBuild(fields, 'documents', graphFormat)
     : options.documents.graph
 
   const user = await userGet(userId)

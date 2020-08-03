@@ -27,6 +27,12 @@ exports.up = knex =>
         .references('titresActivites.id')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+      table.string('titreTravauxEtapeId', 128).index()
+      table
+        .foreign('titreTravauxEtapeId')
+        .references('titresTravauxEtapes.id')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE')
       table.boolean('fichier')
       table.string('fichierTypeId', 3)
       table.string('url', 1024)
