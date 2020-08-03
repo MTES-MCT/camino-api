@@ -364,6 +364,7 @@ interface ITravauxType {
   id: string
   nom: string
   ordre: number
+  etapesTypes: IEtapeType[]
   description?: string
   travauxCreation?: boolean | null
 }

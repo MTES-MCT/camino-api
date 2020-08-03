@@ -31,5 +31,6 @@ input InputTravauxEtapeModification {
   date: String!
   ordre: Int
   duree: Int
+  surface: Float
   contenu: Json
 }

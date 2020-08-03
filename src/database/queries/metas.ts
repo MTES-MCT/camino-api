@@ -31,7 +31,8 @@ import {
   demarchesTypesPermissionQueryBuild,
   activitesTypesPermissionQueryBuild,
   permissionsPermissionQueryBuild,
-  travauxTypesPermissionQueryBuild
+  travauxTypesPermissionQueryBuild,
+  travauxEtapesTypesPermissionQueryBuild
 } from './permissions/metas'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
@@ -113,8 +114,15 @@ const demarchesStatutsGet = async () =>
 const etapesTypesGet = async (
   {
     titreDemarcheId,
-    titreEtapeId
-  }: { titreDemarcheId?: string; titreEtapeId?: string },
+    titreEtapeId,
+    titreTravauxId,
+    titreTravauxEtapeId
+  }: {
+    titreDemarcheId?: string
+    titreEtapeId?: string
+    titreTravauxId?: string
+    titreTravauxEtapeId?: string
+  },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
@@ -126,7 +134,16 @@ const etapesTypesGet = async (
 
   const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
+  if (titreDemarcheId) {
+    etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
+  }
+
+  if (titreTravauxId) {
+    travauxEtapesTypesPermissionQueryBuild(q, user, {
+      titreTravauxId,
+      titreTravauxEtapeId
+    })
+  }
 
   return q
 }

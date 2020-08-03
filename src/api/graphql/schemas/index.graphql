@@ -122,7 +122,12 @@ type Query {
   demarchesStatuts: [DemarcheStatut]
 
   "Types d'étapes"
-  etapesTypes(titreDemarcheId: ID, titreEtapeId: ID): [EtapeType]
+  etapesTypes(
+    titreDemarcheId: ID
+    titreEtapeId: ID
+    titreTravauxId: ID
+    titreTravauxEtapeId: ID
+  ): [EtapeType]
 
   "Status d'étapes"
   etapesStatuts: [EtapeStatut]

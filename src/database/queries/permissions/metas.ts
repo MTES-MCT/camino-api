@@ -19,6 +19,7 @@ import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--dem
 import TitresActivites from '../../models/titres-activites'
 import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
+import TitresTravaux from '../../models/titres-travaux'
 
 const titresRestrictionsAdministrationQueryBuild = (
   administrations: IAdministration[],
@@ -305,6 +306,44 @@ const etapesTypesPermissionQueryBuild = (
   // fileCreate('dev/tmp/etapes-types.sql', format(q.toKnexQuery().toString()))
 }
 
+const travauxEtapesTypesPermissionQueryBuild = (
+  q: QueryBuilder<EtapesTypes, EtapesTypes | EtapesTypes[]>,
+  user?: IUtilisateur,
+  {
+    titreTravauxId,
+    titreTravauxEtapeId
+  }: { titreTravauxId?: string; titreTravauxEtapeId?: string } = {}
+) => {
+  q.select('etapesTypes.*')
+
+  // si titreDemarcheId
+  // -> restreint aux types d'étapes du type de la démarche
+
+  if (titreTravauxId) {
+    q.whereExists(
+      TitresTravaux.query()
+        .findById(titreTravauxId)
+        .joinRelated('titre')
+        .join(
+          'travauxTypes__etapesTypes as te',
+          raw('?? = ?? and ?? = ??', [
+            'te.etapeTypeId',
+            'etapesTypes.id',
+            'te.travauxTypeId',
+            'titresTravaux.typeId'
+          ])
+        )
+    )
+  }
+
+  // propriété 'etapesCreation' en fonction du profil de l'utilisateur
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    q.select(raw('true').as('etapesCreation'))
+  } else {
+    q.select(raw('false').as('etapesCreation'))
+  }
+}
+
 const activitesTypesPermissionQueryBuild = (
   q: QueryBuilder<ActivitesTypes, ActivitesTypes | ActivitesTypes[]>,
   user?: IUtilisateur
@@ -447,5 +486,6 @@ export {
   permissionsPermissionQueryBuild,
   titresModificationQueryBuild,
   titresTypesPermissionsQueryBuild,
-  travauxTypesPermissionQueryBuild
+  travauxTypesPermissionQueryBuild,
+  travauxEtapesTypesPermissionQueryBuild
 }

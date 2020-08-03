@@ -18,5 +18,5 @@ var newPath = './files/demarches'
 
 fs.rename(oldPath, newPath, function (err) {
   if (err) throw err
-  console.log('renommage du dossier etapes en demarches')
+  console.info('renommage du dossier etapes en demarches')
 })

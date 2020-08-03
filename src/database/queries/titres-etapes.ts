@@ -1,4 +1,4 @@
-import { transaction, Transaction } from 'objection'
+import { Transaction } from 'objection'
 import {
   ITitreEtape,
   ITitreCommune,
@@ -169,22 +169,6 @@ const titreEtapeAdministrationDelete = async (
     .where('titreEtapeId', titreEtapeId)
     .andWhere('administrationId', administrationId)
 
-const titreEtapesIdsUpdate = async (
-  titresEtapesIdsOld: string[],
-  titresEtapesNew: ITitreEtape[]
-) => {
-  const knex = TitresEtapes.knex()
-
-  return transaction(knex, async tr => {
-    await Promise.all(
-      titresEtapesIdsOld.map(titreEtapeId => titreEtapeDelete(titreEtapeId, tr))
-    )
-    await Promise.all(
-      titresEtapesNew.map(titreEtape => titreEtapeUpsert(titreEtape, tr))
-    )
-  })
-}
-
 export {
   titresEtapesGet,
   titreEtapeGet,
@@ -198,6 +182,5 @@ export {
   titreEtapeJustificatifsDelete,
   titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete,
-  titreEtapesIdsUpdate,
   titreEtapeDelete
 }

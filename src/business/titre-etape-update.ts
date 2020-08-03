@@ -46,6 +46,8 @@ const titreEtapeUpdate = async (
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
     }
 
+    titreId = titreDemarche.titreId
+
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate([
       titreDemarche
     ])
@@ -57,7 +59,6 @@ const titreEtapeUpdate = async (
       { fields: { etapes: { id: {} } } },
       'super'
     )
-    titreId = titreDemarche.titreId
     titre = await titreGet(
       titreId,
       { fields: { demarches: { etapes: { id: {} } } } },

@@ -505,6 +505,7 @@ export default {
   titresDemarchesEtapes,
   titresDemarchesPhases,
   titresTravaux,
+  titresTravauxEtapes,
   titresTypes,
   utilisateurs
 }

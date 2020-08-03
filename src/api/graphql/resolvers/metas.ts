@@ -307,8 +307,15 @@ const demarcheEtapesTypesGet = async (
 const etapesTypes = async (
   {
     titreDemarcheId,
-    titreEtapeId
-  }: { titreDemarcheId?: string; titreEtapeId?: string },
+    titreEtapeId,
+    titreTravauxId,
+    titreTravauxEtapeId
+  }: {
+    titreDemarcheId?: string
+    titreEtapeId?: string
+    titreTravauxId?: string
+    titreTravauxEtapeId?: string
+  },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -316,7 +323,12 @@ const etapesTypes = async (
     const fields = fieldsBuild(info)
 
     const etapesTypes = await etapesTypesGet(
-      { titreDemarcheId, titreEtapeId },
+      {
+        titreDemarcheId,
+        titreEtapeId,
+        titreTravauxId,
+        titreTravauxEtapeId
+      },
       { fields },
       context.user?.id
     )
