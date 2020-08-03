@@ -718,5 +718,10 @@
     "etape_type_id": "rdt",
     "etape_statut_id": "rej",
     "ordre": "2"
+  },
+  {
+    "etape_type_id": "ihi",
+    "etape_statut_id": "fai",
+    "ordre": "1"
   }
 ]

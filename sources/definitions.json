@@ -18,7 +18,7 @@
     "id": "tma",
     "nom": "Autorisations minières",
     "slug": "autorisation-miniere",
-    "description": "Acte administratif individuel qui octroie des droits miniers exclusifs, pour des substances de mines ou des usages du sous-sol, pour une durée et un périmètre fixés. Selon les cas, l’autorité décisionnaire est le ministre chargée des mines, le préfet ou l’Office national des forêts, (mandataire de l'État pour l'administration et la gestion des autorisations de recherches minières pour l’or en Guyane).",
+    "description": "Acte administratif individuel qui octroie des droits miniers exclusifs, pour des substances de mines ou des usages du sous-sol, pour une durée et un périmètre fixés. Selon les cas, l’autorité décisionnaire est le ministre chargée des mines, le préfet ou l’Office national des forêts, (mandataire de l'État pour l'administration et la gestion des autorisations de recherches minières pour l’or en Guyane). Certaines autorisations minières peuvent inclurent une autorisation de travaux miniers.",
     "ordre": "3"
   },
   {

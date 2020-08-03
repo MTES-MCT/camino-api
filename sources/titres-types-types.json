@@ -2,7 +2,7 @@
   {
     "id": "ap",
     "nom": "autorisation de prospections préalables",
-    "description": "Cette autorisation est applicable aux granulats marins et aux hydrocarbures liquides ou gazeux. Elle donne le droit non exclusif d’exécuter tous travaux de recherches en mer destinés à acquérir des connaissances sur le contexte géologique et les gisements du sous-sol marin. Son titulaire ne peut pas disposer des éventuels gisements identifiés. Les sondages dépassant une profondeur de 300 mètres à partir du fond de la mer sont exclus. Sa durée ne peut excéder deux ans.",
+    "description": "Cette autorisation est applicable aux granulats marins et aux hydrocarbures liquides ou gazeux. Elle donne le droit non exclusif de solliciter l’exécution de tous travaux de recherches en mer destinés à acquérir des connaissances sur le contexte géologique et les gisements du sous-sol marin. Son titulaire ne peut pas disposer des éventuels gisements identifiés. Les sondages dépassant une profondeur de 300 mètres à partir du fond de la mer sont exclus. Sa durée ne peut excéder deux ans. L'autorisation de prospection préalable n'inclut pas d'autorisation de travaux miniers.",
     "exploitation": "FALSE",
     "ordre": "1"
   },

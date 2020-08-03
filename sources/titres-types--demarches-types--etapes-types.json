@@ -156,10 +156,10 @@
     "ordre": "1020"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "1020"
+    "etape_type_id": "ihi",
+    "ordre": "10"
   },
   {
     "titre_type_id": "cxf",
@@ -318,10 +318,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "prw",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "ihi",
+    "ordre": "10"
   },
   {
     "titre_type_id": "prg",
@@ -522,10 +522,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "prm",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "ihi",
+    "ordre": "10"
   },
   {
     "titre_type_id": "prr",
@@ -576,10 +576,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "prr",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100"
   },
   {
     "titre_type_id": "prs",
@@ -630,10 +630,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "prs",
+    "titre_type_id": "prf",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100"
   },
   {
     "titre_type_id": "prw",
@@ -684,10 +684,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prg",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100"
   },
   {
     "titre_type_id": "pxg",
@@ -804,10 +804,31 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "pxh",
+    "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
   },
   {
     "titre_type_id": "pxm",
@@ -870,10 +891,31 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "pxm",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
   },
   {
     "titre_type_id": "pxr",
@@ -936,10 +978,31 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "prs",
     "demarche_type_id": "vct",
-    "etape_type_id": "abd",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
   },
   {
     "titre_type_id": "pxw",
@@ -1130,10 +1193,31 @@
     "ordre": "352"
   },
   {
-    "titre_type_id": "prm",
+    "titre_type_id": "prw",
     "demarche_type_id": "vct",
-    "etape_type_id": "acg",
-    "ordre": "352"
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
   },
   {
     "titre_type_id": "prr",
@@ -1544,10 +1628,10 @@
     "ordre": "1030"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "1030"
+    "etape_type_id": "mfr",
+    "ordre": "100"
   },
   {
     "titre_type_id": "cxf",
@@ -1706,10 +1790,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
+    "etape_type_id": "mfr",
+    "ordre": "100"
   },
   {
     "titre_type_id": "prg",
@@ -1868,172 +1952,172 @@
     "ordre": "550"
   },
   {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "and",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "and",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ret",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "vct",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "exp",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "fus",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "mut",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "and",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "and",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "and",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ret",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "exp",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "fus",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "mut",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "and",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "pxg",
@@ -2150,10 +2234,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "pxh",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "pxm",
@@ -2216,10 +2300,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "pxm",
+    "titre_type_id": "prs",
     "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "pxr",
@@ -2282,10 +2366,10 @@
     "ordre": "550"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "prw",
     "demarche_type_id": "vct",
-    "etape_type_id": "and",
-    "ordre": "800"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "pxw",
@@ -3470,10 +3554,10 @@
     "ordre": "1100"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "cxf",
@@ -3920,10 +4004,10 @@
     "ordre": "1100"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "prg",
@@ -3974,10 +4058,10 @@
     "ordre": "1100"
   },
   {
-    "titre_type_id": "prg",
+    "titre_type_id": "pxr",
     "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
+    "etape_type_id": "spp",
+    "ordre": "130"
   },
   {
     "titre_type_id": "prh",
@@ -4088,118 +4172,118 @@
     "ordre": "1100"
   },
   {
+    "titre_type_id": "axm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "men",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "men",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ret",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ret",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
+    "etape_type_id": "men",
+    "ordre": "200"
   },
   {
     "titre_type_id": "prw",
@@ -4250,10 +4334,10 @@
     "ordre": "1100"
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
+    "etape_type_id": "men",
+    "ordre": "200"
   },
   {
     "titre_type_id": "pxg",
@@ -4370,142 +4454,142 @@
     "ordre": "1100"
   },
   {
+    "titre_type_id": "prs",
+    "demarche_type_id": "vct",
+    "etape_type_id": "men",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "amo",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "res",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "men",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "amo",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exs",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "res",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
     "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "amo",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "res",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "amo",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exs",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "res",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "css",
-    "ordre": "1100"
+    "etape_type_id": "men",
+    "ordre": "200"
   },
   {
     "titre_type_id": "pxw",
@@ -4680,10 +4764,10 @@
     "ordre": "1000"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "des",
-    "ordre": "1000"
+    "etape_type_id": "men",
+    "ordre": "200"
   },
   {
     "titre_type_id": "cxf",
@@ -4884,10 +4968,10 @@
     "ordre": "450"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "pxr",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800"
+    "etape_type_id": "men",
+    "ordre": "200"
   },
   {
     "titre_type_id": "cxf",
@@ -5433,10 +5517,10 @@
     "ordre": "450"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800"
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "prg",
@@ -6018,247 +6102,205 @@
     ]
   },
   {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "dex",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "dex",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "dex",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "dex",
+    "ordre": "440",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "dex",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "dex",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "dex",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "dex",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "dex",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "dex",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "dex",
-    "ordre": "440",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "dex",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "dex",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "dex",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "prs",
@@ -6450,31 +6492,10 @@
     ]
   },
   {
-    "titre_type_id": "prs",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "prw",
@@ -6666,31 +6687,10 @@
     ]
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prs",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "pxg",
@@ -6789,70 +6789,70 @@
     "ordre": "450"
   },
   {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "amo",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "res",
+    "etape_type_id": "dex",
+    "ordre": "450"
+  },
+  {
     "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "amo",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "res",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800"
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "pxr",
@@ -6909,10 +6909,10 @@
     "ordre": "450"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dex",
-    "ordre": "800"
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "pxw",
@@ -8538,10 +8538,10 @@
     "ordre": "455"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "pxr",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900"
+    "etape_type_id": "mod",
+    "ordre": "200"
   },
   {
     "titre_type_id": "prg",
@@ -9123,247 +9123,205 @@
     ]
   },
   {
+    "titre_type_id": "axm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mcr",
+    "ordre": "250"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "dpu",
+    "ordre": "455",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "dpu",
+    "ordre": "455",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "dpu",
+    "ordre": "455",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "dpu",
+    "ordre": "450",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "dpu",
+    "ordre": "455",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "dpu",
+    "ordre": "455",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "dpu",
+    "ordre": "455",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "dpu",
-    "ordre": "455",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "dpu",
-    "ordre": "455",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "dpu",
-    "ordre": "455",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "dpu",
-    "ordre": "450",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "dpu",
-    "ordre": "455",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "dpu",
-    "ordre": "455",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "dpu",
-    "ordre": "455",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "scg",
+    "ordre": "350"
   },
   {
     "titre_type_id": "prs",
@@ -9555,31 +9513,10 @@
     ]
   },
   {
-    "titre_type_id": "prs",
+    "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "rcg",
+    "ordre": "351"
   },
   {
     "titre_type_id": "prw",
@@ -9771,31 +9708,10 @@
     ]
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "acg",
+    "ordre": "352"
   },
   {
     "titre_type_id": "pxg",
@@ -9894,10 +9810,10 @@
     "ordre": "455"
   },
   {
-    "titre_type_id": "pxh",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "pxm",
@@ -9954,10 +9870,10 @@
     "ordre": "455"
   },
   {
-    "titre_type_id": "pxm",
+    "titre_type_id": "prf",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "pxr",
@@ -10014,10 +9930,10 @@
     "ordre": "455"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "dpu",
-    "ordre": "900"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "pxw",
@@ -11744,10 +11660,10 @@
     "ordre": "250"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "mcr",
-    "ordre": "250"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "cxf",
@@ -12836,10 +12752,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "prs",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "cxf",
@@ -13010,10 +12926,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "prw",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "prg",
@@ -13154,10 +13070,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "prm",
+    "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "prr",
@@ -13202,10 +13118,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "prr",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "prs",
@@ -13250,10 +13166,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "prs",
+    "titre_type_id": "pxr",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "sas",
+    "ordre": "449"
   },
   {
     "titre_type_id": "prw",
@@ -13298,10 +13214,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prf",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxg",
@@ -13400,10 +13316,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "pxh",
+    "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxm",
@@ -13460,10 +13376,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "pxm",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxr",
@@ -13520,10 +13436,10 @@
     "ordre": "120"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "prs",
     "demarche_type_id": "vct",
-    "etape_type_id": "men",
-    "ordre": "200"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxw",
@@ -13712,10 +13628,10 @@
     "ordre": "100"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "prw",
     "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "cxf",
@@ -14249,10 +14165,10 @@
     "ordre": "100"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "prg",
@@ -14444,10 +14360,10 @@
     ]
   },
   {
-    "titre_type_id": "prg",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
+    "etape_type_id": "abd",
+    "ordre": "800"
   },
   {
     "titre_type_id": "prh",
@@ -14840,463 +14756,400 @@
     ]
   },
   {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "abd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "and",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mfr",
+    "ordre": "100",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "and",
+    "ordre": "800"
   },
   {
     "titre_type_id": "prw",
@@ -15488,31 +15341,10 @@
     ]
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100",
-    "sections": [
-      {
-        "id": "prx",
-        "nom": "Propriétés du permis exclusif de recherches",
-        "elements": [
-          {
-            "id": "engagement",
-            "nom": "Engagement",
-            "description": "Engagement financier",
-            "type": "number"
-          },
-          {
-            "id": "engagementDeviseId",
-            "nom": "Devise de l'engagement",
-            "description": "",
-            "type": "select",
-            "valeursMetasNom": "devises"
-          }
-        ]
-      }
-    ]
+    "etape_type_id": "and",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxg",
@@ -15611,130 +15443,130 @@
     "ordre": "100"
   },
   {
+    "titre_type_id": "prs",
+    "demarche_type_id": "vct",
+    "etape_type_id": "and",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "amo",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "res",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "and",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "amo",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exs",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "res",
+    "etape_type_id": "mfr",
+    "ordre": "100"
+  },
+  {
     "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "amo",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "res",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "amo",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exs",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "res",
-    "etape_type_id": "mfr",
-    "ordre": "100"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mfr",
-    "ordre": "100"
+    "etape_type_id": "and",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxw",
@@ -16449,10 +16281,10 @@
     "ordre": "200"
   },
   {
-    "titre_type_id": "axm",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
+    "etape_type_id": "and",
+    "ordre": "800"
   },
   {
     "titre_type_id": "cxf",
@@ -16659,10 +16491,10 @@
     "ordre": "200"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "pxr",
     "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
+    "etape_type_id": "and",
+    "ordre": "800"
   },
   {
     "titre_type_id": "prg",
@@ -16803,106 +16635,127 @@
     "ordre": "200"
   },
   {
+    "titre_type_id": "axm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dex",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mod",
+    "ordre": "150"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dex",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mod",
+    "ordre": "150"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mod",
-    "ordre": "150"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mod",
-    "ordre": "150"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
+    "etape_type_id": "dex",
+    "ordre": "800",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
   },
   {
     "titre_type_id": "prw",
@@ -16947,10 +16800,31 @@
     "ordre": "200"
   },
   {
-    "titre_type_id": "prw",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
+    "etape_type_id": "dex",
+    "ordre": "800",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
   },
   {
     "titre_type_id": "pxg",
@@ -17049,130 +16923,172 @@
     "ordre": "200"
   },
   {
+    "titre_type_id": "prs",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dex",
+    "ordre": "800",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "amo",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "res",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dex",
+    "ordre": "800",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "amo",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exs",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "res",
+    "etape_type_id": "mod",
+    "ordre": "200"
+  },
+  {
     "titre_type_id": "pxh",
     "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "amo",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "res",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "amo",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exs",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "res",
-    "etape_type_id": "mod",
-    "ordre": "200"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "mod",
-    "ordre": "200"
+    "etape_type_id": "dex",
+    "ordre": "800"
   },
   {
     "titre_type_id": "pxw",
@@ -17763,10 +17679,10 @@
     "ordre": "351"
   },
   {
-    "titre_type_id": "prm",
+    "titre_type_id": "pxm",
     "demarche_type_id": "vct",
-    "etape_type_id": "rcg",
-    "ordre": "351"
+    "etape_type_id": "dex",
+    "ordre": "800"
   },
   {
     "titre_type_id": "prr",
@@ -18329,2088 +18245,2172 @@
     "ordre": "460"
   },
   {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dex",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "cxf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "cxg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "cxh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "cxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "cxs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "520"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rpu",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rpu",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "apc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apc",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apc",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "aph",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "aph",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "aph",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "pro",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "dep",
+    "etape_type_id": "rtd",
+    "ordre": "1010"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "1010"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "pro",
+    "etape_type_id": "rtd",
+    "ordre": "1010"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "1010"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "1010"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "cxf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxh",
+    "demarche_type_id": "con",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ces",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "dec",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "amo",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "pro",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "res",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "500"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pre",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "500"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "abd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "abd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "500"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "500"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "500"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "amo",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "fus",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "pro",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "res",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "amo",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "prr",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "res",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "amo",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "res",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "rtd",
+    "ordre": "800"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "amo",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "exs",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "res",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "amo",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "exp",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "mut",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "prr",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "res",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "rtd",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "apc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apc",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apc",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "aph",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "aph",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "aph",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "pro",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arc",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "arg",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "dep",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "pro",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "cxf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxh",
+    "demarche_type_id": "con",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "cxh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ces",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "dec",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "amo",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "pro",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "res",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "420"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "pre",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prh",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "420"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "and",
+    "ordre": "550"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "420"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900",
+    "sections": [
+      {
+        "id": "prx",
+        "nom": "Propriétés du permis exclusif de recherches",
+        "elements": [
+          {
+            "id": "engagement",
+            "nom": "Engagement",
+            "description": "Engagement financier",
+            "type": "number"
+          },
+          {
+            "id": "engagementDeviseId",
+            "nom": "Devise de l'engagement",
+            "description": "",
+            "type": "select",
+            "valeursMetasNom": "devises"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "420"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "420"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "amo",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "fus",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "pro",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "res",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxg",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "amo",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "prr",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "res",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "dpu",
+    "ordre": "900"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "amo",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exp",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "exs",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "mut",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "res",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "ret",
+    "etape_type_id": "sas",
+    "ordre": "449"
+  },
+  {
     "titre_type_id": "axm",
     "demarche_type_id": "vct",
     "etape_type_id": "rpu",
     "ordre": "950"
   },
   {
-    "titre_type_id": "cxf",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "cxg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "cxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "cxs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "520"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rpu",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rpu",
-    "ordre": "460"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "pro",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "dep",
-    "etape_type_id": "rtd",
-    "ordre": "1010"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "1010"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "pro",
-    "etape_type_id": "rtd",
-    "ordre": "1010"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "1010"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "1010"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "1010"
-  },
-  {
-    "titre_type_id": "cxf",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "con",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "ces",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "dec",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "amo",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "pro",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "res",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "500"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "pre",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "500"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "abd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "abd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "500"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "500"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "500"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "amo",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "fus",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "pro",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "res",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "amo",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "prr",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "res",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "amo",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "res",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "amo",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "exs",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "res",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "rtd",
-    "ordre": "800"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "amo",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "exp",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "mut",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "prr",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "res",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "pxw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "rtd",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apc",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "aph",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "apw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "pro",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arc",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "arg",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "dep",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "pro",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "axm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "cxf",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "con",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "cxh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "ces",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "dec",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "470"
-  },
-  {
-    "titre_type_id": "cxw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "amo",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "pro",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "res",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pcc",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "420"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prf",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prg",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "pre",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prh",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "420"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "and",
-    "ordre": "550"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "420"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "420"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "420"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "amo",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "fus",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "pro",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "res",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxg",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "amo",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "prr",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "res",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxh",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "amo",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exp",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "exs",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "mut",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "oct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "res",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
-    "titre_type_id": "pxm",
-    "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
-  },
-  {
     "titre_type_id": "pxr",
     "demarche_type_id": "amo",
     "etape_type_id": "sas",
@@ -20471,10 +20471,10 @@
     "ordre": "449"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "sas",
-    "ordre": "449"
+    "etape_type_id": "des",
+    "ordre": "1000"
   },
   {
     "titre_type_id": "pxw",
@@ -20645,10 +20645,10 @@
     "ordre": "350"
   },
   {
-    "titre_type_id": "prm",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "scg",
-    "ordre": "350"
+    "etape_type_id": "rtd",
+    "ordre": "1010"
   },
   {
     "titre_type_id": "prr",
@@ -21449,10 +21449,10 @@
     "ordre": "130"
   },
   {
-    "titre_type_id": "prf",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
+    "etape_type_id": "abd",
+    "ordre": "1020"
   },
   {
     "titre_type_id": "prg",
@@ -21503,10 +21503,10 @@
     "ordre": "130"
   },
   {
-    "titre_type_id": "prg",
+    "titre_type_id": "axm",
     "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
+    "etape_type_id": "and",
+    "ordre": "1030"
   },
   {
     "titre_type_id": "prh",
@@ -21617,172 +21617,172 @@
     "ordre": "130"
   },
   {
+    "titre_type_id": "axm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "exp",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "fus",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "mut",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ren",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "ret",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "exp",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "fus",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "mut",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ren",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "ret",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "vct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "exp",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "fus",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "mut",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr1",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "pr2",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ren",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "ret",
+    "etape_type_id": "spp",
+    "ordre": "130"
+  },
+  {
     "titre_type_id": "prm",
     "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "exp",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "fus",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "mut",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "oct",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ren",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "ret",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prr",
-    "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "exp",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "fus",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "mut",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "oct",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ren",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "ret",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prs",
-    "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "exp",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "fus",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "mut",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "oct",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr1",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "pr2",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ren",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "ret",
-    "etape_type_id": "spp",
-    "ordre": "130"
-  },
-  {
-    "titre_type_id": "prw",
-    "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
+    "etape_type_id": "css",
+    "ordre": "1100"
   },
   {
     "titre_type_id": "pxg",
@@ -21899,10 +21899,10 @@
     "ordre": "130"
   },
   {
-    "titre_type_id": "pxh",
+    "titre_type_id": "prr",
     "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
+    "etape_type_id": "css",
+    "ordre": "1100"
   },
   {
     "titre_type_id": "pxm",
@@ -21965,10 +21965,10 @@
     "ordre": "130"
   },
   {
-    "titre_type_id": "pxm",
+    "titre_type_id": "prs",
     "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
+    "etape_type_id": "css",
+    "ordre": "1100"
   },
   {
     "titre_type_id": "pxr",
@@ -22031,10 +22031,10 @@
     "ordre": "130"
   },
   {
-    "titre_type_id": "pxr",
+    "titre_type_id": "prw",
     "demarche_type_id": "vct",
-    "etape_type_id": "spp",
-    "ordre": "130"
+    "etape_type_id": "css",
+    "ordre": "1100"
   },
   {
     "titre_type_id": "pxw",
@@ -22324,5 +22324,149 @@
     "demarche_type_id": "res",
     "etape_type_id": "mcr",
     "ordre": "150"
+  },
+  {
+    "titre_type_id": "apm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "apw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "fus",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "vct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "fus",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "css",
+    "ordre": "1100"
+  },
+  {
+    "titre_type_id": "pxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "vut",
+    "etape_type_id": "ihi",
+    "ordre": "10"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "pxm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "axm",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "prg",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "pxh",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "pxr",
+    "demarche_type_id": "vct",
+    "etape_type_id": "mdp",
+    "ordre": "110"
   }
 ]
