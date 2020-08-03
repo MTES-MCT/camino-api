@@ -40,6 +40,8 @@ import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
 import documentInputValidate from '../../_validate/document-input-validate'
 import documentUpdationValidate from '../../../business/document-updation-validate'
+import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
+import { titreTravauxGet } from '../../../database/queries/titres-travaux'
 
 const documentFileDirPathFind = (
   document: IDocument,
@@ -134,9 +136,12 @@ const documentPermisssionsCheck = async (
   if (
     !document.titreEtapeId &&
     !document.titreActiviteId &&
-    !document.entrepriseId
+    !document.entrepriseId &&
+    !document.titreTravauxEtapeId
   ) {
-    throw new Error("id d'étape, d'activité ou d'entreprise manquant")
+    throw new Error(
+      "id d'étape, d'activité, d'entreprise ou d'étape de travaux manquant"
+    )
   }
 
   if (!user) throw new Error('droits insuffisants')
@@ -211,6 +216,32 @@ const documentPermisssionsCheck = async (
         'cette activité a été validée et ne peux plus être modifiée'
       )
     }
+  } else if (document.titreTravauxEtapeId) {
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const etape = await titreTravauxEtapeGet(
+      document.titreTravauxEtapeId,
+      { fields: {} },
+      user && user.id
+    )
+    if (!etape) throw new Error("l’étape de travaux n'existe pas")
+
+    const travaux = await titreTravauxGet(etape.titreTravauxId, { fields: {} })
+    if (!travaux) throw new Error("la démarche n'existe pas")
+
+    const titre = await titreGet(
+      travaux.titreId,
+      {
+        fields: {
+          administrationsGestionnaires: { id: {} },
+          administrationsLocales: { id: {} }
+        }
+      },
+      user.id
+    )
+    if (!titre) throw new Error("le titre n'existe pas")
   }
 }
 

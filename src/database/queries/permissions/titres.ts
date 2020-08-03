@@ -65,6 +65,7 @@ const titrePermissionQueryBuild = (
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
+    q.select(raw('true').as('travauxCreation'))
   } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
@@ -78,6 +79,7 @@ const titrePermissionQueryBuild = (
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
+    q.select(raw('false').as('travauxCreation'))
   }
 
   titreActivitesCalc(q, fields, user)

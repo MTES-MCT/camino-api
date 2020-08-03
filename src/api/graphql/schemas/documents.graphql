@@ -48,6 +48,7 @@ input InputDocumentCreation {
   titreEtapeId: ID
   titreActiviteId: ID
   entrepriseId: ID
+  titreTravauxEtapeId: ID
   description: String
   fichier: Boolean
   fichierTypeId: ID
@@ -67,6 +68,7 @@ input InputDocumentModification {
   titreActiviteId: ID
   entrepriseId: ID
   titreEtapeId: ID
+  titreTravauxEtapeId: ID
   description: String
   fichier: Boolean
   fichierTypeId: ID

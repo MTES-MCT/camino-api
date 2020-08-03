@@ -66,6 +66,15 @@ class Document extends Model {
       }
     },
 
+    travauxEtape: {
+      relation: Model.HasOneRelation,
+      modelClass: join(__dirname, 'titres-travaux-etapes'),
+      join: {
+        from: 'documents.titreTravauxEtapeId',
+        to: 'titresTravauxEtapes.id'
+      }
+    },
+
     // justificatifs
     etapesAssociees: {
       relation: Model.ManyToManyRelation,
