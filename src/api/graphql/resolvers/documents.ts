@@ -46,7 +46,10 @@ const documentFileDirPathFind = (
   repertoire: IDocumentRepertoire
 ) =>
   `files/${repertoire}/${
-    document.titreEtapeId || document.titreActiviteId || document.entrepriseId
+    document.titreEtapeId ||
+    document.titreActiviteId ||
+    document.entrepriseId ||
+    document.titreTravauxEtapeId
   }`
 
 const documentFilePathFind = (document: IDocument, dirPath: string) =>
@@ -116,8 +119,9 @@ const documentRepertoireCheck = (
 
   if (
     (documentType.repertoire === 'activites' && !document.titreActiviteId) ||
-    (documentType.repertoire === 'etapes' && !document.titreEtapeId) ||
-    (documentType.repertoire === 'entreprises' && !document.entrepriseId)
+    (documentType.repertoire === 'demarches' && !document.titreEtapeId) ||
+    (documentType.repertoire === 'entreprises' && !document.entrepriseId) ||
+    (documentType.repertoire === 'travaux' && !document.titreTravauxEtapeId)
   ) {
     throw new Error("le répertoire et l'élément lié ne correspondent pas")
   }

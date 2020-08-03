@@ -202,7 +202,7 @@ interface IDevise {
   ordre: number
 }
 
-type IDocumentRepertoire = 'etapes' | 'activites' | 'entreprises'
+type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'travaux'
 
 interface IDocumentType {
   id: string
@@ -504,6 +504,7 @@ interface ITitreActivite {
   dateSaisie?: string
   contenu?: IContenu | null
   sections?: ISection[] | null
+  documents?: IDocument[] | null
   modification?: boolean | null
   documentsCreation?: boolean | null
 }
@@ -586,6 +587,8 @@ interface IDocument {
   etape?: ITitreEtape | null
   titreActiviteId?: string | null
   activite?: ITitreActivite | null
+  titreTravauxEtapeId?: string | null
+  travauxEtape?: ITitreTravauxEtape | null
   entrepriseId?: string | null
   entreprise?: IEntreprise | null
   etapesAssociees?: ITitreEtape[] | null
@@ -871,6 +874,7 @@ export {
   ITitreDemarcheOrTravaux,
   IDocument,
   ITitreEtape,
+  ITitreEtapeOrTitreTravauxEtape,
   ITitreEtapeJustificatif,
   ITitreEtapeFiltre,
   ITitreIncertitudes,

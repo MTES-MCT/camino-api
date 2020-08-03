@@ -3,7 +3,8 @@ const fieldsOrderDesc = [
   'demarches',
   'etapes',
   'activites',
-  'travaux'
+  'travaux',
+  'travauxEtapes'
 ]
 const fieldsOrderAsc = ['points', 'substances', 'references', 'etapesTypes']
 const fieldsToRemove = ['coordonnees']

@@ -33,7 +33,7 @@ const fichier = async (
 
   const format = 'pdf' as IFormat
 
-  if (repertoire === 'etapes') {
+  if (repertoire === 'demarches') {
     dossier = document.etape!.id
   } else if (repertoire === 'activites') {
     dossier = document.activite!.id

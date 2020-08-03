@@ -108,12 +108,12 @@ const titreRelation = {
       relations: [
         {
           name: 'etapes',
-          props: ['titreDemarcheId'],
+          props: ['titreTravauxId'],
           idFind: titreEtapeIdFind,
           relations: [
             {
               name: 'documents',
-              props: ['id', 'titreEtapeId']
+              props: ['id', 'titreTravauxEtapeId']
             }
           ]
         }

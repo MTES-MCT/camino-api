@@ -18,7 +18,7 @@ import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreGet } from '../../../database/queries/titres'
 import { userGet } from '../../../database/queries/utilisateurs'
 
-import { titreEtapeDocumentsDelete } from './_titre-document'
+import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
@@ -197,12 +197,16 @@ const etapeSupprimer = async (
       throw new Error('droits insuffisants')
     }
 
-    const etapeOld = await titreEtapeGet(id, {}, context.user?.id)
+    const etapeOld = await titreEtapeGet(
+      id,
+      { fields: { documents: { type: { id: {} } } } },
+      context.user?.id
+    )
     if (!etapeOld) throw new Error("l'étape n'existe pas")
 
     await titreEtapeDelete(id)
 
-    await titreEtapeDocumentsDelete(etapeOld)
+    await fichiersDelete(etapeOld.documents)
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       null,

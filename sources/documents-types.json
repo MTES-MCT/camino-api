@@ -2,32 +2,32 @@
   {
     "id": "aac",
     "nom": "Avis d'un service de l'administration centrale",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "acd",
     "nom": "Avis de la  la commission départementale des mines",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "acm",
     "nom": "Avis des services civils et militaires",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "acr",
     "nom": "Accusé de réception d'une demande",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "adr",
     "nom": "Avis du directeur régional chargé des mines",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "aep",
     "nom": "Avis d'enquête publique",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "aot",
@@ -42,7 +42,7 @@
   {
     "id": "apf",
     "nom": "Avis du préfet",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "apu",
@@ -52,17 +52,17 @@
   {
     "id": "arm",
     "nom": "Arrêté ministériel",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "arp",
     "nom": "Arrêté préfectoral",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "arr",
     "nom": "Arrêté",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "atf",
@@ -72,52 +72,52 @@
   {
     "id": "avc",
     "nom": "Avis de mise en concurrence",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "ave",
     "nom": "Avenant",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "avi",
     "nom": "Avis",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "car",
     "nom": "Carte",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "cco",
     "nom": "Courrier de demande de compléments",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "cdc",
     "nom": "Cahier des charges",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "cnr",
     "nom": "Courrier de notification de la recevabilité",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "cnt",
     "nom": "Contrat",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "cod",
     "nom": "Compléments au dossier de demande",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "con",
     "nom": "Convention",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "cur",
@@ -127,57 +127,57 @@
   {
     "id": "dec",
     "nom": "Décret",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "dei",
     "nom": "Décision",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "dep",
     "nom": "Décision cas par cas",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "doe",
     "nom": "Dossier \"Loi sur l'eau\"",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "dom",
     "nom": "Dossier de demande",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "dos",
     "nom": "Dossier",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "erd",
     "nom": "Extrait du registre des délibérations de la section des travaux public du Conseil d'Etat",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "fac",
     "nom": "Facture",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "fic",
     "nom": "Fiche de complétude",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "fip",
     "nom": "Fiche de pésentation",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "for",
     "nom": "Formulaire de demande",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "idm",
@@ -202,7 +202,7 @@
   {
     "id": "jpa",
     "nom": "Justificatif de paiement",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "kbi",
@@ -212,102 +212,102 @@
   {
     "id": "lac",
     "nom": "Lettre de saisine des services de l'administration centrale",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "lce",
     "nom": "Lettre de saisine du conseil d'Etat",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "lcg",
     "nom": "Lettre de saisine du conseil général chargé des mines",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "lcm",
     "nom": "Lettre de saisine des services civils et militaires",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "lem",
     "nom": "Lettre de demande",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "let",
     "nom": "Lettre",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "lpf",
     "nom": "Lettre de saisine du préfet",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "mot",
     "nom": "Motif",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "nas",
     "nom": "Note à l'autorité signataire",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "ndc",
     "nom": "Notification de demande concurrente",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "ndd",
     "nom": "Notification de décision",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "noi",
     "nom": "Notice d'incidence",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "not",
     "nom": "Notes",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "ocd",
     "nom": "Ordre du jour de la commission départementale des mines",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "odr",
     "nom": "Ordonnance du Roi",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "ord",
     "nom": "Ordonnance",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "pla",
     "nom": "Plan",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "pub",
     "nom": "Publication au JORF",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "rce",
     "nom": "Rapport du commissaire enquêteur",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "rcr",
     "nom": "Rapport de recevabilité",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "rda",
@@ -317,7 +317,7 @@
   {
     "id": "rdr",
     "nom": "Rapport de la direction régionale chargée des mines",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "rdt",
@@ -327,7 +327,7 @@
   {
     "id": "rec",
     "nom": "Récépissé \"Loi sur l'eau\"",
-    "repertoire": "etapes"
+    "repertoire": "demarches"
   },
   {
     "id": "ree",

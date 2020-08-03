@@ -13,7 +13,7 @@ import fieldsBuild from './_fields-build'
 import { permissionCheck } from '../../../tools/permission'
 import { titreDemarchePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
 
-import { titreDemarcheDocumentsDelete } from './_titre-document'
+import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 
 import { titreFormat } from '../../_format/titres'
 
@@ -289,12 +289,16 @@ const demarcheSupprimer = async (
 
     // TODO: ajouter une validation ?
 
-    const demarcheOld = await titreDemarcheGet(id, {}, user.id)
+    const demarcheOld = await titreDemarcheGet(
+      id,
+      { fields: { etapes: { documents: { type: { id: {} } } } } },
+      user.id
+    )
     if (!demarcheOld) throw new Error("la démarche n'existe pas")
 
     await titreDemarcheDelete(id)
 
-    await titreDemarcheDocumentsDelete(demarcheOld)
+    await titreEtapesOrActivitesFichiersDelete(demarcheOld.etapes)
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       null,

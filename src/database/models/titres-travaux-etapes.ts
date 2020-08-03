@@ -56,8 +56,8 @@ class TitresTravauxEtapes extends Model {
       relation: Model.HasManyRelation,
       modelClass: join(__dirname, 'documents'),
       join: {
-        from: 'titresEtapes.id',
-        to: 'documents.titreEtapeId'
+        from: 'titresTravauxEtapes.id',
+        to: 'documents.titreTravauxEtapeId'
       }
     }
   }
