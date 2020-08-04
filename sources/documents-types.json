@@ -45,6 +45,11 @@
     "repertoire": "demarches"
   },
   {
+    "id": "apm",
+    "nom": "Arrêté de police des mines",
+    "repertoire": "travaux"
+  },
+  {
     "id": "apu",
     "nom": "Arrêté de premier donné acte (AP1)",
     "repertoire": "travaux"
@@ -310,11 +315,6 @@
     "repertoire": "demarches"
   },
   {
-    "id": "apm",
-    "nom": "Arrêté de police des mines",
-    "repertoire": "travaux"
-  },
-  {
     "id": "rdr",
     "nom": "Rapport de la direction régionale chargée des mines",
     "repertoire": "demarches"
@@ -340,13 +340,13 @@
     "repertoire": "activites"
   },
   {
-    "id": "rie",
-    "nom": "Rapport d’intensité d’exploration",
+    "id": "rgr",
+    "nom": "Rapport annuel de production d'or en Guyane",
     "repertoire": "activites"
   },
   {
-    "id": "rgr",
-    "nom": "Rapport annuel de production d'or en Guyane",
+    "id": "rie",
+    "nom": "Rapport d’intensité d’exploration",
     "repertoire": "activites"
   },
   {
