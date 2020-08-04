@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.48](https://github.com/MTES-MCT/camino-api/compare/v0.24.47...v0.24.48) (2020-08-04)
+
+
+### Features
+
+* **export:** ajoute les travaux ([5aaf7c1](https://github.com/MTES-MCT/camino-api/commit/5aaf7c15d8cc67c1b6cd93d3f15b3102e72cdbe4))
+* ajoute les travaux ([#495](https://github.com/MTES-MCT/camino-api/issues/495)) ([afef33e](https://github.com/MTES-MCT/camino-api/commit/afef33eb51d650fca99a3b4d589db6691b7c184a))
+* **arm:** permet d’ajouter le récépissé déclaration loi sur l’eau à n’importe quel moment ([#493](https://github.com/MTES-MCT/camino-api/issues/493)) ([7afd536](https://github.com/MTES-MCT/camino-api/commit/7afd536836c01df2e7f8656f03b71019ec94e554))
+* **utilisateur:** envoie un email à l'administrateur lors de la création ([#490](https://github.com/MTES-MCT/camino-api/issues/490)) ([8c5d080](https://github.com/MTES-MCT/camino-api/commit/8c5d080ecf45661a2d01eb433b99b6c277ee683d))
+
+
+### Bug Fixes
+
+* ajoute l'url de l'utilisateur dans l'email lors de la création de compte ([821e8e1](https://github.com/MTES-MCT/camino-api/commit/821e8e1c183fcccda89dd6444be181e9f0b1a6f4))
+* restreint la création de titres aux admins ([a2f0a3b](https://github.com/MTES-MCT/camino-api/commit/a2f0a3b836b8d148a6a6bbf3f1f5063b81a7fb31))
+* **entreprise:** retourne null si l'id n'exsite pas ([431cab7](https://github.com/MTES-MCT/camino-api/commit/431cab780fbbaffef51b4d1ee77e5b35d5dd6bb8))
+* **titre:** corrige la condition de création ([#491](https://github.com/MTES-MCT/camino-api/issues/491)) ([4ecce2f](https://github.com/MTES-MCT/camino-api/commit/4ecce2f8418ab9a723991f5fc51ccedc708133b1))
+
 ### [0.24.47](https://github.com/MTES-MCT/camino-api/compare/v0.24.45...v0.24.47) (2020-07-23)
 
 
