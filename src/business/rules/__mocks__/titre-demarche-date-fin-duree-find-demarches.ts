@@ -469,7 +469,7 @@ const titreDemarchesRenPointsVideDex = ([
     titreId: 'h-cx-courdemanges-1988',
     typeId: 'ren',
     statutId: 'acc',
-    ordre: 2,
+    ordre: 1,
     etapes: [
       {
         id: 'h-cx-courdemanges-1988-ren01-dex01',

@@ -7,7 +7,10 @@ import graphFormat from './graph/format'
 import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
-const titresTravauxGet = async ({}, { fields }: { fields?: IFields }) => {
+const titresTravauxGet = async (
+  _: unknown,
+  { fields }: { fields?: IFields }
+) => {
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'travaux', graphFormat)
     : options.titresTravaux.graph

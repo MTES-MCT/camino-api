@@ -12,9 +12,10 @@ try {
 
   activites.forEach(a => {
     if (
-      a.type_id === 'gra' &&
-      a.annee === '2019' &&
-      a.frequence_periode_id === '1' &&
+      (a.type_id === 'pma' ||
+        a.type_id === 'pmb' ||
+        a.type_id === 'pmc' ||
+        a.type_id === 'pmd') &&
       a.statut_id === 'fer'
     ) {
       a.statut_id = 'abs'

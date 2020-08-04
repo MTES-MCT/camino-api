@@ -67,7 +67,7 @@ const titrePermissionQueryBuild = (
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('travauxCreation'))
   } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin']) &&
     user?.administrations?.length
   ) {
     const titresModificationQuery = titresModificationQueryBuild(

@@ -311,6 +311,7 @@ const travauxEtapesTypesPermissionQueryBuild = (
   user?: IUtilisateur,
   {
     titreTravauxId,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     titreTravauxEtapeId
   }: { titreTravauxId?: string; titreTravauxEtapeId?: string } = {}
 ) => {
