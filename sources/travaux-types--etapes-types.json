@@ -17,7 +17,27 @@
   {
     "travaux_type_id": "dam",
     "etape_type_id": "rpu",
+    "ordre": "5"
+  },
+  {
+    "travaux_type_id": "dam",
+    "etape_type_id": "awu",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "dam",
+    "etape_type_id": "awd",
+    "ordre": "4"
+  },
+  {
+    "travaux_type_id": "dam",
+    "etape_type_id": "rwp",
     "ordre": "2"
+  },
+  {
+    "travaux_type_id": "dam",
+    "etape_type_id": "rwt",
+    "ordre": "3"
   },
   {
     "travaux_type_id": "dom",

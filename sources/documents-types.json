@@ -36,7 +36,7 @@
   },
   {
     "id": "apd",
-    "nom": "AP2",
+    "nom": "Arrêté de second donné acte (AP2)",
     "repertoire": "travaux"
   },
   {
@@ -46,7 +46,7 @@
   },
   {
     "id": "apu",
-    "nom": "AP1",
+    "nom": "Arrêté de premier donné acte (AP1)",
     "repertoire": "travaux"
   },
   {
@@ -310,8 +310,8 @@
     "repertoire": "demarches"
   },
   {
-    "id": "rda",
-    "nom": "Récépissé de déclaration d'arret des travaux miniers",
+    "id": "apm",
+    "nom": "Arrêté de police des mines",
     "repertoire": "travaux"
   },
   {
