@@ -1,7 +1,7 @@
 import { ITitreTypeEtapeTypeRestriction } from '../../types'
 
 import restrictionsArmOct from './titres-types-etapes-types-restrictions/arm/oct'
-import restrictionsArmRenPro from './titres-types-etapes-types-restrictions/arm/ren_pro'
+import restrictionsArmRenPro from './titres-types-etapes-types-restrictions/arm/ren-pro'
 import restrictionsPrmOct from './titres-types-etapes-types-restrictions/prm/oct'
 
 interface ITitreEtapesTypesRestrictions {
