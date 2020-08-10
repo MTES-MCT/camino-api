@@ -1,4 +1,5 @@
 import { ITitreEtape } from '../../types'
+const each = require('jest-each').default
 
 import titreDemarchePublicFind from './titre-demarche-public-find'
 
@@ -315,58 +316,73 @@ describe("publicité d'une démarche", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
-  test("une démarche de renonciation dont l'étape la plus récente est le dépot de la demande n'est pas publique", () => {
-    expect(
-      titreDemarchePublicFind(
-        'ren',
-        [],
-        etapesBuild([{ typeId: 'mdp' }]),
-        'arm'
-      )
-    ).toMatchObject({ publicLecture: false })
-  })
+  each(['ren', 'pro']).it(
+    "une démarche %s dont l'étape la plus récente est le dépot de la demande n'est pas publique",
+    (demarcheTypeId: string) => {
+      expect(
+        titreDemarchePublicFind(
+          demarcheTypeId,
+          [],
+          etapesBuild([{ typeId: 'mdp' }]),
+            'arm'
+        )
+      ).toMatchObject({ publicLecture: false })
+    }
+  )
 
-  test("une démarche de renonciation dont l'étape la plus récente est recevabilité de la demande n'est pas publique", () => {
-    expect(
-      titreDemarchePublicFind(
-        'ren',
-        [],
-        etapesBuild([{ typeId: 'mcr' }]),
-        'arm'
-      )
-    ).toMatchObject({ publicLecture: false })
-  })
+  each(['ren', 'pro']).it(
+    "une démarche %s dont l'étape la plus récente est recevabilité de la demande n'est pas publique",
+    (demarcheTypeId: string) => {
+      expect(
+        titreDemarchePublicFind(
+          demarcheTypeId,
+          [],
+          etapesBuild([{ typeId: 'mcr' }]),
+          'arm'
+        )
+      ).toMatchObject({ publicLecture: false })
+    }
+  )
 
-  test("une démarche de renonciation dont l'étape la plus récente est l’expertise de l’onf est publique", () => {
-    expect(
-      titreDemarchePublicFind(
-        'ren',
-        [],
-        etapesBuild([{ typeId: 'eof' }]),
-        'arm'
-      )
-    ).toMatchObject({ publicLecture: true })
-  })
+  each(['ren', 'pro']).it(
+    "une démarche %s dont l'étape la plus récente est l’expertise de l’onf est publique",
+    (demarcheTypeId: string) => {
+      expect(
+        titreDemarchePublicFind(
+          demarcheTypeId,
+          [],
+          etapesBuild([{ typeId: 'eof' }]),
+          'arm'
+        )
+      ).toMatchObject({ publicLecture: true })
+    }
+  )
 
-  test("une démarche de renonciation dont l'étape la plus récente est la décisision de classement sans suite est publique", () => {
-    expect(
-      titreDemarchePublicFind(
-        'ren',
-        [],
-        etapesBuild([{ typeId: 'css' }]),
-        'arm'
-      )
-    ).toMatchObject({ publicLecture: true })
-  })
+  each(['ren', 'pro']).it(
+    "une démarche %s dont l'étape la plus récente est la décisision de classement sans suite est publique",
+    (demarcheTypeId: string) => {
+      expect(
+        titreDemarchePublicFind(
+          demarcheTypeId,
+          [],
+          etapesBuild([{ typeId: 'css' }]),
+          'arm'
+        )
+      ).toMatchObject({ publicLecture: true })
+    }
+  )
 
-  test("une démarche de renonciation dont l'étape la plus récente est le désistement est publique", () => {
-    expect(
-      titreDemarchePublicFind(
-        'ren',
-        [],
-        etapesBuild([{ typeId: 'des' }]),
-        'arm'
-      )
-    ).toMatchObject({ publicLecture: true })
-  })
+  each(['ren', 'pro']).it(
+    "une démarche %s dont l'étape la plus récente est le désistement est publique",
+    (demarcheTypeId: string) => {
+      expect(
+        titreDemarchePublicFind(
+          demarcheTypeId,
+          [],
+          etapesBuild([{ typeId: 'des' }]),
+          'arm'
+        )
+      ).toMatchObject({ publicLecture: true })
+    }
+  )
 })

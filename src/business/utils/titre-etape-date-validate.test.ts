@@ -6,6 +6,7 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
   default: [
     {
       typeId: 'arm',
+      demarcheTypeIds: ['oct'],
       restrictions: [
         {
           condition: { etape: { typeId: 'etape-premiere' } }

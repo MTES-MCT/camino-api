@@ -1,4 +1,6 @@
-export default [
+import { ITitreTypeEtapeTypeRestriction } from '../../../../types'
+
+const oct: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'des' } },
     obligatoireApres: [{ typeId: 'mdp' }, { typeId: 'pfd' }],
@@ -217,3 +219,5 @@ export default [
     obligatoireApres: [{ typeId: 'mno' }]
   }
 ]
+
+export default oct

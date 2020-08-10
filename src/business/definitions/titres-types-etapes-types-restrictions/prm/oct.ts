@@ -1,4 +1,6 @@
-export default [
+import { ITitreTypeEtapeTypeRestriction } from '../../../../types'
+
+const oct: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'mdp' } },
     obligatoireApres: [{ typeId: 'mfr' }],
@@ -52,12 +54,12 @@ export default [
   {
     condition: { etape: { typeId: 'mco' } },
     obligatoireApres: [{ typeId: 'mcr', statutId: 'def' }],
-    impossibleApres: [{ typeId: 'mcr', statut: 'fav' }]
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
   {
     condition: { etape: { typeId: 'rco' } },
     obligatoireApres: [{ typeId: 'mco' }],
-    impossibleApres: [{ typeId: 'mcr', statut: 'fav' }]
+    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
   },
 
   {
@@ -225,46 +227,40 @@ export default [
 
   {
     condition: { etape: { typeId: 'rpu' } },
-    obligatoireApres: [{ typeId: 'npp' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'npp' }]
   },
   {
     condition: { etape: { typeId: 'rpu' } },
-    obligatoireApres: [{ typeId: 'dpu', statutId: 'fav' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'dpu', statutId: 'fav' }]
   },
 
   {
     condition: { etape: { typeId: 'ncl' } },
-    obligatoireApres: [{ typeId: 'npp' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'npp' }]
   },
   {
     condition: { etape: { typeId: 'ncl' } },
-    obligatoireApres: [{ typeId: 'dpu', statutId: 'fav' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'dpu', statutId: 'fav' }]
   },
 
   {
     condition: { etape: { typeId: 'mno' } },
-    obligatoireApres: [{ typeId: 'npp' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'npp' }]
   },
 
   {
     condition: { etape: { typeId: 'abd' } },
-    obligatoireApres: [{ typeId: 'dex' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'dex' }]
   },
   {
     condition: { etape: { typeId: 'rtd' } },
-    obligatoireApres: [{ typeId: 'dex' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'dex' }]
   },
 
   {
     condition: { etape: { typeId: 'and' } },
-    obligatoireApres: [{ typeId: 'dex' }, { typeId: 'dim', statutId: 'rej' }],
-    impossibleApres: null
+    obligatoireApres: [{ typeId: 'dex' }, { typeId: 'dim', statutId: 'rej' }]
   }
 ]
+
+export default oct
