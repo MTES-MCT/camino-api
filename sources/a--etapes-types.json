@@ -368,5 +368,10 @@
     "etape_type_id": "dux",
     "public_lecture": "TRUE",
     "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "ihi",
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
   }
 ]

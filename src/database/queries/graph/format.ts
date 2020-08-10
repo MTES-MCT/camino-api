@@ -1,4 +1,11 @@
-const fieldsOrderDesc = ['etablissements', 'demarches', 'etapes', 'activites']
+const fieldsOrderDesc = [
+  'etablissements',
+  'demarches',
+  'etapes',
+  'activites',
+  'travaux',
+  'travauxEtapes'
+]
 const fieldsOrderAsc = ['points', 'substances', 'references', 'etapesTypes']
 const fieldsToRemove = ['coordonnees']
 const titreFieldsToRemove = [] as string[]

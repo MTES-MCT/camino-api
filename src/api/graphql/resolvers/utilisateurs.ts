@@ -332,7 +332,9 @@ const utilisateurCreer = async (
       `Nouvel utilisateur ${utilisateurUpdated.email} créé`,
       `L'utilisateur ${utilisateurUpdated.nom?.toUpperCase()} ${
         utilisateurUpdated.prenom
-      } vient de se créer un compte`
+      } vient de se créer un compte : ${process.env.UI_URL}/utilisateurs/${
+        utilisateurUpdated.id
+      }`
     )
 
     return utilisateurUpdated

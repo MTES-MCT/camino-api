@@ -202,7 +202,7 @@ interface IDevise {
   ordre: number
 }
 
-type IDocumentRepertoire = 'etapes' | 'activites' | 'entreprises'
+type IDocumentRepertoire = 'demarches' | 'activites' | 'entreprises' | 'travaux'
 
 interface IDocumentType {
   id: string
@@ -360,6 +360,15 @@ interface IRegion {
   departements?: IDepartement[] | null
 }
 
+interface ITravauxType {
+  id: string
+  nom: string
+  ordre: number
+  etapesTypes: IEtapeType[]
+  description?: string
+  travauxCreation?: boolean | null
+}
+
 interface IAutorisationEtapeType {
   etapeTypeId: string
   publicLecture: boolean
@@ -468,6 +477,7 @@ interface ITitre {
   communes?: ICommune[] | null
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
+  travaux?: ITitreTravaux[] | null
   pays?: IPays[] | null
   modification?: boolean | null
   suppression?: boolean | null
@@ -495,6 +505,7 @@ interface ITitreActivite {
   dateSaisie?: string
   contenu?: IContenu | null
   sections?: ISection[] | null
+  documents?: IDocument[] | null
   modification?: boolean | null
   documentsCreation?: boolean | null
 }
@@ -523,17 +534,27 @@ interface ITitreEtapeJustificatif {
   titreEtapeId: string
 }
 
-interface ITitreDemarche {
+interface ITitreDemarcheOrTravaux {
   id: string
   titreId: string
   titre?: ITitre | null
   typeId: string
-  type?: IDemarcheType | null
+  type?: ITravauxType | IDemarcheType | null
   statutId?: string | null
   statut?: IDemarcheStatut | null
   ordre?: number | null
-  titreType?: ITitreType | null
   etapes?: ITitreEtape[] | null
+  publicLecture?: boolean | null
+  entreprisesLecture?: boolean | null
+  modification?: boolean | null
+  etapesCreation?: boolean | null
+  suppression?: boolean | null
+}
+
+interface ITitreDemarche extends ITitreDemarcheOrTravaux {
+  type?: IDemarcheType | null
+  ordre?: number | null
+  titreType?: ITitreType | null
   phase?: ITitrePhase | null
   parents?: ITitreDemarche[] | null
   enfants?: ITitreDemarche[] | null
@@ -542,6 +563,10 @@ interface ITitreDemarche {
   modification?: boolean | null
   etapesCreation?: boolean | null
   suppression?: boolean | null
+}
+
+interface ITitreTravaux extends ITitreDemarcheOrTravaux {
+  type?: ITravauxType | null
 }
 
 interface IDocument {
@@ -563,25 +588,33 @@ interface IDocument {
   etape?: ITitreEtape | null
   titreActiviteId?: string | null
   activite?: ITitreActivite | null
+  titreTravauxEtapeId?: string | null
+  travauxEtape?: ITitreTravauxEtape | null
   entrepriseId?: string | null
   entreprise?: IEntreprise | null
   etapesAssociees?: ITitreEtape[] | null
 }
 
-interface ITitreEtape {
+interface ITitreEtapeOrTitreTravauxEtape {
   id: string
-  titreDemarcheId: string
   typeId: string
   type?: IEtapeType | null
   statutId: string
   statut?: IEtapeStatut | null
   ordre?: number | null
   date: string
-  dateDebut?: string | null
-  dateFin?: string | null
   duree?: number | null
   surface?: number | null
   contenu?: IContenu | null
+  documents?: IDocument[] | null
+  modification?: boolean | null
+  suppression?: boolean | null
+}
+
+interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
+  titreDemarcheId: string
+  dateDebut?: string | null
+  dateFin?: string | null
   substances?: ISubstance[] | null
   points?: ITitrePoint[] | null
   geojsonMultiPolygon?: IGeoJson | null
@@ -589,13 +622,14 @@ interface ITitreEtape {
   titulaires?: IEntreprise[] | null
   amodiataires?: IEntreprise[] | null
   administrations?: IAdministration[] | null
-  documents?: IDocument[] | null
   justificatifs?: IDocument[] | null
   communes?: ICommune[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
-  modification?: boolean | null
-  suppression?: boolean | null
+}
+
+interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {
+  titreTravauxId: string
 }
 
 interface ITitreEtapeFiltre {
@@ -838,8 +872,10 @@ export {
   ITitreAdministrationLocale,
   ITitreCommune,
   ITitreDemarche,
+  ITitreDemarcheOrTravaux,
   IDocument,
   ITitreEtape,
+  ITitreEtapeOrTitreTravauxEtape,
   ITitreEtapeJustificatif,
   ITitreEtapeFiltre,
   ITitreIncertitudes,
@@ -847,9 +883,12 @@ export {
   ITitrePoint,
   ITitrePointReference,
   ITitreReference,
+  ITitreTravaux,
+  ITitreTravauxEtape,
   ITitreType,
   ITitreTypeType,
   ITitreTypeDemarcheTypeEtapeType,
+  ITravauxType,
   ITrimestre,
   IUnite,
   IUser,

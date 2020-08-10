@@ -2,6 +2,7 @@ import { IFields, IDocumentRepertoire } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
+import TravauxTypes from '../models/travaux-types'
 import Devises from '../models/devises'
 import DocumentsTypes from '../models/documents-types'
 import DemarchesStatuts from '../models/demarches-statuts'
@@ -29,7 +30,9 @@ import {
   etapesTypesPermissionQueryBuild,
   demarchesTypesPermissionQueryBuild,
   activitesTypesPermissionQueryBuild,
-  permissionsPermissionQueryBuild
+  permissionsPermissionQueryBuild,
+  travauxTypesPermissionQueryBuild,
+  travauxEtapesTypesPermissionQueryBuild
 } from './permissions/metas'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
@@ -84,14 +87,42 @@ const demarchesTypesGet = async (
   return q
 }
 
+const travauxTypesGet = async (
+  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const graph = fields
+    ? graphBuild(fields, 'travauxTypes', graphFormat)
+    : options.demarchesTypes.graph
+
+  const q = TravauxTypes.query().withGraphFetched(graph).orderBy('ordre')
+
+  travauxTypesPermissionQueryBuild(q, user, {
+    titreId,
+    titreTravauxId
+  })
+
+  return q
+}
+
 const demarchesStatutsGet = async () =>
   DemarchesStatuts.query().orderBy('ordre')
 
 const etapesTypesGet = async (
   {
     titreDemarcheId,
-    titreEtapeId
-  }: { titreDemarcheId?: string; titreEtapeId?: string },
+    titreEtapeId,
+    titreTravauxId,
+    titreTravauxEtapeId
+  }: {
+    titreDemarcheId?: string
+    titreEtapeId?: string
+    titreTravauxId?: string
+    titreTravauxEtapeId?: string
+  },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
@@ -103,7 +134,16 @@ const etapesTypesGet = async (
 
   const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
-  etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
+  if (titreDemarcheId) {
+    etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
+  }
+
+  if (titreTravauxId) {
+    travauxEtapesTypesPermissionQueryBuild(q, user, {
+      titreTravauxId,
+      titreTravauxEtapeId
+    })
+  }
 
   return q
 }
@@ -185,6 +225,7 @@ export {
   demarchesTypesGet,
   demarchesStatutsGet,
   etapesTypesGet,
+  travauxTypesGet,
   devisesGet,
   documentsTypesGet,
   documentTypeGet,

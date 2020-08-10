@@ -176,6 +176,12 @@ class Titres extends Model {
       join: { from: 'titres.id', to: 'titresActivites.titreId' }
     },
 
+    travaux: {
+      relation: Model.HasManyRelation,
+      modelClass: join(__dirname, 'titres-travaux'),
+      join: { from: 'titres.id', to: 'titresTravaux.titreId' }
+    },
+
     references: {
       relation: Model.HasManyRelation,
       modelClass: TitresReferences,

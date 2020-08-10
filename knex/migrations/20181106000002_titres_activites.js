@@ -6,6 +6,7 @@ exports.up = knex =>
       .index()
       .references('titres.id')
       .onDelete('CASCADE')
+      .onUpdate('CASCADE')
     table.string('utilisateurId', 128).index().references('utilisateurs.id')
     table.string('date', 10)
     table.string('dateSaisie', 10)

@@ -46,7 +46,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'octroi sans étape de dpu est celle de la dex", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctPasDeDpu, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctPasDeDpu, 1)
     ).toEqual({
       dateFin: '2013-03-06',
       duree: 25 * 12
@@ -55,7 +55,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'octroi avec seulement une étape de dpu est celle de la dpu", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctDpuFirst, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctDpuFirst, 1)
     ).toEqual({
       dateFin: '2013-03-06',
       duree: 25 * 12
@@ -64,16 +64,16 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'octroi sans dpu ni dex est indéfinie", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctNiDpuNiDex, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctNiDpuNiDex, 1)
     ).toEqual({
       dateFin: null,
       duree: 25 * 12
     })
   })
 
-  test("la date de fin d'une démarche d'octroi et d'une démarche normale avec une étape avec une durée est prolong2e d'autant", () => {
+  test("la date de fin d'une démarche d'octroi et d'une démarche normale avec une étape avec une durée est prolongée d'autant", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctProDuree, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctProDuree, 2)
     ).toEqual({
       dateFin: '2038-03-11',
       duree: 50 * 12
@@ -82,7 +82,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'abrogation est celle de l'étape dont la date de fin est renseignée", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetDateFin, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetDateFin, 2)
     ).toEqual({
       dateFin: '2200-03-11',
       duree: 0
@@ -91,7 +91,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'abrogation est la date de l'étape dex si aucune date de fin n'est renseignée", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetDate, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetDate, 2)
     ).toEqual({
       dateFin: '2013-05-21',
       duree: 0
@@ -100,7 +100,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche d'abrogation est la date de fin de la démarche suivante si aucune dex n'existe", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetNoDex, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctRetNoDex, 2)
     ).toEqual({
       dateFin: '2013-03-11',
       duree: 25 * 12
@@ -109,7 +109,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche de renonciation n'est pas prise en compte si celle-ci possède un périmètre géographique", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPoints, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPoints, 2)
     ).toEqual({
       dateFin: '2013-03-11',
       duree: 25 * 12
@@ -118,7 +118,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche de renonciation est la date de l'étape de dex si celle-ci ne possède pas de périmètre géographique", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideDex, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideDex, 1)
     ).toEqual({
       dateFin: '1988-06-06',
       duree: 0
@@ -127,7 +127,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
 
   test("la date de fin d'une démarche de renonciation sans étape possédant de périmètre ni dpu est indéfinie", () => {
     expect(
-      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideNiDpuNiDex, 5)
+      titreDemarcheDateFinAndDureeFind(titreDemarchesRenPointsVideNiDpuNiDex, 1)
     ).toEqual({
       dateFin: null,
       duree: 0

@@ -718,5 +718,50 @@
     "etape_type_id": "rdt",
     "etape_statut_id": "rej",
     "ordre": "2"
+  },
+  {
+    "etape_type_id": "ihi",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "awu",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "awd",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rwp",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rwt",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "awu",
+    "etape_statut_id": "def",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "awd",
+    "etape_statut_id": "def",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "rwp",
+    "etape_statut_id": "def",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "rwt",
+    "etape_statut_id": "def",
+    "ordre": "2"
   }
 ]

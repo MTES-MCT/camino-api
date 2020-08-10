@@ -75,7 +75,7 @@ const pays = {
   graph: `regions.departements.communes`
 }
 
-const etapesRelateTrue = [
+const titresDemarchesEtapesRelateTrue = [
   'type',
   'statut',
   'titulaires',
@@ -106,7 +106,7 @@ const etapesRelateTrue = [
   ...documents.update.relate.map(k => `justificatifs.${k}`)
 ]
 
-const etapes = {
+const titresDemarchesEtapes = {
   graph: `[
     points(orderAsc).${points.graph},
     type,
@@ -122,13 +122,33 @@ const etapes = {
   ]`,
 
   update: {
-    relate: etapesRelateTrue,
-    unrelate: etapesRelateTrue,
+    relate: titresDemarchesEtapesRelateTrue,
+    unrelate: titresDemarchesEtapesRelateTrue,
     insertMissing: true
   }
 }
 
-const phases = {
+const titresTravauxEtapesRelateTrue = [
+  'type',
+  'statut',
+  ...documents.update.relate.map(k => `documents.${k}`)
+]
+
+const titresTravauxEtapes = {
+  graph: `[
+    type,
+    statut,
+    documents.${documents.graph}
+  ]`,
+
+  update: {
+    relate: titresTravauxEtapesRelateTrue,
+    unrelate: titresTravauxEtapesRelateTrue,
+    insertMissing: true
+  }
+}
+
+const titresDemarchesPhases = {
   graph: 'statut'
 }
 
@@ -140,14 +160,9 @@ const demarchesTypes = {
   graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
-const demarchesRelateTrue = [
-  'statut',
-  'type',
-  'enfants',
-  'parents',
-  'phase.statut',
-  ...etapesRelateTrue.map(k => `etapes.${k}`)
-]
+const travauxTypes = {
+  graph: `[etapesTypes.${etapesTypes.graph}]`
+}
 
 const titresTypesUpdateFalse = [
   'type',
@@ -158,8 +173,17 @@ const titresTypesUpdateFalse = [
   'autorisationsTitresStatuts'
 ]
 
-const demarchesUpdateFalse = [
-  ...demarchesRelateTrue,
+const titresDemarchesRelateTrue = [
+  'statut',
+  'type',
+  'enfants',
+  'parents',
+  'phase.statut',
+  ...titresDemarchesEtapesRelateTrue.map(k => `etapes.${k}`)
+]
+
+const titresDemarchesUpdateFalse = [
+  ...titresDemarchesRelateTrue,
   'type.etapesTypes',
   'type.etapesTypes.etapesStatuts',
   'type.etapesTypes.autorisations',
@@ -167,23 +191,23 @@ const demarchesUpdateFalse = [
   ...titresTypesUpdateFalse.map(k => `titreType.${k}`)
 ]
 
-const demarches = {
+const titresDemarches = {
   graph: `[
      type.${demarchesTypes.graph},
      statut,
-     phase.${phases.graph},
+     phase.${titresDemarchesPhases.graph},
      titreType,
-     etapes(orderDesc).${etapes.graph},
+     etapes(orderDesc).${titresDemarchesEtapes.graph},
      parents.^1,
      enfants.^1
   ]`,
 
   update: {
-    relate: demarchesRelateTrue,
-    unrelate: demarchesRelateTrue,
-    noInsert: demarchesUpdateFalse,
-    noUpdate: demarchesUpdateFalse,
-    noDelete: demarchesUpdateFalse,
+    relate: titresDemarchesRelateTrue,
+    unrelate: titresDemarchesRelateTrue,
+    noInsert: titresDemarchesUpdateFalse,
+    noUpdate: titresDemarchesUpdateFalse,
+    noDelete: titresDemarchesUpdateFalse,
     insertMissing: true
   }
 }
@@ -212,6 +236,28 @@ const titresActivites = {
   graph: `[type.${activitesTypes.graph}, statut, utilisateur]`
 }
 
+const titresTravauxRelateTrue = [
+  'statut',
+  'type',
+  ...titresTravauxEtapesRelateTrue.map(k => `etapes.${k}`)
+]
+
+const titresTravauxUpdateFalse = [...titresTravauxRelateTrue]
+
+const titresTravaux = {
+  graph: `[type.${travauxTypes.graph}, statut, 
+     etapes(orderDesc).${titresTravauxEtapes.graph}]`,
+
+  update: {
+    relate: titresTravauxRelateTrue,
+    unrelate: titresTravauxRelateTrue,
+    noInsert: titresTravauxUpdateFalse,
+    noUpdate: titresTravauxUpdateFalse,
+    noDelete: titresTravauxUpdateFalse,
+    insertMissing: true
+  }
+}
+
 const titresTypes = {
   graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
 }
@@ -226,7 +272,8 @@ const titresRelateTrue = [
   'domaine',
   'administrationsGestionnaires',
   'references.type',
-  ...demarchesRelateTrue.map(k => `demarches.${k}`)
+  ...titresDemarchesRelateTrue.map(k => `demarches.${k}`),
+  ...titresTravauxRelateTrue.map(k => `travaux.${k}`)
 ]
 
 const titresUpdateFalse = [
@@ -403,7 +450,8 @@ const titresUpdateFalse = [
   'administrationsLocales.utilisateurs.permission',
   'surfaceEtape',
   ...activitesUpdateFalse.map(k => `activites.${k}`),
-  ...demarchesUpdateFalse.map(k => `demarches.${k}`)
+  ...titresDemarchesUpdateFalse.map(k => `demarches.${k}`),
+  ...titresTravauxUpdateFalse.map(k => `travaux.${k}`)
 ]
 
 const titres = {
@@ -417,9 +465,10 @@ const titres = {
     amodiataires.${entreprises.graph},
     administrationsGestionnaires.${administrations.graph},
     administrationsLocales.${administrations.graph},
-    demarches(orderDesc).${demarches.graph},
+    demarches(orderDesc).${titresDemarches.graph},
     communes.${communes.graph},
     activites(orderDesc).${titresActivites.graph},
+    travaux(orderDesc).${titresTravaux.graph},
     references(orderAsc).type
    ]`,
   // ne pas récupèrer la relation `surfaceEtape`
@@ -440,21 +489,23 @@ export default {
   activitesTypes,
   administrations,
   communes,
-  demarches,
+  demarchesTypes,
+  domaines,
   documents,
   entreprises,
   entreprisesEtablissements,
-  etapes,
   etapesTypes,
-  demarchesTypes,
-  domaines,
   geoSystemes,
-  phases,
+  pays,
+  points,
   substances,
   titres,
   titresActivites,
-  pays,
-  points,
-  utilisateurs,
-  titresTypes
+  titresDemarches,
+  titresDemarchesEtapes,
+  titresDemarchesPhases,
+  titresTravaux,
+  titresTravauxEtapes,
+  titresTypes,
+  utilisateurs
 }

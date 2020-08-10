@@ -12,7 +12,7 @@
   {
     "id": "pro",
     "nom": "prolongation",
-    "description": "Démarche appliquée à une autorisation ou d’un titre minier qui a fait l’objet d’un octroi initial. Des prolongations sans limitation sont applicables aux concessions pour des durées maximales successives de 25 ans, aux permis d'exploitation de géothermie pour des durées maximales successives de 15 ans, aux permis exclusifs de carrières pour des durées maximales successives de 10 ans et aux autorisations de recherches de carrières pour des durées maximales successives de 3 ans.\r\nUne prolongation unique est applicable aux autorisations de recherches et aux autorisations d'exploitation de minéraux et métaux en Guyane pour respectivement 4 mois et 4 ans maximum.",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Des prolongations sans limitation sont applicables aux concessions pour des durées maximales successives de 25 ans, aux permis d'exploitation de géothermie pour des durées maximales successives de 15 ans, aux permis exclusifs de carrières pour des durées maximales successives de 10 ans et aux autorisations de recherches de carrières pour des durées maximales successives de 3 ans.\nUne prolongation unique est applicable aux autorisations de recherches et aux autorisations d'exploitation de minéraux et métaux en Guyane pour respectivement 4 mois et 4 ans maximum.",
     "ordre": "2",
     "duree": "TRUE",
     "points": "TRUE",
@@ -21,7 +21,7 @@
   {
     "id": "pr1",
     "nom": "prolongation 1",
-    "description": "Démarche appliquée à une autorisation ou d’un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’un octroi initial. Elle prolonge sa durée de validité. Une première prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Pour des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux, la première prolongation s’accompagne obligatoirement d’une réduction de 50% de la surface du titre.",
     "ordre": "3",
     "duree": "TRUE",
     "points": "TRUE"
@@ -29,7 +29,7 @@
   {
     "id": "pr2",
     "nom": "prolongation 2",
-    "description": "Démarche appliquée à une autorisation ou d’un titre minier qui a fait l’objet d’une première prolongation. Elle prolonge sa durée de validité. Une seconde prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Seules deux prolongations successives sont admises pour ces titres. A l’exception des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux qui peuvent faire l’objet d’une prolongation exceptionnelle. Pour ces derniers, la seconde prolongation s’accompagne obligatoirement d’une réduction de 25% de la surface du titre.",
+    "description": "Démarche appliquée à une autorisation ou un titre minier qui a fait l’objet d’une première prolongation. Elle prolonge sa durée de validité. Une seconde prolongation est applicable aux permis exclusifs de recherches et aux permis d'exploitation de minéraux et métaux en outre-mer pour une durée de 5 ans maximum. Seules deux prolongations successives sont admises pour ces titres. A l’exception des permis exclusifs de recherches d’hydrocarbures liquides ou gazeux qui peuvent faire l’objet d’une prolongation exceptionnelle. Pour ces derniers, la seconde prolongation s’accompagne obligatoirement d’une réduction de 25% de la surface du titre.",
     "ordre": "4",
     "duree": "TRUE",
     "points": "TRUE"
@@ -125,7 +125,7 @@
   {
     "id": "ces",
     "nom": "cession",
-    "description": "Démarche obsolète. Co-initiée par le titulaire du titre minier et l’entreprise souhaitant devenir titulaire ou co-titulaire elle remplit une fonction proche de la cession dans le code minier actuel.",
+    "description": "Démarche obsolète. Co-initiée par le titulaire du titre minier et l’entreprise souhaitant devenir titulaire ou co-titulaire elle remplit une fonction proche de la mutation dans le code minier actuel.",
     "ordre": "16",
     "titulaires": "TRUE"
   },

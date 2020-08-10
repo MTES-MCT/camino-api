@@ -36,7 +36,9 @@ const fields: { input: string; output: string[] }[] = [
 ]
 
 describe('sépare les groupes de mots', () => {
-  each(fields).it(
+  // TODO: ce qui se passe ici est assez confus
+  // les logs du test ne disent pas ce qui se passe
+  each(fields).test(
     '%# convertit les chaines de caractères en groupes de mots',
     (field: { input: string; output: string[] }) => {
       expect(stringSplit(field.input)).toEqual(field.output)

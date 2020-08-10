@@ -635,5 +635,25 @@
     "fondamentale": "TRUE",
     "unique": "TRUE",
     "date_fin": "2018-12-31"
+  },
+  {
+    "id": "awu",
+    "nom": "premier donné acte",
+    "ordre": "77"
+  },
+  {
+    "id": "awd",
+    "nom": "second donné acte",
+    "ordre": "78"
+  },
+  {
+    "id": "rwp",
+    "nom": "récollement partiel",
+    "ordre": "79"
+  },
+  {
+    "id": "rwt",
+    "nom": "récollement complet",
+    "ordre": "80"
   }
 ]

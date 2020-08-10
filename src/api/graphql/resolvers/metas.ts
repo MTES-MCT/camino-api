@@ -6,6 +6,7 @@ import { autorisations } from '../../../database/cache/autorisations'
 
 import {
   demarchesTypesGet,
+  travauxTypesGet,
   demarchesStatutsGet,
   documentsTypesGet,
   domainesGet,
@@ -185,6 +186,30 @@ const demarchesTypes = async (
   }
 }
 
+const travauxTypes = async (
+  { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const fields = fieldsBuild(info)
+
+    const travauxTypes = await travauxTypesGet(
+      { titreId, titreTravauxId },
+      { fields },
+      context.user?.id
+    )
+
+    return travauxTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const demarchesStatuts = async () => {
   try {
     const demarchesStatuts = await demarchesStatutsGet()
@@ -282,8 +307,15 @@ const demarcheEtapesTypesGet = async (
 const etapesTypes = async (
   {
     titreDemarcheId,
-    titreEtapeId
-  }: { titreDemarcheId?: string; titreEtapeId?: string },
+    titreEtapeId,
+    titreTravauxId,
+    titreTravauxEtapeId
+  }: {
+    titreDemarcheId?: string
+    titreEtapeId?: string
+    titreTravauxId?: string
+    titreTravauxEtapeId?: string
+  },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -291,7 +323,12 @@ const etapesTypes = async (
     const fields = fieldsBuild(info)
 
     const etapesTypes = await etapesTypesGet(
-      { titreDemarcheId, titreEtapeId },
+      {
+        titreDemarcheId,
+        titreEtapeId,
+        titreTravauxId,
+        titreTravauxEtapeId
+      },
       { fields },
       context.user?.id
     )
@@ -392,6 +429,7 @@ export {
   devises,
   demarchesTypes,
   demarchesStatuts,
+  travauxTypes,
   documentsTypes,
   documentsVisibilites,
   domaines,

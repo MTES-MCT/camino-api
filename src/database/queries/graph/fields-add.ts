@@ -79,6 +79,12 @@ const titresFieldsAdd = (fields: IFields) => {
     }
   }
 
+  if (fields.travaux) {
+    if (!fields.travaux.type) {
+      fields.travaux.type = { id: {} }
+    }
+  }
+
   return fields
 }
 

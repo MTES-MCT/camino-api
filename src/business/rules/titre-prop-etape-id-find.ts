@@ -5,7 +5,7 @@
 import * as dateFormat from 'dateformat'
 
 import { ITitreDemarche, ITitreEtape, TitreEtapeProp } from '../../types'
-import titreDemarchesAscSort from '../utils/titre-demarches-asc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
 const etapeAmodiataireFind = (
@@ -99,7 +99,7 @@ const titrePropEtapeIdFind = (
   titreStatutId: string,
   prop: TitreEtapeProp
 ) =>
-  titreDemarchesAscSort(titreDemarches)
+  (titreDemarchesAscSort(titreDemarches) as ITitreDemarche[])
     .reverse()
     .reduce((etapeId: string | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée

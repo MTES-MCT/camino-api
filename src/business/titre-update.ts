@@ -89,6 +89,7 @@ const titreUpdate = async (titreId: string) => {
             },
             phase: { id: {} }
           },
+          travaux: { etapes: { id: {} } },
           activites: { id: {} }
         }
       },
