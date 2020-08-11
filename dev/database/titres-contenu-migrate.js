@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../src/database/index'
+import '../../src/init'
 
 import { transaction } from 'objection'
 
