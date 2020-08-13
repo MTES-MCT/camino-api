@@ -2,7 +2,7 @@ import fileRename from '../../tools/file-rename'
 import { ITitre, ITitreDemarche, ITitreEtape, Index } from '../../types'
 
 const titreEtapeFilePathPathBuild = (titreEtapeId: string) =>
-  `etapes/${titreEtapeId}`
+  `demarches/${titreEtapeId}`
 
 const titreEtapesFilePathsNamesFind = (
   fichiersNames: Index<string>,
