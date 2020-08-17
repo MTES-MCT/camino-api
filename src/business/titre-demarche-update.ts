@@ -167,6 +167,7 @@ const titreDemarcheUpdate = async (
       {
         fields: {
           type: { type: { id: {} } },
+          references: { id: {} },
           administrationsGestionnaires: { id: {} },
           demarches: {
             etapes: {

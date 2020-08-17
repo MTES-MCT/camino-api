@@ -243,6 +243,7 @@ const titreEtapeUpdate = async (
       {
         fields: {
           type: { type: { id: {} } },
+          references: { id: {} },
           administrationsGestionnaires: { id: {} },
           demarches: {
             etapes: {
