@@ -6,7 +6,7 @@
   },
   {
     "id": "acd",
-    "nom": "Avis de la  la commission départementale des mines",
+    "nom": "Avis de la commission départementale des mines",
     "repertoire": "demarches"
   },
   {
@@ -363,5 +363,10 @@
     "id": "sir",
     "nom": "Avis de situation au répertoire Sirene",
     "repertoire": "entreprises"
+  },
+  {
+    "id": "acg",
+    "nom": "Avis du conseil général chargé des mines",
+    "repertoire": "demarches"
   }
 ]

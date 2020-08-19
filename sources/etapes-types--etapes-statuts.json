@@ -431,18 +431,8 @@
   },
   {
     "etape_type_id": "ppu",
-    "etape_statut_id": "pro",
-    "ordre": "1"
-  },
-  {
-    "etape_type_id": "ppu",
-    "etape_statut_id": "enc",
+    "etape_statut_id": "fai",
     "ordre": "2"
-  },
-  {
-    "etape_type_id": "ppu",
-    "etape_statut_id": "ter",
-    "ordre": "3"
   },
   {
     "etape_type_id": "rco",
@@ -642,7 +632,7 @@
   {
     "etape_type_id": "epu",
     "etape_statut_id": "fai",
-    "ordre": "1"
+    "ordre": "2"
   },
   {
     "etape_type_id": "ide",
@@ -763,5 +753,25 @@
     "etape_type_id": "rwt",
     "etape_statut_id": "def",
     "ordre": "2"
+  },
+  {
+    "etape_type_id": "ppc",
+    "etape_statut_id": "ter",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "epc",
+    "etape_statut_id": "ter",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "ppu",
+    "etape_statut_id": "pro",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "epu",
+    "etape_statut_id": "pro",
+    "ordre": "1"
   }
 ]

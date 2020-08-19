@@ -115,6 +115,16 @@
     "entreprises_lecture": "TRUE"
   },
   {
+    "etape_type_id": "ppc",
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "epc",
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
     "etape_type_id": "ssr",
     "public_lecture": "FALSE",
     "entreprises_lecture": "FALSE"

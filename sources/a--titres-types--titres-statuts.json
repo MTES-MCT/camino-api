@@ -407,7 +407,7 @@
   {
     "titre_type_id": "pxm",
     "titre_statut_id": "ech",
-    "public_lecture": "FALSE"
+    "public_lecture": "TRUE"
   },
   {
     "titre_type_id": "pxr",

@@ -34,5 +34,9 @@
   {
     "id": "rnt",
     "nom": "RNTM"
+  },
+  {
+    "id": "nus",
+    "nom": "Nom d'usage"
   }
 ]

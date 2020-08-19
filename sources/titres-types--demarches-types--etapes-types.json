@@ -22468,5 +22468,83 @@
     "demarche_type_id": "vct",
     "etape_type_id": "mdp",
     "ordre": "110"
+  },
+  {
+    "titre_type_id": "cxf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "cxg",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "cxh",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "cxr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "cxs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "cxw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "241"
+  },
+  {
+    "titre_type_id": "pcc",
+    "demarche_type_id": "oct",
+    "etape_type_id": "epc",
+    "ordre": "191"
+  },
+  {
+    "titre_type_id": "prf",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ppc",
+    "ordre": "231"
+  },
+  {
+    "titre_type_id": "prm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ppc",
+    "ordre": "231"
+  },
+  {
+    "titre_type_id": "prr",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ppc",
+    "ordre": "231"
+  },
+  {
+    "titre_type_id": "prs",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ppc",
+    "ordre": "231"
+  },
+  {
+    "titre_type_id": "prw",
+    "demarche_type_id": "oct",
+    "etape_type_id": "ppc",
+    "ordre": "231"
   }
 ]
