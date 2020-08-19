@@ -74,6 +74,7 @@ const titreUpdate = async (titreId: string) => {
       {
         fields: {
           type: { type: { id: {} } },
+          references: { id: {} },
           administrationsGestionnaires: { id: {} },
           demarches: {
             etapes: {
