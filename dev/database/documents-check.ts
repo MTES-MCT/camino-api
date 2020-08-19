@@ -2,7 +2,7 @@ import { basename } from 'path'
 import { execSync } from 'child_process'
 
 import 'dotenv/config'
-import '../../src/database/index'
+import '../../src/init'
 
 import { documentsGet } from '../../src/database/queries/documents'
 

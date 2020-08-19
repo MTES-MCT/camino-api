@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-import '../../src/database/index'
+import '../../src/init'
 import fileCreate from '../src/tools/file-create'
 
 import { inseeSirenGet, inseeSiretGet } from '../src/tools/api-insee'

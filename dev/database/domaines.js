@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../src/database/index'
+import '../../src/database/init'
 import fileCreate from '../../src/tools/file-create'
 
 import { domainesGet } from '../../src/database/queries/metas'

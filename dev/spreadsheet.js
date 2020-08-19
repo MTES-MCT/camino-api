@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../src/database/index'
+import '../../src/init'
 import { titreActivitesRowUpdate } from '../src/tools/export/titre-activites'
 
 async function main() {

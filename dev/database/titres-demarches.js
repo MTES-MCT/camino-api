@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../src/database/index'
+import '../../src/init'
 import fileCreate from '../../src/tools/file-create'
 
 import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
