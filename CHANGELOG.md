@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.49](https://github.com/MTES-MCT/camino-api/compare/v0.24.48...v0.24.49) (2020-08-19)
+
+
+### Features
+
+* **business:** prend en compte l'étape d'informations historiques incomplètes dans le calcul des statuts ([#500](https://github.com/MTES-MCT/camino-api/issues/500)) ([5ff29bc](https://github.com/MTES-MCT/camino-api/commit/5ff29bc6a3bf2d6ec70bb9d7aecad9c925cf3567))
+* **data:** insère les données de la base titres DEB ([#501](https://github.com/MTES-MCT/camino-api/issues/501)) ([7d18db6](https://github.com/MTES-MCT/camino-api/commit/7d18db66d3afde1add5ca118aa16160d45d1613d))
+* **démarche:** ajoute l'arbre de prolongation des ARM en Guyane ([#483](https://github.com/MTES-MCT/camino-api/issues/483)) ([cf4b57c](https://github.com/MTES-MCT/camino-api/commit/cf4b57cae6ebcc3bf600718a546ca964f92bf384))
+* **démarche:** ajoute l’arbre de renonciation et les règles de publicité des ARM en Guyane ([#484](https://github.com/MTES-MCT/camino-api/issues/484)) ([0334577](https://github.com/MTES-MCT/camino-api/commit/03345772026b4ad56242ef88a91f2e818a70f8e5))
+
+
+### Bug Fixes
+
+* **documents:** corrige le renommage de dossiers de documents lors de l'édition d'un titre ([#498](https://github.com/MTES-MCT/camino-api/issues/498)) ([01714f7](https://github.com/MTES-MCT/camino-api/commit/01714f72c74dcef8d574a61f8ff331274e072c8c))
+* **etapes:** corrige la disparition des références de titres lors de l'édition ([#499](https://github.com/MTES-MCT/camino-api/issues/499)) ([5a10756](https://github.com/MTES-MCT/camino-api/commit/5a10756f8746ad91f210439ffb94a7d0f7011193))
+* **tools:** corrige le script de recherche d'incohérences de documents ([#497](https://github.com/MTES-MCT/camino-api/issues/497)) ([d0e6c90](https://github.com/MTES-MCT/camino-api/commit/d0e6c9018e982444b2a1c915f0a43e2a933113cb))
+
 ### [0.24.48](https://github.com/MTES-MCT/camino-api/compare/v0.24.47...v0.24.48) (2020-08-04)
 
 
