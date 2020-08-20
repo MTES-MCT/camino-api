@@ -1,48 +1,18 @@
 [
   {
-    "id": "aac",
-    "nom": "Avis d'un service de l'administration centrale",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "acd",
-    "nom": "Avis de la commission départementale des mines",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "acm",
-    "nom": "Avis des services civils et militaires",
-    "repertoire": "demarches"
-  },
-  {
     "id": "acr",
     "nom": "Accusé de réception d'une demande",
     "repertoire": "demarches"
   },
   {
-    "id": "adr",
-    "nom": "Avis du directeur régional chargé des mines",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "aep",
-    "nom": "Avis d'enquête publique",
+    "id": "arr",
+    "nom": "Arrêté",
     "repertoire": "demarches"
   },
   {
     "id": "aot",
     "nom": "Arrêté autorisant l'ouverture de travaux miniers",
     "repertoire": "travaux"
-  },
-  {
-    "id": "apd",
-    "nom": "Arrêté de second donné acte (AP2)",
-    "repertoire": "travaux"
-  },
-  {
-    "id": "apf",
-    "nom": "Avis du préfet",
-    "repertoire": "demarches"
   },
   {
     "id": "apm",
@@ -52,6 +22,11 @@
   {
     "id": "apu",
     "nom": "Arrêté de premier donné acte (AP1)",
+    "repertoire": "travaux"
+  },
+  {
+    "id": "apd",
+    "nom": "Arrêté de second donné acte (AP2)",
     "repertoire": "travaux"
   },
   {
@@ -65,19 +40,9 @@
     "repertoire": "demarches"
   },
   {
-    "id": "arr",
-    "nom": "Arrêté",
-    "repertoire": "demarches"
-  },
-  {
     "id": "atf",
     "nom": "Attestation fiscale",
     "repertoire": "entreprises"
-  },
-  {
-    "id": "avc",
-    "nom": "Avis de mise en concurrence",
-    "repertoire": "demarches"
   },
   {
     "id": "ave",
@@ -90,13 +55,48 @@
     "repertoire": "demarches"
   },
   {
-    "id": "car",
-    "nom": "Carte",
+    "id": "aep",
+    "nom": "Avis d'enquête publique",
     "repertoire": "demarches"
   },
   {
-    "id": "cco",
-    "nom": "Courrier de demande de compléments",
+    "id": "aac",
+    "nom": "Avis d'un service de l'administration centrale",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "acd",
+    "nom": "Avis de la commission départementale des mines",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "avc",
+    "nom": "Avis de mise en concurrence",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "sir",
+    "nom": "Avis de situation au répertoire Sirene",
+    "repertoire": "entreprises"
+  },
+  {
+    "id": "acm",
+    "nom": "Avis des services civils et militaires",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "acg",
+    "nom": "Avis du conseil général chargé des mines",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "adr",
+    "nom": "Avis du directeur régional chargé des mines",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "apf",
+    "nom": "Avis du préfet",
     "repertoire": "demarches"
   },
   {
@@ -105,13 +105,8 @@
     "repertoire": "demarches"
   },
   {
-    "id": "cnr",
-    "nom": "Courrier de notification de la recevabilité",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "cnt",
-    "nom": "Contrat",
+    "id": "car",
+    "nom": "Carte",
     "repertoire": "demarches"
   },
   {
@@ -120,19 +115,34 @@
     "repertoire": "demarches"
   },
   {
+    "id": "cnt",
+    "nom": "Contrat",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "cam",
+    "nom": "Contrat d'amodiation",
+    "repertoire": "demarches"
+  },
+  {
     "id": "con",
     "nom": "Convention",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "cco",
+    "nom": "Courrier de demande de compléments",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "cnr",
+    "nom": "Courrier de notification de la recevabilité",
     "repertoire": "demarches"
   },
   {
     "id": "cur",
     "nom": "Curriculum vitae",
     "repertoire": "entreprises"
-  },
-  {
-    "id": "dec",
-    "nom": "Décret",
-    "repertoire": "demarches"
   },
   {
     "id": "dei",
@@ -145,6 +155,16 @@
     "repertoire": "demarches"
   },
   {
+    "id": "dec",
+    "nom": "Décret",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "dos",
+    "nom": "Dossier",
+    "repertoire": "demarches"
+  },
+  {
     "id": "doe",
     "nom": "Dossier \"Loi sur l'eau\"",
     "repertoire": "demarches"
@@ -152,11 +172,6 @@
   {
     "id": "dom",
     "nom": "Dossier de demande",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "dos",
-    "nom": "Dossier",
     "repertoire": "demarches"
   },
   {
@@ -190,16 +205,6 @@
     "repertoire": "entreprises"
   },
   {
-    "id": "jcf",
-    "nom": "Justificatif des capacités financières",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "jct",
-    "nom": "Justificatif des capacités techniques",
-    "repertoire": "entreprises"
-  },
-  {
     "id": "jid",
     "nom": "Justificatif d'identité",
     "repertoire": "entreprises"
@@ -210,9 +215,34 @@
     "repertoire": "demarches"
   },
   {
+    "id": "jcf",
+    "nom": "Justificatif des capacités financières",
+    "repertoire": "entreprises"
+  },
+  {
+    "id": "jct",
+    "nom": "Justificatif des capacités techniques",
+    "repertoire": "entreprises"
+  },
+  {
     "id": "kbi",
     "nom": "Kbis",
     "repertoire": "entreprises"
+  },
+  {
+    "id": "let",
+    "nom": "Lettre",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "lem",
+    "nom": "Lettre de demande",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "lcm",
+    "nom": "Lettre de saisine des services civils et militaires",
+    "repertoire": "demarches"
   },
   {
     "id": "lac",
@@ -227,21 +257,6 @@
   {
     "id": "lcg",
     "nom": "Lettre de saisine du conseil général chargé des mines",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "lcm",
-    "nom": "Lettre de saisine des services civils et militaires",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "lem",
-    "nom": "Lettre de demande",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "let",
-    "nom": "Lettre",
     "repertoire": "demarches"
   },
   {
@@ -260,18 +275,8 @@
     "repertoire": "demarches"
   },
   {
-    "id": "ndc",
-    "nom": "Notification de demande concurrente",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "ndd",
-    "nom": "Notification de décision",
-    "repertoire": "demarches"
-  },
-  {
-    "id": "noi",
-    "nom": "Notice d'incidence",
+    "id": "nis",
+    "nom": "Note interne signalée",
     "repertoire": "demarches"
   },
   {
@@ -280,8 +285,23 @@
     "repertoire": "demarches"
   },
   {
-    "id": "ocd",
-    "nom": "Ordre du jour de la commission départementale des mines",
+    "id": "noi",
+    "nom": "Notice d'incidence",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "ndd",
+    "nom": "Notification de décision",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "ndc",
+    "nom": "Notification de demande concurrente",
+    "repertoire": "demarches"
+  },
+  {
+    "id": "ord",
+    "nom": "Ordonnance",
     "repertoire": "demarches"
   },
   {
@@ -290,8 +310,8 @@
     "repertoire": "demarches"
   },
   {
-    "id": "ord",
-    "nom": "Ordonnance",
+    "id": "ocd",
+    "nom": "Ordre du jour de la commission départementale des mines",
     "repertoire": "demarches"
   },
   {
@@ -305,13 +325,23 @@
     "repertoire": "demarches"
   },
   {
-    "id": "rce",
-    "nom": "Rapport du commissaire enquêteur",
-    "repertoire": "demarches"
+    "id": "rgr",
+    "nom": "Rapport annuel de production d'or en Guyane",
+    "repertoire": "activites"
   },
   {
-    "id": "rcr",
-    "nom": "Rapport de recevabilité",
+    "id": "rwp",
+    "nom": "Rapport annuel de production de granulats marins",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rie",
+    "nom": "Rapport d’intensité d’exploration",
+    "repertoire": "activites"
+  },
+  {
+    "id": "rac",
+    "nom": "Rapport de l’administration centrale chargé des mines",
     "repertoire": "demarches"
   },
   {
@@ -320,13 +350,13 @@
     "repertoire": "demarches"
   },
   {
-    "id": "rdt",
-    "nom": "Récépissé de déclaration d'ouverture des travaux miniers",
-    "repertoire": "travaux"
+    "id": "rcr",
+    "nom": "Rapport de recevabilité",
+    "repertoire": "demarches"
   },
   {
-    "id": "rec",
-    "nom": "Récépissé \"Loi sur l'eau\"",
+    "id": "rce",
+    "nom": "Rapport du commissaire enquêteur",
     "repertoire": "demarches"
   },
   {
@@ -340,33 +370,18 @@
     "repertoire": "activites"
   },
   {
-    "id": "rgr",
-    "nom": "Rapport annuel de production d'or en Guyane",
-    "repertoire": "activites"
-  },
-  {
-    "id": "rie",
-    "nom": "Rapport d’intensité d’exploration",
-    "repertoire": "activites"
-  },
-  {
     "id": "rse",
     "nom": "Rapport social et économique d'exploration",
     "repertoire": "activites"
   },
   {
-    "id": "rwp",
-    "nom": "Rapport annuel de production de granulats marins",
-    "repertoire": "activites"
-  },
-  {
-    "id": "sir",
-    "nom": "Avis de situation au répertoire Sirene",
-    "repertoire": "entreprises"
-  },
-  {
-    "id": "acg",
-    "nom": "Avis du conseil général chargé des mines",
+    "id": "rec",
+    "nom": "Récépissé \"Loi sur l'eau\"",
     "repertoire": "demarches"
+  },
+  {
+    "id": "rdt",
+    "nom": "Récépissé de déclaration d'ouverture des travaux miniers",
+    "repertoire": "travaux"
   }
 ]

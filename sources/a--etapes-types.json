@@ -383,5 +383,85 @@
     "etape_type_id": "ihi",
     "public_lecture": "TRUE",
     "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "nis",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "aim",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "ami",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "dsl",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "asl",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "esb",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "abs",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "auc",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "ass",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "aaf",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "ars",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "aac",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "api",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "agn",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "afp",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "aec",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "FALSE"
   }
 ]

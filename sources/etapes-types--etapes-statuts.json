@@ -773,5 +773,275 @@
     "etape_type_id": "epu",
     "etape_statut_id": "pro",
     "ordre": "1"
+  },
+  {
+    "etape_type_id": "nis",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "aim",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "aim",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "aim",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "aim",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "ami",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "ami",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "ami",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "ami",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "dsl",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "asl",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "asl",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "asl",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "esb",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "abs",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "auc",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "ass",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "aaf",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "ars",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "aac",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "api",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "agn",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "afp",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "aec",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "abs",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "auc",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "ass",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "aaf",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "ars",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "aac",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "api",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "agn",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "afp",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "aec",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "abs",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "auc",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "ass",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "aaf",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "ars",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "aac",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "api",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "agn",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "afp",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "aec",
+    "etape_statut_id": "def",
+    "ordre": "3"
+  },
+  {
+    "etape_type_id": "abs",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "auc",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "ass",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "aaf",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "ars",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "aac",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "api",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "agn",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "afp",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "aec",
+    "etape_statut_id": "dre",
+    "ordre": "4"
   }
 ]

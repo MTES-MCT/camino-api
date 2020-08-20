@@ -118,5 +118,53 @@
     "titres_modification_interdit": "TRUE",
     "demarches_modification_interdit": "TRUE",
     "etapes_modification_interdit": "FALSE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "axm",
+    "titre_statut_id": "dmc",
+    "titres_modification_interdit": "TRUE",
+    "demarches_modification_interdit": "TRUE",
+    "etapes_modification_interdit": "TRUE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "axm",
+    "titre_statut_id": "dmi",
+    "titres_modification_interdit": "FALSE",
+    "demarches_modification_interdit": "FALSE",
+    "etapes_modification_interdit": "FALSE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "axm",
+    "titre_statut_id": "ech",
+    "titres_modification_interdit": "TRUE",
+    "demarches_modification_interdit": "TRUE",
+    "etapes_modification_interdit": "TRUE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "axm",
+    "titre_statut_id": "ind",
+    "titres_modification_interdit": "TRUE",
+    "demarches_modification_interdit": "TRUE",
+    "etapes_modification_interdit": "TRUE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "axm",
+    "titre_statut_id": "mod",
+    "titres_modification_interdit": "TRUE",
+    "demarches_modification_interdit": "TRUE",
+    "etapes_modification_interdit": "TRUE"
+  },
+  {
+    "administration_id": "ope-ptmg-973-01",
+    "titre_type_id": "axm",
+    "titre_statut_id": "val",
+    "titres_modification_interdit": "TRUE",
+    "demarches_modification_interdit": "TRUE",
+    "etapes_modification_interdit": "TRUE"
   }
 ]

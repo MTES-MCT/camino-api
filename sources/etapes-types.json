@@ -1,8 +1,19 @@
 [
   {
+    "id": "dsl",
+    "nom": "demande d'accord du propriétaire du sol (ONF)",
+    "ordre": "1"
+  },
+  {
+    "id": "asl",
+    "nom": "décision du propiétaire du sol (ONF)",
+    "ordre": "2",
+    "fondamentale": "TRUE"
+  },
+  {
     "id": "mfr",
     "nom": "demande",
-    "ordre": "1",
+    "ordre": "3",
     "fondamentale": "TRUE",
     "unique": "TRUE",
     "acceptation_auto": "TRUE"
@@ -10,14 +21,14 @@
   {
     "id": "mdp",
     "nom": "dépôt de la demande",
-    "ordre": "2",
+    "ordre": "4",
     "unique": "TRUE",
     "acceptation_auto": "TRUE"
   },
   {
     "id": "men",
     "nom": "enregistrement de la demande",
-    "ordre": "3",
+    "ordre": "5",
     "unique": "TRUE",
     "acceptation_auto": "TRUE",
     "date_fin": "2018-01-01"
@@ -25,7 +36,7 @@
   {
     "id": "dae",
     "nom": "décision de la mission autorité environnementale (examen au cas par cas du projet)",
-    "ordre": "4",
+    "ordre": "6",
     "sections": [
       {
         "id": "mea",
@@ -44,26 +55,26 @@
   {
     "id": "ide",
     "nom": "initiation de la démarche",
-    "ordre": "5",
+    "ordre": "7",
     "unique": "TRUE",
     "acceptation_auto": "TRUE"
   },
   {
     "id": "spp",
     "nom": "saisine du préfet",
-    "ordre": "6",
+    "ordre": "8",
     "unique": "TRUE"
   },
   {
     "id": "des",
     "nom": "désistement du demandeur",
-    "ordre": "7",
+    "ordre": "9",
     "unique": "TRUE"
   },
   {
     "id": "pfd",
     "nom": "paiement des frais de dossier",
-    "ordre": "8",
+    "ordre": "10",
     "unique": "TRUE",
     "sections": [
       {
@@ -89,13 +100,13 @@
   {
     "id": "mod",
     "nom": "modification de la demande",
-    "ordre": "9",
+    "ordre": "11",
     "fondamentale": "TRUE"
   },
   {
     "id": "mco",
     "nom": "demande de compléments",
-    "ordre": "10",
+    "ordre": "12",
     "sections": [
       {
         "id": "mcox",
@@ -120,40 +131,40 @@
   {
     "id": "rco",
     "nom": "réception de compléments",
-    "ordre": "11",
+    "ordre": "13",
     "fondamentale": "TRUE"
   },
   {
     "id": "mif",
     "nom": "demande d'informations",
-    "ordre": "12"
+    "ordre": "14"
   },
   {
     "id": "rif",
     "nom": "réception d'information",
-    "ordre": "13",
+    "ordre": "15",
     "fondamentale": "TRUE"
   },
   {
     "id": "mcp",
     "nom": "complétude de la demande",
-    "ordre": "14"
+    "ordre": "16"
   },
   {
     "id": "mcr",
     "nom": "recevabilité de la demande",
-    "ordre": "15"
+    "ordre": "17"
   },
   {
     "id": "apu",
     "nom": "publication de l'avis de décision implicite",
-    "ordre": "16",
+    "ordre": "18",
     "unique": "TRUE"
   },
   {
     "id": "rde",
     "nom": "récépissé de déclaration loi sur l'eau",
-    "ordre": "17",
+    "ordre": "19",
     "sections": [
       {
         "id": "deal",
@@ -184,12 +195,12 @@
   {
     "id": "rdt",
     "nom": "récépissé de déclaration d'ouverture de travaux miniers",
-    "ordre": "18"
+    "ordre": "20"
   },
   {
     "id": "meo",
     "nom": "prise en charge par l'Office national des forêts",
-    "ordre": "19",
+    "ordre": "21",
     "unique": "TRUE",
     "date_fin": "2020-01-01",
     "sections": [
@@ -210,7 +221,7 @@
   {
     "id": "vfd",
     "nom": "validation du paiement des frais de dossier",
-    "ordre": "20",
+    "ordre": "22",
     "unique": "TRUE",
     "sections": [
       {
@@ -230,49 +241,49 @@
   {
     "id": "anf",
     "nom": "avis de mise en concurrence au JORF",
-    "ordre": "21",
+    "ordre": "23",
     "fondamentale": "TRUE"
   },
   {
     "id": "ane",
     "nom": "avis de mise en concurrence au JOUE",
-    "ordre": "22",
+    "ordre": "24",
     "fondamentale": "TRUE"
   },
   {
     "id": "mec",
     "nom": "avis de demande concurrente",
-    "ordre": "23"
+    "ordre": "25"
   },
   {
     "id": "ppu",
     "nom": "ouverture de la participation du public",
-    "ordre": "24"
+    "ordre": "26"
   },
   {
     "id": "epu",
     "nom": "ouverture de l'enquête publique",
-    "ordre": "25"
+    "ordre": "27"
   },
   {
     "id": "ppc",
     "nom": "cloture de la participation du public",
-    "ordre": "26"
+    "ordre": "28"
   },
   {
     "id": "epc",
     "nom": "cloture de l'enquête publique",
-    "ordre": "27"
+    "ordre": "29"
   },
   {
     "id": "ssr",
     "nom": "saisine des services",
-    "ordre": "28"
+    "ordre": "30"
   },
   {
     "id": "ede",
     "nom": "expertise DREAL ou DGTM service eau",
-    "ordre": "29",
+    "ordre": "31",
     "sections": [
       {
         "id": "deal",
@@ -297,7 +308,7 @@
   {
     "id": "edm",
     "nom": "expertise DREAL ou DGTM service mines",
-    "ordre": "30",
+    "ordre": "32",
     "sections": [
       {
         "id": "deal",
@@ -320,200 +331,266 @@
     ]
   },
   {
+    "id": "esb",
+    "nom": "expertise DREAL ou DGTM service biodiversité",
+    "ordre": "33"
+  },
+  {
     "id": "eof",
     "nom": "expertise de l'Office national des forêts",
-    "ordre": "31"
+    "ordre": "34"
   },
   {
     "id": "aof",
     "nom": "avis de l'Office national des forêts",
-    "ordre": "32"
+    "ordre": "35"
   },
   {
     "id": "aop",
     "nom": "avis de l'Institut national de l'origine et de la qualité",
-    "ordre": "33"
+    "ordre": "36"
   },
   {
     "id": "apl",
     "nom": "avis d'un service administratif local",
-    "ordre": "34"
+    "ordre": "37"
   },
   {
     "id": "apm",
     "nom": "avis de l'autorité militaire",
-    "ordre": "35"
+    "ordre": "38"
   },
   {
     "id": "cod",
     "nom": "consultation du conseil départemental de l'environnement et des risques sanitaires et technologiques",
-    "ordre": "36"
+    "ordre": "39"
   },
   {
     "id": "scl",
     "nom": "saisine des collectivités locales",
-    "ordre": "37"
+    "ordre": "40"
   },
   {
     "id": "ama",
     "nom": "avis d'un maire",
-    "ordre": "38"
+    "ordre": "41"
   },
   {
     "id": "aep",
     "nom": "avis d'un président d'EPCI",
-    "ordre": "39"
+    "ordre": "42"
   },
   {
     "id": "acl",
     "nom": "avis d'une collectivité locale",
-    "ordre": "40"
+    "ordre": "43"
   },
   {
     "id": "apd",
     "nom": "avis du DREAL ou DEAL",
-    "ordre": "41"
+    "ordre": "44"
   },
   {
     "id": "def",
     "nom": "décision de l'Office national des forêts",
-    "ordre": "42",
+    "ordre": "45",
     "unique": "TRUE",
     "date_fin": "2020-01-01"
   },
   {
     "id": "apn",
     "nom": "avis du parc national",
-    "ordre": "43"
+    "ordre": "46"
   },
   {
     "id": "pnr",
     "nom": "avis du parc naturel régional",
-    "ordre": "44"
+    "ordre": "47"
   },
   {
     "id": "ari",
     "nom": "avis de la réunion interservice",
-    "ordre": "45"
+    "ordre": "48"
+  },
+  {
+    "id": "aim",
+    "nom": "avis de l'Ifremer",
+    "ordre": "49"
+  },
+  {
+    "id": "ami",
+    "nom": "avis du parc naturel marin",
+    "ordre": "50"
+  },
+  {
+    "id": "abs",
+    "nom": "avis DGTM service milieux naturels, biodiversité, sites et paysages (MNBST)",
+    "ordre": "51"
+  },
+  {
+    "id": "auc",
+    "nom": "avis DGTM service aménagement, urbanisme, construction, logement (AUCL)",
+    "ordre": "52"
+  },
+  {
+    "id": "ass",
+    "nom": "avis de la caisse générale de sécurité sociale",
+    "ordre": "53"
+  },
+  {
+    "id": "aaf",
+    "nom": "avis de la direction d'alimentation de l'agriculture et de la forêt",
+    "ordre": "54"
+  },
+  {
+    "id": "ars",
+    "nom": "avis de l'agence régionale de santé",
+    "ordre": "55"
+  },
+  {
+    "id": "aac",
+    "nom": "avis de direction régionale des affaires culturelles",
+    "ordre": "56"
+  },
+  {
+    "id": "api",
+    "nom": "avis de l'état major orpaillage et pêche illicite (EMOPI)",
+    "ordre": "57"
+  },
+  {
+    "id": "agn",
+    "nom": "avis de la gendarmerie nationale",
+    "ordre": "58"
+  },
+  {
+    "id": "afp",
+    "nom": "avis de la direction régionale des finances publiques",
+    "ordre": "59"
+  },
+  {
+    "id": "aec",
+    "nom": "avis de la direction des entreprises, de la concurrence, de la consommation, du travail et de l'emploi",
+    "ordre": "60"
   },
   {
     "id": "spo",
     "nom": "saisine de la commission départementale des mines (CDM)",
-    "ordre": "46"
+    "ordre": "61"
   },
   {
     "id": "apo",
     "nom": "avis de la commission départementale des mines (CDM)",
-    "ordre": "47"
+    "ordre": "62"
   },
   {
     "id": "sca",
     "nom": "saisine de la commission des autorisations de recherches minières (CARM)",
-    "ordre": "48"
+    "ordre": "63"
   },
   {
     "id": "aca",
     "nom": "avis de la commission des autorisations de recherches minières (CARM)",
-    "ordre": "49",
+    "ordre": "64",
+    "fondamentale": "TRUE",
     "unique": "TRUE"
   },
   {
     "id": "app",
     "nom": "avis du préfet",
-    "ordre": "50"
+    "ordre": "65"
   },
   {
     "id": "apw",
     "nom": "avis du préfet maritime",
-    "ordre": "51"
+    "ordre": "66"
   },
   {
     "id": "cac",
     "nom": "consultation des administrations centrales",
-    "ordre": "52"
+    "ordre": "67"
   },
   {
     "id": "cim",
     "nom": "concertation interministérielle",
-    "ordre": "53"
+    "ordre": "68"
   },
   {
     "id": "scg",
     "nom": "saisine du conseil général chargé des mines",
-    "ordre": "54",
+    "ordre": "69",
     "acceptation_auto": "TRUE"
   },
   {
     "id": "rcg",
     "nom": "rapport du conseil général chargé des mines",
-    "ordre": "55"
+    "ordre": "70"
   },
   {
     "id": "acg",
     "nom": "avis du conseil général chargé des mines",
-    "ordre": "56"
+    "ordre": "71"
   },
   {
     "id": "spe",
     "nom": "saisine du Conseil d'Etat",
-    "ordre": "57",
+    "ordre": "72",
     "acceptation_auto": "TRUE"
   },
   {
     "id": "rpe",
     "nom": "rapport du Conseil d’État",
-    "ordre": "58"
+    "ordre": "73"
   },
   {
     "id": "ape",
     "nom": "avis du Conseil d'Etat",
-    "ordre": "59"
+    "ordre": "74"
   },
   {
     "id": "sas",
     "nom": "saisine de l'autorité signataire",
-    "ordre": "60"
+    "ordre": "75"
   },
   {
     "id": "dim",
     "nom": "décision implicite",
-    "ordre": "61",
+    "ordre": "76",
     "fondamentale": "TRUE"
   },
   {
     "id": "css",
     "nom": "classement sans suite",
-    "ordre": "62",
+    "ordre": "77",
     "unique": "TRUE"
   },
   {
     "id": "dex",
     "nom": "décision de l'administration",
-    "ordre": "63",
+    "ordre": "78",
     "fondamentale": "TRUE"
   },
   {
     "id": "dpu",
     "nom": "publication de décision au JORF",
-    "ordre": "64",
+    "ordre": "79",
     "fondamentale": "TRUE"
   },
   {
     "id": "dux",
     "nom": "décision administrative",
-    "ordre": "65",
+    "ordre": "80",
     "fondamentale": "TRUE"
   },
   {
     "id": "dup",
     "nom": "publication de décision administrative au JORF",
-    "ordre": "66",
+    "ordre": "81",
     "fondamentale": "TRUE"
   },
   {
     "id": "npp",
     "nom": "notification au préfet",
-    "ordre": "67",
+    "ordre": "82",
     "sections": [
       {
         "id": "nppx",
@@ -533,31 +610,31 @@
   {
     "id": "rpu",
     "nom": "publication de décision au recueil des actes administratifs",
-    "ordre": "68",
+    "ordre": "83",
     "fondamentale": "TRUE"
   },
   {
     "id": "rtd",
     "nom": "retrait de la décision",
-    "ordre": "69",
+    "ordre": "84",
     "fondamentale": "TRUE"
   },
   {
     "id": "abd",
     "nom": "abrogation de la décision",
-    "ordre": "70",
+    "ordre": "85",
     "fondamentale": "TRUE"
   },
   {
     "id": "and",
     "nom": "décision du juge administratif",
-    "ordre": "71",
+    "ordre": "86",
     "fondamentale": "TRUE"
   },
   {
     "id": "mno",
     "nom": "notification au demandeur",
-    "ordre": "72",
+    "ordre": "87",
     "unique": "TRUE",
     "sections": [
       {
@@ -577,12 +654,12 @@
   {
     "id": "ncl",
     "nom": "notification des collectivités locales",
-    "ordre": "73"
+    "ordre": "88"
   },
   {
     "id": "pfc",
     "nom": "paiement des frais de dossier complémentaires",
-    "ordre": "74",
+    "ordre": "89",
     "unique": "TRUE",
     "sections": [
       {
@@ -608,7 +685,7 @@
   {
     "id": "vfc",
     "nom": "validation du paiement des frais de dossier complémentaires",
-    "ordre": "75",
+    "ordre": "90",
     "unique": "TRUE",
     "sections": [
       {
@@ -628,20 +705,20 @@
   {
     "id": "sco",
     "nom": "signature de l’autorisation de recherche minière",
-    "ordre": "76",
+    "ordre": "91",
     "fondamentale": "TRUE",
     "unique": "TRUE"
   },
   {
     "id": "aco",
     "nom": "signature de l'avenant à l’autorisation de recherche minière",
-    "ordre": "77",
+    "ordre": "92",
     "fondamentale": "TRUE"
   },
   {
     "id": "ihi",
     "nom": "informations historiques incomplètes",
-    "ordre": "78",
+    "ordre": "93",
     "fondamentale": "TRUE",
     "unique": "TRUE",
     "date_fin": "2018-12-31"
@@ -649,21 +726,41 @@
   {
     "id": "awu",
     "nom": "premier donné acte",
-    "ordre": "79"
+    "ordre": "94"
   },
   {
     "id": "awd",
     "nom": "second donné acte",
-    "ordre": "80"
+    "ordre": "95"
   },
   {
     "id": "rwp",
     "nom": "récollement partiel",
-    "ordre": "81"
+    "ordre": "96"
   },
   {
     "id": "rwt",
     "nom": "récollement complet",
-    "ordre": "82"
+    "ordre": "97"
+  },
+  {
+    "id": "nis",
+    "nom": "note interne signalée",
+    "ordre": "98",
+    "sections": [
+      {
+        "id": "nisi",
+        "nom": "Note interne signalée",
+        "elements": [
+          {
+            "id": "note",
+            "nom": "Notes réservées à l'administration",
+            "description": "Informations internes importantes pour la compréhension du suivi de l'instruction de la démarche",
+            "type": "textarea",
+            "optionnel": false
+          }
+        ]
+      }
+    ]
   }
 ]
