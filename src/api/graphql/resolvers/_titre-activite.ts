@@ -99,7 +99,7 @@ ${sectionHtmlBuild(section, contenu)}
         )
       : ''
   const satisfactionUrl =
-    type && type.satisfactionUrl ? type.satisfactionUrl : ''
+    type?.satisfactionUrl?
   body += `<hr><a
         href="${satisfactionUrl}"
       >Je donne mon avis sur cette démarche
