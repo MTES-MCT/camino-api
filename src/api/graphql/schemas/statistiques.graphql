@@ -1,5 +1,5 @@
 "Statistiques"
-type NbSearch {
+type NbMonthValue {
   month: String
   value: String
 }
@@ -7,7 +7,8 @@ type NbSearch {
 type Statistiques {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
-  nbSearchArray: [NbSearch]
+  nbSearchArray: [NbMonthValue]
+  nbMajTitresArray: [NbMonthValue]
   nbAction: String
   timeSession: String
   nbDonwload: String

@@ -80,14 +80,14 @@ const matomoData = async () => {
   // calcul de la liste des dates (la requête s'effectue mois par mois)
   const dateArray = getDateArray(statsNbrMonth)
 
-  const datasArray = await Promise.all(
+  const nbMajTitresArray = await Promise.all(
     dateArray.map(async date => {
       // url
       const pathSection = `${process.env.API_MATOMO_URL}?date=${date}&expanded=1&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=Events.getCategory&module=API&period=month&segment=&token_auth=${process.env.API_MATOMO_TOKEN}`
 
-      const matomoSectionData = fetch(pathSection).then(res => res.json())
+      const matomoSectionData = await fetch(pathSection).then(res => res.json())
 
-      return matomoSectionData
+      return { month: date, value: matomoSectionData }
     })
   ).then(res => {
     // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
@@ -97,10 +97,11 @@ const matomoData = async () => {
     //   |->   nb_events : le nombre d'action de l'évènement
 
     return res.map(data => {
-      if (!data || !data.length) {
-        return 0
+      const month = data.month.slice(0, 7)
+      if (!data.value || !data.value.length) {
+        return { month: month, value: 0 }
       }
-      const nbMaj = data
+      const nbMaj = data.value
         .find((cat: { label: string }) => cat.label == 'titre-sections')
         .subtable.reduce((acc: any[], eventAction: { label: string }) => {
           if (eventActionsArray.includes(eventAction.label)) {
@@ -112,14 +113,13 @@ const matomoData = async () => {
         .map((eventAction: { nb_events: any }) => eventAction.nb_events)
         .reduce((total: number, nbEvent: number) => (total += nbEvent), 0)
 
-      return nbMaj
+      return { month: month, value: nbMaj }
     })
   })
-  console.log('datasArray :>> ', datasArray)
-  // const nbMajArray =
 
   return {
     nbSearchArray,
+    nbMajTitresArray,
     nbAction,
     timeSession,
     nbDonwload
