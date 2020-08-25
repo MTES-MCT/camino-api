@@ -289,7 +289,8 @@ const demarcheEtapesTypesGet = async (
         titreDemarche.type!,
         titreDemarche.etapes!,
         titreEtape?.typeId,
-        titreEtape?.statutId
+        titreEtape?.statutId,
+        titreEtape?.date
       )
 
       if (etapeTypeFormatted) {

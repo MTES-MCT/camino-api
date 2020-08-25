@@ -137,6 +137,27 @@ describe('etapeModifier', () => {
       'super'
     )
 
+    expect(res.body.errors).toBeUndefined()
+  })
+
+  test('ne peut pas modifier une étape acg avec un statut fai (utilisateur admin)', async () => {
+    const { titreDemarcheId, titreEtapeId } = await etapeCreate()
+
+    const res = await graphQLCall(
+      etapeModifierQuery,
+      {
+        etape: {
+          id: titreEtapeId,
+          typeId: 'acg',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: ''
+        }
+      },
+      'admin',
+      'ope-ptmg-973-01'
+    )
+
     expect(res.body.errors[0].message).toBe(
       'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
     )
