@@ -76,6 +76,8 @@ const titrePermissionQueryBuild = (
     ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
 
     q.select(titresModificationQuery.as('modification'))
+    q.select(raw('false').as('suppression'))
+    q.select(raw('false').as('travauxCreation'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
