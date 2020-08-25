@@ -5,7 +5,11 @@ import * as jwt from 'jsonwebtoken'
 import { IAdministration, IPermissionId, IUtilisateur } from '../src/types'
 import * as request from 'supertest'
 import { app } from './init'
-import { utilisateurCreate } from '../src/database/queries/utilisateurs'
+import {
+  utilisateurCreate,
+  utilisateurGet
+} from '../src/database/queries/utilisateurs'
+import { utilisateur } from '../src/api/graphql/resolvers/utilisateurs'
 
 const queryImport = (nom: string) =>
   fs
@@ -44,7 +48,9 @@ const tokenUserGenerate = async (
   administrationId?: string
 ) => {
   const id = permissionId !== 'super' ? `${permissionId}-user` : 'super'
-  try {
+
+  const userInDb = await utilisateurGet(id, undefined, 'super')
+  if (!userInDb) {
     const administrations = []
     if (administrationId) {
       administrations.push(({
@@ -64,8 +70,6 @@ const tokenUserGenerate = async (
       } as unknown) as IUtilisateur,
       {}
     )
-  } catch (e) {
-    console.debug(e)
   }
 
   return tokenCreate({ id })
