@@ -88,7 +88,7 @@ describe('etapeCreer', () => {
     expect(res.body.errors[0].message).toBe("la démarche n'existe pas")
   })
 
-  test('peut créer une étape mfr avec un statut fai(utilisateur super)', async () => {
+  test('peut créer une étape mfr avec un statut fai (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
@@ -106,7 +106,29 @@ describe('etapeCreer', () => {
     expect(res.body.errors).toBeUndefined()
   })
 
-  test('ne peut pas créer une étape acg avec un statut fai (utilisateur super)', async () => {
+  test('ne peut pas créer une étape acg avec un statut fai (utilisateur admin)', async () => {
+    const titreDemarcheId = await demarcheCreate()
+
+    const res = await graphQLCall(
+      etapeCreerQuery,
+      {
+        etape: {
+          typeId: 'acg',
+          statutId: 'fai',
+          titreDemarcheId,
+          date: ''
+        }
+      },
+      'admin',
+      'ope-ptmg-973-01'
+    )
+
+    expect(res.body.errors[0].message).toBe(
+      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
+    )
+  })
+
+  test('peut créer une étape acg avec un statut fai (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
 
     const res = await graphQLCall(
@@ -122,9 +144,7 @@ describe('etapeCreer', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe(
-      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
-    )
+    expect(res.body.errors).toBeUndefined()
   })
 
   test('peut créer une étape MEN sur un titre ARM en tant que PTMG (utilisateur admin)', async () => {

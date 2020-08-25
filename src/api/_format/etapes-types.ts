@@ -54,7 +54,8 @@ const etapeTypeEtapesStatutsFormat = (
   demarcheType: IDemarcheType,
   titreDemarcheEtapes: ITitreEtape[],
   etapeTypeId?: string,
-  etapeStatutId?: string
+  etapeStatutId?: string,
+  date?: string
 ) =>
   // restreint la liste des statuts disponibles pour le type d'étape
   etapeType.etapesStatuts!.filter(etapeStatut => {
@@ -75,13 +76,12 @@ const etapeTypeEtapesStatutsFormat = (
       )
     }
 
-    // TODO: utiliser la date de l'étape éditée
+    // TODO: filtrer les types d'étapes avec type.dateFin
+    // en fonction de la date du titre
     const isValid = !titreEtapeDateValidate(
       etapeType.id,
       etapeStatut.id,
-      // TODO: filtrer les types d'étapes avec type.dateFin
-      // en fonction de la date du titre
-      '3000-01-01',
+      date || '3000-01-01',
       demarcheType,
       titreDemarcheEtapes,
       titre
@@ -108,7 +108,8 @@ const etapeTypeFormat = (
   demarcheType: IDemarcheType,
   titreDemarcheEtapes: ITitreEtape[],
   etapeTypeId?: string,
-  etapeStatutId?: string
+  etapeStatutId?: string,
+  date?: string
 ) => {
   const isDateFinValid = etapeTypeDateFinCheck(
     etapeType,
@@ -123,7 +124,8 @@ const etapeTypeFormat = (
     demarcheType,
     titreDemarcheEtapes,
     etapeTypeId,
-    etapeStatutId
+    etapeStatutId,
+    date
   )
   // si aucun statut n'est disponible pour ce type d'étape
   // alors on ne retourne pas ce type d'étape pendant l'édition
