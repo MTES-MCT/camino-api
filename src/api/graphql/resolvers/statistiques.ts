@@ -30,6 +30,12 @@ const statistiques = async () => {
       nbDonwload
     } = await matomoData()
 
+    const nbDemarche = titresActivites.filter(titreActivite => {
+      const dateSaisie = titreActivite.dateSaisie
+
+      return dateSaisie && dateSaisie.slice(0, 4) === '2020'
+    }).length
+
     return {
       titresActivitesBeneficesEntreprise,
       titresActivitesBeneficesAdministration,
@@ -37,7 +43,8 @@ const statistiques = async () => {
       nbMajTitresArray,
       nbAction,
       timeSession,
-      nbDonwload
+      nbDonwload,
+      nbDemarche
     }
   } catch (e) {
     if (debug) {

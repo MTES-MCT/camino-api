@@ -12,4 +12,5 @@ type Statistiques {
   nbAction: String
   timeSession: String
   nbDonwload: String
+  nbDemarche: String
 }
