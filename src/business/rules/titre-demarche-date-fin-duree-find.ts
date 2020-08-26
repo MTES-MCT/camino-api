@@ -77,51 +77,47 @@ const titreDemarcheDateFinAndDureeFind = (
     { duree: 0, dateFin: null }
   )
 
-const titreDemarcheOctroiDateFinFind = (
-  duree: number,
-  titreEtapes: ITitreEtape[]
-) => {
-  // si il n'y a pas de durée cumulée,
-  // la date de fin par défaut est fixée au 31 décembre 2018,
-  // selon l'article L144-4 du code minier :
-  // https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504741
-  if (duree === 0) {
-    return '2018-12-31'
-  }
-
+const titreDemarcheOctroiDateDebutFind = (titreEtapes: ITitreEtape[]) => {
   const titreEtapesDescSorted = titreEtapes && titreEtapesDescSort(titreEtapes)
 
   // chercher dans les étapes de publication et décisives s'il y a une date de debut
   const titreEtapeHasDateDebut = titreEtapesDescSorted.find(
     te =>
-      ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
-        te.typeId
-      ) && te.dateDebut
+      [
+        'dpu',
+        'dup',
+        'rpu',
+        'dex',
+        'dux',
+        'dim',
+        'def',
+        'sco',
+        'aco',
+        'ihi'
+      ].includes(te.typeId) && te.dateDebut
   )
 
   if (titreEtapeHasDateDebut) {
-    return dateAddMonths(titreEtapeHasDateDebut.dateDebut!, duree)
+    return titreEtapeHasDateDebut.dateDebut!
   }
 
   // sinon, la date de fin est calculée
   // en ajoutant la durée cumulée à la date de la première étape de publication
   const titreEtapeDpuFirst = titreEtapesAscSort(titreEtapes).find(titreEtape =>
-    ['dpu', 'dup', 'sco', 'def', 'aco'].includes(titreEtape.typeId)
+    ['dpu', 'dup', 'def', 'sco', 'aco'].includes(titreEtape.typeId)
   )
 
   if (titreEtapeDpuFirst) {
-    return dateAddMonths(titreEtapeDpuFirst.date, duree)
+    return titreEtapeDpuFirst.date
   }
 
   // si on ne trouve pas de dpu, la date de fin est calculée
   // en ajoutant la date de la première étape décisive
   const titreEtapeDexFirst = titreEtapesAscSort(titreEtapes).find(titreEtape =>
-    ['dex', 'dux', 'def', 'sco', 'aco'].includes(titreEtape.typeId)
+    ['dex', 'dux', 'ihi'].includes(titreEtape.typeId)
   )
 
-  return titreEtapeDexFirst
-    ? dateAddMonths(titreEtapeDexFirst.date, duree)
-    : null
+  return titreEtapeDexFirst ? titreEtapeDexFirst.date : null
 }
 
 // trouve la date de fin et la durée d'une démarche d'octroi
@@ -132,14 +128,44 @@ const titreDemarcheOctroiDateFinAndDureeFind = (
   // retourne la durée cumulée et la date de fin
   // de la démarche d'octroi
   let { duree, dateFin } = titreDemarcheNormaleDateFinAndDureeFind(
-    dureeAcc,
+    0,
     titreEtapes
   )
 
-  dateFin = dateFin || titreDemarcheOctroiDateFinFind(duree, titreEtapes)
+  const dateDebut = titreDemarcheOctroiDateDebutFind(titreEtapes)
+
+  if (!dateDebut) {
+    return { duree: dureeAcc, dateFin }
+  }
+
+  // Si la démarche d’octroi a une date de fin,
+  // alors la durée est calculée à partir de la date de début
+  // la durée et la date de fin sont cumulées avec la durée accumulée
+  if (dateFin) {
+    return {
+      duree: datesSubtract(dateDebut, dateFin!) + dureeAcc,
+      dateFin: dateAddMonths(dateFin, dureeAcc)
+    }
+  }
+
+  if (!duree) {
+    // si il n'y a pas de durée,
+    // la date de fin par défaut est fixée au 31 décembre 2018,
+    // selon l'article L144-4 du code minier :
+    // https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000023501962&idArticle=LEGIARTI000023504741
+    dateFin = '2018-12-31'
+    // on calcule la durée que sépare la date de début et la date de fin
+    duree = datesSubtract(dateDebut, dateFin!)
+    // on met à jour la date de fin avec la durée accumulée
+    dateFin = dateAddMonths(dateFin, dureeAcc)
+  } else {
+    // on calcule la date de fin avec la date de début
+    // et la durée de l’octroi et la durée accumulée
+    dateFin = dateAddMonths(dateDebut, duree + dureeAcc)
+  }
 
   return {
-    duree,
+    duree: dureeAcc + duree,
     dateFin
   }
 }
@@ -187,6 +213,13 @@ const dateAddMonths = (date: string, months: number) => {
   const [y, m, d] = date.split('-')
 
   return dateFormat(new Date(+y, +m - 1 + months, +d), 'yyyy-mm-dd')
+}
+
+const datesSubtract = (dateDebut: string, dateFin: string) => {
+  const [yDebut, mDebut] = dateDebut.split('-')
+  const [yFin, mFin] = dateFin.split('-')
+
+  return +yFin * 12 + +mFin - (+yDebut * 12 + +mDebut)
 }
 
 export default titreDemarcheDateFinAndDureeFind
