@@ -84,6 +84,20 @@ const titresDemarchesFormatTable = (titresDemarches: ITitreDemarche[]) =>
       titre_statut: titre.statut!.nom,
       type: titreDemarche.type!.nom,
       statut: titreDemarche.statut!.nom,
+      titulaires_noms: titre.titulaires!.map(e => e.nom).join(';'),
+      titulaires_adresses: titre
+        .titulaires!.map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
+        .join(';'),
+      titulaires_legal: titre
+        .titulaires!.map(e => e.legalEtranger || e.legalSiren)
+        .join(';'),
+      amodiataires_noms: titre.amodiataires!.map(e => e.nom).join(';'),
+      amodiataires_adresses: titre
+        .amodiataires!.map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
+        .join(';'),
+      amodiataires_legal: titre
+        .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
+        .join(';'),
       ...etapesTypesStatuts
     }
 

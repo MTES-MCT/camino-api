@@ -85,8 +85,8 @@ const titres = async (
         statut: { id: {} },
         references: { type: { id: {} } },
         substances: { legales: { id: {} } },
-        titulaires: { etablissements: { id: {} } },
-        amodiataires: { etablissements: { id: {} } },
+        titulaires: { id: {} },
+        amodiataires: { id: {} },
         surfaceEtape: { id: {} },
         points: { id: {} },
         communes: { departement: { region: { pays: { id: {} } } } },
@@ -184,7 +184,11 @@ const demarches = async (
       fields: {
         type: { etapesTypes: { etapesStatuts: { id: {} } } },
         statut: { id: {} },
-        titre: { id: {} },
+        titre: {
+          id: {},
+          titulaires: { id: {} },
+          amodiataires: { id: {} }
+        },
         etapes: { type: { etapesStatuts: { id: {} } } }
       }
     },
