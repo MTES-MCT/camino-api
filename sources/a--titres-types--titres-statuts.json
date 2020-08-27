@@ -172,12 +172,12 @@
   {
     "titre_type_id": "arm",
     "titre_statut_id": "dmi",
-    "public_lecture": "FALSE"
+    "public_lecture": "TRUE"
   },
   {
     "titre_type_id": "axm",
     "titre_statut_id": "dmi",
-    "public_lecture": "FALSE"
+    "public_lecture": "TRUE"
   },
   {
     "titre_type_id": "cxf",
