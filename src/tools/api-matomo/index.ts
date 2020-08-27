@@ -1,9 +1,7 @@
-/* eslint-disable camelcase */
 import fetch from 'node-fetch'
 
 const matomoData = async () => {
   // calcul du mois de départ
-
   const statsNbrMonth = parseInt(process.env.STATS_NBR_MONTH!) - 1
 
   const date = new Date()
@@ -54,7 +52,6 @@ const matomoData = async () => {
   const nbDonwload = currentData.nb_downloads.toString()
 
   // Datas des évènements, catégorie 'titres-sections', actions:
-  // titre-ajouter (n'existe pas actuellement)
   // titre-editer
   // titre-demarche_ajouter
   // titre-demarche_editer
@@ -63,9 +60,16 @@ const matomoData = async () => {
   // titre-etape_editer
   // titre-etape_supprimer
   // titre-etape-doc_ajouter
-  // titre-etape-doc_editer (n'existe pas actuellement)
+  // jusqu'au 01/10/2020
+  // et
+  // titre-xxx-enregistrer
+  // à partir du 01/10/2020
+  const tDate = new Date()
+  tDate.setMonth(9)
+  tDate.setDate(1)
+  const toggleDate = tDate.toISOString().slice(0, 10)
+
   const eventActionsArray = [
-    'titre-ajouter',
     'titre-editer',
     'titre-demarche_ajouter',
     'titre-demarche_editer',
@@ -73,13 +77,18 @@ const matomoData = async () => {
     'titre-etape_ajouter',
     'titre-etape_editer',
     'titre-etape_supprimer',
-    'titre-etape-doc_ajouter',
-    'titre-etape-doc_editer'
+    'titre-etape-doc_ajouter'
   ]
+
+  const eventActionRegex = /titre-[a-z-]*enregistrer/g
 
   // calcul de la liste des dates (la requête s'effectue mois par mois)
   const dateArray = getDateArray(statsNbrMonth)
 
+  // retourne un tableau de nombre de maj des titres en fonction de mois(dateArray),
+  // de eventActions qui est un tableau de noms d'action d'évènements Matomo
+  // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
+  // et de toggleDate, la date de prise en compte de ces nouvelles actions (plus fiable)
   const nbMajTitresArray = await Promise.all(
     dateArray.map(async date => {
       // url
@@ -87,7 +96,10 @@ const matomoData = async () => {
 
       const matomoSectionData = await fetch(pathSection).then(res => res.json())
 
-      return { month: date, value: matomoSectionData }
+      return {
+        month: date,
+        value: matomoSectionData
+      }
     })
   ).then(res => {
     // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
@@ -104,8 +116,14 @@ const matomoData = async () => {
       const nbMaj = data.value
         .find((cat: { label: string }) => cat.label == 'titre-sections')
         .subtable.reduce((acc: any[], eventAction: { label: string }) => {
-          if (eventActionsArray.includes(eventAction.label)) {
-            acc.push(eventAction)
+          if (Date.parse(data.month) < Date.parse(toggleDate)) {
+            if (eventActionsArray.includes(eventAction.label)) {
+              acc.push(eventAction)
+            }
+          } else {
+            if (eventAction.label.match(eventActionRegex)) {
+              acc.push(eventAction)
+            }
           }
 
           return acc
