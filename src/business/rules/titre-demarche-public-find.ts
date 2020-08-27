@@ -99,7 +99,7 @@ const titreDemarchePublicLectureFind = (
   }
 
   // si le type d'étape est décision implicite
-  //    ou décision de l'adminisrtation
+  //    ou décision de l'administration
   // et que le statut est rejeté
   if (
     ['dim', 'dex'].includes(titreEtape.typeId) &&
@@ -112,7 +112,7 @@ const titreDemarchePublicLectureFind = (
   }
 
   // si le type d'étape est décision implicite
-  //    ou décision de l'adminisrtation
+  //    ou décision de l'administration
   //    ou publication au JORF
   // et que le statut est accepté
   // alors la démarche est publique
@@ -131,7 +131,7 @@ const titreDemarchePublicLectureFind = (
     publicLecture = true
   }
 
-  // si le type de titre est ARM ou AXM
+  // si le type de titre est ARM
   // et que le type d'étape est signature de l'autorisation de recherche minière
   //    ou signature de l'avenant à l'autorisation de recherche minière
   // alors la démarche est publique
