@@ -397,17 +397,7 @@
   {
     "etape_type_id": "eof",
     "etape_statut_id": "fai",
-    "ordre": "2"
-  },
-  {
-    "etape_type_id": "eof",
-    "etape_statut_id": "fav",
-    "ordre": "3"
-  },
-  {
-    "etape_type_id": "eof",
-    "etape_statut_id": "def",
-    "ordre": "4"
+    "ordre": "1"
   },
   {
     "etape_type_id": "mcr",
