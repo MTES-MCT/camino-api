@@ -8,12 +8,14 @@ import {
   titreDemarchesOctDpuFirst,
   titreDemarchesOctNiDpuNiDex,
   titreDemarchesOctProDuree,
+  titreDemarchesOctSansDateFinProDuree,
   titreDemarchesOctRetDateFin,
   titreDemarchesOctRetDate,
   titreDemarchesOctRetNoDex,
   titreDemarchesRenPoints,
   titreDemarchesRenPointsVideDex,
-  titreDemarchesRenPointsVideNiDpuNiDex
+  titreDemarchesRenPointsVideNiDpuNiDex,
+  titreDemarchesOctIhiDureeZero
 } from './__mocks__/titre-demarche-date-fin-duree-find-demarches'
 
 describe("retourne la date de fin et la durée d'une démarche", () => {
@@ -22,7 +24,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDateFin, 1)
     ).toEqual({
       dateFin: '2013-03-11',
-      duree: 0
+      duree: 25 * 12
     })
   })
 
@@ -35,12 +37,21 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     })
   })
 
-  test("la date de fin d'une démarche d'octroi est fixée au 31 décembre 2018 si la durée de la dernière étape est 0", () => {
+  test("la date de fin d'une démarche d'octroi est fixée au 31 décembre 2018 si il n’y ni date de fin ni durée dans la décision", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctDureeZero, 1)
     ).toEqual({
       dateFin: '2018-12-31',
-      duree: 0
+      duree: 30 * 12 + 9
+    })
+  })
+
+  test("la date de fin d'une démarche d'octroi est fixée au 31 décembre 2018 si il n’y ni date de fin ni durée dans l’étape d’informations historiques incomplètes", () => {
+    expect(
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctIhiDureeZero, 1)
+    ).toEqual({
+      dateFin: '2018-12-31',
+      duree: 30 * 12 + 9
     })
   })
 
@@ -67,7 +78,7 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctNiDpuNiDex, 1)
     ).toEqual({
       dateFin: null,
-      duree: 25 * 12
+      duree: 0
     })
   })
 
@@ -75,8 +86,17 @@ describe("retourne la date de fin et la durée d'une démarche", () => {
     expect(
       titreDemarcheDateFinAndDureeFind(titreDemarchesOctProDuree, 2)
     ).toEqual({
-      dateFin: '2038-03-11',
-      duree: 50 * 12
+      dateFin: '2035-03-11',
+      duree: 47 * 12
+    })
+  })
+
+  test("la date de fin d'une démarche d'octroi sans date de fin et d'une démarche normale avec une étape avec une durée est prolongée de 25 ans", () => {
+    expect(
+      titreDemarcheDateFinAndDureeFind(titreDemarchesOctSansDateFinProDuree, 2)
+    ).toEqual({
+      dateFin: '2068-12-31',
+      duree: 80 * 12 + 9
     })
   })
 
