@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.51](https://github.com/MTES-MCT/camino-api/compare/v0.24.50...v0.24.51) (2020-08-27)
+
+
+### Features
+
+* **demarche:** ajoute les colonnes sur les titulaires et les amodiataires dans l’export ([#507](https://github.com/MTES-MCT/camino-api/issues/507)) ([a7f0ed7](https://github.com/MTES-MCT/camino-api/commit/a7f0ed7d3f0e931ca9fabc01b8fcc0d69ec207f2))
+* **étapes:** désactive la vérification des arbres pour les utilisateurs 'super' ([#505](https://github.com/MTES-MCT/camino-api/issues/505)) ([4a0e83c](https://github.com/MTES-MCT/camino-api/commit/4a0e83cf1e908d1daa9ed324578e34d933254050))
+
+
+### Bug Fixes
+
+* **titres:** ajoute les permissions manquantes pour les admin ([#503](https://github.com/MTES-MCT/camino-api/issues/503)) ([7fedd8f](https://github.com/MTES-MCT/camino-api/commit/7fedd8f7e37295dd8f161e03fb1f1ea26af98f7c))
+
 ### [0.24.50](https://github.com/MTES-MCT/camino-api/compare/v0.24.49...v0.24.50) (2020-08-20)
 
 ### [0.24.49](https://github.com/MTES-MCT/camino-api/compare/v0.24.48...v0.24.49) (2020-08-19)
