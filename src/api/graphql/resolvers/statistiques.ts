@@ -33,7 +33,10 @@ const statistiques = async () => {
     const nbDemarche = titresActivites.filter(titreActivite => {
       const dateSaisie = titreActivite.dateSaisie
 
-      return dateSaisie && dateSaisie.slice(0, 4) === '2020'
+      return (
+        dateSaisie &&
+        dateSaisie.slice(0, 4) === new Date().getFullYear().toString()
+      )
     }).length
 
     return {
