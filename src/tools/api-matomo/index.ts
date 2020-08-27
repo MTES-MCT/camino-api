@@ -114,7 +114,7 @@ const matomoData = async () => {
         return { month: month, value: 0 }
       }
       const nbMaj = data.value
-        .find((cat: { label: string }) => cat.label == 'titre-sections')
+        .find((cat: { label: string }) => cat.label === 'titre-sections')
         .subtable.reduce((acc: any[], eventAction: { label: string }) => {
           if (Date.parse(data.month) < Date.parse(toggleDate)) {
             if (eventActionsArray.includes(eventAction.label)) {
@@ -149,7 +149,7 @@ const formatTime = (time: string) => {
   // sinon, ne garder que les minutes
   const index = time.search('min')
 
-  return index == -1 ? time : time.substring(0, index + 3).replace(' ', '')
+  return index === -1 ? time : time.substring(0, index + 3).replace(' ', '')
 }
 
 const getDateArray = (nbrMonth: number) => {
