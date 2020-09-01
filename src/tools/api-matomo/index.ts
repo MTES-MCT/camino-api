@@ -23,7 +23,14 @@ const matomoData = async () => {
   // avg_time_on_site : temps de session moyen (string)
   // nb_downloads : nombre de téléchargements
   const response = await fetch(pathVisit)
-  const matomoVisitData = await response.json()
+  const matomoVisitData: {
+    [month: string]: {
+      nb_searches: number
+      nb_actions_per_visit: number
+      avg_time_on_site: string
+      nb_downloads: number
+    }
+  } = await response.json()
 
   // tableau des mois
   const months = Object.keys(matomoVisitData)
@@ -85,49 +92,46 @@ const matomoData = async () => {
   // de eventActions qui est un tableau de noms d'action d'évènements Matomo
   // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
   // et de toggleDate, la date de prise en compte de ces nouvelles actions (plus fiable)
-  let nbMajTitresArray = await Promise.all(
-    dateArray.map(async date => {
-      // url
-      const pathSection = `${process.env.API_MATOMO_URL}?date=${date}&expanded=1&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=Events.getCategory&module=API&period=month&segment=&token_auth=${process.env.API_MATOMO_TOKEN}`
+  const nbMajTitresArray = (
+    await Promise.all(
+      dateArray.map(async date => {
+        // url
+        const pathSection = `${process.env.API_MATOMO_URL}?date=${date}&expanded=1&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=Events.getCategory&module=API&period=month&segment=&token_auth=${process.env.API_MATOMO_TOKEN}`
 
-      // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
-      // label : le nom de la catégorie d'évènement
-      // subtable : tableau d'objets dont les clés utiles aux stats sont
-      //   |->   label : le nom de l'action de l'évènement
-      //   |->   nb_events : le nombre d'action de l'évènement
-      const matomoSectionData = await fetch(pathSection)
+        // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
+        // label : le nom de la catégorie d'évènement
+        // subtable : tableau d'objets dont les clés utiles aux stats sont
+        //   |->   label : le nom de l'action de l'évènement
+        //   |->   nb_events : le nombre d'action de l'évènement
+        const matomoSectionData: {
+          label: string
+          subtable: { label: string; nb_events: number }[]
+        }[] = await (await fetch(pathSection)).json()
 
-      return {
-        month: date,
-        value: await matomoSectionData.json()
-      }
-    })
-  )
-  nbMajTitresArray = nbMajTitresArray.map(data => {
+        return {
+          month: date,
+          value: matomoSectionData
+        }
+      })
+    )
+  ).map(data => {
     const month = data.month.slice(0, 7)
     if (!data.value || !data.value.length) {
       return { month: month, value: 0 }
     }
-    const nbMaj: number = data.value
-      .find((cat: { label: string }) => cat.label === 'titre-sections')
-      .subtable.reduce(
-        (acc: { label: string }[], eventAction: { label: string }) => {
-          if (Date.parse(data.month) < Date.parse(toggleDate)) {
-            if (eventActionsArray.includes(eventAction.label)) {
-              acc.push(eventAction)
-            }
-          } else {
-            if (eventAction.label.match(eventActionRegex)) {
-              acc.push(eventAction)
-            }
+    const nbMaj = data.value
+      .find(cat => cat.label === 'titre-sections')!
+      .subtable.reduce((acc: number, eventAction) => {
+        if (Date.parse(data.month) < Date.parse(toggleDate)) {
+          if (eventActionsArray.includes(eventAction.label)) {
+            acc += eventAction.nb_events
           }
+        } else if (eventAction.label.match(eventActionRegex)) {
+          acc += eventAction.nb_events
+        }
 
-          return acc
-        },
-        []
-      )
-      .map((eventAction: { nb_events: any }) => eventAction.nb_events)
-      .reduce((total: number, nbEvent: number) => (total += nbEvent), 0)
+        return acc
+      }, 0)
 
     return { month: month, value: nbMaj }
   })
