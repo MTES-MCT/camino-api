@@ -31,17 +31,12 @@ const matomoData = async () => {
   // données du mois courant
   const currentData = matomoVisitData[currentMonth]
   // objet mois:nbr de recherches
-  const nbSearchObject = JSON.parse(JSON.stringify(matomoVisitData))
-  const nbSearchArray: {
-    month: string
-    value: string
-  }[] = []
-  Object.keys(nbSearchObject).forEach(key => {
-    nbSearchObject[key] = (nbSearchObject[key].nb_searches || 0).toString()
-    nbSearchArray.push({
+
+  const nbSearchArray = Object.keys(matomoVisitData).map(key => {
+    return {
       month: key,
-      value: nbSearchObject[key]
-    })
+      value: (matomoVisitData[key].nb_searches || 0).toString()
+    }
   })
 
   // nombre d'action du mois courant
@@ -94,40 +89,53 @@ const matomoData = async () => {
       // url
       const pathSection = `${process.env.API_MATOMO_URL}?date=${date}&expanded=1&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=Events.getCategory&module=API&period=month&segment=&token_auth=${process.env.API_MATOMO_TOKEN}`
 
-      const matomoSectionData = await fetch(pathSection).then(res => res.json())
+      // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
+      // label : le nom de la catégorie d'évènement
+      // subtable : tableau d'objets dont les clés utiles aux stats sont
+      //   |->   label : le nom de l'action de l'évènement
+      //   |->   nb_events : le nombre d'action de l'évènement
+      interface MatomoSectionData {
+        label: string
+        subtable: {
+          label: string
+          nb_events: number
+        }[]
+      }
 
-      return {
+      const matomoSectionData: MatomoSectionData[] = await fetch(
+        pathSection
+      ).then(res => res.json())
+
+      interface DateMatomoSectionData {
+        month: string
+        value: MatomoSectionData[]
+      }
+      const res: DateMatomoSectionData = {
         month: date,
         value: matomoSectionData
       }
+
+      return res
     })
   ).then(res => {
-    // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
-    // label : le nom de la catégorie d'évènement
-    // subtable : tableau d'objets dont les clés utiles aux stats sont
-    //   |->   label : le nom de l'action de l'évènement
-    //   |->   nb_events : le nombre d'action de l'évènement
-
     return res.map(data => {
       const month = data.month.slice(0, 7)
       if (!data.value || !data.value.length) {
         return { month: month, value: 0 }
       }
-      const nbMaj = data.value
+      const nbMaj: number = data.value
         .find((cat: { label: string }) => cat.label === 'titre-sections')
-        .subtable.reduce((acc: any[], eventAction: { label: string }) => {
+        .subtable.filter((eventAction: { label: string }) => {
           if (Date.parse(data.month) < Date.parse(toggleDate)) {
             if (eventActionsArray.includes(eventAction.label)) {
-              acc.push(eventAction)
+              return eventAction
             }
           } else {
             if (eventAction.label.match(eventActionRegex)) {
-              acc.push(eventAction)
+              return eventAction
             }
           }
-
-          return acc
-        }, [])
+        })
         .map((eventAction: { nb_events: any }) => eventAction.nb_events)
         .reduce((total: number, nbEvent: number) => (total += nbEvent), 0)
 
