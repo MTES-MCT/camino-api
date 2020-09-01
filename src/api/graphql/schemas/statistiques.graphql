@@ -1,9 +1,16 @@
 "Statistiques"
+type NbMonthValue {
+  month: String
+  value: String
+}
+
 type Statistiques {
-  titresTotal: Int
-  titresValide: Int
-  titresActivitesDepose: Int
-  titreActivites2018Ratio: Int
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
+  nbSearchArray: [NbMonthValue]
+  nbMajTitresArray: [NbMonthValue]
+  nbAction: String
+  timeSession: String
+  nbDonwload: String
+  nbDemarche: String
 }
