@@ -94,28 +94,12 @@ const matomoData = async () => {
       // subtable : tableau d'objets dont les clés utiles aux stats sont
       //   |->   label : le nom de l'action de l'évènement
       //   |->   nb_events : le nombre d'action de l'évènement
-      interface MatomoSectionData {
-        label: string
-        subtable: {
-          label: string
-          nb_events: number
-        }[]
-      }
+      const matomoSectionData = await fetch(pathSection).then(res => res.json())
 
-      const matomoSectionData: MatomoSectionData[] = await fetch(
-        pathSection
-      ).then(res => res.json())
-
-      interface DateMatomoSectionData {
-        month: string
-        value: MatomoSectionData[]
-      }
-      const res: DateMatomoSectionData = {
+      return {
         month: date,
         value: matomoSectionData
       }
-
-      return res
     })
   ).then(res => {
     return res.map(data => {
@@ -125,17 +109,22 @@ const matomoData = async () => {
       }
       const nbMaj: number = data.value
         .find((cat: { label: string }) => cat.label === 'titre-sections')
-        .subtable.filter((eventAction: { label: string }) => {
-          if (Date.parse(data.month) < Date.parse(toggleDate)) {
-            if (eventActionsArray.includes(eventAction.label)) {
-              return eventAction
+        .subtable.reduce(
+          (acc: { label: string }[], eventAction: { label: string }) => {
+            if (Date.parse(data.month) < Date.parse(toggleDate)) {
+              if (eventActionsArray.includes(eventAction.label)) {
+                acc.push(eventAction)
+              }
+            } else {
+              if (eventAction.label.match(eventActionRegex)) {
+                acc.push(eventAction)
+              }
             }
-          } else {
-            if (eventAction.label.match(eventActionRegex)) {
-              return eventAction
-            }
-          }
-        })
+
+            return acc
+          },
+          []
+        )
         .map((eventAction: { nb_events: any }) => eventAction.nb_events)
         .reduce((total: number, nbEvent: number) => (total += nbEvent), 0)
 
