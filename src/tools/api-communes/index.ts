@@ -1,9 +1,19 @@
 import fetch from 'node-fetch'
 import * as geojsonhint from '@mapbox/geojsonhint'
 import errorLog from '../error-log'
-import { IGeoJson, ICommune, IDepartement } from '../../types'
+import {
+  IGeoJson,
+  ICommune,
+  IAreaType,
+  exhaustiveCheck,
+  IApiGeoCommuneResult
+} from '../../types'
 
-const communesGeojsonFetch = async (path: string, geojson: IGeoJson) => {
+const communesGeojsonFetch = async (
+  path: string,
+  geojson: IGeoJson,
+  elements: IAreaType[]
+): Promise<{ [areaType in IAreaType]: IGeoJson[] } | null> => {
   const properties = JSON.stringify(geojson.properties)
 
   try {
@@ -13,20 +23,29 @@ const communesGeojsonFetch = async (path: string, geojson: IGeoJson) => {
       )
     }
 
+    if (!elements || !elements.length) {
+      throw new Error(
+        'impossible d’appeler l’API Géo Commune sans spécifier le ou les éléments souhaités'
+      )
+    }
+
     const geojsonErrors = geojsonhint.hint(geojson)
     if (geojsonErrors.length) {
       throw new Error(geojsonErrors.map(e => e.message).join('\n'))
     }
 
-    const response = await fetch(process.env.API_GEO_URL + path, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(geojson)
-    })
+    const response = await fetch(
+      process.env.API_GEO_URL + path + '?elements=' + elements.join(','),
+      {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(geojson)
+      }
+    )
 
-    const result = (await response.json()) as IGeoJson
+    const result = await response.json()
 
     if (response.status >= 400) {
       throw result
@@ -40,34 +59,35 @@ const communesGeojsonFetch = async (path: string, geojson: IGeoJson) => {
   }
 }
 
-const communeFormat = (geojson: IGeoJson) =>
-  ({
-    id: geojson.properties.code,
-    nom: geojson.properties.nom,
-    departementId: geojson.properties.departement,
-    surface: geojson.properties.surface
-  } as ICommune)
+const communeFormat = (geojson: IGeoJson): ICommune => ({
+  id: geojson.properties.code as string,
+  nom: geojson.properties.nom as string,
+  departementId: geojson.properties.departement as string,
+  surface: geojson.properties.surface as number
+})
 
-const departementFormat = (geojson: IGeoJson) =>
-  ({
-    id: geojson.properties.code,
-    nom: geojson.properties.nom,
-    regionId: geojson.properties.region
-  } as IDepartement)
+export const communesGeojsonApiGet = async (
+  geojson: IGeoJson,
+  elements: IAreaType[]
+): Promise<IApiGeoCommuneResult | null> => {
+  const communesGeojson = await communesGeojsonFetch('/', geojson, elements)
+  if (!communesGeojson) return null
 
-const communesGeojsonGet = async (geojson: IGeoJson) => {
-  const communesGeojson = await communesGeojsonFetch('/', geojson)
-  if (!communesGeojson || !Array.isArray(communesGeojson)) return null
+  return (Object.keys(communesGeojson) as IAreaType[]).reduce(
+    (acc, areaType) => {
+      const areas = communesGeojson[areaType as IAreaType]
+      let areasFormatted
+      if (areaType === 'communes') {
+        areasFormatted = areas.map(communeFormat)
+      } else {
+        exhaustiveCheck(areaType)
+      }
 
-  return communesGeojson.map(communeFormat)
+      return {
+        ...acc,
+        [areaType]: areasFormatted
+      }
+    },
+    {}
+  ) as IApiGeoCommuneResult
 }
-
-const departementChefGeojsonGet = async (geojson: IGeoJson) => {
-  const chef = await communesGeojsonFetch('/departement-chef', geojson)
-  if (!chef) return null
-
-  return departementFormat(chef)
-}
-
-export default communesGeojsonGet
-export { departementChefGeojsonGet }

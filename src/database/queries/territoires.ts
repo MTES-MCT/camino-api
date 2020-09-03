@@ -8,7 +8,7 @@ import options from './_options'
 const paysGet = async () => Pays.query().withGraphFetched(options.pays.graph)
 const departementsGet = async () => Departements.query()
 
-const communesGet = async () =>
+const communesGet = async (): Promise<ICommune[]> =>
   Communes.query().withGraphFetched(options.communes.graph)
 
 const communesUpsert = async (communes: ICommune[]) =>
