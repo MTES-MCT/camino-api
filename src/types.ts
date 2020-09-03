@@ -136,12 +136,17 @@ interface IAdministration {
 
 interface IAnnee extends IPeriode {}
 
-interface ICommune {
+type IAreaType = 'communes'
+
+interface IArea {
   id: string
   nom: string
+  surface?: number | null
+}
+
+interface ICommune extends IArea {
   departement?: IDepartement | null
   departementId?: string | null
-  surface?: number | null
 }
 
 type IContenuValeur = string | number | string[] | boolean
@@ -293,6 +298,10 @@ interface IGeoJson {
   bbox?: number[] | null
   properties: { [id: string]: string | number }
   features?: IGeoJson[] | null
+}
+
+interface IApiGeoCommuneResult {
+  communes: ICommune[]
 }
 
 interface IGeometry {
@@ -526,6 +535,12 @@ interface ITitreAdministrationLocale {
   titreEtapeId: string
   associee?: boolean | null
   coordinateur?: boolean | null
+}
+
+interface ITitreArea {
+  areaId: string
+  titreEtapeId: string
+  surface?: number | null
 }
 
 interface ITitreCommune {
@@ -830,6 +845,10 @@ interface IDefinition {
   elements?: IDefinition[]
 }
 
+export const exhaustiveCheck = (param: never): never => {
+  throw new Error(`should not reach here ${param}`)
+}
+
 export {
   Index,
   IFields,
@@ -842,6 +861,8 @@ export {
   IAdministrationType,
   IAnnee,
   ICommune,
+  IArea,
+  IAreaType,
   IContenu,
   IContenuElement,
   IContenuValeur,
@@ -863,6 +884,7 @@ export {
   IEtapeType,
   IFrequence,
   IGeoJson,
+  IApiGeoCommuneResult,
   IGeometry,
   IGeoSysteme,
   IGlobale,
@@ -888,6 +910,7 @@ export {
   ITitreAdministrationsGestionnaire,
   ITitreAdministrationLocale,
   ITitreCommune,
+  ITitreArea,
   ITitreDemarche,
   ITitreDemarcheOrTravaux,
   IDocument,
