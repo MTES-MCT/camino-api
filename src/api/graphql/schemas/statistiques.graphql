@@ -13,4 +13,5 @@ type Statistiques {
   timeSession: String
   nbDonwload: String
   nbDemarche: String
+  nbErreur: String
 }
