@@ -11,13 +11,7 @@ try {
   const activites = JSON.parse(fs.readFileSync(filePath).toString())
 
   activites.forEach(a => {
-    if (
-      (a.type_id === 'pma' ||
-        a.type_id === 'pmb' ||
-        a.type_id === 'pmc' ||
-        a.type_id === 'pmd') &&
-      a.statut_id === 'fer'
-    ) {
+    if (['gra', 'grp'].includes(a.type_id) && a.statut_id === 'fer') {
       a.statut_id = 'abs'
 
       changed += 1
