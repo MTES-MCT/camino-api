@@ -17,7 +17,9 @@ const matomoData = async () => {
     .API_MATOMO_ID!}&method=API.get&module=API&period=month&token_auth=${process
     .env.API_MATOMO_TOKEN!}`
 
-  // Matomo retourne un objet dont les clés sont les mois, et les valeurs sont des objets dont les clés utiles aux stats sont
+  // Matomo retourne un objet dont
+  // les clés sont les mois,
+  // les valeurs sont des objets dont les clés utiles aux stats sont
   // nb_searches : nombre de recherches (int)
   // nb_actions_per_visit : nombre moyen d'actions (int)
   // avg_time_on_site : temps de session moyen (string)
@@ -25,9 +27,13 @@ const matomoData = async () => {
   const response = await fetch(pathVisit)
   const matomoVisitData: {
     [month: string]: {
+      // eslint-disable-next-line camelcase
       nb_searches: number
+      // eslint-disable-next-line camelcase
       nb_actions_per_visit: number
+      // eslint-disable-next-line camelcase
       avg_time_on_site: string
+      // eslint-disable-next-line camelcase
       nb_downloads: number
     }
   } = await response.json()
@@ -105,6 +111,7 @@ const matomoData = async () => {
         //   |->   nb_events : le nombre d'action de l'évènement
         const matomoSectionData: {
           label: string
+          // eslint-disable-next-line camelcase
           subtable: { label: string; nb_events: number }[]
         }[] = await (await fetch(pathSection)).json()
 

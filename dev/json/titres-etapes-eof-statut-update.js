@@ -48,13 +48,18 @@ try {
 
     etape.statut_id = 'fai'
 
-    console.log(etape.id, 'migration du statut depuis', statutIdOld, 'vers fai')
+    console.info(
+      etape.id,
+      'migration du statut depuis',
+      statutIdOld,
+      'vers fai'
+    )
 
     changed += 1
   })
 
-  console.log()
-  console.log('changement de', changed, 'étapes')
+  console.info()
+  console.info('changement de', changed, 'étapes')
 
   elementsWrite('titres-m-titres-etapes.json', etapes)
 } catch (e) {

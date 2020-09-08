@@ -50,9 +50,7 @@ jobs:
           CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
       - name: Integration tests
         #Installation d’une version de knex-db-manager qui seed la bdd séquentiellement
-        run: |
-          npm i knex-db-manager@git://github.com/Vincit/knex-db-manager.git#afb48be58f35c0907f328dbe33d6f786cfb4fb8b --save
-          npm run ci:test-integration
+        run: npm run ci:test-integration
         env:
           PGHOST: localhost
           PGPORT: 5432

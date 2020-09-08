@@ -155,6 +155,7 @@ const titreDemarchePublicLectureFind = (
   ) {
     publicLecture = true
   }
+
   return publicLecture
 }
 

@@ -79,7 +79,11 @@ const etapeCreer = async (
     }
 
     if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+      const rulesErrors = await titreEtapeUpdationValidate(
+        etape,
+        demarche,
+        titre
+      )
       if (rulesErrors.length) {
         throw new Error(rulesErrors.join(', '))
       }
@@ -158,7 +162,11 @@ const etapeModifier = async (
     }
 
     if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+      const rulesErrors = await titreEtapeUpdationValidate(
+        etape,
+        demarche,
+        titre
+      )
       if (rulesErrors.length) {
         throw new Error(rulesErrors.join(', '))
       }

@@ -4,7 +4,11 @@ import '../../src/init'
 import * as fs from 'fs'
 import { join } from 'path'
 
-import { titresGet, titreGet, titreUpsert } from '../../src/database/queries/titres'
+import {
+  titresGet,
+  titreGet,
+  titreUpsert
+} from '../../src/database/queries/titres'
 import { titreDemarcheUpsert } from '../../src/database/queries/titres-demarches'
 import { titreEtapeUpsert } from '../../src/database/queries/titres-etapes'
 import {
@@ -25,7 +29,7 @@ const mkdir = path => {
   }
 }
 
-const log = (...res) => console.log(res.join('\t'))
+const log = (...res) => console.info(res.join('\t'))
 
 const etapeFind = (etapeDeb, etapesCamino = []) =>
   etapesCamino.find(
@@ -41,20 +45,18 @@ const demarcheFind = (demarcheDeb, demarchesCamino = []) =>
     demarcheCamino =>
       // même type de démarche
       demarcheCamino.typeId === demarcheDeb.typeId &&
-      (
-        demarcheDeb.typeId === 'oct' ||
+      (demarcheDeb.typeId === 'oct' ||
         demarcheDeb.etapes.find(etapeDeb =>
           etapeFind(etapeDeb, demarcheCamino.etapes)
-        )
-      )
+        ))
   )
 
 const main = async () => {
-  let { titres, entreprises } = JSON.parse(
+  const { titres, entreprises } = JSON.parse(
     fs.readFileSync('./deb-titres-entreprises.json').toString()
   )
 
-  let entreprisesImported = []
+  const entreprisesImported = []
 
   log('entreprises:', entreprises.length)
 
@@ -63,7 +65,8 @@ const main = async () => {
 
     if (!entrepriseCamino) {
       log(
-        'entreprise', 'not found in Camino',
+        'entreprise',
+        'not found in Camino',
         entrepriseDeb.id,
         entrepriseDeb.nom
       )
@@ -73,7 +76,8 @@ const main = async () => {
       entreprisesImported.push({ id: entrepriseDeb.id, nom: entrepriseDeb.nom })
     } else {
       log(
-        'entreprise', 'found in Camino',
+        'entreprise',
+        'found in Camino',
         entrepriseCamino.id,
         entrepriseCamino.nom
       )
@@ -84,18 +88,18 @@ const main = async () => {
 
   log('titres', titres.length)
 
-  let titresImported = []
-  let demarchesImported = []
-  let etapesImported = []
-  let documentsImported = []
-  let fichiersImported = []
+  const titresImported = []
+  const demarchesImported = []
+  const etapesImported = []
+  const documentsImported = []
+  const fichiersImported = []
 
   const files = new Map()
   const filesImported = []
 
   const errors = []
 
-  const importTitre = async (titreDeb) => {
+  const importTitre = async titreDeb => {
     if (!titreDeb.demarches?.length) {
       log('titre', 'sans demarche', titreDeb.id)
 
@@ -121,7 +125,9 @@ const main = async () => {
     }
 
     const referenceDeb = titreDeb.references.find(r => r.typeId === 'deb').nom
-    const referenceRntm = (titreDeb.references.find(r => r.typeId === 'rnt') || {}).nom
+    const referenceRntm = (
+      titreDeb.references.find(r => r.typeId === 'rnt') || {}
+    ).nom
 
     const titresCamino = await titresGet(
       { references: referenceDeb },
@@ -134,8 +140,8 @@ const main = async () => {
       'super'
     )
 
-    let titreCamino = titresCamino?.find(
-      t => t.references?.find(r => r.nom === referenceDeb)
+    const titreCamino = titresCamino?.find(t =>
+      t.references?.find(r => r.nom === referenceDeb)
     )
 
     const titreCaminoById = await titreGet(
@@ -158,14 +164,26 @@ const main = async () => {
       try {
         await titreUpsert(titreDeb, {}, null, 'super')
 
-        titresImported.push({ id: titreDeb.id, referenceDeb, referenceRntm, titre: titreDeb.id })
+        titresImported.push({
+          id: titreDeb.id,
+          referenceDeb,
+          referenceRntm,
+          titre: titreDeb.id
+        })
       } catch (e) {
         errors.push({ titre: titreDeb.id, e })
       }
     } else if (!titreCaminoById) {
-      log('titre', 'found in Camino:', titreCamino.id, referenceDeb, ', camino id deb:', titreDeb.id)
+      log(
+        'titre',
+        'found in Camino:',
+        titreCamino.id,
+        referenceDeb,
+        ', camino id deb:',
+        titreDeb.id
+      )
     } else {
-      titreCamino = titreCaminoById
+      // titreCamino = titreCaminoById
 
       log('titre', 'found in Camino by id:', titreDeb.id, referenceDeb)
     }
@@ -179,7 +197,12 @@ const main = async () => {
     // break
   }
 
-  const importDemarche = async (demarcheDeb, titreDeb, referenceDeb, titreCamino) => {
+  const importDemarche = async (
+    demarcheDeb,
+    titreDeb,
+    referenceDeb,
+    titreCamino
+  ) => {
     if (!demarcheDeb.etapes?.length) {
       log('demarche', 'sans etape', demarcheDeb.id)
 
@@ -198,7 +221,11 @@ const main = async () => {
       try {
         await titreDemarcheUpsert(demarcheDeb)
 
-        demarchesImported.push({ id: demarcheDeb.id, referenceDeb, titre: titreDeb.id })
+        demarchesImported.push({
+          id: demarcheDeb.id,
+          referenceDeb,
+          titre: titreDeb.id
+        })
       } catch (e) {
         errors.push({ demarche: demarcheDeb.id, e })
       }
@@ -207,11 +234,23 @@ const main = async () => {
     }
 
     for (const etapeDeb of demarcheDeb.etapes) {
-      await importEtape(etapeDeb, demarcheDeb, titreDeb, referenceDeb, demarcheCamino, titreCamino)
+      await importEtape(
+        etapeDeb,
+        demarcheDeb,
+        titreDeb,
+        referenceDeb,
+        demarcheCamino
+      )
     }
   }
 
-  const importEtape = async (etapeDeb, demarcheDeb, titreDeb, referenceDeb, demarcheCamino, titreCamino) => {
+  const importEtape = async (
+    etapeDeb,
+    demarcheDeb,
+    titreDeb,
+    referenceDeb,
+    demarcheCamino
+  ) => {
     const etapeCamino = etapeFind(etapeDeb, demarcheCamino?.etapes)
 
     if (!etapeCamino) {
@@ -221,7 +260,12 @@ const main = async () => {
       fichiers.forEach(f => {
         const fileName = files.get(f.id)
 
-        filesImported.push({ id: f.id, fileName, referenceDeb, titre: titreDeb.id })
+        filesImported.push({
+          id: f.id,
+          fileName,
+          referenceDeb,
+          titre: titreDeb.id
+        })
 
         const dirPath = `files/demarches/${etapeDeb.id}`
 
@@ -229,7 +273,9 @@ const main = async () => {
           mkdir(dirPath)
 
           log('répertoire', dirPath, 'créé')
-        } catch (e) { }
+        } catch (e) {
+          console.error(e)
+        }
 
         try {
           fs.copyFileSync(`files-deb/${fileName}`, `${dirPath}/${f.id}.pdf`)
@@ -237,9 +283,15 @@ const main = async () => {
           log('fichier', `files-deb/${fileName} => ${dirPath}/${f.id}.pdf`)
         } catch (e1) {
           try {
-            fs.copyFileSync(`files-deb/noconvert/${fileName}`, `${dirPath}/${f.id}.pdf`)
+            fs.copyFileSync(
+              `files-deb/noconvert/${fileName}`,
+              `${dirPath}/${f.id}.pdf`
+            )
 
-            log('fichier', `files-deb/noconvert/${fileName} => ${dirPath}/${f.id}.pdf`)
+            log(
+              'fichier',
+              `files-deb/noconvert/${fileName} => ${dirPath}/${f.id}.pdf`
+            )
 
             errors.push({ file: fileName, e: e1 })
           } catch (e2) {
@@ -253,7 +305,8 @@ const main = async () => {
       // (ou avec le titre plus au dessus)
       if (demarcheCamino) {
         log(
-          'etape', 'not found in Camino',
+          'etape',
+          'not found in Camino',
           etapeDeb.id,
           '(docs:',
           docs?.length | 0,
@@ -265,9 +318,22 @@ const main = async () => {
         try {
           await titreEtapeUpsert(etapeDeb)
 
-          etapesImported.push({ id: etapeDeb.id, referenceDeb, titre: titreDeb.id })
-          documentsImported.push(...docs?.map(d => ({ id: d.id, referenceDeb, titre: titreDeb.id })))
-          fichiersImported.push(...fichiers?.map(f => ({ id: f.id, referenceDeb, titre: titreDeb.id, name: files.get(f.id) })))
+          etapesImported.push({
+            id: etapeDeb.id,
+            referenceDeb,
+            titre: titreDeb.id
+          })
+          documentsImported.push(
+            ...docs?.map(d => ({ id: d.id, referenceDeb, titre: titreDeb.id }))
+          )
+          fichiersImported.push(
+            ...fichiers?.map(f => ({
+              id: f.id,
+              referenceDeb,
+              titre: titreDeb.id,
+              name: files.get(f.id)
+            }))
+          )
         } catch (e) {
           errors.push({ etape: etapeDeb.id, e })
         }
@@ -297,18 +363,25 @@ const main = async () => {
   )
 
   // fs.writeFileSync('deb-files.json', JSON.stringify(filesImported, null, 2))
-  fs.writeFileSync('deb-reprise-rapport.json', JSON.stringify({
-    entreprisesImported,
+  fs.writeFileSync(
+    'deb-reprise-rapport.json',
+    JSON.stringify(
+      {
+        entreprisesImported,
 
-    titresImported,
-    demarchesImported,
-    etapesImported,
-    documentsImported,
-    fichiersImported,
-    filesImported,
+        titresImported,
+        demarchesImported,
+        etapesImported,
+        documentsImported,
+        fichiersImported,
+        filesImported,
 
-    errors
-  }, null, 2))
+        errors
+      },
+      null,
+      2
+    )
+  )
 
   process.exit(0)
 }

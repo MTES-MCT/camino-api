@@ -1,6 +1,5 @@
 const fs = require('fs')
 const chalk = require('chalk')
-const decamelize = require('decamelize')
 
 const entrepriseIdsToDelete = [
   'fr-973000002',
@@ -46,7 +45,7 @@ try {
   )
 
   if (unusedEntreprises.length > 0) {
-    console.log(
+    console.info(
       'entreprises supprimées:',
       unusedEntreprises.map(e => e.id)
     )
@@ -61,7 +60,7 @@ try {
       .filter(e => !entrepriseIdsToDelete.includes(e.id))
       .map(e => e.id)
 
-    //On supprime tous les établissements des entreprises supprimées
+    // On supprime tous les établissements des entreprises supprimées
     const etablissementsFilePath = './sources/entreprises-etablissements.json'
     const etablissements = JSON.parse(
       fs.readFileSync(etablissementsFilePath).toString()
@@ -74,7 +73,7 @@ try {
       JSON.stringify(usedEtablissements, null, 2)
     )
 
-    //On supprime tous les documents des entreprises supprimées
+    // On supprime tous les documents des entreprises supprimées
     const documentsFilePath = './sources/documents.json'
     const documents = JSON.parse(fs.readFileSync(documentsFilePath).toString())
     const usedDocuments = documents.filter(

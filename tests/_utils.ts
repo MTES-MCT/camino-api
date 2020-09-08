@@ -9,7 +9,6 @@ import {
   utilisateurCreate,
   utilisateurGet
 } from '../src/database/queries/utilisateurs'
-import { utilisateur } from '../src/api/graphql/resolvers/utilisateurs'
 
 const queryImport = (nom: string) =>
   fs

@@ -1,7 +1,7 @@
 import { ITitreEtape } from '../../types'
-const each = require('jest-each').default
 
 import titreDemarchePublicFind from './titre-demarche-public-find'
+const each = require('jest-each').default
 
 const etapesBuild = (etapesProps: Partial<ITitreEtape>[]) =>
   etapesProps.map(
@@ -324,7 +324,7 @@ describe("publicité d'une démarche", () => {
           demarcheTypeId,
           [],
           etapesBuild([{ typeId: 'mdp' }]),
-            'arm'
+          'arm'
         )
       ).toMatchObject({ publicLecture: false })
     }

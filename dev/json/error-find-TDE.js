@@ -70,4 +70,4 @@ const contenu = xlsx.utils.sheet_to_csv(sheet)
 
 fs.writeFileSync(`${filePath}`, contenu)
 
-console.log(`fichier ${filePath} créé`)
+console.info(`fichier ${filePath} créé`)
