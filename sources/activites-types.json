@@ -4,7 +4,7 @@
     "nom": "rapport trimestriel d'exploitation d'or en Guyane",
     "frequence_id": "tri",
     "date_debut": "2018-01-01",
-    "delai_mois": "12",
+    "delai_mois": "24",
     "sections": [
       {
         "id": "renseignements",
@@ -484,7 +484,7 @@
     "nom": "rapport annuel de production d'or en Guyane",
     "frequence_id": "ann",
     "date_debut": "2018-01-01",
-    "delai_mois": "6",
+    "delai_mois": "11",
     "sections": [
       {
         "id": "renseignements",

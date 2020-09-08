@@ -37,6 +37,10 @@
       {
         "sectionId": "arm",
         "elementId": "mecanise"
+      },
+      {
+        "sectionId": "arm",
+        "elementId": "franchissements"
       }
     ]
   },

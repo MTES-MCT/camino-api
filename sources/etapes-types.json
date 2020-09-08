@@ -6,7 +6,7 @@
   },
   {
     "id": "asl",
-    "nom": "décision du propiétaire du sol (ONF)",
+    "nom": "décision du propriétaire du sol (ONF)",
     "ordre": "2",
     "fondamentale": "TRUE"
   },
@@ -54,7 +54,7 @@
   },
   {
     "id": "ide",
-    "nom": "initiation de la démarche",
+    "nom": "initiation de la démarche de retrait",
     "ordre": "7",
     "unique": "TRUE",
     "acceptation_auto": "TRUE"
@@ -167,15 +167,21 @@
     "ordre": "19",
     "sections": [
       {
-        "id": "deal",
-        "nom": "DEAL",
+        "id": "arm",
+        "nom": "Caractéristiques ARM",
         "elements": [
           {
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
             "description": "Nombre de franchissements de cours d'eau",
             "type": "number"
-          },
+          }
+        ]
+      },
+      {
+        "id": "deal",
+        "nom": "DEAL",
+        "elements": [
           {
             "id": "numero-dossier-deal-eau",
             "nom": "Numéro de dossier",
@@ -267,12 +273,12 @@
   },
   {
     "id": "ppc",
-    "nom": "cloture de la participation du public",
+    "nom": "clôture de la participation du public",
     "ordre": "28"
   },
   {
     "id": "epc",
-    "nom": "cloture de l'enquête publique",
+    "nom": "clôture de l'enquête publique",
     "ordre": "29"
   },
   {
@@ -735,12 +741,12 @@
   },
   {
     "id": "rwp",
-    "nom": "récollement partiel",
+    "nom": "récolement partiel",
     "ordre": "96"
   },
   {
     "id": "rwt",
-    "nom": "récollement complet",
+    "nom": "récolement complet",
     "ordre": "97"
   },
   {

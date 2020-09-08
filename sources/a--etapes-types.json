@@ -226,8 +226,8 @@
   },
   {
     "etape_type_id": "sca",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
   },
   {
     "etape_type_id": "aca",

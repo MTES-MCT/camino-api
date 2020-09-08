@@ -60,8 +60,8 @@
     "titre_type_id": "arm",
     "etape_type_id": "mco",
     "lecture_interdit": "FALSE",
-    "creation_interdit": "TRUE",
-    "modification_interdit": "TRUE"
+    "creation_interdit": "FALSE",
+    "modification_interdit": "FALSE"
   },
   {
     "administration_id": "dea-guyane-01",
@@ -156,8 +156,8 @@
     "titre_type_id": "arm",
     "etape_type_id": "rco",
     "lecture_interdit": "FALSE",
-    "creation_interdit": "TRUE",
-    "modification_interdit": "TRUE"
+    "creation_interdit": "FALSE",
+    "modification_interdit": "FALSE"
   },
   {
     "administration_id": "dea-guyane-01",
