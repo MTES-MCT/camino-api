@@ -27,7 +27,7 @@ import { titresActivitesFormatTable } from './format/titres-activites'
 import { utilisateursFormatTable } from './format/utilisateurs'
 import { entreprisesFormatTable } from './format/entreprises'
 
-const matomo = require('../../tools/matomo/index')
+import matomo from '../../tools/matomo/index'
 
 const formatCheck = (formats: string[], format: string) => {
   if (!formats.includes(format)) {

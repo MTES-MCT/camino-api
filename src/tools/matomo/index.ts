@@ -1,6 +1,6 @@
-const MatomoTracker = require('matomo-tracker')
+import * as MatomoTracker from 'matomo-tracker'
 
-module.exports =
+const matomo =
   process.env.MATOMO_SITE_ID &&
   Number(process.env.MATOMO_SITE_ID) &&
   process.env.MATOMO_HOST
@@ -10,3 +10,5 @@ module.exports =
         false
       )
     : null
+
+export default matomo
