@@ -77,7 +77,7 @@ const matomoData = async () => {
 
   const nbErreur = (
     await getNbEventArray(
-      getPath('Events.getAction', 'year', '&flat=1'),
+      getPath('Events.getAction', 'year', { flat: 1 }),
       dateYearArray,
       data =>
         data.value.reduce(
@@ -230,8 +230,18 @@ const getDateArray = (nbrMonth: number) => {
   return dateArray
 }
 
-const getPath = (method: string, period: string, flat: string) =>
-  `${process.env.API_MATOMO_URL}?expanded=1${flat}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
+const getPath = (
+  method: string,
+  period: string,
+  params: { [param: string]: string | number }
+) => {
+  const _params = Object.entries(params).reduce(
+    (acc, param) => (acc = `${acc}&${param[0]}=${param[1]}`),
+    ''
+  )
+
+  return `${process.env.API_MATOMO_URL}?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
+}
 
 const getNbEventArray = async (
   path: string,
