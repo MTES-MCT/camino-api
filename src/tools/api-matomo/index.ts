@@ -104,12 +104,14 @@ const matomoData = async () => {
 
   const nbReutilisation = (
     await getNbEventArray(
-      getPath('Live.getLastVisitsDetails', 'month', ''),
+      getPath('Live.getLastVisitsDetails', 'month'),
       dateYearArray,
       data =>
         data.value
-          .map(e => e.actionDetails)
-          .filter(ad => ad.title === actionTitresFluxGeojson)
+          .map((e: { actionDetails: any }) => e.actionDetails)
+          .filter(
+            (ad: { title: string }) => ad.title === actionTitresFluxGeojson
+          )
     )
   ).reduce((acc: number, nbReutilisation) => (acc += nbReutilisation.value), 6)
 
@@ -152,7 +154,7 @@ const matomoData = async () => {
   // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
   // et de toggleDate, la date de prise en compte de ces nouvelles actions (plus fiable)
   const nbMajTitresArray = await getNbEventArray(
-    getPath('Events.getCategory', 'month', ''),
+    getPath('Events.getCategory', 'month'),
     dateArray,
     data =>
       data.value
@@ -233,12 +235,14 @@ const getDateArray = (nbrMonth: number) => {
 const getPath = (
   method: string,
   period: string,
-  params: { [param: string]: string | number }
+  params?: { [param: string]: string | number }
 ) => {
-  const _params = Object.entries(params).reduce(
-    (acc, param) => (acc = `${acc}&${param[0]}=${param[1]}`),
-    ''
-  )
+  const _params = params
+    ? Object.entries(params).reduce(
+        (acc, param) => (acc = `${acc}&${param[0]}=${param[1]}`),
+        ''
+      )
+    : ''
 
   return `${process.env.API_MATOMO_URL}?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
 }
