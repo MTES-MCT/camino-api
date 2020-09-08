@@ -28,7 +28,8 @@ const statistiques = async () => {
       nbAction,
       timeSession,
       nbDonwload,
-      nbErreur
+      nbErreur,
+      nbReutilisation
     } = await matomoData()
 
     const nbDemarche = titresActivites.filter(titreActivite => {
@@ -49,7 +50,8 @@ const statistiques = async () => {
       timeSession,
       nbDonwload,
       nbDemarche,
-      nbErreur
+      nbErreur,
+      nbReutilisation
     }
   } catch (e) {
     if (debug) {
