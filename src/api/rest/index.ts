@@ -133,14 +133,12 @@ const titres = async (
           territoires
         })
       )
-    ).reduce((acc, param) => {
-      const params = `${param[0]}=${param[1]}`
-
-      return acc === '' ? `?${params}` : `${acc}&${param[0]}=${param[1]}`
-    }, '')
+    )
+      .map(param => param.join('='))
+      .join('&')
 
     matomo.track({
-      url: `${process.env.MATOMO_HOST}${url}`,
+      url: `${process.env.MATOMO_HOST}?${url}`,
       action_name: `titres-flux-${format}`
     })
   }
