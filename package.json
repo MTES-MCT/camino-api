@@ -25,7 +25,7 @@
     "db:migrate": "knex --knexfile ./knex/config.js migrate:latest",
     "db:prod-fetch": "scp $u@camino.beta.gouv.fr:/srv/backups/camino.sql backups/",
     "db:public-dump": "node ./knex/public-copy.js && pg_dump --clean --if-exists --host=localhost --username=postgres --format=c --no-owner --no-privileges --dbname=camino_public --file=./backups/camino-public.sql && dropdb --host=localhost --username=postgres camino_public",
-    "db:public-import": "pg_restore --clean --if-exists --no-owner --no-privileges --dbname=camino < ./backups/camino-public.sql",
+    "db:public-import": "pg_restore ./backups/camino-public.sql --host=localhost --username=postgres --clean --if-exists --no-owner --no-privileges --dbname=camino",
     "db:recreate": "dropdb --host=localhost --username=postgres camino && createdb --host=localhost --username=postgres camino",
     "db:rollback": "knex --knexfile ./knex/config.js migrate:rollback",
     "db:seed": "knex --knexfile ./knex/config.js seed:run",
