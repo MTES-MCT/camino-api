@@ -27,6 +27,8 @@ import { titresActivitesFormatTable } from './format/titres-activites'
 import { utilisateursFormatTable } from './format/utilisateurs'
 import { entreprisesFormatTable } from './format/entreprises'
 
+const matomo = require('../../tools/matomo/index')
+
 const formatCheck = (formats: string[], format: string) => {
   if (!formats.includes(format)) {
     throw new Error(`Format « ${format} » non supporté.`)
@@ -112,6 +114,35 @@ const titres = async (
     contenu = tableConvert('titres', elements, format)
   } else {
     contenu = JSON.stringify(titresFormatted)
+  }
+
+  if (matomo) {
+    const url = Object.entries(
+      JSON.parse(
+        JSON.stringify({
+          format,
+          ordre,
+          colonne,
+          typesIds,
+          domainesIds,
+          statutsIds,
+          substances,
+          noms,
+          entreprises,
+          references,
+          territoires
+        })
+      )
+    ).reduce((acc, param) => {
+      const params = `${param[0]}=${param[1]}`
+
+      return acc === '' ? `?${params}` : `${acc}&${param[0]}=${param[1]}`
+    }, '')
+
+    matomo.track({
+      url: `${process.env.MATOMO_HOST}${url}`,
+      action_name: `titres-flux-${format}`
+    })
   }
 
   return contenu

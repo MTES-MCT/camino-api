@@ -115,6 +115,7 @@
     "knex-db-manager": "^0.7.0",
     "make-dir": "^3.1.0",
     "node-fetch": "^2.6.1",
+    "matomo-tracker": "^2.2.4",
     "nodemailer": "^6.4.11",
     "nodemailer-html-to-text": "^3.1.0",
     "nodemailer-smtp-transport": "^2.7.4",
