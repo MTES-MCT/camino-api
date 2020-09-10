@@ -213,15 +213,12 @@ const tbGuyane = async () => {
                 titreActivite.contenu.renseignements &&
                 titreActivite.contenu.renseignements.effectifs
               ) {
-                console.log(
-                  'EFFECTIF =====> ',
-                  titreActivite.contenu.renseignements.effectifs,
-                  typeOF(titreActivite.contenu.renseignements.effectifs),
-                  titreActivite.id,
-                  'annee=',
-                  annee
-                )
-                acc += titreActivite.contenu.renseignements.effectifs
+                const effectif =
+                  typeof titreActivite.contenu.renseignements.effectifs ===
+                  'string'
+                    ? parseInt(titreActivite.contenu.renseignements.effectifs)
+                    : titreActivite.contenu.renseignements.effectifs
+                acc += effectif
               }
 
               return acc
