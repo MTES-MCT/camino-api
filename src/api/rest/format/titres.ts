@@ -9,8 +9,9 @@ const titreContenuFormat = (titre: ITitre) =>
           titre.contenu && titre.contenu[section]
             ? Object.keys(titre.contenu[section]).reduce((props, element) => {
                 if (titre.contenu && titre.contenu[section][element]) {
-                  props[decamelize(element).replace('_id', '')] =
-                    titre.contenu[section][element]
+                  props[decamelize(element).replace('_id', '')] = titre.contenu[
+                    section
+                  ][element] as IContenuValeur
                 }
 
                 return props

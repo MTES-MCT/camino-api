@@ -12,12 +12,8 @@ const contenuNumbersValidate = (
     if (!section.elements) return res
 
     return section.elements.reduce((res, element) => {
-      if (
-        element.type === 'number' &&
-        contenu[section.id] &&
-        contenu[section.id][element.id] &&
-        contenu[section.id][element.id] < 0
-      ) {
+      const contenuElement = contenu[section.id][element.id]
+      if (element.type === 'number' && contenuElement && contenuElement < 0) {
         res.push(
           `le champ "${element.id}" ne peut pas avoir une valeur négative`
         )

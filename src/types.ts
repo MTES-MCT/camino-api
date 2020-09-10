@@ -145,6 +145,10 @@ interface ICommune {
 }
 
 type IContenuValeur = string | number | string[] | boolean
+type IContenuOperation = {
+  valeur: IContenuValeur
+  operation?: 'NOT_EQUAL' | 'EQUAL'
+}
 
 interface IContenu {
   [id: string]: IContenuElement
@@ -778,7 +782,15 @@ interface ITitreEtapeCondition {
 
 interface ITitreCondition {
   statutId?: string
-  contenu: IContenu
+  contenu: IContenuCondition
+}
+
+interface IContenuCondition {
+  [id: string]: IContenuElementCondition
+}
+
+interface IContenuElementCondition {
+  [id: string]: IContenuOperation | undefined
 }
 
 interface ICondition {
@@ -832,6 +844,9 @@ export {
   IContenu,
   IContenuElement,
   IContenuValeur,
+  IContenuCondition,
+  IContenuElementCondition,
+  IContenuOperation,
   ITitrePropsTitreEtapesIds,
   ICoordonnees,
   IDemarcheStatut,

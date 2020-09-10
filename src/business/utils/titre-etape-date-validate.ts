@@ -12,7 +12,7 @@ import {
 import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
 import titresTypesEtapesTypesRestrictions from '../definitions/titres-types-etapes-types-restrictions'
 
-import { objConditionMatch } from '../../tools/index'
+import { contenuConditionMatch, objConditionMatch } from '../../tools/index'
 
 // compile les restrictions `impossibleAvant`
 titresTypesEtapesTypesRestrictions.forEach(titreTypeEtapesTypesRestrictions =>
@@ -54,7 +54,7 @@ const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
   Object.keys(conditionTitre.contenu).every(
     key =>
       titre.contenu![key] &&
-      objConditionMatch(conditionTitre.contenu[key], titre.contenu![key])
+      contenuConditionMatch(conditionTitre.contenu[key], titre.contenu![key])
   )
 
 const titreEtapeTypesRestrictionsFind = (
@@ -71,10 +71,10 @@ const titreEtapeTypesRestrictionsFind = (
       statutId: etapeStatutId
     })
 
-    const isSameContenu =
-      !condition.titre || sameContenuCheck(condition.titre, titre)
-
-    return isSameEtapeType && isSameContenu
+    return (
+      isSameEtapeType &&
+      (!condition.titre || sameContenuCheck(condition.titre, titre))
+    )
   })
 
 const impossibleAvantFind = (
