@@ -145,32 +145,45 @@ const tbGuyane = async () => {
                   titreActivite.contenu.renseignements &&
                   titreActivite.contenu.renseignements.orBrut
                 ) {
-                  acc += titreActivite.contenu.renseignements.orBrut
+                  const orBrut = titreActivite.contenu.renseignements.orBrut
+                  if (typeof orBrut === 'number') {
+                    acc += orBrut
+                  }
                 }
 
                 return acc
               }, 0) / 1000
           ), // conversion 1000g = 1kg
-          energie: ta.titresActivites
-            .filter(titreActivite => titreActivite.typeId === 'grp')
-            .reduce((acc, titreActivite) => {
-              if (
-                titreActivite.contenu &&
-                titreActivite.contenu.renseignements
-              ) {
-                if (titreActivite.contenu.renseignements.carburantDetaxe) {
-                  acc += titreActivite.contenu.renseignements.carburantDetaxe
-                }
+          energie: Math.round(
+            ta.titresActivites
+              .filter(titreActivite => titreActivite.typeId === 'grp')
+              .reduce((acc, titreActivite) => {
                 if (
-                  titreActivite.contenu.renseignements.carburantConventionnel
+                  titreActivite.contenu &&
+                  titreActivite.contenu.renseignements
                 ) {
-                  acc +=
+                  if (titreActivite.contenu.renseignements.carburantDetaxe) {
+                    const carburantDetaxe =
+                      titreActivite.contenu.renseignements.carburantDetaxe
+                    if (typeof carburantDetaxe === 'number') {
+                      acc += carburantDetaxe
+                    }
+                  }
+                  if (
                     titreActivite.contenu.renseignements.carburantConventionnel
+                  ) {
+                    const carburantConventionnel =
+                      titreActivite.contenu.renseignements
+                        .carburantConventionnel
+                    if (typeof carburantConventionnel === 'number') {
+                      acc += carburantConventionnel
+                    }
+                  }
                 }
-              }
 
-              return acc
-            }, 0),
+                return acc
+              }, 0)
+          ),
           mercure: ta.titresActivites
             .filter(titreActivite => titreActivite.typeId === 'grp')
             .reduce((acc, titreActivite) => {
@@ -179,7 +192,11 @@ const tbGuyane = async () => {
                 titreActivite.contenu.renseignements &&
                 titreActivite.contenu.renseignements.mercure
               ) {
-                acc += Math.abs(titreActivite.contenu.renseignements.mercure)
+                const mercure = titreActivite.contenu.renseignements.mercure
+
+                if (typeof mercure === 'number') {
+                  acc += Math.abs(mercure)
+                }
               }
 
               return acc
@@ -193,86 +210,44 @@ const tbGuyane = async () => {
                   titreActivite.contenu.renseignements &&
                   titreActivite.contenu.renseignements.environnement
                 ) {
-                  acc += titreActivite.contenu.renseignements.environnement
+                  const environnement =
+                    titreActivite.contenu.renseignements.environnement
+                  if (typeof environnement === 'number') {
+                    acc += environnement
+                  }
                 }
 
                 return acc
               }, 0)
           ),
-          nbSalaries: ta.titresActivites
-            .filter(
-              titreActivite =>
-                titreActivite.typeId === 'grp' &&
-                (titreActivite.titre.typeId === 'axm' ||
-                  titreActivite.titre.typeId === 'pxm' ||
-                  titreActivite.titre.typeId === 'cxm')
-            )
-            .reduce((acc, titreActivite) => {
-              if (
-                titreActivite.contenu &&
-                titreActivite.contenu.renseignements &&
-                titreActivite.contenu.renseignements.effectifs
-              ) {
-                const effectif =
-                  typeof titreActivite.contenu.renseignements.effectifs ===
-                  'string'
-                    ? parseInt(titreActivite.contenu.renseignements.effectifs)
-                    : titreActivite.contenu.renseignements.effectifs
-                acc += effectif
-              }
+          nbSalaries: Math.round(
+            ta.titresActivites
+              .filter(
+                titreActivite =>
+                  titreActivite.typeId === 'grp' &&
+                  (titreActivite.titre!.typeId === 'axm' ||
+                    titreActivite.titre!.typeId === 'pxm' ||
+                    titreActivite.titre!.typeId === 'cxm')
+              )
+              .reduce((acc, titreActivite) => {
+                if (
+                  titreActivite.contenu &&
+                  titreActivite.contenu.renseignements &&
+                  titreActivite.contenu.renseignements.effectifs
+                ) {
+                  const effectif =
+                    titreActivite.contenu.renseignements.effectifs
+                  if (typeof effectif === 'number') {
+                    acc += effectif
+                  }
+                  if (typeof effectif === 'string') {
+                    acc += parseFloat(effectif)
+                  }
+                }
 
-              return acc
-            }, 0),
-          // moySalariesArtisanal: Math.round(
-          //   ta.titresActivites
-          //     .filter(
-          //       titreActivite =>
-          //         titreActivite.typeId === 'grp' &&
-          //         titreActivite.titre.typeId === 'axm'
-          //     )
-          //     .reduce((acc, titreActivite) => {
-          //       if (
-          //         titreActivite.contenu &&
-          //         titreActivite.contenu.renseignements &&
-          //         titreActivite.contenu.renseignements.effectifs
-          //       ) {
-          //         acc += titreActivite.contenu.renseignements.effectifs
-          //       }
-
-          //       return acc
-          //     }, 0) /
-          //     ta.titresActivites.filter(
-          //       titreActivite =>
-          //         titreActivite.typeId === 'grp' &&
-          //         titreActivite.titre.typeId === 'axm'
-          //     ).length
-          // ),
-          // moySalariesIndustriel: Math.round(
-          //   ta.titresActivites
-          //     .filter(
-          //       titreActivite =>
-          //         titreActivite.typeId === 'grp' &&
-          //         (titreActivite.titre.typeId === 'pxm' ||
-          //           titreActivite.titre.typeId === 'cxm')
-          //     )
-          //     .reduce((acc, titreActivite) => {
-          //       if (
-          //         titreActivite.contenu &&
-          //         titreActivite.contenu.renseignements &&
-          //         titreActivite.contenu.renseignements.effectifs
-          //       ) {
-          //         acc += titreActivite.contenu.renseignements.effectifs
-          //       }
-
-          //       return acc
-          //     }, 0) /
-          //     ta.titresActivites.filter(
-          //       titreActivite =>
-          //         titreActivite.typeId === 'grp' &&
-          //         (titreActivite.titre.typeId === 'pxm' ||
-          //           titreActivite.titre.typeId === 'cxm')
-          //     ).length
-          // ),
+                return acc
+              }, 0)
+          ),
           moyEnginsMotorises: Math.round(
             ta.titresActivites
               .filter(titreActivite => titreActivite.typeId === 'grp')
@@ -282,10 +257,16 @@ const tbGuyane = async () => {
                   titreActivite.contenu.renseignements
                 ) {
                   if (titreActivite.contenu.renseignements.pelles) {
-                    acc += titreActivite.contenu.renseignements.pelles
+                    const pelles = titreActivite.contenu.renseignements.pelles
+                    if (typeof pelles === 'number') {
+                      acc += pelles
+                    }
                   }
                   if (titreActivite.contenu.renseignements.pompes) {
-                    acc += titreActivite.contenu.renseignements.pompes
+                    const pompes = titreActivite.contenu.renseignements.pompes
+                    if (typeof pompes === 'number') {
+                      acc += pompes
+                    }
                   }
                 }
 
@@ -314,7 +295,6 @@ const tbGuyane = async () => {
 
         return { annee, dataTb }
       })
-    console.log('anneesTbGuyane :>> ', anneesTbGuyane)
 
     return { anneesTbGuyane }
   } catch (e) {
