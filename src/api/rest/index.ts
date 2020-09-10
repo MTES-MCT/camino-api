@@ -117,23 +117,36 @@ const titres = async (
   }
 
   if (matomo) {
-    const url = Object.entries(
-      JSON.parse(
-        JSON.stringify({
-          format,
-          ordre,
-          colonne,
-          typesIds,
-          domainesIds,
-          statutsIds,
-          substances,
-          noms,
-          entreprises,
-          references,
-          territoires
-        })
-      )
+    console.log(
+      'object',
+      Object.entries({
+        format,
+        ordre,
+        colonne,
+        typesIds,
+        domainesIds,
+        statutsIds,
+        substances,
+        noms,
+        entreprises,
+        references,
+        territoires
+      }).filter(param => param[1] !== undefined)
     )
+    const url = Object.entries({
+      format,
+      ordre,
+      colonne,
+      typesIds,
+      domainesIds,
+      statutsIds,
+      substances,
+      noms,
+      entreprises,
+      references,
+      territoires
+    })
+      .filter(param => param[1] !== undefined)
       .map(param => param.join('='))
       .join('&')
 
