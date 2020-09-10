@@ -117,22 +117,6 @@ const titres = async (
   }
 
   if (matomo) {
-    console.log(
-      'object',
-      Object.entries({
-        format,
-        ordre,
-        colonne,
-        typesIds,
-        domainesIds,
-        statutsIds,
-        substances,
-        noms,
-        entreprises,
-        references,
-        territoires
-      }).filter(param => param[1] !== undefined)
-    )
     const url = Object.entries({
       format,
       ordre,
