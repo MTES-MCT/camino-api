@@ -11,7 +11,7 @@ const titreDemarcheIdFind = (titreDemarche: ITitreDemarche, titre: ITitre) => {
   const titreDemarcheTypeOrder =
     titreDemarcheOrTravauxAscSort(
       titre.demarches!.filter(d => d.typeId === titreDemarche.typeId)
-    ).findIndex(d => d.id === titreDemarche.id) + 1
+    ).findIndex(d => d === titreDemarche) + 1
 
   return `${titre.id}-${
     titreDemarche.typeId
@@ -124,9 +124,11 @@ const titreRelation = {
 
 const titreIdAndRelationsUpdate = (
   titre: ITitre,
-  titreIdFindCustom = titreIdFind
+  titreIdFindCustom?: (titre: ITitre) => string
 ) => {
-  titreRelation.idFind = titreIdFindCustom
+  if (titreIdFindCustom) {
+    titreRelation.idFind = titreIdFindCustom
+  }
 
   // permet de référencer tous les changements d'ids par type de relation
   // un index nom de relations => (index noueaux ids => anciens ids)
