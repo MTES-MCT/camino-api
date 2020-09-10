@@ -1,5 +1,14 @@
 import fetch from 'node-fetch'
 
+interface IMatomoSectionData {
+  label: string
+  subtable?: {
+    label: string
+    nb_events: number
+  }[]
+  nb_events?: number
+}
+
 const matomoData = async () => {
   // calcul du mois de départ
   const statsNbrMonth = parseInt(process.env.STATS_NBR_MONTH!) - 1
@@ -60,6 +69,52 @@ const matomoData = async () => {
   // nombre de téléchargements du mois courant
   const nbDonwload = currentData.nb_downloads.toString()
 
+  // nombre d'erreurs signalées
+
+  // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
+  const dateYearArray = getDateYearArray()
+  const eventErreurActionRegex = /(?=.*signaler)(?=.*erreur)/g
+
+  const nbErreur = (
+    await getNbEventArray(
+      getPath('Events.getAction', 'year', { flat: 1 }),
+      dateYearArray,
+      data =>
+        data.value.reduce(
+          (
+            acc: number,
+            act: {
+              label: string
+              nb_events: number
+            }
+          ) => {
+            if (act.label.match(eventErreurActionRegex)) {
+              acc += act.nb_events
+            }
+
+            return acc
+          },
+          0
+        )
+    )
+  ).reduce((acc: number, nbErreur) => (acc += nbErreur.value), 150)
+
+  // nombre de réutilisations
+  const actionTitresFluxGeojson = 'titres-flux-geojson'
+
+  const nbReutilisation = (
+    await getNbEventArray(
+      getPath('Live.getLastVisitsDetails', 'month'),
+      dateYearArray,
+      data =>
+        data.value
+          .map((e: { actionDetails: any }) => e.actionDetails)
+          .filter(
+            (ad: { title: string }) => ad.title === actionTitresFluxGeojson
+          )
+    )
+  ).reduce((acc: number, nbReutilisation) => (acc += nbReutilisation.value), 6)
+
   // Datas des évènements, catégorie 'titres-sections', actions:
   // titre-editer
   // titre-demarche_ajouter
@@ -98,57 +153,42 @@ const matomoData = async () => {
   // de eventActions qui est un tableau de noms d'action d'évènements Matomo
   // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
   // et de toggleDate, la date de prise en compte de ces nouvelles actions (plus fiable)
-  const nbMajTitresArray = (
-    await Promise.all(
-      dateArray.map(async date => {
-        // url
-        const pathSection = `${process.env.API_MATOMO_URL}?date=${date}&expanded=1&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=Events.getCategory&module=API&period=month&segment=&token_auth=${process.env.API_MATOMO_TOKEN}`
+  const nbMajTitresArray = await getNbEventArray(
+    getPath('Events.getCategory', 'month'),
+    dateArray,
+    data =>
+      data.value
+        .find((cat: { label: string }) => cat.label === 'titre-sections')!
+        .subtable!.reduce(
+          (
+            acc: number,
+            eventAction: {
+              label: string
+              nb_events: number
+            }
+          ) => {
+            if (Date.parse(data.month) < Date.parse(toggleDate)) {
+              if (eventActionsArray.includes(eventAction.label)) {
+                acc += eventAction.nb_events
+              }
+            } else if (eventAction.label.match(eventActionRegex)) {
+              acc += eventAction.nb_events
+            }
 
-        // Matomo retourne un tableau d'objets dont les clés utiles aux stats sont
-        // label : le nom de la catégorie d'évènement
-        // subtable : tableau d'objets dont les clés utiles aux stats sont
-        //   |->   label : le nom de l'action de l'évènement
-        //   |->   nb_events : le nombre d'action de l'évènement
-        const matomoSectionData: {
-          label: string
-          // eslint-disable-next-line camelcase
-          subtable: { label: string; nb_events: number }[]
-        }[] = await (await fetch(pathSection)).json()
-
-        return {
-          month: date,
-          value: matomoSectionData
-        }
-      })
-    )
-  ).map(data => {
-    const month = data.month.slice(0, 7)
-    if (!data.value || !data.value.length) {
-      return { month: month, value: 0 }
-    }
-    const nbMaj = data.value
-      .find(cat => cat.label === 'titre-sections')!
-      .subtable.reduce((acc: number, eventAction) => {
-        if (Date.parse(data.month) < Date.parse(toggleDate)) {
-          if (eventActionsArray.includes(eventAction.label)) {
-            acc += eventAction.nb_events
-          }
-        } else if (eventAction.label.match(eventActionRegex)) {
-          acc += eventAction.nb_events
-        }
-
-        return acc
-      }, 0)
-
-    return { month: month, value: nbMaj }
-  })
+            return acc
+          },
+          0
+        )
+  )
 
   return {
     nbSearchArray,
     nbMajTitresArray,
     nbAction,
     timeSession,
-    nbDonwload
+    nbDonwload,
+    nbErreur,
+    nbReutilisation
   }
 }
 
@@ -158,6 +198,25 @@ const formatTime = (time: string) => {
   const index = time.search('min')
 
   return index === -1 ? time : time.substring(0, index + 3).replace(' ', '')
+}
+
+const getDateYearArray = () => {
+  const dateYearArray = []
+
+  // année de départ : 2020
+  const startYear = 2020
+
+  // nombre d'année entre 2019 et l'année courante
+  const curdate = new Date()
+  const nbAnnee = curdate.getFullYear() - startYear
+
+  for (let i = nbAnnee; i >= 0; i--) {
+    const date = new Date()
+    date.setFullYear(curdate.getFullYear() - i)
+    dateYearArray[nbAnnee - i] = date.toISOString().slice(0, 10)
+  }
+
+  return dateYearArray
 }
 
 const getDateArray = (nbrMonth: number) => {
@@ -172,5 +231,48 @@ const getDateArray = (nbrMonth: number) => {
 
   return dateArray
 }
+
+const getPath = (
+  method: string,
+  period: string,
+  params?: { [param: string]: string | number }
+) => {
+  const _params = params
+    ? Object.entries(params).reduce(
+        (acc, param) => (acc = `${acc}&${param[0]}=${param[1]}`),
+        ''
+      )
+    : ''
+
+  return `${process.env.API_MATOMO_URL}?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
+}
+
+const getNbEventArray = async (
+  path: string,
+  dateArray: string[],
+  matomoResultToNbEvent: (arg: any) => number
+) =>
+  (
+    await Promise.all(
+      dateArray.map(async date => {
+        const matomoSectionData: IMatomoSectionData[] = await (
+          await fetch(`${path}&date=${date}`)
+        ).json()
+
+        return {
+          month: date,
+          value: matomoSectionData
+        }
+      })
+    )
+  ).map(data => {
+    const month = data.month.slice(0, 7)
+    if (!data.value || !data.value.length) {
+      return { month: month, value: 0 }
+    }
+    const nbEvent = matomoResultToNbEvent(data)
+
+    return { month: month, value: nbEvent }
+  })
 
 export { matomoData }
