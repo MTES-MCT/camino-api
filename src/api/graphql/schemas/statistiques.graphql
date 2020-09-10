@@ -4,7 +4,7 @@ type NbMonthValue {
   value: String
 }
 
-type Statistiques {
+type StatistiquesGlobales {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
   nbSearchArray: [NbMonthValue]
@@ -15,4 +15,31 @@ type Statistiques {
   nbDemarche: String
   nbErreur: String
   nbReutilisation: String
+}
+
+type DataTb {
+  nbArm: Int
+  nbPrm: Int
+  nbAxm: Int
+  nbPxm: Int
+  nbCxm: Int
+  surfaceExploration: Int
+  surfaceExploitation: Int
+  productionOr: Int
+  energie: Int
+  mercure: Int
+  environnementCout: Int
+  nbSalaries: Int
+  moyEnginsMotorises: Int
+  nbRapportProductionOrDeposes: Int
+  nbRapportProductionOrTotal: Int
+}
+
+type AnneeDataTb {
+  annee: Int
+  dataTb: DataTb
+}
+
+type TbGuyane {
+  anneesTbGuyane: [AnneeDataTb]
 }

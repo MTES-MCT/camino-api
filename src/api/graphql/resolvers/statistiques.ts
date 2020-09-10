@@ -1,10 +1,11 @@
 import { debug } from '../../../config/index'
+import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
 import { matomoData } from '../../../tools/api-matomo/index'
 
 const ACTIVITE_ANNEE_DEBUT = 2018
 
-const statistiques = async () => {
+const statistiquesGlobales = async () => {
   try {
     const titresActivites = await titresActivitesGet({}, {}, 'super')
 
@@ -62,4 +63,270 @@ const statistiques = async () => {
   }
 }
 
-export { statistiques }
+const tbGuyane = async () => {
+  try {
+    const currentAnnee = new Date().getFullYear()
+    const anneesArray = []
+    for (let i = 5; i >= 0; i--) {
+      anneesArray.push(currentAnnee - i)
+    }
+
+    const _titres = await titresGet(
+      { statutsIds: ['val'], territoires: 'guyane' },
+      {
+        fields: {
+          type: { type: { id: {} } },
+          surfaceEtape: { id: {} },
+          activites: { id: {} }
+        }
+      },
+      'super'
+    )
+
+    const _titresActivites = await titresActivitesGet(
+      {},
+      {
+        fields: {
+          titre: { id: {} }
+        }
+      },
+      'super'
+    )
+
+    const anneesTbGuyane = anneesArray
+      .map(annee => {
+        const regex = new RegExp(annee.toString(), 'g')
+        const titres = _titres.filter(titre => titre.id.match(regex))
+        const titresActivites = _titresActivites.filter(
+          titreActivite => titreActivite.annee === annee
+        )
+
+        return { annee, titres, titresActivites }
+      })
+      .map(ta => {
+        const annee = ta.annee
+        const dataTb = {
+          nbArm: ta.titres.filter(titre => titre.typeId === 'arm').length,
+          nbPrm: ta.titres.filter(titre => titre.typeId === 'prm').length,
+          nbAxm: ta.titres.filter(titre => titre.typeId === 'axm').length,
+          nbPxm: ta.titres.filter(titre => titre.typeId === 'pxm').length,
+          nbCxm: ta.titres.filter(titre => titre.typeId === 'cxm').length,
+          surfaceExploration:
+            ta.titres
+              .filter(titre => titre.typeId === 'arm' || titre.typeId === 'prm')
+              .reduce((acc, titre) => {
+                if (titre.surfaceEtape && titre.surfaceEtape.surface) {
+                  acc += titre.surfaceEtape?.surface
+                }
+
+                return acc
+              }, 0) * 100, // conversion 1 km² = 100 ha
+          surfaceExploitation:
+            ta.titres
+              .filter(
+                titre =>
+                  titre.typeId === 'axm' ||
+                  titre.typeId === 'pxm' ||
+                  titre.typeId === 'cxm'
+              )
+              .reduce((acc, titre) => {
+                if (titre.surfaceEtape && titre.surfaceEtape.surface) {
+                  acc += titre.surfaceEtape?.surface
+                }
+
+                return acc
+              }, 0) * 100, // conversion 1 km² = 100 ha
+          productionOr: Math.floor(
+            ta.titresActivites
+              .filter(titreActivite => titreActivite.typeId === 'grp')
+              .reduce((acc, titreActivite) => {
+                if (
+                  titreActivite.contenu &&
+                  titreActivite.contenu.renseignements &&
+                  titreActivite.contenu.renseignements.orBrut
+                ) {
+                  acc += titreActivite.contenu.renseignements.orBrut
+                }
+
+                return acc
+              }, 0) / 1000
+          ), // conversion 1000g = 1kg
+          energie: ta.titresActivites
+            .filter(titreActivite => titreActivite.typeId === 'grp')
+            .reduce((acc, titreActivite) => {
+              if (
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements
+              ) {
+                if (titreActivite.contenu.renseignements.carburantDetaxe) {
+                  acc += titreActivite.contenu.renseignements.carburantDetaxe
+                }
+                if (
+                  titreActivite.contenu.renseignements.carburantConventionnel
+                ) {
+                  acc +=
+                    titreActivite.contenu.renseignements.carburantConventionnel
+                }
+              }
+
+              return acc
+            }, 0),
+          mercure: ta.titresActivites
+            .filter(titreActivite => titreActivite.typeId === 'grp')
+            .reduce((acc, titreActivite) => {
+              if (
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements &&
+                titreActivite.contenu.renseignements.mercure
+              ) {
+                acc += Math.abs(titreActivite.contenu.renseignements.mercure)
+              }
+
+              return acc
+            }, 0),
+          environnementCout: Math.round(
+            ta.titresActivites
+              .filter(titreActivite => titreActivite.typeId === 'grp')
+              .reduce((acc, titreActivite) => {
+                if (
+                  titreActivite.contenu &&
+                  titreActivite.contenu.renseignements &&
+                  titreActivite.contenu.renseignements.environnement
+                ) {
+                  acc += titreActivite.contenu.renseignements.environnement
+                }
+
+                return acc
+              }, 0)
+          ),
+          nbSalaries: ta.titresActivites
+            .filter(
+              titreActivite =>
+                titreActivite.typeId === 'grp' &&
+                (titreActivite.titre.typeId === 'axm' ||
+                  titreActivite.titre.typeId === 'pxm' ||
+                  titreActivite.titre.typeId === 'cxm')
+            )
+            .reduce((acc, titreActivite) => {
+              if (
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements &&
+                titreActivite.contenu.renseignements.effectifs
+              ) {
+                console.log(
+                  'EFFECTIF =====> ',
+                  titreActivite.contenu.renseignements.effectifs,
+                  typeOF(titreActivite.contenu.renseignements.effectifs),
+                  titreActivite.id,
+                  'annee=',
+                  annee
+                )
+                acc += titreActivite.contenu.renseignements.effectifs
+              }
+
+              return acc
+            }, 0),
+          // moySalariesArtisanal: Math.round(
+          //   ta.titresActivites
+          //     .filter(
+          //       titreActivite =>
+          //         titreActivite.typeId === 'grp' &&
+          //         titreActivite.titre.typeId === 'axm'
+          //     )
+          //     .reduce((acc, titreActivite) => {
+          //       if (
+          //         titreActivite.contenu &&
+          //         titreActivite.contenu.renseignements &&
+          //         titreActivite.contenu.renseignements.effectifs
+          //       ) {
+          //         acc += titreActivite.contenu.renseignements.effectifs
+          //       }
+
+          //       return acc
+          //     }, 0) /
+          //     ta.titresActivites.filter(
+          //       titreActivite =>
+          //         titreActivite.typeId === 'grp' &&
+          //         titreActivite.titre.typeId === 'axm'
+          //     ).length
+          // ),
+          // moySalariesIndustriel: Math.round(
+          //   ta.titresActivites
+          //     .filter(
+          //       titreActivite =>
+          //         titreActivite.typeId === 'grp' &&
+          //         (titreActivite.titre.typeId === 'pxm' ||
+          //           titreActivite.titre.typeId === 'cxm')
+          //     )
+          //     .reduce((acc, titreActivite) => {
+          //       if (
+          //         titreActivite.contenu &&
+          //         titreActivite.contenu.renseignements &&
+          //         titreActivite.contenu.renseignements.effectifs
+          //       ) {
+          //         acc += titreActivite.contenu.renseignements.effectifs
+          //       }
+
+          //       return acc
+          //     }, 0) /
+          //     ta.titresActivites.filter(
+          //       titreActivite =>
+          //         titreActivite.typeId === 'grp' &&
+          //         (titreActivite.titre.typeId === 'pxm' ||
+          //           titreActivite.titre.typeId === 'cxm')
+          //     ).length
+          // ),
+          moyEnginsMotorises: Math.round(
+            ta.titresActivites
+              .filter(titreActivite => titreActivite.typeId === 'grp')
+              .reduce((acc, titreActivite) => {
+                if (
+                  titreActivite.contenu &&
+                  titreActivite.contenu.renseignements
+                ) {
+                  if (titreActivite.contenu.renseignements.pelles) {
+                    acc += titreActivite.contenu.renseignements.pelles
+                  }
+                  if (titreActivite.contenu.renseignements.pompes) {
+                    acc += titreActivite.contenu.renseignements.pompes
+                  }
+                }
+
+                return acc
+              }, 0) /
+              ta.titresActivites.filter(
+                titreActivite => titreActivite.typeId === 'grp'
+              ).length
+          ),
+          nbRapportProductionOrDeposes: ta.titresActivites.filter(
+            titreActivite =>
+              titreActivite.typeId === 'grp' && titreActivite.statutId === 'dep'
+          ).length,
+          nbRapportProductionOrTotal: Math.round(
+            (ta.titresActivites.filter(
+              titreActivite =>
+                titreActivite.typeId === 'grp' &&
+                titreActivite.statutId === 'dep'
+            ).length *
+              100) /
+              ta.titresActivites.filter(
+                titreActivite => titreActivite.typeId === 'grp'
+              ).length
+          )
+        }
+
+        return { annee, dataTb }
+      })
+    console.log('anneesTbGuyane :>> ', anneesTbGuyane)
+
+    return { anneesTbGuyane }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export { statistiquesGlobales, tbGuyane }
