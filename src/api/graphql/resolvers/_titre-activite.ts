@@ -71,7 +71,7 @@ ${listHtml}
 }
 
 const titreActiviteEmailFormat = (
-  { contenu, titreId, dateSaisie, sections }: ITitreActivite,
+  { contenu, titreId, dateSaisie, sections, type }: ITitreActivite,
   emailTitle: string,
   user: IUtilisateur
 ) => {
@@ -98,8 +98,9 @@ ${sectionHtmlBuild(section, contenu)}
           ''
         )
       : ''
+  const satisfactionUrl = type?.satisfactionUrl
   body += `<hr><a
-        href="https://voxusagers.numerique.gouv.fr/Demarches/2467?&view-mode=formulaire-avis&nd_mode=en-ligne-enti%C3%A8rement&nd_source=button&key=297d7d893674518c0b437d2aa52f5511"
+        href="${satisfactionUrl}"
       >Je donne mon avis sur cette démarche
       </a>`
 

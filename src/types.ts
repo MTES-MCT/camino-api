@@ -100,6 +100,7 @@ interface IActiviteType {
   frequence?: IFrequence | null
   pays?: IPays[] | null
   administrations?: IAdministration[] | null
+  satisfactionUrl: string
 }
 
 interface IAdministrationType {
