@@ -7,11 +7,11 @@ type NbMonthValue {
 type StatistiquesGlobales {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
-    searchCounts: [NbMonthValue]
+  searchCounts: [NbMonthValue]
   majTitreCounts: [NbMonthValue]
   actionCount: String
   timeSession: String
-    downloadCount: String
+  downloadCount: String
   demarcheCount: String
   erreurCount: String
   reutilisationCount: String
@@ -42,4 +42,4 @@ type AnneeDataTb {
 
 type TbGuyane {
   anneesTbGuyane: [AnneeDataTb]
-  
+}
