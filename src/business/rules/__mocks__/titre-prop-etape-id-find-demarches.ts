@@ -455,6 +455,61 @@ const titreDemarchesMutPointsMod = ({
   ]
 } as unknown) as { demarches: ITitreDemarche[]; statutId: string }
 
+const titreDemarchesProModPhaseEch = ({
+  statutId: 'mod',
+  demarches: [
+    {
+      id: 'h-cx-courdemanges-1981-pro01',
+      titreId: 'h-cx-courdemanges-1981',
+      typeId: 'pro',
+      statutId: 'ins',
+      ordre: 2,
+      etapes: [
+        {
+          id: 'h-cx-courdemanges-1981-pro01-dpu01',
+          titreDemarcheId: 'h-cx-courdemanges-1981-pro01',
+          typeId: 'eee',
+          statutId: 'acc',
+          ordre: 1,
+          points: [1, 2, 3],
+          surface: 3.2,
+          substances: [{ id: 'or' }],
+          communes: ['paris'],
+          titulaires: ['titulaire2'],
+          amodiataires: ['amodiataire2'],
+          administrations: ['administration2']
+        }
+      ],
+      phase: {
+        statutId: 'ech'
+      }
+    },
+    {
+      id: 'h-cx-courdemanges-1981-oct01',
+      titreId: 'h-cx-courdemanges-1981',
+      typeId: 'oct',
+      statutId: 'acc',
+      ordre: 1,
+      etapes: [
+        {
+          id: 'h-cx-courdemanges-1981-oct01-dpu01',
+          titreDemarcheId: 'h-cx-courdemanges-1981-oct01',
+          typeId: 'dpu',
+          statutId: 'acc',
+          ordre: 1,
+          points: [1, 2],
+          surface: 3,
+          substances: [{ id: 'argent' }],
+          communes: ['tours'],
+          titulaires: ['titulaire1'],
+          amodiataires: ['amodiataire1'],
+          administrations: ['administration1']
+        }
+      ]
+    }
+  ]
+} as unknown) as { demarches: ITitreDemarche[]; statutId: string }
+
 export {
   titreDemarchesOctPointsMut,
   titreDemarchesOctPointsVides,
@@ -467,5 +522,6 @@ export {
   titreDemarchesOctAmodiatairesMod,
   titreDemarchesProPointsModPhaseEch,
   titreDemarchesProPointsModPhaseVal,
-  titreDemarchesMutPointsMod
+  titreDemarchesMutPointsMod,
+  titreDemarchesProModPhaseEch
 }

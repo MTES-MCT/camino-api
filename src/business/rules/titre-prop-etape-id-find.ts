@@ -36,12 +36,13 @@ const etapeValideCheck = (
   // filtre les étapes acceptation, fait ou favorable
   // Si la démarche est un octroi (demande initiale)
   // on prend en compte n'importe quelle étape
-  // ou si on cherche le périmètre
-  // et que le titre est en modification en instance
+  // ou que le titre est en modification en instance
+  // et qu’on modifie son périmetre, sa surface, ses substances ou ses communes
   // sinon, on ne prend en compte que les étapes de décision
   ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
   (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
-    (prop.match('point') && titreStatutId === 'mod') ||
+    (['points', 'surface', 'substances', 'communes'].includes(prop) &&
+      titreStatutId === 'mod') ||
     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId
     ))
