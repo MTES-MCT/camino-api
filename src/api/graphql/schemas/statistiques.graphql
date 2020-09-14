@@ -17,7 +17,7 @@ type StatistiquesGlobales {
   reutilisation: String
 }
 
-type DataTb {
+type StatistiqueGuyane {
   arm: Int
   prm: Int
   axm: Int
@@ -35,11 +35,11 @@ type DataTb {
   rapportProductionOrRatio: Int
 }
 
-type AnneeDataTb {
+type AnneeStatistiqueGuyane {
   annee: Int
-  dataTb: DataTb
+  statistiqueGuyane: StatistiqueGuyane
 }
 
 type StatistiquesGuyane {
-  anneesStatistiquesGuyane: [AnneeDataTb]
+  anneesStatistiquesGuyane: [AnneeStatistiqueGuyane]
 }

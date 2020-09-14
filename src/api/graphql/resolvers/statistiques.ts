@@ -63,15 +63,6 @@ const statistiquesGlobales = async () => {
   }
 }
 
-const getannees = annee => {
-  const anneesArray = []
-  for (let i = 5; i >= 0; i--) {
-    anneesArray.push(annee - i)
-  }
-
-  return anneesArray
-}
-
 const statistiquesGuyane = async () => {
   try {
     const currentAnnee = new Date().getFullYear()
@@ -118,7 +109,7 @@ const statistiquesGuyane = async () => {
       })
       .map(ta => {
         const annee = ta.annee
-        const dataTb = {
+        const statistiqueGuyane = {
           arm: ta.titres.filter(titre => titre.typeId === 'arm').length,
           prm: ta.titres.filter(titre => titre.typeId === 'prm').length,
           axm: ta.titres.filter(titre => titre.typeId === 'axm').length,
@@ -277,7 +268,7 @@ const statistiquesGuyane = async () => {
           )
         }
 
-        return { annee, dataTb }
+        return { annee, statistiqueGuyane }
       })
 
     return { anneesStatistiquesGuyane }
