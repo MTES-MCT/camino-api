@@ -7,31 +7,31 @@ type NbMonthValue {
 type StatistiquesGlobales {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
-  searchCounts: [NbMonthValue]
-  majTitreCounts: [NbMonthValue]
-  actionCount: String
-  timeSession: String
-  downloadCount: String
-  demarcheCount: String
-  erreurCount: String
-  reutilisationCount: String
+  recherches: [NbMonthValue]
+  miseAJourTitre: [NbMonthValue]
+  action: String
+  tempsSession: String
+  telechargement: String
+  demarche: String
+  erreur: String
+  reutilisation: String
 }
 
 type DataTb {
-  armCount: Int
-  prmCount: Int
-  axmCount: Int
-  pxmCount: Int
-  cxmCount: Int
+  arm: Int
+  prm: Int
+  axm: Int
+  pxm: Int
+  cxm: Int
   surfaceExploration: Int
   surfaceExploitation: Int
   productionOr: Int
   carburantConventionnel: Int
   carburantDetaxe: Int
   mercure: Int
-  environnementCost: Int
-  salariesCount: Int
-  rapportProductionOrDeposesCount: Int
+  environnementCout: Int
+  salaries: Int
+  rapportProductionOrDeposes: Int
   rapportProductionOrRatio: Int
 }
 

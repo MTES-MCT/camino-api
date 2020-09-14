@@ -24,16 +24,16 @@ const statistiquesGlobales = async () => {
     )
 
     const {
-      searchCounts,
-      majTitreCounts,
-      actionCount,
-      timeSession,
-      downloadCount,
-      erreurCount,
-      reutilisationCount
+      recherches,
+      miseAJourTitre,
+      action,
+      tempsSession,
+      telechargement,
+      erreur,
+      reutilisation
     } = await matomoData()
 
-    const demarcheCount = titresActivites.filter(titreActivite => {
+    const demarche = titresActivites.filter(titreActivite => {
       const dateSaisie = titreActivite.dateSaisie
 
       return (
@@ -45,14 +45,14 @@ const statistiquesGlobales = async () => {
     return {
       titresActivitesBeneficesEntreprise,
       titresActivitesBeneficesAdministration,
-      searchCounts,
-      majTitreCounts,
-      actionCount,
-      timeSession,
-      downloadCount,
-      demarcheCount,
-      erreurCount,
-      reutilisationCount
+      recherches,
+      miseAJourTitre,
+      action,
+      tempsSession,
+      telechargement,
+      demarche,
+      erreur,
+      reutilisation
     }
   } catch (e) {
     if (debug) {
@@ -63,13 +63,26 @@ const statistiquesGlobales = async () => {
   }
 }
 
+const getannees = annee => {
+  const anneesArray = []
+  for (let i = 5; i >= 0; i--) {
+    anneesArray.push(annee - i)
+  }
+
+  return anneesArray
+}
+
 const statistiquesGuyane = async () => {
   try {
     const currentAnnee = new Date().getFullYear()
-    const anneesArray = []
-    for (let i = 5; i >= 0; i--) {
-      anneesArray.push(currentAnnee - i)
-    }
+    const anneesArray = (annee => {
+      const anneesArray = []
+      for (let i = 5; i >= 0; i--) {
+        anneesArray.push(annee - i)
+      }
+
+      return anneesArray
+    })(currentAnnee)
 
     const _titres = await titresGet(
       { statutsIds: ['val'], territoires: 'guyane' },
@@ -106,157 +119,148 @@ const statistiquesGuyane = async () => {
       .map(ta => {
         const annee = ta.annee
         const dataTb = {
-          armCount: ta.titres.filter(titre => titre.typeId === 'arm').length,
-          prmCount: ta.titres.filter(titre => titre.typeId === 'prm').length,
-          axmCount: ta.titres.filter(titre => titre.typeId === 'axm').length,
-          pxmCount: ta.titres.filter(titre => titre.typeId === 'pxm').length,
-          cxmCount: ta.titres.filter(titre => titre.typeId === 'cxm').length,
+          arm: ta.titres.filter(titre => titre.typeId === 'arm').length,
+          prm: ta.titres.filter(titre => titre.typeId === 'prm').length,
+          axm: ta.titres.filter(titre => titre.typeId === 'axm').length,
+          pxm: ta.titres.filter(titre => titre.typeId === 'pxm').length,
+          cxm: ta.titres.filter(titre => titre.typeId === 'cxm').length,
           surfaceExploration:
-            ta.titres
-              .filter(titre => titre.typeId === 'arm' || titre.typeId === 'prm')
-              .reduce((acc, titre) => {
-                if (titre.surfaceEtape && titre.surfaceEtape.surface) {
-                  acc += titre.surfaceEtape?.surface
-                }
-
-                return acc
-              }, 0) * 100, // conversion 1 km² = 100 ha
-          surfaceExploitation:
-            ta.titres
-              .filter(
-                titre =>
-                  titre.typeId === 'axm' ||
-                  titre.typeId === 'pxm' ||
-                  titre.typeId === 'cxm'
-              )
-              .reduce((acc, titre) => {
-                if (titre.surfaceEtape && titre.surfaceEtape.surface) {
-                  acc += titre.surfaceEtape?.surface
-                }
-
-                return acc
-              }, 0) * 100, // conversion 1 km² = 100 ha
-          productionOr: Math.floor(
-            ta.titresActivites
-              .filter(titreActivite => titreActivite.typeId === 'grp')
-              .reduce((acc, titreActivite) => {
-                if (
-                  titreActivite.contenu &&
-                  titreActivite.contenu.renseignements &&
-                  titreActivite.contenu.renseignements.orBrut
-                ) {
-                  const orBrut = titreActivite.contenu.renseignements.orBrut
-                  if (typeof orBrut === 'number') {
-                    acc += orBrut
-                  }
-                }
-
-                return acc
-              }, 0) / 1000
-          ), // conversion 1000g = 1kg
-          carburantConventionnel: Math.round(
-            ta.titresActivites
-              .filter(titreActivite => titreActivite.typeId === 'grp')
-              .reduce((acc, titreActivite) => {
-                if (
-                  titreActivite.contenu &&
-                  titreActivite.contenu.renseignements &&
-                  titreActivite.contenu.renseignements.carburantConventionnel
-                ) {
-                  const carburantConventionnel =
-                    titreActivite.contenu.renseignements.carburantConventionnel
-                  if (typeof carburantConventionnel === 'number') {
-                    acc += carburantConventionnel
-                  }
-                }
-
-                return acc
-              }, 0) / 1000
-          ), // milliers de litres
-          carburantDetaxe: Math.round(
-            ta.titresActivites
-              .filter(titreActivite => titreActivite.typeId === 'grp')
-              .reduce((acc, titreActivite) => {
-                if (
-                  titreActivite.contenu &&
-                  titreActivite.contenu.renseignements &&
-                  titreActivite.contenu.renseignements.carburantDetaxe
-                ) {
-                  const carburantDetaxe =
-                    titreActivite.contenu.renseignements.carburantDetaxe
-                  if (typeof carburantDetaxe === 'number') {
-                    acc += carburantDetaxe
-                  }
-                }
-
-                return acc
-              }, 0) / 1000
-          ), // milliers de litres
-          mercure: ta.titresActivites
-            .filter(titreActivite => titreActivite.typeId === 'grp')
-            .reduce((acc, titreActivite) => {
+            ta.titres.reduce((acc, titre) => {
               if (
+                (titre.typeId === 'arm' || titre.typeId === 'prm') &&
+                titre.surfaceEtape &&
+                titre.surfaceEtape.surface
+              ) {
+                acc += titre.surfaceEtape?.surface
+              }
+
+              return acc
+            }, 0) * 100, // conversion 1 km² = 100 ha
+          surfaceExploitation:
+            ta.titres.reduce((acc, titre) => {
+              if (
+                (titre.typeId === 'axm' ||
+                  titre.typeId === 'pxm' ||
+                  titre.typeId === 'cxm') &&
+                titre.surfaceEtape &&
+                titre.surfaceEtape.surface
+              ) {
+                acc += titre.surfaceEtape?.surface
+              }
+
+              return acc
+            }, 0) * 100, // conversion 1 km² = 100 ha
+          productionOr: Math.floor(
+            ta.titresActivites.reduce((acc, titreActivite) => {
+              if (
+                titreActivite.typeId === 'grp' &&
                 titreActivite.contenu &&
                 titreActivite.contenu.renseignements &&
-                titreActivite.contenu.renseignements.mercure
+                titreActivite.contenu.renseignements.orBrut
               ) {
-                const mercure = titreActivite.contenu.renseignements.mercure
-
-                if (typeof mercure === 'number') {
-                  acc += Math.abs(mercure)
+                const orBrut = titreActivite.contenu.renseignements.orBrut
+                if (typeof orBrut === 'number') {
+                  acc += orBrut
                 }
               }
 
               return acc
-            }, 0),
-          environnementCost: Math.round(
-            ta.titresActivites
-              .filter(titreActivite => titreActivite.typeId === 'grp')
-              .reduce((acc, titreActivite) => {
-                if (
-                  titreActivite.contenu &&
-                  titreActivite.contenu.renseignements &&
+            }, 0) / 1000
+          ), // conversion 1000g = 1kg
+          carburantConventionnel: Math.round(
+            ta.titresActivites.reduce((acc, titreActivite) => {
+              if (
+                titreActivite.typeId === 'grp' &&
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements &&
+                titreActivite.contenu.renseignements.carburantConventionnel
+              ) {
+                const carburantConventionnel =
+                  titreActivite.contenu.renseignements.carburantConventionnel
+                if (typeof carburantConventionnel === 'number') {
+                  acc += carburantConventionnel
+                }
+              }
+
+              return acc
+            }, 0) / 1000
+          ), // milliers de litres
+          carburantDetaxe: Math.round(
+            ta.titresActivites.reduce((acc, titreActivite) => {
+              if (
+                titreActivite.typeId === 'grp' &&
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements &&
+                titreActivite.contenu.renseignements.carburantDetaxe
+              ) {
+                const carburantDetaxe =
+                  titreActivite.contenu.renseignements.carburantDetaxe
+                if (typeof carburantDetaxe === 'number') {
+                  acc += carburantDetaxe
+                }
+              }
+
+              return acc
+            }, 0) / 1000
+          ), // milliers de litres
+          mercure: ta.titresActivites.reduce((acc, titreActivite) => {
+            if (
+              titreActivite.typeId === 'grp' &&
+              titreActivite.contenu &&
+              titreActivite.contenu.renseignements &&
+              titreActivite.contenu.renseignements.mercure
+            ) {
+              const mercure = titreActivite.contenu.renseignements.mercure
+
+              if (typeof mercure === 'number') {
+                acc += Math.abs(mercure)
+              }
+            }
+
+            return acc
+          }, 0),
+          environnementCout: Math.round(
+            ta.titresActivites.reduce((acc, titreActivite) => {
+              if (
+                titreActivite.typeId === 'grp' &&
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements &&
+                titreActivite.contenu.renseignements.environnement
+              ) {
+                const environnement =
                   titreActivite.contenu.renseignements.environnement
-                ) {
-                  const environnement =
-                    titreActivite.contenu.renseignements.environnement
-                  if (typeof environnement === 'number') {
-                    acc += environnement
-                  }
+                if (typeof environnement === 'number') {
+                  acc += environnement
                 }
+              }
 
-                return acc
-              }, 0)
+              return acc
+            }, 0)
           ),
-          salariesCount: Math.round(
-            ta.titresActivites
-              .filter(
-                titreActivite =>
-                  titreActivite.typeId === 'grp' &&
-                  (titreActivite.titre!.typeId === 'axm' ||
-                    titreActivite.titre!.typeId === 'pxm' ||
-                    titreActivite.titre!.typeId === 'cxm')
-              )
-              .reduce((acc, titreActivite) => {
-                if (
-                  titreActivite.contenu &&
-                  titreActivite.contenu.renseignements &&
-                  titreActivite.contenu.renseignements.effectifs
-                ) {
-                  const effectif =
-                    titreActivite.contenu.renseignements.effectifs
-                  if (typeof effectif === 'number') {
-                    acc += effectif
-                  }
-                  if (typeof effectif === 'string') {
-                    acc += parseFloat(effectif)
-                  }
+          salaries: Math.round(
+            ta.titresActivites.reduce((acc, titreActivite) => {
+              if (
+                titreActivite.typeId === 'grp' &&
+                (titreActivite.titre!.typeId === 'axm' ||
+                  titreActivite.titre!.typeId === 'pxm' ||
+                  titreActivite.titre!.typeId === 'cxm') &&
+                titreActivite.contenu &&
+                titreActivite.contenu.renseignements &&
+                titreActivite.contenu.renseignements.effectifs
+              ) {
+                const effectif = titreActivite.contenu.renseignements.effectifs
+                if (typeof effectif === 'number') {
+                  acc += effectif
                 }
+                if (typeof effectif === 'string') {
+                  acc += parseFloat(effectif)
+                }
+              }
 
-                return acc
-              }, 0) / 4 // somme des effectifs sur 4 trimestre
+              return acc
+            }, 0) / 4 // somme des effectifs sur 4 trimestre
           ),
-          rapportProductionOrDeposesCount: ta.titresActivites.filter(
+          rapportProductionOrDeposes: ta.titresActivites.filter(
             titreActivite =>
               titreActivite.typeId === 'grp' && titreActivite.statutId === 'dep'
           ).length,

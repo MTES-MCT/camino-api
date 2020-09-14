@@ -57,7 +57,7 @@ const matomoData = async () => {
   const dataCurrent = matomoVisitData[monthCurrent]
   // objet mois:nbr de recherches
 
-  const searchCounts = Object.keys(matomoVisitData).map(key => {
+  const recherches = Object.keys(matomoVisitData).map(key => {
     return {
       month: key,
       value: (matomoVisitData[key].nb_searches || 0).toString()
@@ -65,11 +65,11 @@ const matomoData = async () => {
   })
 
   // nombre d'action du mois courant
-  const actionCount = dataCurrent.nb_actions_per_visit.toString()
+  const action = dataCurrent.nb_actions_per_visit.toString()
   // temps de session du mois courant
-  const timeSession = timeFormat(dataCurrent.avg_time_on_site)
+  const tempsSession = timeFormat(dataCurrent.avg_time_on_site)
   // nombre de téléchargements du mois courant
-  const downloadCount = dataCurrent.nb_downloads.toString()
+  const telechargement = dataCurrent.nb_downloads.toString()
 
   // nombre d'erreurs signalées
 
@@ -77,7 +77,7 @@ const matomoData = async () => {
   const dateYears = getDateYears()
   const eventErreurActionRegex = /(?=.*signaler)(?=.*erreur)/g
 
-  const erreurCount = (
+  const erreur = (
     await getEventCounts(
       getPath('Events.getAction', 'year', { flat: 1 }),
       dateYears,
@@ -99,12 +99,12 @@ const matomoData = async () => {
           0
         )
     )
-  ).reduce((acc: number, erreurCount) => (acc += erreurCount.value), 150)
+  ).reduce((acc: number, erreur) => (acc += erreur.value), 150)
 
   // nombre de réutilisations
   const actionTitresFluxGeojson = 'titres-flux-geojson'
 
-  const reutilisationCount = (
+  const reutilisation = (
     await getEventCounts(
       getPath('Live.getLastVisitsDetails', 'month'),
       dateYears,
@@ -115,10 +115,7 @@ const matomoData = async () => {
             (ad: { title: string }) => ad.title === actionTitresFluxGeojson
           )
     )
-  ).reduce(
-    (acc: number, reutilisationCount) => (acc += reutilisationCount.value),
-    6
-  )
+  ).reduce((acc: number, reutilisation) => (acc += reutilisation.value), 6)
 
   // Datas des évènements, catégorie 'titres-sections', actions:
   // titre-editer
@@ -158,7 +155,7 @@ const matomoData = async () => {
   // de eventActions qui est un tableau de noms d'action d'évènements Matomo
   // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
   // et de dateToggle, la date de prise en compte de ces nouvelles actions (plus fiable)
-  const majTitreCounts = await getEventCounts(
+  const miseAJourTitre = await getEventCounts(
     getPath('Events.getCategory', 'month'),
     dates,
     data =>
@@ -187,13 +184,13 @@ const matomoData = async () => {
   )
 
   return {
-    searchCounts,
-    majTitreCounts,
-    actionCount,
-    timeSession,
-    downloadCount,
-    erreurCount,
-    reutilisationCount
+    recherches,
+    miseAJourTitre,
+    action,
+    tempsSession,
+    telechargement,
+    erreur,
+    reutilisation
   }
 }
 
