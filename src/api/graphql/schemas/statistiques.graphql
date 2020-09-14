@@ -42,3 +42,4 @@ type AnneeDataTb {
 
 type TbGuyane {
   anneesTbGuyane: [AnneeDataTb]
+  

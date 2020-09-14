@@ -171,8 +171,8 @@ const tbGuyane = async () => {
                 }
 
                 return acc
-              }, 0)
-          ),
+              }, 0) / 1000
+          ), // milliers de litres
           carburantDetaxe: Math.round(
             ta.titresActivites
               .filter(titreActivite => titreActivite.typeId === 'grp')
@@ -190,8 +190,8 @@ const tbGuyane = async () => {
                 }
 
                 return acc
-              }, 0)
-          ),
+              }, 0) / 1000
+          ), // milliers de litres
           mercure: ta.titresActivites
             .filter(titreActivite => titreActivite.typeId === 'grp')
             .reduce((acc, titreActivite) => {
