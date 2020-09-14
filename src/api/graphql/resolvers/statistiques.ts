@@ -25,15 +25,15 @@ const statistiquesGlobales = async () => {
 
     const {
       recherches,
-      miseAJourTitre,
-      action,
-      tempsSession,
-      telechargement,
-      erreur,
-      reutilisation
+      titresModifies,
+      actions,
+      sessionDuree,
+      telechargements,
+      signalements,
+      reutilisations
     } = await matomoData()
 
-    const demarche = titresActivites.filter(titreActivite => {
+    const demarches = titresActivites.filter(titreActivite => {
       const dateSaisie = titreActivite.dateSaisie
 
       return (
@@ -46,13 +46,13 @@ const statistiquesGlobales = async () => {
       titresActivitesBeneficesEntreprise,
       titresActivitesBeneficesAdministration,
       recherches,
-      miseAJourTitre,
-      action,
-      tempsSession,
-      telechargement,
-      demarche,
-      erreur,
-      reutilisation
+      titresModifies,
+      actions,
+      sessionDuree,
+      telechargements,
+      demarches,
+      signalements,
+      reutilisations
     }
   } catch (e) {
     if (debug) {

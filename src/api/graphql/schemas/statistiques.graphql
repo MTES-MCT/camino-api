@@ -19,7 +19,7 @@ type StatistiquesGlobales {
 
 type StatistiqueGuyane {
   titresArm: Int
-  titresPm: Int
+  titresPrm: Int
   titresAxm: Int
   titresPxm: Int
   titresCxm: Int

@@ -65,11 +65,11 @@ const matomoData = async () => {
   })
 
   // nombre d'action du mois courant
-  const action = dataCurrent.nb_actions_per_visit.toString()
+  const actions = dataCurrent.nb_actions_per_visit.toString()
   // temps de session du mois courant
-  const tempsSession = timeFormat(dataCurrent.avg_time_on_site)
+  const sessionDuree = timeFormat(dataCurrent.avg_time_on_site)
   // nombre de téléchargements du mois courant
-  const telechargement = dataCurrent.nb_downloads.toString()
+  const telechargements = dataCurrent.nb_downloads.toString()
 
   // nombre d'erreurs signalées
 
@@ -77,7 +77,7 @@ const matomoData = async () => {
   const dateYears = getDateYears()
   const eventErreurActionRegex = /(?=.*signaler)(?=.*erreur)/g
 
-  const erreur = (
+  const signalements = (
     await getEventCounts(
       getPath('Events.getAction', 'year', { flat: 1 }),
       dateYears,
@@ -104,7 +104,7 @@ const matomoData = async () => {
   // nombre de réutilisations
   const actionTitresFluxGeojson = 'titres-flux-geojson'
 
-  const reutilisation = (
+  const reutilisations = (
     await getEventCounts(
       getPath('Live.getLastVisitsDetails', 'month'),
       dateYears,
@@ -155,7 +155,7 @@ const matomoData = async () => {
   // de eventActions qui est un tableau de noms d'action d'évènements Matomo
   // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
   // et de dateToggle, la date de prise en compte de ces nouvelles actions (plus fiable)
-  const miseAJourTitre = await getEventCounts(
+  const titresModifies = await getEventCounts(
     getPath('Events.getCategory', 'month'),
     dates,
     data =>
@@ -185,12 +185,12 @@ const matomoData = async () => {
 
   return {
     recherches,
-    miseAJourTitre,
-    action,
-    tempsSession,
-    telechargement,
-    erreur,
-    reutilisation
+    titresModifies,
+    actions,
+    sessionDuree,
+    telechargements,
+    signalements,
+    reutilisations
   }
 }
 
