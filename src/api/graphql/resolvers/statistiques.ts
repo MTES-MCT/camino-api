@@ -105,15 +105,15 @@ const statistiquesGuyane = async () => {
       )
 
       const statistiqueGuyane = {
-        titrersArm: titresFiltered.filter(titre => titre.typeId === 'arm')
+        titresArm: titresFiltered.filter(titre => titre.typeId === 'arm')
           .length,
-        titrersPrm: titresFiltered.filter(titre => titre.typeId === 'prm')
+        titresPrm: titresFiltered.filter(titre => titre.typeId === 'prm')
           .length,
-        titrersAxm: titresFiltered.filter(titre => titre.typeId === 'axm')
+        titresAxm: titresFiltered.filter(titre => titre.typeId === 'axm')
           .length,
-        titrersPxm: titresFiltered.filter(titre => titre.typeId === 'pxm')
+        titresPxm: titresFiltered.filter(titre => titre.typeId === 'pxm')
           .length,
-        titrersCxm: titresFiltered.filter(titre => titre.typeId === 'cxm')
+        titresCxm: titresFiltered.filter(titre => titre.typeId === 'cxm')
           .length,
         surfaceExploration:
           titresFiltered.reduce((acc, titre) => {
