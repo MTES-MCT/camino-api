@@ -152,7 +152,7 @@ const matomoData = async () => {
   const eventActionRegex = /titre-[a-z-]*enregistrer/g
 
   // calcul de la liste des dates (la requête s'effectue mois par mois)
-  const dates = getDateArray(monthStart)
+  const dates = getDates(monthStart)
 
   // retourne un tableau de nombre de maj des titres en fonction de mois(dates),
   // de eventActions qui est un tableau de noms d'action d'évènements Matomo
@@ -224,7 +224,7 @@ const getDateYears = () => {
   return dateYears
 }
 
-const getDateArray = (nbrMonth: number) => {
+const getDates = (nbrMonth: number) => {
   const dates = []
 
   for (let i = 0; i <= nbrMonth; i++) {
