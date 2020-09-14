@@ -35,7 +35,3 @@ type StatistiqueGuyane {
   rapportProductionOrDeposes: Int
   rapportProductionOrRatio: Int
 }
-
-type StatistiquesGuyane {
-  statistiquesGuyane: [StatistiqueGuyane]
-}
