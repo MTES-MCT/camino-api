@@ -199,8 +199,12 @@ const statistiqueGuyaneBuild = (
         ta.contenu.renseignements.effectifs
       ) {
         const effectif = ta.contenu.renseignements.effectifs
-        // enlève le ternaire si typescript fait chier
-        acc += typeof effectif === 'number' ? effectif : parseFloat(effectif)
+        if (typeof effectif === 'number') {
+          acc += effectif
+        }
+        if (typeof effectif === 'string') {
+          acc += parseFloat(effectif)
+        }
       }
 
       return acc
