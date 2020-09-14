@@ -18,6 +18,7 @@ type StatistiquesGlobales {
 }
 
 type StatistiqueGuyane {
+  annee: Int
   titresArm: Int
   titresPrm: Int
   titresAxm: Int
@@ -35,11 +36,6 @@ type StatistiqueGuyane {
   rapportProductionOrRatio: Int
 }
 
-type AnneeStatistiqueGuyane {
-  annee: Int
-  statistiqueGuyane: StatistiqueGuyane
-}
-
 type StatistiquesGuyane {
-  anneesStatistiquesGuyane: [AnneeStatistiqueGuyane]
+  statistiquesGuyane: [StatistiqueGuyane]
 }
