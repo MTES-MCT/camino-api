@@ -6,10 +6,10 @@
 
 ```sh
 # stopper le conteneur de l'API
-docker stop camino-api_app_1
+docker stop camino_api_app
 
 # démarrer psql dans le conteneur de la base de données
-docker exec -it camino-api_postgres_1 psql postgres
+docker exec -it camino_api_db psql postgres
 ```
 
 ```sql
@@ -19,13 +19,13 @@ DROP DATABASE camino; CREATE DATABASE camino; \q
 
 ```sh
 # redémarrer le conteneur Docker de l'API
-docker start camino-api_app_1
+docker start camino_api_app
 ```
 
 ### Faire un dump de la base de données
 
 ```sh
-docker exec -t camino-api_postgres_1 pg_dumpall -c -U postgres > /srv/tmp/camino.sql
+docker exec -t camino_api_db pg_dumpall -c -U postgres > /srv/tmp/camino.sql
 ```
 
 ### Importer la base de données depuis le répertoire tmp vers le conteneur Docker
@@ -33,7 +33,7 @@ docker exec -t camino-api_postgres_1 pg_dumpall -c -U postgres > /srv/tmp/camino
 ```sh
 
 # importer la base de données depuis le dump
-cat backups/camino.sql | docker exec -i camino-api_db_1 pg_restore --clean --if-exists --no-owner --no-privileges -d camino
+cat backups/camino.sql | docker exec -i camino_api_db pg_restore --clean --if-exists --no-owner --no-privileges -d camino
 ```
 
 ## En local
