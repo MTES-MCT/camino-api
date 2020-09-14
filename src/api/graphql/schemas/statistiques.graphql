@@ -4,15 +4,34 @@ type NbMonthValue {
   value: String
 }
 
-type Statistiques {
+type StatistiquesGlobales {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
-  nbSearchArray: [NbMonthValue]
-  nbMajTitresArray: [NbMonthValue]
-  nbAction: String
-  timeSession: String
-  nbDonwload: String
-  nbDemarche: String
-  nbErreur: String
-  nbReutilisation: String
+  recherches: [NbMonthValue]
+  titresModifies: [NbMonthValue]
+  actions: String
+  sessionDuree: String
+  telechargements: String
+  demarches: String
+  signalements: String
+  reutilisations: String
+}
+
+type StatistiqueGuyane {
+  annee: Int
+  titresArm: Int
+  titresPrm: Int
+  titresAxm: Int
+  titresPxm: Int
+  titresCxm: Int
+  surfaceExploration: Int
+  surfaceExploitation: Int
+  productionOr: Int
+  carburantConventionnel: Int
+  carburantDetaxe: Int
+  mercure: Int
+  environnementCout: Int
+  salaries: Int
+  rapportProductionOrDeposes: Int
+  rapportProductionOrRatio: Int
 }

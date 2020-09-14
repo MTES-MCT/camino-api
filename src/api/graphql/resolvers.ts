@@ -88,7 +88,10 @@ import {
   activitesAnnees,
   activiteModifier
 } from './resolvers/titres-activites'
-import { statistiques } from './resolvers/statistiques'
+import {
+  statistiquesGlobales,
+  statistiquesGuyane
+} from './resolvers/statistiques'
 
 import {
   travauxCreer,
@@ -139,7 +142,8 @@ export default {
   administrations,
   utilisateur,
   utilisateurs,
-  statistiques,
+  statistiquesGlobales,
+  statistiquesGuyane,
   activite,
   activites,
   activitesAnnees,
