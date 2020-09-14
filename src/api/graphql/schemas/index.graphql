@@ -191,7 +191,8 @@ type Query {
   administrations: [Administration]
 
   "Statistiques"
-  statistiques: Statistiques
+  statistiquesGlobales: StatistiquesGlobales
+  tbGuyane: TbGuyane
 
   documents(entreprisesIds: [ID!]): [Document]
 

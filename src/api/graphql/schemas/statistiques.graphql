@@ -4,15 +4,41 @@ type NbMonthValue {
   value: String
 }
 
-type Statistiques {
+type StatistiquesGlobales {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
-  nbSearchArray: [NbMonthValue]
-  nbMajTitresArray: [NbMonthValue]
-  nbAction: String
+    searchCounts: [NbMonthValue]
+  majTitreCounts: [NbMonthValue]
+  actionCount: String
   timeSession: String
-  nbDonwload: String
-  nbDemarche: String
-  nbErreur: String
-  nbReutilisation: String
+    downloadCount: String
+  demarcheCount: String
+  erreurCount: String
+  reutilisationCount: String
 }
+
+type DataTb {
+  armCount: Int
+  prmCount: Int
+  axmCount: Int
+  pxmCount: Int
+  cxmCount: Int
+  surfaceExploration: Int
+  surfaceExploitation: Int
+  productionOr: Int
+  carburantConventionnel: Int
+  carburantDetaxe: Int
+  mercure: Int
+  environnementCost: Int
+  salariesCount: Int
+  rapportProductionOrDeposesCount: Int
+  rapportProductionOrRatio: Int
+}
+
+type AnneeDataTb {
+  annee: Int
+  dataTb: DataTb
+}
+
+type TbGuyane {
+  anneesTbGuyane: [AnneeDataTb]
