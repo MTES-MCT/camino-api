@@ -7,7 +7,7 @@ interface IMatomoSectionData {
     // eslint-disable-next-line camelcase
     nb_events: number
   }[]
-  // eslint-disable-next-line camelcase
+  // eslint-disable-next-line camelcaser
   nb_events?: number
 }
 
@@ -119,6 +119,52 @@ const matomoData = async () => {
     (acc: number, reutilisationCount) => (acc += reutilisationCount.value),
     6
   )
+
+  // nombre d'erreurs signalées
+
+  // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
+  const dateYearArray = getDateYearArray()
+  const eventErreurActionRegex = /(?=.*signaler)(?=.*erreur)/g
+
+  const nbErreur = (
+    await getNbEventArray(
+      getPath('Events.getAction', 'year', { flat: 1 }),
+      dateYearArray,
+      data =>
+        data.value.reduce(
+          (
+            acc: number,
+            act: {
+              label: string
+              nb_events: number
+            }
+          ) => {
+            if (act.label.match(eventErreurActionRegex)) {
+              acc += act.nb_events
+            }
+
+            return acc
+          },
+          0
+        )
+    )
+  ).reduce((acc: number, nbErreur) => (acc += nbErreur.value), 150)
+
+  // nombre de réutilisations
+  const actionTitresFluxGeojson = 'titres-flux-geojson'
+
+  const nbReutilisation = (
+    await getNbEventArray(
+      getPath('Live.getLastVisitsDetails', 'month'),
+      dateYearArray,
+      data =>
+        data.value
+          .map((e: { actionDetails: any }) => e.actionDetails)
+          .filter(
+            (ad: { title: string }) => ad.title === actionTitresFluxGeojson
+          )
+    )
+  ).reduce((acc: number, nbReutilisation) => (acc += nbReutilisation.value), 6)
 
   // Datas des évènements, catégorie 'titres-sections', actions:
   // titre-editer

@@ -50,7 +50,7 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
         {
           condition: {
             etape: { typeId: 'etape-mecanise' },
-            titre: { contenu: { arm: { mecanise: true } } }
+            titre: { contenu: { arm: { mecanise: { valeur: true } } } }
           },
           obligatoireApres: [{ typeId: 'etape-premiere' }]
         },
@@ -67,7 +67,21 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
         {
           condition: {
             etape: { typeId: 'etape-mecanisee' },
-            titre: { contenu: { arm: { mecanise: true } } }
+            titre: { contenu: { arm: { mecanise: { valeur: true } } } }
+          },
+          obligatoireApres: [{ typeId: 'etape-premiere' }]
+        },
+        {
+          condition: {
+            etape: { typeId: 'etape-franchissements' },
+            titre: {
+              contenu: {
+                arm: {
+                  mecanise: { valeur: true },
+                  franchissements: { valeur: 0, operation: 'NOT_EQUAL' }
+                }
+              }
+            }
           },
           obligatoireApres: [{ typeId: 'etape-premiere' }]
         }
@@ -115,6 +129,10 @@ const demarcheType = {
     {
       id: 'etape-mecanise',
       nom: 'etape-mecanise'
+    },
+    {
+      id: 'etape-franchissements',
+      nom: 'etape-franchissements'
     }
   ]
 } as IDemarcheType
@@ -427,7 +445,59 @@ describe("vérifie la date d'une étape pour une démarche en fonction des autre
         [{ typeId: 'etape-premiere', date: '2000-01-01' }] as ITitreEtape[],
         ({
           typeId: 'arm',
-          contenu: { arm: { mecanise: true } }
+          contenu: { arm: { mecanise: 3 } }
+        } as unknown) as ITitre
+      )
+    ).toBeNull()
+  })
+
+  test('obligatoireApres, sans étape obligatoire antérieure pour un titre avec franchissement dans la démarche retourne une erreur', () => {
+    expect(
+      titreEtapeDateValidate(
+        'etape-franchissements',
+        '',
+        '2020-01-01',
+        demarcheType,
+        [],
+        ({
+          typeId: 'arm',
+          contenu: {
+            arm: { mecanise: true, franchissements: 10 }
+          }
+        } as unknown) as ITitre
+      )
+    ).toEqual(
+      "Une étape « etape-premiere » antérieure est nécessaire pour la création d'une étape « etape-franchissements »."
+    )
+  })
+
+  test("obligatoireApres, sans étape obligatoire antérieure pour un titre sans franchissement dans la démarche ne retourne pas d'erreur", () => {
+    expect(
+      titreEtapeDateValidate(
+        'etape-franchissements',
+        '',
+        '2020-01-01',
+        demarcheType,
+        [],
+        ({
+          typeId: 'arm',
+          contenu: { arm: { franchissements: 0, mecanise: true } }
+        } as unknown) as ITitre
+      )
+    ).toBeNull()
+  })
+
+  test("obligatoireApres, sans étape obligatoire antérieure pour un titre avec franchissement à undefined dans la démarche ne retourne pas d'erreur", () => {
+    expect(
+      titreEtapeDateValidate(
+        'etape-franchissements',
+        '',
+        '2020-01-01',
+        demarcheType,
+        [],
+        ({
+          typeId: 'arm',
+          contenu: { arm: { franchissements: undefined, mecanise: true } }
         } as unknown) as ITitre
       )
     ).toBeNull()
