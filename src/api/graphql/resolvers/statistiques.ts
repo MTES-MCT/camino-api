@@ -24,16 +24,16 @@ const statistiquesGlobales = async () => {
     )
 
     const {
-      nbSearchArray,
-      nbMajTitresArray,
-      nbAction,
+      searchCounts,
+      majTitreCounts,
+      actionCount,
       timeSession,
-      nbDonwload,
-      nbErreur,
-      nbReutilisation
+      downloadCount,
+      erreurCount,
+      reutilisationCount
     } = await matomoData()
 
-    const nbDemarche = titresActivites.filter(titreActivite => {
+    const demarcheCount = titresActivites.filter(titreActivite => {
       const dateSaisie = titreActivite.dateSaisie
 
       return (
@@ -45,14 +45,14 @@ const statistiquesGlobales = async () => {
     return {
       titresActivitesBeneficesEntreprise,
       titresActivitesBeneficesAdministration,
-      nbSearchArray,
-      nbMajTitresArray,
-      nbAction,
+      searchCounts,
+      majTitreCounts,
+      actionCount,
       timeSession,
-      nbDonwload,
-      nbDemarche,
-      nbErreur,
-      nbReutilisation
+      downloadCount,
+      demarcheCount,
+      erreurCount,
+      reutilisationCount
     }
   } catch (e) {
     if (debug) {
@@ -106,11 +106,11 @@ const tbGuyane = async () => {
       .map(ta => {
         const annee = ta.annee
         const dataTb = {
-          nbArm: ta.titres.filter(titre => titre.typeId === 'arm').length,
-          nbPrm: ta.titres.filter(titre => titre.typeId === 'prm').length,
-          nbAxm: ta.titres.filter(titre => titre.typeId === 'axm').length,
-          nbPxm: ta.titres.filter(titre => titre.typeId === 'pxm').length,
-          nbCxm: ta.titres.filter(titre => titre.typeId === 'cxm').length,
+          armCount: ta.titres.filter(titre => titre.typeId === 'arm').length,
+          prmCount: ta.titres.filter(titre => titre.typeId === 'prm').length,
+          axmCount: ta.titres.filter(titre => titre.typeId === 'axm').length,
+          pxmCount: ta.titres.filter(titre => titre.typeId === 'pxm').length,
+          cxmCount: ta.titres.filter(titre => titre.typeId === 'cxm').length,
           surfaceExploration:
             ta.titres
               .filter(titre => titre.typeId === 'arm' || titre.typeId === 'prm')
@@ -154,30 +154,38 @@ const tbGuyane = async () => {
                 return acc
               }, 0) / 1000
           ), // conversion 1000g = 1kg
-          energie: Math.round(
+          carburantConventionnel: Math.round(
             ta.titresActivites
               .filter(titreActivite => titreActivite.typeId === 'grp')
               .reduce((acc, titreActivite) => {
                 if (
                   titreActivite.contenu &&
-                  titreActivite.contenu.renseignements
+                  titreActivite.contenu.renseignements &&
+                  titreActivite.contenu.renseignements.carburantConventionnel
                 ) {
-                  if (titreActivite.contenu.renseignements.carburantDetaxe) {
-                    const carburantDetaxe =
-                      titreActivite.contenu.renseignements.carburantDetaxe
-                    if (typeof carburantDetaxe === 'number') {
-                      acc += carburantDetaxe
-                    }
-                  }
-                  if (
+                  const carburantConventionnel =
                     titreActivite.contenu.renseignements.carburantConventionnel
-                  ) {
-                    const carburantConventionnel =
-                      titreActivite.contenu.renseignements
-                        .carburantConventionnel
-                    if (typeof carburantConventionnel === 'number') {
-                      acc += carburantConventionnel
-                    }
+                  if (typeof carburantConventionnel === 'number') {
+                    acc += carburantConventionnel
+                  }
+                }
+
+                return acc
+              }, 0)
+          ),
+          carburantDetaxe: Math.round(
+            ta.titresActivites
+              .filter(titreActivite => titreActivite.typeId === 'grp')
+              .reduce((acc, titreActivite) => {
+                if (
+                  titreActivite.contenu &&
+                  titreActivite.contenu.renseignements &&
+                  titreActivite.contenu.renseignements.carburantDetaxe
+                ) {
+                  const carburantDetaxe =
+                    titreActivite.contenu.renseignements.carburantDetaxe
+                  if (typeof carburantDetaxe === 'number') {
+                    acc += carburantDetaxe
                   }
                 }
 
@@ -201,7 +209,7 @@ const tbGuyane = async () => {
 
               return acc
             }, 0),
-          environnementCout: Math.round(
+          environnementCost: Math.round(
             ta.titresActivites
               .filter(titreActivite => titreActivite.typeId === 'grp')
               .reduce((acc, titreActivite) => {
@@ -220,7 +228,7 @@ const tbGuyane = async () => {
                 return acc
               }, 0)
           ),
-          nbSalaries: Math.round(
+          salariesCount: Math.round(
             ta.titresActivites
               .filter(
                 titreActivite =>
@@ -246,41 +254,13 @@ const tbGuyane = async () => {
                 }
 
                 return acc
-              }, 0)
+              }, 0) / 4 // somme des effectifs sur 4 trimestre
           ),
-          moyEnginsMotorises: Math.round(
-            ta.titresActivites
-              .filter(titreActivite => titreActivite.typeId === 'grp')
-              .reduce((acc, titreActivite) => {
-                if (
-                  titreActivite.contenu &&
-                  titreActivite.contenu.renseignements
-                ) {
-                  if (titreActivite.contenu.renseignements.pelles) {
-                    const pelles = titreActivite.contenu.renseignements.pelles
-                    if (typeof pelles === 'number') {
-                      acc += pelles
-                    }
-                  }
-                  if (titreActivite.contenu.renseignements.pompes) {
-                    const pompes = titreActivite.contenu.renseignements.pompes
-                    if (typeof pompes === 'number') {
-                      acc += pompes
-                    }
-                  }
-                }
-
-                return acc
-              }, 0) /
-              ta.titresActivites.filter(
-                titreActivite => titreActivite.typeId === 'grp'
-              ).length
-          ),
-          nbRapportProductionOrDeposes: ta.titresActivites.filter(
+          rapportProductionOrDeposesCount: ta.titresActivites.filter(
             titreActivite =>
               titreActivite.typeId === 'grp' && titreActivite.statutId === 'dep'
           ).length,
-          nbRapportProductionOrTotal: Math.round(
+          rapportProductionOrRatio: Math.round(
             (ta.titresActivites.filter(
               titreActivite =>
                 titreActivite.typeId === 'grp' &&

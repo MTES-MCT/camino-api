@@ -82,7 +82,6 @@ const titres = async (
 ) => {
   try {
     const fields = fieldsBuild(info).elements
-    console.log('fields :>> ', fields)
 
     const userId = context.user?.id
 
