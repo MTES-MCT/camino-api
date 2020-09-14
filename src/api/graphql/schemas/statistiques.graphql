@@ -40,6 +40,6 @@ type AnneeDataTb {
   dataTb: DataTb
 }
 
-type TbGuyane {
-  anneesTbGuyane: [AnneeDataTb]
+type StatistiquesGuyane {
+  anneesStatistiquesGuyane: [AnneeDataTb]
 }

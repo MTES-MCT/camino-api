@@ -63,7 +63,7 @@ const statistiquesGlobales = async () => {
   }
 }
 
-const tbGuyane = async () => {
+const statistiquesGuyane = async () => {
   try {
     const currentAnnee = new Date().getFullYear()
     const anneesArray = []
@@ -93,7 +93,7 @@ const tbGuyane = async () => {
       'super'
     )
 
-    const anneesTbGuyane = anneesArray
+    const anneesStatistiquesGuyane = anneesArray
       .map(annee => {
         const regex = new RegExp(annee.toString(), 'g')
         const titres = _titres.filter(titre => titre.id.match(regex))
@@ -276,7 +276,7 @@ const tbGuyane = async () => {
         return { annee, dataTb }
       })
 
-    return { anneesTbGuyane }
+    return { anneesStatistiquesGuyane }
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -286,4 +286,4 @@ const tbGuyane = async () => {
   }
 }
 
-export { statistiquesGlobales, tbGuyane }
+export { statistiquesGlobales, statistiquesGuyane }
