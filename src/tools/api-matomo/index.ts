@@ -65,7 +65,7 @@ const matomoData = async () => {
   })
 
   // nombre d'action du mois courant
-  const nbAction = dataCurrent.nb_actions_per_visit.toString()
+  const actionCount = dataCurrent.nb_actions_per_visit.toString()
   // temps de session du mois courant
   const timeSession = timeFormat(dataCurrent.avg_time_on_site)
   // nombre de téléchargements du mois courant
