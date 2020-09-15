@@ -23,7 +23,7 @@ const matomoData = async () => {
   // Datas de la page 'Récapitulatif' des visites dans matomo
   // url
   const pathVisit = `${process.env
-    .API_MATOMO_URL!}?date=${dateStart},today&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=${process
+    .API_MATOMO_URL!}/index.php?date=${dateStart},today&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=${process
     .env
     .API_MATOMO_ID!}&method=API.get&module=API&period=month&token_auth=${process
     .env.API_MATOMO_TOKEN!}`
@@ -246,7 +246,7 @@ const getPath = (
       )
     : ''
 
-  return `${process.env.API_MATOMO_URL}?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
+  return `${process.env.API_MATOMO_URL}/index.php?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
 }
 
 const getEventCounts = async (
