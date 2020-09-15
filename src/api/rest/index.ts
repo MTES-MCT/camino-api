@@ -135,7 +135,7 @@ const titres = async (
       .join('&')
 
     matomo.track({
-      url: `${process.env.MATOMO_HOST}?${url}`,
+      url: `${process.env.API_MATOMO_URL}/matomo.php?${url}`,
       action_name: `titres-flux-${format}`
     })
   }
