@@ -1,12 +1,12 @@
 import * as MatomoTracker from 'matomo-tracker'
 
 const matomo =
-  process.env.MATOMO_SITE_ID &&
-  Number(process.env.MATOMO_SITE_ID) &&
-  process.env.MATOMO_HOST
+  process.env.API_MATOMO_ID &&
+  Number(process.env.API_MATOMO_ID) &&
+  process.env.API_MATOMO_URL
     ? new MatomoTracker(
-        Number(process.env.MATOMO_SITE_ID),
-        `${process.env.MATOMO_HOST}/matomo.php`,
+        Number(process.env.API_MATOMO_ID),
+        `${process.env.API_MATOMO_URL}/matomo.php`,
         false
       )
     : null
