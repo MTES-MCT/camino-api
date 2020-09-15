@@ -5,11 +5,11 @@ const contenuNumbersCheck = (sections: ISection[], contenu: IContenu) => {
     (errors: string[], section) =>
       section.elements
         ? section.elements.reduce((errors, element) => {
-            const contenuElement = contenu[section.id][element.id]
             if (
               element.type === 'number' &&
-              contenuElement &&
-              contenuElement < 0
+              contenu[section.id] &&
+              contenu[section.id][element.id] &&
+              contenu[section.id][element.id] < 0
             ) {
               errors.push(
                 `le champ "${element.id}" ne peut pas avoir une valeur négative`
