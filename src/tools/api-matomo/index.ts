@@ -11,10 +11,7 @@ interface IMatomoSectionData {
   nb_events?: number
 }
 
-const matomoData = async () => {
-  // calcul du mois de départ
-  const monthStart = parseInt(process.env.API_MATOMO_MONTHS!) - 1
-
+const matomoMainDataGet = async (monthStart: number) => {
   const date = new Date()
   date.setMonth(date.getMonth() - monthStart)
   date.setDate(1)
@@ -71,13 +68,15 @@ const matomoData = async () => {
   // nombre de téléchargements du mois courant
   const telechargements = dataCurrent.nb_downloads.toString()
 
-  // nombre d'erreurs signalées
+  return { recherches, actions, sessionDuree, telechargements }
+}
 
+const erreursSignaleesCountGet = async () => {
   // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
   const dateYears = getDateYears()
   const eventErreurActionRegex = /(?=.*signaler)(?=.*erreur)/g
 
-  const signalements = (
+  return (
     await getEventCounts(
       getPath('Events.getAction', 'year', { flat: 1 }),
       dateYears,
@@ -100,11 +99,13 @@ const matomoData = async () => {
         )
     )
   ).reduce((acc: number, erreur) => (acc += erreur.value), 150)
+}
 
-  // nombre de réutilisations
+const reutilisationsCountGet = async () => {
   const actionTitresFluxGeojson = 'titres-flux-geojson'
-
-  const reutilisations = (
+  // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
+  const dateYears = getDateYears()
+  return (
     await getEventCounts(
       getPath('Live.getLastVisitsDetails', 'month'),
       dateYears,
@@ -116,7 +117,9 @@ const matomoData = async () => {
           )
     )
   ).reduce((acc: number, reutilisation) => (acc += reutilisation.value), 6)
+}
 
+const titresModifiesCountGet = async (monthStart: number) => {
   // Datas des évènements, catégorie 'titres-sections', actions:
   // titre-editer
   // titre-demarche_ajouter
@@ -155,7 +158,7 @@ const matomoData = async () => {
   // de eventActions qui est un tableau de noms d'action d'évènements Matomo
   // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
   // et de dateToggle, la date de prise en compte de ces nouvelles actions (plus fiable)
-  const titresModifies = await getEventCounts(
+  return await getEventCounts(
     getPath('Events.getCategory', 'month'),
     dates,
     data =>
@@ -182,6 +185,32 @@ const matomoData = async () => {
           0
         )
   )
+}
+
+const matomoData = async () => {
+  // calcul du mois de départ
+  const monthStart = parseInt(process.env.API_MATOMO_MONTHS!) - 1
+
+  const matomoResults = await Promise.all([
+    matomoMainDataGet(monthStart),
+    erreursSignaleesCountGet(),
+    reutilisationsCountGet(),
+    titresModifiesCountGet(monthStart)
+  ])
+  const {
+    recherches,
+    actions,
+    sessionDuree,
+    telechargements
+  } = matomoResults[0]
+
+  // nombre d'erreurs signalées
+  const signalements = matomoResults[1]
+
+  // nombre de réutilisations
+  const reutilisations = matomoResults[2]
+
+  const titresModifies = matomoResults[3]
 
   return {
     recherches,
