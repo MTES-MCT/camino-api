@@ -64,162 +64,130 @@ const statistiquesGlobales = async () => {
   }
 }
 
+interface IGuyaneActivitesStats {
+  orExtrait: number
+  carburantConventionnel: number
+  carburantDetaxe: number
+  mercure: number
+  environnement: number
+  effectifs: number
+  rapportProductionOrDeposesCount: number
+  rapportProductionOrCount: number
+}
+
+const guyaneActivitesStatistiquesGet = (
+  titresActivites: ITitreActivite[]
+): IGuyaneActivitesStats =>
+  titresActivites.reduce(
+    (acc, ta) => {
+      if (ta.typeId === 'grp') {
+        acc.rapportProductionOrCount++
+        if (ta.statutId === 'dep') acc.rapportProductionOrDeposesCount++
+        ;(Object.keys(acc) as (keyof IGuyaneActivitesStats)[]).forEach(
+          property => {
+            if (
+              ![
+                'rapportProductionOrDeposesCount',
+                'rapportProductionOrCount'
+              ].includes(property) &&
+              ta.contenu &&
+              ta.contenu.renseignements &&
+              ta.contenu.renseignements[property] &&
+              (property !== 'effectifs' ||
+                ta.titre!.typeId === 'axm' ||
+                ta.titre!.typeId === 'pxm' ||
+                ta.titre!.typeId === 'cxm')
+            ) {
+              const propertyValue = ta.contenu!.renseignements[property]
+              acc[property] += Math.abs(Number(propertyValue))
+            }
+          }
+        )
+      }
+
+      return acc
+    },
+    {
+      orExtrait: 0,
+      carburantConventionnel: 0,
+      carburantDetaxe: 0,
+      mercure: 0,
+      environnement: 0,
+      effectifs: 0,
+      rapportProductionOrDeposesCount: 0,
+      rapportProductionOrCount: 0
+    }
+  )
+
+interface IGuyaneTitresStats {
+  arm: number
+  prm: number
+  axm: number
+  pxm: number
+  cxm: number
+  surfaceExploration: number
+  surfaceExploitation: number
+}
+
+const guyaneTitresStatistiquesGet = (titres: ITitre[]): IGuyaneTitresStats =>
+  titres.reduce(
+    (acc, t) => {
+      if (t.surfaceEtape && t.surfaceEtape.surface) {
+        if (t.typeId === 'arm' || t.typeId === 'prm') {
+          acc.surfaceExploration++
+        } else {
+          acc.surfaceExploitation++
+        }
+      }
+      if (['arm', 'prm', 'axm', 'pxm', 'cxm'].includes(t.typeId)) {
+        acc[t.typeId as keyof IGuyaneTitresStats]++
+      }
+      return acc
+    },
+    {
+      arm: 0,
+      prm: 0,
+      axm: 0,
+      pxm: 0,
+      cxm: 0,
+      surfaceExploration: 0,
+      surfaceExploitation: 0
+    }
+  )
+
 const statistiqueGuyaneBuild = (
   titres: ITitre[],
   titresActivites: ITitreActivite[],
   annee: number
-) => ({
-  annee,
-  titresArm: titres.filter(t => t.typeId === 'arm').length,
-  titresPrm: titres.filter(t => t.typeId === 'prm').length,
-  titresAxm: titres.filter(t => t.typeId === 'axm').length,
-  titresPxm: titres.filter(t => t.typeId === 'pxm').length,
-  titresCxm: titres.filter(t => t.typeId === 'cxm').length,
-  surfaceExploration:
-    titres.reduce((acc, t) => {
-      if (
-        (t.typeId === 'arm' || t.typeId === 'prm') &&
-        t.surfaceEtape &&
-        t.surfaceEtape.surface
-      ) {
-        acc += t.surfaceEtape?.surface
-      }
-
-      return acc
-    }, 0) * 100, // conversion 1 km² = 100 ha
-  surfaceExploitation:
-    titres.reduce((acc, t) => {
-      if (
-        (t.typeId === 'axm' || t.typeId === 'pxm' || t.typeId === 'cxm') &&
-        t.surfaceEtape &&
-        t.surfaceEtape.surface
-      ) {
-        acc += t.surfaceEtape?.surface
-      }
-
-      return acc
-    }, 0) * 100, // conversion 1 km² = 100 ha
-  productionOr: Math.floor(
-    titresActivites.reduce((acc, ta) => {
-      if (
-        ta.typeId === 'grp' &&
-        ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements.orBrut
-      ) {
-        const orBrut = ta.contenu.renseignements.orBrut
-        if (typeof orBrut === 'number') {
-          acc += orBrut
-        }
-      }
-
-      return acc
-    }, 0) / 1000
-  ), // conversion 1000g = 1kg
-  carburantConventionnel: Math.round(
-    titresActivites.reduce((acc, ta) => {
-      if (
-        ta.typeId === 'grp' &&
-        ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements.carburantConventionnel
-      ) {
-        const carburantConventionnel =
-          ta.contenu.renseignements.carburantConventionnel
-
-        if (typeof carburantConventionnel === 'number') {
-          acc += carburantConventionnel
-        }
-      }
-
-      return acc
-    }, 0) / 1000
-  ), // milliers de litres
-  carburantDetaxe: Math.round(
-    titresActivites.reduce((acc, ta) => {
-      if (
-        ta.typeId === 'grp' &&
-        ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements.carburantDetaxe
-      ) {
-        const carburantDetaxe = ta.contenu.renseignements.carburantDetaxe
-
-        if (typeof carburantDetaxe === 'number') {
-          acc += carburantDetaxe
-        }
-      }
-
-      return acc
-    }, 0) / 1000
-  ), // milliers de litres
-  mercure: titresActivites.reduce((acc, ta) => {
-    if (
-      ta.typeId === 'grp' &&
-      ta.contenu &&
-      ta.contenu.renseignements &&
-      ta.contenu.renseignements.mercure
-    ) {
-      const mercure = ta.contenu.renseignements.mercure
-
-      if (typeof mercure === 'number') {
-        acc += Math.abs(mercure)
-      }
-    }
-
-    return acc
-  }, 0),
-  environnementCout: Math.round(
-    titresActivites.reduce((acc, ta) => {
-      if (
-        ta.typeId === 'grp' &&
-        ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements.environnement
-      ) {
-        const environnement = ta.contenu.renseignements.environnement
-
-        if (typeof environnement === 'number') {
-          acc += environnement
-        }
-      }
-
-      return acc
-    }, 0)
-  ),
-  salaries: Math.round(
-    titresActivites.reduce((acc, ta) => {
-      if (
-        ta.typeId === 'grp' &&
-        (ta.titre!.typeId === 'axm' ||
-          ta.titre!.typeId === 'pxm' ||
-          ta.titre!.typeId === 'cxm') &&
-        ta.contenu &&
-        ta.contenu.renseignements &&
-        ta.contenu.renseignements.effectifs
-      ) {
-        const effectif = ta.contenu.renseignements.effectifs
-        if (typeof effectif === 'number') {
-          acc += effectif
-        }
-        if (typeof effectif === 'string') {
-          acc += parseFloat(effectif)
-        }
-      }
-
-      return acc
-    }, 0) / 4 // somme des effectifs sur 4 trimestre
-  ),
-  rapportProductionOrDeposes: titresActivites.filter(
-    ta => ta.typeId === 'grp' && ta.statutId === 'dep'
-  ).length,
-  rapportProductionOrRatio: Math.round(
-    (titresActivites.filter(ta => ta.typeId === 'grp' && ta.statutId === 'dep')
-      .length *
-      100) /
-      titresActivites.filter(ta => ta.typeId === 'grp').length
+) => {
+  const titresStats: IGuyaneTitresStats = guyaneTitresStatistiquesGet(titres)
+  const activitesStats: IGuyaneActivitesStats = guyaneActivitesStatistiquesGet(
+    titresActivites
   )
-})
+  return {
+    annee,
+    titresArm: titresStats.arm,
+    titresPrm: titresStats.prm,
+    titresAxm: titresStats.axm,
+    titresPxm: titresStats.pxm,
+    titresCxm: titresStats.cxm,
+    surfaceExploration: Math.floor(titresStats.surfaceExploration * 100), // conversion 1 km² = 100 ha
+    surfaceExploitation: Math.floor(titresStats.surfaceExploitation * 100), // conversion 1 km² = 100 ha
+    productionOr: Math.floor(activitesStats.orExtrait / 1000), // conversion 1000g = 1kg
+    carburantConventionnel: Math.floor(
+      activitesStats.carburantConventionnel / 1000
+    ), // milliers de litres
+    carburantDetaxe: Math.floor(activitesStats.carburantDetaxe / 1000), // milliers de litres
+    mercure: Math.floor(activitesStats.mercure),
+    environnementCout: Math.floor(activitesStats.environnement),
+    salaries: Math.round(activitesStats.effectifs / 4), // somme des effectifs sur 4 trimestre
+    rapportProductionOrDeposes: activitesStats.rapportProductionOrDeposesCount,
+    rapportProductionOrRatio: Math.round(
+      (activitesStats.rapportProductionOrDeposesCount * 100) /
+        activitesStats.rapportProductionOrCount
+    )
+  }
+}
 
 const statistiquesGuyane = async () => {
   try {
@@ -229,8 +197,9 @@ const statistiquesGuyane = async () => {
       .map(e => currentAnnee - e)
       .reverse()
 
+    //Valide ou modification en instance
     const titres = await titresGet(
-      { statutsIds: ['val'], territoires: 'guyane' },
+      { statutsIds: ['val', 'mod'], territoires: 'guyane' },
       {
         fields: {
           type: { type: { id: {} } },
@@ -241,8 +210,10 @@ const statistiquesGuyane = async () => {
       'super'
     )
 
+    //TODO ajouter les surfaces cumulées des titres de Guyane valides ou en modifaction d’instance
+
     const titresActivites = await titresActivitesGet(
-      {},
+      { titresTerritoires: 'guyane', annees: anneesArray, typesIds: ['grp'] },
       {
         fields: {
           titre: { id: {} }
@@ -252,17 +223,12 @@ const statistiquesGuyane = async () => {
     )
 
     return anneesArray.map(annee => {
-      const regex = new RegExp(annee.toString(), 'g')
-      const titresFiltered = titres.filter(titre => titre.id.match(regex))
+      //TODO filtrer les titres => titre octroyé cette année, quelle est l’année de la première phase valide
       const titresActivitesFiltered = titresActivites.filter(
         ta => ta.annee === annee
       )
 
-      return statistiqueGuyaneBuild(
-        titresFiltered,
-        titresActivitesFiltered,
-        annee
-      )
+      return statistiqueGuyaneBuild(titres, titresActivitesFiltered, annee)
     })
   } catch (e) {
     if (debug) {
