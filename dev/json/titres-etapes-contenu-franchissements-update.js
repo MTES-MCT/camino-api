@@ -33,14 +33,14 @@ try {
 
     const franchissements = etape.contenu.deal.franchissements
 
-    //On bouge les franchissements de section
+    // On bouge les franchissements de section
     delete etape.contenu.deal.franchissements
     if (!etape.contenu.arm) {
       etape.contenu.arm = {}
     }
     etape.contenu.arm.franchissements = franchissements
 
-    //On met aussi les franchissements dans la MFR
+    // On met aussi les franchissements dans la MFR
     const etapeMfr = etapes.find(
       e =>
         e.titre_demarche_id === etape.titre_demarche_id && e.type_id === 'mfr'
@@ -64,7 +64,7 @@ try {
     }
     titre.props_titre_etapes_ids.arm.franchissements = etapeMfr.id
 
-    console.log(
+    console.info(
       'migration des franchissements depuis',
       etape.id,
       'vers etape mfr:',
@@ -76,8 +76,8 @@ try {
     changed += 1
   })
 
-  console.log()
-  console.log('changement de', changed, 'étapes')
+  console.info()
+  console.info('changement de', changed, 'étapes')
 
   elementsWrite('titres-m-titres.json', titres)
   elementsWrite('titres-m-titres-etapes.json', etapes)

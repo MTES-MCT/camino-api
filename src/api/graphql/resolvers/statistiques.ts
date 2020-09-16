@@ -1,3 +1,5 @@
+import * as camelcase from 'camelcase'
+import titreEtapePropFind from '../../../business/rules/titre-etape-prop-find'
 import { debug } from '../../../config/index'
 import { titresGet } from '../../../database/queries/titres'
 import { titresActivitesGet } from '../../../database/queries/titres-activites'
@@ -64,51 +66,147 @@ const statistiquesGlobales = async () => {
   }
 }
 
-interface IGuyaneActivitesStats {
-  orExtrait: number
-  carburantConventionnel: number
-  carburantDetaxe: number
-  mercure: number
-  environnement: number
-  effectifs: number
-  rapportProductionOrDeposesCount: number
-  rapportProductionOrCount: number
-}
+const statistiquesGuyaneActivitesGet = (
+  titresActivites: ITitreActivite[],
+  init: { [key: string]: number }
+) =>
+  titresActivites.reduce((acc: { [key: string]: number }, ta) => {
+    acc.rapportProductionOrCount++
+    if (ta.statutId === 'dep') acc.rapportProductionOrDeposesCount++
+    Object.keys(acc).forEach(prop => {
+      if (
+        ta.contenu &&
+        ta.contenu.renseignements &&
+        ta.contenu.renseignements[prop] &&
+        (prop !== 'effectifs' ||
+          ta.titre!.typeId === 'axm' ||
+          ta.titre!.typeId === 'pxm' ||
+          ta.titre!.typeId === 'cxm')
+      ) {
+        const value = ta.contenu!.renseignements[prop]
+        acc[prop] += Math.abs(Number(value))
+      }
+    })
 
-const guyaneActivitesStatistiquesGet = (
-  titresActivites: ITitreActivite[]
-): IGuyaneActivitesStats =>
-  titresActivites.reduce(
-    (acc, ta) => {
-      if (ta.typeId === 'grp') {
-        acc.rapportProductionOrCount++
-        if (ta.statutId === 'dep') acc.rapportProductionOrDeposesCount++
-        ;(Object.keys(acc) as (keyof IGuyaneActivitesStats)[]).forEach(
-          property => {
-            if (
-              ![
-                'rapportProductionOrDeposesCount',
-                'rapportProductionOrCount'
-              ].includes(property) &&
-              ta.contenu &&
-              ta.contenu.renseignements &&
-              ta.contenu.renseignements[property] &&
-              (property !== 'effectifs' ||
-                ta.titre!.typeId === 'axm' ||
-                ta.titre!.typeId === 'pxm' ||
-                ta.titre!.typeId === 'cxm')
-            ) {
-              const propertyValue = ta.contenu!.renseignements[property]
-              acc[property] += Math.abs(Number(propertyValue))
-            }
-          }
-        )
+    return acc
+  }, init)
+
+type IStatsGuyaneTitresTypes =
+  | 'titresArm'
+  | 'titresPrm'
+  | 'titresAxm'
+  | 'titresPxm'
+  | 'titresCxm'
+
+const statistiquesGuyaneTitresGet = (
+  titres: { id: string; typeId: IStatsGuyaneTitresTypes; surface: number }[]
+) =>
+  titres.reduce(
+    (acc, titre) => {
+      const id = camelcase(`titres-${titre.typeId}`) as IStatsGuyaneTitresTypes
+
+      acc[id].quantite++
+      acc[id].surface += titre.surface
+
+      return acc
+    },
+    {
+      titresArm: { quantite: 0, surface: 0 },
+      titresPrm: { quantite: 0, surface: 0 },
+      titresAxm: { quantite: 0, surface: 0 },
+      titresPxm: { quantite: 0, surface: 0 },
+      titresCxm: { quantite: 0, surface: 0 }
+    }
+  )
+
+const statsSurfacesBuild = (titres: ITitre[]) =>
+  titres.reduce(
+    (acc, titre) => {
+      if (
+        titre.statutId &&
+        ['val', 'mod'].includes(titre.statutId) &&
+        titre.surfaceEtape &&
+        titre.surfaceEtape.surface
+      ) {
+        if (['arm', 'prm'].includes(titre.typeId)) {
+          acc.surfaceExploration += titre.surfaceEtape.surface
+        } else {
+          acc.surfaceExploitation += titre.surfaceEtape.surface
+        }
       }
 
       return acc
     },
     {
-      orExtrait: 0,
+      surfaceExploration: 0,
+      surfaceExploitation: 0
+    }
+  )
+
+const titreIndexBuild = (titres: ITitre[], annee: number) =>
+  titres.reduce(
+    (
+      acc: {
+        id: string
+        typeId: IStatsGuyaneTitresTypes
+        surface: number
+      }[],
+      titre
+    ) => {
+      // filtre les titres dont le premier octroi avec une phase valide
+      // débute cette année
+      const firstOctroiValide = titre.demarches?.find(
+        demarche =>
+          demarche.typeId === 'oct' &&
+          demarche.phase &&
+          demarche.phase.statutId === 'val' &&
+          demarche.phase.dateDebut &&
+          demarche.phase.dateDebut.substr(0, 4) === annee.toString()
+      )
+
+      if (!firstOctroiValide?.etapes?.length) return acc
+
+      const surface = titreEtapePropFind(
+        'surface',
+        firstOctroiValide.etapes[0],
+        firstOctroiValide.etapes,
+        titre
+      ) as number | null | undefined
+
+      acc.push({
+        id: titre.id,
+        typeId: titre.typeId as IStatsGuyaneTitresTypes,
+        surface: surface ? surface * 100 : 0 // conversion 1 km² = 100 ha
+      })
+
+      return acc
+    },
+    []
+  )
+
+const anneeStatsBuild = (
+  titres: ITitre[],
+  titresActivites: ITitreActivite[],
+  annee: number
+) => {
+  // les titres créés dans l'année et leur surface lors de l'octroi
+  const titresFiltered = titreIndexBuild(titres, annee)
+
+  const {
+    titresArm,
+    titresPrm,
+    titresAxm,
+    titresPxm,
+    titresCxm
+  } = statistiquesGuyaneTitresGet(titresFiltered)
+
+  // les activités de type grp de l'année
+  const titresActivitesGrpFiltered = titresActivites.filter(
+    ta => ta.annee === annee && ta.typeId === 'grp'
+  )
+  const statsActivitesGrp = statistiquesGuyaneActivitesGet(
+    titresActivitesGrpFiltered,
+    {
       carburantConventionnel: 0,
       carburantDetaxe: 0,
       mercure: 0,
@@ -118,93 +216,66 @@ const guyaneActivitesStatistiquesGet = (
       rapportProductionOrCount: 0
     }
   )
-
-interface IGuyaneTitresStats {
-  arm: number
-  prm: number
-  axm: number
-  pxm: number
-  cxm: number
-  surfaceExploration: number
-  surfaceExploitation: number
-}
-
-const guyaneTitresStatistiquesGet = (titres: {
-  [idTitre: string]: { titre: ITitre; surface: number }
-}): IGuyaneTitresStats =>
-  Object.keys(titres).reduce(
-    (acc, id) => {
-      const titre = titres[id].titre
-      const surface = titres[id].surface
-      if (surface) {
-        if (titre.typeId === 'arm' || titre.typeId === 'prm') {
-          acc.surfaceExploration += surface
-        } else {
-          acc.surfaceExploitation += surface
-        }
-      }
-      if (['arm', 'prm', 'axm', 'pxm', 'cxm'].includes(titre.typeId)) {
-        acc[titre.typeId as keyof IGuyaneTitresStats]++
-      }
-      return acc
-    },
+  // les activités de type gra de l'année
+  const titresActivitesGraFiltered = titresActivites.filter(
+    ta => ta.annee === annee && ta.typeId === 'grp'
+  )
+  const statsActivitesGra = statistiquesGuyaneActivitesGet(
+    titresActivitesGraFiltered,
     {
-      arm: 0,
-      prm: 0,
-      axm: 0,
-      pxm: 0,
-      cxm: 0,
-      surfaceExploration: 0,
-      surfaceExploitation: 0
+      orNet: 0,
+      rapportProductionOrDeposesCount: 0,
+      rapportProductionOrCount: 0
     }
   )
 
-const statistiqueGuyaneBuild = (
-  titres: { [idTitre: string]: { titre: ITitre; surface: number } },
-  titresActivites: ITitreActivite[],
-  annee: number
-) => {
-  const titresStats: IGuyaneTitresStats = guyaneTitresStatistiquesGet(titres)
-  const activitesStats: IGuyaneActivitesStats = guyaneActivitesStatistiquesGet(
-    titresActivites
-  )
+  const rapportProductionOrRatio =
+    statsActivitesGrp.rapportProductionOrCount +
+    statsActivitesGra.rapportProductionOrCount
+      ? Math.round(
+          ((statsActivitesGrp.rapportProductionOrDeposesCount +
+            statsActivitesGra.rapportProductionOrDeposesCount) *
+            100) /
+            (statsActivitesGrp.rapportProductionOrCount +
+              statsActivitesGra.rapportProductionOrCount)
+        )
+      : 0
+
   return {
     annee,
-    titresMAr: titresStats.arm,
-    titresMPr: titresStats.prm,
-    titresMAx: titresStats.axm,
-    titresMPx: titresStats.pxm,
-    titresMCx: titresStats.cxm,
-    surfaceExploration: Math.floor(titresStats.surfaceExploration * 100), // conversion 1 km² = 100 ha
-    surfaceExploitation: Math.floor(titresStats.surfaceExploitation * 100), // conversion 1 km² = 100 ha
-    productionOrNette: Math.floor(activitesStats.orExtrait / 1000), // conversion 1000g = 1kg
+    titresArm,
+    titresPrm,
+    titresAxm,
+    titresPxm,
+    titresCxm,
+    orNet: Math.floor(statsActivitesGra.orNet / 1000), // conversion 1000g = 1kg
     carburantConventionnel: Math.floor(
-      activitesStats.carburantConventionnel / 1000
+      statsActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres
-    carburantDetaxe: Math.floor(activitesStats.carburantDetaxe / 1000), // milliers de litres
-    mercure: Math.floor(activitesStats.mercure),
-    environnementCout: Math.floor(activitesStats.environnement),
-    salaries: Math.round(activitesStats.effectifs / 4), // somme des effectifs sur 4 trimestre
-    rapportProductionOrDeposes: activitesStats.rapportProductionOrDeposesCount,
-    rapportProductionOrRatio: Math.round(
-      (activitesStats.rapportProductionOrDeposesCount * 100) /
-        activitesStats.rapportProductionOrCount
-    )
+    carburantDetaxe: Math.floor(statsActivitesGrp.carburantDetaxe / 1000), // milliers de litres
+    mercure: Math.floor(statsActivitesGrp.mercure),
+    environnementCout: Math.floor(statsActivitesGrp.environnement),
+    salaries: Math.round(statsActivitesGrp.effectifs / 4), // somme des effectifs sur 4 trimestre
+    rapportProductionOrDeposes:
+      statsActivitesGrp.rapportProductionOrDeposesCount,
+    rapportProductionOrRatio
   }
 }
 
 const statistiquesGuyane = async () => {
   try {
-    // les stats sur l’année courante n’étant pas complètes ne sont pas très intéressantes
-    const latestAnnee = new Date().getFullYear() - 1
+    const anneeCurrent = new Date().getFullYear()
     // un tableau avec les 5 dernières années
-    const anneesArray = Array.from(Array(6).keys())
-      .map(e => latestAnnee - e)
+    const annees = Array.from(Array(6).keys())
+      .map(e => anneeCurrent - e)
       .reverse()
 
-    //Valide ou modification en instance
     const titres = await titresGet(
-      { statutsIds: ['val', 'mod'], territoires: 'guyane' },
+      {
+        domainesIds: ['m'],
+        typesIds: ['ar', 'pr', 'ax', 'px', 'cx'],
+        territoires: 'guyane'
+      },
       {
         fields: {
           surfaceEtape: { id: {} },
@@ -214,25 +285,8 @@ const statistiquesGuyane = async () => {
       'super'
     )
 
-    const { surfaceExploration, surfaceExploitation } = titres.reduce(
-      (acc, titre) => {
-        if (titre.surfaceEtape && titre.surfaceEtape.surface) {
-          if (titre.typeId === 'arm' || titre.typeId === 'prm') {
-            acc.surfaceExploration += titre.surfaceEtape.surface
-          } else {
-            acc.surfaceExploitation += titre.surfaceEtape.surface
-          }
-        }
-        return acc
-      },
-      {
-        surfaceExploration: 0,
-        surfaceExploitation: 0
-      }
-    )
-
     const titresActivites = await titresActivitesGet(
-      { titresTerritoires: 'guyane', annees: anneesArray, typesIds: ['grp'] },
+      { titresTerritoires: 'guyane', annees, typesIds: ['grp', 'gra'] },
       {
         fields: {
           titre: { id: {} }
@@ -241,50 +295,14 @@ const statistiquesGuyane = async () => {
       'super'
     )
 
+    const { surfaceExploration, surfaceExploitation } = statsSurfacesBuild(
+      titres
+    )
+
     return {
-      annees: anneesArray.map(annee => {
-        const indexTitres = titres.reduce(
-          (
-            acc: { [idTitre: string]: { titre: ITitre; surface: number } },
-            titre
-          ) => {
-            //On recherche le premier octroi qui débute cette année avec une phase valide
-            const firstOctroiValide = titre.demarches?.find(
-              demarche =>
-                demarche.typeId === 'oct' &&
-                demarche.phase &&
-                demarche.phase.statutId === 'val' &&
-                demarche.phase.dateDebut &&
-                demarche.phase.dateDebut.substr(0, 4) === annee.toString()
-            )
-            if (!firstOctroiValide) {
-              return acc
-            }
-
-            //On récupère la surface specifiée lors de l’octroi
-            const etapeWithSurface = firstOctroiValide.etapes
-              ?.sort((a, b) => a.ordre! - b.ordre!)
-              .find(etape => etape.surface)
-            let surface = 0
-            if (etapeWithSurface && etapeWithSurface.surface) {
-              surface = etapeWithSurface.surface
-            }
-            acc[titre.id] = { titre, surface }
-            return acc
-          },
-          {}
-        )
-
-        const titresActivitesFiltered = titresActivites.filter(
-          ta => ta.annee === annee
-        )
-
-        return statistiqueGuyaneBuild(
-          indexTitres,
-          titresActivitesFiltered,
-          annee
-        )
-      }),
+      annees: annees.map(annee =>
+        anneeStatsBuild(titres, titresActivites, annee)
+      ),
       surfaceExploration: Math.floor(surfaceExploration * 100), // conversion 1 km² = 100 ha
       surfaceExploitation: Math.floor(surfaceExploitation * 100) // conversion 1 km² = 100 ha
     }

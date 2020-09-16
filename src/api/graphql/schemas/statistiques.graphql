@@ -25,14 +25,12 @@ type StatistiquesGuyane {
 
 type StatistiquesGuyaneAnnee {
   annee: Int
-  titresMAr: Int
-  titresMPr: Int
-  titresMAx: Int
-  titresMPx: Int
-  titresMCx: Int
-  surfaceExploration: Int
-  surfaceExploitation: Int
-  productionOrNette: Int
+  titresArm: StatistiqueGuyaneAnneeTitre
+  titresPrm: StatistiqueGuyaneAnneeTitre
+  titresAxm: StatistiqueGuyaneAnneeTitre
+  titresPxm: StatistiqueGuyaneAnneeTitre
+  titresCxm: StatistiqueGuyaneAnneeTitre
+  orNet: Int
   carburantConventionnel: Int
   carburantDetaxe: Int
   mercure: Int
@@ -40,4 +38,9 @@ type StatistiquesGuyaneAnnee {
   salaries: Int
   rapportProductionOrDeposes: Int
   rapportProductionOrRatio: Int
+}
+
+type StatistiqueGuyaneAnneeTitre {
+  quantite: Int
+  surface: Float
 }

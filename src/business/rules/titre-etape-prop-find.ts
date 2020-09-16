@@ -87,6 +87,8 @@ const titreEtapePropFind = (
     const titreEtapeProp = propFind(titreDemarcheEtapesFiltered, prop)
     if (titreEtapeProp) return titreEtapeProp
 
+    // sinon (la propriété n'est pas dans la démarche)
+    // cherche la propriété dans les démarches précédentes
     if (!titre.demarches?.length) return null
 
     // filtre les démarches et étapes antérieures à la date de l'étape sélectionnée
@@ -94,9 +96,6 @@ const titreEtapePropFind = (
       titre.demarches,
       titreEtape.date
     )
-
-    // sinon (la propriété n'est pas dans la démarche)
-    // cherche la propriété dans les démarches précédentes
 
     // recalcule le statut du titre
     titre.statutId = titreStatutIdFind(titre)
