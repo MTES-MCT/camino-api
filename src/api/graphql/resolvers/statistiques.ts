@@ -218,7 +218,7 @@ const anneeStatsBuild = (
   )
   // les activités de type gra de l'année
   const titresActivitesGraFiltered = titresActivites.filter(
-    ta => ta.annee === annee && ta.typeId === 'grp'
+    ta => ta.annee === annee && ta.typeId === 'gra'
   )
   const statsActivitesGra = statistiquesGuyaneActivitesGet(
     titresActivitesGraFiltered,
