@@ -129,18 +129,22 @@ interface IGuyaneTitresStats {
   surfaceExploitation: number
 }
 
-const guyaneTitresStatistiquesGet = (titres: ITitre[]): IGuyaneTitresStats =>
-  titres.reduce(
-    (acc, t) => {
-      if (t.surfaceEtape && t.surfaceEtape.surface) {
-        if (t.typeId === 'arm' || t.typeId === 'prm') {
-          acc.surfaceExploration++
+const guyaneTitresStatistiquesGet = (titres: {
+  [idTitre: string]: { titre: ITitre; surface: number }
+}): IGuyaneTitresStats =>
+  Object.keys(titres).reduce(
+    (acc, id) => {
+      const titre = titres[id].titre
+      const surface = titres[id].surface
+      if (surface) {
+        if (titre.typeId === 'arm' || titre.typeId === 'prm') {
+          acc.surfaceExploration += surface
         } else {
-          acc.surfaceExploitation++
+          acc.surfaceExploitation += surface
         }
       }
-      if (['arm', 'prm', 'axm', 'pxm', 'cxm'].includes(t.typeId)) {
-        acc[t.typeId as keyof IGuyaneTitresStats]++
+      if (['arm', 'prm', 'axm', 'pxm', 'cxm'].includes(titre.typeId)) {
+        acc[titre.typeId as keyof IGuyaneTitresStats]++
       }
       return acc
     },
@@ -156,7 +160,7 @@ const guyaneTitresStatistiquesGet = (titres: ITitre[]): IGuyaneTitresStats =>
   )
 
 const statistiqueGuyaneBuild = (
-  titres: ITitre[],
+  titres: { [idTitre: string]: { titre: ITitre; surface: number } },
   titresActivites: ITitreActivite[],
   annee: number
 ) => {
@@ -191,10 +195,11 @@ const statistiqueGuyaneBuild = (
 
 const statistiquesGuyane = async () => {
   try {
-    const currentAnnee = new Date().getFullYear()
+    // les stats sur l’année courante n’étant pas complètes ne sont pas très intéressantes
+    const latestAnnee = new Date().getFullYear() - 1
     // un tableau avec les 5 dernières années
     const anneesArray = Array.from(Array(6).keys())
-      .map(e => currentAnnee - e)
+      .map(e => latestAnnee - e)
       .reverse()
 
     //Valide ou modification en instance
@@ -202,9 +207,8 @@ const statistiquesGuyane = async () => {
       { statutsIds: ['val', 'mod'], territoires: 'guyane' },
       {
         fields: {
-          type: { type: { id: {} } },
           surfaceEtape: { id: {} },
-          activites: { id: {} }
+          demarches: { phase: { id: {} }, etapes: { id: {} } }
         }
       },
       'super'
@@ -214,9 +218,9 @@ const statistiquesGuyane = async () => {
       (acc, titre) => {
         if (titre.surfaceEtape && titre.surfaceEtape.surface) {
           if (titre.typeId === 'arm' || titre.typeId === 'prm') {
-            acc.surfaceExploration++
+            acc.surfaceExploration += titre.surfaceEtape.surface
           } else {
-            acc.surfaceExploitation++
+            acc.surfaceExploitation += titre.surfaceEtape.surface
           }
         }
         return acc
@@ -239,12 +243,47 @@ const statistiquesGuyane = async () => {
 
     return {
       annees: anneesArray.map(annee => {
-        //TODO filtrer les titres => titre octroyé cette année, quelle est l’année de la première phase valide
+        const indexTitres = titres.reduce(
+          (
+            acc: { [idTitre: string]: { titre: ITitre; surface: number } },
+            titre
+          ) => {
+            //On recherche le premier octroi qui débute cette année avec une phase valide
+            const firstOctroiValide = titre.demarches?.find(
+              demarche =>
+                demarche.typeId === 'oct' &&
+                demarche.phase &&
+                demarche.phase.statutId === 'val' &&
+                demarche.phase.dateDebut &&
+                demarche.phase.dateDebut.substr(0, 4) === annee.toString()
+            )
+            if (!firstOctroiValide) {
+              return acc
+            }
+
+            //On récupère la surface specifiée lors de l’octroi
+            const etapeWithSurface = firstOctroiValide.etapes
+              ?.sort((a, b) => a.ordre! - b.ordre!)
+              .find(etape => etape.surface)
+            let surface = 0
+            if (etapeWithSurface && etapeWithSurface.surface) {
+              surface = etapeWithSurface.surface
+            }
+            acc[titre.id] = { titre, surface }
+            return acc
+          },
+          {}
+        )
+
         const titresActivitesFiltered = titresActivites.filter(
           ta => ta.annee === annee
         )
 
-        return statistiqueGuyaneBuild(titres, titresActivitesFiltered, annee)
+        return statistiqueGuyaneBuild(
+          indexTitres,
+          titresActivitesFiltered,
+          annee
+        )
       }),
       surfaceExploration: Math.floor(surfaceExploration * 100), // conversion 1 km² = 100 ha
       surfaceExploitation: Math.floor(surfaceExploitation * 100) // conversion 1 km² = 100 ha
