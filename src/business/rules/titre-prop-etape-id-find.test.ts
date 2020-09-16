@@ -11,8 +11,10 @@ import {
   titreDemarchesOctAmodiatairesMod,
   titreDemarchesProPointsModPhaseEch,
   titreDemarchesProPointsModPhaseVal,
-  titreDemarchesMutPointsMod
+  titreDemarchesMutPointsMod,
+  titreDemarchesProModPhaseEch
 } from './__mocks__/titre-prop-etape-id-find-demarches'
+import each from 'jest-each'
 
 describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
   test("trouve l'id de la dernière étape acceptée de la démarche d'octroi acceptée ayant la propriété 'points'", () => {
@@ -144,4 +146,30 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
       )
     ).toBeNull()
   })
+
+  each(['points', 'surface', 'substances', 'communes']).it(
+    "trouve l'id de la dernière étape de n’importe quel type d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient la propriété %s et le titre a le statut 'modification en instance' et aucune phase n'est valide",
+    prop => {
+      expect(
+        titrePropEtapeIdFind(
+          JSON.parse(JSON.stringify(titreDemarchesProModPhaseEch.demarches)),
+          titreDemarchesProModPhaseEch.statutId,
+          prop
+        )
+      ).toEqual('h-cx-courdemanges-1981-pro01-dpu01')
+    }
+  )
+
+  each(['titulaires', 'amodiataires', 'administrations']).it(
+    "ne trouve pas l'id de la mod car la propriété %s n’est pas modifiée par cette étape",
+    prop => {
+      expect(
+        titrePropEtapeIdFind(
+          JSON.parse(JSON.stringify(titreDemarchesProModPhaseEch.demarches)),
+          titreDemarchesProModPhaseEch.statutId,
+          prop
+        )
+      ).toEqual('h-cx-courdemanges-1981-oct01-dpu01')
+    }
+  )
 })
