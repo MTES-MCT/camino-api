@@ -56,8 +56,8 @@ const matomoMainDataGet = async (monthStart: number) => {
 
   const recherches = Object.keys(matomoVisitData).map(key => {
     return {
-      month: key,
-      value: (matomoVisitData[key].nb_searches || 0).toString()
+      mois: key,
+      quantite: (matomoVisitData[key].nb_searches || 0).toString()
     }
   })
 
@@ -98,7 +98,7 @@ const erreursSignaleesCountGet = async () => {
           0
         )
     )
-  ).reduce((acc: number, erreur) => (acc += erreur.value), 150)
+  ).reduce((acc: number, erreur) => (acc += erreur.quantite), 150)
 }
 
 const reutilisationsCountGet = async () => {
@@ -116,7 +116,7 @@ const reutilisationsCountGet = async () => {
             (ad: { title: string }) => ad.title === actionTitresFluxGeojson
           )
     )
-  ).reduce((acc: number, reutilisation) => (acc += reutilisation.value), 6)
+  ).reduce((acc: number, reutilisation) => (acc += reutilisation.quantite), 6)
 }
 
 const titresModifiesCountGet = async (monthStart: number) => {
@@ -299,11 +299,11 @@ const getEventCounts = async (
   ).map(data => {
     const month = data.month.slice(0, 7)
     if (!data.value || !data.value.length) {
-      return { month: month, value: 0 }
+      return { mois: month, quantite: 0 }
     }
     const nbEvent = matomoResultToNbEvent(data)
 
-    return { month: month, value: nbEvent }
+    return { mois: month, quantite: nbEvent }
   })
 
 export { matomoData }

@@ -166,14 +166,14 @@ const statistiqueGuyaneBuild = (
   )
   return {
     annee,
-    titresArm: titresStats.arm,
-    titresPrm: titresStats.prm,
-    titresAxm: titresStats.axm,
-    titresPxm: titresStats.pxm,
-    titresCxm: titresStats.cxm,
+    titresMAr: titresStats.arm,
+    titresMPr: titresStats.prm,
+    titresMAx: titresStats.axm,
+    titresMPx: titresStats.pxm,
+    titresMCx: titresStats.cxm,
     surfaceExploration: Math.floor(titresStats.surfaceExploration * 100), // conversion 1 km² = 100 ha
     surfaceExploitation: Math.floor(titresStats.surfaceExploitation * 100), // conversion 1 km² = 100 ha
-    productionOr: Math.floor(activitesStats.orExtrait / 1000), // conversion 1000g = 1kg
+    productionOrNette: Math.floor(activitesStats.orExtrait / 1000), // conversion 1000g = 1kg
     carburantConventionnel: Math.floor(
       activitesStats.carburantConventionnel / 1000
     ), // milliers de litres
@@ -210,7 +210,22 @@ const statistiquesGuyane = async () => {
       'super'
     )
 
-    //TODO ajouter les surfaces cumulées des titres de Guyane valides ou en modifaction d’instance
+    const { surfaceExploration, surfaceExploitation } = titres.reduce(
+      (acc, titre) => {
+        if (titre.surfaceEtape && titre.surfaceEtape.surface) {
+          if (titre.typeId === 'arm' || titre.typeId === 'prm') {
+            acc.surfaceExploration++
+          } else {
+            acc.surfaceExploitation++
+          }
+        }
+        return acc
+      },
+      {
+        surfaceExploration: 0,
+        surfaceExploitation: 0
+      }
+    )
 
     const titresActivites = await titresActivitesGet(
       { titresTerritoires: 'guyane', annees: anneesArray, typesIds: ['grp'] },
@@ -222,14 +237,18 @@ const statistiquesGuyane = async () => {
       'super'
     )
 
-    return anneesArray.map(annee => {
-      //TODO filtrer les titres => titre octroyé cette année, quelle est l’année de la première phase valide
-      const titresActivitesFiltered = titresActivites.filter(
-        ta => ta.annee === annee
-      )
+    return {
+      annees: anneesArray.map(annee => {
+        //TODO filtrer les titres => titre octroyé cette année, quelle est l’année de la première phase valide
+        const titresActivitesFiltered = titresActivites.filter(
+          ta => ta.annee === annee
+        )
 
-      return statistiqueGuyaneBuild(titres, titresActivitesFiltered, annee)
-    })
+        return statistiqueGuyaneBuild(titres, titresActivitesFiltered, annee)
+      }),
+      surfaceExploration: Math.floor(surfaceExploration * 100), // conversion 1 km² = 100 ha
+      surfaceExploitation: Math.floor(surfaceExploitation * 100) // conversion 1 km² = 100 ha
+    }
   } catch (e) {
     if (debug) {
       console.error(e)

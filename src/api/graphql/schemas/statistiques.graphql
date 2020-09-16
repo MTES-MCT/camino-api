@@ -1,14 +1,14 @@
 "Statistiques"
-type NbMonthValue {
-  month: String
-  value: String
+type QuantiteParMois {
+  mois: String
+  quantite: String
 }
 
 type StatistiquesGlobales {
   titresActivitesBeneficesEntreprise: Int
   titresActivitesBeneficesAdministration: Int
-  recherches: [NbMonthValue]
-  titresModifies: [NbMonthValue]
+  recherches: [QuantiteParMois]
+  titresModifies: [QuantiteParMois]
   actions: String
   sessionDuree: String
   telechargements: String
@@ -17,16 +17,22 @@ type StatistiquesGlobales {
   reutilisations: String
 }
 
-type StatistiqueGuyane {
-  annee: Int
-  titresArm: Int
-  titresPrm: Int
-  titresAxm: Int
-  titresPxm: Int
-  titresCxm: Int
+type StatistiquesGuyane {
   surfaceExploration: Int
   surfaceExploitation: Int
-  productionOr: Int
+  annees: [StatistiquesGuyaneAnnee]
+}
+
+type StatistiquesGuyaneAnnee {
+  annee: Int
+  titresMAr: Int
+  titresMPr: Int
+  titresMAx: Int
+  titresMPx: Int
+  titresMCx: Int
+  surfaceExploration: Int
+  surfaceExploitation: Int
+  productionOrNette: Int
   carburantConventionnel: Int
   carburantDetaxe: Int
   mercure: Int
