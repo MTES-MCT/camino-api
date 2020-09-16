@@ -105,6 +105,7 @@ const reutilisationsCountGet = async () => {
   const actionTitresFluxGeojson = 'titres-flux-geojson'
   // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
   const dateYears = getDateYears()
+
   return (
     await getEventCounts(
       getPath('Live.getLastVisitsDetails', 'month'),
@@ -228,7 +229,7 @@ const timeFormat = (time: string) => {
   // sinon, ne garder que les minutes
   const index = time.search('min')
 
-  return index === -1 ? time : time.substring(0, index + 3).replace(' ', '')
+  return index === -1 ? time : time.substring(0, index).replace(' ', '')
 }
 
 const getDateYears = () => {
