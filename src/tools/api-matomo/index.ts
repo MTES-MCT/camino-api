@@ -8,7 +8,7 @@ interface IMatomoSectionData {
     nb_events: number
   }[]
   // eslint-disable-next-line camelcase
-  nb_events?: number
+  nb_events: number
 }
 
 interface IMatomoResult {
@@ -68,52 +68,34 @@ const matomoMainDataGet = async (duree: number) => {
   return { recherches, actions, sessionDuree, telechargements }
 }
 
+const nbEventsByLabelGet = async (label: string): Promise<number> => {
+  const tomorrowDate = new Date()
+  tomorrowDate.setDate(tomorrowDate.getDate() + 1)
+
+  // ces évenements ont débuté à partir de 2020
+  const pathVisit = getPath('Events.getAction', 'range', {
+    date: `2020-01-01,${tomorrowDate.toISOString().slice(0, 10)}`,
+    label
+  })
+
+  const response = await fetch(pathVisit)
+  const matomoVisitData: IMatomoSectionData[] = await response.json()
+
+  return matomoVisitData.length > 0 ? matomoVisitData[0].nb_events : 0
+}
+
 const erreursSignaleesCountGet = async () => {
-  // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
-  const dateYears = getDateYears()
-  const eventErreurActionRegex = /(?=.*signaler)(?=.*erreur)/g
+  const nbEvents = await nbEventsByLabelGet('titre-erreur_signaler')
 
-  return (
-    await getEventCounts(
-      getPath('Events.getAction', 'year', { flat: 1 }),
-      dateYears,
-      data =>
-        data.value.reduce(
-          (
-            acc: number,
-            act: {
-              label: string
-              nb_events: number
-            }
-          ) => {
-            if (act.label.match(eventErreurActionRegex)) {
-              acc += act.nb_events
-            }
-
-            return acc
-          },
-          0
-        )
-    )
-  ).reduce((acc: number, erreur) => (acc += erreur.quantite), 150)
+  // historiquement il y a déjà eu 150 erreurs signalées et 4 erreurs avec un ancien label
+  return 150 + 4 + nbEvents
 }
 
 const reutilisationsCountGet = async () => {
-  const actionTitresFluxGeojson = 'titres-flux-geojson'
-  // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
-  const dateYears = getDateYears()
-  return (
-    await getEventCounts(
-      getPath('Live.getLastVisitsDetails', 'month'),
-      dateYears,
-      data =>
-        data.value
-          .map((e: { actionDetails: any }) => e.actionDetails)
-          .filter(
-            (ad: { title: string }) => ad.title === actionTitresFluxGeojson
-          )
-    )
-  ).reduce((acc: number, reutilisation) => (acc += reutilisation.quantite), 6)
+  const nbEvents = await nbEventsByLabelGet('titres-flux-geojson')
+
+  // historiquement il y a déjà eu 6 réutilisations
+  return 6 + nbEvents
 }
 
 const nbEventsBySectionGet = (
@@ -242,38 +224,6 @@ const timeFormat = (time: string) => {
   return index === -1 ? time : time.substring(0, index).replace(' ', '')
 }
 
-const getDateYears = () => {
-  const dateYears = []
-
-  // année de départ : 2020
-  const startYear = 2020
-
-  // nombre d'année entre 2019 et l'année courante
-  const dateCurrent = new Date()
-  const anneeCount = dateCurrent.getFullYear() - startYear
-
-  for (let i = anneeCount; i >= 0; i--) {
-    const date = new Date()
-    date.setFullYear(dateCurrent.getFullYear() - i)
-    dateYears[anneeCount - i] = date.toISOString().slice(0, 10)
-  }
-
-  return dateYears
-}
-
-const getDates = (nbrMonth: number) => {
-  const dates = []
-
-  for (let i = 0; i <= nbrMonth; i++) {
-    const dateStart = new Date()
-    dateStart.setMonth(dateStart.getMonth() - i)
-    dateStart.setDate(1)
-    dates[nbrMonth - i] = dateStart.toISOString().slice(0, 10)
-  }
-
-  return dates
-}
-
 const getPath = (
   method: string,
   period: string,
@@ -288,33 +238,5 @@ const getPath = (
 
   return `${process.env.API_MATOMO_URL}/index.php?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
 }
-
-const getEventCounts = async (
-  path: string,
-  dates: string[],
-  matomoResultToNbEvent: (arg: any) => number
-) =>
-  (
-    await Promise.all(
-      dates.map(async date => {
-        const matomoSectionData: IMatomoSectionData[] = await (
-          await fetch(`${path}&date=${date}`)
-        ).json()
-
-        return {
-          month: date,
-          value: matomoSectionData
-        }
-      })
-    )
-  ).map(data => {
-    const month = data.month.slice(0, 7)
-    if (!data.value || !data.value.length) {
-      return { mois: month, quantite: 0 }
-    }
-    const nbEvent = matomoResultToNbEvent(data)
-
-    return { mois: month, quantite: nbEvent }
-  })
 
 export { matomoData }

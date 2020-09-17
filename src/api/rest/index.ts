@@ -136,7 +136,8 @@ const titres = async (
 
     matomo.track({
       url: `${process.env.API_MATOMO_URL}/matomo.php?${url}`,
-      action_name: `titres-flux-${format}`
+      e_c: 'camino-api',
+      e_a: `titres-flux-${format}`
     })
   }
 
