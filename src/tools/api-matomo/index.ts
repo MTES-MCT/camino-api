@@ -4,26 +4,35 @@ interface IMatomoSectionData {
   label: string
   subtable?: {
     label: string
-    // eslint-disable-next-line prettier/prettier
+    // eslint-disable-next-line camelcase
     nb_events: number
   }[]
-  // eslint-disable-next-line prettier/prettier
+  // eslint-disable-next-line camelcase
   nb_events?: number
 }
 
-const matomoMainDataGet = async (monthStart: number) => {
-  const date = new Date()
-  date.setMonth(date.getMonth() - monthStart)
-  date.setDate(1)
-  const dateStart = date.toISOString().slice(0, 10)
+interface IMatomoResult {
+  [month: string]: {
+    // eslint-disable-next-line camelcase
+    nb_searches: number
+    // eslint-disable-next-line camelcase
+    nb_actions_per_visit: number
+    // eslint-disable-next-line camelcase
+    avg_time_on_site: string
+    // eslint-disable-next-line camelcase
+    nb_downloads: number
+    label: string
+    subtable: []
+  }
+}
 
+const matomoMainDataGet = async (duree: number) => {
   // Datas de la page 'Récapitulatif' des visites dans matomo
   // url
-  const pathVisit = `${process.env
-    .API_MATOMO_URL!}/index.php?date=${dateStart},today&expanded=1&filter_limit=-1&format=JSON&format_metrics=1&idSite=${process
-    .env
-    .API_MATOMO_ID!}&method=API.get&module=API&period=month&token_auth=${process
-    .env.API_MATOMO_TOKEN!}`
+  const pathVisit = getPath('API.get', 'month', {
+    date: `previous${duree}`,
+    format_metrics: 1
+  })
 
   // Matomo retourne un objet dont
   // les clés sont les mois,
@@ -33,39 +42,27 @@ const matomoMainDataGet = async (monthStart: number) => {
   // avg_time_on_site : temps de session moyen (string)
   // nb_downloads : nombre de téléchargements
   const response = await fetch(pathVisit)
-  const matomoVisitData: {
-    [month: string]: {
-      // eslint-disable-next-line camelcase
-      nb_searches: number
-      // eslint-disable-next-line camelcase
-      nb_actions_per_visit: number
-      // eslint-disable-next-line camelcase
-      avg_time_on_site: string
-      // eslint-disable-next-line camelcase
-      nb_downloads: number
-    }
-  } = await response.json()
+  const matomoVisitData: IMatomoResult = await response.json()
 
-  // tableau des mois
-  const months = Object.keys(matomoVisitData)
-  // mois courant
-  const monthCurrent = months[months.length - 1]
-  // données du mois courant
-  const dataCurrent = matomoVisitData[monthCurrent]
+  //Les clés de l’objet sont les mois { "2020-09": ...,}
+  const monthsArray = Object.keys(matomoVisitData)
+
   // objet mois:nbr de recherches
-
-  const recherches = Object.keys(matomoVisitData).map(key => {
+  const recherches = monthsArray.map(key => {
     return {
       mois: key,
       quantite: (matomoVisitData[key].nb_searches || 0).toString()
     }
   })
 
-  // nombre d'action du mois courant
+  // données du dernier mois
+  const dataCurrent = matomoVisitData[monthsArray[monthsArray.length - 1]]
+
+  // nombre d'action du dernier mois
   const actions = dataCurrent.nb_actions_per_visit.toString()
-  // temps de session du mois courant
+  // temps de session du dernier mois
   const sessionDuree = timeFormat(dataCurrent.avg_time_on_site)
-  // nombre de téléchargements du mois courant
+  // nombre de téléchargements du dernier mois
   const telechargements = dataCurrent.nb_downloads.toString()
 
   return { recherches, actions, sessionDuree, telechargements }
@@ -119,7 +116,10 @@ const reutilisationsCountGet = async () => {
   ).reduce((acc: number, reutilisation) => (acc += reutilisation.quantite), 6)
 }
 
-const titresModifiesCountGet = async (monthStart: number) => {
+const nbEventsBySectionGet = (
+  monthData: IMatomoSectionData,
+  month: string
+): number => {
   // Datas des évènements, catégorie 'titres-sections', actions:
   // titre-editer
   // titre-demarche_ajouter
@@ -133,12 +133,9 @@ const titresModifiesCountGet = async (monthStart: number) => {
   // et
   // titre-xxx-enregistrer
   // à partir du 01/10/2020
-  const tDate = new Date()
-  tDate.setMonth(9)
-  tDate.setDate(1)
-  const dateToggle = tDate.toISOString().slice(0, 10)
+  const toggleDate = new Date(2020, 9, 1)
 
-  const eventActionsArray = [
+  const eventOldActionsArray = [
     'titre-editer',
     'titre-demarche_ajouter',
     'titre-demarche_editer',
@@ -148,54 +145,68 @@ const titresModifiesCountGet = async (monthStart: number) => {
     'titre-etape_supprimer',
     'titre-etape-doc_ajouter'
   ]
+  const eventNewActionRegex = /titre-[a-z-]*enregistrer/g
 
-  const eventActionRegex = /titre-[a-z-]*enregistrer/g
+  if (monthData.label === 'titre-sections') {
+    return monthData.subtable!.reduce(
+      (
+        nbEventsByAction: number,
+        eventAction: {
+          label: string
+          nb_events: number
+        }
+      ) => {
+        if (Date.parse(month) < Date.parse(toggleDate.toString())) {
+          if (eventOldActionsArray.includes(eventAction.label)) {
+            nbEventsByAction += eventAction.nb_events
+          }
+        } else if (eventAction.label.match(eventNewActionRegex)) {
+          nbEventsByAction += eventAction.nb_events
+        }
 
-  // calcul de la liste des dates (la requête s'effectue mois par mois)
-  const dates = getDates(monthStart)
+        return nbEventsByAction
+      },
+      0
+    )
+  }
+  return 0
+}
+const titresModifiesCountGet = async (duree: number) => {
+  const pathVisit = getPath('Events.getCategory', 'month', {
+    date: `previous${duree}`
+  })
+  const response = await fetch(pathVisit)
+  const matomoVisitData = await response.json()
 
-  // retourne un tableau de nombre de maj des titres en fonction de mois(dates),
-  // de eventActions qui est un tableau de noms d'action d'évènements Matomo
-  // de eventActionRegex une regex que les noms d'action d'évènements Matomo doivent vérifier (titre-xxx-enregistrer),
-  // et de dateToggle, la date de prise en compte de ces nouvelles actions (plus fiable)
-  return await getEventCounts(
-    getPath('Events.getCategory', 'month'),
-    dates,
-    data =>
-      data.value
-        .find((cat: { label: string }) => cat.label === 'titre-sections')!
-        .subtable!.reduce(
-          (
-            acc: number,
-            eventAction: {
-              label: string
-              nb_events: number
-            }
-          ) => {
-            if (Date.parse(data.month) < Date.parse(dateToggle)) {
-              if (eventActionsArray.includes(eventAction.label)) {
-                acc += eventAction.nb_events
-              }
-            } else if (eventAction.label.match(eventActionRegex)) {
-              acc += eventAction.nb_events
-            }
+  //Retourne un tableau par mois
+  return Object.keys(matomoVisitData).reduce(
+    (acc: { mois: string; quantite: number }[], month) => {
+      const monthDataArray = (matomoVisitData[
+        month
+      ] as unknown) as IMatomoSectionData[]
 
-            return acc
-          },
-          0
-        )
+      const nbEvents = monthDataArray.reduce((nbEventsByMonth, monthData) => {
+        const nbEventsBySection = nbEventsBySectionGet(monthData, month)
+        return nbEventsByMonth + nbEventsBySection
+      }, 0)
+
+      acc.push({ mois: month, quantite: nbEvents })
+
+      return acc
+    },
+    []
   )
 }
 
 const matomoData = async () => {
-  // calcul du mois de départ
-  const monthStart = parseInt(process.env.API_MATOMO_MONTHS!) - 1
+  // nombre de mois pour lesquels on souhaite des stats
+  const duree = 12
 
   const matomoResults = await Promise.all([
-    matomoMainDataGet(monthStart),
+    matomoMainDataGet(duree),
     erreursSignaleesCountGet(),
     reutilisationsCountGet(),
-    titresModifiesCountGet(monthStart)
+    titresModifiesCountGet(duree)
   ])
   const {
     recherches,
@@ -228,7 +239,7 @@ const timeFormat = (time: string) => {
   // sinon, ne garder que les minutes
   const index = time.search('min')
 
-  return index === -1 ? time : time.substring(0, index + 3).replace(' ', '')
+  return index === -1 ? time : time.substring(0, index).replace(' ', '')
 }
 
 const getDateYears = () => {

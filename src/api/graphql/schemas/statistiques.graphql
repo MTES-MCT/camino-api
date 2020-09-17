@@ -20,24 +20,32 @@ type StatistiquesGlobales {
 type StatistiquesGuyane {
   surfaceExploration: Int
   surfaceExploitation: Int
+  titresArm: Int
+  titresPrm: Int
+  titresAxm: Int
+  titresPxm: Int
+  titresCxm: Int
   annees: [StatistiquesGuyaneAnnee]
 }
 
 type StatistiquesGuyaneAnnee {
   annee: Int
-  titresMAr: Int
-  titresMPr: Int
-  titresMAx: Int
-  titresMPx: Int
-  titresMCx: Int
-  surfaceExploration: Int
-  surfaceExploitation: Int
-  productionOrNette: Int
+  titresArm: StatistiqueGuyaneAnneeTitre
+  titresPrm: StatistiqueGuyaneAnneeTitre
+  titresAxm: StatistiqueGuyaneAnneeTitre
+  titresPxm: StatistiqueGuyaneAnneeTitre
+  titresCxm: StatistiqueGuyaneAnneeTitre
+  orNet: Int
   carburantConventionnel: Int
   carburantDetaxe: Int
   mercure: Int
   environnementCout: Int
-  salaries: Int
-  rapportProductionOrDeposes: Int
-  rapportProductionOrRatio: Int
+  effectifs: Int
+  activitesDeposesQuantite: Int
+  activitesDeposesRatio: Int
+}
+
+type StatistiqueGuyaneAnneeTitre {
+  quantite: Int
+  surface: Float
 }

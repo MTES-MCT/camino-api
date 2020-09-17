@@ -34,13 +34,13 @@ try {
     const effectifs = activite.contenu.renseignements.effectifs
     activite.contenu.renseignements.effectifs = parseInt(effectifs)
 
-    console.log('migration des effectifs en format nombre', activite.id)
+    console.info('migration des effectifs en format nombre', activite.id)
 
     changed += 1
   })
 
-  console.log()
-  console.log('changement de', changed, 'activités')
+  console.info()
+  console.info('changement de', changed, 'activités')
 
   elementsWrite('titres-activites.json', activites)
 } catch (e) {
