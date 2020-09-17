@@ -99,7 +99,7 @@ type IStatsGuyaneTitresTypes =
   | 'titresCxm'
 
 const statistiquesGuyaneTitresGet = (
-  titres: { id: string; typeId: IStatsGuyaneTitresTypes; surface: number }[]
+  titres: { id: string; typeId: string; surface: number }[]
 ) =>
   titres.reduce(
     (acc, titre) => {
@@ -167,7 +167,7 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
     (
       acc: {
         id: string
-        typeId: IStatsGuyaneTitresTypes
+        typeId: string
         surface: number
       }[],
       titre
@@ -178,7 +178,6 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
         demarche =>
           demarche.typeId === 'oct' &&
           demarche.phase &&
-          demarche.phase.statutId === 'val' &&
           demarche.phase.dateDebut &&
           demarche.phase.dateDebut.substr(0, 4) === annee.toString()
       )
@@ -194,7 +193,7 @@ const titresArrayBuild = (titres: ITitre[], annee: number) =>
 
       acc.push({
         id: titre.id,
-        typeId: titre.typeId as IStatsGuyaneTitresTypes,
+        typeId: titre.typeId,
         surface: surface ? surface * 100 : 0 // conversion 1 km² = 100 ha
       })
 
