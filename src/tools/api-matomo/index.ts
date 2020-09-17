@@ -228,7 +228,7 @@ const timeFormat = (time: string) => {
   // sinon, ne garder que les minutes
   const index = time.search('min')
 
-  return index === -1 ? time : time.substring(0, index + 3).replace(' ', '')
+  return index === -1 ? time : time.substring(0, index).replace(' ', '')
 }
 
 const getDateYears = () => {
