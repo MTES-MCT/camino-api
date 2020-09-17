@@ -36,8 +36,8 @@ type StatistiquesGuyaneAnnee {
   mercure: Int
   environnementCout: Int
   salaries: Int
-  rapportProductionOrDeposes: Int
-  rapportProductionOrRatio: Int
+  activitesDeposesQuantite: Int
+  activitesDeposesRatio: Int
 }
 
 type StatistiqueGuyaneAnneeTitre {

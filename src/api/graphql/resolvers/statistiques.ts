@@ -72,7 +72,7 @@ const statistiquesGuyaneActivitesGet = (
 ) =>
   titresActivites.reduce((acc: { [key: string]: number }, ta) => {
     acc.rapportProductionOrCount++
-    if (ta.statutId === 'dep') acc.rapportProductionOrDeposesCount++
+    if (ta.statutId === 'dep') acc.activitesDeposesQuantiteCount++
     Object.keys(acc).forEach(prop => {
       if (
         ta.contenu &&
@@ -143,7 +143,7 @@ const statsSurfacesBuild = (titres: ITitre[]) =>
     }
   )
 
-const titreIndexBuild = (titres: ITitre[], annee: number) =>
+const titresArrayBuild = (titres: ITitre[], annee: number) =>
   titres.reduce(
     (
       acc: {
@@ -184,13 +184,13 @@ const titreIndexBuild = (titres: ITitre[], annee: number) =>
     []
   )
 
-const anneeStatsBuild = (
+const statistiquesAnneeBuild = (
   titres: ITitre[],
   titresActivites: ITitreActivite[],
   annee: number
 ) => {
   // les titres créés dans l'année et leur surface lors de l'octroi
-  const titresFiltered = titreIndexBuild(titres, annee)
+  const titresFiltered = titresArrayBuild(titres, annee)
 
   const {
     titresArm,
@@ -204,7 +204,7 @@ const anneeStatsBuild = (
   const titresActivitesGrpFiltered = titresActivites.filter(
     ta => ta.annee === annee && ta.typeId === 'grp'
   )
-  const statsActivitesGrp = statistiquesGuyaneActivitesGet(
+  const statistiquesActivitesGrp = statistiquesGuyaneActivitesGet(
     titresActivitesGrpFiltered,
     {
       carburantConventionnel: 0,
@@ -212,7 +212,7 @@ const anneeStatsBuild = (
       mercure: 0,
       environnement: 0,
       effectifs: 0,
-      rapportProductionOrDeposesCount: 0,
+      activitesDeposesQuantiteCount: 0,
       rapportProductionOrCount: 0
     }
   )
@@ -220,24 +220,24 @@ const anneeStatsBuild = (
   const titresActivitesGraFiltered = titresActivites.filter(
     ta => ta.annee === annee && ta.typeId === 'gra'
   )
-  const statsActivitesGra = statistiquesGuyaneActivitesGet(
+  const statistiquesActivitesGra = statistiquesGuyaneActivitesGet(
     titresActivitesGraFiltered,
     {
       orNet: 0,
-      rapportProductionOrDeposesCount: 0,
+      activitesDeposesQuantiteCount: 0,
       rapportProductionOrCount: 0
     }
   )
 
-  const rapportProductionOrRatio =
-    statsActivitesGrp.rapportProductionOrCount +
-    statsActivitesGra.rapportProductionOrCount
+  const activitesDeposesRatio =
+    statistiquesActivitesGrp.rapportProductionOrCount +
+    statistiquesActivitesGra.rapportProductionOrCount
       ? Math.round(
-          ((statsActivitesGrp.rapportProductionOrDeposesCount +
-            statsActivitesGra.rapportProductionOrDeposesCount) *
+          ((statistiquesActivitesGrp.activitesDeposesQuantiteCount +
+            statistiquesActivitesGra.activitesDeposesQuantiteCount) *
             100) /
-            (statsActivitesGrp.rapportProductionOrCount +
-              statsActivitesGra.rapportProductionOrCount)
+            (statistiquesActivitesGrp.rapportProductionOrCount +
+              statistiquesActivitesGra.rapportProductionOrCount)
         )
       : 0
 
@@ -248,17 +248,19 @@ const anneeStatsBuild = (
     titresAxm,
     titresPxm,
     titresCxm,
-    orNet: Math.floor(statsActivitesGra.orNet / 1000), // conversion 1000g = 1kg
+    orNet: Math.floor(statistiquesActivitesGra.orNet / 1000), // conversion 1000g = 1kg
     carburantConventionnel: Math.floor(
-      statsActivitesGrp.carburantConventionnel / 1000
+      statistiquesActivitesGrp.carburantConventionnel / 1000
     ), // milliers de litres
-    carburantDetaxe: Math.floor(statsActivitesGrp.carburantDetaxe / 1000), // milliers de litres
-    mercure: Math.floor(statsActivitesGrp.mercure),
-    environnementCout: Math.floor(statsActivitesGrp.environnement),
-    salaries: Math.round(statsActivitesGrp.effectifs / 4), // somme des effectifs sur 4 trimestre
-    rapportProductionOrDeposes:
-      statsActivitesGrp.rapportProductionOrDeposesCount,
-    rapportProductionOrRatio
+    carburantDetaxe: Math.floor(
+      statistiquesActivitesGrp.carburantDetaxe / 1000
+    ), // milliers de litres
+    mercure: Math.floor(statistiquesActivitesGrp.mercure),
+    environnementCout: Math.floor(statistiquesActivitesGrp.environnement),
+    salaries: Math.round(statistiquesActivitesGrp.effectifs / 4), // somme des effectifs sur 4 trimestre
+    activitesDeposesQuantite:
+      statistiquesActivitesGrp.activitesDeposesQuantiteCount,
+    activitesDeposesRatio
   }
 }
 
@@ -301,7 +303,7 @@ const statistiquesGuyane = async () => {
 
     return {
       annees: annees.map(annee =>
-        anneeStatsBuild(titres, titresActivites, annee)
+        statistiquesAnneeBuild(titres, titresActivites, annee)
       ),
       surfaceExploration: Math.floor(surfaceExploration * 100), // conversion 1 km² = 100 ha
       surfaceExploitation: Math.floor(surfaceExploitation * 100) // conversion 1 km² = 100 ha
