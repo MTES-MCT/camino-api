@@ -20,6 +20,11 @@ type StatistiquesGlobales {
 type StatistiquesGuyane {
   surfaceExploration: Int
   surfaceExploitation: Int
+  titresArm: Int
+  titresPrm: Int
+  titresAxm: Int
+  titresPxm: Int
+  titresCxm: Int
   annees: [StatistiquesGuyaneAnnee]
 }
 

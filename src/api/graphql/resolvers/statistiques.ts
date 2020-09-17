@@ -119,8 +119,8 @@ const statistiquesGuyaneTitresGet = (
     }
   )
 
-const statsSurfacesBuild = (titres: ITitre[]) =>
-  titres.reduce(
+const statsInstantBuild = (titres: ITitre[]) => {
+  const statsInstant = titres.reduce(
     (acc, titre) => {
       if (
         titre.statutId &&
@@ -133,15 +133,34 @@ const statsSurfacesBuild = (titres: ITitre[]) =>
         } else {
           acc.surfaceExploitation += titre.surfaceEtape.surface
         }
+        const id = camelcase(
+          `titres-${titre.typeId}`
+        ) as IStatsGuyaneTitresTypes
+
+        acc[id]++
       }
 
       return acc
     },
     {
       surfaceExploration: 0,
-      surfaceExploitation: 0
+      surfaceExploitation: 0,
+      titresArm: 0,
+      titresPrm: 0,
+      titresAxm: 0,
+      titresPxm: 0,
+      titresCxm: 0
     }
   )
+
+  statsInstant.surfaceExploration = Math.floor(
+    statsInstant.surfaceExploration * 100
+  ) // conversion 1 km² = 100 ha
+  statsInstant.surfaceExploitation = Math.floor(
+    statsInstant.surfaceExploitation * 100
+  ) // conversion 1 km² = 100 ha
+  return statsInstant
+}
 
 const titresArrayBuild = (titres: ITitre[], annee: number) =>
   titres.reduce(
@@ -297,16 +316,11 @@ const statistiquesGuyane = async () => {
       'super'
     )
 
-    const { surfaceExploration, surfaceExploitation } = statsSurfacesBuild(
-      titres
-    )
-
     return {
       annees: annees.map(annee =>
         statistiquesAnneeBuild(titres, titresActivites, annee)
       ),
-      surfaceExploration: Math.floor(surfaceExploration * 100), // conversion 1 km² = 100 ha
-      surfaceExploitation: Math.floor(surfaceExploitation * 100) // conversion 1 km² = 100 ha
+      ...statsInstantBuild(titres)
     }
   } catch (e) {
     if (debug) {
