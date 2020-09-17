@@ -105,16 +105,17 @@ const reutilisationsCountGet = async () => {
   const actionTitresFluxGeojson = 'titres-flux-geojson'
   // calcul de la liste des dates (la requête s'effectue année par année, depuis la mise en place de Matomo cad 2020)
   const dateYears = getDateYears()
+
   return (
     await getEventCounts(
       getPath('Live.getLastVisitsDetails', 'month'),
       dateYears,
       data =>
         data.value
-          .map((e: { actionDetails: any }) => e.actionDetails)
+          .flatMap((e: { actionDetails: any }) => e.actionDetails)
           .filter(
             (ad: { title: string }) => ad.title === actionTitresFluxGeojson
-          )
+          ).length
     )
   ).reduce((acc: number, reutilisation) => (acc += reutilisation.quantite), 6)
 }
@@ -228,7 +229,7 @@ const timeFormat = (time: string) => {
   // sinon, ne garder que les minutes
   const index = time.search('min')
 
-  return index === -1 ? time : time.substring(0, index + 3).replace(' ', '')
+  return index === -1 ? time : time.substring(0, index).replace(' ', '')
 }
 
 const getDateYears = () => {
@@ -297,13 +298,13 @@ const getEventCounts = async (
       })
     )
   ).map(data => {
-    const month = data.month.slice(0, 7)
+    const mois = data.month.slice(0, 7)
     if (!data.value || !data.value.length) {
-      return { mois: month, quantite: 0 }
+      return { mois, quantite: 0 }
     }
-    const nbEvent = matomoResultToNbEvent(data)
+    const quantite = matomoResultToNbEvent(data)
 
-    return { mois: month, quantite: nbEvent }
+    return { mois, quantite }
   })
 
 export { matomoData }
