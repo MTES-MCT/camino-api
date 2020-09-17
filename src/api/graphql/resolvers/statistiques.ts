@@ -257,7 +257,7 @@ const statistiquesAnneeBuild = (
     ), // milliers de litres
     mercure: Math.floor(statistiquesActivitesGrp.mercure),
     environnementCout: Math.floor(statistiquesActivitesGrp.environnement),
-    salaries: Math.round(statistiquesActivitesGrp.effectifs / 4), // somme des effectifs sur 4 trimestre
+    effectifs: Math.round(statistiquesActivitesGrp.effectifs / 4), // somme des effectifs sur 4 trimestre
     activitesDeposesQuantite:
       statistiquesActivitesGrp.activitesDeposesQuantiteCount,
     activitesDeposesRatio

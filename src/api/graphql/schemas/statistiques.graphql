@@ -35,7 +35,7 @@ type StatistiquesGuyaneAnnee {
   carburantDetaxe: Int
   mercure: Int
   environnementCout: Int
-  salaries: Int
+  effectifs: Int
   activitesDeposesQuantite: Int
   activitesDeposesRatio: Int
 }
