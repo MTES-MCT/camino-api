@@ -102,7 +102,7 @@ describe('utilisateurTokenRafraichir', () => {
   test('ne peut pas rafraichir un token si le refresh token est valide mais inconnu (anonyme)', async () => {
     const refreshToken = jwt.sign(
       { id: '1', email: 'toto@toto.fr' },
-      process.env.JWT_REFRESH_SECRET!
+      process.env.JWT_SECRET_REFRESH!
     )
     const res = await graphQLCall(utilisateurTokenRafraichirQuery, {
       refreshToken

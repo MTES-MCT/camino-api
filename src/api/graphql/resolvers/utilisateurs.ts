@@ -22,6 +22,7 @@ import {
   utilisateursGet,
   utilisateurCreate,
   utilisateurUpdate,
+  utilisateurUpsert,
   userByEmailGet,
   utilisateursCount,
   userByRefreshTokenGet
@@ -191,15 +192,14 @@ const utilisateurTokenCreer = async (
       throw new Error('mot de passe incorrect')
     }
 
-    const tokens = userTokensCreate(user)
-    await utilisateurUpdate(
-      { ...user, refreshToken: tokens.refreshToken },
-      fields.utilisateur
-    )
+    const { accessToken, refreshToken } = userTokensCreate(user)
+
+    await utilisateurUpdate(user.id, { refreshToken }, fields.utilisateur)
 
     return {
       utilisateur: userFormat(user),
-      ...tokens
+      accessToken,
+      refreshToken
     }
   } catch (e) {
     if (debug) {
@@ -220,7 +220,7 @@ const utilisateurTokenRafraichir = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET!)
+    jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH!)
 
     const fields = fieldsBuild(info)
 
@@ -506,7 +506,7 @@ const utilisateurModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const utilisateurUpdated = await utilisateurUpdate(utilisateur, { fields })
+    const utilisateurUpdated = await utilisateurUpsert(utilisateur, { fields })
 
     return utilisateurFormat(utilisateurUpdated)
   } catch (e) {
@@ -544,7 +544,7 @@ const utilisateurSupprimer = async (
     utilisateur.entreprises = []
     utilisateur.administrations = []
 
-    const utilisateurUpdated = await utilisateurUpdate(utilisateur, {})
+    const utilisateurUpdated = await utilisateurUpsert(utilisateur, {})
 
     return utilisateurUpdated
   } catch (e) {
@@ -607,7 +607,7 @@ const utilisateurMotDePasseModifier = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasseNouveau1, 10)
 
-    const utilisateurUpdated = await utilisateurUpdate(
+    const utilisateurUpdated = await utilisateurUpsert(
       {
         id,
         motDePasse: utilisateur.motDePasse
@@ -700,7 +700,7 @@ const utilisateurMotDePasseInitialiser = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasse1, 10)
 
-    const utilisateurUpdated = await utilisateurUpdate(
+    const utilisateurUpdated = await utilisateurUpsert(
       {
         id: context.user.id,
         motDePasse: utilisateur.motDePasse
@@ -722,7 +722,7 @@ const utilisateurMotDePasseInitialiser = async (
 }
 
 const userTokensCreate = ({ id, email }: IUtilisateur) => {
-  const refreshToken = jwt.sign({ id, email }, process.env.JWT_REFRESH_SECRET!)
+  const refreshToken = jwt.sign({ id, email }, process.env.JWT_SECRET_REFRESH!)
 
   return {
     accessToken: jwt.sign({ id, email }, process.env.JWT_SECRET!, {

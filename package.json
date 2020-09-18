@@ -57,7 +57,7 @@
     "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch --testTimeout=20000",
     "ci:lint": "eslint .",
     "ci:test-unit": "jest --testPathIgnorePatterns=tests --ci",
-    "ci:test-integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests JWT_REFRESH_SECRET=refresh-secret jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit --testTimeout=20000",
+    "ci:test-integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests JWT_SECRET_REFRESH=refresh-secret jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --ci --forceExit --testTimeout=20000",
     "ci:codecov": "codecov"
   },
   "@comment dependencies": {

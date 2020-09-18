@@ -19,7 +19,7 @@ import './init'
 
 import { rest } from './server/rest'
 import { graphql } from './server/graphql'
-import { authJwt } from './server/auth-jwt'
+import { authJwt, authJwtError } from './server/auth-jwt'
 import { authBasic } from './server/auth-basic'
 import { upload } from './server/upload'
 
@@ -42,6 +42,7 @@ app.use(
   cors({ credentials: true, exposedHeaders: ['Content-disposition'] }),
   compression(),
   authJwt,
+  authJwtError,
   authBasic
 )
 app.use(rest)

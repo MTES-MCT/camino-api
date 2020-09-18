@@ -159,6 +159,7 @@ const statsInstantBuild = (titres: ITitre[]) => {
   statsInstant.surfaceExploitation = Math.floor(
     statsInstant.surfaceExploitation * 100
   ) // conversion 1 km² = 100 ha
+
   return statsInstant
 }
 

@@ -278,7 +278,7 @@ const utilisateurCreate = async (
     )
     .first()
 
-const utilisateurUpdate = async (
+const utilisateurUpsert = async (
   utilisateur: IUtilisateur,
   { fields }: { fields?: IFields }
 ) =>
@@ -290,6 +290,19 @@ const utilisateurUpdate = async (
         : options.utilisateurs.graph
     )
 
+const utilisateurUpdate = async (
+  id: string,
+  props: Partial<IUtilisateur>,
+  { fields }: { fields?: IFields }
+) =>
+  Utilisateurs.query()
+    .withGraphFetched(
+      fields
+        ? graphBuild(fields, 'utilisateur', graphFormat)
+        : options.utilisateurs.graph
+    )
+    .patchAndFetchById(id, props)
+
 export {
   userGet,
   utilisateurGet,
@@ -298,5 +311,6 @@ export {
   utilisateursGet,
   utilisateursCount,
   utilisateurCreate,
+  utilisateurUpsert,
   utilisateurUpdate
 }

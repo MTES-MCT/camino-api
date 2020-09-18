@@ -14,4 +14,23 @@ const authJwt = expressJwt({
   algorithms: ['HS256']
 })
 
-export { authJwt }
+interface Error {
+  status?: number
+  name?: string
+  message?: string
+}
+
+// attrape les erreurs d'expiration du token
+const authJwtError = (
+  err: Error,
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) => {
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('invalid token...')
+    next()
+  }
+}
+
+export { authJwt, authJwtError }

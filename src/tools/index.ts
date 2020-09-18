@@ -1,4 +1,4 @@
-import { IContenuElement, IContenuElementCondition, Index } from '../types'
+import { IContenuElementCondition, Index } from '../types'
 
 const dupRemove = (key: string, ...arrays: Index<any>[][]) =>
   arrays.reduce(

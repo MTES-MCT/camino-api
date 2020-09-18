@@ -44,7 +44,7 @@ const matomoMainDataGet = async (duree: number) => {
   const response = await fetch(pathVisit)
   const matomoVisitData: IMatomoResult = await response.json()
 
-  //Les clés de l’objet sont les mois { "2020-09": ...,}
+  // Les clés de l’objet sont les mois { "2020-09": ...,}
   const monthsArray = Object.keys(matomoVisitData)
 
   // objet mois:nbr de recherches
@@ -135,6 +135,7 @@ const nbEventsBySectionGet = (
         nbEventsByAction: number,
         eventAction: {
           label: string
+          // eslint-disable-next-line camelcase
           nb_events: number
         }
       ) => {
@@ -151,6 +152,7 @@ const nbEventsBySectionGet = (
       0
     )
   }
+
   return 0
 }
 const titresModifiesCountGet = async (duree: number) => {
@@ -160,7 +162,7 @@ const titresModifiesCountGet = async (duree: number) => {
   const response = await fetch(pathVisit)
   const matomoVisitData = await response.json()
 
-  //Retourne un tableau par mois
+  // Retourne un tableau par mois
   return Object.keys(matomoVisitData).reduce(
     (acc: { mois: string; quantite: number }[], month) => {
       const monthDataArray = (matomoVisitData[
@@ -169,6 +171,7 @@ const titresModifiesCountGet = async (duree: number) => {
 
       const nbEvents = monthDataArray.reduce((nbEventsByMonth, monthData) => {
         const nbEventsBySection = nbEventsBySectionGet(monthData, month)
+
         return nbEventsByMonth + nbEventsBySection
       }, 0)
 
