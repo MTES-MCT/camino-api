@@ -166,8 +166,8 @@
   },
   {
     "etape_type_id": "cod",
-    "public_lecture": "FALSE",
-    "entreprises_lecture": "FALSE"
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
   },
   {
     "etape_type_id": "scl",
@@ -345,11 +345,6 @@
     "entreprises_lecture": "TRUE"
   },
   {
-    "etape_type_id": "rtd",
-    "public_lecture": "TRUE",
-    "entreprises_lecture": "TRUE"
-  },
-  {
     "etape_type_id": "abd",
     "public_lecture": "TRUE",
     "entreprises_lecture": "TRUE"
@@ -463,5 +458,30 @@
     "etape_type_id": "aec",
     "public_lecture": "FALSE",
     "entreprises_lecture": "FALSE"
+  },
+  {
+    "etape_type_id": "qae",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "rtd",
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "cps",
+    "public_lecture": "FALSE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "acd",
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
+  },
+  {
+    "etape_type_id": "pqr",
+    "public_lecture": "TRUE",
+    "entreprises_lecture": "TRUE"
   }
 ]

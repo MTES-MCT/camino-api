@@ -4,7 +4,7 @@
     "nom": "rapport trimestriel d'exploitation d'or en Guyane",
     "frequence_id": "tri",
     "date_debut": "2018-01-01",
-    "delai_mois": "24",
+    "delai_mois": "19",
     "sections": [
       {
         "id": "renseignements",
@@ -1530,7 +1530,7 @@
     "nom": "rapport annuel de production de granulats marins",
     "frequence_id": "ann",
     "date_debut": "2010-01-01",
-    "delai_mois": "8",
+    "delai_mois": "12",
     "sections": [
       {
         "id": "renseignementsProduction",

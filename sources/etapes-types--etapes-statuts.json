@@ -161,7 +161,7 @@
   },
   {
     "etape_type_id": "apo",
-    "etape_statut_id": "pro",
+    "etape_statut_id": "ajo",
     "ordre": "1"
   },
   {
@@ -215,24 +215,29 @@
     "ordre": "4"
   },
   {
-    "etape_type_id": "cod",
+    "etape_type_id": "acd",
     "etape_statut_id": "fav",
     "ordre": "1"
   },
   {
-    "etape_type_id": "cod",
+    "etape_type_id": "acd",
     "etape_statut_id": "fre",
     "ordre": "2"
   },
   {
-    "etape_type_id": "cod",
+    "etape_type_id": "acd",
     "etape_statut_id": "def",
     "ordre": "3"
   },
   {
-    "etape_type_id": "cod",
+    "etape_type_id": "acd",
     "etape_statut_id": "dre",
     "ordre": "4"
+  },
+  {
+    "etape_type_id": "cod",
+    "etape_statut_id": "fai",
+    "ordre": "1"
   },
   {
     "etape_type_id": "dex",
@@ -382,7 +387,7 @@
   {
     "etape_type_id": "aof",
     "etape_statut_id": "def",
-    "ordre": "2"
+    "ordre": "3"
   },
   {
     "etape_type_id": "apu",
@@ -820,6 +825,16 @@
     "ordre": "1"
   },
   {
+    "etape_type_id": "qae",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "pqr",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
     "etape_type_id": "asl",
     "etape_statut_id": "fav",
     "ordre": "1"
@@ -1036,6 +1051,26 @@
   },
   {
     "etape_type_id": "aec",
+    "etape_statut_id": "dre",
+    "ordre": "4"
+  },
+  {
+    "etape_type_id": "cps",
+    "etape_statut_id": "fav",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "cps",
+    "etape_statut_id": "def",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "aof",
+    "etape_statut_id": "fre",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "aof",
     "etape_statut_id": "dre",
     "ordre": "4"
   }
