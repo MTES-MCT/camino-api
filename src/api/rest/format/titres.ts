@@ -114,7 +114,7 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
         ...titreContenuFormat(titre)
       }
     }
-  })
+  }))
 })
 
 const titreTerritoiresFind = (titre: ITitre) =>
