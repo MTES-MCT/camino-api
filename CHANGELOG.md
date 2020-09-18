@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.52](https://github.com/MTES-MCT/camino-api/compare/v0.24.48...v0.24.52) (2020-09-18)
+
+
+### Features
+
+* expose les statistiques pour les titres de Guyane ([#518](https://github.com/MTES-MCT/camino-api/issues/518)) ([e54ceec](https://github.com/MTES-MCT/camino-api/commit/e54ceec19706b4fd8d3b4c7a333c78a7fb7d63ff))
+* **business:** prend en compte l'étape d'informations historiques incomplètes dans le calcul des statuts ([#500](https://github.com/MTES-MCT/camino-api/issues/500)) ([5ff29bc](https://github.com/MTES-MCT/camino-api/commit/5ff29bc6a3bf2d6ec70bb9d7aecad9c925cf3567))
+* **data:** insère les données de la base titres DEB ([#501](https://github.com/MTES-MCT/camino-api/issues/501)) ([7d18db6](https://github.com/MTES-MCT/camino-api/commit/7d18db66d3afde1add5ca118aa16160d45d1613d))
+* **flux:** traquer les appels à l'API ([#515](https://github.com/MTES-MCT/camino-api/issues/515)) ([6cd49f1](https://github.com/MTES-MCT/camino-api/commit/6cd49f1c727aba88b840171e53380353d678d492))
+* **stats:** améliore la page statistiques ([#512](https://github.com/MTES-MCT/camino-api/issues/512)) ([47cf7bf](https://github.com/MTES-MCT/camino-api/commit/47cf7bfb651e9a65d7dd99cc84271a6311da1e57))
+* met à jour l'arbre d'instruction d'octroi d'ARM ([#489](https://github.com/MTES-MCT/camino-api/issues/489)) ([a00b854](https://github.com/MTES-MCT/camino-api/commit/a00b854b927e88fab81f13592c88fd7cb8d3fed5))
+* **activités:** dynamise l'url de sondage selon le type d'activité ([#496](https://github.com/MTES-MCT/camino-api/issues/496)) ([7065ee8](https://github.com/MTES-MCT/camino-api/commit/7065ee869fcfd63a4b483090b83c0ee4486fed30))
+* **data:** répertorie les étapes en base dont le type n'est pas paramétré dans le tableau TDE ([#510](https://github.com/MTES-MCT/camino-api/issues/510)) ([3ff9469](https://github.com/MTES-MCT/camino-api/commit/3ff9469af0ffe9802edf953d27b9e68d7658b850))
+* **demarche:** ajoute les colonnes sur les titulaires et les amodiataires dans l’export ([#507](https://github.com/MTES-MCT/camino-api/issues/507)) ([a7f0ed7](https://github.com/MTES-MCT/camino-api/commit/a7f0ed7d3f0e931ca9fabc01b8fcc0d69ec207f2))
+* **démarche:** ajoute l'arbre de prolongation des ARM en Guyane ([#483](https://github.com/MTES-MCT/camino-api/issues/483)) ([cf4b57c](https://github.com/MTES-MCT/camino-api/commit/cf4b57cae6ebcc3bf600718a546ca964f92bf384))
+* **démarche:** ajoute l’arbre de renonciation et les règles de publicité des ARM en Guyane ([#484](https://github.com/MTES-MCT/camino-api/issues/484)) ([0334577](https://github.com/MTES-MCT/camino-api/commit/03345772026b4ad56242ef88a91f2e818a70f8e5))
+* **etape:** permet d’ajourner l’avis de la commission des ARM ([#509](https://github.com/MTES-MCT/camino-api/issues/509)) ([6f9e1b9](https://github.com/MTES-MCT/camino-api/commit/6f9e1b9b6afa770a62f1bc346b6569f5234e6dc8))
+* **étapes:** corrige les statuts des étape d'expertise ONF favorables et défavorables en fait ([#508](https://github.com/MTES-MCT/camino-api/issues/508)) ([275d4b4](https://github.com/MTES-MCT/camino-api/commit/275d4b4162050e8fe2e1ae2fb718a7a9dd8a37dd))
+* **étapes:** désactive la vérification des arbres pour les utilisateurs 'super' ([#505](https://github.com/MTES-MCT/camino-api/issues/505)) ([4a0e83c](https://github.com/MTES-MCT/camino-api/commit/4a0e83cf1e908d1daa9ed324578e34d933254050))
+* **stats:** améliore la page statistiques ([#502](https://github.com/MTES-MCT/camino-api/issues/502)) ([f148b64](https://github.com/MTES-MCT/camino-api/commit/f148b646b55d433a01ca47b53e3568beb542d6ad))
+
+
+### Bug Fixes
+
+* **activités:** change le statut de fermé à absent ([#514](https://github.com/MTES-MCT/camino-api/issues/514)) ([6530324](https://github.com/MTES-MCT/camino-api/commit/65303244a02abaf13ebe8c90c5609bc6da1bb42c))
+* **business:** corrige le calcul des dates d’un octroi sans date de fin ni durée avec prolongation ([#506](https://github.com/MTES-MCT/camino-api/issues/506)) ([cd2d3d7](https://github.com/MTES-MCT/camino-api/commit/cd2d3d775c63dbd7db46d980fbf858f5d2bf0b29))
+* **documents:** corrige le renommage de dossiers de documents lors de l'édition d'un titre ([#498](https://github.com/MTES-MCT/camino-api/issues/498)) ([01714f7](https://github.com/MTES-MCT/camino-api/commit/01714f72c74dcef8d574a61f8ff331274e072c8c))
+* **entreprise:** supprime des entreprises non utilisées ([#511](https://github.com/MTES-MCT/camino-api/issues/511)) ([8c05b9b](https://github.com/MTES-MCT/camino-api/commit/8c05b9b8f5115df72170489bbb249e798576dac3))
+* **étape:** corrige la mise à jour d’étape qui contient une section vide ([#519](https://github.com/MTES-MCT/camino-api/issues/519)) ([9cf1d27](https://github.com/MTES-MCT/camino-api/commit/9cf1d27af60312756bfd37e060065eae671a4517))
+* **etapes:** corrige la disparition des références de titres lors de l'édition ([#499](https://github.com/MTES-MCT/camino-api/issues/499)) ([5a10756](https://github.com/MTES-MCT/camino-api/commit/5a10756f8746ad91f210439ffb94a7d0f7011193))
+* **statistiques:** corrige des statistiques pour la Guyane ([#523](https://github.com/MTES-MCT/camino-api/issues/523)) ([a48f9f7](https://github.com/MTES-MCT/camino-api/commit/a48f9f745ca76a9f784f8ee0b0b2c994baba24f1))
+* **stats:** ajoute l'url dans le track ([#521](https://github.com/MTES-MCT/camino-api/issues/521)) ([781dcdd](https://github.com/MTES-MCT/camino-api/commit/781dcdd29608309bf246c53909ddcf61cd426cdb))
+* **stats:** corrige l'accès (lecture/écriture) à l'instance matomo ([#520](https://github.com/MTES-MCT/camino-api/issues/520)) ([784e672](https://github.com/MTES-MCT/camino-api/commit/784e672a725461df755c2a5fefca123e46a41537))
+* **stats:** corrige le nombre de titres par type et par année ([#531](https://github.com/MTES-MCT/camino-api/issues/531)) ([176713a](https://github.com/MTES-MCT/camino-api/commit/176713af17b78338f301f547401b1c1a8b782da2))
+* **titre:** corrige la mise à jour des titres modification en instance ([#524](https://github.com/MTES-MCT/camino-api/issues/524)) ([5963be3](https://github.com/MTES-MCT/camino-api/commit/5963be39d1941a699ac2b57b113c03b3415f3691))
+* corrige le renommage d'id de démarche ([3b1cd63](https://github.com/MTES-MCT/camino-api/commit/3b1cd63a76de5ee04403bfa5848cc840845f21c4))
+* **titres:** ajoute les permissions manquantes pour les admin ([#503](https://github.com/MTES-MCT/camino-api/issues/503)) ([7fedd8f](https://github.com/MTES-MCT/camino-api/commit/7fedd8f7e37295dd8f161e03fb1f1ea26af98f7c))
+* **tools:** corrige le script de recherche d'incohérences de documents ([#497](https://github.com/MTES-MCT/camino-api/issues/497)) ([d0e6c90](https://github.com/MTES-MCT/camino-api/commit/d0e6c9018e982444b2a1c915f0a43e2a933113cb))
+
 ### [0.24.51](https://github.com/MTES-MCT/camino-api/compare/v0.24.50...v0.24.51) (2020-08-27)
 
 
