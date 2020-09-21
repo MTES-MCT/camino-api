@@ -1,4 +1,4 @@
-mutation Token($email: String!, $motDePasse: String!) {
+mutation UtilisateurTokenCreer($email: String!, $motDePasse: String!) {
   utilisateurTokenCreer(email: $email, motDePasse: $motDePasse) {
     utilisateur {
       id
@@ -6,6 +6,7 @@ mutation Token($email: String!, $motDePasse: String!) {
       nom
       prenom
     }
-    token
+    accessToken
+    refreshToken
   }
 }

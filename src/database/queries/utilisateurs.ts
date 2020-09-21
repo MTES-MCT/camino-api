@@ -112,6 +112,20 @@ const userByEmailGet = async (
     .first()
 }
 
+const userByRefreshTokenGet = async (
+  refreshToken: string,
+  { fields }: { fields?: IFields } = {}
+) => {
+  const graph = fields
+    ? graphBuild(fields, 'utilisateur', graphFormat)
+    : options.utilisateurs.graph
+
+  return Utilisateurs.query()
+    .withGraphFetched(graph)
+    .where('refreshToken', refreshToken)
+    .first()
+}
+
 const utilisateurGet = async (
   id: string,
   { fields }: { fields?: IFields } = {},
@@ -264,7 +278,7 @@ const utilisateurCreate = async (
     )
     .first()
 
-const utilisateurUpdate = async (
+const utilisateurUpsert = async (
   utilisateur: IUtilisateur,
   { fields }: { fields?: IFields }
 ) =>
@@ -276,12 +290,27 @@ const utilisateurUpdate = async (
         : options.utilisateurs.graph
     )
 
+const utilisateurUpdate = async (
+  id: string,
+  props: Partial<IUtilisateur>,
+  { fields }: { fields?: IFields }
+) =>
+  Utilisateurs.query()
+    .withGraphFetched(
+      fields
+        ? graphBuild(fields, 'utilisateur', graphFormat)
+        : options.utilisateurs.graph
+    )
+    .patchAndFetchById(id, props)
+
 export {
   userGet,
   utilisateurGet,
   userByEmailGet,
+  userByRefreshTokenGet,
   utilisateursGet,
   utilisateursCount,
   utilisateurCreate,
+  utilisateurUpsert,
   utilisateurUpdate
 }

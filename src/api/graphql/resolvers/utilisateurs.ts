@@ -22,8 +22,10 @@ import {
   utilisateursGet,
   utilisateurCreate,
   utilisateurUpdate,
+  utilisateurUpsert,
   userByEmailGet,
-  utilisateursCount
+  utilisateursCount,
+  userByRefreshTokenGet
 } from '../../../database/queries/utilisateurs'
 
 import globales from '../../../database/cache/globales'
@@ -190,9 +192,50 @@ const utilisateurTokenCreer = async (
       throw new Error('mot de passe incorrect')
     }
 
+    const { accessToken, refreshToken } = userTokensCreate(user)
+
+    await utilisateurUpdate(user.id, { refreshToken }, fields.utilisateur)
+
     return {
-      token: userTokenCreate(user),
-      utilisateur: userFormat(user)
+      utilisateur: userFormat(user),
+      accessToken,
+      refreshToken
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const utilisateurTokenRafraichir = async (
+  {
+    refreshToken
+  }: {
+    refreshToken: string
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH!)
+
+    const fields = fieldsBuild(info)
+
+    const user = await userByRefreshTokenGet(refreshToken, {
+      fields: fields.utilisateur
+    })
+    if (!user) {
+      throw new Error('refresh token inconnu')
+    }
+
+    const tokens = userTokensCreate(user)
+
+    return {
+      utilisateur: userFormat(user),
+      ...tokens
     }
   } catch (e) {
     if (debug) {
@@ -240,7 +283,7 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
     }
 
     return {
-      token: userTokenCreate(utilisateur),
+      ...userTokensCreate(utilisateur),
       utilisateur: userFormat(utilisateur)
     }
   } catch (e) {
@@ -463,7 +506,7 @@ const utilisateurModifier = async (
 
     const fields = fieldsBuild(info)
 
-    const utilisateurUpdated = await utilisateurUpdate(utilisateur, { fields })
+    const utilisateurUpdated = await utilisateurUpsert(utilisateur, { fields })
 
     return utilisateurFormat(utilisateurUpdated)
   } catch (e) {
@@ -501,7 +544,7 @@ const utilisateurSupprimer = async (
     utilisateur.entreprises = []
     utilisateur.administrations = []
 
-    const utilisateurUpdated = await utilisateurUpdate(utilisateur, {})
+    const utilisateurUpdated = await utilisateurUpsert(utilisateur, {})
 
     return utilisateurUpdated
   } catch (e) {
@@ -564,7 +607,7 @@ const utilisateurMotDePasseModifier = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasseNouveau1, 10)
 
-    const utilisateurUpdated = await utilisateurUpdate(
+    const utilisateurUpdated = await utilisateurUpsert(
       {
         id,
         motDePasse: utilisateur.motDePasse
@@ -657,7 +700,7 @@ const utilisateurMotDePasseInitialiser = async (
 
     utilisateur.motDePasse = bcrypt.hashSync(motDePasse1, 10)
 
-    const utilisateurUpdated = await utilisateurUpdate(
+    const utilisateurUpdated = await utilisateurUpsert(
       {
         id: context.user.id,
         motDePasse: utilisateur.motDePasse
@@ -666,7 +709,7 @@ const utilisateurMotDePasseInitialiser = async (
     )
 
     return {
-      token: userTokenCreate(utilisateurUpdated),
+      ...userTokensCreate(utilisateurUpdated),
       utilisateur: userFormat(utilisateurUpdated)
     }
   } catch (e) {
@@ -678,14 +721,23 @@ const utilisateurMotDePasseInitialiser = async (
   }
 }
 
-const userTokenCreate = ({ id, email }: IUtilisateur) =>
-  jwt.sign({ id, email }, process.env.JWT_SECRET!)
+const userTokensCreate = ({ id, email }: IUtilisateur) => {
+  const refreshToken = jwt.sign({ id, email }, process.env.JWT_SECRET_REFRESH!)
+
+  return {
+    accessToken: jwt.sign({ id, email }, process.env.JWT_SECRET!, {
+      expiresIn: '5m'
+    }),
+    refreshToken
+  }
+}
 
 export {
   utilisateur,
   utilisateurs,
   moi,
   utilisateurTokenCreer,
+  utilisateurTokenRafraichir,
   utilisateurCerbereUrlObtenir,
   utilisateurCerbereTokenCreer,
   utilisateurCreer,
