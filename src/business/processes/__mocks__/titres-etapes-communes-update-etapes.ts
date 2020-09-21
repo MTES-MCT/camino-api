@@ -1,5 +1,4 @@
-import { IArea, ICommune, ITitreEtape } from '../../../types'
-import { ITitreEtapesAreasIndex } from '../titres-etapes-areas-update'
+import { ICommune, ITitreEtape } from '../../../types'
 
 const commune1: ICommune = {
   id: '1',
@@ -83,16 +82,6 @@ const titresEtapesPointsCommuneExistante = ({
   communes: [commune1]
 } as unknown) as ITitreEtape
 
-const titreEtapesAreasIndexGet = (
-  titresEtapes: ITitreEtape,
-  communes: IArea[]
-): ITitreEtapesAreasIndex => ({
-  [titresEtapes.id]: {
-    titreEtape: titresEtapes,
-    areas: { communes }
-  }
-})
-
 export {
   commune1,
   commune1SurfaceChangee,
@@ -102,6 +91,5 @@ export {
   titresEtapesPointsMemeCommune,
   titresEtapesPointsVides,
   titresEtapesPointsCommuneInexistante,
-  titresEtapesPointsCommuneExistante,
-  titreEtapesAreasIndexGet
+  titresEtapesPointsCommuneExistante
 }

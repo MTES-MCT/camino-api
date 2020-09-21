@@ -1,27 +1,28 @@
-import { ITitreEtape, ITitreArea, IArea, IAreaType } from '../../types'
-
+import {
+  ITitreEtape,
+  ITitreArea,
+  IArea,
+  IAreaType,
+  Index,
+  ICommune
+} from '../../types'
 import PQueue from 'p-queue'
 
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import { communesGeojsonApiGet } from '../../tools/api-communes'
-import { communesGet, communesUpsert } from '../../database/queries/territoires'
+import { communesUpsert } from '../../database/queries/territoires'
 import {
   titreEtapeCommuneDelete,
   titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery
 } from '../../database/queries/titres-etapes'
+import TitresCommunes from '../../database/models/titres-communes'
 
-export interface ITitreEtapesAreasIndex {
-  [idTitreEtape: string]: ITitreEtapeAreas
-}
 interface ITitreEtapeAreas {
   titreEtape: ITitreEtape
   areas: { [areaType in IAreaType]: IArea[] }
 }
-interface IAreasIndex {
-  [id: string]: boolean
-}
 
-const communesGeojsonApiTest = () => {
+const geoAreaApiTest = () => {
   const geojson = {
     type: 'Feature',
     properties: { id: 'api-test' },
@@ -83,7 +84,7 @@ const titreEtapesAreasDeleteBuild = (
     : []
 
 const titresEtapesAreasToUpdateAndDeleteBuild = (
-  titresEtapesAreasIndex: ITitreEtapesAreasIndex,
+  titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
   areaType: IAreaType
 ) =>
   Object.keys(titresEtapesAreasIndex).reduce(
@@ -123,10 +124,10 @@ const titresEtapesAreasToUpdateAndDeleteBuild = (
 const areasBuild = (
   areasOld: IArea[],
   areaType: IAreaType,
-  titresEtapesAreasIndex: ITitreEtapesAreasIndex
+  titresEtapesAreasIndex: Index<ITitreEtapeAreas>
 ) => {
   const areasOldIndex = areasOld.reduce(
-    (areasOldIndex: IAreasIndex, areaOld) => {
+    (areasOldIndex: Index<boolean>, areaOld) => {
       areasOldIndex[areaOld.id] = true
 
       return areasOldIndex
@@ -135,7 +136,7 @@ const areasBuild = (
   )
 
   const { areasNew } = Object.keys(titresEtapesAreasIndex).reduce(
-    (acc: { areasIndex: IAreasIndex; areasNew: IArea[] }, titreEtapeId) =>
+    (acc: { areasIndex: Index<boolean>; areasNew: IArea[] }, titreEtapeId) =>
       titresEtapesAreasIndex[titreEtapeId].areas[areaType].reduce(
         ({ areasIndex, areasNew }, area) => {
           // Ajoute la area
@@ -158,7 +159,7 @@ const areasBuild = (
 
 const titresEtapesAreasGet = async (
   titresEtapes: ITitreEtape[]
-): Promise<ITitreEtapesAreasIndex> => {
+): Promise<Index<ITitreEtapeAreas>> => {
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API geoareas
@@ -170,7 +171,7 @@ const titresEtapesAreasGet = async (
 
   const titresEtapesAreasIndex = titresEtapes.reduce(
     (
-      titresEtapesAreasIndex: ITitreEtapesAreasIndex,
+      titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
       titreEtape: ITitreEtape
     ) => {
       queue.add(async () => {
@@ -209,29 +210,32 @@ const titresEtapesAreasGet = async (
   return titresEtapesAreasIndex
 }
 
-export const titresEtapesAllAreasUpdate = async (
-  titresEtapes: ITitreEtape[]
+const titresEtapesAreasUpdate = async (
+  titresEtapes: ITitreEtape[],
+  communes: ICommune[]
 ) => {
   // teste l'API geo-areas-api
-  const geoAreasApiTest = await communesGeojsonApiTest()
+  const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
-  if (!geoAreasApiTest) {
+  if (!geoAreasApiTestResult) {
     console.warn('communesGeojsonApi injoignable')
+
     return [[], [], []]
     // return { communes: [[], [], []] }
   }
 
   const titresEtapesAreas = await titresEtapesAreasGet(titresEtapes)
 
-  return await titresEtapesCommunesUpdate(titresEtapesAreas)
+  return titresEtapesCommunesUpdate(titresEtapesAreas, communes)
 }
 
-export const titresEtapesCommunesUpdate = async (
-  titresEtapesAreas: ITitreEtapesAreasIndex
+const titresEtapesCommunesUpdate = async (
+  titresEtapesAreas: Index<ITitreEtapeAreas>,
+  communes: ICommune[]
 ) =>
-  await titresEtapesAreaUpdate(
+  titresEtapesAreaUpdate(
     titresEtapesAreas,
-    await communesGet(),
+    communes,
     'communes',
     communesUpsert,
     titresEtapesAreas =>
@@ -244,12 +248,14 @@ export const titresEtapesCommunesUpdate = async (
   )
 
 const titresEtapesAreaUpdate = async (
-  titresEtapesAreas: ITitreEtapesAreasIndex,
+  titresEtapesAreas: Index<ITitreEtapeAreas>,
   areasOld: IArea[],
   areaType: IAreaType,
   areasUpsert: (areas: IArea[]) => Promise<IArea[]>,
-  titresEtapesAreasUpdateQuery: (titresEtapesAreas: ITitreArea) => Promise<any>,
-  titreEtapeAreaDelete: (etapeId: string, areaId: string) => Promise<any>
+  titresEtapesAreasUpdateQuery: (
+    titresEtapesAreas: ITitreArea
+  ) => Promise<TitresCommunes>,
+  titreEtapeAreaDelete: (etapeId: string, areaId: string) => Promise<number>
 ) => {
   const areasToUpdate = areasBuild(areasOld, areaType, titresEtapesAreas)
 
@@ -321,3 +327,5 @@ const titresEtapesAreaUpdate = async (
 
   return [areasUpdated, titresEtapesAreasUpdated, titresEtapesAreasDeleted]
 }
+
+export { titresEtapesAreasUpdate, titresEtapesCommunesUpdate }
