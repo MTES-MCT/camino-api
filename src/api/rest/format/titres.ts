@@ -1,4 +1,4 @@
-import { ITitre, Index, IContenuValeur } from '../../../types'
+import { ITitre, Index, IContenuValeur, IPays } from '../../../types'
 
 import decamelize from '../../../tools/decamelize'
 
@@ -125,7 +125,7 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
   })
 })
 
-const titreCommunesDepartementsRegions = titre =>
+const titreCommunesDepartementsRegions = (titre: ITitre) =>
   titre.pays!.reduce(
     (
       {
@@ -133,7 +133,7 @@ const titreCommunesDepartementsRegions = titre =>
         departements,
         regions
       }: { communes: string[]; departements: string[]; regions: string[] },
-      pay
+      pay: IPays
     ) => {
       const { payRegions, payDepartements, payCommunes } = pay.regions!.reduce(
         (
