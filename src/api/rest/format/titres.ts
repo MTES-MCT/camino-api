@@ -23,11 +23,7 @@ const titreContenuFormat = (titre: ITitre) =>
 
 const titresFormatTable = (titres: ITitre[]) =>
   titres.map(titre => {
-    const {
-      communes,
-      departements,
-      regions
-    } = titreCommunesDepartementsRegions(titre)
+    const { communes, departements, regions } = titreTerritoiresFind(titre)
 
     const titreReferences = titre.references
       ? titre.references.reduce((titreReferences: Index<string>, reference) => {
@@ -78,11 +74,7 @@ const titresFormatTable = (titres: ITitre[]) =>
 const titresFormatGeojson = (titres: ITitre[]) => ({
   type: 'FeatureCollection',
   features: titres.map(titre => {
-    const {
-      communes,
-      departements,
-      regions
-    } = titreCommunesDepartementsRegions(titre)
+    const { communes, departements, regions } = titreTerritoiresFind(titre)
 
     return {
       type: 'Feature',
@@ -125,7 +117,7 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
   })
 })
 
-const titreCommunesDepartementsRegions = (titre: ITitre) =>
+const titreTerritoiresFind = (titre: ITitre) =>
   titre.pays!.reduce(
     (
       {
