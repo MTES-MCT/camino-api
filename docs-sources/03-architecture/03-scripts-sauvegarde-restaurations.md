@@ -20,7 +20,7 @@ Créer un fichier `/srv/scripts/database-backup` contenant:
 
 rm -rf /srv/backups/camino.sql
 
-docker exec camino-api_postgres_1 pg_dump --clean --if-exists --format c --no-owner --no-privileges --dbname=camino --host=localhost > /srv/backups/camino.sql
+docker exec camino_api_db pg_dump --clean --if-exists --format c --no-owner --no-privileges --dbname=camino --host=localhost > /srv/backups/camino.sql
 
 sudo chown git:users /srv/backups/camino.sql
 ```
@@ -36,12 +36,12 @@ Créer un fichier `/srv/scripts/files-backup` contenant:
 
 rm -rf /srv/backups/files/*
 
-docker cp camino-api_app_1:/app/files/. /srv/backups/files/
+docker cp camino_api_app:/app/files/. /srv/backups/files/
 
 sudo chown git:users -R /srv/backups/files
 ```
 
-## Création d'un fichier d'archive
+## Création d'un fichier d'archive et sauvegarde sur le FTP
 
 Créer un fichier `/srv/scripts/backups-archive` contenant:
 
@@ -50,9 +50,35 @@ Créer un fichier `/srv/scripts/backups-archive` contenant:
 # backups-archive
 # cree une archive a partir du dossier `files` et du fichier `camino.sql`
 
+FILE_SUFFIX=camino.tar.gz
+FILE_PATH=/srv/backups/`date +%Y%m%d"_"%H%M%S`-$FILE_SUFFIX
+FTP_USER=xxx
+FTP_PASSWORD=xxx
+FTP_HOST=xxx
+
+FTP_URL="ftp://${FTP_USER}:${FTP_PASSWORD}@${FTP_HOST}/"
+
+echo $FILE_PATH
 cd /srv/backups
-tar -zcvf /srv/backups/`date +%Y%m%d"_"%H%M%S`-camino.tar.gz files/* camino.sql
+tar -zcvf $FILE_PATH files/* camino.sql
 cd -
+
+chown git:users /srv/backups/*.tar.gz
+
+# Upload le fichier vers le ftp
+curl -aT $FILE_PATH $FTP_URL
+
+# Renomme le fichier et écrase l’ancien backup
+mv $FILE_PATH /srv/backups/$FILE_SUFFIX
+
+# Vérifie qu’on a seulement les 20 derniers backups sur le ftp
+if [ $(curl -l $FTP_URL | grep $FILE_SUFFIX | wc -l) -gt 20 ]
+then
+	# Supprime le backup le plus ancien
+	fileToDelete=$(curl -l $FTP_URL | grep $FILE_SUFFIX | head -n 1)
+	curl $FTP_URL -Q "DELE $fileToDelete"
+fi
+
 ```
 
 ## Sauvegarde complète
@@ -82,7 +108,7 @@ Créer un fichier `/srv/scripts/database-restore` contenant:
 # database-restore
 # restaure la base de donnees dans le conteneur Docker a partir de la derniere sauvegarde
 
-docker exec -i camino-api_postgres_1 pg_restore --clean --if-exists --no-owner --no-privileges --dbname=camino < /srv/backups/camino.sql
+docker exec -i camino_api_db pg_restore --clean --if-exists --no-owner --no-privileges --dbname=camino < /srv/backups/camino.sql
 ```
 
 ## Restauration des fichiers
@@ -94,7 +120,7 @@ Créer un fichier `/srv/scripts/files-restore` contenant:
 # files-restore
 # restore les fichiers dans le volume Docker a partir de la derniere sauvegarde
 
-docker cp /srv/backups/files/. camino-api_app_1:/app/files/
+docker cp /srv/backups/files/. camino_api_app:/app/files/
 ```
 
 ## Restauration complète
@@ -126,4 +152,19 @@ sudo chmod -R g+x /srv/scripts/
 
 # rend les fichiers du dossier `backups` accessibles en écriture pour le groupe
 sudo chmod -R g+w /srv/backups/
+```
+
+### Lister les backups présents sur le FTP
+```sh
+curl -l ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/
+```
+
+### Récupérer un backup du FTP
+```sh
+curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/$FILE
+```
+
+### Supprimer un backup du FTP
+```sh
+curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/ -Q "DELE $FILE"
 ```
