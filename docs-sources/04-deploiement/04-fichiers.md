@@ -24,7 +24,7 @@ scp -r <user>@<ip>:/srv/tmp/files/* files
 ### Copier les fichiers depuis le volume
 
 ```bash
-docker cp camino-api_app_1:/app/files/. /srv/tmp/files/
+docker cp camino_api_app:/app/files/. /srv/tmp/files/
 ```
 
 ### Copier les fichiers vers le volume
@@ -34,7 +34,7 @@ docker cp camino-api_app_1:/app/files/. /srv/tmp/files/
 tar -zxvf /srv/tmp/files.tar.gz
 
 # copie les fichiers vers le volume
-docker cp /srv/tmp/files/. camino-api_app_1:/app/files/
+docker cp /srv/tmp/files/. camino_api_app:/app/files/
 ```
 
 ### Inspecter le volume

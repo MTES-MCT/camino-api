@@ -20,7 +20,7 @@ Créer un fichier `/srv/scripts/database-backup` contenant:
 
 rm -rf /srv/backups/camino.sql
 
-docker exec camino-api_postgres_1 pg_dump --clean --if-exists --format c --no-owner --no-privileges --dbname=camino --host=localhost > /srv/backups/camino.sql
+docker exec camino_api_db pg_dump --clean --if-exists --format c --no-owner --no-privileges --dbname=camino --host=localhost > /srv/backups/camino.sql
 
 sudo chown git:users /srv/backups/camino.sql
 ```
@@ -36,7 +36,7 @@ Créer un fichier `/srv/scripts/files-backup` contenant:
 
 rm -rf /srv/backups/files/*
 
-docker cp camino-api_app_1:/app/files/. /srv/backups/files/
+docker cp camino_api_app:/app/files/. /srv/backups/files/
 
 sudo chown git:users -R /srv/backups/files
 ```
@@ -108,7 +108,7 @@ Créer un fichier `/srv/scripts/database-restore` contenant:
 # database-restore
 # restaure la base de donnees dans le conteneur Docker a partir de la derniere sauvegarde
 
-docker exec -i camino-api_postgres_1 pg_restore --clean --if-exists --no-owner --no-privileges --dbname=camino < /srv/backups/camino.sql
+docker exec -i camino_api_db pg_restore --clean --if-exists --no-owner --no-privileges --dbname=camino < /srv/backups/camino.sql
 ```
 
 ## Restauration des fichiers
@@ -120,7 +120,7 @@ Créer un fichier `/srv/scripts/files-restore` contenant:
 # files-restore
 # restore les fichiers dans le volume Docker a partir de la derniere sauvegarde
 
-docker cp /srv/backups/files/. camino-api_app_1:/app/files/
+docker cp /srv/backups/files/. camino_api_app:/app/files/
 ```
 
 ## Restauration complète
