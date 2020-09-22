@@ -1,8 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { IGeometry } from '../../types'
-
-import titresEtapeCommunesUpdate from './titres-etapes-communes-update'
-import apiCommunes from '../../tools/api-communes/index'
+import { IArea, IGeometry, ITitreEtape } from '../../types'
 
 import {
   commune1,
@@ -15,16 +12,18 @@ import {
   titresEtapesPointsCommuneInexistante,
   titresEtapesPointsCommuneExistante
 } from './__mocks__/titres-etapes-communes-update-etapes'
-
-jest.mock('../../database/queries/territoires', () => ({
-  __esModule: true,
-  communesUpsert: jest.fn().mockImplementation(a => a)
-}))
+import { titresEtapesAreasUpdate } from './titres-etapes-areas-update'
+import { geoAreaGeojsonGet } from '../../tools/api-communes'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
   __esModule: true,
   titresEtapesCommunesUpdate: jest.fn().mockImplementation(a => a),
   titreEtapeCommuneDelete: jest.fn().mockImplementation(a => a)
+}))
+
+jest.mock('../../database/queries/territoires', () => ({
+  __esModule: true,
+  communesUpsert: jest.fn().mockImplementation(a => a)
 }))
 
 jest.mock('../../tools/geojson', () => ({
@@ -35,22 +34,28 @@ jest.mock('../../tools/geojson', () => ({
 }))
 
 jest.mock('../../tools/api-communes/index', () => ({
-  default: jest.fn()
+  geoAreaGeojsonGet: jest.fn()
 }))
 
 console.info = jest.fn()
+console.warn = jest.fn()
 
-const apiCommunesMocked = mocked(apiCommunes, true)
+const apiCommunesMocked = mocked(geoAreaGeojsonGet, true)
 
-describe("communes et communes d'étapes", () => {
+const titreEtapesAreasIndexGet = (
+  titresEtapes: ITitreEtape,
+  communes: IArea[]
+) => ({ [titresEtapes.id]: { titreEtape: titresEtapes, areas: { communes } } })
+
+describe('mise à jour de toutes les territoires des étapes', () => {
   test('ajoute 2 communes dans une étape et dans la liste de communes', async () => {
-    apiCommunesMocked.mockResolvedValue([commune1, commune2])
+    apiCommunesMocked.mockResolvedValue({ communes: [commune1, commune2] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
+    ] = await titresEtapesAreasUpdate([titresEtapesPoints], [])
 
     expect(titreCommunesUpdated.length).toEqual(2)
     expect(titresEtapesCommunesUpdated.length).toEqual(2)
@@ -59,13 +64,13 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("n'ajoute qu'une seule fois une commune en doublon", async () => {
-    apiCommunesMocked.mockResolvedValue([commune1, commune1])
+    apiCommunesMocked.mockResolvedValue({ communes: [commune1, commune1] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPointsMemeCommune, [])
+    ] = await titresEtapesAreasUpdate([titresEtapesPointsMemeCommune], [])
 
     expect(titreCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
@@ -74,13 +79,13 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("n'ajoute aucune commune dans l'étape ni dans la liste de communes", async () => {
-    apiCommunesMocked.mockResolvedValue([])
+    apiCommunesMocked.mockResolvedValue({ communes: [] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPoints, [])
+    ] = await titresEtapesAreasUpdate([titresEtapesPoints], [])
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -89,13 +94,13 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("n'ajoute pas de commune si l'étape n'a pas de périmètre", async () => {
-    apiCommunesMocked.mockResolvedValue([])
+    apiCommunesMocked.mockResolvedValue({ communes: [] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
+    ] = await titresEtapesAreasUpdate([titresEtapesPointsVides], [])
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -104,13 +109,13 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("n'ajoute pas de commune si l'étape n'a pas de la propriété `points`", async () => {
-    apiCommunesMocked.mockResolvedValue([])
+    apiCommunesMocked.mockResolvedValue({ communes: [] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesSansPoints, [])
+    ] = await titresEtapesAreasUpdate([titresEtapesSansPoints], [])
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -119,15 +124,16 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("n'ajoute pas de commune si elle existe déjà dans l'étape", async () => {
-    apiCommunesMocked.mockResolvedValue([commune1])
+    apiCommunesMocked.mockResolvedValue({ communes: [commune1] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneExistante, [
-      commune1
-    ])
+    ] = await titresEtapesAreasUpdate(
+      [titresEtapesPointsCommuneExistante],
+      [commune1]
+    )
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -136,15 +142,16 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("met à jour la commune dans l'étape si sa surface couverte a changé", async () => {
-    apiCommunesMocked.mockResolvedValue([commune1SurfaceChangee])
+    apiCommunesMocked.mockResolvedValue({ communes: [commune1SurfaceChangee] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPointsCommuneExistante, [
-      commune1SurfaceChangee
-    ])
+    ] = await titresEtapesAreasUpdate(
+      [titresEtapesPointsCommuneExistante],
+      [commune1]
+    )
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
@@ -153,20 +160,38 @@ describe("communes et communes d'étapes", () => {
   })
 
   test("supprime une commune si l'étape ne la contient plus dans son périmètre", async () => {
-    apiCommunesMocked.mockResolvedValue([commune1])
+    apiCommunesMocked.mockResolvedValue({ communes: [] })
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(
-      titresEtapesPointsCommuneInexistante,
+    ] = await titresEtapesAreasUpdate(
+      [titresEtapesPointsCommuneInexistante],
       []
     )
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(1)
+    expect(console.info).toHaveBeenCalled()
+  })
+
+  test("met à jour la commune dans l'étape si sa surface couverte a changé", async () => {
+    apiCommunesMocked.mockResolvedValue({ communes: [commune1SurfaceChangee] })
+
+    const [
+      titreCommunesUpdated = [],
+      titresEtapesCommunesUpdated = [],
+      titresEtapesCommunesDeleted = []
+    ] = await titresEtapesAreasUpdate(
+      [titresEtapesPointsCommuneExistante],
+      [commune1]
+    )
+
+    expect(titreCommunesUpdated.length).toEqual(0)
+    expect(titresEtapesCommunesUpdated.length).toEqual(1)
+    expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(console.info).toHaveBeenCalled()
   })
 
@@ -177,12 +202,13 @@ describe("communes et communes d'étapes", () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapeCommunesUpdate(titresEtapesPointsVides, [])
+    ] = await titresEtapesAreasUpdate([titresEtapesPointsVides], [])
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(apiCommunesMocked).toHaveBeenCalled()
     expect(console.info).not.toHaveBeenCalled()
+    expect(console.warn).toHaveBeenCalled()
   })
 })

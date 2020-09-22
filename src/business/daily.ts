@@ -18,7 +18,7 @@ import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-updat
 import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
-import titresEtapesCommunesUpdate from './processes/titres-etapes-communes-update'
+import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
@@ -164,12 +164,14 @@ const run = async () => {
       { fields: { points: { id: {} }, communes: { id: {} } } },
       'super'
     )
+
     const communes = await communesGet()
+
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesCreated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapesCommunesUpdate(titresEtapes, communes)
+    ] = await titresEtapesAreasUpdate(titresEtapes, communes)
 
     console.info()
     console.info('administrations gestionnaires associées aux titres…')

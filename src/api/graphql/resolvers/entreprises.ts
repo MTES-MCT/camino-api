@@ -283,11 +283,7 @@ const entrepriseModifier = async (
       ...entreprise
     })
 
-    return await entrepriseGet(
-      entrepriseUpserted.id,
-      { fields },
-      context.user?.id
-    )
+    return entrepriseGet(entrepriseUpserted.id, { fields }, context.user?.id)
   } catch (e) {
     if (debug) {
       console.error(e)

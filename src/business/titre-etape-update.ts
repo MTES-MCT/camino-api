@@ -10,7 +10,7 @@ import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
 import titresDemarchesStatutIdUpdate from './processes/titres-demarches-statut-ids-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
-import titresEtapeCommunesUpdate from './processes/titres-etapes-communes-update'
+import { titresEtapesAreasUpdate } from './processes/titres-etapes-areas-update'
 import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
@@ -155,7 +155,8 @@ const titreEtapeUpdate = async (
         'super'
       )
       const communes = await communesGet()
-      const result = await titresEtapeCommunesUpdate([titreEtape], communes)
+
+      const result = await titresEtapesAreasUpdate([titreEtape], communes)
       titreCommunesUpdated = result[0]
       titresEtapesCommunesCreated = result[1]
       titresEtapesCommunesDeleted = result[2]

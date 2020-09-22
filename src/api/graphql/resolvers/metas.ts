@@ -46,7 +46,7 @@ const documentsTypes = async ({
   typeId?: string
 }) => {
   try {
-    return await documentsTypesGet({ repertoire, typeId })
+    return documentsTypesGet({ repertoire, typeId })
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -335,7 +335,7 @@ const etapesTypes = async (
     )
 
     if (titreDemarcheId && context.user?.id) {
-      return await demarcheEtapesTypesGet(
+      return demarcheEtapesTypesGet(
         etapesTypes,
         titreDemarcheId,
         titreEtapeId,
