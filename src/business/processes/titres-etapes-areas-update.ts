@@ -9,7 +9,7 @@ import {
 import PQueue from 'p-queue'
 
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
-import { communesGeojsonApiGet } from '../../tools/api-communes'
+import { geoAreaGeojsonGet } from '../../tools/api-communes'
 import { communesUpsert } from '../../database/queries/territoires'
 import {
   titreEtapeCommuneDelete,
@@ -22,6 +22,9 @@ interface ITitreEtapeAreas {
   areas: { [areaType in IAreaType]: IArea[] }
 }
 
+/**
+ * Teste si geo-communes-api fonctionne
+ */
 const geoAreaApiTest = () => {
   const geojson = {
     type: 'Feature',
@@ -39,9 +42,16 @@ const geoAreaApiTest = () => {
     }
   }
 
-  return communesGeojsonApiGet(geojson, ['communes'])
+  return geoAreaGeojsonGet(geojson, ['communes'])
 }
 
+/**
+ * Recherche les territoires  à mettre à jour de l’étape
+ * @param titreEtapeId - id de l’étape
+ * @param areasEtape - liste des nouveaux territoires (communes, forêts...) de l’étape
+ * @param areasEtapeOld - liste des anciens territoires de l’étape
+ * @returns la liste des territoires avec leur surface à mettre à jour
+ */
 const titreEtapesAreasUpdateBuild = (
   titreEtapeId: string,
   areasEtape: IArea[],
@@ -65,6 +75,13 @@ const titreEtapesAreasUpdateBuild = (
     return titreEtapesAreas
   }, [])
 
+/**
+ * Recherche les territoires  à supprimer de l’étape
+ * @param titreEtapeId - id de l’étape
+ * @param areasEtape - liste des nouveaux territoires (communes, forêts...) de l’étape
+ * @param areasEtapeOld - liste des anciens territoires de l’étape
+ * @returns la liste des territoires à supprimer
+ */
 const titreEtapesAreasDeleteBuild = (
   titreEtapeId: string,
   areasEtape: IArea[],
@@ -83,6 +100,12 @@ const titreEtapesAreasDeleteBuild = (
       }, [])
     : []
 
+/**
+ * Pour chaque étape, recherche les territoires à mettre à jour ou à supprimer
+ * @param titresEtapesAreasIndex - index d’étapes associées à leur nouveaux territoires
+ * @param areaType - type de territoire en cour de manipulatin
+ * @returns la liste de tous les territoires à mettre  à jour et la liste de tous ceux à supprimer
+ */
 const titresEtapesAreasToUpdateAndDeleteBuild = (
   titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
   areaType: IAreaType
@@ -121,6 +144,13 @@ const titresEtapesAreasToUpdateAndDeleteBuild = (
     }
   )
 
+/**
+ * Recherche les territoires à créer
+ * @param areasOld - liste des territoires existants
+ * @param areaType - type de territoire en cours de manipulation
+ * @param titresEtapesAreasIndex - index des étapes associées à leur nouveaux territoires
+ * @returns l’index de tous les nouveaux territoires
+ */
 const areasBuild = (
   areasOld: IArea[],
   areaType: IAreaType,
@@ -139,9 +169,9 @@ const areasBuild = (
     (acc: { areasIndex: Index<boolean>; areasNew: IArea[] }, titreEtapeId) =>
       titresEtapesAreasIndex[titreEtapeId].areas[areaType].reduce(
         ({ areasIndex, areasNew }, area) => {
-          // Ajoute la area
-          // - si elle n'est pas déjà présente dans l'accumulateur
-          // - si elle n'est pas présente dans areasOld
+          // Ajoute le territoire
+          // - si il n'est pas déjà présente dans l'accumulateur
+          // - si il n'est pas présent dans areasOld
           if (!areasIndex[area.id] && !areasOldIndex[area.id]) {
             areasNew.push({ ...area })
             areasIndex[area.id] = true
@@ -157,6 +187,11 @@ const areasBuild = (
   return areasNew
 }
 
+/**
+ * Recherche tous les territoires de chaque étape en fonction de son périmètre
+ * @param titresEtapes - liste d’étapes
+ * @returns un index d’étapes associées à leurs territoires
+ */
 const titresEtapesAreasGet = async (
   titresEtapes: ITitreEtape[]
 ): Promise<Index<ITitreEtapeAreas>> => {
@@ -183,7 +218,7 @@ const titresEtapesAreasGet = async (
           const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
           const areaTypes: IAreaType[] = ['communes']
-          const apiGeoCommuneResult = await communesGeojsonApiGet(
+          const apiGeoCommuneResult = await geoAreaGeojsonGet(
             geojson,
             areaTypes
           )
@@ -210,6 +245,12 @@ const titresEtapesAreasGet = async (
   return titresEtapesAreasIndex
 }
 
+/**
+ * Met à jour tous les territoires d’une liste d’étapes
+ * @param titresEtapes - liste d’étapes
+ * @param communes - liste des communes existantes
+ * @returns toutes les modifications effectuées
+ */
 const titresEtapesAreasUpdate = async (
   titresEtapes: ITitreEtape[],
   communes: ICommune[]
@@ -229,6 +270,12 @@ const titresEtapesAreasUpdate = async (
   return titresEtapesCommunesUpdate(titresEtapesAreas, communes)
 }
 
+/**
+ * Met à jour les communes pour chaque étape
+ * @param titresEtapesAreas - liste des étapes
+ * @param communes - liste des communes existantes
+ * @returns toutes les modifications effectuées
+ */
 const titresEtapesCommunesUpdate = async (
   titresEtapesAreas: Index<ITitreEtapeAreas>,
   communes: ICommune[]
@@ -247,6 +294,15 @@ const titresEtapesCommunesUpdate = async (
     titreEtapeCommuneDelete
   )
 
+/**
+ * Met à jour tous les territoires d’un certain type pour chaque étape
+ * @param titresEtapesAreas - index des étapes associés à leurs territoires
+ * @param areasOld - liste des territoires existantes
+ * @param areaType - type de territoire en cours de manipulation
+ * @param areasUpsert - fonction peremetant de mettre à jour un territoire
+ * @param titresEtapesAreasUpdateQuery - fonction permettant de mettre à jour le territoire d’une étape
+ * @param titreEtapeAreaDelete - fonction permettant de supprimer un territoire d’une étape
+ */
 const titresEtapesAreaUpdate = async (
   titresEtapesAreas: Index<ITitreEtapeAreas>,
   areasOld: IArea[],
@@ -328,4 +384,4 @@ const titresEtapesAreaUpdate = async (
   return [areasUpdated, titresEtapesAreasUpdated, titresEtapesAreasDeleted]
 }
 
-export { titresEtapesAreasUpdate, titresEtapesCommunesUpdate }
+export { titresEtapesAreasUpdate }

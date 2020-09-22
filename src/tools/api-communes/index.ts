@@ -66,7 +66,7 @@ const communeFormat = (geojson: IGeoJson): ICommune => ({
   surface: geojson.properties.surface as number
 })
 
-export const communesGeojsonApiGet = async (
+export const geoAreaGeojsonGet = async (
   geojson: IGeoJson,
   elements: IAreaType[]
 ): Promise<IApiGeoCommuneResult | null> => {
