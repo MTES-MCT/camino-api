@@ -157,6 +157,20 @@ class TitresEtapes extends Model {
       }
     },
 
+    forets: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'forets'),
+      join: {
+        from: 'titresEtapes.id',
+        through: {
+          from: 'titresForets.titreEtapeId',
+          to: 'titresForets.foretId',
+          extra: ['surface']
+        },
+        to: 'forets.id'
+      }
+    },
+
     incertitudes: {
       relation: Model.HasOneRelation,
       modelClass: join(__dirname, 'titres-incertitudes'),

@@ -1,4 +1,4 @@
-import { ICommune } from '../../types'
+import { ICommune, IForet } from '../../types'
 
 import Communes from '../models/communes'
 import Departements from '../models/departements'
@@ -16,7 +16,19 @@ const communesGet = async (): Promise<ICommune[]> =>
 const communesUpsert = async (communes: ICommune[]) =>
   Communes.query().upsertGraph(communes, { insertMissing: true })
 
-const foretsGet = async () =>
-  Forets.query()
+const foretsGet = async () => Forets.query()
 
-export { departementsGet, communesUpsert, communesGet, paysGet, foretsGet }
+const foretsUpsert = async (forets: IForet[]) =>
+  Forets.query().upsertGraph(
+    forets.map(f => ({ id: f.id, nom: f.nom })),
+    { insertMissing: true }
+  )
+
+export {
+  departementsGet,
+  communesUpsert,
+  communesGet,
+  paysGet,
+  foretsGet,
+  foretsUpsert
+}

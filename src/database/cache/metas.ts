@@ -1,16 +1,11 @@
-import { IDevise, IUnite, IEtapeType, IForet } from '../../types'
+import { IDevise, IUnite, IEtapeType } from '../../types'
 
 import { devisesGet, unitesGet, etapesTypesGet } from '../queries/metas'
-
-import {
-  foretsGet
-} from '../queries/territoires'
 
 const metas = {
   devises: [] as IDevise[],
   unites: [] as IUnite[],
-  etapesTypes: [] as IEtapeType[],
-  forets: [] as IForet[]
+  etapesTypes: [] as IEtapeType[]
 }
 
 const metasInit = async () => {
@@ -23,7 +18,6 @@ const metasInit = async () => {
     { fields: { etapesStatuts: { id: {} } } },
     'super'
   )
-  metas.forets = await foretsGet()
 }
 
 export default metas

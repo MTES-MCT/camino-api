@@ -5,7 +5,8 @@ import {
   ITitreAdministrationLocale,
   IFields,
   IUtilisateur,
-  ITitreEtapeJustificatif
+  ITitreEtapeJustificatif,
+  ITitreForet
 } from '../../types'
 
 import TitresEtapes from '../models/titres-etapes'
@@ -17,6 +18,7 @@ import { titreEtapesPermissionQueryBuild } from './permissions/titres-etapes'
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { userGet } from './utilisateurs'
+import TitresForets from '../models/titres-forets'
 
 const titresEtapesQueryBuild = (
   {
@@ -136,6 +138,17 @@ const titreEtapeCommuneDelete = async (
     .where('titreEtapeId', titreEtapeId)
     .andWhere('communeId', communeId)
 
+const titresEtapesForetsUpdate = async (titresEtapesForets: ITitreForet) =>
+  TitresForets.query().upsertGraph(titresEtapesForets, {
+    insertMissing: true
+  })
+
+const titreEtapeForetDelete = async (titreEtapeId: string, foretId: string) =>
+  TitresForets.query()
+    .delete()
+    .where('titreEtapeId', titreEtapeId)
+    .andWhere('foretId', foretId)
+
 const titresEtapesJustificatifsUpsert = async (
   titresEtapesJustificatifs: ITitreEtapeJustificatif[]
 ) =>
@@ -178,6 +191,8 @@ export {
   titresEtapesCommunesUpdate,
   titreEtapeCommuneDelete,
   titresEtapesCommunesGet,
+  titresEtapesForetsUpdate,
+  titreEtapeForetDelete,
   titresEtapesJustificatifsUpsert,
   titreEtapeJustificatifsDelete,
   titresEtapesAdministrationsCreate,

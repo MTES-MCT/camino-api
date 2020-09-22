@@ -25,7 +25,8 @@ const seed = seeding(async ({ del }) => {
     del('titresAmodiataires'),
     del('titresIncertitudes'),
     del('titresEtapesJustificatifs'),
-    del('communes')
+    del('communes'),
+    del('forets')
   ])
   await del('titresPoints')
   await Promise.all([
@@ -107,7 +108,6 @@ const seed = seeding(async ({ del }) => {
   await Promise.all([del('domaines'), del('titresTypesTypes')])
 
   // 02
-  await del('forets')
   await del('departements')
   await del('regions')
   await del('pays')

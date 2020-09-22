@@ -8,7 +8,7 @@ class Forets extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'symbole'],
+    required: ['id', 'nom'],
 
     properties: {
       id: { type: 'string', maxLength: 30 },

@@ -136,7 +136,7 @@ interface IAdministration {
 
 interface IAnnee extends IPeriode {}
 
-type IAreaType = 'communes'
+type IAreaType = 'communes' | 'forets'
 
 interface IArea {
   id: string
@@ -283,10 +283,7 @@ interface IEtapeType {
   unique?: boolean | null
 }
 
-interface IForet {
-  id: string
-  nom: string
-}
+interface IForet extends IArea {}
 
 interface IFrequence {
   id: string
@@ -307,6 +304,7 @@ interface IGeoJson {
 
 interface IApiGeoCommuneResult {
   communes: ICommune[]
+  forets: IForet[]
 }
 
 interface IGeometry {
@@ -554,6 +552,12 @@ interface ITitreCommune {
   surface?: number | null
 }
 
+interface ITitreForet {
+  foretId: string
+  titreEtapeId: string
+  surface?: number | null
+}
+
 interface ITitreEtapeJustificatif {
   documentId: string
   titreEtapeId: string
@@ -649,6 +653,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   administrations?: IAdministration[] | null
   justificatifs?: IDocument[] | null
   communes?: ICommune[] | null
+  forets?: IForet[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
 }
@@ -916,6 +921,7 @@ export {
   ITitreAdministrationsGestionnaire,
   ITitreAdministrationLocale,
   ITitreCommune,
+  ITitreForet,
   ITitreArea,
   ITitreDemarche,
   ITitreDemarcheOrTravaux,
