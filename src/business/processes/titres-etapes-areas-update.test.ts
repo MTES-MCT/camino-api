@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { IArea, IGeometry, ITitreEtape } from '../../types'
+import { IGeometry } from '../../types'
 
 import {
   commune1,
@@ -41,11 +41,6 @@ console.info = jest.fn()
 console.warn = jest.fn()
 
 const apiCommunesMocked = mocked(geoAreaGeojsonGet, true)
-
-const titreEtapesAreasIndexGet = (
-  titresEtapes: ITitreEtape,
-  communes: IArea[]
-) => ({ [titresEtapes.id]: { titreEtape: titresEtapes, areas: { communes } } })
 
 describe('mise à jour de toutes les territoires des étapes', () => {
   test('ajoute 2 communes dans une étape et dans la liste de communes', async () => {

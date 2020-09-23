@@ -14,7 +14,6 @@ const titresPublicUpdate = async (titres: ITitre[]) => {
   // https://stackoverflow.com/questions/40510611/typescript-interface-require-one-of-two-properties-to-exist/49725198#49725198
   const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {
     const { publicLecture, entreprisesLecture } = titrePublicFind(
-      titre.typeId,
       titre.statutId!,
       titre.type!.autorisationsTitresStatuts!,
       titre.demarches || []
