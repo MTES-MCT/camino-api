@@ -180,7 +180,11 @@ const areasBuild = (
           // - si il n'est pas déjà présente dans l'accumulateur
           // - si il n'est pas présent dans areasOld
           if (!areasIndex[area.id] && !areasOldIndex[area.id]) {
-            areasNew.push({ ...area })
+            const areaNew = { ...area }
+            // La surface ne sert à rien dans la table du territoire,
+            // elle sert uniquement dans la table de relation avec l’étape
+            delete areaNew.surface
+            areasNew.push(areaNew)
             areasIndex[area.id] = true
           }
 

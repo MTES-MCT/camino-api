@@ -19,10 +19,7 @@ const communesUpsert = async (communes: ICommune[]) =>
 const foretsGet = async () => Forets.query()
 
 const foretsUpsert = async (forets: IForet[]) =>
-  Forets.query().upsertGraph(
-    forets.map(f => ({ id: f.id, nom: f.nom })),
-    { insertMissing: true }
-  )
+  Forets.query().upsertGraph(forets, { insertMissing: true })
 
 export {
   departementsGet,

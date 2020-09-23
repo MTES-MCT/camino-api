@@ -25,7 +25,6 @@ exports.up = knex => {
         .notNullable()
         .index()
         .references('departements.id')
-      table.integer('surface')
     })
     .createTable('forets', table => {
       table.string('id', 30).primary()
