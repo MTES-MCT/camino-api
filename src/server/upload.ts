@@ -1,7 +1,7 @@
 import { graphqlUploadExpress } from 'graphql-upload'
 
 const upload = graphqlUploadExpress({
-  maxFileSize: 10000000,
+  maxFileSize: Infinity,
   maxFiles: 10
 })
 
