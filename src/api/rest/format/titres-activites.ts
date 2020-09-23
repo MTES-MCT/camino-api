@@ -11,9 +11,11 @@ const titreActiviteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
     const r = section.elements!.reduce(
       (resElements: Index<IContenuValeur>, element) => {
         const key = `${section.id}_${element.id}`
-        const value = contenu[section.id][element.id]
+        const value = contenu[section.id]
+          ? contenu[section.id][element.id]
+          : undefined
 
-        if (value === undefined || value === null) {
+        if (value === undefined) {
           resElements[key] = element.type === 'number' ? 0 : ''
         } else {
           resElements[key] = Array.isArray(value)
