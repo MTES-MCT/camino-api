@@ -15,7 +15,7 @@ const titreActiviteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
           ? contenu[section.id][element.id]
           : undefined
 
-        if (value === undefined || value === null) {
+        if (value === undefined) {
           resElements[key] = element.type === 'number' ? 0 : ''
         } else {
           resElements[key] = Array.isArray(value)
