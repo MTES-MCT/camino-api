@@ -268,21 +268,24 @@ const titresEtapesAreasUpdate = async (
   titresEtapes: ITitreEtape[],
   communes: ICommune[],
   forets: IForet[]
-): Promise<{ communes: any[]; forets: any[] }> => {
+): Promise<{ titresCommunes: any[]; titresForets: any[] }> => {
   // teste l'API geo-areas-api
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
   if (!geoAreasApiTestResult) {
     console.warn('communesGeojsonApi injoignable')
 
-    return { communes: [[], [], []], forets: [[], [], []] }
+    return { titresCommunes: [[], [], []], titresForets: [[], [], []] }
   }
 
   const titresEtapesAreas = await titresEtapesAreasGet(titresEtapes)
 
   return {
-    communes: await titresEtapesCommunesUpdate(titresEtapesAreas, communes),
-    forets: await titresEtapesForetsUpdate(titresEtapesAreas, forets)
+    titresCommunes: await titresEtapesCommunesUpdate(
+      titresEtapesAreas,
+      communes
+    ),
+    titresForets: await titresEtapesForetsUpdate(titresEtapesAreas, forets)
   }
 }
 

@@ -60,13 +60,13 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     const [
       titreForetsUpdated = [],
       titresEtapesForetsUpdated = [],
       titresEtapesForetsDeleted = []
-    ] = result.forets
+    ] = result.titresForets
 
     expect(titreCommunesUpdated.length).toEqual(2)
     expect(titresEtapesCommunesUpdated.length).toEqual(2)
@@ -95,7 +95,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
@@ -112,7 +112,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -133,7 +133,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -154,7 +154,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -178,7 +178,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -202,7 +202,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
@@ -212,7 +212,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreForetsUpdated = [],
       titresEtapesForetsUpdated = [],
       titresEtapesForetsDeleted = []
-    ] = result.forets
+    ] = result.titresForets
 
     expect(titreForetsUpdated.length).toEqual(0)
     expect(titresEtapesForetsUpdated.length).toEqual(1)
@@ -234,7 +234,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
@@ -258,7 +258,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
 
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
@@ -279,7 +279,7 @@ describe('mise à jour de toutes les territoires des étapes', () => {
       titreCommunesUpdated = [],
       titresEtapesCommunesUpdated = [],
       titresEtapesCommunesDeleted = []
-    ] = result.communes
+    ] = result.titresCommunes
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)

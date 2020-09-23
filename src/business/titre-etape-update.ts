@@ -166,13 +166,13 @@ const titreEtapeUpdate = async (
         communes,
         forets
       )
-      titreCommunesUpdated = result.communes[0]
-      titresEtapesCommunesCreated = result.communes[1]
-      titresEtapesCommunesDeleted = result.communes[2]
+      titreCommunesUpdated = result.titresCommunes[0]
+      titresEtapesCommunesCreated = result.titresCommunes[1]
+      titresEtapesCommunesDeleted = result.titresCommunes[2]
 
-      titreForetsUpdated = result.forets[0]
-      titresEtapesForetsCreated = result.forets[1]
-      titresEtapesForetsDeleted = result.forets[2]
+      titreForetsUpdated = result.titresForets[0]
+      titresEtapesForetsCreated = result.titresForets[1]
+      titresEtapesForetsDeleted = result.titresForets[2]
     }
 
     console.info()

@@ -165,26 +165,26 @@ const run = async () => {
       'super'
     )
 
-    const communesList = await communesGet()
-    const foretsList = await foretsGet()
+    const communes = await communesGet()
+    const forets = await foretsGet()
 
-    const { communes, forets } = await titresEtapesAreasUpdate(
+    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate(
       titresEtapes,
-      communesList,
-      foretsList
+      communes,
+      forets
     )
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesCreated = [],
       titresEtapesCommunesDeleted = []
-    ] = communes
+    ] = titresCommunes
 
     const [
       titreForetsUpdated = [],
       titresEtapesForetsCreated = [],
       titresEtapesForetsDeleted = []
-    ] = forets
+    ] = titresForets
 
     console.info()
     console.info('administrations gestionnaires associées aux titres…')
