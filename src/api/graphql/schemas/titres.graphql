@@ -89,6 +89,9 @@ type Titre {
   "Nombre d'activités absentes"
   activitesAbsentes: Int
 
+  "Forets"
+  forets: [Foret]
+
   modification: Boolean
   suppression: Boolean
 

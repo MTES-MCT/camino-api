@@ -153,6 +153,7 @@ const titreFormat = (
 
   if (fields.surface && t.surfaceEtape) {
     t.surface = t.surfaceEtape.surface
+    t.forets = t.surfaceEtape.forets
   }
 
   if (fields.activites && t.activites?.length) {

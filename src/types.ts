@@ -492,6 +492,7 @@ interface ITitre {
   surface?: number | null
   communesTitreEtapeId?: string | null
   communes?: ICommune[] | null
+  forets?: IForet[] | null
   demarches?: ITitreDemarche[] | null
   activites?: ITitreActivite[] | null
   travaux?: ITitreTravaux[] | null
