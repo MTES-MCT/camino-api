@@ -46,7 +46,7 @@ const titresFormatTable = (titres: ITitre[]) =>
       substances: titre.substances!.map(s => s.nom).join(';'),
       surface_km2: titre.surface,
       communes: communes.join(';'),
-      forets: titre.forets?.map(f => f.nom).join(', '),
+      forets: titre.forets?.map(f => f.nom).join('; '),
       departements: departements.join(';'),
       regions: regions.join(';'),
       administrations_noms: titre.administrations!.map(a => a.nom).join(';'),

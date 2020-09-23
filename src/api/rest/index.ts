@@ -89,9 +89,10 @@ const titres = async (
         substances: { legales: { id: {} } },
         titulaires: { id: {} },
         amodiataires: { id: {} },
-        surfaceEtape: { forets: { id: {} } },
+        surfaceEtape: { id: {} },
         points: { id: {} },
         communes: { departement: { region: { pays: { id: {} } } } },
+        forets: { id: {} },
         administrationsLocales: { type: { id: {} } },
         administrationsGestionnaires: { type: { id: {} } }
       }
