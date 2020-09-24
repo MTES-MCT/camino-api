@@ -9,6 +9,7 @@ Chaque titre minier contient les périmètres géographiques ainsi que les propr
 - identifiant, nom, type, nature, domaine minier, et statut
 - dates de demande, début et fin
 - surface (en km²) du périmètre
+- territoires concernés (communes, départements, et régions)
 - administrations concernées
 - titulaires et amodiataires avec leur numéro de Siren
 - engagement financier
