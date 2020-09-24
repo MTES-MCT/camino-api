@@ -1,7 +1,6 @@
 const chalk = require('chalk')
 const decamelize = require('decamelize')
 const communes = require('../../sources/communes.json')
-const forets = require('../../sources/forets.json')
 
 const seeding = require('../seeding')
 
@@ -18,7 +17,8 @@ const files = [
   'titresSubstances',
   'titresTitulaires',
   'titresCommunes',
-  'titresForets',
+  // TODO en attente de la prochaine MEP
+  // 'titresForets',
   'titresAdministrationsGestionnaires',
   'titresAdministrationsLocales',
   'titresAmodiataires',
@@ -47,7 +47,8 @@ const data = files.reduce((d, file) => {
 
 const seed = seeding(async ({ insert }) => {
   await insert('communes', communes)
-  await insert('forets', forets)
+  // TODO en attente de la prochaine MEP
+  // await insert('forets', forets)
   await insert('titres', data.titres)
 
   await Promise.all([
@@ -72,7 +73,8 @@ const seed = seeding(async ({ insert }) => {
     insert('titresSubstances', data.titresSubstances),
     insert('titresTitulaires', data.titresTitulaires),
     insert('titresCommunes', data.titresCommunes),
-    insert('titresForets', data.titresForets),
+    // TODO en attente de la prochaine MEP
+    // insert('titresForets', data.titresForets),
     insert('titresPoints', data.titresPoints)
   ])
   await insert('titresPointsReferences', data.titresPointsReferences)

@@ -20,6 +20,7 @@ const seed = seeding(async ({ del }) => {
     del('titresPointsReferences'),
     del('titresTitulaires'),
     del('titresCommunes'),
+    del('titresForets'),
     del('titresAdministrationsGestionnaires'),
     del('titresAdministrationsLocales'),
     del('titresAmodiataires'),
