@@ -467,6 +467,7 @@ const titres = {
     administrationsLocales.${administrations.graph},
     demarches(orderDesc).${titresDemarches.graph},
     communes.${communes.graph},
+    forets,
     activites(orderDesc).${titresActivites.graph},
     travaux(orderDesc).${titresTravaux.graph},
     references(orderAsc).type

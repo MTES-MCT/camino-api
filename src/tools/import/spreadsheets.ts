@@ -14,6 +14,7 @@ const titresRepriseSpreadsheetId =
 const globalesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_GLOBALES
 const metasSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_METAS
 const territoiresSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_TERRITOIRES
+const foretsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_FORETS
 const calendrierSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_CALENDRIER
 const substancesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_SUBSTANCES
 
@@ -51,6 +52,8 @@ const titresTables = [
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
   { name: 'titres_communes' },
+  // TODO en attente de la prochaine MEP
+  // { name: 'titres_forets' },
   { name: 'titres_administrations_gestionnaires' },
   { name: 'titres_administrations_locales' },
   { name: 'titres_amodiataires' },
@@ -196,6 +199,15 @@ const territoires = {
   ]
 } as ISpreadsheet
 
+// TODO en attente de la prochaine MEP
+// const forets = {
+//   name: 'forets',
+//   id: foretsSpreadsheetId,
+//   tables: [
+//     { name: 'forets' }
+//   ]
+// } as ISpreadsheet
+
 const calendrier = {
   name: 'calendrier',
   id: calendrierSpreadsheetId,
@@ -296,6 +308,8 @@ const spreadsheets = [
   substances,
   documents,
   territoires,
+  // TODO en attente de la prochaine MEP
+  // forets,
   calendrier,
   entreprises,
   administrations,

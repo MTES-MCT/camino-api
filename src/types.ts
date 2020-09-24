@@ -338,6 +338,11 @@ interface IPays {
   regions?: IRegion[] | null
 }
 
+interface IForet {
+  id: string
+  nom: string
+}
+
 interface IPeriode {
   id: number
   nom: string

@@ -239,6 +239,16 @@ const tables = [
   },
   {
     id: 17,
+    name: 'titresForets',
+    columns: [
+      { id: 'titreEtapeId', parentKey: 'surfaceTitreEtapeId' },
+      { id: 'foretId', key: 'id' },
+      'surface'
+    ],
+    parents: ['forets']
+  },
+  {
+    id: 18,
     name: 'titresIncertitudes',
     columns: [
       { id: 'titreEtapeId', parentKey: 'id' },
