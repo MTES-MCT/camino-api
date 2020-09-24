@@ -45,3 +45,15 @@ type Commune {
   "Surface couverte par le titre"
   surface: Int
 }
+
+"Forêt"
+type Foret {
+  "Id de la forêt correspondant à son code"
+  id: ID!
+
+  "Nom de la forêt"
+  nom: String!
+
+  "Surface couverte par la forêt"
+  surface: Int
+}

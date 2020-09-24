@@ -6,7 +6,8 @@ import {
   ICommune,
   IAreaType,
   exhaustiveCheck,
-  IApiGeoCommuneResult
+  IApiGeoCommuneResult,
+  IForet
 } from '../../types'
 
 const communesGeojsonFetch = async (
@@ -66,6 +67,12 @@ const communeFormat = (geojson: IGeoJson): ICommune => ({
   surface: geojson.properties.surface as number
 })
 
+const foretFormat = (geojson: IGeoJson): IForet => ({
+  id: geojson.properties.code as string,
+  nom: geojson.properties.nom as string,
+  surface: geojson.properties.surface as number
+})
+
 export const geoAreaGeojsonGet = async (
   geojson: IGeoJson,
   elements: IAreaType[]
@@ -79,6 +86,8 @@ export const geoAreaGeojsonGet = async (
       let areasFormatted
       if (areaType === 'communes') {
         areasFormatted = areas.map(communeFormat)
+      } else if (areaType === 'forets') {
+        areasFormatted = areas.map(foretFormat)
       } else {
         exhaustiveCheck(areaType)
       }

@@ -92,6 +92,7 @@ const titres = async (
         surfaceEtape: { id: {} },
         points: { id: {} },
         communes: { departement: { region: { pays: { id: {} } } } },
+        forets: { id: {} },
         administrationsLocales: { type: { id: {} } },
         administrationsGestionnaires: { type: { id: {} } }
       }

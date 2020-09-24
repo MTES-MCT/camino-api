@@ -1,4 +1,4 @@
-import { ICommune, ITitreEtape } from '../../../types'
+import { ICommune, IForet, ITitreEtape } from '../../../types'
 
 const commune1: ICommune = {
   id: '1',
@@ -7,11 +7,23 @@ const commune1: ICommune = {
   surface: 0
 }
 
+const foret1: IForet = {
+  id: '1',
+  nom: 'foret1',
+  surface: 10
+}
+
 const commune1SurfaceChangee = {
   id: '1',
   nom: 'commune1SurfaceChangee',
   departementId: 'departement',
   surface: 10
+}
+
+const foret1SurfaceChangee: IForet = {
+  id: '1',
+  nom: 'foret1SurfaceChangee',
+  surface: 20
 }
 
 const commune2 = {
@@ -79,12 +91,15 @@ const titresEtapesPointsCommuneExistante = ({
   ordre: 2,
   date: '1988-03-11',
   points: [1, 2],
-  communes: [commune1]
+  communes: [commune1],
+  forets: [foret1]
 } as unknown) as ITitreEtape
 
 export {
   commune1,
+  foret1,
   commune1SurfaceChangee,
+  foret1SurfaceChangee,
   commune2,
   titresEtapesSansPoints,
   titresEtapesPoints,

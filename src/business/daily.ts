@@ -3,7 +3,7 @@ import '../init'
 
 import { administrationsGet } from '../database/queries/administrations'
 import { activitesTypesGet } from '../database/queries/metas'
-import { communesGet } from '../database/queries/territoires'
+import { communesGet, foretsGet } from '../database/queries/territoires'
 import { titresGet } from '../database/queries/titres'
 import { titresActivitesGet } from '../database/queries/titres-activites'
 import { titresDemarchesGet } from '../database/queries/titres-demarches'
@@ -154,7 +154,7 @@ const run = async () => {
     )
 
     console.info()
-    console.info('communes associées aux étapes…')
+    console.info('communes et forêts associées aux étapes…')
     const titresEtapes = await titresEtapesGet(
       {
         etapesIds: null,
@@ -166,12 +166,25 @@ const run = async () => {
     )
 
     const communes = await communesGet()
+    const forets = await foretsGet()
+
+    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate(
+      titresEtapes,
+      communes,
+      forets
+    )
 
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesCreated = [],
       titresEtapesCommunesDeleted = []
-    ] = await titresEtapesAreasUpdate(titresEtapes, communes)
+    ] = titresCommunes
+
+    const [
+      titreForetsUpdated = [],
+      titresEtapesForetsCreated = [],
+      titresEtapesForetsDeleted = []
+    ] = titresForets
 
     console.info()
     console.info('administrations gestionnaires associées aux titres…')
@@ -406,6 +419,22 @@ const run = async () => {
     if (titresEtapesCommunesDeleted.length) {
       console.info(
         `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
+      )
+    }
+
+    if (titreForetsUpdated.length) {
+      console.info(`mise à jour: ${titreForetsUpdated.length} foret(s)`)
+    }
+
+    if (titresEtapesForetsCreated.length) {
+      console.info(
+        `mise à jour: ${titresEtapesForetsCreated.length} foret(s) mise(s) à jour dans des étapes`
+      )
+    }
+
+    if (titresEtapesForetsDeleted.length) {
+      console.info(
+        `mise à jour: ${titresEtapesForetsDeleted.length} foret(s) supprimée(s) dans des étapes`
       )
     }
 

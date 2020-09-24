@@ -14,6 +14,7 @@ node_modules
 /sources/entreprises*.json
 /sources/documents.json
 /sources/communes.json
+/sources/forets.json
 /coverage
 /api-cache
 /files

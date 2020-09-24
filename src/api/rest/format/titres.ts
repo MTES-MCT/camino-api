@@ -33,6 +33,8 @@ const titresFormatTable = (titres: ITitre[]) =>
         }, {})
       : {}
 
+    const separator = ';'
+
     const titreNew = {
       id: titre.id,
       nom: titre.nom,
@@ -43,26 +45,29 @@ const titresFormatTable = (titres: ITitre[]) =>
       date_fin: titre.dateFin,
       date_demande: titre.dateDemande,
       statut: titre.statut!.nom,
-      substances: titre.substances!.map(s => s.nom).join(';'),
+      substances: titre.substances!.map(s => s.nom).join(separator),
       surface_km2: titre.surface,
-      communes: communes.join(';'),
-      departements: departements.join(';'),
-      regions: regions.join(';'),
-      administrations_noms: titre.administrations!.map(a => a.nom).join(';'),
-      titulaires_noms: titre.titulaires!.map(e => e.nom).join(';'),
+      communes: communes.join(separator),
+      forets: titre.forets?.map(f => f.nom).join(separator),
+      departements: departements.join(separator),
+      regions: regions.join(separator),
+      administrations_noms: titre
+        .administrations!.map(a => a.nom)
+        .join(separator),
+      titulaires_noms: titre.titulaires!.map(e => e.nom).join(separator),
       titulaires_adresses: titre
         .titulaires!.map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
-        .join(';'),
+        .join(separator),
       titulaires_legal: titre
         .titulaires!.map(e => e.legalEtranger || e.legalSiren)
-        .join(';'),
-      amodiataires_noms: titre.amodiataires!.map(e => e.nom).join(';'),
+        .join(separator),
+      amodiataires_noms: titre.amodiataires!.map(e => e.nom).join(separator),
       amodiataires_adresses: titre
         .amodiataires!.map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
-        .join(';'),
+        .join(separator),
       amodiataires_legal: titre
         .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
-        .join(';'),
+        .join(separator),
       geojson: JSON.stringify(titre.geojsonMultiPolygon),
       ...titreReferences,
       ...titreContenuFormat(titre)
@@ -76,6 +81,7 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
   features: titres.map(titre => {
     const { communes, departements, regions } = titreTerritoiresFind(titre)
 
+    const separator = ', '
     return {
       type: 'Feature',
       geometry: titre.geojsonMultiPolygon?.geometry,
@@ -89,28 +95,30 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
         date_fin: titre.dateFin,
         date_demande: titre.dateDemande,
         statut: titre.statut!.nom,
-        substances: titre.substances!.map(s => s.nom).join(', ') || null,
+        substances: titre.substances!.map(s => s.nom).join(separator) || null,
         surface_km2: titre.surface,
-        communes: communes.join(';'),
-        departements: departements.join(';'),
-        regions: regions.join(';'),
+        communes: communes.join(separator),
+        forets: titre.forets?.map(f => f.nom).join(separator),
+        departements: departements.join(separator),
+        regions: regions.join(separator),
         administrations_noms: titre.administrations!.map(a => a.nom),
-        titulaires_noms: titre.titulaires!.map(e => e.nom).join(', ') || null,
+        titulaires_noms:
+          titre.titulaires!.map(e => e.nom).join(separator) || null,
         titulaires_legal:
           titre
             .titulaires!.map(e => e.legalEtranger || e.legalSiren)
-            .join(', ') || null,
+            .join(separator) || null,
         amodiataires_noms:
-          titre.amodiataires!.map(e => e.nom).join(', ') || null,
+          titre.amodiataires!.map(e => e.nom).join(separator) || null,
         amodiataires_legal:
           titre
             .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
-            .join(', ') || null,
+            .join(separator) || null,
         references:
           titre.references &&
           titre.references
             .map(reference => `${reference.type!.nom}: ${reference.nom}`)
-            .join(', '),
+            .join(separator),
         ...titreContenuFormat(titre)
       }
     }

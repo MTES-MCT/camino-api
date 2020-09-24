@@ -14,6 +14,7 @@ import TitresReferences from './titres-references'
 import Types from './titres-types'
 
 import { ITitre } from '../../types'
+import Forets from './forets'
 
 interface Titres extends ITitre {}
 
@@ -167,6 +168,20 @@ class Titres extends Model {
           extra: ['surface']
         },
         to: 'communes.id'
+      }
+    },
+
+    forets: {
+      relation: Model.ManyToManyRelation,
+      modelClass: Forets,
+      join: {
+        from: 'titres.surfaceTitreEtapeId',
+        through: {
+          from: 'titresForets.titreEtapeId',
+          to: 'titresForets.foretId',
+          extra: ['surface']
+        },
+        to: 'forets.id'
       }
     },
 

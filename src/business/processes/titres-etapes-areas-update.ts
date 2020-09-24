@@ -4,18 +4,25 @@ import {
   IArea,
   IAreaType,
   Index,
-  ICommune
+  ICommune,
+  IForet
 } from '../../types'
 import PQueue from 'p-queue'
 
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import { geoAreaGeojsonGet } from '../../tools/api-communes'
-import { communesUpsert } from '../../database/queries/territoires'
+import {
+  communesUpsert,
+  foretsUpsert
+} from '../../database/queries/territoires'
 import {
   titreEtapeCommuneDelete,
-  titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery
+  titreEtapeForetDelete,
+  titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery,
+  titresEtapesForetsUpdate as titresEtapesForetsUpdateQuery
 } from '../../database/queries/titres-etapes'
 import TitresCommunes from '../../database/models/titres-communes'
+import TitresForets from '../../database/models/titres-forets'
 
 interface ITitreEtapeAreas {
   titreEtape: ITitreEtape
@@ -173,7 +180,11 @@ const areasBuild = (
           // - si il n'est pas déjà présente dans l'accumulateur
           // - si il n'est pas présent dans areasOld
           if (!areasIndex[area.id] && !areasOldIndex[area.id]) {
-            areasNew.push({ ...area })
+            const areaNew = { ...area }
+            // La surface ne sert à rien dans la table du territoire,
+            // elle sert uniquement dans la table de relation avec l’étape
+            delete areaNew.surface
+            areasNew.push(areaNew)
             areasIndex[area.id] = true
           }
 
@@ -211,13 +222,14 @@ const titresEtapesAreasGet = async (
     ) => {
       queue.add(async () => {
         let titreEtapeAreas: { [areaType in IAreaType]: IArea[] } = {
-          communes: []
+          communes: [],
+          forets: []
         }
 
         if (titreEtape.points?.length) {
           const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
-          const areaTypes: IAreaType[] = ['communes']
+          const areaTypes: IAreaType[] = ['communes', 'forets']
           const apiGeoCommuneResult = await geoAreaGeojsonGet(
             geojson,
             areaTypes
@@ -249,25 +261,32 @@ const titresEtapesAreasGet = async (
  * Met à jour tous les territoires d’une liste d’étapes
  * @param titresEtapes - liste d’étapes
  * @param communes - liste des communes existantes
+ * @param forets - liste des forêts existantes
  * @returns toutes les modifications effectuées
  */
 const titresEtapesAreasUpdate = async (
   titresEtapes: ITitreEtape[],
-  communes: ICommune[]
-) => {
+  communes: ICommune[],
+  forets: IForet[]
+): Promise<{ titresCommunes: any[]; titresForets: any[] }> => {
   // teste l'API geo-areas-api
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
   if (!geoAreasApiTestResult) {
     console.warn('communesGeojsonApi injoignable')
 
-    return [[], [], []]
-    // return { communes: [[], [], []] }
+    return { titresCommunes: [[], [], []], titresForets: [[], [], []] }
   }
 
   const titresEtapesAreas = await titresEtapesAreasGet(titresEtapes)
 
-  return titresEtapesCommunesUpdate(titresEtapesAreas, communes)
+  return {
+    titresCommunes: await titresEtapesCommunesUpdate(
+      titresEtapesAreas,
+      communes
+    ),
+    titresForets: await titresEtapesForetsUpdate(titresEtapesAreas, forets)
+  }
 }
 
 /**
@@ -295,6 +314,30 @@ const titresEtapesCommunesUpdate = async (
   )
 
 /**
+ * Met à jour les forets pour chaque étape
+ * @param titresEtapesAreas - liste des étapes
+ * @param forets - liste des forets existantes
+ * @returns toutes les modifications effectuées
+ */
+const titresEtapesForetsUpdate = async (
+  titresEtapesAreas: Index<ITitreEtapeAreas>,
+  forets: IForet[]
+) =>
+  titresEtapesAreaUpdate(
+    titresEtapesAreas,
+    forets,
+    'forets',
+    foretsUpsert,
+    titresEtapesAreas =>
+      titresEtapesForetsUpdateQuery({
+        titreEtapeId: titresEtapesAreas.titreEtapeId,
+        surface: titresEtapesAreas.surface,
+        foretId: titresEtapesAreas.areaId
+      }),
+    titreEtapeForetDelete
+  )
+
+/**
  * Met à jour tous les territoires d’un certain type pour chaque étape
  * @param titresEtapesAreas - index des étapes associés à leurs territoires
  * @param areasOld - liste des territoires existantes
@@ -310,7 +353,7 @@ const titresEtapesAreaUpdate = async (
   areasUpsert: (areas: IArea[]) => Promise<IArea[]>,
   titresEtapesAreasUpdateQuery: (
     titresEtapesAreas: ITitreArea
-  ) => Promise<TitresCommunes>,
+  ) => Promise<TitresCommunes | TitresForets>,
   titreEtapeAreaDelete: (etapeId: string, areaId: string) => Promise<number>
 ) => {
   const areasToUpdate = areasBuild(areasOld, areaType, titresEtapesAreas)

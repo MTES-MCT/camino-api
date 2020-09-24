@@ -1,8 +1,10 @@
-import { ICommune } from '../../types'
+import { ICommune, IForet } from '../../types'
 
 import Communes from '../models/communes'
 import Departements from '../models/departements'
 import Pays from '../models/pays'
+import Forets from '../models/forets'
+
 import options from './_options'
 
 const paysGet = async () => Pays.query().withGraphFetched(options.pays.graph)
@@ -14,4 +16,16 @@ const communesGet = async (): Promise<ICommune[]> =>
 const communesUpsert = async (communes: ICommune[]) =>
   Communes.query().upsertGraph(communes, { insertMissing: true })
 
-export { departementsGet, communesUpsert, communesGet, paysGet }
+const foretsGet = async () => Forets.query()
+
+const foretsUpsert = async (forets: IForet[]) =>
+  Forets.query().upsertGraph(forets, { insertMissing: true })
+
+export {
+  departementsGet,
+  communesUpsert,
+  communesGet,
+  paysGet,
+  foretsGet,
+  foretsUpsert
+}

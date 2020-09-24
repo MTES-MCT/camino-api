@@ -2,7 +2,7 @@ import { activitesTypesGet } from '../database/queries/metas'
 import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
 import { titreEtapeGet } from '../database/queries/titres-etapes'
-import { communesGet } from '../database/queries/territoires'
+import { communesGet, foretsGet } from '../database/queries/territoires'
 import { administrationsGet } from '../database/queries/administrations'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
@@ -18,6 +18,7 @@ import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
+import { ITitreCommune } from '../types'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -143,10 +144,13 @@ const titreEtapeUpdate = async (
     const titresDatesUpdated = await titresDatesUpdate([titre])
 
     console.info()
-    console.info('communes associées aux étapes…')
+    console.info('communes et forêts associées aux étapes…')
     let titreCommunesUpdated = []
     let titresEtapesCommunesCreated = []
     let titresEtapesCommunesDeleted = []
+    let titreForetsUpdated = []
+    let titresEtapesForetsCreated = []
+    let titresEtapesForetsDeleted = []
     // si l'étape est supprimée, pas de mise à jour
     if (titreEtapeId) {
       const titreEtape = await titreEtapeGet(
@@ -155,11 +159,20 @@ const titreEtapeUpdate = async (
         'super'
       )
       const communes = await communesGet()
+      const forets = await foretsGet()
 
-      const result = await titresEtapesAreasUpdate([titreEtape], communes)
-      titreCommunesUpdated = result[0]
-      titresEtapesCommunesCreated = result[1]
-      titresEtapesCommunesDeleted = result[2]
+      const result = await titresEtapesAreasUpdate(
+        [titreEtape],
+        communes,
+        forets
+      )
+      titreCommunesUpdated = result.titresCommunes[0]
+      titresEtapesCommunesCreated = result.titresCommunes[1]
+      titresEtapesCommunesDeleted = result.titresCommunes[2]
+
+      titreForetsUpdated = result.titresForets[0]
+      titresEtapesForetsCreated = result.titresForets[1]
+      titresEtapesForetsDeleted = result.titresForets[2]
     }
 
     console.info()
@@ -332,6 +345,22 @@ const titreEtapeUpdate = async (
     if (titresEtapesCommunesDeleted.length) {
       console.info(
         `mise à jour: ${titresEtapesCommunesDeleted.length} commune(s) supprimée(s) dans des étapes`
+      )
+    }
+
+    if (titreForetsUpdated.length) {
+      console.info(`mise à jour: ${titreForetsUpdated.length} foret(s)`)
+    }
+
+    if (titresEtapesForetsCreated.length) {
+      console.info(
+        `mise à jour: ${titresEtapesForetsCreated.length} foret(s) ajoutée(s) dans des étapes`
+      )
+    }
+
+    if (titresEtapesForetsDeleted.length) {
+      console.info(
+        `mise à jour: ${titresEtapesForetsDeleted.length} foret(s) supprimée(s) dans des étapes`
       )
     }
 

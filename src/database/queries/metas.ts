@@ -13,7 +13,7 @@ import Permissions from '../models/permissions'
 import ReferencesTypes from '../models/references-types'
 import TitresStatuts from '../models/titres-statuts'
 import TitresTypesTypes from '../models/titres-types-types'
-import unites from '../models/unites'
+import Unites from '../models/unites'
 import ActivitesStatuts from '../models/activites-statuts'
 import EtapesStatuts from '../models/etapes-statuts'
 import SubstancesLegalesCodes from '../models/substances-legales-codes'
@@ -184,7 +184,7 @@ const geoSystemesGet = async () =>
 const geoSystemeGet = async (id: string) =>
   GeoSystemes.query().findById(id).withGraphFetched(options.geoSystemes.graph)
 
-const unitesGet = async () => unites.query()
+const unitesGet = async () => Unites.query()
 
 const activitesTypesGet = async (
   { fields }: { fields?: IFields },
