@@ -175,7 +175,7 @@ class Titres extends Model {
       relation: Model.ManyToManyRelation,
       modelClass: Forets,
       join: {
-        from: 'titres.surfaceTitreEtapeId',
+        from: 'titres.pointsTitreEtapeId',
         through: {
           from: 'titresForets.titreEtapeId',
           to: 'titresForets.foretId',
