@@ -13,12 +13,12 @@ interface ICredentials {
 }
 
 const spreadsheetsGet = async (
-  cred: ICredentials,
+  credentials: ICredentials,
   spreadsheetId: string,
   ranges: string[]
 ) => {
   const res = await googleSheets.spreadsheets.values.batchGet({
-    auth: authGet(cred),
+    auth: authGet(credentials),
     spreadsheetId,
     ranges
   })
@@ -26,9 +26,12 @@ const spreadsheetsGet = async (
   return res.data?.valueRanges
 }
 
-const spreadsheetGet = async (cred: ICredentials, spreadsheetId: string) => {
+const spreadsheetGet = async (
+  credentials: ICredentials,
+  spreadsheetId: string
+) => {
   const res = await googleSheets.spreadsheets.get({
-    auth: authGet(cred),
+    auth: authGet(credentials),
     spreadsheetId
   })
 
@@ -36,12 +39,12 @@ const spreadsheetGet = async (cred: ICredentials, spreadsheetId: string) => {
 }
 
 const spreadsheetBatchUpdate = async (
-  cred: ICredentials,
+  credentials: ICredentials,
   spreadsheetId: string,
   requests: sheets_v4.Schema$Request[]
 ) => {
   const res = await googleSheets.spreadsheets.batchUpdate({
-    auth: authGet(cred),
+    auth: authGet(credentials),
     spreadsheetId,
     requestBody: { requests }
   })
@@ -50,12 +53,12 @@ const spreadsheetBatchUpdate = async (
 }
 
 const spreadsheetValuesGet = async (
-  cred: ICredentials,
+  credentials: ICredentials,
   spreadsheetId: string,
   range: string
 ) => {
   const res = await googleSheets.spreadsheets.values.get({
-    auth: authGet(cred),
+    auth: authGet(credentials),
     spreadsheetId,
     range
   })

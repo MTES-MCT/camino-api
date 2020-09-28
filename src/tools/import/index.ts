@@ -32,7 +32,7 @@ const run = async () => {
   const queue = new PQueue({
     concurrency: 1,
     intervalCap: 1,
-    interval: 3000
+    interval: 4000
   })
   await queue.addAll(spreadsheetsPromises)
 }

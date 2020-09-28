@@ -1,24 +1,12 @@
 import * as nodemailer from 'nodemailer'
 import { htmlToText } from 'nodemailer-html-to-text'
 import * as emailRegex from 'email-regex'
-// const smtpTransport from 'nodemailer-smtp-transport')
-
-// const smtpTransportConfig = smtpTransport({
-//   service: process.env.EMAIL_SERVICE,
-//   auth: {
-//     user: process.env.EMAIL_USER,
-//     pass: process.env.EMAIL_PASSWORD
-//   }
-// })
 
 const smtpTransportConfig = `smtps://${process.env.EMAIL_API_KEY}:${process.env.EMAIL_API_PASSWORD}@${process.env.EMAIL_SMTP_SERVER}`
 
 const from = process.env.EMAIL_USER
 
 const transport = nodemailer.createTransport(smtpTransportConfig)
-
-// https://www.npmjs.com/package/html-to-text
-// const htmlToTextOptions = {}
 
 transport.use('compile', htmlToText())
 
