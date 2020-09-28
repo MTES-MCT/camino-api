@@ -52,7 +52,7 @@ exports.up = knex => {
       table.string('id', 3).primary()
       table.string('nom', 128)
       table.text('description')
-      table.integer('ordre')
+      table.integer('ordre').notNullable()
       table.boolean('fondamentale')
       table.boolean('unique')
       table.boolean('acceptationAuto')
