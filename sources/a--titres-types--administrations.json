@@ -18,6 +18,18 @@
     "associee": "FALSE"
   },
   {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
     "administration_id": "dre-bretagne-01",
     "titre_type_id": "cxw",
     "gestionnaire": "FALSE",
@@ -262,5 +274,53 @@
     "titre_type_id": "arm",
     "gestionnaire": "FALSE",
     "associee": "TRUE"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "FALSE",
+    "associee": "FALSE"
   }
 ]
