@@ -9,6 +9,14 @@ import titreEtapePublicationFilter from './titre-etape-publication-filter'
 
 import { titreDemarcheAnnulationDateFinFind } from './titre-demarche-annulation-date-fin-find'
 
+/**
+ * trouve une démarche acceptée ou terminée qui est
+ * - un retrait
+ * - ou une renonciation
+ *   - et ce n'est pas une renonciation partielle
+ *   (= ne contient pas d'étape avec des infos géo (points)
+ * @param titreDemarches - liste d’étapes
+ */
 const titreDemarcheAnnulationFind = (titreDemarches: ITitreDemarche[]) =>
   titreDemarches.find(
     titreDemarche =>

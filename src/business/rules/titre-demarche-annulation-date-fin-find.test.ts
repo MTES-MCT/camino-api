@@ -1,6 +1,7 @@
 import { titreDemarcheAnnulationDateFinFind } from './titre-demarche-annulation-date-fin-find'
 
 import {
+  titreDemarcheACOFaitEtapesDateFin,
   titreDemarcheAnnulationEtapes,
   titreDemarcheAnnulationEtapesDateFin,
   titreDemarcheAnnulationEtapesSansDate
@@ -23,5 +24,11 @@ describe("date de fin d'une démarche d'annulation", () => {
     expect(
       titreDemarcheAnnulationDateFinFind(titreDemarcheAnnulationEtapesSansDate)
     ).toBeNull()
+  })
+
+  test("retourne la date de fin d'une ACO si elle existe", () => {
+    expect(
+      titreDemarcheAnnulationDateFinFind(titreDemarcheACOFaitEtapesDateFin)
+    ).toEqual('2013-05-25')
   })
 })
