@@ -161,7 +161,9 @@ const run = async () => {
         etapesTypesIds: null,
         titresDemarchesIds: null
       },
-      { fields: { points: { id: {} }, communes: { id: {} } } },
+      {
+        fields: { points: { id: {} }, communes: { id: {} }, forets: { id: {} } }
+      },
       'super'
     )
 

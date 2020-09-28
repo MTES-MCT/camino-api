@@ -155,7 +155,13 @@ const titreEtapeUpdate = async (
     if (titreEtapeId) {
       const titreEtape = await titreEtapeGet(
         titreEtapeId,
-        { fields: { points: { id: {} }, communes: { id: {} } } },
+        {
+          fields: {
+            points: { id: {} },
+            communes: { id: {} },
+            forets: { id: {} }
+          }
+        },
         'super'
       )
       const communes = await communesGet()
