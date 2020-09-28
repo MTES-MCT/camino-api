@@ -214,21 +214,7 @@
     "nom": "prise en charge par l'Office national des forêts",
     "ordre": "22",
     "unique": "TRUE",
-    "date_fin": "2020-01-01",
-    "sections": [
-      {
-        "id": "onf",
-        "nom": "Office National des Forêts",
-        "elements": [
-          {
-            "id": "foret",
-            "nom": "Forêt",
-            "description": "Noms des forêts couvertes par la demande, séparés par un point-virgule",
-            "type": "text"
-          }
-        ]
-      }
-    ]
+    "date_fin": "2020-01-01"
   },
   {
     "id": "vfd",
@@ -370,7 +356,8 @@
   {
     "id": "apl",
     "nom": "avis d'un service administratif local",
-    "ordre": "39"
+    "ordre": "39",
+    "legal_lien": "https://dev.camino.beta.gouv.fr/titres?vue=carte&zoom=5&centre=46.227103425310766,2.499999999999991"
   },
   {
     "id": "apm",

@@ -5447,38 +5447,38 @@
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "ren",
-    "etape_type_id": "css",
-    "ordre": "1100"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "dex",
-    "ordre": "450"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "dpu",
-    "ordre": "455"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "mdp",
-    "ordre": "120"
-  },
-  {
-    "titre_type_id": "cxm",
-    "demarche_type_id": "ren",
     "etape_type_id": "mfr",
     "ordre": "100"
   },
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "ren",
+    "etape_type_id": "mdp",
+    "ordre": "110"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
     "etape_type_id": "spp",
+    "ordre": "120"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "des",
     "ordre": "130"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mod",
+    "ordre": "140"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mcr",
+    "ordre": "150"
   },
   {
     "titre_type_id": "cxm",
@@ -24259,8 +24259,8 @@
   {
     "titre_type_id": "cxm",
     "demarche_type_id": "ren",
-    "etape_type_id": "dim",
-    "ordre": "430"
+    "etape_type_id": "mco",
+    "ordre": "160"
   },
   {
     "titre_type_id": "pcc",
@@ -24309,5 +24309,221 @@
     "demarche_type_id": "oct",
     "etape_type_id": "men",
     "ordre": "550"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rco",
+    "ordre": "170"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mif",
+    "ordre": "180"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rif",
+    "ordre": "190"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "apu",
+    "ordre": "200"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "ssr",
+    "ordre": "210"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "aop",
+    "ordre": "220"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "apl",
+    "ordre": "230"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "apm",
+    "ordre": "240"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "scl",
+    "ordre": "250"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "ama",
+    "ordre": "260"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "aep",
+    "ordre": "270"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "acl",
+    "ordre": "280"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "apd",
+    "ordre": "290"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "aof",
+    "ordre": "300"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "apn",
+    "ordre": "310"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "pnr",
+    "ordre": "320"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "spo",
+    "ordre": "330"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "apo",
+    "ordre": "340"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "app",
+    "ordre": "350"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "scg",
+    "ordre": "360"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rcg",
+    "ordre": "370"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "acg",
+    "ordre": "380"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "sas",
+    "ordre": "390"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "dim",
+    "ordre": "400"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "dex",
+    "ordre": "410"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "dpu",
+    "ordre": "420"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "npp",
+    "ordre": "430"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rpu",
+    "ordre": "440"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "pqr",
+    "ordre": "450"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "rtd",
+    "ordre": "460"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "abd",
+    "ordre": "470"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "and",
+    "ordre": "480"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "mno",
+    "ordre": "490"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "ncl",
+    "ordre": "500"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "css",
+    "ordre": "510"
+  },
+  {
+    "titre_type_id": "cxm",
+    "demarche_type_id": "ren",
+    "etape_type_id": "nis",
+    "ordre": "520"
   }
 ]
