@@ -23,6 +23,18 @@ const titreDemarcheAnnulationEtapesDateFin = ([
   }
 ] as unknown) as ITitreEtape[]
 
+const titreDemarcheACOFaitEtapesDateFin = ([
+  {
+    id: 'h-cx-courdemanges-1988-ret01-dex01',
+    titreDemarcheId: 'h-cx-courdemanges-1988-ret01',
+    typeId: 'aco',
+    statutId: 'fai',
+    ordre: 1,
+    date: '2013-05-21',
+    dateFin: '2013-05-25'
+  }
+] as unknown) as ITitreEtape[]
+
 const titreDemarcheAnnulationEtapesSansDate = ([
   {
     id: 'h-cx-courdemanges-1988-ret01-dex01',
@@ -36,5 +48,6 @@ const titreDemarcheAnnulationEtapesSansDate = ([
 export {
   titreDemarcheAnnulationEtapes,
   titreDemarcheAnnulationEtapesDateFin,
+  titreDemarcheACOFaitEtapesDateFin,
   titreDemarcheAnnulationEtapesSansDate
 }

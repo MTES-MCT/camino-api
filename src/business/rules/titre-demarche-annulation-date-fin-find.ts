@@ -11,24 +11,31 @@ import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
  */
 
 const titreDemarcheAnnulationDateFinFind = (titreEtapes: ITitreEtape[]) => {
-  // la dernière étape dex ou dux qui contient une date de fin
-  const etapeDexHasDateFin = titreEtapesDescSort(titreEtapes).find(
-    te => ['dex', 'dux'].includes(te.typeId) && te.dateFin
+  // si l’étape valide l’annulation
+  const etapeAnnulationValideCheck = (te: ITitreEtape) =>
+    // si on a une décision expresse (dex) ou unilatérale (dux)
+    ['dex', 'dux'].includes(te.typeId) ||
+    // si l’ARM a une signature de l’avenant à l’autorisation de recherche minière fait
+    (te.typeId === 'aco' && te.statutId === 'fai')
+
+  // la dernière étape qui valide l’annulation et qui contient une date de fin
+  const etapeAnnulationHasDateFin = titreEtapesDescSort(titreEtapes).find(
+    te => te.dateFin && etapeAnnulationValideCheck(te)
   )
 
   // si la démarche contient une date de fin
-  if (etapeDexHasDateFin) {
-    return etapeDexHasDateFin.dateFin
+  if (etapeAnnulationHasDateFin) {
+    return etapeAnnulationHasDateFin.dateFin
   }
 
   // sinon,
-  // trouve la première étape de décision expresse (dex) ou unilatérale (dux)
-  const etapeDex = titreEtapesAscSort(titreEtapes).find(te =>
-    ['dex', 'dux'].includes(te.typeId)
+  // trouve la première étape qui valide l’annulation
+  const etapeAnnulation = titreEtapesAscSort(titreEtapes).find(
+    etapeAnnulationValideCheck
   )
 
   // la date de fin est la date de l'étape
-  return etapeDex?.date ? etapeDex.date : null
+  return etapeAnnulation?.date ? etapeAnnulation.date : null
 }
 
 export { titreDemarcheAnnulationDateFinFind }
