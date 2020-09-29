@@ -153,18 +153,3 @@ sudo chmod -R g+x /srv/scripts/
 # rend les fichiers du dossier `backups` accessibles en écriture pour le groupe
 sudo chmod -R g+w /srv/backups/
 ```
-
-### Lister les backups présents sur le FTP
-```sh
-curl -l ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/
-```
-
-### Récupérer un backup du FTP
-```sh
-curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/$FILE --output $FILE
-```
-
-### Supprimer un backup du FTP
-```sh
-curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/ -Q "DELE $FILE"
-```

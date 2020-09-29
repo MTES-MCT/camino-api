@@ -27,3 +27,21 @@ Le fichier cron se trouve ici: `/var/spool/cron/crontabs/git`.
 
 - restaure la base de données à partir du fichier `/srv/backups/camino.sql`
 - restaure les fichiers à partir du dossier `/srv/backups/files`
+
+### Lister les backups présents sur le FTP
+
+```sh
+curl -l ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/
+```
+
+### Récupérer un backup du FTP
+
+```sh
+curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/$FILE --output $FILE
+```
+
+### Supprimer un backup du FTP
+
+```sh
+curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/ -Q "DELE $FILE"
+```
