@@ -21,7 +21,7 @@ services:
 
   db:
     container_name: camino_api_db
-    image: postgres:12-alpine
+    image: postgres:12
     environment:
       PGUSER: ${PGUSER}
       POSTGRES_PASSWORD: ${PGPASSWORD}
