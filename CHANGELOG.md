@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.53](https://github.com/MTES-MCT/camino-api/compare/v0.24.52...v0.24.53) (2020-09-29)
+
+
+### Features
+
+* **documents:** supprime la limite de taille ([#537](https://github.com/MTES-MCT/camino-api/issues/537)) ([ab6c449](https://github.com/MTES-MCT/camino-api/commit/ab6c44904aa013642a4a995a8323dfbe4b3a3e93))
+* **forets:** supprime l’ancienne section ONF sur les étapes ([#540](https://github.com/MTES-MCT/camino-api/issues/540)) ([45d08e8](https://github.com/MTES-MCT/camino-api/commit/45d08e838d03a57afe41544d1f79330d1ed36598))
+* **forêts:** ajoute les forêts sur les titres ([#536](https://github.com/MTES-MCT/camino-api/issues/536)) ([f87c078](https://github.com/MTES-MCT/camino-api/commit/f87c078f7b15e75462b9a47ab102284f65e18362))
+* **forêts:** ajoute les forêts sur les titres ([#536](https://github.com/MTES-MCT/camino-api/issues/536)) ([#539](https://github.com/MTES-MCT/camino-api/issues/539)) ([d58fd3b](https://github.com/MTES-MCT/camino-api/commit/d58fd3b33486d3459fa6825bf2089ec7e255ddd8))
+* **import:** supprime l’import de l’ancien onglet « forets » ([be5a423](https://github.com/MTES-MCT/camino-api/commit/be5a42365edbf4ee7dce677cc608e0e84c456d7f))
+* **sécurité:** ajoute la gestion du refresh token ([#529](https://github.com/MTES-MCT/camino-api/issues/529)) ([d5db13f](https://github.com/MTES-MCT/camino-api/commit/d5db13f1c2b1654a6bde68c6915f594e67fa403d))
+
+
+### Bug Fixes
+
+* **forets:** ne met pas à jour les forêts déjà à jour pendant la mise à jour des étapes ([7347099](https://github.com/MTES-MCT/camino-api/commit/7347099e45f60eae889abc7665d135f4a4ce070a))
+* **titres:** corrige le calcul de date de fin ([#543](https://github.com/MTES-MCT/camino-api/issues/543)) ([e22bf61](https://github.com/MTES-MCT/camino-api/commit/e22bf6122fb43745486305309adda97727ab39a7))
+* met à jour les métas ([f0a6030](https://github.com/MTES-MCT/camino-api/commit/f0a6030df8a3db750c952d2378d4be8bc53ac13a))
+* **activités:** corrige l'erreur lors du téléchargement ([#535](https://github.com/MTES-MCT/camino-api/issues/535)) ([7e6ae78](https://github.com/MTES-MCT/camino-api/commit/7e6ae78e6f1b99606a1c26e05d468efed07df542))
+* **forêts:** utilise la bonne étape pour récupérer les forêts d’un titre ([#541](https://github.com/MTES-MCT/camino-api/issues/541)) ([3ed6d06](https://github.com/MTES-MCT/camino-api/commit/3ed6d06929ed25fbb026d8f790c58e073373debb))
+
 ### [0.24.52](https://github.com/MTES-MCT/camino-api/compare/v0.24.48...v0.24.52) (2020-09-18)
 
 
