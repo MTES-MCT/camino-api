@@ -99,7 +99,13 @@ const etapeTypeDateFinCheck = (
 
   const dateDemande = titreDateDemandeFind(titreDemarches, titreStatutId)
 
-  return dateDemande ? dateDemande < etapeType.dateFin : true
+  // si
+  // - la date de demande est absente,
+  // - et le type d'étape a une date de fin
+  // alors on ne propose pas ce type d'étape
+  // Exemple: Si on a pas de date de demande, on ne peut pas proposer la « décision de l’ONF »
+  // car cette étape est proposable que pour les demandes antérieures au 01/01/2020
+  return dateDemande ? dateDemande < etapeType.dateFin : false
 }
 
 const etapeTypeFormat = (
