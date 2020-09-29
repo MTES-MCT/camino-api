@@ -241,7 +241,7 @@ const tables = [
     id: 17,
     name: 'titresForets',
     columns: [
-      { id: 'titreEtapeId', parentKey: 'surfaceTitreEtapeId' },
+      { id: 'titreEtapeId', parentKey: 'pointsTitreEtapeId' },
       { id: 'foretId', key: 'id' },
       'surface'
     ],
