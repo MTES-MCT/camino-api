@@ -13,6 +13,11 @@ import {
   entreprise,
   entrepriseAndEtablissements
 } from './__mocks__/fetch-insee-api'
+import { entrepriseUpsert } from '../src/database/queries/entreprises'
+import { titreCreate } from '../src/database/queries/titres'
+import { documentCreate } from '../src/database/queries/documents'
+import { titresEtapesJustificatifsUpsert } from '../src/database/queries/titres-etapes'
+import { ITitreEtapeJustificatif } from '../src/types'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -210,5 +215,102 @@ describe('entrepriseModifier', () => {
     )
 
     expect(res.body.errors[0].message).toBe('entreprise inconnue')
+  })
+})
+
+describe('entreprise', () => {
+  const entrepriseQuery = queryImport('entreprise')
+
+  test('un document d’entreprise lié à une étape est non supprimable et non modifiable (super)', async () => {
+    const entrepriseId = 'entreprise-id'
+    await entrepriseUpsert({
+      id: entrepriseId,
+      nom: entrepriseId
+    })
+
+    const titreId = 'titre-id'
+    const demarcheId = 'demarche-id'
+    const etapeId = 'etape-id'
+    await titreCreate(
+      {
+        domaineId: 'm',
+        id: titreId,
+        nom: '',
+        typeId: 'arm',
+        demarches: [
+          {
+            id: 'demarche-id',
+            titreId,
+            typeId: 'oct',
+            etapes: [
+              {
+                id: etapeId,
+                typeId: 'mfr',
+                statutId: 'fai',
+                titreDemarcheId: demarcheId,
+                date: ''
+              }
+            ]
+          }
+        ]
+      },
+      {},
+      'super'
+    )
+
+    const documentId = 'document-id'
+    await documentCreate({
+      id: documentId,
+      typeId: 'fac',
+      date: '',
+      entrepriseId
+    })
+
+    await titresEtapesJustificatifsUpsert([
+      {
+        documentId,
+        titreEtapeId: etapeId
+      } as ITitreEtapeJustificatif
+    ])
+
+    const res = await graphQLCall(
+      entrepriseQuery,
+      {
+        id: entrepriseId
+      },
+      'super'
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data.entreprise.documents[0].modification).toBe(false)
+    expect(res.body.data.entreprise.documents[0].suppression).toBe(false)
+  })
+
+  test('un document d’entreprise lié à aucune étape est supprimable et modifiable (super)', async () => {
+    const entrepriseId = 'entreprise-id'
+    await entrepriseUpsert({
+      id: entrepriseId,
+      nom: entrepriseId
+    })
+
+    const documentId = 'document-id'
+    await documentCreate({
+      id: documentId,
+      typeId: 'fac',
+      date: '',
+      entrepriseId
+    })
+
+    const res = await graphQLCall(
+      entrepriseQuery,
+      {
+        id: entrepriseId
+      },
+      'super'
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data.entreprise.documents[0].modification).toBe(true)
+    expect(res.body.data.entreprise.documents[0].suppression).toBe(true)
   })
 })

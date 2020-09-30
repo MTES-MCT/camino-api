@@ -30,6 +30,11 @@ fragment entreprise on Entreprise {
   utilisateurs {
     ...utilisateur
   }
+  documents {
+    id
+    modification
+    suppression
+  }
 }
 
 fragment utilisateur on Utilisateur {

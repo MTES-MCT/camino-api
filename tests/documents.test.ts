@@ -81,7 +81,7 @@ describe('documentSupprimer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data.documentSupprimer).toBeTruthy()
-    expect(await documentGet(documentId, {}, 'super'))
+    expect(await documentGet(documentId, {}, 'super')).toBeUndefined()
   })
 
   test('ne peut pas supprimer un document d’entreprise lié à une étape (utilisateur super)', async () => {
@@ -205,6 +205,6 @@ describe('documentSupprimer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data.documentSupprimer).toBeTruthy()
-    expect(await documentGet(documentId, {}, 'super'))
+    expect(await documentGet(documentId, {}, 'super')).toBeUndefined()
   })
 })
