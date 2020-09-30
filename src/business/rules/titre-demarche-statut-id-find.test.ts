@@ -244,13 +244,37 @@ describe("statut d'une démarche", () => {
     ).toEqual('ini')
   })
 
-  test("une démarche de retrait dont l'étape la plus récente est spp a le statut “initié”", () => {
+  test("une démarche de retrait dont l'étape la plus récente est spp a le statut “en instruction”", () => {
     expect(
       titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'spp' }]))
     ).toEqual('ins')
   })
 
-  test("une démarche de retrait dont l'étape la plus récente de dup a été faite a le statut “terminé”", () => {
+  test("une démarche de retrait dont l'étape la plus récente est eof a le statut “en instruction”", () => {
+    expect(
+      titreDemarcheStatutIdFind(
+        'ret',
+        etapesBuild([{ typeId: 'ide' }, { typeId: 'eof' }])
+      )
+    ).toEqual('ins')
+  })
+
+  test("une démarche de retrait dont l'étape la plus récente est aco a le statut “terminé”", () => {
+    expect(
+      titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'aco' }]))
+    ).toEqual('ter')
+  })
+
+  test("une démarche de retrait dont l'étape la plus récente est aof refusée a le statut “css”", () => {
+    expect(
+      titreDemarcheStatutIdFind(
+        'ret',
+        etapesBuild([{ typeId: 'aof', statutId: 'def' }])
+      )
+    ).toEqual('cls')
+  })
+
+  test("une démarche de retrait dont l'étape la plus récente de css a été faite a le statut “classé sans suite”", () => {
     expect(
       titreDemarcheStatutIdFind('ret', etapesBuild([{ typeId: 'css' }]))
     ).toEqual('cls')
