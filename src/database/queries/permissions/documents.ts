@@ -1,9 +1,13 @@
-import { IUtilisateur } from '../../../types'
+import { IAdministration, IUtilisateur } from '../../../types'
 
-import { QueryBuilder } from 'objection'
+import { QueryBuilder, raw } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
+import { titresModificationQueryBuild } from './metas'
+import Titres from '../../models/titres'
+import Administrations from '../../models/administrations'
+import TitresEtapesJustificatifs from '../../models/titres-etapes-justificatifs'
 
 const documentsPermissionQueryBuild = (
   q: QueryBuilder<Documents, Documents | Documents[]>,
@@ -75,6 +79,16 @@ const documentsPermissionQueryBuild = (
       }
     })
   }
+
+  q.select(documentsModificationQueryBuild().as('modification'))
+  q.select(documentsModificationQueryBuild().as('suppression'))
 }
+
+const documentsModificationQueryBuild = () =>
+  raw('(not exists(?))', [
+    TitresEtapesJustificatifs.query()
+      .alias('documentsModification')
+      .whereRaw('?? = ??', ['documentsModification.documentId', 'documents.id'])
+  ])
 
 export { documentsPermissionQueryBuild }
