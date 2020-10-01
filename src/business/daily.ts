@@ -30,6 +30,7 @@ import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
 import { titresTravauxGet } from '../database/queries/titres-travaux'
 import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
+import { matomoCacheInit } from '../tools/api-matomo'
 
 const run = async () => {
   try {
@@ -345,6 +346,10 @@ const run = async () => {
 
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate(titres)
+
+    console.info()
+    console.info('rafraichissement du cache Matomo…')
+    await matomoCacheInit()
 
     console.info()
     console.info('tâches quotidiennes exécutées:')

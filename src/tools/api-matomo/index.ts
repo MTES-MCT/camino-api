@@ -26,6 +26,16 @@ interface IMatomoResult {
   }
 }
 
+let matomoCache: {
+  recherches: { mois: string; quantite: string }[]
+  titresModifies: { mois: string; quantite: number }[]
+  actions: string
+  sessionDuree: string
+  telechargements: string
+  signalements: number
+  reutilisations: number
+}
+
 const matomoMainDataGet = async (duree: number) => {
   // Datas de la page 'Récapitulatif' des visites dans matomo
   // url
@@ -183,7 +193,7 @@ const titresModifiesCountGet = async (duree: number) => {
   )
 }
 
-const matomoData = async () => {
+const matomoCacheInit = async () => {
   // nombre de mois pour lesquels on souhaite des stats
   const duree = 12
 
@@ -208,7 +218,7 @@ const matomoData = async () => {
 
   const titresModifies = matomoResults[3]
 
-  return {
+  matomoCache = {
     recherches,
     titresModifies,
     actions,
@@ -217,6 +227,14 @@ const matomoData = async () => {
     signalements,
     reutilisations
   }
+}
+
+const matomoData = async () => {
+  if (!matomoCache) {
+    await matomoCacheInit()
+  }
+
+  return matomoCache
 }
 
 const timeFormat = (time: string) => {
@@ -242,4 +260,4 @@ const getPath = (
   return `${process.env.API_MATOMO_URL}/index.php?expanded=1${_params}&filter_limit=-1&format=JSON&idSite=${process.env.API_MATOMO_ID}&method=${method}&module=API&period=${period}&token_auth=${process.env.API_MATOMO_TOKEN}`
 }
 
-export { matomoData }
+export { matomoData, matomoCacheInit }
