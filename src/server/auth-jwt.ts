@@ -28,7 +28,9 @@ const authJwtError = (
   next: express.NextFunction
 ) => {
   if (err.name === 'UnauthorizedError') {
-    res.status(401).send('invalid token...')
+    // on ne peut pas écrire une réponse plus adéquate car celle-ci a peut-être été déjà envoyée
+    // c’est le cas lorsque le token est expiré lors du téléchargement d’un fichier
+    res.status(401)
     next()
   }
 }
