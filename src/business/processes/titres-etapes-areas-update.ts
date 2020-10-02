@@ -2,7 +2,7 @@ import {
   ITitreEtape,
   ITitreArea,
   IArea,
-  IAreaType,
+  IAreaId,
   Index,
   ICommune,
   IForet
@@ -10,7 +10,7 @@ import {
 import PQueue from 'p-queue'
 
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
-import { geoAreaGeojsonGet } from '../../tools/api-communes'
+import { apiGeoGet } from '../../tools/api-geo'
 import {
   communesUpsert,
   foretsUpsert
@@ -26,7 +26,7 @@ import TitresForets from '../../database/models/titres-forets'
 
 interface ITitreEtapeAreas {
   titreEtape: ITitreEtape
-  areas: { [areaType in IAreaType]: IArea[] }
+  areas: { [areaId in IAreaId]: IArea[] }
 }
 
 /**
@@ -49,7 +49,7 @@ const geoAreaApiTest = () => {
     }
   }
 
-  return geoAreaGeojsonGet(geojson, ['communes'])
+  return apiGeoGet(geojson, ['communes'])
 }
 
 /**
@@ -110,12 +110,12 @@ const titreEtapesAreasDeleteBuild = (
 /**
  * Pour chaque étape, recherche les territoires à mettre à jour ou à supprimer
  * @param titresEtapesAreasIndex - index d’étapes associées à leur nouveaux territoires
- * @param areaType - type de territoire en cour de manipulatin
+ * @param areaId - type de territoire en cour de manipulatin
  * @returns la liste de tous les territoires à mettre  à jour et la liste de tous ceux à supprimer
  */
 const titresEtapesAreasToUpdateAndDeleteBuild = (
   titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
-  areaType: IAreaType
+  areaId: IAreaId
 ) =>
   Object.keys(titresEtapesAreasIndex).reduce(
     (
@@ -130,14 +130,14 @@ const titresEtapesAreasToUpdateAndDeleteBuild = (
     ) => {
       const { titreEtape, areas } = titresEtapesAreasIndex[titreEtapeId]
 
-      const oldAreas = titreEtape[areaType]
+      const oldAreas = titreEtape[areaId]
 
       titresEtapesAreasToUpdate.push(
-        ...titreEtapesAreasUpdateBuild(titreEtape.id, areas[areaType], oldAreas)
+        ...titreEtapesAreasUpdateBuild(titreEtape.id, areas[areaId], oldAreas)
       )
 
       titresEtapesAreasToDelete.push(
-        ...titreEtapesAreasDeleteBuild(titreEtape.id, areas[areaType], oldAreas)
+        ...titreEtapesAreasDeleteBuild(titreEtape.id, areas[areaId], oldAreas)
       )
 
       return {
@@ -152,15 +152,15 @@ const titresEtapesAreasToUpdateAndDeleteBuild = (
   )
 
 /**
- * Recherche les territoires à créer
+ * Construit un index des territoires à créer
  * @param areasOld - liste des territoires existants
- * @param areaType - type de territoire en cours de manipulation
+ * @param areaId - type de territoire en cours de manipulation
  * @param titresEtapesAreasIndex - index des étapes associées à leur nouveaux territoires
  * @returns l’index de tous les nouveaux territoires
  */
 const areasBuild = (
   areasOld: IArea[],
-  areaType: IAreaType,
+  areaId: IAreaId,
   titresEtapesAreasIndex: Index<ITitreEtapeAreas>
 ) => {
   const areasOldIndex = areasOld.reduce(
@@ -173,25 +173,26 @@ const areasBuild = (
   )
 
   const { areasNew } = Object.keys(titresEtapesAreasIndex).reduce(
-    (acc: { areasIndex: Index<boolean>; areasNew: IArea[] }, titreEtapeId) =>
-      titresEtapesAreasIndex[titreEtapeId].areas[areaType].reduce(
-        ({ areasIndex, areasNew }, area) => {
-          // Ajoute le territoire
-          // - si il n'est pas déjà présente dans l'accumulateur
-          // - si il n'est pas présent dans areasOld
-          if (!areasIndex[area.id] && !areasOldIndex[area.id]) {
-            const areaNew = { ...area }
-            // La surface ne sert à rien dans la table du territoire,
-            // elle sert uniquement dans la table de relation avec l’étape
-            delete areaNew.surface
-            areasNew.push(areaNew)
-            areasIndex[area.id] = true
-          }
+    (acc: { areasIndex: Index<boolean>; areasNew: IArea[] }, titreEtapeId) => {
+      const etapeAreas = titresEtapesAreasIndex[titreEtapeId].areas[areaId]
 
-          return { areasIndex, areasNew }
-        },
-        acc
-      ),
+      return etapeAreas.reduce(({ areasIndex, areasNew }, area) => {
+        // Ajoute le territoire
+        // - si il n'est pas déjà présente dans l'accumulateur
+        // - si il n'est pas présent dans areasOld
+        if (!areasIndex[area.id] && !areasOldIndex[area.id]) {
+          const areaNew = { ...area }
+          // La surface ne sert à rien dans la table du territoire,
+          // elle sert uniquement dans la table de relation avec l’étape
+          delete areaNew.surface
+
+          areasNew.push(areaNew)
+          areasIndex[area.id] = true
+        }
+
+        return { areasIndex, areasNew }
+      }, acc)
+    },
     { areasIndex: {}, areasNew: [] }
   )
 
@@ -221,23 +222,23 @@ const titresEtapesAreasGet = async (
       titreEtape: ITitreEtape
     ) => {
       queue.add(async () => {
-        let titreEtapeAreas: { [areaType in IAreaType]: IArea[] } = {
+        const titreEtapeAreas = {
           communes: [],
           forets: []
-        }
+        } as { [areaId in IAreaId]: IArea[] }
 
         if (titreEtape.points?.length) {
           const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
 
-          const areaTypes: IAreaType[] = ['communes', 'forets']
-          const apiGeoCommuneResult = await geoAreaGeojsonGet(
-            geojson,
-            areaTypes
-          )
-          if (apiGeoCommuneResult) {
-            titreEtapeAreas = areaTypes.reduce((acc, areaType) => {
-              return { ...acc, [areaType]: apiGeoCommuneResult[areaType] }
-            }, titreEtapeAreas)
+          const areaIds = ['communes', 'forets'] as IAreaId[]
+          const apiGeoResult = await apiGeoGet(geojson, areaIds)
+
+          if (apiGeoResult?.communes) {
+            titreEtapeAreas.communes = apiGeoResult.communes
+          }
+
+          if (apiGeoResult?.forets) {
+            titreEtapeAreas.forets = apiGeoResult.forets
           }
         }
 
@@ -278,29 +279,29 @@ const titresEtapesAreasUpdate = async (
     return { titresCommunes: [[], [], []], titresForets: [[], [], []] }
   }
 
-  const titresEtapesAreas = await titresEtapesAreasGet(titresEtapes)
+  const titresEtapesAreasIndex = await titresEtapesAreasGet(titresEtapes)
 
   return {
     titresCommunes: await titresEtapesCommunesUpdate(
-      titresEtapesAreas,
+      titresEtapesAreasIndex,
       communes
     ),
-    titresForets: await titresEtapesForetsUpdate(titresEtapesAreas, forets)
+    titresForets: await titresEtapesForetsUpdate(titresEtapesAreasIndex, forets)
   }
 }
 
 /**
  * Met à jour les communes pour chaque étape
- * @param titresEtapesAreas - liste des étapes
+ * @param titresEtapesAreasIndex - liste des étapes
  * @param communes - liste des communes existantes
  * @returns toutes les modifications effectuées
  */
 const titresEtapesCommunesUpdate = async (
-  titresEtapesAreas: Index<ITitreEtapeAreas>,
+  titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
   communes: ICommune[]
 ) =>
   titresEtapesAreaUpdate(
-    titresEtapesAreas,
+    titresEtapesAreasIndex,
     communes,
     'communes',
     communesUpsert,
@@ -315,16 +316,16 @@ const titresEtapesCommunesUpdate = async (
 
 /**
  * Met à jour les forets pour chaque étape
- * @param titresEtapesAreas - liste des étapes
+ * @param titresEtapesAreasIndex - liste des étapes
  * @param forets - liste des forets existantes
  * @returns toutes les modifications effectuées
  */
 const titresEtapesForetsUpdate = async (
-  titresEtapesAreas: Index<ITitreEtapeAreas>,
+  titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
   forets: IForet[]
 ) =>
   titresEtapesAreaUpdate(
-    titresEtapesAreas,
+    titresEtapesAreasIndex,
     forets,
     'forets',
     foretsUpsert,
@@ -339,24 +340,24 @@ const titresEtapesForetsUpdate = async (
 
 /**
  * Met à jour tous les territoires d’un certain type pour chaque étape
- * @param titresEtapesAreas - index des étapes associés à leurs territoires
+ * @param titresEtapesAreasIndex - index des étapes associés à leurs territoires
  * @param areasOld - liste des territoires existantes
- * @param areaType - type de territoire en cours de manipulation
+ * @param areaId - type de territoire en cours de manipulation
  * @param areasUpsert - fonction peremetant de mettre à jour un territoire
  * @param titresEtapesAreasUpdateQuery - fonction permettant de mettre à jour le territoire d’une étape
  * @param titreEtapeAreaDelete - fonction permettant de supprimer un territoire d’une étape
  */
 const titresEtapesAreaUpdate = async (
-  titresEtapesAreas: Index<ITitreEtapeAreas>,
+  titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
   areasOld: IArea[],
-  areaType: IAreaType,
+  areaId: IAreaId,
   areasUpsert: (areas: IArea[]) => Promise<IArea[]>,
   titresEtapesAreasUpdateQuery: (
     titresEtapesAreas: ITitreArea
   ) => Promise<TitresCommunes | TitresForets>,
   titreEtapeAreaDelete: (etapeId: string, areaId: string) => Promise<number>
 ) => {
-  const areasToUpdate = areasBuild(areasOld, areaType, titresEtapesAreas)
+  const areasToUpdate = areasBuild(areasOld, areaId, titresEtapesAreasIndex)
 
   let areasUpdated: IArea[] = []
 
@@ -364,16 +365,14 @@ const titresEtapesAreaUpdate = async (
     areasUpdated = await areasUpsert(areasToUpdate)
 
     console.info(
-      `mise à jour: ${areaType}, ${areasToUpdate
-        .map(area => area.id)
-        .join(', ')}`
+      `mise à jour: ${areaId}, ${areasToUpdate.map(area => area.id).join(', ')}`
     )
   }
 
   const {
     titresEtapesAreasToUpdate,
     titresEtapesAreasToDelete
-  } = titresEtapesAreasToUpdateAndDeleteBuild(titresEtapesAreas, areaType)
+  } = titresEtapesAreasToUpdateAndDeleteBuild(titresEtapesAreasIndex, areaId)
 
   const titresEtapesAreasUpdated: string[] = []
   const titresEtapesAreasDeleted: string[] = []
@@ -387,7 +386,7 @@ const titresEtapesAreaUpdate = async (
           await titresEtapesAreasUpdateQuery(titreEtapeArea)
 
           console.info(
-            `mise à jour: étape ${areaType} ${JSON.stringify(titreEtapeArea)}`
+            `mise à jour: étape ${areaId} ${JSON.stringify(titreEtapeArea)}`
           )
 
           titresEtapesAreasUpdated.push(titreEtapeArea.titreEtapeId)
@@ -410,7 +409,7 @@ const titresEtapesAreaUpdate = async (
           await titreEtapeAreaDelete(titreEtapeId, areaId)
 
           console.info(
-            `suppression: étape ${titreEtapeId}, ${areaType} ${areaId}`
+            `suppression: étape ${titreEtapeId}, ${areaId} ${areaId}`
           )
 
           titresEtapesAreasDeleted.push(titreEtapeId)

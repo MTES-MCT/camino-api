@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import api from '../src/tools/api-communes'
+import api from '../src/tools/api-geo'
 
 const geojson = {
   type: 'Feature',

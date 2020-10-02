@@ -18,7 +18,6 @@ import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
-import { ITitreCommune } from '../types'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,

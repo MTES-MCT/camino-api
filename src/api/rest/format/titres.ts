@@ -82,6 +82,7 @@ const titresFormatGeojson = (titres: ITitre[]) => ({
     const { communes, departements, regions } = titreTerritoiresFind(titre)
 
     const separator = ', '
+
     return {
       type: 'Feature',
       geometry: titre.geojsonMultiPolygon?.geometry,

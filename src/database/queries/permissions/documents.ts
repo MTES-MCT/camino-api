@@ -1,12 +1,9 @@
-import { IAdministration, IUtilisateur } from '../../../types'
+import { IUtilisateur } from '../../../types'
 
 import { QueryBuilder, raw } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Documents from '../../models/documents'
-import { titresModificationQueryBuild } from './metas'
-import Titres from '../../models/titres'
-import Administrations from '../../models/administrations'
 import TitresEtapesJustificatifs from '../../models/titres-etapes-justificatifs'
 
 const documentsPermissionQueryBuild = (
