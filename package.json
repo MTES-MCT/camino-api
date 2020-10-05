@@ -51,7 +51,7 @@
     "ss:activites-export": "node ./dist/tools/export/titres-activites.js",
     "ss:import": "rm -rf sources && mkdir sources && node ./dist/tools/import/index.js",
     "start": "node ./dist/index.js",
-    "test": "eslint . && npm run build && jest --testPathIgnorePatterns=tests --ci && codecov",
+    "test": "eslint . && npm run build && jest --testPathIgnorePatterns=tests",
     "test:unit": "npm run lint && jest --testPathIgnorePatterns=tests --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
     "test:integration": "TESTS_INTEGRATION=true PGDATABASE=camino_tests JWT_SECRET=secret-tests jest --testPathIgnorePatterns=src --runInBand --detectOpenHandles --watch --testTimeout=20000",
