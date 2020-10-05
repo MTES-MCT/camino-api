@@ -204,9 +204,7 @@ const areasBuild = (
  * @param titresEtapes - liste d’étapes
  * @returns un index d’étapes associées à leurs territoires
  */
-const titresEtapesAreasGet = async (
-  titresEtapes: ITitreEtape[]
-): Promise<Index<ITitreEtapeAreas>> => {
+const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
   // exécute les requêtes en série
   // avec PQueue plutôt que Promise.all
   // pour ne pas surcharger l'API geoareas
@@ -216,42 +214,27 @@ const titresEtapesAreasGet = async (
     //    intervalCap: 10
   })
 
-  const titresEtapesAreasIndex = titresEtapes.reduce(
-    (
-      titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
-      titreEtape: ITitreEtape
-    ) => {
-      queue.add(async () => {
-        const titreEtapeAreas = {
-          communes: [],
-          forets: []
-        } as { [areaId in IAreaId]: IArea[] }
+  const areasIds = ['communes', 'forets'] as IAreaId[]
+  const titresEtapesAreasIndex = {} as Index<ITitreEtapeAreas>
 
-        if (titreEtape.points?.length) {
-          const geojson = geojsonFeatureMultiPolygon(titreEtape.points)
+  titresEtapes.forEach((titreEtape: ITitreEtape) => {
+    queue.add(async () => {
+      const apiGeoResult = titreEtape.points?.length
+        ? await apiGeoGet(
+            geojsonFeatureMultiPolygon(titreEtape.points),
+            areasIds
+          )
+        : undefined
 
-          const areaIds = ['communes', 'forets'] as IAreaId[]
-          const apiGeoResult = await apiGeoGet(geojson, areaIds)
+      const areas = areasIds.reduce((acc, id) => {
+        acc[id] = apiGeoResult && apiGeoResult[id] ? apiGeoResult[id] : []
 
-          if (apiGeoResult?.communes) {
-            titreEtapeAreas.communes = apiGeoResult.communes
-          }
+        return acc
+      }, {} as { [areaId in IAreaId]: IArea[] })
 
-          if (apiGeoResult?.forets) {
-            titreEtapeAreas.forets = apiGeoResult.forets
-          }
-        }
-
-        titresEtapesAreasIndex[titreEtape.id] = {
-          titreEtape,
-          areas: titreEtapeAreas
-        }
-      })
-
-      return titresEtapesAreasIndex
-    },
-    {}
-  )
+      titresEtapesAreasIndex[titreEtape.id] = { titreEtape, areas }
+    })
+  })
 
   await queue.onIdle()
 
@@ -269,7 +252,7 @@ const titresEtapesAreasUpdate = async (
   titresEtapes: ITitreEtape[],
   communes: ICommune[],
   forets: IForet[]
-): Promise<{ titresCommunes: any[]; titresForets: any[] }> => {
+) => {
   // teste l'API geo-areas-api
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
