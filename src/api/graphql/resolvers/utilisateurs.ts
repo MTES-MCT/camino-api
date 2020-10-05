@@ -390,7 +390,7 @@ const utilisateurCreer = async (
   }
 }
 
-const utilisateurCreationEmailEnvoyer = async ({
+const utilisateurCreationMessageEnvoyer = async ({
   email
 }: {
   email: string
@@ -630,7 +630,7 @@ const utilisateurMotDePasseModifier = async (
 }
 
 // envoie l'email avec un lien vers un formulaire de ré-init
-const utilisateurMotDePasseEmailEnvoyer = async ({
+const utilisateurMotDePasseMessageEnvoyer = async ({
   email
 }: {
   email: string
@@ -747,10 +747,10 @@ export {
   utilisateurCerbereUrlObtenir,
   utilisateurCerbereTokenCreer,
   utilisateurCreer,
-  utilisateurCreationEmailEnvoyer,
+  utilisateurCreationMessageEnvoyer,
   utilisateurModifier,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
-  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser
 }

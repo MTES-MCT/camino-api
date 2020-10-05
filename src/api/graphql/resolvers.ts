@@ -40,11 +40,11 @@ import {
   utilisateurCerbereTokenCreer,
   utilisateurCerbereUrlObtenir,
   utilisateurCreer,
-  utilisateurCreationEmailEnvoyer,
+  utilisateurCreationMessageEnvoyer,
   utilisateurModifier,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
-  utilisateurMotDePasseEmailEnvoyer,
+  utilisateurMotDePasseMessageEnvoyer,
   utilisateurMotDePasseInitialiser
 } from './resolvers/utilisateurs'
 
@@ -177,8 +177,8 @@ export default {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseInitialiser,
-  utilisateurMotDePasseEmailEnvoyer,
-  utilisateurCreationEmailEnvoyer,
+  utilisateurMotDePasseMessageEnvoyer,
+  utilisateurCreationMessageEnvoyer,
   entrepriseCreer,
   entrepriseModifier,
   travauxCreer,

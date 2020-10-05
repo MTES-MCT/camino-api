@@ -243,10 +243,10 @@ type Mutation {
   ): Utilisateur
 
   "Envoie un email à un utilisateur contenant une url pour modifier son mot de passe"
-  utilisateurMotDePasseEmailEnvoyer(email: String!): String
+  utilisateurMotDePasseMessageEnvoyer(email: String!): String
 
   "Envoie un email à un utilisateur contenant une url pour créer son compte"
-  utilisateurCreationEmailEnvoyer(email: String!): String
+  utilisateurCreationMessageEnvoyer(email: String!): String
 
   "Initialise un mot de passe utilisateur"
   utilisateurMotDePasseInitialiser(

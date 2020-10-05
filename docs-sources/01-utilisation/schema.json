@@ -6251,7 +6251,7 @@
             "deprecationReason": null
           },
           {
-            "name": "utilisateurMotDePasseEmailEnvoyer",
+            "name": "utilisateurMotDePasseMessageEnvoyer",
             "description": "__*__ Envoie un email à un utilisateur contenant une url pour modifier son mot de passe",
             "args": [
               {
@@ -6278,7 +6278,7 @@
             "deprecationReason": null
           },
           {
-            "name": "utilisateurCreationEmailEnvoyer",
+            "name": "utilisateurCreationMessageEnvoyer",
             "description": "__*__ Envoie un email à un utilisateur contenant une url pour créer son compte",
             "args": [
               {
