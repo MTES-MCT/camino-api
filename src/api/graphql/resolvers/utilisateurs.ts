@@ -410,11 +410,15 @@ const utilisateurCreationEmailEnvoyer = async ({
       )
     }
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET!)
+    const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
+      expiresIn: '15m'
+    })
 
     const url = `${
       process.env.UI_URL
-    }/creation-de-compte?token=${token}&email=${encodeURIComponent(email)}`
+    }/creation-de-compte?accessToken=${token}&email=${encodeURIComponent(
+      email
+    )}`
 
     const subject = `Création de votre compte utilisateur`
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
@@ -642,9 +646,11 @@ const utilisateurMotDePasseEmailEnvoyer = async ({
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
 
-    const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET!)
+    const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET!, {
+      expiresIn: '15m'
+    })
 
-    const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
+    const url = `${process.env.UI_URL}/mot-de-passe?accessToken=${token}`
 
     const subject = `Initialisation de votre mot de passe`
     const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
