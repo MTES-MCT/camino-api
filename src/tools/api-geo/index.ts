@@ -81,7 +81,9 @@ const apiGeoGet = async (
 
   if (apiGeoResult.communes) {
     areas.communes = apiGeoResult.communes.map(communeFormat)
-  } else if (apiGeoResult.forets) {
+  }
+
+  if (apiGeoResult.forets) {
     areas.forets = apiGeoResult.forets.map(foretFormat)
   }
 
