@@ -294,11 +294,13 @@ interface IFrequence {
   mois?: IMois[] | null
 }
 
+type IGeoJsonProperties = Index<string | number>
+
 interface IGeoJson {
   type: string
   geometry?: IGeometry | null
   bbox?: number[] | null
-  properties: Index<string | number>
+  properties: IGeoJsonProperties
   features?: IGeoJson[] | null
 }
 
@@ -897,6 +899,7 @@ export {
   IForet,
   IFrequence,
   IGeoJson,
+  IGeoJsonProperties,
   IApiGeoResult,
   IGeometry,
   IGeoSysteme,

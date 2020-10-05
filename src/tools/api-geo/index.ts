@@ -7,14 +7,10 @@ import {
   IAreaId,
   IApiGeoResult,
   IForet,
-  Index
+  IGeoJsonProperties
 } from '../../types'
 
-const apiGeoFetch = async (
-  path: string,
-  geojson: IGeoJson,
-  elements: IAreaId[]
-) => {
+const apiGeoFetch = async (geojson: IGeoJson, elements: IAreaId[]) => {
   const properties = JSON.stringify(geojson.properties)
 
   try {
@@ -36,7 +32,7 @@ const apiGeoFetch = async (
     }
 
     const response = await fetch(
-      process.env.API_GEO_URL + path + '?elements=' + elements.join(','),
+      `${process.env.API_GEO_URL}?elements=${elements.join(',')}`,
       {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
@@ -50,7 +46,7 @@ const apiGeoFetch = async (
       throw result
     }
 
-    return result as { [areaId in IAreaId]: Index<string | number>[] }
+    return result as { [areaId in IAreaId]: IGeoJsonProperties[] }
   } catch (e) {
     errorLog(`apiGeoFetch ${properties}`, e.error || e.message || e)
 
@@ -58,7 +54,7 @@ const apiGeoFetch = async (
   }
 }
 
-const communeFormat = (commune: Index<string | number>) =>
+const communeFormat = (commune: IGeoJsonProperties) =>
   ({
     id: commune.code as string,
     nom: commune.nom as string,
@@ -66,7 +62,7 @@ const communeFormat = (commune: Index<string | number>) =>
     surface: commune.surface as number
   } as ICommune)
 
-const foretFormat = (foret: Index<string | number>) =>
+const foretFormat = (foret: IGeoJsonProperties) =>
   ({
     id: foret.code as string,
     nom: foret.nom as string,
@@ -77,7 +73,7 @@ const apiGeoGet = async (
   geojson: IGeoJson,
   elements: IAreaId[]
 ): Promise<IApiGeoResult | null> => {
-  const apiGeoResult = await apiGeoFetch('/', geojson, elements)
+  const apiGeoResult = await apiGeoFetch(geojson, elements)
 
   if (!apiGeoResult) return null
 
