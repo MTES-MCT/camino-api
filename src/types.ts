@@ -136,7 +136,7 @@ interface IAdministration {
 
 interface IAnnee extends IPeriode {}
 
-type IAreaType = 'communes' | 'forets'
+type IAreaId = 'communes' | 'forets'
 
 interface IArea {
   id: string
@@ -294,15 +294,17 @@ interface IFrequence {
   mois?: IMois[] | null
 }
 
+type IGeoJsonProperties = Index<string | number>
+
 interface IGeoJson {
   type: string
   geometry?: IGeometry | null
   bbox?: number[] | null
-  properties: { [id: string]: string | number }
+  properties: IGeoJsonProperties
   features?: IGeoJson[] | null
 }
 
-interface IApiGeoCommuneResult {
+interface IApiGeoResult {
   communes: ICommune[]
   forets: IForet[]
 }
@@ -770,7 +772,7 @@ interface IUnite {
 }
 
 interface IUser extends IUtilisateur {
-  sections: { [id: string]: boolean }
+  sections: Index<boolean>
 }
 
 interface IUtilisateur {
@@ -861,10 +863,6 @@ interface IDefinition {
   elements?: IDefinition[]
 }
 
-export const exhaustiveCheck = (param: never): never => {
-  throw new Error(`should not reach here ${param}`)
-}
-
 export {
   Index,
   IFields,
@@ -878,7 +876,7 @@ export {
   IAnnee,
   ICommune,
   IArea,
-  IAreaType,
+  IAreaId,
   IContenu,
   IContenuElement,
   IContenuValeur,
@@ -901,7 +899,8 @@ export {
   IForet,
   IFrequence,
   IGeoJson,
-  IApiGeoCommuneResult,
+  IGeoJsonProperties,
+  IApiGeoResult,
   IGeometry,
   IGeoSysteme,
   IGlobale,

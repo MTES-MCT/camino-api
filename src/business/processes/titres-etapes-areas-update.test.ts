@@ -15,7 +15,7 @@ import {
   foret1SurfaceChangee
 } from './__mocks__/titres-etapes-communes-update-etapes'
 import { titresEtapesAreasUpdate } from './titres-etapes-areas-update'
-import { geoAreaGeojsonGet } from '../../tools/api-communes'
+import { apiGeoGet } from '../../tools/api-geo'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
   __esModule: true,
@@ -38,14 +38,14 @@ jest.mock('../../tools/geojson', () => ({
   })
 }))
 
-jest.mock('../../tools/api-communes/index', () => ({
-  geoAreaGeojsonGet: jest.fn()
+jest.mock('../../tools/api-geo/index', () => ({
+  apiGeoGet: jest.fn()
 }))
 
 console.info = jest.fn()
 console.warn = jest.fn()
 
-const geoAreaGeojsonGetMocked = mocked(geoAreaGeojsonGet, true)
+const geoAreaGeojsonGetMocked = mocked(apiGeoGet, true)
 
 describe('mise à jour de toutes les territoires des étapes', () => {
   test('ajoute 2 communes et 1 forêt dans une étape et dans la liste de communes et des forêts', async () => {
