@@ -4,6 +4,7 @@ import { knex, dbManager, app } from './init'
 import { graphQLCall, queryImport, tokenCreate } from './_utils'
 import * as userAdd from '../knex/user-add'
 import * as request from 'supertest'
+import * as jwt from 'jsonwebtoken'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -379,5 +380,56 @@ describe('utilisateurSupprimer', () => {
     )
 
     expect(res.body.errors[0].message).toMatch(/aucun utilisateur avec cet id/)
+  })
+})
+
+describe('utilisateurEmailModifier', () => {
+  const utilisateurEmailModifierQuery = queryImport(
+    'utilisateur-email-modifier'
+  )
+
+  const userId = 'test'
+  const oldUserEmail = 'test@camino.local'
+  const newUserEmail = 'newtest@camino.local'
+  const emailToken = jwt.sign(
+    { id: userId, email: newUserEmail },
+    process.env.JWT_SECRET!
+  )
+  test('ne peut pas modifier l’email d’un autre utilisateur', async () => {
+    const res = await graphQLCall(
+      utilisateurEmailModifierQuery,
+      {
+        emailToken
+      },
+      'super'
+    )
+
+    expect(res.body.errors[0].message).toBe('droits insuffisants')
+  })
+
+  test('peut modifier son email', async () => {
+    await userAdd(knex, {
+      id: userId,
+      prenom: 'toto',
+      nom: 'test',
+      email: oldUserEmail,
+      motDePasse: 'mot-de-passe',
+      permissionId: 'defaut'
+    })
+    const token = tokenCreate({ id: userId })
+
+    const res = await request(app)
+      .post('/')
+      .send({
+        query: utilisateurEmailModifierQuery,
+        variables: {
+          emailToken
+        }
+      })
+      .set('Authorization', `Bearer ${token}`)
+
+    expect(res.body.data.utilisateurEmailModifier.utilisateur.email).toBe(
+      newUserEmail
+    )
   })
 })

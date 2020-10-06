@@ -45,7 +45,9 @@ import {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseMessageEnvoyer,
-  utilisateurMotDePasseInitialiser
+  utilisateurMotDePasseInitialiser,
+  utilisateurEmailMessageEnvoyer,
+  utilisateurEmailModifier
 } from './resolvers/utilisateurs'
 
 import {
@@ -179,6 +181,8 @@ export default {
   utilisateurMotDePasseInitialiser,
   utilisateurMotDePasseMessageEnvoyer,
   utilisateurCreationMessageEnvoyer,
+  utilisateurEmailMessageEnvoyer,
+  utilisateurEmailModifier,
   entrepriseCreer,
   entrepriseModifier,
   travauxCreer,

@@ -254,6 +254,16 @@ type Mutation {
     motDePasse2: String!
   ): UtilisateurToken
 
+  "Envoie un email à l’utisateur pour vérifier non nouvel email"
+  utilisateurEmailMessageEnvoyer(
+    email: String!
+  ): String
+
+  "Modifie l’email de l’utilisateur à l’aide du token reçu dans l’email de vérification"
+  utilisateurEmailModifier(
+    emailToken: String!
+  ): UtilisateurToken
+
   "Crée un titre minier"
   titreCreer(titre: InputTitreCreation!): Titre
 

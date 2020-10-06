@@ -416,9 +416,7 @@ const utilisateurCreationMessageEnvoyer = async ({
 
     const url = `${
       process.env.UI_URL
-    }/creation-de-compte?accessToken=${token}&email=${encodeURIComponent(
-      email
-    )}`
+    }/creation-de-compte?token=${token}&email=${encodeURIComponent(email)}`
 
     const subject = `Création de votre compte utilisateur`
     const html = `<p>Pour créer votre compte, <a href="${url}">cliquez ici</a>.</p>`
@@ -650,7 +648,7 @@ const utilisateurMotDePasseMessageEnvoyer = async ({
       expiresIn: '15m'
     })
 
-    const url = `${process.env.UI_URL}/mot-de-passe?accessToken=${token}`
+    const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
 
     const subject = `Initialisation de votre mot de passe`
     const html = `<p>Pour initialiser votre mot de passe, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
@@ -727,6 +725,115 @@ const utilisateurMotDePasseInitialiser = async (
   }
 }
 
+/**
+ * envoie un email de vérification pour mettre à jour l’email de l’utilisateur
+ * @param email - nouvel email de l’utilisateur
+ * @param context
+ */
+const utilisateurEmailMessageEnvoyer = async (
+  { email }: { email: string },
+  context: IToken
+) => {
+  try {
+    if (!emailCheck(email)) {
+      throw new Error('adresse email invalide')
+    }
+
+    if (!context.user) {
+      throw new Error('droits insuffisants')
+    }
+
+    const user = await userGet(context.user?.id)
+    if (!user) {
+      throw new Error('utilisateur inconnu')
+    }
+
+    const userExistant = await userByEmailGet(email)
+    if (userExistant) {
+      throw new Error(
+        'un utilisateur est déjà enregistré avec cette adresse email'
+      )
+    }
+
+    const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET!, {
+      expiresIn: '15m'
+    })
+
+    const url = `${process.env.UI_URL}/email?token=${token}`
+
+    const subject = `Vérification de votre nouvel email`
+    const html = `<p>Pour valider votre nouvel email, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
+
+    emailSend(email, subject, html)
+
+    return 'email envoyé'
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+/**
+ * modifie l’email de l’utilisateur
+ * @param context - context qui contient l’id et le nouvel email de l’utilisateur
+ */
+const utilisateurEmailModifier = async (
+  { emailToken }: { emailToken: string },
+  context: IToken
+) => {
+  try {
+    if (!context.user || !context.user.id) {
+      throw new Error('aucun utilisateur identifié')
+    }
+
+    let emailTokenDecoded: { id: string; email: string }
+    try {
+      emailTokenDecoded = jwt.verify(emailToken, process.env.JWT_SECRET!) as {
+        id: string
+        email: string
+      }
+    } catch (e) {
+      throw new Error('lien expiré')
+    }
+
+    if (context.user.id !== emailTokenDecoded.id) {
+      throw new Error('droits insuffisants')
+    }
+
+    const utilisateur = await utilisateurGet(
+      context.user.id,
+      {},
+      context.user?.id
+    )
+
+    if (!utilisateur) {
+      throw new Error('aucun utilisateur enregistré avec cet id')
+    }
+
+    const utilisateurUpdated = await utilisateurUpsert(
+      {
+        id: context.user.id,
+        email: emailTokenDecoded.email
+      } as IUtilisateur,
+      {}
+    )
+
+    return {
+      ...userTokensCreate(utilisateurUpdated),
+      utilisateur: userFormat(utilisateurUpdated)
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const userTokensCreate = ({ id, email }: IUtilisateur) => {
   const refreshToken = jwt.sign({ id, email }, process.env.JWT_SECRET_REFRESH!)
 
@@ -752,5 +859,7 @@ export {
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
   utilisateurMotDePasseMessageEnvoyer,
-  utilisateurMotDePasseInitialiser
+  utilisateurMotDePasseInitialiser,
+  utilisateurEmailMessageEnvoyer,
+  utilisateurEmailModifier
 }
