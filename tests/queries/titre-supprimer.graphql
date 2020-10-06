@@ -1,4 +1,4 @@
-mutation TitreSuprrimer($id: ID!) {
+mutation TitreSupprimer($id: ID!) {
   titreSupprimer(id: $id){
     id
   }

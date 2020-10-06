@@ -1,0 +1,12 @@
+mutation UtilisateurEmailModifier($emailToken: String!) {
+  utilisateurEmailModifier(emailToken: $emailToken){
+    utilisateur {
+      id
+      email
+      nom
+      prenom
+    }
+    accessToken
+    refreshToken
+  }
+}

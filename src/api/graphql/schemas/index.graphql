@@ -243,15 +243,25 @@ type Mutation {
   ): Utilisateur
 
   "Envoie un email à un utilisateur contenant une url pour modifier son mot de passe"
-  utilisateurMotDePasseEmailEnvoyer(email: String!): String
+  utilisateurMotDePasseMessageEnvoyer(email: String!): String
 
   "Envoie un email à un utilisateur contenant une url pour créer son compte"
-  utilisateurCreationEmailEnvoyer(email: String!): String
+  utilisateurCreationMessageEnvoyer(email: String!): String
 
   "Initialise un mot de passe utilisateur"
   utilisateurMotDePasseInitialiser(
     motDePasse1: String!
     motDePasse2: String!
+  ): UtilisateurToken
+
+  "Envoie un email à l’utisateur pour vérifier non nouvel email"
+  utilisateurEmailMessageEnvoyer(
+    email: String!
+  ): String
+
+  "Modifie l’email de l’utilisateur à l’aide du token reçu dans l’email de vérification"
+  utilisateurEmailModifier(
+    emailToken: String!
   ): UtilisateurToken
 
   "Crée un titre minier"

@@ -390,7 +390,7 @@ const utilisateurCreer = async (
   }
 }
 
-const utilisateurCreationEmailEnvoyer = async ({
+const utilisateurCreationMessageEnvoyer = async ({
   email
 }: {
   email: string
@@ -410,7 +410,9 @@ const utilisateurCreationEmailEnvoyer = async ({
       )
     }
 
-    const token = jwt.sign({ email }, process.env.JWT_SECRET!)
+    const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
+      expiresIn: '15m'
+    })
 
     const url = `${
       process.env.UI_URL
@@ -626,7 +628,7 @@ const utilisateurMotDePasseModifier = async (
 }
 
 // envoie l'email avec un lien vers un formulaire de ré-init
-const utilisateurMotDePasseEmailEnvoyer = async ({
+const utilisateurMotDePasseMessageEnvoyer = async ({
   email
 }: {
   email: string
@@ -642,7 +644,9 @@ const utilisateurMotDePasseEmailEnvoyer = async ({
       throw new Error('aucun utilisateur enregistré avec cette adresse email')
     }
 
-    const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET!)
+    const token = jwt.sign({ id: utilisateur.id }, process.env.JWT_SECRET!, {
+      expiresIn: '15m'
+    })
 
     const url = `${process.env.UI_URL}/mot-de-passe?token=${token}`
 
@@ -721,6 +725,115 @@ const utilisateurMotDePasseInitialiser = async (
   }
 }
 
+/**
+ * envoie un email de vérification pour mettre à jour l’email de l’utilisateur
+ * @param email - nouvel email de l’utilisateur
+ * @param context
+ */
+const utilisateurEmailMessageEnvoyer = async (
+  { email }: { email: string },
+  context: IToken
+) => {
+  try {
+    if (!emailCheck(email)) {
+      throw new Error('adresse email invalide')
+    }
+
+    if (!context.user) {
+      throw new Error('droits insuffisants')
+    }
+
+    const user = await userGet(context.user?.id)
+    if (!user) {
+      throw new Error('utilisateur inconnu')
+    }
+
+    const userExistant = await userByEmailGet(email)
+    if (userExistant) {
+      throw new Error(
+        'un utilisateur est déjà enregistré avec cette adresse email'
+      )
+    }
+
+    const token = jwt.sign({ id: user.id, email }, process.env.JWT_SECRET!, {
+      expiresIn: '15m'
+    })
+
+    const url = `${process.env.UI_URL}/email?token=${token}`
+
+    const subject = `Vérification de votre nouvel email`
+    const html = `<p>Pour valider votre nouvel email, <a href="${url}">cliquez ici</a> (lien valable 15 minutes).</p>`
+
+    emailSend(email, subject, html)
+
+    return 'email envoyé'
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+/**
+ * modifie l’email de l’utilisateur
+ * @param context - context qui contient l’id et le nouvel email de l’utilisateur
+ */
+const utilisateurEmailModifier = async (
+  { emailToken }: { emailToken: string },
+  context: IToken
+) => {
+  try {
+    if (!context.user || !context.user.id) {
+      throw new Error('aucun utilisateur identifié')
+    }
+
+    let emailTokenDecoded: { id: string; email: string }
+    try {
+      emailTokenDecoded = jwt.verify(emailToken, process.env.JWT_SECRET!) as {
+        id: string
+        email: string
+      }
+    } catch (e) {
+      throw new Error('lien expiré')
+    }
+
+    if (context.user.id !== emailTokenDecoded.id) {
+      throw new Error('droits insuffisants')
+    }
+
+    const utilisateur = await utilisateurGet(
+      context.user.id,
+      {},
+      context.user?.id
+    )
+
+    if (!utilisateur) {
+      throw new Error('aucun utilisateur enregistré avec cet id')
+    }
+
+    const utilisateurUpdated = await utilisateurUpsert(
+      {
+        id: context.user.id,
+        email: emailTokenDecoded.email
+      } as IUtilisateur,
+      {}
+    )
+
+    return {
+      ...userTokensCreate(utilisateurUpdated),
+      utilisateur: userFormat(utilisateurUpdated)
+    }
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const userTokensCreate = ({ id, email }: IUtilisateur) => {
   const refreshToken = jwt.sign({ id, email }, process.env.JWT_SECRET_REFRESH!)
 
@@ -741,10 +854,12 @@ export {
   utilisateurCerbereUrlObtenir,
   utilisateurCerbereTokenCreer,
   utilisateurCreer,
-  utilisateurCreationEmailEnvoyer,
+  utilisateurCreationMessageEnvoyer,
   utilisateurModifier,
   utilisateurSupprimer,
   utilisateurMotDePasseModifier,
-  utilisateurMotDePasseEmailEnvoyer,
-  utilisateurMotDePasseInitialiser
+  utilisateurMotDePasseMessageEnvoyer,
+  utilisateurMotDePasseInitialiser,
+  utilisateurEmailMessageEnvoyer,
+  utilisateurEmailModifier
 }
