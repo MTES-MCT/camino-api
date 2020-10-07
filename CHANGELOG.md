@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.54](https://github.com/MTES-MCT/camino-api/compare/v0.24.53...v0.24.54) (2020-10-07)
+
+
+### Features
+
+* vérifie qu'un justificatif n'est pas lié à une étape pour le supprimer ([#546](https://github.com/MTES-MCT/camino-api/issues/546)) ([1abb5d7](https://github.com/MTES-MCT/camino-api/commit/1abb5d78efe9a2415f13080216885255cacf2dfc))
+
+
+### Bug Fixes
+
+* **authentification:** corrige la gestion des erreurs si le jeton est expiré ([#548](https://github.com/MTES-MCT/camino-api/issues/548)) ([df00471](https://github.com/MTES-MCT/camino-api/commit/df00471f340a6aa6d94d89b86740955a0e0fa66e))
+* **étapes:** prend en compte les dates de fin d’étape si on a pas de date de demande ([#542](https://github.com/MTES-MCT/camino-api/issues/542)) ([b8b3c53](https://github.com/MTES-MCT/camino-api/commit/b8b3c530fd2729ef0ef80c841c4526dad235c086))
+* **forêts:** utilise la bonne relation pour exporter les forêts ([#544](https://github.com/MTES-MCT/camino-api/issues/544)) ([a142eaa](https://github.com/MTES-MCT/camino-api/commit/a142eaaf66e6024b5b28134be91df4f98fff5fa2))
+* **utilisateur:** vérifie la nouvelle adresse email lors de sa modification ([#551](https://github.com/MTES-MCT/camino-api/issues/551)) ([85c9f47](https://github.com/MTES-MCT/camino-api/commit/85c9f47208bd5aae4dc7768fbec9aa4f95db5552))
+
 ### [0.24.53](https://github.com/MTES-MCT/camino-api/compare/v0.24.52...v0.24.53) (2020-09-29)
 
 
