@@ -108,7 +108,6 @@ const titreGet = async (
   userId?: string
 ) => {
   const user = await userGet(userId)
-
   const q = titresQueryBuild({}, { fields }, user)
 
   const titre = (await q.findById(id)) as ITitre
@@ -353,7 +352,7 @@ const titreCreate = async (
   }
 
   return Titres.query()
-    .insertGraph(titre)
+    .insertGraph(titre, options.titres.update)
     .withGraphFetched(options.titres.graph)
 }
 

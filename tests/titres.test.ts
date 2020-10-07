@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
+import { administrations } from './__mocks__/administrations'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
 
@@ -35,9 +36,7 @@ describe('titreCreer', () => {
   test("ne peut pas créer un titre (un utilisateur 'entreprise')", async () => {
     const res = await graphQLCall(
       titreCreerQuery,
-      {
-        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-      },
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'entreprise'
     )
 
@@ -47,31 +46,22 @@ describe('titreCreer', () => {
   test("crée un titre (un utilisateur 'super')", async () => {
     const res = await graphQLCall(
       titreCreerQuery,
-      {
-        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-      },
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'super'
     )
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        titreCreer: {
-          id: 'm-ar-titre-0000',
-          nom: 'titre'
-        }
-      }
+      data: { titreCreer: { id: 'm-ar-titre-0000', nom: 'titre' } }
     })
   })
 
   test("ne peut pas créer un titre AXM (un utilisateur 'admin' PTMG)", async () => {
     const res = await graphQLCall(
       titreCreerQuery,
-      {
-        titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' }
-      },
+      { titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -82,21 +72,14 @@ describe('titreCreer', () => {
   test("crée un titre ARM (un utilisateur 'admin' PTMG)", async () => {
     const res = await graphQLCall(
       titreCreerQuery,
-      {
-        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-      },
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        titreCreer: {
-          id: 'm-ar-titre-0000',
-          nom: 'titre'
-        }
-      }
+      data: { titreCreer: { id: 'm-ar-titre-0000', nom: 'titre' } }
     })
   })
 })
@@ -112,7 +95,11 @@ describe('titreModifier', () => {
         id,
         nom: 'mon titre',
         domaineId: 'm',
-        typeId: 'arm'
+        typeId: 'arm',
+        administrationsGestionnaires: [
+          administrations.ptmg,
+          administrations.dealGuyane
+        ]
       },
       {},
       'super'
@@ -165,7 +152,7 @@ describe('titreModifier', () => {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body).toMatchObject({
@@ -185,7 +172,11 @@ describe('titreModifier', () => {
         nom: 'mon titre échu',
         domaineId: 'm',
         typeId: 'arm',
-        statutId: 'ech'
+        statutId: 'ech',
+        administrationsGestionnaires: [
+          administrations.ptmg,
+          administrations.dealGuyane
+        ]
       },
       {},
       'super'
@@ -202,7 +193,7 @@ describe('titreModifier', () => {
         }
       },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -217,7 +208,7 @@ describe('titreModifier', () => {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
       'admin',
-      'dea-guyane-01'
+      administrations.dealGuyane
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -233,50 +224,25 @@ describe('titreSupprimer', () => {
 
   beforeEach(async () => {
     await titreCreate(
-      {
-        id,
-        nom: 'mon titre',
-        domaineId: 'm',
-        typeId: 'arm'
-      },
+      { id, nom: 'mon titre', domaineId: 'm', typeId: 'arm' },
       {},
       'super'
     )
   })
 
   test('ne peut pas supprimer un titre (utilisateur anonyme)', async () => {
-    const res = await graphQLCall(titreSupprimerQuery, {
-      id
-    })
+    const res = await graphQLCall(titreSupprimerQuery, { id })
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
 
   test('peut supprimer un titre (utilisateur super)', async () => {
-    const res = await graphQLCall(
-      titreSupprimerQuery,
-      {
-        id
-      },
-      'super'
-    )
+    const res = await graphQLCall(titreSupprimerQuery, { id }, 'super')
 
-    expect(res.body).toMatchObject({
-      data: {
-        titreSupprimer: {
-          id
-        }
-      }
-    })
+    expect(res.body).toMatchObject({ data: { titreSupprimer: { id } } })
   })
 
   test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {
-    const res = await graphQLCall(
-      titreSupprimerQuery,
-      {
-        id: 'toto'
-      },
-      'super'
-    )
+    const res = await graphQLCall(titreSupprimerQuery, { id: 'toto' }, 'super')
 
     expect(res.body.errors[0].message).toMatch(/aucun titre avec cet id/)
   })

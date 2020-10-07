@@ -20,7 +20,7 @@ jest.mock('../utils/titre-validite-periode-check', () => ({
 
 const titreValiditePeriodeCheckMock = mocked(titreValiditePeriodeCheck, true)
 
-describe.only("construction des activités d'un titre", () => {
+describe("construction des activités d'un titre", () => {
   test("ne crée pas d'activité si la fin de la période est dans le futur", () => {
     titreValiditePeriodeCheckMock.default.mockReturnValue(true)
 

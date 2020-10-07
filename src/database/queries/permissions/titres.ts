@@ -77,17 +77,27 @@ const titrePermissionQueryBuild = (
 ) => {
   q.select('titres.*')
 
-  // titres publics
-  if (!user || permissionCheck(user?.permissionId, ['entreprise', 'defaut'])) {
+  const administrationMinistereCheck = user?.administrations?.some(
+    a => a.type?.id === 'min'
+  )
+
+  // les titres non-publics sont visibles uniquement
+  // - pour les `super`
+  // - les utilisateurs reliés à une administration `ministère`
+  if (
+    !user ||
+    permissionCheck(user?.permissionId, ['entreprise', 'defaut']) ||
+    (permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+      !administrationMinistereCheck)
+  ) {
     q.where(b => {
       b.where('titres.publicLecture', true)
 
-      // titre de l'entreprise
+      // si l'utilisateur est `entreprise`
       if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
-        // si l'utilisateur est `entreprise`,
         // titres dont il est titulaire ou amodiataire
         const entreprisesIds = user.entreprises.map(e => e.id)
 
@@ -95,7 +105,7 @@ const titrePermissionQueryBuild = (
           c.where('titres.entreprisesLecture', true)
 
           c.where(d => {
-            d.orWhereExists(
+            d.whereExists(
               (Titres.relatedQuery('titulaires') as QueryBuilder<
                 Entreprises,
                 Entreprises | Entreprises[]
@@ -108,6 +118,32 @@ const titrePermissionQueryBuild = (
               >).whereIn('amodiataires.id', entreprisesIds)
             )
           })
+        })
+      }
+
+      // si l'utilisateur est `administration`
+      else if (
+        permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+        user?.administrations?.length
+      ) {
+        // titres dont il est administrationsGestionnaire ou administrationsLocale
+        const administrationsIds = user.administrations.map(a => a.id)
+
+        b.orWhere(c => {
+          c.whereExists(
+            (Titres.relatedQuery(
+              'administrationsGestionnaires'
+            ) as QueryBuilder<
+              Entreprises,
+              Entreprises | Entreprises[]
+            >).whereIn('administrationsGestionnaires.id', administrationsIds)
+          )
+          c.orWhereExists(
+            (Titres.relatedQuery('administrationsLocales') as QueryBuilder<
+              Entreprises,
+              Entreprises | Entreprises[]
+            >).whereIn('administrationsLocales.id', administrationsIds)
+          )
         })
       }
     })

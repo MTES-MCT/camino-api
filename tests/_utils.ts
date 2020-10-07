@@ -23,17 +23,14 @@ const graphQLCall = async (
   query: string,
   variables: unknown,
   permissionId?: IPermissionId,
-  administrationId?: string
+  administration?: IAdministration
 ) => {
   let token
   if (permissionId) {
-    token = await tokenUserGenerate(permissionId, administrationId)
+    token = await tokenUserGenerate(permissionId, administration)
   }
 
-  const req = request(app).post('/').send({
-    query,
-    variables
-  })
+  const req = request(app).post('/').send({ query, variables })
 
   if (token) {
     req.set('Authorization', `Bearer ${token}`)
@@ -44,17 +41,16 @@ const graphQLCall = async (
 
 const tokenUserGenerate = async (
   permissionId: IPermissionId,
-  administrationId?: string
+  administration?: IAdministration
 ) => {
   const id = permissionId !== 'super' ? `${permissionId}-user` : 'super'
-
   const userInDb = await utilisateurGet(id, undefined, 'super')
+
   if (!userInDb) {
     const administrations = []
-    if (administrationId) {
-      administrations.push(({
-        id: administrationId
-      } as unknown) as IAdministration)
+
+    if (administration) {
+      administrations.push(administration)
     }
 
     await utilisateurCreate(

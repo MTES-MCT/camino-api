@@ -257,7 +257,7 @@ const titresEtapesAreasUpdate = async (
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
   if (!geoAreasApiTestResult) {
-    console.warn('communesGeojsonApi injoignable')
+    console.error('communesGeojsonApi injoignable')
 
     return { titresCommunes: [[], [], []], titresForets: [[], [], []] }
   }

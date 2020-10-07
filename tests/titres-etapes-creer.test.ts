@@ -6,6 +6,7 @@ import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
+import { administrations } from './__mocks__/administrations'
 const each = require('jest-each').default
 
 console.info = jest.fn()
@@ -31,7 +32,11 @@ async function demarcheCreate() {
       id: 'titre-arm-id',
       nom: 'mon titre',
       domaineId: 'm',
-      typeId: 'arm'
+      typeId: 'arm',
+      administrationsGestionnaires: [
+        administrations.ptmg,
+        administrations.dealGuyane
+      ]
     },
     {},
     'super'
@@ -56,14 +61,7 @@ describe('etapeCreer', () => {
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(
         etapeCreerQuery,
-        {
-          etape: {
-            typeId: '',
-            statutId: '',
-            titreDemarcheId: '',
-            date: ''
-          }
-        },
+        { etape: { typeId: '', statutId: '', titreDemarcheId: '', date: '' } },
         permissionId
       )
 
@@ -74,14 +72,7 @@ describe('etapeCreer', () => {
   test('ne peut pas créer une étape sur une démarche inexistante (utilisateur super)', async () => {
     const res = await graphQLCall(
       etapeCreerQuery,
-      {
-        etape: {
-          typeId: '',
-          statutId: '',
-          titreDemarcheId: '',
-          date: ''
-        }
-      },
+      { etape: { typeId: '', statutId: '', titreDemarcheId: '', date: '' } },
       'admin'
     )
 
@@ -92,14 +83,7 @@ describe('etapeCreer', () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
-      {
-        etape: {
-          typeId: 'mfr',
-          statutId: 'fai',
-          titreDemarcheId,
-          date: ''
-        }
-      },
+      { etape: { typeId: 'mfr', statutId: 'fai', titreDemarcheId, date: '' } },
       'super'
     )
 
@@ -111,16 +95,9 @@ describe('etapeCreer', () => {
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      {
-        etape: {
-          typeId: 'acg',
-          statutId: 'fai',
-          titreDemarcheId,
-          date: ''
-        }
-      },
+      { etape: { typeId: 'acg', statutId: 'fai', titreDemarcheId, date: '' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -133,14 +110,7 @@ describe('etapeCreer', () => {
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      {
-        etape: {
-          typeId: 'acg',
-          statutId: 'fai',
-          titreDemarcheId,
-          date: ''
-        }
-      },
+      { etape: { typeId: 'acg', statutId: 'fai', titreDemarcheId, date: '' } },
       'super'
     )
 
@@ -151,16 +121,9 @@ describe('etapeCreer', () => {
     const titreDemarcheId = await demarcheCreate()
     const res = await graphQLCall(
       etapeCreerQuery,
-      {
-        etape: {
-          typeId: 'men',
-          statutId: 'fai',
-          titreDemarcheId,
-          date: ''
-        }
-      },
+      { etape: { typeId: 'men', statutId: 'fai', titreDemarcheId, date: '' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -171,16 +134,9 @@ describe('etapeCreer', () => {
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      {
-        etape: {
-          typeId: 'ede',
-          statutId: 'fai',
-          titreDemarcheId,
-          date: ''
-        }
-      },
+      { etape: { typeId: 'ede', statutId: 'fai', titreDemarcheId, date: '' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toBe(

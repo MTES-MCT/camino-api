@@ -4,6 +4,7 @@ import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
+import { administrations } from './__mocks__/administrations'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -26,10 +27,7 @@ describe('demarcheCreer', () => {
 
   test('ne peut pas créer une démarche (utilisateur anonyme)', async () => {
     const res = await graphQLCall(demarcheCreerQuery, {
-      demarche: {
-        titreId: '',
-        typeId: ''
-      }
+      demarche: { titreId: '', typeId: '' }
     })
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
@@ -38,12 +36,7 @@ describe('demarcheCreer', () => {
   test('ne peut pas créer une démarche (utilisateur editeur)', async () => {
     const res = await graphQLCall(
       demarcheCreerQuery,
-      {
-        demarche: {
-          titreId: '',
-          typeId: ''
-        }
-      },
+      { demarche: { titreId: '', typeId: '' } },
       'editeur'
     )
 
@@ -53,9 +46,7 @@ describe('demarcheCreer', () => {
   test('peut créer une démarche (utilisateur super)', async () => {
     const resTitreCreer = await graphQLCall(
       queryImport('titre-creer'),
-      {
-        titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' }
-      },
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'super'
     )
 
@@ -63,32 +54,18 @@ describe('demarcheCreer', () => {
 
     const res = await graphQLCall(
       demarcheCreerQuery,
-      {
-        demarche: {
-          titreId,
-          typeId: 'oct'
-        }
-      },
+      { demarche: { titreId, typeId: 'oct' } },
       'super'
     )
 
     expect(res.body.errors).toBeUndefined()
-    expect(res.body).toMatchObject({
-      data: {
-        demarcheCreer: {}
-      }
-    })
+    expect(res.body).toMatchObject({ data: { demarcheCreer: {} } })
   })
 
   test('ne peut pas créer une démarche si titre inexistant (utilisateur admin)', async () => {
     const res = await graphQLCall(
       demarcheCreerQuery,
-      {
-        demarche: {
-          titreId: 'unknown',
-          typeId: 'oct'
-        }
-      },
+      { demarche: { titreId: 'unknown', typeId: 'oct' } },
       'admin'
     )
 
@@ -98,13 +75,7 @@ describe('demarcheCreer', () => {
   test('peut créer une démarche (utilisateur admin)', async () => {
     const resTitreCreer = await graphQLCall(
       queryImport('titre-creer'),
-      {
-        titre: {
-          nom: 'titre',
-          typeId: 'arm',
-          domaineId: 'm'
-        }
-      },
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'super'
     )
 
@@ -112,22 +83,13 @@ describe('demarcheCreer', () => {
 
     const res = await graphQLCall(
       demarcheCreerQuery,
-      {
-        demarche: {
-          titreId,
-          typeId: 'oct'
-        }
-      },
+      { demarche: { titreId, typeId: 'oct' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors).toBeUndefined()
-    expect(res.body).toMatchObject({
-      data: {
-        demarcheCreer: {}
-      }
-    })
+    expect(res.body).toMatchObject({ data: { demarcheCreer: {} } })
   })
 
   test("ne peut pas créer une démarche sur un titre ARM échu (un utilisateur 'admin' PTMG)", async () => {
@@ -137,7 +99,8 @@ describe('demarcheCreer', () => {
         nom: 'mon titre échu',
         domaineId: 'm',
         typeId: 'arm',
-        statutId: 'ech'
+        statutId: 'ech',
+        administrationsGestionnaires: [administrations.ptmg]
       },
       {},
       'super'
@@ -145,14 +108,9 @@ describe('demarcheCreer', () => {
 
     const res = await graphQLCall(
       demarcheCreerQuery,
-      {
-        demarche: {
-          titreId: 'titre-arm-echu',
-          typeId: 'oct'
-        }
-      },
+      { demarche: { titreId: 'titre-arm-echu', typeId: 'oct' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -166,11 +124,7 @@ describe('demarcheModifier', () => {
 
   test('ne peut pas modifier une démarche (utilisateur anonyme)', async () => {
     const res = await graphQLCall(demarcheModifierQuery, {
-      demarche: {
-        id: 'toto',
-        titreId: '',
-        typeId: ''
-      }
+      demarche: { id: 'toto', titreId: '', typeId: '' }
     })
 
     expect(res.body.errors[0].message).toBe('droits insuffisants')
@@ -179,13 +133,7 @@ describe('demarcheModifier', () => {
   test('ne peut pas modifier une démarche (utilisateur editeur)', async () => {
     const res = await graphQLCall(
       demarcheModifierQuery,
-      {
-        demarche: {
-          id: 'toto',
-          titreId: '',
-          typeId: ''
-        }
-      },
+      { demarche: { id: 'toto', titreId: '', typeId: '' } },
       'editeur'
     )
 
@@ -197,13 +145,7 @@ describe('demarcheModifier', () => {
 
     const res = await graphQLCall(
       demarcheModifierQuery,
-      {
-        demarche: {
-          id: demarcheId,
-          titreId,
-          typeId: 'pro'
-        }
-      },
+      { demarche: { id: demarcheId, titreId, typeId: 'pro' } },
       'super'
     )
 
@@ -214,13 +156,7 @@ describe('demarcheModifier', () => {
   test('ne peut pas modifier une démarche avec un titre inexistant (utilisateur super)', async () => {
     const res = await graphQLCall(
       demarcheModifierQuery,
-      {
-        demarche: {
-          id: 'toto',
-          titreId: '',
-          typeId: ''
-        }
-      },
+      { demarche: { id: 'toto', titreId: '', typeId: '' } },
       'super'
     )
 
@@ -232,15 +168,9 @@ describe('demarcheModifier', () => {
 
     const res = await graphQLCall(
       demarcheModifierQuery,
-      {
-        demarche: {
-          id: demarcheId,
-          titreId: titreId,
-          typeId: 'pro'
-        }
-      },
+      { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -252,15 +182,9 @@ describe('demarcheModifier', () => {
 
     const res = await graphQLCall(
       demarcheModifierQuery,
-      {
-        demarche: {
-          id: demarcheId,
-          titreId: titreId,
-          typeId: 'pro'
-        }
-      },
+      { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
       'admin',
-      'dea-guyane-01'
+      administrations.dealGuyane
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -283,9 +207,7 @@ describe('demarcheSupprimer', () => {
   test('ne peut pas supprimer une démarche (utilisateur admin)', async () => {
     const res = await graphQLCall(
       demarcheSupprimerQuery,
-      {
-        id: 'toto'
-      },
+      { id: 'toto' },
       'admin'
     )
 
@@ -295,9 +217,7 @@ describe('demarcheSupprimer', () => {
   test('ne peut pas supprimer une démarche inexistante (utilisateur super)', async () => {
     const res = await graphQLCall(
       demarcheSupprimerQuery,
-      {
-        id: 'toto'
-      },
+      { id: 'toto' },
       'super'
     )
 
@@ -308,9 +228,7 @@ describe('demarcheSupprimer', () => {
     const { demarcheId } = await demarcheCreate()
     const res = await graphQLCall(
       demarcheSupprimerQuery,
-      {
-        id: demarcheId
-      },
+      { id: demarcheId },
       'super'
     )
 
@@ -321,12 +239,17 @@ describe('demarcheSupprimer', () => {
 
 const demarcheCreate = async () => {
   const titreId = 'titre-arm-id'
+
   await titreCreate(
     {
       id: titreId,
       nom: 'mon titre',
       domaineId: 'm',
-      typeId: 'arm'
+      typeId: 'arm',
+      administrationsGestionnaires: [
+        administrations.ptmg,
+        administrations.dealGuyane
+      ]
     },
     {},
     'super'
@@ -334,12 +257,7 @@ const demarcheCreate = async () => {
 
   const resDemarchesCreer = await graphQLCall(
     queryImport('titres-demarches-creer'),
-    {
-      demarche: {
-        titreId,
-        typeId: 'oct'
-      }
-    },
+    { demarche: { titreId, typeId: 'oct' } },
     'super'
   )
 

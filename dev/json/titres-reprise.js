@@ -109,11 +109,11 @@ async function main() {
 
   for (const entreprise of entreprisesReprise) {
     if (!entreprisesCaminoIndex[entreprise.id]) {
-      console.warn(`upserting ${entreprise.id} in Camino`)
+      console.info(`upserting ${entreprise.id} in Camino`)
 
       await entrepriseUpsert(entreprise)
     } else {
-      console.warn(`${entreprise.id} existe déjà dans Camino !`)
+      console.info(`${entreprise.id} existe déjà dans Camino !`)
     }
   }
 
@@ -123,20 +123,20 @@ async function main() {
     console.info('reperise:', titre.id, titre.references[0].nom)
 
     if (titresRepriseIndexId[titre.id].length > 1) {
-      console.warn(`id [${titre.id}] dupliquée !`)
+      console.info(`id [${titre.id}] dupliquée !`)
 
       // break
       continue
     }
 
     if (titresCaminoIndexId[titre.id]) {
-      console.warn(`id [${titre.id}] existe déjà dans Camino !`)
+      console.info(`id [${titre.id}] existe déjà dans Camino !`)
 
       continue
     }
 
     if (titresCaminoIndexDeal[titre.references[0].nom]) {
-      console.warn(`ref [${titre.references[0].nom}] existe déjà dans Camino !`)
+      console.info(`ref [${titre.references[0].nom}] existe déjà dans Camino !`)
 
       continue
     }

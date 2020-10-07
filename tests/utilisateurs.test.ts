@@ -66,11 +66,7 @@ describe('utilisateurModifier', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        utilisateurModifier: {
-          id: 'test'
-        }
-      }
+      data: { utilisateurModifier: { id: 'test' } }
     })
   })
 })
@@ -113,11 +109,7 @@ describe('utilisateursCreer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+      data: { utilisateurCreer: { prenom: 'toto' } }
     })
   })
 
@@ -181,11 +173,7 @@ describe('utilisateursCreer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+      data: { utilisateurCreer: { prenom: 'toto' } }
     })
   })
 
@@ -239,11 +227,7 @@ describe('utilisateursCreer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        utilisateurCreer: {
-          prenom: 'test'
-        }
-      }
+      data: { utilisateurCreer: { prenom: 'test' } }
     })
   })
 
@@ -268,10 +252,7 @@ describe('utilisateursCreer', () => {
   })
 
   test("peut être associé à une entreprise (utilisateur 'entreprise')", async () => {
-    await knex('entreprises').insert({
-      id: 'entreprise',
-      nom: 'entre'
-    })
+    await knex('entreprises').insert({ id: 'entreprise', nom: 'entre' })
 
     const res = await graphQLCall(
       utilisateurCreerQuery,
@@ -290,11 +271,7 @@ describe('utilisateursCreer', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        utilisateurCreer: {
-          prenom: 'toto'
-        }
-      }
+      data: { utilisateurCreer: { prenom: 'toto' } }
     })
   })
 })
@@ -303,9 +280,7 @@ describe('utilisateurSupprimer', () => {
   const utilisateurSupprimerQuery = queryImport('utilisateur-supprimer')
 
   test('ne peut pas supprimer un compte (utilisateur anonyme)', async () => {
-    const res = await graphQLCall(utilisateurSupprimerQuery, {
-      id: 'test'
-    })
+    const res = await graphQLCall(utilisateurSupprimerQuery, { id: 'test' })
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
@@ -326,19 +301,13 @@ describe('utilisateurSupprimer', () => {
       .post('/')
       .send({
         query: utilisateurSupprimerQuery,
-        variables: {
-          id: 'test'
-        }
+        variables: { id: 'test' }
       })
       .set('Authorization', `Bearer ${token}`)
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body).toMatchObject({
-      data: {
-        utilisateurSupprimer: {
-          id: 'test'
-        }
-      }
+      data: { utilisateurSupprimer: { id: 'test' } }
     })
   })
 
@@ -353,29 +322,15 @@ describe('utilisateurSupprimer', () => {
       permissionId: 'defaut'
     })
 
-    const res = await graphQLCall(
-      utilisateurSupprimerQuery,
-      {
-        id
-      },
-      'super'
-    )
+    const res = await graphQLCall(utilisateurSupprimerQuery, { id }, 'super')
 
-    expect(res.body).toMatchObject({
-      data: {
-        utilisateurSupprimer: {
-          id
-        }
-      }
-    })
+    expect(res.body).toMatchObject({ data: { utilisateurSupprimer: { id } } })
   })
 
   test('ne peut pas supprimer un utilisateur inexistant (utilisateur super)', async () => {
     const res = await graphQLCall(
       utilisateurSupprimerQuery,
-      {
-        id: 'toto'
-      },
+      { id: 'toto' },
       'super'
     )
 
@@ -398,9 +353,7 @@ describe('utilisateurEmailModifier', () => {
   test('ne peut pas modifier l’email d’un autre utilisateur', async () => {
     const res = await graphQLCall(
       utilisateurEmailModifierQuery,
-      {
-        emailToken
-      },
+      { emailToken },
       'super'
     )
 
@@ -422,9 +375,7 @@ describe('utilisateurEmailModifier', () => {
       .post('/')
       .send({
         query: utilisateurEmailModifierQuery,
-        variables: {
-          emailToken
-        }
+        variables: { emailToken }
       })
       .set('Authorization', `Bearer ${token}`)
 
