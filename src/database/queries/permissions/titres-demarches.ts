@@ -8,11 +8,11 @@ import TitresEtapes from '../../models/titres-etapes'
 import TitresDemarches from '../../models/titres-demarches'
 
 import { titreEtapesPermissionQueryBuild } from './titres-etapes'
-import { titrePermissionQueryBuild } from './titres'
 import {
-  titresModificationQueryBuild,
-  etapesTypesModificationQueryBuild
-} from './metas'
+  titrePermissionQueryBuild,
+  titresModificationQueryBuild
+} from './titres'
+import { etapesTypesModificationQueryBuild } from './metas'
 
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,

@@ -1,4 +1,4 @@
-import { IUtilisateur, IFields } from '../../../types'
+import { IUtilisateur, IFields, IAdministration } from '../../../types'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -8,6 +8,7 @@ import TitresDemarches from '../../models/titres-demarches'
 import TitresTravaux from '../../models/titres-travaux'
 import TitresActivites from '../../models/titres-activites'
 
+import Administrations from '../../models/administrations'
 import Entreprises from '../../models/entreprises'
 
 import {
@@ -17,7 +18,57 @@ import {
 } from './titres-activites'
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titreTravauxPermissionQueryBuild } from './titres-travaux'
-import { titresModificationQueryBuild } from './metas'
+
+const titresRestrictionsAdministrationQueryBuild = (
+  administrations: IAdministration[],
+  type: 'titres' | 'demarches' | 'etapes'
+) => {
+  const administrationsIds = administrations.map(a => a.id) || []
+  const administrationsIdsReplace = administrationsIds.map(() => '?')
+
+  const restrictionsQuery = Administrations.query()
+    // l'utilisateur fait partie d'une administrations
+    // qui a les droits sur le type de titre
+    .join(
+      'a__titresTypes__administrations as a_t_a',
+      raw(`?? = ?? and ?? = ?? and ?? in (${administrationsIdsReplace})`, [
+        'a_t_a.administrationId',
+        'administrations.id',
+        'a_t_a.titreTypeId',
+        'titresModification.typeId',
+        'administrations.id',
+        ...administrationsIds
+      ])
+    )
+    // l'utilisateur est dans au moins une administration
+    // qui n'a pas de restriction '${type}ModificationInterdit' sur ce type / statut de titre
+    .leftJoin(
+      'r__titresTypes__titresStatuts__administrations as r_t_s_a',
+      raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
+        'r_t_s_a.administrationId',
+        'administrations.id',
+        'r_t_s_a.titreTypeId',
+        'titresModification.typeId',
+        'r_t_s_a.titreStatutId',
+        'titresModification.statutId',
+        `r_t_s_a.${type}ModificationInterdit`
+      ])
+    )
+    .whereNull('r_t_s_a.administrationId')
+
+  return restrictionsQuery
+}
+
+const titresModificationQueryBuild = (
+  administrations: IAdministration[],
+  type: 'titres' | 'demarches'
+) =>
+  Titres.query()
+    .alias('titresModification')
+    .select(raw('true'))
+    .whereExists(
+      titresRestrictionsAdministrationQueryBuild(administrations, type)
+    )
 
 const titrePermissionQueryBuild = (
   q: QueryBuilder<Titres, Titres | Titres[]>,
@@ -137,4 +188,8 @@ const titrePermissionQueryBuild = (
   return q
 }
 
-export { titrePermissionQueryBuild }
+export {
+  titrePermissionQueryBuild,
+  titresModificationQueryBuild,
+  titresRestrictionsAdministrationQueryBuild
+}

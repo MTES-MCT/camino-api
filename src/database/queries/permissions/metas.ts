@@ -14,52 +14,16 @@ import EtapesTypes from '../../models/etapes-types'
 import Titres from '../../models/titres'
 import TitresDemarches from '../../models/titres-demarches'
 import TitresEtapes from '../../models/titres-etapes'
-import Administrations from '../../models/administrations'
 import TitresTypesDemarchesTypesEtapesTypes from '../../models/titres-types--demarches-types-etapes-types'
 import TitresActivites from '../../models/titres-activites'
 import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
 import TitresTravaux from '../../models/titres-travaux'
 
-const titresRestrictionsAdministrationQueryBuild = (
-  administrations: IAdministration[],
-  type: 'titres' | 'demarches' | 'etapes'
-) => {
-  const administrationsIds = administrations.map(a => a.id) || []
-  const administrationsIdsReplace = administrationsIds.map(() => '?')
-
-  const restrictionsQuery = Administrations.query()
-    // l'utilisateur fait partie d'une administrations
-    // qui a les droits sur le type de titre
-    .join(
-      'a__titresTypes__administrations as a_t_a',
-      raw(`?? = ?? and ?? = ?? and ?? in (${administrationsIdsReplace})`, [
-        'a_t_a.administrationId',
-        'administrations.id',
-        'a_t_a.titreTypeId',
-        'titresModification.typeId',
-        'administrations.id',
-        ...administrationsIds
-      ])
-    )
-    // l'utilisateur est dans au moins une administration
-    // qui n'a pas de restriction '${type}ModificationInterdit' sur ce type / statut de titre
-    .leftJoin(
-      'r__titresTypes__titresStatuts__administrations as r_t_s_a',
-      raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
-        'r_t_s_a.administrationId',
-        'administrations.id',
-        'r_t_s_a.titreTypeId',
-        'titresModification.typeId',
-        'r_t_s_a.titreStatutId',
-        'titresModification.statutId',
-        `r_t_s_a.${type}ModificationInterdit`
-      ])
-    )
-    .whereNull('r_t_s_a.administrationId')
-
-  return restrictionsQuery
-}
+import {
+  titresModificationQueryBuild,
+  titresRestrictionsAdministrationQueryBuild
+} from './titres'
 
 // récupère les types d'étapes qui ont
 // - les autorisations sur le titre
@@ -105,17 +69,6 @@ const etapesTypesModificationQueryBuild = (
           ])
         )
         .whereNull('r_t_e_a.administrationId')
-    )
-
-const titresModificationQueryBuild = (
-  administrations: IAdministration[],
-  type: 'titres' | 'demarches'
-) =>
-  Titres.query()
-    .alias('titresModification')
-    .select(raw('true'))
-    .whereExists(
-      titresRestrictionsAdministrationQueryBuild(administrations, type)
     )
 
 const titresTypesPermissionsQueryBuild = (
@@ -402,7 +355,7 @@ const demarchesTypesPermissionQueryBuild = (
   q.select('demarchesTypes.*')
 
   // si titreId
-  // -> restreint aux types de démraches du type du titre
+  // -> restreint aux types de démarches du type du titre
   if (titreId) {
     q.whereExists(
       Titres.query()
@@ -485,7 +438,6 @@ export {
   etapesTypesModificationQueryBuild,
   etapesTypesPermissionQueryBuild,
   permissionsPermissionQueryBuild,
-  titresModificationQueryBuild,
   titresTypesPermissionsQueryBuild,
   travauxTypesPermissionQueryBuild,
   travauxEtapesTypesPermissionQueryBuild
