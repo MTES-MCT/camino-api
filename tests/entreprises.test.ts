@@ -71,9 +71,7 @@ describe('entrepriseCreer', () => {
 
     const res = await graphQLCall(
       entrepriseCreerQuery,
-      {
-        entreprise: { legalSiren: '729800706', paysId: 'fr' }
-      },
+      { entreprise: { legalSiren: '729800706', paysId: 'fr' } },
       'super'
     )
 
@@ -90,17 +88,13 @@ describe('entrepriseCreer', () => {
   test("ne peut pas créer une entreprise déjà existante (un utilisateur 'super')", async () => {
     await graphQLCall(
       entrepriseCreerQuery,
-      {
-        entreprise: { legalSiren: '729800706', paysId: 'fr' }
-      },
+      { entreprise: { legalSiren: '729800706', paysId: 'fr' } },
       'super'
     )
 
     const res = await graphQLCall(
       entrepriseCreerQuery,
-      {
-        entreprise: { legalSiren: '729800706', paysId: 'fr' }
-      },
+      { entreprise: { legalSiren: '729800706', paysId: 'fr' } },
       'super'
     )
 
@@ -115,9 +109,7 @@ describe('entrepriseCreer', () => {
 
     const res = await graphQLCall(
       entrepriseCreerQuery,
-      {
-        entreprise: { legalSiren: 'invalid', paysId: 'fr' }
-      },
+      { entreprise: { legalSiren: 'invalid', paysId: 'fr' } },
       'super'
     )
 
@@ -129,9 +121,7 @@ describe('entrepriseCreer', () => {
   test("ne peut pas créer une entreprise étrangère (un utilisateur 'super')", async () => {
     const res = await graphQLCall(
       entrepriseCreerQuery,
-      {
-        entreprise: { legalSiren: '729800706', paysId: 'en' }
-      },
+      { entreprise: { legalSiren: '729800706', paysId: 'en' } },
       'super'
     )
 
@@ -155,9 +145,7 @@ describe('entrepriseModifier', () => {
 
     const res = await graphQLCall(
       queryImport('entreprise-creer'),
-      {
-        entreprise: { legalSiren: '729800706', paysId: 'fr' }
-      },
+      { entreprise: { legalSiren: '729800706', paysId: 'fr' } },
       'super'
     )
 
@@ -177,17 +165,13 @@ describe('entrepriseModifier', () => {
   test("peut modifier une entreprise (un utilisateur 'super')", async () => {
     const res = await graphQLCall(
       entrepriseModifierQuery,
-      {
-        entreprise: { id: entrepriseId, email: 'toto@gmail.com' }
-      },
+      { entreprise: { id: entrepriseId, email: 'toto@gmail.com' } },
       'super'
     )
 
     expect(res.body).toMatchObject({
       data: {
-        entrepriseModifier: {
-          email: 'toto@gmail.com'
-        }
+        entrepriseModifier: { email: 'toto@gmail.com' }
       }
     })
     expect(res.body.errors).toBeUndefined()
@@ -196,9 +180,7 @@ describe('entrepriseModifier', () => {
   test("ne peut pas modifier une entreprise avec un email invalide (un utilisateur 'super')", async () => {
     const res = await graphQLCall(
       entrepriseModifierQuery,
-      {
-        entreprise: { id: entrepriseId, email: 'totogmail.com' }
-      },
+      { entreprise: { id: entrepriseId, email: 'totogmail.com' } },
       'super'
     )
 
@@ -208,9 +190,7 @@ describe('entrepriseModifier', () => {
   test("ne peut pas modifier une entreprise inexistante (un utilisateur 'super')", async () => {
     const res = await graphQLCall(
       entrepriseModifierQuery,
-      {
-        entreprise: { id: 'id-inconnu' }
-      },
+      { entreprise: { id: 'id-inconnu' } },
       'super'
     )
 
@@ -223,10 +203,7 @@ describe('entreprise', () => {
 
   test('un document d’entreprise lié à une étape est non supprimable et non modifiable (super)', async () => {
     const entrepriseId = 'entreprise-id'
-    await entrepriseUpsert({
-      id: entrepriseId,
-      nom: entrepriseId
-    })
+    await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
     const titreId = 'titre-id'
     const demarcheId = 'demarche-id'
@@ -267,17 +244,12 @@ describe('entreprise', () => {
     })
 
     await titresEtapesJustificatifsUpsert([
-      {
-        documentId,
-        titreEtapeId: etapeId
-      } as ITitreEtapeJustificatif
+      { documentId, titreEtapeId: etapeId } as ITitreEtapeJustificatif
     ])
 
     const res = await graphQLCall(
       entrepriseQuery,
-      {
-        id: entrepriseId
-      },
+      { id: entrepriseId },
       'super'
     )
 
@@ -288,10 +260,7 @@ describe('entreprise', () => {
 
   test('un document d’entreprise lié à aucune étape est supprimable et modifiable (super)', async () => {
     const entrepriseId = 'entreprise-id'
-    await entrepriseUpsert({
-      id: entrepriseId,
-      nom: entrepriseId
-    })
+    await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
     const documentId = 'document-id'
     await documentCreate({
@@ -303,9 +272,7 @@ describe('entreprise', () => {
 
     const res = await graphQLCall(
       entrepriseQuery,
-      {
-        id: entrepriseId
-      },
+      { id: entrepriseId },
       'super'
     )
 

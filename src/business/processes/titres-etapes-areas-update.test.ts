@@ -43,7 +43,7 @@ jest.mock('../../tools/api-geo/index', () => ({
 }))
 
 console.info = jest.fn()
-console.warn = jest.fn()
+console.error = jest.fn()
 
 const geoAreaGeojsonGetMocked = mocked(apiGeoGet, true)
 
@@ -285,6 +285,6 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
     expect(geoAreaGeojsonGetMocked).toHaveBeenCalled()
     expect(console.info).not.toHaveBeenCalled()
-    expect(console.warn).toHaveBeenCalled()
+    expect(console.error).toHaveBeenCalled()
   })
 })

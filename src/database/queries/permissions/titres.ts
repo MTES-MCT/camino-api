@@ -77,9 +77,9 @@ const titrePermissionQueryBuild = (
 ) => {
   q.select('titres.*')
 
-  const administrationMinistereCheck = user?.administrations
-    ?.map(a => a.typeId)
-    .includes('min')
+  const administrationMinistereCheck = user?.administrations?.some(
+    a => a.type?.id === 'min'
+  )
 
   // les titres non-publics sont visibles uniquement
   // - pour les `super`

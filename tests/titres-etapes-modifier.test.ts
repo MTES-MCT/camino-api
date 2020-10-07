@@ -2,6 +2,7 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
+import { administrations } from './__mocks__/administrations'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
@@ -32,7 +33,11 @@ async function etapeCreate() {
       id: 'titre-arm-id',
       nom: 'mon titre',
       domaineId: 'm',
-      typeId: 'arm'
+      typeId: 'arm',
+      administrationsGestionnaires: [
+        administrations.ptmg,
+        administrations.dealGuyane
+      ]
     },
     {},
     'super'
@@ -155,7 +160,7 @@ describe('etapeModifier', () => {
         }
       },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -177,7 +182,7 @@ describe('etapeModifier', () => {
         }
       },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -198,7 +203,7 @@ describe('etapeModifier', () => {
         }
       },
       'admin',
-      'ope-ptmg-973-01'
+      administrations.ptmg
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -215,9 +220,7 @@ describe('etapeSupprimer', () => {
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(
         etapeSupprimerQuery,
-        {
-          id: ''
-        },
+        { id: '' },
         permissionId
       )
 
@@ -226,13 +229,7 @@ describe('etapeSupprimer', () => {
   )
 
   test('ne peut pas supprimer une étape inexistante (utilisateur super)', async () => {
-    const res = await graphQLCall(
-      etapeSupprimerQuery,
-      {
-        id: 'toto'
-      },
-      'super'
-    )
+    const res = await graphQLCall(etapeSupprimerQuery, { id: 'toto' }, 'super')
 
     expect(res.body.errors[0].message).toBe("l'étape n'existe pas")
   })
@@ -241,9 +238,7 @@ describe('etapeSupprimer', () => {
     const { titreEtapeId } = await etapeCreate()
     const res = await graphQLCall(
       etapeSupprimerQuery,
-      {
-        id: titreEtapeId
-      },
+      { id: titreEtapeId },
       'super'
     )
 

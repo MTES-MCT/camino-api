@@ -34,9 +34,7 @@ describe('documentSupprimer', () => {
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(
         documentSupprimerQuery,
-        {
-          id: 'toto'
-        },
+        { id: 'toto' },
         permissionId
       )
 
@@ -47,9 +45,7 @@ describe('documentSupprimer', () => {
   test('ne peut pas supprimer un document inexistant (utilisateur super)', async () => {
     const res = await graphQLCall(
       documentSupprimerQuery,
-      {
-        id: 'toto'
-      },
+      { id: 'toto' },
       'super'
     )
 
@@ -58,10 +54,7 @@ describe('documentSupprimer', () => {
 
   test('peut supprimer un document d’entreprise (utilisateur super)', async () => {
     const entrepriseId = 'entreprise-id'
-    await entrepriseUpsert({
-      id: entrepriseId,
-      nom: entrepriseId
-    })
+    await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
     const documentId = 'document-id'
     await documentCreate({
@@ -73,9 +66,7 @@ describe('documentSupprimer', () => {
 
     const res = await graphQLCall(
       documentSupprimerQuery,
-      {
-        id: documentId
-      },
+      { id: documentId },
       'super'
     )
 
@@ -86,10 +77,7 @@ describe('documentSupprimer', () => {
 
   test('ne peut pas supprimer un document d’entreprise lié à une étape (utilisateur super)', async () => {
     const entrepriseId = 'entreprise-id'
-    await entrepriseUpsert({
-      id: entrepriseId,
-      nom: entrepriseId
-    })
+    await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
     const titreId = 'titre-id'
     const demarcheId = 'demarche-id'
@@ -138,9 +126,7 @@ describe('documentSupprimer', () => {
 
     const res = await graphQLCall(
       documentSupprimerQuery,
-      {
-        id: documentId
-      },
+      { id: documentId },
       'super'
     )
 
@@ -151,10 +137,7 @@ describe('documentSupprimer', () => {
 
   test('peut supprimer un document d’étape (utilisateur super)', async () => {
     const entrepriseId = 'entreprise-id'
-    await entrepriseUpsert({
-      id: entrepriseId,
-      nom: entrepriseId
-    })
+    await entrepriseUpsert({ id: entrepriseId, nom: entrepriseId })
 
     const titreId = 'titre-id'
     const demarcheId = 'demarche-id'
@@ -197,9 +180,7 @@ describe('documentSupprimer', () => {
 
     const res = await graphQLCall(
       documentSupprimerQuery,
-      {
-        id: documentId
-      },
+      { id: documentId },
       'super'
     )
 

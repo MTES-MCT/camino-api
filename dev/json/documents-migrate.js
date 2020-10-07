@@ -210,7 +210,7 @@ const entrepriseIdGet = (
   if (!entreprisesIds.length) {
     const message = `pas de titulaire ! ${etapeDocumentId}`
 
-    console.warn(message)
+    console.info(message)
 
     errors.push({ type: 'move', message })
 
@@ -220,7 +220,7 @@ const entrepriseIdGet = (
   if (entreprisesIds.length > 1) {
     const message = `plusieurs titulaires ! ${etapeDocumentId}, ${entreprisesIds}`
 
-    console.warn(message)
+    console.info(message)
 
     errors.push({ type: 'move', message })
   }

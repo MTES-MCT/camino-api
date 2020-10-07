@@ -10,7 +10,7 @@ import {
   titrePrwSansPays
 } from './__mocks__/activites-types-filter-titres'
 
-describe.only("filtre les types d'activités", () => {
+describe("filtre les types d'activités", () => {
   test("ne retourne aucun type d'activité relié à un pays sur un titre sans pays", () => {
     expect(
       activitesTypesFilter(activiteTypeMAxmPxmGuyane, titreSansPays)
