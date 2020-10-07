@@ -30,7 +30,9 @@ const titresDemarchesStatutUpdate = async (titres: ITitre[]) => {
               {
                 statutId
               },
-              { fields: { id: {} } }
+              { fields: { id: {} } },
+              'super',
+              titre
             )
 
             console.info(

@@ -41,9 +41,15 @@ const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
 
           if (Object.keys(publicUpdate).length) {
             queue.add(async () => {
-              await titreDemarcheUpdate(titreDemarche.id, publicUpdate, {
-                fields: { id: {} }
-              })
+              await titreDemarcheUpdate(
+                titreDemarche.id,
+                publicUpdate,
+                {
+                  fields: { id: {} }
+                },
+                'super',
+                titre
+              )
 
               console.info(
                 `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify(

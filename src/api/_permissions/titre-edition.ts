@@ -3,6 +3,7 @@ import { IUtilisateur } from '../../types'
 import { autorisations, restrictions } from '../../database/cache/autorisations'
 
 import { permissionCheck } from '../../tools/permission'
+import { titresModificationQueryBuild } from '../../database/queries/permissions/titres'
 
 type TypeName =
   | 'titresModificationInterdit'
@@ -81,42 +82,25 @@ const titreEtapePermissionAdministrationCheck = (
       restriction[`${etapeMode}Interdit` as ModeName]
   )
 
-const titrePermissionAdministrationsCheck = (
+const titreDemarchePermissionAdministrationsCheck = async (
   user: IUtilisateur,
   titreTypeId: string,
-  titreStatutId: string,
-  titreMode: EditionMode
-) =>
-  // vérifie qu'au moins une administration a les droits d'édition
-  // sur le type de titre pour un statut donné
-  user.administrations!.some(administration =>
-    titreTypeStatutPermissionAdministrationCheck(
-      administration.id,
-      titreTypeId,
-      titreStatutId,
-      'titres',
-      titreMode
-    )
-  )
-
-const titreDemarchePermissionAdministrationsCheck = (
-  user: IUtilisateur | undefined,
-  titreTypeId: string,
   titreStatutId: string
-) =>
-  user &&
-  (permissionCheck(user?.permissionId, ['super']) ||
-    // vérifie qu'au moins une administration a les droits d'édition
-    // sur les démarches du titre au statut donné
-    user.administrations!.some(administration =>
-      titreTypeStatutPermissionAdministrationCheck(
-        administration.id,
-        titreTypeId,
-        titreStatutId,
-        'demarches',
-        'modification'
-      )
-    ))
+) => {
+  const demarchesModificationAutorisation = await titresModificationQueryBuild(
+    user.administrations!,
+    'demarches'
+  )
+    .andWhereRaw('?? = ?', ['titresModification.typeId', titreTypeId])
+    .andWhereRaw('?? = ?', ['titresModification.statutId', titreStatutId])
+    .first()
+
+  return (
+    user &&
+    (permissionCheck(user.permissionId, ['super']) ||
+      demarchesModificationAutorisation)
+  )
+}
 
 const titreEtapePermissionAdministrationsCheck = (
   user: IUtilisateur | undefined,
@@ -140,7 +124,6 @@ const titreEtapePermissionAdministrationsCheck = (
     ))
 
 export {
-  titrePermissionAdministrationsCheck,
   titreDemarchePermissionAdministrationsCheck,
   titreEtapePermissionAdministrationsCheck
 }
