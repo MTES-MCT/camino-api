@@ -75,6 +75,14 @@
             {
               "title": "Scripts de sauvegarde et restauration",
               "source": "./docs-sources/03-architecture/03-scripts-sauvegarde-restaurations.md"
+            },
+            {
+              "title": "Scripts de déploiement",
+              "source": "./docs-sources/03-architecture/04-scripts-deploiement.md"
+            },
+            {
+              "title": "Utilisateurs",
+              "source": "./docs-sources/03-architecture/05-utilisateurs.md"
             }
           ]
         },
@@ -96,6 +104,10 @@
             {
               "title": "Fichiers",
               "source": "./docs-sources/04-deploiement/04-fichiers.md"
+            },
+            {
+              "title": "Scripts",
+              "source": "./docs-sources/04-deploiement/05-utils.md"
             }
           ]
         }
