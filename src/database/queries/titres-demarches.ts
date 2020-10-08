@@ -323,14 +323,14 @@ const titreDemarcheCreate = async (
     const titre = await titreGet(titreDemarche.titreId, {}, user.id)
     if (!titre) throw new Error("le titre n'existe pas")
 
-    if (
-      !(await titreTypeStatutPermissionAdministrationCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        'demarches'
-      ))
-    ) {
+    const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
+      user,
+      titre.typeId,
+      titre.statutId!,
+      'demarches'
+    )
+
+    if (!titreTypeStatutPermission) {
       throw new Error('droits insuffisants pour créer cette démarche')
     }
   }
@@ -363,17 +363,18 @@ const titreDemarcheUpdate = async (
   }
 
   if (permissionCheck(user?.permissionId, ['admin'])) {
-    if (
-      !(await titreTypeStatutPermissionAdministrationCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        'demarches'
-      ))
-    ) {
+    const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
+      user,
+      titre.typeId,
+      titre.statutId!,
+      'demarches'
+    )
+
+    if (!titreTypeStatutPermission) {
       throw new Error('droits insuffisants pour modifier cette démarche')
     }
   }
+
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
     : options.titresDemarches.graph

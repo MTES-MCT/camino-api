@@ -167,9 +167,7 @@ const demarcheCreer = async (
 
     const demarcheCreated = await titreDemarcheCreate(
       demarche,
-      {
-        fields: { id: {} }
-      },
+      { fields: { id: {} } },
       user?.id
     )
 
@@ -220,9 +218,7 @@ const demarcheModifier = async (
     const demarcheUpdated = await titreDemarcheUpdate(
       demarche.id,
       demarche,
-      {
-        fields: { id: {} }
-      },
+      { fields: { id: {} } },
       user.id,
       titre
     )
