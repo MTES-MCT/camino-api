@@ -147,6 +147,7 @@ const statuts = async (_: never, context: IToken) => {
     let statuts = await titresStatutsGet()
 
     if (!context.user) {
+      // TODO à faire directement en SQL pour supprimer le cache autorisations
       statuts = statuts.filter(statut =>
         autorisations.statutsIds.includes(statut.id)
       )

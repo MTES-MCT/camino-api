@@ -28,6 +28,7 @@ import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-v
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 
+// TODO à refactorer, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
   { etape }: { etape: ITitreEtape },
   context: IToken,
@@ -62,13 +63,12 @@ const etapeCreer = async (
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (
-      !titreEtapePermissionAdministrationsCheck(
+      !(await titreEtapePermissionAdministrationsCheck(
         user,
-        titre.typeId,
-        titre.statutId!,
+        titre.id,
         etape.typeId,
         'creation'
-      )
+      ))
     ) {
       throw new Error('droits insuffisants pour créer cette étape')
     }
@@ -145,13 +145,12 @@ const etapeModifier = async (
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (
-      !titreEtapePermissionAdministrationsCheck(
+      !(await titreEtapePermissionAdministrationsCheck(
         user,
-        titre.typeId,
-        titre.statutId!,
+        titre.id,
         etape.typeId,
         'modification'
-      )
+      ))
     ) {
       throw new Error('droits insuffisants pour modifier cette étape')
     }
@@ -277,13 +276,12 @@ const etapeJustificatifsAssocier = async (
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (
-      !titreEtapePermissionAdministrationsCheck(
+      !(await titreEtapePermissionAdministrationsCheck(
         user,
-        titre.typeId,
-        titre.statutId!,
+        titre.id,
         etape.typeId,
         'modification'
-      )
+      ))
     ) {
       throw new Error('droits insuffisants pour modifier cette étape')
     }
@@ -357,13 +355,12 @@ const etapeJustificatifDissocier = async (
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (
-      !titreEtapePermissionAdministrationsCheck(
+      !(await titreEtapePermissionAdministrationsCheck(
         user,
-        titre.typeId,
-        titre.statutId!,
+        titre.id,
         etape.typeId,
         'modification'
-      )
+      ))
     ) {
       throw new Error('droits insuffisants pour modifier cette étape')
     }

@@ -102,7 +102,7 @@ describe('etapeCreer', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
+      'droits insuffisants pour créer cette étape'
     )
   })
 

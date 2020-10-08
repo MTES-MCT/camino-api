@@ -1,6 +1,6 @@
-import { IUtilisateur, IFields, IAdministration } from '../../../types'
+import { IAdministration, IFields, IUtilisateur } from '../../../types'
 
-import { raw, QueryBuilder } from 'objection'
+import { QueryBuilder, raw } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
 import Titres from '../../models/titres'
@@ -12,9 +12,9 @@ import Administrations from '../../models/administrations'
 import Entreprises from '../../models/entreprises'
 
 import {
-  titreActivitesCalc,
   titreActivitePermissionQueryBuild,
-  titreActiviteQueryPropsBuild
+  titreActiviteQueryPropsBuild,
+  titreActivitesCalc
 } from './titres-activites'
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titreTravauxPermissionQueryBuild } from './titres-travaux'
@@ -61,7 +61,7 @@ const titresRestrictionsAdministrationQueryBuild = (
 
 const titresModificationQueryBuild = (
   administrations: IAdministration[],
-  type: 'titres' | 'demarches'
+  type: 'titres' | 'demarches' | 'etapes'
 ) =>
   Titres.query()
     .alias('titresModification')

@@ -20,7 +20,7 @@ import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarche
 import { titresFiltersQueryBuild } from './_titres-filters'
 import { permissionCheck } from '../../tools/permission'
 import { titreGet } from './titres'
-import { titreDemarchePermissionAdministrationsCheck } from '../../api/_permissions/titre-edition'
+import { titreTypeStatutPermissionAdministrationCheck } from '../../api/_permissions/titre-edition'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -324,10 +324,11 @@ const titreDemarcheCreate = async (
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (
-      !(await titreDemarchePermissionAdministrationsCheck(
+      !(await titreTypeStatutPermissionAdministrationCheck(
         user,
         titre.typeId,
-        titre.statutId!
+        titre.statutId!,
+        'demarches'
       ))
     ) {
       throw new Error('droits insuffisants pour créer cette démarche')
@@ -363,10 +364,11 @@ const titreDemarcheUpdate = async (
 
   if (permissionCheck(user?.permissionId, ['admin'])) {
     if (
-      !(await titreDemarchePermissionAdministrationsCheck(
+      !(await titreTypeStatutPermissionAdministrationCheck(
         user,
         titre.typeId,
-        titre.statutId!
+        titre.statutId!,
+        'demarches'
       ))
     ) {
       throw new Error('droits insuffisants pour modifier cette démarche')

@@ -178,13 +178,12 @@ const documentPermisssionsCheck = async (
     if (!titre) throw new Error("le titre n'existe pas")
 
     if (
-      !titreEtapePermissionAdministrationsCheck(
+      !(await titreEtapePermissionAdministrationsCheck(
         user,
-        titre.typeId,
-        titre.statutId!,
+        titre.id,
         etape.typeId,
         'modification'
-      )
+      ))
     ) {
       throw new Error("droits insuffisants pour modifier ce document d'étape")
     }
