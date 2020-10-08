@@ -23,17 +23,18 @@ const titreTypeStatutPermissionAdministrationCheck = async (
   titreStatutId: string,
   type: EditionType
 ) => {
-  const demarchesModificationAutorisation = await titresModificationQueryBuild(
-    user.administrations!,
-    type
-  )
-    .andWhereRaw('?? = ?', ['titresModification.typeId', titreTypeId])
-    .andWhereRaw('?? = ?', ['titresModification.statutId', titreStatutId])
-
   return (
     user &&
     (permissionCheck(user.permissionId, ['super']) ||
-      demarchesModificationAutorisation.length)
+      (user.administrations?.length &&
+        (
+          await titresModificationQueryBuild(user.administrations, type)
+            .andWhereRaw('?? = ?', ['titresModification.typeId', titreTypeId])
+            .andWhereRaw('?? = ?', [
+              'titresModification.statutId',
+              titreStatutId
+            ])
+        ).length))
   )
 }
 
@@ -45,17 +46,18 @@ const titreEtapePermissionAdministrationsCheck = async (
 ) =>
   user &&
   (permissionCheck(user?.permissionId, ['super']) ||
-    // vérifie que l'administration a les droits d'édition
-    // sur les étapes du titre au statut donné
-    (
-      await etapesTypesModificationQueryBuild(
-        user.administrations!,
-        etapeMode === 'modification'
-      )
-        .whereRaw('?? = ?', ['titresModification.id', titreId])
-        .whereRaw('?? = ?', ['t_d_e.etapeTypeId', etapeTypeId])
-        .groupBy('titresModification.typeId')
-    ).length)
+    (user.administrations?.length &&
+      // vérifie que l'administration a les droits d'édition
+      // sur les étapes du titre au statut donné
+      (
+        await etapesTypesModificationQueryBuild(
+          user.administrations,
+          etapeMode === 'modification'
+        )
+          .whereRaw('?? = ?', ['titresModification.id', titreId])
+          .whereRaw('?? = ?', ['t_d_e.etapeTypeId', etapeTypeId])
+          .groupBy('titresModification.typeId')
+      ).length))
 
 export {
   titreTypeStatutPermissionAdministrationCheck,
