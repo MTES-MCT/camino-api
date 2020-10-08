@@ -66,7 +66,8 @@ class ActivitesTypes extends Model {
         from: 'activitesTypes.id',
         through: {
           from: 'activitesTypes__administrations.activiteTypeId',
-          to: 'activitesTypes__administrations.administrationId'
+          to: 'activitesTypes__administrations.administrationId',
+          extra: ['modification']
         },
         to: 'administrations.id'
       }

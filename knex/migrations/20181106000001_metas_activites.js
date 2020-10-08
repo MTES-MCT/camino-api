@@ -50,6 +50,7 @@ exports.up = knex =>
         .index()
         .references('administrations.id')
         .onDelete('CASCADE')
+      table.boolean('modification').defaultTo(false)
       table.primary(['administrationId', 'activiteTypeId'])
     })
     .createTable('activitesTypes__documentsTypes', table => {
