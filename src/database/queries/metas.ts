@@ -34,6 +34,7 @@ import {
   travauxTypesPermissionQueryBuild,
   travauxEtapesTypesPermissionQueryBuild
 } from './permissions/metas'
+import { AutorisationsTitresTypesTitresStatuts } from '../models/autorisations'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
   const user = await userGet(userId)
@@ -67,7 +68,25 @@ const domainesGet = async (
   return q
 }
 
-const titresStatutsGet = async () => TitresStatuts.query().orderBy('ordre')
+/**
+ * retourne les statuts de titre visible par l’utilisateur
+ * @param userId - id de l’utilisateur
+ * @returns liste de statuts
+ */
+const titresStatutsGet = async (userId?: string) => {
+  let query = TitresStatuts.query().orderBy('ordre')
+  if (!userId) {
+    // si l’utilisateur n’est pas connecté on filtre les statuts non visibles pour le public
+    query = query.whereIn(
+      'id',
+      AutorisationsTitresTypesTitresStatuts.query()
+        .distinct('titreStatutId')
+        .where('publicLecture', true)
+    )
+  }
+
+  return query
+}
 
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },

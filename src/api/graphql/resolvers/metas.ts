@@ -1,28 +1,26 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IToken, IEtapeType, IDocumentRepertoire } from '../../../types'
+import { IDocumentRepertoire, IEtapeType, IToken } from '../../../types'
 import { debug } from '../../../config/index'
 
-import { autorisations } from '../../../database/cache/autorisations'
-
 import {
-  demarchesTypesGet,
-  travauxTypesGet,
+  activitesStatutsGet,
+  activitesTypesGet,
+  definitionsGet,
   demarchesStatutsGet,
+  demarchesTypesGet,
+  devisesGet,
   documentsTypesGet,
   domainesGet,
-  devisesGet,
-  etapesTypesGet,
   etapesStatutsGet,
+  etapesTypesGet,
   geoSystemesGet,
-  permissionsGet,
   permissionGet,
+  permissionsGet,
   referencesTypesGet,
   titresStatutsGet,
   titresTypesTypesGet,
-  unitesGet,
-  activitesTypesGet,
-  activitesStatutsGet,
-  definitionsGet
+  travauxTypesGet,
+  unitesGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -144,16 +142,7 @@ const types = async () => {
 
 const statuts = async (_: never, context: IToken) => {
   try {
-    let statuts = await titresStatutsGet()
-
-    if (!context.user) {
-      // TODO à faire directement en SQL pour supprimer le cache autorisations
-      statuts = statuts.filter(statut =>
-        autorisations.statutsIds.includes(statut.id)
-      )
-    }
-
-    return statuts
+    return await titresStatutsGet(context.user?.id)
   } catch (e) {
     if (debug) {
       console.error(e)
