@@ -20,7 +20,7 @@ describe("propriétés (étape) d'un titre", () => {
     titrePropEtapeIdFindMock.mockReturnValue('etape-id')
 
     const titresUpdatedRequests = await titresPropsEtapeIdUpdate([
-      ({ titulairesTitreEtapeId: null } as unknown) as ITitre
+      { titulairesTitreEtapeId: null } as ITitre
     ])
 
     expect(titresUpdatedRequests.length).toEqual(1)
@@ -31,7 +31,7 @@ describe("propriétés (étape) d'un titre", () => {
     titrePropEtapeIdFindMock.mockReturnValue(null)
 
     const titresUpdatedRequests = await titresPropsEtapeIdUpdate([
-      ({ titulairesTitreEtapeId: null } as unknown) as ITitre
+      { titulairesTitreEtapeId: null } as ITitre
     ])
 
     expect(titresUpdatedRequests.length).toEqual(0)

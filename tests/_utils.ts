@@ -2,7 +2,12 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as jwt from 'jsonwebtoken'
 
-import { IAdministration, IPermissionId, IUtilisateur } from '../src/types'
+import {
+  IAdministration,
+  Index,
+  IPermissionId,
+  IUtilisateur
+} from '../src/types'
 import * as request from 'supertest'
 import { app } from './init'
 import {
@@ -21,7 +26,7 @@ const tokenCreate = (user: Partial<IUtilisateur>) =>
 
 const graphQLCall = async (
   query: string,
-  variables: unknown,
+  variables: Index<string | Index<string | Index<string>[]>>,
   permissionId?: IPermissionId,
   administration?: IAdministration
 ) => {
@@ -54,7 +59,7 @@ const tokenUserGenerate = async (
     }
 
     await utilisateurCreate(
-      ({
+      {
         id,
         prenom: `prenom-${permissionId}`,
         nom: `nom-${permissionId}`,
@@ -62,7 +67,7 @@ const tokenUserGenerate = async (
         motDePasse: 'mot-de-passe',
         permissionId,
         administrations
-      } as unknown) as IUtilisateur,
+      } as IUtilisateur,
       {}
     )
   }

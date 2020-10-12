@@ -4,7 +4,7 @@ import contenuNumbersCheck from './utils/contenu-numbers-check'
 import propsDatesCheck from './utils/props-dates-check'
 import contenuDatesCheck from './utils/contenu-dates-check'
 
-const datePropsNames = (['date'] as unknown) as [keyof ITitreActivite]
+const datePropsNames = ['date'] as [keyof ITitreActivite]
 
 const titreActiviteInputValidate = (
   titreActivite: ITitreActivite,

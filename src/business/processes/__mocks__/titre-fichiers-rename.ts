@@ -51,21 +51,17 @@ const titreNewSansEtapes = {
   ]
 } as ITitre
 
-const titreSansDocuments = ({
+const titreSansDocuments = {
   id: 'new-titre-id',
   demarches: [
     {
       id: 'new-titre-id-demarche-01',
-      etapes: [
-        {
-          id: 'new-titre-id-demarche-01-etape-01'
-        }
-      ]
+      etapes: [{ id: 'new-titre-id-demarche-01-etape-01' }]
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreDocumentsVide = ({
+const titreDocumentsVide = {
   id: 'new-titre-id',
   demarches: [
     {
@@ -75,13 +71,11 @@ const titreDocumentsVide = ({
           id: 'new-titre-id-demarche-01-etape-01',
           documents: []
         },
-        {
-          id: 'new-titre-id-demarche-01-etape-02'
-        }
+        { id: 'new-titre-id-demarche-01-etape-02' }
       ]
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
 const titreNewDemarchesSansChangement = {
   id: 'old-titre-id',
@@ -97,9 +91,7 @@ const titreNewDemarchesSansChangement = {
               fichier: true,
               fichierTypeId: 'pdf'
             },
-            {
-              id: 'old-titre-id-demarche-01-etape-01-document-02'
-            },
+            { id: 'old-titre-id-demarche-01-etape-01-document-02' },
             {
               id: 'old-titre-id-demarche-01-etape-01-document-03',
               fichier: true,

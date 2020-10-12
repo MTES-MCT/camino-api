@@ -33,6 +33,7 @@ const titre = async (
     const fields = fieldsBuild(info)
 
     const titre = await titreGet(id, { fields }, context.user?.id)
+
     if (!titre) return null
 
     const user = context.user && (await userGet(context.user.id))

@@ -37,14 +37,14 @@ describe("dates d'un titre", () => {
     titreDateDebutFindMock.mockReturnValue(null)
     titreDateDemandeFindMock.mockReturnValue(null)
 
-    const titresDatesUpdated = await titresDatesUpdate(([
+    const titresDatesUpdated = await titresDatesUpdate([
       {
         id: 'titre-type-id',
         dateFin: '2019-01-01',
         dateDebut: null,
         dateDemande: null
       }
-    ] as unknown) as ITitre[])
+    ] as ITitre[])
 
     expect(titresDatesUpdated.length).toEqual(0)
     expect(console.info).toHaveBeenCalledTimes(0)

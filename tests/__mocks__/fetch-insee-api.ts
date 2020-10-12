@@ -3,7 +3,7 @@ import {
   IApiSirenUniteLegale
 } from '../../src/tools/api-insee/types'
 
-const entreprise = ({
+const entreprise = {
   siren: '729800706',
   nic: '00586',
   siret: '72980070600586',
@@ -18,7 +18,7 @@ const entreprise = ({
   uniteLegale: {
     etatAdministratifUniteLegale: 'A',
     statutDiffusionUniteLegale: 'O',
-    dateCreationUniteLegale: '1900-01-01',
+    dateCreationUniteLegale: new Date('1900-01-01'),
     categorieJuridiqueUniteLegale: '5599',
     denominationUniteLegale: 'PLACOPLATRE',
     sigleUniteLegale: null,
@@ -97,9 +97,9 @@ const entreprise = ({
       changementCaractereEmployeurEtablissement: false
     }
   ]
-} as unknown) as IApiSirenEtablissement
+} as IApiSirenEtablissement
 
-const entrepriseAndEtablissements = ({
+const entrepriseAndEtablissements = {
   siren: '729800706',
   statutDiffusionUniteLegale: 'O',
   dateCreationUniteLegale: '1900-01-01',
@@ -390,6 +390,6 @@ const entrepriseAndEtablissements = ({
       changementCaractereEmployeurUniteLegale: false
     }
   ]
-} as unknown) as IApiSirenUniteLegale
+} as IApiSirenUniteLegale
 
 export { entreprise, entrepriseAndEtablissements }

@@ -50,12 +50,12 @@ const login = async (ticket: string) => {
 
     const cerbereProfile = cerbereProfileFormat(attributes)
 
-    const cerbereUtilisateur = ({
+    const cerbereUtilisateur = {
       email: cerbereProfile.email,
       prenom: cerbereProfile.prenom,
       nom: cerbereProfile.nom,
       telephoneFixe: cerbereProfile.telephoneFixe
-    } as unknown) as IUtilisateur
+    } as IUtilisateur
 
     return cerbereUtilisateur
   } catch (err) {

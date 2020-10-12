@@ -32,7 +32,7 @@ describe('ordre des étapes', () => {
 
   test("ne met aucun ordre d'étape à jour (démarche sans étape)", async () => {
     const titresEtapesUpdated = await titresEtapesOrdreUpdate([
-      ({} as unknown) as ITitreDemarche
+      {} as ITitreDemarche
     ])
     expect(titresEtapesUpdated.length).toEqual(0)
     expect(titreEtapeUpdate).not.toHaveBeenCalled()

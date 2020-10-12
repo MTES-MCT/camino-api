@@ -525,7 +525,7 @@ interface ITitreActivite {
   frequencePeriodeId: number
   annee: number
   periode?: IAnnee | ITrimestre | IMois | null
-  utilisateurId: string
+  utilisateurId?: string | null
   utilisateur?: IUtilisateur | null
   dateSaisie?: string
   contenu?: IContenu | null

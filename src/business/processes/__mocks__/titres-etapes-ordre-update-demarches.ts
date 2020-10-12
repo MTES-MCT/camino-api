@@ -11,10 +11,7 @@ const titresDemarchesEtapes = [
 ] as ITitreDemarche[]
 
 const titresDemarchesEtapesVides = ([
-  {
-    etapes: [],
-    titre: { typeId: '' }
-  }
+  { etapes: [], titre: { typeId: '' } }
 ] as unknown) as ITitreDemarche[]
 
 export { titresDemarchesEtapes, titresDemarchesEtapesVides }

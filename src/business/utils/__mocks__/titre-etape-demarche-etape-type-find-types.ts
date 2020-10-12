@@ -1,8 +1,8 @@
 import { IDemarcheType } from '../../../types'
 
-const demarcheType = ({
+const demarcheType = {
   etapesTypes: [{ id: 'xxx' }],
   nom: 'demarche'
-} as unknown) as IDemarcheType
+} as IDemarcheType
 
 export { demarcheType }

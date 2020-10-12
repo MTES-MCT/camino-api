@@ -69,6 +69,29 @@ fragment titre on Titre {
   demarches {
     ...demarche
   }
+  activites {
+    ...activite
+  }
+}
+
+fragment activite on Activite {
+  id
+  type {
+    id
+    nom
+  }
+  statut {
+    id
+    nom
+    couleur
+  }
+  modification
+  dateSaisie
+  periode
+  annee
+  sections
+  contenu
+  frequencePeriodeId
 }
 
 fragment demarche on Demarche {

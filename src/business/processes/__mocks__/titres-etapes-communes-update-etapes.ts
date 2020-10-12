@@ -33,14 +33,14 @@ const commune2 = {
   surface: 4
 }
 
-const titresEtapesSansPoints = ({
+const titresEtapesSansPoints = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
   statutId: 'acc',
   ordre: 2,
   date: '1988-03-11'
-} as unknown) as ITitreEtape
+} as ITitreEtape
 
 const titresEtapesPoints = ({
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
@@ -62,7 +62,7 @@ const titresEtapesPointsMemeCommune = ({
   points: [1, 2]
 } as unknown) as ITitreEtape
 
-const titresEtapesPointsVides = ({
+const titresEtapesPointsVides = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -70,9 +70,9 @@ const titresEtapesPointsVides = ({
   ordre: 2,
   date: '1988-03-11',
   points: []
-} as unknown) as ITitreEtape
+} as ITitreEtape
 
-const titresEtapesPointsCommuneInexistante = ({
+const titresEtapesPointsCommuneInexistante = {
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
   titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
   typeId: 'dpu',
@@ -81,7 +81,7 @@ const titresEtapesPointsCommuneInexistante = ({
   date: '1988-03-11',
   points: [],
   communes: [commune1]
-} as unknown) as ITitreEtape
+} as ITitreEtape
 
 const titresEtapesPointsCommuneExistante = ({
   id: 'h-cx-courdemanges-1988-oct01-dpu01',
