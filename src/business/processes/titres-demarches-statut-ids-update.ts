@@ -10,44 +10,39 @@ const titresDemarchesStatutUpdate = async (titres: ITitre[]) => {
 
   // TODO: forcer la présence des démarches sur le titre
   // https://stackoverflow.com/questions/40510611/typescript-interface-require-one-of-two-properties-to-exist/49725198#49725198
-  const titresDemarchesUpdated = titres.reduce(
-    (titresDemarchesUpdated: string[], titre) =>
-      titre.demarches!.reduce(
-        (titresDemarchesUpdated: string[], titreDemarche) => {
-          const titreDemarcheEtapes = titreDemarche.etapes?.reverse() || []
+  const titresDemarchesUpdated = [] as string[]
 
-          const statutId = titreDemarcheStatutIdFind(
-            titreDemarche.typeId,
-            titreDemarcheEtapes,
-            titre.typeId
+  titres.forEach(titre => {
+    titre.demarches!.forEach(titreDemarche => {
+      const titreDemarcheEtapes = titreDemarche.etapes?.reverse() || []
+
+      const statutId = titreDemarcheStatutIdFind(
+        titreDemarche.typeId,
+        titreDemarcheEtapes,
+        titre.typeId
+      )
+
+      if (titreDemarche.statutId !== statutId) {
+        queue.add(async () => {
+          await titreDemarcheUpdate(
+            titreDemarche.id,
+            { statutId },
+            { fields: { id: {} } },
+            'super',
+            titre
           )
 
-          if (titreDemarche.statutId === statutId) return titresDemarchesUpdated
+          console.info(
+            `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
+              statutId
+            })}`
+          )
+        })
 
-          queue.add(async () => {
-            await titreDemarcheUpdate(
-              titreDemarche.id,
-              {
-                statutId
-              },
-              { fields: { id: {} } }
-            )
-
-            console.info(
-              `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
-                statutId
-              })}`
-            )
-
-            titresDemarchesUpdated.push(titreDemarche.id)
-          })
-
-          return titresDemarchesUpdated
-        },
-        titresDemarchesUpdated
-      ),
-    []
-  )
+        titresDemarchesUpdated.push(titreDemarche.id)
+      }
+    })
+  })
 
   await queue.onIdle()
 

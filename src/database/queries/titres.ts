@@ -330,7 +330,7 @@ type ICount = {
  *
  * @param titre - titre à créer
  * @param fields - Non utilisés
- * @param user - utilisateur
+ * @param userId - id de l’utilisateur
  * @returns le nouveau titre
  *
  */

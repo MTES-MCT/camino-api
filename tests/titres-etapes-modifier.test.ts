@@ -49,7 +49,8 @@ async function etapeCreate() {
       titreId,
       typeId: 'oct'
     },
-    {}
+    {},
+    'super'
   )
 
   const titreEtapeId = 'etape-test-id'
@@ -164,7 +165,7 @@ describe('etapeModifier', () => {
     )
 
     expect(res.body.errors[0].message).toBe(
-      'statut de l\'étape "fai" invalide pour une type d\'étape acg pour une démarche de type octroi'
+      'droits insuffisants pour modifier cette étape'
     )
   })
 

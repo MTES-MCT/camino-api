@@ -1,17 +1,13 @@
 import {
   IAutorisationTitreTypeAdministration,
   IAutorisationTitreTypeTitreStatut,
-  IRestrictionTitreTypeTitreStatutAdministration,
-  IAutorisationEtapeType,
-  IRestrictionTitreTypeEtapeTypeAdministration
+  IAutorisationEtapeType
 } from '../../types'
 
 import {
   autorisationsTitresTypesAdministrationsGet,
   autorisationsTitresTypesTitresStatutsGet,
-  restrictionsTitresTypesTitresStatutsAdministrationsGet,
-  autorisationsEtapesTypesGet,
-  restrictionsTitresTypesEtapesTypesAdministrationsGet
+  autorisationsEtapesTypesGet
 } from '../queries/autorisations'
 
 const autorisations = {
@@ -19,11 +15,6 @@ const autorisations = {
   statutsIds: [] as string[],
   typesStatuts: [] as IAutorisationTitreTypeTitreStatut[],
   titresTypesAdministrations: [] as IAutorisationTitreTypeAdministration[]
-}
-
-const restrictions = {
-  titresTypesTitresStatutsAdministrations: [] as IRestrictionTitreTypeTitreStatutAdministration[],
-  titresTypesEtapesTypesAdministrations: [] as IRestrictionTitreTypeEtapeTypeAdministration[]
 }
 
 const autorisationsInit = async () => {
@@ -44,10 +35,6 @@ const autorisationsInit = async () => {
   )
 
   autorisations.titresTypesAdministrations = await autorisationsTitresTypesAdministrationsGet()
-
-  restrictions.titresTypesTitresStatutsAdministrations = await restrictionsTitresTypesTitresStatutsAdministrationsGet()
-
-  restrictions.titresTypesEtapesTypesAdministrations = await restrictionsTitresTypesEtapesTypesAdministrationsGet()
 }
 
-export { autorisations, restrictions, autorisationsInit }
+export { autorisations, autorisationsInit }

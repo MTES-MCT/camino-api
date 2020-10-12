@@ -11,7 +11,6 @@ import { debug } from '../../../config/index'
 import fieldsBuild from './_fields-build'
 
 import { permissionCheck } from '../../../tools/permission'
-import { titreDemarchePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
 
 import { titreEtapesOrActivitesFichiersDelete } from './_titre-document'
 
@@ -166,43 +165,20 @@ const demarcheCreer = async (
   try {
     const user = context.user && (await userGet(context.user.id))
 
-    if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    if (permissionCheck(user?.permissionId, ['admin'])) {
-      const titre = await titreGet(demarche.titreId, {}, user.id)
-      if (!titre) throw new Error("le titre n'existe pas")
-
-      if (
-        !titreDemarchePermissionAdministrationsCheck(
-          user,
-          titre.typeId,
-          titre.statutId!
-        )
-      ) {
-        throw new Error('droits insuffisants pour créer cette démarche')
-      }
-    }
-
-    const rulesErrors = await titreDemarcheUpdationValidate(demarche)
-
-    if (rulesErrors.length) {
-      throw new Error(rulesErrors.join(', '))
-    }
-
-    const demarcheUpdated = await titreDemarcheCreate(demarche, {
-      fields: { id: {} }
-    })
+    const demarcheCreated = await titreDemarcheCreate(
+      demarche,
+      { fields: { id: {} } },
+      user?.id
+    )
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
-      demarcheUpdated.id,
-      demarcheUpdated.titreId
+      demarcheCreated.id,
+      demarcheCreated.titreId
     )
 
     const fields = fieldsBuild(info)
 
-    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
+    const titreUpdated = await titreGet(titreUpdatedId, { fields }, user?.id)
 
     return titreUpdated && titreFormat(user, titreUpdated)
   } catch (e) {
@@ -231,20 +207,7 @@ const demarcheModifier = async (
       { fields: { id: {} } },
       user.id
     )
-
     if (!titre) throw new Error("le titre n'existe pas")
-
-    if (permissionCheck(user?.permissionId, ['admin'])) {
-      if (
-        !titreDemarchePermissionAdministrationsCheck(
-          user,
-          titre.typeId,
-          titre.statutId!
-        )
-      ) {
-        throw new Error('droits insuffisants pour modifier cette démarche')
-      }
-    }
 
     const rulesErrors = await titreDemarcheUpdationValidate(demarche)
 
@@ -252,9 +215,13 @@ const demarcheModifier = async (
       throw new Error(rulesErrors.join(', '))
     }
 
-    const demarcheUpdated = await titreDemarcheUpdate(demarche.id, demarche, {
-      fields: { id: {} }
-    })
+    const demarcheUpdated = await titreDemarcheUpdate(
+      demarche.id,
+      demarche,
+      { fields: { id: {} } },
+      user.id,
+      titre
+    )
 
     const titreUpdatedId = await titreDemarcheUpdateTask(
       demarcheUpdated.id,
@@ -286,8 +253,6 @@ const demarcheSupprimer = async (
     if (!user || !permissionCheck(user?.permissionId, ['super'])) {
       throw new Error('droits insuffisants')
     }
-
-    // TODO: ajouter une validation ?
 
     const demarcheOld = await titreDemarcheGet(
       id,

@@ -24,7 +24,9 @@ const titresDemarchesOrdreUpdate = async (titres: ITitre[]) => {
             await titreDemarcheUpdate(
               titreDemarche.id,
               { ordre: index + 1 },
-              { fields: { id: {} } }
+              { fields: { id: {} } },
+              'super',
+              titre
             )
 
             console.info(

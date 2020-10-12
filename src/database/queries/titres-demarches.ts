@@ -5,7 +5,8 @@ import {
   IColonne,
   IFields,
   Index,
-  IUtilisateur
+  IUtilisateur,
+  ITitre
 } from '../../types'
 import { transaction, Transaction, QueryBuilder } from 'objection'
 import TitresDemarches from '../models/titres-demarches'
@@ -17,6 +18,9 @@ import { fieldTitreAdd } from './graph/fields-add'
 
 import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
 import { titresFiltersQueryBuild } from './_titres-filters'
+import { permissionCheck } from '../../tools/permission'
+import { titreGet } from './titres'
+import { titreTypeStatutPermissionAdministrationCheck } from '../../api/_permissions/titre-edition'
 
 const etapesIncluesExcluesBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches[]>,
@@ -298,10 +302,38 @@ const titreDemarcheGet = async (
   return (await q.findById(titreDemarcheId)) as ITitreDemarche
 }
 
+/**
+ * Crée une nouvelle démarche
+ * @param titreDemarche - démarche à créer
+ * @param fields
+ * @param userId - id de l’utilisateur
+ * @returns la nouvelle démarche
+ */
 const titreDemarcheCreate = async (
   titreDemarche: ITitreDemarche,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  userId?: string
 ) => {
+  const user = await userGet(userId)
+  if (!user || !permissionCheck(user?.permissionId, ['super', 'admin'])) {
+    throw new Error('droits insuffisants')
+  }
+
+  if (permissionCheck(user.permissionId, ['admin'])) {
+    const titre = await titreGet(titreDemarche.titreId, {}, user.id)
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
+      user,
+      titre.typeId,
+      titre.statutId!,
+      'demarches'
+    )
+
+    if (!titreTypeStatutPermission) {
+      throw new Error('droits insuffisants pour créer cette démarche')
+    }
+  }
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
     : options.titresDemarches.graph
@@ -320,8 +352,29 @@ const titreDemarcheDelete = async (id: string, trx?: Transaction) =>
 const titreDemarcheUpdate = async (
   id: string,
   props: Partial<ITitreDemarche>,
-  { fields }: { fields?: IFields }
+  { fields }: { fields?: IFields },
+  userId: string,
+  titre: ITitre
 ) => {
+  const user = await userGet(userId)
+
+  if (!user) {
+    throw new Error('droits insuffisants')
+  }
+
+  if (permissionCheck(user?.permissionId, ['admin'])) {
+    const titreTypeStatutPermission = await titreTypeStatutPermissionAdministrationCheck(
+      user,
+      titre.typeId,
+      titre.statutId!,
+      'demarches'
+    )
+
+    if (!titreTypeStatutPermission) {
+      throw new Error('droits insuffisants pour modifier cette démarche')
+    }
+  }
+
   const graph = fields
     ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
     : options.titresDemarches.graph

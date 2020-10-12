@@ -28,6 +28,7 @@ import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-v
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 
+// TODO à refactorer, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
   { etape }: { etape: ITitreEtape },
   context: IToken,
@@ -61,15 +62,14 @@ const etapeCreer = async (
 
     if (!titre) throw new Error("le titre n'existe pas")
 
-    if (
-      !titreEtapePermissionAdministrationsCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        etape.typeId,
-        'creation'
-      )
-    ) {
+    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
+      user,
+      titre.id,
+      etape.typeId,
+      'creation'
+    )
+
+    if (!titreEtapePermission) {
       throw new Error('droits insuffisants pour créer cette étape')
     }
 
@@ -84,6 +84,7 @@ const etapeCreer = async (
         demarche,
         titre
       )
+
       if (rulesErrors.length) {
         throw new Error(rulesErrors.join(', '))
       }
@@ -144,15 +145,14 @@ const etapeModifier = async (
     )
     if (!titre) throw new Error("le titre n'existe pas")
 
-    if (
-      !titreEtapePermissionAdministrationsCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        etape.typeId,
-        'modification'
-      )
-    ) {
+    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
+      user,
+      titre.id,
+      etape.typeId,
+      'modification'
+    )
+
+    if (!titreEtapePermission) {
       throw new Error('droits insuffisants pour modifier cette étape')
     }
 
@@ -276,15 +276,14 @@ const etapeJustificatifsAssocier = async (
     )
     if (!titre) throw new Error("le titre n'existe pas")
 
-    if (
-      !titreEtapePermissionAdministrationsCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        etape.typeId,
-        'modification'
-      )
-    ) {
+    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
+      user,
+      titre.id,
+      etape.typeId,
+      'modification'
+    )
+
+    if (!titreEtapePermission) {
       throw new Error('droits insuffisants pour modifier cette étape')
     }
 
@@ -356,15 +355,14 @@ const etapeJustificatifDissocier = async (
 
     if (!titre) throw new Error("le titre n'existe pas")
 
-    if (
-      !titreEtapePermissionAdministrationsCheck(
-        user,
-        titre.typeId,
-        titre.statutId!,
-        etape.typeId,
-        'modification'
-      )
-    ) {
+    const titreEtapePermission = await titreEtapePermissionAdministrationsCheck(
+      user,
+      titre.id,
+      etape.typeId,
+      'modification'
+    )
+
+    if (!titreEtapePermission) {
       throw new Error('droits insuffisants pour modifier cette étape')
     }
 
