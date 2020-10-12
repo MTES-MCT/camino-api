@@ -19,27 +19,9 @@ query {
   }
 }
 
-fragment type on Type {
+fragment type on TitreTypeType {
   id
   nom
-  demarchesTypes {
-    id
-    nom
-    ordre
-    duree
-    points
-    substances
-    titulaires
-    renouvelable
-    exception
-    etapesTypes {
-      id
-      nom
-      acceptationAuto
-      ordre
-      typeId
-    }
-  }
 }
 
 fragment domaine on Domaine {
@@ -47,7 +29,7 @@ fragment domaine on Domaine {
   nom
 }
 
-fragment statut on Statut {
+fragment statut on TitreStatut {
   id
   nom
   couleur
