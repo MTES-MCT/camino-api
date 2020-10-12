@@ -4,7 +4,6 @@ import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { administrations } from './__mocks__/administrations'
 import { titreWithActiviteGrp } from './__mocks__/titres'
-import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
 
 console.info = jest.fn()
@@ -12,7 +11,6 @@ console.error = jest.fn()
 
 beforeEach(async () => {
   await dbManager.populateDb()
-  await autorisationsInit()
 })
 
 afterEach(async () => {

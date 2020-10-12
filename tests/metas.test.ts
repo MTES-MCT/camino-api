@@ -2,14 +2,12 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
-import { autorisationsInit } from '../src/database/cache/autorisations'
 
 console.info = jest.fn()
 console.error = jest.fn()
 
 beforeEach(async () => {
   await dbManager.populateDb()
-  await autorisationsInit()
 })
 
 afterEach(async () => {
