@@ -5,17 +5,16 @@ import 'dotenv/config'
 import '../../src/init'
 
 import { documentsGet } from '../../src/database/queries/documents'
-
-type Index = { [id: string]: string }
+import { IDocument, Index } from '../../src/types'
 
 const etapeGet = (str: string) => str.split('-').slice(0, -1).join('-')
 
 const hashGet = (str: string) => str.split('-').pop()
 
-const matchFuzzy = (name: string, index: Index, partGet = hashGet) => {
+const matchFuzzy = (name: string, index: Index<any>, partGet = hashGet) => {
   const hash = name.split('-').pop()
 
-  return Object.keys(index).reduce((r, key) => {
+  return Object.keys(index).reduce((r: string[], key) => {
     // on ne garde pas les matches entiers pendant un fuzzy
     if (key === name) {
       return r
@@ -32,11 +31,10 @@ const matchFuzzy = (name: string, index: Index, partGet = hashGet) => {
 }
 
 const filesNoDocumentCheck = (
-  filesNames: string[],
-  documentsIndex: Index,
-  filesIndex: Index
+  documentsIndex: Index<IDocument>,
+  filesIndex: Index<string>
 ) => {
-  const filesMissing = filesNames
+  const filesMissing = Object.keys(filesIndex)
     .sort()
     .reduce(
       (
@@ -50,7 +48,7 @@ const filesNoDocumentCheck = (
       ) => {
         if (fileName && !documentsIndex[fileName]) {
           r.push({
-            name: fileName,
+            name: filesIndex[fileName],
             documentsHashMatches: matchFuzzy(fileName, documentsIndex),
             filesHashMatches: matchFuzzy(fileName, filesIndex),
             filesEtapeMatches: matchFuzzy(fileName, filesIndex, etapeGet)
@@ -120,9 +118,12 @@ const filesNoDocumentCheck = (
   }
 }
 
-const documentsNoFileCheck = (documentsIndex: Index, filesIndex: Index) => {
+const documentsNoFileCheck = (
+  documentsIndex: Index<IDocument>,
+  filesIndex: Index<string>
+) => {
   const documentsFichiersMissing = Object.keys(documentsIndex)
-    .filter(documentsName => !filesIndex[documentsName])
+    .filter(documentId => !filesIndex[documentId])
     .sort()
 
   if (documentsFichiersMissing.length) {
@@ -130,14 +131,17 @@ const documentsNoFileCheck = (documentsIndex: Index, filesIndex: Index) => {
       `${documentsFichiersMissing.length} documents en base de données n'ont pas de fichiers correspondants`
     )
 
-    documentsFichiersMissing.forEach(name => {
-      console.info(`-      ${name}`)
+    documentsFichiersMissing.forEach(documentId => {
+      const document = documentsIndex[documentId]
+      console.info(
+        `-      ${documentId}.${document.fichierTypeId} -> ${document.titreEtapeId}`
+      )
 
-      const matches = matchFuzzy(name, filesIndex)
+      const matches = matchFuzzy(documentId, filesIndex)
 
       if (matches.length) {
         matches.forEach(name => {
-          console.info(`Match: ${name}`)
+          console.info(`Match: ${filesIndex[name]}`)
         })
       }
     })
@@ -148,31 +152,23 @@ const documentsNoFileCheck = (documentsIndex: Index, filesIndex: Index) => {
   }
 }
 
-const filesNamesFind = () => {
-  const files = execSync('find ./files | grep pdf')
-    .toString()
-    .split('\n')
-    .map(filePath => basename(filePath.split('/').pop(), '.pdf'))
-
-  return files
-}
+const filesNamesFind = () =>
+  execSync('find ./files | grep pdf').toString().split('\n')
 
 const main = async () => {
   const documents = await documentsGet({}, {}, 'super')
 
-  const documentsIndex = documents.reduce((res, document) => {
+  const documentsIndex = documents.reduce((res: Index<IDocument>, document) => {
     if (document.fichier) {
-      res[document.id] = true
+      res[document.id] = document
     }
 
     return res
   }, {})
 
-  const filesNames = filesNamesFind()
-
-  const filesIndex = filesNames.reduce((res, fileName) => {
+  const filesIndex = filesNamesFind().reduce((res: Index<string>, fileName) => {
     if (fileName) {
-      res[fileName] = true
+      res[basename(fileName.split('/').pop()!, '.pdf')] = fileName
     }
 
     return res
@@ -182,7 +178,7 @@ const main = async () => {
 
   console.info()
 
-  filesNoDocumentCheck(filesNames, documentsIndex, filesIndex)
+  filesNoDocumentCheck(documentsIndex, filesIndex)
 
   process.exit(0)
 }
