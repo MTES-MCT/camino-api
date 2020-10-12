@@ -1,4 +1,9 @@
-import { IToken, ITitreActivite, ITitreActiviteColonneId } from '../../../types'
+import {
+  IToken,
+  ITitreActivite,
+  ITitreActiviteColonneId,
+  IUtilisateur
+} from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../../config/index'
 import * as dateFormat from 'dateformat'
@@ -218,6 +223,37 @@ const activitesAnnees = async (_: never, context: IToken) => {
   }
 }
 
+const activitePermissionCheck = (
+  activite: ITitreActivite,
+  user: IUtilisateur
+) => {
+  if (
+    permissionCheck(user?.permissionId, ['super']) ||
+    (permissionCheck(user?.permissionId, ['admin']) &&
+      user.administrations?.some(a =>
+        a.activitesTypes?.some(
+          at => at.id === activite.typeId && at.modification
+        )
+      ))
+  ) {
+    return true
+  }
+
+  if (
+    permissionCheck(user?.permissionId, ['entreprise']) &&
+    ['enc', 'abs'].includes(activite.statutId) &&
+    user.entreprises?.some(
+      e =>
+        activite.titre?.titulaires?.some(t => t.id === e.id) ||
+        activite.titre?.amodiataires?.some(t => t.id === e.id)
+    )
+  ) {
+    return true
+  }
+
+  return false
+}
+
 const activiteModifier = async (
   { activite }: { activite: ITitreActivite },
   context: IToken,
@@ -226,31 +262,20 @@ const activiteModifier = async (
   try {
     const activiteOld = await titreActiviteGet(
       activite.id,
-      { fields: { type: { titresTypes: { id: {} } }, titre: { id: {} } } },
+      {
+        fields: {
+          titre: { titulaires: { id: {} }, amodiataires: { id: {} } }
+        }
+      },
       context.user?.id
     )
+
     if (!activiteOld) throw new Error("l'activité n'existe pas")
 
     const user = context.user && (await userGet(context.user.id))
-    if (!user) throw new Error("droits insuffisants modifier l'activité")
 
-    if (
-      !permissionCheck(user?.permissionId, ['super', 'admin']) &&
-      activiteOld?.statutId === 'dep'
-    ) {
-      throw new Error(
-        'cette activité a été validée et ne peux plus être modifiée'
-      )
-    }
-
-    if (
-      !activiteOld.type!.titresTypes.find(
-        type =>
-          type.domaineId === activiteOld.titre!.domaineId &&
-          type.id === activiteOld.titre!.typeId
-      )
-    ) {
-      throw new Error("ce titre ne peut pas recevoir d'activité")
+    if (!user || !activitePermissionCheck(activiteOld, user)) {
+      throw new Error('cette activité ne peut pas être modifiée')
     }
 
     const inputErrors = titreActiviteInputValidate(

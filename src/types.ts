@@ -101,6 +101,7 @@ interface IActiviteType {
   pays?: IPays[] | null
   administrations?: IAdministration[] | null
   satisfactionUrl: string
+  modification?: boolean | null
 }
 
 interface IAdministrationType {
@@ -127,6 +128,7 @@ interface IAdministration {
   regionId?: string | null
   abreviation?: string | null
   titresTypes?: ITitreType[] | null
+  activitesTypes?: IActiviteType[] | null
   utilisateurs?: IUtilisateur[] | null
   titresAdministrationGestionnaire?: ITitre[] | null
   titresAdministrationLocale?: ITitre[] | null

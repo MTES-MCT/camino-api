@@ -5,7 +5,7 @@ import { graphQLCall, queryImport } from './_utils'
 import { administrations } from './__mocks__/administrations'
 import { titreWithActiviteGrp } from './__mocks__/titres'
 import { autorisationsInit } from '../src/database/cache/autorisations'
-import { titreCreate, titresGet } from '../src/database/queries/titres'
+import { titreCreate } from '../src/database/queries/titres'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -23,7 +23,7 @@ afterAll(async () => {
   dbManager.closeKnex()
 })
 
-describe.only('titre', () => {
+describe('titre', () => {
   const titreQuery = queryImport('titre')
 
   beforeEach(async () => {

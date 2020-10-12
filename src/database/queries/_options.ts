@@ -32,7 +32,7 @@ const entreprises = {
 }
 
 const utilisateurs = {
-  graph: `[permission, administrations.[titresTypes], entreprises.etablissements]`,
+  graph: `[permission, administrations.[titresTypes, activitesTypes], entreprises.etablissements]`,
   update: {
     relate: [
       'permission',

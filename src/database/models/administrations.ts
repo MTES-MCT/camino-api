@@ -92,6 +92,20 @@ class Administrations extends Model {
         },
         to: 'titres.administrationsTitreEtapeId'
       }
+    },
+
+    activitesTypes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'activites-types'),
+      join: {
+        from: 'administrations.id',
+        through: {
+          from: 'activitesTypes__administrations.administrationId',
+          to: 'activitesTypes__administrations.activiteTypeId',
+          extra: ['modification']
+        },
+        to: 'activitesTypes.id'
+      }
     }
   }
 }
