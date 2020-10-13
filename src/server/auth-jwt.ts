@@ -25,13 +25,11 @@ const authJwtError = (
   err: Error,
   req: express.Request,
   res: express.Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: express.NextFunction
 ) => {
   if (err.name === 'UnauthorizedError') {
-    // on ne peut pas écrire une réponse plus adéquate car celle-ci a peut-être été déjà envoyée
-    // c’est le cas lorsque le token est expiré lors du téléchargement d’un fichier
-    res.status(401)
-    next()
+    res.status(401).send('invalid token...')
   }
 }
 
