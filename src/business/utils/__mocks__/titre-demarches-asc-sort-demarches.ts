@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../../types'
 
-const titreDemarchesNoEtapesSortedAsc = ([
+const titreDemarchesNoEtapesSortedAsc = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -22,9 +22,7 @@ const titreDemarchesNoEtapesSortedAsc = ([
     typeId: 'mut',
     statutId: 'acc',
     etapes: [],
-    type: {
-      ordre: 1
-    }
+    type: { ordre: 1 }
   },
   {
     id: 'h-cx-courdemanges-1988-mut02',
@@ -33,9 +31,9 @@ const titreDemarchesNoEtapesSortedAsc = ([
     statutId: 'acc',
     etapes: []
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesNoEtapesSortedDesc = ([
+const titreDemarchesNoEtapesSortedDesc = [
   {
     id: 'h-cx-courdemanges-1988-mut02',
     titreId: 'h-cx-courdemanges-1988',
@@ -49,9 +47,7 @@ const titreDemarchesNoEtapesSortedDesc = ([
     typeId: 'mut',
     statutId: 'acc',
     etapes: [],
-    type: {
-      ordre: 1
-    }
+    type: { ordre: 1 }
   },
   {
     id: 'h-cx-courdemanges-1988-oct01',
@@ -68,44 +64,9 @@ const titreDemarchesNoEtapesSortedDesc = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesNoEtapesSortedAscResult = ([
-  {
-    id: 'h-cx-courdemanges-1988-oct01',
-    titreId: 'h-cx-courdemanges-1988',
-    typeId: 'oct',
-    statutId: 'acc',
-    etapes: [
-      {
-        id: 'h-cx-courdemanges-1988-oct01-dex01',
-        typeId: 'dex',
-        statutId: 'acc',
-        ordre: 1,
-        date: '1988-03-06'
-      }
-    ]
-  },
-  {
-    id: 'h-cx-courdemanges-1988-mut01',
-    titreId: 'h-cx-courdemanges-1988',
-    typeId: 'mut',
-    statutId: 'acc',
-    etapes: [],
-    type: {
-      ordre: 1
-    }
-  },
-  {
-    id: 'h-cx-courdemanges-1988-mut02',
-    titreId: 'h-cx-courdemanges-1988',
-    typeId: 'mut',
-    statutId: 'acc',
-    etapes: []
-  }
-] as unknown) as ITitreDemarche[]
-
-const titreDemarchesNoEtapesSortedDescResult = ([
+const titreDemarchesNoEtapesSortedAscResult = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -127,9 +88,7 @@ const titreDemarchesNoEtapesSortedDescResult = ([
     typeId: 'mut',
     statutId: 'acc',
     etapes: [],
-    type: {
-      ordre: 1
-    }
+    type: { ordre: 1 }
   },
   {
     id: 'h-cx-courdemanges-1988-mut02',
@@ -138,9 +97,42 @@ const titreDemarchesNoEtapesSortedDescResult = ([
     statutId: 'acc',
     etapes: []
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesSortedAsc = ([
+const titreDemarchesNoEtapesSortedDescResult = [
+  {
+    id: 'h-cx-courdemanges-1988-oct01',
+    titreId: 'h-cx-courdemanges-1988',
+    typeId: 'oct',
+    statutId: 'acc',
+    etapes: [
+      {
+        id: 'h-cx-courdemanges-1988-oct01-dex01',
+        typeId: 'dex',
+        statutId: 'acc',
+        ordre: 1,
+        date: '1988-03-06'
+      }
+    ]
+  },
+  {
+    id: 'h-cx-courdemanges-1988-mut01',
+    titreId: 'h-cx-courdemanges-1988',
+    typeId: 'mut',
+    statutId: 'acc',
+    etapes: [],
+    type: { ordre: 1 }
+  },
+  {
+    id: 'h-cx-courdemanges-1988-mut02',
+    titreId: 'h-cx-courdemanges-1988',
+    typeId: 'mut',
+    statutId: 'acc',
+    etapes: []
+  }
+] as ITitreDemarche[]
+
+const titreDemarchesSortedAsc = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -187,9 +179,9 @@ const titreDemarchesSortedAsc = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesSortedDesc = ([
+const titreDemarchesSortedDesc = [
   {
     id: 'h-cx-courdemanges-1988-mut01',
     titreId: 'h-cx-courdemanges-1988',
@@ -236,9 +228,9 @@ const titreDemarchesSortedDesc = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesSortedDescEqual = ([
+const titreDemarchesSortedDescEqual = [
   {
     id: 'h-cx-courdemanges-1988-mut01',
     titreId: 'h-cx-courdemanges-1988',
@@ -285,9 +277,9 @@ const titreDemarchesSortedDescEqual = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesSortedAscResult = ([
+const titreDemarchesSortedAscResult = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -334,9 +326,9 @@ const titreDemarchesSortedAscResult = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesSortedDescEqualResult = ([
+const titreDemarchesSortedDescEqualResult = [
   {
     id: 'h-cx-courdemanges-1988-mut01',
     titreId: 'h-cx-courdemanges-1988',
@@ -383,7 +375,7 @@ const titreDemarchesSortedDescEqualResult = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
 export {
   titreDemarchesNoEtapesSortedAsc,

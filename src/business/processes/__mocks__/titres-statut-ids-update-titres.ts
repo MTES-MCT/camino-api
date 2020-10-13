@@ -1,6 +1,6 @@
 import { ITitre } from '../../../types'
 
-const titresValideStatutIdAJour = ([
+const titresValideStatutIdAJour = [
   {
     id: 'm-pr-saint-pierre-2014',
     statutId: 'val',
@@ -26,9 +26,9 @@ const titresValideStatutIdAJour = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as ITitre[]
 
-const titresEchuStatutIdObselete = ([
+const titresEchuStatutIdObselete = [
   {
     id: 'm-pr-saint-pierre-1914',
     statutId: 'val',
@@ -54,6 +54,6 @@ const titresEchuStatutIdObselete = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as ITitre[]
 
 export { titresValideStatutIdAJour, titresEchuStatutIdObselete }

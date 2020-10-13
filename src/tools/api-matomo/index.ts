@@ -175,9 +175,7 @@ const titresModifiesCountGet = async (duree: number) => {
   // Retourne un tableau par mois
   return Object.keys(matomoVisitData).reduce(
     (acc: { mois: string; quantite: number }[], month) => {
-      const monthDataArray = (matomoVisitData[
-        month
-      ] as unknown) as IMatomoSectionData[]
+      const monthDataArray = matomoVisitData[month] as IMatomoSectionData[]
 
       const nbEvents = monthDataArray.reduce((nbEventsByMonth, monthData) => {
         const nbEventsBySection = nbEventsBySectionGet(monthData, month)

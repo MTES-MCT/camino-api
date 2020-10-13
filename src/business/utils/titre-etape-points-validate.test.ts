@@ -14,7 +14,7 @@ describe("vérifie la validité des coordonnées des points d'une étape", () =>
     expect(
       titreEtapePointsValidate(titreEtapePointsReferenceManquante)
     ).toMatch(
-      /coordonnées du point point-ref-manquante \/ contour contour-ref-manquante \/ groupe undefined manquantes/
+      /coordonnées du point point-ref-manquante \/ contour contour-ref-manquante \/ groupe group-ref-manquante manquantes/
     )
   })
 })

@@ -1,6 +1,6 @@
 import { ITitreEtape } from '../../../types'
 
-const titreDemarcheAnnulationEtapes = ([
+const titreDemarcheAnnulationEtapes = [
   {
     id: 'h-cx-courdemanges-1988-ret01-dex01',
     titreDemarcheId: 'h-cx-courdemanges-1988-ret01',
@@ -9,9 +9,9 @@ const titreDemarcheAnnulationEtapes = ([
     ordre: 1,
     date: '2013-05-21'
   }
-] as unknown) as ITitreEtape[]
+] as ITitreEtape[]
 
-const titreDemarcheAnnulationEtapesDateFin = ([
+const titreDemarcheAnnulationEtapesDateFin = [
   {
     id: 'h-cx-courdemanges-1988-ret01-dex01',
     titreDemarcheId: 'h-cx-courdemanges-1988-ret01',
@@ -21,9 +21,9 @@ const titreDemarcheAnnulationEtapesDateFin = ([
     date: '2013-05-21',
     dateFin: '2013-05-25'
   }
-] as unknown) as ITitreEtape[]
+] as ITitreEtape[]
 
-const titreDemarcheACOFaitEtapesDateFin = ([
+const titreDemarcheACOFaitEtapesDateFin = [
   {
     id: 'h-cx-courdemanges-1988-ret01-dex01',
     titreDemarcheId: 'h-cx-courdemanges-1988-ret01',
@@ -33,9 +33,9 @@ const titreDemarcheACOFaitEtapesDateFin = ([
     date: '2013-05-21',
     dateFin: '2013-05-25'
   }
-] as unknown) as ITitreEtape[]
+] as ITitreEtape[]
 
-const titreDemarcheAnnulationEtapesSansDate = ([
+const titreDemarcheAnnulationEtapesSansDate = [
   {
     id: 'h-cx-courdemanges-1988-ret01-dex01',
     titreDemarcheId: 'h-cx-courdemanges-1988-ret01',
@@ -43,7 +43,7 @@ const titreDemarcheAnnulationEtapesSansDate = ([
     statutId: 'acc',
     ordre: 1
   }
-] as unknown) as ITitreEtape[]
+] as ITitreEtape[]
 
 export {
   titreDemarcheAnnulationEtapes,

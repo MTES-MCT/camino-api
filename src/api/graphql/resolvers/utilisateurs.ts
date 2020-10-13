@@ -276,9 +276,7 @@ const utilisateurCerbereTokenCreer = async ({ ticket }: { ticket: string }) => {
 
       utilisateur = await utilisateurCreer(
         { utilisateur: cerbereUtilisateur },
-        ({
-          user: { email: cerbereUtilisateur.email }
-        } as unknown) as IToken
+        { user: { email: cerbereUtilisateur.email } } as IToken
       )
     }
 

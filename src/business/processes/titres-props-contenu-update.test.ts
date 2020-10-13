@@ -21,14 +21,14 @@ describe("propriétés (contenu) d'un titre", () => {
     titreContenuEtapeIdFindMock.mockReturnValue('etape-id')
 
     const titresUpdatedRequests = await titresPropsContenuUpdate([
-      ({
+      {
         type: {
           propsEtapesTypes: [
             { sectionId: 'arm', elementId: 'mecanise' },
             { sectionId: 'arm', elementId: 'agent' }
           ]
         }
-      } as unknown) as ITitre
+      } as ITitre
     ])
 
     expect(titresUpdatedRequests.length).toEqual(1)
@@ -39,12 +39,12 @@ describe("propriétés (contenu) d'un titre", () => {
     titreContenuEtapeIdFindMock.mockReturnValue('etape-id')
 
     const titresUpdatedRequests = await titresPropsContenuUpdate([
-      ({
+      {
         type: {
           propsEtapesTypes: [{ sectionId: 'arm', elementId: 'mecanise' }]
         },
         propsTitreEtapesIds: {}
-      } as unknown) as ITitre
+      } as ITitre
     ])
 
     expect(titresUpdatedRequests.length).toEqual(1)

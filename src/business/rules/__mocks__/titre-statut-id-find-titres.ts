@@ -1,19 +1,15 @@
 import { ITitre } from '../../../types'
 
-const titreSansDemarche = ({
+const titreSansDemarche = {
   id: 'test'
-} as unknown) as ITitre
+} as ITitre
 
-const titreDemarcheIndefini = ({
+const titreDemarcheIndefini = {
   id: 'test',
-  demarches: [
-    {
-      statutId: 'ind'
-    }
-  ]
-} as unknown) as ITitre
+  demarches: [{ statutId: 'ind' }]
+} as ITitre
 
-const titreValide = ({
+const titreValide = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -36,9 +32,9 @@ const titreValide = ({
       ]
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreEchu = ({
+const titreEchu = {
   id: 'm-pr-saint-pierre-1914',
   demarches: [
     {
@@ -61,9 +57,9 @@ const titreEchu = ({
       ]
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreOctroiInstruction = ({
+const titreOctroiInstruction = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -74,9 +70,9 @@ const titreOctroiInstruction = ({
       ordre: 1
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreOctroiDepose = ({
+const titreOctroiDepose = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -87,9 +83,9 @@ const titreOctroiDepose = ({
       ordre: 1
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreOctroiRejete = ({
+const titreOctroiRejete = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -100,9 +96,9 @@ const titreOctroiRejete = ({
       ordre: 1
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreOctroiClasse = ({
+const titreOctroiClasse = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -113,9 +109,9 @@ const titreOctroiClasse = ({
       ordre: 1
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreOctroiRetire = ({
+const titreOctroiRetire = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -126,9 +122,9 @@ const titreOctroiRetire = ({
       ordre: 1
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
-const titreDemarcheInstruction = ({
+const titreDemarcheInstruction = {
   id: 'm-pr-saint-pierre-2014',
   demarches: [
     {
@@ -146,7 +142,7 @@ const titreDemarcheInstruction = ({
       ordre: 1
     }
   ]
-} as unknown) as ITitre
+} as ITitre
 
 export {
   titreSansDemarche,

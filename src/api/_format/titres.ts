@@ -129,15 +129,11 @@ const titreFormat = (
 
   if (t.points?.length) {
     if (fields.geojsonMultiPolygon) {
-      t.geojsonMultiPolygon = (geojsonFeatureMultiPolygon(
-        t.points
-      ) as unknown) as IGeoJson
+      t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points) as IGeoJson
     }
 
     if (fields.geojsonPoints) {
-      t.geojsonPoints = (geojsonFeatureCollectionPoints(
-        t.points
-      ) as unknown) as IGeoJson
+      t.geojsonPoints = geojsonFeatureCollectionPoints(t.points) as IGeoJson
     }
   }
 

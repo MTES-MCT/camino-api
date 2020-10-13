@@ -136,6 +136,18 @@ const titreActivitesCalc = (
   return q
 }
 
+const titresActivitesAdministrationsQueryBuild = (
+  administrationsIds: string[]
+) =>
+  TitresActivites.query()
+    .alias('titresActivitesAdministrations')
+    .joinRelated('type.administrations')
+    .whereRaw('?? = ??', [
+      'titresActivitesAdministrations.id',
+      'titresActivites.id'
+    ])
+    .whereIn('type:administrations.id', administrationsIds)
+
 // édition d'une activité
 const titreActivitePermissionQueryBuild = (
   q: QueryBuilder<TitresActivites, TitresActivites | TitresActivites[]>,
@@ -144,24 +156,16 @@ const titreActivitePermissionQueryBuild = (
 ) => {
   if (!permissionCheck(user?.permissionId, ['super'])) {
     if (
-      permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
+      permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
       user?.administrations?.length
     ) {
-      // TODO: autoriser les admins 'lecteur' pour les cas particuliers
-
-      const administrationsIds = user.administrations!.map(a => a.id) || []
-
-      const administrationPermissionQuery = TitresActivites.query()
-        .alias('titresActivitesAdministrations')
-        .joinRelated('type.administrations')
-        .whereRaw('?? = ??', [
-          'titresActivitesAdministrations.id',
-          'titresActivites.id'
-        ])
-        .whereIn('type:administrations.id', administrationsIds)
+      const administrationsIds = user.administrations!.map(a => a.id)
+      const titresActivitesAdministrationQuery = titresActivitesAdministrationsQueryBuild(
+        administrationsIds
+      )
 
       // l'utilisateur fait partie d'une administrations qui a les droits sur l'activité
-      q.whereExists(administrationPermissionQuery)
+      q.whereExists(titresActivitesAdministrationQuery)
     } else if (
       permissionCheck(user?.permissionId, ['entreprise']) &&
       user?.entreprises?.length
@@ -169,25 +173,25 @@ const titreActivitePermissionQueryBuild = (
       // vérifie que l'utilisateur a les permissions sur les titres
       const entreprisesIds = user.entreprises.map(e => e.id)
 
+      const titulairesPermissionQuery = TitresActivites.query()
+        .alias('titresActivitesTitulaires')
+        .joinRelated('titre.titulaires')
+        .whereRaw('?? = ??', [
+          'titresActivitesTitulaires.id',
+          'titresActivites.id'
+        ])
+        .whereIn('titre:titulaires.id', entreprisesIds)
+
+      const amodiatairesPermissionQuery = TitresActivites.query()
+        .alias('titresActivitesAmodiataires')
+        .joinRelated('titre.amodiataires')
+        .whereRaw('?? = ??', [
+          'titresActivitesAmodiataires.id',
+          'titresActivites.id'
+        ])
+        .whereIn('titre:amodiataires.id', entreprisesIds)
+
       q.where(b => {
-        const titulairesPermissionQuery = TitresActivites.query()
-          .alias('titresActivitesTitulaires')
-          .joinRelated('titre.titulaires')
-          .whereRaw('?? = ??', [
-            'titresActivitesTitulaires.id',
-            'titresActivites.id'
-          ])
-          .whereIn('titre:titulaires.id', entreprisesIds)
-
-        const amodiatairesPermissionQuery = TitresActivites.query()
-          .alias('titresActivitesAmodiataires')
-          .joinRelated('titre.amodiataires')
-          .whereRaw('?? = ??', [
-            'titresActivitesAmodiataires.id',
-            'titresActivites.id'
-          ])
-          .whereIn('titre:amodiataires.id', entreprisesIds)
-
         b.whereExists(titulairesPermissionQuery)
         b.orWhereExists(amodiatairesPermissionQuery)
       })
@@ -197,7 +201,6 @@ const titreActivitePermissionQueryBuild = (
     }
   }
 
-  // TODO: séparer en permissions / propriétés
   if (!grouped) {
     if (permissionCheck(user?.permissionId, ['super', 'admin', 'entreprise'])) {
       const documentsTypesQuery = DocumentsTypes.query()
@@ -232,14 +235,29 @@ const titreActiviteQueryPropsBuild = (
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
   } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur'])
+    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    user?.administrations?.length
   ) {
     if (permissionCheck(user?.permissionId, ['admin', 'editeur'])) {
-      q.select(raw('true').as('modification'))
+      const administrationsIds = user.administrations!.map(a => a.id)
+      const titresActivitesAdministrationQuery = titresActivitesAdministrationsQueryBuild(
+        administrationsIds
+      )
+
+      q.select(
+        titresActivitesAdministrationQuery
+          .select(raw('true'))
+          // TODO: supprimer `_join` cf: https://github.com/Vincit/objection.js/issues/1883
+          .where('type:administrations_join.modification', true)
+          .as('modification')
+      )
     } else {
       q.select(raw('false').as('modification'))
     }
-  } else if (permissionCheck(user?.permissionId, ['entreprise'])) {
+  } else if (
+    permissionCheck(user?.permissionId, ['entreprise']) &&
+    user?.entreprises?.length
+  ) {
     // vérifie que l'utilisateur a les droits d'édition sur l'activité
     // l'activité doit avoir un statut `absente ou `en cours`
     q.select(

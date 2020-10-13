@@ -45,15 +45,15 @@ const titreEtapeFormat = (
 
   if (titreEtape.points && titreEtape.points.length) {
     if (fields.geojsonMultiPolygon) {
-      titreEtape.geojsonMultiPolygon = (geojsonFeatureMultiPolygon(
+      titreEtape.geojsonMultiPolygon = geojsonFeatureMultiPolygon(
         titreEtape.points
-      ) as unknown) as IGeoJson
+      ) as IGeoJson
     }
 
     if (fields.geojsonPoints) {
-      titreEtape.geojsonPoints = (geojsonFeatureCollectionPoints(
+      titreEtape.geojsonPoints = geojsonFeatureCollectionPoints(
         titreEtape.points
-      ) as unknown) as IGeoJson
+      ) as IGeoJson
     }
   }
 

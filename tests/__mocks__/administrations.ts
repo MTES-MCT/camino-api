@@ -12,6 +12,12 @@ const administrations = {
     typeId: 'dea',
     nom: 'DEAL Guyane',
     type: { id: 'dea', nom: 'Déal', ordre: 3 }
+  },
+  cacem: {
+    id: 'ope-cacem-01',
+    typeId: 'ope',
+    nom: 'Cacem',
+    type: { id: 'ope', nom: 'Opérateur', ordre: 5 }
   }
 } as Index<IAdministration>
 

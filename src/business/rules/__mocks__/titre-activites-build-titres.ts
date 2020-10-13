@@ -2,9 +2,7 @@ import { ITitre, IActiviteType } from '../../../types'
 
 const titreVide = ({} as unknown) as ITitre
 
-const titreModificationEnInstance = ({
-  statutId: 'mod'
-} as unknown) as ITitre
+const titreModificationEnInstance = ({ statutId: 'mod' } as unknown) as ITitre
 
 const titreAvecActivite201801 = ({
   activites: [{ typeId: 'grp', annee: 2018, frequencePeriodeId: 1 }]

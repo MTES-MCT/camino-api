@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../../types'
 
-const titreDemarcheOctDpuAcc = ({
+const titreDemarcheOctDpuAcc = {
   id: 'h-cx-courdemanges-1988-oct01',
   titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
@@ -23,17 +23,17 @@ const titreDemarcheOctDpuAcc = ({
       duree: 2 * 12
     }
   ]
-} as unknown) as ITitreDemarche
+} as ITitreDemarche
 
-const titreDemarcheOctDpuInexistante = ({
+const titreDemarcheOctDpuInexistante = {
   id: 'h-cx-courdemanges-1988-oct01',
   titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
   statutId: 'acc',
   etapes: []
-} as unknown) as ITitreDemarche
+} as ITitreDemarche
 
-const titreAxmDemarcheOctDexAcc = ({
+const titreAxmDemarcheOctDexAcc = {
   id: 'h-ax-courdemanges-1988-oct01',
   titreId: 'h-ax-courdemanges-1988',
   typeId: 'oct',
@@ -48,9 +48,9 @@ const titreAxmDemarcheOctDexAcc = ({
       duree: 2 * 12
     }
   ]
-} as unknown) as ITitreDemarche
+} as ITitreDemarche
 
-const titrePrmDemarcheOctRpuAcc = ({
+const titrePrmDemarcheOctRpuAcc = {
   id: 'm-pr-courdemanges-1988-oct01',
   titreId: 'm-pr-courdemanges-1988',
   typeId: 'oct',
@@ -65,9 +65,9 @@ const titrePrmDemarcheOctRpuAcc = ({
       dateFin: '2200-01-02'
     }
   ]
-} as unknown) as ITitreDemarche
+} as ITitreDemarche
 
-const titreDemarcheOctDpuDateDebut = ({
+const titreDemarcheOctDpuDateDebut = {
   id: 'h-cx-courdemanges-1988-oct01',
   titreId: 'h-cx-courdemanges-1988',
   typeId: 'oct',
@@ -92,9 +92,9 @@ const titreDemarcheOctDpuDateDebut = ({
       duree: 2 * 12
     }
   ]
-} as unknown) as ITitreDemarche
+} as ITitreDemarche
 
-const titreDemarchesOctProlongation = ([
+const titreDemarchesOctProlongation = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -145,9 +145,9 @@ const titreDemarchesOctProlongation = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesOctAnnulation = ([
+const titreDemarchesOctAnnulation = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -196,9 +196,9 @@ const titreDemarchesOctAnnulation = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
-const titreDemarchesOctAnnulationSansPoints = ([
+const titreDemarchesOctAnnulationSansPoints = [
   {
     id: 'h-cx-courdemanges-1988-oct01',
     titreId: 'h-cx-courdemanges-1988',
@@ -248,7 +248,7 @@ const titreDemarchesOctAnnulationSansPoints = ([
       }
     ]
   }
-] as unknown) as ITitreDemarche[]
+] as ITitreDemarche[]
 
 export {
   titreDemarcheOctDpuAcc,

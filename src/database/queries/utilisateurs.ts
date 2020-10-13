@@ -22,7 +22,7 @@ const userGet = async (userId?: string) => {
 
   // utilisé en interne (daily, monthly, etc.)
   if (userId === 'super') {
-    return ({ permissionId: 'super', id: 'super' } as unknown) as IUtilisateur
+    return { permissionId: 'super', id: 'super' } as IUtilisateur
   }
 
   return Utilisateurs.query()

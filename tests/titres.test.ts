@@ -3,6 +3,7 @@ import 'dotenv/config'
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { administrations } from './__mocks__/administrations'
+import { titreWithActiviteGrp } from './__mocks__/titres'
 import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreCreate } from '../src/database/queries/titres'
 
@@ -20,6 +21,42 @@ afterEach(async () => {
 
 afterAll(async () => {
   dbManager.closeKnex()
+})
+
+describe('titre', () => {
+  const titreQuery = queryImport('titre')
+
+  beforeEach(async () => {
+    await titreCreate(titreWithActiviteGrp, {}, 'super')
+  })
+
+  test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
+    const res = await graphQLCall(
+      titreQuery,
+      { id: 'titre-id' },
+      'admin',
+      administrations.dealGuyane
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data).toMatchObject({
+      titre: { activites: [{ modification: true }] }
+    })
+  })
+
+  test('peut voir les activités GRP (utilisateur CACEM)', async () => {
+    const res = await graphQLCall(
+      titreQuery,
+      { id: 'titre-id' },
+      'admin',
+      administrations.cacem
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data).toMatchObject({
+      titre: { activites: [{ modification: null }] }
+    })
+  })
 })
 
 describe('titreCreer', () => {

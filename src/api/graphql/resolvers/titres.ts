@@ -33,6 +33,7 @@ const titre = async (
     const fields = fieldsBuild(info)
 
     const titre = await titreGet(id, { fields }, context.user?.id)
+
     if (!titre) return null
 
     const user = context.user && (await userGet(context.user.id))
@@ -187,6 +188,8 @@ const titreModifier = async (
 
     const fields = fieldsBuild(info)
 
+    // on doit utiliser upsert (plutôt qu'un simple update)
+    // car le titre contient des références (tableau d'objet)
     await titreUpsert(titre, { fields }, titreOld, user?.id)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)

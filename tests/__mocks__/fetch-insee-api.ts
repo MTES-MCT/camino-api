@@ -18,7 +18,7 @@ const entreprise = ({
   uniteLegale: {
     etatAdministratifUniteLegale: 'A',
     statutDiffusionUniteLegale: 'O',
-    dateCreationUniteLegale: '1900-01-01',
+    dateCreationUniteLegale: new Date('1900-01-01'),
     categorieJuridiqueUniteLegale: '5599',
     denominationUniteLegale: 'PLACOPLATRE',
     sigleUniteLegale: null,

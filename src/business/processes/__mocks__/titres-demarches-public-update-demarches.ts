@@ -1,6 +1,6 @@
 import { ITitre } from '../../../types'
 
-const titresDemarchesPublicModifie = ([
+const titresDemarchesPublicModifie = [
   {
     typeId: 'cxh',
     demarches: [
@@ -16,7 +16,7 @@ const titresDemarchesPublicModifie = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as ITitre[]
 
 const titresDemarchesPublicIdentique = ([
   {

@@ -16,7 +16,7 @@ const titresSansPhase = ([
   }
 ] as unknown) as ITitre[]
 
-const titresUnePhase = ([
+const titresUnePhase = [
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -47,18 +47,18 @@ const titresUnePhase = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as ITitre[]
 
-const titrePhase = ([
+const titrePhase = [
   {
     titreDemarcheId: 'h-cx-courdemanges-1988-oct01',
     dateFin: '2500-01-01',
     dateDebut: '2200-01-01',
     statutId: 'val'
   }
-] as unknown) as ITitrePhase[]
+] as ITitrePhase[]
 
-const titresUnePhaseMiseAJour = ([
+const titresUnePhaseMiseAJour = [
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -95,7 +95,7 @@ const titresUnePhaseMiseAJour = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as ITitre[]
 
 const titresPhaseASupprimer = ([
   {
@@ -119,7 +119,7 @@ const titresPhaseASupprimer = ([
   }
 ] as unknown) as ITitre[]
 
-const titresUnePhaseSansChangement = ([
+const titresUnePhaseSansChangement = [
   {
     id: 'h-cx-courdemanges-1988',
     demarches: [
@@ -156,7 +156,7 @@ const titresUnePhaseSansChangement = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as ITitre[]
 
 export {
   titresSansPhase,
