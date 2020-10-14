@@ -2,7 +2,6 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
-import { autorisationsInit } from '../src/database/cache/autorisations'
 import { titreDemarcheCreate } from '../src/database/queries/titres-demarches'
 import { titreCreate } from '../src/database/queries/titres'
 import { IPermissionId } from '../src/types'
@@ -14,7 +13,6 @@ console.error = jest.fn()
 
 beforeEach(async () => {
   await dbManager.populateDb()
-  await autorisationsInit()
 })
 
 afterEach(async () => {

@@ -2,7 +2,6 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
-import { autorisationsInit } from '../src/database/cache/autorisations'
 import { mocked } from 'ts-jest/utils'
 import {
   entreprisesEtablissementsFetch,
@@ -38,7 +37,6 @@ const entreprisesEtablissementsFetchMock = mocked(
 
 beforeEach(async () => {
   await dbManager.populateDb()
-  await autorisationsInit()
 })
 
 afterEach(async () => {

@@ -197,7 +197,8 @@
       "@typescript-eslint/no-var-requires": 0,
       "newline-before-return": 1,
       "no-use-before-define": 0,
-      "no-redeclare": 0
+      "no-redeclare": 0,
+      "no-return-await": "error"
     }
   },
   "config": {
