@@ -2,10 +2,10 @@ import { basename } from 'path'
 import { execSync } from 'child_process'
 
 import 'dotenv/config'
-import '../../src/init'
+import '../../init'
 
-import { documentsGet } from '../../src/database/queries/documents'
-import { IDocument, Index } from '../../src/types'
+import { documentsGet } from '../../database/queries/documents'
+import { IDocument, Index } from '../../types'
 
 const etapeGet = (str: string) => str.split('-').slice(0, -1).join('-')
 
