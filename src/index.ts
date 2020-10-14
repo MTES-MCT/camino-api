@@ -28,9 +28,11 @@ import init from './database/init'
 import { port, url } from './config/index'
 
 import * as Sentry from '@sentry/node'
+import consoleStamp = require('console-stamp')
 
 init()
 
+consoleStamp(console, { pattern: 'dd/mm/yyyy HH:MM:ss.l' })
 const app = express()
 
 if (process.env.SENTRY_DSN) {
