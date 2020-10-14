@@ -6,6 +6,9 @@ import '../../init'
 
 import { documentsGet } from '../../database/queries/documents'
 import { IDocument, Index } from '../../types'
+import { exhaustiveCheck } from '../exhaustive-type-check'
+
+type IndexFile = Index<{ document: IDocument; path: string }>
 
 const etapeGet = (str: string) => str.split('-').slice(0, -1).join('-')
 
@@ -31,7 +34,7 @@ const matchFuzzy = (name: string, index: Index<any>, partGet = hashGet) => {
 }
 
 const filesNoDocumentCheck = (
-  documentsIndex: Index<IDocument>,
+  documentsIndex: IndexFile,
   filesIndex: Index<string>
 ) => {
   const filesMissing = Object.keys(filesIndex)
@@ -118,8 +121,35 @@ const filesNoDocumentCheck = (
   }
 }
 
+const filesPathCheck = (
+  documentsIndex: IndexFile,
+  filesIndex: Index<string>
+) => {
+  const filesPathInvalid = Object.keys(filesIndex)
+    .sort()
+    .filter(
+      fileName =>
+        fileName &&
+        documentsIndex[fileName] &&
+        filesIndex[fileName].substr(8) !== documentsIndex[fileName].path
+    )
+
+  if (filesPathInvalid.length) {
+    console.info(
+      `${filesPathInvalid.length} fichiers ne sont pas au bon endroit sur le disque`
+    )
+    filesPathInvalid.forEach(file =>
+      console.info(
+        `- ${filesIndex[file].substr(8)} -> ${documentsIndex[file].path}`
+      )
+    )
+  } else {
+    console.info('Tous les fichiers sont au bon endroit sur le disque')
+  }
+}
+
 const documentsNoFileCheck = (
-  documentsIndex: Index<IDocument>,
+  documentsIndex: IndexFile,
   filesIndex: Index<string>
 ) => {
   const documentsFichiersMissing = Object.keys(documentsIndex)
@@ -132,7 +162,7 @@ const documentsNoFileCheck = (
     )
 
     documentsFichiersMissing.forEach(documentId => {
-      const document = documentsIndex[documentId]
+      const document = documentsIndex[documentId].document
       console.info(
         `-      ${documentId}.${document.fichierTypeId} -> ${document.titreEtapeId}`
       )
@@ -155,12 +185,30 @@ const documentsNoFileCheck = (
 const filesNamesFind = () =>
   execSync('find ./files | grep pdf').toString().split('\n')
 
+const documentPathGet = (document: IDocument) => {
+  let path = document.type!.repertoire as string
+
+  if (document.type!.repertoire === 'demarches') {
+    path = `${path}/${document.titreEtapeId}`
+  } else if (document.type!.repertoire === 'entreprises') {
+    path = `${path}/${document.entrepriseId}`
+  } else if (document.type!.repertoire === 'activites') {
+    path = `${path}/${document.titreActiviteId}`
+  } else if (document.type!.repertoire === 'travaux') {
+    path = `${path}/${document.titreTravauxEtapeId}`
+  } else {
+    exhaustiveCheck(document.type!.repertoire)
+  }
+
+  return `${path}/${document.id}.${document.fichierTypeId}`
+}
+
 const main = async () => {
   const documents = await documentsGet({}, {}, 'super')
 
-  const documentsIndex = documents.reduce((res: Index<IDocument>, document) => {
+  const documentsIndex = documents.reduce((res: IndexFile, document) => {
     if (document.fichier) {
-      res[document.id] = document
+      res[document.id] = { document, path: documentPathGet(document) }
     }
 
     return res
@@ -179,6 +227,10 @@ const main = async () => {
   console.info()
 
   filesNoDocumentCheck(documentsIndex, filesIndex)
+
+  console.info()
+
+  filesPathCheck(documentsIndex, filesIndex)
 
   process.exit(0)
 }
