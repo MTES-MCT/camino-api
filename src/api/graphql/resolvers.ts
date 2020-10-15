@@ -70,7 +70,8 @@ import {
   version,
   activitesTypes,
   activitesStatuts,
-  definitions
+  definitions,
+  administrationsTypes
 } from './resolvers/metas'
 
 import {
@@ -153,6 +154,7 @@ export default {
   activitesTypes,
   activitesStatuts,
   definitions,
+  administrationsTypes,
 
   // mutations
   titreCreer,

@@ -47,6 +47,7 @@ type ITitreActiviteColonneId = 'titreNom' | 'titulaire' | 'periode' | 'statut'
 
 type IUtilisateursColonneId = 'nom' | 'prenom' | 'email' | 'permission' | 'lien'
 type IEntrepriseColonneId = 'nom' | 'siren'
+type IAdministrationColonneId = 'abreviation' | 'nom' | 'type'
 
 interface IActiviteStatut {
   id: string
@@ -962,6 +963,7 @@ export {
   ITitreActiviteColonneId,
   IUtilisateursColonneId,
   IEntrepriseColonneId,
+  IAdministrationColonneId,
   IColonne,
   ITitreTypeEtapeTypeRestriction,
   ITitreEtapeCondition,

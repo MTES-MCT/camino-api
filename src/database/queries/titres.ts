@@ -228,7 +228,9 @@ const titresGet = async (
     }
 
     const groupBy = titresColonnes[colonne].groupBy as string[]
+
     q.groupBy('titres.id')
+
     if (groupBy) {
       groupBy.forEach(gb => {
         q.groupBy(gb as string)
@@ -239,7 +241,7 @@ const titresGet = async (
 
     // Utilise orderByRaw pour intégrer la chaîne 'nulls first/last'
     // dans le tri sur les activités
-    // sinon les résultats 'null' apparaissent toujours en premier quelquesoit l'ordre
+    // sinon les résultats 'null' apparaissent toujours en premier
     if (colonne === 'activites') {
       q.orderByRaw(
         `"activites_absentes" + "activites_en_construction" ${
