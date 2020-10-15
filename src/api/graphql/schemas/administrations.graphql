@@ -1,3 +1,12 @@
+type Administrations {
+  elements: [Administration]
+  intervalle: Int
+  page: Int
+  colonne: String
+  ordre: String
+  total: Int
+}
+
 type Administration {
   id: ID!
   nom: String
@@ -13,6 +22,15 @@ type Administration {
   cedex: String
   utilisateurs: [Utilisateur]
   membre: Boolean
+  type: AdministrationType
+  titresAdministrationGestionnaire: [Titre]
+  titresAdministrationLocale: [Titre]
+}
+
+type AdministrationType {
+  id: ID!
+  nom: String
+  ordre: Int
 }
 
 input InputAdministration {

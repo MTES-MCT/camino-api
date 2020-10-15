@@ -18,6 +18,7 @@ import ActivitesStatuts from '../models/activites-statuts'
 import EtapesStatuts from '../models/etapes-statuts'
 import SubstancesLegalesCodes from '../models/substances-legales-codes'
 import Definitions from '../models/definition'
+import AdministrationsTypes from '../models/administrations-types'
 
 import options from './_options'
 import graphBuild from './graph/build'
@@ -237,6 +238,9 @@ const substancesLegalesCodesGet = async () =>
 
 const definitionsGet = async () => Definitions.query().orderBy('ordre')
 
+const administrationsTypesGet = async () =>
+  AdministrationsTypes.query().orderBy('ordre')
+
 export {
   titresTypesTypesGet,
   domainesGet,
@@ -258,5 +262,6 @@ export {
   permissionGet,
   etapesStatutsGet,
   substancesLegalesCodesGet,
-  definitionsGet
+  definitionsGet,
+  administrationsTypesGet
 }

@@ -89,6 +89,7 @@ const etapeEntreprises = async (
       },
       'super'
     )
+
     if (!titre) throw new Error("le titre n'existe pas")
 
     let entreprises = [] as IEntreprise[]

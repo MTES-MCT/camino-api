@@ -167,6 +167,7 @@ type Query {
   statuts: [TitreStatut]
   types: [TitreTypeType]
   unites: [Unite]
+  administrationsTypes: [AdministrationType]
 
   "Liste des permissions utilisateurs"
   permissions: [Permission]
@@ -188,7 +189,14 @@ type Query {
   administration(id: ID!): Administration
 
   "Liste des administrations"
-  administrations: [Administration]
+  administrations(
+    intervalle: Int
+    page: Int
+    colonne: String
+    ordre: String
+    noms: String
+    typesIds: [ID]
+  ): Administrations
 
   "Statistiques"
   statistiquesGlobales: StatistiquesGlobales
@@ -255,14 +263,10 @@ type Mutation {
   ): UtilisateurToken
 
   "Envoie un email à l’utisateur pour vérifier non nouvel email"
-  utilisateurEmailMessageEnvoyer(
-    email: String!
-  ): String
+  utilisateurEmailMessageEnvoyer(email: String!): String
 
   "Modifie l’email de l’utilisateur à l’aide du token reçu dans l’email de vérification"
-  utilisateurEmailModifier(
-    emailToken: String!
-  ): UtilisateurToken
+  utilisateurEmailModifier(emailToken: String!): UtilisateurToken
 
   "Crée un titre minier"
   titreCreer(titre: InputTitreCreation!): Titre

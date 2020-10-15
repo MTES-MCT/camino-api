@@ -27,13 +27,13 @@ const administrationsUpdatedFind = (
     return acc
   }, [])
 
-const administrationGetTest = async () =>
+const apiAdministrationGetTest = async () =>
   (organismeDepartementGet(
     '01',
     'prefecture'
   ) as unknown) as IAdministration | null
 
-const administrationsGet = async (departements: IDepartement[]) => {
+const apiAdministrationsGet = async (departements: IDepartement[]) => {
   const departementsIdsNoms = departements.map(({ id: departementId }) => ({
     departementId,
     nom: departementId === '75' ? 'paris_ppp' : 'prefecture'
@@ -48,10 +48,10 @@ const administrationsUpdate = async (
 ) => {
   if (!departements.length) return []
 
-  const administrationsApiTest = await administrationGetTest()
-  if (!administrationsApiTest) return []
+  const apiAdministrationsTest = await apiAdministrationGetTest()
+  if (!apiAdministrationsTest) return []
 
-  const administrationsNew = await administrationsGet(departements)
+  const administrationsNew = await apiAdministrationsGet(departements)
 
   // si aucune administration n'est retournée,
   // on n'efface pas les administrations correspondantes de la base

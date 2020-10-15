@@ -5,6 +5,7 @@ import { debug } from '../../../config/index'
 import {
   activitesStatutsGet,
   activitesTypesGet,
+  administrationsTypesGet,
   definitionsGet,
   demarchesStatutsGet,
   demarchesTypesGet,
@@ -60,27 +61,15 @@ const documentsVisibilites = async (_: never, context: IToken) => {
 
   if (permissionCheck(user.permissionId, ['super', 'admin', 'editeur'])) {
     return [
-      {
-        id: 'admin',
-        nom: 'Administrations uniquement'
-      },
-      {
-        id: 'entreprise',
-        nom: 'Administrations et entreprises titulaires'
-      },
-      {
-        id: 'public',
-        nom: 'Public'
-      }
+      { id: 'admin', nom: 'Administrations uniquement' },
+      { id: 'entreprise', nom: 'Administrations et entreprises titulaires' },
+      { id: 'public', nom: 'Public' }
     ]
   }
 
   if (permissionCheck(user.permissionId, ['entreprise'])) {
     return [
-      {
-        id: 'entreprise',
-        nom: 'Administrations et entreprises titulaires'
-      }
+      { id: 'entreprise', nom: 'Administrations et entreprises titulaires' }
     ]
   }
 
@@ -314,12 +303,7 @@ const etapesTypes = async (
     const fields = fieldsBuild(info)
 
     const etapesTypes = await etapesTypesGet(
-      {
-        titreDemarcheId,
-        titreEtapeId,
-        titreTravauxId,
-        titreTravauxEtapeId
-      },
+      { titreDemarcheId, titreEtapeId, titreTravauxId, titreTravauxEtapeId },
       { fields },
       context.user?.id
     )
@@ -357,9 +341,7 @@ const etapesStatuts = async () => {
   }
 }
 
-const version = () => {
-  return npmPackage.version
-}
+const version = () => npmPackage.version
 
 const activitesTypes = async (
   _: never,
@@ -416,6 +398,25 @@ const definitions = async () => {
   }
 }
 
+/**
+ * Retourne les types d'administrations
+ *
+ * @returns un tableau de types d'administrations
+ */
+const administrationsTypes = async () => {
+  try {
+    const administrationsTypes = await administrationsTypesGet()
+
+    return administrationsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -436,5 +437,6 @@ export {
   version,
   activitesTypes,
   activitesStatuts,
-  definitions
+  definitions,
+  administrationsTypes
 }
