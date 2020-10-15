@@ -52,6 +52,8 @@ const titreEtapesDecisivesUnilateralesTypes = [
   'spp',
   'dup',
   'dux',
+  'aof',
+  'aco',
   ...titreEtapesDecisivesCommunesTypes
 ]
 
@@ -124,6 +126,27 @@ const titreDemarcheUnilateralStatutIdFind = (
     return 'ins'
   }
 
+  // - le type de l’étape est avenant à l’autorisation de recherche minière
+  if (titreEtapeRecent.typeId === 'aco') {
+    // - le statut de la démarche est "terminé"
+    return 'ter'
+  }
+
+  // - le type de l’étape est l’avis de l’ONF défavorable
+  if (
+    titreEtapeRecent.typeId === 'aof' &&
+    titreEtapeRecent.statutId === 'def'
+  ) {
+    // - le statut de la démarche est "classement sans suite"
+    return 'cls'
+  }
+
+  // - si il y a plusieurs étapes
+  if (titreDemarcheEtapes.length > 1) {
+    // - le statut de la démarche est "en instruction"
+    return 'ins'
+  }
+
   // - sinon, le type de l’étape est initiation de la démarche
   // alors, le statut de la démarche est “initié”
   return 'ini'
@@ -140,7 +163,7 @@ const titreDemarcheDemandeStatutIdFind = (
   )
 
   // si aucune étape décisive n'est présente dans la démarche
-  // le statut est indétrminé
+  // le statut est indéterminé
   if (!titreEtapesDecisivesDemande.length) return 'ind'
 
   // l'étape la plus récente
@@ -256,7 +279,6 @@ const titreDemarcheStatutIdFind = (
   } else if (titreDemarchesUnilateralesTypes.includes(demarcheTypeId)) {
     //  2. la démarche ne fait pas l’objet d’une demande (unilatérale)
     //  - le nom de la démarche est égal à retrait ou abrogation ou prorogation
-
     return titreDemarcheUnilateralStatutIdFind(titreDemarcheEtapes)
   }
 
