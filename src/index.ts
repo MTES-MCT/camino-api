@@ -10,7 +10,6 @@
 
 import 'dotenv/config'
 
-import * as chalk from 'chalk'
 import * as compression from 'compression'
 import * as cors from 'cors'
 import * as express from 'express'
@@ -28,6 +27,7 @@ import init from './database/init'
 import { port, url } from './config/index'
 
 import * as Sentry from '@sentry/node'
+import './config/logger'
 
 init()
 
@@ -58,19 +58,13 @@ if (process.env.SENTRY_DSN) {
 }
 
 app.listen(port, () => {
-  console.info(' ')
-  console.info(chalk.bgWhiteBright.black.bold('> Url: ' + url + ' '))
-  console.info(
-    chalk.bgWhiteBright.black.bold('> ENV: ' + process.env.ENV + ' ')
-  )
-  console.info(
-    chalk.bgWhiteBright.black.bold('> NODE_ENV: ' + process.env.NODE_ENV + ' ')
-  )
+  console.info('')
+  console.info('> Url: ' + url + ' ')
+  console.info('> ENV: ' + process.env.ENV + ' ')
+  console.info('> NODE_ENV: ' + process.env.NODE_ENV + ' ')
 
   if (process.env.NODE_DEBUG === 'true') {
-    console.info(
-      chalk.bgRed.black.bold('> NODE_DEBUG: ' + process.env.NODE_DEBUG + ' ')
-    )
+    console.warn('> NODE_DEBUG: ' + process.env.NODE_DEBUG + ' ')
   }
-  console.info(' ')
+  console.info('')
 })
