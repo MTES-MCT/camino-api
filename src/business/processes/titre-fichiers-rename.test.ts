@@ -33,9 +33,12 @@ describe("renomme les fichiers d'un titre", () => {
       titreNew
     )
 
-    expect(fileRenameMock).toHaveBeenNthCalledWith(
-      1,
+    expect(fileRenameMock).toHaveBeenCalledWith(
       'files/demarches/old-titre-id-demarche-01-etape-01',
+      'files/demarches/new-titre-id-demarche-01-etape-01_tmp'
+    )
+    expect(fileRenameMock).toHaveBeenLastCalledWith(
+      'files/demarches/new-titre-id-demarche-01-etape-01_tmp',
       'files/demarches/new-titre-id-demarche-01-etape-01'
     )
   })

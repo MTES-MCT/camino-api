@@ -65,14 +65,22 @@ const titreFilePathsRename = async (
     relationsIdsChangedIndex
   )
 
-  for (const filePathNameOld of Object.keys(titreFilePathsNames)) {
+  const filePathNamesToUpdate = Object.keys(titreFilePathsNames).filter(
+    filePathNameOld => filePathNameOld !== titreFilePathsNames[filePathNameOld]
+  )
+
+  // si on échange 2 étapes, on est obligé de passer par un dossier temporaire
+  // car on ne peut pas utiliser le nom d’un un dossier non vide comme destination
+  for (const filePathNameOld of filePathNamesToUpdate) {
+    const pathOld = `files/${filePathNameOld}`
     const filePathNameNew = titreFilePathsNames[filePathNameOld]
+    await fileRename(pathOld, `files/${filePathNameNew}_tmp`)
+  }
 
-    if (filePathNameNew !== filePathNameOld) {
-      const pathOld = `files/${filePathNameOld}`
-
-      await fileRename(pathOld, `files/${filePathNameNew}`)
-    }
+  // renomme le dossier temporaire avec son nom définitif
+  for (const filePathNameOld of filePathNamesToUpdate) {
+    const filePathNameNew = titreFilePathsNames[filePathNameOld]
+    await fileRename(`files/${filePathNameNew}_tmp`, `files/${filePathNameNew}`)
   }
 }
 
