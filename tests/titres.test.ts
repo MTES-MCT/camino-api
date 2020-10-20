@@ -42,7 +42,7 @@ describe('titre', () => {
     })
   })
 
-  test('peut voir les activités GRP (utilisateur CACEM)', async () => {
+  test('ne peut pas voir les activités GRP (utilisateur CACEM)', async () => {
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -52,7 +52,7 @@ describe('titre', () => {
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data).toMatchObject({
-      titre: { activites: [{ modification: null }] }
+      titre: { activites: [] }
     })
   })
 })
