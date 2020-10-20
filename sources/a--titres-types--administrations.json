@@ -254,8 +254,8 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
-    "gestionnaire": "FALSE",
-    "associee": "TRUE"
+    "gestionnaire": "TRUE",
+    "associee": "FALSE"
   },
   {
     "administration_id": "ope-ptmg-973-01",
@@ -322,5 +322,71 @@
     "titre_type_id": "cxm",
     "gestionnaire": "FALSE",
     "associee": "FALSE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "apc",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "apm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "apw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "arc",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "cxm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "cxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "pcc",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "prm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "prw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "pxm",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
+  },
+  {
+    "administration_id": "min-dajb-01",
+    "titre_type_id": "pxw",
+    "gestionnaire": "FALSE",
+    "associee": "TRUE"
   }
 ]

@@ -526,6 +526,7 @@
   {
     "id": "scg",
     "nom": "saisine du conseil général chargé des mines",
+    "description": "Étape par laquelle le service instructeur transmet la demande, les différents avis et une proposition de décision du ministre chargé des mines au conseil général chargé des mines pour avis.",
     "ordre": "71",
     "acceptation_auto": "TRUE"
   },
