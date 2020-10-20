@@ -2,6 +2,10 @@ import { ITitreTypeEtapeTypeRestriction } from '../../../../types'
 
 const ret: ITitreTypeEtapeTypeRestriction[] = [
   {
+    condition: { etape: { typeId: 'ide' } },
+    impossibleApres: [{ typeId: 'ide' }]
+  },
+  {
     condition: { etape: { typeId: 'mno' } },
     obligatoireApres: [
       { typeId: 'ide' },
@@ -13,7 +17,7 @@ const ret: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'rif' } },
     obligatoireApres: [{ typeId: 'mno' }, { typeId: 'mif' }],
-    impossibleApres: [{ typeId: 'aof', statutId: 'fav' }, { typeId: 'css' }]
+    impossibleApres: [{ typeId: 'eof' }, { typeId: 'aof' }, { typeId: 'css' }]
   },
   {
     condition: { etape: { typeId: 'eof' } },
@@ -28,7 +32,7 @@ const ret: ITitreTypeEtapeTypeRestriction[] = [
   },
   {
     condition: { etape: { typeId: 'aof' } },
-    obligatoireApres: [{ typeId: 'eof' }],
+    obligatoireApres: [{ typeId: 'eof' }, { typeId: 'mno' }],
     impossibleApres: [{ typeId: 'aof' }, { typeId: 'css' }]
   },
   {
@@ -37,8 +41,8 @@ const ret: ITitreTypeEtapeTypeRestriction[] = [
   },
   {
     condition: { etape: { typeId: 'css' } },
-    obligatoireApres: [{ typeId: 'mno' }, { typeId: 'eof' }],
-    impossibleApres: [{ typeId: 'eof' }]
+    obligatoireApres: [{ typeId: 'mno' }],
+    impossibleApres: [{ typeId: 'aof' }]
   }
 ]
 
