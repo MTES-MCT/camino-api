@@ -118,6 +118,7 @@ const titresDemarchesEtapes = {
     amodiataires.${entreprises.graph},
     administrations.${administrations.graph},
     communes.${communes.graph},
+    forets,
     incertitudes
   ]`,
 
