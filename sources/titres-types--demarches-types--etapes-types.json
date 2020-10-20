@@ -2295,7 +2295,7 @@
   {
     "titre_type_id": "arm",
     "demarche_type_id": "ret",
-    "etape_type_id": "aca",
+    "etape_type_id": "aco",
     "ordre": "400"
   },
   {
@@ -2309,24 +2309,6 @@
     "demarche_type_id": "ret",
     "etape_type_id": "css",
     "ordre": "1100"
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "def",
-    "ordre": "500"
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "ede",
-    "ordre": "190"
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "ret",
-    "etape_type_id": "edm",
-    "ordre": "180"
   },
   {
     "titre_type_id": "arm",

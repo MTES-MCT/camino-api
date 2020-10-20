@@ -649,7 +649,6 @@
     "id": "mno",
     "nom": "notification au demandeur",
     "ordre": "90",
-    "unique": "TRUE",
     "sections": [
       {
         "id": "suivi",
