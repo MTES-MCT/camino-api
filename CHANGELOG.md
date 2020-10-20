@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.55](https://github.com/MTES-MCT/camino-api/compare/v0.24.54...v0.24.55) (2020-10-20)
+
+
+### Features
+
+* expose les administrations ([#562](https://github.com/MTES-MCT/camino-api/issues/562)) ([a7ef375](https://github.com/MTES-MCT/camino-api/commit/a7ef375887eea50c0932c840c76d1a96cc7cded1))
+* **démarche:** ajoute l’arbre d’instruction de retrait d’une ARM en Guyane ([#561](https://github.com/MTES-MCT/camino-api/issues/561)) ([0424d9e](https://github.com/MTES-MCT/camino-api/commit/0424d9e6d29ba40ef3ac402385804db7f40ec4d3))
+* limite l'accès aux activités à certaines administrations ([#554](https://github.com/MTES-MCT/camino-api/issues/554)) ([00e8e98](https://github.com/MTES-MCT/camino-api/commit/00e8e988230712c3870a4d5dab542c3960032312))
+* **forêts:** ajoute l’import des spreadsheets des forêts ([5c988e9](https://github.com/MTES-MCT/camino-api/commit/5c988e967446ff3399353ec4dbd5d69ee4e222cd))
+* restreint l'accès des administrations aux titres non-publics ([#553](https://github.com/MTES-MCT/camino-api/issues/553)) ([c36fc40](https://github.com/MTES-MCT/camino-api/commit/c36fc4025e7dbc3e4013c1ef70e199c2205614e1))
+
+
+### Bug Fixes
+
+* **arbre:** corrige l’arbre d’instruction de retrait d’ARM ([#567](https://github.com/MTES-MCT/camino-api/issues/567)) ([1b47cc4](https://github.com/MTES-MCT/camino-api/commit/1b47cc4b2a686473008b7e1a4c5e077e812188d3))
+* **authentification:** gère correctement les erreurs lorsque le token expire ([#558](https://github.com/MTES-MCT/camino-api/issues/558)) ([76adcc7](https://github.com/MTES-MCT/camino-api/commit/76adcc7eb8ded154680a10568b4429774d708cd0))
+* **documents:** déplace correctement les fichiers lorsqu’une étape change d’identifiant ([#564](https://github.com/MTES-MCT/camino-api/issues/564)) ([5114e9e](https://github.com/MTES-MCT/camino-api/commit/5114e9e699f0f411faee6fef8cb095d346929461))
+
 ### [0.24.54](https://github.com/MTES-MCT/camino-api/compare/v0.24.53...v0.24.54) (2020-10-07)
 
 
