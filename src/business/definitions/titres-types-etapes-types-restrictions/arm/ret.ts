@@ -42,7 +42,7 @@ const ret: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'css' } },
     obligatoireApres: [{ typeId: 'mno' }],
-    impossibleApres: [{ typeId: 'aof' }]
+    impossibleApres: [{ typeId: 'aof' }, { typeId: 'css' }]
   }
 ]
 
