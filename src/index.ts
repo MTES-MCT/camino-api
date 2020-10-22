@@ -59,12 +59,12 @@ if (process.env.SENTRY_DSN) {
 
 app.listen(port, () => {
   console.info('')
-  console.info('> Url: ' + url + ' ')
-  console.info('> ENV: ' + process.env.ENV + ' ')
-  console.info('> NODE_ENV: ' + process.env.NODE_ENV + ' ')
+  console.info('URL:', url)
+  console.info('ENV:', process.env.ENV)
+  console.info('NODE_ENV:', process.env.NODE_ENV)
 
   if (process.env.NODE_DEBUG === 'true') {
-    console.warn('> NODE_DEBUG: ' + process.env.NODE_DEBUG + ' ')
+    console.warn('NODE_DEBUG:', process.env.NODE_DEBUG)
   }
   console.info('')
 })
