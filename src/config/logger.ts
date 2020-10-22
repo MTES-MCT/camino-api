@@ -1,8 +1,10 @@
 /* istanbul ignore file */
 import { createLogger, format, transports } from 'winston'
+import * as util from 'util'
+
 const { combine, timestamp, printf, colorize } = format
 
-const myFormat = printf(({ level, message, timestamp }) => {
+const printFormat = printf(({ level, message, timestamp }) => {
   if (!message || !message.length) {
     return ''
   }
@@ -12,10 +14,21 @@ const myFormat = printf(({ level, message, timestamp }) => {
 
 const timestampFormat = timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
 
+const utilFormat = {
+  transform(info: any) {
+    const args = info[Symbol.for('splat')]
+    if (args) {
+      info.message = util.format(info.message, ...args)
+    }
+
+    return info
+  }
+}
+
 const logger = createLogger({
   transports: [
     new transports.Console({
-      format: combine(colorize(), timestampFormat, myFormat)
+      format: combine(colorize(), timestampFormat, utilFormat, printFormat)
     })
   ]
 })
@@ -25,18 +38,13 @@ if (process.env.NODE_ENV === 'production') {
   logger.add(
     new transports.File({
       filename: 'app.log',
-      format: combine(timestampFormat, myFormat)
+      format: combine(timestampFormat, utilFormat, printFormat)
     })
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-console.log = (message: any, ...args: any) => logger.info(message, ...args)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-console.info = (message: any, ...args: any) => logger.info(message, ...args)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-console.warn = (message: any, ...args: any) => logger.warn(message, ...args)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-console.error = (message: any, ...args: any) => logger.error(message, ...args)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-console.debug = (message: any, ...args: any) => logger.debug(message, ...args)
+console.log = (...args) => logger.info(...args)
+console.info = (...args) => logger.info(...args)
+console.warn = (...args) => logger.warn(...args)
+console.error = (...args) => logger.error(...args)
+console.debug = (...args) => logger.debug(...args)
