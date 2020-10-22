@@ -66,7 +66,7 @@ async function etapeCreate() {
 describe('etapeModifier', () => {
   const etapeModifierQuery = queryImport('titres-etapes-modifier')
 
-  each([undefined, 'editeur']).it(
+  each([undefined, 'editeur']).test(
     'ne peut pas modifier une étape (utilisateur %s)',
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(
@@ -214,7 +214,7 @@ describe('etapeModifier', () => {
 describe('etapeSupprimer', () => {
   const etapeSupprimerQuery = queryImport('titres-etapes-supprimer')
 
-  each([undefined, 'admin']).it(
+  each([undefined, 'admin']).test(
     'ne peut pas supprimer une étape (utilisateur %s)',
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(

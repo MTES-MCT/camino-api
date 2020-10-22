@@ -55,7 +55,7 @@ async function demarcheCreate() {
 describe('etapeCreer', () => {
   const etapeCreerQuery = queryImport('titres-etapes-creer')
 
-  each([undefined, 'editeur']).it(
+  each([undefined, 'editeur']).test(
     'ne peut pas créer une étape (utilisateur %s)',
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(
