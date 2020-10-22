@@ -18,30 +18,35 @@ import { contenuConditionMatch, objConditionMatch } from '../../tools/index'
 titresTypesEtapesTypesRestrictions.forEach(titreTypeEtapesTypesRestrictions =>
   titreTypeEtapesTypesRestrictions.restrictions.forEach(
     titreTypeEtapeTypeRestriction => {
-      if (!titreTypeEtapeTypeRestriction.impossibleApres) return
+      titreTypeEtapeTypeRestriction.contraintes?.forEach(
+        ({ impossibleApres }) => {
+          if (!impossibleApres) return
 
-      titreTypeEtapeTypeRestriction.impossibleApres.forEach(
-        impossibleApresUne => {
-          let restriction = titreTypeEtapesTypesRestrictions.restrictions.find(
-            restriction =>
-              objConditionMatch(restriction.condition.etape, impossibleApresUne)
-          )
+          impossibleApres.forEach(impossibleApresUne => {
+            let restriction = titreTypeEtapesTypesRestrictions.restrictions.find(
+              restriction =>
+                objConditionMatch(
+                  restriction.condition.etape,
+                  impossibleApresUne
+                )
+            )
 
-          if (!restriction) {
-            restriction = {
-              condition: { etape: impossibleApresUne },
-              impossibleAvant: []
+            if (!restriction) {
+              restriction = {
+                condition: { etape: impossibleApresUne },
+                impossibleAvant: []
+              }
+              titreTypeEtapesTypesRestrictions.restrictions.push(restriction)
             }
-            titreTypeEtapesTypesRestrictions.restrictions.push(restriction)
-          }
 
-          if (!restriction.impossibleAvant) {
-            restriction.impossibleAvant = []
-          }
+            if (!restriction.impossibleAvant) {
+              restriction.impossibleAvant = []
+            }
 
-          restriction.impossibleAvant.push(
-            titreTypeEtapeTypeRestriction.condition.etape
-          )
+            restriction.impossibleAvant.push(
+              titreTypeEtapeTypeRestriction.condition.etape
+            )
+          })
         }
       )
     }
@@ -205,50 +210,11 @@ const titreEtapeTypesRestrictionsCheck = (
     (errors: string[], titreEtapeTypesRestrictions) => {
       const {
         condition,
-        impossible,
-        obligatoireApres,
-        impossibleApres,
+        contraintes,
         impossibleAvant
       } = titreEtapeTypesRestrictions
 
-      if (impossible) {
-        const statutId = condition.etape && condition.etape.statutId
-
-        errors.push(
-          `L'étape « ${etapeType.nom} »${
-            statutId ? ` avec un statut « ${statutId} »` : ''
-          } est impossible.`
-        )
-      }
-
-      // l'étape nécessite une étape antérieure pour pouvoir exister
-      if (obligatoireApres) {
-        const errorsObligatoire = obligatoireApresFind(
-          etapeType,
-          date,
-          demarcheType,
-          titreDemarcheEtapes,
-          obligatoireApres
-        )
-
-        if (errorsObligatoire.length) {
-          errors.push(...errorsObligatoire)
-        }
-      }
-
-      // l'étape ne peut se trouver après une étape postérieure
-      if (impossibleApres) {
-        const errorsApres = impossibleApresFind(
-          etapeType,
-          date,
-          demarcheType,
-          titreDemarcheEtapes,
-          impossibleApres
-        )
-        if (errorsApres.length) {
-          errors.push(...errorsApres)
-        }
-      }
+      const contraintesErrors = [] as string[]
 
       if (impossibleAvant) {
         const errorsAvant = impossibleAvantFind(
@@ -259,9 +225,68 @@ const titreEtapeTypesRestrictionsCheck = (
           impossibleAvant
         )
         if (errorsAvant.length) {
-          errors.push(...errorsAvant)
+          contraintesErrors.push(...errorsAvant)
         }
       }
+
+      // si nous n’avons pas d’erreurs déjà existantes, alors on va vérifier si au moins une contrainte est réspectée
+      if (!contraintesErrors.length && contraintes) {
+        for (const {
+          impossible,
+          obligatoireApres,
+          impossibleApres
+        } of contraintes) {
+          const contrainteErrors = []
+
+          if (impossible) {
+            const statutId = condition.etape && condition.etape.statutId
+
+            contrainteErrors.push(
+              `L'étape « ${etapeType.nom} »${
+                statutId ? ` avec un statut « ${statutId} »` : ''
+              } est impossible.`
+            )
+          }
+
+          // l'étape nécessite une étape antérieure pour pouvoir exister
+          if (obligatoireApres) {
+            const errorsObligatoire = obligatoireApresFind(
+              etapeType,
+              date,
+              demarcheType,
+              titreDemarcheEtapes,
+              obligatoireApres
+            )
+
+            if (errorsObligatoire.length) {
+              contrainteErrors.push(...errorsObligatoire)
+            }
+          }
+
+          // l'étape ne peut se trouver après une étape postérieure
+          if (impossibleApres) {
+            const errorsApres = impossibleApresFind(
+              etapeType,
+              date,
+              demarcheType,
+              titreDemarcheEtapes,
+              impossibleApres
+            )
+            if (errorsApres.length) {
+              contrainteErrors.push(...errorsApres)
+            }
+          }
+
+          if (!contrainteErrors.length) {
+            // si une contrainte émet aucune erreur alors on retourne aucune erreur supplémentaire
+            return errors
+          }
+
+          contraintesErrors.push(...contrainteErrors)
+        }
+      }
+
+      errors.push(...contraintesErrors)
 
       return errors
     },

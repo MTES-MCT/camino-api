@@ -3,46 +3,82 @@ import { ITitreTypeEtapeTypeRestriction } from '../../../../types'
 const oct: ITitreTypeEtapeTypeRestriction[] = [
   {
     condition: { etape: { typeId: 'des' } },
-    obligatoireApres: [
-      { typeId: 'mdp' },
-      { typeId: 'pfd' },
-      { typeId: 'rde' },
-      { typeId: 'dae' }
-    ],
-    impossibleApres: [{ typeId: 'sca' }]
+    contraintes: [
+      {
+        obligatoireApres: [
+          { typeId: 'mdp' },
+          { typeId: 'pfd' },
+          { typeId: 'rde' },
+          { typeId: 'dae' }
+        ],
+        impossibleApres: [{ typeId: 'sca' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'mdp' } },
-    obligatoireApres: [{ typeId: 'mfr' }],
-    impossibleApres: [{ typeId: 'mcp' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mfr' }],
+        impossibleApres: [{ typeId: 'mcp' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'dae' } },
-    impossibleApres: [{ typeId: 'mcp' }]
+    contraintes: [
+      {
+        impossibleApres: [{ typeId: 'mcp' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'rde' } },
-    impossibleApres: [{ typeId: 'mcp' }]
+    contraintes: [
+      {
+        impossibleApres: [{ typeId: 'mcp' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'mod' } },
-    obligatoireApres: [{ typeId: 'mdp' }, { typeId: 'rde' }, { typeId: 'dae' }],
-    impossibleApres: [{ typeId: 'sca' }]
+    contraintes: [
+      {
+        obligatoireApres: [
+          { typeId: 'mdp' },
+          { typeId: 'rde' },
+          { typeId: 'dae' }
+        ],
+        impossibleApres: [{ typeId: 'sca' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'pfd' } },
-    impossibleApres: [{ typeId: 'mcp' }]
+    contraintes: [
+      {
+        impossibleApres: [{ typeId: 'mcp' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'mcp' } },
-    obligatoireApres: [{ typeId: 'mdp' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mdp' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'mcp' } },
-    obligatoireApres: [{ typeId: 'pfd' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'pfd' }]
+      }
+    ]
   },
 
   // titres mécanisés
@@ -53,92 +89,148 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
       },
       etape: { typeId: 'mcp' }
     },
-    obligatoireApres: [{ typeId: 'dae' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'dae' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'mcp' } },
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    contraintes: [
+      {
+        impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+      }
+    ]
   },
 
   // cycle de compléments de la complétude
   {
     condition: { etape: { typeId: 'mco' } },
-    obligatoireApres: [{ typeId: 'mcp' }, { typeId: 'rde' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mcp' }, { typeId: 'rde' }],
+        impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'rco' } },
-    obligatoireApres: [{ typeId: 'mco' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mco' }],
+        impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'css' } },
-    obligatoireApres: [
-      { typeId: 'mdp' },
-      { typeId: 'pfd' },
-      { typeId: 'rde' },
-      { typeId: 'dae' }
-    ],
-    impossibleApres: [
-      { typeId: 'sco' },
-      { typeId: 'des' },
-      { typeId: 'aca', statutId: 'def' }
+    contraintes: [
+      {
+        obligatoireApres: [
+          { typeId: 'mdp' },
+          { typeId: 'pfd' },
+          { typeId: 'rde' },
+          { typeId: 'dae' }
+        ],
+        impossibleApres: [
+          { typeId: 'sco' },
+          { typeId: 'des' },
+          { typeId: 'aca', statutId: 'def' }
+        ]
+      }
     ]
   },
 
   {
     condition: { etape: { typeId: 'vfd' } },
-    obligatoireApres: [{ typeId: 'mcp', statutId: 'fav' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mcp', statutId: 'fav' }],
+        impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'mcr' } },
-    obligatoireApres: [{ typeId: 'vfd' }],
-    impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'vfd' }],
+        impossibleApres: [{ typeId: 'mcr', statutId: 'fav' }]
+      }
+    ]
   },
 
   // cycle d'informations
   {
     condition: { etape: { typeId: 'mif' } },
-    obligatoireApres: [{ typeId: 'mcr' }],
-    impossibleApres: [{ typeId: 'sca' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mcr' }],
+        impossibleApres: [{ typeId: 'sca' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'rif' } },
-    obligatoireApres: [{ typeId: 'mif' }],
-    impossibleApres: [{ typeId: 'sca' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mif' }],
+        impossibleApres: [{ typeId: 'sca' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'edm' } },
-    obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
-    impossibleApres: [{ typeId: 'aof' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
+        impossibleApres: [{ typeId: 'aof' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'ede' } },
-    obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
-    impossibleApres: [{ typeId: 'aof' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
+        impossibleApres: [{ typeId: 'aof' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'eof' } },
-    obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
-    impossibleApres: [{ typeId: 'aof' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mcr', statutId: 'fav' }],
+        impossibleApres: [{ typeId: 'aof' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'aof' } },
-    obligatoireApres: [{ typeId: 'eof' }],
-    impossibleApres: [{ typeId: 'sca' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'eof' }],
+        impossibleApres: [{ typeId: 'sca' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'sca' } },
-    obligatoireApres: [{ typeId: 'aof' }],
-    impossibleApres: [{ typeId: 'aca' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'aof' }],
+        impossibleApres: [{ typeId: 'aca' }]
+      }
+    ]
   },
 
   // titres avec franchissement d'eau
@@ -153,19 +245,35 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
         }
       }
     },
-    obligatoireApres: [{ typeId: 'rde' }, { typeId: 'aof' }],
-    impossibleApres: [{ typeId: 'aca' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'rde' }, { typeId: 'aof' }],
+        impossibleApres: [{ typeId: 'aca' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'aca' } },
-    obligatoireApres: [{ typeId: 'sca' }],
-    impossibleApres: [{ typeId: 'css' }, { typeId: 'des' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'sca' }],
+        impossibleApres: [{ typeId: 'css' }, { typeId: 'des' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'mno' } },
-    obligatoireApres: [{ typeId: 'aca' }, { typeId: 'css' }, { typeId: 'aco' }]
+    contraintes: [
+      {
+        obligatoireApres: [
+          { typeId: 'aca' },
+          { typeId: 'css' },
+          { typeId: 'aco' }
+        ]
+      }
+    ]
   },
 
   {
@@ -173,7 +281,11 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
       titre: { contenu: { arm: { mecanise: { valeur: false } } } },
       etape: { typeId: 'pfc' }
     },
-    impossible: true
+    contraintes: [
+      {
+        impossible: true
+      }
+    ]
   },
 
   // paiement des frais de dossier titre mécanisé
@@ -182,31 +294,51 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
       titre: { contenu: { arm: { mecanise: { valeur: true } } } },
       etape: { typeId: 'pfc' }
     },
-    obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
+      }
+    ]
   },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: { valeur: true } } } },
       etape: { typeId: 'pfc' }
     },
-    obligatoireApres: [{ typeId: 'mno' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mno' }]
+      }
+    ]
   },
   {
     condition: { etape: { typeId: 'pfc' } },
-    impossibleApres: [{ typeId: 'vfc' }]
+    contraintes: [
+      {
+        impossibleApres: [{ typeId: 'vfc' }]
+      }
+    ]
   },
   // validation des frais de dossier titre mécanisé
   {
     condition: { etape: { typeId: 'vfc' } },
-    obligatoireApres: [{ typeId: 'pfc' }],
-    impossibleApres: [{ typeId: 'sco' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'pfc' }],
+        impossibleApres: [{ typeId: 'sco' }]
+      }
+    ]
   },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: { valeur: true } } } },
       etape: { typeId: 'sco' }
     },
-    obligatoireApres: [{ typeId: 'vfc' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'vfc' }]
+      }
+    ]
   },
 
   {
@@ -214,24 +346,40 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
       titre: { contenu: { arm: { mecanise: { valeur: false } } } },
       etape: { typeId: 'sco' }
     },
-    obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'aca', statutId: 'fav' }]
+      }
+    ]
   },
   {
     condition: {
       titre: { contenu: { arm: { mecanise: { valeur: false } } } },
       etape: { typeId: 'sco' }
     },
-    obligatoireApres: [{ typeId: 'mno' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'mno' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'sco' } },
-    impossibleApres: [{ typeId: 'aco' }]
+    contraintes: [
+      {
+        impossibleApres: [{ typeId: 'aco' }]
+      }
+    ]
   },
 
   {
     condition: { etape: { typeId: 'aco' } },
-    obligatoireApres: [{ typeId: 'sco' }]
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'sco' }]
+      }
+    ]
   }
 ]
 

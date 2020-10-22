@@ -13,17 +13,18 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
         },
         {
           condition: { etape: { typeId: 'etape-premiere', statutId: 'ok' } },
+          contraintes: [],
           impossibleAvant: []
         },
         {
           condition: { etape: { typeId: 'etape-impossible' } },
-          impossible: true
+          contraintes: [{ impossible: true }]
         },
         {
           condition: {
             etape: { typeId: 'etape-impossible-statut', statutId: 'acc' }
           },
-          impossible: true
+          contraintes: [{ impossible: true }]
         },
         {
           condition: {
@@ -32,19 +33,24 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
                 'etape-milieu-obligatoire-apres-etape-premiere-et-impossible-apres-etape-derniere'
             }
           },
-          obligatoireApres: [{ typeId: 'etape-premiere' }],
-          impossibleApres: [{ typeId: 'etape-derniere' }]
+          contraintes: [
+            {
+              obligatoireApres: [{ typeId: 'etape-premiere' }],
+              impossibleApres: [{ typeId: 'etape-derniere' }]
+            }
+          ]
         },
         {
           condition: {
             etape: { typeId: 'etape-milieu-impossible-apres-etape-derniere' }
           },
-          impossibleApres: [{ typeId: 'etape-derniere' }]
+          contraintes: [{ impossibleApres: [{ typeId: 'etape-derniere' }] }]
         },
         {
           condition: {
             etape: { typeId: 'etape-milieu-impossible-avant-etape-premiere' }
           },
+          contraintes: [],
           impossibleAvant: [{ typeId: 'etape-premiere' }]
         },
         {
@@ -52,7 +58,7 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
             etape: { typeId: 'etape-mecanise' },
             titre: { contenu: { arm: { mecanise: { valeur: true } } } }
           },
-          obligatoireApres: [{ typeId: 'etape-premiere' }]
+          contraintes: [{ obligatoireApres: [{ typeId: 'etape-premiere' }] }]
         },
         {
           condition: {
@@ -61,15 +67,19 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
                 'etape-milieu-obligatoire-apres-etape-premiere-cond-simple'
             }
           },
-          obligatoireApres: [{ typeId: 'etape-premiere', statutId: 'ko' }],
-          impossibleApres: [{ typeId: 'etape-premiere', statutId: 'ok' }]
+          contraintes: [
+            {
+              obligatoireApres: [{ typeId: 'etape-premiere', statutId: 'ko' }],
+              impossibleApres: [{ typeId: 'etape-premiere', statutId: 'ok' }]
+            }
+          ]
         },
         {
           condition: {
             etape: { typeId: 'etape-mecanisee' },
             titre: { contenu: { arm: { mecanise: { valeur: true } } } }
           },
-          obligatoireApres: [{ typeId: 'etape-premiere' }]
+          contraintes: [{ obligatoireApres: [{ typeId: 'etape-premiere' }] }]
         },
         {
           condition: {
@@ -83,7 +93,7 @@ jest.mock('../definitions/titres-types-etapes-types-restrictions', () => ({
               }
             }
           },
-          obligatoireApres: [{ typeId: 'etape-premiere' }]
+          contraintes: [{ obligatoireApres: [{ typeId: 'etape-premiere' }] }]
         }
       ]
     }

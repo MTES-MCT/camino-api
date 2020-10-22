@@ -72,12 +72,53 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
     ).toBeTruthy()
   })
 
+  test('ne peut pas créer une étape "mno" après une "eof"', () => {
+    expect(
+      retArbreTest('mno', '', [
+        { typeId: 'ide', date: '2020-01-01' },
+        { typeId: 'mno', date: '2020-01-01' },
+        { typeId: 'rif', date: '2020-01-01' },
+        { typeId: 'eof', date: '2020-01-01' }
+      ] as ITitreEtape[])
+    ).toBeTruthy()
+  })
+
+  // TODO on ne peut pas encore traiter ce cas, car il peut y avoir déjà une MNO dés le début de la démarche
+  // test('ne peut pas créer une étape "mno" après la "mno" de classement sans suite', () => {
+  //   expect(
+  //     retArbreTest('mno', '', [
+  //       { typeId: 'ide', date: '2020-01-01' },
+  //       { typeId: 'mno', date: '2020-01-01' },
+  //       { typeId: 'css', date: '2020-01-01' },
+  //       { typeId: 'mno', date: '2020-01-01' }
+  //     ] as ITitreEtape[])
+  //   ).toBeTruthy()
+  // })
+
   test('peut créer une "aof" juste après une "mno"', () => {
     expect(
       retArbreTest('aof', '', [
         { typeId: 'mno', date: '2020-01-01' }
       ] as ITitreEtape[])
     ).toBeNull()
+  })
+
+  test('ne peut pas créer une "aof" juste après une "rif"', () => {
+    expect(
+      retArbreTest('aof', '', [
+        { typeId: 'mno', date: '2020-01-01' },
+        { typeId: 'rif', date: '2020-01-02' }
+      ] as ITitreEtape[])
+    ).toBeTruthy()
+  })
+
+  test('ne peut pas créer une "aof" après une "css"', () => {
+    expect(
+      retArbreTest('aof', '', [
+        { typeId: 'eof', date: '2020-01-01' },
+        { typeId: 'css', date: '2020-01-01' }
+      ] as ITitreEtape[])
+    ).toBeTruthy()
   })
 
   test('ne peut pas créer une "css" juste après une "ide"', () => {
