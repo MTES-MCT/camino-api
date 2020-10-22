@@ -316,7 +316,7 @@ describe("publicité d'une démarche", () => {
     ).toMatchObject({ publicLecture: false })
   })
 
-  each(['ren', 'pro']).it(
+  each(['ren', 'pro']).test(
     "une démarche %s dont l'étape la plus récente est le dépot de la demande n'est pas publique",
     (demarcheTypeId: string) => {
       expect(
@@ -330,7 +330,7 @@ describe("publicité d'une démarche", () => {
     }
   )
 
-  each(['ren', 'pro']).it(
+  each(['ren', 'pro']).test(
     "une démarche %s dont l'étape la plus récente est recevabilité de la demande n'est pas publique",
     (demarcheTypeId: string) => {
       expect(
@@ -344,7 +344,7 @@ describe("publicité d'une démarche", () => {
     }
   )
 
-  each(['ren', 'pro']).it(
+  each(['ren', 'pro']).test(
     "une démarche %s dont l'étape la plus récente est l’expertise de l’onf est publique",
     (demarcheTypeId: string) => {
       expect(
@@ -358,7 +358,7 @@ describe("publicité d'une démarche", () => {
     }
   )
 
-  each(['ren', 'pro']).it(
+  each(['ren', 'pro']).test(
     "une démarche %s dont l'étape la plus récente est la décisision de classement sans suite est publique",
     (demarcheTypeId: string) => {
       expect(
@@ -372,7 +372,7 @@ describe("publicité d'une démarche", () => {
     }
   )
 
-  each(['ren', 'pro']).it(
+  each(['ren', 'pro']).test(
     "une démarche %s dont l'étape la plus récente est le désistement est publique",
     (demarcheTypeId: string) => {
       expect(

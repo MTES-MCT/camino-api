@@ -27,7 +27,7 @@ afterAll(async () => {
 describe('documentSupprimer', () => {
   const documentSupprimerQuery = queryImport('documents-supprimer')
 
-  each([undefined]).it(
+  each([undefined]).test(
     'ne peut pas supprimer un document (utilisateur %s)',
     async (permissionId: IPermissionId) => {
       const res = await graphQLCall(

@@ -147,7 +147,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     ).toBeNull()
   })
 
-  each(['points', 'surface', 'substances', 'communes']).it(
+  each(['points', 'surface', 'substances', 'communes']).test(
     "trouve l'id de la dernière étape de n’importe quel type d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient la propriété %s et le titre a le statut 'modification en instance' et aucune phase n'est valide",
     prop => {
       expect(
@@ -160,7 +160,7 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     }
   )
 
-  each(['titulaires', 'amodiataires', 'administrations']).it(
+  each(['titulaires', 'amodiataires', 'administrations']).test(
     "ne trouve pas l'id de la mod car la propriété %s n’est pas modifiée par cette étape",
     prop => {
       expect(

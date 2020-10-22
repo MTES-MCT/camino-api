@@ -89,7 +89,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
   })
 
   // peut créer une "css" dés la "mno" jusqu’à la "aof"
-  each(['mno', 'rif', 'mif', 'eof']).it(
+  each(['mno', 'rif', 'mif', 'eof']).test(
     'peut créer une "css" apres une "%s"',
     (etapeTypeId: string) => {
       expect(
@@ -100,7 +100,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
       ).toBeNull()
     }
   )
-  each(['aof', 'css']).it(
+  each(['aof', 'css']).test(
     'ne peut pas créer une "css" apres une "%s"',
     (etapeTypeId: string) => {
       expect(
