@@ -168,6 +168,8 @@ type Query {
   types: [TitreTypeType]
   unites: [Unite]
   administrationsTypes: [AdministrationType]
+  departements: [Departement]
+  regions: [Region]
 
   "Liste des permissions utilisateurs"
   permissions: [Permission]
@@ -316,6 +318,9 @@ type Mutation {
 
   "Modifie une entreprise"
   entrepriseModifier(entreprise: InputEntrepriseModification!): Entreprise
+
+  "Modifie une administration"
+  administrationModifier(administration: InputAdministration!): Administration
 
   "Crée une démarche de travaux et met à jour le titre minier"
   travauxCreer(travaux: InputTravauxCreation!): Titre

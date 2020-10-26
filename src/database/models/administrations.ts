@@ -106,6 +106,24 @@ class Administrations extends Model {
         },
         to: 'activitesTypes.id'
       }
+    },
+
+    departement: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'departements'),
+      join: {
+        from: 'administrations.departementId',
+        to: 'departements.id'
+      }
+    },
+
+    region: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'regions'),
+      join: {
+        from: 'administrations.regionId',
+        to: 'regions.id'
+      }
     }
   }
 }

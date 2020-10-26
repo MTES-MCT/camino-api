@@ -133,9 +133,18 @@ const administrationsUpsert = async (administrations: IAdministration[]) =>
     .withGraphFetched(options.administrations.graph)
     .upsertGraph(administrations, options.administrations.update)
 
+const administrationUpdate = async (
+  id: string,
+  props: Partial<IAdministration>
+) =>
+  Administrations.query()
+    .patchAndFetchById(id, props)
+    .withGraphFetched(options.administrations.graph)
+
 export {
   administrationGet,
   administrationsGet,
   administrationsCount,
-  administrationsUpsert
+  administrationsUpsert,
+  administrationUpdate
 }

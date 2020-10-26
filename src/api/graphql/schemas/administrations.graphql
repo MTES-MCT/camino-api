@@ -10,6 +10,7 @@ type Administrations {
 type Administration {
   id: ID!
   nom: String
+  type: AdministrationType
   abreviation: String
   service: String
   url: String
@@ -22,9 +23,11 @@ type Administration {
   cedex: String
   utilisateurs: [Utilisateur]
   membre: Boolean
-  type: AdministrationType
   titresAdministrationGestionnaire: [Titre]
   titresAdministrationLocale: [Titre]
+  modification: Boolean
+  departement: Departement
+  region: Region
 }
 
 type AdministrationType {
@@ -35,7 +38,9 @@ type AdministrationType {
 
 input InputAdministration {
   id: ID!
-  nom: String
+  typeId: ID!
+  nom: String!
+  abreviation: String!
   service: String
   url: String
   email: String
@@ -45,4 +50,6 @@ input InputAdministration {
   codePostal: String
   commune: String
   cedex: String
+  departementId: ID
+  regionId: ID
 }

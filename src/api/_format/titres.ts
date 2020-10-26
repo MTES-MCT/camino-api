@@ -169,7 +169,7 @@ const titreFormat = (
       ]) as IAdministration[]
 
       t.administrations = administrations.sort(
-        (a, b) => a.type.ordre - b.type.ordre
+        (a, b) => a.type!.ordre - b.type!.ordre
       )
 
       t.administrations = t.administrations.map(a =>

@@ -30,6 +30,10 @@ import fieldsBuild from './_fields-build'
 import { etapeTypeFormat } from '../../_format/etapes-types'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
+import {
+  departementsGet,
+  regionsGet
+} from '../../../database/queries/territoires'
 
 const npmPackage = require('../../../../package.json')
 
@@ -417,6 +421,44 @@ const administrationsTypes = async () => {
   }
 }
 
+/**
+ * Retourne les départements
+ *
+ * @returns un tableau de départements
+ */
+const departements = async () => {
+  try {
+    const departements = await departementsGet()
+
+    return departements
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+/**
+ * Retourne les régions
+ *
+ * @returns un tableau de régions
+ */
+const regions = async () => {
+  try {
+    const regions = await regionsGet()
+
+    return regions
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -438,5 +480,7 @@ export {
   activitesTypes,
   activitesStatuts,
   definitions,
-  administrationsTypes
+  administrationsTypes,
+  regions,
+  departements
 }
