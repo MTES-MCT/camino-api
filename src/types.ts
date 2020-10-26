@@ -837,10 +837,19 @@ interface ICondition {
 
 interface ITitreTypeEtapeTypeRestriction {
   condition: ICondition
-  obligatoireApres?: ITitreEtapeCondition[]
+  contraintes?: {
+    obligatoireApres?: ITitreEtapeCondition[]
+    impossibleApres?: ITitreEtapeCondition[]
+    impossible?: true
+  }[]
+
   impossibleAvant?: ITitreEtapeCondition[]
-  impossibleApres?: ITitreEtapeCondition[]
-  impossible?: true
+}
+
+interface ITitreEtapesTypesRestrictions {
+  typeId: string
+  demarcheTypeIds: string[]
+  restrictions: ITitreTypeEtapeTypeRestriction[]
 }
 
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
@@ -966,6 +975,7 @@ export {
   IAdministrationColonneId,
   IColonne,
   ITitreTypeEtapeTypeRestriction,
+  ITitreEtapesTypesRestrictions,
   ITitreEtapeCondition,
   ITitreCondition,
   ITelechargement,
