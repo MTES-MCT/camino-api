@@ -63,17 +63,12 @@ const seed = seeding(async ({ del }) => {
   await del('entreprisesEtablissements')
   await del('entreprises')
 
-  // 06
-  await Promise.all([
-    del('a__titresTypes__titresStatuts'),
-    del('a__etapesTypes'),
-
-    del('a__titres_types__administrations'),
-    del('r__titres_types__titres_statuts__administrations'),
-    del('r__titres_types__etapes_types__administrations')
-  ])
-
   // 05
+  await Promise.all([
+    del('administrations__titres_types'),
+    del('administrations__titres_types__titres_statuts'),
+    del('administrations__titres_types__etapes_types')
+  ])
   await del('administrations')
   await del('administrationsTypes')
 
@@ -91,6 +86,7 @@ const seed = seeding(async ({ del }) => {
     del('titresTypes__demarchesTypes'),
     del('titresTypes__demarchesTypes__etapesTypes'),
     del('etapesTypes__etapesStatuts'),
+    del('titresTypes__titresStatuts'),
     del('geoSystemes')
   ])
   await Promise.all([

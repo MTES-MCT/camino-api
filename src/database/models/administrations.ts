@@ -47,11 +47,49 @@ class Administrations extends Model {
       join: {
         from: 'administrations.id',
         through: {
-          from: 'a__titresTypes__administrations.administrationId',
-          to: 'a__titresTypes__administrations.titreTypeId',
+          from: 'administrations__titresTypes.administrationId',
+          to: 'administrations__titresTypes.titreTypeId',
           extra: ['gestionnaire', 'associee']
         },
         to: 'titresTypes.id'
+      }
+    },
+
+    titresStatuts: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'titres-statuts'),
+      join: {
+        from: 'administrations.id',
+        through: {
+          from: 'administrations__titresTypes__titresStatuts.administrationId',
+          to: 'administrations__titresTypes__titresStatuts.titreStatutId',
+          extra: [
+            'titreTypeId',
+            'titresModificationInterdit',
+            'demarchesModificationInterdit',
+            'etapesModificationInterdit'
+          ]
+        },
+        to: 'titresStatuts.id'
+      }
+    },
+
+    etapesTypes: {
+      relation: Model.ManyToManyRelation,
+      modelClass: join(__dirname, 'etapes-types'),
+      join: {
+        from: 'administrations.id',
+        through: {
+          from: 'administrations__titresTypes__etapesTypes.administrationId',
+          to: 'administrations__titresTypes__etapesTypes.etapeTypeId',
+          extra: [
+            'titreTypeId',
+            'lectureInterdit',
+            'creationInterdit',
+            'modificationInterdit'
+          ]
+        },
+        to: 'etapesTypes.id'
       }
     },
 
@@ -68,7 +106,7 @@ class Administrations extends Model {
       }
     },
 
-    titresAdministrationGestionnaire: {
+    gestionnaireTitres: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres'),
       join: {
@@ -81,7 +119,7 @@ class Administrations extends Model {
       }
     },
 
-    titresAdministrationLocale: {
+    localeTitres: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres'),
       join: {

@@ -9,6 +9,8 @@ import {
 } from '../../../database/queries/administrations'
 import { userGet } from '../../../database/queries/utilisateurs'
 
+import administrationUpdateTask from '../../../business/administration-update'
+
 import fieldsBuild from './_fields-build'
 
 import { administrationFormat } from '../../_format/administrations'
@@ -156,8 +158,12 @@ const administrationModifier = async (
       administration
     )
 
+    const administrationId = await administrationUpdateTask(
+      administrationUpdated.id
+    )
+
     return await administrationGet(
-      administrationUpdated.id,
+      administrationId,
       { fields },
       context.user?.id
     )

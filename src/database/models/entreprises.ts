@@ -54,7 +54,7 @@ class Entreprises extends Model {
       }
     },
 
-    titresTitulaire: {
+    titulaireTitres: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres'),
       join: {
@@ -67,7 +67,7 @@ class Entreprises extends Model {
       }
     },
 
-    titresAmodiataire: {
+    amodiataireTitres: {
       relation: Model.ManyToManyRelation,
       modelClass: join(__dirname, 'titres'),
       join: {

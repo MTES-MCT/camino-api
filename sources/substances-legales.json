@@ -413,5 +413,47 @@
     "domaine_id": "r",
     "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
     "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scow",
+    "nom": "substances connexes",
+    "domaine_id": "w",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scoc",
+    "nom": "substances connexes",
+    "domaine_id": "c",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scoh",
+    "nom": "substances connexes",
+    "domaine_id": "h",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scof",
+    "nom": "substances connexes",
+    "domaine_id": "f",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scog",
+    "nom": "substances connexes",
+    "domaine_id": "g",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
+  },
+  {
+    "id": "scos",
+    "nom": "substances connexes",
+    "domaine_id": "s",
+    "description": "Substances présentes lors de l’abattage des substances principales. Elles sont à la libre disposition de l’opérateur à la condition que le titre ou l’autorisation porte la mention « et substances connexes ».",
+    "substance_legale_code_id": "l111_1c"
   }
 ]

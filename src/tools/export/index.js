@@ -40,11 +40,7 @@ const run = async () => {
 
   // utilise une queue plutôt que Promise.all
   // pour ne pas surcharger l'API de google
-  const queue = new PQueue({
-    concurrency: 1,
-    intervalCap: 1,
-    interval: 1000
-  })
+  const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1000 })
 
   try {
     await queue.addAll(spreadsheetsPromises)

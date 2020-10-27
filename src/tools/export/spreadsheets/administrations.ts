@@ -27,6 +27,43 @@ const tables = [
       'departementId',
       'regionId'
     ]
+  },
+  {
+    id: 2,
+    name: 'administrations__titresTypes',
+    columns: [
+      { id: 'administrationId', parentKey: 'id' },
+      { id: 'titreTypeId', key: 'id' },
+      'gestionnaire',
+      'associee'
+    ],
+    parents: ['titresTypes']
+  },
+  {
+    id: 3,
+    name: 'administrations__titresTypes__titresStatuts',
+    columns: [
+      { id: 'administrationId', parentKey: 'id' },
+      'titreTypeId',
+      { id: 'titreStatutId', key: 'id' },
+      'titresModificationInterdit',
+      'demarchesModificationInterdit',
+      'etapesModificationInterdit'
+    ],
+    parents: ['titresStatuts']
+  },
+  {
+    id: 4,
+    name: 'administrations__titresTypes__etapesTypes',
+    columns: [
+      { id: 'administrationId', parentKey: 'id' },
+      'titreTypeId',
+      { id: 'etapeTypeId', key: 'id' },
+      'lectureInterdit',
+      'creationInterdit',
+      'modificationInterdit'
+    ],
+    parents: ['etapesTypes']
   }
 ]
 

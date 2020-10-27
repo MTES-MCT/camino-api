@@ -23,12 +23,7 @@ const documentsSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_DOCUMENTS
 const entreprisesSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_ENTREPRISES
 const administrationsSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS
-const administrationsAutorisationsSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_ADMINISTRATIONS_AUTORISATIONS
 const utilisateursSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_UTILISATEURS
-
-const autorisationsSpreadsheetId =
-  process.env.GOOGLE_SPREADSHEET_ID_AUTORISATIONS
 
 const metasActivitesSpreadsheetId =
   process.env.GOOGLE_SPREADSHEET_ID_METAS_ACTIVITES
@@ -51,11 +46,11 @@ const titresTables = [
   { name: 'titres_etapes_justificatifs' },
   { name: 'titres_substances' },
   { name: 'titres_titulaires' },
+  { name: 'titres_amodiataires' },
   { name: 'titres_communes' },
   { name: 'titres_forets' },
   { name: 'titres_administrations_gestionnaires' },
   { name: 'titres_administrations_locales' },
-  { name: 'titres_amodiataires' },
   { name: 'titres_incertitudes' }
 ]
 
@@ -143,6 +138,7 @@ const metas = {
     { name: 'titres_types', cb: { props_etapes_types: JSON.parse } },
     { name: 'titres_types_types' },
     { name: 'titres_statuts' },
+    { name: 'titres_types__titres_statuts' },
     { name: 'demarches_types' },
     { name: 'demarches_statuts' },
     { name: 'titres_types__demarches_types' },
@@ -223,16 +219,11 @@ const entreprises = {
 const administrations = {
   name: 'administrations',
   id: administrationsSpreadsheetId,
-  tables: [{ name: 'administrations' }]
-} as ISpreadsheet
-
-const administrationsAutorisations = {
-  name: 'administrations-autorisations',
-  id: administrationsAutorisationsSpreadsheetId,
   tables: [
-    { name: 'a__titres_types__administrations' },
-    { name: 'r__titres_types__titres_statuts__administrations' },
-    { name: 'r__titres_types__etapes_types__administrations' }
+    { name: 'administrations' },
+    { name: 'administrations__titres_types' },
+    { name: 'administrations__titres_types__titres_statuts' },
+    { name: 'administrations__titres_types__etapes_types' }
   ]
 } as ISpreadsheet
 
@@ -281,15 +272,6 @@ const titresActivitesReprise = {
   prefixFileName: true
 } as ISpreadsheet
 
-const autorisations = {
-  name: 'autorisations',
-  id: autorisationsSpreadsheetId,
-  tables: [
-    { name: 'a__titres_types__titres_statuts' },
-    { name: 'a__etapes_types' }
-  ]
-} as ISpreadsheet
-
 const globales = {
   name: 'globales',
   id: globalesSpreadsheetId,
@@ -307,13 +289,11 @@ const spreadsheets = [
   calendrier,
   entreprises,
   administrations,
-  administrationsAutorisations,
   utilisateurs,
   metasActivites,
   titresActivites,
   titresTravaux,
   titresActivitesReprise,
-  autorisations,
   globales
 ]
 

@@ -2,10 +2,6 @@ import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 
 import { IEtapeType } from '../../types'
-import {
-  AutorisationsEtapesTypes,
-  RestrictionsTitresTypesEtapesTypesAdministrations
-} from './autorisations'
 
 interface EtapesTypes extends IEtapeType {}
 
@@ -23,7 +19,9 @@ class EtapesTypes extends Model {
       fondamentale: { type: ['boolean', 'null'] },
       dateDebut: { type: ['string', 'null'] },
       dateFin: { type: ['string', 'null'] },
-      sections: { type: 'json' }
+      sections: { type: 'json' },
+      publicLecture: { type: 'boolean' },
+      entreprisesLecture: { type: 'boolean' }
     }
   }
 
@@ -42,21 +40,12 @@ class EtapesTypes extends Model {
       }
     },
 
-    autorisations: {
-      relation: Model.HasOneRelation,
-      modelClass: AutorisationsEtapesTypes,
-      join: {
-        from: 'etapesTypes.id',
-        to: 'a__etapesTypes.etapeTypeId'
-      }
-    },
-
-    restrictionsAdministrations: {
+    administrations: {
       relation: Model.HasManyRelation,
-      modelClass: RestrictionsTitresTypesEtapesTypesAdministrations,
+      modelClass: join(__dirname, 'administrations-titres-types-etapes-types'),
       join: {
         from: 'etapesTypes.id',
-        to: 'r__titresTypes__etapesTypes__administrations.etapeTypeId'
+        to: 'administrations__titresTypes__etapesTypes.etapeTypeId'
       }
     }
   }

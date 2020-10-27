@@ -8,7 +8,7 @@ const documents = {
 }
 
 const administrations = {
-  graph: `[utilisateurs.permission, titresTypes, type, departement, region]`,
+  graph: `[utilisateurs.permission, titresTypes, titresStatuts, etapesTypes, type, departement, region]`,
   update: {
     insertMissing: true,
     relate: ['administrationsTypes'],
@@ -154,7 +154,7 @@ const titresDemarchesPhases = {
 }
 
 const etapesTypes = {
-  graph: `[etapesStatuts, autorisations]`
+  graph: `[etapesStatuts]`
 }
 
 const demarchesTypes = {
@@ -170,7 +170,7 @@ const titresTypesUpdateFalse = [
   'demarchesTypes',
   'demarchesTypes.etapesTypes',
   'demarchesTypes.etapesTypes.etapesStatuts',
-  'demarchesTypes.etapesTypes.autorisations',
+  'demarchesTypes.etapesTypes',
   'autorisationsTitresStatuts'
 ]
 
@@ -187,7 +187,7 @@ const titresDemarchesUpdateFalse = [
   ...titresDemarchesRelateTrue,
   'type.etapesTypes',
   'type.etapesTypes.etapesStatuts',
-  'type.etapesTypes.autorisations',
+  'type.etapesTypes',
   'titreType',
   ...titresTypesUpdateFalse.map(k => `titreType.${k}`)
 ]

@@ -22,10 +22,8 @@ import TitresAdministrationsGestionnaires from '../models/titres-administrations
 import options from './_options'
 import { titresFiltersQueryBuild } from './_titres-filters'
 import { permissionCheck } from '../../tools/permission'
-import {
-  AutorisationsTitresTypesAdministrations,
-  RestrictionsTitresTypesTitresStatutsAdministrations
-} from '../models/autorisations'
+import AdministrationsTitresTypes from '../models/administrations-titres-types'
+import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 
 /**
  * Construit la requête pour récupérer certains champs de titres filtrés
@@ -448,7 +446,7 @@ const titreTypePermissionAdministrationIdCheck = async (
   user: IUtilisateur,
   titreMode: EditionMode
 ) => {
-  const q = AutorisationsTitresTypesAdministrations.query()
+  const q = AdministrationsTitresTypes.query()
     .whereIn(
       'administrationId',
       user.administrations!.map(administration => administration.id)
@@ -490,7 +488,7 @@ const titreTypeStatutPermissionAdministrationCheck = async (
     const administrationIds = user.administrations!.map(
       administration => administration.id
     )
-    const res = (await (RestrictionsTitresTypesTitresStatutsAdministrations.query()
+    const res = (await (AdministrationsTitresTypesTitresStatuts.query()
       .whereIn('administrationId', administrationIds)
       .where('titreTypeId', titre.typeId)
       .where('titreStatutId', titreStatutId)

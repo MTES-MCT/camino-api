@@ -25,8 +25,8 @@ type Entreprise {
   email: String
   etablissements: [EntrepriseEtablissement]
   utilisateurs: [Utilisateur]
-  titresTitulaire: [Titre]
-  titresAmodiataire: [Titre]
+  titulaireTitres: [Titre]
+  amodiataireTitres: [Titre]
   documents: [Document]
 
   modification: Boolean

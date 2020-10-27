@@ -30,7 +30,7 @@ const titresRestrictionsAdministrationQueryBuild = (
     // l'utilisateur fait partie d'une administrations
     // qui a les droits sur le type de titre
     .join(
-      'a__titresTypes__administrations as a_t_a',
+      'administrations__titresTypes as a_t_a',
       raw(`?? = ?? and ?? = ?? and ?? in (${administrationsIdsReplace})`, [
         'a_t_a.administrationId',
         'administrations.id',
@@ -43,7 +43,7 @@ const titresRestrictionsAdministrationQueryBuild = (
     // l'utilisateur est dans au moins une administration
     // qui n'a pas de restriction '${type}ModificationInterdit' sur ce type / statut de titre
     .leftJoin(
-      'r__titresTypes__titresStatuts__administrations as r_t_s_a',
+      'administrations__titresTypes__titresStatuts as r_t_s_a',
       raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
         'r_t_s_a.administrationId',
         'administrations.id',

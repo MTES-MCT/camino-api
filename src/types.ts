@@ -131,8 +131,8 @@ interface IAdministration {
   titresTypes?: ITitreType[] | null
   activitesTypes?: IActiviteType[] | null
   utilisateurs?: IUtilisateur[] | null
-  titresAdministrationGestionnaire?: ITitre[] | null
-  titresAdministrationLocale?: ITitre[] | null
+  gestionnaireTitres?: ITitre[] | null
+  localeTitres?: ITitre[] | null
   associee?: boolean | null
   membre?: boolean
   modification?: boolean | null
@@ -259,8 +259,8 @@ interface IEntreprise {
   url?: string | null
   etablissements?: IEntrepriseEtablissement[] | null
   utilisateurs?: IUtilisateur[] | null
-  titresTitulaire?: ITitre[] | null
-  titresAmodiataire?: ITitre[] | null
+  titulaireTitres?: ITitre[] | null
+  amodiataireTitres?: ITitre[] | null
   modification?: boolean | null
 }
 
@@ -403,20 +403,20 @@ interface IAutorisationEtapeType {
   entreprisesLecture: boolean
 }
 
-interface IAutorisationTitreTypeTitreStatut {
+interface ITitreTypeTitreStatut {
   titreTypeId: string
   titreStatutId: string
   publicLecture: boolean
 }
 
-interface IAutorisationTitreTypeAdministration {
+interface IAdministrationTitreType {
   administrationId: string
   titreTypeId: string
   gestionnaire: boolean
   associee: boolean
 }
 
-interface IRestrictionTitreTypeTitreStatutAdministration {
+interface IAdministrationTitreTypeTitreStatut {
   administrationId: string
   titreTypeId: string
   titreStatutId: string
@@ -425,7 +425,7 @@ interface IRestrictionTitreTypeTitreStatutAdministration {
   etapesModificationInterdit: boolean
 }
 
-interface IRestrictionTitreTypeEtapeTypeAdministration {
+interface IAdministrationTitreTypeEtapeType {
   administrationId: string
   titreTypeId: string
   etapeTypeId: string
@@ -745,7 +745,7 @@ interface ITitreType {
   archive?: boolean | null
   type: ITitreTypeType
   demarchesTypes?: IDemarcheType[] | null
-  autorisationsTitresStatuts?: IAutorisationTitreTypeTitreStatut[] | null
+  autorisationsTitresStatuts?: ITitreTypeTitreStatut[] | null
   propsEtapesTypes?: ITitreSection[] | null
   sections?: ISection[] | null
   gestionnaire?: boolean | null
@@ -925,11 +925,11 @@ export {
   IPhaseStatut,
   IReferenceType,
   IRegion,
-  IAutorisationTitreTypeTitreStatut,
+  ITitreTypeTitreStatut,
   IAutorisationEtapeType,
-  IAutorisationTitreTypeAdministration,
-  IRestrictionTitreTypeTitreStatutAdministration,
-  IRestrictionTitreTypeEtapeTypeAdministration,
+  IAdministrationTitreType,
+  IAdministrationTitreTypeTitreStatut,
+  IAdministrationTitreTypeEtapeType,
   ITitreStatut,
   ISubstance,
   ISubstanceLegale,

@@ -68,7 +68,7 @@ class TitresTypes extends Model {
       modelClass: AutorisationsTitresTypesTitresStatuts,
       join: {
         from: 'titresTypes.id',
-        to: 'a__titresTypes__titresStatuts.titreTypeId'
+        to: 'titresTypes__titresStatuts.titreTypeId'
       }
     }
   }
