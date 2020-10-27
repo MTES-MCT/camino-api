@@ -115,7 +115,7 @@ interface IAdministration {
   id: string
   typeId: string
   nom: string
-  type: IAdministrationType
+  type?: IAdministrationType
   service?: string | null
   url?: string | null
   email?: string | null
@@ -135,6 +135,7 @@ interface IAdministration {
   titresAdministrationLocale?: ITitre[] | null
   associee?: boolean | null
   membre?: boolean
+  modification?: boolean | null
 }
 
 interface IAnnee extends IPeriode {}

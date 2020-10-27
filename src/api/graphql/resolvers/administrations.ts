@@ -4,13 +4,16 @@ import { debug } from '../../../config/index'
 import {
   administrationGet,
   administrationsGet,
-  administrationsCount
+  administrationsCount,
+  administrationUpdate
 } from '../../../database/queries/administrations'
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import fieldsBuild from './_fields-build'
 
 import { administrationFormat } from '../../_format/administrations'
+import { permissionCheck } from '../../../tools/permission'
+import { emailCheck } from '../../../tools/email-check'
 
 const administration = async (
   { id }: { id: string },
@@ -94,4 +97,77 @@ const administrations = async (
   }
 }
 
-export { administration, administrations }
+const administrationModifier = async (
+  {
+    administration
+  }: {
+    administration: {
+      id: string
+      typeId: string
+      nom: string
+      abreviation: string
+      service?: string
+      url?: string
+      email?: string
+      telephone?: string
+      adresse1?: string
+      adresse2?: string
+      codePostal?: string
+      commune?: string
+      cedex?: string
+      departementId?: string
+      regionId?: string
+    }
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const errors = []
+
+    if (administration.email && !emailCheck(administration.email)) {
+      errors.push('adresse email invalide')
+    }
+
+    const fields = fieldsBuild(info)
+
+    const administrationOld = await administrationGet(
+      administration.id,
+      { fields },
+      context.user?.id
+    )
+
+    if (!administrationOld) {
+      errors.push('administration inconnue')
+    }
+
+    if (errors.length) {
+      throw new Error(errors.join(', '))
+    }
+
+    const administrationUpdated = await administrationUpdate(
+      administration.id,
+      administration
+    )
+
+    return await administrationGet(
+      administrationUpdated.id,
+      { fields },
+      context.user?.id
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export { administration, administrations, administrationModifier }

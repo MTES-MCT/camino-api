@@ -71,7 +71,9 @@ import {
   activitesTypes,
   activitesStatuts,
   definitions,
-  administrationsTypes
+  administrationsTypes,
+  regions,
+  departements
 } from './resolvers/metas'
 
 import {
@@ -85,7 +87,11 @@ import {
   entrepriseCreer,
   entrepriseModifier
 } from './resolvers/entreprises'
-import { administration, administrations } from './resolvers/administrations'
+import {
+  administration,
+  administrations,
+  administrationModifier
+} from './resolvers/administrations'
 import {
   activite,
   activites,
@@ -155,6 +161,8 @@ export default {
   activitesStatuts,
   definitions,
   administrationsTypes,
+  regions,
+  departements,
 
   // mutations
   titreCreer,
@@ -187,6 +195,7 @@ export default {
   utilisateurEmailModifier,
   entrepriseCreer,
   entrepriseModifier,
+  administrationModifier,
   travauxCreer,
   travauxModifier,
   travauxSupprimer,

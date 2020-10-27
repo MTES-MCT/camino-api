@@ -17,7 +17,9 @@ const administrationsPermissionQueryBuild = (
 ) => {
   q.select('administrations.*')
 
-  if (
+  if (permissionCheck(user?.permissionId, ['super'])) {
+    q.select(raw('true').as('modification'))
+  } else if (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {

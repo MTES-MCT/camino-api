@@ -8,7 +8,7 @@ const documents = {
 }
 
 const administrations = {
-  graph: `[utilisateurs.permission, titresTypes, type]`,
+  graph: `[utilisateurs.permission, titresTypes, type, departement, region]`,
   update: {
     insertMissing: true,
     relate: ['administrationsTypes'],

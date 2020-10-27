@@ -6,9 +6,12 @@ import Pays from '../models/pays'
 import Forets from '../models/forets'
 
 import options from './_options'
+import Regions from '../models/regions'
 
 const paysGet = async () => Pays.query().withGraphFetched(options.pays.graph)
 const departementsGet = async () => Departements.query()
+
+const regionsGet = async () => Regions.query()
 
 const communesGet = async (): Promise<ICommune[]> =>
   Communes.query().withGraphFetched(options.communes.graph)
@@ -27,5 +30,6 @@ export {
   communesGet,
   paysGet,
   foretsGet,
-  foretsUpsert
+  foretsUpsert,
+  regionsGet
 }
