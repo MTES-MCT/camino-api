@@ -80,8 +80,20 @@
     "substance_legale_id": "bism"
   },
   {
+    "substance_id": "bitm",
+    "substance_legale_id": "hydm"
+  },
+  {
+    "substance_id": "bitu",
+    "substance_legale_id": "cfxx"
+  },
+  {
     "substance_id": "buta",
     "substance_legale_id": "skst"
+  },
+  {
+    "substance_id": "caci",
+    "substance_legale_id": "carx"
   },
   {
     "substance_id": "cadm",
@@ -89,10 +101,6 @@
   },
   {
     "substance_id": "calc",
-    "substance_legale_id": "carx"
-  },
-  {
-    "substance_id": "caci",
     "substance_legale_id": "carx"
   },
   {
@@ -572,6 +580,10 @@
     "substance_legale_id": "skst"
   },
   {
+    "substance_id": "pyri",
+    "substance_legale_id": "ferx"
+  },
+  {
     "substance_id": "quar",
     "substance_legale_id": "carx"
   },
@@ -648,8 +660,28 @@
     "substance_legale_id": "carx"
   },
   {
+    "substance_id": "scor",
+    "substance_legale_id": "scor"
+  },
+  {
     "substance_id": "sele",
     "substance_legale_id": "sele"
+  },
+  {
+    "substance_id": "selg",
+    "substance_legale_id": "kclx"
+  },
+  {
+    "substance_id": "selg",
+    "substance_legale_id": "nacl"
+  },
+  {
+    "substance_id": "selp",
+    "substance_legale_id": "kclx"
+  },
+  {
+    "substance_id": "selp",
+    "substance_legale_id": "nacl"
   },
   {
     "substance_id": "sels",
@@ -672,6 +704,10 @@
     "substance_legale_id": "carx"
   },
   {
+    "substance_id": "sgin",
+    "substance_legale_id": "carx"
+  },
+  {
     "substance_id": "sgra",
     "substance_legale_id": "carx"
   },
@@ -686,6 +722,10 @@
   {
     "substance_id": "sgsm",
     "substance_legale_id": "grma"
+  },
+  {
+    "substance_id": "silc",
+    "substance_legale_id": "carx"
   },
   {
     "substance_id": "sili",
@@ -816,43 +856,31 @@
     "substance_legale_id": "zirc"
   },
   {
-    "substance_id": "selg",
-    "substance_legale_id": "kclx"
-  },
-  {
-    "substance_id": "selg",
-    "substance_legale_id": "nacl"
-  },
-  {
-    "substance_id": "selp",
-    "substance_legale_id": "kclx"
-  },
-  {
-    "substance_id": "selp",
-    "substance_legale_id": "nacl"
-  },
-  {
-    "substance_id": "pyri",
-    "substance_legale_id": "ferx"
-  },
-  {
-    "substance_id": "bitu",
-    "substance_legale_id": "cfxx"
-  },
-  {
-    "substance_id": "bitm",
-    "substance_legale_id": "hydm"
-  },
-  {
-    "substance_id": "scor",
+    "substance_id": "suco",
     "substance_legale_id": "scor"
   },
   {
-    "substance_id": "silc",
-    "substance_legale_id": "carx"
+    "substance_id": "suco",
+    "substance_legale_id": "scow"
   },
   {
-    "substance_id": "sgin",
-    "substance_legale_id": "carx"
+    "substance_id": "suco",
+    "substance_legale_id": "scoc"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scoh"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scof"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scog"
+  },
+  {
+    "substance_id": "suco",
+    "substance_legale_id": "scos"
   }
 ]

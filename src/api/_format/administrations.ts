@@ -16,13 +16,13 @@ const administrationFormat = (
   user: IUtilisateur | undefined,
   administration: IAdministration
 ) => {
-  administration.titresAdministrationGestionnaire =
-    administration.titresAdministrationGestionnaire &&
-    titresFormat(user, administration.titresAdministrationGestionnaire)
+  administration.gestionnaireTitres =
+    administration.gestionnaireTitres &&
+    titresFormat(user, administration.gestionnaireTitres)
 
-  administration.titresAdministrationLocale =
-    administration.titresAdministrationLocale &&
-    titresFormat(user, administration.titresAdministrationLocale)
+  administration.localeTitres =
+    administration.localeTitres &&
+    titresFormat(user, administration.localeTitres)
 
   administration.utilisateurs = administration.utilisateurs?.map(
     utilisateurFormat

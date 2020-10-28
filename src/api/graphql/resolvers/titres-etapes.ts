@@ -28,7 +28,7 @@ import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-v
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 
-// TODO à refactorer, c’est un copier/coller de etapeModifier
+// TODO à re-factoriser, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
   { etape }: { etape: ITitreEtape },
   context: IToken,

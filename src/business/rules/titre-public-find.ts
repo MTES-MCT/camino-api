@@ -1,8 +1,8 @@
-import { ITitreDemarche, IAutorisationTitreTypeTitreStatut } from '../../types'
+import { ITitreDemarche, ITitreTypeTitreStatut } from '../../types'
 
 const titrePublicFind = (
   titreStatutId: string,
-  autorisationsTitresTypesStatuts: IAutorisationTitreTypeTitreStatut[],
+  autorisationsTitresTypesStatuts: ITitreTypeTitreStatut[],
   titreDemarches: ITitreDemarche[]
 ) => {
   const entreprisesLecture = true

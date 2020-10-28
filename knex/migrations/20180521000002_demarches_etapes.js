@@ -61,6 +61,8 @@ exports.up = knex => {
       table.string('dateDebut', 10)
       table.string('dateFin', 10)
       table.specificType('sections', 'jsonb[]')
+      table.boolean('publicLecture')
+      table.boolean('entreprisesLecture')
     })
     .createTable('titresTypes__demarchesTypes__etapesTypes', table => {
       table

@@ -6,6 +6,8 @@ const titresTypesTypes = require('../../sources/titres-types-types.json')
 // eslint-disable-next-line camelcase
 const titresTypes = require('../../sources/titres-types.json')
 const titresStatuts = require('../../sources/titres-statuts.json')
+// eslint-disable-next-line camelcase
+const titresTypes_titresStatuts = require('../../sources/titres-types--titres-statuts.json')
 const phasesStatuts = require('../../sources/phases-statuts.json')
 const demarchesTypes = require('../../sources/demarches-types.json')
 // eslint-disable-next-line camelcase
@@ -46,6 +48,7 @@ const seed = (module.exports = seeding(async ({ insert }) => {
     insert('titresTypes', titresTypes)
   ])
   await Promise.all([
+    insert('titresTypes__titresStatuts', titresTypes_titresStatuts),
     insert('titresTypes__demarchesTypes', titresTypes__demarchesTypes),
     insert(
       'titresTypes__demarchesTypes__etapesTypes',

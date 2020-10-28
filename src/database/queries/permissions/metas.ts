@@ -5,7 +5,7 @@ import { IUtilisateur, IAdministration } from '../../../types'
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
 
-import { AutorisationsTitresTypesAdministrations } from '../../models/autorisations'
+import AdministrationsTitresTypes from '../../models/administrations-titres-types'
 import Domaines from '../../models/domaines'
 import TitresTypes from '../../models/titres-types'
 import DemarchesTypes from '../../models/demarches-types'
@@ -57,7 +57,7 @@ const etapesTypesModificationQueryBuild = (
         // l'utilisateur est dans au moins une administration
         // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
         .leftJoin(
-          'r__titresTypes__etapesTypes__administrations as r_t_e_a',
+          'administrations__titresTypes__etapesTypes as r_t_e_a',
           raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
             'r_t_e_a.administrationId',
             'administrations.id',
@@ -96,7 +96,7 @@ const titresTypesPermissionsQueryBuild = (
       // l'utilisateur fait partie d'une administrations
       // qui a les droits sur le type de titre
       .whereExists(
-        AutorisationsTitresTypesAdministrations.query()
+        AdministrationsTitresTypes.query()
           .alias('tta')
           .whereRaw('?? = ??', ['tta.titreTypeId', 'titresTypes.id'])
           .whereIn('tta.administrationId', administrationsIds)
@@ -138,7 +138,7 @@ const domainesPermissionQueryBuild = (
       // l'utilisateur fait partie d'une administrations
       // qui a les droits sur le type de titre
       .whereExists(
-        AutorisationsTitresTypesAdministrations.query()
+        AdministrationsTitresTypes.query()
           .alias('tta')
           .whereRaw('?? = ??', ['tta.titreTypeId', 'titresTypes.id'])
           .whereIn('tta.administrationId', administrationsIds)
@@ -219,16 +219,14 @@ const etapesTypesPermissionQueryBuild = (
   if (!user || permissionCheck(user?.permissionId, ['defaut', 'entreprise'])) {
     // types d'étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
 
-    q.leftJoinRelated('autorisations')
-
     q.where(b => {
       // visibilité des types d'étapes en tant que titulaire ou amodiataire
       if (permissionCheck(user?.permissionId, ['entreprise'])) {
-        b.orWhere('autorisations.entreprisesLecture', true)
+        b.orWhere('entreprisesLecture', true)
       }
 
       // visibilité des types d'étapes publiques
-      b.orWhere('autorisations.publicLecture', true)
+      b.orWhere('publicLecture', true)
     })
   }
 

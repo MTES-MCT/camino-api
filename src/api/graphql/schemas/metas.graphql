@@ -26,11 +26,10 @@ type TitreType {
 
   "Types de démarches applicables à ce type de titre"
   demarchesTypes: [DemarcheType]
-
   sections: Json
-
   archive: Boolean
-
+  gestionnaire: Boolean
+  associee: Boolean
   titresCreation: Boolean
 }
 
@@ -64,6 +63,11 @@ type TitreStatut {
   description: String
 
   ordre: Int
+
+  titreType: TitreType
+  titresModificationInterdit: Boolean
+  demarchesModificationInterdit: Boolean
+  etapesModificationInterdit: Boolean
 }
 
 "Type de démarche applicable à un titre minier"
@@ -143,9 +147,9 @@ type EtapeType {
   nom: String!
 
   "Type de titre pour laquelle cette étape existe"
-  titreTypeId: ID
+  titreType: TitreType
 
-  demarcheTypeId: ID
+  demarcheType: DemarcheType
 
   description: String
 
@@ -161,6 +165,10 @@ type EtapeType {
   etapesStatuts: [EtapeStatut]
 
   sections: Json
+
+  lectureInterdit: Boolean
+  creationInterdit: Boolean
+  modificationInterdit: Boolean
 
   etapesCreation: Boolean
 }

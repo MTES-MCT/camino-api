@@ -47,7 +47,7 @@ const titreEtapesPermissionQueryBuild = (
       )
 
       q.leftJoin(
-        'r__titresTypes__etapesTypes__administrations as r_t_e_a',
+        'administrations__titresTypes__etapesTypes as r_t_e_a',
         raw('?? = ?? AND ?? = ?? AND ?? = ??', [
           'r_t_e_a.etapeTypeId',
           'titresEtapes.typeId',
@@ -60,12 +60,12 @@ const titreEtapesPermissionQueryBuild = (
 
       q.whereRaw('?? is not true', ['r_t_e_a.lectureInterdit'])
     } else {
-      q.leftJoinRelated('type.restrictionsAdministrations')
+      q.leftJoinRelated('type.administrations')
 
       q.whereNot({
-        'type:restrictionsAdministrations.lectureInterdit': true
+        'type:administrations.lectureInterdit': true
       }).andWhereRaw('?? = ??', [
-        'type:restrictionsAdministrations.titreTypeId',
+        'type:administrations.titreTypeId',
         'demarche:titre.typeId'
       ])
     }
@@ -78,16 +78,16 @@ const titreEtapesPermissionQueryBuild = (
   ) {
     // étapes visibles pour les entreprises et utilisateurs déconnectés ou défaut
 
-    q.leftJoinRelated('type.autorisations')
+    q.leftJoinRelated('type')
 
     q.where(b => {
       // visibilité des étapes en tant que titulaire ou amodiataire
       if (permissionCheck(user?.permissionId, ['entreprise'])) {
-        b.orWhere('type:autorisations.entreprisesLecture', true)
+        b.orWhere('type.entreprisesLecture', true)
       }
 
       // visibilité des étapes publiques
-      b.orWhere('type:autorisations.publicLecture', true)
+      b.orWhere('type.publicLecture', true)
     })
   }
 

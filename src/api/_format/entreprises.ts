@@ -16,12 +16,12 @@ const entrepriseFormat = (
   user: IUtilisateur | undefined,
   entreprise: IEntreprise
 ) => {
-  entreprise.titresTitulaire =
-    entreprise.titresTitulaire && titresFormat(user, entreprise.titresTitulaire)
+  entreprise.titulaireTitres =
+    entreprise.titulaireTitres && titresFormat(user, entreprise.titulaireTitres)
 
-  entreprise.titresAmodiataire =
-    entreprise.titresAmodiataire &&
-    titresFormat(user, entreprise.titresAmodiataire)
+  entreprise.amodiataireTitres =
+    entreprise.amodiataireTitres &&
+    titresFormat(user, entreprise.amodiataireTitres)
 
   entreprise.utilisateurs = entreprise.utilisateurs?.map(utilisateurFormat)
 

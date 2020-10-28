@@ -38,10 +38,25 @@ exports.up = knex =>
       table.string('couleur', 16).notNullable()
       table.integer('ordre')
     })
+    .createTable('titresTypes__titresStatuts', table => {
+      table
+        .string('titreTypeId')
+        .index()
+        .references('titresTypes.id')
+        .notNullable()
+      table
+        .string('titreStatutId')
+        .index()
+        .references('titresStatuts.id')
+        .notNullable()
+      table.boolean('publicLecture').notNullable()
+      table.primary(['titreTypeId', 'titreStatutId'])
+    })
 
 exports.down = knex =>
   knex.schema
     .dropTable('titresTypesTypes')
     .dropTable('domaines')
+    .dropTable('titresTypes__titresStatuts')
     .dropTable('titresTypes')
     .dropTable('titresStatuts')

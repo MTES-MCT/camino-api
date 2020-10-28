@@ -1,29 +1,23 @@
-import {
-  AutorisationsEtapesTypes,
-  AutorisationsTitresTypesAdministrations,
-  RestrictionsTitresTypesEtapesTypesAdministrations,
-  AutorisationsTitresTypesTitresStatuts,
-  RestrictionsTitresTypesTitresStatutsAdministrations
-} from '../models/autorisations'
-
-const autorisationsEtapesTypesGet = async () => AutorisationsEtapesTypes.query()
+import { AutorisationsTitresTypesTitresStatuts } from '../models/autorisations'
+import AdministrationsTitresTypes from '../models/administrations-titres-types'
+import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
+import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
 
 const autorisationsTitresTypesTitresStatutsGet = async () =>
   AutorisationsTitresTypesTitresStatuts.query()
 
-const autorisationsTitresTypesAdministrationsGet = async () =>
-  AutorisationsTitresTypesAdministrations.query()
+const AdministrationsTitresTypesGet = async () =>
+  AdministrationsTitresTypes.query()
 
-const restrictionsTitresTypesTitresStatutsAdministrationsGet = async () =>
-  RestrictionsTitresTypesTitresStatutsAdministrations.query()
+const AdministrationsTitresTypesTitresStatutsGet = async () =>
+  AdministrationsTitresTypesTitresStatuts.query()
 
-const restrictionsTitresTypesEtapesTypesAdministrationsGet = async () =>
-  RestrictionsTitresTypesEtapesTypesAdministrations.query()
+const AdministrationsTitresTypesEtapesTypesGet = async () =>
+  AdministrationsTitresTypesEtapesTypes.query()
 
 export {
-  autorisationsEtapesTypesGet,
   autorisationsTitresTypesTitresStatutsGet,
-  autorisationsTitresTypesAdministrationsGet,
-  restrictionsTitresTypesTitresStatutsAdministrationsGet,
-  restrictionsTitresTypesEtapesTypesAdministrationsGet
+  AdministrationsTitresTypesGet,
+  AdministrationsTitresTypesTitresStatutsGet,
+  AdministrationsTitresTypesEtapesTypesGet
 }

@@ -76,8 +76,9 @@ const domainesGet = async (
  */
 const titresStatutsGet = async (userId?: string) => {
   let query = TitresStatuts.query().orderBy('ordre')
+
+  // si l’utilisateur n’est pas connecté on filtre les statuts non visibles pour le public
   if (!userId) {
-    // si l’utilisateur n’est pas connecté on filtre les statuts non visibles pour le public
     query = query.whereIn(
       'id',
       AutorisationsTitresTypesTitresStatuts.query()

@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 import { ITitreAdministrationsGestionnaire } from '../../types'
 
-import titresAdministrationGestionnairesUpdate from './titres-administrations-gestionnaires-update'
+import titresAdministrationsGestionnairesUpdate from './titres-administrations-gestionnaires-update'
 
 import {
   titresAdministrationsGestionnairesCreate,
@@ -56,7 +56,7 @@ describe("administrations d'une étape", () => {
     const {
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted
-    } = await titresAdministrationGestionnairesUpdate(
+    } = await titresAdministrationsGestionnairesUpdate(
       titresAdministrationGestionnaireVide,
       administrations
     )
@@ -76,7 +76,7 @@ describe("administrations d'une étape", () => {
     const {
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted
-    } = await titresAdministrationGestionnairesUpdate(
+    } = await titresAdministrationsGestionnairesUpdate(
       titresAdministrationGestionnaireExistante,
       administrations
     )
@@ -93,7 +93,7 @@ describe("administrations d'une étape", () => {
     const {
       titresAdministrationsGestionnairesCreated,
       titresAdministrationsGestionnairesDeleted
-    } = await titresAdministrationGestionnairesUpdate(
+    } = await titresAdministrationsGestionnairesUpdate(
       titresAdministrationGestionnaireInexistante,
       administrations
     )

@@ -36,7 +36,7 @@ const administrationsPermissionQueryBuild = (
     )
   }
 
-  q.modifyGraph('titresAdministrationGestionnaire', a =>
+  q.modifyGraph('gestionnaireTitres', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       fields,
@@ -50,7 +50,7 @@ const administrationsPermissionQueryBuild = (
       )
   )
 
-  q.modifyGraph('titresAdministrationLocale', a =>
+  q.modifyGraph('localeTitres', a =>
     titrePermissionQueryBuild(
       a as QueryBuilder<Titres, Titres | Titres[]>,
       fields,

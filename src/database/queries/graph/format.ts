@@ -36,8 +36,8 @@ const graphFormat = (fields: IFields, parent: string) => {
   const isParentTitre = [
     'titres',
     'titre',
-    'titresAmodiataire',
-    'titresTitulaire'
+    'amodiataireTitres',
+    'titulaireTitres'
   ].includes(parent)
 
   // ajoute la propriété `titreType` sur les démarches
