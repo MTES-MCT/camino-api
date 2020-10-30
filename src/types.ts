@@ -129,6 +129,8 @@ interface IAdministration {
   regionId?: string | null
   abreviation?: string | null
   titresTypes?: ITitreType[] | null
+  titresTypesTitresStatuts?: IAdministrationTitreTypeTitreStatut[] | null
+  titresTypesEtapesTypes?: IAdministrationTitreTypeEtapeType[] | null
   activitesTypes?: IActiviteType[] | null
   utilisateurs?: IUtilisateur[] | null
   gestionnaireTitres?: ITitre[] | null
@@ -397,15 +399,18 @@ interface ITravauxType {
   travauxCreation?: boolean | null
 }
 
-interface IAutorisationEtapeType {
+interface ITitreTypeEtapeType {
+  titreTypeId: string
+  titreType?: ITitreType | null
   etapeTypeId: string
-  publicLecture: boolean
-  entreprisesLecture: boolean
+  etapeType?: IEtapeType | null
 }
 
 interface ITitreTypeTitreStatut {
   titreTypeId: string
+  titreType?: ITitreType | null
   titreStatutId: string
+  titreStatut?: ITitreStatut | null
   publicLecture: boolean
 }
 
@@ -416,19 +421,15 @@ interface IAdministrationTitreType {
   associee: boolean
 }
 
-interface IAdministrationTitreTypeTitreStatut {
+interface IAdministrationTitreTypeTitreStatut extends ITitreTypeTitreStatut {
   administrationId: string
-  titreTypeId: string
-  titreStatutId: string
   titresModificationInterdit: boolean
   demarchesModificationInterdit: boolean
   etapesModificationInterdit: boolean
 }
 
-interface IAdministrationTitreTypeEtapeType {
+interface IAdministrationTitreTypeEtapeType extends ITitreTypeEtapeType {
   administrationId: string
-  titreTypeId: string
-  etapeTypeId: string
   creationInterdit: boolean
   lectureInterdit: boolean
   modificationInterdit: boolean
@@ -539,7 +540,7 @@ interface ITitreActivite {
   documentsCreation?: boolean | null
 }
 
-interface ITitreAdministrationsGestionnaire {
+interface ITitreAdministrationGestionnaire {
   administrationId: string
   titreId: string
   associee?: boolean | null
@@ -926,7 +927,6 @@ export {
   IReferenceType,
   IRegion,
   ITitreTypeTitreStatut,
-  IAutorisationEtapeType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
@@ -936,7 +936,7 @@ export {
   ISubstanceLegaleCode,
   ITitre,
   ITitreActivite,
-  ITitreAdministrationsGestionnaire,
+  ITitreAdministrationGestionnaire,
   ITitreAdministrationLocale,
   ITitreCommune,
   ITitreForet,

@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import { ITitreAdministrationsGestionnaire } from '../../types'
+import { ITitreAdministrationGestionnaire } from '../../types'
 
 import titresAdministrationsGestionnairesUpdate from './titres-administrations-gestionnaires-update'
 
@@ -51,7 +51,7 @@ describe("administrations d'une étape", () => {
     titreAdministrationsGestionnairesBuildMock.mockReturnValue([
       { administrationId: 'ptmg' },
       { administrationId: 'dgaln' }
-    ] as ITitreAdministrationsGestionnaire[])
+    ] as ITitreAdministrationGestionnaire[])
 
     const {
       titresAdministrationsGestionnairesCreated,
@@ -71,7 +71,7 @@ describe("administrations d'une étape", () => {
   test("n'ajoute pas d'administration gestionnaire si elle existe déjà dans l'étape", async () => {
     titreAdministrationsGestionnairesBuildMock.mockReturnValue([
       { administrationId: 'dgec' }
-    ] as ITitreAdministrationsGestionnaire[])
+    ] as ITitreAdministrationGestionnaire[])
 
     const {
       titresAdministrationsGestionnairesCreated,

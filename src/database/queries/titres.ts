@@ -1,6 +1,6 @@
 import {
   ITitre,
-  ITitreAdministrationsGestionnaire,
+  ITitreAdministrationGestionnaire,
   ITitreColonneId,
   IColonne,
   Index,
@@ -407,7 +407,7 @@ const titreUpsert = async (
 }
 
 const titresAdministrationsGestionnairesCreate = async (
-  titresAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[]
+  titresAdministrationsGestionnaires: ITitreAdministrationGestionnaire[]
 ) =>
   TitresAdministrationsGestionnaires.query().insert(
     titresAdministrationsGestionnaires

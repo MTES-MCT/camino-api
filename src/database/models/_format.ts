@@ -16,53 +16,44 @@ const titreContenuFormat = async (
 ) => {
   if (!propsTitreEtapesIds || !titreDemarches?.length) return {}
 
-  const etapesIndex = titreDemarches.reduce(
-    (
-      etapesIndex: { [id: string]: ITitreEtape },
-      titreDemarche: ITitreDemarche
-    ) =>
-      titreDemarche.etapes
-        ? titreDemarche.etapes.reduce((etapesIndex, etape) => {
-            if (!etapesIndex[etape.id]) {
-              etapesIndex[etape.id] = etape
-            }
+  const etapesIndex = {} as { [id: string]: ITitreEtape }
 
-            return etapesIndex
-          }, etapesIndex)
-        : etapesIndex,
-    {}
-  )
+  titreDemarches.forEach((titreDemarche: ITitreDemarche) => {
+    if (titreDemarche.etapes) {
+      titreDemarche.etapes.forEach(etape => {
+        if (!etapesIndex[etape.id]) {
+          etapesIndex[etape.id] = etape
+        }
+      })
+    }
+  })
 
-  return Object.keys(propsTitreEtapesIds).reduce(
-    (contenu: IContenu, sectionId: string) =>
-      Object.keys(propsTitreEtapesIds![sectionId]).reduce(
-        (contenu, elementId) => {
-          const etapeId = propsTitreEtapesIds![sectionId][elementId]
+  const contenu = {} as IContenu
 
-          if (etapeId) {
-            const etape = etapesIndex[etapeId]
+  Object.keys(propsTitreEtapesIds).forEach((sectionId: string) => {
+    Object.keys(propsTitreEtapesIds[sectionId]).forEach(elementId => {
+      const etapeId = propsTitreEtapesIds[sectionId][elementId]
 
-            if (
-              etape &&
-              etape.contenu &&
-              etape.contenu[sectionId] &&
-              etape.contenu[sectionId][elementId] !== undefined
-            ) {
-              if (!contenu[sectionId]) {
-                contenu[sectionId] = {}
-              }
+      if (etapeId) {
+        const etape = etapesIndex[etapeId]
 
-              contenu[sectionId][elementId] =
-                etape.contenu[sectionId][elementId]
-            }
+        if (
+          etape &&
+          etape.contenu &&
+          etape.contenu[sectionId] &&
+          etape.contenu[sectionId][elementId] !== undefined
+        ) {
+          if (!contenu[sectionId]) {
+            contenu[sectionId] = {}
           }
 
-          return contenu
-        },
-        contenu
-      ),
-    {}
-  )
+          contenu[sectionId][elementId] = etape.contenu[sectionId][elementId]
+        }
+      }
+    })
+  })
+
+  return contenu
 }
 
 const titreInsertFormat = (json: Pojo) => {

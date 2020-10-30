@@ -42,7 +42,7 @@ const titreDemarchePermissionQueryBuild = (
 
       // les entreprises peuvent voir toutes les démarches
       // des titres pour lesquelles elles sont titulaires ou amodiataires
-      // si elles sont visibles aux entreprisees
+      // si elles sont visibles aux entreprises
       if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length

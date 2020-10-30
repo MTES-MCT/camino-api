@@ -12,7 +12,6 @@ const titreDemarcheFormat = (
   user: IUtilisateur | undefined,
   titreDemarche: ITitreDemarche,
   titreTypeId: string,
-  titreStatutId: string,
   fields: IFields = titreDemarcheFormatFields
 ) => {
   if (!fields) return titreDemarche

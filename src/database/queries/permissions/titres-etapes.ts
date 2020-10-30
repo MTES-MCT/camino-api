@@ -47,18 +47,18 @@ const titreEtapesPermissionQueryBuild = (
       )
 
       q.leftJoin(
-        'administrations__titresTypes__etapesTypes as r_t_e_a',
+        'administrations__titresTypes__etapesTypes as a_tt_et',
         raw('?? = ?? AND ?? = ?? AND ?? = ??', [
-          'r_t_e_a.etapeTypeId',
+          'a_tt_et.etapeTypeId',
           'titresEtapes.typeId',
-          'r_t_e_a.administrationId',
+          'a_tt_et.administrationId',
           'administrations.id',
-          'r_t_e_a.titreTypeId',
+          'a_tt_et.titreTypeId',
           'demarche:titre.typeId'
         ])
       )
 
-      q.whereRaw('?? is not true', ['r_t_e_a.lectureInterdit'])
+      q.whereRaw('?? is not true', ['a_tt_et.lectureInterdit'])
     } else {
       q.leftJoinRelated('type.administrations')
 

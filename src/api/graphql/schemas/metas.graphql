@@ -41,7 +41,7 @@ type TitreTypeType {
   "Nom du type en français"
   nom: String!
 
-  "Nature du type exploitation/exploration"
+  "Exploitation ou exploration"
   exploitation: Boolean
 
   description: String
@@ -63,11 +63,6 @@ type TitreStatut {
   description: String
 
   ordre: Int
-
-  titreType: TitreType
-  titresModificationInterdit: Boolean
-  demarchesModificationInterdit: Boolean
-  etapesModificationInterdit: Boolean
 }
 
 "Type de démarche applicable à un titre minier"
@@ -146,11 +141,6 @@ type EtapeType {
   "Nom en français"
   nom: String!
 
-  "Type de titre pour laquelle cette étape existe"
-  titreType: TitreType
-
-  demarcheType: DemarcheType
-
   description: String
 
   ordre: Int!
@@ -165,10 +155,6 @@ type EtapeType {
   etapesStatuts: [EtapeStatut]
 
   sections: Json
-
-  lectureInterdit: Boolean
-  creationInterdit: Boolean
-  modificationInterdit: Boolean
 
   etapesCreation: Boolean
 }

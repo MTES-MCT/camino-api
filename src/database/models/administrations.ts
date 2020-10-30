@@ -2,6 +2,8 @@ import { Model } from 'objection'
 import { join } from 'path'
 
 import { IAdministration } from '../../types'
+import AdministrationsTitresTypesEtapesTypes from './administrations-titres-types-etapes-types'
+import AdministrationsTitresTypesTitresStatuts from './administrations-titres-types-titres-statuts'
 
 interface Administrations extends IAdministration {}
 
@@ -55,41 +57,21 @@ class Administrations extends Model {
       }
     },
 
-    titresStatuts: {
-      relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'titres-statuts'),
+    titresTypesTitresStatuts: {
+      relation: Model.HasManyRelation,
+      modelClass: AdministrationsTitresTypesTitresStatuts,
       join: {
         from: 'administrations.id',
-        through: {
-          from: 'administrations__titresTypes__titresStatuts.administrationId',
-          to: 'administrations__titresTypes__titresStatuts.titreStatutId',
-          extra: [
-            'titreTypeId',
-            'titresModificationInterdit',
-            'demarchesModificationInterdit',
-            'etapesModificationInterdit'
-          ]
-        },
-        to: 'titresStatuts.id'
+        to: 'administrations__titresTypes__titresStatuts.administrationId'
       }
     },
 
-    etapesTypes: {
-      relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'etapes-types'),
+    titresTypesEtapesTypes: {
+      relation: Model.HasManyRelation,
+      modelClass: AdministrationsTitresTypesEtapesTypes,
       join: {
         from: 'administrations.id',
-        through: {
-          from: 'administrations__titresTypes__etapesTypes.administrationId',
-          to: 'administrations__titresTypes__etapesTypes.etapeTypeId',
-          extra: [
-            'titreTypeId',
-            'lectureInterdit',
-            'creationInterdit',
-            'modificationInterdit'
-          ]
-        },
-        to: 'etapesTypes.id'
+        to: 'administrations__titresTypes__etapesTypes.administrationId'
       }
     },
 

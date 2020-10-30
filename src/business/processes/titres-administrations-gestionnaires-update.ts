@@ -1,5 +1,5 @@
 import {
-  ITitreAdministrationsGestionnaire,
+  ITitreAdministrationGestionnaire,
   ITitre,
   IAdministration
 } from '../../types'
@@ -15,11 +15,11 @@ import titreAdministrationsGestionnairesBuild from '../rules/titre-administratio
 
 const titreAsGsToCreatedFind = (
   titreAsGsOldIds: string[],
-  titreAsGs: ITitreAdministrationsGestionnaire[]
+  titreAsGs: ITitreAdministrationGestionnaire[]
 ) =>
   titreAsGs.reduce(
     (
-      titresAsGsToCreate: ITitreAdministrationsGestionnaire[],
+      titresAsGsToCreate: ITitreAdministrationGestionnaire[],
       titreAdministrationGestionnaire
     ) => {
       if (
@@ -37,11 +37,11 @@ const titreAsGsToCreatedFind = (
 
 const titreAsGsToDeleteFind = (
   titreAsGsOldIds: string[],
-  titreAsGs: ITitreAdministrationsGestionnaire[],
+  titreAsGs: ITitreAdministrationGestionnaire[],
   titreId: string
 ) =>
   titreAsGsOldIds.reduce(
-    (titreAsGsToDelete: ITitreAdministrationsGestionnaire[], id) => {
+    (titreAsGsToDelete: ITitreAdministrationGestionnaire[], id) => {
       if (!titreAsGs.find(({ administrationId }) => administrationId === id)) {
         titreAsGsToDelete.push({
           titreId,
@@ -56,7 +56,7 @@ const titreAsGsToDeleteFind = (
 
 interface ITitresAsGsToUpdate {
   titreAsGsOldIds: string[]
-  titreAsGs: ITitreAdministrationsGestionnaire[]
+  titreAsGs: ITitreAdministrationGestionnaire[]
   titreId: string
 }
 
@@ -93,8 +93,8 @@ const titresAsGsToCreateAndDeleteBuild = (
         titresAsGsToCreate,
         titresAsGsToDelete
       }: {
-        titresAsGsToCreate: ITitreAdministrationsGestionnaire[]
-        titresAsGsToDelete: ITitreAdministrationsGestionnaire[]
+        titresAsGsToCreate: ITitreAdministrationGestionnaire[]
+        titresAsGsToDelete: ITitreAdministrationGestionnaire[]
       },
       { titreAsGsOldIds, titreAsGs, titreId }
     ) => {
@@ -123,7 +123,7 @@ const titresAdministrationsGestionnairesUpdate = async (
     titresAsGsToDelete
   } = titresAsGsToCreateAndDeleteBuild(titres, administrations)
 
-  let titresAsGsCreated = [] as ITitreAdministrationsGestionnaire[]
+  let titresAsGsCreated = [] as ITitreAdministrationGestionnaire[]
   const titresAsGsDeleted = [] as string[]
 
   if (titresAsGsToCreate.length) {

@@ -7,15 +7,6 @@ const documents = {
   }
 }
 
-const administrations = {
-  graph: `[utilisateurs.permission, titresTypes, titresStatuts, etapesTypes, type, departement, region]`,
-  update: {
-    insertMissing: true,
-    relate: ['administrationsTypes'],
-    unrelate: ['administrationsTypes']
-  }
-}
-
 const entreprisesEtablissements = {
   update: {
     insertMissing: true
@@ -73,6 +64,35 @@ const communes = {
 
 const pays = {
   graph: `regions.departements.communes`
+}
+
+const titresDemarchesPhases = {
+  graph: 'statut'
+}
+
+const etapesTypes = {
+  graph: `[etapesStatuts]`
+}
+
+const demarchesTypes = {
+  graph: `[etapesTypes.${etapesTypes.graph}]`
+}
+
+const travauxTypes = {
+  graph: `[etapesTypes.${etapesTypes.graph}]`
+}
+
+const titresTypes = {
+  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
+}
+
+const administrations = {
+  graph: `[utilisateurs.permission, titresTypes.${titresTypes.graph}, titresTypesTitresStatuts, titresTypesEtapesTypes, type, departement, region]`,
+  update: {
+    insertMissing: true,
+    relate: ['administrationsTypes'],
+    unrelate: ['administrationsTypes']
+  }
 }
 
 const titresDemarchesEtapesRelateTrue = [
@@ -147,22 +167,6 @@ const titresTravauxEtapes = {
     unrelate: titresTravauxEtapesRelateTrue,
     insertMissing: true
   }
-}
-
-const titresDemarchesPhases = {
-  graph: 'statut'
-}
-
-const etapesTypes = {
-  graph: `[etapesStatuts]`
-}
-
-const demarchesTypes = {
-  graph: `[etapesTypes.${etapesTypes.graph}]`
-}
-
-const travauxTypes = {
-  graph: `[etapesTypes.${etapesTypes.graph}]`
 }
 
 const titresTypesUpdateFalse = [
@@ -257,10 +261,6 @@ const titresTravaux = {
     noDelete: titresTravauxUpdateFalse,
     insertMissing: true
   }
-}
-
-const titresTypes = {
-  graph: `[demarchesTypes(orderAsc).${demarchesTypes.graph}, type, autorisationsTitresStatuts]`
 }
 
 const domaines = {

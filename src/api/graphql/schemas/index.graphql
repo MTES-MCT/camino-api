@@ -322,6 +322,18 @@ type Mutation {
   "Modifie une administration"
   administrationModifier(administration: InputAdministration!): Administration
 
+  administrationTitreTypeModifier(
+    administrationTitreType: InputAdministrationTitreType!
+  ): Administration
+
+  administrationTitreTypeTitreStatutModifier(
+    administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!
+  ): Administration
+
+  administrationTitreTypeEtapeTypeModifier(
+    administrationTitreTypeEtapeType: InputAdministrationTitreTypeEtapeType!
+  ): Administration
+
   "Crée une démarche de travaux et met à jour le titre minier"
   travauxCreer(travaux: InputTravauxCreation!): Titre
 

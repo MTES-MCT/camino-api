@@ -6,7 +6,15 @@ const fieldsOrderDesc = [
   'travaux',
   'travauxEtapes'
 ]
-const fieldsOrderAsc = ['points', 'substances', 'references', 'etapesTypes']
+const fieldsOrderAsc = [
+  'domaines',
+  'points',
+  'substances',
+  'references',
+  'etapesTypes',
+  'titresTypesEtapesTypes',
+  'titresTypesTitresStatuts'
+]
 const fieldsToRemove = ['coordonnees']
 const titreFieldsToRemove = [] as string[]
 const geoFieldsToReplace = ['geojsonPoints', 'geojsonMultiPolygon']
