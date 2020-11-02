@@ -1,4 +1,5 @@
-import { Model } from 'objection'
+import { join } from 'path'
+import { Model, Modifiers } from 'objection'
 
 import { IAdministrationTitreTypeEtapeType } from '../../types'
 
@@ -30,6 +31,38 @@ class AdministrationsTitresTypesEtapesTypes extends Model {
   }
 
   public static idColumn = ['administrationId', 'titreTypeId', 'etapeTypeId']
+
+  public static relationMappings = {
+    titreType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'titres-types'),
+      join: {
+        from: 'administrations__titresTypes__etapesTypes.titreTypeId',
+        to: 'titresTypes.id'
+      }
+    },
+
+    etapeType: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: join(__dirname, 'etapes-types'),
+      join: {
+        from: 'administrations__titresTypes__etapesTypes.etapeTypeId',
+        to: 'etapesTypes.id'
+      }
+    }
+  }
+
+  public static modifiers: Modifiers = {
+    orderAsc: builder => {
+      builder
+        .joinRelated('titreType.domaine')
+        .orderBy('titreType:domaine.id')
+        .joinRelated('titreType.type')
+        .orderBy('titreType:type.nom')
+        .joinRelated('etapeType')
+        .orderBy('etapeType.nom')
+    }
+  }
 }
 
 export default AdministrationsTitresTypesEtapesTypes

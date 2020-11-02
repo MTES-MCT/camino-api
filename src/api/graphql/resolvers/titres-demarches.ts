@@ -135,7 +135,6 @@ const demarches = async (
         user,
         titreDemarche,
         titreDemarche.titre!.typeId,
-        titreDemarche.titre!.statutId!,
         fields.elements
       )
     )

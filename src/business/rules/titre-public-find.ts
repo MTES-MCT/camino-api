@@ -2,20 +2,20 @@ import { ITitreDemarche, ITitreTypeTitreStatut } from '../../types'
 
 const titrePublicFind = (
   titreStatutId: string,
-  autorisationsTitresTypesStatuts: ITitreTypeTitreStatut[],
+  titresTypesStatuts: ITitreTypeTitreStatut[],
   titreDemarches: ITitreDemarche[]
 ) => {
   const entreprisesLecture = true
   let publicLecture = false
 
-  const autorisation = autorisationsTitresTypesStatuts.find(
+  const titreTypeTitreStatut = titresTypesStatuts.find(
     a => a.titreStatutId === titreStatutId
   )
 
-  // si une autorisation existe
+  // si une jointure existe
   // et la démarche d'octroi (virtuelle ou non) est publique
   // alors le titre est public
-  if (autorisation?.publicLecture) {
+  if (titreTypeTitreStatut?.publicLecture) {
     const titreDemarcheOctroi = titreDemarches.find(
       d => ['oct', 'vut'].includes(d.typeId) && d.publicLecture
     )

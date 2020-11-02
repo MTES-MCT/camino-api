@@ -90,7 +90,10 @@ import {
 import {
   administration,
   administrations,
-  administrationModifier
+  administrationModifier,
+  administrationTitreTypeModifier,
+  administrationTitreTypeTitreStatutModifier,
+  administrationTitreTypeEtapeTypeModifier
 } from './resolvers/administrations'
 import {
   activite,
@@ -196,6 +199,9 @@ export default {
   entrepriseCreer,
   entrepriseModifier,
   administrationModifier,
+  administrationTitreTypeModifier,
+  administrationTitreTypeTitreStatutModifier,
+  administrationTitreTypeEtapeTypeModifier,
   travauxCreer,
   travauxModifier,
   travauxSupprimer,

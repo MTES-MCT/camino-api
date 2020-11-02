@@ -226,12 +226,7 @@ const demarches = async (
   const user = await userGet(userId)
 
   const demarchesFormatted = titresDemarches.map(titreDemarche =>
-    titreDemarcheFormat(
-      user,
-      titreDemarche,
-      titreDemarche.titre!.typeId,
-      titreDemarche.titre!.statutId!
-    )
+    titreDemarcheFormat(user, titreDemarche, titreDemarche.titre!.typeId)
   )
 
   let contenu = ''

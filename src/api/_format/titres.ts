@@ -139,7 +139,7 @@ const titreFormat = (
 
   if (fields.demarches && t.demarches?.length) {
     t.demarches = t.demarches.map(td =>
-      titreDemarcheFormat(user, td, t.typeId, t.statutId!, fields.demarches)
+      titreDemarcheFormat(user, td, t.typeId, fields.demarches)
     )
   }
 

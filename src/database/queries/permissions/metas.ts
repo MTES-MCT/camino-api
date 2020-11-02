@@ -57,18 +57,18 @@ const etapesTypesModificationQueryBuild = (
         // l'utilisateur est dans au moins une administration
         // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
         .leftJoin(
-          'administrations__titresTypes__etapesTypes as r_t_e_a',
+          'administrations__titresTypes__etapesTypes as a_tt_et',
           raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
-            'r_t_e_a.administrationId',
+            'a_tt_et.administrationId',
             'administrations.id',
-            'r_t_e_a.titreTypeId',
+            'a_tt_et.titreTypeId',
             't_d_e.titreTypeId',
-            'r_t_e_a.etapeTypeId',
+            'a_tt_et.etapeTypeId',
             't_d_e.etapeTypeId',
-            `r_t_e_a.${modification ? 'modification' : 'creation'}Interdit`
+            `a_tt_et.${modification ? 'modification' : 'creation'}Interdit`
           ])
         )
-        .whereNull('r_t_e_a.administrationId')
+        .whereNull('a_tt_et.administrationId')
     )
 
 const titresTypesPermissionsQueryBuild = (

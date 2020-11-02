@@ -1,11 +1,23 @@
-import { IAdministrationColonneId, IToken } from '../../../types'
+import {
+  IAdministrationColonneId,
+  IAdministrationTitreType,
+  IAdministrationTitreTypeEtapeType,
+  IAdministrationTitreTypeTitreStatut,
+  IToken
+} from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 import { debug } from '../../../config/index'
 import {
   administrationGet,
   administrationsGet,
   administrationsCount,
-  administrationUpdate
+  administrationUpdate,
+  administrationTitreTypeDelete,
+  administrationTitreTypeUpsert,
+  administrationTitreTypeTitreStatutUpsert,
+  administrationTitreTypeTitreStatutDelete,
+  administrationTitreTypeEtapeTypeDelete,
+  administrationTitreTypeEtapeTypeUpsert
 } from '../../../database/queries/administrations'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -176,4 +188,149 @@ const administrationModifier = async (
   }
 }
 
-export { administration, administrations, administrationModifier }
+const administrationTitreTypeModifier = async (
+  {
+    administrationTitreType
+  }: { administrationTitreType: IAdministrationTitreType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (
+      !administrationTitreType.gestionnaire &&
+      !administrationTitreType.associee
+    ) {
+      await administrationTitreTypeDelete(
+        administrationTitreType.administrationId,
+        administrationTitreType.titreTypeId
+      )
+    } else {
+      await administrationTitreTypeUpsert(administrationTitreType)
+    }
+
+    return await administrationGet(
+      administrationTitreType.administrationId,
+      { fields },
+      context.user?.id
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const administrationTitreTypeTitreStatutModifier = async (
+  {
+    administrationTitreTypeTitreStatut
+  }: {
+    administrationTitreTypeTitreStatut: IAdministrationTitreTypeTitreStatut
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (
+      !administrationTitreTypeTitreStatut.titresModificationInterdit &&
+      !administrationTitreTypeTitreStatut.demarchesModificationInterdit &&
+      !administrationTitreTypeTitreStatut.etapesModificationInterdit
+    ) {
+      await administrationTitreTypeTitreStatutDelete(
+        administrationTitreTypeTitreStatut.administrationId,
+        administrationTitreTypeTitreStatut.titreTypeId,
+        administrationTitreTypeTitreStatut.titreStatutId
+      )
+    } else {
+      await administrationTitreTypeTitreStatutUpsert(
+        administrationTitreTypeTitreStatut
+      )
+    }
+
+    return await administrationGet(
+      administrationTitreTypeTitreStatut.administrationId,
+      { fields },
+      context.user?.id
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const administrationTitreTypeEtapeTypeModifier = async (
+  {
+    administrationTitreTypeEtapeType
+  }: {
+    administrationTitreTypeEtapeType: IAdministrationTitreTypeEtapeType
+  },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = context.user && (await userGet(context.user.id))
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (
+      !administrationTitreTypeEtapeType.lectureInterdit &&
+      !administrationTitreTypeEtapeType.modificationInterdit &&
+      !administrationTitreTypeEtapeType.creationInterdit
+    ) {
+      await administrationTitreTypeEtapeTypeDelete(
+        administrationTitreTypeEtapeType.administrationId,
+        administrationTitreTypeEtapeType.titreTypeId,
+        administrationTitreTypeEtapeType.etapeTypeId
+      )
+    } else {
+      await administrationTitreTypeEtapeTypeUpsert(
+        administrationTitreTypeEtapeType
+      )
+    }
+
+    return await administrationGet(
+      administrationTitreTypeEtapeType.administrationId,
+      { fields },
+      context.user?.id
+    )
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+export {
+  administration,
+  administrations,
+  administrationModifier,
+  administrationTitreTypeModifier,
+  administrationTitreTypeTitreStatutModifier,
+  administrationTitreTypeEtapeTypeModifier
+}

@@ -104,6 +104,19 @@ describe('titreCreer', () => {
     )
   })
 
+  test("ne peut pas créer un titre ARM (un utilisateur 'admin' Déal Guyane)", async () => {
+    const res = await graphQLCall(
+      titreCreerQuery,
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
+      'admin',
+      administrations.dealGuyane
+    )
+
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer ce type de titre/
+    )
+  })
+
   test("crée un titre ARM (un utilisateur 'admin' PTMG)", async () => {
     const res = await graphQLCall(
       titreCreerQuery,

@@ -35,7 +35,7 @@ Certaines requêtes sont publiques.
 
 Certaines requêtes sont protégées et nécessitent une authentification par token (jwt).
 
-Enfin, certaines requêtes retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié.
+La plupart des requêtes retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié.
 """
 type Query {
   "Version de l'API"
@@ -321,6 +321,18 @@ type Mutation {
 
   "Modifie une administration"
   administrationModifier(administration: InputAdministration!): Administration
+
+  administrationTitreTypeModifier(
+    administrationTitreType: InputAdministrationTitreType!
+  ): Administration
+
+  administrationTitreTypeTitreStatutModifier(
+    administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!
+  ): Administration
+
+  administrationTitreTypeEtapeTypeModifier(
+    administrationTitreTypeEtapeType: InputAdministrationTitreTypeEtapeType!
+  ): Administration
 
   "Crée une démarche de travaux et met à jour le titre minier"
   travauxCreer(travaux: InputTravauxCreation!): Titre

@@ -26,8 +26,8 @@ type Administration {
   gestionnaireTitres: [Titre]
   localeTitres: [Titre]
   titresTypes: [TitreType]
-  titresStatuts: [TitreStatut]
-  EtapesTypes: [EtapeType]
+  titresTypesTitresStatuts: [TitreTypeTitreStatut]
+  titresTypesEtapesTypes: [TitreTypeEtapeType]
   departement: Departement
   region: Region
   modification: Boolean
@@ -37,6 +37,23 @@ type AdministrationType {
   id: ID!
   nom: String
   ordre: Int
+}
+
+type TitreTypeTitreStatut {
+  titreType: TitreType
+  titreStatut: TitreStatut
+  titresModificationInterdit: Boolean
+  demarchesModificationInterdit: Boolean
+  etapesModificationInterdit: Boolean
+}
+
+"Type d'étape d'une démarche de titre minier"
+type TitreTypeEtapeType {
+  titreType: TitreType
+  etapeType: EtapeType
+  lectureInterdit: Boolean
+  creationInterdit: Boolean
+  modificationInterdit: Boolean
 }
 
 input InputAdministration {
@@ -55,4 +72,29 @@ input InputAdministration {
   cedex: String
   departementId: ID
   regionId: ID
+}
+
+input InputAdministrationTitreType {
+  administrationId: ID!
+  titreTypeId: ID!
+  gestionnaire: Boolean
+  associee: Boolean
+}
+
+input InputAdministrationTitreTypeTitreStatut {
+  administrationId: ID!
+  titreTypeId: ID!
+  titreStatutId: ID!
+  titresModificationInterdit: Boolean
+  demarchesModificationInterdit: Boolean
+  etapesModificationInterdit: Boolean
+}
+
+input InputAdministrationTitreTypeEtapeType {
+  administrationId: ID!
+  titreTypeId: ID!
+  etapeTypeId: ID!
+  lectureInterdit: Boolean
+  modificationInterdit: Boolean
+  creationInterdit: Boolean
 }

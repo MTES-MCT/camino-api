@@ -1,4 +1,4 @@
-import { IAdministration, ITitreAdministrationsGestionnaire } from '../../types'
+import { IAdministration, ITitreAdministrationGestionnaire } from '../../types'
 
 const titreAdministrationsGestionnairesBuild = (
   { id: titreId, typeId }: { id: string; typeId: string },
@@ -6,7 +6,7 @@ const titreAdministrationsGestionnairesBuild = (
 ) =>
   administrations.reduce(
     (
-      titreAdministrationsGestionnaires: ITitreAdministrationsGestionnaire[],
+      titreAdministrationsGestionnaires: ITitreAdministrationGestionnaire[],
       administration
     ) => {
       const administrationTitreType = administration.titresTypes?.find(
@@ -23,7 +23,7 @@ const titreAdministrationsGestionnairesBuild = (
       const titreAdministrationGestionnaire = {
         titreId,
         administrationId: administration.id
-      } as ITitreAdministrationsGestionnaire
+      } as ITitreAdministrationGestionnaire
 
       if (administrationTitreType.associee) {
         titreAdministrationGestionnaire.associee =

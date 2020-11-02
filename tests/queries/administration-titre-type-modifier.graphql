@@ -1,0 +1,27 @@
+mutation AdministrationTitreTypeModifier(
+  $administrationTitreType: InputAdministrationTitreType!
+) {
+  administrationTitreTypeModifier(
+    administrationTitreType: $administrationTitreType
+  ) {
+    ...administration
+  }
+}
+
+fragment administration on Administration {
+  id
+  nom
+  titresTypes {
+    id
+    domaine {
+      id
+      nom
+    }
+    type {
+      id
+      nom
+    }
+    gestionnaire
+    associee
+  }
+}

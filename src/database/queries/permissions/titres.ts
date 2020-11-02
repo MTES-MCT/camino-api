@@ -27,34 +27,53 @@ const titresRestrictionsAdministrationQueryBuild = (
   const administrationsIdsReplace = administrationsIds.map(() => '?')
 
   const restrictionsQuery = Administrations.query()
-    // l'utilisateur fait partie d'une administrations
-    // qui a les droits sur le type de titre
-    .join(
-      'administrations__titresTypes as a_t_a',
-      raw(`?? = ?? and ?? = ?? and ?? in (${administrationsIdsReplace})`, [
-        'a_t_a.administrationId',
-        'administrations.id',
-        'a_t_a.titreTypeId',
-        'titresModification.typeId',
-        'administrations.id',
-        ...administrationsIds
-      ])
+    // l'utilisateur fait partie d'une administrations gestionnaire
+    .leftJoin(
+      'administrations__titresTypes as a_tt',
+      raw(
+        `?? = ?? and ?? = ?? and ?? = true and ?? in (${administrationsIdsReplace})`,
+        [
+          'a_tt.administrationId',
+          'administrations.id',
+          'a_tt.titreTypeId',
+          'titresModification.typeId',
+          'a_tt.gestionnaire',
+          'administrations.id',
+          ...administrationsIds
+        ]
+      )
     )
     // l'utilisateur est dans au moins une administration
     // qui n'a pas de restriction '${type}ModificationInterdit' sur ce type / statut de titre
     .leftJoin(
-      'administrations__titresTypes__titresStatuts as r_t_s_a',
+      'administrations__titresTypes__titresStatuts as a_tt_ts',
       raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
-        'r_t_s_a.administrationId',
+        'a_tt_ts.administrationId',
         'administrations.id',
-        'r_t_s_a.titreTypeId',
+        'a_tt_ts.titreTypeId',
         'titresModification.typeId',
-        'r_t_s_a.titreStatutId',
+        'a_tt_ts.titreStatutId',
         'titresModification.statutId',
-        `r_t_s_a.${type}ModificationInterdit`
+        `a_tt_ts.${type}ModificationInterdit`
       ])
     )
-    .whereNull('r_t_s_a.administrationId')
+    .whereNull('a_tt_ts.administrationId')
+
+  // soit l'utilisateur fait partie d'une administration locale
+  if (['demarches', 'etapes'].includes(type)) {
+    restrictionsQuery.where(b => {
+      b.join(
+        'administrationsLocales as al',
+        raw(
+          `?? in  (${administrationsIdsReplace})`,
+          'al.id',
+          administrationsIds
+        )
+      ).orWhereNotNull('a_tt.administrationId')
+    })
+  } else {
+    restrictionsQuery.whereNotNull('a_tt.administrationId')
+  }
 
   return restrictionsQuery
 }
@@ -81,9 +100,11 @@ const titrePermissionQueryBuild = (
     a => a.type?.id === 'min'
   )
 
-  // les titres non-publics sont visibles uniquement
-  // - pour les `super`
-  // - les utilisateurs reliés à une administration `ministère`
+  // si
+  // - l'utilisateur n'est pas connecté
+  // - ou l'utilisateur appartient à une entreprise
+  // - ou l'utilisateur appartient à une administration (autre qu'un ministère)
+  // alors il ne voit que les titres publics et ceux auxquels son entité est reliée
   if (
     !user ||
     permissionCheck(user?.permissionId, ['entreprise', 'defaut']) ||
@@ -134,14 +155,14 @@ const titrePermissionQueryBuild = (
             (Titres.relatedQuery(
               'administrationsGestionnaires'
             ) as QueryBuilder<
-              Entreprises,
-              Entreprises | Entreprises[]
+              Administrations,
+              Administrations | Administrations[]
             >).whereIn('administrationsGestionnaires.id', administrationsIds)
           )
           c.orWhereExists(
             (Titres.relatedQuery('administrationsLocales') as QueryBuilder<
-              Entreprises,
-              Entreprises | Entreprises[]
+              Administrations,
+              Administrations | Administrations[]
             >).whereIn('administrationsLocales.id', administrationsIds)
           )
         })
@@ -203,6 +224,7 @@ const titrePermissionQueryBuild = (
     )
   })
 
+  // masque les administrations associées
   if (
     !user ||
     !permissionCheck(user?.permissionId, [

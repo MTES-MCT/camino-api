@@ -1,18 +1,25 @@
 import {
   IAdministration,
   IAdministrationColonneId,
+  IAdministrationTitreType,
+  IAdministrationTitreTypeTitreStatut,
+  IAdministrationTitreTypeEtapeType,
   IFields,
   IUtilisateur
 } from '../../types'
-import Administrations from '../models/administrations'
-import options from './_options'
-import { administrationsPermissionQueryBuild } from './permissions/administrations'
-
-import { userGet } from './utilisateurs'
 
 import graphBuild from './graph/build'
 import graphFormat from './graph/format'
 import { stringSplit } from './_utils'
+import options from './_options'
+
+import { userGet } from './utilisateurs'
+
+import Administrations from '../models/administrations'
+import AdministrationsTitresTypes from '../models/administrations-titres-types'
+import { administrationsPermissionQueryBuild } from './permissions/administrations'
+import AdministrationsTitresTypesTitresStatuts from '../models/administrations-titres-types-titres-statuts'
+import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
 
 const administrationsQueryBuild = (
   { noms, typesIds }: { noms?: string | null; typesIds?: string[] | null },
@@ -61,7 +68,7 @@ const administrationGet = async (
 
   const q = administrationsQueryBuild({}, { fields }, user)
 
-  return (await q.findById(id)) as IAdministration
+  return q.findById(id)
 }
 
 const administrationsCount = async (
@@ -141,10 +148,67 @@ const administrationUpdate = async (
     .patchAndFetchById(id, props)
     .withGraphFetched(options.administrations.graph)
 
+const administrationTitreTypeUpsert = async (
+  administrationTitreType: IAdministrationTitreType
+) =>
+  AdministrationsTitresTypes.query().upsertGraph(administrationTitreType, {
+    insertMissing: true
+  })
+
+const administrationTitreTypeDelete = async (
+  administrationId: string,
+  titreTypeId: string
+) =>
+  AdministrationsTitresTypes.query().deleteById([administrationId, titreTypeId])
+
+const administrationTitreTypeTitreStatutUpsert = async (
+  administrationTitreTypeTitreStatut: IAdministrationTitreTypeTitreStatut
+) =>
+  AdministrationsTitresTypesTitresStatuts.query().upsertGraph(
+    administrationTitreTypeTitreStatut,
+    { insertMissing: true }
+  )
+
+const administrationTitreTypeTitreStatutDelete = async (
+  administrationId: string,
+  titreTypeId: string,
+  statutTypeId: string
+) =>
+  AdministrationsTitresTypesTitresStatuts.query().deleteById([
+    administrationId,
+    titreTypeId,
+    statutTypeId
+  ])
+
+const administrationTitreTypeEtapeTypeUpsert = async (
+  administrationTitreTypeEtapeType: IAdministrationTitreTypeEtapeType
+) =>
+  AdministrationsTitresTypesEtapesTypes.query().upsertGraph(
+    administrationTitreTypeEtapeType,
+    { insertMissing: true }
+  )
+
+const administrationTitreTypeEtapeTypeDelete = async (
+  administrationId: string,
+  titreTypeId: string,
+  etapeTypeId: string
+) =>
+  AdministrationsTitresTypesEtapesTypes.query().deleteById([
+    administrationId,
+    titreTypeId,
+    etapeTypeId
+  ])
+
 export {
   administrationGet,
   administrationsGet,
   administrationsCount,
   administrationsUpsert,
-  administrationUpdate
+  administrationUpdate,
+  administrationTitreTypeUpsert,
+  administrationTitreTypeDelete,
+  administrationTitreTypeTitreStatutUpsert,
+  administrationTitreTypeTitreStatutDelete,
+  administrationTitreTypeEtapeTypeUpsert,
+  administrationTitreTypeEtapeTypeDelete
 }
