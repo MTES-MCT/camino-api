@@ -23,7 +23,7 @@ const titrePropsEtapes = [
 const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresUpdated = titres.reduce((titreIdsUpdated: string[], titre) => {
+  const titresUpdated = titres.reduce((titresIdsUpdated: string[], titre) => {
     const props = titrePropsEtapes.reduce(
       (props: Partial<ITitre>, { prop, name }) => {
         const value = titrePropEtapeIdFind(
@@ -52,11 +52,11 @@ const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
           `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
         )
 
-        titreIdsUpdated.push(titreUpdated.id)
+        titresIdsUpdated.push(titreUpdated.id)
       })
     }
 
-    return titreIdsUpdated
+    return titresIdsUpdated
   }, [])
 
   await queue.onIdle()

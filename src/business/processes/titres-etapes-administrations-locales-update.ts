@@ -38,39 +38,29 @@ const titreEtapeAdministrationsLocalesCreatedBuild = (
     []
   )
 
-interface IEtapeAdministrationLocaleToDelete {
-  titreEtapeId: string
-  administrationId: string
-}
-
 const titreEtapeAdministrationsLocalesToDeleteBuild = (
-  titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined,
+  titreEtapeAdministrationsLocalesOld: IAdministration[],
   titreEtapeAdministrationsLocales: ITitreAdministrationLocale[],
   titreEtapeId: string
 ) =>
-  titreEtapeAdministrationsLocalesOld
-    ? titreEtapeAdministrationsLocalesOld.reduce(
-        (
-          queries: IEtapeAdministrationLocaleToDelete[],
-          { id: idOld, associee: associeeOld }
-        ) => {
-          if (
-            !titreEtapeAdministrationsLocales.find(
-              ({ administrationId: idNew, associee: associeeNew }) =>
-                idNew === idOld && associeeOld === associeeNew
-            )
-          ) {
-            queries.push({
-              titreEtapeId,
-              administrationId: idOld
-            })
-          }
+  titreEtapeAdministrationsLocalesOld.reduce(
+    (
+      queries: ITitreAdministrationLocale[],
+      { id: idOld, associee: associeeOld }
+    ) => {
+      if (
+        !titreEtapeAdministrationsLocales.find(
+          ({ administrationId: idNew, associee: associeeNew }) =>
+            idNew === idOld && associeeOld === associeeNew
+        )
+      ) {
+        queries.push({ titreEtapeId, administrationId: idOld })
+      }
 
-          return queries
-        },
-        []
-      )
-    : []
+      return queries
+    },
+    []
+  )
 
 interface ITitreEtapeAdministrationLocale {
   titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined
@@ -88,7 +78,7 @@ const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = (
         titresEtapesAdministrationsLocalesToDelete
       }: {
         titresEtapesAdministrationsLocalesToCreate: ITitreAdministrationLocale[]
-        titresEtapesAdministrationsLocalesToDelete: IEtapeAdministrationLocaleToDelete[]
+        titresEtapesAdministrationsLocalesToDelete: ITitreAdministrationLocale[]
       },
       {
         titreEtapeAdministrationsLocalesOld,
@@ -103,13 +93,15 @@ const titresEtapesAdministrationsLocalesToCreateAndDeleteBuild = (
         )
       )
 
-      titresEtapesAdministrationsLocalesToDelete.push(
-        ...titreEtapeAdministrationsLocalesToDeleteBuild(
-          titreEtapeAdministrationsLocalesOld,
-          titreEtapeAdministrationsLocales,
-          titreEtapeId
+      if (titreEtapeAdministrationsLocalesOld) {
+        titresEtapesAdministrationsLocalesToDelete.push(
+          ...titreEtapeAdministrationsLocalesToDeleteBuild(
+            titreEtapeAdministrationsLocalesOld,
+            titreEtapeAdministrationsLocales,
+            titreEtapeId
+          )
         )
-      )
+      }
 
       return {
         titresEtapesAdministrationsLocalesToCreate,
@@ -180,7 +172,6 @@ const titreEtapeAdministrationsLocalesBuild = (
         t => t.id === titreTypeId && t.associee
       )
       titreEtapeAdministration.associee = associee ? true : null
-
       titreEtapeAdministrations.push(titreEtapeAdministration)
 
       return titreEtapeAdministrations
@@ -226,7 +217,7 @@ const titresEtapesAdministrationsLocalesBuild = (
 const titresEtapesAdministrationsLocalesUpdate = async (
   titres: ITitre[],
   administrations: IAdministration[]
-): Promise<[ITitreAdministrationLocale[], string[]]> => {
+) => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
   const titresEtapesAdministrationsLocales = titresEtapesAdministrationsLocalesBuild(
@@ -242,16 +233,13 @@ const titresEtapesAdministrationsLocalesUpdate = async (
   )
 
   let titresEtapesAdministrationsLocalesCreated = [] as ITitreAdministrationLocale[]
-  const titresEtapesAdministrationsLocalesDeleted = [] as string[]
+  const titresEtapesAdministrationsLocalesDeleted = [] as ITitreAdministrationLocale[]
 
   if (titresEtapesAdministrationsLocalesToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresEtapesAdministrationsLocalesToDelete.reduce(
-      (
-        titresEtapesAdministrationsLocalesDeleted,
-        { titreEtapeId, administrationId }
-      ) => {
+    titresEtapesAdministrationsLocalesToDelete.forEach(
+      ({ titreEtapeId, administrationId }) => {
         queue.add(async () => {
           await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
 
@@ -259,12 +247,12 @@ const titresEtapesAdministrationsLocalesUpdate = async (
             `suppression: étape ${titreEtapeId}, administration ${administrationId}`
           )
 
-          titresEtapesAdministrationsLocalesDeleted.push(titreEtapeId)
+          titresEtapesAdministrationsLocalesDeleted.push({
+            titreEtapeId,
+            administrationId
+          })
         })
-
-        return titresEtapesAdministrationsLocalesDeleted
-      },
-      titresEtapesAdministrationsLocalesDeleted
+      }
     )
 
     await queue.onIdle()
@@ -282,10 +270,10 @@ const titresEtapesAdministrationsLocalesUpdate = async (
     )
   }
 
-  return [
+  return {
     titresEtapesAdministrationsLocalesCreated,
     titresEtapesAdministrationsLocalesDeleted
-  ]
+  }
 }
 
 export default titresEtapesAdministrationsLocalesUpdate

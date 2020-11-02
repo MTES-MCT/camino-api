@@ -7,8 +7,8 @@ import titreContenuEtapeIdFind from '../rules/titre-contenu-etape-id-find'
 const titresPropsContenuUpdate = async (titres: ITitre[]) => {
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresUpdated = titres.reduce((titreIdsUpdated: string[], titre) => {
-    if (!titre.type?.propsEtapesTypes) return titreIdsUpdated
+  const titresUpdated = titres.reduce((titresIdsUpdated: string[], titre) => {
+    if (!titre.type?.propsEtapesTypes) return titresIdsUpdated
 
     const {
       propsTitreEtapesIds,
@@ -99,11 +99,11 @@ const titresPropsContenuUpdate = async (titres: ITitre[]) => {
           )}`
         )
 
-        titreIdsUpdated.push(titreUpdated.id)
+        titresIdsUpdated.push(titreUpdated.id)
       })
     }
 
-    return titreIdsUpdated
+    return titresIdsUpdated
   }, [])
 
   await queue.onIdle()

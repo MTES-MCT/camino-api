@@ -224,15 +224,10 @@ const run = async () => {
       'super'
     )
     administrations = await administrationsGet({}, {}, 'super')
-    const titresEtapesAdministrationsLocalesUpdated = await titresEtapesAdministrationsLocalesUpdate(
-      titres,
-      administrations
-    )
-    const titresEtapesAdministrationsLocalesCreated = titresEtapesAdministrationsLocalesUpdated[0].map(
-      teal => teal.titreEtapeId
-    )
-    const titresEtapesAdministrationsLocalesDeleted =
-      titresEtapesAdministrationsLocalesUpdated[1]
+    const {
+      titresEtapesAdministrationsLocalesCreated,
+      titresEtapesAdministrationsLocalesDeleted
+    } = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
 
     console.info()
     console.info('propriétés des titres (liens vers les étapes)…')
