@@ -1,4 +1,4 @@
-import { IAdministration, ITitreAdministrationLocale } from '../../types'
+import { IAdministration } from '../../types'
 
 import titresEtapeAdministrationsLocalesUpdate from './titres-etapes-administrations-locales-update'
 
@@ -103,11 +103,10 @@ describe("administrations d'une étape", () => {
     const [
       titresEtapesAdministrationsCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = (await titresEtapeAdministrationsLocalesUpdate(
+    ] = await titresEtapeAdministrationsLocalesUpdate(
       titresArm,
       administrations
-    )) as [ITitreAdministrationLocale[], string[]]
-
+    )
     expect(titresEtapesAdministrationsCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
     expect(

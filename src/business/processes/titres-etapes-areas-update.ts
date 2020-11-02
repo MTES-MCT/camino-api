@@ -406,7 +406,11 @@ const titresEtapesAreaUpdate = async (
     await queue.onIdle()
   }
 
-  return [areasUpdated, titresEtapesAreasUpdated, titresEtapesAreasDeleted]
+  return [
+    areasUpdated.map(a => a.id),
+    titresEtapesAreasUpdated,
+    titresEtapesAreasDeleted
+  ]
 }
 
 export { titresEtapesAreasUpdate }

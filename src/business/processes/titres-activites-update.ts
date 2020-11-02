@@ -1,4 +1,4 @@
-import { ITitre, IActiviteType, ITitreActivite } from '../../types'
+import { IActiviteType, ITitre, ITitreActivite } from '../../types'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
 import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
@@ -38,7 +38,7 @@ const titresActivitesUpdate = async (
     )
   }
 
-  return titresActivitesCreated
+  return titresActivitesCreated.map(ta => ta.id)
 }
 
 export default titresActivitesUpdate

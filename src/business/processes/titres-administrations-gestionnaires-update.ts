@@ -1,14 +1,14 @@
 import {
-  ITitreAdministrationGestionnaire,
+  IAdministration,
   ITitre,
-  IAdministration
+  ITitreAdministrationGestionnaire
 } from '../../types'
 
 import PQueue from 'p-queue'
 
 import {
-  titresAdministrationsGestionnairesCreate,
-  titreAdministrationGestionnaireDelete
+  titreAdministrationGestionnaireDelete,
+  titresAdministrationsGestionnairesCreate
 } from '../../database/queries/titres'
 
 import titreAdministrationsGestionnairesBuild from '../rules/titre-administrations-gestionnaires-build'
@@ -162,7 +162,9 @@ const titresAdministrationsGestionnairesUpdate = async (
   }
 
   return {
-    titresAdministrationsGestionnairesCreated: titresAsGsCreated,
+    titresAdministrationsGestionnairesCreated: titresAsGsCreated.map(
+      tag => tag.titreId
+    ),
     titresAdministrationsGestionnairesDeleted: titresAsGsDeleted
   }
 }

@@ -226,7 +226,7 @@ const titresEtapesAdministrationsLocalesBuild = (
 const titresEtapesAdministrationsLocalesUpdate = async (
   titres: ITitre[],
   administrations: IAdministration[]
-) => {
+): Promise<[ITitreAdministrationLocale[], string[]]> => {
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
   const titresEtapesAdministrationsLocales = titresEtapesAdministrationsLocalesBuild(
