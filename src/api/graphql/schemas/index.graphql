@@ -35,7 +35,7 @@ Certaines requêtes sont publiques.
 
 Certaines requêtes sont protégées et nécessitent une authentification par token (jwt).
 
-Enfin, certaines requêtes retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié.
+La plupart des requêtes retournent un résultat plus ou moins riche selon le niveau de permission de l'utilisateur authentifié.
 """
 type Query {
   "Version de l'API"

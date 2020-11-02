@@ -27,18 +27,21 @@ const titresRestrictionsAdministrationQueryBuild = (
   const administrationsIdsReplace = administrationsIds.map(() => '?')
 
   const restrictionsQuery = Administrations.query()
-    // l'utilisateur fait partie d'une administrations
-    // qui a les droits sur le type de titre
-    .join(
+    // l'utilisateur fait partie d'une administrations gestionnaire
+    .leftJoin(
       'administrations__titresTypes as a_tt',
-      raw(`?? = ?? and ?? = ?? and ?? in (${administrationsIdsReplace})`, [
-        'a_tt.administrationId',
-        'administrations.id',
-        'a_tt.titreTypeId',
-        'titresModification.typeId',
-        'administrations.id',
-        ...administrationsIds
-      ])
+      raw(
+        `?? = ?? and ?? = ?? and ?? = true and ?? in (${administrationsIdsReplace})`,
+        [
+          'a_tt.administrationId',
+          'administrations.id',
+          'a_tt.titreTypeId',
+          'titresModification.typeId',
+          'a_tt.gestionnaire',
+          'administrations.id',
+          ...administrationsIds
+        ]
+      )
     )
     // l'utilisateur est dans au moins une administration
     // qui n'a pas de restriction '${type}ModificationInterdit' sur ce type / statut de titre
@@ -55,6 +58,22 @@ const titresRestrictionsAdministrationQueryBuild = (
       ])
     )
     .whereNull('a_tt_ts.administrationId')
+
+  // soit l'utilisateur fait partie d'une administration locale
+  if (['demarches', 'etapes'].includes(type)) {
+    restrictionsQuery.where(b => {
+      b.join(
+        'administrationsLocales as al',
+        raw(
+          `?? in  (${administrationsIdsReplace})`,
+          'al.id',
+          administrationsIds
+        )
+      ).orWhereNotNull('a_tt.administrationId')
+    })
+  } else {
+    restrictionsQuery.whereNotNull('a_tt.administrationId')
+  }
 
   return restrictionsQuery
 }
@@ -136,14 +155,14 @@ const titrePermissionQueryBuild = (
             (Titres.relatedQuery(
               'administrationsGestionnaires'
             ) as QueryBuilder<
-              Entreprises,
-              Entreprises | Entreprises[]
+              Administrations,
+              Administrations | Administrations[]
             >).whereIn('administrationsGestionnaires.id', administrationsIds)
           )
           c.orWhereExists(
             (Titres.relatedQuery('administrationsLocales') as QueryBuilder<
-              Entreprises,
-              Entreprises | Entreprises[]
+              Administrations,
+              Administrations | Administrations[]
             >).whereIn('administrationsLocales.id', administrationsIds)
           )
         })

@@ -23,7 +23,7 @@ afterAll(async () => {
   dbManager.closeKnex()
 })
 
-async function demarcheCreate() {
+const demarcheCreate = async () => {
   const titreId = 'titre-arm-id'
   await titreCreate(
     {
@@ -39,6 +39,7 @@ async function demarcheCreate() {
     {},
     'super'
   )
+
   await titreDemarcheCreate(
     {
       id: 'demarche-test-id',

@@ -240,8 +240,6 @@ const administrationTitreTypeTitreStatutModifier = async (
   info: GraphQLResolveInfo
 ) => {
   try {
-    console.log(administrationTitreTypeTitreStatut)
-
     const user = context.user && (await userGet(context.user.id))
 
     if (!permissionCheck(user?.permissionId, ['super'])) {

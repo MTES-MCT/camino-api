@@ -1,0 +1,34 @@
+mutation AdministrationTitreTypeEtapeTypeModifier(
+  $administrationTitreTypeEtapeType: InputAdministrationTitreTypeEtapeType!
+) {
+  administrationTitreTypeEtapeTypeModifier(
+    administrationTitreTypeEtapeType: $administrationTitreTypeEtapeType
+  ) {
+    ...administration
+  }
+}
+
+fragment administration on Administration {
+  id
+  nom
+  titresTypesEtapesTypes {
+    titreType {
+      id
+      domaine {
+        id
+        nom
+      }
+      type {
+        id
+        nom
+      }
+    }
+    etapeType {
+      id
+      nom
+    }
+    lectureInterdit
+    modificationInterdit
+    creationInterdit
+  }
+}

@@ -1,0 +1,35 @@
+mutation AdministrationTitreTypeTitreStatutModifier(
+  $administrationTitreTypeTitreStatut: InputAdministrationTitreTypeTitreStatut!
+) {
+  administrationTitreTypeTitreStatutModifier(
+    administrationTitreTypeTitreStatut: $administrationTitreTypeTitreStatut
+  ) {
+    ...administration
+  }
+}
+
+fragment administration on Administration {
+  id
+  nom
+  titresTypesTitresStatuts {
+    titreType {
+      id
+      domaine {
+        id
+        nom
+      }
+      type {
+        id
+        nom
+      }
+    }
+    titreStatut {
+      id
+      nom
+      couleur
+    }
+    titresModificationInterdit
+    demarchesModificationInterdit
+    etapesModificationInterdit
+  }
+}
