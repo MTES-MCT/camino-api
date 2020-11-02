@@ -1,14 +1,12 @@
 import 'dotenv/config'
 import '../../src/init'
 
-import * as fs from 'fs'
-
 import { titreCreate } from '../../src/database/queries/titres'
 
+const titres = require('./rntm-titres.json')
+
 const main = async () => {
-  const titres = JSON.parse(
-    fs.readFileSync('./dev/database/rntm-titres.json').toString()
-  )
+  console.time('GO')
 
   let nb = 0
   for (const titre of titres) {
@@ -17,6 +15,8 @@ const main = async () => {
   }
 
   console.log('Titres importés', nb)
+  console.timeEnd('GO')
+
   process.exit(0)
 }
 

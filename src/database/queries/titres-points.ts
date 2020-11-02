@@ -14,6 +14,6 @@ const titrePointUpdate = async (id: string, props: Partial<ITitrePoint>) =>
 
 const titrePointReferenceCreate = async (
   titrePointReference: ITitrePointReference
-) => TitresPointsReferences.query().insertAndFetch(titrePointReference)
+) => TitresPointsReferences.query().insert(titrePointReference)
 
 export { titresPointsGet, titrePointUpdate, titrePointReferenceCreate }

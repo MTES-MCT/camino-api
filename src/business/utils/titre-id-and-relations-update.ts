@@ -128,6 +128,8 @@ const titreIdAndRelationsUpdate = (
 ) => {
   if (titreIdFindCustom) {
     titreRelation.idFind = titreIdFindCustom
+  } else {
+    titreRelation.idFind = titreIdFind
   }
 
   // permet de référencer tous les changements d'ids par type de relation
