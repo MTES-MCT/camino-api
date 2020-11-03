@@ -363,22 +363,17 @@ const titresEtapesAreaUpdate = async (
   if (titresEtapesAreasToUpdate.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresEtapesAreasToUpdate.reduce(
-      (titresEtapesAreasUpdated: string[], titreEtapeArea) => {
-        queue.add(async () => {
-          await titresEtapesAreasUpdateQuery(titreEtapeArea)
+    titresEtapesAreasToUpdate.forEach(titreEtapeArea => {
+      queue.add(async () => {
+        await titresEtapesAreasUpdateQuery(titreEtapeArea)
 
-          console.info(
-            `mise à jour: étape ${areaId} ${JSON.stringify(titreEtapeArea)}`
-          )
+        console.info(
+          `mise à jour: étape ${areaId} ${JSON.stringify(titreEtapeArea)}`
+        )
 
-          titresEtapesAreasUpdated.push(titreEtapeArea.titreEtapeId)
-        })
-
-        return titresEtapesAreasUpdated
-      },
-      titresEtapesAreasUpdated
-    )
+        titresEtapesAreasUpdated.push(titreEtapeArea.titreEtapeId)
+      })
+    })
 
     await queue.onIdle()
   }
@@ -386,22 +381,15 @@ const titresEtapesAreaUpdate = async (
   if (titresEtapesAreasToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresEtapesAreasToDelete.reduce(
-      (titresEtapesAreasDeleted, { titreEtapeId, areaId }) => {
-        queue.add(async () => {
-          await titreEtapeAreaDelete(titreEtapeId, areaId)
+    titresEtapesAreasToDelete.forEach(({ titreEtapeId, areaId }) => {
+      queue.add(async () => {
+        await titreEtapeAreaDelete(titreEtapeId, areaId)
 
-          console.info(
-            `suppression: étape ${titreEtapeId}, ${areaId} ${areaId}`
-          )
+        console.info(`suppression: étape ${titreEtapeId}, ${areaId} ${areaId}`)
 
-          titresEtapesAreasDeleted.push(titreEtapeId)
-        })
-
-        return titresEtapesAreasDeleted
-      },
-      titresEtapesAreasDeleted
-    )
+        titresEtapesAreasDeleted.push(titreEtapeId)
+      })
+    })
 
     await queue.onIdle()
   }

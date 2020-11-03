@@ -1,4 +1,4 @@
-import { IAdministration, ITitreAdministrationLocale } from '../../types'
+import { IAdministration } from '../../types'
 
 import titresEtapeAdministrationsLocalesUpdate from './titres-etapes-administrations-locales-update'
 
@@ -23,30 +23,30 @@ console.info = jest.fn()
 
 describe("administrations d'une étape", () => {
   test('ajoute 2 administrations dans une étape', async () => {
-    const [
-      titresEtapesAdministrationsCreated,
+    const {
+      titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
+    } = await titresEtapeAdministrationsLocalesUpdate(
       titresEtapesCommunes,
       administrations
     )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(2)
+    expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
 
     expect(console.info).toHaveBeenCalledTimes(1)
   })
 
   test("n'ajoute pas deux fois une administration en doublon ", async () => {
-    const [
-      titresEtapesAdministrationsCreated,
+    const {
+      titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
+    } = await titresEtapeAdministrationsLocalesUpdate(
       titresEtapesCommunesMemeCommune,
       administrations
     )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(1)
+    expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(1)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
 
     expect(titreEtapes.titresEtapesAdministrationsCreate).toHaveBeenCalled()
@@ -55,15 +55,15 @@ describe("administrations d'une étape", () => {
   })
 
   test("ne met pas à jour les administrations d'une étape qui n'a pas de commune", async () => {
-    const [
-      titresEtapesAdministrationsCreated,
+    const {
+      titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
+    } = await titresEtapeAdministrationsLocalesUpdate(
       titresEtapesCommunesVides,
       administrations
     )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(0)
+    expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
 
     expect(titreEtapes.titresEtapesAdministrationsCreate).not.toHaveBeenCalled()
@@ -72,46 +72,46 @@ describe("administrations d'une étape", () => {
   })
 
   test("n'ajoute pas d'administration si elle existe déjà dans l'étape", async () => {
-    const [
-      titresEtapesAdministrationsCreated,
+    const {
+      titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
+    } = await titresEtapeAdministrationsLocalesUpdate(
       titresEtapesAdministrationLocalesExistante,
       administrations
     )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(0)
+    expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
     expect(console.info).not.toHaveBeenCalled()
   })
 
   test("supprime une administration si l'étape ne la contient plus dans ses communes", async () => {
-    const [
-      titresEtapesAdministrationsCreated,
+    const {
+      titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = await titresEtapeAdministrationsLocalesUpdate(
+    } = await titresEtapeAdministrationsLocalesUpdate(
       titresEtapesAdministrationLocalesInexistante,
       [{ id: '0' }] as IAdministration[]
     )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(0)
+    expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(0)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(1)
     expect(console.info).toHaveBeenCalled()
   })
 
-  test("ajoute l'option associee à la Déal Guyane sur une ARM", async () => {
-    const [
-      titresEtapesAdministrationsCreated,
+  test("ajoute l'option 'associee' à la Déal Guyane sur une ARM", async () => {
+    const {
+      titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    ] = (await titresEtapeAdministrationsLocalesUpdate(
+    } = await titresEtapeAdministrationsLocalesUpdate(
       titresArm,
       administrations
-    )) as [ITitreAdministrationLocale[], string[]]
+    )
 
-    expect(titresEtapesAdministrationsCreated.length).toEqual(2)
+    expect(titresEtapesAdministrationsLocalesCreated.length).toEqual(2)
     expect(titresEtapesAdministrationsLocalesDeleted.length).toEqual(0)
     expect(
-      titresEtapesAdministrationsCreated.find(
+      titresEtapesAdministrationsLocalesCreated.find(
         ({ administrationId }) => administrationId === 'dea-guyane-01'
       )!.associee
     ).toBeTruthy()

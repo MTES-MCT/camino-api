@@ -62,10 +62,11 @@ const administrationUpdate = async (administrationId: string) => {
       'super'
     )
     administrations = await administrationsGet({}, {}, 'super')
-    const [
-      titresEtapesAdministrationsLocalesCreated = [],
-      titresEtapesAdministrationsLocalesDeleted = []
-    ] = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
+
+    const {
+      titresEtapesAdministrationsLocalesCreated,
+      titresEtapesAdministrationsLocalesDeleted
+    } = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
 
     if (administrationsUpdated.length) {
       console.info(

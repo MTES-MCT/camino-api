@@ -198,10 +198,10 @@ const titreEtapeUpdate = async (
       'super'
     )
     administrations = await administrationsGet({}, {}, 'super')
-    const [
+    const {
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
-    ] = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
+    } = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
 
     console.info()
     console.info('propriétés des titres (liens vers les étapes)…')
