@@ -190,7 +190,7 @@ const titreModifier = async (
 
     // on doit utiliser upsert (plutôt qu'un simple update)
     // car le titre contient des références (tableau d'objet)
-    await titreUpsert(titre, { fields }, titreOld, user?.id)
+    await titreUpsert(titre, { fields, titreOld }, user?.id)
 
     const titreUpdatedId = await titreUpdateTask(titre.id)
 
