@@ -153,7 +153,7 @@ async function main() {
   for (const titre of titresReprise) {
     console.info(titre.id, titre.references[0].nom)
 
-    await titreUpsert(titre, {})
+    await titreUpsert(titre)
   }
 
   // await Promise.all(titresReprise.map(titres => titreUpsert(titres)))

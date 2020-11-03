@@ -162,7 +162,7 @@ const main = async () => {
       log('titre', 'not found in Camino by ref/id:', titreDeb.id, referenceDeb)
 
       try {
-        await titreUpsert(titreDeb, {}, null, 'super')
+        await titreUpsert(titreDeb, {}, 'super')
 
         titresImported.push({
           id: titreDeb.id,
