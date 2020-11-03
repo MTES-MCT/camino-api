@@ -7,12 +7,10 @@ mutation DemarcheModifier($demarche: InputDemarcheModification!) {
 fragment titre on Titre {
   nom
   id
-  demarches{
+  demarches {
     id
-    type{
+    type {
       id
     }
   }
 }
-
-

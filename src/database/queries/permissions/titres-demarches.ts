@@ -21,18 +21,9 @@ const titreDemarchePermissionQueryBuild = (
 ) => {
   q.select('titresDemarches.*')
 
-  // démarches publiques
-  if (
-    !user ||
-    permissionCheck(user?.permissionId, [
-      'entreprise',
-      'admin',
-      'editeur',
-      'lecteur',
-      'defaut'
-    ])
-  ) {
-    // visibilité du titre de la démarche
+  // seuls les super-admins peuvent voir toutes les démarches
+  if (!permissionCheck(user?.permissionId, ['super'])) {
+    // l'utilisateur peut voir le titre
     q.whereExists(
       titrePermissionQueryBuild(
         (TitresDemarches.relatedQuery('titre') as QueryBuilder<
@@ -44,15 +35,48 @@ const titreDemarchePermissionQueryBuild = (
       )
     )
 
-    // visibilité de la démarche en fonction de son statut et du type de titre
     q.where(b => {
-      // les démarches ayant le statut `acc` ou `ter` sont visibles au public
+      // la démarche est publique
       b.where('titresDemarches.publicLecture', true)
 
-      // les entreprises peuvent voir toutes les démarches
-      // des titres pour lesquelles elles sont titulaires ou amodiataires
-      // si elles sont visibles aux entreprises
+      // les administrations peuvent voir toutes les démarches
+      // des titres pour dont elles sont gestionnaires ou locales
       if (
+        permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+        user?.administrations?.length
+      ) {
+        const administrationsIds = user.administrations.map(e => e.id)
+
+        b.orWhere(c => {
+          c.where(d => {
+            d.whereExists(
+              Titres.query()
+                .alias('administrationsGestionnairesTitres')
+                .joinRelated('administrationsGestionnaires')
+                .whereRaw('?? = ??', [
+                  'administrationsGestionnairesTitres.id',
+                  'titresDemarches.titreId'
+                ])
+                .whereIn('administrationsGestionnaires.id', administrationsIds)
+            )
+            d.orWhereExists(
+              Titres.query()
+                .alias('administrationsLocalesTitres')
+                .joinRelated('administrationsLocales')
+                .whereRaw('?? = ??', [
+                  'administrationsLocalesTitres.id',
+                  'titresDemarches.titreId'
+                ])
+                .whereIn('administrationsLocales.id', administrationsIds)
+            )
+          })
+        })
+      }
+
+      // les entreprises peuvent voir les démarches
+      // des titres dont elles sont titulaires ou amodiataires
+      // si elles sont visibles aux entreprises
+      else if (
         permissionCheck(user?.permissionId, ['entreprise']) &&
         user?.entreprises?.length
       ) {
@@ -64,20 +88,20 @@ const titreDemarchePermissionQueryBuild = (
           c.where(d => {
             d.whereExists(
               Titres.query()
-                .alias('titresTitulaires')
+                .alias('titulairesTitres')
                 .joinRelated('titulaires')
                 .whereRaw('?? = ??', [
-                  'titresTitulaires.id',
+                  'titulairesTitres.id',
                   'titresDemarches.titreId'
                 ])
                 .whereIn('titulaires.id', entreprisesIds)
             )
             d.orWhereExists(
               Titres.query()
-                .alias('titresAmodiataires')
+                .alias('amodiatairesTitres')
                 .joinRelated('amodiataires')
                 .whereRaw('?? = ??', [
-                  'titresAmodiataires.id',
+                  'amodiatairesTitres.id',
                   'titresDemarches.titreId'
                 ])
                 .whereIn('amodiataires.id', entreprisesIds)
