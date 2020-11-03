@@ -61,12 +61,18 @@ const titresFormatTable = (titres: ITitre[]) =>
       titulaires_legal: titre
         .titulaires!.map(e => e.legalEtranger || e.legalSiren)
         .join(separator),
+      titulaires_categorie: titre
+        .titulaires!.map(e => e.categorie)
+        .join(separator),
       amodiataires_noms: titre.amodiataires!.map(e => e.nom).join(separator),
       amodiataires_adresses: titre
         .amodiataires!.map(e => `${e.adresse} ${e.codePostal} ${e.commune}`)
         .join(separator),
       amodiataires_legal: titre
         .amodiataires!.map(e => e.legalEtranger || e.legalSiren)
+        .join(separator),
+      amodiataires_categorie: titre
+        .amodiataires!.map(e => e.categorie)
         .join(separator),
       geojson: JSON.stringify(titre.geojsonMultiPolygon),
       ...titreReferences,
