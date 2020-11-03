@@ -14,9 +14,15 @@ const titreAdministrationsGestionnairesBuild = (
       )
 
       // si le type de titre n'est pas autorisé pour cette administration
-      // ou que l'administration n'est pas gestionnaire
+      // ou que l'administration n'est pas gestionnaire ou associée
       // alors on ne l'ajoute pas aux administrations gestionnaires
-      if (!administrationTitreType || !administrationTitreType.gestionnaire) {
+      if (
+        !administrationTitreType ||
+        !(
+          administrationTitreType.gestionnaire ||
+          administrationTitreType.associee
+        )
+      ) {
         return titreAdministrationsGestionnaires
       }
 
