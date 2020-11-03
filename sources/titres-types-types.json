@@ -47,5 +47,12 @@
     "description": "Ce titre donne un droit d’exploitation. Il est applicable à tous les domaines miniers excepté dans les zones spéciales de carrières pour ces substances. Elle est accordée pour une durée maximale de cinquante ans et peut faire l’objet de prolongations successives de vingt-cinq ans maximum. La concession donne également l’exclusivité des droits de prospection sur les substances concédées sur son périmètre.",
     "exploitation": "TRUE",
     "ordre": "7"
+  },
+  {
+    "id": "in",
+    "nom": "inconnu",
+    "description": "Inconnu",
+    "exploitation": "FALSE",
+    "ordre": "8"
   }
 ]

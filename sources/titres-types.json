@@ -105,6 +105,11 @@
     ]
   },
   {
+    "id": "cxi",
+    "domaine_id": "i",
+    "type_id": "cx"
+  },
+  {
     "id": "pcc",
     "domaine_id": "c",
     "type_id": "pc"
@@ -215,6 +220,11 @@
     ]
   },
   {
+    "id": "pri",
+    "domaine_id": "i",
+    "type_id": "pr"
+  },
+  {
     "id": "pxg",
     "domaine_id": "g",
     "type_id": "px"
@@ -248,5 +258,30 @@
         "elementId": "volumeUniteId"
       }
     ]
+  },
+  {
+    "id": "pxf",
+    "domaine_id": "f",
+    "type_id": "px"
+  },
+  {
+    "id": "pxi",
+    "domaine_id": "i",
+    "type_id": "px"
+  },
+  {
+    "id": "ini",
+    "domaine_id": "i",
+    "type_id": "in"
+  },
+  {
+    "id": "inh",
+    "domaine_id": "h",
+    "type_id": "in"
+  },
+  {
+    "id": "inm",
+    "domaine_id": "m",
+    "type_id": "in"
   }
 ]

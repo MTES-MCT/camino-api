@@ -46,5 +46,11 @@
     "nom": "stockages souterrains",
     "description": "Domaine auquel appartiennent les cavités souterraines naturelles ou artificielles ou formations souterraines naturelles présentant les qualités requises pour constituer des réservoirs étanches ou susceptibles d'être rendus tels, en vue du stockage de gaz naturel, d'hydrocarbures liquides, liquéfiés ou gazeux ou de produits chimiques à destination industrielle.",
     "ordre": "8"
+  },
+  {
+    "id": "i",
+    "nom": "inconnu",
+    "description": "Domaine inconnu",
+    "ordre": "9"
   }
 ]
