@@ -1,6 +1,6 @@
 # Configuration des sauvegardes et restaurations
 
-Ces étapes sont à réaliser lors de la configuration du serveur, afin de créer les commandes de [sauvegarde et restaurations](../backup-restore.md).
+Ces étapes sont à réaliser lors de la configuration du serveur, afin de créer les commandes de [sauvegarde et restaurations](https://docs.camino.beta.gouv.fr/pages/Deploiement/02-sauvegarde-restauration.html).
 
 ## Dossiers de sauvegarde
 
