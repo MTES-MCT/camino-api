@@ -22,7 +22,16 @@ const titreDemarchePermissionQueryBuild = (
   q.select('titresDemarches.*')
 
   // démarches publiques
-  if (!user || permissionCheck(user?.permissionId, ['entreprise', 'defaut'])) {
+  if (
+    !user ||
+    permissionCheck(user?.permissionId, [
+      'entreprise',
+      'admin',
+      'editeur',
+      'lecteur',
+      'defaut'
+    ])
+  ) {
     // visibilité du titre de la démarche
     q.whereExists(
       titrePermissionQueryBuild(
