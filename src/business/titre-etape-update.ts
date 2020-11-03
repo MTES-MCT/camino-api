@@ -18,6 +18,7 @@ import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import { titreIdsUpdate } from './processes/titres-ids-update'
+import titresPublicUpdate from './processes/titres-public-update'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -114,6 +115,20 @@ const titreEtapeUpdate = async (
       'super'
     )
     const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
+
+    console.info()
+    console.info('publicité des titres…')
+    titre = await titreGet(
+      titreId,
+      {
+        fields: {
+          type: { autorisationsTitresStatuts: { id: {} } },
+          demarches: { id: {} }
+        }
+      },
+      'super'
+    )
+    const titresPublicUpdated = await titresPublicUpdate([titre])
 
     console.info()
     console.info('phases des titres…')
@@ -316,6 +331,12 @@ const titreEtapeUpdate = async (
     if (titresStatutIdUpdated.length) {
       console.info(
         `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
+      )
+    }
+
+    if (titresPublicUpdated.length) {
+      console.info(
+        `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
       )
     }
 
