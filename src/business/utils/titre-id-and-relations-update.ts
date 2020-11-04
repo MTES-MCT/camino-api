@@ -4,6 +4,7 @@ import titreEtapesAscSort from './titre-etapes-asc-sort'
 import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
 import titreIdFind from './titre-id-find'
 import { ITitre, ITitreDemarche, ITitreEtape, ITitreTravaux } from '../../types'
+import { titreIdFindHashAdd } from '../processes/titres-ids-update'
 
 const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)
 
@@ -128,8 +129,12 @@ const titreIdAndRelationsUpdate = (
 ) => {
   if (titreIdFindCustom) {
     titreRelation.idFind = titreIdFindCustom
-  } else {
+  } else if (titre.id.match(/ *-\d\d\d\d$/)) {
+    // si l’id du titre se termine par une date c’est que c’est le titre original
     titreRelation.idFind = titreIdFind
+  } else {
+    // sinon c’est que le titre est déjà un doublon
+    titreRelation.idFind = titreIdFindHashAdd(titre.id.slice(-8))
   }
 
   // permet de référencer tous les changements d'ids par type de relation
