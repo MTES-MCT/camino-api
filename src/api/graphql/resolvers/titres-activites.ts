@@ -173,7 +173,7 @@ const activites = async (
           titresDomainesIds,
           titresStatutsIds
         },
-        { fields: fields.elements },
+        { fields: { id: {} } },
         context.user?.id
       )
     ])

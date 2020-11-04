@@ -117,7 +117,7 @@ const titres = async (
           references,
           territoires
         },
-        { fields },
+        { fields: { id: {} } },
         userId
       )
     ])

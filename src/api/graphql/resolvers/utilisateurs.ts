@@ -121,7 +121,7 @@ const utilisateurs = async (
           noms,
           emails
         },
-        { fields: fields.elements },
+        { fields: { id: {} } },
         context.user?.id
       )
     ])
