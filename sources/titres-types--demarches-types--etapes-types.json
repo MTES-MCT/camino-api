@@ -1561,7 +1561,7 @@
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
             "description": "Nombre de franchissements de cours d'eau",
-            "type": "number"
+            "type": "integer"
           }
         ]
       }
@@ -1605,7 +1605,7 @@
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
             "description": "Nombre de franchissements de cours d'eau",
-            "type": "number"
+            "type": "integer"
           }
         ]
       }
@@ -1637,7 +1637,7 @@
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
             "description": "Nombre de franchissements de cours d'eau",
-            "type": "number"
+            "type": "integer"
           }
         ]
       }
@@ -1669,7 +1669,7 @@
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
             "description": "Nombre de franchissements de cours d'eau",
-            "type": "number"
+            "type": "integer"
           }
         ]
       }
@@ -1694,224 +1694,20 @@
     "ordre": "1000",
     "sections": [
       {
-        "id": "armInstructeurCompletude",
-        "nom": "Instructeur Pôle technique minier de Guyane",
+        "id": "arm",
+        "nom": "Caractéristiques ARM",
         "elements": [
           {
-            "id": "agent",
-            "nom": "Agent",
-            "description": "Prénom et nom de l'agent PTMG en charge d'établir la complétude de la demande",
-            "type": "text"
-          }
-        ]
-      },
-      {
-        "id": "armDemandeur",
-        "nom": "Identification du demandeur",
-        "elements": [
-          {
-            "id": "entreprise",
-            "nom": "Entreprise",
-            "description": "L'entreprise porteuse de la demande est identifiées (extrait Kbis de moins d’un an, déclaration INSEE du statut d’Auto Entrepreneur, justificatif de création de société en cours, (présence code SIRET et APE).",
-            "type": "checkbox"
-          },
-          {
-            "id": "representantLegal",
-            "nom": "Représentant légal",
-            "description": "Le réprésentant légal de l'entité porteuse de la demande est identifié (Identité, coordonnées, justificatif d'identité - CNI / passeport / carte de résident en cours de validité).",
-            "type": "checkbox"
-          },
-          {
-            "id": "motifsIdentification",
-            "nom": "Motifs identification demandeur",
+            "id": "mecanise",
+            "nom": "Prospection mécanisée",
             "description": "",
-            "type": "textarea"
-          }
-        ]
-      },
-      {
-        "id": "armCaracteristiques",
-        "nom": "Caractéristiques de l'autorisation de recherche",
-        "elements": [
-          {
-            "id": "nomSecteur",
-            "nom": "Nom de secteur",
-            "description": "Le nom de secteur est cohérent avec l'appellation courante de l'ARM.",
-            "type": "checkbox"
+            "type": "radio"
           },
           {
-            "id": "duree",
-            "nom": "Durée",
-            "description": "L'autorisation est demandée pour une durée maximum de 4 mois à compter de la date de l'autorisation.",
-            "type": "checkbox"
-          },
-          {
-            "id": "surfaceDemandee",
-            "nom": "Surfaces demandées",
-            "description": "Les surfaces demandées n'excéde pas 3 km², sous la forme de 1 à 3 carrés ou rectangles d'une superficie de 1 km² chacun, tous situés sur le même bassin versant. Les carrés mesurent 1 km de côté et les rectangles 0,5 km de largeur et 2 km de longueur. L'espacement de leurs centres n'est pas supérieur à 4 km.",
-            "type": "checkbox"
-          },
-          {
-            "id": "surfaceMaximumDetenue",
-            "nom": "Surfaces maximum détenues",
-            "description": "L'opérateur ne détient pas d'autorisation de recherches sur une surface supérieure à 3 km².",
-            "type": "checkbox"
-          },
-          {
-            "id": "localisationPerimetres",
-            "nom": "Localisation des périmètres",
-            "description": "Les périmètres est transmis dans un fichier numérique réutilisable (au format \".geojson\"). Le système de coordonnées légal en vigueur est le RGFG95 (ESPG: 2972) avec une précision métrique.",
-            "type": "checkbox"
-          },
-          {
-            "id": "cheminements",
-            "nom": "Cheminements prévisionnels à emprunter",
-            "description": "Ces tracés sont élaborés uniquement à partir du réseau carrossable, jusqu'à et à l'intérieur de l'ARM.",
-            "type": "checkbox"
-          },
-          {
-            "id": "localisationCheminements",
-            "nom": "Localisation des cheminements prévisionnels à emprunter",
-            "description": "L'ensemble de ces tracés est transmis dans un fichier numérique réutilisable (au format \".geojson\"). Le système de coordonnées légal en vigueur est le RGFG95 (ESPG: 2972) avec une précision métrique.",
-            "type": "checkbox"
-          },
-          {
-            "id": "carte500000",
-            "nom": "Carte synthétique 1/500 000",
-            "description": "Le document cartographique inclut les périmètres demandés",
-            "type": "checkbox"
-          },
-          {
-            "id": "carte50000",
-            "nom": "Carte synthétique 1/50 000",
-            "description": "Le document cartographique inclut les périmètres demandés, le tracé des cheminements prévisionnels à emprunter, la position des points de franchissement.",
-            "type": "checkbox"
-          },
-          {
-            "id": "motifsDemande",
-            "nom": "Motifs caractéristiques de la demande",
-            "description": "",
-            "type": "textarea"
-          }
-        ]
-      },
-      {
-        "id": "armMecanisee",
-        "nom": "Informations sur la prospection mécanisée",
-        "elements": [
-          {
-            "id": "descriptionProjet",
-            "nom": "Description du projet de recherches minières mécanisées",
-            "description": "Le projet de recherches minières est décrit : le programme de prospection, les méthodes de travail projetées, les moyens techniques mobilisés, les moyens humains employés.",
-            "type": "checkbox"
-          },
-          {
-            "id": "recepisseLSE",
-            "nom": "Récépissé de déclaration loi sur l'eau",
-            "description": "L'étape de récépissé de déclaration loi sur l'eau est présente et favorable.",
-            "type": "checkbox"
-          },
-          {
-            "id": "recepisseCasParCas",
-            "nom": "Décision d'examen au cas par cas",
-            "description": "L'étape de décision dans le cadre de l'examen au cas par cas est présente et favorable.",
-            "type": "checkbox"
-          },
-          {
-            "id": "franchissementsCoursDeau",
+            "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
-            "description": "Les franchissements de cours d'eau sont indiqués.",
-            "type": "checkbox"
-          },
-          {
-            "id": "localisationPointsFranchissementsCoursDeau",
-            "nom": "Localisation des points de franchissement de cours d'eau",
-            "description": "L'ensemble de ces point est transmis dans un fichier numérique réutilisable (au format \".geojson\"). Le système de coordonnées légal en vigueur est le RGFG95 (ESPG: 2972) avec une précision métrique.",
-            "type": "checkbox"
-          },
-          {
-            "id": "descriptionMateriel",
-            "nom": "Description du matériel",
-            "description": "Le matériel utilisé et son origine (acquisition, location) sont décrits.",
-            "type": "checkbox"
-          },
-          {
-            "id": "tonnageMaximum",
-            "nom": "Tonnage maximum autorisé",
-            "description": "Le tonnage maximum des pelles mécaniques autorisées fixé à 21 tonnes est respecté.",
-            "type": "checkbox"
-          },
-          {
-            "id": "motifsMateriel",
-            "nom": "Motifs caractéristiques matériel",
-            "description": "",
-            "type": "textarea"
-          }
-        ]
-      },
-      {
-        "id": "armInformationTechniques",
-        "nom": "Informations techniques",
-        "elements": [
-          {
-            "id": "justificatifsCapacitesTechniques",
-            "nom": "Justificatifs des capacités techniques",
-            "description": "La justification des capacités techniques s'appuie sur la présentation de l'activité professionnelle actuelle et les références professionnelles en matière minière du demandeur (curriculum vitae, ou à défaut, les formations suivies). S'il s'agit d'une personne morale les références professionnelles des cadres chargés du suivi et de la conduite des travaux sont présentées.",
-            "type": "checkbox"
-          },
-          {
-            "id": "responsableTravaux",
-            "nom": "Responsable des travaux",
-            "description": "Le responsable des travaux est identifié (Identité, coordonnées, justificatif d'identité - CNI / passeport / carte de résident en cours de validité).",
-            "type": "checkbox"
-          },
-          {
-            "id": "motifsCapaciteTechniques",
-            "nom": "Motifs capacité techniques",
-            "description": "",
-            "type": "textarea"
-          }
-        ]
-      },
-      {
-        "id": "armInformationFinancieres",
-        "nom": "Informations financières",
-        "elements": [
-          {
-            "id": "planFinancement",
-            "nom": "Plan de financement",
-            "description": "Le plan inclut le montant de la dépense totale envisagée en euros pour conduire la prospection et le plan prévisionnel de financement associé.",
-            "type": "checkbox"
-          },
-          {
-            "id": "justificationCapacitesFinancieres",
-            "nom": "Justificatifs des capacités financières",
-            "description": "La démonstration des capacités financières à exercer une activité d'exploration comporte la justification des ressources financières disponibles correspondant au plan de financement.",
-            "type": "checkbox"
-          },
-          {
-            "id": "justificatifSituationFiscale",
-            "nom": "Justificatif de situation fiscale",
-            "description": "La justification de situation fiscale régulière est présentée (attestation ou justificatif des services fiscaux, déclaration unique DGFIP, moratoire accordé par la même autorité) excepté pour les sociétés créées dans l'année.",
-            "type": "checkbox"
-          },
-          {
-            "id": "motifsCapaciteFinancieres",
-            "nom": "Motifs capacités financières",
-            "description": "",
-            "type": "textarea"
-          }
-        ]
-      },
-      {
-        "id": "armInformationComplétude",
-        "nom": "Informations complémentaires",
-        "elements": [
-          {
-            "id": "informationsCompletude",
-            "nom": "Informations complémentaires",
-            "description": "Informations complémentaires à l'examen de la complétude de la demande portées à la connaissance du demandeur.",
-            "type": "textarea"
+            "description": "Nombre de franchissements de cours d'eau",
+            "type": "integer"
           }
         ]
       }

@@ -16,7 +16,9 @@ const titreActiviteContenuFormat = (contenu: IContenu, sections: ISection[]) =>
           : undefined
 
         if (value === undefined) {
-          resElements[key] = element.type === 'number' ? 0 : ''
+          resElements[key] = ['number', 'integer'].includes(element.type)
+            ? 0
+            : ''
         } else {
           resElements[key] = Array.isArray(value)
             ? (value as string[]).join(';')
