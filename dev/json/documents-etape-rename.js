@@ -1,7 +1,7 @@
 const fs = require('fs')
 
-var oldPath = './files/etapes'
-var newPath = './files/demarches'
+const oldPath = './files/etapes'
+const newPath = './files/demarches'
 
 fs.rename(oldPath, newPath, function (err) {
   if (err) throw err
