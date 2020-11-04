@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.57](https://github.com/MTES-MCT/camino-api/compare/v0.24.56...v0.24.57) (2020-11-04)
+
+
+### Bug Fixes
+
+* corrige l'export des administrations ([a3bf3de](https://github.com/MTES-MCT/camino-api/commit/a3bf3de3a90d6d382df8275c0049b9b5edca9b3d))
+
 ### [0.24.56](https://github.com/MTES-MCT/camino-api/compare/v0.24.53...v0.24.56) (2020-11-04)
 
 
