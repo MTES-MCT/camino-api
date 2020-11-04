@@ -135,7 +135,7 @@ describe('titreCreer', () => {
 describe('titreModifier', () => {
   const titreModifierQuery = queryImport('titre-modifier')
 
-  const id = 'titre-arm'
+  const id = 'titre-arm-0000'
 
   beforeEach(async () => {
     await titreCreate(
@@ -286,7 +286,7 @@ describe('titreSupprimer', () => {
   test('peut supprimer un titre (utilisateur super)', async () => {
     const res = await graphQLCall(titreSupprimerQuery, { id }, 'super')
 
-    expect(res.body).toMatchObject({ data: { titreSupprimer: { id } } })
+    expect(res.body).toMatchObject({ data: { titreSupprimer: id } })
   })
 
   test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {
