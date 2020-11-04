@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.56](https://github.com/MTES-MCT/camino-api/compare/v0.24.53...v0.24.56) (2020-11-04)
+
+
+### Features
+
+* ajoute la catégorie d'entreprise dans l'export des titres ([2a8b506](https://github.com/MTES-MCT/camino-api/commit/2a8b50682faa5c84c21bf28bb28b87b6d4382000))
+* **api:** expose l'édition des permissions des administrations ([#574](https://github.com/MTES-MCT/camino-api/issues/574)) ([671ac7a](https://github.com/MTES-MCT/camino-api/commit/671ac7a04974742342264a3ca271c4cee050bad0))
+* ajoute l'édition d'une administration ([#572](https://github.com/MTES-MCT/camino-api/issues/572)) ([d6144eb](https://github.com/MTES-MCT/camino-api/commit/d6144eb0404462c05e432f2263ed755fdacdf48b))
+* expose l'édition des autorisations d'administrations ([#573](https://github.com/MTES-MCT/camino-api/issues/573)) ([4282709](https://github.com/MTES-MCT/camino-api/commit/428270935918b96018288a201784e63bd41d455a))
+* **arbre:** permet de spécifier plusieurs contraintes par étape ([#571](https://github.com/MTES-MCT/camino-api/issues/571)) ([4e8a9ba](https://github.com/MTES-MCT/camino-api/commit/4e8a9ba004ebdd46dc5fec557b78b8c835ef6c27))
+* expose les administrations ([#562](https://github.com/MTES-MCT/camino-api/issues/562)) ([a7ef375](https://github.com/MTES-MCT/camino-api/commit/a7ef375887eea50c0932c840c76d1a96cc7cded1))
+* **démarche:** ajoute l’arbre d’instruction de retrait d’une ARM en Guyane ([#561](https://github.com/MTES-MCT/camino-api/issues/561)) ([0424d9e](https://github.com/MTES-MCT/camino-api/commit/0424d9e6d29ba40ef3ac402385804db7f40ec4d3))
+* limite l'accès aux activités à certaines administrations ([#554](https://github.com/MTES-MCT/camino-api/issues/554)) ([00e8e98](https://github.com/MTES-MCT/camino-api/commit/00e8e988230712c3870a4d5dab542c3960032312))
+* **forêts:** ajoute l’import des spreadsheets des forêts ([5c988e9](https://github.com/MTES-MCT/camino-api/commit/5c988e967446ff3399353ec4dbd5d69ee4e222cd))
+* restreint l'accès des administrations aux titres non-publics ([#553](https://github.com/MTES-MCT/camino-api/issues/553)) ([c36fc40](https://github.com/MTES-MCT/camino-api/commit/c36fc4025e7dbc3e4013c1ef70e199c2205614e1))
+* vérifie qu'un justificatif n'est pas lié à une étape pour le supprimer ([#546](https://github.com/MTES-MCT/camino-api/issues/546)) ([1abb5d7](https://github.com/MTES-MCT/camino-api/commit/1abb5d78efe9a2415f13080216885255cacf2dfc))
+
+
+### Bug Fixes
+
+* calcule la publicité du titre lors de l’ajout d’une étape ([#577](https://github.com/MTES-MCT/camino-api/issues/577)) ([b52c66c](https://github.com/MTES-MCT/camino-api/commit/b52c66c6328c8a3700352fbd1cb7fccb8bef7791))
+* corrige l'affichage des démarches pour les administrations ([#576](https://github.com/MTES-MCT/camino-api/issues/576)) ([509ec86](https://github.com/MTES-MCT/camino-api/commit/509ec863b7bc963d0b654e93e92c1d0b25192472))
+* corrige l'insertion d'un titre ([#578](https://github.com/MTES-MCT/camino-api/issues/578)) ([dc860d2](https://github.com/MTES-MCT/camino-api/commit/dc860d290b648f5d7e0dac644ca5bc82dbc30b70))
+* corrige les logs avec plusieurs arguments ([#570](https://github.com/MTES-MCT/camino-api/issues/570)) ([bc43ba8](https://github.com/MTES-MCT/camino-api/commit/bc43ba812b6c3bb1dcdee0c07ff5c174998e56ca))
+* rend visible les titres non publics pour les administrations associées ([feb4c46](https://github.com/MTES-MCT/camino-api/commit/feb4c46ea440e956552355002e97e16d808ef73b))
+* **arbre:** corrige l’arbre d’instruction de retrait d’ARM ([#567](https://github.com/MTES-MCT/camino-api/issues/567)) ([1b47cc4](https://github.com/MTES-MCT/camino-api/commit/1b47cc4b2a686473008b7e1a4c5e077e812188d3))
+* **authentification:** corrige la gestion des erreurs si le jeton est expiré ([#548](https://github.com/MTES-MCT/camino-api/issues/548)) ([df00471](https://github.com/MTES-MCT/camino-api/commit/df00471f340a6aa6d94d89b86740955a0e0fa66e))
+* **authentification:** gère correctement les erreurs lorsque le token expire ([#558](https://github.com/MTES-MCT/camino-api/issues/558)) ([76adcc7](https://github.com/MTES-MCT/camino-api/commit/76adcc7eb8ded154680a10568b4429774d708cd0))
+* **documents:** déplace correctement les fichiers lorsqu’une étape change d’identifiant ([#564](https://github.com/MTES-MCT/camino-api/issues/564)) ([5114e9e](https://github.com/MTES-MCT/camino-api/commit/5114e9e699f0f411faee6fef8cb095d346929461))
+* **étapes:** prend en compte les dates de fin d’étape si on a pas de date de demande ([#542](https://github.com/MTES-MCT/camino-api/issues/542)) ([b8b3c53](https://github.com/MTES-MCT/camino-api/commit/b8b3c530fd2729ef0ef80c841c4526dad235c086))
+* **forets:** corrige l’export des forêts ([#568](https://github.com/MTES-MCT/camino-api/issues/568)) ([a127a1f](https://github.com/MTES-MCT/camino-api/commit/a127a1f1b5e9327ad0065ce60c7df15fe85eafe5))
+* **forêts:** utilise la bonne relation pour exporter les forêts ([#544](https://github.com/MTES-MCT/camino-api/issues/544)) ([a142eaa](https://github.com/MTES-MCT/camino-api/commit/a142eaaf66e6024b5b28134be91df4f98fff5fa2))
+* **utilisateur:** vérifie la nouvelle adresse email lors de sa modification ([#551](https://github.com/MTES-MCT/camino-api/issues/551)) ([85c9f47](https://github.com/MTES-MCT/camino-api/commit/85c9f47208bd5aae4dc7768fbec9aa4f95db5552))
+
 ### [0.24.55](https://github.com/MTES-MCT/camino-api/compare/v0.24.54...v0.24.55) (2020-10-20)
 
 
