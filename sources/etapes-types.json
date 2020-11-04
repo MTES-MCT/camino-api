@@ -786,7 +786,7 @@
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",
             "description": "Nombre de franchissements de cours d'eau",
-            "type": "number"
+            "type": "integer"
           }
         ]
       },

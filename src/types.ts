@@ -64,6 +64,7 @@ interface ISection {
 type IValeurMetasNom = 'devises' | 'unites'
 
 type ISectionElementType =
+  | 'integer'
   | 'number'
   | 'text'
   | 'date'
