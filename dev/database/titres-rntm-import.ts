@@ -1,16 +1,17 @@
 import 'dotenv/config'
 import '../../src/init'
 
-import { titreCreate } from '../../src/database/queries/titres'
+import Titres from '../../src/database/models/titres'
+import options from '../../src/database/queries/_options'
 
-const titres = require('./rntm-titres.json')
+const titres = require('../../sources/rntm-titres.json')
 
 const main = async () => {
   console.time('GO')
 
   let nb = 0
   for (const titre of titres) {
-    await titreCreate(titre, {}, 'super')
+    await Titres.query().insertGraph(titre, options.titres.update)
     nb++
   }
 
