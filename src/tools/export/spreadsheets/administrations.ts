@@ -45,12 +45,12 @@ const tables = [
     columns: [
       { id: 'administrationId', parentKey: 'id' },
       'titreTypeId',
-      { id: 'titreStatutId', key: 'id' },
+      'titreStatutId',
       'titresModificationInterdit',
       'demarchesModificationInterdit',
       'etapesModificationInterdit'
     ],
-    parents: ['titresStatuts']
+    parents: ['titresTypesTitresStatuts']
   },
   {
     id: 4,
@@ -58,12 +58,12 @@ const tables = [
     columns: [
       { id: 'administrationId', parentKey: 'id' },
       'titreTypeId',
-      { id: 'etapeTypeId', key: 'id' },
+      'etapeTypeId',
       'lectureInterdit',
       'creationInterdit',
       'modificationInterdit'
     ],
-    parents: ['etapesTypes']
+    parents: ['titresTypesEtapesTypes']
   }
 ]
 
