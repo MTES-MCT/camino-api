@@ -123,7 +123,7 @@ const demarches = async (
           titresReferences,
           titresTerritoires
         },
-        { fields: fields.elements },
+        { fields: { id: {} } },
         userId
       )
     ])

@@ -165,7 +165,7 @@ const entreprises = async (
         { fields: fields.elements },
         context.user?.id
       ),
-      entreprisesCount({ noms }, { fields: fields.elements }, context.user?.id)
+      entreprisesCount({ noms }, { fields: { id: {} } }, context.user?.id)
     ])
 
     if (!entreprises.length) return { elements: [], total: 0 }
