@@ -6,7 +6,61 @@ on:
     branches:
       - master
 jobs:
-  test:
+  install:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Npm install
+        run: |
+          npm ci
+          npm run ci:lint
+          npm run build
+        env:
+          CI: true
+      - name: Upload node_modules archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: node_modules
+          path: node_modules
+      - name: Upload dist archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  test-unit:
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Download node_modules archive
+        uses: actions/download-artifact@v2
+        with:
+          name: node_modules
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Unit tests
+        run: npm run ci:test-unit
+      - name: Code coverage
+        run: npm run ci:codecov
+        env:
+          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
+  test-integration:
+    needs: install
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -32,23 +86,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Download node_modules archive
+        uses: actions/download-artifact@v2
+        with:
+          name: node_modules
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Npm install
-        run: |
-          npm ci
-          npm run ci:lint
-          npm run build
-        env:
-          CI: true
-      - name: Unit tests
-        run: npm run ci:test-unit
-      - name: Code coverage
-        run: npm run ci:codecov
-        env:
-          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
       - name: Integration tests
         #Installation d’une version de knex-db-manager qui seed la bdd séquentiellement
         run: npm run ci:test-integration
@@ -57,14 +102,10 @@ jobs:
           PGPORT: 5432
           PGUSER: postgres
           PGPASSWORD: password
-  #      - name: Code coverage
-  #        run: npm run ci:codecov
-  #        env:
-  #          CODECOV_TOKEN: '0ca8ffb4-8bdd-45cd-891d-5d0000bdd6ff'
 
   build:
     if: github.ref == 'refs/heads/master' || github.event_name == 'release'
-    needs: test
+    needs: [test-unit, test-integration]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -73,6 +114,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Download dist archive
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
       - name: Build Docker image
         run: docker build . --tag caminofr/camino-api:master
       - name: Push Docker image to the Docker Hub
@@ -82,10 +127,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-    #   - name: Redeploy dev
-    #     run : |
-    #       ssh dev
-    #       /srv/script/api-deploy
 
   release:
     if: github.event_name == 'release'
@@ -111,7 +152,7 @@ jobs:
 
   docs:
     if: github.event_name == 'release'
-    needs: test
+    needs: [test-unit, test-integration]
     runs-on: ubuntu-latest
     strategy:
       matrix:
