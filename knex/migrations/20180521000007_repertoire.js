@@ -16,6 +16,7 @@ exports.up = knex =>
       table.string('url', 1024)
       table.string('email')
       table.string('telephone')
+      table.boolean('archive').defaultTo(false)
     })
     .createTable('entreprisesEtablissements', table => {
       table.string('id', 64).primary()

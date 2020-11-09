@@ -185,6 +185,7 @@ type Query {
     ordre: String
     noms: String
     etapeId: ID
+    archive: Boolean
   ): Entreprises
 
   "Administration en fonction de son id"

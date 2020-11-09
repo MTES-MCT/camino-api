@@ -28,6 +28,7 @@ type Entreprise {
   titulaireTitres: [Titre]
   amodiataireTitres: [Titre]
   documents: [Document]
+  archive: Boolean
 
   modification: Boolean
 }
@@ -75,4 +76,5 @@ input InputEntrepriseModification {
   url: String
   telephone: String
   email: String
+  archive: Boolean
 }

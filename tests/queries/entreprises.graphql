@@ -1,6 +1,9 @@
-query {
-  entreprises {
-    ...entreprise
+query Entreprises($archive: Boolean) {
+  entreprises(archive: $archive){
+    elements {
+      ...entreprise
+    }
+    total
   }
 }
 

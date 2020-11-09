@@ -134,7 +134,8 @@ const entreprises = async (
     intervalle,
     ordre,
     colonne,
-    noms
+    noms,
+    archive
   }: {
     etapeId?: string | null
     page?: number | null
@@ -142,6 +143,7 @@ const entreprises = async (
     ordre?: 'asc' | 'desc' | null
     colonne?: IEntrepriseColonneId | null
     noms?: string | null
+    archive?: boolean | null
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -160,12 +162,17 @@ const entreprises = async (
           intervalle,
           ordre,
           colonne,
-          noms
+          noms,
+          archive
         },
         { fields: fields.elements },
         context.user?.id
       ),
-      entreprisesCount({ noms }, { fields: { id: {} } }, context.user?.id)
+      entreprisesCount(
+        { noms, archive },
+        { fields: { id: {} } },
+        context.user?.id
+      )
     ])
 
     if (!entreprises.length) return { elements: [], total: 0 }
