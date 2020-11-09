@@ -6,7 +6,6 @@ import {
   titreDemarchesOctPointsMutInstruction,
   titreDemarchesOctAccDpuRej,
   titreDemarchesOctMfrPoints,
-  titreDemarchesOctAmodiatairesPassee,
   titreDemarchesOctAmodiatairesValide,
   titreDemarchesOctAmodiatairesMod,
   titreDemarchesProPointsModPhaseEch,
@@ -85,16 +84,6 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
         'points'
       )
     ).toEqual('h-cx-courdemanges-1983-oct01-mfr01')
-  })
-
-  test("ne trouve pas d'id si la démarche de l'étape contenant la propriété 'amodiataires' a une date de fin passée", () => {
-    expect(
-      titrePropEtapeIdFind(
-        titreDemarchesOctAmodiatairesPassee.demarches,
-        titreDemarchesOctAmodiatairesPassee.statutId,
-        'amodiataires'
-      )
-    ).toBeNull()
   })
 
   test("trouve l'id de dernière étape contenant la propriété 'amodiataires' a une date de fin valide", () => {
