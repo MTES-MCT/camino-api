@@ -24,6 +24,7 @@ import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
 import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
 import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-validate'
+import titreEtapeDeletionValidate from '../../../business/titre-etape-deletion-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
@@ -78,16 +79,9 @@ const etapeCreer = async (
       throw new Error(inputErrors.join(', '))
     }
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      const rulesErrors = await titreEtapeUpdationValidate(
-        etape,
-        demarche,
-        titre
-      )
-
-      if (rulesErrors.length) {
-        throw new Error(rulesErrors.join(', '))
-      }
+    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
     }
 
     if (etape.points) {
@@ -161,15 +155,9 @@ const etapeModifier = async (
       throw new Error(inputErrors.join(', '))
     }
 
-    if (!user || !permissionCheck(user?.permissionId, ['super'])) {
-      const rulesErrors = await titreEtapeUpdationValidate(
-        etape,
-        demarche,
-        titre
-      )
-      if (rulesErrors.length) {
-        throw new Error(rulesErrors.join(', '))
-      }
+    const rulesErrors = await titreEtapeUpdationValidate(etape, demarche, titre)
+    if (rulesErrors.length) {
+      throw new Error(rulesErrors.join(', '))
     }
 
     if (etape.points) {
@@ -215,6 +203,25 @@ const etapeSupprimer = async (
       context.user?.id
     )
     if (!etapeOld) throw new Error("l'étape n'existe pas")
+
+    const demarche = await titreDemarcheGet(
+      etapeOld.titreDemarcheId,
+      {},
+      user && user.id
+    )
+    if (!demarche) throw new Error("la démarche n'existe pas")
+
+    const titre = await titreGet(demarche.titreId, {}, user.id)
+    if (!titre) throw new Error("le titre n'existe pas")
+
+    const rulesErrors = await titreEtapeDeletionValidate(
+      etapeOld,
+      demarche,
+      titre
+    )
+    if (rulesErrors) {
+      throw new Error(rulesErrors)
+    }
 
     await titreEtapeDelete(id)
 

@@ -2,7 +2,7 @@ import { ITitreEtape, ITitreDemarche, ITitre } from '../types'
 
 import titreEtapeTypeAndStatusValidate from './utils/titre-etape-type-and-status-validate'
 import titreEtapePointsValidate from './utils/titre-etape-points-validate'
-import titreEtapeDateValidate from './utils/titre-etape-date-validate'
+import { titreArbreTypeIdValidate } from './utils/titre-arbre-type-validate'
 
 const titreEtapeUpdationValidate = async (
   titreEtape: ITitreEtape,
@@ -25,13 +25,11 @@ const titreEtapeUpdationValidate = async (
   // 2. la date de l'étape est possible
   // en fonction de l'ordre des types d'étapes de la démarche
   if (titreEtape.date) {
-    const error = titreEtapeDateValidate(
-      titreEtape.typeId,
-      titreEtape.statutId,
-      titreEtape.date,
+    const error = titreArbreTypeIdValidate(
       titreDemarche.type!,
       titreDemarche.etapes!,
-      titre
+      titre,
+      titreEtape
     )
     if (error) {
       errors.push(error)

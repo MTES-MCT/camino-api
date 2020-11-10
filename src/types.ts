@@ -281,6 +281,7 @@ interface IEtapeStatut {
 interface IEtapeType {
   id: string
   nom: string
+  arbreTypeId?: string | null
   ordre: number
   acceptationAuto?: boolean | null
   fondamentale?: boolean | null
@@ -720,6 +721,7 @@ interface ITitreEtape extends ITitreEtapeOrTitreTravauxEtape {
   forets?: IForet[] | null
   incertitudes?: ITitreIncertitudes | null
   pays?: IPays[] | null
+  arbreTypeId?: string | null
 }
 
 interface ITitreTravauxEtape extends ITitreEtapeOrTitreTravauxEtape {

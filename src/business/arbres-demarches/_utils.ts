@@ -6,8 +6,8 @@ import {
   ITitre,
   ITitreEtape,
   ITitreTypeDemarcheTypeEtapeType
-} from '../../../types'
-import titreEtapeDateValidate from '../../utils/titre-etape-date-validate'
+} from '../../types'
+import { titreArbreTypeIdValidate } from '../utils/titre-arbre-type-validate'
 import decamelize = require('decamelize')
 
 const elementsGet = <T>(fileName: string): T[] => {
@@ -39,15 +39,17 @@ const etapesTypesGet = (demarcheTypeId: string, titreTypeId: string) => {
   )
 }
 
-const arbreTestGet = (demarcheTypeId: string, titreTypeId: string) => {
+const arbreErreursGet = (demarcheTypeId: string, titreTypeId: string) => {
   const etapesTypes = etapesTypesGet(demarcheTypeId, titreTypeId)
 
   return (
-    etapeTypeId: string,
-    etapeStatutId: string,
+    arbreTypeId: string,
     titreDemarcheEtapes: Partial<ITitreEtape>[],
-    titre: Partial<ITitre> = {}
+    titre: Partial<ITitre> = {},
+    titreEtape: Partial<ITitreEtape> = { date: '3000-01-01' }
   ) => {
+    const etapeTypeId = arbreTypeId.split('-')[0]
+
     if (!etapesTypes.find(etapesTypes => etapesTypes.id === etapeTypeId)) {
       /* istanbul ignore next */
       throw new Error(
@@ -55,10 +57,7 @@ const arbreTestGet = (demarcheTypeId: string, titreTypeId: string) => {
       )
     }
 
-    return titreEtapeDateValidate(
-      etapeTypeId,
-      etapeStatutId,
-      '3000-01-01',
+    return titreArbreTypeIdValidate(
       {
         id: demarcheTypeId,
         etapesTypes
@@ -67,9 +66,10 @@ const arbreTestGet = (demarcheTypeId: string, titreTypeId: string) => {
       {
         ...titre,
         typeId: titreTypeId
-      } as ITitre
+      } as ITitre,
+      { ...titreEtape, arbreTypeId } as ITitreEtape
     )
   }
 }
 
-export { arbreTestGet, etapesTypesGet }
+export { arbreErreursGet, etapesTypesGet }

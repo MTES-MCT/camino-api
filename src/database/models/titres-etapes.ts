@@ -18,6 +18,7 @@ class TitresEtapes extends Model {
       titreDemarcheId: { type: 'string', maxLength: 128 },
       date: { type: ['string', 'null'] },
       typeId: { type: 'string', maxLength: 3 },
+      arbreTypeId: { type: ['string', 'null'] },
       statutId: { type: 'string', maxLength: 3 },
       ordre: { type: 'integer' },
       dateDebut: { type: ['string', 'null'] },

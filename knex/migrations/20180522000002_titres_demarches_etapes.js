@@ -62,6 +62,7 @@ exports.up = knex => {
         .notNullable()
         .index()
         .references('etapesTypes.id')
+      table.string('arbreTypeId', 7)
       table
         .string('statutId', 3)
         .notNullable()
