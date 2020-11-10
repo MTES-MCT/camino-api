@@ -27,5 +27,6 @@ fragment entreprise on Entreprise {
   url
   telephone
   email
+  archive
 }
 

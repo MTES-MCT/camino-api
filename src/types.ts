@@ -265,6 +265,7 @@ interface IEntreprise {
   titulaireTitres?: ITitre[] | null
   amodiataireTitres?: ITitre[] | null
   modification?: boolean | null
+  archive?: boolean | null
 }
 
 interface IEtapeStatut {

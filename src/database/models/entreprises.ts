@@ -27,7 +27,8 @@ class Entreprises extends Model {
       cedex: { type: ['string', 'null'] },
       email: { type: ['string', 'null'] },
       telephone: { type: ['string', 'null'] },
-      url: { type: ['string', 'null'] }
+      url: { type: ['string', 'null'] },
+      archive: { type: 'boolean' }
     }
   }
 

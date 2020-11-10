@@ -127,6 +127,28 @@ describe('entrepriseCreer', () => {
       'impossible de créer une entreprise étrangère'
     )
   })
+
+  test('n’est pas archivée à la création par défaut (utilisateur super)', async () => {
+    tokenInitializeMock.mockResolvedValue('token')
+    entrepriseFetchMock.mockResolvedValue([entreprise])
+    entreprisesEtablissementsFetchMock.mockResolvedValue([
+      entrepriseAndEtablissements
+    ])
+
+    const res = await graphQLCall(
+      entrepriseCreerQuery,
+      { entreprise: { legalSiren: '729800706', paysId: 'fr' } },
+      'super'
+    )
+
+    expect(res.body).toMatchObject({
+      data: {
+        entrepriseCreer: {
+          archive: false
+        }
+      }
+    })
+  })
 })
 
 describe('entrepriseModifier', () => {
@@ -193,6 +215,21 @@ describe('entrepriseModifier', () => {
     )
 
     expect(res.body.errors[0].message).toBe('entreprise inconnue')
+  })
+
+  test('peut archiver une entreprise (super)', async () => {
+    const res = await graphQLCall(
+      entrepriseModifierQuery,
+      { entreprise: { id: entrepriseId, archive: true } },
+      'super'
+    )
+
+    expect(res.body).toMatchObject({
+      data: {
+        entrepriseModifier: { archive: true }
+      }
+    })
+    expect(res.body.errors).toBeUndefined()
   })
 })
 
@@ -277,5 +314,30 @@ describe('entreprise', () => {
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data.entreprise.documents[0].modification).toBe(true)
     expect(res.body.data.entreprise.documents[0].suppression).toBe(true)
+  })
+})
+
+describe('entreprises', () => {
+  const entreprisesQuery = queryImport('entreprises')
+
+  test('peut filter les entreprises archivées ou non (super)', async () => {
+    const entrepriseId = 'entreprise-id'
+    for (let i = 0; i < 10; i++) {
+      await entrepriseUpsert({
+        id: `${entrepriseId}-${i}`,
+        nom: `${entrepriseId}-${i}`,
+        archive: i > 3
+      })
+    }
+
+    let res = await graphQLCall(entreprisesQuery, { archive: false }, 'super')
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data.entreprises.elements).toHaveLength(4)
+
+    res = await graphQLCall(entreprisesQuery, { archive: true }, 'super')
+    expect(res.body.data.entreprises.elements).toHaveLength(6)
+
+    res = await graphQLCall(entreprisesQuery, {}, 'super')
+    expect(res.body.data.entreprises.elements).toHaveLength(10)
   })
 })
