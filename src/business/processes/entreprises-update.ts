@@ -1,14 +1,18 @@
 import { IEntrepriseEtablissement, IEntreprise } from '../../types'
 
 import { objectsDiffer } from '../../tools'
-import { entreprisesUpsert } from '../../database/queries/entreprises'
+import {
+  entreprisesUpsert,
+  entreprisesGet
+} from '../../database/queries/entreprises'
 import {
   entreprisesEtablissementsUpsert,
-  entreprisesEtablissementsDelete
+  entreprisesEtablissementsDelete,
+  entreprisesEtablissementsGet
 } from '../../database/queries/entreprises-etablissements'
 import {
-  entreprisesEtablissementsGet,
-  entreprisesGet
+  apiInseeEntreprisesEtablissementsGet,
+  apiInseeEntreprisesGet
 } from '../../tools/api-insee'
 
 const entreprisesEtablissementsToUpdateBuild = (
@@ -90,18 +94,20 @@ const sirensFind = (entreprisesOld: IEntreprise[]) =>
     }, {})
   )
 
-const entreprisesUpdate = async (
-  entreprisesOld: IEntreprise[],
-  entreprisesEtablissementsOld: IEntrepriseEtablissement[]
-) => {
+const entreprisesUpdate = async () => {
+  console.info('entreprises (API INSEE)…')
+
+  const entreprisesOld = await entreprisesGet({}, {}, 'super')
+  const entreprisesEtablissementsOld = await entreprisesEtablissementsGet()
+
   const sirens = sirensFind(entreprisesOld)
 
   if (!sirens.length) {
     return [[], [], []]
   }
 
-  const entreprisesNew = await entreprisesGet(sirens)
-  const entreprisesEtablissementsNew = await entreprisesEtablissementsGet(
+  const entreprisesNew = await apiInseeEntreprisesGet(sirens)
+  const entreprisesEtablissementsNew = await apiInseeEntreprisesEtablissementsGet(
     sirens
   )
 

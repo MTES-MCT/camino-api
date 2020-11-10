@@ -4,7 +4,7 @@ import {
   IContenu,
   ITitrePropsTitreEtapesIds
 } from '../../../types'
-import { ISpreadsheet } from '../types'
+import { ISpreadsheet } from '../_types'
 import { titresGet } from '../../../database/queries/titres'
 
 const titresCSpreadsheetId = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_C

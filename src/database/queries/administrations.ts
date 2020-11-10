@@ -22,7 +22,15 @@ import AdministrationsTitresTypesTitresStatuts from '../models/administrations-t
 import AdministrationsTitresTypesEtapesTypes from '../models/administrations-titres-types-etapes-types'
 
 const administrationsQueryBuild = (
-  { noms, typesIds }: { noms?: string | null; typesIds?: string[] | null },
+  {
+    noms,
+    typesIds,
+    administrationsIds
+  }: {
+    noms?: string | null
+    typesIds?: string[] | null
+    administrationsIds?: string[] | null
+  },
   { fields }: { fields?: IFields },
   user?: IUtilisateur
 ) => {
@@ -33,6 +41,10 @@ const administrationsQueryBuild = (
   const q = Administrations.query().withGraphFetched(graph)
 
   administrationsPermissionQueryBuild(q, fields, user)
+
+  if (administrationsIds) {
+    q.whereIn('administrations.id', administrationsIds)
+  }
 
   if (noms) {
     const nomsArray = stringSplit(noms)
@@ -72,12 +84,24 @@ const administrationGet = async (
 }
 
 const administrationsCount = async (
-  { noms, typesIds }: { noms?: string | null; typesIds?: string[] | null },
+  {
+    noms,
+    typesIds,
+    administrationsIds
+  }: {
+    noms?: string | null
+    typesIds?: string[] | null
+    administrationsIds?: string[] | null
+  },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
   const user = await userGet(userId)
-  const q = administrationsQueryBuild({ noms, typesIds }, { fields }, user)
+  const q = administrationsQueryBuild(
+    { noms, typesIds, administrationsIds },
+    { fields },
+    user
+  )
   if (!q) return 0
 
   const administrations = ((await q) as unknown) as { total: number }[]
@@ -93,7 +117,8 @@ const administrationsGet = async (
     ordre,
     colonne,
     noms,
-    typesIds
+    typesIds,
+    administrationsIds
   }: {
     page?: number | null
     intervalle?: number | null
@@ -101,13 +126,18 @@ const administrationsGet = async (
     colonne?: IAdministrationColonneId | null
     noms?: string | null
     typesIds?: string[] | null
+    administrationsIds?: string[] | null
   },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
   const user = userId ? await userGet(userId) : undefined
 
-  const q = administrationsQueryBuild({ noms, typesIds }, { fields }, user)
+  const q = administrationsQueryBuild(
+    { noms, typesIds, administrationsIds },
+    { fields },
+    user
+  )
 
   // type: { id: 'type:type.nom', relation: 'type.type' }
   if (colonne && colonne === 'type') {

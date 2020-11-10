@@ -12,6 +12,8 @@ import {
   titresEtapesAdministrationsCreate,
   titreEtapeAdministrationDelete
 } from '../../database/queries/titres-etapes'
+import { titresGet } from '../../database/queries/titres'
+import { administrationsGet } from '../../database/queries/administrations'
 
 const titreEtapeAdministrationsLocalesCreatedBuild = (
   titreEtapeAdministrationsLocalesOld: IAdministration[] | null | undefined,
@@ -215,9 +217,27 @@ const titresEtapesAdministrationsLocalesBuild = (
   )
 
 const titresEtapesAdministrationsLocalesUpdate = async (
-  titres: ITitre[],
-  administrations: IAdministration[]
+  titresIds?: string[]
 ) => {
+  console.info('administrations locales associées aux étapes…')
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        demarches: {
+          etapes: {
+            administrations: { titresTypes: { id: {} } },
+            communes: { departement: { id: {} } }
+          }
+        }
+      }
+    },
+    'super'
+  )
+
+  const administrations = await administrationsGet({}, {}, 'super')
+
   // parcourt les étapes à partir des titres
   // car on a besoin de titre.domaineId
   const titresEtapesAdministrationsLocales = titresEtapesAdministrationsLocalesBuild(

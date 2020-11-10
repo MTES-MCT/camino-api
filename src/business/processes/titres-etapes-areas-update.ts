@@ -12,14 +12,17 @@ import PQueue from 'p-queue'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import { apiGeoGet } from '../../tools/api-geo'
 import {
+  communesGet,
   communesUpsert,
+  foretsGet,
   foretsUpsert
 } from '../../database/queries/territoires'
 import {
   titreEtapeCommuneDelete,
   titreEtapeForetDelete,
   titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery,
-  titresEtapesForetsUpdate as titresEtapesForetsUpdateQuery
+  titresEtapesForetsUpdate as titresEtapesForetsUpdateQuery,
+  titresEtapesGet
 } from '../../database/queries/titres-etapes'
 import TitresCommunes from '../../database/models/titres-communes'
 import TitresForets from '../../database/models/titres-forets'
@@ -248,11 +251,19 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
  * @param forets - liste des forêts existantes
  * @returns toutes les modifications effectuées
  */
-const titresEtapesAreasUpdate = async (
-  titresEtapes: ITitreEtape[],
-  communes: ICommune[],
-  forets: IForet[]
-) => {
+const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
+  console.info('communes et forêts associées aux étapes…')
+
+  const titresEtapes = await titresEtapesGet(
+    { titresEtapesIds, etapesTypesIds: null, titresDemarchesIds: null },
+    {
+      fields: { points: { id: {} }, communes: { id: {} }, forets: { id: {} } }
+    },
+    'super'
+  )
+  const communes = await communesGet()
+  const forets = await foretsGet()
+
   // teste l'API geo-areas-api
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne

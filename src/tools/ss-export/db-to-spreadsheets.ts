@@ -3,17 +3,17 @@
 
 // eslint-disable-next-line camelcase
 import { sheets_v4 } from 'googleapis'
-import { ISpreadsheet, ITable } from '../types'
+import { ISpreadsheet, ITable } from './_types'
 
-import decamelize from '../../decamelize'
-import credentials from '../credentials'
-import rowFormat from './row-format'
-import rowsCreate from './rows-create'
+import decamelize from '../decamelize'
+import credentials from './credentials'
+import rowFormat from './_utils/row-format'
+import rowsCreate from './_utils/rows-create'
 
 import {
   spreadsheetGet,
   spreadsheetBatchUpdate
-} from '../../api-google-spreadsheets/index'
+} from '../api-google-spreadsheets/index'
 
 const dbToSpreadsheets = async <T>({
   name,

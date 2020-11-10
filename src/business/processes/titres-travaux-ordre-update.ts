@@ -1,11 +1,19 @@
-import { ITitre, ITitreTravaux } from '../../types'
+import { ITitreTravaux } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreTravauxUpdate } from '../../database/queries/titres-travaux'
 import titreTravauxAscSort from '../utils/titre-elements-asc-sort'
+import { titresGet } from '../../database/queries/titres'
 
-const titresTravauxOrdreUpdate = async (titres: ITitre[]) => {
+const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
+  console.info(`ordre des travaux…`)
   const queue = new PQueue({ concurrency: 100 })
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    { fields: { travaux: { etapes: { id: {} } } } },
+    'super'
+  )
 
   const titresTravauxIdsUpdated = titres.reduce(
     (titresTravauxIdsUpdated: string[], titre) => {

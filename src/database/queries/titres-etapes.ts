@@ -22,11 +22,11 @@ import TitresForets from '../models/titres-forets'
 
 const titresEtapesQueryBuild = (
   {
-    etapesIds,
+    titresEtapesIds,
     etapesTypesIds,
     titresDemarchesIds
   }: {
-    etapesIds?: string[] | null
+    titresEtapesIds?: string[] | null
     etapesTypesIds?: string[] | null
     titresDemarchesIds?: string[] | null
   } = {},
@@ -41,8 +41,8 @@ const titresEtapesQueryBuild = (
 
   titreEtapesPermissionQueryBuild(q, user)
 
-  if (etapesIds) {
-    q.whereIn('titresEtapes.id', etapesIds)
+  if (titresEtapesIds) {
+    q.whereIn('titresEtapes.id', titresEtapesIds)
   }
 
   if (etapesTypesIds) {
@@ -74,11 +74,11 @@ const titreEtapeGet = async (
 // utilisé dans le daily uniquement
 const titresEtapesGet = async (
   {
-    etapesIds,
+    titresEtapesIds,
     etapesTypesIds,
     titresDemarchesIds
   }: {
-    etapesIds?: string[] | null
+    titresEtapesIds?: string[] | null
     etapesTypesIds?: string[] | null
     titresDemarchesIds?: string[] | null
   } = {},
@@ -88,7 +88,7 @@ const titresEtapesGet = async (
   const user = userId ? await userGet(userId) : undefined
 
   const q = titresEtapesQueryBuild(
-    { etapesIds, etapesTypesIds, titresDemarchesIds },
+    { titresEtapesIds, etapesTypesIds, titresDemarchesIds },
     { fields },
     user
   )

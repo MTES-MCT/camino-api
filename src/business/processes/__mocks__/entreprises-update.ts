@@ -1,53 +1,54 @@
-import { IEntreprise, IEntrepriseEtablissement } from '../../../types'
+import Entreprises from '../../../database/models/entreprises'
+import EntreprisesEtablissements from '../../../database/models/entreprises-etablissements'
 
 const dbEntreprisesCreees = [
   { id: 'pipo', legalSiren: undefined, nom: 'pipo' },
   { id: 'toto', legalSiren: 'toto', nom: 'toto' },
   { id: 'nunu', legalSiren: 'toto', nom: 'nunu' }
-] as IEntreprise[]
+] as Entreprises[]
 
-const dbEntreprisesEtablissementsCreees = [] as IEntrepriseEtablissement[]
+const dbEntreprisesEtablissementsCreees = [] as EntreprisesEtablissements[]
 
 const apiEntreprisesCreees = [
   { id: 'papa', legalSiren: 'toto' }
-] as IEntreprise[]
+] as Entreprises[]
 
 const apiEntreprisesEtablissementsCreees = [
   { id: 'pipo', nom: 'pipo' },
   { id: 'toto', nom: 'toto' }
-] as IEntrepriseEtablissement[]
+] as EntreprisesEtablissements[]
 
 const dbEntreprisesModifiees = [
   { id: 'toto', legalSiren: 'toto', nom: 'toto' }
-] as IEntreprise[]
+] as Entreprises[]
 
 const dbEntreprisesEtablissementsModifies = [
   { id: 'toto', nom: 'toto' }
-] as IEntrepriseEtablissement[]
+] as EntreprisesEtablissements[]
 
 const apiEntreprisesModifiees = [
   { id: 'toto', legalSiren: 'papa' }
-] as IEntreprise[]
+] as Entreprises[]
 
 const apiEntreprisesEtablissementsModifiees = [
   { id: 'toto', nom: 'tutu' }
-] as IEntrepriseEtablissement[]
+] as EntreprisesEtablissements[]
 
 const dbEntreprisesSupprimeees = [
   { id: 'papa', legalSiren: 'toto', nom: 'toto' }
-] as IEntreprise[]
+] as Entreprises[]
 const dbEntreprisesEtablissementsSupprimeees = [
   {
     id: 'papa',
     dateDebut: '2000-01-01',
     entrepriseId: 'toto'
   }
-] as IEntrepriseEtablissement[]
-const apiEntreprisesSupprimeees = [] as IEntreprise[]
+] as EntreprisesEtablissements[]
+const apiEntreprisesSupprimeees = [] as Entreprises[]
 
 const dbEntreprisesExistantes = [
   { id: 'toto', legalSiren: 'toto', nom: 'toto' }
-] as IEntreprise[]
+] as Entreprises[]
 
 const dbEntreprisesEtablissementsExistants = [
   {
@@ -55,11 +56,11 @@ const dbEntreprisesEtablissementsExistants = [
     dateDebut: '2000-01-01',
     entrepriseId: 'toto'
   }
-] as IEntrepriseEtablissement[]
+] as EntreprisesEtablissements[]
 
 const apiEntreprisesExistantes = [
   { id: 'toto', legalSiren: 'toto' }
-] as IEntreprise[]
+] as Entreprises[]
 
 const apiEntreprisesEtablissementsExistantes = [
   {
@@ -67,14 +68,14 @@ const apiEntreprisesEtablissementsExistantes = [
     dateDebut: '2000-01-01',
     entrepriseId: 'toto'
   }
-] as IEntrepriseEtablissement[]
+] as EntreprisesEtablissements[]
 
-const dbEntreprisesInexistantes = [] as IEntreprise[]
-const dbEntreprisesEtablissementsInexistants = [] as IEntrepriseEtablissement[]
-const apiEntreprisesInexistantes = [] as IEntreprise[]
+const dbEntreprisesInexistantes = [] as Entreprises[]
+const dbEntreprisesEtablissementsInexistants = [] as EntreprisesEtablissements[]
+const apiEntreprisesInexistantes = [] as Entreprises[]
 
-const apiEntreprisesEtablissmentsInexistantes = [] as IEntrepriseEtablissement[]
-const apiEntreprisesEtablissementsSupprimeees = [] as IEntrepriseEtablissement[]
+const apiEntreprisesEtablissmentsInexistantes = [] as EntreprisesEtablissements[]
+const apiEntreprisesEtablissementsSupprimeees = [] as EntreprisesEtablissements[]
 
 export {
   dbEntreprisesCreees,

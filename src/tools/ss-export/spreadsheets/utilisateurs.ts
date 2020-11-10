@@ -1,4 +1,4 @@
-import { ISpreadsheet } from '../types'
+import { ISpreadsheet } from '../_types'
 import { utilisateursGet } from '../../../database/queries/utilisateurs'
 import { IUtilisateur, Index } from '../../../types'
 

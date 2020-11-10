@@ -2,7 +2,10 @@ import { ITitrePoint, ITitrePointReference } from '../../types'
 
 import PQueue from 'p-queue'
 
-import { titrePointReferenceCreate } from '../../database/queries/titres-points'
+import {
+  titrePointReferenceCreate,
+  titresPointsGet
+} from '../../database/queries/titres-points'
 
 const titreEtapePointsReferencesNewFind = (titrePoints: ITitrePoint[]) =>
   titrePoints.reduce((acc: ITitrePointReference[], titrePoint) => {
@@ -21,15 +24,22 @@ const titreEtapePointsReferencesNewFind = (titrePoints: ITitrePoint[]) =>
     return acc
   }, [])
 
-const titresPointsReferencesCreate = async (titresPoints: ITitrePoint[]) => {
+const titresPointsReferencesCreate = async () => {
+  console.info('références des points…')
   const queue = new PQueue({ concurrency: 100 })
 
+  const titresPoints = await titresPointsGet()
+
   const pointsReferencesNew = titreEtapePointsReferencesNewFind(titresPoints)
-  const pointsReferencesCreated = pointsReferencesNew.map(r =>
+  const pointsReferencesCreated = [] as string[]
+
+  pointsReferencesNew.forEach(r =>
     queue.add(async () => {
       await titrePointReferenceCreate(r)
 
       console.info(`création: référence du point ${JSON.stringify(r.id)}`)
+
+      pointsReferencesCreated.push(r.id)
     })
   )
 

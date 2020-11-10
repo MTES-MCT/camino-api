@@ -1,4 +1,4 @@
-import { ITitreActivite } from '../../../types'
+import TitresActivites from '../../../database/models/titres-activites'
 
 const titresActivitesDelaiDepasse = [
   {
@@ -6,7 +6,7 @@ const titresActivitesDelaiDepasse = [
     statutId: 'abs',
     type: { delaiMois: 3 }
   }
-] as ITitreActivite[]
+] as TitresActivites[]
 
 const titresActivitesDelaiNonDepasse = [
   {
@@ -14,6 +14,6 @@ const titresActivitesDelaiNonDepasse = [
     statutId: 'abs',
     type: { delaiMois: 3 }
   }
-] as ITitreActivite[]
+] as TitresActivites[]
 
 export { titresActivitesDelaiDepasse, titresActivitesDelaiNonDepasse }

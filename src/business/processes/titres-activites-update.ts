@@ -1,14 +1,28 @@
-import { IActiviteType, ITitre, ITitreActivite } from '../../types'
+import { ITitreActivite } from '../../types'
 
 import activitesTypesFilter from '../utils/activites-types-filter'
 import activiteTypeAnneesFind from '../utils/activite-type-annees-find'
 import { titreActivitesUpsert } from '../../database/queries/titres-activites'
 import titreActivitesBuild from '../rules/titre-activites-build'
+import { titresGet } from '../../database/queries/titres'
+import { activitesTypesGet } from '../../database/queries/metas'
 
-const titresActivitesUpdate = async (
-  titres: ITitre[],
-  activitesTypes: IActiviteType[]
-) => {
+const titresActivitesUpdate = async (titresIds?: string[]) => {
+  console.info('activités des titres…')
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        demarches: { phase: { id: {} } },
+        communes: { departement: { region: { pays: { id: {} } } } },
+        activites: { id: {} }
+      }
+    },
+    'super'
+  )
+  const activitesTypes = await activitesTypesGet({}, 'super')
+
   const titresActivitesCreated = activitesTypes.reduce(
     (acc: ITitreActivite[], activiteType) => {
       const annees = activiteTypeAnneesFind(activiteType)

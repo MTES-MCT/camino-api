@@ -1,5 +1,5 @@
+import { ISpreadsheet } from '../_types'
 import { ITitreTravaux, IContenu } from '../../../types'
-import { ISpreadsheet } from '../types'
 import { titresTravauxGet } from '../../../database/queries/titres-travaux'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_TITRES_TRAVAUX

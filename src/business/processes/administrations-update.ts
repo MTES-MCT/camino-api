@@ -1,6 +1,10 @@
 import { IAdministration, IDepartement } from '../../types'
 
-import { administrationsUpsert } from '../../database/queries/administrations'
+import {
+  administrationsGet,
+  administrationsUpsert
+} from '../../database/queries/administrations'
+import { departementsGet } from '../../database/queries/territoires'
 import {
   organismeDepartementGet,
   organismesDepartementsGet
@@ -42,10 +46,15 @@ const apiAdministrationsGet = async (departements: IDepartement[]) => {
   return organismesDepartementsGet(departementsIdsNoms)
 }
 
-const administrationsUpdate = async (
-  administrationsOld: IAdministration[],
-  departements: IDepartement[]
-) => {
+const administrationsUpdate = async (administrationsIds?: string[]) => {
+  // mise à jour de l'administrations grâce à l'API Administration
+  const departements = await departementsGet()
+  const administrationsOld = await administrationsGet(
+    { administrationsIds },
+    {},
+    'super'
+  )
+
   if (!departements.length) return []
 
   const apiAdministrationsTest = await apiAdministrationGetTest()

@@ -1,26 +1,26 @@
-import { ITitreActivite } from '../../types'
-
 import PQueue from 'p-queue'
 
-import { titreActiviteUpdate } from '../../database/queries/titres-activites'
+import {
+  titreActiviteUpdate,
+  titresActivitesGet
+} from '../../database/queries/titres-activites'
 import titreActiviteStatutIdFind from '../rules/titre-activite-statut-id-find'
 
 // met à jour le statut des activités d'un titre
-const titreActivitesStatutIdsUpdate = async (
-  titresActivites: ITitreActivite[]
-) => {
+const titreActivitesStatutIdsUpdate = async () => {
+  console.info('statut des activités dont le délai est dépassé')
   const queue = new PQueue({
     concurrency: 100
   })
 
-  const titresActivitesUpdated = titresActivites.reduce(
-    (titresActivitesUpdated: string[], titreActivite) => {
-      const statutId = titreActiviteStatutIdFind(titreActivite)
+  const titresActivites = await titresActivitesGet({}, {}, 'super')
 
-      if (titreActivite.statutId === statutId) {
-        return titresActivitesUpdated
-      }
+  const titresActivitesUpdated = [] as string[]
 
+  titresActivites.forEach(titreActivite => {
+    const statutId = titreActiviteStatutIdFind(titreActivite)
+
+    if (titreActivite.statutId !== statutId) {
       queue.add(async () => {
         titreActivite.statutId = statutId
 
@@ -34,11 +34,8 @@ const titreActivitesStatutIdsUpdate = async (
 
         titresActivitesUpdated.push(titreActivite.id)
       })
-
-      return titresActivitesUpdated
-    },
-    []
-  )
+    }
+  })
 
   await queue.onIdle()
 

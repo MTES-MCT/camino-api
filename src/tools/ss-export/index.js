@@ -1,8 +1,6 @@
-import 'dotenv/config'
-import '../../init'
 import PQueue from 'p-queue'
 
-import dbToSpreadsheet from './_utils/db-to-spreadsheets'
+import dbToSpreadsheet from './db-to-spreadsheets'
 import spreadsheetsTitres from './spreadsheets/titres'
 import spreadsheetDocuments from './spreadsheets/documents'
 import spreadsheetUtilisateurs from './spreadsheets/utilisateurs'
@@ -13,7 +11,7 @@ import spreadsheetTerritoires from './spreadsheets/territoires'
 import spreadsheetTravaux from './spreadsheets/titres-travaux'
 import spreadsheetForets from './spreadsheets/forets'
 
-const run = async () => {
+const ssExport = async () => {
   console.info('Export en cours…')
 
   // construit un tableau de promesses avec
@@ -50,7 +48,6 @@ const run = async () => {
   }
 
   console.info('Export terminé')
-  process.exit()
 }
 
-run()
+export default ssExport

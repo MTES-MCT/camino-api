@@ -1,7 +1,7 @@
-import { ITitre } from '../../../types'
+import Titres from '../../../database/models/titres'
 
-const titresPublicModifie = ([
-  {
+const titresPublicModifie = [
+  ({
     typeId: 'cxh',
     type: {
       autorisationsTitresStatuts: []
@@ -9,11 +9,11 @@ const titresPublicModifie = ([
     demarches: [],
     publicLecture: true,
     entreprisesLecture: false
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
-const titresPublicIdentique = ([
-  {
+const titresPublicIdentique = [
+  ({
     typeId: 'cxh',
     type: {
       autorisationsTitresStatuts: []
@@ -21,7 +21,7 @@ const titresPublicIdentique = ([
     demarches: null,
     publicLecture: false,
     entreprisesLecture: true
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
 export { titresPublicModifie, titresPublicIdentique }

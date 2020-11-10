@@ -1,11 +1,18 @@
-import { ITitre, ITitrePropsTitreEtapesIds } from '../../types'
+import { ITitrePropsTitreEtapesIds } from '../../types'
 import PQueue from 'p-queue'
 
-import { titreUpdate } from '../../database/queries/titres'
+import { titresGet, titreUpdate } from '../../database/queries/titres'
 import titreContenuEtapeIdFind from '../rules/titre-contenu-etape-id-find'
 
-const titresPropsContenuUpdate = async (titres: ITitre[]) => {
+const titresPropsContenuUpdate = async (titresIds?: string[]) => {
+  console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
   const queue = new PQueue({ concurrency: 100 })
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
+    'super'
+  )
 
   const titresUpdated = titres.reduce((titresIdsUpdated: string[], titre) => {
     if (!titre.type?.propsEtapesTypes) return titresIdsUpdated

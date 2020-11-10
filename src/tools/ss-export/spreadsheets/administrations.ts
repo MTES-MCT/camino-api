@@ -1,4 +1,4 @@
-import { ISpreadsheet } from '../types'
+import { ISpreadsheet } from '../_types'
 import { IAdministration } from '../../../types'
 import { administrationsGet } from '../../../database/queries/administrations'
 

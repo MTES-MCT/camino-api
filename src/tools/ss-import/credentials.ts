@@ -1,4 +1,4 @@
-import { ICredentials } from '../export/types'
+import { ICredentials } from '../api-google-spreadsheets'
 
 export default {
   private_key: process.env.GOOGLE_PRIVATE_KEY,

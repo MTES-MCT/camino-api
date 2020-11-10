@@ -1,4 +1,4 @@
-import { ITitreDemarche } from '../../../types'
+import TitresDemarches from '../../../database/models/titres-demarches'
 
 const titresDemarchesEtapes = [
   {
@@ -7,11 +7,11 @@ const titresDemarchesEtapes = [
       { ordre: 1, date: '1988-03-08' }
     ],
     titre: null
-  }
-] as ITitreDemarche[]
+  } as TitresDemarches
+]
 
-const titresDemarchesEtapesVides = ([
-  { etapes: [], titre: { typeId: '' } }
-] as unknown) as ITitreDemarche[]
+const titresDemarchesEtapesVides = [
+  ({ etapes: [], titre: { typeId: '' } } as unknown) as TitresDemarches
+]
 
 export { titresDemarchesEtapes, titresDemarchesEtapesVides }

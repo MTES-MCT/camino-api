@@ -1,5 +1,5 @@
 import { IEntreprise } from '../../../types'
-import { ISpreadsheet } from '../types'
+import { ISpreadsheet } from '../_types'
 import { entreprisesGet } from '../../../database/queries/entreprises'
 
 const id = process.env.GOOGLE_SPREADSHEET_ID_EXPORT_ENTREPRISES

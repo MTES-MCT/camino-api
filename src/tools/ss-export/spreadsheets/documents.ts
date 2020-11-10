@@ -1,5 +1,5 @@
 import { IDocument } from '../../../types'
-import { ISpreadsheet } from '../types'
+import { ISpreadsheet } from '../_types'
 import { documentsGet } from '../../../database/queries/documents'
 
 const documentsSpreadsheetId =

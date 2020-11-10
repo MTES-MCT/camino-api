@@ -1,7 +1,8 @@
-import { ITitre, ITitrePhase } from '../../../types'
+import Titres from '../../../database/models/titres'
+import { ITitrePhase } from '../../../types'
 
-const titresSansPhase = ([
-  {
+const titresSansPhase = [
+  ({
     id: 'h-cx-courdemanges-1988',
     demarches: [
       {
@@ -13,8 +14,8 @@ const titresSansPhase = ([
         etapes: []
       }
     ]
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
 const titresUnePhase = [
   {
@@ -46,8 +47,8 @@ const titresUnePhase = [
         ]
       }
     ]
-  }
-] as ITitre[]
+  } as Titres
+]
 
 const titrePhase = [
   {
@@ -94,11 +95,11 @@ const titresUnePhaseMiseAJour = [
         ]
       }
     ]
-  }
-] as ITitre[]
+  } as Titres
+]
 
-const titresPhaseASupprimer = ([
-  {
+const titresPhaseASupprimer = [
+  ({
     id: 'h-cx-courdemanges-1988',
     demarches: [
       {
@@ -116,8 +117,8 @@ const titresPhaseASupprimer = ([
         etapes: []
       }
     ]
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
 const titresUnePhaseSansChangement = [
   {
@@ -155,8 +156,8 @@ const titresUnePhaseSansChangement = [
         ]
       }
     ]
-  }
-] as ITitre[]
+  } as Titres
+]
 
 export {
   titresSansPhase,

@@ -8,10 +8,12 @@ import PQueue from 'p-queue'
 
 import {
   titreAdministrationGestionnaireDelete,
-  titresAdministrationsGestionnairesCreate
+  titresAdministrationsGestionnairesCreate,
+  titresGet
 } from '../../database/queries/titres'
 
 import titreAdministrationsGestionnairesBuild from '../rules/titre-administrations-gestionnaires-build'
+import { administrationsGet } from '../../database/queries/administrations'
 
 const titreAsGsToCreatedFind = (
   titreAsGsOldIds: string[],
@@ -115,9 +117,18 @@ const titresAsGsToCreateAndDeleteBuild = (
   )
 
 const titresAdministrationsGestionnairesUpdate = async (
-  titres: ITitre[],
-  administrations: IAdministration[]
+  titresIds?: string[]
 ) => {
+  console.info('administrations gestionnaires associées aux titres…')
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    { fields: { administrationsGestionnaires: { id: {} } } },
+    'super'
+  )
+
+  const administrations = await administrationsGet({}, {}, 'super')
+
   const {
     titresAsGsToCreate,
     titresAsGsToDelete
@@ -141,22 +152,17 @@ const titresAdministrationsGestionnairesUpdate = async (
   if (titresAsGsToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresAsGsToDelete.reduce(
-      (titresAsGsDeleted: string[], { titreId, administrationId }) => {
-        queue.add(async () => {
-          await titreAdministrationGestionnaireDelete(titreId, administrationId)
+    titresAsGsToDelete.forEach(({ titreId, administrationId }) => {
+      queue.add(async () => {
+        await titreAdministrationGestionnaireDelete(titreId, administrationId)
 
-          console.info(
-            `suppression: étape ${titreId}, administration ${administrationId}`
-          )
+        console.info(
+          `suppression: étape ${titreId}, administration ${administrationId}`
+        )
 
-          titresAsGsDeleted.push(titreId)
-        })
-
-        return titresAsGsDeleted
-      },
-      titresAsGsDeleted
-    )
+        titresAsGsDeleted.push(titreId)
+      })
+    })
 
     await queue.onIdle()
   }

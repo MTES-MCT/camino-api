@@ -1,72 +1,24 @@
-import 'dotenv/config'
-import '../init'
-
-import {
-  administrationGet,
-  administrationsGet
-} from '../database/queries/administrations'
-import { departementsGet } from '../database/queries/territoires'
-
 import administrationsUpdate from './processes/administrations-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
-import { titresGet } from '../database/queries/titres'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 
 const administrationUpdate = async (administrationId: string) => {
   try {
-    // mise à jour de l'administrations grâce à l'API Administration
-    const departements = await departementsGet()
-    const administration = await administrationGet(
-      administrationId,
-      {},
-      'super'
-    )
-
-    const administrationsUpdated = await administrationsUpdate(
-      [administration],
-      departements
-    )
+    const administrationsUpdated = await administrationsUpdate([
+      administrationId
+    ])
 
     console.info()
-    console.info('administrations gestionnaires associées aux titres…')
-
-    let titres = await titresGet(
-      {},
-      { fields: { administrationsGestionnaires: { id: {} } } },
-      'super'
-    )
-
-    let administrations
-
-    administrations = await administrationsGet({}, {}, 'super')
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
-    } = await titresAdministrationsGestionnairesUpdate(titres, administrations)
+    } = await titresAdministrationsGestionnairesUpdate()
 
     console.info()
-    console.info('administrations locales associées aux étapes…')
-
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: {
-            etapes: {
-              administrations: { titresTypes: { id: {} } },
-              communes: { departement: { id: {} } }
-            }
-          }
-        }
-      },
-      'super'
-    )
-    administrations = await administrationsGet({}, {}, 'super')
-
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
     if (administrationsUpdated.length) {
       console.info(

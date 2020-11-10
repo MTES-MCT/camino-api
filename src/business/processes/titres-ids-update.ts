@@ -3,7 +3,11 @@ import { ITitre } from '../../types'
 import * as cryptoRandomString from 'crypto-random-string'
 import * as slugify from '@sindresorhus/slugify'
 
-import { titreIdUpdate, titreGet } from '../../database/queries/titres'
+import {
+  titreIdUpdate,
+  titreGet,
+  titresGet
+} from '../../database/queries/titres'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import titreIdFind from '../utils/titre-id-find'
 import { titreFilePathsRename } from './titre-fichiers-rename'
@@ -75,7 +79,38 @@ interface ITitreIdsIndex {
   [key: string]: string
 }
 
-const titresIdsUpdate = async (titres: ITitre[]) => {
+const titresIdsUpdate = async (titresIds?: string[]) => {
+  console.info('ids de titres, démarches, étapes et sous-éléments…')
+  // si l'id du titre change il est effacé puis re-créé entièrement
+  // on doit donc récupérer toutes ses relations
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        type: { type: { id: {} } },
+        references: { id: {} },
+        administrationsGestionnaires: { id: {} },
+        demarches: {
+          etapes: {
+            points: { references: { id: {} } },
+            documents: { id: {} },
+            administrations: { id: {} },
+            titulaires: { id: {} },
+            amodiataires: { id: {} },
+            substances: { id: {} },
+            communes: { id: {} },
+            justificatifs: { id: {} },
+            incertitudes: { id: {} }
+          },
+          phase: { id: {} }
+        },
+        travaux: { etapes: { id: {} } },
+        activites: { id: {} }
+      }
+    },
+    'super'
+  )
+
   // les transactions `titreIdUpdate` ne peuvent être exécutées en parallèle
   const titresUpdatedIndex = {} as ITitreIdsIndex
 
@@ -83,12 +118,11 @@ const titresIdsUpdate = async (titres: ITitre[]) => {
     const titreUpdatedIndex = await titreIdsUpdate(titre)
 
     if (titreUpdatedIndex) {
-      const titreId = Object.keys(titreUpdatedIndex)[0]
-      titresUpdatedIndex[titreId] = titreUpdatedIndex[titreId]
+      Object.assign(titresUpdatedIndex, titreUpdatedIndex)
     }
   }
 
   return titresUpdatedIndex
 }
 
-export { titresIdsUpdate, titreIdsUpdate, titreIdFindHashAdd, titreIdCheck }
+export { titresIdsUpdate, titreIdFindHashAdd, titreIdCheck }

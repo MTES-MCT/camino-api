@@ -1,11 +1,12 @@
-import { ITitre, IActiviteType } from '../../../types'
+import ActivitesTypes from '../../../database/models/activites-types'
+import Titres from '../../../database/models/titres'
 
 const titresSansActivite = ([
   {
     id: 'h-cx-courdemanges-1988',
     activites: []
   }
-] as unknown) as ITitre[]
+] as unknown) as Titres[]
 
 const titresToutesActivites = [
   {
@@ -29,14 +30,14 @@ const titresToutesActivites = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 const titreActiviteTypeGuyane = ({
   id: 'grp',
   dateDebut: 2018,
   nom: "rapport d'activité",
   frequenceId: 'tri'
-} as unknown) as IActiviteType
+} as unknown) as ActivitesTypes
 
 const titreActivitesTypes = [titreActiviteTypeGuyane]
 

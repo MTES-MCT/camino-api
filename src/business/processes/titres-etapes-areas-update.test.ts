@@ -1,6 +1,10 @@
 import { mocked } from 'ts-jest/utils'
 import { IGeometry } from '../../types'
 
+import { titresEtapesAreasUpdate } from './titres-etapes-areas-update'
+import { titresEtapesGet } from '../../database/queries/titres-etapes'
+import { foretsGet, communesGet } from '../../database/queries/territoires'
+
 import {
   commune1,
   commune1SurfaceChangee,
@@ -14,7 +18,6 @@ import {
   foret1,
   foret1SurfaceChangee
 } from './__mocks__/titres-etapes-communes-update-etapes'
-import { titresEtapesAreasUpdate } from './titres-etapes-areas-update'
 import { apiGeoGet } from '../../tools/api-geo'
 
 jest.mock('../../database/queries/titres-etapes', () => ({
@@ -22,13 +25,16 @@ jest.mock('../../database/queries/titres-etapes', () => ({
   titresEtapesCommunesUpdate: jest.fn().mockImplementation(a => a),
   titreEtapeCommuneDelete: jest.fn().mockImplementation(a => a),
   titresEtapesForetsUpdate: jest.fn().mockImplementation(a => a),
-  titreEtapeForetDelete: jest.fn().mockImplementation(a => a)
+  titreEtapeForetDelete: jest.fn().mockImplementation(a => a),
+  titresEtapesGet: jest.fn()
 }))
 
 jest.mock('../../database/queries/territoires', () => ({
   __esModule: true,
   communesUpsert: jest.fn().mockImplementation(a => a),
-  foretsUpsert: jest.fn().mockImplementation(a => a)
+  foretsUpsert: jest.fn().mockImplementation(a => a),
+  communesGet: jest.fn(),
+  foretsGet: jest.fn()
 }))
 
 jest.mock('../../tools/geojson', () => ({
@@ -45,16 +51,22 @@ jest.mock('../../tools/api-geo/index', () => ({
 console.info = jest.fn()
 console.error = jest.fn()
 
-const geoAreaGeojsonGetMocked = mocked(apiGeoGet, true)
+const titresEtapesGetMock = mocked(titresEtapesGet, true)
+const foretsGetMock = mocked(foretsGet, true)
+const communesGetMock = mocked(communesGet, true)
+const geoAreaGeojsonGetMock = mocked(apiGeoGet, true)
 
 describe('mise à jour de toutes les territoires des étapes', () => {
   test('ajoute 2 communes et 1 forêt dans une étape et dans la liste de communes et des forêts', async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPoints])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1, commune2],
       forets: [foret1]
     })
 
-    const result = await titresEtapesAreasUpdate([titresEtapesPoints], [], [])
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -75,21 +87,18 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreForetsUpdated.length).toEqual(1)
     expect(titresEtapesForetsUpdated.length).toEqual(1)
     expect(titresEtapesForetsDeleted.length).toEqual(0)
-
-    expect(console.info).toHaveBeenCalledTimes(5)
   })
 
   test("n'ajoute qu'une seule fois une commune en doublon", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPointsMemeCommune])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1, commune1],
       forets: []
     })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsMemeCommune],
-      [],
-      []
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -100,13 +109,15 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.info).toHaveBeenCalledTimes(2)
   })
 
   test("n'ajoute aucune commune dans l'étape ni dans la liste de communes", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({ communes: [], forets: [] })
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPoints])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
 
-    const result = await titresEtapesAreasUpdate([titresEtapesPoints], [], [])
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -117,17 +128,15 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas de commune si l'étape n'a pas de périmètre", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({ communes: [], forets: [] })
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPointsVides])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsVides],
-      [],
-      []
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -138,17 +147,15 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas de commune si l'étape n'a pas de la propriété `points`", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({ communes: [], forets: [] })
+    titresEtapesGetMock.mockResolvedValue([titresEtapesSansPoints])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesSansPoints],
-      [],
-      []
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -159,20 +166,18 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("n'ajoute pas de commune si elle existe déjà dans l'étape", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPointsCommuneExistante])
+    foretsGetMock.mockResolvedValue([foret1])
+    communesGetMock.mockResolvedValue([commune1])
+    geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1],
       forets: [foret1]
     })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsCommuneExistante],
-      [commune1],
-      [foret1]
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -183,20 +188,18 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("met à jour la commune et la forêt dans l'étape si sa surface couverte a changé", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPointsCommuneExistante])
+    foretsGetMock.mockResolvedValue([foret1])
+    communesGetMock.mockResolvedValue([commune1])
+    geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1SurfaceChangee],
       forets: [foret1SurfaceChangee]
     })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsCommuneExistante],
-      [commune1],
-      [foret1]
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -217,18 +220,17 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreForetsUpdated.length).toEqual(0)
     expect(titresEtapesForetsUpdated.length).toEqual(1)
     expect(titresEtapesForetsDeleted.length).toEqual(0)
-
-    expect(console.info).toHaveBeenCalled()
   })
 
   test("supprime une commune si l'étape ne la contient plus dans son périmètre", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({ communes: [], forets: [] })
+    titresEtapesGetMock.mockResolvedValue([
+      titresEtapesPointsCommuneInexistante
+    ])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue({ communes: [], forets: [] })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsCommuneInexistante],
-      [],
-      []
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -239,20 +241,18 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(1)
-    expect(console.info).toHaveBeenCalled()
   })
 
   test("met à jour la commune dans l'étape si sa surface couverte a changé", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue({
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPointsCommuneExistante])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([commune1])
+    geoAreaGeojsonGetMock.mockResolvedValue({
       communes: [commune1SurfaceChangee],
       forets: []
     })
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsCommuneExistante],
-      [commune1],
-      []
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -263,17 +263,15 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(1)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(console.info).toHaveBeenCalled()
   })
 
   test("retourne un message d'erreur si l'API Géo communes ne répond pas", async () => {
-    geoAreaGeojsonGetMocked.mockResolvedValue(null)
+    titresEtapesGetMock.mockResolvedValue([titresEtapesPointsVides])
+    foretsGetMock.mockResolvedValue([])
+    communesGetMock.mockResolvedValue([])
+    geoAreaGeojsonGetMock.mockResolvedValue(null)
 
-    const result = await titresEtapesAreasUpdate(
-      [titresEtapesPointsVides],
-      [],
-      []
-    )
+    const result = await titresEtapesAreasUpdate()
 
     const [
       titreCommunesUpdated = [],
@@ -283,8 +281,8 @@ describe('mise à jour de toutes les territoires des étapes', () => {
     expect(titreCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesUpdated.length).toEqual(0)
     expect(titresEtapesCommunesDeleted.length).toEqual(0)
-    expect(geoAreaGeojsonGetMocked).toHaveBeenCalled()
-    expect(console.info).not.toHaveBeenCalled()
+    expect(geoAreaGeojsonGetMock).toHaveBeenCalled()
+
     expect(console.error).toHaveBeenCalled()
   })
 })

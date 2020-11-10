@@ -1,4 +1,6 @@
+import { mocked } from 'ts-jest/utils'
 import titresDemarcheStatutIdUpdate from './titres-demarches-statut-ids-update'
+import { titresGet } from '../../database/queries/titres'
 
 import {
   titresDemarchesStatutModifie,
@@ -10,33 +12,34 @@ jest.mock('../../database/queries/titres-demarches', () => ({
   titreDemarcheUpdate: jest.fn().mockResolvedValue(true)
 }))
 
+jest.mock('../../database/queries/titres', () => ({
+  __esModule: true,
+  titresGet: jest.fn()
+}))
+
+const titresGetMock = mocked(titresGet, true)
+
 console.info = jest.fn()
 
 describe("statut des démarches d'un titre", () => {
   test("met à jour le statut d'une démarche", async () => {
-    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate(
-      titresDemarchesStatutModifie
-    )
+    titresGetMock.mockResolvedValue(titresDemarchesStatutModifie)
+    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate()
 
     expect(titresDemarchesStatutUpdated.length).toEqual(1)
-    expect(console.info).toHaveBeenCalled()
   })
 
   test("ne met pas à jour le statut d'une démarche", async () => {
-    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate(
-      titresDemarchesStatutIdentique
-    )
+    titresGetMock.mockResolvedValue(titresDemarchesStatutIdentique)
+    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate()
 
     expect(titresDemarchesStatutUpdated.length).toEqual(0)
-    expect(console.info).not.toHaveBeenCalled()
   })
 
   test("ne met pas à jour le statut d'une démarche sans étape", async () => {
-    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate(
-      titresDemarchesSansEtape
-    )
+    titresGetMock.mockResolvedValue(titresDemarchesSansEtape)
+    const titresDemarchesStatutUpdated = await titresDemarcheStatutIdUpdate()
 
     expect(titresDemarchesStatutUpdated.length).toEqual(0)
-    expect(console.info).not.toHaveBeenCalled()
   })
 })

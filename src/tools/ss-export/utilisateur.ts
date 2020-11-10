@@ -1,6 +1,6 @@
+import { ITable } from './_types'
 // eslint-disable-next-line camelcase
 import { sheets_v4 } from 'googleapis'
-import { ITable } from './types'
 import { IUtilisateur } from '../../types'
 import decamelize from '../decamelize'
 import credentials from './credentials'

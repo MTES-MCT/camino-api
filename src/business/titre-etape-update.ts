@@ -1,9 +1,4 @@
-import { activitesTypesGet } from '../database/queries/metas'
-import { titreGet } from '../database/queries/titres'
 import { titreDemarcheGet } from '../database/queries/titres-demarches'
-import { titreEtapeGet } from '../database/queries/titres-etapes'
-import { communesGet, foretsGet } from '../database/queries/territoires'
-import { administrationsGet } from '../database/queries/administrations'
 
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresDatesUpdate from './processes/titres-dates-update'
@@ -17,7 +12,7 @@ import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
-import { titreIdsUpdate } from './processes/titres-ids-update'
+import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPublicUpdate from './processes/titres-public-update'
 
 const titreEtapeUpdate = async (
@@ -25,13 +20,8 @@ const titreEtapeUpdate = async (
   titreDemarcheId: string
 ) => {
   try {
-    let titreDemarche
     let titreId
-    let titre
-
-    console.info()
-    console.info('ordre des étapes…')
-    titreDemarche = await titreDemarcheGet(
+    const titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
       {
         fields: {
@@ -47,117 +37,27 @@ const titreEtapeUpdate = async (
       throw new Error(`la démarche ${titreDemarche} n'existe pas`)
     }
 
-    titreId = titreDemarche.titreId
-
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate([
-      titreDemarche
+      titreDemarcheId
     ])
 
-    console.info()
-    console.info('statut des démarches…')
-    titreDemarche = await titreDemarcheGet(
-      titreDemarcheId,
-      { fields: { etapes: { id: {} } } },
-      'super'
-    )
-    titre = await titreGet(
-      titreId,
-      { fields: { demarches: { etapes: { id: {} } } } },
-      'super'
-    )
+    titreId = titreDemarche.titreId
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate([
-      titre
+      titreId
     ])
-
-    console.info()
-    console.info('publicité des démarches…')
-    titreDemarche = await titreDemarcheGet(
-      titreDemarcheId,
-      { fields: { etapes: { id: {} } } },
-      'super'
-    )
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          demarches: {
-            type: { etapesTypes: { id: {} } },
-            etapes: { id: {} }
-          }
-        }
-      },
-      'super'
-    )
     const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate([
-      titre
+      titreId
     ])
-
-    console.info()
-    console.info('ordre des démarches…')
-    titre = await titreGet(
-      titreId,
-      { fields: { demarches: { etapes: { points: { id: {} } } } } },
-      'super'
-    )
     const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate([
-      titre
+      titreId
     ])
-
-    console.info()
-    console.info('statut des titres…')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
-        }
-      },
-      'super'
-    )
-    const titresStatutIdUpdated = await titresStatutIdsUpdate([titre])
-
-    console.info()
-    console.info('publicité des titres…')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          type: { autorisationsTitresStatuts: { id: {} } },
-          demarches: { id: {} }
-        }
-      },
-      'super'
-    )
-    const titresPublicUpdated = await titresPublicUpdate([titre])
-
-    console.info()
-    console.info('phases des titres…')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
-        }
-      },
-      'super'
-    )
+    const titresStatutIdUpdated = await titresStatutIdsUpdate([titreId])
+    const titresPublicUpdated = await titresPublicUpdate([titreId])
     const [
       titresPhasesUpdated = [],
       titresPhasesDeleted = []
-    ] = await titresPhasesUpdate([titre])
-
-    console.info()
-    console.info('date de début, de fin et de demande initiale des titres…')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: { demarches: { etapes: { points: { id: {} } } } }
-      },
-      'super'
-    )
-    const titresDatesUpdated = await titresDatesUpdate([titre])
-
-    console.info()
+    ] = await titresPhasesUpdate([titreId])
+    const titresDatesUpdated = await titresDatesUpdate([titreId])
     console.info('communes et forêts associées aux étapes…')
     let titreCommunesUpdated = []
     let titresEtapesCommunesCreated = []
@@ -167,25 +67,7 @@ const titreEtapeUpdate = async (
     let titresEtapesForetsDeleted = []
     // si l'étape est supprimée, pas de mise à jour
     if (titreEtapeId) {
-      const titreEtape = await titreEtapeGet(
-        titreEtapeId,
-        {
-          fields: {
-            points: { id: {} },
-            communes: { id: {} },
-            forets: { id: {} }
-          }
-        },
-        'super'
-      )
-      const communes = await communesGet()
-      const forets = await foretsGet()
-
-      const result = await titresEtapesAreasUpdate(
-        [titreEtape],
-        communes,
-        forets
-      )
+      const result = await titresEtapesAreasUpdate([titreEtapeId])
       titreCommunesUpdated = result.titresCommunes[0]
       titresEtapesCommunesCreated = result.titresCommunes[1]
       titresEtapesCommunesDeleted = result.titresCommunes[2]
@@ -194,115 +76,20 @@ const titreEtapeUpdate = async (
       titresEtapesForetsCreated = result.titresForets[1]
       titresEtapesForetsDeleted = result.titresForets[2]
     }
-
-    console.info()
-    console.info('administrations locales associées aux étapes…')
-    let administrations = await administrationsGet({}, {}, 'super')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          demarches: {
-            etapes: {
-              administrations: { titresTypes: { id: {} } },
-              communes: { departement: { id: {} } }
-            }
-          }
-        }
-      },
-      'super'
-    )
-    administrations = await administrationsGet({}, {}, 'super')
     const {
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
-    } = await titresEtapesAdministrationsLocalesUpdate([titre], administrations)
-
-    console.info()
-    console.info('propriétés des titres (liens vers les étapes)…')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          demarches: {
-            etapes: {
-              points: { id: {} },
-              titulaires: { id: {} },
-              amodiataires: { id: {} },
-              administrations: { id: {} },
-              substances: { id: {} },
-              communes: { id: {} }
-            }
-          }
-        }
-      },
-      'super'
-    )
-    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titre])
-
-    console.info()
-    console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
-    titre = await titreGet(
-      titreId,
-      { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
-      'super'
-    )
-    const titresPropsContenuUpdated = await titresPropsContenuUpdate([titre])
-
-    console.info()
-    console.info('activités des titres…')
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          demarches: { phase: { id: {} } },
-          communes: { departement: { region: { pays: { id: {} } } } },
-          activites: { id: {} }
-        }
-      },
-      'super'
-    )
-    const activitesTypes = await activitesTypesGet({}, 'super')
-    const titresActivitesCreated = await titresActivitesUpdate(
-      [titre],
-      activitesTypes
-    )
-
-    console.info()
-    console.info('ids de titres, démarches, étapes et sous-éléments…')
-    // si l'id du titre change il est effacé puis re-créé entièrement
-    // on doit donc récupérer toutes ses relations
-    titre = await titreGet(
-      titreId,
-      {
-        fields: {
-          type: { type: { id: {} } },
-          references: { id: {} },
-          administrationsGestionnaires: { id: {} },
-          demarches: {
-            etapes: {
-              points: { references: { id: {} } },
-              documents: { id: {} },
-              administrations: { id: {} },
-              titulaires: { id: {} },
-              amodiataires: { id: {} },
-              substances: { id: {} },
-              communes: { id: {} },
-              justificatifs: { id: {} },
-              incertitudes: { id: {} }
-            },
-            phase: { id: {} }
-          },
-          travaux: { etapes: { id: {} } },
-          activites: { id: {} }
-        }
-      },
-      'super'
-    )
+    } = await titresEtapesAdministrationsLocalesUpdate([titreId])
+    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titreId])
+    const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
+    const titresActivitesCreated = await titresActivitesUpdate([titreId])
 
     // met à jour l'id dans le titre par effet de bord
-    const titreUpdatedIndex = await titreIdsUpdate(titre)
-    titreId = titreUpdatedIndex ? Object.keys(titreUpdatedIndex)[0] : titreId
+    const titresUpdatedIndex = await titresIdsUpdate([titreId])
+    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
+    if (titreIdTmp) {
+      titreId = titreIdTmp
+    }
 
     if (titresEtapesOrdreUpdated.length) {
       console.info(
@@ -418,8 +205,8 @@ const titreEtapeUpdate = async (
       console.info(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
     }
 
-    if (titreUpdatedIndex) {
-      console.info(`mise à jour: 1 titre (id)`)
+    if (titresUpdatedIndex) {
+      console.info(`mise à jour: 1 titre (id) ${titresUpdatedIndex}`)
     }
 
     return titreId

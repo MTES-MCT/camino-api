@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import { ISpreadsheet, ICb } from './types'
 import PQueue from 'p-queue'
 import * as makeDir from 'make-dir'
@@ -9,7 +8,7 @@ import fileCreate from '../file-create'
 import spreadsheets from './spreadsheets'
 import { Index } from '../../types'
 
-const run = async () => {
+const ssImport = async () => {
   // crée le dossier /sources
   await makeDir('./sources')
 
@@ -131,4 +130,4 @@ const rowsToJson = (columns: string[], rows: string[][]) =>
 const filePathCreate = (fileName: string) =>
   `./sources/${fileName.replace(/_/g, '-')}.json`
 
-run()
+export default ssImport

@@ -1,29 +1,37 @@
-import { ITitreDemarche, ITitreEtape } from '../../types'
+import { ITitreEtape } from '../../types'
 
 import PQueue from 'p-queue'
 
 import { titreEtapeUpdate } from '../../database/queries/titres-etapes'
 import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
+import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 
-const titresEtapesOrdreUpdate = async (titresDemarches: ITitreDemarche[]) => {
+const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
+  console.info('ordre des étapes…')
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresEtapesIdsUpdated = titresDemarches.reduce(
-    (titresEtapesIdsUpdated: string[], titreDemarche) => {
-      if (!titreDemarche.etapes) return titresEtapesIdsUpdated
+  const titresDemarches = await titresDemarchesGet(
+    { titresDemarchesIds },
+    {
+      fields: {
+        etapes: { id: {} },
+        type: { etapesTypes: { id: {} } },
+        titre: { id: {} }
+      }
+    },
+    'super'
+  )
 
-      return titreEtapesAscSortByDate(
+  const titresEtapesIdsUpdated = [] as string[]
+
+  titresDemarches.forEach(titreDemarche => {
+    if (titreDemarche.etapes) {
+      titreEtapesAscSortByDate(
         titreDemarche.etapes,
         titreDemarche.type,
         titreDemarche.titre?.typeId
-      ).reduce(
-        (
-          titresEtapesIdsUpdated: string[],
-          titreEtape: ITitreEtape,
-          index: number
-        ) => {
-          if (titreEtape.ordre === index + 1) return titresEtapesIdsUpdated
-
+      ).forEach((titreEtape: ITitreEtape, index: number) => {
+        if (titreEtape.ordre !== index + 1) {
           queue.add(async () => {
             await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
@@ -33,14 +41,10 @@ const titresEtapesOrdreUpdate = async (titresDemarches: ITitreDemarche[]) => {
 
             titresEtapesIdsUpdated.push(titreEtape.id)
           })
-
-          return titresEtapesIdsUpdated
-        },
-        titresEtapesIdsUpdated
-      )
-    },
-    []
-  )
+        }
+      })
+    }
+  })
 
   await queue.onIdle()
 
