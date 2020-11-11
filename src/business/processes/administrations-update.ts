@@ -47,6 +47,8 @@ const apiAdministrationsGet = async (departements: IDepartement[]) => {
 }
 
 const administrationsUpdate = async (administrationsIds?: string[]) => {
+  console.info()
+  console.info('administrations…')
   // mise à jour de l'administrations grâce à l'API Administration
   const departements = await departementsGet()
   const administrationsOld = await administrationsGet(
@@ -73,11 +75,13 @@ const administrationsUpdate = async (administrationsIds?: string[]) => {
 
   if (administrationsUpdated.length) {
     await administrationsUpsert(administrationsUpdated)
-    console.info(
-      `mise à jour: administrations ${administrationsUpdated
-        .map(a => a.id)
-        .join(', ')}`
-    )
+
+    const log = {
+      type: 'administrations (mise à jour) ->',
+      value: administrationsUpdated.map(a => a.id).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   return administrationsUpdated

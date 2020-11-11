@@ -5,6 +5,7 @@ import { titresGet, titreUpdate } from '../../database/queries/titres'
 import titreContenuEtapeIdFind from '../rules/titre-contenu-etape-id-find'
 
 const titresPropsContenuUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
   const queue = new PQueue({ concurrency: 100 })
 
@@ -100,11 +101,12 @@ const titresPropsContenuUpdate = async (titresIds?: string[]) => {
           propsTitreEtapesIds
         })
 
-        console.info(
-          `mise à jour: titre ${titre.id} contenu: ${JSON.stringify(
-            propsTitreEtapesIds
-          )}`
-        )
+        const log = {
+          type: 'titre : props-contenu-etape (mise à jour) ->',
+          value: `${titre.id} : ${JSON.stringify(propsTitreEtapesIds)}`
+        }
+
+        console.info(log.type, log.value)
 
         titresIdsUpdated.push(titreUpdated.id)
       })

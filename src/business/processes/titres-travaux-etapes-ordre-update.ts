@@ -7,6 +7,7 @@ import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 import { titresTravauxGet } from '../../database/queries/titres-travaux'
 
 const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
+  console.info()
   console.info('ordre des étapes de travaux…')
   const queue = new PQueue({ concurrency: 100 })
 
@@ -25,25 +26,30 @@ const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
 
   titresTravaux.forEach(titreTravau => {
     if (titreTravau.etapes) {
-      titreEtapesAscSortByDate(
+      const titreTravauxEtapeSorted = titreEtapesAscSortByDate(
         titreTravau.etapes,
         titreTravau.type,
         titreTravau.titre?.typeId
-      ).forEach((titreEtape: ITitreEtape, index: number) => {
-        if (titreEtape.ordre !== index + 1) {
-          queue.add(async () => {
-            await titreTravauxEtapeUpdate(titreEtape.id, { ordre: index + 1 })
+      )
 
-            console.info(
-              `mise à jour: étape de travaux ${titreEtape.id}, ordre: ${
-                index + 1
-              }`
-            )
+      titreTravauxEtapeSorted.forEach(
+        (titreEtape: ITitreEtape, index: number) => {
+          if (titreEtape.ordre !== index + 1) {
+            queue.add(async () => {
+              await titreTravauxEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
-            titresTravauxEtapesIdsUpdated.push(titreEtape.id)
-          })
+              const log = {
+                type: 'titre / travaux / étape : ordre (mise à jour) ->',
+                value: `${titreEtape.id} : ${index + 1}`
+              }
+
+              console.info(log.type, log.value)
+
+              titresTravauxEtapesIdsUpdated.push(titreEtape.id)
+            })
+          }
         }
-      })
+      )
     }
   })
 

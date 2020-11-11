@@ -3,9 +3,12 @@ import entreprisesUpdate from './processes/entreprises-update'
 
 const monthly = async () => {
   try {
-    // 1.
+    console.info()
+    console.info('- - -')
+    console.info('mise à jour mensuelle')
     console.info()
 
+    // 1.
     const [
       entreprisesUpdated = [],
       etablissementsUpdated = [],
@@ -17,7 +20,8 @@ const monthly = async () => {
     const administrationsUpdated = await administrationsUpdate()
 
     console.info()
-    console.info('tâches mensuelles exécutées:')
+    console.info('-')
+    console.info('tâches exécutées:')
 
     if (entreprisesUpdated.length) {
       console.info(
@@ -44,8 +48,8 @@ const monthly = async () => {
     }
   } catch (e) {
     console.info('erreur:', e)
-  } finally {
-    process.exit()
+
+    throw e
   }
 }
 

@@ -87,6 +87,7 @@ const titrePhasesIdDeletedFind = (
   }, [])
 
 const titresPhasesUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('phases des titres…')
   const queue = new PQueue({ concurrency: 100 })
 
@@ -136,9 +137,12 @@ const titresPhasesUpdate = async (titresIds?: string[]) => {
         queue.add(async () => {
           await titrePhasesUpsert(titrePhasesToUpdate)
 
-          console.info(
-            `mise à jour: phases ${JSON.stringify(titrePhasesToUpdate)}`
-          )
+          const log = {
+            type: 'titre / démarche / phases (mise à jour) ->',
+            value: JSON.stringify(titrePhasesToUpdate)
+          }
+
+          console.info(log.type, log.value)
 
           res.titresPhasesIdsUpdated.push(
             ...titrePhasesToUpdate.map(p => p.titreDemarcheId)
@@ -155,9 +159,12 @@ const titresPhasesUpdate = async (titresIds?: string[]) => {
         queue.add(async () => {
           await titrePhasesDelete(titrePhasesToDeleteIds)
 
-          console.info(
-            `suppression: phases ${titrePhasesToDeleteIds.join(', ')}`
-          )
+          const log = {
+            type: 'titre / démarche / phases (suppression) ->',
+            value: titrePhasesToDeleteIds.join(', ')
+          }
+
+          console.info(log.type, log.value)
 
           res.titresPhasesIdsDeleted.push(...titrePhasesToDeleteIds)
         })

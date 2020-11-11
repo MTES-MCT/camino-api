@@ -6,6 +6,7 @@ import titreDemarcheStatutIdFind from '../rules/titre-demarche-statut-id-find'
 
 // met à jour le statut des démarches d'un titre
 const titresDemarchesStatutUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('statut des démarches…')
 
   const queue = new PQueue({ concurrency: 100 })
@@ -39,11 +40,12 @@ const titresDemarchesStatutUpdate = async (titresIds?: string[]) => {
             titre
           )
 
-          console.info(
-            `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify({
-              statutId
-            })}`
-          )
+          const log = {
+            type: 'titre / démarche : statut (mise à jour) ->',
+            value: `${titreDemarche.id}: ${statutId}`
+          }
+
+          console.info(log.type, log.value)
         })
 
         titresDemarchesUpdated.push(titreDemarche.id)

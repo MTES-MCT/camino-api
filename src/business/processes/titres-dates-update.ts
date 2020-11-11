@@ -6,6 +6,7 @@ import titreDateDemandeFind from '../rules/titre-date-demande-find'
 import PQueue from 'p-queue'
 
 const titresDatesUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('date de début, de fin et de demande initiale des titres…')
 
   const queue = new PQueue({ concurrency: 100 })
@@ -46,9 +47,12 @@ const titresDatesUpdate = async (titresIds?: string[]) => {
       queue.add(async () => {
         await titreUpdate(titre.id, props)
 
-        console.info(
-          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-        )
+        const log = {
+          type: 'titre : dates (mise à jour) ->',
+          value: `${titre.id}: ${JSON.stringify(props)}`
+        }
+
+        console.info(log.type, log.value)
 
         titresUpdated.push(titre.id)
       })

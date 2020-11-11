@@ -8,6 +8,7 @@ import { titresGet } from '../../database/queries/titres'
 import { activitesTypesGet } from '../../database/queries/metas'
 
 const titresActivitesUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('activités des titres…')
 
   const titres = await titresGet(
@@ -47,9 +48,12 @@ const titresActivitesUpdate = async (titresIds?: string[]) => {
   if (titresActivitesCreated.length) {
     await titreActivitesUpsert(titresActivitesCreated)
 
-    console.info(
-      `création: activité ${titresActivitesCreated.map(ta => ta.id).join(', ')}`
-    )
+    const log = {
+      type: 'titre / activités (création) ->',
+      value: titresActivitesCreated.map(ta => ta.id).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   return titresActivitesCreated.map(ta => ta.id)

@@ -16,11 +16,14 @@ const titreDemarcheUpdate = async (
   titreId: string
 ) => {
   try {
+    console.info()
+    console.info('- - -')
+    console.info(`mise à jour d'une démarche : ${titreDemarcheId}`)
+    console.info()
+
     const titre = await titreGet(
       titreId,
-      {
-        fields: { demarches: { etapes: { id: {} } } }
-      },
+      { fields: { demarches: { etapes: { id: {} } } } },
       'super'
     )
 
@@ -58,6 +61,10 @@ const titreDemarcheUpdate = async (
     if (titreIdTmp) {
       titreId = titreIdTmp
     }
+
+    console.info()
+    console.info('-')
+    console.info('tâches exécutées:')
 
     if (titresDemarchesPublicUpdated && titresDemarchesPublicUpdated.length) {
       console.info(
@@ -117,8 +124,8 @@ const titreDemarcheUpdate = async (
       console.info(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
     }
 
-    if (titresUpdatedIndex) {
-      console.info(`mise à jour: 1 titre (id) ${titresUpdatedIndex}`)
+    if (Object.keys(titresUpdatedIndex).length) {
+      console.info(`mise à jour: 1 titre (id)`)
     }
 
     return titreId

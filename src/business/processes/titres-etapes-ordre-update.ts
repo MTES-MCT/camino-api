@@ -7,6 +7,7 @@ import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 
 const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
+  console.info()
   console.info('ordre des étapes…')
   const queue = new PQueue({ concurrency: 100 })
 
@@ -35,9 +36,12 @@ const titresEtapesOrdreUpdate = async (titresDemarchesIds?: string[]) => {
           queue.add(async () => {
             await titreEtapeUpdate(titreEtape.id, { ordre: index + 1 })
 
-            console.info(
-              `mise à jour: étape ${titreEtape.id}, ordre: ${index + 1}`
-            )
+            const log = {
+              type: 'titre / démarche / étape : ordre (mise à jour) ->',
+              value: `${titreEtape.id} : ${index + 1}`
+            }
+
+            console.info(log.type, log.value)
 
             titresEtapesIdsUpdated.push(titreEtape.id)
           })

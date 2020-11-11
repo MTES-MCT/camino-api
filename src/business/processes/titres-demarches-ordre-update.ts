@@ -6,6 +6,7 @@ import { titresGet } from '../../database/queries/titres'
 import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 
 const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('ordre des démarches…')
 
   const queue = new PQueue({ concurrency: 100 })
@@ -35,9 +36,12 @@ const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
               titre
             )
 
-            console.info(
-              `mise à jour: démarche ${titreDemarche.id}, ordre: ${index + 1}`
-            )
+            const log = {
+              type: 'titre / démarche : ordre (mise à jour) ->',
+              value: `${titreDemarche.id}: ${index + 1}`
+            }
+
+            console.info(log.type, log.value)
 
             titresDemarchesIdsUpdated.push(titreDemarche.id)
           })

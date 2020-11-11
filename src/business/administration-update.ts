@@ -4,22 +4,26 @@ import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-
 
 const administrationUpdate = async (administrationId: string) => {
   try {
+    console.info()
+    console.info('- - -')
+    console.info(`mise à jour d'une administration : ${administrationId}`)
+    console.info()
+
     const administrationsUpdated = await administrationsUpdate([
       administrationId
     ])
 
-    console.info()
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate()
 
-    console.info()
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
     } = await titresEtapesAdministrationsLocalesUpdate()
 
+    console.info()
     if (administrationsUpdated.length) {
       console.info(
         `mise à jour: ${administrationsUpdated.length} administration(s)`
@@ -54,6 +58,7 @@ const administrationUpdate = async (administrationId: string) => {
   } catch (e) {
     console.error(`erreur: administrationUpdate ${administrationId}`)
     console.error(e)
+
     throw e
   }
 }

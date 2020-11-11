@@ -21,6 +21,11 @@ import { matomoCacheInit } from '../tools/api-matomo'
 
 const daily = async () => {
   try {
+    console.info()
+    console.info('- - -')
+    console.info('mise à jour quotidienne')
+    console.info()
+
     const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate()
     const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate()
     const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
@@ -61,10 +66,13 @@ const daily = async () => {
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate()
 
+    console.info('')
     console.info('rafraichissement du cache Matomo…')
     await matomoCacheInit()
 
-    console.info('tâches quotidiennes exécutées:')
+    console.info()
+    console.info('-')
+    console.info('tâches exécutées:')
     if (titresEtapesOrdreUpdated.length) {
       console.info(
         `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
@@ -224,8 +232,8 @@ const daily = async () => {
     }
   } catch (e) {
     console.info('erreur:', e)
-  } finally {
-    process.exit()
+
+    throw e
   }
 }
 

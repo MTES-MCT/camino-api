@@ -219,6 +219,7 @@ const titresEtapesAdministrationsLocalesBuild = (
 const titresEtapesAdministrationsLocalesUpdate = async (
   titresIds?: string[]
 ) => {
+  console.info()
   console.info('administrations locales associées aux étapes…')
 
   const titres = await titresGet(
@@ -263,9 +264,13 @@ const titresEtapesAdministrationsLocalesUpdate = async (
         queue.add(async () => {
           await titreEtapeAdministrationDelete(titreEtapeId, administrationId)
 
-          console.info(
-            `suppression: étape ${titreEtapeId}, administration ${administrationId}`
-          )
+          const log = {
+            type:
+              'titre / démarche / étape : administration locale (suppression) ->',
+            value: `${titreEtapeId}: ${administrationId}`
+          }
+
+          console.info(log.type, log.value)
 
           titresEtapesAdministrationsLocalesDeleted.push({
             titreEtapeId,
@@ -283,11 +288,15 @@ const titresEtapesAdministrationsLocalesUpdate = async (
       titresEtapesAdministrationsLocalesToCreate
     )
 
-    console.info(
-      `mise à jour: étape administrations ${titresEtapesAdministrationsLocalesCreated
+    const log = {
+      type:
+        'titres / démarches / étapes : administrations locales (création) ->',
+      value: titresEtapesAdministrationsLocalesCreated
         .map(tea => JSON.stringify(tea))
-        .join(', ')}`
-    )
+        .join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   return {

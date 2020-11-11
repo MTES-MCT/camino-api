@@ -21,6 +21,7 @@ const titrePropsEtapes = [
 }[]
 
 const titresPropsEtapeIdsUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('propriétés des titres (liens vers les étapes)…')
   const queue = new PQueue({ concurrency: 100 })
 
@@ -70,9 +71,12 @@ const titresPropsEtapeIdsUpdate = async (titresIds?: string[]) => {
       queue.add(async () => {
         const titreUpdated = await titreUpdate(titre.id, props)
 
-        console.info(
-          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-        )
+        const log = {
+          type: 'titre : props-etape (mise à jour) ->',
+          value: `${titre.id} : ${JSON.stringify(props)}`
+        }
+
+        console.info(log.type, log.value)
 
         titresIdsUpdated.push(titreUpdated.id)
       })

@@ -1,12 +1,14 @@
 import { titreTravauxGet } from '../database/queries/titres-travaux'
 import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
-import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
 
 const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
   try {
-    let titreId
-    console.info('ordre des étapes de travaux…')
+    console.info()
+    console.info('- - -')
+    console.info(`mise à jour d'une étape de travaux : ${titreTravauxId}`)
+    console.info()
+
     const titreTravaux = await titreTravauxGet(titreTravauxId, {
       fields: {
         etapes: { id: {} },
@@ -19,19 +21,15 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
       throw new Error(`les travaux ${titreTravaux} n'existent pas`)
     }
 
-    titreId = titreTravaux.titreId
-
     const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate(
       [titreTravauxId]
     )
+    const titreId = titreTravaux.titreId
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
-    // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate([titreId])
-    const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
-    if (titreIdTmp) {
-      titreId = titreIdTmp
-    }
 
+    console.info()
+    console.info('-')
+    console.info('tâches exécutées:')
     if (titresTravauxEtapesOrdreUpdated.length) {
       console.info(
         `mise à jour: ${titresTravauxEtapesOrdreUpdated.length} étape(s) de travaux (ordre)`
@@ -42,10 +40,6 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
       console.info(
         `mise à jour: ${titresTravauxOrdreUpdated.length} démarche(s) (ordre)`
       )
-    }
-
-    if (titresUpdatedIndex) {
-      console.info(`mise à jour: 1 titre (id) ${titresUpdatedIndex}`)
     }
 
     return titreId

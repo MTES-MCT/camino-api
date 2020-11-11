@@ -95,7 +95,8 @@ const sirensFind = (entreprisesOld: IEntreprise[]) =>
   )
 
 const entreprisesUpdate = async () => {
-  console.info('entreprises (API INSEE)…')
+  console.info()
+  console.info('entreprises (Api Insee)…')
 
   const entreprisesOld = await entreprisesGet({}, {}, 'super')
   const entreprisesEtablissementsOld = await entreprisesEtablissementsGet()
@@ -132,12 +133,12 @@ const entreprisesUpdate = async () => {
     etablissementsUpdated = await entreprisesEtablissementsUpsert(
       etablissementsToUpdate
     )
+    const log = {
+      type: 'entreprises / établissements (mise a jour)',
+      value: etablissementsUpdated.map(e => e.id).join(', ')
+    }
 
-    console.info(
-      `mise à jour: entreprisesEtablissements ${etablissementsUpdated
-        .map(e => e.id)
-        .join(', ')}`
-    )
+    console.info(log.type, log.value)
   }
 
   const etablissementsDeleted = etablissementsToDelete
@@ -145,20 +146,25 @@ const entreprisesUpdate = async () => {
   if (etablissementsToDelete.length) {
     await entreprisesEtablissementsDelete(etablissementsToDelete)
 
-    console.info(
-      `suppression: entreprisesEtablissements ${etablissementsToDelete.join(
-        ', '
-      )}`
-    )
+    const log = {
+      type: 'entreprises / établissements (suppression) ->',
+      value: etablissementsToDelete.join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   let entreprisesUpdated = [] as IEntreprise[]
 
   if (entreprisesToUpdate.length) {
     entreprisesUpdated = await entreprisesUpsert(entreprisesToUpdate)
-    console.info(
-      `mise à jour: entreprise ${entreprisesUpdated.map(e => e.id).join(', ')}`
-    )
+
+    const log = {
+      type: 'entreprises (mise à jour) ->',
+      value: entreprisesUpdated.map(e => e.id).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   return [entreprisesUpdated, etablissementsUpdated, etablissementsDeleted]

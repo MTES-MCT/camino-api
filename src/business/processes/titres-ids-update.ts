@@ -41,6 +41,7 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
   // comment ça se passe si plusieurs utilisateurs modifient des titres en même temps ?
 
   const titreOldId = titreOld.id
+
   try {
     // met à jour les ids de titre par effet de bord
     const {
@@ -55,7 +56,7 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
 
     await titreIdUpdate(titreOldId, titreNew)
 
-    // on catch l'erreur pour ne pas interrompre le processus
+    // attrape l'erreur pour ne pas interrompre le processus
     try {
       await titreFilePathsRename(relationsIdsChangedIndex, titreNew)
     } catch (e) {
@@ -64,7 +65,12 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
       )
     }
 
-    console.info(`mise à jour: titre ids: ${titreNew.id}`)
+    const log = {
+      type: 'titre : id (mise à jour) ->',
+      value: titreNew.id
+    }
+
+    console.info(log.type, log.value)
 
     return { [titreNew.id]: titreOldId }
   } catch (e) {
@@ -80,6 +86,7 @@ interface ITitreIdsIndex {
 }
 
 const titresIdsUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('ids de titres, démarches, étapes et sous-éléments…')
   // si l'id du titre change il est effacé puis re-créé entièrement
   // on doit donc récupérer toutes ses relations

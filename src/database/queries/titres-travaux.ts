@@ -22,7 +22,7 @@ const titresTravauxGet = async (
   const q = TitresTravaux.query().withGraphFetched(graph)
 
   if (titresTravauxIds) {
-    q.whereIn('titresDemarches.id', titresTravauxIds)
+    q.whereIn('titresTravaux.id', titresTravauxIds)
   }
 
   return q

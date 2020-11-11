@@ -8,7 +8,8 @@ import titreActiviteStatutIdFind from '../rules/titre-activite-statut-id-find'
 
 // met à jour le statut des activités d'un titre
 const titreActivitesStatutIdsUpdate = async () => {
-  console.info('statut des activités dont le délai est dépassé')
+  console.info()
+  console.info('statut des activités…')
   const queue = new PQueue({
     concurrency: 100
   })
@@ -26,11 +27,12 @@ const titreActivitesStatutIdsUpdate = async () => {
 
         await titreActiviteUpdate(titreActivite.id, { statutId }, {})
 
-        console.info(
-          `mise à jour: activité ${titreActivite.id}, ${JSON.stringify({
-            statutId
-          })}`
-        )
+        const log = {
+          type: 'titre / activité : statut (mise à jour) ->',
+          value: `${titreActivite.id}: ${statutId}`
+        }
+
+        console.info(log.type, log.value)
 
         titresActivitesUpdated.push(titreActivite.id)
       })

@@ -119,6 +119,7 @@ const titresAsGsToCreateAndDeleteBuild = (
 const titresAdministrationsGestionnairesUpdate = async (
   titresIds?: string[]
 ) => {
+  console.info()
   console.info('administrations gestionnaires associées aux titres…')
 
   const titres = await titresGet(
@@ -142,11 +143,12 @@ const titresAdministrationsGestionnairesUpdate = async (
       titresAsGsToCreate
     )
 
-    console.info(
-      `mise à jour: étape administrations ${titresAsGsCreated
-        .map(tea => JSON.stringify(tea))
-        .join(', ')}`
-    )
+    const log = {
+      type: 'titre : administrations gestionnaires (création) ->',
+      value: titresAsGsCreated.map(tag => JSON.stringify(tag)).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   if (titresAsGsToDelete.length) {
@@ -156,9 +158,12 @@ const titresAdministrationsGestionnairesUpdate = async (
       queue.add(async () => {
         await titreAdministrationGestionnaireDelete(titreId, administrationId)
 
-        console.info(
-          `suppression: étape ${titreId}, administration ${administrationId}`
-        )
+        const log = {
+          type: 'titre : administration gestionnaire (suppression) ->',
+          value: `${titreId}: ${administrationId}`
+        }
+
+        console.info(log.type, log.value)
 
         titresAsGsDeleted.push(titreId)
       })

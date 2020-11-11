@@ -4,6 +4,7 @@ import { titresGet, titreUpdate } from '../../database/queries/titres'
 import titreStatutIdFind from '../rules/titre-statut-id-find'
 
 const titresStatutIdsUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('statut des titres…')
   const queue = new PQueue({ concurrency: 100 })
 
@@ -17,25 +18,26 @@ const titresStatutIdsUpdate = async (titresIds?: string[]) => {
     'super'
   )
 
-  const titresUpdated = titres.reduce((titresUpdated: string[], titre) => {
+  const titresUpdated = [] as string[]
+
+  titres.forEach(titre => {
     const statutId = titreStatutIdFind(titre)
 
     if (statutId !== titre.statutId) {
       queue.add(async () => {
         await titreUpdate(titre.id, { statutId })
 
-        console.info(
-          `mise à jour: titre ${titre.id} props: ${JSON.stringify({
-            statutId
-          })}`
-        )
+        const log = {
+          type: 'titre : statut (mise à jour) ->',
+          value: `${titre.id} : ${statutId}`
+        }
+
+        console.info(log.type, log.value)
 
         titresUpdated.push(titre.id)
       })
     }
-
-    return titresUpdated
-  }, [])
+  })
 
   await queue.onIdle()
 

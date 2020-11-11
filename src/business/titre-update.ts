@@ -6,18 +6,16 @@ import { titresIdsUpdate } from './processes/titres-ids-update'
 const titreUpdate = async (titreId: string) => {
   try {
     console.info()
-    const titresPublicUpdated = await titresPublicUpdate([titreId])
-
+    console.info('- - -')
+    console.info(`mise à jour d'un titre : ${titreId}`)
     console.info()
+
+    const titresPublicUpdated = await titresPublicUpdate([titreId])
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
     } = await titresAdministrationsGestionnairesUpdate([titreId])
-
-    console.info()
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
-
-    console.info()
     // met à jour l'id dans le titre par effet de bord
     const titresUpdatedIndex = await titresIdsUpdate([titreId])
     const titreIdTmp = Object.keys(titresUpdatedIndex)[0]
@@ -26,7 +24,8 @@ const titreUpdate = async (titreId: string) => {
     }
 
     console.info()
-    console.info('tâches métiers exécutées:')
+    console.info('-')
+    console.info('tâches exécutées:')
     if (titresPublicUpdated.length) {
       console.info(
         `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
@@ -49,8 +48,8 @@ const titreUpdate = async (titreId: string) => {
       console.info(`mise à jour: ${titresActivitesCreated.length} activités`)
     }
 
-    if (titresUpdatedIndex) {
-      console.info(`mise à jour: 1 titre (id) ${titresUpdatedIndex}`)
+    if (Object.keys(titresUpdatedIndex).length) {
+      console.info(`mise à jour: 1 titre (id)`)
     }
 
     return titreId

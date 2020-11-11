@@ -3,6 +3,11 @@ import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
 
 const titreTravauxUpdate = async (titreId: string) => {
   try {
+    console.info()
+    console.info('- - -')
+    console.info(`mise à jour de travaux : ${titreId}`)
+    console.info()
+
     const titre = await titreGet(
       titreId,
       { fields: { travaux: { etapes: { id: {} } } } },
@@ -16,7 +21,8 @@ const titreTravauxUpdate = async (titreId: string) => {
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
 
     console.info()
-    console.info('tâches métiers exécutées:')
+    console.info('-')
+    console.info('tâches exécutées:')
 
     if (titresTravauxOrdreUpdated.length) {
       console.info(

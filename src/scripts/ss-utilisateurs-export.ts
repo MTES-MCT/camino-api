@@ -6,8 +6,12 @@ import { IUtilisateur } from '../types'
 
 const ssUtilisateursExport = async () => {
   await dbToSpreadsheets<IUtilisateur>(spreadsheet)
-
-  process.exit()
 }
 
 ssUtilisateursExport()
+  .then(() => {
+    process.exit()
+  })
+  .catch(() => {
+    process.exit(1)
+  })

@@ -20,6 +20,11 @@ const titreEtapeUpdate = async (
   titreDemarcheId: string
 ) => {
   try {
+    console.info()
+    console.info('- - -')
+    console.info(`mise à jour d'une étape : ${titreEtapeId}`)
+    console.info()
+
     let titreId
     const titreDemarche = await titreDemarcheGet(
       titreDemarcheId,
@@ -58,7 +63,6 @@ const titreEtapeUpdate = async (
       titresPhasesDeleted = []
     ] = await titresPhasesUpdate([titreId])
     const titresDatesUpdated = await titresDatesUpdate([titreId])
-    console.info('communes et forêts associées aux étapes…')
     let titreCommunesUpdated = []
     let titresEtapesCommunesCreated = []
     let titresEtapesCommunesDeleted = []
@@ -90,6 +94,10 @@ const titreEtapeUpdate = async (
     if (titreIdTmp) {
       titreId = titreIdTmp
     }
+
+    console.info()
+    console.info('-')
+    console.info('tâches exécutées:')
 
     if (titresEtapesOrdreUpdated.length) {
       console.info(
@@ -205,8 +213,8 @@ const titreEtapeUpdate = async (
       console.info(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
     }
 
-    if (titresUpdatedIndex) {
-      console.info(`mise à jour: 1 titre (id) ${titresUpdatedIndex}`)
+    if (Object.keys(titresUpdatedIndex).length) {
+      console.info(`mise à jour: 1 titre (id)`)
     }
 
     return titreId

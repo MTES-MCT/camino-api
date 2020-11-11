@@ -5,8 +5,12 @@ import spreadsheet from '../tools/ss-export/spreadsheets/titres-activites'
 
 const ssTitresActivitesExport = async () => {
   await dbToSpreadsheet(spreadsheet)
-
-  process.exit()
 }
 
 ssTitresActivitesExport()
+  .then(() => {
+    process.exit()
+  })
+  .catch(() => {
+    process.exit(1)
+  })

@@ -8,6 +8,7 @@ type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }
 
 // met à jour la publicité des démarches d'un titre
 const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
+  console.info()
   console.info('publicité des démarches…')
 
   const queue = new PQueue({ concurrency: 100 })
@@ -64,11 +65,12 @@ const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
             titre
           )
 
-          console.info(
-            `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify(
-              publicUpdate
-            )}`
-          )
+          const log = {
+            type: 'titre / démarche : publique (mise à jour) ->',
+            value: `${titreDemarche.id}: ${JSON.stringify(publicUpdate)}`
+          }
+
+          console.info(log.type, log.value)
         })
 
         titresDemarchesUpdated.push(titreDemarche.id)

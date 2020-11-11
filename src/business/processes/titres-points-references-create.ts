@@ -25,6 +25,7 @@ const titreEtapePointsReferencesNewFind = (titrePoints: ITitrePoint[]) =>
   }, [])
 
 const titresPointsReferencesCreate = async () => {
+  console.info()
   console.info('références des points…')
   const queue = new PQueue({ concurrency: 100 })
 
@@ -37,7 +38,12 @@ const titresPointsReferencesCreate = async () => {
     queue.add(async () => {
       await titrePointReferenceCreate(r)
 
-      console.info(`création: référence du point ${JSON.stringify(r.id)}`)
+      const log = {
+        type: 'titre / démarche / étape / point / référence (création) ->',
+        value: JSON.stringify(r.id)
+      }
+
+      console.info(log.type, log.value)
 
       pointsReferencesCreated.push(r.id)
     })
