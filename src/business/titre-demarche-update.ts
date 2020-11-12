@@ -10,6 +10,7 @@ import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'
 import titresPublicUpdate from './processes/titres-public-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
+import updatesLog from './_updates-log'
 
 const titreDemarcheUpdate = async (
   titreDemarcheId: string | null,
@@ -19,7 +20,6 @@ const titreDemarcheUpdate = async (
     console.info()
     console.info('- - -')
     console.info(`mise à jour d'une démarche : ${titreDemarcheId}`)
-    console.info()
 
     const titre = await titreGet(
       titreId,
@@ -62,71 +62,19 @@ const titreDemarcheUpdate = async (
       titreId = titreIdTmp
     }
 
-    console.info()
-    console.info('-')
-    console.info('tâches exécutées:')
-
-    if (titresDemarchesPublicUpdated && titresDemarchesPublicUpdated.length) {
-      console.info(
-        `mise à jour: ${titresDemarchesPublicUpdated.length} démarche(s) (publicicité)`
-      )
-    }
-
-    if (titresDemarchesOrdreUpdated.length) {
-      console.info(
-        `mise à jour: ${titresDemarchesOrdreUpdated.length} démarche(s) (ordre)`
-      )
-    }
-
-    if (titresStatutIdUpdated.length) {
-      console.info(
-        `mise à jour: ${titresStatutIdUpdated.length} titre(s) (statuts)`
-      )
-    }
-
-    if (titresPublicUpdated.length) {
-      console.info(
-        `mise à jour: ${titresPublicUpdated.length} titre(s) (publicité)`
-      )
-    }
-
-    if (titresPhasesUpdated.length) {
-      console.info(
-        `mise à jour: ${titresPhasesUpdated.length} titre(s) (phases mises à jour)`
-      )
-    }
-
-    if (titresPhasesDeleted.length) {
-      console.info(
-        `mise à jour: ${titresPhasesDeleted.length} titre(s) (phases supprimées)`
-      )
-    }
-
-    if (titresDatesUpdated.length) {
-      console.info(
-        `mise à jour: ${titresDatesUpdated.length} titre(s) (propriétés-dates)`
-      )
-    }
-
-    if (titresPropsEtapeIdUpdated.length) {
-      console.info(
-        `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
-      )
-    }
-
-    if (titresPropsContenuUpdated.length) {
-      console.info(
-        `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
-      )
-    }
-
-    if (titresActivitesCreated.length) {
-      console.info(`mise à jour: ${titresActivitesCreated.length} activité(s)`)
-    }
-
-    if (Object.keys(titresUpdatedIndex).length) {
-      console.info(`mise à jour: 1 titre (id)`)
-    }
+    updatesLog({
+      titresDemarchesPublicUpdated,
+      titresDemarchesOrdreUpdated,
+      titresStatutIdUpdated,
+      titresPublicUpdated,
+      titresPhasesUpdated,
+      titresPhasesDeleted,
+      titresDatesUpdated,
+      titresPropsEtapeIdUpdated,
+      titresPropsContenuUpdated,
+      titresActivitesCreated,
+      titresUpdatedIndex
+    })
 
     return titreId
   } catch (e) {

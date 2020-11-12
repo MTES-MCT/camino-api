@@ -1,4 +1,4 @@
-import { ITitre } from '../../types'
+import { Index, ITitre } from '../../types'
 
 import * as cryptoRandomString from 'crypto-random-string'
 import * as slugify from '@sindresorhus/slugify'
@@ -36,6 +36,7 @@ const titreIdCheck = async (titreOldId: string, titre: ITitre) => {
   return titre
 }
 
+// met à jour les ids de titre par effet de bord
 const titreIdsUpdate = async (titreOld: ITitre) => {
   // les transaction en bdd ne peuvent être effectuées en parallèle
   // comment ça se passe si plusieurs utilisateurs modifient des titres en même temps ?
@@ -43,7 +44,6 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
   const titreOldId = titreOld.id
 
   try {
-    // met à jour les ids de titre par effet de bord
     const {
       titre,
       hasChanged,
@@ -81,10 +81,6 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
   }
 }
 
-interface ITitreIdsIndex {
-  [key: string]: string
-}
-
 const titresIdsUpdate = async (titresIds?: string[]) => {
   console.info()
   console.info('ids de titres, démarches, étapes et sous-éléments…')
@@ -119,7 +115,7 @@ const titresIdsUpdate = async (titresIds?: string[]) => {
   )
 
   // les transactions `titreIdUpdate` ne peuvent être exécutées en parallèle
-  const titresUpdatedIndex = {} as ITitreIdsIndex
+  const titresUpdatedIndex = {} as Index<string>
 
   for (const titre of titres) {
     const titreUpdatedIndex = await titreIdsUpdate(titre)
@@ -132,4 +128,4 @@ const titresIdsUpdate = async (titresIds?: string[]) => {
   return titresUpdatedIndex
 }
 
-export { titresIdsUpdate, titreIdFindHashAdd, titreIdCheck }
+export { titresIdsUpdate, titreIdFindHashAdd }

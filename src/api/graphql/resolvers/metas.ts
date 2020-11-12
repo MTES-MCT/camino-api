@@ -229,6 +229,7 @@ const demarcheEtapesTypesGet = async (
     },
     user?.id
   )
+
   if (!titreDemarche) throw new Error("la démarche n'existe pas")
 
   const titre = titreDemarche.titre!
@@ -255,6 +256,7 @@ const demarcheEtapesTypesGet = async (
     const etapeType = titreDemarche.type!.etapesTypes.find(
       et => et.id === titreEtape.type!.id
     )
+
     if (!etapeType) {
       throw new Error(
         `Etape « ${titreEtape.type!.nom} » inexistante pour une démarche « ${

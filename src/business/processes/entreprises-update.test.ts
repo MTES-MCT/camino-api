@@ -76,11 +76,11 @@ describe('entreprises', () => {
       apiEntreprisesEtablissementsCreees
     )
 
-    const [
+    const {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    ] = await entrepriseUpdate()
+    } = await entrepriseUpdate()
 
     expect(etablissementsUpdated).toEqual([
       { id: 'pipo', nom: 'pipo' },
@@ -100,11 +100,11 @@ describe('entreprises', () => {
       apiEntreprisesEtablissementsModifiees
     )
 
-    const [
+    const {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    ] = await entrepriseUpdate()
+    } = await entrepriseUpdate()
 
     expect(etablissementsUpdated).toEqual([{ id: 'toto', nom: 'tutu' }])
     expect(etablissementsDeleted.length).toEqual(0)
@@ -122,11 +122,11 @@ describe('entreprises', () => {
       apiEntreprisesEtablissementsSupprimeees
     )
 
-    const [
+    const {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    ] = await entrepriseUpdate()
+    } = await entrepriseUpdate()
 
     expect(etablissementsUpdated.length).toEqual(0)
     expect(etablissementsDeleted.length).toEqual(1)
@@ -144,11 +144,11 @@ describe('entreprises', () => {
       apiEntreprisesEtablissementsExistantes
     )
 
-    const [
+    const {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    ] = await entrepriseUpdate()
+    } = await entrepriseUpdate()
 
     expect(entreprisesUpdated).toEqual([])
     expect(etablissementsDeleted.length).toEqual(0)
@@ -165,11 +165,11 @@ describe('entreprises', () => {
       apiEntreprisesEtablissmentsInexistantes
     )
 
-    const [
+    const {
       entreprisesUpdated,
       etablissementsUpdated,
       etablissementsDeleted
-    ] = await entrepriseUpdate()
+    } = await entrepriseUpdate()
 
     expect(etablissementsUpdated.length).toEqual(0)
     expect(etablissementsDeleted.length).toEqual(0)

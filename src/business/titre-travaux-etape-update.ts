@@ -1,13 +1,13 @@
 import { titreTravauxGet } from '../database/queries/titres-travaux'
 import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
 import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
+import updatesLog from './_updates-log'
 
 const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
   try {
     console.info()
     console.info('- - -')
     console.info(`mise à jour d'une étape de travaux : ${titreTravauxId}`)
-    console.info()
 
     const titreTravaux = await titreTravauxGet(titreTravauxId, {
       fields: {
@@ -27,20 +27,10 @@ const titreTravauxEtapeUpdate = async (titreTravauxId: string) => {
     const titreId = titreTravaux.titreId
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate([titreId])
 
-    console.info()
-    console.info('-')
-    console.info('tâches exécutées:')
-    if (titresTravauxEtapesOrdreUpdated.length) {
-      console.info(
-        `mise à jour: ${titresTravauxEtapesOrdreUpdated.length} étape(s) de travaux (ordre)`
-      )
-    }
-
-    if (titresTravauxOrdreUpdated.length) {
-      console.info(
-        `mise à jour: ${titresTravauxOrdreUpdated.length} démarche(s) (ordre)`
-      )
-    }
+    updatesLog({
+      titresTravauxEtapesOrdreUpdated,
+      titresTravauxOrdreUpdated
+    })
 
     return titreId
   } catch (e) {

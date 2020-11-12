@@ -104,7 +104,11 @@ const entreprisesUpdate = async () => {
   const sirens = sirensFind(entreprisesOld)
 
   if (!sirens.length) {
-    return [[], [], []]
+    return {
+      entreprisesUpdated: [],
+      etablissementsUpdated: [],
+      etablissementsDeleted: []
+    }
   }
 
   const entreprisesNew = await apiInseeEntreprisesGet(sirens)
@@ -167,7 +171,7 @@ const entreprisesUpdate = async () => {
     console.info(log.type, log.value)
   }
 
-  return [entreprisesUpdated, etablissementsUpdated, etablissementsDeleted]
+  return { entreprisesUpdated, etablissementsUpdated, etablissementsDeleted }
 }
 
 export default entreprisesUpdate

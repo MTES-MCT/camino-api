@@ -5,7 +5,8 @@ import {
   IAreaType,
   Index,
   ICommune,
-  IForet
+  IForet,
+  IApiGeoResult
 } from '../../types'
 import PQueue from 'p-queue'
 
@@ -223,12 +224,13 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
 
   titresEtapes.forEach((titreEtape: ITitreEtape) => {
     queue.add(async () => {
-      const apiGeoResult = titreEtape.points?.length
-        ? await apiGeoGet(
-            geojsonFeatureMultiPolygon(titreEtape.points),
-            areasTypes
-          )
-        : undefined
+      let apiGeoResult: IApiGeoResult | null
+      if (titreEtape.points?.length) {
+        apiGeoResult = await apiGeoGet(
+          geojsonFeatureMultiPolygon(titreEtape.points),
+          areasTypes
+        )
+      }
 
       const areas = areasTypes.reduce((acc, id) => {
         acc[id] = apiGeoResult && apiGeoResult[id] ? apiGeoResult[id] : []
@@ -263,6 +265,7 @@ const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
     },
     'super'
   )
+
   const communes = await communesGet()
   const forets = await foretsGet()
 
@@ -272,7 +275,18 @@ const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
   if (!geoAreasApiTestResult) {
     console.error('communesGeojsonApi injoignable')
 
-    return { titresCommunes: [[], [], []], titresForets: [[], [], []] }
+    return {
+      titresCommunes: {
+        areasUpdated: [],
+        titresEtapesAreasUpdated: [],
+        titresEtapesAreasDeleted: []
+      },
+      titresForets: {
+        areasUpdated: [],
+        titresEtapesAreasUpdated: [],
+        titresEtapesAreasDeleted: []
+      }
+    }
   }
 
   const titresEtapesAreasIndex = await titresEtapesAreasGet(titresEtapes)
@@ -421,7 +435,7 @@ const titresEtapesAreaUpdate = async (
     await queue.onIdle()
   }
 
-  return [areasUpdated, titresEtapesAreasUpdated, titresEtapesAreasDeleted]
+  return { areasUpdated, titresEtapesAreasUpdated, titresEtapesAreasDeleted }
 }
 
 export { titresEtapesAreasUpdate }
