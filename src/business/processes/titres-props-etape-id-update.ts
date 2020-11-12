@@ -1,7 +1,7 @@
 import { ITitre, TitreProp, TitreEtapeProp } from '../../types'
 import PQueue from 'p-queue'
 
-import { titreUpdate } from '../../database/queries/titres'
+import { titresGet, titreUpdate } from '../../database/queries/titres'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 
 const titrePropsEtapes = [
@@ -20,10 +20,33 @@ const titrePropsEtapes = [
   name: TitreProp
 }[]
 
-const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
+const titresPropsEtapeIdsUpdate = async (titresIds?: string[]) => {
+  console.info()
+  console.info('propriétés des titres (liens vers les étapes)…')
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresUpdated = titres.reduce((titresIdsUpdated: string[], titre) => {
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        demarches: {
+          etapes: {
+            points: { id: {} },
+            titulaires: { id: {} },
+            amodiataires: { id: {} },
+            administrations: { id: {} },
+            substances: { id: {} },
+            communes: { id: {} }
+          }
+        }
+      }
+    },
+    'super'
+  )
+
+  const titresIdsUpdated = [] as string[]
+
+  titres.forEach(titre => {
     const props = titrePropsEtapes.reduce(
       (props: Partial<ITitre>, { prop, name }) => {
         const value = titrePropEtapeIdFind(
@@ -48,20 +71,21 @@ const titresPropsEtapeIdsUpdate = async (titres: ITitre[]) => {
       queue.add(async () => {
         const titreUpdated = await titreUpdate(titre.id, props)
 
-        console.info(
-          `mise à jour: titre ${titre.id} props: ${JSON.stringify(props)}`
-        )
+        const log = {
+          type: 'titre : props-etape (mise à jour) ->',
+          value: `${titre.id} : ${JSON.stringify(props)}`
+        }
+
+        console.info(log.type, log.value)
 
         titresIdsUpdated.push(titreUpdated.id)
       })
     }
-
-    return titresIdsUpdated
-  }, [])
+  })
 
   await queue.onIdle()
 
-  return titresUpdated
+  return titresIdsUpdated
 }
 
 export { titrePropsEtapes }

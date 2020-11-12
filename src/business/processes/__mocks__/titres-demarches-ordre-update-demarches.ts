@@ -1,4 +1,4 @@
-import { ITitre } from '../../../types'
+import Titres from '../../../database/models/titres'
 
 const titresDemarchesDesordonnees = [
   {
@@ -35,7 +35,7 @@ const titresDemarchesDesordonnees = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 const titresDemarchesOrdonnees = [
   {
@@ -72,6 +72,6 @@ const titresDemarchesOrdonnees = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 export { titresDemarchesDesordonnees, titresDemarchesOrdonnees }

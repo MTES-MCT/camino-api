@@ -1,4 +1,5 @@
-import { IAdministration, ITitre } from '../../../types'
+import Administrations from '../../../database/models/administrations'
+import Titres from '../../../database/models/titres'
 
 const administrations = [
   { id: 'gestionnaire', domaines: [{ id: 'm' }], titresTypes: [] },
@@ -11,7 +12,7 @@ const administrations = [
   },
   { id: 'ope-onf-973-01', departementId: '973', titresTypes: [] },
   { id: 'xxxx', departementId: 'xxxx', titresTypes: [] }
-] as IAdministration[]
+] as Administrations[]
 
 const titresEtapesCommunes = [
   {
@@ -54,7 +55,7 @@ const titresEtapesCommunes = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 const titresEtapesCommunesVides = ([
   {
@@ -75,7 +76,7 @@ const titresEtapesCommunesVides = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as unknown) as Titres[]
 
 const titresEtapesCommunesMemeCommune = [
   {
@@ -99,7 +100,7 @@ const titresEtapesCommunesMemeCommune = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 const titresEtapesAdministrationLocalesInexistante = ([
   {
@@ -118,7 +119,7 @@ const titresEtapesAdministrationLocalesInexistante = ([
       }
     ]
   }
-] as unknown) as ITitre[]
+] as unknown) as Titres[]
 
 const titresEtapesAdministrationLocalesExistante = [
   {
@@ -139,7 +140,7 @@ const titresEtapesAdministrationLocalesExistante = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 const titresArm = [
   {
@@ -162,7 +163,7 @@ const titresArm = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 const titresAxm = [
   {
@@ -185,7 +186,7 @@ const titresAxm = [
       }
     ]
   }
-] as ITitre[]
+] as Titres[]
 
 export {
   administrations,

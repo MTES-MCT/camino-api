@@ -1,6 +1,6 @@
 import { ITitreActivite } from '../types'
 
-import { titreActivitesRowUpdate } from '../tools/export/titre-activites'
+import { titreActivitesRowUpdate } from '../tools/ss-export/titre-activites'
 import { titresGet, titreGet } from '../database/queries/titres'
 
 interface ITitreIndex {

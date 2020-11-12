@@ -8,7 +8,11 @@ import graphBuild from './graph/build'
 import { fieldTitreAdd } from './graph/fields-add'
 
 const titresTravauxGet = async (
-  _: unknown,
+  {
+    titresTravauxIds
+  }: {
+    titresTravauxIds?: string[] | null
+  } = {},
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
@@ -16,6 +20,10 @@ const titresTravauxGet = async (
     : options.titresTravaux.graph
 
   const q = TitresTravaux.query().withGraphFetched(graph)
+
+  if (titresTravauxIds) {
+    q.whereIn('titresTravaux.id', titresTravauxIds)
+  }
 
   return q
 }

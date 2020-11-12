@@ -1,6 +1,10 @@
 import { IAdministration, IDepartement } from '../../types'
 
-import { administrationsUpsert } from '../../database/queries/administrations'
+import {
+  administrationsGet,
+  administrationsUpsert
+} from '../../database/queries/administrations'
+import { departementsGet } from '../../database/queries/territoires'
 import {
   organismeDepartementGet,
   organismesDepartementsGet
@@ -42,10 +46,17 @@ const apiAdministrationsGet = async (departements: IDepartement[]) => {
   return organismesDepartementsGet(departementsIdsNoms)
 }
 
-const administrationsUpdate = async (
-  administrationsOld: IAdministration[],
-  departements: IDepartement[]
-) => {
+const administrationsUpdate = async (administrationsIds?: string[]) => {
+  console.info()
+  console.info('administrations…')
+  // mise à jour de l'administrations grâce à l'API Administration
+  const departements = await departementsGet()
+  const administrationsOld = await administrationsGet(
+    { administrationsIds },
+    {},
+    'super'
+  )
+
   if (!departements.length) return []
 
   const apiAdministrationsTest = await apiAdministrationGetTest()
@@ -64,11 +75,13 @@ const administrationsUpdate = async (
 
   if (administrationsUpdated.length) {
     await administrationsUpsert(administrationsUpdated)
-    console.info(
-      `mise à jour: administrations ${administrationsUpdated
-        .map(a => a.id)
-        .join(', ')}`
-    )
+
+    const log = {
+      type: 'administrations (mise à jour) ->',
+      value: administrationsUpdated.map(a => a.id).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   return administrationsUpdated

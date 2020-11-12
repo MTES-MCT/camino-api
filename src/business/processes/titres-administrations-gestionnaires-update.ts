@@ -8,10 +8,12 @@ import PQueue from 'p-queue'
 
 import {
   titreAdministrationGestionnaireDelete,
-  titresAdministrationsGestionnairesCreate
+  titresAdministrationsGestionnairesCreate,
+  titresGet
 } from '../../database/queries/titres'
 
 import titreAdministrationsGestionnairesBuild from '../rules/titre-administrations-gestionnaires-build'
+import { administrationsGet } from '../../database/queries/administrations'
 
 const titreAsGsToCreatedFind = (
   titreAsGsOldIds: string[],
@@ -115,9 +117,19 @@ const titresAsGsToCreateAndDeleteBuild = (
   )
 
 const titresAdministrationsGestionnairesUpdate = async (
-  titres: ITitre[],
-  administrations: IAdministration[]
+  titresIds?: string[]
 ) => {
+  console.info()
+  console.info('administrations gestionnaires associées aux titres…')
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    { fields: { administrationsGestionnaires: { id: {} } } },
+    'super'
+  )
+
+  const administrations = await administrationsGet({}, {}, 'super')
+
   const {
     titresAsGsToCreate,
     titresAsGsToDelete
@@ -131,32 +143,31 @@ const titresAdministrationsGestionnairesUpdate = async (
       titresAsGsToCreate
     )
 
-    console.info(
-      `mise à jour: étape administrations ${titresAsGsCreated
-        .map(tea => JSON.stringify(tea))
-        .join(', ')}`
-    )
+    const log = {
+      type: 'titre : administrations gestionnaires (création) ->',
+      value: titresAsGsCreated.map(tag => JSON.stringify(tag)).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   if (titresAsGsToDelete.length) {
     const queue = new PQueue({ concurrency: 100 })
 
-    titresAsGsToDelete.reduce(
-      (titresAsGsDeleted: string[], { titreId, administrationId }) => {
-        queue.add(async () => {
-          await titreAdministrationGestionnaireDelete(titreId, administrationId)
+    titresAsGsToDelete.forEach(({ titreId, administrationId }) => {
+      queue.add(async () => {
+        await titreAdministrationGestionnaireDelete(titreId, administrationId)
 
-          console.info(
-            `suppression: étape ${titreId}, administration ${administrationId}`
-          )
+        const log = {
+          type: 'titre : administration gestionnaire (suppression) ->',
+          value: `${titreId}: ${administrationId}`
+        }
 
-          titresAsGsDeleted.push(titreId)
-        })
+        console.info(log.type, log.value)
 
-        return titresAsGsDeleted
-      },
-      titresAsGsDeleted
-    )
+        titresAsGsDeleted.push(titreId)
+      })
+    })
 
     await queue.onIdle()
   }

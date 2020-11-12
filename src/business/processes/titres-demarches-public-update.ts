@@ -1,14 +1,29 @@
-import { ITitre } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import titreDemarchePublicFind from '../rules/titre-demarche-public-find'
+import { titresGet } from '../../database/queries/titres'
 
 type IPublicUpdate = { publicLecture: boolean; entreprisesLecture: boolean }
 
 // met à jour la publicité des démarches d'un titre
-const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
+const titresDemarchesPublicUpdate = async (titresIds?: string[]) => {
+  console.info()
+  console.info('publicité des démarches…')
+
   const queue = new PQueue({ concurrency: 100 })
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        demarches: {
+          type: { etapesTypes: { id: {} } },
+          etapes: { id: {} }
+        }
+      }
+    },
+    'super'
+  )
 
   // TODO: forcer la présence des démarches sur le titre
   // https://stackoverflow.com/questions/40510611/typescript-interface-require-one-of-two-properties-to-exist/49725198#49725198
@@ -50,11 +65,12 @@ const titresDemarchesPublicUpdate = async (titres: ITitre[]) => {
             titre
           )
 
-          console.info(
-            `mise à jour: démarche ${titreDemarche.id}, ${JSON.stringify(
-              publicUpdate
-            )}`
-          )
+          const log = {
+            type: 'titre / démarche : publique (mise à jour) ->',
+            value: `${titreDemarche.id}: ${JSON.stringify(publicUpdate)}`
+          }
+
+          console.info(log.type, log.value)
         })
 
         titresDemarchesUpdated.push(titreDemarche.id)

@@ -1,4 +1,4 @@
-import { ISpreadsheet } from '../types'
+import { ISpreadsheet } from '../_types'
 import { foretsGet } from '../../../database/queries/territoires'
 import { IForet } from '../../../types'
 

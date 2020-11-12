@@ -3,7 +3,11 @@ import { ITitre } from '../../types'
 import * as cryptoRandomString from 'crypto-random-string'
 import * as slugify from '@sindresorhus/slugify'
 
-import { titreIdUpdate, titreGet } from '../../database/queries/titres'
+import {
+  titreIdUpdate,
+  titreGet,
+  titresGet
+} from '../../database/queries/titres'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import titreIdFind from '../utils/titre-id-find'
 import { titreFilePathsRename } from './titre-fichiers-rename'
@@ -37,6 +41,7 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
   // comment ça se passe si plusieurs utilisateurs modifient des titres en même temps ?
 
   const titreOldId = titreOld.id
+
   try {
     // met à jour les ids de titre par effet de bord
     const {
@@ -51,7 +56,7 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
 
     await titreIdUpdate(titreOldId, titreNew)
 
-    // on catch l'erreur pour ne pas interrompre le processus
+    // attrape l'erreur pour ne pas interrompre le processus
     try {
       await titreFilePathsRename(relationsIdsChangedIndex, titreNew)
     } catch (e) {
@@ -60,7 +65,12 @@ const titreIdsUpdate = async (titreOld: ITitre) => {
       )
     }
 
-    console.info(`mise à jour: titre ids: ${titreNew.id}`)
+    const log = {
+      type: 'titre : id (mise à jour) ->',
+      value: titreNew.id
+    }
+
+    console.info(log.type, log.value)
 
     return { [titreNew.id]: titreOldId }
   } catch (e) {
@@ -75,7 +85,39 @@ interface ITitreIdsIndex {
   [key: string]: string
 }
 
-const titresIdsUpdate = async (titres: ITitre[]) => {
+const titresIdsUpdate = async (titresIds?: string[]) => {
+  console.info()
+  console.info('ids de titres, démarches, étapes et sous-éléments…')
+  // si l'id du titre change il est effacé puis re-créé entièrement
+  // on doit donc récupérer toutes ses relations
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        type: { type: { id: {} } },
+        references: { id: {} },
+        administrationsGestionnaires: { id: {} },
+        demarches: {
+          etapes: {
+            points: { references: { id: {} } },
+            documents: { id: {} },
+            administrations: { id: {} },
+            titulaires: { id: {} },
+            amodiataires: { id: {} },
+            substances: { id: {} },
+            communes: { id: {} },
+            justificatifs: { id: {} },
+            incertitudes: { id: {} }
+          },
+          phase: { id: {} }
+        },
+        travaux: { etapes: { id: {} } },
+        activites: { id: {} }
+      }
+    },
+    'super'
+  )
+
   // les transactions `titreIdUpdate` ne peuvent être exécutées en parallèle
   const titresUpdatedIndex = {} as ITitreIdsIndex
 
@@ -83,12 +125,11 @@ const titresIdsUpdate = async (titres: ITitre[]) => {
     const titreUpdatedIndex = await titreIdsUpdate(titre)
 
     if (titreUpdatedIndex) {
-      const titreId = Object.keys(titreUpdatedIndex)[0]
-      titresUpdatedIndex[titreId] = titreUpdatedIndex[titreId]
+      Object.assign(titresUpdatedIndex, titreUpdatedIndex)
     }
   }
 
   return titresUpdatedIndex
 }
 
-export { titresIdsUpdate, titreIdsUpdate, titreIdFindHashAdd, titreIdCheck }
+export { titresIdsUpdate, titreIdFindHashAdd, titreIdCheck }

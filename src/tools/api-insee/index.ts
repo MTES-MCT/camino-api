@@ -9,7 +9,7 @@ import { IEntreprise, IEntrepriseEtablissement } from '../../types'
 
 // cherche les établissements des entreprises
 // retourne des objets du modèle EntrepriseEtablissements
-const entreprisesEtablissementsGet = async (sirenIds: string[]) => {
+const apiInseeEntreprisesEtablissementsGet = async (sirenIds: string[]) => {
   if (!sirenIds.length) return []
 
   const token = await tokenInitialize()
@@ -35,7 +35,7 @@ const entreprisesEtablissementsGet = async (sirenIds: string[]) => {
 
 // cherche les adresses des entreprises
 // retourne des objets du modèle Entreprise
-const entreprisesGet = async (sirenIds: string[]) => {
+const apiInseeEntreprisesGet = async (sirenIds: string[]) => {
   const token = await tokenInitialize()
 
   if (!token) {
@@ -59,14 +59,14 @@ const entreprisesGet = async (sirenIds: string[]) => {
   }, [])
 }
 
-const entrepriseAndEtablissementsGet = async (sirenId: string) => {
+const apiInseeEntrepriseAndEtablissementsGet = async (sirenId: string) => {
   const token = await tokenInitialize()
 
   if (!token) {
     throw new Error('API Insee: impossible de se connecter')
   }
 
-  const entreprises = await entreprisesGet([sirenId])
+  const entreprises = await apiInseeEntreprisesGet([sirenId])
   if (!entreprises) {
     throw new Error('API Insee: erreur')
   }
@@ -74,13 +74,15 @@ const entrepriseAndEtablissementsGet = async (sirenId: string) => {
   const [entreprise] = entreprises
   if (!entreprise) return null
 
-  entreprise.etablissements = await entreprisesEtablissementsGet([sirenId])
+  entreprise.etablissements = await apiInseeEntreprisesEtablissementsGet([
+    sirenId
+  ])
 
   return entreprise
 }
 
 export {
-  entrepriseAndEtablissementsGet,
-  entreprisesGet,
-  entreprisesEtablissementsGet
+  apiInseeEntrepriseAndEtablissementsGet,
+  apiInseeEntreprisesGet,
+  apiInseeEntreprisesEtablissementsGet
 }

@@ -18,7 +18,7 @@ import fieldsBuild from './_fields-build'
 import { entrepriseFormat } from '../../_format/entreprises'
 import { permissionCheck } from '../../../tools/permission'
 import { emailCheck } from '../../../tools/email-check'
-import { entrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
+import { apiInseeEntrepriseAndEtablissementsGet } from '../../../tools/api-insee/index'
 
 import titreEtapePropFind from '../../../business/rules/titre-etape-prop-find'
 
@@ -230,7 +230,7 @@ const entrepriseCreer = async (
       throw new Error(errors.join(', '))
     }
 
-    const entrepriseInsee = await entrepriseAndEtablissementsGet(
+    const entrepriseInsee = await apiInseeEntrepriseAndEtablissementsGet(
       entreprise.legalSiren!
     )
 

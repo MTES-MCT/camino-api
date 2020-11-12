@@ -2,7 +2,7 @@ import {
   ITitreEtape,
   ITitreArea,
   IArea,
-  IAreaId,
+  IAreaType,
   Index,
   ICommune,
   IForet
@@ -12,21 +12,24 @@ import PQueue from 'p-queue'
 import { geojsonFeatureMultiPolygon } from '../../tools/geojson'
 import { apiGeoGet } from '../../tools/api-geo'
 import {
+  communesGet,
   communesUpsert,
+  foretsGet,
   foretsUpsert
 } from '../../database/queries/territoires'
 import {
   titreEtapeCommuneDelete,
   titreEtapeForetDelete,
   titresEtapesCommunesUpdate as titresEtapesCommunesUpdateQuery,
-  titresEtapesForetsUpdate as titresEtapesForetsUpdateQuery
+  titresEtapesForetsUpdate as titresEtapesForetsUpdateQuery,
+  titresEtapesGet
 } from '../../database/queries/titres-etapes'
 import TitresCommunes from '../../database/models/titres-communes'
 import TitresForets from '../../database/models/titres-forets'
 
 interface ITitreEtapeAreas {
   titreEtape: ITitreEtape
-  areas: { [areaId in IAreaId]: IArea[] }
+  areas: { [areaType in IAreaType]: IArea[] }
 }
 
 /**
@@ -93,19 +96,20 @@ const titreEtapesAreasDeleteBuild = (
   titreEtapeId: string,
   areasEtape: IArea[],
   areasEtapeOld: IArea[] | null | undefined
-) =>
-  areasEtapeOld
-    ? areasEtapeOld.reduce((titreEtapesAreas: ITitreArea[], areaOld) => {
-        if (!areasEtape.find(areaEtape => areaEtape.id === areaOld.id)) {
-          titreEtapesAreas.push({
-            titreEtapeId,
-            areaId: areaOld.id
-          })
-        }
+) => {
+  if (!areasEtapeOld) return []
 
-        return titreEtapesAreas
-      }, [])
-    : []
+  return areasEtapeOld.reduce((titreEtapesAreas: ITitreArea[], areaOld) => {
+    if (!areasEtape.find(areaEtape => areaEtape.id === areaOld.id)) {
+      titreEtapesAreas.push({
+        titreEtapeId,
+        areaId: areaOld.id
+      })
+    }
+
+    return titreEtapesAreas
+  }, [])
+}
 
 /**
  * Pour chaque étape, recherche les territoires à mettre à jour ou à supprimer
@@ -115,7 +119,7 @@ const titreEtapesAreasDeleteBuild = (
  */
 const titresEtapesAreasToUpdateAndDeleteBuild = (
   titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
-  areaId: IAreaId
+  areaType: IAreaType
 ) =>
   Object.keys(titresEtapesAreasIndex).reduce(
     (
@@ -130,14 +134,14 @@ const titresEtapesAreasToUpdateAndDeleteBuild = (
     ) => {
       const { titreEtape, areas } = titresEtapesAreasIndex[titreEtapeId]
 
-      const oldAreas = titreEtape[areaId]
+      const oldAreas = titreEtape[areaType]
 
       titresEtapesAreasToUpdate.push(
-        ...titreEtapesAreasUpdateBuild(titreEtape.id, areas[areaId], oldAreas)
+        ...titreEtapesAreasUpdateBuild(titreEtape.id, areas[areaType], oldAreas)
       )
 
       titresEtapesAreasToDelete.push(
-        ...titreEtapesAreasDeleteBuild(titreEtape.id, areas[areaId], oldAreas)
+        ...titreEtapesAreasDeleteBuild(titreEtape.id, areas[areaType], oldAreas)
       )
 
       return {
@@ -154,13 +158,13 @@ const titresEtapesAreasToUpdateAndDeleteBuild = (
 /**
  * Construit un index des territoires à créer
  * @param areasOld - liste des territoires existants
- * @param areaId - type de territoire en cours de manipulation
+ * @param areaType - type de territoire en cours de manipulation
  * @param titresEtapesAreasIndex - index des étapes associées à leur nouveaux territoires
  * @returns l’index de tous les nouveaux territoires
  */
 const areasBuild = (
   areasOld: IArea[],
-  areaId: IAreaId,
+  areaType: IAreaType,
   titresEtapesAreasIndex: Index<ITitreEtapeAreas>
 ) => {
   const areasOldIndex = areasOld.reduce(
@@ -174,7 +178,7 @@ const areasBuild = (
 
   const { areasNew } = Object.keys(titresEtapesAreasIndex).reduce(
     (acc: { areasIndex: Index<boolean>; areasNew: IArea[] }, titreEtapeId) => {
-      const etapeAreas = titresEtapesAreasIndex[titreEtapeId].areas[areaId]
+      const etapeAreas = titresEtapesAreasIndex[titreEtapeId].areas[areaType]
 
       return etapeAreas.reduce(({ areasIndex, areasNew }, area) => {
         // Ajoute le territoire
@@ -214,7 +218,7 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
     //    intervalCap: 10
   })
 
-  const areasIds = ['communes', 'forets'] as IAreaId[]
+  const areasTypes = ['communes', 'forets'] as IAreaType[]
   const titresEtapesAreasIndex = {} as Index<ITitreEtapeAreas>
 
   titresEtapes.forEach((titreEtape: ITitreEtape) => {
@@ -222,15 +226,15 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
       const apiGeoResult = titreEtape.points?.length
         ? await apiGeoGet(
             geojsonFeatureMultiPolygon(titreEtape.points),
-            areasIds
+            areasTypes
           )
         : undefined
 
-      const areas = areasIds.reduce((acc, id) => {
+      const areas = areasTypes.reduce((acc, id) => {
         acc[id] = apiGeoResult && apiGeoResult[id] ? apiGeoResult[id] : []
 
         return acc
-      }, {} as { [areaId in IAreaId]: IArea[] })
+      }, {} as { [areaType in IAreaType]: IArea[] })
 
       titresEtapesAreasIndex[titreEtape.id] = { titreEtape, areas }
     })
@@ -248,11 +252,20 @@ const titresEtapesAreasGet = async (titresEtapes: ITitreEtape[]) => {
  * @param forets - liste des forêts existantes
  * @returns toutes les modifications effectuées
  */
-const titresEtapesAreasUpdate = async (
-  titresEtapes: ITitreEtape[],
-  communes: ICommune[],
-  forets: IForet[]
-) => {
+const titresEtapesAreasUpdate = async (titresEtapesIds?: string[]) => {
+  console.info()
+  console.info('communes et forêts associées aux étapes…')
+
+  const titresEtapes = await titresEtapesGet(
+    { titresEtapesIds, etapesTypesIds: null, titresDemarchesIds: null },
+    {
+      fields: { points: { id: {} }, communes: { id: {} }, forets: { id: {} } }
+    },
+    'super'
+  )
+  const communes = await communesGet()
+  const forets = await foretsGet()
+
   // teste l'API geo-areas-api
   const geoAreasApiTestResult = await geoAreaApiTest()
   // si la connexion à l'API échoue, retourne
@@ -328,34 +341,40 @@ const titresEtapesForetsUpdate = async (
  * @param areaId - type de territoire en cours de manipulation
  * @param areasUpsert - fonction peremetant de mettre à jour un territoire
  * @param titresEtapesAreasUpdateQuery - fonction permettant de mettre à jour le territoire d’une étape
- * @param titreEtapeAreaDelete - fonction permettant de supprimer un territoire d’une étape
+ * @param titreEtapeAreaDeleteQuery - fonction permettant de supprimer un territoire d’une étape
  */
 const titresEtapesAreaUpdate = async (
   titresEtapesAreasIndex: Index<ITitreEtapeAreas>,
   areasOld: IArea[],
-  areaId: IAreaId,
+  areaType: IAreaType,
   areasUpsert: (areas: IArea[]) => Promise<IArea[]>,
   titresEtapesAreasUpdateQuery: (
     titresEtapesAreas: ITitreArea
   ) => Promise<TitresCommunes | TitresForets>,
-  titreEtapeAreaDelete: (etapeId: string, areaId: string) => Promise<number>
+  titreEtapeAreaDeleteQuery: (
+    etapeId: string,
+    areaId: string
+  ) => Promise<number>
 ) => {
-  const areasToUpdate = areasBuild(areasOld, areaId, titresEtapesAreasIndex)
+  const areasToUpdate = areasBuild(areasOld, areaType, titresEtapesAreasIndex)
 
   let areasUpdated: IArea[] = []
 
   if (areasToUpdate.length) {
     areasUpdated = await areasUpsert(areasToUpdate)
 
-    console.info(
-      `mise à jour: ${areaId}, ${areasToUpdate.map(area => area.id).join(', ')}`
-    )
+    const log = {
+      type: `${areaType} (mise à jour) ->`,
+      value: areasToUpdate.map(area => area.id).join(', ')
+    }
+
+    console.info(log.type, log.value)
   }
 
   const {
     titresEtapesAreasToUpdate,
     titresEtapesAreasToDelete
-  } = titresEtapesAreasToUpdateAndDeleteBuild(titresEtapesAreasIndex, areaId)
+  } = titresEtapesAreasToUpdateAndDeleteBuild(titresEtapesAreasIndex, areaType)
 
   const titresEtapesAreasUpdated: string[] = []
   const titresEtapesAreasDeleted: string[] = []
@@ -367,9 +386,12 @@ const titresEtapesAreaUpdate = async (
       queue.add(async () => {
         await titresEtapesAreasUpdateQuery(titreEtapeArea)
 
-        console.info(
-          `mise à jour: étape ${areaId} ${JSON.stringify(titreEtapeArea)}`
-        )
+        const log = {
+          type: `titre / démarche / étape : ${areaType} (mise à jour) ->`,
+          value: JSON.stringify(titreEtapeArea)
+        }
+
+        console.info(log.type, log.value)
 
         titresEtapesAreasUpdated.push(titreEtapeArea.titreEtapeId)
       })
@@ -383,9 +405,14 @@ const titresEtapesAreaUpdate = async (
 
     titresEtapesAreasToDelete.forEach(({ titreEtapeId, areaId }) => {
       queue.add(async () => {
-        await titreEtapeAreaDelete(titreEtapeId, areaId)
+        await titreEtapeAreaDeleteQuery(titreEtapeId, areaId)
 
-        console.info(`suppression: étape ${titreEtapeId}, ${areaId} ${areaId}`)
+        const log = {
+          type: `titre / démarche / étape : ${areaType} (suppression)`,
+          value: `${titreEtapeId} : ${areaId}`
+        }
+
+        console.info(log.type, log.value)
 
         titresEtapesAreasDeleted.push(titreEtapeId)
       })

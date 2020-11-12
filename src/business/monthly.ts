@@ -1,41 +1,27 @@
-import 'dotenv/config'
-import '../init'
-
-import { administrationsGet } from '../database/queries/administrations'
-import { entreprisesGet } from '../database/queries/entreprises'
-import { entreprisesEtablissementsGet } from '../database/queries/entreprises-etablissements'
-import { departementsGet } from '../database/queries/territoires'
-
 import administrationsUpdate from './processes/administrations-update'
 import entreprisesUpdate from './processes/entreprises-update'
 
-const run = async () => {
+const monthly = async () => {
   try {
-    // 1.
     console.info()
-    console.info('entreprises (API INSEE)…')
+    console.info('- - -')
+    console.info('mise à jour mensuelle')
+    console.info()
 
-    const entreprises = await entreprisesGet({}, {}, 'super')
-    const entreprisesEtablissements = await entreprisesEtablissementsGet()
-
+    // 1.
     const [
       entreprisesUpdated = [],
       etablissementsUpdated = [],
       etablissementsDeleted = []
-    ] = await entreprisesUpdate(entreprises, entreprisesEtablissements)
+    ] = await entreprisesUpdate()
 
     // 2.
     // mise à jour des administrations grâce à l'API Administration
-
-    const departements = await departementsGet()
-    const administrations = await administrationsGet({}, {}, 'super')
-    const administrationsUpdated = await administrationsUpdate(
-      administrations,
-      departements
-    )
+    const administrationsUpdated = await administrationsUpdate()
 
     console.info()
-    console.info('tâches mensuelles exécutées:')
+    console.info('-')
+    console.info('tâches exécutées:')
 
     if (entreprisesUpdated.length) {
       console.info(
@@ -62,9 +48,9 @@ const run = async () => {
     }
   } catch (e) {
     console.info('erreur:', e)
-  } finally {
-    process.exit()
+
+    throw e
   }
 }
 
-run()
+export default monthly

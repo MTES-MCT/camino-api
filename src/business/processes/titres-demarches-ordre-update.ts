@@ -1,25 +1,32 @@
-import { ITitre, ITitreDemarche } from '../../types'
+import { ITitreDemarche } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
+import { titresGet } from '../../database/queries/titres'
 import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 
-const titresDemarchesOrdreUpdate = async (titres: ITitre[]) => {
+const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
+  console.info()
+  console.info('ordre des démarches…')
+
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresDemarchesIdsUpdated = titres.reduce(
-    (titresDemarchesIdsUpdated: string[], titre) =>
-      (titreDemarchesAscSort(
-        titre.demarches!.slice().reverse()
-      ) as ITitreDemarche[]).reduce(
-        (
-          titresDemarchesIdsUpdated: string[],
-          titreDemarche: ITitreDemarche,
-          index: number
-        ) => {
-          if (titreDemarche.ordre === index + 1)
-            return titresDemarchesIdsUpdated
+  const titres = await titresGet(
+    { ids: titresIds },
+    { fields: { demarches: { etapes: { id: {} } } } },
+    'super'
+  )
 
+  const titresDemarchesIdsUpdated = [] as string[]
+
+  titres.forEach(titre => {
+    const titreDemarchesSorted = titreDemarchesAscSort(
+      titre.demarches!.slice().reverse()
+    )
+
+    titreDemarchesSorted.forEach(
+      (titreDemarche: ITitreDemarche, index: number) => {
+        if (titreDemarche.ordre !== index + 1) {
           queue.add(async () => {
             await titreDemarcheUpdate(
               titreDemarche.id,
@@ -29,19 +36,19 @@ const titresDemarchesOrdreUpdate = async (titres: ITitre[]) => {
               titre
             )
 
-            console.info(
-              `mise à jour: démarche ${titreDemarche.id}, ordre: ${index + 1}`
-            )
+            const log = {
+              type: 'titre / démarche : ordre (mise à jour) ->',
+              value: `${titreDemarche.id}: ${index + 1}`
+            }
+
+            console.info(log.type, log.value)
 
             titresDemarchesIdsUpdated.push(titreDemarche.id)
           })
-
-          return titresDemarchesIdsUpdated
-        },
-        titresDemarchesIdsUpdated
-      ),
-    []
-  )
+        }
+      }
+    )
+  })
 
   await queue.onIdle()
 

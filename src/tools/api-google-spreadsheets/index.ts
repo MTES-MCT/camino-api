@@ -67,6 +67,7 @@ const spreadsheetValuesGet = async (
 }
 
 export {
+  ICredentials,
   spreadsheetGet,
   spreadsheetsGet,
   spreadsheetBatchUpdate,

@@ -1,7 +1,7 @@
-import { ITitre } from '../../../types'
+import Titres from '../../../database/models/titres'
 
-const titresDemarchesStatutModifie = ([
-  {
+const titresDemarchesStatutModifie = [
+  ({
     demarches: [
       {
         id: 'h-cx-courdemanges-1988-oct01',
@@ -30,11 +30,11 @@ const titresDemarchesStatutModifie = ([
         ]
       }
     ]
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
-const titresDemarchesStatutIdentique = ([
-  {
+const titresDemarchesStatutIdentique = [
+  ({
     demarches: [
       {
         id: 'h-cx-courdemanges-1988-oct01',
@@ -63,11 +63,11 @@ const titresDemarchesStatutIdentique = ([
         ]
       }
     ]
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
-const titresDemarchesSansEtape = ([
-  {
+const titresDemarchesSansEtape = [
+  ({
     demarches: [
       {
         id: 'h-cx-courdemanges-1988-oct01',
@@ -78,8 +78,8 @@ const titresDemarchesSansEtape = ([
         etapes: null
       }
     ]
-  }
-] as unknown) as ITitre[]
+  } as unknown) as Titres
+]
 
 export {
   titresDemarchesStatutModifie,

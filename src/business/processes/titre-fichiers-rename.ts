@@ -7,7 +7,6 @@ const titreEtapeFilePathPathBuild = (titreEtapeId: string) =>
 const titreEtapesFilePathsNamesFind = (
   fichiersNames: Index<string>,
   titreEtapes: ITitreEtape[] | undefined | null,
-  titreId: string,
   relationsIdsChangedIndex: Index<Index<string>>
 ) => {
   if (!titreEtapes?.length) {
@@ -46,7 +45,6 @@ const titreFilePathsNamesFind = (
       titreEtapesFilePathsNamesFind(
         fichiersNames,
         titreDemarche.etapes,
-        titreId,
         relationsIdsChangedIndex
       ),
     {}

@@ -1,49 +1,53 @@
-import { ITitre, ITitreTravaux } from '../../types'
+import { ITitreTravaux } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreTravauxUpdate } from '../../database/queries/titres-travaux'
 import titreTravauxAscSort from '../utils/titre-elements-asc-sort'
+import { titresGet } from '../../database/queries/titres'
 
-const titresTravauxOrdreUpdate = async (titres: ITitre[]) => {
+const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
+  console.info()
+  console.info(`ordre des travaux…`)
   const queue = new PQueue({ concurrency: 100 })
 
-  const titresTravauxIdsUpdated = titres.reduce(
-    (titresTravauxIdsUpdated: string[], titre) => {
-      if (!titre.travaux) return titresTravauxIdsUpdated
+  const titres = await titresGet(
+    { ids: titresIds },
+    { fields: { travaux: { etapes: { id: {} } } } },
+    'super'
+  )
 
+  const titresTravauxIdsUpdated = [] as string[]
+
+  titres.forEach(titre => {
+    if (titre.travaux) {
       const titreTravauxSorted = titreTravauxAscSort(
         titre.travaux.slice().reverse()
       ) as ITitreTravaux[]
 
-      return titreTravauxSorted.reduce(
-        (
-          titresTravauxIdsUpdated: string[],
-          titreTravaux: ITitreTravaux,
-          index: number
-        ) => {
-          if (titreTravaux.ordre === index + 1) return titresTravauxIdsUpdated
+      titreTravauxSorted.forEach(
+        (titreTravaux: ITitreTravaux, index: number) => {
+          if (titreTravaux.ordre !== index + 1) {
+            queue.add(async () => {
+              await titreTravauxUpdate(
+                titreTravaux.id,
+                { ordre: index + 1 },
+                { fields: { id: {} } }
+              )
 
-          queue.add(async () => {
-            await titreTravauxUpdate(
-              titreTravaux.id,
-              { ordre: index + 1 },
-              { fields: { id: {} } }
-            )
+              const log = {
+                type: 'titre / travaux : ordre (mise à jour) ->',
+                value: `${titreTravaux.id} : ${index + 1}`
+              }
 
-            console.info(
-              `mise à jour: travaux ${titreTravaux.id}, ordre: ${index + 1}`
-            )
+              console.info(log.type, log.value)
 
-            titresTravauxIdsUpdated.push(titreTravaux.id)
-          })
-
-          return titresTravauxIdsUpdated
-        },
-        titresTravauxIdsUpdated
+              titresTravauxIdsUpdated.push(titreTravaux.id)
+            })
+          }
+        }
       )
-    },
-    []
-  )
+    }
+  })
 
   await queue.onIdle()
 

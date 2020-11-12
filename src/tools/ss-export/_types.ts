@@ -1,12 +1,3 @@
-/* eslint-disable no-undef */
-interface ICredentials {
-  // eslint-disable-next-line camelcase
-  private_key: string
-  // eslint-disable-next-line camelcase
-  client_email: string
-  scopes: string[]
-}
-
 interface ICallbacks {
   [id: string]: (v: any) => string
 }
@@ -26,4 +17,4 @@ interface ISpreadsheet<T> {
   tables: ITable[]
 }
 
-export { ICredentials, ITable, ISpreadsheet, ICallbacks }
+export { ITable, ISpreadsheet, ICallbacks }

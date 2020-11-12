@@ -1,73 +1,29 @@
-import 'dotenv/config'
-import '../init'
-
-import {
-  administrationGet,
-  administrationsGet
-} from '../database/queries/administrations'
-import { departementsGet } from '../database/queries/territoires'
-
 import administrationsUpdate from './processes/administrations-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
-import { titresGet } from '../database/queries/titres'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
 
 const administrationUpdate = async (administrationId: string) => {
   try {
-    // mise à jour de l'administrations grâce à l'API Administration
-    const departements = await departementsGet()
-    const administration = await administrationGet(
-      administrationId,
-      {},
-      'super'
-    )
-
-    const administrationsUpdated = await administrationsUpdate(
-      [administration],
-      departements
-    )
-
     console.info()
-    console.info('administrations gestionnaires associées aux titres…')
+    console.info('- - -')
+    console.info(`mise à jour d'une administration : ${administrationId}`)
+    console.info()
 
-    let titres = await titresGet(
-      {},
-      { fields: { administrationsGestionnaires: { id: {} } } },
-      'super'
-    )
+    const administrationsUpdated = await administrationsUpdate([
+      administrationId
+    ])
 
-    let administrations
-
-    administrations = await administrationsGet({}, {}, 'super')
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
-    } = await titresAdministrationsGestionnairesUpdate(titres, administrations)
-
-    console.info()
-    console.info('administrations locales associées aux étapes…')
-
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: {
-            etapes: {
-              administrations: { titresTypes: { id: {} } },
-              communes: { departement: { id: {} } }
-            }
-          }
-        }
-      },
-      'super'
-    )
-    administrations = await administrationsGet({}, {}, 'super')
+    } = await titresAdministrationsGestionnairesUpdate()
 
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
+    } = await titresEtapesAdministrationsLocalesUpdate()
 
+    console.info()
     if (administrationsUpdated.length) {
       console.info(
         `mise à jour: ${administrationsUpdated.length} administration(s)`
@@ -102,6 +58,7 @@ const administrationUpdate = async (administrationId: string) => {
   } catch (e) {
     console.error(`erreur: administrationUpdate ${administrationId}`)
     console.error(e)
+
     throw e
   }
 }

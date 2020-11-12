@@ -143,7 +143,7 @@ interface IAdministration {
 
 interface IAnnee extends IPeriode {}
 
-type IAreaId = 'communes' | 'forets'
+type IAreaType = 'communes' | 'forets'
 
 interface IArea {
   id: string
@@ -892,7 +892,7 @@ export {
   IAnnee,
   ICommune,
   IArea,
-  IAreaId,
+  IAreaType,
   IContenu,
   IContenuElement,
   IContenuValeur,

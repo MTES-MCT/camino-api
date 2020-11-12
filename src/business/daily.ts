@@ -1,15 +1,3 @@
-import 'dotenv/config'
-import '../init'
-
-import { administrationsGet } from '../database/queries/administrations'
-import { activitesTypesGet } from '../database/queries/metas'
-import { communesGet, foretsGet } from '../database/queries/territoires'
-import { titresGet } from '../database/queries/titres'
-import { titresActivitesGet } from '../database/queries/titres-activites'
-import { titresDemarchesGet } from '../database/queries/titres-demarches'
-import { titresEtapesGet } from '../database/queries/titres-etapes'
-import { titresPointsGet } from '../database/queries/titres-points'
-
 import titresActivitesStatutIdsUpdate from './processes/titres-activites-statut-ids-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresAdministrationsGestionnairesUpdate from './processes/titres-administrations-gestionnaires-update'
@@ -28,331 +16,63 @@ import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
-import { titresTravauxGet } from '../database/queries/titres-travaux'
 import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
 import { matomoCacheInit } from '../tools/api-matomo'
 
-const run = async () => {
+const daily = async () => {
   try {
-    let titres
-
     console.info()
-    console.info('ordre des étapes…')
-    const titresDemarches = await titresDemarchesGet(
-      {},
-      {
-        fields: {
-          etapes: { id: {} },
-          type: { etapesTypes: { id: {} } },
-          titre: { id: {} }
-        }
-      },
-      'super'
-    )
-    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate(
-      titresDemarches
-    )
-
+    console.info('- - -')
+    console.info('mise à jour quotidienne')
     console.info()
-    console.info('statut des démarches…')
-    titres = await titresGet(
-      {},
-      { fields: { demarches: { etapes: { id: {} } } } },
-      'super'
-    )
-    const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate(
-      titres
-    )
 
-    console.info()
-    console.info('publicité des démarches…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: {
-            type: { etapesTypes: { id: {} } },
-            etapes: { id: {} }
-          }
-        }
-      },
-      'super'
-    )
-    const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate(
-      titres
-    )
-
-    console.info()
-    console.info('ordre des démarches…')
-    titres = await titresGet(
-      {},
-      { fields: { demarches: { etapes: { id: {} } } } },
-      'super'
-    )
-    const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate(titres)
-
-    console.info()
-    console.info('statut des titres…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
-        }
-      },
-      'super'
-    )
-    const titresStatutIdUpdated = await titresStatutIdsUpdate(titres)
-
-    console.info()
-    console.info('publicité des titres…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          type: { autorisationsTitresStatuts: { id: {} } },
-          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
-        }
-      },
-      'super'
-    )
-    const titresPublicUpdated = await titresPublicUpdate(titres)
-
-    console.info()
-    console.info('phases des titres…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
-        }
-      },
-      'super'
-    )
+    const titresEtapesOrdreUpdated = await titresEtapesOrdreUpdate()
+    const titresDemarchesStatutUpdated = await titresDemarchesStatutIdUpdate()
+    const titresDemarchesPublicUpdated = await titresDemarchesPublicUpdate()
+    const titresDemarchesOrdreUpdated = await titresDemarchesOrdreUpdate()
+    const titresStatutIdUpdated = await titresStatutIdsUpdate()
+    const titresPublicUpdated = await titresPublicUpdate()
     const [
       titresPhasesUpdated = [],
       titresPhasesDeleted = []
-    ] = await titresPhasesUpdate(titres)
-
-    console.info()
-    console.info('date de début, de fin et de demande initiale des titres…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
-        }
-      },
-      'super'
-    )
-    const titresDatesUpdated = await titresDatesUpdate(titres)
-
-    console.info()
-    console.info('références des points…')
-    const titresPoints = await titresPointsGet()
-    const pointsReferencesCreated = await titresPointsReferencesCreate(
-      titresPoints
-    )
-
-    console.info()
-    console.info('communes et forêts associées aux étapes…')
-    const titresEtapes = await titresEtapesGet(
-      {
-        etapesIds: null,
-        etapesTypesIds: null,
-        titresDemarchesIds: null
-      },
-      {
-        fields: { points: { id: {} }, communes: { id: {} }, forets: { id: {} } }
-      },
-      'super'
-    )
-
-    const communes = await communesGet()
-    const forets = await foretsGet()
-
-    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate(
-      titresEtapes,
-      communes,
-      forets
-    )
-
+    ] = await titresPhasesUpdate()
+    const titresDatesUpdated = await titresDatesUpdate()
+    const pointsReferencesCreated = await titresPointsReferencesCreate()
+    const { titresCommunes, titresForets } = await titresEtapesAreasUpdate()
     const [
       titreCommunesUpdated = [],
       titresEtapesCommunesCreated = [],
       titresEtapesCommunesDeleted = []
     ] = titresCommunes
-
     const [
       titreForetsUpdated = [],
       titresEtapesForetsCreated = [],
       titresEtapesForetsDeleted = []
     ] = titresForets
-
-    console.info()
-    console.info('administrations gestionnaires associées aux titres…')
-
-    titres = await titresGet(
-      {},
-      { fields: { administrationsGestionnaires: { id: {} } } },
-      'super'
-    )
-
-    let administrations
-
-    administrations = await administrationsGet({}, {}, 'super')
     const {
       titresAdministrationsGestionnairesCreated = [],
       titresAdministrationsGestionnairesDeleted = []
-    } = await titresAdministrationsGestionnairesUpdate(titres, administrations)
-
-    console.info()
-    console.info('administrations locales associées aux étapes…')
-
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: {
-            etapes: {
-              administrations: { titresTypes: { id: {} } },
-              communes: { departement: { id: {} } }
-            }
-          }
-        }
-      },
-      'super'
-    )
-    administrations = await administrationsGet({}, {}, 'super')
+    } = await titresAdministrationsGestionnairesUpdate()
     const {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
-    } = await titresEtapesAdministrationsLocalesUpdate(titres, administrations)
-
-    console.info()
-    console.info('propriétés des titres (liens vers les étapes)…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: {
-            etapes: {
-              points: { id: {} },
-              titulaires: { id: {} },
-              amodiataires: { id: {} },
-              administrations: { id: {} },
-              substances: { id: {} },
-              communes: { id: {} }
-            }
-          }
-        }
-      },
-      'super'
-    )
-    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate(titres)
-
-    console.info()
-    console.info(`propriétés des titres (liens vers les contenus d'étapes)…`)
-    titres = await titresGet(
-      {},
-      { fields: { type: { id: {} }, demarches: { etapes: { id: {} } } } },
-      'super'
-    )
-    const titresPropsContenuUpdated = await titresPropsContenuUpdate(titres)
-
-    console.info()
-    console.info('ordre des étapes de travaux…')
-    const titreTravaux = await titresTravauxGet(
-      {},
-      {
-        fields: {
-          etapes: { id: {} },
-          type: { etapesTypes: { id: {} } },
-          titre: { id: {} }
-        }
-      }
-    )
-
-    const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate(
-      titreTravaux
-    )
-
-    console.info()
-    console.info(`ordre des travaux…`)
-    titres = await titresGet(
-      {},
-      { fields: { travaux: { etapes: { id: {} } } } },
-      'super'
-    )
-    const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate(titres)
-
-    console.info()
-    console.info('activités des titres…')
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          demarches: { phase: { id: {} } },
-          communes: { departement: { region: { pays: { id: {} } } } },
-          activites: { id: {} }
-        }
-      },
-      'super'
-    )
-    const activitesTypes = await activitesTypesGet({}, 'super')
-    const titresActivitesCreated = await titresActivitesUpdate(
-      titres,
-      activitesTypes
-    )
-
-    console.info()
-    console.info('statut des activités dont le délai est dépassé')
-    const titresActivites = await titresActivitesGet({}, {}, 'super')
-    const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate(
-      titresActivites
-    )
-
-    console.info()
-    console.info('ids de titres, démarches, étapes et sous-éléments…')
-    // si l'id du titre change il est effacé puis re-créé entièrement
-    // on doit donc récupérer toutes ses relations
-    titres = await titresGet(
-      {},
-      {
-        fields: {
-          type: { type: { id: {} } },
-          references: { id: {} },
-          administrationsGestionnaires: { id: {} },
-          demarches: {
-            etapes: {
-              points: { references: { id: {} } },
-              documents: { id: {} },
-              administrations: { id: {} },
-              titulaires: { id: {} },
-              amodiataires: { id: {} },
-              substances: { id: {} },
-              communes: { id: {} },
-              justificatifs: { id: {} },
-              incertitudes: { id: {} }
-            },
-            phase: { id: {} }
-          },
-          travaux: { etapes: { id: {} } },
-          activites: { id: {} }
-        }
-      },
-      'super'
-    )
-
+    } = await titresEtapesAdministrationsLocalesUpdate()
+    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate()
+    const titresPropsContenuUpdated = await titresPropsContenuUpdate()
+    const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate()
+    const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate()
+    const titresActivitesCreated = await titresActivitesUpdate()
+    const titresActivitesStatutIdsUpdated = await titresActivitesStatutIdsUpdate()
     // met à jour l'id dans le titre par effet de bord
-    const titresUpdatedIndex = await titresIdsUpdate(titres)
+    const titresUpdatedIndex = await titresIdsUpdate()
 
-    console.info()
+    console.info('')
     console.info('rafraichissement du cache Matomo…')
     await matomoCacheInit()
 
     console.info()
-    console.info('tâches quotidiennes exécutées:')
+    console.info('-')
+    console.info('tâches exécutées:')
     if (titresEtapesOrdreUpdated.length) {
       console.info(
         `mise à jour: ${titresEtapesOrdreUpdated.length} étape(s) (ordre)`
@@ -512,9 +232,9 @@ const run = async () => {
     }
   } catch (e) {
     console.info('erreur:', e)
-  } finally {
-    process.exit()
+
+    throw e
   }
 }
 
-run()
+export default daily

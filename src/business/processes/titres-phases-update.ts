@@ -1,4 +1,4 @@
-import { ITitre, ITitrePhase, ITitreDemarche } from '../../types'
+import { ITitrePhase, ITitreDemarche } from '../../types'
 
 import {
   titrePhasesUpsert,
@@ -7,6 +7,7 @@ import {
 import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 import titrePhasesFind from '../rules/titre-phases-find'
 import PQueue from 'p-queue'
+import { titresGet } from '../../database/queries/titres'
 
 // retourne une phase parmi les titrePhases en fonction de son id
 const titrePhaseEqualFind = (
@@ -85,8 +86,20 @@ const titrePhasesIdDeletedFind = (
     return res
   }, [])
 
-const titresPhasesUpdate = async (titres: ITitre[]) => {
+const titresPhasesUpdate = async (titresIds?: string[]) => {
+  console.info()
+  console.info('phases des titres…')
   const queue = new PQueue({ concurrency: 100 })
+
+  const titres = await titresGet(
+    { ids: titresIds },
+    {
+      fields: {
+        demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+      }
+    },
+    'super'
+  )
 
   const { titresPhasesIdsUpdated, titresPhasesIdsDeleted } = titres.reduce(
     (
@@ -124,9 +137,12 @@ const titresPhasesUpdate = async (titres: ITitre[]) => {
         queue.add(async () => {
           await titrePhasesUpsert(titrePhasesToUpdate)
 
-          console.info(
-            `mise à jour: phases ${JSON.stringify(titrePhasesToUpdate)}`
-          )
+          const log = {
+            type: 'titre / démarche / phases (mise à jour) ->',
+            value: JSON.stringify(titrePhasesToUpdate)
+          }
+
+          console.info(log.type, log.value)
 
           res.titresPhasesIdsUpdated.push(
             ...titrePhasesToUpdate.map(p => p.titreDemarcheId)
@@ -143,9 +159,12 @@ const titresPhasesUpdate = async (titres: ITitre[]) => {
         queue.add(async () => {
           await titrePhasesDelete(titrePhasesToDeleteIds)
 
-          console.info(
-            `suppression: phases ${titrePhasesToDeleteIds.join(', ')}`
-          )
+          const log = {
+            type: 'titre / démarche / phases (suppression) ->',
+            value: titrePhasesToDeleteIds.join(', ')
+          }
+
+          console.info(log.type, log.value)
 
           res.titresPhasesIdsDeleted.push(...titrePhasesToDeleteIds)
         })

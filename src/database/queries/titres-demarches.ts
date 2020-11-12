@@ -65,6 +65,7 @@ const titresDemarchesQueryBuild = (
     statutsIds,
     etapesInclues,
     etapesExclues,
+    titresDemarchesIds,
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
@@ -78,6 +79,7 @@ const titresDemarchesQueryBuild = (
     statutsIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
+    titresDemarchesIds?: string[] | null
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
@@ -99,6 +101,10 @@ const titresDemarchesQueryBuild = (
   titreDemarchePermissionQueryBuild(q, fields, user)
 
   // q.groupBy('titresDemarches.id')
+
+  if (titresDemarchesIds) {
+    q.whereIn('titresDemarches.id', titresDemarchesIds)
+  }
 
   if (typesIds) {
     q.whereIn('titresDemarches.typeId', typesIds)
@@ -145,6 +151,7 @@ const titresDemarchesCount = async (
     statutsIds,
     etapesInclues,
     etapesExclues,
+    titresDemarchesIds,
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
@@ -158,6 +165,7 @@ const titresDemarchesCount = async (
     statutsIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
+    titresDemarchesIds?: string[] | null
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
@@ -178,6 +186,7 @@ const titresDemarchesCount = async (
       statutsIds,
       etapesInclues,
       etapesExclues,
+      titresDemarchesIds,
       titresDomainesIds,
       titresTypesIds,
       titresStatutsIds,
@@ -215,6 +224,7 @@ const titresDemarchesGet = async (
     statutsIds,
     etapesInclues,
     etapesExclues,
+    titresDemarchesIds,
     titresDomainesIds,
     titresTypesIds,
     titresStatutsIds,
@@ -232,6 +242,7 @@ const titresDemarchesGet = async (
     statutsIds?: string[] | null
     etapesInclues?: ITitreEtapeFiltre[] | null
     etapesExclues?: ITitreEtapeFiltre[] | null
+    titresDemarchesIds?: string[] | null
     titresDomainesIds?: string[] | null
     titresTypesIds?: string[] | null
     titresStatutsIds?: string[] | null
@@ -252,6 +263,7 @@ const titresDemarchesGet = async (
       etapesInclues,
       etapesExclues,
       titresDomainesIds,
+      titresDemarchesIds,
       titresTypesIds,
       titresStatutsIds,
       titresNoms,
