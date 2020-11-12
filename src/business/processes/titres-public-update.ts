@@ -16,7 +16,7 @@ const titresPublicUpdate = async (titresIds?: string[]) => {
     {
       fields: {
         type: { autorisationsTitresStatuts: { id: {} } },
-        demarches: { phase: { id: {} }, etapes: { points: { id: {} } } }
+        demarches: { id: {} }
       }
     },
     'super'

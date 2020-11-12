@@ -232,7 +232,7 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
   await titreDelete(id)
 
-  return id
+  return titreOld
 }
 
 export { titre, titres, titreCreer, titreModifier, titreSupprimer }

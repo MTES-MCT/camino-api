@@ -278,7 +278,7 @@ type Mutation {
   titreModifier(titre: InputTitreModification!): Titre
 
   "Supprime un titre minier"
-  titreSupprimer(id: ID!): ID
+  titreSupprimer(id: ID!): Titre
 
   "Crée une démarche et met à jour le titre minier"
   demarcheCreer(demarche: InputDemarcheCreation!): Titre

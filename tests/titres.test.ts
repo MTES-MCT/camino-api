@@ -286,7 +286,7 @@ describe('titreSupprimer', () => {
   test('peut supprimer un titre (utilisateur super)', async () => {
     const res = await graphQLCall(titreSupprimerQuery, { id }, 'super')
 
-    expect(res.body).toMatchObject({ data: { titreSupprimer: id } })
+    expect(res.body).toMatchObject({ data: { titreSupprimer: { id } } })
   })
 
   test('ne peut pas supprimer un titre inexistant (utilisateur super)', async () => {

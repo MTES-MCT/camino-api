@@ -1,3 +1,5 @@
 mutation TitreSupprimer($id: ID!) {
-  titreSupprimer(id: $id)
+  titreSupprimer(id: $id){
+    id
+  }
 }
