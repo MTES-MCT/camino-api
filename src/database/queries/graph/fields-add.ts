@@ -1,8 +1,8 @@
 import { IFields } from '../../../types'
 
-// ajoute les champs nécessaire pour requêter le sous-objet titre
+// ajoute les champs nécessaire pour obtenir le sous-objet titre
 // pour vérifier si l'utilisateur a les droits sur les titres
-const fieldTitreAdd = (fields: IFields) => {
+const fieldsTitreAdd = (fields: IFields) => {
   if (!fields.titre) {
     fields.titre = {
       id: {},
@@ -88,4 +88,4 @@ const titresFieldsAdd = (fields: IFields) => {
   return fields
 }
 
-export { fieldTitreAdd, titresFieldsAdd }
+export { fieldsTitreAdd, titresFieldsAdd }

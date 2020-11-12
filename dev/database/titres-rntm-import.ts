@@ -33,7 +33,7 @@ const main = async () => {
           })
         } else if (titulairesBdd.length === 1) {
           titulaireId = titulairesBdd[0].id
-          console.log(
+          console.info(
             `Entreprise existante trouvée : ${titulaireId} ${titulaireNom}`
           )
         } else {
@@ -50,8 +50,8 @@ const main = async () => {
     nb++
   }
 
-  console.log('Entreprises crées', entrepriseNumber - 99999999)
-  console.log('Titres importés', nb)
+  console.info('Entreprises crées', entrepriseNumber - 99999999)
+  console.info('Titres importés', nb)
   console.timeEnd('Import RNTM')
 
   process.exit(0)

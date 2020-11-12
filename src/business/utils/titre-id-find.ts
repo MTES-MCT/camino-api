@@ -9,9 +9,11 @@ const titreIdFind = (titre: ITitre) => {
     titre.demarches
   )
 
-  return slugify(
+  const titreId = slugify(
     `${domaineId}-${type!.typeId}-${nom}-${demarcheOctroiDateDebut.slice(0, 4)}`
   )
+
+  return titreId
 }
 
 export default titreIdFind

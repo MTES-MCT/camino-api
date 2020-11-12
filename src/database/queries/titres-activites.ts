@@ -8,7 +8,7 @@ import {
 } from '../../types'
 
 import graphFormat from './graph/format'
-import { fieldTitreAdd } from './graph/fields-add'
+import { fieldsTitreAdd } from './graph/fields-add'
 import graphBuild from './graph/build'
 
 import TitresActivites from '../models/titres-activites'
@@ -75,7 +75,7 @@ const titreActivitesQueryBuild = (
   if (!user?.permissionId) return null
 
   const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', graphFormat)
     : options.titresActivites.graph
 
   const q = TitresActivites.query().withGraphFetched(graph)
@@ -384,7 +384,7 @@ const titreActiviteUpdate = async (
   { fields }: { fields?: IFields }
 ) => {
   const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'activite', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'activite', graphFormat)
     : options.titresActivites.graph
 
   return TitresActivites.query()

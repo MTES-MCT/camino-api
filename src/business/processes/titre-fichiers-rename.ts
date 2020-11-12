@@ -7,14 +7,14 @@ const titreEtapeFilePathPathBuild = (titreEtapeId: string) =>
 const titreEtapesFilePathsNamesFind = (
   fichiersNames: Index<string>,
   titreEtapes: ITitreEtape[] | undefined | null,
-  relationsIdsChangedIndex: Index<Index<string>>
+  relationsIdsUpdatedIndex: Index<Index<string>>
 ) => {
   if (!titreEtapes?.length) {
     return fichiersNames
   }
 
   return titreEtapes.reduce((fichiersNames: Index<string>, titreEtape) => {
-    const titreEtapeOldId = relationsIdsChangedIndex.etapes[titreEtape.id]
+    const titreEtapeOldId = relationsIdsUpdatedIndex.etapes[titreEtape.id]
 
     if (titreEtapeOldId) {
       const hasDocumentsWithFiles = titreEtape.documents?.find(d => d.fichier)
@@ -34,7 +34,7 @@ const titreEtapesFilePathsNamesFind = (
 const titreFilePathsNamesFind = (
   titreDemarches: ITitreDemarche[] | undefined | null,
   titreId: string,
-  relationsIdsChangedIndex: Index<Index<string>>
+  relationsIdsUpdatedIndex: Index<Index<string>>
 ) => {
   if (!titreDemarches?.length) {
     return {}
@@ -45,22 +45,22 @@ const titreFilePathsNamesFind = (
       titreEtapesFilePathsNamesFind(
         fichiersNames,
         titreDemarche.etapes,
-        relationsIdsChangedIndex
+        relationsIdsUpdatedIndex
       ),
     {}
   )
 }
 
 const titreFilePathsRename = async (
-  relationsIdsChangedIndex: Index<Index<string>>,
+  relationsIdsUpdatedIndex: Index<Index<string>>,
   titre: ITitre
 ) => {
-  if (!relationsIdsChangedIndex.etapes) return
+  if (!relationsIdsUpdatedIndex.etapes) return
 
   const titreFilePathsNames = titreFilePathsNamesFind(
     titre.demarches,
     titre.id,
-    relationsIdsChangedIndex
+    relationsIdsUpdatedIndex
   )
 
   const filePathNamesToUpdate = Object.keys(titreFilePathsNames).filter(

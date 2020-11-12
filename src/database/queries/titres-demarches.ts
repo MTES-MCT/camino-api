@@ -14,7 +14,7 @@ import { userGet } from './utilisateurs'
 import options from './_options'
 import graphFormat from './graph/format'
 import graphBuild from './graph/build'
-import { fieldTitreAdd } from './graph/fields-add'
+import { fieldsTitreAdd } from './graph/fields-add'
 
 import { titreDemarchePermissionQueryBuild } from './permissions/titres-demarches'
 import { titresFiltersQueryBuild } from './_titres-filters'
@@ -93,7 +93,7 @@ const titresDemarchesQueryBuild = (
   user?: IUtilisateur
 ) => {
   const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'demarches', graphFormat)
     : options.titresDemarches.graph
 
   const q = TitresDemarches.query().skipUndefined().withGraphFetched(graph)
@@ -347,7 +347,7 @@ const titreDemarcheCreate = async (
     }
   }
   const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'demarches', graphFormat)
     : options.titresDemarches.graph
 
   return TitresDemarches.query()
@@ -388,7 +388,7 @@ const titreDemarcheUpdate = async (
   }
 
   const graph = fields
-    ? graphBuild(fieldTitreAdd(fields), 'demarches', graphFormat)
+    ? graphBuild(fieldsTitreAdd(fields), 'demarches', graphFormat)
     : options.titresDemarches.graph
 
   return TitresDemarches.query()
