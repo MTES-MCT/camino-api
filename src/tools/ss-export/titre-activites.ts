@@ -1,6 +1,6 @@
 // eslint-disable-next-line camelcase
 import { sheets_v4 } from 'googleapis'
-import { ITitreActivite } from '../../types'
+import { Index, ITitreActivite } from '../../types'
 import decamelize from '../decamelize'
 import credentials from './credentials'
 import {
@@ -10,15 +10,11 @@ import {
 import rowFormat from './_utils/row-format'
 import spreadsheet from './spreadsheets/titres-activites'
 
-interface ITitreIdsIndex {
-  [id: string]: string
-}
-
 const table = spreadsheet.tables[0]
 
 const titreActivitesRowUpdate = async (
   activites: ITitreActivite[],
-  titresIdsUpdatedIndex?: ITitreIdsIndex
+  titresIdsUpdatedIndex?: Index<string>
 ) => {
   try {
     if (!activites.length) return null

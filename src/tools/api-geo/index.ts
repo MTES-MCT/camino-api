@@ -10,9 +10,7 @@ import {
   IGeoJsonProperties
 } from '../../types'
 
-const apiGeoFetch = async (geojson: IGeoJson, areaTypes: IAreaType[]) => {
-  const properties = JSON.stringify(geojson.properties)
-
+const apiGeoFetch = async (geojson: IGeoJson, areasTypes: IAreaType[]) => {
   try {
     if (!process.env.API_GEO_URL) {
       throw new Error(
@@ -20,7 +18,7 @@ const apiGeoFetch = async (geojson: IGeoJson, areaTypes: IAreaType[]) => {
       )
     }
 
-    if (!areaTypes || !areaTypes.length) {
+    if (!areasTypes || !areasTypes.length) {
       throw new Error(
         'impossible d’appeler l’API Géo Commune sans spécifier le ou les éléments souhaités'
       )
@@ -32,7 +30,7 @@ const apiGeoFetch = async (geojson: IGeoJson, areaTypes: IAreaType[]) => {
     }
 
     const response = await fetch(
-      `${process.env.API_GEO_URL}?elements=${areaTypes.join(',')}`,
+      `${process.env.API_GEO_URL}?elements=${areasTypes.join(',')}`,
       {
         method: 'post',
         headers: { 'Content-Type': 'application/json' },
@@ -48,6 +46,7 @@ const apiGeoFetch = async (geojson: IGeoJson, areaTypes: IAreaType[]) => {
 
     return result as { [areaType in IAreaType]: IGeoJsonProperties[] }
   } catch (e) {
+    const properties = JSON.stringify(geojson.properties)
     errorLog(`apiGeoFetch ${properties}`, e.error || e.message || e)
 
     return null
@@ -71,9 +70,9 @@ const foretFormat = (foret: IGeoJsonProperties) =>
 
 const apiGeoGet = async (
   geojson: IGeoJson,
-  areaTypes: IAreaType[]
+  areasTypes: IAreaType[]
 ): Promise<IApiGeoResult | null> => {
-  const apiGeoResult = await apiGeoFetch(geojson, areaTypes)
+  const apiGeoResult = await apiGeoFetch(geojson, areasTypes)
 
   if (!apiGeoResult) return null
 

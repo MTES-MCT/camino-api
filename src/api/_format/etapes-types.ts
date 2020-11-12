@@ -122,6 +122,7 @@ const etapeTypeFormat = (
     titre.demarches!,
     titre.statutId!
   )
+
   if (!isDateFinValid) return null
 
   const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
@@ -133,6 +134,7 @@ const etapeTypeFormat = (
     etapeStatutId,
     date
   )
+
   // si aucun statut n'est disponible pour ce type d'étape
   // alors on ne retourne pas ce type d'étape pendant l'édition
   if (!etapesStatutsFormatted.length) return null

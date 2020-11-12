@@ -5,6 +5,10 @@ import { documentsFilesCheck } from './documents-files-check'
 import { filesPathCheck } from './files-path-check'
 
 const documentsCheck = async () => {
+  console.info()
+  console.info('- - -')
+  console.info('vérification des documents')
+  console.info()
   const documentsIndex = await documentsIndexBuild()
   const filesIndex = filesIndexBuild()
 
