@@ -230,7 +230,9 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
 
   await titreFichiersDelete(titreOld)
 
-  return titreDelete(id)
+  await titreDelete(id)
+
+  return titreOld
 }
 
 export { titre, titres, titreCreer, titreModifier, titreSupprimer }

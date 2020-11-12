@@ -135,7 +135,7 @@ describe('titreCreer', () => {
 describe('titreModifier', () => {
   const titreModifierQuery = queryImport('titre-modifier')
 
-  const id = 'titre-arm'
+  const id = 'titre-arm-0000'
 
   beforeEach(async () => {
     await titreCreate(

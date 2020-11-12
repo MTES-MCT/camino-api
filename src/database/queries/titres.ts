@@ -352,15 +352,10 @@ const titreCreate = async (
 }
 
 const titreUpdate = async (id: string, props: Partial<ITitre>) =>
-  Titres.query()
-    .patchAndFetchById(id, props)
-    .withGraphFetched(options.titres.graph)
+  Titres.query().patchAndFetchById(id, props)
 
 const titreDelete = async (id: string, tr?: Transaction) =>
-  Titres.query(tr)
-    .deleteById(id)
-    .withGraphFetched(options.titres.graph)
-    .returning('*')
+  Titres.query(tr).deleteById(id)
 
 const titreUpsert = async (
   titre: ITitre,
@@ -425,7 +420,7 @@ const titreIdUpdate = async (titreOldId: string, titre: ITitre) => {
   return transaction(knex, async tr => {
     await titreDelete(titreOldId, tr)
 
-    return titreUpsert(titre, { fields: {} }, 'super', tr)
+    await titreUpsert(titre, { fields: {} }, 'super', tr)
   })
 }
 
