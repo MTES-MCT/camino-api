@@ -4,7 +4,6 @@ import titreEtapesAscSort from './titre-etapes-asc-sort'
 import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
 import titreIdFind from './titre-id-find'
 import { ITitre, ITitreDemarche, ITitreEtape, ITitreTravaux } from '../../types'
-import { titreIdFindHashAdd } from '../processes/titres-ids-update'
 
 const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)
 
@@ -129,25 +128,25 @@ const titreIdAndRelationsUpdate = (
 ) => {
   if (titreIdFindCustom) {
     titreRelation.idFind = titreIdFindCustom
-  } else if (titre.id.match(/ *-\d\d\d\d$/)) {
-    // si l’id du titre se termine par une date c’est que c’est le titre original
-    titreRelation.idFind = titreIdFind
   } else {
-    // sinon c’est que le titre est déjà un doublon
-    titreRelation.idFind = titreIdFindHashAdd(titre.id.slice(-8))
+    // si idFind a été écrasé lors d'un appel précédent
+    // on doit la réinitialiser
+    titreRelation.idFind = titreIdFind
   }
 
   // permet de référencer tous les changements d'ids par type de relation
-  // un index nom de relations => (index noueaux ids => anciens ids)
-  const relationsIdsChangedIndex = {}
+  // un index nom de relations => (index nouveaux ids => anciens ids)
+  const relationsIdsUpdatedIndex = {}
 
   // met à jour les ids par effet de bord
   // retourne true si un id a changé
-  const hasChanged = idsUpdate(relationsIdsChangedIndex, titre, titreRelation, {
+  const hasChanged = idsUpdate(relationsIdsUpdatedIndex, titre, titreRelation, {
     titre
   })
 
-  return { titre, hasChanged, relationsIdsChangedIndex }
+  // l'objet `titre` n'est retourné que pour les tests,
+  // il est modifié par effet de bord de toute façon
+  return { titre, hasChanged, relationsIdsUpdatedIndex }
 }
 
 export default titreIdAndRelationsUpdate

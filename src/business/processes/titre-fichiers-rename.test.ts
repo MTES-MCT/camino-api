@@ -44,21 +44,21 @@ describe("renomme les fichiers d'un titre", () => {
   })
 
   test('ne renomme aucun fichier si un titre ne possède pas de fichiers', async () => {
-    const relationsIdsChangedIndex = {
+    const relationsIdsUpdatedIndex = {
       etapes: {
         'new-titre-id-demarche-01-etape-01': 'old-titre-id-demarche-01-etape-01'
       }
     }
 
-    await titreFilePathsRename(relationsIdsChangedIndex, titreNewSansDemarches)
+    await titreFilePathsRename(relationsIdsUpdatedIndex, titreNewSansDemarches)
 
-    await titreFilePathsRename(relationsIdsChangedIndex, titreNewDemarchesVides)
+    await titreFilePathsRename(relationsIdsUpdatedIndex, titreNewDemarchesVides)
 
-    await titreFilePathsRename(relationsIdsChangedIndex, titreNewSansEtapes)
+    await titreFilePathsRename(relationsIdsUpdatedIndex, titreNewSansEtapes)
 
-    await titreFilePathsRename(relationsIdsChangedIndex, titreSansDocuments)
+    await titreFilePathsRename(relationsIdsUpdatedIndex, titreSansDocuments)
 
-    await titreFilePathsRename(relationsIdsChangedIndex, titreDocumentsVide)
+    await titreFilePathsRename(relationsIdsUpdatedIndex, titreDocumentsVide)
 
     expect(fileRenameMock).not.toHaveBeenCalled()
   })

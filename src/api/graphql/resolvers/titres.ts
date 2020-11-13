@@ -1,4 +1,4 @@
-import { IToken, ITitre, ITitreColonneId } from '../../../types'
+import { IToken, ITitre, ITitreColonneId, IFields } from '../../../types'
 import { GraphQLResolveInfo } from 'graphql'
 
 import { debug } from '../../../config/index'
@@ -206,24 +206,21 @@ const titreModifier = async (
   }
 }
 
-const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
+const titreSupprimer = async (
+  { id }: { id: string },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
   const user = context.user && (await userGet(context.user.id))
 
   if (!user || !permissionCheck(user?.permissionId, ['super'])) {
     throw new Error('droits insuffisants')
   }
 
-  const titreOld = await titreGet(
-    id,
-    {
-      fields: {
-        demarches: { etapes: { documents: { type: { id: {} } } } },
-        travaux: { etapes: { documents: { type: { id: {} } } } },
-        activites: { documents: { type: { id: {} } } }
-      }
-    },
-    user.id
-  )
+  const fields = titreFichiersDeleteFieldsAdd(fieldsBuild(info))
+
+  const titreOld = await titreGet(id, { fields }, user.id)
+
   if (!titreOld) {
     throw new Error('aucun titre avec cet id')
   }
@@ -233,6 +230,47 @@ const titreSupprimer = async ({ id }: { id: string }, context: IToken) => {
   await titreDelete(id)
 
   return titreOld
+}
+
+// ajoute les champs nécessaire pour supprimer les fichiers
+const titreFichiersDeleteFieldsAdd = (fields: IFields) => {
+  if (!fields.demarches) {
+    fields.demarches = {}
+  }
+  if (!fields.demarches.etapes) {
+    fields.demarches.etapes = {}
+  }
+  if (!fields.demarches.etapes.documents) {
+    fields.demarches.etapes.documents = {}
+  }
+  if (!fields.demarches.etapes.documents.type) {
+    fields.demarches.etapes.documents.type = { id: {} }
+  }
+
+  if (!fields.travaux) {
+    fields.travaux = {}
+  }
+  if (!fields.travaux.etapes) {
+    fields.travaux.etapes = {}
+  }
+  if (!fields.travaux.etapes.documents) {
+    fields.travaux.etapes.documents = {}
+  }
+  if (!fields.travaux.etapes.documents.type) {
+    fields.travaux.etapes.documents.type = { id: {} }
+  }
+
+  if (!fields.activites) {
+    fields.activites = {}
+  }
+  if (!fields.activites.documents) {
+    fields.activites.documents = {}
+  }
+  if (!fields.activites.documents.type) {
+    fields.activites.documents.type = { id: {} }
+  }
+
+  return fields
 }
 
 export { titre, titres, titreCreer, titreModifier, titreSupprimer }

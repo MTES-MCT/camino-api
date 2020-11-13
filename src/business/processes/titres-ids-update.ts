@@ -15,67 +15,102 @@ import { titreFilePathsRename } from './titre-fichiers-rename'
 const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
   slugify(`${titreIdFind(titre)}-${hash}`)
 
-const titreIdCheck = async (titreOldId: string, titre: ITitre) => {
-  if (titreOldId !== titre.id) {
-    const titreWithTheSameId = await titreGet(titre.id, {}, 'super')
+const titreDoublonCheck = async (
+  titreOldId: string,
+  titreId: string,
+  titreDoublonTitreId?: string | null
+) => {
+  let noLog = false
+  let hash = null
 
-    if (titreWithTheSameId) {
-      const hash = titre.doublonTitreId
-        ? titreOldId.slice(-8)
-        : cryptoRandomString({ length: 8 })
+  if (titreOldId === titreId) return { hash, noLog }
 
-      titre.doublonTitreId = titre.id
+  const titreWithTheSameId = await titreGet(titreId, {}, 'super')
 
-      // met à jour les ids de titre par effet de bord
-      titreIdAndRelationsUpdate(titre, titreIdFindHashAdd(hash))
-    } else {
-      delete titre.doublonTitreId
-    }
+  // si le titre est en doublon
+  // s'il a déjà un hash
+  // si la référence du doublon est la même que le doublon actuel
+  if (
+    titreWithTheSameId &&
+    titreDoublonTitreId &&
+    titreDoublonTitreId === titreWithTheSameId.id
+  ) {
+    hash = titreOldId.slice(-8)
+    noLog = true
+  }
+  // si le titre est en doublon et qu'il n'a pas de hash
+  else if (titreWithTheSameId) {
+    hash = cryptoRandomString({ length: 8 })
   }
 
-  return titre
+  return { hash, noLog }
 }
 
 // met à jour les ids de titre par effet de bord
-const titreIdsUpdate = async (titreOld: ITitre) => {
+const titreIdsUpdate = async (titre: ITitre) => {
   // les transaction en bdd ne peuvent être effectuées en parallèle
   // comment ça se passe si plusieurs utilisateurs modifient des titres en même temps ?
 
-  const titreOldId = titreOld.id
+  const titreOldId = titre.id
 
   try {
+    // met à jour les ids de titre par effet de bord
+    // (titre n'est retourné que pour les tests, mais il est modifié de toute façon)
     const {
-      titre,
+      titre: titreNew,
       hasChanged,
-      relationsIdsChangedIndex
-    } = titreIdAndRelationsUpdate(titreOld)
+      relationsIdsUpdatedIndex
+    } = titreIdAndRelationsUpdate(titre)
 
     if (!hasChanged) return null
 
-    const titreNew = await titreIdCheck(titreOldId, titre)
+    titre = titreNew
 
-    await titreIdUpdate(titreOldId, titreNew)
+    // si c'est un doublon
+    const { hash, noLog } = await titreDoublonCheck(
+      titreOldId,
+      titre.id,
+      titre.doublonTitreId
+    )
+
+    if (hash) {
+      titre.doublonTitreId = titre.id
+      // met à jour les ids de titre par effet de bord
+      const { titre: titreHash } = titreIdAndRelationsUpdate(
+        titre,
+        titreIdFindHashAdd(hash)
+      )
+
+      titre = titreHash
+    } else {
+      delete titre.doublonTitreId
+    }
+
+    await titreIdUpdate(titreOldId, titre)
 
     // attrape l'erreur pour ne pas interrompre le processus
     try {
-      await titreFilePathsRename(relationsIdsChangedIndex, titreNew)
+      await titreFilePathsRename(relationsIdsUpdatedIndex, titre)
     } catch (e) {
       console.error(
-        `erreur: renommage de fichiers ${titreOldId} -> ${titreNew.id}`
+        `erreur: renommage de fichiers ${titreOldId} -> ${titre.id}`
       )
     }
 
+    // on n'a aucun moyen de savoir
+    // si le hash n'a pas changé mais qu'une relation a changé
+    if (noLog) return null
+
     const log = {
       type: 'titre : id (mise à jour) ->',
-      value: titreNew.id
+      value: titre.id
     }
 
     console.info(log.type, log.value)
 
-    return { [titreNew.id]: titreOldId }
+    return { [titre.id]: titreOldId }
   } catch (e) {
-    console.error(`erreur: titreIdsUpdate ${titreOldId}`)
-    console.error(e)
+    console.error(`erreur: titreIdsUpdate ${titreOldId}`, e)
 
     return null
   }

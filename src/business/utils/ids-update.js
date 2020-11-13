@@ -8,7 +8,7 @@ const elementFromPathFind = (path, root) =>
   }, root)
 
 const idsUpdate = (
-  relationsIdsChangedIndex,
+  relationsIdsUpdatedIndex,
   element,
   relation,
   root,
@@ -22,17 +22,18 @@ const idsUpdate = (
   // met à jour l'id de l'élément
   if (relation.idFind) {
     const elementNewId = relation.idFind(element, parent)
+
     // l'id de l'élément courant n'a pas changé
     if (elementNewId !== elementOldId) {
       element.id = elementNewId
 
       hasChanged = true
 
-      if (!relationsIdsChangedIndex[relation.name]) {
-        relationsIdsChangedIndex[relation.name] = {}
+      if (!relationsIdsUpdatedIndex[relation.name]) {
+        relationsIdsUpdatedIndex[relation.name] = {}
       }
 
-      relationsIdsChangedIndex[relation.name][elementNewId] = elementOldId
+      relationsIdsUpdatedIndex[relation.name][elementNewId] = elementOldId
     }
   }
 
@@ -93,7 +94,7 @@ const idsUpdate = (
           elements.reduce(
             (hasChanged, e) =>
               idsUpdate(
-                relationsIdsChangedIndex,
+                relationsIdsUpdatedIndex,
                 e,
                 relation,
                 root,
