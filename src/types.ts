@@ -312,6 +312,12 @@ interface IGeoJson {
   features?: IGeoJson[] | null
 }
 
+interface IGeoJsonCentre {
+  type: string
+  geometry?: IGeometry | null
+  properties: { etapeId?: string | null }
+}
+
 interface IApiGeoResult {
   communes: ICommune[]
   forets: IForet[]
@@ -493,6 +499,7 @@ interface ITitre {
   points?: ITitrePoint[] | null
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
+  geojsonCentre?: IGeoJsonCentre | null
   titulairesTitreEtapeId?: string | null
   titulaires?: IEntreprise[] | null
   amodiatairesTitreEtapeId?: string | null
@@ -916,6 +923,7 @@ export {
   IFrequence,
   IGeoJson,
   IGeoJsonProperties,
+  IGeoJsonCentre,
   IApiGeoResult,
   IGeometry,
   IGeoSysteme,

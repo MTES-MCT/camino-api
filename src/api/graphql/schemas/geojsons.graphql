@@ -21,6 +21,12 @@ type FeaturePoint {
   geometry: GeometryPoints!
 }
 
+type GeojsonCentre {
+  type: FeatureType!
+  properties: EtapeId!
+  geometry: GeometryPoints!
+}
+
 type FeaturePointProperties {
   id: ID!
   groupe: Int
