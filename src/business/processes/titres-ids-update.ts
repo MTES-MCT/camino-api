@@ -1,7 +1,6 @@
 import { Index, ITitre } from '../../types'
 
 import * as cryptoRandomString from 'crypto-random-string'
-import * as slugify from '@sindresorhus/slugify'
 
 import {
   titreIdUpdate,
@@ -9,11 +8,7 @@ import {
   titresGet
 } from '../../database/queries/titres'
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
-import titreIdFind from '../utils/titre-id-find'
 import { titreFilePathsRename } from './titre-fichiers-rename'
-
-const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
-  slugify(`${titreIdFind(titre)}-${hash}`)
 
 const titreDoublonCheck = async (
   titreOldId: string,
@@ -76,10 +71,7 @@ const titreIdsUpdate = async (titre: ITitre) => {
     if (hash) {
       titre.doublonTitreId = titre.id
       // met à jour les ids de titre par effet de bord
-      const { titre: titreHash } = titreIdAndRelationsUpdate(
-        titre,
-        titreIdFindHashAdd(hash)
-      )
+      const { titre: titreHash } = titreIdAndRelationsUpdate(titre, hash)
 
       titre = titreHash
     } else {
@@ -163,4 +155,4 @@ const titresIdsUpdate = async (titresIds?: string[]) => {
   return titresUpdatedIndex
 }
 
-export { titresIdsUpdate, titreIdFindHashAdd }
+export { titresIdsUpdate }

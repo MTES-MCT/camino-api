@@ -1,11 +1,26 @@
+import { ITitre, ITitreDemarche, ITitreEtape, ITitreTravaux } from '../../types'
+import * as slugify from '@sindresorhus/slugify'
 import idsUpdate from './ids-update'
 import titreDemarcheOrTravauxAscSort from './titre-elements-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
 import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
-import titreIdFind from './titre-id-find'
-import { ITitre, ITitreDemarche, ITitreEtape, ITitreTravaux } from '../../types'
+import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 
 const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)
+
+const titreIdFind = (titre: ITitre) => {
+  const { domaineId, type, nom } = titre
+  const demarcheOctroiDateDebut = titreDemarcheOctroiDateDebutFind(
+    titre.demarches
+  )
+
+  return slugify(
+    `${domaineId}-${type!.typeId}-${nom}-${demarcheOctroiDateDebut.slice(0, 4)}`
+  )
+}
+
+const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
+  `${titreIdFind(titre)}-${hash}`
 
 const titreDemarcheIdFind = (titreDemarche: ITitreDemarche, titre: ITitre) => {
   const titreDemarcheTypeOrder =
@@ -122,14 +137,11 @@ const titreRelation = {
   ]
 }
 
-const titreIdAndRelationsUpdate = (
-  titre: ITitre,
-  titreIdFindCustom?: (titre: ITitre) => string
-) => {
-  if (titreIdFindCustom) {
-    titreRelation.idFind = titreIdFindCustom
+const titreIdAndRelationsUpdate = (titre: ITitre, hash?: string) => {
+  if (hash) {
+    titreRelation.idFind = titreIdFindHashAdd(hash)
   } else {
-    // si idFind a été écrasé lors d'un appel précédent
+    // si la propriété idFind a été écrasé lors d'un appel précédent
     // on doit la réinitialiser
     titreRelation.idFind = titreIdFind
   }

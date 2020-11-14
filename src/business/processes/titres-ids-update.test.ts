@@ -2,7 +2,7 @@ import { mocked } from 'ts-jest/utils'
 import Titres from '../../database/models/titres'
 import { ITitre } from '../../types'
 
-import { titresIdsUpdate, titreIdFindHashAdd } from './titres-ids-update'
+import { titresIdsUpdate } from './titres-ids-update'
 
 import titreIdAndRelationsUpdate from '../utils/titre-id-and-relations-update'
 import {
@@ -10,7 +10,6 @@ import {
   titreGet,
   titresGet
 } from '../../database/queries/titres'
-import titreIdFind from '../utils/titre-id-find'
 import { titreFilePathsRename } from './titre-fichiers-rename'
 
 jest.mock('../utils/titre-id-and-relations-update', () => ({
@@ -20,11 +19,6 @@ jest.mock('../utils/titre-id-and-relations-update', () => ({
 
 jest.mock('./titre-fichiers-rename', () => ({
   titreFilePathsRename: jest.fn()
-}))
-
-jest.mock('../utils/titre-id-find', () => ({
-  __esModule: true,
-  default: jest.fn()
 }))
 
 jest.mock('../../database/queries/titres', () => ({
@@ -38,7 +32,6 @@ const titresGetMock = mocked(titresGet, true)
 const titreIdAndRelationsUpdateMock = mocked(titreIdAndRelationsUpdate, true)
 const titreGetMock = mocked(titreGet, true)
 const titreIdUpdateMock = mocked(titreIdUpdate, true)
-const titreIdFindMock = mocked(titreIdFind, true)
 const titreFilePathsRenameMock = mocked(titreFilePathsRename, true)
 
 console.info = jest.fn()
@@ -47,16 +40,6 @@ console.error = jest.fn()
 const titre = { id: 'id-old' } as Titres
 
 const relationsIdsUpdatedIndex = {}
-
-describe('ajoute un hash à une id de titre', () => {
-  test('ajoute un hash à une id', async () => {
-    titreIdFindMock.mockReturnValue('titre-id')
-    const titreIdHashedFind = titreIdFindHashAdd('hash')
-    const titreId = titreIdHashedFind({} as ITitre)
-
-    expect(titreId).toEqual('titre-id-hash')
-  })
-})
 
 describe("mise à jour de l'id d'un titre", () => {
   test('met à jour le titre si un id a changé', async () => {
