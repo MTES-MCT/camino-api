@@ -1,5 +1,5 @@
 /* istanbul ignore file */
-import { createLogger, format, transports } from 'winston'
+import { createLogger, format, Logger, transports } from 'winston'
 import * as util from 'util'
 
 const { combine, timestamp, printf, colorize } = format
@@ -25,6 +25,13 @@ const utilFormat = {
   }
 }
 
+const consoleOverride = (logger: Logger) => {
+  console.info = (...args) => logger.info('', ...args)
+  console.warn = (...args) => logger.warn('', ...args)
+  console.error = (...args) => logger.error('', ...args)
+  console.debug = (...args) => logger.debug('', ...args)
+}
+
 const logger = createLogger({
   transports: [
     new transports.Console({
@@ -42,8 +49,6 @@ if (process.env.NODE_ENV === 'production') {
     })
   )
 }
+consoleOverride(logger)
 
-console.info = (...args) => logger.info(...args)
-console.warn = (...args) => logger.warn(...args)
-console.error = (...args) => logger.error(...args)
-console.debug = (...args) => logger.debug(...args)
+export { timestampFormat, utilFormat, consoleOverride }
