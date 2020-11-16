@@ -44,6 +44,9 @@ type Titre {
   "Geojson de la liste de points du périmètre géographique du titre dans son dernier état de validité"
   geojsonPoints: GeojsonPoints
 
+  "Point représentant le centre géographique du titre"
+  geojsonCentre: GeojsonCentre
+
   "Titualires du titre dans son dernier état de validité"
   titulaires: [Entreprise]
 

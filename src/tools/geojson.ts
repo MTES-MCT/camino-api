@@ -1,5 +1,6 @@
-import { ITitrePoint, IGeometry } from '../types'
+import { ITitrePoint, IGeometry, IGeoJson } from '../types'
 import * as rewind from 'geojson-rewind'
+import center from '@turf/center'
 
 // convertit des points
 // en un geojson de type 'MultiPolygon'
@@ -37,6 +38,27 @@ const geojsonFeatureCollectionPoints = (points: ITitrePoint[]) => ({
   }))
 })
 
+const geojsonCentre = (
+  geojsonMultiPolygon: IGeoJson | undefined,
+  etapeId?: string | null
+) => {
+  if (geojsonMultiPolygon) {
+    const centreCoords = center(geojsonMultiPolygon).geometry?.coordinates
+    if (centreCoords && centreCoords.length === 2) {
+      return {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: centreCoords
+        },
+        properties: { etapeId }
+      }
+    }
+  }
+
+  return undefined
+}
+
 // convertit une liste de points
 // en un tableau 'coordinates' geoJson
 // (le premier et le dernier point d'un contour ont les mêmes coordonnées)
@@ -70,4 +92,8 @@ const multiPolygonContoursClose = (groupes: number[][][][]) =>
     }, [])
   )
 
-export { geojsonFeatureMultiPolygon, geojsonFeatureCollectionPoints }
+export {
+  geojsonFeatureMultiPolygon,
+  geojsonFeatureCollectionPoints,
+  geojsonCentre
+}

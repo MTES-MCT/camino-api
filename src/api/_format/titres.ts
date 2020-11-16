@@ -9,7 +9,8 @@ import {
 
 import {
   geojsonFeatureMultiPolygon,
-  geojsonFeatureCollectionPoints
+  geojsonFeatureCollectionPoints,
+  geojsonCentre
 } from '../../tools/geojson'
 
 import { dupRemove } from '../../tools/index'
@@ -134,6 +135,13 @@ const titreFormat = (
 
     if (fields.geojsonPoints) {
       t.geojsonPoints = geojsonFeatureCollectionPoints(t.points) as IGeoJson
+    }
+    if (fields.geojsonCentre) {
+      let geojsonMultiPolygon = t.geojsonMultiPolygon
+      if (!geojsonMultiPolygon) {
+        geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points) as IGeoJson
+      }
+      t.geojsonCentre = geojsonCentre(geojsonMultiPolygon, t.pointsTitreEtapeId)
     }
   }
 
