@@ -13,6 +13,10 @@
     "url": "https://francoisromain.com"
   },
   "homepage": "https://github.com/MTES-MCT/camino-api",
+  "engines": {
+    "node": ">=15.2.0",
+    "npm": ">=7.0.8"
+  },
   "main": "index.js",
   "scripts": {
     "bim": "npm i && npm run build && npm run db:recreate && npm run db:import",
