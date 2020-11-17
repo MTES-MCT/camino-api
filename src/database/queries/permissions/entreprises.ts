@@ -85,4 +85,22 @@ const entreprisePermissionQueryBuild = (
   return q
 }
 
-export { entreprisePermissionQueryBuild }
+const entreprisesTitulairesModifier = (
+  q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+  entreprisesIds: string[]
+) => {
+  q.whereIn('titulaires.id', entreprisesIds)
+}
+
+const entreprisesAmodiatairesModifier = (
+  q: QueryBuilder<Entreprises, Entreprises | Entreprises[]>,
+  entreprisesIds: string[]
+) => {
+  q.whereIn('amodiataires.id', entreprisesIds)
+}
+
+export {
+  entreprisePermissionQueryBuild,
+  entreprisesTitulairesModifier,
+  entreprisesAmodiatairesModifier
+}

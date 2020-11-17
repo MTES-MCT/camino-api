@@ -20,10 +20,14 @@ import ActivitesTypes from '../../models/activites-types'
 import Permissions from '../../models/permissions'
 import TitresTravaux from '../../models/titres-travaux'
 
+import { titresModificationQueryBuild } from './titres'
 import {
-  titresModificationQueryBuild,
-  titresRestrictionsAdministrationQueryBuild
-} from './titres'
+  administrationsTitresTypesModifier,
+  administrationsEtapesTypesModifier,
+  administrationsGestionnairesModifier,
+  administrationsLocalesModifier
+} from './administrations'
+import Administrations from '../../models/administrations'
 
 // récupère les types d'étapes qui ont
 // - les autorisations sur le titre
@@ -35,8 +39,10 @@ import {
 const etapesTypesModificationQueryBuild = (
   administrations: IAdministration[],
   modification: boolean
-) =>
-  TitresTypesDemarchesTypesEtapesTypes.query()
+) => {
+  // const administrationsIds = administrations.map(a => a.id) || []
+
+  const q = TitresTypesDemarchesTypesEtapesTypes.query()
     .alias('t_d_e')
     .select(raw('true'))
     .leftJoin(
@@ -53,23 +59,23 @@ const etapesTypesModificationQueryBuild = (
       ])
     )
     .whereExists(
-      titresRestrictionsAdministrationQueryBuild(administrations, 'etapes')
-        // l'utilisateur est dans au moins une administration
-        // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
-        .leftJoin(
-          'administrations__titresTypes__etapesTypes as a_tt_et',
-          raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
-            'a_tt_et.administrationId',
-            'administrations.id',
-            'a_tt_et.titreTypeId',
-            't_d_e.titreTypeId',
-            'a_tt_et.etapeTypeId',
-            't_d_e.etapeTypeId',
-            `a_tt_et.${modification ? 'modification' : 'creation'}Interdit`
-          ])
-        )
-        .whereNull('a_tt_et.administrationId')
+      Administrations.query()
+        // .whereIn('administrations.id', administrationsIds)
+        .modify(administrationsGestionnairesModifier, administrations)
+        .modify(administrationsLocalesModifier, administrations)
+        .modify(administrationsTitresTypesModifier, 'etapes')
+        .modify(administrationsEtapesTypesModifier, modification)
+        .where(b => {
+          b.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
+            't_al.administrationId'
+          )
+        })
     )
+
+  // fileCreate('test-1.sql', format(q.toKnexQuery().toString()))
+
+  return q
+}
 
 const titresTypesPermissionsQueryBuild = (
   q: QueryBuilder<TitresTypes, TitresTypes | TitresTypes[]>,

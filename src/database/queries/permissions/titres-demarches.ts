@@ -1,4 +1,6 @@
 import { IFields, IUtilisateur } from '../../../types'
+// import { format } from 'sql-formatter'
+// import fileCreate from '../../../tools/file-create'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -88,24 +90,48 @@ const titreDemarchePermissionQueryBuild = (
           c.where(d => {
             d.whereExists(
               Titres.query()
-                .alias('titulairesTitres')
+                .alias('titulaireTitres')
                 .joinRelated('titulaires')
                 .whereRaw('?? = ??', [
-                  'titulairesTitres.id',
+                  'titulaireTitres.id',
                   'titresDemarches.titreId'
                 ])
                 .whereIn('titulaires.id', entreprisesIds)
             )
             d.orWhereExists(
               Titres.query()
-                .alias('amodiatairesTitres')
+                .alias('amodiataireTitres')
                 .joinRelated('amodiataires')
                 .whereRaw('?? = ??', [
-                  'amodiatairesTitres.id',
+                  'amodiataireTitres.id',
                   'titresDemarches.titreId'
                 ])
                 .whereIn('amodiataires.id', entreprisesIds)
             )
+
+            // On devrait pouvoir faire le lien directement sur la related query
+            // comme dans titrePermissionQueryBuild
+            // mais objection.js s'embrouille dans les alias
+            // à creuser
+            //
+            // d.whereExists(
+            //   (Titres.relatedQuery('titulaires') as QueryBuilder<
+            //     Entreprises,
+            //     Entreprises | Entreprises[]
+            //   >)
+            //     .as('toto')
+            //     .whereIn('toto.id', entreprisesIds)
+            //     .for('titresDemarches.titreId')
+            // )
+            // d.orWhereExists(
+            //   (Titres.relatedQuery('amodiataires') as QueryBuilder<
+            //     Entreprises,
+            //     Entreprises | Entreprises[]
+            //   >)
+            //     .as('titi')
+            //     .whereIn('titi.id', entreprisesIds)
+            //     .for('titresDemarches.titreId')
+            // )
           })
         })
       }
@@ -167,6 +193,8 @@ const titreDemarchePermissionQueryBuild = (
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id')
   )
+
+  // fileCreate('test-3.sql', format(q.toKnexQuery().toString()))
 
   return q
 }

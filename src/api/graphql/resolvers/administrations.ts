@@ -136,6 +136,7 @@ const administrationModifier = async (
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
+  console.info(administration)
   try {
     const user = context.user && (await userGet(context.user.id))
 
@@ -169,6 +170,8 @@ const administrationModifier = async (
       administration.id,
       administration
     )
+
+    console.log(administrationUpdated.id)
 
     const administrationId = await administrationUpdateTask(
       administrationUpdated.id

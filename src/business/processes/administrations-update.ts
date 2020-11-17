@@ -1,10 +1,9 @@
-import { IAdministration, IDepartement } from '../../types'
+import { IAdministration } from '../../types'
 
 import {
   administrationsGet,
   administrationsUpsert
 } from '../../database/queries/administrations'
-import { departementsGet } from '../../database/queries/territoires'
 import {
   organismeDepartementGet,
   organismesDepartementsGet
@@ -18,7 +17,9 @@ const administrationsUpdatedFind = (
 ) =>
   administrationsNew.reduce((acc: IAdministration[], administrationNew) => {
     const administrationOld = administrationsOld.find(
-      a => a.id === administrationNew.id
+      a =>
+        a.departementId === administrationNew.departementId &&
+        a.typeId === administrationNew.typeId
     )
 
     const updated =
@@ -37,8 +38,8 @@ const apiAdministrationGetTest = async () =>
     'prefecture'
   ) as unknown) as IAdministration | null
 
-const apiAdministrationsGet = async (departements: IDepartement[]) => {
-  const departementsIdsNoms = departements.map(({ id: departementId }) => ({
+const apiAdministrationsGet = async (departementsIds: string[]) => {
+  const departementsIdsNoms = departementsIds.map(departementId => ({
     departementId,
     nom: departementId === '75' ? 'paris_ppp' : 'prefecture'
   }))
@@ -49,20 +50,27 @@ const apiAdministrationsGet = async (departements: IDepartement[]) => {
 const administrationsUpdate = async (administrationsIds?: string[]) => {
   console.info()
   console.info('administrations…')
-  // mise à jour de l'administrations grâce à l'API Administration
-  const departements = await departementsGet()
+  const apiAdministrationsTest = await apiAdministrationGetTest()
+  if (!apiAdministrationsTest) return []
+
   const administrationsOld = await administrationsGet(
     { administrationsIds },
     {},
     'super'
   )
 
-  if (!departements.length) return []
+  // mise à jour de l'administrations grâce à l'API Administration
+  const departementsIds = administrationsOld.reduce((acc, a) => {
+    if (a.departementId) {
+      acc.push(a.departementId)
+    }
 
-  const apiAdministrationsTest = await apiAdministrationGetTest()
-  if (!apiAdministrationsTest) return []
+    return acc
+  }, [] as string[])
 
-  const administrationsNew = await apiAdministrationsGet(departements)
+  if (!departementsIds.length) return []
+
+  const administrationsNew = await apiAdministrationsGet(departementsIds)
 
   // si aucune administration n'est retournée,
   // on n'efface pas les administrations correspondantes de la base

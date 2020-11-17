@@ -18,65 +18,10 @@ import {
 } from './titres-activites'
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titreTravauxPermissionQueryBuild } from './titres-travaux'
-
-const titresRestrictionsAdministrationQueryBuild = (
-  administrations: IAdministration[],
-  type: 'titres' | 'demarches' | 'etapes'
-) => {
-  const administrationsIds = administrations.map(a => a.id) || []
-  const administrationsIdsReplace = administrationsIds.map(() => '?')
-
-  const restrictionsQuery = Administrations.query()
-    // l'utilisateur fait partie d'une administrations gestionnaire
-    .leftJoin(
-      'administrations__titresTypes as a_tt',
-      raw(
-        `?? = ?? and ?? = ?? and ?? = true and ?? in (${administrationsIdsReplace})`,
-        [
-          'a_tt.administrationId',
-          'administrations.id',
-          'a_tt.titreTypeId',
-          'titresModification.typeId',
-          'a_tt.gestionnaire',
-          'administrations.id',
-          ...administrationsIds
-        ]
-      )
-    )
-    // l'utilisateur est dans au moins une administration
-    // qui n'a pas de restriction '${type}ModificationInterdit' sur ce type / statut de titre
-    .leftJoin(
-      'administrations__titresTypes__titresStatuts as a_tt_ts',
-      raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
-        'a_tt_ts.administrationId',
-        'administrations.id',
-        'a_tt_ts.titreTypeId',
-        'titresModification.typeId',
-        'a_tt_ts.titreStatutId',
-        'titresModification.statutId',
-        `a_tt_ts.${type}ModificationInterdit`
-      ])
-    )
-    .whereNull('a_tt_ts.administrationId')
-
-  // soit l'utilisateur fait partie d'une administration locale
-  if (['demarches', 'etapes'].includes(type)) {
-    restrictionsQuery.where(b => {
-      b.join(
-        'administrationsLocales as al',
-        raw(
-          `?? in  (${administrationsIdsReplace})`,
-          'al.id',
-          administrationsIds
-        )
-      ).orWhereNotNull('a_tt.administrationId')
-    })
-  } else {
-    restrictionsQuery.whereNotNull('a_tt.administrationId')
-  }
-
-  return restrictionsQuery
-}
+import {
+  administrationsTitresTypesModifier,
+  administrationsGestionnairesModifier
+} from './administrations'
 
 const titresModificationQueryBuild = (
   administrations: IAdministration[],
@@ -86,7 +31,10 @@ const titresModificationQueryBuild = (
     .alias('titresModification')
     .select(raw('true'))
     .whereExists(
-      titresRestrictionsAdministrationQueryBuild(administrations, type)
+      Administrations.query()
+        .modify(administrationsTitresTypesModifier, type)
+        .modify(administrationsGestionnairesModifier, administrations)
+        .whereNotNull('a_tt.administrationId')
     )
 
 const titrePermissionQueryBuild = (
@@ -246,8 +194,4 @@ const titrePermissionQueryBuild = (
   return q
 }
 
-export {
-  titrePermissionQueryBuild,
-  titresModificationQueryBuild,
-  titresRestrictionsAdministrationQueryBuild
-}
+export { titrePermissionQueryBuild, titresModificationQueryBuild }
