@@ -34,10 +34,36 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
     ]
   },
   {
-    condition: { etape: { typeId: 'rde' } },
+    condition: {
+      etape: { typeId: 'rde' },
+      titre: {
+        contenu: {
+          arm: {
+            franchissements: { valeur: 0, operation: 'NOT_EQUAL' }
+          }
+        }
+      }
+    },
     contraintes: [
       {
-        impossibleApres: [{ typeId: 'mcp' }]
+        impossibleApres: [{ typeId: 'sca' }]
+      }
+    ]
+  },
+  {
+    condition: {
+      etape: { typeId: 'rde' },
+      titre: {
+        contenu: {
+          arm: {
+            franchissements: { valeur: 0 }
+          }
+        }
+      }
+    },
+    contraintes: [
+      {
+        impossible: true
       }
     ]
   },
@@ -47,7 +73,7 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
       {
         obligatoireApres: [
           { typeId: 'mdp' },
-          { typeId: 'rde' },
+          { typeId: 'rde', statutId: 'def' },
           { typeId: 'dae' }
         ],
         impossibleApres: [{ typeId: 'sca' }]
@@ -218,7 +244,7 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
     contraintes: [
       {
         obligatoireApres: [{ typeId: 'eof' }],
-        impossibleApres: [{ typeId: 'sca' }]
+        impossibleApres: [{ typeId: 'aof' }]
       }
     ]
   },
@@ -247,7 +273,26 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
     },
     contraintes: [
       {
-        obligatoireApres: [{ typeId: 'rde' }, { typeId: 'aof' }],
+        obligatoireApres: [{ typeId: 'rde', statutId: 'fav' }],
+        impossibleApres: [{ typeId: 'aca' }]
+      }
+    ]
+  },
+
+  {
+    condition: {
+      etape: { typeId: 'sca' },
+      titre: {
+        contenu: {
+          arm: {
+            franchissements: { valeur: 0, operation: 'NOT_EQUAL' }
+          }
+        }
+      }
+    },
+    contraintes: [
+      {
+        obligatoireApres: [{ typeId: 'aof' }],
         impossibleApres: [{ typeId: 'aca' }]
       }
     ]
