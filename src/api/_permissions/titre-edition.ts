@@ -31,8 +31,10 @@ const titreTypeStatutPermissionAdministrationCheck = async (
     return false
   }
 
+  const administrationsIds = user.administrations.map(a => a.id) || []
+
   const titresModifiables = await titresModificationQueryBuild(
-    user.administrations,
+    administrationsIds,
     type
   )
     .andWhereRaw('?? = ?', ['titresModification.typeId', titreTypeId])

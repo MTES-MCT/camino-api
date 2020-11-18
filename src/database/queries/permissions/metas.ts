@@ -60,7 +60,6 @@ const etapesTypesModificationQueryBuild = (
     )
     .whereExists(
       Administrations.query()
-        // .whereIn('administrations.id', administrationsIds)
         .modify(
           administrationsGestionnairesModifier,
           administrationsIds,
@@ -404,9 +403,11 @@ const demarchesTypesPermissionQueryBuild = (
     permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
     user?.administrations?.length
   ) {
+    const administrationsIds = user.administrations.map(a => a.id) || []
+
     if (titreId) {
       const titresModificationQuery = titresModificationQueryBuild(
-        user.administrations,
+        administrationsIds,
         'demarches'
       ).where('titresModification.id', titreId)
 

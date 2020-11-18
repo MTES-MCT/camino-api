@@ -1,4 +1,4 @@
-import { IAdministration, IFields, IUtilisateur } from '../../../types'
+import { IFields, IUtilisateur } from '../../../types'
 
 import { QueryBuilder, raw } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -24,7 +24,7 @@ import {
 } from './administrations'
 
 const titresModificationQueryBuild = (
-  administrations: IAdministration[],
+  administrationsIds: string[],
   type: 'titres' | 'demarches' | 'etapes'
 ) =>
   Titres.query()
@@ -39,7 +39,7 @@ const titresModificationQueryBuild = (
         )
         .modify(
           administrationsGestionnairesModifier,
-          administrations,
+          administrationsIds,
           'titresModification'
         )
         .whereNotNull('a_tt.administrationId')
@@ -134,8 +134,10 @@ const titrePermissionQueryBuild = (
     permissionCheck(user?.permissionId, ['admin']) &&
     user?.administrations?.length
   ) {
+    const administrationsIds = user.administrations.map(a => a.id) || []
+
     const titresModificationQuery = titresModificationQueryBuild(
-      user.administrations,
+      administrationsIds,
       'titres'
     ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
 

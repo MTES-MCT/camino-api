@@ -3,7 +3,7 @@ import 'dotenv/config'
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { administrations } from './__mocks__/administrations'
-import { titreWithActiviteGrp } from './__mocks__/titres'
+import { titreWithActiviteGrp, titrePublicLecture } from './__mocks__/titres'
 import { titreCreate } from '../src/database/queries/titres'
 
 console.info = jest.fn()
@@ -24,11 +24,18 @@ afterAll(async () => {
 describe('titre', () => {
   const titreQuery = queryImport('titre')
 
-  beforeEach(async () => {
-    await titreCreate(titreWithActiviteGrp, {}, 'super')
+  test('peut voir un titre qui est en "lecture publique" (utilisateur anonyme)', async () => {
+    await titreCreate(titrePublicLecture, {}, 'super')
+    const res = await graphQLCall(titreQuery, { id: 'titre-id' })
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data).toMatchObject({
+      titre: { id: 'titre-id' }
+    })
   })
 
   test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
+    await titreCreate(titreWithActiviteGrp, {}, 'super')
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -43,6 +50,7 @@ describe('titre', () => {
   })
 
   test('ne peut pas voir les activités GRP (utilisateur CACEM)', async () => {
+    await titreCreate(titreWithActiviteGrp, {}, 'super')
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
