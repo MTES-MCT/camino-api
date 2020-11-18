@@ -1,4 +1,4 @@
-import { IAdministration, IFields, IUtilisateur } from '../../../types'
+import { IFields, IUtilisateur } from '../../../types'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -74,9 +74,9 @@ const administrationsPermissionQueryBuild = (
 
 const administrationsGestionnairesModifier = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  administrations: IAdministration[]
+  administrationsIds: string[],
+  titreAlias: string
 ) => {
-  const administrationsIds = administrations.map(a => a.id) || []
   const administrationsIdsReplace = administrationsIds.map(() => '?')
 
   q.leftJoin(
@@ -87,7 +87,7 @@ const administrationsGestionnairesModifier = (
         'a_tt.administrationId',
         'administrations.id',
         'a_tt.titreTypeId',
-        'titresModification.typeId',
+        `${titreAlias}.typeId`,
         'a_tt.gestionnaire',
         'administrations.id',
         ...administrationsIds
@@ -98,15 +98,15 @@ const administrationsGestionnairesModifier = (
 
 const administrationsLocalesModifier = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  administrations: IAdministration[]
+  administrationsIds: string[],
+  titreAlias: string
 ) => {
-  const administrationsIds = administrations.map(a => a.id) || []
   const administrationsIdsReplace = administrationsIds.map(() => '?')
 
   q.leftJoin(
     'titresAdministrationsLocales as t_al',
     raw(`?? = ?? and ?? in (${administrationsIdsReplace})`, [
-      'titresModification.administrationsTitreEtapeId',
+      `${titreAlias}.administrationsTitreEtapeId`,
       't_al.titreEtapeId',
       't_al.administrationId',
       ...administrationsIds
@@ -114,9 +114,10 @@ const administrationsLocalesModifier = (
   )
 }
 
-const administrationsTitresTypesModifier = (
+const administrationsTitresTypesTitresStatutsModifier = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  type: 'titres' | 'demarches' | 'etapes'
+  type: 'titres' | 'demarches' | 'etapes',
+  titreAlias: string
 ) => {
   q.leftJoin(
     'administrations__titresTypes__titresStatuts as a_tt_ts',
@@ -124,9 +125,9 @@ const administrationsTitresTypesModifier = (
       'a_tt_ts.administrationId',
       'administrations.id',
       'a_tt_ts.titreTypeId',
-      'titresModification.typeId',
+      `${titreAlias}.typeId`,
       'a_tt_ts.titreStatutId',
-      'titresModification.statutId',
+      `${titreAlias}.statutId`,
       `a_tt_ts.${type}ModificationInterdit`
     ])
   ).whereNull('a_tt_ts.administrationId')
@@ -134,9 +135,11 @@ const administrationsTitresTypesModifier = (
 
 // l'utilisateur est dans au moins une administration
 // qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
-const administrationsEtapesTypesModifier = (
+const administrationsTitresTypesEtapesTypesModifier = (
   q: QueryBuilder<Administrations, Administrations | Administrations[]>,
-  modification: boolean
+  type: 'lecture' | 'modification' | 'creation',
+  titreTypeIdColumn: string,
+  etapeTypeIdColumn: string
 ) => {
   q.leftJoin(
     'administrations__titresTypes__etapesTypes as a_tt_et',
@@ -144,10 +147,10 @@ const administrationsEtapesTypesModifier = (
       'a_tt_et.administrationId',
       'administrations.id',
       'a_tt_et.titreTypeId',
-      't_d_e.titreTypeId',
+      titreTypeIdColumn,
       'a_tt_et.etapeTypeId',
-      't_d_e.etapeTypeId',
-      `a_tt_et.${modification ? 'modification' : 'creation'}Interdit`
+      etapeTypeIdColumn,
+      `a_tt_et.${type}Interdit`
     ])
   ).whereNull('a_tt_et.administrationId')
 }
@@ -156,6 +159,6 @@ export {
   administrationsPermissionQueryBuild,
   administrationsGestionnairesModifier,
   administrationsLocalesModifier,
-  administrationsTitresTypesModifier,
-  administrationsEtapesTypesModifier
+  administrationsTitresTypesTitresStatutsModifier,
+  administrationsTitresTypesEtapesTypesModifier
 }

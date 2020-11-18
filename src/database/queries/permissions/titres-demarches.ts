@@ -156,12 +156,14 @@ const titreDemarchePermissionQueryBuild = (
 
     q.select(titresModificationQuery.as('modification'))
 
+    const administrationsIds = user.administrations.map(a => a.id) || []
     // propriété 'modification'
     // récupère les types d'étape autorisés
     // pour tous les titres et démarches sur lesquels l'utilisateur a des droits
+
     const etapesCreationQuery = etapesTypesModificationQueryBuild(
-      user.administrations,
-      false
+      administrationsIds,
+      'creation'
     )
       // filtre selon la démarche
       .whereRaw('?? = ??', ['demarchesModification.id', 'titresDemarches.id'])

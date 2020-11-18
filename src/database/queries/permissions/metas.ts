@@ -1,4 +1,4 @@
-import { IUtilisateur, IAdministration } from '../../../types'
+import { IUtilisateur } from '../../../types'
 // import fileCreate from '../../../tools/file-create'
 // import { format } from 'sql-formatter'
 
@@ -22,8 +22,8 @@ import TitresTravaux from '../../models/titres-travaux'
 
 import { titresModificationQueryBuild } from './titres'
 import {
-  administrationsTitresTypesModifier,
-  administrationsEtapesTypesModifier,
+  administrationsTitresTypesTitresStatutsModifier,
+  administrationsTitresTypesEtapesTypesModifier,
   administrationsGestionnairesModifier,
   administrationsLocalesModifier
 } from './administrations'
@@ -37,8 +37,8 @@ import Administrations from '../../models/administrations'
 // - 'demarchesModification.id': id de la démarche
 // - 't_d_e.etapeTypeId': id du type d'étape'
 const etapesTypesModificationQueryBuild = (
-  administrations: IAdministration[],
-  modification: boolean
+  administrationsIds: string[],
+  type: 'modification' | 'creation'
 ) => {
   // const administrationsIds = administrations.map(a => a.id) || []
 
@@ -61,10 +61,28 @@ const etapesTypesModificationQueryBuild = (
     .whereExists(
       Administrations.query()
         // .whereIn('administrations.id', administrationsIds)
-        .modify(administrationsGestionnairesModifier, administrations)
-        .modify(administrationsLocalesModifier, administrations)
-        .modify(administrationsTitresTypesModifier, 'etapes')
-        .modify(administrationsEtapesTypesModifier, modification)
+        .modify(
+          administrationsGestionnairesModifier,
+          administrationsIds,
+          'titresModification'
+        )
+        .modify(
+          administrationsLocalesModifier,
+          administrationsIds,
+          'titresModification'
+        )
+        .modify(
+          administrationsTitresTypesTitresStatutsModifier,
+          'etapes',
+          'titresModification'
+        )
+        .modify(
+          administrationsTitresTypesEtapesTypesModifier,
+          type,
+          't_d_e.titreTypeId',
+          't_d_e.etapeTypeId'
+        )
+        .whereIn('administrations.id', administrationsIds)
         .where(b => {
           b.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
             't_al.administrationId'
@@ -244,9 +262,11 @@ const etapesTypesPermissionQueryBuild = (
     user?.administrations?.length
   ) {
     if (titreDemarcheId) {
+      const administrationsIds = user.administrations.map(a => a.id) || []
+
       const etapesCreationQuery = etapesTypesModificationQueryBuild(
-        user.administrations,
-        !!titreEtapeId
+        administrationsIds,
+        titreEtapeId ? 'modification' : 'creation'
       )
         .where('demarchesModification.id', titreDemarcheId)
         .whereRaw('?? = ??', ['t_d_e.etapeTypeId', 'etapesTypes.id'])

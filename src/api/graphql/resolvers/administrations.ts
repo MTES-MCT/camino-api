@@ -171,8 +171,6 @@ const administrationModifier = async (
       administration
     )
 
-    console.log(administrationUpdated.id)
-
     const administrationId = await administrationUpdateTask(
       administrationUpdated.id
     )

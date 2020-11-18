@@ -19,7 +19,7 @@ import {
 import { titreDemarchePermissionQueryBuild } from './titres-demarches'
 import { titreTravauxPermissionQueryBuild } from './titres-travaux'
 import {
-  administrationsTitresTypesModifier,
+  administrationsTitresTypesTitresStatutsModifier,
   administrationsGestionnairesModifier
 } from './administrations'
 
@@ -32,8 +32,16 @@ const titresModificationQueryBuild = (
     .select(raw('true'))
     .whereExists(
       Administrations.query()
-        .modify(administrationsTitresTypesModifier, type)
-        .modify(administrationsGestionnairesModifier, administrations)
+        .modify(
+          administrationsTitresTypesTitresStatutsModifier,
+          type,
+          'titresModification'
+        )
+        .modify(
+          administrationsGestionnairesModifier,
+          administrations,
+          'titresModification'
+        )
         .whereNotNull('a_tt.administrationId')
     )
 
