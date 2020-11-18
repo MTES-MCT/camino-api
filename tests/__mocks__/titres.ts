@@ -63,12 +63,14 @@ const titreEtapesPubliques = {
   domaineId: 'm',
   typeId: 'arm',
   publicLecture: true,
+  administrationsGestionnaires: [administrations.onf],
   administrationsTitreEtapeId: 'titre-id-demarche-id-dpu',
   demarches: [
     {
       id: 'titre-id-demarche-id',
       titreId: 'titre-id',
       typeId: 'oct',
+      statutId: 'acc',
       publicLecture: true,
       etapes: [
         {

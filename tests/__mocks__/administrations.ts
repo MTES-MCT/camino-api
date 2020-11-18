@@ -18,6 +18,12 @@ const administrations = {
     typeId: 'ope',
     nom: 'Cacem',
     type: { id: 'ope', nom: 'Opérateur', ordre: 5 }
+  },
+  onf: {
+    id: 'ope-onf-973-01',
+    typeId: 'ope',
+    nom: 'Onf',
+    type: { id: 'ope', nom: 'Opérateur', ordre: 5 }
   }
 } as Index<IAdministration>
 

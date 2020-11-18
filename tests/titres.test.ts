@@ -130,6 +130,40 @@ describe('titre', () => {
     expect(res.body.data.titre.demarches[0].etapes.length).toEqual(8)
   })
 
+  test('ne peut pas voir certaines étapes (utilisateur ONF)', async () => {
+    await titreCreate(titreEtapesPubliques, {}, 'super')
+    const res = await graphQLCall(
+      titreQuery,
+      { id: 'titre-id' },
+      'admin',
+      administrations.onf
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data.titre.demarches[0].etapes.length).toEqual(9)
+    expect(res.body.data).toMatchObject({
+      titre: {
+        id: 'titre-id',
+        demarches: [
+          {
+            id: 'titre-id-demarche-id',
+            etapes: [
+              { id: 'titre-id-demarche-id-aof' },
+              { id: 'titre-id-demarche-id-eof' },
+              { id: 'titre-id-demarche-id-edm' },
+              { id: 'titre-id-demarche-id-ede' },
+              { id: 'titre-id-demarche-id-pfd' },
+              { id: 'titre-id-demarche-id-pfc' },
+              { id: 'titre-id-demarche-id-vfd' },
+              { id: 'titre-id-demarche-id-vfc' },
+              { id: 'titre-id-demarche-id-dpu' }
+            ]
+          }
+        ]
+      }
+    })
+  })
+
   test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
     await titreCreate(titreWithActiviteGrp, {}, 'super')
     const res = await graphQLCall(
