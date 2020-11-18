@@ -24,4 +24,12 @@ const titreWithActiviteGrp = {
   ]
 }
 
-export { titreWithActiviteGrp }
+const titrePublicLecture = {
+  id: 'titre-id',
+  nom: 'mon titre',
+  domaineId: 'm',
+  typeId: 'arm',
+  publicLecture: true
+}
+
+export { titreWithActiviteGrp, titrePublicLecture }

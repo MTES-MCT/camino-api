@@ -90,8 +90,8 @@ const administrations = {
   graph: `[utilisateurs.permission, titresTypes.${titresTypes.graph}, titresTypesTitresStatuts, titresTypesEtapesTypes, type, departement, region]`,
   update: {
     insertMissing: true,
-    relate: ['administrationsTypes'],
-    unrelate: ['administrationsTypes']
+    relate: ['administrationsTypes', 'departement', 'region'],
+    unrelate: ['administrationsTypes', 'departement', 'region']
   }
 }
 

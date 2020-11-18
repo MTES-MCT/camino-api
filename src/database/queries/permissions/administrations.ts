@@ -72,4 +72,93 @@ const administrationsPermissionQueryBuild = (
   return q
 }
 
-export { administrationsPermissionQueryBuild }
+const administrationsGestionnairesModifier = (
+  q: QueryBuilder<Administrations, Administrations | Administrations[]>,
+  administrationsIds: string[],
+  titreAlias: string
+) => {
+  const administrationsIdsReplace = administrationsIds.map(() => '?')
+
+  q.leftJoin(
+    'administrations__titresTypes as a_tt',
+    raw(
+      `?? = ?? and ?? = ?? and ?? = true and ?? in (${administrationsIdsReplace})`,
+      [
+        'a_tt.administrationId',
+        'administrations.id',
+        'a_tt.titreTypeId',
+        `${titreAlias}.typeId`,
+        'a_tt.gestionnaire',
+        'administrations.id',
+        ...administrationsIds
+      ]
+    )
+  )
+}
+
+const administrationsLocalesModifier = (
+  q: QueryBuilder<Administrations, Administrations | Administrations[]>,
+  administrationsIds: string[],
+  titreAlias: string
+) => {
+  const administrationsIdsReplace = administrationsIds.map(() => '?')
+
+  q.leftJoin(
+    'titresAdministrationsLocales as t_al',
+    raw(`?? = ?? and ?? in (${administrationsIdsReplace})`, [
+      `${titreAlias}.administrationsTitreEtapeId`,
+      't_al.titreEtapeId',
+      't_al.administrationId',
+      ...administrationsIds
+    ])
+  )
+}
+
+const administrationsTitresTypesTitresStatutsModifier = (
+  q: QueryBuilder<Administrations, Administrations | Administrations[]>,
+  type: 'titres' | 'demarches' | 'etapes',
+  titreAlias: string
+) => {
+  q.leftJoin(
+    'administrations__titresTypes__titresStatuts as a_tt_ts',
+    raw('?? = ?? and ?? = ?? and ?? = ?? and ?? is true', [
+      'a_tt_ts.administrationId',
+      'administrations.id',
+      'a_tt_ts.titreTypeId',
+      `${titreAlias}.typeId`,
+      'a_tt_ts.titreStatutId',
+      `${titreAlias}.statutId`,
+      `a_tt_ts.${type}ModificationInterdit`
+    ])
+  ).whereNull('a_tt_ts.administrationId')
+}
+
+// l'utilisateur est dans au moins une administration
+// qui n'a pas de restriction 'creationInterdit' sur ce type d'étape / type de titre
+const administrationsTitresTypesEtapesTypesModifier = (
+  q: QueryBuilder<Administrations, Administrations | Administrations[]>,
+  type: 'lecture' | 'modification' | 'creation',
+  titreTypeIdColumn: string,
+  etapeTypeIdColumn: string
+) => {
+  q.leftJoin(
+    'administrations__titresTypes__etapesTypes as a_tt_et',
+    raw('?? = ?? and ?? = ?? and ?? = ?? and ?? = true', [
+      'a_tt_et.administrationId',
+      'administrations.id',
+      'a_tt_et.titreTypeId',
+      titreTypeIdColumn,
+      'a_tt_et.etapeTypeId',
+      etapeTypeIdColumn,
+      `a_tt_et.${type}Interdit`
+    ])
+  ).whereNull('a_tt_et.administrationId')
+}
+
+export {
+  administrationsPermissionQueryBuild,
+  administrationsGestionnairesModifier,
+  administrationsLocalesModifier,
+  administrationsTitresTypesTitresStatutsModifier,
+  administrationsTitresTypesEtapesTypesModifier
+}

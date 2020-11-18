@@ -31,8 +31,10 @@ const titreTypeStatutPermissionAdministrationCheck = async (
     return false
   }
 
+  const administrationsIds = user.administrations.map(a => a.id) || []
+
   const titresModifiables = await titresModificationQueryBuild(
-    user.administrations,
+    administrationsIds,
     type
   )
     .andWhereRaw('?? = ?', ['titresModification.typeId', titreTypeId])
@@ -61,9 +63,12 @@ const titreEtapePermissionAdministrationsCheck = async (
 
   // vérifie que l'administration a les droits d'édition
   // sur les étapes du titre au statut donné
+
+  const administrationsIds = user.administrations.map(a => a.id) || []
+
   const etapesTypesModifiables = await etapesTypesModificationQueryBuild(
-    user.administrations,
-    etapeMode === 'modification'
+    administrationsIds,
+    etapeMode === 'modification' ? 'modification' : 'creation'
   )
     .whereRaw('?? = ?', ['titresModification.id', titreId])
     .whereRaw('?? = ?', ['t_d_e.etapeTypeId', etapeTypeId])

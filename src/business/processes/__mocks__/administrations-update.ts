@@ -1,21 +1,27 @@
 import Administrations from '../../../database/models/administrations'
-import Departements from '../../../database/models/departements'
-
-const departements = [{ id: '1' }, { id: '2' }, { id: '75' }] as Departements[]
 
 const administrationApiTest = { id: 'test-ok' } as Administrations
 
-const administrationsDbCreees = [] as Administrations[]
-const administrationsApiCreees = [{ id: 'toto' }] as Administrations[]
+const administrationsDbCreees = [
+  { id: 'toto', typeId: 'min' }
+] as Administrations[]
+const administrationsApiCreees = [] as Administrations[]
 
-const administrationsDbModifiees = [{ id: 'toto' }] as Administrations[]
-const administrationsApiModifiees = [{ id: 'papa' }] as Administrations[]
+const administrationsDbModifiees = [
+  { id: 'toto', departementId: '49', typeId: 'pre' }
+] as Administrations[]
+const administrationsApiModifiees = [
+  { id: 'papa', departementId: '49', typeId: 'pre' }
+] as Administrations[]
 
-const administrationsDbExistantes = [{ id: 'toto' }] as Administrations[]
-const administrationsApiExistantes = [{ id: 'toto' }] as Administrations[]
+const administrationsDbExistantes = [
+  { id: 'toto', departementId: '75', typeId: 'pre' }
+] as Administrations[]
+const administrationsApiExistantes = [
+  { id: 'toto', departementId: '75', typeId: 'pre' }
+] as Administrations[]
 
 export {
-  departements,
   administrationApiTest,
   administrationsDbCreees,
   administrationsApiCreees,

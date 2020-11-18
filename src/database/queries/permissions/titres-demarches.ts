@@ -1,4 +1,6 @@
 import { IFields, IUtilisateur } from '../../../types'
+// import { format } from 'sql-formatter'
+// import fileCreate from '../../../tools/file-create'
 
 import { raw, QueryBuilder } from 'objection'
 import { permissionCheck } from '../../../tools/permission'
@@ -13,16 +15,22 @@ import {
   titresModificationQueryBuild
 } from './titres'
 import { etapesTypesModificationQueryBuild } from './metas'
+import Administrations from '../../models/administrations'
+import {
+  administrationsGestionnairesModifier,
+  administrationsLocalesModifier,
+  administrationsTitresTypesTitresStatutsModifier
+} from './administrations'
 
 const titreDemarchePermissionQueryBuild = (
   q: QueryBuilder<TitresDemarches, TitresDemarches | TitresDemarches[]>,
   fields?: IFields,
   user?: IUtilisateur
 ) => {
-  q.select('titresDemarches.*')
+  q.select('titresDemarches.*').leftJoinRelated('[titre]')
 
   // seuls les super-admins peuvent voir toutes les démarches
-  if (!permissionCheck(user?.permissionId, ['super'])) {
+  if (!user || !permissionCheck(user?.permissionId, ['super'])) {
     // l'utilisateur peut voir le titre
     q.whereExists(
       titrePermissionQueryBuild(
@@ -37,7 +45,7 @@ const titreDemarchePermissionQueryBuild = (
 
     q.where(b => {
       // la démarche est publique
-      b.where('titresDemarches.publicLecture', true)
+      b.orWhere('titresDemarches.publicLecture', true)
 
       // les administrations peuvent voir toutes les démarches
       // des titres pour dont elles sont gestionnaires ou locales
@@ -47,30 +55,26 @@ const titreDemarchePermissionQueryBuild = (
       ) {
         const administrationsIds = user.administrations.map(e => e.id)
 
-        b.orWhere(c => {
-          c.where(d => {
-            d.whereExists(
-              Titres.query()
-                .alias('administrationsGestionnairesTitres')
-                .joinRelated('administrationsGestionnaires')
-                .whereRaw('?? = ??', [
-                  'administrationsGestionnairesTitres.id',
-                  'titresDemarches.titreId'
-                ])
-                .whereIn('administrationsGestionnaires.id', administrationsIds)
+        b.orWhereExists(
+          Administrations.query()
+            .modify(
+              administrationsGestionnairesModifier,
+              administrationsIds,
+              'titre'
             )
-            d.orWhereExists(
-              Titres.query()
-                .alias('administrationsLocalesTitres')
-                .joinRelated('administrationsLocales')
-                .whereRaw('?? = ??', [
-                  'administrationsLocalesTitres.id',
-                  'titresDemarches.titreId'
-                ])
-                .whereIn('administrationsLocales.id', administrationsIds)
+            .modify(administrationsLocalesModifier, administrationsIds, 'titre')
+            .modify(
+              administrationsTitresTypesTitresStatutsModifier,
+              'demarches',
+              'titre'
             )
-          })
-        })
+            .whereIn('administrations.id', administrationsIds)
+            .where(c => {
+              c.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
+                't_al.administrationId'
+              )
+            })
+        )
       }
 
       // les entreprises peuvent voir les démarches
@@ -88,24 +92,48 @@ const titreDemarchePermissionQueryBuild = (
           c.where(d => {
             d.whereExists(
               Titres.query()
-                .alias('titulairesTitres')
+                .alias('titulaireTitres')
                 .joinRelated('titulaires')
                 .whereRaw('?? = ??', [
-                  'titulairesTitres.id',
+                  'titulaireTitres.id',
                   'titresDemarches.titreId'
                 ])
                 .whereIn('titulaires.id', entreprisesIds)
             )
             d.orWhereExists(
               Titres.query()
-                .alias('amodiatairesTitres')
+                .alias('amodiataireTitres')
                 .joinRelated('amodiataires')
                 .whereRaw('?? = ??', [
-                  'amodiatairesTitres.id',
+                  'amodiataireTitres.id',
                   'titresDemarches.titreId'
                 ])
                 .whereIn('amodiataires.id', entreprisesIds)
             )
+
+            // On devrait pouvoir faire le lien directement sur la related query
+            // comme dans titrePermissionQueryBuild
+            // mais objection.js s'embrouille dans les alias
+            // à creuser
+            //
+            // d.whereExists(
+            //   (Titres.relatedQuery('titulaires') as QueryBuilder<
+            //     Entreprises,
+            //     Entreprises | Entreprises[]
+            //   >)
+            //     .as('toto')
+            //     .whereIn('toto.id', entreprisesIds)
+            //     .for('titresDemarches.titreId')
+            // )
+            // d.orWhereExists(
+            //   (Titres.relatedQuery('amodiataires') as QueryBuilder<
+            //     Entreprises,
+            //     Entreprises | Entreprises[]
+            //   >)
+            //     .as('titi')
+            //     .whereIn('titi.id', entreprisesIds)
+            //     .for('titresDemarches.titreId')
+            // )
           })
         })
       }
@@ -122,20 +150,21 @@ const titreDemarchePermissionQueryBuild = (
   ) {
     // TODO: conditionner aux fields
 
+    const administrationsIds = user.administrations.map(a => a.id) || []
     // propriété 'titresModification'
     const titresModificationQuery = titresModificationQueryBuild(
-      user.administrations,
+      administrationsIds,
       'demarches'
     ).whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
 
     q.select(titresModificationQuery.as('modification'))
-
     // propriété 'modification'
     // récupère les types d'étape autorisés
     // pour tous les titres et démarches sur lesquels l'utilisateur a des droits
+
     const etapesCreationQuery = etapesTypesModificationQueryBuild(
-      user.administrations,
-      false
+      administrationsIds,
+      'creation'
     )
       // filtre selon la démarche
       .whereRaw('?? = ??', ['demarchesModification.id', 'titresDemarches.id'])
@@ -167,6 +196,8 @@ const titreDemarchePermissionQueryBuild = (
       // dans la requête de titre (ex : calc activités)
       .groupBy('titres.id')
   )
+
+  // fileCreate('test-3.sql', format(q.toKnexQuery().toString()))
 
   return q
 }
