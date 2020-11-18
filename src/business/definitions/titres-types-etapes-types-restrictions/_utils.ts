@@ -72,4 +72,4 @@ const arbreTestGet = (demarcheTypeId: string, titreTypeId: string) => {
   }
 }
 
-export { arbreTestGet }
+export { arbreTestGet, etapesTypesGet }
