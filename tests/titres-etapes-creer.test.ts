@@ -33,7 +33,7 @@ const demarcheCreate = async () => {
       typeId: 'arm',
       administrationsGestionnaires: [
         administrations.ptmg,
-        administrations.dealGuyane
+        administrations.dgtmGuyane
       ]
     },
     {},

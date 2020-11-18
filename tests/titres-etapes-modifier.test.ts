@@ -34,7 +34,7 @@ async function etapeCreate() {
       typeId: 'arm',
       administrationsGestionnaires: [
         administrations.ptmg,
-        administrations.dealGuyane
+        administrations.dgtmGuyane
       ]
     },
     {},

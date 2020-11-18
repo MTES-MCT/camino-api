@@ -182,7 +182,7 @@ describe('demarcheModifier', () => {
       demarcheModifierQuery,
       { demarche: { id: demarcheId, titreId: titreId, typeId: 'pro' } },
       'admin',
-      administrations.dealGuyane
+      administrations.dgtmGuyane
     )
 
     expect(res.body.errors[0].message).toBe(
@@ -246,7 +246,7 @@ const demarcheCreate = async () => {
       typeId: 'arm',
       administrationsGestionnaires: [
         administrations.ptmg,
-        administrations.dealGuyane
+        administrations.dgtmGuyane
       ]
     },
     {},

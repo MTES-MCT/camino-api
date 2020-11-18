@@ -6,10 +6,8 @@ const titreWithActiviteGrp = {
   domaineId: 'm',
   typeId: 'axm',
   publicLecture: true,
-  administrationsGestionnaires: [
-    administrations.ptmg,
-    administrations.dealGuyane
-  ],
+  administrationsTitreEtapeId: 'titre-id-demarche-id-dpu',
+  administrationsGestionnaires: [administrations.ptmg],
   activites: [
     {
       titreId: 'titre-id',
@@ -20,6 +18,25 @@ const titreWithActiviteGrp = {
       frequencePeriodeId: 3,
       annee: 2020,
       utilisateurId: null
+    }
+  ],
+  demarches: [
+    {
+      id: 'titre-id-demarche-id',
+      titreId: 'titre-id',
+      typeId: 'oct',
+      publicLecture: true,
+      etapes: [
+        {
+          id: 'titre-id-demarche-id-dpu',
+          typeId: 'dpu',
+          ordre: 0,
+          titreDemarcheId: 'titre-id-demarche-id',
+          statutId: 'acc',
+          date: '2020-02-02',
+          administrationsIds: ['dea-guyane-01']
+        }
+      ]
     }
   ]
 }
@@ -46,6 +63,7 @@ const titreEtapesPubliques = {
   domaineId: 'm',
   typeId: 'arm',
   publicLecture: true,
+  administrationsTitreEtapeId: 'titre-id-demarche-id-dpu',
   demarches: [
     {
       id: 'titre-id-demarche-id',
@@ -123,7 +141,8 @@ const titreEtapesPubliques = {
           ordre: 0,
           titreDemarcheId: 'titre-id-demarche-id',
           statutId: 'acc',
-          date: '2020-02-02'
+          date: '2020-02-02',
+          administrationsIds: ['dea-guyane-01']
         }
       ]
     }

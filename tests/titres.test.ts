@@ -78,7 +78,7 @@ describe('titre', () => {
     expect(res.body.data.titre.activites.length).toEqual(0)
   })
 
-  test('ne peut pas voir que les étapes sont en "lecture publique" (utilisateur anonyme)', async () => {
+  test('ne peut voir que les étapes qui sont en "lecture publique" (utilisateur anonyme)', async () => {
     await titreCreate(titreEtapesPubliques, {}, 'super')
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
@@ -97,13 +97,46 @@ describe('titre', () => {
     expect(res.body.data.titre.demarches[0].etapes.length).toEqual(1)
   })
 
+  test('ne peut pas voir certaines étapes (utilisateur DGTM)', async () => {
+    await titreCreate(titreEtapesPubliques, {}, 'super')
+    const res = await graphQLCall(
+      titreQuery,
+      { id: 'titre-id' },
+      'admin',
+      administrations.dgtmGuyane
+    )
+
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data).toMatchObject({
+      titre: {
+        id: 'titre-id',
+        demarches: [
+          {
+            id: 'titre-id-demarche-id',
+            etapes: [
+              { id: 'titre-id-demarche-id-aof' },
+              { id: 'titre-id-demarche-id-edm' },
+              { id: 'titre-id-demarche-id-ede' },
+              { id: 'titre-id-demarche-id-pfd' },
+              { id: 'titre-id-demarche-id-pfc' },
+              { id: 'titre-id-demarche-id-vfd' },
+              { id: 'titre-id-demarche-id-vfc' },
+              { id: 'titre-id-demarche-id-dpu' }
+            ]
+          }
+        ]
+      }
+    })
+    expect(res.body.data.titre.demarches[0].etapes.length).toEqual(8)
+  })
+
   test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
     await titreCreate(titreWithActiviteGrp, {}, 'super')
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
       'admin',
-      administrations.dealGuyane
+      administrations.dgtmGuyane
     )
 
     expect(res.body.errors).toBeUndefined()
@@ -180,7 +213,7 @@ describe('titreCreer', () => {
       titreCreerQuery,
       { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
       'admin',
-      administrations.dealGuyane
+      administrations.dgtmGuyane
     )
 
     expect(res.body.errors[0].message).toMatch(
@@ -217,7 +250,7 @@ describe('titreModifier', () => {
         typeId: 'arm',
         administrationsGestionnaires: [
           administrations.ptmg,
-          administrations.dealGuyane
+          administrations.dgtmGuyane
         ]
       },
       {},
@@ -294,7 +327,7 @@ describe('titreModifier', () => {
         statutId: 'ech',
         administrationsGestionnaires: [
           administrations.ptmg,
-          administrations.dealGuyane
+          administrations.dgtmGuyane
         ]
       },
       {},
@@ -327,7 +360,7 @@ describe('titreModifier', () => {
         titre: { id, nom: 'mon titre modifié', typeId: 'arm', domaineId: 'm' }
       },
       'admin',
-      administrations.dealGuyane
+      administrations.dgtmGuyane
     )
 
     expect(res.body.errors[0].message).toMatch(
