@@ -121,6 +121,7 @@ const titresDemarchesEtapesRelateTrue = [
   'communes.departement',
   'communes.departement.region',
   'communes.departement.region.pays',
+  'forets',
   ...documents.update.relate.map(k => `documents.${k}`),
   'justificatifs',
   ...documents.update.relate.map(k => `justificatifs.${k}`)
@@ -293,6 +294,7 @@ const titresUpdateFalse = [
   'communes.departement',
   'communes.departement.region',
   'communes.departement.region.pays',
+  'forets',
   'substances',
   'substances.legales',
   'substances.legales.code',
