@@ -32,7 +32,7 @@ const titreDemarchePublicLectureFind = (
   // et que le type d'étape est saisine du préfet
   // alors la démarche est publique
   if (['ret', 'dec'].includes(demarcheTypeId) && titreEtape.typeId === 'spp') {
-    publicLecture = true
+    return true
   }
 
   // si le type d'étape est un classement sans suite
@@ -42,7 +42,7 @@ const titreDemarchePublicLectureFind = (
     titreEtape.typeId === 'css' &&
     (!titreTypeId || !['arm', 'axm'].includes(titreTypeId))
   ) {
-    publicLecture = false
+    return false
   }
 
   // si le type d'étape est recevabilité de la demande
@@ -54,25 +54,25 @@ const titreDemarchePublicLectureFind = (
     (!titreTypeId || titreTypeId !== 'arm') &&
     !demarcheTypeEtapesTypes.find(et => ['anf', 'ane'].includes(et.id))
   ) {
-    publicLecture = true
+    return true
   }
 
   // si le type d'étape est mise en concurrence au JORF ou JOUE
   // alors la démarche est publique
   if (['anf', 'ane'].includes(titreEtape.typeId)) {
-    publicLecture = true
+    return true
   }
 
   // si le type d'étape est participation du public
   // alors la démarche est publique
   if (titreEtape.typeId === 'ppu') {
-    publicLecture = true
+    return true
   }
 
   // si le type d'étape est publication de l'avis de décision implicite
   // alors la démarche est publique
   if (titreEtape.typeId === 'apu') {
-    publicLecture = true
+    return true
   }
 
   // si le type de titre est ARM
@@ -84,7 +84,7 @@ const titreDemarchePublicLectureFind = (
     titreTypeId === 'arm' &&
     ['sca', 'aca', 'def'].includes(titreEtape.typeId)
   ) {
-    publicLecture = true
+    return true
   }
 
   // si le type de titre est ARM ou AXM
@@ -95,7 +95,7 @@ const titreDemarchePublicLectureFind = (
     ['arm', 'axm'].includes(titreTypeId) &&
     titreEtape.typeId === 'des'
   ) {
-    publicLecture = true
+    return true
   }
 
   // si le type d'étape est décision implicite
@@ -108,7 +108,7 @@ const titreDemarchePublicLectureFind = (
     //   si le type de titre est AXM
     //   alors la démarche est publique
     //   sinon la démarche n'est pas (plus) publique
-    publicLecture = titreTypeId === 'axm'
+    return titreTypeId === 'axm'
   }
 
   // si le type d'étape est décision implicite
@@ -120,7 +120,7 @@ const titreDemarchePublicLectureFind = (
     ['dim', 'dex', 'dpu'].includes(titreEtape.typeId) &&
     titreEtape.statutId === 'acc'
   ) {
-    publicLecture = true
+    return true
   }
 
   // si le type d'étape est publication de décision unilatérale au JORF
@@ -128,7 +128,7 @@ const titreDemarchePublicLectureFind = (
   //    ou publication de décision au recueil des actes administratifs
   // alors la démarche est publique
   if (['dup', 'dux', 'rpu'].includes(titreEtape.typeId)) {
-    publicLecture = true
+    return true
   }
 
   // si le type de titre est ARM
@@ -136,14 +136,14 @@ const titreDemarchePublicLectureFind = (
   //    ou signature de l'avenant à l'autorisation de recherche minière
   // alors la démarche est publique
   if (titreTypeId === 'arm' && ['sco', 'aco'].includes(titreEtape.typeId)) {
-    publicLecture = true
+    return true
   }
 
   //  - le type de l’étape est annulation de la décision (and)
   //  - et si le statut est favorable
   if (['and'].includes(titreEtape.typeId) && titreEtape.statutId === 'fav') {
     //  - alors, la démarche est publique
-    publicLecture = true
+    return true
   }
 
   // Si le type de titre est ARM et que le type de démarche est renonciation
@@ -153,7 +153,7 @@ const titreDemarchePublicLectureFind = (
     ['ren', 'pro'].includes(demarcheTypeId) &&
     ['eof', 'css', 'des'].includes(titreEtape.typeId)
   ) {
-    publicLecture = true
+    return true
   }
 
   return publicLecture
