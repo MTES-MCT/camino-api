@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.58](https://github.com/MTES-MCT/camino-api/compare/v0.24.57...v0.24.58) (2020-11-19)
+
+
+### Features
+
+* **daily:** envoie tous les jours le résultat du daily par email ([#590](https://github.com/MTES-MCT/camino-api/issues/590)) ([e196dda](https://github.com/MTES-MCT/camino-api/commit/e196dda847fcf371bec61d43fc0b21b3837eb43a))
+* **entreprise:** permet d’archiver une entreprise ([#583](https://github.com/MTES-MCT/camino-api/issues/583)) ([c3ba3f1](https://github.com/MTES-MCT/camino-api/commit/c3ba3f129e6da461aff01d3259daf0f7c6125c89))
+* **openfisca:** ajoute l’utilitaire pour utiliser l’API Openfisca ([#596](https://github.com/MTES-MCT/camino-api/issues/596)) ([bac7ffd](https://github.com/MTES-MCT/camino-api/commit/bac7ffda0494b7eb8be8e5b99c78377429ab466f))
+* **rntm:** ajoute un script pour importer les titres RNTM ([#585](https://github.com/MTES-MCT/camino-api/issues/585)) ([edbdc42](https://github.com/MTES-MCT/camino-api/commit/edbdc429b8eab3c2c2d5d6453d488585b7af254c))
+* **titres:** expose le centre géographique de chaque titre ([#589](https://github.com/MTES-MCT/camino-api/issues/589)) ([9113de2](https://github.com/MTES-MCT/camino-api/commit/9113de259c7fd0067298bcc8dbdf883d151528d7))
+* ajoute un type de données de sections: 'integer' ([#580](https://github.com/MTES-MCT/camino-api/issues/580)) ([7cef8a2](https://github.com/MTES-MCT/camino-api/commit/7cef8a21b557460bb1efdb7bdc604b37bf62e708))
+
+
+### Bug Fixes
+
+* corrige la mise à jour des ids de titre ([#588](https://github.com/MTES-MCT/camino-api/issues/588)) ([015569c](https://github.com/MTES-MCT/camino-api/commit/015569c87be74348162b1b6be70d71416e527c94))
+* corrige les permissions des administrations sur les étapes ([#592](https://github.com/MTES-MCT/camino-api/issues/592)) ([64549e7](https://github.com/MTES-MCT/camino-api/commit/64549e7bd94784b4f967e2b502b1afa407746127))
+* permet l'ajout d'une RDE à une démarche d’octroi d’ARM ([#593](https://github.com/MTES-MCT/camino-api/issues/593)) ([67643c3](https://github.com/MTES-MCT/camino-api/commit/67643c3aa104ed67e2faebd0b2caa3e46499e481))
+
 ### [0.24.57](https://github.com/MTES-MCT/camino-api/compare/v0.24.56...v0.24.57) (2020-11-04)
 
 
