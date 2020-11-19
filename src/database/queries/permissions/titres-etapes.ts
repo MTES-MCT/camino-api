@@ -1,5 +1,5 @@
 import { IUtilisateur } from '../../../types'
-// import { format } from 'sql-formatter'
+// import * as sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
 import { raw, QueryBuilder } from 'objection'
@@ -157,7 +157,7 @@ const titreEtapesPermissionQueryBuild = (
     )
   })
 
-  // fileCreate('test-5.sql', format(q.toKnexQuery().toString()))
+  // fileCreate('test-5.sql', sqlFormatter.format(q.toKnexQuery().toString()))
 
   return q
 }

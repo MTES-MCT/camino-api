@@ -7,7 +7,7 @@ const administrations = {
     nom: 'PTMG',
     type: { id: 'ope', nom: 'Opérateur', ordre: 5 }
   },
-  dealGuyane: {
+  dgtmGuyane: {
     id: 'dea-guyane-01',
     typeId: 'dea',
     nom: 'DEAL Guyane',
@@ -17,6 +17,12 @@ const administrations = {
     id: 'ope-cacem-01',
     typeId: 'ope',
     nom: 'Cacem',
+    type: { id: 'ope', nom: 'Opérateur', ordre: 5 }
+  },
+  onf: {
+    id: 'ope-onf-973-01',
+    typeId: 'ope',
+    nom: 'Onf',
     type: { id: 'ope', nom: 'Opérateur', ordre: 5 }
   }
 } as Index<IAdministration>

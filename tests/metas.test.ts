@@ -44,5 +44,17 @@ describe('statuts', () => {
       { id: 'mod', nom: 'modification en instance', couleur: 'warning' },
       { id: 'ech', nom: 'échu', couleur: 'neutral' }
     ])
+
+    expect(res.body.data.domaines).toEqual([
+      { id: 'm', nom: 'minéraux et métaux' },
+      { id: 'w', nom: 'granulats marins' },
+      { id: 'c', nom: 'carrières' },
+      { id: 'h', nom: 'hydrocarbures liquides ou gazeux' },
+      { id: 'f', nom: 'combustibles fossiles' },
+      { id: 'r', nom: 'éléments radioactifs' },
+      { id: 'g', nom: 'géothermie' },
+      { id: 's', nom: 'stockages souterrains' },
+      { id: 'i', nom: 'inconnu' }
+    ])
   })
 })
