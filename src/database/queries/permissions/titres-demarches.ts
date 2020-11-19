@@ -1,5 +1,5 @@
 import { IFields, IUtilisateur } from '../../../types'
-// import { format } from 'sql-formatter'
+// import * as sqlFormatter from 'sql-formatter'
 // import fileCreate from '../../../tools/file-create'
 
 import { raw, QueryBuilder } from 'objection'
@@ -18,8 +18,7 @@ import { etapesTypesModificationQueryBuild } from './metas'
 import Administrations from '../../models/administrations'
 import {
   administrationsGestionnairesModifier,
-  administrationsLocalesModifier,
-  administrationsTitresTypesTitresStatutsModifier
+  administrationsLocalesModifier
 } from './administrations'
 
 const titreDemarchePermissionQueryBuild = (
@@ -32,6 +31,7 @@ const titreDemarchePermissionQueryBuild = (
   // seuls les super-admins peuvent voir toutes les démarches
   if (!user || !permissionCheck(user?.permissionId, ['super'])) {
     // l'utilisateur peut voir le titre
+
     q.whereExists(
       titrePermissionQueryBuild(
         (TitresDemarches.relatedQuery('titre') as QueryBuilder<
@@ -63,11 +63,6 @@ const titreDemarchePermissionQueryBuild = (
               'titre'
             )
             .modify(administrationsLocalesModifier, administrationsIds, 'titre')
-            .modify(
-              administrationsTitresTypesTitresStatutsModifier,
-              'demarches',
-              'titre'
-            )
             .whereIn('administrations.id', administrationsIds)
             .where(c => {
               c.orWhereNotNull('a_tt.administrationId').orWhereNotNull(
@@ -197,7 +192,7 @@ const titreDemarchePermissionQueryBuild = (
       .groupBy('titres.id')
   )
 
-  // fileCreate('test-3.sql', format(q.toKnexQuery().toString()))
+  // fileCreate('test-3.sql', sqlFormatter.format(q.toKnexQuery().toString()))
 
   return q
 }

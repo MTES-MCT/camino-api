@@ -13,13 +13,13 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
+    "titre_type_id": "cxm",
     "gestionnaire": "false",
     "associee": "false"
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
+    "titre_type_id": "prm",
     "gestionnaire": "false",
     "associee": "false"
   },
@@ -31,18 +31,12 @@
   },
   {
     "administration_id": "dre-aura-01",
-    "titre_type_id": "prm",
+    "titre_type_id": "cxm",
     "gestionnaire": "false",
     "associee": "false"
   },
   {
     "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "gestionnaire": "false",
-    "associee": "false"
-  },
-  {
-    "administration_id": "dre-bfc-01",
     "titre_type_id": "prm",
     "gestionnaire": "false",
     "associee": "false"
@@ -50,6 +44,12 @@
   {
     "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
+    "gestionnaire": "false",
+    "associee": "false"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "prm",
     "gestionnaire": "false",
     "associee": "false"
   },
@@ -67,13 +67,13 @@
   },
   {
     "administration_id": "dre-grand-est-01",
-    "titre_type_id": "prm",
+    "titre_type_id": "cxm",
     "gestionnaire": "false",
     "associee": "false"
   },
   {
     "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
+    "titre_type_id": "prm",
     "gestionnaire": "false",
     "associee": "false"
   },
@@ -103,13 +103,13 @@
   },
   {
     "administration_id": "dre-occitanie-01",
-    "titre_type_id": "prm",
+    "titre_type_id": "cxm",
     "gestionnaire": "false",
     "associee": "false"
   },
   {
     "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
+    "titre_type_id": "prm",
     "gestionnaire": "false",
     "associee": "false"
   },
