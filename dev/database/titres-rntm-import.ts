@@ -26,10 +26,10 @@ const main = async () => {
         if (titulairesBdd.length === 0) {
           titulaireId = `xx-${entrepriseNumber}`
           entrepriseNumber++
-          // TODO archive
           await Entreprises.query().insertGraph({
             id: titulaireId,
-            nom: titulaireNom
+            nom: titulaireNom,
+            archive: true
           })
         } else if (titulairesBdd.length === 1) {
           titulaireId = titulairesBdd[0].id
