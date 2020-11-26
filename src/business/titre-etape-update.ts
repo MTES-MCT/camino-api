@@ -16,6 +16,7 @@ import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPublicUpdate from './processes/titres-public-update'
 import updatesLog from './_updates-log'
+import titresCoordonneesUpdate from './processes/titres-coordonnees-update'
 
 const titreEtapeUpdate = async (
   titreEtapeId: string | null,
@@ -93,6 +94,7 @@ const titreEtapeUpdate = async (
     } = await titresEtapesAdministrationsLocalesUpdate([titreId])
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titreId])
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
+    const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
 
     // met à jour l'id dans le titre par effet de bord
@@ -121,6 +123,7 @@ const titreEtapeUpdate = async (
       titresEtapesAdministrationsLocalesDeleted,
       titresPropsEtapeIdUpdated,
       titresPropsContenuUpdated,
+      titresCoordonneesUpdated,
       titresActivitesCreated,
       titresUpdatedIndex
     })

@@ -30,6 +30,7 @@ const updatesLog = ({
   titresEtapesAdministrationsLocalesDeleted,
   titresPropsEtapeIdUpdated,
   titresPropsContenuUpdated,
+  titresCoordonneesUpdated,
   titresTravauxEtapesOrdreUpdated,
   titresTravauxOrdreUpdated,
   titresActivitesCreated,
@@ -62,6 +63,7 @@ const updatesLog = ({
   titresEtapesAdministrationsLocalesDeleted?: ITitreAdministrationLocale[]
   titresPropsEtapeIdUpdated?: string[]
   titresPropsContenuUpdated?: string[]
+  titresCoordonneesUpdated?: string[]
   titresTravauxEtapesOrdreUpdated?: string[]
   titresTravauxOrdreUpdated?: string[]
   titresActivitesCreated?: string[]
@@ -200,6 +202,12 @@ const updatesLog = ({
   if (titresPropsContenuUpdated?.length) {
     console.info(
       `mise à jour: ${titresPropsContenuUpdated.length} titres(s) (contenu)`
+    )
+  }
+
+  if (titresCoordonneesUpdated?.length) {
+    console.info(
+      `mise à jour: ${titresCoordonneesUpdated.length} titres(s) (propriétés-étapes)`
     )
   }
 

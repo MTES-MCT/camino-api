@@ -69,23 +69,21 @@ class TitresTravauxEtapes extends Model {
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    json = super.$formatDatabaseJson(json)
-
     delete json.modification
     delete json.suppression
+    json = super.$formatDatabaseJson(json)
 
     return json
   }
 
   public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
     if (!json.id && json.titreTravauxId && json.typeId) {
       json.id = `${json.titreTravauxId}-${json.typeId}99`
     }
 
     delete json.modification
     delete json.suppression
+    json = super.$parseJson(json)
 
     return json
   }

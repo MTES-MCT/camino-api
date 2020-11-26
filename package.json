@@ -17,7 +17,7 @@
     "node": ">=14.15.0",
     "npm": ">=6.14.0"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "bim": "npm i && npm run build && npm run db:recreate && npm run db:import",
     "build": "rm -rf dist && tsc && mkdir -p ./dist/api/graphql && cp -r ./src/api/graphql/schemas ./dist/api/graphql",

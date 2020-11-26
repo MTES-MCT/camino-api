@@ -11,6 +11,7 @@ import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-updat
 import titresPublicUpdate from './processes/titres-public-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import updatesLog from './_updates-log'
+import titresCoordonneesUpdate from './processes/titres-coordonnees-update'
 
 const titreDemarcheUpdate = async (
   titreDemarcheId: string | null,
@@ -53,6 +54,7 @@ const titreDemarcheUpdate = async (
     const titresDatesUpdated = await titresDatesUpdate([titreId])
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titreId])
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
+    const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
 
     // met à jour l'id dans le titre par effet de bord
@@ -72,6 +74,7 @@ const titreDemarcheUpdate = async (
       titresDatesUpdated,
       titresPropsEtapeIdUpdated,
       titresPropsContenuUpdated,
+      titresCoordonneesUpdated,
       titresActivitesCreated,
       titresUpdatedIndex
     })

@@ -9,8 +9,7 @@ import {
 
 import {
   geojsonFeatureMultiPolygon,
-  geojsonFeatureCollectionPoints,
-  geojsonCentre
+  geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 
 import { dupRemove } from '../../tools/index'
@@ -128,20 +127,22 @@ const titreFormat = (
 ) => {
   if (!fields) return t
 
-  if (t.points?.length) {
-    if (fields.geojsonMultiPolygon) {
-      t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points) as IGeoJson
-    }
+  if (fields.geojsonMultiPolygon && t.points?.length) {
+    t.geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points) as IGeoJson
+  }
 
-    if (fields.geojsonPoints) {
-      t.geojsonPoints = geojsonFeatureCollectionPoints(t.points) as IGeoJson
-    }
-    if (fields.geojsonCentre) {
-      let geojsonMultiPolygon = t.geojsonMultiPolygon
-      if (!geojsonMultiPolygon) {
-        geojsonMultiPolygon = geojsonFeatureMultiPolygon(t.points) as IGeoJson
-      }
-      t.geojsonCentre = geojsonCentre(geojsonMultiPolygon, t.pointsTitreEtapeId)
+  if (fields.geojsonPoints && t.points?.length) {
+    t.geojsonPoints = geojsonFeatureCollectionPoints(t.points) as IGeoJson
+  }
+
+  if (fields.geojsonCentre && t.coordonnees && t.pointsTitreEtapeId) {
+    t.geojsonCentre = {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [t.coordonnees.x, t.coordonnees.y]
+      },
+      properties: { etapeId: t.pointsTitreEtapeId }
     }
   }
 

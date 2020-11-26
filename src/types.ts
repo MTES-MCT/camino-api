@@ -497,6 +497,7 @@ interface ITitre {
   substances?: ISubstance[] | null
   pointsTitreEtapeId?: string | null
   points?: ITitrePoint[] | null
+  coordonnees?: ICoordonnees | null
   geojsonMultiPolygon?: IGeoJson | null
   geojsonPoints?: IGeoJson | null
   geojsonCentre?: IGeoJsonCentre | null
@@ -923,7 +924,6 @@ export {
   IFrequence,
   IGeoJson,
   IGeoJsonProperties,
-  IGeoJsonCentre,
   IApiGeoResult,
   IGeometry,
   IGeoSysteme,

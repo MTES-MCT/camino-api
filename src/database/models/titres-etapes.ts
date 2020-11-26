@@ -194,8 +194,6 @@ class TitresEtapes extends Model {
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    json = super.$formatDatabaseJson(json)
-
     if (json.pays) {
       delete json.pays
     }
@@ -203,13 +201,12 @@ class TitresEtapes extends Model {
     delete json.modification
     delete json.suppression
     delete json.justificatifsAssociation
+    json = super.$formatDatabaseJson(json)
 
     return json
   }
 
   public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
     if (!json.id && json.titreDemarcheId && json.typeId) {
       json.id = `${json.titreDemarcheId}-${json.typeId}99`
     }
@@ -249,10 +246,10 @@ class TitresEtapes extends Model {
 
     delete json.geojsonMultiPolygon
     delete json.geojsonPoints
-
     delete json.modification
     delete json.suppression
     delete json.justificatifsAssociation
+    json = super.$parseJson(json)
 
     return json
   }

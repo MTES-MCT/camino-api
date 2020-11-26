@@ -18,10 +18,7 @@ class TitresPoints extends Model {
       description: { type: ['string', 'null'] },
       coordonnees: {
         type: 'object',
-        properties: {
-          x: { type: 'number' },
-          y: { type: 'number' }
-        }
+        properties: { x: { type: 'number' }, y: { type: 'number' } }
       },
       groupe: { type: 'integer' },
       contour: { type: 'integer' },
