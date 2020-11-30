@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import '../../init'
+import '../init'
 import documentsCheck from '../tools/documents/check'
 
 documentsCheck()
