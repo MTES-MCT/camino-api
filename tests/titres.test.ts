@@ -4,22 +4,12 @@ import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { administrations } from './__mocks__/administrations'
 import {
-  titresStatuts,
-  restrictionsVisibiliteSet,
-  restrictionsModificationSet,
-  onfArmEtapesRestrictions,
-  onfAxmEditionRestriction,
-  onfAxmEtapesRestrictions,
-  onfPerEtapesRestrictions,
-  titreOnfArm,
-  titreOnfAxm,
-  titreOnfPrm
-  // titreWithActiviteGrp,
+  titreWithActiviteGrp,
   titrePublicLecture,
   titrePublicLectureFalse,
   titreEtapesPubliques,
   titreDemarchesPubliques,
-  titreActivites,
+  titreActivites
 } from './__mocks__/titres'
 import { titreCreate } from '../src/database/queries/titres'
 
@@ -38,13 +28,8 @@ afterAll(async () => {
   dbManager.closeKnex()
 })
 
-// ==================================== Visibilité des titres ===================================
 describe('titre', () => {
   const titreQuery = queryImport('titre')
-
-  // ===================
-  // utilisateur anonyme
-  // ===================
 
   test('peut voir un titre qui est en "lecture publique" (utilisateur anonyme)', async () => {
     await titreCreate(titrePublicLecture, {}, 'super')
@@ -64,18 +49,19 @@ describe('titre', () => {
     expect(res.body.data).toMatchObject({ titre: null })
   })
 
-  test('ne peut voir que les démarches qui sont en "lecture publique" (utilisateur anonyme)', async () => {
+  test('ne peut pas voir que les démarches qui sont en "lecture publique" (utilisateur anonyme)', async () => {
     await titreCreate(titreDemarchesPubliques, {}, 'super')
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
-    expect(res.body.data.titre.demarches.length).toEqual(1)
     expect(res.body.data).toMatchObject({
       titre: {
         id: 'titre-id',
         demarches: [{ id: 'titre-id-demarche-oct' }]
       }
     })
+
+    expect(res.body.data.titre.demarches.length).toEqual(1)
   })
 
   test('ne peut pas voir les activités (utilisateur anonyme)', async () => {
@@ -83,12 +69,13 @@ describe('titre', () => {
     const res = await graphQLCall(titreQuery, { id: 'titre-id' })
 
     expect(res.body.errors).toBeUndefined()
-    expect(res.body.data.titre.activites.length).toEqual(0)
     expect(res.body.data).toMatchObject({
       titre: {
         id: 'titre-id'
       }
     })
+
+    expect(res.body.data.titre.activites.length).toEqual(0)
   })
 
   test('ne peut voir que les étapes qui sont en "lecture publique" (utilisateur anonyme)', async () => {
@@ -110,129 +97,41 @@ describe('titre', () => {
     expect(res.body.data.titre.demarches[0].etapes.length).toEqual(1)
   })
 
-  // =========
-  // admin ONF
-  // =========
-
-  // matrice des permissions/restrictions
-  //
-  // Administration : ope-onf-973-01
-  // titreType (ARM) |T|D|E|
-  //                V|O|O|X|
-  //                C|O|O|X|
-  //                M|O|O|X| <- restriction 1 : titresStatuts
-  //                      ^
-  //                      |
-  //                      restriction 2 : etapesTypes
-
-  // ONF gestionnaire d'ARM sans restriction d'édition sur les titres et démarches
-  // todo : création ?
-  test('peut voir, et modifier des titres arm, et leurs démarches dont elle est gestionnaire (admin ONF)', async () => {
-    await titreCreate(titreOnfArm, {}, 'super')
+  test('ne peut pas voir certaines étapes (utilisateur DGTM)', async () => {
+    await titreCreate(titreEtapesPubliques, {}, 'super')
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
       'admin',
-      administrations.onf
+      administrations.dgtmGuyane
     )
 
     expect(res.body.errors).toBeUndefined()
     expect(res.body.data).toMatchObject({
       titre: {
         id: 'titre-id',
-        modification: true,
-        // todo ? --> creation: true
         demarches: [
           {
             id: 'titre-id-demarche-id',
-            modification: true
+            etapes: [
+              { id: 'titre-id-demarche-id-aof' },
+              { id: 'titre-id-demarche-id-edm' },
+              { id: 'titre-id-demarche-id-ede' },
+              { id: 'titre-id-demarche-id-pfd' },
+              { id: 'titre-id-demarche-id-pfc' },
+              { id: 'titre-id-demarche-id-vfd' },
+              { id: 'titre-id-demarche-id-vfc' },
+              { id: 'titre-id-demarche-id-dpu' }
+            ]
           }
         ]
       }
     })
+    expect(res.body.data.titre.demarches[0].etapes.length).toEqual(8)
   })
 
-  // restriction de visibilité
-  const onfArmEtapesVisibilite = restrictionsVisibiliteSet(
-    onfArmEtapesRestrictions
-  )
-
-  test.each(onfArmEtapesVisibilite)(
-    "%s voir l'étape '%s'(%s) sur un titre arm (admin ONF)",
-    async (visibilite, etapeNom, etapeId, etape, graphQLResponse) => {
-      titreOnfArm.demarches[0].etapes = etape
-      await titreCreate(titreOnfArm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              etapes: graphQLResponse
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  // restriction de modification
-  const onfArmEtapesModification = restrictionsModificationSet(
-    onfArmEtapesRestrictions
-  )
-
-  test.each(onfArmEtapesModification)(
-    "%s modifier l'étape '%s'(%s) sur un titre arm (admin ONF)",
-    async (modification, etapeNom, etapeId, etape, graphQLResponse) => {
-      titreOnfArm.demarches[0].etapes = etape
-      await titreCreate(titreOnfArm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              etapes: graphQLResponse
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  // matrice des permissions/restrictions
-  //
-  // Administration : ope-onf-973-01
-  // titreType (AXM) |T|D|E|
-  //                V|O|O|X|
-  //                C|O|O|X|
-  //                M|X|X|X| <- restriction 1 : titresStatuts
-  //                      ^
-  //                      |
-  //                      restriction 2 : etapesTypes
-
-  // ONF gestionnaire d'AXM avec restrictions d'édition sur les titres et démarches sur les stauts
-  // dmc, ech, val
-
-  // todo : création ?
-  test('peut voir des titres axm, et leurs démarches dont elle est gestionnaire (admin ONF)', async () => {
-    await titreCreate(titreOnfAxm, {}, 'super')
+  test('ne peut pas voir certaines étapes (utilisateur ONF)', async () => {
+    await titreCreate(titreEtapesPubliques, {}, 'super')
     const res = await graphQLCall(
       titreQuery,
       { id: 'titre-id' },
@@ -241,298 +140,63 @@ describe('titre', () => {
     )
 
     expect(res.body.errors).toBeUndefined()
+    expect(res.body.data.titre.demarches[0].etapes.length).toEqual(9)
     expect(res.body.data).toMatchObject({
       titre: {
         id: 'titre-id',
-        // todo ? --> creation: true,
         demarches: [
           {
-            id: 'titre-id-demarche-id'
+            id: 'titre-id-demarche-id',
+            etapes: [
+              { id: 'titre-id-demarche-id-aof' },
+              { id: 'titre-id-demarche-id-eof' },
+              { id: 'titre-id-demarche-id-edm' },
+              { id: 'titre-id-demarche-id-ede' },
+              { id: 'titre-id-demarche-id-pfd' },
+              { id: 'titre-id-demarche-id-pfc' },
+              { id: 'titre-id-demarche-id-vfd' },
+              { id: 'titre-id-demarche-id-vfc' },
+              { id: 'titre-id-demarche-id-dpu' }
+            ]
           }
         ]
       }
     })
   })
 
-  // ONF gestionnaire d'AXM avec restrictions d'édition T,D,E sur titres dont le statut est :dmc, ech, ou val
-  const restrictionsAXMstatuts = titresStatuts
-    .map(titreStatut => [titreStatut.nom, titreStatut.id])
-    .filter(restriction => onfAxmEditionRestriction.includes(restriction[1]))
+  test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
+    await titreCreate(titreWithActiviteGrp, {}, 'super')
+    const res = await graphQLCall(
+      titreQuery,
+      { id: 'titre-id' },
+      'admin',
+      administrations.dgtmGuyane
+    )
 
-  test.each(restrictionsAXMstatuts)(
-    "ne peut pas créer, et modifier des titres axm avec le statut '%s', leurs démarches, et étapes dont elle est gestionnaire (admin ONF)",
-    async (statutNom, statuId) => {
-      titreOnfAxm.statutId = statuId
-      await titreCreate(titreOnfAxm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data).toMatchObject({
+      titre: { activites: [{ modification: true }] }
+    })
+  })
 
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          modification: null,
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              modification: null
-            }
-          ]
-        }
-      })
-    }
-  )
+  test('ne peut pas voir les activités GRP (utilisateur CACEM)', async () => {
+    await titreCreate(titreWithActiviteGrp, {}, 'super')
+    const res = await graphQLCall(
+      titreQuery,
+      { id: 'titre-id' },
+      'admin',
+      administrations.cacem
+    )
 
-  const nonRestrictionsAXMstatuts = titresStatuts
-    .map(titreStatut => [titreStatut.nom, titreStatut.id])
-    .filter(restriction => !onfAxmEditionRestriction.includes(restriction[1]))
-
-  test.each(nonRestrictionsAXMstatuts)(
-    "peut voir, créer, et modifier des titres axm avec le statut '%s', leurs démarches, et étapes dont elle est gestionnaire (admin ONF)",
-    async (statutNom, statuId) => {
-      titreOnfAxm.statutId = statuId
-      await titreCreate(titreOnfAxm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          modification: true,
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              modification: true
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  // restriction de visibilité
-  const onfAxmEtapesVisibilite = restrictionsVisibiliteSet(
-    onfAxmEtapesRestrictions
-  )
-
-  test.each(onfAxmEtapesVisibilite)(
-    "%s voir l'étape '%s'(%s) sur un titre axm (admin ONF)",
-    async (visibilite, etapeNom, etapeId, etape, graphQLResponse) => {
-      titreOnfAxm.demarches[0].etapes = etape
-      await titreCreate(titreOnfAxm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              etapes: graphQLResponse
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  // restriction de modification
-  const onfAxmEtapesModification = restrictionsModificationSet(
-    onfAxmEtapesRestrictions
-  )
-
-  test.each(onfAxmEtapesModification)(
-    "%s modifier l'étape '%s'(%s) sur un titre axm (admin ONF)",
-    async (modification, etapeNom, etapeId, etape, graphQLResponse) => {
-      titreOnfAxm.demarches[0].etapes = etape
-      await titreCreate(titreOnfAxm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              etapes: graphQLResponse
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  // PRM
-  // ONF peut voir, créer et modifier une 'aof' (Avis de l'Office national des forêts) sur un permis exclusif de recherche
-
-  // restriction de visibilité
-  const onfPrmEtapesVisibilite = restrictionsVisibiliteSet(
-    onfPerEtapesRestrictions
-  )
-
-  test.each(onfPrmEtapesVisibilite)(
-    "%s voir l'étape '%s'(%s) sur un titre prm (admin ONF)",
-    async (visibilite, etapeNom, etapeId, etape, graphQLResponse) => {
-      titreOnfPrm.demarches[0].etapes = etape
-      await titreCreate(titreOnfPrm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              etapes: graphQLResponse
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  // restriction de modification
-  const onfPrmEtapesModification = restrictionsModificationSet(
-    onfPerEtapesRestrictions
-  )
-
-  test.each(onfPrmEtapesModification)(
-    "%s modifier l'étape '%s'(%s) sur un titre prm (admin ONF)",
-    async (modification, etapeNom, etapeId, etape, graphQLResponse) => {
-      titreOnfPrm.demarches[0].etapes = etape
-      await titreCreate(titreOnfPrm, {}, 'super')
-      const res = await graphQLCall(
-        titreQuery,
-        { id: 'titre-id' },
-        'admin',
-        administrations.onf
-      )
-
-      expect(res.body.errors).toBeUndefined()
-      expect(res.body.data).toMatchObject({
-        titre: {
-          id: 'titre-id',
-          demarches: [
-            {
-              id: 'titre-id-demarche-id',
-              etapes: graphQLResponse
-            }
-          ]
-        }
-      })
-    }
-  )
-
-  //   // ==========
-  //   // admin DGTM
-  //   // ==========
-
-  //   test('ne peut pas voir certaines étapes (utilisateur DGTM)', async () => {
-  //     await titreCreate(titreEtapesPubliques, {}, 'super')
-  //     const res = await graphQLCall(
-  //       titreQuery,
-  //       { id: 'titre-id' },
-  //       'admin',
-  //       administrations.dgtmGuyane
-  //     )
-
-  //     expect(res.body.errors).toBeUndefined()
-  //     expect(res.body.data).toMatchObject({
-  //       titre: {
-  //         id: 'titre-id',
-  //         demarches: [
-  //           {
-  //             id: 'titre-id-demarche-id',
-  //             etapes: [
-  //               { id: 'titre-id-demarche-id-aof' },
-  //               { id: 'titre-id-demarche-id-edm' },
-  //               { id: 'titre-id-demarche-id-ede' },
-  //               { id: 'titre-id-demarche-id-pfd' },
-  //               { id: 'titre-id-demarche-id-pfc' },
-  //               { id: 'titre-id-demarche-id-vfd' },
-  //               { id: 'titre-id-demarche-id-vfc' },
-  //               { id: 'titre-id-demarche-id-dpu' }
-  //             ]
-  //           }
-  //         ]
-  //       }
-  //     })
-  //     expect(res.body.data.titre.demarches[0].etapes.length).toEqual(8)
-  //   })
-
-  //   // admin DEAL Guyane = DGTM ? (mock: admin gestionnaire = ptmg !)
-
-  //   test('peut modifier les activités GRP (utilisateur DEAL Guyane)', async () => {
-  //     await titreCreate(titreWithActiviteGrp, {}, 'super')
-  //     const res = await graphQLCall(
-  //       titreQuery,
-  //       { id: 'titre-id' },
-  //       'admin',
-  //       administrations.dgtmGuyane
-  //     )
-
-  //     expect(res.body.errors).toBeUndefined()
-  //     expect(res.body.data).toMatchObject({
-  //       titre: { activites: [{ modification: true }] }
-  //     })
-  //   })
-
-  //   // =====
-  //   // CACEM
-  //   // =====
-
-  //   test('ne peut pas voir les activités GRP (utilisateur CACEM)', async () => {
-  //     await titreCreate(titreWithActiviteGrp, {}, 'super')
-  //     const res = await graphQLCall(
-  //       titreQuery,
-  //       { id: 'titre-id' },
-  //       'admin',
-  //       administrations.cacem
-  //     )
-
-  //     expect(res.body.errors).toBeUndefined()
-  //     expect(res.body.data).toMatchObject({
-  //       titre: { activites: [] }
-  //     })
-  //   })
-  // })
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body.data).toMatchObject({
+      titre: { activites: [] }
+    })
+  })
 })
-
-// ==================================== Création des titres ===================================
 
 describe('titreCreer', () => {
   const titreCreerQuery = queryImport('titre-creer')
-
-  // ===================
-  // utilisateur anonyme
-  // ===================
 
   test('ne peut pas créer un titre (utilisateur anonyme)', async () => {
     const res = await graphQLCall(titreCreerQuery, {
@@ -541,10 +205,6 @@ describe('titreCreer', () => {
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
-
-  // ==========
-  // entreprise
-  // ==========
 
   test("ne peut pas créer un titre (un utilisateur 'entreprise')", async () => {
     const res = await graphQLCall(
@@ -555,10 +215,6 @@ describe('titreCreer', () => {
 
     expect(res.body.errors[0].message).toMatch(/droits insuffisants/)
   })
-
-  // ===========
-  // super admin
-  // ===========
 
   test("crée un titre (un utilisateur 'super')", async () => {
     const res = await graphQLCall(
@@ -573,53 +229,45 @@ describe('titreCreer', () => {
     })
   })
 
-  // ==========
-  // admin PTMG
-  // ==========
+  test("ne peut pas créer un titre AXM (un utilisateur 'admin' PTMG)", async () => {
+    const res = await graphQLCall(
+      titreCreerQuery,
+      { titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' } },
+      'admin',
+      administrations.ptmg
+    )
 
-//   test("ne peut pas créer un titre AXM (un utilisateur 'admin' PTMG)", async () => {
-//     const res = await graphQLCall(
-//       titreCreerQuery,
-//       { titre: { nom: 'titre', typeId: 'axm', domaineId: 'm' } },
-//       'admin',
-//       administrations.ptmg
-//     )
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer ce type de titre/
+    )
+  })
 
-//     expect(res.body.errors[0].message).toMatch(
-//       /droits insuffisants pour créer ce type de titre/
-//     )
-//   })
+  test("ne peut pas créer un titre ARM (un utilisateur 'admin' Déal Guyane)", async () => {
+    const res = await graphQLCall(
+      titreCreerQuery,
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
+      'admin',
+      administrations.dgtmGuyane
+    )
 
-//   test("crée un titre ARM (un utilisateur 'admin' PTMG)", async () => {
-//     const res = await graphQLCall(
-//       titreCreerQuery,
-//       { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
-//       'admin',
-//       administrations.ptmg
-//     )
+    expect(res.body.errors[0].message).toMatch(
+      /droits insuffisants pour créer ce type de titre/
+    )
+  })
 
-//     expect(res.body.errors).toBeUndefined()
-//     expect(res.body).toMatchObject({
-//       data: { titreCreer: { id: 'm-ar-titre-0000', nom: 'titre' } }
-//     })
-//   })
+  test("crée un titre ARM (un utilisateur 'admin' PTMG)", async () => {
+    const res = await graphQLCall(
+      titreCreerQuery,
+      { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
+      'admin',
+      administrations.ptmg
+    )
 
-  // ==========
-  // admin DGTM
-  // ==========
-
-//   test("ne peut pas créer un titre ARM (un utilisateur 'admin' Déal Guyane)", async () => {
-//     const res = await graphQLCall(
-//       titreCreerQuery,
-//       { titre: { nom: 'titre', typeId: 'arm', domaineId: 'm' } },
-//       'admin',
-//       administrations.dgtmGuyane
-//     )
-
-//     expect(res.body.errors[0].message).toMatch(
-//       /droits insuffisants pour créer ce type de titre/
-//     )
-//   })
+    expect(res.body.errors).toBeUndefined()
+    expect(res.body).toMatchObject({
+      data: { titreCreer: { id: 'm-ar-titre-0000', nom: 'titre' } }
+    })
+  })
 })
 
 describe('titreModifier', () => {
