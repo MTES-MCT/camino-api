@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.60](https://github.com/MTES-MCT/camino-api/compare/v0.24.59...v0.24.60) (2020-11-30)
+
+
+### Features
+
+* **rntm:** archive les entreprises créées lors de l’import des titres RNTM ([79a8ee5](https://github.com/MTES-MCT/camino-api/commit/79a8ee5165fd45bbe81850d8cc1d610451d69b30))
+
+
+### Bug Fixes
+
+* **forêts:** met à jour les forêts lors de l’ajout d’un périmètre sur une étape ([#597](https://github.com/MTES-MCT/camino-api/issues/597)) ([985ea92](https://github.com/MTES-MCT/camino-api/commit/985ea92c876b6bc09c7dca0088262474af12bdc8))
+
 ### [0.24.59](https://github.com/MTES-MCT/camino-api/compare/v0.24.58...v0.24.59) (2020-11-19)
 
 
