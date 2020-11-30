@@ -19,6 +19,20 @@ services:
       - files:/app/files
       - ./.env:/app/.env
 
+  cron:
+    container_name: camino_api_cron
+    build: .
+    command: node ./dist/cron.js
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+    networks:
+      - default
+    volumes:
+      - files:/app/files
+      - ./.env:/app/.env
+
   db:
     container_name: camino_api_db
     image: postgres:12
