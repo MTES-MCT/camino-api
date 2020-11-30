@@ -21,7 +21,19 @@ services:
     networks:
       - default
       - nginx-proxy
-
+  cron:
+    container_name: camino_api_cron
+    build: .
+    command: node ./dist/cron.js
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+    volumes:
+      - files:/app/files
+      - ./.env:/app/.env
+    networks:
+      - default
   db:
     container_name: camino_api_db
     image: postgres:12

@@ -22,7 +22,19 @@ services:
       - default
       - nginx-proxy
     restart: always
-
+  cron:
+    container_name: camino_api_cron
+    image: caminofr/camino-api
+    command: node ./dist/cron.js
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+    volumes:
+      - files:/app/files
+      - ./.env:/app/.env
+    networks:
+      - default
   db:
     container_name: camino_api_db
     image: postgres:12

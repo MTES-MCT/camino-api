@@ -51,7 +51,7 @@
     "release": "standard-version && git push --follow-tags upstream master && conventional-github-releaser",
     "ss:export": "node ./dist/scripts/ss-export.js",
     "ss:import": "rm -rf sources && mkdir sources && node ./dist/scripts/ss-import.js",
-    "start": "node ./dist/index.js & node ./dist/cron.js",
+    "start": "node ./dist/index.js",
     "test": "eslint . && npm run build && jest --testPathIgnorePatterns=tests",
     "test:unit": "npm run lint && jest --testPathIgnorePatterns=tests --watch",
     "test:cypress": "npm run db:public-import && npm run daily && npm run db:user && npm run dev",
