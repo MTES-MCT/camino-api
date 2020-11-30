@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.61](https://github.com/MTES-MCT/camino-api/compare/v0.24.60...v0.24.61) (2020-11-30)
+
+
+### Bug Fixes
+
+* corrige la vérification des fichiers ([eca9c6b](https://github.com/MTES-MCT/camino-api/commit/eca9c6ba8fa1173788e0f7d582bad8ef40b5ee0f))
+
 ### [0.24.60](https://github.com/MTES-MCT/camino-api/compare/v0.24.59...v0.24.60) (2020-11-30)
 
 
