@@ -23,5 +23,7 @@ COPY --from=build-stage /app/dist ./dist
 COPY --from=build-stage /app/node_modules ./node_modules
 COPY --from=build-stage /app/knex ./knex
 COPY --from=build-stage /app/dev ./dev
+# nous avons besoin des sources pour lancer certains scripts manuellement
+COPY --from=build-stage /app/src ./src
 
 CMD ["npm", "start"]
