@@ -91,19 +91,17 @@ class Document extends Model {
   }
 
   public $formatDatabaseJson(json: Pojo): Pojo {
-    json = super.$formatDatabaseJson(json)
-
     delete json.modification
     delete json.suppression
+    json = super.$formatDatabaseJson(json)
 
     return json
   }
 
   public $parseJson(json: Pojo): Pojo {
-    json = super.$parseJson(json)
-
     delete json.modification
     delete json.suppression
+    json = super.$parseJson(json)
 
     return json
   }

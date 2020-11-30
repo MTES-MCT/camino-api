@@ -100,8 +100,6 @@ class TitresActivites extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
     if (!json.id && json.titreId && json.typeId && json.frequencePeriodeId) {
       const id = `${json.titreId}-${json.typeId}-${
         json.annee
@@ -111,15 +109,15 @@ class TitresActivites extends Model {
 
     delete json.modification
     delete json.documentsCreation
+    json = super.$parseJson(json)
 
     return json
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    json = super.$formatDatabaseJson(json)
-
     delete json.modification
     delete json.documentsCreation
+    json = super.$formatDatabaseJson(json)
 
     return json
   }

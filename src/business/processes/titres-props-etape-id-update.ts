@@ -44,7 +44,7 @@ const titresPropsEtapeIdsUpdate = async (titresIds?: string[]) => {
     'super'
   )
 
-  const titresIdsUpdated = [] as string[]
+  const titresPropsEtapeIdsUpdated = [] as string[]
 
   titres.forEach(titre => {
     const props = titrePropsEtapes.reduce(
@@ -78,14 +78,14 @@ const titresPropsEtapeIdsUpdate = async (titresIds?: string[]) => {
 
         console.info(log.type, log.value)
 
-        titresIdsUpdated.push(titre.id)
+        titresPropsEtapeIdsUpdated.push(titre.id)
       })
     }
   })
 
   await queue.onIdle()
 
-  return titresIdsUpdated
+  return titresPropsEtapeIdsUpdated
 }
 
 export { titrePropsEtapes }

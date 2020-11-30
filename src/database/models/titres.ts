@@ -40,7 +40,11 @@ class Titres extends Model {
       administrationsTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       surfaceTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
       communesTitreEtapeId: { type: ['string', 'null'], maxLength: 128 },
-      propsTitreEtapesIds: { type: 'json' }
+      propsTitreEtapesIds: { type: 'json' },
+      coordonnees: {
+        type: ['object', 'null'],
+        properties: { x: { type: 'number' }, y: { type: 'number' } }
+      }
     }
   }
 
@@ -218,17 +222,19 @@ class Titres extends Model {
   }
 
   public $parseJson(json: Pojo) {
-    json = super.$parseJson(json)
-
     json = titreInsertFormat(json)
+    json = super.$parseJson(json)
 
     return json
   }
 
   public $formatDatabaseJson(json: Pojo) {
-    json = super.$formatDatabaseJson(json)
+    if (json.coordonnees) {
+      json.coordonnees = `${json.coordonnees.x},${json.coordonnees.y}`
+    }
 
     json = titreInsertFormat(json)
+    json = super.$formatDatabaseJson(json)
 
     return json
   }

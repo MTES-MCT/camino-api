@@ -19,6 +19,7 @@ import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
 import titresTravauxEtapesOrdreUpdate from './processes/titres-travaux-etapes-ordre-update'
 import { matomoCacheInit } from '../tools/api-matomo'
 import updatesLog from './_updates-log'
+import titresCoordonneesUpdate from './processes/titres-coordonnees-update'
 
 const daily = async () => {
   try {
@@ -59,6 +60,8 @@ const daily = async () => {
     } = await titresEtapesAdministrationsLocalesUpdate()
     const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate()
     const titresPropsContenuUpdated = await titresPropsContenuUpdate()
+
+    const titresCoordonneesUpdated = await titresCoordonneesUpdate()
     const titresTravauxEtapesOrdreUpdated = await titresTravauxEtapesOrdreUpdate()
     const titresTravauxOrdreUpdated = await titresTravauxOrdreUpdate()
     const titresActivitesCreated = await titresActivitesUpdate()
@@ -93,6 +96,7 @@ const daily = async () => {
       titresEtapesAdministrationsLocalesDeleted,
       titresPropsEtapeIdUpdated,
       titresPropsContenuUpdated,
+      titresCoordonneesUpdated,
       titresTravauxEtapesOrdreUpdated,
       titresTravauxOrdreUpdated,
       titresActivitesCreated,

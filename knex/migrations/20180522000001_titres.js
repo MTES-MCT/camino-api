@@ -24,6 +24,7 @@ exports.up = knex =>
     table.string('communesTitreEtapeId', 128)
     table.string('doublonTitreId', 128)
     table.jsonb('propsTitreEtapesIds')
+    table.specificType('coordonnees', 'POINT').index(null, 'GIST')
   })
 
 exports.down = knex => knex.schema.dropTable('titres')
