@@ -154,7 +154,7 @@ type Query {
   "Liste des substances"
   substances: [Substance]
 
-  "Liste des substances"
+  "Liste des substances par nom distinct"
   substancesLegales: [SubstanceLegale]
 
   "Metas"
