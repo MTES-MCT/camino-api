@@ -90,4 +90,15 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       })
     ).toBeNull()
   })
+
+  test('peut créer une "des" si le titre est en attente de "pfc"', () => {
+    expect(
+      octArbreTest('des', '', [
+        { typeId: 'mdp', date: '2020-01-01' },
+        { typeId: 'sca', date: '2020-01-02' },
+        { typeId: 'aca', date: '2020-01-03' },
+        { typeId: 'mno', date: '2020-01-04' }
+      ])
+    ).toBeNull()
+  })
 })
