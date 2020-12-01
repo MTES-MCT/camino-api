@@ -50,6 +50,7 @@ const tables = [
       'dateDebut',
       'dateFin',
       'dateDemande',
+      'coordonnees',
       'pointsTitreEtapeId',
       'titulairesTitreEtapeId',
       'amodiatairesTitreEtapeId',
