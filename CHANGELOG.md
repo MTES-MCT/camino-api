@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.64](https://github.com/MTES-MCT/camino-api/compare/v0.24.63...v0.24.64) (2020-12-01)
+
+
+### Bug Fixes
+
+* corrige l'export des coordonnées ([5df3895](https://github.com/MTES-MCT/camino-api/commit/5df3895762a189088b11324f812ac836760758cf))
+
 ### [0.24.63](https://github.com/MTES-MCT/camino-api/compare/v0.24.61...v0.24.63) (2020-12-01)
 
 
