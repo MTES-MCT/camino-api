@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.63](https://github.com/MTES-MCT/camino-api/compare/v0.24.61...v0.24.63) (2020-12-01)
+
+
+### Bug Fixes
+
+* corrige une erreur si la requête est annulé par le client ([85ba59b](https://github.com/MTES-MCT/camino-api/commit/85ba59b5628f99b6bc1dc490149830850db219dc))
+* exporte les coordonnées d'un titre ([1f2c06f](https://github.com/MTES-MCT/camino-api/commit/1f2c06fe2ea5292424bd0fd930d611f8d0cab807))
+
 ### [0.24.62](https://github.com/MTES-MCT/camino-api/compare/v0.24.61...v0.24.62) (2020-11-30)
 
 ### [0.24.61](https://github.com/MTES-MCT/camino-api/compare/v0.24.60...v0.24.61) (2020-11-30)
