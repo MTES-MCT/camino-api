@@ -63,7 +63,8 @@ const tables = [
       'entreprisesLecture'
     ],
     callbacks: {
-      propsTitreEtapesIds: (v: ITitrePropsTitreEtapesIds) => JSON.stringify(v)
+      propsTitreEtapesIds: (v: ITitrePropsTitreEtapesIds) => JSON.stringify(v),
+      coordonnees: (v: ICoordonnees) => `${v.x},${v.y}`
     }
   },
   {
