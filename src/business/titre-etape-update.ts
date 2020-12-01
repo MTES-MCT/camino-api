@@ -11,7 +11,7 @@ import titresEtapesOrdreUpdate from './processes/titres-etapes-ordre-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresEtapesAdministrationsLocalesUpdate from './processes/titres-etapes-administrations-locales-update'
-import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPublicUpdate from './processes/titres-public-update'
@@ -92,7 +92,9 @@ const titreEtapeUpdate = async (
       titresEtapesAdministrationsLocalesCreated = [],
       titresEtapesAdministrationsLocalesDeleted = []
     } = await titresEtapesAdministrationsLocalesUpdate([titreId])
-    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titreId])
+    const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
+      titreId
+    ])
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
@@ -121,7 +123,7 @@ const titreEtapeUpdate = async (
       titresEtapesForetsDeleted,
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted,
-      titresPropsEtapeIdUpdated,
+      titresPropsEtapesIdsUpdated,
       titresPropsContenuUpdated,
       titresCoordonneesUpdated,
       titresActivitesCreated,

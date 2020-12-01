@@ -28,7 +28,7 @@ const updatesLog = ({
   titresAdministrationsGestionnairesDeleted,
   titresEtapesAdministrationsLocalesCreated,
   titresEtapesAdministrationsLocalesDeleted,
-  titresPropsEtapeIdUpdated,
+  titresPropsEtapesIdsUpdated,
   titresPropsContenuUpdated,
   titresCoordonneesUpdated,
   titresTravauxEtapesOrdreUpdated,
@@ -61,7 +61,7 @@ const updatesLog = ({
   titresAdministrationsGestionnairesDeleted?: string[]
   titresEtapesAdministrationsLocalesCreated?: ITitreAdministrationLocale[]
   titresEtapesAdministrationsLocalesDeleted?: ITitreAdministrationLocale[]
-  titresPropsEtapeIdUpdated?: string[]
+  titresPropsEtapesIdsUpdated?: string[]
   titresPropsContenuUpdated?: string[]
   titresCoordonneesUpdated?: string[]
   titresTravauxEtapesOrdreUpdated?: string[]
@@ -193,9 +193,9 @@ const updatesLog = ({
     )
   }
 
-  if (titresPropsEtapeIdUpdated?.length) {
+  if (titresPropsEtapesIdsUpdated?.length) {
     console.info(
-      `mise à jour: ${titresPropsEtapeIdUpdated.length} titres(s) (propriétés-étapes)`
+      `mise à jour: ${titresPropsEtapesIdsUpdated.length} titres(s) (propriétés-étapes)`
     )
   }
 

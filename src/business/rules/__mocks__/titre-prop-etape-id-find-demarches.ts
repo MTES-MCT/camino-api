@@ -1,4 +1,4 @@
-import { ITitreDemarche } from '../../../types'
+import { ITitreDemarche, ITitrePhase } from '../../../types'
 
 const titreDemarchesOctPointsMut = {
   statutId: 'val',
@@ -255,7 +255,8 @@ const titreDemarchesOctAmodiatairesPassee = {
           dateFin: '2018-12-31',
           amodiataires: [{ id: 'fr-123456789' }]
         }
-      ]
+      ],
+      phase: { statutId: 'val' }
     }
   ] as ITitreDemarche[]
 }
@@ -264,14 +265,14 @@ const titreDemarchesOctAmodiatairesValide = {
   statutId: 'mod',
   demarches: [
     {
-      id: 'h-cx-courdemanges-1982-oct01',
+      id: 'h-cx-courdemanges-1982-amo01',
       titreId: 'h-cx-courdemanges-1982',
-      typeId: 'oct',
+      typeId: 'amo',
       statutId: 'acc',
       etapes: [
         {
-          id: 'h-cx-courdemanges-1982-oct01-dpu01',
-          titreDemarcheId: 'h-cx-courdemanges-1982-oct01',
+          id: 'h-cx-courdemanges-1982-amo01-dpu01',
+          titreDemarcheId: 'h-cx-courdemanges-1982-amo01',
           typeId: 'dpu',
           statutId: 'acc',
           ordre: 1,
@@ -279,6 +280,14 @@ const titreDemarchesOctAmodiatairesValide = {
           amodiataires: [{ id: 'fr-123456789' }]
         }
       ]
+    },
+    {
+      id: 'h-cx-courdemanges-1982-oct01',
+      titreId: 'h-cx-courdemanges-1982',
+      typeId: 'oct',
+      statutId: 'acc',
+      phase: { statutId: 'val' } as ITitrePhase,
+      etapes: []
     }
   ] as ITitreDemarche[]
 }

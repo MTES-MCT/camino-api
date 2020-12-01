@@ -12,7 +12,7 @@ import { titresIdsUpdate } from './processes/titres-ids-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresPointsReferencesCreate from './processes/titres-points-references-create'
 import titresPublicUpdate from './processes/titres-public-update'
-import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresTravauxOrdreUpdate from './processes/titres-travaux-ordre-update'
@@ -58,7 +58,7 @@ const daily = async () => {
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted
     } = await titresEtapesAdministrationsLocalesUpdate()
-    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate()
+    const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate()
     const titresPropsContenuUpdated = await titresPropsContenuUpdate()
 
     const titresCoordonneesUpdated = await titresCoordonneesUpdate()
@@ -94,7 +94,7 @@ const daily = async () => {
       titresAdministrationsGestionnairesDeleted,
       titresEtapesAdministrationsLocalesCreated,
       titresEtapesAdministrationsLocalesDeleted,
-      titresPropsEtapeIdUpdated,
+      titresPropsEtapesIdsUpdated,
       titresPropsContenuUpdated,
       titresCoordonneesUpdated,
       titresTravauxEtapesOrdreUpdated,

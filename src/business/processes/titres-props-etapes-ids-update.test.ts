@@ -1,5 +1,5 @@
 import { mocked } from 'ts-jest/utils'
-import titresPropsEtapeIdUpdate from './titres-props-etape-id-update'
+import titresPropsEtapesIdsUpdate from './titres-props-etapes-ids-update'
 import titrePropEtapeIdFind from '../rules/titre-prop-etape-id-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
@@ -25,7 +25,7 @@ describe("propriétés (étape) d'un titre", () => {
       ({ titulairesTitreEtapeId: null } as unknown) as Titres
     ])
 
-    const titresUpdatedRequests = await titresPropsEtapeIdUpdate()
+    const titresUpdatedRequests = await titresPropsEtapesIdsUpdate()
 
     expect(titresUpdatedRequests.length).toEqual(1)
     expect(console.info).toHaveBeenCalled()
@@ -37,7 +37,7 @@ describe("propriétés (étape) d'un titre", () => {
       ({ titulairesTitreEtapeId: null } as unknown) as Titres
     ])
 
-    const titresUpdatedRequests = await titresPropsEtapeIdUpdate()
+    const titresUpdatedRequests = await titresPropsEtapesIdsUpdate()
 
     expect(titresUpdatedRequests.length).toEqual(0)
   })

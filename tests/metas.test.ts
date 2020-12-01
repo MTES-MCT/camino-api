@@ -54,7 +54,7 @@ describe('statuts', () => {
       { id: 'r', nom: 'éléments radioactifs' },
       { id: 'g', nom: 'géothermie' },
       { id: 's', nom: 'stockages souterrains' },
-      { id: 'i', nom: 'inconnu' }
+      { id: 'i', nom: 'indéterminé' }
     ])
   })
 })

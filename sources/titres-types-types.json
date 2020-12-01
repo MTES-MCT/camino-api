@@ -50,7 +50,7 @@
   },
   {
     "id": "in",
-    "nom": "inconnu",
+    "nom": "indéterminé",
     "description": "Inconnu",
     "exploitation": "FALSE",
     "ordre": "8"
