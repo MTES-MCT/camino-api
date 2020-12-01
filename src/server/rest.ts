@@ -48,7 +48,7 @@ const restify = (resolver: IRestResolver) => async (
     const result = await resolver({ ...req.query, ...req.params }, req.user?.id)
 
     if (!result) {
-      throw new Error('Erreur technique: mauvais retour dans le resolver')
+      throw new Error('erreur: aucun résultat')
     }
 
     const { nom, format, contenu, filePath } = result
@@ -67,9 +67,7 @@ const restify = (resolver: IRestResolver) => async (
       }
 
       res.sendFile(filePath, options, err => {
-        if (err) {
-          res.status(404).send({ error: 'fichier introuvable' })
-        }
+        if (err) console.error(`erreur de téléchargement ${err}`)
       })
     } else {
       res.send(contenu)
