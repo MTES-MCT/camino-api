@@ -1,215 +1,23 @@
 [
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mfr",
+    "titre_type_id": "arm",
+    "etape_type_id": "aca",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "dsl",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "qae",
+    "titre_type_id": "arm",
+    "etape_type_id": "aco",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "eof",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "asl",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "dae",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mod",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "rco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "rif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mcr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "scl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "ama",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "ssr",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "cps",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "abs",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "auc",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "aec",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "aaf",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "aac",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "ars",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "afp",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "ass",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
+    "titre_type_id": "arm",
     "etape_type_id": "aof",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -217,160 +25,8 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "agn",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "api",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "apd",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "mno",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "rpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "pqr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "ncl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "css",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "nis",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "abd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "and",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "ihi",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "axm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "mfr",
+    "etape_type_id": "css",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -386,7 +42,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "mdp",
+    "etape_type_id": "def",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -394,7 +50,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "men",
+    "etape_type_id": "des",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -402,8 +58,24 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "mod",
-    "lecture_interdit": "false",
+    "etape_type_id": "ede",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "arm",
+    "etape_type_id": "edm",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "arm",
+    "etape_type_id": "eof",
+    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -411,46 +83,6 @@
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
     "etape_type_id": "mco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "rco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "mif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "rif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "pfd",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "vfd",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -474,6 +106,22 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "arm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "arm",
     "etape_type_id": "meo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -482,7 +130,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "css",
+    "etape_type_id": "mfr",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -490,7 +138,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "edm",
+    "etape_type_id": "mif",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -498,7 +146,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "ede",
+    "etape_type_id": "mno",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -506,39 +154,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "rde",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "eof",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "aof",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "sca",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "arm",
-    "etape_type_id": "aca",
+    "etape_type_id": "mod",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -554,7 +170,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "vfc",
+    "etape_type_id": "pfd",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -562,7 +178,15 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "def",
+    "etape_type_id": "rco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "arm",
+    "etape_type_id": "rde",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -570,7 +194,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "mno",
+    "etape_type_id": "rif",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -578,7 +202,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "des",
+    "etape_type_id": "sca",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -594,46 +218,182 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "arm",
-    "etape_type_id": "aco",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spp",
+    "etape_type_id": "vfc",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
+    "titre_type_id": "arm",
+    "etape_type_id": "vfd",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "aac",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "aaf",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "abd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "abs",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "aec",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "afp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "agn",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "ama",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "and",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "aof",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "apd",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "api",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "ars",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "asl",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "ass",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "auc",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "cps",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "dae",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
     "etape_type_id": "des",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -641,15 +401,47 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mod",
+    "titre_type_id": "axm",
+    "etape_type_id": "dex",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
+    "titre_type_id": "axm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "dsl",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "eof",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "ihi",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
     "etape_type_id": "mco",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -657,31 +449,7 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
+    "titre_type_id": "axm",
     "etape_type_id": "mcr",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -689,39 +457,143 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "anf",
+    "titre_type_id": "axm",
+    "etape_type_id": "mdp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mec",
+    "titre_type_id": "axm",
+    "etape_type_id": "men",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "epu",
+    "titre_type_id": "axm",
+    "etape_type_id": "mfr",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "epc",
+    "titre_type_id": "axm",
+    "etape_type_id": "mif",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "mno",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "mod",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
+    "titre_type_id": "axm",
+    "etape_type_id": "ncl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "nis",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "pqr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "qae",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "rco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "rif",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "rpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "scl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "axm",
     "etape_type_id": "ssr",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -730,31 +602,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "aop",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "apl",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "apm",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scl",
+    "etape_type_id": "abd",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -762,16 +610,8 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "ama",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "aep",
-    "lecture_interdit": "false",
+    "etape_type_id": "acg",
+    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -786,16 +626,8 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "apn",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "pnr",
-    "lecture_interdit": "true",
+    "etape_type_id": "aep",
+    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -810,6 +642,14 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
+    "etape_type_id": "ama",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
     "etape_type_id": "ami",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -818,7 +658,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "spo",
+    "etape_type_id": "and",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -826,8 +666,16 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "apo",
+    "etape_type_id": "anf",
     "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "aop",
+    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -835,54 +683,6 @@
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
     "etape_type_id": "apd",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "app",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spe",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpe",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -898,7 +698,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "sas",
+    "etape_type_id": "apl",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -906,7 +706,47 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "dim",
+    "etape_type_id": "apm",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "apn",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "app",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "des",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -922,6 +762,14 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
     "etape_type_id": "dpu",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -930,15 +778,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpu",
+    "etape_type_id": "epc",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -946,55 +786,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "mno",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ncl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "pqr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "abd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "and",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "cxm",
-    "etape_type_id": "css",
+    "etape_type_id": "epu",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1010,62 +802,6 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "cxm",
-    "etape_type_id": "nis",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "mod",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
     "etape_type_id": "mco",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -1073,15 +809,47 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "rco",
-    "lecture_interdit": "true",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mcr",
+    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
     "etape_type_id": "mif",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -1089,7 +857,79 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mno",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mod",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ncl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "nis",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "pnr",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "pqr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
     "etape_type_id": "rif",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -1097,8 +937,128 @@
   },
   {
     "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpe",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spe",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ssr",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "mcr",
+    "etape_type_id": "abd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "acg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "acl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "aep",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "ama",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "and",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1108,38 +1068,6 @@
     "titre_type_id": "prm",
     "etape_type_id": "anf",
     "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "ppu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "ppc",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "ssr",
-    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1162,6 +1090,14 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
+    "etape_type_id": "apd",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
     "etape_type_id": "apl",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -1178,64 +1114,8 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "scl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "ama",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "aep",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "acl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "apd",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
     "etape_type_id": "apn",
     "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "pnr",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1258,39 +1138,15 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "true",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "dim",
+    "etape_type_id": "des",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1306,6 +1162,14 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
     "etape_type_id": "dpu",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -1314,7 +1178,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "npp",
+    "etape_type_id": "ihi",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1322,8 +1186,56 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "rpu",
+    "etape_type_id": "mco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "mcr",
     "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "mif",
+    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1338,39 +1250,15 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
+    "etape_type_id": "mod",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
     "etape_type_id": "ncl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "pqr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "abd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "prm",
-    "etape_type_id": "and",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1386,7 +1274,23 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "css",
+    "etape_type_id": "npp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "pnr",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "ppc",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1394,62 +1298,30 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "prm",
-    "etape_type_id": "ihi",
+    "etape_type_id": "ppu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "pqr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "rcg",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mod",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
+    "titre_type_id": "prm",
     "etape_type_id": "rco",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -1457,15 +1329,7 @@
   },
   {
     "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mif",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
+    "titre_type_id": "prm",
     "etape_type_id": "rif",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -1473,8 +1337,72 @@
   },
   {
     "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "rpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "scl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "spp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "prm",
+    "etape_type_id": "ssr",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "mcr",
+    "etape_type_id": "abd",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1482,7 +1410,15 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "apu",
+    "etape_type_id": "acg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "acl",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1490,7 +1426,15 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "dim",
+    "etape_type_id": "ama",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "and",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1506,31 +1450,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "epu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "epc",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "ssr",
+    "etape_type_id": "aof",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1538,8 +1458,8 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "scl",
-    "lecture_interdit": "false",
+    "etape_type_id": "apd",
+    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1562,56 +1482,8 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "aof",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
     "etape_type_id": "apn",
     "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "pnr",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "ama",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "acl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "apd",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1634,32 +1506,24 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "true",
+    "etape_type_id": "apu",
+    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "true",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "true",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1667,6 +1531,14 @@
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
     "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "dim",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1682,23 +1554,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mno",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "rpu",
+    "etape_type_id": "epc",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1706,47 +1562,7 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
-    "etape_type_id": "ncl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "pqr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "abd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "and",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-brgm-02",
-    "titre_type_id": "pxm",
-    "etape_type_id": "css",
+    "etape_type_id": "epu",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1762,16 +1578,192 @@
   {
     "administration_id": "ope-brgm-02",
     "titre_type_id": "pxm",
+    "etape_type_id": "mco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mcr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mif",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mno",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mod",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "ncl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
     "etape_type_id": "nis",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "abd",
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "pnr",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "pqr",
     "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rif",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "scl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "spp",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-brgm-02",
+    "titre_type_id": "pxm",
+    "etape_type_id": "ssr",
+    "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1793,14 +1785,6 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "aof",
     "lecture_interdit": "false",
@@ -1811,14 +1795,6 @@
     "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "css",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "and",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -1849,49 +1825,9 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "aof",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "apu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "css",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "eof",
     "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
@@ -1929,14 +1865,6 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "men",
     "lecture_interdit": "false",
@@ -1961,14 +1889,6 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "dpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "mif",
     "lecture_interdit": "false",
@@ -1987,14 +1907,6 @@
     "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "mod",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "dup",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2041,14 +1953,6 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "dux",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "sca",
     "lecture_interdit": "false",
@@ -2059,14 +1963,6 @@
     "administration_id": "dea-guyane-01",
     "titre_type_id": "arm",
     "etape_type_id": "sco",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "ide",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2089,160 +1985,8 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "ppc",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "ppu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rcg",
+    "etape_type_id": "abd",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2258,15 +2002,7 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "spe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpe",
+    "etape_type_id": "and",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2282,7 +2018,7 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "sas",
+    "etape_type_id": "css",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2290,7 +2026,7 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "dim",
+    "etape_type_id": "des",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2306,7 +2042,47 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
     "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mfr",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2322,31 +2098,7 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "abd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "and",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "css",
+    "etape_type_id": "ppc",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2362,30 +2114,110 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "ppc",
+    "etape_type_id": "rcg",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mfr",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpe",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "mdp",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rtd",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
+    "titre_type_id": "cxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "abd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "acg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "and",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "apu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
     "etape_type_id": "des",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -2393,7 +2225,143 @@
   },
   {
     "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
+    "titre_type_id": "prm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "dup",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "dux",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "ide",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "ppc",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "ppu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "prm",
     "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -2402,23 +2370,7 @@
   {
     "administration_id": "dea-guyane-01",
     "titre_type_id": "pxm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "rcg",
+    "etape_type_id": "abd",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2427,54 +2379,6 @@
     "administration_id": "dea-guyane-01",
     "titre_type_id": "pxm",
     "etape_type_id": "acg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "dpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dea-guyane-01",
-    "titre_type_id": "pxm",
-    "etape_type_id": "abd",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2491,6 +2395,302 @@
     "administration_id": "dea-guyane-01",
     "titre_type_id": "pxm",
     "etape_type_id": "css",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dea-guyane-01",
+    "titre_type_id": "pxm",
+    "etape_type_id": "spp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "abd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "acg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "and",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ape",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ppc",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ppu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2523,6 +2723,14 @@
     "administration_id": "dre-aura-01",
     "titre_type_id": "prm",
     "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-aura-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "apo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2690,14 +2898,6 @@
   {
     "administration_id": "dre-aura-01",
     "titre_type_id": "prm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "prm",
     "etape_type_id": "spo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -2706,173 +2906,13 @@
   {
     "administration_id": "dre-aura-01",
     "titre_type_id": "prm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ape",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-aura-01",
+    "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
     "etape_type_id": "abd",
     "lecture_interdit": "false",
@@ -2880,7 +2920,15 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-aura-01",
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "acg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
     "etape_type_id": "and",
     "lecture_interdit": "false",
@@ -2888,7 +2936,23 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-aura-01",
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ape",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
     "etape_type_id": "css",
     "lecture_interdit": "false",
@@ -2896,7 +2960,87 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-aura-01",
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ppc",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
     "etape_type_id": "ppu",
     "lecture_interdit": "false",
@@ -2904,9 +3048,65 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-aura-01",
+    "administration_id": "dre-bfc-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "ppc",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -2939,6 +3139,14 @@
     "administration_id": "dre-bfc-01",
     "titre_type_id": "prm",
     "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-bfc-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "apo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -3106,14 +3314,6 @@
   {
     "administration_id": "dre-bfc-01",
     "titre_type_id": "prm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "prm",
     "etape_type_id": "spo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -3122,173 +3322,13 @@
   {
     "administration_id": "dre-bfc-01",
     "titre_type_id": "prm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ape",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-bfc-01",
+    "administration_id": "dre-grand-est-01",
     "titre_type_id": "cxm",
     "etape_type_id": "abd",
     "lecture_interdit": "false",
@@ -3296,7 +3336,15 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-bfc-01",
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "acg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
     "titre_type_id": "cxm",
     "etape_type_id": "and",
     "lecture_interdit": "false",
@@ -3304,7 +3352,23 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-bfc-01",
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ape",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
     "titre_type_id": "cxm",
     "etape_type_id": "css",
     "lecture_interdit": "false",
@@ -3312,7 +3376,87 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-bfc-01",
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ppc",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
     "titre_type_id": "cxm",
     "etape_type_id": "ppu",
     "lecture_interdit": "false",
@@ -3320,9 +3464,65 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-bfc-01",
+    "administration_id": "dre-grand-est-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "ppc",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -3355,6 +3555,14 @@
     "administration_id": "dre-grand-est-01",
     "titre_type_id": "prm",
     "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-grand-est-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "apo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -3522,14 +3730,6 @@
   {
     "administration_id": "dre-grand-est-01",
     "titre_type_id": "prm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "prm",
     "etape_type_id": "spo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -3538,173 +3738,13 @@
   {
     "administration_id": "dre-grand-est-01",
     "titre_type_id": "prm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ape",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-grand-est-01",
+    "administration_id": "dre-occitanie-01",
     "titre_type_id": "cxm",
     "etape_type_id": "abd",
     "lecture_interdit": "false",
@@ -3712,7 +3752,15 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-grand-est-01",
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "acg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
     "titre_type_id": "cxm",
     "etape_type_id": "and",
     "lecture_interdit": "false",
@@ -3720,7 +3768,23 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-grand-est-01",
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ape",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
     "titre_type_id": "cxm",
     "etape_type_id": "css",
     "lecture_interdit": "false",
@@ -3728,7 +3792,87 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-grand-est-01",
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "dpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mdp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mec",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "men",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "npp",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "ppc",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
     "titre_type_id": "cxm",
     "etape_type_id": "ppu",
     "lecture_interdit": "false",
@@ -3736,9 +3880,65 @@
     "modification_interdit": "true"
   },
   {
-    "administration_id": "dre-grand-est-01",
+    "administration_id": "dre-occitanie-01",
     "titre_type_id": "cxm",
-    "etape_type_id": "ppc",
+    "etape_type_id": "rcg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rpe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "scg",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spe",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "cxm",
+    "etape_type_id": "spp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -3771,6 +3971,14 @@
     "administration_id": "dre-occitanie-01",
     "titre_type_id": "prm",
     "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "dre-occitanie-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "apo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -3938,14 +4146,6 @@
   {
     "administration_id": "dre-occitanie-01",
     "titre_type_id": "prm",
-    "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "prm",
     "etape_type_id": "spo",
     "lecture_interdit": "false",
     "creation_interdit": "true",
@@ -3954,207 +4154,7 @@
   {
     "administration_id": "dre-occitanie-01",
     "titre_type_id": "prm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "men",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
     "etape_type_id": "spp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "mec",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "scg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rcg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "acg",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "spe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rpe",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ape",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "dpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "npp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "abd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "and",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "css",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ppu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "dre-occitanie-01",
-    "titre_type_id": "cxm",
-    "etape_type_id": "ppc",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -4374,14 +4374,6 @@
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "prm",
-    "etape_type_id": "aof",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
   },
   {
     "administration_id": "ope-onf-973-01",
@@ -4490,167 +4482,7 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
-    "etape_type_id": "mfr",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "dsl",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "qae",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "eof",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "asl",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "dae",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mod",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mdp",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "des",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mco",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "rco",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mif",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "rif",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mcr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "scl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "ama",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "ssr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "cps",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "abs",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "auc",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "aec",
+    "etape_type_id": "aac",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -4666,7 +4498,15 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
-    "etape_type_id": "aac",
+    "etape_type_id": "abd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "abs",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -4674,7 +4514,7 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
-    "etape_type_id": "ars",
+    "etape_type_id": "aec",
     "lecture_interdit": "true",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -4690,22 +4530,6 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
-    "etape_type_id": "ass",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "aof",
-    "lecture_interdit": "false",
-    "creation_interdit": "false",
-    "modification_interdit": "false"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
     "etape_type_id": "agn",
     "lecture_interdit": "true",
     "creation_interdit": "true",
@@ -4714,119 +4538,7 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
-    "etape_type_id": "api",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "apd",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "spo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "apo",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "sas",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "dex",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "mno",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "rpu",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "pqr",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "ncl",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "dim",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "css",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "nis",
-    "lecture_interdit": "true",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "rtd",
-    "lecture_interdit": "false",
-    "creation_interdit": "true",
-    "modification_interdit": "true"
-  },
-  {
-    "administration_id": "ope-onf-973-01",
-    "titre_type_id": "axm",
-    "etape_type_id": "abd",
+    "etape_type_id": "ama",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -4842,7 +4554,159 @@
   {
     "administration_id": "ope-onf-973-01",
     "titre_type_id": "axm",
+    "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "apd",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "api",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "apo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "ars",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "asl",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "ass",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "auc",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "cps",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "css",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "dae",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "des",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "dex",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "dim",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "dsl",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "eof",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
     "etape_type_id": "ihi",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mco",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mcr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mdp",
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
@@ -4854,6 +4718,142 @@
     "lecture_interdit": "false",
     "creation_interdit": "true",
     "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mfr",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mif",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mno",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "mod",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "ncl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "nis",
+    "lecture_interdit": "true",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "pqr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "qae",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "rco",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "rif",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "rpu",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "rtd",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "sas",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "scl",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "spo",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "axm",
+    "etape_type_id": "ssr",
+    "lecture_interdit": "false",
+    "creation_interdit": "true",
+    "modification_interdit": "true"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "titre_type_id": "prm",
+    "etape_type_id": "aof",
+    "lecture_interdit": "false",
+    "creation_interdit": "false",
+    "modification_interdit": "false"
   },
   {
     "administration_id": "ope-ptmg-973-01",

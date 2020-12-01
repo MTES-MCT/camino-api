@@ -1,4 +1,4 @@
-const INSERT_SIZE = 5000
+const INSERT_SIZE = 3000
 
 module.exports = func => knex => {
   const del = table => {
@@ -13,13 +13,13 @@ module.exports = func => knex => {
     )
 
     const arrs = []
-    for (let i = 0, j = data.length; i < j; i += INSERT_SIZE) {
+    for (let i = 0; i < data.length; i += INSERT_SIZE) {
       arrs.push(data.slice(i, i + INSERT_SIZE))
     }
 
     return Promise.all(arrs.map(arr => knex(table).insert(arr))).catch(e => {
-      // Si le message d'erreur est trop long
-      // Réduit la taille du message d'erreur à 100 caracters
+      // si le message d'erreur est trop long
+      // réduit la taille du message à 100 caractères
       const problem = e.message.split(' - ').pop()
       const message = `Table "${table}" - ${problem}`
 
