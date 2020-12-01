@@ -2,7 +2,7 @@
 // de la dernière démarche acceptée
 // pour laquelle la propriété existe
 
-import { ITitreDemarche, ITitreEtape, TitreEtapeProp } from '../../types'
+import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
 import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
 import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
@@ -20,7 +20,7 @@ const etapeAmodiataireFind = (
 
   const titreDemarchePrevious = titreDemarches.find(td => !!td.phase)
 
-  if (titreDemarchePrevious!.phase?.statutId === 'val') {
+  if (titreDemarchePrevious?.phase?.statutId === 'val') {
     return true
   }
 
@@ -31,7 +31,7 @@ const etapeValideCheck = (
   titreEtape: ITitreEtape,
   titreDemarcheTypeId: string,
   titreStatutId: string,
-  prop: TitreEtapeProp
+  prop: ITitreEtapeProp
 ) =>
   // - si l'étape est acceptée, fait ou favorable
   // - et
@@ -48,7 +48,7 @@ const etapeValideCheck = (
     ))
 
 const etapePropFind = (
-  prop: TitreEtapeProp,
+  prop: ITitreEtapeProp,
   titreDemarcheEtapes: ITitreEtape[],
   titreDemarcheTypeId: string,
   titreStatutId: string,
@@ -99,7 +99,7 @@ const demarcheEligibleCheck = (
     !titreDemarches.find(td => td.phase && td.phase.statutId === 'val'))
 
 const titrePropEtapeIdFind = (
-  prop: TitreEtapeProp,
+  prop: ITitreEtapeProp,
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
 ) =>

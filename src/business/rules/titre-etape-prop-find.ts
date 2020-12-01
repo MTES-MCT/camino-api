@@ -2,7 +2,7 @@ import {
   ITitreDemarche,
   ITitre,
   ITitreEtape,
-  TitreEtapeProp
+  ITitreEtapeProp
 } from '../../types'
 
 import titrePropEtapeIdFind from './titre-prop-etape-id-find'
@@ -27,7 +27,7 @@ const titreEtapeFind = (
   return titreEtape
 }
 
-const propFind = (titreEtapes: ITitreEtape[], prop: TitreEtapeProp) => {
+const propFind = (titreEtapes: ITitreEtape[], prop: ITitreEtapeProp) => {
   for (const titreEtape of titreEtapes) {
     const value = titreEtape[prop]
 
@@ -71,7 +71,7 @@ const titreDemarchesEtapesFilter = (
 
 // trouve  relative à une étape
 const titreEtapePropFind = (
-  prop: TitreEtapeProp,
+  prop: ITitreEtapeProp,
   titreEtape: ITitreEtape,
   titreDemarcheEtapes: ITitreEtape[],
   titre: ITitre

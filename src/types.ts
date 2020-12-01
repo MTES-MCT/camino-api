@@ -15,7 +15,7 @@ interface IColonne<T> {
   groupBy?: boolean | T | T[]
 }
 
-type TitreProp =
+type ITitreProp =
   | 'pointsTitreEtapeId'
   | 'titulairesTitreEtapeId'
   | 'amodiatairesTitreEtapeId'
@@ -24,7 +24,7 @@ type TitreProp =
   | 'communesTitreEtapeId'
   | 'surfaceTitreEtapeId'
 
-type TitreEtapeProp =
+type ITitreEtapeProp =
   | 'points'
   | 'titulaires'
   | 'amodiataires'
@@ -974,8 +974,8 @@ export {
   IUser,
   IUtilisateur,
   IUtilisateurCreation,
-  TitreProp,
-  TitreEtapeProp,
+  ITitreProp,
+  ITitreEtapeProp,
   IToken,
   ITokenUser,
   ITitreColonneId,

@@ -1,3 +1,5 @@
+import { ITitreEtapeProp } from '../../types'
+
 import titrePropEtapeIdFind from './titre-prop-etape-id-find'
 import {
   titreDemarchesOctPointsMut,
@@ -14,7 +16,6 @@ import {
   titreDemarchesMutPointsMod,
   titreDemarchesProModPhaseEch
 } from './__mocks__/titre-prop-etape-id-find-demarches'
-import each from 'jest-each'
 
 describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
   test("trouve l'id de la dernière étape acceptée de la démarche d'octroi acceptée ayant la propriété 'points'", () => {
@@ -87,36 +88,6 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     ).toEqual('h-cx-courdemanges-1983-oct01-mfr01')
   })
 
-  test("ne trouve pas d'id si la démarche de l'étape contenant la propriété 'amodiataires' a une date de fin passée", () => {
-    expect(
-      titrePropEtapeIdFind(
-        'amodiataires',
-        titreDemarchesOctAmodiatairesPassee.demarches,
-        titreDemarchesOctAmodiatairesPassee.statutId
-      )
-    ).toBeNull()
-  })
-
-  test("trouve l'id de dernière étape contenant la propriété 'amodiataires' a une date de fin valide", () => {
-    expect(
-      titrePropEtapeIdFind(
-        'amodiataires',
-        titreDemarchesOctAmodiatairesValide.demarches,
-        titreDemarchesOctAmodiatairesValide.statutId
-      )
-    ).toEqual('h-cx-courdemanges-1982-oct01-dpu01')
-  })
-
-  test("trouve l'id de la dernière étape de dpu car l'étape contient la propriété 'amodiataires' et le titre a le statut 'modification en instance'", () => {
-    expect(
-      titrePropEtapeIdFind(
-        'amodiataires',
-        titreDemarchesOctAmodiatairesMod.demarches,
-        titreDemarchesOctAmodiatairesMod.statutId
-      )
-    ).toEqual('h-cx-courdemanges-1981-amo01-dpu01')
-  })
-
   test("trouve l'id de la dernière étape de dpu d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient un périmètre et le titre a le statut 'modification en instance' et aucune phase n'est valide", () => {
     expect(
       titrePropEtapeIdFind(
@@ -147,29 +118,66 @@ describe("id de l'étape d'une propriété valide (dé-normalise)", () => {
     ).toBeNull()
   })
 
-  each(['points', 'surface', 'substances', 'communes']).test(
+  test.each([
+    'points',
+    'surface',
+    'substances',
+    'communes'
+  ] as ITitreEtapeProp[])(
     "trouve l'id de la dernière étape de n’importe quel type d'une démarche de prolongation ou de demande de titre en instruction car l'étape contient la propriété %s et le titre a le statut 'modification en instance' et aucune phase n'est valide",
     prop => {
       expect(
         titrePropEtapeIdFind(
           prop,
-          JSON.parse(JSON.stringify(titreDemarchesProModPhaseEch.demarches)),
+          titreDemarchesProModPhaseEch.demarches,
           titreDemarchesProModPhaseEch.statutId
         )
       ).toEqual('h-cx-courdemanges-1981-pro01-dpu01')
     }
   )
 
-  each(['titulaires', 'amodiataires', 'administrations']).test(
+  test.each(['titulaires', 'administrations'] as ITitreEtapeProp[])(
     "ne trouve pas l'id de la mod car la propriété %s n’est pas modifiée par cette étape",
     prop => {
       expect(
         titrePropEtapeIdFind(
           prop,
-          JSON.parse(JSON.stringify(titreDemarchesProModPhaseEch.demarches)),
+          titreDemarchesProModPhaseEch.demarches,
           titreDemarchesProModPhaseEch.statutId
         )
       ).toEqual('h-cx-courdemanges-1981-oct01-dpu01')
     }
   )
+
+  // amodiataires
+
+  test("trouve pas d'id si la démarche de l'étape contenant la propriété 'amodiataires' a une phase valide", () => {
+    expect(
+      titrePropEtapeIdFind(
+        'amodiataires',
+        titreDemarchesOctAmodiatairesPassee.demarches,
+        titreDemarchesOctAmodiatairesPassee.statutId
+      )
+    ).toBe('h-cx-courdemanges-1982-oct01-dpu01')
+  })
+
+  test("trouve l'id de dernière étape contenant la propriété 'amodiataires' dont la démarche précédente a une phase valide", () => {
+    expect(
+      titrePropEtapeIdFind(
+        'amodiataires',
+        titreDemarchesOctAmodiatairesValide.demarches,
+        titreDemarchesOctAmodiatairesValide.statutId
+      )
+    ).toEqual('h-cx-courdemanges-1982-amo01-dpu01')
+  })
+
+  test("ne trouve pas l'id de la dernière étape contenant la propriété 'amodiataires'", () => {
+    expect(
+      titrePropEtapeIdFind(
+        'amodiataires',
+        titreDemarchesOctAmodiatairesMod.demarches,
+        titreDemarchesOctAmodiatairesMod.statutId
+      )
+    ).toBeNull()
+  })
 })
