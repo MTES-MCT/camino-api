@@ -3,8 +3,6 @@
 // pour laquelle la propriété existe
 
 import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
-import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
-import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
 
 const etapeAmodiataireFind = (
   titreEtape: ITitreEtape,
@@ -54,7 +52,7 @@ const etapePropFind = (
   titreStatutId: string,
   titreDemarches: ITitreDemarche[]
 ) =>
-  titreEtapesDescSort(titreDemarcheEtapes).find((titreEtape: ITitreEtape) => {
+  titreDemarcheEtapes.find((titreEtape: ITitreEtape) => {
     const isEtapeValide = etapeValideCheck(
       titreEtape,
       titreDemarcheTypeId,
@@ -103,9 +101,8 @@ const titrePropEtapeIdFind = (
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
 ) =>
-  (titreDemarchesAscSort(titreDemarches) as ITitreDemarche[])
-    .reverse()
-    .reduce((etapeId: string | null, titreDemarche: ITitreDemarche) => {
+  titreDemarches.reduce(
+    (etapeId: string | null, titreDemarche: ITitreDemarche) => {
       // si une étape a déjà été trouvée
       if (etapeId) return etapeId
 
@@ -133,6 +130,8 @@ const titrePropEtapeIdFind = (
       // retourne son id
       // sinon retourne `null`
       return (etape && etape.id) || null
-    }, null)
+    },
+    null
+  )
 
 export default titrePropEtapeIdFind
