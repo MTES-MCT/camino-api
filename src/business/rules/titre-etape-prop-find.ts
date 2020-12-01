@@ -103,9 +103,9 @@ const titreEtapePropFind = (
     // cherche la première occurrence de la propriété
     // dans une démarche et une étape valides
     const propTitreEtapeId = titrePropEtapeIdFind(
+      prop,
       titre.demarches,
-      titre.statutId!,
-      prop
+      titre.statutId!
     )
 
     if (propTitreEtapeId) {

@@ -3,7 +3,7 @@ import * as slugify from '@sindresorhus/slugify'
 import idsUpdate from './ids-update'
 import titreDemarcheOrTravauxAscSort from './titre-elements-asc-sort'
 import titreEtapesAscSort from './titre-etapes-asc-sort'
-import { titrePropsEtapes } from '../processes/titres-props-etape-id-update'
+import { titrePropsEtapes } from '../processes/titres-props-etapes-ids-update'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 
 const titrePropsEtapesNames = titrePropsEtapes.map(p => p.name)

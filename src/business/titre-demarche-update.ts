@@ -3,7 +3,7 @@ import { titreGet } from '../database/queries/titres'
 import titresDemarchesPublicUpdate from './processes/titres-demarches-public-update'
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
-import titresPropsEtapeIdUpdate from './processes/titres-props-etape-id-update'
+import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
 import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
@@ -52,7 +52,9 @@ const titreDemarcheUpdate = async (
       titresPhasesDeleted = []
     ] = await titresPhasesUpdate([titreId])
     const titresDatesUpdated = await titresDatesUpdate([titreId])
-    const titresPropsEtapeIdUpdated = await titresPropsEtapeIdUpdate([titreId])
+    const titresPropsEtapesIdsUpdated = await titresPropsEtapesIdsUpdate([
+      titreId
+    ])
     const titresPropsContenuUpdated = await titresPropsContenuUpdate([titreId])
     const titresCoordonneesUpdated = await titresCoordonneesUpdate([titreId])
     const titresActivitesCreated = await titresActivitesUpdate([titreId])
@@ -72,7 +74,7 @@ const titreDemarcheUpdate = async (
       titresPhasesUpdated,
       titresPhasesDeleted,
       titresDatesUpdated,
-      titresPropsEtapeIdUpdated,
+      titresPropsEtapesIdsUpdated,
       titresPropsContenuUpdated,
       titresCoordonneesUpdated,
       titresActivitesCreated,

@@ -80,6 +80,7 @@ const etapeEntreprises = async (
       {
         fields: {
           demarches: {
+            phase: { id: {} },
             etapes: {
               titulaires: fields.elements,
               amodiataires: fields.elements
