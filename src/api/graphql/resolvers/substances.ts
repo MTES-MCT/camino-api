@@ -6,7 +6,7 @@ import {
 
 const substance = async ({ id }: { id: string }) => substanceGet(id)
 
-const substancesLegales = async () => substancesLegalesGet()
+const substancesLegales = async () => substancesLegalesGet({ distinct: 'nom' })
 
 const substances = async () => substancesGet()
 
