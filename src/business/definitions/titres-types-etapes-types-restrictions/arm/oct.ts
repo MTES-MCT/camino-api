@@ -11,7 +11,12 @@ const oct: ITitreTypeEtapeTypeRestriction[] = [
           { typeId: 'rde' },
           { typeId: 'dae' }
         ],
-        impossibleApres: [{ typeId: 'sca' }]
+        impossibleApres: [
+          { typeId: 'des' },
+          { typeId: 'css' },
+          { typeId: 'sco' },
+          { typeId: 'aca', statutId: 'def' }
+        ]
       }
     ]
   },
