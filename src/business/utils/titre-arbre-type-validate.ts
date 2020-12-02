@@ -317,4 +317,8 @@ const titreArbreTypeIdValidate = (
   )
 }
 
-export { titreArbreTypeIdValidate, etapesSuivantesEnAttenteGet }
+export {
+  titreArbreTypeIdValidate,
+  etapesSuivantesEnAttenteGet,
+  titreDemarcheArbreValidate
+}
