@@ -3,7 +3,7 @@ import { ITitreEtape } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreTravauxEtapeUpdate } from '../../database/queries/titres-travaux-etapes'
-import titreEtapesAscSortByDate from '../utils/titre-etapes-asc-sort-by-date'
+import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'
 import { titresTravauxGet } from '../../database/queries/titres-travaux'
 
 const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
@@ -26,7 +26,7 @@ const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
 
   titresTravaux.forEach(titreTravau => {
     if (titreTravau.etapes) {
-      const titreTravauxEtapeSorted = titreEtapesAscSortByDate(
+      const titreTravauxEtapeSorted = titreEtapesSortAscByDate(
         titreTravau.etapes,
         titreTravau.type,
         titreTravau.titre?.typeId

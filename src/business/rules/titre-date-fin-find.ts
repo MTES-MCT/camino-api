@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
 import titreDemarcheDateFinAndDureeFind from './titre-demarche-date-fin-duree-find'
 
 const titreDateFinFind = (titreDemarches: ITitreDemarche[]) => {

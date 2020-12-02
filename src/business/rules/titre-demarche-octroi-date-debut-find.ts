@@ -1,7 +1,7 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
-import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
+import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 const titreDemarcheOctroiDateDebutFind = (
   titreDemarches: ITitreDemarche[] | null | undefined
@@ -22,7 +22,7 @@ const titreDemarcheOctroiDateDebutFind = (
   }
 
   // trie les étapes dans l'ordre décroissant
-  const etapes = titreEtapesDescSort(demarcheOctroi.etapes)
+  const etapes = titreEtapesSortDesc(demarcheOctroi.etapes)
 
   // récupère l'étape la plus importante de l'octroi en premier
   const etapeOctroi =

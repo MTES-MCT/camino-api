@@ -1,4 +1,4 @@
-import titreDemarchesAscSort from './titre-elements-asc-sort'
+import titreDemarchesAscSort from './titre-elements-sort-asc'
 import {
   titreDemarchesNoEtapesSortedAsc,
   titreDemarchesNoEtapesSortedDesc,

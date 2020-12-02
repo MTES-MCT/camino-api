@@ -1,4 +1,4 @@
-import titreEtapesAscSortByDate from './titre-etapes-asc-sort-by-date'
+import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 import {
   titreEtapesSortedAsc,
   titreEtapesSortedDesc,
@@ -15,26 +15,26 @@ import { IDemarcheType } from '../../types'
 
 describe('trie les étapes', () => {
   test('des étapes organisées par date décroissante sont triées par date croissante', () => {
-    expect(titreEtapesAscSortByDate(titreEtapesSortedDesc)).toMatchObject(
+    expect(titreEtapesSortAscByDate(titreEtapesSortedDesc)).toMatchObject(
       titreEtapesSortedAscResult
     )
   })
 
   test('des étapes organisées par date croissante restent triées par date croissante', () => {
-    expect(titreEtapesAscSortByDate(titreEtapesSortedAsc)).toMatchObject(
+    expect(titreEtapesSortAscByDate(titreEtapesSortedAsc)).toMatchObject(
       titreEtapesSortedAscResult
     )
   })
 
   test('des étapes avec les mêmes dates organisées par ordre décroissant sont triées par ordre croissant', () => {
     expect(
-      titreEtapesAscSortByDate(titreEtapesMemesDatesOrdreDesc)
+      titreEtapesSortAscByDate(titreEtapesMemesDatesOrdreDesc)
     ).toMatchObject(titreEtapesMemesDatesOrdreAscResult)
   })
 
   test('des étapes avec les mêmes dates sont triées par ordre de type croissant', () => {
     expect(
-      titreEtapesAscSortByDate(titreEtapesMemesDatesOrdreEtapesTypesDesc, {
+      titreEtapesSortAscByDate(titreEtapesMemesDatesOrdreEtapesTypesDesc, {
         etapesTypes
       } as IDemarcheType)
     ).toMatchObject(titreEtapesMemesDatesOrdreEtapesTypesAscResult)
@@ -42,7 +42,7 @@ describe('trie les étapes', () => {
 
   test('des étapes avec les mêmes dates sont triées par ordre croissant', () => {
     expect(
-      titreEtapesAscSortByDate(titreEtapesMemesDatesMemeOrdreDesc, {
+      titreEtapesSortAscByDate(titreEtapesMemesDatesMemeOrdreDesc, {
         etapesTypes
       } as IDemarcheType)
     ).toMatchObject(titreEtapesMemesDatesMemeOrdreAscResult)

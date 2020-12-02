@@ -2,7 +2,7 @@ import { ITitreTravaux } from '../../types'
 import PQueue from 'p-queue'
 
 import { titreTravauxUpdate } from '../../database/queries/titres-travaux'
-import titreTravauxAscSort from '../utils/titre-elements-asc-sort'
+import titreTravauxAscSort from '../utils/titre-elements-sort-asc'
 import { titresGet } from '../../database/queries/titres'
 
 const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {

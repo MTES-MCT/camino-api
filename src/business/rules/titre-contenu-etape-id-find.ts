@@ -2,8 +2,8 @@
 // de la dernière démarche acceptée
 // pour laquelle la propriété existe
 import { ITitreDemarche, ITitreEtape } from '../../types'
-import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
-import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
+import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
+import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 const etapeValideCheck = (
   titreEtape: ITitreEtape,
@@ -26,7 +26,7 @@ const etapeContenuFind = (
   sectionId: string,
   elementId: string
 ) =>
-  titreEtapesDescSort(titreDemarcheEtapes).find(
+  titreEtapesSortDesc(titreDemarcheEtapes).find(
     titreEtape =>
       etapeValideCheck(titreEtape, titreDemarcheTypeId) &&
       // détermine si l'étape contient la section et l'élément
