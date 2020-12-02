@@ -21,7 +21,7 @@ const titresTravauxOrdreUpdate = async (titresIds?: string[]) => {
   titres.forEach(titre => {
     if (titre.travaux) {
       const titreTravauxSorted = titreTravauxAscSort(
-        titre.travaux.slice().reverse()
+        titre.travaux
       ) as ITitreTravaux[]
 
       titreTravauxSorted.forEach(

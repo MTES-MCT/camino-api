@@ -3,7 +3,7 @@
 // pour laquelle la propriété existe
 
 import { ITitreDemarche, ITitreEtape, ITitreEtapeProp } from '../../types'
-import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
+import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 const etapeAmodiataireFind = (
@@ -103,9 +103,7 @@ const titrePropEtapeIdFind = (
   titreDemarches: ITitreDemarche[],
   titreStatutId: string
 ) => {
-  const titreDemarchesSorted = titreDemarchesAscSort(titreDemarches)
-    .slice()
-    .reverse()
+  const titreDemarchesSorted = titreDemarchesSortAsc(titreDemarches).reverse()
 
   return titreDemarchesSorted.reduce(
     (etapeId: string | null, titreDemarche: ITitreDemarche) => {

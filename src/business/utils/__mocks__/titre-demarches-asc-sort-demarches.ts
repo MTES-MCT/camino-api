@@ -189,20 +189,20 @@ const titreDemarchesSortedDesc = [
     statutId: 'acc',
     etapes: [
       {
-        id: 'h-cx-courdemanges-1988-mut01-dpu01',
-        titreDemarcheId: 'h-cx-courdemanges-1988-mut01',
-        typeId: 'dpu',
-        statutId: 'acc',
-        ordre: 2,
-        date: '1994-09-29'
-      },
-      {
         id: 'h-cx-courdemanges-1988-mut01-dex01',
         titreDemarcheId: 'h-cx-courdemanges-1988-mut01',
         typeId: 'dex',
         statutId: 'acc',
         ordre: 1,
         date: '1994-09-28'
+      },
+      {
+        id: 'h-cx-courdemanges-1988-mut01-dpu01',
+        titreDemarcheId: 'h-cx-courdemanges-1988-mut01',
+        typeId: 'dpu',
+        statutId: 'acc',
+        ordre: 2,
+        date: '1994-09-29'
       }
     ]
   },

@@ -6,7 +6,7 @@ const titreEtapesSortAscByDate = (
   demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
   titreTypeId?: string
 ) =>
-  titreEtapes.sort((a, b) => {
+  titreEtapes.slice().sort((a, b) => {
     const dateA = new Date(a.date)
     const dateB = new Date(b.date)
 

@@ -1,4 +1,4 @@
-import titreDemarchesAscSort from './titre-elements-sort-asc'
+import titreDemarchesSortAsc from './titre-elements-sort-asc'
 import {
   titreDemarchesNoEtapesSortedAsc,
   titreDemarchesNoEtapesSortedDesc,
@@ -14,30 +14,30 @@ import {
 describe('trie les démarches', () => {
   test('des démarches sans étapes organisées par ordre décroissant sont triées par ordre croissant', () => {
     expect(
-      titreDemarchesAscSort(titreDemarchesNoEtapesSortedDesc)
+      titreDemarchesSortAsc(titreDemarchesNoEtapesSortedDesc)
     ).toMatchObject(titreDemarchesNoEtapesSortedDescResult)
   })
 
   test('des démarches sans étapes orgqnisées par ordre croissant sont triées par ordre croissant', () => {
     expect(
-      titreDemarchesAscSort(titreDemarchesNoEtapesSortedAsc)
+      titreDemarchesSortAsc(titreDemarchesNoEtapesSortedAsc)
     ).toMatchObject(titreDemarchesNoEtapesSortedAscResult)
   })
 
   test('des démarches organisées par ordre décroissant sont triées par ordre croissant', () => {
-    expect(titreDemarchesAscSort(titreDemarchesSortedDesc)).toMatchObject(
+    expect(titreDemarchesSortAsc(titreDemarchesSortedDesc)).toMatchObject(
       titreDemarchesSortedAscResult
     )
   })
 
   test('des démarches organisées par ordre croissant restent triées par ordre croissant', () => {
-    expect(titreDemarchesAscSort(titreDemarchesSortedAsc)).toMatchObject(
+    expect(titreDemarchesSortAsc(titreDemarchesSortedAsc)).toMatchObject(
       titreDemarchesSortedAscResult
     )
   })
 
   test('des démarches dont les dates sont les mêmes restent triées dans le même ordre', () => {
-    expect(titreDemarchesAscSort(titreDemarchesSortedDescEqual)).toMatchObject(
+    expect(titreDemarchesSortAsc(titreDemarchesSortedDescEqual)).toMatchObject(
       titreDemarchesSortedDescEqualResult
     )
   })

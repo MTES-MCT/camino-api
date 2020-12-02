@@ -7,7 +7,7 @@ import titreEtapesSortAscByOrdre from './titre-etapes-sort-asc'
 const titreDemarcheOrTravauxSortAsc = (
   titreElements: ITitreDemarcheOrTravaux[]
 ) =>
-  titreElements.sort((a, b) => {
+  titreElements.slice().sort((a, b) => {
     const aHasEtapes = a.etapes && a.etapes.length
     const bHasEtapes = b.etapes && b.etapes.length
 

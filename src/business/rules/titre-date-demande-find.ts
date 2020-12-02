@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
+import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
 
 const titreDateDemandeFind = (
@@ -14,10 +14,10 @@ const titreDateDemandeFind = (
 
   // sinon
   // trouve la première démarche d'octroi
-  const titreDemarchesAscSorted = titreDemarchesAscSort(
+  const titreDemarchesSorted = titreDemarchesSortAsc(
     titreDemarches
   ) as ITitreDemarche[]
-  const titreDemarche = titreDemarchesAscSorted.find(titreDemarche =>
+  const titreDemarche = titreDemarchesSorted.find(titreDemarche =>
     ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
   )
 

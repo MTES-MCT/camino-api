@@ -33,7 +33,7 @@ const titreDemarchePhasesFilter = (
   // il existe une étape de publication et une étape rectificative,
   // on prend alors en compte l'originale
   const etapePublicationFirst = titreEtapesSortAsc(
-    titreDemarche.etapes!.slice()
+    titreDemarche.etapes!
   ).find(etape => titreEtapePublicationFilter(etape.typeId, titreTypeId))
 
   return etapePublicationFirst

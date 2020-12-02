@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
+import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 const titreDemarcheOctroiDateDebutFind = (
@@ -9,7 +9,7 @@ const titreDemarcheOctroiDateDebutFind = (
   if (!titreDemarches || !titreDemarches.length) return '0000'
 
   // récupère la démarche d'octroi (naturelle ou virtuelle)
-  const demarcheOctroi = titreDemarchesAscSort(
+  const demarcheOctroi = titreDemarchesSortAsc(
     titreDemarches
   ).find(({ typeId }) => ['oct', 'vut'].includes(typeId))
 

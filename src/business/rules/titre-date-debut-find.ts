@@ -1,6 +1,6 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-elements-sort-asc'
+import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
 import titreEtapePublicationFilter from './titre-etape-publication-filter'
@@ -43,10 +43,10 @@ const titreDateDebutFind = (
   titreTypeId?: string
 ) => {
   // la première démarche d'octroi dont le statut est acceptée ou terminée
-  const titreDemarchesAscSorted = titreDemarchesAscSort(
+  const titreDemarchesSorted = titreDemarchesSortAsc(
     titreDemarches
   ) as ITitreDemarche[]
-  const titreDemarche = titreDemarchesAscSorted.find(
+  const titreDemarche = titreDemarchesSorted.find(
     titreDemarche =>
       ['acc', 'ter'].includes(titreDemarche.statutId!) &&
       ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)

@@ -20,7 +20,9 @@ const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
   const titresDemarchesIdsUpdated = [] as string[]
 
   titres.forEach(titre => {
-    const titreDemarchesSorted = titreDemarchesSortAsc(titre.demarches!)
+    const titreDemarchesSorted = titreDemarchesSortAsc(
+      titre.demarches!
+    ) as ITitreDemarche[]
 
     titreDemarchesSorted.forEach(
       (titreDemarche: ITitreDemarche, index: number) => {
