@@ -1,7 +1,7 @@
 import { ITitreDemarche } from '../../types'
 
-import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
-import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
+import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
+import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
 
 const titreDateDemandeFind = (
   titreDemarches: ITitreDemarche[],
@@ -14,10 +14,10 @@ const titreDateDemandeFind = (
 
   // sinon
   // trouve la première démarche d'octroi
-  const titreDemarchesAscSorted = titreDemarchesAscSort(
+  const titreDemarchesSorted = titreDemarchesSortAsc(
     titreDemarches
   ) as ITitreDemarche[]
-  const titreDemarche = titreDemarchesAscSorted.find(titreDemarche =>
+  const titreDemarche = titreDemarchesSorted.find(titreDemarche =>
     ['oct', 'vut', 'vct'].includes(titreDemarche.typeId)
   )
 
@@ -28,8 +28,8 @@ const titreDateDemandeFind = (
   if (!titreDemarche || !titreDemarche.etapes!.length) return null
 
   // trouve la première étape de dépôt ou d'enregistrement de la demande
-  const titreEtapesAscSorted = titreEtapesAscSort(titreDemarche.etapes!)
-  const titreEtapeMen = titreEtapesAscSorted.find(te =>
+  const titreEtapesSorted = titreEtapesSortAsc(titreDemarche.etapes!)
+  const titreEtapeMen = titreEtapesSorted.find(te =>
     ['mdp', 'men'].includes(te.typeId)
   )
 

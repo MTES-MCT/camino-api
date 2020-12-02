@@ -1,12 +1,12 @@
 import { ITitreEtape, IDemarcheType, ITravauxType } from '../../types'
 
 // classe les étapes selon leur dates, ordre et etapesTypes.ordre le cas échéant
-const titreEtapesAscSortByDate = (
+const titreEtapesSortAscByDate = (
   titreEtapes: ITitreEtape[],
   demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
   titreTypeId?: string
 ) =>
-  titreEtapes.sort((a, b) => {
+  titreEtapes.slice().sort((a, b) => {
     const dateA = new Date(a.date)
     const dateB = new Date(b.date)
 
@@ -32,4 +32,4 @@ const titreEtapesAscSortByDate = (
     return aType.ordre - bType.ordre || a.ordre! - b.ordre!
   })
 
-export default titreEtapesAscSortByDate
+export default titreEtapesSortAscByDate

@@ -1,8 +1,8 @@
 import { ITitre, ITitreDemarche, ITitreEtape, ITitreTravaux } from '../../types'
 import * as slugify from '@sindresorhus/slugify'
 import idsUpdate from './ids-update'
-import titreDemarcheOrTravauxAscSort from './titre-elements-asc-sort'
-import titreEtapesAscSort from './titre-etapes-asc-sort'
+import titreDemarcheOrTravauxSortAsc from './titre-elements-sort-asc'
+import titreEtapesSortAsc from './titre-etapes-sort-asc'
 import { titrePropsEtapes } from '../processes/titres-props-etapes-ids-update'
 import titreDemarcheOctroiDateDebutFind from '../rules/titre-demarche-octroi-date-debut-find'
 
@@ -24,7 +24,7 @@ const titreIdFindHashAdd = (hash: string) => (titre: ITitre) =>
 
 const titreDemarcheIdFind = (titreDemarche: ITitreDemarche, titre: ITitre) => {
   const titreDemarcheTypeOrder =
-    titreDemarcheOrTravauxAscSort(
+    titreDemarcheOrTravauxSortAsc(
       titre.demarches!.filter(d => d.typeId === titreDemarche.typeId)
     ).findIndex(d => d === titreDemarche) + 1
 
@@ -35,7 +35,7 @@ const titreDemarcheIdFind = (titreDemarche: ITitreDemarche, titre: ITitre) => {
 
 const titreTravauxIdFind = (titreTravaux: ITitreTravaux, titre: ITitre) => {
   const titreTravauxTypeOrder =
-    titreDemarcheOrTravauxAscSort(
+    titreDemarcheOrTravauxSortAsc(
       titre.travaux!.filter(d => d.typeId === titreTravaux.typeId)
     ).findIndex(d => d.id === titreTravaux.id) + 1
 
@@ -49,7 +49,7 @@ const titreEtapeIdFind = (
   titreDemarche: ITitreDemarche
 ) => {
   const titreEtapeTypeOrder =
-    titreEtapesAscSort(
+    titreEtapesSortAsc(
       titreDemarche.etapes!.filter(e => e.typeId === titreEtape.typeId)
     ).findIndex(e => e === titreEtape) + 1
 

@@ -1,7 +1,7 @@
 import { ITitreEtape } from '../../types'
 
-import titreEtapesAscSort from '../utils/titre-etapes-asc-sort'
-import titreEtapesDescSort from '../utils/titre-etapes-desc-sort'
+import titreEtapesSortAsc from '../utils/titre-etapes-sort-asc'
+import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
 /**
  * Retourne la date de fin d'une démarche d'annulation
@@ -19,7 +19,7 @@ const titreDemarcheAnnulationDateFinFind = (titreEtapes: ITitreEtape[]) => {
     (te.typeId === 'aco' && te.statutId === 'fai')
 
   // la dernière étape qui valide l’annulation et qui contient une date de fin
-  const etapeAnnulationHasDateFin = titreEtapesDescSort(titreEtapes).find(
+  const etapeAnnulationHasDateFin = titreEtapesSortDesc(titreEtapes).find(
     te => te.dateFin && etapeAnnulationValideCheck(te)
   )
 
@@ -30,7 +30,7 @@ const titreDemarcheAnnulationDateFinFind = (titreEtapes: ITitreEtape[]) => {
 
   // sinon,
   // trouve la première étape qui valide l’annulation
-  const etapeAnnulation = titreEtapesAscSort(titreEtapes).find(
+  const etapeAnnulation = titreEtapesSortAsc(titreEtapes).find(
     etapeAnnulationValideCheck
   )
 

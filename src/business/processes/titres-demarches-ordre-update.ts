@@ -3,7 +3,7 @@ import PQueue from 'p-queue'
 
 import { titreDemarcheUpdate } from '../../database/queries/titres-demarches'
 import { titresGet } from '../../database/queries/titres'
-import titreDemarchesAscSort from '../utils/titre-elements-asc-sort'
+import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 
 const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
   console.info()
@@ -20,9 +20,9 @@ const titresDemarchesOrdreUpdate = async (titresIds?: string[]) => {
   const titresDemarchesIdsUpdated = [] as string[]
 
   titres.forEach(titre => {
-    const titreDemarchesSorted = titreDemarchesAscSort(
-      titre.demarches!.slice().reverse()
-    )
+    const titreDemarchesSorted = titreDemarchesSortAsc(
+      titre.demarches!
+    ) as ITitreDemarche[]
 
     titreDemarchesSorted.forEach(
       (titreDemarche: ITitreDemarche, index: number) => {

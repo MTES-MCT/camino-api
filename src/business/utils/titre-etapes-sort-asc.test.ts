@@ -1,4 +1,4 @@
-import titreEtapesAscSortByOrdre from './titre-etapes-asc-sort'
+import titreEtapesSortAscByOrdre from './titre-etapes-sort-asc'
 import {
   titreEtapesSortedAsc,
   titreEtapesSortedDesc,
@@ -7,13 +7,13 @@ import {
 
 describe('trie les étapes', () => {
   test('des étapes organisées par ordre décroissant sont triées par ordre croissant', () => {
-    expect(titreEtapesAscSortByOrdre(titreEtapesSortedDesc)).toMatchObject(
+    expect(titreEtapesSortAscByOrdre(titreEtapesSortedDesc)).toMatchObject(
       titreEtapesSortedAscResult
     )
   })
 
   test('des étapes organisées par ordre croissant restent triées par ordre croissant', () => {
-    expect(titreEtapesAscSortByOrdre(titreEtapesSortedAsc)).toMatchObject(
+    expect(titreEtapesSortAscByOrdre(titreEtapesSortedAsc)).toMatchObject(
       titreEtapesSortedAscResult
     )
   })
