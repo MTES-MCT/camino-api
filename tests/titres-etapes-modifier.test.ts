@@ -124,7 +124,7 @@ describe('etapeModifier', () => {
     expect(res.body.errors).toBeUndefined()
   })
 
-  test('ne peut pas modifier une étape acg avec un statut fai (utilisateur super)', async () => {
+  test('ne peut pas modifier une étape acg avec un statut fav (utilisateur super)', async () => {
     const { titreDemarcheId, titreEtapeId } = await etapeCreate()
 
     const res = await graphQLCall(
@@ -133,7 +133,7 @@ describe('etapeModifier', () => {
         etape: {
           id: titreEtapeId,
           typeId: 'acg',
-          statutId: 'fai',
+          statutId: 'fav',
           titreDemarcheId,
           date: ''
         }
