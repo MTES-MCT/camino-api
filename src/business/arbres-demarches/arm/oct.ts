@@ -13,35 +13,18 @@ const arbreArmOct: IArbreEtape[] = [
   },
   {
     arbreTypeId: 'pfd',
-    justeApres: [[{ arbreTypeId: 'mdp' }]]
+    justeApres: [],
+    avant: [[{ arbreTypeId: 'mcp' }]]
   },
   ...arbreComplementsGet({
     arbreTypeId: 'rde',
     separation: ['sca'],
-    justeApres: [
-      [
-        {
-          titre: {
-            contenu: {
-              arm: {
-                franchissements: { valeur: 0, operation: 'NOT_EQUAL' }
-              }
-            }
-          }
-        }
-      ]
-    ]
+    justeApres: [[]]
   }),
   ...arbreComplementsGet({
     arbreTypeId: 'dae',
-    justeApres: [
-      [
-        {
-          titre: { contenu: { arm: { mecanise: { valeur: true } } } }
-        },
-        { arbreTypeId: 'mdp' }
-      ]
-    ]
+    separation: ['mcp'],
+    justeApres: [[]]
   }),
   {
     arbreTypeId: 'mod',
@@ -155,6 +138,7 @@ const arbreArmOct: IArbreEtape[] = [
   { arbreTypeId: 'aca', justeApres: [[{ arbreTypeId: 'sca' }]] },
   {
     arbreTypeId: 'mno-aca',
+    separation: ['sco'],
     justeApres: [[{ arbreTypeId: 'aca', statutId: 'fav' }]]
   },
   {
@@ -216,6 +200,7 @@ const arbreArmOct: IArbreEtape[] = [
       ]
     ]
   },
+  { arbreTypeId: 'mno-css', justeApres: [[{ arbreTypeId: 'css' }]] },
   {
     arbreTypeId: 'des',
     justeApres: [],

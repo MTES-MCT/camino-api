@@ -20,22 +20,39 @@ const arbresCheck = async () => {
         },
         {
           fields: {
-            titre: { id: {} },
+            titre: { id: {}, demarches: { etapes: { id: {} } } },
             etapes: { id: {} },
             type: { id: {} }
           }
-        }
+        },
+        'super'
       )
 
       demarches
-        .filter(demarche => demarche.etapes![0].date > '2020-01-01')
-        .forEach(demarche => {
-          console.info(`test ${demarche.id}`)
-
-          demarche.etapes!.forEach(e => {
-            e.arbreTypeId = e.typeId
-          })
-
+        .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
+        // fixme à corriger
+        .filter(
+          demarche =>
+            ![
+              'm-ar-crique-amadis-1-et-2-2019-oct01',
+              'm-ar-crique-amadis-sud-2020-oct01',
+              'm-ar-crique-aoma-2020-oct01',
+              'm-ar-crique-bamba-2020-oct01',
+              'm-ar-crique-gayac-2019-oct01',
+              'm-ar-crique-nuage-2020-oct01',
+              'm-ar-crique-sandrine-2018-oct01',
+              'm-ar-criques-janvier-et-serpent-2020-oct01',
+              'm-ar-crique-tortue-2020-oct01',
+              'm-ar-grand-moussinga-2020-oct01',
+              'm-ar-tete-la-boue-2020-oct01',
+              'm-ar-crique-awa-2020-oct01',
+              'm-ar-saint-lucien-2020-oct01',
+              'm-ar-crique-petites-tortues-2020-oct01'
+            ].includes(demarche.id)
+        )
+        // FIXME à corriger
+        .filter(d => d.statutId !== 'cls')
+        .some(demarche => {
           try {
             const errors = titreDemarcheArbreValidate(
               arbre,
@@ -45,12 +62,29 @@ const arbresCheck = async () => {
             )
             if (errors) {
               errorsNb++
-              // throw new Error(errors)
+              console.log(
+                demarche.etapes!.map(e => ({
+                  arbreTypeId: e.arbreTypeId,
+                  date: e.date,
+                  statutId: e.statutId
+                }))
+              )
+              console.log(demarche.titre!.contenu, demarche.statutId)
+              console.error(
+                `https://camino.beta.gouv.fr/titres/${demarche.titreId} -> `
+              )
+              console.error(errors)
+
+              return true
             }
           } catch (e) {
-            console.error(e)
+            console.error(`${demarche.id} Démarche invalide =>\n\t${e}`)
             errorsNb++
+
+            return true
           }
+
+          return false
         })
     }
   }

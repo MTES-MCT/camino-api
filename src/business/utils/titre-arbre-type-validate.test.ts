@@ -1,7 +1,11 @@
-import { etapesSuivantesEnAttenteGet } from './titre-arbre-type-validate'
+import {
+  etapesSuivantesEnAttenteGet,
+  titreEtapesSortAsc
+} from './titre-arbre-type-validate'
 import { arbreArmRet } from '../arbres-demarches/arm/ret'
 import { ITitreEtape } from '../../types'
 import { arbreInformationsGet } from '../arbres-demarches/arbres-annexes'
+import { arbreArmOct } from '../arbres-demarches/arm/oct'
 
 describe('teste etapesSuivantesEnAttenteGet', () => {
   test('retourne la seule étape déjà effectuée', () => {
@@ -156,5 +160,20 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
     )
     expect(etapesEnAttente).toHaveLength(1)
     expect(etapesEnAttente[0]).toEqual({ arbreTypeId: 'mif-mcr' })
+  })
+})
+
+describe('teste titreEtapesSortAsc', () => {
+  test('tri par l’arbre si les étapes ont la même date', () => {
+    const etapes = [
+      { arbreTypeId: 'mcr', date: '2020-01-01', ordre: 18 },
+      { arbreTypeId: 'vfd', date: '2020-01-01', ordre: 23 },
+      { arbreTypeId: 'eof', date: '2020-01-01', ordre: 36 }
+    ] as ITitreEtape[]
+
+    const result = titreEtapesSortAsc(etapes, arbreArmOct)
+    expect(result[0].arbreTypeId).toEqual('vfd')
+    expect(result[1].arbreTypeId).toEqual('mcr')
+    expect(result[2].arbreTypeId).toEqual('eof')
   })
 })

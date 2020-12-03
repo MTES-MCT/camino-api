@@ -18,10 +18,8 @@ import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
   conditionTitre.contenu &&
   titre.contenu &&
-  Object.keys(conditionTitre.contenu).every(
-    key =>
-      titre.contenu![key] &&
-      contenuConditionMatch(conditionTitre.contenu[key], titre.contenu![key])
+  Object.keys(conditionTitre.contenu).every(key =>
+    contenuConditionMatch(conditionTitre.contenu[key], titre.contenu![key])
   )
 
 const titreArbreTypeIdRestrictionsFind = (
@@ -247,6 +245,45 @@ const titreArbreTypeIdRestrictionsCheck = (
   return contraintesErrors
 }
 
+const titreEtapesSortAsc = (
+  titreEtapes: ITitreEtape[],
+  restrictions: IArbreEtape[]
+) =>
+  titreEtapes.slice().sort((a, b) => {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+
+    if (dateA < dateB) return -1
+    if (dateA > dateB) return 1
+
+    // si les deux étapes ont la même date
+    // on utilise l'arbre pour trouver quelle étape provoque l’autre
+    const aRestriction = restrictions.find(
+      arbreEtape => arbreEtape.arbreTypeId === a.arbreTypeId
+    )
+
+    if (
+      aRestriction!.justeApres
+        .flat(2)
+        .find(a => a?.arbreTypeId === b.arbreTypeId)
+    ) {
+      return 1
+    }
+
+    const bRestriction = restrictions.find(
+      arbreEtape => arbreEtape.arbreTypeId === b.arbreTypeId
+    )
+    if (
+      bRestriction!.justeApres
+        .flat(2)
+        .find(b => b?.arbreTypeId === a.arbreTypeId)
+    ) {
+      return -1
+    }
+
+    return a.ordre! - b.ordre!
+  })
+
 const titreDemarcheArbreValidate = (
   arbreDemarche: IArbresDemarches,
   demarcheType: IDemarcheType,
@@ -256,11 +293,17 @@ const titreDemarcheArbreValidate = (
   // Si on tente d’insérer ou de modifier une étape, il faut regarder
   // qu’on puisse la mettre avec son nouveau arbreTypeId à la nouvelle date souhaitée
   // et que les étapes après celle-ci soient toujours possibles
-  titreEtapes = titreEtapesSortAscByDate(
-    titreEtapes,
-    demarcheType,
-    titre.typeId
+
+  // Vérifie que toutes les étapes existent dans l’arbre
+  const arbreTypeIdsValid = arbreDemarche.restrictions.map(r => r.arbreTypeId)
+  const etapeInconnue = titreEtapes.find(
+    etape => !arbreTypeIdsValid.includes(etape.arbreTypeId!)
   )
+  if (etapeInconnue) {
+    return `L’étape ${etapeInconnue.arbreTypeId} n’existe pas dans l’arbre`
+  }
+
+  titreEtapes = titreEtapesSortAsc(titreEtapes, arbreDemarche.restrictions)
   for (let i = 0; i < titreEtapes.length; i++) {
     const titreArbreTypeIdErrors = titreArbreTypeIdRestrictionsCheck(
       arbreDemarche.restrictions,
@@ -320,5 +363,6 @@ const titreArbreTypeIdValidate = (
 export {
   titreArbreTypeIdValidate,
   etapesSuivantesEnAttenteGet,
-  titreDemarcheArbreValidate
+  titreDemarcheArbreValidate,
+  titreEtapesSortAsc
 }

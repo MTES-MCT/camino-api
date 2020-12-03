@@ -7,7 +7,8 @@ import {
   ITitreEtape,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
-import { titreArbreTypeIdValidate } from '../utils/titre-arbre-type-validate'
+import { titreDemarcheArbreValidate } from '../utils/titre-arbre-type-validate'
+import { arbreDemarcheGet } from './arbres-demarches'
 import decamelize = require('decamelize')
 
 const elementsGet = <T>(fileName: string): T[] => {
@@ -43,21 +44,13 @@ const arbreErreursGet = (demarcheTypeId: string, titreTypeId: string) => {
   const etapesTypes = etapesTypesGet(demarcheTypeId, titreTypeId)
 
   return (
-    arbreTypeId: string,
     titreDemarcheEtapes: Partial<ITitreEtape>[],
-    titre: Partial<ITitre> = {},
-    titreEtape: Partial<ITitreEtape> = { date: '3000-01-01' }
+    titre: Partial<ITitre> = { contenu: {} }
   ) => {
-    const etapeTypeId = arbreTypeId.split('-')[0]
+    const arbreDemarche = arbreDemarcheGet(titreTypeId, demarcheTypeId)
 
-    if (!etapesTypes.find(etapesTypes => etapesTypes.id === etapeTypeId)) {
-      /* istanbul ignore next */
-      throw new Error(
-        `L’étape "${etapeTypeId}" n’existe pas pour les démarches "${demarcheTypeId}" des titres "${titreTypeId}"`
-      )
-    }
-
-    return titreArbreTypeIdValidate(
+    return titreDemarcheArbreValidate(
+      arbreDemarche!,
       {
         id: demarcheTypeId,
         etapesTypes
@@ -66,8 +59,7 @@ const arbreErreursGet = (demarcheTypeId: string, titreTypeId: string) => {
       {
         ...titre,
         typeId: titreTypeId
-      } as ITitre,
-      { ...titreEtape, arbreTypeId } as ITitreEtape
+      } as ITitre
     )
   }
 }

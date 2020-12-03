@@ -89,7 +89,7 @@ const objConditionMatch = (
 
 const contenuConditionMatch = (
   condition: IContenuElementCondition,
-  obj: Index<any>,
+  obj: Index<any> | null,
   keys: string[] | null = null
 ) => {
   // si les conditions sont testées plusieurs fois, (dans une boucle par ex)
@@ -100,9 +100,13 @@ const contenuConditionMatch = (
   return conditionKeys.every(k => {
     const contenuElementCondition = condition[k]
 
-    let contenuValeur = obj[k]
-    if (!contenuValeur && typeof contenuElementCondition?.valeur === 'number') {
-      contenuValeur = 0
+    let contenuValeur = obj ? obj[k] : undefined
+    if (!contenuValeur) {
+      if (typeof contenuElementCondition?.valeur === 'number') {
+        contenuValeur = 0
+      } else if (typeof contenuElementCondition?.valeur === 'boolean') {
+        contenuValeur = false
+      }
     }
 
     switch (contenuElementCondition?.operation) {

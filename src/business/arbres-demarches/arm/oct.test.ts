@@ -3,88 +3,47 @@ import { arbreErreursGet } from '../_utils'
 describe('vérifie l’arbre d’octroi d’ARM', () => {
   const octArbreErreursGet = arbreErreursGet('oct', 'arm')
 
-  test.each(['mfr'])(
+  test.each(['mfr', 'pfd', 'dae', 'rde'])(
     'peut créer une étape "%s" si il n’existe pas d’autres étapes',
     arbreTypeId => {
-      expect(octArbreErreursGet(arbreTypeId, [])).toBeNull()
+      expect(octArbreErreursGet([{ arbreTypeId }])).toBeNull()
     }
   )
 
   test('peut créer une étape "mdp" juste après une "mfr"', () => {
-    expect(octArbreErreursGet('mdp', [{ arbreTypeId: 'mfr' }])).toBeNull()
+    expect(
+      octArbreErreursGet([{ arbreTypeId: 'mfr' }, { arbreTypeId: 'mdp' }])
+    ).toBeNull()
   })
 
   test('ne peut pas créer une étape "mfr" si il y a déjà une "mfr"', () => {
     expect(
-      octArbreErreursGet('mfr', [
+      octArbreErreursGet([
         { arbreTypeId: 'mfr' },
-        { arbreTypeId: 'mdp' }
+        { arbreTypeId: 'mdp' },
+        { arbreTypeId: 'mfr' }
       ])
     ).toBeTruthy()
   })
 
-  test('peut déplacer une étape "mfr" avant une "mdp"', () => {
-    expect(
-      octArbreErreursGet(
-        'mfr',
-
-        [
-          { arbreTypeId: 'mdp', date: '2020-02-02' },
-          { arbreTypeId: 'mfr', date: '2020-01-01', id: 'mfr-1' }
-        ],
-        {},
-        { date: '2020-02-01', id: 'mfr-1' }
-      )
-    ).toBeNull()
-  })
-
   test('ne peut pas déplacer une étape "mfr" après une "mdp"', () => {
     expect(
-      octArbreErreursGet(
-        'mfr',
-
-        [
-          { arbreTypeId: 'mdp', date: '2020-02-02' },
-          { arbreTypeId: 'mfr', date: '2020-01-01', id: 'mfr-1' }
-        ],
-        {},
-        { date: '2020-03-01', id: 'mfr-1' }
-      )
+      octArbreErreursGet([
+        { arbreTypeId: 'mdp', date: '2020-02-02' },
+        { arbreTypeId: 'mfr', date: '2020-02-03' }
+      ])
     ).toBeTruthy()
   })
-
-  test.each(['rde', 'dae', 'pfd'])(
-    'ne peut pas créer une étape "%s" si il n’existe pas d’autres étapes et que le titre n’est pas mécanisé',
-    arbreTypeId => {
-      expect(
-        octArbreErreursGet(arbreTypeId, [], {
-          contenu: { arm: { mecanise: false } }
-        })
-      ).toBeTruthy()
-    }
-  )
-
-  test.each(['rde', 'dae'])(
-    'ne peut pas créer une étape "%s" si il n’existe pas d’autres étapes et que le titre est mécanisé avec franchissement d’eau',
-    arbreTypeId => {
-      expect(
-        octArbreErreursGet(arbreTypeId, [], {
-          contenu: { arm: { mecanise: true, franchissements: 1 } }
-        })
-      ).toBeTruthy()
-    }
-  )
 
   test.each(['rde', 'dae'])(
     'peut créer une étape "%s" juste après une "mdp" et que le titre est mécanisé avec franchissement d’eau',
     arbreTypeId => {
       expect(
         octArbreErreursGet(
-          arbreTypeId,
-
           [
             { arbreTypeId: 'mfr', date: '2020-01-01' },
-            { arbreTypeId: 'mdp', date: '2020-01-02' }
+            { arbreTypeId: 'mdp', date: '2020-01-02' },
+            { arbreTypeId, date: '2020-01-02' }
           ],
           {
             contenu: { arm: { mecanise: true, franchissements: 1 } }
@@ -96,41 +55,47 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
 
   test('peut créer une étape "mcp" après une "mdp"', () => {
     expect(
-      octArbreErreursGet(
-        'mcp',
-
-        [
-          { arbreTypeId: 'mdp', date: '2020-02-02' },
-          { arbreTypeId: 'mfr', date: '2020-01-01' }
-        ],
-        {
-          contenu: { arm: { mecanise: false } }
-        }
-      )
+      octArbreErreursGet([
+        { arbreTypeId: 'mcp', date: '2020-02-03' },
+        { arbreTypeId: 'mdp', date: '2020-02-02' },
+        { arbreTypeId: 'mfr', date: '2020-01-01' }
+      ])
     ).toBeNull()
   })
 
   test('peut créer une "des" si le titre est en attente de "pfc"', () => {
     expect(
-      octArbreErreursGet(
-        'des',
+      octArbreErreursGet([
+        { arbreTypeId: 'mfr', date: '2020-01-01' },
+        { arbreTypeId: 'mdp', date: '2020-01-01' },
+        { arbreTypeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
+        { arbreTypeId: 'vfd', date: '2020-01-01' },
+        { arbreTypeId: 'mcr', date: '2020-01-01', statutId: 'fav' },
+        { arbreTypeId: 'eof', date: '2020-01-01' },
+        { arbreTypeId: 'aof', date: '2020-01-01' },
+        { arbreTypeId: 'sca', date: '2020-01-02' },
+        { arbreTypeId: 'aca', date: '2020-01-03', statutId: 'fav' },
+        { arbreTypeId: 'mno-aca', date: '2020-01-04' },
+        { arbreTypeId: 'des', date: '2020-01-04' }
+      ])
+    ).toBeNull()
+  })
 
-        [
-          { arbreTypeId: 'mfr', date: '2020-01-01' },
-          { arbreTypeId: 'mdp', date: '2020-01-01' },
-          { arbreTypeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
-          { arbreTypeId: 'vfd', date: '2020-01-01' },
-          { arbreTypeId: 'mcr', date: '2020-01-01', statutId: 'fav' },
-          { arbreTypeId: 'eof', date: '2020-01-01' },
-          { arbreTypeId: 'aof', date: '2020-01-01' },
-          { arbreTypeId: 'sca', date: '2020-01-02' },
-          { arbreTypeId: 'aca', date: '2020-01-03', statutId: 'fav' },
-          { arbreTypeId: 'mno-aca', date: '2020-01-04' }
-        ],
-        {
-          contenu: { arm: { mecanise: false } }
-        }
-      )
+  test('peut créer une "mno-rej" apres une "aca" défavorable', () => {
+    expect(
+      octArbreErreursGet([
+        { arbreTypeId: 'mno-rej', date: '2020-08-18', statutId: 'fai' },
+        { arbreTypeId: 'aca', date: '2020-08-18', statutId: 'def' },
+        { arbreTypeId: 'sca', date: '2020-08-07', statutId: 'fai' },
+        { arbreTypeId: 'aof', date: '2020-06-19', statutId: 'def' },
+        { arbreTypeId: 'eof', date: '2020-06-19', statutId: 'fai' },
+        { arbreTypeId: 'mcr', date: '2020-06-15', statutId: 'fav' },
+        { arbreTypeId: 'vfd', date: '2020-06-15', statutId: 'fai' },
+        { arbreTypeId: 'mcp', date: '2020-05-29', statutId: 'fav' },
+        { arbreTypeId: 'mdp', date: '2020-05-04', statutId: 'fai' },
+        { arbreTypeId: 'pfd', date: '2020-05-01', statutId: 'fai' },
+        { arbreTypeId: 'mfr', date: '2020-04-29', statutId: 'fai' }
+      ])
     ).toBeNull()
   })
 })
