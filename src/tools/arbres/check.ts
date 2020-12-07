@@ -52,10 +52,10 @@ const arbresCheck = async () => {
         // )
         // // FIXME à corriger
         // .filter(d => d.statutId !== 'cls')
-        .filter(d => ['pro', 'ren'].includes(d.typeId))
+        .filter(d => ['oct'].includes(d.typeId))
         .forEach(demarche => {
           // .some(demarche => {
-          // demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
+          demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
           try {
             const errors = titreDemarcheArbreValidate(
               arbre,
@@ -65,13 +65,13 @@ const arbresCheck = async () => {
             )
             if (errors) {
               errorsNb++
-              console.log(
-                demarche.etapes!.map(e => ({
-                  arbreTypeId: e.arbreTypeId,
-                  date: e.date,
-                  statutId: e.statutId
-                }))
-              )
+              // console.log(
+              //   demarche.etapes!.map(e => ({
+              //     arbreTypeId: e.arbreTypeId,
+              //     date: e.date,
+              //     statutId: e.statutId
+              //   }))
+              // )
               console.log(demarche.titre!.contenu, demarche.statutId)
               console.error(
                 `https://camino.beta.gouv.fr/titres/${demarche.titreId}  démarche ${demarche.typeId}-> `
