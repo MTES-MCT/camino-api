@@ -1,10 +1,10 @@
 import {
-  ITitre,
   IDemarcheType,
-  ITitreDemarche,
-  ITitreEtape,
   IEtapeType,
-  ISection
+  ISection,
+  ITitre,
+  ITitreDemarche,
+  ITitreEtape
 } from '../../types'
 
 import { titreArbreTypeIdValidate } from '../../business/utils/titre-arbre-type-validate'
@@ -13,6 +13,21 @@ import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
 import { arbreTypeIdsGet } from '../../business/arbres-demarches/arbres-demarches'
+
+const etapeTypeNomFormat = (
+  arbreTypeId: string | undefined | null,
+  etapeType: IEtapeType,
+  titreDemarcheType: IDemarcheType
+) => {
+  if (arbreTypeId?.match(/-/)) {
+    const etapeParentTypeId = arbreTypeId.slice(4)
+    const etapeParent = titreDemarcheType.etapesTypes.find(
+      et => et.id === etapeParentTypeId
+    )
+
+    etapeType.nom = `${etapeType.nom} pour ${etapeParent!.nom}`
+  }
+}
 
 const etapeTypeSectionsFormat = (
   etapeType: IEtapeType,
@@ -148,6 +163,8 @@ const etapeTypeFormat = (
     etapeTypeCopy.demarcheTypeId = demarcheType.id
     etapeTypeCopy.arbreTypeId = arbreTypeId
 
+    etapeTypeNomFormat(arbreTypeId, etapeTypeCopy, demarcheType)
+
     acc.push(
       etapeTypeSectionsFormat(
         etapeTypeCopy,
@@ -160,4 +177,4 @@ const etapeTypeFormat = (
   }, [])
 }
 
-export { etapeTypeFormat, etapeTypeSectionsFormat }
+export { etapeTypeFormat, etapeTypeSectionsFormat, etapeTypeNomFormat }
