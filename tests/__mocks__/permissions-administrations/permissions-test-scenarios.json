@@ -1,0 +1,92 @@
+[
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "peut",
+    "action": "voir",
+    "cible": "titre",
+    "titre_type_id": "axm",
+    "titre_statut_id": "",
+    "etape_type_id": ""
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "peut",
+    "action": "voir",
+    "cible": "demarche",
+    "titre_type_id": "axm",
+    "titre_statut_id": "",
+    "etape_type_id": ""
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "peut",
+    "action": "voir",
+    "cible": "etape",
+    "titre_type_id": "axm",
+    "titre_statut_id": "",
+    "etape_type_id": "abd"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "ne peut pas",
+    "action": "voir",
+    "cible": "etape",
+    "titre_type_id": "axm",
+    "titre_statut_id": "",
+    "etape_type_id": "aac"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "ne peut pas",
+    "action": "modifier",
+    "cible": "titre",
+    "titre_type_id": "axm",
+    "titre_statut_id": "dmc",
+    "etape_type_id": ""
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "ne peut pas",
+    "action": "modifier",
+    "cible": "demarche",
+    "titre_type_id": "axm",
+    "titre_statut_id": "ech",
+    "etape_type_id": ""
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "ne peut pas",
+    "action": "modifier",
+    "cible": "etape",
+    "titre_type_id": "axm",
+    "titre_statut_id": "val",
+    "etape_type_id": ""
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "ne peut pas",
+    "action": "modifier",
+    "cible": "etape",
+    "titre_type_id": "axm",
+    "titre_statut_id": "val",
+    "etape_type_id": "aof"
+  },
+  {
+    "administration_id": "ope-onf-973-01",
+    "statut_administration_id": "",
+    "pouvoir": "peut",
+    "action": "modifier",
+    "cible": "etape",
+    "titre_type_id": "axm",
+    "titre_statut_id": "dmi",
+    "etape_type_id": "aof"
+  }
+]
