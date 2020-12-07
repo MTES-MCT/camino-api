@@ -9,7 +9,8 @@ const arbreArmRenPro: IArbreEtape[] = [
   },
   {
     arbreTypeId: 'mdp',
-    justeApres: [[{ arbreTypeId: 'mfr' }]]
+    justeApres: [[{ arbreTypeId: 'mfr' }]],
+    separation: ['mcr']
   },
   {
     arbreTypeId: 'mod',
@@ -54,7 +55,7 @@ const arbreArmRenPro: IArbreEtape[] = [
     arbreTypeId: 'des',
     justeApres: [],
     apres: [[{ arbreTypeId: 'mdp' }]],
-    avant: [[{ arbreTypeId: 'css' }, { arbreTypeId: 'aof' }]]
+    avant: [[{ arbreTypeId: 'css' }], [{ arbreTypeId: 'aof' }]]
   }
 ]
 

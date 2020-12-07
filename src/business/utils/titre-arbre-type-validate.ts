@@ -200,10 +200,12 @@ const titreArbreTypeIdRestrictionsCheck = (
 
   const { avant, apres, justeApres } = titreEtapeRestrictions
 
-  const contraintesErrors = [] as string[]
-
-  if (avant && arbreConditionsCheck(titre, titreDemarcheEtapes, avant)) {
-    contraintesErrors.push(
+  if (
+    !errors.length &&
+    avant &&
+    arbreConditionsCheck(titre, titreDemarcheEtapes, avant)
+  ) {
+    errors.push(
       `L’étape "${arbreTypeId}" n’est plus possible après ${etapesEnAttenteToString(
         titreEtapesEnAttente
       )}`
@@ -211,11 +213,11 @@ const titreArbreTypeIdRestrictionsCheck = (
   }
 
   if (
-    !contraintesErrors.length &&
+    !errors.length &&
     apres &&
     !arbreConditionsCheck(titre, titreDemarcheEtapes, apres)
   ) {
-    contraintesErrors.push(
+    errors.push(
       `L’étape "${arbreTypeId}" n’est pas possible après ${etapesEnAttenteToString(
         titreEtapesEnAttente
       )}`
@@ -223,26 +225,26 @@ const titreArbreTypeIdRestrictionsCheck = (
   }
 
   if (
-    !contraintesErrors.length &&
+    !errors.length &&
     justeApres.length &&
     !arbreConditionsCheck(titre, titreEtapesEnAttente, justeApres)
   ) {
-    contraintesErrors.push(
+    errors.push(
       `L’étape "${arbreTypeId}" n’est pas possible juste après ${etapesEnAttenteToString(
         titreEtapesEnAttente
       )}`
     )
   }
 
-  if (!contraintesErrors.length) {
+  if (!errors.length) {
     if (!justeApres.length || justeApres.some(c => !c.length)) {
       if (titreDemarcheEtapes.map(e => e.arbreTypeId).includes(arbreTypeId)) {
-        contraintesErrors.push(`L’étape "${arbreTypeId}" existe déjà`)
+        errors.push(`L’étape "${arbreTypeId}" existe déjà`)
       }
     }
   }
 
-  return contraintesErrors
+  return errors
 }
 
 const titreEtapesSortAsc = (
@@ -333,7 +335,11 @@ const titreArbreTypeIdValidate = (
 
   // pas de validation si l'étape est antérieure au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
-  if (titreEtape?.date && titreEtape.date < '2019-10-31') return null
+  if (titreEtape.date && titreEtape.date < '2019-10-31') return null
+
+  if (!titreEtape.date) {
+    titreEtape.date = '2300-01-01'
+  }
 
   let titreEtapes = JSON.parse(
     JSON.stringify(titreDemarcheEtapes)
