@@ -20,7 +20,7 @@ describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => 
         { arbreTypeId: 'mcr', date: '2020-06-01' },
         { arbreTypeId: 'mod', date: '2020-06-03' }
       ])
-    ).toBeNull()
+    ).toContain('L’étape "mod" n’est pas possible juste après "mcr"')
   })
 
   test('ne peut pas faire 2 "mco" d’affilée', () => {

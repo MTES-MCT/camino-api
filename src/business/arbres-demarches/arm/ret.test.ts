@@ -36,7 +36,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { arbreTypeId: 'mno-css' },
         { arbreTypeId: 'mno-css' }
       ])
-    ).toContain('L’étape "mno-css" n’est pas possible juste après "mno-css"')
+    ).toContain('L’étape "mno-css" ne peut-être effecutée 2 fois d’affilée')
   })
 
   test('peut créer une "aof" juste après une "mno"', () => {
@@ -174,7 +174,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { arbreTypeId: 'css', date: '2020-01-01' },
         { arbreTypeId: 'css' }
       ])
-    ).toContain('L’étape "css" existe déjà')
+    ).toContain('L’étape "css" ne peut-être effecutée 2 fois d’affilée')
   })
 
   test('ne peut pas créer une "mno-ide" juste après une "css"', () => {
