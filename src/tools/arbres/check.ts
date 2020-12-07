@@ -31,28 +31,31 @@ const arbresCheck = async () => {
       demarches
         .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
         // fixme à corriger
-        .filter(
-          demarche =>
-            ![
-              'm-ar-crique-amadis-1-et-2-2019-oct01',
-              'm-ar-crique-amadis-sud-2020-oct01',
-              'm-ar-crique-aoma-2020-oct01',
-              'm-ar-crique-bamba-2020-oct01',
-              'm-ar-crique-gayac-2019-oct01',
-              'm-ar-crique-nuage-2020-oct01',
-              'm-ar-crique-sandrine-2018-oct01',
-              'm-ar-criques-janvier-et-serpent-2020-oct01',
-              'm-ar-crique-tortue-2020-oct01',
-              'm-ar-grand-moussinga-2020-oct01',
-              'm-ar-tete-la-boue-2020-oct01',
-              'm-ar-crique-awa-2020-oct01',
-              'm-ar-saint-lucien-2020-oct01',
-              'm-ar-crique-petites-tortues-2020-oct01'
-            ].includes(demarche.id)
-        )
-        // FIXME à corriger
-        .filter(d => d.statutId !== 'cls')
-        .some(demarche => {
+        // .filter(
+        //   demarche =>
+        //     ![
+        //       'm-ar-crique-amadis-1-et-2-2019-oct01',
+        //       'm-ar-crique-amadis-sud-2020-oct01',
+        //       'm-ar-crique-aoma-2020-oct01',
+        //       'm-ar-crique-bamba-2020-oct01',
+        //       'm-ar-crique-gayac-2019-oct01',
+        //       'm-ar-crique-nuage-2020-oct01',
+        //       'm-ar-crique-sandrine-2018-oct01',
+        //       'm-ar-criques-janvier-et-serpent-2020-oct01',
+        //       'm-ar-crique-tortue-2020-oct01',
+        //       'm-ar-grand-moussinga-2020-oct01',
+        //       'm-ar-tete-la-boue-2020-oct01',
+        //       'm-ar-crique-awa-2020-oct01',
+        //       'm-ar-saint-lucien-2020-oct01',
+        //       'm-ar-crique-petites-tortues-2020-oct01'
+        //     ].includes(demarche.id)
+        // )
+        // // FIXME à corriger
+        // .filter(d => d.statutId !== 'cls')
+        .filter(d => ['pro', 'ren'].includes(d.typeId))
+        .forEach(demarche => {
+          // .some(demarche => {
+          // demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
           try {
             const errors = titreDemarcheArbreValidate(
               arbre,
@@ -71,7 +74,7 @@ const arbresCheck = async () => {
               )
               console.log(demarche.titre!.contenu, demarche.statutId)
               console.error(
-                `https://camino.beta.gouv.fr/titres/${demarche.titreId} -> `
+                `https://camino.beta.gouv.fr/titres/${demarche.titreId}  démarche ${demarche.typeId}-> `
               )
               console.error(errors)
 

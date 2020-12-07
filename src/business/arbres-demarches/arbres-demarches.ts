@@ -1,6 +1,7 @@
 import { arbreArmRet } from './arm/ret'
 import { ITitreCondition } from '../../types'
 import { arbreArmOct } from './arm/oct'
+import { arbreArmRenPro } from './arm/ren-pro'
 
 interface IArbreCondition {
   arbreTypeId?: string
@@ -33,6 +34,11 @@ const arbresDemarches: IArbresDemarches[] = [
     titreTypeId: 'arm',
     demarcheTypeIds: ['ret'],
     restrictions: arbreArmRet
+  },
+  {
+    titreTypeId: 'arm',
+    demarcheTypeIds: ['ren', 'pro'],
+    restrictions: arbreArmRenPro
   }
 ]
 
