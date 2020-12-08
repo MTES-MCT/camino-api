@@ -232,6 +232,18 @@ type Definition {
   elements: [Definition]
 }
 
+input InputDomaine {
+  "Id composée d'une seule lettre"
+  id: ID!
+
+  "Nom du domaine en français"
+  nom: String
+
+  description: String
+
+  ordre: Int
+}
+
 """
 Liste de couleurs génériques
 """

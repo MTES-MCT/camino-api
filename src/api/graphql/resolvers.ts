@@ -58,6 +58,7 @@ import {
   documentsTypes,
   documentsVisibilites,
   domaines,
+  domaineModifier,
   etapesTypes,
   etapesStatuts,
   geoSystemes,
@@ -207,5 +208,6 @@ export default {
   travauxSupprimer,
   travauxEtapeCreer,
   travauxEtapeModifier,
-  travauxEtapeSupprimer
+  travauxEtapeSupprimer,
+  domaineModifier
 }

@@ -352,4 +352,6 @@ type Mutation {
 
   "Supprime une étape de travaux et met à jour le titre minier"
   travauxEtapeSupprimer(id: ID!): Titre
+
+  domaineModifier(domaine: InputDomaine!): [Domaine]
 }

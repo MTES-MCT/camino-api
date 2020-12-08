@@ -1,5 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IDocumentRepertoire, IEtapeType, IToken } from '../../../types'
+import {
+  IDocumentRepertoire,
+  IDomaine,
+  IEtapeType,
+  IToken
+} from '../../../types'
 import { debug } from '../../../config/index'
 
 import {
@@ -12,6 +17,7 @@ import {
   devisesGet,
   documentsTypesGet,
   domainesGet,
+  domaineUpdate,
   etapesStatutsGet,
   etapesTypesGet,
   geoSystemesGet,
@@ -461,6 +467,69 @@ const regions = async () => {
   }
 }
 
+const domaineModifier = async (
+  { domaine }: { domaine: Partial<IDomaine> },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (domaine.ordre) {
+      const domaines = await domainesGet(
+        null as never,
+        { fields },
+        context.user?.id
+      )
+
+      const domaineOld = domaines.find(d => d.id === domaine.id)
+
+      // l'ordre augmente
+      if (domaineOld && domaine.ordre > domaineOld.ordre) {
+        const domainesModified = domaines.filter(
+          d => d.ordre > domaineOld.ordre && d.ordre <= domaine.ordre!
+        )
+
+        for (const d of domainesModified) {
+          await domaineUpdate(d.id!, { ordre: d.ordre - 1 })
+        }
+      }
+      // l'ordre diminue
+      else if (domaineOld && domaine.ordre < domaineOld.ordre) {
+        const domainesModified = domaines.filter(
+          d => d.ordre < domaineOld.ordre && d.ordre >= domaine.ordre!
+        )
+
+        for (const d of domainesModified) {
+          await domaineUpdate(d.id!, { ordre: d.ordre + 1 })
+        }
+      }
+    }
+
+    await domaineUpdate(domaine.id!, domaine)
+
+    const domaines = await domainesGet(
+      null as never,
+      { fields },
+      context.user?.id
+    )
+
+    return domaines
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -484,5 +553,6 @@ export {
   definitions,
   administrationsTypes,
   regions,
-  departements
+  departements,
+  domaineModifier
 }

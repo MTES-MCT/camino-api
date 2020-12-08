@@ -230,6 +230,7 @@ interface IDocumentType {
 interface IDomaine {
   id: string
   nom: string
+  description?: string
   ordre: number
   titresTypes: ITitreType[]
   titresCreation: boolean

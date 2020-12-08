@@ -1,4 +1,4 @@
-import { IFields, IDocumentRepertoire } from '../../types'
+import { IFields, IDocumentRepertoire, IDomaine } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
@@ -68,6 +68,9 @@ const domainesGet = async (
 
   return q
 }
+
+const domaineUpdate = async (id: string, props: Partial<IDomaine>) =>
+  Domaines.query().patchAndFetchById(id, props)
 
 /**
  * retourne les statuts de titre visible par l’utilisateur
@@ -245,6 +248,7 @@ const administrationsTypesGet = async () =>
 export {
   titresTypesTypesGet,
   domainesGet,
+  domaineUpdate,
   titresStatutsGet,
   demarchesTypesGet,
   demarchesStatutsGet,
