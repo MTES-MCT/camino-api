@@ -212,18 +212,16 @@ const titreDemarcheDemandeStatutIdFind = (
     return 'des'
   }
 
-  //  - le type de l’étape est classement sans suite (css)
+  //  - le type de l’étape est rejeté (rej)
   //  - le titre est une ARM
   //    - et le type de l’étape est avis de la commission ARM (aca)
-  //    - ou le type de l’étape est recevabilité de la demande (mcr) (historique)
   //    - et le statut de l’étape est défavorable (def)
   if (
     titreTypeId === 'arm' &&
     titreEtapeRecent.typeId === 'aca' &&
     titreEtapeRecent.statutId === 'def'
   ) {
-    //  - le statut de la démarche est classé sans suite (cls)
-    return 'cls'
+    return 'rej'
   }
 
   //  - le type de l’étape est recevabilité de la demande (mcr)
