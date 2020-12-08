@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.24.65](https://github.com/MTES-MCT/camino-api/compare/v0.24.64...v0.24.65) (2020-12-08)
+
+
+### Bug Fixes
+
+* **arm:** corrige le statut de la démarche d’octroi d’ARM après un avis défavorable de la CARM ([#605](https://github.com/MTES-MCT/camino-api/issues/605)) ([5895772](https://github.com/MTES-MCT/camino-api/commit/58957724b92e63e22197287364d366cddb719dec))
+* **glossaire:** supprime les substances en double dans le glossaire ([#603](https://github.com/MTES-MCT/camino-api/issues/603)) ([92d83fd](https://github.com/MTES-MCT/camino-api/commit/92d83fd18a4ca3ef86fb04e1e977e7708b9c89b4))
+* **session:** augmente le temps de validité du token à 15 minutes ([dbb5f93](https://github.com/MTES-MCT/camino-api/commit/dbb5f9340d522c4cdd8aa6354d3320ba6eece1e4))
+* autorise un désistement si la démarche est en attente de paiement ([#601](https://github.com/MTES-MCT/camino-api/issues/601)) ([f678843](https://github.com/MTES-MCT/camino-api/commit/f6788438ba823ae41995ffd711e9baaabce60573))
+* corrige l'import des titres depuis les spreasheets ([79aeca6](https://github.com/MTES-MCT/camino-api/commit/79aeca63d00dbc8d9bb6604598515f8730cc7d6d))
+* corrige le calcul des amodiataires ([#602](https://github.com/MTES-MCT/camino-api/issues/602)) ([3cf130c](https://github.com/MTES-MCT/camino-api/commit/3cf130ceabaa0fc696d525f052f9d4a9112880fd))
+
 ### [0.24.64](https://github.com/MTES-MCT/camino-api/compare/v0.24.63...v0.24.64) (2020-12-01)
 
 
