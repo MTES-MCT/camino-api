@@ -837,7 +837,7 @@ const userTokensCreate = ({ id, email }: IUtilisateur) => {
 
   return {
     accessToken: jwt.sign({ id, email }, process.env.JWT_SECRET!, {
-      expiresIn: '5m'
+      expiresIn: '15m'
     }),
     refreshToken
   }
