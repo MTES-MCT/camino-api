@@ -203,14 +203,14 @@ describe("statut d'une démarche", () => {
     ).toEqual('cls')
   })
 
-  test("une démarche d'octroi dont l'étape la plus récente d'aca est défavorable a le statut “classé sans suite”", () => {
+  test("une démarche d'octroi dont l'étape la plus récente d'aca est défavorable a le statut “rejeté”", () => {
     expect(
       titreDemarcheStatutIdFind(
         'oct',
         etapesBuild([{ typeId: 'aca', statutId: 'def' }]),
         'arm'
       )
-    ).toEqual('cls')
+    ).toEqual('rej')
   })
 
   test("une démarche d'octroi dont l'étape la plus récente d'aca est favorable reste “en instruction”", () => {
