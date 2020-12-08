@@ -41,9 +41,6 @@ type TitreTypeType {
   "Nom du type en français"
   nom: String!
 
-  "Exploitation ou exploration"
-  exploitation: Boolean
-
   description: String
 
   ordre: Int!
@@ -229,6 +226,7 @@ type Definition {
   slug: String!
   description: String
   couleur: String
+  ordre: Int
   elements: [Definition]
 }
 
@@ -241,6 +239,22 @@ input InputDomaine {
 
   description: String
 
+  ordre: Int
+}
+
+input InputDefinition {
+  id: ID!
+  nom: String
+  slug: String
+  description: String
+  couleur: String
+  ordre: Int
+}
+
+input InputTitreTypeType {
+  id: ID!
+  nom: String
+  description: String
   ordre: Int
 }
 

@@ -67,11 +67,13 @@ import {
   referencesTypes,
   statuts,
   types,
+  typeModifier,
   unites,
   version,
   activitesTypes,
   activitesStatuts,
   definitions,
+  definitionModifier,
   administrationsTypes,
   regions,
   departements
@@ -209,5 +211,7 @@ export default {
   travauxEtapeCreer,
   travauxEtapeModifier,
   travauxEtapeSupprimer,
-  domaineModifier
+  domaineModifier,
+  definitionModifier,
+  typeModifier
 }

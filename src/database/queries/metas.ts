@@ -1,4 +1,10 @@
-import { IFields, IDocumentRepertoire, IDomaine } from '../../types'
+import {
+  IFields,
+  IDocumentRepertoire,
+  IDomaine,
+  IDefinition,
+  ITitreTypeType
+} from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
 import DemarchesTypes from '../models/demarches-types'
@@ -49,7 +55,13 @@ const permissionsGet = async (_a: never, _b: never, userId?: string) => {
 
 const permissionGet = async (id: string) => Permissions.query().findById(id)
 
-const titresTypesTypesGet = async () => TitresTypesTypes.query()
+const titresTypesTypesGet = async () =>
+  TitresTypesTypes.query().orderBy('ordre')
+
+const titreTypeTypeUpdate = async (
+  id: string,
+  props: Partial<ITitreTypeType>
+) => TitresTypesTypes.query().patchAndFetchById(id, props)
 
 const domainesGet = async (
   _: never,
@@ -242,6 +254,9 @@ const substancesLegalesCodesGet = async () =>
 
 const definitionsGet = async () => Definitions.query().orderBy('ordre')
 
+const definitionUpdate = async (id: string, props: Partial<IDefinition>) =>
+  Definitions.query().patchAndFetchById(id, props)
+
 const administrationsTypesGet = async () =>
   AdministrationsTypes.query().orderBy('ordre')
 
@@ -250,6 +265,7 @@ export {
   domainesGet,
   domaineUpdate,
   titresStatutsGet,
+  titreTypeTypeUpdate,
   demarchesTypesGet,
   demarchesStatutsGet,
   etapesTypesGet,
@@ -268,5 +284,6 @@ export {
   etapesStatutsGet,
   substancesLegalesCodesGet,
   definitionsGet,
+  definitionUpdate,
   administrationsTypesGet
 }

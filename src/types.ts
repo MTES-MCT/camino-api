@@ -769,7 +769,6 @@ interface ITitreTypeType {
   id: string
   nom: string
   ordre: number
-  exploitation?: boolean | null
 }
 
 interface ITitreTypeDemarcheTypeEtapeType {
@@ -867,20 +866,10 @@ interface ITitreEtapesTypesRestrictions {
 
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
 
-interface ITelechargement {
-  __typename: 'Telechargement'
-  contenu: string
-  nom: string
-  taille: number
-  type: string
-  ordre: string
-  colonne: string
-  total: number
-}
-
 interface IDefinition {
   id: string
   nom: string
+  ordre: number
   slug: string
   table?: string
   description?: string | null
@@ -990,6 +979,5 @@ export {
   ITitreEtapesTypesRestrictions,
   ITitreEtapeCondition,
   ITitreCondition,
-  ITelechargement,
   IDefinition
 }

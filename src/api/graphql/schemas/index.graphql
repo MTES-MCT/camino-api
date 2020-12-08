@@ -354,4 +354,8 @@ type Mutation {
   travauxEtapeSupprimer(id: ID!): Titre
 
   domaineModifier(domaine: InputDomaine!): [Domaine]
+
+  definitionModifier(definition: InputDefinition!): [Definition]
+
+  typeModifier(type: InputTitreTypeType!): [TitreTypeType]
 }

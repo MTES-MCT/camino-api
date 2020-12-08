@@ -1,8 +1,10 @@
 import { GraphQLResolveInfo } from 'graphql'
 import {
+  IDefinition,
   IDocumentRepertoire,
   IDomaine,
   IEtapeType,
+  ITitreTypeType,
   IToken
 } from '../../../types'
 import { debug } from '../../../config/index'
@@ -12,6 +14,7 @@ import {
   activitesTypesGet,
   administrationsTypesGet,
   definitionsGet,
+  definitionUpdate,
   demarchesStatutsGet,
   demarchesTypesGet,
   devisesGet,
@@ -26,6 +29,7 @@ import {
   referencesTypesGet,
   titresStatutsGet,
   titresTypesTypesGet,
+  titreTypeTypeUpdate,
   travauxTypesGet,
   unitesGet
 } from '../../../database/queries/metas'
@@ -42,6 +46,34 @@ import {
 } from '../../../database/queries/territoires'
 
 const npmPackage = require('../../../../package.json')
+
+const ordreUpdate = async <I extends { id: string; ordre: number }, O>(
+  ordre: number,
+  ordreOld: number,
+  elements: I[],
+  update: (id: string, props: Partial<I>) => Promise<O>
+) => {
+  // l'ordre augmente
+  if (ordre > ordreOld) {
+    const elementsModified = elements.filter(
+      d => d.ordre > ordreOld && d.ordre <= ordre!
+    )
+
+    for (const d of elementsModified) {
+      await update(d.id!, { ordre: d.ordre - 1 } as Partial<I>)
+    }
+  }
+  // l'ordre diminue
+  else if (ordre < ordreOld) {
+    const elementsModified = elements.filter(
+      d => d.ordre < ordreOld && d.ordre >= ordre!
+    )
+
+    for (const d of elementsModified) {
+      await update(d.id!, { ordre: d.ordre + 1 } as Partial<I>)
+    }
+  }
+}
 
 const devises = async () => devisesGet()
 const geoSystemes = async () => geoSystemesGet()
@@ -467,6 +499,46 @@ const regions = async () => {
   }
 }
 
+const definitionModifier = async (
+  { definition }: { definition: Partial<IDefinition> },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (definition.ordre) {
+      const definitions = await definitionsGet()
+
+      const definitionOld = definitions.find(d => d.id === definition.id)
+
+      if (definitionOld) {
+        await ordreUpdate(
+          definition.ordre,
+          definitionOld.ordre!,
+          definitions,
+          definitionUpdate
+        )
+      }
+    }
+
+    await definitionUpdate(definition.id!, definition)
+
+    const definitions = await definitionsGet()
+
+    return definitions
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const domaineModifier = async (
   { domaine }: { domaine: Partial<IDomaine> },
   context: IToken,
@@ -490,25 +562,13 @@ const domaineModifier = async (
 
       const domaineOld = domaines.find(d => d.id === domaine.id)
 
-      // l'ordre augmente
-      if (domaineOld && domaine.ordre > domaineOld.ordre) {
-        const domainesModified = domaines.filter(
-          d => d.ordre > domaineOld.ordre && d.ordre <= domaine.ordre!
+      if (domaineOld) {
+        await ordreUpdate(
+          domaine.ordre,
+          domaineOld.ordre,
+          domaines,
+          domaineUpdate
         )
-
-        for (const d of domainesModified) {
-          await domaineUpdate(d.id!, { ordre: d.ordre - 1 })
-        }
-      }
-      // l'ordre diminue
-      else if (domaineOld && domaine.ordre < domaineOld.ordre) {
-        const domainesModified = domaines.filter(
-          d => d.ordre < domaineOld.ordre && d.ordre >= domaine.ordre!
-        )
-
-        for (const d of domainesModified) {
-          await domaineUpdate(d.id!, { ordre: d.ordre + 1 })
-        }
       }
     }
 
@@ -521,6 +581,46 @@ const domaineModifier = async (
     )
 
     return domaines
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const typeModifier = async (
+  { type }: { type: Partial<ITitreTypeType> },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (type.ordre) {
+      const titresTypesTypes = await titresTypesTypesGet()
+
+      const titresTypesTypesOld = titresTypesTypes.find(d => d.id === type.id)
+
+      if (titresTypesTypesOld) {
+        await ordreUpdate(
+          type.ordre,
+          titresTypesTypesOld.ordre,
+          titresTypesTypes,
+          titreTypeTypeUpdate
+        )
+      }
+    }
+
+    await titreTypeTypeUpdate(type.id!, type)
+
+    const titresTypesTypes = await titresTypesTypesGet()
+
+    return titresTypesTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -554,5 +654,7 @@ export {
   administrationsTypes,
   regions,
   departements,
-  domaineModifier
+  domaineModifier,
+  definitionModifier,
+  typeModifier
 }
