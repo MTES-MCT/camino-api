@@ -17,9 +17,11 @@ import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 
 const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
   conditionTitre.contenu &&
-  titre.contenu &&
   Object.keys(conditionTitre.contenu).every(key =>
-    contenuConditionMatch(conditionTitre.contenu[key], titre.contenu![key])
+    contenuConditionMatch(
+      conditionTitre.contenu[key],
+      titre.contenu ? titre.contenu[key] : null
+    )
   )
 
 const titreArbreTypeIdRestrictionsFind = (
@@ -83,10 +85,10 @@ const etapesSuivantesEnAttenteGet = (
 
   const etapeCouranteConditions = arbre.find(
     etapeCondition => etapeCondition.arbreTypeId === etapeCourante.arbreTypeId
-  )
+  ) as IArbreEtape
 
   // on cherche quelles étapes en attente ont permis d’atteindre cette étape
-  if (etapeCouranteConditions!.justeApres) {
+  if (etapeCouranteConditions.justeApres) {
     etapesEnAttente.forEach(etape => {
       const predicatCheck = etapeCouranteConditions!
         .justeApres!.flat()
@@ -112,15 +114,28 @@ const etapesSuivantesEnAttenteGet = (
       }
     })
   }
-  if (etapeCouranteConditions!.apres) {
+  if (etapeCouranteConditions.apres) {
     titreDemarcheEtapes.forEach(etape => {
-      const predicatCheck = etapeCouranteConditions!
+      const predicatCheck = etapeCouranteConditions
         .apres!.flat()
         .find(c => c?.arbreTypeId === etape.arbreTypeId)
 
       if (predicatCheck) {
-        // si cette étape a permis d’atteindre l’étape courante, alors on la remplace dans les étapes en attente
-        etapesEnAttente = []
+        if (
+          etapeCouranteConditions.justeApres.length &&
+          etapeCouranteConditions.justeApres[0].length
+        ) {
+          etapesEnAttente = etapesEnAttente.filter(
+            e =>
+              !etapeCouranteConditions.justeApres
+                .flatMap(d => d)
+                .map(a => a.arbreTypeId)
+                .includes(e.arbreTypeId!)
+          )
+        } else {
+          // Si c’est une étape sans de « justeAprès », c’est que c’est une interruption de la démarche
+          etapesEnAttente = []
+        }
       }
     })
   }

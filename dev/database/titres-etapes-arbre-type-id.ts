@@ -27,7 +27,7 @@ const armOctArbreTypeIdGet = (
       return 'mno-aca'
     }
   } else if (etape.typeId === 'rco' || etape.typeId === 'mco') {
-    return `${etape.typeId}-mcp`
+    return `${etape.typeId}-rde`
   } else if (
     etape.id === 'm-ar-crique-awa-2020-oct01-rif01' ||
     etape.id === 'm-ar-crique-awa-2020-oct01-mif01'
@@ -50,6 +50,20 @@ const armRenProArbreTypeIdGet = (
     } else {
       return 'mno-aco'
     }
+  }
+
+  return undefined
+}
+
+const axmOctArbreTypeIdGet = (etape: ITitreEtape) => {
+  if (etape.typeId === 'rco' || etape.typeId === 'mco') {
+    return `${etape.typeId}-mcr`
+  }
+
+  if (
+    etape.id === 'm-ax-affluent-rive-gauche-de-crique-amadis-1-2020-oct01-mod01'
+  ) {
+    return 'mod-mdp'
   }
 
   return undefined
@@ -95,6 +109,10 @@ const main = async () => {
                 arbreTypeId = armOctArbreTypeIdGet(etape, etapes, i, demarche)
               } else if (['ren', 'pro'].includes(demarche.typeId)) {
                 arbreTypeId = armRenProArbreTypeIdGet(etape, demarche)
+              }
+            } else if (arbre.titreTypeId === 'axm') {
+              if (demarche.typeId === 'oct') {
+                arbreTypeId = axmOctArbreTypeIdGet(etape)
               }
             }
           }

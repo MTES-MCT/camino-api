@@ -1,6 +1,7 @@
 import { IArbreEtape } from '../arbres-demarches'
 import { arbreComplementsGet, arbreInformationsGet } from '../arbres-annexes'
 
+// https://cacoo.com/diagrams/oWuHFa1Y8cCdCqaB/B1B05
 const arbreArmOct: IArbreEtape[] = [
   {
     arbreTypeId: 'mfr',
@@ -28,11 +29,13 @@ const arbreArmOct: IArbreEtape[] = [
   }),
   {
     arbreTypeId: 'mod',
-    justeApres: [
+    justeApres: [],
+    apres: [
       [{ arbreTypeId: 'mdp' }],
       [{ arbreTypeId: 'rde', statutId: 'def' }],
       [{ arbreTypeId: 'dae', statutId: 'def' }]
-    ]
+    ],
+    avant: [[{ arbreTypeId: 'sca' }]]
   },
   {
     arbreTypeId: 'mcp',
@@ -70,16 +73,37 @@ const arbreArmOct: IArbreEtape[] = [
   },
   {
     arbreTypeId: 'vfd',
-    justeApres: [[{ arbreTypeId: 'mcp', statutId: 'fav' }]]
+    avant: [[{ arbreTypeId: 'vfd' }]],
+    justeApres: [
+      [{ arbreTypeId: 'mcp', statutId: 'fav' }],
+      [{ arbreTypeId: 'des' }],
+      [{ arbreTypeId: 'mno-css' }]
+    ]
   },
-  ...arbreInformationsGet(
-    {
-      arbreTypeId: 'mcr',
-      separation: ['aof', 'mcp'],
-      justeApres: [[{ arbreTypeId: 'vfd' }]]
-    },
-    false
-  ),
+  {
+    arbreTypeId: 'mif-mcr',
+    avant: [[{ arbreTypeId: 'mcr', statutId: 'fav' }]],
+    apres: [[{ arbreTypeId: 'vfd' }]],
+    justeApres: [
+      [{ arbreTypeId: 'vfd' }],
+      [{ arbreTypeId: 'mcp', statutId: 'fav' }]
+    ]
+  },
+  {
+    arbreTypeId: 'rif-mcr',
+    justeApres: [[{ arbreTypeId: 'mif-mcr' }]]
+  },
+  {
+    arbreTypeId: 'mcr',
+    apres: [[{ arbreTypeId: 'vfd' }]],
+    avant: [[{ arbreTypeId: 'mcr', statutId: 'fav' }]],
+    separation: ['aof'],
+    justeApres: [
+      [{ arbreTypeId: 'rif-mcr' }],
+      [{ arbreTypeId: 'vfd' }],
+      [{ arbreTypeId: 'mcp', statutId: 'fav' }]
+    ]
+  },
   ...arbreInformationsGet({
     arbreTypeId: 'edm',
     justeApres: [[{ arbreTypeId: 'mcr', statutId: 'fav' }]]
@@ -132,7 +156,7 @@ const arbreArmOct: IArbreEtape[] = [
           }
         }
       ],
-      [{ arbreTypeId: 'aca' }]
+      [{ arbreTypeId: 'aca', statutId: 'ajo' }]
     ]
   },
   { arbreTypeId: 'aca', justeApres: [[{ arbreTypeId: 'sca' }]] },
@@ -156,10 +180,19 @@ const arbreArmOct: IArbreEtape[] = [
   },
   {
     arbreTypeId: 'vfc',
+    avant: [[{ arbreTypeId: 'vfc' }]],
     justeApres: [
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
         { arbreTypeId: 'pfc' }
+      ],
+      [
+        { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
+        { arbreTypeId: 'mno-css' }
+      ],
+      [
+        { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
+        { arbreTypeId: 'des' }
       ]
     ]
   },

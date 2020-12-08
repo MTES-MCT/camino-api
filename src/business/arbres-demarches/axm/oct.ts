@@ -1,6 +1,7 @@
 // https://cacoo.com/diagrams/xHyYE2OZf9KCGFVc
 
 import { IArbreEtape } from '../arbres-demarches'
+import { arbreComplementsGet, arbreInformationsGet } from '../arbres-annexes'
 
 const arbreAxmOct: IArbreEtape[] = [
   {
@@ -13,18 +14,10 @@ const arbreAxmOct: IArbreEtape[] = [
     avant: [[{ arbreTypeId: 'asl' }]],
     justeApres: [[{ arbreTypeId: 'mfr' }]]
   },
-  {
+  ...arbreInformationsGet({
     arbreTypeId: 'eof',
-    justeApres: [[{ arbreTypeId: 'dsl' }], [{ arbreTypeId: 'rif-eof' }]]
-  },
-  {
-    arbreTypeId: 'mif-eof',
-    justeApres: [[{ arbreTypeId: 'eof', statutId: 'def' }]]
-  },
-  {
-    arbreTypeId: 'rif-eof',
-    justeApres: [[{ arbreTypeId: 'mif-eof' }]]
-  },
+    justeApres: [[{ arbreTypeId: 'dsl' }]]
+  }),
   {
     arbreTypeId: 'asl',
     justeApres: [],
@@ -51,45 +44,31 @@ const arbreAxmOct: IArbreEtape[] = [
       [
         { arbreTypeId: 'asl', statutId: 'fav' },
         { arbreTypeId: 'dae', statutId: 'fav' },
-        { arbreTypeId: 'mod-dae' },
         { arbreTypeId: 'mfr' }
-        // FIXME j’ai pas compris quelles étaient les conditions
       ]
     ]
   },
-  // FIXME on fait quoi après la NIS? C’est terminé ? (mettre peut-être une séparation sur la mfr)
   {
     arbreTypeId: 'nis',
-    justeApres: [[{ arbreTypeId: 'mfr' }]]
+    justeApres: []
   },
   {
     arbreTypeId: 'mod-mdp',
     justeApres: [[{ arbreTypeId: 'mdp' }]]
   },
-  {
+  ...arbreComplementsGet({
     arbreTypeId: 'mcr',
-    justeApres: [
-      [{ arbreTypeId: 'mdp' }],
-      [{ arbreTypeId: 'mod' }],
-      [{ arbreTypeId: 'rco-mcr' }]
-    ],
+    justeApres: [[{ arbreTypeId: 'mdp' }], [{ arbreTypeId: 'mod' }]],
     separation: ['apd']
+  }),
+  {
+    arbreTypeId: 'mif-apd',
+    avant: [[{ arbreTypeId: 'apd' }]],
+    justeApres: [[{ arbreTypeId: 'mcr' }], [{ arbreTypeId: 'rif-apd' }]]
   },
   {
-    arbreTypeId: 'mco-mcr',
-    justeApres: [[{ arbreTypeId: 'mcr', statutId: 'def' }]]
-  },
-  {
-    arbreTypeId: 'rco-mcr',
-    justeApres: [[{ arbreTypeId: 'mco-mcr' }]]
-  },
-  {
-    arbreTypeId: 'mif-mcr',
-    justeApres: [[{ arbreTypeId: 'mcr' }]]
-  },
-  {
-    arbreTypeId: 'rif-mcr',
-    justeApres: [[{ arbreTypeId: 'mif-mcr' }]]
+    arbreTypeId: 'rif-apd',
+    justeApres: [[{ arbreTypeId: 'mif-apd' }]]
   },
   {
     arbreTypeId: 'scl',
@@ -139,7 +118,7 @@ const arbreAxmOct: IArbreEtape[] = [
     arbreTypeId: 'dex',
     justeApres: [[{ arbreTypeId: 'sas' }]]
   },
-  //  fixme IHI, même pas besoin d’une demande
+  { arbreTypeId: 'ihi', justeApres: [], apres: [] },
   { arbreTypeId: 'mno-dex', justeApres: [[{ arbreTypeId: 'dex' }]] },
   { arbreTypeId: 'rpu', justeApres: [[{ arbreTypeId: 'dex' }]] },
   { arbreTypeId: 'pqr', justeApres: [[{ arbreTypeId: 'dex' }]] },
@@ -155,7 +134,6 @@ const arbreAxmOct: IArbreEtape[] = [
     justeApres: [[{ arbreTypeId: 'mdp' }]]
   },
   {
-    // fixme à tester
     arbreTypeId: 'css',
     justeApres: [[]],
     apres: [
@@ -171,8 +149,6 @@ const arbreAxmOct: IArbreEtape[] = [
       [{ arbreTypeId: 'des' }]
     ]
   },
-  // fixme à tester
-
   {
     arbreTypeId: 'des',
     justeApres: [[]],

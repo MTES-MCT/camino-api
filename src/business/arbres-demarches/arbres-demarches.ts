@@ -2,7 +2,6 @@ import { arbreArmRet } from './arm/ret'
 import { ITitreCondition } from '../../types'
 import { arbreArmOct } from './arm/oct'
 import { arbreArmRenPro } from './arm/ren-pro'
-import { arbrePrmOct } from './prm/oct'
 import { arbreAxmOct } from './axm/oct'
 
 interface IArbreCondition {

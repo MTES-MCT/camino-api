@@ -98,4 +98,35 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
       ])
     ).toBeNull()
   })
+  test('peut créer une "mod" si il n’y a pas de sca', () => {
+    expect(
+      octArbreErreursGet([
+        { arbreTypeId: 'mfr', date: '2019-12-12', statutId: 'fai' },
+        { arbreTypeId: 'mdp', date: '2019-12-12', statutId: 'fai' },
+        { arbreTypeId: 'pfd', date: '2019-12-12', statutId: 'fai' },
+        { arbreTypeId: 'dae', date: '2020-01-14', statutId: 'fav' },
+        { arbreTypeId: 'mcp', date: '2020-01-21', statutId: 'fav' },
+        { arbreTypeId: 'vfd', date: '2020-02-05', statutId: 'fai' },
+        { arbreTypeId: 'mcr', date: '2020-02-05', statutId: 'fav' },
+        { arbreTypeId: 'eof', date: '2020-02-05', statutId: 'fai' },
+        { arbreTypeId: 'aof', date: '2020-02-05', statutId: 'fav' },
+        { arbreTypeId: 'rde', date: '2020-02-11', statutId: 'fav' },
+        { arbreTypeId: 'mod', date: '2020-06-17', statutId: 'fai' }
+      ])
+    ).toBeNull()
+  })
+
+  test('peut créer une "mcp" après une "pfd" et "mdp"', () => {
+    expect(
+      octArbreErreursGet(
+        [
+          { arbreTypeId: 'mfr', date: '2020-01-30', statutId: 'fai' },
+          { arbreTypeId: 'mdp', date: '2020-02-23', statutId: 'fai' },
+          { arbreTypeId: 'pfd', date: '2020-02-23', statutId: 'fai' },
+          { arbreTypeId: 'mcp', date: '2020-02-28', statutId: 'fav' }
+        ],
+        { typeId: 'arm' }
+      )
+    ).toBeNull()
+  })
 })

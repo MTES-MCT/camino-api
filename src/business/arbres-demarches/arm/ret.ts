@@ -1,6 +1,7 @@
 import { IArbreEtape } from '../arbres-demarches'
 import { arbreInformationsGet } from '../arbres-annexes'
 
+// https://cacoo.com/diagrams/VxMVdNkolhMQbKtv/B1B05
 const arbreArmRet: IArbreEtape[] = [
   {
     arbreTypeId: 'ide',

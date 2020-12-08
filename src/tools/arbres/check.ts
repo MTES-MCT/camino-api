@@ -34,28 +34,18 @@ const arbresCheck = async () => {
         // .filter(
         //   demarche =>
         //     ![
-        //       'm-ar-crique-amadis-1-et-2-2019-oct01',
         //       'm-ar-crique-amadis-sud-2020-oct01',
         //       'm-ar-crique-aoma-2020-oct01',
-        //       'm-ar-crique-bamba-2020-oct01',
-        //       'm-ar-crique-gayac-2019-oct01',
-        //       'm-ar-crique-nuage-2020-oct01',
-        //       'm-ar-crique-sandrine-2018-oct01',
-        //       'm-ar-criques-janvier-et-serpent-2020-oct01',
-        //       'm-ar-crique-tortue-2020-oct01',
-        //       'm-ar-grand-moussinga-2020-oct01',
-        //       'm-ar-tete-la-boue-2020-oct01',
-        //       'm-ar-crique-awa-2020-oct01',
-        //       'm-ar-saint-lucien-2020-oct01',
-        //       'm-ar-crique-petites-tortues-2020-oct01'
+        //       'm-ar-crique-petites-tortues-2020-oct01',
+        //       'm-ar-crique-pain-de-sucre-2-2020-oct01',
+        //       'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019-oct01',
         //     ].includes(demarche.id)
         // )
-        // // FIXME à corriger
-        // .filter(d => d.statutId !== 'cls')
-        .filter(d => ['oct'].includes(d.typeId))
+        .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'axm')
+        .filter(d => ['dep', 'aco', 'ins'].includes(d.statutId!))
         .forEach(demarche => {
           // .some(demarche => {
-          demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
+          // demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
           try {
             const errors = titreDemarcheArbreValidate(
               arbre,
@@ -72,11 +62,11 @@ const arbresCheck = async () => {
               //     statutId: e.statutId
               //   }))
               // )
-              console.log(demarche.titre!.contenu, demarche.statutId)
+              // console.log('toto', demarche.titre!.contenu, demarche.statutId)
               console.error(
-                `https://camino.beta.gouv.fr/titres/${demarche.titreId}  démarche ${demarche.typeId}-> `
+                `https://camino.beta.gouv.fr/titres/${demarche.titreId}`
               )
-              console.error(errors)
+              // console.error(errors)
 
               return true
             }
