@@ -4,7 +4,9 @@ import {
   IGeoJson,
   IUtilisateur,
   IFields,
-  ISection
+  ISection,
+  ITitrePropsTitreEtapesIds,
+  ITitreDemarche
 } from '../../types'
 
 import {
@@ -37,83 +39,80 @@ const titreFormatFields = {
   administrations: {}
 } as IFields
 
-const titreTypeSectionsFormat = (t: ITitre) => {
-  if (!t.propsTitreEtapesIds) return null
+const titreTypeSectionsFormat = (
+  propsTitreEtapesIds: ITitrePropsTitreEtapesIds,
+  demarches: ITitreDemarche[]
+) => {
+  const sections = [] as ISection[]
 
-  return Object.keys(t.propsTitreEtapesIds).reduce(
-    (sections: ISection[], sectionId) =>
-      Object.keys(t.propsTitreEtapesIds![sectionId]).reduce(
-        (sections, elementId) => {
-          if (
-            !t.propsTitreEtapesIds ||
-            !t.propsTitreEtapesIds[sectionId] ||
-            !t.propsTitreEtapesIds[sectionId][elementId]
-          ) {
-            return sections
-          }
+  Object.keys(propsTitreEtapesIds).some(sectionId => {
+    if (!propsTitreEtapesIds![sectionId]) return false
 
-          const etapeId = t.propsTitreEtapesIds![sectionId][elementId]
+    Object.keys(propsTitreEtapesIds![sectionId]).some(elementId => {
+      const etapeId = propsTitreEtapesIds![sectionId][elementId]
 
-          t.demarches!.some(d =>
-            d.etapes!.some(e => {
-              // si l'étape n'est pas celle dans le sections du titre
-              if (e.id !== etapeId) {
-                return false
-              }
+      if (!etapeId) return false
 
-              // sinon, si l'étape correspond à l'id de `propsTitreEtapesIds`
-              // et que l'étape n'a ni contenu ni section ni l'élément qui nous intéresse
-              // on ne cherche pas plus loin
-              if (
-                !e.contenu ||
-                !e.contenu[sectionId] ||
-                e.contenu[sectionId][elementId] === undefined ||
-                !e.type?.sections
-              ) {
-                return true
-              }
+      demarches!.some(d => {
+        if (!d.etapes) return false
 
-              const etapeSection = e.type.sections.find(s => s.id === sectionId)
-              if (!etapeSection || !etapeSection.elements) return true
+        const etape = d.etapes.find(e => e.id === etapeId)
 
-              const etapeElement = etapeSection.elements.find(
-                e => e.id === elementId
-              )
-              if (!etapeElement) return true
+        if (!etape) return false
 
-              if (!t.type) return true
+        // sinon, si l'étape correspond à l'id de `propsTitreEtapesIds`
+        // et que l'étape n'a ni contenu ni section ni l'élément qui nous intéresse
+        // on ne cherche pas plus loin
+        if (
+          !etape.contenu ||
+          !etape.contenu[sectionId] ||
+          etape.contenu[sectionId][elementId] === undefined ||
+          !etape.type?.sections
+        ) {
+          return false
+        }
 
-              // ajoute la section dans le titre si elle n'existe pas encore
-              let titreTypeSection = sections.find(s => s.id === sectionId)
-              if (!titreTypeSection) {
-                titreTypeSection = {
-                  ...etapeSection,
-                  elements: []
-                }
-                sections.push(titreTypeSection)
-              }
-              if (!titreTypeSection.elements) {
-                titreTypeSection.elements = []
-              }
+        const etapeSection = etape.type.sections.find(s => s.id === sectionId)
 
-              // ajoute l'élément dans les sections du titre s'il n'existe pas encore
-              const titreElement = titreTypeSection.elements.find(
-                e => e.id === elementId
-              )
-              if (!titreElement) {
-                titreTypeSection.elements.push(etapeElement)
-              }
+        if (!etapeSection || !etapeSection.elements) return false
 
-              return true
-            })
-          )
+        const etapeElement = etapeSection.elements.find(e => e.id === elementId)
 
-          return sections
-        },
-        sections
-      ),
-    []
-  )
+        if (!etapeElement) return false
+
+        // ajoute la section dans le titre si elle n'existe pas encore
+        let titreTypeSection = sections.find(s => s.id === sectionId)
+
+        if (!titreTypeSection) {
+          titreTypeSection = { ...etapeSection, elements: [] }
+
+          sections.push(titreTypeSection)
+        }
+
+        if (!titreTypeSection.elements) {
+          titreTypeSection.elements = []
+        }
+
+        // ajoute l'élément dans les sections du titre s'il n'existe pas encore
+        const titreElement = titreTypeSection.elements.find(
+          e => e.id === elementId
+        )
+
+        if (!titreElement) {
+          titreTypeSection.elements.push(etapeElement)
+        }
+
+        // continue l'itération
+        return false
+      })
+
+      return false
+    })
+
+    return false
+  })
+
+  return sections
 }
 
 // optimisation possible pour un expert SQL
@@ -152,8 +151,11 @@ const titreFormat = (
     )
   }
 
-  if (fields.type?.sections) {
-    t.type!.sections = titreTypeSectionsFormat(t)
+  if (fields.type?.sections && t.propsTitreEtapesIds && t.demarches?.length) {
+    t.type!.sections = titreTypeSectionsFormat(
+      t.propsTitreEtapesIds,
+      t.demarches
+    )
   }
 
   if (fields.surface && t.surfaceEtape) {
