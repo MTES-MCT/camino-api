@@ -103,7 +103,8 @@ import {
 } from './resolvers/titres-activites'
 import {
   statistiquesGlobales,
-  statistiquesGuyane
+  statistiquesGuyane,
+  statistiquesGranulatsMarins
 } from './resolvers/statistiques'
 
 import {
@@ -157,6 +158,7 @@ export default {
   utilisateurs,
   statistiquesGlobales,
   statistiquesGuyane,
+  statistiquesGranulatsMarins,
   activite,
   activites,
   activitesAnnees,

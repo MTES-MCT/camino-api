@@ -49,3 +49,8 @@ type StatistiqueGuyaneAnneeTitre {
   quantite: Int
   surface: Float
 }
+
+type StatistiquesGranulatsMarins {
+  volume: Int
+  masse: Int
+}

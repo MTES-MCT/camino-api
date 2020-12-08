@@ -331,4 +331,11 @@ const statistiquesGuyane = async () => {
   }
 }
 
-export { statistiquesGlobales, statistiquesGuyane }
+const statistiquesGranulatsMarins = async () => {
+  return {
+    volume: 15000,
+    masse: 32000
+  }
+}
+
+export { statistiquesGlobales, statistiquesGuyane, statistiquesGranulatsMarins }
