@@ -266,6 +266,19 @@ input InputTitreStatut {
   ordre: Int
 }
 
+input InputDemarcheType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+  duree: Boolean
+  points: Boolean
+  substances: Boolean
+  titulaires: Boolean
+  renouvelable: Boolean
+  exception: Boolean
+}
+
 """
 Liste de couleurs génériques
 """

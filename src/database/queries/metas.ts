@@ -4,7 +4,8 @@ import {
   IDomaine,
   IDefinition,
   ITitreTypeType,
-  ITitreStatut
+  ITitreStatut,
+  IDemarcheType
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -106,8 +107,8 @@ const titresStatutsGet = async (userId?: string) => {
   return query
 }
 
-const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
-  TitresStatuts.query().patchAndFetchById(id, props)
+const demarcheTypeUpdate = async (id: string, props: Partial<IDemarcheType>) =>
+  DemarchesTypes.query().patchAndFetchById(id, props)
 
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
@@ -126,6 +127,9 @@ const demarchesTypesGet = async (
 
   return q
 }
+
+const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
+  TitresStatuts.query().patchAndFetchById(id, props)
 
 const travauxTypesGet = async (
   { titreId, titreTravauxId }: { titreId?: string; titreTravauxId?: string },
@@ -273,6 +277,7 @@ export {
   titreTypeTypeUpdate,
   demarchesTypesGet,
   demarchesStatutsGet,
+  demarcheTypeUpdate,
   etapesTypesGet,
   travauxTypesGet,
   devisesGet,

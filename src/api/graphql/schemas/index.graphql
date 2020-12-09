@@ -360,4 +360,6 @@ type Mutation {
   typeModifier(type: InputTitreTypeType!): [TitreTypeType]
 
   statutModifier(statut: InputTitreStatut!): [TitreStatut]
+
+  demarcheTypeModifier(demarcheType: InputDemarcheType!): [DemarcheType]
 }

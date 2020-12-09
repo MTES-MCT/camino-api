@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql'
 import {
   IDefinition,
+  IDemarcheType,
   IDocumentRepertoire,
   IDomaine,
   IEtapeType,
@@ -18,6 +19,7 @@ import {
   definitionUpdate,
   demarchesStatutsGet,
   demarchesTypesGet,
+  demarcheTypeUpdate,
   devisesGet,
   documentsTypesGet,
   domainesGet,
@@ -637,6 +639,48 @@ const statutModifier = async (
   }
 }
 
+const demarcheTypeModifier = async (
+  { demarcheType }: { demarcheType: IDemarcheType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (demarcheType.ordre) {
+      const demarchesTypes = await demarchesTypesGet(
+        {},
+        { fields },
+        context.user?.id
+      )
+
+      await ordreUpdate(demarcheType, demarchesTypes, demarcheTypeUpdate)
+    }
+
+    await demarcheTypeUpdate(demarcheType.id!, demarcheType)
+
+    const demarchesTypes = await demarchesTypesGet(
+      {},
+      { fields },
+      context.user?.id
+    )
+
+    return demarchesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -664,5 +708,6 @@ export {
   departements,
   domaineModifier,
   definitionModifier,
-  typeModifier
+  typeModifier,
+  demarcheTypeModifier
 }

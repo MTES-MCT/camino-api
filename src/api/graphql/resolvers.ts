@@ -53,6 +53,7 @@ import {
 import {
   devises,
   demarchesTypes,
+  demarcheTypeModifier,
   demarchesStatuts,
   travauxTypes,
   documentsTypes,
@@ -215,5 +216,6 @@ export default {
   domaineModifier,
   definitionModifier,
   typeModifier,
-  statutModifier
+  statutModifier,
+  demarcheTypeModifier
 }
