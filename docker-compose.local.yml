@@ -29,6 +29,7 @@ services:
       PGHOST: db
     networks:
       - default
+      - nginx-proxy
     volumes:
       - files:/app/files
       - ./.env:/app/.env
