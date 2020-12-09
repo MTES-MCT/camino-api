@@ -170,6 +170,7 @@ type Query {
   administrationsTypes: [AdministrationType]
   departements: [Departement]
   regions: [Region]
+  phasesStatuts: [PhaseStatut]
 
   "Liste des permissions utilisateurs"
   permissions: [Permission]
@@ -364,4 +365,6 @@ type Mutation {
   demarcheTypeModifier(demarcheType: InputDemarcheType!): [DemarcheType]
 
   demarcheStatutModifier(demarcheStatut: InputDemarcheStatut!): [DemarcheStatut]
+
+  phaseStatutModifier(phaseStatut: InputPhaseStatut!): [PhaseStatut]
 }

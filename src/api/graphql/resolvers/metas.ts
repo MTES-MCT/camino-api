@@ -6,6 +6,7 @@ import {
   IDocumentRepertoire,
   IDomaine,
   IEtapeType,
+  IPhaseStatut,
   ITitreStatut,
   ITitreTypeType,
   IToken
@@ -31,6 +32,8 @@ import {
   geoSystemesGet,
   permissionGet,
   permissionsGet,
+  phasesStatutsGet,
+  phaseStatutUpdate,
   referencesTypesGet,
   titresStatutsGet,
   titreStatutUpdate,
@@ -506,6 +509,20 @@ const regions = async () => {
   }
 }
 
+const phasesStatuts = async () => {
+  try {
+    const phasesStatuts = await phasesStatutsGet()
+
+    return phasesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const definitionModifier = async (
   { definition }: { definition: IDefinition },
   context: IToken
@@ -714,6 +731,31 @@ const demarcheStatutModifier = async (
   }
 }
 
+const phaseStatutModifier = async (
+  { phaseStatut }: { phaseStatut: IPhaseStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    await phaseStatutUpdate(phaseStatut.id!, phaseStatut)
+
+    const phasesStatuts = await phasesStatutsGet()
+
+    return phasesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -727,6 +769,7 @@ export {
   geoSystemes,
   permission,
   permissions,
+  phasesStatuts,
   referencesTypes,
   statuts,
   titreStatutModifier,
@@ -743,5 +786,6 @@ export {
   definitionModifier,
   titreTypeModifier,
   demarcheTypeModifier,
-  demarcheStatutModifier
+  demarcheStatutModifier,
+  phaseStatutModifier
 }

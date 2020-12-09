@@ -66,6 +66,8 @@ import {
   geoSystemes,
   permission,
   permissions,
+  phasesStatuts,
+  phaseStatutModifier,
   referencesTypes,
   statuts,
   titreStatutModifier,
@@ -144,6 +146,7 @@ export default {
   geoSystemes,
   permission,
   permissions,
+  phasesStatuts,
   referencesTypes,
   statuts,
   types,
@@ -219,5 +222,6 @@ export default {
   titreTypeModifier,
   titreStatutModifier,
   demarcheTypeModifier,
-  demarcheStatutModifier
+  demarcheStatutModifier,
+  phaseStatutModifier
 }

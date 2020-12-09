@@ -287,6 +287,12 @@ input InputDemarcheStatut {
   ordre: Int
 }
 
+input InputPhaseStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+}
+
 """
 Liste de couleurs génériques
 """

@@ -6,7 +6,8 @@ import {
   ITitreTypeType,
   ITitreStatut,
   IDemarcheType,
-  IDemarcheStatut
+  IDemarcheStatut,
+  IPhaseStatut
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -45,6 +46,7 @@ import {
   travauxEtapesTypesPermissionQueryBuild
 } from './permissions/metas'
 import { AutorisationsTitresTypesTitresStatuts } from '../models/autorisations'
+import PhasesStatuts from '../models/phases-statuts'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
   const user = await userGet(userId)
@@ -108,27 +110,6 @@ const titresStatutsGet = async (userId?: string) => {
   return query
 }
 
-const demarcheTypeUpdate = async (id: string, props: Partial<IDemarcheType>) =>
-  DemarchesTypes.query().patchAndFetchById(id, props)
-
-const demarchesTypesGet = async (
-  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
-  { fields }: { fields?: IFields },
-  userId?: string
-) => {
-  const user = await userGet(userId)
-
-  const graph = fields
-    ? graphBuild(fields, 'demarchesTypes', graphFormat)
-    : options.demarchesTypes.graph
-
-  const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
-
-  demarchesTypesPermissionQueryBuild(q, user, { titreId, titreDemarcheId })
-
-  return q
-}
-
 const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
   TitresStatuts.query().patchAndFetchById(id, props)
 
@@ -153,6 +134,27 @@ const travauxTypesGet = async (
   return q
 }
 
+const demarcheTypeUpdate = async (id: string, props: Partial<IDemarcheType>) =>
+  DemarchesTypes.query().patchAndFetchById(id, props)
+
+const demarchesTypesGet = async (
+  { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
+  { fields }: { fields?: IFields },
+  userId?: string
+) => {
+  const user = await userGet(userId)
+
+  const graph = fields
+    ? graphBuild(fields, 'demarchesTypes', graphFormat)
+    : options.demarchesTypes.graph
+
+  const q = DemarchesTypes.query().withGraphFetched(graph).orderBy('ordre')
+
+  demarchesTypesPermissionQueryBuild(q, user, { titreId, titreDemarcheId })
+
+  return q
+}
+
 const demarchesStatutsGet = async () =>
   DemarchesStatuts.query().orderBy('ordre')
 
@@ -160,6 +162,11 @@ const demarcheStatutUpdate = async (
   id: string,
   props: Partial<IDemarcheStatut>
 ) => DemarchesStatuts.query().patchAndFetchById(id, props)
+
+const phasesStatutsGet = async () => PhasesStatuts.query().orderBy('id')
+
+const phaseStatutUpdate = async (id: string, props: Partial<IPhaseStatut>) =>
+  PhasesStatuts.query().patchAndFetchById(id, props).orderBy('id')
 
 const etapesTypesGet = async (
   {
@@ -296,6 +303,8 @@ export {
   activitesTypesGet,
   activitesStatutsGet,
   referencesTypesGet,
+  phasesStatutsGet,
+  phaseStatutUpdate,
   permissionsGet,
   permissionGet,
   etapesStatutsGet,
