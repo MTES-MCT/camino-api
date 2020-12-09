@@ -29,6 +29,7 @@ const arbresCheck = async () => {
       )
 
       demarches
+        .filter(d => d.etapes?.length)
         .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
         // fixme à corriger
         // .filter(
@@ -41,8 +42,9 @@ const arbresCheck = async () => {
         //       'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019-oct01',
         //     ].includes(demarche.id)
         // )
-        .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'axm')
-        .filter(d => ['dep', 'aco', 'ins'].includes(d.statutId!))
+        .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'prm')
+        // fixme pour les oct d’axm
+        // .filter(d => ['dep', 'aco', 'ins'].includes(d.statutId!))
         .forEach(demarche => {
           // .some(demarche => {
           // demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))

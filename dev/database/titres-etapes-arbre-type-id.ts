@@ -69,6 +69,18 @@ const axmOctArbreTypeIdGet = (etape: ITitreEtape) => {
   return undefined
 }
 
+const prmOctArbreTypeIdGet = (etape: ITitreEtape) => {
+  if (etape.typeId === 'rco' || etape.typeId === 'mco') {
+    return `${etape.typeId}-mcr`
+  }
+
+  if (etape.typeId === 'mno') {
+    return 'mno-npp'
+  }
+
+  return undefined
+}
+
 const main = async () => {
   for (const arbre of arbresDemarches) {
     for (const demarcheTypeId of arbre.demarcheTypeIds) {
@@ -88,9 +100,9 @@ const main = async () => {
         'super'
       )
 
-      const demarchesValid = demarches.filter(
-        demarche => demarche.etapes!.reverse()[0].date > '2019-10-31'
-      )
+      const demarchesValid = demarches
+        .filter(d => d.etapes?.length)
+        .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
       for (const demarche of demarchesValid) {
         const etapes = demarche.etapes!
         for (let i = 0; i < etapes.length; i++) {
@@ -113,6 +125,10 @@ const main = async () => {
             } else if (arbre.titreTypeId === 'axm') {
               if (demarche.typeId === 'oct') {
                 arbreTypeId = axmOctArbreTypeIdGet(etape)
+              }
+            } else if (arbre.titreTypeId === 'prm') {
+              if (demarche.typeId === 'oct') {
+                arbreTypeId = prmOctArbreTypeIdGet(etape)
               }
             }
           }
