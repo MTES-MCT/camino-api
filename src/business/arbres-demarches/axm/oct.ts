@@ -112,11 +112,15 @@ const arbreAxmOct: IArbreEtape[] = [
   },
   {
     arbreTypeId: 'sas',
-    justeApres: [[{ arbreTypeId: 'apo' }]]
+    justeApres: [
+      [{ arbreTypeId: 'apo', statutId: 'fav' }],
+      [{ arbreTypeId: 'apo', statutId: 'def' }]
+    ]
   },
   {
     arbreTypeId: 'dex',
-    justeApres: [[{ arbreTypeId: 'sas' }]]
+    justeApres: [[{ arbreTypeId: 'sas' }]],
+    separation: []
   },
   { arbreTypeId: 'ihi', justeApres: [], apres: [] },
   { arbreTypeId: 'mno-dex', justeApres: [[{ arbreTypeId: 'dex' }]] },

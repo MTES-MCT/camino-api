@@ -79,6 +79,7 @@ const arbrePrmOct: IArbreEtape[] = [
   },
   {
     arbreTypeId: 'npp',
+    separation: [],
     justeApres: [
       [{ arbreTypeId: 'dex', statutId: 'def' }],
       [{ arbreTypeId: 'dpu', statutId: 'fav' }]

@@ -161,6 +161,35 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
     expect(etapesEnAttente).toHaveLength(1)
     expect(etapesEnAttente[0]).toEqual({ arbreTypeId: 'mif-mcr' })
   })
+
+  test('retourne la dernière étape sur le chemin commun à la fin du démarche', () => {
+    const etapes = [
+      { arbreTypeId: 'dex' },
+      { arbreTypeId: 'mno1' }
+    ] as ITitreEtape[]
+    const etapesEnAttente = etapesSuivantesEnAttenteGet(
+      etapes,
+      etapes,
+      [],
+      [
+        { arbreTypeId: 'dex', justeApres: [], separation: [] },
+        {
+          arbreTypeId: 'mno1',
+          justeApres: [[{ arbreTypeId: 'dex' }]]
+        },
+        {
+          arbreTypeId: 'mno2',
+          justeApres: [[{ arbreTypeId: 'dex' }]]
+        },
+        {
+          arbreTypeId: 'mno3',
+          justeApres: [[{ arbreTypeId: 'dex' }]]
+        }
+      ]
+    )
+    expect(etapesEnAttente).toHaveLength(2)
+    expect(etapesEnAttente[0]).toEqual({ arbreTypeId: 'dex' })
+  })
 })
 
 describe('teste titreEtapesSortAsc', () => {
