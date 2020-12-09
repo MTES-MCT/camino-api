@@ -66,6 +66,7 @@ import {
   permissions,
   referencesTypes,
   statuts,
+  statutModifier,
   types,
   typeModifier,
   unites,
@@ -213,5 +214,6 @@ export default {
   travauxEtapeSupprimer,
   domaineModifier,
   definitionModifier,
-  typeModifier
+  typeModifier,
+  statutModifier
 }

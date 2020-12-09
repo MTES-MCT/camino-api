@@ -358,4 +358,6 @@ type Mutation {
   definitionModifier(definition: InputDefinition!): [Definition]
 
   typeModifier(type: InputTitreTypeType!): [TitreTypeType]
+
+  statutModifier(statut: InputTitreStatut!): [TitreStatut]
 }

@@ -4,6 +4,7 @@ import {
   IDocumentRepertoire,
   IDomaine,
   IEtapeType,
+  ITitreStatut,
   ITitreTypeType,
   IToken
 } from '../../../types'
@@ -28,6 +29,7 @@ import {
   permissionsGet,
   referencesTypesGet,
   titresStatutsGet,
+  titreStatutUpdate,
   titresTypesTypesGet,
   titreTypeTypeUpdate,
   travauxTypesGet,
@@ -48,15 +50,16 @@ import {
 const npmPackage = require('../../../../package.json')
 
 const ordreUpdate = async <I extends { id: string; ordre: number }, O>(
-  ordre: number,
-  ordreOld: number,
+  element: I,
   elements: I[],
   update: (id: string, props: Partial<I>) => Promise<O>
 ) => {
+  const elementOld = elements.find(d => d.id === element.id)
+
   // l'ordre augmente
-  if (ordre > ordreOld) {
+  if (elementOld && element.ordre > elementOld.ordre) {
     const elementsModified = elements.filter(
-      d => d.ordre > ordreOld && d.ordre <= ordre!
+      d => d.ordre > elementOld.ordre && d.ordre <= element.ordre!
     )
 
     for (const d of elementsModified) {
@@ -64,9 +67,9 @@ const ordreUpdate = async <I extends { id: string; ordre: number }, O>(
     }
   }
   // l'ordre diminue
-  else if (ordre < ordreOld) {
+  else if (elementOld && element.ordre < elementOld.ordre) {
     const elementsModified = elements.filter(
-      d => d.ordre < ordreOld && d.ordre >= ordre!
+      d => d.ordre < elementOld.ordre && d.ordre >= element.ordre!
     )
 
     for (const d of elementsModified) {
@@ -500,7 +503,7 @@ const regions = async () => {
 }
 
 const definitionModifier = async (
-  { definition }: { definition: Partial<IDefinition> },
+  { definition }: { definition: IDefinition },
   context: IToken
 ) => {
   try {
@@ -513,16 +516,7 @@ const definitionModifier = async (
     if (definition.ordre) {
       const definitions = await definitionsGet()
 
-      const definitionOld = definitions.find(d => d.id === definition.id)
-
-      if (definitionOld) {
-        await ordreUpdate(
-          definition.ordre,
-          definitionOld.ordre!,
-          definitions,
-          definitionUpdate
-        )
-      }
+      await ordreUpdate(definition, definitions, definitionUpdate)
     }
 
     await definitionUpdate(definition.id!, definition)
@@ -540,7 +534,7 @@ const definitionModifier = async (
 }
 
 const domaineModifier = async (
-  { domaine }: { domaine: Partial<IDomaine> },
+  { domaine }: { domaine: IDomaine },
   context: IToken,
   info: GraphQLResolveInfo
 ) => {
@@ -560,16 +554,7 @@ const domaineModifier = async (
         context.user?.id
       )
 
-      const domaineOld = domaines.find(d => d.id === domaine.id)
-
-      if (domaineOld) {
-        await ordreUpdate(
-          domaine.ordre,
-          domaineOld.ordre,
-          domaines,
-          domaineUpdate
-        )
-      }
+      await ordreUpdate(domaine, domaines, domaineUpdate)
     }
 
     await domaineUpdate(domaine.id!, domaine)
@@ -591,7 +576,7 @@ const domaineModifier = async (
 }
 
 const typeModifier = async (
-  { type }: { type: Partial<ITitreTypeType> },
+  { type }: { type: ITitreTypeType },
   context: IToken
 ) => {
   try {
@@ -604,16 +589,7 @@ const typeModifier = async (
     if (type.ordre) {
       const titresTypesTypes = await titresTypesTypesGet()
 
-      const titresTypesTypesOld = titresTypesTypes.find(d => d.id === type.id)
-
-      if (titresTypesTypesOld) {
-        await ordreUpdate(
-          type.ordre,
-          titresTypesTypesOld.ordre,
-          titresTypesTypes,
-          titreTypeTypeUpdate
-        )
-      }
+      await ordreUpdate(type, titresTypesTypes, titreTypeTypeUpdate)
     }
 
     await titreTypeTypeUpdate(type.id!, type)
@@ -621,6 +597,37 @@ const typeModifier = async (
     const titresTypesTypes = await titresTypesTypesGet()
 
     return titresTypesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const statutModifier = async (
+  { statut }: { statut: ITitreStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (statut.ordre) {
+      const titresStatuts = await titresStatutsGet()
+
+      await ordreUpdate(statut, titresStatuts, titreStatutUpdate)
+    }
+
+    await titreStatutUpdate(statut.id!, statut)
+
+    const titresStatut = await titresStatutsGet()
+
+    return titresStatut
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -645,6 +652,7 @@ export {
   permissions,
   referencesTypes,
   statuts,
+  statutModifier,
   types,
   unites,
   version,

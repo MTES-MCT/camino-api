@@ -3,7 +3,8 @@ import {
   IDocumentRepertoire,
   IDomaine,
   IDefinition,
-  ITitreTypeType
+  ITitreTypeType,
+  ITitreStatut
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -104,6 +105,9 @@ const titresStatutsGet = async (userId?: string) => {
 
   return query
 }
+
+const titreStatutUpdate = async (id: string, props: Partial<ITitreStatut>) =>
+  TitresStatuts.query().patchAndFetchById(id, props)
 
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
@@ -265,6 +269,7 @@ export {
   domainesGet,
   domaineUpdate,
   titresStatutsGet,
+  titreStatutUpdate,
   titreTypeTypeUpdate,
   demarchesTypesGet,
   demarchesStatutsGet,

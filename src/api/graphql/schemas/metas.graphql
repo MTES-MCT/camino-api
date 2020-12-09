@@ -258,6 +258,14 @@ input InputTitreTypeType {
   ordre: Int
 }
 
+input InputTitreStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+  description: String
+  ordre: Int
+}
+
 """
 Liste de couleurs génériques
 """
