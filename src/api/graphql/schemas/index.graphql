@@ -357,9 +357,11 @@ type Mutation {
 
   definitionModifier(definition: InputDefinition!): [Definition]
 
-  typeModifier(type: InputTitreTypeType!): [TitreTypeType]
+  titreTypeModifier(titreType: InputTitreTypeType!): [TitreTypeType]
 
-  statutModifier(statut: InputTitreStatut!): [TitreStatut]
+  titreStatutModifier(titreStatut: InputTitreStatut!): [TitreStatut]
 
   demarcheTypeModifier(demarcheType: InputDemarcheType!): [DemarcheType]
+
+  demarcheStatutModifier(demarcheStatut: InputDemarcheStatut!): [DemarcheStatut]
 }

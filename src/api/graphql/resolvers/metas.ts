@@ -1,6 +1,7 @@
 import { GraphQLResolveInfo } from 'graphql'
 import {
   IDefinition,
+  IDemarcheStatut,
   IDemarcheType,
   IDocumentRepertoire,
   IDomaine,
@@ -17,9 +18,10 @@ import {
   administrationsTypesGet,
   definitionsGet,
   definitionUpdate,
-  demarchesStatutsGet,
   demarchesTypesGet,
   demarcheTypeUpdate,
+  demarchesStatutsGet,
+  demarcheStatutUpdate,
   devisesGet,
   documentsTypesGet,
   domainesGet,
@@ -577,8 +579,8 @@ const domaineModifier = async (
   }
 }
 
-const typeModifier = async (
-  { type }: { type: ITitreTypeType },
+const titreTypeModifier = async (
+  { titreType }: { titreType: ITitreTypeType },
   context: IToken
 ) => {
   try {
@@ -588,13 +590,13 @@ const typeModifier = async (
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 
-    if (type.ordre) {
+    if (titreType.ordre) {
       const titresTypesTypes = await titresTypesTypesGet()
 
-      await ordreUpdate(type, titresTypesTypes, titreTypeTypeUpdate)
+      await ordreUpdate(titreType, titresTypesTypes, titreTypeTypeUpdate)
     }
 
-    await titreTypeTypeUpdate(type.id!, type)
+    await titreTypeTypeUpdate(titreType.id!, titreType)
 
     const titresTypesTypes = await titresTypesTypesGet()
 
@@ -608,8 +610,8 @@ const typeModifier = async (
   }
 }
 
-const statutModifier = async (
-  { statut }: { statut: ITitreStatut },
+const titreStatutModifier = async (
+  { titreStatut }: { titreStatut: ITitreStatut },
   context: IToken
 ) => {
   try {
@@ -619,13 +621,13 @@ const statutModifier = async (
       throw new Error('droits insuffisants pour effectuer cette opération')
     }
 
-    if (statut.ordre) {
+    if (titreStatut.ordre) {
       const titresStatuts = await titresStatutsGet()
 
-      await ordreUpdate(statut, titresStatuts, titreStatutUpdate)
+      await ordreUpdate(titreStatut, titresStatuts, titreStatutUpdate)
     }
 
-    await titreStatutUpdate(statut.id!, statut)
+    await titreStatutUpdate(titreStatut.id!, titreStatut)
 
     const titresStatut = await titresStatutsGet()
 
@@ -681,6 +683,37 @@ const demarcheTypeModifier = async (
   }
 }
 
+const demarcheStatutModifier = async (
+  { demarcheStatut }: { demarcheStatut: IDemarcheStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (demarcheStatut.ordre) {
+      const demarchesStatuts = await demarchesStatutsGet()
+
+      await ordreUpdate(demarcheStatut, demarchesStatuts, demarcheStatutUpdate)
+    }
+
+    await demarcheStatutUpdate(demarcheStatut.id!, demarcheStatut)
+
+    const demarchesStatuts = await demarchesStatutsGet()
+
+    return demarchesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -696,7 +729,7 @@ export {
   permissions,
   referencesTypes,
   statuts,
-  statutModifier,
+  titreStatutModifier,
   types,
   unites,
   version,
@@ -708,6 +741,7 @@ export {
   departements,
   domaineModifier,
   definitionModifier,
-  typeModifier,
-  demarcheTypeModifier
+  titreTypeModifier,
+  demarcheTypeModifier,
+  demarcheStatutModifier
 }

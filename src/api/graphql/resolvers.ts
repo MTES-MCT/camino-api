@@ -55,6 +55,7 @@ import {
   demarchesTypes,
   demarcheTypeModifier,
   demarchesStatuts,
+  demarcheStatutModifier,
   travauxTypes,
   documentsTypes,
   documentsVisibilites,
@@ -67,9 +68,9 @@ import {
   permissions,
   referencesTypes,
   statuts,
-  statutModifier,
+  titreStatutModifier,
   types,
-  typeModifier,
+  titreTypeModifier,
   unites,
   version,
   activitesTypes,
@@ -215,7 +216,8 @@ export default {
   travauxEtapeSupprimer,
   domaineModifier,
   definitionModifier,
-  typeModifier,
-  statutModifier,
-  demarcheTypeModifier
+  titreTypeModifier,
+  titreStatutModifier,
+  demarcheTypeModifier,
+  demarcheStatutModifier
 }

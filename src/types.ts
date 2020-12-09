@@ -186,6 +186,7 @@ interface ICoordonnees {
 interface IDemarcheStatut {
   id: string
   nom: string
+  ordre: number
   couleur: string
 }
 

@@ -5,7 +5,8 @@ import {
   IDefinition,
   ITitreTypeType,
   ITitreStatut,
-  IDemarcheType
+  IDemarcheType,
+  IDemarcheStatut
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -155,6 +156,11 @@ const travauxTypesGet = async (
 const demarchesStatutsGet = async () =>
   DemarchesStatuts.query().orderBy('ordre')
 
+const demarcheStatutUpdate = async (
+  id: string,
+  props: Partial<IDemarcheStatut>
+) => DemarchesStatuts.query().patchAndFetchById(id, props)
+
 const etapesTypesGet = async (
   {
     titreDemarcheId,
@@ -276,8 +282,9 @@ export {
   titreStatutUpdate,
   titreTypeTypeUpdate,
   demarchesTypesGet,
-  demarchesStatutsGet,
   demarcheTypeUpdate,
+  demarchesStatutsGet,
+  demarcheStatutUpdate,
   etapesTypesGet,
   travauxTypesGet,
   devisesGet,
