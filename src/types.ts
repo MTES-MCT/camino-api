@@ -866,11 +866,6 @@ interface ITokenUser {
   iat: number
 }
 
-interface ITitreEtapeCondition {
-  typeId: string
-  statutId?: string
-}
-
 interface ITitreCondition {
   statutId?: string
   contenu: IContenuCondition
@@ -882,28 +877,6 @@ interface IContenuCondition {
 
 interface IContenuElementCondition {
   [id: string]: IContenuOperation | undefined
-}
-
-interface ICondition {
-  etape: ITitreEtapeCondition
-  titre?: ITitreCondition
-}
-
-interface ITitreTypeEtapeTypeRestriction {
-  condition: ICondition
-  contraintes?: {
-    obligatoireApres?: ITitreEtapeCondition[]
-    impossibleApres?: ITitreEtapeCondition[]
-    impossible?: true
-  }[]
-
-  impossibleAvant?: ITitreEtapeCondition[]
-}
-
-interface ITitreEtapesTypesRestrictions {
-  typeId: string
-  demarcheTypeIds: string[]
-  restrictions: ITitreTypeEtapeTypeRestriction[]
 }
 
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
@@ -1022,9 +995,6 @@ export {
   IEntrepriseColonneId,
   IAdministrationColonneId,
   IColonne,
-  ITitreTypeEtapeTypeRestriction,
-  ITitreEtapesTypesRestrictions,
-  ITitreEtapeCondition,
   ITitreCondition,
   IDefinition
 }
