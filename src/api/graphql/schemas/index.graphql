@@ -372,4 +372,20 @@ type Mutation {
   etapeTypeModifier(etapeType: InputEtapeType!): [EtapeType]
 
   etapeStatutModifier(etapeStatut: InputEtapeStatut!): [EtapeStatut]
+
+  deviseModifier(devise: InputDevise!): [Devise]
+
+  uniteModifier(unite: InputUnite!): [Unite]
+
+  administrationTypeModifier(
+    administrationType: InputAdministrationType!
+  ): [AdministrationType]
+
+  permissionModifier(permission: InputPermission!): [Permission]
+
+  documentTypeModifier(documentType: InputDocumentType!): [DocumentType]
+
+  referenceTypeModifier(referenceType: InputReferenceType!): [ReferenceType]
+
+  geoSystemeModifier(geoSysteme: InputGeoSysteme!): [GeoSysteme]
 }

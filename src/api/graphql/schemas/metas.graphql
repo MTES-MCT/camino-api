@@ -196,6 +196,12 @@ type ReferenceType {
   nom: String
 }
 
+type AdministrationType {
+  id: ID!
+  nom: String
+  ordre: Int
+}
+
 "Unité"
 type Unite {
   id: ID!
@@ -215,12 +221,12 @@ type Devise {
 "Système géographique"
 type GeoSysteme {
   id: ID!
-
   nom: String!
-
+  ordre: Int!
   zone: String!
-
+  uniteId: String
   unite: Unite!
+  definitionProj4: String!
 }
 
 type DocumentType {
@@ -244,6 +250,12 @@ type Definition {
   couleur: String
   ordre: Int
   elements: [Definition]
+}
+
+type Permission {
+  id: ID!
+  nom: String
+  ordre: Int!
 }
 
 input InputDomaine {
@@ -339,6 +351,47 @@ input InputEtapeStatut {
   couleur: Couleur
   description: String
   ordre: Int
+}
+
+input InputDevise {
+  id: ID!
+  nom: String
+}
+
+input InputUnite {
+  id: ID!
+  nom: String
+  symbole: String
+}
+
+input InputAdministrationType {
+  id: ID!
+  nom: String
+  ordre: Int
+}
+
+input InputDocumentType {
+  id: ID!
+  nom: String!
+}
+
+input InputPermission {
+  id: ID!
+  nom: String
+}
+
+input InputReferenceType {
+  id: ID!
+  nom: String
+}
+
+input InputGeoSysteme {
+  id: ID!
+  nom: String
+  ordre: Int
+  zone: String
+  uniteId: String
+  definitionProj4: String
 }
 
 """

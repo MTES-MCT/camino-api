@@ -33,12 +33,6 @@ type Administration {
   modification: Boolean
 }
 
-type AdministrationType {
-  id: ID!
-  nom: String
-  ordre: Int
-}
-
 type TitreTypeTitreStatut {
   titreType: TitreType
   titreStatut: TitreStatut

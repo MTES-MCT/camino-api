@@ -10,7 +10,14 @@ import {
   IPhaseStatut,
   IEtapeType,
   IEtapeStatut,
-  ITravauxType
+  ITravauxType,
+  IDevise,
+  IUnite,
+  IAdministrationType,
+  IPermission,
+  IGeoSysteme,
+  IDocumentType,
+  IReferenceType
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -60,6 +67,20 @@ const permissionsGet = async (_a: never, _b: never, userId?: string) => {
 
   return q
 }
+
+const permissionUpdate = async (id: string, props: Partial<IPermission>) =>
+  Permissions.query().patchAndFetchById(id, props)
+
+const geoSystemeUpdate = async (id: string, props: Partial<IGeoSysteme>) =>
+  GeoSystemes.query().patchAndFetchById(id, props)
+
+const documentTypeUpdate = async (id: string, props: Partial<IDocumentType>) =>
+  DocumentsTypes.query().patchAndFetchById(id, props)
+
+const referenceTypeUpdate = async (
+  id: string,
+  props: Partial<IReferenceType>
+) => ReferencesTypes.query().patchAndFetchById(id, props)
 
 const permissionGet = async (id: string) => Permissions.query().findById(id)
 
@@ -212,15 +233,18 @@ const etapesTypesGet = async (
 }
 
 const etapeTypeUpdate = async (id: string, props: Partial<IEtapeType>) =>
-  EtapesTypes.query().patchAndFetchById(id, props).orderBy('ordre')
+  EtapesTypes.query().patchAndFetchById(id, props)
 
-const devisesGet = async () => Devises.query().orderBy('nom')
+const devisesGet = async () => Devises.query().orderBy('id')
+
+const deviseUpdate = async (id: string, props: Partial<IDevise>) =>
+  Devises.query().patchAndFetchById(id, props)
 
 const documentsTypesGet = async ({
   repertoire,
   typeId
 }: {
-  repertoire: IDocumentRepertoire
+  repertoire?: IDocumentRepertoire
   typeId?: string
 }) => {
   const q = DocumentsTypes.query().orderBy('nom')
@@ -250,7 +274,10 @@ const geoSystemesGet = async () =>
 const geoSystemeGet = async (id: string) =>
   GeoSystemes.query().findById(id).withGraphFetched(options.geoSystemes.graph)
 
-const unitesGet = async () => Unites.query()
+const unitesGet = async () => Unites.query().orderBy('id')
+
+const uniteUpdate = async (id: string, props: Partial<IUnite>) =>
+  Unites.query().patchAndFetchById(id, props)
 
 const activitesTypesGet = async (
   { fields }: { fields?: IFields },
@@ -293,6 +320,11 @@ const definitionUpdate = async (id: string, props: Partial<IDefinition>) =>
 const administrationsTypesGet = async () =>
   AdministrationsTypes.query().orderBy('ordre')
 
+const administrationTypeUpdate = async (
+  id: string,
+  props: Partial<IAdministrationType>
+) => AdministrationsTypes.query().patchAndFetchById(id, props)
+
 export {
   titresTypesTypesGet,
   domainesGet,
@@ -309,11 +341,13 @@ export {
   etapesTypesGet,
   etapeTypeUpdate,
   devisesGet,
+  deviseUpdate,
   documentsTypesGet,
   documentTypeGet,
   geoSystemesGet,
   geoSystemeGet,
   unitesGet,
+  uniteUpdate,
   activitesTypesGet,
   activitesStatutsGet,
   referencesTypesGet,
@@ -326,5 +360,10 @@ export {
   substancesLegalesCodesGet,
   definitionsGet,
   definitionUpdate,
-  administrationsTypesGet
+  administrationsTypesGet,
+  administrationTypeUpdate,
+  permissionUpdate,
+  geoSystemeUpdate,
+  documentTypeUpdate,
+  referenceTypeUpdate
 }

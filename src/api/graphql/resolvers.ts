@@ -52,6 +52,7 @@ import {
 
 import {
   devises,
+  deviseModifier,
   demarchesTypes,
   demarcheTypeModifier,
   demarchesStatuts,
@@ -77,14 +78,20 @@ import {
   types,
   titreTypeModifier,
   unites,
+  uniteModifier,
   version,
   activitesTypes,
   activitesStatuts,
   definitions,
   definitionModifier,
   administrationsTypes,
+  administrationTypeModifier,
   regions,
-  departements
+  departements,
+  permissionModifier,
+  documentTypeModifier,
+  referenceTypeModifier,
+  geoSystemeModifier
 } from './resolvers/metas'
 
 import {
@@ -230,5 +237,12 @@ export default {
   phaseStatutModifier,
   etapeTypeModifier,
   etapeStatutModifier,
-  travauxTypeModifier
+  travauxTypeModifier,
+  deviseModifier,
+  uniteModifier,
+  administrationTypeModifier,
+  permissionModifier,
+  documentTypeModifier,
+  referenceTypeModifier,
+  geoSystemeModifier
 }

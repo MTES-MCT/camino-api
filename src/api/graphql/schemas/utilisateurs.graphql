@@ -37,11 +37,6 @@ type UtilisateurToken {
   refreshToken: String
 }
 
-type Permission {
-  id: ID!
-  nom: String
-}
-
 input InputUtilisateurModification {
   id: ID!
   email: String!

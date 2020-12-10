@@ -1,17 +1,24 @@
 import { GraphQLResolveInfo } from 'graphql'
 import {
+  IAdministrationType,
   IDefinition,
   IDemarcheStatut,
   IDemarcheType,
+  IDevise,
   IDocumentRepertoire,
+  IDocumentType,
   IDomaine,
   IEtapeStatut,
   IEtapeType,
+  IGeoSysteme,
+  IPermission,
   IPhaseStatut,
+  IReferenceType,
   ITitreStatut,
   ITitreTypeType,
   IToken,
-  ITravauxType
+  ITravauxType,
+  IUnite
 } from '../../../types'
 import { debug } from '../../../config/index'
 
@@ -19,6 +26,7 @@ import {
   activitesStatutsGet,
   activitesTypesGet,
   administrationsTypesGet,
+  administrationTypeUpdate,
   definitionsGet,
   definitionUpdate,
   demarchesTypesGet,
@@ -45,7 +53,13 @@ import {
   titreTypeTypeUpdate,
   travauxTypesGet,
   travauxTypeUpdate,
-  unitesGet
+  unitesGet,
+  deviseUpdate,
+  uniteUpdate,
+  permissionUpdate,
+  geoSystemeUpdate,
+  documentTypeUpdate,
+  referenceTypeUpdate
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -91,7 +105,9 @@ const ordreUpdate = async <I extends { id: string; ordre: number }, O>(
 }
 
 const devises = async () => devisesGet()
+
 const geoSystemes = async () => geoSystemesGet()
+
 const unites = async () => unitesGet()
 
 const documentsTypes = async ({
@@ -864,6 +880,207 @@ const etapeStatutModifier = async (
   }
 }
 
+const deviseModifier = async (
+  { devise }: { devise: IDevise },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    await deviseUpdate(devise.id!, devise)
+
+    const devises = await devisesGet()
+
+    return devises
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const uniteModifier = async ({ unite }: { unite: IUnite }, context: IToken) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    await uniteUpdate(unite.id!, unite)
+
+    const unites = await unitesGet()
+
+    return unites
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const administrationTypeModifier = async (
+  { administrationType }: { administrationType: IAdministrationType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (administrationType.ordre) {
+      const administrationsTypes = await administrationsTypesGet()
+
+      await ordreUpdate(
+        administrationType,
+        administrationsTypes,
+        administrationTypeUpdate
+      )
+    }
+
+    await administrationTypeUpdate(administrationType.id!, administrationType)
+
+    const administrationsTypes = await administrationsTypesGet()
+
+    return administrationsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const permissionModifier = async (
+  { permission }: { permission: IPermission },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (permission.ordre) {
+      const permissions = await permissionsGet(
+        null as never,
+        null as never,
+        context.user?.id
+      )
+
+      await ordreUpdate(permission, permissions, permissionUpdate)
+    }
+
+    await permissionUpdate(permission.id!, permission)
+
+    const permissions = await permissionsGet(
+      null as never,
+      null as never,
+      context.user?.id
+    )
+
+    return permissions
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const geoSystemeModifier = async (
+  { geoSysteme }: { geoSysteme: IGeoSysteme },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (geoSysteme.ordre) {
+      const geoSystemes = await geoSystemesGet()
+
+      await ordreUpdate(geoSysteme, geoSystemes, geoSystemeUpdate)
+    }
+
+    await geoSystemeUpdate(geoSysteme.id!, geoSysteme)
+
+    const geoSystemes = await geoSystemesGet()
+
+    return geoSystemes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const documentTypeModifier = async (
+  { documentType }: { documentType: IDocumentType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    await documentTypeUpdate(documentType.id!, documentType)
+
+    const documentTypes = await documentsTypesGet({})
+
+    return documentTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+const referenceTypeModifier = async (
+  { referenceType }: { referenceType: IReferenceType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    await referenceTypeUpdate(referenceType.id!, referenceType)
+
+    const referenceTypes = await referencesTypesGet()
+
+    return referenceTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -898,5 +1115,12 @@ export {
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,
-  etapeStatutModifier
+  etapeStatutModifier,
+  deviseModifier,
+  uniteModifier,
+  administrationTypeModifier,
+  permissionModifier,
+  documentTypeModifier,
+  referenceTypeModifier,
+  geoSystemeModifier
 }
