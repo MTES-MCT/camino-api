@@ -7,7 +7,8 @@ import {
   ITitreStatut,
   IDemarcheType,
   IDemarcheStatut,
-  IPhaseStatut
+  IPhaseStatut,
+  IEtapeType
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -205,6 +206,9 @@ const etapesTypesGet = async (
   return q
 }
 
+const etapeTypeUpdate = async (id: string, props: Partial<IEtapeType>) =>
+  EtapesTypes.query().patchAndFetchById(id, props).orderBy('ordre')
+
 const devisesGet = async () => Devises.query().orderBy('nom')
 
 const documentsTypesGet = async ({
@@ -293,6 +297,7 @@ export {
   demarchesStatutsGet,
   demarcheStatutUpdate,
   etapesTypesGet,
+  etapeTypeUpdate,
   travauxTypesGet,
   devisesGet,
   documentsTypesGet,

@@ -29,6 +29,7 @@ import {
   domaineUpdate,
   etapesStatutsGet,
   etapesTypesGet,
+  etapeTypeUpdate,
   geoSystemesGet,
   permissionGet,
   permissionsGet,
@@ -756,6 +757,40 @@ const phaseStatutModifier = async (
   }
 }
 
+const etapeTypeModifier = async (
+  { etapeType }: { etapeType: IEtapeType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (etapeType.ordre) {
+      const etapesTypes = await etapesTypesGet({}, { fields }, context.user?.id)
+
+      await ordreUpdate(etapeType, etapesTypes, etapeTypeUpdate)
+    }
+
+    await etapeTypeUpdate(etapeType.id!, etapeType)
+
+    const etapesTypes = await etapesTypesGet({}, { fields }, context.user?.id)
+
+    return etapesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -787,5 +822,6 @@ export {
   titreTypeModifier,
   demarcheTypeModifier,
   demarcheStatutModifier,
-  phaseStatutModifier
+  phaseStatutModifier,
+  etapeTypeModifier
 }

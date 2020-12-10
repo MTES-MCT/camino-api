@@ -62,6 +62,7 @@ import {
   domaines,
   domaineModifier,
   etapesTypes,
+  etapeTypeModifier,
   etapesStatuts,
   geoSystemes,
   permission,
@@ -223,5 +224,6 @@ export default {
   titreStatutModifier,
   demarcheTypeModifier,
   demarcheStatutModifier,
-  phaseStatutModifier
+  phaseStatutModifier,
+  etapeTypeModifier
 }

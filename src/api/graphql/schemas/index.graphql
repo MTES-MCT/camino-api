@@ -367,4 +367,6 @@ type Mutation {
   demarcheStatutModifier(demarcheStatut: InputDemarcheStatut!): [DemarcheStatut]
 
   phaseStatutModifier(phaseStatut: InputPhaseStatut!): [PhaseStatut]
+
+  etapeTypeModifier(etapeType: InputEtapeType!): [EtapeType]
 }

@@ -142,16 +142,24 @@ type EtapeType {
 
   ordre: Int!
 
-  fondamentale: Boolean
+  sections: Json
 
-  acceptationAuto: Boolean
+  legalLien: String
+  legalRef: String
+  dateDebut: String
+  dateFin: String
+
+  fondamentale: Boolean
 
   "Si ce type d'étape est unique au sein de la démarche"
   unique: Boolean
 
-  etapesStatuts: [EtapeStatut]
+  acceptationAuto: Boolean
 
-  sections: Json
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
+
+  etapesStatuts: [EtapeStatut]
 
   etapesCreation: Boolean
 }
@@ -291,6 +299,23 @@ input InputPhaseStatut {
   id: ID!
   nom: String
   couleur: Couleur
+}
+
+input InputEtapeType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+  sections: Json
+  legalLien: String
+  legalRef: String
+  dateDebut: String
+  dateFin: String
+  fondamentale: Boolean
+  unique: Boolean
+  acceptationAuto: Boolean
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
 }
 
 """
