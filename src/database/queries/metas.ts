@@ -57,6 +57,7 @@ import {
 } from './permissions/metas'
 import { AutorisationsTitresTypesTitresStatuts } from '../models/autorisations'
 import PhasesStatuts from '../models/phases-statuts'
+import TitresTypes from '../models/titres-types'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
   const user = await userGet(userId)
@@ -112,6 +113,14 @@ const domainesGet = async (
 
 const domaineUpdate = async (id: string, props: Partial<IDomaine>) =>
   Domaines.query().patchAndFetchById(id, props)
+
+const titresTypesGet = async (_: never, { fields }: { fields?: IFields }) => {
+  const graph = fields
+    ? graphBuild(fields, 'titre', graphFormat)
+    : options.demarchesTypes.graph
+
+  return TitresTypes.query().withGraphFetched(graph).orderBy('id')
+}
 
 /**
  * retourne les statuts de titre visible par l’utilisateur
@@ -326,12 +335,13 @@ const administrationTypeUpdate = async (
 ) => AdministrationsTypes.query().patchAndFetchById(id, props)
 
 export {
-  titresTypesTypesGet,
   domainesGet,
   domaineUpdate,
+  titresTypesTypesGet,
+  titreTypeTypeUpdate,
+  titresTypesGet,
   titresStatutsGet,
   titreStatutUpdate,
-  titreTypeTypeUpdate,
   demarchesTypesGet,
   demarcheTypeUpdate,
   travauxTypesGet,

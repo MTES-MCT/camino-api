@@ -170,6 +170,7 @@ type Query {
   departements: [Departement]
   regions: [Region]
   phasesStatuts: [PhaseStatut]
+  titresTypes: [TitreType]
 
   "Liste des permissions utilisateurs"
   permissions: [Permission]
@@ -357,7 +358,7 @@ type Mutation {
 
   definitionModifier(definition: InputDefinition!): [Definition]
 
-  titreTypeModifier(titreType: InputTitreTypeType!): [TitreTypeType]
+  titreTypeTypeModifier(titreType: InputTitreTypeType!): [TitreTypeType]
 
   titreStatutModifier(titreStatut: InputTitreStatut!): [TitreStatut]
 

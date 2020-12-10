@@ -20,8 +20,9 @@ type TitreType {
   "Id composée de trois lettres"
   id: ID!
 
+  domaineId: String!
   domaine: Domaine!
-
+  typeId: String!
   type: TitreTypeType!
 
   "Types de démarches applicables à ce type de titre"
@@ -31,6 +32,7 @@ type TitreType {
   gestionnaire: Boolean
   associee: Boolean
   titresCreation: Boolean
+  propsEtapesTypes: Json
 }
 
 "Type de titre minier"

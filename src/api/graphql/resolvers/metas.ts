@@ -59,7 +59,8 @@ import {
   permissionUpdate,
   geoSystemeUpdate,
   documentTypeUpdate,
-  referenceTypeUpdate
+  referenceTypeUpdate,
+  titresTypesGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -193,6 +194,31 @@ const types = async () => {
     const types = await titresTypesTypesGet()
 
     return types
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titresTypes = async (_: never, context: IToken) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = {
+      type: { id: {} },
+      domaine: { id: {} }
+    }
+
+    const titresTypes = await titresTypesGet(null as never, { fields })
+
+    return titresTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -617,7 +643,7 @@ const domaineModifier = async (
   }
 }
 
-const titreTypeModifier = async (
+const titreTypeTypeModifier = async (
   { titreType }: { titreType: ITitreTypeType },
   context: IToken
 ) => {
@@ -1099,6 +1125,7 @@ export {
   statuts,
   titreStatutModifier,
   types,
+  titresTypes,
   unites,
   version,
   activitesTypes,
@@ -1109,7 +1136,7 @@ export {
   departements,
   domaineModifier,
   definitionModifier,
-  titreTypeModifier,
+  titreTypeTypeModifier,
   demarcheTypeModifier,
   travauxTypeModifier,
   demarcheStatutModifier,
