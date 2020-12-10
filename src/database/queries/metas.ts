@@ -9,7 +9,8 @@ import {
   IDemarcheStatut,
   IPhaseStatut,
   IEtapeType,
-  IEtapeStatut
+  IEtapeStatut,
+  ITravauxType
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -136,8 +137,8 @@ const travauxTypesGet = async (
   return q
 }
 
-const demarcheTypeUpdate = async (id: string, props: Partial<IDemarcheType>) =>
-  DemarchesTypes.query().patchAndFetchById(id, props)
+const travauxTypeUpdate = async (id: string, props: Partial<ITravauxType>) =>
+  TravauxTypes.query().patchAndFetchById(id, props)
 
 const demarchesTypesGet = async (
   { titreId, titreDemarcheId }: { titreId?: string; titreDemarcheId?: string },
@@ -156,6 +157,9 @@ const demarchesTypesGet = async (
 
   return q
 }
+
+const demarcheTypeUpdate = async (id: string, props: Partial<IDemarcheType>) =>
+  DemarchesTypes.query().patchAndFetchById(id, props)
 
 const demarchesStatutsGet = async () =>
   DemarchesStatuts.query().orderBy('ordre')
@@ -298,11 +302,12 @@ export {
   titreTypeTypeUpdate,
   demarchesTypesGet,
   demarcheTypeUpdate,
+  travauxTypesGet,
+  travauxTypeUpdate,
   demarchesStatutsGet,
   demarcheStatutUpdate,
   etapesTypesGet,
   etapeTypeUpdate,
-  travauxTypesGet,
   devisesGet,
   documentsTypesGet,
   documentTypeGet,

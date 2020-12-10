@@ -10,7 +10,8 @@ import {
   IPhaseStatut,
   ITitreStatut,
   ITitreTypeType,
-  IToken
+  IToken,
+  ITravauxType
 } from '../../../types'
 import { debug } from '../../../config/index'
 
@@ -43,6 +44,7 @@ import {
   titresTypesTypesGet,
   titreTypeTypeUpdate,
   travauxTypesGet,
+  travauxTypeUpdate,
   unitesGet
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
@@ -703,6 +705,44 @@ const demarcheTypeModifier = async (
   }
 }
 
+const travauxTypeModifier = async (
+  { travauxType }: { travauxType: ITravauxType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (travauxType.ordre) {
+      const travauxTypes = await travauxTypesGet(
+        {},
+        { fields },
+        context.user?.id
+      )
+
+      await ordreUpdate(travauxType, travauxTypes, travauxTypeUpdate)
+    }
+
+    await travauxTypeUpdate(travauxType.id!, travauxType)
+
+    const travauxTypes = await travauxTypesGet({}, { fields }, context.user?.id)
+
+    return travauxTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 const demarcheStatutModifier = async (
   { demarcheStatut }: { demarcheStatut: IDemarcheStatut },
   context: IToken
@@ -854,6 +894,7 @@ export {
   definitionModifier,
   titreTypeModifier,
   demarcheTypeModifier,
+  travauxTypeModifier,
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,

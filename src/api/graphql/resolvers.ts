@@ -57,6 +57,7 @@ import {
   demarchesStatuts,
   demarcheStatutModifier,
   travauxTypes,
+  travauxTypeModifier,
   documentsTypes,
   documentsVisibilites,
   domaines,
@@ -91,6 +92,7 @@ import {
   substances,
   substancesLegales
 } from './resolvers/substances'
+
 import {
   entreprise,
   entreprises,
@@ -227,5 +229,6 @@ export default {
   demarcheStatutModifier,
   phaseStatutModifier,
   etapeTypeModifier,
-  etapeStatutModifier
+  etapeStatutModifier,
+  travauxTypeModifier
 }

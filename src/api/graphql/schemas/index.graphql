@@ -16,7 +16,6 @@
 # import * from 'utilisateurs.graphql'
 # import * from 'titres-travaux-demarches.graphql'
 # import * from 'titres-travaux-etapes.graphql'
-# import * from 'metas-travaux.graphql'
 
 "Type du contenu json"
 scalar Json
@@ -211,7 +210,7 @@ type Query {
   "Définitions et descriptions"
   definitions: [Definition]
 
-  "Types de démarches"
+  "Types de travaux"
   travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
 }
 
@@ -363,6 +362,8 @@ type Mutation {
   titreStatutModifier(titreStatut: InputTitreStatut!): [TitreStatut]
 
   demarcheTypeModifier(demarcheType: InputDemarcheType!): [DemarcheType]
+
+  travauxTypeModifier(travauxType: InputTravauxType!): [TravauxType]
 
   demarcheStatutModifier(demarcheStatut: InputDemarcheStatut!): [DemarcheStatut]
 

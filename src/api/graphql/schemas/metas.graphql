@@ -104,6 +104,14 @@ type DemarcheType {
   demarchesCreation: Boolean
 }
 
+type TravauxType {
+  id: ID!
+  nom: String!
+  description: String
+  ordre: Int
+  travauxCreation: Boolean
+}
+
 "Statut d'une démarche applicable à un titre minier"
 type DemarcheStatut {
   "Id composée de trois lettres"
@@ -285,6 +293,13 @@ input InputDemarcheType {
   titulaires: Boolean
   renouvelable: Boolean
   exception: Boolean
+}
+
+input InputTravauxType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
 }
 
 input InputDemarcheStatut {
