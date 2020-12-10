@@ -5,6 +5,7 @@ import {
   IDemarcheType,
   IDocumentRepertoire,
   IDomaine,
+  IEtapeStatut,
   IEtapeType,
   IPhaseStatut,
   ITitreStatut,
@@ -28,6 +29,7 @@ import {
   domainesGet,
   domaineUpdate,
   etapesStatutsGet,
+  etapeStatutUpdate,
   etapesTypesGet,
   etapeTypeUpdate,
   geoSystemesGet,
@@ -791,6 +793,37 @@ const etapeTypeModifier = async (
   }
 }
 
+const etapeStatutModifier = async (
+  { etapeStatut }: { etapeStatut: IEtapeStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants pour effectuer cette opération')
+    }
+
+    if (etapeStatut.ordre) {
+      const etapesStatuts = await etapesStatutsGet()
+
+      await ordreUpdate(etapeStatut, etapesStatuts, etapeStatutUpdate)
+    }
+
+    await etapeStatutUpdate(etapeStatut.id!, etapeStatut)
+
+    const etapesStatuts = await etapesStatutsGet()
+
+    return etapesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -823,5 +856,6 @@ export {
   demarcheTypeModifier,
   demarcheStatutModifier,
   phaseStatutModifier,
-  etapeTypeModifier
+  etapeTypeModifier,
+  etapeStatutModifier
 }

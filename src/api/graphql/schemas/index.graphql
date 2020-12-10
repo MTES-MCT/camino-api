@@ -369,4 +369,6 @@ type Mutation {
   phaseStatutModifier(phaseStatut: InputPhaseStatut!): [PhaseStatut]
 
   etapeTypeModifier(etapeType: InputEtapeType!): [EtapeType]
+
+  etapeStatutModifier(etapeStatut: InputEtapeStatut!): [EtapeStatut]
 }

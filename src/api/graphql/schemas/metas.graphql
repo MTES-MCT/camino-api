@@ -318,6 +318,14 @@ input InputEtapeType {
   entreprisesLecture: Boolean
 }
 
+input InputEtapeStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+  description: String
+  ordre: Int
+}
+
 """
 Liste de couleurs génériques
 """

@@ -8,7 +8,8 @@ import {
   IDemarcheType,
   IDemarcheStatut,
   IPhaseStatut,
-  IEtapeType
+  IEtapeType,
+  IEtapeStatut
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -274,6 +275,9 @@ const referencesTypesGet = async () => ReferencesTypes.query().orderBy('nom')
 
 const etapesStatutsGet = async () => EtapesStatuts.query().orderBy('ordre')
 
+const etapeStatutUpdate = async (id: string, props: Partial<IEtapeStatut>) =>
+  EtapesStatuts.query().patchAndFetchById(id, props).orderBy('ordre')
+
 const substancesLegalesCodesGet = async () =>
   SubstancesLegalesCodes.query().orderBy('ordre')
 
@@ -313,6 +317,7 @@ export {
   permissionsGet,
   permissionGet,
   etapesStatutsGet,
+  etapeStatutUpdate,
   substancesLegalesCodesGet,
   definitionsGet,
   definitionUpdate,
