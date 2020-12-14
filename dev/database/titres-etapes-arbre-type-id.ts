@@ -21,6 +21,11 @@ const armOctArbreTypeIdGet = (
       } else if (etapes[i - 1].typeId === 'aco') {
         return 'mno-aco'
       } else {
+        const aca = etapes.find(e => e.typeId === 'aca')
+        if (aca?.statutId === 'ajo') {
+          return 'mno-sca'
+        }
+
         return 'mno-aca'
       }
     } else {
