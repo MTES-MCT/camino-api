@@ -65,6 +65,30 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
 
   test('peut créer une "des" si le titre est en attente de "pfc"', () => {
     expect(
+      octArbreErreursGet(
+        [
+          { arbreTypeId: 'mfr', date: '2020-01-01' },
+          { arbreTypeId: 'mdp', date: '2020-01-01' },
+          { arbreTypeId: 'dae', statutId: 'fav', date: '2020-01-01' },
+          { arbreTypeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
+          { arbreTypeId: 'vfd', date: '2020-01-01' },
+          { arbreTypeId: 'mcr', date: '2020-01-01', statutId: 'fav' },
+          { arbreTypeId: 'eof', date: '2020-01-01' },
+          { arbreTypeId: 'aof', date: '2020-01-01' },
+          { arbreTypeId: 'sca', date: '2020-01-02' },
+          { arbreTypeId: 'aca', date: '2020-01-03', statutId: 'fav' },
+          { arbreTypeId: 'mno-aca', date: '2020-01-04' },
+          { arbreTypeId: 'des', date: '2020-01-04' }
+        ],
+        {
+          contenu: { arm: { mecanise: true } }
+        }
+      )
+    ).toBeNull()
+  })
+
+  test('ne peut pas créer une "mno" après la "aca" si le titre n’est pas mécanisé', () => {
+    expect(
       octArbreErreursGet([
         { arbreTypeId: 'mfr', date: '2020-01-01' },
         { arbreTypeId: 'mdp', date: '2020-01-01' },
@@ -75,10 +99,9 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { arbreTypeId: 'aof', date: '2020-01-01' },
         { arbreTypeId: 'sca', date: '2020-01-02' },
         { arbreTypeId: 'aca', date: '2020-01-03', statutId: 'fav' },
-        { arbreTypeId: 'mno-aca', date: '2020-01-04' },
-        { arbreTypeId: 'des', date: '2020-01-04' }
+        { arbreTypeId: 'mno-aca', date: '2020-01-04' }
       ])
-    ).toBeNull()
+    ).toEqual('L’étape "mno-aca" n’est pas possible juste après "aca"')
   })
 
   test('peut créer une "mno-rej" apres une "aca" défavorable', () => {

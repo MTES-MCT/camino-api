@@ -3,7 +3,7 @@ import { ITitreCondition } from '../../types'
 import { arbreArmOct } from './arm/oct'
 import { arbreArmRenPro } from './arm/ren-pro'
 import { arbreAxmOct } from './axm/oct'
-import { arbrePrmOct } from './prm/oct'
+// import { arbrePrmOct } from './prm/oct'
 
 interface IArbreCondition {
   arbreTypeId?: string
@@ -42,11 +42,11 @@ const arbresDemarches: IArbresDemarches[] = [
     demarcheTypeIds: ['ren', 'pro'],
     restrictions: arbreArmRenPro
   },
-  {
-    titreTypeId: 'prm',
-    demarcheTypeIds: ['oct'],
-    restrictions: arbrePrmOct
-  },
+  // {
+  //   titreTypeId: 'prm',
+  //   demarcheTypeIds: ['oct'],
+  //   restrictions: arbrePrmOct
+  // },
   {
     titreTypeId: 'axm',
     demarcheTypeIds: ['oct'],
