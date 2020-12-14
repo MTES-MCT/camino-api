@@ -6,7 +6,8 @@ import { arbreComplementsGet, arbreInformationsGet } from '../arbres-annexes'
 const arbreAxmOct: IArbreEtape[] = [
   {
     arbreTypeId: 'mfr',
-    separation: ['mdp'],
+    // FIXME normalement c’est jusqu’à la MDP, mais la DGTM n’a pas le temps de s’adapter à cette modification
+    separation: ['mcr'],
     justeApres: [[]]
   },
   {
@@ -40,13 +41,7 @@ const arbreAxmOct: IArbreEtape[] = [
 
   {
     arbreTypeId: 'mdp',
-    justeApres: [
-      [
-        { arbreTypeId: 'asl', statutId: 'fav' },
-        { arbreTypeId: 'dae', statutId: 'fav' },
-        { arbreTypeId: 'mfr' }
-      ]
-    ]
+    justeApres: [[{ arbreTypeId: 'mfr' }]]
   },
   {
     arbreTypeId: 'nis',
@@ -56,11 +51,48 @@ const arbreAxmOct: IArbreEtape[] = [
     arbreTypeId: 'mod-mdp',
     justeApres: [[{ arbreTypeId: 'mdp' }]]
   },
-  ...arbreComplementsGet({
+  {
+    arbreTypeId: 'mco-mcr',
+    justeApres: [[{ arbreTypeId: 'mdp' }], [{ arbreTypeId: 'rco-mcr' }]],
+    avant: [[{ arbreTypeId: 'mcr' }]]
+  },
+  { arbreTypeId: 'rco-mcr', justeApres: [[{ arbreTypeId: 'mco-mcr' }]] },
+  {
     arbreTypeId: 'mcr',
-    justeApres: [[{ arbreTypeId: 'mdp' }], [{ arbreTypeId: 'mod' }]],
+    justeApres: [
+      [
+        { arbreTypeId: 'mdp' },
+        { arbreTypeId: 'asl', statutId: 'fav' },
+        { arbreTypeId: 'dae', statutId: 'fav' }
+      ],
+      [
+        { arbreTypeId: 'mdp' },
+        { arbreTypeId: 'asl', statutId: 'fav' },
+        { arbreTypeId: 'mod-dae' }
+      ],
+      [
+        { arbreTypeId: 'rco-mcr' },
+        { arbreTypeId: 'asl', statutId: 'fav' },
+        { arbreTypeId: 'dae', statutId: 'fav' }
+      ],
+      [
+        { arbreTypeId: 'rco-mcr' },
+        { arbreTypeId: 'asl', statutId: 'fav' },
+        { arbreTypeId: 'mod-dae' }
+      ],
+      [
+        { arbreTypeId: 'mod-mdp' },
+        { arbreTypeId: 'asl', statutId: 'fav' },
+        { arbreTypeId: 'dae', statutId: 'fav' }
+      ],
+      [
+        { arbreTypeId: 'mod-mdp' },
+        { arbreTypeId: 'asl', statutId: 'fav' },
+        { arbreTypeId: 'mod-dae' }
+      ]
+    ],
     separation: ['apd']
-  }),
+  },
   {
     arbreTypeId: 'mif-apd',
     avant: [[{ arbreTypeId: 'apd' }]],
