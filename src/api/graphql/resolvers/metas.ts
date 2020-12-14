@@ -15,6 +15,7 @@ import {
   IPhaseStatut,
   IReferenceType,
   ITitreStatut,
+  ITitreType,
   ITitreTypeType,
   IToken,
   ITravauxType,
@@ -60,7 +61,10 @@ import {
   geoSystemeUpdate,
   documentTypeUpdate,
   referenceTypeUpdate,
-  titresTypesGet
+  titresTypesGet,
+  titreTypeUpdate,
+  titreTypeCreate,
+  titreTypeDelete
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -208,15 +212,10 @@ const titresTypes = async (_: never, context: IToken) => {
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
-    const fields = {
-      type: { id: {} },
-      domaine: { id: {} }
-    }
-
-    const titresTypes = await titresTypesGet(null as never, { fields })
+    const titresTypes = await titresTypesGet(null as never, {})
 
     return titresTypes
   } catch (e) {
@@ -578,7 +577,7 @@ const definitionModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (definition.ordre) {
@@ -610,7 +609,7 @@ const domaineModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -651,7 +650,7 @@ const titreTypeTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (titreType.ordre) {
@@ -682,7 +681,7 @@ const titreStatutModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (titreStatut.ordre) {
@@ -714,7 +713,7 @@ const demarcheTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -756,7 +755,7 @@ const travauxTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -793,7 +792,7 @@ const demarcheStatutModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (demarcheStatut.ordre) {
@@ -824,7 +823,7 @@ const phaseStatutModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     await phaseStatutUpdate(phaseStatut.id!, phaseStatut)
@@ -850,7 +849,7 @@ const etapeTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     const fields = fieldsBuild(info)
@@ -883,7 +882,7 @@ const etapeStatutModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (etapeStatut.ordre) {
@@ -914,7 +913,7 @@ const deviseModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     await deviseUpdate(devise.id!, devise)
@@ -936,7 +935,7 @@ const uniteModifier = async ({ unite }: { unite: IUnite }, context: IToken) => {
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     await uniteUpdate(unite.id!, unite)
@@ -961,7 +960,7 @@ const administrationTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (administrationType.ordre) {
@@ -996,7 +995,7 @@ const permissionModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (permission.ordre) {
@@ -1035,7 +1034,7 @@ const geoSystemeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     if (geoSysteme.ordre) {
@@ -1066,7 +1065,7 @@ const documentTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     await documentTypeUpdate(documentType.id!, documentType)
@@ -1090,7 +1089,7 @@ const referenceTypeModifier = async (
     const user = await userGet(context.user?.id)
 
     if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants pour effectuer cette opération')
+      throw new Error('droits insuffisants')
     }
 
     await referenceTypeUpdate(referenceType.id!, referenceType)
@@ -1098,6 +1097,81 @@ const referenceTypeModifier = async (
     const referenceTypes = await referencesTypesGet()
 
     return referenceTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeModifier = async (
+  { titreType }: { titreType: ITitreType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeUpdate(titreType.id!, titreType)
+
+    const titresTypes = await titresTypesGet(null as never, {})
+
+    return titresTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeCreer = async (
+  { titreType }: { titreType: ITitreType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeCreate(titreType)
+
+    const titresTypes = await titresTypesGet(null as never, {})
+
+    return titresTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeSupprimer = async (
+  { titreTypeId }: { titreTypeId: string },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await titreTypeDelete(titreTypeId)
+
+    const titresTypes = await titresTypesGet(null as never, {})
+
+    return titresTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -1149,5 +1223,8 @@ export {
   permissionModifier,
   documentTypeModifier,
   referenceTypeModifier,
-  geoSystemeModifier
+  geoSystemeModifier,
+  titreTypeModifier,
+  titreTypeCreer,
+  titreTypeSupprimer
 }

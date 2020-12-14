@@ -92,7 +92,10 @@ import {
   permissionModifier,
   documentTypeModifier,
   referenceTypeModifier,
-  geoSystemeModifier
+  geoSystemeModifier,
+  titreTypeModifier,
+  titreTypeCreer,
+  titreTypeSupprimer
 } from './resolvers/metas'
 
 import {
@@ -246,5 +249,8 @@ export default {
   permissionModifier,
   documentTypeModifier,
   referenceTypeModifier,
-  geoSystemeModifier
+  geoSystemeModifier,
+  titreTypeModifier,
+  titreTypeCreer,
+  titreTypeSupprimer
 }

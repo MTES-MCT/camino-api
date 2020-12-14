@@ -283,5 +283,10 @@
     "id": "inm",
     "domaine_id": "m",
     "type_id": "in"
+  },
+  {
+    "id": "inr",
+    "domaine_id": "r",
+    "type_id": "in"
   }
 ]

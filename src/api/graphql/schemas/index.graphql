@@ -389,4 +389,10 @@ type Mutation {
   referenceTypeModifier(referenceType: InputReferenceType!): [ReferenceType]
 
   geoSystemeModifier(geoSysteme: InputGeoSysteme!): [GeoSysteme]
+
+  titreTypeModifier(titreType: InputTitreTypeModification!): [TitreType]
+
+  titreTypeCreer(titreType: InputTitreTypeCreation!): [TitreType]
+
+  titreTypeSupprimer(titreTypeId: ID!): [TitreType]
 }

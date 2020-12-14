@@ -17,7 +17,8 @@ import {
   IPermission,
   IGeoSysteme,
   IDocumentType,
-  IReferenceType
+  IReferenceType,
+  ITitreType
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -116,12 +117,19 @@ const domaineUpdate = async (id: string, props: Partial<IDomaine>) =>
 
 const titresTypesGet = async (_: never, { fields }: { fields?: IFields }) => {
   const graph = fields
-    ? graphBuild(fields, 'titre', graphFormat)
-    : options.demarchesTypes.graph
+    ? graphBuild(fields, 'titresTypes', graphFormat)
+    : options.titresTypes.graph
 
   return TitresTypes.query().withGraphFetched(graph).orderBy('id')
 }
 
+const titreTypeUpdate = async (id: string, props: Partial<ITitreType>) =>
+  TitresTypes.query().patchAndFetchById(id, props)
+
+const titreTypeCreate = async (titreType: ITitreType) =>
+  TitresTypes.query().insertAndFetch(titreType)
+
+const titreTypeDelete = async (id: string) => TitresTypes.query().deleteById(id)
 /**
  * retourne les statuts de titre visible par l’utilisateur
  * @param userId - id de l’utilisateur
@@ -375,5 +383,8 @@ export {
   permissionUpdate,
   geoSystemeUpdate,
   documentTypeUpdate,
-  referenceTypeUpdate
+  referenceTypeUpdate,
+  titreTypeUpdate,
+  titreTypeCreate,
+  titreTypeDelete
 }

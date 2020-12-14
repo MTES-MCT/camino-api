@@ -37,11 +37,11 @@ curl -l ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/
 ### Récupérer un backup du FTP
 
 ```sh
-curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/$FILE --output $FILE
+curl ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/$FILE --output $FILE
 ```
 
 ### Supprimer un backup du FTP
 
 ```sh
-curl  ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/ -Q "DELE $FILE"
+curl ftp://$FTP_USER:$FTP_PASSWORD@$FTP_HOST/ -Q "DELE $FILE"
 ```
