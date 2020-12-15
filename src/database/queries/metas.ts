@@ -18,7 +18,8 @@ import {
   IGeoSysteme,
   IDocumentType,
   IReferenceType,
-  ITitreType
+  ITitreType,
+  ITitreTypeTitreStatut
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -56,9 +57,9 @@ import {
   travauxTypesPermissionQueryBuild,
   travauxEtapesTypesPermissionQueryBuild
 } from './permissions/metas'
-import { AutorisationsTitresTypesTitresStatuts } from '../models/autorisations'
 import PhasesStatuts from '../models/phases-statuts'
 import TitresTypes from '../models/titres-types'
+import TitresTypesTitresStatuts from '../models/titres-types--titres-statuts'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
   const user = await userGet(userId)
@@ -130,6 +131,29 @@ const titreTypeCreate = async (titreType: ITitreType) =>
   TitresTypes.query().insertAndFetch(titreType)
 
 const titreTypeDelete = async (id: string) => TitresTypes.query().deleteById(id)
+
+const titresTypesTitresStatutsGet = async () =>
+  TitresTypesTitresStatuts.query().orderBy(['titreTypeId', 'titreStatutId'])
+
+const titreTypeTitreStatutUpdate = async (
+  titreTypeId: string,
+  titreStatutId: string,
+  props: Partial<ITitreTypeTitreStatut>
+) =>
+  TitresTypesTitresStatuts.query().patchAndFetchById(
+    [titreTypeId, titreStatutId],
+    props
+  )
+
+const titreTypeTitreStatutCreate = async (
+  titreTypeTitreStatut: ITitreTypeTitreStatut
+) => TitresTypesTitresStatuts.query().insertAndFetch(titreTypeTitreStatut)
+
+const titreTypeTitreStatutDelete = async (
+  titreTypeId: string,
+  titreStatutId: string
+) => TitresTypesTitresStatuts.query().deleteById([titreTypeId, titreStatutId])
+
 /**
  * retourne les statuts de titre visible par l’utilisateur
  * @param userId - id de l’utilisateur
@@ -142,7 +166,7 @@ const titresStatutsGet = async (userId?: string) => {
   if (!userId) {
     query = query.whereIn(
       'id',
-      AutorisationsTitresTypesTitresStatuts.query()
+      TitresTypesTitresStatuts.query()
         .distinct('titreStatutId')
         .where('publicLecture', true)
     )
@@ -386,5 +410,9 @@ export {
   referenceTypeUpdate,
   titreTypeUpdate,
   titreTypeCreate,
-  titreTypeDelete
+  titreTypeDelete,
+  titresTypesTitresStatutsGet,
+  titreTypeTitreStatutUpdate,
+  titreTypeTitreStatutCreate,
+  titreTypeTitreStatutDelete
 }

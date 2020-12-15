@@ -9,7 +9,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'ordre'],
+    required: ['titreTypeId', 'demarcheTypeId', 'etapeTypeId', 'ordre'],
 
     properties: {
       titreTypeId: { type: 'string', maxLength: 3 },

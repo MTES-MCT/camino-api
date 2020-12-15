@@ -768,6 +768,11 @@ interface ITitreType {
   titresCreation?: boolean | null
 }
 
+interface ITitreType__TitreStatut {
+  titreTypeId: string
+  titreStatutId: string
+}
+
 interface ITitreTypeType {
   id: string
   nom: string
@@ -982,5 +987,7 @@ export {
   ITitreEtapesTypesRestrictions,
   ITitreEtapeCondition,
   ITitreCondition,
-  IDefinition
+  IDefinition,
+  /* eslint-disable camelcase */
+  ITitreType__TitreStatut
 }

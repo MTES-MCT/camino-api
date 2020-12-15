@@ -172,6 +172,8 @@ type Query {
   phasesStatuts: [PhaseStatut]
   titresTypes: [TitreType]
 
+  titresTypesTitresStatuts: [TitreTypeTitreStatut]
+
   "Liste des permissions utilisateurs"
   permissions: [Permission]
 
@@ -394,5 +396,17 @@ type Mutation {
 
   titreTypeCreer(titreType: InputTitreTypeCreation!): [TitreType]
 
-  titreTypeSupprimer(titreTypeId: ID!): [TitreType]
+  titreTypeSupprimer(titreType: InputTitreTypeModification!): [TitreType]
+
+  titreTypeTitreStatutModifier(
+    titreTypeTitreStatut: InputTitreTypeTitreStatut!
+  ): [TitreTypeTitreStatut]
+
+  titreTypeTitreStatutCreer(
+    titreTypeTitreStatut: InputTitreTypeTitreStatut!
+  ): [TitreTypeTitreStatut]
+
+  titreTypeTitreStatutSupprimer(
+    titreTypeTitreStatut: InputTitreTypeTitreStatut!
+  ): [TitreTypeTitreStatut]
 }

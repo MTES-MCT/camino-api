@@ -95,7 +95,11 @@ import {
   geoSystemeModifier,
   titreTypeModifier,
   titreTypeCreer,
-  titreTypeSupprimer
+  titreTypeSupprimer,
+  titresTypesTitresStatuts,
+  titreTypeTitreStatutModifier,
+  titreTypeTitreStatutCreer,
+  titreTypeTitreStatutSupprimer
 } from './resolvers/metas'
 
 import {
@@ -191,6 +195,7 @@ export default {
   administrationsTypes,
   regions,
   departements,
+  titresTypesTitresStatuts,
 
   // mutations
   titreCreer,
@@ -252,5 +257,8 @@ export default {
   geoSystemeModifier,
   titreTypeModifier,
   titreTypeCreer,
-  titreTypeSupprimer
+  titreTypeSupprimer,
+  titreTypeTitreStatutModifier,
+  titreTypeTitreStatutCreer,
+  titreTypeTitreStatutSupprimer
 }

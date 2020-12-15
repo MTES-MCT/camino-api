@@ -48,7 +48,7 @@ exports.up = knex =>
         .index()
         .references('titresStatuts.id')
         .notNullable()
-      table.boolean('publicLecture').notNullable()
+      table.boolean('publicLecture')
       table.primary(['titreTypeId', 'titreStatutId'])
     })
 

@@ -260,6 +260,12 @@ type Permission {
   ordre: Int!
 }
 
+type TitreTypeTitreStatut {
+  titreTypeId: ID!
+  titreStatutId: ID!
+  publicLecture: Boolean
+}
+
 input InputDomaine {
   "Id composée d'une seule lettre"
   id: ID!
@@ -406,6 +412,12 @@ input InputTitreTypeCreation {
   domaineId: String!
   typeId: String!
   propsEtapesTypes: Json
+}
+
+input InputTitreTypeTitreStatut {
+  titreTypeId: ID!
+  titreStatutId: ID!
+  publicLecture: Boolean
 }
 
 """

@@ -1,7 +1,7 @@
 import { Model, Modifiers } from 'objection'
 import { join } from 'path'
 import { ITitreType } from '../../types'
-import { AutorisationsTitresTypesTitresStatuts } from './autorisations'
+import TitresTypesTitresStatuts from './titres-types--titres-statuts'
 
 interface TitresTypes extends ITitreType {}
 
@@ -65,7 +65,7 @@ class TitresTypes extends Model {
 
     autorisationsTitresStatuts: {
       relation: Model.HasManyRelation,
-      modelClass: AutorisationsTitresTypesTitresStatuts,
+      modelClass: TitresTypesTitresStatuts,
       join: {
         from: 'titresTypes.id',
         to: 'titresTypes__titresStatuts.titreTypeId'
