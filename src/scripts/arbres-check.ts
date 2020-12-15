@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import '../init'
-import arbresCheck from '../tools/arbres/check'
+import arbresDemarchesCheck from '../tools/arbres-demarches/check'
 
-arbresCheck()
+arbresDemarchesCheck()
   .then(() => {
     process.exit()
   })

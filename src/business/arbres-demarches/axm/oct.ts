@@ -1,7 +1,7 @@
 // https://cacoo.com/diagrams/xHyYE2OZf9KCGFVc
 
 import { IArbreEtape } from '../arbres-demarches'
-import { arbreComplementsGet, arbreInformationsGet } from '../arbres-annexes'
+import { arbreInformationsGet } from '../arbres-annexes'
 
 const arbreAxmOct: IArbreEtape[] = [
   {

@@ -2,7 +2,7 @@ import { arbresDemarches } from '../../business/arbres-demarches/arbres-demarche
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titreDemarcheArbreValidate } from '../../business/utils/titre-arbre-type-validate'
 
-const arbresCheck = async () => {
+const arbresDemarchesCheck = async () => {
   console.info()
   console.info('- - -')
   console.info('vérification des démarches avec les arbres d’instructions')
@@ -31,20 +31,14 @@ const arbresCheck = async () => {
       demarches
         .filter(d => d.etapes?.length)
         .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
-        // fixme à corriger
-        // .filter(
-        //   demarche =>
-        //     ![
-        //       'm-ar-crique-amadis-sud-2020-oct01',
-        //       'm-ar-crique-aoma-2020-oct01',
-        //       'm-ar-crique-petites-tortues-2020-oct01',
-        //       'm-ar-crique-pain-de-sucre-2-2020-oct01',
-        //       'm-ar-crique-grand-bagot-bistouri-et-petit-bagot-boeuf-mort-2019-oct01',
-        //     ].includes(demarche.id)
-        // )
-        .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'prm')
-        // fixme pour les oct d’axm
-        // .filter(d => ['dep', 'aco', 'ins'].includes(d.statutId!))
+        // .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'axm')
+        // On garde seulement les octroi d’AXM non terminées
+        .filter(
+          d =>
+            arbre.titreTypeId !== 'axm' ||
+            (['oct'].includes(d.typeId) &&
+              ['dep', 'aco', 'ins'].includes(d.statutId!))
+        )
         .forEach(demarche => {
           // .some(demarche => {
           // demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
@@ -64,11 +58,9 @@ const arbresCheck = async () => {
               //     statutId: e.statutId
               //   }))
               // )
-              // console.log('toto', demarche.titre!.contenu, demarche.statutId)
               console.error(
-                `https://camino.beta.gouv.fr/titres/${demarche.titreId}`
+                `https://camino.beta.gouv.fr/titres/${demarche.titreId} => Démarche "${demarche.typeId}" : ${errors}`
               )
-              // console.error(errors)
 
               return true
             }
@@ -86,4 +78,4 @@ const arbresCheck = async () => {
   console.error(`Nb errors = ${errorsNb}`)
 }
 
-export default arbresCheck
+export default arbresDemarchesCheck

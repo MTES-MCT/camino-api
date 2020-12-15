@@ -32,12 +32,12 @@ const consoleOverride = (logger: Logger) => {
   console.debug = (...args) => logger.debug('', ...args)
 }
 
+const consoleTransport = new transports.Console({
+  format: combine(colorize(), timestampFormat, utilFormat, printFormat)
+})
+
 const logger = createLogger({
-  transports: [
-    new transports.Console({
-      format: combine(colorize(), timestampFormat, utilFormat, printFormat)
-    })
-  ]
+  transports: [consoleTransport]
 })
 
 // Si nous sommes en production, alors on met aussi les logs dans un fichier
@@ -51,4 +51,4 @@ if (process.env.NODE_ENV === 'production') {
 }
 consoleOverride(logger)
 
-export { timestampFormat, utilFormat, consoleOverride }
+export { timestampFormat, utilFormat, consoleOverride, consoleTransport }
