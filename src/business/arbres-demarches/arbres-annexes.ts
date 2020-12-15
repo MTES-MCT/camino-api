@@ -2,13 +2,12 @@ import { IArbreEtape } from './arbres-demarches'
 
 const arbresAnnexesGet = (
   arbreEtape: IArbreEtape,
-  unique: boolean,
   demandeEtapeTypeId: string,
   receptionEtapeTypeId: string
 ): IArbreEtape[] => [
   {
     arbreTypeId: `${demandeEtapeTypeId}-${arbreEtape.arbreTypeId}`,
-    avant: unique ? [[{ arbreTypeId: arbreEtape.arbreTypeId }]] : undefined,
+    avant: [[{ arbreTypeId: arbreEtape.arbreTypeId }]],
     justeApres: [
       ...arbreEtape.justeApres,
       [{ arbreTypeId: `${receptionEtapeTypeId}-${arbreEtape.arbreTypeId}` }]
@@ -23,7 +22,7 @@ const arbresAnnexesGet = (
 
   {
     ...arbreEtape,
-    avant: unique ? [[{ arbreTypeId: arbreEtape.arbreTypeId }]] : undefined,
+    avant: [[{ arbreTypeId: arbreEtape.arbreTypeId }]],
     justeApres: [
       ...arbreEtape.justeApres,
       [{ arbreTypeId: `${receptionEtapeTypeId}-${arbreEtape.arbreTypeId}` }]
@@ -31,10 +30,10 @@ const arbresAnnexesGet = (
   }
 ]
 
-const arbreInformationsGet = (arbreEtape: IArbreEtape, unique = true) =>
-  arbresAnnexesGet(arbreEtape, unique, 'mif', 'rif')
+const arbreInformationsGet = (arbreEtape: IArbreEtape) =>
+  arbresAnnexesGet(arbreEtape, 'mif', 'rif')
 
-const arbreComplementsGet = (arbreEtape: IArbreEtape, unique = true) =>
-  arbresAnnexesGet(arbreEtape, unique, 'mco', 'rco')
+const arbreComplementsGet = (arbreEtape: IArbreEtape) =>
+  arbresAnnexesGet(arbreEtape, 'mco', 'rco')
 
 export { arbreInformationsGet, arbreComplementsGet }

@@ -63,6 +63,38 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     ).toBeNull()
   })
 
+  test('peut créer une "des" après "mdp"', () => {
+    expect(
+      octArbreErreursGet([
+        { arbreTypeId: 'mfr', date: '2020-01-01' },
+        { arbreTypeId: 'mdp', date: '2020-01-01' },
+        { arbreTypeId: 'des', date: '2020-01-04' }
+      ])
+    ).toBeNull()
+  })
+
+  test('ne peut pas créer deux "des"', () => {
+    expect(
+      octArbreErreursGet([
+        { arbreTypeId: 'mfr', date: '2020-01-01' },
+        { arbreTypeId: 'mdp', date: '2020-01-01' },
+        { arbreTypeId: 'des', date: '2020-01-04' },
+        { arbreTypeId: 'des', date: '2020-01-04' }
+      ])
+    ).toEqual('L’étape "des" ne peut-être effecutée 2 fois d’affilée')
+  })
+
+  test('ne peut pas créer une "css" après une "des"', () => {
+    expect(
+      octArbreErreursGet([
+        { arbreTypeId: 'mfr', date: '2020-01-01' },
+        { arbreTypeId: 'mdp', date: '2020-01-01' },
+        { arbreTypeId: 'des', date: '2020-01-04' },
+        { arbreTypeId: 'css', date: '2020-01-05' }
+      ])
+    ).toEqual('L’étape "css" n’est plus possible après "des"')
+  })
+
   test('peut créer une "des" si le titre est en attente de "pfc"', () => {
     expect(
       octArbreErreursGet(
@@ -141,14 +173,34 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
 
   test('peut créer une "mcp" après une "pfd" et "mdp"', () => {
     expect(
+      octArbreErreursGet([
+        { arbreTypeId: 'mfr', date: '2020-01-30', statutId: 'fai' },
+        { arbreTypeId: 'mdp', date: '2020-02-23', statutId: 'fai' },
+        { arbreTypeId: 'pfd', date: '2020-02-23', statutId: 'fai' },
+        { arbreTypeId: 'mcp', date: '2020-02-28', statutId: 'fav' }
+      ])
+    ).toBeNull()
+  })
+
+  test('peut créer une "sca" après une "aof" et "rde"', () => {
+    expect(
       octArbreErreursGet(
         [
-          { arbreTypeId: 'mfr', date: '2020-01-30', statutId: 'fai' },
-          { arbreTypeId: 'mdp', date: '2020-02-23', statutId: 'fai' },
-          { arbreTypeId: 'pfd', date: '2020-02-23', statutId: 'fai' },
-          { arbreTypeId: 'mcp', date: '2020-02-28', statutId: 'fav' }
+          { arbreTypeId: 'dae', date: '2020-06-22', statutId: 'fav' },
+          { arbreTypeId: 'mfr', date: '2020-07-09', statutId: 'fai' },
+          { arbreTypeId: 'pfd', date: '2020-07-10', statutId: 'fai' },
+          { arbreTypeId: 'mdp', date: '2020-07-17', statutId: 'fai' },
+          { arbreTypeId: 'mcp', date: '2020-07-17', statutId: 'fav' },
+          { arbreTypeId: 'rde', date: '2020-07-30', statutId: 'fav' },
+          { arbreTypeId: 'vfd', date: '2020-07-31', statutId: 'fai' },
+          { arbreTypeId: 'mcr', date: '2020-07-31', statutId: 'fav' },
+          { arbreTypeId: 'eof', date: '2020-08-10', statutId: 'fai' },
+          { arbreTypeId: 'aof', date: '2020-08-10', statutId: 'fav' },
+          { arbreTypeId: 'sca', date: '2020-09-04', statutId: 'fai' }
         ],
-        { typeId: 'arm' }
+        {
+          contenu: { arm: { mecanise: true, franchissements: 3 } }
+        }
       )
     ).toBeNull()
   })

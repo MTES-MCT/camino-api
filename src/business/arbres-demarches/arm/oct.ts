@@ -216,8 +216,24 @@ const arbreArmOct: IArbreEtape[] = [
     ]
   },
   {
+    arbreTypeId: 'mno-sco',
+    justeApres: [
+      [
+        { arbreTypeId: 'sco' },
+        { titre: { contenu: { arm: { mecanise: { valeur: false } } } } }
+      ]
+    ]
+  },
+  {
     arbreTypeId: 'aco',
-    justeApres: [[{ arbreTypeId: 'sco' }], [{ arbreTypeId: 'mno-aco' }]]
+    justeApres: [
+      [
+        { arbreTypeId: 'sco' },
+        { titre: { contenu: { arm: { mecanise: { valeur: true } } } } }
+      ],
+      [{ arbreTypeId: 'mno-aco' }],
+      [{ arbreTypeId: 'mno-sco' }]
+    ]
   },
   { arbreTypeId: 'mno-aco', justeApres: [[{ arbreTypeId: 'aco' }]] },
   {
@@ -230,12 +246,9 @@ const arbreArmOct: IArbreEtape[] = [
       [{ arbreTypeId: 'dae' }]
     ],
     avant: [
-      [
-        { arbreTypeId: 'sco' },
-        { arbreTypeId: 'des' },
-        { arbreTypeId: 'aca', statutId: 'def' },
-        { arbreTypeId: 'css' }
-      ]
+      [{ arbreTypeId: 'sco' }],
+      [{ arbreTypeId: 'des' }],
+      [{ arbreTypeId: 'aca', statutId: 'def' }]
     ]
   },
   { arbreTypeId: 'mno-css', justeApres: [[{ arbreTypeId: 'css' }]] },
@@ -249,12 +262,9 @@ const arbreArmOct: IArbreEtape[] = [
       [{ arbreTypeId: 'dae' }]
     ],
     avant: [
-      [
-        { arbreTypeId: 'sco' },
-        { arbreTypeId: 'des' },
-        { arbreTypeId: 'aca', statutId: 'def' },
-        { arbreTypeId: 'css' }
-      ]
+      [{ arbreTypeId: 'sco' }],
+      [{ arbreTypeId: 'aca', statutId: 'def' }],
+      [{ arbreTypeId: 'css' }]
     ]
   }
 ]

@@ -45,7 +45,7 @@ const arbreErreursGet = (demarcheTypeId: string, titreTypeId: string) => {
 
   return (
     titreDemarcheEtapes: Partial<ITitreEtape>[],
-    titre: Partial<ITitre> = { contenu: {} }
+    titre: Partial<ITitre> = {}
   ) => {
     const arbreDemarche = arbreDemarcheGet(titreTypeId, demarcheTypeId)
 

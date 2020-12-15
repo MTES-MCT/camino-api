@@ -1,5 +1,9 @@
 import { etapesTypesGet } from './_utils'
-import { arbresDemarches, IArbreCondition } from './arbres-demarches'
+import {
+  arbresDemarches,
+  arbreTypeIdsGet,
+  IArbreCondition
+} from './arbres-demarches'
 
 const etapeTypeIdsGet = (contraintes?: IArbreCondition[][]) => {
   const etapeTypeIds = [] as string[]
@@ -86,4 +90,20 @@ describe('vérifie la cohérence de tous les arbres', () => {
       }, [] as string[])
     }
   )
+})
+
+describe('teste arbreTypeIdsGet', () => {
+  test('le type "mfr" retourne que un résultat', () => {
+    const arbreTypeIds = arbreTypeIdsGet('arm', 'oct', 'mfr')
+    expect(arbreTypeIds).toHaveLength(1)
+  })
+  test('le type "mno" retourne que un résultat', () => {
+    const arbreTypeIds = arbreTypeIdsGet('arm', 'oct', 'mno')
+    expect(arbreTypeIds.length).toBeGreaterThan(1)
+  })
+  test('retourne le type si il n’y a pas d’arbre', () => {
+    const arbreTypeIds = arbreTypeIdsGet('arm', 'aaa', 'mno')
+    expect(arbreTypeIds).toHaveLength(1)
+    expect(arbreTypeIds).toContain('mno')
+  })
 })

@@ -1,9 +1,11 @@
 import {
   etapesSuivantesEnAttenteGet,
+  titreArbreTypeIdRestrictionsFind,
+  titreArbreTypeIdValidate,
   titreEtapesSortAsc
 } from './titre-arbre-type-validate'
 import { arbreArmRet } from '../arbres-demarches/arm/ret'
-import { ITitreEtape } from '../../types'
+import { IDemarcheType, ITitre, ITitreEtape } from '../../types'
 import { arbreInformationsGet } from '../arbres-demarches/arbres-annexes'
 import { arbreArmOct } from '../arbres-demarches/arm/oct'
 
@@ -204,5 +206,38 @@ describe('teste titreEtapesSortAsc', () => {
     expect(result[0].arbreTypeId).toEqual('vfd')
     expect(result[1].arbreTypeId).toEqual('mcr')
     expect(result[2].arbreTypeId).toEqual('eof')
+  })
+})
+
+describe('teste titreArbreTypeIdRestrictionsFind', () => {
+  test('émet une erreur si l’étape est inconnue', () => {
+    expect(() =>
+      titreArbreTypeIdRestrictionsFind(
+        [{ arbreTypeId: 'dex', justeApres: [], separation: [] }],
+        'aaa'
+      )
+    ).toThrowError()
+  })
+})
+
+describe('teste titreArbreTypeIdValidate', () => {
+  test('ajoute une étape à une démarche', () => {
+    const valid = titreArbreTypeIdValidate(
+      { id: 'oct' } as IDemarcheType,
+      [],
+      { typeId: 'arm' } as ITitre,
+      { typeId: 'mfr', arbreTypeId: 'mfr' } as ITitreEtape
+    )
+    expect(valid).toBeNull()
+  })
+
+  test('modifie une étape à une démarche', () => {
+    const valid = titreArbreTypeIdValidate(
+      { id: 'oct' } as IDemarcheType,
+      [{ id: '1', typeId: 'mfr', arbreTypeId: 'mfr' }] as ITitreEtape[],
+      { typeId: 'arm' } as ITitre,
+      { id: '1', typeId: 'mfr', arbreTypeId: 'mfr' } as ITitreEtape
+    )
+    expect(valid).toBeNull()
   })
 })

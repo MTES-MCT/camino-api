@@ -72,20 +72,6 @@ const objectsDiffer = (a: Index<any> | any, b: Index<any> | any): boolean => {
     }) !== undefined
   )
 }
-// TODO: définir une interface IConditions
-
-const objConditionMatch = (
-  condition: any,
-  obj: Index<any>,
-  keys: string[] | null = null
-) => {
-  // si les conditions sont testées plusieurs fois, (dans une boucle par ex)
-  // alors les clés de l'objet de condition peuvent être passées optionnellement
-  // pour ne pas les recalculer à chaque fois
-  const conditionKeys = keys || Object.keys(condition)
-
-  return conditionKeys.every(k => condition[k] === obj[k])
-}
 
 const contenuConditionMatch = (
   condition: IContenuElementCondition,
@@ -118,11 +104,4 @@ const contenuConditionMatch = (
   })
 }
 
-export {
-  dupRemove,
-  dupFind,
-  diffFind,
-  objectsDiffer,
-  objConditionMatch,
-  contenuConditionMatch
-}
+export { dupRemove, dupFind, diffFind, objectsDiffer, contenuConditionMatch }

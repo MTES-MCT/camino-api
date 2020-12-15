@@ -9,7 +9,6 @@ interface IArbreCondition {
   arbreTypeId?: string
   statutId?: string
   titre?: ITitreCondition
-  impossible?: boolean
 }
 
 interface IArbreEtape {

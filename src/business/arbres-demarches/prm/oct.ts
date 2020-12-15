@@ -116,7 +116,9 @@ const arbrePrmOct: IArbreEtape[] = [
     arbreTypeId: 'des',
     justeApres: [[]],
     avant: [
-      [{ arbreTypeId: 'dex' }, { arbreTypeId: 'css' }, { arbreTypeId: 'dim' }]
+      [{ arbreTypeId: 'dex' }],
+      [{ arbreTypeId: 'css' }],
+      [{ arbreTypeId: 'dim' }]
     ],
     apres: [[{ arbreTypeId: 'mdp' }]]
   },
@@ -124,7 +126,9 @@ const arbrePrmOct: IArbreEtape[] = [
     arbreTypeId: 'css',
     justeApres: [[]],
     avant: [
-      [{ arbreTypeId: 'dex' }, { arbreTypeId: 'des' }, { arbreTypeId: 'dim' }]
+      [{ arbreTypeId: 'dex' }],
+      [{ arbreTypeId: 'des' }],
+      [{ arbreTypeId: 'dim' }]
     ],
     apres: [[{ arbreTypeId: 'mdp' }]]
   }

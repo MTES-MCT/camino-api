@@ -156,9 +156,6 @@ const arbreConditionsCheck = (
 ) =>
   conditions.some(condition =>
     condition.every(c => {
-      if (c.impossible) {
-        return false
-      }
       if (c.titre && !sameContenuCheck(c.titre, titre)) {
         return false
       }
@@ -199,10 +196,7 @@ const titreArbreTypeIdRestrictionsCheck = (
     titre.typeId
   )
 
-  if (
-    titreEtapesEnAttente?.length &&
-    titreEtapesEnAttente.find(e => e.arbreTypeId === arbreTypeId)
-  ) {
+  if (titreEtapesEnAttente.find(e => e.arbreTypeId === arbreTypeId)) {
     errors.push(
       `L’étape "${arbreTypeId}" ne peut-être effecutée 2 fois d’affilée`
     )
@@ -249,14 +243,6 @@ const titreArbreTypeIdRestrictionsCheck = (
         titreEtapesEnAttente
       )}`
     )
-  }
-
-  if (!errors.length) {
-    if (!justeApres.length || justeApres.some(c => !c.length)) {
-      if (titreDemarcheEtapes.map(e => e.arbreTypeId).includes(arbreTypeId)) {
-        errors.push(`L’étape "${arbreTypeId}" existe déjà`)
-      }
-    }
   }
 
   return errors
@@ -385,5 +371,6 @@ export {
   titreArbreTypeIdValidate,
   etapesSuivantesEnAttenteGet,
   titreDemarcheArbreValidate,
-  titreEtapesSortAsc
+  titreEtapesSortAsc,
+  titreArbreTypeIdRestrictionsFind
 }
