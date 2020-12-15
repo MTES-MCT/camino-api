@@ -9,6 +9,10 @@ const arbrePrmOct: IArbreEtape[] = [
     arbreTypeId: 'mfr',
     justeApres: [[]]
   },
+  {
+    arbreTypeId: 'nis',
+    justeApres: []
+  },
   // fixme j’ai pas compris les 2 mod/mif
   {
     arbreTypeId: 'mdp',
@@ -61,10 +65,11 @@ const arbrePrmOct: IArbreEtape[] = [
     arbreTypeId: 'ppu',
     justeApres: [[{ arbreTypeId: 'mec' }]]
   },
+  { arbreTypeId: 'ppc', justeApres: [[{ arbreTypeId: 'ppu' }]] },
   // fixme c’est quoi les cases grises ?
   {
     arbreTypeId: 'scg',
-    justeApres: [[{ arbreTypeId: 'app' }, { arbreTypeId: 'ppu' }]]
+    justeApres: [[{ arbreTypeId: 'app' }, { arbreTypeId: 'ppc' }]]
   },
   {
     arbreTypeId: 'rcg',
@@ -124,7 +129,5 @@ const arbrePrmOct: IArbreEtape[] = [
     apres: [[{ arbreTypeId: 'mdp' }]]
   }
 ]
-
-// Fixme dans TDE il manque "ihi", "nis" et "ppc" (cloture de la participation du public)
 
 export { arbrePrmOct }
