@@ -5,18 +5,19 @@ import Titres from '../../src/database/models/titres'
 import options from '../../src/database/queries/_options'
 import Entreprises from '../../src/database/models/entreprises'
 
-const titres = require('../../sources/rntm-titres.json')
+const titres = require('../../sources/reprise-titres.json')
 
 const main = async () => {
-  console.time('Import RNTM')
+  console.time('Import Titres')
 
-  let entrepriseNumber = 100000000
+  let entrepriseNumber = 200000000
   let nb = 0
   for (const titre of titres) {
     const etape = titre.demarches[0].etapes[0]
+
     const titulairesNoms: string[] = etape.titulaires
     if (titulairesNoms && titulairesNoms.length) {
-      etape.titulaires = []
+      const titulaires = []
       for (const titulaireNom of titulairesNoms) {
         const titulairesBdd = await Entreprises.query().where(
           'nom',
@@ -42,7 +43,11 @@ const main = async () => {
           )
         }
 
-        etape.titulaires.push({ id: titulaireId })
+        titulaires.push({ id: titulaireId })
+      }
+
+      for (const etape of titre.demarches[0].etapes) {
+        etape.titulaires = titulaires
       }
     }
 
@@ -50,9 +55,9 @@ const main = async () => {
     nb++
   }
 
-  console.info('Entreprises crées', entrepriseNumber - 99999999)
+  console.info('Entreprises crées', entrepriseNumber - 199999999)
   console.info('Titres importés', nb)
-  console.timeEnd('Import RNTM')
+  console.timeEnd('Import Titres')
 
   process.exit(0)
 }
