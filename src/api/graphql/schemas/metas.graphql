@@ -263,6 +263,11 @@ type Permission {
 type TitreTypeTitreStatut {
   titreTypeId: ID!
   titreStatutId: ID!
+  titreType: TitreType
+  titreStatut: TitreStatut
+  titresModificationInterdit: Boolean
+  demarchesModificationInterdit: Boolean
+  etapesModificationInterdit: Boolean
   publicLecture: Boolean
 }
 
@@ -283,6 +288,15 @@ type DemarcheTypeDemarcheStatut {
   demarcheTypeId: ID!
   demarcheStatutId: ID!
   ordre: Int!
+}
+
+"Type d'étape d'une démarche de titre minier"
+type TitreTypeEtapeType {
+  titreType: TitreType
+  etapeType: EtapeType
+  lectureInterdit: Boolean
+  creationInterdit: Boolean
+  modificationInterdit: Boolean
 }
 
 type TitreTypeDemarcheTypeEtapeType {

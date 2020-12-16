@@ -29,6 +29,7 @@ type Utilisateur {
 type Sections {
   activites: Boolean
   utilisateurs: Boolean
+  metas: Boolean
 }
 
 type UtilisateurToken {

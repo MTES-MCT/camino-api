@@ -559,8 +559,6 @@ const titreTypeDemarcheTypeEtapeTypeSupprimer = async (
       throw new Error('droits insuffisants')
     }
 
-    console.log(titreTypeDemarcheTypeEtapeType)
-
     await titreTypeDemarcheTypeEtapeTypeDelete(
       titreTypeDemarcheTypeEtapeType.titreTypeId,
       titreTypeDemarcheTypeEtapeType.demarcheTypeId,

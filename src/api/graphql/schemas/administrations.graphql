@@ -33,23 +33,6 @@ type Administration {
   modification: Boolean
 }
 
-type TitreTypeTitreStatut {
-  titreType: TitreType
-  titreStatut: TitreStatut
-  titresModificationInterdit: Boolean
-  demarchesModificationInterdit: Boolean
-  etapesModificationInterdit: Boolean
-}
-
-"Type d'étape d'une démarche de titre minier"
-type TitreTypeEtapeType {
-  titreType: TitreType
-  etapeType: EtapeType
-  lectureInterdit: Boolean
-  creationInterdit: Boolean
-  modificationInterdit: Boolean
-}
-
 input InputAdministration {
   id: ID!
   typeId: ID!
