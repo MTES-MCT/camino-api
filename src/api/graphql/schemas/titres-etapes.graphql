@@ -89,7 +89,7 @@ type Incertitudes {
 
 input InputEtapeCreation {
   typeId: ID!
-  arbreTypeId: String
+  etatId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!
@@ -110,7 +110,7 @@ input InputEtapeCreation {
 input InputEtapeModification {
   id: ID!
   typeId: ID!
-  arbreTypeId: String
+  etatId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!

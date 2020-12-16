@@ -7,20 +7,20 @@ import {
   ITitreEtape
 } from '../../types'
 
-import { titreArbreTypeIdValidate } from '../../business/utils/titre-arbre-type-validate'
+import { titreEtatIdValidate } from '../../business/utils/titre-demarche-etats-validate'
 import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
-import { arbreTypeIdsGet } from '../../business/arbres-demarches/arbres-demarches'
+import { etatIdsGet } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
 
 const etapeTypeNomFormat = (
-  arbreTypeId: string | undefined | null,
+  etatId: string | undefined | null,
   etapeType: IEtapeType,
   titreDemarcheType: IDemarcheType
 ) => {
-  if (arbreTypeId?.match(/-/)) {
-    const etapeParentTypeId = arbreTypeId.slice(4)
+  if (etatId?.match(/-/)) {
+    const etapeParentTypeId = etatId.slice(4)
     const etapeParent = titreDemarcheType.etapesTypes.find(
       et => et.id === etapeParentTypeId
     )
@@ -91,7 +91,7 @@ const etapeTypeEtapesStatutsFormat = (
       )
     }
 
-    const isValid = !titreArbreTypeIdValidate(
+    const isValid = !titreEtatIdValidate(
       demarcheType,
       titreDemarcheEtapes,
       titre,
@@ -135,23 +135,17 @@ const etapeTypeFormat = (
   if (!isDateFinValid) return null
 
   // Une étape peut-être présente plusieurs fois dans une démarche.
-  // pour les rendre uniques, nous utilisons les arbreTypeIds
-  const arbreTypeIds = arbreTypeIdsGet(
-    titre.typeId,
-    demarcheType.id,
-    etapeType.id
-  )
+  // pour les rendre uniques, nous utilisons les etatIds
+  const etatIds = etatIdsGet(titre.typeId, demarcheType.id, etapeType.id)
 
-  return arbreTypeIds.reduce((acc: IEtapeType[], arbreTypeId) => {
+  return etatIds.reduce((acc: IEtapeType[], etatId) => {
     const etapeTypeCopy = JSON.parse(JSON.stringify(etapeType))
     const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
       etapeTypeCopy,
       titre,
       demarcheType,
       titreDemarcheEtapes,
-      titreEtape
-        ? { ...titreEtape, arbreTypeId }
-        : ({ arbreTypeId } as ITitreEtape)
+      titreEtape ? { ...titreEtape, etatId } : ({ etatId } as ITitreEtape)
     )
 
     // si aucun statut n'est disponible pour ce type d'étape
@@ -161,9 +155,9 @@ const etapeTypeFormat = (
     etapeTypeCopy.etapesStatuts = etapesStatutsFormatted
 
     etapeTypeCopy.demarcheTypeId = demarcheType.id
-    etapeTypeCopy.arbreTypeId = arbreTypeId
+    etapeTypeCopy.etatId = etatId
 
-    etapeTypeNomFormat(arbreTypeId, etapeTypeCopy, demarcheType)
+    etapeTypeNomFormat(etatId, etapeTypeCopy, demarcheType)
 
     acc.push(
       etapeTypeSectionsFormat(

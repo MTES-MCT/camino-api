@@ -117,7 +117,7 @@ const tables = [
       'duree',
       'surface',
       'contenu',
-      'arbreTypeId'
+      'etatId'
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {

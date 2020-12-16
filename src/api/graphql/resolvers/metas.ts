@@ -10,10 +10,12 @@ import {
   IDomaine,
   IEtapeStatut,
   IEtapeType,
+  IFields,
   IGeoSysteme,
   IPermission,
   IPhaseStatut,
   IReferenceType,
+  ITitreEtape,
   ITitreStatut,
   ITitreTypeType,
   IToken,
@@ -73,7 +75,7 @@ import {
   regionsGet
 } from '../../../database/queries/territoires'
 import ordreUpdate from './_ordre-update'
-import { arbreDemarcheGet } from '../../../business/arbres-demarches/arbres-demarches'
+import { demarcheEtatsDefinitionGet } from '../../../business/demarches-etats-definitions/demarches-etats-definitions'
 
 const npmPackage = require('../../../../package.json')
 
@@ -309,7 +311,7 @@ const demarcheEtapesTypesGet = async (
   }
 
   // Si il existe un arbre d’instructions pour cette démarche, on laisse l’arbre traiter l’unicité des étapes
-  const uniqueCheck = !arbreDemarcheGet(titre.typeId, demarcheType.id)
+  const uniqueCheck = !demarcheEtatsDefinitionGet(titre.typeId, demarcheType.id)
 
   // Dans un premier temps on récupère toutes les étapes possibles pour cette démarche
   const etapesTypes = await etapesTypesGet(

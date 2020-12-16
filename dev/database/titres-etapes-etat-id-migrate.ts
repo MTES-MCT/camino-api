@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import '../../src/init'
-import { arbresDemarches } from '../../src/business/arbres-demarches/arbres-demarches'
 import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 import { titreEtapeUpdate } from '../../src/database/queries/titres-etapes'
 import { ITitreDemarche, ITitreEtape } from '../../src/types'
+import { demarchesEtatsDefinitions } from '../../src/business/demarches-etats-definitions/demarches-etats-definitions'
 
-const armOctArbreTypeIdGet = (
+const armOctEtatIdGet = (
   etape: ITitreEtape,
   etapes: ITitreEtape[],
   i: number,
@@ -43,10 +43,7 @@ const armOctArbreTypeIdGet = (
   return undefined
 }
 
-const armRenProArbreTypeIdGet = (
-  etape: ITitreEtape,
-  demarche: ITitreDemarche
-) => {
+const armRenProEtatIdGet = (etape: ITitreEtape, demarche: ITitreDemarche) => {
   if (etape.typeId === 'mno') {
     if (demarche.statutId === 'css') {
       return 'mno-css'
@@ -60,7 +57,7 @@ const armRenProArbreTypeIdGet = (
   return undefined
 }
 
-const axmOctArbreTypeIdGet = (etape: ITitreEtape) => {
+const axmOctEtatIdGet = (etape: ITitreEtape) => {
   if (etape.typeId === 'rco' || etape.typeId === 'mco') {
     return `${etape.typeId}-mcr`
   }
@@ -74,7 +71,7 @@ const axmOctArbreTypeIdGet = (etape: ITitreEtape) => {
   return undefined
 }
 
-const prmOctArbreTypeIdGet = (etape: ITitreEtape) => {
+const prmOctEtatIdGet = (etape: ITitreEtape) => {
   if (etape.typeId === 'rco' || etape.typeId === 'mco') {
     return `${etape.typeId}-mcr`
   }
@@ -87,12 +84,12 @@ const prmOctArbreTypeIdGet = (etape: ITitreEtape) => {
 }
 
 const main = async () => {
-  for (const arbre of arbresDemarches) {
-    for (const demarcheTypeId of arbre.demarcheTypeIds) {
+  for (const demarchesEtatsDefinition of demarchesEtatsDefinitions) {
+    for (const demarcheTypeId of demarchesEtatsDefinition.demarcheTypeIds) {
       const demarches = await titresDemarchesGet(
         {
-          titresTypesIds: [arbre.titreTypeId.slice(0, 2)],
-          titresDomainesIds: [arbre.titreTypeId.slice(2)],
+          titresTypesIds: [demarchesEtatsDefinition.titreTypeId.slice(0, 2)],
+          titresDomainesIds: [demarchesEtatsDefinition.titreTypeId.slice(2)],
           typesIds: [demarcheTypeId]
         },
         {
@@ -112,39 +109,41 @@ const main = async () => {
         const etapes = demarche.etapes!
         for (let i = 0; i < etapes.length; i++) {
           const etape = etapes[i]
-          if (etape.arbreTypeId) {
+          if (etape.etatId) {
             continue
           }
-          let arbreTypeId
+          let etatId
           if (
-            arbre.restrictions.map(r => r.arbreTypeId).includes(etape.typeId!)
+            demarchesEtatsDefinition.restrictions
+              .map(r => r.etatId)
+              .includes(etape.typeId!)
           ) {
-            arbreTypeId = etape.typeId
+            etatId = etape.typeId
           } else {
-            if (arbre.titreTypeId === 'arm') {
+            if (demarchesEtatsDefinition.titreTypeId === 'arm') {
               if (demarche.typeId === 'oct') {
-                arbreTypeId = armOctArbreTypeIdGet(etape, etapes, i, demarche)
+                etatId = armOctEtatIdGet(etape, etapes, i, demarche)
               } else if (['ren', 'pro'].includes(demarche.typeId)) {
-                arbreTypeId = armRenProArbreTypeIdGet(etape, demarche)
+                etatId = armRenProEtatIdGet(etape, demarche)
               }
-            } else if (arbre.titreTypeId === 'axm') {
+            } else if (demarchesEtatsDefinition.titreTypeId === 'axm') {
               if (demarche.typeId === 'oct') {
-                arbreTypeId = axmOctArbreTypeIdGet(etape)
+                etatId = axmOctEtatIdGet(etape)
               }
-            } else if (arbre.titreTypeId === 'prm') {
+            } else if (demarchesEtatsDefinition.titreTypeId === 'prm') {
               if (demarche.typeId === 'oct') {
-                arbreTypeId = prmOctArbreTypeIdGet(etape)
+                etatId = prmOctEtatIdGet(etape)
               }
             }
           }
 
-          if (!arbreTypeId) {
+          if (!etatId) {
             console.log(
               `https://camino.beta.gouv.fr/titres/${demarche.titreId} - démarche "${demarche.typeId}" - étape interdite : "${etape.typeId}"`
             )
             // await titreEtapeDelete(etape.id)
           } else {
-            await titreEtapeUpdate(etape.id, { arbreTypeId })
+            await titreEtapeUpdate(etape.id, { etatId })
           }
         }
       }

@@ -1,8 +1,8 @@
-import { arbresDemarches } from '../../business/arbres-demarches/arbres-demarches'
+import { demarchesEtatsDefinitions } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { titreDemarcheArbreValidate } from '../../business/utils/titre-arbre-type-validate'
+import { titreDemarcheEtatsValidate } from '../../business/utils/titre-demarche-etats-validate'
 
-const arbresDemarchesCheck = async () => {
+const demarchesEtatsDefinitionsCheck = async () => {
   console.info()
   console.info('- - -')
   console.info('vérification des démarches avec les arbres d’instructions')
@@ -10,12 +10,12 @@ const arbresDemarchesCheck = async () => {
 
   let errorsNb = 0
 
-  for (const arbre of arbresDemarches) {
-    for (const demarcheTypeId of arbre.demarcheTypeIds) {
+  for (const demarchesEtatsDefinition of demarchesEtatsDefinitions) {
+    for (const demarcheTypeId of demarchesEtatsDefinition.demarcheTypeIds) {
       const demarches = await titresDemarchesGet(
         {
-          titresTypesIds: [arbre.titreTypeId.slice(0, 2)],
-          titresDomainesIds: [arbre.titreTypeId.slice(2)],
+          titresTypesIds: [demarchesEtatsDefinition.titreTypeId.slice(0, 2)],
+          titresDomainesIds: [demarchesEtatsDefinition.titreTypeId.slice(2)],
           typesIds: [demarcheTypeId]
         },
         {
@@ -35,16 +35,16 @@ const arbresDemarchesCheck = async () => {
         // On garde seulement les octroi d’AXM non terminées
         .filter(
           d =>
-            arbre.titreTypeId !== 'axm' ||
+            demarchesEtatsDefinition.titreTypeId !== 'axm' ||
             (['oct'].includes(d.typeId) &&
               ['dep', 'aco', 'ins'].includes(d.statutId!))
         )
         .forEach(demarche => {
           // .some(demarche => {
-          // demarche.etapes!.forEach(e => (e.arbreTypeId = e.typeId))
+          // demarche.etapes!.forEach(e => (e.etatId = e.typeId))
           try {
-            const errors = titreDemarcheArbreValidate(
-              arbre,
+            const errors = titreDemarcheEtatsValidate(
+              demarchesEtatsDefinition,
               demarche.type!,
               demarche.etapes!,
               demarche.titre!
@@ -53,7 +53,7 @@ const arbresDemarchesCheck = async () => {
               errorsNb++
               // console.log(
               //   demarche.etapes!.map(e => ({
-              //     arbreTypeId: e.arbreTypeId,
+              //     etatId: e.etatId,
               //     date: e.date,
               //     statutId: e.statutId
               //   }))
@@ -78,4 +78,4 @@ const arbresDemarchesCheck = async () => {
   console.error(`Nb errors = ${errorsNb}`)
 }
 
-export default arbresDemarchesCheck
+export default demarchesEtatsDefinitionsCheck

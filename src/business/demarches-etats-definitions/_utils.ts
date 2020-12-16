@@ -7,8 +7,8 @@ import {
   ITitreEtape,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
-import { titreDemarcheArbreValidate } from '../utils/titre-arbre-type-validate'
-import { arbreDemarcheGet } from './arbres-demarches'
+import { titreDemarcheEtatsValidate } from '../utils/titre-demarche-etats-validate'
+import { demarcheEtatsDefinitionGet } from './demarches-etats-definitions'
 import decamelize = require('decamelize')
 
 const elementsGet = <T>(fileName: string): T[] => {
@@ -40,17 +40,20 @@ const etapesTypesGet = (demarcheTypeId: string, titreTypeId: string) => {
   )
 }
 
-const arbreErreursGet = (demarcheTypeId: string, titreTypeId: string) => {
+const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
   const etapesTypes = etapesTypesGet(demarcheTypeId, titreTypeId)
 
   return (
     titreDemarcheEtapes: Partial<ITitreEtape>[],
     titre: Partial<ITitre> = {}
   ) => {
-    const arbreDemarche = arbreDemarcheGet(titreTypeId, demarcheTypeId)
+    const demarcheEtatsDefinition = demarcheEtatsDefinitionGet(
+      titreTypeId,
+      demarcheTypeId
+    )
 
-    return titreDemarcheArbreValidate(
-      arbreDemarche!,
+    return titreDemarcheEtatsValidate(
+      demarcheEtatsDefinition!,
       {
         id: demarcheTypeId,
         etapesTypes
@@ -64,4 +67,4 @@ const arbreErreursGet = (demarcheTypeId: string, titreTypeId: string) => {
   }
 }
 
-export { arbreErreursGet, etapesTypesGet }
+export { demarcheEtatsValidate, etapesTypesGet }
