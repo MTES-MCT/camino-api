@@ -101,10 +101,9 @@ import {
   activitesAnnees,
   activiteModifier
 } from './resolvers/titres-activites'
-import {
-  statistiquesGlobales,
-  statistiquesGuyane
-} from './resolvers/statistiques'
+import { statistiquesGlobales } from './resolvers/statistiques'
+import { statistiquesGuyane } from './resolvers/statistiques-guyane'
+import { statistiquesGranulatsMarins } from './resolvers/statistiques-granulats-marins'
 
 import {
   travauxCreer,
@@ -157,6 +156,7 @@ export default {
   utilisateurs,
   statistiquesGlobales,
   statistiquesGuyane,
+  statistiquesGranulatsMarins,
   activite,
   activites,
   activitesAnnees,

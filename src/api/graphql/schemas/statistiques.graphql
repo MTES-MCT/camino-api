@@ -30,11 +30,11 @@ type StatistiquesGuyane {
 
 type StatistiquesGuyaneAnnee {
   annee: Int
-  titresArm: StatistiqueGuyaneAnneeTitre
-  titresPrm: StatistiqueGuyaneAnneeTitre
-  titresAxm: StatistiqueGuyaneAnneeTitre
-  titresPxm: StatistiqueGuyaneAnneeTitre
-  titresCxm: StatistiqueGuyaneAnneeTitre
+  titresArm: StatistiqueAnneeTitre
+  titresPrm: StatistiqueAnneeTitre
+  titresAxm: StatistiqueAnneeTitre
+  titresPxm: StatistiqueAnneeTitre
+  titresCxm: StatistiqueAnneeTitre
   orNet: Int
   carburantConventionnel: Int
   carburantDetaxe: Int
@@ -45,7 +45,32 @@ type StatistiquesGuyaneAnnee {
   activitesDeposesRatio: Int
 }
 
-type StatistiqueGuyaneAnneeTitre {
+type StatistiqueAnneeTitre {
   quantite: Int
   surface: Float
+}
+
+type GranulatsExtrait {
+  volumeGranulatsExtrait: Int
+  masseGranulatsExtrait: Int
+}
+
+type StatistiquesGranulatsMarinsAnnee {
+  annee: Int
+  titresPrw: StatistiqueAnneeTitre
+  titresPxw: StatistiqueAnneeTitre
+  titresCxw: StatistiqueAnneeTitre
+  granulatsExtrait: GranulatsExtrait
+  activitesDeposesQuantite: Int
+  activitesDeposesRatio: Int
+}
+
+type StatistiquesGranulatsMarins {
+  annees: [StatistiquesGranulatsMarinsAnnee]
+  surfaceExploration: Int
+  surfaceExploitation: Int
+  titresInstructionPrw: Int
+  titresValPrw: Int
+  titresDmiCxw: Int
+  titresValCxw: Int
 }
