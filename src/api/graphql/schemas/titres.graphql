@@ -97,6 +97,7 @@ type Titre {
 
   modification: Boolean
   suppression: Boolean
+  demarchesCreation: Boolean
 
   travauxCreation: Boolean
   doublonTitreId: ID

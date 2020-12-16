@@ -129,9 +129,10 @@ const titrePermissionQueryBuild = (
   if (permissionCheck(user?.permissionId, ['super'])) {
     q.select(raw('true').as('modification'))
     q.select(raw('true').as('suppression'))
+    q.select(raw('true').as('demarchesCreation'))
     q.select(raw('true').as('travauxCreation'))
   } else if (
-    permissionCheck(user?.permissionId, ['admin']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
     const administrationsIds = user.administrations.map(a => a.id) || []
@@ -141,12 +142,19 @@ const titrePermissionQueryBuild = (
       'titres'
     ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
 
+    const demarchesCreationQuery = titresModificationQueryBuild(
+      administrationsIds,
+      'demarches'
+    ).whereRaw('?? = ??', ['titresModification.id', 'titres.id'])
+
     q.select(titresModificationQuery.as('modification'))
     q.select(raw('false').as('suppression'))
+    q.select(demarchesCreationQuery.as('demarchesCreation'))
     q.select(raw('false').as('travauxCreation'))
   } else {
     q.select(raw('false').as('modification'))
     q.select(raw('false').as('suppression'))
+    q.select(raw('false').as('demarchesCreation'))
     q.select(raw('false').as('travauxCreation'))
   }
 
