@@ -28,6 +28,7 @@ type Utilisateur {
 
 type Sections {
   activites: Boolean
+  administrations: Boolean
   utilisateurs: Boolean
   metas: Boolean
 }
