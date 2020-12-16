@@ -143,5 +143,85 @@
     "travaux_type_id": "mpm",
     "demarche_statut_id": "ind",
     "ordre": "5"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "eco",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "dep",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "ins",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "cls",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "acc",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "rej",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "des",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "apr",
+    "demarche_statut_id": "ind",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "eco",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "dep",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "ins",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "cls",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "acc",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "rej",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "des",
+    "ordre": "1"
+  },
+  {
+    "travaux_type_id": "sup",
+    "demarche_statut_id": "ind",
+    "ordre": "1"
   }
 ]

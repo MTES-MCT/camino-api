@@ -1073,5 +1073,50 @@
     "etape_type_id": "aof",
     "etape_statut_id": "dre",
     "ordre": "4"
+  },
+  {
+    "etape_type_id": "aow",
+    "etape_statut_id": "acc",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "aow",
+    "etape_statut_id": "rej",
+    "ordre": "2"
+  },
+  {
+    "etape_type_id": "dec",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "dow",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "dpm",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mdd",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mfw",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "sup",
+    "etape_statut_id": "acc",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "sup",
+    "etape_statut_id": "rej",
+    "ordre": "2"
   }
 ]

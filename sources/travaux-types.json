@@ -15,8 +15,19 @@
     "ordre": "3"
   },
   {
-    "id": "dam",
-    "nom": "déclaration d'arrêt",
+    "id": "apr",
+    "nom": "autorisation à disposer des produits des recherches",
     "ordre": "4"
+  },
+  {
+    "id": "sup",
+    "nom": "intitution de servitude d'utilité publique relative à l'exploitation des mines et carrières",
+    "description": "Les servitudes d'utilité publique (SUP) sont des limitations administratives au droit de propriété. Elles sont instituées au bénéfice de personnes publiques, de concessionnaires de services ou de travaux publics, de personnes privées exerçant une activité d'intérêt général. La collecte et la conservation des servitudes d'utilité publique sont une mission régalienne de l'État qui doit les porter à la connaissance des collectivités territoriales afin que celles-ci les annexent à leur document d'urbanisme. Les servitudes d'utilité publique concernées sont celles définies par les articles L. 126-1 et R. 126-1 du code de l'urbanisme et leur annexes.",
+    "ordre": "5"
+  },
+  {
+    "id": "dam",
+    "nom": "déclaration d'arrêt définitif",
+    "ordre": "6"
   }
 ]
