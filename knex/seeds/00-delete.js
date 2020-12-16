@@ -82,7 +82,6 @@ const seed = seeding(async ({ del }) => {
   await Promise.all([
     del('definitions'),
     del('permissions'),
-    del('titresTypesTypes'),
     del('titresTypes__demarchesTypes'),
     del('titresTypes__demarchesTypes__etapesTypes'),
     del('etapesTypes__etapesStatuts'),
