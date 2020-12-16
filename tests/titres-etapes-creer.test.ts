@@ -105,12 +105,12 @@ describe('etapeCreer', () => {
     )
   })
 
-  test('peut créer une étape acg avec un statut fai (utilisateur super)', async () => {
+  test('peut créer une étape acg avec un statut fav (utilisateur super)', async () => {
     const titreDemarcheId = await demarcheCreate()
 
     const res = await graphQLCall(
       etapeCreerQuery,
-      { etape: { typeId: 'acg', statutId: 'fai', titreDemarcheId, date: '' } },
+      { etape: { typeId: 'acg', statutId: 'fav', titreDemarcheId, date: '' } },
       'super'
     )
 

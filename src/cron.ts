@@ -3,17 +3,21 @@ import './init'
 import { job } from 'cron'
 import daily from './business/daily'
 import documentsCheck from './tools/documents/check'
+import demarchesEtatsDefinitionsCheck from './tools/demarches-etats-definitions/check'
 import './config/logger-cron'
 import { emailSend } from './tools/emails-send'
 import { readFileSync, unlinkSync } from 'fs'
 
 const tasks = async () => {
+  console.info('Cron quotidien : démarrage')
   await daily()
   await documentsCheck()
+  await demarchesEtatsDefinitionsCheck()
 
   const emailBody = readFileSync('cron.log').toString()
   await emailSend(process.env.ADMIN_EMAIL!, 'Résultats du daily', emailBody)
   unlinkSync('cron.log')
+  console.info('Cron quotidien : terminé')
 }
 
 job(

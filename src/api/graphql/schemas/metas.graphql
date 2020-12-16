@@ -148,6 +148,8 @@ type EtapeType {
   "Nom en français"
   nom: String!
 
+  etatId: String
+
   description: String
 
   ordre: Int!

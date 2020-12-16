@@ -10,10 +10,12 @@ import {
   IDomaine,
   IEtapeStatut,
   IEtapeType,
+  IFields,
   IGeoSysteme,
   IPermission,
   IPhaseStatut,
   IReferenceType,
+  ITitreEtape,
   ITitreStatut,
   ITitreTypeType,
   IToken,
@@ -73,6 +75,7 @@ import {
   regionsGet
 } from '../../../database/queries/territoires'
 import ordreUpdate from './_ordre-update'
+import { demarcheEtatsDefinitionGet } from '../../../business/demarches-etats-definitions/demarches-etats-definitions'
 
 const npmPackage = require('../../../../package.json')
 
@@ -249,7 +252,7 @@ const demarchesStatuts = async () => {
 }
 
 const demarcheEtapesTypesGet = async (
-  etapesTypes: IEtapeType[],
+  fields: IFields,
   titreDemarcheId: string,
   titreEtapeId?: string,
   userId?: string
@@ -289,7 +292,7 @@ const demarcheEtapesTypesGet = async (
 
   const titreEtape = titreEtapeId
     ? await titreEtapeGet(titreEtapeId, {}, user?.id)
-    : null
+    : undefined
 
   if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
 
@@ -307,20 +310,37 @@ const demarcheEtapesTypesGet = async (
     }
   }
 
+  // Si il existe un arbre d’instructions pour cette démarche, on laisse l’arbre traiter l’unicité des étapes
+  const uniqueCheck = !demarcheEtatsDefinitionGet(titre.typeId, demarcheType.id)
+
+  // Dans un premier temps on récupère toutes les étapes possibles pour cette démarche
+  const etapesTypes = await etapesTypesGet(
+    { titreDemarcheId, titreEtapeId, uniqueCheck },
+    { fields },
+    'super'
+  )
+
+  // Si on modifie une étape, on réinitialise la démarche juste avant cette étape
+  // pour trouver quelles sont les étapes possibles
+  let titreEtapes = JSON.parse(
+    JSON.stringify(titreDemarche.etapes)
+  ) as ITitreEtape[]
+  if (titreEtapeId) {
+    titreEtapes = titreEtapes.filter(e => e.date < titreEtape!.date)
+  }
+
   const etapesTypesFormatted = etapesTypes.reduce(
     (etapesTypes: IEtapeType[], etapeType) => {
       const etapeTypeFormatted = etapeTypeFormat(
         etapeType,
         titre,
         titreDemarche.type!,
-        titreDemarche.etapes!,
-        titreEtape?.typeId,
-        titreEtape?.statutId,
-        titreEtape?.date
+        titreEtapes,
+        titreEtape
       )
 
       if (etapeTypeFormatted) {
-        etapesTypes.push(etapeTypeFormatted)
+        etapesTypes.push(...etapeTypeFormatted)
       }
 
       return etapesTypes
@@ -328,7 +348,18 @@ const demarcheEtapesTypesGet = async (
     []
   )
 
-  return etapesTypesFormatted
+  // Maintenant que la vérification de l’arbre d’instructions a été faite, on filtre les étapes en fonction de l’utilisateur
+  const etapesTypesVisibleIds = (
+    await etapesTypesGet(
+      { titreDemarcheId, titreEtapeId, uniqueCheck },
+      { fields: { id: {} } },
+      userId
+    )
+  ).map(etapeType => etapeType.id)
+
+  return etapesTypesFormatted.filter(etapeType =>
+    etapesTypesVisibleIds.includes(etapeType.id)
+  )
 }
 
 const etapesTypes = async (
@@ -349,20 +380,20 @@ const etapesTypes = async (
   try {
     const fields = fieldsBuild(info)
 
-    const etapesTypes = await etapesTypesGet(
-      { titreDemarcheId, titreEtapeId, titreTravauxId, titreTravauxEtapeId },
-      { fields },
-      context.user?.id
-    )
-
     if (titreDemarcheId && context.user?.id) {
       return demarcheEtapesTypesGet(
-        etapesTypes,
+        fields,
         titreDemarcheId,
         titreEtapeId,
         context.user.id
       )
     }
+
+    const etapesTypes = await etapesTypesGet(
+      { titreDemarcheId, titreEtapeId, titreTravauxId, titreTravauxEtapeId },
+      { fields },
+      context.user?.id
+    )
 
     return etapesTypes
   } catch (e) {

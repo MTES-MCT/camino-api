@@ -1,17 +1,33 @@
 import {
-  ITitre,
   IDemarcheType,
-  ITitreDemarche,
-  ITitreEtape,
   IEtapeType,
-  ISection
+  ISection,
+  ITitre,
+  ITitreDemarche,
+  ITitreEtape
 } from '../../types'
 
-import titreEtapeDateValidate from '../../business/utils/titre-etape-date-validate'
+import { titreEtatIdValidate } from '../../business/utils/titre-demarche-etats-validate'
 import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
+import { etatIdsGet } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
+
+const etapeTypeNomFormat = (
+  etatId: string | undefined | null,
+  etapeType: IEtapeType,
+  titreDemarcheType: IDemarcheType
+) => {
+  if (etatId?.match(/-/)) {
+    const etapeParentTypeId = etatId.slice(4)
+    const etapeParent = titreDemarcheType.etapesTypes.find(
+      et => et.id === etapeParentTypeId
+    )
+
+    etapeType.nom = `${etapeType.nom} pour ${etapeParent!.nom}`
+  }
+}
 
 const etapeTypeSectionsFormat = (
   etapeType: IEtapeType,
@@ -53,18 +69,17 @@ const etapeTypeEtapesStatutsFormat = (
   titre: ITitre,
   demarcheType: IDemarcheType,
   titreDemarcheEtapes: ITitreEtape[],
-  etapeTypeId?: string,
-  etapeStatutId?: string,
-  date?: string
+  titreEtape: ITitreEtape
 ) =>
   // restreint la liste des statuts disponibles pour le type d'étape
   etapeType.etapesStatuts!.filter(etapeStatut => {
     // si on est en train d'éditer une étape
     // et le type d'étape courant est celui de l'étape dont l'édition est en cours
-    if (etapeTypeId && etapeType.id === etapeTypeId) {
+    if (titreEtape?.typeId && etapeType.id === titreEtape.typeId) {
       // si le statut du type d'étape est celui de l'étape dont l'édition est en cours
       // on le propose dans la liste des statuts de type d'étape
-      if (etapeStatutId && etapeStatut.id === etapeStatutId) return true
+      if (titreEtape.statutId && etapeStatut.id === titreEtape.statutId)
+        return true
 
       // sinon,
       // (le statut d'étape courant est différent de celui de l'étape dont l'édition est en cours)
@@ -72,19 +87,15 @@ const etapeTypeEtapesStatutsFormat = (
       // car la fonction de validation peut retourner une erreur
       // si des étapes de ce type existent déjà
       titreDemarcheEtapes = titreDemarcheEtapes.filter(
-        e => e.typeId !== etapeTypeId
+        e => e.typeId !== titreEtape.typeId
       )
     }
 
-    // TODO: filtrer les types d'étapes avec type.dateFin
-    // en fonction de la date du titre
-    const isValid = !titreEtapeDateValidate(
-      etapeType.id,
-      etapeStatut.id,
-      date || '3000-01-01',
+    const isValid = !titreEtatIdValidate(
       demarcheType,
       titreDemarcheEtapes,
-      titre
+      titre,
+      titreEtape
     )
 
     return isValid
@@ -113,9 +124,7 @@ const etapeTypeFormat = (
   titre: ITitre,
   demarcheType: IDemarcheType,
   titreDemarcheEtapes: ITitreEtape[],
-  etapeTypeId?: string,
-  etapeStatutId?: string,
-  date?: string
+  titreEtape?: ITitreEtape
 ) => {
   const isDateFinValid = etapeTypeDateFinCheck(
     etapeType,
@@ -125,29 +134,41 @@ const etapeTypeFormat = (
 
   if (!isDateFinValid) return null
 
-  const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
-    etapeType,
-    titre,
-    demarcheType,
-    titreDemarcheEtapes,
-    etapeTypeId,
-    etapeStatutId,
-    date
-  )
+  // Une étape peut-être présente plusieurs fois dans une démarche.
+  // pour les rendre uniques, nous utilisons les etatIds
+  const etatIds = etatIdsGet(titre.typeId, demarcheType.id, etapeType.id)
 
-  // si aucun statut n'est disponible pour ce type d'étape
-  // alors on ne retourne pas ce type d'étape pendant l'édition
-  if (!etapesStatutsFormatted.length) return null
+  return etatIds.reduce((acc: IEtapeType[], etatId) => {
+    const etapeTypeCopy = JSON.parse(JSON.stringify(etapeType))
+    const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
+      etapeTypeCopy,
+      titre,
+      demarcheType,
+      titreDemarcheEtapes,
+      titreEtape ? { ...titreEtape, etatId } : ({ etatId } as ITitreEtape)
+    )
 
-  etapeType.etapesStatuts = etapesStatutsFormatted
+    // si aucun statut n'est disponible pour ce type d'étape
+    // alors on ne retourne pas ce type d'étape pendant l'édition
+    if (!etapesStatutsFormatted.length) return acc
 
-  etapeType.demarcheTypeId = demarcheType.id
+    etapeTypeCopy.etapesStatuts = etapesStatutsFormatted
 
-  return etapeTypeSectionsFormat(
-    etapeType,
-    demarcheType.etapesTypes,
-    titre.typeId
-  )
+    etapeTypeCopy.demarcheTypeId = demarcheType.id
+    etapeTypeCopy.etatId = etatId
+
+    etapeTypeNomFormat(etatId, etapeTypeCopy, demarcheType)
+
+    acc.push(
+      etapeTypeSectionsFormat(
+        etapeTypeCopy,
+        demarcheType.etapesTypes,
+        titre.typeId
+      )
+    )
+
+    return acc
+  }, [])
 }
 
-export { etapeTypeFormat, etapeTypeSectionsFormat }
+export { etapeTypeFormat, etapeTypeSectionsFormat, etapeTypeNomFormat }

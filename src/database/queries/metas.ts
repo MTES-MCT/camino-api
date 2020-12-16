@@ -351,13 +351,15 @@ const etapesTypesGet = async (
     titreDemarcheId,
     titreEtapeId,
     titreTravauxId,
-    titreTravauxEtapeId
+    titreTravauxEtapeId,
+    uniqueCheck
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
     titreTravauxId?: string
     titreTravauxEtapeId?: string
-  },
+    uniqueCheck?: boolean
+  } = { uniqueCheck: true },
   { fields }: { fields?: IFields },
   userId?: string
 ) => {
@@ -370,7 +372,11 @@ const etapesTypesGet = async (
   const q = EtapesTypes.query().withGraphFetched(graph).orderBy('ordre')
 
   if (titreDemarcheId) {
-    etapesTypesPermissionQueryBuild(q, user, { titreDemarcheId, titreEtapeId })
+    etapesTypesPermissionQueryBuild(q, user, {
+      titreDemarcheId,
+      titreEtapeId,
+      uniqueCheck
+    })
   }
 
   if (titreTravauxId) {
