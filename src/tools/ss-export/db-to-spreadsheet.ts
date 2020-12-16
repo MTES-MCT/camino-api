@@ -15,7 +15,7 @@ import {
   spreadsheetBatchUpdate
 } from '../api-google-spreadsheets/index'
 
-const dbToSpreadsheets = async <T>({
+const dbToSpreadsheet = async <T>({
   name,
   id,
   get,
@@ -35,6 +35,7 @@ const dbToSpreadsheets = async <T>({
   const requests = requestsBuild<T>(infos.sheets, tables, elements)
 
   await spreadsheetBatchUpdate(credentials, id, requests)
+
   console.info(`export: ${elements.length} ${name}`)
 }
 
@@ -139,4 +140,4 @@ const rowsToRowData = <T>(
     }
   )
 
-export default dbToSpreadsheets
+export default dbToSpreadsheet

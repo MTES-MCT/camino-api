@@ -8,9 +8,9 @@ import {
   spreadsheetBatchUpdate
 } from '../api-google-spreadsheets/index'
 import rowFormat from './_utils/row-format'
-import spreadsheet from './spreadsheets/titres-activites'
+import definition from './definitions/titres-activites'
 
-const table = spreadsheet.tables[0]
+const table = definition.tables[0]
 
 const titreActivitesRowUpdate = async (
   activites: ITitreActivite[],
@@ -25,11 +25,11 @@ const titreActivitesRowUpdate = async (
     // - pour trouver l'index de la ligne à modifier
     // - pour la mettre à jour
 
-    if (!spreadsheet.id) throw new Error("l'id de la spreadsheet est absente")
+    if (!definition.id) throw new Error("l'id de la spreasheet est absente")
 
     const worksheet = await spreadsheetValuesGet(
       credentials,
-      spreadsheet.id,
+      definition.id,
       decamelize(table.name)
     )
 
@@ -71,11 +71,11 @@ const titreActivitesRowUpdate = async (
         : { appendCells: { sheetId, rows, fields } }
     })
 
-    await spreadsheetBatchUpdate(credentials, spreadsheet.id, requests)
+    await spreadsheetBatchUpdate(credentials, definition.id, requests)
 
     return null
   } catch (e) {
-    console.info("erreur: ajout d'une ligne dans la spreasheet activités", e)
+    console.info("erreur: ajout d'une ligne dans la spreadsheet activités", e)
 
     return null
   }

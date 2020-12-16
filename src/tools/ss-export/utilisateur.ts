@@ -10,7 +10,7 @@ import {
 } from '../api-google-spreadsheets/index'
 import rowsCreate from './_utils/rows-create'
 import rowFormat from './_utils/row-format'
-import spreadsheet from './spreadsheets/utilisateurs'
+import definition from './definitions/utilisateurs'
 
 const requestsBuild = (utilisateurs: IUtilisateur[], tables: ITable[]) =>
   // pour mettre à jour les tables `utilisateurs` et `utilisateurs__entreprises`
@@ -46,7 +46,7 @@ const requestsBuild = (utilisateurs: IUtilisateur[], tables: ITable[]) =>
 
     const worksheet = await spreadsheetValuesGet(
       credentials,
-      spreadsheet.id,
+      definition.id,
       decamelize(name)
     )
 
@@ -91,12 +91,12 @@ const requestsBuild = (utilisateurs: IUtilisateur[], tables: ITable[]) =>
 
 const utilisateurRowUpdate = async (utilisateur: IUtilisateur) => {
   try {
-    if (!spreadsheet.id) throw new Error("l'id de la spreadsheet est absente")
+    if (!definition.id) throw new Error("l'id de la spreadsheet est absente")
 
-    const requests = await requestsBuild([utilisateur], spreadsheet.tables)
+    const requests = await requestsBuild([utilisateur], definition.tables)
 
     if (requests.length) {
-      await spreadsheetBatchUpdate(credentials, spreadsheet.id, requests)
+      await spreadsheetBatchUpdate(credentials, definition.id, requests)
     }
   } catch (e) {
     console.info("erreur: ajout d'une ligne dans la spreasheet utilisateurs", e)
