@@ -177,7 +177,8 @@ const statistiquesGuyaneAnneeBuild = (
     environnementCout: Math.floor(statistiquesActivitesGrp.environnement),
     effectifs: Math.round(statistiquesActivitesGrp.effectifs / 4), // somme des effectifs sur 4 trimestre
     activitesDeposesQuantite:
-      statistiquesActivitesGrp.activitesDeposesQuantiteCount,
+      statistiquesActivitesGrp.activitesDeposesQuantiteCount +
+      statistiquesActivitesGra.activitesDeposesQuantiteCount,
     activitesDeposesRatio
   }
 }
