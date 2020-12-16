@@ -20,8 +20,9 @@ type TitreType {
   "Id composée de trois lettres"
   id: ID!
 
+  domaineId: String!
   domaine: Domaine!
-
+  typeId: String!
   type: TitreTypeType!
 
   "Types de démarches applicables à ce type de titre"
@@ -31,6 +32,7 @@ type TitreType {
   gestionnaire: Boolean
   associee: Boolean
   titresCreation: Boolean
+  propsEtapesTypes: Json
 }
 
 "Type de titre minier"
@@ -40,9 +42,6 @@ type TitreTypeType {
 
   "Nom du type en français"
   nom: String!
-
-  "Exploitation ou exploration"
-  exploitation: Boolean
 
   description: String
 
@@ -107,6 +106,14 @@ type DemarcheType {
   demarchesCreation: Boolean
 }
 
+type TravauxType {
+  id: ID!
+  nom: String!
+  description: String
+  ordre: Int
+  travauxCreation: Boolean
+}
+
 "Statut d'une démarche applicable à un titre minier"
 type DemarcheStatut {
   "Id composée de trois lettres"
@@ -145,16 +152,24 @@ type EtapeType {
 
   ordre: Int!
 
-  fondamentale: Boolean
+  sections: Json
 
-  acceptationAuto: Boolean
+  legalLien: String
+  legalRef: String
+  dateDebut: String
+  dateFin: String
+
+  fondamentale: Boolean
 
   "Si ce type d'étape est unique au sein de la démarche"
   unique: Boolean
 
-  etapesStatuts: [EtapeStatut]
+  acceptationAuto: Boolean
 
-  sections: Json
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
+
+  etapesStatuts: [EtapeStatut]
 
   etapesCreation: Boolean
 }
@@ -183,6 +198,12 @@ type ReferenceType {
   nom: String
 }
 
+type AdministrationType {
+  id: ID!
+  nom: String
+  ordre: Int
+}
+
 "Unité"
 type Unite {
   id: ID!
@@ -202,18 +223,18 @@ type Devise {
 "Système géographique"
 type GeoSysteme {
   id: ID!
-
   nom: String!
-
+  ordre: Int!
   zone: String!
-
+  uniteId: String
   unite: Unite!
+  definitionProj4: String!
 }
 
 type DocumentType {
   id: ID!
-
   nom: String!
+  repertoire: String!
 }
 
 type DocumentVisibilite {
@@ -229,7 +250,278 @@ type Definition {
   slug: String!
   description: String
   couleur: String
+  ordre: Int
   elements: [Definition]
+}
+
+type Permission {
+  id: ID!
+  nom: String
+  ordre: Int!
+}
+
+type TitreTypeTitreStatut {
+  titreTypeId: ID!
+  titreStatutId: ID!
+  titreType: TitreType
+  titreStatut: TitreStatut
+  titresModificationInterdit: Boolean
+  demarchesModificationInterdit: Boolean
+  etapesModificationInterdit: Boolean
+  publicLecture: Boolean
+}
+
+type TitreTypeDemarcheType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  dureeMax: Int
+  acceptationImplicite: Boolean
+  delaiImplicite: Int
+  delaiRecours: Int
+  legalRef: String
+  legaleLien: String
+  dateDebut: String
+  dateFin: String
+}
+
+type DemarcheTypeDemarcheStatut {
+  demarcheTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int!
+}
+
+"Type d'étape d'une démarche de titre minier"
+type TitreTypeEtapeType {
+  titreType: TitreType
+  etapeType: EtapeType
+  lectureInterdit: Boolean
+  creationInterdit: Boolean
+  modificationInterdit: Boolean
+}
+
+type TitreTypeDemarcheTypeEtapeType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int!
+  sections: Json
+}
+
+type EtapeTypeEtapeStatut {
+  etapeTypeId: ID!
+  etapeStatutId: ID!
+  ordre: Int!
+}
+
+type TravauxTypeDemarcheStatut {
+  travauxTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int!
+}
+
+type TravauxTypeEtapeType {
+  travauxTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int!
+}
+
+input InputDomaine {
+  "Id composée d'une seule lettre"
+  id: ID!
+
+  "Nom du domaine en français"
+  nom: String
+
+  description: String
+
+  ordre: Int
+}
+
+input InputDefinition {
+  id: ID!
+  nom: String
+  slug: String
+  description: String
+  couleur: String
+  ordre: Int
+}
+
+input InputTitreTypeType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+}
+
+input InputTitreStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+  description: String
+  ordre: Int
+}
+
+input InputDemarcheType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+  duree: Boolean
+  points: Boolean
+  substances: Boolean
+  titulaires: Boolean
+  renouvelable: Boolean
+  exception: Boolean
+}
+
+input InputTravauxType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+}
+
+input InputDemarcheStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+  description: String
+  ordre: Int
+}
+
+input InputPhaseStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+}
+
+input InputEtapeType {
+  id: ID!
+  nom: String
+  description: String
+  ordre: Int
+  sections: Json
+  legalLien: String
+  legalRef: String
+  dateDebut: String
+  dateFin: String
+  fondamentale: Boolean
+  unique: Boolean
+  acceptationAuto: Boolean
+  publicLecture: Boolean
+  entreprisesLecture: Boolean
+}
+
+input InputEtapeStatut {
+  id: ID!
+  nom: String
+  couleur: Couleur
+  description: String
+  ordre: Int
+}
+
+input InputDevise {
+  id: ID!
+  nom: String
+}
+
+input InputUnite {
+  id: ID!
+  nom: String
+  symbole: String
+}
+
+input InputAdministrationType {
+  id: ID!
+  nom: String
+  ordre: Int
+}
+
+input InputDocumentType {
+  id: ID!
+  nom: String!
+}
+
+input InputPermission {
+  id: ID!
+  nom: String
+}
+
+input InputReferenceType {
+  id: ID!
+  nom: String
+}
+
+input InputGeoSysteme {
+  id: ID!
+  nom: String
+  ordre: Int
+  zone: String
+  uniteId: String
+  definitionProj4: String
+}
+
+input InputTitreTypeModification {
+  id: ID!
+  propsEtapesTypes: Json
+}
+
+input InputTitreTypeCreation {
+  id: ID!
+  domaineId: String!
+  typeId: String!
+  propsEtapesTypes: Json
+}
+
+input InputTitreTypeTitreStatut {
+  titreTypeId: ID!
+  titreStatutId: ID!
+  publicLecture: Boolean
+}
+
+input InputTitreTypeDemarcheType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  dureeMax: Int
+  acceptationImplicite: Boolean
+  delaiImplicite: Int
+  delaiRecours: Int
+  legalRef: String
+  legaleLien: String
+  dateDebut: String
+  dateFin: String
+}
+
+input InputDemarcheTypeDemarcheStatut {
+  demarcheTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int
+}
+
+input InputTitreTypeDemarcheTypeEtapeType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int
+  sections: Json
+}
+
+input InputEtapeTypeEtapeStatut {
+  etapeTypeId: ID!
+  etapeStatutId: ID!
+  ordre: Int
+}
+
+input InputTravauxTypeDemarcheStatut {
+  travauxTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int
+}
+
+input InputTravauxTypeEtapeType {
+  travauxTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int
 }
 
 """

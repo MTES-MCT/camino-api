@@ -28,18 +28,15 @@ type Utilisateur {
 
 type Sections {
   activites: Boolean
+  administrations: Boolean
   utilisateurs: Boolean
+  metas: Boolean
 }
 
 type UtilisateurToken {
   utilisateur: Utilisateur
   accessToken: String
   refreshToken: String
-}
-
-type Permission {
-  id: ID!
-  nom: String
 }
 
 input InputUtilisateurModification {

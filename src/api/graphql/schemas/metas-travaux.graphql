@@ -1,7 +1,0 @@
-type TravauxType {
-  id: ID!
-  nom: String!
-  description: String
-  ordre: Int
-  travauxCreation: Boolean
-}

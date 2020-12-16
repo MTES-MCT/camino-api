@@ -1,27 +1,65 @@
 import { GraphQLResolveInfo } from 'graphql'
-import { IDocumentRepertoire, IEtapeType, IToken } from '../../../types'
+import {
+  IAdministrationType,
+  IDefinition,
+  IDemarcheStatut,
+  IDemarcheType,
+  IDevise,
+  IDocumentRepertoire,
+  IDocumentType,
+  IDomaine,
+  IEtapeStatut,
+  IEtapeType,
+  IGeoSysteme,
+  IPermission,
+  IPhaseStatut,
+  IReferenceType,
+  ITitreStatut,
+  ITitreTypeType,
+  IToken,
+  ITravauxType,
+  IUnite
+} from '../../../types'
 import { debug } from '../../../config/index'
 
 import {
   activitesStatutsGet,
   activitesTypesGet,
   administrationsTypesGet,
+  administrationTypeUpdate,
   definitionsGet,
-  demarchesStatutsGet,
+  definitionUpdate,
   demarchesTypesGet,
+  demarcheTypeUpdate,
+  demarchesStatutsGet,
+  demarcheStatutUpdate,
   devisesGet,
   documentsTypesGet,
   domainesGet,
+  domaineUpdate,
   etapesStatutsGet,
+  etapeStatutUpdate,
   etapesTypesGet,
+  etapeTypeUpdate,
   geoSystemesGet,
   permissionGet,
   permissionsGet,
+  phasesStatutsGet,
+  phaseStatutUpdate,
   referencesTypesGet,
   titresStatutsGet,
+  titreStatutUpdate,
   titresTypesTypesGet,
+  titreTypeTypeUpdate,
   travauxTypesGet,
-  unitesGet
+  travauxTypeUpdate,
+  unitesGet,
+  deviseUpdate,
+  uniteUpdate,
+  permissionUpdate,
+  geoSystemeUpdate,
+  documentTypeUpdate,
+  referenceTypeUpdate
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -34,11 +72,14 @@ import {
   departementsGet,
   regionsGet
 } from '../../../database/queries/territoires'
+import ordreUpdate from './_ordre-update'
 
 const npmPackage = require('../../../../package.json')
 
 const devises = async () => devisesGet()
+
 const geoSystemes = async () => geoSystemesGet()
+
 const unites = async () => unitesGet()
 
 const documentsTypes = async ({
@@ -461,6 +502,557 @@ const regions = async () => {
   }
 }
 
+const phasesStatuts = async () => {
+  try {
+    const phasesStatuts = await phasesStatutsGet()
+
+    return phasesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const definitionModifier = async (
+  { definition }: { definition: IDefinition },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (definition.ordre) {
+      const definitions = await definitionsGet()
+
+      await ordreUpdate(definition, definitions, definitionUpdate)
+    }
+
+    await definitionUpdate(definition.id!, definition)
+
+    const definitions = await definitionsGet()
+
+    return definitions
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const domaineModifier = async (
+  { domaine }: { domaine: IDomaine },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (domaine.ordre) {
+      const domaines = await domainesGet(
+        null as never,
+        { fields },
+        context.user?.id
+      )
+
+      await ordreUpdate(domaine, domaines, domaineUpdate)
+    }
+
+    await domaineUpdate(domaine.id!, domaine)
+
+    const domaines = await domainesGet(
+      null as never,
+      { fields },
+      context.user?.id
+    )
+
+    return domaines
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreTypeTypeModifier = async (
+  { titreType }: { titreType: ITitreTypeType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (titreType.ordre) {
+      const titresTypesTypes = await titresTypesTypesGet()
+
+      await ordreUpdate(titreType, titresTypesTypes, titreTypeTypeUpdate)
+    }
+
+    await titreTypeTypeUpdate(titreType.id!, titreType)
+
+    const titresTypesTypes = await titresTypesTypesGet()
+
+    return titresTypesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const titreStatutModifier = async (
+  { titreStatut }: { titreStatut: ITitreStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (titreStatut.ordre) {
+      const titresStatuts = await titresStatutsGet()
+
+      await ordreUpdate(titreStatut, titresStatuts, titreStatutUpdate)
+    }
+
+    await titreStatutUpdate(titreStatut.id!, titreStatut)
+
+    const titresStatut = await titresStatutsGet()
+
+    return titresStatut
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const demarcheTypeModifier = async (
+  { demarcheType }: { demarcheType: IDemarcheType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (demarcheType.ordre) {
+      const demarchesTypes = await demarchesTypesGet(
+        {},
+        { fields },
+        context.user?.id
+      )
+
+      await ordreUpdate(demarcheType, demarchesTypes, demarcheTypeUpdate)
+    }
+
+    await demarcheTypeUpdate(demarcheType.id!, demarcheType)
+
+    const demarchesTypes = await demarchesTypesGet(
+      {},
+      { fields },
+      context.user?.id
+    )
+
+    return demarchesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const travauxTypeModifier = async (
+  { travauxType }: { travauxType: ITravauxType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (travauxType.ordre) {
+      const travauxTypes = await travauxTypesGet(
+        {},
+        { fields },
+        context.user?.id
+      )
+
+      await ordreUpdate(travauxType, travauxTypes, travauxTypeUpdate)
+    }
+
+    await travauxTypeUpdate(travauxType.id!, travauxType)
+
+    const travauxTypes = await travauxTypesGet({}, { fields }, context.user?.id)
+
+    return travauxTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const demarcheStatutModifier = async (
+  { demarcheStatut }: { demarcheStatut: IDemarcheStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (demarcheStatut.ordre) {
+      const demarchesStatuts = await demarchesStatutsGet()
+
+      await ordreUpdate(demarcheStatut, demarchesStatuts, demarcheStatutUpdate)
+    }
+
+    await demarcheStatutUpdate(demarcheStatut.id!, demarcheStatut)
+
+    const demarchesStatuts = await demarchesStatutsGet()
+
+    return demarchesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const phaseStatutModifier = async (
+  { phaseStatut }: { phaseStatut: IPhaseStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await phaseStatutUpdate(phaseStatut.id!, phaseStatut)
+
+    const phasesStatuts = await phasesStatutsGet()
+
+    return phasesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeTypeModifier = async (
+  { etapeType }: { etapeType: IEtapeType },
+  context: IToken,
+  info: GraphQLResolveInfo
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    const fields = fieldsBuild(info)
+
+    if (etapeType.ordre) {
+      const etapesTypes = await etapesTypesGet({}, { fields }, context.user?.id)
+
+      await ordreUpdate(etapeType, etapesTypes, etapeTypeUpdate)
+    }
+
+    await etapeTypeUpdate(etapeType.id!, etapeType)
+
+    const etapesTypes = await etapesTypesGet({}, { fields }, context.user?.id)
+
+    return etapesTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const etapeStatutModifier = async (
+  { etapeStatut }: { etapeStatut: IEtapeStatut },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (etapeStatut.ordre) {
+      const etapesStatuts = await etapesStatutsGet()
+
+      await ordreUpdate(etapeStatut, etapesStatuts, etapeStatutUpdate)
+    }
+
+    await etapeStatutUpdate(etapeStatut.id!, etapeStatut)
+
+    const etapesStatuts = await etapesStatutsGet()
+
+    return etapesStatuts
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const deviseModifier = async (
+  { devise }: { devise: IDevise },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await deviseUpdate(devise.id!, devise)
+
+    const devises = await devisesGet()
+
+    return devises
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const uniteModifier = async ({ unite }: { unite: IUnite }, context: IToken) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await uniteUpdate(unite.id!, unite)
+
+    const unites = await unitesGet()
+
+    return unites
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const administrationTypeModifier = async (
+  { administrationType }: { administrationType: IAdministrationType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (administrationType.ordre) {
+      const administrationsTypes = await administrationsTypesGet()
+
+      await ordreUpdate(
+        administrationType,
+        administrationsTypes,
+        administrationTypeUpdate
+      )
+    }
+
+    await administrationTypeUpdate(administrationType.id!, administrationType)
+
+    const administrationsTypes = await administrationsTypesGet()
+
+    return administrationsTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const permissionModifier = async (
+  { permission }: { permission: IPermission },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (permission.ordre) {
+      const permissions = await permissionsGet(
+        null as never,
+        null as never,
+        context.user?.id
+      )
+
+      await ordreUpdate(permission, permissions, permissionUpdate)
+    }
+
+    await permissionUpdate(permission.id!, permission)
+
+    const permissions = await permissionsGet(
+      null as never,
+      null as never,
+      context.user?.id
+    )
+
+    return permissions
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const geoSystemeModifier = async (
+  { geoSysteme }: { geoSysteme: IGeoSysteme },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    if (geoSysteme.ordre) {
+      const geoSystemes = await geoSystemesGet()
+
+      await ordreUpdate(geoSysteme, geoSystemes, geoSystemeUpdate)
+    }
+
+    await geoSystemeUpdate(geoSysteme.id!, geoSysteme)
+
+    const geoSystemes = await geoSystemesGet()
+
+    return geoSystemes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
+const documentTypeModifier = async (
+  { documentType }: { documentType: IDocumentType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await documentTypeUpdate(documentType.id!, documentType)
+
+    const documentTypes = await documentsTypesGet({})
+
+    return documentTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+const referenceTypeModifier = async (
+  { referenceType }: { referenceType: IReferenceType },
+  context: IToken
+) => {
+  try {
+    const user = await userGet(context.user?.id)
+
+    if (!permissionCheck(user?.permissionId, ['super'])) {
+      throw new Error('droits insuffisants')
+    }
+
+    await referenceTypeUpdate(referenceType.id!, referenceType)
+
+    const referenceTypes = await referencesTypesGet()
+
+    return referenceTypes
+  } catch (e) {
+    if (debug) {
+      console.error(e)
+    }
+
+    throw e
+  }
+}
+
 export {
   devises,
   demarchesTypes,
@@ -474,8 +1066,10 @@ export {
   geoSystemes,
   permission,
   permissions,
+  phasesStatuts,
   referencesTypes,
   statuts,
+  titreStatutModifier,
   types,
   unites,
   version,
@@ -484,5 +1078,21 @@ export {
   definitions,
   administrationsTypes,
   regions,
-  departements
+  departements,
+  domaineModifier,
+  definitionModifier,
+  titreTypeTypeModifier,
+  demarcheTypeModifier,
+  travauxTypeModifier,
+  demarcheStatutModifier,
+  phaseStatutModifier,
+  etapeTypeModifier,
+  etapeStatutModifier,
+  deviseModifier,
+  uniteModifier,
+  administrationTypeModifier,
+  permissionModifier,
+  documentTypeModifier,
+  referenceTypeModifier,
+  geoSystemeModifier
 }

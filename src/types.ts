@@ -186,6 +186,7 @@ interface ICoordonnees {
 interface IDemarcheStatut {
   id: string
   nom: string
+  ordre: number
   couleur: string
 }
 
@@ -230,6 +231,7 @@ interface IDocumentType {
 interface IDomaine {
   id: string
   nom: string
+  description?: string
   ordre: number
   titresTypes: ITitreType[]
   titresCreation: boolean
@@ -271,6 +273,8 @@ interface IEntreprise {
 interface IEtapeStatut {
   id: string
   nom: string
+  ordre: number
+  description?: string
   couleur: string
 }
 
@@ -420,6 +424,43 @@ interface ITitreTypeTitreStatut {
   titreStatutId: string
   titreStatut?: ITitreStatut | null
   publicLecture: boolean
+}
+
+interface ITitreTypeDemarcheType {
+  titreTypeId: string
+  demarcheTypeId: string
+  dureeMax?: number | null
+  acceptationImplicite?: boolean | null
+  delaiImplicite?: number | null
+  delaiRecours?: number | null
+  legalRef?: string | null
+  legaleLien?: string | null
+  dateDebut?: string | null
+  dateFin?: string | null
+}
+
+interface IDemarcheTypeDemarcheStatut {
+  demarcheTypeId: string
+  demarcheStatutId: string
+  ordre: number
+}
+
+interface IEtapeTypeEtapeStatut {
+  etapeTypeId: string
+  etapeStatutId: string
+  ordre: number
+}
+
+interface ITravauxTypeDemarcheStatut {
+  travauxTypeId: string
+  demarcheStatutId: string
+  ordre: number
+}
+
+interface ITravauxTypeEtapeType {
+  travauxTypeId: string
+  etapeTypeId: string
+  ordre: number
 }
 
 interface IAdministrationTitreType {
@@ -768,7 +809,6 @@ interface ITitreTypeType {
   id: string
   nom: string
   ordre: number
-  exploitation?: boolean | null
 }
 
 interface ITitreTypeDemarcheTypeEtapeType {
@@ -866,20 +906,10 @@ interface ITitreEtapesTypesRestrictions {
 
 type IFormat = 'xlsx' | 'csv' | 'ods' | 'geojson' | 'json' | 'pdf'
 
-interface ITelechargement {
-  __typename: 'Telechargement'
-  contenu: string
-  nom: string
-  taille: number
-  type: string
-  ordre: string
-  colonne: string
-  total: number
-}
-
 interface IDefinition {
   id: string
   nom: string
+  ordre: number
   slug: string
   table?: string
   description?: string | null
@@ -937,6 +967,11 @@ export {
   IReferenceType,
   IRegion,
   ITitreTypeTitreStatut,
+  ITitreTypeDemarcheType,
+  IDemarcheTypeDemarcheStatut,
+  IEtapeTypeEtapeStatut,
+  ITravauxTypeDemarcheStatut,
+  ITravauxTypeEtapeType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
@@ -989,6 +1024,5 @@ export {
   ITitreEtapesTypesRestrictions,
   ITitreEtapeCondition,
   ITitreCondition,
-  ITelechargement,
   IDefinition
 }

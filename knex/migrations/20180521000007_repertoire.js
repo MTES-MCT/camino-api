@@ -139,7 +139,6 @@ exports.up = knex =>
         .index()
         .references('permissions.id')
         .notNullable()
-        .onDelete('CASCADE')
       table.json('preferences')
     })
     .createTable('utilisateurs__entreprises', table => {

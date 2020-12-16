@@ -16,7 +16,6 @@
 # import * from 'utilisateurs.graphql'
 # import * from 'titres-travaux-demarches.graphql'
 # import * from 'titres-travaux-etapes.graphql'
-# import * from 'metas-travaux.graphql'
 
 "Type du contenu json"
 scalar Json
@@ -170,6 +169,17 @@ type Query {
   administrationsTypes: [AdministrationType]
   departements: [Departement]
   regions: [Region]
+  phasesStatuts: [PhaseStatut]
+  titresTypes: [TitreType]
+
+  titresTypesTitresStatuts: [TitreTypeTitreStatut]
+
+  titresTypesDemarchesTypes: [TitreTypeDemarcheType]
+  demarchesTypesDemarchesStatuts: [DemarcheTypeDemarcheStatut]
+  titresTypesDemarchesTypesEtapesTypes: [TitreTypeDemarcheTypeEtapeType]
+  etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
+  travauxTypesDemarchesStatuts: [TravauxTypeDemarcheStatut]
+  travauxTypesEtapesTypes: [TravauxTypeEtapeType]
 
   "Liste des permissions utilisateurs"
   permissions: [Permission]
@@ -211,7 +221,7 @@ type Query {
   "Définitions et descriptions"
   definitions: [Definition]
 
-  "Types de démarches"
+  "Types de travaux"
   travauxTypes(titreId: ID, titreTravauxId: ID): [TravauxType]
 }
 
@@ -353,4 +363,130 @@ type Mutation {
 
   "Supprime une étape de travaux et met à jour le titre minier"
   travauxEtapeSupprimer(id: ID!): Titre
+
+  domaineModifier(domaine: InputDomaine!): [Domaine]
+
+  definitionModifier(definition: InputDefinition!): [Definition]
+
+  titreTypeTypeModifier(titreType: InputTitreTypeType!): [TitreTypeType]
+
+  titreStatutModifier(titreStatut: InputTitreStatut!): [TitreStatut]
+
+  demarcheTypeModifier(demarcheType: InputDemarcheType!): [DemarcheType]
+
+  travauxTypeModifier(travauxType: InputTravauxType!): [TravauxType]
+
+  demarcheStatutModifier(demarcheStatut: InputDemarcheStatut!): [DemarcheStatut]
+
+  phaseStatutModifier(phaseStatut: InputPhaseStatut!): [PhaseStatut]
+
+  etapeTypeModifier(etapeType: InputEtapeType!): [EtapeType]
+
+  etapeStatutModifier(etapeStatut: InputEtapeStatut!): [EtapeStatut]
+
+  deviseModifier(devise: InputDevise!): [Devise]
+
+  uniteModifier(unite: InputUnite!): [Unite]
+
+  administrationTypeModifier(
+    administrationType: InputAdministrationType!
+  ): [AdministrationType]
+
+  permissionModifier(permission: InputPermission!): [Permission]
+
+  documentTypeModifier(documentType: InputDocumentType!): [DocumentType]
+
+  referenceTypeModifier(referenceType: InputReferenceType!): [ReferenceType]
+
+  geoSystemeModifier(geoSysteme: InputGeoSysteme!): [GeoSysteme]
+
+  titreTypeModifier(titreType: InputTitreTypeModification!): [TitreType]
+
+  titreTypeCreer(titreType: InputTitreTypeCreation!): [TitreType]
+
+  titreTypeSupprimer(titreType: InputTitreTypeModification!): [TitreType]
+
+  titreTypeTitreStatutModifier(
+    titreTypeTitreStatut: InputTitreTypeTitreStatut!
+  ): [TitreTypeTitreStatut]
+
+  titreTypeTitreStatutCreer(
+    titreTypeTitreStatut: InputTitreTypeTitreStatut!
+  ): [TitreTypeTitreStatut]
+
+  titreTypeTitreStatutSupprimer(
+    titreTypeTitreStatut: InputTitreTypeTitreStatut!
+  ): [TitreTypeTitreStatut]
+
+  titreTypeDemarcheTypeModifier(
+    titreTypeDemarcheType: InputTitreTypeDemarcheType!
+  ): [TitreTypeDemarcheType]
+
+  titreTypeDemarcheTypeCreer(
+    titreTypeDemarcheType: InputTitreTypeDemarcheType!
+  ): [TitreTypeDemarcheType]
+
+  titreTypeDemarcheTypeSupprimer(
+    titreTypeDemarcheType: InputTitreTypeDemarcheType!
+  ): [TitreTypeDemarcheType]
+
+  demarcheTypeDemarcheStatutModifier(
+    demarcheTypeDemarcheStatut: InputDemarcheTypeDemarcheStatut!
+  ): [DemarcheTypeDemarcheStatut]
+
+  demarcheTypeDemarcheStatutCreer(
+    demarcheTypeDemarcheStatut: InputDemarcheTypeDemarcheStatut!
+  ): [DemarcheTypeDemarcheStatut]
+
+  demarcheTypeDemarcheStatutSupprimer(
+    demarcheTypeDemarcheStatut: InputDemarcheTypeDemarcheStatut!
+  ): [DemarcheTypeDemarcheStatut]
+
+  titreTypeDemarcheTypeEtapeTypeModifier(
+    titreTypeDemarcheTypeEtapeType: InputTitreTypeDemarcheTypeEtapeType!
+  ): [TitreTypeDemarcheTypeEtapeType]
+
+  titreTypeDemarcheTypeEtapeTypeCreer(
+    titreTypeDemarcheTypeEtapeType: InputTitreTypeDemarcheTypeEtapeType!
+  ): [TitreTypeDemarcheTypeEtapeType]
+
+  titreTypeDemarcheTypeEtapeTypeSupprimer(
+    titreTypeDemarcheTypeEtapeType: InputTitreTypeDemarcheTypeEtapeType!
+  ): [TitreTypeDemarcheTypeEtapeType]
+
+  etapeTypeEtapeStatutModifier(
+    etapeTypeEtapeStatut: InputEtapeTypeEtapeStatut!
+  ): [EtapeTypeEtapeStatut]
+
+  etapeTypeEtapeStatutCreer(
+    etapeTypeEtapeStatut: InputEtapeTypeEtapeStatut!
+  ): [EtapeTypeEtapeStatut]
+
+  etapeTypeEtapeStatutSupprimer(
+    etapeTypeEtapeStatut: InputEtapeTypeEtapeStatut!
+  ): [EtapeTypeEtapeStatut]
+
+  travauxTypeDemarcheStatutModifier(
+    travauxTypeDemarcheStatut: InputTravauxTypeDemarcheStatut!
+  ): [TravauxTypeDemarcheStatut]
+
+  travauxTypeDemarcheStatutCreer(
+    travauxTypeDemarcheStatut: InputTravauxTypeDemarcheStatut!
+  ): [TravauxTypeDemarcheStatut]
+
+  travauxTypeDemarcheStatutSupprimer(
+    travauxTypeDemarcheStatut: InputTravauxTypeDemarcheStatut!
+  ): [TravauxTypeDemarcheStatut]
+
+  travauxTypeEtapeTypeModifier(
+    travauxTypeEtapeType: InputTravauxTypeEtapeType!
+  ): [TravauxTypeEtapeType]
+
+  travauxTypeEtapeTypeCreer(
+    travauxTypeEtapeType: InputTravauxTypeEtapeType!
+  ): [TravauxTypeEtapeType]
+
+  travauxTypeEtapeTypeSupprimer(
+    travauxTypeEtapeType: InputTravauxTypeEtapeType!
+  ): [TravauxTypeEtapeType]
 }

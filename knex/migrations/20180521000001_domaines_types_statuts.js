@@ -10,7 +10,6 @@ exports.up = knex =>
       table.string('id', 2).primary()
       table.string('nom').notNullable()
       table.text('description')
-      table.boolean('exploitation')
       table.integer('ordre').notNullable()
     })
     .createTable('titresTypes', table => {
@@ -20,13 +19,11 @@ exports.up = knex =>
         .index()
         .references('domaines.id')
         .notNullable()
-        .onDelete('CASCADE')
       table
         .string('typeId', 3)
         .index()
         .references('titresTypesTypes.id')
         .notNullable()
-        .onDelete('CASCADE')
       table.specificType('props_etapes_types', 'jsonb[]')
       table.boolean('archive')
       table.unique(['domaineId', 'typeId'])
@@ -49,7 +46,7 @@ exports.up = knex =>
         .index()
         .references('titresStatuts.id')
         .notNullable()
-      table.boolean('publicLecture').notNullable()
+      table.boolean('publicLecture')
       table.primary(['titreTypeId', 'titreStatutId'])
     })
 

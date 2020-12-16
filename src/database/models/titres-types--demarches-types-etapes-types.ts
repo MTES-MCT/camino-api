@@ -9,7 +9,7 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
 
   public static jsonSchema = {
     type: 'object',
-    required: ['id', 'nom', 'ordre'],
+    required: ['titreTypeId', 'demarcheTypeId', 'etapeTypeId', 'ordre'],
 
     properties: {
       titreTypeId: { type: 'string', maxLength: 3 },
@@ -19,6 +19,8 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
       sections: { type: 'json' }
     }
   }
+
+  public static idColumn = ['titreTypeId', 'demarcheTypeId', 'etapeTypeId']
 }
 
 export default TitresTypesDemarchesTypesEtapesTypes

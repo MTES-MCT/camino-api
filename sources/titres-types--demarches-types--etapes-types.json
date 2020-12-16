@@ -23722,12 +23722,6 @@
   },
   {
     "titre_type_id": "arm",
-    "demarche_type_id": "pro",
-    "etape_type_id": "nis",
-    "ordre": "1450"
-  },
-  {
-    "titre_type_id": "arm",
     "demarche_type_id": "ren",
     "etape_type_id": "aco",
     "ordre": "1250"
@@ -23751,12 +23745,6 @@
         ]
       }
     ]
-  },
-  {
-    "titre_type_id": "arm",
-    "demarche_type_id": "ren",
-    "etape_type_id": "nis",
-    "ordre": "1450"
   },
   {
     "titre_type_id": "cxm",

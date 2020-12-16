@@ -1,15 +1,14 @@
 import { Model } from 'objection'
-
 import { ITitreTypeTitreStatut } from '../../types'
 
-interface AutorisationsTitresTypesTitresStatuts extends ITitreTypeTitreStatut {}
+interface TitresTypesTitresStatuts extends ITitreTypeTitreStatut {}
 
-class AutorisationsTitresTypesTitresStatuts extends Model {
+class TitresTypesTitresStatuts extends Model {
   public static tableName = 'titresTypes__titresStatuts'
 
   public static jsonSchema = {
     type: 'object',
-    required: ['titreTypeId', 'titreStatutId', 'publicLecture'],
+    required: ['titreTypeId', 'titreStatutId'],
 
     properties: {
       titreTypeId: { type: 'string', maxLength: 3 },
@@ -21,4 +20,4 @@ class AutorisationsTitresTypesTitresStatuts extends Model {
   public static idColumn = ['titreTypeId', 'titreStatutId']
 }
 
-export { AutorisationsTitresTypesTitresStatuts }
+export default TitresTypesTitresStatuts
