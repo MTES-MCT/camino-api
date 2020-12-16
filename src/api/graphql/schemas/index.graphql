@@ -175,10 +175,8 @@ type Query {
   titresTypesTitresStatuts: [TitreTypeTitreStatut]
 
   titresTypesDemarchesTypes: [TitreTypeDemarcheType]
-  demarchesTypesDemarchesStatuts: [DemarcheTypeDemarcheStatut]
   titresTypesDemarchesTypesEtapesTypes: [TitreTypeDemarcheTypeEtapeType]
   etapesTypesEtapesStatuts: [EtapeTypeEtapeStatut]
-  travauxTypesDemarchesStatuts: [TravauxTypeDemarcheStatut]
   travauxTypesEtapesTypes: [TravauxTypeEtapeType]
 
   "Liste des permissions utilisateurs"
@@ -430,18 +428,6 @@ type Mutation {
     titreTypeDemarcheType: InputTitreTypeDemarcheType!
   ): [TitreTypeDemarcheType]
 
-  demarcheTypeDemarcheStatutModifier(
-    demarcheTypeDemarcheStatut: InputDemarcheTypeDemarcheStatut!
-  ): [DemarcheTypeDemarcheStatut]
-
-  demarcheTypeDemarcheStatutCreer(
-    demarcheTypeDemarcheStatut: InputDemarcheTypeDemarcheStatut!
-  ): [DemarcheTypeDemarcheStatut]
-
-  demarcheTypeDemarcheStatutSupprimer(
-    demarcheTypeDemarcheStatut: InputDemarcheTypeDemarcheStatut!
-  ): [DemarcheTypeDemarcheStatut]
-
   titreTypeDemarcheTypeEtapeTypeModifier(
     titreTypeDemarcheTypeEtapeType: InputTitreTypeDemarcheTypeEtapeType!
   ): [TitreTypeDemarcheTypeEtapeType]
@@ -465,18 +451,6 @@ type Mutation {
   etapeTypeEtapeStatutSupprimer(
     etapeTypeEtapeStatut: InputEtapeTypeEtapeStatut!
   ): [EtapeTypeEtapeStatut]
-
-  travauxTypeDemarcheStatutModifier(
-    travauxTypeDemarcheStatut: InputTravauxTypeDemarcheStatut!
-  ): [TravauxTypeDemarcheStatut]
-
-  travauxTypeDemarcheStatutCreer(
-    travauxTypeDemarcheStatut: InputTravauxTypeDemarcheStatut!
-  ): [TravauxTypeDemarcheStatut]
-
-  travauxTypeDemarcheStatutSupprimer(
-    travauxTypeDemarcheStatut: InputTravauxTypeDemarcheStatut!
-  ): [TravauxTypeDemarcheStatut]
 
   travauxTypeEtapeTypeModifier(
     travauxTypeEtapeType: InputTravauxTypeEtapeType!

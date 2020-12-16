@@ -6,20 +6,6 @@ exports.up = knex =>
       table.text('description')
       table.integer('ordre').notNullable()
     })
-    .createTable('travauxTypes__demarchesStatuts', table => {
-      table
-        .string('travauxTypeId', 3)
-        .index()
-        .references('travauxTypes.id')
-        .notNullable()
-      table
-        .string('demarcheStatutId')
-        .index()
-        .references('demarchesStatuts.id')
-        .notNullable()
-      table.integer('ordre').notNullable()
-      table.primary(['travauxTypeId', 'demarcheStatutId'])
-    })
     .createTable('travauxTypes__etapesTypes', table => {
       table
         .string('travauxTypeId', 3)
@@ -37,7 +23,4 @@ exports.up = knex =>
     })
 
 exports.down = knex =>
-  knex.schema
-    .dropTable('travauxTypes__etapesTypes')
-    .dropTable('travauxTypes__demarchesStatuts')
-    .dropTable('travauxTypes')
+  knex.schema.dropTable('travauxTypes__etapesTypes').dropTable('travauxTypes')

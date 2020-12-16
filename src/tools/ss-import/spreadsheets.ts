@@ -142,7 +142,6 @@ const metas = {
     { name: 'demarches_types' },
     { name: 'demarches_statuts' },
     { name: 'titres_types__demarches_types' },
-    { name: 'demarches_types__demarches_statuts' },
     { name: 'phases_statuts' },
     { name: 'etapes_types', cb: { sections: JSON.parse } },
     { name: 'etapes_statuts' },
@@ -153,7 +152,6 @@ const metas = {
     },
 
     { name: 'travaux_types' },
-    { name: 'travaux_types__demarches_statuts' },
     { name: 'travaux_types__etapes_types' },
     { name: 'geo_systemes' },
     { name: 'devises' },

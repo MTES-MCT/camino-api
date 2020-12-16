@@ -439,21 +439,9 @@ interface ITitreTypeDemarcheType {
   dateFin?: string | null
 }
 
-interface IDemarcheTypeDemarcheStatut {
-  demarcheTypeId: string
-  demarcheStatutId: string
-  ordre: number
-}
-
 interface IEtapeTypeEtapeStatut {
   etapeTypeId: string
   etapeStatutId: string
-  ordre: number
-}
-
-interface ITravauxTypeDemarcheStatut {
-  travauxTypeId: string
-  demarcheStatutId: string
   ordre: number
 }
 
@@ -968,9 +956,7 @@ export {
   IRegion,
   ITitreTypeTitreStatut,
   ITitreTypeDemarcheType,
-  IDemarcheTypeDemarcheStatut,
   IEtapeTypeEtapeStatut,
-  ITravauxTypeDemarcheStatut,
   ITravauxTypeEtapeType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,

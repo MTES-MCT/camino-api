@@ -33,22 +33,6 @@ class TravauxTypes extends Model {
         },
         to: 'etapesTypes.id'
       }
-    },
-
-    // todo: a-t-on besoin de cette jointure ?
-    statuts: {
-      relation: Model.ManyToManyRelation,
-      modelClass: join(__dirname, 'demarches-statuts'),
-      join: {
-        from: 'travauxTypes.id',
-        through: {
-          from: 'travauxTypes__demarchesStatuts.travauxTypeId',
-          to: 'travauxTypes__demarchesStatuts.demarcheStatutId',
-          // permet de donner un alias spécial aux champs extra { alias: field }
-          extra: ['ordre']
-        },
-        to: 'demarchesStatuts.id'
-      }
     }
   }
 

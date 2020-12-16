@@ -1,12 +1,10 @@
 import {
-  IDemarcheTypeDemarcheStatut,
   ITitreType,
   ITitreTypeTitreStatut,
   ITitreTypeDemarcheType,
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
   IToken,
-  ITravauxTypeDemarcheStatut,
   ITravauxTypeEtapeType
 } from '../../../types'
 
@@ -29,10 +27,6 @@ import {
   titreTypeDemarcheTypeUpdate,
   titreTypeDemarcheTypeCreate,
   titreTypeDemarcheTypeDelete,
-  demarchesTypesDemarchesStatutsGet,
-  demarcheTypeDemarcheStatutUpdate,
-  demarcheTypeDemarcheStatutCreate,
-  demarcheTypeDemarcheStatutDelete,
   titresTypesDemarchesTypesEtapesTypesGet,
   titreTypeDemarcheTypeEtapeTypeUpdate,
   titreTypeDemarcheTypeEtapeTypeCreate,
@@ -41,10 +35,6 @@ import {
   etapeTypeEtapeStatutUpdate,
   etapeTypeEtapeStatutCreate,
   etapeTypeEtapeStatutDelete,
-  travauxTypesDemarchesStatutsGet,
-  travauxTypeDemarcheStatutUpdate,
-  travauxTypeDemarcheStatutCreate,
-  travauxTypeDemarcheStatutDelete,
   travauxTypesEtapesTypesGet,
   travauxTypeEtapeTypeUpdate,
   travauxTypeEtapeTypeCreate,
@@ -354,116 +344,6 @@ const titreTypeDemarcheTypeSupprimer = async (
 
 //
 
-const demarchesTypesDemarchesStatuts = async (_: never, context: IToken) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const demarchesTypesDemarchesStatuts = await demarchesTypesDemarchesStatutsGet()
-
-    return demarchesTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const demarcheTypeDemarcheStatutModifier = async (
-  {
-    demarcheTypeDemarcheStatut
-  }: { demarcheTypeDemarcheStatut: IDemarcheTypeDemarcheStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await demarcheTypeDemarcheStatutUpdate(
-      demarcheTypeDemarcheStatut.demarcheTypeId,
-      demarcheTypeDemarcheStatut.demarcheStatutId,
-      demarcheTypeDemarcheStatut
-    )
-
-    const demarchesTypesDemarchesStatuts = await demarchesTypesDemarchesStatutsGet()
-
-    return demarchesTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const demarcheTypeDemarcheStatutCreer = async (
-  {
-    demarcheTypeDemarcheStatut
-  }: { demarcheTypeDemarcheStatut: IDemarcheTypeDemarcheStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await demarcheTypeDemarcheStatutCreate(demarcheTypeDemarcheStatut)
-
-    const demarchesTypesDemarchesStatuts = await demarchesTypesDemarchesStatutsGet()
-
-    return demarchesTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const demarcheTypeDemarcheStatutSupprimer = async (
-  {
-    demarcheTypeDemarcheStatut
-  }: { demarcheTypeDemarcheStatut: IDemarcheTypeDemarcheStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await demarcheTypeDemarcheStatutDelete(
-      demarcheTypeDemarcheStatut.demarcheTypeId,
-      demarcheTypeDemarcheStatut.demarcheStatutId
-    )
-
-    const demarchesTypesDemarchesStatuts = await demarchesTypesDemarchesStatutsGet()
-
-    return demarchesTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-//
-
 const titresTypesDemarchesTypesEtapesTypes = async (
   _: never,
   context: IToken
@@ -683,116 +563,6 @@ const etapeTypeEtapeStatutSupprimer = async (
 
 //
 
-const travauxTypesDemarchesStatuts = async (_: never, context: IToken) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const travauxTypesDemarchesStatuts = await travauxTypesDemarchesStatutsGet()
-
-    return travauxTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const travauxTypeDemarcheStatutModifier = async (
-  {
-    travauxTypeDemarcheStatut
-  }: { travauxTypeDemarcheStatut: ITravauxTypeDemarcheStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await travauxTypeDemarcheStatutUpdate(
-      travauxTypeDemarcheStatut.travauxTypeId,
-      travauxTypeDemarcheStatut.demarcheStatutId,
-      travauxTypeDemarcheStatut
-    )
-
-    const travauxTypesDemarchesStatuts = await travauxTypesDemarchesStatutsGet()
-
-    return travauxTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const travauxTypeDemarcheStatutCreer = async (
-  {
-    travauxTypeDemarcheStatut
-  }: { travauxTypeDemarcheStatut: ITravauxTypeDemarcheStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await travauxTypeDemarcheStatutCreate(travauxTypeDemarcheStatut)
-
-    const travauxTypesDemarchesStatuts = await travauxTypesDemarchesStatutsGet()
-
-    return travauxTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const travauxTypeDemarcheStatutSupprimer = async (
-  {
-    travauxTypeDemarcheStatut
-  }: { travauxTypeDemarcheStatut: ITravauxTypeDemarcheStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await travauxTypeDemarcheStatutDelete(
-      travauxTypeDemarcheStatut.travauxTypeId,
-      travauxTypeDemarcheStatut.demarcheStatutId
-    )
-
-    const travauxTypesDemarchesStatuts = await travauxTypesDemarchesStatutsGet()
-
-    return travauxTypesDemarchesStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-//
-
 const travauxTypesEtapesTypes = async (_: never, context: IToken) => {
   try {
     const user = await userGet(context.user?.id)
@@ -908,10 +678,6 @@ export {
   titreTypeDemarcheTypeModifier,
   titreTypeDemarcheTypeCreer,
   titreTypeDemarcheTypeSupprimer,
-  demarchesTypesDemarchesStatuts,
-  demarcheTypeDemarcheStatutModifier,
-  demarcheTypeDemarcheStatutCreer,
-  demarcheTypeDemarcheStatutSupprimer,
   titresTypesDemarchesTypesEtapesTypes,
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
@@ -920,10 +686,6 @@ export {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-  travauxTypesDemarchesStatuts,
-  travauxTypeDemarcheStatutModifier,
-  travauxTypeDemarcheStatutCreer,
-  travauxTypeDemarcheStatutSupprimer,
   travauxTypesEtapesTypes,
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,

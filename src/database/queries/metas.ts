@@ -21,10 +21,8 @@ import {
   ITitreType,
   ITitreTypeTitreStatut,
   ITitreTypeDemarcheType,
-  IDemarcheTypeDemarcheStatut,
   ITitreTypeDemarcheTypeEtapeType,
   IEtapeTypeEtapeStatut,
-  ITravauxTypeDemarcheStatut,
   ITravauxTypeEtapeType
 } from '../../types'
 
@@ -68,9 +66,7 @@ import TitresTypes from '../models/titres-types'
 import TitresTypesTitresStatuts from '../models/titres-types--titres-statuts'
 import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarches-types-etapes-types'
 import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
-import DemarchesTypesDemarchesStatuts from '../models/demarches-types--demarches-statuts'
 import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
-import TravauxTypesDemarchesStatuts from '../models/travaux-types--demarches-statuts'
 import TravauxTypesEtapesTypes from '../models/travaux-types--etapes-types'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
@@ -188,38 +184,6 @@ const titreTypeDemarcheTypeDelete = async (
   demarcheTypeId: string
 ) => TitresTypesDemarchesTypes.query().deleteById([titreTypeId, demarcheTypeId])
 
-const demarchesTypesDemarchesStatutsGet = async () =>
-  DemarchesTypesDemarchesStatuts.query().orderBy([
-    'titreTypeId',
-    'titreStatutId'
-  ])
-
-const demarcheTypeDemarcheStatutUpdate = async (
-  demarcheTypeId: string,
-  demarcheStatutId: string,
-  props: Partial<IDemarcheTypeDemarcheStatut>
-) =>
-  DemarchesTypesDemarchesStatuts.query().patchAndFetchById(
-    [demarcheTypeId, demarcheStatutId],
-    props
-  )
-
-const demarcheTypeDemarcheStatutCreate = async (
-  demarcheTypeDemarcheStatut: IDemarcheTypeDemarcheStatut
-) =>
-  DemarchesTypesDemarchesStatuts.query().insertAndFetch(
-    demarcheTypeDemarcheStatut
-  )
-
-const demarcheTypeDemarcheStatutDelete = async (
-  demarcheTypeId: string,
-  demarcheStatutId: string
-) =>
-  DemarchesTypesDemarchesStatuts.query().deleteById([
-    demarcheTypeId,
-    demarcheStatutId
-  ])
-
 const titresTypesDemarchesTypesEtapesTypesGet = async () =>
   TitresTypesDemarchesTypesEtapesTypes.query().orderBy([
     'titreTypeId',
@@ -277,36 +241,6 @@ const etapeTypeEtapeStatutDelete = async (
   etapeTypeId: string,
   etapeStatutId: string
 ) => EtapesTypesEtapesStatuts.query().deleteById([etapeTypeId, etapeStatutId])
-
-const travauxTypesDemarchesStatutsGet = async () =>
-  TravauxTypesDemarchesStatuts.query().orderBy([
-    'travauxTypeId',
-    'demarcheStatutId'
-  ])
-
-const travauxTypeDemarcheStatutUpdate = async (
-  travauxTypeId: string,
-  demarcheStatutId: string,
-  props: Partial<ITravauxTypeDemarcheStatut>
-) =>
-  TravauxTypesDemarchesStatuts.query().patchAndFetchById(
-    [travauxTypeId, demarcheStatutId],
-    props
-  )
-
-const travauxTypeDemarcheStatutCreate = async (
-  travauxTypeDemarcheStatut: ITravauxTypeDemarcheStatut
-) =>
-  TravauxTypesDemarchesStatuts.query().insertAndFetch(travauxTypeDemarcheStatut)
-
-const travauxTypeDemarcheStatutDelete = async (
-  travauxTypeId: string,
-  demarcheStatutId: string
-) =>
-  TravauxTypesDemarchesStatuts.query().deleteById([
-    travauxTypeId,
-    demarcheStatutId
-  ])
 
 const travauxTypesEtapesTypesGet = async () =>
   TravauxTypesEtapesTypes.query().orderBy(['travauxTypeId', 'etapeTypeId'])
@@ -595,10 +529,6 @@ export {
   titreTypeDemarcheTypeUpdate,
   titreTypeDemarcheTypeCreate,
   titreTypeDemarcheTypeDelete,
-  demarchesTypesDemarchesStatutsGet,
-  demarcheTypeDemarcheStatutUpdate,
-  demarcheTypeDemarcheStatutCreate,
-  demarcheTypeDemarcheStatutDelete,
   titresTypesDemarchesTypesEtapesTypesGet,
   titreTypeDemarcheTypeEtapeTypeUpdate,
   titreTypeDemarcheTypeEtapeTypeCreate,
@@ -607,10 +537,6 @@ export {
   etapeTypeEtapeStatutUpdate,
   etapeTypeEtapeStatutCreate,
   etapeTypeEtapeStatutDelete,
-  travauxTypesDemarchesStatutsGet,
-  travauxTypeDemarcheStatutUpdate,
-  travauxTypeDemarcheStatutCreate,
-  travauxTypeDemarcheStatutDelete,
   travauxTypesEtapesTypesGet,
   travauxTypeEtapeTypeUpdate,
   travauxTypeEtapeTypeCreate,

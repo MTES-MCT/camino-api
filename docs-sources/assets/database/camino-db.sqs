@@ -11,7 +11,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>48</zorder>
+        <zorder>47</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER(2)]]></type>
@@ -113,7 +113,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>29</zorder>
+        <zorder>28</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(5)]]></type>
@@ -164,73 +164,12 @@
             <width>800.00</width>
             <height>250.00</height>
         </size>
-        <zorder>53</zorder>
+        <zorder>52</zorder>
         <commentTitle><![CDATA[unités]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[36]]></labelWindowIndex>
         <uid><![CDATA[0713D96D-BDD1-4203-B06B-D6DA35620461]]></uid>
     </SQLCanvasArea>
-    <SQLTable>
-        <name><![CDATA[demarches_types__demarches_statuts]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>75.00</x>
-            <y>1075.00</y>
-        </location>
-        <size>
-            <width>300.00</width>
-            <height>100.00</height>
-        </size>
-        <zorder>28</zorder>
-        <SQLField>
-            <name><![CDATA[demarche_type_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <referencesField>id</referencesField>
-            <referencesTable>demarches_types</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[demarches_types]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[9ED847D6-C032-4D40-9FD0-77810B3E2C18]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[2E495347-838B-49F1-8A3E-F0F54BFF7BDA]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <foreignKeyName><![CDATA[titresdomainestypes_typeid_foreign]]></foreignKeyName>
-            <notNull><![CDATA[0]]></notNull>
-            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
-            <uid><![CDATA[7C1544D1-FADF-4DA9-817E-FF437AC1B11F]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[demarche_statut_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <referencesField>id</referencesField>
-            <referencesTable>demarches_statuts</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[demarches_statuts]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[DF4DAF70-025C-49EF-83FE-250F65EAD2D1]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[2F804401-7A00-4C87-B789-219E6D303D6D]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <foreignKeyName><![CDATA[titresdomainestypes_domaineid_foreign]]></foreignKeyName>
-            <notNull><![CDATA[0]]></notNull>
-            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
-            <uid><![CDATA[D6CDCF8E-F0BE-4671-90AE-4EFFC6709132]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[ordre]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <notNull><![CDATA[0]]></notNull>
-            <uid><![CDATA[A3784C16-C1B4-42AC-9793-AB4CAAA25588]]></uid>
-        </SQLField>
-        <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[62]]></labelWindowIndex>
-        <PK_KEY_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_KEY_NAME>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[08FC62D1-7371-4519-983D-7336363CD4D9]]></uid>
-    </SQLTable>
     <SQLTable>
         <name><![CDATA[utilisateurs__entreprises]]></name>
         <schema><![CDATA[]]></schema>
@@ -242,7 +181,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>62</zorder>
+        <zorder>61</zorder>
         <SQLField>
             <name><![CDATA[utilisateur_id]]></name>
             <type><![CDATA[CHARACTER VARYING(64)]]></type>
@@ -287,7 +226,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>45</zorder>
+        <zorder>44</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -321,7 +260,7 @@
             <width>800.00</width>
             <height>350.00</height>
         </size>
-        <zorder>54</zorder>
+        <zorder>53</zorder>
         <commentTitle><![CDATA[territoires]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[35]]></labelWindowIndex>
@@ -372,7 +311,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1350.00</y>
+            <y>1225.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -437,7 +376,7 @@
             <width>400.00</width>
             <height>425.00</height>
         </size>
-        <zorder>73</zorder>
+        <zorder>72</zorder>
         <commentTitle><![CDATA[documents]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[13]]></labelWindowIndex>
@@ -454,7 +393,7 @@
             <width>300.00</width>
             <height>80.00</height>
         </size>
-        <zorder>75</zorder>
+        <zorder>74</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -504,7 +443,7 @@
             <width>300.00</width>
             <height>180.00</height>
         </size>
-        <zorder>38</zorder>
+        <zorder>37</zorder>
         <SQLField>
             <name><![CDATA[titre_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -597,13 +536,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2425.00</y>
+            <y>2325.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>43</zorder>
+        <zorder>42</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -646,7 +585,7 @@
             <width>1200.00</width>
             <height>500.00</height>
         </size>
-        <zorder>52</zorder>
+        <zorder>51</zorder>
         <commentTitle><![CDATA[titres miniers]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[34]]></labelWindowIndex>
@@ -730,13 +669,13 @@
         <comment><![CDATA[]]></comment>
         <location>
             <x>25.00</x>
-            <y>2075.00</y>
+            <y>1975.00</y>
         </location>
         <size>
             <width>800.00</width>
             <height>500.00</height>
         </size>
-        <zorder>67</zorder>
+        <zorder>66</zorder>
         <commentTitle><![CDATA[metas activités]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[19]]></labelWindowIndex>
@@ -753,7 +692,7 @@
             <width>300.00</width>
             <height>150.00</height>
         </size>
-        <zorder>79</zorder>
+        <zorder>78</zorder>
         <SQLField>
             <name><![CDATA[titre_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -874,7 +813,7 @@
             <width>1200.00</width>
             <height>1150.00</height>
         </size>
-        <zorder>70</zorder>
+        <zorder>69</zorder>
         <commentTitle><![CDATA[droits miniers]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[15]]></labelWindowIndex>
@@ -1579,7 +1518,7 @@
             <width>300.00</width>
             <height>325.00</height>
         </size>
-        <zorder>69</zorder>
+        <zorder>68</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(255)]]></type>
@@ -1703,67 +1642,6 @@
         <uid><![CDATA[5076CFBB-6492-4CDB-8E76-FC37FF65AA5C]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[travaux_types__demarches_statuts]]></name>
-        <schema><![CDATA[]]></schema>
-        <location>
-            <x>75.00</x>
-            <y>1775.00</y>
-        </location>
-        <size>
-            <width>300.00</width>
-            <height>80.00</height>
-        </size>
-        <zorder>83</zorder>
-        <SQLField>
-            <name><![CDATA[travaux_type_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <referencesField>id</referencesField>
-            <referencesTable>travaux_types</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[travaux_types]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[D902653A-C83E-43AC-8B55-E1877BE88BEB]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[B781A599-85CC-4EDC-8E74-7B0872F97CD0]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <foreignKeyName><![CDATA[titresdomainestypes_typeid_foreign]]></foreignKeyName>
-            <notNull><![CDATA[0]]></notNull>
-            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
-            <uid><![CDATA[B521B009-005D-48DF-940A-D7C1CB3991AB]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[demarche_statut_id]]></name>
-            <type><![CDATA[CHARACTER VARYING(3)]]></type>
-            <primaryKey>1</primaryKey>
-            <referencesField>id</referencesField>
-            <referencesTable>demarches_statuts</referencesTable>
-            <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[demarches_statuts]]></referencesTable>
-            <sourceCardinality>0</sourceCardinality>
-            <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[DF4DAF70-025C-49EF-83FE-250F65EAD2D1]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[2F804401-7A00-4C87-B789-219E6D303D6D]]></referencesTableUID>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <foreignKeyName><![CDATA[titresdomainestypes_domaineid_foreign]]></foreignKeyName>
-            <notNull><![CDATA[0]]></notNull>
-            <PK_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_NAME>
-            <uid><![CDATA[315389D1-77EE-4899-AC77-794AB112636D]]></uid>
-        </SQLField>
-        <SQLField>
-            <name><![CDATA[ordre]]></name>
-            <type><![CDATA[INTEGER]]></type>
-            <autoIncrement><![CDATA[0]]></autoIncrement>
-            <notNull><![CDATA[0]]></notNull>
-            <uid><![CDATA[97538FDF-1567-463C-9BE3-D7816EDFFA53]]></uid>
-        </SQLField>
-        <labelColor><![CDATA[{1,0.576372,0,1}]]></labelColor>
-        <labelWindowIndex><![CDATA[7]]></labelWindowIndex>
-        <PK_KEY_NAME><![CDATA[titresDomainesTypes_pkey]]></PK_KEY_NAME>
-        <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
-        <uid><![CDATA[5300EBAF-087C-4D26-9870-AC0B5812D1B7]]></uid>
-    </SQLTable>
-    <SQLTable>
         <name><![CDATA[titres_points_references]]></name>
         <schema><![CDATA[]]></schema>
         <location>
@@ -1835,7 +1713,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>63</zorder>
+        <zorder>62</zorder>
         <SQLField>
             <name><![CDATA[administration_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -1889,7 +1767,7 @@
             <width>301.00</width>
             <height>140.00</height>
         </size>
-        <zorder>60</zorder>
+        <zorder>59</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(64)]]></type>
@@ -2045,13 +1923,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>2125.00</y>
+            <y>2025.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>80.00</height>
         </size>
-        <zorder>46</zorder>
+        <zorder>45</zorder>
         <SQLField>
             <name><![CDATA[domaine_id]]></name>
             <type><![CDATA[CHARACTER VARYING(1)]]></type>
@@ -2123,7 +2001,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>32</zorder>
+        <zorder>31</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -2153,13 +2031,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>2250.00</y>
+            <y>2150.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>75.00</height>
         </size>
-        <zorder>59</zorder>
+        <zorder>58</zorder>
         <SQLField>
             <name><![CDATA[pays_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -2207,13 +2085,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1475.00</y>
+            <y>1350.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>77</zorder>
+        <zorder>76</zorder>
         <SQLField>
             <name><![CDATA[etape_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -2261,9 +2139,9 @@
         </location>
         <size>
             <width>800.00</width>
-            <height>325.00</height>
+            <height>225.00</height>
         </size>
-        <zorder>81</zorder>
+        <zorder>80</zorder>
         <commentTitle><![CDATA[metas travaux]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[5]]></labelWindowIndex>
@@ -2280,7 +2158,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>42</zorder>
+        <zorder>41</zorder>
         <SQLField>
             <name><![CDATA[parent_titre_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -2328,7 +2206,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>74</zorder>
+        <zorder>73</zorder>
         <SQLField>
             <name><![CDATA[administration_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -2376,7 +2254,7 @@
             <width>800.00</width>
             <height>325.00</height>
         </size>
-        <zorder>56</zorder>
+        <zorder>55</zorder>
         <commentTitle><![CDATA[calendrier]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[33]]></labelWindowIndex>
@@ -2393,7 +2271,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>37</zorder>
+        <zorder>36</zorder>
         <SQLField>
             <name><![CDATA[substance_legale_id]]></name>
             <type><![CDATA[CHARACTER VARYING(4)]]></type>
@@ -2489,7 +2367,7 @@
             <width>300.00</width>
             <height>75.00</height>
         </size>
-        <zorder>33</zorder>
+        <zorder>32</zorder>
         <SQLField>
             <name><![CDATA[titre_etape_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -2542,7 +2420,7 @@
             <width>300.00</width>
             <height>150.00</height>
         </size>
-        <zorder>65</zorder>
+        <zorder>64</zorder>
         <SQLField>
             <name><![CDATA[administration_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -2811,7 +2689,7 @@
             <width>300.00</width>
             <height>150.00</height>
         </size>
-        <zorder>64</zorder>
+        <zorder>63</zorder>
         <SQLField>
             <name><![CDATA[administration_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -2893,7 +2771,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>35</zorder>
+        <zorder>34</zorder>
         <SQLField>
             <name><![CDATA[titre_demarche_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -2941,13 +2819,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2125.00</y>
+            <y>2025.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>75.00</height>
         </size>
-        <zorder>76</zorder>
+        <zorder>75</zorder>
         <SQLField>
             <name><![CDATA[activite_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -2997,7 +2875,7 @@
             <width>800.00</width>
             <height>400.00</height>
         </size>
-        <zorder>51</zorder>
+        <zorder>50</zorder>
         <commentTitle><![CDATA[substances]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[32]]></labelWindowIndex>
@@ -3151,7 +3029,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>36</zorder>
+        <zorder>35</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(5)]]></type>
@@ -3287,7 +3165,7 @@
             <width>800.00</width>
             <height>300.00</height>
         </size>
-        <zorder>71</zorder>
+        <zorder>70</zorder>
         <commentTitle><![CDATA[utilisateurs]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[14]]></labelWindowIndex>
@@ -3304,7 +3182,7 @@
             <width>800.00</width>
             <height>400.00</height>
         </size>
-        <zorder>50</zorder>
+        <zorder>49</zorder>
         <commentTitle><![CDATA[entreprises]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[30]]></labelWindowIndex>
@@ -3321,7 +3199,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>31</zorder>
+        <zorder>30</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -3366,13 +3244,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1900.00</y>
+            <y>1775.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>84</zorder>
+        <zorder>82</zorder>
         <SQLField>
             <name><![CDATA[etape_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3434,13 +3312,13 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>475.00</x>
-            <y>2250.00</y>
+            <y>2150.00</y>
         </location>
         <size>
             <width>300.00</width>
             <height>125.00</height>
         </size>
-        <zorder>44</zorder>
+        <zorder>43</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3496,7 +3374,7 @@
             <width>300.00</width>
             <height>125.00</height>
         </size>
-        <zorder>49</zorder>
+        <zorder>48</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(size)]]></type>
@@ -3592,7 +3470,7 @@
             <width>775.00</width>
             <height>275.00</height>
         </size>
-        <zorder>55</zorder>
+        <zorder>54</zorder>
         <commentTitle><![CDATA[activités]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[29]]></labelWindowIndex>
@@ -3609,7 +3487,7 @@
             <width>300.00</width>
             <height>125.00</height>
         </size>
-        <zorder>82</zorder>
+        <zorder>81</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -3754,7 +3632,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>85</zorder>
+        <zorder>83</zorder>
         <SQLField>
             <name><![CDATA[titre_id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -3876,7 +3754,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>30</zorder>
+        <zorder>29</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(5)]]></type>
@@ -4013,7 +3891,7 @@
             <width>275.00</width>
             <height>200.00</height>
         </size>
-        <zorder>80</zorder>
+        <zorder>79</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(128)]]></type>
@@ -4255,7 +4133,7 @@
             <width>300.00</width>
             <height>75.00</height>
         </size>
-        <zorder>61</zorder>
+        <zorder>60</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4290,7 +4168,7 @@
             <width>800.00</width>
             <height>1275.00</height>
         </size>
-        <zorder>57</zorder>
+        <zorder>56</zorder>
         <commentTitle><![CDATA[metas]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[28]]></labelWindowIndex>
@@ -4307,7 +4185,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>34</zorder>
+        <zorder>33</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4347,7 +4225,7 @@
             <width>775.00</width>
             <height>300.00</height>
         </size>
-        <zorder>78</zorder>
+        <zorder>77</zorder>
         <commentTitle><![CDATA[travaux]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
@@ -4364,7 +4242,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>40</zorder>
+        <zorder>39</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4390,7 +4268,7 @@
         <schema><![CDATA[]]></schema>
         <location>
             <x>75.00</x>
-            <y>1200.00</y>
+            <y>1075.00</y>
         </location>
         <size>
             <width>300.00</width>
@@ -4474,7 +4352,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>39</zorder>
+        <zorder>38</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4502,7 +4380,7 @@
             <width>800.00</width>
             <height>375.00</height>
         </size>
-        <zorder>68</zorder>
+        <zorder>67</zorder>
         <commentTitle><![CDATA[restrictions administrations]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[18]]></labelWindowIndex>
@@ -4519,7 +4397,7 @@
             <width>300.00</width>
             <height>100.00</height>
         </size>
-        <zorder>66</zorder>
+        <zorder>65</zorder>
         <SQLField>
             <name><![CDATA[titre_type_id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4572,7 +4450,7 @@
             <width>400.00</width>
             <height>225.00</height>
         </size>
-        <zorder>58</zorder>
+        <zorder>57</zorder>
         <commentTitle><![CDATA[logs]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[17]]></labelWindowIndex>
@@ -4589,7 +4467,7 @@
             <width>300.00</width>
             <height>80.00</height>
         </size>
-        <zorder>47</zorder>
+        <zorder>46</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER(1)]]></type>
@@ -4643,7 +4521,7 @@
             <width>300.00</width>
             <height>60.00</height>
         </size>
-        <zorder>41</zorder>
+        <zorder>40</zorder>
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[CHARACTER VARYING(3)]]></type>
@@ -4675,7 +4553,7 @@
             <width>800.00</width>
             <height>375.00</height>
         </size>
-        <zorder>72</zorder>
+        <zorder>71</zorder>
         <commentTitle><![CDATA[administrations]]></commentTitle>
         <labelColor><![CDATA[{0.999996,1,1,1}]]></labelColor>
         <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
@@ -4706,7 +4584,7 @@
         <windowHeight><![CDATA[1418.000000]]></windowHeight>
         <windowLocationX><![CDATA[0.000000]]></windowLocationX>
         <windowLocationY><![CDATA[0.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{10, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 2}]]></windowScrollOrigin>
         <windowWidth><![CDATA[2560.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

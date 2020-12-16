@@ -107,10 +107,6 @@ import {
   titreTypeDemarcheTypeModifier,
   titreTypeDemarcheTypeCreer,
   titreTypeDemarcheTypeSupprimer,
-  demarchesTypesDemarchesStatuts,
-  demarcheTypeDemarcheStatutModifier,
-  demarcheTypeDemarcheStatutCreer,
-  demarcheTypeDemarcheStatutSupprimer,
   titresTypesDemarchesTypesEtapesTypes,
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
@@ -119,10 +115,6 @@ import {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-  travauxTypesDemarchesStatuts,
-  travauxTypeDemarcheStatutModifier,
-  travauxTypeDemarcheStatutCreer,
-  travauxTypeDemarcheStatutSupprimer,
   travauxTypesEtapesTypes,
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,
@@ -224,10 +216,8 @@ export default {
   departements,
   titresTypesTitresStatuts,
   titresTypesDemarchesTypes,
-  demarchesTypesDemarchesStatuts,
   titresTypesDemarchesTypesEtapesTypes,
   etapesTypesEtapesStatuts,
-  travauxTypesDemarchesStatuts,
   travauxTypesEtapesTypes,
 
   // mutations
@@ -299,10 +289,6 @@ export default {
   titreTypeDemarcheTypeCreer,
   titreTypeDemarcheTypeSupprimer,
 
-  demarcheTypeDemarcheStatutModifier,
-  demarcheTypeDemarcheStatutCreer,
-  demarcheTypeDemarcheStatutSupprimer,
-
   titreTypeDemarcheTypeEtapeTypeModifier,
   titreTypeDemarcheTypeEtapeTypeCreer,
   titreTypeDemarcheTypeEtapeTypeSupprimer,
@@ -310,10 +296,6 @@ export default {
   etapeTypeEtapeStatutModifier,
   etapeTypeEtapeStatutCreer,
   etapeTypeEtapeStatutSupprimer,
-
-  travauxTypeDemarcheStatutModifier,
-  travauxTypeDemarcheStatutCreer,
-  travauxTypeDemarcheStatutSupprimer,
 
   travauxTypeEtapeTypeModifier,
   travauxTypeEtapeTypeCreer,
