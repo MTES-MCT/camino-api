@@ -19,13 +19,11 @@ exports.up = knex =>
         .index()
         .references('domaines.id')
         .notNullable()
-        .onDelete('CASCADE')
       table
         .string('typeId', 3)
         .index()
         .references('titresTypesTypes.id')
         .notNullable()
-        .onDelete('CASCADE')
       table.specificType('props_etapes_types', 'jsonb[]')
       table.boolean('archive')
       table.unique(['domaineId', 'typeId'])
