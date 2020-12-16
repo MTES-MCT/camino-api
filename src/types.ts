@@ -426,6 +426,43 @@ interface ITitreTypeTitreStatut {
   publicLecture: boolean
 }
 
+interface ITitreTypeDemarcheType {
+  titreTypeId: string
+  demarcheTypeId: string
+  dureeMax?: number | null
+  acceptationImplicite?: boolean | null
+  delaiImplicite?: number | null
+  delaiRecours?: number | null
+  legalRef?: string | null
+  legaleLien?: string | null
+  dateDebut?: string | null
+  dateFin?: string | null
+}
+
+interface IDemarcheTypeDemarcheStatut {
+  demarcheTypeId: string
+  demarcheStatutId: string
+  ordre: number
+}
+
+interface IEtapeTypeEtapeStatut {
+  etapeTypeId: string
+  etapeStatutId: string
+  ordre: number
+}
+
+interface ITravauxTypeDemarcheStatut {
+  travauxTypeId: string
+  demarcheStatutId: string
+  ordre: number
+}
+
+interface ITravauxTypeEtapeType {
+  travauxTypeId: string
+  etapeTypeId: string
+  ordre: number
+}
+
 interface IAdministrationTitreType {
   administrationId: string
   titreTypeId: string
@@ -768,11 +805,6 @@ interface ITitreType {
   titresCreation?: boolean | null
 }
 
-interface ITitreType__TitreStatut {
-  titreTypeId: string
-  titreStatutId: string
-}
-
 interface ITitreTypeType {
   id: string
   nom: string
@@ -935,6 +967,11 @@ export {
   IReferenceType,
   IRegion,
   ITitreTypeTitreStatut,
+  ITitreTypeDemarcheType,
+  IDemarcheTypeDemarcheStatut,
+  IEtapeTypeEtapeStatut,
+  ITravauxTypeDemarcheStatut,
+  ITravauxTypeEtapeType,
   IAdministrationTitreType,
   IAdministrationTitreTypeTitreStatut,
   IAdministrationTitreTypeEtapeType,
@@ -987,7 +1024,5 @@ export {
   ITitreEtapesTypesRestrictions,
   ITitreEtapeCondition,
   ITitreCondition,
-  IDefinition,
-  /* eslint-disable camelcase */
-  ITitreType__TitreStatut
+  IDefinition
 }

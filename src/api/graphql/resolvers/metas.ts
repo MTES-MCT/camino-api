@@ -15,8 +15,6 @@ import {
   IPhaseStatut,
   IReferenceType,
   ITitreStatut,
-  ITitreType,
-  ITitreTypeTitreStatut,
   ITitreTypeType,
   IToken,
   ITravauxType,
@@ -61,15 +59,7 @@ import {
   permissionUpdate,
   geoSystemeUpdate,
   documentTypeUpdate,
-  referenceTypeUpdate,
-  titresTypesGet,
-  titreTypeUpdate,
-  titreTypeCreate,
-  titreTypeDelete,
-  titresTypesTitresStatutsGet,
-  titreTypeTitreStatutCreate,
-  titreTypeTitreStatutDelete,
-  titreTypeTitreStatutUpdate
+  referenceTypeUpdate
 } from '../../../database/queries/metas'
 import { userGet } from '../../../database/queries/utilisateurs'
 
@@ -203,26 +193,6 @@ const types = async () => {
     const types = await titresTypesTypesGet()
 
     return types
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titresTypes = async (_: never, context: IToken) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const titresTypes = await titresTypesGet(null as never, {})
-
-    return titresTypes
   } catch (e) {
     if (debug) {
       console.error(e)
@@ -1111,183 +1081,6 @@ const referenceTypeModifier = async (
   }
 }
 
-const titreTypeModifier = async (
-  { titreType }: { titreType: ITitreType },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await titreTypeUpdate(titreType.id!, titreType)
-
-    const titresTypes = await titresTypesGet(null as never, {})
-
-    return titresTypes
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titreTypeCreer = async (
-  { titreType }: { titreType: ITitreType },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await titreTypeCreate(titreType)
-
-    const titresTypes = await titresTypesGet(null as never, {})
-
-    return titresTypes
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titreTypeSupprimer = async (
-  { titreType }: { titreType: ITitreType },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await titreTypeDelete(titreType.id)
-
-    const titresTypes = await titresTypesGet(null as never, {})
-
-    return titresTypes
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titresTypesTitresStatuts = async (_: never, context: IToken) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
-
-    return titresTypesTitresStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titreTypeTitreStatutModifier = async (
-  { titreTypeTitreStatut }: { titreTypeTitreStatut: ITitreTypeTitreStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await titreTypeTitreStatutUpdate(
-      titreTypeTitreStatut.titreTypeId,
-      titreTypeTitreStatut.titreStatutId,
-      titreTypeTitreStatut
-    )
-
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
-
-    return titresTypesTitresStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titreTypeTitreStatutCreer = async (
-  { titreTypeTitreStatut }: { titreTypeTitreStatut: ITitreTypeTitreStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await titreTypeTitreStatutCreate(titreTypeTitreStatut)
-
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
-
-    return titresTypesTitresStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
-const titreTypeTitreStatutSupprimer = async (
-  { titreTypeTitreStatut }: { titreTypeTitreStatut: ITitreTypeTitreStatut },
-  context: IToken
-) => {
-  try {
-    const user = await userGet(context.user?.id)
-
-    if (!permissionCheck(user?.permissionId, ['super'])) {
-      throw new Error('droits insuffisants')
-    }
-
-    await titreTypeTitreStatutDelete(
-      titreTypeTitreStatut.titreTypeId,
-      titreTypeTitreStatut.titreStatutId
-    )
-
-    const titresTypesTitresStatuts = await titresTypesTitresStatutsGet()
-
-    return titresTypesTitresStatuts
-  } catch (e) {
-    if (debug) {
-      console.error(e)
-    }
-
-    throw e
-  }
-}
-
 export {
   devises,
   demarchesTypes,
@@ -1306,7 +1099,6 @@ export {
   statuts,
   titreStatutModifier,
   types,
-  titresTypes,
   unites,
   version,
   activitesTypes,
@@ -1330,12 +1122,5 @@ export {
   permissionModifier,
   documentTypeModifier,
   referenceTypeModifier,
-  geoSystemeModifier,
-  titreTypeModifier,
-  titreTypeCreer,
-  titreTypeSupprimer,
-  titresTypesTitresStatuts,
-  titreTypeTitreStatutModifier,
-  titreTypeTitreStatutCreer,
-  titreTypeTitreStatutSupprimer
+  geoSystemeModifier
 }

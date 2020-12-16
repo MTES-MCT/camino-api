@@ -77,7 +77,6 @@ import {
   titreStatutModifier,
   types,
   titreTypeTypeModifier,
-  titresTypes,
   unites,
   uniteModifier,
   version,
@@ -92,15 +91,43 @@ import {
   permissionModifier,
   documentTypeModifier,
   referenceTypeModifier,
-  geoSystemeModifier,
+  geoSystemeModifier
+} from './resolvers/metas'
+
+import {
+  titresTypes,
   titreTypeModifier,
   titreTypeCreer,
   titreTypeSupprimer,
   titresTypesTitresStatuts,
   titreTypeTitreStatutModifier,
   titreTypeTitreStatutCreer,
-  titreTypeTitreStatutSupprimer
-} from './resolvers/metas'
+  titreTypeTitreStatutSupprimer,
+  titresTypesDemarchesTypes,
+  titreTypeDemarcheTypeModifier,
+  titreTypeDemarcheTypeCreer,
+  titreTypeDemarcheTypeSupprimer,
+  demarchesTypesDemarchesStatuts,
+  demarcheTypeDemarcheStatutModifier,
+  demarcheTypeDemarcheStatutCreer,
+  demarcheTypeDemarcheStatutSupprimer,
+  titresTypesDemarchesTypesEtapesTypes,
+  titreTypeDemarcheTypeEtapeTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeSupprimer,
+  etapesTypesEtapesStatuts,
+  etapeTypeEtapeStatutModifier,
+  etapeTypeEtapeStatutCreer,
+  etapeTypeEtapeStatutSupprimer,
+  travauxTypesDemarchesStatuts,
+  travauxTypeDemarcheStatutModifier,
+  travauxTypeDemarcheStatutCreer,
+  travauxTypeDemarcheStatutSupprimer,
+  travauxTypesEtapesTypes,
+  travauxTypeEtapeTypeModifier,
+  travauxTypeEtapeTypeCreer,
+  travauxTypeEtapeTypeSupprimer
+} from './resolvers/metas-join'
 
 import {
   substance,
@@ -196,6 +223,12 @@ export default {
   regions,
   departements,
   titresTypesTitresStatuts,
+  titresTypesDemarchesTypes,
+  demarchesTypesDemarchesStatuts,
+  titresTypesDemarchesTypesEtapesTypes,
+  etapesTypesEtapesStatuts,
+  travauxTypesDemarchesStatuts,
+  travauxTypesEtapesTypes,
 
   // mutations
   titreCreer,
@@ -260,5 +293,29 @@ export default {
   titreTypeSupprimer,
   titreTypeTitreStatutModifier,
   titreTypeTitreStatutCreer,
-  titreTypeTitreStatutSupprimer
+  titreTypeTitreStatutSupprimer,
+
+  titreTypeDemarcheTypeModifier,
+  titreTypeDemarcheTypeCreer,
+  titreTypeDemarcheTypeSupprimer,
+
+  demarcheTypeDemarcheStatutModifier,
+  demarcheTypeDemarcheStatutCreer,
+  demarcheTypeDemarcheStatutSupprimer,
+
+  titreTypeDemarcheTypeEtapeTypeModifier,
+  titreTypeDemarcheTypeEtapeTypeCreer,
+  titreTypeDemarcheTypeEtapeTypeSupprimer,
+
+  etapeTypeEtapeStatutModifier,
+  etapeTypeEtapeStatutCreer,
+  etapeTypeEtapeStatutSupprimer,
+
+  travauxTypeDemarcheStatutModifier,
+  travauxTypeDemarcheStatutCreer,
+  travauxTypeDemarcheStatutSupprimer,
+
+  travauxTypeEtapeTypeModifier,
+  travauxTypeEtapeTypeCreer,
+  travauxTypeEtapeTypeSupprimer
 }

@@ -19,7 +19,13 @@ import {
   IDocumentType,
   IReferenceType,
   ITitreType,
-  ITitreTypeTitreStatut
+  ITitreTypeTitreStatut,
+  ITitreTypeDemarcheType,
+  IDemarcheTypeDemarcheStatut,
+  ITitreTypeDemarcheTypeEtapeType,
+  IEtapeTypeEtapeStatut,
+  ITravauxTypeDemarcheStatut,
+  ITravauxTypeEtapeType
 } from '../../types'
 
 import ActivitesTypes from '../models/activites-types'
@@ -60,6 +66,12 @@ import {
 import PhasesStatuts from '../models/phases-statuts'
 import TitresTypes from '../models/titres-types'
 import TitresTypesTitresStatuts from '../models/titres-types--titres-statuts'
+import TitresTypesDemarchesTypesEtapesTypes from '../models/titres-types--demarches-types-etapes-types'
+import TitresTypesDemarchesTypes from '../models/titres-types--demarches-types'
+import DemarchesTypesDemarchesStatuts from '../models/demarches-types--demarches-statuts'
+import EtapesTypesEtapesStatuts from '../models/etapes-types--etapes-statuts'
+import TravauxTypesDemarchesStatuts from '../models/travaux-types--demarches-statuts'
+import TravauxTypesEtapesTypes from '../models/travaux-types--etapes-types'
 
 const permissionsGet = async (_a: never, _b: never, userId?: string) => {
   const user = await userGet(userId)
@@ -153,6 +165,170 @@ const titreTypeTitreStatutDelete = async (
   titreTypeId: string,
   titreStatutId: string
 ) => TitresTypesTitresStatuts.query().deleteById([titreTypeId, titreStatutId])
+
+const titresTypesDemarchesTypesGet = async () =>
+  TitresTypesDemarchesTypes.query().orderBy(['titreTypeId', 'demarcheTypeId'])
+
+const titreTypeDemarcheTypeUpdate = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  props: Partial<ITitreTypeDemarcheType>
+) =>
+  TitresTypesDemarchesTypes.query().patchAndFetchById(
+    [titreTypeId, demarcheTypeId],
+    props
+  )
+
+const titreTypeDemarcheTypeCreate = async (
+  titreTypeDemarcheType: ITitreTypeDemarcheType
+) => TitresTypesDemarchesTypes.query().insertAndFetch(titreTypeDemarcheType)
+
+const titreTypeDemarcheTypeDelete = async (
+  titreTypeId: string,
+  demarcheTypeId: string
+) => TitresTypesDemarchesTypes.query().deleteById([titreTypeId, demarcheTypeId])
+
+const demarchesTypesDemarchesStatutsGet = async () =>
+  DemarchesTypesDemarchesStatuts.query().orderBy([
+    'titreTypeId',
+    'titreStatutId'
+  ])
+
+const demarcheTypeDemarcheStatutUpdate = async (
+  demarcheTypeId: string,
+  demarcheStatutId: string,
+  props: Partial<IDemarcheTypeDemarcheStatut>
+) =>
+  DemarchesTypesDemarchesStatuts.query().patchAndFetchById(
+    [demarcheTypeId, demarcheStatutId],
+    props
+  )
+
+const demarcheTypeDemarcheStatutCreate = async (
+  demarcheTypeDemarcheStatut: IDemarcheTypeDemarcheStatut
+) =>
+  DemarchesTypesDemarchesStatuts.query().insertAndFetch(
+    demarcheTypeDemarcheStatut
+  )
+
+const demarcheTypeDemarcheStatutDelete = async (
+  demarcheTypeId: string,
+  demarcheStatutId: string
+) =>
+  DemarchesTypesDemarchesStatuts.query().deleteById([
+    demarcheTypeId,
+    demarcheStatutId
+  ])
+
+const titresTypesDemarchesTypesEtapesTypesGet = async () =>
+  TitresTypesDemarchesTypesEtapesTypes.query().orderBy([
+    'titreTypeId',
+    'demarcheTypeId',
+    'etapeTypeId'
+  ])
+
+const titreTypeDemarcheTypeEtapeTypeUpdate = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string,
+  props: Partial<ITitreTypeDemarcheTypeEtapeType>
+) =>
+  TitresTypesDemarchesTypesEtapesTypes.query().patchAndFetchById(
+    [titreTypeId, demarcheTypeId, etapeTypeId],
+    props
+  )
+
+const titreTypeDemarcheTypeEtapeTypeCreate = async (
+  titreTypeDemarcheTypeEtapeType: ITitreTypeDemarcheTypeEtapeType
+) =>
+  TitresTypesDemarchesTypesEtapesTypes.query().insertAndFetch(
+    titreTypeDemarcheTypeEtapeType
+  )
+
+const titreTypeDemarcheTypeEtapeTypeDelete = async (
+  titreTypeId: string,
+  demarcheTypeId: string,
+  etapeTypeId: string
+) =>
+  TitresTypesDemarchesTypesEtapesTypes.query().deleteById([
+    titreTypeId,
+    demarcheTypeId,
+    etapeTypeId
+  ])
+
+const etapesTypesEtapesStatutsGet = async () =>
+  EtapesTypesEtapesStatuts.query().orderBy(['etapeTypeId', 'etapeStatutId'])
+
+const etapeTypeEtapeStatutUpdate = async (
+  etapeTypeId: string,
+  etapeStatutId: string,
+  props: Partial<IEtapeTypeEtapeStatut>
+) =>
+  EtapesTypesEtapesStatuts.query().patchAndFetchById(
+    [etapeTypeId, etapeStatutId],
+    props
+  )
+
+const etapeTypeEtapeStatutCreate = async (
+  etapeTypeEtapeStatut: IEtapeTypeEtapeStatut
+) => EtapesTypesEtapesStatuts.query().insertAndFetch(etapeTypeEtapeStatut)
+
+const etapeTypeEtapeStatutDelete = async (
+  etapeTypeId: string,
+  etapeStatutId: string
+) => EtapesTypesEtapesStatuts.query().deleteById([etapeTypeId, etapeStatutId])
+
+const travauxTypesDemarchesStatutsGet = async () =>
+  TravauxTypesDemarchesStatuts.query().orderBy([
+    'travauxTypeId',
+    'demarcheStatutId'
+  ])
+
+const travauxTypeDemarcheStatutUpdate = async (
+  travauxTypeId: string,
+  demarcheStatutId: string,
+  props: Partial<ITravauxTypeDemarcheStatut>
+) =>
+  TravauxTypesDemarchesStatuts.query().patchAndFetchById(
+    [travauxTypeId, demarcheStatutId],
+    props
+  )
+
+const travauxTypeDemarcheStatutCreate = async (
+  travauxTypeDemarcheStatut: ITravauxTypeDemarcheStatut
+) =>
+  TravauxTypesDemarchesStatuts.query().insertAndFetch(travauxTypeDemarcheStatut)
+
+const travauxTypeDemarcheStatutDelete = async (
+  travauxTypeId: string,
+  demarcheStatutId: string
+) =>
+  TravauxTypesDemarchesStatuts.query().deleteById([
+    travauxTypeId,
+    demarcheStatutId
+  ])
+
+const travauxTypesEtapesTypesGet = async () =>
+  TravauxTypesEtapesTypes.query().orderBy(['travauxTypeId', 'etapeTypeId'])
+
+const travauxTypeEtapeTypeUpdate = async (
+  travauxTypeId: string,
+  etapeTypeId: string,
+  props: Partial<ITravauxTypeEtapeType>
+) =>
+  TravauxTypesEtapesTypes.query().patchAndFetchById(
+    [travauxTypeId, etapeTypeId],
+    props
+  )
+
+const travauxTypeEtapeTypeCreate = async (
+  travauxTypeEtapeType: ITravauxTypeEtapeType
+) => TravauxTypesEtapesTypes.query().insertAndFetch(travauxTypeEtapeType)
+
+const travauxTypeEtapeTypeDelete = async (
+  travauxTypeId: string,
+  etapeTypeId: string
+) => TravauxTypesEtapesTypes.query().deleteById([travauxTypeId, etapeTypeId])
 
 /**
  * retourne les statuts de titre visible par l’utilisateur
@@ -414,5 +590,29 @@ export {
   titresTypesTitresStatutsGet,
   titreTypeTitreStatutUpdate,
   titreTypeTitreStatutCreate,
-  titreTypeTitreStatutDelete
+  titreTypeTitreStatutDelete,
+  titresTypesDemarchesTypesGet,
+  titreTypeDemarcheTypeUpdate,
+  titreTypeDemarcheTypeCreate,
+  titreTypeDemarcheTypeDelete,
+  demarchesTypesDemarchesStatutsGet,
+  demarcheTypeDemarcheStatutUpdate,
+  demarcheTypeDemarcheStatutCreate,
+  demarcheTypeDemarcheStatutDelete,
+  titresTypesDemarchesTypesEtapesTypesGet,
+  titreTypeDemarcheTypeEtapeTypeUpdate,
+  titreTypeDemarcheTypeEtapeTypeCreate,
+  titreTypeDemarcheTypeEtapeTypeDelete,
+  etapesTypesEtapesStatutsGet,
+  etapeTypeEtapeStatutUpdate,
+  etapeTypeEtapeStatutCreate,
+  etapeTypeEtapeStatutDelete,
+  travauxTypesDemarchesStatutsGet,
+  travauxTypeDemarcheStatutUpdate,
+  travauxTypeDemarcheStatutCreate,
+  travauxTypeDemarcheStatutDelete,
+  travauxTypesEtapesTypesGet,
+  travauxTypeEtapeTypeUpdate,
+  travauxTypeEtapeTypeCreate,
+  travauxTypeEtapeTypeDelete
 }

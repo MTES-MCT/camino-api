@@ -19,6 +19,8 @@ class TitresTypesDemarchesTypesEtapesTypes extends Model {
       sections: { type: 'json' }
     }
   }
+
+  public static idColumn = ['titreTypeId', 'demarcheTypeId', 'etapeTypeId']
 }
 
 export default TitresTypesDemarchesTypesEtapesTypes

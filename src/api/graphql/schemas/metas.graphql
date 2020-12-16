@@ -266,6 +266,51 @@ type TitreTypeTitreStatut {
   publicLecture: Boolean
 }
 
+type TitreTypeDemarcheType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  dureeMax: Int
+  acceptationImplicite: Boolean
+  delaiImplicite: Int
+  delaiRecours: Int
+  legalRef: String
+  legaleLien: String
+  dateDebut: String
+  dateFin: String
+}
+
+type DemarcheTypeDemarcheStatut {
+  demarcheTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int!
+}
+
+type TitreTypeDemarcheTypeEtapeType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int!
+  sections: Json
+}
+
+type EtapeTypeEtapeStatut {
+  etapeTypeId: ID!
+  etapeStatutId: ID!
+  ordre: Int!
+}
+
+type TravauxTypeDemarcheStatut {
+  travauxTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int!
+}
+
+type TravauxTypeEtapeType {
+  travauxTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int!
+}
+
 input InputDomaine {
   "Id composée d'une seule lettre"
   id: ID!
@@ -418,6 +463,51 @@ input InputTitreTypeTitreStatut {
   titreTypeId: ID!
   titreStatutId: ID!
   publicLecture: Boolean
+}
+
+input InputTitreTypeDemarcheType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  dureeMax: Int
+  acceptationImplicite: Boolean
+  delaiImplicite: Int
+  delaiRecours: Int
+  legalRef: String
+  legaleLien: String
+  dateDebut: String
+  dateFin: String
+}
+
+input InputDemarcheTypeDemarcheStatut {
+  demarcheTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int
+}
+
+input InputTitreTypeDemarcheTypeEtapeType {
+  titreTypeId: ID!
+  demarcheTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int
+  sections: Json
+}
+
+input InputEtapeTypeEtapeStatut {
+  etapeTypeId: ID!
+  etapeStatutId: ID!
+  ordre: Int
+}
+
+input InputTravauxTypeDemarcheStatut {
+  travauxTypeId: ID!
+  demarcheStatutId: ID!
+  ordre: Int
+}
+
+input InputTravauxTypeEtapeType {
+  travauxTypeId: ID!
+  etapeTypeId: ID!
+  ordre: Int
 }
 
 """
