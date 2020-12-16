@@ -1,5 +1,6 @@
 import PQueue from 'p-queue'
 
+import dbsToSpreadsheet from './dbs-to-spreadsheet'
 import dbToSpreadsheet from './db-to-spreadsheet'
 import defininitionsTitres from './definitions/titres'
 import defininitionDocuments from './definitions/documents'
@@ -10,6 +11,7 @@ import defininitionEntreprises from './definitions/entreprises'
 import defininitionTerritoires from './definitions/territoires'
 import defininitionTravaux from './definitions/titres-travaux'
 import defininitionForets from './definitions/forets'
+import definitionMetas from './definitions/metas'
 
 const ssExport = async () => {
   try {
@@ -27,7 +29,8 @@ const ssExport = async () => {
       () => dbToSpreadsheet(defininitionEntreprises),
       () => dbToSpreadsheet(defininitionTerritoires),
       () => dbToSpreadsheet(defininitionForets),
-      () => dbToSpreadsheet(defininitionTravaux)
+      () => dbToSpreadsheet(defininitionTravaux),
+      () => dbsToSpreadsheet(definitionMetas)
     ]
 
     const queue = new PQueue({ concurrency: 1, intervalCap: 1, interval: 1000 })

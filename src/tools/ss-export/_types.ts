@@ -17,4 +17,11 @@ interface ISpreadsheet<T> {
   tables: ITable[]
 }
 
-export { ITable, ISpreadsheet, ICallbacks }
+interface ISpreadsheetMultiple {
+  id: string
+  name: string
+  gets: { [name: string]: () => Promise<any[]> }
+  tables: ITable[]
+}
+
+export { ITable, ISpreadsheet, ISpreadsheetMultiple, ICallbacks }

@@ -27,7 +27,7 @@ const requestsBuild = (utilisateurs: IUtilisateur[], tables: ITable[]) =>
     // et toutes les lignes ont le même id = `rows[0][0]`
     const rows = rowsCreate(utilisateurs, parents).map(
       ({ element: row, parent }: { element: any; parent: any }) =>
-        rowFormat(row, columns, parent, callbacks) as string[]
+        rowFormat(row, columns, callbacks, parent) as string[]
     )
 
     // construit les requêtes de suppression et d'ajout de rows

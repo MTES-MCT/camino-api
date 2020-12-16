@@ -37,7 +37,6 @@ const titreActivitesRowUpdate = async (
       const values = rowFormat(
         activite,
         table.columns,
-        null,
         table.callbacks
       ) as string[]
 

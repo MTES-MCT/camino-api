@@ -112,7 +112,7 @@ const domainesGet = async (
 
   const graph = fields
     ? graphBuild(fields, 'titre', graphFormat)
-    : options.demarchesTypes.graph
+    : options.domaines.graph
 
   const q = Domaines.query().withGraphFetched(graph).orderBy('ordre')
 
