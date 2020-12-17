@@ -1,45 +1,51 @@
-import { IEtatIdDefinition } from '../demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from '../demarches-etats-definitions'
 import { etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/VxMVdNkolhMQbKtv/B1B05
-const etatsDefinitionArmRet: IEtatIdDefinition[] = [
+const etatsDefinitionArmRet: IEtapeTypeIdDefinition[] = [
   {
-    etatId: 'ide',
+    etapeTypeId: 'ide',
     justeApres: []
   },
   {
-    etatId: 'mno-ide',
-    justeApres: [[{ etatId: 'ide' }]]
+    etapeTypeId: 'mni',
+    justeApres: [[{ etapeTypeId: 'ide' }]]
   },
   {
-    etatId: 'aof',
-    justeApres: [[{ etatId: 'mno-ide' }], [{ etatId: 'eof' }]]
+    etapeTypeId: 'aof',
+    justeApres: [[{ etapeTypeId: 'mni' }], [{ etapeTypeId: 'eof' }]]
   },
   {
-    etatId: 'rif-mno',
-    justeApres: [[{ etatId: 'mno-ide' }]]
+    etapeTypeId: 'rif',
+    justeApres: [[{ etapeTypeId: 'mni' }]]
   },
-  ...etatInformationsGet({
-    etatId: 'eof',
-    justeApres: [[{ etatId: 'rif-mno' }]]
+  ...etatInformationsGet('mio', 'rio', {
+    etapeTypeId: 'eof',
+    justeApres: [[{ etapeTypeId: 'rif' }]]
   }),
   {
-    etatId: 'css',
-    apres: [[{ etatId: 'mno-ide' }]],
-    avant: [[{ etatId: 'aof' }]],
+    etapeTypeId: 'css',
+    apres: [[{ etapeTypeId: 'mni' }]],
+    avant: [[{ etapeTypeId: 'aof' }]],
     justeApres: []
   },
   {
-    etatId: 'aco',
-    justeApres: [[{ etatId: 'aof', statutId: 'fav' }], [{ etatId: 'mno-aco' }]]
+    etapeTypeId: 'aco',
+    justeApres: [
+      [{ etapeTypeId: 'aof', statutId: 'fav' }],
+      [{ etapeTypeId: 'mnv' }]
+    ]
   },
   {
-    etatId: 'mno-aco',
-    justeApres: [[{ etatId: 'aco' }]]
+    etapeTypeId: 'mnv',
+    justeApres: [[{ etapeTypeId: 'aco' }]]
   },
   {
-    etatId: 'mno-css',
-    justeApres: [[{ etatId: 'aof', statutId: 'def' }], [{ etatId: 'css' }]]
+    etapeTypeId: 'mnc',
+    justeApres: [
+      [{ etapeTypeId: 'aof', statutId: 'def' }],
+      [{ etapeTypeId: 'css' }]
+    ]
   }
 ]
 

@@ -11,7 +11,7 @@ import {
   geojsonFeatureCollectionPoints
 } from '../../tools/geojson'
 import { titreSectionsFormat } from './titres-sections'
-import { etapeTypeNomFormat, etapeTypeSectionsFormat } from './etapes-types'
+import { etapeTypeSectionsFormat } from './etapes-types'
 import { administrationFormat } from './administrations'
 import { entrepriseFormat } from './entreprises'
 
@@ -39,16 +39,6 @@ const titreEtapeFormat = (
     if (titreEtape.type.sections) {
       titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)
     }
-
-    if (!titreEtape.etatId) {
-      titreEtape.etatId = titreEtape.typeId
-    }
-
-    titreEtape.type.nom = etapeTypeNomFormat(
-      titreEtape.etatId,
-      titreEtape.type,
-      titreDemarcheType
-    )
   }
 
   if (!fields) return titreEtape

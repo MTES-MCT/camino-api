@@ -1,17 +1,16 @@
 import { etapesTypesGet } from './_utils'
 import {
   demarchesEtatsDefinitions,
-  etatIdsGet,
-  IEtatIdCondition
+  IEtapeTypeIdCondition
 } from './demarches-etats-definitions'
 
-const etapeTypeIdsGet = (contraintes?: IEtatIdCondition[][]) => {
+const etapeTypeIdsGet = (contraintes?: IEtapeTypeIdCondition[][]) => {
   const etapeTypeIds = [] as string[]
   if (contraintes?.length) {
     contraintes.forEach(contrainte => {
       contrainte.forEach(c => {
-        if (c.etatId) {
-          etapeTypeIds.push(c.etatId)
+        if (c.etapeTypeId) {
+          etapeTypeIds.push(c.etapeTypeId)
         }
       })
     })
@@ -25,7 +24,7 @@ describe('vérifie la cohérence de tous les arbres', () => {
     demarchesEtatsDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
       const demarcheEtatsEtapeTypeIds = demarchesEtatsDefinition.restrictions
         .reduce((acc, restriction) => {
-          acc.push(restriction.etatId)
+          acc.push(restriction.etapeTypeId)
           if (restriction.separation) {
             acc.push(...restriction.separation)
           }
@@ -61,7 +60,7 @@ describe('vérifie la cohérence de tous les arbres', () => {
   demarchesEtatsDefinitions.forEach(demarchesEtatsDefinition => {
     demarchesEtatsDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
       const demarcheEtatsEtapeTypeIds = demarchesEtatsDefinition.restrictions.map(
-        r => r.etatId.split('-')[0]
+        r => r.etapeTypeId.split('-')[0]
       )
 
       const tdeEtapeTypeIds = etapesTypesGet(
@@ -83,27 +82,11 @@ describe('vérifie la cohérence de tous les arbres', () => {
     '%# vérifie que chaque arbre contient une seule fois chaque étape',
     demarchesEtatsDefinition => {
       demarchesEtatsDefinition.restrictions.reduce((acc, restriction) => {
-        expect(acc).not.toContain(restriction.etatId)
-        acc.push(restriction.etatId)
+        expect(acc).not.toContain(restriction.etapeTypeId)
+        acc.push(restriction.etapeTypeId)
 
         return acc
       }, [] as string[])
     }
   )
-})
-
-describe('teste etatIdsGet', () => {
-  test('le type "mfr" retourne que un résultat', () => {
-    const etatIds = etatIdsGet('arm', 'oct', 'mfr')
-    expect(etatIds).toHaveLength(1)
-  })
-  test('le type "mno" retourne que un résultat', () => {
-    const etatIds = etatIdsGet('arm', 'oct', 'mno')
-    expect(etatIds.length).toBeGreaterThan(1)
-  })
-  test('retourne le type si il n’y a pas d’arbre', () => {
-    const etatIds = etatIdsGet('arm', 'aaa', 'mno')
-    expect(etatIds).toHaveLength(1)
-    expect(etatIds).toContain('mno')
-  })
 })

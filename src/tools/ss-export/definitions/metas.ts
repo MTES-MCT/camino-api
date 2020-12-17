@@ -111,6 +111,7 @@ const tables = [
     name: 'etapesTypes',
     columns: [
       'id',
+      'parentId',
       'nom',
       'description',
       'ordre',

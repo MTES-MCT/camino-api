@@ -145,10 +145,10 @@ type EtapeType {
   "Id composée de trois lettres"
   id: ID!
 
+  parentId: ID
+
   "Nom en français"
   nom: String!
-
-  etatId: String
 
   description: String
 

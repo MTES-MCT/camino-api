@@ -5,24 +5,24 @@ import { etatsDefinitionArmRenPro } from './arm/ren-pro'
 import { etatsDefinitionAxmOct } from './axm/oct'
 // import { etatsDefinitionPrmOct } from './prm/oct'
 
-interface IEtatIdCondition {
-  etatId?: string
+interface IEtapeTypeIdCondition {
+  etapeTypeId?: string
   statutId?: string
   titre?: ITitreCondition
 }
 
-interface IEtatIdDefinition {
-  etatId: string
+interface IEtapeTypeIdDefinition {
+  etapeTypeId: string
   separation?: string[]
-  justeApres: IEtatIdCondition[][]
-  avant?: IEtatIdCondition[][]
-  apres?: IEtatIdCondition[][]
+  justeApres: IEtapeTypeIdCondition[][]
+  avant?: IEtapeTypeIdCondition[][]
+  apres?: IEtapeTypeIdCondition[][]
 }
 
 interface IDemarcheEtatsDefinition {
   titreTypeId: string
   demarcheTypeIds: string[]
-  restrictions: IEtatIdDefinition[]
+  restrictions: IEtapeTypeIdDefinition[]
 }
 
 const demarchesEtatsDefinitions: IDemarcheEtatsDefinition[] = [
@@ -64,30 +64,10 @@ const demarcheEtatsDefinitionGet = (
   )
 }
 
-const etatIdsGet = (
-  titreTypeId: string,
-  demarcheTypeId: string,
-  etapeTypeId: string
-) => {
-  const demarcheEtatsDefinition = demarcheEtatsDefinitionGet(
-    titreTypeId,
-    demarcheTypeId
-  )
-
-  if (!demarcheEtatsDefinition) {
-    return [etapeTypeId]
-  }
-
-  return demarcheEtatsDefinition.restrictions
-    .filter(r => r.etatId.startsWith(etapeTypeId))
-    .map(r => r.etatId)
-}
-
 export {
   demarchesEtatsDefinitions,
   demarcheEtatsDefinitionGet,
-  etatIdsGet,
-  IEtatIdDefinition,
-  IEtatIdCondition,
+  IEtapeTypeIdDefinition,
+  IEtapeTypeIdCondition,
   IDemarcheEtatsDefinition
 }

@@ -41,7 +41,6 @@ const demarchesEtatsDefinitionsCheck = async () => {
         )
         .forEach(demarche => {
           // .some(demarche => {
-          // demarche.etapes!.forEach(e => (e.etatId = e.typeId))
           try {
             const errors = titreDemarcheEtatsValidate(
               demarchesEtatsDefinition,
@@ -53,7 +52,7 @@ const demarchesEtatsDefinitionsCheck = async () => {
               errorsNb++
               // console.log(
               //   demarche.etapes!.map(e => ({
-              //     etatId: e.etatId,
+              //     etapeTypeId: e.typeId,
               //     date: e.date,
               //     statutId: e.statutId
               //   }))

@@ -1,39 +1,42 @@
-import { IEtatIdDefinition } from './demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from './demarches-etats-definitions'
 
 const etatCycleGet = (
-  etatIdDefinition: IEtatIdDefinition,
+  etapeTypeIdDefinition: IEtapeTypeIdDefinition,
   demandeEtapeTypeId: string,
   receptionEtapeTypeId: string
-): IEtatIdDefinition[] => [
+): IEtapeTypeIdDefinition[] => [
   {
-    etatId: `${demandeEtapeTypeId}-${etatIdDefinition.etatId}`,
-    avant: [[{ etatId: etatIdDefinition.etatId }]],
+    etapeTypeId: demandeEtapeTypeId,
+    avant: [[{ etapeTypeId: etapeTypeIdDefinition.etapeTypeId }]],
     justeApres: [
-      ...etatIdDefinition.justeApres,
-      [{ etatId: `${receptionEtapeTypeId}-${etatIdDefinition.etatId}` }]
+      ...etapeTypeIdDefinition.justeApres,
+      [{ etapeTypeId: receptionEtapeTypeId }]
     ]
   },
   {
-    etatId: `${receptionEtapeTypeId}-${etatIdDefinition.etatId}`,
-    justeApres: [
-      [{ etatId: `${demandeEtapeTypeId}-${etatIdDefinition.etatId}` }]
-    ]
+    etapeTypeId: receptionEtapeTypeId,
+    justeApres: [[{ etapeTypeId: demandeEtapeTypeId }]]
   },
-
   {
-    ...etatIdDefinition,
-    avant: [[{ etatId: etatIdDefinition.etatId }]],
+    ...etapeTypeIdDefinition,
+    avant: [[{ etapeTypeId: etapeTypeIdDefinition.etapeTypeId }]],
     justeApres: [
-      ...etatIdDefinition.justeApres,
-      [{ etatId: `${receptionEtapeTypeId}-${etatIdDefinition.etatId}` }]
+      ...etapeTypeIdDefinition.justeApres,
+      [{ etapeTypeId: receptionEtapeTypeId }]
     ]
   }
 ]
 
-const etatInformationsGet = (etatIdDefinition: IEtatIdDefinition) =>
-  etatCycleGet(etatIdDefinition, 'mif', 'rif')
+const etatInformationsGet = (
+  mifId: string,
+  rifId: string,
+  etapeTypeIdDefinition: IEtapeTypeIdDefinition
+) => etatCycleGet(etapeTypeIdDefinition, mifId, rifId)
 
-const etatComplementsGet = (etatIdDefinition: IEtatIdDefinition) =>
-  etatCycleGet(etatIdDefinition, 'mco', 'rco')
+const etatComplementsGet = (
+  mcoId: string,
+  rcoId: string,
+  etapeTypeIdDefinition: IEtapeTypeIdDefinition
+) => etatCycleGet(etapeTypeIdDefinition, mcoId, rcoId)
 
 export { etatInformationsGet, etatComplementsGet }

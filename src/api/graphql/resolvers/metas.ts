@@ -320,11 +320,13 @@ const demarcheEtapesTypesGet = async (
     'super'
   )
 
-  // Si on modifie une étape, on réinitialise la démarche juste avant cette étape
+  // Si on modifie une étape,
+  // on réinitialise la démarche juste avant cette étape
   // pour trouver quelles sont les étapes possibles
   let titreEtapes = JSON.parse(
     JSON.stringify(titreDemarche.etapes)
   ) as ITitreEtape[]
+
   if (titreEtapeId) {
     titreEtapes = titreEtapes.filter(e => e.date < titreEtape!.date)
   }
@@ -340,7 +342,7 @@ const demarcheEtapesTypesGet = async (
       )
 
       if (etapeTypeFormatted) {
-        etapesTypes.push(...etapeTypeFormatted)
+        etapesTypes.push(etapeTypeFormatted)
       }
 
       return etapesTypes

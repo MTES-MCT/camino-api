@@ -5,7 +5,7 @@ test('teste EtatsValidate', () => {
 
   expect(octEtatsValidate).toBeTruthy()
   expect(octEtatsValidate([], {})).toBeNull()
-  expect(octEtatsValidate([{ etatId: 'aaa' }], {})).toEqual(
+  expect(octEtatsValidate([{ typeId: 'aaa' }], {})).toEqual(
     'L’étape aaa n’existe pas dans l’arbre'
   )
 })

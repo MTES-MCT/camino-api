@@ -116,8 +116,7 @@ const tables = [
       'dateFin',
       'duree',
       'surface',
-      'contenu',
-      'etatId'
+      'contenu'
     ],
     parents: ['demarches', 'etapes'],
     callbacks: {

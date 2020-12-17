@@ -1,136 +1,139 @@
-import { IEtatIdDefinition } from '../demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from '../demarches-etats-definitions'
 import { etatComplementsGet, etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/oWuHFa1Y8cCdCqaB/B1B05
-const etatsDefinitionArmOct: IEtatIdDefinition[] = [
+const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   {
-    etatId: 'mfr',
+    etapeTypeId: 'mfr',
     justeApres: []
   },
   {
-    etatId: 'mdp',
+    etapeTypeId: 'mdp',
     separation: ['mcp'],
-    justeApres: [[{ etatId: 'mfr' }]]
+    justeApres: [[{ etapeTypeId: 'mfr' }]]
   },
   {
-    etatId: 'pfd',
+    etapeTypeId: 'pfd',
     justeApres: [],
-    avant: [[{ etatId: 'mcp' }]]
+    avant: [[{ etapeTypeId: 'mcp' }]]
   },
-  ...etatComplementsGet({
-    etatId: 'rde',
+  ...etatComplementsGet('mcb', 'rcb', {
+    etapeTypeId: 'rde',
     separation: ['sca'],
     justeApres: [[]]
   }),
-  ...etatComplementsGet({
-    etatId: 'dae',
+  ...etatComplementsGet('mcd', 'rcd', {
+    etapeTypeId: 'dae',
     separation: ['mcp'],
     justeApres: [[]]
   }),
   {
-    etatId: 'mod',
+    etapeTypeId: 'mod',
     justeApres: [],
     apres: [
-      [{ etatId: 'mdp' }],
-      [{ etatId: 'rde', statutId: 'def' }],
-      [{ etatId: 'dae', statutId: 'def' }]
+      [{ etapeTypeId: 'mdp' }],
+      [{ etapeTypeId: 'rde', statutId: 'def' }],
+      [{ etapeTypeId: 'dae', statutId: 'def' }]
     ],
-    avant: [[{ etatId: 'sca' }]]
+    avant: [[{ etapeTypeId: 'sca' }]]
   },
   {
-    etatId: 'mcp',
+    etapeTypeId: 'mcp',
     justeApres: [
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etatId: 'dae', statutId: 'fav' },
-        { etatId: 'mdp' }
+        { etapeTypeId: 'dae', statutId: 'fav' },
+        { etapeTypeId: 'mdp' }
       ],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etatId: 'dae', statutId: 'fav' },
-        { etatId: 'pfd' }
+        { etapeTypeId: 'dae', statutId: 'fav' },
+        { etapeTypeId: 'pfd' }
       ],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
-        { etatId: 'mdp' }
+        { etapeTypeId: 'mdp' }
       ],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
-        { etatId: 'pfd' }
+        { etapeTypeId: 'pfd' }
       ],
-      [{ etatId: 'mcr', statutId: 'def' }],
-      [{ etatId: 'mod' }],
-      [{ etatId: 'rco-mcp' }]
+      [{ etapeTypeId: 'mcr', statutId: 'def' }],
+      [{ etapeTypeId: 'mod' }],
+      [{ etapeTypeId: 'rcm' }]
     ]
   },
   {
-    etatId: 'mco-mcp',
-    justeApres: [[{ etatId: 'mcp', statutId: 'def' }]]
+    etapeTypeId: 'mcm',
+    justeApres: [[{ etapeTypeId: 'mcp', statutId: 'def' }]]
   },
   {
-    etatId: 'rco-mcp',
-    justeApres: [[{ etatId: 'mco-mcp' }]]
+    etapeTypeId: 'rcm',
+    justeApres: [[{ etapeTypeId: 'mcm' }]]
   },
   {
-    etatId: 'vfd',
-    avant: [[{ etatId: 'vfd' }]],
+    etapeTypeId: 'vfd',
+    avant: [[{ etapeTypeId: 'vfd' }]],
     justeApres: [
-      [{ etatId: 'mcp', statutId: 'fav' }],
-      [{ etatId: 'des' }],
-      [{ etatId: 'mno-css' }]
+      [{ etapeTypeId: 'mcp', statutId: 'fav' }],
+      [{ etapeTypeId: 'des' }],
+      [{ etapeTypeId: 'mnc' }]
     ]
   },
   {
-    etatId: 'mif-mcr',
-    avant: [[{ etatId: 'mcr', statutId: 'fav' }]],
-    apres: [[{ etatId: 'vfd' }]],
-    justeApres: [[{ etatId: 'vfd' }], [{ etatId: 'mcp', statutId: 'fav' }]]
+    etapeTypeId: 'mim',
+    avant: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]],
+    apres: [[{ etapeTypeId: 'vfd' }]],
+    justeApres: [
+      [{ etapeTypeId: 'vfd' }],
+      [{ etapeTypeId: 'mcp', statutId: 'fav' }]
+    ]
   },
   {
-    etatId: 'rif-mcr',
-    justeApres: [[{ etatId: 'mif-mcr' }]]
+    etapeTypeId: 'rim',
+    justeApres: [[{ etapeTypeId: 'mim' }]]
   },
   {
-    etatId: 'mcr',
-    apres: [[{ etatId: 'vfd' }]],
-    avant: [[{ etatId: 'mcr', statutId: 'fav' }]],
+    etapeTypeId: 'mcr',
+    apres: [[{ etapeTypeId: 'vfd' }]],
+    avant: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]],
     separation: ['aof'],
     justeApres: [
-      [{ etatId: 'rif-mcr' }],
-      [{ etatId: 'vfd' }],
-      [{ etatId: 'mcp', statutId: 'fav' }]
+      [{ etapeTypeId: 'rim' }],
+      [{ etapeTypeId: 'vfd' }],
+      [{ etapeTypeId: 'mcp', statutId: 'fav' }]
     ]
   },
-  ...etatInformationsGet({
-    etatId: 'edm',
-    justeApres: [[{ etatId: 'mcr', statutId: 'fav' }]]
+  ...etatInformationsGet('mid', 'rid', {
+    etapeTypeId: 'edm',
+    justeApres: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]]
   }),
   {
-    etatId: 'ede',
-    justeApres: [[{ etatId: 'mcr', statutId: 'fav' }]]
+    etapeTypeId: 'ede',
+    justeApres: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]]
   },
-  ...etatInformationsGet({
-    etatId: 'eof',
-    justeApres: [[{ etatId: 'mcr', statutId: 'fav' }]]
+  ...etatInformationsGet('mio', 'rio', {
+    etapeTypeId: 'eof',
+    justeApres: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]]
   }),
   {
-    etatId: 'mif-aof',
-    justeApres: [[{ etatId: 'eof' }]]
+    etapeTypeId: 'mia',
+    justeApres: [[{ etapeTypeId: 'eof' }]]
   },
   {
-    etatId: 'rif-aof',
-    justeApres: [[{ etatId: 'mif-aof' }]]
+    etapeTypeId: 'ria',
+    justeApres: [[{ etapeTypeId: 'mia' }]]
   },
   {
-    etatId: 'aof',
-    justeApres: [[{ etatId: 'rif-aof' }], [{ etatId: 'eof' }]]
+    etapeTypeId: 'aof',
+    justeApres: [[{ etapeTypeId: 'ria' }], [{ etapeTypeId: 'eof' }]]
   },
   {
-    etatId: 'sca',
+    etapeTypeId: 'sca',
     justeApres: [
       [
-        { etatId: 'aof' },
-        { etatId: 'rde', statutId: 'fav' },
+        { etapeTypeId: 'aof' },
+        { etapeTypeId: 'rde', statutId: 'fav' },
         {
           titre: {
             contenu: {
@@ -142,7 +145,7 @@ const etatsDefinitionArmOct: IEtatIdDefinition[] = [
         }
       ],
       [
-        { etatId: 'aof' },
+        { etapeTypeId: 'aof' },
         {
           titre: {
             contenu: {
@@ -153,115 +156,115 @@ const etatsDefinitionArmOct: IEtatIdDefinition[] = [
           }
         }
       ],
-      [{ etatId: 'mno-sca' }],
-      [{ etatId: 'rco-sca' }]
+      [{ etapeTypeId: 'mna' }],
+      [{ etapeTypeId: 'rcs' }]
     ]
   },
-  { etatId: 'aca', justeApres: [[{ etatId: 'sca' }]] },
+  { etapeTypeId: 'aca', justeApres: [[{ etapeTypeId: 'sca' }]] },
   {
-    etatId: 'mno-sca',
-    justeApres: [[{ etatId: 'aca', statutId: 'ajo' }]]
+    etapeTypeId: 'mna',
+    justeApres: [[{ etapeTypeId: 'aca', statutId: 'ajo' }]]
   },
   {
-    etatId: 'mco-sca',
-    justeApres: [[{ etatId: 'mno-sca' }], [{ etatId: 'rco-sca' }]]
+    etapeTypeId: 'mcs',
+    justeApres: [[{ etapeTypeId: 'mna' }], [{ etapeTypeId: 'rcs' }]]
   },
-  { etatId: 'rco-sca', justeApres: [[{ etatId: 'mco-sca' }]] },
+  { etapeTypeId: 'rcs', justeApres: [[{ etapeTypeId: 'mcs' }]] },
   {
-    etatId: 'mno-aca',
+    etapeTypeId: 'mnb',
     justeApres: [
       [
-        { etatId: 'aca', statutId: 'fav' },
+        { etapeTypeId: 'aca', statutId: 'fav' },
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } }
       ]
     ]
   },
   {
-    etatId: 'mno-rej',
-    justeApres: [[{ etatId: 'aca', statutId: 'def' }]]
+    etapeTypeId: 'mnd',
+    justeApres: [[{ etapeTypeId: 'aca', statutId: 'def' }]]
   },
   {
-    etatId: 'pfc',
-    justeApres: [[{ etatId: 'mno-aca' }]]
+    etapeTypeId: 'pfc',
+    justeApres: [[{ etapeTypeId: 'mnb' }]]
   },
   {
-    etatId: 'vfc',
-    avant: [[{ etatId: 'vfc' }]],
+    etapeTypeId: 'vfc',
+    avant: [[{ etapeTypeId: 'vfc' }]],
     justeApres: [
-      [{ etatId: 'pfc' }],
+      [{ etapeTypeId: 'pfc' }],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etatId: 'mno-css' }
+        { etapeTypeId: 'mnc' }
       ],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etatId: 'des' }
+        { etapeTypeId: 'des' }
       ]
     ]
   },
   {
-    etatId: 'sco',
+    etapeTypeId: 'sco',
     justeApres: [
       [
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } },
-        { etatId: 'aca', statutId: 'fav' }
+        { etapeTypeId: 'aca', statutId: 'fav' }
       ],
       [
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } },
-        { etatId: 'vfc' }
+        { etapeTypeId: 'vfc' }
       ]
     ]
   },
   {
-    etatId: 'mno-sco',
+    etapeTypeId: 'mns',
     justeApres: [
       [
-        { etatId: 'sco' },
+        { etapeTypeId: 'sco' },
         { titre: { contenu: { arm: { mecanise: { valeur: false } } } } }
       ]
     ]
   },
   {
-    etatId: 'aco',
+    etapeTypeId: 'aco',
     justeApres: [
       [
-        { etatId: 'sco' },
+        { etapeTypeId: 'sco' },
         { titre: { contenu: { arm: { mecanise: { valeur: true } } } } }
       ],
-      [{ etatId: 'mno-aco' }],
-      [{ etatId: 'mno-sco' }]
+      [{ etapeTypeId: 'mnv' }],
+      [{ etapeTypeId: 'mns' }]
     ]
   },
-  { etatId: 'mno-aco', justeApres: [[{ etatId: 'aco' }]] },
+  { etapeTypeId: 'mnv', justeApres: [[{ etapeTypeId: 'aco' }]] },
   {
-    etatId: 'css',
+    etapeTypeId: 'css',
     justeApres: [],
     apres: [
-      [{ etatId: 'mdp' }],
-      [{ etatId: 'pfd' }],
-      [{ etatId: 'rde' }],
-      [{ etatId: 'dae' }]
+      [{ etapeTypeId: 'mdp' }],
+      [{ etapeTypeId: 'pfd' }],
+      [{ etapeTypeId: 'rde' }],
+      [{ etapeTypeId: 'dae' }]
     ],
     avant: [
-      [{ etatId: 'sco' }],
-      [{ etatId: 'des' }],
-      [{ etatId: 'aca', statutId: 'def' }]
+      [{ etapeTypeId: 'sco' }],
+      [{ etapeTypeId: 'des' }],
+      [{ etapeTypeId: 'aca', statutId: 'def' }]
     ]
   },
-  { etatId: 'mno-css', justeApres: [[{ etatId: 'css' }]] },
+  { etapeTypeId: 'mnc', justeApres: [[{ etapeTypeId: 'css' }]] },
   {
-    etatId: 'des',
+    etapeTypeId: 'des',
     justeApres: [],
     apres: [
-      [{ etatId: 'mdp' }],
-      [{ etatId: 'pfd' }],
-      [{ etatId: 'rde' }],
-      [{ etatId: 'dae' }]
+      [{ etapeTypeId: 'mdp' }],
+      [{ etapeTypeId: 'pfd' }],
+      [{ etapeTypeId: 'rde' }],
+      [{ etapeTypeId: 'dae' }]
     ],
     avant: [
-      [{ etatId: 'sco' }],
-      [{ etatId: 'aca', statutId: 'def' }],
-      [{ etatId: 'css' }]
+      [{ etapeTypeId: 'sco' }],
+      [{ etapeTypeId: 'aca', statutId: 'def' }],
+      [{ etapeTypeId: 'css' }]
     ]
   }
 ]

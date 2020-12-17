@@ -1,128 +1,136 @@
-import { IEtatIdDefinition } from '../demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from '../demarches-etats-definitions'
 import { etatComplementsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/mdAnl7m9V2ViBlxA/C4063
 
 // fixme pourquoi il y a des doubles barres ?
-const etatsDefinitionPrmOct: IEtatIdDefinition[] = [
+const etatsDefinitionPrmOct: IEtapeTypeIdDefinition[] = [
   {
-    etatId: 'mfr',
+    etapeTypeId: 'mfr',
     justeApres: [[]]
   },
   {
-    etatId: 'nis',
+    etapeTypeId: 'nis',
     justeApres: []
   },
   // fixme j’ai pas compris les 2 mod/mif
   {
-    etatId: 'mdp',
-    justeApres: [[{ etatId: 'mfr' }]]
+    etapeTypeId: 'mdp',
+    justeApres: [[{ etapeTypeId: 'mfr' }]]
   },
   {
-    etatId: 'spp',
-    justeApres: [[{ etatId: 'mdp' }]]
+    etapeTypeId: 'spp',
+    justeApres: [[{ etapeTypeId: 'mdp' }]]
   },
   // fixme j’ai fait un cycle de complement normal
-  ...etatComplementsGet({
-    etatId: 'mcr',
-    justeApres: [[{ etatId: 'spp' }]]
+  ...etatComplementsGet('mca', 'rca', {
+    etapeTypeId: 'mcr',
+    justeApres: [[{ etapeTypeId: 'spp' }]]
   }),
   {
-    etatId: 'anf',
-    justeApres: [[{ etatId: 'mcr', statutId: 'fav' }]]
+    etapeTypeId: 'anf',
+    justeApres: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]]
   },
   {
-    etatId: 'mec',
+    etapeTypeId: 'mec',
     separation: ['scg'],
-    justeApres: [[{ etatId: 'anf' }]]
+    justeApres: [[{ etapeTypeId: 'anf' }]]
   },
   {
-    etatId: 'scl',
+    etapeTypeId: 'scl',
     separation: ['spo'],
-    justeApres: [[{ etatId: 'mec' }]]
+    justeApres: [[{ etapeTypeId: 'mec' }]]
   },
-  { etatId: 'ama', justeApres: [[{ etatId: 'scl' }]] },
-  { etatId: 'aep', justeApres: [[{ etatId: 'scl' }]] },
-  { etatId: 'acl', justeApres: [[{ etatId: 'scl' }]] },
+  { etapeTypeId: 'ama', justeApres: [[{ etapeTypeId: 'scl' }]] },
+  { etapeTypeId: 'aep', justeApres: [[{ etapeTypeId: 'scl' }]] },
+  { etapeTypeId: 'acl', justeApres: [[{ etapeTypeId: 'scl' }]] },
   {
-    etatId: 'ssr',
+    etapeTypeId: 'ssr',
     separation: ['spo'],
-    justeApres: [[{ etatId: 'mec' }]]
+    justeApres: [[{ etapeTypeId: 'mec' }]]
   },
-  { etatId: 'apl', justeApres: [[{ etatId: 'ssr' }]] },
-  { etatId: 'apm', justeApres: [[{ etatId: 'ssr' }]] },
-  { etatId: 'pnr', justeApres: [[{ etatId: 'ssr' }]] },
-  { etatId: 'apn', justeApres: [[{ etatId: 'ssr' }]] },
-  { etatId: 'aof', justeApres: [[{ etatId: 'ssr' }]] },
-  { etatId: 'aop', justeApres: [[{ etatId: 'ssr' }]] },
+  { etapeTypeId: 'apl', justeApres: [[{ etapeTypeId: 'ssr' }]] },
+  { etapeTypeId: 'apm', justeApres: [[{ etapeTypeId: 'ssr' }]] },
+  { etapeTypeId: 'pnr', justeApres: [[{ etapeTypeId: 'ssr' }]] },
+  { etapeTypeId: 'apn', justeApres: [[{ etapeTypeId: 'ssr' }]] },
+  { etapeTypeId: 'aof', justeApres: [[{ etapeTypeId: 'ssr' }]] },
+  { etapeTypeId: 'aop', justeApres: [[{ etapeTypeId: 'ssr' }]] },
 
   // fixme il faut quoi pour faire une spo ?
-  { etatId: 'spo', justeApres: [[{ etatId: 'ssr' }]] },
-  { etatId: 'apo', justeApres: [[{ etatId: 'spo' }]] },
-  { etatId: 'apd', justeApres: [[{ etatId: 'apo' }]] },
-  { etatId: 'app', justeApres: [[{ etatId: 'apd' }]] },
+  { etapeTypeId: 'spo', justeApres: [[{ etapeTypeId: 'ssr' }]] },
+  { etapeTypeId: 'apo', justeApres: [[{ etapeTypeId: 'spo' }]] },
+  { etapeTypeId: 'apd', justeApres: [[{ etapeTypeId: 'apo' }]] },
+  { etapeTypeId: 'app', justeApres: [[{ etapeTypeId: 'apd' }]] },
   {
-    etatId: 'ppu',
-    justeApres: [[{ etatId: 'mec' }]]
+    etapeTypeId: 'ppu',
+    justeApres: [[{ etapeTypeId: 'mec' }]]
   },
-  { etatId: 'ppc', justeApres: [[{ etatId: 'ppu' }]] },
+  { etapeTypeId: 'ppc', justeApres: [[{ etapeTypeId: 'ppu' }]] },
   // fixme c’est quoi les cases grises ?
   {
-    etatId: 'scg',
-    justeApres: [[{ etatId: 'app' }, { etatId: 'ppc' }]]
+    etapeTypeId: 'scg',
+    justeApres: [[{ etapeTypeId: 'app' }, { etapeTypeId: 'ppc' }]]
   },
   {
-    etatId: 'rcg',
-    justeApres: [[{ etatId: 'scg' }]]
+    etapeTypeId: 'rcg',
+    justeApres: [[{ etapeTypeId: 'scg' }]]
   },
-  { etatId: 'acg', justeApres: [[{ etatId: 'rcg' }]] },
-  { etatId: 'sas', justeApres: [[{ etatId: 'acg' }]] },
-  { etatId: 'dex', justeApres: [[{ etatId: 'sas' }]] },
+  { etapeTypeId: 'acg', justeApres: [[{ etapeTypeId: 'rcg' }]] },
+  { etapeTypeId: 'sas', justeApres: [[{ etapeTypeId: 'acg' }]] },
+  { etapeTypeId: 'dex', justeApres: [[{ etapeTypeId: 'sas' }]] },
   {
-    etatId: 'dpu',
-    justeApres: [[{ etatId: 'dex', statutId: 'fav' }]]
+    etapeTypeId: 'dpu',
+    justeApres: [[{ etapeTypeId: 'dex', statutId: 'fav' }]]
   },
   {
-    etatId: 'npp',
+    etapeTypeId: 'npp',
     separation: [],
     justeApres: [
-      [{ etatId: 'dex', statutId: 'def' }],
-      [{ etatId: 'dpu', statutId: 'fav' }]
+      [{ etapeTypeId: 'dex', statutId: 'def' }],
+      [{ etapeTypeId: 'dpu', statutId: 'fav' }]
     ]
   },
   // FIXME gérer la //
-  { etatId: 'mno-npp', justeApres: [[{ etatId: 'npp' }]] },
+  { etapeTypeId: 'mno', justeApres: [[{ etapeTypeId: 'npp' }]] },
   {
-    etatId: 'rpu',
-    justeApres: [[{ etatId: 'npp', statutId: 'fav' }]]
+    etapeTypeId: 'rpu',
+    justeApres: [[{ etapeTypeId: 'npp', statutId: 'fav' }]]
   },
   {
-    etatId: 'ncl',
-    justeApres: [[{ etatId: 'npp', statutId: 'fav' }]]
+    etapeTypeId: 'ncl',
+    justeApres: [[{ etapeTypeId: 'npp', statutId: 'fav' }]]
   },
   {
-    etatId: 'pqr',
-    justeApres: [[{ etatId: 'npp', statutId: 'fav' }]]
+    etapeTypeId: 'pqr',
+    justeApres: [[{ etapeTypeId: 'npp', statutId: 'fav' }]]
   },
-  { etatId: 'dim', justeApres: [[{ etatId: 'mdp' }]] },
+  { etapeTypeId: 'dim', justeApres: [[{ etapeTypeId: 'mdp' }]] },
   // fixme C’est du // ?
   {
-    etatId: 'and',
-    justeApres: [[{ etatId: 'dim' }], [{ etatId: 'dex' }]]
+    etapeTypeId: 'and',
+    justeApres: [[{ etapeTypeId: 'dim' }], [{ etapeTypeId: 'dex' }]]
   },
-  { etatId: 'abd', justeApres: [[{ etatId: 'dex' }]] },
-  { etatId: 'rtd', justeApres: [[{ etatId: 'dex' }]] },
+  { etapeTypeId: 'abd', justeApres: [[{ etapeTypeId: 'dex' }]] },
+  { etapeTypeId: 'rtd', justeApres: [[{ etapeTypeId: 'dex' }]] },
   {
-    etatId: 'des',
+    etapeTypeId: 'des',
     justeApres: [[]],
-    avant: [[{ etatId: 'dex' }], [{ etatId: 'css' }], [{ etatId: 'dim' }]],
-    apres: [[{ etatId: 'mdp' }]]
+    avant: [
+      [{ etapeTypeId: 'dex' }],
+      [{ etapeTypeId: 'css' }],
+      [{ etapeTypeId: 'dim' }]
+    ],
+    apres: [[{ etapeTypeId: 'mdp' }]]
   },
   {
-    etatId: 'css',
+    etapeTypeId: 'css',
     justeApres: [[]],
-    avant: [[{ etatId: 'dex' }], [{ etatId: 'des' }], [{ etatId: 'dim' }]],
-    apres: [[{ etatId: 'mdp' }]]
+    avant: [
+      [{ etapeTypeId: 'dex' }],
+      [{ etapeTypeId: 'des' }],
+      [{ etapeTypeId: 'dim' }]
+    ],
+    apres: [[{ etapeTypeId: 'mdp' }]]
   }
 ]
 
