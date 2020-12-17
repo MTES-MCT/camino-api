@@ -25,8 +25,12 @@ const etapeTypeNomFormat = (
       et => et.id === etapeParentTypeId
     )
 
-    etapeType.nom = `${etapeType.nom} pour ${etapeParent!.nom}`
+    if (etapeParent) {
+      return `${etapeType.nom} pour ${etapeParent.nom}`
+    }
   }
+
+  return etapeType.nom
 }
 
 const etapeTypeSectionsFormat = (
@@ -157,7 +161,7 @@ const etapeTypeFormat = (
     etapeTypeCopy.demarcheTypeId = demarcheType.id
     etapeTypeCopy.etatId = etatId
 
-    etapeTypeNomFormat(etatId, etapeTypeCopy, demarcheType)
+    etapeTypeCopy.nom = etapeTypeNomFormat(etatId, etapeTypeCopy, demarcheType)
 
     acc.push(
       etapeTypeSectionsFormat(

@@ -10,6 +10,9 @@ type Etape {
   "Type de l'étape"
   type: EtapeType!
 
+  "L’état du type d’étape"
+  etatId: String!
+
   "Statut de l'étape"
   statut: EtapeStatut!
 

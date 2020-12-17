@@ -40,7 +40,15 @@ const titreEtapeFormat = (
       titreEtape.type.sections = titreSectionsFormat(titreEtape.type.sections)
     }
 
-    etapeTypeNomFormat(titreEtape.etatId, titreEtape.type, titreDemarcheType)
+    if (!titreEtape.etatId) {
+      titreEtape.etatId = titreEtape.typeId
+    }
+
+    titreEtape.type.nom = etapeTypeNomFormat(
+      titreEtape.etatId,
+      titreEtape.type,
+      titreDemarcheType
+    )
   }
 
   if (!fields) return titreEtape
