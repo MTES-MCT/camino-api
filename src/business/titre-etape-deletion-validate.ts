@@ -1,12 +1,12 @@
 import { ITitre, ITitreDemarche, ITitreEtape } from '../types'
-import { titreEtatIdValidate } from './utils/titre-demarche-etats-validate'
+import { titreEtapeTypeIdValidate } from './utils/titre-demarche-etats-validate'
 
 const titreEtapeDeletionValidate = async (
   titreEtape: ITitreEtape,
   titreDemarche: ITitreDemarche,
   titre: ITitre
 ) =>
-  titreEtatIdValidate(
+  titreEtapeTypeIdValidate(
     titreDemarche.type!,
     titreDemarche.etapes!,
     titre,

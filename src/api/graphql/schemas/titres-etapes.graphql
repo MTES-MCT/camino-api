@@ -10,9 +10,6 @@ type Etape {
   "Type de l'étape"
   type: EtapeType!
 
-  "L’état du type d’étape"
-  etatId: String!
-
   "Statut de l'étape"
   statut: EtapeStatut!
 
@@ -92,7 +89,7 @@ type Incertitudes {
 
 input InputEtapeCreation {
   typeId: ID!
-  etatId: String
+  etapeTypeId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!
@@ -113,7 +110,7 @@ input InputEtapeCreation {
 input InputEtapeModification {
   id: ID!
   typeId: ID!
-  etatId: String
+  etapeTypeId: String
   statutId: ID!
   titreDemarcheId: ID!
   date: String!

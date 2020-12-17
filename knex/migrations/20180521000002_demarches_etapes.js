@@ -48,6 +48,7 @@ exports.up = knex => {
     })
     .createTable('etapesTypes', table => {
       table.string('id', 3).primary()
+      table.string('parentId', 3).references('etapesTypes.id')
       table.string('nom', 128)
       table.text('description')
       table.integer('ordre').notNullable()

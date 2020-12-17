@@ -1,7 +1,7 @@
 import {
   etapesSuivantesEnAttenteGet,
-  titreEtatIdRestrictionsFind,
-  titreEtatIdValidate,
+  titreEtapeTypeIdRestrictionsFind,
+  titreEtapeTypeIdValidate,
   titreEtapesSortAsc
 } from './titre-demarche-etats-validate'
 import { etatsDefinitionArmRet } from '../demarches-etats-definitions/arm/ret'
@@ -11,7 +11,7 @@ import { etatsDefinitionArmOct } from '../demarches-etats-definitions/arm/oct'
 
 describe('teste etapesSuivantesEnAttenteGet', () => {
   test('retourne la seule étape déjà effectuée', () => {
-    const etapes = [{ etatId: 'ide' }] as ITitreEtape[]
+    const etapes = [{ typeId: 'ide' }] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
@@ -19,14 +19,14 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
       etatsDefinitionArmRet
     )
     expect(etapesEnAttente).toHaveLength(1)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'ide' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'ide' })
   })
 
   test('retourne la dernière étape d’un arbre avec un seul acteur', () => {
     const etapes = [
-      { etatId: 'ide' },
-      { etatId: 'mno-ide' },
-      { etatId: 'css' }
+      { typeId: 'ide' },
+      { typeId: 'mni' },
+      { typeId: 'css' }
     ] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
@@ -35,196 +35,216 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
       etatsDefinitionArmRet
     )
     expect(etapesEnAttente).toHaveLength(1)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'css' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'css' })
   })
 
   test('retourne les 2 dernières étapes des chemins parralèles', () => {
-    const etapes = [{ etatId: 'ide1' }, { etatId: 'ide2' }] as ITitreEtape[]
+    const etapes = [{ typeId: 'ide1' }, { typeId: 'ide2' }] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
       [],
       [
-        { etatId: 'ide1', justeApres: [] },
-        { etatId: 'ide2', justeApres: [] },
+        { etapeTypeId: 'ide1', justeApres: [] },
+        { etapeTypeId: 'ide2', justeApres: [] },
         {
-          etatId: 'mno',
-          justeApres: [[{ etatId: 'ide1' }, { etatId: 'ide2' }]]
+          etapeTypeId: 'mno',
+          justeApres: [[{ etapeTypeId: 'ide1' }, { etapeTypeId: 'ide2' }]]
         }
       ]
     )
     expect(etapesEnAttente).toHaveLength(2)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'ide1' })
-    expect(etapesEnAttente[1]).toEqual({ etatId: 'ide2' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'ide1' })
+    expect(etapesEnAttente[1]).toEqual({ typeId: 'ide2' })
   })
 
   test('retourne la dernière étape après la fusion de 2 chemins parralèles', () => {
     const etapes = [
-      { etatId: 'ide1' },
-      { etatId: 'ide2' },
-      { etatId: 'mno' }
+      { typeId: 'ide1' },
+      { typeId: 'ide2' },
+      { typeId: 'mno' }
     ] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
       [],
       [
-        { etatId: 'ide1', justeApres: [] },
-        { etatId: 'ide2', justeApres: [] },
+        { etapeTypeId: 'ide1', justeApres: [] },
+        { etapeTypeId: 'ide2', justeApres: [] },
         {
-          etatId: 'mno',
-          justeApres: [[{ etatId: 'ide1' }, { etatId: 'ide2' }]]
+          etapeTypeId: 'mno',
+          justeApres: [[{ etapeTypeId: 'ide1' }, { etapeTypeId: 'ide2' }]]
         }
       ]
     )
     expect(etapesEnAttente).toHaveLength(1)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'mno' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'mno' })
   })
   test('retourne l’étape sur le premier chemin et l’étape sur le chemin commun', () => {
-    const etapes = [{ etatId: 'ide' }, { etatId: 'mno1' }] as ITitreEtape[]
+    const etapes = [{ typeId: 'ide' }, { typeId: 'mno1' }] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
       [],
       [
-        { etatId: 'ide', separation: ['css'], justeApres: [] },
+        { etapeTypeId: 'ide', separation: ['css'], justeApres: [] },
         {
-          etatId: 'mno1',
-          justeApres: [[{ etatId: 'ide' }]]
+          etapeTypeId: 'mno1',
+          justeApres: [[{ etapeTypeId: 'ide' }]]
         },
         {
-          etatId: 'mno2',
-          justeApres: [[{ etatId: 'ide' }]]
+          etapeTypeId: 'mno2',
+          justeApres: [[{ etapeTypeId: 'ide' }]]
         },
         {
-          etatId: 'css',
-          justeApres: [[{ etatId: 'mno1' }, { etatId: 'mno2' }]]
+          etapeTypeId: 'css',
+          justeApres: [[{ etapeTypeId: 'mno1' }, { etapeTypeId: 'mno2' }]]
         }
       ]
     )
     expect(etapesEnAttente).toHaveLength(2)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'ide' })
-    expect(etapesEnAttente[1]).toEqual({ etatId: 'mno1' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'ide' })
+    expect(etapesEnAttente[1]).toEqual({ typeId: 'mno1' })
   })
   test('retourne l’étape sur la dernière étape sur le chemin commun', () => {
     const etapes = [
-      { etatId: 'ide' },
-      { etatId: 'mno1' },
-      { etatId: 'mno2' },
-      { etatId: 'css' }
+      { typeId: 'ide' },
+      { typeId: 'mno1' },
+      { typeId: 'mno2' },
+      { typeId: 'css' }
     ] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
       [],
       [
-        { etatId: 'ide', separation: ['css'], justeApres: [] },
+        { etapeTypeId: 'ide', separation: ['css'], justeApres: [] },
         {
-          etatId: 'mno1',
-          justeApres: [[{ etatId: 'ide' }]]
+          etapeTypeId: 'mno1',
+          justeApres: [[{ etapeTypeId: 'ide' }]]
         },
         {
-          etatId: 'mno2',
-          justeApres: [[{ etatId: 'ide' }]]
+          etapeTypeId: 'mno2',
+          justeApres: [[{ etapeTypeId: 'ide' }]]
         },
         {
-          etatId: 'css',
-          justeApres: [[{ etatId: 'mno1' }, { etatId: 'mno2' }]]
+          etapeTypeId: 'css',
+          justeApres: [[{ etapeTypeId: 'mno1' }, { etapeTypeId: 'mno2' }]]
         }
       ]
     )
     expect(etapesEnAttente).toHaveLength(1)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'css' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'css' })
   })
   test('retourne seulement l’étape "rif" dés qu’une demande d’info a commencé', () => {
-    const etapes = [{ etatId: 'vfd' }, { etatId: 'mif-mcr' }] as ITitreEtape[]
+    const etapes = [{ typeId: 'vfd' }, { typeId: 'mif-mcr' }] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
       [],
       [
-        { etatId: 'vfd', justeApres: [] },
-        ...etatInformationsGet({
-          etatId: 'mcr',
+        { etapeTypeId: 'vfd', justeApres: [] },
+        ...etatInformationsGet('mif-mcr', 'rif-mcr', {
+          etapeTypeId: 'mcr',
           separation: ['eof'],
-          justeApres: [[{ etatId: 'vfd' }]]
+          justeApres: [[{ etapeTypeId: 'vfd' }]]
         })
       ]
     )
     expect(etapesEnAttente).toHaveLength(1)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'mif-mcr' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'mif-mcr' })
   })
 
   test('retourne la dernière étape sur le chemin commun à la fin du démarche', () => {
-    const etapes = [{ etatId: 'dex' }, { etatId: 'mno1' }] as ITitreEtape[]
+    const etapes = [{ typeId: 'dex' }, { typeId: 'mno1' }] as ITitreEtape[]
     const etapesEnAttente = etapesSuivantesEnAttenteGet(
       etapes,
       etapes,
       [],
       [
-        { etatId: 'dex', justeApres: [], separation: [] },
+        { etapeTypeId: 'dex', justeApres: [], separation: [] },
         {
-          etatId: 'mno1',
-          justeApres: [[{ etatId: 'dex' }]]
+          etapeTypeId: 'mno1',
+          justeApres: [[{ etapeTypeId: 'dex' }]]
         },
         {
-          etatId: 'mno2',
-          justeApres: [[{ etatId: 'dex' }]]
+          etapeTypeId: 'mno2',
+          justeApres: [[{ etapeTypeId: 'dex' }]]
         },
         {
-          etatId: 'mno3',
-          justeApres: [[{ etatId: 'dex' }]]
+          etapeTypeId: 'mno3',
+          justeApres: [[{ etapeTypeId: 'dex' }]]
         }
       ]
     )
     expect(etapesEnAttente).toHaveLength(2)
-    expect(etapesEnAttente[0]).toEqual({ etatId: 'dex' })
+    expect(etapesEnAttente[0]).toEqual({ typeId: 'dex' })
   })
 })
 
 describe('teste titreEtapesSortAsc', () => {
   test('tri par l’arbre si les étapes ont la même date', () => {
     const etapes = [
-      { etatId: 'mcr', date: '2020-01-01', ordre: 18 },
-      { etatId: 'vfd', date: '2020-01-01', ordre: 23 },
-      { etatId: 'eof', date: '2020-01-01', ordre: 36 }
+      { typeId: 'mcr', date: '2020-01-01', ordre: 18 },
+      { typeId: 'vfd', date: '2020-01-01', ordre: 23 },
+      { typeId: 'eof', date: '2020-01-01', ordre: 36 }
     ] as ITitreEtape[]
 
     const result = titreEtapesSortAsc(etapes, etatsDefinitionArmOct)
-    expect(result[0].etatId).toEqual('vfd')
-    expect(result[1].etatId).toEqual('mcr')
-    expect(result[2].etatId).toEqual('eof')
+    expect(result[0].typeId).toEqual('vfd')
+    expect(result[1].typeId).toEqual('mcr')
+    expect(result[2].typeId).toEqual('eof')
   })
 })
 
-describe('teste titreEtatIdRestrictionsFind', () => {
+describe('teste titreEtapeTypeIdRestrictionsFind', () => {
   test('émet une erreur si l’étape est inconnue', () => {
     expect(() =>
-      titreEtatIdRestrictionsFind(
-        [{ etatId: 'dex', justeApres: [], separation: [] }],
+      titreEtapeTypeIdRestrictionsFind(
+        [{ etapeTypeId: 'dex', justeApres: [], separation: [] }],
         'aaa'
       )
     ).toThrowError()
   })
 })
 
-describe('teste titreEtatIdValidate', () => {
+describe('teste titreEtapeTypeIdValidate', () => {
   test('ajoute une étape à une démarche', () => {
-    const valid = titreEtatIdValidate(
+    const valid = titreEtapeTypeIdValidate(
       { id: 'oct' } as IDemarcheType,
       [],
       { typeId: 'arm' } as ITitre,
-      { typeId: 'mfr', etatId: 'mfr' } as ITitreEtape
+      { typeId: 'mfr' } as ITitreEtape
     )
     expect(valid).toBeNull()
   })
 
   test('modifie une étape à une démarche', () => {
-    const valid = titreEtatIdValidate(
+    const valid = titreEtapeTypeIdValidate(
       { id: 'oct' } as IDemarcheType,
-      [{ id: '1', typeId: 'mfr', etatId: 'mfr' }] as ITitreEtape[],
+      [{ id: '1', typeId: 'mfr' }] as ITitreEtape[],
       { typeId: 'arm' } as ITitre,
-      { id: '1', typeId: 'mfr', etatId: 'mfr' } as ITitreEtape
+      { id: '1', typeId: 'mfr' } as ITitreEtape
+    )
+    expect(valid).toBeNull()
+  })
+
+  test('l’ajout d’une étape d’une démarche historique est valide', () => {
+    const valid = titreEtapeTypeIdValidate(
+      { id: 'oct' } as IDemarcheType,
+      [{ id: '1', typeId: 'mfr', date: '2000-01-01' }] as ITitreEtape[],
+      { typeId: 'arm' } as ITitre,
+      { id: '1', typeId: 'mfr' } as ITitreEtape
+    )
+    expect(valid).toBeNull()
+  })
+
+  test('l’ajout d’une étape d’une démarche sans étape est valide', () => {
+    const valid = titreEtapeTypeIdValidate(
+      { id: 'oct' } as IDemarcheType,
+      [] as ITitreEtape[],
+      { typeId: 'arm' } as ITitre,
+      { id: '1', typeId: 'mfr' } as ITitreEtape
     )
     expect(valid).toBeNull()
   })

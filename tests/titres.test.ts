@@ -324,7 +324,7 @@ describe('titreModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         titreModifier: {
-          id: 'm-ar-mon-titre-0000',
+          id: 'm-ar-mon-titre-modifie-0000',
           nom: 'mon titre modifié'
         }
       }
@@ -344,7 +344,7 @@ describe('titreModifier', () => {
     expect(res.body).toMatchObject({
       data: {
         titreModifier: {
-          id: 'm-ar-mon-titre-0000',
+          id: 'm-ar-mon-titre-modifie-0000',
           nom: 'mon titre modifié'
         }
       }

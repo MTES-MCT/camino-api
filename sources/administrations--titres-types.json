@@ -126,6 +126,12 @@
     "associee": "true"
   },
   {
+    "administration_id": "dre-ile-de-france-01",
+    "titre_type_id": "pcc",
+    "gestionnaire": "true",
+    "associee": "false"
+  },
+  {
     "administration_id": "min-dajb-01",
     "titre_type_id": "apc",
     "gestionnaire": "false",

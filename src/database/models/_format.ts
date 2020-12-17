@@ -74,6 +74,7 @@ const titreInsertFormat = (json: Pojo) => {
   delete json.activitesAbsentes
   delete json.activitesEnConstruction
   delete json.activitesDeposees
+  delete json.demarchesCreation
 
   if (json.type) {
     delete json.type.sections

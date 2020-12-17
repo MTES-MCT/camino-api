@@ -440,6 +440,31 @@
     "ordre": "1"
   },
   {
+    "etape_type_id": "rcm",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rcb",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rcd",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rcs",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rca",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
     "etape_type_id": "des",
     "etape_statut_id": "fai",
     "ordre": "1"
@@ -456,6 +481,31 @@
   },
   {
     "etape_type_id": "mco",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mcm",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mcb",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mca",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mcs",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mcd",
     "etape_statut_id": "fai",
     "ordre": "1"
   },
@@ -515,6 +565,41 @@
     "ordre": "1"
   },
   {
+    "etape_type_id": "mna",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mnb",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mnc",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mnd",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mns",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mnv",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mni",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
     "etape_type_id": "aco",
     "etape_statut_id": "fai",
     "ordre": "1"
@@ -535,7 +620,57 @@
     "ordre": "1"
   },
   {
+    "etape_type_id": "mia",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mie",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mid",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mio",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "mim",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
     "etape_type_id": "rif",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "ria",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rie",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rid",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rio",
+    "etape_statut_id": "fai",
+    "ordre": "1"
+  },
+  {
+    "etape_type_id": "rim",
     "etape_statut_id": "fai",
     "ordre": "1"
   },

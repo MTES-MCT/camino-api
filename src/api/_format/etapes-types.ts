@@ -7,31 +7,11 @@ import {
   ITitreEtape
 } from '../../types'
 
-import { titreEtatIdValidate } from '../../business/utils/titre-demarche-etats-validate'
+import { titreEtapeTypeIdValidate } from '../../business/utils/titre-demarche-etats-validate'
 import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
-import { etatIdsGet } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
-
-const etapeTypeNomFormat = (
-  etatId: string | undefined | null,
-  etapeType: IEtapeType,
-  titreDemarcheType: IDemarcheType
-) => {
-  if (etatId?.match(/-/)) {
-    const etapeParentTypeId = etatId.slice(4)
-    const etapeParent = titreDemarcheType.etapesTypes.find(
-      et => et.id === etapeParentTypeId
-    )
-
-    if (etapeParent) {
-      return `${etapeType.nom} pour ${etapeParent.nom}`
-    }
-  }
-
-  return etapeType.nom
-}
 
 const etapeTypeSectionsFormat = (
   etapeType: IEtapeType,
@@ -70,39 +50,25 @@ const etapeTypeSectionsFormat = (
 
 const etapeTypeEtapesStatutsFormat = (
   etapeType: IEtapeType,
-  titre: ITitre,
-  demarcheType: IDemarcheType,
-  titreDemarcheEtapes: ITitreEtape[],
-  titreEtape: ITitreEtape
+  titreEtapeTypeId: string,
+  titreEtapeStatutId: string | undefined,
+  etapeTypeIsValid: boolean
 ) =>
   // restreint la liste des statuts disponibles pour le type d'étape
   etapeType.etapesStatuts!.filter(etapeStatut => {
     // si on est en train d'éditer une étape
     // et le type d'étape courant est celui de l'étape dont l'édition est en cours
-    if (titreEtape?.typeId && etapeType.id === titreEtape.typeId) {
-      // si le statut du type d'étape est celui de l'étape dont l'édition est en cours
-      // on le propose dans la liste des statuts de type d'étape
-      if (titreEtape.statutId && etapeStatut.id === titreEtape.statutId)
-        return true
-
-      // sinon,
-      // (le statut d'étape courant est différent de celui de l'étape dont l'édition est en cours)
-      // alors on filtre les étapes de type différent au sein de la démarche
-      // car la fonction de validation peut retourner une erreur
-      // si des étapes de ce type existent déjà
-      titreDemarcheEtapes = titreDemarcheEtapes.filter(
-        e => e.typeId !== titreEtape.typeId
-      )
-    }
-
-    const isValid = !titreEtatIdValidate(
-      demarcheType,
-      titreDemarcheEtapes,
-      titre,
-      titreEtape
+    // si le statut du type d'étape est celui de l'étape dont l'édition est en cours
+    // on le propose dans la liste des statuts de type d'étape
+    if (
+      titreEtapeTypeId &&
+      etapeType.id === titreEtapeTypeId &&
+      titreEtapeStatutId &&
+      etapeStatut.id === titreEtapeStatutId
     )
+      return true
 
-    return isValid
+    return etapeTypeIsValid
   })
 
 const etapeTypeDateFinCheck = (
@@ -112,6 +78,7 @@ const etapeTypeDateFinCheck = (
 ) => {
   if (!etapeType.dateFin) return true
 
+  // FIXME je ne suis pas certain que ça soit la date souhaitée
   const dateDemande = titreDateDemandeFind(titreDemarches, titreStatutId)
 
   // si
@@ -138,41 +105,40 @@ const etapeTypeFormat = (
 
   if (!isDateFinValid) return null
 
-  // Une étape peut-être présente plusieurs fois dans une démarche.
-  // pour les rendre uniques, nous utilisons les etatIds
-  const etatIds = etatIdsGet(titre.typeId, demarcheType.id, etapeType.id)
+  const etapeTypeCopy = JSON.parse(JSON.stringify(etapeType))
 
-  return etatIds.reduce((acc: IEtapeType[], etatId) => {
-    const etapeTypeCopy = JSON.parse(JSON.stringify(etapeType))
-    const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
-      etapeTypeCopy,
-      titre,
-      demarcheType,
-      titreDemarcheEtapes,
-      titreEtape ? { ...titreEtape, etatId } : ({ etatId } as ITitreEtape)
-    )
+  // FIXME
+  // (le statut d'étape courant est différent de celui de l'étape dont l'édition est en cours)
+  // alors on filtre les étapes de type différent au sein de la démarche
+  // car la fonction de validation peut retourner une erreur
+  // si des étapes de ce type existent déjà
+  const etapeTypeIsValid = !titreEtapeTypeIdValidate(
+    demarcheType,
+    titreDemarcheEtapes,
+    titre,
+    titreEtape ? { ...titreEtape } : ({ typeId: etapeType.id } as ITitreEtape)
+  )
 
-    // si aucun statut n'est disponible pour ce type d'étape
-    // alors on ne retourne pas ce type d'étape pendant l'édition
-    if (!etapesStatutsFormatted.length) return acc
+  const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
+    etapeTypeCopy,
+    titreEtape ? titreEtape.typeId : etapeType.id,
+    titreEtape?.statutId,
+    etapeTypeIsValid
+  )
 
-    etapeTypeCopy.etapesStatuts = etapesStatutsFormatted
+  // si aucun statut n'est disponible pour ce type d'étape
+  // alors on ne retourne pas ce type d'étape pendant l'édition
+  if (!etapesStatutsFormatted.length) return undefined
 
-    etapeTypeCopy.demarcheTypeId = demarcheType.id
-    etapeTypeCopy.etatId = etatId
+  etapeTypeCopy.etapesStatuts = etapesStatutsFormatted
 
-    etapeTypeCopy.nom = etapeTypeNomFormat(etatId, etapeTypeCopy, demarcheType)
+  etapeTypeCopy.demarcheTypeId = demarcheType.id
 
-    acc.push(
-      etapeTypeSectionsFormat(
-        etapeTypeCopy,
-        demarcheType.etapesTypes,
-        titre.typeId
-      )
-    )
-
-    return acc
-  }, [])
+  return etapeTypeSectionsFormat(
+    etapeTypeCopy,
+    demarcheType.etapesTypes,
+    titre.typeId
+  )
 }
 
-export { etapeTypeFormat, etapeTypeSectionsFormat, etapeTypeNomFormat }
+export { etapeTypeFormat, etapeTypeSectionsFormat }

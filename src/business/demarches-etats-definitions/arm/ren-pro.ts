@@ -1,58 +1,61 @@
-import { IEtatIdDefinition } from '../demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from '../demarches-etats-definitions'
 import { etatComplementsGet, etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/nStw2pYe0PKBs1lp/B1B05
-const etatsDefinitionArmRenPro: IEtatIdDefinition[] = [
+const etatsDefinitionArmRenPro: IEtapeTypeIdDefinition[] = [
   {
-    etatId: 'mfr',
+    etapeTypeId: 'mfr',
     justeApres: []
   },
   {
-    etatId: 'mdp',
-    justeApres: [[{ etatId: 'mfr' }]],
+    etapeTypeId: 'mdp',
+    justeApres: [[{ etapeTypeId: 'mfr' }]],
     separation: ['mcr']
   },
   {
-    etatId: 'mod',
-    justeApres: [[{ etatId: 'mdp' }]]
+    etapeTypeId: 'mod',
+    justeApres: [[{ etapeTypeId: 'mdp' }]]
   },
-  ...etatComplementsGet({
-    etatId: 'mcr',
-    justeApres: [[{ etatId: 'mdp' }], [{ etatId: 'mod' }]]
+  ...etatComplementsGet('mca', 'rca', {
+    etapeTypeId: 'mcr',
+    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'mod' }]]
   }),
-  ...etatInformationsGet({
-    etatId: 'eof',
-    justeApres: [[{ etatId: 'mcr', statutId: 'fav' }]]
+  ...etatInformationsGet('mio', 'rio', {
+    etapeTypeId: 'eof',
+    justeApres: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]]
   }),
-  ...etatInformationsGet({
-    etatId: 'aof',
-    justeApres: [[{ etatId: 'eof' }]]
+  ...etatInformationsGet('mia', 'ria', {
+    etapeTypeId: 'aof',
+    justeApres: [[{ etapeTypeId: 'eof' }]]
   }),
   {
-    etatId: 'aco',
-    justeApres: [[{ etatId: 'aof', statutId: 'fav' }], [{ etatId: 'mno-aco' }]]
+    etapeTypeId: 'aco',
+    justeApres: [
+      [{ etapeTypeId: 'aof', statutId: 'fav' }],
+      [{ etapeTypeId: 'mnv' }]
+    ]
   },
   {
-    etatId: 'mno-aco',
-    justeApres: [[{ etatId: 'aco' }]]
+    etapeTypeId: 'mnv',
+    justeApres: [[{ etapeTypeId: 'aco' }]]
   },
   {
-    etatId: 'mno-rej',
-    justeApres: [[{ etatId: 'aof', statutId: 'def' }]]
+    etapeTypeId: 'mnd',
+    justeApres: [[{ etapeTypeId: 'aof', statutId: 'def' }]]
   },
   {
-    etatId: 'css',
-    justeApres: [[{ etatId: 'mcr', statutId: 'def' }]]
+    etapeTypeId: 'css',
+    justeApres: [[{ etapeTypeId: 'mcr', statutId: 'def' }]]
   },
   {
-    etatId: 'mno-css',
-    justeApres: [[{ etatId: 'css' }]]
+    etapeTypeId: 'mnc',
+    justeApres: [[{ etapeTypeId: 'css' }]]
   },
   {
-    etatId: 'des',
+    etapeTypeId: 'des',
     justeApres: [],
-    apres: [[{ etatId: 'mdp' }]],
-    avant: [[{ etatId: 'css' }], [{ etatId: 'aof' }]]
+    apres: [[{ etapeTypeId: 'mdp' }]],
+    avant: [[{ etapeTypeId: 'css' }], [{ etapeTypeId: 'aof' }]]
   }
 ]
 
