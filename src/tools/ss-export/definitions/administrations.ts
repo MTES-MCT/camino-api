@@ -67,11 +67,11 @@ const tables = [
   }
 ]
 
-const spreadsheet = {
+const definition = {
   id,
   name: 'administrations',
   get,
   tables
 } as ISpreadsheet<IAdministration>
 
-export default spreadsheet
+export default definition

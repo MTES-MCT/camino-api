@@ -17,7 +17,7 @@ const valueFormat = (element, key, callbacks) => {
   return res !== undefined && res !== null ? res.toString() : ''
 }
 
-const rowFormat = (element, columns, parent, callbacks) =>
+const rowFormat = (element, columns, callbacks, parent) =>
   columns.map(c => {
     // si on exporte une table de jointure,
     // la définition est du type {

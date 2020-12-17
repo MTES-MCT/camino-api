@@ -276,7 +276,7 @@ const globales = {
   tables: [{ name: 'globales' }]
 } as ISpreadsheet
 
-const spreadsheets = [
+const definitions = [
   ...titres,
   titresReprise,
   metas,
@@ -295,4 +295,4 @@ const spreadsheets = [
   globales
 ]
 
-export default spreadsheets
+export default definitions

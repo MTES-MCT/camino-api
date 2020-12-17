@@ -1,11 +1,11 @@
 import 'dotenv/config'
 import '../init'
-import dbToSpreadsheets from '../tools/ss-export/db-to-spreadsheets'
-import spreadsheet from '../tools/ss-export/spreadsheets/utilisateurs'
+import dbToSpreadsheet from '../tools/ss-export/db-to-spreadsheet'
+import definition from '../tools/ss-export/definitions/utilisateurs'
 import { IUtilisateur } from '../types'
 
 const ssUtilisateursExport = async () => {
-  await dbToSpreadsheets<IUtilisateur>(spreadsheet)
+  await dbToSpreadsheet<IUtilisateur>(definition)
 }
 
 ssUtilisateursExport()

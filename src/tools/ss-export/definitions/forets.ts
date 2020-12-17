@@ -14,11 +14,11 @@ const tables = [
   }
 ]
 
-const spreadsheet = {
+const definition = {
   id,
   name: 'forets',
   get,
   tables
 } as ISpreadsheet<IForet>
 
-export default spreadsheet
+export default definition

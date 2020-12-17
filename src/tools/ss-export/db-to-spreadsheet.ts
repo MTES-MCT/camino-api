@@ -15,7 +15,7 @@ import {
   spreadsheetBatchUpdate
 } from '../api-google-spreadsheets/index'
 
-const dbToSpreadsheets = async <T>({
+const dbToSpreadsheet = async <T>({
   name,
   id,
   get,
@@ -35,6 +35,7 @@ const dbToSpreadsheets = async <T>({
   const requests = requestsBuild<T>(infos.sheets, tables, elements)
 
   await spreadsheetBatchUpdate(credentials, id, requests)
+
   console.info(`export: ${elements.length} ${name}`)
 }
 
@@ -101,19 +102,11 @@ const requestsBuild = <T>(
     ]
 
     // requêtes pour ajouter le contenu de chaque onglet
-    requests.push({
-      appendCells: {
-        sheetId: id,
-        rows,
-        fields: '*'
-      }
-    })
+    requests.push({ appendCells: { sheetId: id, rows, fields: '*' } })
   })
 
   // supprime l'onglet `tmp`
-  requests.push({
-    deleteSheet: { sheetId: 999 }
-  })
+  requests.push({ deleteSheet: { sheetId: 999 } })
 
   return requests
 }
@@ -127,8 +120,8 @@ const rowsToRowData = <T>(
       const rowFormatted = rowFormat(
         row,
         columns,
-        parent,
-        callbacks
+        callbacks,
+        parent
       ) as string[]
 
       const values = rowFormatted.map(r => ({
@@ -139,4 +132,4 @@ const rowsToRowData = <T>(
     }
   )
 
-export default dbToSpreadsheets
+export default dbToSpreadsheet

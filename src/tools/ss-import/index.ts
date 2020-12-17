@@ -5,7 +5,7 @@ import errorLog from '../error-log'
 import { spreadsheetsGet } from '../api-google-spreadsheets/index'
 import credentials from './credentials'
 import fileCreate from '../file-create'
-import spreadsheets from './spreadsheets'
+import definitions from './definitions'
 import { Index } from '../../types'
 
 const ssImport = async () => {
@@ -14,7 +14,7 @@ const ssImport = async () => {
 
   // construit un tableau de promesses
   // de requêtes à Google Spreadsheets
-  const spreadsheetsPromises = spreadsheets.reduce(
+  const spreadsheetsPromises = definitions.reduce(
     (r: (() => Promise<void>)[], s) => {
       if (s.id) {
         r.push(() => spreadsheetToJsonFiles(s))
