@@ -42,7 +42,7 @@ describe('Permissions des administrations', () => {
       await titreCreate(titre, {}, 'super')
       const res = await graphQLCall(
         titreQuery,
-        { id: 'titre-id' },
+        { id: titre.id },
         'admin',
         administration
       )

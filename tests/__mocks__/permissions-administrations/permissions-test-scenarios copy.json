@@ -1,7 +1,7 @@
 [
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "peut",
     "action": "voir",
     "cible": "titre",
@@ -11,7 +11,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "peut",
     "action": "voir",
     "cible": "demarche",
@@ -21,7 +21,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "peut",
     "action": "voir",
     "cible": "etape",
@@ -31,7 +31,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "ne peut pas",
     "action": "voir",
     "cible": "etape",
@@ -41,7 +41,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "ne peut pas",
     "action": "modifier",
     "cible": "titre",
@@ -51,7 +51,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "ne peut pas",
     "action": "modifier",
     "cible": "demarche",
@@ -61,7 +61,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "ne peut pas",
     "action": "modifier",
     "cible": "etape",
@@ -71,7 +71,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "ne peut pas",
     "action": "modifier",
     "cible": "etape",
@@ -81,7 +81,7 @@
   },
   {
     "administration_id": "ope-onf-973-01",
-    "statut_administration_id": "gestionnaire",
+    "statut_administration_id": "",
     "pouvoir": "peut",
     "action": "modifier",
     "cible": "etape",
