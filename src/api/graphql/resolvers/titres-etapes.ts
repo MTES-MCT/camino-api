@@ -1,11 +1,11 @@
-import {ITitreEtape, ITitreEtapeJustificatif, IToken} from '../../../types'
+import { ITitreEtape, ITitreEtapeJustificatif, IToken } from '../../../types'
 
-import {debug} from '../../../config/index'
+import { debug } from '../../../config/index'
 
-import {titreFormat} from '../../_format/titres'
+import { titreFormat } from '../../_format/titres'
 
-import {permissionCheck} from '../../../tools/permission'
-import {titreEtapePermissionAdministrationsCheck} from '../../_permissions/titre-edition'
+import { permissionCheck } from '../../../tools/permission'
+import { titreEtapePermissionAdministrationsCheck } from '../../_permissions/titre-edition'
 
 import {
   titreEtapeDelete,
@@ -14,11 +14,11 @@ import {
   titreEtapeUpsert,
   titresEtapesJustificatifsUpsert
 } from '../../../database/queries/titres-etapes'
-import {titreDemarcheGet} from '../../../database/queries/titres-demarches'
-import {titreGet} from '../../../database/queries/titres'
-import {userGet} from '../../../database/queries/utilisateurs'
+import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
+import { titreGet } from '../../../database/queries/titres'
+import { userGet } from '../../../database/queries/utilisateurs'
 
-import {fichiersDelete} from './_titre-document'
+import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
@@ -26,7 +26,7 @@ import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
 import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-validate'
 import titreEtapeDeletionValidate from '../../../business/titre-etape-deletion-validate'
 
-import {GraphQLResolveInfo} from 'graphql'
+import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
 
 // TODO à re-factoriser, c’est un copier/coller de etapeModifier
