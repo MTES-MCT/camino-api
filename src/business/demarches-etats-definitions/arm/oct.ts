@@ -17,16 +17,20 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
     justeApres: [],
     avant: [[{ etapeTypeId: 'mcp' }]]
   },
-  ...etatComplementsGet('mcb', 'rcb', {
-    etapeTypeId: 'rde',
-    separation: ['sca'],
-    justeApres: [[]]
-  }),
-  ...etatComplementsGet('mcd', 'rcd', {
-    etapeTypeId: 'dae',
-    separation: ['mcp'],
-    justeApres: [[]]
-  }),
+  {
+    etapeTypeId: 'mcb',
+    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'rcb' }]],
+    avant: [[{ etapeTypeId: 'rde' }]]
+  },
+  { etapeTypeId: 'rcb', justeApres: [[{ etapeTypeId: 'mcb' }]] },
+  { etapeTypeId: 'rde', justeApres: [[{ etapeTypeId: 'rcb' }], []] },
+  {
+    etapeTypeId: 'mcd',
+    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'rcd' }]],
+    avant: [[{ etapeTypeId: 'dae' }]]
+  },
+  { etapeTypeId: 'rcd', justeApres: [[{ etapeTypeId: 'mcd' }]] },
+  { etapeTypeId: 'dae', justeApres: [[{ etapeTypeId: 'rcd' }], []] },
   {
     etapeTypeId: 'mod',
     justeApres: [],
