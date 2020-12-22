@@ -120,6 +120,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           { typeId: 'mdp', date: '2020-01-01' },
           { typeId: 'dae', statutId: 'fav', date: '2020-01-01' },
           { typeId: 'mcp', date: '2020-01-01', statutId: 'fav' },
+          { typeId: 'mod', date: '2020-01-01' },
           { typeId: 'vfd', date: '2020-01-01' },
           { typeId: 'mcr', date: '2020-01-01', statutId: 'fav' },
           { typeId: 'eof', date: '2020-01-01' },
