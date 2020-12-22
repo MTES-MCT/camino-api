@@ -45,7 +45,9 @@ const etatsDefinitionAxmOct: IEtapeTypeIdDefinition[] = [
   },
   {
     etapeTypeId: 'nis',
-    justeApres: []
+    justeApres: [[]],
+    apres: [[{ etapeTypeId: 'mfr' }]],
+    final: false
   },
   {
     etapeTypeId: 'mod',
