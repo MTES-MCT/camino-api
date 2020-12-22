@@ -1,5 +1,5 @@
 import { IEtapeTypeIdDefinition } from '../demarches-etats-definitions'
-import { etatComplementsGet, etatInformationsGet } from '../etat-cycles'
+import { etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/oWuHFa1Y8cCdCqaB/B1B05
 const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
@@ -19,27 +19,35 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   },
   {
     etapeTypeId: 'mcb',
-    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'rcb' }]],
-    avant: [[{ etapeTypeId: 'rde' }]]
+    apres: [[{ etapeTypeId: 'mdp' }]],
+    avant: [[{ etapeTypeId: 'rde' }]],
+    justeApres: [[]],
+    final: false
   },
   { etapeTypeId: 'rcb', justeApres: [[{ etapeTypeId: 'mcb' }]] },
   { etapeTypeId: 'rde', justeApres: [[{ etapeTypeId: 'rcb' }], []] },
   {
     etapeTypeId: 'mcd',
-    justeApres: [[{ etapeTypeId: 'mdp' }], [{ etapeTypeId: 'rcd' }]],
-    avant: [[{ etapeTypeId: 'dae' }]]
+    apres: [[{ etapeTypeId: 'mdp' }]],
+    avant: [[{ etapeTypeId: 'dae' }]],
+    justeApres: [[]],
+    final: false
   },
   { etapeTypeId: 'rcd', justeApres: [[{ etapeTypeId: 'mcd' }]] },
   { etapeTypeId: 'dae', justeApres: [[{ etapeTypeId: 'rcd' }], []] },
   {
     etapeTypeId: 'mod',
-    justeApres: [],
-    apres: [
-      [{ etapeTypeId: 'mdp' }],
+    apres: [[{ etapeTypeId: 'mdp' }]],
+    avant: [[{ etapeTypeId: 'sca' }]],
+    justeApres: [[]],
+    final: false
+  },
+  {
+    etapeTypeId: 'mom',
+    justeApres: [
       [{ etapeTypeId: 'rde', statutId: 'def' }],
       [{ etapeTypeId: 'dae', statutId: 'def' }]
-    ],
-    avant: [[{ etapeTypeId: 'sca' }]]
+    ]
   },
   {
     etapeTypeId: 'mcp',
@@ -63,7 +71,7 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
         { etapeTypeId: 'pfd' }
       ],
       [{ etapeTypeId: 'mcr', statutId: 'def' }],
-      [{ etapeTypeId: 'mod' }],
+      [{ etapeTypeId: 'mom' }],
       [{ etapeTypeId: 'rcm' }]
     ]
   },
@@ -78,6 +86,7 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   {
     etapeTypeId: 'vfd',
     avant: [[{ etapeTypeId: 'vfd' }]],
+    separation: ['mcr'],
     justeApres: [
       [{ etapeTypeId: 'mcp', statutId: 'fav' }],
       [{ etapeTypeId: 'des' }],
@@ -86,27 +95,31 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   },
   {
     etapeTypeId: 'mim',
-    avant: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]],
-    apres: [[{ etapeTypeId: 'vfd' }]],
-    justeApres: [
-      [{ etapeTypeId: 'vfd' }],
-      [{ etapeTypeId: 'mcp', statutId: 'fav' }]
-    ]
+    avant: [[{ etapeTypeId: 'mcr' }]],
+    justeApres: [[{ etapeTypeId: 'vfd' }], [{ etapeTypeId: 'rim' }]]
   },
   {
     etapeTypeId: 'rim',
     justeApres: [[{ etapeTypeId: 'mim' }]]
   },
   {
+    etapeTypeId: 'mca',
+    avant: [[{ etapeTypeId: 'mcr' }]],
+    justeApres: [[{ etapeTypeId: 'vfd' }], [{ etapeTypeId: 'rca' }]]
+  },
+  {
+    etapeTypeId: 'rca',
+    justeApres: [[{ etapeTypeId: 'mca' }]]
+  },
+  {
     etapeTypeId: 'mcr',
-    apres: [[{ etapeTypeId: 'vfd' }]],
-    avant: [[{ etapeTypeId: 'mcr', statutId: 'fav' }]],
-    separation: ['aof'],
-    justeApres: [
-      [{ etapeTypeId: 'rim' }],
+    apres: [
       [{ etapeTypeId: 'vfd' }],
-      [{ etapeTypeId: 'mcp', statutId: 'fav' }]
-    ]
+      [{ etapeTypeId: 'rim' }],
+      [{ etapeTypeId: 'rca' }]
+    ],
+    separation: ['aof'],
+    justeApres: [[{ etapeTypeId: 'rim' }], [{ etapeTypeId: 'vfd' }]]
   },
   ...etatInformationsGet('mid', 'rid', {
     etapeTypeId: 'edm',
@@ -130,7 +143,11 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   },
   {
     etapeTypeId: 'aof',
-    justeApres: [[{ etapeTypeId: 'ria' }], [{ etapeTypeId: 'eof' }]]
+    justeApres: [
+      [{ etapeTypeId: 'ria' }],
+      [{ etapeTypeId: 'eof' }],
+      [{ etapeTypeId: 'mcr', statutId: 'def' }]
+    ]
   },
   {
     etapeTypeId: 'sca',
@@ -243,6 +260,7 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   {
     etapeTypeId: 'css',
     justeApres: [],
+    final: true,
     apres: [
       [{ etapeTypeId: 'mdp' }],
       [{ etapeTypeId: 'pfd' }],
@@ -259,6 +277,7 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   {
     etapeTypeId: 'des',
     justeApres: [],
+    final: true,
     apres: [
       [{ etapeTypeId: 'mdp' }],
       [{ etapeTypeId: 'pfd' }],
