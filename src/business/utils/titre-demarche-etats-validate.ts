@@ -121,8 +121,9 @@ const etapesSuivantesEnAttenteGet = (
 
       if (predicatCheck) {
         if (
-          etapeCouranteConditions.justeApres.length &&
-          etapeCouranteConditions.justeApres[0].length
+          (etapeCouranteConditions.justeApres.length &&
+            etapeCouranteConditions.justeApres[0].length) ||
+          !etapeCouranteConditions.final
         ) {
           etapesEnAttente = etapesEnAttente.filter(
             e =>

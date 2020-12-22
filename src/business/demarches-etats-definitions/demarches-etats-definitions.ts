@@ -17,6 +17,7 @@ interface IEtapeTypeIdDefinition {
   justeApres: IEtapeTypeIdCondition[][]
   avant?: IEtapeTypeIdCondition[][]
   apres?: IEtapeTypeIdCondition[][]
+  final?: boolean
 }
 
 interface IDemarcheEtatsDefinition {
