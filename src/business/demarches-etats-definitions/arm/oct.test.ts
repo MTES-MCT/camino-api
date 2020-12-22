@@ -14,7 +14,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     'ne peut pas créer une étape "%s" si il n’existe pas d’autres étapes',
     typeId => {
       expect(octEtatsValidate([{ typeId }])).toEqual(
-        `L’étape "${typeId}" n’est pas possible juste après `
+        `L’étape "${typeId}" n’est pas possible après `
       )
     }
   )

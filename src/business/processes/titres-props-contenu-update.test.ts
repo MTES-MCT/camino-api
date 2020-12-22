@@ -1,6 +1,6 @@
 import { mocked } from 'ts-jest/utils'
 
-import titresPropsContenuUpdate from './titres-props-contenu-update'
+import { titresPropsContenuUpdate } from './titres-props-contenu-update'
 import titreContenuEtapeIdFind from '../rules/titre-contenu-etape-id-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'

@@ -4,6 +4,7 @@ import {
   IDemarcheType,
   IEtapeType,
   ITitre,
+  ITitreDemarche,
   ITitreEtape,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
@@ -52,6 +53,12 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
       demarcheTypeId
     )
 
+    titre = {
+      ...titre,
+      typeId: titreTypeId,
+      demarches: [{ typeId: demarcheTypeId }] as ITitreDemarche[]
+    }
+
     return titreDemarcheEtatsValidate(
       demarcheEtatsDefinition!,
       {
@@ -59,10 +66,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
         etapesTypes
       } as IDemarcheType,
       titreDemarcheEtapes as ITitreEtape[],
-      {
-        ...titre,
-        typeId: titreTypeId
-      } as ITitre
+      titre as ITitre
     )
   }
 }

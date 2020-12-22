@@ -27,7 +27,8 @@ const etatsDefinitionArmRet: IEtapeTypeIdDefinition[] = [
     etapeTypeId: 'css',
     apres: [[{ etapeTypeId: 'mni' }]],
     avant: [[{ etapeTypeId: 'aof' }]],
-    justeApres: []
+    justeApres: [],
+    final: true
   },
   {
     etapeTypeId: 'aco',

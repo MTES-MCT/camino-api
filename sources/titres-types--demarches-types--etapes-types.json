@@ -1614,8 +1614,40 @@
   {
     "titre_type_id": "arm",
     "demarche_type_id": "oct",
+    "etape_type_id": "mom",
+    "ordre": "250",
+    "sections": [
+      {
+        "id": "arm",
+        "nom": "Caractéristiques ARM",
+        "elements": [
+          {
+            "id": "mecanise",
+            "nom": "Prospection mécanisée",
+            "description": "",
+            "type": "radio"
+          },
+          {
+            "id": "franchissements",
+            "nom": "Franchissements de cours d'eau",
+            "description": "Nombre de franchissements de cours d'eau",
+            "type": "integer"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
     "etape_type_id": "mcm",
     "ordre": "1005"
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "mca",
+    "ordre": "1004"
   },
   {
     "titre_type_id": "arm",
@@ -1645,6 +1677,32 @@
         "id": "arm",
         "nom": "Caractéristiques ARM",
         "elements": [
+          {
+            "id": "franchissements",
+            "nom": "Franchissements de cours d'eau",
+            "description": "Nombre de franchissements de cours d'eau",
+            "type": "integer"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "titre_type_id": "arm",
+    "demarche_type_id": "oct",
+    "etape_type_id": "rca",
+    "ordre": "1005",
+    "sections": [
+      {
+        "id": "arm",
+        "nom": "Caractéristiques ARM",
+        "elements": [
+          {
+            "id": "mecanise",
+            "nom": "Prospection mécanisée",
+            "description": "",
+            "type": "radio"
+          },
           {
             "id": "franchissements",
             "nom": "Franchissements de cours d'eau",

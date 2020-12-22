@@ -213,7 +213,7 @@ describe('teste titreEtapeTypeIdValidate', () => {
     const valid = titreEtapeTypeIdValidate(
       { id: 'oct' } as IDemarcheType,
       [],
-      { typeId: 'arm' } as ITitre,
+      { typeId: 'arm', demarches: [{ typeId: 'oct' }] } as ITitre,
       { typeId: 'mfr' } as ITitreEtape
     )
     expect(valid).toBeNull()
@@ -223,7 +223,7 @@ describe('teste titreEtapeTypeIdValidate', () => {
     const valid = titreEtapeTypeIdValidate(
       { id: 'oct' } as IDemarcheType,
       [{ id: '1', typeId: 'mfr' }] as ITitreEtape[],
-      { typeId: 'arm' } as ITitre,
+      { typeId: 'arm', demarches: [{ typeId: 'oct' }] } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape
     )
     expect(valid).toBeNull()
@@ -233,7 +233,7 @@ describe('teste titreEtapeTypeIdValidate', () => {
     const valid = titreEtapeTypeIdValidate(
       { id: 'oct' } as IDemarcheType,
       [{ id: '1', typeId: 'mfr', date: '2000-01-01' }] as ITitreEtape[],
-      { typeId: 'arm' } as ITitre,
+      { typeId: 'arm', demarches: [{ typeId: 'oct' }] } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape
     )
     expect(valid).toBeNull()
@@ -243,7 +243,7 @@ describe('teste titreEtapeTypeIdValidate', () => {
     const valid = titreEtapeTypeIdValidate(
       { id: 'oct' } as IDemarcheType,
       [] as ITitreEtape[],
-      { typeId: 'arm' } as ITitre,
+      { typeId: 'arm', demarches: [{ typeId: 'oct' }] } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape
     )
     expect(valid).toBeNull()
