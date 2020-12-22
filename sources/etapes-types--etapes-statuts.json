@@ -321,23 +321,18 @@
   },
   {
     "etape_type_id": "aca",
-    "etape_statut_id": "pro",
+    "etape_statut_id": "fav",
     "ordre": "1"
   },
   {
     "etape_type_id": "aca",
-    "etape_statut_id": "fav",
+    "etape_statut_id": "def",
     "ordre": "2"
   },
   {
     "etape_type_id": "aca",
-    "etape_statut_id": "def",
-    "ordre": "3"
-  },
-  {
-    "etape_type_id": "aca",
     "etape_statut_id": "ajo",
-    "ordre": "4"
+    "ordre": "3"
   },
   {
     "etape_type_id": "anf",

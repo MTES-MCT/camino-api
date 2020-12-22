@@ -14,6 +14,8 @@ import {
   IDemarcheEtatsDefinition
 } from '../demarches-etats-definitions/demarches-etats-definitions'
 import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
+import { titrePropsContenuGet } from '../processes/titres-props-contenu-update'
+import { titreContenuFormat } from '../../api/_format/titres-contenu'
 
 const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
   conditionTitre.contenu &&
@@ -314,12 +316,35 @@ const titreDemarcheEtatsValidate = (
   )
 
   for (let i = 0; i < titreEtapes.length; i++) {
+    // On doit recalculer les sections de titre pour chaque étape,
+    // car elles ont peut-être été modifiées après l’étape en cours
+    const titreTemp = JSON.parse(JSON.stringify(titre)) as ITitre
+    const titreDemarche = titreTemp.demarches?.find(
+      d => d.typeId === demarcheType.id
+    )
+
+    if (!titreDemarche) {
+      throw new Error(
+        'Le titre ne contient pas la démarche en cours de modification'
+      )
+    }
+
+    const etapes = titreEtapes.slice(0, i)
+    titreDemarche.etapes = etapes
+    const { propsTitreEtapesIds } = titrePropsContenuGet(titreTemp)
+    if (propsTitreEtapesIds) {
+      titreTemp.contenu = titreContenuFormat(
+        propsTitreEtapesIds,
+        titre.demarches
+      )
+    }
+
     const titreEtapeTypeIdErrors = titreEtapeTypeIdRestrictionsCheck(
       demarcheEtatsDefinition.restrictions,
       titreEtapes[i].typeId!,
       demarcheType,
-      titreEtapes.slice(0, i),
-      titre
+      etapes,
+      titreTemp
     )
 
     if (titreEtapeTypeIdErrors.length) {

@@ -4,7 +4,7 @@ import titresDemarchesPublicUpdate from './processes/titres-demarches-public-upd
 import titresActivitesUpdate from './processes/titres-activites-update'
 import titresStatutIdsUpdate from './processes/titres-statut-ids-update'
 import titresPropsEtapesIdsUpdate from './processes/titres-props-etapes-ids-update'
-import titresPropsContenuUpdate from './processes/titres-props-contenu-update'
+import { titresPropsContenuUpdate } from './processes/titres-props-contenu-update'
 import titresPhasesUpdate from './processes/titres-phases-update'
 import titresDatesUpdate from './processes/titres-dates-update'
 import titresDemarchesOrdreUpdate from './processes/titres-demarches-ordre-update'

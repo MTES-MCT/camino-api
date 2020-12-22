@@ -1,6 +1,6 @@
 import { Model, Pojo, RelationMappings } from 'objection'
 import { join } from 'path'
-import { paysFormat, titreInsertFormat, titreContenuFormat } from './_format'
+import { paysFormat, titreInsertFormat } from './_format'
 import Administrations from './administrations'
 import Communes from './communes'
 import Domaines from './domaines'
@@ -15,6 +15,7 @@ import Types from './titres-types'
 
 import { ITitre } from '../../types'
 import Forets from './forets'
+import { titreContenuFormat } from '../../api/_format/titres-contenu'
 
 interface Titres extends ITitre {}
 
@@ -208,11 +209,11 @@ class Titres extends Model {
     }
   })
 
-  async $afterFind() {
+  $afterFind() {
     this.pays = paysFormat(this.communes || [])
 
     if (this.propsTitreEtapesIds) {
-      this.contenu = await titreContenuFormat(
+      this.contenu = titreContenuFormat(
         this.propsTitreEtapesIds,
         this.demarches
       )

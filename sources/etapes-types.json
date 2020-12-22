@@ -190,7 +190,7 @@
     "id": "mcm",
     "parentId": "mco",
     "nom": "demande de compléments (complétude de la demande)",
-    "description": "après une dae",
+    "description": "après une mcp",
     "ordre": "17",
     "sections": [
       {
@@ -219,7 +219,7 @@
     "id": "mcd",
     "parentId": "mco",
     "nom": "demande de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet)",
-    "description": "après une rde",
+    "description": "après une dae",
     "ordre": "18",
     "sections": [
       {
@@ -248,7 +248,7 @@
     "id": "mcb",
     "parentId": "mco",
     "nom": "demande de compléments (récépissé de déclaration loi sur l'eau)",
-    "description": "après une mcp",
+    "description": "après une rde",
     "ordre": "19",
     "sections": [
       {
@@ -343,7 +343,7 @@
     "id": "rcm",
     "parentId": "rco",
     "nom": "réception de compléments (complétude de la demande)",
-    "description": "après une dae",
+    "description": "après une mcp",
     "ordre": "23",
     "fondamentale": "TRUE",
     "public_lecture": "FALSE",
@@ -353,7 +353,7 @@
     "id": "rcd",
     "parentId": "rco",
     "nom": "réception de compléments (décision de la mission autorité environnementale (examen au cas par cas du projet))",
-    "description": "après une rde",
+    "description": "après une dae",
     "ordre": "24",
     "fondamentale": "TRUE",
     "public_lecture": "FALSE",
@@ -363,7 +363,7 @@
     "id": "rcb",
     "parentId": "rco",
     "nom": "réception de compléments (récépissé de déclaration loi sur l'eau)",
-    "description": "après une mcp",
+    "description": "après une rde",
     "ordre": "25",
     "fondamentale": "TRUE",
     "public_lecture": "FALSE",
@@ -1169,7 +1169,7 @@
           {
             "id": "dateReception",
             "nom": "Date de réception",
-            "description": "Date de réception à compter de laquelle commence à courir le délai imparti pour signer l'autorisation",
+            "description": "Date de réception de la notification",
             "type": "date"
           }
         ]
