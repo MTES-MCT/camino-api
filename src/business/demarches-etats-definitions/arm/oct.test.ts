@@ -10,6 +10,15 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
     }
   )
 
+  test.each(['mcd', 'mcb'])(
+    'ne peut pas créer une étape "%s" si il n’existe pas d’autres étapes',
+    typeId => {
+      expect(octEtatsValidate([{ typeId }])).toEqual(
+        `L’étape "${typeId}" n’est pas possible juste après `
+      )
+    }
+  )
+
   test('peut créer une étape "mdp" juste après une "mfr"', () => {
     expect(octEtatsValidate([{ typeId: 'mfr' }, { typeId: 'mdp' }])).toBeNull()
   })
