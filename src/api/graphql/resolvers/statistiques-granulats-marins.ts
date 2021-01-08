@@ -152,9 +152,12 @@ const statistiquesGranulatsMarinsAnneeBuild = (
       volumeGranulatsExtrait: Math.floor(
         statistiquesActivites.volumeGranulatsExtrait
       ),
-      masseGranulatsExtrait: Math.floor(
-        statistiquesActivites.masseGranulatsExtrait
-      )
+      // ne pas indiquer un tonnage produit nul ou incohérent par rapport au volume produit.
+      // Si l'on ne dispose pas de la donnée tonnage (pour les années antérieures à 2019), appliquer la règle de trois suivante : 1m3 => 1,53 tonne.
+      masseGranulatsExtrait:
+        annee < 2019
+          ? Math.floor(statistiquesActivites.volumeGranulatsExtrait * 1.53)
+          : Math.floor(statistiquesActivites.masseGranulatsExtrait)
     },
     activitesDeposesQuantite:
       statistiquesActivites.activitesDeposesQuantiteCount,
