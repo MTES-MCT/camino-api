@@ -7,7 +7,7 @@ import {
   ITitreEtape
 } from '../../types'
 
-import { titreDemarcheUpdatedEtatValidate } from '../../business/utils/titre-demarche-etats-validate'
+import { titreDemarcheUpdatedEtatValidate } from '../../business/titre-demarche-etat-validate'
 import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 
 import { dupRemove } from '../../tools/index'

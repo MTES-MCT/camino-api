@@ -1,6 +1,6 @@
 import { demarchesEtatsDefinitions } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { titreDemarcheEtatValidate } from '../../business/utils/titre-demarche-etats-validate'
+import { titreDemarcheEtatValidate } from '../../business/titre-demarche-etat-validate'
 
 const demarchesEtatsDefinitionsCheck = async () => {
   console.info()
