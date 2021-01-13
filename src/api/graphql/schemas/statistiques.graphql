@@ -69,8 +69,8 @@ type StatistiquesGranulatsMarins {
   annees: [StatistiquesGranulatsMarinsAnnee]
   surfaceExploration: Int
   surfaceExploitation: Int
-  titresInstructionPrw: Int
+  titresInstructionExploration: Int
   titresValPrw: Int
-  titresDmiCxw: Int
+  titresInstructionExploitation: Int
   titresValCxw: Int
 }
