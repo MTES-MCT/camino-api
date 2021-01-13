@@ -1,5 +1,5 @@
 import { ITitre, ITitreDemarche, ITitreEtape } from '../types'
-import { titreDemarcheUpdatedEtatValidate } from './utils/titre-demarche-etats-validate'
+import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
 
 const titreEtapeDeletionValidate = async (
   titreEtape: ITitreEtape,

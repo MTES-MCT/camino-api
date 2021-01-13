@@ -8,7 +8,7 @@ import {
   ITitreEtape,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
-import { titreDemarcheEtatValidate } from '../utils/titre-demarche-etats-validate'
+import { titreDemarcheEtatValidate } from '../titre-demarche-etat-validate'
 import { etapeTypeIdDefinitionsGet } from './demarches-etats-definitions'
 
 import decamelize = require('decamelize')

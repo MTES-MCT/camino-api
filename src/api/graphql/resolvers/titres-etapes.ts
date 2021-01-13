@@ -224,7 +224,7 @@ const etapeSupprimer = async (
       titre
     )
     if (rulesErrors) {
-      throw new Error(rulesErrors)
+      throw new Error(rulesErrors.join(', '))
     }
 
     await titreEtapeDelete(id)

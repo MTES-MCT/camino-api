@@ -1,20 +1,11 @@
 // valide la date et la position de l'étape en fonction des autres étapes
-import {
-  ITitre,
-  ITitreEtape,
-  IDemarcheType,
-  ITitreCondition
-} from '../../types'
+import { ITitre, ITitreEtape, ITitreCondition } from '../../types'
 
 import { contenuConditionMatch } from '../../tools/index'
 import {
-  etapeTypeIdDefinitionsGet,
   IEtapeTypeIdCondition,
   IEtapeTypeIdDefinition
 } from '../demarches-etats-definitions/demarches-etats-definitions'
-import { titrePropsContenuGet } from '../processes/titres-props-contenu-update'
-import { titreContenuFormat } from '../../api/_format/titres-contenu'
-import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 
 const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
   conditionTitre.contenu &&
@@ -176,7 +167,7 @@ const etapesEnAttenteToString = (titreEtapesEnAttente: ITitreEtape[]) =>
     .map(t => `"${t}"`)
     .join(', ')
 
-const titreEtapeTypeIdRestrictionsCheck = (
+const titreEtapeEtatValidate = (
   etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
   etapeTypeId: string,
   titreDemarcheEtapes: ITitreEtape[],
@@ -248,147 +239,8 @@ const titreEtapeTypeIdRestrictionsCheck = (
   return errors
 }
 
-const titreDemarcheEtatValidate = (
-  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
-  demarcheType: IDemarcheType,
-  titreEtapes: ITitreEtape[],
-  titre: ITitre
-) => {
-  // Si on tente d’insérer ou de modifier une étape, il faut regarder
-  // qu’on puisse la mettre avec son nouveau etapeTypeId à la nouvelle date souhaitée
-  // et que les étapes après celle-ci soient toujours possibles
-
-  // Vérifie que toutes les étapes existent dans l’arbre
-  const etapeTypeIdsValid = etapeTypeIdDefinitions.map(r => r.etapeTypeId)
-  const etapeInconnue = titreEtapes.find(
-    etape => !etapeTypeIdsValid.includes(etape.typeId!)
-  )
-
-  if (etapeInconnue) {
-    return [`l’étape ${etapeInconnue.typeId} n’existe pas dans l’arbre`]
-  }
-
-  titreEtapes = titreEtapesSortAscByDate(
-    titreEtapes,
-    'demarches',
-    demarcheType,
-    titre.typeId
-  )
-
-  for (let i = 0; i < titreEtapes.length; i++) {
-    // On doit recalculer les sections de titre pour chaque étape,
-    // car elles ont peut-être été modifiées après l’étape en cours
-    const titreTemp = JSON.parse(JSON.stringify(titre)) as ITitre
-    const titreDemarche = titreTemp.demarches?.find(
-      d => d.typeId === demarcheType.id
-    )
-
-    if (!titreDemarche) {
-      throw new Error(
-        'le titre ne contient pas la démarche en cours de modification'
-      )
-    }
-
-    const etapes = titreEtapes.slice(0, i)
-    titreDemarche.etapes = etapes
-    const { propsTitreEtapesIds } = titrePropsContenuGet(titreTemp)
-    if (propsTitreEtapesIds) {
-      titreTemp.contenu = titreContenuFormat(
-        propsTitreEtapesIds,
-        titre.demarches
-      )
-    }
-
-    const titreEtapeTypeIdErrors = titreEtapeTypeIdRestrictionsCheck(
-      etapeTypeIdDefinitions,
-      titreEtapes[i].typeId!,
-      etapes,
-      titreTemp
-    )
-
-    if (titreEtapeTypeIdErrors.length) {
-      return titreEtapeTypeIdErrors
-    }
-  }
-
-  return null
-}
-
-const titreDemarcheEtapesBuild = (
-  titreDemarcheEtapes: ITitreEtape[],
-  titreEtape: ITitreEtape,
-  suppression = false
-) => {
-  // quand on ajoute une étape, on ne connaît pas encore sa date.
-  // on doit donc proposer tous les types d'étape possibles
-  if (!titreEtape.date) {
-    titreEtape.date = '2300-01-01'
-  }
-
-  // si nous n’ajoutons pas une nouvelle étape
-  // on supprime l’étape en cours de modification ou de suppression
-  const titreEtapes = titreDemarcheEtapes.reduce((acc: ITitreEtape[], te) => {
-    if (te.id !== titreEtape.id) {
-      acc.push(te)
-    }
-
-    // modification
-    if (!suppression && te.id === titreEtape.id) {
-      acc.push(titreEtape)
-    }
-
-    return acc
-  }, [])
-
-  // création
-  if (!titreEtape.id) {
-    titreEtapes.push(titreEtape)
-  }
-
-  return titreEtapes
-}
-
-const titreDemarcheUpdatedEtatValidate = (
-  demarcheType: IDemarcheType,
-  titreDemarcheEtapes: ITitreEtape[],
-  titre: ITitre,
-  titreEtape: ITitreEtape,
-  suppression = false
-) => {
-  const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
-    titre.typeId,
-    demarcheType.id
-  )
-  // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
-  if (!etapeTypeIdDefinitions) return null
-
-  // pas de validation si la démarche est antérieure au 31 octobre 2019
-  // pour ne pas bloquer l'édition du cadastre historique (moins complet)
-  if (
-    titreDemarcheEtapes.length &&
-    titreDemarcheEtapes.reverse()[0].date < '2019-10-31'
-  )
-    return null
-
-  const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
-    titreDemarcheEtapes,
-    titreEtape,
-    suppression
-  )
-
-  // On vérifie que la nouvelle démarche respecte son arbre d’instructions
-  return titreDemarcheEtatValidate(
-    etapeTypeIdDefinitions,
-    demarcheType,
-    titreDemarcheEtapesNew,
-    titre
-  )
-}
-
 export {
-  titreDemarcheUpdatedEtatValidate,
-  titreDemarcheEtapesBuild,
+  titreEtapeEtatValidate,
   etapesSuivantesEnAttenteGet,
-  titreDemarcheEtatValidate,
   titreEtapeTypeIdRestrictionsFind
 }
