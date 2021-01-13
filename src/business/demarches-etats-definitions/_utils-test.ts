@@ -8,7 +8,7 @@ import {
   ITitreEtape,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
-import { titreDemarcheEtatsValidate } from '../utils/titre-demarche-etats-validate'
+import { titreDemarcheEtatValidate } from '../utils/titre-demarche-etats-validate'
 import { etapeTypeIdDefinitionsGet } from './demarches-etats-definitions'
 
 import decamelize = require('decamelize')
@@ -60,7 +60,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
       demarches: [{ typeId: demarcheTypeId }] as ITitreDemarche[]
     }
 
-    return titreDemarcheEtatsValidate(
+    return titreDemarcheEtatValidate(
       etapeTypeIdDefinitions!,
       {
         id: demarcheTypeId,

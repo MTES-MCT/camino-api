@@ -13,9 +13,9 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
   })
 
   test('ne peut pas créer une "mis" sans "mfr"', () => {
-    expect(octEtatsValidate([{ typeId: 'nis', date: '2020-01-01' }])).toEqual(
-      'L’étape "nis" n’est pas possible après '
-    )
+    expect(octEtatsValidate([{ typeId: 'nis', date: '2020-01-01' }])).toEqual([
+      'l’étape "nis" n’est pas possible après '
+    ])
   })
 
   test('peut créer une "nis" après une "mfr"', () => {
@@ -36,6 +36,6 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
         { typeId: 'mca', date: '2020-01-03' },
         { typeId: 'mdp', date: '2020-01-04' }
       ])
-    ).toEqual('L’étape "mdp" n’est plus possible après "mfr", "mca"')
+    ).toEqual(['l’étape "mdp" n’est plus possible après "mfr", "mca"'])
   })
 })

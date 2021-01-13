@@ -20,7 +20,7 @@ describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => 
         { typeId: 'mcr', date: '2020-06-01' },
         { typeId: 'mod', date: '2020-06-03' }
       ])
-    ).toContain('L’étape "mod" n’est pas possible juste après "mcr"')
+    ).toEqual(['l’étape "mod" n’est pas possible juste après "mcr"'])
   })
 
   test('ne peut pas faire 2 "mco" d’affilée', () => {
@@ -31,6 +31,6 @@ describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => 
         { typeId: 'mca', date: '2020-06-03' },
         { typeId: 'mca' }
       ])
-    ).toContain('L’étape "mca" ne peut-être effecutée 2 fois d’affilée')
+    ).toEqual(['l’étape "mca" ne peut-être effecutée 2 fois d’affilée'])
   })
 })
