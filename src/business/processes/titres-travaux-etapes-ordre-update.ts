@@ -28,6 +28,7 @@ const titresTravauxEtapesOrdreUpdate = async (titresTravauxIds?: string[]) => {
     if (titreTravau.etapes) {
       const titreTravauxEtapeSorted = titreEtapesSortAscByDate(
         titreTravau.etapes,
+        'travaux',
         titreTravau.type,
         titreTravau.titre?.typeId
       )

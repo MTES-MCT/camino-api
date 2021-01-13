@@ -40,7 +40,10 @@ const etapesTypesIds = [
 const etapesDatesStatutsBuild = (titreDemarche: ITitreDemarche) => {
   if (!titreDemarche.etapes?.length) return null
 
-  const etapes = titreEtapesSortAscByDate(titreDemarche.etapes).reverse()
+  const etapes = titreEtapesSortAscByDate(
+    titreDemarche.etapes,
+    'demarches'
+  ).reverse()
 
   // initialise l'objet selon tous les types d'étapes intéressants pour l'instruction
   return etapesTypesIds.reduce((etapesDatesStatuts, typeId) => {

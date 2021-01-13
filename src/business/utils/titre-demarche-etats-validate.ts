@@ -8,14 +8,13 @@ import {
 
 import { contenuConditionMatch } from '../../tools/index'
 import {
-  demarcheEtatsDefinitionGet,
+  etapeTypeIdDefinitionsGet,
   IEtapeTypeIdCondition,
-  IEtapeTypeIdDefinition,
-  IDemarcheEtatsDefinition
+  IEtapeTypeIdDefinition
 } from '../demarches-etats-definitions/demarches-etats-definitions'
-import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 import { titrePropsContenuGet } from '../processes/titres-props-contenu-update'
 import { titreContenuFormat } from '../../api/_format/titres-contenu'
+import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 
 const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
   conditionTitre.contenu &&
@@ -30,12 +29,14 @@ const titreEtapeTypeIdRestrictionsFind = (
   titreEtapeTypeIdRestrictions: IEtapeTypeIdDefinition[],
   etapeTypeId: string
 ) => {
-  const restrictions = titreEtapeTypeIdRestrictions.find(restriction => {
-    return restriction.etapeTypeId === etapeTypeId
-  })
+  const etapeTypeIdDefinitions = titreEtapeTypeIdRestrictions.find(
+    restriction => {
+      return restriction.etapeTypeId === etapeTypeId
+    }
+  )
 
-  if (restrictions) {
-    return restrictions
+  if (etapeTypeIdDefinitions) {
+    return etapeTypeIdDefinitions
   }
 
   throw new Error(
@@ -44,22 +45,14 @@ const titreEtapeTypeIdRestrictionsFind = (
 }
 
 const etapesEnAttenteGet = (
-  etapeTypeIdDefinition: IEtapeTypeIdDefinition[],
-  demarcheType: IDemarcheType,
-  titreDemarcheEtapes: ITitreEtape[],
-  titreTypeId: string
+  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
+  titreDemarcheEtapes: ITitreEtape[]
 ) => {
-  const titreEtapesAscSort = titreEtapesSortAscByDate(
-    titreDemarcheEtapes,
-    demarcheType,
-    titreTypeId
-  )
-
   return etapesSuivantesEnAttenteGet(
-    titreEtapesAscSort,
-    titreEtapesAscSort,
+    titreDemarcheEtapes,
+    titreDemarcheEtapes,
     [],
-    etapeTypeIdDefinition
+    etapeTypeIdDefinitions
   )
 }
 
@@ -184,18 +177,15 @@ const etapesEnAttenteToString = (titreEtapesEnAttente: ITitreEtape[]) =>
     .join(', ')
 
 const titreEtapeTypeIdRestrictionsCheck = (
-  etapeTypeIdDefinition: IEtapeTypeIdDefinition[],
+  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
   etapeTypeId: string,
-  demarcheType: IDemarcheType,
   titreDemarcheEtapes: ITitreEtape[],
   titre: ITitre
 ) => {
   const errors = []
   const titreEtapesEnAttente = etapesEnAttenteGet(
-    etapeTypeIdDefinition,
-    demarcheType,
-    titreDemarcheEtapes,
-    titre.typeId
+    etapeTypeIdDefinitions,
+    titreDemarcheEtapes
   )
 
   if (titreEtapesEnAttente.find(e => e.typeId === etapeTypeId)) {
@@ -205,7 +195,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
   }
 
   const titreEtapeRestrictions = titreEtapeTypeIdRestrictionsFind(
-    etapeTypeIdDefinition,
+    etapeTypeIdDefinitions,
     etapeTypeId
   )
 
@@ -258,39 +248,8 @@ const titreEtapeTypeIdRestrictionsCheck = (
   return errors
 }
 
-const titreEtapesSortAsc = (
-  titreEtapes: ITitreEtape[],
-  restrictions: IEtapeTypeIdDefinition[]
-) =>
-  titreEtapes.slice().sort((a, b) => {
-    const dateA = new Date(a.date)
-    const dateB = new Date(b.date)
-
-    if (dateA < dateB) return -1
-    if (dateA > dateB) return 1
-
-    // si les deux étapes ont la même date
-    // on utilise l'arbre pour trouver quelle étape provoque l’autre
-    const aRestriction = restrictions.find(r => r.etapeTypeId === a.typeId)
-
-    if (
-      aRestriction!.justeApres.flat(2).find(a => a?.etapeTypeId === b.typeId)
-    ) {
-      return 1
-    }
-
-    const bRestriction = restrictions.find(r => r.etapeTypeId === b.typeId)
-    if (
-      bRestriction!.justeApres.flat(2).find(b => b?.etapeTypeId === a.typeId)
-    ) {
-      return -1
-    }
-
-    return a.ordre! - b.ordre!
-  })
-
 const titreDemarcheEtatsValidate = (
-  demarcheEtatsDefinition: IDemarcheEtatsDefinition,
+  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
   demarcheType: IDemarcheType,
   titreEtapes: ITitreEtape[],
   titre: ITitre
@@ -300,9 +259,7 @@ const titreDemarcheEtatsValidate = (
   // et que les étapes après celle-ci soient toujours possibles
 
   // Vérifie que toutes les étapes existent dans l’arbre
-  const etapeTypeIdsValid = demarcheEtatsDefinition.restrictions.map(
-    r => r.etapeTypeId
-  )
+  const etapeTypeIdsValid = etapeTypeIdDefinitions.map(r => r.etapeTypeId)
   const etapeInconnue = titreEtapes.find(
     etape => !etapeTypeIdsValid.includes(etape.typeId!)
   )
@@ -310,9 +267,11 @@ const titreDemarcheEtatsValidate = (
     return `L’étape ${etapeInconnue.typeId} n’existe pas dans l’arbre`
   }
 
-  titreEtapes = titreEtapesSortAsc(
+  titreEtapes = titreEtapesSortAscByDate(
     titreEtapes,
-    demarcheEtatsDefinition.restrictions
+    'demarches',
+    demarcheType,
+    titre.typeId
   )
 
   for (let i = 0; i < titreEtapes.length; i++) {
@@ -340,9 +299,8 @@ const titreDemarcheEtatsValidate = (
     }
 
     const titreEtapeTypeIdErrors = titreEtapeTypeIdRestrictionsCheck(
-      demarcheEtatsDefinition.restrictions,
+      etapeTypeIdDefinitions,
       titreEtapes[i].typeId!,
-      demarcheType,
       etapes,
       titreTemp
     )
@@ -362,12 +320,12 @@ const titreEtapeTypeIdValidate = (
   titreEtape: ITitreEtape,
   supprimer = false
 ) => {
-  const demarcheEtatsDefinition = demarcheEtatsDefinitionGet(
+  const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
     titre.typeId,
     demarcheType.id
   )
   // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
-  if (!demarcheEtatsDefinition) return null
+  if (!etapeTypeIdDefinitions) return null
 
   // pas de validation si la démarche est antérieure au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
@@ -399,7 +357,7 @@ const titreEtapeTypeIdValidate = (
 
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
   return titreDemarcheEtatsValidate(
-    demarcheEtatsDefinition,
+    etapeTypeIdDefinitions,
     demarcheType,
     titreEtapes,
     titre
@@ -410,6 +368,5 @@ export {
   titreEtapeTypeIdValidate,
   etapesSuivantesEnAttenteGet,
   titreDemarcheEtatsValidate,
-  titreEtapesSortAsc,
   titreEtapeTypeIdRestrictionsFind
 }

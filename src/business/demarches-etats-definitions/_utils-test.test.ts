@@ -1,4 +1,4 @@
-import { demarcheEtatsValidate } from './_utils'
+import { demarcheEtatsValidate } from './_utils-test'
 
 test('teste EtatsValidate', () => {
   const octEtatsValidate = demarcheEtatsValidate('oct', 'arm')

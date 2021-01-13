@@ -1,4 +1,4 @@
-import { demarcheEtatsValidate } from '../_utils'
+import { demarcheEtatsValidate } from '../_utils-test'
 
 describe('vérifie l’arbre de retrait d’ARM', () => {
   const retEtatsValidate = demarcheEtatsValidate('ret', 'arm')

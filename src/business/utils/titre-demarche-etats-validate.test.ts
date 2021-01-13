@@ -1,13 +1,11 @@
 import {
   etapesSuivantesEnAttenteGet,
   titreEtapeTypeIdRestrictionsFind,
-  titreEtapeTypeIdValidate,
-  titreEtapesSortAsc
+  titreEtapeTypeIdValidate
 } from './titre-demarche-etats-validate'
 import { etatsDefinitionArmRet } from '../demarches-etats-definitions/arm/ret'
 import { IDemarcheType, ITitre, ITitreEtape } from '../../types'
 import { etatInformationsGet } from '../demarches-etats-definitions/etat-cycles'
-import { etatsDefinitionArmOct } from '../demarches-etats-definitions/arm/oct'
 
 describe('teste etapesSuivantesEnAttenteGet', () => {
   test('retourne la seule étape déjà effectuée', () => {
@@ -179,21 +177,6 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
     )
     expect(etapesEnAttente).toHaveLength(2)
     expect(etapesEnAttente[0]).toEqual({ typeId: 'dex' })
-  })
-})
-
-describe('teste titreEtapesSortAsc', () => {
-  test('tri par l’arbre si les étapes ont la même date', () => {
-    const etapes = [
-      { typeId: 'mcr', date: '2020-01-01', ordre: 18 },
-      { typeId: 'vfd', date: '2020-01-01', ordre: 23 },
-      { typeId: 'eof', date: '2020-01-01', ordre: 36 }
-    ] as ITitreEtape[]
-
-    const result = titreEtapesSortAsc(etapes, etatsDefinitionArmOct)
-    expect(result[0].typeId).toEqual('vfd')
-    expect(result[1].typeId).toEqual('mcr')
-    expect(result[2].typeId).toEqual('eof')
   })
 })
 
