@@ -9,7 +9,8 @@ import {
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
 import { titreDemarcheEtatsValidate } from '../utils/titre-demarche-etats-validate'
-import { demarcheEtatsDefinitionGet } from './demarches-etats-definitions'
+import { etapeTypeIdDefinitionsGet } from './demarches-etats-definitions'
+
 import decamelize = require('decamelize')
 
 const elementsGet = <T>(fileName: string): T[] => {
@@ -48,7 +49,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     titreDemarcheEtapes: Partial<ITitreEtape>[],
     titre: Partial<ITitre> = {}
   ) => {
-    const demarcheEtatsDefinition = demarcheEtatsDefinitionGet(
+    const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
       titreTypeId,
       demarcheTypeId
     )
@@ -60,7 +61,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     }
 
     return titreDemarcheEtatsValidate(
-      demarcheEtatsDefinition!,
+      etapeTypeIdDefinitions!,
       {
         id: demarcheTypeId,
         etapesTypes

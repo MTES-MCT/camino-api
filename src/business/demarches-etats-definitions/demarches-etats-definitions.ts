@@ -54,7 +54,7 @@ const demarchesEtatsDefinitions: IDemarcheEtatsDefinition[] = [
   }
 ]
 
-const demarcheEtatsDefinitionGet = (
+const etapeTypeIdDefinitionsGet = (
   titreTypeId: string,
   demarcheTypeId: string
 ) => {
@@ -62,12 +62,12 @@ const demarcheEtatsDefinitionGet = (
     r =>
       r.titreTypeId === titreTypeId &&
       (r.demarcheTypeIds.includes(demarcheTypeId) || !demarcheTypeId)
-  )
+  )?.restrictions
 }
 
 export {
   demarchesEtatsDefinitions,
-  demarcheEtatsDefinitionGet,
+  etapeTypeIdDefinitionsGet,
   IEtapeTypeIdDefinition,
   IEtapeTypeIdCondition,
   IDemarcheEtatsDefinition

@@ -1,4 +1,4 @@
-import { demarcheEtatsValidate } from '../_utils'
+import { demarcheEtatsValidate } from '../_utils-test'
 
 describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => {
   const renProEtatsValidate = demarcheEtatsValidate('ren', 'arm')
