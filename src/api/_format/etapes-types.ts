@@ -7,7 +7,7 @@ import {
   ITitreEtape
 } from '../../types'
 
-import { titreEtapeTypeIdValidate } from '../../business/utils/titre-demarche-etats-validate'
+import { titreDemarcheUpdatedEtatValidate } from '../../business/utils/titre-demarche-etats-validate'
 import titreDateDemandeFind from '../../business/rules/titre-date-demande-find'
 
 import { dupRemove } from '../../tools/index'
@@ -112,7 +112,7 @@ const etapeTypeFormat = (
   // alors on filtre les étapes de type différent au sein de la démarche
   // car la fonction de validation peut retourner une erreur
   // si des étapes de ce type existent déjà
-  const etapeTypeIsValid = !titreEtapeTypeIdValidate(
+  const etapeTypeIsValid = !titreDemarcheUpdatedEtatValidate(
     demarcheType,
     titreDemarcheEtapes,
     titre,

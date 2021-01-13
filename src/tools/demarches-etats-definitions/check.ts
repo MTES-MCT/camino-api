@@ -1,6 +1,6 @@
 import { demarchesEtatsDefinitions } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { titreDemarcheEtatsValidate } from '../../business/utils/titre-demarche-etats-validate'
+import { titreDemarcheEtatValidate } from '../../business/utils/titre-demarche-etats-validate'
 
 const demarchesEtatsDefinitionsCheck = async () => {
   console.info()
@@ -42,8 +42,8 @@ const demarchesEtatsDefinitionsCheck = async () => {
         .forEach(demarche => {
           // .some(demarche => {
           try {
-            const errors = titreDemarcheEtatsValidate(
-              demarchesEtatsDefinition,
+            const errors = titreDemarcheEtatValidate(
+              demarchesEtatsDefinition.restrictions,
               demarche.type!,
               demarche.etapes!,
               demarche.titre!

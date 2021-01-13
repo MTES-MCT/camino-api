@@ -13,9 +13,9 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test.each(['mcd', 'mcb'])(
     'ne peut pas créer une étape "%s" si il n’existe pas d’autres étapes',
     typeId => {
-      expect(octEtatsValidate([{ typeId }])).toEqual(
-        `L’étape "${typeId}" n’est pas possible après `
-      )
+      expect(octEtatsValidate([{ typeId }])).toEqual([
+        `l’étape "${typeId}" n’est pas possible après `
+      ])
     }
   )
 
@@ -30,7 +30,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mdp', date: '2020-01-02' },
         { typeId: 'mfr', date: '2020-01-03' }
       ])
-    ).toEqual('L’étape "mfr" existe déjà')
+    ).toEqual(['l’étape "mfr" existe déjà'])
   })
 
   test('ne peut pas créer une étape "mfr" si il y a déjà une "mfr"', () => {
@@ -98,7 +98,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'des', date: '2020-01-04' },
         { typeId: 'des', date: '2020-01-04' }
       ])
-    ).toEqual('L’étape "des" ne peut-être effecutée 2 fois d’affilée')
+    ).toEqual(['l’étape "des" ne peut-être effecutée 2 fois d’affilée'])
   })
 
   test('ne peut pas créer une "css" après une "des"', () => {
@@ -109,7 +109,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'des', date: '2020-01-04' },
         { typeId: 'css', date: '2020-01-05' }
       ])
-    ).toEqual('L’étape "css" n’est plus possible après "des"')
+    ).toEqual(['l’étape "css" n’est plus possible après "des"'])
   })
 
   test('peut créer une "des" si le titre est en attente de "pfc"', () => {
@@ -151,7 +151,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'aca', date: '2020-01-03', statutId: 'fav' },
         { typeId: 'mnb', date: '2020-01-04' }
       ])
-    ).toEqual('L’étape "mnb" n’est pas possible juste après "aca"')
+    ).toEqual(['l’étape "mnb" n’est pas possible juste après "aca"'])
   })
 
   test('peut créer une "mnd" apres une "aca" défavorable', () => {

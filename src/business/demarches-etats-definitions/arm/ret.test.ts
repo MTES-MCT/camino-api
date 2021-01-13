@@ -24,7 +24,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'eof', date: '2020-01-04' },
         { typeId: 'mni' }
       ])
-    ).toContain('L’étape "mni" n’est pas possible juste après "eof"')
+    ).toEqual(['l’étape "mni" n’est pas possible juste après "eof"'])
   })
 
   test('ne peut pas créer une étape "mnc" après la "mnc"', () => {
@@ -36,7 +36,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mnc' },
         { typeId: 'mnc' }
       ])
-    ).toContain('L’étape "mnc" ne peut-être effecutée 2 fois d’affilée')
+    ).toEqual(['l’étape "mnc" ne peut-être effecutée 2 fois d’affilée'])
   })
 
   test('peut créer une "aof" juste après une "mno"', () => {
@@ -57,7 +57,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'rif' },
         { typeId: 'aof' }
       ])
-    ).toContain('L’étape "aof" n’est pas possible juste après "rif"')
+    ).toEqual(['l’étape "aof" n’est pas possible juste après "rif"'])
   })
 
   test('ne peut pas créer une "aof" après une "css"', () => {
@@ -68,13 +68,13 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'css' },
         { typeId: 'aof' }
       ])
-    ).toContain('L’étape "aof" n’est pas possible juste après "css"')
+    ).toEqual(['l’étape "aof" n’est pas possible juste après "css"'])
   })
 
   test('ne peut pas créer une "css" juste après une "ide"', () => {
-    expect(retEtatsValidate([{ typeId: 'ide' }, { typeId: 'css' }])).toContain(
-      'L’étape "css" n’est pas possible après "ide"'
-    )
+    expect(retEtatsValidate([{ typeId: 'ide' }, { typeId: 'css' }])).toEqual([
+      'l’étape "css" n’est pas possible après "ide"'
+    ])
   })
 
   test('peut créer une "mio" juste après une "rif"', () => {
@@ -97,7 +97,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mio', date: '2020-01-04' },
         { typeId: 'rif', date: '2020-01-05' }
       ])
-    ).toContain('L’étape "rif" n’est pas possible juste après "mio"')
+    ).toEqual(['l’étape "rif" n’est pas possible juste après "mio"'])
   })
 
   test('peut créer une "eof" juste après une "rio"', () => {
@@ -122,7 +122,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mio' },
         { typeId: 'eof' }
       ])
-    ).toContain('L’étape "eof" n’est pas possible juste après "mio"')
+    ).toEqual(['l’étape "eof" n’est pas possible juste après "mio"'])
   })
 
   test('peut créer une "css" apres une "mni"', () => {
@@ -174,7 +174,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'css', date: '2020-01-01' },
         { typeId: 'css' }
       ])
-    ).toContain('L’étape "css" ne peut-être effecutée 2 fois d’affilée')
+    ).toEqual(['l’étape "css" ne peut-être effecutée 2 fois d’affilée'])
   })
 
   test('ne peut pas créer une "mni" juste après une "css"', () => {
@@ -185,6 +185,6 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'ide', date: '2020-01-01' },
         { typeId: 'mni' }
       ])
-    ).toContain('L’étape "mni" n’est pas possible juste après ')
+    ).toEqual(['l’étape "mni" n’est pas possible juste après "css"'])
   })
 })

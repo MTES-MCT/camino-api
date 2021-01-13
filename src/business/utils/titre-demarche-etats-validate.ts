@@ -40,7 +40,7 @@ const titreEtapeTypeIdRestrictionsFind = (
   }
 
   throw new Error(
-    `L’étape ${etapeTypeId} n’existe pas dans cet arbre d’instructions`
+    `l’étape ${etapeTypeId} n’existe pas dans cet arbre d’instructions`
   )
 }
 
@@ -190,7 +190,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
 
   if (titreEtapesEnAttente.find(e => e.typeId === etapeTypeId)) {
     errors.push(
-      `L’étape "${etapeTypeId}" ne peut-être effecutée 2 fois d’affilée`
+      `l’étape "${etapeTypeId}" ne peut-être effecutée 2 fois d’affilée`
     )
   }
 
@@ -207,7 +207,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
     etapeTypeIdConditionsCheck(titre, titreDemarcheEtapes, avant)
   ) {
     errors.push(
-      `L’étape "${etapeTypeId}" n’est plus possible après ${etapesEnAttenteToString(
+      `l’étape "${etapeTypeId}" n’est plus possible après ${etapesEnAttenteToString(
         titreEtapesEnAttente
       )}`
     )
@@ -219,7 +219,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
     !etapeTypeIdConditionsCheck(titre, titreDemarcheEtapes, apres)
   ) {
     errors.push(
-      `L’étape "${etapeTypeId}" n’est pas possible après ${etapesEnAttenteToString(
+      `l’étape "${etapeTypeId}" n’est pas possible après ${etapesEnAttenteToString(
         titreEtapesEnAttente
       )}`
     )
@@ -231,7 +231,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
     !etapeTypeIdConditionsCheck(titre, titreEtapesEnAttente, justeApres)
   ) {
     errors.push(
-      `L’étape "${etapeTypeId}" n’est pas possible juste après ${etapesEnAttenteToString(
+      `l’étape "${etapeTypeId}" n’est pas possible juste après ${etapesEnAttenteToString(
         titreEtapesEnAttente
       )}`
     )
@@ -240,7 +240,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
   if (!errors.length) {
     if (!justeApres.length || justeApres.some(c => !c.length)) {
       if (titreDemarcheEtapes.map(e => e.typeId).includes(etapeTypeId)) {
-        errors.push(`L’étape "${etapeTypeId}" existe déjà`)
+        errors.push(`l’étape "${etapeTypeId}" existe déjà`)
       }
     }
   }
@@ -248,7 +248,7 @@ const titreEtapeTypeIdRestrictionsCheck = (
   return errors
 }
 
-const titreDemarcheEtatsValidate = (
+const titreDemarcheEtatValidate = (
   etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
   demarcheType: IDemarcheType,
   titreEtapes: ITitreEtape[],
@@ -263,8 +263,9 @@ const titreDemarcheEtatsValidate = (
   const etapeInconnue = titreEtapes.find(
     etape => !etapeTypeIdsValid.includes(etape.typeId!)
   )
+
   if (etapeInconnue) {
-    return `L’étape ${etapeInconnue.typeId} n’existe pas dans l’arbre`
+    return [`l’étape ${etapeInconnue.typeId} n’existe pas dans l’arbre`]
   }
 
   titreEtapes = titreEtapesSortAscByDate(
@@ -284,7 +285,7 @@ const titreDemarcheEtatsValidate = (
 
     if (!titreDemarche) {
       throw new Error(
-        'Le titre ne contient pas la démarche en cours de modification'
+        'le titre ne contient pas la démarche en cours de modification'
       )
     }
 
@@ -306,19 +307,53 @@ const titreDemarcheEtatsValidate = (
     )
 
     if (titreEtapeTypeIdErrors.length) {
-      return titreEtapeTypeIdErrors.join('\n')
+      return titreEtapeTypeIdErrors
     }
   }
 
   return null
 }
 
-const titreEtapeTypeIdValidate = (
+const titreDemarcheEtapesBuild = (
+  titreDemarcheEtapes: ITitreEtape[],
+  titreEtape: ITitreEtape,
+  suppression = false
+) => {
+  // quand on ajoute une étape, on ne connaît pas encore sa date.
+  // on doit donc proposer tous les types d'étape possibles
+  if (!titreEtape.date) {
+    titreEtape.date = '2300-01-01'
+  }
+
+  // si nous n’ajoutons pas une nouvelle étape
+  // on supprime l’étape en cours de modification ou de suppression
+  const titreEtapes = titreDemarcheEtapes.reduce((acc: ITitreEtape[], te) => {
+    if (te.id !== titreEtape.id) {
+      acc.push(te)
+    }
+
+    // modification
+    if (!suppression && te.id === titreEtape.id) {
+      acc.push(titreEtape)
+    }
+
+    return acc
+  }, [])
+
+  // création
+  if (!titreEtape.id) {
+    titreEtapes.push(titreEtape)
+  }
+
+  return titreEtapes
+}
+
+const titreDemarcheUpdatedEtatValidate = (
   demarcheType: IDemarcheType,
   titreDemarcheEtapes: ITitreEtape[],
   titre: ITitre,
   titreEtape: ITitreEtape,
-  supprimer = false
+  suppression = false
 ) => {
   const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
     titre.typeId,
@@ -335,38 +370,25 @@ const titreEtapeTypeIdValidate = (
   )
     return null
 
-  if (!titreEtape.date) {
-    titreEtape.date = '2300-01-01'
-  }
-
-  let titreEtapes = JSON.parse(
-    JSON.stringify(titreDemarcheEtapes)
-  ) as ITitreEtape[]
-
-  // Si nous n’ajoutons pas une nouvelle étape
-  if (titreEtape.id) {
-    // On supprime l’étape en cours de modification ou de suppression
-    titreEtapes = titreEtapes.filter(e => e.id !== titreEtape.id)
-  }
-
-  // Si nous ne sommes pas en cours de suppression de l’étape
-  if (!supprimer) {
-    // On ajoute la nouvelle étape à la démarche que l’on souhaite ajouter
-    titreEtapes.push(titreEtape)
-  }
+  const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
+    titreDemarcheEtapes,
+    titreEtape,
+    suppression
+  )
 
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
-  return titreDemarcheEtatsValidate(
+  return titreDemarcheEtatValidate(
     etapeTypeIdDefinitions,
     demarcheType,
-    titreEtapes,
+    titreDemarcheEtapesNew,
     titre
   )
 }
 
 export {
-  titreEtapeTypeIdValidate,
+  titreDemarcheUpdatedEtatValidate,
+  titreDemarcheEtapesBuild,
   etapesSuivantesEnAttenteGet,
-  titreDemarcheEtatsValidate,
+  titreDemarcheEtatValidate,
   titreEtapeTypeIdRestrictionsFind
 }
