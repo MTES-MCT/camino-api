@@ -32,9 +32,9 @@ type IStatsGranulatsMarinsTitresTypesHistorique =
   | 'titresCxw'
 
 type IStatsGranulatsMarinsTitresTypesInstant =
-  | 'titresInstructionPrw'
+  | 'titresInstructionExploration'
   | 'titresValPrw'
-  | 'titresDmiCxw'
+  | 'titresInstructionExploitation'
   | 'titresValCxw'
 
 const statistiquesGranulatsMarinsTitresGet = (
@@ -67,23 +67,22 @@ const statistiquesGranulatsMarinsInstantBuild = (titres: ITitre[]) => {
         titre.surfaceEtape &&
         titre.surfaceEtape.surface
       ) {
-        if (titre.typeId! === 'prw') {
+        if (['arw', 'apw', 'prw'].includes(titre.typeId!)) {
           acc.surfaceExploration += titre.surfaceEtape.surface
+          if (['mod', 'dmi'].includes(titre.statutId!)) {
+            acc.titresInstructionExploration++
+          }
         } else {
           acc.surfaceExploitation += titre.surfaceEtape.surface
+          if (['mod', 'dmi'].includes(titre.statutId!)) {
+            acc.titresInstructionExploitation++
+          }
         }
         const id = camelcase(
           `titres-${titre.statutId!}-${titre.typeId!}`
         ) as IStatsGranulatsMarinsTitresTypesInstant
 
         acc[id]++
-
-        if (
-          titre.typeId! === 'prw' &&
-          ['mod', 'dmi'].includes(titre.statutId!)
-        ) {
-          acc.titresInstructionPrw++
-        }
       }
 
       return acc
@@ -91,9 +90,9 @@ const statistiquesGranulatsMarinsInstantBuild = (titres: ITitre[]) => {
     {
       surfaceExploration: 0,
       surfaceExploitation: 0,
-      titresInstructionPrw: 0,
+      titresInstructionExploration: 0,
       titresValPrw: 0,
-      titresDmiCxw: 0,
+      titresInstructionExploitation: 0,
       titresValCxw: 0
     }
   )
@@ -176,7 +175,7 @@ const statistiquesGranulatsMarins = async () => {
     const titres = await titresGet(
       {
         domainesIds: ['w'],
-        typesIds: ['pr', 'ax', 'px', 'cx']
+        typesIds: ['ar', 'ap', 'pr', 'ax', 'px', 'cx']
       },
       {
         fields: {
