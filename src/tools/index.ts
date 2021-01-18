@@ -52,11 +52,7 @@ const diffFind = (key: string, ...arrays: (Index<any>[] | null)[]) => {
 }
 
 const objectsDiffer = (a: Index<any> | any, b: Index<any> | any): boolean => {
-  if (typeof a !== 'object' && typeof b !== 'object') {
-    return a !== b
-  }
-
-  return (
+  const comparator = (a: Index<any> | any, b: Index<any> | any) =>
     Object.keys(a).find(k => {
       if (a[k] && b[k]) {
         if (Array.isArray(a[k]) && Array.isArray(b[k])) {
@@ -70,7 +66,12 @@ const objectsDiffer = (a: Index<any> | any, b: Index<any> | any): boolean => {
 
       return a[k] !== b[k]
     }) !== undefined
-  )
+
+  if (typeof a !== 'object' && typeof b !== 'object') {
+    return a !== b
+  }
+
+  return comparator(a, b) || comparator(b, a)
 }
 
 const contenuConditionMatch = (

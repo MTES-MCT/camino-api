@@ -980,5 +980,6 @@ export {
   IAdministrationColonneId,
   IColonne,
   ITitreCondition,
-  IDefinition
+  IDefinition,
+  ITitreSection
 }

@@ -59,7 +59,7 @@ const dbEntreprisesEtablissementsExistants = [
 ] as EntreprisesEtablissements[]
 
 const apiEntreprisesExistantes = [
-  { id: 'toto', legalSiren: 'toto' }
+  { id: 'toto', legalSiren: 'toto', nom: 'toto' }
 ] as Entreprises[]
 
 const apiEntreprisesEtablissementsExistantes = [

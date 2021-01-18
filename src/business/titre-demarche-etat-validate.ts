@@ -5,7 +5,7 @@ import {
   etapeTypeIdDefinitionsGet,
   IEtapeTypeIdDefinition
 } from './demarches-etats-definitions/demarches-etats-definitions'
-import { titrePropsContenuGet } from './processes/titres-props-contenu-update'
+import { propsTitreEtapesIdsFind } from './utils/props-titre-etapes-ids-find'
 import { titreContenuFormat } from '../api/_format/titres-contenu'
 import titreEtapesSortAscByDate from './utils/titre-etapes-sort-asc-by-date'
 import { titreEtapeEtatValidate } from './utils/titre-etape-etat-validate'
@@ -55,7 +55,13 @@ const titreDemarcheEtatValidate = (
 
     const etapes = titreEtapes.slice(0, i)
     titreDemarche.etapes = etapes
-    const { propsTitreEtapesIds } = titrePropsContenuGet(titreTemp)
+
+    const propsTitreEtapesIds = propsTitreEtapesIdsFind(
+      titre.statutId!,
+      titre.demarches!,
+      titreTemp.type!.propsEtapesTypes
+    )
+
     if (propsTitreEtapesIds) {
       titreTemp.contenu = titreContenuFormat(
         propsTitreEtapesIds,
@@ -75,7 +81,7 @@ const titreDemarcheEtatValidate = (
     }
   }
 
-  return null
+  return []
 }
 
 // vérifie que la modification de la démarche
@@ -92,7 +98,7 @@ const titreDemarcheUpdatedEtatValidate = (
     demarcheType.id
   )
   // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
-  if (!etapeTypeIdDefinitions) return null
+  if (!etapeTypeIdDefinitions) return []
 
   // pas de validation si la démarche est antérieure au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
@@ -100,7 +106,7 @@ const titreDemarcheUpdatedEtatValidate = (
     titreDemarcheEtapes.length &&
     titreDemarcheEtapes.reverse()[0].date < '2019-10-31'
   )
-    return null
+    return []
 
   const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
     titreDemarcheEtapes,

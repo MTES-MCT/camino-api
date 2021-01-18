@@ -6,7 +6,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   test.each(['mfr', 'pfd', 'dae', 'rde'])(
     'peut créer une étape "%s" si il n’existe pas d’autres étapes',
     typeId => {
-      expect(octEtatsValidate([{ typeId }])).toBeNull()
+      expect(octEtatsValidate([{ typeId }])).toHaveLength(0)
     }
   )
 
@@ -20,7 +20,9 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
   )
 
   test('peut créer une étape "mdp" juste après une "mfr"', () => {
-    expect(octEtatsValidate([{ typeId: 'mfr' }, { typeId: 'mdp' }])).toBeNull()
+    expect(
+      octEtatsValidate([{ typeId: 'mfr' }, { typeId: 'mdp' }])
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer 2 "mfr"', () => {
@@ -40,7 +42,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mdp' },
         { typeId: 'mfr' }
       ])
-    ).toBeTruthy()
+    ).toEqual(['l’étape "mfr" existe déjà'])
   })
 
   test('ne peut pas déplacer une étape "mfr" après une "mdp"', () => {
@@ -49,7 +51,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mdp', date: '2020-02-02' },
         { typeId: 'mfr', date: '2020-02-03' }
       ])
-    ).toBeTruthy()
+    ).toEqual(['l’étape "mdp" n’est pas possible juste après '])
   })
 
   test.each(['rde', 'dae'])(
@@ -66,7 +68,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
             contenu: { arm: { mecanise: true, franchissements: 1 } }
           }
         )
-      ).toBeNull()
+      ).toHaveLength(0)
     }
   )
 
@@ -77,7 +79,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mdp', date: '2020-02-02' },
         { typeId: 'mfr', date: '2020-01-01' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('peut créer une "des" après "mdp"', () => {
@@ -87,7 +89,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'mdp', date: '2020-01-01' },
         { typeId: 'des', date: '2020-01-04' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer deux "des"', () => {
@@ -134,7 +136,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           contenu: { arm: { mecanise: true } }
         }
       )
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer une "mno" après la "aca" si le titre n’est pas mécanisé', () => {
@@ -169,7 +171,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'pfd', date: '2020-05-01', statutId: 'fai' },
         { typeId: 'mfr', date: '2020-04-29', statutId: 'fai' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
   test('peut créer une "mod" si il n’y a pas de sca', () => {
     expect(
@@ -186,7 +188,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'rde', date: '2020-02-11', statutId: 'fav' },
         { typeId: 'mod', date: '2020-06-17', statutId: 'fai' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('peut créer une "mcp" après une "pfd" et "mdp"', () => {
@@ -197,7 +199,7 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
         { typeId: 'pfd', date: '2020-02-23', statutId: 'fai' },
         { typeId: 'mcp', date: '2020-02-28', statutId: 'fav' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('peut créer une "sca" après une "aof" et "rde"', () => {
@@ -220,6 +222,6 @@ describe('vérifie l’arbre d’octroi d’ARM', () => {
           contenu: { arm: { mecanise: true, franchissements: 3 } }
         }
       )
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 })

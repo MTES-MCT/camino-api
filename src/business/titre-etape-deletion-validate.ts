@@ -14,4 +14,4 @@ const titreEtapeDeletionValidate = async (
     true
   )
 
-export default titreEtapeDeletionValidate
+export { titreEtapeDeletionValidate }

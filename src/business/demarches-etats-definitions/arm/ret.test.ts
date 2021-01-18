@@ -4,7 +4,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
   const retEtatsValidate = demarcheEtatsValidate('ret', 'arm')
 
   test('peut créer une étape "ide" si il n’existe pas d’autres étapes', () => {
-    expect(retEtatsValidate([{ typeId: 'ide' }])).toBeNull()
+    expect(retEtatsValidate([{ typeId: 'ide' }])).toHaveLength(0)
   })
   test('ne peut pas créer une étape "ide" si il y a déjà une "ide"', () => {
     expect(
@@ -12,7 +12,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'ide', date: '2020-01-01' },
         { typeId: 'ide' }
       ])
-    ).toBeTruthy()
+    ).toEqual(['l’étape "ide" ne peut-être effecutée 2 fois d’affilée'])
   })
 
   test('ne peut pas créer une étape "mni" après une "eof"', () => {
@@ -46,7 +46,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mni' },
         { typeId: 'aof' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer une "aof" juste après une "rif"', () => {
@@ -85,7 +85,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'rif' },
         { typeId: 'mio' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer une "rif" juste après une "mio"', () => {
@@ -110,7 +110,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'rio', date: '2020-01-05' },
         { typeId: 'eof' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer une "eof" juste après une "mio"', () => {
@@ -132,8 +132,9 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mni' },
         { typeId: 'css' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
+
   test('peut créer une "css" apres une "rif"', () => {
     expect(
       retEtatsValidate([
@@ -142,8 +143,9 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'rif' },
         { typeId: 'css' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
+
   test('peut créer une "css" apres une "mio"', () => {
     expect(
       retEtatsValidate([
@@ -153,7 +155,7 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'mio' },
         { typeId: 'css' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
   test('peut créer une "css" apres une "eof"', () => {
     expect(
@@ -164,8 +166,9 @@ describe('vérifie l’arbre de retrait d’ARM', () => {
         { typeId: 'eof' },
         { typeId: 'css' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
+
   test('ne peut pas créer une "css" apres une "css"', () => {
     expect(
       retEtatsValidate([

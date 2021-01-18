@@ -1,5 +1,8 @@
 import { ITitreEtape, IDemarcheType, ITravauxType } from '../../types'
-import { etapeTypeIdDefinitionsGet } from '../demarches-etats-definitions/demarches-etats-definitions'
+import {
+  etapeTypeIdDefinitionsGet,
+  IEtapeTypeIdDefinition
+} from '../demarches-etats-definitions/demarches-etats-definitions'
 
 // classe les étapes selon leur dates, ordre et etapesTypes.ordre le cas échéant
 const titreEtapesSortAscByDate = (
@@ -7,8 +10,20 @@ const titreEtapesSortAscByDate = (
   type: 'travaux' | 'demarches',
   demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
   titreTypeId?: string
-) =>
-  titreEtapes.slice().sort((a, b) => {
+) => {
+  let etapeTypeIdDefinitions = [] as IEtapeTypeIdDefinition[] | undefined
+  let dateEtapeFirst = '' as string
+
+  if (type === 'demarches' && titreTypeId && demarcheOrTravauxType?.id) {
+    dateEtapeFirst = titreEtapes.map(te => te.date).sort()[0]
+
+    etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
+      titreTypeId,
+      demarcheOrTravauxType.id
+    )
+  }
+
+  return titreEtapes.slice().sort((a, b) => {
     const dateA = new Date(a.date)
     const dateB = new Date(b.date)
 
@@ -18,35 +33,26 @@ const titreEtapesSortAscByDate = (
     // si les deux étapes ont la même date
 
     // on utilise l'arbre pour trouver quelle étape provoque l’autre
-    if (type === 'demarches' && titreTypeId && demarcheOrTravauxType?.id) {
-      const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
-        titreTypeId,
-        demarcheOrTravauxType.id
+
+    if (etapeTypeIdDefinitions?.length && dateEtapeFirst > '2019-10-31') {
+      const bRestriction = etapeTypeIdDefinitions.find(
+        r => r.etapeTypeId === b.typeId
       )
 
-      if (etapeTypeIdDefinitions) {
-        const aRestriction = etapeTypeIdDefinitions.find(
-          r => r.etapeTypeId === a.typeId
-        )
+      if (
+        bRestriction!.justeApres.flat(2).find(b => b?.etapeTypeId === a.typeId)
+      ) {
+        return -1
+      }
 
-        if (
-          aRestriction!.justeApres
-            .flat(2)
-            .find(a => a?.etapeTypeId === b.typeId)
-        ) {
-          return 1
-        }
+      const aRestriction = etapeTypeIdDefinitions.find(
+        r => r.etapeTypeId === a.typeId
+      )
 
-        const bRestriction = etapeTypeIdDefinitions.find(
-          r => r.etapeTypeId === b.typeId
-        )
-        if (
-          bRestriction!.justeApres
-            .flat(2)
-            .find(b => b?.etapeTypeId === a.typeId)
-        ) {
-          return -1
-        }
+      if (
+        aRestriction!.justeApres.flat(2).find(a => a?.etapeTypeId === b.typeId)
+      ) {
+        return 1
       }
     }
 
@@ -68,5 +74,6 @@ const titreEtapesSortAscByDate = (
 
     return aType.ordre - bType.ordre || a.ordre! - b.ordre!
   })
+}
 
 export default titreEtapesSortAscByDate

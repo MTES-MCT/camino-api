@@ -1,7 +1,7 @@
 import { IEtapeType } from '../../types'
 
 // valide le type et le statut de l'étape en fonction des type d'étapes d'une démarche
-import titreEtapeDemarcheEtapeTypeFind from './titre-etape-demarche-etape-type-find'
+import { titreEtapeDemarcheEtapeTypeFind } from './titre-etape-demarche-etape-type-find'
 
 const titreEtapeTypeAndStatusValidate = (
   etapeTypeId: string,
@@ -21,15 +21,15 @@ const titreEtapeTypeAndStatusValidate = (
     )
 
     if (!titreEtapeStatut) {
-      throw new Error(
+      return [
         `statut de l'étape "${etapeStatutId}" invalide pour une type d'étape ${etapeTypeId} pour une démarche de type ${demarcheTypeNom}`
-      )
+      ]
     }
 
-    return null
+    return []
   } catch (e) {
-    return e.message
+    return [e.message]
   }
 }
 
-export default titreEtapeTypeAndStatusValidate
+export { titreEtapeTypeAndStatusValidate }

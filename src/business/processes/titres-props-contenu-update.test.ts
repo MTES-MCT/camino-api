@@ -1,7 +1,7 @@
 import { mocked } from 'ts-jest/utils'
 
 import { titresPropsContenuUpdate } from './titres-props-contenu-update'
-import titreContenuEtapeIdFind from '../rules/titre-contenu-etape-id-find'
+import { titreContenuEtapeIdFind } from '../rules/titre-contenu-etape-id-find'
 import { titresGet } from '../../database/queries/titres'
 import Titres from '../../database/models/titres'
 
@@ -11,7 +11,7 @@ jest.mock('../../database/queries/titres', () => ({
 }))
 
 jest.mock('../rules/titre-contenu-etape-id-find', () => ({
-  default: jest.fn()
+  titreContenuEtapeIdFind: jest.fn()
 }))
 
 const titresGetMock = mocked(titresGet, true)
@@ -127,15 +127,6 @@ describe("propriétés (contenu) d'un titre", () => {
     titresGetMock.mockResolvedValue([
       ({ type: { propsEtapesTypes: null } } as unknown) as Titres
     ])
-
-    const titresUpdatedRequests = await titresPropsContenuUpdate()
-
-    expect(titresUpdatedRequests.length).toEqual(0)
-  })
-
-  test("ne met pas à jour un titre qui n'a pas de type", async () => {
-    titreContenuEtapeIdFindMock.mockReturnValue(null)
-    titresGetMock.mockResolvedValue([({ type: null } as unknown) as Titres])
 
     const titresUpdatedRequests = await titresPropsContenuUpdate()
 

@@ -9,7 +9,7 @@ describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => 
         { typeId: 'mfr', date: '2020-05-27' },
         { typeId: 'mdp', date: '2020-05-30' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas faire de "mod" après une "mcr"', () => {

@@ -6,6 +6,7 @@ import {
   ITitre,
   ITitreDemarche,
   ITitreEtape,
+  ITitreType,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
 import { titreDemarcheEtatValidate } from '../titre-demarche-etat-validate'
@@ -57,6 +58,10 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     titre = {
       ...titre,
       typeId: titreTypeId,
+      type: ({
+        id: titreTypeId,
+        propsEtapesTypes: []
+      } as unknown) as ITitreType,
       demarches: [{ typeId: demarcheTypeId }] as ITitreDemarche[]
     }
 

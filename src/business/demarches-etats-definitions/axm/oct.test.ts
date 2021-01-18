@@ -9,7 +9,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
         { typeId: 'mfr', date: '2020-01-01' },
         { typeId: 'mdp', date: '2020-01-02' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer une "mis" sans "mfr"', () => {
@@ -25,7 +25,7 @@ describe('vérifie l’arbre d’octroi d’AXM', () => {
         { typeId: 'nis', date: '2020-01-02' },
         { typeId: 'mdp', date: '2020-01-03' }
       ])
-    ).toBeNull()
+    ).toHaveLength(0)
   })
 
   test('ne peut pas créer 2 étapes "mdp"', () => {
