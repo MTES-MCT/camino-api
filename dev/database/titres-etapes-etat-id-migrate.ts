@@ -98,6 +98,7 @@ const main = async () => {
       const demarchesValid = demarches
         .filter(d => d.etapes?.length)
         .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
+
       for (const demarche of demarchesValid) {
         const etapes = demarche.etapes!
         for (let i = 0; i < etapes.length; i++) {

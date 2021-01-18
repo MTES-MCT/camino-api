@@ -18,4 +18,4 @@ const titreEtapeDemarcheEtapeTypeFind = (
   return titreDemarcheEtapeType
 }
 
-export default titreEtapeDemarcheEtapeTypeFind
+export { titreEtapeDemarcheEtapeTypeFind }

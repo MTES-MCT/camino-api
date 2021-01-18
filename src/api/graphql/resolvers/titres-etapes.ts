@@ -24,7 +24,7 @@ import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
 import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
 import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-validate'
-import titreEtapeDeletionValidate from '../../../business/titre-etape-deletion-validate'
+import { titreEtapeDeletionValidate } from '../../../business/titre-etape-deletion-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
@@ -223,7 +223,8 @@ const etapeSupprimer = async (
       demarche,
       titre
     )
-    if (rulesErrors) {
+
+    if (rulesErrors.length) {
       throw new Error(rulesErrors.join(', '))
     }
 

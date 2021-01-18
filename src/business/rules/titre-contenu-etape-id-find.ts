@@ -5,21 +5,22 @@ import { ITitreDemarche, ITitreEtape } from '../../types'
 import titreDemarchesSortAsc from '../utils/titre-elements-sort-asc'
 import titreEtapesSortDesc from '../utils/titre-etapes-sort-desc'
 
+// Si
+// - l'étapes est acceptée, fait ou favorable
+// et
+//    - la démarche est un octroi (demande initiale)
+//    - l'étape est une étape de décision
 const etapeValideCheck = (
   titreEtape: ITitreEtape,
   titreDemarcheTypeId: string
 ) =>
-  // filtre les étapes acceptation, fait ou favorable
-  // Si la démarche est un octroi (demande initiale)
-  // on prend en compte n'importe quelle étape
-  // et que le titre est en modification en instance
-  // sinon, on ne prend en compte que les étapes de décision
   ['acc', 'fai', 'fav'].includes(titreEtape.statutId) &&
   (['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
     ['dpu', 'dup', 'rpu', 'dex', 'dux', 'dim', 'def', 'sco', 'aco'].includes(
       titreEtape.typeId
     ))
 
+// retourne la première étape valide qui contient l'élément dans la section
 const etapeContenuFind = (
   titreDemarcheEtapes: ITitreEtape[],
   titreDemarcheTypeId: string,
@@ -47,7 +48,7 @@ const demarcheEligibleCheck = (
   titreStatutId: string,
   titreDemarches: ITitreDemarche[]
 ) =>
-  ['acc', 'ter'].includes(titreDemarcheStatutId!) ||
+  ['acc', 'ter'].includes(titreDemarcheStatutId) ||
   ['oct', 'vut', 'vct'].includes(titreDemarcheTypeId) ||
   (titreStatutId === 'mod' &&
     ['pro', 'pr1', 'pr2', 'prr', 'vct'].includes(titreDemarcheTypeId) &&
@@ -73,7 +74,7 @@ const titreContenuEtapeIdFind = (
           titreDemarches
         )
       ) {
-        return etapeId
+        return null
       }
 
       const etape = etapeContenuFind(
@@ -83,10 +84,9 @@ const titreContenuEtapeIdFind = (
         elementId
       )
 
-      // si l'étape existe,
-      // retourne son id
-      // sinon retourne `null`
-      return (etape && etape.id) || null
+      if (!etape) return null
+
+      return etape.id
     }, null)
 
-export default titreContenuEtapeIdFind
+export { titreContenuEtapeIdFind }

@@ -48,9 +48,10 @@ const demarchesEtatsDefinitionsCheck = async () => {
               demarche.etapes!,
               demarche.titre!
             )
-            if (errors) {
+
+            if (errors.length) {
               errorsNb++
-              // console.log(
+              // console.info(
               //   demarche.etapes!.map(e => ({
               //     etapeTypeId: e.typeId,
               //     date: e.date,

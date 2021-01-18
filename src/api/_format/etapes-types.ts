@@ -117,7 +117,7 @@ const etapeTypeFormat = (
     titreDemarcheEtapes,
     titre,
     titreEtape ? { ...titreEtape } : ({ typeId: etapeType.id } as ITitreEtape)
-  )
+  ).length
 
   const etapesStatutsFormatted = etapeTypeEtapesStatutsFormat(
     etapeTypeCopy,

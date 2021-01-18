@@ -73,4 +73,20 @@ describe('trie les étapes', () => {
     expect(result[1].typeId).toEqual('mcr')
     expect(result[2].typeId).toEqual('eof')
   })
+
+  test('la "mnv" doit être après la "aco"', () => {
+    const etapes = [
+      { typeId: 'mnv', date: '2020-01-01', ordre: 119 },
+      { typeId: 'aco', date: '2020-01-01', ordre: 125 }
+    ] as ITitreEtape[]
+
+    const result = titreEtapesSortAscByDate(
+      etapes,
+      'demarches',
+      { id: 'pro' } as IDemarcheType,
+      'arm'
+    )
+    expect(result[0].typeId).toEqual('aco')
+    expect(result[1].typeId).toEqual('mnv')
+  })
 })
