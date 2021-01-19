@@ -1,14 +1,21 @@
 import { ITitreDemarche } from '../../types'
 
 const titreDemarcheUpdationValidate = async (
-  titreDemarcheNew: ITitreDemarche // eslint-disable-line @typescript-eslint/no-unused-vars
+  titreDemarcheNew: ITitreDemarche,
+  titreDemarcheOld: ITitreDemarche
 ) => {
   const errors = [] as string[]
-  // vérifie
-  // - si le statut de la démarche est possible sur ce type de démarche
-  // - si la démarche contient des étapes qui ne sont pas recevables
+
+  if (
+    titreDemarcheNew.typeId !== titreDemarcheOld.typeId &&
+    titreDemarcheOld.etapes?.length
+  ) {
+    errors.push(
+      'impossible de modifier le type d’une démarche si celle-ci a déjà une ou plusieurs étapes'
+    )
+  }
 
   return errors
 }
 
-export default titreDemarcheUpdationValidate
+export { titreDemarcheUpdationValidate }
