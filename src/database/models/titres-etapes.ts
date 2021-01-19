@@ -2,7 +2,7 @@ import { Model, Modifiers, Pojo } from 'objection'
 import { join } from 'path'
 import { ITitreEtape, ITitrePoint } from '../../types'
 
-import { paysFormat } from './_format'
+import { paysFormat } from './_format/pays'
 
 interface TitresEtapes extends ITitreEtape {}
 

@@ -1,6 +1,8 @@
 import { Model, Pojo, RelationMappings } from 'objection'
 import { join } from 'path'
-import { paysFormat, titreInsertFormat } from './_format'
+import { titreInsertFormat } from './_format/titre-insert'
+
+import { paysFormat } from './_format/pays'
 import Administrations from './administrations'
 import Communes from './communes'
 import Domaines from './domaines'
@@ -15,7 +17,7 @@ import Types from './titres-types'
 
 import { ITitre } from '../../types'
 import Forets from './forets'
-import { titreContenuFormat } from '../../api/_format/titres-contenu'
+import { titreContenuFormat } from './_format/titres-contenu'
 
 interface Titres extends ITitre {}
 

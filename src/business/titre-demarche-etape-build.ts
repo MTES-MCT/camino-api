@@ -1,14 +1,18 @@
 import { ITitreEtape } from '../types'
 
 const titreDemarcheEtapesBuild = (
-  titreDemarcheEtapes: ITitreEtape[],
   titreEtape: ITitreEtape,
+  titreDemarcheEtapes?: ITitreEtape[] | null,
   suppression = false
 ) => {
   // quand on ajoute une étape, on ne connaît pas encore sa date.
   // on doit donc proposer tous les types d'étape possibles
   if (!titreEtape.date) {
     titreEtape.date = '2300-01-01'
+  }
+
+  if (!titreDemarcheEtapes) {
+    return [titreEtape]
   }
 
   // si nous n’ajoutons pas une nouvelle étape

@@ -27,9 +27,9 @@ const titreEtapeUpdationValidate = async (
   if (titreEtape.date) {
     const demarcheUpdatedErrors = titreDemarcheUpdatedEtatValidate(
       titreDemarche.type!,
-      titreDemarche.etapes!,
       titre,
-      titreEtape
+      titreEtape,
+      titreDemarche.etapes!
     )
     if (demarcheUpdatedErrors.length) {
       errors.push(...demarcheUpdatedErrors)
