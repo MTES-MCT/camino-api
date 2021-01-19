@@ -5,7 +5,6 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
   test('ajoute une étape à une démarche', () => {
     const valid = titreDemarcheUpdatedEtatValidate(
       { id: 'oct' } as IDemarcheType,
-      [],
       {
         typeId: 'arm',
         type: ({
@@ -14,7 +13,8 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { typeId: 'mfr' } as ITitreEtape
+      { typeId: 'mfr' } as ITitreEtape,
+      []
     )
     expect(valid).toHaveLength(0)
   })
@@ -22,7 +22,6 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
   test('modifie une étape à une démarche', () => {
     const valid = titreDemarcheUpdatedEtatValidate(
       { id: 'oct' } as IDemarcheType,
-      [{ id: '1', typeId: 'mfr' }] as ITitreEtape[],
       {
         typeId: 'arm',
         type: ({
@@ -31,7 +30,8 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { id: '1', typeId: 'mfr' } as ITitreEtape
+      { id: '1', typeId: 'mfr' } as ITitreEtape,
+      [{ id: '1', typeId: 'mfr' }] as ITitreEtape[]
     )
     expect(valid).toHaveLength(0)
   })
@@ -39,7 +39,6 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
   test('l’ajout d’une étape d’une démarche historique est valide', () => {
     const valid = titreDemarcheUpdatedEtatValidate(
       { id: 'oct' } as IDemarcheType,
-      [{ id: '1', typeId: 'mfr', date: '2000-01-01' }] as ITitreEtape[],
       {
         typeId: 'arm',
         type: ({
@@ -48,7 +47,8 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { id: '1', typeId: 'mfr' } as ITitreEtape
+      { id: '1', typeId: 'mfr' } as ITitreEtape,
+      [{ id: '1', typeId: 'mfr', date: '2000-01-01' }] as ITitreEtape[]
     )
     expect(valid).toHaveLength(0)
   })
@@ -56,7 +56,6 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
   test('l’ajout d’une étape d’une démarche sans étape est valide', () => {
     const valid = titreDemarcheUpdatedEtatValidate(
       { id: 'oct' } as IDemarcheType,
-      [] as ITitreEtape[],
       {
         typeId: 'arm',
         type: ({
@@ -65,7 +64,8 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { id: '1', typeId: 'mfr' } as ITitreEtape
+      { id: '1', typeId: 'mfr' } as ITitreEtape,
+      [] as ITitreEtape[]
     )
     expect(valid).toHaveLength(0)
   })

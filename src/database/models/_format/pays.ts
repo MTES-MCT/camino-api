@@ -1,33 +1,4 @@
-import { IPays, ICommune } from '../../types'
-import * as slugify from '@sindresorhus/slugify'
-import { Pojo } from 'objection'
-
-const titreInsertFormat = (json: Pojo) => {
-  if (!json.id && json.domaineId && json.typeId && json.nom) {
-    json.id = `${json.domaineId}-${json.typeId.slice(0, -1)}-${slugify(
-      json.nom
-    )}-0000`
-  }
-
-  delete json.geojsonMultiPolygon
-  delete json.geojsonPoints
-  delete json.pays
-  delete json.surface
-  delete json.contenu
-  delete json.modification
-  delete json.suppression
-  delete json.travauxCreation
-  delete json.activitesAbsentes
-  delete json.activitesEnConstruction
-  delete json.activitesDeposees
-  delete json.demarchesCreation
-
-  if (json.type) {
-    delete json.type.sections
-  }
-
-  return json
-}
+import { IPays, ICommune } from '../../../types'
 
 const paysFormat = (communes: ICommune[]) => {
   if (!communes) return []
@@ -122,4 +93,4 @@ const paysFormat = (communes: ICommune[]) => {
   return pays
 }
 
-export { paysFormat, titreInsertFormat }
+export { paysFormat }

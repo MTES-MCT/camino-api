@@ -15,7 +15,6 @@ import {
   IPermission,
   IPhaseStatut,
   IReferenceType,
-  ITitreEtape,
   ITitreStatut,
   ITitreTypeType,
   IToken,
@@ -67,7 +66,10 @@ import { userGet } from '../../../database/queries/utilisateurs'
 
 import { permissionCheck } from '../../../tools/permission'
 import fieldsBuild from './_fields-build'
-import { etapeTypeFormat } from '../../_format/etapes-types'
+import {
+  etapeTypeIsValidCheck,
+  etapeTypeSectionsFormat
+} from '../../_format/etapes-types'
 import { titreDemarcheGet } from '../../../database/queries/titres-demarches'
 import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import {
@@ -278,24 +280,14 @@ const demarcheEtapesTypesGet = async (
 
   const titre = titreDemarche.titre!
 
-  const demarcheType = titre.type!.demarchesTypes!.find(
-    demarcheType => demarcheType.id === titreDemarche.typeId
-  )
-
-  if (!demarcheType) {
-    throw new Error(
-      `Démarche « ${titreDemarche.type!.nom} » inexistante pour un titre ${
-        titre.typeId
-      }.`
-    )
-  }
-
   const titreEtape = titreEtapeId
     ? await titreEtapeGet(titreEtapeId, {}, user?.id)
     : undefined
 
   if (titreEtapeId && !titreEtape) throw new Error("l'étape n'existe pas")
 
+  // si on modifie une étape
+  // vérifie que son type est possible sur la démarche
   if (titreEtape) {
     const etapeType = titreDemarche.type!.etapesTypes.find(
       et => et.id === titreEtape.type!.id
@@ -303,65 +295,48 @@ const demarcheEtapesTypesGet = async (
 
     if (!etapeType) {
       throw new Error(
-        `Etape « ${titreEtape.type!.nom} » inexistante pour une démarche « ${
+        `étape ${titreEtape.type!.nom} inexistante pour une démarche ${
           titreDemarche.type!.nom
-        } » pour un titre « ${titre.typeId} ».`
+        } pour un titre ${titre.typeId}.`
       )
     }
   }
 
-  // Si il existe un arbre d’instructions pour cette démarche, on laisse l’arbre traiter l’unicité des étapes
-  const uniqueCheck = !etapeTypeIdDefinitionsGet(titre.typeId, demarcheType.id)
+  // si il existe un arbre d’instructions pour cette démarche,
+  // on laisse l’arbre traiter l’unicité des étapes
+  const uniqueCheck = !etapeTypeIdDefinitionsGet(
+    titre.typeId,
+    titreDemarche.typeId
+  )
 
-  // Dans un premier temps on récupère toutes les étapes possibles pour cette démarche
+  // dans un premier temps on récupère toutes les étapes possibles pour cette démarche
   const etapesTypes = await etapesTypesGet(
     { titreDemarcheId, titreEtapeId, uniqueCheck },
     { fields },
-    'super'
+    userId
   )
 
-  // Si on modifie une étape,
-  // on réinitialise la démarche juste avant cette étape
-  // pour trouver quelles sont les étapes possibles
-  let titreEtapes = JSON.parse(
-    JSON.stringify(titreDemarche.etapes)
-  ) as ITitreEtape[]
-
-  if (titreEtapeId) {
-    titreEtapes = titreEtapes.filter(e => e.date < titreEtape!.date)
-  }
-
-  const etapesTypesFormatted = etapesTypes.reduce(
-    (etapesTypes: IEtapeType[], etapeType) => {
-      const etapeTypeFormatted = etapeTypeFormat(
+  const etapesTypesFormatted = etapesTypes
+    .filter(etapeType =>
+      etapeTypeIsValidCheck(
         etapeType,
         titre,
         titreDemarche.type!,
-        titreEtapes,
+        titreDemarche.etapes,
         titreEtape
       )
-
-      if (etapeTypeFormatted) {
-        etapesTypes.push(etapeTypeFormatted)
-      }
-
-      return etapesTypes
-    },
-    []
-  )
-
-  // Maintenant que la vérification de l’arbre d’instructions a été faite, on filtre les étapes en fonction de l’utilisateur
-  const etapesTypesVisibleIds = (
-    await etapesTypesGet(
-      { titreDemarcheId, titreEtapeId, uniqueCheck },
-      { fields: { id: {} } },
-      userId
     )
-  ).map(etapeType => etapeType.id)
+    .map(etapeType => {
+      etapeType.sections = etapeTypeSectionsFormat(
+        etapeType,
+        titreDemarche.type!.etapesTypes,
+        titre.typeId
+      )
 
-  return etapesTypesFormatted.filter(etapeType =>
-    etapesTypesVisibleIds.includes(etapeType.id)
-  )
+      return etapeType
+    })
+
+  return etapesTypesFormatted
 }
 
 const etapesTypes = async (

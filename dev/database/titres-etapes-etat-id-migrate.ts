@@ -4,6 +4,7 @@ import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 import { titreEtapeUpdate } from '../../src/database/queries/titres-etapes'
 import { ITitreDemarche, ITitreEtape } from '../../src/types'
 import { demarchesEtatsDefinitions } from '../../src/business/demarches-etats-definitions/demarches-etats-definitions'
+import { titreDemarcheDemandeDateFind } from '../../src/business/rules/titre-demarche-demande-date-find'
 
 const armOctEtapeTypeIdGet = (
   etape: ITitreEtape,
@@ -97,7 +98,10 @@ const main = async () => {
 
       const demarchesValid = demarches
         .filter(d => d.etapes?.length)
-        .filter(demarche => demarche.etapes!.reverse()[0].date > '2019-10-31')
+        .filter(
+          demarche =>
+            titreDemarcheDemandeDateFind(demarche.etapes) > '2019-10-31'
+        )
 
       for (const demarche of demarchesValid) {
         const etapes = demarche.etapes!

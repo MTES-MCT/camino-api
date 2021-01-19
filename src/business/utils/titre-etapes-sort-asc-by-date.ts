@@ -3,6 +3,7 @@ import {
   etapeTypeIdDefinitionsGet,
   IEtapeTypeIdDefinition
 } from '../demarches-etats-definitions/demarches-etats-definitions'
+import { titreDemarcheDemandeDateFind } from '../rules/titre-demarche-demande-date-find'
 
 // classe les étapes selon leur dates, ordre et etapesTypes.ordre le cas échéant
 const titreEtapesSortAscByDate = (
@@ -15,7 +16,7 @@ const titreEtapesSortAscByDate = (
   let dateEtapeFirst = '' as string
 
   if (type === 'demarches' && titreTypeId && demarcheOrTravauxType?.id) {
-    dateEtapeFirst = titreEtapes.map(te => te.date).sort()[0]
+    dateEtapeFirst = titreDemarcheDemandeDateFind(titreEtapes)
 
     etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
       titreTypeId,

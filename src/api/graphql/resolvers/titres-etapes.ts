@@ -24,10 +24,10 @@ import titreEtapeUpdateTask from '../../../business/titre-etape-update'
 import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
 import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
 import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-validate'
-import { titreEtapeDeletionValidate } from '../../../business/titre-etape-deletion-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
+import { titreDemarcheUpdatedEtatValidate } from '../../../business/titre-demarche-etat-validate'
 
 // TODO à re-factoriser, c’est un copier/coller de etapeModifier
 const etapeCreer = async (
@@ -218,10 +218,12 @@ const etapeSupprimer = async (
     const titre = await titreGet(demarche.titreId, {}, user.id)
     if (!titre) throw new Error("le titre n'existe pas")
 
-    const rulesErrors = await titreEtapeDeletionValidate(
+    const rulesErrors = await titreDemarcheUpdatedEtatValidate(
+      demarche.type!,
+      titre,
       etapeOld,
-      demarche,
-      titre
+      demarche.etapes!,
+      true
     )
 
     if (rulesErrors.length) {

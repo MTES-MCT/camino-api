@@ -3,7 +3,7 @@ import {
   ITitreDemarche,
   ITitreEtape,
   ITitrePropsTitreEtapesIds
-} from '../../types'
+} from '../../../types'
 
 const titreContenuFormat = (
   propsTitreEtapesIds: ITitrePropsTitreEtapesIds,

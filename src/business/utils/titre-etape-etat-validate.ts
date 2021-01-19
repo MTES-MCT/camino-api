@@ -1,5 +1,5 @@
 // valide la date et la position de l'étape en fonction des autres étapes
-import { ITitre, ITitreEtape, ITitreCondition } from '../../types'
+import { ITitreEtape, ITitreCondition, IContenu } from '../../types'
 
 import { contenuConditionMatch } from '../../tools/index'
 import {
@@ -7,12 +7,15 @@ import {
   IEtapeTypeIdDefinition
 } from '../demarches-etats-definitions/demarches-etats-definitions'
 
-const sameContenuCheck = (conditionTitre: ITitreCondition, titre: ITitre) =>
+const sameContenuCheck = (
+  conditionTitre: ITitreCondition,
+  contenu: IContenu | null
+) =>
   conditionTitre.contenu &&
   Object.keys(conditionTitre.contenu).every(key =>
     contenuConditionMatch(
       conditionTitre.contenu[key],
-      titre.contenu ? titre.contenu[key] : null
+      contenu ? contenu[key] : null
     )
   )
 
@@ -99,6 +102,7 @@ const etapesSuivantesEnAttenteGet = (
       }
     })
   }
+
   if (etapeCouranteConditions.apres) {
     titreDemarcheEtapes.forEach(etape => {
       const predicatCheck = etapeCouranteConditions
@@ -136,13 +140,13 @@ const etapesSuivantesEnAttenteGet = (
 }
 
 const etapeTypeIdConditionsCheck = (
-  titre: ITitre,
+  contenu: IContenu | null,
   titreDemarcheEtapes: ITitreEtape[],
   conditions: IEtapeTypeIdCondition[][]
 ) =>
   conditions.some(condition =>
     condition.every(c => {
-      if (c.titre && !sameContenuCheck(c.titre, titre)) {
+      if (c.titre && !sameContenuCheck(c.titre, contenu)) {
         return false
       }
 
@@ -171,7 +175,7 @@ const titreEtapeEtatValidate = (
   etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
   etapeTypeId: string,
   titreDemarcheEtapes: ITitreEtape[],
-  titre: ITitre
+  contenu: IContenu | null
 ) => {
   const errors = []
   const titreEtapesEnAttente = etapesEnAttenteGet(
@@ -195,7 +199,7 @@ const titreEtapeEtatValidate = (
   if (
     !errors.length &&
     avant &&
-    etapeTypeIdConditionsCheck(titre, titreDemarcheEtapes, avant)
+    etapeTypeIdConditionsCheck(contenu, titreDemarcheEtapes, avant)
   ) {
     errors.push(
       `l’étape "${etapeTypeId}" n’est plus possible après ${etapesEnAttenteToString(
@@ -207,7 +211,7 @@ const titreEtapeEtatValidate = (
   if (
     !errors.length &&
     apres &&
-    !etapeTypeIdConditionsCheck(titre, titreDemarcheEtapes, apres)
+    !etapeTypeIdConditionsCheck(contenu, titreDemarcheEtapes, apres)
   ) {
     errors.push(
       `l’étape "${etapeTypeId}" n’est pas possible après ${etapesEnAttenteToString(
@@ -219,7 +223,7 @@ const titreEtapeEtatValidate = (
   if (
     !errors.length &&
     justeApres.length &&
-    !etapeTypeIdConditionsCheck(titre, titreEtapesEnAttente, justeApres)
+    !etapeTypeIdConditionsCheck(contenu, titreEtapesEnAttente, justeApres)
   ) {
     errors.push(
       `l’étape "${etapeTypeId}" n’est pas possible juste après ${etapesEnAttenteToString(

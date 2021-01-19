@@ -1,5 +1,8 @@
 import * as fs from 'fs'
+import decamelize from '../../tools/decamelize'
 import * as camelcase from 'camelcase'
+import { mocked } from 'ts-jest/utils'
+
 import {
   IDemarcheType,
   IEtapeType,
@@ -7,12 +10,26 @@ import {
   ITitreDemarche,
   ITitreEtape,
   ITitreType,
+  IContenu,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
 import { titreDemarcheEtatValidate } from '../titre-demarche-etat-validate'
 import { etapeTypeIdDefinitionsGet } from './demarches-etats-definitions'
+import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
+import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 
-import decamelize = require('decamelize')
+jest.mock('../../database/models/_format/titres-contenu', () => ({
+  __esModule: true,
+  titreContenuFormat: jest.fn()
+}))
+
+jest.mock('../utils/props-titre-etapes-ids-find', () => ({
+  __esModule: true,
+  propsTitreEtapesIdsFind: jest.fn()
+}))
+
+const titreContenuFormatMock = mocked(titreContenuFormat, true)
+const propsTitreEtapesIdsFindMock = mocked(propsTitreEtapesIdsFind, true)
 
 const elementsGet = <T>(fileName: string): T[] => {
   fileName = decamelize(fileName, '-')
@@ -50,6 +67,9 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     titreDemarcheEtapes: Partial<ITitreEtape>[],
     titre: Partial<ITitre> = {}
   ) => {
+    propsTitreEtapesIdsFindMock.mockReturnValue({})
+    titreContenuFormatMock.mockReturnValue(titre.contenu as IContenu)
+
     const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
       titreTypeId,
       demarcheTypeId
