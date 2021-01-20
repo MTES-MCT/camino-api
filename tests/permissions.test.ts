@@ -2,18 +2,20 @@ import 'dotenv/config'
 
 import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
-import { scenariosGet } from './__mocks__/permissions-administrations'
+import { scenariosGet, IScenarios } from './_utils/permissions-administrations'
 import { titreCreate } from '../src/database/queries/titres'
-import { IAdministration, ITitre } from '../src/types'
+import { IAdministration } from '../src/types'
 import { administrationsGet } from '../src/database/queries/administrations'
 
 console.info = jest.fn()
 console.error = jest.fn()
 
 let administrations = [] as IAdministration[]
+let scenarios = [] as IScenarios
 
 beforeAll(async () => {
   await dbManager.populateDb()
+
   administrations = (await administrationsGet(
     {},
     {
@@ -25,6 +27,10 @@ beforeAll(async () => {
     },
     'super'
   )) as IAdministration[]
+
+  scenarios = scenariosGet(administrations)
+
+  console.log('A --------')
 })
 
 afterEach(async () => {
@@ -36,15 +42,14 @@ afterAll(async () => {
 })
 
 describe('permissions des administrations', () => {
+  console.log('B -------->', scenarios)
   const titreQuery = queryImport('titre')
-
-  // Impossible de récupérer 'administrations', le describe ne permet pas l'asynchrone
-  const scenarios = scenariosGet(administrations)
 
   test.each(scenarios)(
     '%s',
     async (message, administration, titre, response) => {
       await titreCreate(titre, {}, 'super')
+
       const res = await graphQLCall(
         titreQuery,
         { id: titre.id },

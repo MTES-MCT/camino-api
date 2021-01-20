@@ -41,6 +41,8 @@ interface IScenario {
   titreStatutId?: string
 }
 
+type IScenarios = [string, IAdministration, ITitre, ITitre][]
+
 const titreTypePermissionScenarioBuild = (
   administration: IAdministration,
   titreType: ITitreType
@@ -51,7 +53,7 @@ const titreTypePermissionScenarioBuild = (
   // const isAdmin = gestionnaire
   const isAdmin = titreType.gestionnaire
 
-  let titreTypePermissionScenario = [] as IScenario[]
+  const titreTypePermissionScenario = [] as IScenario[]
   // Création d'un scénario pour chaque cas
 
   if (titreType.gestionnaire || titreType.associee) {
@@ -323,8 +325,8 @@ const titreTestGet = (scenario: IScenario) => {
   }
 
   if (scenario.etapeTypeId) {
-    titre.demarches[0]!.etapes[0]!.id = `titre-id-demarche-id-${scenario.etapeTypeId}`
-    titre.demarches[0]!.etapes[0]!.typeId = scenario.etapeTypeId
+    titre.demarches![0]!.etapes![0]!.id = `titre-id-demarche-id-${scenario.etapeTypeId}`
+    titre.demarches![0]!.etapes![0]!.typeId = scenario.etapeTypeId
   }
 
   return titre
@@ -375,11 +377,11 @@ const graphQLResponseGet = (scenario: IScenario) => {
     // on retire la modification sur le titre
     delete titre.modification
     // on retire les étapes
-    delete titre.demarches[0]!.etapes
+    delete titre.demarches![0]!.etapes
     if (scenario.pouvoir! === 'peut') {
       if (scenario.action! === 'voir') {
         // on teste juste la visibilité, on retire la 'modification'
-        delete titre.demarches[0]!.modification
+        delete titre.demarches![0]!.modification
       } else if (scenario.action! === 'modifier') {
         // on garde l'id et la modification à true
       } else {
@@ -390,7 +392,7 @@ const graphQLResponseGet = (scenario: IScenario) => {
         // les démarches sont vides
         titre.demarches = []
       } else if (scenario.action! === 'modifier') {
-        titre.demarches[0]!.modification = null
+        titre.demarches![0]!.modification = null
       } else {
         // todo : gérer la création
       }
@@ -399,16 +401,16 @@ const graphQLResponseGet = (scenario: IScenario) => {
     // on retire la modification sur le titre
     delete titre.modification
     // on retire la modification sur les démarches
-    delete titre.demarches[0]!.modification
+    delete titre.demarches![0]!.modification
     // l'id de l'étape contient le type d"étape s'il est indiqué
     if (scenario.etapeTypeId!) {
-      titre.demarches[0]!.etapes[0]!.id = `titre-id-demarche-id-${scenario.etapeTypeId}`
+      titre!.demarches![0]!.etapes![0]!.id = `titre-id-demarche-id-${scenario.etapeTypeId}`
     }
 
     if (scenario.pouvoir! === 'peut') {
       if (scenario.action! === 'voir') {
         // on teste juste la visibilité, on retire la 'modification'
-        delete titre.demarches[0]!.etapes[0]!.modification
+        delete titre.demarches![0]!.etapes![0]!.modification
       } else if (scenario.action! === 'modifier') {
         // on garde l'id et la modification à true
       } else {
@@ -417,11 +419,11 @@ const graphQLResponseGet = (scenario: IScenario) => {
     } else {
       if (scenario.action! === 'voir') {
         // les étapes sont vides
-        titre.demarches[0]!.etapes = []
+        titre.demarches![0]!.etapes = []
       } else if (scenario.action! === 'modifier') {
-        titre.demarches[0]!.etapes[0]!.modification = null
+        titre.demarches![0]!.etapes![0]!.modification = null
       } else if (scenario.action! === 'modifier(voir)') {
-        titre.demarches[0]!.etapes = []
+        titre.demarches![0]!.etapes = []
       } else {
         // todo : gérer la création
       }
@@ -432,7 +434,6 @@ const graphQLResponseGet = (scenario: IScenario) => {
 }
 
 const scenariosGet = (administrations: IAdministration[]) => {
-  // scénarios issus du paramétrage
   const scenarios = paramsPermissionsAdministrationsJsonGet(administrations)
 
   return scenarios.map(scenario => [
@@ -440,7 +441,7 @@ const scenariosGet = (administrations: IAdministration[]) => {
     administrations.find(a => a.id === scenario.administrationId),
     titreTestGet(scenario),
     graphQLResponseGet(scenario)
-  ]) as [string, IAdministration, ITitre, ITitre][]
+  ]) as IScenarios
 }
 
-export { scenariosGet }
+export { scenariosGet, IScenarios }
