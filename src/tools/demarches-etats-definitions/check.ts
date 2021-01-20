@@ -1,7 +1,7 @@
 import { demarchesEtatsDefinitions } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
 import { titreDemarcheEtatValidate } from '../../business/titre-demarche-etat-validate'
-import { titreDemarcheDemandeDateFind } from '../../business/rules/titre-demarche-demande-date-find'
+import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
 
 const demarchesEtatsDefinitionsCheck = async () => {
   console.info()
@@ -33,7 +33,7 @@ const demarchesEtatsDefinitionsCheck = async () => {
         .filter(
           d =>
             d.etapes?.length &&
-            titreDemarcheDemandeDateFind(d.etapes) > '2019-10-31'
+            titreDemarcheDepotDemandeDateFind(d.etapes) > '2019-10-31'
         )
         // .filter(d => ['oct'].includes(d.typeId) && arbre.titreTypeId === 'axm')
         // On garde seulement les octroi d’AXM non terminées
