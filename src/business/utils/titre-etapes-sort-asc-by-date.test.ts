@@ -1,4 +1,4 @@
-import { IDemarcheType, ITitreEtape } from '../../types'
+import { IDemarcheType, IEtapeType, ITitreEtape } from '../../types'
 import titreEtapesSortAscByDate from './titre-etapes-sort-asc-by-date'
 import {
   titreEtapesSortedAsc,
@@ -17,7 +17,7 @@ console.error = jest.fn()
 describe('trie les étapes', () => {
   test('des étapes organisées par date décroissante sont triées par date croissante', () => {
     expect(
-      titreEtapesSortAscByDate(titreEtapesSortedDesc, 'demarches')
+      titreEtapesSortAscByDate(titreEtapesSortedDesc, 'travaux')
     ).toMatchObject(titreEtapesSortedAscResult)
   })
 
@@ -29,7 +29,12 @@ describe('trie les étapes', () => {
 
   test('des étapes avec les mêmes dates organisées par ordre décroissant sont triées par ordre croissant', () => {
     expect(
-      titreEtapesSortAscByDate(titreEtapesMemesDatesOrdreDesc, 'demarches')
+      titreEtapesSortAscByDate(
+        titreEtapesMemesDatesOrdreDesc,
+        'demarches',
+        null,
+        'titre-type-id'
+      )
     ).toMatchObject(titreEtapesMemesDatesOrdreAscResult)
   })
 
@@ -39,10 +44,37 @@ describe('trie les étapes', () => {
         titreEtapesMemesDatesOrdreEtapesTypesDesc,
         'demarches',
         {
+          id: 'demarche-type-id',
           etapesTypes
-        } as IDemarcheType
+        } as IDemarcheType,
+        'titre-type-id'
       )
     ).toMatchObject(titreEtapesMemesDatesOrdreEtapesTypesAscResult)
+  })
+
+  test('des étapes avec les mêmes dates sont triées par ordre de type croissant', () => {
+    const etapes = [
+      {
+        typeId: 'dpu',
+        ordre: 1,
+        date: '1988-03-06'
+      },
+      {
+        typeId: 'dex',
+        ordre: 2,
+        date: '1988-03-06'
+      }
+    ] as ITitreEtape[]
+
+    expect(
+      titreEtapesSortAscByDate(etapes, 'demarches', {
+        id: 'demarche-type-id',
+        etapesTypes: [
+          { id: 'dex', nom: 'dex', ordre: 100 },
+          { id: 'dpu', nom: 'dpu', ordre: 100 }
+        ] as IEtapeType[]
+      } as IDemarcheType)
+    ).toMatchObject(etapes)
   })
 
   test('des étapes avec les mêmes dates sont triées par ordre croissant', () => {

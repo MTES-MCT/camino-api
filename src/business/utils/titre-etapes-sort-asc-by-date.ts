@@ -44,7 +44,7 @@ const titreEtapesSortAscByDate = (
 
     if (
       demarcheDefinition &&
-      demarcheDefinitionRestrictions?.length &&
+      demarcheDefinitionRestrictions &&
       dateEtapeFirst > demarcheDefinition.dateDebut
     ) {
       const bRestriction = demarcheDefinitionRestrictions.find(
@@ -60,7 +60,7 @@ const titreEtapesSortAscByDate = (
       }
 
       if (
-        bRestriction.justeApres.flat(2).find(b => b?.etapeTypeId === a.typeId)
+        bRestriction.justeApres.flat(2).find(b => b.etapeTypeId === a.typeId)
       ) {
         return -1
       }
@@ -78,7 +78,7 @@ const titreEtapesSortAscByDate = (
       }
 
       if (
-        aRestriction.justeApres.flat(2).find(a => a?.etapeTypeId === b.typeId)
+        aRestriction.justeApres.flat(2).find(a => a.etapeTypeId === b.typeId)
       ) {
         return 1
       }

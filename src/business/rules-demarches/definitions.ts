@@ -63,7 +63,7 @@ const demarcheDefinitionFind = (titreTypeId: string, demarcheTypeId: string) =>
   demarchesDefinitions.find(
     d =>
       d.titreTypeId === titreTypeId &&
-      (d.demarcheTypeIds.includes(demarcheTypeId) || !demarcheTypeId)
+      d.demarcheTypeIds.includes(demarcheTypeId)
   )
 
 export {

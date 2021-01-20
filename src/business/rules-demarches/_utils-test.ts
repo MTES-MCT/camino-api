@@ -70,10 +70,10 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     propsTitreEtapesIdsFindMock.mockReturnValue({})
     titreContenuFormatMock.mockReturnValue(titre.contenu as IContenu)
 
-    const etapeTypeIdDefinitions = demarcheDefinitionFind(
+    const demarcheDefinitionRestrictions = demarcheDefinitionFind(
       titreTypeId,
       demarcheTypeId
-    )?.restrictions
+    )!.restrictions
 
     titre = {
       ...titre,
@@ -86,7 +86,7 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     }
 
     return titreDemarcheEtatValidate(
-      etapeTypeIdDefinitions!,
+      demarcheDefinitionRestrictions!,
       {
         id: demarcheTypeId,
         etapesTypes
