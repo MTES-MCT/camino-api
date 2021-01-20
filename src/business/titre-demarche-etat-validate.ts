@@ -9,8 +9,45 @@ import { propsTitreEtapesIdsFind } from './utils/props-titre-etapes-ids-find'
 import { titreContenuFormat } from '../database/models/_format/titres-contenu'
 import titreEtapesSortAscByDate from './utils/titre-etapes-sort-asc-by-date'
 import { titreEtapeEtatValidate } from './utils/titre-etape-etat-validate'
-import { titreDemarcheEtapesBuild } from './titre-demarche-etape-build'
 import { titreDemarcheDepotDemandeDateFind } from './rules/titre-demarche-depot-demande-date-find'
+
+const titreDemarcheEtapesBuild = (
+  titreEtape: ITitreEtape,
+  suppression: boolean,
+  titreDemarcheEtapes?: ITitreEtape[] | null
+) => {
+  // quand on ajoute une étape, on ne connaît pas encore sa date.
+  // on doit donc proposer tous les types d'étape possibles
+  if (!titreEtape.date) {
+    titreEtape.date = '2300-01-01'
+  }
+
+  if (!titreDemarcheEtapes?.length) {
+    return [titreEtape]
+  }
+
+  // si nous n’ajoutons pas une nouvelle étape
+  // on supprime l’étape en cours de modification ou de suppression
+  const titreEtapes = titreDemarcheEtapes.reduce((acc: ITitreEtape[], te) => {
+    if (te.id !== titreEtape.id) {
+      acc.push(te)
+    }
+
+    // modification
+    if (!suppression && te.id === titreEtape.id) {
+      acc.push(titreEtape)
+    }
+
+    return acc
+  }, [])
+
+  // création
+  if (!titreEtape.id) {
+    titreEtapes.push(titreEtape)
+  }
+
+  return titreEtapes
+}
 
 // vérifie que  la démarche est valide par rapport aux définitions des types d'étape
 const titreDemarcheEtatValidate = (
@@ -40,11 +77,12 @@ const titreDemarcheEtatValidate = (
     titre.typeId
   )
 
-  const titreDemarches = JSON.parse(
-    JSON.stringify(titre.demarches)
-  ) as ITitreDemarche[]
+  // on copie les démarches car on va les modifier en ajoutant les étapes une à une
+  const titreDemarches = titre.demarches
+    ? (JSON.parse(JSON.stringify(titre.demarches)) as ITitreDemarche[])
+    : []
 
-  const titreDemarche = titreDemarches?.find(d => d.typeId === demarcheType.id)
+  const titreDemarche = titreDemarches.find(d => d.typeId === demarcheType.id)
 
   if (!titreDemarche) {
     throw new Error(
@@ -110,8 +148,8 @@ const titreDemarcheUpdatedEtatValidate = (
 
   const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
     titreEtape,
-    titreDemarcheEtapes,
-    suppression
+    suppression,
+    titreDemarcheEtapes
   )
 
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions

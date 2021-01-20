@@ -2,7 +2,7 @@ import { IDemarcheType, ITitre, ITitreEtape, ITitreType } from '../types'
 import { titreDemarcheUpdatedEtatValidate } from './titre-demarche-etat-validate'
 
 describe('teste titreDemarcheUpdatedEtatValidate', () => {
-  test('ajoute une étape à une démarche', () => {
+  test('ajoute une étape à une démarche vide', () => {
     const valid = titreDemarcheUpdatedEtatValidate(
       { id: 'oct' } as IDemarcheType,
       {
@@ -13,9 +13,28 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         } as unknown) as ITitreType,
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { typeId: 'mfr' } as ITitreEtape,
-      []
+      { typeId: 'mfr', date: '2030-01-01' } as ITitreEtape,
+      null
     )
+
+    expect(valid).toHaveLength(0)
+  })
+
+  test('ajoute une étape à une démarche qui contient déjà une étape', () => {
+    const valid = titreDemarcheUpdatedEtatValidate(
+      { id: 'oct' } as IDemarcheType,
+      {
+        typeId: 'arm',
+        type: ({
+          id: 'arm',
+          propsEtapesTypes: []
+        } as unknown) as ITitreType,
+        demarches: [{ typeId: 'pro' }, { typeId: 'oct' }]
+      } as ITitre,
+      { typeId: 'mdp' } as ITitreEtape,
+      [{ id: '1', typeId: 'mfr' }] as ITitreEtape[]
+    )
+
     expect(valid).toHaveLength(0)
   })
 
@@ -31,8 +50,12 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape,
-      [{ id: '1', typeId: 'mfr' }] as ITitreEtape[]
+      [
+        { id: '1', typeId: 'mfr' },
+        { id: '2', typeId: 'mdp' }
+      ] as ITitreEtape[]
     )
+
     expect(valid).toHaveLength(0)
   })
 
@@ -48,8 +71,10 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
         demarches: [{ typeId: 'oct' }]
       } as ITitre,
       { id: '1', typeId: 'mfr' } as ITitreEtape,
-      [{ id: '1', typeId: 'mfr', date: '2000-01-01' }] as ITitreEtape[]
+      [{ id: '1', typeId: 'mfr', date: '2000-01-01' }] as ITitreEtape[],
+      false
     )
+
     expect(valid).toHaveLength(0)
   })
 
@@ -67,6 +92,77 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
       { id: '1', typeId: 'mfr' } as ITitreEtape,
       [] as ITitreEtape[]
     )
+
+    expect(valid).toHaveLength(0)
+  })
+
+  test("retourne une erreur si la démarche en cours de modification n'existe pas", () => {
+    expect(() =>
+      titreDemarcheUpdatedEtatValidate(
+        { id: 'oct' } as IDemarcheType,
+        {
+          typeId: 'arm',
+          type: ({
+            id: 'arm',
+            propsEtapesTypes: []
+          } as unknown) as ITitreType,
+          demarches: [{ typeId: 'pro' }]
+        } as ITitre,
+        { id: '1', typeId: 'mfr' } as ITitreEtape,
+        [] as ITitreEtape[]
+      )
+    ).toThrow()
+
+    expect(() =>
+      titreDemarcheUpdatedEtatValidate(
+        { id: 'oct' } as IDemarcheType,
+        {
+          typeId: 'arm',
+          type: ({
+            id: 'arm',
+            propsEtapesTypes: []
+          } as unknown) as ITitreType
+        } as ITitre,
+        { id: '1', typeId: 'mfr' } as ITitreEtape,
+        [] as ITitreEtape[]
+      )
+    ).toThrow()
+  })
+
+  test('supprime une étape', () => {
+    const valid = titreDemarcheUpdatedEtatValidate(
+      { id: 'oct' } as IDemarcheType,
+      {
+        typeId: 'arm',
+        type: ({
+          id: 'arm',
+          propsEtapesTypes: []
+        } as unknown) as ITitreType,
+        demarches: [{ typeId: 'oct' }]
+      } as ITitre,
+      { id: '1', typeId: 'mfr' } as ITitreEtape,
+      [{ id: '1', typeId: 'mfr' }] as ITitreEtape[],
+      true
+    )
+
+    expect(valid).toHaveLength(0)
+  })
+
+  test("ajoute une étape à une démarche sans arbre d'instruction", () => {
+    const valid = titreDemarcheUpdatedEtatValidate(
+      { id: 'toto' } as IDemarcheType,
+      {
+        typeId: 'arm',
+        type: ({
+          id: 'arm',
+          propsEtapesTypes: []
+        } as unknown) as ITitreType,
+        demarches: [{ typeId: 'toto' }]
+      } as ITitre,
+      { typeId: 'mfr', date: '2030-01-01' } as ITitreEtape,
+      null
+    )
+
     expect(valid).toHaveLength(0)
   })
 })

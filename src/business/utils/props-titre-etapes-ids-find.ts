@@ -12,7 +12,7 @@ const propsTitreEtapesIdsFind = (
 ) => {
   if (!titrePropsEtapesTypes) return null
 
-  return titrePropsEtapesTypes.reduce(
+  const titrePropsEtapesIds = titrePropsEtapesTypes.reduce(
     (
       propsTitreEtapesIds: ITitrePropsTitreEtapesIds | null,
       { sectionId, elementId }
@@ -42,6 +42,8 @@ const propsTitreEtapesIdsFind = (
     },
     null
   )
+
+  return titrePropsEtapesIds
 }
 
 export { propsTitreEtapesIdsFind }
