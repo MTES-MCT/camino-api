@@ -2,7 +2,7 @@ import { ITitreEtape, IDemarcheType, ITravauxType } from '../../types'
 import {
   etapeTypeIdDefinitionsGet,
   IEtapeTypeIdDefinition
-} from '../demarches-etats-definitions/demarches-etats-definitions'
+} from '../rules-demarches/definitions'
 import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot-demande-date-find'
 
 // classe les étapes selon leur dates, ordre et etapesTypes.ordre le cas échéant

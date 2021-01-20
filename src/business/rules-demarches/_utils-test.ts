@@ -13,8 +13,8 @@ import {
   IContenu,
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
-import { titreDemarcheEtatValidate } from '../titre-demarche-etat-validate'
-import { etapeTypeIdDefinitionsGet } from './demarches-etats-definitions'
+import { titreDemarcheEtatValidate } from '../validations/titre-demarche-etat-validate'
+import { etapeTypeIdDefinitionsGet } from './definitions'
 import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
 import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 

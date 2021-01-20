@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import '../init'
-import demarchesEtatsDefinitionsCheck from '../tools/demarches-etats-definitions/check'
+import demarchesDefinitionsCheck from '../tools/demarches/definitions-check'
 
-demarchesEtatsDefinitionsCheck()
+demarchesDefinitionsCheck()
   .then(() => {
     process.exit()
   })

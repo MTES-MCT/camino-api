@@ -1,4 +1,4 @@
-import { ITitre } from '../types'
+import { ITitre } from '../../types'
 
 const titreUpdationValidate = async (titreNew: ITitre, titreOld: ITitre) => {
   // vérifie

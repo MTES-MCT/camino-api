@@ -77,7 +77,7 @@ import {
   regionsGet
 } from '../../../database/queries/territoires'
 import ordreUpdate from './_ordre-update'
-import { etapeTypeIdDefinitionsGet } from '../../../business/demarches-etats-definitions/demarches-etats-definitions'
+import { etapeTypeIdDefinitionsGet } from '../../../business/rules-demarches/definitions'
 
 const npmPackage = require('../../../../package.json')
 

@@ -1,4 +1,4 @@
-import { ITitreActivite } from '../types'
+import { ITitreActivite } from '../../types'
 
 const titreActiviteUpdationValidate = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

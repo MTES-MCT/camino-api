@@ -22,7 +22,7 @@ import { titreFichiersDelete } from './_titre-document'
 
 import titreUpdateTask from '../../../business/titre-update'
 
-import titreUpdationValidate from '../../../business/titre-updation-validate'
+import titreUpdationValidate from '../../../business/validations/titre-updation-validate'
 
 const titre = async (
   { id }: { id: string },

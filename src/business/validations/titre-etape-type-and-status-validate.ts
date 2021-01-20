@@ -1,7 +1,7 @@
 import { IEtapeType } from '../../types'
 
 // valide le type et le statut de l'étape en fonction des type d'étapes d'une démarche
-import { titreEtapeDemarcheEtapeTypeFind } from './titre-etape-demarche-etape-type-find'
+import { titreEtapeDemarcheEtapeTypeFind } from '../utils/titre-etape-demarche-etape-type-find'
 
 const titreEtapeTypeAndStatusValidate = (
   etapeTypeId: string,

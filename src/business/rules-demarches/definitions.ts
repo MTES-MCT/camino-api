@@ -20,13 +20,13 @@ interface IEtapeTypeIdDefinition {
   final?: boolean
 }
 
-interface IDemarcheEtatsDefinition {
+interface IDemarcheDefinition {
   titreTypeId: string
   demarcheTypeIds: string[]
   restrictions: IEtapeTypeIdDefinition[]
 }
 
-const demarchesEtatsDefinitions: IDemarcheEtatsDefinition[] = [
+const demarchesDefinitions: IDemarcheDefinition[] = [
   {
     titreTypeId: 'arm',
     demarcheTypeIds: ['oct'],
@@ -57,18 +57,17 @@ const demarchesEtatsDefinitions: IDemarcheEtatsDefinition[] = [
 const etapeTypeIdDefinitionsGet = (
   titreTypeId: string,
   demarcheTypeId: string
-) => {
-  return demarchesEtatsDefinitions.find(
+) =>
+  demarchesDefinitions.find(
     r =>
       r.titreTypeId === titreTypeId &&
       (r.demarcheTypeIds.includes(demarcheTypeId) || !demarcheTypeId)
   )?.restrictions
-}
 
 export {
-  demarchesEtatsDefinitions,
+  demarchesDefinitions,
   etapeTypeIdDefinitionsGet,
   IEtapeTypeIdDefinition,
   IEtapeTypeIdCondition,
-  IDemarcheEtatsDefinition
+  IDemarcheDefinition
 }

@@ -1,13 +1,13 @@
-import { IAdministration, IUtilisateur } from '../types'
+import { IAdministration, IUtilisateur } from '../../types'
 
-import { userGet } from '../database/queries/utilisateurs'
+import { userGet } from '../../database/queries/utilisateurs'
 
 import {
   permissionAdministrationsCheck,
   permissionCheck
-} from '../tools/permission'
+} from '../../tools/permission'
 
-import { diffFind } from '../tools'
+import { diffFind } from '../../tools'
 
 /**
  * Valide la mise à jour d'un utilisateur

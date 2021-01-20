@@ -1,6 +1,6 @@
-import { ITitrePoint, ITitrePointReference, ICoordonnees } from '../types'
-import geoConvert from '../tools/geo-convert'
-import geo from '../database/cache/geo-systemes'
+import { ITitrePoint, ITitrePointReference, ICoordonnees } from '../../../types'
+import geoConvert from '../../../tools/geo-convert'
+import geo from '../../../database/cache/geo-systemes'
 
 const titreEtapePointsCalc = (titrePoints: ITitrePoint[]) => {
   const uniteRatio = uniteRatioFind(pointReferenceFind(titrePoints))
@@ -36,4 +36,4 @@ const uniteRatioFind = (pointReference: ITitrePointReference | 0) => {
     : 1
 }
 
-export default titreEtapePointsCalc
+export { titreEtapePointsCalc }

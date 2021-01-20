@@ -2,9 +2,9 @@ import { mocked } from 'ts-jest/utils'
 import { IEtapeType } from '../../types'
 
 import { titreEtapeTypeAndStatusValidate } from './titre-etape-type-and-status-validate'
-import { titreEtapeDemarcheEtapeTypeFind } from './titre-etape-demarche-etape-type-find'
+import { titreEtapeDemarcheEtapeTypeFind } from '../utils/titre-etape-demarche-etape-type-find'
 
-jest.mock('./titre-etape-demarche-etape-type-find', () => ({
+jest.mock('../utils/titre-etape-demarche-etape-type-find', () => ({
   titreEtapeDemarcheEtapeTypeFind: jest.fn()
 }))
 

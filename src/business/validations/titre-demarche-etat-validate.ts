@@ -1,15 +1,15 @@
 // valide la date et la position de l'étape en fonction des autres étapes
-import { ITitre, ITitreEtape, IDemarcheType, ITitreDemarche } from '../types'
+import { ITitre, ITitreEtape, IDemarcheType, ITitreDemarche } from '../../types'
 
 import {
   etapeTypeIdDefinitionsGet,
   IEtapeTypeIdDefinition
-} from './demarches-etats-definitions/demarches-etats-definitions'
-import { propsTitreEtapesIdsFind } from './utils/props-titre-etapes-ids-find'
-import { titreContenuFormat } from '../database/models/_format/titres-contenu'
-import titreEtapesSortAscByDate from './utils/titre-etapes-sort-asc-by-date'
-import { titreEtapeEtatValidate } from './utils/titre-etape-etat-validate'
-import { titreDemarcheDepotDemandeDateFind } from './rules/titre-demarche-depot-demande-date-find'
+} from '../rules-demarches/definitions'
+import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
+import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
+import titreEtapesSortAscByDate from '../utils/titre-etapes-sort-asc-by-date'
+import { titreEtapeEtatValidate } from './titre-etape-etat-validate'
+import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot-demande-date-find'
 
 const titreDemarcheEtapesBuild = (
   titreEtape: ITitreEtape,

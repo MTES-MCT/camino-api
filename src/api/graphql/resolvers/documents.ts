@@ -39,7 +39,7 @@ import { titreEtapeGet } from '../../../database/queries/titres-etapes'
 import { titreActiviteGet } from '../../../database/queries/titres-activites'
 
 import documentInputValidate from '../../_validate/document-input-validate'
-import documentUpdationValidate from '../../../business/document-updation-validate'
+import documentUpdationValidate from '../../../business/validations/document-updation-validate'
 import { titreTravauxEtapeGet } from '../../../database/queries/titres-travaux-etapes'
 import { titreTravauxGet } from '../../../database/queries/titres-travaux'
 
