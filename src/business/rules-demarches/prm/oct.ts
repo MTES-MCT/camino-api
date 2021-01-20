@@ -1,10 +1,10 @@
-import { IEtapeTypeIdDefinition } from '../definitions'
+import { IDemarcheDefinitionRestrictions } from '../definitions'
 import { etatComplementsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/mdAnl7m9V2ViBlxA/C4063
 
 // fixme pourquoi il y a des doubles barres ?
-const etatsDefinitionPrmOct: IEtapeTypeIdDefinition[] = [
+const etatsDefinitionPrmOct: IDemarcheDefinitionRestrictions[] = [
   {
     etapeTypeId: 'mfr',
     justeApres: [[]]

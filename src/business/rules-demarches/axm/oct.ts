@@ -1,8 +1,8 @@
-import { IEtapeTypeIdDefinition } from '../definitions'
+import { IDemarcheDefinitionRestrictions } from '../definitions'
 import { etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/xHyYE2OZf9KCGFVc
-const etatsDefinitionAxmOct: IEtapeTypeIdDefinition[] = [
+const restrictionsAxmOct: IDemarcheDefinitionRestrictions[] = [
   {
     etapeTypeId: 'mfr',
     // FIXME normalement c’est jusqu’à la MDP, mais la DGTM n’a pas le temps de s’adapter à cette modification
@@ -200,4 +200,4 @@ const etatsDefinitionAxmOct: IEtapeTypeIdDefinition[] = [
   }
 ]
 
-export { etatsDefinitionAxmOct }
+export { restrictionsAxmOct }

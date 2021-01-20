@@ -2,7 +2,7 @@ import {
   etapesSuivantesEnAttenteGet,
   titreEtapeTypeIdRestrictionsFind
 } from './titre-etape-etat-validate'
-import { etatsDefinitionArmRet } from '../rules-demarches/arm/ret'
+import { restrictionsArmRet } from '../rules-demarches/arm/ret'
 import { ITitreEtape } from '../../types'
 import { etatInformationsGet } from '../rules-demarches/etat-cycles'
 
@@ -13,7 +13,7 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
       etapes,
       etapes,
       [],
-      etatsDefinitionArmRet
+      restrictionsArmRet
     )
     expect(etapesEnAttente).toHaveLength(1)
     expect(etapesEnAttente[0]).toEqual({ typeId: 'ide' })
@@ -29,7 +29,7 @@ describe('teste etapesSuivantesEnAttenteGet', () => {
       etapes,
       etapes,
       [],
-      etatsDefinitionArmRet
+      restrictionsArmRet
     )
     expect(etapesEnAttente).toHaveLength(1)
     expect(etapesEnAttente[0]).toEqual({ typeId: 'css' })

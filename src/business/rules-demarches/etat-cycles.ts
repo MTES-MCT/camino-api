@@ -1,10 +1,10 @@
-import { IEtapeTypeIdDefinition } from './definitions'
+import { IDemarcheDefinitionRestrictions } from './definitions'
 
 const etatCycleGet = (
-  etapeTypeIdDefinition: IEtapeTypeIdDefinition,
+  etapeTypeIdDefinition: IDemarcheDefinitionRestrictions,
   demandeEtapeTypeId: string,
   receptionEtapeTypeId: string
-): IEtapeTypeIdDefinition[] => [
+): IDemarcheDefinitionRestrictions[] => [
   {
     etapeTypeId: demandeEtapeTypeId,
     avant: [[{ etapeTypeId: etapeTypeIdDefinition.etapeTypeId }]],
@@ -30,13 +30,13 @@ const etatCycleGet = (
 const etatInformationsGet = (
   mifId: string,
   rifId: string,
-  etapeTypeIdDefinition: IEtapeTypeIdDefinition
+  etapeTypeIdDefinition: IDemarcheDefinitionRestrictions
 ) => etatCycleGet(etapeTypeIdDefinition, mifId, rifId)
 
 const etatComplementsGet = (
   mcoId: string,
   rcoId: string,
-  etapeTypeIdDefinition: IEtapeTypeIdDefinition
+  etapeTypeIdDefinition: IDemarcheDefinitionRestrictions
 ) => etatCycleGet(etapeTypeIdDefinition, mcoId, rcoId)
 
 export { etatInformationsGet, etatComplementsGet }

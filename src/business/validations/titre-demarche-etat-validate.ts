@@ -2,8 +2,8 @@
 import { ITitre, ITitreEtape, IDemarcheType, ITitreDemarche } from '../../types'
 
 import {
-  etapeTypeIdDefinitionsGet,
-  IEtapeTypeIdDefinition
+  demarcheDefinitionFind,
+  IDemarcheDefinitionRestrictions
 } from '../rules-demarches/definitions'
 import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
@@ -51,7 +51,7 @@ const titreDemarcheEtapesBuild = (
 
 // vérifie que  la démarche est valide par rapport aux définitions des types d'étape
 const titreDemarcheEtatValidate = (
-  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
+  demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions[],
   demarcheType: IDemarcheType,
   titreEtapes: ITitreEtape[],
   titre: ITitre
@@ -61,7 +61,9 @@ const titreDemarcheEtatValidate = (
   // et que les étapes après celle-ci soient toujours possibles
 
   // Vérifie que toutes les étapes existent dans l’arbre
-  const etapeTypeIdsValid = etapeTypeIdDefinitions.map(r => r.etapeTypeId)
+  const etapeTypeIdsValid = demarcheDefinitionRestrictions.map(
+    r => r.etapeTypeId
+  )
   const etapeInconnue = titreEtapes.find(
     etape => !etapeTypeIdsValid.includes(etape.typeId!)
   )
@@ -108,7 +110,7 @@ const titreDemarcheEtatValidate = (
     }
 
     const titreEtapeErrors = titreEtapeEtatValidate(
-      etapeTypeIdDefinitions,
+      demarcheDefinitionRestrictions,
       titreEtapes[i].typeId!,
       etapes,
       contenu
@@ -131,18 +133,20 @@ const titreDemarcheUpdatedEtatValidate = (
   titreDemarcheEtapes?: ITitreEtape[] | null,
   suppression = false
 ) => {
-  const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
+  const demarcheDefinition = demarcheDefinitionFind(
     titre.typeId,
     demarcheType.id
   )
+
   // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
-  if (!etapeTypeIdDefinitions) return []
+  if (!demarcheDefinition) return []
 
   // pas de validation si la démarche est antérieure au 31 octobre 2019
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
   if (
     titreDemarcheEtapes &&
-    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapes) < '2019-10-31'
+    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapes) <
+      demarcheDefinition.dateDebut
   )
     return []
 
@@ -154,7 +158,7 @@ const titreDemarcheUpdatedEtatValidate = (
 
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
   return titreDemarcheEtatValidate(
-    etapeTypeIdDefinitions,
+    demarcheDefinition.restrictions,
     demarcheType,
     titreDemarcheEtapesNew,
     titre

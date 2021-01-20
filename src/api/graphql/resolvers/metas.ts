@@ -77,7 +77,7 @@ import {
   regionsGet
 } from '../../../database/queries/territoires'
 import ordreUpdate from './_ordre-update'
-import { etapeTypeIdDefinitionsGet } from '../../../business/rules-demarches/definitions'
+import { demarcheDefinitionFind } from '../../../business/rules-demarches/definitions'
 
 const npmPackage = require('../../../../package.json')
 
@@ -304,10 +304,10 @@ const demarcheEtapesTypesGet = async (
 
   // si il existe un arbre d’instructions pour cette démarche,
   // on laisse l’arbre traiter l’unicité des étapes
-  const uniqueCheck = !etapeTypeIdDefinitionsGet(
+  const uniqueCheck = !demarcheDefinitionFind(
     titre.typeId,
     titreDemarche.typeId
-  )
+  )?.restrictions
 
   // dans un premier temps on récupère toutes les étapes possibles pour cette démarche
   const etapesTypes = await etapesTypesGet(

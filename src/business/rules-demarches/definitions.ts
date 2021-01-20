@@ -1,8 +1,8 @@
-import { etatsDefinitionArmRet } from './arm/ret'
+import { restrictionsArmRet } from './arm/ret'
 import { ITitreCondition } from '../../types'
-import { etatsDefinitionArmOct } from './arm/oct'
-import { etatsDefinitionArmRenPro } from './arm/ren-pro'
-import { etatsDefinitionAxmOct } from './axm/oct'
+import { restrictionsArmOct } from './arm/oct'
+import { restrictionsArmRenPro } from './arm/ren-pro'
+import { restrictionsAxmOct } from './axm/oct'
 // import { etatsDefinitionPrmOct } from './prm/oct'
 
 interface IEtapeTypeIdCondition {
@@ -11,7 +11,7 @@ interface IEtapeTypeIdCondition {
   titre?: ITitreCondition
 }
 
-interface IEtapeTypeIdDefinition {
+interface IDemarcheDefinitionRestrictions {
   etapeTypeId: string
   separation?: string[]
   justeApres: IEtapeTypeIdCondition[][]
@@ -23,24 +23,28 @@ interface IEtapeTypeIdDefinition {
 interface IDemarcheDefinition {
   titreTypeId: string
   demarcheTypeIds: string[]
-  restrictions: IEtapeTypeIdDefinition[]
+  restrictions: IDemarcheDefinitionRestrictions[]
+  dateDebut: string
 }
 
 const demarchesDefinitions: IDemarcheDefinition[] = [
   {
     titreTypeId: 'arm',
     demarcheTypeIds: ['oct'],
-    restrictions: etatsDefinitionArmOct
+    restrictions: restrictionsArmOct,
+    dateDebut: '2019-10-31'
   },
   {
     titreTypeId: 'arm',
     demarcheTypeIds: ['ret'],
-    restrictions: etatsDefinitionArmRet
+    restrictions: restrictionsArmRet,
+    dateDebut: '2019-10-31'
   },
   {
     titreTypeId: 'arm',
     demarcheTypeIds: ['ren', 'pro'],
-    restrictions: etatsDefinitionArmRenPro
+    restrictions: restrictionsArmRenPro,
+    dateDebut: '2019-10-31'
   },
   // {
   //   titreTypeId: 'prm',
@@ -50,24 +54,22 @@ const demarchesDefinitions: IDemarcheDefinition[] = [
   {
     titreTypeId: 'axm',
     demarcheTypeIds: ['oct'],
-    restrictions: etatsDefinitionAxmOct
+    restrictions: restrictionsAxmOct,
+    dateDebut: '2019-10-31'
   }
 ]
 
-const etapeTypeIdDefinitionsGet = (
-  titreTypeId: string,
-  demarcheTypeId: string
-) =>
+const demarcheDefinitionFind = (titreTypeId: string, demarcheTypeId: string) =>
   demarchesDefinitions.find(
-    r =>
-      r.titreTypeId === titreTypeId &&
-      (r.demarcheTypeIds.includes(demarcheTypeId) || !demarcheTypeId)
-  )?.restrictions
+    d =>
+      d.titreTypeId === titreTypeId &&
+      (d.demarcheTypeIds.includes(demarcheTypeId) || !demarcheTypeId)
+  )
 
 export {
   demarchesDefinitions,
-  etapeTypeIdDefinitionsGet,
-  IEtapeTypeIdDefinition,
+  demarcheDefinitionFind,
+  IDemarcheDefinitionRestrictions,
   IEtapeTypeIdCondition,
   IDemarcheDefinition
 }

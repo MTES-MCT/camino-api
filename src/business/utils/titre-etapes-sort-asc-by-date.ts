@@ -1,7 +1,8 @@
 import { ITitreEtape, IDemarcheType, ITravauxType } from '../../types'
 import {
-  etapeTypeIdDefinitionsGet,
-  IEtapeTypeIdDefinition
+  demarcheDefinitionFind,
+  IDemarcheDefinition,
+  IDemarcheDefinitionRestrictions
 } from '../rules-demarches/definitions'
 import { titreDemarcheDepotDemandeDateFind } from '../rules/titre-demarche-depot-demande-date-find'
 
@@ -12,16 +13,22 @@ const titreEtapesSortAscByDate = (
   demarcheOrTravauxType?: IDemarcheType | ITravauxType | null,
   titreTypeId?: string
 ) => {
-  let etapeTypeIdDefinitions = [] as IEtapeTypeIdDefinition[] | undefined
+  let demarcheDefinitionRestrictions = [] as
+    | IDemarcheDefinitionRestrictions[]
+    | undefined
+
+  let demarcheDefinition = undefined as IDemarcheDefinition | undefined
   let dateEtapeFirst = '' as string
 
   if (type === 'demarches' && titreTypeId && demarcheOrTravauxType?.id) {
     dateEtapeFirst = titreDemarcheDepotDemandeDateFind(titreEtapes)
 
-    etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
+    demarcheDefinition = demarcheDefinitionFind(
       titreTypeId,
       demarcheOrTravauxType.id
     )
+
+    demarcheDefinitionRestrictions = demarcheDefinition?.restrictions
   }
 
   return titreEtapes.slice().sort((a, b) => {
@@ -35,14 +42,18 @@ const titreEtapesSortAscByDate = (
 
     // on utilise l'arbre pour trouver quelle étape provoque l’autre
 
-    if (etapeTypeIdDefinitions?.length && dateEtapeFirst > '2019-10-31') {
-      const bRestriction = etapeTypeIdDefinitions.find(
+    if (
+      demarcheDefinition &&
+      demarcheDefinitionRestrictions?.length &&
+      dateEtapeFirst > demarcheDefinition.dateDebut
+    ) {
+      const bRestriction = demarcheDefinitionRestrictions.find(
         r => r.etapeTypeId === b.typeId
       )
 
       if (!bRestriction) {
         console.error(
-          `impossible de trier l’étape ${b.id} car son type ${b.typeId} n’existe pas dans les définitions `
+          `impossible de trier l’étape ${b.id} car son type ${b.typeId} n’existe pas dans les définitions`
         )
 
         return -1
@@ -54,13 +65,13 @@ const titreEtapesSortAscByDate = (
         return -1
       }
 
-      const aRestriction = etapeTypeIdDefinitions.find(
+      const aRestriction = demarcheDefinitionRestrictions.find(
         r => r.etapeTypeId === a.typeId
       )
 
       if (!aRestriction) {
         console.error(
-          `impossible de trier l’étape ${a.id} car son type ${a.typeId} n’existe pas dans les définitions `
+          `impossible de trier l’étape ${a.id} car son type ${a.typeId} n’existe pas dans les définitions`
         )
 
         return -1
