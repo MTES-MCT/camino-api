@@ -14,7 +14,7 @@ const armOctEtapeTypeIdGet = (
 ) => {
   if (etape.typeId === 'mno') {
     // si c’est la dernière c’est la MNO qui notifie du statut de la demande
-    if (i === etapes.length - 1) {
+    if (i === 0) {
       if (demarche.statutId === 'css') {
         return 'mnc'
       } else if (demarche.statutId === 'rej') {
@@ -100,8 +100,23 @@ const main = async () => {
         .filter(d => d.etapes?.length)
         .filter(
           demarche =>
+            demarche.etapes &&
             titreDemarcheDepotDemandeDateFind(demarche.etapes) >
-            demarcheDefinition.dateDebut
+              demarcheDefinition.dateDebut
+        )
+        .filter(demarche =>
+          [
+            'm-ar-crique-adolphe-2020-oct01',
+            'm-ar-crique-amont-mousse-2-2020-oct01',
+            'm-ar-crique-cambrouze-2020-oct01',
+            'm-ar-crique-janvier-2020-oct01',
+            'm-ar-crique-mousse-2020-oct01',
+            'm-ar-crique-petit-bagot-dosmond-2019-oct01',
+            'm-ar-crique-saulnier-et-grande-crique-2019-oct01',
+            'm-ar-richard-et-4-km-2020-oct01',
+            'm-ar-mac-mahon-et-degrad-neuf-2020-oct01',
+            'm-ax-crique-mousse-2-2020-oct01'
+          ].includes(demarche.id)
         )
 
       for (const demarche of demarchesValid) {
