@@ -21,13 +21,13 @@ import { userGet } from '../../../database/queries/utilisateurs'
 import { fichiersDelete } from './_titre-document'
 
 import titreEtapeUpdateTask from '../../../business/titre-etape-update'
-import titreEtapePointsCalc from '../../../business/titre-etape-points-calc'
+import { titreEtapePointsCalc } from './_titre-etape'
 import titreEtapeInputValidate from '../../_validate/titre-etape-input-validate'
-import titreEtapeUpdationValidate from '../../../business/titre-etape-updation-validate'
+import titreEtapeUpdationValidate from '../../../business/validations/titre-etape-updation-validate'
 
 import { GraphQLResolveInfo } from 'graphql'
 import fieldsBuild from './_fields-build'
-import { titreDemarcheUpdatedEtatValidate } from '../../../business/titre-demarche-etat-validate'
+import { titreDemarcheUpdatedEtatValidate } from '../../../business/validations/titre-demarche-etat-validate'
 
 // TODO à re-factoriser, c’est un copier/coller de etapeModifier
 const etapeCreer = async (

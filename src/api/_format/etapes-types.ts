@@ -6,7 +6,7 @@ import {
   ITitreEtape
 } from '../../types'
 
-import { titreDemarcheUpdatedEtatValidate } from '../../business/titre-demarche-etat-validate'
+import { titreDemarcheUpdatedEtatValidate } from '../../business/validations/titre-demarche-etat-validate'
 
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'

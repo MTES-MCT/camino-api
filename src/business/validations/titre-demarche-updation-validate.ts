@@ -1,4 +1,4 @@
-import { ITitreDemarche } from '../types'
+import { ITitreDemarche } from '../../types'
 
 const titreDemarcheUpdationValidate = async (
   titreDemarcheNew: ITitreDemarche // eslint-disable-line @typescript-eslint/no-unused-vars

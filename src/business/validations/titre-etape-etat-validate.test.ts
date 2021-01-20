@@ -2,9 +2,9 @@ import {
   etapesSuivantesEnAttenteGet,
   titreEtapeTypeIdRestrictionsFind
 } from './titre-etape-etat-validate'
-import { etatsDefinitionArmRet } from '../demarches-etats-definitions/arm/ret'
+import { etatsDefinitionArmRet } from '../rules-demarches/arm/ret'
 import { ITitreEtape } from '../../types'
-import { etatInformationsGet } from '../demarches-etats-definitions/etat-cycles'
+import { etatInformationsGet } from '../rules-demarches/etat-cycles'
 
 describe('teste etapesSuivantesEnAttenteGet', () => {
   test('retourne la seule étape déjà effectuée', () => {

@@ -1,8 +1,5 @@
 import { etapesTypesGet } from './_utils-test'
-import {
-  demarchesEtatsDefinitions,
-  IEtapeTypeIdCondition
-} from './demarches-etats-definitions'
+import { demarchesDefinitions, IEtapeTypeIdCondition } from './definitions'
 
 const etapeTypeIdsGet = (contraintes?: IEtapeTypeIdCondition[][]) => {
   const etapeTypeIds = [] as string[]
@@ -20,9 +17,9 @@ const etapeTypeIdsGet = (contraintes?: IEtapeTypeIdCondition[][]) => {
 }
 
 describe('vérifie la cohérence de tous les arbres', () => {
-  demarchesEtatsDefinitions.forEach(demarchesEtatsDefinition => {
-    demarchesEtatsDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
-      const demarcheEtatsEtapeTypeIds = demarchesEtatsDefinition.restrictions
+  demarchesDefinitions.forEach(demarcheDefinition => {
+    demarcheDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
+      const demarcheEtatsEtapeTypeIds = demarcheDefinition.restrictions
         .reduce((acc, restriction) => {
           acc.push(restriction.etapeTypeId)
           if (restriction.separation) {
@@ -38,50 +35,50 @@ describe('vérifie la cohérence de tous les arbres', () => {
 
       const tdeEtapeTypeIds = etapesTypesGet(
         demarcheTypeId,
-        demarchesEtatsDefinition.titreTypeId
+        demarcheDefinition.titreTypeId
       )
         .filter(etapeType => !etapeType.dateFin || etapeType.dateFin === '')
         .map(etapeType => etapeType.id)
 
       // on vérifie que toutes les étapes définies dans l’arbre existent dans TDE
       demarcheEtatsEtapeTypeIds.forEach(demarcheEtatsEtapeTypeId =>
-        test(`vérifie que TDE d’une démarche "${demarcheTypeId}" des titres "${demarchesEtatsDefinition.titreTypeId}" contient l’étape "${demarcheEtatsEtapeTypeId}"`, () =>
+        test(`vérifie que TDE d’une démarche "${demarcheTypeId}" des titres "${demarcheDefinition.titreTypeId}" contient l’étape "${demarcheEtatsEtapeTypeId}"`, () =>
           expect(tdeEtapeTypeIds).toContain(demarcheEtatsEtapeTypeId))
       )
 
       // on vérifie que toutes les étapes définies dans TDE existent dans l’arbre
       tdeEtapeTypeIds.forEach(tdeEtapeTypeId =>
-        test(`vérifie que l’arbre des démarches "${demarcheTypeId}" des titres "${demarchesEtatsDefinition.titreTypeId}" contient l’étape "${tdeEtapeTypeId}"`, () =>
+        test(`vérifie que l’arbre des démarches "${demarcheTypeId}" des titres "${demarcheDefinition.titreTypeId}" contient l’étape "${tdeEtapeTypeId}"`, () =>
           expect(demarcheEtatsEtapeTypeIds).toContain(tdeEtapeTypeId))
       )
     })
   })
 
-  demarchesEtatsDefinitions.forEach(demarchesEtatsDefinition => {
-    demarchesEtatsDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
-      const demarcheEtatsEtapeTypeIds = demarchesEtatsDefinition.restrictions.map(
+  demarchesDefinitions.forEach(demarcheDefinition => {
+    demarcheDefinition.demarcheTypeIds.forEach(demarcheTypeId => {
+      const demarcheEtatsEtapeTypeIds = demarcheDefinition.restrictions.map(
         r => r.etapeTypeId.split('-')[0]
       )
 
       const tdeEtapeTypeIds = etapesTypesGet(
         demarcheTypeId,
-        demarchesEtatsDefinition.titreTypeId
+        demarcheDefinition.titreTypeId
       )
         .filter(etapeType => !etapeType.dateFin || etapeType.dateFin === '')
         .map(etapeType => etapeType.id)
 
       // on vérifie qu’il existe un bloc dans l’arbre par étapes définies dans TDE
       tdeEtapeTypeIds.forEach(tdeEtapeTypeId =>
-        test(`vérifie qu’il existe un bloc "${tdeEtapeTypeId}" dans l’arbre des démarches "${demarcheTypeId}" des titres "${demarchesEtatsDefinition.titreTypeId}"`, () =>
+        test(`vérifie qu’il existe un bloc "${tdeEtapeTypeId}" dans l’arbre des démarches "${demarcheTypeId}" des titres "${demarcheDefinition.titreTypeId}"`, () =>
           expect(demarcheEtatsEtapeTypeIds).toContain(tdeEtapeTypeId))
       )
     })
   })
 
-  test.each(demarchesEtatsDefinitions)(
+  test.each(demarchesDefinitions)(
     '%# vérifie que chaque arbre contient une seule fois chaque étape',
-    demarchesEtatsDefinition => {
-      demarchesEtatsDefinition.restrictions.reduce((acc, restriction) => {
+    demarcheDefinition => {
+      demarcheDefinition.restrictions.reduce((acc, restriction) => {
         expect(acc).not.toContain(restriction.etapeTypeId)
         acc.push(restriction.etapeTypeId)
 

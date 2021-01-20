@@ -1,9 +1,9 @@
-import { demarchesEtatsDefinitions } from '../../business/demarches-etats-definitions/demarches-etats-definitions'
+import { demarchesDefinitions } from '../../business/rules-demarches/definitions'
 import { titresDemarchesGet } from '../../database/queries/titres-demarches'
-import { titreDemarcheEtatValidate } from '../../business/titre-demarche-etat-validate'
+import { titreDemarcheEtatValidate } from '../../business/validations/titre-demarche-etat-validate'
 import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
 
-const demarchesEtatsDefinitionsCheck = async () => {
+const demarchesDefinitionsCheck = async () => {
   console.info()
   console.info('- - -')
   console.info('vérification des démarches avec les arbres d’instructions')
@@ -11,12 +11,12 @@ const demarchesEtatsDefinitionsCheck = async () => {
 
   let errorsNb = 0
 
-  for (const demarchesEtatsDefinition of demarchesEtatsDefinitions) {
-    for (const demarcheTypeId of demarchesEtatsDefinition.demarcheTypeIds) {
+  for (const demarcheDefinition of demarchesDefinitions) {
+    for (const demarcheTypeId of demarcheDefinition.demarcheTypeIds) {
       const demarches = await titresDemarchesGet(
         {
-          titresTypesIds: [demarchesEtatsDefinition.titreTypeId.slice(0, 2)],
-          titresDomainesIds: [demarchesEtatsDefinition.titreTypeId.slice(2)],
+          titresTypesIds: [demarcheDefinition.titreTypeId.slice(0, 2)],
+          titresDomainesIds: [demarcheDefinition.titreTypeId.slice(2)],
           typesIds: [demarcheTypeId]
         },
         {
@@ -39,7 +39,7 @@ const demarchesEtatsDefinitionsCheck = async () => {
         // On garde seulement les octroi d’AXM non terminées
         .filter(
           d =>
-            demarchesEtatsDefinition.titreTypeId !== 'axm' ||
+            demarcheDefinition.titreTypeId !== 'axm' ||
             (['oct'].includes(d.typeId) &&
               ['dep', 'aco', 'ins'].includes(d.statutId!))
         )
@@ -47,7 +47,7 @@ const demarchesEtatsDefinitionsCheck = async () => {
           // .some(demarche => {
           try {
             const errors = titreDemarcheEtatValidate(
-              demarchesEtatsDefinition.restrictions,
+              demarcheDefinition.restrictions,
               demarche.type!,
               demarche.etapes!,
               demarche.titre!
@@ -82,4 +82,4 @@ const demarchesEtatsDefinitionsCheck = async () => {
   console.error(`Nb errors = ${errorsNb}`)
 }
 
-export default demarchesEtatsDefinitionsCheck
+export default demarchesDefinitionsCheck

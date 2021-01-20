@@ -3,7 +3,7 @@ import '../../src/init'
 import { titresDemarchesGet } from '../../src/database/queries/titres-demarches'
 import { titreEtapeUpdate } from '../../src/database/queries/titres-etapes'
 import { ITitreDemarche, ITitreEtape } from '../../src/types'
-import { demarchesEtatsDefinitions } from '../../src/business/demarches-etats-definitions/demarches-etats-definitions'
+import { demarchesDefinitions } from '../../src/business/rules-demarches/definitions'
 import { titreDemarcheDepotDemandeDateFind } from '../../src/business/rules/titre-demarche-depot-demande-date-find'
 
 const armOctEtapeTypeIdGet = (
@@ -78,12 +78,12 @@ const axmOctEtapeTypeIdGet = (etape: ITitreEtape) => {
 // }
 
 const main = async () => {
-  for (const demarchesEtatsDefinition of demarchesEtatsDefinitions) {
-    for (const demarcheTypeId of demarchesEtatsDefinition.demarcheTypeIds) {
+  for (const demarcheDefinition of demarchesDefinitions) {
+    for (const demarcheTypeId of demarcheDefinition.demarcheTypeIds) {
       const demarches = await titresDemarchesGet(
         {
-          titresTypesIds: [demarchesEtatsDefinition.titreTypeId.slice(0, 2)],
-          titresDomainesIds: [demarchesEtatsDefinition.titreTypeId.slice(2)],
+          titresTypesIds: [demarcheDefinition.titreTypeId.slice(0, 2)],
+          titresDomainesIds: [demarcheDefinition.titreTypeId.slice(2)],
           typesIds: [demarcheTypeId]
         },
         {
@@ -109,17 +109,17 @@ const main = async () => {
           const etape = etapes[i]
           let typeId
 
-          if (demarchesEtatsDefinition.titreTypeId === 'arm') {
+          if (demarcheDefinition.titreTypeId === 'arm') {
             if (demarche.typeId === 'oct') {
               typeId = armOctEtapeTypeIdGet(etape, etapes, i, demarche)
             } else if (['ren', 'pro'].includes(demarche.typeId)) {
               typeId = armRenProEtapeTypeIdGet(etape, demarche)
             }
-          } else if (demarchesEtatsDefinition.titreTypeId === 'axm') {
+          } else if (demarcheDefinition.titreTypeId === 'axm') {
             if (demarche.typeId === 'oct') {
               typeId = axmOctEtapeTypeIdGet(etape)
             }
-          } else if (demarchesEtatsDefinition.titreTypeId === 'prm') {
+          } else if (demarcheDefinition.titreTypeId === 'prm') {
             if (demarche.typeId === 'oct') {
               // FIXME
               // typeId = prmOctEtapeTypeIdGet(etape)

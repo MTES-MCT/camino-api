@@ -1,4 +1,4 @@
-import { IEtapeTypeIdDefinition } from './demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from './definitions'
 
 const etatCycleGet = (
   etapeTypeIdDefinition: IEtapeTypeIdDefinition,

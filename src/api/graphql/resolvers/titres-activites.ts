@@ -27,7 +27,7 @@ import {
 } from '../../../database/queries/utilisateurs'
 
 import titreActiviteInputValidate from '../../_validate/titre-activite-input-validate'
-import titreActiviteUpdationValidate from '../../../business/titre-activite-updation-validate'
+import titreActiviteUpdationValidate from '../../../business/validations/titre-activite-updation-validate'
 
 /**
  * Retourne une activité

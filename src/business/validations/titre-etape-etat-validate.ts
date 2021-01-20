@@ -5,7 +5,7 @@ import { contenuConditionMatch } from '../../tools/index'
 import {
   IEtapeTypeIdCondition,
   IEtapeTypeIdDefinition
-} from '../demarches-etats-definitions/demarches-etats-definitions'
+} from '../rules-demarches/definitions'
 
 const sameContenuCheck = (
   conditionTitre: ITitreCondition,

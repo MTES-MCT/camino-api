@@ -1,4 +1,4 @@
-import { IEtapeTypeIdDefinition } from '../demarches-etats-definitions'
+import { IEtapeTypeIdDefinition } from '../definitions'
 import { etatComplementsGet, etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/nStw2pYe0PKBs1lp/B1B05

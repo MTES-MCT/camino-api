@@ -3,7 +3,7 @@ import './init'
 import { job } from 'cron'
 import daily from './business/daily'
 import documentsCheck from './tools/documents/check'
-import demarchesEtatsDefinitionsCheck from './tools/demarches-etats-definitions/check'
+import demarchesDefinitionsCheck from './tools/demarches/definitions-check'
 import './config/logger-cron'
 import { emailSend } from './tools/emails-send'
 import { readFileSync, writeFileSync } from 'fs'
@@ -15,7 +15,7 @@ const tasks = async () => {
 
   await daily()
   await documentsCheck()
-  await demarchesEtatsDefinitionsCheck()
+  await demarchesDefinitionsCheck()
 
   const emailBody = readFileSync('cron.log').toString()
   await emailSend(process.env.ADMIN_EMAIL!, 'Résultats du daily', emailBody)

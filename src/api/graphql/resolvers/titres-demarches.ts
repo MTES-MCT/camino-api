@@ -31,7 +31,7 @@ import { titreGet } from '../../../database/queries/titres'
 import { userGet } from '../../../database/queries/utilisateurs'
 
 import titreDemarcheUpdateTask from '../../../business/titre-demarche-update'
-import titreDemarcheUpdationValidate from '../../../business/titre-demarche-updation-validate'
+import titreDemarcheUpdationValidate from '../../../business/validations/titre-demarche-updation-validate'
 
 const demarches = async (
   {
