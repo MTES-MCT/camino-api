@@ -10,7 +10,7 @@ import { titreDemarcheUpdatedEtatValidate } from '../../business/titre-demarche-
 
 import { dupRemove } from '../../tools/index'
 import { titreSectionsFormat } from './titres-sections'
-import { titreDemarcheDemandeDateFind } from '../../business/rules/titre-demarche-demande-date-find'
+import { titreDemarcheDepotDemandeDateFind } from '../../business/rules/titre-demarche-depot-demande-date-find'
 
 const etapeTypeSectionsFormat = (
   etapeType: IEtapeType,
@@ -48,7 +48,7 @@ const etapeTypeDateFinCheck = (
 ) => {
   if (!etapeType.dateFin || !titreEtapes) return true
 
-  const dateDemande = titreDemarcheDemandeDateFind(titreEtapes)
+  const dateDemande = titreDemarcheDepotDemandeDateFind(titreEtapes)
 
   // si
   // - la date de demande est absente,

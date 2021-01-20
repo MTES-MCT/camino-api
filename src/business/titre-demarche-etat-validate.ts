@@ -10,7 +10,7 @@ import { titreContenuFormat } from '../database/models/_format/titres-contenu'
 import titreEtapesSortAscByDate from './utils/titre-etapes-sort-asc-by-date'
 import { titreEtapeEtatValidate } from './utils/titre-etape-etat-validate'
 import { titreDemarcheEtapesBuild } from './titre-demarche-etape-build'
-import { titreDemarcheDemandeDateFind } from './rules/titre-demarche-demande-date-find'
+import { titreDemarcheDepotDemandeDateFind } from './rules/titre-demarche-depot-demande-date-find'
 
 // vérifie que  la démarche est valide par rapport aux définitions des types d'étape
 const titreDemarcheEtatValidate = (
@@ -104,7 +104,7 @@ const titreDemarcheUpdatedEtatValidate = (
   // pour ne pas bloquer l'édition du cadastre historique (moins complet)
   if (
     titreDemarcheEtapes &&
-    titreDemarcheDemandeDateFind(titreDemarcheEtapes) < '2019-10-31'
+    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapes) < '2019-10-31'
   )
     return []
 
