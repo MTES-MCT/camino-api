@@ -13,6 +13,7 @@ import {
   etapesTypes
 } from './__mocks__/titre-etapes-asc-sort-by-date-etapes'
 
+console.error = jest.fn()
 describe('trie les étapes', () => {
   test('des étapes organisées par date décroissante sont triées par date croissante', () => {
     expect(
@@ -56,7 +57,7 @@ describe('trie les étapes', () => {
     ).toMatchObject(titreEtapesMemesDatesMemeOrdreAscResult)
   })
 
-  test('tri par l’arbre si les étapes ont la même date', () => {
+  test('tri selon l’arbre si les étapes ont la même date', () => {
     const etapes = [
       { typeId: 'mcr', date: '2020-01-01', ordre: 18 },
       { typeId: 'vfd', date: '2020-01-01', ordre: 23 },
@@ -88,5 +89,24 @@ describe('trie les étapes', () => {
     )
     expect(result[0].typeId).toEqual('aco')
     expect(result[1].typeId).toEqual('mnv')
+  })
+
+  test("loggue une erreur si le type d'étape est absent dans la définition", () => {
+    const etapes = [
+      { typeId: 'mcr', date: '2020-01-01', ordre: 18 },
+      { typeId: 'bof', date: '2020-01-01', ordre: 23 },
+      { typeId: 'vfd', date: '2020-01-01', ordre: 36 }
+    ] as ITitreEtape[]
+
+    const result = titreEtapesSortAscByDate(
+      etapes,
+      'demarches',
+      { id: 'oct' } as IDemarcheType,
+      'arm'
+    )
+    expect(console.error).toHaveBeenCalledTimes(2)
+    expect(result[0].typeId).toEqual('vfd')
+    expect(result[1].typeId).toEqual('bof')
+    expect(result[2].typeId).toEqual('mcr')
   })
 })

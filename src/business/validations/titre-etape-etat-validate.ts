@@ -4,7 +4,7 @@ import { ITitreEtape, ITitreCondition, IContenu } from '../../types'
 import { contenuConditionMatch } from '../../tools/index'
 import {
   IEtapeTypeIdCondition,
-  IEtapeTypeIdDefinition
+  IDemarcheDefinitionRestrictions
 } from '../rules-demarches/definitions'
 
 const sameContenuCheck = (
@@ -20,10 +20,10 @@ const sameContenuCheck = (
   )
 
 const titreEtapeTypeIdRestrictionsFind = (
-  titreEtapeTypeIdRestrictions: IEtapeTypeIdDefinition[],
+  demarcheDefinitionRestrictions: IDemarcheDefinitionRestrictions[],
   etapeTypeId: string
 ) => {
-  const etapeTypeIdDefinitions = titreEtapeTypeIdRestrictions.find(
+  const etapeTypeIdDefinitions = demarcheDefinitionRestrictions.find(
     restriction => {
       return restriction.etapeTypeId === etapeTypeId
     }
@@ -39,7 +39,7 @@ const titreEtapeTypeIdRestrictionsFind = (
 }
 
 const etapesEnAttenteGet = (
-  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
+  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions[],
   titreDemarcheEtapes: ITitreEtape[]
 ) => {
   return etapesSuivantesEnAttenteGet(
@@ -54,7 +54,7 @@ const etapesSuivantesEnAttenteGet = (
   titreDemarcheEtapes: ITitreEtape[],
   titreDemarcheEtapesSuivantes: ITitreEtape[],
   etapesEnAttente: ITitreEtape[],
-  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[]
+  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions[]
 ): ITitreEtape[] => {
   if (!titreDemarcheEtapesSuivantes || !titreDemarcheEtapesSuivantes.length) {
     return etapesEnAttente
@@ -74,7 +74,7 @@ const etapesSuivantesEnAttenteGet = (
 
   const etapeCouranteConditions = etapeTypeIdDefinitions.find(
     definition => definition.etapeTypeId === etapeCourante.typeId
-  ) as IEtapeTypeIdDefinition
+  ) as IDemarcheDefinitionRestrictions
 
   // on cherche quelles étapes en attente ont permis d’atteindre cette étape
   if (etapeCouranteConditions.justeApres) {
@@ -172,7 +172,7 @@ const etapesEnAttenteToString = (titreEtapesEnAttente: ITitreEtape[]) =>
     .join(', ')
 
 const titreEtapeEtatValidate = (
-  etapeTypeIdDefinitions: IEtapeTypeIdDefinition[],
+  etapeTypeIdDefinitions: IDemarcheDefinitionRestrictions[],
   etapeTypeId: string,
   titreDemarcheEtapes: ITitreEtape[],
   contenu: IContenu | null

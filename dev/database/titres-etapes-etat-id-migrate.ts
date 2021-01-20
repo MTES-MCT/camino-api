@@ -100,7 +100,8 @@ const main = async () => {
         .filter(d => d.etapes?.length)
         .filter(
           demarche =>
-            titreDemarcheDepotDemandeDateFind(demarche.etapes) > '2019-10-31'
+            titreDemarcheDepotDemandeDateFind(demarche.etapes) >
+            demarcheDefinition.dateDebut
         )
 
       for (const demarche of demarchesValid) {

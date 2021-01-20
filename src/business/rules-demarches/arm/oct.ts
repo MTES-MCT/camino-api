@@ -1,8 +1,8 @@
-import { IEtapeTypeIdDefinition } from '../definitions'
+import { IDemarcheDefinitionRestrictions } from '../definitions'
 import { etatInformationsGet } from '../etat-cycles'
 
 // https://cacoo.com/diagrams/oWuHFa1Y8cCdCqaB/B1B05
-const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
+const restrictionsArmOct: IDemarcheDefinitionRestrictions[] = [
   {
     etapeTypeId: 'mfr',
     justeApres: []
@@ -292,4 +292,4 @@ const etatsDefinitionArmOct: IEtapeTypeIdDefinition[] = [
   }
 ]
 
-export { etatsDefinitionArmOct }
+export { restrictionsArmOct }

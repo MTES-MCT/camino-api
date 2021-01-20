@@ -14,7 +14,7 @@ import {
   ITitreTypeDemarcheTypeEtapeType
 } from '../../types'
 import { titreDemarcheEtatValidate } from '../validations/titre-demarche-etat-validate'
-import { etapeTypeIdDefinitionsGet } from './definitions'
+import { demarcheDefinitionFind } from './definitions'
 import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
 import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 
@@ -70,10 +70,10 @@ const demarcheEtatsValidate = (demarcheTypeId: string, titreTypeId: string) => {
     propsTitreEtapesIdsFindMock.mockReturnValue({})
     titreContenuFormatMock.mockReturnValue(titre.contenu as IContenu)
 
-    const etapeTypeIdDefinitions = etapeTypeIdDefinitionsGet(
+    const etapeTypeIdDefinitions = demarcheDefinitionFind(
       titreTypeId,
       demarcheTypeId
-    )
+    )?.restrictions
 
     titre = {
       ...titre,
