@@ -128,8 +128,8 @@ const titreEtapesMemesDatesMemeOrdreAscResult = [
 ] as ITitreEtape[]
 
 const etapesTypes = [
-  { id: 'dex', nom: 'dex', ordre: 100 },
-  { id: 'dpu', nom: 'dpu', ordre: 200 }
+  { id: 'dex', nom: 'dex', ordre: 100, titreTypeId: 'titre-type-id' },
+  { id: 'dpu', nom: 'dpu', ordre: 200, titreTypeId: 'titre-type-id' }
 ] as IEtapeType[]
 
 export {
