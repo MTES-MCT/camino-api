@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils/index'
 
 console.info = jest.fn()
 console.error = jest.fn()

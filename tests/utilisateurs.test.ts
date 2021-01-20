@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { knex, dbManager, app } from './init'
-import { graphQLCall, queryImport, tokenCreate } from './_utils'
+import { graphQLCall, queryImport, tokenCreate } from './_utils/index'
 import * as userAdd from '../knex/user-add'
 import * as request from 'supertest'
 import * as jwt from 'jsonwebtoken'

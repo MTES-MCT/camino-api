@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils/index'
 import { IPermissionId, ITitreEtapeJustificatif } from '../src/types'
 import { documentCreate, documentGet } from '../src/database/queries/documents'
 import { entrepriseUpsert } from '../src/database/queries/entreprises'

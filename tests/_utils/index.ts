@@ -7,17 +7,17 @@ import {
   Index,
   IPermissionId,
   IUtilisateur
-} from '../src/types'
+} from '../../src/types'
 import * as request from 'supertest'
-import { app } from './init'
+import { app } from '../init'
 import {
   utilisateurCreate,
   utilisateurGet
-} from '../src/database/queries/utilisateurs'
+} from '../../src/database/queries/utilisateurs'
 
 const queryImport = (nom: string) =>
   fs
-    .readFileSync(path.join(__dirname, `./queries/${nom}.graphql`))
+    .readFileSync(path.join(__dirname, `../queries/${nom}.graphql`))
     // important pour transformer le buffer en string
     .toString()
 

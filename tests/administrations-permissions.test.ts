@@ -1,36 +1,16 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
-import { scenariosGet, IScenarios } from './_utils/permissions-administrations'
+import { graphQLCall, queryImport } from './_utils/index'
+import { scenariosGet } from './_utils/administrations-permissions'
+import administrations from './_utils/administrations'
 import { titreCreate } from '../src/database/queries/titres'
-import { IAdministration } from '../src/types'
-import { administrationsGet } from '../src/database/queries/administrations'
 
 console.info = jest.fn()
 console.error = jest.fn()
 
-let administrations = [] as IAdministration[]
-let scenarios = [] as IScenarios
-
 beforeAll(async () => {
   await dbManager.populateDb()
-
-  administrations = (await administrationsGet(
-    {},
-    {
-      fields: {
-        titresTypesTitresStatuts: { id: {} },
-        titresTypesEtapesTypes: { id: {} },
-        titresTypes: { id: {} }
-      }
-    },
-    'super'
-  )) as IAdministration[]
-
-  scenarios = scenariosGet(administrations)
-
-  console.log('A --------')
 })
 
 afterEach(async () => {
@@ -42,7 +22,7 @@ afterAll(async () => {
 })
 
 describe('permissions des administrations', () => {
-  console.log('B -------->', scenarios)
+  const scenarios = scenariosGet(administrations)
   const titreQuery = queryImport('titre')
 
   test.each(scenarios)(

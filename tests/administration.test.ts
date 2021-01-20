@@ -1,7 +1,7 @@
 import 'dotenv/config'
 
 import { dbManager } from './init'
-import { graphQLCall, queryImport } from './_utils'
+import { graphQLCall, queryImport } from './_utils/index'
 
 import { administrationsUpsert } from '../src/database/queries/administrations'
 
