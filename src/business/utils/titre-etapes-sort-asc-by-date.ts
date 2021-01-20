@@ -40,8 +40,16 @@ const titreEtapesSortAscByDate = (
         r => r.etapeTypeId === b.typeId
       )
 
+      if (!bRestriction) {
+        console.error(
+          `impossible de trier l’étape ${b.id} car son type ${b.typeId} n’existe pas dans les définitions `
+        )
+
+        return -1
+      }
+
       if (
-        bRestriction!.justeApres.flat(2).find(b => b?.etapeTypeId === a.typeId)
+        bRestriction.justeApres.flat(2).find(b => b?.etapeTypeId === a.typeId)
       ) {
         return -1
       }
@@ -50,8 +58,16 @@ const titreEtapesSortAscByDate = (
         r => r.etapeTypeId === a.typeId
       )
 
+      if (!aRestriction) {
+        console.error(
+          `impossible de trier l’étape ${a.id} car son type ${a.typeId} n’existe pas dans les définitions `
+        )
+
+        return -1
+      }
+
       if (
-        aRestriction!.justeApres.flat(2).find(a => a?.etapeTypeId === b.typeId)
+        aRestriction.justeApres.flat(2).find(a => a?.etapeTypeId === b.typeId)
       ) {
         return 1
       }
