@@ -16,12 +16,6 @@ const titreDemarcheEtapesBuild = (
   suppression: boolean,
   titreDemarcheEtapes?: ITitreEtape[] | null
 ) => {
-  // quand on ajoute une étape, on ne connaît pas encore sa date.
-  // on doit donc proposer tous les types d'étape possibles
-  if (!titreEtape.date) {
-    titreEtape.date = '2300-01-01'
-  }
-
   if (!titreDemarcheEtapes?.length) {
     return [titreEtape]
   }
@@ -141,28 +135,29 @@ const titreDemarcheUpdatedEtatValidate = (
   // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
   if (!demarcheDefinition) return []
 
-  // pas de validation si la démarche est antérieure au 31 octobre 2019
-  // pour ne pas bloquer l'édition du cadastre historique (moins complet)
-  if (
-    titreDemarcheEtapes &&
-    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapes) <
-      demarcheDefinition.dateDebut
-  )
-    return []
-
   const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
     titreEtape,
     suppression,
     titreDemarcheEtapes
   )
 
+  // pas de validation si la démarche est antérieure au 31 octobre 2019
+  // pour ne pas bloquer l'édition du cadastre historique (moins complet)
+  if (
+    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapesNew) <
+    demarcheDefinition.dateDebut
+  )
+    return []
+
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
-  return titreDemarcheEtatValidate(
+  const titreDemarchesErrors = titreDemarcheEtatValidate(
     demarcheDefinition.restrictions,
     demarcheType,
     titreDemarcheEtapesNew,
     titre
   )
+
+  return titreDemarchesErrors
 }
 
 export { titreDemarcheUpdatedEtatValidate, titreDemarcheEtatValidate }

@@ -33,4 +33,16 @@ describe('vérifie l’arbre de renonciation et de prolongation d’ARM', () => 
       ])
     ).toEqual(['l’étape "mca" ne peut-être effecutée 2 fois d’affilée'])
   })
+
+  test('peut mettre une "aof" après une "eof"', () => {
+    expect(
+      renProEtatsValidate([
+        { typeId: 'mfr', date: '2020-05-27' },
+        { typeId: 'mdp', date: '2020-05-30' },
+        { typeId: 'mcr', date: '2020-06-03', statutId: 'fav' },
+        { typeId: 'eof', date: '2020-07-03' },
+        { typeId: 'aof', date: '2020-07-03' }
+      ])
+    ).toHaveLength(0)
+  })
 })

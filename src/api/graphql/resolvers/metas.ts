@@ -256,6 +256,7 @@ const demarchesStatuts = async () => {
 const demarcheEtapesTypesGet = async (
   fields: IFields,
   titreDemarcheId: string,
+  date: string,
   titreEtapeId?: string,
   userId?: string
 ) => {
@@ -290,7 +291,7 @@ const demarcheEtapesTypesGet = async (
   // vérifie que son type est possible sur la démarche
   if (titreEtape) {
     const etapeType = titreDemarche.type!.etapesTypes.find(
-      et => et.id === titreEtape.type!.id
+      et => et.id === titreEtape.typeId
     )
 
     if (!etapeType) {
@@ -320,6 +321,7 @@ const demarcheEtapesTypesGet = async (
     .filter(etapeType =>
       etapeTypeIsValidCheck(
         etapeType,
+        date,
         titre,
         titreDemarche.type!,
         titreDemarche.etapes,
@@ -344,12 +346,14 @@ const etapesTypes = async (
     titreDemarcheId,
     titreEtapeId,
     titreTravauxId,
-    titreTravauxEtapeId
+    titreTravauxEtapeId,
+    date
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
     titreTravauxId?: string
     titreTravauxEtapeId?: string
+    date?: string
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -358,9 +362,14 @@ const etapesTypes = async (
     const fields = fieldsBuild(info)
 
     if (titreDemarcheId && context.user?.id) {
+      if (!date) {
+        throw new Error(`date manquante`)
+      }
+
       return demarcheEtapesTypesGet(
         fields,
         titreDemarcheId,
+        date,
         titreEtapeId,
         context.user.id
       )

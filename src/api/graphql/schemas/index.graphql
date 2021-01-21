@@ -126,6 +126,7 @@ type Query {
     titreEtapeId: ID
     titreTravauxId: ID
     titreTravauxEtapeId: ID
+    date: String
   ): [EtapeType]
 
   "Status d'étapes"

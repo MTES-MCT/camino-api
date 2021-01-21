@@ -201,15 +201,15 @@ const etapeSupprimer = async (
       throw new Error('droits insuffisants')
     }
 
-    const etapeOld = await titreEtapeGet(
+    const titreEtape = await titreEtapeGet(
       id,
       { fields: { documents: { type: { id: {} } } } },
       context.user?.id
     )
-    if (!etapeOld) throw new Error("l'étape n'existe pas")
+    if (!titreEtape) throw new Error("l'étape n'existe pas")
 
     const demarche = await titreDemarcheGet(
-      etapeOld.titreDemarcheId,
+      titreEtape.titreDemarcheId,
       {},
       user && user.id
     )
@@ -221,7 +221,7 @@ const etapeSupprimer = async (
     const rulesErrors = await titreDemarcheUpdatedEtatValidate(
       demarche.type!,
       titre,
-      etapeOld,
+      titreEtape,
       demarche.etapes!,
       true
     )
@@ -232,11 +232,11 @@ const etapeSupprimer = async (
 
     await titreEtapeDelete(id)
 
-    await fichiersDelete(etapeOld.documents)
+    await fichiersDelete(titreEtape.documents)
 
     const titreUpdatedId = await titreEtapeUpdateTask(
       null,
-      etapeOld.titreDemarcheId
+      titreEtape.titreDemarcheId
     )
 
     const titreUpdated = await titreGet(titreUpdatedId, { fields }, user.id)
