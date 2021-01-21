@@ -73,7 +73,9 @@ const statistiquesGranulatsMarinsInstantBuild = (titres: ITitre[]) => {
             acc.titresInstructionExploration++
           }
         } else {
-          acc.surfaceExploitation += titre.surfaceEtape.surface
+          if (['val', 'mod'].includes(titre.statutId)) {
+            acc.surfaceExploitation += titre.surfaceEtape.surface
+          }
           if (['mod', 'dmi'].includes(titre.statutId!)) {
             acc.titresInstructionExploitation++
           }
