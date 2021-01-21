@@ -135,20 +135,19 @@ const titreDemarcheUpdatedEtatValidate = (
   // pas de validation pour les démarches qui n'ont pas d'arbre d’instructions
   if (!demarcheDefinition) return []
 
-  // pas de validation si la démarche est antérieure au 31 octobre 2019
-  // pour ne pas bloquer l'édition du cadastre historique (moins complet)
-  if (
-    titreDemarcheEtapes &&
-    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapes) <
-      demarcheDefinition.dateDebut
-  )
-    return []
-
   const titreDemarcheEtapesNew = titreDemarcheEtapesBuild(
     titreEtape,
     suppression,
     titreDemarcheEtapes
   )
+
+  // pas de validation si la démarche est antérieure au 31 octobre 2019
+  // pour ne pas bloquer l'édition du cadastre historique (moins complet)
+  if (
+    titreDemarcheDepotDemandeDateFind(titreDemarcheEtapesNew) <
+    demarcheDefinition.dateDebut
+  )
+    return []
 
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
   const titreDemarchesErrors = titreDemarcheEtatValidate(
