@@ -9,12 +9,8 @@ import { titreCreate } from '../src/database/queries/titres'
 console.info = jest.fn()
 console.error = jest.fn()
 
-beforeEach(async () => {
+beforeAll(async () => {
   await dbManager.populateDb()
-})
-
-afterEach(async () => {
-  await dbManager.truncateDb()
 })
 
 afterAll(async () => {
@@ -24,13 +20,12 @@ afterAll(async () => {
 describe('permissions des administrations', () => {
   const scenarios = scenariosBuild(
     administrations.filter(a => a.id === 'ope-onf-973-01')
+    // administrations.filter(a => a.type_id === 'ope')
   )
   const titreQuery = queryImport('titre')
 
   test.each(scenarios)('%s', async (message, administration, titre, result) => {
     await titreCreate(titre, {}, 'super')
-
-    console.log('titre :>> ', titre)
 
     const res = await graphQLCall(
       titreQuery,
