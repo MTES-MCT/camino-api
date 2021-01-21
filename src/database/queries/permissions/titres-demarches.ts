@@ -136,11 +136,13 @@ const titreDemarchePermissionQueryBuild = (
   }
 
   if (permissionCheck(user?.permissionId, ['super'])) {
-    q.select(raw('true').as('modification'))
+    q.select(
+      titreDemarcheModificationQueryBuild('titresDemarches').as('modification')
+    )
     q.select(raw('true').as('suppression'))
     q.select(raw('true').as('etapesCreation'))
   } else if (
-    permissionCheck(user?.permissionId, ['admin', 'editeur', 'lecteur']) &&
+    permissionCheck(user?.permissionId, ['admin', 'editeur']) &&
     user?.administrations?.length
   ) {
     // TODO: conditionner aux fields
@@ -150,7 +152,11 @@ const titreDemarchePermissionQueryBuild = (
     const titresModificationQuery = titresModificationQueryBuild(
       administrationsIds,
       'demarches'
-    ).whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
+    )
+      .whereRaw('?? = ??', ['titresModification.id', 'titresDemarches.titreId'])
+      .andWhereRaw('?? = true', [
+        titreDemarcheModificationQueryBuild('titresDemarches')
+      ])
 
     q.select(titresModificationQuery.as('modification'))
     // propriété 'modification'
@@ -196,5 +202,15 @@ const titreDemarchePermissionQueryBuild = (
 
   return q
 }
+
+const titreDemarcheModificationQueryBuild = (demarcheAlias: string) =>
+  raw('(not exists(?))', [
+    TitresEtapes.query()
+      .alias('titresDemarchesEtapes')
+      .whereRaw('?? = ??', [
+        'titresDemarchesEtapes.titreDemarcheId',
+        `${demarcheAlias}.id`
+      ])
+  ])
 
 export { titreDemarchePermissionQueryBuild }

@@ -4,6 +4,7 @@ import { dbManager } from './init'
 import { graphQLCall, queryImport } from './_utils'
 import { titreCreate } from '../src/database/queries/titres'
 import { administrations } from './__mocks__/administrations'
+import { titreEtapeUpsert } from '../src/database/queries/titres-etapes'
 
 console.info = jest.fn()
 console.error = jest.fn()
@@ -158,7 +159,7 @@ describe('demarcheModifier', () => {
       'super'
     )
 
-    expect(res.body.errors[0].message).toBe("le titre n'existe pas")
+    expect(res.body.errors[0].message).toBe('le titre n’existe pas')
   })
 
   test('peut modifier une démarche d’un titre ARM en PTMG (utilisateur admin)', async () => {
@@ -185,8 +186,48 @@ describe('demarcheModifier', () => {
       administrations.dgtmGuyane
     )
 
+    expect(res.body.errors[0].message).toBe('la démarche n’existe pas')
+  })
+
+  test('ne peut modifier une démarche inexistante', async () => {
+    const { titreId } = await demarcheCreate()
+
+    const res = await graphQLCall(
+      demarcheModifierQuery,
+      { demarche: { id: 'wrongId', titreId, typeId: 'pro' } },
+      'super'
+    )
+
+    expect(res.body.errors).toHaveLength(1)
+    expect(res.body.errors[0].message).toBe('la démarche n’existe pas')
+  })
+
+  test('ne peut pas modifier le type d’une démarche si elle a au moins une étape', async () => {
+    const { demarcheId, titreId } = await demarcheCreate()
+
+    await titreEtapeUpsert({
+      id: `${demarcheId}-mno01`,
+      typeId: 'mno',
+      titreDemarcheId: demarcheId,
+      statutId: 'acc',
+      date: '2020-01-01'
+    })
+
+    const res = await graphQLCall(
+      demarcheModifierQuery,
+      {
+        demarche: {
+          id: demarcheId,
+          titreId,
+          typeId: 'pro'
+        }
+      },
+      'super'
+    )
+
+    expect(res.body.errors).toHaveLength(1)
     expect(res.body.errors[0].message).toBe(
-      'droits insuffisants pour modifier cette démarche'
+      'impossible de modifier le type d’une démarche si celle-ci a déjà une ou plusieurs étapes'
     )
   })
 })
