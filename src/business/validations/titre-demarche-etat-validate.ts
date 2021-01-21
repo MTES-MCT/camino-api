@@ -16,12 +16,6 @@ const titreDemarcheEtapesBuild = (
   suppression: boolean,
   titreDemarcheEtapes?: ITitreEtape[] | null
 ) => {
-  // quand on ajoute une étape, on ne connaît pas encore sa date.
-  // on doit donc proposer tous les types d'étape possibles
-  if (!titreEtape.date) {
-    titreEtape.date = '2300-01-01'
-  }
-
   if (!titreDemarcheEtapes?.length) {
     return [titreEtape]
   }
@@ -157,12 +151,14 @@ const titreDemarcheUpdatedEtatValidate = (
   )
 
   // On vérifie que la nouvelle démarche respecte son arbre d’instructions
-  return titreDemarcheEtatValidate(
+  const titreDemarchesErrors = titreDemarcheEtatValidate(
     demarcheDefinition.restrictions,
     demarcheType,
     titreDemarcheEtapesNew,
     titre
   )
+
+  return titreDemarchesErrors
 }
 
 export { titreDemarcheUpdatedEtatValidate, titreDemarcheEtatValidate }

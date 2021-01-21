@@ -24,16 +24,14 @@ const titreEtapeUpdationValidate = async (
 
   // 2. la date de l'étape est possible
   // en fonction de l'ordre des types d'étapes de la démarche
-  if (titreEtape.date) {
-    const demarcheUpdatedErrors = titreDemarcheUpdatedEtatValidate(
-      titreDemarche.type!,
-      titre,
-      titreEtape,
-      titreDemarche.etapes!
-    )
-    if (demarcheUpdatedErrors.length) {
-      errors.push(...demarcheUpdatedErrors)
-    }
+  const demarcheUpdatedErrors = titreDemarcheUpdatedEtatValidate(
+    titreDemarche.type!,
+    titre,
+    titreEtape,
+    titreDemarche.etapes!
+  )
+  if (demarcheUpdatedErrors.length) {
+    errors.push(...demarcheUpdatedErrors)
   }
 
   // 3. les références de points sont bien renseignées

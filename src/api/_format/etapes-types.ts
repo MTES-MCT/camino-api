@@ -61,6 +61,7 @@ const etapeTypeDateFinCheck = (
 
 const etapeTypeIsValidCheck = (
   etapeType: IEtapeType,
+  date: string,
   titre: ITitre,
   demarcheType: IDemarcheType,
   titreDemarcheEtapes?: ITitreEtape[] | null,
@@ -70,10 +71,16 @@ const etapeTypeIsValidCheck = (
 
   if (!isDateFinValid) return false
 
+  if (!titreEtape) {
+    titreEtape = { typeId: etapeType.id } as ITitreEtape
+  }
+
+  titreEtape.date = date
+
   const etapeTypeIsValid = !titreDemarcheUpdatedEtatValidate(
     demarcheType,
     titre,
-    titreEtape ? { ...titreEtape } : ({ typeId: etapeType.id } as ITitreEtape),
+    titreEtape,
     titreDemarcheEtapes
   ).length
 
