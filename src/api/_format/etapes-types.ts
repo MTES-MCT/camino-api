@@ -72,9 +72,10 @@ const etapeTypeIsValidCheck = (
   if (!isDateFinValid) return false
 
   if (!titreEtape) {
-    titreEtape = { typeId: etapeType.id } as ITitreEtape
+    titreEtape = {} as ITitreEtape
   }
 
+  titreEtape.typeId = etapeType.id
   titreEtape.date = date
 
   const etapeTypeIsValid = !titreDemarcheUpdatedEtatValidate(

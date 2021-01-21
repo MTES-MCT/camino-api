@@ -150,17 +150,16 @@ describe('teste titreDemarcheUpdatedEtatValidate', () => {
 
   test("ajoute une étape à une démarche sans arbre d'instruction", () => {
     const valid = titreDemarcheUpdatedEtatValidate(
-      { id: 'toto' } as IDemarcheType,
+      { id: 'oct' } as IDemarcheType,
       {
         typeId: 'arm',
         type: ({
           id: 'arm',
           propsEtapesTypes: []
         } as unknown) as ITitreType,
-        demarches: [{ typeId: 'toto' }]
+        demarches: [{ typeId: 'oct' }]
       } as ITitre,
-      { typeId: 'mfr', date: '2030-01-01' } as ITitreEtape,
-      null
+      { typeId: 'mfr', date: '1030-01-01' } as ITitreEtape
     )
 
     expect(valid).toHaveLength(0)
