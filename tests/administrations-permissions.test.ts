@@ -23,12 +23,14 @@ afterAll(async () => {
 
 describe('permissions des administrations', () => {
   const scenarios = scenariosBuild(
-    administrations.filter(a => a.id === 'dea-guyane-01')
+    administrations.filter(a => a.id === 'ope-onf-973-01')
   )
   const titreQuery = queryImport('titre')
 
   test.each(scenarios)('%s', async (message, administration, titre, result) => {
     await titreCreate(titre, {}, 'super')
+
+    console.log('titre :>> ', titre)
 
     const res = await graphQLCall(
       titreQuery,

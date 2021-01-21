@@ -434,12 +434,24 @@ const resultBuild = (scenario: IAdministrationTitreTypeTest) => {
 const scenariosBuild = (administrations: IAdministration[]) => {
   const administrationsTests = administrationsTestsBuild(administrations)
 
-  return administrationsTests.map(t => [
+  // console.log('administrationsTests :>> ', administrationsTests)
+
+  // return administrationsTests.map(t => [
+  //   messageBuild(t),
+  //   administrations.find(a => a.id === t.administrationId),
+  //   titreBuild(t),
+  //   resultBuild(t)
+  // ]) as IAdministrationTitreTypeTestFormatted[]
+  const result = administrationsTests.map(t => [
     messageBuild(t),
     administrations.find(a => a.id === t.administrationId),
     titreBuild(t),
     resultBuild(t)
   ]) as IAdministrationTitreTypeTestFormatted[]
+
+  console.log('result :>> ', result)
+
+  return result
 }
 
 export { scenariosBuild }
