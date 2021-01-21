@@ -256,6 +256,7 @@ const demarchesStatuts = async () => {
 const demarcheEtapesTypesGet = async (
   fields: IFields,
   titreDemarcheId: string,
+  date?: string,
   titreEtapeId?: string,
   userId?: string
 ) => {
@@ -344,12 +345,14 @@ const etapesTypes = async (
     titreDemarcheId,
     titreEtapeId,
     titreTravauxId,
-    titreTravauxEtapeId
+    titreTravauxEtapeId,
+    date
   }: {
     titreDemarcheId?: string
     titreEtapeId?: string
     titreTravauxId?: string
     titreTravauxEtapeId?: string
+    date?: string
   },
   context: IToken,
   info: GraphQLResolveInfo
@@ -361,6 +364,7 @@ const etapesTypes = async (
       return demarcheEtapesTypesGet(
         fields,
         titreDemarcheId,
+        date,
         titreEtapeId,
         context.user.id
       )
