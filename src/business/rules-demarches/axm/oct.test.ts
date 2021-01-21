@@ -1,4 +1,4 @@
-import { demarcheEtatsValidate } from '../_utils-test'
+import { demarcheEtatsValidate } from '../_utils.test'
 
 describe('vérifie l’arbre d’octroi d’AXM', () => {
   const octEtatsValidate = demarcheEtatsValidate('oct', 'axm')

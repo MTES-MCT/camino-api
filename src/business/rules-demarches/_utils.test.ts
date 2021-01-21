@@ -18,6 +18,16 @@ import { demarcheDefinitionFind } from './definitions'
 import { titreContenuFormat } from '../../database/models/_format/titres-contenu'
 import { propsTitreEtapesIdsFind } from '../utils/props-titre-etapes-ids-find'
 
+test('teste EtatsValidate', () => {
+  const octEtatsValidate = demarcheEtatsValidate('oct', 'arm')
+
+  expect(octEtatsValidate).toBeTruthy()
+  expect(octEtatsValidate([], {})).toHaveLength(0)
+  expect(octEtatsValidate([{ typeId: 'aaa' }], {})).toEqual([
+    'l’étape aaa n’existe pas dans l’arbre'
+  ])
+})
+
 jest.mock('../../database/models/_format/titres-contenu', () => ({
   __esModule: true,
   titreContenuFormat: jest.fn()
