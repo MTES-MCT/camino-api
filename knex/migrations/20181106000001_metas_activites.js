@@ -59,11 +59,13 @@ exports.up = knex =>
         .index()
         .references('activitesTypes.id')
         .notNullable()
+        .onDelete('CASCADE')
       table
         .string('documentTypeId', 3)
         .index()
         .references('documentsTypes.id')
         .notNullable()
+      table.boolean('optionnel')
       table.primary(['activiteTypeId', 'documentTypeId'])
     })
     .createTable('activitesStatuts', table => {

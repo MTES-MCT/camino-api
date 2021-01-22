@@ -26,7 +26,8 @@ class DocumentsTypes extends Model {
         from: 'documentsTypes.id',
         through: {
           from: 'activitesTypes__documentsTypes.documentTypeId',
-          to: 'activitesTypes__documentsTypes.activiteTypeId'
+          to: 'activitesTypes__documentsTypes.activiteTypeId',
+          extra: ['optionnel']
         },
         to: 'activitesTypes.id'
       }
